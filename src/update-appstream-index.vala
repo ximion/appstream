@@ -26,6 +26,8 @@ public class UAIMain : Object {
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
 
+	private MainLoop loop;
+
 	public int exit_code { get; set; }
 
 	private const OptionEntry[] options = {
@@ -49,6 +51,26 @@ public class UAIMain : Object {
 			exit_code = 1;
 			return;
 		}
+
+		loop = new MainLoop ();
+	}
+
+	private void quit_loop () {
+		if (loop.is_running ())
+			loop.quit ();
+	}
+
+	void on_bus_aquired (DBusConnection conn) {
+		try {
+			conn.register_object ("/org/freedesktop/appstream/database", new UAIServer ());
+		} catch (IOError e) {
+			stderr.printf ("Could not register service\n");
+			exit_code = 6;
+			quit_loop ();
+		}
+
+		if (exit_code == 0)
+			stdout.printf ("Update-AppStream-Index service is running.\n");
 	}
 
 	public void run () {
@@ -57,6 +79,21 @@ public class UAIMain : Object {
 			stdout.printf ("lipkgen tool, part of Listaller version: %s\n", Config.VERSION);
 			return;
 		}
+
+		// Just a hack, we might need proper message handling later
+		if (o_verbose_mode)
+			Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
+
+		Bus.own_name (BusType.SYSTEM, "org.freedesktop.AppStream", BusNameOwnerFlags.NONE,
+					on_bus_aquired,
+					() => {},
+					() => {
+						stderr.printf ("Could not aquire name\n");
+						exit_code = 4;
+						quit_loop ();
+					});
+
+		loop.run ();
 	}
 
 	static int main (string[] args) {
