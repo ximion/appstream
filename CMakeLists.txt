@@ -84,8 +84,7 @@ endif(TESTS)
 #
 # Custom C flags
 #
-set (MAINTAINER_CFLAGS "-Werror -Wall -Wcast-align -Wno-uninitialized -Wempty-body -Wformat-security -Winit-self"
-)
+set (MAINTAINER_CFLAGS "-Werror -Wall -Wcast-align -Wno-uninitialized -Wempty-body -Wformat-security -Winit-self")
 option (DISABLE_MAINTAINER_CFLAGS "Disable maintainer CFlags" ON)
 if (DISABLE_MAINTAINER_CFLAGS)
 	set (MAINTAINER_CFLAGS "")
