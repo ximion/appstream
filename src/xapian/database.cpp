@@ -18,9 +18,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "database.h"
+#include "database.hpp"
+
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -35,4 +37,9 @@ Database::~Database ()
     if (m_rwXapianDB) {
         delete m_rwXapianDB;
     }
+}
+
+bool Database::init (const gchar *dbPath)
+{
+	return false;
 }

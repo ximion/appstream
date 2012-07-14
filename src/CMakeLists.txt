@@ -4,13 +4,13 @@ include("${VALA_USE_FILE}")
 
 find_package(GLIB2 2.28 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
-find_package(XAPIAN 1.2 REQUIRED)
+find_package(Xapian 1.2 REQUIRED)
 
 set(UAI_SOURCES update-appstream-index.vala
 		uai-server.vala
 )
 
-set(UAI_XAP_SOURCES xapian/database.h
+set(UAI_XAP_SOURCES xapian/database.hpp
 		xapian/database.cpp
 )
 

@@ -1,4 +1,4 @@
-/* database.h
+/* database.hpp
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -22,7 +22,9 @@
 #define DATABASE_H
 
 #include <stdio.h>
+#include <vector>
 #include <xapian.h>
+#include <glib.h>
 #include "uai_internal.h"
 
 class Database
@@ -30,8 +32,12 @@ class Database
 public:
 	explicit Database ();
 	~Database ();
+
+	bool init (const gchar *dbPath);
+
 private:
 	Xapian::WritableDatabase *m_rwXapianDB;
+
 };
 
 #endif // DATABASE_H

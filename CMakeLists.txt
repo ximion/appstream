@@ -72,7 +72,6 @@ set (VERSION "${UAI_VERSION}")
 set (BUILDDIR "${CMAKE_BINARY_DIR}")
 
 configure_file(config.h.in ${CMAKE_BINARY_DIR}/config.h)
-# set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_SOURCE_DIR}/src/config.h)
 
 #
 # Enable/disable testing
