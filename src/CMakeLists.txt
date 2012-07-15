@@ -7,6 +7,7 @@ pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(Xapian 1.2 REQUIRED)
 
 set(UAI_SOURCES update-appstream-index.vala
+		settings.vala
 		uai-server.vala
 )
 

@@ -21,7 +21,9 @@
 using GLib;
 using Config;
 
-public class UAIMain : Object {
+namespace Uai {
+
+private class Main : Object {
 	// Cmdln options
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
@@ -38,7 +40,7 @@ public class UAIMain : Object {
 		{ null }
 	};
 
-	public UAIMain (string[] args) {
+	public Main (string[] args) {
 		exit_code = 0;
 		var opt_context = new OptionContext ("- maintain AppStream application index.");
 		opt_context.set_help_enabled (true);
@@ -62,7 +64,7 @@ public class UAIMain : Object {
 
 	void on_bus_aquired (DBusConnection conn) {
 		try {
-			conn.register_object ("/org/freedesktop/appstream/database", new UAIServer ());
+			conn.register_object ("/org/freedesktop/appstream/database", new Uai.Server ());
 		} catch (IOError e) {
 			stderr.printf ("Could not register service\n");
 			exit_code = 6;
@@ -103,7 +105,7 @@ public class UAIMain : Object {
 		Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
 		Intl.textdomain(Config.GETTEXT_PACKAGE);
 
-		var main = new UAIMain (args);
+		var main = new Uai.Main (args);
 
 		// Run the application
 		main.run ();
@@ -113,3 +115,5 @@ public class UAIMain : Object {
 	}
 
 }
+
+} // End of namespace: Uai

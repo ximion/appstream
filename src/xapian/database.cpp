@@ -34,12 +34,20 @@ Database::Database () :
 
 Database::~Database ()
 {
-    if (m_rwXapianDB) {
-        delete m_rwXapianDB;
-    }
+	if (m_rwXapianDB) {
+		delete m_rwXapianDB;
+	}
 }
 
 bool Database::init (const gchar *dbPath)
 {
-	return false;
+	try {
+		m_rwXapianDB = new Xapian::WritableDatabase (dbPath,
+							    Xapian::DB_CREATE_OR_OPEN);
+	} catch (const Xapian::Error &error) {
+		g_warning ("Exception: %s", error.get_msg ().c_str ());
+		return false;
+	}
+
+	return true;
 }

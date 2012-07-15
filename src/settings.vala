@@ -1,4 +1,4 @@
-/* uai-server.vala
+/* settings.vala
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -19,18 +19,12 @@
  */
 
 using GLib;
+using Config;
 
-namespace Uai {
+internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/software-center/xapian";
 
-[DBus (name = "org.freedesktop.AppStream")]
-public class Server : Object {
+private static const string APPSTREAM_BASE_PATH = DATADIR + "/share/app-info";
 
-	public Server () {
-	}
+public static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
 
-	public bool refresh (GLib.BusName sender) {
-		return true;
-	}
-}
-
-} // End of namespace: Uai
+private static const string APPSTREAM_XML_PATH = APPSTREAM_BASE_PATH + "/xmls";
