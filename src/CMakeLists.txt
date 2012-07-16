@@ -5,10 +5,14 @@ include("${VALA_USE_FILE}")
 find_package(GLIB2 2.28 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(Xapian 1.2 REQUIRED)
+find_package(LibXml2 REQUIRED)
 
 set(UAI_SOURCES update-appstream-index.vala
 		settings.vala
 		uai-server.vala
+		application.vala
+		data-provider.vala
+		data-providers/appstream-xml.vala
 )
 
 set(UAI_XAP_SOURCES xapian/database.hpp
@@ -21,10 +25,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 		    ${GLIB2_INCLUDE_DIR}
 		    ${GIO2_INCLUDE_DIR}
 		    ${XAPIAN_INCLUDE_DIR}
+		    ${LIBXML2_INCLUDE_DIR}
 )
 
 vala_precompile(uai-precomp UAI_SRC_C ${UAI_SOURCES}
-			PACKAGES config gio-2.0 posix
+			PACKAGES config gio-2.0 posix libxml-2.0
 			VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
 				${CMAKE_CURRENT_SOURCE_DIR}/xapian
 			GENERATE_INTERNAL_HEADER uai_internal.h
@@ -37,6 +42,7 @@ target_link_libraries(update-appstream-index
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}
 		${XAPIAN_LIBRARIES}
+		${LIBXML2_LIBRARIES}
 )
 
 install(TARGETS update-appstream-index DESTINATION bin)
