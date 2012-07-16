@@ -27,6 +27,7 @@ private class Main : Object {
 	// Cmdln options
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
+	private static string o_database_path;
 
 	private MainLoop loop;
 
@@ -37,6 +38,8 @@ private class Main : Object {
 		N_("Show the application's version"), null },
 		{ "verbose", 0, 0, OptionArg.NONE, ref o_verbose_mode,
 			N_("Activate verbose mode"), null },
+		{ "cachepath", 0, 0, OptionArg.FILENAME, ref o_database_path,
+			N_("Path to AppStream cache directory"), N_("DIRECTORY") },
 		{ null }
 	};
 
@@ -85,6 +88,11 @@ private class Main : Object {
 		// Just a hack, we might need proper message handling later
 		if (o_verbose_mode)
 			Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
+
+		if (o_database_path == "")
+			SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/software-center/xapian";
+		else
+			SOFTWARE_CENTER_DATABASE_PATH = o_database_path;
 
 		Bus.own_name (BusType.SYSTEM, "org.freedesktop.AppStream", BusNameOwnerFlags.NONE,
 					on_bus_aquired,

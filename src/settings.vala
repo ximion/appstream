@@ -21,7 +21,7 @@
 using GLib;
 using Config;
 
-internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/software-center/xapian";
+internal static string SOFTWARE_CENTER_DATABASE_PATH; // usually "/var/cache/software-center/xapian"
 
 private static const string APPSTREAM_BASE_PATH = DATADIR + "/share/app-info";
 
