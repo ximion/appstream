@@ -1,4 +1,4 @@
-/* uai-server.vala
+/* as-xapian.vapi
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -18,34 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using GLib;
+[CCode (cheader_filename = "database-vala.h")]
+namespace ASXapian {
 
-namespace Uai {
+	[Compact]
+	[CCode (cname="XADatabase", free_function="xa_database_free", cprefix="xa_database_")]
+	public class Database {
+		[CCode (cname="xa_database_new")]
+		public Database ();
 
-[DBus (name = "org.freedesktop.AppStream")]
-public class Server : Object {
-	private ASXapian.Database db;
-
-	public signal bool finished ();
-
-	public Server () {
-		db.init (SOFTWARE_CENTER_DATABASE_PATH);
+		public bool init (string db_path);
+		public bool add_application (Uai.AppInfo app);
 	}
 
-	private bool run_provider (DataProvider dprov) {
-		dprov.application.connect (new_application);
-		return dprov.execute ();
-	}
-
-	private void new_application (AppInfo app) {
-		db.add_application (app);
-	}
-
-	public bool refresh (GLib.BusName sender) {
-		run_provider (new Provider.Appstream ());
-
-		return true;
-	}
 }
-
-} // End of namespace: Uai

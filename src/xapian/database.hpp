@@ -42,4 +42,13 @@ private:
 
 };
 
+extern "C" {
+
+Database *xa_database_new () { return new Database (); };
+void xa_database_free (Database *db) { delete db; };
+gboolean xa_database_init (Database *db, const gchar *db_path) { return db->init (db_path); };
+gboolean xa_database_add_application (Database *db, UaiAppInfo *app) { return db->addApplication (app); };
+
+}
+
 #endif // DATABASE_H

@@ -17,6 +17,7 @@ link_libraries(${M_LIB}
 
 include_directories(${CMAKE_BINARY_DIR}
 		${CMAKE_BINARY_DIR}/src
+		${CMAKE_SOURCE_DIR}/src/xapian
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${GLIB2_INCLUDE_DIR}
 		${GIO2_INCLUDE_DIR}
@@ -26,15 +27,15 @@ include_directories(${CMAKE_BINARY_DIR}
 # Basic tests
 vala_add_executable (uai-test-basics ${UAI_SOURCES_BASE} test-basics.vala
 				BASE_DIR ${CMAKE_SOURCE_DIR}/src
-				PACKAGES config gio-2.0 posix libxml-2.0
-				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
+				PACKAGES config gio-2.0 posix libxml-2.0 as-xapian
+				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_SOURCE_DIR}/src/xapian
 )
 add_test(basic-test uai-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream-XML provider tests
 vala_add_executable (uai-test-appstream ${UAI_SOURCES_BASE} test-appstreamxml.vala
 				BASE_DIR ${CMAKE_SOURCE_DIR}/src
-				PACKAGES config gio-2.0 posix libxml-2.0
-				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
+				PACKAGES config gio-2.0 posix libxml-2.0 as-xapian
+				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_SOURCE_DIR}/src/xapian
 )
 add_test(appstream-xml-test uai-test-appstream ${CMAKE_CURRENT_SOURCE_DIR})

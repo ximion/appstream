@@ -7,24 +7,26 @@ pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(Xapian 1.2 REQUIRED)
 find_package(LibXml2 REQUIRED)
 
-set (srcdir ${CMAKE_CURRENT_SOURCE_DIR})
+set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 
 set(UAI_SOURCES_BASE ${srcdir}/settings.vala
 		${srcdir}/utils.vala
-		${srcdir}/uai-server.vala
 		${srcdir}/application.vala
 		${srcdir}/data-provider.vala
 		${srcdir}/data-providers/appstream-xml.vala
 		CACHE INTERNAL "Base source files"
 )
 
-set(UAI_SOURCES ${UAI_SOURCES_BASE} update-appstream-index.vala)
+set(UAI_SOURCES ${UAI_SOURCES_BASE}
+		update-appstream-index.vala
+		${srcdir}/uai-server.vala
+)
 
 set(UAI_XAP_SOURCES xapian/database.hpp
 		xapian/database.cpp
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 		    ${CMAKE_BINARY_DIR}
 		    ${CMAKE_BINARY_DIR}/src
 		    ${GLIB2_INCLUDE_DIR}
@@ -34,7 +36,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 vala_precompile(uai-precomp UAI_SRC_C ${UAI_SOURCES}
-			PACKAGES config gio-2.0 posix libxml-2.0
+			PACKAGES config gio-2.0 posix libxml-2.0 as-xapian
 			VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
 				${CMAKE_CURRENT_SOURCE_DIR}/xapian
 			GENERATE_INTERNAL_HEADER uai_internal.h
