@@ -35,6 +35,8 @@ public:
 
 	bool init (const gchar *dbPath);
 
+	bool addApplication (UaiAppInfo *app);
+
 private:
 	Xapian::WritableDatabase *m_rwXapianDB;
 

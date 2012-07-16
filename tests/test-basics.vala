@@ -1,4 +1,4 @@
-/* application.vala
+/* test-basics.vala
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -20,37 +20,24 @@
 
 using GLib;
 
-namespace Uai {
+private string datadir;
 
-public class AppInfo : Object {
-	public string id { get; set; }
-	public string pkgname { get; set; }
-	public string name { get; set; } // Localize!
-	public string summary { get; set; } // Localize!
-	public string[] keywords { get; set; } // Localize!
-	public string url { get; set; }
-
-	public string icon { get; set; }
-	public string categories { get; set; }
-
-	public string[] mimetypes { get; set; }
-
-
-	public AppInfo () {
-	}
-
-	public bool is_valid () {
-		if ((id != "") && (pkgname != "") && (name != ""))
-			return true;
-		return false;
-	}
-
-	public string to_string () {
-		string res;
-		res = "[AppInfo::%s]> pkg: %s | name: %s | summary: %s".printf (id, pkgname, name, summary);
-		return res;
-	}
-
+void msg (string s) {
+	stdout.printf (s + "\n");
 }
 
-} // End of namespace: Uai
+int main (string[] args) {
+	msg ("=== Running Basic Tests ===");
+	datadir = args[1];
+	assert (datadir != null);
+	datadir = Path.build_filename (datadir, "data", null);
+	assert (FileUtils.test (datadir, FileTest.EXISTS) != false);
+
+	Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
+	Test.init (ref args);
+
+	// No tests to run at time :-)
+
+	Test.run ();
+	return 0;
+}

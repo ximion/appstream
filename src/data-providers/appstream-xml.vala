@@ -20,16 +20,34 @@
 
 using GLib;
 using Xml;
+using Uai;
 
 namespace Uai.Provider {
 
 private class Appstream : Uai.DataProvider {
+	private string locale;
 
 	public Appstream () {
+		locale = Intl.get_language_names ()[0];
 	}
 
-	private string? parse_value (Xml.Node *key, bool translated = false) {
-		return "";
+	private string? parse_value (Xml.Node *node, bool translated = false) {
+		string content = node->get_content ();
+		if (translated) {
+			// FIXME: If not-localized generic node comes _after_ the localized ones,
+			//        the not-localized will override the localized. Wrong ordering should
+			//        not happen. (but this code can be improved anyway :P)
+			if (node->get_prop ("lang") == null)
+				return content;
+			if (node->get_prop ("lang") == locale)
+				return content;
+			if (node->get_prop ("lang") == locale.split("_")[0])
+				return node->get_content ();
+
+			// Haven't found a matching locale
+			return null;
+		}
+		return content;
 	}
 
 	private void parse_application_node (Xml.Node* node) {
@@ -40,17 +58,30 @@ private class Appstream : Uai.DataProvider {
 			}
 
 			string node_name = iter->name;
-			string node_content = iter->get_content ();
+			string? content = parse_value (iter);
 			switch (node_name) {
-				case "id": app.id = node_content;
+				case "id": if (content != null) app.id = content;
 						break;
-				case "name": app.name = node_content;
+				case "pkgname": if (content != null) app.pkgname = content;
+						break;
+				case "name": content = parse_value (iter, true);
+						if (content != null) app.name = content;
+						break;
+				case "summary": content = parse_value (iter, true);
+						if (content != null) app.summary = content;
+						break;
+				case "icon": if (content != null) app.icon = content;
+						break;
+				case "url": if (content != null) app.url = content;
 						break;
 			}
 		}
+
+		if (app.is_valid ())
+			emit_application (app);
 	}
 
-	private bool process_single_file (string fname) {
+	public bool process_single_file (string fname) {
 		bool ret = true;
 
 		// Parse the document from path
@@ -89,9 +120,17 @@ private class Appstream : Uai.DataProvider {
 	}
 
 	public override bool execute () {
-		return false;
+		Array<string>? xml_files = Utils.find_files_matching (APPSTREAM_XML_PATH, "*.xml");
+		if ((xml_files == null) || (xml_files.length == 0))
+			return false;
+
+		for (uint i=0; i < xml_files.length; i++) {
+			process_single_file (xml_files.index (i));
+		}
+
+		return true;
 	}
 
 }
 
-} // End of namespace: Uai
+} // End of namespace: Uai.Provider

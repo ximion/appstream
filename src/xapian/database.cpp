@@ -51,3 +51,8 @@ bool Database::init (const gchar *dbPath)
 
 	return true;
 }
+
+bool Database::addApplication (UaiAppInfo *app)
+{
+	return false;
+}

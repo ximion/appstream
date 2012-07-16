@@ -28,7 +28,7 @@ private abstract class DataProvider : Object {
 	public DataProvider () {
 	}
 
-	protected void emit_app (AppInfo app) {
+	protected void emit_application (AppInfo app) {
 		application (app);
 	}
 

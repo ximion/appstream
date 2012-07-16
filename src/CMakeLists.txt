@@ -7,13 +7,18 @@ pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(Xapian 1.2 REQUIRED)
 find_package(LibXml2 REQUIRED)
 
-set(UAI_SOURCES update-appstream-index.vala
-		settings.vala
-		uai-server.vala
-		application.vala
-		data-provider.vala
-		data-providers/appstream-xml.vala
+set (srcdir ${CMAKE_CURRENT_SOURCE_DIR})
+
+set(UAI_SOURCES_BASE ${srcdir}/settings.vala
+		${srcdir}/utils.vala
+		${srcdir}/uai-server.vala
+		${srcdir}/application.vala
+		${srcdir}/data-provider.vala
+		${srcdir}/data-providers/appstream-xml.vala
+		CACHE INTERNAL "Base source files"
 )
+
+set(UAI_SOURCES ${UAI_SOURCES_BASE} update-appstream-index.vala)
 
 set(UAI_XAP_SOURCES xapian/database.hpp
 		xapian/database.cpp
