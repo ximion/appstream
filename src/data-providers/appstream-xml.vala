@@ -64,8 +64,12 @@ private class Appstream : Uai.DataProvider {
 						break;
 				case "pkgname": if (content != null) app.pkgname = content;
 						break;
-				case "name": content = parse_value (iter, true);
-						if (content != null) app.name = content;
+				case "name": 	if (content != null) {
+							app.name_original = content;
+						} else {
+							content = parse_value (iter, true);
+							if (content != null) app.name = content;
+						}
 						break;
 				case "summary": content = parse_value (iter, true);
 						if (content != null) app.summary = content;
@@ -79,6 +83,8 @@ private class Appstream : Uai.DataProvider {
 
 		if (app.is_valid ())
 			emit_application (app);
+		else
+			warning ("Invalid application found: %s", app.to_string ());
 	}
 
 	public bool process_single_file (string fname) {

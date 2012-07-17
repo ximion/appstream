@@ -78,4 +78,47 @@ private Array<string>? find_files (string dir, bool recursive = false) {
 	return find_files_matching (dir, "", recursive);
 }
 
+internal bool touch_dir (string dirname) {
+		File d = File.new_for_path (dirname);
+		try {
+			if (!d.query_exists ()) {
+				d.make_directory_with_parents ();
+			}
+		} catch (Error e) {
+			error ("Unable to create directories! Error: %s".printf (e.message));
+			return false;
+		}
+		return true;
+}
+
+/*
+ * Remove folder like rm -r does
+ */
+internal bool delete_dir_recursive (string dirname) {
+	try {
+		if (!FileUtils.test (dirname, FileTest.IS_DIR))
+			return true;
+		File dir = File.new_for_path (dirname);
+		FileEnumerator enr = dir.enumerate_children ("standard::name", FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+		if (enr != null) {
+			FileInfo info = enr.next_file ();
+			while (info != null) {
+				string path = Path.build_filename (dirname, info.get_name ());
+				if (FileUtils.test (path, FileTest.IS_DIR)) {
+					delete_dir_recursive (path);
+				} else {
+					FileUtils.remove (path);
+				}
+				info = enr.next_file ();
+			}
+			if (FileUtils.test (dirname, FileTest.EXISTS))
+				DirUtils.remove (dirname);
+		}
+	} catch (Error e) {
+		critical ("Could not remove directory: %s", e.message);
+		return false;
+	}
+	return true;
+}
+
 } // End of namespace: Uai.Utils

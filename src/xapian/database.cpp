@@ -49,10 +49,63 @@ bool Database::init (const gchar *dbPath)
 		return false;
 	}
 
+	m_dbPath = dbPath;
+
+	return true;
+}
+
+bool Database::rebuild (GArray *apps)
+{
+	string old_path = m_dbPath + "_old";
+	string rebuild_path = m_dbPath + "_rb";
+
+	// Create the rebuild directory
+	if (!uai_utils_touch_dir (rebuild_path.c_str ()))
+		return false;
+
+	// check if old unrequired version of db still exists on filesystem
+	if (g_file_test (old_path.c_str (), G_FILE_TEST_EXISTS)) {
+		g_warning ("Existing xapian old db was not previously cleaned: '%s'.", old_path.c_str ());
+		uai_utils_delete_dir_recursive (old_path.c_str ());
+	}
+
+	Xapian::WritableDatabase db (rebuild_path, Xapian::DB_CREATE_OR_OVERWRITE);
+
+	for (guint i=0; i < apps->len; i++) {
+		UaiAppInfo *app = g_array_index (apps, UaiAppInfo*, i);
+
+		Xapian::TermGenerator term_generator;
+		term_generator.set_database(db);
+		try {
+			/* this tests if we have spelling suggestions (there must be
+			 * a better way?!?) - this is needed as inmemory does not have
+			 * spelling corrections, but it allows setting the flag and will
+			 * raise a exception much later
+			 */
+			db.add_spelling("test");
+			db.remove_spelling("test");
+			/* this enables the flag for it (we only reach this line if
+			 * the db supports spelling suggestions) */
+			term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING);
+		} catch (const Xapian::UnimplementedError &error) {
+			// Ignore
+		}
+
+		Xapian::Document doc;
+
+		doc.set_data (uai_app_info_get_name (app));
+		doc.add_value (APPNAME_UNTRANSLATED, uai_app_info_get_name_original (app));
+
+	}
+
+	db.set_metadata("db-schema-version", DB_SCHEMA_VERSION);
+	db.flush ();
+
 	return true;
 }
 
 bool Database::addApplication (UaiAppInfo *app)
 {
+	// TODO
 	return false;
 }

@@ -25,9 +25,10 @@ namespace Uai {
 public class AppInfo : Object {
 	public string id { get; set; }
 	public string pkgname { get; set; }
-	public string name { get; set; } // Localize!
-	public string summary { get; set; } // Localize!
-	public string[] keywords { get; set; } // Localize!
+	public string name { get; set; } // Localized!
+	public string name_original { get; set; } // Not localized!
+	public string summary { get; set; } // Localized!
+	public string[] keywords { get; set; } // Localized!
 	public string url { get; set; }
 
 	public string icon { get; set; }
@@ -40,7 +41,7 @@ public class AppInfo : Object {
 	}
 
 	public bool is_valid () {
-		if ((id != "") && (pkgname != "") && (name != ""))
+		if ((id != "") && (pkgname != "") && (name != "") && (name_original != ""))
 			return true;
 		return false;
 	}
