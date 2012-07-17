@@ -28,8 +28,10 @@ public class AppInfo : Object {
 	public string name { get; set; } // Localized!
 	public string name_original { get; set; } // Not localized!
 	public string summary { get; set; } // Localized!
+	public string description { get; set; } // Localized!
 	public string[] keywords { get; set; } // Localized!
 	public string url { get; set; }
+	public string desktop_file { get; set; }
 
 	public string icon { get; set; }
 	public string categories { get; set; }

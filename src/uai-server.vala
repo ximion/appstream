@@ -25,11 +25,13 @@ namespace Uai {
 [DBus (name = "org.freedesktop.AppStream")]
 public class Server : Object {
 	private ASXapian.Database db;
+	private Array<AppInfo> appList;
 
 	public signal bool finished ();
 
 	public Server () {
 		db.init (SOFTWARE_CENTER_DATABASE_PATH);
+		appList = new Array<AppInfo> ();
 	}
 
 	private bool run_provider (DataProvider dprov) {
@@ -38,13 +40,16 @@ public class Server : Object {
 	}
 
 	private void new_application (AppInfo app) {
-		db.add_application (app);
+		appList.append_val (app);
 	}
 
 	public bool refresh (GLib.BusName sender) {
+		bool ret;
 		run_provider (new Provider.Appstream ());
 
-		return true;
+		ret = db.rebuild (appList);
+
+		return ret;
 	}
 }
 

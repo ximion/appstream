@@ -60,7 +60,13 @@ private class Appstream : Uai.DataProvider {
 			string node_name = iter->name;
 			string? content = parse_value (iter);
 			switch (node_name) {
-				case "id": if (content != null) app.id = content;
+				case "id":	if (content != null) {
+							// Issue in AppStream documentation: AppID needs to
+							// have a clear definition!
+							// FIXME
+							app.id = content;
+							app.desktop_file = content;
+						}
 						break;
 				case "pkgname": if (content != null) app.pkgname = content;
 						break;
@@ -74,9 +80,9 @@ private class Appstream : Uai.DataProvider {
 				case "summary": content = parse_value (iter, true);
 						if (content != null) app.summary = content;
 						break;
-				case "icon": if (content != null) app.icon = content;
+				case "icon":	if (content != null) app.icon = content;
 						break;
-				case "url": if (content != null) app.url = content;
+				case "url":	if (content != null) app.url = content;
 						break;
 			}
 		}
