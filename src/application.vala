@@ -19,13 +19,25 @@
  */
 
 using GLib;
+using Uai.Utils;
 
 namespace Uai {
 
 public class AppInfo : Object {
 	public string id { get; set; }
 	public string pkgname { get; set; }
-	public string name { get; set; } // Localized!
+	private string _name;
+	public string name {
+			get {
+				if (str_empty (_name))
+					return name_original;
+				else
+					return _name;
+			}
+			set {
+				_name = value;
+			}
+		}// Localized!
 	public string name_original { get; set; } // Not localized!
 	public string summary { get; set; } // Localized!
 	public string description { get; set; } // Localized!
@@ -40,6 +52,15 @@ public class AppInfo : Object {
 
 
 	public AppInfo () {
+		pkgname = "";
+		_name = "";
+		name_original = "";
+		summary = "";
+		description = "";
+		url = "";
+		desktop_file = "";
+		icon = "";
+		categories = "";
 	}
 
 	public bool is_valid () {

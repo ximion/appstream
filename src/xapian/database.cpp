@@ -70,6 +70,12 @@ bool Database::rebuild (GArray *apps)
 		uai_utils_delete_dir_recursive (old_path.c_str ());
 	}
 
+	// check if old unrequired version of db still exists on filesystem
+	if (g_file_test (rebuild_path.c_str (), G_FILE_TEST_EXISTS)) {
+		cout << "Removing old rebuild-dir from previous database rebuild." << endl;
+		uai_utils_delete_dir_recursive (rebuild_path.c_str ());
+	}
+
 	Xapian::WritableDatabase db (rebuild_path, Xapian::DB_CREATE_OR_OVERWRITE);
 
 	Xapian::TermGenerator term_generator;
@@ -95,6 +101,8 @@ bool Database::rebuild (GArray *apps)
 		UaiAppInfo *app = g_array_index (apps, UaiAppInfo*, i);
 
 		Xapian::Document doc;
+
+		cout << "Adding application: " << uai_app_info_to_string (app) << endl;
 
 		doc.set_data (uai_app_info_get_name (app));
 
