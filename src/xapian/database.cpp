@@ -23,6 +23,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <glib/gstdio.h>
 
 using namespace std;
 
@@ -126,6 +127,16 @@ bool Database::rebuild (GArray *apps)
 
 	db.set_metadata("db-schema-version", DB_SCHEMA_VERSION);
 	db.flush ();
+
+	if (g_rename (m_dbPath.c_str (), old_path.c_str ()) < 0) {
+		g_critical ("Error while moving old database out of the way.");
+		return false;
+	}
+	if (g_rename (rebuild_path.c_str (), m_dbPath.c_str ()) < 0) {
+		g_critical ("Error while moving rebuilt database.");
+		return false;
+	}
+	uai_utils_delete_dir_recursive (old_path.c_str ());
 
 	return true;
 }
