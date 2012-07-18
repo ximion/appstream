@@ -67,7 +67,7 @@ private class Main : Object {
 
 	void on_bus_aquired (DBusConnection conn) {
 		try {
-			conn.register_object ("/org/freedesktop/appstream/database", new Uai.Server ());
+			conn.register_object ("/org/freedesktop/appstream", new Uai.Server ());
 		} catch (IOError e) {
 			stderr.printf ("Could not register service\n");
 			exit_code = 6;
@@ -89,7 +89,7 @@ private class Main : Object {
 		if (o_verbose_mode)
 			Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
 
-		if (o_database_path == "")
+		if (Utils.str_empty (o_database_path))
 			SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/software-center/xapian";
 		else
 			SOFTWARE_CENTER_DATABASE_PATH = o_database_path;
@@ -107,7 +107,7 @@ private class Main : Object {
 	}
 
 	static int main (string[] args) {
-		// Bind Listaller locale
+		// Bind UAI locale
 		Intl.setlocale(LocaleCategory.ALL,"");
 		Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
 		Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");

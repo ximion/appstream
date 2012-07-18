@@ -41,15 +41,16 @@ Database::~Database ()
 
 bool Database::init (const gchar *dbPath)
 {
+	m_dbPath = dbPath;
+
 	try {
-		m_rwXapianDB = new Xapian::WritableDatabase (dbPath,
+		m_rwXapianDB = new Xapian::WritableDatabase (m_dbPath,
 							    Xapian::DB_CREATE_OR_OPEN);
 	} catch (const Xapian::Error &error) {
+		cout << "ERROR!" << endl;
 		g_warning ("Exception: %s", error.get_msg ().c_str ());
 		return false;
 	}
-
-	m_dbPath = dbPath;
 
 	return true;
 }

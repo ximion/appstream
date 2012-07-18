@@ -39,3 +39,5 @@ vala_add_executable (uai-test-appstream ${UAI_SOURCES_BASE} test-appstreamxml.va
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_SOURCE_DIR}/src/xapian
 )
 add_test(appstream-xml-test uai-test-appstream ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_subdirectory (test-client)

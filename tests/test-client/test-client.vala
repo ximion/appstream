@@ -1,4 +1,4 @@
-/* uai-server.vala
+/* test-client.vala -- Example client for the Update-AppStream-Index DBus service
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -20,39 +20,34 @@
 
 using GLib;
 
-namespace Uai {
-
 [DBus (name = "org.freedesktop.AppStream")]
-public class Server : Object {
-	private ASXapian.Database db;
-	private Array<AppInfo> appList;
-
+interface UAIService : Object {
+	public abstract bool refresh () throws IOError;
 	public signal void finished ();
-
-	public Server () {
-		db = new ASXapian.Database ();
-		db.init (SOFTWARE_CENTER_DATABASE_PATH);
-		appList = new Array<AppInfo> ();
-	}
-
-	private bool run_provider (DataProvider dprov) {
-		dprov.application.connect (new_application);
-		return dprov.execute ();
-	}
-
-	private void new_application (AppInfo app) {
-		appList.append_val (app);
-	}
-
-	public bool refresh (GLib.BusName sender) {
-		bool ret;
-		run_provider (new Provider.Appstream ());
-
-		ret = db.rebuild (appList);
-
-		finished ();
-		return ret;
-	}
 }
 
-} // End of namespace: Uai
+void main () {
+	var loop = new MainLoop();
+
+	UAIService uai = null;
+
+	try {
+		uai = Bus.get_proxy_sync (BusType.SYSTEM, "org.freedesktop.AppStream",
+							"/org/freedesktop/appstream");
+
+		/* Connecting to signal pong! */
+		uai.finished.connect(() => {
+			stdout.printf ("The AppStream database maintenance tool has finished current action.\n");
+			loop.quit ();
+		});
+
+		stdout.printf ("Running Refresh() action now...\n");
+
+	uai.refresh ();
+
+	} catch (IOError e) {
+		stderr.printf ("%s\n", e.message);
+	}
+
+	loop.run();
+}

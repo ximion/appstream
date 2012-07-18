@@ -36,6 +36,12 @@ private bool is_root () {
 	}
 }
 
+private bool str_empty (string? str) {
+	if ((str == "") || (str == null))
+		return true;
+	return false;
+}
+
 private Array<string>? find_files_matching (string dir, string pattern, bool recursive = false) {
 	var list = new Array<string> ();
 	try {
