@@ -46,7 +46,7 @@ public class AppInfo : Object {
 	public string desktop_file { get; set; }
 
 	public string icon { get; set; }
-	public string categories { get; set; }
+	public string[] categories { get; set; }
 
 	public string[] mimetypes { get; set; }
 
@@ -60,7 +60,7 @@ public class AppInfo : Object {
 		url = "";
 		desktop_file = "";
 		icon = "";
-		categories = "";
+		//categories = "";
 	}
 
 	public bool is_valid () {

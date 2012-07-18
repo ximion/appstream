@@ -14,6 +14,8 @@ set(UAI_SOURCES_BASE ${srcdir}/settings.vala
 		${srcdir}/application.vala
 		${srcdir}/data-provider.vala
 		${srcdir}/data-providers/appstream-xml.vala
+		${srcdir}/data-providers/debian-dep11.vala
+		${srcdir}/data-providers/ubuntu-appinstall.vala
 		CACHE INTERNAL "Base source files"
 )
 
@@ -40,6 +42,7 @@ vala_precompile(uai-precomp UAI_SRC_C ${UAI_SOURCES}
 			VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
 				${CMAKE_CURRENT_SOURCE_DIR}/xapian
 			GENERATE_INTERNAL_HEADER uai_internal.h
+			COMPILE_FLAGS ${VALA_COMPILE_FLAGS}
 )
 
 add_executable(update-appstream-index ${UAI_SRC_C} ${UAI_XAP_SOURCES})

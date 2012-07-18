@@ -46,7 +46,15 @@ public class Server : Object {
 
 	public bool refresh (GLib.BusName sender) {
 		bool ret;
+#if APPSTREAM
 		run_provider (new Provider.Appstream ());
+#endif
+#if DEBIAN_DEP11
+		run_provider (new Provider.DEP11 ());
+#endif
+#if UBUNTU_APPINSTALL
+		run_provider (new Provider.UbuntuAppinstall ());
+#endif
 
 		ret = db.rebuild (appList);
 

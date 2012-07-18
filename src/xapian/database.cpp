@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <vector>
 #include <glib/gstdio.h>
 
@@ -107,14 +108,38 @@ bool Database::rebuild (GArray *apps)
 
 		doc.set_data (uai_app_info_get_name (app));
 
+		string pkgname = uai_app_info_get_pkgname (app);
+
+		// Package name
+		doc.add_value (PKGNAME, pkgname);
+		doc.add_term("AP" + pkgname);
+		if (pkgname.find ("-") != string::npos) {
+			// we need this to work around xapian oddness
+			string tmp = pkgname;
+			replace (tmp.begin(), tmp.end(), '-', '_');
+			doc.add_term (tmp);
+		}
 		doc.add_value (APPNAME_UNTRANSLATED, uai_app_info_get_name_original (app));
-		doc.add_value (PKGNAME, uai_app_info_get_pkgname (app));
 		doc.add_value (DESKTOP_FILE, uai_app_info_get_desktop_file (app));
 		doc.add_value (SUPPORT_SITE_URL, uai_app_info_get_url (app));
 		doc.add_value (ICON, uai_app_info_get_icon (app));
-		doc.add_value (CATEGORIES, uai_app_info_get_categories (app));
 		doc.add_value (SUMMARY, uai_app_info_get_summary (app));
 		doc.add_value (SC_DESCRIPTION, uai_app_info_get_description (app));
+
+		// Categories
+		int length;
+		gchar **categories = uai_app_info_get_categories (app, &length);
+		string categories_string = "";
+		for (uint i=0; i < length; i++) {
+			string cat = categories[i];
+			string tmp = cat;
+			transform (tmp.begin (), tmp.end (),
+					tmp.begin (), ::tolower);
+			doc.add_term ("AC" + tmp);
+			categories_string += cat + ";";
+		}
+		doc.add_value (CATEGORIES, categories_string);
+
 		// TODO: Register more values and add TERMs
 
 		term_generator.set_document (doc);
