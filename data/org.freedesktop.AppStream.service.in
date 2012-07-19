@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.freedesktop.AppStream
+Exec=@servicedir@/update-appstream-index
+User=root

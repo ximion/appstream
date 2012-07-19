@@ -55,4 +55,4 @@ target_link_libraries(update-appstream-index
 		${LIBXML2_LIBRARIES}
 )
 
-install(TARGETS update-appstream-index DESTINATION bin)
+install(TARGETS update-appstream-index DESTINATION ${INSTALL_DIR_LIBEXEC})

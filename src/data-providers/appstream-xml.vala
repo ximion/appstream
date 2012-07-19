@@ -88,27 +88,31 @@ private class Appstream : Uai.DataProvider {
 							app.desktop_file = content;
 						}
 						break;
-				case "pkgname": if (content != null) app.pkgname = content;
+				case "pkgname": if (content != null)
+							app.pkgname = content;
 						break;
 				case "name": 	if (content != null) {
 							app.name_original = content;
 						} else {
 							content = parse_value (iter, true);
-							if (content != null) app.name = content;
+							if (content != null)
+								app.name = content;
 						}
 						break;
 				case "summary": if (content != null) {
 							app.summary = content;
 						} else {
 							content = parse_value (iter, true);
-							if (content != null) app.summary = content;
+							if (content != null)
+								app.summary = content;
 						}
 						break;
 				case "icon":	if (node->get_prop ("type") == "stock")
 							if (content != null)
 								app.icon = content;
 						break;
-				case "url":	if (content != null) app.url = content;
+				case "url":	if (content != null)
+							app.url = content;
 						break;
 				case "appcategories": app.categories = get_childs_as_array (iter, "appcategory");
 						break;

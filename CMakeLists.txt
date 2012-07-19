@@ -67,10 +67,11 @@ find_package (Gettext REQUIRED)
 #
 # Default paths
 #
-set(BIN_INSTALL_DIR bin CACHE PATH "Installation directory for executables")
-set(LIB_INSTALL_DIR lib/${CMAKE_LIBRARY_ARCHITECTURE} CACHE PATH "Installation directory for libraries")
-set(INC_INSTALL_DIR include CACHE PATH "Installation directory for headers")
-set(SYSCONF_INSTALL_DIR etc CACHE PATH "Installation directory for system configuration files")
+set(INSTALL_DIR_BIN bin CACHE PATH "Installation directory for executables")
+set(INSTALL_DIR_LIB lib/${CMAKE_LIBRARY_ARCHITECTURE} CACHE PATH "Installation directory for libraries")
+set(INSTALL_DIR_LIBEXEC "${INSTALL_DIR_LIB}/appstream" CACHE PATH "Installation directory for executables use by a library")
+set(INSTALL_DIR_INC include CACHE PATH "Installation directory for headers")
+set(INSTALL_DIR_SYSCONF etc CACHE PATH "Installation directory for system configuration files")
 
 #
 # Configure files
@@ -78,8 +79,8 @@ set(SYSCONF_INSTALL_DIR etc CACHE PATH "Installation directory for system config
 set (PREFIXDIR "${CMAKE_INSTALL_PREFIX}")
 set (DATADIR "${CMAKE_INSTALL_PREFIX}/share")
 set (PKGDATADIR "${DATA_INSTALL_DIR}")
-set (LIBDIR "${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR}")
-set (PKGLIBDIR "${LIBDIR}/update-appstream-index")
+set (LIBDIR "${INSTALL_DIR_LIB}")
+set (PKGLIBDIR "${INSTALL_DIR_LIBEXEC}")
 set (GETTEXT_PACKAGE "update-appstream-index")
 set (LOCALE_DIR "${DATADIR}/locale")
 set (VERSION "${UAI_VERSION}")
@@ -116,6 +117,7 @@ include(${VALA_USE_FILE})
 ensure_vala_version("0.16" MINIMUM)
 
 add_subdirectory(src)
+add_subdirectory(client)
 add_subdirectory(data)
 if(TESTS)
 	add_subdirectory(tests)

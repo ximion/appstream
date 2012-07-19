@@ -1,4 +1,4 @@
-/* update-appstream-index.vala
+/* uai-client.vala -- Simple client for the Update-AppStream-Index DBus service
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -19,15 +19,18 @@
  */
 
 using GLib;
-using Config;
 
-namespace Uai {
+[DBus (name = "org.freedesktop.AppStream")]
+interface UAIService : Object {
+	public abstract bool refresh () throws IOError;
+	public signal void finished ();
+}
 
-private class Main : Object {
+private class UaiClient : Object {
 	// Cmdln options
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
-	private static string o_database_path;
+	private static bool o_refresh = false;
 
 	private MainLoop loop;
 
@@ -38,14 +41,14 @@ private class Main : Object {
 		N_("Show the application's version"), null },
 		{ "verbose", 0, 0, OptionArg.NONE, ref o_verbose_mode,
 			N_("Enable verbose mode"), null },
-		{ "cachepath", 0, 0, OptionArg.FILENAME, ref o_database_path,
-			N_("Path to AppStream cache directory"), N_("DIRECTORY") },
+		{ "refresh", 'v', 0, OptionArg.NONE, ref o_refresh,
+		N_("Refresh the AppStream application cache"), null },
 		{ null }
 	};
 
-	public Main (string[] args) {
+	public UaiClient (string[] args) {
 		exit_code = 0;
-		var opt_context = new OptionContext ("- maintain AppStream application index.");
+		var opt_context = new OptionContext ("- Update-AppStream-Index client tool.");
 		opt_context.set_help_enabled (true);
 		opt_context.add_main_entries (options, null);
 		try {
@@ -65,22 +68,12 @@ private class Main : Object {
 			loop.quit ();
 	}
 
-	void on_bus_aquired (DBusConnection conn) {
-		try {
-			conn.register_object ("/org/freedesktop/appstream", new Uai.Server ());
-		} catch (IOError e) {
-			stderr.printf ("Could not register service\n");
-			exit_code = 6;
-			quit_loop ();
-		}
-	}
-
 	public void run () {
 		if (exit_code > 0)
 			return;
 
 		if (o_show_version) {
-			stdout.printf ("update-appstream-index version: %s\n", Config.VERSION);
+			stdout.printf ("AppStream-index client tool version: %s\n", Config.VERSION);
 			return;
 		}
 
@@ -88,34 +81,42 @@ private class Main : Object {
 		if (o_verbose_mode)
 			Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
 
-		if (Utils.str_empty (o_database_path))
-			SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/software-center/xapian";
-		else
-			SOFTWARE_CENTER_DATABASE_PATH = o_database_path;
 
-		Bus.own_name (BusType.SYSTEM, "org.freedesktop.AppStream", BusNameOwnerFlags.NONE,
-					on_bus_aquired,
-					() => {},
-					() => {
-						stderr.printf ("Could not aquire name\n");
-						exit_code = 4;
-						quit_loop ();
-					});
+		UAIService uaisv = null;
+		try {
+			uaisv = Bus.get_proxy_sync (BusType.SYSTEM, "org.freedesktop.AppStream",
+								"/org/freedesktop/appstream");
 
-		if (exit_code == 0)
-			stdout.printf ("Update-AppStream-Index service is running.\n");
+		} catch (IOError e) {
+			stderr.printf ("%s\n", e.message);
+		}
 
-		loop.run ();
+		if (o_refresh) {
+			try {
+				/* Connecting to 'finished' signal */
+				uaisv.finished.connect(() => {
+					stdout.printf ("The AppStream database maintenance tool has finished current action.\n");
+					quit_loop ();
+				});
+
+			stdout.printf ("Rebuilding application-info cache...\n");
+
+			uaisv.refresh ();
+
+			} catch (IOError e) {
+				stderr.printf ("%s\n", e.message);
+			}
+		} else {
+			stderr.printf ("No command specified.\n");
+			return;
+		}
+
+		loop.run();
+
 	}
 
 	static int main (string[] args) {
-		// Bind UAI locale
-		Intl.setlocale(LocaleCategory.ALL,"");
-		Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
-		Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
-		Intl.textdomain(Config.GETTEXT_PACKAGE);
-
-		var main = new Uai.Main (args);
+		var main = new UaiClient (args);
 
 		// Run the application
 		main.run ();
@@ -125,5 +126,3 @@ private class Main : Object {
 	}
 
 }
-
-} // End of namespace: Uai

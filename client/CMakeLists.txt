@@ -1,4 +1,4 @@
-# CMakeLists for UAI Example Client
+# CMakeLists for UAI Client program
 
 find_package(Vala REQUIRED)
 include("${VALA_USE_FILE}")
@@ -21,7 +21,9 @@ include_directories(${CMAKE_BINARY_DIR}
 )
 
 # Basic tests
-vala_add_executable (uai-test-client test-client.vala
+vala_add_executable (appstream-index uai-client.vala
 				PACKAGES config gio-2.0 posix
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
 )
+
+install (TARGETS appstream-index DESTINATION bin)
