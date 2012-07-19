@@ -79,7 +79,6 @@ private class Main : Object {
 	}
 
 	public void run () {
-		bool done = false;
 		if (o_show_version) {
 			stdout.printf ("lipkgen tool, part of Listaller version: %s\n", Config.VERSION);
 			return;

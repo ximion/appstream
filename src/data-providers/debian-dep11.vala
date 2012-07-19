@@ -25,7 +25,6 @@ namespace Uai.Provider {
 
 // TODO !!
 private class DEP11 : Uai.DataProvider {
-	private string locale;
 
 	public DEP11 () {
 

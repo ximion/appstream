@@ -25,7 +25,6 @@ namespace Uai.Provider {
 
 // TODO !!
 private class UbuntuAppinstall : Uai.DataProvider {
-	private string locale;
 
 	public UbuntuAppinstall () {
 

@@ -55,6 +55,24 @@ private class Appstream : Uai.DataProvider {
 		return content;
 	}
 
+	private string[] get_childs_as_array (Xml.Node* node, string element_name) {
+		string[] list = {};
+		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
+			// Discard spaces
+			if (iter->type != ElementType.ELEMENT_NODE) {
+				continue;
+			}
+
+			if (iter->name == element_name) {
+				string? content = iter->get_content ();
+				if (content != null)
+					list += content.strip ();
+			}
+		}
+
+		return list;
+	}
+
 	private void parse_application_node (Xml.Node* node) {
 		AppInfo app = new AppInfo ();
 		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
@@ -66,9 +84,7 @@ private class Appstream : Uai.DataProvider {
 			string? content = parse_value (iter);
 			switch (node_name) {
 				case "id":	if (content != null) {
-							// Issue in AppStream documentation: AppID needs to
-							// have a clear definition!
-							// FIXME
+							// in this case, ID == desktop-file
 							app.id = content;
 							app.desktop_file = content;
 						}
@@ -94,6 +110,8 @@ private class Appstream : Uai.DataProvider {
 								app.icon = content;
 						break;
 				case "url":	if (content != null) app.url = content;
+						break;
+				case "appcategories": app.categories = get_childs_as_array (iter, "appcategory");
 						break;
 			}
 		}

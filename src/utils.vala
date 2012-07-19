@@ -92,8 +92,8 @@ internal bool touch_dir (string dirname) {
 			}
 		} catch (Error e) {
 			error ("Unable to create directories! Error: %s".printf (e.message));
-			return false;
 		}
+
 		return true;
 }
 
