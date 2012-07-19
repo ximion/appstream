@@ -73,9 +73,6 @@ private class Main : Object {
 			exit_code = 6;
 			quit_loop ();
 		}
-
-		if (exit_code == 0)
-			stdout.printf ("Update-AppStream-Index service is running.\n");
 	}
 
 	public void run () {
@@ -101,6 +98,9 @@ private class Main : Object {
 						exit_code = 4;
 						quit_loop ();
 					});
+
+		if (exit_code == 0)
+			stdout.printf ("Update-AppStream-Index service is running.\n");
 
 		loop.run ();
 	}

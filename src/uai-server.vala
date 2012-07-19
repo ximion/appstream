@@ -31,6 +31,9 @@ public class Server : Object {
 
 	public Server () {
 		db = new ASXapian.Database ();
+		// Make sure directory exists
+		Utils.touch_dir (SOFTWARE_CENTER_DATABASE_PATH);
+
 		db.init (SOFTWARE_CENTER_DATABASE_PATH);
 		appList = new Array<AppInfo> ();
 	}
