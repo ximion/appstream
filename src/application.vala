@@ -24,7 +24,6 @@ using Uai.Utils;
 namespace Uai {
 
 public class AppInfo : Object {
-	public string id { get; set; }
 	public string pkgname { get; set; }
 	private string _name;
 	public string name {
@@ -64,14 +63,14 @@ public class AppInfo : Object {
 	}
 
 	public bool is_valid () {
-		if ((id != "") && (pkgname != "") && (name != "") && (name_original != ""))
+		if ((pkgname != "") && (desktop_file != "") && (name != "") && (name_original != ""))
 			return true;
 		return false;
 	}
 
 	public string to_string () {
 		string res;
-		res = "[AppInfo::%s]> pkg: %s | name: %s | summary: %s".printf (id, pkgname, name, summary);
+		res = "[AppInfo::%s]> name: %s | desktop: %s | summary: %s".printf (pkgname, name, desktop_file, summary);
 		return res;
 	}
 

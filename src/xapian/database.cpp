@@ -28,6 +28,16 @@
 
 using namespace std;
 
+// weights for the different fields
+static const int WEIGHT_DESKTOP_NAME = 10;
+static const int WEIGHT_DESKTOP_KEYWORD = 5;
+static const int WEIGHT_DESKTOP_GENERICNAME = 3;
+static const int WEIGHT_DESKTOP_COMMENT = 1;
+
+static const int WEIGHT_PKGNAME = 8;
+static const int WEIGHT_SUMMARY = 5;
+static const int WEIGHT_PK_DESCRIPTION = 1;
+
 Database::Database () :
     m_rwXapianDB(0)
 {
@@ -102,15 +112,15 @@ bool Database::rebuild (GArray *apps)
 	for (guint i=0; i < apps->len; i++) {
 		UaiAppInfo *app = g_array_index (apps, UaiAppInfo*, i);
 
+		int length;
 		Xapian::Document doc;
 
 		cout << "Adding application: " << uai_app_info_to_string (app) << endl;
 
 		doc.set_data (uai_app_info_get_name (app));
 
-		string pkgname = uai_app_info_get_pkgname (app);
-
 		// Package name
+		string pkgname = uai_app_info_get_pkgname (app);
 		doc.add_value (PKGNAME, pkgname);
 		doc.add_term("AP" + pkgname);
 		if (pkgname.find ("-") != string::npos) {
@@ -119,15 +129,36 @@ bool Database::rebuild (GArray *apps)
 			replace (tmp.begin(), tmp.end(), '-', '_');
 			doc.add_term (tmp);
 		}
+		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
+
+		// Untranslated application name
 		doc.add_value (APPNAME_UNTRANSLATED, uai_app_info_get_name_original (app));
+
+		// Application name
+		string appName = uai_app_info_get_name (app);
+		doc.add_value (APPNAME, appName);
+		doc.add_term ("AA" + appName);
+		term_generator.index_text_without_positions (appName, WEIGHT_DESKTOP_NAME);
+
+		// Desktop file
 		doc.add_value (DESKTOP_FILE, uai_app_info_get_desktop_file (app));
+
+		// URL
 		doc.add_value (SUPPORT_SITE_URL, uai_app_info_get_url (app));
+
+		// Application stock icon
 		doc.add_value (ICON, uai_app_info_get_icon (app));
-		doc.add_value (SUMMARY, uai_app_info_get_summary (app));
+
+		// Summary
+		string appSummary = uai_app_info_get_summary (app);
+		doc.add_value (SUMMARY, appSummary);
+		term_generator.index_text_without_positions (appSummary, WEIGHT_SUMMARY);
+
+		// Long description
 		doc.add_value (SC_DESCRIPTION, uai_app_info_get_description (app));
 
 		// Categories
-		int length;
+		length = 0;
 		gchar **categories = uai_app_info_get_categories (app, &length);
 		string categories_string = "";
 		for (uint i=0; i < length; i++) {
@@ -140,14 +171,19 @@ bool Database::rebuild (GArray *apps)
 		}
 		doc.add_value (CATEGORIES, categories_string);
 
-		// TODO: Register more values and add TERMs
+		// Add our keywords (with high priority)
+		length = 0;
+		gchar **keywords = uai_app_info_get_keywords (app, &length);
+		for (uint i=0; i < length; i++) {
+			string kword = keywords[i];
+			term_generator.index_text_without_positions (kword, WEIGHT_DESKTOP_KEYWORD);
+		}
+
+		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
 		term_generator.set_document (doc);
 
-		// TODO: Register terms
-
 		db.add_document (doc);
-
 	}
 
 	db.set_metadata("db-schema-version", DB_SCHEMA_VERSION);

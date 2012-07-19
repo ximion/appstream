@@ -85,7 +85,6 @@ private class Appstream : Uai.DataProvider {
 			switch (node_name) {
 				case "id":	if (content != null) {
 							// in this case, ID == desktop-file
-							app.id = content;
 							app.desktop_file = content;
 						}
 						break;
