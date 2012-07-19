@@ -25,7 +25,7 @@ internal static const string DB_SCHEMA_VERSION = "6";
 
 internal static string SOFTWARE_CENTER_DATABASE_PATH; // usually "/var/cache/software-center/xapian"
 
-private static const string APPSTREAM_BASE_PATH = DATADIR + "/share/app-info";
+private static const string APPSTREAM_BASE_PATH = DATADIR + "/app-info";
 
 public static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
 

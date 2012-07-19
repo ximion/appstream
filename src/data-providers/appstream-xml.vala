@@ -34,7 +34,6 @@ private class Appstream : Uai.DataProvider {
 	private string? parse_value (Xml.Node *node, bool translated = false) {
 		string content = node->get_content ();
 		string? lang = node->get_prop ("lang");
-		stdout.printf ("[] %s | %s\n", node->get_prop ("lang"), content);
 		if (translated) {
 			// FIXME: If not-localized generic node comes _after_ the localized ones,
 			//        the not-localized will override the localized. Wrong ordering should
@@ -90,7 +89,9 @@ private class Appstream : Uai.DataProvider {
 							if (content != null) app.summary = content;
 						}
 						break;
-				case "icon":	if (content != null) app.icon = content;
+				case "icon":	if (node->get_prop ("type") == "stock")
+							if (content != null)
+								app.icon = content;
 						break;
 				case "url":	if (content != null) app.url = content;
 						break;
