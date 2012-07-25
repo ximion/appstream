@@ -162,6 +162,9 @@ bool Database::rebuild (GArray *apps)
 		gchar **categories = uai_app_info_get_categories (app, &length);
 		string categories_string = "";
 		for (uint i=0; i < length; i++) {
+			if (categories[i] == NULL)
+				continue;
+
 			string cat = categories[i];
 			string tmp = cat;
 			transform (tmp.begin (), tmp.end (),
@@ -175,6 +178,9 @@ bool Database::rebuild (GArray *apps)
 		length = 0;
 		gchar **keywords = uai_app_info_get_keywords (app, &length);
 		for (uint i=0; i < length; i++) {
+			if (keywords[i] == NULL)
+				continue;
+
 			string kword = keywords[i];
 			term_generator.index_text_without_positions (kword, WEIGHT_DESKTOP_KEYWORD);
 		}
