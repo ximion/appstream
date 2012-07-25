@@ -21,7 +21,7 @@ set(UAI_SOURCES_BASE ${srcdir}/settings.vala
 
 set(UAI_SOURCES ${UAI_SOURCES_BASE}
 		update-appstream-index.vala
-		${srcdir}/uai-server.vala
+		${srcdir}/uai-engine.vala
 )
 
 set(UAI_XAP_SOURCES xapian/database.hpp

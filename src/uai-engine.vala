@@ -1,4 +1,4 @@
-/* uai-server.vala
+/* uai-engine.vala
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -23,19 +23,24 @@ using GLib;
 namespace Uai {
 
 [DBus (name = "org.freedesktop.AppStream")]
-public class Server : Object {
+public class Engine : Object {
 	private ASXapian.Database db;
 	private Array<AppInfo> appList;
+	private Timer timer;
 
 	public signal void finished ();
 
-	public Server () {
+	public Engine () {
 		db = new ASXapian.Database ();
 		// Make sure directory exists
 		Utils.touch_dir (SOFTWARE_CENTER_DATABASE_PATH);
 
-		db.init (SOFTWARE_CENTER_DATABASE_PATH);
+		timer = new Timer ();
 		appList = new Array<AppInfo> ();
+	}
+
+	public void init () {
+		db.init (SOFTWARE_CENTER_DATABASE_PATH);
 	}
 
 	private bool run_provider (DataProvider dprov) {
@@ -47,8 +52,14 @@ public class Server : Object {
 		appList.append_val (app);
 	}
 
+	public uint get_idle_time_seconds () {
+		return (uint) timer.elapsed ();
+	}
+
 	public bool refresh (GLib.BusName sender) {
 		bool ret;
+		timer.stop ();
+		timer.reset ();
 #if APPSTREAM
 		run_provider (new Provider.Appstream ());
 #endif
@@ -62,6 +73,8 @@ public class Server : Object {
 		ret = db.rebuild (appList);
 
 		finished ();
+		timer.start ();
+
 		return ret;
 	}
 }

@@ -30,6 +30,8 @@ private class Main : Object {
 	private static string o_database_path;
 
 	private MainLoop loop;
+	private Uai.Engine engine;
+	private uint exit_idle_time;
 
 	public int exit_code { get; set; }
 
@@ -65,14 +67,27 @@ private class Main : Object {
 			loop.quit ();
 	}
 
-	void on_bus_aquired (DBusConnection conn) {
+	private void on_bus_aquired (DBusConnection conn) {
 		try {
-			conn.register_object ("/org/freedesktop/appstream", new Uai.Server ());
+			conn.register_object ("/org/freedesktop/appstream", engine);
 		} catch (IOError e) {
 			stderr.printf ("Could not register service\n");
 			exit_code = 6;
 			quit_loop ();
 		}
+	}
+
+	private bool main_timeout_check_cb () {
+		uint idle;
+		idle = engine.get_idle_time_seconds ();
+		debug ("idle is %u", idle);
+		if (idle > exit_idle_time) {
+			warning ("exit!!");
+			quit_loop ();
+			return false;
+		}
+
+		return true;
 	}
 
 	public void run () {
@@ -93,6 +108,9 @@ private class Main : Object {
 		else
 			SOFTWARE_CENTER_DATABASE_PATH = o_database_path;
 
+		engine = new Uai.Engine ();
+		engine.init ();
+
 		Bus.own_name (BusType.SYSTEM, "org.freedesktop.AppStream", BusNameOwnerFlags.NONE,
 					on_bus_aquired,
 					() => {},
@@ -105,6 +123,19 @@ private class Main : Object {
 		if (exit_code == 0)
 			stdout.printf ("Running Update-AppStream-Index service...\n");
 
+		// TODO
+		// Hardcode it for now, make it a setting later
+		exit_idle_time = 20;
+
+		// only poll when we are alive
+		uint timer_id;
+		if ((exit_idle_time != 0) && (exit_code == 0)) {
+			timer_id = Timeout.add_seconds (5, main_timeout_check_cb);
+			// FIXME: Vala bug - not present in Vapi, instead broken MainContext.set_name_by_id()
+			// Source.set_name_by_id (timer_id, "[UaiMain] main poll");
+		}
+
+		// run main loop until quit
 		loop.run ();
 	}
 
