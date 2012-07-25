@@ -103,7 +103,7 @@ private class Main : Object {
 					});
 
 		if (exit_code == 0)
-			stdout.printf ("Update-AppStream-Index service is running.\n");
+			stdout.printf ("Running Update-AppStream-Index service...\n");
 
 		loop.run ();
 	}

@@ -122,7 +122,7 @@ private class Appstream : Uai.DataProvider {
 		if (app.is_valid ())
 			emit_application (app);
 		else
-			warning ("Invalid application found: %s", app.to_string ());
+			log_warning ("Invalid application found: %s". printf (app.to_string ()));
 	}
 
 	public bool process_single_file (string fname) {
@@ -164,12 +164,12 @@ private class Appstream : Uai.DataProvider {
 	}
 
 	public override bool execute () {
-		Array<string>? xml_files = Utils.find_files_matching (APPSTREAM_XML_PATH, "*.xml");
-		if ((xml_files == null) || (xml_files.length == 0))
+		Array<string>? xmlFiles = Utils.find_files_matching (APPSTREAM_XML_PATH, "*.xml");
+		if ((xmlFiles == null) || (xmlFiles.length == 0))
 			return false;
 
-		for (uint i=0; i < xml_files.length; i++) {
-			process_single_file (xml_files.index (i));
+		for (uint i=0; i < xmlFiles.length; i++) {
+			process_single_file (xmlFiles.index (i));
 		}
 
 		return true;

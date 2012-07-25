@@ -33,6 +33,14 @@ private abstract class DataProvider : Object {
 	}
 
 	public abstract bool execute ();
+	
+	protected void log_error (string msg) {
+		debug (msg);
+	}
+	
+	protected void log_warning (string msg) {
+		warning (msg);
+	}
 
 }
 
