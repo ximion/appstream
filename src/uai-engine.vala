@@ -41,6 +41,7 @@ public class Engine : Object {
 
 	public void init () {
 		db.init (SOFTWARE_CENTER_DATABASE_PATH);
+		timer.start ();
 	}
 
 	private bool run_provider (DataProvider dprov) {
