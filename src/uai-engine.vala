@@ -29,6 +29,7 @@ public class Engine : Object {
 	private Timer timer;
 
 	public signal void finished ();
+	public signal void rebuild_finished ();
 
 	public Engine () {
 		db = new ASXapian.Database ();
@@ -73,7 +74,7 @@ public class Engine : Object {
 
 		ret = db.rebuild (appList);
 
-		finished ();
+		rebuild_finished ();
 		timer.start ();
 
 		return ret;

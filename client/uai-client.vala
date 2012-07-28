@@ -23,7 +23,7 @@ using GLib;
 [DBus (name = "org.freedesktop.AppStream")]
 interface UAIService : Object {
 	public abstract bool refresh () throws IOError;
-	public signal void finished ();
+	public signal void rebuild_finished ();
 }
 
 private class UaiClient : Object {
@@ -94,12 +94,12 @@ private class UaiClient : Object {
 		if (o_refresh) {
 			try {
 				/* Connecting to 'finished' signal */
-				uaisv.finished.connect(() => {
-					stdout.printf ("The AppStream database maintenance tool has finished current action.\n");
+				uaisv.rebuild_finished.connect(() => {
+					stdout.printf ("%s\n", _("Finished rebuilding the app-info cache."));
 					quit_loop ();
 				});
 
-			stdout.printf ("Rebuilding application-info cache...\n");
+			stdout.printf ("Rebuilding app-info cache...\n");
 
 			uaisv.refresh ();
 
