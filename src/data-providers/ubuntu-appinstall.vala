@@ -58,6 +58,9 @@ private class UbuntuAppinstall : Uai.DataProvider {
 			desktop_file_name = Path.get_basename (fname);
 		}
 
+		if (desktop_file_get_str (desktopFile, "X-AppInstall-Ignore").down () == "true")
+			return;
+
 		app.desktop_file = desktop_file_name;
 		app.pkgname = desktop_file_get_str (desktopFile, "X-AppInstall-Package");
 		app.name = desktop_file_get_str (desktopFile, "Name");
