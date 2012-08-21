@@ -21,12 +21,16 @@
 using GLib;
 using Config;
 
-internal static const string DB_SCHEMA_VERSION = "6";
+namespace Appstream {
 
-internal static string SOFTWARE_CENTER_DATABASE_PATH; // usually "/var/cache/software-center/xapian"
+private static const string DB_SCHEMA_VERSION = "6";
+
+private static string SOFTWARE_CENTER_DATABASE_PATH; // usually "/var/cache/software-center/xapian"
 
 private static const string APPSTREAM_BASE_PATH = DATADIR + "/app-info";
 
 public static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
 
 private static const string APPSTREAM_XML_PATH = APPSTREAM_BASE_PATH + "/xmls";
+
+} // End of namespace: Appstream

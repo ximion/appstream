@@ -1,4 +1,4 @@
-/* application.vala
+/* app-info.vala
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -19,9 +19,9 @@
  */
 
 using GLib;
-using Uai.Utils;
+using Appstream.Utils;
 
-namespace Uai {
+namespace Appstream {
 
 public class AppInfo : Object {
 	public string pkgname { get; set; }
@@ -76,4 +76,4 @@ public class AppInfo : Object {
 
 }
 
-} // End of namespace: Uai
+} // End of namespace: Appstream

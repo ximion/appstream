@@ -28,8 +28,8 @@ namespace ASXapian {
 		public Database ();
 
 		public bool init (string db_path);
-		public bool add_application (Uai.AppInfo app);
-		public bool rebuild (GLib.Array<Uai.AppInfo> apps);
+		public bool add_application (Appstream.AppInfo app);
+		public bool rebuild (GLib.Array<Appstream.AppInfo> apps);
 	}
 
 }

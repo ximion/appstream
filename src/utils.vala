@@ -20,7 +20,7 @@
 
 using GLib;
 
-namespace Uai.Utils {
+namespace Appstream.Utils {
 
 private ulong now_sec () {
 	TimeVal time_val = TimeVal ();
@@ -28,7 +28,7 @@ private ulong now_sec () {
 	return time_val.tv_sec;
 }
 
-private bool is_root () {
+internal bool is_root () {
 	if (Posix.getuid () == 0) {
 		return true;
 	} else {
@@ -85,16 +85,16 @@ private Array<string>? find_files (string dir, bool recursive = false) {
 }
 
 internal bool touch_dir (string dirname) {
-		File d = File.new_for_path (dirname);
-		try {
-			if (!d.query_exists ()) {
-				d.make_directory_with_parents ();
-			}
-		} catch (Error e) {
-			error ("Unable to create directories! Error: %s".printf (e.message));
+	File d = File.new_for_path (dirname);
+	try {
+		if (!d.query_exists ()) {
+			d.make_directory_with_parents ();
 		}
+	} catch (Error e) {
+		error ("Unable to create directories! Error: %s".printf (e.message));
+	}
 
-		return true;
+	return true;
 }
 
 /*
@@ -127,4 +127,4 @@ internal bool delete_dir_recursive (string dirname) {
 	return true;
 }
 
-} // End of namespace: Uai.Utils
+} // End of namespace: Appstream.Utils
