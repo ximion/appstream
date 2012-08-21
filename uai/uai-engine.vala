@@ -35,17 +35,21 @@ public class Engine : Object {
 
 	public Engine () {
 		db_rw = new Appstream.DatabaseWrite ();
+
 		// Update db path if necessary
 		if (CURRENT_DB_PATH == "")
-			CURRENT_DB_PATH = db_rw.get_db_path ();
-		// Make sure directory exists
-		Appstream.Utils.touch_dir (CURRENT_DB_PATH);
+			CURRENT_DB_PATH = db_rw.database_path;
 
 		timer = new Timer ();
 		appList = new Array<Appstream.AppInfo> ();
 	}
 
 	public void init () {
+		db_rw.database_path = CURRENT_DB_PATH;
+
+		// Make sure directory exists
+		Appstream.Utils.touch_dir (CURRENT_DB_PATH);
+
 		db_rw.open ();
 		timer.start ();
 	}

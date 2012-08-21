@@ -29,13 +29,33 @@ namespace Appstream {
  */
 public class Database : Object {
 	private ASXapian.DatabaseRead db;
+	private bool opened_;
+
+	public string database_path { get; set; }
 
 	public Database () {
 		db = new ASXapian.DatabaseRead ();
+		opened_ = false;
+		database_path = SOFTWARE_CENTER_DATABASE_PATH;
 	}
 
 	public virtual void open () {
-		db.open (SOFTWARE_CENTER_DATABASE_PATH);
+		db.open (database_path);
+		opened_ = true;
+	}
+
+	public Array<Appstream.AppInfo>? get_all_applications () {
+		if (!opened_)
+			return null;
+		Array<Appstream.AppInfo> appArray = db.get_all_applications ();
+		return appArray;
+	}
+
+	public bool db_exists () {
+		if (FileUtils.test (database_path, FileTest.IS_DIR))
+			return true;
+		else
+			return false;
 	}
 }
 
@@ -53,17 +73,13 @@ internal class DatabaseWrite : Database {
 
 	public override void open () {
 		base.open ();
-		db_w.init (SOFTWARE_CENTER_DATABASE_PATH);
+		db_w.init (database_path);
 	}
 
 	public bool rebuild (Array<AppInfo> appList) {
 		bool ret;
 		ret = db_w.rebuild (appList);
 		return ret;
-	}
-
-	public string get_db_path () {
-		return SOFTWARE_CENTER_DATABASE_PATH;
 	}
 }
 

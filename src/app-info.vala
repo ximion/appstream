@@ -74,6 +74,14 @@ public class AppInfo : Object {
 		return res;
 	}
 
+	public bool set_categories_from_str (string categories_str) {
+		string[] cats = categories_str.split (";");
+		if (cats.length == 0)
+			return false;
+		categories = cats;
+		return true;
+	}
+
 }
 
 } // End of namespace: Appstream

@@ -22,16 +22,19 @@
 namespace ASXapian {
 
 	[Compact]
-	[CCode (cname="XADatabaseRead", free_function="xa_database_read_free", cprefix="xa_database_read_")]
+	[CCode (cname="struct DatabaseRead", free_function="xa_database_read_free", cprefix="xa_database_read_")]
 	public class DatabaseRead {
 		[CCode (cname="xa_database_read_new")]
 		public DatabaseRead ();
 
 		public bool open (string db_path);
+		public string get_schema_version ();
+
+		public GLib.Array<Appstream.AppInfo> get_all_applications ();
 	}
 
 	[Compact]
-	[CCode (cname="XADatabaseWrite", free_function="xa_database_write_free", cprefix="xa_database_write_")]
+	[CCode (cname="struct DatabaseWrite", free_function="xa_database_write_free", cprefix="xa_database_write_")]
 	public class DatabaseWrite {
 		[CCode (cname="xa_database_write_new")]
 		public DatabaseWrite ();

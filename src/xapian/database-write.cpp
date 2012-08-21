@@ -25,6 +25,7 @@
 #include <algorithm>
 #include <vector>
 #include <glib/gstdio.h>
+
 #include "database-common.hpp"
 
 using namespace std;
@@ -42,7 +43,8 @@ DatabaseWrite::~DatabaseWrite ()
 	}
 }
 
-bool DatabaseWrite::init (const gchar *dbPath)
+bool
+DatabaseWrite::init (const gchar *dbPath)
 {
 	m_dbPath = dbPath;
 
@@ -58,7 +60,8 @@ bool DatabaseWrite::init (const gchar *dbPath)
 	return true;
 }
 
-bool DatabaseWrite::rebuild (GArray *apps)
+bool
+DatabaseWrite::rebuild (GArray *apps)
 {
 	string old_path = m_dbPath + "_old";
 	string rebuild_path = m_dbPath + "_rb";
@@ -199,7 +202,8 @@ bool DatabaseWrite::rebuild (GArray *apps)
 	return true;
 }
 
-bool DatabaseWrite::addApplication (AppstreamAppInfo *app)
+bool
+DatabaseWrite::addApplication (AppstreamAppInfo *app)
 {
 	// TODO
 	return false;

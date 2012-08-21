@@ -37,10 +37,15 @@ public:
 
 	bool open (const gchar *dbPath);
 
+	string getSchemaVersion ();
+
+	GArray *getAllApplications ();
+
 private:
 	Xapian::Database *m_xapianDB;
 	string m_dbPath;
 
+	AppstreamAppInfo *docToAppInfo (Xapian::Document);
 };
 
 extern "C" {
@@ -48,6 +53,8 @@ extern "C" {
 DatabaseRead *xa_database_read_new () { return new DatabaseRead (); };
 void xa_database_read_free (DatabaseRead *db) { delete db; };
 gboolean xa_database_read_open (DatabaseRead *db, const gchar *db_path) { return db->open (db_path); };
+const gchar *xa_database_read_get_schema_version (DatabaseRead *db) { return db->getSchemaVersion ().c_str (); };
+GArray *xa_database_read_get_all_applications (DatabaseRead *db) { return db->getAllApplications(); };
 
 }
 
