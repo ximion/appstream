@@ -1,4 +1,4 @@
-/* test-appstreamxml.vala
+/* test-database-read.vala
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -26,14 +26,26 @@ void msg (string s) {
 	stdout.printf (s + "\n");
 }
 
-void test_appstream_parser () {
-	var asxml = new Uai.Provider.AppstreamXML ();
+void print_apparray (Array<Appstream.AppInfo> appArray) {
+	for (uint i = 0; i < appArray.length; i++) {
+		stdout.printf ("  - %s\n", appArray.index (i).to_string ());
+	}
+}
 
-	asxml.process_single_file (Path.build_filename (datadir, "appdata.xml", null));
+void test_database () {
+	var db = new Appstream.Database ();
+	Array<Appstream.AppInfo> apps = null;
+
+	db.open ();
+
+	apps = db.get_all_applications ();
+	assert (apps != null);
+
+	print_apparray (apps);
 }
 
 int main (string[] args) {
-	msg ("=== Running AppStream-XML Tests ===");
+	msg ("=== Running AppStream Database (Read) Tests ===");
 	datadir = args[1];
 	assert (datadir != null);
 	datadir = Path.build_filename (datadir, "data", null);
@@ -42,7 +54,7 @@ int main (string[] args) {
 	Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
 	Test.init (ref args);
 
-	test_appstream_parser ();
+	test_database ();
 
 	Test.run ();
 	return 0;
