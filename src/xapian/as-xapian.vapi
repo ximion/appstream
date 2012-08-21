@@ -23,9 +23,9 @@ namespace ASXapian {
 
 	[Compact]
 	[CCode (cname="XADatabase", free_function="xa_database_free", cprefix="xa_database_")]
-	public class Database {
+	public class DatabaseWrite {
 		[CCode (cname="xa_database_new")]
-		public Database ();
+		public DatabaseWrite ();
 
 		public bool init (string db_path);
 		public bool add_application (Appstream.AppInfo app);

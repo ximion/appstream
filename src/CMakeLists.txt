@@ -14,6 +14,7 @@ set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}")
 set(APPSTREAM_LIB_SOURCES settings.vala
 		utils.vala
 		app-info.vala
+		database.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database.hpp
