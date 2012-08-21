@@ -28,14 +28,14 @@ namespace Appstream {
  * application database
  */
 public class Database : Object {
-	//private ASXapian.DatabaseRead db;
+	private ASXapian.DatabaseRead db;
 
 	public Database () {
-		//db = new ASXapian.DatabaseRead ();
+		db = new ASXapian.DatabaseRead ();
 	}
 
 	public virtual void open () {
-		//db.init (SOFTWARE_CENTER_DATABASE_PATH);
+		db.open (SOFTWARE_CENTER_DATABASE_PATH);
 	}
 }
 

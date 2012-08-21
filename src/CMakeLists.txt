@@ -17,8 +17,11 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		database.vala
 )
 
-set(ASLIB_XAP_SOURCES xapian/database.hpp
-		xapian/database.cpp
+set(ASLIB_XAP_SOURCES xapian/database-common.hpp
+		xapian/database-read.hpp
+		xapian/database-read.cpp
+		xapian/database-write.hpp
+		xapian/database-write.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian

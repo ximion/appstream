@@ -1,4 +1,4 @@
-/* database-vala.h
+/* database-read.cpp
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -18,11 +18,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DATABASE_VALA_H
-#define DATABASE_VALA_H
+#include "database-read.hpp"
 
-/* _VERY_ ugly hack to make C++ and Vala work together */
-typedef gpointer XADatabaseRead;
-typedef gpointer XADatabaseWrite;
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <glib/gstdio.h>
 
-#endif /* DATABASE_VALA_H */
+using namespace std;
+
+DatabaseRead::DatabaseRead () :
+    m_xapianDB(0)
+{
+
+}
+
+DatabaseRead::~DatabaseRead ()
+{
+	if (m_xapianDB) {
+		delete m_xapianDB;
+	}
+}
+
+bool DatabaseRead::open (const gchar *dbPath)
+{
+	m_dbPath = dbPath;
+
+	try {
+		m_xapianDB = new Xapian::Database (m_dbPath);
+	} catch (const Xapian::Error &error) {
+		cout << "ERROR!" << endl;
+		g_warning ("Exception: %s", error.get_msg ().c_str ());
+		return false;
+	}
+
+	return true;
+}

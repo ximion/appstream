@@ -1,4 +1,4 @@
-/* database.cpp
+/* database-write.cpp
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -18,40 +18,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "database.hpp"
+#include "database-write.hpp"
 
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <vector>
 #include <glib/gstdio.h>
+#include "database-common.hpp"
 
 using namespace std;
 
-// weights for the different fields
-static const int WEIGHT_DESKTOP_NAME = 10;
-static const int WEIGHT_DESKTOP_KEYWORD = 5;
-static const int WEIGHT_DESKTOP_GENERICNAME = 3;
-static const int WEIGHT_DESKTOP_COMMENT = 1;
-
-static const int WEIGHT_PKGNAME = 8;
-static const int WEIGHT_SUMMARY = 5;
-static const int WEIGHT_PK_DESCRIPTION = 1;
-
-Database::Database () :
+DatabaseWrite::DatabaseWrite () :
     m_rwXapianDB(0)
 {
 
 }
 
-Database::~Database ()
+DatabaseWrite::~DatabaseWrite ()
 {
 	if (m_rwXapianDB) {
 		delete m_rwXapianDB;
 	}
 }
 
-bool Database::init (const gchar *dbPath)
+bool DatabaseWrite::init (const gchar *dbPath)
 {
 	m_dbPath = dbPath;
 
@@ -67,7 +58,7 @@ bool Database::init (const gchar *dbPath)
 	return true;
 }
 
-bool Database::rebuild (GArray *apps)
+bool DatabaseWrite::rebuild (GArray *apps)
 {
 	string old_path = m_dbPath + "_old";
 	string rebuild_path = m_dbPath + "_rb";
@@ -208,7 +199,7 @@ bool Database::rebuild (GArray *apps)
 	return true;
 }
 
-bool Database::addApplication (AppstreamAppInfo *app)
+bool DatabaseWrite::addApplication (AppstreamAppInfo *app)
 {
 	// TODO
 	return false;

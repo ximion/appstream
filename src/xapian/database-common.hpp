@@ -1,4 +1,4 @@
-/* database.hpp
+/* database-common.hpp -- Common specs for AppStream Xapian database
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -18,33 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DATABASE_H
-#define DATABASE_H
-
-#include <iostream>
-#include <string>
-#include <xapian.h>
-#include <glib.h>
-#include "appstream_internal.h"
-
-using namespace std;
-
-class Database
-{
-public:
-	explicit Database ();
-	~Database ();
-
-	bool init (const gchar *dbPath);
-
-	bool addApplication (AppstreamAppInfo *app);
-	bool rebuild (GArray *apps);
-
-private:
-	Xapian::WritableDatabase *m_rwXapianDB;
-	string m_dbPath;
-
-};
+#ifndef DATABASE_COMMON_H
+#define DATABASE_COMMON_H
 
 // values used in the database
 enum XapianValues {
@@ -63,7 +38,7 @@ enum XapianValues {
 	ARCHIVE_DEB_LINE = 182,
 	ARCHIVE_SIGNING_KEY_ID = 183,
 	PURCHASED_DATE = 184,
-	SCREENSHOT_URLS = 185,			 // multiple urls, comma seperated
+	SCREENSHOT_URLS = 185,		// multiple urls, comma seperated
 	SC_DESCRIPTION = 188,
 	APPNAME_UNTRANSLATED = 189,
 	ICON_URL = 190,
@@ -77,14 +52,14 @@ enum XapianValues {
 	SC_SUPPORTED_DISTROS = 199
 };
 
-extern "C" {
+// weights for the different fields
+static const int WEIGHT_DESKTOP_NAME = 10;
+static const int WEIGHT_DESKTOP_KEYWORD = 5;
+static const int WEIGHT_DESKTOP_GENERICNAME = 3;
+static const int WEIGHT_DESKTOP_COMMENT = 1;
 
-Database *xa_database_new () { return new Database (); };
-void xa_database_free (Database *db) { delete db; };
-gboolean xa_database_init (Database *db, const gchar *db_path) { return db->init (db_path); };
-gboolean xa_database_add_application (Database *db, AppstreamAppInfo *app) { return db->addApplication (app); };
-gboolean xa_database_rebuild (Database *db, GArray *apps) { return db->rebuild (apps); };
+static const int WEIGHT_PKGNAME = 8;
+static const int WEIGHT_SUMMARY = 5;
+static const int WEIGHT_PK_DESCRIPTION = 1;
 
-}
-
-#endif // DATABASE_H
+#endif // DATABASE_COMMON_H
