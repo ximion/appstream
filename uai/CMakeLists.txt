@@ -7,6 +7,7 @@ include("${VALA_USE_FILE}")
 find_package(GLIB2 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(LibXml2 REQUIRED)
+find_library(M_LIB m)
 
 set(UAI_SOURCES main.vala
 		uai-utils.vala
@@ -25,6 +26,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 		    ${LIBXML2_INCLUDE_DIR}
 )
 
+# Add the update-appstream-index daemon executable
 vala_add_executable(update-appstream-index ${UAI_SOURCES}
 			PACKAGES config glib-2.0 gio-2.0 posix libxml-2.0 appstream_internal
 			VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
@@ -39,4 +41,17 @@ target_link_libraries(update-appstream-index
 		appstream
 )
 
+# Add the appstream-index client tool
+vala_add_executable (appstream-index uai-client.vala
+				PACKAGES config gio-2.0 posix
+				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
+)
+
+target_link_libraries(appstream-index
+		${M_LIB}
+		${GLIB2_LIBRARIES}
+		${GIO2_LIBRARIES}
+)
+
 install(TARGETS update-appstream-index DESTINATION ${INSTALL_DIR_LIBEXEC})
+install(TARGETS appstream-index DESTINATION ${INSTALL_DIR_BIN})

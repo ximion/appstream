@@ -119,7 +119,6 @@ ensure_vala_version("0.16" MINIMUM)
 
 add_subdirectory(src)
 add_subdirectory(uai)
-add_subdirectory(client)
 add_subdirectory(data)
 add_subdirectory(docs)
 if(TESTS)
