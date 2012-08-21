@@ -21,13 +21,14 @@
 using GLib;
 using Xml;
 using Uai;
+using Appstream;
 
 namespace Uai.Provider {
 
-private class Appstream : Uai.DataProvider {
+private class AppstreamXML : Uai.DataProvider {
 	private string locale;
 
-	public Appstream () {
+	public AppstreamXML () {
 		locale = Intl.get_language_names ()[0];
 	}
 
@@ -74,7 +75,7 @@ private class Appstream : Uai.DataProvider {
 	}
 
 	private void parse_application_node (Xml.Node* node) {
-		AppInfo app = new AppInfo ();
+		var app = new Appstream.AppInfo ();
 		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
 			if (iter->type != ElementType.ELEMENT_NODE) {
 				continue;

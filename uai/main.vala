@@ -23,6 +23,8 @@ using Config;
 
 namespace Uai {
 
+private static string CURRENT_DB_PATH;
+
 private class Main : Object {
 	// Cmdln options
 	private static bool o_show_version = false;
@@ -104,9 +106,9 @@ private class Main : Object {
 			Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
 
 		if (Utils.str_empty (o_database_path))
-			SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/software-center/xapian";
+			CURRENT_DB_PATH = "";
 		else
-			SOFTWARE_CENTER_DATABASE_PATH = o_database_path;
+			CURRENT_DB_PATH = o_database_path;
 
 		engine = new Uai.Engine ();
 		engine.init ();

@@ -50,7 +50,7 @@ private class UbuntuAppinstall : Uai.DataProvider {
 			return;
 		}
 
-		AppInfo app = new AppInfo ();
+		var app = new Appstream.AppInfo ();
 
 		string[] lines = fname.split (":", 2);
 		string desktop_file_name = lines[1];

@@ -23,21 +23,21 @@ using GLib;
 namespace Uai {
 
 private abstract class DataProvider : Object {
-	public signal void application (AppInfo app);
+	public signal void application (Appstream.AppInfo app);
 
 	public DataProvider () {
 	}
 
-	protected void emit_application (AppInfo app) {
+	protected void emit_application (Appstream.AppInfo app) {
 		application (app);
 	}
 
 	public abstract bool execute ();
-	
+
 	protected void log_error (string msg) {
 		debug (msg);
 	}
-	
+
 	protected void log_warning (string msg) {
 		warning (msg);
 	}

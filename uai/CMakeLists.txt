@@ -9,6 +9,7 @@ pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(LibXml2 REQUIRED)
 
 set(UAI_SOURCES main.vala
+		uai-utils.vala
 		uai-engine.vala
 		data-provider.vala
 		data-providers/appstream-xml.vala
@@ -25,7 +26,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 vala_add_executable(update-appstream-index ${UAI_SOURCES}
-			PACKAGES config glib-2.0 gio-2.0 libxml-2.0 appstream_internal
+			PACKAGES config glib-2.0 gio-2.0 posix libxml-2.0 appstream_internal
 			VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
 

@@ -19,29 +19,34 @@
  */
 
 using GLib;
+using Uai;
+using Appstream;
 
 namespace Uai {
 
 [DBus (name = "org.freedesktop.AppStream")]
 public class Engine : Object {
-	private ASXapian.Database db;
-	private Array<AppInfo> appList;
+	private Appstream.DatabaseWrite db_rw;
+	private Array<Appstream.AppInfo> appList;
 	private Timer timer;
 
 	public signal void finished ();
 	public signal void rebuild_finished ();
 
 	public Engine () {
-		db = new ASXapian.Database ();
+		db_rw = new Appstream.DatabaseWrite ();
+		// Update db path if necessary
+		if (CURRENT_DB_PATH == "")
+			CURRENT_DB_PATH = db_rw.get_db_path ();
 		// Make sure directory exists
-		Utils.touch_dir (SOFTWARE_CENTER_DATABASE_PATH);
+		Utils.touch_dir (CURRENT_DB_PATH);
 
 		timer = new Timer ();
-		appList = new Array<AppInfo> ();
+		appList = new Array<Appstream.AppInfo> ();
 	}
 
 	public void init () {
-		db.init (SOFTWARE_CENTER_DATABASE_PATH);
+		db_rw.open ();
 		timer.start ();
 	}
 
@@ -50,7 +55,7 @@ public class Engine : Object {
 		return dprov.execute ();
 	}
 
-	private void new_application (AppInfo app) {
+	private void new_application (Appstream.AppInfo app) {
 		appList.append_val (app);
 	}
 
@@ -63,7 +68,7 @@ public class Engine : Object {
 		timer.stop ();
 		timer.reset ();
 #if APPSTREAM
-		run_provider (new Provider.Appstream ());
+		run_provider (new Provider.AppstreamXML ());
 #endif
 #if DEBIAN_DEP11
 		run_provider (new Provider.DEP11 ());
@@ -72,7 +77,7 @@ public class Engine : Object {
 		run_provider (new Provider.UbuntuAppinstall ());
 #endif
 
-		ret = db.rebuild (appList);
+		ret = db_rw.rebuild (appList);
 
 		rebuild_finished ();
 		timer.start ();
