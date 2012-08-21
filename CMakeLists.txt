@@ -5,10 +5,11 @@ cmake_minimum_required(VERSION 2.8.6 FATAL_ERROR)
 
 set(CMAKE_BUILD_TYPE "Debug")
 
-set(UAI_VERSION_MAJOR  "0")
-set(UAI_VERSION_MINOR  "1")
-set(UAI_VERSION_PATCH  "0")
-set(UAI_VERSION "${UAI_VERSION_MAJOR}.${UAI_VERSION_MINOR}.${UAI_VERSION_PATCH}")
+set(AS_VERSION_MAJOR  "0")
+set(AS_VERSION_MINOR  "1")
+set(AS_VERSION_PATCH  "0")
+set(AS_VERSION "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}.${AS_VERSION_PATCH}")
+set(APPSTREAM_LIB_API_LEVEL "0")
 
 # Don't allow in-tree building
 if(${CMAKE_SOURCE_DIR} MATCHES ${CMAKE_BINARY_DIR})
@@ -53,7 +54,7 @@ set(CMAKE_INSTALL_LIBDIR "lib/${CMAKE_LIBRARY_ARCHITECTURE}" CACHE PATH "Output 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/data/cmake/)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/data/cmake/vala)
 
-message(STATUS "Compiling Update-AppStream-Index version ${UAI_VERSION}")
+message(STATUS "Compiling AppStream core modules version ${AS_VERSION}")
 
 add_custom_target(distclean
   "make clean"
@@ -83,7 +84,7 @@ set (LIBDIR "${INSTALL_DIR_LIB}")
 set (PKGLIBDIR "${INSTALL_DIR_LIBEXEC}")
 set (GETTEXT_PACKAGE "update-appstream-index")
 set (LOCALE_DIR "${DATADIR}/locale")
-set (VERSION "${UAI_VERSION}")
+set (VERSION "${AS_VERSION}")
 set (BUILDDIR "${CMAKE_BINARY_DIR}")
 
 configure_file(config.h.in ${CMAKE_BINARY_DIR}/config.h)
@@ -117,6 +118,7 @@ include(${VALA_USE_FILE})
 ensure_vala_version("0.16" MINIMUM)
 
 add_subdirectory(src)
+add_subdirectory(uai)
 add_subdirectory(client)
 add_subdirectory(data)
 add_subdirectory(docs)

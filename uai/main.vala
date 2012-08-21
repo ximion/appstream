@@ -1,4 +1,4 @@
-/* update-appstream-index.vala
+/* main.vala -- Main file for update-appstream-index
  *
  * Copyright (C) 2012 Matthias Klumpp
  *

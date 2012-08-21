@@ -31,6 +31,7 @@ private class UaiClient : Object {
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
 	private static bool o_refresh = false;
+	private static bool o_no_wait = false;
 
 	private MainLoop loop;
 
@@ -43,6 +44,8 @@ private class UaiClient : Object {
 			N_("Enable verbose mode"), null },
 		{ "refresh", 'v', 0, OptionArg.NONE, ref o_refresh,
 		N_("Refresh the AppStream application cache"), null },
+		{ "nowait", 'v', 0, OptionArg.NONE, ref o_no_wait,
+		N_("Don't wait for actions to complete'"), null },
 		{ null }
 	};
 
@@ -111,7 +114,9 @@ private class UaiClient : Object {
 			return;
 		}
 
-		loop.run();
+		// return immediately without waiting for action to complete if user has set --nowait
+		if (!o_no_wait)
+			loop.run();
 
 	}
 
