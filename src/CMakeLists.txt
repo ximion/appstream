@@ -53,7 +53,7 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/appstream_internal.vapi
 )
 add_custom_target(header_internal_fix DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/appstream_internal.vapi)
 
-add_library(appstream SHARED ${ASLIB_SRC_C} ${UAI_XAP_SOURCES})
+add_library(appstream SHARED ${ASLIB_SRC_C} ${ASLIB_XAP_SOURCES})
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 add_dependencies(appstream aslib-precomp)

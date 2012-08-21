@@ -25,7 +25,7 @@
 #include <string>
 #include <xapian.h>
 #include <glib.h>
-#include "uai_internal.h"
+#include "appstream_internal.h"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ public:
 
 	bool init (const gchar *dbPath);
 
-	bool addApplication (UaiAppInfo *app);
+	bool addApplication (AppstreamAppInfo *app);
 	bool rebuild (GArray *apps);
 
 private:
@@ -82,7 +82,7 @@ extern "C" {
 Database *xa_database_new () { return new Database (); };
 void xa_database_free (Database *db) { delete db; };
 gboolean xa_database_init (Database *db, const gchar *db_path) { return db->init (db_path); };
-gboolean xa_database_add_application (Database *db, UaiAppInfo *app) { return db->addApplication (app); };
+gboolean xa_database_add_application (Database *db, AppstreamAppInfo *app) { return db->addApplication (app); };
 gboolean xa_database_rebuild (Database *db, GArray *apps) { return db->rebuild (apps); };
 
 }

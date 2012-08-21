@@ -73,19 +73,19 @@ bool Database::rebuild (GArray *apps)
 	string rebuild_path = m_dbPath + "_rb";
 
 	// Create the rebuild directory
-	if (!uai_utils_touch_dir (rebuild_path.c_str ()))
+	if (!appstream_utils_touch_dir (rebuild_path.c_str ()))
 		return false;
 
 	// check if old unrequired version of db still exists on filesystem
 	if (g_file_test (old_path.c_str (), G_FILE_TEST_EXISTS)) {
 		g_warning ("Existing xapian old db was not previously cleaned: '%s'.", old_path.c_str ());
-		uai_utils_delete_dir_recursive (old_path.c_str ());
+		appstream_utils_delete_dir_recursive (old_path.c_str ());
 	}
 
 	// check if old unrequired version of db still exists on filesystem
 	if (g_file_test (rebuild_path.c_str (), G_FILE_TEST_EXISTS)) {
 		cout << "Removing old rebuild-dir from previous database rebuild." << endl;
-		uai_utils_delete_dir_recursive (rebuild_path.c_str ());
+		appstream_utils_delete_dir_recursive (rebuild_path.c_str ());
 	}
 
 	Xapian::WritableDatabase db (rebuild_path, Xapian::DB_CREATE_OR_OVERWRITE);
@@ -110,17 +110,17 @@ bool Database::rebuild (GArray *apps)
 	}
 
 	for (guint i=0; i < apps->len; i++) {
-		UaiAppInfo *app = g_array_index (apps, UaiAppInfo*, i);
+		AppstreamAppInfo *app = g_array_index (apps, AppstreamAppInfo*, i);
 
 		int length;
 		Xapian::Document doc;
 
-		cout << "Adding application: " << uai_app_info_to_string (app) << endl;
+		cout << "Adding application: " << appstream_app_info_to_string (app) << endl;
 
-		doc.set_data (uai_app_info_get_name (app));
+		doc.set_data (appstream_app_info_get_name (app));
 
 		// Package name
-		string pkgname = uai_app_info_get_pkgname (app);
+		string pkgname = appstream_app_info_get_pkgname (app);
 		doc.add_value (PKGNAME, pkgname);
 		doc.add_term("AP" + pkgname);
 		if (pkgname.find ("-") != string::npos) {
@@ -132,34 +132,34 @@ bool Database::rebuild (GArray *apps)
 		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 
 		// Untranslated application name
-		doc.add_value (APPNAME_UNTRANSLATED, uai_app_info_get_name_original (app));
+		doc.add_value (APPNAME_UNTRANSLATED, appstream_app_info_get_name_original (app));
 
 		// Application name
-		string appName = uai_app_info_get_name (app);
+		string appName = appstream_app_info_get_name (app);
 		doc.add_value (APPNAME, appName);
 		doc.add_term ("AA" + appName);
 		term_generator.index_text_without_positions (appName, WEIGHT_DESKTOP_NAME);
 
 		// Desktop file
-		doc.add_value (DESKTOP_FILE, uai_app_info_get_desktop_file (app));
+		doc.add_value (DESKTOP_FILE, appstream_app_info_get_desktop_file (app));
 
 		// URL
-		doc.add_value (SUPPORT_SITE_URL, uai_app_info_get_url (app));
+		doc.add_value (SUPPORT_SITE_URL, appstream_app_info_get_url (app));
 
 		// Application stock icon
-		doc.add_value (ICON, uai_app_info_get_icon (app));
+		doc.add_value (ICON, appstream_app_info_get_icon (app));
 
 		// Summary
-		string appSummary = uai_app_info_get_summary (app);
+		string appSummary = appstream_app_info_get_summary (app);
 		doc.add_value (SUMMARY, appSummary);
 		term_generator.index_text_without_positions (appSummary, WEIGHT_SUMMARY);
 
 		// Long description
-		doc.add_value (SC_DESCRIPTION, uai_app_info_get_description (app));
+		doc.add_value (SC_DESCRIPTION, appstream_app_info_get_description (app));
 
 		// Categories
 		length = 0;
-		gchar **categories = uai_app_info_get_categories (app, &length);
+		gchar **categories = appstream_app_info_get_categories (app, &length);
 		string categories_string = "";
 		for (uint i=0; i < length; i++) {
 			if (categories[i] == NULL)
@@ -176,7 +176,7 @@ bool Database::rebuild (GArray *apps)
 
 		// Add our keywords (with high priority)
 		length = 0;
-		gchar **keywords = uai_app_info_get_keywords (app, &length);
+		gchar **keywords = appstream_app_info_get_keywords (app, &length);
 		for (uint i=0; i < length; i++) {
 			if (keywords[i] == NULL)
 				continue;
@@ -192,7 +192,7 @@ bool Database::rebuild (GArray *apps)
 		db.add_document (doc);
 	}
 
-	db.set_metadata("db-schema-version", DB_SCHEMA_VERSION);
+	db.set_metadata("db-schema-version", APPSTREAM_DB_SCHEMA_VERSION);
 	db.flush ();
 
 	if (g_rename (m_dbPath.c_str (), old_path.c_str ()) < 0) {
@@ -203,12 +203,12 @@ bool Database::rebuild (GArray *apps)
 		g_critical ("Error while moving rebuilt database.");
 		return false;
 	}
-	uai_utils_delete_dir_recursive (old_path.c_str ());
+	appstream_utils_delete_dir_recursive (old_path.c_str ());
 
 	return true;
 }
 
-bool Database::addApplication (UaiAppInfo *app)
+bool Database::addApplication (AppstreamAppInfo *app)
 {
 	// TODO
 	return false;

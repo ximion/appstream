@@ -39,7 +39,7 @@ public class Engine : Object {
 		if (CURRENT_DB_PATH == "")
 			CURRENT_DB_PATH = db_rw.get_db_path ();
 		// Make sure directory exists
-		Utils.touch_dir (CURRENT_DB_PATH);
+		Appstream.Utils.touch_dir (CURRENT_DB_PATH);
 
 		timer = new Timer ();
 		appList = new Array<Appstream.AppInfo> ();
