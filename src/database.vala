@@ -38,8 +38,21 @@ public class SearchQuery : Object {
 		search_term = term;
 	}
 
-	public bool search_all_cetegories () {
+	public bool get_search_all_categories () {
 		return (categories.length <= 0);
+	}
+
+	public void set_search_all_categories () {
+		categories = {};
+	}
+
+	public void set_categories_from_menudirs (MenuDir[] menu_dirs) {
+		string[] categories_new = {};
+		foreach (MenuDir mdir in menu_dirs) {
+			stdout.printf ("%s\n", mdir.id);
+			categories_new += mdir.name;
+		}
+		categories = categories_new;
 	}
 
 	internal void sanitize_search_term () {

@@ -19,11 +19,21 @@
  */
 
 using GLib;
+using Appstream;
 
 private string datadir;
 
 void msg (string s) {
 	stdout.printf (s + "\n");
+}
+
+void test_menuparser () {
+	var parser = new MenuParser ();
+	MenuDir[] menu_dirs = parser.parse();
+	assert (menu_dirs.length > 4);
+
+	var query = new SearchQuery ();
+	query.set_categories_from_menudirs (menu_dirs);
 }
 
 int main (string[] args) {
@@ -36,7 +46,7 @@ int main (string[] args) {
 	Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
 	Test.init (ref args);
 
-	// No tests to run at time :-)
+	test_menuparser ();
 
 	Test.run ();
 	return 0;

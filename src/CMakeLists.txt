@@ -15,6 +15,7 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		utils.vala
 		app-info.vala
 		database.vala
+		menudir.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp

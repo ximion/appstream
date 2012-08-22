@@ -185,7 +185,7 @@ DatabaseRead::queryListFromSearchEntry (AppstreamSearchQuery *asQuery)
 	// prepare search-term
 	appstream_search_query_sanitize_search_term (asQuery);
 	string search_term = appstream_search_query_get_search_term (asQuery);
-	bool searchAll = appstream_search_query_search_all_cetegories (asQuery);
+	bool searchAll = appstream_search_query_get_search_all_categories (asQuery);
 
 	// TODO: Generate Category Query!
 	Xapian::Query category_query = Xapian::Query ();
