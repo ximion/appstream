@@ -70,3 +70,4 @@ target_link_libraries(appstream
 )
 
 install(TARGETS appstream DESTINATION ${INSTALL_DIR_LIB})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream.vapi DESTINATION ${CMAKE_INSTALL_PREFIX}/share/vala/vapi)
