@@ -23,6 +23,7 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 #include <xapian.h>
 #include <glib.h>
 #include "appstream_internal.h"
@@ -40,21 +41,34 @@ public:
 	string getSchemaVersion ();
 
 	GArray *getAllApplications ();
+	GArray *findApplications (AppstreamSearchQuery *asQuery);
 
 private:
-	Xapian::Database *m_xapianDB;
+	Xapian::Database m_xapianDB;
 	string m_dbPath;
 
 	AppstreamAppInfo *docToAppInfo (Xapian::Document);
+
+	Xapian::QueryParser newAppStreamParser ();
+	Xapian::Query addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
+	Xapian::Query queryForPkgNames (vector<string> pkgnames);
+	Xapian::Query queryListFromSearchEntry (AppstreamSearchQuery *asQuery);
 };
 
 extern "C" {
 
-DatabaseRead *xa_database_read_new () { return new DatabaseRead (); };
-void xa_database_read_free (DatabaseRead *db) { delete db; };
-gboolean xa_database_read_open (DatabaseRead *db, const gchar *db_path) { return db->open (db_path); };
-const gchar *xa_database_read_get_schema_version (DatabaseRead *db) { return db->getSchemaVersion ().c_str (); };
-GArray *xa_database_read_get_all_applications (DatabaseRead *db) { return db->getAllApplications(); };
+DatabaseRead *xa_database_read_new ()
+	{ return new DatabaseRead (); };
+void xa_database_read_free (DatabaseRead *db)
+	{ delete db; };
+gboolean xa_database_read_open (DatabaseRead *db, const gchar *db_path)
+	{ return db->open (db_path); };
+const gchar *xa_database_read_get_schema_version (DatabaseRead *db)
+	{ return db->getSchemaVersion ().c_str (); };
+GArray *xa_database_read_get_all_applications (DatabaseRead *db)
+	{ return db->getAllApplications (); };
+GArray *xa_database_read_find_applications (DatabaseRead *db, AppstreamSearchQuery *query)
+	{ return db->findApplications (query); };
 
 }
 

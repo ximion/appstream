@@ -31,6 +31,7 @@ namespace ASXapian {
 		public string get_schema_version ();
 
 		public GLib.Array<Appstream.AppInfo> get_all_applications ();
+		public GLib.Array<Appstream.AppInfo> find_applications (Appstream.SearchQuery query);
 	}
 
 	[Compact]

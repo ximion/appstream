@@ -19,6 +19,7 @@
  */
 
 using GLib;
+using Appstream;
 
 private string datadir;
 
@@ -41,6 +42,12 @@ void test_database () {
 	apps = db.get_all_applications ();
 	assert (apps != null);
 
+	print_apparray (apps);
+
+	msg ("==============================");
+
+	var query = new SearchQuery ("firefox");
+	apps = db.find_applications (query);
 	print_apparray (apps);
 }
 
