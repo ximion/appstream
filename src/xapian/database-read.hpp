@@ -29,7 +29,6 @@
 #include "appstream_internal.h"
 
 using namespace std;
-using namespace AppStream;
 
 class DatabaseRead
 {

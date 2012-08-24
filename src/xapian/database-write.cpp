@@ -29,6 +29,7 @@
 #include "database-common.hpp"
 
 using namespace std;
+using namespace AppStream;
 
 DatabaseWrite::DatabaseWrite () :
     m_rwXapianDB(0)
