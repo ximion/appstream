@@ -45,7 +45,7 @@ public class AppInfo : Object {
 	public string desktop_file { get; set; }
 
 	public string icon { get; set; }
-	public string[] categories { get; set; }
+	public Category[] categories { get; set; }
 
 	public string[] mimetypes { get; set; }
 
@@ -59,7 +59,7 @@ public class AppInfo : Object {
 		url = "";
 		desktop_file = "";
 		icon = "";
-		//categories = "";
+		categories = {};
 	}
 
 	public bool is_valid () {
@@ -75,10 +75,12 @@ public class AppInfo : Object {
 	}
 
 	public bool set_categories_from_str (string categories_str) {
-		string[] cats = categories_str.split (";");
-		if (cats.length == 0)
+		Category[]? catlist = Utils.categories_from_str (categories_str, get_system_categories ());
+		if (catlist == null)
 			return false;
-		categories = cats;
+
+		categories = catlist;
+
 		return true;
 	}
 

@@ -20,15 +20,18 @@
 
 using GLib;
 using Uai;
+using Appstream;
 
 namespace Uai.Provider {
 
 private static const string UBUNTU_APPINSTALL_DIR = "/usr/share/app-install";
 
 private class UbuntuAppinstall : Uai.DataProvider {
+	private Category[] system_categories;
 
 	public UbuntuAppinstall () {
-
+		// cache this for performance reasons
+		system_categories = Appstream.get_system_categories ();
 	}
 
 	private string desktop_file_get_str (KeyFile key_file, string key) {
@@ -69,7 +72,8 @@ private class UbuntuAppinstall : Uai.DataProvider {
 		app.icon = desktop_file_get_str (desktopFile, "Icon");
 
 		string categories = desktop_file_get_str (desktopFile, "Categories");
-		app.categories = categories.split (";");
+		string[] cats_strv = categories.split (";");
+		app.categories = Appstream.Utils.categories_from_strv (cats_strv, system_categories);
 
 		string mimetypes = desktop_file_get_str (desktopFile, "MimeType");
 		if (!Utils.str_empty (mimetypes)) {

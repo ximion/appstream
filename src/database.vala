@@ -32,7 +32,7 @@ private static const string SEARCH_GREYLIST_STR = _("app;application;package;pro
 
 public class SearchQuery : Object {
 	public string search_term { get; set; }
-	public string[] categories { get; set; }
+	public Category[] categories { get; set; }
 
 	public SearchQuery (string term = "") {
 		search_term = term;
@@ -46,13 +46,14 @@ public class SearchQuery : Object {
 		categories = {};
 	}
 
-	public void set_categories_from_menudirs (MenuDir[] menu_dirs) {
-		string[] categories_new = {};
-		foreach (MenuDir mdir in menu_dirs) {
-			stdout.printf ("%s\n", mdir.id);
-			categories_new += mdir.name;
-		}
-		categories = categories_new;
+	public bool set_categories_from_string (string categories_str) {
+		Category[]? catlist = Utils.categories_from_str (categories_str, get_system_categories ());
+		if (catlist == null)
+			return false;
+
+		categories = catlist;
+
+		return true;
 	}
 
 	internal void sanitize_search_term () {
@@ -79,6 +80,7 @@ public class SearchQuery : Object {
 		search_term = search_term.strip ();
 	}
 }
+
 /**
  * Class to access the AppStream
  * application database
@@ -87,7 +89,7 @@ public class Database : Object {
 	private ASXapian.DatabaseRead db;
 	private bool opened_;
 
-	public string database_path { get; set; }
+	public string database_path { get; internal set; }
 
 	public Database () {
 		db = new ASXapian.DatabaseRead ();

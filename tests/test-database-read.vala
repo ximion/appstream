@@ -42,13 +42,26 @@ void test_database () {
 	apps = db.get_all_applications ();
 	assert (apps != null);
 
-	print_apparray (apps);
+	//print_apparray (apps);
 
 	msg ("==============================");
 
 	var query = new SearchQuery ("firefox");
 	apps = db.find_applications (query);
 	print_apparray (apps);
+	assert (apps.length > 4);
+
+	query = new SearchQuery ("");
+	query.set_categories_from_string ("science");
+	apps = db.find_applications (query);
+	print_apparray (apps);
+	assert (apps.length > 40);
+
+	query = new SearchQuery ("protein");
+	query.set_categories_from_string ("science");
+	apps = db.find_applications (query);
+	print_apparray (apps);
+	assert (apps.length > 4);
 }
 
 int main (string[] args) {

@@ -71,4 +71,37 @@ internal bool delete_dir_recursive (string dirname) {
 	return true;
 }
 
+/**
+ * Create a list of categories from string array
+ */
+internal Category[] categories_from_strv (string[] categories_strv, Category[] system_categories) {
+	// This needs to be done way smarter...
+
+	Category[] cat_list = {};
+	foreach (string idstr in categories_strv) {
+		foreach (Category sys_cat in system_categories) {
+			if (sys_cat.id.down () == idstr.down ()) {
+				cat_list += sys_cat;
+				break;
+			}
+		}
+	}
+
+	return cat_list;
+}
+
+/**
+ * Create a list of categories from semicolon-separated string
+ */
+private Category[]? categories_from_str (string categories_str, Category[] system_categories) {
+	string[] cats = categories_str.split (";");
+	if (cats.length == 0)
+		return null;
+
+	Category[] cat_list = categories_from_strv (cats, system_categories);
+
+	return cat_list;
+
+}
+
 } // End of namespace: Appstream.Utils

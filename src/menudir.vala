@@ -20,17 +20,17 @@ using GLib;
 
 namespace Appstream {
 
-public class MenuDir : Object {
-	public string id { get; set; }
-	public string name { get; set; }
-	public string summary { get; set; }
-	public string icon { get; set; }
-	public string directory { get; set; }
-	public string[] included;
-	public string[] excluded;
-	public int level;
+public class Category : Object {
+	public string id { get; internal set; }
+	public string name { get; internal set; }
+	public string summary { get; private set; }
+	public string icon { get; private set; }
+	public string directory { get; internal set; }
+	public string[] included { get; internal set; }
+	public string[] excluded { get; internal set; }
+	public int level { get; internal set; }
 
-	public MenuDir () {
+	public Category () {
 		included = {};
 		excluded = {};
 	}
@@ -67,8 +67,8 @@ public class MenuParser {
 
 	private string menu_file;
 	private MarkupParseContext context;
-	private MenuDir[] dirlist;
-	private MenuDir[] dirs_level;
+	private Category[] dirlist;
+	private Category[] dirs_level;
 	private int level = 0;
 	private string last_item;
 	private bool include = true;
@@ -92,7 +92,7 @@ public class MenuParser {
 		file = new KeyFile();
 	}
 
-	public MenuDir[] parse () {
+	public Category[] parse () {
 		string file;
 		FileUtils.get_contents (menu_file, out file, null);
 		context.parse (file, file.length);
@@ -104,7 +104,7 @@ public class MenuParser {
 		last_item = name;
 		switch (name) {
 			case "Menu":
-				MenuDir tmp = new MenuDir();
+				Category tmp = new Category();
 				dirs_level[level] = tmp;
 				dirlist += tmp;
 				dirs_level[level].level = level;
@@ -143,7 +143,7 @@ public class MenuParser {
 				dirs_level[level-1].directory = text;
 				break;
 			case "Category":
-				MenuDir mdir = dirs_level[level-1];
+				Category mdir = dirs_level[level-1];
 				if (include) {
 					string[] tmp = mdir.included;
 					tmp += text;
@@ -156,6 +156,13 @@ public class MenuParser {
 				break;
 		}
 	}
+}
+
+public static Category[] get_system_categories () {
+	var parser = new MenuParser ();
+	Category[] system_cats = parser.parse ();
+
+	return system_cats;
 }
 
 } // End of namespace: Appstream

@@ -29,11 +29,11 @@ void msg (string s) {
 
 void test_menuparser () {
 	var parser = new MenuParser ();
-	MenuDir[] menu_dirs = parser.parse();
+	Category[] menu_dirs = parser.parse();
 	assert (menu_dirs.length > 4);
 
 	var query = new SearchQuery ();
-	query.set_categories_from_menudirs (menu_dirs);
+	query.categories = menu_dirs;
 }
 
 int main (string[] args) {

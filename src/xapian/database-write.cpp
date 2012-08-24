@@ -106,7 +106,6 @@ DatabaseWrite::rebuild (GArray *apps)
 	for (guint i=0; i < apps->len; i++) {
 		AppstreamAppInfo *app = g_array_index (apps, AppstreamAppInfo*, i);
 
-		int length;
 		Xapian::Document doc;
 
 		cout << "Adding application: " << appstream_app_info_to_string (app) << endl;
@@ -152,14 +151,14 @@ DatabaseWrite::rebuild (GArray *apps)
 		doc.add_value (SC_DESCRIPTION, appstream_app_info_get_description (app));
 
 		// Categories
-		length = 0;
-		gchar **categories = appstream_app_info_get_categories (app, &length);
+		int length = 0;
+		AppstreamCategory **categories = appstream_app_info_get_categories (app, &length);
 		string categories_string = "";
 		for (uint i=0; i < length; i++) {
 			if (categories[i] == NULL)
 				continue;
 
-			string cat = categories[i];
+			string cat = appstream_category_get_id (categories[i]);
 			string tmp = cat;
 			transform (tmp.begin (), tmp.end (),
 					tmp.begin (), ::tolower);
