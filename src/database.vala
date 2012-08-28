@@ -124,6 +124,16 @@ public class Database : Object {
 		return appArray;
 	}
 
+	public Array<Appstream.AppInfo>? find_applications_by_str (string search_str, string? categories_str = null) {
+		var query = new SearchQuery (search_str);
+		if (categories_str == null)
+			query.set_search_all_categories ();
+		else
+			query.set_categories_from_string (categories_str);
+
+		return find_applications (query);
+	}
+
 }
 
 /**
