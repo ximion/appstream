@@ -68,9 +68,32 @@ public class Engine : Object {
 	}
 
 	public bool refresh (GLib.BusName sender) {
-		bool ret;
+		bool ret = false;
+
 		timer.stop ();
 		timer.reset ();
+
+		try {
+			var authority = Polkit.Authority.get_sync (null);
+			var subject = Polkit.SystemBusName.new (sender);
+
+			var res = authority.check_authorization_sync (subject,
+								"org.freedesktop.appstream.refresh",
+								null,
+								Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION,
+								null);
+			ret = res.get_is_authorized ();
+		} catch (Error e) {
+			critical (e.message);
+			rebuild_finished ();
+			return false;
+		}
+
+		if (!ret) {
+			warning ("Couldn't get authorization for this action!");
+			return false;
+		}
+
 #if APPSTREAM
 		run_provider (new Provider.AppstreamXML ());
 #endif
