@@ -63,7 +63,7 @@ add_custom_target (gir-compile
 	${INTROSPECTION_COMPILER}  "--shared-library=appstream" "--includedir=."
 				"${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir"
 				"-o" "${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.typelib"
-	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir
+	DEPENDS aslib-precomp
 	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 

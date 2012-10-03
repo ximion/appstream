@@ -1,4 +1,4 @@
-/* main.vala -- Main file for update-appstream-index
+/* uai.vala -- Main file for update-appstream-index
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -127,7 +127,7 @@ private class Main : Object {
 
 		// TODO
 		// Hardcode it for now, make it a setting later
-		exit_idle_time = 20;
+		exit_idle_time = 24;
 
 		// only poll when we are alive
 		uint timer_id;

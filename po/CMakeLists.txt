@@ -11,7 +11,7 @@ endif (LC_INTLTOOL_UPDATE STREQUAL "")
 
 set(LPKNAME "appstream")
 
-add_custom_target (nls-update
+add_custom_target (l10n-update
 	${LC_INTLTOOL_UPDATE} -p -g "${LPKNAME}"
 	DEPENDS POTFILES.in
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}

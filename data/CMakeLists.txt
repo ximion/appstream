@@ -22,7 +22,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.AppStream.service
 	DESTINATION share/dbus-1/system-services/
 )
 
-add_custom_target (merge-l18n ALL
+add_custom_target (merge-l10n ALL
 	${LC_INTLTOOL_MERGE} -x ${CMAKE_SOURCE_DIR}/po
 		${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.appstream.policy.in
 		${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.appstream.policy

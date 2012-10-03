@@ -10,7 +10,7 @@ find_package(LibXml2 REQUIRED)
 find_library(M_LIB m)
 pkg_check_modules(POLKIT REQUIRED polkit-gobject-1>=0.104)
 
-set(UAI_SOURCES main.vala
+set(UAI_SOURCES uai.vala
 		uai-utils.vala
 		uai-engine.vala
 		data-provider.vala
