@@ -33,3 +33,7 @@ add_custom_target (merge-l10n ALL
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.appstream.policy
 	DESTINATION share/polkit-1/actions/
 )
+
+install(FILES categories.xml
+	DESTINATION share/app-info/
+)
