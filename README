@@ -1,0 +1,19 @@
+AppStream-Core
+
+=== Compiling instructions ===
+
+To compile AppStream-Core, make sure that you have all required libraries (development files!) installed.
+Then continue. (the build system will complain about missing dependencies)
+
+You should use CMake directly to build AppStream-Core:
+mkdir build
+cd build
+cmake .. <flags>
+Possible flags are:
+ -PROVIDER_DEBIAN_DEP11=ON      -- Enable support for Debian DEP11 AppStream format
+ -PROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall AppStream data provider
+
+=== Installation ===
+
+To install the compiled binaries and required data files, execute
+"make install" with superuser rights.
