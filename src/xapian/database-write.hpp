@@ -46,19 +46,4 @@ private:
 
 };
 
-extern "C" {
-
-DatabaseWrite *xa_database_write_new ()
-	{ return new DatabaseWrite (); };
-void xa_database_write_free (DatabaseWrite *db)
-	{ delete db; };
-gboolean xa_database_write_init (DatabaseWrite *db, const gchar *db_path)
-	{ return db->init (db_path); };
-gboolean xa_database_write_add_application (DatabaseWrite *db, AppstreamAppInfo *app)
-	{ return db->addApplication (app); };
-gboolean xa_database_write_rebuild (DatabaseWrite *db, GArray *apps)
-	{ return db->rebuild (apps); };
-
-}
-
 #endif // DATABASE_WRITE_H

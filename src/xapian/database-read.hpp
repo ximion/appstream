@@ -58,21 +58,4 @@ private:
 	Xapian::Query queryListFromSearchEntry (AppstreamSearchQuery *asQuery);
 };
 
-extern "C" {
-
-DatabaseRead *xa_database_read_new ()
-	{ return new DatabaseRead (); };
-void xa_database_read_free (DatabaseRead *db)
-	{ delete db; };
-gboolean xa_database_read_open (DatabaseRead *db, const gchar *db_path)
-	{ return db->open (db_path); };
-const gchar *xa_database_read_get_schema_version (DatabaseRead *db)
-	{ return db->getSchemaVersion ().c_str (); };
-GArray *xa_database_read_get_all_applications (DatabaseRead *db)
-	{ return db->getAllApplications (); };
-GArray *xa_database_read_find_applications (DatabaseRead *db, AppstreamSearchQuery *query)
-	{ return db->findApplications (query); };
-
-}
-
 #endif // DATABASE_READ_H

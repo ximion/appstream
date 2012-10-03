@@ -24,6 +24,8 @@ set(ASLIB_XAP_SOURCES xapian/database-common.hpp
 		xapian/database-read.cpp
 		xapian/database-write.hpp
 		xapian/database-write.cpp
+		xapian/database-vala.hpp
+		xapian/database-vala.cpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian

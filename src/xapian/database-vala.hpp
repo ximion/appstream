@@ -1,4 +1,4 @@
-/* database-vala.h
+/* database-vala.hpp
  *
  * Copyright (C) 2012 Matthias Klumpp
  *
@@ -21,8 +21,34 @@
 #ifndef DATABASE_VALA_H
 #define DATABASE_VALA_H
 
+#include <glib.h>
+#include "appstream_internal.h"
+
+extern "C" {
+
 /* _VERY_ ugly hack to make C++ and Vala work together */
 typedef gpointer XADatabaseRead;
 typedef gpointer XADatabaseWrite;
+
+/* methods for database read access */
+
+XADatabaseRead *xa_database_read_new ();
+void xa_database_read_free (XADatabaseRead *db);
+
+gboolean xa_database_read_open (XADatabaseRead *db, const gchar *db_path);
+const gchar *xa_database_read_get_schema_version (XADatabaseRead *db);
+GArray *xa_database_read_get_all_applications (XADatabaseRead *db);
+GArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSearchQuery *query);
+
+/* methods for database write access */
+
+XADatabaseWrite *xa_database_write_new ();
+void xa_database_write_free (XADatabaseWrite *db);
+
+gboolean xa_database_write_init (XADatabaseWrite *db, const gchar *db_path);
+gboolean xa_database_write_add_application (XADatabaseWrite *db, AppstreamAppInfo *app);
+gboolean xa_database_write_rebuild (XADatabaseWrite *db, GArray *apps);
+
+};
 
 #endif /* DATABASE_VALA_H */
