@@ -10,8 +10,8 @@ mkdir build
 cd build
 cmake .. <flags>
 Possible flags are:
- -PROVIDER_DEBIAN_DEP11=ON      -- Enable support for Debian DEP11 AppStream format
- -PROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall AppStream data provider
+ -DPROVIDER_DEBIAN_DEP11=ON      -- Enable support for Debian DEP11 AppStream format
+ -DPROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall AppStream data provider
 
 === Installation ===
 
