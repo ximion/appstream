@@ -6,6 +6,7 @@ include("${VALA_USE_FILE}")
 find_package(GLIB2 2.28 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(Xapian 1.2 REQUIRED)
+find_package(GI REQUIRED)
 
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 
@@ -57,11 +58,21 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/appstream_internal.vapi
 )
 add_custom_target(header_internal_fix DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/appstream_internal.vapi)
 
+# Compile the introspection data
+add_custom_target (gir-compile
+	${INTROSPECTION_COMPILER}  "--shared-library=appstream" "--includedir=."
+				"${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir"
+				"-o" "${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.typelib"
+	DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir
+	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)
+
 add_library(appstream SHARED ${ASLIB_SRC_C} ${ASLIB_XAP_SOURCES})
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 add_dependencies(appstream aslib-precomp)
 add_dependencies (appstream header_internal_fix)
+add_dependencies (appstream gir-compile)
 
 target_link_libraries(appstream
 		${GLIB2_LIBRARIES}
@@ -69,6 +80,12 @@ target_link_libraries(appstream
 		${XAPIAN_LIBRARIES}
 )
 
+configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc @ONLY)
+
 install(TARGETS appstream DESTINATION ${INSTALL_DIR_LIB})
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi DESTINATION ${CMAKE_INSTALL_PREFIX}/share/vala/vapi)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.h DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi DESTINATION share/vala/vapi)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.h DESTINATION include)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION lib/pkgconfig/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir DESTINATION share/gir-1.0/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.typelib DESTINATION lib/girepository-1.0/)
+
