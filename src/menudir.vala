@@ -1,5 +1,8 @@
 /* menudir.vala
  *
+ * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012 Stephen Smally
+ *
  * Licensed under the GNU Lesser General Public License Version 3
  *
  * This library is free software: you can redistribute it and/or modify
@@ -75,7 +78,7 @@ public class MenuParser {
 	private KeyFile file;
 
 	public MenuParser () {
-		this.from_file ("/etc/xdg/menus/applications.menu");
+		this.from_file (Config.DATADIR + "/app-info/categories.xml");
 	}
 
 	public MenuParser.from_file (string menu_file) {

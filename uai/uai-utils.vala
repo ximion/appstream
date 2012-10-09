@@ -1,6 +1,6 @@
 /* uai-utils.vala -- Helper methods for update-appstream-index
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 3
  *
