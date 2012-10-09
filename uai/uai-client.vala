@@ -1,6 +1,6 @@
 /* uai-client.vala -- Simple client for the Update-AppStream-Index DBus service
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 3
  *
@@ -23,7 +23,9 @@ using GLib;
 [DBus (name = "org.freedesktop.AppStream")]
 interface UAIService : Object {
 	public abstract bool refresh () throws IOError;
-	public signal void rebuild_finished ();
+
+	public signal void error_code (string error_details);
+	public signal void finished (string action_name, bool success);
 }
 
 private class UaiClient : Object {
@@ -97,9 +99,19 @@ private class UaiClient : Object {
 		if (o_refresh) {
 			try {
 				/* Connecting to 'finished' signal */
-				uaisv.rebuild_finished.connect(() => {
-					stdout.printf ("%s\n", _("Finished rebuilding the app-info cache."));
+				uaisv.finished.connect((action, success) => {
+					if (action != "refresh")
+						return;
+
+					if (success)
+						stdout.printf ("%s\n", _("Successfully rebuilt the app-info cache."));
+					else
+						stdout.printf ("%s\n", _("Unable to rebuild the app-info cache."));
 					quit_loop ();
+				});
+
+				uaisv.error_code.connect((error_details) => {
+					stderr.printf ("%s\n", error_details);
 				});
 
 			stdout.printf ("Rebuilding app-info cache...\n");

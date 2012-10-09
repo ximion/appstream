@@ -1,6 +1,6 @@
 /* uai-engine.vala
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 3
  *
@@ -24,14 +24,30 @@ using Appstream;
 
 namespace Uai {
 
+public enum Action {
+	NONE,
+	REFRESH;
+
+	public string to_string () {
+		switch (this) {
+			case NONE: return "unknown";
+			case REFRESH: return "refresh";
+			default:
+				return "error";
+		}
+
+		return "";
+	}
+}
+
 [DBus (name = "org.freedesktop.AppStream")]
 public class Engine : Object {
 	private Appstream.DatabaseWrite db_rw;
 	private Array<Appstream.AppInfo> appList;
 	private Timer timer;
 
-	public signal void finished ();
-	public signal void rebuild_finished ();
+	public signal void error_code (string error_details);
+	public signal void finished (string action_name, bool success);
 
 	public Engine () {
 		db_rw = new Appstream.DatabaseWrite ();
@@ -69,6 +85,7 @@ public class Engine : Object {
 
 	public bool refresh (GLib.BusName sender) {
 		bool ret = false;
+		var action = Action.REFRESH;
 
 		timer.stop ();
 		timer.reset ();
@@ -84,13 +101,14 @@ public class Engine : Object {
 								null);
 			ret = res.get_is_authorized ();
 		} catch (Error e) {
-			critical (e.message);
-			rebuild_finished ();
+			error_code (e.message);
+			finished (action.to_string (), false);
 			return false;
 		}
 
 		if (!ret) {
-			warning ("Couldn't get authorization for this action!");
+			error_code (_("Couldn't get authorization to refresh the cache!"));
+			finished (action.to_string (), false);
 			return false;
 		}
 
@@ -106,7 +124,7 @@ public class Engine : Object {
 
 		ret = db_rw.rebuild (appList);
 
-		rebuild_finished ();
+		finished (action.to_string (), ret);
 		timer.start ();
 
 		return ret;
