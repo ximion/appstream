@@ -25,7 +25,7 @@ namespace Appstream {
 
 private static const string DB_SCHEMA_VERSION = "6";
 
-internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/software-center/xapian";
+internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/app-info/xapian";
 
 private static const string APPSTREAM_BASE_PATH = DATADIR + "/app-info";
 

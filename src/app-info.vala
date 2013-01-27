@@ -36,7 +36,7 @@ public class AppInfo : Object {
 			set {
 				_name = value;
 			}
-		}// Localized!
+		} // Localized!
 	public string name_original { get; set; } // Not localized!
 	public string summary { get; set; } // Localized!
 	public string description { get; set; } // Localized!
