@@ -10,7 +10,7 @@ find_package(GI REQUIRED)
 
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 
-set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}")
+set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
 set(APPSTREAM_LIB_SOURCES settings.vala
 		utils.vala

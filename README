@@ -12,6 +12,7 @@ cmake .. <flags>
 Possible flags are:
  -DPROVIDER_DEBIAN_DEP11=ON      -- Enable support for Debian DEP11 AppStream format
  -DPROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall AppStream data provider
+ -DDOCUMENTATION=ON              -- (Re)generate API documentation
 
 === Installation ===
 
