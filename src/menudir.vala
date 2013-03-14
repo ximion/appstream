@@ -39,6 +39,11 @@ public class Category : Object {
 	}
 
 	internal void complete (KeyFile file) {
+		if (directory == null) {
+			debug ("no directory set for category %s (%s)", name, id);
+			return;
+		}
+
 		summary = "";
 		icon = "applications-other";
 		try {
