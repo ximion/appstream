@@ -51,6 +51,7 @@ cp -dpr ./docs $R_ROOT/docs
 
 # cleanup files which should not go to the release tarball
 find ./release-tar-tmp -name .gitignore -type f -delete
+find ./release-tar-tmp -name '*~' -type f -delete
 rm $R_ROOT/release.sh
 
 # create release tarball

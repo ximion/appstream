@@ -1,3 +1,20 @@
+Version 0.2.0
+~~~~~~~~~~~~~~
+Released: 2013-03-15
+
+Features:
+ * Add distro-agnostic category definition (Matthias Klumpp)
+ * Make DBus API more failsafe (Matthias Klumpp)
+ * Place Xapian cache in different directory (Matthias Klumpp)
+ * Add release script and release instructions (Matthias Klumpp)
+
+Bugfixes:
+ * Kill some compiler warnings (Matthias Klumpp)
+ * Print error message if xmlto was not found (Matthias Klumpp)
+ * Make --nowait option finally work again (Matthias Klumpp)
+ * docs: Build C API documentation (Matthias Klumpp)
+ * Print better message if category dir is null (Matthias Klumpp)
+
 Version 0.1
 ~~~~~~~~~~~~~~
 Released: 2012-10-02
