@@ -38,7 +38,7 @@ fi
 rm -rf ./release-tar-tmp
 
 # check if we can build AppStream
-make clean all documentation
+make -C build clean all documentation
 
 mkdir -p ./release-tar-tmp
 git archive --prefix="AppStream-$APPSTREAM_VERSION/" "$GIT_TAG^{tree}" | tar -x -C ./release-tar-tmp
