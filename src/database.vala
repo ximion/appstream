@@ -147,6 +147,8 @@ internal class DatabaseWrite : Database {
 	public DatabaseWrite () {
 		base ();
 		db_w = new ASXapian.DatabaseWrite ();
+		// ensure db directory exists
+		touch_dir (SOFTWARE_CENTER_DATABASE_PATH);
 	}
 
 	public override void open () {
