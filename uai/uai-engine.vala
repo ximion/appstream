@@ -80,10 +80,15 @@ public class Engine : Object {
 		timer.start ();
 	}
 
+	private void emit_error (string details) {
+		error_code (details);
+		finish_reset (current_action.to_string (), false);
+	}
+
 	private void emit_error_code (string error_details) {
 		warning ("ERROR: %s", error_details);
 
-		error_code (error_details);
+		emit_error (error_details);
 	}
 
 	private bool run_provider (DataProvider dprov) {
@@ -127,15 +132,13 @@ public class Engine : Object {
 								null);
 			ret = res.get_is_authorized ();
 		} catch (Error e) {
-			emit_error_code (e.message);
-			finish_reset (action.to_string (), false);
+			emit_error (e.message);
 
 			return false;
 		}
 
 		if (!ret) {
-			emit_error_code (_("Couldn't get authorization to refresh the cache!"));
-			finish_reset (action.to_string (), false);
+			emit_error (_("Couldn't get authorization to refresh the cache!"));
 			authorized (false);
 
 			return false;
