@@ -35,6 +35,7 @@ private class UaiClient : Object {
 	private static bool o_verbose_mode = false;
 	private static bool o_refresh = false;
 	private static bool o_no_wait = false;
+	private static string? o_search = null;
 
 	private MainLoop loop;
 
@@ -45,10 +46,12 @@ private class UaiClient : Object {
 		N_("Show the application's version"), null },
 		{ "verbose", 0, 0, OptionArg.NONE, ref o_verbose_mode,
 			N_("Enable verbose mode"), null },
-		{ "refresh", 'v', 0, OptionArg.NONE, ref o_refresh,
+		{ "refresh", 0, 0, OptionArg.NONE, ref o_refresh,
 		N_("Refresh the AppStream application cache"), null },
-		{ "nowait", 'v', 0, OptionArg.NONE, ref o_no_wait,
+		{ "nowait", 0, 0, OptionArg.NONE, ref o_no_wait,
 		N_("Don't wait for actions to complete'"), null },
+		{ "search", 0, 0, OptionArg.STRING, ref o_search,
+		N_("Search the application database"), null },
 		{ null }
 	};
 
@@ -128,17 +131,42 @@ private class UaiClient : Object {
 				else
 					stdout.printf ("%s\n", _("Rebuilding app-info cache..."));
 
-				uaisv.refresh ();
+				uaisv.refresh.begin ((obj, res) => {
+					uaisv.refresh.end(res);
+					// just make sure that we really quit the loop
+					quit_loop ();
+				});
 
+				// run the loop
+				loop.run();
 			} catch (IOError e) {
 				stderr.printf ("%s\n", e.message);
 			}
+		} else if (o_search != null) {
+			var db = new Appstream.Database ();
+			db.open ();
+			Array<Appstream.AppInfo>? app_list;
+			app_list = db.find_applications_by_str (o_search);
+			if (app_list == null) {
+				// this might be an error
+				stdout.printf ("Unable to find application matching %s!\n", o_search);
+				exit_code = 4;
+				return;
+			}
+			if (app_list.length == 0) {
+				stdout.printf ("No application matching '%s' found.\n", o_search);
+				return;
+			}
+			for (uint i = 0; i < app_list.length; i++) {
+				Appstream.AppInfo app = app_list.index (i);
+				stdout.printf ("Application: %s\nSummary: %s\nPackage: %s\nURL:%s\nDesktop: %s\nIcon: %s\n", app.name, app.summary, app.pkgname, app.url, app.desktop_file, app.icon);
+				stdout.printf ("------\n");
+			}
+
 		} else {
 			stderr.printf ("No command specified.\n");
 			return;
 		}
-
-		loop.run();
 	}
 
 	static int main (string[] args) {

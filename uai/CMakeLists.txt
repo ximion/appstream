@@ -47,14 +47,15 @@ target_link_libraries(update-appstream-index
 
 # Add the appstream-index client tool
 vala_add_executable (appstream-index uai-client.vala
-				PACKAGES config gio-2.0 posix
-				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
+				PACKAGES config gio-2.0 posix appstream_internal
+				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
 
 target_link_libraries(appstream-index
 		${M_LIB}
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}
+		appstream
 )
 
 install(TARGETS update-appstream-index DESTINATION ${INSTALL_DIR_LIBEXEC})
