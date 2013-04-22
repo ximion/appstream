@@ -58,7 +58,7 @@ enum XapianValues {
 static const int WEIGHT_DESKTOP_NAME = 10;
 static const int WEIGHT_DESKTOP_KEYWORD = 5;
 static const int WEIGHT_DESKTOP_GENERICNAME = 3;
-static const int WEIGHT_DESKTOP_COMMENT = 1;
+static const int WEIGHT_DESKTOP_SUMMARY = 1;
 
 static const int WEIGHT_PKGNAME = 8;
 static const int WEIGHT_SUMMARY = 5;

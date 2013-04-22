@@ -123,16 +123,17 @@ DatabaseWrite::rebuild (GArray *apps)
 			replace (tmp.begin(), tmp.end(), '-', '_');
 			doc.add_term (tmp);
 		}
+		// add packagename as meta-data too
 		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 
 		// Untranslated application name
-		doc.add_value (APPNAME_UNTRANSLATED, appstream_app_info_get_name_original (app));
+		string appNameGeneric = appstream_app_info_get_name_original (app);
+		doc.add_value (APPNAME_UNTRANSLATED, appNameGeneric);
+		term_generator.index_text_without_positions (appNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
 		// Application name
 		string appName = appstream_app_info_get_name (app);
 		doc.add_value (APPNAME, appName);
-		doc.add_term ("AA" + appName);
-		term_generator.index_text_without_positions (appName, WEIGHT_DESKTOP_NAME);
 
 		// Desktop file
 		doc.add_value (DESKTOP_FILE, appstream_app_info_get_desktop_file (app));
@@ -146,7 +147,7 @@ DatabaseWrite::rebuild (GArray *apps)
 		// Summary
 		string appSummary = appstream_app_info_get_summary (app);
 		doc.add_value (SUMMARY, appSummary);
-		term_generator.index_text_without_positions (appSummary, WEIGHT_SUMMARY);
+		term_generator.index_text_without_positions (appSummary, WEIGHT_DESKTOP_SUMMARY);
 
 		// Long description
 		doc.add_value (SC_DESCRIPTION, appstream_app_info_get_description (app));
@@ -181,13 +182,17 @@ DatabaseWrite::rebuild (GArray *apps)
 
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
+		// Postprocess
 		term_generator.set_document (doc);
+		string docData = doc.get_data ();
+		doc.add_term ("AA" + docData);
+		term_generator.index_text_without_positions (docData, WEIGHT_DESKTOP_NAME);
 
 		db.add_document (doc);
 	}
 
 	db.set_metadata("db-schema-version", APPSTREAM_DB_SCHEMA_VERSION);
-	db.flush ();
+	db.commit ();
 
 	if (g_rename (m_dbPath.c_str (), old_path.c_str ()) < 0) {
 		g_critical ("Error while moving old database out of the way.");
