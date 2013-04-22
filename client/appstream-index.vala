@@ -1,4 +1,4 @@
-/* app-stream-index.vala -- Simple client for the Update-AppStream-Index DBus service
+/* appstream-index.vala -- Simple client for the Update-AppStream-Index DBus service
  *
  * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *

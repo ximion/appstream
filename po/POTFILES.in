@@ -1,15 +1,15 @@
 [encoding: UTF-8]
 # List of source files containing translatable strings.
 #
-# library sources
+# library & daemon sources
 src/app-info.vala
 src/database.vala
 src/menudir.vala
 src/settings.vala
 src/utils.vala
-# tools sources
-uai/uai-client.vala
-uai/uai-engine.vala
-uai/uai-utils.vala
+src/uai-service/uai-engine.vala
+src/uai-service/uai-utils.vala
+# client sources
+client/appstream-index.vala
 # other data
 data/org.freedesktop.appstream.policy.in
