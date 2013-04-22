@@ -20,15 +20,6 @@
 
 using GLib;
 
-[DBus (name = "org.freedesktop.AppStream")]
-interface UAIService : Object {
-	public abstract async bool refresh () throws IOError;
-
-	public signal void error_code (string error_details);
-	public signal void finished (string action_name, bool success);
-	public signal void authorized (bool success);
-}
-
 private class UaiClient : Object {
 	// Cmdln options
 	private static bool o_show_version = false;
@@ -91,65 +82,56 @@ private class UaiClient : Object {
 			Environment.set_variable ("G_MESSAGES_DEBUG", "all", true);
 
 
-		UAIService uaisv = null;
-		try {
-			uaisv = Bus.get_proxy_sync (BusType.SYSTEM, "org.freedesktop.AppStream",
-								"/org/freedesktop/appstream");
+		// Prepare the AppStream database connection
+		var db = new Appstream.Database ();
+		/* Connecting to 'finished' signal */
+		db.finished.connect((action, success) => {
+			if (action != "refresh")
+				return;
 
-		} catch (IOError e) {
-			stderr.printf ("%s\n", e.message);
-			exit_code = 1;
-			return;
-		}
+			if (success)
+				stdout.printf ("%s\n", _("Successfully rebuilt the app-info cache."));
+			else
+				stdout.printf ("%s\n", _("Unable to rebuild the app-info cache."));
+			quit_loop ();
+		});
+
+		db.error_code.connect((error_details) => {
+			stderr.printf ("Failed: %s\n", error_details);
+		});
+
+		db.authorized.connect((success) => {
+			// return immediately without waiting for action to complete if user has set --nowait
+			if (o_no_wait)
+				quit_loop ();
+		});
 
 		if (o_refresh) {
 			try {
-				/* Connecting to 'finished' signal */
-				uaisv.finished.connect((action, success) => {
-					if (action != "refresh")
-						return;
-
-					if (success)
-						stdout.printf ("%s\n", _("Successfully rebuilt the app-info cache."));
-					else
-						stdout.printf ("%s\n", _("Unable to rebuild the app-info cache."));
-					quit_loop ();
-				});
-
-				uaisv.error_code.connect((error_details) => {
-					stderr.printf ("%s\n", error_details);
-				});
-
-				uaisv.authorized.connect((success) => {
-					// return immediately without waiting for action to complete if user has set --nowait
-					if (o_no_wait)
-						quit_loop ();
-				});
-
 				if (o_no_wait)
 					stdout.printf ("%s\n", _("Triggered app-info cache rebuild."));
 				else
 					stdout.printf ("%s\n", _("Rebuilding app-info cache..."));
 
-				uaisv.refresh.begin ((obj, res) => {
+				db.refresh.begin ((obj, res) => {
 					try {
-						uaisv.refresh.end(res);
+						db.refresh.end(res);
 					} catch (Error e) {
 						exit_code = 6;
 						quit_loop ();
 						critical (e.message);
 					}
+
 					// just make sure that we really quit the loop
 					quit_loop ();
 				});
 
-				// run the loop
+				// start looping until refresh completes or fails
 				loop.run();
 			} catch (IOError e) {
 				stderr.printf ("%s\n", e.message);
 			}
 		} else if (o_search != null) {
-			var db = new Appstream.Database ();
 			db.open ();
 			Array<Appstream.AppInfo>? app_list;
 			app_list = db.find_applications_by_str (o_search);

@@ -23,6 +23,15 @@ using Appstream.Utils;
 
 namespace Appstream {
 
+[DBus (name = "org.freedesktop.AppStream")]
+private interface UAIService : Object {
+	public abstract async bool refresh () throws IOError;
+
+	public signal void error_code (string error_details);
+	public signal void finished (string action_name, bool success);
+	public signal void authorized (bool success);
+}
+
 /** TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,
  * provide a list of words in your language that people are likely
@@ -92,6 +101,10 @@ public class Database : Object {
 
 	public string database_path { get; internal set; }
 
+	public signal void error_code (string error_details);
+	public signal void finished (string action_name, bool success);
+	public signal void authorized (bool success);
+
 	public Database () {
 		db = new ASXapian.DatabaseRead ();
 		opened_ = false;
@@ -135,6 +148,40 @@ public class Database : Object {
 			query.set_categories_from_string (categories_str);
 
 		return find_applications (query);
+	}
+
+	/**
+	 * Make a DBus call telling the system to refresh the internal database
+	 * of available applications.
+	 * AppStream uses the metadata provided by your distributor to regenerate the
+	 * database.
+	 *
+	 * @return TRUE if refresh was successfull.
+	 */
+	public async bool refresh () throws IOError {
+		UAIService uaisv = null;
+		try {
+			uaisv = Bus.get_proxy_sync (BusType.SYSTEM, "org.freedesktop.AppStream",
+								"/org/freedesktop/appstream");
+
+		} catch (IOError e) {
+			throw e;
+		}
+
+		/* Connecting signals */
+		uaisv.finished.connect((action, success) => {
+			this.finished(action, success);
+		});
+
+		uaisv.error_code.connect((error_details) => {
+			this.error_code(error_details);
+		});
+
+		uaisv.authorized.connect((success) => {
+			this.authorized(success);
+		});
+
+		return yield uaisv.refresh();
 	}
 
 }
