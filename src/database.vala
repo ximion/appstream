@@ -1,6 +1,6 @@
 /* database.vala -- Access the AppStream database
  *
- * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -98,9 +98,11 @@ public class Database : Object {
 		database_path = SOFTWARE_CENTER_DATABASE_PATH;
 	}
 
-	public virtual void open () {
-		db.open (database_path);
-		opened_ = true;
+	public virtual bool open () {
+		bool ret = db.open (database_path);
+		opened_ = ret;
+
+		return ret;
 	}
 
 	public bool db_exists () {
@@ -151,9 +153,11 @@ internal class DatabaseWrite : Database {
 		touch_dir (SOFTWARE_CENTER_DATABASE_PATH);
 	}
 
-	public override void open () {
-		base.open ();
-		db_w.init (database_path);
+	public override bool open () {
+		bool ret = db_w.init (database_path);
+		ret = base.open ();
+
+		return ret;
 	}
 
 	public bool rebuild (Array<AppInfo> appList) {

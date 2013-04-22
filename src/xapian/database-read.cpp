@@ -1,6 +1,6 @@
 /* database-read.cpp
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2013 Matthias Klumpp
  * Copyright (C) 2009 Michael Vogt
  *
  * Licensed under the GNU Lesser General Public License Version 3
