@@ -110,9 +110,6 @@ private class Main : Object {
 		else
 			CURRENT_DB_PATH = o_database_path;
 
-		engine = new Uai.Engine ();
-		engine.init ();
-
 		Bus.own_name (BusType.SYSTEM, "org.freedesktop.AppStream", BusNameOwnerFlags.NONE,
 					on_bus_aquired,
 					() => {},
@@ -124,6 +121,9 @@ private class Main : Object {
 
 		if (exit_code == 0)
 			stdout.printf ("Running Update-AppStream-Index service...\n");
+
+		engine = new Uai.Engine ();
+		engine.init ();
 
 		// TODO
 		// Hardcode it for now, make it a setting later
@@ -138,7 +138,8 @@ private class Main : Object {
 		}
 
 		// run main loop until quit
-		loop.run ();
+		if (exit_code == 0)
+			loop.run ();
 	}
 
 	static int main (string[] args) {
