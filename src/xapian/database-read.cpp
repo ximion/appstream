@@ -268,7 +268,7 @@ DatabaseRead::findApplications (AppstreamSearchQuery *asQuery)
 	GArray *appArray = g_array_new (true, true, sizeof (AppstreamAppInfo*));
 
 	Xapian::Query query = queryListFromSearchEntry (asQuery);
-	cout << query.serialise () << endl;
+	query.serialise ();
 
 	Xapian::Enquire enquire = Xapian::Enquire (m_xapianDB);
 	enquire.set_query (query);

@@ -80,6 +80,8 @@ internal Category[] categories_from_strv (string[] categories_strv, Category[] s
 	Category[] cat_list = {};
 	foreach (string idstr in categories_strv) {
 		foreach (Category sys_cat in system_categories) {
+			if (sys_cat.id == null)
+				continue;
 			if (sys_cat.id.down () == idstr.down ()) {
 				cat_list += sys_cat;
 				break;

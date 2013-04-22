@@ -132,7 +132,13 @@ private class UaiClient : Object {
 					stdout.printf ("%s\n", _("Rebuilding app-info cache..."));
 
 				uaisv.refresh.begin ((obj, res) => {
-					uaisv.refresh.end(res);
+					try {
+						uaisv.refresh.end(res);
+					} catch (Error e) {
+						exit_code = 6;
+						quit_loop ();
+						critical (e.message);
+					}
 					// just make sure that we really quit the loop
 					quit_loop ();
 				});

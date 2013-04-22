@@ -82,11 +82,12 @@ private class UbuntuAppinstall : Uai.DataProvider {
 
 		// TODO: Add remaining items, e.g. keywords, ...
 
-		stdout.printf ("%s", app.to_string ());
-		if (app.is_valid ())
+		if (app.is_valid ()) {
+			// stdout.printf ("Found: %s\n", app.to_string ());
 			emit_application (app);
-		else
-			log_warning ("Invalid application found: %s". printf (app.to_string ()));
+		} else {
+			log_warning ("Invalid application found: %s\n". printf (app.to_string ()));
+		}
 
 	}
 
