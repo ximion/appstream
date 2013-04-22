@@ -41,7 +41,7 @@ private class UaiClient : Object {
 		N_("Refresh the AppStream application cache"), null },
 		{ "nowait", 0, 0, OptionArg.NONE, ref o_no_wait,
 		N_("Don't wait for actions to complete'"), null },
-		{ "search", 0, 0, OptionArg.STRING, ref o_search,
+		{ "search", 's', 0, OptionArg.STRING, ref o_search,
 		N_("Search the application database"), null },
 		{ null }
 	};
