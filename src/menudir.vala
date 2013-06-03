@@ -22,6 +22,9 @@ using GLib;
 
 namespace Appstream {
 
+/**
+ * Description of an XDG Menu category
+ */
 public class Category : Object {
 	public string name { get; internal set; }
 	public string summary { get; private set; }
@@ -80,24 +83,41 @@ public class Category : Object {
 		subcats.remove (cat);
 	}
 
+	/**
+	 * @return TRUE if this category has any subcategory
+	 */
 	public bool has_subcategory () {
 		return subcats.length () > 0;
 	}
 }
 
+/**
+ * Parser for XDG Menu files
+ */
 public class MenuParser {
 	private string menu_file;
 	public bool update_category_data { get; set; }
 
+	/**
+	 * Create a new MenuParser for the generic AppStream categories list
+	 */
 	public MenuParser () {
 		this.from_file (Config.DATADIR + "/app-info/categories.xml");
 	}
 
+	/**
+	 * Create a new MenuParser for an arbitrary menu file
+	 */
 	public MenuParser.from_file (string menu_file) {
 		update_category_data = true;
 		this.menu_file = menu_file;
 	}
 
+	/**
+	 * Parse the menu file
+	 *
+	 * @return GList of Category objects found in the Menu, or NULL if there was an error
+	 */
 	public List<Category>? parse () {
 		var category_list = new List<Category> ();
 
@@ -196,6 +216,9 @@ public class MenuParser {
 
 }
 
+/**
+ * Get a GList of the default AppStream categories
+ */
 public static List<Category> get_system_categories () {
 	var parser = new MenuParser ();
 	List<Category> system_cats = parser.parse ();

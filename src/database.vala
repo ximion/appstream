@@ -40,6 +40,9 @@ private interface UAIService : Object {
  */
 private static const string SEARCH_GREYLIST_STR = _("app;application;package;program;programme;suite;tool");
 
+/**
+ * Class describing a query on the AppStream application database
+ */
 public class SearchQuery : Object {
 	public string search_term { get; set; }
 	public string[] categories { get; set; }
@@ -48,14 +51,25 @@ public class SearchQuery : Object {
 		search_term = term;
 	}
 
+	/**
+	 * @return TRUE if we search in all categories
+	 */
 	public bool get_search_all_categories () {
 		return (categories.length <= 0);
 	}
 
+	/**
+	 * Shortcut to set that we should search in all categories
+	 */
 	public void set_search_all_categories () {
 		categories = {};
 	}
 
+	/**
+	 * Set the categories list from a string
+	 *
+	 * @param categories_str Comma-separated list of category-names
+	 */
 	public void set_categories_from_string (string categories_str) {
 		string[] cats = categories_str.split (",");
 		categories = cats;
@@ -113,6 +127,9 @@ public class Database : Object {
 		return ret;
 	}
 
+	/**
+	 * @return TRUE if the application database exists
+	 */
 	public bool db_exists () {
 		if (FileUtils.test (database_path, FileTest.IS_DIR))
 			return true;

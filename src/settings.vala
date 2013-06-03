@@ -29,6 +29,9 @@ internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/app-inf
 
 private static const string APPSTREAM_BASE_PATH = DATADIR + "/app-info";
 
+/**
+ * The path where software icons (of not-installed software) are located.
+ */
 public static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
 
 internal static const string APPSTREAM_XML_PATH = APPSTREAM_BASE_PATH + "/xmls";

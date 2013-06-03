@@ -39,7 +39,7 @@ if (DOCUMENTATION)
 			"-X" "${CMAKE_BINARY_DIR}/src/appstream.h" "-X" "-l"
 			"-X" "${CMAKE_BINARY_DIR}/src/libappstream.so.${AS_VERSION_LIBS}"
 			"--doclet" "gtkdoc"
-			"--pkg=config" "--pkg=gio-2.0" "--pkg=as-xapian"
+			"--pkg=config" "--pkg=gio-2.0" "--pkg=libxml-2.0" "--pkg=as-xapian"
 			"--package-name=appstream"
 			"--package-version=${AS_VERSION_LIBS}"
 			"--importdir=${CMAKE_SOURCE_DIR}/docs"
