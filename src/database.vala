@@ -57,14 +57,8 @@ public class SearchQuery : Object {
 	}
 
 	public bool set_categories_from_string (string categories_str) {
-#if 0
-		List<Category>? catlist = Utils.categories_from_str (categories_str, get_system_categories ());
-		if (catlist == null)
-			return false;
-
-		categories = catlist;
-#endif
-		return true;
+		string[] cats = categories_str.split (",");
+		categories = cats;
 	}
 
 	internal void sanitize_search_term () {

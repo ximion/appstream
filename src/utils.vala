@@ -108,4 +108,24 @@ private List<Category>? categories_from_str (string categories_str, List<Categor
 
 }
 
+private string category_list_to_string (List<Category> list) {
+	string res = "";
+
+	list.foreach ((entry) => {
+		res = "%s%s\n".printf (res, entry.name);
+	});
+
+	return res;
+}
+
+private string string_list_to_string (List<string> list) {
+	string res = "";
+
+	list.foreach ((entry) => {
+		res = "%s%s\n".printf (res, entry);
+	});
+
+	return res;
+}
+
 } // End of namespace: Appstream.Utils

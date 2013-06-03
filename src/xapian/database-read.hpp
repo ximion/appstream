@@ -46,15 +46,14 @@ public:
 private:
 	Xapian::Database m_xapianDB;
 	string m_dbPath;
-	AppstreamCategory **m_systemCategories;
-	int m_systemCategories_len;
+	GList *m_systemCategories;
 
 	AppstreamAppInfo *docToAppInfo (Xapian::Document);
 
 	Xapian::QueryParser newAppStreamParser ();
 	Xapian::Query addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
 	Xapian::Query getQueryForPkgNames (vector<string> pkgnames);
-	Xapian::Query getQueryForCategory (AppstreamCategory *cat);
+	Xapian::Query getQueryForCategory (gchar *cat_id);
 	Xapian::Query queryListFromSearchEntry (AppstreamSearchQuery *asQuery);
 };
 

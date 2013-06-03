@@ -37,7 +37,7 @@ DatabaseRead::DatabaseRead () :
     m_xapianDB(0)
 {
 	// we cache these for performance reasons
-	m_systemCategories = appstream_get_system_categories (&m_systemCategories_len);
+	m_systemCategories = appstream_get_system_categories ();
 }
 
 DatabaseRead::~DatabaseRead ()
@@ -106,12 +106,7 @@ DatabaseRead::docToAppInfo (Xapian::Document doc)
 
 	// Categories
 	string categories_string = doc.get_value (CATEGORIES);
-	int resLen;
-	AppstreamCategory **appCategories = appstream_utils_categories_from_str (categories_string.c_str (),
-											m_systemCategories,
-											m_systemCategories_len,
-											&resLen);
-	appstream_app_info_set_categories (app, appCategories, resLen);
+	appstream_app_info_set_categories_from_str (app, categories_string.c_str ());
 
 	// TODO
 
@@ -183,9 +178,8 @@ DatabaseRead::getQueryForPkgNames (vector<string> pkgnames)
 }
 
 Xapian::Query
-DatabaseRead::getQueryForCategory (AppstreamCategory *cat)
+DatabaseRead::getQueryForCategory (gchar *cat_id)
 {
-	string cat_id = appstream_category_get_id (cat);
 	string catid_lower = cat_id;
 	transform (catid_lower.begin (), catid_lower.end (),
 		   catid_lower.begin (), ::tolower);
@@ -207,14 +201,14 @@ DatabaseRead::queryListFromSearchEntry (AppstreamSearchQuery *asQuery)
 	// generate category query
 	Xapian::Query category_query = Xapian::Query ();
 	int length = 0;
-	AppstreamCategory **categories = appstream_search_query_get_categories (asQuery, &length);
+	gchar **categories = appstream_search_query_get_categories (asQuery, &length);
 	string categories_string = "";
 	for (uint i=0; i < length; i++) {
-		AppstreamCategory *cat = categories[i];
+		gchar *cat_id = categories[i];
 
 		category_query = Xapian::Query (Xapian::Query::OP_OR,
 						 category_query,
-						 getQueryForCategory (cat));
+						 getQueryForCategory (cat_id));
 	}
 
 	// empty query returns a query that matches nothing (for performance

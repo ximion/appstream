@@ -43,10 +43,10 @@ public class AppInfo : Object {
 	public string[] keywords { get; set; } // Localized!
 	public string url { get; set; }
 	public string desktop_file { get; set; }
-
 	public string icon { get; set; }
-	public string[] categories { get; set; }
 
+
+	public string[] categories { get; set; }
 	public string[] mimetypes { get; set; }
 
 
@@ -59,7 +59,7 @@ public class AppInfo : Object {
 		url = "";
 		desktop_file = "";
 		icon = "";
-		categories = {};
+		categories = {null};
 	}
 
 	public bool is_valid () {
@@ -74,15 +74,9 @@ public class AppInfo : Object {
 		return res;
 	}
 
-	public bool set_categories_from_str (string categories_str) {
-#if 0
-		List<Category>? catlist = Utils.categories_from_str (categories_str, get_system_categories ());
-		if (catlist == null)
-			return false;
-
-		categories = catlist;
-#endif
-		return true;
+	public void set_categories_from_str (string categories_str) {
+		string[] cats = categories_str.split (",");
+		categories = cats;
 	}
 
 }

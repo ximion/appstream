@@ -154,13 +154,13 @@ DatabaseWrite::rebuild (GArray *apps)
 
 		// Categories
 		int length = 0;
-		AppstreamCategory **categories = appstream_app_info_get_categories (app, &length);
+		gchar **categories = appstream_app_info_get_categories (app, &length);
 		string categories_string = "";
 		for (uint i=0; i < length; i++) {
 			if (categories[i] == NULL)
 				continue;
 
-			string cat = appstream_category_get_id (categories[i]);
+			string cat = categories[i];
 			string tmp = cat;
 			transform (tmp.begin (), tmp.end (),
 					tmp.begin (), ::tolower);

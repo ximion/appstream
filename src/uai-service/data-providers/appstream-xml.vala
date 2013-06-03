@@ -27,7 +27,7 @@ namespace Uai.Provider {
 
 private class AppstreamXML : Uai.DataProvider {
 	private string locale;
-	private Category[] system_categories;
+	private List<Category> system_categories;
 
 	public AppstreamXML () {
 		locale = Intl.get_language_names ()[0];
@@ -120,7 +120,7 @@ private class AppstreamXML : Uai.DataProvider {
 						break;
 				case "appcategories":
 						string[] cat_array = get_childs_as_array (iter, "appcategory");
-						app.categories = Appstream.Utils.categories_from_strv (cat_array, system_categories);
+						app.categories = cat_array;
 						break;
 			}
 		}

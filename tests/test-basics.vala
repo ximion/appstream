@@ -29,11 +29,18 @@ void msg (string s) {
 
 void test_menuparser () {
 	var parser = new MenuParser ();
-	Category[] menu_dirs = parser.parse();
-	assert (menu_dirs.length > 4);
+	List<Category> menu_dirs = parser.parse();
+	assert (menu_dirs.length () > 4);
+
+	menu_dirs.foreach ((cat) => {
+		stdout.printf ("Category: %s\nExc:%s\nInc: %s\nSubcat: %s\n", cat.name,
+			       Utils.string_list_to_string (cat.excluded),
+			       Utils.string_list_to_string (cat.included),
+			       Utils.category_list_to_string (cat.subcategories));
+	});
 
 	var query = new SearchQuery ();
-	query.categories = menu_dirs;
+	query.categories = {"science", "internet"};
 }
 
 int main (string[] args) {

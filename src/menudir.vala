@@ -47,18 +47,20 @@ public class Category : Object {
 		subcats = new List<Category> ();
 	}
 
-	internal void complete (KeyFile file) {
+	internal void complete () {
 		if (directory == null) {
 			debug ("no directory set for category %s (%s)", name, id);
 			return;
 		}
+		var file = new KeyFile ();
 
 		summary = "";
 		icon = "applications-other";
 		try {
 			file.load_from_file ("/usr/share/desktop-directories/%s".printf (directory), 0);
 			name = file.get_string ("Desktop Entry", "Name");
-			summary = file.get_string ("Desktop Entry", "Comment");
+			if (file.has_key ("Desktop Entry", "Comment"))
+				summary = file.get_string ("Desktop Entry", "Comment");
 			icon = file.get_string ("Desktop Entry", "Icon");
 			if (summary == null) {
 				summary = "";
@@ -86,30 +88,22 @@ public class Category : Object {
 
 public class MenuParser {
 	private string menu_file;
-	private Xml.Doc* xdoc;
-	private List<Category> category_list;
+	public bool update_category_data { get; set; }
 
 	public MenuParser () {
 		this.from_file (Config.DATADIR + "/app-info/categories.xml");
 	}
 
 	public MenuParser.from_file (string menu_file) {
-		category_list = null;
+		update_category_data = true;
 		this.menu_file = menu_file;
 	}
 
-	~MenuParser () {
-		if (xdoc != null)
-			delete xdoc;
-	}
-
 	public List<Category>? parse () {
-		// return copy of cached list, if possible
-		if (category_list != null)
-			return category_list.copy ();
-		category_list = new List<Category> ();
+		var category_list = new List<Category> ();
 
 		// Parse the document from path
+		Xml.Doc* xdoc;
 		xdoc = Xml.Parser.parse_file (menu_file);
 		if (xdoc == null) {
 			warning (_("File %s not found or permission denied!"), menu_file);
@@ -133,19 +127,23 @@ public class MenuParser {
 			}
 		}
 
-		return category_list.copy ();
+		if (update_category_data) {
+			// complete the missing information from desktop-directories folder
+			category_list.foreach ((cat) => {
+				cat.complete ();
+			});
+		}
+
+		return category_list;
 	}
 
-	private List<string> get_category_name_list (Xml.Node *nd) {
-		var res = new List<string> ();
+	private void extend_category_name_list (Xml.Node *nd, List<string> list) {
 		for (Xml.Node* iter = nd->children; iter != null; iter = iter->next) {
 			if (iter->type != Xml.ElementType.ELEMENT_NODE)
 				continue;
 			if (iter->name == "Category")
-				res.append (iter->get_content ());
+				list.append (iter->get_content ());
 		}
-
-		return res;
 	}
 
 	private void parse_category_entry (Xml.Node *nd, Category cat) {
@@ -153,9 +151,14 @@ public class MenuParser {
 			if (iter->type != Xml.ElementType.ELEMENT_NODE)
 				continue;
 			if (iter->name == "And") {
-				cat.included.concat (get_category_name_list(iter));
+				extend_category_name_list (iter, cat.included);
+				// check for "Not" elements
+				for (Xml.Node* not_iter = iter->children; not_iter != null; not_iter = not_iter->next) {
+					if (not_iter->name == "Not")
+						extend_category_name_list (not_iter, cat.excluded);
+				}
 			} else if (iter->name == "Or") {
-				cat.included.concat (get_category_name_list(iter));
+				extend_category_name_list (iter, cat.included);
 			}
 		}
 	}
