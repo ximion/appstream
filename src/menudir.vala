@@ -1,7 +1,6 @@
 /* menudir.vala
  *
- * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
- * Copyright (C) 2012 Stephen Smally
+ * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -27,15 +26,25 @@ public class Category : Object {
 	public string id { get; internal set; }
 	public string name { get; internal set; }
 	public string summary { get; private set; }
-	public string icon { get; private set; }
+	public string icon { get; internal set; }
 	public string directory { get; internal set; }
-	public string[] included { get; internal set; }
-	public string[] excluded { get; internal set; }
+
+	private List<string> _included;
+	private List<string> _excluded;
+
+	public List<string> included { get { return _included; } }
+	public List<string> excluded { get { return _excluded; } }
+
 	public int level { get; internal set; }
 
+	private List<Category> subcats;
+	public List<Category> subcategories { get { return subcats; } }
+
 	public Category () {
-		included = {};
-		excluded = {};
+		_included = new List<string> ();
+		_excluded = new List<string> ();
+
+		subcats = new List<Category> ();
 	}
 
 	internal void complete (KeyFile file) {
@@ -61,114 +70,133 @@ public class Category : Object {
 			debug ("error retrieving data for %s: %s\n", directory, e.message);
 		}
 	}
+
+	public void add_subcategory (Category cat) {
+		subcats.append (cat);
+	}
+
+	public void remove_subcategory (Category cat) {
+		subcats.remove (cat);
+	}
+
+	public bool has_subcategory () {
+		return subcats.length () > 0;
+	}
 }
 
 public class MenuParser {
-
-	private const MarkupParser parser = {
-		opening_item, // when an element opens
-		closing_item,  // when an element closes
-		get_text, // when text is found
-		null, // when comments are found
-		null  // when errors occur
-	};
-
 	private string menu_file;
-	private MarkupParseContext context;
-	private Category[] dirlist;
-	private Category[] dirs_level;
-	private int level = 0;
-	private string last_item;
-	private bool include = true;
-	private KeyFile file;
+	private Xml.Doc* xdoc;
+	private List<Category> category_list;
 
 	public MenuParser () {
 		this.from_file (Config.DATADIR + "/app-info/categories.xml");
 	}
 
 	public MenuParser.from_file (string menu_file) {
-		context = new MarkupParseContext(
-			parser, // the structure with the callbacks
-			0,	// MarkupParseFlags
-			this,   // extra argument for the callbacks, methods in this case
-			null   // when the parsing ends
-		);
-
-		dirlist = {};
-		dirs_level = {};
+		category_list = null;
 		this.menu_file = menu_file;
-		file = new KeyFile();
 	}
 
-	public Category[] parse () {
-		string file;
-		FileUtils.get_contents (menu_file, out file, null);
-		context.parse (file, file.length);
-
-		return dirlist;
+	~MenuParser () {
+		if (xdoc != null)
+			delete xdoc;
 	}
 
-	private void opening_item (MarkupParseContext context, string name, string[] attr, string[] vals) throws MarkupError {
-		last_item = name;
-		switch (name) {
-			case "Menu":
-				Category tmp = new Category();
-				dirs_level[level] = tmp;
-				dirlist += tmp;
-				dirs_level[level].level = level;
-				level ++;
-				break;
-			case "Not":
-				include = false;
-				break;
+	public List<Category>? parse () {
+		// return copy of cached list, if possible
+		if (category_list != null)
+			return category_list.copy ();
+		category_list = new List<Category> ();
+
+		// Parse the document from path
+		xdoc = Xml.Parser.parse_file (menu_file);
+		if (xdoc == null) {
+			warning (_("File %s not found or permission denied!"), menu_file);
+			return null;
+		}
+
+		// Get the root node
+		Xml.Node* root = xdoc->get_root_element ();
+		if ((root == null) || (root->name != "Menu")) {
+			warning (_("XDG Menu XML file '%s' is damaged."), menu_file);
+			return null;
+		}
+
+		for (Xml.Node* iter = root->children; iter != null; iter = iter->next) {
+			// Spaces between tags are also nodes, discard them
+			if (iter->type != Xml.ElementType.ELEMENT_NODE)
+				continue;
+			if (iter->name == "Menu") {
+				// parse menu entry
+				category_list.append (parse_menu_enry (iter));
+			}
+		}
+
+		return category_list.copy ();
+	}
+
+	private List<string> get_category_name_list (Xml.Node *nd) {
+		var res = new List<string> ();
+		for (Xml.Node* iter = nd->children; iter != null; iter = iter->next) {
+			if (iter->type != Xml.ElementType.ELEMENT_NODE)
+				continue;
+			if (iter->name == "Category")
+				res.append (iter->get_content ());
+		}
+
+		return res;
+	}
+
+	private void parse_category_entry (Xml.Node *nd, Category cat) {
+		for (Xml.Node* iter = nd->children; iter != null; iter = iter->next) {
+			if (iter->type != Xml.ElementType.ELEMENT_NODE)
+				continue;
+			if (iter->name == "And") {
+				cat.included.concat (get_category_name_list(iter));
+			} else if (iter->name == "Or") {
+				cat.included.concat (get_category_name_list(iter));
+			}
 		}
 	}
 
-	private void closing_item (MarkupParseContext context, string name) throws MarkupError {
-		switch (name) {
-			case "Menu":
-				level --;
-				dirs_level[level].complete (file);
-				break;
-			case "Not":
-				include = true;
-				break;
+	private Category parse_menu_enry (Xml.Node* nd) {
+		var cat = new Category ();
+
+		for (Xml.Node* iter = nd->children; iter != null; iter = iter->next) {
+			// Spaces between tags are also nodes, discard them
+			if (iter->type != Xml.ElementType.ELEMENT_NODE) {
+				continue;
+			}
+			switch (iter->name) {
+				case "Name":
+					// we don't want a localized name (indicated through a language property)
+					if (iter->properties == null)
+						cat.name = iter->get_content ();
+					break;
+				case "Directory": cat.directory = iter->get_content ();
+					break;
+				case "Icon": cat.icon = iter->get_content ();
+					break;
+				case "Categories":
+					parse_category_entry (iter, cat);
+					break;
+				case "Menu":
+					// we have a submenu!
+					cat.add_subcategory (parse_menu_enry (iter));
+					break;
+				default: break;
+			}
 		}
+
+		return cat;
 	}
 
-	private bool check_whitespaces (string str) {
-		return (str.strip() == "" ? true : false);
-	}
-
-	private void get_text (MarkupParseContext context, string text, size_t text_len) throws MarkupError {
-		if (check_whitespaces (text)) { return; }
-		switch (last_item) {
-			case "Name":
-				dirs_level[level-1].name = text;
-				dirs_level[level-1].id = text;
-				break;
-			case "Directory":
-				dirs_level[level-1].directory = text;
-				break;
-			case "Category":
-				Category mdir = dirs_level[level-1];
-				if (include) {
-					string[] tmp = mdir.included;
-					tmp += text;
-					mdir.included = tmp;
-				} else {
-					string[] tmp = mdir.excluded;
-					tmp += text;
-					mdir.excluded = tmp;
-				}
-				break;
-		}
-	}
 }
 
-public static Category[] get_system_categories () {
+public static List<Category> get_system_categories () {
 	var parser = new MenuParser ();
-	Category[] system_cats = parser.parse ();
+	List<Category> system_cats = parser.parse ();
 
 	return system_cats;
 }

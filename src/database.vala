@@ -42,7 +42,7 @@ private static const string SEARCH_GREYLIST_STR = _("app;application;package;pro
 
 public class SearchQuery : Object {
 	public string search_term { get; set; }
-	public Category[] categories { get; set; }
+	public string[] categories { get; set; }
 
 	public SearchQuery (string term = "") {
 		search_term = term;
@@ -57,12 +57,13 @@ public class SearchQuery : Object {
 	}
 
 	public bool set_categories_from_string (string categories_str) {
-		Category[]? catlist = Utils.categories_from_str (categories_str, get_system_categories ());
+#if 0
+		List<Category>? catlist = Utils.categories_from_str (categories_str, get_system_categories ());
 		if (catlist == null)
 			return false;
 
 		categories = catlist;
-
+#endif
 		return true;
 	}
 

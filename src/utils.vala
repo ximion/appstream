@@ -68,22 +68,24 @@ internal bool delete_dir_recursive (string dirname) {
 		critical ("Could not remove directory: %s", e.message);
 		return false;
 	}
+
 	return true;
 }
 
 /**
  * Create a list of categories from string array
  */
-internal Category[] categories_from_strv (string[] categories_strv, Category[] system_categories) {
+internal List<Category> categories_from_strv (string[] categories_strv, List<Category> system_categories) {
 	// This needs to be done way smarter...
 
-	Category[] cat_list = {};
+	var cat_list = new List<Category> ();
 	foreach (string idstr in categories_strv) {
-		foreach (Category sys_cat in system_categories) {
+		for(int i = 0; i < system_categories.length (); i++) {
+			Category sys_cat = system_categories.nth_data (i);
 			if (sys_cat.id == null)
 				continue;
 			if (sys_cat.id.down () == idstr.down ()) {
-				cat_list += sys_cat;
+				cat_list.append (sys_cat);
 				break;
 			}
 		}
@@ -95,12 +97,12 @@ internal Category[] categories_from_strv (string[] categories_strv, Category[] s
 /**
  * Create a list of categories from semicolon-separated string
  */
-private Category[]? categories_from_str (string categories_str, Category[] system_categories) {
+private List<Category>? categories_from_str (string categories_str, List<Category> system_categories) {
 	string[] cats = categories_str.split (";");
 	if (cats.length == 0)
 		return null;
 
-	Category[] cat_list = categories_from_strv (cats, system_categories);
+	List<Category> cat_list = categories_from_strv (cats, system_categories);
 
 	return cat_list;
 

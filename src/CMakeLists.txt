@@ -39,11 +39,12 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 		    ${CMAKE_BINARY_DIR}/src
 		    ${GLIB2_INCLUDE_DIR}
 		    ${GIO2_INCLUDE_DIR}
+		    ${LIBXML2_INCLUDE_DIR}
 		    ${XAPIAN_INCLUDE_DIR}
 )
 
 vala_precompile(aslib-precomp ASLIB_SRC_C ${APPSTREAM_LIB_SOURCES}
-			PACKAGES config gio-2.0 posix as-xapian
+			PACKAGES config gio-2.0 posix libxml-2.0 as-xapian
 			VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
 				${CMAKE_CURRENT_SOURCE_DIR}/xapian
 			GENERATE_INTERNAL_HEADER appstream_internal.h
@@ -85,6 +86,7 @@ add_dependencies(appstream gir-compile)
 target_link_libraries(appstream
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}
+		${LIBXML2_LIBRARIES}
 		${XAPIAN_LIBRARIES}
 )
 
