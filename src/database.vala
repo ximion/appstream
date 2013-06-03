@@ -56,7 +56,7 @@ public class SearchQuery : Object {
 		categories = {};
 	}
 
-	public bool set_categories_from_string (string categories_str) {
+	public void set_categories_from_string (string categories_str) {
 		string[] cats = categories_str.split (",");
 		categories = cats;
 	}

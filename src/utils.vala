@@ -82,9 +82,9 @@ internal List<Category> categories_from_strv (string[] categories_strv, List<Cat
 	foreach (string idstr in categories_strv) {
 		for(int i = 0; i < system_categories.length (); i++) {
 			Category sys_cat = system_categories.nth_data (i);
-			if (sys_cat.id == null)
+			if (sys_cat.name == null)
 				continue;
-			if (sys_cat.id.down () == idstr.down ()) {
+			if (sys_cat.name.down () == idstr.down ()) {
 				cat_list.append (sys_cat);
 				break;
 			}

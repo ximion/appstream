@@ -23,7 +23,6 @@ using GLib;
 namespace Appstream {
 
 public class Category : Object {
-	public string id { get; internal set; }
 	public string name { get; internal set; }
 	public string summary { get; private set; }
 	public string icon { get; internal set; }
@@ -49,7 +48,7 @@ public class Category : Object {
 
 	internal void complete () {
 		if (directory == null) {
-			debug ("no directory set for category %s (%s)", name, id);
+			debug ("no directory set for category %s", name);
 			return;
 		}
 		var file = new KeyFile ();
