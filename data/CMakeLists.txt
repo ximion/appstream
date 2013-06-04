@@ -14,6 +14,10 @@ configure_file(org.freedesktop.AppStream.service.in
   IMMEDIATE @ONLY
 )
 
+install(FILES appstream.conf
+	DESTINATION ${INSTALL_DIR_SYSCONF}
+)
+
 install(FILES org.freedesktop.AppStream.conf
 	DESTINATION /etc/dbus-1/system.d/
 )

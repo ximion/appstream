@@ -23,6 +23,12 @@ using Appstream;
 
 private string datadir;
 
+/* NOTE: All these tests are not really a testsuite, but quickly test at least a few things.
+ * writing a good testsuite would be nice, but given the amount of code in libappstream and
+ * the effort to do it sane (we need a virtual environment with PackageKit running!) I assume it's
+ * not worth it.
+ */
+
 void msg (string s) {
 	stdout.printf (s + "\n");
 }
@@ -43,6 +49,15 @@ void test_menuparser () {
 	query.categories = {"science", "internet"};
 }
 
+void test_screenshotservice () {
+	var screenshot_srv = new ScreenshotService ();
+	string url = screenshot_srv.get_thumbnail_url ("ardour");
+
+	msg ("Url: %s".printf (url));
+	assert (url.has_prefix ("http://") == true);
+	assert (url.has_suffix ("ardour") == true);
+}
+
 int main (string[] args) {
 	msg ("=== Running Basic Tests ===");
 	datadir = args[1];
@@ -54,6 +69,7 @@ int main (string[] args) {
 	Test.init (ref args);
 
 	test_menuparser ();
+	test_screenshotservice ();
 
 	Test.run ();
 	return 0;

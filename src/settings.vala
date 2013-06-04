@@ -1,6 +1,6 @@
 /* settings.vala
  *
- * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -25,15 +25,89 @@ namespace Appstream {
 
 private static const string DB_SCHEMA_VERSION = "6";
 
-internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/app-info/xapian";
-
 private static const string APPSTREAM_BASE_PATH = DATADIR + "/app-info";
+
+private static const string CONFIG_NAME = "/etc/appstream.conf";
 
 /**
  * The path where software icons (of not-installed software) are located.
  */
-public static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
+private static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
 
 internal static const string APPSTREAM_XML_PATH = APPSTREAM_BASE_PATH + "/xmls";
+internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/app-info/xapian";
+
+/**
+ * Get details about the AppStream settings for the
+ * current distribution
+ */
+public class DistroDetails : Object {
+	public string distro_id { get; private set; }
+	public string distro_name { get; private set; }
+	public string distro_version { get; private set; }
+
+	public string icon_repository_path { get { return ICON_PATH; } }
+
+	private KeyFile keyf;
+
+	public DistroDetails () {
+		distro_id = "unknown";
+		distro_name = "";
+		distro_version = "";
+		// get details about the distribution we are running on
+		var f = File.new_for_path ("/etc/os-release");
+		if (f.query_exists ()) {
+			try {
+				var dis = new DataInputStream (f.read ());
+				string line;
+				while ((line = dis.read_line (null)) != null) {
+					string[] data = line.split ("=", 2);
+					if (data.length != 2)
+						continue;
+
+					string dvalue = data[1];
+					if (dvalue.has_prefix ("\""))
+						dvalue = dvalue.substring (1, dvalue.length - 2);
+
+					if (data[0] == "ID")
+						distro_id = dvalue;
+					else if (data[0] == "NAME")
+						distro_name = dvalue;
+					else if (data[0] == "VERSION_ID")
+						distro_version = dvalue;
+
+				}
+			} catch (Error e) { }
+		}
+
+		// load configuration
+		keyf = new KeyFile ();
+		try {
+			keyf.load_from_file (CONFIG_NAME, KeyFileFlags.NONE);
+		} catch (Error e) {}
+	}
+
+	public string? config_distro_get_str (string key) {
+		string? str;
+		try {
+			str = keyf.get_string (distro_id, key);
+		} catch (Error e) {
+			return null;
+		}
+
+		return str;
+	}
+
+	public bool config_distro_get_bool (string key) {
+		bool ret;
+		try {
+			ret = keyf.get_boolean (distro_id, key);
+		} catch (Error e) {
+			return false;
+		}
+
+		return ret;
+	}
+}
 
 } // End of namespace: Appstream

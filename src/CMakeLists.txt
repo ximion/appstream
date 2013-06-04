@@ -23,6 +23,7 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		app-info.vala
 		database.vala
 		menudir.vala
+		screenshot-service.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp

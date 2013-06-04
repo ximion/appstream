@@ -72,7 +72,7 @@ set(INSTALL_DIR_BIN bin CACHE PATH "Installation directory for executables")
 set(INSTALL_DIR_LIB lib/${CMAKE_LIBRARY_ARCHITECTURE} CACHE PATH "Installation directory for libraries")
 set(INSTALL_DIR_LIBEXEC "${INSTALL_DIR_LIB}/appstream" CACHE PATH "Installation directory for executables use by a library")
 set(INSTALL_DIR_INC include CACHE PATH "Installation directory for headers")
-set(INSTALL_DIR_SYSCONF etc CACHE PATH "Installation directory for system configuration files")
+set(INSTALL_DIR_SYSCONF /etc CACHE PATH "Installation directory for system configuration files")
 
 #
 # Configure files
