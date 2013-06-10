@@ -1,3 +1,23 @@
+Version 0.3.0
+~~~~~~~~~~~~~~
+Released: 2013-06-10
+
+Features:
+ * Add command-line method to search for apps
+ * Restructure code to clearly separate client and daemon
+ * Make DBus API an internal implementation detail
+ * Rewritten and more advanced XDG menu file parser
+ * Implemented new Category handling
+ * Many improvements in documentation
+ * Implement API to access any AppStream-compliant screenshot service
+
+Bugfixes:
+ * Fix creation of missing database
+ * Make UAI more failsafe
+ * Improve error handling and command-line output
+ * Greatly improve search results
+ * Fix translation template
+
 Version 0.2.0
 ~~~~~~~~~~~~~~
 Released: 2013-03-15
