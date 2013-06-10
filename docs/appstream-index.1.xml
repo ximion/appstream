@@ -47,12 +47,16 @@
 		</para>
 		<para>
 			<command>&package;</command> manages the AppStream index. The AppStream application
-			index contains a list of all available applications for your distribution, matched to their
+			index contains a list of all available applications for your distribution, matched with their
 			native package names.
 			It is generated using either AppStream-XML, Debian-DEP-11 or Ubuntu AppInstall data, which is provided
 			by your distributor.
 			The database is managed using a small DBus-activated daemon.
 			This tool connects to the daemon and allows sending simple commands.
+		</para>
+		<para>
+			For more information about the AppStream project and the other components which are part of it, take a look at
+			the AppStream pages at <ulink url="http://www.freedesktop.org/wiki/Distributions/AppStream/">Freedesktop.org</ulink>.
 		</para>
 	</refsect1>
 

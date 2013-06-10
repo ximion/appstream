@@ -1,5 +1,5 @@
-# CMakeLists for the Update-AppStream-Index Project
-project(appstream-core)
+# CMakeLists for the AppStream Project
+project(appstream)
 
 cmake_minimum_required(VERSION 2.8.6 FATAL_ERROR)
 
