@@ -27,15 +27,15 @@ void msg (string s) {
 	stdout.printf (s + "\n");
 }
 
-void print_apparray (Array<Appstream.AppInfo> appArray) {
-	for (uint i = 0; i < appArray.length; i++) {
-		stdout.printf ("  - %s\n", appArray.index (i).to_string ());
+void print_apparray (PtrArray appArray) {
+	for (uint i = 0; i < appArray.len; i++) {
+		stdout.printf ("  - %s\n", ((Appstream.AppInfo) appArray.index (i)).to_string ());
 	}
 }
 
 void test_database () {
 	var db = new Appstream.Database ();
-	Array<Appstream.AppInfo> apps = null;
+	PtrArray apps = null;
 
 	db.open ();
 
@@ -49,19 +49,19 @@ void test_database () {
 	var query = new SearchQuery ("firefox");
 	apps = db.find_applications (query);
 	print_apparray (apps);
-	assert (apps.length > 4);
+	assert (apps.len > 4);
 
 	query = new SearchQuery ("");
 	query.set_categories_from_string ("science");
 	apps = db.find_applications (query);
 	print_apparray (apps);
-	assert (apps.length > 40);
+	assert (apps.len > 40);
 
 	query = new SearchQuery ("protein");
 	query.set_categories_from_string ("science");
 	apps = db.find_applications (query);
 	print_apparray (apps);
-	assert (apps.length > 4);
+	assert (apps.len > 4);
 }
 
 int main (string[] args) {

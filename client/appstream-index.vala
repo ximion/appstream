@@ -133,7 +133,7 @@ private class UaiClient : Object {
 			}
 		} else if (o_search != null) {
 			db.open ();
-			Array<Appstream.AppInfo>? app_list;
+			PtrArray? app_list;
 			app_list = db.find_applications_by_str (o_search);
 			if (app_list == null) {
 				// this might be an error
@@ -141,12 +141,12 @@ private class UaiClient : Object {
 				exit_code = 4;
 				return;
 			}
-			if (app_list.length == 0) {
+			if (app_list.len == 0) {
 				stdout.printf ("No application matching '%s' found.\n", o_search);
 				return;
 			}
-			for (uint i = 0; i < app_list.length; i++) {
-				Appstream.AppInfo app = app_list.index (i);
+			for (uint i = 0; i < app_list.len; i++) {
+				var app = (Appstream.AppInfo) app_list.index (i);
 				stdout.printf ("Application: %s\nSummary: %s\nPackage: %s\nURL:%s\nDesktop: %s\nIcon: %s\n", app.name, app.summary, app.pkgname, app.url, app.desktop_file, app.icon);
 				stdout.printf ("------\n");
 			}
