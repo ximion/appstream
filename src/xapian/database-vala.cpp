@@ -37,12 +37,12 @@ const gchar *xa_database_read_get_schema_version (XADatabaseRead *db)
 	return ((DatabaseRead*) db)->getSchemaVersion ().c_str ();
 };
 
-GArray *xa_database_read_get_all_applications (XADatabaseRead *db)
+GPtrArray *xa_database_read_get_all_applications (XADatabaseRead *db)
 {
 	return ((DatabaseRead*) db)->getAllApplications ();
 };
 
-GArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSearchQuery *query)
+GPtrArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSearchQuery *query)
 {
 	return ((DatabaseRead*) db)->findApplications (query);
 };

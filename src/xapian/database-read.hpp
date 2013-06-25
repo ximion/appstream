@@ -40,8 +40,8 @@ public:
 
 	string getSchemaVersion ();
 
-	GArray *getAllApplications ();
-	GArray *findApplications (AppstreamSearchQuery *asQuery);
+	GPtrArray *getAllApplications ();
+	GPtrArray *findApplications (AppstreamSearchQuery *asQuery);
 
 private:
 	Xapian::Database m_xapianDB;

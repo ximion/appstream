@@ -42,7 +42,7 @@ void test_database () {
 	apps = db.get_all_applications ();
 	assert (apps != null);
 
-	//print_apparray (apps);
+	print_apparray (apps);
 
 	msg ("==============================");
 

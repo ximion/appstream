@@ -37,8 +37,8 @@ void xa_database_read_free (XADatabaseRead *db);
 
 gboolean xa_database_read_open (XADatabaseRead *db, const gchar *db_path);
 const gchar *xa_database_read_get_schema_version (XADatabaseRead *db);
-GArray *xa_database_read_get_all_applications (XADatabaseRead *db);
-GArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSearchQuery *query);
+GPtrArray *xa_database_read_get_all_applications (XADatabaseRead *db);
+GPtrArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSearchQuery *query);
 
 /* methods for database write access */
 

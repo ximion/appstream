@@ -255,11 +255,11 @@ DatabaseRead::queryListFromSearchEntry (AppstreamSearchQuery *asQuery)
         return (pkg_query, fuzzy_query);
 }
 
-GArray*
+GPtrArray*
 DatabaseRead::findApplications (AppstreamSearchQuery *asQuery)
 {
 	// Create new array to store the app-info objects
-	GArray *appArray = g_array_new (true, true, sizeof (AppstreamAppInfo*));
+	GPtrArray *appArray = g_ptr_array_new ();
 
 	Xapian::Query query = queryListFromSearchEntry (asQuery);
 	query.serialise ();
@@ -272,17 +272,17 @@ DatabaseRead::findApplications (AppstreamSearchQuery *asQuery)
 		Xapian::Document doc = it.get_document ();
 
 		AppstreamAppInfo *app = docToAppInfo (doc);
-		g_array_append_val (appArray, app);
+		g_ptr_array_add (appArray, app);
 	}
 
 	return appArray;
 }
 
-GArray*
+GPtrArray*
 DatabaseRead::getAllApplications ()
 {
 	// Create new array to store the app-info objects
-	GArray *appArray = g_array_new (true, true, sizeof (AppstreamAppInfo*));
+	GPtrArray *appArray = g_ptr_array_new ();
 
 	// Iterate through all Xapian documents
 	Xapian::PostingIterator it = m_xapianDB.postlist_begin (string());
@@ -291,7 +291,7 @@ DatabaseRead::getAllApplications ()
 
 		Xapian::Document doc = m_xapianDB.get_document (did);
 		AppstreamAppInfo *app = docToAppInfo (doc);
-		g_array_append_val (appArray, app);
+		g_ptr_array_add (appArray, app);
 
 		++it;
 	}

@@ -137,22 +137,22 @@ public class Database : Object {
 			return false;
 	}
 
-	public Array<Appstream.AppInfo>? get_all_applications () {
+	public PtrArray? get_all_applications () {
 		if (!opened_)
 			return null;
-		Array<Appstream.AppInfo> appArray = db.get_all_applications ();
+		PtrArray appArray = db.get_all_applications ();
 		return appArray;
 	}
 
-	public Array<Appstream.AppInfo>? find_applications (SearchQuery query) {
+	public PtrArray? find_applications (SearchQuery query) {
 		if (!opened_)
 			return null;
 
-		Array<Appstream.AppInfo> appArray = db.find_applications (query);
+		PtrArray appArray = db.find_applications (query);
 		return appArray;
 	}
 
-	public Array<Appstream.AppInfo>? find_applications_by_str (string search_str, string? categories_str = null) {
+	public PtrArray? find_applications_by_str (string search_str, string? categories_str = null) {
 		var query = new SearchQuery (search_str);
 		if (categories_str == null)
 			query.set_search_all_categories ();
