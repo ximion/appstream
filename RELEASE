@@ -2,7 +2,7 @@ AppStream Release Notes
 
 1. Write NEWS entries for AppStream in the same format as usual.
 
-git shortlog APPSTREAM_0_3_0.. | grep -i -v trivial | grep -v Merge > NEWS.new
+git shortlog APPSTREAM_0_3_1.. | grep -i -v trivial | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
 Version 0.4.0
