@@ -56,6 +56,11 @@ vala_precompile(aslib-precomp ASLIB_SRC_C ${APPSTREAM_LIB_SOURCES}
 				--internal-vapi=appstream_internal.vapi.orig
 )
 
+# ensure that the GI compiler has been found (apparently, the automatic tests fail on some machines)
+if (INTROSPECTION_COMPILER STREQUAL "")
+  message(FATAL_ERROR "GObject-Introspection was not found! Please install it to continue.")
+endif()
+
 find_program (SED_TOOL NAMES sed)
 if (NOT SED_TOOL)
 	message (FATAL_ERROR "Unable to find sed")
