@@ -117,7 +117,7 @@ public class Database : Object {
 	public Database () {
 		db = new ASXapian.DatabaseRead ();
 		opened_ = false;
-		database_path = SOFTWARE_CENTER_DATABASE_PATH;
+		database_path = APPSTREAM_DATABASE_PATH;
 	}
 
 	public virtual bool open () {
@@ -209,7 +209,7 @@ internal class DatabaseWrite : Database {
 		base ();
 		db_w = new ASXapian.DatabaseWrite ();
 		// ensure db directory exists
-		touch_dir (SOFTWARE_CENTER_DATABASE_PATH);
+		touch_dir (APPSTREAM_DATABASE_PATH);
 	}
 
 	public override bool open () {

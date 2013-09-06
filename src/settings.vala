@@ -32,11 +32,13 @@ private static const string CONFIG_NAME = "/etc/appstream.conf";
 /**
  * The path where software icons (of not-installed software) are located.
  */
-private static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
+
+private static const string[] ICON_PATHS = { APPSTREAM_BASE_PATH + "/icons",
+						"/var/cache/app-info/icons" };
 
 internal static const string[] APPSTREAM_XML_PATHS = { APPSTREAM_BASE_PATH + "/xmls",
 							"/var/cache/app-info/xmls" };
-internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/app-info/xapian";
+internal static const string APPSTREAM_DATABASE_PATH = "/var/cache/app-info/xapian";
 
 /**
  * Get details about the AppStream settings for the
@@ -46,8 +48,6 @@ public class DistroDetails : Object {
 	public string distro_id { get; private set; }
 	public string distro_name { get; private set; }
 	public string distro_version { get; private set; }
-
-	public string icon_repository_path { get { return ICON_PATH; } }
 
 	private KeyFile keyf;
 
@@ -86,6 +86,21 @@ public class DistroDetails : Object {
 		try {
 			keyf.load_from_file (CONFIG_NAME, KeyFileFlags.NONE);
 		} catch (Error e) {}
+	}
+
+	/**
+	 * Returns list of icon-paths for software-center applications to use.
+	 * Icons of software (even if it is not installed) are stored in these
+	 * locations.
+	 *
+	 * @return A NULL-terminated array of paths.
+	 */
+	[CCode (array_length = false, array_null_terminated = true)]
+	public string[] get_icon_repository_paths () {
+		string[] paths = ICON_PATHS;
+		paths += null;
+
+		return paths;
 	}
 
 	public string? config_distro_get_str (string key) {
