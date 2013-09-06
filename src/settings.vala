@@ -34,7 +34,8 @@ private static const string CONFIG_NAME = "/etc/appstream.conf";
  */
 private static const string ICON_PATH = APPSTREAM_BASE_PATH + "/icons";
 
-internal static const string APPSTREAM_XML_PATH = APPSTREAM_BASE_PATH + "/xmls";
+internal static const string[] APPSTREAM_XML_PATHS = { APPSTREAM_BASE_PATH + "/xmls",
+							"/var/cache/app-info/xmls" };
 internal static const string SOFTWARE_CENTER_DATABASE_PATH = "/var/cache/app-info/xapian";
 
 /**

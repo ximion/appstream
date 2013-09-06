@@ -170,8 +170,16 @@ private class AppstreamXML : Uai.DataProvider {
 	}
 
 	public override bool execute () {
-		Array<string>? xmlFiles = Utils.find_files_matching (APPSTREAM_XML_PATH, "*.xml");
-		if ((xmlFiles == null) || (xmlFiles.length == 0))
+		Array<string> xmlFiles = new Array<string> ();
+		foreach (string path in APPSTREAM_XML_PATHS) {
+			Array<string>? xmls = Utils.find_files_matching (path, "*.xml");
+			if (xmls != null) {
+				for (uint j=0; j < xmls.length; j++)
+					xmlFiles.append_val (xmls.index (j));
+			}
+		}
+
+		if (xmlFiles.length == 0)
 			return false;
 
 		for (uint i=0; i < xmlFiles.length; i++) {
