@@ -18,7 +18,7 @@
 	<xsd:element ref="project_group" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="keywords" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="icon"/>
-        <xsd:element ref="categories"/>
+        <xsd:element ref="appcategories"/>
         <xsd:element ref="mimetypes" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
@@ -99,14 +99,14 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
-  <xsd:element name="categories">
+  <xsd:element name="appcategories">
     <xsd:complexType mixed="true">
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
-        <xsd:element ref="category"/>
+        <xsd:element ref="appcategory"/>
       </xsd:choice>
     </xsd:complexType>
   </xsd:element>
-  <xsd:element name="category" type="xsd:string"/>
+  <xsd:element name="appcategory" type="xsd:string"/>
   <xsd:element name="mimetypes">
     <xsd:complexType mixed="true">
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
