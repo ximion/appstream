@@ -15,6 +15,7 @@
         <xsd:element ref="pkgname"/>
         <xsd:element ref="name" minOccurs="1" maxOccurs="unbounded"/>
         <xsd:element ref="summary" minOccurs="1" maxOccurs="unbounded"/>
+	<xsd:element ref="project_group" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="keywords" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="icon"/>
         <xsd:element ref="appcategories"/>
@@ -55,6 +56,13 @@
           <xsd:attribute name="lang" type="xsd:string"/>
         </xsd:extension>
       </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="project_group">
+    <xsd:complexType mixed="true">
+      <xsd:choice maxOccurs="unbounded" minOccurs="0">
+        <xsd:element ref="project_group"/>
+      </xsd:choice>
     </xsd:complexType>
   </xsd:element>
   <xsd:element name="keywords">
