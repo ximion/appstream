@@ -17,8 +17,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 
 # Add the appstream-index client tool
 vala_add_executable (appstream-index appstream-index.vala
-				PACKAGES config gio-2.0 posix appstream
+				PACKAGES config appstream gio-2.0 posix
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
+				COMPILE_FLAGS --pkg appstream # somehow we need to explicitly define that, PACKAGES directive does not always work
 )
 
 target_link_libraries(appstream-index
