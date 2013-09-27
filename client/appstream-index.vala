@@ -19,12 +19,12 @@
  */
 
 using GLib;
+using Appstream;
 
-private class UaiClient : Object {
+private class ASClient : Object {
 	// Cmdln options
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
-	private static bool o_refresh = false;
 	private static bool o_no_wait = false;
 	private static string? o_search = null;
 
@@ -36,9 +36,7 @@ private class UaiClient : Object {
 		{ "version", 'v', 0, OptionArg.NONE, ref o_show_version,
 		N_("Show the application's version"), null },
 		{ "verbose", 0, 0, OptionArg.NONE, ref o_verbose_mode,
-			N_("Enable verbose mode"), null },
-		{ "refresh", 0, 0, OptionArg.NONE, ref o_refresh,
-		N_("Refresh the AppStream application cache"), null },
+		N_("Enable verbose mode"), null },
 		{ "nowait", 0, 0, OptionArg.NONE, ref o_no_wait,
 		N_("Don't wait for actions to complete'"), null },
 		{ "search", 's', 0, OptionArg.STRING, ref o_search,
@@ -46,7 +44,7 @@ private class UaiClient : Object {
 		{ null }
 	};
 
-	public UaiClient (string[] args) {
+	public ASClient (string[] args) {
 		exit_code = 0;
 		var opt_context = new OptionContext ("- Update-AppStream-Index client tool.");
 		opt_context.set_help_enabled (true);
@@ -84,17 +82,6 @@ private class UaiClient : Object {
 
 		// Prepare the AppStream database connection
 		var db = new Appstream.Database ();
-		/* Connecting to 'finished' signal */
-		db.finished.connect((action, success) => {
-			if (action != "refresh")
-				return;
-
-			if (success)
-				stdout.printf ("%s\n", _("Successfully rebuilt the app-info cache."));
-			else
-				stdout.printf ("%s\n", _("Unable to rebuild the app-info cache."));
-			quit_loop ();
-		});
 
 		db.error_code.connect((error_details) => {
 			stderr.printf ("Failed: %s\n", error_details);
@@ -106,32 +93,7 @@ private class UaiClient : Object {
 				quit_loop ();
 		});
 
-		if (o_refresh) {
-			try {
-				if (o_no_wait)
-					stdout.printf ("%s\n", _("Triggered app-info cache rebuild."));
-				else
-					stdout.printf ("%s\n", _("Rebuilding app-info cache..."));
-
-				db.refresh.begin ((obj, res) => {
-					try {
-						db.refresh.end(res);
-					} catch (Error e) {
-						exit_code = 6;
-						quit_loop ();
-						critical (e.message);
-					}
-
-					// just make sure that we really quit the loop
-					quit_loop ();
-				});
-
-				// start looping until refresh completes or fails
-				loop.run();
-			} catch (IOError e) {
-				stderr.printf ("%s\n", e.message);
-			}
-		} else if (o_search != null) {
+		if (o_search != null) {
 			db.open ();
 			PtrArray? app_list;
 			app_list = db.find_applications_by_str (o_search);
@@ -164,7 +126,7 @@ private class UaiClient : Object {
 		Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
 		Intl.textdomain(Config.GETTEXT_PACKAGE);
 
-		var main = new UaiClient (args);
+		var main = new ASClient (args);
 
 		// Run the application
 		main.run ();
@@ -172,5 +134,4 @@ private class UaiClient : Object {
 
 		return code;
 	}
-
 }

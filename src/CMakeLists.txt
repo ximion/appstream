@@ -9,7 +9,6 @@ find_package(Xapian 1.2 REQUIRED)
 find_package(GI REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_library(M_LIB m)
-pkg_check_modules(POLKIT REQUIRED polkit-gobject-1>=0.104)
 
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 
