@@ -19,14 +19,13 @@
  */
 
 using GLib;
-using Uai;
 using Appstream;
 
-namespace Uai.Provider {
+namespace Appstream.Provider {
 
 private static const string UBUNTU_APPINSTALL_DIR = "/usr/share/app-install";
 
-private class UbuntuAppinstall : Uai.DataProvider {
+private class UbuntuAppinstall : Appstream.DataProvider {
 	private List<Category> system_categories;
 
 	public UbuntuAppinstall () {

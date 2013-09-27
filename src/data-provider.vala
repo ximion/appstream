@@ -1,6 +1,6 @@
-/* debian-dep11.vala
+/* data-provider.vala
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 3
  *
@@ -19,21 +19,29 @@
  */
 
 using GLib;
-using Uai;
 
-namespace Uai.Provider {
+namespace Appstream {
 
-// TODO !!
-private class DEP11 : Uai.DataProvider {
+private abstract class DataProvider : Object {
+	public signal void application (Appstream.AppInfo app);
 
-	public DEP11 () {
-
+	public DataProvider () {
 	}
 
-	public override bool execute () {
-		return false;
+	protected void emit_application (Appstream.AppInfo app) {
+		application (app);
+	}
+
+	public abstract bool execute ();
+
+	protected void log_error (string msg) {
+		debug (msg);
+	}
+
+	protected void log_warning (string msg) {
+		warning (msg);
 	}
 
 }
 
-} // End of namespace: Uai.Provider
+} // End of namespace: AppstreamBuilder

@@ -32,12 +32,8 @@ vala_add_executable (uai-test-basics test-basics.vala
 )
 add_test(basic-test uai-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
 
-set(UAI_SOURCES_BASE ../src/uai-service/uai-utils.vala
-		../src/uai-service/data-provider.vala
-)
-
 # AppStream-XML provider tests
-vala_add_executable (uai-test-appstream ${UAI_SOURCES_BASE} ../src/uai-service/data-providers/appstream-xml.vala test-appstreamxml.vala
+vala_add_executable (uai-test-appstream ${UAI_SOURCES_BASE} test-appstreamxml.vala
 				BASE_DIR ${CMAKE_SOURCE_DIR}/src
 				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src

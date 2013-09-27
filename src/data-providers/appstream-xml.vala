@@ -20,12 +20,11 @@
 
 using GLib;
 using Xml;
-using Uai;
 using Appstream;
 
-namespace Uai.Provider {
+namespace Appstream.Provider {
 
-private class AppstreamXML : Uai.DataProvider {
+private class AppstreamXML : Appstream.DataProvider {
 	private string locale;
 	private List<Category> system_categories;
 
@@ -191,4 +190,4 @@ private class AppstreamXML : Uai.DataProvider {
 
 }
 
-} // End of namespace: Uai.Provider
+} // End of namespace: Appstream.Provider

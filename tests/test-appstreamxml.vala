@@ -19,6 +19,7 @@
  */
 
 using GLib;
+using Appstream;
 
 private string datadir;
 
@@ -27,7 +28,7 @@ void msg (string s) {
 }
 
 void test_appstream_parser () {
-	var asxml = new Uai.Provider.AppstreamXML ();
+	var asxml = new Provider.AppstreamXML ();
 
 	asxml.process_single_file (Path.build_filename (datadir, "appdata.xml", null));
 }

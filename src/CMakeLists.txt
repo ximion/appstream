@@ -15,15 +15,20 @@ set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 
 set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
-# include the daemon
-add_subdirectory(uai-service)
-
 set(APPSTREAM_LIB_SOURCES settings.vala
+		# utils
 		utils.vala
+		# public API
 		app-info.vala
 		database.vala
 		menudir.vala
 		screenshot-service.vala
+		# internal stuff to build the database
+		database-builder.vala
+		data-provider.vala
+		data-providers/appstream-xml.vala
+		data-providers/debian-dep11.vala
+		data-providers/ubuntu-appinstall.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp
@@ -42,6 +47,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 		    ${GIO2_INCLUDE_DIR}
 		    ${LIBXML2_INCLUDE_DIR}
 		    ${XAPIAN_INCLUDE_DIR}
+)
+
+add_definitions("-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE"
+	"-DI_KNOW_THE_PACKAGEKIT_PLUGIN_API_IS_SUBJECT_TO_CHANGE"
 )
 
 vala_precompile(aslib-precomp ASLIB_SRC_C ${APPSTREAM_LIB_SOURCES}
@@ -105,3 +114,5 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION lib/pkgconfig
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir DESTINATION share/gir-1.0/)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.typelib DESTINATION lib/girepository-1.0/)
 
+# include the PackageKit plugin
+add_subdirectory(pk-plugin)
