@@ -23,15 +23,6 @@ using Appstream.Utils;
 
 namespace Appstream {
 
-[DBus (name = "org.freedesktop.AppStream")]
-private interface UAIService : Object {
-	public abstract async bool refresh () throws IOError;
-
-	public signal void error_code (string error_details);
-	public signal void finished (string action_name, bool success);
-	public signal void authorized (bool success);
-}
-
 /** TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,
  * provide a list of words in your language that people are likely
@@ -179,7 +170,7 @@ internal class DatabaseWrite : Database {
 	}
 
 	public override bool open () {
-		bool ret = db_w.init (database_path);
+		bool ret = db_w.initialize (database_path);
 		ret = base.open ();
 
 		return ret;

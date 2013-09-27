@@ -29,13 +29,16 @@
 
 using namespace std;
 
-class DatabaseWrite
+/* _VERY_ ugly hack to make C++ and Vala work together */
+struct XADatabaseWrite {};
+
+class DatabaseWrite : public XADatabaseWrite
 {
 public:
 	explicit DatabaseWrite ();
 	~DatabaseWrite ();
 
-	bool init (const gchar *dbPath);
+	bool initialize (const gchar *dbPath);
 
 	bool addApplication (AppstreamAppInfo *app);
 	bool rebuild (GArray *apps);
@@ -45,5 +48,7 @@ private:
 	string m_dbPath;
 
 };
+
+inline DatabaseWrite* realDbWrite (XADatabaseWrite* d) { return static_cast<DatabaseWrite*>(d); }
 
 #endif // DATABASE_WRITE_H

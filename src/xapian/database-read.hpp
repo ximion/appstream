@@ -30,7 +30,10 @@
 
 using namespace std;
 
-class DatabaseRead
+/* _VERY_ ugly hack to make C++ and Vala work together */
+struct XADatabaseRead {};
+
+class DatabaseRead : public XADatabaseRead
 {
 public:
 	explicit DatabaseRead ();
@@ -56,5 +59,7 @@ private:
 	Xapian::Query getQueryForCategory (gchar *cat_id);
 	Xapian::Query queryListFromSearchEntry (AppstreamSearchQuery *asQuery);
 };
+
+inline DatabaseRead* realDbRead (XADatabaseRead* d) { return static_cast<DatabaseRead*>(d); }
 
 #endif // DATABASE_READ_H

@@ -53,7 +53,6 @@ DatabaseRead::open (const gchar *dbPath)
 	try {
 		m_xapianDB = Xapian::Database (m_dbPath);
 	} catch (const Xapian::Error &error) {
-		cout << "ERROR!" << endl;
 		g_warning ("Exception: %s", error.get_msg ().c_str ());
 		return false;
 	}

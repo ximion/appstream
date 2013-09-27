@@ -21,7 +21,7 @@
 namespace ASXapian {
 
 	[Compact]
-	[CCode (cname="struct DatabaseRead", free_function="xa_database_read_free", cprefix="xa_database_read_")]
+	[CCode (cname="struct XADatabaseRead", free_function="xa_database_read_free", cprefix="xa_database_read_")]
 	public class DatabaseRead {
 		[CCode (cname="xa_database_read_new")]
 		public DatabaseRead ();
@@ -34,12 +34,12 @@ namespace ASXapian {
 	}
 
 	[Compact]
-	[CCode (cname="struct DatabaseWrite", free_function="xa_database_write_free", cprefix="xa_database_write_")]
+	[CCode (cname="struct XADatabaseWrite", free_function="xa_database_write_free", cprefix="xa_database_write_")]
 	public class DatabaseWrite {
 		[CCode (cname="xa_database_write_new")]
 		public DatabaseWrite ();
 
-		public bool init (string db_path);
+		public bool initialize (string db_path);
 		public bool add_application (Appstream.AppInfo app);
 		public bool rebuild (GLib.Array<Appstream.AppInfo> apps);
 	}

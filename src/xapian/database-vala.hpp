@@ -22,13 +22,11 @@
 #define DATABASE_VALA_H
 
 #include <glib.h>
+#include "database-write.hpp"
+#include "database-read.hpp"
 #include "appstream_internal.h"
 
 extern "C" {
-
-/* _VERY_ ugly hack to make C++ and Vala work together */
-typedef gpointer XADatabaseRead;
-typedef gpointer XADatabaseWrite;
 
 /* methods for database read access */
 
@@ -45,7 +43,7 @@ GPtrArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSear
 XADatabaseWrite *xa_database_write_new ();
 void xa_database_write_free (XADatabaseWrite *db);
 
-gboolean xa_database_write_init (XADatabaseWrite *db, const gchar *db_path);
+gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path);
 gboolean xa_database_write_add_application (XADatabaseWrite *db, AppstreamAppInfo *app);
 gboolean xa_database_write_rebuild (XADatabaseWrite *db, GArray *apps);
 

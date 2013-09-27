@@ -24,45 +24,47 @@
 
 /* methods for database read access */
 
-XADatabaseRead *xa_database_read_new () { return (XADatabaseRead*) new DatabaseRead (); };
-void xa_database_read_free (XADatabaseRead *db) { delete ((DatabaseRead*) db); };
+XADatabaseRead *xa_database_read_new () { return new DatabaseRead (); };
+void xa_database_read_free (XADatabaseRead *db) { delete realDbRead (db); };
 
 gboolean xa_database_read_open (XADatabaseRead *db, const gchar *db_path)
 {
-	return ((DatabaseRead*) db)->open (db_path);
+	return realDbRead (db)->open (db_path);
 };
 
 const gchar *xa_database_read_get_schema_version (XADatabaseRead *db)
 {
-	return ((DatabaseRead*) db)->getSchemaVersion ().c_str ();
+	return realDbRead (db)->getSchemaVersion ().c_str ();
 };
 
 GPtrArray *xa_database_read_get_all_applications (XADatabaseRead *db)
 {
-	return ((DatabaseRead*) db)->getAllApplications ();
+	return realDbRead (db)->getAllApplications ();
 };
 
 GPtrArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSearchQuery *query)
 {
-	return ((DatabaseRead*) db)->findApplications (query);
+	return realDbRead (db)->findApplications (query);
 };
 
 /* methods for database write access */
 
-XADatabaseWrite *xa_database_write_new () { return (XADatabaseWrite*) new DatabaseWrite (); };
-void xa_database_write_free (XADatabaseWrite *db) { delete ((DatabaseWrite*) db); };
+XADatabaseWrite *xa_database_write_new () { XADatabaseWrite *dbw = new DatabaseWrite (); cout << "A " << dbw << endl; return dbw; };
+void xa_database_write_free (XADatabaseWrite *db) { delete realDbWrite (db); };
 
-gboolean xa_database_write_init (XADatabaseWrite *db, const gchar *db_path)
+gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path)
 {
-	return ((DatabaseWrite*) db)->init (db_path);
+	DatabaseWrite *dbw = realDbWrite (db);
+	cout << "B " << dbw << endl;
+	return dbw->initialize (db_path);
 };
 
 gboolean xa_database_write_add_application (XADatabaseWrite *db, AppstreamAppInfo *app)
 {
-	return ((DatabaseWrite*) db)->addApplication (app);
+	return realDbWrite (db)->addApplication (app);
 };
 
 gboolean xa_database_write_rebuild (XADatabaseWrite *db, GArray *apps)
 {
-	return ((DatabaseWrite*) db)->rebuild (apps);
+	return realDbWrite (db)->rebuild (apps);
 };
