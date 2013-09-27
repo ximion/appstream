@@ -28,7 +28,7 @@ private bool str_empty (string? str) {
 	return false;
 }
 
-internal bool touch_dir (string dirname) {
+private bool touch_dir (string dirname) {
 	File d = File.new_for_path (dirname);
 	try {
 		if (!d.query_exists ()) {

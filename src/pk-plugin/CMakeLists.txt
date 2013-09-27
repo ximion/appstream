@@ -15,6 +15,7 @@ target_link_libraries(pk_plugin_appstream
 		${GIO2_LIBRARIES}
 		${PACKAGEKIT_LIBRARIES}
 		${PACKAGEKIT_PLUGIN_LIBRARIES}
+		appstream
 )
 
 include_directories(${CMAKE_BINARY_DIR}
@@ -26,4 +27,4 @@ include_directories(${CMAKE_BINARY_DIR}
 		${PACKAGEKIT_PLUGIN_INCLUDE_DIRS}
 )
 
-install(TARGETS pk_plugin_appstream DESTINATION ${LIB_INSTALL_DIR}/packagekit-plugins)
+install(TARGETS pk_plugin_appstream DESTINATION ${INSTALL_DIR_LIB}/packagekit-plugins)

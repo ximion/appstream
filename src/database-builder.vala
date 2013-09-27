@@ -32,7 +32,7 @@ internal class Builder : Object {
 		db_rw = new Appstream.DatabaseWrite ();
 
 		// Update db path if necessary
-		if (CURRENT_DB_PATH == "")
+		if (Utils.str_empty (CURRENT_DB_PATH))
 			CURRENT_DB_PATH = db_rw.database_path;
 
 		appList = new Array<Appstream.AppInfo> ();

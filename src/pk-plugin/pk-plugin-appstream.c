@@ -47,28 +47,13 @@ pk_plugin_initialize (PkPlugin *plugin)
 }
 
 /**
- * pk_plugin_destroy:
- */
-void
-pk_plugin_destroy (PkPlugin *plugin)
-{
-	/* cleanup */
-}
-
-/**
  * pk_plugin_transaction_finished_end:
  */
 void
 pk_plugin_transaction_finished_end (PkPlugin *plugin,
 				    PkTransaction *transaction)
 {
-	gchar *error_msg = NULL;
-	gchar *path;
-	gchar *statement;
-	gfloat step;
-	gint rc;
-	GPtrArray *array = NULL;
-	guint i;
+	AppstreamBuilder *builder = NULL;
 	PkRoleEnum role;
 
 	/* skip simulate actions */
@@ -93,11 +78,14 @@ pk_plugin_transaction_finished_end (PkPlugin *plugin,
 	pk_backend_job_set_status (plugin->job,
 				   PK_STATUS_ENUM_SCAN_APPLICATIONS);
 
-
+	/* refresh the AppStream cache using the database builder */
+	builder = appstream_builder_new ();
+	appstream_builder_initialize (builder);
+	appstream_builder_refresh_cache (builder);
 
 	pk_backend_job_set_percentage (plugin->job, 100);
 	pk_backend_job_set_status (plugin->job, PK_STATUS_ENUM_FINISHED);
 out:
-	if (array != NULL)
-		g_ptr_array_unref (array);
+	if (builder != NULL)
+		g_object_unref (builder);
 }
