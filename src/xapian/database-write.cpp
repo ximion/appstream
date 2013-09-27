@@ -34,12 +34,10 @@ using namespace AppStream;
 DatabaseWrite::DatabaseWrite () :
     m_rwXapianDB(0)
 {
-	cout << "Create database write." << endl;
 }
 
 DatabaseWrite::~DatabaseWrite ()
 {
-	cout << "Destroy database write." << endl;
 	if (m_rwXapianDB) {
 		delete m_rwXapianDB;
 	}
@@ -54,7 +52,6 @@ DatabaseWrite::initialize (const gchar *dbPath)
 		m_rwXapianDB = new Xapian::WritableDatabase (m_dbPath,
 							    Xapian::DB_CREATE_OR_OPEN);
 	} catch (const Xapian::Error &error) {
-		cout << "ERROR!" << endl;
 		g_warning ("Exception: %s", error.get_msg ().c_str ());
 		return false;
 	}

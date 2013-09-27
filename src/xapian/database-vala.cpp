@@ -49,14 +49,12 @@ GPtrArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSear
 
 /* methods for database write access */
 
-XADatabaseWrite *xa_database_write_new () { XADatabaseWrite *dbw = new DatabaseWrite (); cout << "A " << dbw << endl; return dbw; };
+XADatabaseWrite *xa_database_write_new () { return new DatabaseWrite (); };
 void xa_database_write_free (XADatabaseWrite *db) { delete realDbWrite (db); };
 
 gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path)
 {
-	DatabaseWrite *dbw = realDbWrite (db);
-	cout << "B " << dbw << endl;
-	return dbw->initialize (db_path);
+	return realDbWrite (db)->initialize (db_path);
 };
 
 gboolean xa_database_write_add_application (XADatabaseWrite *db, AppstreamAppInfo *app)
