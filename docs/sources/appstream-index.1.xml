@@ -72,15 +72,6 @@
 		</varlistentry>
 
 		<varlistentry>
-			<term><option>--refresh</option></term>
-			<listitem>
-				<para>Recreate the AppStream database (useful if application data has changed).</para>
-				<para>You can use the <option>--nowait</option> option in combination with this parameter to not wait for the database
-				update process to finish.</para>
-			</listitem>
-		</varlistentry>
-
-		<varlistentry>
 			<term><option>-s</option></term>
 			<term><option>--search <replaceable>TERM</replaceable></option></term>
 			<listitem>

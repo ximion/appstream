@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE bookinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+<bookinfo id="book-AppStream-AppStream">
+	<title>AppStream</title>
+	<subtitle>Enhancing application metadata in software management</subtitle>
+	<productname>AppStream</productname>
+	<productnumber>0.4</productnumber>
+	<edition>1</edition>
+	<pubsnumber>0</pubsnumber>
+	<abstract>
+		<para>
+			AppStream is a cross-distro initiative, which aims at creating an unified software metadata database,
+			allowing (Linux) package-management services to display applications in "AppStore"-like applications.
+		</para>
+		<para>
+			It also provides services to submit screenshots and ratings and reviews about applications.
+		</para>
+	</abstract>
+	<corpauthor>
+		<inlinemediaobject>
+			<imageobject>
+				<imagedata fileref="images/appstream-header.png" format="PNG" />
+			</imageobject>
+		</inlinemediaobject>
+	</corpauthor>
+	<xi:include href="Legal_Notice.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="Author_Group.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+</bookinfo>
