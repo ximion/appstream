@@ -5,24 +5,23 @@
 ]>
 <bookinfo id="book-AppStream-AppStream">
 	<title>AppStream</title>
-	<subtitle>Enhancing application metadata in software management</subtitle>
+	<subtitle>Infrastructure for distro-agnostic application-management tools</subtitle>
 	<productname>AppStream</productname>
 	<productnumber>0.4</productnumber>
 	<edition>1</edition>
 	<pubsnumber>0</pubsnumber>
 	<abstract>
 		<para>
-			AppStream is a cross-distro initiative, which aims at creating an unified software metadata database,
-			allowing (Linux) package-management services to display applications in "AppStore"-like applications.
-		</para>
-		<para>
-			It also provides services to submit screenshots and ratings and reviews about applications.
+			AppStream is a cross-distro effort for building aoftware-center applications.
+			It provides specifications for things like an unified software metadata database,
+			screenshot services and various other things needed to create user-friendly application-centers
+			for (Linux) distributions.
 		</para>
 	</abstract>
 	<corpauthor>
 		<inlinemediaobject>
 			<imageobject>
-				<imagedata fileref="images/appstream-header.png" format="PNG" />
+				<imagedata fileref="images/appstream-logo.png" format="PNG" />
 			</imageobject>
 		</inlinemediaobject>
 	</corpauthor>

@@ -3,9 +3,15 @@
 <!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
 %BOOK_ENTITIES;
 ]>
-<chapter id="chap-AppStream-Goals">
-	<title>Project Goals</title>
+<chapter id="chap-AppStream-About">
+	<title>What is AppStream?</title>
 	<para>
-		AppStream has the following goals:
+		AppStream is a cross-distro effort for building Software-Center applications.
+		It provides specifications for things like a screenshot-service, application ratings &amp; reviews etc.
+		It also provides a Xapian database, storing information about all available applications in the distribution’s repositories.
+	</para>
+	<para>
+		All AppStream components are distro-agnostic (with exception to some metadata which is used to generate the Xapian application cache), and therefore
+		AppStream makes it possible to build distro-agnostic application management tools.
 	</para>
 </chapter>

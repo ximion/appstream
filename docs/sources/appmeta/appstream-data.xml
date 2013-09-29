@@ -4,7 +4,7 @@
 %BOOK_ENTITIES;
 ]>
 
-<section id="sect-AppStream-Specs-ASXML">
+<section id="sect-AppStream-Metadata-ASXML">
 	<title>AppStream XML files</title>
 
 	<section id="spec-asxml-introduction">
@@ -39,10 +39,10 @@
 			The XML starts with an <code><![CDATA[<applications>]]></code> tag as root element. It has all the
 			<code><![CDATA[<application>]]></code> elements as children.
 			Data to fill the application elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
-			and package data. However, if an application ships AppData files (see <xref linkend="sect-AppStream-Specs-AppData"/>),
+			and package data. However, if an application ships AppData files (see <xref linkend="sect-AppStream-Metadata-AppData"/>),
 			values defined there should override data from any other source.
-			The <code><![CDATA[<application>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal>
-			and <literal>icon</literal> tag.
+			The <code><![CDATA[<application>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal>,
+			<literal>pkgname</literal> and <literal>icon</literal> tag.
 			All possible tags are:
 		</para>
 
@@ -55,6 +55,15 @@
 					Additional identifiers are possible later, but right now <literal>desktop</literal> is the only supported type.
 				</para>
 			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;pkgname/&gt;</term>
+				<listitem>
+					<para>
+						The name of the package which needs to be installed in order to provide this application.
+					</para>
+				</listitem>
 			</varlistentry>
 
 			<varlistentry>

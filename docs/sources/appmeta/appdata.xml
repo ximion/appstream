@@ -4,7 +4,7 @@
 %BOOK_ENTITIES;
 ]>
 
-<section id="sect-AppStream-Specs-AppData">
+<section id="sect-AppStream-Metadata-AppData">
 	<title>AppData XML files</title>
 
 	<section id="spec-appdata-introduction">
@@ -21,7 +21,7 @@
 		<para>
 			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
 			<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink> or GSetting schemas.
-			The AppData specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-Specs-ASXML"/>).
+			The AppData specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-Metadata-ASXML"/>).
 		</para>
 		<para>
 			The AppData files override any values which are automatically fetched by the AppStream data generator.

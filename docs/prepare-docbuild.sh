@@ -20,12 +20,10 @@ fi
 
 # cleanup
 rm -rf $builddir/en-US
-rm -rf $builddir/man
 rm -rf $builddir/AppStream-Docs
 rm -f $builddir/publican.cfg
 
 # assemble documentation build directory
 cp -dpr $sourcedir/sources $builddir/en-US
-cp -dpr $sourcedir/man $builddir/
 #cp -dpr $sourcedir/api/xml $builddir/en-US/api
 cp $sourcedir/publican.cfg $builddir

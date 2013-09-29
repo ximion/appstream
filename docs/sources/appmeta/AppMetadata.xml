@@ -3,13 +3,13 @@
 <!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
 %BOOK_ENTITIES;
 ]>
-<chapter id="chap-AppStream-Specs">
-	<title>Specifications</title>
+<chapter id="chap-AppStream-Metadata">
+	<title>Application Metadata</title>
 	<para>
 		AppStream uses it's own XML definition to describe applications. Here you can learn about it.
 	</para>
 
-	<xi:include href="appstream-xml.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="appstream-data.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="appdata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 
 </chapter>
