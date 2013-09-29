@@ -216,5 +216,27 @@
 				</listitem>
 			</varlistentry>
 		</variablelist>
+
+		<varlistentry>
+				<term>&lt;appcategories/&gt;</term>
+				<listitem>
+					<para>
+						This tag can contain one or more <code><![CDATA[<appcategory>]]></code> tags, describing the categories this application
+						is in.
+						This data is usually taken from Desktop files, a list of categories can be found in the
+						<ulink url="http://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
+						Example:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<appcategories>
+    <appcategory>GNOME</appcategory>
+    <appcategory>GTK</appcategory>
+    <appcategory>Network</appcategory>
+    <appcategory>Telephony</appcategory>
+</appcategories>]]>
+					</programlisting>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 	</section>
 </section>
