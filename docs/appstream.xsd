@@ -91,7 +91,7 @@
                 <xsd:enumeration value="stock"/>
                 <xsd:enumeration value="local"/>
                 <xsd:enumeration value="cached"/>
-                <xsd:enumeration value="url"/>
+                <xsd:enumeration value="remote"/>
               </xsd:restriction>
             </xsd:simpleType>
           </xsd:attribute>

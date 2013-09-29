@@ -184,7 +184,7 @@
 						such as Listaller. They should specify a full file path.
 					</para>
 					<para>
-						<literal>url</literal> icons loaded from a remote URL. This is currently not implemented anywhere, but might be used in future.
+						<literal>remote</literal> icons loaded from a remote URL. This is currently not implemented anywhere, but might be used in future.
 					</para>
 					<para>
 						Examples of the different methods to specify an icon:
@@ -193,7 +193,7 @@
 <![CDATA[<icon type="stock">gimp</icon>
 <icon type="cached">firefox.png</icon>
 <icon type="local">/usr/share/pixmaps/foobar.png</icon>
-<icon type="url">http://example.com/icons/foobar.png</icon>]]>
+<icon type="remote">http://example.com/icons/foobar.png</icon>]]>
 					</programlisting>
 				</listitem>
 			</varlistentry>
