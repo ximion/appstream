@@ -192,7 +192,7 @@
 					<programlisting language="XML">
 <![CDATA[<icon type="stock">gimp</icon>
 <icon type="cached">firefox.png</icon>
-<icon type="local">/usr/share/pixmaps/foobar.png</icon>
+<icon type="cache">/usr/share/pixmaps/foobar.png</icon>
 <icon type="remote">http://example.com/icons/foobar.png</icon>]]>
 					</programlisting>
 				</listitem>
@@ -215,9 +215,8 @@
 					</programlisting>
 				</listitem>
 			</varlistentry>
-		</variablelist>
 
-		<varlistentry>
+			<varlistentry>
 				<term>&lt;appcategories/&gt;</term>
 				<listitem>
 					<para>
@@ -237,6 +236,108 @@
 					</programlisting>
 				</listitem>
 			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;keywords/&gt;</term>
+				<listitem>
+					<para>
+						This tag can contain one or more <code><![CDATA[<keyword>]]></code> tags, describing keywords for the application,
+						to make it easier to find in a software center.
+						The data is taken from Desktop files.
+						Example:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<keywords>
+  <keyword>IDE</keyword>
+  <keyword>development</keyword>
+  <keyword>programming</keyword>
+</keywords>]]>
+					</programlisting>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
+	</section>
+
+	<section id="spec-asxml-example">
+		<title>Example file</title>
+		<para>
+			This is an example AppStream metadata file:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<applications version="1.0">
+  <application>
+    <name>Devhelp</name>
+    <appcategories>
+      <appcategory>GNOME</appcategory>
+      <appcategory>GTK</appcategory>
+      <appcategory>Development</appcategory>
+      <appcategory>Documentation</appcategory>
+    </appcategories>
+    <icon type="cache">devhelp.png</icon>
+    <id type="application">devhelp.desktop</id>
+    <keywords>
+      <keyword>documentation</keyword>
+      <keyword>information</keyword>
+      <keyword>manual</keyword>
+      <keyword>developer</keyword>
+      <keyword>api</keyword>
+    </keywords>
+    <pkgname>devhelp</pkgname>
+    <summary>Developer's Help program</summary>
+    <url type="homepage">https://live.gnome.org/devhelp</url>
+  </application>
+  <application>
+    <name>KRename</name>
+    <appcategories>
+      <appcategory>Qt</appcategory>
+      <appcategory>KDE</appcategory>
+      <appcategory>System</appcategory>
+      <appcategory>FileManager</appcategory>
+    </appcategories>
+    <icon type="cache">krename.png</icon>
+    <id type="application">kde4/krename.desktop</id>
+    <pkgname>krename</pkgname>
+    <summary>A batch renamer</summary>
+    <url type="homepage">http://www.krename.net/</url>
+  </application>
+<application>
+    <name>Urban Lightscape</name>
+    <appcategories>
+      <appcategory>Graphics</appcategory>
+      <appcategory>Photography</appcategory>
+    </appcategories>
+    <icon type="cache">urbanlightscape.png</icon>
+    <id type="application">urbanlightscape.desktop</id>
+    <mimetypes>
+      <mimetype>image/gif</mimetype>
+      <mimetype>image/jpeg</mimetype>
+      <mimetype>image/png</mimetype>
+      <mimetype>image/tiff</mimetype>
+      <mimetype>image/x-bmp</mimetype>
+      <mimetype>image/x-portable-pixmap</mimetype>
+      <mimetype>image/x-pcx</mimetype>
+      <mimetype>image/x-targa</mimetype>
+      <mimetype>image/x-xpm</mimetype>
+    </mimetypes>
+    <pkgname>urbanlightscape</pkgname>
+    <summary>Improve lighting, Correct Exposure, Add Synthetic Light to Photos</summary>
+    <url type="homepage">http://www.indii.org/software/urbanlightscape</url>
+  </application>
+  <application>
+    <name>Fish Filets NG</name>
+    <appcategories>
+      <appcategory>Game</appcategory>
+      <appcategory>LogicGame</appcategory>
+    </appcategories>
+    <icon type="cache">fillets-ng.png</icon>
+    <id type="application">fillets-ng.desktop</id>
+    <pkgname>fillets-ng</pkgname>
+    <url type="homepage">http://fillets.sourceforge.net/</url>
+  </application>
+  ...
+</applications>]]>
+					</programlisting>
+
 	</section>
 </section>

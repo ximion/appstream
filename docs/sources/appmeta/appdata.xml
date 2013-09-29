@@ -39,7 +39,7 @@
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <application>
  <id type="desktop">gnome-power-statistics.desktop</id>
- <licence>CC0</licence>
+ <licence>GPL-2+</licence>
  <name>Power Statistics</name>
  <summary>Observe power management</summary>
  <description>
@@ -63,10 +63,17 @@
   <screenshot width="800" height="600">http://www.hughsie.com/en_US/preferences.png</screenshot>
  </screenshots>
  <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
- <updatecontact>gnome-power-manager-list@gnome.org</updatecontact>
  <project_group>GNOME</project_group>
 </application>]]>
 		</programlisting>
+
+		<warning>
+			<para>
+				This draft is not finished yet and might change in future.
+				If you want to ship AppData files right now, please also take a look at the
+				<ulink url="http://people.freedesktop.org/~hughsient/appdata/">AppData draft</ulink> which is currently being implemented by GNOME.
+			</para>
+		</warning>
 
 	</section>
 </section>
