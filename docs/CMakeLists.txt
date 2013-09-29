@@ -53,6 +53,11 @@ if (DOCUMENTATION)
 		DEPENDS documentation
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
+	add_custom_command(
+		TARGET documentation-htmlexport POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/api/html" "${CMAKE_CURRENT_SOURCE_DIR}/html/api/html"
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	)
 
 	#########################
 	# API documentation
