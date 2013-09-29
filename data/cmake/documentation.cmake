@@ -38,17 +38,18 @@ macro(add_xml_manpages target manpages translations entities)
 		string(LENGTH ${manpage} manpage_length)
 		math(EXPR manpage_length ${manpage_length}-1)
 		string(SUBSTRING ${manpage} ${manpage_length} 1 section)
+		get_filename_component(manpage_name "${manpage}" NAME)
 
-		add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${manpage}
-			COMMAND xmlto man ${CMAKE_CURRENT_SOURCE_DIR}/${manpage}.xml
+		add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${manpage_name}
+			COMMAND xmlto man ${CMAKE_CURRENT_SOURCE_DIR}/${manpage_name}.xml
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 			DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${manpage}.xml
 		)
 
 
-		set(commands ${commands} ${CMAKE_CURRENT_BINARY_DIR}/${manpage})
+		set(commands ${commands} ${CMAKE_CURRENT_BINARY_DIR}/${manpage_name})
 
-		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${manpage}
+		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${manpage_name}
 				DESTINATION share/man/man${section})
 
 		# Add the translations for the manpage.
