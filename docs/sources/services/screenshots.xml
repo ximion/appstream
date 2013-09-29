@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-Services-Screenshots">
+	<title>Screenshot service</title>
+
+	<section id="spec-screenshots-introduction">
+		<title>Introduction</title>
+		<para>
+			To make give users an impression on how the application they are about to install will look like, screenshots are provided to
+			software-centers via a web service.
+		</para>
+	</section>
+
+	<section id="spec-screenshots-service">
+		<title>Webservice</title>
+		<para>
+			Distributors provide a service like <ulink url="http://screenshots.debian.net/about">debshots</ulink>. They can either use the original
+			<literal>debshots</literal> service, which does not only work for Debian but also any other distribution, or they can set up their own service
+			which mimicks the <literal>debshots</literal> API.
+		</para>
+		<para>
+			In future, it is planned to allow applications to specify own screenshots via their AppData files.
+		</para>
+		<para>
+			In order to make a new screenshot service known to software-centers, distributors need to place information about their webservice in the config
+			file of <literal>libappstream</literal>, whis is usually located at <filename>/etc/appstream.conf</filename>.
+		</para>
+	</section>
+
+	<section id="spec-screenshots-client-api">
+		<title>Client API</title>
+		<para>
+			Software center applications can access the screenshot service either directly, or via the <literal>libappstream</literal> API.
+			Simple example:
+		</para>
+		<programlisting language="C">
+<![CDATA[#include <appstream.h>
+gchar* get_screenshot_url (const gchar* pkgname, gboolean thumbnail) {
+    AppstreamScreenshotService scrservice;
+    gchar *url;
+
+    scrservice = appstream_screenshot_service_new ();
+    if (thumbnail)
+        /* return URL of a screenshot thumbnail */
+        url = appstream_screenshot_service_get_thumbnail_url (scrservice, pkgname);
+    else
+        /* return URL of the full screenshot */
+        url = appstream_screenshot_service_get_screenshot_url (scrservice, pkgname);
+    g_object_unref (scrservice);
+
+    return url;
+}]]>
+					</programlisting>
+	</section>
+</section>
