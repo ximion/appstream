@@ -38,9 +38,11 @@
 			Simple example:
 		</para>
 		<programlisting language="C">
-<![CDATA[#include <appstream.h>
+<![CDATA[#include <glib.h>
+#include <appstream.h>
+
 gchar* get_screenshot_url (const gchar* pkgname, gboolean thumbnail) {
-    AppstreamScreenshotService scrservice;
+    AppstreamScreenshotService *scrservice;
     gchar *url;
 
     scrservice = appstream_screenshot_service_new ();
