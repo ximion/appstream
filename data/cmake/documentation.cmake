@@ -41,7 +41,7 @@ macro(add_xml_manpages target manpages translations entities)
 		get_filename_component(manpage_name "${manpage}" NAME)
 
 		add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${manpage_name}
-			COMMAND xmlto man ${CMAKE_CURRENT_SOURCE_DIR}/${manpage_name}.xml
+			COMMAND xmlto man ${CMAKE_CURRENT_SOURCE_DIR}/${manpage}.xml
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 			DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${manpage}.xml
 		)
