@@ -15,10 +15,12 @@
         <xsd:element ref="pkgname"/>
         <xsd:element ref="name" minOccurs="1" maxOccurs="unbounded"/>
         <xsd:element ref="summary" minOccurs="1" maxOccurs="unbounded"/>
+	<xsd:element ref="description" minOccurs="0" maxOccurs="1"/>
+	<xsd:element ref="licence" minOccurs="0" maxOccurs="1"/>
 	<xsd:element ref="project_group" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="keywords" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="icon"/>
-        <xsd:element ref="categories"/>
+        <xsd:element ref="appcategories"/>
         <xsd:element ref="mimetypes" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
@@ -50,6 +52,39 @@
     </xsd:complexType>
   </xsd:element>
   <xsd:element name="summary">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="lang" type="xsd:string"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="description">
+    <xsd:complexType mixed="true">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="p" minOccurs="1" maxOccurs="unbounded"/>
+        <xsd:element ref="ul" minOccurs="0" maxOccurs="1"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="p">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="lang" type="xsd:string"/>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="ul">
+    <xsd:complexType mixed="true">
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element ref="li" minOccurs="1" maxOccurs="10"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="li">
     <xsd:complexType>
       <xsd:simpleContent>
         <xsd:extension base="xsd:string">
@@ -99,14 +134,14 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
-  <xsd:element name="categories">
+  <xsd:element name="appcategories">
     <xsd:complexType mixed="true">
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
-        <xsd:element ref="category"/>
+        <xsd:element ref="appcategory"/>
       </xsd:choice>
     </xsd:complexType>
   </xsd:element>
-  <xsd:element name="category" type="xsd:string"/>
+  <xsd:element name="appcategory" type="xsd:string"/>
   <xsd:element name="mimetypes">
     <xsd:complexType mixed="true">
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
