@@ -3,7 +3,7 @@
 find_package(Vala REQUIRED)
 include("${VALA_USE_FILE}")
 
-find_package(GLIB2 2.28 REQUIRED)
+find_package(GLIB2 2.36 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(Xapian 1.2 REQUIRED)
 find_package(GI REQUIRED)
@@ -62,6 +62,7 @@ vala_precompile(aslib-precomp ASLIB_SRC_C ${APPSTREAM_LIB_SOURCES}
 				--gir=AppStream-${AS_VERSION_LIBS}.gir
 				--library appstream
 				--internal-vapi=appstream_internal.vapi.orig
+				--target-glib=2.36
 )
 
 # ensure that the GI compiler has been found (apparently, the automatic tests fail on some machines)

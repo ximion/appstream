@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-Specs-ASXML">
+	<title>AppStream XML files</title>
+
+	<section id="spec-asxml-introduction">
+		<title>Introduction</title>
+
+		<para>
+			AppStream XML files are small textfiles describing all available applications in the distribution's package repositories.
+			The XML files might be compressed with GZip.
+		</para>
+	</section>
+
+	<section id="spec-asxml-filenaming">
+		<title>File naming and location</title>
+		<para>
+			The XML files must have an unique name, which is usually the distribution's name and version, combined with the name of the repository/origin.
+			For example in Debian 8 (Jessie), the filename for the main repository component would be <filename>debian-jessie-main.xml.gz</filename>.
+			For Fedora 20 (Heisenbug) updates it would be <filename>fedora-20-updates.xml.gz</filename>.
+			3rd-party repositories use a vendor name and repository-name combination, for example Ubuntu PPAs might get <filename>ppa-ubuntu12.04-username-foobar.xml</filename>.
+		</para>
+		<para>
+			There are two valid locations to store AppStream XML data. <filename>/usr/share/app-info/xmls</filename> stores all AppStream data which
+			has been installed via software packages, while <filename>/var/cache/app-info/xmls</filename> stores application data which was downloaded
+			by the package manager or placed there by other tools (e.g. Listaller).
+			The XML files can either be plain files or be compressed with gzip. It is always a good idea to compress the files, because they tend to become
+			quite large.
+		</para>
+	</section>
+
+	<section id="spec-asxml-structure">
+		<title>XML structure</title>
+		<para>
+			The XML starts with an <code><![CDATA[<applications>]]></code> tag as root element. It has all the
+			<code><![CDATA[<application>]]></code> elements as children.
+			Data to fill the application elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
+			and package data. However, if an application ships AppData files (see <xref linkend="sect-AppStream-Specs-AppData"/>),
+			values defined there should override data from any other source.
+			The <code><![CDATA[<application>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal>
+			and <literal>icon</literal> tag.
+			All possible tags are:
+		</para>
+
+		<variablelist>
+			<varlistentry>
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					The <code language="XML"><![CDATA[<id type="desktop">]]></code> tag is the same name as the installed .desktop file for the application.
+					Additional identifiers are possible later, but right now <literal>desktop</literal> is the only supported type.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;name/&gt;</term>
+				<listitem>
+					<para>
+						The application name defined in the application's
+						<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop file</ulink>.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;licence/&gt;</term>
+				<listitem>
+					<para>
+						The <code><![CDATA[<licence>]]></code> tag is indicating the licence of your project/application.
+						Possible values are:
+						<itemizedlist>
+							<listitem><para>GPL-2</para></listitem>
+							<listitem><para>GPL-3+</para></listitem>
+							<listitem><para>LGPL-3+</para></listitem>
+							<listitem><para>MIT</para></listitem>
+							<listitem><para>CC-BY-SA-2</para></listitem>
+							<listitem><para>...</para></listitem>
+						</itemizedlist>
+						A full list of recognized licenses and their identifiers can be found at the
+						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+						For SPDX compatibility, versions with trailing dot-zeroes are considered to be equivalent to versions without
+						(e.g., "2.0.0" is considered equal to "2.0" and "2").
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;summary/&gt;</term>
+				<listitem>
+					<para>
+						A short summary of the purpose and function of this application. Usually taken from the Desktop file,
+						if the application does not ship an AppData file.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;description/&gt;</term>
+				<listitem>
+					<para>
+						A long description of the application. It is usually taken from the package descriptions or application's AppData files.
+						The description might use markup. Right now, only paragraph, ordered list and unordered list are supported.
+						An example description element might look like this:
+						<programlisting language="XML">
+<![CDATA[<description>
+  <p>
+   Power Statistics is a program used to view historical and current battery
+   information and will show programs running on your computer using power.
+  </p>
+  <p>Example list:</p>
+  <ul>
+   <li>First item</li>
+   <li>Second item</li>
+  </ul>
+  <p>
+  You probably only need to install this application if you are having problems
+  with your laptop battery, or are trying to work out what programs are using
+  significant amounts of power.
+  </p>
+ </description>]]>
+						</programlisting>
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;url/&gt;</term>
+				<listitem>
+					<para>
+						Links of type <literal>homepage</literal> should be a link to the upstream homepage for the application.
+						It is planned to allow links to application's FAQ and forums later.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;project_group/&gt;</term>
+				<listitem>
+					<para>
+						The <code><![CDATA[<project_group>]]></code> tag identifies a project with a specific upstream umbrella project.
+						Known values include <literal>GNOME, KDE, XFCE, LXDE, Mozilla</literal> and <literal>MATE</literal>, although other umbrella projects
+						like <literal>Yorba</literal> would make sense too.
+					</para>
+					<note>
+						<para>
+							Applications should only identify with an umbrella project if you use all their infrastructure and policies, for instance
+							string freezes dates, bugtracker and source control instance.
+						</para>
+					</note>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;icon/&gt;</term>
+				<listitem>
+					<para>
+						The <code><![CDATA[<icon>]]></code> tag describes the application's icon.
+						It can be of the type <literal>stock</literal>, <literal>cached</literal>, <literal>local</literal>,
+						or <literal>url</literal>.
+					</para>
+					<para>
+						<literal>stock</literal> icons are loaded from stock. The icon name should never include any file-extension or path.
+					</para>
+					<para>
+						<literal>cached</literal> icons are loaded from the AppStream icon cache. The icon tag should contain the icon file name, including it's
+						extension.
+					</para>
+					<para>
+						<literal>local</literal> icons are reserved for AppStream data installed by local applications or via 3rd-party application installers,
+						such as Listaller. They should specify a full file path.
+					</para>
+					<para>
+						<literal>url</literal> icons loaded from a remote URL. This is currently not implemented anywhere, but might be used in future.
+					</para>
+					<para>
+						Examples of the different methods to specify an icon:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<icon type="stock">gimp</icon>
+<icon type="cached">firefox.png</icon>
+<icon type="local">/usr/share/pixmaps/foobar.png</icon>
+<icon type="url">http://example.com/icons/foobar.png</icon>]]>
+					</programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;mimetypes/&gt;</term>
+				<listitem>
+					<para>
+						This tag can contain one or more <code><![CDATA[<mimetype>]]></code> tags, describing the mime types this application supports.
+						The data can usually be fetched from the Desktop files.
+						Example:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<mimetypes>
+    <mimetype>text/html</mimetype>
+    <mimetype>image/jpeg</mimetype>
+    <mimetype>application/rss+xml</mimetype>
+ </mimetypes>]]>
+					</programlisting>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+</section>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-Specs-AppData">
+	<title>AppData XML files</title>
+
+	<section id="spec-appdata-introduction">
+		<title>Introduction</title>
+		<para>
+			Every software center that exists allows the user to look at screenshots and a long description of the application before it is installed.
+			For most users it allows them to answer the question <quote>Do I want to install this application?</quote>.
+			Traditionally in Linux distributions, we have none of this data for the vast majority of our desktop user-installable applications.
+			The packages-descriptions are describing all contents of a package, and not just a single application. They are also often written in a technical
+			language and refer to other packages, which makes it hard for beginners to understand what the application they want to install really does.
+			Additionally, if you are not using Debian or Ubuntu, the package descriptions are often untranslated.
+			Also, packages do not provide some metadata users might be interested in before installing an application.
+		</para>
+		<para>
+			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
+			<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink> or GSetting schemas.
+			The AppData specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-Specs-ASXML"/>).
+		</para>
+		<para>
+			The AppData files override any values which are automatically fetched by the AppStream data generator.
+			Applications can ship one or more files in <filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
+		</para>
+	</section>
+
+	<section id="spec-appdata-filespec">
+		<title>File specification</title>
+
+		<para>
+			The file should contain something like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<application>
+ <id type="desktop">gnome-power-statistics.desktop</id>
+ <licence>CC0</licence>
+ <name>Power Statistics</name>
+ <summary>Observe power management</summary>
+ <description>
+  <p>
+   Power Statistics is a program used to view historical and current battery
+   information and will show programs running on your computer using power.
+  </p>
+  <p>Example list:</p>
+  <ul>
+   <li>First item</li>
+   <li>Second item</li>
+  </ul>
+  <p>
+  You probably only need to install this application if you are having problems
+  with your laptop battery, or are trying to work out what programs are using
+  significant amounts of power.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="800" height="600">http://www.hughsie.com/en_US/main.png</screenshot>
+  <screenshot width="800" height="600">http://www.hughsie.com/en_US/preferences.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
+ <updatecontact>gnome-power-manager-list@gnome.org</updatecontact>
+ <project_group>GNOME</project_group>
+</application>]]>
+		</programlisting>
+
+	</section>
+</section>
