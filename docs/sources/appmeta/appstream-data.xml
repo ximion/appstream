@@ -77,15 +77,15 @@
 			</varlistentry>
 
 			<varlistentry>
-				<term>&lt;licence/&gt;</term>
+				<term>&lt;project_license/&gt;</term>
 				<listitem>
 					<para>
-						The <code><![CDATA[<licence>]]></code> tag is indicating the licence of your project/application.
-						Possible values are:
+						The <code><![CDATA[<project_license>]]></code> tag is indicating the license of your project/application.
+						It should be a string in SPDX format. Licenses may be combined using <em>and</em> and <em>or</em> logic.
+						Possible values include:
 						<itemizedlist>
 							<listitem><para>GPL-2</para></listitem>
-							<listitem><para>GPL-3+</para></listitem>
-							<listitem><para>LGPL-3+</para></listitem>
+							<listitem><para>LGPL-3+ and GPL-3+</para></listitem>
 							<listitem><para>MIT</para></listitem>
 							<listitem><para>CC-BY-SA-2</para></listitem>
 							<listitem><para>...</para></listitem>
@@ -94,6 +94,9 @@
 						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 						For SPDX compatibility, versions with trailing dot-zeroes are considered to be equivalent to versions without
 						(e.g., "2.0.0" is considered equal to "2.0" and "2").
+					</para>
+					<para>
+						Although the license tag is not mandatory, it is recommended to include it.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -274,7 +277,7 @@
         <name lang="en_GB">Firefoux</name>
         <summary>Web browser</summary>
         <summary lang="fr_FR">Navigateur web</summary>
-	<licence>MPL</licence>
+	<project_license>MPL-2</project_license>
         <keywords>
             <keyword>internet</keyword>
             <keyword>web</keyword>
