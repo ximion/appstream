@@ -11,15 +11,15 @@
   <xsd:element name="application">
     <xsd:complexType mixed="true">
       <xsd:sequence>
-        <xsd:element ref="id"/>
-        <xsd:element ref="pkgname"/>
+        <xsd:element ref="id" minOccurs="1" maxOccurs="unbounded"/>
+        <xsd:element ref="pkgname" minOccurs="1" maxOccurs="1"/>
         <xsd:element ref="name" minOccurs="1" maxOccurs="unbounded"/>
         <xsd:element ref="summary" minOccurs="1" maxOccurs="unbounded"/>
 	<xsd:element ref="description" minOccurs="0" maxOccurs="1"/>
 	<xsd:element ref="licence" minOccurs="0" maxOccurs="1"/>
 	<xsd:element ref="project_group" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="keywords" minOccurs="0" maxOccurs="1"/>
-        <xsd:element ref="icon"/>
+        <xsd:element ref="icon" minOccurs="1" maxOccurs="unbounded"/>
         <xsd:element ref="appcategories"/>
         <xsd:element ref="mimetypes" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
