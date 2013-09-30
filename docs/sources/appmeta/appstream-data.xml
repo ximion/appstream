@@ -81,7 +81,7 @@
 				<listitem>
 					<para>
 						The <code><![CDATA[<project_license>]]></code> tag is indicating the license of your project/application.
-						It should be a string in SPDX format. Licenses may be combined using <em>and</em> and <em>or</em> logic.
+						It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
 						Possible values include:
 						<itemizedlist>
 							<listitem><para>GPL-2</para></listitem>
@@ -202,7 +202,7 @@
 						Multiple <code><![CDATA[<icon/>]]></code> tags might be combined for one application, e.g. to define a <literal>stock</literal> icon
 						and a <literal>cached</literal> icon.
 						Software-Centers should always prefer the stock icon, if it is available, and fall back to the other icon types if they can not find it.
-						The <em>libappstream</em> library makes it easy to do that, if you are not accessing the Xapian database manually.
+						The <emphasis>libappstream</emphasis> library makes it easy to do that, if you are not accessing the Xapian database manually.
 					</para>
 					<para>
 						The AppStream Xapian database generator will prefer <literal>cached</literal> over <literal>local</literal> over <literal>remote</literal>
