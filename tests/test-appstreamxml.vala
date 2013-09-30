@@ -30,7 +30,8 @@ void msg (string s) {
 void test_appstream_parser () {
 	var asxml = new Provider.AppstreamXML ();
 
-	asxml.process_single_file (Path.build_filename (datadir, "appdata.xml", null));
+	asxml.process_file (File.new_for_path (Path.build_filename (datadir, "appdata.xml", null)));
+	asxml.process_compressed_file (File.new_for_path (Path.build_filename (datadir, "appdata.xml.gz", null)));
 }
 
 int main (string[] args) {

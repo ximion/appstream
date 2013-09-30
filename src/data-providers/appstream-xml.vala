@@ -1,6 +1,6 @@
 /* appstream-xml.vala
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 3
  *
@@ -130,26 +130,26 @@ private class AppstreamXML : Appstream.DataProvider {
 			log_warning ("Invalid application found: %s". printf (app.to_string ()));
 	}
 
-	public bool process_single_file (string fname) {
+	private bool process_single_document (string xmldoc) {
 		bool ret = true;
 
 		// Parse the document from path
-		Xml.Doc* doc = Parser.parse_file (fname);
+		Xml.Doc* doc = Parser.parse_doc (xmldoc);
 		if (doc == null) {
-			stderr.printf ("File %s not found or permissions missing", fname);
+			stderr.printf ("Could not parse XML!");
 			return false;
 		}
 
 		Xml.Node* root = doc->get_root_element ();
 		if (root == null) {
 			delete doc;
-			stderr.printf ("The XML file '%s' is empty", fname);
+			stderr.printf ("The XML document is empty");
 			return false;
 		}
 
 		if (root->name != "applications") {
 			delete doc;
-			stderr.printf ("The XML file '%s' does not contain valid AppStream data!", fname);
+			stderr.printf ("XML file does not contain valid AppStream data!");
 			return false;
 		}
 
@@ -168,10 +168,33 @@ private class AppstreamXML : Appstream.DataProvider {
 		return ret;
 	}
 
+	public bool process_compressed_file (File infile) {
+		var src_stream = infile.read ();
+		var mem_os = new MemoryOutputStream (null, GLib.realloc, GLib.free);
+		var conv_stream = new ConverterOutputStream (mem_os, new ZlibDecompressor (ZlibCompressorFormat.GZIP));
+		// pump all data from InputStream to OutputStream
+		conv_stream.splice (src_stream, 0);
+
+		return process_single_document ((string) mem_os.get_data ());
+	}
+
+	public bool process_file (File infile) {
+		string xml_doc = "";
+		string line;
+		var dis = new DataInputStream (infile.read ());
+		// Read lines until end of file (null) is reached
+		while ((line = dis.read_line (null)) != null) {
+			xml_doc += line + "\n";
+		}
+
+		return process_single_document (xml_doc);
+	}
+
 	public override bool execute () {
 		Array<string> xmlFiles = new Array<string> ();
+
 		foreach (string path in APPSTREAM_XML_PATHS) {
-			Array<string>? xmls = Utils.find_files_matching (path, "*.xml");
+			Array<string>? xmls = Utils.find_files_matching (path, "*.xml*");
 			if (xmls != null) {
 				for (uint j=0; j < xmls.length; j++)
 					xmlFiles.append_val (xmls.index (j));
@@ -182,7 +205,18 @@ private class AppstreamXML : Appstream.DataProvider {
 			return false;
 
 		for (uint i=0; i < xmlFiles.length; i++) {
-			process_single_file (xmlFiles.index (i));
+			string fname = xmlFiles.index (i);
+			var infile = File.new_for_path (fname);
+			if (!infile.query_exists ()) {
+				stderr.printf ("File '%s' does not exists.", fname);
+				continue;
+			}
+
+			if (fname.has_suffix (".xml")) {
+				process_file (infile);
+			} else if (fname.has_suffix (".xml.gz")) {
+				process_compressed_file (infile);
+			}
 		}
 
 		return true;
