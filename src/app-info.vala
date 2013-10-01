@@ -46,7 +46,8 @@ public class AppInfo : Object {
 	public string[] keywords { get; set; } // Localized!
 	public string url { get; set; }
 	public string desktop_file { get; set; }
-	public string icon { get; set; }
+	public string icon { get; set; } // stock icon
+	public string icon_url { get; set; }
 
 
 	public string[] categories { get; set; }
@@ -62,6 +63,7 @@ public class AppInfo : Object {
 		url = "";
 		desktop_file = "";
 		icon = "";
+		icon_url = "";
 		categories = {null};
 	}
 

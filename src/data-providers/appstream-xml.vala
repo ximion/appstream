@@ -84,6 +84,7 @@ private class AppstreamXML : Appstream.DataProvider {
 			}
 
 			string node_name = iter->name;
+			string? str;
 			string? content = parse_value (iter);
 			switch (node_name) {
 				case "id":	if (content != null) {
@@ -110,9 +111,25 @@ private class AppstreamXML : Appstream.DataProvider {
 								app.summary = content;
 						}
 						break;
-				case "icon":	if (node->get_prop ("type") == "stock")
-							if (content != null)
+				case "icon":	if (content == null)
+							break;
+						str = node->get_prop ("type");
+						switch (str) {
+							case "stock":
 								app.icon = content;
+								break;
+							case "cached":
+								if ((app.icon_url == "") || (app.icon_url.has_prefix ("http://")))
+									app.icon_url = content;
+								break;
+							case "local":
+								app.icon_url = content;
+								break;
+							case "remote":
+								if (app.icon_url == "")
+									app.icon_url = content;
+								break;
+						}
 						break;
 				case "url":	if (content != null)
 							app.url = content;
