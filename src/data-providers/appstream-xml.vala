@@ -111,6 +111,14 @@ private class AppstreamXML : Appstream.DataProvider {
 								app.summary = content;
 						}
 						break;
+				case "description": if (content != null) {
+							app.description = content;
+						} else {
+							content = parse_value (iter, true);
+							if (content != null)
+								app.description = content;
+						}
+						break;
 				case "icon":	if (content == null)
 							break;
 						str = node->get_prop ("type");
