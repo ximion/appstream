@@ -27,7 +27,7 @@ option(PROVIDER_UBUNTU_APPINSTALL "Enable AppInstall data provider" OFF)
 option(L18N "Enable localization" ON)
 option(TESTS "Enable Unit Tests" OFF)
 
-set(VALA_COMPILE_FLAGS "")
+set(VALA_COMPILE_FLAGS "--target-glib=2.36")
 
 if(PROVIDER_APPSTREAM)
 	set(VALA_COMPILE_FLAGS ${VALA_COMPILE_FLAGS} --define=APPSTREAM)

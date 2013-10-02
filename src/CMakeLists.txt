@@ -62,7 +62,6 @@ vala_precompile(aslib-precomp ASLIB_SRC_C ${APPSTREAM_LIB_SOURCES}
 				--gir=AppStream-${AS_VERSION_LIBS}.gir
 				--library appstream
 				--internal-vapi=appstream_internal.vapi.orig
-				--target-glib=2.36
 )
 
 # ensure that the GI compiler has been found (apparently, the automatic tests fail on some machines)

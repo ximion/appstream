@@ -47,7 +47,7 @@ public class AppInfo : Object {
 	public string url { get; set; }
 	public string desktop_file { get; set; }
 	public string icon { get; set; } // stock icon
-	public string icon_url { get; set; }
+	public string icon_url { get; set; } // cached, local or remote icon
 
 
 	public string[] categories { get; set; }
