@@ -1,6 +1,6 @@
 /* database-vala.hpp
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -22,11 +22,12 @@
 #define DATABASE_VALA_H
 
 #include <glib.h>
-#include "database-write.hpp"
-#include "database-read.hpp"
 #include "appstream_internal.h"
 
 extern "C" {
+
+typedef struct XADatabaseRead XADatabaseRead;
+typedef struct XADatabaseWrite XADatabaseWrite;
 
 /* methods for database read access */
 
