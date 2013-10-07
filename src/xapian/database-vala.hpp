@@ -22,12 +22,16 @@
 #define DATABASE_VALA_H
 
 #include <glib.h>
-#include "appstream_internal.h"
 
+#ifdef __cplusplus
 extern "C" {
+#endif
 
 typedef struct XADatabaseRead XADatabaseRead;
 typedef struct XADatabaseWrite XADatabaseWrite;
+
+typedef struct _AppstreamSearchQuery AppstreamSearchQuery;
+typedef struct _AppstreamAppInfo AppstreamAppInfo;
 
 /* methods for database read access */
 
@@ -48,6 +52,8 @@ gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path
 gboolean xa_database_write_add_application (XADatabaseWrite *db, AppstreamAppInfo *app);
 gboolean xa_database_write_rebuild (XADatabaseWrite *db, GArray *apps);
 
+#ifdef __cplusplus
 };
+#endif
 
 #endif /* DATABASE_VALA_H */

@@ -106,6 +106,9 @@ if (DISABLE_MAINTAINER_CFLAGS)
 endif (DISABLE_MAINTAINER_CFLAGS)
 add_definitions(${MAINTAINER_CFLAGS})
 
+# we do always enable this to never run into the missing-include-trap with Vala again
+add_definitions("-Werror=implicit-function-declaration")
+
 # Required to include config.h before all other units
 add_definitions ("--include config.h")
 

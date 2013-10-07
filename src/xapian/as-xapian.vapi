@@ -18,6 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+[CCode (cheader_filename = "database-vala.hpp")]
 namespace ASXapian {
 
 	[Compact]
