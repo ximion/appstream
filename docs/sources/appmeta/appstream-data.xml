@@ -269,6 +269,38 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry>
+				<term>&lt;screenshots/&gt;</term>
+				<listitem>
+					<para>
+						This tag can contain one or more <code><![CDATA[<screenshot>]]></code> tags, describing screenshots which are available for
+						the application. A screenshot tag my have the attribute <code>type="default"</code>, marking it as the application's default screenshot,
+						which primarily represents it in a software center.
+					</para>
+					<para>
+						Every <code><![CDATA[<screenshot>]]></code> is defined by several images of different sizes.
+						All images should have their width and hight set as arguments. Also, one of the images shoukd be marked as <code>type="source"</code>,
+						indicating that it is the unscaled version of the screenshot.
+						Images of <code>type="thumbnail"</code> define thumbnails of the screenshot.
+					</para>
+					<para>
+						Every image should have a full remote url set, usually pointing to a cache of images maintained by the distributor.
+						Example:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<screenshots>
+  <screenshot type="default">
+    <image type="source" width="800" height="600">http://www.example.org/en_US/main.png</image>
+    <image type="thumbnail" width="200" height="150">http://www.example.org/en_US/main-small.png</image>
+  </screenshot>
+  <screenshot>
+     ....
+  </screenshot>
+</screenshots>]]>
+					</programlisting>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 	</section>
 
@@ -311,10 +343,16 @@
             <mimetype>x-scheme-handler/https</mimetype>
         </mimetypes>
         <url type="homepage">http://www.mozilla.com</url>
+        <screenshots>
+            <screenshot type="default">
+		<image type="source" width="800" height="600">http://www.awesomedistro.example.org/en_US/firefox.desktop/main.png</image>
+		<image type="thumbnail" width="200" height="150">http://www.awesomedistro.example.org/en_US/firefox.desktop/main-small.png</image>
+            </screenshot>
+        </screenshots>
     </application>
     <!-- more applications here! -->
 </applications>]]>
-					</programlisting>
+		</programlisting>
 
 	</section>
 </section>

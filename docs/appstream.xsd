@@ -23,6 +23,7 @@
         <xsd:element ref="appcategories"/>
         <xsd:element ref="mimetypes" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
+	<xsd:element ref="screenshots" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -162,6 +163,51 @@
               </xsd:restriction>
             </xsd:simpleType>
           </xsd:attribute>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="screenshots">
+    <xsd:complexType mixed="true">
+      <xsd:choice maxOccurs="unbounded" minOccurs="1">
+        <xsd:element ref="screenshot"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="screenshot">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="type" use="optional">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="default"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:simpleContent>
+    </xsd:complexType>
+    <xsd:complexType mixed="true">
+      <xsd:choice maxOccurs="unbounded" minOccurs="1">
+        <xsd:element ref="image"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+    <xsd:element name="image">
+    <xsd:complexType>
+      <xsd:simpleContent>
+        <xsd:extension base="xsd:string">
+          <xsd:attribute name="type" use="required">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="source"/>
+                <xsd:enumeration value="thumbnail"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+	  <xs:attribute name="width" type="xsd:positiveInteger" use="required"/>
+	  <xs:attribute name="height" type="xsd:positiveInteger" use="required"/>
         </xsd:extension>
       </xsd:simpleContent>
     </xsd:complexType>
