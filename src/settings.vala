@@ -23,7 +23,7 @@ using Config;
 
 namespace Appstream {
 
-private static const string DB_SCHEMA_VERSION = "6";
+private static const string DB_SCHEMA_VERSION = "1";
 
 private static const string APPSTREAM_BASE_PATH = DATADIR + "/app-info";
 
