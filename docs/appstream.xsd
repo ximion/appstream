@@ -24,6 +24,7 @@
         <xsd:element ref="mimetypes" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
 	<xsd:element ref="screenshots" minOccurs="0" maxOccurs="1"/>
+	<xsd:element ref="compulsory_for_desktop" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -210,6 +211,13 @@
 	  <xs:attribute name="height" type="xsd:positiveInteger" use="required"/>
         </xsd:extension>
       </xsd:simpleContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="compulsory_for_desktop">
+    <xsd:complexType mixed="true">
+      <xsd:choice maxOccurs="unbounded" minOccurs="0">
+        <xsd:element ref="compulsory_for_desktop"/>
+      </xsd:choice>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>
