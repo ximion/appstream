@@ -38,7 +38,9 @@ private static const string[] ICON_PATHS = { APPSTREAM_BASE_PATH + "/icons",
 
 internal static const string[] APPSTREAM_XML_PATHS = { APPSTREAM_BASE_PATH + "/xmls",
 							"/var/cache/app-info/xmls" };
-internal static const string APPSTREAM_DATABASE_PATH = "/var/cache/app-info/xapian";
+
+internal static const string APPSTREAM_CACHE_PATH = "/var/cache/app-info";
+internal static const string APPSTREAM_DATABASE_PATH = APPSTREAM_CACHE_PATH + "/xapian";
 
 /**
  * Get details about the AppStream settings for the

@@ -61,14 +61,19 @@ internal class Builder : Object {
 		appList.append_val (app);
 	}
 
-	public bool refresh_cache () {
+	public bool refresh_cache (bool force = false) {
 		bool ret = false;
+
+		if (!force) {
+			// check if we need to refresh the cache
+			// (which is only necessary if the AppStream data has changed)
+
+			// TODO
+		}
 
 		debug ("Refreshing AppStream cache");
 
-#if APPSTREAM
 		run_provider (new Provider.AppstreamXML ());
-#endif
 #if DEBIAN_DEP11
 		run_provider (new Provider.DEP11 ());
 #endif
