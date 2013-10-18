@@ -196,6 +196,12 @@ namespace PackageKit {
 	public class Details : PackageKit.Source {
 		[CCode (has_construct_function = false)]
 		public Details ();
+		public unowned string get_description ();
+		public PackageKit.Group get_group ();
+		public unowned string get_license ();
+		public unowned string get_package_id ();
+		public uint64 get_size ();
+		public unowned string get_url ();
 		[NoAccessorMethod]
 		public string description { owned get; set; }
 		[NoAccessorMethod]
@@ -333,6 +339,7 @@ namespace PackageKit {
 		public static string[] ids_remove_id (string package_ids, string package_id);
 		public static void ids_test (void* user_data);
 		public static string ids_to_string (string package_ids);
+		public bool parse (string data) throws GLib.Error;
 		public void print ();
 		public bool set_id (string package_id) throws GLib.Error;
 		public static void test (void* user_data);
@@ -645,7 +652,6 @@ namespace PackageKit {
 		public bool user_declined (uint request);
 		public async void what_provides_async (PackageKit.Bitfield filters, PackageKit.Provides provides, [CCode (array_length = false, array_null_terminated = true)] string[] values, GLib.Cancellable? cancellable, PackageKit.ProgressCallback progress_callback);
 		public PackageKit.Results what_provides_sync (PackageKit.Bitfield filters, PackageKit.Provides provides, [CCode (array_length = false, array_null_terminated = true)] string[] values, GLib.Cancellable? cancellable, PackageKit.ProgressCallback progress_callback) throws GLib.Error;
-		public bool interactive { get; set; }
 		public bool only_download { get; set; }
 		public bool simulate { get; set; }
 	}
@@ -663,6 +669,16 @@ namespace PackageKit {
 	public class TransactionPast : PackageKit.Source {
 		[CCode (has_construct_function = false)]
 		public TransactionPast ();
+		public unowned string get_cmdline ();
+		public unowned string get_data ();
+		public GLib.DateTime get_datetime ();
+		public uint get_duration ();
+		public unowned string get_id ();
+		public PackageKit.Role get_role ();
+		public bool get_succeeded ();
+		public unowned string get_timespec ();
+		public int64 get_timestamp ();
+		public uint get_uid ();
 		[NoAccessorMethod]
 		public string cmdline { owned get; set; }
 		[NoAccessorMethod]

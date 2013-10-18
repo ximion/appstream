@@ -191,6 +191,7 @@ namespace PkPlugin {
 		public void transaction_content_types (PkPlugin.Transaction transaction);
 		public void transaction_finished_end (PkPlugin.Transaction transaction);
 		public void transaction_finished_results (PkPlugin.Transaction transaction);
+		public unowned string transaction_get_action (PkPlugin.Transaction transaction, string action_id);
 		public void transaction_run (PkPlugin.Transaction transaction);
 		public void transaction_started (PkPlugin.Transaction transaction);
 	}
@@ -261,6 +262,8 @@ namespace PkPlugin {
 	public delegate void BackendJobVFunc (PkPlugin.BackendJob job, void* object);
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h", has_target = false)]
 	public delegate void PluginFunc (PkPlugin.Plugin plugin);
+	[CCode (cheader_filename = "plugin/packagekit-plugin.h", has_target = false)]
+	public delegate unowned string PluginGetActionFunc (PkPlugin.Plugin plugin, PkPlugin.Transaction transaction, string action_id);
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h", has_target = false)]
 	public delegate unowned string PluginGetDescFunc ();
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h", has_target = false)]
