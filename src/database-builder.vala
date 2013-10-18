@@ -28,6 +28,8 @@ internal class Builder : Object {
 	private Array<Appstream.AppInfo> appList;
 	private string CURRENT_DB_PATH;
 
+	private DataProvider[] providers;
+
 	public Builder () {
 		db_rw = new Appstream.DatabaseWrite ();
 
@@ -36,6 +38,17 @@ internal class Builder : Object {
 			CURRENT_DB_PATH = db_rw.database_path;
 
 		appList = new Array<Appstream.AppInfo> ();
+
+		providers = {};
+		providers += new Provider.AppstreamXML ();
+#if DEBIAN_DEP11
+		providers += new Provider.DEP11 ();
+#endif
+#if UBUNTU_APPINSTALL
+		providers += new Provider.UbuntuAppinstall ();
+#endif
+		foreach (DataProvider dprov in providers)
+			dprov.application.connect (new_application);
 	}
 
 	public Builder.path (string dbpath) {
@@ -52,13 +65,70 @@ internal class Builder : Object {
 		db_rw.open ();
 	}
 
-	private bool run_provider (DataProvider dprov) {
-		dprov.application.connect (new_application);
-		return dprov.execute ();
-	}
-
 	private void new_application (Appstream.AppInfo app) {
 		appList.append_val (app);
+	}
+
+	private string[] get_watched_files () {
+		string[] wfiles = {};
+		foreach (DataProvider dprov in providers) {
+			foreach (string s in dprov.watch_files)
+				wfiles += s;
+		}
+
+		return wfiles;
+	}
+
+	private bool appstream_data_changed () {
+		var file = File.new_for_path (Path.build_filename (APPSTREAM_CACHE_PATH, "cache.watch", null));
+		string[] watchfile = {};
+		string[] watchfile_new = {};
+
+		if (file.query_exists ()) {
+			try {
+				var dis = new DataInputStream (file.read ());
+				string line;
+				while ((line = dis.read_line (null)) != null) {
+					watchfile += line;
+				}
+			} catch (Error e) {
+				return true;
+			}
+		}
+
+		string[] files = get_watched_files ();
+		bool ret = false;
+		foreach (string fname in files) {
+			Posix.Stat? sbuf;
+			Posix.stat(fname, out sbuf);
+			if (sbuf == null)
+				continue;
+			string ctime_str = "%ld".printf (sbuf.st_ctime);
+
+			foreach (string wentry in watchfile) {
+				if (wentry.has_prefix (fname)) {
+					string[] wparts = wentry.split (" ", 2);
+					if (wparts[1] != ctime_str)
+						ret = true;
+					break;
+				}
+			}
+
+			watchfile_new += "%s %s".printf (fname, ctime_str);
+		}
+
+		// write our watchfile
+		try {
+			if (file.query_exists ())
+				file.delete ();
+			var dos = new DataOutputStream (file.create (FileCreateFlags.REPLACE_DESTINATION));
+			foreach (string line in watchfile_new)
+				dos.put_string ("%s\n".printf (line));
+		} catch (Error e) {
+			return ret;
+		}
+
+		return ret;
 	}
 
 	public bool refresh_cache (bool force = false) {
@@ -67,19 +137,17 @@ internal class Builder : Object {
 		if (!force) {
 			// check if we need to refresh the cache
 			// (which is only necessary if the AppStream data has changed)
-
-			// TODO
+			if (!appstream_data_changed ()) {
+				debug ("Data did not change, no cache refresh done.");
+				return true;
+			}
 		}
 
 		debug ("Refreshing AppStream cache");
 
-		run_provider (new Provider.AppstreamXML ());
-#if DEBIAN_DEP11
-		run_provider (new Provider.DEP11 ());
-#endif
-#if UBUNTU_APPINSTALL
-		run_provider (new Provider.UbuntuAppinstall ());
-#endif
+		// call all AppStream data providers to return applications they find
+		foreach (DataProvider dprov in providers)
+			dprov.execute ();
 
 		ret = db_rw.rebuild (appList);
 

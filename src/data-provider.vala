@@ -24,6 +24,7 @@ namespace Appstream {
 
 private abstract class DataProvider : Object {
 	public signal void application (Appstream.AppInfo app);
+	public string[] watch_files { get; protected set; }
 
 	public DataProvider () {
 	}

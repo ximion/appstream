@@ -32,6 +32,13 @@ private class AppstreamXML : Appstream.DataProvider {
 		locale = Intl.get_language_names ()[0];
 		// cache this for performance reasons
 		system_categories = Appstream.get_system_categories ();
+
+		// we do this to help Vala generate proper C code - watch_files = APPSTREAM_XML_PATHS works, but
+		// results in bad C code.
+		string[] wfiles = {};
+		foreach (string path in APPSTREAM_XML_PATHS)
+			wfiles += path;
+		watch_files = wfiles;
 	}
 
 	private string? parse_value (Xml.Node *node, bool translated = false) {

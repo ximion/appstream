@@ -31,6 +31,7 @@ private class UbuntuAppinstall : Appstream.DataProvider {
 	public UbuntuAppinstall () {
 		// cache this for performance reasons
 		system_categories = Appstream.get_system_categories ();
+		watch_files = { UBUNTU_APPINSTALL_DIR };
 	}
 
 	private string desktop_file_get_str (KeyFile key_file, string key) {
