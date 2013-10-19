@@ -147,7 +147,7 @@ private class AppstreamXML : Appstream.DataProvider {
 						}
 						break;
 				case "url":	if (content != null)
-							app.url = content;
+							app.homepage = content;
 						break;
 				case "appcategories":
 						string[] cat_array = get_childs_as_array (iter, "appcategory");

@@ -137,10 +137,11 @@ DatabaseWrite::rebuild (GArray *apps)
 		doc.add_value (XapianValues::DESKTOP_FILE, appstream_app_info_get_desktop_file (app));
 
 		// URL
-		doc.add_value (XapianValues::URL_HOMEPAGE, appstream_app_info_get_url (app));
+		doc.add_value (XapianValues::URL_HOMEPAGE, appstream_app_info_get_homepage (app));
 
-		// Application stock icon
+		// Application icon
 		doc.add_value (XapianValues::ICON, appstream_app_info_get_icon (app));
+		doc.add_value (XapianValues::ICON_URL, appstream_app_info_get_icon_url (app));
 
 		// Summary
 		string appSummary = appstream_app_info_get_summary (app);

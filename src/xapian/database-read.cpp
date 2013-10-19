@@ -89,11 +89,13 @@ DatabaseRead::docToAppInfo (Xapian::Document doc)
 
 	// URL
 	string appUrl = doc.get_value (XapianValues::URL_HOMEPAGE);
-	appstream_app_info_set_url (app, appUrl.c_str ());
+	appstream_app_info_set_homepage (app, appUrl.c_str ());
 
-	// Application stock icon
-	string appIconName = doc.get_value (XapianValues::ICON);
-	appstream_app_info_set_icon (app, appIconName.c_str ());
+	// Application icon
+	string appIcon = doc.get_value (XapianValues::ICON);
+	appstream_app_info_set_icon (app, appIcon.c_str ());
+	appIcon = doc.get_value (XapianValues::ICON_URL);
+	appstream_app_info_set_icon_url (app, appIcon.c_str ());
 
 	// Summary
 	string appSummary = doc.get_value (XapianValues::SUMMARY);

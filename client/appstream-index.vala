@@ -109,7 +109,7 @@ private class ASClient : Object {
 			}
 			for (uint i = 0; i < app_list.len; i++) {
 				var app = (Appstream.AppInfo) app_list.index (i);
-				stdout.printf ("Application: %s\nSummary: %s\nPackage: %s\nURL:%s\nDesktop: %s\nIcon: %s\n", app.name, app.summary, app.pkgname, app.url, app.desktop_file, app.icon);
+				stdout.printf ("Application: %s\nSummary: %s\nPackage: %s\nURL:%s\nDesktop: %s\nIcon: %s\n", app.name, app.summary, app.pkgname, app.homepage, app.desktop_file, app.icon);
 				stdout.printf ("------\n");
 			}
 

@@ -28,6 +28,8 @@ namespace Appstream {
  */
 public class AppInfo : Object {
 	public string pkgname { get; set; }
+	public string desktop_file { get; set; }
+
 	private string _name;
 	public string name {
 			get {
@@ -41,14 +43,15 @@ public class AppInfo : Object {
 			}
 		} // Localized!
 	public string name_original { get; set; } // Not localized!
+
 	public string summary { get; set; } // Localized!
 	public string description { get; set; } // Localized!
 	public string[] keywords { get; set; } // Localized!
-	public string url { get; set; }
-	public string desktop_file { get; set; }
+
 	public string icon { get; set; } // stock icon
 	public string icon_url { get; set; } // cached, local or remote icon
 
+	public string homepage { get; set; } // app homepage
 
 	public string[] categories { get; set; }
 	public string[] mimetypes { get; set; }
@@ -56,12 +59,12 @@ public class AppInfo : Object {
 
 	public AppInfo () {
 		pkgname = "";
+		desktop_file = "";
 		_name = "";
 		name_original = "";
 		summary = "";
 		description = "";
-		url = "";
-		desktop_file = "";
+		homepage = "";
 		icon = "";
 		icon_url = "";
 		categories = {null};
