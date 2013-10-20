@@ -2,10 +2,10 @@ AppStream Release Notes
 
 1. Write NEWS entries for AppStream in the same format as usual.
 
-git shortlog APPSTREAM_0_3_1.. | grep -i -v trivial | grep -v Merge > NEWS.new
+git shortlog APPSTREAM_0_4_0.. | grep -i -v trivial | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
-Version 0.4.0
+Version 0.4.1
 ~~~~~~~~~~~~~~
 Released: 2013-xx-xx
 
@@ -22,12 +22,12 @@ Bugfixes:
 
 3. Commit changes in AppStream git:
 
-git commit -a -m "Release version 0.4.0"
-git tag -s -f -m "Release 0.4.0" APPSTREAM_0_4_0 <gpg password>
+git commit -a -m "Release version 0.4.1"
+git tag -s -f -m "Release 0.4.1" APPSTREAM_0_4_1 <gpg password>
 git push --tags
 git push
 
-4. run './release.sh --version=0.4.0 --git-tag=APPSTREAM_0_4_0 --sign'
+4. run './release.sh --version=0.4.1 --git-tag=APPSTREAM_0_4_1 --sign'
 
 5. Upload tarball: scp -r *.tar.gz* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases
 
@@ -42,7 +42,7 @@ git commit -a -m "trivial: post release version bump"
 git push
 
 =================================================
-AppStream 0.4 released!
+AppStream 0.4.1 released!
 
 Tarballs available here: http://www.freedesktop.org/software/appstream/releases
 
