@@ -1,3 +1,41 @@
+Version 0.4.0
+~~~~~~~~~~~~~~
+Released: 2013-10-20
+
+Features:
+ * Include /var/cache/app-info as location for AppStream XMLs (Matthias Klumpp)
+ * Search for icons in the caches too (Matthias Klumpp)
+ * Remove API for manually refreshing the Xapian cache (Matthias Klumpp)
+ * Remove refresh action from appstream-index tool (Matthias Klumpp)
+ * Implement PackageKit plugin to refresh the cache (Matthias Klumpp)
+ * Implement support for compressed AppStream files (Matthias Klumpp)
+ * Support all icon types in AppStream XML parser (Matthias Klumpp)
+ * Parse description tags in AppStream XML (Matthias Klumpp)
+ * Update database schema, breaking USC compatibility (Matthias Klumpp)
+ * Only rebuild AppStream Xapian cache if data has changed (Matthias Klumpp)
+ * Store app homepage and iconpath correctly in new database layout (Matthias Klumpp)
+ * docs: Document important parts of AppStream (Matthias Klumpp)
+ * docs: Document appcategories tag (Matthias Klumpp)
+ * docs: Add example XML for AppStream files (Matthias Klumpp)
+ * docs: Briefly describe the screenshot service (Matthias Klumpp)
+ * docs: Include preexisting architecture graphics and fix some quirks (Matthias Klumpp)
+ * docs: Specify how icons will be handled and which ones take priority (Matthias Klumpp)
+
+Specification:
+ * spec: Add project_group element (Matthias Klumpp)
+ * spec: The "remote" type is much more precise than "url" (Matthias Klumpp)
+ * spec: Add documentation tag to the AppStream spec (Matthias Klumpp)
+ * spec: Enforce at least one id, pkgname, name, summary and icon tag (Matthias Klumpp)
+ * spec: Define and describe project_license tag (Matthias Klumpp)
+ * spec: Add screenshots to the AppStream XML spec (Matthias Klumpp)
+ * spec: Add new compulsory_for_desktop tag (Matthias Klumpp)
+
+Bugfixes:
+ * Ensure that we have GI set up, before compiling libappstream (Matthias Klumpp)
+ * Set has_type_id=false for Xapian binding (Matthias Klumpp)
+ * Ensure we do always target the right GLib version (Matthias Klumpp)
+ * Fix crash in AppStream PackageKit plugin (Matthias Klumpp)
+
 Version 0.3.1
 ~~~~~~~~~~~~~~
 Released: 2013-06-26
@@ -11,20 +49,20 @@ Version 0.3.0
 Released: 2013-06-10
 
 Features:
- * Add command-line method to search for apps
- * Restructure code to clearly separate client and daemon
- * Make DBus API an internal implementation detail
- * Rewritten and more advanced XDG menu file parser
- * Implemented new Category handling
- * Many improvements in documentation
- * Implement API to access any AppStream-compliant screenshot service
+ * Add command-line method to search for apps (Matthias Klumpp)
+ * Restructure code to clearly separate client and daemon (Matthias Klumpp)
+ * Make DBus API an internal implementation detail (Matthias Klumpp)
+ * Rewritten and more advanced XDG menu file parser (Matthias Klumpp)
+ * Implemented new Category handling (Matthias Klumpp)
+ * Many improvements in documentation (Matthias Klumpp)
+ * Implement API to access any AppStream-compliant screenshot service (Matthias Klumpp)
 
 Bugfixes:
- * Fix creation of missing database
- * Make UAI more failsafe
- * Improve error handling and command-line output
- * Greatly improve search results
- * Fix translation template
+ * Fix creation of missing database (Matthias Klumpp)
+ * Make UAI more failsafe (Matthias Klumpp)
+ * Improve error handling and command-line output (Matthias Klumpp)
+ * Greatly improve search results (Matthias Klumpp)
+ * Fix translation template (Matthias Klumpp)
 
 Version 0.2.0
 ~~~~~~~~~~~~~~
