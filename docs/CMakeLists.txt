@@ -82,6 +82,8 @@ if (DOCUMENTATION)
 
 	# find public library sources
 	file (GLOB APPSTREAM_LIB_SOURCES "${CMAKE_SOURCE_DIR}/src/*.vala")
+	file (GLOB tmp "${CMAKE_SOURCE_DIR}/src/data-providers/*.vala")
+	set(APPSTREAM_LIB_SOURCES ${APPSTREAM_LIB_SOURCES} ${tmp})
 
 	add_custom_target (api-docs
 			COMMAND "valadoc" "--force" "-b" "${CMAKE_SOURCE_DIR}/src" "-o" "${CMAKE_SOURCE_DIR}/docs/api"
