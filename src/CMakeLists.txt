@@ -109,7 +109,7 @@ configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINA
 install(TARGETS appstream DESTINATION ${INSTALL_DIR_LIB})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi DESTINATION share/vala/vapi)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.h DESTINATION include)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION lib/pkgconfig/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${INSTALL_DIR_LIB}/pkgconfig/)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir DESTINATION share/gir-1.0/)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.typelib DESTINATION lib/girepository-1.0/)
 
