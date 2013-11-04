@@ -230,23 +230,30 @@
 			</varlistentry>
 
 			<varlistentry>
-				<term>&lt;appcategories/&gt;</term>
+				<term>&lt;categories/&gt;</term>
 				<listitem>
 					<para>
-						This tag can contain one or more <code><![CDATA[<appcategory>]]></code> tags, describing the categories this application
+						This tag can contain one or more <code><![CDATA[<category>]]></code> tags, describing the categories this application
 						is in.
 						This data is usually taken from Desktop files, a list of categories can be found in the
 						<ulink url="http://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
 						Example:
 					</para>
 					<programlisting language="XML">
-<![CDATA[<appcategories>
-    <appcategory>GNOME</appcategory>
-    <appcategory>GTK</appcategory>
-    <appcategory>Network</appcategory>
-    <appcategory>Telephony</appcategory>
-</appcategories>]]>
+<![CDATA[<categories>
+    <category>GNOME</category>
+    <category>GTK</category>
+    <category>Network</category>
+    <category>Telephony</category>
+</categories>]]>
 					</programlisting>
+					<note>
+						<title>Deprecated Tags</title>
+						<para>
+							The tag <code><![CDATA[<appcategories>]]></code> with its <code><![CDATA[<appcategory>]]></code> child elements is deprecated API.
+							AppStream parsers should handle these tags just like the <literal>category</literal> tags, there is no difference except for the name.
+						</para>
+					</note>
 				</listitem>
 			</varlistentry>
 
@@ -351,10 +358,10 @@
         </keywords>
         <icon type="stock">web-browser</icon>
         <icon type="cached">firefox.png</icon>
-        <appcategories>
-            <appcategory>network</appcategory>
-            <appcategory>web</appcategory>
-        </appcategories>
+        <categories>
+            <category>network</category>
+            <category>web</category>
+        </categories>
         <mimetypes>
             <mimetype>text/html</mimetype>
             <mimetype>text/xml</mimetype>

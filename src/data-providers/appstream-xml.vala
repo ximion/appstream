@@ -149,6 +149,11 @@ private class AppstreamXML : Appstream.DataProvider {
 				case "url":	if (content != null)
 							app.homepage = content;
 						break;
+				case "categories":
+						string[] cat_array = get_childs_as_array (iter, "category");
+						app.categories = cat_array;
+						break;
+				/** @deprecated the appcategory tag is deprecated, handled here for backward compatibility */
 				case "appcategories":
 						string[] cat_array = get_childs_as_array (iter, "appcategory");
 						app.categories = cat_array;

@@ -137,14 +137,14 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
-  <xsd:element name="appcategories">
+  <xsd:element name="categories">
     <xsd:complexType mixed="true">
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
-        <xsd:element ref="appcategory"/>
+        <xsd:element ref="category"/>
       </xsd:choice>
     </xsd:complexType>
   </xsd:element>
-  <xsd:element name="appcategory" type="xsd:string"/>
+  <xsd:element name="category" type="xsd:string"/>
   <xsd:element name="mimetypes">
     <xsd:complexType mixed="true">
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
