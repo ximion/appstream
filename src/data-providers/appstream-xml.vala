@@ -65,7 +65,7 @@ private class AppstreamXML : Appstream.DataProvider {
 		return content;
 	}
 
-	private string[] get_childs_as_array (Xml.Node* node, string element_name) {
+	private string[] get_children_as_array (Xml.Node* node, string element_name) {
 		string[] list = {};
 		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
 			// Discard spaces
@@ -81,6 +81,57 @@ private class AppstreamXML : Appstream.DataProvider {
 		}
 
 		return list;
+	}
+
+	private void process_screenshot (Xml.Node* node, Screenshot sshot) {
+		string[] list = {};
+		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
+			// Discard spaces
+			if (iter->type != ElementType.ELEMENT_NODE) {
+				continue;
+			}
+
+			string node_name = iter->name;
+			// fetch translated values by default
+			string? content = parse_value (iter, true);
+			switch (node_name) {
+				case "image":	if (content != null) {
+							string? width = iter->get_prop ("width");
+							string? height = iter->get_prop ("height");
+							// discard invalid elements
+							if ((width == null) || (height == null))
+								break;
+							if (iter->get_prop ("type") == "thumbnail")
+								sshot.add_thumbnail_url ("%sx%s".printf (width, height), content);
+							else
+								sshot.add_url ("%sx%s".printf (width, height), content);
+						}
+						break;
+				case "caption":	if (content != null) {
+							sshot.caption = content;
+						}
+						break;
+			}
+		}
+	}
+
+	private Screenshot? process_screenshots_tag (Xml.Node* node) {
+		Screenshot? sshot = null;
+		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
+			// Discard spaces
+			if (iter->type != ElementType.ELEMENT_NODE) {
+				continue;
+			}
+
+			if (iter->name == "screenshot") {
+				sshot = new Screenshot ();
+				if (iter->get_prop ("type") == "default")
+					sshot.set_default (true);
+				process_screenshot (iter, sshot);
+			}
+		}
+
+		return sshot;
 	}
 
 	private void parse_application_node (Xml.Node* node) {
@@ -128,7 +179,7 @@ private class AppstreamXML : Appstream.DataProvider {
 						break;
 				case "icon":	if (content == null)
 							break;
-						str = node->get_prop ("type");
+						str = iter->get_prop ("type");
 						switch (str) {
 							case "stock":
 								app.icon = content;
@@ -150,13 +201,18 @@ private class AppstreamXML : Appstream.DataProvider {
 							app.homepage = content;
 						break;
 				case "categories":
-						string[] cat_array = get_childs_as_array (iter, "category");
+						string[] cat_array = get_children_as_array (iter, "category");
 						app.categories = cat_array;
 						break;
 				/** @deprecated the appcategory tag is deprecated, handled here for backward compatibility */
 				case "appcategories":
-						string[] cat_array = get_childs_as_array (iter, "appcategory");
+						string[] cat_array = get_children_as_array (iter, "appcategory");
 						app.categories = cat_array;
+						break;
+				case "screenshots":
+						Screenshot? sshot = process_screenshots_tag (iter);
+						if (sshot != null)
+							app.add_screenshot (sshot);
 						break;
 			}
 		}

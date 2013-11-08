@@ -21,6 +21,7 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		app-info.vala
 		database.vala
 		menudir.vala
+		screenshot.vala
 		screenshot-service.vala
 		# internal stuff to build the database
 		database-builder.vala

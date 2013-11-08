@@ -1,6 +1,6 @@
 /* app-info.vala
  *
- * Copyright (C) 2012 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -56,6 +56,12 @@ public class AppInfo : Object {
 	public string[] categories { get; set; }
 	public string[] mimetypes { get; set; }
 
+	/**
+	 * Array of Screenshot objects which describe
+	 * screenshots for this application.
+	 */
+	public PtrArray screenshots { get; internal set; }
+
 
 	public AppInfo () {
 		pkgname = "";
@@ -68,6 +74,7 @@ public class AppInfo : Object {
 		icon = "";
 		icon_url = "";
 		categories = {null};
+		screenshots = new PtrArray.with_free_func (GLib.Object.unref);
 	}
 
 	/**
@@ -94,6 +101,10 @@ public class AppInfo : Object {
 	public void set_categories_from_str (string categories_str) {
 		string[] cats = categories_str.split (",");
 		categories = cats;
+	}
+
+	public void add_screenshot (Screenshot sshot) {
+		screenshots.add (sshot);
 	}
 
 }
