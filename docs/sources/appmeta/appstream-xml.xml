@@ -134,8 +134,7 @@
   with your laptop battery, or are trying to work out what programs are using
   significant amounts of power.
   </p>
- </description>]]>
-						</programlisting>
+ </description>]]></programlisting>
 					</para>
 				</listitem>
 			</varlistentry>
@@ -143,6 +142,9 @@
 			<varlistentry>
 				<term>&lt;url/&gt;</term>
 				<listitem>
+					<para>
+						Defines URLs for this application.
+					</para>
 					<para>
 						Links of type <literal>homepage</literal> should be a link to the upstream homepage for the application.
 						It is planned to allow links to application's FAQ and forums later.
@@ -196,8 +198,7 @@
 <![CDATA[<icon type="stock">gimp</icon>
 <icon type="cached">firefox.png</icon>
 <icon type="local">/usr/share/pixmaps/foobar.png</icon>
-<icon type="remote">http://example.com/icons/foobar.png</icon>]]>
-					</programlisting>
+<icon type="remote">http://example.com/icons/foobar.png</icon>]]></programlisting>
 					<para>
 						Multiple <code><![CDATA[<icon/>]]></code> tags might be combined for one application, e.g. to define a <literal>stock</literal> icon
 						and a <literal>cached</literal> icon.
@@ -224,8 +225,7 @@
     <mimetype>text/html</mimetype>
     <mimetype>image/jpeg</mimetype>
     <mimetype>application/rss+xml</mimetype>
- </mimetypes>]]>
-					</programlisting>
+ </mimetypes>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
@@ -245,8 +245,7 @@
     <category>GTK</category>
     <category>Network</category>
     <category>Telephony</category>
-</categories>]]>
-					</programlisting>
+</categories>]]></programlisting>
 					<note>
 						<title>Deprecated Tags</title>
 						<para>
@@ -271,8 +270,7 @@
   <keyword>IDE</keyword>
   <keyword>development</keyword>
   <keyword>programming</keyword>
-</keywords>]]>
-					</programlisting>
+</keywords>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
@@ -303,8 +301,7 @@
   <screenshot>
      ....
   </screenshot>
-</screenshots>]]>
-					</programlisting>
+</screenshots>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
@@ -381,8 +378,7 @@
         </screenshots>
     </application>
     <!-- more applications here! -->
-</applications>]]>
-		</programlisting>
+</applications>]]></programlisting>
 
 	</section>
 </section>
