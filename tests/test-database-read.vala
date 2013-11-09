@@ -49,7 +49,7 @@ void test_database () {
 	var query = new SearchQuery ("firefox");
 	apps = db.find_applications (query);
 	print_apparray (apps);
-	assert (apps.len > 4);
+	assert (apps.len >= 3);
 
 	query = new SearchQuery ("");
 	query.set_categories_from_string ("science");

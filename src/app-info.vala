@@ -119,7 +119,6 @@ public class AppInfo : Object {
 		doc->set_root_element (root);
 
 		for (uint i = 0; i < screenshots.len; i++) {
-			debug ("I: %u", i);
 			Screenshot sshot = (Screenshot) screenshots.index (i);
 
 			Xml.Node* subnode = root->new_text_child (null, "screenshot", "");
@@ -131,7 +130,7 @@ public class AppInfo : Object {
 				subnode->add_child (n_image);
 			});
 
-			// TODO: Handle thumbnails
+			// TODO: Handle thumbnails and captions
 		}
 
 		string xmlstr;
