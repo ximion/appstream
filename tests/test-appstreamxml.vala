@@ -34,6 +34,20 @@ void test_appstream_parser () {
 	asxml.process_compressed_file (File.new_for_path (Path.build_filename (datadir, "appdata.xml.gz", null)));
 }
 
+void test_screenshot_handling () {
+	var asxml = new Provider.AppstreamXML ();
+	Appstream.AppInfo? app = null;
+	asxml.application.connect ( (newApp) => {
+		app = newApp;
+	});
+
+	asxml.process_file (File.new_for_path (Path.build_filename (datadir, "appstream-test2.xml", null)));
+	assert (app != null);
+
+	debug (app.dump_screenshot_data_xml ());
+
+}
+
 int main (string[] args) {
 	msg ("=== Running AppStream-XML Tests ===");
 	datadir = args[1];
@@ -45,6 +59,7 @@ int main (string[] args) {
 	Test.init (ref args);
 
 	test_appstream_parser ();
+	test_screenshot_handling ();
 
 	Test.run ();
 	return 0;

@@ -104,9 +104,42 @@ public class AppInfo : Object {
 	}
 
 	public void add_screenshot (Screenshot sshot) {
-		screenshots.add (sshot);
+		// we need to manually refcount the object when adding it to the array
+		screenshots.add (sshot.ref ());
 	}
 
+	/**
+	 * Internal function to create XML which gets stored in the AppStream database
+	 * for screenshots
+	 */
+	internal string dump_screenshot_data_xml () {
+		Xml.Doc* doc = new Xml.Doc ();
+
+		Xml.Node* root = new Xml.Node (null, "screenshots");
+		doc->set_root_element (root);
+
+		for (uint i = 0; i < screenshots.len; i++) {
+			debug ("I: %u", i);
+			Screenshot sshot = (Screenshot) screenshots.index (i);
+
+			Xml.Node* subnode = root->new_text_child (null, "screenshot", "");
+			if (sshot.is_default ())
+				subnode->new_prop ("type", "default");
+			sshot.urls.for_each ( (key, val) => {
+				Xml.Node* n_image = subnode->new_text_child (null, "image", val);
+				n_image->new_prop ("size", key);
+				subnode->add_child (n_image);
+			});
+
+			// TODO: Handle thumbnails
+		}
+
+		string xmlstr;
+		doc->dump_memory (out xmlstr);
+		delete doc;
+
+		return xmlstr;
+	}
 }
 
 } // End of namespace: Appstream
