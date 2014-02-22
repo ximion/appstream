@@ -105,6 +105,12 @@ internal class Builder : Object {
 				continue;
 			string ctime_str = "%ld".printf (sbuf.st_ctime);
 
+			watchfile_new += "%s %s".printf (fname, ctime_str);
+			if (watchfile.length == 0) {
+				ret = true;
+				continue;
+			}
+
 			foreach (string wentry in watchfile) {
 				if (wentry.has_prefix (fname)) {
 					string[] wparts = wentry.split (" ", 2);
@@ -113,8 +119,6 @@ internal class Builder : Object {
 					break;
 				}
 			}
-
-			watchfile_new += "%s %s".printf (fname, ctime_str);
 		}
 
 		// write our watchfile
