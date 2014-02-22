@@ -1,6 +1,6 @@
 /* test-database-read.vala
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2014 Matthias Klumpp
  *
  * Licensed under the GNU General Public License Version 3
  *

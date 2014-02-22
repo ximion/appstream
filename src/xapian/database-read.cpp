@@ -1,6 +1,6 @@
 /* database-read.cpp
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2009 Michael Vogt <mvo@debian.org>
  *
  * Licensed under the GNU Lesser General Public License Version 3
@@ -108,6 +108,10 @@ DatabaseRead::docToAppInfo (Xapian::Document doc)
 	// Categories
 	string categories_string = doc.get_value (XapianValues::CATEGORIES);
 	appstream_app_info_set_categories_from_str (app, categories_string.c_str ());
+
+	// Screenshot data
+	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOT_DATA);
+	appstream_app_info_load_screenshots_from_internal_xml (app, screenshot_xml.c_str ());
 
 	// TODO
 

@@ -1,6 +1,6 @@
 /* test-appstreamxml.vala
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2014 Matthias Klumpp
  *
  * Licensed under the GNU General Public License Version 3
  *
@@ -44,8 +44,17 @@ void test_screenshot_handling () {
 	asxml.process_file (File.new_for_path (Path.build_filename (datadir, "appstream-test2.xml", null)));
 	assert (app != null);
 
-	debug (app.dump_screenshot_data_xml ());
+	string xml_data = app.dump_screenshot_data_xml ();
+	debug (xml_data);
 
+	// dirty...
+	app.screenshots.remove_range (0, app.screenshots.len);
+
+	app.load_screenshots_from_internal_xml (xml_data);
+	for (uint i = 0; i < app.screenshots.len; i++) {
+			Screenshot sshot = (Screenshot) app.screenshots.index (i);
+			debug (sshot.caption);
+	}
 }
 
 int main (string[] args) {

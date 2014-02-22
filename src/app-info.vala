@@ -104,7 +104,7 @@ public class AppInfo : Object {
 	}
 
 	public void add_screenshot (Screenshot sshot) {
-		// we need to manually refcount the object when adding it to the array
+		// we need to manually refcount the object when adding it to the array (GPtrArray does not auto-ref stuff)
 		screenshots.add (sshot.ref ());
 	}
 
@@ -149,6 +149,51 @@ public class AppInfo : Object {
 		delete doc;
 
 		return xmlstr;
+	}
+
+	/**
+	 * Internal function to load the screenshot list
+	 * using the database-internal XML data.
+	 */
+	internal void load_screenshots_from_internal_xml (string xmldata) {
+		if (str_empty (xmldata))
+			return;
+		Xml.Doc* doc = Xml.Parser.parse_doc (xmldata);
+		Xml.Node* root = doc->get_root_element ();
+		if (root == null) {
+			delete doc;
+			return;
+		}
+
+		for (Xml.Node* iter = root->children; iter != null; iter = iter->next) {
+			if (iter->name == "screenshot") {
+				var sshot = new Screenshot ();
+				if (iter->get_prop ("type") == "default")
+					sshot.set_default (true);
+				for (Xml.Node* iter2 = iter->children; iter2 != null; iter2 = iter2->next) {
+					string node_name = iter2->name;
+					string? content = iter2->get_content ();
+					switch (node_name) {
+						case "image":	if (content != null) {
+											string? size_str = iter->get_prop ("size");
+											// discard invalid elements
+											if (str_empty (size_str))
+												break;
+										if (iter->get_prop ("type") == "thumbnail")
+											sshot.add_thumbnail_url (size_str, content);
+										else
+											sshot.add_url (size_str, content);
+										}
+						break;
+						case "caption":	if (content != null) {
+											sshot.caption = content;
+										}
+						break;
+					}
+				}
+				add_screenshot (sshot);
+			}
+		}
 	}
 }
 

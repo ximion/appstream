@@ -1,6 +1,6 @@
 /* database-common.hpp -- Common specs for AppStream Xapian database
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -35,7 +35,7 @@ enum XapianValues {
 	ICON_URL = 175,
 	SUMMARY = 176,
 	DESCRIPTION = 177,
-	SCREENSHOTS = 178,	// screenshot definitions, as XML
+	SCREENSHOT_DATA = 178,	// screenshot definitions, as XML
 	CATEGORIES = 179,
 	LICENSE = 180,
 	URL_HOMEPAGE = 181,

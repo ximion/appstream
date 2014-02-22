@@ -25,25 +25,25 @@ include_directories(${CMAKE_BINARY_DIR}
 )
 
 # Basic tests
-vala_add_executable (uai-test-basics test-basics.vala
+vala_add_executable (asi-test-basics test-basics.vala
 				BASE_DIR ${CMAKE_SOURCE_DIR}/src
 				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
-add_test(basic-test uai-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
+add_test(basic-test asi-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream-XML provider tests
-vala_add_executable (uai-test-appstream ${UAI_SOURCES_BASE} test-appstreamxml.vala
+vala_add_executable (asi-test-appstream ${UAI_SOURCES_BASE} test-appstreamxml.vala
 				BASE_DIR ${CMAKE_SOURCE_DIR}/src
 				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
-add_test(appstream-xml-test uai-test-appstream ${CMAKE_CURRENT_SOURCE_DIR})
+add_test(appstream-xml-test asi-test-appstream ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream database (read) tests
-vala_add_executable (uai-test-db-read test-database-read.vala
+vala_add_executable (asi-test-db-read test-database-read.vala
 				BASE_DIR ${CMAKE_SOURCE_DIR}/src
 				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
-add_test(appstream-db-read-test uai-test-db-read ${CMAKE_CURRENT_SOURCE_DIR})
+add_test(appstream-db-read-test asi-test-db-read ${CMAKE_CURRENT_SOURCE_DIR})

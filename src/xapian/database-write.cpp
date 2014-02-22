@@ -1,6 +1,6 @@
 /* database-write.cpp
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -178,6 +178,9 @@ DatabaseWrite::rebuild (GArray *apps)
 			string kword = keywords[i];
 			term_generator.index_text_without_positions (kword, WEIGHT_DESKTOP_KEYWORD);
 		}
+
+		// Add screenshot information (XML data)
+		doc.add_value (XapianValues::SCREENSHOT_DATA, appstream_app_info_dump_screenshot_data_xml (app));
 
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
