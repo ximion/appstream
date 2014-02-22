@@ -7,7 +7,6 @@ namespace PackageKit {
 		[CCode (has_construct_function = false)]
 		public Catalog ();
 		public async void lookup_async (string filename, GLib.Cancellable? cancellable, PackageKit.ProgressCallback progress_callback);
-		public static void test (void* user_data);
 	}
 	[CCode (cheader_filename = "packagekit-glib2/packagekit.h", type_id = "pk_category_get_type ()")]
 	public class Category : PackageKit.Source {
@@ -130,7 +129,6 @@ namespace PackageKit {
 		[NoWrapper]
 		public virtual void connection_changed (bool connected);
 		public async string get_daemon_state_async (GLib.Cancellable? cancellable) throws GLib.Error;
-		public async PackageKit.Network get_network_state_async (GLib.Cancellable? cancellable) throws GLib.Error;
 		public bool get_properties (GLib.Cancellable? cancellable = null) throws GLib.Error;
 		public async bool get_properties_async (GLib.Cancellable? cancellable) throws GLib.Error;
 		public async string get_tid_async (GLib.Cancellable? cancellable) throws GLib.Error;
@@ -323,7 +321,6 @@ namespace PackageKit {
 		public static bool id_equal_fuzzy_arch (string package_id1, string package_id2);
 		[CCode (array_length = false, array_null_terminated = true)]
 		public static string[] id_split (string package_id);
-		public static void id_test (void* user_data);
 		public static string id_to_printable (string package_id);
 		[CCode (array_length = false, array_null_terminated = true)]
 		public static string[] ids_add_id (string package_ids, string package_id);
@@ -342,12 +339,13 @@ namespace PackageKit {
 		public bool parse (string data) throws GLib.Error;
 		public void print ();
 		public bool set_id (string package_id) throws GLib.Error;
+		public void set_info (PackageKit.Info info);
+		public void set_summary (string summary);
 		public static void test (void* user_data);
 		[NoAccessorMethod]
 		public string description { owned get; set; }
 		[NoAccessorMethod]
 		public uint group { get; set; }
-		[NoAccessorMethod]
 		public uint info { get; set; }
 		[NoAccessorMethod]
 		public string license { owned get; set; }
@@ -355,8 +353,7 @@ namespace PackageKit {
 		public string package_id { owned get; }
 		[NoAccessorMethod]
 		public uint64 size { get; set; }
-		[NoAccessorMethod]
-		public string summary { owned get; set; }
+		public string summary { get; set; }
 		[CCode (array_length = false, array_null_terminated = true)]
 		[NoAccessorMethod]
 		public string[] update_bugzilla_urls { owned get; set; }
@@ -399,6 +396,7 @@ namespace PackageKit {
 		public PackageKit.PackageSack filter (PackageKit.PackageSackFilterFunc filter_cb);
 		public PackageKit.PackageSack filter_by_info (PackageKit.Info info);
 		public PackageKit.Package find_by_id (string package_id);
+		public PackageKit.Package find_by_id_name_arch (string package_id);
 		public GLib.GenericArray<weak PackageKit.Package> get_array ();
 		public bool get_details (GLib.Cancellable? cancellable = null) throws GLib.Error;
 		public async void get_details_async (GLib.Cancellable? cancellable, PackageKit.ProgressCallback progress_callback);
@@ -1315,78 +1313,6 @@ namespace PackageKit {
 	public static string iso8601_from_date (GLib.Date date);
 	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
 	public static string iso8601_present ();
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__POINTER_UINT_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__POINTER_UINT_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_BOOLEAN (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_BOXED (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_BOOLEAN (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_BOOLEAN_STRING_UINT_STRING_UINT_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_BOOLEAN_UINT_UINT_STRING_UINT_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_BOOLEAN (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_BOOLEAN_STRING_UINT_STRING_UINT_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_STRING_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_UINT64 (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_STRING_UINT_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_STRING_STRING_STRING_UINT64 (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_UINT_STRING_STRING_UINT64 (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_STRING_UINT_UINT_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_UINT_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__STRING_UINT_UINT_UINT_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__UINT_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__UINT_STRING_STRING (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__UINT_STRING_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__UINT_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
-	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
-	public static void marshal_VOID__UINT_UINT_UINT_UINT (GLib.Closure closure, GLib.Value return_value, uint n_param_values, GLib.Value param_values, void* invocation_hint, void* marshal_data);
 	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]
 	public static void polkit_agent_close ();
 	[CCode (cheader_filename = "packagekit-glib2/packagekit.h")]

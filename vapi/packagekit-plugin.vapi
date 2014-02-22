@@ -112,7 +112,7 @@ namespace PkPlugin {
 		public void set_cmdline (string cmdline);
 		public void set_download_size_remaining (uint64 download_size_remaining);
 		public void set_exit_code (PackageKit.Exit exit);
-		public bool set_frontend_socket (string frontend_socket);
+		public void set_frontend_socket (string frontend_socket);
 		public void set_interactive (PkPlugin.Hint interactive);
 		public void set_item_progress (string package_id, PackageKit.Status status, uint percentage);
 		public void set_locale (string code);
@@ -148,7 +148,7 @@ namespace PkPlugin {
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h", type_id = "pk_transaction_get_type ()")]
 	public class Transaction : GLib.Object {
 		[CCode (has_construct_function = false)]
-		public Transaction ();
+		public Transaction (GLib.DBusNodeInfo introspection);
 		public void add_supported_content_type (string mime_type);
 		public void cancel_bg ();
 		public static GLib.Quark error_quark ();
@@ -270,6 +270,8 @@ namespace PkPlugin {
 	public delegate void PluginTransactionFunc (PkPlugin.Plugin plugin, PkPlugin.Transaction transaction);
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h", cname = "PK_BACKEND_PERCENTAGE_INVALID")]
 	public const int BACKEND_PERCENTAGE_INVALID;
+	[CCode (cheader_filename = "plugin/packagekit-plugin.h", cname = "PK_CONF_GROUP_NAME")]
+	public const string CONF_GROUP_NAME;
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h", cname = "PK_CONF_VALUE_INT_MISSING")]
 	public const int CONF_VALUE_INT_MISSING;
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h", cname = "PK_TRANSACTION_ALL_BACKEND_SIGNALS")]
@@ -278,6 +280,8 @@ namespace PkPlugin {
 	public const int TRANSACTION_NO_BACKEND_SIGNALS;
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h")]
 	public static bool directory_remove_contents (string directory);
+	[CCode (cheader_filename = "plugin/packagekit-plugin.h")]
+	public static GLib.Resource get_resource ();
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h")]
 	public static GLib.DBusNodeInfo load_introspection (string filename) throws GLib.Error;
 	[CCode (cheader_filename = "plugin/packagekit-plugin.h")]
