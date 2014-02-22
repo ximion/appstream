@@ -28,9 +28,11 @@ void msg (string s) {
 }
 
 void print_apparray (PtrArray appArray) {
+	stdout.printf ("----\n");
 	for (uint i = 0; i < appArray.len; i++) {
 		stdout.printf ("  - %s\n", ((Appstream.AppInfo) appArray.index (i)).to_string ());
 	}
+	stdout.printf ("----\n");
 }
 
 void test_database () {
@@ -61,7 +63,7 @@ void test_database () {
 	query.set_categories_from_string ("science");
 	apps = db.find_applications (query);
 	print_apparray (apps);
-	assert (apps.len > 4);
+	assert (apps.len > 2);
 }
 
 int main (string[] args) {

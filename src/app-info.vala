@@ -124,13 +124,24 @@ public class AppInfo : Object {
 			Xml.Node* subnode = root->new_text_child (null, "screenshot", "");
 			if (sshot.is_default ())
 				subnode->new_prop ("type", "default");
-			sshot.urls.for_each ( (key, val) => {
+
+			if (sshot.caption != "") {
+				Xml.Node* n_caption = subnode->new_text_child (null, "caption", sshot.caption);
+				subnode->add_child (n_caption);
+			}
+
+			sshot.thumbnail_urls.for_each ( (key, val) => {
 				Xml.Node* n_image = subnode->new_text_child (null, "image", val);
+				n_image->new_prop ("type", "thumbnail");
 				n_image->new_prop ("size", key);
 				subnode->add_child (n_image);
 			});
-
-			// TODO: Handle thumbnails and captions
+			sshot.urls.for_each ( (key, val) => {
+				Xml.Node* n_image = subnode->new_text_child (null, "image", val);
+				n_image->new_prop ("type", "source");
+				n_image->new_prop ("size", key);
+				subnode->add_child (n_image);
+			});
 		}
 
 		string xmlstr;
