@@ -287,6 +287,9 @@ private class AppstreamXML : Appstream.DataProvider {
 		Array<string> xmlFiles = new Array<string> ();
 
 		foreach (string path in APPSTREAM_XML_PATHS) {
+			// Check if the folder is actually there before trying to scan it...
+			if (!FileUtils.test (path, FileTest.EXISTS))
+				continue;
 			Array<string>? xmls = Utils.find_files_matching (path, "*.xml*");
 			if (xmls != null) {
 				for (uint j=0; j < xmls.length; j++)

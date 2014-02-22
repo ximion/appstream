@@ -107,7 +107,7 @@ DatabaseWrite::rebuild (GArray *apps)
 
 		Xapian::Document doc;
 
-		cout << "Adding application: " << appstream_app_info_to_string (app) << endl;
+		g_debug ("Adding application: %s", appstream_app_info_to_string (app));
 
 		doc.set_data (appstream_app_info_get_name (app));
 
