@@ -60,7 +60,10 @@ public class AppInfo : Object {
 	 * Array of Screenshot objects which describe
 	 * screenshots for this application.
 	 */
-	public PtrArray screenshots { get; internal set; }
+	private PtrArray _screenshots; // we need to duplicate this to work around a codegen issue in newer Vala versions
+	public PtrArray screenshots {
+		get { return _screenshots; }
+	}
 
 	public AppInfo () {
 		pkgname = "";
@@ -73,7 +76,7 @@ public class AppInfo : Object {
 		icon = "";
 		icon_url = "";
 		categories = {null};
-		screenshots = new PtrArray.with_free_func (GLib.Object.unref);
+		_screenshots = new PtrArray.with_free_func (GLib.Object.unref);
 	}
 
 	/**
