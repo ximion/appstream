@@ -1,6 +1,6 @@
 /* appstream-index.vala -- Simple client for the Update-AppStream-Index DBus service
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 3
  *
@@ -82,7 +82,7 @@ private class ASClient : Object {
 			return;
 
 		if (o_show_version) {
-			stdout.printf ("AppStream-index client tool version: %s\n", Config.VERSION);
+			stdout.printf ("AppStream-Index client tool version: %s\n", Config.VERSION);
 			return;
 		}
 
