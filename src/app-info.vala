@@ -62,7 +62,6 @@ public class AppInfo : Object {
 	 */
 	public PtrArray screenshots { get; internal set; }
 
-
 	public AppInfo () {
 		pkgname = "";
 		desktop_file = "";

@@ -53,8 +53,11 @@ void test_screenshot_handling () {
 	app.load_screenshots_from_internal_xml (xml_data);
 	for (uint i = 0; i < app.screenshots.len; i++) {
 			Screenshot sshot = (Screenshot) app.screenshots.index (i);
+			assert (sshot.urls.size () == 1);
+			assert (sshot.thumbnail_urls.size () == 1);
 			debug (sshot.caption);
 	}
+	assert (app.screenshots.len > 0);
 }
 
 int main (string[] args) {

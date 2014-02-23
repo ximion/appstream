@@ -101,10 +101,6 @@ public class Database : Object {
 
 	public string database_path { get; internal set; }
 
-	public signal void error_code (string error_details);
-	public signal void finished (string action_name, bool success);
-	public signal void authorized (bool success);
-
 	public Database () {
 		db = new ASXapian.DatabaseRead ();
 		opened_ = false;

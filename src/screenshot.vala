@@ -68,6 +68,38 @@ public class Screenshot : Object {
 		return val;
 	}
 
+	/**
+	 * Returns a list of available screenshot sizes.
+	 *
+	 * @return zero-terminated string array of available sizes
+	 */
+	[CCode (array_length = false, array_null_terminated = true)]
+	public string[] get_available_sizes () {
+		string[] sizes = {};
+		urls.get_keys ().foreach ((size) => {
+			sizes += size;
+		});
+		sizes += null;
+
+		return sizes;
+	}
+
+	/**
+	 * Returns a list of available thumbnail sizes.
+	 *
+	 * @return zero-terminated string array of available sizes
+	 */
+	[CCode (array_length = false, array_null_terminated = true)]
+	public string[] get_available_thumbnail_sizes () {
+		string[] sizes = {};
+		thumbnail_urls.get_keys ().foreach ((size) => {
+			sizes += size;
+		});
+		sizes += null;
+
+		return sizes;
+	}
+
 	public void add_url (string size_id, string url) {
 		urls.insert (size_id, url);
 	}
