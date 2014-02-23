@@ -59,11 +59,11 @@ void test_database () {
 	print_apparray (apps);
 	assert (apps.len > 40);
 
-	query = new SearchQuery ("protein");
+	query = new SearchQuery ("chemistry");
 	query.set_categories_from_string ("science");
 	apps = db.find_applications (query);
 	print_apparray (apps);
-	assert (apps.len > 2);
+	assert (apps.len > 4);
 }
 
 int main (string[] args) {
