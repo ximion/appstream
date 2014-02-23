@@ -53,7 +53,7 @@ void
 pk_plugin_transaction_finished_end (PkPlugin *plugin,
 				    PkTransaction *transaction)
 {
-	AppstreamBuilder *builder = NULL;
+	AppStreamBuilder *builder = NULL;
 	PkRoleEnum role;
 
 	/* skip simulate actions */

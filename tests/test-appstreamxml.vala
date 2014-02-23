@@ -19,7 +19,7 @@
  */
 
 using GLib;
-using Appstream;
+using AppStream;
 
 private string datadir;
 
@@ -28,15 +28,15 @@ void msg (string s) {
 }
 
 void test_appstream_parser () {
-	var asxml = new Provider.AppstreamXML ();
+	var asxml = new Provider.AppStreamXML ();
 
 	asxml.process_file (File.new_for_path (Path.build_filename (datadir, "appdata.xml", null)));
 	asxml.process_compressed_file (File.new_for_path (Path.build_filename (datadir, "appdata.xml.gz", null)));
 }
 
 void test_screenshot_handling () {
-	var asxml = new Provider.AppstreamXML ();
-	Appstream.AppInfo? app = null;
+	var asxml = new Provider.AppStreamXML ();
+	AppStream.AppInfo? app = null;
 	asxml.application.connect ( (newApp) => {
 		app = newApp;
 	});

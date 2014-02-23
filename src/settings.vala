@@ -21,7 +21,8 @@
 using GLib;
 using Config;
 
-namespace Appstream {
+[CCode (lower_case_cprefix = "appstream_")]
+namespace AppStream {
 
 private static const string DB_SCHEMA_VERSION = "1";
 
@@ -46,7 +47,6 @@ internal static const string APPSTREAM_DATABASE_PATH = APPSTREAM_CACHE_PATH + "/
  * Get details about the AppStream settings for the
  * current distribution
  */
-[CCode (cname = "AppStreamDistroDetails")]
 public class DistroDetails : Object {
 	public string distro_id { get; private set; }
 	public string distro_name { get; private set; }

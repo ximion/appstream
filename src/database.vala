@@ -19,9 +19,10 @@
  */
 
 using GLib;
-using Appstream.Utils;
+using AppStream.Utils;
 
-namespace Appstream {
+[CCode (lower_case_cprefix = "appstream_")]
+namespace AppStream {
 
 /** TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,
@@ -34,7 +35,6 @@ private static const string SEARCH_GREYLIST_STR = _("app;application;package;pro
 /**
  * Class describing a query on the AppStream application database
  */
-[CCode (cname = "AppStreamSearchQuery")]
 public class SearchQuery : Object {
 	public string search_term { get; set; }
 	public string[] categories { get; set; }
@@ -96,7 +96,6 @@ public class SearchQuery : Object {
  * Class to access the AppStream
  * application database
  */
-[CCode (cname = "AppStreamDatabase")]
 public class Database : Object {
 	private ASXapian.DatabaseRead db;
 	private bool opened_;

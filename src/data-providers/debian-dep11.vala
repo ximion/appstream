@@ -19,12 +19,13 @@
  */
 
 using GLib;
-using Appstream;
+using AppStream;
 
-namespace Appstream.Provider {
+[CCode (lower_case_cprefix = "appstream_provider_")]
+namespace AppStream.Provider {
 
 // TODO !!
-private class DEP11 : Appstream.DataProvider {
+private class DEP11 : AppStream.DataProvider {
 
 	public DEP11 () {
 
@@ -36,4 +37,4 @@ private class DEP11 : Appstream.DataProvider {
 
 }
 
-} // End of namespace: Uai.Provider
+} // End of namespace: AppStream.Provider

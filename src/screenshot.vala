@@ -19,14 +19,14 @@
  */
 
 using GLib;
-using Appstream.Utils;
+using AppStream.Utils;
 
-namespace Appstream {
+[CCode (lower_case_cprefix = "appstream_")]
+namespace AppStream {
 
 /**
  * Class to store data describing a screenshot
  */
-[CCode (cname = "AppStreamScreenshot")]
 public class Screenshot : Object {
 	public string caption { get; set; }
 	public HashTable<string, string> urls;

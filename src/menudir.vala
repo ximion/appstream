@@ -20,12 +20,12 @@
 
 using GLib;
 
-namespace Appstream {
+[CCode (lower_case_cprefix = "appstream_")]
+namespace AppStream {
 
 /**
  * Description of an XDG Menu category
  */
-[CCode (cname = "AppStreamCategory")]
 public class Category : Object {
 	public string name { get; internal set; }
 	public string summary { get; private set; }
@@ -95,7 +95,6 @@ public class Category : Object {
 /**
  * Parser for XDG Menu files
  */
-[CCode (cname = "AppStreamMenuParser")]
 public class MenuParser {
 	private string menu_file;
 	public bool update_category_data { get; set; }

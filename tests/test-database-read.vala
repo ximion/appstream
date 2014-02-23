@@ -19,7 +19,7 @@
  */
 
 using GLib;
-using Appstream;
+using AppStream;
 
 private string datadir;
 
@@ -30,13 +30,13 @@ void msg (string s) {
 void print_apparray (PtrArray appArray) {
 	stdout.printf ("----\n");
 	for (uint i = 0; i < appArray.len; i++) {
-		stdout.printf ("  - %s\n", ((Appstream.AppInfo) appArray.index (i)).to_string ());
+		stdout.printf ("  - %s\n", ((AppStream.AppInfo) appArray.index (i)).to_string ());
 	}
 	stdout.printf ("----\n");
 }
 
 void test_database () {
-	var db = new Appstream.Database ();
+	var db = new AppStream.Database ();
 	PtrArray apps = null;
 
 	db.open ();

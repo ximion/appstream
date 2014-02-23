@@ -19,7 +19,7 @@
  */
 
 using GLib;
-using Appstream;
+using AppStream;
 
 private class ASClient : Object {
 	// Cmdln options
@@ -98,7 +98,7 @@ private class ASClient : Object {
 
 
 		// Prepare the AppStream database connection
-		var db = new Appstream.Database ();
+		var db = new AppStream.Database ();
 
 		if (o_search != null) {
 			db.open ();
@@ -115,7 +115,7 @@ private class ASClient : Object {
 				return;
 			}
 			for (uint i = 0; i < app_list.len; i++) {
-				var app = (Appstream.AppInfo) app_list.index (i);
+				var app = (AppStream.AppInfo) app_list.index (i);
 				print_key_value ("Application", app.name);
 				print_key_value ("Summary", app.summary);
 				print_key_value ("Package", app.pkgname);
@@ -149,7 +149,7 @@ private class ASClient : Object {
 				exit_code = 2;
 				return;
 			}
-			var builder = new Appstream.Builder ();
+			var builder = new AppStream.Builder ();
 			builder.initialize ();
 			builder.refresh_cache (o_force);
 		} else {

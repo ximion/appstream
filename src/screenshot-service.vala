@@ -21,13 +21,13 @@
 using GLib;
 using Config;
 
-namespace Appstream {
+[CCode (lower_case_cprefix = "appstream_")]
+namespace AppStream {
 
 /**
  * Get access to a package screenshot service which matches
  * the current distribution.
  */
-[CCode (cname = "AppStreamScreenshotService")]
 public class ScreenshotService : Object {
 	public string base_url { get; private set; }
 

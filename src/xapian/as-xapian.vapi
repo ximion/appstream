@@ -31,7 +31,7 @@ namespace ASXapian {
 		public string get_schema_version ();
 
 		public GLib.PtrArray get_all_applications ();
-		public GLib.PtrArray find_applications (Appstream.SearchQuery query);
+		public GLib.PtrArray find_applications (AppStream.SearchQuery query);
 	}
 
 	[Compact]
@@ -41,8 +41,8 @@ namespace ASXapian {
 		public DatabaseWrite ();
 
 		public bool initialize (string db_path);
-		public bool add_application (Appstream.AppInfo app);
-		public bool rebuild (GLib.Array<Appstream.AppInfo> apps);
+		public bool add_application (AppStream.AppInfo app);
+		public bool rebuild (GLib.Array<AppStream.AppInfo> apps);
 	}
 
 }
