@@ -115,8 +115,7 @@ private class AppstreamXML : Appstream.DataProvider {
 		}
 	}
 
-	private Screenshot? process_screenshots_tag (Xml.Node* node) {
-		Screenshot? sshot = null;
+	private void process_screenshots_tag (Xml.Node* node, AppInfo app) {
 		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
 			// Discard spaces
 			if (iter->type != ElementType.ELEMENT_NODE) {
@@ -124,14 +123,14 @@ private class AppstreamXML : Appstream.DataProvider {
 			}
 
 			if (iter->name == "screenshot") {
-				sshot = new Screenshot ();
+				var sshot = new Screenshot ();
 				if (iter->get_prop ("type") == "default")
 					sshot.set_default (true);
 				process_screenshot (iter, sshot);
+				if (sshot.is_valid ())
+					app.add_screenshot (sshot);
 			}
 		}
-
-		return sshot;
 	}
 
 	private void parse_application_node (Xml.Node* node) {
@@ -210,9 +209,7 @@ private class AppstreamXML : Appstream.DataProvider {
 						app.categories = cat_array;
 						break;
 				case "screenshots":
-						Screenshot? sshot = process_screenshots_tag (iter);
-						if (sshot != null)
-							app.add_screenshot (sshot);
+						process_screenshots_tag (iter, app);
 						break;
 			}
 		}

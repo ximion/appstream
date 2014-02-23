@@ -119,6 +119,13 @@ public class Screenshot : Object {
 		default_screenshot = b;
 	}
 
+	/**
+	 * Sanity check to see if we have a valid screenshot object here.
+	 */
+	public bool is_valid () {
+		return (urls.size () > 0) || (thumbnail_urls.size () > 0);
+	}
+
 }
 
 } // End of namespace: Appstream

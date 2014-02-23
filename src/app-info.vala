@@ -112,6 +112,9 @@ public class AppInfo : Object {
 	 * for screenshots
 	 */
 	internal string dump_screenshot_data_xml () {
+		if (screenshots.len == 0)
+			return "";
+
 		Xml.Doc* doc = new Xml.Doc ();
 
 		Xml.Node* root = new Xml.Node (null, "screenshots");
@@ -174,14 +177,14 @@ public class AppInfo : Object {
 					string? content = iter2->get_content ();
 					switch (node_name) {
 						case "image":	if (content != null) {
-											string? size_str = iter->get_prop ("size");
+											string? size_str = iter2->get_prop ("size");
 											// discard invalid elements
 											if (str_empty (size_str))
 												break;
-										if (iter->get_prop ("type") == "thumbnail")
-											sshot.add_thumbnail_url (size_str, content);
-										else
-											sshot.add_url (size_str, content);
+											if (iter2->get_prop ("type") == "thumbnail")
+												sshot.add_thumbnail_url (size_str, content);
+											else
+												sshot.add_url (size_str, content);
 										}
 						break;
 						case "caption":	if (content != null) {
