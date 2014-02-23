@@ -22,6 +22,7 @@ vala_add_executable (appstream-index appstream-index.vala
 				COMPILE_FLAGS ${VALA_COMPILE_FLAGS}
 					--pkg appstream_internal # somehow we need to explicitly define that, PACKAGES directive does not always work
 )
+add_dependencies(appstream-index_precompile header_internal_fix)
 
 target_link_libraries(appstream-index
 		${M_LIB}

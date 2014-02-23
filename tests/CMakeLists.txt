@@ -30,6 +30,7 @@ vala_add_executable (asi-test-basics test-basics.vala
 				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
+add_dependencies(asi-test-basics_precompile header_internal_fix)
 add_test(basic-test asi-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream-XML provider tests
@@ -38,6 +39,7 @@ vala_add_executable (asi-test-appstream ${UAI_SOURCES_BASE} test-appstreamxml.va
 				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
+add_dependencies(asi-test-appstream_precompile header_internal_fix)
 add_test(appstream-xml-test asi-test-appstream ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream database (read) tests
@@ -46,4 +48,5 @@ vala_add_executable (asi-test-db-read test-database-read.vala
 				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
 				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
 )
+add_dependencies(asi-test-db-read_precompile header_internal_fix)
 add_test(appstream-db-read-test asi-test-db-read ${CMAKE_CURRENT_SOURCE_DIR})
