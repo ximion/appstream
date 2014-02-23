@@ -25,7 +25,7 @@ private class ASClient : Object {
 	// Cmdln options
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
-	private static bool o_no_wait = false;
+	private static bool o_no_color = false;
 	private static string? o_search = null;
 
 	private MainLoop loop;
@@ -37,8 +37,8 @@ private class ASClient : Object {
 		N_("Show the application's version"), null },
 		{ "verbose", 0, 0, OptionArg.NONE, ref o_verbose_mode,
 		N_("Enable verbose mode"), null },
-		{ "nowait", 0, 0, OptionArg.NONE, ref o_no_wait,
-		N_("Don't wait for actions to complete'"), null },
+		{ "no-color", 0, 0, OptionArg.NONE, ref o_no_color,
+		N_("Don't show colored output"), null },
 		{ "search", 's', 0, OptionArg.STRING, ref o_search,
 		N_("Search the application database"), null },
 		{ null }
@@ -66,6 +66,17 @@ private class ASClient : Object {
 			loop.quit ();
 	}
 
+	private void print_key_value (string key, string val, bool highlight = false) {
+		if ((val == null) || (val == ""))
+			return;
+		stdout.printf ("%c[%dm%s%c[%dm%s\n", 0x1B, 1, "%s: ".printf (key), 0x1B, 0, val);
+	}
+
+	private void print_separator () {
+		stdout.printf ("%c[%dm%s\n%c[%dm", 0x1B, 36, "----", 0x1B, 0);
+	}
+
+
 	public void run () {
 		if (exit_code > 0)
 			return;
@@ -83,16 +94,6 @@ private class ASClient : Object {
 		// Prepare the AppStream database connection
 		var db = new Appstream.Database ();
 
-		db.error_code.connect((error_details) => {
-			stderr.printf ("Failed: %s\n", error_details);
-		});
-
-		db.authorized.connect((success) => {
-			// return immediately without waiting for action to complete if user has set --nowait
-			if (o_no_wait)
-				quit_loop ();
-		});
-
 		if (o_search != null) {
 			db.open ();
 			PtrArray? app_list;
@@ -109,8 +110,13 @@ private class ASClient : Object {
 			}
 			for (uint i = 0; i < app_list.len; i++) {
 				var app = (Appstream.AppInfo) app_list.index (i);
-				stdout.printf ("Application: %s\nSummary: %s\nPackage: %s\nURL:%s\nDesktop: %s\nIcon: %s\n", app.name, app.summary, app.pkgname, app.homepage, app.desktop_file, app.icon);
-				stdout.printf ("------\n");
+				print_key_value ("Application", app.name);
+				print_key_value ("Summary", app.summary);
+				print_key_value ("Package", app.pkgname);
+				print_key_value ("Homepage", app.homepage);
+				print_key_value ("Desktop-File", app.desktop_file);
+				print_key_value ("Icon", app.icon);
+				print_separator ();
 			}
 
 		} else {
