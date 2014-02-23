@@ -1,6 +1,6 @@
 /* settings.vala
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -46,6 +46,7 @@ internal static const string APPSTREAM_DATABASE_PATH = APPSTREAM_CACHE_PATH + "/
  * Get details about the AppStream settings for the
  * current distribution
  */
+[CCode (cname = "AppStreamDistroDetails")]
 public class DistroDetails : Object {
 	public string distro_id { get; private set; }
 	public string distro_name { get; private set; }

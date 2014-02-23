@@ -1,6 +1,6 @@
 /* database.vala -- Access the AppStream database
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -34,6 +34,7 @@ private static const string SEARCH_GREYLIST_STR = _("app;application;package;pro
 /**
  * Class describing a query on the AppStream application database
  */
+[CCode (cname = "AppStreamSearchQuery")]
 public class SearchQuery : Object {
 	public string search_term { get; set; }
 	public string[] categories { get; set; }
@@ -95,6 +96,7 @@ public class SearchQuery : Object {
  * Class to access the AppStream
  * application database
  */
+[CCode (cname = "AppStreamDatabase")]
 public class Database : Object {
 	private ASXapian.DatabaseRead db;
 	private bool opened_;

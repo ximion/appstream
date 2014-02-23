@@ -66,10 +66,10 @@ DatabaseRead::getSchemaVersion ()
 	return m_xapianDB.get_metadata ("db-schema-version");
 }
 
-AppstreamAppInfo*
+AppStreamAppInfo*
 DatabaseRead::docToAppInfo (Xapian::Document doc)
 {
-	AppstreamAppInfo *app = appstream_app_info_new ();
+	AppStreamAppInfo *app = appstream_app_info_new ();
 
 	// Application name
 	string appName = doc.get_value (XapianValues::APPNAME);
@@ -196,7 +196,7 @@ DatabaseRead::getQueryForCategory (gchar *cat_id)
  * search to the given category
  */
 Xapian::Query
-DatabaseRead::queryListFromSearchEntry (AppstreamSearchQuery *asQuery)
+DatabaseRead::queryListFromSearchEntry (AppStreamSearchQuery *asQuery)
 {
 	// prepare search-term
 	appstream_search_query_sanitize_search_term (asQuery);
@@ -261,7 +261,7 @@ DatabaseRead::queryListFromSearchEntry (AppstreamSearchQuery *asQuery)
 }
 
 GPtrArray*
-DatabaseRead::findApplications (AppstreamSearchQuery *asQuery)
+DatabaseRead::findApplications (AppStreamSearchQuery *asQuery)
 {
 	// Create new array to store the app-info objects
 	GPtrArray *appArray = g_ptr_array_new_with_free_func (g_object_unref);
@@ -276,7 +276,7 @@ DatabaseRead::findApplications (AppstreamSearchQuery *asQuery)
 	for (Xapian::MSetIterator it = matches.begin(); it != matches.end(); ++it) {
 		Xapian::Document doc = it.get_document ();
 
-		AppstreamAppInfo *app = docToAppInfo (doc);
+		AppStreamAppInfo *app = docToAppInfo (doc);
 		g_ptr_array_add (appArray, g_object_ref (app));
 	}
 
@@ -295,7 +295,7 @@ DatabaseRead::getAllApplications ()
 		Xapian::docid did = *it;
 
 		Xapian::Document doc = m_xapianDB.get_document (did);
-		AppstreamAppInfo *app = docToAppInfo (doc);
+		AppStreamAppInfo *app = docToAppInfo (doc);
 		g_ptr_array_add (appArray, g_object_ref (app));
 
 		++it;

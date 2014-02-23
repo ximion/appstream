@@ -27,6 +27,7 @@ namespace Appstream {
  * Get access to a package screenshot service which matches
  * the current distribution.
  */
+[CCode (cname = "AppStreamScreenshotService")]
 public class ScreenshotService : Object {
 	public string base_url { get; private set; }
 
@@ -56,6 +57,7 @@ public class ScreenshotService : Object {
 	public string get_screenshot_url (string package_name) {
 		return Path.build_filename (base_url, "screenshot", package_name);
 	}
+
 }
 
 } // End of namespace: Appstream

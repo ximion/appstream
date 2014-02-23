@@ -26,6 +26,7 @@ namespace Appstream {
 /**
  * Class to store data describing a screenshot
  */
+[CCode (cname = "AppStreamScreenshot")]
 public class Screenshot : Object {
 	public string caption { get; set; }
 	public HashTable<string, string> urls;

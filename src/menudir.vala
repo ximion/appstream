@@ -1,6 +1,6 @@
 /* menudir.vala
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -25,6 +25,7 @@ namespace Appstream {
 /**
  * Description of an XDG Menu category
  */
+[CCode (cname = "AppStreamCategory")]
 public class Category : Object {
 	public string name { get; internal set; }
 	public string summary { get; private set; }
@@ -94,6 +95,7 @@ public class Category : Object {
 /**
  * Parser for XDG Menu files
  */
+[CCode (cname = "AppStreamMenuParser")]
 public class MenuParser {
 	private string menu_file;
 	public bool update_category_data { get; set; }

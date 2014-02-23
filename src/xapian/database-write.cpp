@@ -105,7 +105,7 @@ DatabaseWrite::rebuild (GArray *apps)
 	}
 
 	for (guint i=0; i < apps->len; i++) {
-		AppstreamAppInfo *app = g_array_index (apps, AppstreamAppInfo*, i);
+		AppStreamAppInfo *app = g_array_index (apps, AppStreamAppInfo*, i);
 
 		Xapian::Document doc;
 		term_generator.set_document (doc);
@@ -214,7 +214,7 @@ DatabaseWrite::rebuild (GArray *apps)
 }
 
 bool
-DatabaseWrite::addApplication (AppstreamAppInfo *app)
+DatabaseWrite::addApplication (AppStreamAppInfo *app)
 {
 	// TODO
 	return false;

@@ -1,6 +1,6 @@
 /* database-read.hpp
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -44,20 +44,20 @@ public:
 	string getSchemaVersion ();
 
 	GPtrArray *getAllApplications ();
-	GPtrArray *findApplications (AppstreamSearchQuery *asQuery);
+	GPtrArray *findApplications (AppStreamSearchQuery *asQuery);
 
 private:
 	Xapian::Database m_xapianDB;
 	string m_dbPath;
 	GList *m_systemCategories;
 
-	AppstreamAppInfo *docToAppInfo (Xapian::Document);
+	AppStreamAppInfo *docToAppInfo (Xapian::Document);
 
 	Xapian::QueryParser newAppStreamParser ();
 	Xapian::Query addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
 	Xapian::Query getQueryForPkgNames (vector<string> pkgnames);
 	Xapian::Query getQueryForCategory (gchar *cat_id);
-	Xapian::Query queryListFromSearchEntry (AppstreamSearchQuery *asQuery);
+	Xapian::Query queryListFromSearchEntry (AppStreamSearchQuery *asQuery);
 };
 
 inline DatabaseRead* realDbRead (XADatabaseRead* d) { return static_cast<DatabaseRead*>(d); }
