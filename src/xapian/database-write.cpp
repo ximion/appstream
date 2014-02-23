@@ -24,6 +24,8 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <sstream>
+#include <iterator>
 #include <glib/gstdio.h>
 
 #include "database-common.hpp"
@@ -106,6 +108,7 @@ DatabaseWrite::rebuild (GArray *apps)
 		AppstreamAppInfo *app = g_array_index (apps, AppstreamAppInfo*, i);
 
 		Xapian::Document doc;
+		term_generator.set_document (doc);
 
 		g_debug ("Adding application: %s", appstream_app_info_to_string (app));
 
@@ -149,7 +152,9 @@ DatabaseWrite::rebuild (GArray *apps)
 		term_generator.index_text_without_positions (appSummary, WEIGHT_DESKTOP_SUMMARY);
 
 		// Long description
-		doc.add_value (XapianValues::DESCRIPTION, appstream_app_info_get_description (app));
+		string description = appstream_app_info_get_description (app);
+		doc.add_value (XapianValues::DESCRIPTION, description);
+		term_generator.index_text_without_positions (description, WEIGHT_DESKTOP_SUMMARY);
 
 		// Categories
 		int length = 0;
@@ -185,7 +190,6 @@ DatabaseWrite::rebuild (GArray *apps)
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
 		// Postprocess
-		term_generator.set_document (doc);
 		string docData = doc.get_data ();
 		doc.add_term ("AA" + docData);
 		term_generator.index_text_without_positions (docData, WEIGHT_DESKTOP_NAME);
