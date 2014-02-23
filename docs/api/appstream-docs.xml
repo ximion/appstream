@@ -8,17 +8,16 @@
   <bookinfo>
     <title>LibAppStream Reference Manual</title>
     <releaseinfo>
-      for libappstream 0.x.
       The latest version of this documentation can be found on-line at
       <ulink role="online-location" url="http://www.freedesktop.org/software/appstream/docs/api/html">http://www.freedesktop.org/software/appstream/apidoc/</ulink>.
     </releaseinfo>
   </bookinfo>
 
   <chapter>
-    <title>appstream API Reference</title>
+    <title>AppStream API Reference</title>
         <xi:include href="xml/settings.xml"/>
         <xi:include href="xml/app-info.xml"/>
-	<xi:include href="xml/screenshot.xml"/>
+        <xi:include href="xml/screenshot.xml"/>
         <xi:include href="xml/menudir.xml"/>
         <xi:include href="xml/database.xml"/>
         <xi:include href="xml/screenshot-service.xml"/>
