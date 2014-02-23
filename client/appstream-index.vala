@@ -116,6 +116,24 @@ private class ASClient : Object {
 				print_key_value ("Homepage", app.homepage);
 				print_key_value ("Desktop-File", app.desktop_file);
 				print_key_value ("Icon", app.icon);
+				for (uint j = 0; j < app.screenshots.len; j++) {
+					Screenshot sshot = (Screenshot) app.screenshots.index (j);
+					if (sshot.is_default ()) {
+						// just return some size right now
+						// FIXME: return the larges size?
+						string[] sizes = sshot.get_available_sizes ();
+						if (sizes[0] == null)
+							continue;
+						string sshot_url = sshot.get_url_for_size (sizes[0]);
+						string caption = sshot.caption;
+						if (caption == "")
+							print_key_value ("Screenshot", sshot_url);
+						else
+							print_key_value ("Screenshot", "%s (%s)".printf (sshot_url, caption));
+						break;
+					}
+				}
+
 				print_separator ();
 			}
 
