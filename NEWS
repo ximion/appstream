@@ -1,4 +1,32 @@
-Version 0.4.0
+Version 0.5
+~~~~~~~~~~~~~~
+Released: 2014-02-23
+
+Features:
+ * Parse screenshot data and make it available via library API (Matthias Klumpp)
+ * Add screenshot data to the Xapian database (Matthias Klumpp)
+ * Add function to dump screenshot data as XML (Matthias Klumpp)
+ * cli: Add colored output to the command-line tool (Matthias Klumpp)
+ * cli: Display some screenshot information, if it is found (Matthias Klumpp)
+ * cli: Allow the tool to trigger cache rebuilds (Matthias Klumpp)
+ * Add new API to return available screenshot sizes (Matthias Klumpp)
+ * Always compile tests (Matthias Klumpp)
+ * Improve Xapian search capabilities (Matthias Klumpp)
+
+Specification:
+ * spec: Deprecate appcategory element in favour of category element (Matthias Klumpp)
+ * docs: Update architecture images (Matthias Klumpp)
+ * docs: Remove reference to OCS (Matthias Klumpp)
+ * spec: Add caption for screenshots (Matthias Klumpp)
+
+Bugfixes:
+ * Always install appstream.pc in correct libdir (Matthias Klumpp)
+ * Always rebuild the database if watchfile is missing (Matthias Klumpp)
+ * Don't throw an error if we are on a system without the ASXML dir (Matthias Klumpp)
+ * Fix some memory leaks (Matthias Klumpp)
+ * Fix some strange vala compile issue with newer valac versions (Matthias Klumpp)
+
+Version 0.4
 ~~~~~~~~~~~~~~
 Released: 2013-10-20
 
