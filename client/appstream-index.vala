@@ -26,6 +26,8 @@ private class ASClient : Object {
 	private static bool o_show_version = false;
 	private static bool o_verbose_mode = false;
 	private static bool o_no_color = false;
+	private static bool o_refresh = false;
+	private static bool o_force = false;
 	private static string? o_search = null;
 
 	private MainLoop loop;
@@ -39,6 +41,10 @@ private class ASClient : Object {
 		N_("Enable verbose mode"), null },
 		{ "no-color", 0, 0, OptionArg.NONE, ref o_no_color,
 		N_("Don't show colored output"), null },
+		{ "refresh", 0, 0, OptionArg.NONE, ref o_refresh,
+		N_("Rebuild the application information cache"), null },
+		{ "force", 0, 0, OptionArg.NONE, ref o_force,
+		N_("Enforce a cache refresh"), null },
 		{ "search", 's', 0, OptionArg.STRING, ref o_search,
 		N_("Search the application database"), null },
 		{ null }
@@ -46,7 +52,7 @@ private class ASClient : Object {
 
 	public ASClient (string[] args) {
 		exit_code = 0;
-		var opt_context = new OptionContext ("- Update-AppStream-Index client tool.");
+		var opt_context = new OptionContext ("- AppStream-Index client tool.");
 		opt_context.set_help_enabled (true);
 		opt_context.add_main_entries (options, null);
 		try {
@@ -115,7 +121,7 @@ private class ASClient : Object {
 				print_key_value ("Package", app.pkgname);
 				print_key_value ("Homepage", app.homepage);
 				print_key_value ("Desktop-File", app.desktop_file);
-				print_key_value ("Icon", app.icon);
+				print_key_value ("Icon", app.icon_url);
 				for (uint j = 0; j < app.screenshots.len; j++) {
 					Screenshot sshot = (Screenshot) app.screenshots.index (j);
 					if (sshot.is_default ()) {
@@ -137,6 +143,15 @@ private class ASClient : Object {
 				print_separator ();
 			}
 
+		} else if (o_refresh) {
+			if (Posix.getuid () != 0) {
+				stdout.printf ("You need to run this command with superuser permissions!\n");
+				exit_code = 2;
+				return;
+			}
+			var builder = new Appstream.Builder ();
+			builder.initialize ();
+			builder.refresh_cache (o_force);
 		} else {
 			stderr.printf ("No command specified.\n");
 			return;
