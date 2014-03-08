@@ -31,7 +31,7 @@
 #include "database-common.hpp"
 
 using namespace std;
-using namespace AppStream;
+using namespace Appstream;
 
 DatabaseWrite::DatabaseWrite () :
     m_rwXapianDB(0)
@@ -105,7 +105,7 @@ DatabaseWrite::rebuild (GArray *apps)
 	}
 
 	for (guint i=0; i < apps->len; i++) {
-		AppStreamAppInfo *app = g_array_index (apps, AppStreamAppInfo*, i);
+		AppstreamAppInfo *app = g_array_index (apps, AppstreamAppInfo*, i);
 
 		Xapian::Document doc;
 		term_generator.set_document (doc);
@@ -214,7 +214,7 @@ DatabaseWrite::rebuild (GArray *apps)
 }
 
 bool
-DatabaseWrite::addApplication (AppStreamAppInfo *app)
+DatabaseWrite::addApplication (AppstreamAppInfo *app)
 {
 	// TODO
 	return false;

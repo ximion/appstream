@@ -19,7 +19,7 @@
  */
 
 using GLib;
-using AppStream;
+using Appstream;
 
 private string datadir;
 

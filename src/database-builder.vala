@@ -19,26 +19,25 @@
  */
 
 using GLib;
-using AppStream;
+using Appstream;
 
-[CCode (lower_case_cprefix = "appstream_")]
-namespace AppStream {
+namespace Appstream {
 
 internal class Builder : Object {
-	private AppStream.DatabaseWrite db_rw;
-	private Array<AppStream.AppInfo> appList;
+	private Appstream.DatabaseWrite db_rw;
+	private Array<Appstream.AppInfo> appList;
 	private string CURRENT_DB_PATH;
 
 	private DataProvider[] providers;
 
 	public Builder () {
-		db_rw = new AppStream.DatabaseWrite ();
+		db_rw = new Appstream.DatabaseWrite ();
 
 		// Update db path if necessary
 		if (Utils.str_empty (CURRENT_DB_PATH))
 			CURRENT_DB_PATH = db_rw.database_path;
 
-		appList = new Array<AppStream.AppInfo> ();
+		appList = new Array<Appstream.AppInfo> ();
 
 		providers = {};
 		providers += new Provider.AppStreamXML ();
@@ -66,7 +65,7 @@ internal class Builder : Object {
 		db_rw.open ();
 	}
 
-	private void new_application (AppStream.AppInfo app) {
+	private void new_application (Appstream.AppInfo app) {
 		appList.append_val (app);
 	}
 

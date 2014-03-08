@@ -19,19 +19,18 @@
  */
 
 using GLib;
-using AppStream;
+using Appstream;
 
-[CCode (lower_case_cprefix = "appstream_provider_")]
-namespace AppStream.Provider {
+namespace Appstream.Provider {
 
 private static const string UBUNTU_APPINSTALL_DIR = "/usr/share/app-install";
 
-private class UbuntuAppinstall : AppStream.DataProvider {
+private class UbuntuAppinstall : Appstream.DataProvider {
 	private List<Category> system_categories;
 
 	public UbuntuAppinstall () {
 		// cache this for performance reasons
-		system_categories = AppStream.get_system_categories ();
+		system_categories = Appstream.get_system_categories ();
 		watch_files = { UBUNTU_APPINSTALL_DIR };
 	}
 
@@ -54,7 +53,7 @@ private class UbuntuAppinstall : AppStream.DataProvider {
 			return;
 		}
 
-		var app = new AppStream.AppInfo ();
+		var app = new Appstream.AppInfo ();
 
 		string[] lines = fname.split (":", 2);
 		string desktop_file_name = lines[1];

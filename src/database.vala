@@ -19,10 +19,9 @@
  */
 
 using GLib;
-using AppStream.Utils;
+using Appstream.Utils;
 
-[CCode (lower_case_cprefix = "appstream_")]
-namespace AppStream {
+namespace Appstream {
 
 /** TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,

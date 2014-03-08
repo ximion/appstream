@@ -20,8 +20,7 @@
 
 using GLib;
 
-[CCode (lower_case_cprefix = "appstream_")]
-namespace AppStream {
+namespace Appstream {
 
 /**
  * Description of an XDG Menu category

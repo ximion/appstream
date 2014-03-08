@@ -19,7 +19,7 @@
  */
 
 using GLib;
-using AppStream;
+using Appstream;
 
 private class ASClient : Object {
 	// Cmdln options
@@ -52,7 +52,7 @@ private class ASClient : Object {
 
 	public ASClient (string[] args) {
 		exit_code = 0;
-		var opt_context = new OptionContext ("- AppStream-Index client tool.");
+		var opt_context = new OptionContext ("- Appstream-Index client tool.");
 		opt_context.set_help_enabled (true);
 		opt_context.add_main_entries (options, null);
 		try {
@@ -88,7 +88,7 @@ private class ASClient : Object {
 			return;
 
 		if (o_show_version) {
-			stdout.printf ("AppStream-Index client tool version: %s\n", Config.VERSION);
+			stdout.printf ("Appstream-Index client tool version: %s\n", Config.VERSION);
 			return;
 		}
 
@@ -98,7 +98,7 @@ private class ASClient : Object {
 
 
 		// Prepare the AppStream database connection
-		var db = new AppStream.Database ();
+		var db = new Appstream.Database ();
 
 		if (o_search != null) {
 			db.open ();
@@ -115,7 +115,7 @@ private class ASClient : Object {
 				return;
 			}
 			for (uint i = 0; i < app_list.len; i++) {
-				var app = (AppStream.AppInfo) app_list.index (i);
+				var app = (Appstream.AppInfo) app_list.index (i);
 				print_key_value ("Application", app.name);
 				print_key_value ("Summary", app.summary);
 				print_key_value ("Package", app.pkgname);
@@ -149,7 +149,7 @@ private class ASClient : Object {
 				exit_code = 2;
 				return;
 			}
-			var builder = new AppStream.Builder ();
+			var builder = new Appstream.Builder ();
 			builder.initialize ();
 			builder.refresh_cache (o_force);
 		} else {

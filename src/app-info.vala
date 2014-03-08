@@ -19,10 +19,9 @@
  */
 
 using GLib;
-using AppStream.Utils;
+using Appstream.Utils;
 
-[CCode (lower_case_cprefix = "appstream_")]
-namespace AppStream {
+namespace Appstream {
 
 /**
  * Class to store data describing an application in AppStream

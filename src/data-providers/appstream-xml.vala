@@ -20,19 +20,18 @@
 
 using GLib;
 using Xml;
-using AppStream;
+using Appstream;
 
-[CCode (lower_case_cprefix = "appstream_provider_")]
-namespace AppStream.Provider {
+namespace Appstream.Provider {
 
-private class AppStreamXML : AppStream.DataProvider {
+private class AppStreamXML : Appstream.DataProvider {
 	private string locale;
 	private List<Category> system_categories;
 
 	public AppStreamXML () {
 		locale = Intl.get_language_names ()[0];
 		// cache this for performance reasons
-		system_categories = AppStream.get_system_categories ();
+		system_categories = Appstream.get_system_categories ();
 
 		// we do this to help Vala generate proper C code - watch_files = APPSTREAM_XML_PATHS works, but
 		// results in bad C code.
@@ -135,7 +134,7 @@ private class AppStreamXML : AppStream.DataProvider {
 	}
 
 	private void parse_application_node (Xml.Node* node) {
-		var app = new AppStream.AppInfo ();
+		var app = new Appstream.AppInfo ();
 		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
 			if (iter->type != ElementType.ELEMENT_NODE) {
 				continue;

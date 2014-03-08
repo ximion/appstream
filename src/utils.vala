@@ -20,8 +20,7 @@
 
 using GLib;
 
-[CCode (lower_case_cprefix = "appstream_utils_")]
-namespace AppStream.Utils {
+namespace Appstream.Utils {
 
 private bool str_empty (string? str) {
 	if ((str == "") || (str == null))

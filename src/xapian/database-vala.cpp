@@ -1,6 +1,6 @@
 /* database-vala.cpp
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2014 Matthias Klumpp
  *
  * Licensed under the GNU Lesser General Public License Version 3
  *
@@ -42,7 +42,7 @@ GPtrArray *xa_database_read_get_all_applications (XADatabaseRead *db)
 	return realDbRead (db)->getAllApplications ();
 };
 
-GPtrArray *xa_database_read_find_applications (XADatabaseRead *db, AppStreamSearchQuery *query)
+GPtrArray *xa_database_read_find_applications (XADatabaseRead *db, AppstreamSearchQuery *query)
 {
 	return realDbRead (db)->findApplications (query);
 };
@@ -57,7 +57,7 @@ gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path
 	return realDbWrite (db)->initialize (db_path);
 };
 
-gboolean xa_database_write_add_application (XADatabaseWrite *db, AppStreamAppInfo *app)
+gboolean xa_database_write_add_application (XADatabaseWrite *db, AppstreamAppInfo *app)
 {
 	return realDbWrite (db)->addApplication (app);
 };

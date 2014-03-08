@@ -21,8 +21,7 @@
 using GLib;
 using Config;
 
-[CCode (lower_case_cprefix = "appstream_")]
-namespace AppStream {
+namespace Appstream {
 
 /**
  * Get access to a package screenshot service which matches

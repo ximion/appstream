@@ -20,17 +20,16 @@
 
 using GLib;
 
-[CCode (lower_case_cprefix = "appstream_")]
-namespace AppStream {
+namespace Appstream {
 
 private abstract class DataProvider : Object {
-	public signal void application (AppStream.AppInfo app);
+	public signal void application (Appstream.AppInfo app);
 	public string[] watch_files { get; protected set; }
 
 	public DataProvider () {
 	}
 
-	protected void emit_application (AppStream.AppInfo app) {
+	protected void emit_application (Appstream.AppInfo app) {
 		application (app);
 	}
 

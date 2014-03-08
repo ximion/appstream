@@ -19,7 +19,7 @@
  */
 
 using GLib;
-using AppStream;
+using Appstream;
 
 private string datadir;
 
@@ -30,13 +30,13 @@ void msg (string s) {
 void print_apparray (PtrArray appArray) {
 	stdout.printf ("----\n");
 	for (uint i = 0; i < appArray.len; i++) {
-		stdout.printf ("  - %s\n", ((AppStream.AppInfo) appArray.index (i)).to_string ());
+		stdout.printf ("  - %s\n", ((Appstream.AppInfo) appArray.index (i)).to_string ());
 	}
 	stdout.printf ("----\n");
 }
 
 void test_database () {
-	var db = new AppStream.Database ();
+	var db = new Appstream.Database ();
 	PtrArray apps = null;
 
 	db.open ();
@@ -67,7 +67,7 @@ void test_database () {
 }
 
 int main (string[] args) {
-	msg ("=== Running AppStream Database (Read) Tests ===");
+	msg ("=== Running Appstream Database (Read) Tests ===");
 	datadir = args[1];
 	assert (datadir != null);
 	datadir = Path.build_filename (datadir, "data", null);

@@ -19,7 +19,7 @@
  */
 
 using GLib;
-using AppStream;
+using Appstream;
 
 private string datadir;
 
@@ -36,7 +36,7 @@ void test_appstream_parser () {
 
 void test_screenshot_handling () {
 	var asxml = new Provider.AppStreamXML ();
-	AppStream.AppInfo? app = null;
+	Appstream.AppInfo? app = null;
 	asxml.application.connect ( (newApp) => {
 		app = newApp;
 	});
@@ -61,7 +61,7 @@ void test_screenshot_handling () {
 }
 
 int main (string[] args) {
-	msg ("=== Running AppStream-XML Tests ===");
+	msg ("=== Running Appstream-XML Tests ===");
 	datadir = args[1];
 	assert (datadir != null);
 	datadir = Path.build_filename (datadir, "data", null);

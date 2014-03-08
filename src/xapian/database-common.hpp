@@ -21,7 +21,7 @@
 #ifndef DATABASE_COMMON_H
 #define DATABASE_COMMON_H
 
-namespace AppStream {
+namespace Appstream {
 
 // values used in the database
 namespace XapianValues {

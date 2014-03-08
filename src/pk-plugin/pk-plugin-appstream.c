@@ -33,7 +33,7 @@ struct PkPluginPrivate {
 const gchar *
 pk_plugin_get_description (void)
 {
-	return "Refreshes the AppStream database of available applications";
+	return "Refreshes the Appstream database of available applications";
 }
 
 /**
@@ -53,7 +53,7 @@ void
 pk_plugin_transaction_finished_end (PkPlugin *plugin,
 				    PkTransaction *transaction)
 {
-	AppStreamBuilder *builder = NULL;
+	AppstreamBuilder *builder = NULL;
 	PkRoleEnum role;
 
 	/* skip simulate actions */

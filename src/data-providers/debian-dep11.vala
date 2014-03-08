@@ -1,6 +1,6 @@
 /* debian-dep11.vala
  *
- * Copyright (C) 2012 Matthias Klumpp
+ * Copyright (C) 2012-2014 Matthias Klumpp
  *
  * Licensed under the GNU General Public License Version 3
  *
@@ -19,13 +19,12 @@
  */
 
 using GLib;
-using AppStream;
+using Appstream;
 
-[CCode (lower_case_cprefix = "appstream_provider_")]
-namespace AppStream.Provider {
+namespace Appstream.Provider {
 
 // TODO !!
-private class DEP11 : AppStream.DataProvider {
+private class DEP11 : Appstream.DataProvider {
 
 	public DEP11 () {
 
