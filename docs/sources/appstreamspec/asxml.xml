@@ -39,7 +39,7 @@
 			The XML starts with an <code><![CDATA[<applications>]]></code> tag as root element. It has all the
 			<code><![CDATA[<application>]]></code> elements as children.
 			Data to fill the application elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
-			and package data. However, if an application ships AppData files (see <xref linkend="sect-AppStream-Metadata-AppData"/>),
+			and package data. However, if an application ships AppData files (see <xref linkend="sect-Metadata-Application"/>),
 			values defined there should override data from any other source.
 			The <code><![CDATA[<application>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal>,
 			<literal>pkgname</literal> and <literal>icon</literal> tag.

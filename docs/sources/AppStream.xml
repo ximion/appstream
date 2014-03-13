@@ -9,7 +9,9 @@
 	<xi:include href="Book_Info.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="Project_Desc.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 
-	<xi:include href="appmeta/AppMetadata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metaspecs/MetaInfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="appstreamspec/AppStream.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
 	<xi:include href="services/Services.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 
 	<xi:include href="Manpages.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
