@@ -208,6 +208,56 @@
 
 			</varlistentry>
 
+			<varlistentry>
+			<term>&lt;project_group/&gt;</term>
+			<listitem>
+				<para>
+					If you include the <code>&lt;project_group/&gt;</code> tag then this identifies your project with a specific upstream umbrella project.
+					Known values include GNOME, KDE, XFCE, MATE and LXDE, although other umbrella projects like Yorba or Mozilla make sense too.
+				</para>
+				<note>
+					<para>
+						You should only identify with an umbrella project if you use all their infrastructure and policies, for instance string freezes dates, bugtracker and source control instance.
+					</para>
+				</note>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;metadata_licence/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_licence/&gt;</code> tag is indicating the content licence that you are releasing the one
+					Metainfo XML file as. This is not typically the same as the project licence. By ommitting the licence value would
+					probably mean your data would not be incorporated into the distribution metadata (so this is a required tag).
+					Permissible licence codes include:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>CC0</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY-SA</para>
+					</listitem>
+					<listitem>
+						<para>GFDL</para>
+					</listitem>
+					<listitem>
+						<para>MIT</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					For SPDX compatibility, versions with trailing dot-zeroes are considered to be equivalent to versions without
+					(e.g., "2.0.0" is considered equal to "2.0" and "2").
+					For instance, CC-BY-SA corresponds to http://creativecommons.org/licenses/by-sa/3.0/
+				</para>
+			</listitem>
+			</varlistentry>
+
 		</variablelist>
 
 		<para>
@@ -220,6 +270,7 @@
   <name>Foo Bar</name>
   <summary>Observe power management</summary>
   <url type="homepage">http://www.example.org</url>
+  <metadata_licence>CC0</metadata_licence>
 
   <provides>
     <library>libfoobar.so.2</library>

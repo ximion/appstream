@@ -21,12 +21,24 @@
 		<para>
 			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
 			<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink> or GSetting schemas.
-			The AppData specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-Metadata-ASXML"/>).
+			The AppData specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-Metadata-ASXML"/>) and extends
+			the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
 		</para>
 		<para>
 			The AppData files override any values which are automatically fetched by the AppStream data generator.
 			Applications can ship one or more files in <filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
 		</para>
+		<para>
+			AppData files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
+		</para>
+		<note>
+			<para>
+				All tags defined in the generic component specification are valid in AppData as well, an application is just
+				defined as a specialized component, which has the additional benefit of being displayed in a software-center application.
+				For a compact description of AppData, take a look at <ulink url="http://people.freedesktop.org/~hughsient/appdata/">this AppData draft</ulink> ,
+				which provides application developers with all information necessary to write good AppData files.
+			</para>
+		</note>
 	</section>
 
 	<section id="spec-appdata-filespec">
@@ -37,9 +49,10 @@
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 First Lastname <your@email.com> -->
 <application>
  <id type="desktop">gnome-power-statistics.desktop</id>
- <licence>GPL-2+</licence>
+ <metadata_licence>CC0</metadata_licence>
  <name>Power Statistics</name>
  <summary>Observe power management</summary>
  <description>
@@ -64,16 +77,289 @@
  </screenshots>
  <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
  <project_group>GNOME</project_group>
+ <provides>
+  <binary>gnome-power-statistics</binary>
+ </provides>
+ <release version="3.12.2" timestamp="20140414">
+  <description>
+   <p>Fixes issues X, Y and Z</p>
+  </description>
+ </release>
 </application>]]>
 		</programlisting>
 
-		<warning>
-			<para>
-				This draft is not finished yet and might change in future.
-				If you want to ship AppData files right now, please also take a look at the
-				<ulink url="http://people.freedesktop.org/~hughsient/appdata/">AppData draft</ulink> which is currently being implemented by GNOME.
-			</para>
-		</warning>
+		<para>
+			Note that the XML root node is <literal>application</literal> now, as opposed to the <literal>component</literal> root node
+			in a generic component. This clearly identified this metainfo document as describing an application.
+		</para>
+
+		<variablelist>
+			<varlistentry>
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For applications, the <literal>%{id}</literal> is the same name as the installed .desktop file for the application.
+					Applications must set the <literal>type</literal> property of the <literal>id</literal> tag to <code>desktop</code>.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;metadata_licence/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_licence/&gt;</code> tag is indicating the content licence that you are releasing the one
+					AppData text file as. This is not typically the same as the project licence. By ommitting the licence value would
+					probably mean your data would not be incorporated into the distribution metadata.
+					Permissible licence codes include:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>CC0</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY-SA</para>
+					</listitem>
+					<listitem>
+						<para>GFDL</para>
+					</listitem>
+					<listitem>
+						<para>MIT</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					For SPDX compatibility, versions with trailing dot-zeroes are considered to be equivalent to versions without
+					(e.g., "2.0.0" is considered equal to "2.0" and "2").
+					For instance, CC-BY-SA corresponds to http://creativecommons.org/licenses/by-sa/3.0/
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;name/&gt;</term>
+			<listitem>
+				<para>
+					While this tag is requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
+					You can omit this tag if you want the software center to have the same strings as defined in the XDG desktop file.
+					In some cases it might be required to have a different name in the app-store, but most <filename>appdata.xml</filename> files will not need this.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;summary/&gt;</term>
+			<listitem>
+				<para>
+					While this tag is requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
+					You can omit this tag if you want the software center to have the same strings as defined in the XDG desktop file.
+					In some cases it might be required to have a different name in the app-store, but most <filename>appdata.xml</filename> files will not need this.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;description/&gt;</term>
+			<listitem>
+				<para>
+					The long description is an important part of the file. Important things to consider when writing the application description:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>Include 2-3 paragraphs of interesting easy to read prose.</para>
+					</listitem>
+					<listitem>
+						<para>Ensure you provide a description of what the application actually does.</para>
+					</listitem>
+					<listitem>
+						<para>Describe any important features.</para>
+					</listitem>
+					<listitem>
+						<para>Do not use possily trademarked product names when refering to competitors.</para>
+					</listitem>
+					<listitem>
+						<para>Break down each paragraph into easily translated paragraphs.</para>
+					</listitem>
+					<listitem>
+						<para>Use lists sparingly.</para>
+					</listitem>
+					<listitem>
+						<para>Never refer to installable items as packages.</para>
+					</listitem>
+					<listitem>
+						<para>Never start the first sentence with "This application..."</para>
+					</listitem>
+					<listitem>
+						<para>Try not use more than 100 words.</para>
+					</listitem>
+					<listitem>
+						<para>Do not be too geeky. Aim for an intelligent semi-technical reader.</para>
+					</listitem>
+					<listitem>
+						<para>Don't mention what language an application is written in, users don't care</para>
+					</listitem>
+					<listitem>
+						<para>Only mention what the application can do now, rather than what is planned</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					Do not assume the format is HTML. Only paragraph, ordered list and unordered list are supported at this time.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;screenshots/&gt;</term>
+			<listitem>
+				<para>
+					A screenshot presents your application to the outside world, and could be seen by hundreds or thousands of people.
+				</para>
+				<para>
+					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
+					<code>type="default"</code> to indicate the application's primary screenshot. Additionally, the <code>&lt;screenshot/&gt;</code> tags should define the width and height
+					of the referenced screenshot as properties. The value of these tags is a direct URL to a screenshot uploaded to a public location on the web.
+				</para>
+				<para>
+					Screenshots are an important part of how people choose which applications to install, so it's important to get them right.
+					Consistent, good looking screenshots will make your application look more attractive and will expand your userbase.
+					Consistent screenshots also provide a more predictable experience for people using the software center.
+				</para>
+				<para>
+					Screenshot size, shape and format:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							All screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620px (software center applications will be able to fill in the screenshots in the space they provide for that
+							more easily then).
+						</para>
+						<para>
+							Ideally the window will be resized to a 16:9 aspect ratio, but screenshots can also be cropped if only a small area of the window needs to be shown.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							Screenshots should be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other images where a lossy format like
+							JPEG may compress better.
+						</para>
+					</listitem>
+					<listitem>
+						<para>Do not scale screenshots below their original size.</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					Basic guidelines for things to include (and not include) in your screenshots:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							Use the default visual and theme settings, including the default font, icons, and window controls. Avoid including your own tweaks to the standard distribution offering.
+						</para>
+					</listitem>
+					<listitem>
+						<para>Screenshots should be taken with English as the display language.</para>
+					</listitem>
+					<listitem>
+						<para>
+							Your default screenshot should give an overview of your application, and should show an entire application window.
+							It can be combined with screenshots which show specific aspects of the application.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							Screenshots should not show anything outside the application's windows (including the background wallpaper).
+							If you are taking a screenshot of the whole window, use your screenshot tool's "window" mode (including any window borders in the screenshot, and ensuring that the resulting image has an
+							alpha mask for the rounded corners).
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							Some applications, such as games, primarily run full screen. Screenshots of these applications should be taken with the application
+							running full screen - there should be no visible window controls in the screenshot.
+						</para>
+					</listitem>
+					<listitem>
+						<para>Don't add shadows to your screenshots.</para>
+					</listitem>
+					<listitem>
+						<para>
+							Do not include content that might be considered offensive or controversial, and avoid showing personal information. Remember that your screenshots will be visible to the internet at large.
+						</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					Additional advice on how to take effective screenshots:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>Each of your screenshots should focus on one thing and one thing only. Screenshot one window at a time, and avoid having overlapping windows or user interface elements.
+							This will make it much easier for people to understand what you are showing them.
+						</para>
+					</listitem>
+					<listitem>
+						<para>If a screenshot is demonstrating a single feature or aspect of the application, crop it to exclude irrelevant detail.</para>
+					</listitem>
+					<listitem>
+						<para>
+							Screenshots often need to feature content, such as images, documents, web pages or videos. Don’t show your application in an ‘empty’ state, and try and use high quality content
+							which has positive associations and broad appeal.
+						</para>
+					</listitem>
+					<listitem>
+						<para>In general, you shouldn't include the mouse pointer in your screenshots.</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;url/&gt;</term>
+			<listitem>
+				<para>
+					This is a recommended tag for links of type <code>homepage</code>.
+					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;project_group/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/>. You should use it for your application if appropriate.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;provides/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/> in detail.
+				</para>
+				<para>
+					If your application ships a binary in a location in the default <envar>PATH</envar>, you should add at least a child of type
+					<code>&lt;binary/&gt;</code> to make that new executable known to the distribution.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;release/&gt;</term>
+			<listitem>
+				<para>
+					The application metainfo should at least provide one <code>&lt;release/&gt;</code> tag, which defines the version and release date this application is for.
+				</para>
+				<para>
+					Additionally, the release might be described in a short manner using the <code>&lt;description/&gt;</code> child tag, which should give brief information about what is new
+					in the release, in a way which is understandable by non-technical users.
+				</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
 
 	</section>
 </section>
