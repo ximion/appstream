@@ -36,13 +36,15 @@
 	<section id="spec-asxml-structure">
 		<title>XML structure</title>
 		<para>
-			The XML starts with an <code><![CDATA[<applications>]]></code> tag as root element. It has all the
-			<code><![CDATA[<application>]]></code> elements as children.
-			Data to fill the application elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
-			and package data. However, if an application ships AppData files (see <xref linkend="sect-Metadata-Application"/>),
+			The XML starts with an <code>&lt;components&gt;</code> tag as root element. It has all the
+			<code>&lt;component&gt;</code>, <code>&lt;application&gt;</code>, <code>&lt;font&gt;</code> and
+			<code>&lt;inputmethod&gt;</code> elements as children.
+			Data to fill the different component elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
+			and package data. However, if an upstream project ships metainfo files (see <xref linkend="chap-Metadata"/>),
 			values defined there should override data from any other source.
-			The <code><![CDATA[<application>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal>,
-			<literal>pkgname</literal> and <literal>icon</literal> tag.
+			All child elements of the <code>&lt;components&gt;</code> element, no matter of which type they are, must at least have
+			an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal> and <literal>pkgname</literal> tag.
+			For applications, a <literal>icon</literal> tag is also required.
 			All possible tags are:
 		</para>
 
