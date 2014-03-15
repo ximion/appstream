@@ -51,40 +51,45 @@
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2013 First Lastname <your@email.com> -->
 <application>
- <id type="desktop">gnome-power-statistics.desktop</id>
- <metadata_licence>CC0</metadata_licence>
- <name>Power Statistics</name>
- <summary>Observe power management</summary>
- <description>
-  <p>
-   Power Statistics is a program used to view historical and current battery
-   information and will show programs running on your computer using power.
-  </p>
-  <p>Example list:</p>
-  <ul>
-   <li>First item</li>
-   <li>Second item</li>
-  </ul>
-  <p>
-  You probably only need to install this application if you are having problems
-  with your laptop battery, or are trying to work out what programs are using
-  significant amounts of power.
-  </p>
- </description>
- <screenshots>
-  <screenshot type="default" width="800" height="600">http://www.hughsie.com/en_US/main.png</screenshot>
-  <screenshot width="800" height="600">http://www.hughsie.com/en_US/preferences.png</screenshot>
- </screenshots>
- <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
- <project_group>GNOME</project_group>
- <provides>
-  <binary>gnome-power-statistics</binary>
- </provides>
- <release version="3.12.2" timestamp="20140414">
+  <id type="desktop">gnome-power-statistics.desktop</id>
+  <metadata_licence>CC0</metadata_licence>
+  <name>Power Statistics</name>
+  <summary>Observe power management</summary>
+  
   <description>
-   <p>Fixes issues X, Y and Z</p>
+    <p>
+      Power Statistics is a program used to view historical and current battery
+      information and will show programs running on your computer using power.
+    </p>
+    <p>Example list:</p>
+    <ul>
+      <li>First item</li>
+      <li>Second item</li>
+    </ul>
+    <p>
+      You probably only need to install this application if you are having problems
+      with your laptop battery, or are trying to work out what programs are using
+      significant amounts of power.
+    </p>
   </description>
- </release>
+
+  <screenshots>
+    <screenshot type="default" width="800" height="600">http://www.hughsie.com/en_US/main.png</screenshot>
+    <screenshot width="800" height="600">http://www.hughsie.com/en_US/preferences.png</screenshot>
+  </screenshots>
+
+  <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
+  <project_group>GNOME</project_group>
+
+  <provides>
+    <binary>gnome-power-statistics</binary>
+  </provides>
+
+  <release version="3.12.2" timestamp="20140414">
+    <description>
+      <p>Fixes issues X, Y and Z</p>
+    </description>
+  </release>
 </application>]]>
 		</programlisting>
 

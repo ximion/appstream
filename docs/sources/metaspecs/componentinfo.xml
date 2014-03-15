@@ -153,8 +153,15 @@
 							<term>&lt;font/&gt;</term>
 							<listitem>
 								<para>
-									Name of a font file provided by this component. For example <userinput>LiberationBold.ttf</userinput>.
+									Name of a font provided by this component. For example <userinput>Linux Libertine O</userinput>.
+									The tag must have a <literal>file</literal> property stating the filename of the referenced font.
 								</para>
+								<para>
+									Example:
+								</para>
+								<programlisting language="XML"><![CDATA[<provides>
+  <font file="LinLibertine_R.otf">Linux Libertine O</font>
+</provides>]]></programlisting>
 							</listitem>
 						</varlistentry>
 
