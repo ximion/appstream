@@ -4,45 +4,56 @@
 %BOOK_ENTITIES;
 ]>
 
-<section id="sect-Metadata-Fonts">
-	<title>Fonts</title>
+<section id="sect-Metadata-InputMethod">
+	<title>Input Methods</title>
 
-	<section id="spec-fontdata-introduction">
+	<section id="spec-imdata-introduction">
 		<title>Introduction</title>
 		<para>
-			It is a nice feature for a software center to allows users the installation of additional fonts.
-			This meta-info specification describes how metadata about fonts should be structured.
+			It is a nice feature for a software center to allows users the installation of additional input-methods.
+			This meta-info specification describes how metadata about input-methods should be structured.
 		</para>
 		<para>
-			Font packages can ship one or more files in <filename>/usr/share/meta-info/%{id}.metainfo.xml</filename>.
+			Software components providing an input-method can ship one or more files in
+			<filename>/usr/share/meta-info/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
-			Font metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
+			Input-method metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
 		</para>
 	</section>
 
-	<section id="spec-fontdata-example">
+	<section id="spec-imdata-example">
 		<title>Example file</title>
 		<para>
-			The font meta-info file should look like this:
+			The input-method meta-info file should look like this:
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<font>
-  <id type="font">LinLibertine_M.otf</id>
+<inputmethod>
+  <id type="inputmethod">mathwriter-ibus.db</id>
   <metadata_licence>CC0</metadata_licence>
-  <name>Libertine</name>
-  <summary>Linux Libertine Open fonts</summary>
-  <font_classifier>Mono</font_classifier>
-  <font_parent>Libertine</font_parent>
-</font>]]></programlisting>
+  <name>Mathwriter</name>
+  <summary>Math symbols input method</summary>
+  <description>
+    <p>
+      The input method is designed for entering mathematical symbols.
+    </p>
+    <p>
+      Input methods are typing systems allowing users to input complex languages.
+      They are necessary because these contain too many characters to simply be laid
+      out on a traditional keyboard.
+    </p>
+  </description>
+  <url type="homepage">https://github.com/mike-fabian/ibus-table-others</url>
+</inputmethod>]]></programlisting>
 	</section>
 
-	<section id="spec-fontdata-filespec">
+	<section id="spec-imdata-filespec">
 		<title>File specification</title>
 		<para>
-			Note that the XML root node is <literal>font</literal> now, as opposed to the <literal>component</literal> root node
-			in a generic component. This clearly identified this metainfo document as describing a font, instead of a generic software.
+			Note that the XML root node is <literal>inputmethod</literal> now, as opposed to the <literal>component</literal> root node
+			in a generic component. This clearly identified this metainfo document as describing a input-method, instead of a generic
+			software component.
 		</para>
 
 		<variablelist>
@@ -50,8 +61,8 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For fonts, the <literal>%{id}</literal> is the same name as the installed font file.
-					Font packages must set the <literal>type</literal> property of the <literal>id</literal> tag to <code>font</code>.
+					For input-methods, the <literal>%{id}</literal> is the same name as the input-method's database filename.
+					Input-methods must set the <literal>type</literal> property of the <literal>id</literal> tag to <code>inputmethod</code>.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -69,7 +80,7 @@
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
-					Set a name for your font.
+					Set a name for your input-method.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -78,7 +89,7 @@
 			<term>&lt;summary/&gt;</term>
 			<listitem>
 				<para>
-					A short description of the font described in this metainfo file.
+					A short description of the input-method described in this metainfo file.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -87,7 +98,7 @@
 			<term>&lt;description/&gt;</term>
 			<listitem>
 				<para>
-					Add a long description of your font. Some rules apply (will soon be split out to a "description guidelines" section).
+					Add a long description of the input-method.
 				</para>
 				<para>
 					Do not assume the format is HTML. Only paragraph, ordered list and unordered list are supported at this time.
@@ -99,7 +110,7 @@
 			<term>&lt;screenshots/&gt;</term>
 			<listitem>
 				<para>
-					A screenshot presents your font to the outside world, and could be seen by hundreds or thousands of people.
+					A screenshot may be included, showing the input-method in use in an application.
 				</para>
 				<para>
 					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
@@ -127,41 +138,8 @@
 					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/> in detail.
 				</para>
 				<para>
-					You can add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames and names known to the system.
-					If this tag is not present, the <literal>name</literal> and <literal>id</literal> tag values will be used by the
-					distribution's Appstream-generator to recreate this tag, so it's not required to add it.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry>
-			<term>&lt;font_classifier/&gt;</term>
-			<listitem>
-				<para>
-					Define a font class, such as:
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>Mono</para>
-					</listitem>
-					<listitem>
-						<para>Serif</para>
-					</listitem>
-					<listitem>
-						<para>...</para>
-					</listitem>
-				</itemizedlist>
-				<para>
-					TODO: This needs further clarification - what is a classifier? A typeface? font-family? It seems to go beyond that.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry>
-			<term>&lt;font_parent/&gt;</term>
-			<listitem>
-				<para>
-					The name of the font package this particular font is part of. This is a required tag.
+					You can add one or more children of type <code>&lt;library/&gt;</code> in case you publish some additional shared libraries.
+					If not, and there are no public binaries involved, you may omit the <literal>provides</literal> tag for input-methods.
 				</para>
 			</listitem>
 			</varlistentry>
