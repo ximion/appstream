@@ -11,7 +11,7 @@
 		<title>Introduction</title>
 		<para>
 			It is a nice feature for a software center to allows users the installation of additional fonts.
-			This Metainfo specification describes how metadata about fonts should be structured.
+			This meta-info specification describes how metadata about fonts should be structured.
 		</para>
 		<para>
 			Font packages can ship one or more files in <filename>/usr/share/meta-info/%{id}.metainfo.xml</filename>.
@@ -83,6 +83,87 @@
 			</listitem>
 			</varlistentry>
 
+			<varlistentry>
+			<term>&lt;description/&gt;</term>
+			<listitem>
+				<para>
+					Add a long description of your font here.
+				</para>
+				<para>
+					Do not assume the format is HTML. Only paragraph, ordered list and unordered list are supported at this time.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;screenshots/&gt;</term>
+			<listitem>
+				<para>
+					A screenshot presents your font to the outside world, and could be seen by hundreds or thousands of people.
+				</para>
+				<para>
+					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
+					<code>type="default"</code> to indicate the application's primary screenshot. Additionally, the <code>&lt;screenshot/&gt;</code> tags should define the width and height
+					of the referenced screenshot as properties. The value of these tags is a direct URL to a screenshot uploaded to a public location on the web.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;url/&gt;</term>
+			<listitem>
+				<para>
+					This is a recommended tag for links of type <code>homepage</code>.
+					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
+					See See <xref linkend="sect-Metadata-GenericComponent"/> for a description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;provides/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/> in detail.
+				</para>
+				<para>
+					You can add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames and names known to the system.
+					If this tag is not present, the <literal>name</literal> and <literal>id</literal> tag values will be used by the
+					distribution's Appstream-generator to recreate this tag, so it's not required to add it.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;font_classifier/&gt;</term>
+			<listitem>
+				<para>
+					Define a font class, such as:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>Mono</para>
+					</listitem>
+					<listitem>
+						<para>Serif</para>
+					</listitem>
+					<listitem>
+						<para>...</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					TODO: This needs further clarification - what is a classifier? A typeface? font-family? It seems to go beyond that.
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;font_parent/&gt;</term>
+			<listitem>
+				<para>
+					The name of the font package this particular font is part of. This is a required tag.
+				</para>
+			</listitem>
+			</varlistentry>
 		</variablelist>
 
 	</section>
