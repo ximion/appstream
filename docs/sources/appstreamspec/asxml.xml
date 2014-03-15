@@ -4,7 +4,7 @@
 %BOOK_ENTITIES;
 ]>
 
-<section id="sect-AppStream-Metadata-ASXML">
+<section id="sect-AppStream-ASXML">
 	<title>AppStream XML files</title>
 
 	<section id="spec-asxml-introduction">
@@ -33,19 +33,30 @@
 		</para>
 	</section>
 
-	<section id="spec-asxml-structure">
-		<title>XML structure</title>
+	<section id="spec-asxml-general">
+		<title>General XML structure</title>
 		<para>
 			The XML starts with an <code>&lt;components&gt;</code> tag as root element. It has all the
 			<code>&lt;component&gt;</code>, <code>&lt;application&gt;</code>, <code>&lt;font&gt;</code> and
 			<code>&lt;inputmethod&gt;</code> elements as children.
+		</para>
+		<para>
 			Data to fill the different component elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
 			and package data. However, if an upstream project ships metainfo files (see <xref linkend="chap-Metadata"/>),
 			values defined there should override data from any other source.
+		</para>
+		<para>
 			All child elements of the <code>&lt;components&gt;</code> element, no matter of which type they are, must at least have
 			an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal> and <literal>pkgname</literal> tag.
 			For applications, a <literal>icon</literal> tag is also required.
-			All possible tags are:
+		</para>
+	</section>
+
+	<section id="spec-asxml-tags">
+		<title>Valid tags for all component types</title>
+		<para>
+			These tags can be applied to every component type (application, component, font, inputmethod) which
+			is described in the AppStream metadata.
 		</para>
 
 		<variablelist>
@@ -336,6 +347,83 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry>
+				<term>&lt;provides/&gt;</term>
+				<listitem>
+					<para>
+							This tag is described in detail at <xref linkend="sect-Metadata-GenericComponent"/>.
+					</para>
+					<para>
+						For generic component types, this tag has to be present.
+						Distributors must ensure that all things described in this tag are present in the package referenced in
+						the associated <literal>pkgname</literal> tag.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;release/&gt;</term>
+				<listitem>
+					<para>
+						The <code><![CDATA[<release>]]></code> tag describes some metainformation about the current release of the described component.
+						It may be present multiple times (for older releases), but a tag for the current version must always be present.
+						A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
+						and a release timestamp in form of YYYYMMDD.
+					</para>
+					<para>
+						Examples for a valid release tags:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<release version="1.2" timestamp="20140412" />
+<release version="1.0" timestamp="20120826" />]]></programlisting>
+					<para>
+						In case a <code>&lt;release/&gt;</code> tag has a <code>&lt;description/&gt;</code> tag as parameter, describing the new release briefly, distributors are encouraged to provide 2-4
+						<code>&lt;release/&gt;</code> release tags for every component. If no description is provided, one tag is enough.
+					</para>
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+	</section>
+
+	<section id="spec-asxml-tags-font">
+		<title>Valid tags for the font component</title>
+		<para>
+			Additionally to the other components, the font component knows a few more allowed tags.
+		</para>
+
+		<variablelist>
+			<varlistentry>
+			<term>&lt;font_classifier/&gt;</term>
+			<listitem>
+				<para>
+					Define a font class, such as:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>Mono</para>
+					</listitem>
+					<listitem>
+						<para>Serif</para>
+					</listitem>
+					<listitem>
+						<para>...</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					TODO: This needs further clarification - what is a classifier? A typeface? font-family? It seems to go beyond that.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;font_parent/&gt;</term>
+			<listitem>
+				<para>
+					The name of the font package this particular font is part of. This is a required tag.
+				</para>
+			</listitem>
+			</varlistentry>
 		</variablelist>
 	</section>
 
@@ -346,47 +434,71 @@
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0"?>
-<applications version="0.1">
-    <application>
-        <id type="desktop">firefox.desktop</id>
-        <pkgname>firefox-bin</pkgname>
-        <name>Firefox</name>
-        <name lang="en_GB">Firefoux</name>
-        <summary>Web browser</summary>
-        <summary lang="fr_FR">Navigateur web</summary>
-	<project_license>MPL-2</project_license>
-        <keywords>
-            <keyword>internet</keyword>
-            <keyword>web</keyword>
-            <keyword>browser</keyword>
-            <keyword lang="fr_FR">navigateur</keyword>
-        </keywords>
-        <icon type="stock">web-browser</icon>
-        <icon type="cached">firefox.png</icon>
-        <categories>
-            <category>network</category>
-            <category>web</category>
-        </categories>
-        <mimetypes>
-            <mimetype>text/html</mimetype>
-            <mimetype>text/xml</mimetype>
-            <mimetype>application/xhtml+xml</mimetype>
-            <mimetype>application/vnd.mozilla.xul+xml</mimetype>
-            <mimetype>text/mml</mimetype>
-            <mimetype>application/x-xpinstall</mimetype>
-            <mimetype>x-scheme-handler/http</mimetype>
-            <mimetype>x-scheme-handler/https</mimetype>
-        </mimetypes>
-        <url type="homepage">http://www.mozilla.com</url>
-        <screenshots>
-            <screenshot type="default">
-		<image type="source" width="800" height="600">http://www.awesomedistro.example.org/en_US/firefox.desktop/main.png</image>
-		<image type="thumbnail" width="200" height="150">http://www.awesomedistro.example.org/en_US/firefox.desktop/main-small.png</image>
-            </screenshot>
-        </screenshots>
-    </application>
-    <!-- more applications here! -->
-</applications>]]></programlisting>
+<components version="0.6">
+  <application>
+    <id type="desktop">firefox.desktop</id>
+    <pkgname>firefox-bin</pkgname>
+    <name>Firefox</name>
+    <name lang="en_GB">Firefoux</name>
+    <summary>Web browser</summary>
+    <summary lang="fr_FR">Navigateur web</summary>
+    <project_license>MPL-2</project_license>
+    <keywords>
+      <keyword>internet</keyword>
+      <keyword>web</keyword>
+      <keyword>browser</keyword>
+      <keyword lang="fr_FR">navigateur</keyword>
+    </keywords>
+    <icon type="stock">web-browser</icon>
+    <icon type="cached">firefox.png</icon>
+    <categories>
+      <category>network</category>
+      <category>web</category>
+    </categories>
+    <mimetypes>
+      <mimetype>text/html</mimetype>
+      <mimetype>text/xml</mimetype>
+      <mimetype>application/xhtml+xml</mimetype>
+      <mimetype>application/vnd.mozilla.xul+xml</mimetype>
+      <mimetype>text/mml</mimetype>
+      <mimetype>application/x-xpinstall</mimetype>
+      <mimetype>x-scheme-handler/http</mimetype>
+      <mimetype>x-scheme-handler/https</mimetype>
+    </mimetypes>
+    <url type="homepage">http://www.mozilla.com</url>
+    <screenshots>
+      <screenshot type="default">
+        <image type="source" width="800" height="600">http://www.awesomedistro.example.org/en_US/firefox.desktop/main.png</image>
+        <image type="thumbnail" width="200" height="150">http://www.awesomedistro.example.org/en_US/firefox.desktop/main-small.png</image>
+      </screenshot>
+    </screenshots>
+    <provides>
+      <binary>firefox</binary>
+    </provides>
+  </application>
+  <component>
+    <id>pulseaudio</id>
+    <name>PulseAudio</name>
+    <summary>The PulseAudio sound server</summary>
+    <url type="homepage">http://www.freedesktop.org/wiki/Software/PulseAudio/</url>
+    <project_license>GPLv2</project_license>
+    <provides>
+      <library>libpulse-simple.so.0</library>
+      <library>libpulse.so.0</library>
+      <binary>start-pulseaudio-kde</binary>
+      <binary>start-pulseaudio-x11</binary>
+    </provides>
+    <release version="2.0"/>
+  </component>
+  <font>
+    <id type="font">LinLibertine_M.otf</id>
+    <name>Libertine</name>
+    <summary>Linux Libertine Open fonts</summary>
+    <font_classifier>Mono</font_classifier>
+    <font_parent>Libertine</font_parent>
+  </font>
+  <!-- more components here! -->
+</components>]]></programlisting>
 
 	</section>
 </section>
