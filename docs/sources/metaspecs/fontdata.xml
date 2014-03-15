@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-Fonts">
+	<title>Fonts</title>
+
+	<section id="spec-fontdata-introduction">
+		<title>Introduction</title>
+		<para>
+			It is a nice feature for a software center to allows users the installation of additional fonts.
+			This Metainfo specification describes how metadata about fonts should be structured.
+		</para>
+		<para>
+			Font packages can ship one or more files in <filename>/usr/share/meta-info/%{id}.metainfo.xml</filename>.
+		</para>
+		<para>
+			Font metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
+		</para>
+	</section>
+
+	<section id="spec-fontdata-example">
+		<title>Example file</title>
+		<para>
+			The font meta-info file should look like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<font>
+  <id type="font">LinLibertine_M.otf</id>
+  <metadata_licence>CC0</metadata_licence>
+  <name>Libertine</name>
+  <summary>Linux Libertine Open fonts</summary>
+  <font_classifier>Mono</font_classifier>
+  <font_parent>Libertine</font_parent>
+</font>]]></programlisting>
+	</section>
+
+	<section id="spec-fontdata-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root node is <literal>font</literal> now, as opposed to the <literal>component</literal> root node
+			in a generic component. This clearly identified this metainfo document as describing a font, instead of a generic software.
+		</para>
+
+		<variablelist>
+			<varlistentry>
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For fonts, the <literal>%{id}</literal> is the same name as the installed font file.
+					Font packages must set the <literal>type</literal> property of the <literal>id</literal> tag to <code>font</code>.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;metadata_licence/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_licence/&gt;</code> tag is required. See <xref linkend="sect-Metadata-GenericComponent"/> for a description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;name/&gt;</term>
+			<listitem>
+				<para>
+					Set a name for your font.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;summary/&gt;</term>
+			<listitem>
+				<para>
+					A short description of the font described in this metainfo file.
+				</para>
+			</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+	</section>
+</section>
