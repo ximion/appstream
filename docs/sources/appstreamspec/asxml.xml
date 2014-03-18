@@ -397,21 +397,10 @@
 			<term>&lt;font_classifier/&gt;</term>
 			<listitem>
 				<para>
-					Define a font class, such as:
+					Define a description of the font face to caption it when compared against other fonts in the same family.
 				</para>
-				<itemizedlist>
-					<listitem>
-						<para>Mono</para>
-					</listitem>
-					<listitem>
-						<para>Serif</para>
-					</listitem>
-					<listitem>
-						<para>...</para>
-					</listitem>
-				</itemizedlist>
 				<para>
-					TODO: This needs further clarification - what is a classifier? A typeface? font-family? It seems to go beyond that.
+					You can find more information about this tag in <xref linkend="spec-fontdata-filespec"/>.
 				</para>
 			</listitem>
 			</varlistentry>
