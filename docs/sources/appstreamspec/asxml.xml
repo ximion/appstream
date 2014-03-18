@@ -383,6 +383,23 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry>
+				<term>&lt;architectures/&gt;</term>
+				<listitem>
+					<para>
+						If the <literal>architectures</literal> tag is present, the component is not available on all architectures the distribution supports.
+						Supported architectures for this component are specified as children using the <literal>arch</literal> tag.
+					</para>
+					<para>
+						For example, this marks a component to only be available on i686:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<architectures>
+  <arch>i686</arch>
+</architectures>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 	</section>
 
