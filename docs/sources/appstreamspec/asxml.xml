@@ -389,7 +389,7 @@
 	<section id="spec-asxml-tags-font">
 		<title>Valid tags for the font component</title>
 		<para>
-			Additionally to the other components, the font component knows a few more allowed tags.
+			Additionally to the other components, the <literal>type=font</literal> component knows a few more allowed tags.
 		</para>
 
 		<variablelist>
@@ -424,8 +424,8 @@
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0"?>
 <components version="0.6">
-  <application>
-    <id type="desktop">firefox.desktop</id>
+  <component type="application">
+    <id>firefox.desktop</id>
     <pkgname>firefox-bin</pkgname>
     <name>Firefox</name>
     <name lang="en_GB">Firefoux</name>
@@ -464,7 +464,7 @@
     <provides>
       <binary>firefox</binary>
     </provides>
-  </application>
+  </component>
   <component>
     <id>pulseaudio</id>
     <name>PulseAudio</name>
@@ -479,13 +479,13 @@
     </provides>
     <release version="2.0"/>
   </component>
-  <font>
-    <id type="font">LinLibertine_M.otf</id>
+  <component type="font">
+    <id>LinLibertine_M.otf</id>
     <name>Libertine</name>
     <summary>Linux Libertine Open fonts</summary>
     <font_classifier>Mono</font_classifier>
     <font_parent>Libertine</font_parent>
-  </font>
+  </component>
   <!-- more components here! -->
 </components>]]></programlisting>
 
