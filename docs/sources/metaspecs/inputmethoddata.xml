@@ -15,7 +15,7 @@
 		</para>
 		<para>
 			Software components providing an input-method can ship one or more files in
-			<filename>/usr/share/meta-info/%{id}.metainfo.xml</filename>.
+			<filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
 			Input-method metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.

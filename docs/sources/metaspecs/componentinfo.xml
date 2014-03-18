@@ -29,7 +29,7 @@
 	<section id="spec-component-location">
 		<title>Filesystem locations</title>
 		<para>
-			Upstream projects can ship one or more metainfo files in <filename>/usr/share/meta-info/%{id}.metainfo.xml</filename>, where <literal>id</literal> is a unique
+			Upstream projects can ship one or more metainfo files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>, where <literal>id</literal> is a unique
 			identifier of this specific component.
 		</para>
 		<note>
@@ -40,7 +40,7 @@
 			</para>
 		</note>
 		<para>
-			Please note that the <filename>/usr/share/meta-info/symbols</filename> directory is reserved for a possible future use for storing upstream-generated symbols files for
+			Please note that the <filename>/usr/share/appdata/symbols</filename> directory is reserved for a possible future use for storing upstream-generated symbols files for
 			libraries.
 		</para>
 	</section>
