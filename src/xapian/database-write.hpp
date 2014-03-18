@@ -40,7 +40,7 @@ public:
 
 	bool initialize (const gchar *dbPath);
 
-	bool addApplication (AppstreamAppInfo *app);
+	bool addApplication (AsAppInfo *app);
 	bool rebuild (GArray *apps);
 
 private:

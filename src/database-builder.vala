@@ -21,6 +21,7 @@
 using GLib;
 using Appstream;
 
+[CCode (lower_case_cprefix = "as_", cprefix = "As")]
 namespace Appstream {
 
 internal class Builder : Object {

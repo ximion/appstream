@@ -53,7 +53,7 @@ void
 pk_plugin_transaction_finished_end (PkPlugin *plugin,
 				    PkTransaction *transaction)
 {
-	AppstreamBuilder *builder = NULL;
+	AsBuilder *builder = NULL;
 	PkRoleEnum role;
 
 	/* skip simulate actions */
@@ -79,9 +79,9 @@ pk_plugin_transaction_finished_end (PkPlugin *plugin,
 				   PK_STATUS_ENUM_SCAN_APPLICATIONS);
 
 	/* refresh the AppStream cache using the database builder */
-	builder = appstream_builder_new ();
-	appstream_builder_initialize (builder);
-	appstream_builder_refresh_cache (builder, FALSE);
+	builder = as_builder_new ();
+	as_builder_initialize (builder);
+	as_builder_refresh_cache (builder, FALSE);
 
 	pk_backend_job_set_percentage (plugin->job, 100);
 	pk_backend_job_set_status (plugin->job, PK_STATUS_ENUM_FINISHED);

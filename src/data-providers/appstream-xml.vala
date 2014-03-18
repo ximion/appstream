@@ -22,6 +22,7 @@ using GLib;
 using Xml;
 using Appstream;
 
+[CCode (lower_case_cprefix = "as_provider_", cprefix = "AsProvider")]
 namespace Appstream.Provider {
 
 private class AppStreamXML : Appstream.DataProvider {

@@ -21,6 +21,7 @@
 using GLib;
 using Appstream.Utils;
 
+[CCode (lower_case_cprefix = "as_", cprefix = "As")]
 namespace Appstream {
 
 /** TRANSLATORS: List of "grey-listed" words sperated with ";"

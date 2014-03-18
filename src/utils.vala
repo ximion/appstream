@@ -20,6 +20,7 @@
 
 using GLib;
 
+[CCode (lower_case_cprefix = "as_utils_", cprefix = "As")]
 namespace Appstream.Utils {
 
 private bool str_empty (string? str) {

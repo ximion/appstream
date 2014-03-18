@@ -21,6 +21,7 @@
 using GLib;
 using Config;
 
+[CCode (lower_case_cprefix = "as_", cprefix = "As")]
 namespace Appstream {
 
 private static const string DB_SCHEMA_VERSION = "1";

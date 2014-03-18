@@ -20,6 +20,7 @@
 
 using GLib;
 
+[CCode (lower_case_cprefix = "as_", cprefix = "As")]
 namespace Appstream {
 
 private abstract class DataProvider : Object {

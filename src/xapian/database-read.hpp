@@ -44,20 +44,20 @@ public:
 	string getSchemaVersion ();
 
 	GPtrArray *getAllApplications ();
-	GPtrArray *findApplications (AppstreamSearchQuery *asQuery);
+	GPtrArray *findApplications (AsSearchQuery *asQuery);
 
 private:
 	Xapian::Database m_xapianDB;
 	string m_dbPath;
 	GList *m_systemCategories;
 
-	AppstreamAppInfo *docToAppInfo (Xapian::Document);
+	AsAppInfo *docToAppInfo (Xapian::Document);
 
 	Xapian::QueryParser newAppStreamParser ();
 	Xapian::Query addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
 	Xapian::Query getQueryForPkgNames (vector<string> pkgnames);
 	Xapian::Query getQueryForCategory (gchar *cat_id);
-	Xapian::Query queryListFromSearchEntry (AppstreamSearchQuery *asQuery);
+	Xapian::Query queryListFromSearchEntry (AsSearchQuery *asQuery);
 };
 
 inline DatabaseRead* realDbRead (XADatabaseRead* d) { return static_cast<DatabaseRead*>(d); }

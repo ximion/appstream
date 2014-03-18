@@ -37,7 +37,7 @@ DatabaseRead::DatabaseRead () :
     m_xapianDB(0)
 {
 	// we cache these for performance reasons
-	m_systemCategories = appstream_get_system_categories ();
+	m_systemCategories = as_get_system_categories ();
 }
 
 DatabaseRead::~DatabaseRead ()
@@ -66,52 +66,52 @@ DatabaseRead::getSchemaVersion ()
 	return m_xapianDB.get_metadata ("db-schema-version");
 }
 
-AppstreamAppInfo*
+AsAppInfo*
 DatabaseRead::docToAppInfo (Xapian::Document doc)
 {
-	AppstreamAppInfo *app = appstream_app_info_new ();
+	AsAppInfo *app = as_appinfo_new ();
 
 	// Application name
 	string appName = doc.get_value (XapianValues::APPNAME);
-	appstream_app_info_set_name (app, appName.c_str ());
+	as_appinfo_set_name (app, appName.c_str ());
 
 	// Package name
 	string pkgName = doc.get_value (XapianValues::PKGNAME);;
-	appstream_app_info_set_pkgname (app, pkgName.c_str ());
+	as_appinfo_set_pkgname (app, pkgName.c_str ());
 
 	// Untranslated application name
 	string appname_orig = doc.get_value (XapianValues::APPNAME_UNTRANSLATED);
-	appstream_app_info_set_name_original (app, appname_orig.c_str ());
+	as_appinfo_set_name_original (app, appname_orig.c_str ());
 
 	// Desktop file
 	string desktopFile = doc.get_value (XapianValues::DESKTOP_FILE);
-	appstream_app_info_set_desktop_file (app, desktopFile.c_str ());
+	as_appinfo_set_desktop_file (app, desktopFile.c_str ());
 
 	// URL
 	string appUrl = doc.get_value (XapianValues::URL_HOMEPAGE);
-	appstream_app_info_set_homepage (app, appUrl.c_str ());
+	as_appinfo_set_homepage (app, appUrl.c_str ());
 
 	// Application icon
 	string appIcon = doc.get_value (XapianValues::ICON);
-	appstream_app_info_set_icon (app, appIcon.c_str ());
+	as_appinfo_set_icon (app, appIcon.c_str ());
 	appIcon = doc.get_value (XapianValues::ICON_URL);
-	appstream_app_info_set_icon_url (app, appIcon.c_str ());
+	as_appinfo_set_icon_url (app, appIcon.c_str ());
 
 	// Summary
 	string appSummary = doc.get_value (XapianValues::SUMMARY);
-	appstream_app_info_set_summary (app, appSummary.c_str ());
+	as_appinfo_set_summary (app, appSummary.c_str ());
 
 	// Long description
 	string appDescription = doc.get_value (XapianValues::DESCRIPTION);
-	appstream_app_info_set_description (app, appDescription.c_str ());
+	as_appinfo_set_description (app, appDescription.c_str ());
 
 	// Categories
 	string categories_string = doc.get_value (XapianValues::CATEGORIES);
-	appstream_app_info_set_categories_from_str (app, categories_string.c_str ());
+	as_appinfo_set_categories_from_str (app, categories_string.c_str ());
 
 	// Screenshot data
 	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOT_DATA);
-	appstream_app_info_load_screenshots_from_internal_xml (app, screenshot_xml.c_str ());
+	as_appinfo_load_screenshots_from_internal_xml (app, screenshot_xml.c_str ());
 
 	// TODO
 
@@ -196,17 +196,17 @@ DatabaseRead::getQueryForCategory (gchar *cat_id)
  * search to the given category
  */
 Xapian::Query
-DatabaseRead::queryListFromSearchEntry (AppstreamSearchQuery *asQuery)
+DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
 {
 	// prepare search-term
-	appstream_search_query_sanitize_search_term (asQuery);
-	string search_term = appstream_search_query_get_search_term (asQuery);
-	bool searchAll = appstream_search_query_get_search_all_categories (asQuery);
+	as_search_query_sanitize_search_term (asQuery);
+	string search_term = as_search_query_get_search_term (asQuery);
+	bool searchAll = as_search_query_get_search_all_categories (asQuery);
 
 	// generate category query
 	Xapian::Query category_query = Xapian::Query ();
 	int length = 0;
-	gchar **categories = appstream_search_query_get_categories (asQuery, &length);
+	gchar **categories = as_search_query_get_categories (asQuery, &length);
 	string categories_string = "";
 	for (uint i=0; i < length; i++) {
 		gchar *cat_id = categories[i];
@@ -261,7 +261,7 @@ DatabaseRead::queryListFromSearchEntry (AppstreamSearchQuery *asQuery)
 }
 
 GPtrArray*
-DatabaseRead::findApplications (AppstreamSearchQuery *asQuery)
+DatabaseRead::findApplications (AsSearchQuery *asQuery)
 {
 	// Create new array to store the app-info objects
 	GPtrArray *appArray = g_ptr_array_new_with_free_func (g_object_unref);
@@ -276,7 +276,7 @@ DatabaseRead::findApplications (AppstreamSearchQuery *asQuery)
 	for (Xapian::MSetIterator it = matches.begin(); it != matches.end(); ++it) {
 		Xapian::Document doc = it.get_document ();
 
-		AppstreamAppInfo *app = docToAppInfo (doc);
+		AsAppInfo *app = docToAppInfo (doc);
 		g_ptr_array_add (appArray, g_object_ref (app));
 	}
 
@@ -295,7 +295,7 @@ DatabaseRead::getAllApplications ()
 		Xapian::docid did = *it;
 
 		Xapian::Document doc = m_xapianDB.get_document (did);
-		AppstreamAppInfo *app = docToAppInfo (doc);
+		AsAppInfo *app = docToAppInfo (doc);
 		g_ptr_array_add (appArray, g_object_ref (app));
 
 		++it;

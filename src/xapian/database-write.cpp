@@ -68,19 +68,19 @@ DatabaseWrite::rebuild (GArray *apps)
 	string rebuild_path = m_dbPath + "_rb";
 
 	// Create the rebuild directory
-	if (!appstream_utils_touch_dir (rebuild_path.c_str ()))
+	if (!as_utils_touch_dir (rebuild_path.c_str ()))
 		return false;
 
 	// check if old unrequired version of db still exists on filesystem
 	if (g_file_test (old_path.c_str (), G_FILE_TEST_EXISTS)) {
 		g_warning ("Existing xapian old db was not previously cleaned: '%s'.", old_path.c_str ());
-		appstream_utils_delete_dir_recursive (old_path.c_str ());
+		as_utils_delete_dir_recursive (old_path.c_str ());
 	}
 
 	// check if old unrequired version of db still exists on filesystem
 	if (g_file_test (rebuild_path.c_str (), G_FILE_TEST_EXISTS)) {
 		cout << "Removing old rebuild-dir from previous database rebuild." << endl;
-		appstream_utils_delete_dir_recursive (rebuild_path.c_str ());
+		as_utils_delete_dir_recursive (rebuild_path.c_str ());
 	}
 
 	Xapian::WritableDatabase db (rebuild_path, Xapian::DB_CREATE_OR_OVERWRITE);
@@ -105,17 +105,17 @@ DatabaseWrite::rebuild (GArray *apps)
 	}
 
 	for (guint i=0; i < apps->len; i++) {
-		AppstreamAppInfo *app = g_array_index (apps, AppstreamAppInfo*, i);
+		AsAppInfo *app = g_array_index (apps, AsAppInfo*, i);
 
 		Xapian::Document doc;
 		term_generator.set_document (doc);
 
-		g_debug ("Adding application: %s", appstream_app_info_to_string (app));
+		g_debug ("Adding application: %s", as_appinfo_to_string (app));
 
-		doc.set_data (appstream_app_info_get_name (app));
+		doc.set_data (as_appinfo_get_name (app));
 
 		// Package name
-		string pkgname = appstream_app_info_get_pkgname (app);
+		string pkgname = as_appinfo_get_pkgname (app);
 		doc.add_value (XapianValues::PKGNAME, pkgname);
 		doc.add_term("AP" + pkgname);
 		if (pkgname.find ("-") != string::npos) {
@@ -128,37 +128,37 @@ DatabaseWrite::rebuild (GArray *apps)
 		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 
 		// Untranslated application name
-		string appNameGeneric = appstream_app_info_get_name_original (app);
+		string appNameGeneric = as_appinfo_get_name_original (app);
 		doc.add_value (XapianValues::APPNAME_UNTRANSLATED, appNameGeneric);
 		term_generator.index_text_without_positions (appNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
 		// Application name
-		string appName = appstream_app_info_get_name (app);
+		string appName = as_appinfo_get_name (app);
 		doc.add_value (XapianValues::APPNAME, appName);
 
 		// Desktop file
-		doc.add_value (XapianValues::DESKTOP_FILE, appstream_app_info_get_desktop_file (app));
+		doc.add_value (XapianValues::DESKTOP_FILE, as_appinfo_get_desktop_file (app));
 
 		// URL
-		doc.add_value (XapianValues::URL_HOMEPAGE, appstream_app_info_get_homepage (app));
+		doc.add_value (XapianValues::URL_HOMEPAGE, as_appinfo_get_homepage (app));
 
 		// Application icon
-		doc.add_value (XapianValues::ICON, appstream_app_info_get_icon (app));
-		doc.add_value (XapianValues::ICON_URL, appstream_app_info_get_icon_url (app));
+		doc.add_value (XapianValues::ICON, as_appinfo_get_icon (app));
+		doc.add_value (XapianValues::ICON_URL, as_appinfo_get_icon_url (app));
 
 		// Summary
-		string appSummary = appstream_app_info_get_summary (app);
+		string appSummary = as_appinfo_get_summary (app);
 		doc.add_value (XapianValues::SUMMARY, appSummary);
 		term_generator.index_text_without_positions (appSummary, WEIGHT_DESKTOP_SUMMARY);
 
 		// Long description
-		string description = appstream_app_info_get_description (app);
+		string description = as_appinfo_get_description (app);
 		doc.add_value (XapianValues::DESCRIPTION, description);
 		term_generator.index_text_without_positions (description, WEIGHT_DESKTOP_SUMMARY);
 
 		// Categories
 		int length = 0;
-		gchar **categories = appstream_app_info_get_categories (app, &length);
+		gchar **categories = as_appinfo_get_categories (app, &length);
 		string categories_string = "";
 		for (uint i=0; i < length; i++) {
 			if (categories[i] == NULL)
@@ -175,7 +175,7 @@ DatabaseWrite::rebuild (GArray *apps)
 
 		// Add our keywords (with high priority)
 		length = 0;
-		gchar **keywords = appstream_app_info_get_keywords (app, &length);
+		gchar **keywords = as_appinfo_get_keywords (app, &length);
 		for (uint i=0; i < length; i++) {
 			if (keywords[i] == NULL)
 				continue;
@@ -185,7 +185,7 @@ DatabaseWrite::rebuild (GArray *apps)
 		}
 
 		// Add screenshot information (XML data)
-		doc.add_value (XapianValues::SCREENSHOT_DATA, appstream_app_info_dump_screenshot_data_xml (app));
+		doc.add_value (XapianValues::SCREENSHOT_DATA, as_appinfo_dump_screenshot_data_xml (app));
 
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
@@ -197,7 +197,7 @@ DatabaseWrite::rebuild (GArray *apps)
 		db.add_document (doc);
 	}
 
-	db.set_metadata("db-schema-version", APPSTREAM_DB_SCHEMA_VERSION);
+	db.set_metadata("db-schema-version", AS_DB_SCHEMA_VERSION);
 	db.commit ();
 
 	if (g_rename (m_dbPath.c_str (), old_path.c_str ()) < 0) {
@@ -208,13 +208,13 @@ DatabaseWrite::rebuild (GArray *apps)
 		g_critical ("Error while moving rebuilt database.");
 		return false;
 	}
-	appstream_utils_delete_dir_recursive (old_path.c_str ());
+	as_utils_delete_dir_recursive (old_path.c_str ());
 
 	return true;
 }
 
 bool
-DatabaseWrite::addApplication (AppstreamAppInfo *app)
+DatabaseWrite::addApplication (AsAppInfo *app)
 {
 	// TODO
 	return false;

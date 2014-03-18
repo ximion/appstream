@@ -21,6 +21,7 @@
 using GLib;
 using Appstream;
 
+[CCode (lower_case_cprefix = "as_provider_", cprefix = "AsProvider")]
 namespace Appstream.Provider {
 
 // TODO !!

@@ -21,11 +21,13 @@
 using GLib;
 using Appstream.Utils;
 
+[CCode (lower_case_cprefix = "as_", cprefix = "As")]
 namespace Appstream {
 
 /**
  * Class to store data describing an application in AppStream
  */
+[CCode (lower_case_cprefix = "as_appinfo_")]
 public class AppInfo : Object {
 	public string pkgname { get; set; }
 	public string desktop_file { get; set; }
