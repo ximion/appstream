@@ -32,7 +32,7 @@ git push
 5. Upload tarball: scp -r *.tar.gz* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases
 
 6. Make documentation and upload it:
-   make -C build documentation && scp -r docs/html/* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/docs
+   make -C build documentation-htmlexport && scp -r docs/html/* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/docs
 
 7. Do post release version bump in CMakeLists.txt, NEWS, RELEASE
 
