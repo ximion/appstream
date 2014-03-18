@@ -50,8 +50,8 @@
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2013 First Lastname <your@email.com> -->
-<application>
-  <id type="desktop">gnome-power-statistics.desktop</id>
+<component type="application">
+  <id>gnome-power-statistics.desktop</id>
   <metadata_licence>CC0</metadata_licence>
   <name>Power Statistics</name>
   <summary>Observe power management</summary>
@@ -90,12 +90,12 @@
       <p>Fixes issues X, Y and Z</p>
     </description>
   </release>
-</application>]]>
+</component>]]>
 		</programlisting>
 
 		<para>
-			Note that the XML root node is <literal>application</literal> now, as opposed to the <literal>component</literal> root node
-			in a generic component. This clearly identified this metainfo document as describing an application.
+			Note that the XML root must have the <literal>type</literal> property set to <code>application</code>, which in a generic component this
+			property can be omitted. This clearly identified this metainfo document as describing an application.
 		</para>
 
 		<variablelist>
@@ -104,7 +104,6 @@
 			<listitem>
 				<para>
 					For applications, the <literal>%{id}</literal> is the same name as the installed .desktop file for the application.
-					Applications must set the <literal>type</literal> property of the <literal>id</literal> tag to <code>desktop</code>.
 				</para>
 			</listitem>
 			</varlistentry>

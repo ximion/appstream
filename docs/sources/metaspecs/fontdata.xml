@@ -28,21 +28,21 @@
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<font>
-  <id type="font">LinLibertine_M.otf</id>
+<component type="font">
+  <id>LinLibertine_M.otf</id>
   <metadata_licence>CC0</metadata_licence>
   <name>Libertine</name>
   <summary>Linux Libertine Open fonts</summary>
   <font_classifier>Mono</font_classifier>
   <font_parent>Libertine</font_parent>
-</font>]]></programlisting>
+</component>]]></programlisting>
 	</section>
 
 	<section id="spec-fontdata-filespec">
 		<title>File specification</title>
 		<para>
-			Note that the XML root node is <literal>font</literal> now, as opposed to the <literal>component</literal> root node
-			in a generic component. This clearly identified this metainfo document as describing a font, instead of a generic software.
+			Note that the XML root must have the <literal>type</literal> property set to <code>font</code>.
+			This clearly identified this metainfo document as describing a font.
 		</para>
 
 		<variablelist>
@@ -51,7 +51,6 @@
 			<listitem>
 				<para>
 					For fonts, the <literal>%{id}</literal> is the same name as the installed font file.
-					Font packages must set the <literal>type</literal> property of the <literal>id</literal> tag to <code>font</code>.
 				</para>
 			</listitem>
 			</varlistentry>

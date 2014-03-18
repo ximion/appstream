@@ -29,8 +29,8 @@
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<inputmethod>
-  <id type="inputmethod">mathwriter-ibus.db</id>
+<component type="inputmethod">
+  <id>mathwriter-ibus.db</id>
   <metadata_licence>CC0</metadata_licence>
   <name>Mathwriter</name>
   <summary>Math symbols input method</summary>
@@ -45,15 +45,14 @@
     </p>
   </description>
   <url type="homepage">https://github.com/mike-fabian/ibus-table-others</url>
-</inputmethod>]]></programlisting>
+</component>]]></programlisting>
 	</section>
 
 	<section id="spec-imdata-filespec">
 		<title>File specification</title>
 		<para>
-			Note that the XML root node is <literal>inputmethod</literal> now, as opposed to the <literal>component</literal> root node
-			in a generic component. This clearly identified this metainfo document as describing a input-method, instead of a generic
-			software component.
+			Note that the XML root must have the <literal>type</literal> property set to <code>inputmethod</code>.
+			This clearly identified this metainfo document as describing an input-method instead of a generic software-component.
 		</para>
 
 		<variablelist>
@@ -62,7 +61,6 @@
 			<listitem>
 				<para>
 					For input-methods, the <literal>%{id}</literal> is the same name as the input-method's database filename.
-					Input-methods must set the <literal>type</literal> property of the <literal>id</literal> tag to <code>inputmethod</code>.
 				</para>
 			</listitem>
 			</varlistentry>

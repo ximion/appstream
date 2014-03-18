@@ -61,7 +61,11 @@
 			<listitem>
 				<para>
 					The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII caracters, dots, hyphens and numbers, spaces are
-					not allowed. Specialized metainfo types, such as descriptions of an application, may apply additional restrictions on the <literal>id</literal> tag naming.
+					not allowed. Specialized metainfo types, such as application or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
+				</para>
+				<para>
+					Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions. In case it is not, distributors are expected to reject the conflicting components
+					from inclusion into their metadata.
 				</para>
 			</listitem>
 			</varlistentry>
