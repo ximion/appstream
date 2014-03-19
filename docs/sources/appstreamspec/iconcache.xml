@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-IconCache">
+	<title>Icon Cache</title>
+
+	<section id="spec-iconcache-introduction">
+		<title>Introduction</title>
+
+		<para>
+			In order to display icons in software-centers, distributors should offer a repository of cached icons for applications defined in their AppStream XML files.
+			The icons should be PNG files or vectorgraphics (PNG is preferred) and match the name referenced in the applications .desktop file.
+			Their size should be 64x64px, it is okay to just provide one size.
+		</para>
+	</section>
+
+	<section id="spec-iconcache-location">
+		<title>Filesystem locations</title>
+		<para>
+			All icons should be placed in <filename>/usr/share/app-info/icons/%{origin}</filename>, where <literal>origin</literal> is the AppStream data origin defined in
+			the AppStream data file (see <xref linkend="spec-asxml-general"/>).
+		</para>
+		<para>
+			The icon directory should not have subdirectories at the current time. All icons are store in one size.
+		</para>
+	</section>
+
+</section>
