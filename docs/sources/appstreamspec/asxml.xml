@@ -50,6 +50,11 @@
 			an <literal>id</literal>, <literal>name</literal>, <literal>summary</literal> and <literal>pkgname</literal> tag.
 			For applications, a <literal>icon</literal> tag is also required.
 		</para>
+		<para>
+			The <code>&lt;components&gt;</code> root node must have two properties: <literal>version</literal> declaring the AppStream spec version this file is based on
+			(currently 0.6) and <literal>origin</literal> defining the repository-id this AppStream XML file belongs to. This usually matches the filename without extension (see the explanation on
+			how to pick a good filename above).
+		</para>
 	</section>
 
 	<section id="spec-asxml-tags">
