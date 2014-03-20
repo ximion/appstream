@@ -326,6 +326,9 @@
 					This is a recommended tag for links of type <code>homepage</code>.
 					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
 				</para>
+				<para>
+					For other possible values, tage a loog at the tag's description in <xref linkend="spec-component-filespec"/>.
+				</para>
 			</listitem>
 			</varlistentry>
 
@@ -333,7 +336,7 @@
 			<term>&lt;project_group/&gt;</term>
 			<listitem>
 				<para>
-					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/>. You should use it for your application if appropriate.
+					This tag is described for generic components at <xref linkend="spec-component-filespec"/>. You should use it for your application if appropriate.
 				</para>
 			</listitem>
 			</varlistentry>

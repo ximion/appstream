@@ -161,11 +161,11 @@
 				<term>&lt;url/&gt;</term>
 				<listitem>
 					<para>
-						Defines URLs for this application.
+						Defines URLs for this application. This tag can be present multiple times.
 					</para>
 					<para>
-						Links of type <literal>homepage</literal> should be a link to the upstream homepage for the application.
-						It is planned to allow links to application's FAQ and forums later.
+						For a list of possible url types and what they are expected to do,
+						take a look at the tag's description at <xref linkend="spec-component-filespec"/>.
 					</para>
 				</listitem>
 			</varlistentry>

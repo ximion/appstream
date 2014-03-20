@@ -97,6 +97,17 @@
 					<para>
 						Links of type <literal>homepage</literal> should be a link to the upstream homepage for the component.
 					</para>
+					<para>
+						Links of type <literal>bugtracker</literal> should point to the software's bug tracking system, for users to report new bugs.
+					</para>
+					<para>
+						Links of type <literal>faq</literal> should link a FAQ page for this software, to answer some of the most-asked questions in
+						detail, something which you can not do in the component's description.
+					</para>
+					<para>
+						Links of type <literal>donation</literal> should point to a webpage showing information on how to donate to the described
+						software project.
+					</para>
 				</listitem>
 			</varlistentry>
 
