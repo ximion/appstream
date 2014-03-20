@@ -31,7 +31,7 @@ typedef struct XADatabaseRead XADatabaseRead;
 typedef struct XADatabaseWrite XADatabaseWrite;
 
 typedef struct _AsSearchQuery AsSearchQuery;
-typedef struct _AsAppInfo AsAppInfo;
+typedef struct _AsComponent AsComponent;
 
 /* methods for database read access */
 
@@ -49,7 +49,7 @@ XADatabaseWrite *xa_database_write_new ();
 void xa_database_write_free (XADatabaseWrite *db);
 
 gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path);
-gboolean xa_database_write_add_application (XADatabaseWrite *db, AsAppInfo *app);
+gboolean xa_database_write_add_application (XADatabaseWrite *db, AsComponent *app);
 gboolean xa_database_write_rebuild (XADatabaseWrite *db, GArray *apps);
 
 #ifdef __cplusplus

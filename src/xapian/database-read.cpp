@@ -66,52 +66,52 @@ DatabaseRead::getSchemaVersion ()
 	return m_xapianDB.get_metadata ("db-schema-version");
 }
 
-AsAppInfo*
-DatabaseRead::docToAppInfo (Xapian::Document doc)
+AsComponent*
+DatabaseRead::docToComponent (Xapian::Document doc)
 {
-	AsAppInfo *app = as_appinfo_new ();
+	AsComponent *app = as_component_new ();
 
 	// Application name
 	string appName = doc.get_value (XapianValues::APPNAME);
-	as_appinfo_set_name (app, appName.c_str ());
+	as_component_set_name (app, appName.c_str ());
 
 	// Package name
 	string pkgName = doc.get_value (XapianValues::PKGNAME);;
-	as_appinfo_set_pkgname (app, pkgName.c_str ());
+	as_component_set_pkgname (app, pkgName.c_str ());
 
 	// Untranslated application name
 	string appname_orig = doc.get_value (XapianValues::APPNAME_UNTRANSLATED);
-	as_appinfo_set_name_original (app, appname_orig.c_str ());
+	as_component_set_name_original (app, appname_orig.c_str ());
 
 	// Desktop file
 	string desktopFile = doc.get_value (XapianValues::DESKTOP_FILE);
-	as_appinfo_set_desktop_file (app, desktopFile.c_str ());
+	as_component_set_desktop_file (app, desktopFile.c_str ());
 
 	// URL
 	string appUrl = doc.get_value (XapianValues::URL_HOMEPAGE);
-	as_appinfo_set_homepage (app, appUrl.c_str ());
+	as_component_set_homepage (app, appUrl.c_str ());
 
 	// Application icon
 	string appIcon = doc.get_value (XapianValues::ICON);
-	as_appinfo_set_icon (app, appIcon.c_str ());
+	as_component_set_icon (app, appIcon.c_str ());
 	appIcon = doc.get_value (XapianValues::ICON_URL);
-	as_appinfo_set_icon_url (app, appIcon.c_str ());
+	as_component_set_icon_url (app, appIcon.c_str ());
 
 	// Summary
 	string appSummary = doc.get_value (XapianValues::SUMMARY);
-	as_appinfo_set_summary (app, appSummary.c_str ());
+	as_component_set_summary (app, appSummary.c_str ());
 
 	// Long description
 	string appDescription = doc.get_value (XapianValues::DESCRIPTION);
-	as_appinfo_set_description (app, appDescription.c_str ());
+	as_component_set_description (app, appDescription.c_str ());
 
 	// Categories
 	string categories_string = doc.get_value (XapianValues::CATEGORIES);
-	as_appinfo_set_categories_from_str (app, categories_string.c_str ());
+	as_component_set_categories_from_str (app, categories_string.c_str ());
 
 	// Screenshot data
 	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOT_DATA);
-	as_appinfo_load_screenshots_from_internal_xml (app, screenshot_xml.c_str ());
+	as_component_load_screenshots_from_internal_xml (app, screenshot_xml.c_str ());
 
 	// TODO
 
@@ -276,7 +276,7 @@ DatabaseRead::findApplications (AsSearchQuery *asQuery)
 	for (Xapian::MSetIterator it = matches.begin(); it != matches.end(); ++it) {
 		Xapian::Document doc = it.get_document ();
 
-		AsAppInfo *app = docToAppInfo (doc);
+		AsComponent *app = docToComponent (doc);
 		g_ptr_array_add (appArray, g_object_ref (app));
 	}
 
@@ -295,7 +295,7 @@ DatabaseRead::getAllApplications ()
 		Xapian::docid did = *it;
 
 		Xapian::Document doc = m_xapianDB.get_document (did);
-		AsAppInfo *app = docToAppInfo (doc);
+		AsComponent *app = docToComponent (doc);
 		g_ptr_array_add (appArray, g_object_ref (app));
 
 		++it;

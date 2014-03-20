@@ -57,7 +57,7 @@ gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path
 	return realDbWrite (db)->initialize (db_path);
 };
 
-gboolean xa_database_write_add_application (XADatabaseWrite *db, AsAppInfo *app)
+gboolean xa_database_write_add_application (XADatabaseWrite *db, AsComponent *app)
 {
 	return realDbWrite (db)->addApplication (app);
 };

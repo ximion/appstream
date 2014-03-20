@@ -36,7 +36,7 @@ void test_appstream_parser () {
 
 void test_screenshot_handling () {
 	var asxml = new Provider.AppStreamXML ();
-	Appstream.AppInfo? app = null;
+	Component? app = null;
 	asxml.application.connect ( (newApp) => {
 		app = newApp;
 	});

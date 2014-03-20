@@ -51,7 +51,7 @@ private:
 	string m_dbPath;
 	GList *m_systemCategories;
 
-	AsAppInfo *docToAppInfo (Xapian::Document);
+	AsComponent *docToComponent (Xapian::Document);
 
 	Xapian::QueryParser newAppStreamParser ();
 	Xapian::Query addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);

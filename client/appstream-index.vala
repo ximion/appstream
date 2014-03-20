@@ -115,7 +115,7 @@ private class ASClient : Object {
 				return;
 			}
 			for (uint i = 0; i < app_list.len; i++) {
-				var app = (Appstream.AppInfo) app_list.index (i);
+				var app = (Component) app_list.index (i);
 				print_key_value ("Application", app.name);
 				print_key_value ("Summary", app.summary);
 				print_key_value ("Package", app.pkgname);

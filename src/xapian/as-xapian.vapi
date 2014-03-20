@@ -41,8 +41,8 @@ namespace ASXapian {
 		public DatabaseWrite ();
 
 		public bool initialize (string db_path);
-		public bool add_application (Appstream.AppInfo app);
-		public bool rebuild (GLib.Array<Appstream.AppInfo> apps);
+		public bool add_application (Appstream.Component app);
+		public bool rebuild (GLib.Array<Appstream.Component> apps);
 	}
 
 }

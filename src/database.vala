@@ -173,7 +173,7 @@ internal class DatabaseWrite : Database {
 		return ret;
 	}
 
-	public bool rebuild (Array<AppInfo> appList) {
+	public bool rebuild (Array<Component> appList) {
 		bool ret;
 		ret = db_w.rebuild (appList);
 		return ret;

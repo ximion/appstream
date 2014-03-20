@@ -24,13 +24,13 @@ using GLib;
 namespace Appstream {
 
 private abstract class DataProvider : Object {
-	public signal void application (Appstream.AppInfo app);
+	public signal void application (Component app);
 	public string[] watch_files { get; protected set; }
 
 	public DataProvider () {
 	}
 
-	protected void emit_application (Appstream.AppInfo app) {
+	protected void emit_application (Component app) {
 		application (app);
 	}
 

@@ -54,7 +54,7 @@ private class UbuntuAppinstall : Appstream.DataProvider {
 			return;
 		}
 
-		var app = new Appstream.AppInfo ();
+		var app = new Component ();
 
 		string[] lines = fname.split (":", 2);
 		string desktop_file_name = lines[1];

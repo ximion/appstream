@@ -18,7 +18,6 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		# utils
 		utils.vala
 		# public API
-		app-info.vala
 		component.vala
 		database.vala
 		menudir.vala

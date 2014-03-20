@@ -25,9 +25,23 @@ using Appstream.Utils;
 namespace Appstream {
 
 /**
+ * Defines registered component types.
+ */
+public enum ComponentType {
+	UNKNOWN,
+	GENERIC,
+	DESKTOP_APP,
+	FONT,
+	CODEC,
+	INPUTMETHOD,
+	LAST;
+}
+
+/**
  * Class to store data describing a component in AppStream
  */
 public class Component : Object {
+	public ComponentType ctype { get; internal set; }
 	public string pkgname { get; set; }
 	public string idname { get; set; }
 
@@ -58,8 +72,14 @@ public class Component : Object {
 	public string[] mimetypes { get; set; }
 
 	/**
+	 * A .desktop filename. Only valid if the
+	 * component type is DESKTOP_APP
+	 */
+	public string desktop_file { get; set; }
+
+	/**
 	 * Array of Screenshot objects which describe
-	 * screenshots for this application.
+	 * screenshots for this component.
 	 */
 	private PtrArray _screenshots; // we need to duplicate this to work around a codegen issue in newer Vala versions
 	public PtrArray screenshots {
@@ -76,23 +96,39 @@ public class Component : Object {
 		homepage = "";
 		icon = "";
 		icon_url = "";
+		desktop_file = "";
 		categories = {null};
 		_screenshots = new PtrArray.with_free_func (GLib.Object.unref);
 	}
 
 	/**
-	 * Check if the essential properties of this AppInfo instance are
+	 * Check if the essential properties of this Component are
 	 * populated with useful data.
 	 */
-	public virtual bool is_valid () {
+	public bool is_valid () {
+		bool ret = false;
+		if (ctype == ComponentType.UNKNOWN)
+			return false;
+
 		if ((pkgname != "") && (idname != "") && (name != "") && (name_original != ""))
-			return true;
+			ret = true;
+		if ((ret) && (ctype == ComponentType.DESKTOP_APP))
+			ret = (desktop_file != "");
+
 		return false;
 	}
 
-	public virtual string to_string () {
+	public string to_string () {
 		string res;
-		res = "[Component::%s]> name: %s | id: %s | summary: %s".printf (pkgname, name, idname, summary);
+		switch (ctype) {
+			case ComponentType.DESKTOP_APP:
+				res = "[DesktopApp::%s]> name: %s | desktop: %s | summary: %s".printf (pkgname, name, desktop_file, summary);
+				break;
+			default:
+				res = "[Component::%s]> name: %s | id: %s | summary: %s".printf (pkgname, name, idname, summary);
+				break;
+		}
+
 		return res;
 	}
 

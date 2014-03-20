@@ -116,7 +116,7 @@ private class AppStreamXML : Appstream.DataProvider {
 		}
 	}
 
-	private void process_screenshots_tag (Xml.Node* node, AppInfo app) {
+	private void process_screenshots_tag (Xml.Node* node, Component app) {
 		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
 			// Discard spaces
 			if (iter->type != ElementType.ELEMENT_NODE) {
@@ -135,7 +135,7 @@ private class AppStreamXML : Appstream.DataProvider {
 	}
 
 	private void parse_application_node (Xml.Node* node) {
-		var app = new Appstream.AppInfo ();
+		var app = new Component ();
 		for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
 			if (iter->type != ElementType.ELEMENT_NODE) {
 				continue;
