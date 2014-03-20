@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-Codec">
+	<title>Fonts</title>
+
+	<section id="spec-codecdata-introduction">
+		<title>Introduction</title>
+		<para>
+			Software centers might want to special-case codec handling. Therefore, we provide a component type for them.
+		</para>
+		<para>
+			Codecs can ship one or more files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
+		</para>
+		<para>
+			Codec metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
+		</para>
+	</section>
+
+	<section id="spec-codecdata-example">
+		<title>Example file</title>
+		<para>
+			A codec meta-info file should look like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<component type="codec">
+  <id>gstreamer-good</id>
+  <metadata_licence>CC0</metadata_licence>
+  <name>GStreamer Multimedia Codecs - Extra</name>
+  <description>
+    <p>
+      This addon includes several additional codecs that are missing
+      something - perhaps a good code review, some documentation, a set of
+      tests, a real live maintainer, or some actual wide use.
+      However, they might be good enough to play your media files.
+    </p>
+    <p>
+      These codecs can be used to encode and decode media files where the
+      format is not patent encumbered.
+    </p>
+    <p>
+      A codec decodes audio and video for for playback or editing and is also
+      used for transmission or storage.
+      Different codecs are used in video-conferencing, streaming media and
+      video editing applications.
+    </p>
+  </description>
+  <provides>
+    <codec>encoder-audio/mpeg</codec>
+    <codec>mpegversion=(int){ 4, 2 }</codec>
+    <codec>stream-format=(string){ adts, raw }</codec>
+    <codec>encoder-video/mpeg</codec>
+    <codec>systemstream=(boolean)false</codec>
+    <codec>mpegversion=(int){ 1, 2, 4 }</codec>
+    <codec>encoder-video/mpeg</codec>
+    <codec>systemstream=(boolean)true</codec>
+    <codec>encoder-video/x-xvid</codec>
+    <codec>element-faac</codec>
+    <codec>element-mpeg2enc</codec>
+    <codec>element-mplex</codec>
+    <codec>element-xviddec</codec>
+    <codec>element-xvidenc</codec>
+  </provides>
+</component>]]></programlisting>
+	</section>
+
+	<section id="spec-codecdata-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root must have the <literal>type</literal> property set to <code>codec</code>.
+			This clearly identified this metainfo document as describing a codec.
+		</para>
+
+		<variablelist>
+			<varlistentry>
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For codecs, there are no special requirements for what their <literal>%{id}</literal> should be.
+					But, as for any other component, you should pick a reasonable and unique name.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;metadata_licence/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_licence/&gt;</code> tag is required. See <xref linkend="sect-Metadata-GenericComponent"/> for a description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;provides/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/> in detail.
+				</para>
+				<para>
+					You must add one or more children of type <code>&lt;codec/&gt;</code> to make it known to the system that your
+					software is able to provide the mentioned codecs.
+					Adding this data is required for all components of <literal>type=codec</literal>.
+				</para>
+			</listitem>
+			</varlistentry>
+
+	</section>
+</section>
