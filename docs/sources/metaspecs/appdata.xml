@@ -212,6 +212,10 @@
 				<para>
 					Do not assume the format is HTML. Only paragraph, ordered list and unordered list are supported at this time.
 				</para>
+				<para>
+					In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
+					has a language property.
+				</para>
 			</listitem>
 			</varlistentry>
 
@@ -327,7 +331,7 @@
 					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
 				</para>
 				<para>
-					For other possible values, tage a loog at the tag's description in <xref linkend="spec-component-filespec"/>.
+					For other possible values, tage a look at the tag's description in <xref linkend="spec-component-filespec"/>.
 				</para>
 			</listitem>
 			</varlistentry>
