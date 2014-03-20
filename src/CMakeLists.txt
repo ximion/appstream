@@ -19,6 +19,7 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		utils.vala
 		# public API
 		app-info.vala
+		component.vala
 		database.vala
 		menudir.vala
 		screenshot.vala
@@ -60,7 +61,7 @@ vala_precompile(aslib-precomp ASLIB_SRC_C ${APPSTREAM_LIB_SOURCES}
 			GENERATE_INTERNAL_HEADER appstream_internal.h
 			GENERATE_HEADER appstream.h
 			COMPILE_FLAGS ${VALA_COMPILE_FLAGS}
-				--gir=AppStream-${AS_VERSION_LIBS}.gir
+				--gir=Appstream-${AS_VERSION_LIBS}.gir
 				--library appstream
 				--internal-vapi=appstream_internal.vapi.orig
 )
@@ -85,8 +86,8 @@ add_custom_target(header_internal_fix DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/appstr
 # Compile the introspection data
 add_custom_target (gir-compile
 	${INTROSPECTION_COMPILER}  "--shared-library=appstream" "--includedir=."
-				"${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir"
-				"-o" "${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.typelib"
+				"${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_LIBS}.gir"
+				"-o" "${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_LIBS}.typelib"
 	DEPENDS aslib-precomp
 	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
