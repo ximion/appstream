@@ -50,7 +50,7 @@
 
 		<para>
 			The XML for a generic component definition starts with an <code><![CDATA[<component>]]></code> tag as root element.
-			The <code><![CDATA[<component>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>release</literal> tag,
+			The <code><![CDATA[<component>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag,
 			a <literal>provides</literal> tag with appropriate children is highly recommended.
 			All possible tags in the generic set are:
 		</para>
@@ -101,20 +101,24 @@
 			</varlistentry>
 
 			<varlistentry>
-				<term>&lt;release/&gt;</term>
+				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
-						The <code><![CDATA[<release>]]></code> tag describes some metainformation about the current release of the described software.
-						It may be present multiple times (for older releases), but a tag for the current version must always be present.
+						The <code><![CDATA[<releases>]]></code> tag contains <code>&lt;release/&gt;</code> child tags which
+						describe some metainformation about the current release of the described software.
+						The <code>&lt;release/&gt;</code> tag may be present multiple times (for older releases), but a tag for
+						the current version must always be present.
 						A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
 						and a release timestamp in form of YYYYMMDD.
 					</para>
 					<para>
-						Examples for a valid release tag:
+						Examples for a valid releases tag:
 					</para>
 					<programlisting language="XML">
-<![CDATA[<release version="1.2" timestamp="20140412" />
-<release version="1.0" timestamp="20120826" />]]></programlisting>
+<![CDATA[<releases>
+  <release version="1.2" timestamp="20140412" />
+  <release version="1.0" timestamp="20120826" />
+</releases>]]></programlisting>
 				</listitem>
 			</varlistentry>
 

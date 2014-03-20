@@ -352,13 +352,15 @@
 			</varlistentry>
 
 			<varlistentry>
-			<term>&lt;release/&gt;</term>
+			<term>&lt;releases/&gt;</term>
 			<listitem>
 				<para>
-					The application metainfo should at least provide one <code>&lt;release/&gt;</code> tag, which defines the version and release date this application is for.
+					The application metainfo should at least provide one <code>&lt;releases/&gt;</code> tag,
+					which has one or more <code>&lt;release/&gt;</code> childs to define the version and release date of this
+					application. For details, see <xref linkend="sect-Metadata-GenericComponent"/> .
 				</para>
 				<para>
-					Additionally, the release might be described in a short manner using the <code>&lt;description/&gt;</code> child tag, which should give brief information about what is new
+					Additionally, the <code>&lt;release/&gt;</code> might be described in a short manner using the <code>&lt;description/&gt;</code> child tag, which should give brief information about what is new
 					in the release, in a way which is understandable by non-technical users.
 				</para>
 			</listitem>
