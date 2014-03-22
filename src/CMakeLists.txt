@@ -27,8 +27,6 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		database-builder.vala
 		data-provider.vala
 		data-providers/appstream-xml.vala
-		data-providers/debian-dep11.vala
-		data-providers/ubuntu-appinstall.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp
@@ -38,6 +36,13 @@ set(ASLIB_XAP_SOURCES xapian/database-common.hpp
 		xapian/database-write.cpp
 		xapian/database-vala.hpp
 		xapian/database-vala.cpp
+)
+
+set(LIBAPPSTREAM_SRC_C
+		data-providers/debian-dep11.h
+		data-providers/debian-dep11.c
+		data-providers/ubuntu-appinstall.h
+		data-providers/ubuntu-appinstall.c
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
@@ -91,7 +96,7 @@ add_custom_target (gir-compile
 	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-add_library(appstream SHARED ${ASLIB_SRC_C} ${ASLIB_XAP_SOURCES})
+add_library(appstream SHARED ${ASLIB_SRC_C} ${ASLIB_XAP_SOURCES} ${LIBAPPSTREAM_SRC_C})
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 add_dependencies(appstream aslib-precomp)

@@ -23,7 +23,7 @@ using GLib;
 [CCode (lower_case_cprefix = "as_", cprefix = "As")]
 namespace Appstream {
 
-private abstract class DataProvider : Object {
+internal abstract class DataProvider : Object {
 	public signal void application (Component app);
 	public string[] watch_files { get; protected set; }
 

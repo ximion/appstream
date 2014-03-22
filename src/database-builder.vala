@@ -43,10 +43,10 @@ internal class Builder : Object {
 		providers = {};
 		providers += new Provider.AppStreamXML ();
 #if DEBIAN_DEP11
-		providers += new Provider.DEP11 ();
+		//providers += new Provider.DEP11 ();
 #endif
 #if UBUNTU_APPINSTALL
-		providers += new Provider.UbuntuAppinstall ();
+		//providers += new Provider.UbuntuAppinstall ();
 #endif
 		foreach (DataProvider dprov in providers)
 			dprov.application.connect (new_application);
