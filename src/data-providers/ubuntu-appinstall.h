@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -23,6 +23,7 @@
 
 #include <glib-object.h>
 #include "appstream_internal.h"
+#include "../as-data-provider.h"
 
 #define AS_PROVIDER_TYPE_UBUNTU_APPINSTALL (as_provider_ubuntu_appinstall_get_type ())
 #define AS_PROVIDER_UBUNTU_APPINSTALL(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_PROVIDER_TYPE_UBUNTU_APPINSTALL, AsProviderUbuntuAppinstall))

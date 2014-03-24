@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -62,7 +62,7 @@ AsProviderUbuntuAppinstall* as_provider_ubuntu_appinstall_construct (GType objec
 	/* set AppInstall location as watch target for the data provider */
 	watch_files = g_new0 (gchar*, 1 + 1);
 	watch_files[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
-	as_data_provider_set_watch_files ((AsDataProvider*) self, watch_files, 1);
+	as_data_provider_set_watch_files ((AsDataProvider*) self, watch_files);
 	g_strfreev(watch_files);
 
 	return self;

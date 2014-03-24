@@ -23,10 +23,6 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		menudir.vala
 		screenshot.vala
 		screenshot-service.vala
-		# internal stuff to build the database
-		database-builder.vala
-		data-provider.vala
-		data-providers/appstream-xml.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp
@@ -39,10 +35,17 @@ set(ASLIB_XAP_SOURCES xapian/database-common.hpp
 )
 
 set(LIBAPPSTREAM_SRC_C
+		# internal stuff to build the database
+		as-data-provider.h
+		as-data-provider.c
+		data-providers/appstream-xml.h
+		data-providers/appstream-xml.c
 		data-providers/debian-dep11.h
 		data-providers/debian-dep11.c
 		data-providers/ubuntu-appinstall.h
 		data-providers/ubuntu-appinstall.c
+		as-database-builder.h
+		as-database-builder.c
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian

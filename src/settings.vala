@@ -37,8 +37,9 @@ private static const string CONFIG_NAME = "/etc/appstream.conf";
 private static const string[] ICON_PATHS = { APPSTREAM_BASE_PATH + "/icons",
 						"/var/cache/app-info/icons" };
 
-internal static const string[] APPSTREAM_XML_PATHS = { APPSTREAM_BASE_PATH + "/xmls",
-							"/var/cache/app-info/xmls" };
+// FIXME: Temporarily disabled
+//internal static const string[] APPSTREAM_XML_PATHS = { APPSTREAM_BASE_PATH + "/xmls",
+//							"/var/cache/app-info/xmls" };
 
 internal static const string APPSTREAM_CACHE_PATH = "/var/cache/app-info";
 internal static const string APPSTREAM_DATABASE_PATH = APPSTREAM_CACHE_PATH + "/xapian";

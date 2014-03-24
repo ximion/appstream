@@ -21,7 +21,7 @@
 #include <packagekit-glib2/packagekit.h>
 #include <plugin/packagekit-plugin.h>
 
-#include "appstream_internal.h"
+#include "../as-database-builder.h"
 
 struct PkPluginPrivate {
 	guint		dummy;
