@@ -19,10 +19,8 @@ set(APPSTREAM_LIB_SOURCES settings.vala
 		utils.vala
 		# public API
 		component.vala
-		database.vala
 		menudir.vala
 		screenshot.vala
-		screenshot-service.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp
@@ -46,6 +44,18 @@ set(LIBAPPSTREAM_SRC_C
 		data-providers/ubuntu-appinstall.c
 		as-database-builder.h
 		as-database-builder.c
+		as-search-query.h
+		as-search-query.c
+		as-database.h
+		as-database.c
+		as-database-write.h
+		as-database-write.c
+)
+
+set(LIBAPPSTREAM_PUBLIC_HEADERS
+		appstream.h
+		as-search-query.h
+		as-database.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
@@ -62,7 +72,7 @@ add_definitions("-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE"
 )
 
 vala_precompile(aslib-precomp ASLIB_SRC_C ${APPSTREAM_LIB_SOURCES}
-			PACKAGES config gio-2.0 posix libxml-2.0 as-xapian
+			PACKAGES config gio-2.0 posix libxml-2.0
 			VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi
 				${CMAKE_CURRENT_SOURCE_DIR}/xapian
 			GENERATE_INTERNAL_HEADER appstream_internal.h
