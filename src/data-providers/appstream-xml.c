@@ -31,6 +31,8 @@
 #include <gio/gio.h>
 #include <glib/gstdio.h>
 
+#include "../as-utils.h"
+
 struct _AsProviderAppstreamXMLPrivate {
 	gchar* locale;
 	GList* system_categories;
@@ -148,41 +150,6 @@ static gchar* as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* sel
 out:
 	g_free (lang);
 	return res;
-}
-
-
-static gchar* string_strip (const gchar* self)
-{
-	gchar* result = NULL;
-	gchar* _result_ = NULL;
-	gchar* _tmp0_ = NULL;
-	const gchar* _tmp1_ = NULL;
-	g_return_val_if_fail (self != NULL, NULL);
-	_tmp0_ = g_strdup (self);
-	_result_ = _tmp0_;
-	_tmp1_ = _result_;
-	g_strstrip (_tmp1_);
-	result = _result_;
-	return result;
-}
-
-static gchar **
-as_ptr_array_to_strv (GPtrArray *array)
-{
-	gchar **value;
-	const gchar *value_temp;
-	guint i;
-
-	g_return_val_if_fail (array != NULL, NULL);
-
-	/* copy the array to a strv */
-	value = g_new0 (gchar *, array->len + 1);
-	for (i=0; i<array->len; i++) {
-		value_temp = (const gchar *) g_ptr_array_index (array, i);
-		value[i] = g_strdup (value_temp);
-	}
-
-	return value;
 }
 
 static gchar**
