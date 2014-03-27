@@ -15,10 +15,7 @@ set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
 set(APPSTREAM_LIB_SOURCES settings.vala
-		# utils
-		utils.vala
 		# public API
-		component.vala
 		menudir.vala
 		screenshot.vala
 )
@@ -33,6 +30,8 @@ set(ASLIB_XAP_SOURCES xapian/database-common.hpp
 )
 
 set(LIBAPPSTREAM_SRC_C
+		as-utils.h
+		as-utils.c
 		# internal stuff to build the database
 		as-data-provider.h
 		as-data-provider.c
@@ -42,6 +41,10 @@ set(LIBAPPSTREAM_SRC_C
 		data-providers/debian-dep11.c
 		data-providers/ubuntu-appinstall.h
 		data-providers/ubuntu-appinstall.c
+		# (mostly) public API
+		as-component.h
+		as-component-private.h
+		as-component.c
 		as-database-builder.h
 		as-database-builder.c
 		as-search-query.h
@@ -54,6 +57,7 @@ set(LIBAPPSTREAM_SRC_C
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
 		appstream.h
+		as-component.h
 		as-search-query.h
 		as-database.h
 )

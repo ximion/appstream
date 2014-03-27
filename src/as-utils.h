@@ -37,7 +37,8 @@ GPtrArray*		as_utils_find_files_matching (const gchar* dir, const gchar* pattern
 GPtrArray*		as_utils_find_files (const gchar* dir, gboolean recursive);
 gboolean		as_utils_is_root (void);
 gchar*			as_string_strip (const gchar* str);
-gchar**			as_ptr_array_to_strv (GPtrArray *array)
+gchar**			as_ptr_array_to_strv (GPtrArray *array);
+gchar**			as_strv_dup (gchar** strv);
 
 G_END_DECLS
 
