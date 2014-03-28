@@ -250,10 +250,10 @@
 			</varlistentry>
 
 			<varlistentry>
-			<term>&lt;metadata_licence/&gt;</term>
+			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;metadata_licence/&gt;</code> tag is indicating the content licence that you are releasing the one
+					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
 					Metainfo XML file as. This is not typically the same as the project licence. By ommitting the licence value would
 					probably mean your data would not be incorporated into the distribution metadata (so this is a required tag).
 					Permissible licence codes include:
@@ -296,7 +296,7 @@
   <name>Foo Bar</name>
   <summary>A foo-ish bar</summary>
   <url type="homepage">http://www.example.org</url>
-  <metadata_licence>CC0</metadata_licence>
+  <metadata_license>CC0</metadata_license>
 
   <provides>
     <library>libfoobar.so.2</library>

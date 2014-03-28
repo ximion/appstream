@@ -52,7 +52,7 @@
 <!-- Copyright 2013 First Lastname <your@email.com> -->
 <component type="desktop">
   <id>gnome-power-statistics.desktop</id>
-  <metadata_licence>CC0</metadata_licence>
+  <metadata_license>CC0</metadata_license>
   <name>Power Statistics</name>
   <summary>Observe power management</summary>
 
@@ -109,10 +109,10 @@
 			</varlistentry>
 
 			<varlistentry>
-			<term>&lt;metadata_licence/&gt;</term>
+			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;metadata_licence/&gt;</code> tag is indicating the content licence that you are releasing the one
+					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
 					AppData text file as. This is not typically the same as the project licence. By ommitting the licence value would
 					probably mean your data would not be incorporated into the distribution metadata.
 					Permissible licence codes include:
