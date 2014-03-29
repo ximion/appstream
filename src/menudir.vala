@@ -95,7 +95,7 @@ public class Category : Object {
 /**
  * Parser for XDG Menu files
  */
-public class MenuParser {
+public class MenuParser : Object {
 	private string menu_file;
 	public bool update_category_data { get; set; }
 
