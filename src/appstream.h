@@ -29,6 +29,8 @@
 #include <as-category.h>
 #include <as-menu-parser.h>
 #include <as-distro-details.h>
+#include <as-screenshot.h>
+#include <as-image.h>
 
 #undef __APPSTREAM_H_INSIDE__
 

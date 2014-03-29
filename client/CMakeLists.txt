@@ -1,9 +1,6 @@
 # CMakeLists for appstream-index
 project(appstream-index)
 
-find_package(Vala REQUIRED)
-include("${VALA_USE_FILE}")
-
 find_package(GLIB2 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_library(M_LIB m)
@@ -17,7 +14,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 
 # Add the appstream-index client tool
 add_executable(appstream-index appstream-index.c)
-add_dependencies(appstream-index header_internal_fix)
+add_dependencies(appstream-index appstream)
 
 target_link_libraries(appstream-index
 		${M_LIB}
