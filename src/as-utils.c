@@ -31,6 +31,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+#include "as-category.h"
+
 gboolean
 as_utils_str_empty (const gchar* str)
 {
@@ -140,8 +142,8 @@ as_utils_categories_from_strv (gchar** categories_strv, GPtrArray* system_catego
 			gchar *catname2;
 			gchar *str;
 			sys_cat = (AsCategory*) g_ptr_array_index (system_categories, j);
-			catname1 = as_category_get_name (sys_cat);
-			if ( == NULL)
+			catname1 = g_strdup (as_category_get_name (sys_cat));
+			if (catname1 == NULL)
 				continue;
 			str = g_utf8_strdown (catname1, -1);
 			g_free (catname1);
@@ -236,7 +238,7 @@ out:
 	if (enumerator != NULL)
 		g_object_unref (enumerator);
 	if (error != NULL) {
-		fprintf (stderr, "Error while finding files in directory %s: %s\n", dir, e.message);
+		fprintf (stderr, "Error while finding files in directory %s: %s\n", dir, error->message);
 		g_ptr_array_unref (list);
 		return NULL;
 	}

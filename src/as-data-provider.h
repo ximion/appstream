@@ -26,6 +26,7 @@
 #define __AS_DATAPROVIDER_H
 
 #include <glib-object.h>
+#include "as-component.h"
 
 #define AS_TYPE_DATA_PROVIDER (as_data_provider_get_type ())
 #define AS_DATA_PROVIDER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_DATA_PROVIDER, AsDataProvider))

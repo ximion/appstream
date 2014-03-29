@@ -25,7 +25,7 @@
 #include <string>
 #include <xapian.h>
 #include <glib.h>
-#include "appstream_internal.h"
+#include "../as-component.h"
 
 using namespace std;
 

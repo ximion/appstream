@@ -32,7 +32,7 @@ G_BEGIN_DECLS
 #define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
 #define AS_APPSTREAM_DATABASE_PATH AS_APPSTREAM_CACHE_PATH "/xapian"
 
-const gchar* AS_APPSTREAM_XML_PATHS[2] = {AS_APPSTREAM_BASE_PATH "/xmls", "/var/cache/app-info/xmls", NULL};
+const gchar* AS_APPSTREAM_XML_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/xmls", "/var/cache/app-info/xmls", NULL};
 
 #define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
 

@@ -28,11 +28,11 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <stdio.h>
-#include <gio/gio.h>
 #include <glib/gstdio.h>
 
 #include "../as-utils.h"
 #include "../as-settings-private.h"
+#include "../as-menu-parser.h"
 
 struct _AsProviderAppstreamXMLPrivate {
 	gchar* locale;
@@ -169,7 +169,7 @@ as_provider_appstream_xml_get_children_as_array (AsProviderAppstreamXML* self, x
 			content = (gchar*) xmlNodeGetContent (iter);
 			if (content != NULL) {
 				gchar *s;
-				s = string_strip (content);
+				s = as_string_strip (content);
 				g_ptr_array_add (list, s);
 			}
 			g_free (content);

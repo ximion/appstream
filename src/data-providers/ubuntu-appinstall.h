@@ -22,7 +22,6 @@
 #define __AS_DATAPROVIDERAPPINSTALL_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
 #include "../as-data-provider.h"
 
 #define AS_PROVIDER_TYPE_UBUNTU_APPINSTALL (as_provider_ubuntu_appinstall_get_type ())

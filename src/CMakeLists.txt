@@ -79,6 +79,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 
 add_definitions("-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE"
 	"-DI_KNOW_THE_PACKAGEKIT_PLUGIN_API_IS_SUBJECT_TO_CHANGE"
+	"-DAS_COMPILATION"
 )
 
 # ensure that the GI compiler has been found (apparently, the automatic tests fail on some machines)

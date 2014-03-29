@@ -29,6 +29,9 @@
 #include <glib/gstdio.h>
 
 #include "database-common.hpp"
+#include "../as-utils.h"
+#include "../as-component-private.h"
+#include "../as-settings-private.h"
 
 using namespace std;
 using namespace Appstream;
@@ -157,10 +160,10 @@ DatabaseWrite::rebuild (GArray *apps)
 		term_generator.index_text_without_positions (description, WEIGHT_DESKTOP_SUMMARY);
 
 		// Categories
-		int length = 0;
-		gchar **categories = as_component_get_categories (app, &length);
+		gchar **categories = as_component_get_categories (app);
+
 		string categories_string = "";
-		for (uint i=0; i < length; i++) {
+		for (uint i = 0; categories[i] != NULL; i++) {
 			if (categories[i] == NULL)
 				continue;
 
@@ -174,9 +177,8 @@ DatabaseWrite::rebuild (GArray *apps)
 		doc.add_value (XapianValues::CATEGORIES, categories_string);
 
 		// Add our keywords (with high priority)
-		length = 0;
-		gchar **keywords = as_component_get_keywords (app, &length);
-		for (uint i=0; i < length; i++) {
+		gchar **keywords = as_component_get_keywords (app);
+		for (uint i = 0; keywords[i] != NULL; i++) {
 			if (keywords[i] == NULL)
 				continue;
 

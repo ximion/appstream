@@ -26,6 +26,7 @@
 #define __AS_COMPONENT_H
 
 #include <glib-object.h>
+#include "as-screenshot.h"
 
 #define AS_TYPE_COMPONENT_TYPE (as_component_type_get_type ())
 #define AS_TYPE_COMPONENT (as_component_get_type ())

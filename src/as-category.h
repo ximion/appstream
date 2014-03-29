@@ -36,9 +36,9 @@
 
 G_BEGIN_DECLS
 
-typedef struct _AsMenuParser AsMenuParser;
-typedef struct _AsMenuParserClass AsMenuParserClass;
-typedef struct _AsMenuParserPrivate AsMenuParserPrivate;
+typedef struct _AsCategory AsCategory;
+typedef struct _AsCategoryClass AsCategoryClass;
+typedef struct _AsCategoryPrivate AsCategoryPrivate;
 
 struct _AsCategory {
 	GObject parent_instance;

@@ -22,7 +22,7 @@
 #define __AS_DATAPROVIDERXML_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
+#include <gio/gio.h>
 #include "../as-data-provider.h"
 
 #define AS_PROVIDER_TYPE_APPSTREAM_XML (as_provider_appstream_xml_get_type ())

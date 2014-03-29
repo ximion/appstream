@@ -22,7 +22,6 @@
 #define __AS_DATAPROVIDERDEP11_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
 #include "../as-data-provider.h"
 
 #define AS_PROVIDER_TYPE_DEP11 (as_provider_dep11_get_type ())

@@ -29,6 +29,8 @@
 #include <glib/gstdio.h>
 
 #include "database-common.hpp"
+#include "../as-menu-parser.h"
+#include "../as-component-private.h"
 
 using namespace std;
 using namespace Appstream;
@@ -205,10 +207,9 @@ DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
 
 	// generate category query
 	Xapian::Query category_query = Xapian::Query ();
-	int length = 0;
-	gchar **categories = as_search_query_get_categories (asQuery, &length);
+	gchar **categories = as_search_query_get_categories (asQuery);
 	string categories_string = "";
-	for (uint i=0; i < length; i++) {
+	for (uint i = 0; categories[i] != NULL; i++) {
 		gchar *cat_id = categories[i];
 
 		category_query = Xapian::Query (Xapian::Query::OP_OR,
