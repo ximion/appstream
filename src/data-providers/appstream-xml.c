@@ -32,6 +32,7 @@
 #include <glib/gstdio.h>
 
 #include "../as-utils.h"
+#include "../as-settings-private.h"
 
 struct _AsProviderAppstreamXMLPrivate {
 	gchar* locale;
@@ -43,8 +44,6 @@ static gpointer as_provider_appstream_xml_parent_class = NULL;
 
 #define AS_PROVIDER_APPSTREAM_XML_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_PROVIDER_TYPE_APPSTREAM_XML, AsProviderAppstreamXMLPrivate))
 
-#define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
-
 static gchar*		as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* self, xmlNode* node, gboolean translated);
 static gchar**		as_provider_appstream_xml_get_children_as_array (AsProviderAppstreamXML* self, xmlNode* node, const gchar* element_name);
 static void			as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlNode* node, AsScreenshot* sshot);
@@ -53,8 +52,6 @@ static void			as_provider_appstream_xml_parse_application_node (AsProviderAppstr
 static gboolean		as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self, const gchar* xmldoc);
 static gboolean		as_provider_appstream_xml_real_execute (AsDataProvider* base);
 static void			as_provider_appstream_xml_finalize (GObject* obj);
-
-const gchar* AS_APPSTREAM_XML_PATHS[2] = {AS_APPSTREAM_BASE_PATH "/xmls", "/var/cache/app-info/xmls", NULL};
 
 AsProviderAppstreamXML* as_provider_appstream_xml_construct (GType object_type)
 {

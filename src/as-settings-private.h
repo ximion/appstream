@@ -18,18 +18,29 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __APPSTREAM_H
-#define __APPSTREAM_H
+#ifndef __AS_SETTINGSPRIVATE_H
+#define __AS_SETTINGSPRIVATE_H
 
-#define __APPSTREAM_H_INSIDE__
+#include <glib-object.h>
+#include "config.h"
 
-#include <as-component.h>
-#include <as-database.h>
-#include <as-search-query.h>
-#include <as-category.h>
-#include <as-menu-parser.h>
-#include <as-distro-details.h>
+G_BEGIN_DECLS
 
-#undef __APPSTREAM_H_INSIDE__
+#define AS_DB_SCHEMA_VERSION "1"
+#define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
+#define AS_CONFIG_NAME "/etc/appstream.conf"
+#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
+#define AS_APPSTREAM_DATABASE_PATH AS_APPSTREAM_CACHE_PATH "/xapian"
 
-#endif /* __APPSTREAM_H */
+const gchar* AS_APPSTREAM_XML_PATHS[2] = {AS_APPSTREAM_BASE_PATH "/xmls", "/var/cache/app-info/xmls", NULL};
+
+#define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
+
+/**
+ * The path where software icons (of not-installed software) are located.
+ */
+const gchar* AS_ICON_PATHS[2] = {AS_APPSTREAM_BASE_PATH "/icons", "/var/cache/app-info/icons"};
+
+G_END_DECLS
+
+#endif /* __AS_SETTINGSPRIVATE_H */

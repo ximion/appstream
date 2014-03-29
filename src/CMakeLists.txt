@@ -54,6 +54,8 @@ set(LIBAPPSTREAM_SRC_C
 		as-category.c
 		as-menu-parser.h
 		as-menu-parser.c
+		as-distro-details.h
+		as-distro-details.c
 )
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
