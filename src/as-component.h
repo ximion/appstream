@@ -18,11 +18,14 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
+
 #ifndef __AS_COMPONENT_H
 #define __AS_COMPONENT_H
 
 #include <glib-object.h>
-#include "appstream.h"
 
 #define AS_TYPE_COMPONENT_TYPE (as_component_type_get_type ())
 #define AS_TYPE_COMPONENT (as_component_get_type ())

@@ -18,6 +18,10 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
+
 #ifndef __AS_DISTRODETAILS_H
 #define __AS_DISTRODETAILS_H
 

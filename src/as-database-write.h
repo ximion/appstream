@@ -18,12 +18,14 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
+
 #ifndef __AS_DATABASEWRITE_H
 #define __AS_DATABASEWRITE_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
-#include "appstream.h"
 
 #define AS_TYPE_DATABASE_WRITE (as_database_write_get_type ())
 #define AS_DATABASE_WRITE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_DATABASE_WRITE, AsDatabaseWrite))

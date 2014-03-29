@@ -18,11 +18,14 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
+
 #ifndef __AS_MENUPARSER_H
 #define __AS_MENUPARSER_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
 
 #define AS_TYPE_MENU_PARSER (as_menu_parser_get_type ())
 #define AS_MENU_PARSER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_MENU_PARSER, AsMenuParser))

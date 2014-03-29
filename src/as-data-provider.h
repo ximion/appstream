@@ -18,11 +18,14 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
+
 #ifndef __AS_DATAPROVIDER_H
 #define __AS_DATAPROVIDER_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
 
 #define AS_TYPE_DATA_PROVIDER (as_data_provider_get_type ())
 #define AS_DATA_PROVIDER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_DATA_PROVIDER, AsDataProvider))

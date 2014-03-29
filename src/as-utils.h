@@ -22,7 +22,6 @@
 #define __AS_UTILS_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
 
 G_BEGIN_DECLS
 

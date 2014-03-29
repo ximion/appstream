@@ -18,11 +18,14 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
+#error "Only <appstream.h> can be included directly."
+#endif
+
 #ifndef __AS_DATABASEBUILDER_H
 #define __AS_DATABASEBUILDER_H
 
 #include <glib-object.h>
-#include "appstream_internal.h"
 
 #define AS_TYPE_BUILDER (as_builder_get_type ())
 #define AS_BUILDER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_BUILDER, AsBuilder))
