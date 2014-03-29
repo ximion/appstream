@@ -15,9 +15,6 @@ set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
 set(APPSTREAM_LIB_SOURCES settings.vala
-		# public API
-		menudir.vala
-		screenshot.vala
 )
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp
@@ -53,6 +50,10 @@ set(LIBAPPSTREAM_SRC_C
 		as-database.c
 		as-database-write.h
 		as-database-write.c
+		as-category.h
+		as-category.c
+		as-menu-parser.h
+		as-menu-parser.c
 )
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
@@ -60,6 +61,8 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 		as-component.h
 		as-search-query.h
 		as-database.h
+		as-category.h
+		as-menu-parser.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
