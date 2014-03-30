@@ -141,7 +141,6 @@ static gint string_index_of (const gchar* self, const gchar* needle, gint start_
 void as_search_query_sanitize_search_term (AsSearchQuery* self)
 {
 	gchar *search_term;
-	gchar *tmp;
 	g_return_if_fail (self != NULL);
 
 	search_term = self->priv->search_term;
@@ -179,9 +178,7 @@ void as_search_query_sanitize_search_term (AsSearchQuery* self)
 	/* we have to strip the leading and trailing whitespaces to avoid having
 	 * different results for e.g. 'font ' and 'font' (LP: #506419)
 	 */
-	tmp = g_strstrip (self->priv->search_term);
-	as_search_query_set_search_term (self, tmp);
-	g_free (tmp);
+	g_strstrip (self->priv->search_term);
 }
 
 
@@ -189,8 +186,7 @@ const gchar* as_search_query_get_search_term (AsSearchQuery* self)
 {
 	const gchar* result;
 	g_return_val_if_fail (self != NULL, NULL);
-	result = self->priv->search_term;
-	return result;
+	return self->priv->search_term;
 }
 
 
@@ -313,17 +309,13 @@ static void as_search_query_set_property (GObject * object, guint property_id, c
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_SEARCH_QUERY, AsSearchQuery);
 	switch (property_id) {
 		case AS_SEARCH_QUERY_SEARCH_TERM:
-		as_search_query_set_search_term (self, g_value_get_string (value));
-		break;
+			as_search_query_set_search_term (self, g_value_get_string (value));
+			break;
 		case AS_SEARCH_QUERY_CATEGORIES:
-		{
-			gpointer boxed;
-			boxed = g_value_get_boxed (value);
-			as_search_query_set_categories (self, boxed);
-		}
-		break;
+			as_search_query_set_categories (self, g_value_get_boxed (value));
+			break;
 		default:
-		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-		break;
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+			break;
 	}
 }

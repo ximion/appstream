@@ -359,9 +359,18 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 					img = as_image_new ();
 
 					str = (gchar*) xmlGetProp (iter2, (xmlChar*) "width");
+					if (str == NULL) {
+						g_object_unref (img);
+						continue;
+					}
 					width = g_ascii_strtoll (str, NULL, 10);
 					g_free (str);
+
 					str = (gchar*) xmlGetProp (iter2, (xmlChar*) "height");
+					if (str == NULL) {
+						g_object_unref (img);
+						continue;
+					}
 					height = g_ascii_strtoll (str, NULL, 10);
 					g_free (str);
 
@@ -369,8 +378,10 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 					as_image_set_height (img, height);
 
 					/* discard invalid elements */
-					if ((width == 0) || (height == 0))
+					if ((width == 0) || (height == 0)) {
+						g_object_unref (img);
 						continue;
+					}
 					as_image_set_url (img, content);
 
 					imgtype = (gchar*) xmlGetProp (iter2, (xmlChar*) "type");

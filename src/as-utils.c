@@ -314,18 +314,33 @@ as_strv_dup (gchar** strv)
 }
 
 gchar*
-as_str_replace (const gchar* str, const gchar* old_str, const gchar* new_str)
+as_str_replace (const gchar *str, const gchar *old, const gchar *new)
 {
-	gchar* res = 0;
-	const gchar* pos = g_strrstr (str, old_str);
+	gchar *ret, *r;
+	const gchar *p, *q;
+	size_t oldlen = strlen(old);
+	size_t count, retlen, newlen = strlen(new);
 
-	if (pos > 0) {
-		res = calloc(1, strlen (str) - strlen (old_str) + strlen (new_str) + 1);
+	if (oldlen != newlen) {
+		for (count = 0, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen)
+			count++;
+		/* this is undefined if p - str > PTRDIFF_MAX */
+		retlen = p - str + strlen(p) + count * (newlen - oldlen);
+	} else
+		retlen = strlen(str);
 
-		strncpy(res, str, pos - str);
-		strcat(res, new_str);
-		strcat(res, pos + strlen (old_str));
+	if ((ret = malloc(retlen + 1)) == NULL)
+		return NULL;
+
+	for (r = ret, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen) {
+		/* this is undefined if q - p > PTRDIFF_MAX */
+		ptrdiff_t l = q - p;
+		memcpy(r, p, l);
+		r += l;
+		memcpy(r, new, newlen);
+		r += newlen;
 	}
+	strcpy(r, p);
 
-	return res;
+	return ret;
 }

@@ -277,7 +277,6 @@ as_client_set_exit_code (ASClient* self, gint value)
 {
 	g_return_if_fail (self != NULL);
 	self->priv->exit_code = value;
-	g_object_notify ((GObject *) self, "exit-code");
 }
 
 

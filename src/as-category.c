@@ -108,6 +108,7 @@ as_category_complete (AsCategory* self)
 		goto out;
 	as_category_set_name (self, str);
 	g_free (str);
+	str = NULL;
 
 	if (g_key_file_has_key (kfile, "Desktop Entry", "Comment", NULL)) {
 		str = g_key_file_get_string (kfile, "Desktop Entry", "Comment", &error);
@@ -115,6 +116,7 @@ as_category_complete (AsCategory* self)
 			goto out;
 		as_category_set_summary (self, str);
 		g_free (str);
+		str = NULL;
 	}
 
 	str = g_key_file_get_string (kfile, "Desktop Entry", "Icon", &error);
@@ -124,7 +126,6 @@ as_category_complete (AsCategory* self)
 		as_category_set_icon (self, "");
 	else
 		as_category_set_icon (self, str);
-	g_free (str);
 
 	if (self->priv->summary == NULL)
 		as_category_set_summary (self, "");
