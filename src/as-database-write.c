@@ -32,6 +32,7 @@
 
 #include "xapian/database-vala.hpp"
 #include "as-settings-private.h"
+#include "as-utils.h"
 
 struct _AsDatabaseWritePrivate {
 	struct XADatabaseWrite* db_w;

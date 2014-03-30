@@ -27,6 +27,8 @@
 #include <glib/gi18n-lib.h>
 #include <glib/gstdio.h>
 
+#include "as-utils.h"
+
 struct _AsSearchQueryPrivate {
 	gchar* search_term;
 	gchar** categories;
