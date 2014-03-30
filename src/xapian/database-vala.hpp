@@ -50,7 +50,7 @@ void xa_database_write_free (XADatabaseWrite *db);
 
 gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path);
 gboolean xa_database_write_add_application (XADatabaseWrite *db, AsComponent *app);
-gboolean xa_database_write_rebuild (XADatabaseWrite *db, GArray *apps);
+gboolean xa_database_write_rebuild (XADatabaseWrite *db, GPtrArray *cpt_array);
 
 #ifdef __cplusplus
 };

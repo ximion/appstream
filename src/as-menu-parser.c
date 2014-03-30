@@ -18,6 +18,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "as-menu-parser.h"
+
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
@@ -26,6 +28,8 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <glib/gi18n-lib.h>
+
+#include "as-category.h"
 
 struct _AsMenuParserPrivate {
 	gchar* menu_file;
@@ -119,7 +123,7 @@ as_menu_parser_parse (AsMenuParser* self)
 
 	/* get the root node */
 	root = xmlDocGetRootElement (xdoc);
-	if ((root == NULL) || (g_strcmp0 (_tmp10_, "Menu") != 0)) {
+	if ((root == NULL) || (g_strcmp0 (root->name, "Menu") != 0)) {
 		g_warning (_ ("XDG Menu XML file '%s' is damaged."), self->priv->menu_file);
 		xmlFreeDoc (xdoc);
 		return NULL;
@@ -131,13 +135,13 @@ as_menu_parser_parse (AsMenuParser* self)
 			continue;
 		if (g_strcmp0 (iter->name, "Menu") == 0) {
 			/* parse menu entry */
-			g_list_append (category_list, as_menu_parser_parse_menu_entry (self, iter));
+			category_list = g_list_append (category_list, as_menu_parser_parse_menu_entry (self, iter));
 		}
 	}
 
 	if (self->priv->update_category_data) {
 		/* complete the missing information from desktop-directories folder */
-		g_list_foreach (category_data, _as_menu_parser_complete_categories, NULL);
+		g_list_foreach (category_list, (GFunc) _as_menu_parser_complete_categories, NULL);
 	}
 
 	return category_list;
@@ -157,22 +161,6 @@ as_menu_parser_extend_category_name_list (AsMenuParser* self, xmlNode* nd, GList
 		}
 	}
 }
-
-
-for (Xml.Node* iter = nd->children; iter != null; iter = iter->next) {
-			if (iter->type != Xml.ElementType.ELEMENT_NODE)
-				continue;
-			if (iter->name == "And") {
-				extend_category_name_list (iter, cat.included);
-				// check for "Not" elements
-				for (Xml.Node* not_iter = iter->children; not_iter != null; not_iter = not_iter->next) {
-					if (not_iter->name == "Not")
-						extend_category_name_list (not_iter, cat.excluded);
-				}
-			} else if (iter->name == "Or") {
-				extend_category_name_list (iter, cat.included);
-			}
-		}
 
 static void
 as_menu_parser_parse_category_entry (AsMenuParser* self, xmlNode* nd, AsCategory* cat)
@@ -205,41 +193,11 @@ as_menu_parser_parse_category_entry (AsMenuParser* self, xmlNode* nd, AsCategory
 	}
 }
 
-
-var cat = new Category ();
-
-		for (Xml.Node* iter = nd->children; iter != null; iter = iter->next) {
-			// Spaces between tags are also nodes, discard them
-			if (iter->type != Xml.ElementType.ELEMENT_NODE) {
-				continue;
-			}
-			switch (iter->name) {
-				case "Name":
-					// we don't want a localized name (indicated through a language property)
-					if (iter->properties == null)
-						cat.name = iter->get_content ();
-					break;
-				case "Directory": cat.directory = iter->get_content ();
-					break;
-				case "Icon": cat.icon = iter->get_content ();
-					break;
-				case "Categories":
-					parse_category_entry (iter, cat);
-					break;
-				case "Menu":
-					// we have a submenu!
-					cat.add_subcategory (parse_menu_entry (iter));
-					break;
-				default: break;
-			}
-		}
-
-		return cat;
-
 static AsCategory*
 as_menu_parser_parse_menu_entry (AsMenuParser* self, xmlNode* nd)
 {
 	AsCategory* cat = NULL;
+	xmlNode *iter;
 	g_return_val_if_fail (self != NULL, NULL);
 
 	cat = as_category_new ();

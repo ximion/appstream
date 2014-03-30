@@ -270,15 +270,11 @@ gchar*
 as_string_strip (const gchar* str)
 {
 	gchar* result = NULL;
-	gchar* _result_ = NULL;
 	gchar* _tmp0_ = NULL;
-	const gchar* _tmp1_ = NULL;
 	g_return_val_if_fail (str != NULL, NULL);
 	_tmp0_ = g_strdup (str);
-	_result_ = _tmp0_;
-	_tmp1_ = _result_;
-	g_strstrip (_tmp1_);
-	result = _result_;
+	result = _tmp0_;
+	g_strstrip (result);
 	return result;
 }
 
@@ -315,4 +311,21 @@ as_strv_dup (gchar** strv)
 		result[i] = _tmp0_;
 	}
 	return result;
+}
+
+gchar*
+as_str_replace (const gchar* str, const gchar* old_str, const gchar* new_str)
+{
+	gchar* res = 0;
+	const gchar* pos = g_strrstr (str, old_str);
+
+	if (pos > 0) {
+		res = calloc(1, strlen (str) - strlen (old_str) + strlen (new_str) + 1);
+
+		strncpy(res, str, pos - str);
+		strcat(res, new_str);
+		strcat(res, pos + strlen (old_str));
+	}
+
+	return res;
 }

@@ -38,6 +38,7 @@ gboolean		as_utils_is_root (void);
 gchar*			as_string_strip (const gchar* str);
 gchar**			as_ptr_array_to_strv (GPtrArray *array);
 gchar**			as_strv_dup (gchar** strv);
+gchar*			as_str_replace (const gchar* str, const gchar* old_str, const gchar* new_str);
 
 G_END_DECLS
 

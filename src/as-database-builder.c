@@ -28,10 +28,15 @@
 #include <sys/stat.h>
 
 #include "data-providers/appstream-xml.h"
+#ifdef DEBIAN_DEP11
 #include "data-providers/debian-dep11.h"
+#endif
+#ifdef UBUNTU_APPINSTALL
 #include "data-providers/ubuntu-appinstall.h"
+#endif
 
 #include "as-database-write.h"
+#include "as-utils.h"
 
 struct _AsBuilderPrivate
 {
@@ -87,7 +92,7 @@ as_builder_construct (GType object_type)
 	dprov = (AsDataProvider*) as_provider_appstream_xml_new ();
 	g_ptr_array_add (self->priv->providers, dprov);
 #ifdef DEBIAN_DEP11
-	dprov = (AsDataProvider*) as_provider_debian_dep11_new ();
+	dprov = (AsDataProvider*) as_provider_dep11_new ();
 	g_ptr_array_add (self->priv->providers, dprov);
 #endif
 #ifdef UBUNTU_APPINSTALL
@@ -141,25 +146,6 @@ as_builder_initialize (AsBuilder* self)
 	as_database_set_database_path ((AsDatabase*) self->priv->db_rw, self->priv->CURRENT_DB_PATH);
 	as_utils_touch_dir (self->priv->CURRENT_DB_PATH);
 	as_database_open ((AsDatabase*) self->priv->db_rw);
-}
-
-static gchar **
-as_ptr_array_to_strv (GPtrArray *array)
-{
-	gchar **value;
-	const gchar *value_temp;
-	guint i;
-
-	g_return_val_if_fail (array != NULL, NULL);
-
-	/* copy the array to a strv */
-	value = g_new0 (gchar *, array->len + 1);
-	for (i=0; i<array->len; i++) {
-		value_temp = (const gchar *) g_ptr_array_index (array, i);
-		value[i] = g_strdup (value_temp);
-	}
-
-	return value;
 }
 
 static gchar**

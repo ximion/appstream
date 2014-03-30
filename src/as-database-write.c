@@ -31,6 +31,8 @@
 #include <database-vala.hpp>
 #include <glib/gstdio.h>
 
+#include "as-settings-private.h"
+
 struct _AsDatabaseWritePrivate {
 	struct XADatabaseWrite* db_w;
 };
@@ -43,7 +45,8 @@ static gpointer as_database_write_parent_class = NULL;
 static gboolean as_database_write_real_open (AsDatabase* base);
 static void as_database_write_finalize (GObject* obj);
 
-AsDatabaseWrite* as_database_write_construct (GType object_type)
+AsDatabaseWrite*
+as_database_write_construct (GType object_type)
 {
 	AsDatabaseWrite * self = NULL;
 	self = (AsDatabaseWrite*) as_database_construct (object_type);
@@ -54,17 +57,19 @@ AsDatabaseWrite* as_database_write_construct (GType object_type)
 }
 
 
-AsDatabaseWrite* as_database_write_new (void)
+AsDatabaseWrite*
+as_database_write_new (void)
 {
 	return as_database_write_construct (AS_TYPE_DATABASE_WRITE);
 }
 
 
-static gboolean as_database_write_real_open (AsDatabase* base)
+static gboolean
+as_database_write_real_open (AsDatabase* base)
 {
 	AsDatabaseWrite * self;
 	gboolean ret = FALSE;
-	gchar *dbpath;
+	const gchar *dbpath;
 	self = (AsDatabaseWrite*) base;
 	dbpath = as_database_get_database_path ((AsDatabase*) self);
 	ret = xa_database_write_initialize (self->priv->db_w, dbpath);
@@ -76,17 +81,19 @@ static gboolean as_database_write_real_open (AsDatabase* base)
 }
 
 
-gboolean as_database_write_rebuild (AsDatabaseWrite* self, GPtrArray* cpt_array) {
+gboolean
+as_database_write_rebuild (AsDatabaseWrite* self, GPtrArray* cpt_array) {
 	gboolean ret = FALSE;
 	g_return_val_if_fail (self != NULL, FALSE);
-	g_return_val_if_fail (appList != NULL, FALSE);
+	g_return_val_if_fail (cpt_array != NULL, FALSE);
 
 	ret = xa_database_write_rebuild (self->priv->db_w, cpt_array);
 	return ret;
 }
 
 
-static void as_database_write_class_init (AsDatabaseWriteClass * klass)
+static void
+as_database_write_class_init (AsDatabaseWriteClass * klass)
 {
 	as_database_write_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (AsDatabaseWritePrivate));
@@ -95,13 +102,15 @@ static void as_database_write_class_init (AsDatabaseWriteClass * klass)
 }
 
 
-static void as_database_write_instance_init (AsDatabaseWrite * self)
+static void
+as_database_write_instance_init (AsDatabaseWrite * self)
 {
 	self->priv = AS_DATABASE_WRITE_GET_PRIVATE (self);
 }
 
 
-static void as_database_write_finalize (GObject* obj)
+static void
+as_database_write_finalize (GObject* obj)
 {
 	AsDatabaseWrite * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_DATABASE_WRITE, AsDatabaseWrite);
@@ -114,7 +123,8 @@ static void as_database_write_finalize (GObject* obj)
  * Internal class to allow helper applications
  * to modify the AppStream application database
  */
-GType as_database_write_get_type (void) {
+GType
+as_database_write_get_type (void) {
 	static volatile gsize as_database_write_type_id__volatile = 0;
 	if (g_once_init_enter (&as_database_write_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = {

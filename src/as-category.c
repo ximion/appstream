@@ -18,6 +18,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "as-category.h"
+
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
@@ -65,11 +67,8 @@ as_category_construct (GType object_type)
 {
 	AsCategory * self = NULL;
 	self = (AsCategory*) g_object_new (object_type, NULL);
-	g_list_free_full (self->priv->included);
-	self->priv->_included = NULL;
-	g_list_free_full (self->priv->excluded);
-	self->priv->_excluded = NULL;
-	g_list_free_full (self->priv->subcats);
+	self->priv->included = NULL;
+	self->priv->excluded = NULL;
 	self->priv->subcats = NULL;
 	return self;
 }
@@ -325,9 +324,9 @@ as_category_finalize (GObject* obj)
 	g_free (self->priv->summary);
 	g_free (self->priv->icon);
 	g_free (self->priv->directory);
-	g_list_free_full (self->priv->included);
-	g_list_free_full (self->priv->excluded);
-	g_list_free_full (self->priv->subcats);
+	g_list_free_full (self->priv->included, g_free);
+	g_list_free_full (self->priv->excluded, g_free);
+	g_list_free_full (self->priv->subcats, g_object_unref);
 	G_OBJECT_CLASS (as_category_parent_class)->finalize (obj);
 }
 

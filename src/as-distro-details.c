@@ -27,10 +27,12 @@
 #include <config.h>
 #include <gio/gio.h>
 
+#include "as-settings-private.h"
+
 struct _AsDistroDetailsPrivate {
-	gchar* _distro_id;
-	gchar* _distro_name;
-	gchar* _distro_version;
+	gchar* distro_id;
+	gchar* distro_name;
+	gchar* distro_version;
 	GKeyFile* keyf;
 };
 
@@ -53,47 +55,6 @@ static void as_distro_details_set_distro_version (AsDistroDetails* self, const g
 static void as_distro_details_finalize (GObject* obj);
 static void as_distro_details_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec);
 static void as_distro_details_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
-
-
-
-
-distro_id = "unknown";
-		distro_name = "";
-		distro_version = "";
-		//
-		var f = File.new_for_path ("/etc/os-release");
-		if (f.query_exists ()) {
-			try {
-				var dis = new DataInputStream (f.read ());
-				string line;
-				while ((line = dis.read_line (null)) != null) {
-					string[] data = line.split ("=", 2);
-					if (data.length != 2)
-						continue;
-
-					string dvalue = data[1];
-					if (dvalue.has_prefix ("\""))
-						dvalue = dvalue.substring (1, dvalue.length - 2);
-
-					if (data[0] == "ID")
-						distro_id = dvalue;
-					else if (data[0] == "NAME")
-						distro_name = dvalue;
-					else if (data[0] == "VERSION_ID")
-						distro_version = dvalue;
-
-				}
-			} catch (Error e) { }
-		}
-
-		// load configuration
-		keyf = new KeyFile ();
-		try {
-			keyf.load_from_file (CONFIG_NAME, KeyFileFlags.NONE);
-		} catch (Error e) {}
-
-
-
 
 AsDistroDetails*
 as_distro_details_construct (GType object_type)
@@ -126,14 +87,8 @@ as_distro_details_construct (GType object_type)
 		dis = g_data_input_stream_new ((GInputStream*) fis);
 		g_object_unref (fis);
 
-		if (e != NULL) {
-			ret = TRUE;
-			g_error_free (e);
-			goto out;
-		}
-
 		while ((line = g_data_input_stream_read_line (dis, NULL, NULL, &error)) != NULL) {
-			gchar *data;
+			gchar **data;
 			gchar *dvalue;
 			if (error != NULL) {
 				g_object_unref (dis);
@@ -184,12 +139,12 @@ AsDistroDetails* as_distro_details_new (void) {
  * Icons of software (even if it is not installed) are stored in these
  * locations.
  *
- * @return A NULL-terminated array of paths.
+ * Returns: A NULL-terminated array of paths.
  */
 gchar**
 as_distro_details_get_icon_repository_paths (AsDistroDetails* self)
 {
-	gchar *paths;
+	gchar **paths;
 	guint len;
 	guint i;
 	g_return_val_if_fail (self != NULL, NULL);
@@ -317,10 +272,10 @@ as_distro_details_finalize (GObject* obj)
 {
 	AsDistroDetails * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
-	g_free0 (self->priv->distro_id);
-	g_free0 (self->priv->distro_name);
-	g_free0 (self->priv->distro_version);
-	g_key_file_unref0 (self->priv->keyf);
+	g_free (self->priv->distro_id);
+	g_free (self->priv->distro_name);
+	g_free (self->priv->distro_version);
+	g_key_file_unref (self->priv->keyf);
 	G_OBJECT_CLASS (as_distro_details_parent_class)->finalize (obj);
 }
 

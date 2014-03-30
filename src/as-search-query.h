@@ -26,6 +26,7 @@
 #define __AS_SEARCHQUERY_H
 
 #include <glib-object.h>
+#include "as-utils.h"
 
 #define AS_TYPE_SEARCH_QUERY (as_search_query_get_type ())
 #define AS_SEARCH_QUERY(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_SEARCH_QUERY, AsSearchQuery))

@@ -39,7 +39,7 @@ const gchar* AS_APPSTREAM_XML_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/xmls", "/var/
 /**
  * The path where software icons (of not-installed software) are located.
  */
-const gchar* AS_ICON_PATHS[2] = {AS_APPSTREAM_BASE_PATH "/icons", "/var/cache/app-info/icons"};
+const gchar* AS_ICON_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/icons", "/var/cache/app-info/icons", NULL};
 
 G_END_DECLS
 

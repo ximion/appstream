@@ -226,7 +226,8 @@ as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption)
 gboolean
 as_screenshot_is_valid (AsScreenshot *sshot)
 {
-	return sshot->priv->images->len > 0;
+	AsScreenshotPrivate *priv = GET_PRIVATE (sshot);
+	return priv->images->len > 0;
 }
 
 /**

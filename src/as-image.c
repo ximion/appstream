@@ -31,10 +31,7 @@
  */
 
 #include "config.h"
-
-#include "as-image-private.h"
-#include "as-node-private.h"
-#include "as-utils-private.h"
+#include "as-image.h"
 
 typedef struct _AsImagePrivate	AsImagePrivate;
 struct _AsImagePrivate
@@ -197,7 +194,7 @@ as_image_set_url (AsImage *image, const gchar *url)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
 	g_free (priv->url);
-	priv->url = as_strdup (url);
+	priv->url = g_strdup (url);
 }
 
 /**

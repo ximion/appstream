@@ -138,74 +138,6 @@ static gint string_index_of (const gchar* self, const gchar* needle, gint start_
 	}
 }
 
-
-static gchar* string_replace (const gchar* self, const gchar* old, const gchar* replacement) {
-	gchar* result = NULL;
-	GError * _inner_error_ = NULL;
-	g_return_val_if_fail (self != NULL, NULL);
-	g_return_val_if_fail (old != NULL, NULL);
-	g_return_val_if_fail (replacement != NULL, NULL);
-	{
-		GRegex* regex = NULL;
-		const gchar* _tmp0_ = NULL;
-		gchar* _tmp1_ = NULL;
-		gchar* _tmp2_ = NULL;
-		GRegex* _tmp3_ = NULL;
-		GRegex* _tmp4_ = NULL;
-		gchar* _tmp5_ = NULL;
-		GRegex* _tmp6_ = NULL;
-		const gchar* _tmp7_ = NULL;
-		gchar* _tmp8_ = NULL;
-		_tmp0_ = old;
-		_tmp1_ = g_regex_escape_string (_tmp0_, -1);
-		_tmp2_ = _tmp1_;
-		_tmp3_ = g_regex_new (_tmp2_, 0, 0, &_inner_error_);
-		_tmp4_ = _tmp3_;
-		_g_free0 (_tmp2_);
-		regex = _tmp4_;
-		if (_inner_error_ != NULL) {
-			if (_inner_error_->domain == G_REGEX_ERROR) {
-				goto __catch8_g_regex_error;
-			}
-			g_critical ("file %s: line %d: unexpected error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
-			g_clear_error (&_inner_error_);
-			return NULL;
-		}
-		_tmp6_ = regex;
-		_tmp7_ = replacement;
-		_tmp8_ = g_regex_replace_literal (_tmp6_, self, (gssize) (-1), 0, _tmp7_, 0, &_inner_error_);
-		_tmp5_ = _tmp8_;
-		if (_inner_error_ != NULL) {
-			_g_regex_unref0 (regex);
-			if (_inner_error_->domain == G_REGEX_ERROR) {
-				goto __catch8_g_regex_error;
-			}
-			_g_regex_unref0 (regex);
-			g_critical ("file %s: line %d: unexpected error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
-			g_clear_error (&_inner_error_);
-			return NULL;
-		}
-		result = _tmp5_;
-		_g_regex_unref0 (regex);
-		return result;
-	}
-	goto __finally8;
-	__catch8_g_regex_error:
-	{
-		GError* e = NULL;
-		e = _inner_error_;
-		_inner_error_ = NULL;
-		g_assert_not_reached ();
-		_g_error_free0 (e);
-	}
-	__finally8:
-	if (_inner_error_ != NULL) {
-		g_critical ("file %s: line %d: uncaught error: %s (%s, %d)", __FILE__, __LINE__, _inner_error_->message, g_quark_to_string (_inner_error_->domain), _inner_error_->code);
-		g_clear_error (&_inner_error_);
-		return NULL;
-	}
-}
-
 void as_search_query_sanitize_search_term (AsSearchQuery* self)
 {
 	gchar *search_term;
@@ -230,14 +162,14 @@ void as_search_query_sanitize_search_term (AsSearchQuery* self)
 		greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", 0);
 		for (i = 0; greylist[i] != NULL; i++) {
 			gchar *str;
-			str = string_replace (search_term, greylist[i], "");
+			str = as_str_replace (search_term, greylist[i], "");
 			as_search_query_set_search_term (self, str);
 			search_term = self->priv->search_term;
 			g_free (str);
 		}
 
 		/* restore query if it was just greylist words */
-		if (g_strcmp0 (_tmp11_, "") == 0) {
+		if (g_strcmp0 (search_term, "") == 0) {
 			g_debug ("grey-list replaced all terms, restoring");
 			as_search_query_set_search_term (self, orig_term);
 		}
@@ -268,7 +200,7 @@ void as_search_query_set_search_term (AsSearchQuery* self, const gchar* value)
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->search_term);
-	self->priv->_search_term = g_strdup (value);
+	self->priv->search_term = g_strdup (value);
 	g_object_notify ((GObject *) self, "search-term");
 }
 
@@ -387,7 +319,7 @@ static void as_search_query_set_property (GObject * object, guint property_id, c
 		{
 			gpointer boxed;
 			boxed = g_value_get_boxed (value);
-			as_search_query_set_categories (self, boxed, g_strv_length (boxed));
+			as_search_query_set_categories (self, boxed);
 		}
 		break;
 		default:
