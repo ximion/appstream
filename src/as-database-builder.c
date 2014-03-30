@@ -101,6 +101,12 @@ as_builder_construct (GType object_type)
 	for (i = 0; i < self->priv->providers->len; i++) {
 		dprov = (AsDataProvider*) g_ptr_array_index (self->priv->providers, i);
 		g_signal_connect_object (dprov, "application", (GCallback) as_builder_new_component_cb, self, 0);
+
+		/* FIXME: For some reason, we need to increase refcount of the provider objects to not raise an error
+		 * when calling unref() later.
+		 * This doesn't make sense and needs further investigation.
+		 */
+		g_object_ref (dprov);
 	}
 
 	return self;
@@ -213,6 +219,9 @@ as_builder_appstream_data_changed (AsBuilder* self)
 			g_ptr_array_add (watchfile_old, line);
 		}
 		g_object_unref (dis);
+	} else {
+		/* no watch-file: data might have changed, so we rebuild the cache */
+		ret = TRUE;
 	}
 
 	watchfile_new = g_strdup ("");
