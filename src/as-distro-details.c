@@ -65,9 +65,8 @@ as_distro_details_construct (GType object_type)
 	AsDistroDetails * self = NULL;
 	GFile* f = NULL;
 	gchar *line;
-
-	GKeyFile *keyf = NULL;
 	GError *error = NULL;
+
 	self = (AsDistroDetails*) g_object_new (object_type, NULL);
 
 	as_distro_details_set_distro_id (self, "unknown");

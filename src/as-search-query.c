@@ -186,7 +186,6 @@ void as_search_query_sanitize_search_term (AsSearchQuery* self)
 
 const gchar* as_search_query_get_search_term (AsSearchQuery* self)
 {
-	const gchar* result;
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->search_term;
 }
@@ -194,7 +193,6 @@ const gchar* as_search_query_get_search_term (AsSearchQuery* self)
 
 void as_search_query_set_search_term (AsSearchQuery* self, const gchar* value)
 {
-	const gchar* _tmp0_ = NULL;
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->search_term);

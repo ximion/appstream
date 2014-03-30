@@ -218,13 +218,14 @@ as_builder_appstream_data_changed (AsBuilder* self)
 	watchfile_new = g_strdup ("");
 	files = as_builder_get_watched_files (self);
 	for (i = 0; files[i] != NULL; i++) {
-		struct stat *sbuf;
+		struct stat *sbuf = NULL;
 		gchar *ctime_str;
 		gchar *tmp;
 		guint j;
 		gchar *wentry;
 
 		fname = files[i];
+		sbuf = malloc(sizeof(struct stat));
 		stat (fname, sbuf);
 		if (sbuf == NULL)
 			continue;
@@ -233,6 +234,8 @@ as_builder_appstream_data_changed (AsBuilder* self)
 		tmp = g_strdup_printf ("%s%s %s\n", watchfile_new, fname, ctime_str);
 		g_free (watchfile_new);
 		watchfile_new = tmp;
+
+		g_free (sbuf);
 
 		/* no need to perform test for a up-to-date data from the old watch file if it is empty */
 		if (watchfile_old->len == 0)

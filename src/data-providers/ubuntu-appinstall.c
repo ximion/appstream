@@ -43,18 +43,6 @@ static void as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntu
 static gboolean as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base);
 static void as_provider_ubuntu_appinstall_finalize (GObject* obj);
 
-
-static void _g_object_unref0_ (gpointer var) {
-	(var == NULL) ? NULL : (var = (g_object_unref (var), NULL));
-}
-
-
-static void _g_list_free__g_object_unref0_ (GList* self) {
-	g_list_foreach (self, (GFunc) _g_object_unref0_, NULL);
-	g_list_free (self);
-}
-
-
 AsProviderUbuntuAppinstall*
 as_provider_ubuntu_appinstall_construct (GType object_type)
 {

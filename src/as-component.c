@@ -240,19 +240,6 @@ _as_component_serialize_image (AsImage *img, xmlNode *subnode)
 	xmlAddChild (subnode, n_image);
 }
 
-static void
-_as_component_serialize_urls (const gchar* key, const gchar* val, xmlNode *subnode)
-{
-	xmlNode* n_image = NULL;
-	g_return_if_fail (key != NULL);
-	g_return_if_fail (val != NULL);
-
-	n_image = xmlNewTextChild (subnode, NULL, (xmlChar*) "image", (xmlChar*) val);
-	xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "source");
-	xmlNewProp (n_image, (xmlChar*) "size", (xmlChar*) key);
-	xmlAddChild (subnode, n_image);
-}
-
 /**
  * Internal function to create XML which gets stored in the AppStream database
  * for screenshots
@@ -281,7 +268,6 @@ as_component_dump_screenshot_data_xml (AsComponent* self)
 		xmlNode *subnode;
 		const gchar *str;
 		GPtrArray *images;
-		guint j;
 		sshot = (AsScreenshot*) g_ptr_array_index (sslist, i);
 
 		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "screenshot", (xmlChar*) "");
@@ -331,7 +317,7 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 	}
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {
-		if (g_strcmp0 (iter->name, "screenshot") == 0) {
+		if (g_strcmp0 ((gchar*) iter->name, "screenshot") == 0) {
 			AsScreenshot* sshot;
 			gchar *typestr;
 			xmlNode *iter2;
@@ -347,7 +333,7 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 				const gchar *node_name;
 				gchar *content;
 
-				node_name = iter2->name;
+				node_name = (const gchar*) iter2->name;
 				content = (gchar*) xmlNodeGetContent (iter2);
 				if (g_strcmp0 (node_name, "image") == 0) {
 					AsImage *img;

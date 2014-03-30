@@ -123,7 +123,7 @@ as_menu_parser_parse (AsMenuParser* self)
 
 	/* get the root node */
 	root = xmlDocGetRootElement (xdoc);
-	if ((root == NULL) || (g_strcmp0 (root->name, "Menu") != 0)) {
+	if ((root == NULL) || (g_strcmp0 ((gchar*) root->name, "Menu") != 0)) {
 		g_warning (_ ("XDG Menu XML file '%s' is damaged."), self->priv->menu_file);
 		xmlFreeDoc (xdoc);
 		return NULL;
@@ -133,7 +133,7 @@ as_menu_parser_parse (AsMenuParser* self)
 		/* spaces between tags are also nodes, discard them */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		if (g_strcmp0 (iter->name, "Menu") == 0) {
+		if (g_strcmp0 ((gchar*) iter->name, "Menu") == 0) {
 			/* parse menu entry */
 			category_list = g_list_append (category_list, as_menu_parser_parse_menu_entry (self, iter));
 		}
@@ -156,7 +156,7 @@ as_menu_parser_extend_category_name_list (AsMenuParser* self, xmlNode* nd, GList
 	for (iter = nd->children; iter != NULL; iter = iter->next) {
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		if (g_strcmp0 (iter->name, "Category") == 0) {
+		if (g_strcmp0 ((gchar*) iter->name, "Category") == 0) {
 			list = g_list_append (list, (gchar*) xmlNodeGetContent (iter));
 		}
 	}
@@ -172,20 +172,20 @@ as_menu_parser_parse_category_entry (AsMenuParser* self, xmlNode* nd, AsCategory
 	for (iter = nd->children; iter != NULL; iter = iter->next) {
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		if (g_strcmp0 (iter->name, "And") == 0) {
+		if (g_strcmp0 ((gchar*) iter->name, "And") == 0) {
 			xmlNode *not_iter;
 			as_menu_parser_extend_category_name_list (self,
 													iter,
 													as_category_get_included (cat));
 			/* check for "Not" elements */
 			for (not_iter = iter->children; not_iter != NULL; not_iter = not_iter->next) {
-				if (g_strcmp0 (not_iter->name, "Not") == 0) {
+				if (g_strcmp0 ((gchar*) not_iter->name, "Not") == 0) {
 					as_menu_parser_extend_category_name_list (self,
 													not_iter,
 													as_category_get_excluded (cat));
 				}
 			}
-		} else if (g_strcmp0 (iter->name, "Or") == 0) {
+		} else if (g_strcmp0 ((gchar*) iter->name, "Or") == 0) {
 			as_menu_parser_extend_category_name_list (self,
 													iter,
 													as_category_get_included (cat));
@@ -207,7 +207,7 @@ as_menu_parser_parse_menu_entry (AsMenuParser* self, xmlNode* nd)
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		node_name = iter->name;
+		node_name = (const gchar*) iter->name;
 		if (g_strcmp0 (node_name, "Name") == 0) {
 			/* we don't want a localized name (indicated through a language property) */
 			if (iter->properties == NULL) {

@@ -97,7 +97,6 @@ as_database_open (AsDatabase* self)
 gboolean
 as_database_db_exists (AsDatabase* self)
 {
-	gboolean result = FALSE;
 	g_return_val_if_fail (self != NULL, FALSE);
 
 	return g_file_test (self->priv->database_path, G_FILE_TEST_IS_DIR);

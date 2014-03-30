@@ -49,7 +49,6 @@ static gchar*		as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* se
 static gchar**		as_provider_appstream_xml_get_children_as_array (AsProviderAppstreamXML* self, xmlNode* node, const gchar* element_name);
 static void			as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlNode* node, AsScreenshot* sshot);
 static void			as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* app);
-static void			as_provider_appstream_xml_parse_application_node (AsProviderAppstreamXML* self, xmlNode* node);
 static gboolean		as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self, const gchar* xmldoc);
 static gboolean		as_provider_appstream_xml_real_execute (AsDataProvider* base);
 static void			as_provider_appstream_xml_finalize (GObject* obj);
@@ -165,7 +164,7 @@ as_provider_appstream_xml_get_children_as_array (AsProviderAppstreamXML* self, x
 		if (iter->type != XML_ELEMENT_NODE) {
 					continue;
 		}
-		if (g_strcmp0 (iter->name, element_name) == 0) {
+		if (g_strcmp0 ((gchar*) iter->name, element_name) == 0) {
 			gchar* content = NULL;
 			content = (gchar*) xmlNodeGetContent (iter);
 			if (content != NULL) {
@@ -256,7 +255,7 @@ static void as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstre
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 (iter->name, "screenshot") == 0) {
+		if (g_strcmp0 ((gchar*) iter->name, "screenshot") == 0) {
 			sshot = as_screenshot_new ();
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (g_strcmp0 (prop, "default") == 0)
@@ -277,7 +276,6 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 	xmlNode *iter;
 	const gchar *node_name;
 	gchar *content;
-	gchar *str;
 
 	g_return_if_fail (self != NULL);
 
@@ -289,7 +287,7 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		node_name = iter->name;
+		node_name = (const gchar*) iter->name;
 		content = as_provider_appstream_xml_parse_value (self, iter, FALSE);
 		if (g_strcmp0 (node_name, "id") == 0) {
 			if (content != NULL)
@@ -391,7 +389,7 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 		return FALSE;
 	}
 
-	if (g_strcmp0 (root->name, "components") != 0) {
+	if (g_strcmp0 ((gchar*) root->name, "components") != 0) {
 		fprintf (stderr, "XML file does not contain valid AppStream data!");
 		return FALSE;
 	}
@@ -401,7 +399,7 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 (iter->name, "component") == 0)
+		if (g_strcmp0 ((gchar*) iter->name, "component") == 0)
 			as_provider_appstream_xml_parse_component_node (self, iter);
 	}
 	xmlFreeDoc (doc);

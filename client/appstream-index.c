@@ -81,7 +81,6 @@ void as_client_set_exit_code (ASClient* self, gint value);
 void as_client_run (ASClient* self);
 gint as_client_get_exit_code (ASClient* self);
 
-static void as_client_quit_loop (ASClient* self);
 static void as_client_finalize (GObject* obj);
 
 static const GOptionEntry AS_CLIENT_options[7] = {
@@ -134,7 +133,7 @@ as_client_new (gchar** args, int argc)
 	return as_client_construct (TYPE_AS_CLIENT, args, argc);
 }
 
-
+#if 0
 static void
 as_client_quit_loop (ASClient* self)
 {
@@ -144,6 +143,7 @@ as_client_quit_loop (ASClient* self)
 		g_main_loop_quit (self->priv->loop);
 	}
 }
+#endif
 
 static void
 as_client_print_key_value (ASClient* self, const gchar* key, const gchar* val, gboolean highlight)
@@ -246,7 +246,7 @@ out:
 int
 main (int argc, char ** argv)
 {
-	ASClient* main;
+	ASClient* client;
 	gint code = 0;
 
 	/* bind locale */
@@ -256,11 +256,11 @@ main (int argc, char ** argv)
 	textdomain (GETTEXT_PACKAGE);
 
 	/* run the application */
-	main = as_client_new (argv, argc);
-	as_client_run (main);
+	client = as_client_new (argv, argc);
+	as_client_run (client);
 
-	code = main->priv->exit_code;
-	g_object_unref (main);
+	code = client->priv->exit_code;
+	g_object_unref (client);
 	return code;
 }
 

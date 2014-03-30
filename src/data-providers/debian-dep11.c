@@ -43,11 +43,12 @@ AsProviderDEP11* as_provider_dep11_new (void) {
 static gboolean
 as_provider_dep11_real_execute (AsDataProvider* base)
 {
-	AsProviderDEP11 * self;
-	gboolean result = FALSE;
-	self = (AsProviderDEP11*) base;
-	result = FALSE;
-	return result;
+	gboolean ret = FALSE;
+	ret = FALSE;
+
+	/* TODO */
+
+	return ret;
 }
 
 
