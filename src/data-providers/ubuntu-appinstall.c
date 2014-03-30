@@ -25,6 +25,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../as-menu-parser.h"
+#include "../as-utils.h"
+
 struct _AsProviderUbuntuAppinstallPrivate {
 	GList* system_categories;
 };
@@ -159,13 +162,13 @@ static void as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntu
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "Categories");
 	cats = g_strsplit (str, ";", 0);
 	g_free (str);
-	as_component_set_categories (cpt, cats, -1); // FIXME: This will become zero-terminated
+	as_component_set_categories (cpt, cats);
 	g_strfreev (cats);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "MimeType");
 	if (!as_utils_str_empty (str)) {
 		mimes = g_strsplit (str, ";", 0);
-		as_component_set_mimetypes (cpt, mimes, -1); // FIXME: This will become zero-terminated!
+		as_component_set_mimetypes (cpt, mimes);
 		g_strfreev (mimes);
 	}
 	g_free (str);
@@ -193,7 +196,7 @@ out:
 
 static gboolean as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base) {
 	AsProviderUbuntuAppinstall * self;
-	GArray* desktop_files;
+	GPtrArray* desktop_files;
 	gchar *fname;
 	guint i;
 
@@ -204,9 +207,11 @@ static gboolean as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base
 		return FALSE;
 
 	for (i = 0; i < desktop_files->len; i++) {
-			as_provider_ubuntu_appinstall_process_desktop_file (self, g_array_index (desktop_files, gchar*, i));
+			const gchar *path;
+			path = (const gchar *) g_ptr_array_index (desktop_files, i);
+			as_provider_ubuntu_appinstall_process_desktop_file (self, path);
 	}
-	g_array_unref (desktop_files);
+	g_ptr_array_unref (desktop_files);
 
 	return TRUE;
 }

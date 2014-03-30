@@ -89,9 +89,7 @@ guint		 as_image_get_height		(AsImage	*image);
 AsImageKind	 as_image_get_kind		(AsImage	*image);
 
 /* setters */
-void		 as_image_set_url		(AsImage	*image,
-						 const gchar	*url,
-						 gssize		 url_len);
+void		 as_image_set_url		(AsImage	*image, const gchar	*url);
 void		 as_image_set_width		(AsImage	*image,
 						 guint		 width);
 void		 as_image_set_height		(AsImage	*image,

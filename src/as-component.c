@@ -27,12 +27,7 @@
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 
-#define AS_TYPE_SCREENSHOT (as_screenshot_get_type ())
-#define AS_SCREENSHOT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_SCREENSHOT, AsScreenshot))
-#define AS_SCREENSHOT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_TYPE_SCREENSHOT, AsScreenshotClass))
-#define AS_IS_SCREENSHOT(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), AS_TYPE_SCREENSHOT))
-#define AS_IS_SCREENSHOT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), AS_TYPE_SCREENSHOT))
-#define AS_SCREENSHOT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), AS_TYPE_SCREENSHOT, AsScreenshotClass))
+#include "as-utils.h"
 
 struct _AsComponentPrivate {
 	AsComponentType ctype;
@@ -124,7 +119,7 @@ as_component_construct (GType object_type)
 	strv[0] = NULL;
 	as_component_set_categories (self, strv);
 	scrsarray = g_ptr_array_new_with_free_func (g_object_unref);
-	self->priv->_screenshots = scrsarray;
+	self->priv->screenshots = scrsarray;
 	return self;
 }
 
@@ -169,7 +164,7 @@ gchar*
 as_component_to_string (AsComponent* self)
 {
 	gchar* res = NULL;
-	gchar *name;
+	const gchar *name;
 	g_return_val_if_fail (self != NULL, NULL);
 
 	name = as_component_get_name (self);
@@ -211,7 +206,7 @@ as_component_set_categories_from_str (AsComponent* self, const gchar* categories
 
 void as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot)
 {
-	GPtrArray* sslits;
+	GPtrArray* sslist;
 
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (sshot != NULL);
@@ -220,15 +215,27 @@ void as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot)
 }
 
 static void
-_as_component_serialize_thumbnail_urls (const gchar* key, const gchar* val, xmlNode *subnode)
+_as_component_serialize_image (AsImage *img, xmlNode *subnode)
 {
 	xmlNode* n_image = NULL;
-	g_return_if_fail (key != NULL);
-	g_return_if_fail (val != NULL);
+	gchar *size;
+	g_return_if_fail (img != NULL);
+	g_return_if_fail (subnode != NULL);
 
-	n_image = xmlNewTextChild (subnode, NULL, (xmlChar*) "image", (xmlChar*) val);
-	xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "thumbnail");
-	xmlNewProp (n_image, (xmlChar*) "size", (xmlChar*) key);
+	n_image = xmlNewTextChild (subnode, NULL, (xmlChar*) "image", (xmlChar*) as_image_get_url (img));
+	if (as_image_get_kind (img) == AS_IMAGE_KIND_THUMBNAIL)
+		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "thumbnail");
+	else
+		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "source");
+
+	size = g_strdup_printf("%i", as_image_get_width (img));
+	xmlNewProp (n_image, (xmlChar*) "width", (xmlChar*) size);
+	g_free (size);
+
+	size = g_strdup_printf("%i", as_image_get_height (img));
+	xmlNewProp (n_image, (xmlChar*) "height", (xmlChar*) size);
+	g_free (size);
+
 	xmlAddChild (subnode, n_image);
 }
 
@@ -239,7 +246,7 @@ _as_component_serialize_urls (const gchar* key, const gchar* val, xmlNode *subno
 	g_return_if_fail (key != NULL);
 	g_return_if_fail (val != NULL);
 
-	n_image = xmlNewTextChild (_tmp0_, NULL, (xmlChar*) "image", (xmlChar*) val);
+	n_image = xmlNewTextChild (subnode, NULL, (xmlChar*) "image", (xmlChar*) val);
 	xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "source");
 	xmlNewProp (n_image, (xmlChar*) "size", (xmlChar*) key);
 	xmlAddChild (subnode, n_image);
@@ -271,26 +278,24 @@ as_component_dump_screenshot_data_xml (AsComponent* self)
 
 	for (i = 0; i < sslist->len; i++) {
 		xmlNode *subnode;
-		gchar *str;
-		GPtrArray *thumbnail_urls;
-		GPtrArray *urls;
+		const gchar *str;
+		GPtrArray *images;
+		guint j;
 		sshot = (AsScreenshot*) g_ptr_array_index (sslist, i);
 
 		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "screenshot", (xmlChar*) "");
-		if (as_screenshot_is_default (sshot))
+		if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
 			xmlNewProp (subnode, (xmlChar*) "type", (xmlChar*) "default");
 
 		str = as_screenshot_get_caption (sshot);
-		if (g_strcmp0 (sshot, "") != 0) {
+		if (g_strcmp0 (str, "") != 0) {
 			xmlNode* n_caption;
 			n_caption = xmlNewTextChild (subnode, NULL, (xmlChar*) "caption", (xmlChar*) str);
 			xmlAddChild (subnode, n_caption);
 		}
 
-		thumbnail_urls = as_screenshot_get_thumbnail_urls (sshot);
-		urls = as_screenshot_get_urls (sshot);
-		g_hash_table_foreach (thumbnail_urls, _as_component_serialize_thumbnail_urls, subnode);
-		g_hash_table_foreach (urls, _as_component_serialize_urls, subnode);
+		images = as_screenshot_get_images (sshot);
+		g_ptr_array_foreach (images, (GFunc) _as_component_serialize_image, subnode);
 	}
 
 	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
@@ -333,32 +338,47 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 			sshot = as_screenshot_new ();
 			typestr = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (g_strcmp0 (typestr, "default") == 0)
-				as_screenshot_set_default (sshot, TRUE);
+				as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
+			else
+				as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_NORMAL);
 			g_free (typestr);
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
-				gchar *node_name;
+				const gchar *node_name;
 				gchar *content;
 
 				node_name = iter2->name;
 				content = (gchar*) xmlNodeGetContent (iter2);
 				if (g_strcmp0 (node_name, "image") == 0) {
-					gchar *size_str;
+					AsImage *img;
+					gchar *str;
+					guint64 width;
+					guint64 height;
 					gchar *imgtype;
 					if (content == NULL)
 						continue;
-					size_str = (gchar*) xmlGetProp (iter2, (xmlChar*) "size");
+					img = as_image_new ();
+
+					str = (gchar*) xmlGetProp (iter2, (xmlChar*) "width");
+					width = g_ascii_strtoll (str, NULL, 10);
+					g_free (str);
+					str = (gchar*) xmlGetProp (iter2, (xmlChar*) "height");
+					height = g_ascii_strtoll (str, NULL, 10);
+					g_free (str);
+
+					as_image_set_width (img, width);
+					as_image_set_height (img, height);
+
 					/* discard invalid elements */
-					if (as_utils_str_empty (size_str)) {
-						g_free (size_str);
+					if ((width == 0) || (height == 0))
 						continue;
-					}
+					as_image_set_url (img, content);
+
 					imgtype = (gchar*) xmlGetProp (iter2, (xmlChar*) "type");
 					if (g_strcmp0 (imgtype, "thumbnail") == 0) {
-						as_screenshot_add_thumbnail_url (sshot, size_str, content);
+						as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
 					} else {
-						as_screenshot_add_url (sshot, size_str, content);
+						as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 					}
-					g_free (size_str);
 					g_free (imgtype);
 				} else if (g_strcmp0 (node_name, "caption") == 0) {
 					if (content != NULL)
@@ -366,7 +386,7 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 				}
 				g_free (content);
 			}
-			as_component_add_screenshot (sshot);
+			as_component_add_screenshot (self, sshot);
 		}
 	}
 }
@@ -483,7 +503,7 @@ const gchar* as_component_get_description (AsComponent* self) {
 	const gchar* result;
 	const gchar* _tmp0_ = NULL;
 	g_return_val_if_fail (self != NULL, NULL);
-	_tmp0_ = self->priv->_description;
+	_tmp0_ = self->priv->description;
 	result = _tmp0_;
 	return result;
 }
@@ -507,7 +527,7 @@ as_component_get_keywords (AsComponent* self)
 	return self->priv->keywords;
 }
 
-void as_component_set_keywords (AsComponent* self, gchar** value, int value_length1) {
+void as_component_set_keywords (AsComponent* self, gchar** value) {
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->keywords);
@@ -556,7 +576,7 @@ const gchar* as_component_get_homepage (AsComponent* self) {
 void as_component_set_homepage (AsComponent* self, const gchar* value) {
 	g_return_if_fail (self != NULL);
 
-	g_free (self->priv->_homepage);
+	g_free (self->priv->homepage);
 	self->priv->homepage = g_strdup (value);
 	g_object_notify ((GObject *) self, "homepage");
 }
@@ -603,7 +623,7 @@ void as_component_set_desktop_file (AsComponent* self, const gchar* value) {
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->desktop_file);
-	self->priv->_desktop_file = g_strdup (value);
+	self->priv->desktop_file = g_strdup (value);
 	g_object_notify ((GObject *) self, "desktop-file");
 }
 
@@ -661,7 +681,7 @@ static void as_component_finalize (GObject* obj) {
 	g_free (self->priv->icon_url);
 	g_free (self->priv->homepage);
 	g_free (self->priv->desktop_file);
-	g_strfreev (self->priv->keywords)
+	g_strfreev (self->priv->keywords);
 	g_strfreev (self->priv->categories);
 	g_strfreev (self->priv->mimetypes);
 	g_ptr_array_unref (self->priv->screenshots);
@@ -777,7 +797,7 @@ static void as_component_set_property (GObject * object, guint property_id, cons
 			as_component_set_description (self, g_value_get_string (value));
 			break;
 		case AS_COMPONENT_KEYWORDS:
-			as_component_set_keywords (self, value);
+			as_component_set_keywords (self, g_value_get_boxed (value));
 			break;
 		case AS_COMPONENT_ICON:
 			as_component_set_icon (self, g_value_get_string (value));
@@ -789,10 +809,10 @@ static void as_component_set_property (GObject * object, guint property_id, cons
 			as_component_set_homepage (self, g_value_get_string (value));
 			break;
 		case AS_COMPONENT_CATEGORIES:
-			as_component_set_categories (self, value);
+			as_component_set_categories (self, g_value_get_boxed (value));
 			break;
 		case AS_COMPONENT_MIMETYPES:
-			as_component_set_mimetypes (self, value);
+			as_component_set_mimetypes (self, g_value_get_boxed (value));
 			break;
 		case AS_COMPONENT_DESKTOP_FILE:
 			as_component_set_desktop_file (self, g_value_get_string (value));

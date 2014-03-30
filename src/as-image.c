@@ -188,17 +188,16 @@ as_image_get_kind (AsImage *image)
  * as_image_set_url:
  * @image: a #AsImage instance.
  * @url: the URL.
- * @url_len: the size of @url, or -1 if %NULL-terminated.
  *
  * Sets the fully-qualified mirror URL to use for the image.
  *
  **/
 void
-as_image_set_url (AsImage *image, const gchar *url, gssize url_len)
+as_image_set_url (AsImage *image, const gchar *url)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
 	g_free (priv->url);
-	priv->url = as_strndup (url, url_len);
+	priv->url = as_strdup (url);
 }
 
 /**

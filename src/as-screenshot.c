@@ -215,6 +215,21 @@ as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption)
 }
 
 /**
+ * as_screenshot_is_valid:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Performs a quick validation on this screenshot
+ *
+ * Returns: TRUE if the screenshot is a complete #AsScreenshot
+ *
+ **/
+gboolean
+as_screenshot_is_valid (AsScreenshot *sshot)
+{
+	return sshot->priv->images->len > 0;
+}
+
+/**
  * as_screenshot_new:
  *
  * Creates a new #AsScreenshot.

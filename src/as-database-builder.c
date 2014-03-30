@@ -31,6 +31,8 @@
 #include "data-providers/debian-dep11.h"
 #include "data-providers/ubuntu-appinstall.h"
 
+#include "as-database-write.h"
+
 struct _AsBuilderPrivate
 {
 	gchar* CURRENT_DB_PATH;

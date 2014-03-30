@@ -199,34 +199,40 @@ as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlN
 		node_name = (gchar*) iter->name;
 		content = as_provider_appstream_xml_parse_value (self, iter, TRUE);
 		if (g_strcmp0 (node_name, "image") == 0) {
-			gchar *width;
-			gchar *height;
+			AsImage *img;
+			guint64 width;
+			guint64 height;
 			gchar *stype;
 			gchar *str;
 			if (content == NULL) {
 				g_free (content);
 				continue;
 			}
+			img = as_image_new ();
 
-			width = (gchar*) xmlGetProp (iter, (xmlChar*) "width");
-			height = (gchar*) xmlGetProp (iter, (xmlChar*) "height");
+			str = (gchar*) xmlGetProp (iter, (xmlChar*) "width");
+			width = g_ascii_strtoll (str, NULL, 10);
+			g_free (str);
+			str = (gchar*) xmlGetProp (iter, (xmlChar*) "height");
+			height = g_ascii_strtoll (str, NULL, 10);
+			g_free (str);
 			/* discard invalid elements */
-			if ((width == NULL) || (height == NULL)) {
+			if ((width == 0) || (height == 0)) {
 				g_free (content);
-				g_free (width);
-				g_free (height);
 				continue;
 			}
 
+			as_image_set_width (img, width);
+			as_image_set_height (img, height);
+
 			stype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-			str = g_strdup_printf ("%sx%s", width, height);
 			if (g_strcmp0 (stype, "thumbnail") == 0) {
-				as_screenshot_add_thumbnail_url (sshot, str, content);
+				as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
 			} else {
-				as_screenshot_add_url (sshot, str, content);
+				as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 			}
 			g_free (stype);
-			g_free (str);
+			as_screenshot_add_image (sshot, img);
 		} else if (g_strcmp0 (node_name, "caption") == 0) {
 			if (content != NULL) {
 				as_screenshot_set_caption (sshot, content);
@@ -253,7 +259,7 @@ static void as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstre
 			sshot = as_screenshot_new ();
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (g_strcmp0 (prop, "default") == 0)
-				as_screenshot_set_default (sshot, TRUE);
+				as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
 			as_provider_appstream_xml_process_screenshot (self, iter, sshot);
 			if (as_screenshot_is_valid (sshot))
 				as_component_add_screenshot (cpt, sshot);
@@ -268,7 +274,7 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 {
 	AsComponent* cpt;
 	xmlNode *iter;
-	gchar *node_name;
+	const gchar *node_name;
 	gchar *content;
 	gchar *str;
 
@@ -313,7 +319,7 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 			}
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
-			gchar *icon_url;
+			const gchar *icon_url;
 			if (content == NULL)
 				continue;
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
@@ -337,7 +343,7 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			gchar **cat_array;
 			cat_array = as_provider_appstream_xml_get_children_as_array (self, iter, "category");
-			as_component_set_categories (cpt, cat_array, -1);
+			as_component_set_categories (cpt, cat_array);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_provider_appstream_xml_process_screenshots_tag (self, iter, cpt);
 		}
@@ -485,7 +491,7 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 
 	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
 	for (i = 0; i < len; i++) {
-		GArray *xmls;
+		GPtrArray *xmls;
 		guint j;
 
 		path = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
@@ -498,11 +504,14 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 		xmls = as_utils_find_files_matching (path, "*.xml*", FALSE);
 		if (xmls == NULL)
 			continue;
-		for (j = 0; j < xmls->len; j++)
-			g_ptr_array_add (xml_files, g_strdup (g_array_index (xmls, gchar*, j)));
+		for (j = 0; j < xmls->len; j++) {
+			const gchar *val;
+			val = (const gchar *) g_ptr_array_index (xmls, j);
+			g_ptr_array_add (xml_files, g_strdup (val));
+		}
 
 		g_free (path);
-		g_array_unref (xmls);
+		g_ptr_array_unref (xmls);
 	}
 
 	if (xml_files->len == 0) {

@@ -97,8 +97,8 @@ void				as_component_set_keywords (AsComponent* self, gchar** value);
 const gchar*		as_component_get_icon (AsComponent* self);
 const gchar*		as_component_get_icon_url (AsComponent* self);
 const gchar*		as_component_get_homepage (AsComponent* self);
-gchar**				as_component_get_mimetypes (AsComponent* self, int* result_length1);
-void				as_component_set_mimetypes (AsComponent* self, gchar** value, int value_length1);
+gchar**				as_component_get_mimetypes (AsComponent* self);
+void				as_component_set_mimetypes (AsComponent* self, gchar** value);
 
 G_END_DECLS
 

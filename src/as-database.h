@@ -26,6 +26,7 @@
 #define __AS_DATABASE_H
 
 #include <glib-object.h>
+#include "as-search-query.h"
 
 #define AS_TYPE_DATABASE (as_database_get_type ())
 #define AS_DATABASE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_DATABASE, AsDatabase))

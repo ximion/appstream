@@ -26,6 +26,7 @@
 #define __AS_DATABASEWRITE_H
 
 #include <glib-object.h>
+#include "as-database.h"
 
 #define AS_TYPE_DATABASE_WRITE (as_database_write_get_type ())
 #define AS_DATABASE_WRITE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_DATABASE_WRITE, AsDatabaseWrite))
