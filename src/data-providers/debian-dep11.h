@@ -46,6 +46,8 @@ struct _AsProviderDEP11Class {
 	AsDataProviderClass parent_class;
 };
 
+GType					as_provider_dep11_get_type (void) G_GNUC_CONST;
+
 AsProviderDEP11*		as_provider_dep11_new (void);
 AsProviderDEP11*		as_provider_dep11_construct (GType object_type);
 

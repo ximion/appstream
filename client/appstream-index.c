@@ -230,6 +230,7 @@ as_client_run (ASClient* self)
 			goto out;
 		}
 
+		builder = as_builder_new ();
 		as_builder_initialize (builder);
 		as_builder_refresh_cache (builder, as_client_o_force);
 		g_object_unref (builder);

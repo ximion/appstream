@@ -26,10 +26,9 @@
 static gpointer as_provider_dep11_parent_class = NULL;
 static gboolean as_provider_dep11_real_execute (AsDataProvider* base);
 
-GType as_data_provider_get_type (void) G_GNUC_CONST;
-GType as_provider_dep11_get_type (void) G_GNUC_CONST;
-
-AsProviderDEP11* as_provider_dep11_construct (GType object_type) {
+AsProviderDEP11*
+as_provider_dep11_construct (GType object_type)
+{
 	AsProviderDEP11 * self = NULL;
 	self = (AsProviderDEP11*) as_data_provider_construct (object_type);
 	return self;
@@ -41,7 +40,9 @@ AsProviderDEP11* as_provider_dep11_new (void) {
 }
 
 
-static gboolean as_provider_dep11_real_execute (AsDataProvider* base) {
+static gboolean
+as_provider_dep11_real_execute (AsDataProvider* base)
+{
 	AsProviderDEP11 * self;
 	gboolean result = FALSE;
 	self = (AsProviderDEP11*) base;
@@ -50,17 +51,23 @@ static gboolean as_provider_dep11_real_execute (AsDataProvider* base) {
 }
 
 
-static void as_provider_dep11_class_init (AsProviderDEP11Class * klass) {
+static void
+as_provider_dep11_class_init (AsProviderDEP11Class * klass)
+{
 	as_provider_dep11_parent_class = g_type_class_peek_parent (klass);
 	AS_DATA_PROVIDER_CLASS (klass)->execute = as_provider_dep11_real_execute;
 }
 
 
-static void as_provider_dep11_instance_init (AsProviderDEP11 * self) {
+static void
+as_provider_dep11_instance_init (AsProviderDEP11 * self)
+{
 }
 
 
-GType as_provider_dep11_get_type (void) {
+GType
+as_provider_dep11_get_type (void)
+{
 	static volatile gsize as_provider_dep11_type_id__volatile = 0;
 	if (g_once_init_enter (&as_provider_dep11_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = {

@@ -89,15 +89,12 @@ as_builder_construct (GType object_type)
 	self->priv->cpt_list = g_ptr_array_new_with_free_func (g_object_unref);
 	self->priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
-	dprov = (AsDataProvider*) as_provider_appstream_xml_new ();
-	g_ptr_array_add (self->priv->providers, dprov);
+	g_ptr_array_add (self->priv->providers, (AsDataProvider*) as_provider_appstream_xml_new ());
 #ifdef DEBIAN_DEP11
-	dprov = (AsDataProvider*) as_provider_dep11_new ();
-	g_ptr_array_add (self->priv->providers, dprov);
+	g_ptr_array_add (self->priv->providers, (AsDataProvider*) as_provider_dep11_new ());
 #endif
 #ifdef UBUNTU_APPINSTALL
-	dprov = (AsDataProvider*) as_provider_ubuntu_appinstall_new ();
-	g_ptr_array_add (self->priv->providers, dprov);
+	g_ptr_array_add (self->priv->providers, (AsDataProvider*) as_provider_ubuntu_appinstall_new ());
 #endif
 
 	/* connect all data provider signals */
@@ -163,6 +160,9 @@ as_builder_get_watched_files (AsBuilder* self)
 		guint j;
 		dprov = (AsDataProvider*) g_ptr_array_index (self->priv->providers, i);
 		wfiles = as_data_provider_get_watch_files (dprov);
+		/* if there is nothing to watch for, we can just continue here */
+		if (wfiles == NULL)
+			continue;
 		for (j = 0; wfiles[j] != NULL; j++) {
 			g_ptr_array_add (res_array, wfiles[j]);
 		}
@@ -226,15 +226,12 @@ as_builder_appstream_data_changed (AsBuilder* self)
 
 		fname = files[i];
 		stat (fname, sbuf);
-		if (sbuf == NULL) {
-			g_free (sbuf);
+		if (sbuf == NULL)
 			continue;
-		}
 
 		ctime_str = g_strdup_printf ("%ld", (glong) sbuf->st_ctime);
-		tmp = g_strdup_printf ("%s%s %s", watchfile_new, fname, ctime_str);
+		tmp = g_strdup_printf ("%s%s %s\n", watchfile_new, fname, ctime_str);
 		g_free (watchfile_new);
-		g_free (sbuf);
 		watchfile_new = tmp;
 
 		/* no need to perform test for a up-to-date data from the old watch file if it is empty */
@@ -243,7 +240,7 @@ as_builder_appstream_data_changed (AsBuilder* self)
 
 		for (j = 0; j < watchfile_old->len; j++) {
 			gchar **wparts;
-			wentry = (gchar*) g_ptr_array_index (self->priv->providers, j);
+			wentry = (gchar*) g_ptr_array_index (watchfile_old, j);
 
 			if (g_str_has_prefix (wentry, fname)) {
 				wparts = g_strsplit (wentry, " ", 2);
@@ -315,8 +312,8 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	g_debug ("Refreshing AppStream cache");
 
 	/* just in case, clear the components list */
-	g_ptr_array_unref (self->priv->providers);
-	self->priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
+	g_ptr_array_unref (self->priv->cpt_list);
+	self->priv->cpt_list = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* call all AppStream data providers to return components they find */
 	for (i = 0; i < self->priv->providers->len; i++) {

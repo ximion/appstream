@@ -55,7 +55,9 @@ static void _g_list_free__g_object_unref0_ (GList* self) {
 }
 
 
-AsProviderUbuntuAppinstall* as_provider_ubuntu_appinstall_construct (GType object_type) {
+AsProviderUbuntuAppinstall*
+as_provider_ubuntu_appinstall_construct (GType object_type)
+{
 	AsProviderUbuntuAppinstall * self = NULL;
 	gchar** watch_files = NULL;
 
@@ -72,12 +74,16 @@ AsProviderUbuntuAppinstall* as_provider_ubuntu_appinstall_construct (GType objec
 }
 
 
-AsProviderUbuntuAppinstall* as_provider_ubuntu_appinstall_new (void) {
+AsProviderUbuntuAppinstall*
+as_provider_ubuntu_appinstall_new (void)
+{
 	return as_provider_ubuntu_appinstall_construct (AS_PROVIDER_TYPE_UBUNTU_APPINSTALL);
 }
 
 
-static gchar* as_provider_ubuntu_appinstall_desktop_file_get_str (AsProviderUbuntuAppinstall* self, GKeyFile* key_file, const gchar* key) {
+static gchar*
+as_provider_ubuntu_appinstall_desktop_file_get_str (AsProviderUbuntuAppinstall* self, GKeyFile* key_file, const gchar* key)
+{
 	gchar* str;
 	gchar* s;
 	GError *error = NULL;
@@ -100,7 +106,9 @@ out:
 }
 
 
-static void as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* self, const gchar* fname) {
+static void
+as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* self, const gchar* fname)
+{
 	GError *error = NULL;
 	GKeyFile *dfile;
 	AsComponent *cpt;
@@ -123,6 +131,7 @@ static void as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntu
 
 	/* a fresh component */
 	cpt = as_component_new ();
+	as_component_set_ctype (cpt, AS_COMPONENT_TYPE_DESKTOP_APP);
 
 	/* get the base filename from Ubuntu AppInstall data */
 	lines = g_strsplit (fname, ":", 2);
@@ -132,12 +141,17 @@ static void as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntu
 		g_free (desktop_file_name);
 		desktop_file_name = g_path_get_basename (fname);
 	}
+	as_component_set_desktop_file (cpt, desktop_file_name);
+	as_component_set_idname (cpt, desktop_file_name);
+	g_free (desktop_file_name);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "X-AppInstall-Ignore");
 	str2 = g_utf8_strdown (str, (gssize) (-1));
 	g_free (str);
-	if (g_strcmp0 (str2, "true") == 0)
+	if (g_strcmp0 (str2, "true") == 0) {
+		g_free (str2);
 		goto out;
+	}
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "X-AppInstall-Package");
 	as_component_set_pkgname (cpt, str);
@@ -188,13 +202,12 @@ out:
 	g_key_file_unref (dfile);
 	if (error != NULL)
 		g_error_free (error);
-	/* cleanup temp strings, just in case */
-	g_free (str);
-	g_free (str2);
 }
 
 
-static gboolean as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base) {
+static gboolean
+as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base)
+{
 	AsProviderUbuntuAppinstall * self;
 	GPtrArray* desktop_files;
 	gchar *fname;
@@ -217,7 +230,9 @@ static gboolean as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base
 }
 
 
-static void as_provider_ubuntu_appinstall_class_init (AsProviderUbuntuAppinstallClass * klass) {
+static void
+as_provider_ubuntu_appinstall_class_init (AsProviderUbuntuAppinstallClass * klass)
+{
 	as_provider_ubuntu_appinstall_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (AsProviderUbuntuAppinstallPrivate));
 	AS_DATA_PROVIDER_CLASS (klass)->execute = as_provider_ubuntu_appinstall_real_execute;
@@ -225,12 +240,16 @@ static void as_provider_ubuntu_appinstall_class_init (AsProviderUbuntuAppinstall
 }
 
 
-static void as_provider_ubuntu_appinstall_instance_init (AsProviderUbuntuAppinstall * self) {
+static void
+as_provider_ubuntu_appinstall_instance_init (AsProviderUbuntuAppinstall * self)
+{
 	self->priv = AS_PROVIDER_UBUNTU_APPINSTALL_GET_PRIVATE (self);
 }
 
 
-static void as_provider_ubuntu_appinstall_finalize (GObject* obj) {
+static void
+as_provider_ubuntu_appinstall_finalize (GObject* obj)
+{
 	AsProviderUbuntuAppinstall * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_PROVIDER_TYPE_UBUNTU_APPINSTALL, AsProviderUbuntuAppinstall);
 	g_object_unref (self->priv->system_categories);
@@ -238,7 +257,9 @@ static void as_provider_ubuntu_appinstall_finalize (GObject* obj) {
 }
 
 
-GType as_provider_ubuntu_appinstall_get_type (void) {
+GType
+as_provider_ubuntu_appinstall_get_type (void)
+{
 	static volatile gsize as_provider_ubuntu_appinstall_type_id__volatile = 0;
 	if (g_once_init_enter (&as_provider_ubuntu_appinstall_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = {

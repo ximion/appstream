@@ -114,6 +114,7 @@ as_component_construct (GType object_type)
 	as_component_set_icon (self, "");
 	as_component_set_icon_url (self, "");
 	as_component_set_desktop_file (self, "");
+	self->priv->keywords = NULL;
 
 	strv = g_new0 (gchar*, 1 + 1);
 	strv[0] = NULL;

@@ -178,12 +178,14 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 
 		// Add our keywords (with high priority)
 		gchar **keywords = as_component_get_keywords (cpt);
-		for (uint i = 0; keywords[i] != NULL; i++) {
-			if (keywords[i] == NULL)
-				continue;
+		if (keywords != NULL) {
+			for (uint i = 0; keywords[i] != NULL; i++) {
+				if (keywords[i] == NULL)
+					continue;
 
-			string kword = keywords[i];
-			term_generator.index_text_without_positions (kword, WEIGHT_DESKTOP_KEYWORD);
+				string kword = keywords[i];
+				term_generator.index_text_without_positions (kword, WEIGHT_DESKTOP_KEYWORD);
+			}
 		}
 
 		// Add screenshot information (XML data)
