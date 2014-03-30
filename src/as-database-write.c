@@ -28,9 +28,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
-#include <database-vala.hpp>
 #include <glib/gstdio.h>
 
+#include "xapian/database-vala.hpp"
 #include "as-settings-private.h"
 
 struct _AsDatabaseWritePrivate {

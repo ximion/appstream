@@ -39,6 +39,7 @@ struct _AsProviderAppstreamXMLPrivate {
 	GList* system_categories;
 };
 
+const gchar* AS_APPSTREAM_XML_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/xmls", "/var/cache/app-info/xmls", NULL};
 
 static gpointer as_provider_appstream_xml_parent_class = NULL;
 

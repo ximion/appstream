@@ -65,7 +65,7 @@ DatabaseWrite::initialize (const gchar *dbPath)
 }
 
 bool
-DatabaseWrite::rebuild (GArray *apps)
+DatabaseWrite::rebuild (GPtrArray *cpt_list)
 {
 	string old_path = m_dbPath + "_old";
 	string rebuild_path = m_dbPath + "_rb";
@@ -107,18 +107,18 @@ DatabaseWrite::rebuild (GArray *apps)
 		// Ignore
 	}
 
-	for (guint i=0; i < apps->len; i++) {
-		AsComponent *app = g_array_index (apps, AsComponent*, i);
+	for (guint i=0; i < cpt_list->len; i++) {
+		AsComponent *cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
 		Xapian::Document doc;
 		term_generator.set_document (doc);
 
-		g_debug ("Adding application: %s", as_component_to_string (app));
+		g_debug ("Adding application: %s", as_component_to_string (cpt));
 
-		doc.set_data (as_component_get_name (app));
+		doc.set_data (as_component_get_name (cpt));
 
 		// Package name
-		string pkgname = as_component_get_pkgname (app);
+		string pkgname = as_component_get_pkgname (cpt);
 		doc.add_value (XapianValues::PKGNAME, pkgname);
 		doc.add_term("AP" + pkgname);
 		if (pkgname.find ("-") != string::npos) {
@@ -131,36 +131,36 @@ DatabaseWrite::rebuild (GArray *apps)
 		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 
 		// Untranslated application name
-		string appNameGeneric = as_component_get_name_original (app);
+		string appNameGeneric = as_component_get_name_original (cpt);
 		doc.add_value (XapianValues::APPNAME_UNTRANSLATED, appNameGeneric);
 		term_generator.index_text_without_positions (appNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
 		// Application name
-		string appName = as_component_get_name (app);
+		string appName = as_component_get_name (cpt);
 		doc.add_value (XapianValues::APPNAME, appName);
 
 		// Desktop file
-		doc.add_value (XapianValues::DESKTOP_FILE, as_component_get_desktop_file (app));
+		doc.add_value (XapianValues::DESKTOP_FILE, as_component_get_desktop_file (cpt));
 
 		// URL
-		doc.add_value (XapianValues::URL_HOMEPAGE, as_component_get_homepage (app));
+		doc.add_value (XapianValues::URL_HOMEPAGE, as_component_get_homepage (cpt));
 
 		// Application icon
-		doc.add_value (XapianValues::ICON, as_component_get_icon (app));
-		doc.add_value (XapianValues::ICON_URL, as_component_get_icon_url (app));
+		doc.add_value (XapianValues::ICON, as_component_get_icon (cpt));
+		doc.add_value (XapianValues::ICON_URL, as_component_get_icon_url (cpt));
 
 		// Summary
-		string appSummary = as_component_get_summary (app);
-		doc.add_value (XapianValues::SUMMARY, appSummary);
-		term_generator.index_text_without_positions (appSummary, WEIGHT_DESKTOP_SUMMARY);
+		string cptSummary = as_component_get_summary (cpt);
+		doc.add_value (XapianValues::SUMMARY, cptSummary);
+		term_generator.index_text_without_positions (cptSummary, WEIGHT_DESKTOP_SUMMARY);
 
 		// Long description
-		string description = as_component_get_description (app);
+		string description = as_component_get_description (cpt);
 		doc.add_value (XapianValues::DESCRIPTION, description);
 		term_generator.index_text_without_positions (description, WEIGHT_DESKTOP_SUMMARY);
 
 		// Categories
-		gchar **categories = as_component_get_categories (app);
+		gchar **categories = as_component_get_categories (cpt);
 
 		string categories_string = "";
 		for (uint i = 0; categories[i] != NULL; i++) {
@@ -177,7 +177,7 @@ DatabaseWrite::rebuild (GArray *apps)
 		doc.add_value (XapianValues::CATEGORIES, categories_string);
 
 		// Add our keywords (with high priority)
-		gchar **keywords = as_component_get_keywords (app);
+		gchar **keywords = as_component_get_keywords (cpt);
 		for (uint i = 0; keywords[i] != NULL; i++) {
 			if (keywords[i] == NULL)
 				continue;
@@ -187,7 +187,7 @@ DatabaseWrite::rebuild (GArray *apps)
 		}
 
 		// Add screenshot information (XML data)
-		doc.add_value (XapianValues::SCREENSHOT_DATA, as_component_dump_screenshot_data_xml (app));
+		doc.add_value (XapianValues::SCREENSHOT_DATA, as_component_dump_screenshot_data_xml (cpt));
 
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 

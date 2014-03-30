@@ -62,7 +62,7 @@ gboolean xa_database_write_add_application (XADatabaseWrite *db, AsComponent *ap
 	return realDbWrite (db)->addApplication (app);
 };
 
-gboolean xa_database_write_rebuild (XADatabaseWrite *db, GArray *apps)
+gboolean xa_database_write_rebuild (XADatabaseWrite *db, GPtrArray *cpt_list)
 {
-	return realDbWrite (db)->rebuild (apps);
+	return realDbWrite (db)->rebuild (cpt_list);
 };

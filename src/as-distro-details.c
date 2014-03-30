@@ -36,11 +36,14 @@ struct _AsDistroDetailsPrivate {
 	GKeyFile* keyf;
 };
 
+/**
+ * The path where software icons (of not-installed software) are located.
+ */
+const gchar* AS_ICON_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/icons", "/var/cache/app-info/icons", NULL};
 
 static gpointer as_distro_details_parent_class = NULL;
-
-
 #define AS_DISTRO_DETAILS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_DISTRO_DETAILS, AsDistroDetailsPrivate))
+
 enum  {
 	AS_DISTRO_DETAILS_DUMMY_PROPERTY,
 	AS_DISTRO_DETAILS_DISTRO_ID,
