@@ -197,7 +197,7 @@ DatabaseRead::getQueryForCategory (gchar *cat_id)
  * Get Xapian::Query from a search term string and a limit the
  * search to the given category
  */
-Xapian::Query
+vector<Xapian::Query>
 DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
 {
 	// prepare search-term
@@ -219,12 +219,20 @@ DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
 
 	// empty query returns a query that matches nothing (for performance
 	// reasons)
-	if ((search_term.compare ("") == 0) && (searchAll))
-		return Xapian::Query ();
+	if ((search_term.compare ("") == 0) && (searchAll)) {
+		Xapian::Query vv[2] = { Xapian::Query(), Xapian::Query () };
+		vector<Xapian::Query> res(&vv[0], &vv[0]+2);
+		return res;
+	}
 
 	// we cheat and return a match-all query for single letter searches
-	if (search_term.length () < 2)
-            return addCategoryToQuery (Xapian::Query (""), category_query);
+	if (search_term.length () < 2) {
+		Xapian::Query allQuery = addCategoryToQuery (Xapian::Query (""), category_query);
+		// I want C++11!
+        Xapian::Query vv[2] = { allQuery, allQuery };
+		vector<Xapian::Query> res(&vv[0], &vv[0]+2);
+		return res;
+	}
 
 	// get a pkg query
 	Xapian::Query pkg_query = Xapian::Query ();
@@ -258,30 +266,48 @@ DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
 	// now add categories
 	fuzzy_query = addCategoryToQuery (fuzzy_query, category_query);
 
-        return (pkg_query, fuzzy_query);
+	Xapian::Query vv[2] = { pkg_query, fuzzy_query };
+	vector<Xapian::Query> res(&vv[0], &vv[0]+2);
+	return res;
+}
+
+void
+DatabaseRead::appendSearchResults (Xapian::Enquire enquire, GPtrArray *cptArray)
+{
+	Xapian::MSet matches = enquire.get_mset (0, m_xapianDB.get_doccount ());
+	for (Xapian::MSetIterator it = matches.begin(); it != matches.end(); ++it) {
+		Xapian::Document doc = it.get_document ();
+
+		AsComponent *app = docToComponent (doc);
+		g_ptr_array_add (cptArray, g_object_ref (app));
+	}
 }
 
 GPtrArray*
 DatabaseRead::findApplications (AsSearchQuery *asQuery)
 {
 	// Create new array to store the app-info objects
-	GPtrArray *appArray = g_ptr_array_new_with_free_func (g_object_unref);
+	GPtrArray *cptArray = g_ptr_array_new_with_free_func (g_object_unref);
+	vector<Xapian::Query> qlist;
 
-	Xapian::Query query = queryListFromSearchEntry (asQuery);
+	// "normal" query
+	qlist = queryListFromSearchEntry (asQuery);
+	Xapian::Query query = qlist[0];
 	query.serialise ();
 
 	Xapian::Enquire enquire = Xapian::Enquire (m_xapianDB);
 	enquire.set_query (query);
+	appendSearchResults (enquire, cptArray);
 
-	Xapian::MSet matches = enquire.get_mset (0, m_xapianDB.get_doccount ());
-	for (Xapian::MSetIterator it = matches.begin(); it != matches.end(); ++it) {
-		Xapian::Document doc = it.get_document ();
+	// fuzzy query
+	query = qlist[1];
+	query.serialise ();
 
-		AsComponent *app = docToComponent (doc);
-		g_ptr_array_add (appArray, g_object_ref (app));
-	}
+	enquire = Xapian::Enquire (m_xapianDB);
+	enquire.set_query (query);
+	appendSearchResults (enquire, cptArray);
 
-	return appArray;
+	return cptArray;
 }
 
 GPtrArray*

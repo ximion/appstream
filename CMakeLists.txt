@@ -25,12 +25,17 @@ option(PROVIDER_DEBIAN_DEP11 "Enable DEP11 data provider" OFF)
 option(PROVIDER_UBUNTU_APPINSTALL "Enable AppInstall data provider" OFF)
 option(L18N "Enable localization" ON)
 option(TESTS "Enable Unit Tests" OFF)
+option(MAINTAINER "Enable maintainer mode" OFF)
 
 if(PROVIDER_DEBIAN_DEP11)
 	add_definitions ("-DDEBIAN_DEP11")
 endif()
 if(PROVIDER_UBUNTU_APPINSTALL)
 	add_definitions ("-DUBUNTU_APPINSTALL")
+endif()
+
+if(MAINTAINER)
+	add_definitions ("-Wall" "-Werror")
 endif()
 
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)

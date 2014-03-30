@@ -55,11 +55,12 @@ private:
 
 	AsComponent *docToComponent (Xapian::Document);
 
-	Xapian::QueryParser newAppStreamParser ();
-	Xapian::Query addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
-	Xapian::Query getQueryForPkgNames (vector<string> pkgnames);
-	Xapian::Query getQueryForCategory (gchar *cat_id);
-	Xapian::Query queryListFromSearchEntry (AsSearchQuery *asQuery);
+	Xapian::QueryParser		newAppStreamParser ();
+	Xapian::Query			addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
+	Xapian::Query			getQueryForPkgNames (vector<string> pkgnames);
+	Xapian::Query			getQueryForCategory (gchar *cat_id);
+	void					appendSearchResults (Xapian::Enquire enquire, GPtrArray *cptArray);
+	vector<Xapian::Query>	queryListFromSearchEntry (AsSearchQuery *asQuery);
 };
 
 inline DatabaseRead* realDbRead (XADatabaseRead* d) { return static_cast<DatabaseRead*>(d); }
