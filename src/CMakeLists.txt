@@ -7,8 +7,12 @@ find_package(GI REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_library(M_LIB m)
 
-set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
+include(GObjectIntrospectionMacros)
+set(INTROSPECTION_GIRS)
+set(INTROSPECTION_SCANNER_ARGS "--identifier-prefix=As" "--symbol-prefix=as_" "--warn-all" "--add-include-path=${CMAKE_CURRENT_SOURCE_DIR}")
+set(INTROSPECTION_COMPILER_ARGS "--includedir=${CMAKE_CURRENT_SOURCE_DIR}")
 
+set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp
@@ -98,6 +102,30 @@ target_link_libraries(appstream
 )
 
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc @ONLY)
+
+####
+# GObject Introspection
+
+macro(_list_prefix _outvar _listvar _prefix)
+  set(${_outvar})
+  foreach(_item IN LISTS ${_listvar})
+    list(APPEND ${_outvar} ${_prefix}${_item})
+  endforeach()
+endmacro(_list_prefix)
+
+set(introspection_files ${LIBAPPSTREAM_SRC} ${LIBAPPSTREAM_PUBLIC_HEADERS})
+set(Appstream_0_6_gir "appstream")
+set(Appstream_0_6_gir_INCLUDES GObject-2.0 Gio-2.0)
+set(Appstream_0_6_gir_CFLAGS ${_includes} -DAS_COMPILATION)
+set(Appstream_0_6_gir_LIBS appstream)
+
+_list_prefix(Appstream_0_6_gir_FILES introspection_files "${CMAKE_CURRENT_SOURCE_DIR}/")
+set(Appstream_0_6_gir_SCANNERFLAGS --c-include appstream.h)
+set(Appstream_0_6_gir_EXPORT_PACKAGES appstream)
+
+list(APPEND INTROSPECTION_GIRS Appstream-0.6.gir)
+gir_add_introspections(INTROSPECTION_GIRS)
+####
 
 install(TARGETS appstream DESTINATION ${INSTALL_DIR_LIB})
 install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION include)
