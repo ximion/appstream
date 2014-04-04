@@ -108,12 +108,18 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_description (app, appDescription.c_str ());
 
 	// Categories
-	string categories_string = doc.get_value (XapianValues::CATEGORIES);
-	as_component_set_categories_from_str (app, categories_string.c_str ());
+	string categories_str = doc.get_value (XapianValues::CATEGORIES);
+	as_component_set_categories_from_str (app, categories_str.c_str ());
 
 	// Screenshot data
 	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOT_DATA);
 	as_component_load_screenshots_from_internal_xml (app, screenshot_xml.c_str ());
+
+	// Compulsory-for-desktop information
+	string compulsory_str = doc.get_value (XapianValues::COMPULSORY_FOR);
+	gchar **strv = g_strsplit (compulsory_str.c_str (), ";", -1);
+	as_component_set_compulsory_for_desktops (app, strv);
+	g_strfreev (strv);
 
 	// TODO
 
@@ -208,7 +214,7 @@ DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
 	// generate category query
 	Xapian::Query category_query = Xapian::Query ();
 	gchar **categories = as_search_query_get_categories (asQuery);
-	string categories_string = "";
+	string categories_str = "";
 	for (uint i = 0; categories[i] != NULL; i++) {
 		gchar *cat_id = categories[i];
 

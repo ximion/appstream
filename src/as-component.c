@@ -31,20 +31,21 @@
 
 struct _AsComponentPrivate {
 	AsComponentKind kind;
-	gchar* pkgname;
-	gchar* idname;
-	gchar* name;
-	gchar* name_original;
-	gchar* summary;
-	gchar* description;
-	gchar** keywords;
-	gchar* icon;
-	gchar* icon_url;
-	gchar* homepage;
-	gchar** categories;
-	gchar** mimetypes;
-	gchar* desktop_file;
-	GPtrArray* screenshots;
+	gchar *pkgname;
+	gchar *idname;
+	gchar *name;
+	gchar *name_original;
+	gchar *summary;
+	gchar *description;
+	gchar **keywords;
+	gchar *icon;
+	gchar *icon_url;
+	gchar *homepage;
+	gchar **categories;
+	gchar **mimetypes;
+	gchar *desktop_file;
+	gchar **compulsory_for_desktops;
+	GPtrArray *screenshots; /* AsScreenshot elements */
 };
 
 static gpointer as_component_parent_class = NULL;
@@ -415,6 +416,47 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 	}
 }
 
+/**
+ * as_component_complete:
+ *
+ * Private function to complete a AsComponent with
+ * additional data found on the system.
+ *
+ * @scr_base_url Base url for screenshot-service, obtain via #AsDistroDetails
+ */
+void
+as_component_complete (AsComponent* self, gchar *scr_base_url)
+{
+	AsComponentPrivate *priv = self->priv;
+
+	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
+	if (priv->screenshots->len == 0) {
+		gchar *url;
+		AsImage *img;
+		AsScreenshot *sshot;
+
+		url = g_build_filename (scr_base_url, "screenshot", priv->pkgname, NULL);
+
+		/* screenshots.debian.net-like services dont specify a size, so we choose the default */
+		img = as_image_new ();
+		as_image_set_url (img, url);
+		as_image_set_width (img, 800);
+		as_image_set_height (img, 600);
+
+		/* add main screenshot */
+		sshot = as_screenshot_new ();
+		as_screenshot_add_image (sshot, img);
+		as_component_add_screenshot (self, sshot);
+
+		g_object_unref (img);
+		g_object_unref (sshot);
+
+		/* TODO: Add thumbnail screenshots as well */
+
+		g_free (url);
+	}
+}
+
 AsComponentKind
 as_component_get_kind (AsComponent* self)
 {
@@ -669,7 +711,6 @@ as_component_set_mimetypes (AsComponent* self, gchar** value)
 	g_object_notify ((GObject *) self, "mimetypes");
 }
 
-
 const gchar*
 as_component_get_desktop_file (AsComponent* self)
 {
@@ -704,44 +745,30 @@ as_component_get_screenshots (AsComponent* self)
 }
 
 /**
- * as_component_complete:
+ * as_component_get_compulsory_for_desktops:
  *
- * Private function to complete a AsComponent with
- * additional data found on the system.
- *
- * @scr_base_url Base url for screenshot-service, obtain via #AsDistroDetails
- */
-void
-as_component_complete (AsComponent* self, gchar *scr_base_url)
+ * Return value: (transfer none): A list of desktops where this component is compulsory
+ **/
+gchar **
+as_component_get_compulsory_for_desktops (AsComponent* self)
 {
-	AsComponentPrivate *priv = self->priv;
+	g_return_val_if_fail (self != NULL, NULL);
 
-	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
-	if (priv->screenshots->len == 0) {
-		gchar *url;
-		AsImage *img;
-		AsScreenshot *sshot;
+	return self->priv->compulsory_for_desktops;
+}
 
-		url = g_build_filename (scr_base_url, "screenshot", priv->pkgname, NULL);
+/**
+ * as_component_set_compulsory_for_desktops:
+ *
+ * Set a list of desktops where this component is compulsory.
+ **/
+void
+as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value)
+{
+	g_return_if_fail (self != NULL);
 
-		/* screenshots.debian.net-like services dont specify a size, so we choose the default */
-		img = as_image_new ();
-		as_image_set_url (img, url);
-		as_image_set_width (img, 800);
-		as_image_set_height (img, 600);
-
-		/* add main screenshot */
-		sshot = as_screenshot_new ();
-		as_screenshot_add_image (sshot, img);
-		as_component_add_screenshot (self, sshot);
-
-		g_object_unref (img);
-		g_object_unref (sshot);
-
-		/* TODO: Add thumbnail screenshots as well */
-
-		g_free (url);
-	}
+	g_strfreev (self->priv->compulsory_for_desktops);
+	self->priv->compulsory_for_desktops = as_strv_dup (value);
 }
 
 static void
@@ -784,7 +811,7 @@ as_component_instance_init (AsComponent * self)
 static void
 as_component_finalize (GObject* obj)
 {
-	AsComponent * self;
+	AsComponent *self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_COMPONENT, AsComponent);
 	g_free (self->priv->pkgname);
 	g_free (self->priv->idname);
@@ -799,6 +826,7 @@ as_component_finalize (GObject* obj)
 	g_strfreev (self->priv->keywords);
 	g_strfreev (self->priv->categories);
 	g_strfreev (self->priv->mimetypes);
+	g_strfreev (self->priv->compulsory_for_desktops);
 	g_ptr_array_unref (self->priv->screenshots);
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (obj);
 }

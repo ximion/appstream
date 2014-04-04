@@ -227,9 +227,13 @@ as_client_run (ASClient* self)
 				GPtrArray *imgs = NULL;
 				AsScreenshot *sshot;
 				AsImage *img;
+				gchar *str;
+				gchar *strv;
 
+				/* long description */
 				as_client_print_key_value (self, "Description", as_component_get_description (cpt), FALSE);
 
+				/* some simple screenshot information */
 				sshot_array = as_component_get_screenshots (cpt);
 				if (sshot_array->len > 0) {
 					sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, 0);
@@ -241,6 +245,13 @@ as_client_run (ASClient* self)
 					}
 				}
 
+				/* desktop-compulsority */
+				strv = as_component_get_compulsory_for_desktops (cpt);
+				if (strv != NULL) {
+					str = g_strjoinv (", ", strv);
+					as_client_print_key_value (self, "Compulsory for", str, FALSE);
+					g_free (str);
+				}
 			}
 
 			as_client_print_separator (self);

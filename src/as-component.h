@@ -99,6 +99,8 @@ const gchar*		as_component_get_icon_url (AsComponent* self);
 const gchar*		as_component_get_homepage (AsComponent* self);
 gchar**				as_component_get_mimetypes (AsComponent* self);
 void				as_component_set_mimetypes (AsComponent* self, gchar** value);
+gchar**				as_component_get_compulsory_for_desktops (AsComponent* self);
+void				as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value);
 
 G_END_DECLS
 

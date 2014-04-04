@@ -276,8 +276,12 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 	xmlNode *iter;
 	const gchar *node_name;
 	gchar *content;
+	GPtrArray *compulsory_for_desktops;
+	gchar **strv;
 
 	g_return_if_fail (self != NULL);
+
+	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 
 	/* a fresh app component */
 	cpt = as_component_new ();
@@ -350,21 +354,31 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 			as_component_set_categories (cpt, cat_array);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_provider_appstream_xml_process_screenshots_tag (self, iter, cpt);
+		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
+			if (content != NULL)
+				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));
 		}
 		g_free (content);
-
-		if (as_component_is_valid (cpt)) {
-			as_data_provider_emit_application ((AsDataProvider*) self, cpt);
-		} else {
-			gchar *cpt_str;
-			gchar *msg;
-			cpt_str = as_component_to_string (cpt);
-			msg = g_strdup_printf ("Invalid component found: %s", cpt_str);
-			g_free (cpt_str);
-			as_data_provider_log_warning ((AsDataProvider*) self, msg);
-			g_free (msg);
-		}
 	}
+
+	/* add compulsory information to component as strv */
+	strv = as_ptr_array_to_strv (compulsory_for_desktops);
+	as_component_set_compulsory_for_desktops (cpt, strv);
+	g_ptr_array_unref (compulsory_for_desktops);
+	g_strfreev (strv);
+
+	if (as_component_is_valid (cpt)) {
+		as_data_provider_emit_application ((AsDataProvider*) self, cpt);
+	} else {
+		gchar *cpt_str;
+		gchar *msg;
+		cpt_str = as_component_to_string (cpt);
+		msg = g_strdup_printf ("Invalid component found: %s", cpt_str);
+		g_free (cpt_str);
+		as_data_provider_log_warning ((AsDataProvider*) self, msg);
+		g_free (msg);
+	}
+
 	g_object_unref (cpt);
 }
 

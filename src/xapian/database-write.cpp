@@ -162,7 +162,7 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 		// Categories
 		gchar **categories = as_component_get_categories (cpt);
 
-		string categories_string = "";
+		string categories_str = "";
 		for (uint i = 0; categories[i] != NULL; i++) {
 			if (categories[i] == NULL)
 				continue;
@@ -172,9 +172,9 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 			transform (tmp.begin (), tmp.end (),
 					tmp.begin (), ::tolower);
 			doc.add_term ("AC" + tmp);
-			categories_string += cat + ";";
+			categories_str += cat + ";";
 		}
-		doc.add_value (XapianValues::CATEGORIES, categories_string);
+		doc.add_value (XapianValues::CATEGORIES, categories_str);
 
 		// Add our keywords (with high priority)
 		gchar **keywords = as_component_get_keywords (cpt);
@@ -190,6 +190,17 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 
 		// Add screenshot information (XML data)
 		doc.add_value (XapianValues::SCREENSHOT_DATA, as_component_dump_screenshot_data_xml (cpt));
+
+		// Add compulsory-for-desktop information
+		gchar **compulsory = as_component_get_compulsory_for_desktops (cpt);
+		string compulsory_str;
+		if (compulsory != NULL) {
+			gchar *str;
+			str = g_strjoinv (";", compulsory);
+			compulsory_str = string(str);
+			g_free (str);
+		}
+		doc.add_value (XapianValues::COMPULSORY_FOR, compulsory_str);
 
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
