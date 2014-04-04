@@ -56,8 +56,8 @@ static void as_search_query_finalize (GObject* obj);
 static void as_search_query_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec);
 static void as_search_query_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
 
-
-AsSearchQuery* as_search_query_construct (GType object_type, const gchar* term)
+AsSearchQuery*
+as_search_query_construct (GType object_type, const gchar* term)
 {
 	AsSearchQuery * self = NULL;
 	g_return_val_if_fail (term != NULL, NULL);
@@ -67,17 +67,28 @@ AsSearchQuery* as_search_query_construct (GType object_type, const gchar* term)
 	return self;
 }
 
-
-AsSearchQuery* as_search_query_new (const gchar* term)
+/**
+ * as_search_query_new:
+ *
+ * Creates a new #AsSearchQuery.
+ *
+ * Returns: (transfer full): an #AsSearchQuery
+ *
+ **/
+AsSearchQuery*
+as_search_query_new (const gchar* term)
 {
 	return as_search_query_construct (AS_TYPE_SEARCH_QUERY, term);
 }
 
 
 /**
- * @return TRUE if we search in all categories
+ * as_search_query_get_search_all_categories:
+ *
+ * Returns: TRUE if we search in all categories
  */
-gboolean as_search_query_get_search_all_categories (AsSearchQuery* self)
+gboolean
+as_search_query_get_search_all_categories (AsSearchQuery* self)
 {
 	g_return_val_if_fail (self != NULL, FALSE);
 
@@ -88,7 +99,8 @@ gboolean as_search_query_get_search_all_categories (AsSearchQuery* self)
 /**
  * Shortcut to set that we should search in all categories
  */
-void as_search_query_set_search_all_categories (AsSearchQuery* self)
+void
+as_search_query_set_search_all_categories (AsSearchQuery* self)
 {
 	gchar **strv;
 	g_return_if_fail (self != NULL);
@@ -99,11 +111,14 @@ void as_search_query_set_search_all_categories (AsSearchQuery* self)
 
 
 /**
+ * as_search_query_set_categories_from_string:
+ *
  * Set the categories list from a string
  *
- * @param categories_str Comma-separated list of category-names
+ * @categories_str Comma-separated list of category-names
  */
-void as_search_query_set_categories_from_string (AsSearchQuery* self, const gchar* categories_str)
+void
+as_search_query_set_categories_from_string (AsSearchQuery* self, const gchar* categories_str)
 {
 	gchar **cats;
 	g_return_if_fail (self != NULL);
@@ -115,7 +130,9 @@ void as_search_query_set_categories_from_string (AsSearchQuery* self, const gcha
 }
 
 
-static gint string_index_of (const gchar* self, const gchar* needle, gint start_index) {
+static gint
+string_index_of (const gchar* self, const gchar* needle, gint start_index)
+{
 	gint result = 0;
 	gchar* _result_ = NULL;
 	gint _tmp0_ = 0;
@@ -140,7 +157,8 @@ static gint string_index_of (const gchar* self, const gchar* needle, gint start_
 	}
 }
 
-void as_search_query_sanitize_search_term (AsSearchQuery* self)
+void
+as_search_query_sanitize_search_term (AsSearchQuery* self)
 {
 	gchar *search_term;
 	g_return_if_fail (self != NULL);
@@ -184,14 +202,16 @@ void as_search_query_sanitize_search_term (AsSearchQuery* self)
 }
 
 
-const gchar* as_search_query_get_search_term (AsSearchQuery* self)
+const gchar*
+as_search_query_get_search_term (AsSearchQuery* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->search_term;
 }
 
 
-void as_search_query_set_search_term (AsSearchQuery* self, const gchar* value)
+void
+as_search_query_set_search_term (AsSearchQuery* self, const gchar* value)
 {
 	g_return_if_fail (self != NULL);
 
@@ -201,7 +221,8 @@ void as_search_query_set_search_term (AsSearchQuery* self, const gchar* value)
 }
 
 
-gchar** as_search_query_get_categories (AsSearchQuery* self)
+gchar**
+as_search_query_get_categories (AsSearchQuery* self)
 {
 	gchar** result;
 	g_return_val_if_fail (self != NULL, NULL);
@@ -209,7 +230,9 @@ gchar** as_search_query_get_categories (AsSearchQuery* self)
 	return result;
 }
 
-static gchar** str_array_dup (gchar** self) {
+static gchar**
+str_array_dup (gchar** self)
+{
 	gchar** result;
 	guint length;
 	int i;
@@ -223,14 +246,18 @@ static gchar** str_array_dup (gchar** self) {
 	return result;
 }
 
-void as_search_query_set_categories (AsSearchQuery* self, gchar** value) {
+void
+as_search_query_set_categories (AsSearchQuery* self, gchar** value)
+{
 	g_return_if_fail (self != NULL);
 	self->priv->categories = str_array_dup (value);
 	g_object_notify ((GObject *) self, "categories");
 }
 
 
-static void as_search_query_class_init (AsSearchQueryClass * klass) {
+static void
+as_search_query_class_init (AsSearchQueryClass * klass)
+{
 	as_search_query_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (AsSearchQueryPrivate));
 	G_OBJECT_CLASS (klass)->get_property = as_search_query_get_property;
@@ -247,12 +274,16 @@ static void as_search_query_class_init (AsSearchQueryClass * klass) {
 }
 
 
-static void as_search_query_instance_init (AsSearchQuery * self) {
+static void
+as_search_query_instance_init (AsSearchQuery * self)
+{
 	self->priv = AS_SEARCH_QUERY_GET_PRIVATE (self);
 }
 
 
-static void as_search_query_finalize (GObject* obj) {
+static void
+as_search_query_finalize (GObject* obj)
+{
 	AsSearchQuery * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_SEARCH_QUERY, AsSearchQuery);
 	g_free (self->priv->search_term);
@@ -264,7 +295,9 @@ static void as_search_query_finalize (GObject* obj) {
 /**
  * Class describing a query on the AppStream component database
  */
-GType as_search_query_get_type (void) {
+GType
+as_search_query_get_type (void)
+{
 	static volatile gsize as_search_query_type_id__volatile = 0;
 	if (g_once_init_enter (&as_search_query_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = {
@@ -287,7 +320,9 @@ GType as_search_query_get_type (void) {
 }
 
 
-static void as_search_query_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec) {
+static void
+as_search_query_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)
+{
 	AsSearchQuery * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_SEARCH_QUERY, AsSearchQuery);
 	switch (property_id) {
@@ -304,7 +339,9 @@ static void as_search_query_get_property (GObject * object, guint property_id, G
 }
 
 
-static void as_search_query_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec) {
+static void
+as_search_query_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec)
+{
 	AsSearchQuery * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_SEARCH_QUERY, AsSearchQuery);
 	switch (property_id) {

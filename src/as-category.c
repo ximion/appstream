@@ -160,7 +160,11 @@ as_category_remove_subcategory (AsCategory* self, AsCategory* cat)
 
 
 /**
- * @return TRUE if this category has any subcategory
+ * as_category_has_subcategory:
+ *
+ * Test for sub-categories.
+ * 
+ * Returns: TRUE if this category has any subcategory
  */
 gboolean
 as_category_has_subcategory (AsCategory* self)

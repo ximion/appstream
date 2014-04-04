@@ -105,7 +105,6 @@ configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINA
 
 ####
 # GObject Introspection
-
 macro(_list_prefix _outvar _listvar _prefix)
   set(${_outvar})
   foreach(_item IN LISTS ${_listvar})
@@ -132,8 +131,8 @@ install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION include)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${INSTALL_DIR_LIB}/pkgconfig/)
 
 #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi DESTINATION share/vala/vapi)
-#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.gir DESTINATION share/gir-1.0/)
-#install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStream-${AS_VERSION_LIBS}.typelib DESTINATION lib/girepository-1.0/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_LIBS}.gir DESTINATION share/gir-1.0/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_LIBS}.typelib DESTINATION lib/girepository-1.0/)
 
 # include the PackageKit plugin
 add_subdirectory(pk-plugin)

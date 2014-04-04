@@ -92,7 +92,9 @@ as_database_open (AsDatabase* self)
 
 
 /**
- * @return TRUE if the application database exists
+ * as_database_db_exists:
+ *
+ * Returns: TRUE if the application database exists
  */
 gboolean
 as_database_db_exists (AsDatabase* self)
@@ -102,6 +104,15 @@ as_database_db_exists (AsDatabase* self)
 	return g_file_test (self->priv->database_path, G_FILE_TEST_IS_DIR);
 }
 
+/**
+ * as_database_get_all_components:
+ *
+ * Dump a list of all components found in the database.
+ *
+ * @self a valid #AsDatabase instance
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects
+ */
 GPtrArray*
 as_database_get_all_components (AsDatabase* self)
 {
@@ -114,9 +125,19 @@ as_database_get_all_components (AsDatabase* self)
 	return cpt_array;
 }
 
-
+/**
+ * as_database_find_components:
+ *
+ * Find components in the Appstream database.
+ *
+ * @self a valid #AsDatabase instance
+ * @query a #AsSearchQuery
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
+ */
 GPtrArray*
-as_database_find_components (AsDatabase* self, AsSearchQuery* query) {
+as_database_find_components (AsDatabase* self, AsSearchQuery* query)
+{
 	GPtrArray* cpt_array;
 	g_return_val_if_fail (self != NULL, NULL);
 	g_return_val_if_fail (query != NULL, NULL);
@@ -127,6 +148,17 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query) {
 	return cpt_array;
 }
 
+/**
+ * as_database_find_components_by_str:
+ *
+ * Find components in the Appstream database by searching for a simple string.
+ *
+ * @self a valid #AsDatabase instance
+ * @search_str the string to search for
+ * @categories_str: (allow-none): a comma-separated list of category names, or NULL to search in all categories
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
+ */
 GPtrArray*
 as_database_find_components_by_str (AsDatabase* self, const gchar* search_str, const gchar* categories_str)
 {
@@ -196,7 +228,8 @@ as_database_set_property (GObject * object, guint property_id, const GValue * va
 }
 
 static void
-as_database_class_init (AsDatabaseClass * klass) {
+as_database_class_init (AsDatabaseClass * klass)
+{
 	as_database_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (AsDatabasePrivate));
 	AS_DATABASE_CLASS (klass)->open = as_database_real_open;
@@ -233,7 +266,8 @@ as_database_finalize (GObject* obj)
  * application database
  */
 GType
-as_database_get_type (void) {
+as_database_get_type (void)
+{
 	static volatile gsize as_database_type_id__volatile = 0;
 	if (g_once_init_enter (&as_database_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = {

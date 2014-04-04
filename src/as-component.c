@@ -124,7 +124,14 @@ as_component_construct (GType object_type)
 	return self;
 }
 
-
+/**
+ * as_component_new:
+ *
+ * Creates a new #AsComponent.
+ *
+ * Returns: (transfer full): an #AsComponent
+ *
+ **/
 AsComponent*
 as_component_new (void)
 {
@@ -132,8 +139,12 @@ as_component_new (void)
 }
 
 /**
+ * as_component_is_valid:
+ *
  * Check if the essential properties of this Component are
  * populated with useful data.
+ *
+ * Returns: TRUE if the component data was validated successfully.
  */
 gboolean
 as_component_is_valid (AsComponent* self)
@@ -161,6 +172,14 @@ as_component_is_valid (AsComponent* self)
 	return ret;
 }
 
+/**
+ * as_component_to_string:
+ *
+ * Returns a string identifying this component.
+ * (useful for debugging)
+ *
+ * Returns: (transfer full): A descriptive string
+ **/
 gchar*
 as_component_to_string (AsComponent* self)
 {
@@ -187,9 +206,12 @@ as_component_to_string (AsComponent* self)
 
 
 /**
+ * as_component_set_categories_from_str:
+ *
  * Set the categories list from a string
  *
- * @param categories_str Comma-separated list of category-names
+ * @self a valid #AsComponent instance
+ * @categories_str Comma-separated list of category-names
  */
 void
 as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str)
@@ -205,7 +227,8 @@ as_component_set_categories_from_str (AsComponent* self, const gchar* categories
 }
 
 
-void as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot)
+void
+as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot)
 {
 	GPtrArray* sslist;
 
@@ -457,7 +480,9 @@ as_component_get_name (AsComponent* self)
 }
 
 
-void as_component_set_name (AsComponent* self, const gchar* value) {
+void
+as_component_set_name (AsComponent* self, const gchar* value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->name);
@@ -466,13 +491,17 @@ void as_component_set_name (AsComponent* self, const gchar* value) {
 }
 
 
-const gchar* as_component_get_name_original (AsComponent* self) {
+const gchar*
+as_component_get_name_original (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->name_original;
 }
 
 
-void as_component_set_name_original (AsComponent* self, const gchar* value) {
+void
+as_component_set_name_original (AsComponent* self, const gchar* value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->name_original);
@@ -481,14 +510,18 @@ void as_component_set_name_original (AsComponent* self, const gchar* value) {
 }
 
 
-const gchar* as_component_get_summary (AsComponent* self) {
+const gchar*
+as_component_get_summary (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 
 	return self->priv->summary;
 }
 
 
-void as_component_set_summary (AsComponent* self, const gchar* value) {
+void
+as_component_set_summary (AsComponent* self, const gchar* value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->summary);
@@ -497,7 +530,9 @@ void as_component_set_summary (AsComponent* self, const gchar* value) {
 }
 
 
-const gchar* as_component_get_description (AsComponent* self) {
+const gchar*
+as_component_get_description (AsComponent* self)
+{
 	const gchar* result;
 	const gchar* _tmp0_ = NULL;
 	g_return_val_if_fail (self != NULL, NULL);
@@ -525,7 +560,9 @@ as_component_get_keywords (AsComponent* self)
 	return self->priv->keywords;
 }
 
-void as_component_set_keywords (AsComponent* self, gchar** value) {
+void
+as_component_set_keywords (AsComponent* self, gchar** value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->keywords);
@@ -534,13 +571,17 @@ void as_component_set_keywords (AsComponent* self, gchar** value) {
 }
 
 
-const gchar* as_component_get_icon (AsComponent* self) {
+const gchar*
+as_component_get_icon (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->icon;
 }
 
 
-void as_component_set_icon (AsComponent* self, const gchar* value) {
+void
+as_component_set_icon (AsComponent* self, const gchar* value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->icon);
@@ -549,13 +590,17 @@ void as_component_set_icon (AsComponent* self, const gchar* value) {
 }
 
 
-const gchar* as_component_get_icon_url (AsComponent* self) {
+const gchar*
+as_component_get_icon_url (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->icon_url;
 }
 
 
-void as_component_set_icon_url (AsComponent* self, const gchar* value) {
+void
+as_component_set_icon_url (AsComponent* self, const gchar* value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->icon_url);
@@ -564,14 +609,18 @@ void as_component_set_icon_url (AsComponent* self, const gchar* value) {
 }
 
 
-const gchar* as_component_get_homepage (AsComponent* self) {
+const gchar*
+as_component_get_homepage (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 
 	return self->priv->homepage;
 }
 
 
-void as_component_set_homepage (AsComponent* self, const gchar* value) {
+void
+as_component_set_homepage (AsComponent* self, const gchar* value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->homepage);
@@ -580,14 +629,17 @@ void as_component_set_homepage (AsComponent* self, const gchar* value) {
 }
 
 
-gchar** as_component_get_categories (AsComponent* self)
+gchar**
+as_component_get_categories (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 
 	return self->priv->categories;
 }
 
-void as_component_set_categories (AsComponent* self, gchar** value) {
+void
+as_component_set_categories (AsComponent* self, gchar** value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->categories);
@@ -596,13 +648,17 @@ void as_component_set_categories (AsComponent* self, gchar** value) {
 }
 
 
-gchar** as_component_get_mimetypes (AsComponent* self) {
+gchar**
+as_component_get_mimetypes (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 
 	return self->priv->mimetypes;
 }
 
-void as_component_set_mimetypes (AsComponent* self, gchar** value) {
+void
+as_component_set_mimetypes (AsComponent* self, gchar** value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->mimetypes);
@@ -611,13 +667,17 @@ void as_component_set_mimetypes (AsComponent* self, gchar** value) {
 }
 
 
-const gchar* as_component_get_desktop_file (AsComponent* self) {
+const gchar*
+as_component_get_desktop_file (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->desktop_file;
 }
 
 
-void as_component_set_desktop_file (AsComponent* self, const gchar* value) {
+void
+as_component_set_desktop_file (AsComponent* self, const gchar* value)
+{
 	g_return_if_fail (self != NULL);
 
 	g_free (self->priv->desktop_file);
@@ -625,15 +685,25 @@ void as_component_set_desktop_file (AsComponent* self, const gchar* value) {
 	g_object_notify ((GObject *) self, "desktop-file");
 }
 
-
-GPtrArray* as_component_get_screenshots (AsComponent* self) {
+/**
+ * as_component_get_screenshots:
+ *
+ * Get a list of associated screenshots.
+ *
+ * Returns: (element-type AsScreenshot) (transfer none): an array of #AsScreenshot instances
+ */
+GPtrArray*
+as_component_get_screenshots (AsComponent* self)
+{
 	g_return_val_if_fail (self != NULL, NULL);
 
 	return self->priv->screenshots;
 }
 
 
-static void as_component_class_init (AsComponentClass * klass) {
+static void
+as_component_class_init (AsComponentClass * klass)
+{
 	as_component_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (AsComponentPrivate));
 	G_OBJECT_CLASS (klass)->get_property = as_component_get_property;
@@ -661,12 +731,16 @@ static void as_component_class_init (AsComponentClass * klass) {
 }
 
 
-static void as_component_instance_init (AsComponent * self) {
+static void
+as_component_instance_init (AsComponent * self)
+{
 	self->priv = AS_COMPONENT_GET_PRIVATE (self);
 }
 
 
-static void as_component_finalize (GObject* obj) {
+static void
+as_component_finalize (GObject* obj)
+{
 	AsComponent * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_COMPONENT, AsComponent);
 	g_free (self->priv->pkgname);
@@ -690,7 +764,9 @@ static void as_component_finalize (GObject* obj) {
 /**
  * Class to store data describing a component in AppStream
  */
-GType as_component_get_type (void) {
+GType
+as_component_get_type (void)
+{
 	static volatile gsize as_component_type_id__volatile = 0;
 	if (g_once_init_enter (&as_component_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = {
@@ -713,7 +789,9 @@ GType as_component_get_type (void) {
 }
 
 
-static void as_component_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec) {
+static void
+as_component_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)
+{
 	AsComponent * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
 	switch (property_id) {
@@ -769,7 +847,9 @@ static void as_component_get_property (GObject * object, guint property_id, GVal
 }
 
 
-static void as_component_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec) {
+static void
+as_component_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec)
+{
 	AsComponent * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
 	switch (property_id) {
