@@ -290,8 +290,10 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 		node_name = (const gchar*) iter->name;
 		content = as_provider_appstream_xml_parse_value (self, iter, FALSE);
 		if (g_strcmp0 (node_name, "id") == 0) {
-			if (content != NULL)
+			if (content != NULL) {
 				as_component_set_desktop_file (cpt, content);
+				as_component_set_idname (cpt, content);
+			}
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (content != NULL)
 				as_component_set_pkgname (cpt, content);
