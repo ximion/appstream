@@ -71,6 +71,7 @@ static gboolean as_client_o_force;
 static gboolean as_client_o_force = FALSE;
 static gchar* as_client_o_search;
 static gchar* as_client_o_search = NULL;
+static gboolean as_client_o_details = FALSE;
 
 GType as_client_get_type (void) G_GNUC_CONST;
 #define AS_CLIENT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_AS_CLIENT, ASClientPrivate))
@@ -83,13 +84,14 @@ gint as_client_get_exit_code (ASClient* self);
 
 static void as_client_finalize (GObject* obj);
 
-static const GOptionEntry AS_CLIENT_options[7] = {
+static const GOptionEntry AS_CLIENT_options[8] = {
 	{"version", 'v', 0, G_OPTION_ARG_NONE, &as_client_o_show_version, "Show the application's version", NULL},
 	{"verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, "Enable verbose mode", NULL},
 	{"no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, "Don't show colored output", NULL},
-	{"refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, "Rebuild the application information cache", NULL},
+	{"refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, "Rebuild the component information cache", NULL},
 	{"force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, "Enforce a cache refresh", NULL},
-	{"search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, "Search the application database", NULL},
+	{"search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, "Search the component database", NULL},
+	{"details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, "Print detailed output about found components", NULL},
 	{NULL}
 };
 
@@ -219,6 +221,11 @@ as_client_run (ASClient* self)
 			as_client_print_key_value (self, "Homepage", as_component_get_homepage (cpt), FALSE);
 			as_client_print_key_value (self, "Desktop-File", as_component_get_desktop_file (cpt), FALSE);
 			as_client_print_key_value (self, "Icon", as_component_get_icon_url (cpt), FALSE);
+
+			if (as_client_o_search) {
+				as_client_print_key_value (self, "Description", as_component_get_description (cpt), FALSE);
+			}
+
 			as_client_print_separator (self);
 		}
 		g_ptr_array_unref (cpt_list);
