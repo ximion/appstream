@@ -278,6 +278,7 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 	gchar *content;
 	GPtrArray *compulsory_for_desktops;
 	gchar **strv;
+	gchar *cpttype;
 
 	g_return_if_fail (self != NULL);
 
@@ -285,7 +286,23 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 
 	/* a fresh app component */
 	cpt = as_component_new ();
-	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+
+	/* find out which kind of component we are dealing with */
+	cpttype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	if ((cpttype == NULL) || (g_strcmp0 (cpttype, "generic") == 0)) {
+		as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	} else if (g_strcmp0 (cpttype, "desktop") == 0) {
+		as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	} else if (g_strcmp0 (cpttype, "font") == 0) {
+		as_component_set_kind (cpt, AS_COMPONENT_KIND_FONT);
+	} else if (g_strcmp0 (cpttype, "codec") == 0) {
+		as_component_set_kind (cpt, AS_COMPONENT_KIND_CODEC);
+	} else if (g_strcmp0 (cpttype, "inputmethod") == 0) {
+		as_component_set_kind (cpt, AS_COMPONENT_KIND_INPUTMETHOD);
+	} else {
+		as_component_set_kind (cpt, AS_COMPONENT_KIND_UNKNOWN);
+		g_debug ("An unknown component was found: %s", cpttype);
+	}
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
@@ -351,6 +368,12 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 			as_component_set_categories (cpt, cat_array);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_provider_appstream_xml_process_screenshots_tag (self, iter, cpt);
+		} else if (g_strcmp0 (node_name, "project_license") == 0) {
+			if (content != NULL)
+				as_component_set_project_license (cpt, content);
+		} else if (g_strcmp0 (node_name, "project_group") == 0) {
+			if (content != NULL)
+				as_component_set_project_group (cpt, content);
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (content != NULL)
 				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));
