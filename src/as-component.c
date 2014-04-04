@@ -30,7 +30,7 @@
 #include "as-utils.h"
 
 struct _AsComponentPrivate {
-	AsComponentType ctype;
+	AsComponentKind kind;
 	gchar* pkgname;
 	gchar* idname;
 	gchar* name;
@@ -52,7 +52,7 @@ static gpointer as_component_parent_class = NULL;
 #define AS_COMPONENT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_COMPONENT, AsComponentPrivate))
 enum  {
 	AS_COMPONENT_DUMMY_PROPERTY,
-	AS_COMPONENT_CTYPE,
+	AS_COMPONENT_KIND,
 	AS_COMPONENT_PKGNAME,
 	AS_COMPONENT_IDNAME,
 	AS_COMPONENT_NAME,
@@ -82,17 +82,17 @@ as_component_type_get_type (void)
 	static volatile gsize as_component_type_type_id__volatile = 0;
 	if (g_once_init_enter (&as_component_type_type_id__volatile)) {
 		static const GEnumValue values[] = {
-					{AS_COMPONENT_TYPE_UNKNOWN, "AS_COMPONENT_TYPE_UNKNOWN", "unknown"},
-					{AS_COMPONENT_TYPE_GENERIC, "AS_COMPONENT_TYPE_GENERIC", "generic"},
-					{AS_COMPONENT_TYPE_DESKTOP_APP, "AS_COMPONENT_TYPE_DESKTOP_APP", "desktop-app"},
-					{AS_COMPONENT_TYPE_FONT, "AS_COMPONENT_TYPE_FONT", "font"},
-					{AS_COMPONENT_TYPE_CODEC, "AS_COMPONENT_TYPE_CODEC", "codec"},
-					{AS_COMPONENT_TYPE_INPUTMETHOD, "AS_COMPONENT_TYPE_INPUTMETHOD", "inputmethod"},
-					{AS_COMPONENT_TYPE_LAST, "AS_COMPONENT_TYPE_LAST", "last"},
+					{AS_COMPONENT_KIND_UNKNOWN, "AS_COMPONENT_KIND_UNKNOWN", "unknown"},
+					{AS_COMPONENT_KIND_GENERIC, "AS_COMPONENT_KIND_GENERIC", "generic"},
+					{AS_COMPONENT_KIND_DESKTOP_APP, "AS_COMPONENT_KIND_DESKTOP_APP", "desktop-app"},
+					{AS_COMPONENT_KIND_FONT, "AS_COMPONENT_KIND_FONT", "font"},
+					{AS_COMPONENT_KIND_CODEC, "AS_COMPONENT_KIND_CODEC", "codec"},
+					{AS_COMPONENT_KIND_INPUTMETHOD, "AS_COMPONENT_KIND_INPUTMETHOD", "inputmethod"},
+					{AS_COMPONENT_KIND_LAST, "AS_COMPONENT_KIND_LAST", "last"},
 					{0, NULL, NULL}
 		};
 		GType as_component_type_type_id;
-		as_component_type_type_id = g_enum_register_static ("AsComponentType", values);
+		as_component_type_type_id = g_enum_register_static ("AsComponentKind", values);
 		g_once_init_leave (&as_component_type_type_id__volatile, as_component_type_type_id);
 	}
 	return as_component_type_type_id__volatile;
@@ -150,12 +150,12 @@ gboolean
 as_component_is_valid (AsComponent* self)
 {
 	gboolean ret = FALSE;
-	AsComponentType ctype;
+	AsComponentKind ctype;
 
 	g_return_val_if_fail (self != NULL, FALSE);
 
-	ctype = self->priv->ctype;
-	if (ctype == AS_COMPONENT_TYPE_UNKNOWN)
+	ctype = self->priv->kind;
+	if (ctype == AS_COMPONENT_KIND_UNKNOWN)
 		return FALSE;
 
 	if ((g_strcmp0 (self->priv->pkgname, "") != 0) &&
@@ -165,7 +165,7 @@ as_component_is_valid (AsComponent* self)
 		ret = TRUE;
 		}
 
-	if ((ret) && ctype == AS_COMPONENT_TYPE_DESKTOP_APP) {
+	if ((ret) && ctype == AS_COMPONENT_KIND_DESKTOP_APP) {
 		ret = g_strcmp0 (self->priv->desktop_file, "") != 0;
 	}
 
@@ -188,8 +188,8 @@ as_component_to_string (AsComponent* self)
 	g_return_val_if_fail (self != NULL, NULL);
 
 	name = as_component_get_name (self);
-	switch (self->priv->ctype) {
-		case AS_COMPONENT_TYPE_DESKTOP_APP:
+	switch (self->priv->kind) {
+		case AS_COMPONENT_KIND_DESKTOP_APP:
 		{
 			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", self->priv->desktop_file, name, self->priv->pkgname, self->priv->summary);
 			break;
@@ -412,20 +412,20 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 	}
 }
 
-AsComponentType
-as_component_get_ctype (AsComponent* self)
+AsComponentKind
+as_component_get_kind (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, 0);
-	return self->priv->ctype;
+	return self->priv->kind;
 }
 
 
 void
-as_component_set_ctype (AsComponent* self, AsComponentType value)
+as_component_set_kind (AsComponent* self, AsComponentKind value)
 {
 	g_return_if_fail (self != NULL);
 
-	self->priv->ctype = value;
+	self->priv->kind = value;
 	g_object_notify ((GObject *) self, "ctype");
 }
 
@@ -709,7 +709,7 @@ as_component_class_init (AsComponentClass * klass)
 	G_OBJECT_CLASS (klass)->get_property = as_component_get_property;
 	G_OBJECT_CLASS (klass)->set_property = as_component_set_property;
 	G_OBJECT_CLASS (klass)->finalize = as_component_finalize;
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_CTYPE, g_param_spec_enum ("ctype", "ctype", "ctype", AS_TYPE_COMPONENT_TYPE, 0, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_KIND, g_param_spec_enum ("kind", "kind", "kind", AS_TYPE_COMPONENT_TYPE, 0, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PKGNAME, g_param_spec_string ("pkgname", "pkgname", "pkgname", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_IDNAME, g_param_spec_string ("idname", "idname", "idname", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_NAME, g_param_spec_string ("name", "name", "name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
@@ -795,8 +795,8 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 	AsComponent * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
 	switch (property_id) {
-		case AS_COMPONENT_CTYPE:
-			g_value_set_enum (value, as_component_get_ctype (self));
+		case AS_COMPONENT_KIND:
+			g_value_set_enum (value, as_component_get_kind (self));
 			break;
 		case AS_COMPONENT_PKGNAME:
 			g_value_set_string (value, as_component_get_pkgname (self));
@@ -853,8 +853,8 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 	AsComponent * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
 	switch (property_id) {
-		case AS_COMPONENT_CTYPE:
-			as_component_set_ctype (self, g_value_get_enum (value));
+		case AS_COMPONENT_KIND:
+			as_component_set_kind (self, g_value_get_enum (value));
 			break;
 		case AS_COMPONENT_PKGNAME:
 			as_component_set_pkgname (self, g_value_get_string (value));

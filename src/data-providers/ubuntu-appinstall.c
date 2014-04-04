@@ -119,7 +119,7 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 
 	/* a fresh component */
 	cpt = as_component_new ();
-	as_component_set_ctype (cpt, AS_COMPONENT_TYPE_DESKTOP_APP);
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 
 	/* get the base filename from Ubuntu AppInstall data */
 	lines = g_strsplit (fname, ":", 2);

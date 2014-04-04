@@ -281,7 +281,7 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 
 	/* a fresh app component */
 	cpt = as_component_new ();
-	as_component_set_ctype (cpt, AS_COMPONENT_TYPE_DESKTOP_APP);
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */

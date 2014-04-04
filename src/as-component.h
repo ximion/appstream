@@ -52,14 +52,14 @@ struct _AsComponentClass {
 };
 
 typedef enum  {
-	AS_COMPONENT_TYPE_UNKNOWN,
-	AS_COMPONENT_TYPE_GENERIC,
-	AS_COMPONENT_TYPE_DESKTOP_APP,
-	AS_COMPONENT_TYPE_FONT,
-	AS_COMPONENT_TYPE_CODEC,
-	AS_COMPONENT_TYPE_INPUTMETHOD,
-	AS_COMPONENT_TYPE_LAST
-} AsComponentType;
+	AS_COMPONENT_KIND_UNKNOWN,
+	AS_COMPONENT_KIND_GENERIC,
+	AS_COMPONENT_KIND_DESKTOP_APP,
+	AS_COMPONENT_KIND_FONT,
+	AS_COMPONENT_KIND_CODEC,
+	AS_COMPONENT_KIND_INPUTMETHOD,
+	AS_COMPONENT_KIND_LAST
+} AsComponentKind;
 
 GType			as_component_type_get_type (void) G_GNUC_CONST;
 GType			as_component_get_type (void) G_GNUC_CONST;
@@ -77,7 +77,7 @@ void				as_component_set_icon_url (AsComponent* self, const gchar* value);
 void				as_component_set_desktop_file (AsComponent* self, const gchar* value);
 void				as_component_set_categories (AsComponent* self, gchar** value);
 gboolean			as_component_is_valid (AsComponent* self);
-AsComponentType		as_component_get_ctype (AsComponent* self);
+AsComponentKind		as_component_get_kind (AsComponent* self);
 const gchar*		as_component_get_pkgname (AsComponent* self);
 const gchar*		as_component_get_idname (AsComponent* self);
 const gchar*		as_component_get_name (AsComponent* self);
@@ -89,7 +89,7 @@ void				as_component_set_categories_from_str (AsComponent* self, const gchar* ca
 gchar**				as_component_get_categories (AsComponent* self);
 void				as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot);
 GPtrArray*			as_component_get_screenshots (AsComponent* self);
-void				as_component_set_ctype (AsComponent* self, AsComponentType value);
+void				as_component_set_kind (AsComponent* self, AsComponentKind value);
 void				as_component_set_name (AsComponent* self, const gchar* value);
 const gchar*		as_component_get_description (AsComponent* self);
 gchar**				as_component_get_keywords (AsComponent* self);
