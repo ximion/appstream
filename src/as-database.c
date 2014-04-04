@@ -121,7 +121,7 @@ as_database_get_all_components (AsDatabase* self)
 	if (!self->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_get_all_applications (self->priv->db);
+	cpt_array = xa_database_read_get_all_components (self->priv->db);
 	return cpt_array;
 }
 
@@ -144,7 +144,7 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query)
 	if (!self->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_find_applications (self->priv->db, query);
+	cpt_array = xa_database_read_find_components (self->priv->db, query);
 	return cpt_array;
 }
 

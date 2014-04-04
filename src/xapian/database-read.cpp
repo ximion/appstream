@@ -71,62 +71,75 @@ DatabaseRead::getSchemaVersion ()
 AsComponent*
 DatabaseRead::docToComponent (Xapian::Document doc)
 {
-	AsComponent *app = as_component_new ();
+	AsComponent *cpt = as_component_new ();
 
-	// Application name
-	string appName = doc.get_value (XapianValues::APPNAME);
-	as_component_set_name (app, appName.c_str ());
+	// Component type/kind
+	string type_str = doc.get_value (XapianValues::TYPE);
+	as_component_set_kind (cpt, as_component_kind_from_string (type_str.c_str ()));
+
+	// Identifier
+	string id_str = doc.get_value (XapianValues::IDENTIFIER);
+	as_component_set_idname (cpt, id_str.c_str ());
+
+	// Component name
+	string cptName = doc.get_value (XapianValues::CPTNAME);
+	as_component_set_name (cpt, cptName.c_str ());
 
 	// Package name
 	string pkgName = doc.get_value (XapianValues::PKGNAME);;
-	as_component_set_pkgname (app, pkgName.c_str ());
+	as_component_set_pkgname (cpt, pkgName.c_str ());
 
 	// Untranslated application name
-	string appname_orig = doc.get_value (XapianValues::APPNAME_UNTRANSLATED);
-	as_component_set_name_original (app, appname_orig.c_str ());
-
-	// Desktop file
-	string desktopFile = doc.get_value (XapianValues::DESKTOP_FILE);
-	as_component_set_desktop_file (app, desktopFile.c_str ());
+	string appname_orig = doc.get_value (XapianValues::CPTNAME_UNTRANSLATED);
+	as_component_set_name_original (cpt, appname_orig.c_str ());
 
 	// URL
 	string appUrl = doc.get_value (XapianValues::URL_HOMEPAGE);
-	as_component_set_homepage (app, appUrl.c_str ());
+	as_component_set_homepage (cpt, appUrl.c_str ());
 
 	// Application icon
 	string appIcon = doc.get_value (XapianValues::ICON);
-	as_component_set_icon (app, appIcon.c_str ());
+	as_component_set_icon (cpt, appIcon.c_str ());
 	appIcon = doc.get_value (XapianValues::ICON_URL);
-	as_component_set_icon_url (app, appIcon.c_str ());
+	as_component_set_icon_url (cpt, appIcon.c_str ());
 
 	// Summary
 	string appSummary = doc.get_value (XapianValues::SUMMARY);
-	as_component_set_summary (app, appSummary.c_str ());
+	as_component_set_summary (cpt, appSummary.c_str ());
 
 	// Long description
 	string appDescription = doc.get_value (XapianValues::DESCRIPTION);
-	as_component_set_description (app, appDescription.c_str ());
+	as_component_set_description (cpt, appDescription.c_str ());
 
 	// Categories
 	string categories_str = doc.get_value (XapianValues::CATEGORIES);
-	as_component_set_categories_from_str (app, categories_str.c_str ());
+	as_component_set_categories_from_str (cpt, categories_str.c_str ());
 
 	// Screenshot data
 	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOT_DATA);
-	as_component_load_screenshots_from_internal_xml (app, screenshot_xml.c_str ());
+	as_component_load_screenshots_from_internal_xml (cpt, screenshot_xml.c_str ());
 
 	// Compulsory-for-desktop information
 	string compulsory_str = doc.get_value (XapianValues::COMPULSORY_FOR);
 	gchar **strv = g_strsplit (compulsory_str.c_str (), ";", -1);
-	as_component_set_compulsory_for_desktops (app, strv);
+	as_component_set_compulsory_for_desktops (cpt, strv);
 	g_strfreev (strv);
 
-	// TODO
+	// License
+	string license = doc.get_value (XapianValues::LICENSE);
+	as_component_set_project_license (cpt, license.c_str ());
 
-	return app;
+	// Project group
+	string project_group = doc.get_value (XapianValues::PROJECT_GROUP);
+	as_component_set_project_group (cpt, project_group.c_str ());
+
+	// TODO: Read out keywords?
+
+	return cpt;
 }
 
-static vector<std::string> &split(const string &s, char delim, vector<std::string> &elems) {
+static vector<std::string> &split(const string &s, char delim, vector<std::string> &elems)
+{
     std::stringstream ss(s);
     std::string item;
     while(std::getline(ss, item, delim)) {
@@ -290,7 +303,7 @@ DatabaseRead::appendSearchResults (Xapian::Enquire enquire, GPtrArray *cptArray)
 }
 
 GPtrArray*
-DatabaseRead::findApplications (AsSearchQuery *asQuery)
+DatabaseRead::findComponents (AsSearchQuery *asQuery)
 {
 	// Create new array to store the app-info objects
 	GPtrArray *cptArray = g_ptr_array_new_with_free_func (g_object_unref);
@@ -317,7 +330,7 @@ DatabaseRead::findApplications (AsSearchQuery *asQuery)
 }
 
 GPtrArray*
-DatabaseRead::getAllApplications ()
+DatabaseRead::getAllComponents ()
 {
 	// Create new array to store the app-info objects
 	GPtrArray *appArray = g_ptr_array_new_with_free_func (g_object_unref);

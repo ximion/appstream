@@ -113,7 +113,7 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 		Xapian::Document doc;
 		term_generator.set_document (doc);
 
-		g_debug ("Adding application: %s", as_component_to_string (cpt));
+		g_debug ("Adding component: %s", as_component_to_string (cpt));
 
 		doc.set_data (as_component_get_name (cpt));
 
@@ -130,17 +130,21 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 		// add packagename as meta-data too
 		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 
-		// Untranslated application name
-		string appNameGeneric = as_component_get_name_original (cpt);
-		doc.add_value (XapianValues::APPNAME_UNTRANSLATED, appNameGeneric);
-		term_generator.index_text_without_positions (appNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
+		// Untranslated component name
+		string cptNameGeneric = as_component_get_name_original (cpt);
+		doc.add_value (XapianValues::CPTNAME_UNTRANSLATED, cptNameGeneric);
+		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
-		// Application name
-		string appName = as_component_get_name (cpt);
-		doc.add_value (XapianValues::APPNAME, appName);
+		// Component name
+		string cptName = as_component_get_name (cpt);
+		doc.add_value (XapianValues::CPTNAME, cptName);
 
-		// Desktop file
-		doc.add_value (XapianValues::DESKTOP_FILE, as_component_get_desktop_file (cpt));
+		// Type identifier
+		string type_str = as_component_kind_to_string (as_component_get_kind (cpt));
+		doc.add_value (XapianValues::TYPE, type_str);
+
+		// Identifier
+		doc.add_value (XapianValues::IDENTIFIER, as_component_get_idname (cpt));
 
 		// URL
 		doc.add_value (XapianValues::URL_HOMEPAGE, as_component_get_homepage (cpt));
@@ -202,6 +206,12 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 		}
 		doc.add_value (XapianValues::COMPULSORY_FOR, compulsory_str);
 
+		// Add project-license
+		doc.add_value (XapianValues::LICENSE, as_component_get_project_license (cpt));
+
+		// Add project group
+		doc.add_value (XapianValues::PROJECT_GROUP, as_component_get_project_group (cpt));
+
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
 		// Postprocess
@@ -229,7 +239,7 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 }
 
 bool
-DatabaseWrite::addApplication (AsComponent *app)
+DatabaseWrite::addComponent (AsComponent *cpt)
 {
 	// TODO
 	return false;

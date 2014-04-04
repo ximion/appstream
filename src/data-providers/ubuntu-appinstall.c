@@ -119,6 +119,8 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 
 	/* a fresh component */
 	cpt = as_component_new ();
+
+	/* this data provider can only handle desktop apps, so every component is type:desktop-app */
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 
 	/* get the base filename from Ubuntu AppInstall data */
@@ -129,7 +131,6 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 		g_free (desktop_file_name);
 		desktop_file_name = g_path_get_basename (fname);
 	}
-	as_component_set_desktop_file (cpt, desktop_file_name);
 	as_component_set_idname (cpt, desktop_file_name);
 	g_free (desktop_file_name);
 

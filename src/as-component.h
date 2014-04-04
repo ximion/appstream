@@ -28,7 +28,8 @@
 #include <glib-object.h>
 #include "as-screenshot.h"
 
-#define AS_TYPE_COMPONENT_TYPE (as_component_type_get_type ())
+#define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
+
 #define AS_TYPE_COMPONENT (as_component_get_type ())
 #define AS_COMPONENT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_COMPONENT, AsComponent))
 #define AS_COMPONENT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_TYPE_COMPONENT, AsComponentClass))
@@ -61,11 +62,42 @@ typedef enum  {
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
 
-GType			as_component_type_get_type (void) G_GNUC_CONST;
-GType			as_component_get_type (void) G_GNUC_CONST;
+GType				as_component_kind_get_type (void) G_GNUC_CONST;
+const gchar*		as_component_kind_to_string (AsComponentKind kind);
+AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
+
+GType				as_component_get_type (void) G_GNUC_CONST;
 
 AsComponent*		as_component_new (void);
 AsComponent*		as_component_construct (GType object_type);
+gboolean			as_component_is_valid (AsComponent* self);
+gchar* 				as_component_to_string (AsComponent* self);
+
+AsComponentKind		as_component_get_kind (AsComponent* self);
+const gchar*		as_component_get_pkgname (AsComponent* self);
+const gchar*		as_component_get_idname (AsComponent* self);
+const gchar*		as_component_get_name (AsComponent* self);
+const gchar* 		as_component_get_name_original (AsComponent* self);
+const gchar* 		as_component_get_project_license (AsComponent* self);
+const gchar* 		as_component_get_project_group (AsComponent* self);
+gchar**				as_component_get_compulsory_for_desktops (AsComponent* self);
+const gchar*		as_component_get_summary (AsComponent* self);
+gchar**				as_component_get_categories (AsComponent* self);
+GPtrArray*			as_component_get_screenshots (AsComponent* self);
+const gchar*		as_component_get_description (AsComponent* self);
+gchar**				as_component_get_keywords (AsComponent* self);
+const gchar*		as_component_get_icon (AsComponent* self);
+const gchar*		as_component_get_icon_url (AsComponent* self);
+const gchar*		as_component_get_homepage (AsComponent* self);
+gchar**				as_component_get_mimetypes (AsComponent* self);
+
+void				as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot);
+void				as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str);
+void				as_component_set_kind (AsComponent* self, AsComponentKind value);
+void				as_component_set_name (AsComponent* self, const gchar* value);
+void				as_component_set_keywords (AsComponent* self, gchar** value);
+void				as_component_set_mimetypes (AsComponent* self, gchar** value);
+void				as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value);
 void				as_component_set_pkgname (AsComponent* self, const gchar* value);
 void				as_component_set_idname (AsComponent* self, const gchar* value);
 void				as_component_set_name_original (AsComponent* self, const gchar* value);
@@ -74,33 +106,9 @@ void				as_component_set_description (AsComponent* self, const gchar* value);
 void				as_component_set_homepage (AsComponent* self, const gchar* value);
 void				as_component_set_icon (AsComponent* self, const gchar* value);
 void				as_component_set_icon_url (AsComponent* self, const gchar* value);
-void				as_component_set_desktop_file (AsComponent* self, const gchar* value);
+void				as_component_set_project_license (AsComponent* self, const gchar* value);
+void				as_component_set_project_group (AsComponent* self, const gchar* value);
 void				as_component_set_categories (AsComponent* self, gchar** value);
-gboolean			as_component_is_valid (AsComponent* self);
-AsComponentKind		as_component_get_kind (AsComponent* self);
-const gchar*		as_component_get_pkgname (AsComponent* self);
-const gchar*		as_component_get_idname (AsComponent* self);
-const gchar*		as_component_get_name (AsComponent* self);
-const gchar* 		as_component_get_name_original (AsComponent* self);
-const gchar* 		as_component_get_desktop_file (AsComponent* self);
-gchar* 				as_component_to_string (AsComponent* self);
-const gchar*		as_component_get_summary (AsComponent* self);
-void				as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str);
-gchar**				as_component_get_categories (AsComponent* self);
-void				as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot);
-GPtrArray*			as_component_get_screenshots (AsComponent* self);
-void				as_component_set_kind (AsComponent* self, AsComponentKind value);
-void				as_component_set_name (AsComponent* self, const gchar* value);
-const gchar*		as_component_get_description (AsComponent* self);
-gchar**				as_component_get_keywords (AsComponent* self);
-void				as_component_set_keywords (AsComponent* self, gchar** value);
-const gchar*		as_component_get_icon (AsComponent* self);
-const gchar*		as_component_get_icon_url (AsComponent* self);
-const gchar*		as_component_get_homepage (AsComponent* self);
-gchar**				as_component_get_mimetypes (AsComponent* self);
-void				as_component_set_mimetypes (AsComponent* self, gchar** value);
-gchar**				as_component_get_compulsory_for_desktops (AsComponent* self);
-void				as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value);
 
 G_END_DECLS
 

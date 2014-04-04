@@ -40,8 +40,8 @@ public:
 
 	bool initialize (const gchar *dbPath);
 
-	bool addApplication (AsComponent *app);
-	bool rebuild (GPtrArray *apps);
+	bool addComponent (AsComponent *cpt);
+	bool rebuild (GPtrArray *cpt_array);
 
 private:
 	Xapian::WritableDatabase *m_rwXapianDB;

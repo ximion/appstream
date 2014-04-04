@@ -43,7 +43,8 @@ struct _AsComponentPrivate {
 	gchar *homepage;
 	gchar **categories;
 	gchar **mimetypes;
-	gchar *desktop_file;
+	gchar *project_license;
+	gchar *project_group;
 	gchar **compulsory_for_desktops;
 	GPtrArray *screenshots; /* AsScreenshot elements */
 };
@@ -67,7 +68,7 @@ enum  {
 	AS_COMPONENT_HOMEPAGE,
 	AS_COMPONENT_CATEGORIES,
 	AS_COMPONENT_MIMETYPES,
-	AS_COMPONENT_DESKTOP_FILE,
+	AS_COMPONENT_PROJECT_LICENSE,
 	AS_COMPONENT_SCREENSHOTS
 };
 
@@ -79,10 +80,10 @@ static void as_component_set_property (GObject * object, guint property_id, cons
  * Defines registered component types.
  */
 GType
-as_component_type_get_type (void)
+as_component_kind_get_type (void)
 {
-	static volatile gsize as_component_type_type_id__volatile = 0;
-	if (g_once_init_enter (&as_component_type_type_id__volatile)) {
+	static volatile gsize as_component_kind_type_id__volatile = 0;
+	if (g_once_init_enter (&as_component_kind_type_id__volatile)) {
 		static const GEnumValue values[] = {
 					{AS_COMPONENT_KIND_UNKNOWN, "AS_COMPONENT_KIND_UNKNOWN", "unknown"},
 					{AS_COMPONENT_KIND_GENERIC, "AS_COMPONENT_KIND_GENERIC", "generic"},
@@ -95,9 +96,57 @@ as_component_type_get_type (void)
 		};
 		GType as_component_type_type_id;
 		as_component_type_type_id = g_enum_register_static ("AsComponentKind", values);
-		g_once_init_leave (&as_component_type_type_id__volatile, as_component_type_type_id);
+		g_once_init_leave (&as_component_kind_type_id__volatile, as_component_type_type_id);
 	}
-	return as_component_type_type_id__volatile;
+	return as_component_kind_type_id__volatile;
+}
+
+/**
+ * as_component_kind_to_string:
+ * @kind: the #AsComponentKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @kind
+ **/
+const gchar *
+as_component_kind_to_string (AsComponentKind kind)
+{
+	if (kind == AS_COMPONENT_KIND_GENERIC)
+		return "generic";
+	if (kind == AS_COMPONENT_KIND_DESKTOP_APP)
+		return "desktop-app";
+	if (kind == AS_COMPONENT_KIND_FONT)
+		return "font";
+	if (kind == AS_COMPONENT_KIND_CODEC)
+		return "codec";
+	if (kind == AS_COMPONENT_KIND_INPUTMETHOD)
+		return "inputmethod";
+	return "unknown";
+}
+
+/**
+ * as_component_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsComponentKind or %AS_COMPONENT_KIND_UNKNOWN for unknown
+ **/
+AsComponentKind
+as_component_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "generic") == 0)
+		return AS_COMPONENT_KIND_GENERIC;
+	if (g_strcmp0 (kind_str, "desktop-app") == 0)
+		return AS_COMPONENT_KIND_DESKTOP_APP;
+	if (g_strcmp0 (kind_str, "font") == 0)
+		return AS_COMPONENT_KIND_FONT;
+	if (g_strcmp0 (kind_str, "codec") == 0)
+		return AS_COMPONENT_KIND_CODEC;
+	if (g_strcmp0 (kind_str, "inputmethod") == 0)
+		return AS_COMPONENT_KIND_INPUTMETHOD;
+	return AS_COMPONENT_KIND_UNKNOWN;
 }
 
 AsComponent*
@@ -115,7 +164,8 @@ as_component_construct (GType object_type)
 	as_component_set_homepage (self, "");
 	as_component_set_icon (self, "");
 	as_component_set_icon_url (self, "");
-	as_component_set_desktop_file (self, "");
+	as_component_set_project_license (self, "");
+	as_component_set_project_group (self, "");
 	self->priv->keywords = NULL;
 
 	strv = g_new0 (gchar*, 1 + 1);
@@ -167,9 +217,11 @@ as_component_is_valid (AsComponent* self)
 		ret = TRUE;
 		}
 
+#if 0
 	if ((ret) && ctype == AS_COMPONENT_KIND_DESKTOP_APP) {
 		ret = g_strcmp0 (self->priv->desktop_file, "") != 0;
 	}
+#endif
 
 	return ret;
 }
@@ -193,7 +245,7 @@ as_component_to_string (AsComponent* self)
 	switch (self->priv->kind) {
 		case AS_COMPONENT_KIND_DESKTOP_APP:
 		{
-			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", self->priv->desktop_file, name, self->priv->pkgname, self->priv->summary);
+			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", self->priv->idname, name, self->priv->pkgname, self->priv->summary);
 			break;
 		}
 		default:
@@ -711,22 +763,57 @@ as_component_set_mimetypes (AsComponent* self, gchar** value)
 	g_object_notify ((GObject *) self, "mimetypes");
 }
 
+/**
+ * as_component_get_project_license:
+ *
+ * Get the license of the project this component belongs to.
+ */
 const gchar*
-as_component_get_desktop_file (AsComponent* self)
+as_component_get_project_license (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
-	return self->priv->desktop_file;
+	return self->priv->project_license;
 }
 
-
+/**
+ * as_component_set_project_license:
+ *
+ * Set the project license.
+ */
 void
-as_component_set_desktop_file (AsComponent* self, const gchar* value)
+as_component_set_project_license (AsComponent* self, const gchar* value)
 {
 	g_return_if_fail (self != NULL);
 
-	g_free (self->priv->desktop_file);
-	self->priv->desktop_file = g_strdup (value);
-	g_object_notify ((GObject *) self, "desktop-file");
+	g_free (self->priv->project_license);
+	self->priv->project_license = g_strdup (value);
+	g_object_notify ((GObject *) self, "project-license");
+}
+
+/**
+ * as_component_get_project_group:
+ *
+ * Get the component's project group.
+ */
+const gchar*
+as_component_get_project_group (AsComponent* self)
+{
+	g_return_val_if_fail (self != NULL, NULL);
+	return self->priv->project_group;
+}
+
+/**
+ * as_component_set_project_group:
+ *
+ * Set the component's project group.
+ */
+void
+as_component_set_project_group (AsComponent* self, const gchar* value)
+{
+	g_return_if_fail (self != NULL);
+
+	g_free (self->priv->project_group);
+	self->priv->project_group = g_strdup (value);
 }
 
 /**
@@ -779,7 +866,7 @@ as_component_class_init (AsComponentClass * klass)
 	G_OBJECT_CLASS (klass)->get_property = as_component_get_property;
 	G_OBJECT_CLASS (klass)->set_property = as_component_set_property;
 	G_OBJECT_CLASS (klass)->finalize = as_component_finalize;
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_KIND, g_param_spec_enum ("kind", "kind", "kind", AS_TYPE_COMPONENT_TYPE, 0, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_KIND, g_param_spec_enum ("kind", "kind", "kind", AS_TYPE_COMPONENT_KIND, 0, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PKGNAME, g_param_spec_string ("pkgname", "pkgname", "pkgname", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_IDNAME, g_param_spec_string ("idname", "idname", "idname", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_NAME, g_param_spec_string ("name", "name", "name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
@@ -792,11 +879,7 @@ as_component_class_init (AsComponentClass * klass)
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_HOMEPAGE, g_param_spec_string ("homepage", "homepage", "homepage", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_CATEGORIES, g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_MIMETYPES, g_param_spec_boxed ("mimetypes", "mimetypes", "mimetypes", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	/**
-	 * A .desktop filename. Only valid if the
-	 * component type is DESKTOP_APP
-	 */
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_DESKTOP_FILE, g_param_spec_string ("desktop-file", "desktop-file", "desktop-file", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PROJECT_LICENSE, g_param_spec_string ("project-license", "project-license", "project-license", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_SCREENSHOTS, g_param_spec_boxed ("screenshots", "screenshots", "screenshots", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 }
 
@@ -822,7 +905,8 @@ as_component_finalize (GObject* obj)
 	g_free (self->priv->icon);
 	g_free (self->priv->icon_url);
 	g_free (self->priv->homepage);
-	g_free (self->priv->desktop_file);
+	g_free (self->priv->project_license);
+	g_free (self->priv->project_group);
 	g_strfreev (self->priv->keywords);
 	g_strfreev (self->priv->categories);
 	g_strfreev (self->priv->mimetypes);
@@ -905,8 +989,8 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_MIMETYPES:
 			g_value_set_boxed (value, as_component_get_mimetypes (self));
 			break;
-		case AS_COMPONENT_DESKTOP_FILE:
-			g_value_set_string (value, as_component_get_desktop_file (self));
+		case AS_COMPONENT_PROJECT_LICENSE:
+			g_value_set_string (value, as_component_get_project_license (self));
 			break;
 		case AS_COMPONENT_SCREENSHOTS:
 			g_value_set_boxed (value, as_component_get_screenshots (self));
@@ -963,8 +1047,8 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 		case AS_COMPONENT_MIMETYPES:
 			as_component_set_mimetypes (self, g_value_get_boxed (value));
 			break;
-		case AS_COMPONENT_DESKTOP_FILE:
-			as_component_set_desktop_file (self, g_value_get_string (value));
+		case AS_COMPONENT_PROJECT_LICENSE:
+			as_component_set_project_license (self, g_value_get_string (value));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

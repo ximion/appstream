@@ -213,14 +213,20 @@ as_client_run (ASClient* self)
 
 		for (i = 0; i < cpt_list->len; i++) {
 			AsComponent *cpt;
+			gchar *short_idline;
 			cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
-			as_client_print_key_value (self, "Application", as_component_get_name (cpt), FALSE);
+			short_idline = g_strdup_printf ("%s [%s]",
+							as_component_get_idname (cpt),
+							as_component_kind_to_string (as_component_get_kind (cpt)));
+
+			as_client_print_key_value (self, "Identifier", short_idline, FALSE);
+			as_client_print_key_value (self, "Name", as_component_get_name (cpt), FALSE);
 			as_client_print_key_value (self, "Summary", as_component_get_summary (cpt), FALSE);
 			as_client_print_key_value (self, "Package", as_component_get_pkgname (cpt), FALSE);
 			as_client_print_key_value (self, "Homepage", as_component_get_homepage (cpt), FALSE);
-			as_client_print_key_value (self, "Desktop-File", as_component_get_desktop_file (cpt), FALSE);
 			as_client_print_key_value (self, "Icon", as_component_get_icon_url (cpt), FALSE);
+			g_free (short_idline);
 
 			if (as_client_o_details) {
 				GPtrArray *sshot_array;
@@ -228,7 +234,7 @@ as_client_run (ASClient* self)
 				AsScreenshot *sshot;
 				AsImage *img;
 				gchar *str;
-				gchar *strv;
+				gchar **strv;
 
 				/* long description */
 				as_client_print_key_value (self, "Description", as_component_get_description (cpt), FALSE);
@@ -244,6 +250,12 @@ as_client_run (ASClient* self)
 						as_client_print_key_value (self, "First Screenshot URL", as_image_get_url (img), FALSE);
 					}
 				}
+
+				/* project group */
+				as_client_print_key_value (self, "Project Group", as_component_get_project_group (cpt), FALSE);
+
+				/* license */
+				as_client_print_key_value (self, "License", as_component_get_project_license (cpt), FALSE);
 
 				/* desktop-compulsority */
 				strv = as_component_get_compulsory_for_desktops (cpt);
