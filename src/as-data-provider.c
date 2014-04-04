@@ -62,7 +62,7 @@ as_data_provider_emit_application (AsDataProvider* self, AsComponent* cpt)
 static gboolean
 as_data_provider_real_execute (AsDataProvider* self)
 {
-	g_critical ("Type `%s' does not implement abstract method `as_data_provider_execute'", g_type_name (G_TYPE_FROM_INSTANCE (self)));
+	g_critical ("Type '%s' does not implement abstract method 'as_data_provider_execute'", g_type_name (G_TYPE_FROM_INSTANCE (self)));
 	return FALSE;
 }
 

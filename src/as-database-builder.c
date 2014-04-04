@@ -35,8 +35,10 @@
 #include "data-providers/ubuntu-appinstall.h"
 #endif
 
-#include "as-database-write.h"
 #include "as-utils.h"
+#include "as-database-write.h"
+#include "as-component-private.h"
+#include "as-distro-details.h"
 
 struct _AsBuilderPrivate
 {
@@ -44,6 +46,7 @@ struct _AsBuilderPrivate
 	AsDatabaseWrite* db_rw;
 	GPtrArray* cpt_list;
 	GPtrArray* providers;
+	gchar *scr_base_url;
 };
 
 #define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
@@ -52,7 +55,6 @@ static gpointer as_builder_parent_class = NULL;
 
 #define AS_BUILDER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_BUILDER, AsBuilderPrivate))
 
-static void as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder *self);
 static gchar** as_builder_get_watched_files (AsBuilder* self);
 static gboolean as_builder_appstream_data_changed (AsBuilder* self);
 static void as_builder_finalize (GObject* obj);
@@ -65,6 +67,10 @@ as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder
 	g_return_if_fail (cpt != NULL);
 
 	cpt_ref = g_object_ref (cpt);
+
+	/* add additional data to the component, e.g. external screenshots */
+	as_component_complete (cpt, self->priv->scr_base_url);
+
 	g_ptr_array_add (self->priv->cpt_list, cpt_ref);
 }
 
@@ -75,31 +81,35 @@ as_builder_construct (GType object_type)
 	AsBuilder *self = NULL;
 	AsDataProvider *dprov;
 	guint i;
+	AsDistroDetails *distro;
+	AsBuilderPrivate *priv;
+
 	self = (AsBuilder*) g_object_new (object_type, NULL);
-	self->priv->db_rw = as_database_write_new ();
+	priv = self->priv;
+	priv->db_rw = as_database_write_new ();
 
 	/* update database path if necessary */
-	if (as_utils_str_empty (self->priv->CURRENT_DB_PATH)) {
+	if (as_utils_str_empty (priv->CURRENT_DB_PATH)) {
 		const gchar *s;
-		s = as_database_get_database_path ((AsDatabase*) self->priv->db_rw);
-		g_free (self->priv->CURRENT_DB_PATH);
-		self->priv->CURRENT_DB_PATH = g_strdup (s);
+		s = as_database_get_database_path ((AsDatabase*) priv->db_rw);
+		g_free (priv->CURRENT_DB_PATH);
+		priv->CURRENT_DB_PATH = g_strdup (s);
 	}
 
-	self->priv->cpt_list = g_ptr_array_new_with_free_func (g_object_unref);
-	self->priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->cpt_list = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
-	g_ptr_array_add (self->priv->providers, (AsDataProvider*) as_provider_appstream_xml_new ());
+	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_appstream_xml_new ());
 #ifdef DEBIAN_DEP11
-	g_ptr_array_add (self->priv->providers, (AsDataProvider*) as_provider_dep11_new ());
+	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_dep11_new ());
 #endif
 #ifdef UBUNTU_APPINSTALL
-	g_ptr_array_add (self->priv->providers, (AsDataProvider*) as_provider_ubuntu_appinstall_new ());
+	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_ubuntu_appinstall_new ());
 #endif
 
 	/* connect all data provider signals */
-	for (i = 0; i < self->priv->providers->len; i++) {
-		dprov = (AsDataProvider*) g_ptr_array_index (self->priv->providers, i);
+	for (i = 0; i < priv->providers->len; i++) {
+		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
 		g_signal_connect_object (dprov, "application", (GCallback) as_builder_new_component_cb, self, 0);
 
 		/* FIXME: For some reason, we need to increase refcount of the provider objects to not raise an error
@@ -108,6 +118,14 @@ as_builder_construct (GType object_type)
 		 */
 		g_object_ref (dprov);
 	}
+
+	distro = as_distro_details_new ();
+	priv->scr_base_url = as_distro_details_config_distro_get_str (distro, "ScreenshotUrl");
+	if (priv->scr_base_url == NULL) {
+		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_distro_name (distro));
+		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
+	}
+	g_object_unref (distro);
 
 	return self;
 }
@@ -370,6 +388,7 @@ as_builder_finalize (GObject* obj)
 	g_ptr_array_unref (self->priv->cpt_list);
 	g_free (self->priv->CURRENT_DB_PATH);
 	g_ptr_array_unref (self->priv->providers);
+	g_free (self->priv->scr_base_url);
 	G_OBJECT_CLASS (as_builder_parent_class)->finalize (obj);
 }
 

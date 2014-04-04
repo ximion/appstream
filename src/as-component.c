@@ -50,6 +50,7 @@ struct _AsComponentPrivate {
 static gpointer as_component_parent_class = NULL;
 
 #define AS_COMPONENT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_COMPONENT, AsComponentPrivate))
+
 enum  {
 	AS_COMPONENT_DUMMY_PROPERTY,
 	AS_COMPONENT_KIND,
@@ -401,6 +402,8 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 						as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 					}
 					g_free (imgtype);
+
+					as_screenshot_add_image (sshot, img);
 				} else if (g_strcmp0 (node_name, "caption") == 0) {
 					if (content != NULL)
 						as_screenshot_set_caption (sshot, content);
@@ -426,7 +429,7 @@ as_component_set_kind (AsComponent* self, AsComponentKind value)
 	g_return_if_fail (self != NULL);
 
 	self->priv->kind = value;
-	g_object_notify ((GObject *) self, "ctype");
+	g_object_notify ((GObject *) self, "kind");
 }
 
 
@@ -700,6 +703,46 @@ as_component_get_screenshots (AsComponent* self)
 	return self->priv->screenshots;
 }
 
+/**
+ * as_component_complete:
+ *
+ * Private function to complete a AsComponent with
+ * additional data found on the system.
+ *
+ * @scr_base_url Base url for screenshot-service, obtain via #AsDistroDetails
+ */
+void
+as_component_complete (AsComponent* self, gchar *scr_base_url)
+{
+	AsComponentPrivate *priv = self->priv;
+
+	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
+	if (priv->screenshots->len == 0) {
+		gchar *url;
+		AsImage *img;
+		AsScreenshot *sshot;
+
+		url = g_build_filename (scr_base_url, "screenshot", priv->pkgname, NULL);
+
+		/* screenshots.debian.net-like services dont specify a size, so we choose the default */
+		img = as_image_new ();
+		as_image_set_url (img, url);
+		as_image_set_width (img, 800);
+		as_image_set_height (img, 600);
+
+		/* add main screenshot */
+		sshot = as_screenshot_new ();
+		as_screenshot_add_image (sshot, img);
+		as_component_add_screenshot (self, sshot);
+
+		g_object_unref (img);
+		g_object_unref (sshot);
+
+		/* TODO: Add thumbnail screenshots as well */
+
+		g_free (url);
+	}
+}
 
 static void
 as_component_class_init (AsComponentClass * klass)

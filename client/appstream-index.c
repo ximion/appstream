@@ -222,8 +222,25 @@ as_client_run (ASClient* self)
 			as_client_print_key_value (self, "Desktop-File", as_component_get_desktop_file (cpt), FALSE);
 			as_client_print_key_value (self, "Icon", as_component_get_icon_url (cpt), FALSE);
 
-			if (as_client_o_search) {
+			if (as_client_o_details) {
+				GPtrArray *sshot_array;
+				GPtrArray *imgs = NULL;
+				AsScreenshot *sshot;
+				AsImage *img;
+
 				as_client_print_key_value (self, "Description", as_component_get_description (cpt), FALSE);
+
+				sshot_array = as_component_get_screenshots (cpt);
+				if (sshot_array->len > 0) {
+					sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, 0);
+					/* get the first image - there must be one present, otherwise something else failed badly... */
+					imgs = as_screenshot_get_images (sshot);
+					if (imgs->len > 0) {
+						img = (AsImage*) g_ptr_array_index (imgs, 0);
+						as_client_print_key_value (self, "First Screenshot URL", as_image_get_url (img), FALSE);
+					}
+				}
+
 			}
 
 			as_client_print_separator (self);
