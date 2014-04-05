@@ -489,22 +489,38 @@ as_component_complete (AsComponent* self, gchar *scr_base_url)
 
 		url = g_build_filename (scr_base_url, "screenshot", priv->pkgname, NULL);
 
-		/* screenshots.debian.net-like services dont specify a size, so we choose the default */
+		/* screenshots.debian.net-like services dont specify a size, so we choose the default sizes
+		 * (800x600 for source-type images, 160x120 for thumbnails)
+		 */
+
+		/* add main image */
 		img = as_image_new ();
 		as_image_set_url (img, url);
 		as_image_set_width (img, 800);
 		as_image_set_height (img, 600);
+		as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 
-		/* add main screenshot */
 		sshot = as_screenshot_new ();
 		as_screenshot_add_image (sshot, img);
+		as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
+
+		g_object_unref (img);
+		g_free (url);
+
+		/* add thumbnail */
+		url = g_build_filename (scr_base_url, "thumbnail", priv->pkgname, NULL);
+		img = as_image_new ();
+		as_image_set_url (img, url);
+		as_image_set_width (img, 160);
+		as_image_set_height (img, 120);
+		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+		as_screenshot_add_image (sshot, img);
+
+		/* add screenshot to component */
 		as_component_add_screenshot (self, sshot);
 
 		g_object_unref (img);
 		g_object_unref (sshot);
-
-		/* TODO: Add thumbnail screenshots as well */
-
 		g_free (url);
 	}
 }
