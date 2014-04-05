@@ -147,10 +147,25 @@ as_client_quit_loop (ASClient* self)
 }
 #endif
 
+static gchar*
+format_long_output (const gchar *str)
+{
+	gchar *res;
+	gchar **strv;
+
+	strv = g_strsplit (str, "\n", -1);
+
+	res = g_strjoinv ("\n  ", strv);
+	g_strfreev (strv);
+
+	return res;
+}
+
 static void
 as_client_print_key_value (ASClient* self, const gchar* key, const gchar* val, gboolean highlight)
 {
 	gchar *str;
+	gchar *fmtval;
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (key != NULL);
 	g_return_if_fail (val != NULL);
@@ -158,9 +173,21 @@ as_client_print_key_value (ASClient* self, const gchar* key, const gchar* val, g
 	if ((val == NULL) || (g_strcmp0 (val, "") == 0))
 		return;
 
+	if (strlen (val) > 120) {
+		/* only produces slightly better output (indented).
+		 * we need word-wrapping in future
+		 */
+		fmtval = format_long_output (val);
+	} else {
+		fmtval = g_strdup (val);
+	}
+
 	str = g_strdup_printf ("%s: ", key);
-	fprintf (stdout, "%c[%dm%s%c[%dm%s\n", 0x1B, 1, str, 0x1B, 0, val);
+
+	fprintf (stdout, "%c[%dm%s%c[%dm%s\n", 0x1B, 1, str, 0x1B, 0, fmtval);
+
 	g_free (str);
+	g_free (fmtval);
 }
 
 
@@ -214,7 +241,7 @@ as_client_run (ASClient* self)
 		for (i = 0; i < cpt_list->len; i++) {
 			AsComponent *cpt;
 			gchar *short_idline;
-			guint i;
+			guint j;
 			cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
 			short_idline = g_strdup_printf ("%s [%s]",
@@ -228,6 +255,7 @@ as_client_run (ASClient* self)
 			as_client_print_key_value (self, "Homepage", as_component_get_homepage (cpt), FALSE);
 			as_client_print_key_value (self, "Icon", as_component_get_icon_url (cpt), FALSE);
 			g_free (short_idline);
+			short_idline = NULL;
 
 			if (as_client_o_details) {
 				GPtrArray *sshot_array;
@@ -245,8 +273,8 @@ as_client_run (ASClient* self)
 
 				/* find default screenshot, if possible */
 				sshot = NULL;
-				for (i = 0; i < sshot_array->len; i++) {
-					sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, 0);
+				for (j = 0; j < sshot_array->len; j++) {
+					sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, j);
 					if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
 						break;
 				}
@@ -254,8 +282,8 @@ as_client_run (ASClient* self)
 				if (sshot != NULL) {
 					/* get the first source image and display it's url */
 					imgs = as_screenshot_get_images (sshot);
-					for (i = 0; i < imgs->len; i++) {
-						img = (AsImage*) g_ptr_array_index (imgs, i);
+					for (j = 0; j < imgs->len; j++) {
+						img = (AsImage*) g_ptr_array_index (imgs, j);
 						if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
 							as_client_print_key_value (self, "Sample Screenshot URL", as_image_get_url (img), FALSE);
 							break;
@@ -281,6 +309,7 @@ as_client_run (ASClient* self)
 			as_client_print_separator (self);
 		}
 		g_ptr_array_unref (cpt_list);
+
 	} else if (as_client_o_refresh) {
 		AsBuilder *builder;
 		if (getuid () != ((uid_t) 0)) {

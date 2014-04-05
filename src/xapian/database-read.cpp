@@ -297,15 +297,15 @@ DatabaseRead::appendSearchResults (Xapian::Enquire enquire, GPtrArray *cptArray)
 	for (Xapian::MSetIterator it = matches.begin(); it != matches.end(); ++it) {
 		Xapian::Document doc = it.get_document ();
 
-		AsComponent *app = docToComponent (doc);
-		g_ptr_array_add (cptArray, g_object_ref (app));
+		AsComponent *cpt = docToComponent (doc);
+		g_ptr_array_add (cptArray, g_object_ref (cpt));
 	}
 }
 
 GPtrArray*
 DatabaseRead::findComponents (AsSearchQuery *asQuery)
 {
-	// Create new array to store the app-info objects
+	// Create new array to store the AsComponent objects
 	GPtrArray *cptArray = g_ptr_array_new_with_free_func (g_object_unref);
 	vector<Xapian::Query> qlist;
 
@@ -318,13 +318,15 @@ DatabaseRead::findComponents (AsSearchQuery *asQuery)
 	enquire.set_query (query);
 	appendSearchResults (enquire, cptArray);
 
-	// fuzzy query
-	query = qlist[1];
-	query.serialise ();
+	// do fuzzy query if we got no results
+	if (cptArray->len == 0) {
+		query = qlist[1];
+		query.serialise ();
 
-	enquire = Xapian::Enquire (m_xapianDB);
-	enquire.set_query (query);
-	appendSearchResults (enquire, cptArray);
+		enquire = Xapian::Enquire (m_xapianDB);
+		enquire.set_query (query);
+		appendSearchResults (enquire, cptArray);
+	}
 
 	return cptArray;
 }

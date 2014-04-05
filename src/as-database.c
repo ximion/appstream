@@ -145,6 +145,7 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query)
 		return NULL;
 
 	cpt_array = xa_database_read_find_components (self->priv->db, query);
+
 	return cpt_array;
 }
 

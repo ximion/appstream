@@ -107,6 +107,7 @@ as_builder_construct (GType object_type)
 						(GDestroyNotify) g_object_unref);
 	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
+	/* added by priority: Appstream XML has the highest, Ubuntu AppInstall the lowest priority */
 	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_appstream_xml_new ());
 #ifdef DEBIAN_DEP11
 	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_dep11_new ());
