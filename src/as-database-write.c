@@ -83,12 +83,13 @@ as_database_write_real_open (AsDatabase* base)
 
 
 gboolean
-as_database_write_rebuild (AsDatabaseWrite* self, GPtrArray* cpt_array) {
+as_database_write_rebuild (AsDatabaseWrite* self, GList* cpt_list)
+{
 	gboolean ret = FALSE;
 	g_return_val_if_fail (self != NULL, FALSE);
-	g_return_val_if_fail (cpt_array != NULL, FALSE);
+	g_return_val_if_fail (cpt_list != NULL, FALSE);
 
-	ret = xa_database_write_rebuild (self->priv->db_w, cpt_array);
+	ret = xa_database_write_rebuild (self->priv->db_w, cpt_list);
 	return ret;
 }
 
@@ -125,7 +126,8 @@ as_database_write_finalize (GObject* obj)
  * to modify the AppStream application database
  */
 GType
-as_database_write_get_type (void) {
+as_database_write_get_type (void)
+{
 	static volatile gsize as_database_write_type_id__volatile = 0;
 	if (g_once_init_enter (&as_database_write_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = {

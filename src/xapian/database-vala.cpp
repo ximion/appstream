@@ -62,7 +62,7 @@ gboolean xa_database_write_add_component (XADatabaseWrite *db, AsComponent *cpt)
 	return realDbWrite (db)->addComponent (cpt);
 };
 
-gboolean xa_database_write_rebuild (XADatabaseWrite *db, GPtrArray *cpt_list)
+gboolean xa_database_write_rebuild (XADatabaseWrite *db, GList *cpt_list)
 {
 	return realDbWrite (db)->rebuild (cpt_list);
 };

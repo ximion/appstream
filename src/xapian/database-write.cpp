@@ -65,7 +65,7 @@ DatabaseWrite::initialize (const gchar *dbPath)
 }
 
 bool
-DatabaseWrite::rebuild (GPtrArray *cpt_list)
+DatabaseWrite::rebuild (GList *cpt_list)
 {
 	string old_path = m_dbPath + "_old";
 	string rebuild_path = m_dbPath + "_rb";
@@ -107,13 +107,13 @@ DatabaseWrite::rebuild (GPtrArray *cpt_list)
 		// Ignore
 	}
 
-	for (guint i=0; i < cpt_list->len; i++) {
-		AsComponent *cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
+	for (GList *list = cpt_list; list != NULL; list = list->next) {
+		AsComponent *cpt = (AsComponent*) list->data;
 
 		Xapian::Document doc;
 		term_generator.set_document (doc);
 
-		g_debug ("Adding component: %s", as_component_to_string (cpt));
+		//! g_debug ("Adding component: %s", as_component_to_string (cpt));
 
 		doc.set_data (as_component_get_name (cpt));
 

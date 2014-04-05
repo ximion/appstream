@@ -54,7 +54,7 @@ GType					as_database_write_get_type (void) G_GNUC_CONST;
 
 AsDatabaseWrite*		as_database_write_new (void);
 AsDatabaseWrite*		as_database_write_construct (GType object_type);
-gboolean				as_database_write_rebuild (AsDatabaseWrite* self, GPtrArray* cpt_array);
+gboolean				as_database_write_rebuild (AsDatabaseWrite* self, GList* cpt_list);
 
 G_END_DECLS
 

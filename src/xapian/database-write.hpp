@@ -41,7 +41,7 @@ public:
 	bool initialize (const gchar *dbPath);
 
 	bool addComponent (AsComponent *cpt);
-	bool rebuild (GPtrArray *cpt_array);
+	bool rebuild (GList *cpt_list);
 
 private:
 	Xapian::WritableDatabase *m_rwXapianDB;

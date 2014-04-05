@@ -44,7 +44,7 @@ struct _AsBuilderPrivate
 {
 	gchar* CURRENT_DB_PATH;
 	AsDatabaseWrite* db_rw;
-	GPtrArray* cpt_list;
+	GHashTable* cpt_table;
 	GPtrArray* providers;
 	gchar *scr_base_url;
 };
@@ -62,16 +62,21 @@ static void as_builder_finalize (GObject* obj);
 static void
 as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder *self)
 {
-	AsComponent* cpt_ref = NULL;
+	const gchar *cpt_id;
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (cpt != NULL);
-
-	cpt_ref = g_object_ref (cpt);
 
 	/* add additional data to the component, e.g. external screenshots */
 	as_component_complete (cpt, self->priv->scr_base_url);
 
-	g_ptr_array_add (self->priv->cpt_list, cpt_ref);
+	cpt_id = as_component_get_idname (cpt);
+	if (g_hash_table_contains (self->priv->cpt_table, cpt_id)) {
+		g_debug ("Detected colliding ids: %s was already added, current component will be skipped.", cpt_id);
+	} else {
+		g_hash_table_insert (self->priv->cpt_table,
+							g_strdup (cpt_id),
+							g_object_ref (cpt));
+	}
 }
 
 
@@ -96,7 +101,10 @@ as_builder_construct (GType object_type)
 		priv->CURRENT_DB_PATH = g_strdup (s);
 	}
 
-	priv->cpt_list = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->cpt_table = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
+						g_free,
+						(GDestroyNotify) g_object_unref);
 	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
 	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_appstream_xml_new ());
@@ -328,6 +336,7 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	gboolean ret = FALSE;
 	guint i;
 	AsDataProvider *dprov;
+	GList *cpt_list;
 	g_return_val_if_fail (self != NULL, FALSE);
 
 	if (!force) {
@@ -342,8 +351,11 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	g_debug ("Refreshing AppStream cache");
 
 	/* just in case, clear the components list */
-	g_ptr_array_unref (self->priv->cpt_list);
-	self->priv->cpt_list = g_ptr_array_new_with_free_func (g_object_unref);
+	g_hash_table_unref (self->priv->cpt_table);
+	self->priv->cpt_table = g_hash_table_new_full (g_str_hash,
+								g_str_equal,
+								g_free,
+								(GDestroyNotify) g_object_unref);
 
 	/* call all AppStream data providers to return components they find */
 	for (i = 0; i < self->priv->providers->len; i++) {
@@ -351,7 +363,9 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 		as_data_provider_execute (dprov);
 	}
 
-	ret = as_database_write_rebuild (self->priv->db_rw, self->priv->cpt_list);
+	cpt_list = g_hash_table_get_values (self->priv->cpt_table);
+	ret = as_database_write_rebuild (self->priv->db_rw, cpt_list);
+	g_list_free (cpt_list);
 
 	if (ret) {
 		g_debug ("Cache refresh completed successfully.");
@@ -385,7 +399,7 @@ as_builder_finalize (GObject* obj)
 	AsBuilder * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_BUILDER, AsBuilder);
 	g_object_unref (self->priv->db_rw);
-	g_ptr_array_unref (self->priv->cpt_list);
+	g_hash_table_unref (self->priv->cpt_table);
 	g_free (self->priv->CURRENT_DB_PATH);
 	g_ptr_array_unref (self->priv->providers);
 	g_free (self->priv->scr_base_url);
