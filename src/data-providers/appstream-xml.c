@@ -205,7 +205,6 @@ as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlN
 			gchar *stype;
 			gchar *str;
 			if (content == NULL) {
-				g_free (content);
 				continue;
 			}
 			img = as_image_new ();
@@ -232,6 +231,7 @@ as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlN
 				as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 			}
 			g_free (stype);
+			as_image_set_url (img, content);
 			as_screenshot_add_image (sshot, img);
 		} else if (g_strcmp0 (node_name, "caption") == 0) {
 			if (content != NULL) {

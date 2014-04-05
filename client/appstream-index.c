@@ -214,6 +214,7 @@ as_client_run (ASClient* self)
 		for (i = 0; i < cpt_list->len; i++) {
 			AsComponent *cpt;
 			gchar *short_idline;
+			guint i;
 			cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
 			short_idline = g_strdup_printf ("%s [%s]",
@@ -241,13 +242,24 @@ as_client_run (ASClient* self)
 
 				/* some simple screenshot information */
 				sshot_array = as_component_get_screenshots (cpt);
-				if (sshot_array->len > 0) {
+
+				/* find default screenshot, if possible */
+				sshot = NULL;
+				for (i = 0; i < sshot_array->len; i++) {
 					sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, 0);
-					/* get the first image - there must be one present, otherwise something else failed badly... */
+					if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
+						break;
+				}
+
+				if (sshot != NULL) {
+					/* get the first source image and display it's url */
 					imgs = as_screenshot_get_images (sshot);
-					if (imgs->len > 0) {
-						img = (AsImage*) g_ptr_array_index (imgs, 0);
-						as_client_print_key_value (self, "First Screenshot URL", as_image_get_url (img), FALSE);
+					for (i = 0; i < imgs->len; i++) {
+						img = (AsImage*) g_ptr_array_index (imgs, i);
+						if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
+							as_client_print_key_value (self, "Sample Screenshot URL", as_image_get_url (img), FALSE);
+							break;
+						}
 					}
 				}
 
