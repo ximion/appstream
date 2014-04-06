@@ -36,7 +36,7 @@ if (DOCUMENTATION)
 		DEPENDS "publican.cfg"
 			"${CMAKE_BINARY_DIR}/docbuild/publican.cfg"
 			assemble-docs
-			api-docs
+			doc-appstream
 		WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/docbuild/
 	)
 	add_custom_command (OUTPUT "${CMAKE_BINARY_DIR}/docbuild/"
@@ -59,47 +59,27 @@ if (DOCUMENTATION)
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 
-
-	# FIXME: Adjust for the new C code
 	#########################
 	# API documentation
 
- 	# find documentation tools
-# 	find_program (VALADOC valadoc)
-# 	mark_as_advanced (VALADOC)
-# 	if (VALADOC STREQUAL "")
-# 		message (FATAL_ERROR "valadoc was not found! Please install Valadoc to continue!")
-# 	endif (VALADOC STREQUAL "")
-# 	find_program(GTKDOC_SCAN_EXE gtkdoc-scan PATH "${GLIB_PREFIX}/bin")
-# 	if(NOT GTKDOC_SCAN_EXE)
-# 		message(FATAL_ERROR "gtkdoc not found")
-# 	endif(NOT GTKDOC_SCAN_EXE)
-#
-# 	find_path (SYSTEM_VAPI_DIR
-# 		NAMES glib-2.0.vapi
-# 		HINTS "/usr/share/vala-0.??/vapi" "/usr/share/vala")
-# 	# ugly hack to help valadoc finding vapi files
-# 	string (SUBSTRING ${VALA_VERSION} 0 4 VALA_VERSION_SHORT)
-# 	set (SYSTEM_VAPI_DIR "${CMAKE_INSTALL_PREFIX}/share/vala-${VALA_VERSION_SHORT}/vapi")
-#
-# 	# find public library sources
-# 	file (GLOB APPSTREAM_LIB_SOURCES "${CMAKE_SOURCE_DIR}/src/*.vala")
-# 	file (GLOB tmp "${CMAKE_SOURCE_DIR}/src/data-providers/*.vala")
-# 	set(APPSTREAM_LIB_SOURCES ${APPSTREAM_LIB_SOURCES} ${tmp})
-#
-# 	add_custom_target (api-docs
-# 			COMMAND "valadoc" "--force" "-b" "${CMAKE_SOURCE_DIR}/src" "-o" "${CMAKE_SOURCE_DIR}/docs/api"
-# 			"--vapidir=${CMAKE_SOURCE_DIR}/vapi" "--vapidir=${SYSTEM_VAPI_DIR}"
-# 			"--vapidir=${CMAKE_SOURCE_DIR}/src/xapian"
-# 			"-X" "${CMAKE_BINARY_DIR}/src/appstream.h" "-X" "-l"
-# 			"-X" "${CMAKE_BINARY_DIR}/src/libappstream.so.${AS_VERSION_LIBS}"
-# 			"--doclet" "gtkdoc"
-# 			"--pkg=config" "--pkg=gio-2.0" "--pkg=libxml-2.0" "--pkg=posix" "--pkg=as-xapian"
-# 			"--package-name=appstream"
-# 			"--package-version=${AS_VERSION_LIBS}"
-# 			"--importdir=${CMAKE_SOURCE_DIR}/docs"
-# 			${APPSTREAM_LIB_SOURCES}
-# 			VERBATIM)
-# 	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_CURRENT_SOURCE_DIR}/api/html)
-# 	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_CURRENT_SOURCE_DIR}/api/xml)
+	find_package(GtkDoc)
+	if(NOT GTKDOC_FOUND)
+		message(FATAL_ERROR "gtkdoc was not found, API documentation can not be built.")
+	endif()
+	include(UseGtkDoc)
+
+	gtk_doc_add_module(appstream ${CMAKE_SOURCE_DIR}/src
+		IGNOREHEADERS as-component-private.h as-utils.h as-database-write.h as-settings-private.h
+		SUFFIXES h c hh cc
+		LDFLAGS
+			-L${CMAKE_CURRENT_BINARY_DIR}/../src
+			-lappstream
+		LDPATH
+			"${CMAKE_CURRENT_BINARY_DIR}/../src"
+		OUTPUT_DIR
+			"${CMAKE_CURRENT_SOURCE_DIR}/api"
+		DEPENDS appstream)
+
+	set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM ${CMAKE_CURRENT_SOURCE_DIR}/api)
+ 	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/api/html;${CMAKE_CURRENT_SOURCE_DIR}/api/xml;${CMAKE_CURRENT_SOURCE_DIR}/api/tmpl")
 endif()
