@@ -27,6 +27,7 @@
 
 #include <glib-object.h>
 #include "as-screenshot.h"
+#include "as-provides.h"
 
 #define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
 
@@ -67,11 +68,12 @@ const gchar*		as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
 
 GType				as_component_get_type (void) G_GNUC_CONST;
-
 AsComponent*		as_component_new (void);
 AsComponent*		as_component_construct (GType object_type);
 gboolean			as_component_is_valid (AsComponent* self);
 gchar* 				as_component_to_string (AsComponent* self);
+
+gboolean			as_component_provides_item (AsComponent *self, AsProvidesKind kind, const gchar *value);
 
 AsComponentKind		as_component_get_kind (AsComponent* self);
 const gchar*		as_component_get_pkgname (AsComponent* self);
@@ -90,6 +92,7 @@ const gchar*		as_component_get_icon (AsComponent* self);
 const gchar*		as_component_get_icon_url (AsComponent* self);
 const gchar*		as_component_get_homepage (AsComponent* self);
 gchar**				as_component_get_mimetypes (AsComponent* self);
+GPtrArray*			as_component_get_provides (AsComponent* self);
 
 void				as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot);
 void				as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str);

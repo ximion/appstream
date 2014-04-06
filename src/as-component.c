@@ -47,6 +47,7 @@ struct _AsComponentPrivate {
 	gchar *project_group;
 	gchar **compulsory_for_desktops;
 	GPtrArray *screenshots; /* AsScreenshot elements */
+	GPtrArray *provides_items; /* utf8 */
 };
 
 static gpointer as_component_parent_class = NULL;
@@ -154,7 +155,6 @@ as_component_construct (GType object_type)
 {
 	AsComponent * self = NULL;
 	gchar** strv;
-	GPtrArray* scrsarray;
 	self = (AsComponent*) g_object_new (object_type, NULL);
 	as_component_set_pkgname (self, "");
 	as_component_set_idname (self, "");
@@ -171,8 +171,9 @@ as_component_construct (GType object_type)
 	strv = g_new0 (gchar*, 1 + 1);
 	strv[0] = NULL;
 	as_component_set_categories (self, strv);
-	scrsarray = g_ptr_array_new_with_free_func (g_object_unref);
-	self->priv->screenshots = scrsarray;
+	self->priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
+	self->priv->provides_items = g_ptr_array_new_with_free_func (g_free);
+
 	return self;
 }
 
@@ -525,6 +526,39 @@ as_component_complete (AsComponent* self, gchar *scr_base_url)
 	}
 }
 
+/**
+ * as_component_provides_item:
+ *
+ * Checks if this component provides an item of the specified type
+ *
+ * @self a valid #AsComponent
+ * @kind the kind of the provides-item
+ * @value the value of the provides-item
+ *
+ * Returns: %TRUE if an item was found
+ */
+gboolean
+as_component_provides_item (AsComponent *self, AsProvidesKind kind, const gchar *value)
+{
+	guint i;
+	gboolean ret = FALSE;
+	gchar *item;
+	AsComponentPrivate *priv = self->priv;
+
+	item = as_provides_item_create (kind, value);
+	for (i = 0; i < priv->provides_items->len; i++) {
+		gchar *cval;
+		cval = (gchar*) g_ptr_array_index (priv->provides_items, i);
+		if (g_strcmp0 (item, cval) == 0) {
+			ret = TRUE;
+			break;
+		}
+	}
+
+	g_free (item);
+	return ret;
+}
+
 AsComponentKind
 as_component_get_kind (AsComponent* self)
 {
@@ -874,6 +908,22 @@ as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value)
 	self->priv->compulsory_for_desktops = as_strv_dup (value);
 }
 
+/**
+ * as_component_get_provides:
+ *
+ * Get an array of the provides-items this component is
+ * associated with.
+ *
+ * Return value: (element-type utf8) (transfer none): A list of desktops where this component is compulsory
+ **/
+GPtrArray*
+as_component_get_provides (AsComponent* self)
+{
+	g_return_val_if_fail (self != NULL, NULL);
+
+	return self->priv->provides_items;
+}
+
 static void
 as_component_class_init (AsComponentClass * klass)
 {
@@ -928,6 +978,7 @@ as_component_finalize (GObject* obj)
 	g_strfreev (self->priv->mimetypes);
 	g_strfreev (self->priv->compulsory_for_desktops);
 	g_ptr_array_unref (self->priv->screenshots);
+	g_ptr_array_unref (self->priv->provides_items);
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (obj);
 }
 
