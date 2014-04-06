@@ -25,44 +25,30 @@ set(ASLIB_XAP_SOURCES xapian/database-common.hpp
 )
 
 set(LIBAPPSTREAM_SRC
-		as-utils.h
 		as-utils.c
 		# internal stuff to build the database
-		as-data-provider.h
 		as-data-provider.c
-		data-providers/appstream-xml.h
 		data-providers/appstream-xml.c
-		data-providers/debian-dep11.h
 		data-providers/debian-dep11.c
-		data-providers/ubuntu-appinstall.h
 		data-providers/ubuntu-appinstall.c
 		# (mostly) public API
-		as-component.h
-		as-component-private.h
 		as-component.c
-		as-database-builder.h
+		as-provides.c
 		as-database-builder.c
-		as-search-query.h
 		as-search-query.c
-		as-database.h
 		as-database.c
-		as-database-write.h
 		as-database-write.c
-		as-category.h
 		as-category.c
-		as-menu-parser.h
 		as-menu-parser.c
-		as-distro-details.h
 		as-distro-details.c
-		as-screenshot.h
 		as-screenshot.c
-		as-image.h
 		as-image.c
 )
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
 		appstream.h
 		as-component.h
+		as-provides.h
 		as-search-query.h
 		as-database.h
 		as-category.h
@@ -70,6 +56,17 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 		as-distro-details.h
 		as-screenshot.h
 		as-image.h
+)
+
+set(LIBAPPSTREAM_PRIVATE_HEADERS
+		as-utils.h
+		as-data-provider.h
+		data-providers/appstream-xml.h
+		data-providers/debian-dep11.h
+		data-providers/ubuntu-appinstall.h
+		as-component-private.h
+		as-database-builder.h
+		as-database-write.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
@@ -91,7 +88,7 @@ if (INTROSPECTION_COMPILER STREQUAL "")
   message(FATAL_ERROR "GObject-Introspection was not found! Please install it to continue.")
 endif()
 
-add_library(appstream SHARED ${ASLIB_XAP_SOURCES} ${LIBAPPSTREAM_SRC})
+add_library(appstream SHARED ${ASLIB_XAP_SOURCES} ${LIBAPPSTREAM_SRC} ${LIBAPPSTREAM_PUBLIC_HEADERS} ${LIBAPPSTREAM_PRIVATE_HEADERS})
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 target_link_libraries(appstream
@@ -115,7 +112,7 @@ endmacro(_list_prefix)
 set(introspection_files ${LIBAPPSTREAM_SRC} ${LIBAPPSTREAM_PUBLIC_HEADERS})
 set(Appstream_0_6_gir "appstream")
 set(Appstream_0_6_gir_INCLUDES GObject-2.0 Gio-2.0)
-set(Appstream_0_6_gir_CFLAGS ${_includes} -DAS_COMPILATION)
+set(Appstream_0_6_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION")
 set(Appstream_0_6_gir_LIBS appstream)
 
 _list_prefix(Appstream_0_6_gir_FILES introspection_files "${CMAKE_CURRENT_SOURCE_DIR}/")
