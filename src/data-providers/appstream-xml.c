@@ -47,13 +47,11 @@ static gpointer as_provider_appstream_xml_parent_class = NULL;
 
 static gchar*		as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* self, xmlNode* node, gboolean translated);
 static gchar**		as_provider_appstream_xml_get_children_as_array (AsProviderAppstreamXML* self, xmlNode* node, const gchar* element_name);
-static void			as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlNode* node, AsScreenshot* sshot);
-static void			as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* app);
-static gboolean		as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self, const gchar* xmldoc);
 static gboolean		as_provider_appstream_xml_real_execute (AsDataProvider* base);
 static void			as_provider_appstream_xml_finalize (GObject* obj);
 
-AsProviderAppstreamXML* as_provider_appstream_xml_construct (GType object_type)
+AsProviderAppstreamXML*
+as_provider_appstream_xml_construct (GType object_type)
 {
 	AsProviderAppstreamXML * self = NULL;
 	const gchar * const *locale_names;
@@ -87,13 +85,15 @@ AsProviderAppstreamXML* as_provider_appstream_xml_construct (GType object_type)
 }
 
 
-AsProviderAppstreamXML* as_provider_appstream_xml_new (void)
+AsProviderAppstreamXML*
+as_provider_appstream_xml_new (void)
 {
 	return as_provider_appstream_xml_construct (AS_PROVIDER_TYPE_APPSTREAM_XML);
 }
 
 
-static gchar* as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* self, xmlNode* node, gboolean translated)
+static gchar*
+as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* self, xmlNode* node, gboolean translated)
 {
 	gchar *content;
 	gchar *lang;
@@ -242,7 +242,8 @@ as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlN
 	}
 }
 
-static void as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
+static void
+as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
 	AsScreenshot *sshot = NULL;
@@ -266,6 +267,53 @@ static void as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstre
 			g_free (prop);
 			g_object_unref (sshot);
 		}
+	}
+}
+
+static void
+as_provider_appstream_xml_process_provides (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
+{
+	xmlNode *iter;
+	gchar *node_name;
+	gchar *content = NULL;
+	GPtrArray *provides_items;
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (cpt != NULL);
+
+	provides_items = as_component_get_provides (cpt);
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		node_name = (gchar*) iter->name;
+		content = as_provider_appstream_xml_parse_value (self, iter, TRUE);
+		if (content == NULL)
+			continue;
+
+		if (g_strcmp0 (node_name, "library") == 0) {
+			g_ptr_array_add (provides_items,
+							 as_provides_item_create (AS_PROVIDES_KIND_LIBRARY, content));
+		} else if (g_strcmp0 (node_name, "binary") == 0) {
+			g_ptr_array_add (provides_items,
+							 as_provides_item_create (AS_PROVIDES_KIND_BINARY, content));
+		} else if (g_strcmp0 (node_name, "font") == 0) {
+			g_ptr_array_add (provides_items,
+							 as_provides_item_create (AS_PROVIDES_KIND_FONT, content));
+		} else if (g_strcmp0 (node_name, "modalias") == 0) {
+			g_ptr_array_add (provides_items,
+							 as_provides_item_create (AS_PROVIDES_KIND_MODALIAS, content));
+		} else if (g_strcmp0 (node_name, "firmware") == 0) {
+			g_ptr_array_add (provides_items,
+							 as_provides_item_create (AS_PROVIDES_KIND_FIRMWARE, content));
+		} else if (g_strcmp0 (node_name, "python2") == 0) {
+			g_ptr_array_add (provides_items,
+							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON2, content));
+		} else if (g_strcmp0 (node_name, "python3") == 0) {
+			g_ptr_array_add (provides_items,
+							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, content));
+		}
+		g_free (content);
 	}
 }
 
@@ -366,6 +414,8 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 			gchar **cat_array;
 			cat_array = as_provider_appstream_xml_get_children_as_array (self, iter, "category");
 			as_component_set_categories (cpt, cat_array);
+		} else if (g_strcmp0 (node_name, "provides") == 0) {
+			as_provider_appstream_xml_process_provides (self, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_provider_appstream_xml_process_screenshots_tag (self, iter, cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {

@@ -39,12 +39,16 @@ as_provides_kind_to_string (AsProvidesKind kind)
 		return "lib";
 	if (kind == AS_PROVIDES_KIND_BINARY)
 		return "bin";
+	if (kind == AS_PROVIDES_KIND_FONT)
+		return "font";
+	if (kind == AS_PROVIDES_KIND_MODALIAS)
+		return "modalias";
+	if (kind == AS_PROVIDES_KIND_FIRMWARE)
+		return "firmware";
 	if (kind == AS_PROVIDES_KIND_PYTHON2)
 		return "python2";
 	if (kind == AS_PROVIDES_KIND_PYTHON3)
 		return "python3";
-	if (kind == AS_PROVIDES_KIND_FONT)
-		return "font";
 	return "unknown";
 }
 
@@ -63,12 +67,16 @@ as_provides_kind_from_string (const gchar *kind_str)
 		return AS_PROVIDES_KIND_LIBRARY;
 	if (g_strcmp0 (kind_str, "bin") == 0)
 		return AS_PROVIDES_KIND_BINARY;
+	if (g_strcmp0 (kind_str, "font") == 0)
+		return AS_PROVIDES_KIND_FONT;
+	if (g_strcmp0 (kind_str, "modalias") == 0)
+		return AS_PROVIDES_KIND_MODALIAS;
+	if (g_strcmp0 (kind_str, "firmware") == 0)
+		return AS_PROVIDES_KIND_FIRMWARE;
 	if (g_strcmp0 (kind_str, "python2") == 0)
 		return AS_PROVIDES_KIND_PYTHON2;
 	if (g_strcmp0 (kind_str, "python3") == 0)
 		return AS_PROVIDES_KIND_PYTHON3;
-	if (g_strcmp0 (kind_str, "font") == 0)
-		return AS_PROVIDES_KIND_FONT;
 	return AS_PROVIDES_KIND_UNKNOWN;
 }
 
@@ -77,9 +85,9 @@ as_provides_kind_from_string (const gchar *kind_str)
  *
  * Creates a new provides-item string, which
  * consists of a type-part describing the items type, and a name-part,
- * containing the name of the item. Both are separated by a colon,
+ * containing the name of the item. Both are separated by a semicolon,
  * so an item of type KIND_LIBRARY and name libappstream.so.0 will become
- * "lib:libappstream.so.0"
+ * "lib;libappstream.so.0"
  *
  * @kind a #AsProvidesKind describing the type of the item string
  * @value the name of the item as string
@@ -93,7 +101,7 @@ as_provides_item_create (AsProvidesKind kind, const gchar *value)
 	gchar *res;
 	kind_str = as_provides_kind_to_string (kind);
 
-	res = g_strdup_printf ("%s:%s", kind_str, value);
+	res = g_strdup_printf ("%s;%s", kind_str, value);
 	return res;
 }
 
@@ -115,7 +123,7 @@ as_provides_item_get_kind (const gchar *item)
 
 	res = AS_PROVIDES_KIND_UNKNOWN;
 
-	parts = g_strsplit (item, ":", 1);
+	parts = g_strsplit (item, ";", 1);
 	/* return unknown if the item was not valid */
 	if (g_strv_length (parts) < 2)
 		goto out;
@@ -143,7 +151,7 @@ as_provides_item_get_value (const gchar *item)
 
 	res = NULL;
 
-	parts = g_strsplit (item, ":", 1);
+	parts = g_strsplit (item, ";", 1);
 	/* return unknown if the item was not valid */
 	if (g_strv_length (parts) < 2)
 		goto out;

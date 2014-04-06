@@ -71,7 +71,7 @@ as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder
 
 	cpt_id = as_component_get_idname (cpt);
 	if (g_hash_table_contains (self->priv->cpt_table, cpt_id)) {
-		g_debug ("Detected colliding ids: %s was already added, current component will be skipped.", cpt_id);
+		g_debug ("Detected colliding ids: %s was already added.", cpt_id);
 	} else {
 		g_hash_table_insert (self->priv->cpt_table,
 							g_strdup (cpt_id),
