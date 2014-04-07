@@ -29,6 +29,23 @@
 
 #include "as-utils.h"
 
+/**
+ * SECTION:as-component
+ * @short_description: Object representing a software component
+ * @include: appstream.h
+ *
+ * This object represents an Appstream software component which is associated
+ * to a package in the distribution's repositories.
+ * A component can be anything, ranging from an application to a font, a codec or
+ * even a non-visual software project providing libraries and python-modules for
+ * other applications to use.
+ *
+ * The type of the component is stored as #AsComponentKind and can be queried to
+ * find out which kind of component we're dealing with.
+ *
+ * See also: #AsProvidesKind, #AsDatabase
+ */
+
 struct _AsComponentPrivate {
 	AsComponentKind kind;
 	gchar *pkgname;
@@ -183,7 +200,6 @@ as_component_construct (GType object_type)
  * Creates a new #AsComponent.
  *
  * Returns: (transfer full): an #AsComponent
- *
  **/
 AsComponent*
 as_component_new (void)

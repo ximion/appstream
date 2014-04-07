@@ -30,6 +30,18 @@
 
 #include "xapian/database-vala.hpp"
 
+/**
+ * SECTION:as-database
+ * @short_description: Read-only access to the Appstream component database
+ * @include: appstream.h
+ *
+ * This object provides access to the Appstream Xapian database of available software components.
+ * You can search for components using various criteria, as well as getting some information
+ * about the data provided by this Appstream database.
+ *
+ * See also: #AsComponent, #AsSearchQuery
+ */
+
 struct _AsDatabasePrivate {
 	struct XADatabaseRead* db;
 	gboolean opened;
@@ -63,7 +75,13 @@ as_database_construct (GType object_type)
 	return self;
 }
 
-
+/**
+ * as_database_new:
+ *
+ * Creates a new #AsDatabase.
+ *
+ * Returns: (transfer full): an #AsDatabase
+ **/
 AsDatabase*
 as_database_new (void)
 {

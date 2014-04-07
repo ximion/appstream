@@ -29,6 +29,19 @@
 
 #include "as-utils.h"
 
+/**
+ * SECTION:as-search-query
+ * @short_description: An Appstream database search query
+ * @include: appstream.h
+ *
+ * This object defines a search run in the Appstream components database.
+ * It contains a string to search for, as well as information which
+ * categories should be searched.
+ * It also applies some sanity checks and improvements to the entered search string.
+ *
+ * See also: #AsDatabase
+ */
+
 struct _AsSearchQueryPrivate {
 	gchar* search_term;
 	gchar** categories;

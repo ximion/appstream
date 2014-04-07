@@ -187,6 +187,20 @@ macro(gtk_doc_add_module _doc_prefix _doc_sourcedir)
             WORKING_DIRECTORY "${_output_dir}"
             VERBATIM)
 
+        # make sure sections info is found by gtkdoc later
+        add_custom_command(
+            OUTPUT
+                "${_output_html_dir}/${_doc_prefix}-sections.txt"
+            DEPENDS
+                "${_output_html_dir_stamp}"
+                "${_output_sgml_stamp}"
+                "${_output_tmpl_stamp}"
+                "${_xml_file}"
+                ${_depends}
+            COMMAND ${CMAKE_COMMAND} -E copy "${_output_dir}/${_doc_prefix}-sections.txt" "${_output_html_dir}/${_doc_prefix}-sections.txt"
+            WORKING_DIRECTORY "${_output_dir}"
+            VERBATIM)
+
         # add a command to create html directory
         add_custom_command(
             OUTPUT "${_output_html_dir_stamp}" "${_output_html_dir}"
@@ -203,6 +217,7 @@ macro(gtk_doc_add_module _doc_prefix _doc_sourcedir)
                 "${_output_sgml_stamp}"
                 "${_output_tmpl_stamp}"
                 "${_xml_file}"
+                "${_output_html_dir}/${_doc_prefix}-sections.txt"
                 ${_depends}
             ${_copy_xml_if_needed}
             COMMAND ${GTKDOC_MKHTML_EXE}

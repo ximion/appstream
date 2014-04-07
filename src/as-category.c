@@ -30,6 +30,23 @@
 #include <glib/gi18n-lib.h>
 #include <gobject/gvaluecollector.h>
 
+/**
+ * SECTION:as-category
+ * @short_description: Representation of a XDG category
+ * @include: appstream.h
+ *
+ * This object represents an XDG category, as defined at:
+ * http://standards.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
+ *
+ * The #AsCategory object does not support all aspects of a menu. It's main purpose
+ * is to be used in software-centers to show information about application-groups,
+ * which are use to thematically group applications.
+ *
+ * You can use #AsMenuParser to get a set of supported default categories.
+ *
+ * See also: #AsMenuParser
+ */
+
 struct _AsCategoryPrivate {
 	gchar* name;
 	gchar* summary;
@@ -73,7 +90,13 @@ as_category_construct (GType object_type)
 	return self;
 }
 
-
+/**
+ * as_category_new:
+ *
+ * Creates a new #AsCategory.
+ *
+ * Returns: (transfer full): an #AsCategory
+ **/
 AsCategory*
 as_category_new (void)
 {
@@ -163,7 +186,7 @@ as_category_remove_subcategory (AsCategory* self, AsCategory* cat)
  * as_category_has_subcategory:
  *
  * Test for sub-categories.
- * 
+ *
  * Returns: TRUE if this category has any subcategory
  */
 gboolean

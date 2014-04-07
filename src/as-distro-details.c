@@ -29,6 +29,19 @@
 
 #include "as-settings-private.h"
 
+/**
+ * SECTION:as-distro-details
+ * @short_description: Object providing information about the current distribution
+ * @include: appstream.h
+ *
+ * This object abstracts various distribution-specific settings and provides information
+ * about the (Linux) distribution which is currently in use.
+ * It is used internalls to get information about the icon-store or the 3rd-party screenshot
+ * service distributors may want to provide.
+ *
+ * See also: #AsDatabase
+ */
+
 struct _AsDistroDetailsPrivate {
 	gchar* distro_id;
 	gchar* distro_name;
@@ -131,7 +144,15 @@ out:
 	return self;
 }
 
-AsDistroDetails* as_distro_details_new (void) {
+/**
+ * as_distro_details_new:
+ *
+ * Creates a new #AsDistroDetails.
+ *
+ * Returns: (transfer full): an #AsDistroDetails instance.
+ **/
+AsDistroDetails*
+as_distro_details_new (void) {
 	return as_distro_details_construct (AS_TYPE_DISTRO_DETAILS);
 }
 

@@ -139,7 +139,13 @@ as_builder_construct (GType object_type)
 	return self;
 }
 
-
+/**
+ * as_builder_new:
+ *
+ * Creates a new #AsBuilder.
+ *
+ * Returns: (transfer full): an #AsBuilder
+ **/
 AsBuilder*
 as_builder_new (void)
 {
@@ -160,7 +166,15 @@ as_builder_construct_path (GType object_type, const gchar* dbpath)
 	return self;
 }
 
-
+/**
+ * as_builder_new_path:
+ *
+ * Creates a new #AsBuilder with custom database path.
+ *
+ * @path path to the new Xapian database
+ *
+ * Returns: (transfer full): an #AsBuilder
+ **/
 AsBuilder*
 as_builder_new_path (const gchar* dbpath)
 {

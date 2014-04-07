@@ -31,6 +31,19 @@
 
 #include "as-category.h"
 
+/**
+ * SECTION:as-menu-parser
+ * @short_description: Parser for XDG menu files designed for software-centers
+ * @include: appstream.h
+ *
+ * This object parses an XDG menu file and returns a set of #AsCategory objects which
+ * can be used by software-centers to group the applications they show.
+ * By default, it loads a common set of categories from an internal menu file.
+ * A custom menu file may be specified using the alternative class constructor.
+ *
+ * See also: #AsCategory
+ */
+
 struct _AsMenuParserPrivate {
 	gchar* menu_file;
 	gboolean update_category_data;
@@ -64,7 +77,13 @@ as_menu_parser_construct (GType object_type)
 	return self;
 }
 
-
+/**
+ * as_menu_parser_new:
+ *
+ * Creates a new #AsMenuParser.
+ *
+ * Returns: (transfer full): an #AsMenuParser
+ **/
 AsMenuParser*
 as_menu_parser_new (void)
 {
@@ -75,7 +94,9 @@ as_menu_parser_new (void)
 /**
  * Create a new MenuParser for an arbitrary menu file
  */
-AsMenuParser* as_menu_parser_construct_from_file (GType object_type, const gchar* menu_file) {
+AsMenuParser*
+as_menu_parser_construct_from_file (GType object_type, const gchar* menu_file)
+{
 	AsMenuParser * self = NULL;
 	g_return_val_if_fail (menu_file != NULL, NULL);
 
@@ -87,8 +108,18 @@ AsMenuParser* as_menu_parser_construct_from_file (GType object_type, const gchar
 	return self;
 }
 
-
-AsMenuParser* as_menu_parser_new_from_file (const gchar* menu_file) {
+/**
+ * as_menu_parser_new_from_file:
+ *
+ * Creates a new #AsMenuParser with a custom XDG menu file.
+ *
+ * @menu_file a custom XDG menu XML file
+ *
+ * Returns: (transfer full): an #AsMenuParser
+ **/
+AsMenuParser*
+as_menu_parser_new_from_file (const gchar* menu_file)
+{
 	return as_menu_parser_construct_from_file (AS_TYPE_MENU_PARSER, menu_file);
 }
 

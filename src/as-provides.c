@@ -25,6 +25,18 @@
 #include "as-utils.h"
 
 /**
+ * SECTION:as-provides
+ * @short_description: Description of the provides-types of components
+ * @include: appstream.h
+ *
+ * Components can provide various items, like libraries, Python-modules,
+ * firmware, binaries, etc.
+ * Functions to work with these items are provided here.
+ *
+ * See also: #AsComponent
+ */
+
+/**
  * as_provides_kind_to_string:
  * @kind: the #AsProvidesKind.
  *
