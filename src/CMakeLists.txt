@@ -43,6 +43,7 @@ set(LIBAPPSTREAM_SRC
 		as-distro-details.c
 		as-screenshot.c
 		as-image.c
+		as-release.c
 )
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
@@ -56,6 +57,7 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 		as-distro-details.h
 		as-screenshot.h
 		as-image.h
+		as-release.h
 )
 
 set(LIBAPPSTREAM_PRIVATE_HEADERS
