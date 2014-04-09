@@ -40,25 +40,40 @@ typedef struct _AsSearchQuery AsSearchQuery;
 typedef struct _AsSearchQueryClass AsSearchQueryClass;
 typedef struct _AsSearchQueryPrivate AsSearchQueryPrivate;
 
-struct _AsSearchQuery {
+struct _AsSearchQuery
+{
 	GObject parent_instance;
 	AsSearchQueryPrivate * priv;
 };
 
-struct _AsSearchQueryClass {
+struct _AsSearchQueryClass
+{
 	GObjectClass parent_class;
+	/*< private >*/
+	void (*_as_reserved1)	(void);
+	void (*_as_reserved2)	(void);
+	void (*_as_reserved3)	(void);
+	void (*_as_reserved4)	(void);
+	void (*_as_reserved5)	(void);
+	void (*_as_reserved6)	(void);
+	void (*_as_reserved7)	(void);
+	void (*_as_reserved8)	(void);
 };
 
 GType					as_search_query_get_type (void) G_GNUC_CONST;
 
 AsSearchQuery*			as_search_query_new (const gchar* term);
-AsSearchQuery*			as_search_query_construct (GType object_type, const gchar* term);
-void					as_search_query_set_search_term (AsSearchQuery* self, const gchar* value);
+AsSearchQuery*			as_search_query_construct (GType object_type,
+												   const gchar* term);
+void					as_search_query_set_search_term (AsSearchQuery* self,
+														 const gchar* value);
 gboolean				as_search_query_get_search_all_categories (AsSearchQuery* self);
 gchar**					as_search_query_get_categories (AsSearchQuery* self);
 void					as_search_query_set_search_all_categories (AsSearchQuery* self);
-void					as_search_query_set_categories (AsSearchQuery* self, gchar** value);
-void					as_search_query_set_categories_from_string (AsSearchQuery* self, const gchar* categories_str);
+void					as_search_query_set_categories (AsSearchQuery* self,
+														gchar** value);
+void					as_search_query_set_categories_from_string (AsSearchQuery* self,
+																	const gchar* categories_str);
 void					as_search_query_sanitize_search_term (AsSearchQuery* self);
 const gchar*			as_search_query_get_search_term (AsSearchQuery* self);
 

@@ -40,13 +40,24 @@ typedef struct _AsMenuParser AsMenuParser;
 typedef struct _AsMenuParserClass AsMenuParserClass;
 typedef struct _AsMenuParserPrivate AsMenuParserPrivate;
 
-struct _AsMenuParser {
+struct _AsMenuParser
+{
 	GObject parent_instance;
 	AsMenuParserPrivate *priv;
 };
 
-struct _AsMenuParserClass {
+struct _AsMenuParserClass
+{
 	GObjectClass parent_class;
+	/*< private >*/
+	void (*_as_reserved1)	(void);
+	void (*_as_reserved2)	(void);
+	void (*_as_reserved3)	(void);
+	void (*_as_reserved4)	(void);
+	void (*_as_reserved5)	(void);
+	void (*_as_reserved6)	(void);
+	void (*_as_reserved7)	(void);
+	void (*_as_reserved8)	(void);
 };
 
 GType					as_menu_parser_get_type (void) G_GNUC_CONST;
@@ -54,8 +65,10 @@ GType					as_menu_parser_get_type (void) G_GNUC_CONST;
 AsMenuParser*			as_menu_parser_new (void);
 AsMenuParser*			as_menu_parser_construct (GType object_type);
 AsMenuParser*			as_menu_parser_new_from_file (const gchar* menu_file);
-AsMenuParser*			as_menu_parser_construct_from_file (GType object_type, const gchar* menu_file);
-void					as_menu_parser_set_update_category_data (AsMenuParser* self, gboolean value);
+AsMenuParser*			as_menu_parser_construct_from_file (GType object_type,
+															const gchar* menu_file);
+void					as_menu_parser_set_update_category_data (AsMenuParser* self,
+																 gboolean value);
 GList*					as_menu_parser_parse (AsMenuParser* self);
 gboolean				as_menu_parser_get_update_category_data (AsMenuParser* self);
 

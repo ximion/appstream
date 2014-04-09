@@ -57,6 +57,8 @@ struct _AsScreenshotClass
 	void (*_as_reserved4)	(void);
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
+	void (*_as_reserved7)	(void);
+	void (*_as_reserved8)	(void);
 };
 
 /**
@@ -89,9 +91,12 @@ const gchar			*as_screenshot_get_caption	(AsScreenshot	*screenshot);
 GPtrArray			*as_screenshot_get_images	(AsScreenshot	*screenshot);
 
 /* setters */
-void		 as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind);
-void		 as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption);
-void		 as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image);
+void		 as_screenshot_set_kind (AsScreenshot *screenshot,
+									 AsScreenshotKind kind);
+void		 as_screenshot_set_caption (AsScreenshot *screenshot,
+										const gchar *caption);
+void		 as_screenshot_add_image (AsScreenshot *screenshot,
+									  AsImage *image);
 
 G_END_DECLS
 

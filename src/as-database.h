@@ -41,27 +41,42 @@ typedef struct _AsDatabase AsDatabase;
 typedef struct _AsDatabaseClass AsDatabaseClass;
 typedef struct _AsDatabasePrivate AsDatabasePrivate;
 
-struct _AsDatabase {
+struct _AsDatabase
+{
 	GObject parent_instance;
 	AsDatabasePrivate * priv;
 };
 
-struct _AsDatabaseClass {
+struct _AsDatabaseClass
+{
 	GObjectClass parent_class;
 	gboolean (*open) (AsDatabase* self);
+	/*< private >*/
+	void (*_as_reserved1)	(void);
+	void (*_as_reserved2)	(void);
+	void (*_as_reserved3)	(void);
+	void (*_as_reserved4)	(void);
+	void (*_as_reserved5)	(void);
+	void (*_as_reserved6)	(void);
+	void (*_as_reserved7)	(void);
+	void (*_as_reserved8)	(void);
 };
 
 GType as_database_get_type (void) G_GNUC_CONST;
 
-AsDatabase* as_database_new (void);
-AsDatabase* as_database_construct (GType object_type);
-void as_database_set_database_path (AsDatabase* self, const gchar* value);
-gboolean as_database_open (AsDatabase* self);
-const gchar* as_database_get_database_path (AsDatabase* self);
-gboolean as_database_db_exists (AsDatabase* self);
-GPtrArray* as_database_get_all_components (AsDatabase* self);
-GPtrArray* as_database_find_components (AsDatabase* self, AsSearchQuery* query);
-GPtrArray* as_database_find_components_by_str (AsDatabase* self, const gchar* search_str, const gchar* categories_str);
+AsDatabase*			as_database_new (void);
+AsDatabase*			as_database_construct (GType object_type);
+void				as_database_set_database_path (AsDatabase* self,
+												   const gchar* value);
+gboolean			as_database_open (AsDatabase* self);
+const gchar*		as_database_get_database_path (AsDatabase* self);
+gboolean			as_database_db_exists (AsDatabase* self);
+GPtrArray*			as_database_get_all_components (AsDatabase* self);
+GPtrArray*			as_database_find_components (AsDatabase* self,
+												 AsSearchQuery* query);
+GPtrArray*			as_database_find_components_by_str (AsDatabase* self,
+														const gchar* search_str,
+												 const gchar* categories_str);
 
 G_END_DECLS
 

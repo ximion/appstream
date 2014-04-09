@@ -40,13 +40,24 @@ typedef struct _AsCategory AsCategory;
 typedef struct _AsCategoryClass AsCategoryClass;
 typedef struct _AsCategoryPrivate AsCategoryPrivate;
 
-struct _AsCategory {
+struct _AsCategory
+{
 	GObject parent_instance;
-	AsCategoryPrivate * priv;
+	AsCategoryPrivate *priv;
 };
 
-struct _AsCategoryClass {
+struct _AsCategoryClass
+{
 	GObjectClass parent_class;
+	/*< private >*/
+	void (*_as_reserved1)	(void);
+	void (*_as_reserved2)	(void);
+	void (*_as_reserved3)	(void);
+	void (*_as_reserved4)	(void);
+	void (*_as_reserved5)	(void);
+	void (*_as_reserved6)	(void);
+	void (*_as_reserved7)	(void);
+	void (*_as_reserved8)	(void);
 };
 
 GType					as_category_get_type (void) G_GNUC_CONST;
@@ -56,18 +67,24 @@ AsCategory*				as_category_construct (GType object_type);
 void					as_category_complete (AsCategory* self);
 const gchar*			as_category_get_directory (AsCategory* self);
 const gchar*			as_category_get_name (AsCategory* self);
-void					as_category_set_icon (AsCategory* self, const gchar* value);
-void					as_category_set_name (AsCategory* self, const gchar* value);
+void					as_category_set_icon (AsCategory* self,
+											  const gchar* value);
+void					as_category_set_name (AsCategory* self,
+											  const gchar* value);
 const gchar*			as_category_get_summary (AsCategory* self);
 const gchar*			as_category_get_icon (AsCategory* self);
-void					as_category_add_subcategory (AsCategory* self, AsCategory* cat);
-void					as_category_remove_subcategory (AsCategory* self, AsCategory* cat);
+void					as_category_add_subcategory (AsCategory* self,
+													 AsCategory* cat);
+void					as_category_remove_subcategory (AsCategory* self,
+														AsCategory* cat);
 gboolean				as_category_has_subcategory (AsCategory* self);
-void					as_category_set_directory (AsCategory* self, const gchar* value);
+void					as_category_set_directory (AsCategory* self,
+												   const gchar* value);
 GList*					as_category_get_included (AsCategory* self);
 GList*					as_category_get_excluded (AsCategory* self);
 gint					as_category_get_level (AsCategory* self);
-void					as_category_set_level (AsCategory* self, gint value);
+void					as_category_set_level (AsCategory* self,
+											   gint value);
 GList*					as_category_get_subcategories (AsCategory* self);
 
 G_END_DECLS

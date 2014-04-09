@@ -83,19 +83,20 @@ AsImageKind	 as_image_kind_from_string	(const gchar	*kind);
 const gchar	*as_image_kind_to_string	(AsImageKind	 kind);
 
 /* getters */
-const gchar	*as_image_get_url		(AsImage	*image);
-guint		 as_image_get_width		(AsImage	*image);
-guint		 as_image_get_height		(AsImage	*image);
-AsImageKind	 as_image_get_kind		(AsImage	*image);
+const gchar	*as_image_get_url		(AsImage *image);
+guint		 as_image_get_width		(AsImage *image);
+guint		 as_image_get_height		(AsImage *image);
+AsImageKind	 as_image_get_kind		(AsImage *image);
 
 /* setters */
-void		 as_image_set_url		(AsImage	*image, const gchar	*url);
-void		 as_image_set_width		(AsImage	*image,
-						 guint		 width);
-void		 as_image_set_height		(AsImage	*image,
-						 guint		 height);
-void		 as_image_set_kind		(AsImage	*image,
-						 AsImageKind	 kind);
+void		 as_image_set_url		(AsImage *image,
+									 const gchar *url);
+void		 as_image_set_width		(AsImage *image,
+									 guint width);
+void		 as_image_set_height		(AsImage *image,
+										 guint height);
+void		 as_image_set_kind		(AsImage *image,
+									 AsImageKind kind);
 
 G_END_DECLS
 

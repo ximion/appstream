@@ -41,25 +41,40 @@ typedef struct _AsDataProvider AsDataProvider;
 typedef struct _AsDataProviderClass AsDataProviderClass;
 typedef struct _AsDataProviderPrivate AsDataProviderPrivate;
 
-struct _AsDataProvider {
+struct _AsDataProvider
+{
 	GObject parent_instance;
 	AsDataProviderPrivate * priv;
 };
 
-struct _AsDataProviderClass {
+struct _AsDataProviderClass
+{
 	GObjectClass parent_class;
 	gboolean (*execute) (AsDataProvider* self);
+	/*< private >*/
+	void (*_as_reserved1)	(void);
+	void (*_as_reserved2)	(void);
+	void (*_as_reserved3)	(void);
+	void (*_as_reserved4)	(void);
+	void (*_as_reserved5)	(void);
+	void (*_as_reserved6)	(void);
+	void (*_as_reserved7)	(void);
+	void (*_as_reserved8)	(void);
 };
 
 GType as_data_provider_get_type (void) G_GNUC_CONST;
 
 AsDataProvider*		as_data_provider_construct (GType object_type);
-void				as_data_provider_emit_application (AsDataProvider* self, AsComponent* cpt);
+void				as_data_provider_emit_application (AsDataProvider* self,
+													   AsComponent* cpt);
 gboolean			as_data_provider_execute (AsDataProvider* self);
-void				as_data_provider_log_error (AsDataProvider* self, const gchar* msg);
-void				as_data_provider_log_warning (AsDataProvider* self, const gchar* msg);
+void				as_data_provider_log_error (AsDataProvider* self,
+												const gchar* msg);
+void				as_data_provider_log_warning (AsDataProvider* self,
+												  const gchar* msg);
 gchar**				as_data_provider_get_watch_files (AsDataProvider* self);
-void				as_data_provider_set_watch_files (AsDataProvider* self, gchar** value);
+void				as_data_provider_set_watch_files (AsDataProvider* self,
+													  gchar** value);
 
 G_END_DECLS
 

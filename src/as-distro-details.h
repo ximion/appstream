@@ -40,13 +40,24 @@ typedef struct _AsDistroDetails AsDistroDetails;
 typedef struct _AsDistroDetailsClass AsDistroDetailsClass;
 typedef struct _AsDistroDetailsPrivate AsDistroDetailsPrivate;
 
-struct _AsDistroDetails {
+struct _AsDistroDetails
+{
 	GObject parent_instance;
 	AsDistroDetailsPrivate * priv;
 };
 
-struct _AsDistroDetailsClass {
+struct _AsDistroDetailsClass
+{
 	GObjectClass parent_class;
+	/*< private >*/
+	void (*_as_reserved1)	(void);
+	void (*_as_reserved2)	(void);
+	void (*_as_reserved3)	(void);
+	void (*_as_reserved4)	(void);
+	void (*_as_reserved5)	(void);
+	void (*_as_reserved6)	(void);
+	void (*_as_reserved7)	(void);
+	void (*_as_reserved8)	(void);
 };
 
 GType					as_distro_details_get_type (void) G_GNUC_CONST;
@@ -54,9 +65,11 @@ GType					as_distro_details_get_type (void) G_GNUC_CONST;
 AsDistroDetails*		as_distro_details_new (void);
 AsDistroDetails*		as_distro_details_construct (GType object_type);
 gchar**					as_distro_details_get_icon_repository_paths (AsDistroDetails* self);
-gchar*					as_distro_details_config_distro_get_str (AsDistroDetails* self, const gchar* key);
+gchar*					as_distro_details_config_distro_get_str (AsDistroDetails* self,
+																 const gchar* key);
 const gchar*			as_distro_details_get_distro_id (AsDistroDetails* self);
-gboolean				as_distro_details_config_distro_get_bool (AsDistroDetails* self, const gchar* key);
+gboolean				as_distro_details_config_distro_get_bool (AsDistroDetails* self,
+																  const gchar* key);
 const gchar*			as_distro_details_get_distro_name (AsDistroDetails* self);
 const gchar*			as_distro_details_get_distro_version (AsDistroDetails* self);
 
