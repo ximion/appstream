@@ -63,8 +63,9 @@ struct _AsComponentPrivate {
 	gchar *project_license;
 	gchar *project_group;
 	gchar **compulsory_for_desktops;
-	GPtrArray *screenshots; /* AsScreenshot elements */
-	GPtrArray *provides_items; /* utf8 */
+	GPtrArray *screenshots; /* of AsScreenshot elements */
+	GPtrArray *provided_items; /* of utf8 */
+	GPtrArray *releases; /* of AsRelease */
 };
 
 static gpointer as_component_parent_class = NULL;
@@ -189,7 +190,8 @@ as_component_construct (GType object_type)
 	strv[0] = NULL;
 	as_component_set_categories (self, strv);
 	self->priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
-	self->priv->provides_items = g_ptr_array_new_with_free_func (g_free);
+	self->priv->provided_items = g_ptr_array_new_with_free_func (g_free);
+	self->priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 
 	return self;
 }
@@ -562,9 +564,9 @@ as_component_provides_item (AsComponent *self, AsProvidesKind kind, const gchar 
 	AsComponentPrivate *priv = self->priv;
 
 	item = as_provides_item_create (kind, value);
-	for (i = 0; i < priv->provides_items->len; i++) {
+	for (i = 0; i < priv->provided_items->len; i++) {
 		gchar *cval;
-		cval = (gchar*) g_ptr_array_index (priv->provides_items, i);
+		cval = (gchar*) g_ptr_array_index (priv->provided_items, i);
 		if (g_strcmp0 (item, cval) == 0) {
 			ret = TRUE;
 			break;
@@ -925,7 +927,7 @@ as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value)
 }
 
 /**
- * as_component_get_provides:
+ * as_component_get_provided_items:
  *
  * Get an array of the provides-items this component is
  * associated with.
@@ -933,11 +935,27 @@ as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value)
  * Return value: (element-type utf8) (transfer none): A list of desktops where this component is compulsory
  **/
 GPtrArray*
-as_component_get_provides (AsComponent* self)
+as_component_get_provided_items (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 
-	return self->priv->provides_items;
+	return self->priv->provided_items;
+}
+
+/**
+ * as_component_get_releases:
+ *
+ * Get an array of the #AsRelease items this component
+ * provides.
+ *
+ * Return value: (element-type AsRelease) (transfer none): A list of releases
+ **/
+GPtrArray*
+as_component_get_releases (AsComponent* self)
+{
+	g_return_val_if_fail (self != NULL, NULL);
+
+	return self->priv->releases;
 }
 
 static void
@@ -994,12 +1012,15 @@ as_component_finalize (GObject* obj)
 	g_strfreev (self->priv->mimetypes);
 	g_strfreev (self->priv->compulsory_for_desktops);
 	g_ptr_array_unref (self->priv->screenshots);
-	g_ptr_array_unref (self->priv->provides_items);
+	g_ptr_array_unref (self->priv->provided_items);
+	g_ptr_array_unref (self->priv->releases);
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (obj);
 }
 
 
 /**
+ * as_component_get_type:
+ * 
  * Class to store data describing a component in AppStream
  */
 GType

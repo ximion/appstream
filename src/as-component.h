@@ -73,7 +73,8 @@ AsComponent*		as_component_construct (GType object_type);
 gboolean			as_component_is_valid (AsComponent* self);
 gchar* 				as_component_to_string (AsComponent* self);
 
-gboolean			as_component_provides_item (AsComponent *self, AsProvidesKind kind, const gchar *value);
+gboolean			as_component_provides_item (AsComponent *self,
+												AsProvidesKind kind, const gchar *value);
 
 AsComponentKind		as_component_get_kind (AsComponent* self);
 const gchar*		as_component_get_pkgname (AsComponent* self);
@@ -92,26 +93,45 @@ const gchar*		as_component_get_icon (AsComponent* self);
 const gchar*		as_component_get_icon_url (AsComponent* self);
 const gchar*		as_component_get_homepage (AsComponent* self);
 gchar**				as_component_get_mimetypes (AsComponent* self);
-GPtrArray*			as_component_get_provides (AsComponent* self);
+GPtrArray*			as_component_get_provided_items (AsComponent* self);
+GPtrArray*			as_component_get_releases (AsComponent* self);
 
-void				as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot);
-void				as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str);
-void				as_component_set_kind (AsComponent* self, AsComponentKind value);
-void				as_component_set_name (AsComponent* self, const gchar* value);
-void				as_component_set_keywords (AsComponent* self, gchar** value);
-void				as_component_set_mimetypes (AsComponent* self, gchar** value);
-void				as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value);
-void				as_component_set_pkgname (AsComponent* self, const gchar* value);
-void				as_component_set_idname (AsComponent* self, const gchar* value);
-void				as_component_set_name_original (AsComponent* self, const gchar* value);
-void				as_component_set_summary (AsComponent* self, const gchar* value);
-void				as_component_set_description (AsComponent* self, const gchar* value);
-void				as_component_set_homepage (AsComponent* self, const gchar* value);
-void				as_component_set_icon (AsComponent* self, const gchar* value);
-void				as_component_set_icon_url (AsComponent* self, const gchar* value);
-void				as_component_set_project_license (AsComponent* self, const gchar* value);
-void				as_component_set_project_group (AsComponent* self, const gchar* value);
-void				as_component_set_categories (AsComponent* self, gchar** value);
+void				as_component_add_screenshot (AsComponent* self,
+												 AsScreenshot* sshot);
+void				as_component_set_categories_from_str (AsComponent* self,
+														  const gchar* categories_str);
+void				as_component_set_kind (AsComponent* self,
+										   AsComponentKind value);
+void				as_component_set_name (AsComponent* self,
+										   const gchar* value);
+void				as_component_set_keywords (AsComponent* self,
+											   gchar** value);
+void				as_component_set_mimetypes (AsComponent* self,
+												gchar** value);
+void				as_component_set_compulsory_for_desktops (AsComponent* self,
+															  gchar** value);
+void				as_component_set_pkgname (AsComponent* self,
+											  const gchar* value);
+void				as_component_set_idname (AsComponent* self,
+											 const gchar* value);
+void				as_component_set_name_original (AsComponent* self,
+													const gchar* value);
+void				as_component_set_summary (AsComponent* self,
+											  const gchar* value);
+void				as_component_set_description (AsComponent* self,
+												  const gchar* value);
+void				as_component_set_homepage (AsComponent* self,
+											   const gchar* value);
+void				as_component_set_icon (AsComponent* self,
+										   const gchar* value);
+void				as_component_set_icon_url (AsComponent* self,
+											   const gchar* value);
+void				as_component_set_project_license (AsComponent* self,
+													  const gchar* value);
+void				as_component_set_project_group (AsComponent* self,
+													const gchar* value);
+void				as_component_set_categories (AsComponent* self,
+												 gchar** value);
 
 G_END_DECLS
 

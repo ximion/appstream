@@ -276,11 +276,11 @@ as_provider_appstream_xml_process_provides (AsProviderAppstreamXML* self, xmlNod
 	xmlNode *iter;
 	gchar *node_name;
 	gchar *content = NULL;
-	GPtrArray *provides_items;
+	GPtrArray *provided_items;
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (cpt != NULL);
 
-	provides_items = as_component_get_provides (cpt);
+	provided_items = as_component_get_provided_items (cpt);
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -292,25 +292,25 @@ as_provider_appstream_xml_process_provides (AsProviderAppstreamXML* self, xmlNod
 			continue;
 
 		if (g_strcmp0 (node_name, "library") == 0) {
-			g_ptr_array_add (provides_items,
+			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_LIBRARY, content));
 		} else if (g_strcmp0 (node_name, "binary") == 0) {
-			g_ptr_array_add (provides_items,
+			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_BINARY, content));
 		} else if (g_strcmp0 (node_name, "font") == 0) {
-			g_ptr_array_add (provides_items,
+			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_FONT, content));
 		} else if (g_strcmp0 (node_name, "modalias") == 0) {
-			g_ptr_array_add (provides_items,
+			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_MODALIAS, content));
 		} else if (g_strcmp0 (node_name, "firmware") == 0) {
-			g_ptr_array_add (provides_items,
+			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_FIRMWARE, content));
 		} else if (g_strcmp0 (node_name, "python2") == 0) {
-			g_ptr_array_add (provides_items,
+			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON2, content));
 		} else if (g_strcmp0 (node_name, "python3") == 0) {
-			g_ptr_array_add (provides_items,
+			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, content));
 		}
 		g_free (content);

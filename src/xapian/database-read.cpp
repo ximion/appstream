@@ -119,7 +119,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	string provided_items_str = doc.get_value (XapianValues::PROVIDED_ITEMS);
 	if (!provided_items_str.empty ()) {
 		gchar **pitems_strv = g_strsplit (provided_items_str.c_str (), "\n", -1);
-		GPtrArray *pitems = as_component_get_provides (cpt);
+		GPtrArray *pitems = as_component_get_provided_items (cpt);
 		for (uint i = 0; pitems_strv[i] != NULL; i++) {
 			g_ptr_array_add (pitems,
 						g_strdup (pitems_strv[i]));

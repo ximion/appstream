@@ -193,7 +193,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 
 		// Data of provided items
-		gchar **provides_items = as_ptr_array_to_strv (as_component_get_provides (cpt));
+		gchar **provides_items = as_ptr_array_to_strv (as_component_get_provided_items (cpt));
 		gchar *provides_items_str = g_strjoinv ("\n", provides_items);
 		doc.add_value (XapianValues::PROVIDED_ITEMS, string(provides_items_str));
 		g_strfreev (provides_items);
