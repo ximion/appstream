@@ -277,7 +277,6 @@ as_component_to_string (AsComponent* self)
 	return res;
 }
 
-
 /**
  * as_component_set_categories_from_str:
  *
@@ -299,16 +298,40 @@ as_component_set_categories_from_str (AsComponent* self, const gchar* categories
 	g_strfreev (cats);
 }
 
-
+/**
+ * as_component_add_screenshot:
+ * @self: a #AsComponent instance.
+ * @sshot: The #AsScreenshot to add
+ *
+ * Add an #AsScreenshot to this component.
+ **/
 void
 as_component_add_screenshot (AsComponent* self, AsScreenshot* sshot)
 {
 	GPtrArray* sslist;
-
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (sshot != NULL);
+
 	sslist = as_component_get_screenshots (self);
 	g_ptr_array_add (sslist, g_object_ref (sshot));
+}
+
+/**
+ * as_component_add_release:
+ * @self: a #AsComponent instance.
+ * @release: The #AsRelease to add
+ *
+ * Add an #AsRelease to this component.
+ **/
+void
+as_component_add_release (AsComponent* self, AsRelease* release)
+{
+	GPtrArray* releases;
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (release != NULL);
+
+	releases = as_component_get_releases (self);
+	g_ptr_array_add (releases, g_object_ref (release));
 }
 
 static void
@@ -337,6 +360,8 @@ _as_component_serialize_image (AsImage *img, xmlNode *subnode)
 }
 
 /**
+ * as_component_dump_screenshot_data_xml:
+ *
  * Internal function to create XML which gets stored in the AppStream database
  * for screenshots
  */
@@ -352,7 +377,7 @@ as_component_dump_screenshot_data_xml (AsComponent* self)
 	g_return_val_if_fail (self != NULL, NULL);
 
 	sslist = as_component_get_screenshots (self);
-	if (sslist == 0) {
+	if (sslist->len == 0) {
 		return g_strdup ("");
 	}
 
@@ -388,6 +413,8 @@ as_component_dump_screenshot_data_xml (AsComponent* self)
 }
 
 /**
+ * as_component_load_screenshots_from_internal_xml:
+ *
  * Internal function to load the screenshot list
  * using the database-internal XML data.
  */
@@ -541,6 +568,123 @@ as_component_complete (AsComponent* self, gchar *scr_base_url)
 		g_object_unref (img);
 		g_object_unref (sshot);
 		g_free (url);
+	}
+}
+
+/**
+ * as_component_dump_releases_data_xml:
+ *
+ * Internal function to create XML which gets stored in the AppStream database
+ * for releases
+ */
+gchar*
+as_component_dump_releases_data_xml (AsComponent* self)
+{
+	GPtrArray* releases;
+	xmlDoc *doc;
+	xmlNode *root;
+	guint i;
+	AsRelease *release;
+	gchar *xmlstr = NULL;
+	g_return_val_if_fail (self != NULL, NULL);
+
+	releases = as_component_get_releases (self);
+	if (releases->len == 0) {
+		return g_strdup ("");
+	}
+
+	doc = xmlNewDoc ((xmlChar*) NULL);
+	root = xmlNewNode (NULL, (xmlChar*) "releases");
+	xmlDocSetRootElement (doc, root);
+
+	for (i = 0; i < releases->len; i++) {
+		xmlNode *subnode;
+		const gchar *str;
+		gchar *timestamp;
+		release = (AsRelease*) g_ptr_array_index (releases, i);
+
+		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
+		xmlNewProp (subnode, (xmlChar*) "version",
+					(xmlChar*) as_release_get_version (release));
+		timestamp = g_strdup_printf ("%ld", as_release_get_timestamp (release));
+		xmlNewProp (subnode, (xmlChar*) "timestamp",
+					(xmlChar*) timestamp);
+		g_free (timestamp);
+
+		str = as_release_get_description (release);
+		if (g_strcmp0 (str, "") != 0) {
+			xmlNode* n_desc;
+			n_desc = xmlNewTextChild (subnode, NULL, (xmlChar*) "description", (xmlChar*) str);
+			xmlAddChild (subnode, n_desc);
+		}
+	}
+
+	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
+	xmlFreeDoc (doc);
+
+	return xmlstr;
+}
+
+/**
+ * as_component_load_releases_from_internal_xml:
+ *
+ * Internal function to load the releases list
+ * using the database-internal XML data.
+ */
+void
+as_component_load_releases_from_internal_xml (AsComponent* self, const gchar* xmldata)
+{
+	xmlDoc* doc = NULL;
+	xmlNode* root = NULL;
+	xmlNode *iter;
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (xmldata != NULL);
+
+	if (as_utils_str_empty (xmldata)) {
+		return;
+	}
+
+	doc = xmlParseDoc ((xmlChar*) xmldata);
+	root = xmlDocGetRootElement (doc);
+
+	if (root == NULL) {
+		xmlFreeDoc (doc);
+		return;
+	}
+
+	for (iter = root->children; iter != NULL; iter = iter->next) {
+		if (g_strcmp0 ((gchar*) iter->name, "release") == 0) {
+			AsRelease *release;
+			gchar *prop;
+			guint64 timestamp;
+			xmlNode *iter2;
+			release = as_release_new ();
+
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
+			as_release_set_version (release, prop);
+			g_free (prop);
+
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "timestamp");
+			timestamp = g_ascii_strtoll (prop, NULL, 10);
+			as_release_set_timestamp (release, timestamp);
+			g_free (prop);
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter->type != XML_ELEMENT_NODE)
+					continue;
+
+				if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+					gchar *content;
+					content = (gchar*) xmlNodeGetContent (iter2);
+					as_release_set_description (release, content);
+					g_free (content);
+					break;
+				}
+			}
+
+			as_component_add_release (self, release);
+			g_object_unref (release);
+		}
 	}
 }
 
@@ -1020,7 +1164,7 @@ as_component_finalize (GObject* obj)
 
 /**
  * as_component_get_type:
- * 
+ *
  * Class to store data describing a component in AppStream
  */
 GType

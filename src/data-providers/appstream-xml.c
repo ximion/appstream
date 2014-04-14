@@ -271,6 +271,53 @@ as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstreamXML* self,
 }
 
 static void
+as_provider_appstream_xml_process_releases_tag (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
+{
+	xmlNode *iter;
+	xmlNode *iter2;
+	AsRelease *release = NULL;
+	gchar *prop;
+	guint64 timestamp;
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (cpt != NULL);
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "release") == 0) {
+			release = as_release_new ();
+
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
+			as_release_set_version (release, prop);
+			g_free (prop);
+
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "timestamp");
+			timestamp = g_ascii_strtoll (prop, NULL, 10);
+			as_release_set_timestamp (release, timestamp);
+			g_free (prop);
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter->type != XML_ELEMENT_NODE)
+					continue;
+
+				if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+					gchar *content;
+					content = as_provider_appstream_xml_parse_value (self, iter2, TRUE);
+					as_release_set_description (release, content);
+					g_free (content);
+					break;
+				}
+			}
+
+			as_component_add_release (cpt, release);
+			g_object_unref (release);
+		}
+	}
+}
+
+static void
 as_provider_appstream_xml_process_provides (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
@@ -427,6 +474,8 @@ as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xm
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (content != NULL)
 				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));
+		} else if (g_strcmp0 (node_name, "releases") == 0) {
+			as_provider_appstream_xml_process_releases_tag (self, iter, cpt);
 		}
 		g_free (content);
 	}

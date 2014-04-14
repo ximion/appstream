@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include "as-screenshot.h"
 #include "as-provides.h"
+#include "as-release.h"
 
 #define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
 
@@ -109,6 +110,8 @@ GPtrArray*			as_component_get_releases (AsComponent* self);
 
 void				as_component_add_screenshot (AsComponent* self,
 												 AsScreenshot* sshot);
+void				as_component_add_release (AsComponent* self,
+												 AsRelease* release);
 void				as_component_set_categories_from_str (AsComponent* self,
 														  const gchar* categories_str);
 void				as_component_set_kind (AsComponent* self,

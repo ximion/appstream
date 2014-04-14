@@ -145,6 +145,10 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	string project_group = doc.get_value (XapianValues::PROJECT_GROUP);
 	as_component_set_project_group (cpt, project_group.c_str ());
 
+	// Releases data
+	string releases_xml = doc.get_value (XapianValues::RELEASES_DATA);
+	as_component_load_releases_from_internal_xml (cpt, releases_xml.c_str ());
+
 	// TODO: Read out keywords?
 
 	return cpt;

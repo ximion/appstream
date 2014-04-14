@@ -219,6 +219,9 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// Add project group
 		doc.add_value (XapianValues::PROJECT_GROUP, as_component_get_project_group (cpt));
 
+		// Add releases information (XML data)
+		doc.add_value (XapianValues::RELEASES_DATA, as_component_dump_releases_data_xml (cpt));
+
 		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
 
 		// Postprocess

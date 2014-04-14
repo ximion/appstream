@@ -30,6 +30,10 @@ gchar*				as_component_dump_screenshot_data_xml (AsComponent* self);
 void				as_component_load_screenshots_from_internal_xml (AsComponent* self,
 																	 const gchar* xmldata);
 
+gchar*				as_component_dump_releases_data_xml (AsComponent* self);
+void				as_component_load_releases_from_internal_xml (AsComponent* self,
+																  const gchar* xmldata);
+
 void				as_component_complete (AsComponent* self,
 										   gchar *scr_base_url);
 
