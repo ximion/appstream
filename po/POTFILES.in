@@ -1,12 +1,20 @@
 [encoding: UTF-8]
 # List of source files containing translatable strings.
 #
-# library & daemon sources
-src/app-info.vala
-src/database.vala
-src/menudir.vala
-src/settings.vala
-src/utils.vala
-src/database-builder.vala
+# library sources
+src/as-category.c
+src/as-component.c
+src/as-database-builder.c
+src/as-database.c
+src/as-distro-details.c
+src/as-provides.c
+src/as-search-query.c
+src/as-database-write.c
+src/as-image.c
+src/as-release.c
+src/as-utils.c
+src/as-data-provider.c
+src/as-menu-parser.c
+src/as-screenshot.c
 # client sources
-client/appstream-index.vala
+client/appstream-index.c

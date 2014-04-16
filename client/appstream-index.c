@@ -84,23 +84,23 @@ gint as_client_get_exit_code (ASClient* self);
 
 static void as_client_finalize (GObject* obj);
 
-static const GOptionEntry AS_CLIENT_options[8] = {
-	{"version", 'v', 0, G_OPTION_ARG_NONE, &as_client_o_show_version, "Show the application's version", NULL},
-	{"verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, "Enable verbose mode", NULL},
-	{"no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, "Don't show colored output", NULL},
-	{"refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, "Rebuild the component information cache", NULL},
-	{"force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, "Enforce a cache refresh", NULL},
-	{"search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, "Search the component database", NULL},
-	{"details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, "Print detailed output about found components", NULL},
-	{NULL}
-};
-
 ASClient*
 as_client_construct (GType object_type, gchar** args, int argc)
 {
 	ASClient * self;
 	GOptionContext* opt_context;
 	GError * error = NULL;
+
+	const GOptionEntry AS_CLIENT_options[] = {
+		{ "version", 'v', 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the application's version"), NULL },
+		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, _("Enable verbose mode"), NULL },
+		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, _("Don't show colored output"), NULL },
+		{ "refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, _("Rebuild the component information cache"), NULL },
+		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, _("Enforce a cache refresh"), NULL },
+		{ "search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, _("Search the component database"), NULL },
+		{ "details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, _("Print detailed output about found components"), NULL },
+		{ NULL }
+	};
 
 	self = (ASClient*) g_object_new (object_type, NULL);
 	as_client_set_exit_code (self, 0);
