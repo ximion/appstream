@@ -1,7 +1,7 @@
-prefix=@PREFIX@
+prefix=@PREFIXDIR@
 exec_prefix=${prefix}
 libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
-includedir=${prefix}/include
+includedir=${prefix}/include/Appstream
 
 Name: appstream
 Description: Access the AppStream component database

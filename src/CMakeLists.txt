@@ -126,7 +126,7 @@ gir_add_introspections(INTROSPECTION_GIRS)
 ####
 
 install(TARGETS appstream DESTINATION ${INSTALL_DIR_LIB})
-install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION include)
+install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION include/Appstream)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${INSTALL_DIR_LIB}/pkgconfig/)
 
 #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi DESTINATION share/vala/vapi)
