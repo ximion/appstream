@@ -82,7 +82,7 @@ test_screenshot_handling ()
 	asxml = as_provider_appstream_xml_new ();
 
 	found_cpt = NULL;
-	g_signal_connect_object (asxml, "application", (GCallback) test_cptprov_cb, 0, 0);
+	g_signal_connect_object (asxml, "component", (GCallback) test_cptprov_cb, 0, 0);
 
 	path = g_build_filename (datadir, "appstream-test2.xml", NULL);
 	file = g_file_new_for_path (path);

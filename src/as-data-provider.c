@@ -55,7 +55,7 @@ as_data_provider_emit_application (AsDataProvider* self, AsComponent* cpt)
 {
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (cpt != NULL);
-	g_signal_emit_by_name (self, "application", cpt);
+	g_signal_emit_by_name (self, "component", cpt);
 }
 
 
@@ -124,7 +124,7 @@ as_data_provider_class_init (AsDataProviderClass * klass)
 				AS_DATA_PROVIDER_WATCH_FILES,
 				g_param_spec_boxed ("watch-files", "watch-files", "watch-files",
 						    G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_signal_new ("application", AS_TYPE_DATA_PROVIDER, G_SIGNAL_RUN_LAST, 0, NULL, NULL, g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, AS_TYPE_COMPONENT);
+	g_signal_new ("component", AS_TYPE_DATA_PROVIDER, G_SIGNAL_RUN_LAST, 0, NULL, NULL, g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, AS_TYPE_COMPONENT);
 }
 
 

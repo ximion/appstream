@@ -119,7 +119,7 @@ as_builder_construct (GType object_type)
 	/* connect all data provider signals */
 	for (i = 0; i < priv->providers->len; i++) {
 		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
-		g_signal_connect_object (dprov, "application", (GCallback) as_builder_new_component_cb, self, 0);
+		g_signal_connect_object (dprov, "component", (GCallback) as_builder_new_component_cb, self, 0);
 
 		/* FIXME: For some reason, we need to increase refcount of the provider objects to not raise an error
 		 * when calling unref() later.
