@@ -1,3 +1,57 @@
+Version 0.6
+~~~~~~~~~~~~~~
+Released: 2014-04-16
+
+Notes:
+ This release breaks both the library API and the Appstream specification.
+ Please adjust your tools to work with Appstream 0.6, especially take a look
+ at the documentation for the new Appstream XML specification.
+
+Features:
+ * Add new AsComponent class
+ * Rewrote libappstream in plain C
+ * client: Add option for detailed output
+ * Use "kind" instead of "ctype" for component types
+ * Implement compulsory-for-desktop
+ * Some refactoring, additions and improvements
+ * Correctly handle component types according to the 0.6 spec
+ * Bring back thumbnail support for ss.d.n services
+ * client: Improve screenshot url display
+ * Implement support for <provides/>
+ * Implement support for <release/>
+ * Some API future-proofing
+ * Add helper to generate Vala VAPI file
+
+Specification:
+ * docs: Initial documentation on components and lots of restructuring
+ * docs: Add FontData meta-info spec
+ * docs: Add description of input-method metainfo
+ * docs: Some changes on ASXML for component-support
+ * docs: Clarify font classifier
+ * spec: Don't use specialized tags, everything is a component. Kill <id/> types
+ * spec: All upstream meta-info goes to /usr/share/appdata now
+ * specs: Update Appstream example XML for latest changes
+ * specs: Add new <architectures/> tag to Appstream distro spec
+ * spec: Add "origin" property for components tag
+ * spec: Define icon repository
+ * spec: Component-type is "desktop" for apps now
+ * spec: Add <releases/> parent for release tags
+ * spec: Allow more url types
+ * spec: Clarify how the description tag should be translated
+ * spec: Hide fonts for now - the spec is not yet ready
+ * spec: Add component type for codecs
+ * specs: Update project mission statement
+ * spec: Use metadata_license instead of the BE version
+ * spec: Add note on multiarch-support
+
+
+Bugfixes:
+ * Make parallel compilation possible
+ * Allow compiling with -Wall -Werror
+ * Prevent identifier collisions in the database
+ * Some fixes for the introspection build process
+ * Some basic fixes for the XSD schemes
+
 Version 0.5
 ~~~~~~~~~~~~~~
 Released: 2014-02-23
