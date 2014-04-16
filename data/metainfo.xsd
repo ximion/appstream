@@ -1,14 +1,23 @@
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:element name="application">
+  <xsd:element name="component">
     <xsd:complexType mixed="true">
       <xsd:all>
-        <xsd:element ref="id" minOccurs="1" maxOccurs="1"/>
-        <xsd:element ref="licence" minOccurs="1" maxOccurs="1"/>
-        <xsd:element ref="name" minOccurs="0" maxOccurs="1"/>
-        <xsd:element ref="summary" minOccurs="0" maxOccurs="1"/>
-        <xsd:element ref="description" minOccurs="1" maxOccurs="1"/>
-        <xsd:element ref="url" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="id" minOccurs="1" maxOccurs="unbounded"/>
+        <xsd:element ref="metadata_license" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="name" minOccurs="1" maxOccurs="unbounded"/>
+        <xsd:element ref="summary" minOccurs="1" maxOccurs="unbounded"/>
+        <xsd:element ref="description" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="project_license" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="project_group" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="keywords" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="icon" minOccurs="1" maxOccurs="unbounded"/>
+        <xsd:element ref="appcategories"/>
+        <xsd:element ref="mimetypes" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="screenshots" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="compulsory_for_desktop" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="releases" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="architectures" minOccurs="0" maxOccurs="1"/>
       </xsd:all>
     </xsd:complexType>
   </xsd:element>
@@ -27,6 +36,7 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="licence" type="xsd:string"/>
   <xsd:element name="name">
     <xsd:complexType>
@@ -37,6 +47,7 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="summary">
     <xsd:complexType>
       <xsd:simpleContent>
@@ -46,6 +57,7 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="description">
     <xsd:complexType mixed="true">
       <xsd:choice minOccurs="0" maxOccurs="unbounded">
@@ -79,6 +91,7 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="screenshots">
     <xsd:complexType mixed="true">
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
@@ -98,6 +111,7 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="project_group">
     <xsd:complexType>
       <xsd:simpleContent>
@@ -105,6 +119,7 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="url">
     <xsd:complexType>
       <xsd:simpleContent>
@@ -120,4 +135,5 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
 </xsd:schema>

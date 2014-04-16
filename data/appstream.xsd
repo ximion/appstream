@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:element name="applications">
+  <xsd:element name="components">
     <xsd:complexType>
       <xsd:choice maxOccurs="unbounded" minOccurs="0">
-        <xsd:element ref="application"/>
+        <xsd:element ref="component"/>
       </xsd:choice>
       <xsd:attribute name="version" type="xsd:string" use="required"/>
     </xsd:complexType>
   </xsd:element>
 
-  <xsd:element name="application">
+  <xsd:element name="component">
     <xsd:complexType mixed="true">
       <xsd:sequence>
         <xsd:element ref="id" minOccurs="1" maxOccurs="unbounded"/>
@@ -26,18 +26,19 @@
         <xsd:element ref="url" minOccurs="0" maxOccurs="unbounded"/>
         <xsd:element ref="screenshots" minOccurs="0" maxOccurs="1"/>
         <xsd:element ref="compulsory_for_desktop" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="releases" minOccurs="0" maxOccurs="1"/>
+        <xsd:element ref="architectures" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="id">
-    <xsd:complexType>
       <xsd:simpleContent>
         <xsd:extension base="xsd:string">
-          <xsd:attribute name="type" use="required">
+          <xsd:attribute name="type" use="optional">
             <xsd:simpleType>
               <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="generic"/>
                 <xsd:enumeration value="desktop"/>
+                <xsd:enumeration value="codec"/>
+                <xsd:enumeration value="font"/>
+                <xsd:enumeration value="inputmethod"/>
               </xsd:restriction>
             </xsd:simpleType>
           </xsd:attribute>
@@ -45,6 +46,8 @@
       </xsd:simpleContent>
     </xsd:complexType>
   </xsd:element>
+
+  <xsd:element name="id" type="xsd:string"/>
 
   <xsd:element name="pkgname" type="xsd:string"/>
   <xsd:element name="name">
