@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<applications version="0.1">
-  <application>
-    <id type="desktop">firefox.desktop</id>
+<components version="0.1">
+  <component type="desktop">
+    <id>firefox.desktop</id>
     <pkgname>firefox-bin</pkgname>
     <name>Firefox</name>
     <name lang="en_GB">Firefoux</name>
@@ -29,6 +29,6 @@
       <mimetype>x-scheme-handler/https</mimetype>
     </mimetypes>
     <url type="homepage">http://www.mozilla.com</url>
-  </application>
+  </component>
   <!-- more applications here! -->
-</applications>
+</components>

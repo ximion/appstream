@@ -73,8 +73,13 @@ AsSearchQuery*
 as_search_query_construct (GType object_type, const gchar* term)
 {
 	AsSearchQuery * self = NULL;
+	gchar **strv;
 	g_return_val_if_fail (term != NULL, NULL);
 	self = (AsSearchQuery*) g_object_new (object_type, NULL);
+
+	strv = g_new0 (gchar*, 1 + 1);
+	strv[0] = NULL;
+	self->priv->categories = strv;
 
 	as_search_query_set_search_term (self, term);
 	return self;
@@ -128,7 +133,7 @@ as_search_query_set_search_all_categories (AsSearchQuery* self)
  *
  * Set the categories list from a string
  *
- * @categories_str Comma-separated list of category-names
+ * @categories_str Semicolon-separated list of category-names
  */
 void
 as_search_query_set_categories_from_string (AsSearchQuery* self, const gchar* categories_str)
@@ -137,7 +142,7 @@ as_search_query_set_categories_from_string (AsSearchQuery* self, const gchar* ca
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (categories_str != NULL);
 
-	cats = g_strsplit (categories_str, ",", 0);
+	cats = g_strsplit (categories_str, ";", -1);
 	g_strfreev (self->priv->categories);
 	self->priv->categories = cats;
 }

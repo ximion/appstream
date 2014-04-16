@@ -188,7 +188,7 @@ as_component_construct (GType object_type)
 
 	strv = g_new0 (gchar*, 1 + 1);
 	strv[0] = NULL;
-	as_component_set_categories (self, strv);
+	self->priv->categories = strv;
 	self->priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	self->priv->provided_items = g_ptr_array_new_with_free_func (g_free);
 	self->priv->releases = g_ptr_array_new_with_free_func (g_object_unref);

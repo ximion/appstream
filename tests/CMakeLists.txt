@@ -1,8 +1,5 @@
 # CMakeLists for UAI Unit Tests
 
-find_package(Vala REQUIRED)
-include("${VALA_USE_FILE}")
-
 find_package(GLIB2 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(LibXml2 REQUIRED)
@@ -16,7 +13,7 @@ link_libraries(${M_LIB}
 )
 
 include_directories(${CMAKE_BINARY_DIR}
-		${CMAKE_BINARY_DIR}/src
+		${CMAKE_SOURCE_DIR}/src
 		${CMAKE_SOURCE_DIR}/src/xapian
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${GLIB2_INCLUDE_DIR}
@@ -25,28 +22,16 @@ include_directories(${CMAKE_BINARY_DIR}
 )
 
 # Basic tests
-vala_add_executable (asi-test-basics test-basics.vala
-				BASE_DIR ${CMAKE_SOURCE_DIR}/src
-				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
-				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
-)
-add_dependencies(asi-test-basics_precompile header_internal_fix)
-add_test(basic-test asi-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(as-test-basics test-basics.c)
+add_dependencies(as-test-basics appstream)
+add_test(basic-test as-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream-XML provider tests
-vala_add_executable (asi-test-appstream ${UAI_SOURCES_BASE} test-appstreamxml.vala
-				BASE_DIR ${CMAKE_SOURCE_DIR}/src
-				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
-				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
-)
-add_dependencies(asi-test-appstream_precompile header_internal_fix)
-add_test(appstream-xml-test asi-test-appstream ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(as-test-asxml test-asxml.c)
+add_dependencies(as-test-asxml appstream)
+add_test(asxml-test as-test-asxml ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream database (read) tests
-vala_add_executable (asi-test-db-read test-database-read.vala
-				BASE_DIR ${CMAKE_SOURCE_DIR}/src
-				PACKAGES config gio-2.0 posix libxml-2.0 appstream_internal
-				VAPI_DIRS ${CMAKE_SOURCE_DIR}/vapi ${CMAKE_BINARY_DIR}/src
-)
-add_dependencies(asi-test-db-read_precompile header_internal_fix)
-add_test(appstream-db-read-test asi-test-db-read ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(as-test-database-read test-database-read.c)
+add_dependencies(as-test-database-read appstream)
+add_test(db-read-test as-test-database-read ${CMAKE_CURRENT_SOURCE_DIR})
