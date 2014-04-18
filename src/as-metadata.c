@@ -519,6 +519,101 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 	return NULL;
 }
 
+static AsComponent*
+as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError **error)
+{
+	xmlDoc* doc;
+	xmlNode* root;
+	AsComponent *cpt = NULL;
+
+	g_return_val_if_fail (metad != NULL, FALSE);
+	g_return_val_if_fail (xmldoc_str != NULL, FALSE);
+
+	doc = xmlParseDoc ((xmlChar*) xmldoc_str);
+	if (doc == NULL) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "Could not parse XML!");
+		return NULL;
+	}
+
+	root = xmlDocGetRootElement (doc);
+	if (doc == NULL) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "The XML document is empty.");
+		return NULL;
+	}
+
+	if (g_strcmp0 ((gchar*) root->name, "component") != 0) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "XML file does not contain valid AppStream data!");
+		goto out;
+	}
+
+	cpt = as_metadata_parse_component_node (metad, root, error);
+
+out:
+	xmlFreeDoc (doc);
+
+	return cpt;
+}
+
+/**
+ * as_metadata_parse_file:
+ * @metad: A valid #AsMetadata instance
+ * @infile: #GFile for the upstream metadata
+ * @error: A #GError or %NULL.
+ *
+ * Parses an AppStream upstream metadata file.
+ *
+ * Returns: (transfer full): the #AsComponent of this file, or NULL on error
+ **/
+AsComponent*
+as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
+{
+	AsComponent *cpt;
+	gchar* xml_doc;
+	gchar* line = NULL;
+	GFileInputStream* ir;
+	GDataInputStream* dis;
+
+	g_return_val_if_fail (metad != NULL, FALSE);
+	g_return_val_if_fail (infile != NULL, FALSE);
+
+	xml_doc = g_strdup ("");
+	ir = g_file_read (infile, NULL, NULL);
+	dis = g_data_input_stream_new ((GInputStream*) ir);
+	g_object_unref (ir);
+
+	while (TRUE) {
+		gchar *str;
+		gchar *tmp;
+
+		line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
+		if (line == NULL) {
+			break;
+		}
+
+		str = g_strconcat (line, "\n", NULL);
+		g_free (line);
+		tmp = g_strconcat (xml_doc, str, NULL);
+		g_free (str);
+		g_free (xml_doc);
+		xml_doc = tmp;
+	}
+
+	cpt = as_metadata_process_document (metad, xml_doc, error);
+	g_object_unref (dis);
+	g_free (xml_doc);
+
+	return cpt;
+}
+
 /**
  * as_metadata_new:
  *

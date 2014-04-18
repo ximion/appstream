@@ -25,7 +25,9 @@
 #ifndef __AS_METADATA_H
 #define __AS_METADATA_H
 
+#include <glib.h>
 #include <glib-object.h>
+#include <gio/gio.h>
 
 #include "as-component.h"
 
@@ -73,9 +75,13 @@ typedef enum {
 
 #define	AS_METADATA_ERROR				as_metadata_error_quark ()
 
-GType		 as_metadata_get_type		(void);
-AsMetadata	*as_metadata_new			(void);
-GQuark		 as_metadata_error_quark	(void);
+GType		 	as_metadata_get_type	(void);
+AsMetadata*		as_metadata_new			(void);
+GQuark			as_metadata_error_quark	(void);
+
+AsComponent*	as_metadata_parse_file (AsMetadata* metad,
+										GFile* infile,
+										GError **error);
 
 
 G_END_DECLS

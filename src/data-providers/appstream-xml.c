@@ -22,9 +22,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include <glib/gstdio.h>
 
 #include "../as-utils.h"
