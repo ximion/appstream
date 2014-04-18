@@ -22,11 +22,15 @@
 #define __AS_METADATAPRIVATE_H
 
 #include <glib-object.h>
+#include <libxml/tree.h>
+
 #include "as-metadata.h"
 
 G_BEGIN_DECLS
 
-
+AsComponent*	as_metadata_parse_component_node (AsMetadata* metad,
+												  xmlNode* node,
+												  GError **error);
 
 G_END_DECLS
 

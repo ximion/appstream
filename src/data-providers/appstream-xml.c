@@ -24,19 +24,17 @@
 #include <glib-object.h>
 #include <stdlib.h>
 #include <string.h>
-#include <config.h>
-#include <libxml/tree.h>
-#include <libxml/parser.h>
 #include <stdio.h>
 #include <glib/gstdio.h>
 
 #include "../as-utils.h"
 #include "../as-settings-private.h"
+#include "../as-metadata.h"
+#include "../as-metadata-private.h"
 #include "../as-menu-parser.h"
 
 struct _AsProviderAppstreamXMLPrivate
 {
-	gchar* locale;
 	GList* system_categories;
 };
 
@@ -46,8 +44,6 @@ static gpointer as_provider_appstream_xml_parent_class = NULL;
 
 #define AS_PROVIDER_APPSTREAM_XML_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_PROVIDER_TYPE_APPSTREAM_XML, AsProviderAppstreamXMLPrivate))
 
-static gchar*		as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* self, xmlNode* node, gboolean translated);
-static gchar**		as_provider_appstream_xml_get_children_as_array (AsProviderAppstreamXML* self, xmlNode* node, const gchar* element_name);
 static gboolean		as_provider_appstream_xml_real_execute (AsDataProvider* base);
 static void			as_provider_appstream_xml_finalize (GObject* obj);
 
@@ -55,17 +51,11 @@ AsProviderAppstreamXML*
 as_provider_appstream_xml_construct (GType object_type)
 {
 	AsProviderAppstreamXML * self = NULL;
-	const gchar * const *locale_names;
-	gchar *locale;
 	GList *syscat;
 	guint i;
 	guint len;
 	gchar **wfiles;
 	self = (AsProviderAppstreamXML*) as_data_provider_construct (object_type);
-
-	locale_names = g_get_language_names ();
-	locale = g_strdup (locale_names[0]);
-	self->priv->locale = locale;
 
 	/* cache this for performance reasons */
 	syscat = as_get_system_categories ();
@@ -92,423 +82,15 @@ as_provider_appstream_xml_new (void)
 	return as_provider_appstream_xml_construct (AS_PROVIDER_TYPE_APPSTREAM_XML);
 }
 
-
-static gchar*
-as_provider_appstream_xml_parse_value (AsProviderAppstreamXML* self, xmlNode* node, gboolean translated)
-{
-	gchar *content;
-	gchar *lang;
-	gchar *res;
-
-	g_return_val_if_fail (self != NULL, NULL);
-
-	content = (gchar*) xmlNodeGetContent (node);
-	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
-
-	if (translated) {
-		gchar *current_locale;
-		gchar **strv;
-		gchar *str;
-		/* FIXME: If not-localized generic node comes _after_ the localized ones,
-		 * the not-localized will override the localized. Wrong ordering should
-		 * not happen, but we should deal with that case anyway.
-		 */
-		if (lang == NULL) {
-			res = content;
-			goto out;
-		}
-		current_locale = self->priv->locale;
-		if (g_strcmp0 (lang, current_locale) == 0) {
-			res = content;
-			goto out;
-		}
-		strv = g_strsplit (current_locale, "_", 0);
-		str = g_strdup (strv[0]);
-		g_strfreev (strv);
-		if (g_strcmp0 (lang, str) == 0) {
-			res = content;
-			g_free (str);
-			goto out;
-		}
-		g_free (str);
-
-		/* Haven't found a matching locale */
-		res = NULL;
-		g_free (content);
-		goto out;
-	}
-	/* If we have a locale here, but want the untranslated item, return NULL */
-	if (lang != NULL) {
-		res = NULL;
-		g_free (content);
-		goto out;
-	}
-	res = content;
-
-out:
-	g_free (lang);
-	return res;
-}
-
-static gchar**
-as_provider_appstream_xml_get_children_as_array (AsProviderAppstreamXML* self, xmlNode* node, const gchar* element_name)
-{
-	GPtrArray *list;
-	xmlNode *iter;
-	gchar **res;
-	g_return_val_if_fail (self != NULL, NULL);
-	g_return_val_if_fail (element_name != NULL, NULL);
-	list = g_ptr_array_new_with_free_func (g_free);
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE) {
-					continue;
-		}
-		if (g_strcmp0 ((gchar*) iter->name, element_name) == 0) {
-			gchar* content = NULL;
-			content = (gchar*) xmlNodeGetContent (iter);
-			if (content != NULL) {
-				gchar *s;
-				s = as_string_strip (content);
-				g_ptr_array_add (list, s);
-			}
-			g_free (content);
-		}
-	}
-
-	res = as_ptr_array_to_strv (list);
-	g_ptr_array_unref (list);
-	return res;
-}
-
-
-static void
-as_provider_appstream_xml_process_screenshot (AsProviderAppstreamXML* self, xmlNode* node, AsScreenshot* sshot)
-{
-	xmlNode *iter;
-	gchar *node_name;
-	gchar *content = NULL;
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (sshot != NULL);
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-
-		node_name = (gchar*) iter->name;
-		content = as_provider_appstream_xml_parse_value (self, iter, TRUE);
-		if (g_strcmp0 (node_name, "image") == 0) {
-			AsImage *img;
-			guint64 width;
-			guint64 height;
-			gchar *stype;
-			gchar *str;
-			if (content == NULL) {
-				continue;
-			}
-			img = as_image_new ();
-
-			str = (gchar*) xmlGetProp (iter, (xmlChar*) "width");
-			width = g_ascii_strtoll (str, NULL, 10);
-			g_free (str);
-			str = (gchar*) xmlGetProp (iter, (xmlChar*) "height");
-			height = g_ascii_strtoll (str, NULL, 10);
-			g_free (str);
-			/* discard invalid elements */
-			if ((width == 0) || (height == 0)) {
-				g_free (content);
-				continue;
-			}
-
-			as_image_set_width (img, width);
-			as_image_set_height (img, height);
-
-			stype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-			if (g_strcmp0 (stype, "thumbnail") == 0) {
-				as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-			} else {
-				as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
-			}
-			g_free (stype);
-			as_image_set_url (img, content);
-			as_screenshot_add_image (sshot, img);
-		} else if (g_strcmp0 (node_name, "caption") == 0) {
-			if (content != NULL) {
-				as_screenshot_set_caption (sshot, content);
-			}
-		}
-		g_free (content);
-	}
-}
-
-static void
-as_provider_appstream_xml_process_screenshots_tag (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
-{
-	xmlNode *iter;
-	AsScreenshot *sshot = NULL;
-	gchar *prop;
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (cpt != NULL);
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-
-		if (g_strcmp0 ((gchar*) iter->name, "screenshot") == 0) {
-			sshot = as_screenshot_new ();
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-			if (g_strcmp0 (prop, "default") == 0)
-				as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
-			as_provider_appstream_xml_process_screenshot (self, iter, sshot);
-			if (as_screenshot_is_valid (sshot))
-				as_component_add_screenshot (cpt, sshot);
-			g_free (prop);
-			g_object_unref (sshot);
-		}
-	}
-}
-
-static void
-as_provider_appstream_xml_process_releases_tag (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
-{
-	xmlNode *iter;
-	xmlNode *iter2;
-	AsRelease *release = NULL;
-	gchar *prop;
-	guint64 timestamp;
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (cpt != NULL);
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-
-		if (g_strcmp0 ((gchar*) iter->name, "release") == 0) {
-			release = as_release_new ();
-
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
-			as_release_set_version (release, prop);
-			g_free (prop);
-
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "timestamp");
-			timestamp = g_ascii_strtoll (prop, NULL, 10);
-			as_release_set_timestamp (release, timestamp);
-			g_free (prop);
-
-			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
-				if (iter->type != XML_ELEMENT_NODE)
-					continue;
-
-				if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
-					gchar *content;
-					content = as_provider_appstream_xml_parse_value (self, iter2, TRUE);
-					as_release_set_description (release, content);
-					g_free (content);
-					break;
-				}
-			}
-
-			as_component_add_release (cpt, release);
-			g_object_unref (release);
-		}
-	}
-}
-
-static void
-as_provider_appstream_xml_process_provides (AsProviderAppstreamXML* self, xmlNode* node, AsComponent* cpt)
-{
-	xmlNode *iter;
-	gchar *node_name;
-	gchar *content = NULL;
-	GPtrArray *provided_items;
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (cpt != NULL);
-
-	provided_items = as_component_get_provided_items (cpt);
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-
-		node_name = (gchar*) iter->name;
-		content = as_provider_appstream_xml_parse_value (self, iter, TRUE);
-		if (content == NULL)
-			continue;
-
-		if (g_strcmp0 (node_name, "library") == 0) {
-			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_LIBRARY, content));
-		} else if (g_strcmp0 (node_name, "binary") == 0) {
-			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_BINARY, content));
-		} else if (g_strcmp0 (node_name, "font") == 0) {
-			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_FONT, content));
-		} else if (g_strcmp0 (node_name, "modalias") == 0) {
-			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_MODALIAS, content));
-		} else if (g_strcmp0 (node_name, "firmware") == 0) {
-			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_FIRMWARE, content));
-		} else if (g_strcmp0 (node_name, "python2") == 0) {
-			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON2, content));
-		} else if (g_strcmp0 (node_name, "python3") == 0) {
-			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, content));
-		}
-		g_free (content);
-	}
-}
-
-static void
-as_provider_appstream_xml_parse_component_node (AsProviderAppstreamXML* self, xmlNode* node)
-{
-	AsComponent* cpt;
-	xmlNode *iter;
-	const gchar *node_name;
-	gchar *content;
-	GPtrArray *compulsory_for_desktops;
-	gchar **strv;
-	gchar *cpttype;
-
-	g_return_if_fail (self != NULL);
-
-	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
-
-	/* a fresh app component */
-	cpt = as_component_new ();
-
-	/* find out which kind of component we are dealing with */
-	cpttype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
-	if ((cpttype == NULL) || (g_strcmp0 (cpttype, "generic") == 0)) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
-	} else if (g_strcmp0 (cpttype, "desktop") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
-	} else if (g_strcmp0 (cpttype, "font") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_FONT);
-	} else if (g_strcmp0 (cpttype, "codec") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_CODEC);
-	} else if (g_strcmp0 (cpttype, "inputmethod") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_INPUTMETHOD);
-	} else {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_UNKNOWN);
-		g_debug ("An unknown component was found: %s", cpttype);
-	}
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-		node_name = (const gchar*) iter->name;
-		content = as_provider_appstream_xml_parse_value (self, iter, FALSE);
-		if (g_strcmp0 (node_name, "id") == 0) {
-				as_component_set_idname (cpt, content);
-		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
-			if (content != NULL)
-				as_component_set_pkgname (cpt, content);
-		} else if (g_strcmp0 (node_name, "name") == 0) {
-			if (content != NULL) {
-				as_component_set_name_original (cpt, content);
-			} else {
-				content = as_provider_appstream_xml_parse_value (self, iter, TRUE);
-				if (content != NULL)
-					as_component_set_name (cpt, content);
-			}
-		} else if (g_strcmp0 (node_name, "summary") == 0) {
-			if (content != NULL) {
-				as_component_set_summary (cpt, content);
-			} else {
-				content = as_provider_appstream_xml_parse_value (self, iter, TRUE);
-				if (content != NULL)
-					as_component_set_summary (cpt, content);
-			}
-		} else if (g_strcmp0 (node_name, "description") == 0) {
-			if (content != NULL) {
-				as_component_set_description (cpt, content);
-			} else {
-				content = as_provider_appstream_xml_parse_value (self, iter, TRUE);
-				if (content != NULL)
-					as_component_set_description (cpt, content);
-			}
-		} else if (g_strcmp0 (node_name, "icon") == 0) {
-			gchar *prop;
-			const gchar *icon_url;
-			if (content == NULL)
-				continue;
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-			if (g_strcmp0 (prop, "stock") == 0) {
-				as_component_set_icon (cpt, content);
-			} else if (g_strcmp0 (prop, "cached") == 0) {
-				icon_url = as_component_get_icon_url (cpt);
-				if ((g_strcmp0 (icon_url, "") == 0) || (g_str_has_prefix (icon_url, "http://")))
-					as_component_set_icon_url (cpt, content);
-			} else if (g_strcmp0 (prop, "local") == 0) {
-				as_component_set_icon_url (cpt, content);
-			} else if (g_strcmp0 (prop, "remote") == 0) {
-				icon_url = as_component_get_icon_url (cpt);
-				if (g_strcmp0 (icon_url, "") == 0)
-					as_component_set_icon_url (cpt, content);
-			}
-		} else if (g_strcmp0 (node_name, "url") == 0) {
-			if (content != NULL) {
-				as_component_set_homepage (cpt, content);
-			}
-		} else if (g_strcmp0 (node_name, "categories") == 0) {
-			gchar **cat_array;
-			cat_array = as_provider_appstream_xml_get_children_as_array (self, iter, "category");
-			as_component_set_categories (cpt, cat_array);
-		} else if (g_strcmp0 (node_name, "provides") == 0) {
-			as_provider_appstream_xml_process_provides (self, iter, cpt);
-		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
-			as_provider_appstream_xml_process_screenshots_tag (self, iter, cpt);
-		} else if (g_strcmp0 (node_name, "project_license") == 0) {
-			if (content != NULL)
-				as_component_set_project_license (cpt, content);
-		} else if (g_strcmp0 (node_name, "project_group") == 0) {
-			if (content != NULL)
-				as_component_set_project_group (cpt, content);
-		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
-			if (content != NULL)
-				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));
-		} else if (g_strcmp0 (node_name, "releases") == 0) {
-			as_provider_appstream_xml_process_releases_tag (self, iter, cpt);
-		}
-		g_free (content);
-	}
-
-	/* add compulsory information to component as strv */
-	strv = as_ptr_array_to_strv (compulsory_for_desktops);
-	as_component_set_compulsory_for_desktops (cpt, strv);
-	g_ptr_array_unref (compulsory_for_desktops);
-	g_strfreev (strv);
-
-	if (as_component_is_valid (cpt)) {
-		as_data_provider_emit_application ((AsDataProvider*) self, cpt);
-	} else {
-		gchar *cpt_str;
-		gchar *msg;
-		cpt_str = as_component_to_string (cpt);
-		msg = g_strdup_printf ("Invalid component found: %s", cpt_str);
-		g_free (cpt_str);
-		as_data_provider_log_warning ((AsDataProvider*) self, msg);
-		g_free (msg);
-	}
-
-	g_object_unref (cpt);
-}
-
-
 static gboolean
 as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self, const gchar* xmldoc_str)
 {
 	xmlDoc* doc;
 	xmlNode* root;
 	xmlNode* iter;
+	AsMetadata *metad;
+	AsComponent *cpt;
+	GError *error = NULL;
 
 	g_return_val_if_fail (self != NULL, FALSE);
 	g_return_val_if_fail (xmldoc_str != NULL, FALSE);
@@ -530,15 +112,27 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 		return FALSE;
 	}
 
+	metad = as_metadata_new ();
+
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "component") == 0)
-			as_provider_appstream_xml_parse_component_node (self, iter);
+		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
+			cpt = as_metadata_parse_component_node (metad, iter, &error);
+			if (error != NULL) {
+				as_data_provider_log_warning ((AsDataProvider*) metad, error->message);
+				g_error_free (error);
+				error = NULL;
+			} else if (cpt != NULL) {
+				as_data_provider_emit_application ((AsDataProvider*) self, cpt);
+				g_object_unref (cpt);
+			}
+		}
 	}
 	xmlFreeDoc (doc);
+	g_object_unref (metad);
 
 	return TRUE;
 }
@@ -701,7 +295,6 @@ as_provider_appstream_xml_finalize (GObject* obj)
 {
 	AsProviderAppstreamXML * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_PROVIDER_TYPE_APPSTREAM_XML, AsProviderAppstreamXML);
-	g_free (self->priv->locale);
 	g_object_unref (self->priv->system_categories);
 	G_OBJECT_CLASS (as_provider_appstream_xml_parent_class)->finalize (obj);
 }

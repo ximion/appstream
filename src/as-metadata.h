@@ -60,9 +60,22 @@ struct _AsMetadataClass
 	void (*_as_reserved8)	(void);
 };
 
+/**
+ * AsMetadataError:
+ * @AS_METADATA_ERROR_FAILED:	Generic failure
+ *
+ * The error type.
+ **/
+typedef enum {
+	AS_METADATA_ERROR_FAILED,
+	AS_METADATA_ERROR_LAST
+} AsMetadataError;
+
+#define	AS_METADATA_ERROR				as_metadata_error_quark ()
+
 GType		 as_metadata_get_type		(void);
 AsMetadata	*as_metadata_new			(void);
-
+GQuark		 as_metadata_error_quark	(void);
 
 
 G_END_DECLS
