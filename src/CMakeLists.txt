@@ -13,7 +13,7 @@ set(INTROSPECTION_SCANNER_ARGS "--identifier-prefix=As" "--symbol-prefix=as_" "-
 set(INTROSPECTION_COMPILER_ARGS "--includedir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
-set(AS_VERSION_LIBS "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
+set(AS_VERSION_BASE "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
 set(ASLIB_XAP_SOURCES xapian/database-common.hpp
 		xapian/database-read.hpp
@@ -133,8 +133,8 @@ install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION include/Appstream)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${INSTALL_DIR_LIB}/pkgconfig/)
 
 #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi DESTINATION share/vala/vapi)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_LIBS}.gir DESTINATION share/gir-1.0/)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_LIBS}.typelib DESTINATION lib/girepository-1.0/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_BASE}.gir DESTINATION share/gir-1.0/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_BASE}.typelib DESTINATION lib/girepository-1.0/)
 
 # include the PackageKit plugin
 add_subdirectory(pk-plugin)
