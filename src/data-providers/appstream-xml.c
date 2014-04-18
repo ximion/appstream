@@ -34,7 +34,8 @@
 #include "../as-settings-private.h"
 #include "../as-menu-parser.h"
 
-struct _AsProviderAppstreamXMLPrivate {
+struct _AsProviderAppstreamXMLPrivate
+{
 	gchar* locale;
 	GList* system_categories;
 };
