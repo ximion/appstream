@@ -615,6 +615,36 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 }
 
 /**
+ * as_metadata_set_locale:
+ * @metad: a #AsMezadata instance.
+ * @locale: the locale.
+ *
+ * Sets the current locale whcih should be used when parsing metadata.
+ **/
+void
+as_metadata_set_locale (AsMetadata *metad, const gchar *locale)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_free (priv->locale);
+	priv->locale = g_strdup (locale);
+}
+
+/**
+ * as_metadata_get_locale:
+ * @metad: a #AsMezadata instance.
+ *
+ * Gets the currently used locale.
+ *
+ * Returns: Locale used for metadata parsing.
+ **/
+const gchar *
+as_metadata_get_locale (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->locale;
+}
+
+/**
  * as_metadata_new:
  *
  * Creates a new #AsMetadata.

@@ -82,6 +82,9 @@ GQuark			as_metadata_error_quark	(void);
 AsComponent*	as_metadata_parse_file (AsMetadata* metad,
 										GFile* infile,
 										GError **error);
+void			as_metadata_set_locale (AsMetadata *metad,
+										const gchar *locale);
+const gchar*	as_metadata_get_locale (AsMetadata *metad);
 
 
 G_END_DECLS
