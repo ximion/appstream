@@ -25,7 +25,7 @@ if (DOCUMENTATION)
 		DEPENDS "publican.cfg"
 			"sources/"
 			"${CMAKE_BINARY_DIR}/docbuild/"
-			"${CMAKE_BINARY_DIR}/src/libappstream.so"
+			appstream
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 		VERBATIM
 	)

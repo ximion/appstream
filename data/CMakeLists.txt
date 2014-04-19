@@ -17,4 +17,6 @@ install(FILES categories.xml
 	DESTINATION share/app-info/
 )
 
-include_directories(vapi)
+if(VAPI)
+	add_subdirectory(vapi)
+endif()
