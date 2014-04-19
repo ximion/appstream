@@ -28,9 +28,28 @@
 
 G_BEGIN_DECLS
 
+/**
+ * AsParserMode:
+ * @AS_PARSER_MODE_UPSTREAM: Parse Appstream upstream metadata
+ * @AS_PARSER_MODE_DISTRO: Parse Appstream distribution metadata
+ *
+ * There are a few differences between Appstream's upstream metadata
+ * and the distribution metadata.
+ * The parser mode indicates which style we should process.
+ * Usually you don't want to change this.
+ **/
+typedef enum {
+	AS_PARSER_MODE_UPSTREAM,
+	AS_PARSER_MODE_DISTRO,
+	AS_PARSER_MODE_LAST
+} AsParserMode;
+
 AsComponent*	as_metadata_parse_component_node (AsMetadata* metad,
 												  xmlNode* node,
 												  GError **error);
+void			as_metadata_set_parser_mode (AsMetadata *metad,
+										AsParserMode mode);
+AsParserMode	as_metadata_get_parser_mode (AsMetadata *metad);
 
 G_END_DECLS
 

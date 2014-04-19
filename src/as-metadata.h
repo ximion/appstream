@@ -64,7 +64,7 @@ struct _AsMetadataClass
 
 /**
  * AsMetadataError:
- * @AS_METADATA_ERROR_FAILED:	Generic failure
+ * @AS_METADATA_ERROR_FAILED: Generic failure
  *
  * The error type.
  **/

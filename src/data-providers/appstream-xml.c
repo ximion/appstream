@@ -110,6 +110,7 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 	}
 
 	metad = as_metadata_new ();
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */

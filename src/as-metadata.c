@@ -44,6 +44,7 @@ typedef struct _AsMetadataPrivate	AsMetadataPrivate;
 struct _AsMetadataPrivate
 {
 	gchar* locale;
+	AsParserMode mode;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
@@ -78,6 +79,8 @@ as_metadata_init (AsMetadata *metad)
 
 	locale_names = g_get_language_names ();
 	priv->locale = g_strdup (locale_names[0]);
+
+	priv->mode = AS_PARSER_MODE_UPSTREAM;
 }
 
 /**
@@ -664,6 +667,35 @@ as_metadata_get_locale (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->locale;
+}
+
+/**
+ * as_metadata_set_parser_mode:
+ * @metad: a #AsMezadata instance.
+ * @mode: the #AsParserMode.
+ *
+ * Sets the current metadata parsing mode.
+ **/
+void
+as_metadata_set_parser_mode (AsMetadata *metad, AsParserMode mode)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	priv->mode = mode;
+}
+
+/**
+ * as_metadata_get_parser_mode:
+ * @metad: a #AsMezadata instance.
+ *
+ * Gets the current parser mode
+ *
+ * Returns: an #AsParserMode
+ **/
+AsParserMode
+as_metadata_get_parser_mode (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->mode;
 }
 
 /**
