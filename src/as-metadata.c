@@ -564,6 +564,28 @@ out:
 }
 
 /**
+ * as_metadata_parse_data:
+ * @metad: A valid #AsMetadata instance
+ * @data: XML data describing a component
+ * @error: A #GError or %NULL.
+ *
+ * Parses AppStream upstream metadata.
+ *
+ * Returns: (transfer full): the #AsComponent of this data, or NULL on error
+ **/
+AsComponent*
+as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
+{
+	AsComponent *cpt;
+	g_return_val_if_fail (metad != NULL, NULL);
+	g_return_val_if_fail (data != NULL, NULL);
+
+	cpt = as_metadata_process_document (metad, data, error);
+
+	return cpt;
+}
+
+/**
  * as_metadata_parse_file:
  * @metad: A valid #AsMetadata instance
  * @infile: #GFile for the upstream metadata
@@ -582,8 +604,8 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 	GFileInputStream* ir;
 	GDataInputStream* dis;
 
-	g_return_val_if_fail (metad != NULL, FALSE);
-	g_return_val_if_fail (infile != NULL, FALSE);
+	g_return_val_if_fail (metad != NULL, NULL);
+	g_return_val_if_fail (infile != NULL, NULL);
 
 	xml_doc = g_strdup ("");
 	ir = g_file_read (infile, NULL, NULL);
