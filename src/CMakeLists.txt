@@ -134,7 +134,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${INSTALL_DIR
 
 #install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi DESTINATION share/vala/vapi)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_BASE}.gir DESTINATION share/gir-1.0/)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_BASE}.typelib DESTINATION lib/girepository-1.0/)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/Appstream-${AS_VERSION_BASE}.typelib DESTINATION lib${LIB_SUFFIX}/girepository-1.0/)
 
 # include the PackageKit plugin
 add_subdirectory(pk-plugin)
