@@ -27,6 +27,7 @@
 
 #include <glib-object.h>
 #include "as-search-query.h"
+#include "as-component.h"
 
 #define AS_TYPE_DATABASE (as_database_get_type ())
 #define AS_DATABASE(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_DATABASE, AsDatabase))
@@ -75,8 +76,10 @@ GPtrArray*			as_database_get_all_components (AsDatabase* self);
 GPtrArray*			as_database_find_components (AsDatabase* self,
 												 AsSearchQuery* query);
 GPtrArray*			as_database_find_components_by_str (AsDatabase* self,
-														const gchar* search_str,
-												 const gchar* categories_str);
+													const gchar* search_str,
+													const gchar* categories_str);
+AsComponent*		as_database_get_component_by_id (AsDatabase *self,
+													const gchar *idname);
 
 G_END_DECLS
 

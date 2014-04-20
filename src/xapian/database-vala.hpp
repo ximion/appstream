@@ -35,22 +35,29 @@ typedef struct _AsComponent AsComponent;
 
 /* methods for database read access */
 
-XADatabaseRead *xa_database_read_new ();
-void xa_database_read_free (XADatabaseRead *db);
+XADatabaseRead		*xa_database_read_new ();
+void				xa_database_read_free (XADatabaseRead *db);
 
-gboolean xa_database_read_open (XADatabaseRead *db, const gchar *db_path);
-const gchar *xa_database_read_get_schema_version (XADatabaseRead *db);
-GPtrArray *xa_database_read_get_all_components (XADatabaseRead *db);
-GPtrArray *xa_database_read_find_components (XADatabaseRead *db, AsSearchQuery *query);
+gboolean			xa_database_read_open (XADatabaseRead *db,
+										   const gchar *db_path);
+const gchar			*xa_database_read_get_schema_version (XADatabaseRead *db);
+GPtrArray			*xa_database_read_get_all_components (XADatabaseRead *db);
+GPtrArray			*xa_database_read_find_components (XADatabaseRead *db,
+													   AsSearchQuery *query);
+AsComponent			*xa_database_read_get_component_by_id (XADatabaseRead *db,
+														   const gchar *idname);
 
 /* methods for database write access */
 
-XADatabaseWrite *xa_database_write_new ();
-void xa_database_write_free (XADatabaseWrite *db);
+XADatabaseWrite		*xa_database_write_new ();
+void				xa_database_write_free (XADatabaseWrite *db);
 
-gboolean xa_database_write_initialize (XADatabaseWrite *db, const gchar *db_path);
-gboolean xa_database_write_add_component (XADatabaseWrite *db, AsComponent *cpt);
-gboolean xa_database_write_rebuild (XADatabaseWrite *db, GList *cpt_list);
+gboolean			xa_database_write_initialize (XADatabaseWrite *db,
+												  const gchar *db_path);
+gboolean			xa_database_write_add_component (XADatabaseWrite *db,
+													 AsComponent *cpt);
+gboolean			xa_database_write_rebuild (XADatabaseWrite *db,
+											   GList *cpt_list);
 
 #ifdef __cplusplus
 };

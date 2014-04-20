@@ -130,6 +130,12 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// add packagename as meta-data too
 		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 
+		// Identifier
+		string idname = as_component_get_idname (cpt);
+		doc.add_value (XapianValues::IDENTIFIER, idname);
+		doc.add_term("AI" + idname);
+		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);
+
 		// Untranslated component name
 		string cptNameGeneric = as_component_get_name_original (cpt);
 		doc.add_value (XapianValues::CPTNAME_UNTRANSLATED, cptNameGeneric);
@@ -142,9 +148,6 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// Type identifier
 		string type_str = as_component_kind_to_string (as_component_get_kind (cpt));
 		doc.add_value (XapianValues::TYPE, type_str);
-
-		// Identifier
-		doc.add_value (XapianValues::IDENTIFIER, as_component_get_idname (cpt));
 
 		// URL
 		doc.add_value (XapianValues::URL_HOMEPAGE, as_component_get_homepage (cpt));

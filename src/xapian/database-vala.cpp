@@ -47,6 +47,12 @@ GPtrArray *xa_database_read_find_components (XADatabaseRead *db, AsSearchQuery *
 	return realDbRead (db)->findComponents (query);
 };
 
+AsComponent *xa_database_read_get_component_by_id (XADatabaseRead *db, const gchar *idname)
+{
+	return realDbRead (db)->getComponentById (idname);
+};
+
+
 /* methods for database write access */
 
 XADatabaseWrite *xa_database_write_new () { return new DatabaseWrite (); };

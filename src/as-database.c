@@ -197,6 +197,14 @@ as_database_find_components_by_str (AsDatabase* self, const gchar* search_str, c
 	return cpt_array;
 }
 
+AsComponent*
+as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
+{
+	g_return_val_if_fail (self != NULL, NULL);
+	g_return_val_if_fail (idname != NULL, NULL);
+
+	return xa_database_read_get_component_by_id (self->priv->db, idname);
+}
 
 const gchar*
 as_database_get_database_path (AsDatabase* self)

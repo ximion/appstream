@@ -28,18 +28,21 @@ namespace XapianValues {
 
 enum XapianValues {
 	TYPE = 140,
-	CPTNAME = 141,
-	CPTNAME_UNTRANSLATED = 142,
-	IDENTIFIER = 143,
+	IDENTIFIER = 141,
+	CPTNAME = 142,
+	CPTNAME_UNTRANSLATED = 143,
 	PKGNAME = 144,
-	ICON = 145,
-	ICON_URL = 146,
-	SUMMARY = 147,
-	DESCRIPTION = 148,
-	CATEGORIES = 149,
+
+	SUMMARY = 145,
+	DESCRIPTION = 146,
+	CATEGORIES = 147,
+
+	ICON = 148,
+	ICON_URL = 149,
+
 	PROVIDED_ITEMS = 150,
-	SCREENSHOT_DATA = 151,	// screenshot definitions, as XML
-	RELEASES_DATA = 152,	// releases definitions, as XML
+	SCREENSHOT_DATA = 151, // screenshot definitions, as XML
+	RELEASES_DATA = 152, // releases definitions, as XML
 
 	LICENSE = 153,
 	URL_HOMEPAGE = 154,

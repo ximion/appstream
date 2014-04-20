@@ -367,3 +367,27 @@ DatabaseRead::getAllComponents ()
 
 	return appArray;
 }
+
+AsComponent*
+DatabaseRead::getComponentById (const gchar *idname)
+{
+	Xapian::Query id_query = Xapian::Query (Xapian::Query::OP_OR,
+						   Xapian::Query("AI" + string(idname)),
+						   Xapian::Query ());
+	id_query.serialise ();
+
+	Xapian::Enquire enquire = Xapian::Enquire (m_xapianDB);
+	enquire.set_query (id_query);
+
+	Xapian::MSet matches = enquire.get_mset (0, m_xapianDB.get_doccount ());
+	if (matches.size () > 1) {
+		g_warning ("Found more than one component with id '%s'! Returning the first one.", idname);
+	}
+	if (matches.size () <= 0)
+		return NULL;
+
+	Xapian::Document doc = matches[matches.get_firstitem ()].get_document ();
+	AsComponent *cpt = docToComponent (doc);
+
+	return cpt;
+}

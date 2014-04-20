@@ -59,19 +59,14 @@ struct _ASClientPrivate {
 
 
 static gpointer as_client_parent_class = NULL;
-static gboolean as_client_o_show_version;
 static gboolean as_client_o_show_version = FALSE;
-static gboolean as_client_o_verbose_mode;
 static gboolean as_client_o_verbose_mode = FALSE;
-static gboolean as_client_o_no_color;
 static gboolean as_client_o_no_color = FALSE;
-static gboolean as_client_o_refresh;
 static gboolean as_client_o_refresh = FALSE;
-static gboolean as_client_o_force;
 static gboolean as_client_o_force = FALSE;
-static gchar* as_client_o_search;
 static gchar* as_client_o_search = NULL;
 static gboolean as_client_o_details = FALSE;
+static gchar* as_client_o_get_id = NULL;
 
 GType as_client_get_type (void) G_GNUC_CONST;
 #define AS_CLIENT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_AS_CLIENT, ASClientPrivate))
@@ -99,6 +94,7 @@ as_client_construct (GType object_type, gchar** args, int argc)
 		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, _("Enforce a cache refresh"), NULL },
 		{ "search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, _("Search the component database"), NULL },
 		{ "details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, _("Print detailed output about found components"), NULL },
+		{ "get", 0, 0, G_OPTION_ARG_STRING, &as_client_o_get_id, _("Get component by id"), NULL },
 		{ NULL }
 	};
 
@@ -162,11 +158,10 @@ format_long_output (const gchar *str)
 }
 
 static void
-as_client_print_key_value (ASClient* self, const gchar* key, const gchar* val, gboolean highlight)
+as_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 {
 	gchar *str;
 	gchar *fmtval;
-	g_return_if_fail (self != NULL);
 	g_return_if_fail (key != NULL);
 	g_return_if_fail (val != NULL);
 
@@ -192,10 +187,78 @@ as_client_print_key_value (ASClient* self, const gchar* key, const gchar* val, g
 
 
 static void
-as_client_print_separator (ASClient* self)
+as_print_separator ()
 {
-	g_return_if_fail (self != NULL);
 	fprintf (stdout, "%c[%dm%s\n%c[%dm", 0x1B, 36, "----", 0x1B, 0);
+}
+
+static void
+as_print_component (AsComponent *cpt)
+{
+	gchar *short_idline;
+	guint j;
+
+	short_idline = g_strdup_printf ("%s [%s]",
+							as_component_get_idname (cpt),
+							as_component_kind_to_string (as_component_get_kind (cpt)));
+
+	as_print_key_value ("Identifier", short_idline, FALSE);
+	as_print_key_value ("Name", as_component_get_name (cpt), FALSE);
+	as_print_key_value ("Summary", as_component_get_summary (cpt), FALSE);
+	as_print_key_value ("Package", as_component_get_pkgname (cpt), FALSE);
+	as_print_key_value ("Homepage", as_component_get_homepage (cpt), FALSE);
+	as_print_key_value ("Icon", as_component_get_icon_url (cpt), FALSE);
+	g_free (short_idline);
+	short_idline = NULL;
+
+	if (as_client_o_details) {
+		GPtrArray *sshot_array;
+		GPtrArray *imgs = NULL;
+		AsScreenshot *sshot;
+		AsImage *img;
+		gchar *str;
+		gchar **strv;
+
+		/* long description */
+		as_print_key_value ("Description", as_component_get_description (cpt), FALSE);
+
+		/* some simple screenshot information */
+		sshot_array = as_component_get_screenshots (cpt);
+
+		/* find default screenshot, if possible */
+		sshot = NULL;
+		for (j = 0; j < sshot_array->len; j++) {
+			sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, j);
+			if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
+				break;
+		}
+
+		if (sshot != NULL) {
+			/* get the first source image and display it's url */
+			imgs = as_screenshot_get_images (sshot);
+			for (j = 0; j < imgs->len; j++) {
+				img = (AsImage*) g_ptr_array_index (imgs, j);
+				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
+					as_print_key_value ("Sample Screenshot URL", as_image_get_url (img), FALSE);
+					break;
+				}
+			}
+		}
+
+		/* project group */
+		as_print_key_value ("Project Group", as_component_get_project_group (cpt), FALSE);
+
+		/* license */
+		as_print_key_value ("License", as_component_get_project_license (cpt), FALSE);
+
+		/* desktop-compulsority */
+		strv = as_component_get_compulsory_for_desktops (cpt);
+		if (strv != NULL) {
+			str = g_strjoinv (", ", strv);
+			as_print_key_value ("Compulsory for", str, FALSE);
+			g_free (str);
+		}
+	}
 }
 
 void
@@ -223,90 +286,29 @@ as_client_run (ASClient* self)
 	db = as_database_new ();
 	if (as_client_o_search != NULL) {
 		GPtrArray* cpt_list = NULL;
+		/* search for stuff */
 
 		as_database_open (db);
 		cpt_list = as_database_find_components_by_str (db, as_client_o_search, NULL);
 		if (cpt_list == NULL) {
-			fprintf (stderr, "Unable to find application matching %s!\n", as_client_o_search);
+			fprintf (stderr, "Unable to find component matching %s!\n", as_client_o_search);
 			as_client_set_exit_code (self, 4);
 			goto out;
 		}
 
 		if (cpt_list->len == 0) {
-			fprintf (stdout, "No application matching '%s' found.\n", as_client_o_search);
+			fprintf (stdout, "No component matching '%s' found.\n", as_client_o_search);
 			g_ptr_array_unref (cpt_list);
 			goto out;
 		}
 
 		for (i = 0; i < cpt_list->len; i++) {
 			AsComponent *cpt;
-			gchar *short_idline;
-			guint j;
 			cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
-			short_idline = g_strdup_printf ("%s [%s]",
-							as_component_get_idname (cpt),
-							as_component_kind_to_string (as_component_get_kind (cpt)));
+			as_print_component (cpt);
 
-			as_client_print_key_value (self, "Identifier", short_idline, FALSE);
-			as_client_print_key_value (self, "Name", as_component_get_name (cpt), FALSE);
-			as_client_print_key_value (self, "Summary", as_component_get_summary (cpt), FALSE);
-			as_client_print_key_value (self, "Package", as_component_get_pkgname (cpt), FALSE);
-			as_client_print_key_value (self, "Homepage", as_component_get_homepage (cpt), FALSE);
-			as_client_print_key_value (self, "Icon", as_component_get_icon_url (cpt), FALSE);
-			g_free (short_idline);
-			short_idline = NULL;
-
-			if (as_client_o_details) {
-				GPtrArray *sshot_array;
-				GPtrArray *imgs = NULL;
-				AsScreenshot *sshot;
-				AsImage *img;
-				gchar *str;
-				gchar **strv;
-
-				/* long description */
-				as_client_print_key_value (self, "Description", as_component_get_description (cpt), FALSE);
-
-				/* some simple screenshot information */
-				sshot_array = as_component_get_screenshots (cpt);
-
-				/* find default screenshot, if possible */
-				sshot = NULL;
-				for (j = 0; j < sshot_array->len; j++) {
-					sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, j);
-					if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
-						break;
-				}
-
-				if (sshot != NULL) {
-					/* get the first source image and display it's url */
-					imgs = as_screenshot_get_images (sshot);
-					for (j = 0; j < imgs->len; j++) {
-						img = (AsImage*) g_ptr_array_index (imgs, j);
-						if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-							as_client_print_key_value (self, "Sample Screenshot URL", as_image_get_url (img), FALSE);
-							break;
-						}
-					}
-				}
-
-				/* project group */
-				as_client_print_key_value (self, "Project Group", as_component_get_project_group (cpt), FALSE);
-
-				/* license */
-				as_client_print_key_value (self, "License", as_component_get_project_license (cpt), FALSE);
-
-				/* desktop-compulsority */
-				strv = as_component_get_compulsory_for_desktops (cpt);
-				if (strv != NULL) {
-					str = g_strjoinv (", ", strv);
-					as_client_print_key_value (self, "Compulsory for", str, FALSE);
-					g_free (str);
-				}
-			}
-
-			as_client_print_separator (self);
+			as_print_separator ();
 		}
 		g_ptr_array_unref (cpt_list);
 
@@ -322,6 +324,19 @@ as_client_run (ASClient* self)
 		as_builder_initialize (builder);
 		as_builder_refresh_cache (builder, as_client_o_force);
 		g_object_unref (builder);
+	} else if (as_client_o_get_id != NULL) {
+		AsComponent *cpt;
+		/* get component by id */
+
+		as_database_open (db);
+		cpt = as_database_get_component_by_id (db, as_client_o_get_id);
+		if (cpt == NULL) {
+			fprintf (stderr, "Unable to find component with id %s!\n", as_client_o_get_id);
+			as_client_set_exit_code (self, 4);
+			goto out;
+		}
+		as_print_component (cpt);
+		g_object_unref (cpt);
 	} else {
 		fprintf (stderr, "No command specified.\n");
 		goto out;
