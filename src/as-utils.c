@@ -63,7 +63,12 @@ as_utils_touch_dir (const gchar* dirname)
 }
 
 /**
+ * as_utils_delete_dir_recursive:
+ * @dirname: Directory to remove
+ *
  * Remove folder like rm -r does
+ *
+ * Returns: TRUE if operation was successful
  */
 gboolean
 as_utils_delete_dir_recursive (const gchar* dirname)
@@ -118,7 +123,13 @@ out:
 }
 
 /**
+ * as_utils_categories_from_strv:
+ * @categories_strv: a string array
+ * @system_categories: list of #AsCategory objects available on this system
+ *
  * Create a list of categories from string array
+ *
+ * Returns: (element-type AsCategory) (transfer full): #GPtrArray of #AsCategory objcts matching the strings in the array
  */
 GPtrArray*
 as_utils_categories_from_strv (gchar** categories_strv, GPtrArray* system_categories)
@@ -163,7 +174,13 @@ as_utils_categories_from_strv (gchar** categories_strv, GPtrArray* system_catego
 }
 
 /**
+ * as_utils_categories_from_str:
+ * @categories_str: string with semicolon-separated categories
+ * @system_categories: list of #AsCategory objects available on this system
+ *
  * Create a list of categories from semicolon-separated string
+ *
+ * Returns: (element-type AsCategory) (transfer full): #GPtrArray of #AsCategory objcts matching the strings in the array
  */
 GPtrArray*
 as_utils_categories_from_str (const gchar* categories_str, GPtrArray* system_categories)

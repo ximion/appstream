@@ -79,6 +79,13 @@ static void as_category_finalize (GObject* obj);
 static void as_category_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec);
 static void as_category_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
 
+/**
+ * as_category_construct:
+ *
+ * Construct a new #AsCategory.
+ *
+ * Returns: (transfer full): a new #AsCategory
+ **/
 AsCategory*
 as_category_construct (GType object_type)
 {
@@ -95,7 +102,7 @@ as_category_construct (GType object_type)
  *
  * Creates a new #AsCategory.
  *
- * Returns: (transfer full): an #AsCategory
+ * Returns: (transfer full): a new #AsCategory
  **/
 AsCategory*
 as_category_new (void)
@@ -274,7 +281,12 @@ as_category_set_directory (AsCategory* self, const gchar* value)
 	g_object_notify ((GObject *) self, "directory");
 }
 
-
+/**
+ * as_category_get_included:
+ * @self a valid #AsCategory instance
+ *
+ * Returns: (element-type utf8) (transfer none): an array of category names
+ */
 GList*
 as_category_get_included (AsCategory* self)
 {
@@ -282,7 +294,12 @@ as_category_get_included (AsCategory* self)
 	return self->priv->included;
 }
 
-
+/**
+ * as_category_get_excluded:
+ * @self a valid #AsCategory instance
+ *
+ * Returns: (element-type utf8) (transfer none): an array of category names
+ */
 GList*
 as_category_get_excluded (AsCategory* self)
 {
@@ -290,14 +307,12 @@ as_category_get_excluded (AsCategory* self)
 	return self->priv->excluded;
 }
 
-
 gint
 as_category_get_level (AsCategory* self)
 {
 	g_return_val_if_fail (self != NULL, 0);
 	return self->priv->level;
 }
-
 
 void
 as_category_set_level (AsCategory* self, gint value)
@@ -308,14 +323,18 @@ as_category_set_level (AsCategory* self, gint value)
 	g_object_notify ((GObject *) self, "level");
 }
 
-
+/**
+ * as_category_get_subcategories:
+ * @self a valid #AsCategory instance
+ *
+ * Returns: (element-type utf8) (transfer none): an array of category names
+ */
 GList*
 as_category_get_subcategories (AsCategory* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->subcats;
 }
-
 
 static void
 as_category_class_init (AsCategoryClass * klass)
@@ -335,13 +354,11 @@ as_category_class_init (AsCategoryClass * klass)
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_CATEGORY_SUBCATEGORIES, g_param_spec_pointer ("subcategories", "subcategories", "subcategories", G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 }
 
-
 static void
 as_category_instance_init (AsCategory * self)
 {
 	self->priv = AS_CATEGORY_GET_PRIVATE (self);
 }
-
 
 static void
 as_category_finalize (GObject* obj)
@@ -358,8 +375,9 @@ as_category_finalize (GObject* obj)
 	G_OBJECT_CLASS (as_category_parent_class)->finalize (obj);
 }
 
-
 /**
+ * as_category_get_type:
+ *
  * Description of an XDG Menu category
  */
 GType
@@ -385,7 +403,6 @@ as_category_get_type (void)
 	}
 	return as_category_type_id__volatile;
 }
-
 
 static void
 as_category_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)
@@ -422,7 +439,6 @@ as_category_get_property (GObject * object, guint property_id, GValue * value, G
 			break;
 	}
 }
-
 
 static void
 as_category_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec)

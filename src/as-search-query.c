@@ -49,7 +49,7 @@ struct _AsSearchQueryPrivate {
 
 static gpointer as_search_query_parent_class = NULL;
 
-/** TRANSLATORS: List of "grey-listed" words sperated with ";"
+/* TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,
  * provide a list of words in your language that people are likely
  * to include in a search but that should normally be ignored in
@@ -69,6 +69,14 @@ static void as_search_query_finalize (GObject* obj);
 static void as_search_query_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec);
 static void as_search_query_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
 
+/**
+ * as_search_query_construct:
+ *
+ * Construct a new #AsSearchQuery.
+ *
+ * Returns: (transfer full): a new #AsSearchQuery
+ *
+ **/
 AsSearchQuery*
 as_search_query_construct (GType object_type, const gchar* term)
 {
@@ -90,7 +98,7 @@ as_search_query_construct (GType object_type, const gchar* term)
  *
  * Creates a new #AsSearchQuery.
  *
- * Returns: (transfer full): an #AsSearchQuery
+ * Returns: (transfer full): a new #AsSearchQuery
  *
  **/
 AsSearchQuery*
@@ -115,6 +123,9 @@ as_search_query_get_search_all_categories (AsSearchQuery* self)
 
 
 /**
+ * as_search_query_set_search_all_categories:
+ * @self: A valid #AsSearchQuery
+ *
  * Shortcut to set that we should search in all categories
  */
 void
@@ -238,7 +249,11 @@ as_search_query_set_search_term (AsSearchQuery* self, const gchar* value)
 	g_object_notify ((GObject *) self, "search-term");
 }
 
-
+/**
+ * as_search_query_get_categories:
+ *
+ * Returns: (transfer full): String array of categories
+ */
 gchar**
 as_search_query_get_categories (AsSearchQuery* self)
 {
@@ -311,6 +326,8 @@ as_search_query_finalize (GObject* obj)
 
 
 /**
+ * as_search_query_get_type:
+ *
  * Class describing a query on the AppStream component database
  */
 GType

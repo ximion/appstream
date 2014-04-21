@@ -50,6 +50,8 @@ struct _AsDistroDetailsPrivate {
 };
 
 /**
+ * AS_ICON_PATHS:
+ *
  * The path where software icons (of not-installed software) are located.
  */
 const gchar* AS_ICON_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/icons", "/var/cache/app-info/icons", NULL};
@@ -72,6 +74,13 @@ static void as_distro_details_finalize (GObject* obj);
 static void as_distro_details_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec);
 static void as_distro_details_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
 
+/**
+ * as_distro_details_construct:
+ *
+ * Construct a new #AsDistroDetails instance.
+ *
+ * Returns: (transfer full): a new #AsDistroDetails instance.
+ **/
 AsDistroDetails*
 as_distro_details_construct (GType object_type)
 {
@@ -147,9 +156,9 @@ out:
 /**
  * as_distro_details_new:
  *
- * Creates a new #AsDistroDetails.
+ * Creates a new #AsDistroDetails instance.
  *
- * Returns: (transfer full): an #AsDistroDetails instance.
+ * Returns: (transfer full): a new #AsDistroDetails instance.
  **/
 AsDistroDetails*
 as_distro_details_new (void) {
@@ -158,11 +167,13 @@ as_distro_details_new (void) {
 
 
 /**
+ * as_distro_details_get_icon_repository_paths:
+ *
  * Returns list of icon-paths for software-center applications to use.
  * Icons of software (even if it is not installed) are stored in these
  * locations.
  *
- * Returns: A NULL-terminated array of paths.
+ * Returns: (transfer full): A NULL-terminated array of paths.
  */
 gchar**
 as_distro_details_get_icon_repository_paths (AsDistroDetails* self)
@@ -304,10 +315,13 @@ as_distro_details_finalize (GObject* obj)
 
 
 /**
+ * as_distro_details_get_type:
+ *
  * Get details about the AppStream settings for the
  * current distribution
  */
-GType as_distro_details_get_type (void)
+GType
+as_distro_details_get_type (void)
 {
 	static volatile gsize as_distro_details_type_id__volatile = 0;
 	if (g_once_init_enter (&as_distro_details_type_id__volatile)) {
@@ -331,7 +345,8 @@ GType as_distro_details_get_type (void)
 }
 
 
-static void as_distro_details_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec) {
+static void
+as_distro_details_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec) {
 	AsDistroDetails * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
 	switch (property_id) {
@@ -351,7 +366,8 @@ static void as_distro_details_get_property (GObject * object, guint property_id,
 }
 
 
-static void as_distro_details_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec) {
+static void
+as_distro_details_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec) {
 	AsDistroDetails * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
 	switch (property_id) {

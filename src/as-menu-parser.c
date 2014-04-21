@@ -67,7 +67,11 @@ static void as_menu_parser_get_property (GObject * object, guint property_id, GV
 static void as_menu_parser_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
 
 /**
+ * as_menu_parser_construct:
+ *
  * Create a new MenuParser for the generic AppStream categories list
+ *
+ * Returns: (transfer full): an #AsMenuParser
  */
 AsMenuParser*
 as_menu_parser_construct (GType object_type)
@@ -92,7 +96,11 @@ as_menu_parser_new (void)
 
 
 /**
+ * as_menu_parser_construct_from_file:
+ *
  * Create a new MenuParser for an arbitrary menu file
+ *
+ * Returns: (transfer full): an #AsMenuParser
  */
 AsMenuParser*
 as_menu_parser_construct_from_file (GType object_type, const gchar* menu_file)
@@ -131,9 +139,11 @@ _as_menu_parser_complete_categories (AsCategory* cat, gpointer user_data)
 }
 
 /**
+ * as_menu_parser_parse:
+ *
  * Parse the menu file
  *
- * @return GList of Category objects found in the Menu, or NULL if there was an error
+ * Returns: (element-type AsCategory) (transfer full): #GList of #AsCategory objects found in the menu, or NULL if there was an error
  */
 GList*
 as_menu_parser_parse (AsMenuParser* self)
@@ -319,6 +329,8 @@ as_menu_parser_finalize (GObject* obj)
 
 
 /**
+ * as_menu_parser_get_type:
+ *
  * Parser for XDG Menu files
  */
 GType
@@ -379,7 +391,11 @@ as_menu_parser_set_property (GObject * object, guint property_id, const GValue *
 
 
 /**
+ * as_get_system_categories:
+ *
  * Get a GList of the default AppStream categories
+ *
+ * Returns: (element-type AsCategory) (transfer full): #GList of #AsCategory objects
  */
 GList*
 as_get_system_categories (void)

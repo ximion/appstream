@@ -83,7 +83,7 @@ AsScreenshot	*as_screenshot_new		(void);
 /* helpers */
 AsScreenshotKind	as_screenshot_kind_from_string (const gchar	*kind);
 const gchar			*as_screenshot_kind_to_string	(AsScreenshotKind kind);
-gboolean			as_screenshot_is_valid (AsScreenshot *sshot);
+gboolean			as_screenshot_is_valid (AsScreenshot *screenshot);
 
 /* getters */
 AsScreenshotKind	as_screenshot_get_kind		(AsScreenshot	*screenshot);

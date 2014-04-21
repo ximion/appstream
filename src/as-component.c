@@ -96,6 +96,8 @@ static void as_component_get_property (GObject * object, guint property_id, GVal
 static void as_component_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
 
 /**
+ * as_component_kind_get_type:
+ *
  * Defines registered component types.
  */
 GType
@@ -168,6 +170,13 @@ as_component_kind_from_string (const gchar *kind_str)
 	return AS_COMPONENT_KIND_UNKNOWN;
 }
 
+/**
+ * as_component_construct:
+ *
+ * Construct an #AsComponent.
+ *
+ * Returns: (transfer full): a new #AsComponent
+ **/
 AsComponent*
 as_component_construct (GType object_type)
 {
@@ -201,7 +210,7 @@ as_component_construct (GType object_type)
  *
  * Creates a new #AsComponent.
  *
- * Returns: (transfer full): an #AsComponent
+ * Returns: (transfer full): a new #AsComponent
  **/
 AsComponent*
 as_component_new (void)
@@ -861,7 +870,11 @@ as_component_set_description (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "description");
 }
 
-
+/**
+ * as_component_get_keywords:
+ *
+ * Returns: (transfer full): String array of keywords
+ */
 gchar**
 as_component_get_keywords (AsComponent* self)
 {
@@ -938,6 +951,11 @@ as_component_set_homepage (AsComponent* self, const gchar* value)
 }
 
 
+/**
+ * as_component_get_categories:
+ *
+ * Returns: (transfer full): String array of component names
+ */
 gchar**
 as_component_get_categories (AsComponent* self)
 {
@@ -956,7 +974,11 @@ as_component_set_categories (AsComponent* self, gchar** value)
 	g_object_notify ((GObject *) self, "categories");
 }
 
-
+/**
+ * as_component_get_mimetypes:
+ *
+ * Returns: (transfer full): String array of mimetype identifiers
+ */
 gchar**
 as_component_get_mimetypes (AsComponent* self)
 {

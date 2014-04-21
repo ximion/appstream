@@ -122,6 +122,8 @@ as_database_write_finalize (GObject* obj)
 
 
 /**
+ * as_database_write_get_type:
+ * 
  * Internal class to allow helper applications
  * to modify the AppStream application database
  */
