@@ -9,7 +9,7 @@
     <title>LibAppStream Reference Manual</title>
     <releaseinfo>
       The latest version of this documentation can be found on-line at
-      <ulink role="online-location" url="http://www.freedesktop.org/software/appstream/docs/api/html">http://www.freedesktop.org/software/appstream/apidoc/</ulink>.
+      <ulink role="online-location" url="http://www.freedesktop.org/software/appstream/docs/api/html">freedesktop.org/software/appstream/docs/api/html</ulink>.
     </releaseinfo>
   </bookinfo>
 
@@ -17,7 +17,6 @@
     <title>AppStream API Reference</title>
 
     <xi:include href="xml/as-component.xml"/>
-    <xi:include href="xml/as-provides.xml"/>
     <xi:include href="xml/as-release.xml"/>
 
     <xi:include href="xml/as-screenshot.xml"/>
@@ -29,6 +28,8 @@
     <xi:include href="xml/as-distro-details.xml"/>
     <xi:include href="xml/as-menu-parser.xml"/>
     <xi:include href="xml/as-category.xml"/>
+
+    <xi:include href="xml/as-provides.xml"/>
 
   </chapter>
 

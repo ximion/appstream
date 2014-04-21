@@ -26,7 +26,7 @@
 
 /**
  * SECTION:as-provides
- * @short_description: Description of the provides-types of components
+ * @short_description: Description of the provides-types in components
  * @include: appstream.h
  *
  * Components can provide various items, like libraries, Python-modules,
