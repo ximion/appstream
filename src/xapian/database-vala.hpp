@@ -46,6 +46,8 @@ GPtrArray			*xa_database_read_find_components (XADatabaseRead *db,
 													   AsSearchQuery *query);
 AsComponent			*xa_database_read_get_component_by_id (XADatabaseRead *db,
 														   const gchar *idname);
+GPtrArray			*xa_database_read_get_components_by_provides (XADatabaseRead *db,
+													   const gchar *provides_item);
 
 /* methods for database write access */
 

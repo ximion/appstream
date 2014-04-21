@@ -80,6 +80,8 @@ GPtrArray*			as_database_find_components_by_str (AsDatabase* self,
 													const gchar* categories_str);
 AsComponent*		as_database_get_component_by_id (AsDatabase *self,
 													const gchar *idname);
+GPtrArray*			as_database_get_components_by_provides (AsDatabase *self,
+													const gchar *provides_item);
 
 G_END_DECLS
 

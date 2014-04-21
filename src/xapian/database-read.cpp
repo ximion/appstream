@@ -391,3 +391,22 @@ DatabaseRead::getComponentById (const gchar *idname)
 
 	return cpt;
 }
+
+GPtrArray*
+DatabaseRead::getComponentsByProvides (const gchar *provides_item)
+{
+	// Create new array to store the AsComponent objects
+	GPtrArray *cptArray = g_ptr_array_new_with_free_func (g_object_unref);
+
+	Xapian::Query item_query = Xapian::Query (Xapian::Query::OP_OR,
+						   Xapian::Query("AX" + string(provides_item)),
+						   Xapian::Query ());
+	item_query.serialise ();
+
+	Xapian::Enquire enquire = Xapian::Enquire (m_xapianDB);
+	enquire.set_query (item_query);
+	appendSearchResults (enquire, cptArray);
+
+	return cptArray;
+}
+

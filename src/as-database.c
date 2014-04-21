@@ -197,6 +197,16 @@ as_database_find_components_by_str (AsDatabase* self, const gchar* search_str, c
 	return cpt_array;
 }
 
+/**
+ * as_database_get_component_by_id:
+ *
+ * Get a component by it's ID
+ *
+ * @self a valid #AsDatabase instance
+ * @idname the ID of the component
+ *
+ * Returns: (transfer full): an #AsComponent or NULL if none was found
+ **/
 AsComponent*
 as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
 {
@@ -204,6 +214,30 @@ as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
 	g_return_val_if_fail (idname != NULL, NULL);
 
 	return xa_database_read_get_component_by_id (self->priv->db, idname);
+}
+
+/**
+ * as_database_find_components:
+ *
+ * Find components in the Appstream database.
+ *
+ * @self a valid #AsDatabase instance
+ * @provides_item a provides-item, create with as_provides_item_create()
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
+ */
+GPtrArray*
+as_database_get_components_by_provides (AsDatabase* self, const gchar *provides_item)
+{
+	GPtrArray* cpt_array;
+	g_return_val_if_fail (self != NULL, NULL);
+	g_return_val_if_fail (provides_item != NULL, NULL);
+	if (!self->priv->opened)
+		return NULL;
+
+	cpt_array = xa_database_read_get_components_by_provides (self->priv->db, provides_item);
+
+	return cpt_array;
 }
 
 const gchar*

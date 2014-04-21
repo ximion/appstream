@@ -113,7 +113,7 @@ as_provides_item_create (AsProvidesKind kind, const gchar *value)
 	gchar *res;
 	kind_str = as_provides_kind_to_string (kind);
 
-	res = g_strdup_printf ("%s;%s", kind_str, value);
+	res = g_strdup_printf ("%s;%s;", kind_str, value);
 	return res;
 }
 

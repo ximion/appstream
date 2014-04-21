@@ -67,6 +67,7 @@ static gboolean as_client_o_force = FALSE;
 static gchar* as_client_o_search = NULL;
 static gboolean as_client_o_details = FALSE;
 static gchar* as_client_o_get_id = NULL;
+static gchar* as_client_o_what_provides = NULL;
 
 GType as_client_get_type (void) G_GNUC_CONST;
 #define AS_CLIENT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_AS_CLIENT, ASClientPrivate))
@@ -95,6 +96,7 @@ as_client_construct (GType object_type, gchar** args, int argc)
 		{ "search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, _("Search the component database"), NULL },
 		{ "details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, _("Print detailed output about found components"), NULL },
 		{ "get", 0, 0, G_OPTION_ARG_STRING, &as_client_o_get_id, _("Get component by id"), NULL },
+		{ "what-provides", 0, 0, G_OPTION_ARG_STRING, &as_client_o_what_provides, _("Get components which provide the given item"), NULL },
 		{ NULL }
 	};
 
@@ -337,6 +339,33 @@ as_client_run (ASClient* self)
 		}
 		as_print_component (cpt);
 		g_object_unref (cpt);
+	} else if (as_client_o_what_provides != NULL) {
+		GPtrArray* cpt_list = NULL;
+		/* get component providing an item */
+
+		as_database_open (db);
+		cpt_list = as_database_get_components_by_provides (db, as_client_o_what_provides);
+		if (cpt_list == NULL) {
+			fprintf (stderr, "Unable to find component providing '%s'!\n", as_client_o_what_provides);
+			as_client_set_exit_code (self, 4);
+			goto out;
+		}
+
+		if (cpt_list->len == 0) {
+			fprintf (stdout, "No component providing '%s' found.\n", as_client_o_what_provides);
+			g_ptr_array_unref (cpt_list);
+			goto out;
+		}
+
+		for (i = 0; i < cpt_list->len; i++) {
+			AsComponent *cpt;
+			cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
+
+			as_print_component (cpt);
+
+			as_print_separator ();
+		}
+		g_ptr_array_unref (cpt_list);
 	} else {
 		fprintf (stderr, "No command specified.\n");
 		goto out;
