@@ -181,7 +181,7 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query)
  *
  * @self a valid #AsDatabase instance
  * @search_str the string to search for
- * @categories_str (default NULL) (allow-none): a comma-separated list of category names, or NULL to search in all categories
+ * @categories_str (allow-none) (default NULL): a comma-separated list of category names, or NULL to search in all categories
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
