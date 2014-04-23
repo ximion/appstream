@@ -39,6 +39,8 @@
 #include "as-metadata-private.h"
 
 #include "as-utils.h"
+#include "as-component.h"
+#include "as-component-private.h"
 
 typedef struct _AsMetadataPrivate	AsMetadataPrivate;
 struct _AsMetadataPrivate
@@ -391,6 +393,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 	GPtrArray *compulsory_for_desktops;
 	gchar **strv;
 	gchar *cpttype;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_return_if_fail (metad != NULL);
 
@@ -414,6 +417,19 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 	} else {
 		as_component_set_kind (cpt, AS_COMPONENT_KIND_UNKNOWN);
 		g_debug ("An unknown component was found: %s", cpttype);
+	}
+	g_free (cpttype);
+
+	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+		/* distro metadata allows setting a priority for components */
+		gchar *priority_str;
+		priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+		if (priority_str != NULL) {
+			int priority;
+			priority = g_ascii_strtoll (priority_str, NULL, 10);
+			as_component_set_priority (cpt, priority);
+		}
+		g_free (priority_str);
 	}
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {

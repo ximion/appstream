@@ -37,6 +37,10 @@ void				as_component_load_releases_from_internal_xml (AsComponent* self,
 void				as_component_complete (AsComponent* self,
 										   gchar *scr_base_url);
 
+int					as_component_get_priority (AsComponent* self);
+void				as_component_set_priority (AsComponent* self,
+											   int priority);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENTPRIVATE_H */

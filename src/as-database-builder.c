@@ -63,15 +63,26 @@ static void
 as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder *self)
 {
 	const gchar *cpt_id;
+	AsComponent *existing_cpt;
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (cpt != NULL);
+
+	cpt_id = as_component_get_idname (cpt);
+	existing_cpt = g_hash_table_lookup (self->priv->cpt_table, cpt_id);
 
 	/* add additional data to the component, e.g. external screenshots */
 	as_component_complete (cpt, self->priv->scr_base_url);
 
-	cpt_id = as_component_get_idname (cpt);
-	if (g_hash_table_contains (self->priv->cpt_table, cpt_id)) {
-		g_debug ("Detected colliding ids: %s was already added.", cpt_id);
+	if (existing_cpt) {
+		int priority;
+		priority = as_component_get_priority (existing_cpt);
+		if (priority < as_component_get_priority (cpt)) {
+			g_hash_table_replace (self->priv->cpt_table,
+								  g_strdup (cpt_id),
+								  g_object_ref (cpt));
+		} else {
+			g_debug ("Detected colliding ids: %s was already added.", cpt_id);
+		}
 	} else {
 		g_hash_table_insert (self->priv->cpt_table,
 							g_strdup (cpt_id),

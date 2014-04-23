@@ -19,6 +19,7 @@
  */
 
 #include "as-component.h"
+#include "as-component-private.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -66,6 +67,7 @@ struct _AsComponentPrivate {
 	GPtrArray *screenshots; /* of AsScreenshot elements */
 	GPtrArray *provided_items; /* of utf8 */
 	GPtrArray *releases; /* of AsRelease */
+	int priority; /* used internally */
 };
 
 static gpointer as_component_parent_class = NULL;
@@ -201,6 +203,8 @@ as_component_construct (GType object_type)
 	self->priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	self->priv->provided_items = g_ptr_array_new_with_free_func (g_free);
 	self->priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
+
+	as_component_set_priority (self, 0);
 
 	return self;
 }
@@ -730,6 +734,11 @@ as_component_provides_item (AsComponent *self, AsProvidesKind kind, const gchar 
 	return ret;
 }
 
+/**
+ * as_component_get_kind:
+ *
+ * Returns the #AsComponentKind of this component.
+ */
 AsComponentKind
 as_component_get_kind (AsComponent* self)
 {
@@ -737,7 +746,11 @@ as_component_get_kind (AsComponent* self)
 	return self->priv->kind;
 }
 
-
+/**
+ * as_component_set_kind:
+ *
+ * Sets the #AsComponentKind of this component.
+ */
 void
 as_component_set_kind (AsComponent* self, AsComponentKind value)
 {
@@ -747,14 +760,12 @@ as_component_set_kind (AsComponent* self, AsComponentKind value)
 	g_object_notify ((GObject *) self, "kind");
 }
 
-
 const gchar*
 as_component_get_pkgname (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->pkgname;
 }
-
 
 void
 as_component_set_pkgname (AsComponent* self, const gchar* value)
@@ -766,14 +777,12 @@ as_component_set_pkgname (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "pkgname");
 }
 
-
 const gchar*
 as_component_get_idname (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->idname;
 }
-
 
 void
 as_component_set_idname (AsComponent* self, const gchar* value)
@@ -784,7 +793,6 @@ as_component_set_idname (AsComponent* self, const gchar* value)
 	self->priv->idname = g_strdup (value);
 	g_object_notify ((GObject *) self, "idname");
 }
-
 
 const gchar*
 as_component_get_name (AsComponent* self)
@@ -797,7 +805,6 @@ as_component_get_name (AsComponent* self)
 	return self->priv->name;
 }
 
-
 void
 as_component_set_name (AsComponent* self, const gchar* value)
 {
@@ -808,14 +815,12 @@ as_component_set_name (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "name");
 }
 
-
 const gchar*
 as_component_get_name_original (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->name_original;
 }
-
 
 void
 as_component_set_name_original (AsComponent* self, const gchar* value)
@@ -827,7 +832,6 @@ as_component_set_name_original (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "name-original");
 }
 
-
 const gchar*
 as_component_get_summary (AsComponent* self)
 {
@@ -835,7 +839,6 @@ as_component_get_summary (AsComponent* self)
 
 	return self->priv->summary;
 }
-
 
 void
 as_component_set_summary (AsComponent* self, const gchar* value)
@@ -847,7 +850,6 @@ as_component_set_summary (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "summary");
 }
 
-
 const gchar*
 as_component_get_description (AsComponent* self)
 {
@@ -858,7 +860,6 @@ as_component_get_description (AsComponent* self)
 	result = _tmp0_;
 	return result;
 }
-
 
 void
 as_component_set_description (AsComponent* self, const gchar* value)
@@ -892,14 +893,12 @@ as_component_set_keywords (AsComponent* self, gchar** value)
 	g_object_notify ((GObject *) self, "keywords");
 }
 
-
 const gchar*
 as_component_get_icon (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->icon;
 }
-
 
 void
 as_component_set_icon (AsComponent* self, const gchar* value)
@@ -911,14 +910,12 @@ as_component_set_icon (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "icon");
 }
 
-
 const gchar*
 as_component_get_icon_url (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->icon_url;
 }
-
 
 void
 as_component_set_icon_url (AsComponent* self, const gchar* value)
@@ -930,7 +927,6 @@ as_component_set_icon_url (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "icon-url");
 }
 
-
 const gchar*
 as_component_get_homepage (AsComponent* self)
 {
@@ -938,7 +934,6 @@ as_component_get_homepage (AsComponent* self)
 
 	return self->priv->homepage;
 }
-
 
 void
 as_component_set_homepage (AsComponent* self, const gchar* value)
@@ -949,7 +944,6 @@ as_component_set_homepage (AsComponent* self, const gchar* value)
 	self->priv->homepage = g_strdup (value);
 	g_object_notify ((GObject *) self, "homepage");
 }
-
 
 /**
  * as_component_get_categories:
@@ -1122,6 +1116,36 @@ as_component_get_releases (AsComponent* self)
 	g_return_val_if_fail (self != NULL, NULL);
 
 	return self->priv->releases;
+}
+
+/**
+ * as_component_get_priority:
+ *
+ * Returns the priority of this component.
+ * This method is used internally.
+ *
+ * Since: 0.6.1
+ */
+int
+as_component_get_priority (AsComponent* self)
+{
+	g_return_val_if_fail (self != NULL, 0);
+	return self->priv->priority;
+}
+
+/**
+ * as_component_set_priority:
+ *
+ * Sets the priority of this component.
+ * This method is used internally.
+ *
+ * Since: 0.6.1
+ */
+void
+as_component_set_priority (AsComponent* self, int priority)
+{
+	g_return_if_fail (self != NULL);
+	self->priv->priority = priority;
 }
 
 static void
