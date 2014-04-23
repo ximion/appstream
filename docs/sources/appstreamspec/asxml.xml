@@ -51,10 +51,28 @@
 			For applications, a <literal>icon</literal> tag is also required.
 		</para>
 		<para>
-			The <code>&lt;components&gt;</code> root node must have two properties: <literal>version</literal> declaring the AppStream spec version this file is based on
-			(currently 0.6) and <literal>origin</literal> defining the repository-id this AppStream XML file belongs to. This usually matches the filename without extension (see the explanation on
-			how to pick a good filename above).
+			The <code>&lt;components&gt;</code> root node has these properties, where the first two are required:
 		</para>
+		<variablelist>
+			<varlistentry>
+			<term>version</term>
+			<listitem>
+				<para>
+					This property declares the AppStream spec version this file is based on (currently 0.6). The property is required.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>origin</term>
+			<listitem>
+				<para>
+					Defines the repository-id this AppStream XML file belongs to. This usually matches the filename without extension (see the explanation on how to pick a good filename above).
+					It is also used to associate the right cached icons with AppStream metadata. This property is required.
+				</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
 	</section>
 
 	<section id="spec-asxml-tags">
@@ -63,13 +81,19 @@
 			These tags can be applied to every component type (application, component, font, inputmethod) which
 			is described in the AppStream metadata.
 		</para>
+		<para>
+			Additionally to the <literal>type</literal> property, every <literal>&lt;component/&gt;</literal> tag in AppStream distro data
+			may have a <literal>priority</literal> property, defining the priority of this specific metadata over other metadata from different
+			AppStream XML files (e.g. from a different repository) which have the same component-id. The value of this tag is an integer, if the
+			property is missing, a value of <code>"0"</code> is assumed.
+		</para>
 
 		<variablelist>
 			<varlistentry>
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					The <code language="XML"><![CDATA[<id type="desktop">]]></code> tag is the same name as the installed .desktop file for the application.
+					The <code>&lt;id/&gt;</code> tag is the same name as the installed .desktop file for the application.
 					Additional identifiers are possible later, but right now <literal>desktop</literal> is the only supported type.
 				</para>
 			</listitem>
@@ -89,7 +113,7 @@
 				<listitem>
 					<para>
 						The application name defined in the application's
-						<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop file</ulink>.
+						<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink>.
 					</para>
 				</listitem>
 			</varlistentry>
