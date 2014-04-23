@@ -357,25 +357,25 @@ as_metadata_process_provides (AsMetadata* metad, xmlNode* node, AsComponent* cpt
 
 		if (g_strcmp0 (node_name, "library") == 0) {
 			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_LIBRARY, content));
+							 as_provides_item_create (AS_PROVIDES_KIND_LIBRARY, content, ""));
 		} else if (g_strcmp0 (node_name, "binary") == 0) {
 			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_BINARY, content));
+							 as_provides_item_create (AS_PROVIDES_KIND_BINARY, content, ""));
 		} else if (g_strcmp0 (node_name, "font") == 0) {
 			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_FONT, content));
+							 as_provides_item_create (AS_PROVIDES_KIND_FONT, content, ""));
 		} else if (g_strcmp0 (node_name, "modalias") == 0) {
 			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_MODALIAS, content));
+							 as_provides_item_create (AS_PROVIDES_KIND_MODALIAS, content, ""));
 		} else if (g_strcmp0 (node_name, "firmware") == 0) {
 			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_FIRMWARE, content));
+							 as_provides_item_create (AS_PROVIDES_KIND_FIRMWARE, content, ""));
 		} else if (g_strcmp0 (node_name, "python2") == 0) {
 			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON2, content));
+							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON2, content, ""));
 		} else if (g_strcmp0 (node_name, "python3") == 0) {
 			g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, content));
+							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, content, ""));
 		}
 		g_free (content);
 	}

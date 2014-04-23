@@ -67,7 +67,9 @@ static gboolean as_client_o_force = FALSE;
 static gchar* as_client_o_search = NULL;
 static gboolean as_client_o_details = FALSE;
 static gchar* as_client_o_get_id = NULL;
-static gchar* as_client_o_what_provides = NULL;
+static gboolean as_client_o_what_provides = FALSE;
+static gchar* as_client_o_type = NULL;
+static gchar* as_client_o_value = NULL;
 
 GType as_client_get_type (void) G_GNUC_CONST;
 #define AS_CLIENT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_AS_CLIENT, ASClientPrivate))
@@ -88,7 +90,7 @@ as_client_construct (GType object_type, gchar** args, int argc)
 	GError * error = NULL;
 
 	const GOptionEntry AS_CLIENT_options[] = {
-		{ "version", 'v', 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the application's version"), NULL },
+		{ "version", 0, 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the application's version"), NULL },
 		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, _("Enable verbose mode"), NULL },
 		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, _("Don't show colored output"), NULL },
 		{ "refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, _("Rebuild the component information cache"), NULL },
@@ -96,7 +98,9 @@ as_client_construct (GType object_type, gchar** args, int argc)
 		{ "search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, _("Search the component database"), NULL },
 		{ "details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, _("Print detailed output about found components"), NULL },
 		{ "get", 0, 0, G_OPTION_ARG_STRING, &as_client_o_get_id, _("Get component by id"), NULL },
-		{ "what-provides", 0, 0, G_OPTION_ARG_STRING, &as_client_o_what_provides, _("Get components which provide the given item"), NULL },
+		{ "what-provides", 0, 0, G_OPTION_ARG_NONE, &as_client_o_what_provides, _("Get components which provide the given item"), NULL },
+		{ "type", 't', 0, G_OPTION_ARG_STRING, &as_client_o_type, _("Select a provides type (e.g. lib, bin, python3, ...)"), NULL },
+		{ "value", 'v', 0, G_OPTION_ARG_STRING, &as_client_o_value, _("Select a value for the provides-item which needs to be found"), NULL },
 		{ NULL }
 	};
 
@@ -119,8 +123,6 @@ as_client_construct (GType object_type, gchar** args, int argc)
 		goto out;
 	}
 
-	self->priv->loop = g_main_loop_new (NULL, FALSE);
-
 out:
 	g_option_context_free (opt_context);
 	return self;
@@ -132,18 +134,6 @@ as_client_new (gchar** args, int argc)
 {
 	return as_client_construct (TYPE_AS_CLIENT, args, argc);
 }
-
-#if 0
-static void
-as_client_quit_loop (ASClient* self)
-{
-	g_return_if_fail (self != NULL);
-
-	if (g_main_loop_is_running (self->priv->loop)) {
-		g_main_loop_quit (self->priv->loop);
-	}
-}
-#endif
 
 static gchar*
 format_long_output (const gchar *str)
@@ -204,12 +194,12 @@ as_print_component (AsComponent *cpt)
 							as_component_get_idname (cpt),
 							as_component_kind_to_string (as_component_get_kind (cpt)));
 
-	as_print_key_value ("Identifier", short_idline, FALSE);
-	as_print_key_value ("Name", as_component_get_name (cpt), FALSE);
-	as_print_key_value ("Summary", as_component_get_summary (cpt), FALSE);
-	as_print_key_value ("Package", as_component_get_pkgname (cpt), FALSE);
-	as_print_key_value ("Homepage", as_component_get_homepage (cpt), FALSE);
-	as_print_key_value ("Icon", as_component_get_icon_url (cpt), FALSE);
+	as_print_key_value (_("Identifier"), short_idline, FALSE);
+	as_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
+	as_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
+	as_print_key_value (_("Package"), as_component_get_pkgname (cpt), FALSE);
+	as_print_key_value (_("Homepage"), as_component_get_homepage (cpt), FALSE);
+	as_print_key_value (_("Icon"), as_component_get_icon_url (cpt), FALSE);
 	g_free (short_idline);
 	short_idline = NULL;
 
@@ -222,7 +212,7 @@ as_print_component (AsComponent *cpt)
 		gchar **strv;
 
 		/* long description */
-		as_print_key_value ("Description", as_component_get_description (cpt), FALSE);
+		as_print_key_value (_("Description"), as_component_get_description (cpt), FALSE);
 
 		/* some simple screenshot information */
 		sshot_array = as_component_get_screenshots (cpt);
@@ -248,16 +238,16 @@ as_print_component (AsComponent *cpt)
 		}
 
 		/* project group */
-		as_print_key_value ("Project Group", as_component_get_project_group (cpt), FALSE);
+		as_print_key_value (_("Project Group"), as_component_get_project_group (cpt), FALSE);
 
 		/* license */
-		as_print_key_value ("License", as_component_get_project_license (cpt), FALSE);
+		as_print_key_value (_("License"), as_component_get_project_license (cpt), FALSE);
 
 		/* desktop-compulsority */
 		strv = as_component_get_compulsory_for_desktops (cpt);
 		if (strv != NULL) {
 			str = g_strjoinv (", ", strv);
-			as_print_key_value ("Compulsory for", str, FALSE);
+			as_print_key_value (_("Compulsory for"), str, FALSE);
 			g_free (str);
 		}
 	}
@@ -339,20 +329,37 @@ as_client_run (ASClient* self)
 		}
 		as_print_component (cpt);
 		g_object_unref (cpt);
-	} else if (as_client_o_what_provides != NULL) {
+	} else if (as_client_o_what_provides) {
 		GPtrArray* cpt_list = NULL;
+		AsProvidesKind kind;
 		/* get component providing an item */
 
+		if (as_client_o_value == NULL) {
+			fprintf (stderr, "No value for the provides-item to search for defined.\n");
+			as_client_set_exit_code (self, 1);
+			goto out;
+		}
+
+		kind = as_provides_kind_from_string (as_client_o_type);
+		if (kind == AS_PROVIDES_KIND_UNKNOWN) {
+			uint i;
+			fprintf (stderr, "Invalid type for provides-item selected. Valid values are:\n");
+			for (i = 1; i < AS_PROVIDES_KIND_LAST; i++)
+				fprintf (stdout, " * %s\n", as_provides_kind_to_string (i));
+			as_client_set_exit_code (self, 5);
+			goto out;
+		}
+
 		as_database_open (db);
-		cpt_list = as_database_get_components_by_provides (db, as_client_o_what_provides);
+		cpt_list = as_database_get_components_by_provides (db, kind, as_client_o_value, "");
 		if (cpt_list == NULL) {
-			fprintf (stderr, "Unable to find component providing '%s'!\n", as_client_o_what_provides);
+			fprintf (stderr, "Unable to find component providing '%s:%s'!\n", as_client_o_type, as_client_o_value);
 			as_client_set_exit_code (self, 4);
 			goto out;
 		}
 
 		if (cpt_list->len == 0) {
-			fprintf (stdout, "No component providing '%s' found.\n", as_client_o_what_provides);
+			fprintf (stdout, "No component providing '%s:%s' found.\n", as_client_o_type, as_client_o_value);
 			g_ptr_array_unref (cpt_list);
 			goto out;
 		}
@@ -431,9 +438,6 @@ as_client_instance_init (ASClient * self)
 
 static void as_client_finalize (GObject* obj)
 {
-	ASClient * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (obj, TYPE_AS_CLIENT, ASClient);
-	g_main_loop_unref (self->priv->loop);
 	G_OBJECT_CLASS (as_client_parent_class)->finalize (obj);
 }
 

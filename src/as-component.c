@@ -716,7 +716,7 @@ as_component_provides_item (AsComponent *self, AsProvidesKind kind, const gchar 
 	gchar *item;
 	AsComponentPrivate *priv = self->priv;
 
-	item = as_provides_item_create (kind, value);
+	item = as_provides_item_create (kind, value, "");
 	for (i = 0; i < priv->provided_items->len; i++) {
 		gchar *cval;
 		cval = (gchar*) g_ptr_array_index (priv->provided_items, i);

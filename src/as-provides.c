@@ -103,17 +103,20 @@ as_provides_kind_from_string (const gchar *kind_str)
  *
  * @kind a #AsProvidesKind describing the type of the item string
  * @value the name of the item as string
+ * @data (allow-none) (default NULL): additional data associated with this item
  *
  * Returns: a new provides-item string. Free with g_free
  **/
 gchar*
-as_provides_item_create (AsProvidesKind kind, const gchar *value)
+as_provides_item_create (AsProvidesKind kind, const gchar *value, const gchar *data)
 {
 	const gchar *kind_str;
 	gchar *res;
 	kind_str = as_provides_kind_to_string (kind);
+	if (data == NULL)
+		data = "";
 
-	res = g_strdup_printf ("%s;%s;", kind_str, value);
+	res = g_strdup_printf ("%s;%s;%s", kind_str, value, data);
 	return res;
 }
 

@@ -229,20 +229,25 @@ as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
  * Find components in the Appstream database.
  *
  * @self a valid #AsDatabase instance
- * @provides_item a provides-item, create with as_provides_item_create()
+ * @kind an #AsProvidesKind
+ * @value a value of the selected provides kind
+ * @data (allow-none) (default NULL): additional provides data
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */
 GPtrArray*
-as_database_get_components_by_provides (AsDatabase* self, const gchar *provides_item)
+as_database_get_components_by_provides (AsDatabase* self, AsProvidesKind kind, const gchar *value, const gchar *data)
 {
 	GPtrArray* cpt_array;
+	gchar *provides_item;
 	g_return_val_if_fail (self != NULL, NULL);
-	g_return_val_if_fail (provides_item != NULL, NULL);
+	g_return_val_if_fail (value != NULL, NULL);
 	if (!self->priv->opened)
 		return NULL;
 
+	provides_item = as_provides_item_create (kind, value, data);
 	cpt_array = xa_database_read_get_components_by_provides (self->priv->db, provides_item);
+	g_free (provides_item);
 
 	return cpt_array;
 }
