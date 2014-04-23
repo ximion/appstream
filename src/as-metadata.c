@@ -289,6 +289,39 @@ as_metadata_process_screenshots_tag (AsMetadata* metad, xmlNode* node, AsCompone
 	}
 }
 
+static gchar*
+as_metadata_parse_upstream_description_tag (AsMetadata* metad, xmlNode* node)
+{
+	xmlNode *iter;
+	gchar *content;
+	gchar *node_name;
+	gchar *description_text;
+	g_return_if_fail (metad != NULL);
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		gchar *tmp;
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		node_name = (gchar*) iter->name;
+		content = as_metadata_parse_value (metad, iter, TRUE);
+		if (content == NULL)
+			content = as_metadata_parse_value (metad, iter, TRUE);
+		/* skip garbage */
+		if (content == NULL)
+			continue;
+
+		tmp = g_strdup_printf ("%s\n<%s>%s</%s>", description_text, node_name, content, node_name);
+		g_free (description_text);
+		description_text = tmp;
+
+		g_free (content);
+	}
+
+	return description_text;
+}
+
 static void
 as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent* cpt)
 {
@@ -297,7 +330,7 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 	AsRelease *release = NULL;
 	gchar *prop;
 	guint64 timestamp;
-	g_return_if_fail (metad != NULL);
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	g_return_if_fail (cpt != NULL);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
@@ -322,11 +355,23 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 					continue;
 
 				if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
-					gchar *content;
-					content = as_metadata_parse_value (metad, iter2, TRUE);
-					as_release_set_description (release, content);
-					g_free (content);
-					break;
+					if (priv->mode == AS_PARSER_MODE_DISTRO) {
+						gchar *content;
+						/* for distros, the "description" tag has a language property, so parsing it is simple */
+						content = as_metadata_parse_value (metad, iter2, FALSE);
+						if (content == NULL)
+							content = as_metadata_parse_value (metad, iter2, TRUE);
+						if (content != NULL)
+							as_release_set_description (release, content);
+						g_free (content);
+						break;
+					} else {
+						gchar *text;
+						text = as_metadata_parse_upstream_description_tag (metad, iter2);
+						as_release_set_description (release, text);
+						g_free (text);
+						break;
+					}
 				}
 			}
 
@@ -460,12 +505,20 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 					as_component_set_summary (cpt, content);
 			}
 		} else if (g_strcmp0 (node_name, "description") == 0) {
-			if (content != NULL) {
-				as_component_set_description (cpt, content);
-			} else {
-				content = as_metadata_parse_value (metad, iter, TRUE);
-				if (content != NULL)
+			if (priv->mode == AS_PARSER_MODE_DISTRO) {
+				/* for distros, the "description" tag has a language property, so parsing it is simple */
+				if (content != NULL) {
 					as_component_set_description (cpt, content);
+				} else {
+					content = as_metadata_parse_value (metad, iter, TRUE);
+					if (content != NULL)
+						as_component_set_description (cpt, content);
+				}
+			} else {
+				gchar *text;
+				text = as_metadata_parse_upstream_description_tag (metad, iter);
+				as_component_set_description (cpt, text);
+				g_free (text);
 			}
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
