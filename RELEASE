@@ -2,7 +2,7 @@ AppStream Release Notes
 
 1. Write NEWS entries for AppStream in the same format as usual.
 
-git shortlog APPSTREAM_0_5.. | grep -i -v trivial | grep -v Merge > NEWS.new
+git shortlog APPSTREAM_0_6_1.. | grep -i -v trivial | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
 Version 0.6.1
@@ -18,23 +18,23 @@ Specification:
 Bugfixes:
 --------------------------------------------------------------------------------
 
-2. Update library version if new ABI or API in CMakeLists.txt
-
-3. Commit changes in AppStream git:
+2. Commit changes in AppStream git:
 
 git commit -a -m "Release version 0.6.1"
 git tag -s -f -m "Release 0.6.1" APPSTREAM_0_6_1 <gpg password>
 git push --tags
 git push
 
-4. run './release.sh --version=0.6.1 --git-tag=APPSTREAM_0_6_1 --sign'
+3. run './release.sh --version=0.6.1 --git-tag=APPSTREAM_0_6_1 --sign'
 
-5. Upload tarball: scp -r *.tar.gz* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases
+4. Upload tarball: scp -r *.tar.gz* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases
 
-6. Make documentation and upload it:
+5. Make documentation and upload it:
    make -C build documentation-htmlexport && scp -r docs/html/* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/docs
 
-7. Do post release version bump in CMakeLists.txt, NEWS, RELEASE
+6. Do post release version bump in CMakeLists.txt, NEWS, RELEASE
+
+7. Update library version if new ABI or API in CMakeLists.txt
 
 8. Commit trivial changes:
 

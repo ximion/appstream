@@ -1,4 +1,36 @@
-Version 0.6
+Version 0.6.1
+~~~~~~~~~~~~~~
+Released: 2014-04-24
+
+Features:
+ * Make AsMetadata handle (almost) all XML parsing (Matthias Klumpp)
+ * Add function to parse upstream metadata in AsMetadata (Matthias Klumpp)
+ * Add methods to set/get locale used for metadata parsing (Matthias Klumpp)
+ * Add function to load metadata from memory (Matthias Klumpp)
+ * Implement a parser mode to abstract away differences in AS metadata (Matthias Klumpp)
+ * Auto-generate Vala API file, if desired (Matthias Klumpp)
+ * Add functions to get a component by it's ID (Matthias Klumpp)
+ * Index terms for provided items (Matthias Klumpp)
+ * Allow fetching components by the items they provide (Matthias Klumpp)
+ * Parse AppStream data in /var/lib/app-info/xmls (Matthias Klumpp)
+ * Implement priority property (Matthias Klumpp)
+
+Specification:
+ * spec: Add priority property for components in distro-metadata (Matthias Klumpp)
+
+Bugfixes:
+ * Fix libappstream pkgconfig (Matthias Klumpp)
+ * Make data-providers emit "component" signal (instead of "application") (Matthias Klumpp)
+ * Make translation possible again (Matthias Klumpp)
+ * Handle lib directory suffix on distributions like Fedora (Rex Dieter)
+ * docs: Fix examples to use the <releases/> tag correctly (Matthias Klumpp)
+ * Print error if compiled with -DVAPI, but no vapigen was found (Matthias Klumpp)
+ * Improve documentation and annotations (Matthias Klumpp)
+ * Improve API for provides-tests (Matthias Klumpp)
+ * Implement strict parsing of the description tag in upstream metadata (Matthias Klumpp)
+ * docs: Fix the section on 3rd-party screenshot services (Matthias Klumpp)
+
+Version 0.6.0
 ~~~~~~~~~~~~~~
 Released: 2014-04-16
 
@@ -52,7 +84,7 @@ Bugfixes:
  * Some fixes for the introspection build process (Matthias Klumpp)
  * Some basic fixes for the XSD schemes (Matthias Klumpp)
 
-Version 0.5
+Version 0.5.0
 ~~~~~~~~~~~~~~
 Released: 2014-02-23
 
@@ -80,7 +112,7 @@ Bugfixes:
  * Fix some memory leaks (Matthias Klumpp)
  * Fix some strange vala compile issue with newer valac versions (Matthias Klumpp)
 
-Version 0.4
+Version 0.4.0
 ~~~~~~~~~~~~~~
 Released: 2013-10-20
 
@@ -163,7 +195,7 @@ Bugfixes:
  * docs: Build C API documentation (Matthias Klumpp)
  * Print better message if category dir is null (Matthias Klumpp)
 
-Version 0.1
+Version 0.1.0
 ~~~~~~~~~~~~~~
 Released: 2012-10-02
 
