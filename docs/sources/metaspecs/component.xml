@@ -46,10 +46,11 @@
 		<important>
 			<title>Multiarch Support</title>
 			<para>
-				On multiarch-aware systems such as Debian: If a component ships a library, the meta-info file should be in the same package as the library itself.
-				To make the library packages co-installable, append the &lt;triplet&gt; to the meta-info filename. So <filename>appstream.metainfo.xml</filename> becomes
-				<filename>appstream_x86_64-linux-gnu.metainfo.xml</filename>. Upstream projects which ship components with libraries should adjust their buildsystem to install
-				a multi-arch compatible metainfo file by default.
+				On multiarch-aware systems such as Debian: If a component ships a library, the meta-info file should be in the same package as the library itself, or
+				in a package depending on that library.
+				To make the library packages co-installable, the metadata can be installed into <filename>/usr/share/appdata/&lt;triplet&gt;</filename>, for example
+				<filename>/usr/share/appdata/x86_64-linux-gnu/foobar.metainfo.xml</filename>.
+				Upstream projects which ship components with libraries should adjust their buildsystem to install a multi-arch compatible metainfo file by default.
 				Make use of the <literal>&lt;architectures/&gt;</literal> tag to indicate that the meta-info file is arch specific.
 			</para>
 		</important>
