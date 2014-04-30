@@ -3,8 +3,8 @@
 <!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
 %BOOK_ENTITIES;
 ]>
-<chapter id="chap-AppStreamData">
-	<title>Distribution Appstream Metadata</title>
+<chapter id="chap-DistroData">
+	<title>Distribution Metadata and Services</title>
 	<para>
 		AppStream provides an own Metadata format which gets shipped by the distributions and is read by the Xapian database generator or
 		software centers directly.

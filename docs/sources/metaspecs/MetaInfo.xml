@@ -4,14 +4,14 @@
 %BOOK_ENTITIES;
 ]>
 <chapter id="chap-Metadata">
-	<title>Upstream Meta Information</title>
+	<title>Upstream Metadata</title>
 	<para>
 		AppStream allows upstream projects to define metadata about the components they provide using small XML files,
 		metainfo files,	which get installed into locations on the client system and are used by distribuors to enhance their
 		metadata.
 	</para>
 	<para>
-		A "component" is something like an application, a library, a font or a codec. For several components, especially
+		A "component" is a piece of software, like an application, a library, a font or a codec. For several components, especially
 		those which are shown in software-centers, we provide specialized metainfo files to define specific properties and data of these components.
 		For example, applications and fonts support screenshots, while codecs don't.
 	</para>
@@ -21,7 +21,7 @@
 		Specialized components might require more information to be complete and valid.
 	</para>
 
-	<xi:include href="componentinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="component.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="appdata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<!-- <xi:include href="fontdata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" /> -->
 	<xi:include href="codecdata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
