@@ -126,16 +126,14 @@
 						It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
 						Possible values include:
 						<itemizedlist>
-							<listitem><para>GPL-2</para></listitem>
-							<listitem><para>LGPL-3+ and GPL-3+</para></listitem>
+							<listitem><para>GPL-2.0</para></listitem>
+							<listitem><para>LGPL-3.0+ and GPL-3.0+</para></listitem>
 							<listitem><para>MIT</para></listitem>
-							<listitem><para>CC-BY-SA-2</para></listitem>
+							<listitem><para>CC-BY-SA-2.0</para></listitem>
 							<listitem><para>...</para></listitem>
 						</itemizedlist>
 						A full list of recognized licenses and their identifiers can be found at the
 						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-						For SPDX compatibility, versions with trailing dot-zeroes are considered to be equivalent to versions without
-						(e.g., "2.0.0" is considered equal to "2.0" and "2").
 					</para>
 					<para>
 						Although the license tag is not mandatory, it is recommended to include it.

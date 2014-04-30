@@ -119,28 +119,9 @@
 					probably mean your data would not be incorporated into the distribution metadata.
 					Permissible licence codes include:
 				</para>
-				<itemizedlist>
-					<listitem>
-						<para>CC0</para>
-					</listitem>
-					<listitem>
-						<para>CC-BY</para>
-					</listitem>
-					<listitem>
-						<para>CC-BY-SA</para>
-					</listitem>
-					<listitem>
-						<para>GFDL</para>
-					</listitem>
-					<listitem>
-						<para>MIT</para>
-					</listitem>
-				</itemizedlist>
 				<para>
 					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-					For SPDX compatibility, versions with trailing dot-zeroes are considered to be equivalent to versions without
-					(e.g., "2.0.0" is considered equal to "2.0" and "2").
-					For instance, CC-BY-SA corresponds to http://creativecommons.org/licenses/by-sa/3.0/
+					Take a look at <xref linkend="sect-Metadata-GenericComponent"/> for more details about this tag.
 				</para>
 			</listitem>
 			</varlistentry>
