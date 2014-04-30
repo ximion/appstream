@@ -59,7 +59,7 @@
 			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;metadata_license/&gt;</code> tag is required. See <xref linkend="sect-Metadata-GenericComponent"/> for a description of this tag.
+					The <code>&lt;metadata_license/&gt;</code> tag is required. See <xref linkend="spec-component-filespec-metadata_license"/> for a description of this tag.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -119,7 +119,7 @@
 				<para>
 					This is a recommended tag for links of type <code>homepage</code>.
 					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
-					See See <xref linkend="sect-Metadata-GenericComponent"/> for a description of this tag.
+					See the generic component <xref linkend="spec-component-filespec-url"/> for a description of this tag.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -128,7 +128,7 @@
 			<term>&lt;provides/&gt;</term>
 			<listitem>
 				<para>
-					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/> in detail.
+					This tag is described in detail for generic components at <xref linkend="spec-component-filespec-provides"/>.
 				</para>
 				<para>
 					You can add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames and names known to the system.
