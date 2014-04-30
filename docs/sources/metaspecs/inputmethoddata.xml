@@ -111,9 +111,7 @@
 					A screenshot may be included, showing the input-method in use in an application.
 				</para>
 				<para>
-					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
-					<code>type="default"</code> to indicate the application's primary screenshot. Additionally, the <code>&lt;screenshot/&gt;</code> tags should define the width and height
-					of the referenced screenshot as properties. The value of these tags is a direct URL to a screenshot uploaded to a public location on the web.
+					Refer to <xref linkend="spec-appdata-filespec-screenshots"/> for a detailed description of this tag.
 				</para>
 			</listitem>
 			</varlistentry>

@@ -74,8 +74,13 @@
   </description>
 
   <screenshots>
-    <screenshot type="default" width="800" height="600">http://www.hughsie.com/en_US/main.png</screenshot>
-    <screenshot width="800" height="600">http://www.hughsie.com/en_US/preferences.png</screenshot>
+    <screenshot type="default">
+      <caption>The options dialog</caption>
+      <image width="800" height="600">http://www.hughsie.com/en_US/main.png</image>
+    </screenshot>
+    <screenshot>
+      <image width="800" height="600">http://www.hughsie.com/en_US/preferences.png</image>
+    </screenshot>
   </screenshots>
 
   <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
@@ -202,7 +207,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="spec-appdata-filespec-screenshots">
 			<term>&lt;screenshots/&gt;</term>
 			<listitem>
 				<para>
@@ -210,8 +215,13 @@
 				</para>
 				<para>
 					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
-					<code>type="default"</code> to indicate the application's primary screenshot. Additionally, the <code>&lt;screenshot/&gt;</code> tags should define the width and height
-					of the referenced screenshot as properties. The value of these tags is a direct URL to a screenshot uploaded to a public location on the web.
+					<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
+					one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
+					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
+				</para>
+				<para>
+					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 caracters!)
+					description of what the user can see on the referenced screenshot.
 				</para>
 				<para>
 					Screenshots are an important part of how people choose which applications to install, so it's important to get them right.
@@ -286,7 +296,9 @@
 				</para>
 				<itemizedlist>
 					<listitem>
-						<para>Each of your screenshots should focus on one thing and one thing only. Screenshot one window at a time, and avoid having overlapping windows or user interface elements.
+						<para>
+							Each of your screenshots should focus on one thing and one thing only. Screenshot one window at a time, and avoid having
+							overlapping windows or user interface elements.
 							This will make it much easier for people to understand what you are showing them.
 						</para>
 					</listitem>
@@ -295,12 +307,26 @@
 					</listitem>
 					<listitem>
 						<para>
-							Screenshots often need to feature content, such as images, documents, web pages or videos. Don’t show your application in an ‘empty’ state, and try and use high quality content
-							which has positive associations and broad appeal.
+							Screenshots often need to feature content, such as images, documents, web pages or videos. Don’t show your application in an ‘empty’
+							state, and try and use high quality content which has positive associations and broad appeal.
 						</para>
 					</listitem>
 					<listitem>
 						<para>In general, you shouldn't include the mouse pointer in your screenshots.</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					Some advice for a good screenshot caption:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>The caption should be short. Try not to use more than a few words to describe the image.</para>
+					</listitem>
+					<listitem>
+						<para>Try not to state the obvious: "Main window displaying an image" is something the user can see on the screenshot already.</para>
+					</listitem>
+					<listitem>
+						<para>Try not to repeat the application's name in the caption.</para>
 					</listitem>
 				</itemizedlist>
 			</listitem>

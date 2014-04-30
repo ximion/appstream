@@ -102,8 +102,13 @@
 				</para>
 				<para>
 					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
-					<code>type="default"</code> to indicate the application's primary screenshot. Additionally, the <code>&lt;screenshot/&gt;</code> tags should define the width and height
-					of the referenced screenshot as properties. The value of these tags is a direct URL to a screenshot uploaded to a public location on the web.
+					<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
+					one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
+					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
+				</para>
+				<para>
+					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 caracters!)
+					description of what the user can see on the referenced screenshot.
 				</para>
 			</listitem>
 			</varlistentry>
