@@ -103,22 +103,50 @@
 				<term>&lt;url/&gt;</term>
 				<listitem>
 					<para>
-						Defines URLs for this component.
+						Defines URLs for this component.There are several different URL types allowed:
 					</para>
-					<para>
-						Links of type <literal>homepage</literal> should be a link to the upstream homepage for the component.
-					</para>
-					<para>
-						Links of type <literal>bugtracker</literal> should point to the software's bug tracking system, for users to report new bugs.
-					</para>
-					<para>
-						Links of type <literal>faq</literal> should link a FAQ page for this software, to answer some of the most-asked questions in
-						detail, something which you can not do in the component's description.
-					</para>
-					<para>
-						Links of type <literal>donation</literal> should point to a webpage showing information on how to donate to the described
-						software project.
-					</para>
+					<variablelist>
+						<varlistentry>
+							<term>homepage</term>
+							<listitem>
+								<para>Should be a link to the upstream homepage for the component.</para>
+							</listitem>
+						</varlistentry>
+
+						<varlistentry>
+							<term>bugtracker</term>
+							<listitem>
+								<para>Should point to the software's bug tracking system, for users to report new bugs.</para>
+							</listitem>
+						</varlistentry>
+
+						<varlistentry>
+							<term>faq</term>
+							<listitem>
+								<para>
+									Should link a FAQ page for this software, to answer some of the most-asked questions in
+									detail, something which you can not do in the component's description.
+								</para>
+							</listitem>
+						</varlistentry>
+
+						<varlistentry>
+							<term>manual</term>
+							<listitem>
+								<para>Should provide a link to an online user's reference or software manual or help page.</para>
+							</listitem>
+						</varlistentry>
+
+						<varlistentry>
+							<term>donation</term>
+							<listitem>
+								<para>
+									Links of this type should point to a webpage showing information on how to donate to
+									the described software project.
+								</para>
+							</listitem>
+						</varlistentry>
+					</variablelist>
 				</listitem>
 			</varlistentry>
 
