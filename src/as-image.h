@@ -71,7 +71,6 @@ typedef enum {
 	AS_IMAGE_KIND_UNKNOWN,
 	AS_IMAGE_KIND_SOURCE,
 	AS_IMAGE_KIND_THUMBNAIL,
-	/*< private >*/
 	AS_IMAGE_KIND_LAST
 } AsImageKind;
 

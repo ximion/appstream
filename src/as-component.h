@@ -29,6 +29,7 @@
 #include "as-screenshot.h"
 #include "as-provides.h"
 #include "as-release.h"
+#include "as-enums.h"
 
 #define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
 
@@ -65,16 +66,6 @@ struct _AsComponentClass
 	void (*_as_reserved8)	(void);
 };
 
-typedef enum  {
-	AS_COMPONENT_KIND_UNKNOWN,
-	AS_COMPONENT_KIND_GENERIC,
-	AS_COMPONENT_KIND_DESKTOP_APP,
-	AS_COMPONENT_KIND_FONT,
-	AS_COMPONENT_KIND_CODEC,
-	AS_COMPONENT_KIND_INPUTMETHOD,
-	AS_COMPONENT_KIND_LAST
-} AsComponentKind;
-
 GType				as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar*		as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
@@ -109,6 +100,9 @@ GPtrArray*			as_component_get_releases (AsComponent* self);
 GHashTable*			as_component_get_urls (AsComponent *self);
 const gchar*		as_component_get_url (AsComponent *self,
 										  AsUrlKind url_kind);
+void				as_component_add_url (AsComponent *self,
+										AsUrlKind url_kind,
+										const gchar *url);
 
 void				as_component_add_screenshot (AsComponent* self,
 												 AsScreenshot* sshot);

@@ -34,6 +34,7 @@ set(LIBAPPSTREAM_SRC
 		# (mostly) public API
 		as-metadata.c
 		as-component.c
+		as-enums.c
 		as-provides.c
 		as-database-builder.c
 		as-search-query.c
@@ -51,6 +52,7 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 		appstream.h
 		as-metadata.h
 		as-component.h
+		as-enums.h
 		as-provides.h
 		as-search-query.h
 		as-database.h

@@ -24,6 +24,7 @@
 #define __APPSTREAM_H_INSIDE__
 
 #include <as-component.h>
+#include <as-enums.h>
 #include <as-provides.h>
 #include <as-metadata.h>
 #include <as-database.h>

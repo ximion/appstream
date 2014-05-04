@@ -385,6 +385,30 @@ as_component_get_url (AsComponent *self, AsUrlKind url_kind)
 				    as_url_kind_to_string (url_kind));
 }
 
+/**
+ * as_component_add_url:
+ * @self: a #AsComponent instance.
+ * @url_kind: the URL kind, e.g. %AS_URL_KIND_HOMEPAGE
+ * @url: the full URL.
+ *
+ * Adds some URL data to the application.
+ *
+ * Since: 0.6.2
+ **/
+void
+as_component_add_url (AsComponent *self,
+					  AsUrlKind url_kind,
+					  const gchar *url)
+{
+	g_return_if_fail (self != NULL);
+	g_hash_table_insert (self->priv->urls,
+			     g_strdup (as_url_kind_to_string (url_kind)),
+			     g_strdup (url));
+	/* work around deprecation of "homepage" property */
+	if (url_kind == AS_URL_KIND_HOMEPAGE)
+		as_component_set_homepage (self, url);
+}
+
 static void
 _as_component_serialize_image (AsImage *img, xmlNode *subnode)
 {
