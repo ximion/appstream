@@ -103,10 +103,12 @@ const gchar*		as_component_get_description (AsComponent* self);
 gchar**				as_component_get_keywords (AsComponent* self);
 const gchar*		as_component_get_icon (AsComponent* self);
 const gchar*		as_component_get_icon_url (AsComponent* self);
-const gchar*		as_component_get_homepage (AsComponent* self);
 gchar**				as_component_get_mimetypes (AsComponent* self);
 GPtrArray*			as_component_get_provided_items (AsComponent* self);
 GPtrArray*			as_component_get_releases (AsComponent* self);
+GHashTable*			as_component_get_urls (AsComponent *self);
+const gchar*		as_component_get_url (AsComponent *self,
+										  AsUrlKind url_kind);
 
 void				as_component_add_screenshot (AsComponent* self,
 												 AsScreenshot* sshot);
@@ -134,8 +136,6 @@ void				as_component_set_summary (AsComponent* self,
 											  const gchar* value);
 void				as_component_set_description (AsComponent* self,
 												  const gchar* value);
-void				as_component_set_homepage (AsComponent* self,
-											   const gchar* value);
 void				as_component_set_icon (AsComponent* self,
 										   const gchar* value);
 void				as_component_set_icon_url (AsComponent* self,
@@ -146,6 +146,11 @@ void				as_component_set_project_group (AsComponent* self,
 													const gchar* value);
 void				as_component_set_categories (AsComponent* self,
 												 gchar** value);
+
+/* deprecated */
+const gchar*		as_component_get_homepage (AsComponent* self);
+void				as_component_set_homepage (AsComponent* self,
+											   const gchar* value);
 
 G_END_DECLS
 

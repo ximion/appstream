@@ -67,6 +67,7 @@ struct _AsComponentPrivate {
 	GPtrArray *screenshots; /* of AsScreenshot elements */
 	GPtrArray *provided_items; /* of utf8 */
 	GPtrArray *releases; /* of AsRelease */
+	GHashTable *urls; /* of key:utf8 */
 	int priority; /* used internally */
 };
 
@@ -203,6 +204,7 @@ as_component_construct (GType object_type)
 	self->priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	self->priv->provided_items = g_ptr_array_new_with_free_func (g_free);
 	self->priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
+	self->priv->urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	as_component_set_priority (self, 0);
 
@@ -345,6 +347,42 @@ as_component_add_release (AsComponent* self, AsRelease* release)
 
 	releases = as_component_get_releases (self);
 	g_ptr_array_add (releases, g_object_ref (release));
+}
+
+/**
+ * as_component_get_urls:
+ * @self: a #AsComponent instance.
+ *
+ * Gets the URLs set for the component.
+ *
+ * Returns: (transfer none): URLs
+ *
+ * Since: 0.6.2
+ **/
+GHashTable*
+as_component_get_urls (AsComponent *self)
+{
+	g_return_if_fail (self != NULL);
+	return self->priv->urls;
+}
+
+/**
+ * as_component_get_url:
+ * @self: a #AsComponent instance.
+ * @url_kind: the URL kind, e.g. %AS_URL_KIND_HOMEPAGE.
+ *
+ * Gets a URL.
+ *
+ * Returns: string, or %NULL if unset
+ *
+ * Since: 0.6.2
+ **/
+const gchar *
+as_component_get_url (AsComponent *self, AsUrlKind url_kind)
+{
+	g_return_if_fail (self != NULL);
+	return g_hash_table_lookup (self->priv->urls,
+				    as_url_kind_to_string (url_kind));
 }
 
 static void
@@ -927,6 +965,11 @@ as_component_set_icon_url (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "icon-url");
 }
 
+/**
+ * as_component_get_homepage:
+ *
+ * Deprecated: 0.6.2
+ */
 const gchar*
 as_component_get_homepage (AsComponent* self)
 {
@@ -935,6 +978,11 @@ as_component_get_homepage (AsComponent* self)
 	return self->priv->homepage;
 }
 
+/**
+ * as_component_set_homepage:
+ *
+ * Deprecated: 0.6.2
+ */
 void
 as_component_set_homepage (AsComponent* self, const gchar* value)
 {
@@ -1204,6 +1252,7 @@ as_component_finalize (GObject* obj)
 	g_ptr_array_unref (self->priv->screenshots);
 	g_ptr_array_unref (self->priv->provided_items);
 	g_ptr_array_unref (self->priv->releases);
+	g_hash_table_unref (self->priv->urls);
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (obj);
 }
 
