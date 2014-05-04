@@ -45,10 +45,7 @@ enum XapianValues {
 	RELEASES_DATA = 152, // releases definitions, as XML
 
 	LICENSE = 153,
-	URL_HOMEPAGE = 154,
-	URL_BUGTRACKER = 155,
-	URL_FAQ = 156,
-	URL_DONATION = 157,
+	URLS = 154,
 
 	PROJECT_GROUP = 160,
 

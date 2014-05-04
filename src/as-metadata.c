@@ -541,7 +541,13 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 			}
 		} else if (g_strcmp0 (node_name, "url") == 0) {
 			if (content != NULL) {
-				as_component_set_homepage (cpt, content);
+				gchar *urltype_str;
+				AsUrlKind url_kind;
+				urltype_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+				url_kind = as_url_kind_from_string (urltype_str);
+				if (url_kind != AS_URL_KIND_UNKNOWN)
+					as_component_add_url (cpt, url_kind, content);
+				g_free (urltype_str);
 			}
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			gchar **cat_array;

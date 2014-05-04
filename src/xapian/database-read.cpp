@@ -93,9 +93,17 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	string appname_orig = doc.get_value (XapianValues::CPTNAME_UNTRANSLATED);
 	as_component_set_name_original (cpt, appname_orig.c_str ());
 
-	// URL
-	string appUrl = doc.get_value (XapianValues::URL_HOMEPAGE);
-	as_component_set_homepage (cpt, appUrl.c_str ());
+	// URLs
+	string urls_str = doc.get_value (XapianValues::URLS);
+	gchar **urls = g_strsplit (urls_str.c_str (), "\n", -1);
+	for (uint i = 0; urls[i] != NULL; i++) {
+		/* urls are stored in form of "type \n url" (so we just need one stringsplit here...) */
+		if (urls[i+1] == NULL)
+			break;
+		AsUrlKind ukind = as_url_kind_from_string (urls[i]);
+		if (ukind != AS_URL_KIND_UNKNOWN)
+			as_component_add_url (cpt, ukind, urls[i+1]);
+	}
 
 	// Application icon
 	string appIcon = doc.get_value (XapianValues::ICON);

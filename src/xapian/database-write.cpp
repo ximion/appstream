@@ -64,6 +64,17 @@ DatabaseWrite::initialize (const gchar *dbPath)
 	return true;
 }
 
+static
+void url_hashtable_to_text (gchar *key, gchar *value, gchar **text)
+{
+	gchar *tmp;
+
+	tmp = g_strdup (*text);
+	g_free (*text);
+    *text = g_strdup_printf ("%s\n%s\n%s", tmp, key, value);
+	g_free (tmp);
+}
+
 bool
 DatabaseWrite::rebuild (GList *cpt_list)
 {
@@ -149,8 +160,13 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		string type_str = as_component_kind_to_string (as_component_get_kind (cpt));
 		doc.add_value (XapianValues::TYPE, type_str);
 
-		// URL
-		doc.add_value (XapianValues::URL_HOMEPAGE, as_component_get_homepage (cpt));
+		// URLs
+		GHashTable *urls;
+		gchar *text = g_strdup ("");
+		urls = as_component_get_urls (cpt);
+		g_hash_table_foreach(urls, (GHFunc) url_hashtable_to_text, &text);
+		doc.add_value (XapianValues::URLS, text);
+		g_free (text);
 
 		// Application icon
 		doc.add_value (XapianValues::ICON, as_component_get_icon (cpt));
