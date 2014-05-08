@@ -16,6 +16,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 add_executable(appstream-index appstream-index.c)
 add_dependencies(appstream-index appstream)
 
+# Add the appstream-validate client tool
+add_executable(appstream-validate appstream-validate.c)
+add_dependencies(appstream-validate appstream)
+
 # the client tool uses API which is currently private...
 # needs to be sorted out in future
 add_definitions ("-DAS_COMPILATION")
@@ -27,4 +31,12 @@ target_link_libraries(appstream-index
 		appstream
 )
 
+target_link_libraries(appstream-validate
+		${M_LIB}
+		${GLIB2_LIBRARIES}
+		${GIO2_LIBRARIES}
+		appstream
+)
+
 install(TARGETS appstream-index DESTINATION ${INSTALL_DIR_BIN})
+install(TARGETS appstream-validate DESTINATION ${INSTALL_DIR_BIN})
