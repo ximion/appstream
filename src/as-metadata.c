@@ -41,12 +41,15 @@
 #include "as-utils.h"
 #include "as-component.h"
 #include "as-component-private.h"
+#include "as-distro-details.h"
 
 typedef struct _AsMetadataPrivate	AsMetadataPrivate;
 struct _AsMetadataPrivate
 {
-	gchar* locale;
+	gchar *locale;
 	AsParserMode mode;
+	gchar *origin_name;
+	gchar **icon_paths;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
@@ -66,6 +69,9 @@ as_metadata_finalize (GObject *object)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_free (priv->locale);
+	g_strfreev (priv->icon_paths);
+	if (priv->origin_name != NULL)
+		g_free (priv->origin_name);
 
 	G_OBJECT_CLASS (as_metadata_parent_class)->finalize (object);
 }
@@ -77,11 +83,18 @@ static void
 as_metadata_init (AsMetadata *metad)
 {
 	const gchar * const *locale_names;
+	gchar *tmp;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	locale_names = g_get_language_names ();
 	/* set active locale without UTF-8 suffix */
-	priv->locale = g_strstr_len (locale_names[0], -1, ".UTF-8");
+	priv->locale = g_strdup (locale_names[0]);
+	tmp = g_strstr_len (priv->locale, -1, ".UTF-8");
+	if (tmp != NULL)
+		*tmp = '\0';
+
+	priv->origin_name = NULL;
+	priv->icon_paths = as_distro_details_get_icon_repository_paths ();
 
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 }
@@ -429,6 +442,60 @@ as_metadata_process_provides (AsMetadata* metad, xmlNode* node, AsComponent* cpt
 	}
 }
 
+/**
+ * as_metadata_refine_component_icon:
+ *
+ * We use this method to ensure the "icon" and "icon_url" properties of
+ * a component are properly set, by finding the icons in default directories.
+ */
+static void
+as_metadata_refine_component_icon (AsMetadata *metad, AsComponent *cpt)
+{
+	const gchar *exensions[] = { "png",
+				     "svg",
+				     "svgz",
+				     "gif",
+				     "ico",
+				     "xcf",
+				     NULL };
+	gchar *tmp_icon_path;
+	const gchar *icon_url;
+	guint i, j;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	icon_url = as_component_get_icon_url (cpt);
+	if (g_str_has_prefix (icon_url, "/") ||
+		g_str_has_prefix (icon_url, "http://")) {
+		/* looks like this component already has a full icon path... */
+		return;
+	}
+	tmp_icon_path = NULL;
+
+	if (g_strcmp0 (icon_url, "") == 0) {
+		icon_url = as_component_get_icon (cpt);
+	}
+
+	/* search local icon path */
+	for (i = 0; priv->icon_paths[i] != NULL; i++) {
+		for (j = 0; exensions[j] != NULL; j++) {
+			tmp_icon_path = g_strdup_printf ("%s/%s.%s",
+					     priv->icon_paths[i],
+					     icon_url,
+					     exensions[j]);
+			if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
+				goto out;
+			g_free (tmp_icon_path);
+			tmp_icon_path = NULL;
+		}
+	}
+
+out:
+	if (tmp_icon_path != NULL) {
+		as_component_set_icon_url (cpt, tmp_icon_path);
+		g_free (tmp_icon_path);
+	}
+}
+
 AsComponent*
 as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **error)
 {
@@ -531,8 +598,16 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 				as_component_set_icon (cpt, content);
 			} else if (g_strcmp0 (prop, "cached") == 0) {
 				icon_url = as_component_get_icon_url (cpt);
-				if ((g_strcmp0 (icon_url, "") == 0) || (g_str_has_prefix (icon_url, "http://")))
-					as_component_set_icon_url (cpt, content);
+				if ((g_strcmp0 (icon_url, "") == 0) || (g_str_has_prefix (icon_url, "http://"))) {
+					gchar *icon_path_part;
+					/* prepend the origin, to have canonical paths later */
+					if (priv->origin_name == NULL)
+						icon_path_part = g_strdup (content);
+					else
+						icon_path_part = g_strdup_printf ("%s/%s", priv->origin_name, content);
+					as_component_set_icon_url (cpt, icon_path_part);
+					g_free (icon_path_part);
+				}
 			} else if (g_strcmp0 (prop, "local") == 0) {
 				as_component_set_icon_url (cpt, content);
 			} else if (g_strcmp0 (prop, "remote") == 0) {
@@ -594,6 +669,9 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 		g_free (msg);
 		g_object_unref (cpt);
 	}
+
+	/* find local icon on the filesystem */
+	as_metadata_refine_component_icon (metad, cpt);
 
 	return NULL;
 }
@@ -732,7 +810,7 @@ as_metadata_set_locale (AsMetadata *metad, const gchar *locale)
 
 /**
  * as_metadata_get_locale:
- * @metad: a #AsMezadata instance.
+ * @metad: a #AsMetadata instance.
  *
  * Gets the currently used locale.
  *
@@ -743,6 +821,21 @@ as_metadata_get_locale (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->locale;
+}
+
+/**
+ * as_metadata_set_origin_id:
+ * @metad: a #AsMetadata instance.
+ * @origin: the origin of AppStream distro metadata.
+ *
+ * Internal method to set the origin of AppStream distro metadata
+ **/
+void
+as_metadata_set_origin_id (AsMetadata *metad, const gchar *origin)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_free (priv->origin_name);
+	priv->origin_name = g_strdup (origin);
 }
 
 /**

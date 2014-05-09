@@ -90,6 +90,7 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 	xmlNode* iter;
 	AsMetadata *metad;
 	AsComponent *cpt;
+	gchar *origin;
 	GError *error = NULL;
 
 	g_return_val_if_fail (self != NULL, FALSE);
@@ -114,6 +115,11 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 
 	metad = as_metadata_new ();
 	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+
+	/* set the proper origin of this data */
+	origin = (gchar*) xmlGetProp (root, (xmlChar*) "origin");
+	as_metadata_set_origin_id (metad, origin);
+	g_free (origin);
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */

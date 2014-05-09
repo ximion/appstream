@@ -176,12 +176,11 @@ as_distro_details_new (void) {
  * Returns: (transfer full): A NULL-terminated array of paths.
  */
 gchar**
-as_distro_details_get_icon_repository_paths (AsDistroDetails* self)
+as_distro_details_get_icon_repository_paths ()
 {
 	gchar **paths;
 	guint len;
 	guint i;
-	g_return_val_if_fail (self != NULL, NULL);
 
 	len = G_N_ELEMENTS (AS_ICON_PATHS);
 	paths = g_new0 (gchar *, len + 1);
@@ -194,7 +193,6 @@ as_distro_details_get_icon_repository_paths (AsDistroDetails* self)
 
 	return paths;
 }
-
 
 gchar*
 as_distro_details_config_distro_get_str (AsDistroDetails* self, const gchar* key)

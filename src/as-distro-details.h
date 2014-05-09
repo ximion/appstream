@@ -64,7 +64,6 @@ GType					as_distro_details_get_type (void) G_GNUC_CONST;
 
 AsDistroDetails*		as_distro_details_new (void);
 AsDistroDetails*		as_distro_details_construct (GType object_type);
-gchar**					as_distro_details_get_icon_repository_paths (AsDistroDetails* self);
 gchar*					as_distro_details_config_distro_get_str (AsDistroDetails* self,
 																 const gchar* key);
 const gchar*			as_distro_details_get_distro_id (AsDistroDetails* self);
@@ -72,6 +71,8 @@ gboolean				as_distro_details_config_distro_get_bool (AsDistroDetails* self,
 																  const gchar* key);
 const gchar*			as_distro_details_get_distro_name (AsDistroDetails* self);
 const gchar*			as_distro_details_get_distro_version (AsDistroDetails* self);
+
+gchar**					as_distro_details_get_icon_repository_paths (void);
 
 G_END_DECLS
 

@@ -51,6 +51,9 @@ void			as_metadata_set_parser_mode (AsMetadata *metad,
 										AsParserMode mode);
 AsParserMode	as_metadata_get_parser_mode (AsMetadata *metad);
 
+void			as_metadata_set_origin_id (AsMetadata *metad,
+										   const gchar *origin);
+
 G_END_DECLS
 
 #endif /* __AS_METADATAPRIVATE_H */
