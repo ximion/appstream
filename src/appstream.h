@@ -35,6 +35,9 @@
 #include <as-screenshot.h>
 #include <as-image.h>
 
+#include <as-validator.h>
+#include <as-validator-issue.h>
+
 #undef __APPSTREAM_H_INSIDE__
 
 #endif /* __APPSTREAM_H */

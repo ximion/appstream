@@ -58,24 +58,6 @@ struct _AsValidatorClass
 	void (*_as_reserved8)	(void);
 };
 
-/**
- * AsIssueImportance:
- * @AS_ISSUE_IMPORTANCE_ERROR:			There is a serious error in your metadata
- * @AS_ISSUE_IMPORTANCE_WARNING:		Something which should be fixed, but is not fatal
- * @AS_ISSUE_IMPORTANCE_INFO:			Non-essential information on how to improve your metadata
- * @AS_ISSUE_IMPORTANCE_PEDANTIC:		Pedantic information
- *
- * The importance of an issue found by #AsValidator
- **/
-typedef enum {
-	AS_ISSUE_IMPORTANCE_ERROR,
-	AS_ISSUE_IMPORTANCE_WARNING,
-	AS_ISSUE_IMPORTANCE_INFO,
-	AS_ISSUE_IMPORTANCE_PEDANTIC,
-	/*< private >*/
-	AS_ISSUE_IMPORTANCE_LAST
-} AsIssueImportance;
-
 GType		 as_validator_get_type		(void);
 AsValidator	*as_validator_new			(void);
 
@@ -84,6 +66,8 @@ gboolean	as_validator_validate_file (AsValidator *validator,
 										GFile* metadata_file);
 gboolean	as_validator_validate_data (AsValidator *validator,
 										const gchar *metadata);
+
+GPtrArray	*as_validator_get_issues (AsValidator *validator);
 
 G_END_DECLS
 

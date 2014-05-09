@@ -36,6 +36,8 @@
 #include <libxml/parser.h>
 
 #include "as-validator.h"
+#include "as-validator-issue.h"
+
 #include "as-metadata.h"
 #include "as-metadata-private.h"
 
@@ -46,7 +48,7 @@
 typedef struct _AsValidatorPrivate	AsValidatorPrivate;
 struct _AsValidatorPrivate
 {
-	GHashTable *issues;
+	GPtrArray *issues; /* of AsValidatorIssue objects */
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
@@ -62,7 +64,7 @@ as_validator_finalize (GObject *object)
 	AsValidator *validator = AS_VALIDATOR (object);
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
-	g_hash_table_unref (priv->issues);
+	g_ptr_array_unref (priv->issues);
 
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
@@ -75,29 +77,32 @@ as_validator_init (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
-	priv->issues = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						NULL);
+	priv->issues = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
  * as_validator_add_issue:
  **/
 static void
-as_validator_add_issue (AsValidator *validator, AsIssueImportance importance, const gchar *format, ...)
+as_validator_add_issue (AsValidator *validator, AsIssueKind kind, AsIssueImportance importance, const gchar *format, ...)
 {
 	va_list args;
 	gchar *buffer;
+	AsValidatorIssue *issue;
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
 	va_start (args, format);
 	buffer = g_strdup_vprintf (format, args);
 	va_end (args);
 
-	g_hash_table_insert (priv->issues,
-							buffer, /* already allocated, no additional g_strdup needed */
-							GINT_TO_POINTER (importance));
+	issue = as_validator_issue_new ();
+	as_validator_issue_set_kind (issue, kind);
+	as_validator_issue_set_importance (issue, importance);
+	as_validator_issue_set_message (issue, buffer);
+
+	g_ptr_array_add (priv->issues, issue);
+
+	g_free (buffer);
 }
 
 /**
@@ -109,7 +114,8 @@ void
 as_validator_clear_issues (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	g_hash_table_remove_all (priv->issues);
+	g_ptr_array_unref (priv->issues);
+	priv->issues = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
@@ -203,6 +209,7 @@ as_validator_validate_data (AsValidator *validator,
 	doc = xmlParseDoc ((xmlChar*) metadata);
 	if (doc == NULL) {
 		as_validator_add_issue (validator,
+			AS_ISSUE_KIND_MARKUP_INVALID,
 			AS_ISSUE_IMPORTANCE_ERROR,
 			"Could not parse XML data.");
 		return FALSE;
@@ -211,6 +218,7 @@ as_validator_validate_data (AsValidator *validator,
 	root = xmlDocGetRootElement (doc);
 	if (doc == NULL) {
 		as_validator_add_issue (validator,
+			AS_ISSUE_KIND_MARKUP_INVALID,
 			AS_ISSUE_IMPORTANCE_ERROR,
 			"The XML document is empty.");
 		return FALSE;
@@ -236,16 +244,37 @@ as_validator_validate_data (AsValidator *validator,
 												AS_PARSER_MODE_DISTRO);
 			} else {
 				as_validator_add_issue (validator,
+					AS_ISSUE_KIND_TAG_UNKNOWN,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					"Unknown tag found: %s",
 					node_name);
 				ret = FALSE;
 			}
 		}
+	} else if (g_str_has_prefix ((gchar*) root->name, "application")) {
+		as_validator_add_issue (validator,
+				AS_ISSUE_KIND_LEGACY,
+				AS_ISSUE_IMPORTANCE_ERROR,
+				"Your file is in a legacy AppStream format, which can not be validated. Please migrate it to spec version 0.6 or above.");
+		ret = FALSE;
 	}
 
 	xmlFreeDoc (doc);
 	return ret;
+}
+
+/**
+ * as_validator_get_issues:
+ *
+ * Get a list of found metadata format issues.
+ *
+ * Returns: (element-type AsValidatorIssue) (transfer none): an array of #AsValidatorIssue instances
+ */
+GPtrArray*
+as_validator_get_issues (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	return priv->issues;
 }
 
 /**

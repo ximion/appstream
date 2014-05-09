@@ -25,9 +25,78 @@
 #include <appstream.h>
 
 typedef struct {
-	GOptionContext		*context;
-	GPtrArray		*cmd_array;
+	GOptionContext	*context;
 } AsValidateToolPrivate;
+
+/**
+ * importance_to_string_id:
+ **/
+static const gchar*
+importance_to_string_id (AsIssueImportance importance)
+{
+	switch (importance) {
+		case AS_ISSUE_IMPORTANCE_ERROR:
+			return "E";
+		case AS_ISSUE_IMPORTANCE_WARNING:
+			return "W";
+		case AS_ISSUE_IMPORTANCE_INFO:
+			return "I";
+		case AS_ISSUE_IMPORTANCE_PEDANTIC:
+			return "P";
+		default:
+			return "X";
+	}
+}
+
+/**
+ * print_report:
+ **/
+static void
+print_report (GPtrArray *issues)
+{
+	guint i;
+	AsValidatorIssue *issue;
+	AsIssueImportance importance;
+
+	for (i = 0; i < issues->len; i++) {
+		issue = (AsValidatorIssue*) g_ptr_array_index (issues, i);
+		importance = as_validator_issue_get_importance (issue);
+
+		g_print ("%s: %s\n",
+				 importance_to_string_id (importance),
+				 as_validator_issue_get_message (issue));
+	}
+}
+
+/**
+ * validate_file:
+ **/
+static gboolean
+validate_file (gchar *fname)
+{
+	GFile *file;
+	gboolean ret;
+	AsValidator *validator;
+	GPtrArray *issues;
+
+	file = g_file_new_for_path (fname);
+	if (!g_file_query_exists (file, NULL)) {
+		g_print ("File '%s' does not exist.", fname);
+		g_print ("\n");
+		g_object_unref (file);
+		return FALSE;
+	}
+
+	validator = as_validator_new ();
+	ret = as_validator_validate_file (validator, file);
+	issues = as_validator_get_issues (validator);
+
+	print_report (issues);
+
+	g_object_unref (file);
+	g_object_unref (validator);
+	return ret;
+}
 
 /**
  * main:
@@ -70,8 +139,22 @@ main (int argc, char *argv[])
 		goto out;
 	}
 
-	/* success */
-	retval = 0;
+	if (argc <= 1) {
+		g_print ("%s\n",
+				 _("You need to specify a file to validate!"));
+		goto out;
+	}
+
+	ret = validate_file (argv[1]);
+	if (!ret) {
+		g_print ("%s\n",
+				 _("There have been some critical errors while validating the file."));
+		retval = 2;
+	}
+
+	/* success? */
+	if (ret)
+		retval = 0;
 out:
 	if (priv != NULL) {
 		g_option_context_free (priv->context);

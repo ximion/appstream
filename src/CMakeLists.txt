@@ -47,6 +47,7 @@ set(LIBAPPSTREAM_SRC
 		as-image.c
 		as-release.c
 		as-validator.c
+		as-validator-issue.c
 )
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
@@ -64,6 +65,7 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 		as-image.h
 		as-release.h
 		as-validator.h
+		as-validator-issue.h
 )
 
 set(LIBAPPSTREAM_PRIVATE_HEADERS
