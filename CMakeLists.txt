@@ -113,7 +113,7 @@ add_definitions ("--include config.h")
 find_package(PkgConfig REQUIRED)
 
 add_subdirectory(src)
-add_subdirectory(client)
+add_subdirectory(tools)
 add_subdirectory(data)
 add_subdirectory(po)
 add_subdirectory(docs)
