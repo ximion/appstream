@@ -80,7 +80,8 @@ as_metadata_init (AsMetadata *metad)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	locale_names = g_get_language_names ();
-	priv->locale = g_strdup (locale_names[0]);
+	/* set active locale without UTF-8 suffix */
+	priv->locale = g_strstr_len (locale_names[0], -1, ".UTF-8");
 
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 }
