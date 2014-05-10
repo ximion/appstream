@@ -243,6 +243,14 @@ as_print_component (AsComponent *cpt)
 		/* license */
 		as_print_key_value (_("License"), as_component_get_project_license (cpt), FALSE);
 
+		/* categories */
+		strv = as_component_get_categories (cpt);
+		if (strv != NULL) {
+			str = g_strjoinv ("; ", strv);
+			as_print_key_value (_("Categories"), str, FALSE);
+			g_free (str);
+		}
+
 		/* desktop-compulsority */
 		strv = as_component_get_compulsory_for_desktops (cpt);
 		if (strv != NULL) {

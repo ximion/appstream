@@ -116,7 +116,7 @@ const gchar*		as_component_get_summary (AsComponent* self);
 void				as_component_set_summary (AsComponent* self,
 											  const gchar* value);
 
-gchar**		as_component_get_categories (AsComponent* self);
+gchar**				as_component_get_categories (AsComponent* self);
 void				as_component_set_categories (AsComponent* self,
 												 gchar** value);
 void				as_component_set_categories_from_str (AsComponent* self,

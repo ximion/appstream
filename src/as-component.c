@@ -1007,7 +1007,7 @@ as_component_set_categories (AsComponent* self, gchar** value)
  * Set the categories list from a string
  *
  * @self a valid #AsComponent instance
- * @categories_str Comma-separated list of category-names
+ * @categories_str Semicolon-separated list of category-names
  */
 void
 as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str)
@@ -1017,7 +1017,7 @@ as_component_set_categories_from_str (AsComponent* self, const gchar* categories
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (categories_str != NULL);
 
-	cats = g_strsplit (categories_str, ",", 0);
+	cats = g_strsplit (categories_str, ";", 0);
 	as_component_set_categories (self, cats);
 	g_strfreev (cats);
 }
