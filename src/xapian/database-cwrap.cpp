@@ -1,4 +1,4 @@
-/* database-vala.cpp
+/* database-cwrap.cpp
  *
  * Copyright (C) 2012-2014 Matthias Klumpp
  *
@@ -20,7 +20,7 @@
 
 #include "database-read.hpp"
 #include "database-write.hpp"
-#include "database-vala.hpp"
+#include "database-cwrap.hpp"
 
 /* methods for database read access */
 
