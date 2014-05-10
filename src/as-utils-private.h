@@ -18,15 +18,25 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_UTILS_H
-#define __AS_UTILS_H
+#ifndef __AS_UTILS_PRIVATE_H
+#define __AS_UTILS_PRIVATE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-gboolean		as_str_empty (const gchar* str);
+gboolean		as_utils_touch_dir (const gchar* dirname);
+gboolean		as_utils_delete_dir_recursive (const gchar* dirname);
+gchar*			as_string_strip (const gchar* str);
+gchar**			as_ptr_array_to_strv (GPtrArray *array);
+GPtrArray*		as_utils_categories_from_strv (gchar** categories_strv, GPtrArray* system_categories);
+GPtrArray*		as_utils_categories_from_str (const gchar* categories_str, GPtrArray* system_categories);
+GPtrArray*		as_utils_find_files_matching (const gchar* dir, const gchar* pattern, gboolean recursive);
+GPtrArray*		as_utils_find_files (const gchar* dir, gboolean recursive);
+gboolean		as_utils_is_root (void);
+gchar**			as_strv_dup (gchar** strv);
+gchar*			as_str_replace (const gchar* str, const gchar* old_str, const gchar* new_str);
 
 G_END_DECLS
 
-#endif /* __AS_UTILS_H */
+#endif /* __AS_UTILS_PRIVATE_H */

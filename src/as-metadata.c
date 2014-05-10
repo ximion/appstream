@@ -39,6 +39,7 @@
 #include "as-metadata-private.h"
 
 #include "as-utils.h"
+#include "as-utils-private.h"
 #include "as-component.h"
 #include "as-component-private.h"
 #include "as-distro-details.h"

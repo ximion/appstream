@@ -28,6 +28,7 @@
 #include <glib/gstdio.h>
 
 #include "as-utils.h"
+#include "as-utils-private.h"
 
 /**
  * SECTION:as-search-query

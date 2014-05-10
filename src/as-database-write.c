@@ -30,6 +30,7 @@
 #include "xapian/database-cwrap.hpp"
 #include "as-settings-private.h"
 #include "as-utils.h"
+#include "as-utils-private.h"
 
 struct _AsDatabaseWritePrivate {
 	struct XADatabaseWrite* db_w;

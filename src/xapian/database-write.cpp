@@ -29,7 +29,7 @@
 #include <glib/gstdio.h>
 
 #include "database-common.hpp"
-#include "../as-utils.h"
+#include "../as-utils-private.h"
 #include "../as-component-private.h"
 #include "../as-settings-private.h"
 

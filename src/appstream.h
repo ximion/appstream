@@ -38,6 +38,8 @@
 #include <as-validator.h>
 #include <as-validator-issue.h>
 
+#include <as-utils.h>
+
 #undef __APPSTREAM_H_INSIDE__
 
 #endif /* __APPSTREAM_H */

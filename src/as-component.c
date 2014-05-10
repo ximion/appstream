@@ -29,6 +29,7 @@
 #include <libxml/parser.h>
 
 #include "as-utils.h"
+#include "as-utils-private.h"
 
 /**
  * SECTION:as-component
@@ -481,7 +482,7 @@ as_component_load_screenshots_from_internal_xml (AsComponent* self, const gchar*
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (xmldata != NULL);
 
-	if (as_utils_str_empty (xmldata)) {
+	if (as_str_empty (xmldata)) {
 		return;
 	}
 
@@ -694,7 +695,7 @@ as_component_load_releases_from_internal_xml (AsComponent* self, const gchar* xm
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (xmldata != NULL);
 
-	if (as_utils_str_empty (xmldata)) {
+	if (as_str_empty (xmldata)) {
 		return;
 	}
 
@@ -849,7 +850,7 @@ const gchar*
 as_component_get_name (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
-	if (as_utils_str_empty (self->priv->name)) {
+	if (as_str_empty (self->priv->name)) {
 		self->priv->name = g_strdup (self->priv->name_original);
 	}
 

@@ -52,6 +52,7 @@ set(LIBAPPSTREAM_SRC
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
 		appstream.h
+		as-utils.h
 		as-metadata.h
 		as-component.h
 		as-enums.h
@@ -69,7 +70,7 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 )
 
 set(LIBAPPSTREAM_PRIVATE_HEADERS
-		as-utils.h
+		as-utils-private.h
 		as-data-provider.h
 		data-providers/appstream-xml.h
 		data-providers/debian-dep11.h

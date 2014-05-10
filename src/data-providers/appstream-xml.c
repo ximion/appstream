@@ -24,7 +24,7 @@
 #include <glib-object.h>
 #include <glib/gstdio.h>
 
-#include "../as-utils.h"
+#include "../as-utils-private.h"
 #include "../as-settings-private.h"
 #include "../as-metadata.h"
 #include "../as-metadata-private.h"

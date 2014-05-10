@@ -36,6 +36,7 @@
 #endif
 
 #include "as-utils.h"
+#include "as-utils-private.h"
 #include "as-database-write.h"
 #include "as-component-private.h"
 #include "as-distro-details.h"
@@ -105,7 +106,7 @@ as_builder_construct (GType object_type)
 	priv->db_rw = as_database_write_new ();
 
 	/* update database path if necessary */
-	if (as_utils_str_empty (priv->CURRENT_DB_PATH)) {
+	if (as_str_empty (priv->CURRENT_DB_PATH)) {
 		const gchar *s;
 		s = as_database_get_database_path ((AsDatabase*) priv->db_rw);
 		g_free (priv->CURRENT_DB_PATH);
