@@ -139,9 +139,23 @@ static gchar*
 format_long_output (const gchar *str)
 {
 	gchar *res;
+	gchar *str2;
 	gchar **strv;
+	guint i;
+	gboolean do_linebreak = FALSE;
 
-	strv = g_strsplit (str, "\n", -1);
+	str2 = g_strdup (str);
+	for (i = 0; str2[i] != '\0'; ++i) {
+		if ((i != 0) && ((i % 80) == 0))
+			do_linebreak = TRUE;
+		if ((do_linebreak) && (str2[i] == ' ')) {
+			do_linebreak = FALSE;
+			str2[i] = '\n';
+		}
+	}
+
+	strv = g_strsplit (str2, "\n", -1);
+	g_free (str2);
 
 	res = g_strjoinv ("\n  ", strv);
 	g_strfreev (strv);
@@ -212,7 +226,9 @@ as_print_component (AsComponent *cpt)
 		gchar **strv;
 
 		/* long description */
-		as_print_key_value (_("Description"), as_component_get_description (cpt), FALSE);
+		str = as_description_markup_convert_simple (as_component_get_description (cpt));
+		as_print_key_value (_("Description"), str, FALSE);
+		g_free (str);
 
 		/* some simple screenshot information */
 		sshot_array = as_component_get_screenshots (cpt);

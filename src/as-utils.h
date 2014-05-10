@@ -26,6 +26,7 @@
 G_BEGIN_DECLS
 
 gboolean		as_str_empty (const gchar* str);
+gchar			*as_description_markup_convert_simple (const gchar *markup);
 
 G_END_DECLS
 

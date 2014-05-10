@@ -37,6 +37,16 @@ test_menuparser ()
 	g_list_free (menu_dirs);
 }
 
+void
+test_simplemarkup ()
+{
+	gchar *str;
+	str = as_description_markup_convert_simple ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>");
+	g_debug ("%s", str);
+	g_assert (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
+	g_free (str);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -59,6 +69,7 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/MenuParser", test_menuparser);
+	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 
 	ret = g_test_run ();
 	g_free (datadir);

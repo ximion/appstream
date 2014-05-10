@@ -23,18 +23,119 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
-#include <string.h>
 #include <gio/gio.h>
 #include <glib/gstdio.h>
-#include <stdio.h>
 #include <glib/gi18n-lib.h>
-#include <unistd.h>
 #include <sys/types.h>
+#include <libxml/tree.h>
+#include <libxml/parser.h>
 
 #include "as-category.h"
 
+/**
+ * SECTION:as-utils
+ * @short_description: Helper functions that are used inside libappstream
+ * @include: appstream.h
+ *
+ * Functions which are used in libappstream and might be useful for others
+ * as well.
+ */
+
+/**
+ * as_description_markup_convert_simple:
+ * @markup: the text to copy.
+ *
+ * Converts an XML description markup into a simple printable form.
+ *
+ * Returns: (transfer full): a newly allocated %NULL terminated string
+ **/
+gchar*
+as_description_markup_convert_simple (const gchar *markup)
+{
+	xmlDoc *doc = NULL;
+	xmlNode *root;
+	xmlNode *iter;
+	gboolean ret = TRUE;
+	gchar *xmldata;
+	gchar *formatted = NULL;
+	GString *str = NULL;
+
+	/* is this actually markup */
+	if (g_strrstr (markup, "<") == NULL) {
+		formatted = g_strdup (markup);
+		goto out;
+	}
+
+	/* make XML parser happy by providing a root element */
+	xmldata = g_strdup_printf ("<root>%s</root>", markup);
+
+	doc = xmlParseDoc ((xmlChar*) xmldata);
+	if (doc == NULL) {
+		ret = FALSE;
+		goto out;
+	}
+
+	root = xmlDocGetRootElement (doc);
+	if (doc == NULL) {
+		/* document was empty */
+		ret = FALSE;
+		goto out;
+	}
+
+	str = g_string_new ("");
+	for (iter = root->children; iter != NULL; iter = iter->next) {
+		gchar *content;
+		xmlNode *iter2;
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "p") == 0) {
+			content = (gchar*) xmlNodeGetContent (iter);
+			if (str->len > 0)
+				g_string_append (str, "\n");
+			g_string_append_printf (str, "%s\n", content);
+			g_free (content);
+		} else if ((g_strcmp0 ((gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((gchar*) iter->name, "ol") == 0)) {
+			/* iterate over itemize contents */
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (g_strcmp0 ((gchar*) iter2->name, "li") == 0) {
+					content = (gchar*) xmlNodeGetContent (iter2);
+					g_string_append_printf (str,
+								" • %s\n",
+								content);
+					g_free (content);
+				} else {
+					/* only <li> is valid in lists */
+					ret = FALSE;
+					goto out;
+				}
+			}
+		} else {
+			/* only <p>, <ul> and <ol> is valid here */
+			/* we might catch that as proper GError later */
+		}
+	}
+
+	/* success */
+	if (str->len > 0)
+		g_string_truncate (str, str->len - 1);
+out:
+	if (doc != NULL)
+		xmlFreeDoc (doc);
+	if (!ret)
+		formatted = g_strdup (markup);
+	if (str != NULL) {
+		if (!ret)
+			g_string_free (str, TRUE);
+		else
+			formatted = g_string_free (str, FALSE);
+	}
+	return formatted;
+}
+
 gboolean
-as_utils_str_empty (const gchar* str)
+as_str_empty (const gchar* str)
 {
 	if ((str == NULL) || (g_strcmp0 (str, "") == 0))
 		return TRUE;
@@ -237,7 +338,7 @@ as_utils_find_files_matching (const gchar* dir, const gchar* pattern, gboolean r
 								 g_strdup ((gchar *) g_ptr_array_index (subdir_list, i)));
 			g_ptr_array_unref (subdir_list);
 		} else {
-			if (!as_utils_str_empty (pattern)) {
+			if (!as_str_empty (pattern)) {
 				if (!g_pattern_match_simple (pattern, g_file_info_get_name (file_info))) {
 					g_free (path);
 					continue;
