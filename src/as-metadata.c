@@ -529,17 +529,12 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 	cpttype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
 	if ((cpttype == NULL) || (g_strcmp0 (cpttype, "generic") == 0)) {
 		as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
-	} else if (g_strcmp0 (cpttype, "desktop") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
-	} else if (g_strcmp0 (cpttype, "font") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_FONT);
-	} else if (g_strcmp0 (cpttype, "codec") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_CODEC);
-	} else if (g_strcmp0 (cpttype, "inputmethod") == 0) {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_INPUTMETHOD);
 	} else {
-		as_component_set_kind (cpt, AS_COMPONENT_KIND_UNKNOWN);
-		g_debug ("An unknown component was found: %s", cpttype);
+		AsComponentKind ckind;
+		ckind = as_component_kind_from_string (cpttype);
+		as_component_set_kind (cpt, ckind);
+		if (ckind == AS_COMPONENT_KIND_UNKNOWN)
+			g_debug ("An unknown component was found: %s", cpttype);
 	}
 	g_free (cpttype);
 

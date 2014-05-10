@@ -139,6 +139,17 @@ main (int argc, char *argv[])
 		goto out;
 	}
 
+	/* just a hack, we might need proper message handling later */
+	if (verbose) {
+		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
+	}
+
+	if (version) {
+		g_print ("Appstream validation tool version: %s\n", VERSION);
+		retval = 0;
+		goto out;
+	}
+
 	if (argc <= 1) {
 		g_print ("%s\n",
 				 _("You need to specify a file to validate!"));

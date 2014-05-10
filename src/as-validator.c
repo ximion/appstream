@@ -84,7 +84,7 @@ as_validator_init (AsValidator *validator)
  * as_validator_add_issue:
  **/
 static void
-as_validator_add_issue (AsValidator *validator, AsIssueKind kind, AsIssueImportance importance, const gchar *format, ...)
+as_validator_add_issue (AsValidator *validator, AsIssueImportance importance, AsIssueKind kind, const gchar *format, ...)
 {
 	va_list args;
 	gchar *buffer;
@@ -125,16 +125,84 @@ static void
 as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsParserMode mode)
 {
 	gchar *cpttype;
+	xmlNode *iter;
 	AsMetadata *metad;
 	AsComponent *cpt;
 	/* AsValidatorPrivate *priv = GET_PRIVATE (validator); */
 
 	/* check if component type is valid */
 	cpttype = (gchar*) xmlGetProp (root, (xmlChar*) "type");
-	if ((cpttype == NULL) || (g_strcmp0 (cpttype, "generic") == 0)) {
-		// TODO
+	if (cpttype != NULL) {
+		if (as_component_kind_from_string (cpttype) == AS_COMPONENT_KIND_UNKNOWN) {
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"Invalid component type found: %s",
+					cpttype);
+		}
 	}
 	g_free (cpttype);
+
+	for (iter = root->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		gchar *node_content;
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+		node_content = (gchar*) xmlNodeGetContent (iter);
+
+		if (node_content == NULL) {
+			as_validator_add_issue (validator,
+				AS_ISSUE_IMPORTANCE_WARNING,
+				AS_ISSUE_KIND_VALUE_WRONG,
+				"Found empty '%s' tag.",
+				node_name);
+		}
+
+		if (g_strcmp0 (node_name, "id") == 0) {
+			gchar *prop;
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			if (prop != NULL) {
+				as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_INFO,
+					AS_ISSUE_KIND_PROPERTY_INVALID,
+					"The id tag for \"%s\" still contains a 'type' property, probably from an old conversion.",
+					node_content);
+			}
+			g_free (prop);
+		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
+		} else if (g_strcmp0 (node_name, "name") == 0) {
+		} else if (g_strcmp0 (node_name, "summary") == 0) {
+		} else if (g_strcmp0 (node_name, "description") == 0) {
+		} else if (g_strcmp0 (node_name, "icon") == 0) {
+			gchar *prop;
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			if (prop == NULL) {
+				as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_PROPERTY_MISSING,
+					"Icon tag has no 'type' property: %s",
+					node_content);
+			}
+			g_free (prop);
+		} else if (g_strcmp0 (node_name, "url") == 0) {
+		} else if (g_strcmp0 (node_name, "categories") == 0) {
+		} else if (g_strcmp0 (node_name, "provides") == 0) {
+		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
+		} else if (g_strcmp0 (node_name, "project_license") == 0) {
+		} else if (g_strcmp0 (node_name, "project_group") == 0) {
+		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
+		} else if (g_strcmp0 (node_name, "releases") == 0) {
+		} else if (!g_str_has_prefix (node_name, "x-")) {
+			as_validator_add_issue (validator,
+				AS_ISSUE_IMPORTANCE_WARNING,
+				AS_ISSUE_KIND_TAG_UNKNOWN,
+				"Found invalid tag: '%s'. Non-standard tags have to be prefixed with \"x-\".",
+				node_name);
+		}
+		g_free (node_content);
+	}
 
 	/* validate the resulting AsComponent for sanity */
 	metad = as_metadata_new ();
@@ -144,9 +212,10 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	cpt = as_metadata_parse_component_node (metad, root, NULL);
 	g_object_unref (metad);
 
-	// TODO
+	/* TODO: Check component properties */
 
-	g_object_unref (cpt);
+	if (cpt != NULL)
+		g_object_unref (cpt);
 }
 
 /**
@@ -209,8 +278,8 @@ as_validator_validate_data (AsValidator *validator,
 	doc = xmlParseDoc ((xmlChar*) metadata);
 	if (doc == NULL) {
 		as_validator_add_issue (validator,
-			AS_ISSUE_KIND_MARKUP_INVALID,
 			AS_ISSUE_IMPORTANCE_ERROR,
+			AS_ISSUE_KIND_MARKUP_INVALID,
 			"Could not parse XML data.");
 		return FALSE;
 	}
@@ -218,8 +287,8 @@ as_validator_validate_data (AsValidator *validator,
 	root = xmlDocGetRootElement (doc);
 	if (doc == NULL) {
 		as_validator_add_issue (validator,
-			AS_ISSUE_KIND_MARKUP_INVALID,
 			AS_ISSUE_IMPORTANCE_ERROR,
+			AS_ISSUE_KIND_MARKUP_INVALID,
 			"The XML document is empty.");
 		return FALSE;
 	}
@@ -240,12 +309,12 @@ as_validator_validate_data (AsValidator *validator,
 			node_name = (const gchar*) iter->name;
 			if (g_strcmp0 (node_name, "component") == 0) {
 				as_validator_validate_component_node (validator,
-												root,
+												iter,
 												AS_PARSER_MODE_DISTRO);
 			} else {
 				as_validator_add_issue (validator,
-					AS_ISSUE_KIND_TAG_UNKNOWN,
 					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_UNKNOWN,
 					"Unknown tag found: %s",
 					node_name);
 				ret = FALSE;
@@ -253,8 +322,8 @@ as_validator_validate_data (AsValidator *validator,
 		}
 	} else if (g_str_has_prefix ((gchar*) root->name, "application")) {
 		as_validator_add_issue (validator,
-				AS_ISSUE_KIND_LEGACY,
 				AS_ISSUE_IMPORTANCE_ERROR,
+				AS_ISSUE_KIND_LEGACY,
 				"Your file is in a legacy AppStream format, which can not be validated. Please migrate it to spec version 0.6 or above.");
 		ret = FALSE;
 	}

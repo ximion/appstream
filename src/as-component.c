@@ -112,7 +112,7 @@ as_component_kind_get_type (void)
 		static const GEnumValue values[] = {
 					{AS_COMPONENT_KIND_UNKNOWN, "AS_COMPONENT_KIND_UNKNOWN", "unknown"},
 					{AS_COMPONENT_KIND_GENERIC, "AS_COMPONENT_KIND_GENERIC", "generic"},
-					{AS_COMPONENT_KIND_DESKTOP_APP, "AS_COMPONENT_KIND_DESKTOP_APP", "desktop-app"},
+					{AS_COMPONENT_KIND_DESKTOP_APP, "AS_COMPONENT_KIND_DESKTOP_APP", "desktop"},
 					{AS_COMPONENT_KIND_FONT, "AS_COMPONENT_KIND_FONT", "font"},
 					{AS_COMPONENT_KIND_CODEC, "AS_COMPONENT_KIND_CODEC", "codec"},
 					{AS_COMPONENT_KIND_INPUTMETHOD, "AS_COMPONENT_KIND_INPUTMETHOD", "inputmethod"},
@@ -128,7 +128,7 @@ as_component_kind_get_type (void)
 
 /**
  * as_component_kind_to_string:
- * @kind: the #AsComponentKind.
+ * @kind: the %AsComponentKind.
  *
  * Converts the enumerated value to an text representation.
  *
@@ -140,7 +140,7 @@ as_component_kind_to_string (AsComponentKind kind)
 	if (kind == AS_COMPONENT_KIND_GENERIC)
 		return "generic";
 	if (kind == AS_COMPONENT_KIND_DESKTOP_APP)
-		return "desktop-app";
+		return "desktop";
 	if (kind == AS_COMPONENT_KIND_FONT)
 		return "font";
 	if (kind == AS_COMPONENT_KIND_CODEC)
@@ -163,7 +163,7 @@ as_component_kind_from_string (const gchar *kind_str)
 {
 	if (g_strcmp0 (kind_str, "generic") == 0)
 		return AS_COMPONENT_KIND_GENERIC;
-	if (g_strcmp0 (kind_str, "desktop-app") == 0)
+	if (g_strcmp0 (kind_str, "desktop") == 0)
 		return AS_COMPONENT_KIND_DESKTOP_APP;
 	if (g_strcmp0 (kind_str, "font") == 0)
 		return AS_COMPONENT_KIND_FONT;

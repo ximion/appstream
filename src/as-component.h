@@ -66,6 +66,27 @@ struct _AsComponentClass
 	void (*_as_reserved8)	(void);
 };
 
+/**
+ * AsComponentKind:
+ * @AS_COMPONENT_KIND_UNKNOWN:		Type invalid or not known
+ * @AS_COMPONENT_KIND_GENERIC:		A generic (= without specialized type) component
+ * @AS_COMPONENT_KIND_DESKTOP_APP:	An application with a .desktop-file
+ * @AS_COMPONENT_KIND_FONT:			A font
+ * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
+ * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
+ *
+ * The URL type.
+ **/
+typedef enum  {
+	AS_COMPONENT_KIND_UNKNOWN,
+	AS_COMPONENT_KIND_GENERIC,
+	AS_COMPONENT_KIND_DESKTOP_APP,
+	AS_COMPONENT_KIND_FONT,
+	AS_COMPONENT_KIND_CODEC,
+	AS_COMPONENT_KIND_INPUTMETHOD,
+	AS_COMPONENT_KIND_LAST
+} AsComponentKind;
+
 GType				as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar*		as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);

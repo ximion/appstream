@@ -22,7 +22,7 @@
 
 /**
  * as_url_kind_to_string:
- * @url_kind: the @AsUrlKind.
+ * @url_kind: the %AsUrlKind.
  *
  * Converts the enumerated value to an text representation.
  *
