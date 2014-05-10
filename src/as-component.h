@@ -109,16 +109,20 @@ void				as_component_set_project_group (AsComponent* self,
 gchar**				as_component_get_compulsory_for_desktops (AsComponent* self);
 void				as_component_set_compulsory_for_desktops (AsComponent* self,
 															  gchar** value);
+gboolean			as_component_is_compulsory_for_desktop (AsComponent* self,
+															  const gchar* desktop);
 
 const gchar*		as_component_get_summary (AsComponent* self);
 void				as_component_set_summary (AsComponent* self,
 											  const gchar* value);
 
-gchar**				as_component_get_categories (AsComponent* self);
+gchar**		as_component_get_categories (AsComponent* self);
 void				as_component_set_categories (AsComponent* self,
 												 gchar** value);
 void				as_component_set_categories_from_str (AsComponent* self,
-														  const gchar* categories_str);
+												const gchar* categories_str);
+gboolean			as_component_has_category (AsComponent *self,
+												const gchar *category);
 
 GPtrArray*			as_component_get_screenshots (AsComponent* self);
 void				as_component_add_screenshot (AsComponent* self,

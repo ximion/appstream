@@ -293,27 +293,6 @@ as_component_to_string (AsComponent* self)
 }
 
 /**
- * as_component_set_categories_from_str:
- *
- * Set the categories list from a string
- *
- * @self a valid #AsComponent instance
- * @categories_str Comma-separated list of category-names
- */
-void
-as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str)
-{
-	gchar** cats = NULL;
-
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (categories_str != NULL);
-
-	cats = g_strsplit (categories_str, ",", 0);
-	as_component_set_categories (self, cats);
-	g_strfreev (cats);
-}
-
-/**
  * as_component_add_screenshot:
  * @self: a #AsComponent instance.
  * @sshot: The #AsScreenshot to add
@@ -1002,7 +981,7 @@ as_component_set_icon_url (AsComponent* self, const gchar* value)
 /**
  * as_component_get_categories:
  *
- * Returns: (transfer full): String array of component names
+ * Returns: (transfer none): String array of categories
  */
 gchar**
 as_component_get_categories (AsComponent* self)
@@ -1020,6 +999,49 @@ as_component_set_categories (AsComponent* self, gchar** value)
 	g_strfreev (self->priv->categories);
 	self->priv->categories = as_strv_dup (value);
 	g_object_notify ((GObject *) self, "categories");
+}
+
+/**
+ * as_component_set_categories_from_str:
+ *
+ * Set the categories list from a string
+ *
+ * @self a valid #AsComponent instance
+ * @categories_str Comma-separated list of category-names
+ */
+void
+as_component_set_categories_from_str (AsComponent* self, const gchar* categories_str)
+{
+	gchar** cats = NULL;
+
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (categories_str != NULL);
+
+	cats = g_strsplit (categories_str, ",", 0);
+	as_component_set_categories (self, cats);
+	g_strfreev (cats);
+}
+
+/**
+ * as_component_has_category:
+ * @self an #AsComponent object
+ *
+ * Check if component is in the specified category.
+ **/
+gboolean
+as_component_has_category (AsComponent* self, const gchar* category)
+{
+	gchar **categories;
+	guint i;
+	g_return_val_if_fail (self != NULL, FALSE);
+
+	categories = self->priv->categories;
+	for (i = 0; categories[i] != NULL; i++) {
+		if (g_strcmp0 (categories[i], category) == 0)
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 /**
@@ -1138,6 +1160,31 @@ as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value)
 
 	g_strfreev (self->priv->compulsory_for_desktops);
 	self->priv->compulsory_for_desktops = as_strv_dup (value);
+}
+
+/**
+ * as_component_is_compulsory_for_desktop:
+ * @self an #AsComponent object
+ * @desktop the desktop-id to test for
+ *
+ * Check if this component is compulsory for the given desktop.
+ *
+ * Returns: %TRUE if compulsory, %FALSE otherwise.
+ **/
+gboolean
+as_component_is_compulsory_for_desktop (AsComponent* self, const gchar* desktop)
+{
+	gchar **compulsory_for_desktops;
+	guint i;
+	g_return_val_if_fail (self != NULL, FALSE);
+
+	compulsory_for_desktops = self->priv->compulsory_for_desktops;
+	for (i = 0; compulsory_for_desktops[i] != NULL; i++) {
+		if (g_strcmp0 (compulsory_for_desktops[i], desktop) == 0)
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 /**
