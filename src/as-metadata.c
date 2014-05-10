@@ -477,6 +477,15 @@ as_metadata_refine_component_icon (AsMetadata *metad, AsComponent *cpt)
 
 	/* search local icon path */
 	for (i = 0; priv->icon_paths[i] != NULL; i++) {
+		/* sometimes, the file already has an extension */
+		tmp_icon_path = g_strdup_printf ("%s/%s",
+					     priv->icon_paths[i],
+					     icon_url);
+		if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
+			goto out;
+		g_free (tmp_icon_path);
+
+		/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
 		for (j = 0; exensions[j] != NULL; j++) {
 			tmp_icon_path = g_strdup_printf ("%s/%s.%s",
 					     priv->icon_paths[i],
@@ -655,6 +664,9 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 	g_strfreev (strv);
 
 	if (as_component_is_valid (cpt)) {
+		/* find local icon on the filesystem */
+		as_metadata_refine_component_icon (metad, cpt);
+
 		return cpt;
 	} else {
 		gchar *cpt_str;
@@ -669,9 +681,6 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 		g_free (msg);
 		g_object_unref (cpt);
 	}
-
-	/* find local icon on the filesystem */
-	as_metadata_refine_component_icon (metad, cpt);
 
 	return NULL;
 }
