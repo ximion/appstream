@@ -50,7 +50,7 @@
 struct _AsComponentPrivate {
 	AsComponentKind kind;
 	gchar *pkgname;
-	gchar *idname;
+	gchar *id;
 	gchar *name;
 	gchar *name_original;
 	gchar *summary;
@@ -79,7 +79,7 @@ enum  {
 	AS_COMPONENT_DUMMY_PROPERTY,
 	AS_COMPONENT_KIND,
 	AS_COMPONENT_PKGNAME,
-	AS_COMPONENT_IDNAME,
+	AS_COMPONENT_ID,
 	AS_COMPONENT_NAME,
 	AS_COMPONENT_NAME_ORIGINAL,
 	AS_COMPONENT_SUMMARY,
@@ -187,7 +187,7 @@ as_component_construct (GType object_type)
 	gchar** strv;
 	self = (AsComponent*) g_object_new (object_type, NULL);
 	as_component_set_pkgname (self, "");
-	as_component_set_idname (self, "");
+	as_component_set_id (self, "");
 	as_component_set_name_original (self, "");
 	as_component_set_summary (self, "");
 	as_component_set_description (self, "");
@@ -245,7 +245,7 @@ as_component_is_valid (AsComponent* self)
 		return FALSE;
 
 	if ((g_strcmp0 (self->priv->pkgname, "") != 0) &&
-		(g_strcmp0 (self->priv->idname, "") != 0) &&
+		(g_strcmp0 (self->priv->id, "") != 0) &&
 		(g_strcmp0 (self->priv->name, "") != 0) &&
 		(g_strcmp0 (self->priv->name_original, "") != 0)) {
 		ret = TRUE;
@@ -279,12 +279,12 @@ as_component_to_string (AsComponent* self)
 	switch (self->priv->kind) {
 		case AS_COMPONENT_KIND_DESKTOP_APP:
 		{
-			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", self->priv->idname, name, self->priv->pkgname, self->priv->summary);
+			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", self->priv->id, name, self->priv->pkgname, self->priv->summary);
 			break;
 		}
 		default:
 		{
-			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", self->priv->idname, name, self->priv->pkgname, self->priv->summary);
+			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", self->priv->id, name, self->priv->pkgname, self->priv->summary);
 			break;
 		}
 	}
@@ -839,21 +839,31 @@ as_component_set_pkgname (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "pkgname");
 }
 
+/**
+ * as_component_get_id:
+ *
+ * Set the unique identifier for this component.
+ */
 const gchar*
-as_component_get_idname (AsComponent* self)
+as_component_get_id (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
-	return self->priv->idname;
+	return self->priv->id;
 }
 
+/**
+ * as_component_set_id:
+ *
+ * Set the unique identifier for this component.
+ */
 void
-as_component_set_idname (AsComponent* self, const gchar* value)
+as_component_set_id (AsComponent* self, const gchar* value)
 {
 	g_return_if_fail (self != NULL);
 
-	g_free (self->priv->idname);
-	self->priv->idname = g_strdup (value);
-	g_object_notify ((GObject *) self, "idname");
+	g_free (self->priv->id);
+	self->priv->id = g_strdup (value);
+	g_object_notify ((GObject *) self, "id");
 }
 
 const gchar*
@@ -987,34 +997,6 @@ as_component_set_icon_url (AsComponent* self, const gchar* value)
 	g_free (self->priv->icon_url);
 	self->priv->icon_url = g_strdup (value);
 	g_object_notify ((GObject *) self, "icon-url");
-}
-
-/**
- * as_component_get_homepage:
- *
- * Deprecated: 0.6.2
- */
-const gchar*
-as_component_get_homepage (AsComponent* self)
-{
-	g_return_val_if_fail (self != NULL, NULL);
-
-	return self->priv->homepage;
-}
-
-/**
- * as_component_set_homepage:
- *
- * Deprecated: 0.6.2
- */
-void
-as_component_set_homepage (AsComponent* self, const gchar* value)
-{
-	g_return_if_fail (self != NULL);
-
-	g_free (self->priv->homepage);
-	self->priv->homepage = g_strdup (value);
-	g_object_notify ((GObject *) self, "homepage");
 }
 
 /**
@@ -1230,7 +1212,7 @@ as_component_class_init (AsComponentClass * klass)
 	G_OBJECT_CLASS (klass)->finalize = as_component_finalize;
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_KIND, g_param_spec_enum ("kind", "kind", "kind", AS_TYPE_COMPONENT_KIND, 0, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PKGNAME, g_param_spec_string ("pkgname", "pkgname", "pkgname", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_IDNAME, g_param_spec_string ("idname", "idname", "idname", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_ID, g_param_spec_string ("id", "id", "id", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_NAME, g_param_spec_string ("name", "name", "name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_NAME_ORIGINAL, g_param_spec_string ("name-original", "name-original", "name-original", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_SUMMARY, g_param_spec_string ("summary", "summary", "summary", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
@@ -1259,7 +1241,7 @@ as_component_finalize (GObject* obj)
 	AsComponent *self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_COMPONENT, AsComponent);
 	g_free (self->priv->pkgname);
-	g_free (self->priv->idname);
+	g_free (self->priv->id);
 	g_free (self->priv->name);
 	g_free (self->priv->name_original);
 	g_free (self->priv->summary);
@@ -1323,8 +1305,8 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_PKGNAME:
 			g_value_set_string (value, as_component_get_pkgname (self));
 			break;
-		case AS_COMPONENT_IDNAME:
-			g_value_set_string (value, as_component_get_idname (self));
+		case AS_COMPONENT_ID:
+			g_value_set_string (value, as_component_get_id (self));
 			break;
 		case AS_COMPONENT_NAME:
 			g_value_set_string (value, as_component_get_name (self));
@@ -1381,8 +1363,8 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 		case AS_COMPONENT_PKGNAME:
 			as_component_set_pkgname (self, g_value_get_string (value));
 			break;
-		case AS_COMPONENT_IDNAME:
-			as_component_set_idname (self, g_value_get_string (value));
+		case AS_COMPONENT_ID:
+			as_component_set_id (self, g_value_get_string (value));
 			break;
 		case AS_COMPONENT_NAME:
 			as_component_set_name (self, g_value_get_string (value));
@@ -1421,4 +1403,61 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
 			break;
 	}
+}
+
+/* --- DEPRECATED API --- */
+
+/**
+ * as_component_get_homepage:
+ *
+ * Deprecated: 0.6.2
+ */
+const gchar*
+as_component_get_homepage (AsComponent* self)
+{
+	g_return_val_if_fail (self != NULL, NULL);
+
+	return self->priv->homepage;
+}
+
+/**
+ * as_component_set_homepage:
+ *
+ * Deprecated: 0.6.2
+ */
+void
+as_component_set_homepage (AsComponent* self, const gchar* value)
+{
+	g_return_if_fail (self != NULL);
+
+	g_free (self->priv->homepage);
+	self->priv->homepage = g_strdup (value);
+	g_object_notify ((GObject *) self, "homepage");
+}
+
+/**
+ * as_component_get_idname:
+ *
+ * Deprecated: 0.6.2
+ */
+const gchar*
+as_component_get_idname (AsComponent* self)
+{
+	g_return_val_if_fail (self != NULL, NULL);
+	return self->priv->id;
+}
+
+/**
+ * as_component_set_idname:
+ *
+ * Deprecated: 0.6.2
+ */
+void
+as_component_set_idname (AsComponent* self, const gchar* value)
+{
+	g_return_if_fail (self != NULL);
+
+	g_free (self->priv->id);
+	self->priv->id = g_strdup (value);
+	g_object_notify ((GObject *) self, "id");
 }

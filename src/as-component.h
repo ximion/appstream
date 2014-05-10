@@ -80,23 +80,71 @@ gboolean			as_component_provides_item (AsComponent *self,
 												AsProvidesKind kind, const gchar *value);
 
 AsComponentKind		as_component_get_kind (AsComponent* self);
+void				as_component_set_kind (AsComponent* self,
+										   AsComponentKind value);
+
+const gchar*		as_component_get_id (AsComponent* self);
+void				as_component_set_id (AsComponent* self,
+											 const gchar* value);
+
 const gchar*		as_component_get_pkgname (AsComponent* self);
-const gchar*		as_component_get_idname (AsComponent* self);
+void				as_component_set_pkgname (AsComponent* self,
+											  const gchar* value);
+
 const gchar*		as_component_get_name (AsComponent* self);
+void				as_component_set_name (AsComponent* self,
+										   const gchar* value);
 const gchar* 		as_component_get_name_original (AsComponent* self);
+void				as_component_set_name_original (AsComponent* self,
+													const gchar* value);
+
 const gchar* 		as_component_get_project_license (AsComponent* self);
+void				as_component_set_project_license (AsComponent* self,
+													  const gchar* value);
+
 const gchar* 		as_component_get_project_group (AsComponent* self);
+void				as_component_set_project_group (AsComponent* self,
+													const gchar* value);
+
 gchar**				as_component_get_compulsory_for_desktops (AsComponent* self);
+void				as_component_set_compulsory_for_desktops (AsComponent* self,
+															  gchar** value);
+
 const gchar*		as_component_get_summary (AsComponent* self);
+void				as_component_set_summary (AsComponent* self,
+											  const gchar* value);
+
 gchar**				as_component_get_categories (AsComponent* self);
+void				as_component_set_categories (AsComponent* self,
+												 gchar** value);
+void				as_component_set_categories_from_str (AsComponent* self,
+														  const gchar* categories_str);
+
 GPtrArray*			as_component_get_screenshots (AsComponent* self);
+void				as_component_add_screenshot (AsComponent* self,
+												 AsScreenshot* sshot);
+
 const gchar*		as_component_get_description (AsComponent* self);
+void				as_component_set_description (AsComponent* self,
+												  const gchar* value);
+
 gchar**				as_component_get_keywords (AsComponent* self);
+void				as_component_set_keywords (AsComponent* self,
+											   gchar** value);
+
 const gchar*		as_component_get_icon (AsComponent* self);
+void				as_component_set_icon (AsComponent* self,
+										   const gchar* value);
 const gchar*		as_component_get_icon_url (AsComponent* self);
+void				as_component_set_icon_url (AsComponent* self,
+											   const gchar* value);
+
 gchar**				as_component_get_mimetypes (AsComponent* self);
+void				as_component_set_mimetypes (AsComponent* self,
+												gchar** value);
+
 GPtrArray*			as_component_get_provided_items (AsComponent* self);
-GPtrArray*			as_component_get_releases (AsComponent* self);
+
 GHashTable*			as_component_get_urls (AsComponent *self);
 const gchar*		as_component_get_url (AsComponent *self,
 										  AsUrlKind url_kind);
@@ -104,47 +152,18 @@ void				as_component_add_url (AsComponent *self,
 										AsUrlKind url_kind,
 										const gchar *url);
 
-void				as_component_add_screenshot (AsComponent* self,
-												 AsScreenshot* sshot);
+GPtrArray*			as_component_get_releases (AsComponent* self);
 void				as_component_add_release (AsComponent* self,
 												 AsRelease* release);
-void				as_component_set_categories_from_str (AsComponent* self,
-														  const gchar* categories_str);
-void				as_component_set_kind (AsComponent* self,
-										   AsComponentKind value);
-void				as_component_set_name (AsComponent* self,
-										   const gchar* value);
-void				as_component_set_keywords (AsComponent* self,
-											   gchar** value);
-void				as_component_set_mimetypes (AsComponent* self,
-												gchar** value);
-void				as_component_set_compulsory_for_desktops (AsComponent* self,
-															  gchar** value);
-void				as_component_set_pkgname (AsComponent* self,
-											  const gchar* value);
-void				as_component_set_idname (AsComponent* self,
-											 const gchar* value);
-void				as_component_set_name_original (AsComponent* self,
-													const gchar* value);
-void				as_component_set_summary (AsComponent* self,
-											  const gchar* value);
-void				as_component_set_description (AsComponent* self,
-												  const gchar* value);
-void				as_component_set_icon (AsComponent* self,
-										   const gchar* value);
-void				as_component_set_icon_url (AsComponent* self,
-											   const gchar* value);
-void				as_component_set_project_license (AsComponent* self,
-													  const gchar* value);
-void				as_component_set_project_group (AsComponent* self,
-													const gchar* value);
-void				as_component_set_categories (AsComponent* self,
-												 gchar** value);
 
 /* deprecated */
 const gchar*		as_component_get_homepage (AsComponent* self);
 void				as_component_set_homepage (AsComponent* self,
 											   const gchar* value);
+
+const gchar*		as_component_get_idname (AsComponent* self);
+void				as_component_set_idname (AsComponent* self,
+											 const gchar* value);
 
 G_END_DECLS
 
