@@ -634,6 +634,14 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 			gchar **cat_array;
 			cat_array = as_metadata_get_children_as_array (metad, iter, "category");
 			as_component_set_categories (cpt, cat_array);
+		} else if (g_strcmp0 (node_name, "keywords") == 0) {
+			gchar **kw_array;
+			kw_array = as_metadata_get_children_as_array (metad, iter, "keyword");
+			as_component_set_keywords (cpt, kw_array);
+		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
+			gchar **mime_array;
+			mime_array = as_metadata_get_children_as_array (metad, iter, "mimetype");
+			as_component_set_mimetypes (cpt, mime_array);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_metadata_process_provides (metad, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {

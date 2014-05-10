@@ -188,6 +188,8 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			g_free (prop);
 		} else if (g_strcmp0 (node_name, "url") == 0) {
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
+		} else if (g_strcmp0 (node_name, "keywords") == 0) {
+		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {

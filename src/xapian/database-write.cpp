@@ -184,7 +184,6 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// Categories
 		gchar **categories = as_component_get_categories (cpt);
-
 		string categories_str = "";
 		for (uint i = 0; categories[i] != NULL; i++) {
 			if (categories[i] == NULL)
@@ -209,6 +208,22 @@ DatabaseWrite::rebuild (GList *cpt_list)
 				string kword = keywords[i];
 				term_generator.index_text_without_positions (kword, WEIGHT_DESKTOP_KEYWORD);
 			}
+		}
+
+		// Mimetypes
+		gchar **mimetypes = as_component_get_mimetypes (cpt);
+		if (mimetypes != NULL) {
+			gchar *tmp = g_strjoinv (";", mimetypes);
+			string mimetypes_str = tmp;
+			g_free (tmp);
+			for (uint i = 0; mimetypes[i] != NULL; i++) {
+				if (mimetypes[i] == NULL)
+					continue;
+
+				string mime = mimetypes[i];
+				doc.add_term ("AM" + mime);
+			}
+			doc.add_value (XapianValues::MIMETYPES, mimetypes_str);
 		}
 
 		// Data of provided items

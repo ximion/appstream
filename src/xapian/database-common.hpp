@@ -41,11 +41,12 @@ enum XapianValues {
 	ICON_URL = 149,
 
 	PROVIDED_ITEMS = 150,
-	SCREENSHOT_DATA = 151, // screenshot definitions, as XML
-	RELEASES_DATA = 152, // releases definitions, as XML
+	MIMETYPES = 151,
+	SCREENSHOT_DATA = 152, // screenshot definitions, as XML
+	RELEASES_DATA = 153, // releases definitions, as XML
 
-	LICENSE = 153,
-	URLS = 154,
+	LICENSE = 154,
+	URLS = 155,
 
 	PROJECT_GROUP = 160,
 

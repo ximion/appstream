@@ -259,7 +259,7 @@ as_print_component (AsComponent *cpt)
 		/* license */
 		as_print_key_value (_("License"), as_component_get_project_license (cpt), FALSE);
 
-		/* categories */
+		/* Categories */
 		strv = as_component_get_categories (cpt);
 		if (strv != NULL) {
 			str = g_strjoinv ("; ", strv);
@@ -272,6 +272,14 @@ as_print_component (AsComponent *cpt)
 		if (strv != NULL) {
 			str = g_strjoinv (", ", strv);
 			as_print_key_value (_("Compulsory for"), str, FALSE);
+			g_free (str);
+		}
+
+		/* Mimetypes */
+		strv = as_component_get_mimetypes (cpt);
+		if (strv != NULL) {
+			str = g_strjoinv ("; ", strv);
+			as_print_key_value (_("Mimetypes"), str, FALSE);
 			g_free (str);
 		}
 	}
