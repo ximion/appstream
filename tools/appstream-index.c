@@ -90,8 +90,8 @@ as_client_construct (GType object_type, gchar** args, int argc)
 	GError * error = NULL;
 
 	const GOptionEntry AS_CLIENT_options[] = {
-		{ "version", 0, 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the application's version"), NULL },
-		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, _("Enable verbose mode"), NULL },
+		{ "version", 0, 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the program version"), NULL },
+		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, _("Show extra debugging information"), NULL },
 		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, _("Don't show colored output"), NULL },
 		{ "refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, _("Rebuild the component information cache"), NULL },
 		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, _("Enforce a cache refresh"), NULL },

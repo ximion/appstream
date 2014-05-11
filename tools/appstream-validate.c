@@ -66,34 +66,42 @@ importance_to_print_string (AsIssueImportance importance, gboolean pretty)
 /**
  * print_report:
  **/
-static void
-print_report (GPtrArray *issues)
+static gboolean
+process_report (GPtrArray *issues, gboolean pretty)
 {
 	guint i;
 	AsValidatorIssue *issue;
 	AsIssueImportance importance;
+	gboolean errors_found = FALSE;
 	gchar *imp;
 
 	for (i = 0; i < issues->len; i++) {
 		issue = (AsValidatorIssue*) g_ptr_array_index (issues, i);
 		importance = as_validator_issue_get_importance (issue);
 
-		imp = importance_to_print_string (importance, TRUE);
+		/* if there are errors or warnings, we consider the validation to be failed */
+		if ((importance == AS_ISSUE_IMPORTANCE_ERROR) || (importance == AS_ISSUE_IMPORTANCE_WARNING))
+			errors_found = TRUE;
+
+		imp = importance_to_print_string (importance, pretty);
 		g_print ("%s: %s\n",
 				 imp,
 				 as_validator_issue_get_message (issue));
 		g_free (imp);
 	}
+
+	return errors_found;
 }
 
 /**
  * validate_file:
  **/
 static gboolean
-validate_file (gchar *fname)
+validate_file (gchar *fname, gboolean pretty)
 {
 	GFile *file;
 	gboolean ret;
+	gboolean errors_found;
 	AsValidator *validator;
 	GPtrArray *issues;
 
@@ -109,11 +117,13 @@ validate_file (gchar *fname)
 	ret = as_validator_validate_file (validator, file);
 	issues = as_validator_get_issues (validator);
 
-	print_report (issues);
+	errors_found = process_report (issues, pretty);
+	if (!ret)
+		errors_found = TRUE;
 
 	g_object_unref (file);
 	g_object_unref (validator);
-	return ret;
+	return !errors_found;
 }
 
 /**
@@ -126,15 +136,17 @@ main (int argc, char *argv[])
 	gboolean ret;
 	gboolean verbose = FALSE;
 	gboolean version = FALSE;
+	gboolean no_color = FALSE;
 	GError *error = NULL;
 	guint retval = 1;
+
 	const GOptionEntry options[] = {
-		{ "verbose", 'v', 0, G_OPTION_ARG_NONE, &verbose,
-			/* TRANSLATORS: command line option */
+		{ "verbose", 0, 0, G_OPTION_ARG_NONE, &verbose,
 			_("Show extra debugging information"), NULL },
-		{ "version", '\0', 0, G_OPTION_ARG_NONE, &version,
-			/* TRANSLATORS: command line option */
-			_("Show client and daemon versions"), NULL },
+		{ "version", 0, 0, G_OPTION_ARG_NONE, &version,
+			_("Show program version"), NULL },
+		{ "no-color", 0, 0, G_OPTION_ARG_NONE, &no_color,
+			_("Show program version"), NULL },
 		{ NULL}
 	};
 
@@ -174,11 +186,11 @@ main (int argc, char *argv[])
 		goto out;
 	}
 
-	ret = validate_file (argv[1]);
+	ret = validate_file (argv[1], !no_color);
 	if (!ret) {
 		g_print ("%s\n",
-				 _("There have been some critical errors while validating the file."));
-		retval = 2;
+				 _("Validation failed."));
+		retval = 3;
 	}
 
 	/* success? */
