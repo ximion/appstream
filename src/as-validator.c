@@ -119,6 +119,45 @@ as_validator_clear_issues (AsValidator *validator)
 }
 
 /**
+ * as_validator_check_type_property:
+ **/
+static gchar*
+as_validator_check_type_property (AsValidator *validator, xmlNode *node)
+{
+	gchar *prop;
+	gchar *content;
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	content = (gchar*) xmlNodeGetContent (node);
+	if (prop == NULL) {
+		as_validator_add_issue (validator,
+			AS_ISSUE_IMPORTANCE_ERROR,
+			AS_ISSUE_KIND_PROPERTY_MISSING,
+			"'%s' tag has no 'type' property: %s",
+			(const gchar*) node->name,
+			content);
+	}
+	g_free (content);
+
+	return prop;
+}
+
+/**
+ * as_validator_check_content:
+ **/
+static void
+as_validator_check_content_empty (AsValidator *validator, const gchar *content, const gchar *tag_name, AsIssueImportance importance)
+{
+	if (!as_str_empty (content))
+		return;
+
+	as_validator_add_issue (validator,
+				importance,
+				AS_ISSUE_KIND_VALUE_WRONG,
+				"Found empty '%s' tag.",
+				tag_name);
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static void
@@ -144,6 +183,15 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	}
 	g_free (cpttype);
 
+	/* validate the resulting AsComponent for sanity */
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "C");
+	as_metadata_set_parser_mode (metad, mode);
+
+	cpt = as_metadata_parse_component_node (metad, root, TRUE, NULL);
+	g_object_unref (metad);
+	g_assert (cpt != NULL);
+
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		gchar *node_content;
@@ -153,13 +201,10 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		node_name = (const gchar*) iter->name;
 		node_content = (gchar*) xmlNodeGetContent (iter);
 
-		if (node_content == NULL) {
-			as_validator_add_issue (validator,
-				AS_ISSUE_IMPORTANCE_WARNING,
-				AS_ISSUE_KIND_VALUE_WRONG,
-				"Found empty '%s' tag.",
-				node_name);
-		}
+		as_validator_check_content_empty (validator,
+								node_content,
+								node_name,
+								AS_ISSUE_IMPORTANCE_WARNING);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
 			gchar *prop;
@@ -172,6 +217,14 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 					node_content);
 			}
 			g_free (prop);
+			if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
+				if (!g_str_has_suffix (node_content, ".desktop"))
+					as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"Component id belongs to a desktop-application, but doesn't resemble the .desktop file name: \"%s\"",
+						node_content);
+			}
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
 			metadata_license = g_strdup (node_content);
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
@@ -180,16 +233,12 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		} else if (g_strcmp0 (node_name, "description") == 0) {
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-			if (prop == NULL) {
-				as_validator_add_issue (validator,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_PROPERTY_MISSING,
-					"Icon tag has no 'type' property: %s",
-					node_content);
-			}
+			prop = as_validator_check_type_property (validator, iter);
 			g_free (prop);
 		} else if (g_strcmp0 (node_name, "url") == 0) {
+			gchar *prop;
+			prop = as_validator_check_type_property (validator, iter);
+			g_free (prop);
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
@@ -208,15 +257,6 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		}
 		g_free (node_content);
 	}
-
-	/* validate the resulting AsComponent for sanity */
-	metad = as_metadata_new ();
-	as_metadata_set_locale (metad, "C");
-	as_metadata_set_parser_mode (metad, mode);
-
-	cpt = as_metadata_parse_component_node (metad, root, TRUE, NULL);
-	g_object_unref (metad);
-	g_assert (cpt != NULL);
 
 	if (metadata_license == NULL) {
 		if (mode == AS_PARSER_MODE_UPSTREAM)
