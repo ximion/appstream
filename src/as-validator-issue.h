@@ -87,7 +87,8 @@ typedef enum {
  * @AS_ISSUE_KIND_TAG_UNKNOWN:		An unknown tag was found
  * @AS_ISSUE_KIND_PROPERTY_MISSING:	A required property is missing
  * @AS_ISSUE_KIND_PROPERTY_INVALID:	A property is invalid
- * @AS_ISSUE_KIND_VALUE_WRONG:		The value of a tag or property has issues
+ * @AS_ISSUE_KIND_VALUE_WRONG:		The value of a tag or property is wrong
+ * @AS_ISSUE_KIND_VALUE_ISSUE:		There is an issue with a tag or property value (often non-fatal)
  *
  * The problem type.
  **/
@@ -101,6 +102,7 @@ typedef enum {
 	AS_ISSUE_KIND_PROPERTY_MISSING,
 	AS_ISSUE_KIND_PROPERTY_INVALID,
 	AS_ISSUE_KIND_VALUE_WRONG,
+	AS_ISSUE_KIND_VALUE_ISSUE,
 	/*< private >*/
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;

@@ -34,6 +34,7 @@
 #include <gio/gio.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
+#include <string.h>
 
 #include "as-validator.h"
 #include "as-validator-issue.h"
@@ -205,6 +206,105 @@ as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const 
 }
 
 /**
+ * as_validator_check_nolocalized:
+ **/
+static void
+as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gchar *node_path, AsComponent *cpt, const gchar *format)
+{
+	gchar *lang;
+	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
+	if (!as_str_empty (lang)) {
+		as_validator_add_issue (validator,
+				AS_ISSUE_IMPORTANCE_ERROR,
+				AS_ISSUE_KIND_PROPERTY_INVALID,
+				format,
+				node_path,
+				as_component_get_id (cpt));
+	}
+	g_free (lang);
+}
+
+/**
+ * as_validator_check_description_tag:
+ **/
+static void
+as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsComponent *cpt, AsParserMode mode)
+{
+	xmlNode *iter;
+	gchar *node_content;
+	gchar *node_name;
+	gboolean first_paragraph = TRUE;
+
+	if (mode == AS_PARSER_MODE_UPSTREAM) {
+		as_validator_check_nolocalized (validator,
+									node,
+									(const gchar*) node->name,
+									cpt,
+									"The '%s' tag should not be localized in upstream metadata. Localize the individual paragraphs instead. (Found in \"%s\".)");
+	}
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (gchar*) iter->name;
+		node_content = (gchar*) xmlNodeGetContent (iter);
+
+		as_validator_check_content_empty (validator,
+								node_content,
+								node_name,
+								AS_ISSUE_IMPORTANCE_WARNING,
+								cpt);
+
+		if (g_strcmp0 (node_name, "p") == 0) {
+			if (mode == AS_PARSER_MODE_DISTRO) {
+				as_validator_check_nolocalized (validator,
+									node,
+									"description/p",
+									cpt,
+									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead. (Found in \"%s\".)");
+			}
+			if ((first_paragraph) && (strlen (node_content) < 100)) {
+				as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_INFO,
+					AS_ISSUE_KIND_VALUE_ISSUE,
+					"First 'description/p' paragraph of \"%s\" might be too short (\"%s\").",
+					as_component_get_id (cpt),
+					node_content);
+			}
+			first_paragraph = FALSE;
+		} else if (g_strcmp0 (node_name, "ul") == 0) {
+			if (mode == AS_PARSER_MODE_DISTRO) {
+				as_validator_check_nolocalized (validator,
+									node,
+									"description/ul",
+									cpt,
+									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead. (Found in \"%s\".)");
+			}
+			as_validator_check_children_quick (validator, iter, "li", cpt);
+		} else if (g_strcmp0 (node_name, "ol") == 0) {
+			if (mode == AS_PARSER_MODE_DISTRO) {
+				as_validator_check_nolocalized (validator,
+									node,
+									"description/ul",
+									cpt,
+									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead. (Found in \"%s\".)");
+			}
+			as_validator_check_children_quick (validator, iter, "li", cpt);
+		} else {
+			as_validator_add_issue (validator,
+				AS_ISSUE_IMPORTANCE_WARNING,
+				AS_ISSUE_KIND_TAG_UNKNOWN,
+				"Found tag '%s' in 'description' section for component \"%s\". Only 'p', 'ul' and 'ol' are allowed.",
+				node_name,
+				as_component_get_id (cpt));
+		}
+
+		g_free (node_content);
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static void
@@ -279,6 +379,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 		} else if (g_strcmp0 (node_name, "description") == 0) {
+			as_validator_check_description_tag (validator, iter, cpt, mode);
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
 			prop = as_validator_check_type_property (validator, iter);
