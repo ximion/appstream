@@ -29,22 +29,37 @@ typedef struct {
 } AsValidateToolPrivate;
 
 /**
- * importance_to_string_id:
+ * importance_to_print_string:
  **/
-static const gchar*
-importance_to_string_id (AsIssueImportance importance)
+static gchar*
+importance_to_print_string (AsIssueImportance importance, gboolean pretty)
 {
-	switch (importance) {
-		case AS_ISSUE_IMPORTANCE_ERROR:
-			return "E";
-		case AS_ISSUE_IMPORTANCE_WARNING:
-			return "W";
-		case AS_ISSUE_IMPORTANCE_INFO:
-			return "I";
-		case AS_ISSUE_IMPORTANCE_PEDANTIC:
-			return "P";
-		default:
-			return "X";
+	if (pretty) {
+		switch (importance) {
+			case AS_ISSUE_IMPORTANCE_ERROR:
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 31, "E", 0x1B, 0);
+			case AS_ISSUE_IMPORTANCE_WARNING:
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 33, "W", 0x1B, 0);
+			case AS_ISSUE_IMPORTANCE_INFO:
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 32, "I", 0x1B, 0);
+			case AS_ISSUE_IMPORTANCE_PEDANTIC:
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 37, "P", 0x1B, 0);
+			default:
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 35, "I", 0x1B, 0);
+		}
+	} else {
+		switch (importance) {
+			case AS_ISSUE_IMPORTANCE_ERROR:
+				return g_strdup ("E");
+			case AS_ISSUE_IMPORTANCE_WARNING:
+				return g_strdup ("W");
+			case AS_ISSUE_IMPORTANCE_INFO:
+				return g_strdup ("I");
+			case AS_ISSUE_IMPORTANCE_PEDANTIC:
+				return g_strdup ("P");
+			default:
+				return g_strdup ("X");
+		}
 	}
 }
 
@@ -57,14 +72,17 @@ print_report (GPtrArray *issues)
 	guint i;
 	AsValidatorIssue *issue;
 	AsIssueImportance importance;
+	gchar *imp;
 
 	for (i = 0; i < issues->len; i++) {
 		issue = (AsValidatorIssue*) g_ptr_array_index (issues, i);
 		importance = as_validator_issue_get_importance (issue);
 
+		imp = importance_to_print_string (importance, TRUE);
 		g_print ("%s: %s\n",
-				 importance_to_string_id (importance),
+				 imp,
 				 as_validator_issue_get_message (issue));
+		g_free (imp);
 	}
 }
 

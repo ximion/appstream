@@ -315,6 +315,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	AsMetadata *metad;
 	AsComponent *cpt;
 	gchar *metadata_license = NULL;
+	gboolean provides_found = FALSE;
 	/* AsValidatorPrivate *priv = GET_PRIVATE (validator); */
 
 	/* check if component type is valid */
@@ -402,6 +403,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			as_validator_check_children_quick (validator, iter, "mimetype", cpt);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
+			provides_found = TRUE;
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_validator_check_children_quick (validator, iter, "screenshot", cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
@@ -430,7 +432,13 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		g_free (metadata_license);
 	}
 
-	/* TODO: Check component properties */
+	if ((!provides_found) && (g_str_has_suffix (as_component_get_id (cpt), ".desktop"))) {
+					as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_TAG_MISSING,
+						"Component \"%s\" describes a desktop-application, but has no 'provides' tag. It should at least define a 'binary' as public interface.",
+						as_component_get_id (cpt));
+	}
 
 	if (cpt != NULL)
 		g_object_unref (cpt);
