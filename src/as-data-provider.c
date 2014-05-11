@@ -89,7 +89,7 @@ as_data_provider_log_warning (AsDataProvider* self, const gchar* msg)
 {
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (msg != NULL);
-	g_warning ("%s", msg);
+	g_debug ("%s", msg);
 }
 
 

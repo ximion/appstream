@@ -31,7 +31,7 @@ add_executable(as-test-asxml test-asxml.c)
 add_dependencies(as-test-asxml appstream)
 add_test(asxml-test as-test-asxml ${CMAKE_CURRENT_SOURCE_DIR})
 
-# AppStream database (read) tests
-add_executable(as-test-database-read test-database-read.c)
-add_dependencies(as-test-database-read appstream)
-add_test(db-read-test as-test-database-read ${CMAKE_CURRENT_SOURCE_DIR})
+# AppStream database tests
+add_executable(as-test-database test-database.c)
+add_dependencies(as-test-database appstream)
+add_test(database-test as-test-database ${CMAKE_CURRENT_SOURCE_DIR})

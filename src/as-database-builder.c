@@ -43,7 +43,7 @@
 
 struct _AsBuilderPrivate
 {
-	gchar* CURRENT_DB_PATH;
+	gchar* db_build_path;
 	AsDatabaseWrite* db_rw;
 	GHashTable* cpt_table;
 	GPtrArray* providers;
@@ -106,11 +106,11 @@ as_builder_construct (GType object_type)
 	priv->db_rw = as_database_write_new ();
 
 	/* update database path if necessary */
-	if (as_str_empty (priv->CURRENT_DB_PATH)) {
+	if (as_str_empty (priv->db_build_path)) {
 		const gchar *s;
 		s = as_database_get_database_path ((AsDatabase*) priv->db_rw);
-		g_free (priv->CURRENT_DB_PATH);
-		priv->CURRENT_DB_PATH = g_strdup (s);
+		g_free (priv->db_build_path);
+		priv->db_build_path = g_strdup (s);
 	}
 
 	priv->cpt_table = g_hash_table_new_full (g_str_hash,
@@ -171,9 +171,9 @@ as_builder_construct_path (GType object_type, const gchar* dbpath)
 	AsBuilder * self = NULL;
 	g_return_val_if_fail (dbpath != NULL, NULL);
 
-	self = (AsBuilder*) g_object_new (object_type, NULL);
-	g_free (self->priv->CURRENT_DB_PATH);
-	self->priv->CURRENT_DB_PATH = g_strdup (dbpath);
+	self = as_builder_construct (AS_TYPE_BUILDER);
+	g_free (self->priv->db_build_path);
+	self->priv->db_build_path = g_strdup (dbpath);
 
 	return self;
 }
@@ -199,8 +199,8 @@ as_builder_initialize (AsBuilder* self)
 {
 	g_return_if_fail (self != NULL);
 
-	as_database_set_database_path ((AsDatabase*) self->priv->db_rw, self->priv->CURRENT_DB_PATH);
-	as_utils_touch_dir (self->priv->CURRENT_DB_PATH);
+	as_database_set_database_path ((AsDatabase*) self->priv->db_rw, self->priv->db_build_path);
+	as_utils_touch_dir (self->priv->db_build_path);
 	as_database_open ((AsDatabase*) self->priv->db_rw);
 }
 
@@ -427,7 +427,7 @@ as_builder_finalize (GObject* obj)
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_BUILDER, AsBuilder);
 	g_object_unref (self->priv->db_rw);
 	g_hash_table_unref (self->priv->cpt_table);
-	g_free (self->priv->CURRENT_DB_PATH);
+	g_free (self->priv->db_build_path);
 	g_ptr_array_unref (self->priv->providers);
 	g_free (self->priv->scr_base_url);
 	G_OBJECT_CLASS (as_builder_parent_class)->finalize (obj);

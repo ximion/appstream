@@ -22,6 +22,7 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
+#include "../src/as-database-builder.h"
 
 static gchar *datadir = NULL;
 
@@ -47,14 +48,30 @@ print_cptarray (GPtrArray *cpt_array)
 	g_printf ("----\n");
 }
 
+gchar*
+test_database_create ()
+{
+	AsBuilder *builder;
+	gchar *path;
+
+	path = g_build_filename ("/tmp", "libas-dbtest", NULL);
+
+	builder = as_builder_new_path (path);
+	as_builder_initialize (builder);
+	as_builder_refresh_cache (builder, TRUE);
+
+	return path;
+}
+
 void
-test_database ()
+test_database_read (const gchar *dbpath)
 {
 	AsDatabase *db;
 	AsSearchQuery *query;
 	GPtrArray *cpts = NULL;
 
 	db = as_database_new ();
+	as_database_set_database_path (db, dbpath);
 	as_database_open (db);
 
 	cpts = as_database_get_all_components (db);
@@ -89,6 +106,17 @@ test_database ()
 	g_object_unref (db);
 }
 
+void
+test_database ()
+{
+	gchar *path;
+
+	path = test_database_create ();
+	test_database_read (path);
+
+	g_free (path);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -110,9 +138,10 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/DBRead", test_database);
+	g_test_add_func ("/AppStream/Database", test_database);
 
 	ret = g_test_run ();
 	g_free (datadir);
+
 	return ret;
 }
