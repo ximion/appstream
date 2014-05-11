@@ -3,19 +3,19 @@
 "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
 
   <!-- Please adjust the date whenever revising the manpage. -->
-  <!ENTITY date        "<date>26 July,2012</date>">
+  <!ENTITY date        "<date>10 May,2014</date>">
   <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
        allowed: see man(7), man(1). -->
-  <!ENTITY package     "appstream-index">
+  <!ENTITY package     "appstream-validate">
   <!ENTITY gnu         "<acronym>GNU</acronym>">
   <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
 ]>
 
 <refentry>
 	<refentryinfo>
-	<title>appstream-index</title>
+	<title>appstream-validate</title>
 	<copyright>
-		<year>2012-2014</year>
+		<year>2014</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
@@ -23,19 +23,19 @@
 	</refentryinfo>
 
 	<refmeta>
-		<refentrytitle>appstream-index</refentrytitle>
+		<refentrytitle>appstream-validate</refentrytitle>
 		<manvolnum>1</manvolnum>
 	</refmeta>
 	<refnamediv>
 		<refname>&package;</refname>
-		<refpurpose>Manage the AppStream application index</refpurpose>
+		<refpurpose>Validate AppStream metadata</refpurpose>
 	</refnamediv>
 
        <refsynopsisdiv>
 	       <cmdsynopsis>
 		       <command>&package;</command>
 		       <group>
-			       <option>COMMAND</option>
+			       <option>XMLFILE</option>
 		       </group>
 		</cmdsynopsis>
 	</refsynopsisdiv>
@@ -46,13 +46,11 @@
 			This manual page documents briefly the <command>&package;</command> command.
 		</para>
 		<para>
-			<command>&package;</command> manages the AppStream index. The AppStream application
-			index contains a list of all available applications for your distribution, matched with their
-			native package names.
-			It is generated using either AppStream-XML, Debian-DEP-11 or Ubuntu AppInstall data, which is provided
-			by your distributor.
-			The database is managed using a small DBus-activated daemon.
-			This tool connects to the daemon and allows sending simple commands.
+			<command>&package;</command> validates AppStream metadata. It is able to handle both XML metadata types
+			described in the AppStream specifications, for distributions and upstream projects.
+		</para>
+		<para>
+			The filetype which should be validated is determined automatically.
 		</para>
 		<para>
 			For more information about the AppStream project and the other components which are part of it, take a look at
@@ -72,10 +70,9 @@
 		</varlistentry>
 
 		<varlistentry>
-			<term><option>-s</option></term>
-			<term><option>--search <replaceable>TERM</replaceable></option></term>
+			<term><option>--verbose</option></term>
 			<listitem>
-				<para>Search the AppStream application database for a given search term.</para>
+				<para>Switch to verbose mode</para>
 			</listitem>
 		</varlistentry>
 
@@ -84,7 +81,7 @@
 
 	<refsect1>
 		<title>See Also</title>
-		<para>pkcon (1).</para>
+		<para>appstream-index (1).</para>
 	</refsect1>
 <refsect1>
 <title>AUTHOR</title>

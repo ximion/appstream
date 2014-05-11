@@ -8,7 +8,8 @@ endif (XMLTO STREQUAL "")
 
 include (${CMAKE_SOURCE_DIR}/data/cmake/documentation.cmake)
 
-add_xml_manpages(doc-man "sources/man/appstream-index.1" "" "")
+add_xml_manpages(doc-man-asi "sources/man/appstream-index.1" "" "")
+add_xml_manpages(doc-man-asv "sources/man/appstream-validate.1" "" "")
 
 if (DOCUMENTATION)
 	#########################
