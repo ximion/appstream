@@ -45,8 +45,9 @@ typedef enum {
 } AsParserMode;
 
 AsComponent*	as_metadata_parse_component_node (AsMetadata* metad,
-												  xmlNode* node,
-												  GError **error);
+												xmlNode* node,
+												gboolean allow_invalid,
+												GError **error);
 void			as_metadata_set_parser_mode (AsMetadata *metad,
 										AsParserMode mode);
 AsParserMode	as_metadata_get_parser_mode (AsMetadata *metad);

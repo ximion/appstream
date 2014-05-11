@@ -128,6 +128,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	xmlNode *iter;
 	AsMetadata *metad;
 	AsComponent *cpt;
+	gchar *metadata_license = NULL;
 	/* AsValidatorPrivate *priv = GET_PRIVATE (validator); */
 
 	/* check if component type is valid */
@@ -171,6 +172,8 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 					node_content);
 			}
 			g_free (prop);
+		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
+			metadata_license = g_strdup (node_content);
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
@@ -211,8 +214,20 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	as_metadata_set_locale (metad, "C");
 	as_metadata_set_parser_mode (metad, mode);
 
-	cpt = as_metadata_parse_component_node (metad, root, NULL);
+	cpt = as_metadata_parse_component_node (metad, root, TRUE, NULL);
 	g_object_unref (metad);
+	g_assert (cpt != NULL);
+
+	if (metadata_license == NULL) {
+		if (mode == AS_PARSER_MODE_UPSTREAM)
+			as_validator_add_issue (validator,
+				AS_ISSUE_IMPORTANCE_ERROR,
+				AS_ISSUE_KIND_TAG_MISSING,
+				"The essential tag 'metadata_license' is missing for \"%s\".",
+				as_component_get_id (cpt));
+	} else {
+		g_free (metadata_license);
+	}
 
 	/* TODO: Check component properties */
 

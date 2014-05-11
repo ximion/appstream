@@ -244,11 +244,19 @@ as_metadata_process_screenshot (AsMetadata* metad, xmlNode* node, AsScreenshot* 
 			img = as_image_new ();
 
 			str = (gchar*) xmlGetProp (iter, (xmlChar*) "width");
-			width = g_ascii_strtoll (str, NULL, 10);
-			g_free (str);
+			if (str == NULL) {
+				width = 0;
+			} else {
+				width = g_ascii_strtoll (str, NULL, 10);
+				g_free (str);
+			}
 			str = (gchar*) xmlGetProp (iter, (xmlChar*) "height");
-			height = g_ascii_strtoll (str, NULL, 10);
-			g_free (str);
+			if (str == NULL) {
+				height = 0;
+			} else {
+				height = g_ascii_strtoll (str, NULL, 10);
+				g_free (str);
+			}
 			/* discard invalid elements */
 			if ((width == 0) || (height == 0)) {
 				g_free (content);
@@ -313,6 +321,7 @@ as_metadata_parse_upstream_description_tag (AsMetadata* metad, xmlNode* node)
 	gchar *description_text;
 	g_return_if_fail (metad != NULL);
 
+	description_text = g_strdup ("");
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		gchar *tmp;
 		/* discard spaces */
@@ -507,7 +516,7 @@ out:
 }
 
 AsComponent*
-as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **error)
+as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean allow_invalid, GError **error)
 {
 	AsComponent* cpt;
 	xmlNode *iter;
@@ -667,7 +676,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, GError **err
 	g_ptr_array_unref (compulsory_for_desktops);
 	g_strfreev (strv);
 
-	if (as_component_is_valid (cpt)) {
+	if ((allow_invalid) || (as_component_is_valid (cpt))) {
 		/* find local icon on the filesystem */
 		as_metadata_refine_component_icon (metad, cpt);
 
@@ -725,7 +734,7 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 		goto out;
 	}
 
-	cpt = as_metadata_parse_component_node (metad, root, error);
+	cpt = as_metadata_parse_component_node (metad, root, FALSE, error);
 
 out:
 	xmlFreeDoc (doc);

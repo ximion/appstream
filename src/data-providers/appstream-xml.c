@@ -127,7 +127,7 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 			continue;
 
 		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
-			cpt = as_metadata_parse_component_node (metad, iter, &error);
+			cpt = as_metadata_parse_component_node (metad, iter, FALSE, &error);
 			if (error != NULL) {
 				as_data_provider_log_warning ((AsDataProvider*) metad, error->message);
 				g_error_free (error);
