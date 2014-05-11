@@ -28,7 +28,7 @@
 	</refmeta>
 	<refnamediv>
 		<refname>&package;</refname>
-		<refpurpose>Manage the AppStream application index</refpurpose>
+		<refpurpose>Manage the AppStream component index</refpurpose>
 	</refnamediv>
 
        <refsynopsisdiv>
@@ -46,13 +46,11 @@
 			This manual page documents briefly the <command>&package;</command> command.
 		</para>
 		<para>
-			<command>&package;</command> manages the AppStream index. The AppStream application
+			<command>&package;</command> manages the AppStream index. The AppStream component
 			index contains a list of all available applications for your distribution, matched with their
 			native package names.
 			It is generated using either AppStream-XML, Debian-DEP-11 or Ubuntu AppInstall data, which is provided
 			by your distributor.
-			The database is managed using a small DBus-activated daemon.
-			This tool connects to the daemon and allows sending simple commands.
 		</para>
 		<para>
 			For more information about the AppStream project and the other components which are part of it, take a look at
@@ -60,24 +58,80 @@
 		</para>
 	</refsect1>
 
-       <refsect1>
-	       <title>Options</title>
-	       <variablelist>
+	<refsect1>
+		<title>Options</title>
+		<variablelist>
 
-		<varlistentry>
-			<term><option>--version</option></term>
-			<listitem>
-				<para>Display version number of &package;</para>
-			</listitem>
-		</varlistentry>
+			<varlistentry>
+				<term><option>--version</option></term>
+				<listitem>
+					<para>Display version number of &package;</para>
+				</listitem>
+			</varlistentry>
 
-		<varlistentry>
-			<term><option>-s</option></term>
-			<term><option>--search <replaceable>TERM</replaceable></option></term>
-			<listitem>
-				<para>Search the AppStream application database for a given search term.</para>
-			</listitem>
-		</varlistentry>
+			<varlistentry>
+				<term><option>--no-color</option></term>
+				<listitem>
+					<para>Don't print colored output.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--refresh</option></term>
+				<listitem>
+					<para>
+						Trigger a database refresh, if necessary.
+						In case you want to force the database to be rebuilt, supply the <option>--force</option> flag.
+					</para>
+					<para>This command most be executed with root permission.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--get <replaceable>ID</replaceable></option></term>
+				<listitem>
+					<para>Get a component by it's identifier.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>-s</option></term>
+				<term><option>--search <replaceable>TERM</replaceable></option></term>
+				<listitem>
+					<para>Search the AppStream component database for a given search term.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--details</option></term>
+				<listitem>
+					<para>Print out more information about a found component.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--what-provides</option></term>
+				<listitem>
+					<para>
+						Return components which provide a given item. An item type can be specified using the
+						<option>-t <replaceable>TYPE</replaceable></option> option, a value to search for has to be
+						supplied using the <option>-v <replaceable>TERM</replaceable></option> option.
+					</para>
+					<para>Examples:</para>
+					<para>
+						Get components which handle the "text/xml" mimetype.
+					</para>
+					<para>
+						<command>&package;</command> --what-provides -t mimetype -v text/xml
+					</para>
+					<para>
+						Get component which provides the "libfoo.so.2" library.
+					</para>
+					<para>
+						<command>&package;</command> --what-provides -t lib -v libfoo.so.2
+					</para>
+				</listitem>
+			</varlistentry>
 
 		</variablelist>
 	</refsect1>
