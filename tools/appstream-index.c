@@ -169,9 +169,8 @@ as_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 	gchar *str;
 	gchar *fmtval;
 	g_return_if_fail (key != NULL);
-	g_return_if_fail (val != NULL);
 
-	if ((val == NULL) || (g_strcmp0 (val, "") == 0))
+	if (as_str_empty (val))
 		return;
 
 	if (strlen (val) > 120) {
