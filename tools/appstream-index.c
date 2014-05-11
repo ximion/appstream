@@ -20,13 +20,9 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
 #include <glib/gi18n-lib.h>
 #include <config.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include <locale.h>
 
 #include "appstream.h"
