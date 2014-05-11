@@ -145,16 +145,63 @@ as_validator_check_type_property (AsValidator *validator, xmlNode *node)
  * as_validator_check_content:
  **/
 static void
-as_validator_check_content_empty (AsValidator *validator, const gchar *content, const gchar *tag_name, AsIssueImportance importance)
+as_validator_check_content_empty (AsValidator *validator, const gchar *content, const gchar *tag_name, AsIssueImportance importance, AsComponent *cpt)
 {
-	if (!as_str_empty (content))
-		return;
+	gchar *tmp;
+	tmp = g_strdup (content);
+	g_strstrip (tmp);
+	if (!as_str_empty (tmp))
+		goto out;
 
 	as_validator_add_issue (validator,
 				importance,
 				AS_ISSUE_KIND_VALUE_WRONG,
-				"Found empty '%s' tag.",
-				tag_name);
+				"Found empty '%s' tag in component \"%s\".",
+				tag_name,
+				as_component_get_id (cpt));
+out:
+	g_free (tmp);
+}
+
+/**
+ * as_validator_check_children_quick:
+ **/
+static void
+as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const gchar *allowed_tagname, AsComponent *cpt)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		gchar *node_content;
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+		node_content = (gchar*) xmlNodeGetContent (iter);
+
+		if (g_strcmp0 (node_name, allowed_tagname) == 0) {
+			gchar *tag_path;
+			tag_path = g_strdup_printf ("%s/%s", (const gchar*) node->name, node_name);
+			as_validator_check_content_empty (validator,
+											node_content,
+											tag_path,
+											AS_ISSUE_IMPORTANCE_WARNING,
+											cpt);
+			g_free (tag_path);
+		} else {
+			as_validator_add_issue (validator,
+				AS_ISSUE_IMPORTANCE_WARNING,
+				AS_ISSUE_KIND_TAG_UNKNOWN,
+				"Found tag '%s' in section '%s' for component \"%s\". Only '%s' tags are allowed.",
+				node_name,
+				(const gchar*) node->name,
+				as_component_get_id (cpt),
+				allowed_tagname);
+		}
+
+		g_free (node_content);
+	}
 }
 
 /**
@@ -204,7 +251,8 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		as_validator_check_content_empty (validator,
 								node_content,
 								node_name,
-								AS_ISSUE_IMPORTANCE_WARNING);
+								AS_ISSUE_IMPORTANCE_WARNING,
+								cpt);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
 			gchar *prop;
@@ -238,16 +286,28 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		} else if (g_strcmp0 (node_name, "url") == 0) {
 			gchar *prop;
 			prop = as_validator_check_type_property (validator, iter);
+			if (as_url_kind_from_string (prop) == AS_URL_KIND_UNKNOWN) {
+				as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_PROPERTY_INVALID,
+						"Invalid property for 'url' tag: \"%s\"",
+						prop);
+			}
 			g_free (prop);
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
+			as_validator_check_children_quick (validator, iter, "category", cpt);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
+			as_validator_check_children_quick (validator, iter, "keyword", cpt);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
+			as_validator_check_children_quick (validator, iter, "mimetype", cpt);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
+			as_validator_check_children_quick (validator, iter, "screenshot", cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
+			as_validator_check_children_quick (validator, iter, "release", cpt);
 		} else if (!g_str_has_prefix (node_name, "x-")) {
 			as_validator_add_issue (validator,
 				AS_ISSUE_IMPORTANCE_WARNING,
