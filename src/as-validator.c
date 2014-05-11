@@ -154,6 +154,10 @@ as_validator_check_content_empty (AsValidator *validator, const gchar *content, 
 	if (!as_str_empty (tmp))
 		goto out;
 
+	/* release tags are allowed to be empty */
+	if (g_str_has_prefix (tag_name, "release"))
+		goto out;
+
 	as_validator_add_issue (validator,
 				importance,
 				AS_ISSUE_KIND_VALUE_WRONG,
@@ -432,12 +436,12 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		g_free (metadata_license);
 	}
 
-	if ((!provides_found) && (g_str_has_suffix (as_component_get_id (cpt), ".desktop"))) {
-					as_validator_add_issue (validator,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_TAG_MISSING,
-						"Component \"%s\" describes a desktop-application, but has no 'provides' tag. It should at least define a 'binary' as public interface.",
-						as_component_get_id (cpt));
+	if ((!provides_found) && (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP)) {
+		as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"Component \"%s\" describes a desktop-application, but has no 'provides' tag. It should at least define a 'binary' as public interface.",
+					as_component_get_id (cpt));
 	}
 
 	if (cpt != NULL)
