@@ -17,5 +17,8 @@ src/as-utils.c
 src/as-data-provider.c
 src/as-menu-parser.c
 src/as-screenshot.c
-# client sources
-client/appstream-index.c
+src/as-validator.c
+src/as-validator-issue.c
+# tools sources
+tools/appstream-index.c
+tools/appstream-validate.c
