@@ -205,14 +205,14 @@ as_print_component (AsComponent *cpt)
 	guint j;
 
 	short_idline = g_strdup_printf ("%s [%s]",
-							as_component_get_idname (cpt),
+							as_component_get_id (cpt),
 							as_component_kind_to_string (as_component_get_kind (cpt)));
 
 	as_print_key_value (_("Identifier"), short_idline, FALSE);
 	as_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
 	as_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
 	as_print_key_value (_("Package"), as_component_get_pkgname (cpt), FALSE);
-	as_print_key_value (_("Homepage"), as_component_get_homepage (cpt), FALSE);
+	as_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
 	as_print_key_value (_("Icon"), as_component_get_icon_url (cpt), FALSE);
 	g_free (short_idline);
 	short_idline = NULL;

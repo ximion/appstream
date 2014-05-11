@@ -566,7 +566,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		node_name = (const gchar*) iter->name;
 		content = as_metadata_parse_value (metad, iter, FALSE);
 		if (g_strcmp0 (node_name, "id") == 0) {
-				as_component_set_idname (cpt, content);
+				as_component_set_id (cpt, content);
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (content != NULL)
 				as_component_set_pkgname (cpt, content);

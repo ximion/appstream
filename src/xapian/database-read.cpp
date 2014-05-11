@@ -79,7 +79,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Identifier
 	string id_str = doc.get_value (XapianValues::IDENTIFIER);
-	as_component_set_idname (cpt, id_str.c_str ());
+	as_component_set_id (cpt, id_str.c_str ());
 
 	// Component name
 	string cptName = doc.get_value (XapianValues::CPTNAME);

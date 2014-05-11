@@ -68,7 +68,7 @@ as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (cpt != NULL);
 
-	cpt_id = as_component_get_idname (cpt);
+	cpt_id = as_component_get_id (cpt);
 	existing_cpt = g_hash_table_lookup (self->priv->cpt_table, cpt_id);
 
 	/* add additional data to the component, e.g. external screenshots */

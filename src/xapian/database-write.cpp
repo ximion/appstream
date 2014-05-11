@@ -142,7 +142,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 
 		// Identifier
-		string idname = as_component_get_idname (cpt);
+		string idname = as_component_get_id (cpt);
 		doc.add_value (XapianValues::IDENTIFIER, idname);
 		doc.add_term("AI" + idname);
 		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);

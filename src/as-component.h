@@ -182,12 +182,12 @@ void				as_component_add_release (AsComponent* self,
 												 AsRelease* release);
 
 /* deprecated */
-const gchar*		as_component_get_homepage (AsComponent* self);
-void				as_component_set_homepage (AsComponent* self,
+G_GNUC_DEPRECATED const gchar*		as_component_get_homepage (AsComponent* self);
+G_GNUC_DEPRECATED void				as_component_set_homepage (AsComponent* self,
 											   const gchar* value);
 
-const gchar*		as_component_get_idname (AsComponent* self);
-void				as_component_set_idname (AsComponent* self,
+G_GNUC_DEPRECATED const gchar*		as_component_get_idname (AsComponent* self);
+G_GNUC_DEPRECATED void				as_component_set_idname (AsComponent* self,
 											 const gchar* value);
 
 G_END_DECLS

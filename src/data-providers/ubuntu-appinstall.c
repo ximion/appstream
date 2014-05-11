@@ -132,7 +132,7 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 		g_free (desktop_file_name);
 		desktop_file_name = g_path_get_basename (fname);
 	}
-	as_component_set_idname (cpt, desktop_file_name);
+	as_component_set_id (cpt, desktop_file_name);
 	g_free (desktop_file_name);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "X-AppInstall-Ignore");

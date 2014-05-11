@@ -59,7 +59,6 @@ struct _AsComponentPrivate {
 	gchar **keywords;
 	gchar *icon;
 	gchar *icon_url;
-	gchar *homepage;
 	gchar **categories;
 	gchar **mimetypes;
 	gchar *project_license;
@@ -88,7 +87,7 @@ enum  {
 	AS_COMPONENT_KEYWORDS,
 	AS_COMPONENT_ICON,
 	AS_COMPONENT_ICON_URL,
-	AS_COMPONENT_HOMEPAGE,
+	AS_COMPONENT_URLS,
 	AS_COMPONENT_CATEGORIES,
 	AS_COMPONENT_MIMETYPES,
 	AS_COMPONENT_PROJECT_LICENSE,
@@ -192,7 +191,6 @@ as_component_construct (GType object_type)
 	as_component_set_name_original (self, "");
 	as_component_set_summary (self, "");
 	as_component_set_description (self, "");
-	as_component_set_homepage (self, "");
 	as_component_set_icon (self, "");
 	as_component_set_icon_url (self, "");
 	as_component_set_project_license (self, "");
@@ -384,9 +382,6 @@ as_component_add_url (AsComponent *self,
 	g_hash_table_insert (self->priv->urls,
 			     g_strdup (as_url_kind_to_string (url_kind)),
 			     g_strdup (url));
-	/* work around deprecation of "homepage" property */
-	if (url_kind == AS_URL_KIND_HOMEPAGE)
-		as_component_set_homepage (self, url);
 }
 
 static void
@@ -1268,7 +1263,7 @@ as_component_class_init (AsComponentClass * klass)
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_KEYWORDS, g_param_spec_boxed ("keywords", "keywords", "keywords", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_ICON, g_param_spec_string ("icon", "icon", "icon", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_ICON_URL, g_param_spec_string ("icon-url", "icon-url", "icon-url", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_HOMEPAGE, g_param_spec_string ("homepage", "homepage", "homepage", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_URLS, g_param_spec_boxed ("urls", "urls", "urls", G_TYPE_HASH_TABLE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_CATEGORIES, g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_MIMETYPES, g_param_spec_boxed ("mimetypes", "mimetypes", "mimetypes", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PROJECT_LICENSE, g_param_spec_string ("project-license", "project-license", "project-license", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
@@ -1296,7 +1291,6 @@ as_component_finalize (GObject* obj)
 	g_free (self->priv->description);
 	g_free (self->priv->icon);
 	g_free (self->priv->icon_url);
-	g_free (self->priv->homepage);
 	g_free (self->priv->project_license);
 	g_free (self->priv->project_group);
 	g_strfreev (self->priv->keywords);
@@ -1377,8 +1371,8 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_ICON_URL:
 			g_value_set_string (value, as_component_get_icon_url (self));
 			break;
-		case AS_COMPONENT_HOMEPAGE:
-			g_value_set_string (value, as_component_get_homepage (self));
+		case AS_COMPONENT_URLS:
+			g_value_set_boxed (value, as_component_get_urls (self));
 			break;
 		case AS_COMPONENT_CATEGORIES:
 			g_value_set_boxed (value, as_component_get_categories (self));
@@ -1435,9 +1429,6 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 		case AS_COMPONENT_ICON_URL:
 			as_component_set_icon_url (self, g_value_get_string (value));
 			break;
-		case AS_COMPONENT_HOMEPAGE:
-			as_component_set_homepage (self, g_value_get_string (value));
-			break;
 		case AS_COMPONENT_CATEGORIES:
 			as_component_set_categories (self, g_value_get_boxed (value));
 			break;
@@ -1464,8 +1455,7 @@ const gchar*
 as_component_get_homepage (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
-
-	return self->priv->homepage;
+	return as_component_get_url (self, AS_URL_KIND_HOMEPAGE);
 }
 
 /**
@@ -1477,10 +1467,7 @@ void
 as_component_set_homepage (AsComponent* self, const gchar* value)
 {
 	g_return_if_fail (self != NULL);
-
-	g_free (self->priv->homepage);
-	self->priv->homepage = g_strdup (value);
-	g_object_notify ((GObject *) self, "homepage");
+	as_component_add_url (self, AS_URL_KIND_HOMEPAGE, value);
 }
 
 /**
