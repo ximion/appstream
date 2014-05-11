@@ -237,15 +237,12 @@ GPtrArray*
 as_database_get_components_by_provides (AsDatabase* self, AsProvidesKind kind, const gchar *value, const gchar *data)
 {
 	GPtrArray* cpt_array;
-	gchar *provides_item;
 	g_return_val_if_fail (self != NULL, NULL);
 	g_return_val_if_fail (value != NULL, NULL);
 	if (!self->priv->opened)
 		return NULL;
 
-	provides_item = as_provides_item_create (kind, value, data);
-	cpt_array = xa_database_read_get_components_by_provides (self->priv->db, provides_item);
-	g_free (provides_item);
+	cpt_array = xa_database_read_get_components_by_provides (self->priv->db, kind, value, data);
 
 	return cpt_array;
 }

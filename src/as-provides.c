@@ -61,6 +61,8 @@ as_provides_kind_to_string (AsProvidesKind kind)
 		return "python2";
 	if (kind == AS_PROVIDES_KIND_PYTHON3)
 		return "python3";
+	if (kind == AS_PROVIDES_KIND_MIMETYPE)
+		return "mimetype";
 	return "unknown";
 }
 
@@ -89,6 +91,8 @@ as_provides_kind_from_string (const gchar *kind_str)
 		return AS_PROVIDES_KIND_PYTHON2;
 	if (g_strcmp0 (kind_str, "python3") == 0)
 		return AS_PROVIDES_KIND_PYTHON3;
+	if (g_strcmp0 (kind_str, "mimetype") == 0)
+		return AS_PROVIDES_KIND_MIMETYPE;
 	return AS_PROVIDES_KIND_UNKNOWN;
 }
 

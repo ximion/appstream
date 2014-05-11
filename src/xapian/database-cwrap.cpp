@@ -52,9 +52,9 @@ AsComponent *xa_database_read_get_component_by_id (XADatabaseRead *db, const gch
 	return realDbRead (db)->getComponentById (idname);
 };
 
-GPtrArray *xa_database_read_get_components_by_provides (XADatabaseRead *db, const gchar *provides_item)
+GPtrArray *xa_database_read_get_components_by_provides (XADatabaseRead *db, AsProvidesKind kind, const gchar *value, const gchar *data)
 {
-	return realDbRead (db)->getComponentsByProvides (provides_item);
+	return realDbRead (db)->getComponentsByProvides (kind, value, data);
 };
 
 /* methods for database write access */

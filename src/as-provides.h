@@ -29,6 +29,20 @@
 
 G_BEGIN_DECLS
 
+/**
+ * AsProvidesKind:
+ * @AS_PROVIDES_KIND_UNKNOWN:	Unknown kind
+ * @AS_PROVIDES_KIND_LIBRARY:	A shared library
+ * @AS_PROVIDES_KIND_BINARY:	A binary installed into a directory in PATH
+ * @AS_PROVIDES_KIND_FONT:		A font
+ * @AS_PROVIDES_KIND_MODALIAS:	A modalias
+ * @AS_PROVIDES_KIND_FIRMWARE:	Kernel firmware
+ * @AS_PROVIDES_KIND_PYTHON2:	A Python2 module
+ * @AS_PROVIDES_KIND_PYTHON3:	A Python3 module
+ * @AS_PROVIDES_KIND_MIMETYPE:	Provides a handler for a mimetype
+ *
+ * Public interfaces components can provide.
+ **/
 typedef enum  {
 	AS_PROVIDES_KIND_UNKNOWN,
 	AS_PROVIDES_KIND_LIBRARY,
@@ -38,6 +52,8 @@ typedef enum  {
 	AS_PROVIDES_KIND_FIRMWARE,
 	AS_PROVIDES_KIND_PYTHON2,
 	AS_PROVIDES_KIND_PYTHON3,
+	AS_PROVIDES_KIND_MIMETYPE,
+	/* <private> */
 	AS_PROVIDES_KIND_LAST
 } AsProvidesKind;
 
