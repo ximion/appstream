@@ -318,12 +318,11 @@ as_metadata_parse_upstream_description_tag (AsMetadata* metad, xmlNode* node)
 	xmlNode *iter;
 	gchar *content;
 	gchar *node_name;
-	gchar *description_text;
+	GString *str;
 	g_return_if_fail (metad != NULL);
 
-	description_text = g_strdup ("");
+	str = g_string_new ("");
 	for (iter = node->children; iter != NULL; iter = iter->next) {
-		gchar *tmp;
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
@@ -336,14 +335,11 @@ as_metadata_parse_upstream_description_tag (AsMetadata* metad, xmlNode* node)
 		if (content == NULL)
 			continue;
 
-		tmp = g_strdup_printf ("%s\n<%s>%s</%s>", description_text, node_name, content, node_name);
-		g_free (description_text);
-		description_text = tmp;
-
+		g_string_append_printf (str, "\n<%s>%s</%s>", node_name, content, node_name);
 		g_free (content);
 	}
 
-	return description_text;
+	return g_string_free (str, FALSE);
 }
 
 static void
