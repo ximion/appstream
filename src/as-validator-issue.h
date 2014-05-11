@@ -90,7 +90,7 @@ typedef enum {
  * @AS_ISSUE_KIND_VALUE_WRONG:		The value of a tag or property is wrong
  * @AS_ISSUE_KIND_VALUE_ISSUE:		There is an issue with a tag or property value (often non-fatal)
  *
- * The problem type.
+ * The issue type.
  **/
 typedef enum {
 	AS_ISSUE_KIND_UNKNOWN,

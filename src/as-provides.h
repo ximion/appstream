@@ -53,7 +53,7 @@ typedef enum  {
 	AS_PROVIDES_KIND_PYTHON2,
 	AS_PROVIDES_KIND_PYTHON3,
 	AS_PROVIDES_KIND_MIMETYPE,
-	/* <private> */
+	/* < private > */
 	AS_PROVIDES_KIND_LAST
 } AsProvidesKind;
 
