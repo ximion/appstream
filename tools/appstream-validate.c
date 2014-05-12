@@ -68,16 +68,16 @@ importance_to_print_string (AsIssueImportance importance, gboolean pretty)
  * print_report:
  **/
 static gboolean
-process_report (GPtrArray *issues, gboolean pretty)
+process_report (GList *issues, gboolean pretty)
 {
-	guint i;
+	GList *l;
 	AsValidatorIssue *issue;
 	AsIssueImportance importance;
 	gboolean errors_found = FALSE;
 	gchar *imp;
 
-	for (i = 0; i < issues->len; i++) {
-		issue = (AsValidatorIssue*) g_ptr_array_index (issues, i);
+	for (l = issues; l != NULL; l = l->next) {
+		issue = (AsValidatorIssue*) l->data;
 		importance = as_validator_issue_get_importance (issue);
 
 		/* if there are errors or warnings, we consider the validation to be failed */
@@ -104,7 +104,7 @@ validate_file (gchar *fname, gboolean pretty)
 	gboolean ret;
 	gboolean errors_found;
 	AsValidator *validator;
-	GPtrArray *issues;
+	GList *issues;
 
 	file = g_file_new_for_path (fname);
 	if (!g_file_query_exists (file, NULL)) {
@@ -122,6 +122,7 @@ validate_file (gchar *fname, gboolean pretty)
 	if (!ret)
 		errors_found = TRUE;
 
+	g_list_free (issues);
 	g_object_unref (file);
 	g_object_unref (validator);
 	return !errors_found;

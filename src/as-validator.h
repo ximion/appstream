@@ -67,7 +67,7 @@ gboolean	as_validator_validate_file (AsValidator *validator,
 gboolean	as_validator_validate_data (AsValidator *validator,
 										const gchar *metadata);
 
-GPtrArray	*as_validator_get_issues (AsValidator *validator);
+GList		*as_validator_get_issues (AsValidator *validator);
 
 G_END_DECLS
 
