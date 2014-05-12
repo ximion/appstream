@@ -54,7 +54,9 @@ test_database_create ()
 	AsBuilder *builder;
 	gchar *path;
 
-	path = g_build_filename ("/tmp", "libas-dbtest", NULL);
+	path = g_strdup ("libas-dbtest-XXXXXX");
+	path = g_mkdtemp (path);
+	g_assert (path != NULL);
 
 	builder = as_builder_new_path (path);
 	as_builder_initialize (builder);
