@@ -1,3 +1,38 @@
+Version 0.6.2
+~~~~~~~~~~~~~~
+Released: 2014-05-12
+
+Features:
+ * Deprecate get_homepage in favour of get_url
+ * Store all urls in the database
+ * Split validation into new AsValidator for future extension
+ * Heavily improve metadata validator, add new as-validator binary
+ * Add methods to check if component is compulsory or in a specific category
+ * Add function to pretty-print description markup and use it in asi-tool
+ * Implement missing support for mimetypes
+ * Add manpage for appstream-validate
+ * Allow fast searching for mimetype handlers
+
+Specification:
+ * spec: Use subdirectories for multiarch metadata
+ * spec: Exclusively use SPDX license tags
+ * spec: Update screenshot spec to reflect reality
+ * docs: Fix some quirks and issues
+ * docs: Rework url information as variablelist
+ * spec: Rename "manual" url type to "help"
+
+Bugfixes:
+ * Ensure active metadata locale does not have an UTF-8 suffix
+ * Refine icon path/url detection for applications
+ * Deprecate idname and make Component header nicer to work with
+ * Fix bug in category-loading and display categories in the asi-tool
+ * Fix multiple potential crashes when parsing upstream metadata
+ * Make sure we don't use deprecated methods internally anymore
+ * tests: Run database tests on private db copy
+ * asi-tool: Fix small (but annoying) warning
+ * asi-tool: Adjust manpage to reflect reality
+ * validator: Create better log messages
+
 Version 0.6.1
 ~~~~~~~~~~~~~~
 Released: 2014-04-24
