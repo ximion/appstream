@@ -1,0 +1,12 @@
+#ifndef APPSTREAMQT_GLOBAL_H
+#define APPSTREAMQT_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(APPSTREAMQT_LIBRARY)
+#  define ASQTSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define ASQTSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // APPSTREAMQT_GLOBAL_H

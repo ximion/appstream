@@ -22,6 +22,9 @@
 #define __APPSTREAM_H
 
 #define __APPSTREAM_H_INSIDE__
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <as-component.h>
 #include <as-enums.h>
@@ -40,6 +43,9 @@
 
 #include <as-utils.h>
 
+#ifdef __cplusplus
+};
+#endif
 #undef __APPSTREAM_H_INSIDE__
 
 #endif /* __APPSTREAM_H */
