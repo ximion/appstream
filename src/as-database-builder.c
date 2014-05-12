@@ -395,9 +395,9 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	g_list_free (cpt_list);
 
 	if (ret) {
-		g_debug ("Cache refresh completed successfully.");
+		g_print ("%s\n", "AppStream cache update completed successfully.");
 	} else {
-		g_debug ("Unable to refresh AppStream cache");
+		g_print ("%s\n", "AppStream cache update failed.");
 	}
 
 	return ret;

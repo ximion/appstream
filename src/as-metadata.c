@@ -639,14 +639,21 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 			gchar **cat_array;
 			cat_array = as_metadata_get_children_as_array (metad, iter, "category");
 			as_component_set_categories (cpt, cat_array);
+			g_strfreev (cat_array);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			gchar **kw_array;
 			kw_array = as_metadata_get_children_as_array (metad, iter, "keyword");
 			as_component_set_keywords (cpt, kw_array);
+			g_strfreev (kw_array);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			gchar **mime_array;
+			guint i;
+
 			mime_array = as_metadata_get_children_as_array (metad, iter, "mimetype");
-			as_component_set_mimetypes (cpt, mime_array);
+			for (i = 0; mime_array[i] != NULL; i++) {
+				as_component_add_provided_item (cpt, AS_PROVIDES_KIND_MIMETYPE, mime_array[i], "");
+			}
+			g_strfreev (mime_array);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_metadata_process_provides (metad, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {

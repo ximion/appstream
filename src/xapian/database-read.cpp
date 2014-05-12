@@ -124,12 +124,6 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	string categories_str = doc.get_value (XapianValues::CATEGORIES);
 	as_component_set_categories_from_str (cpt, categories_str.c_str ());
 
-	// Mimetypes
-	string mimetypes_str = doc.get_value (XapianValues::MIMETYPES);
-	gchar **strv = g_strsplit (mimetypes_str.c_str (), ";", -1);
-	as_component_set_mimetypes (cpt, strv);
-	g_strfreev (strv);
-
 	// Provided items
 	string provided_items_str = doc.get_value (XapianValues::PROVIDED_ITEMS);
 	if (!provided_items_str.empty ()) {
@@ -148,7 +142,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Compulsory-for-desktop information
 	string compulsory_str = doc.get_value (XapianValues::COMPULSORY_FOR);
-	strv = g_strsplit (compulsory_str.c_str (), ";", -1);
+	gchar **strv = g_strsplit (compulsory_str.c_str (), ";", -1);
 	as_component_set_compulsory_for_desktops (cpt, strv);
 	g_strfreev (strv);
 

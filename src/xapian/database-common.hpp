@@ -41,7 +41,6 @@ enum XapianValues {
 	ICON_URL = 149,
 
 	PROVIDED_ITEMS = 150,
-	MIMETYPES = 151,
 	SCREENSHOT_DATA = 152, // screenshot definitions, as XML
 	RELEASES_DATA = 153, // releases definitions, as XML
 

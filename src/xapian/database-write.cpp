@@ -29,6 +29,7 @@
 #include <glib/gstdio.h>
 
 #include "database-common.hpp"
+#include "../as-utils.h"
 #include "../as-utils-private.h"
 #include "../as-component-private.h"
 #include "../as-settings-private.h"
@@ -93,7 +94,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 	// check if old unrequired version of db still exists on filesystem
 	if (g_file_test (rebuild_path.c_str (), G_FILE_TEST_EXISTS)) {
-		cout << "Removing old rebuild-dir from previous database rebuild." << endl;
+		g_debug ("Removing old rebuild-dir from previous database rebuild.");
 		as_utils_delete_dir_recursive (rebuild_path.c_str ());
 	}
 
@@ -210,22 +211,6 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			}
 		}
 
-		// Mimetypes
-		gchar **mimetypes = as_component_get_mimetypes (cpt);
-		if (mimetypes != NULL) {
-			gchar *tmp = g_strjoinv (";", mimetypes);
-			string mimetypes_str = tmp;
-			g_free (tmp);
-			for (uint i = 0; mimetypes[i] != NULL; i++) {
-				if (mimetypes[i] == NULL)
-					continue;
-
-				string mime = mimetypes[i];
-				doc.add_term ("AM" + mime);
-			}
-			doc.add_value (XapianValues::MIMETYPES, mimetypes_str);
-		}
-
 		// Data of provided items
 		gchar **provides_items = as_ptr_array_to_strv (as_component_get_provided_items (cpt));
 		if (provides_items != NULL) {
@@ -233,7 +218,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			doc.add_value (XapianValues::PROVIDED_ITEMS, string(provides_items_str));
 			for (uint i = 0; provides_items[i] != NULL; i++) {
 				string item = provides_items[i];
-				doc.add_term ("AX" + item);
+				doc.add_term ("AE" + item);
 			}
 			g_free (provides_items_str);
 		}

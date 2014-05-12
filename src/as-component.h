@@ -164,11 +164,11 @@ const gchar*		as_component_get_icon_url (AsComponent* self);
 void				as_component_set_icon_url (AsComponent* self,
 											   const gchar* value);
 
-gchar**				as_component_get_mimetypes (AsComponent* self);
-void				as_component_set_mimetypes (AsComponent* self,
-												gchar** value);
-
 GPtrArray*			as_component_get_provided_items (AsComponent* self);
+void				as_component_add_provided_item (AsComponent *self,
+										AsProvidesKind kind,
+										const gchar *value,
+										const gchar *data);
 
 GHashTable*			as_component_get_urls (AsComponent *self);
 const gchar*		as_component_get_url (AsComponent *self,

@@ -107,7 +107,7 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 
 	gchar *desktop_file_name;
 	gchar **cats;
-	gchar **mimes;
+
 
 	dfile = g_key_file_new ();
 	g_key_file_load_from_file (dfile, fname, G_KEY_FILE_NONE, &error);
@@ -171,8 +171,12 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "MimeType");
 	if (!as_str_empty (str)) {
+		guint i;
+		gchar **mimes;
 		mimes = g_strsplit (str, ";", 0);
-		as_component_set_mimetypes (cpt, mimes);
+		for (i = 0; mimes[i] != NULL; i++) {
+			as_component_add_provided_item (cpt, AS_PROVIDES_KIND_MIMETYPE, mimes[i], "");
+		}
 		g_strfreev (mimes);
 	}
 	g_free (str);

@@ -215,6 +215,7 @@ as_print_component (AsComponent *cpt)
 	if (as_client_o_details) {
 		GPtrArray *sshot_array;
 		GPtrArray *imgs = NULL;
+		GPtrArray *provided_items;
 		AsScreenshot *sshot;
 		AsImage *img;
 		gchar *str;
@@ -257,7 +258,7 @@ as_print_component (AsComponent *cpt)
 		/* Categories */
 		strv = as_component_get_categories (cpt);
 		if (strv != NULL) {
-			str = g_strjoinv ("; ", strv);
+			str = g_strjoinv (", ", strv);
 			as_print_key_value (_("Categories"), str, FALSE);
 			g_free (str);
 		}
@@ -270,13 +271,15 @@ as_print_component (AsComponent *cpt)
 			g_free (str);
 		}
 
-		/* Mimetypes */
-		strv = as_component_get_mimetypes (cpt);
+		/* Provided Items */
+		provided_items = as_component_get_provided_items (cpt);
+		strv = as_ptr_array_to_strv (provided_items);
 		if (strv != NULL) {
-			str = g_strjoinv ("; ", strv);
-			as_print_key_value (_("Mimetypes"), str, FALSE);
+			str = g_strjoinv (" ", strv);
+			as_print_key_value (_("Provided Items"), str, FALSE);
 			g_free (str);
 		}
+		g_strfreev (strv);
 	}
 }
 

@@ -369,7 +369,7 @@ as_component_get_url (AsComponent *self, AsUrlKind url_kind)
  * @url_kind: the URL kind, e.g. %AS_URL_KIND_HOMEPAGE
  * @url: the full URL.
  *
- * Adds some URL data to the application.
+ * Adds some URL data to the component.
  *
  * Since: 0.6.2
  **/
@@ -1197,6 +1197,24 @@ as_component_get_provided_items (AsComponent* self)
 	g_return_val_if_fail (self != NULL, NULL);
 
 	return self->priv->provided_items;
+}
+
+/**
+ * as_component_add_provided_item:
+ * @self: a #AsComponent instance.
+ * @kind: the kind of the provided item (e.g. %AS_PROVIDES_KIND_MIMETYPE)
+ * @data: additional data associated with this item, or %NULL.
+ *
+ * Adds a provided item to the component.
+ *
+ * Since: 0.6.2
+ **/
+void
+as_component_add_provided_item (AsComponent *self, AsProvidesKind kind, const gchar *value, const gchar *data)
+{
+	g_return_if_fail (self != NULL);
+	g_ptr_array_add (self->priv->provided_items,
+			     as_provides_item_create (kind, value, data));
 }
 
 /**
