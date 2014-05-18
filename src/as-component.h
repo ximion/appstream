@@ -97,9 +97,6 @@ AsComponent*		as_component_construct (GType object_type);
 gboolean			as_component_is_valid (AsComponent* self);
 gchar* 				as_component_to_string (AsComponent* self);
 
-gboolean			as_component_provides_item (AsComponent *self,
-												AsProvidesKind kind, const gchar *value);
-
 AsComponentKind		as_component_get_kind (AsComponent* self);
 void				as_component_set_kind (AsComponent* self,
 										   AsComponentKind value);
@@ -169,6 +166,9 @@ void				as_component_add_provided_item (AsComponent *self,
 										AsProvidesKind kind,
 										const gchar *value,
 										const gchar *data);
+gboolean			as_component_provides_item (AsComponent *self,
+										AsProvidesKind kind,
+										const gchar *value);
 
 GHashTable*			as_component_get_urls (AsComponent *self);
 const gchar*		as_component_get_url (AsComponent *self,
