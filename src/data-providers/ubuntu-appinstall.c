@@ -35,7 +35,6 @@ struct _AsProviderUbuntuAppinstallPrivate {
 
 static gpointer as_provider_ubuntu_appinstall_parent_class = NULL;
 
-#define AS_PROVIDER_UBUNTU_APPINSTALL_DIR "/usr/share/app-install"
 GType as_provider_ubuntu_appinstall_get_type (void) G_GNUC_CONST;
 #define AS_PROVIDER_UBUNTU_APPINSTALL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_PROVIDER_TYPE_UBUNTU_APPINSTALL, AsProviderUbuntuAppinstallPrivate))
 
@@ -48,16 +47,9 @@ AsProviderUbuntuAppinstall*
 as_provider_ubuntu_appinstall_construct (GType object_type)
 {
 	AsProviderUbuntuAppinstall * self = NULL;
-	gchar** watch_files = NULL;
 
 	self = (AsProviderUbuntuAppinstall*) as_data_provider_construct (object_type);
 	self->priv->system_categories = as_get_system_categories ();
-
-	/* set AppInstall location as watch target for the data provider */
-	watch_files = g_new0 (gchar*, 1 + 1);
-	watch_files[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
-	as_data_provider_set_watch_files ((AsDataProvider*) self, watch_files);
-	g_strfreev(watch_files);
 
 	return self;
 }
@@ -204,21 +196,27 @@ as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base)
 {
 	AsProviderUbuntuAppinstall * self;
 	GPtrArray* desktop_files;
-	gchar *fname;
 	guint i;
+	gchar **paths;
 
 	self = (AsProviderUbuntuAppinstall*) base;
-	fname = g_build_filename (AS_PROVIDER_UBUNTU_APPINSTALL_DIR, "desktop", NULL, NULL);
-	desktop_files = as_utils_find_files_matching (fname, "*.desktop", FALSE);
-	if (desktop_files == NULL)
-		return FALSE;
 
-	for (i = 0; i < desktop_files->len; i++) {
-			const gchar *path;
-			path = (const gchar *) g_ptr_array_index (desktop_files, i);
-			as_provider_ubuntu_appinstall_process_desktop_file (self, path);
+	paths = as_data_provider_get_watch_files (base);
+	for (i = 0; paths[i] != NULL; i++) {
+		gchar *fname;
+		fname = g_build_filename (paths[i], "desktop", NULL, NULL);
+		desktop_files = as_utils_find_files_matching (fname, "*.desktop", FALSE);
+		if (desktop_files == NULL)
+			return FALSE;
+
+		for (i = 0; i < desktop_files->len; i++) {
+				const gchar *path;
+				path = (const gchar *) g_ptr_array_index (desktop_files, i);
+				as_provider_ubuntu_appinstall_process_desktop_file (self, path);
+		}
+		g_ptr_array_unref (desktop_files);
+		g_free (fname);
 	}
-	g_ptr_array_unref (desktop_files);
 
 	return TRUE;
 }

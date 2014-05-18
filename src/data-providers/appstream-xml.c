@@ -25,7 +25,6 @@
 #include <glib/gstdio.h>
 
 #include "../as-utils-private.h"
-#include "../as-settings-private.h"
 #include "../as-metadata.h"
 #include "../as-metadata-private.h"
 #include "../as-menu-parser.h"
@@ -34,11 +33,6 @@ struct _AsProviderAppstreamXMLPrivate
 {
 	GList* system_categories;
 };
-
-const gchar* AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
-										"/var/cache/app-info/xmls",
-										"/var/lib/app-info/xmls",
-										NULL};
 
 static gpointer as_provider_appstream_xml_parent_class = NULL;
 
@@ -52,25 +46,11 @@ as_provider_appstream_xml_construct (GType object_type)
 {
 	AsProviderAppstreamXML * self = NULL;
 	GList *syscat;
-	guint i;
-	guint len;
-	gchar **wfiles;
 	self = (AsProviderAppstreamXML*) as_data_provider_construct (object_type);
 
 	/* cache this for performance reasons */
 	syscat = as_get_system_categories ();
 	self->priv->system_categories = syscat;
-
-	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
-	wfiles = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			wfiles[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
-		else
-			wfiles[i] = NULL;
-	}
-	as_data_provider_set_watch_files ((AsDataProvider*) self, wfiles);
-	g_strfreev (wfiles);
 
 	return self;
 }
@@ -221,21 +201,19 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 	AsProviderAppstreamXML * self;
 	GPtrArray* xml_files;
 	guint i;
-	guint len;
-	gchar *path;
 	GFile *infile;
+	gchar **paths;
 
 	self = (AsProviderAppstreamXML*) base;
 	xml_files = g_ptr_array_new_with_free_func (g_free);
 
-	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
-	for (i = 0; i < len; i++) {
+	paths = as_data_provider_get_watch_files (base);
+	for (i = 0; paths[i] != NULL; i++) {
+		gchar *path;
 		GPtrArray *xmls;
 		guint j;
+		path = paths[i];
 
-		path = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
-		if (path == NULL)
-			continue;
 		if (!g_file_test (path, G_FILE_TEST_EXISTS)) {
 			g_free (path);
 			continue;
@@ -249,7 +227,6 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 			g_ptr_array_add (xml_files, g_strdup (val));
 		}
 
-		g_free (path);
 		g_ptr_array_unref (xmls);
 	}
 

@@ -58,6 +58,10 @@ AsBuilder*		as_builder_construct_path (GType object_type, const gchar* dbpath);
 void			as_builder_initialize (AsBuilder* self);
 gboolean		as_builder_refresh_cache (AsBuilder* self, gboolean force);
 
+void			as_builder_set_xml_paths (AsBuilder *self, gchar** values);
+void			as_builder_set_dep11_paths (AsBuilder *self, gchar** values);
+void			as_builder_set_appinstall_paths (AsBuilder *self, gchar** values);
+
 G_END_DECLS
 
 #endif /* __AS_DATABASEBUILDER_H */

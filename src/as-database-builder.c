@@ -40,6 +40,7 @@
 #include "as-database-write.h"
 #include "as-component-private.h"
 #include "as-distro-details.h"
+#include "as-settings-private.h"
 
 struct _AsBuilderPrivate
 {
@@ -48,9 +49,18 @@ struct _AsBuilderPrivate
 	GHashTable* cpt_table;
 	GPtrArray* providers;
 	gchar *scr_base_url;
+
+	gchar **asxml_paths;
+	gchar **dep11_paths;
+	gchar **appinstall_paths;
 };
 
 #define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
+const gchar* AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
+										"/var/cache/app-info/xmls",
+										"/var/lib/app-info/xmls",
+										NULL};
+#define AS_PROVIDER_UBUNTU_APPINSTALL_DIR "/usr/share/app-install"
 
 static gpointer as_builder_parent_class = NULL;
 
@@ -91,13 +101,13 @@ as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder
 	}
 }
 
-
 AsBuilder*
 as_builder_construct (GType object_type)
 {
 	AsBuilder *self = NULL;
 	AsDataProvider *dprov;
 	guint i;
+	guint len;
 	AsDistroDetails *distro;
 	AsBuilderPrivate *priv;
 
@@ -113,6 +123,20 @@ as_builder_construct (GType object_type)
 		priv->db_build_path = g_strdup (s);
 	}
 
+	/* set watched default directories for AppStream XML */
+	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
+	priv->asxml_paths = g_new0 (gchar *, len + 1);
+	for (i = 0; i < len+1; i++) {
+		if (i < len)
+			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
+		else
+			priv->asxml_paths[i] = NULL;
+	}
+
+	/* set default directories for Ubuntu AppInstall */
+	priv->appinstall_paths = g_new0 (gchar*, 1 + 1);
+	priv->appinstall_paths[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
+
 	priv->cpt_table = g_hash_table_new_full (g_str_hash,
 						g_str_equal,
 						g_free,
@@ -120,13 +144,19 @@ as_builder_construct (GType object_type)
 	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* added by priority: Appstream XML has the highest, Ubuntu AppInstall the lowest priority */
-	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_appstream_xml_new ());
+	dprov = (AsDataProvider*) as_provider_appstream_xml_new ();
+	as_data_provider_set_watch_files (dprov, priv->asxml_paths);
+	g_ptr_array_add (priv->providers, dprov);
 #ifdef DEBIAN_DEP11
-	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_dep11_new ());
+	dprov = (AsDataProvider*) as_provider_dep11_new ();
+	g_ptr_array_add (priv->providers, dprov);
 #endif
 #ifdef UBUNTU_APPINSTALL
-	g_ptr_array_add (priv->providers, (AsDataProvider*) as_provider_ubuntu_appinstall_new ());
+	dprov = (AsDataProvider*) as_provider_ubuntu_appinstall_new ();
+	as_data_provider_set_watch_files (dprov, priv->appinstall_paths);
+	g_ptr_array_add (priv->providers, dprov);
 #endif
+	dprov = NULL;
 
 	/* connect all data provider signals */
 	for (i = 0; i < priv->providers->len; i++) {
@@ -403,6 +433,38 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	return ret;
 }
 
+/**
+ * as_builder_set_xml_paths:
+ */
+void
+as_builder_set_xml_paths (AsBuilder *self, gchar** values)
+{
+	g_return_if_fail (self != NULL);
+	g_strfreev (self->priv->asxml_paths);
+	self->priv->asxml_paths = as_strv_dup (values);
+}
+
+/**
+ * as_builder_set_dep11_paths:
+ */
+void
+as_builder_set_dep11_paths (AsBuilder *self, gchar** values)
+{
+	g_return_if_fail (self != NULL);
+	g_strfreev (self->priv->dep11_paths);
+	self->priv->dep11_paths = as_strv_dup (values);
+}
+
+/**
+ * as_builder_set_appinstall_paths:
+ */
+void
+as_builder_set_appinstall_paths (AsBuilder *self, gchar** values)
+{
+	g_return_if_fail (self != NULL);
+	g_strfreev (self->priv->appinstall_paths);
+	self->priv->appinstall_paths = as_strv_dup (values);
+}
 
 static void
 as_builder_class_init (AsBuilderClass * klass)

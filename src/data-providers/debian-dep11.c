@@ -22,7 +22,6 @@
 #include <glib.h>
 #include <glib-object.h>
 
-
 static gpointer as_provider_dep11_parent_class = NULL;
 static gboolean as_provider_dep11_real_execute (AsDataProvider* base);
 
