@@ -22,7 +22,7 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "../src/as-database-builder.h"
+#include "../src/as-cache-builder.h"
 
 static gchar *datadir = NULL;
 

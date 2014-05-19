@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "as-database-builder.h"
+#include "as-cache-builder.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -49,6 +49,7 @@ struct _AsBuilderPrivate
 	GHashTable* cpt_table;
 	GPtrArray* providers;
 	gchar *scr_base_url;
+	gboolean initialized;
 
 	gchar **asxml_paths;
 	gchar **dep11_paths;
@@ -105,15 +106,76 @@ AsBuilder*
 as_builder_construct (GType object_type)
 {
 	AsBuilder *self = NULL;
-	AsDataProvider *dprov;
-	guint i;
-	guint len;
 	AsDistroDetails *distro;
 	AsBuilderPrivate *priv;
 
 	self = (AsBuilder*) g_object_new (object_type, NULL);
 	priv = self->priv;
 	priv->db_rw = as_database_write_new ();
+
+	distro = as_distro_details_new ();
+	priv->scr_base_url = as_distro_details_config_distro_get_str (distro, "ScreenshotUrl");
+	if (priv->scr_base_url == NULL) {
+		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_distro_name (distro));
+		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
+	}
+	g_object_unref (distro);
+
+	return self;
+}
+
+/**
+ * as_builder_new:
+ *
+ * Creates a new #AsBuilder.
+ *
+ * Returns: (transfer full): an #AsBuilder
+ **/
+AsBuilder*
+as_builder_new (void)
+{
+	return as_builder_construct (AS_TYPE_BUILDER);
+}
+
+
+AsBuilder*
+as_builder_construct_path (GType object_type, const gchar* dbpath)
+{
+	AsBuilder * self = NULL;
+	g_return_val_if_fail (dbpath != NULL, NULL);
+
+	self = as_builder_construct (AS_TYPE_BUILDER);
+	g_free (self->priv->db_build_path);
+	self->priv->db_build_path = g_strdup (dbpath);
+
+	return self;
+}
+
+/**
+ * as_builder_new_path:
+ *
+ * Creates a new #AsBuilder with custom database path.
+ *
+ * @path path to the new Xapian database
+ *
+ * Returns: (transfer full): an #AsBuilder
+ **/
+AsBuilder*
+as_builder_new_path (const gchar* dbpath)
+{
+	return as_builder_construct_path (AS_TYPE_BUILDER, dbpath);
+}
+
+/**
+ * as_builder_initialize:
+ */
+void
+as_builder_initialize (AsBuilder* self)
+{
+	AsDataProvider *dprov;
+	guint i;
+	guint len;
+	AsBuilderPrivate *priv = self->priv;
 
 	/* update database path if necessary */
 	if (as_str_empty (priv->db_build_path)) {
@@ -169,65 +231,6 @@ as_builder_construct (GType object_type)
 		 */
 		g_object_ref (dprov);
 	}
-
-	distro = as_distro_details_new ();
-	priv->scr_base_url = as_distro_details_config_distro_get_str (distro, "ScreenshotUrl");
-	if (priv->scr_base_url == NULL) {
-		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_distro_name (distro));
-		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
-	}
-	g_object_unref (distro);
-
-	return self;
-}
-
-/**
- * as_builder_new:
- *
- * Creates a new #AsBuilder.
- *
- * Returns: (transfer full): an #AsBuilder
- **/
-AsBuilder*
-as_builder_new (void)
-{
-	return as_builder_construct (AS_TYPE_BUILDER);
-}
-
-
-AsBuilder*
-as_builder_construct_path (GType object_type, const gchar* dbpath)
-{
-	AsBuilder * self = NULL;
-	g_return_val_if_fail (dbpath != NULL, NULL);
-
-	self = as_builder_construct (AS_TYPE_BUILDER);
-	g_free (self->priv->db_build_path);
-	self->priv->db_build_path = g_strdup (dbpath);
-
-	return self;
-}
-
-/**
- * as_builder_new_path:
- *
- * Creates a new #AsBuilder with custom database path.
- *
- * @path path to the new Xapian database
- *
- * Returns: (transfer full): an #AsBuilder
- **/
-AsBuilder*
-as_builder_new_path (const gchar* dbpath)
-{
-	return as_builder_construct_path (AS_TYPE_BUILDER, dbpath);
-}
-
-
-void
-as_builder_initialize (AsBuilder* self)
-{
-	g_return_if_fail (self != NULL);
 
 	as_database_set_database_path ((AsDatabase*) self->priv->db_rw, self->priv->db_build_path);
 	as_utils_touch_dir (self->priv->db_build_path);

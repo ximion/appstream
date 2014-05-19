@@ -21,7 +21,7 @@
 #include <packagekit-glib2/packagekit.h>
 #include <plugin/packagekit-plugin.h>
 
-#include "../as-database-builder.h"
+#include "../as-cache-builder.h"
 
 struct PkPluginPrivate {
 	guint		dummy;

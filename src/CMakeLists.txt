@@ -31,12 +31,12 @@ set(LIBAPPSTREAM_SRC
 		data-providers/appstream-xml.c
 		data-providers/debian-dep11.c
 		data-providers/ubuntu-appinstall.c
+		as-cache-builder.c
 		# (mostly) public API
 		as-metadata.c
 		as-component.c
 		as-enums.c
 		as-provides.c
-		as-database-builder.c
 		as-search-query.c
 		as-database.c
 		as-database-write.c
@@ -77,7 +77,7 @@ set(LIBAPPSTREAM_PRIVATE_HEADERS
 		data-providers/ubuntu-appinstall.h
 		as-metadata-private.h
 		as-component-private.h
-		as-database-builder.h
+		as-cache-builder.h
 		as-database-write.h
 )
 

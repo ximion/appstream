@@ -26,7 +26,7 @@
 #include <locale.h>
 
 #include "appstream.h"
-#include "as-database-builder.h"
+#include "as-cache-builder.h"
 
 #define TYPE_AS_CLIENT (as_client_get_type ())
 #define AS_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_AS_CLIENT, ASClient))
