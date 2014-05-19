@@ -142,7 +142,7 @@ as_provides_item_get_kind (const gchar *item)
 
 	res = AS_PROVIDES_KIND_UNKNOWN;
 
-	parts = g_strsplit (item, ";", 1);
+	parts = g_strsplit (item, ";", 2);
 	/* return unknown if the item was not valid */
 	if (g_strv_length (parts) < 2)
 		goto out;
@@ -170,7 +170,7 @@ as_provides_item_get_value (const gchar *item)
 
 	res = NULL;
 
-	parts = g_strsplit (item, ";", 1);
+	parts = g_strsplit (item, ";", -1);
 	/* return unknown if the item was not valid */
 	if (g_strv_length (parts) < 2)
 		goto out;
@@ -180,4 +180,3 @@ out:
 	g_strfreev (parts);
 	return res;
 }
-

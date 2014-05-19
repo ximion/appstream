@@ -1213,6 +1213,9 @@ void
 as_component_add_provided_item (AsComponent *self, AsProvidesKind kind, const gchar *value, const gchar *data)
 {
 	g_return_if_fail (self != NULL);
+	/* we just skip empty items */
+	if (as_str_empty (value))
+		return;
 	g_ptr_array_add (self->priv->provided_items,
 			     as_provides_item_create (kind, value, data));
 }
