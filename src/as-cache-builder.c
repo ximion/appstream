@@ -23,103 +23,42 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
-#include <string.h>
 #include <gio/gio.h>
 #include <sys/stat.h>
 
-#include "data-providers/appstream-xml.h"
-#ifdef DEBIAN_DEP11
-#include "data-providers/debian-dep11.h"
-#endif
-#ifdef UBUNTU_APPINSTALL
-#include "data-providers/ubuntu-appinstall.h"
-#endif
-
+#include "xapian/database-cwrap.hpp"
 #include "as-utils.h"
 #include "as-utils-private.h"
-#include "as-database-write.h"
-#include "as-component-private.h"
-#include "as-distro-details.h"
+#include "as-data-pool.h"
 #include "as-settings-private.h"
 
 struct _AsBuilderPrivate
 {
+	struct XADatabaseWrite* db_w;
 	gchar* db_build_path;
-	AsDatabaseWrite* db_rw;
-	GHashTable* cpt_table;
-	GPtrArray* providers;
-	gchar *scr_base_url;
-	gboolean initialized;
-
-	gchar **asxml_paths;
-	gchar **dep11_paths;
-	gchar **appinstall_paths;
+	AsDataPool *dpool;
 };
-
-#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
-const gchar* AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
-										"/var/cache/app-info/xmls",
-										"/var/lib/app-info/xmls",
-										NULL};
-#define AS_PROVIDER_UBUNTU_APPINSTALL_DIR "/usr/share/app-install"
 
 static gpointer as_builder_parent_class = NULL;
 
 #define AS_BUILDER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_BUILDER, AsBuilderPrivate))
 
-static gchar** as_builder_get_watched_files (AsBuilder* self);
 static gboolean as_builder_appstream_data_changed (AsBuilder* self);
 static void as_builder_finalize (GObject* obj);
-
-static void
-as_builder_new_component_cb (AsDataProvider* sender, AsComponent* cpt, AsBuilder *self)
-{
-	const gchar *cpt_id;
-	AsComponent *existing_cpt;
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (cpt != NULL);
-
-	cpt_id = as_component_get_id (cpt);
-	existing_cpt = g_hash_table_lookup (self->priv->cpt_table, cpt_id);
-
-	/* add additional data to the component, e.g. external screenshots */
-	as_component_complete (cpt, self->priv->scr_base_url);
-
-	if (existing_cpt) {
-		int priority;
-		priority = as_component_get_priority (existing_cpt);
-		if (priority < as_component_get_priority (cpt)) {
-			g_hash_table_replace (self->priv->cpt_table,
-								  g_strdup (cpt_id),
-								  g_object_ref (cpt));
-		} else {
-			g_debug ("Detected colliding ids: %s was already added.", cpt_id);
-		}
-	} else {
-		g_hash_table_insert (self->priv->cpt_table,
-							g_strdup (cpt_id),
-							g_object_ref (cpt));
-	}
-}
 
 AsBuilder*
 as_builder_construct (GType object_type)
 {
 	AsBuilder *self = NULL;
-	AsDistroDetails *distro;
 	AsBuilderPrivate *priv;
 
 	self = (AsBuilder*) g_object_new (object_type, NULL);
 	priv = self->priv;
-	priv->db_rw = as_database_write_new ();
+	priv->db_w = xa_database_write_new ();
+	priv->dpool = as_data_pool_new ();
 
-	distro = as_distro_details_new ();
-	priv->scr_base_url = as_distro_details_config_distro_get_str (distro, "ScreenshotUrl");
-	if (priv->scr_base_url == NULL) {
-		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_distro_name (distro));
-		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
-	}
-	g_object_unref (distro);
+	/* ensure db directory exists */
+	as_utils_touch_dir (AS_APPSTREAM_DATABASE_PATH);
 
 	return self;
 }
@@ -169,100 +108,24 @@ as_builder_new_path (const gchar* dbpath)
 /**
  * as_builder_initialize:
  */
-void
+gboolean
 as_builder_initialize (AsBuilder* self)
 {
-	AsDataProvider *dprov;
-	guint i;
-	guint len;
+	gboolean ret;
 	AsBuilderPrivate *priv = self->priv;
 
 	/* update database path if necessary */
 	if (as_str_empty (priv->db_build_path)) {
-		const gchar *s;
-		s = as_database_get_database_path ((AsDatabase*) priv->db_rw);
 		g_free (priv->db_build_path);
-		priv->db_build_path = g_strdup (s);
+		priv->db_build_path = g_strdup (AS_APPSTREAM_DATABASE_PATH);
 	}
 
-	/* set watched default directories for AppStream XML */
-	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
-	priv->asxml_paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
-		else
-			priv->asxml_paths[i] = NULL;
-	}
+	as_data_pool_initialize (self->priv->dpool);
 
-	/* set default directories for Ubuntu AppInstall */
-	priv->appinstall_paths = g_new0 (gchar*, 1 + 1);
-	priv->appinstall_paths[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
-
-	priv->cpt_table = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						(GDestroyNotify) g_object_unref);
-	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
-
-	/* added by priority: Appstream XML has the highest, Ubuntu AppInstall the lowest priority */
-	dprov = (AsDataProvider*) as_provider_appstream_xml_new ();
-	as_data_provider_set_watch_files (dprov, priv->asxml_paths);
-	g_ptr_array_add (priv->providers, dprov);
-#ifdef DEBIAN_DEP11
-	dprov = (AsDataProvider*) as_provider_dep11_new ();
-	g_ptr_array_add (priv->providers, dprov);
-#endif
-#ifdef UBUNTU_APPINSTALL
-	dprov = (AsDataProvider*) as_provider_ubuntu_appinstall_new ();
-	as_data_provider_set_watch_files (dprov, priv->appinstall_paths);
-	g_ptr_array_add (priv->providers, dprov);
-#endif
-	dprov = NULL;
-
-	/* connect all data provider signals */
-	for (i = 0; i < priv->providers->len; i++) {
-		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
-		g_signal_connect_object (dprov, "component", (GCallback) as_builder_new_component_cb, self, 0);
-
-		/* FIXME: For some reason, we need to increase refcount of the provider objects to not raise an error
-		 * when calling unref() later.
-		 * This doesn't make sense and needs further investigation.
-		 */
-		g_object_ref (dprov);
-	}
-
-	as_database_set_database_path ((AsDatabase*) self->priv->db_rw, self->priv->db_build_path);
 	as_utils_touch_dir (self->priv->db_build_path);
-	as_database_open ((AsDatabase*) self->priv->db_rw);
-}
 
-static gchar**
-as_builder_get_watched_files (AsBuilder* self)
-{
-	AsDataProvider *dprov;
-	gchar **wfiles;
-	guint i;
-	GPtrArray *res_array;
-	gchar **res;
-	g_return_val_if_fail (self != NULL, NULL);
-
-	res_array = g_ptr_array_new_with_free_func (g_free);
-	for (i = 0; i < self->priv->providers->len; i++) {
-		guint j;
-		dprov = (AsDataProvider*) g_ptr_array_index (self->priv->providers, i);
-		wfiles = as_data_provider_get_watch_files (dprov);
-		/* if there is nothing to watch for, we can just continue here */
-		if (wfiles == NULL)
-			continue;
-		for (j = 0; wfiles[j] != NULL; j++) {
-			g_ptr_array_add (res_array, wfiles[j]);
-		}
-	}
-
-	res = as_ptr_array_to_strv (res_array);
-	g_ptr_array_unref (res_array);
-	return res;
+	ret = xa_database_write_initialize (priv->db_w, priv->db_build_path);
+	return ret;
 }
 
 static gboolean
@@ -311,7 +174,7 @@ as_builder_appstream_data_changed (AsBuilder* self)
 	}
 
 	watchfile_new = g_strdup ("");
-	files = as_builder_get_watched_files (self);
+	files = as_data_pool_get_watched_locations (self->priv->dpool);
 	for (i = 0; files[i] != NULL; i++) {
 		struct stat *sbuf = NULL;
 		gchar *ctime_str;
@@ -394,8 +257,6 @@ gboolean
 as_builder_refresh_cache (AsBuilder* self, gboolean force)
 {
 	gboolean ret = FALSE;
-	guint i;
-	AsDataProvider *dprov;
 	GList *cpt_list;
 	g_return_val_if_fail (self != NULL, FALSE);
 
@@ -410,21 +271,12 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	}
 	g_debug ("Refreshing AppStream cache");
 
-	/* just in case, clear the components list */
-	g_hash_table_unref (self->priv->cpt_table);
-	self->priv->cpt_table = g_hash_table_new_full (g_str_hash,
-								g_str_equal,
-								g_free,
-								(GDestroyNotify) g_object_unref);
+	/* find them wherever they are */
+	as_data_pool_update (self->priv->dpool);
 
-	/* call all AppStream data providers to return components they find */
-	for (i = 0; i < self->priv->providers->len; i++) {
-		dprov = (AsDataProvider*) g_ptr_array_index (self->priv->providers, i);
-		as_data_provider_execute (dprov);
-	}
-
-	cpt_list = g_hash_table_get_values (self->priv->cpt_table);
-	ret = as_database_write_rebuild (self->priv->db_rw, cpt_list);
+	/* populate the cache */
+	cpt_list = as_data_pool_get_components (self->priv->dpool);
+	ret = xa_database_write_rebuild (self->priv->db_w, cpt_list);
 	g_list_free (cpt_list);
 
 	if (ret) {
@@ -434,39 +286,6 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	}
 
 	return ret;
-}
-
-/**
- * as_builder_set_xml_paths:
- */
-void
-as_builder_set_xml_paths (AsBuilder *self, gchar** values)
-{
-	g_return_if_fail (self != NULL);
-	g_strfreev (self->priv->asxml_paths);
-	self->priv->asxml_paths = as_strv_dup (values);
-}
-
-/**
- * as_builder_set_dep11_paths:
- */
-void
-as_builder_set_dep11_paths (AsBuilder *self, gchar** values)
-{
-	g_return_if_fail (self != NULL);
-	g_strfreev (self->priv->dep11_paths);
-	self->priv->dep11_paths = as_strv_dup (values);
-}
-
-/**
- * as_builder_set_appinstall_paths:
- */
-void
-as_builder_set_appinstall_paths (AsBuilder *self, gchar** values)
-{
-	g_return_if_fail (self != NULL);
-	g_strfreev (self->priv->appinstall_paths);
-	self->priv->appinstall_paths = as_strv_dup (values);
 }
 
 static void
@@ -490,11 +309,11 @@ as_builder_finalize (GObject* obj)
 {
 	AsBuilder * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_BUILDER, AsBuilder);
-	g_object_unref (self->priv->db_rw);
-	g_hash_table_unref (self->priv->cpt_table);
+
+	xa_database_write_free (self->priv->db_w);
+	g_object_unref (self->priv->dpool);
 	g_free (self->priv->db_build_path);
-	g_ptr_array_unref (self->priv->providers);
-	g_free (self->priv->scr_base_url);
+
 	G_OBJECT_CLASS (as_builder_parent_class)->finalize (obj);
 }
 

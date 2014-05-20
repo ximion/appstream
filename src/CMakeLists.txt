@@ -40,7 +40,6 @@ set(LIBAPPSTREAM_SRC
 		as-data-pool.c
 		as-search-query.c
 		as-database.c
-		as-database-write.c
 		as-category.c
 		as-menu-parser.c
 		as-distro-details.c
@@ -80,7 +79,6 @@ set(LIBAPPSTREAM_PRIVATE_HEADERS
 		as-metadata-private.h
 		as-component-private.h
 		as-cache-builder.h
-		as-database-write.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian

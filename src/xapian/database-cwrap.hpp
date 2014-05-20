@@ -22,6 +22,7 @@
 #define DATABASE_CWRAP_H
 
 #include <glib.h>
+#include "../as-provides.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -28,6 +28,8 @@
 #include <database-cwrap.hpp>
 #include <glib/gstdio.h>
 
+#include "as-settings-private.h"
+
 /**
  * SECTION:as-database
  * @short_description: Read-only access to the Appstream component database
@@ -55,8 +57,6 @@ enum  {
 	AS_DATABASE_DATABASE_PATH
 };
 
-#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
-#define AS_APPSTREAM_DATABASE_PATH AS_APPSTREAM_CACHE_PATH "/xapian"
 static gboolean as_database_real_open (AsDatabase* self);
 static void as_database_finalize (GObject* obj);
 

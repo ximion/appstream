@@ -55,12 +55,9 @@ AsBuilder*		as_builder_new (void);
 AsBuilder*		as_builder_construct (GType object_type);
 AsBuilder*		as_builder_new_path (const gchar* dbpath);
 AsBuilder*		as_builder_construct_path (GType object_type, const gchar* dbpath);
-void			as_builder_initialize (AsBuilder* self);
-gboolean		as_builder_refresh_cache (AsBuilder* self, gboolean force);
 
-void			as_builder_set_xml_paths (AsBuilder *self, gchar** values);
-void			as_builder_set_dep11_paths (AsBuilder *self, gchar** values);
-void			as_builder_set_appinstall_paths (AsBuilder *self, gchar** values);
+gboolean		as_builder_initialize (AsBuilder* self);
+gboolean		as_builder_refresh_cache (AsBuilder* self, gboolean force);
 
 G_END_DECLS
 
