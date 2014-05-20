@@ -37,6 +37,7 @@ set(LIBAPPSTREAM_SRC
 		as-component.c
 		as-enums.c
 		as-provides.c
+		as-data-pool.c
 		as-search-query.c
 		as-database.c
 		as-database-write.c
@@ -55,6 +56,7 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 		as-utils.h
 		as-metadata.h
 		as-component.h
+		as-data-pool.h
 		as-enums.h
 		as-provides.h
 		as-search-query.h

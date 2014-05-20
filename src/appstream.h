@@ -30,6 +30,7 @@ extern "C" {
 #include <as-enums.h>
 #include <as-provides.h>
 #include <as-metadata.h>
+#include <as-data-pool.h>
 #include <as-database.h>
 #include <as-search-query.h>
 #include <as-category.h>
