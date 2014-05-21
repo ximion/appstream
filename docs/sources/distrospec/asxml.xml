@@ -400,14 +400,14 @@
 						The <code><![CDATA[<release>]]></code> tag describes some metainformation about the current release of the described component.
 						It may be present multiple times (for older releases), but a tag for the current version must always be present.
 						A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
-						and a release timestamp in form of YYYYMMDD.
+						and a release timestamp in form of a UNIX epoch.
 					</para>
 					<para>
 						Examples for a valid release tags:
 					</para>
 					<programlisting language="XML">
-<![CDATA[<release version="1.2" timestamp="20140412" />
-<release version="1.0" timestamp="20120826" />]]></programlisting>
+<![CDATA[<release version="1.2" timestamp="1397253600" />
+<release version="1.0" timestamp="1345932000" />]]></programlisting>
 					<para>
 						In case a <code>&lt;release/&gt;</code> tag has a <code>&lt;description/&gt;</code> tag as parameter, describing the new release briefly, distributors are encouraged to provide 2-4
 						<code>&lt;release/&gt;</code> release tags for every component. If no description is provided, one tag is enough.

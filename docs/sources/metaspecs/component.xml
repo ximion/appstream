@@ -159,15 +159,15 @@
 						The <code>&lt;release/&gt;</code> tag may be present multiple times (for older releases), but a tag for
 						the current version must always be present.
 						A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
-						and a release timestamp in form of YYYYMMDD.
+						and a release timestamp in form of a UNIX epoch.
 					</para>
 					<para>
 						Examples for a valid releases tag:
 					</para>
 					<programlisting language="XML">
 <![CDATA[<releases>
-  <release version="1.2" timestamp="20140412" />
-  <release version="1.0" timestamp="20120826" />
+  <release version="1.2" timestamp="1397253600" />
+  <release version="1.0" timestamp="1345932000" />
 </releases>]]></programlisting>
 				</listitem>
 			</varlistentry>
