@@ -83,6 +83,9 @@ as_data_pool_finalize (GObject *object)
 	g_free (priv->scr_base_url);
 	g_hash_table_unref (priv->cpt_table);
 
+	g_strfreev (priv->appinstall_paths);
+	g_strfreev (priv->asxml_paths);
+
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
 }
 
@@ -145,22 +148,7 @@ as_data_pool_initialize (AsDataPool *dpool)
 {
 	AsDataProvider *dprov;
 	guint i;
-	guint len;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-
-	/* set watched default directories for AppStream XML */
-	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
-	priv->asxml_paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
-		else
-			priv->asxml_paths[i] = NULL;
-	}
-
-	/* set default directories for Ubuntu AppInstall */
-	priv->appinstall_paths = g_new0 (gchar*, 1 + 1);
-	priv->appinstall_paths[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
 
 	/* regenerate data providers, in case someone is calling init twice */
 	g_ptr_array_unref (priv->providers);
@@ -324,6 +312,9 @@ as_data_pool_new (void)
 	AsDataPool *dpool;
 	AsDataPoolPrivate *priv;
 	AsDistroDetails *distro;
+	guint len;
+	guint i;
+
 	dpool = g_object_new (AS_TYPE_DATA_POOL, NULL);
 	priv = GET_PRIVATE (dpool);
 
@@ -340,6 +331,20 @@ as_data_pool_new (void)
 		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
 	}
 	g_object_unref (distro);
+
+	/* set watched default directories for AppStream XML */
+	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
+	priv->asxml_paths = g_new0 (gchar *, len + 1);
+	for (i = 0; i < len+1; i++) {
+		if (i < len)
+			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
+		else
+			priv->asxml_paths[i] = NULL;
+	}
+
+	/* set default directories for Ubuntu AppInstall */
+	priv->appinstall_paths = g_new0 (gchar*, 1 + 1);
+	priv->appinstall_paths[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
 
 	priv->initialized = FALSE;
 

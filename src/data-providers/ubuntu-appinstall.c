@@ -202,9 +202,11 @@ as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base)
 	self = (AsProviderUbuntuAppinstall*) base;
 
 	paths = as_data_provider_get_watch_files (base);
+	if (paths == NULL)
+		return TRUE;
 	for (i = 0; paths[i] != NULL; i++) {
 		gchar *fname;
-		fname = g_build_filename (paths[i], "desktop", NULL, NULL);
+		fname = g_build_filename (paths[i], "desktop", NULL);
 		desktop_files = as_utils_find_files_matching (fname, "*.desktop", FALSE);
 		if (desktop_files == NULL)
 			return FALSE;

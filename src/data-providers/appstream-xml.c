@@ -208,6 +208,8 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 	xml_files = g_ptr_array_new_with_free_func (g_free);
 
 	paths = as_data_provider_get_watch_files (base);
+	if (paths == NULL)
+		return TRUE;
 	for (i = 0; paths[i] != NULL; i++) {
 		gchar *path;
 		GPtrArray *xmls;
