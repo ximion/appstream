@@ -414,22 +414,6 @@ as_ptr_array_to_strv (GPtrArray *array)
 	return value;
 }
 
-gchar**
-as_strv_dup (gchar** strv)
-{
-	gchar** result;
-	int i;
-	guint length;
-	length = g_strv_length (strv);
-	result = g_new0 (gchar*, length + 1);
-	for (i = 0; i < length; i++) {
-		gchar* _tmp0_ = NULL;
-		_tmp0_ = g_strdup (strv[i]);
-		result[i] = _tmp0_;
-	}
-	return result;
-}
-
 gchar*
 as_str_replace (const gchar *str, const gchar *old, const gchar *new)
 {

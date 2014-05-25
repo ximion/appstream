@@ -116,6 +116,7 @@ as_database_open (AsDatabase* self)
 
 /**
  * as_database_db_exists:
+ * @self: a valid #AsDatabase instance
  *
  * Returns: TRUE if the application database exists
  */
@@ -129,10 +130,9 @@ as_database_db_exists (AsDatabase* self)
 
 /**
  * as_database_get_all_components:
+ * @self: a valid #AsDatabase instance
  *
  * Dump a list of all components found in the database.
- *
- * @self a valid #AsDatabase instance
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects
  */
@@ -150,11 +150,10 @@ as_database_get_all_components (AsDatabase* self)
 
 /**
  * as_database_find_components:
+ * @self: a valid #AsDatabase instance
+ * @query: a #AsSearchQuery
  *
  * Find components in the Appstream database.
- *
- * @self a valid #AsDatabase instance
- * @query a #AsSearchQuery
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
@@ -174,12 +173,11 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query)
 
 /**
  * as_database_find_components_by_str:
+ * @self: a valid #AsDatabase instance
+ * @search_str: the string to search for
+ * @categories_str: (allow-none) (default NULL): a comma-separated list of category names, or NULL to search in all categories
  *
  * Find components in the Appstream database by searching for a simple string.
- *
- * @self a valid #AsDatabase instance
- * @search_str the string to search for
- * @categories_str (allow-none) (default NULL): a comma-separated list of category names, or NULL to search in all categories
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
@@ -204,11 +202,10 @@ as_database_find_components_by_str (AsDatabase* self, const gchar* search_str, c
 
 /**
  * as_database_get_component_by_id:
+ * @self: a valid #AsDatabase instance
+ * @idname: the ID of the component
  *
  * Get a component by it's ID
- *
- * @self a valid #AsDatabase instance
- * @idname the ID of the component
  *
  * Returns: (transfer full): an #AsComponent or NULL if none was found
  **/
@@ -223,13 +220,12 @@ as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
 
 /**
  * as_database_get_components_by_provides:
- *
- * Find components in the Appstream database.
- *
  * @self a valid #AsDatabase instance
  * @kind an #AsProvidesKind
  * @value a value of the selected provides kind
  * @data (allow-none) (default NULL): additional provides data
+ *
+ * Find components in the Appstream database.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */

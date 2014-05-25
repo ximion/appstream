@@ -936,7 +936,7 @@ as_component_set_keywords (AsComponent* self, gchar** value)
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->keywords);
-	self->priv->keywords = as_strv_dup (value);
+	self->priv->keywords = g_strdupv (value);
 	g_object_notify ((GObject *) self, "keywords");
 }
 
@@ -993,7 +993,7 @@ as_component_set_categories (AsComponent* self, gchar** value)
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->categories);
-	self->priv->categories = as_strv_dup (value);
+	self->priv->categories = g_strdupv (value);
 	g_object_notify ((GObject *) self, "categories");
 }
 
@@ -1059,7 +1059,7 @@ as_component_set_mimetypes (AsComponent* self, gchar** value)
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->mimetypes);
-	self->priv->mimetypes = as_strv_dup (value);
+	self->priv->mimetypes = g_strdupv (value);
 	g_object_notify ((GObject *) self, "mimetypes");
 }
 
@@ -1155,7 +1155,7 @@ as_component_set_compulsory_for_desktops (AsComponent* self, gchar** value)
 	g_return_if_fail (self != NULL);
 
 	g_strfreev (self->priv->compulsory_for_desktops);
-	self->priv->compulsory_for_desktops = as_strv_dup (value);
+	self->priv->compulsory_for_desktops = g_strdupv (value);
 }
 
 /**

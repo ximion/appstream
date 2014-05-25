@@ -267,35 +267,41 @@ as_data_pool_get_components (AsDataPool *dpool)
 
 /**
  * as_data_pool_set_xml_paths:
+ * @values: (allow-none): The new absolute paths to AppStream XML data
+ *
  */
 void
 as_data_pool_set_xml_paths (AsDataPool *dpool, gchar** values)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 	g_strfreev (priv->asxml_paths);
-	priv->asxml_paths = as_strv_dup (values);
+	priv->asxml_paths = g_strdupv (values);
 }
 
 /**
  * as_data_pool_set_dep11_paths:
+ * @values: (allow-none): The new absolute paths to AppStream DEP-11 YAML data
+ *
  */
 void
 as_data_pool_set_dep11_paths (AsDataPool *dpool, gchar** values)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 	g_strfreev (priv->dep11_paths);
-	priv->dep11_paths = as_strv_dup (values);
+	priv->dep11_paths = g_strdupv (values);
 }
 
 /**
  * as_data_pool_set_appinstall_paths:
+ * @values: (allow-none): The new absolute paths to AppInstall data
+ *
  */
 void
 as_data_pool_set_appinstall_paths (AsDataPool *dpool, gchar** values)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 	g_strfreev (priv->appinstall_paths);
-	priv->appinstall_paths = as_strv_dup (values);
+	priv->appinstall_paths = g_strdupv (values);
 }
 
 /**

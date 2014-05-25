@@ -33,7 +33,6 @@ GPtrArray*		as_utils_categories_from_str (const gchar* categories_str, GPtrArray
 GPtrArray*		as_utils_find_files_matching (const gchar* dir, const gchar* pattern, gboolean recursive);
 GPtrArray*		as_utils_find_files (const gchar* dir, gboolean recursive);
 gboolean		as_utils_is_root (void);
-gchar**			as_strv_dup (gchar** strv);
 gchar*			as_str_replace (const gchar* str, const gchar* old_str, const gchar* new_str);
 
 G_END_DECLS
