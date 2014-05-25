@@ -141,6 +141,7 @@ main (int argc, char *argv[])
 	gboolean no_color = FALSE;
 	GError *error = NULL;
 	guint retval = 1;
+	guint i;
 
 	const GOptionEntry options[] = {
 		{ "verbose", 0, 0, G_OPTION_ARG_NONE, &verbose,
@@ -188,7 +189,14 @@ main (int argc, char *argv[])
 		goto out;
 	}
 
-	ret = validate_file (argv[1], !no_color);
+	ret = TRUE;
+	for (i = 1; i < argc; i++) {
+		gboolean tmp_ret;
+		tmp_ret = validate_file (argv[i], !no_color);
+		if (!tmp_ret)
+			ret = FALSE;
+	}
+
 	if (!ret) {
 		g_print ("%s\n",
 				 _("Validation failed."));
