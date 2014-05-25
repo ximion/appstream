@@ -60,7 +60,6 @@ struct _AsComponentPrivate {
 	gchar *icon;
 	gchar *icon_url;
 	gchar **categories;
-	gchar **mimetypes;
 	gchar *project_license;
 	gchar *project_group;
 	gchar **compulsory_for_desktops;
@@ -89,7 +88,6 @@ enum  {
 	AS_COMPONENT_ICON_URL,
 	AS_COMPONENT_URLS,
 	AS_COMPONENT_CATEGORIES,
-	AS_COMPONENT_MIMETYPES,
 	AS_COMPONENT_PROJECT_LICENSE,
 	AS_COMPONENT_SCREENSHOTS
 };
@@ -930,6 +928,10 @@ as_component_get_keywords (AsComponent* self)
 	return self->priv->keywords;
 }
 
+/**
+ * as_component_set_keywords:
+ * @value: (array zero-terminated=1):
+ */
 void
 as_component_set_keywords (AsComponent* self, gchar** value)
 {
@@ -987,6 +989,10 @@ as_component_get_categories (AsComponent* self)
 	return self->priv->categories;
 }
 
+/**
+ * as_component_set_categories:
+ * @value: (array zero-terminated=1):
+ */
 void
 as_component_set_categories (AsComponent* self, gchar** value)
 {
@@ -1038,29 +1044,6 @@ as_component_has_category (AsComponent* self, const gchar* category)
 	}
 
 	return FALSE;
-}
-
-/**
- * as_component_get_mimetypes:
- *
- * Returns: (transfer full): String array of mimetype identifiers
- */
-gchar**
-as_component_get_mimetypes (AsComponent* self)
-{
-	g_return_val_if_fail (self != NULL, NULL);
-
-	return self->priv->mimetypes;
-}
-
-void
-as_component_set_mimetypes (AsComponent* self, gchar** value)
-{
-	g_return_if_fail (self != NULL);
-
-	g_strfreev (self->priv->mimetypes);
-	self->priv->mimetypes = g_strdupv (value);
-	g_object_notify ((GObject *) self, "mimetypes");
 }
 
 /**
@@ -1286,7 +1269,6 @@ as_component_class_init (AsComponentClass * klass)
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_ICON_URL, g_param_spec_string ("icon-url", "icon-url", "icon-url", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_URLS, g_param_spec_boxed ("urls", "urls", "urls", G_TYPE_HASH_TABLE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_CATEGORIES, g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_MIMETYPES, g_param_spec_boxed ("mimetypes", "mimetypes", "mimetypes", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PROJECT_LICENSE, g_param_spec_string ("project-license", "project-license", "project-license", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_SCREENSHOTS, g_param_spec_boxed ("screenshots", "screenshots", "screenshots", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 }
@@ -1316,7 +1298,6 @@ as_component_finalize (GObject* obj)
 	g_free (self->priv->project_group);
 	g_strfreev (self->priv->keywords);
 	g_strfreev (self->priv->categories);
-	g_strfreev (self->priv->mimetypes);
 	g_strfreev (self->priv->compulsory_for_desktops);
 	g_ptr_array_unref (self->priv->screenshots);
 	g_ptr_array_unref (self->priv->provided_items);
@@ -1398,9 +1379,6 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_CATEGORIES:
 			g_value_set_boxed (value, as_component_get_categories (self));
 			break;
-		case AS_COMPONENT_MIMETYPES:
-			g_value_set_boxed (value, as_component_get_mimetypes (self));
-			break;
 		case AS_COMPONENT_PROJECT_LICENSE:
 			g_value_set_string (value, as_component_get_project_license (self));
 			break;
@@ -1452,9 +1430,6 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			break;
 		case AS_COMPONENT_CATEGORIES:
 			as_component_set_categories (self, g_value_get_boxed (value));
-			break;
-		case AS_COMPONENT_MIMETYPES:
-			as_component_set_mimetypes (self, g_value_get_boxed (value));
 			break;
 		case AS_COMPONENT_PROJECT_LICENSE:
 			as_component_set_project_license (self, g_value_get_string (value));

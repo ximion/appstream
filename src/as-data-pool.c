@@ -189,7 +189,7 @@ as_data_pool_initialize (AsDataPool *dpool)
  *
  * Return a list of all locations which are searched for metadata.
  *
- * Returns: A string-list of watched (absolute) filepaths
+ * Returns: (transfer full): A string-list of watched (absolute) filepaths
  **/
 gchar**
 as_data_pool_get_watched_locations (AsDataPool *dpool)
@@ -267,8 +267,7 @@ as_data_pool_get_components (AsDataPool *dpool)
 
 /**
  * as_data_pool_set_xml_paths:
- * @values: (allow-none): The new absolute paths to AppStream XML data
- *
+ * @values: (allow-none) (array zero-terminated=1): The new absolute paths to AppStream XML data
  */
 void
 as_data_pool_set_xml_paths (AsDataPool *dpool, gchar** values)
@@ -280,8 +279,7 @@ as_data_pool_set_xml_paths (AsDataPool *dpool, gchar** values)
 
 /**
  * as_data_pool_set_dep11_paths:
- * @values: (allow-none): The new absolute paths to AppStream DEP-11 YAML data
- *
+ * @values: (allow-none) (array zero-terminated=1): The new absolute paths to AppStream DEP-11 YAML data
  */
 void
 as_data_pool_set_dep11_paths (AsDataPool *dpool, gchar** values)
@@ -293,8 +291,7 @@ as_data_pool_set_dep11_paths (AsDataPool *dpool, gchar** values)
 
 /**
  * as_data_pool_set_appinstall_paths:
- * @values: (allow-none): The new absolute paths to AppInstall data
- *
+ * @values: (allow-none) (array zero-terminated=1): The new absolute paths to AppInstall data
  */
 void
 as_data_pool_set_appinstall_paths (AsDataPool *dpool, gchar** values)

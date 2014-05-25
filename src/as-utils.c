@@ -395,6 +395,12 @@ as_string_strip (const gchar* str)
 	return result;
 }
 
+/**
+ * as_ptr_array_to_strv:
+ * @array: (element-type utf8)
+ *
+ * Returns: (transfer full): strv of the string array
+ */
 gchar**
 as_ptr_array_to_strv (GPtrArray *array)
 {

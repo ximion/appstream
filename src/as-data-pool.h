@@ -70,9 +70,9 @@ GList*			as_data_pool_get_components (AsDataPool *dpool);
 void			as_data_pool_set_xml_paths (AsDataPool *dpool,
 											gchar** values);
 void			as_data_pool_set_dep11_paths (AsDataPool *dpool,
-											  gchar** values);
+											gchar** values);
 void			as_data_pool_set_appinstall_paths (AsDataPool *dpool,
-												   gchar** values);
+											gchar** values);
 
 G_END_DECLS
 
