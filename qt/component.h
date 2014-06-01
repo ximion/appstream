@@ -23,9 +23,9 @@
 #include <QtCore>
 #include "appstream-qt_global.h"
 
-namespace Appstream {
-
 typedef struct _AsComponent AsComponent;
+
+namespace Appstream {
 
 class ASQTSHARED_EXPORT Component : QObject
 {
@@ -42,19 +42,53 @@ public:
         KindInputmethod
     };
 
-    Component();
+    Component(QObject *parent = 0);
     ~Component();
 
     QString toString();
 
-    Component::Kind getKind ();
+    Kind getKind ();
     void setKind (Component::Kind kind);
+    static QString kindToString(Component::Kind kind);
+    static Kind kindFromString(QString kind_str);
 
     QString getId();
     void setId(QString id);
 
-    QString getPkgname();
-    void setPkgname(QString pkgname);
+    QString getPkgName();
+    void setPkgName(QString pkgname);
+
+    QString getName();
+    void setName(QString name);
+
+    QString getSummary();
+    void setSummary(QString summary);
+
+    QString getDescription();
+    void setDescription(QString description);
+
+    QString getProjectLicense();
+    void setProjectLicense(QString license);
+
+    QString getProjectGroup();
+    void setProjectGroup(QString group);
+
+    QStringList getCompulsoryForDesktops();
+    void setCompulsoryForDesktops(QStringList desktops);
+    bool isCompulsoryForDesktop(QString desktop);
+
+    QStringList getCategories();
+    void setCategories(QStringList categories);
+    bool hasCategory(QString category);
+
+    QString getIcon();
+    void setIcon(QString icon);
+
+    QString getIconUrl();
+    void setIconUrl(QString iconUrl);
+
+    /** internal */
+    Component(AsComponent *cpt, QObject *parent = 0);
 
 private:
     AsComponent *m_cpt;

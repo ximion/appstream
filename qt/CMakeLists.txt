@@ -7,16 +7,23 @@ pkg_check_modules(GIO2 REQUIRED gio-2.0)
 set(QAPPSTREAM_LIB_API_LEVEL "0")
 
 set(QAPPSTREAM_SRC
+	utils.cpp
 	component.cpp
+	database.cpp
 )
 
 set(QAPPSTREAM_PUBLIC_HEADERS
 	appstream-qt.h
 	appstream-qt_global.h
 	component.h
+	database.h
 )
 
-add_library(appstream-qt SHARED ${QAPPSTREAM_SRC} ${QAPPSTREAM_PUBLIC_HEADERS})
+set(QAPPSTREAM_PRIVATE_HEADERS
+	utils-private.h
+)
+
+add_library(appstream-qt SHARED ${QAPPSTREAM_SRC} ${QAPPSTREAM_PUBLIC_HEADERS} ${QAPPSTREAM_PRIVATE_HEADERS})
 add_dependencies(appstream-qt appstream)
 set_target_properties(appstream-qt PROPERTIES VERSION ${AS_VERSION} SOVERSION ${QAPPSTREAM_LIB_API_LEVEL})
 

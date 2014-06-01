@@ -116,6 +116,14 @@ const gchar* 		as_component_get_name_original (AsComponent* self);
 void				as_component_set_name_original (AsComponent* self,
 													const gchar* value);
 
+const gchar*		as_component_get_summary (AsComponent* self);
+void				as_component_set_summary (AsComponent* self,
+											  const gchar* value);
+
+const gchar*		as_component_get_description (AsComponent* self);
+void				as_component_set_description (AsComponent* self,
+												  const gchar* value);
+
 const gchar* 		as_component_get_project_license (AsComponent* self);
 void				as_component_set_project_license (AsComponent* self,
 													  const gchar* value);
@@ -130,10 +138,6 @@ void				as_component_set_compulsory_for_desktops (AsComponent* self,
 gboolean			as_component_is_compulsory_for_desktop (AsComponent* self,
 															  const gchar* desktop);
 
-const gchar*		as_component_get_summary (AsComponent* self);
-void				as_component_set_summary (AsComponent* self,
-											  const gchar* value);
-
 gchar**				as_component_get_categories (AsComponent* self);
 void				as_component_set_categories (AsComponent* self,
 												 gchar** value);
@@ -145,10 +149,6 @@ gboolean			as_component_has_category (AsComponent *self,
 GPtrArray*			as_component_get_screenshots (AsComponent* self);
 void				as_component_add_screenshot (AsComponent* self,
 												 AsScreenshot* sshot);
-
-const gchar*		as_component_get_description (AsComponent* self);
-void				as_component_set_description (AsComponent* self,
-												  const gchar* value);
 
 gchar**				as_component_get_keywords (AsComponent* self);
 void				as_component_set_keywords (AsComponent* self,
