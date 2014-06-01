@@ -17,33 +17,50 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DATABASE_H
-#define DATABASE_H
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include <QtCore>
 #include "appstream-qt_global.h"
-#include "component.h"
 
 namespace Appstream {
 
-class DatabasePrivate;
+class ImagePrivate;
 
-class ASQTSHARED_EXPORT Database : QObject
+class ASQTSHARED_EXPORT Image : QObject
 {
     Q_OBJECT
+    Q_ENUMS(Kind)
 
 public:
-    Database(QObject *parent = 0);
-    ~Database();
+    enum Kind  {
+        KindUnknown,
+        KindSource,
+        KindThumbnail
+    };
 
-    bool open();
+    Image(QObject *parent = 0);
+    ~Image();
 
-    QList<Component*> *getAllComponents();
+    Kind getKind();
+    void setKind(Kind kind);
+
+    static QString kindToString(Kind kind);
+    static Kind kindFromString(QString kind_str);
+
+    QString getUrl();
+    void setUrl(QString url);
+
+    int getWidth();
+    void setWidth(int width);
+
+    int getHeight();
+    void setHeight(int height);
 
 private:
-    DatabasePrivate *priv;
+    ImagePrivate *priv;
 };
 
 } // End of namespace: Appstream
 
-#endif // DATABASE_H
+#endif // IMAGE_H

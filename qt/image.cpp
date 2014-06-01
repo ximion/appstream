@@ -18,63 +18,94 @@
  */
 
 #include "appstream.h"
-#include "database.h"
+#include "image.h"
 
 using namespace Appstream;
 
-class Appstream::DatabasePrivate
+class Appstream::ImagePrivate
 {
 public:
-    DatabasePrivate()
+    ImagePrivate()
     {
-        db = as_database_new ();
     }
 
-    ~DatabasePrivate() {
-        g_object_unref (db);
+    ~ImagePrivate() {
     }
 
-    AsDatabase *db;
+    QString url;
+    int width;
+    int height;
+    Image::Kind kind;
 };
 
-Database::Database(QObject *parent)
+Image::Image(QObject *parent)
     : QObject(parent)
 {
-    priv = new DatabasePrivate();
+    priv = new ImagePrivate();
 }
 
-Database::~Database()
+Image::~Image()
 {
     delete priv;
 }
 
-bool
-Database::open()
+Image::Kind
+Image::getKind()
 {
-    return as_database_open(priv->db);
+    return priv->kind;
 }
 
-QList<Component*>*
-Database::getAllComponents()
+void
+Image::setKind(Image::Kind kind)
 {
-    QList<Component*> *cpts;
-    GPtrArray *array;
+    priv->kind = kind;
+}
 
-    cpts = new QList<Component*> ();
-    array = as_database_get_all_components(priv->db);
-    if (array->len == 0) {
-        goto out;
-    }
+QString
+Image::kindToString(Image::Kind kind)
+{
+    return QString::fromUtf8(as_image_kind_to_string ((AsImageKind) kind));
 
-    for (unsigned int i = 0; i < array->len; i++) {
-        AsComponent *as_cpt;
-        as_cpt = (AsComponent*) g_ptr_array_index (array, i);
-        g_object_ref(as_cpt);
-        Component *cpt = new Component(as_cpt);
-        cpts->append(cpt);
-    }
+}
 
-out:
-    g_ptr_array_unref (array);
-    return cpts;
+Image::Kind
+Image::kindFromString(QString kind_str)
+{
+    return (Image::Kind) as_image_kind_from_string (qPrintable(kind_str));
+}
+
+QString
+Image::getUrl()
+{
+    return priv->url;
+}
+
+void
+Image::setUrl(QString url)
+{
+    priv->url = url;
+}
+
+int
+Image::getWidth()
+{
+    return priv->width;
+}
+
+void
+Image::setWidth(int width)
+{
+    priv->width = width;
+}
+
+int
+Image::getHeight()
+{
+    return priv->height;
+}
+
+void
+Image::setHeight(int height)
+{
+    priv->height = height;
 }

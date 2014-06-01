@@ -27,6 +27,8 @@ typedef struct _AsComponent AsComponent;
 
 namespace Appstream {
 
+class ComponentPrivate;
+
 class ASQTSHARED_EXPORT Component : QObject
 {
     Q_OBJECT
@@ -91,7 +93,7 @@ public:
     Component(AsComponent *cpt, QObject *parent = 0);
 
 private:
-    AsComponent *m_cpt;
+    ComponentPrivate *priv;
 };
 
 } // End of namespace: Appstream

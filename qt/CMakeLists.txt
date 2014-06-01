@@ -10,6 +10,8 @@ set(QAPPSTREAM_SRC
 	utils.cpp
 	component.cpp
 	database.cpp
+	screenshot.cpp
+	image.cpp
 )
 
 set(QAPPSTREAM_PUBLIC_HEADERS
@@ -17,6 +19,8 @@ set(QAPPSTREAM_PUBLIC_HEADERS
 	appstream-qt_global.h
 	component.h
 	database.h
+	screenshot.h
+	image.h
 )
 
 set(QAPPSTREAM_PRIVATE_HEADERS

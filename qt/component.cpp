@@ -23,21 +23,39 @@
 
 using namespace Appstream;
 
+class Appstream::ComponentPrivate
+{
+public:
+    ComponentPrivate(bool create_ascpt = true)
+    {
+        if (create_ascpt)
+            cpt = as_component_new ();
+    }
+
+    ~ComponentPrivate() {
+        g_object_unref (cpt);
+    }
+
+    AsComponent *cpt;
+};
+
 Component::Component(QObject *parent)
     : QObject(parent)
 {
-    m_cpt = as_component_new ();
+
+    priv = new ComponentPrivate();
 }
 
 Component::Component(AsComponent *cpt, QObject *parent)
     : QObject(parent)
 {
-    m_cpt = cpt;
+    priv = new ComponentPrivate(false);
+    priv->cpt = cpt;
 }
 
 Component::~Component()
 {
-    g_object_unref (m_cpt);
+    delete priv;
 }
 
 QString
@@ -46,7 +64,7 @@ Component::toString()
     gchar *str;
     QString qstr;
 
-    str = as_component_to_string (m_cpt);
+    str = as_component_to_string (priv->cpt);
     qstr = QString::fromUtf8 (str);
     return qstr;
 }
@@ -54,13 +72,13 @@ Component::toString()
 Component::Kind
 Component::getKind()
 {
-    return (Component::Kind) as_component_get_kind (m_cpt);
+    return (Component::Kind) as_component_get_kind (priv->cpt);
 }
 
 void
 Component::setKind(Component::Kind kind)
 {
-    as_component_set_kind (m_cpt, (AsComponentKind) kind);
+    as_component_set_kind (priv->cpt, (AsComponentKind) kind);
 }
 
 QString
@@ -80,91 +98,91 @@ Component::kindFromString(QString kind_str)
 QString
 Component::getId()
 {
-    return QString::fromUtf8(as_component_get_id(m_cpt));
+    return QString::fromUtf8(as_component_get_id(priv->cpt));
 }
 
 void
 Component::setId(QString id)
 {
-    as_component_set_id(m_cpt, qPrintable(id));
+    as_component_set_id(priv->cpt, qPrintable(id));
 }
 
 QString
 Component::getPkgName()
 {
-    return QString::fromUtf8(as_component_get_pkgname(m_cpt));
+    return QString::fromUtf8(as_component_get_pkgname(priv->cpt));
 }
 
 void
 Component::setPkgName(QString pkgname)
 {
-    as_component_set_pkgname(m_cpt, qPrintable(pkgname));
+    as_component_set_pkgname(priv->cpt, qPrintable(pkgname));
 }
 
 QString
 Component::getName()
 {
-    return QString::fromUtf8(as_component_get_name(m_cpt));
+    return QString::fromUtf8(as_component_get_name(priv->cpt));
 }
 
 void
 Component::setName(QString name)
 {
-    as_component_set_name(m_cpt, qPrintable(name));
+    as_component_set_name(priv->cpt, qPrintable(name));
 }
 
 QString
 Component::getSummary()
 {
-    return QString::fromUtf8(as_component_get_summary(m_cpt));
+    return QString::fromUtf8(as_component_get_summary(priv->cpt));
 }
 
 void
 Component::setSummary(QString summary)
 {
-    as_component_set_summary(m_cpt, qPrintable(summary));
+    as_component_set_summary(priv->cpt, qPrintable(summary));
 }
 
 QString
 Component::getDescription()
 {
-    return QString::fromUtf8(as_component_get_description(m_cpt));
+    return QString::fromUtf8(as_component_get_description(priv->cpt));
 }
 
 void
 Component::setDescription(QString description)
 {
-    as_component_set_description(m_cpt, qPrintable(description));
+    as_component_set_description(priv->cpt, qPrintable(description));
 }
 
 QString
 Component::getProjectLicense()
 {
-    return QString::fromUtf8(as_component_get_project_license(m_cpt));
+    return QString::fromUtf8(as_component_get_project_license(priv->cpt));
 }
 
 void
 Component::setProjectLicense(QString license)
 {
-    as_component_set_project_license(m_cpt, qPrintable(license));
+    as_component_set_project_license(priv->cpt, qPrintable(license));
 }
 
 QString
 Component::getProjectGroup()
 {
-    return QString::fromUtf8(as_component_get_project_group(m_cpt));
+    return QString::fromUtf8(as_component_get_project_group(priv->cpt));
 }
 
 void
 Component::setProjectGroup(QString group)
 {
-    as_component_set_project_group(m_cpt, qPrintable(group));
+    as_component_set_project_group(priv->cpt, qPrintable(group));
 }
 
 QStringList
 Component::getCompulsoryForDesktops()
 {
-    return strv_to_stringlist(as_component_get_compulsory_for_desktops(m_cpt));
+    return strv_to_stringlist(as_component_get_compulsory_for_desktops(priv->cpt));
 }
 
 void
@@ -172,20 +190,20 @@ Component::setCompulsoryForDesktops(QStringList desktops)
 {
     gchar **strv;
     strv = stringlist_to_strv(desktops);
-    as_component_set_compulsory_for_desktops(m_cpt, strv);
+    as_component_set_compulsory_for_desktops(priv->cpt, strv);
     g_strfreev(strv);
 }
 
 bool
 Component::isCompulsoryForDesktop(QString desktop)
 {
-    return as_component_is_compulsory_for_desktop(m_cpt, qPrintable(desktop));
+    return as_component_is_compulsory_for_desktop(priv->cpt, qPrintable(desktop));
 }
 
 QStringList
 Component::getCategories()
 {
-    return strv_to_stringlist(as_component_get_categories(m_cpt));
+    return strv_to_stringlist(as_component_get_categories(priv->cpt));
 }
 
 void
@@ -193,36 +211,36 @@ Component::setCategories(QStringList categories)
 {
     gchar **strv;
     strv = stringlist_to_strv(categories);
-    as_component_set_categories(m_cpt, strv);
+    as_component_set_categories(priv->cpt, strv);
     g_strfreev(strv);
 }
 
 bool
 Component::hasCategory(QString category)
 {
-    return as_component_has_category(m_cpt, qPrintable(category));
+    return as_component_has_category(priv->cpt, qPrintable(category));
 }
 
 QString
 Component::getIcon()
 {
-    return QString::fromUtf8(as_component_get_icon(m_cpt));
+    return QString::fromUtf8(as_component_get_icon(priv->cpt));
 }
 
 void
 Component::setIcon(QString icon)
 {
-    as_component_set_icon(m_cpt, qPrintable(icon));
+    as_component_set_icon(priv->cpt, qPrintable(icon));
 }
 
 QString
 Component::getIconUrl()
 {
-    return QString::fromUtf8(as_component_get_icon_url(m_cpt));
+    return QString::fromUtf8(as_component_get_icon_url(priv->cpt));
 }
 
 void
 Component::setIconUrl(QString icon_url)
 {
-    as_component_set_icon_url(m_cpt, qPrintable(icon_url));
+    as_component_set_icon_url(priv->cpt, qPrintable(icon_url));
 }

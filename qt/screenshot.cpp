@@ -18,63 +18,71 @@
  */
 
 #include "appstream.h"
-#include "database.h"
+#include "screenshot.h"
 
 using namespace Appstream;
 
-class Appstream::DatabasePrivate
+class Appstream::ScreenshotPrivate
 {
 public:
-    DatabasePrivate()
+    ScreenshotPrivate()
     {
-        db = as_database_new ();
+        images = new QList<Image*> ();
     }
 
-    ~DatabasePrivate() {
-        g_object_unref (db);
+    ~ScreenshotPrivate() {
+        delete images;
     }
 
-    AsDatabase *db;
+    Screenshot::Kind kind;
+    QString caption;
+    QList<Image*> *images;
 };
 
-Database::Database(QObject *parent)
+Screenshot::Screenshot(QObject *parent)
     : QObject(parent)
 {
-    priv = new DatabasePrivate();
+    priv = new ScreenshotPrivate();
 }
 
-Database::~Database()
+Screenshot::~Screenshot()
 {
     delete priv;
 }
 
-bool
-Database::open()
+QString
+Screenshot::kindToString(Screenshot::Kind kind)
 {
-    return as_database_open(priv->db);
+    return QString::fromUtf8(as_screenshot_kind_to_string ((AsScreenshotKind) kind));
+
 }
 
-QList<Component*>*
-Database::getAllComponents()
+Screenshot::Kind
+Screenshot::kindFromString(QString kind_str)
 {
-    QList<Component*> *cpts;
-    GPtrArray *array;
+    return (Screenshot::Kind) as_screenshot_kind_from_string (qPrintable(kind_str));
+}
 
-    cpts = new QList<Component*> ();
-    array = as_database_get_all_components(priv->db);
-    if (array->len == 0) {
-        goto out;
-    }
+QString
+Screenshot::getCaption()
+{
+    return priv->caption;
+}
 
-    for (unsigned int i = 0; i < array->len; i++) {
-        AsComponent *as_cpt;
-        as_cpt = (AsComponent*) g_ptr_array_index (array, i);
-        g_object_ref(as_cpt);
-        Component *cpt = new Component(as_cpt);
-        cpts->append(cpt);
-    }
+void
+Screenshot::setCaption(QString caption)
+{
+    priv->caption = caption;
+}
 
-out:
-    g_ptr_array_unref (array);
-    return cpts;
+void
+Screenshot::addImage(Image *image)
+{
+    priv->images->append(image);
+}
+
+QList<Image*>*
+Screenshot::getImages()
+{
+    return priv->images;
 }
