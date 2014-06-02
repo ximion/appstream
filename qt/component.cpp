@@ -233,14 +233,19 @@ Component::setIcon(QString icon)
     as_component_set_icon(priv->cpt, qPrintable(icon));
 }
 
-QString
+QUrl
 Component::getIconUrl()
 {
-    return QString::fromUtf8(as_component_get_icon_url(priv->cpt));
+    QString iconUrl = QString::fromUtf8(as_component_get_icon_url(priv->cpt));
+    if (!iconUrl.isEmpty()) {
+        if (iconUrl[0] == '/')
+            iconUrl = "file://" + iconUrl;
+    }
+    return QUrl(iconUrl);
 }
 
 void
-Component::setIconUrl(QString icon_url)
+Component::setIconUrl(QUrl icon_url)
 {
-    as_component_set_icon_url(priv->cpt, qPrintable(icon_url));
+    as_component_set_icon_url(priv->cpt, qPrintable(icon_url.toString()));
 }

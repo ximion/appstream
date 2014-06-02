@@ -9,12 +9,12 @@ AsIntf::AsIntf(QObject *parent) :
     asdb->open();
 }
 
-QString
-AsIntf::simple_test()
+QQmlListProperty<Appstream::Component>
+AsIntf::getAllComponents()
 {
-    QString name = "No component found!";
-    QList<Component*> *cpts = asdb->getAllComponents();
-    if (!cpts->isEmpty())
-        name = cpts->first()->getName();
-    return name;
+    m_cpts = asdb->getAllComponents();
+
+    QQmlListProperty<Appstream::Component> list(this, m_cpts);
+
+    return list;
 }

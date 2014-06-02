@@ -29,7 +29,7 @@ namespace Appstream {
 
 class ComponentPrivate;
 
-class ASQTSHARED_EXPORT Component : QObject
+class ASQTSHARED_EXPORT Component : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Kind)
@@ -54,40 +54,51 @@ public:
     static QString kindToString(Component::Kind kind);
     static Kind kindFromString(QString kind_str);
 
+    Q_PROPERTY(QString id READ getId WRITE setId)
     QString getId();
     void setId(QString id);
 
+    Q_PROPERTY(QString pkgName READ getPkgName WRITE setPkgName)
     QString getPkgName();
     void setPkgName(QString pkgname);
 
+    Q_PROPERTY(QString name READ getName WRITE setName)
     QString getName();
     void setName(QString name);
 
+    Q_PROPERTY(QString summary READ getSummary WRITE setSummary)
     QString getSummary();
     void setSummary(QString summary);
 
+    Q_PROPERTY(QString description READ getDescription WRITE setDescription)
     QString getDescription();
     void setDescription(QString description);
 
+    Q_PROPERTY(QString projectLicense READ getProjectLicense WRITE setProjectLicense)
     QString getProjectLicense();
     void setProjectLicense(QString license);
 
+    Q_PROPERTY(QString projectGroup READ getProjectGroup WRITE setProjectGroup)
     QString getProjectGroup();
     void setProjectGroup(QString group);
 
+    Q_PROPERTY(QStringList compulsoryForDesktops READ getCompulsoryForDesktops WRITE setCompulsoryForDesktops)
     QStringList getCompulsoryForDesktops();
     void setCompulsoryForDesktops(QStringList desktops);
     bool isCompulsoryForDesktop(QString desktop);
 
+    Q_PROPERTY(QStringList categories READ getCategories WRITE setCategories)
     QStringList getCategories();
     void setCategories(QStringList categories);
     bool hasCategory(QString category);
 
+    Q_PROPERTY(QString icon READ getIcon WRITE setIcon)
     QString getIcon();
     void setIcon(QString icon);
 
-    QString getIconUrl();
-    void setIconUrl(QString iconUrl);
+    Q_PROPERTY(QUrl iconUrl READ getIconUrl WRITE setIconUrl)
+    QUrl getIconUrl();
+    void setIconUrl(QUrl iconUrl);
 
     /** internal */
     Component(AsComponent *cpt, QObject *parent = 0);

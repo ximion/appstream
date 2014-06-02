@@ -27,7 +27,7 @@ namespace Appstream {
 
 class ImagePrivate;
 
-class ASQTSHARED_EXPORT Image : QObject
+class ASQTSHARED_EXPORT Image : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Kind)

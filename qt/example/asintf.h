@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <appstream-qt.h>
+#include <QQmlListProperty>
 
 class AsIntf : public QObject
 {
@@ -10,7 +11,8 @@ class AsIntf : public QObject
 public:
     explicit AsIntf(QObject *parent = 0);
 
-    Q_INVOKABLE QString simple_test();
+    Q_PROPERTY(QQmlListProperty<Appstream::Component> allComponents READ getAllComponents CONSTANT)
+    QQmlListProperty<Appstream::Component> getAllComponents();
 
 signals:
 
@@ -18,6 +20,7 @@ public slots:
 
 private:
     Appstream::Database *asdb;
+    QList<Appstream::Component*> m_cpts;
 
 };
 

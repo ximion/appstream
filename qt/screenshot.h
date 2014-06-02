@@ -28,7 +28,7 @@ namespace Appstream {
 
 class ScreenshotPrivate;
 
-class ASQTSHARED_EXPORT Screenshot : QObject
+class ASQTSHARED_EXPORT Screenshot : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Kind)

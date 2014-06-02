@@ -54,16 +54,15 @@ Database::open()
     return as_database_open(priv->db);
 }
 
-QList<Component*>*
+QList<Component*>
 Database::getAllComponents()
 {
-    QList<Component*> *cpts;
+	QList<Component*> cpts;
     GPtrArray *array;
 
-    cpts = new QList<Component*> ();
     array = as_database_get_all_components(priv->db);
-	if (array == NULL)
-		return cpts;
+    if (array == NULL)
+        return cpts;
     if (array->len == 0) {
         goto out;
     }
@@ -73,7 +72,7 @@ Database::getAllComponents()
         as_cpt = (AsComponent*) g_ptr_array_index (array, i);
         g_object_ref(as_cpt);
         Component *cpt = new Component(as_cpt);
-        cpts->append(cpt);
+        cpts.append(cpt);
     }
 
 out:

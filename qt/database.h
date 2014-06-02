@@ -28,7 +28,7 @@ namespace Appstream {
 
 class DatabasePrivate;
 
-class ASQTSHARED_EXPORT Database : QObject
+class ASQTSHARED_EXPORT Database : public QObject
 {
     Q_OBJECT
 
@@ -38,7 +38,7 @@ public:
 
     bool open();
 
-    QList<Component*> *getAllComponents();
+    QList<Component*> getAllComponents();
 
 private:
     DatabasePrivate *priv;
