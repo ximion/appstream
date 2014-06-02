@@ -1,5 +1,7 @@
 # CMakeLists for appstream-qt
 
+set(CMAKE_AUTOMOC ON)
+
 find_package(Qt5Core REQUIRED)
 find_package(GLIB2 2.36 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
@@ -41,6 +43,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 		    ${Qt5Core_INCLUDES}
 )
 
+link_directories (${CMAKE_BINARY_DIR}/src)
+
 target_link_libraries(appstream-qt
 		appstream
 		${GLIB2_LIBRARIES}
@@ -53,3 +57,5 @@ configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream-qt.pc.in ${CMAKE_CURRENT_B
 install(TARGETS appstream-qt DESTINATION ${INSTALL_DIR_LIB})
 install(FILES ${QAPPSTREAM_PUBLIC_HEADERS} DESTINATION include/Appstream-Qt)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream-qt.pc DESTINATION ${INSTALL_DIR_LIB}/pkgconfig/)
+
+add_subdirectory(example)

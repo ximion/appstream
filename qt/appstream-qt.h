@@ -21,5 +21,8 @@
 #define APPSTREAMQT_H
 
 #include <component.h>
+#include <database.h>
+#include <screenshot.h>
+#include <image.h>
 
 #endif // APPSTREAMQT_H

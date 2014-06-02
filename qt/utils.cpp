@@ -23,7 +23,7 @@
 using namespace Appstream;
 
 QStringList
-strv_to_stringlist(gchar **strv)
+Appstream::strv_to_stringlist(gchar **strv)
 {
     QStringList list;
     if (strv == NULL)
@@ -36,7 +36,7 @@ strv_to_stringlist(gchar **strv)
 }
 
 gchar **
-stringlist_to_strv(QStringList list)
+Appstream::stringlist_to_strv(QStringList list)
 {
     gchar **strv;
 

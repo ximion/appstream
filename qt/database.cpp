@@ -62,6 +62,8 @@ Database::getAllComponents()
 
     cpts = new QList<Component*> ();
     array = as_database_get_all_components(priv->db);
+	if (array == NULL)
+		return cpts;
     if (array->len == 0) {
         goto out;
     }
