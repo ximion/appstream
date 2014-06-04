@@ -122,7 +122,7 @@
 				<para>
 					This is a recommended tag for links of type <code>homepage</code>.
 					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
-					See See <xref linkend="spec-component-filespec-url"/> for a description of this tag.
+					See See <xref linkend="tag-url"/> for a description of this tag.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -131,7 +131,7 @@
 			<term>&lt;provides/&gt;</term>
 			<listitem>
 				<para>
-					This tag is described for generic components at <xref linkend="spec-component-filespec-provides"/> in detail.
+					This tag is described for generic components at <xref linkend="tag-provides"/> in detail.
 				</para>
 				<para>
 					You can add one or more children of type <code>&lt;library/&gt;</code> in case you publish some additional shared libraries.

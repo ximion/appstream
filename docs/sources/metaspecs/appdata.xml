@@ -106,7 +106,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry>
+			<varlistentry id="tag-id-application">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -126,7 +126,7 @@
 				</para>
 				<para>
 					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-					Take a look at <xref linkend="sect-Metadata-GenericComponent"/> for more details about this tag.
+					Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -358,7 +358,7 @@
 			<term>&lt;provides/&gt;</term>
 			<listitem>
 				<para>
-					This tag is described in detail for generic components at <xref linkend="spec-component-filespec-provides"/>.
+					This tag is described in detail for generic components at <xref linkend="tag-provides"/>.
 				</para>
 				<para>
 					If your application ships a binary in a location in the default <envar>PATH</envar>, you should add at least a child of type
@@ -373,7 +373,7 @@
 				<para>
 					The application metainfo should at least provide one <code>&lt;releases/&gt;</code> tag,
 					which has one or more <code>&lt;release/&gt;</code> childs to define the version and release date of this
-					application. For details, see <xref linkend="spec-component-filespec-releases"/> .
+					application. For details, see <xref linkend="tag-releases"/> .
 				</para>
 				<para>
 					Additionally, the <code>&lt;release/&gt;</code> might be described in a short manner using the <code>&lt;description/&gt;</code> child tag, which should give brief information about what is new

@@ -67,7 +67,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry>
+			<varlistentry id="tag-id-generic">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -81,7 +81,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-name">
 				<term>&lt;name/&gt;</term>
 				<listitem>
 					<para>
@@ -90,7 +90,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-summary">
 				<term>&lt;summary/&gt;</term>
 				<listitem>
 					<para>
@@ -99,7 +99,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="spec-component-filespec-url">
+			<varlistentry id="tag-url">
 				<term>&lt;url/&gt;</term>
 				<listitem>
 					<para>
@@ -150,7 +150,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="spec-component-filespec-releases">
+			<varlistentry id="tag-releases">
 				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
@@ -172,7 +172,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="spec-component-filespec-provides">
+			<varlistentry id="tag-provides">
 				<term>&lt;provides/&gt;</term>
 				<listitem>
 					<para>
@@ -273,7 +273,7 @@
 
 			</varlistentry>
 
-			<varlistentry id="spec-component-filespec-project_group">
+			<varlistentry id="tag-project_group">
 			<term>&lt;project_group/&gt;</term>
 			<listitem>
 				<para>
@@ -288,7 +288,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="spec-component-filespec-metadata_license">
+			<varlistentry id="tag-metadata_license">
 			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
 				<para>
