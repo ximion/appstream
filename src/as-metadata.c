@@ -820,7 +820,7 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 
 /**
  * as_metadata_set_locale:
- * @metad: a #AsMezadata instance.
+ * @metad: a #AsMetadata instance.
  * @locale: the locale.
  *
  * Sets the current locale whcih should be used when parsing metadata.
@@ -865,7 +865,7 @@ as_metadata_set_origin_id (AsMetadata *metad, const gchar *origin)
 
 /**
  * as_metadata_set_parser_mode:
- * @metad: a #AsMezadata instance.
+ * @metad: a #AsMetadata instance.
  * @mode: the #AsParserMode.
  *
  * Sets the current metadata parsing mode.
@@ -879,7 +879,7 @@ as_metadata_set_parser_mode (AsMetadata *metad, AsParserMode mode)
 
 /**
  * as_metadata_get_parser_mode:
- * @metad: a #AsMezadata instance.
+ * @metad: a #AsMetadata instance.
  *
  * Gets the current parser mode
  *
