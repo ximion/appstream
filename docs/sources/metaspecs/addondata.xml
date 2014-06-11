@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-Addon">
+	<title>Addons</title>
+
+	<section id="spec-addondata-introduction">
+		<title>Introduction</title>
+		<para>
+			Some software is not standalone, but rather extends existing software installed on the system.
+			The "Addon" component type exists to reflect that.
+		</para>
+		<para>
+			Software which provides addons can ship one or more files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
+		</para>
+	</section>
+
+	<section id="spec-addoncdata-example">
+		<title>Example file</title>
+		<para>
+			A addon meta-info file should look like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<component type="addon">
+  <id>bar</id>
+  <extends>foo.desktop</extends>
+  <metadata_license>CC0</metadata_license>
+  <name>Bar support for Foo</name>
+  <description>
+    <p>
+      This addon adds Bar functionality to Foo.
+    </p>
+  </description>
+</component>]]></programlisting>
+	</section>
+
+	<section id="spec-addondata-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root must have the <literal>type</literal> property set to <code>addon</code>.
+			This clearly identified this metainfo document as describing an addon to an existing software.
+		</para>
+
+		<variablelist>
+			<varlistentry>
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For addons, there are no special requirements for what their <literal>%{id}</literal> should be.
+					You might want to prefix your id with "addon-" though, to make it easily recognizable.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;extends/&gt;</term>
+			<listitem>
+				<para>
+					This tag is refers to the id of the component this addon is extending.
+				</para>
+				<para>
+					So for example if I have a plugin "kipi" which extends the application "Gwenview", I need to refer to
+					it's identifier like:
+				</para>
+				<programlisting language="XML"><![CDATA[<extends>gwenview.desktop</extends>]]></programlisting>
+				<para>
+					The <code>&lt;extends/&gt;</code> tag may be specifier multiple times.
+				</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+
+	</section>
+</section>
