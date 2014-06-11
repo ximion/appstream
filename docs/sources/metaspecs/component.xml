@@ -81,6 +81,39 @@
 			</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-metadata_license">
+			<term>&lt;metadata_license/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
+					Metainfo XML file as. This is not typically the same as the project licence. By ommitting the licence value would
+					probably mean your data would not be incorporated into the distribution metadata (so this is a required tag).
+					Permissible licence codes include:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>CC0-1.0</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY-3.0</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY-SA-3.0</para>
+					</listitem>
+					<listitem>
+						<para>GFDL-1.3</para>
+					</listitem>
+					<listitem>
+						<para>MIT</para>
+					</listitem>
+				</itemizedlist>
+				<para>
+					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					For instance, CC-BY-SA-3.0 corresponds to http://creativecommons.org/licenses/by-sa/3.0/
+				</para>
+			</listitem>
+			</varlistentry>
+
 			<varlistentry id="tag-name">
 				<term>&lt;name/&gt;</term>
 				<listitem>
@@ -97,6 +130,22 @@
 						A short summary of what this component does. If the component is "PackageKit", the summary could be "Provides a package-management abstraction layer".
 					</para>
 				</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-description">
+			<term>&lt;description/&gt;</term>
+			<listitem>
+				<para>
+					A long description of this component. Some markup can be used.
+				</para>
+				<para>
+					Do not assume the format is HTML. Only paragraph (p), ordered list (ol) and unordered list (ul) are supported at this time.
+				</para>
+				<para>
+					In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
+					has a language property.
+				</para>
+			</listitem>
 			</varlistentry>
 
 			<varlistentry id="tag-url">
@@ -288,35 +337,26 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-metadata_license">
-			<term>&lt;metadata_license/&gt;</term>
+			<varlistentry id="tag-screenshots">
+			<term>&lt;screenshots/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
-					Metainfo XML file as. This is not typically the same as the project licence. By ommitting the licence value would
-					probably mean your data would not be incorporated into the distribution metadata (so this is a required tag).
-					Permissible licence codes include:
+					Visual components (like fonts or graphical applications) may choose to add one or multiple screenshots to their metadata.
 				</para>
-				<itemizedlist>
-					<listitem>
-						<para>CC0-1.0</para>
-					</listitem>
-					<listitem>
-						<para>CC-BY-3.0</para>
-					</listitem>
-					<listitem>
-						<para>CC-BY-SA-3.0</para>
-					</listitem>
-					<listitem>
-						<para>GFDL-1.3</para>
-					</listitem>
-					<listitem>
-						<para>MIT</para>
-					</listitem>
-				</itemizedlist>
 				<para>
-					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-					For instance, CC-BY-SA-3.0 corresponds to http://creativecommons.org/licenses/by-sa/3.0/
+					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
+					<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
+					one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
+					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
+				</para>
+				<para>
+					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 caracters!)
+					description of what the user can see on the referenced screenshot.
+				</para>
+				<para>
+					Ideally, all screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620px.
+					They should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
+					images where a lossy format like JPEG may compress better.
 				</para>
 			</listitem>
 			</varlistentry>

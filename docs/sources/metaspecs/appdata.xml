@@ -5,38 +5,27 @@
 ]>
 
 <section id="sect-Metadata-Application">
-	<title>Desktop Applications (AppData)</title>
+	<title>Desktop Applications</title>
 
 	<section id="spec-appdata-introduction">
 		<title>Introduction</title>
 		<para>
-			Every software center that exists allows the user to look at screenshots and a long description of the application before it is installed.
-			For most users it allows them to answer the question <quote>Do I want to install this application?</quote>.
-			Traditionally in Linux distributions, we have none of this data for the vast majority of our desktop user-installable applications.
-			The packages-descriptions are describing all contents of a package, and not just a single application. They are also often written in a technical
-			language and refer to other packages, which makes it hard for beginners to understand what the application they want to install really does.
-			Additionally, if you are not using Debian or Ubuntu, the package descriptions are often untranslated.
-			Also, packages do not provide some metadata users might be interested in before installing an application.
+			Upstream projects can ship a small XML file containing additional metadata to describe their application.
+			This data includes things like screenshots, long descriptions, icon information and various other things needed
+			to present the application properly to the user.
 		</para>
 		<para>
-			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
-			<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink> or GSetting schemas.
-			The AppData specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-ASXML"/>) and extends
-			the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
+			The file described in this document is built upon the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
 		</para>
 		<para>
-			The AppData files override any values which are automatically fetched by the AppStream data generator.
+			The AppData files override any values which are automatically fetched by the AppStream data generator, which means that it's data takes precedence over
+			data which has already been defined in a .desktop-file.
 			Applications can ship one or more files in <filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
-		</para>
-		<para>
-			AppData files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
 		</para>
 		<note>
 			<para>
-				All tags defined in the generic component specification are valid in AppData as well, an application is just
-				defined as a specialized component, which has the additional benefit of being displayed in a software-center application.
-				For a compact description of AppData, take a look at <ulink url="http://people.freedesktop.org/~hughsient/appdata/">this AppData draft</ulink> ,
-				which provides application developers with all information necessary to write good AppData files.
+				If you are looking for some quickstart guide to just get your application to ship AppStream metadata quickly, this document might not be for you.
+				You might want to take a look at <xref linkend="sect-Quickstart-DesktopApps"/> instead.
 			</para>
 		</note>
 	</section>
@@ -45,64 +34,22 @@
 		<title>File specification</title>
 
 		<para>
-			The file should contain something like this:
-		</para>
-		<programlisting language="XML">
-<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2013 First Lastname <your@email.com> -->
-<component type="desktop">
-  <id>gnome-power-statistics.desktop</id>
-  <metadata_license>CC0</metadata_license>
-  <name>Power Statistics</name>
-  <summary>Observe power management</summary>
-
-  <description>
-    <p>
-      Power Statistics is a program used to view historical and current battery
-      information and will show programs running on your computer using power.
-    </p>
-    <p>Example list:</p>
-    <ul>
-      <li>First item</li>
-      <li>Second item</li>
-    </ul>
-    <p>
-      You probably only need to install this application if you are having problems
-      with your laptop battery, or are trying to work out what programs are using
-      significant amounts of power.
-    </p>
-  </description>
-
-  <screenshots>
-    <screenshot type="default">
-      <caption>The options dialog</caption>
-      <image width="800" height="600">http://www.hughsie.com/en_US/main.png</image>
-    </screenshot>
-    <screenshot>
-      <image width="800" height="600">http://www.hughsie.com/en_US/preferences.png</image>
-    </screenshot>
-  </screenshots>
-
-  <url type="homepage">http://www.gnome.org/projects/en_US/gnome-power-manager</url>
-  <project_group>GNOME</project_group>
-
-  <provides>
-    <binary>gnome-power-statistics</binary>
-  </provides>
-
-  <releases>
-    <release version="3.12.2" timestamp="20140414">
-      <description>
-        <p>Fixes issues X, Y and Z</p>
-      </description>
-    </release>
-  </releases>
-</component>]]>
-		</programlisting>
-
-		<para>
+			The basic structure for a generic component as described at <xref linkend="spec-component-filespec"/> applies.
 			Note that the XML root must have the <literal>type</literal> property set to <code>desktop</code>, which in a generic component this
 			property can be omitted. This clearly identified this metainfo document as describing an application.
+		</para>
+
+		<tip>
+			<para>
+				All tags defined in the generic component specification are valid in AppData as well, an application is just
+				defined as a specialized component, which has the additional benefit of being displayed in a software-center application.
+			</para>
+		</tip>
+
+		<para>
+			The following list describes the special tags for application upstream metadata and provides some additional information about the values
+			the tags are expected to have.
+			If no information is given about a tag, refer to the respective tag in <xref linkend="sect-Metadata-GenericComponent"/>.
 		</para>
 
 		<variablelist>
@@ -110,7 +57,7 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For applications, the <literal>%{id}</literal> is the same name as the installed .desktop file for the application.
+					For applications, the <literal>&lt;id/&gt;</literal> tag value must be the same name as the installed .desktop file for the application.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -119,14 +66,7 @@
 			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
-					AppData text file as. This is not typically the same as the project licence. By ommitting the licence value would
-					probably mean your data would not be incorporated into the distribution metadata.
-					Permissible licence codes include:
-				</para>
-				<para>
-					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-					Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
+					The <code>&lt;metadata_license/&gt;</code> as described in <xref linkend="tag-metadata_license"/> must be present.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -153,60 +93,6 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry>
-			<term>&lt;description/&gt;</term>
-			<listitem>
-				<para>
-					The long description is an important part of the file. Important things to consider when writing the application description:
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>Include 2-3 paragraphs of interesting easy to read prose.</para>
-					</listitem>
-					<listitem>
-						<para>Ensure you provide a description of what the application actually does.</para>
-					</listitem>
-					<listitem>
-						<para>Describe any important features.</para>
-					</listitem>
-					<listitem>
-						<para>Do not use possily trademarked product names when refering to competitors.</para>
-					</listitem>
-					<listitem>
-						<para>Break down each paragraph into easily translated paragraphs.</para>
-					</listitem>
-					<listitem>
-						<para>Use lists sparingly.</para>
-					</listitem>
-					<listitem>
-						<para>Never refer to installable items as packages.</para>
-					</listitem>
-					<listitem>
-						<para>Never start the first sentence with "This application..."</para>
-					</listitem>
-					<listitem>
-						<para>Try not use more than 100 words.</para>
-					</listitem>
-					<listitem>
-						<para>Do not be too geeky. Aim for an intelligent semi-technical reader.</para>
-					</listitem>
-					<listitem>
-						<para>Don't mention what language an application is written in, users don't care</para>
-					</listitem>
-					<listitem>
-						<para>Only mention what the application can do now, rather than what is planned</para>
-					</listitem>
-				</itemizedlist>
-				<para>
-					Do not assume the format is HTML. Only paragraph, ordered list and unordered list are supported at this time.
-				</para>
-				<para>
-					In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
-					has a language property.
-				</para>
-			</listitem>
-			</varlistentry>
-
 			<varlistentry id="spec-appdata-filespec-screenshots">
 			<term>&lt;screenshots/&gt;</term>
 			<listitem>
@@ -214,22 +100,10 @@
 					A screenshot presents your application to the outside world, and could be seen by hundreds or thousands of people.
 				</para>
 				<para>
-					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
-					<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
-					one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
-					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
+					The <code>&lt;screenshots/&gt;</code> tag should look like it is described at <xref linkend="tag-screenshots"/>.
 				</para>
 				<para>
-					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 caracters!)
-					description of what the user can see on the referenced screenshot.
-				</para>
-				<para>
-					Screenshots are an important part of how people choose which applications to install, so it's important to get them right.
-					Consistent, good looking screenshots will make your application look more attractive and will expand your userbase.
-					Consistent screenshots also provide a more predictable experience for people using the software center.
-				</para>
-				<para>
-					Screenshot size, shape and format:
+					Screenshot size, shape and format recommendations for applications:
 				</para>
 				<itemizedlist>
 					<listitem>
@@ -252,95 +126,7 @@
 					</listitem>
 				</itemizedlist>
 				<para>
-					Basic guidelines for things to include (and not include) in your screenshots:
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							Use the default visual and theme settings, including the default font, icons, and window controls. Avoid including your own tweaks to the standard distribution offering.
-						</para>
-					</listitem>
-					<listitem>
-						<para>Screenshots should be taken with English as the display language.</para>
-					</listitem>
-					<listitem>
-						<para>
-							Your default screenshot should give an overview of your application, and should show an entire application window.
-							It can be combined with screenshots which show specific aspects of the application.
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							Screenshots should not show anything outside the application's windows (including the background wallpaper).
-							If you are taking a screenshot of the whole window, use your screenshot tool's "window" mode (including any window borders in the screenshot, and ensuring that the resulting image has an
-							alpha mask for the rounded corners).
-						</para>
-					</listitem>
-					<listitem>
-						<para>
-							Some applications, such as games, primarily run full screen. Screenshots of these applications should be taken with the application
-							running full screen - there should be no visible window controls in the screenshot.
-						</para>
-					</listitem>
-					<listitem>
-						<para>Don't add shadows to your screenshots.</para>
-					</listitem>
-					<listitem>
-						<para>
-							Do not include content that might be considered offensive or controversial, and avoid showing personal information. Remember that your screenshots will be visible to the internet at large.
-						</para>
-					</listitem>
-				</itemizedlist>
-				<para>
-					Additional advice on how to take effective screenshots:
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>
-							Each of your screenshots should focus on one thing and one thing only. Screenshot one window at a time, and avoid having
-							overlapping windows or user interface elements.
-							This will make it much easier for people to understand what you are showing them.
-						</para>
-					</listitem>
-					<listitem>
-						<para>If a screenshot is demonstrating a single feature or aspect of the application, crop it to exclude irrelevant detail.</para>
-					</listitem>
-					<listitem>
-						<para>
-							Screenshots often need to feature content, such as images, documents, web pages or videos. Don’t show your application in an ‘empty’
-							state, and try and use high quality content which has positive associations and broad appeal.
-						</para>
-					</listitem>
-					<listitem>
-						<para>In general, you shouldn't include the mouse pointer in your screenshots.</para>
-					</listitem>
-				</itemizedlist>
-				<para>
-					Some advice for a good screenshot caption:
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>The caption should be short. Try not to use more than a few words to describe the image.</para>
-					</listitem>
-					<listitem>
-						<para>Try not to state the obvious: "Main window displaying an image" is something the user can see on the screenshot already.</para>
-					</listitem>
-					<listitem>
-						<para>Try not to repeat the application's name in the caption.</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry>
-			<term>&lt;url/&gt;</term>
-			<listitem>
-				<para>
-					This is a recommended tag for links of type <code>homepage</code>.
-					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
-				</para>
-				<para>
-					For other possible values, tage a look at the tag's description in <xref linkend="spec-component-filespec"/>.
+					You can find a lot more information on how to create good screenshots in the <link linkend="qsr-app-screenshots-info">quickstart guide on applications</link>.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -374,10 +160,6 @@
 					The application metainfo should at least provide one <code>&lt;releases/&gt;</code> tag,
 					which has one or more <code>&lt;release/&gt;</code> childs to define the version and release date of this
 					application. For details, see <xref linkend="tag-releases"/> .
-				</para>
-				<para>
-					Additionally, the <code>&lt;release/&gt;</code> might be described in a short manner using the <code>&lt;description/&gt;</code> child tag, which should give brief information about what is new
-					in the release, in a way which is understandable by non-technical users.
 				</para>
 			</listitem>
 			</varlistentry>
