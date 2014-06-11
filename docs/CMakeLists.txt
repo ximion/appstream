@@ -32,7 +32,7 @@ if (DOCUMENTATION)
 	)
 
 	# the actual target to build all documentation
-	add_custom_target (documentation
+	add_custom_target (documentation-noexport
 		COMMAND ${PUBLICAN} "build" "--langs=en-US" "--publish" "--formats=html"
 		DEPENDS "publican.cfg"
 			"${CMAKE_BINARY_DIR}/docbuild/publican.cfg"
@@ -49,13 +49,13 @@ if (DOCUMENTATION)
 	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_BINARY_DIR}/docbuild)
 
 	# a target to export documentation html to the source tree (useful when building the tarballs)
-	add_custom_target (documentation-htmlexport
+	add_custom_target (documentation
 		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_BINARY_DIR}/docbuild/AppStream-Docs/en-US/html/" "${CMAKE_CURRENT_SOURCE_DIR}/html"
-		DEPENDS documentation
+		DEPENDS documentation-noexport
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 	add_custom_command(
-		TARGET documentation-htmlexport POST_BUILD
+		TARGET documentation POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/api/html" "${CMAKE_CURRENT_SOURCE_DIR}/html/api/html"
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
