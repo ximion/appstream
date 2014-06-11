@@ -24,17 +24,15 @@
 			A addon meta-info file should look like this:
 		</para>
 		<programlisting language="XML">
-<![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>bar</id>
-  <extends>foo.desktop</extends>
-  <metadata_license>CC0</metadata_license>
-  <name>Bar support for Foo</name>
-  <description>
-    <p>
-      This addon adds Bar functionality to Foo.
-    </p>
-  </description>
+  <id>gedit-code-assistance</id>
+  <extends>gedit.desktop</extends>
+  <name>Code Assistance</name>
+  <summary>Code assistance for C, C++ and Objective-C</summary>
+  <url type="homepage">http://projects.gnome.org/gedit</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
 </component>]]></programlisting>
 	</section>
 
