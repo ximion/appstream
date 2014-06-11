@@ -383,7 +383,7 @@
 				<term>&lt;provides/&gt;</term>
 				<listitem>
 					<para>
-							This tag is described in detail at <xref linkend="sect-Metadata-GenericComponent"/>.
+						This tag is described in detail at <xref linkend="sect-Metadata-GenericComponent"/>.
 					</para>
 					<para>
 						For generic component types, this tag has to be present.
@@ -429,6 +429,36 @@
 <![CDATA[<architectures>
   <arch>i686</arch>
 </architectures>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;languages/&gt;</term>
+				<listitem>
+					<para>
+						This tag gives information about the translations a component provides, and to which extent the software is translated.
+					</para>
+					<para>
+						The tag is allowed to only occur once per component, and contains multiple <code>&lt;lang/&gt;</code> child nodes, which have
+						a <ulink url="https://www.gnu.org/software/gettext/manual/html_node/Language-Codes.html">language code</ulink> as value.
+						Each <code>&lt;lang/&gt;</code> node may have a <literal>percentage</literal> property, which describes the percentage value to which
+						a component has been translated.
+					</para>
+					<para>
+						The language data is expected to be extracted by the AppStream XML generator, and is not provided upstream. Generators may obtain the
+						information from processing GNU Gettext files, which should cover most translation methods.
+					</para>
+					<para>
+						Tag example:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<languages>
+  <lang percentage="96">gu</lang>
+  <lang percentage="94">ca@valencia</lang>
+  <lang percentage="91">de</lang>
+  <lang percentage="93">eo</lang>
+</languages>
+]]></programlisting>
 				</listitem>
 			</varlistentry>
 

@@ -455,6 +455,9 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_children_quick (validator, iter, "release", cpt);
+		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_DISTRO)) {
+			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_children_quick (validator, iter, "lang", cpt);
 		} else if (!g_str_has_prefix (node_name, "x-")) {
 			as_validator_add_issue (validator,
 				cpt,
