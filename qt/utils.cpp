@@ -48,3 +48,14 @@ Appstream::stringlist_to_strv(QStringList list)
 
     return strv;
 }
+
+QStringList
+Appstream::strarray_to_stringlist(GPtrArray *array)
+{
+    QStringList list;
+    for (unsigned int i = 0; i < array->len; i++) {
+        list.append(QString::fromUtf8 ((gchar*) g_ptr_array_index (array, i)));
+    }
+
+    return list;
+}

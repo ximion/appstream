@@ -28,6 +28,8 @@ namespace Appstream {
 QStringList strv_to_stringlist(gchar **strv);
 gchar **stringlist_to_strv(QStringList list);
 
+QStringList strarray_to_stringlist(GPtrArray *array);
+
 } // End of namespace: Appstream
 
 #endif // UTILS_PRIVATE_H

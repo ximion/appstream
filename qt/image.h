@@ -48,8 +48,8 @@ public:
     static QString kindToString(Kind kind);
     static Kind kindFromString(QString kind_str);
 
-    QString getUrl();
-    void setUrl(QString url);
+    QUrl getUrl();
+    void setUrl(QUrl url);
 
     int getWidth();
     void setWidth(int width);

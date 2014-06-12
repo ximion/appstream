@@ -22,6 +22,7 @@
 
 #include <QtCore>
 #include "appstream-qt_global.h"
+#include "screenshot.h"
 
 typedef struct _AsComponent AsComponent;
 
@@ -41,7 +42,8 @@ public:
         KindDesktop,
         KindFont,
         KindCodec,
-        KindInputmethod
+        KindInputmethod,
+        KindAddon
     };
 
     Component(QObject *parent = 0);
@@ -99,6 +101,11 @@ public:
     Q_PROPERTY(QUrl iconUrl READ getIconUrl WRITE setIconUrl)
     QUrl getIconUrl();
     void setIconUrl(QUrl iconUrl);
+
+    Q_PROPERTY(QStringList extends READ getExtends)
+    QStringList getExtends();
+
+    QList<Screenshot*> getScreenshots();
 
     /** internal */
     Component(AsComponent *cpt, QObject *parent = 0);

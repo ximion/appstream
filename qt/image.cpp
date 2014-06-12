@@ -32,7 +32,7 @@ public:
     ~ImagePrivate() {
     }
 
-    QString url;
+    QUrl url;
     int width;
     int height;
     Image::Kind kind;
@@ -74,14 +74,14 @@ Image::kindFromString(QString kind_str)
     return (Image::Kind) as_image_kind_from_string (qPrintable(kind_str));
 }
 
-QString
+QUrl
 Image::getUrl()
 {
     return priv->url;
 }
 
 void
-Image::setUrl(QString url)
+Image::setUrl(QUrl url)
 {
     priv->url = url;
 }

@@ -54,6 +54,13 @@ Database::open()
     return as_database_open(priv->db);
 }
 
+static Component*
+asqt_wrap_component (AsComponent *cpt) {
+    g_object_ref(cpt);
+    Component *qcpt = new Component(cpt);
+    return qcpt;
+}
+
 QList<Component*>
 Database::getAllComponents()
 {
@@ -68,11 +75,9 @@ Database::getAllComponents()
     }
 
     for (unsigned int i = 0; i < array->len; i++) {
-        AsComponent *as_cpt;
-        as_cpt = (AsComponent*) g_ptr_array_index (array, i);
-        g_object_ref(as_cpt);
-        Component *cpt = new Component(as_cpt);
-        cpts.append(cpt);
+        AsComponent *cpt;
+        cpt = (AsComponent*) g_ptr_array_index (array, i);
+        cpts.append(asqt_wrap_component (cpt));
     }
 
 out:

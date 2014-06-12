@@ -37,6 +37,7 @@ public:
     }
 
     AsComponent *cpt;
+    QList<Screenshot*> sshots;
 };
 
 Component::Component(QObject *parent)
@@ -248,4 +249,42 @@ void
 Component::setIconUrl(QUrl icon_url)
 {
     as_component_set_icon_url(priv->cpt, qPrintable(icon_url.toString()));
+}
+
+QStringList
+Component::getExtends()
+{
+    return strarray_to_stringlist(as_component_get_extends(priv->cpt));
+}
+
+QList<Screenshot*>
+Component::getScreenshots()
+{
+    /* check if we have cached something */
+    if (!priv->sshots.isEmpty())
+        return priv->sshots;
+
+    GPtrArray *array = as_component_get_screenshots (priv->cpt);
+    for (unsigned int i = 0; i < array->len; i++) {
+        AsScreenshot *asScr;
+        asScr = (AsScreenshot*) g_ptr_array_index (array, i);
+        Screenshot *scr = new Screenshot (this);
+        scr->setKind((Screenshot::Kind) as_screenshot_get_kind (asScr));
+        scr->setCaption(QString::fromUtf8(as_screenshot_get_caption (asScr)));
+
+        GPtrArray *images = as_screenshot_get_images (asScr);
+        for (unsigned int j = 0; j < images->len; j++) {
+            AsImage *asImg = (AsImage*) g_ptr_array_index (images, i);
+            Image *img = new Image (scr);
+            img->setKind((Image::Kind) as_image_get_kind (asImg));
+            img->setHeight(as_image_get_height (asImg));
+            img->setWidth(as_image_get_width (asImg));
+            QString url = QString::fromUtf8(as_image_get_url(asImg));
+            img->setUrl(QUrl(url));
+        }
+
+        priv->sshots.append(scr);
+    }
+
+    return priv->sshots;
 }

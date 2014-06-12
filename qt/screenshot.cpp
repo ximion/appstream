@@ -50,6 +50,18 @@ Screenshot::~Screenshot()
     delete priv;
 }
 
+void
+Screenshot::setKind(Screenshot::Kind kind)
+{
+    priv->kind = kind;
+}
+
+Screenshot::Kind
+Screenshot::getKind()
+{
+    return priv->kind;
+}
+
 QString
 Screenshot::kindToString(Screenshot::Kind kind)
 {
