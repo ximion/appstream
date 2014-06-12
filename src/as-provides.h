@@ -40,6 +40,7 @@ G_BEGIN_DECLS
  * @AS_PROVIDES_KIND_PYTHON2:	A Python2 module
  * @AS_PROVIDES_KIND_PYTHON3:	A Python3 module
  * @AS_PROVIDES_KIND_MIMETYPE:	Provides a handler for a mimetype
+ * @AS_PROVIDES_KIND_DBUS:		A DBus service name
  *
  * Public interfaces components can provide.
  **/
@@ -53,6 +54,7 @@ typedef enum  {
 	AS_PROVIDES_KIND_PYTHON2,
 	AS_PROVIDES_KIND_PYTHON3,
 	AS_PROVIDES_KIND_MIMETYPE,
+	AS_PROVIDES_KIND_DBUS,
 	/* < private > */
 	AS_PROVIDES_KIND_LAST
 } AsProvidesKind;

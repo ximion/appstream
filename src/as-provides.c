@@ -63,6 +63,8 @@ as_provides_kind_to_string (AsProvidesKind kind)
 		return "python3";
 	if (kind == AS_PROVIDES_KIND_MIMETYPE)
 		return "mimetype";
+	if (kind == AS_PROVIDES_KIND_DBUS)
+		return "dbus";
 	return "unknown";
 }
 
@@ -93,6 +95,8 @@ as_provides_kind_from_string (const gchar *kind_str)
 		return AS_PROVIDES_KIND_PYTHON3;
 	if (g_strcmp0 (kind_str, "mimetype") == 0)
 		return AS_PROVIDES_KIND_MIMETYPE;
+	if (g_strcmp0 (kind_str, "dbus") == 0)
+		return AS_PROVIDES_KIND_DBUS;
 	return AS_PROVIDES_KIND_UNKNOWN;
 }
 

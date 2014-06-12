@@ -443,6 +443,21 @@ as_metadata_process_provides (AsMetadata* metad, xmlNode* node, AsComponent* cpt
 		} else if (g_strcmp0 (node_name, "python3") == 0) {
 			g_ptr_array_add (provided_items,
 							 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, content, ""));
+		} else if (g_strcmp0 (node_name, "dbus") == 0) {
+			gchar *dbustype_val;
+			const gchar *dbustype = NULL;
+			dbustype_val = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+
+			if (g_strcmp0 (dbustype_val, "system") == 0)
+				dbustype = "system";
+			else if (g_strcmp0 (dbustype_val, "session") == 0)
+				dbustype = "session";
+			g_free (dbustype_val);
+
+			/* we don't add malformed provides types */
+			if (dbustype != NULL)
+				g_ptr_array_add (provided_items,
+								as_provides_item_create (AS_PROVIDES_KIND_DBUS, content, dbustype));
 		}
 		g_free (content);
 	}
