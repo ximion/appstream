@@ -74,6 +74,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_FONT:			A font
  * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
  * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
+ * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  *
  * The URL type.
  **/
@@ -84,6 +85,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_FONT,
 	AS_COMPONENT_KIND_CODEC,
 	AS_COMPONENT_KIND_INPUTMETHOD,
+	AS_COMPONENT_KIND_ADDON,
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
 
@@ -180,6 +182,10 @@ void				as_component_add_url (AsComponent *self,
 GPtrArray*			as_component_get_releases (AsComponent* self);
 void				as_component_add_release (AsComponent* self,
 												 AsRelease* release);
+
+GPtrArray*			as_component_get_extends (AsComponent *cpt);
+void				as_component_add_extends (AsComponent* cpt,
+											  const gchar* cpt_id);
 
 /* deprecated */
 G_GNUC_DEPRECATED const gchar*		as_component_get_homepage (AsComponent* self);

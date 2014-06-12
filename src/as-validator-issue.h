@@ -86,6 +86,7 @@ typedef enum {
  * @AS_ISSUE_KIND_TAG_DUPLICATED:	A tag is duplicated
  * @AS_ISSUE_KIND_TAG_MISSING:		A required tag is missing
  * @AS_ISSUE_KIND_TAG_UNKNOWN:		An unknown tag was found
+ * @AS_ISSUE_KIND_TAG_NOT_ALLOWED:	A tag is not allowed in the current context
  * @AS_ISSUE_KIND_PROPERTY_MISSING:	A required property is missing
  * @AS_ISSUE_KIND_PROPERTY_INVALID:	A property is invalid
  * @AS_ISSUE_KIND_VALUE_WRONG:		The value of a tag or property is wrong
@@ -100,6 +101,7 @@ typedef enum {
 	AS_ISSUE_KIND_TAG_DUPLICATED,
 	AS_ISSUE_KIND_TAG_MISSING,
 	AS_ISSUE_KIND_TAG_UNKNOWN,
+	AS_ISSUE_KIND_TAG_NOT_ALLOWED,
 	AS_ISSUE_KIND_PROPERTY_MISSING,
 	AS_ISSUE_KIND_PROPERTY_INVALID,
 	AS_ISSUE_KIND_VALUE_WRONG,

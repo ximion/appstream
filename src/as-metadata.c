@@ -669,6 +669,9 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_metadata_process_releases_tag (metad, iter, cpt);
+		} else if (g_strcmp0 (node_name, "extends") == 0) {
+			if (content != NULL)
+				as_component_add_extends (cpt, content);
 		}
 		g_free (content);
 	}

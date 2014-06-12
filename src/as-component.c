@@ -64,9 +64,10 @@ struct _AsComponentPrivate {
 	gchar *project_group;
 	gchar **compulsory_for_desktops;
 	GPtrArray *screenshots; /* of AsScreenshot elements */
-	GPtrArray *provided_items; /* of utf8 */
+	GPtrArray *provided_items; /* of utf8:string */
 	GPtrArray *releases; /* of AsRelease */
 	GHashTable *urls; /* of key:utf8 */
+	GPtrArray *extends; /* of utf8:string */
 	int priority; /* used internally */
 };
 
@@ -144,6 +145,8 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "codec";
 	if (kind == AS_COMPONENT_KIND_INPUTMETHOD)
 		return "inputmethod";
+	if (kind == AS_COMPONENT_KIND_ADDON)
+		return "addon";
 	return "unknown";
 }
 
@@ -168,6 +171,8 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_CODEC;
 	if (g_strcmp0 (kind_str, "inputmethod") == 0)
 		return AS_COMPONENT_KIND_INPUTMETHOD;
+	if (g_strcmp0 (kind_str, "addon") == 0)
+		return AS_COMPONENT_KIND_ADDON;
 	return AS_COMPONENT_KIND_UNKNOWN;
 }
 
@@ -202,10 +207,37 @@ as_component_construct (GType object_type)
 	self->priv->provided_items = g_ptr_array_new_with_free_func (g_free);
 	self->priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 	self->priv->urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	self->priv->extends = g_ptr_array_new_with_free_func (g_free);
 
 	as_component_set_priority (self, 0);
 
 	return self;
+}
+
+static void
+as_component_finalize (GObject* obj)
+{
+	AsComponent *self;
+	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_COMPONENT, AsComponent);
+	g_free (self->priv->pkgname);
+	g_free (self->priv->id);
+	g_free (self->priv->name);
+	g_free (self->priv->name_original);
+	g_free (self->priv->summary);
+	g_free (self->priv->description);
+	g_free (self->priv->icon);
+	g_free (self->priv->icon_url);
+	g_free (self->priv->project_license);
+	g_free (self->priv->project_group);
+	g_strfreev (self->priv->keywords);
+	g_strfreev (self->priv->categories);
+	g_strfreev (self->priv->compulsory_for_desktops);
+	g_ptr_array_unref (self->priv->screenshots);
+	g_ptr_array_unref (self->priv->provided_items);
+	g_ptr_array_unref (self->priv->releases);
+	g_hash_table_unref (self->priv->urls);
+	g_ptr_array_unref (self->priv->extends);
+	G_OBJECT_CLASS (as_component_parent_class)->finalize (obj);
 }
 
 /**
@@ -380,6 +412,38 @@ as_component_add_url (AsComponent *self,
 	g_hash_table_insert (self->priv->urls,
 			     g_strdup (as_url_kind_to_string (url_kind)),
 			     g_strdup (url));
+}
+
+ /**
+  * as_component_get_extends:
+  * @cpt: an #AsComponent instance.
+  *
+  * Returns a string list of IDs of components which
+  * are extended by this addon.
+  *
+  * Returns: (element-type utf8) (transfer none): an array
+  *
+  * Since: 0.7.0
+**/
+GPtrArray*
+as_component_get_extends (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = cpt->priv;
+	return priv->extends;
+}
+
+/**
+ * as_component_add_extends:
+ * @cpt: a #AsComponent instance.
+ * @cpt_id: The id of a component which is extended by this component
+ *
+ * Add a reference to the extended component
+ **/
+void
+as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
+{
+	AsComponentPrivate *priv = cpt->priv;
+	g_ptr_array_add (priv->extends, g_strdup (cpt_id));
 }
 
 static void
@@ -1273,39 +1337,11 @@ as_component_class_init (AsComponentClass * klass)
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_SCREENSHOTS, g_param_spec_boxed ("screenshots", "screenshots", "screenshots", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 }
 
-
 static void
 as_component_instance_init (AsComponent * self)
 {
 	self->priv = AS_COMPONENT_GET_PRIVATE (self);
 }
-
-
-static void
-as_component_finalize (GObject* obj)
-{
-	AsComponent *self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_COMPONENT, AsComponent);
-	g_free (self->priv->pkgname);
-	g_free (self->priv->id);
-	g_free (self->priv->name);
-	g_free (self->priv->name_original);
-	g_free (self->priv->summary);
-	g_free (self->priv->description);
-	g_free (self->priv->icon);
-	g_free (self->priv->icon_url);
-	g_free (self->priv->project_license);
-	g_free (self->priv->project_group);
-	g_strfreev (self->priv->keywords);
-	g_strfreev (self->priv->categories);
-	g_strfreev (self->priv->compulsory_for_desktops);
-	g_ptr_array_unref (self->priv->screenshots);
-	g_ptr_array_unref (self->priv->provided_items);
-	g_ptr_array_unref (self->priv->releases);
-	g_hash_table_unref (self->priv->urls);
-	G_OBJECT_CLASS (as_component_parent_class)->finalize (obj);
-}
-
 
 /**
  * as_component_get_type:
@@ -1335,7 +1371,6 @@ as_component_get_type (void)
 	}
 	return as_component_type_id__volatile;
 }
-
 
 static void
 as_component_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)

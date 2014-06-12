@@ -458,6 +458,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_DISTRO)) {
 			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
+		} else if (g_strcmp0 (node_name, "extends") == 0) {
 		} else if (!g_str_has_prefix (node_name, "x-")) {
 			as_validator_add_issue (validator,
 				cpt,
@@ -490,6 +491,22 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 					AS_ISSUE_IMPORTANCE_WARNING,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"Component describes a desktop-application, but has no 'provides' tag. It should at least define a 'binary' as public interface.");
+	}
+
+	if (as_component_get_extends (cpt)->len > 0) {
+		if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON)
+			as_validator_add_issue (validator,
+				cpt,
+				AS_ISSUE_IMPORTANCE_ERROR,
+				AS_ISSUE_KIND_TAG_NOT_ALLOWED,
+				"An 'extends' tag is specified, but the component is not an addon.");
+	} else {
+		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_ADDON)
+			as_validator_add_issue (validator,
+				cpt,
+				AS_ISSUE_IMPORTANCE_ERROR,
+				AS_ISSUE_KIND_TAG_MISSING,
+				"The component is an addon, but no 'extends' tag was specified.");
 	}
 
 	if (cpt != NULL)
