@@ -317,6 +317,22 @@
 							</listitem>
 						</varlistentry>
 
+						<varlistentry>
+							<term>&lt;dbus/&gt;</term>
+							<listitem>
+								<para>
+									Contains the name of a DBus service as property. The type of the service must be specified using the <literal>type</literal> property
+									of this tag. Allowed values are <code>session</code> and <code>system</code>.
+								</para>
+								<para>
+									Example:
+								</para>
+								<programlisting language="XML"><![CDATA[<provides>
+  <dbus type="system">org.freedesktop.PackageKit</dbus>
+</provides>]]></programlisting>
+							</listitem>
+						</varlistentry>
+
 					</variablelist>
 				</listitem>
 
