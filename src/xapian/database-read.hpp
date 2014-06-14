@@ -49,6 +49,7 @@ public:
 	GPtrArray *findComponents (AsSearchQuery *asQuery);
 	AsComponent *getComponentById (const gchar *idname);
 	GPtrArray *getComponentsByProvides (AsProvidesKind kind, const gchar *value, const gchar *data);
+	GPtrArray *getComponentsByKind (AsComponentKind kind);
 
 private:
 	Xapian::Database m_xapianDB;

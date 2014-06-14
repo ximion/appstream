@@ -160,6 +160,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// Type identifier
 		string type_str = as_component_kind_to_string (as_component_get_kind (cpt));
 		doc.add_value (XapianValues::TYPE, type_str);
+		doc.add_term ("AT" + type_str);
 
 		// URLs
 		GHashTable *urls;

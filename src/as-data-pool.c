@@ -185,7 +185,8 @@ as_data_pool_initialize (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_get_watched_paths:
+ * as_data_pool_get_watched_locations:
+ * @dpool: a valid #AsDataPool instance
  *
  * Return a list of all locations which are searched for metadata.
  *

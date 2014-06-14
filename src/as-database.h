@@ -84,6 +84,8 @@ GPtrArray*			as_database_get_components_by_provides (AsDatabase* self,
 													 AsProvidesKind kind,
 													 const gchar *value,
 													 const gchar *data);
+GPtrArray*			as_database_get_components_by_kind (AsDatabase* self,
+													 AsComponentKind kind);
 
 G_END_DECLS
 

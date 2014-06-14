@@ -23,6 +23,7 @@
 
 #include <glib.h>
 #include "../as-provides.h"
+#include "../as-component.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,17 +41,19 @@ XADatabaseRead		*xa_database_read_new ();
 void				xa_database_read_free (XADatabaseRead *db);
 
 gboolean			xa_database_read_open (XADatabaseRead *db,
-										   const gchar *db_path);
+											const gchar *db_path);
 const gchar			*xa_database_read_get_schema_version (XADatabaseRead *db);
 GPtrArray			*xa_database_read_get_all_components (XADatabaseRead *db);
 GPtrArray			*xa_database_read_find_components (XADatabaseRead *db,
-													   AsSearchQuery *query);
+														AsSearchQuery *query);
 AsComponent			*xa_database_read_get_component_by_id (XADatabaseRead *db,
-														   const gchar *idname);
+														const gchar *idname);
 GPtrArray			*xa_database_read_get_components_by_provides (XADatabaseRead *db,
-													   AsProvidesKind kind,
-													   const gchar *value,
-													   const gchar *data);
+														AsProvidesKind kind,
+														const gchar *value,
+														const gchar *data);
+GPtrArray			*xa_database_read_get_components_by_kind (XADatabaseRead *db,
+													AsComponentKind kind);
 
 /* methods for database write access */
 
@@ -58,11 +61,11 @@ XADatabaseWrite		*xa_database_write_new ();
 void				xa_database_write_free (XADatabaseWrite *db);
 
 gboolean			xa_database_write_initialize (XADatabaseWrite *db,
-												  const gchar *db_path);
+												const gchar *db_path);
 gboolean			xa_database_write_add_component (XADatabaseWrite *db,
-													 AsComponent *cpt);
+												AsComponent *cpt);
 gboolean			xa_database_write_rebuild (XADatabaseWrite *db,
-											   GList *cpt_list);
+												GList *cpt_list);
 
 #ifdef __cplusplus
 };
