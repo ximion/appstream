@@ -62,6 +62,7 @@ struct _AsComponentPrivate {
 	gchar **categories;
 	gchar *project_license;
 	gchar *project_group;
+	gchar *developer_name;
 	gchar **compulsory_for_desktops;
 	GPtrArray *screenshots; /* of AsScreenshot elements */
 	GPtrArray *provided_items; /* of utf8:string */
@@ -90,6 +91,8 @@ enum  {
 	AS_COMPONENT_URLS,
 	AS_COMPONENT_CATEGORIES,
 	AS_COMPONENT_PROJECT_LICENSE,
+	AS_COMPONENT_PROJECT_GROUP,
+	AS_COMPONENT_DEVELOPER_NAME,
 	AS_COMPONENT_SCREENSHOTS
 };
 
@@ -1164,6 +1167,32 @@ as_component_set_project_group (AsComponent* self, const gchar* value)
 }
 
 /**
+ * as_component_get_developer_name:
+ *
+ * Get the component's developer or development team name.
+ */
+const gchar*
+as_component_get_developer_name (AsComponent* self)
+{
+	g_return_val_if_fail (self != NULL, NULL);
+	return self->priv->developer_name;
+}
+
+/**
+ * as_component_set_developer_name:
+ *
+ * Set the the component's developer or development team name.
+ */
+void
+as_component_set_developer_name (AsComponent* self, const gchar* value)
+{
+	g_return_if_fail (self != NULL);
+
+	g_free (self->priv->developer_name);
+	self->priv->developer_name = g_strdup (value);
+}
+
+/**
  * as_component_get_screenshots:
  *
  * Get a list of associated screenshots.
@@ -1334,6 +1363,8 @@ as_component_class_init (AsComponentClass * klass)
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_URLS, g_param_spec_boxed ("urls", "urls", "urls", G_TYPE_HASH_TABLE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_CATEGORIES, g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PROJECT_LICENSE, g_param_spec_string ("project-license", "project-license", "project-license", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PROJECT_GROUP, g_param_spec_string ("project-group", "project-group", "project-group", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_DEVELOPER_NAME, g_param_spec_string ("developer-name", "developer-name", "developer-name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_SCREENSHOTS, g_param_spec_boxed ("screenshots", "screenshots", "screenshots", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 }
 
@@ -1417,6 +1448,12 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_PROJECT_LICENSE:
 			g_value_set_string (value, as_component_get_project_license (self));
 			break;
+		case AS_COMPONENT_PROJECT_GROUP:
+			g_value_set_string (value, as_component_get_project_group (self));
+			break;
+		case AS_COMPONENT_DEVELOPER_NAME:
+			g_value_set_string (value, as_component_get_developer_name (self));
+			break;
 		case AS_COMPONENT_SCREENSHOTS:
 			g_value_set_boxed (value, as_component_get_screenshots (self));
 			break;
@@ -1468,6 +1505,12 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			break;
 		case AS_COMPONENT_PROJECT_LICENSE:
 			as_component_set_project_license (self, g_value_get_string (value));
+			break;
+		case AS_COMPONENT_PROJECT_GROUP:
+			as_component_set_project_group (self, g_value_get_string (value));
+			break;
+		case AS_COMPONENT_DEVELOPER_NAME:
+			as_component_set_developer_name (self, g_value_get_string (value));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

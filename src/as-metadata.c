@@ -695,6 +695,9 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
 			if (content != NULL)
 				as_component_set_project_group (cpt, content);
+		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+			if (content != NULL)
+				as_component_set_developer_name (cpt, content);
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (content != NULL)
 				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));

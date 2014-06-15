@@ -105,40 +105,44 @@ void				as_component_set_kind (AsComponent* self,
 
 const gchar*		as_component_get_id (AsComponent* self);
 void				as_component_set_id (AsComponent* self,
-											 const gchar* value);
+											const gchar* value);
 
 const gchar*		as_component_get_pkgname (AsComponent* self);
 void				as_component_set_pkgname (AsComponent* self,
-											  const gchar* value);
+											const gchar* value);
 
 const gchar*		as_component_get_name (AsComponent* self);
 void				as_component_set_name (AsComponent* self,
-										   const gchar* value);
+											const gchar* value);
 const gchar* 		as_component_get_name_original (AsComponent* self);
 void				as_component_set_name_original (AsComponent* self,
 													const gchar* value);
 
 const gchar*		as_component_get_summary (AsComponent* self);
 void				as_component_set_summary (AsComponent* self,
-											  const gchar* value);
+													const gchar* value);
 
 const gchar*		as_component_get_description (AsComponent* self);
 void				as_component_set_description (AsComponent* self,
-												  const gchar* value);
+													const gchar* value);
 
 const gchar* 		as_component_get_project_license (AsComponent* self);
 void				as_component_set_project_license (AsComponent* self,
-													  const gchar* value);
+													const gchar* value);
 
 const gchar* 		as_component_get_project_group (AsComponent* self);
 void				as_component_set_project_group (AsComponent* self,
 													const gchar* value);
 
+const gchar*		as_component_get_developer_name (AsComponent* self);
+void				as_component_set_developer_name (AsComponent* self,
+													const gchar* value);
+
 gchar**				as_component_get_compulsory_for_desktops (AsComponent* self);
 void				as_component_set_compulsory_for_desktops (AsComponent* self,
-															  gchar** value);
+																gchar** value);
 gboolean			as_component_is_compulsory_for_desktop (AsComponent* self,
-															  const gchar* desktop);
+																const gchar* desktop);
 
 gchar**				as_component_get_categories (AsComponent* self);
 void				as_component_set_categories (AsComponent* self,
@@ -150,18 +154,18 @@ gboolean			as_component_has_category (AsComponent *self,
 
 GPtrArray*			as_component_get_screenshots (AsComponent* self);
 void				as_component_add_screenshot (AsComponent* self,
-												 AsScreenshot* sshot);
+												AsScreenshot* sshot);
 
 gchar**				as_component_get_keywords (AsComponent* self);
 void				as_component_set_keywords (AsComponent* self,
-											   gchar** value);
+												gchar** value);
 
 const gchar*		as_component_get_icon (AsComponent* self);
 void				as_component_set_icon (AsComponent* self,
-										   const gchar* value);
+											const gchar* value);
 const gchar*		as_component_get_icon_url (AsComponent* self);
 void				as_component_set_icon_url (AsComponent* self,
-											   const gchar* value);
+											const gchar* value);
 
 GPtrArray*			as_component_get_provided_items (AsComponent* self);
 void				as_component_add_provided_item (AsComponent *self,
@@ -181,11 +185,11 @@ void				as_component_add_url (AsComponent *self,
 
 GPtrArray*			as_component_get_releases (AsComponent* self);
 void				as_component_add_release (AsComponent* self,
-												 AsRelease* release);
+												AsRelease* release);
 
 GPtrArray*			as_component_get_extends (AsComponent *cpt);
 void				as_component_add_extends (AsComponent* cpt,
-											  const gchar* cpt_id);
+												const gchar* cpt_id);
 
 G_END_DECLS
 

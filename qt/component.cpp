@@ -180,6 +180,18 @@ Component::setProjectGroup(QString group)
     as_component_set_project_group(priv->cpt, qPrintable(group));
 }
 
+QString
+Component::getDeveloperName()
+{
+    return QString::fromUtf8(as_component_get_developer_name(priv->cpt));
+}
+
+void
+Component::setDeveloperName(QString developerName)
+{
+    as_component_set_developer_name(priv->cpt, qPrintable(developerName));
+}
+
 QStringList
 Component::getCompulsoryForDesktops()
 {

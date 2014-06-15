@@ -84,6 +84,10 @@ public:
     QString getProjectGroup();
     void setProjectGroup(QString group);
 
+    Q_PROPERTY(QString developerName READ getDeveloperName WRITE setDeveloperName)
+    QString getDeveloperName();
+    void setDeveloperName(QString developerName);
+
     Q_PROPERTY(QStringList compulsoryForDesktops READ getCompulsoryForDesktops WRITE setCompulsoryForDesktops)
     QStringList getCompulsoryForDesktops();
     void setCompulsoryForDesktops(QStringList desktops);
