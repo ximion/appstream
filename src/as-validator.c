@@ -320,15 +320,26 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
  * as_validator_check_appear_once:
  **/
 static void
-as_validator_check_appear_once (AsValidator *validator, const gchar *node_path, GHashTable *known_tags, AsComponent *cpt)
+as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTable *known_tags, AsComponent *cpt)
 {
-	if (g_hash_table_contains (known_tags, node_path)) {
+	gchar *lang;
+	const gchar *node_name;
+
+	/* localized tags may appear more than once, we only test the unlocalized versions */
+	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
+	if (lang != NULL) {
+		g_free (lang);
+		return;
+	}
+	node_name = (const gchar*) node->name;
+
+	if (g_hash_table_contains (known_tags, node_name)) {
 		as_validator_add_issue (validator,
 				cpt,
 				AS_ISSUE_IMPORTANCE_ERROR,
 				AS_ISSUE_KIND_TAG_DUPLICATED,
 				"The tag '%s' appears multiple times, while it should only be defined once per component.",
-				node_path);
+				node_name);
 	}
 }
 
@@ -410,12 +421,15 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			}
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
 			metadata_license = g_strdup (node_content);
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "name") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "description") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_description_tag (validator, iter, cpt, mode);
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
@@ -434,29 +448,31 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			}
 			g_free (prop);
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "category", cpt);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "keyword", cpt);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "mimetype", cpt);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			provides_found = TRUE;
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_validator_check_children_quick (validator, iter, "screenshot", cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_children_quick (validator, iter, "release", cpt);
 		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_DISTRO)) {
-			as_validator_check_appear_once (validator, node_name, found_tags, cpt);
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
 		} else if (!g_str_has_prefix (node_name, "x-")) {
@@ -469,6 +485,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		}
 
 		g_free (node_content);
+
 		g_hash_table_add (found_tags, g_strdup (node_name));
 	}
 
