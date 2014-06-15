@@ -55,10 +55,33 @@ Database::open()
 }
 
 static Component*
-asqt_wrap_component (AsComponent *cpt) {
+asqt_wrap_component (AsComponent *cpt)
+{
     g_object_ref(cpt);
     Component *qcpt = new Component(cpt);
     return qcpt;
+}
+
+static void
+asqt_add_components_to_qlist(GPtrArray *array, QList<Component*> *cpts)
+{
+    for (unsigned int i = 0; i < array->len; i++) {
+        AsComponent *cpt;
+        cpt = (AsComponent*) g_ptr_array_index (array, i);
+        cpts->append(asqt_wrap_component (cpt));
+    }
+}
+
+Component*
+Database::getComponentById(QString id)
+{
+    AsComponent *ccpt;
+
+    ccpt = as_database_get_component_by_id(priv->db, qPrintable(id));
+    if (ccpt == NULL)
+        return NULL;
+
+    return asqt_wrap_component(ccpt);
 }
 
 QList<Component*>
@@ -74,11 +97,47 @@ Database::getAllComponents()
         goto out;
     }
 
-    for (unsigned int i = 0; i < array->len; i++) {
-        AsComponent *cpt;
-        cpt = (AsComponent*) g_ptr_array_index (array, i);
-        cpts.append(asqt_wrap_component (cpt));
+    asqt_add_components_to_qlist(array, &cpts);
+
+out:
+    g_ptr_array_unref (array);
+    return cpts;
+}
+
+QList<Component*>
+Database::getComponentsByKind(Component::Kind kind)
+{
+    QList<Component*> cpts;
+    GPtrArray *array;
+
+    array = as_database_get_components_by_kind(priv->db, (AsComponentKind) kind);
+    if (array == NULL)
+        return cpts;
+    if (array->len == 0) {
+        goto out;
     }
+
+    asqt_add_components_to_qlist(array, &cpts);
+
+out:
+    g_ptr_array_unref (array);
+    return cpts;
+}
+
+QList<Component*>
+Database::findComponentsByString(QString searchTerms, QString categories)
+{
+    QList<Component*> cpts;
+    GPtrArray *array;
+
+    array = as_database_find_components_by_str(priv->db, qPrintable(searchTerms), qPrintable(categories));
+    if (array == NULL)
+        return cpts;
+    if (array->len == 0) {
+        goto out;
+    }
+
+    asqt_add_components_to_qlist(array, &cpts);
 
 out:
     g_ptr_array_unref (array);

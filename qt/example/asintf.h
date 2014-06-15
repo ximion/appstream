@@ -14,6 +14,9 @@ public:
     Q_PROPERTY(QQmlListProperty<Appstream::Component> allComponents READ getAllComponents CONSTANT)
     QQmlListProperty<Appstream::Component> getAllComponents();
 
+    Q_PROPERTY(QQmlListProperty<Appstream::Component> desktopApps READ getAllDesktopApps CONSTANT)
+    QQmlListProperty<Appstream::Component> getAllDesktopApps();
+
 signals:
 
 public slots:

@@ -14,25 +14,40 @@ Rectangle {
     id: panel
 
     property string name: "???"
+    property string summary: "???"
     property url iconUrl: ""
 
     Row {
         id: panelRow
         anchors.fill: parent
+        anchors.margins: 10
 
         Image {
             id: icon
-            anchors.verticalCenter: parent.verticalCenter
+            //anchors.verticalCenter: parent.verticalCenter
             anchors.margins: 8
             width: 64
             height: 64
             source: panel.iconUrl
         }
 
-        Label {
-            id: nameLabel
-            text: panel.name
-            anchors.margins: 8
+        Column {
+            spacing: 4
+            anchors.margins: 10
+
+            Label {
+                id: nameLabel
+                text: panel.name
+                anchors.leftMargin: 8
+                font.bold: true
+                font.pixelSize: 14
+            }
+
+            Label {
+                id: summaryLabel
+                text: panel.summary
+            }
+
         }
     }
 

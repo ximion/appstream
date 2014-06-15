@@ -58,4 +58,6 @@ install(TARGETS appstream-qt DESTINATION ${INSTALL_DIR_LIB})
 install(FILES ${QAPPSTREAM_PUBLIC_HEADERS} DESTINATION include/Appstream-Qt)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream-qt.pc DESTINATION ${INSTALL_DIR_LIB}/pkgconfig/)
 
-add_subdirectory(example)
+if(QT_EXAMPLE)
+	add_subdirectory(example)
+endif()

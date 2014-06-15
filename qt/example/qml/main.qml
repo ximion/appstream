@@ -19,7 +19,7 @@ ApplicationWindow {
                 function loadItems() {
                     var qcomp = Qt.createComponent("ComponentPanel.qml");
                     if (qcomp.status == Component.Ready) {
-                        var cpts = asintf.allComponents;
+                        var cpts = asintf.desktopApps;
 
                         var maxNumber = cpts.length;
                         if (cpts.length > 100)
@@ -30,6 +30,7 @@ ApplicationWindow {
                             var cptPanel = qcomp.createObject(mainColumn);
                             cptPanel.parent = mainColumn;
                             cptPanel.name = cpt.name
+                            cptPanel.summary = cpt.summary
                             cptPanel.iconUrl = cpt.iconUrl;
                             cptPanel.visible = true;
                         }

@@ -15,6 +15,15 @@ AsIntf::getAllComponents()
     m_cpts = asdb->getAllComponents();
 
     QQmlListProperty<Appstream::Component> list(this, m_cpts);
-
     return list;
 }
+
+QQmlListProperty<Appstream::Component>
+AsIntf::getAllDesktopApps()
+{
+    m_cpts = asdb->getComponentsByKind(Component::KindDesktop);
+
+    QQmlListProperty<Appstream::Component> list(this, m_cpts);
+    return list;
+}
+

@@ -38,7 +38,11 @@ public:
 
     bool open();
 
+    Component* getComponentById(QString id);
     QList<Component*> getAllComponents();
+    QList<Component*> getComponentsByKind(Component::Kind kind);
+
+    QList<Component*> findComponentsByString(QString searchTerms, QString categories = "");
 
 private:
     DatabasePrivate *priv;
