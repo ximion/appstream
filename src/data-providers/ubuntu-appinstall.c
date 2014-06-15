@@ -206,6 +206,8 @@ as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base)
 		return TRUE;
 	for (i = 0; paths[i] != NULL; i++) {
 		gchar *fname;
+		if (as_str_empty (paths[i]))
+			continue;
 		fname = g_build_filename (paths[i], "desktop", NULL);
 		desktop_files = as_utils_find_files_matching (fname, "*.desktop", FALSE);
 		if (desktop_files == NULL)
@@ -246,7 +248,7 @@ as_provider_ubuntu_appinstall_finalize (GObject* obj)
 {
 	AsProviderUbuntuAppinstall * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_PROVIDER_TYPE_UBUNTU_APPINSTALL, AsProviderUbuntuAppinstall);
-	g_object_unref (self->priv->system_categories);
+	g_list_free (self->priv->system_categories);
 	G_OBJECT_CLASS (as_provider_ubuntu_appinstall_parent_class)->finalize (obj);
 }
 

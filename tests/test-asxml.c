@@ -54,7 +54,7 @@ test_appstream_parser ()
 
 	as_provider_appstream_xml_process_compressed_file (asxml, file);
 	g_object_unref (file);
-	//! g_object_unref (asxml);
+	g_object_unref (asxml);
 }
 
 static AsComponent *found_cpt;
@@ -114,7 +114,34 @@ test_screenshot_handling ()
 		g_debug ("%s", as_screenshot_get_caption (sshot));
 	}
 	g_object_unref (cpt);
-	//! g_object_unref (asxml);
+	g_object_unref (asxml);
+}
+
+void
+test_appstream_parser_legacy ()
+{
+	AsMetadata *metad;
+	GFile *file;
+	gchar *path;
+	AsComponent *cpt;
+	GError *error = NULL;
+
+	metad = as_metadata_new ();
+
+	path = g_build_filename (datadir, "appdata-legacy.xml", NULL);
+	file = g_file_new_for_path (path);
+	g_free (path);
+
+	cpt = as_metadata_parse_file (metad, file, &error);
+	g_object_unref (file);
+	g_assert (error == NULL);
+	g_assert (cpt != NULL);
+
+	g_assert (g_strcmp0 (as_component_get_summary (cpt), "Application manager for GNOME") == 0);
+	g_assert (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
+
+	g_object_unref (metad);
+	g_object_unref (cpt);
 }
 
 int
@@ -140,6 +167,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/AppStream/ASXMLParser", test_appstream_parser);
 	g_test_add_func ("/AppStream/Screenshots{dbimexport}", test_screenshot_handling);
+	g_test_add_func ("/AppStream/LegacyData", test_appstream_parser_legacy);
 
 	ret = g_test_run ();
 	g_free (datadir);

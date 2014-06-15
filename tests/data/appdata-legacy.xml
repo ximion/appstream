@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 Richard Hughes <richard@hughsie.com> -->
+<application>
+  <id type="desktop">org.gnome.Software.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <summary>Application manager for GNOME</summary>
+  <description>
+    <p>
+      Software allows you to find and install new applications and system
+      extensions and remove existing installed applications.
+    </p>
+    <p>
+      GNOME Software showcases featured and popular applications with useful
+      descriptions and multiple screenshots per application.
+      Applications can be found either through browsing the list of categories
+      or by searching.
+      It also allows you to update your system using an offline update.
+    </p>
+  </description>
+  <screenshots>
+    <screenshot type="default" width="1200" height="675">https://git.gnome.org/browse/gnome-software/plain/data/appdata/ss-overview.png</screenshot>
+    <screenshot width="1200" height="675">https://git.gnome.org/browse/gnome-software/plain/data/appdata/ss-details.png</screenshot>
+    <screenshot width="1200" height="675">https://git.gnome.org/browse/gnome-software/plain/data/appdata/ss-installed.png</screenshot>
+    <screenshot width="1200" height="675">https://git.gnome.org/browse/gnome-software/plain/data/appdata/ss-updates.png</screenshot>
+    <screenshot width="1200" height="675">https://git.gnome.org/browse/gnome-software/plain/data/appdata/ss-updates-details.png</screenshot>
+  </screenshots>
+  <url type="homepage">https://wiki.gnome.org/Design/Apps/Software</url>
+  <compulsory_for_desktop>GNOME</compulsory_for_desktop>
+</application>

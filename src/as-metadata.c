@@ -559,7 +559,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 	gchar **strv;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	g_return_if_fail (metad != NULL);
+	g_return_val_if_fail (metad != NULL, NULL);
 
 	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 
@@ -775,7 +775,7 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 		}
 	}
 
-	cpt = as_metadata_parse_component_node (metad, root, FALSE, error);
+	cpt = as_metadata_parse_component_node (metad, root, TRUE, error);
 
 out:
 	xmlFreeDoc (doc);

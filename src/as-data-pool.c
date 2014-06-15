@@ -173,12 +173,6 @@ as_data_pool_initialize (AsDataPool *dpool)
 	for (i = 0; i < priv->providers->len; i++) {
 		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
 		g_signal_connect_object (dprov, "component", (GCallback) as_data_pool_new_component_cb, dpool, 0);
-
-		/* FIXME: For some reason, we need to increase refcount of the provider objects to not raise an error
-		 * when calling unref() later.
-		 * This doesn't make sense and needs further investigation.
-		 */
-		g_object_ref (dprov);
 	}
 
 	priv->initialized = TRUE;

@@ -44,11 +44,11 @@ static void			as_provider_appstream_xml_finalize (GObject* obj);
 AsProviderAppstreamXML*
 as_provider_appstream_xml_construct (GType object_type)
 {
-	AsProviderAppstreamXML * self = NULL;
+	AsProviderAppstreamXML *self = NULL;
 	GList *syscat;
 	self = (AsProviderAppstreamXML*) as_data_provider_construct (object_type);
 
-	/* cache this for performance reasons */
+	/* cache categories for performance reasons */
 	syscat = as_get_system_categories ();
 	self->priv->system_categories = syscat;
 
@@ -281,7 +281,7 @@ as_provider_appstream_xml_finalize (GObject* obj)
 {
 	AsProviderAppstreamXML * self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_PROVIDER_TYPE_APPSTREAM_XML, AsProviderAppstreamXML);
-	g_object_unref (self->priv->system_categories);
+	g_list_free (self->priv->system_categories);
 	G_OBJECT_CLASS (as_provider_appstream_xml_parent_class)->finalize (obj);
 }
 
