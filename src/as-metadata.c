@@ -526,24 +526,10 @@ out:
 	}
 }
 
-AsComponent*
-as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean allow_invalid, GError **error)
+static void
+as_metadata_set_component_type_from_node (xmlNode *node, AsComponent *cpt)
 {
-	AsComponent* cpt;
-	xmlNode *iter;
-	const gchar *node_name;
-	gchar *content;
-	GPtrArray *compulsory_for_desktops;
-	gchar **strv;
 	gchar *cpttype;
-	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-
-	g_return_if_fail (metad != NULL);
-
-	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
-
-	/* a fresh app component */
-	cpt = as_component_new ();
 
 	/* find out which kind of component we are dealing with */
 	cpttype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
@@ -557,6 +543,31 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 			g_debug ("An unknown component was found: %s", cpttype);
 	}
 	g_free (cpttype);
+}
+
+/**
+ * as_metadata_parse_component_node:
+ */
+AsComponent*
+as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean allow_invalid, GError **error)
+{
+	AsComponent* cpt;
+	xmlNode *iter;
+	const gchar *node_name;
+	gchar *content;
+	GPtrArray *compulsory_for_desktops;
+	gchar **strv;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	g_return_if_fail (metad != NULL);
+
+	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
+
+	/* a fresh app component */
+	cpt = as_component_new ();
+
+	/* set component kind */
+	as_metadata_set_component_type_from_node (node, cpt);
 
 	if (priv->mode == AS_PARSER_MODE_DISTRO) {
 		/* distro metadata allows setting a priority for components */
@@ -578,6 +589,11 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		content = as_metadata_parse_value (metad, iter, FALSE);
 		if (g_strcmp0 (node_name, "id") == 0) {
 				as_component_set_id (cpt, content);
+				if ((priv->mode == AS_PARSER_MODE_UPSTREAM) &&
+					(as_component_get_kind (cpt) == AS_COMPONENT_KIND_GENERIC)) {
+					/* parse legacy component type information */
+					as_metadata_set_component_type_from_node (iter, cpt);
+				}
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (content != NULL)
 				as_component_set_pkgname (cpt, content);
@@ -748,11 +764,15 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 	}
 
 	if (g_strcmp0 ((gchar*) root->name, "component") != 0) {
-		g_set_error_literal (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
-				     "XML file does not contain valid AppStream data!");
-		goto out;
+		if (g_strcmp0 ((gchar*) root->name, "application") != 0) {
+			g_set_error_literal (error,
+						AS_METADATA_ERROR,
+						AS_METADATA_ERROR_FAILED,
+						"XML file does not contain valid AppStream data!");
+			goto out;
+		} else {
+			g_debug ("Parsing legacy AppStream metadata file.");
+		}
 	}
 
 	cpt = as_metadata_parse_component_node (metad, root, FALSE, error);
