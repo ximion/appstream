@@ -187,15 +187,6 @@ GPtrArray*			as_component_get_extends (AsComponent *cpt);
 void				as_component_add_extends (AsComponent* cpt,
 											  const gchar* cpt_id);
 
-/* deprecated */
-G_GNUC_DEPRECATED const gchar*		as_component_get_homepage (AsComponent* self);
-G_GNUC_DEPRECATED void				as_component_set_homepage (AsComponent* self,
-											   const gchar* value);
-
-G_GNUC_DEPRECATED const gchar*		as_component_get_idname (AsComponent* self);
-G_GNUC_DEPRECATED void				as_component_set_idname (AsComponent* self,
-											 const gchar* value);
-
 G_END_DECLS
 
 #endif /* __AS_COMPONENT_H */
