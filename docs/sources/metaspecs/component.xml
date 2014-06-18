@@ -338,6 +338,24 @@
 
 			</varlistentry>
 
+			<varlistentry>
+				<term>&lt;mimetypes/&gt;</term>
+				<listitem>
+					<para>
+						This tag can contain one or more <code>&lt;mimetype/&gt;</code> children, describing the mime types this application supports.
+						This tag is especially useful for generic components and addon-type components. For applications, the metadata will automatically
+						be fetched from their .desktop files by the distribution's metadata generator.
+						Example:
+					</para>
+					<programlisting language="XML">
+<![CDATA[<mimetypes>
+    <mimetype>text/html</mimetype>
+    <mimetype>image/jpeg</mimetype>
+    <mimetype>application/rss+xml</mimetype>
+ </mimetypes>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
 			<varlistentry id="tag-project_group">
 			<term>&lt;project_group/&gt;</term>
 			<listitem>
