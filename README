@@ -1,4 +1,23 @@
-AppStream-Core
+AppStream
+
+=== Dependencies ===
+
+## Core
+ * glib2 (>= 2.36)
+ * GObject-Introspection
+ * libxml2
+ * PackageKit (with backend/plugin development headers)
+ * Xapian
+
+## Optional
+ * Vala Compiler (vapigen)
+
+## Documentation
+ * Publican
+
+## Qt
+ * Qt5 Core
+
 
 === Compiling instructions ===
 
