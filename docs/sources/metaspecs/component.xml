@@ -411,6 +411,28 @@
 			</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-update_contact">
+			<term>&lt;update_contact/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;update_contact/&gt;</code> tag is an optional tag which can be added to provide an email address distributors can use to contact the project
+					about invalid or incomplete metadata, or in case the specification has changed, about old metadata. It can also be used to ask general questions in case of
+					an update of the component described in the metadata file.
+				</para>
+				<para>
+					The <code>&lt;update_contact/&gt;</code> tag must <emphasis>only be used by distributors</emphasis>. It is not included in the distribution-provided
+					AppStream XML file, and therefore not exposed to the end user via any kind of UI.
+				</para>
+				<para>
+					Upstream authors might decide to add an email address in cleartext, but spam protection using <code>_AT_</code> is also valid.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<update_contact>developer_AT_example.com</update_contact>]]></programlisting>
+			</listitem>
+			</varlistentry>
+
 		</variablelist>
 
 		<para>

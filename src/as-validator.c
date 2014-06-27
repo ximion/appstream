@@ -475,6 +475,16 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
+		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
+			if (mode == AS_PARSER_MODE_DISTRO) {
+				as_validator_add_issue (validator,
+					cpt,
+					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_KIND_TAG_NOT_ALLOWED,
+					"The 'update_contact' tag should not be included in distro AppStream XML.");
+			} else {
+				as_validator_check_appear_once (validator, iter, found_tags, cpt);
+			}
 		} else if (!g_str_has_prefix (node_name, "x-")) {
 			as_validator_add_issue (validator,
 				cpt,
