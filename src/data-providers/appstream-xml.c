@@ -129,7 +129,7 @@ as_provider_appstream_xml_process_compressed_file (AsProviderAppstreamXML* self,
 {
 	GFileInputStream* src_stream;
 	GMemoryOutputStream* mem_os;
-	GConverterOutputStream* conv_stream;
+	GInputStream *conv_stream;
 	GZlibDecompressor* zdecomp;
 	guint8* data;
 	gboolean ret;
@@ -140,10 +140,10 @@ as_provider_appstream_xml_process_compressed_file (AsProviderAppstreamXML* self,
 	src_stream = g_file_read (infile, NULL, NULL);
 	mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
 	zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
-	conv_stream = (GConverterOutputStream*) g_converter_output_stream_new ((GOutputStream*) mem_os, (GConverter*) zdecomp);
+	conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (src_stream), G_CONVERTER (zdecomp));
 	g_object_unref (zdecomp);
 
-	g_output_stream_splice ((GOutputStream*) conv_stream, (GInputStream*) src_stream, 0, NULL, NULL);
+	g_output_stream_splice ((GOutputStream*) mem_os, conv_stream, 0, NULL, NULL);
 	data = g_memory_output_stream_get_data (mem_os);
 	ret = as_provider_appstream_xml_process_single_document (self, (const gchar*) data);
 
@@ -152,7 +152,6 @@ as_provider_appstream_xml_process_compressed_file (AsProviderAppstreamXML* self,
 	g_object_unref (src_stream);
 	return ret;
 }
-
 
 gboolean
 as_provider_appstream_xml_process_file (AsProviderAppstreamXML* self, GFile* infile)
