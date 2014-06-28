@@ -103,7 +103,7 @@
 				<term>&lt;pkgname/&gt;</term>
 				<listitem>
 					<para>
-						The name of the package which needs to be installed in order to provide this application.
+						The name of the package which needs to be installed in order to make this component available on the system.
 					</para>
 					<para>
 						This tag can only be defined once, but you can create metapackages as needed and connect them with
@@ -149,7 +149,8 @@
 				<term>&lt;summary/&gt;</term>
 				<listitem>
 					<para>
-						The tag contains a short summary of the purpose and function of this component. It is usually taken from a Desktop file,
+						The tag contains a short summary of the purpose and function of this component. In case the component is of
+						type <literal>desktop</literal>, it is usually taken from a Desktop file,
 						if the application does not ship an upstream metadata file.
 					</para>
 					<para>
@@ -162,7 +163,7 @@
 				<term>&lt;description/&gt;</term>
 				<listitem>
 					<para>
-						A long description of the application. It is usually taken from the package descriptions or meta-info files, if they were provided.
+						A long description of the component. It is usually taken from the package descriptions or meta-info files, if they were provided.
 						The description might use markup. Right now, only paragraph, ordered list and unordered list are supported.
 						An example description element might look like this:
 						<programlisting language="XML">
@@ -198,7 +199,7 @@
 				<term>&lt;url/&gt;</term>
 				<listitem>
 					<para>
-						Defines URLs for this application. This tag can be present multiple times.
+						Defines URLs for this component. This tag can be present multiple times.
 					</para>
 					<para>
 						For a list of possible url types and what they are expected to do,
@@ -217,7 +218,7 @@
 					</para>
 					<note>
 						<para>
-							Applications should only identify with an umbrella project if you use all their infrastructure and policies, for instance
+							Components should only identify with an umbrella project if you use all their infrastructure and policies, for instance
 							string freezes dates, bugtracker and source control instance.
 						</para>
 					</note>
@@ -228,7 +229,7 @@
 				<term>&lt;icon/&gt;</term>
 				<listitem>
 					<para>
-						The <code><![CDATA[<icon>]]></code> tag describes the application's icon.
+						The <code>&lt;icon/&gt;</code> tag describes the component icon. It is mostly used for GUI applications (component-type <literal>desktop</literal>).
 						It can be of the type <literal>stock</literal>, <literal>cached</literal>, <literal>local</literal>,
 						or <literal>url</literal>.
 					</para>
@@ -271,7 +272,7 @@
 				<term>&lt;mimetypes/&gt;</term>
 				<listitem>
 					<para>
-						This tag can contain one or more <code><![CDATA[<mimetype>]]></code> tags, describing the mime types this application supports.
+						This tag can contain one or more <code><![CDATA[<mimetype>]]></code> tags, describing the mime types this component supports.
 						The data can usually be fetched from the Desktop files.
 						Example:
 					</para>
@@ -289,7 +290,7 @@
 				<listitem>
 					<para>
 						This tag can contain one or more <code><![CDATA[<category>]]></code> tags, describing the categories this application
-						is in.
+						is located in. This tag is usually applied to components of type <literal>desktop</literal>, although it might be used by others later.
 						This data is usually taken from Desktop files, a list of categories can be found in the
 						<ulink url="http://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
 						Example:
@@ -315,9 +316,10 @@
 				<term>&lt;keywords/&gt;</term>
 				<listitem>
 					<para>
-						This tag can contain one or more <code><![CDATA[<keyword>]]></code> tags, describing keywords for the application,
+						This tag can contain one or more <code><![CDATA[<keyword>]]></code> tags, describing keywords for the component,
 						to make it easier to find in a software center.
-						The data is taken from Desktop files.
+						In case of type <literal>desktop</literal> components, this data is taken from Desktop files. For <literal>addon</literal>
+						components, the upstream metadata file usually provides this tag.
 						Example:
 					</para>
 					<programlisting language="XML">
@@ -370,8 +372,8 @@
 				<term>&lt;compulsory_for_desktop/&gt;</term>
 				<listitem>
 					<para>
-						The <code><![CDATA[<compulsory_for_desktop>]]></code> tag indicates that the application which the data belongs to is essential for the
-						functionality of the defined desktop environment. Examples for compulsory applications are the <literal>GNOME-Shell</literal> by the GNOME-Project,
+						The <code><![CDATA[<compulsory_for_desktop>]]></code> tag indicates that the component which the metadata belongs to is essential for the
+						functionality of the defined desktop environment. Examples for compulsory components are the <literal>GNOME-Shell</literal> by the GNOME-Project,
 						or the <literal>Plasma-Desktop</literal> by KDE, as well as things like <literal>iBus</literal> or the desktop login manager.
 					</para>
 					<para>
@@ -380,7 +382,7 @@
 					</para>
 					<para>
 						Multiple occurrences of the <code><![CDATA[<compulsory_for_desktop>]]></code> tag are allowed, so a project can be essential for many desktops.
-						The distributor decides which applications should be made compulsory, however it is generally a good idea to follow upstream's recommendations on that matter.
+						The distributor decides which components should be made compulsory, however it is generally a good idea to follow upstream's recommendations on that matter.
 					</para>
 					<para>
 						A list of all allowed values for this tag is defined in the <ulink url="http://standards.freedesktop.org/menu-spec/latest/apb.html">XDG Menu Specification</ulink>.
