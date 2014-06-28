@@ -35,169 +35,142 @@
 	<section id="qsr-addon-content">
 		<title>Metadata file contents</title>
 		<para>
-					   This is a list of tags you might want to define for your application. For a full list of possible tags, take a look at
-					   the definition of a generic component (<xref linkend="spec-component-filespec"/>) and an addon-component (<xref linkend="spec-addondata-filespec"/>).
-			   </para>
+			This is a list of tags you might want to define for your application. For a full list of possible tags, take a look at
+			the definition of a generic component (<xref linkend="spec-component-filespec"/>) and an addon-component (<xref linkend="spec-addondata-filespec"/>).
+		</para>
 
-			   <variablelist>
+		<variablelist>
+			<varlistentry>
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For addons, there is no strict rule for the component-ID. You should just ensure that you pick a unique name.
+				</para>
+				<para>
+					It is highly recommended to apply a <code>application_name-plugin_name</code> naming scheme for your addon-id.
+				</para>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;id/&gt;</term>
-							   <listitem>
-									   <para>
-											   For addons, there are no special requirements for what their <literal>&lt;id/&gt;</literal> should be.
-									   </para>
-									   <para>
-											   <note>
-													   <para>
-															   Highly recommended to use format: <code>application_name-plugin_name</code>
-													   </para>
-											   </note>
-									   </para>
-							   </listitem>
-					   </varlistentry>
+			<varlistentry>
+			<term>&lt;extends/&gt;</term>
+			<listitem>
+				<para>
+					This tag is refers to the ID of the component this addon is extending. For desktop applications, this is usually the name of their <filename>.desktop</filename> file.
+				</para>
+				<para>
+					This tag is described in detail for addon components at <xref linkend="tag-extends"/>.
+				</para>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;extends/&gt;</term>
-							   <listitem>
-									   <para>
-											   This tag is refers to the <code>.desktop</code> file of the component this addon is extending.
-									   </para>
-									   <para>
-											   This tag is described in detail for addon components at <xref linkend="spec-addondata-filespec"/>.
-									   </para>
-							   </listitem>
-					   </varlistentry>
+			<varlistentry>
+			<term>&lt;name/&gt;</term>
+			<listitem>
+				<para>
+					Each addon component needs a <literal>&lt;name/&gt;</literal> tag, giving the addon a human-readable name.
+				</para>
+				<note>
+					<para>
+						Don't put the application name you are extending in the <literal>&lt;name/&gt;</literal> - so you want to use <code>Bookmarks</code> rather than <code>GEdit Bookmarks</code>
+					</para>
+				</note>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;name/&gt;</term>
-							   <listitem>
-									   <para>
-											   For addons, there are no special requirements for what their <literal>&lt;name/&gt;</literal> should be.
-									   </para>
-									   <para>
-											   <note>
-													   <para>
-															   Don't put the application name you are extending in the <literal>&lt;name/&gt;</literal> - so you want to use <code>Bookmarks</code> rather than <code>GEdit Bookmarks</code>
-													   </para>
-											   </note>
-									   </para>
-							   </listitem>
-					   </varlistentry>
+			<varlistentry>
+			<term>&lt;summary/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>&lt;summary/&gt;</literal> tag follows the basic structure of a <xref linkend="tag-summary"/> as described in the specification. It is a required tag for an addon component.
+				</para>
+				<para>
+					Some useful hints for finding a good addon summary:
+				</para>
+				<itemizedlist>
+					<listitem>
+						<para>
+							Don't put the application name you are extending in the <literal>&lt;summary/&gt;</literal> - so you want to use <code>Easy document navigation with bookmarks</code>
+							rather than <code>Easy document navigation with bookmarks in GEdit</code>.
+						</para>
+					</listitem>
+					<listitem>
+						<para>
+							Don't use long or short descriptions.
+							Ideally <literal>&lt;summmary/&gt;</literal> should be less than <code>101</code> and more than <code>8</code>.
+						</para>
+					</listitem>
+				</itemizedlist>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;summary/&gt;</term>
-							   <listitem>
-									   <para>
-											   For addons, there are no special requirements for what their <literal>&lt;summary/&gt;</literal> should be.
-									   </para>
-									   <para>
-											   <note>
-													   <para>
-															   Don't put the application name you are extending in the <literal>&lt;summary/&gt;</literal> - so you want to use <code>Easy document navigation with bookmarks</code> rather than <code>Easy document navigation with bookmarks in GEdit</code>
-													   </para>
-											   </note>
-											   <note>
-													   <para>
-															   Don't use long or short descriptions.
-															   Ideally <literal>&lt;summmary/&gt;</literal> should be less than <code>101</code> and more than <code>8</code>.
-													   </para>
-											   </note>
-									   </para>
-							   </listitem>
-					   </varlistentry>
+			<varlistentry>
+			<term>&lt;url/&gt;</term>
+			<listitem>
+				<para>
+					It is recommended to include links of types <code>homepage</code> and <code>bugtracker</code>.
+					You can omit the <literal>&lt;url/&gt;</literal> if it's the same as the upstream project.
+				</para>
+				<para>
+					Links of type <code>homepage</code> should be a link to the upstream homepage for the addon.
+				</para>
+				<para>
+					Links of type <code>bugtracker</code> should be a link to the upstream bugtracker.
+				</para>
+				<note>
+					<para>
+						It is highly recommended to be a link to the upstream bugzilla with filed component and product.
+					</para>
+				</note>
+				<warning>
+					<para>
+						It might be necessary to escape URLs. For example
+						replacing of <code>&amp;</code> with <code>&amp;amp;</code>.
+					</para>
+				</warning>
+				<para>
+					For other possible values, take a look at the tag's description in <xref linkend="tag-url"/>.
+				</para>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;url/&gt;</term>
-							   <listitem>
-									   <para>
-											   This is a recommended tag for links of types <code>homepage</code> and <code>bugtracker</code>.
-									   </para>
-									   <para>
-											   Links of type <code>homepage</code> should be a link to the upstream homepage for the addon.
-									   </para>
-									   <para>
-											   Links of type <code>bugtracker</code> should be a link to the upstream bugtracker.
-											   <note>
-													   <para>
-															   Highly recommended to be a link to the upstream bugzilla with filed component and product.
-													   </para>
-											   </note>
-									   </para>
-									   <para>
-											   <note>
-													   <para>
-															   You can omit the <literal>&lt;url/&gt;</literal> if it's the same as the upstream project.
-													   </para>
-											   </note>
-											   <note>
-													   <para>
-															   Highly recommended to escape URLs. For example:
-													   </para>
-													   <para>
-															   Replace <code>&amp;</code> with <code>&amp;amp;</code>.
-													   </para>
-											   </note>
-									   </para>
-									   <para>
-											   For other possible values, tage a look at the tag's description in <xref linkend="tag-url"/>.
-									   </para>
-							   </listitem>
-					   </varlistentry>
+			<varlistentry>
+			<term>&lt;metadata_license/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content license that you are releasing the one
+					metadata file as. This is not typically the same as the project license. By ommitting the license value would
+					probably mean your data would not be incorporated into the distribution metadata.
+					Permissible license codes include:
+				</para>
+				<para>
+					The license codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
+				</para>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;metadata_license/&gt;</term>
-							   <listitem>
-									   <para>
-											   The <literal>&lt;metadata_license/&gt;</literal> tag is indicating the content licence that you are releasing the one AppData text file as.
-											   This is not typically the same as the project licence.
-											   By ommitting the licence value would probably mean your data would not be incorporated into the distribution metadata.
-									   </para>
-									   <para>
-											   The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-											   Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
-									   </para>
-							   </listitem>
-					   </varlistentry>
+			<varlistentry>
+			<term>&lt;project_license/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>&lt;project_license/&gt;</literal> tag is indicating the license(s) this addon is released under.
+					Take a look at the specification of the <xref linkend="tag-project_license"/> tag for details on how to properly use it.
+				</para>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;project_license/&gt;</term>
-							   <listitem>
-									   <para>
-											   The <literal>&lt;project_license/&gt;</literal> tag is indicating the licenses that you used for the application and any data or media files used.
-											   <code>This is not typically the same as the metadata license.</code>
-									   </para>
-									   <para>
-											   The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-									   </para>
-							   </listitem>
-					   </varlistentry>
+			<varlistentry>
+			<term>&lt;update_contact/&gt;</term>
+			<listitem>
+				<para>
+					You might want to include an update-contact email address. Take a look at the specification of the <xref linkend="tag-update_contact"/> tag
+					for more details on how to use this tag.
+				</para>
+			</listitem>
+			</varlistentry>
 
-					   <varlistentry>
-							   <term>&lt;updatecontact/&gt;</term>
-							   <listitem>
-									   <para>
-											   There are no special requirements for what their <literal>&lt;updatecontant/&gt;</literal> should be. This tag is not required.
-									   </para>
-									   <para>
-											   <note>
-													   <para>
-															   Highly recommended to use this tag. If you include the <literal>&lt;updatecontact/&gt;</literal> tag then someone will send an email when the standard is updated, detailing the new fields that you may or may not want to add to your file.
-													   </para>
-											   </note>
-											   <note>
-													   <para>
-															   If public mailing list without registration is available for project with this addon - use it's email.
-													   </para>
-											   </note>
-									   </para>
-									   <para>
-											   Take a look at <xref linkend="tag-update_contact"/> for more details about this tag.
-									   </para>
-							   </listitem>
-					   </varlistentry>
-
-			   </variablelist>
-	   </section>
+		</variablelist>
+	</section>
 
 </section>
