@@ -33,9 +33,44 @@
 			Each translatable element in the <filename>.xml.in</filename> file needs to be prefixed with an underscore (<code>_</code>) to be marked as translatable.
 			Apart from that, the same specifications apply to this file as for any other AppStream metadata.
 		</para>
+
 		<para>
-			TODO: Fill in some concrete examples how Intltool should be used.
+			TODO: Fill in some generic examples how Intltool can be used.
 		</para>
+
+		<section id="qsr-l10n-intltool-autotools">
+			<title>Integrating with Autotools (the AppStream way)</title>
+			<para>
+				The generic way to add translation to your AppStream metadata in case you use Autotools is by using
+				the following code snippet:
+			</para>
+<programlisting language="Makefile"><![CDATA[appstreamdir = $(datadir)/appdata/
+appstream_in_files = gedit.appdata.xml.in
+appstream_DATA = $(appstream_in_files:.xml.in=.xml)
+@INTLTOOL_XML_RULE@
+EXTRA_DIST = $(appdata_in_files)
+CLEANFILES = $(appstream_DATA)]]></programlisting>
+			<para>
+				The code assumes you are using the Intltool Automake code.
+			</para>
+		</section>
+
+
+		<section id="qsr-l10n-intltool-autotools-asglib">
+			<title>Integrating with Autotools (the AppStream-GLib way)</title>
+			<para>
+				In case you want to use the macro provided by the AppStream-GLib library, you can use this code snippet:
+			</para>
+<programlisting language="Makefile"><![CDATA[@APPSTREAM_XML_RULES@
+appstream_in_files = gedit.appdata.xml.in
+appstream_XML = $(appstream_in_files:.xml.in=.xml)
+@INTLTOOL_XML_RULE@
+EXTRA_DIST = $(appdata_in_files)
+CLEANFILES = $(appstream_XML)]]></programlisting>
+			<para>
+				Make sure you have the additional AppStream macro installed.
+			</para>
+		</section>
 	</section>
 
 	<section id="qsr-l10n-itstool">
