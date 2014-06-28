@@ -89,36 +89,43 @@
 		</para>
 
 		<variablelist>
-			<varlistentry>
+			<varlistentry id="tag-distro-component-id">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;id/&gt;</code> tag is the same name as the installed .desktop file for the application.
-					Additional identifiers are possible later, but right now <literal>desktop</literal> is the only supported type.
+					The <code>&lt;id/&gt;</code> tag is a short unique and usually lower-cases identifier for the component.
+					Depending on the component's type, different naming conventions apply.
 				</para>
 			</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-pkgname">
 				<term>&lt;pkgname/&gt;</term>
 				<listitem>
 					<para>
 						The name of the package which needs to be installed in order to provide this application.
 					</para>
-				</listitem>
-			</varlistentry>
-
-			<varlistentry>
-				<term>&lt;name/&gt;</term>
-				<listitem>
 					<para>
-						The application name defined in the application's
-						<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink>.
+						This tag can only be defined once, but you can create metapackages as needed and connect them with
+						component metadata via this tag.
 					</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-name">
+				<term>&lt;name/&gt;</term>
+				<listitem>
+					<para>
+						A human-readable name for this component.
+					</para>
+					<para>
+						In case of a component of type <literal>desktop</literal>, the application name as defined in the application's
+						<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink> is used.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-distro-project_license">
 				<term>&lt;project_license/&gt;</term>
 				<listitem>
 					<para>
@@ -138,17 +145,20 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-summary">
 				<term>&lt;summary/&gt;</term>
 				<listitem>
 					<para>
-						A short summary of the purpose and function of this application. Usually taken from the Desktop file,
-						if the application does not ship an AppData file.
+						The tag contains a short summary of the purpose and function of this component. It is usually taken from a Desktop file,
+						if the application does not ship an upstream metadata file.
+					</para>
+					<para>
+						For more information about this tag, take a look at the tag's definition at <xref linkend="tag-summary"/>.
 					</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-description">
 				<term>&lt;description/&gt;</term>
 				<listitem>
 					<para>
@@ -178,10 +188,13 @@
 						<literal>&lt;description/&gt;</literal> tag itself has a language property and contain the translated paragraphs for the given language.
 						This allows faster parsing of the Appstream XML file, and does not increase it's size much, as long as it is compressed.
 					</para>
+					<para>
+						For more information about this tag, take a look at the tag's definition at <xref linkend="tag-description"/>.
+					</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-url">
 				<term>&lt;url/&gt;</term>
 				<listitem>
 					<para>
@@ -189,12 +202,12 @@
 					</para>
 					<para>
 						For a list of possible url types and what they are expected to do,
-						take a look at the tag's description at <xref linkend="spec-component-filespec"/>.
+						take a look at the tag's description at <xref linkend="tag-url"/>.
 					</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-project_group">
 				<term>&lt;project_group/&gt;</term>
 				<listitem>
 					<para>
@@ -211,7 +224,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-icon">
 				<term>&lt;icon/&gt;</term>
 				<listitem>
 					<para>
@@ -254,7 +267,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-mimetypes">
 				<term>&lt;mimetypes/&gt;</term>
 				<listitem>
 					<para>
@@ -271,7 +284,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-categories">
 				<term>&lt;categories/&gt;</term>
 				<listitem>
 					<para>
@@ -298,7 +311,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-keywords">
 				<term>&lt;keywords/&gt;</term>
 				<listitem>
 					<para>
@@ -316,7 +329,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-screenshots">
 				<term>&lt;screenshots/&gt;</term>
 				<listitem>
 					<para>
@@ -353,7 +366,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-compulsory_for_desktop">
 				<term>&lt;compulsory_for_desktop/&gt;</term>
 				<listitem>
 					<para>
@@ -376,7 +389,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-provides">
 				<term>&lt;provides/&gt;</term>
 				<listitem>
 					<para>
@@ -390,21 +403,33 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
-				<term>&lt;release/&gt;</term>
+			<varlistentry id="tag-distro-developer_name">
+			<term>&lt;developer_name/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;developer_name/&gt;</code> tag as described in the specification for a generic component. See <xref linkend="tag-developer_name"/> for more information.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-distro-releases">
+				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
-						The <code><![CDATA[<release>]]></code> tag describes some metainformation about the current release of the described component.
-						It may be present multiple times (for older releases), but a tag for the current version must always be present.
+						The <code>&lt;releases&gt;</code> tag contains <code>&lt;release/&gt;</code> child tags which
+						describe some metainformation about the current release of the described software.
+						The <code>&lt;release/&gt;</code> tag may be present multiple times (for older releases), but a tag for
+						the current version must always be present.
 						A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
 						and a release timestamp in form of a UNIX epoch.
 					</para>
 					<para>
-						Examples for a valid release tags:
+						Examples for a valid releases tag:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<release version="1.2" timestamp="1397253600" />
-<release version="1.0" timestamp="1345932000" />]]></programlisting>
+					<programlisting language="XML"><![CDATA[<releases>
+  <release version="1.2" timestamp="1397253600" />
+  <release version="1.0" timestamp="1345932000" />
+</releases>]]></programlisting>
 					<para>
 						In case a <code>&lt;release/&gt;</code> tag has a <code>&lt;description/&gt;</code> tag as parameter, describing the new release briefly, distributors are encouraged to provide 2-4
 						<code>&lt;release/&gt;</code> release tags for every component. If no description is provided, one tag is enough.
@@ -412,7 +437,8 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+
+			<varlistentry id="tag-distro-architectures">
 				<term>&lt;architectures/&gt;</term>
 				<listitem>
 					<para>
@@ -422,14 +448,13 @@
 					<para>
 						For example, this marks a component to only be available on i686:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<architectures>
+					<programlisting language="XML"><![CDATA[<architectures>
   <arch>i686</arch>
 </architectures>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-distro-languages">
 				<term>&lt;languages/&gt;</term>
 				<listitem>
 					<para>
