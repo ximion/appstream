@@ -42,7 +42,7 @@ public:
     QList<Component*> getAllComponents();
     QList<Component*> getComponentsByKind(Component::Kind kind);
 
-    QList<Component*> findComponentsByString(QString searchTerms, QString categories = "");
+    QList<Component*> findComponentsByString(QString searchTerms, QString categories = QString());
 
 private:
     DatabasePrivate *priv;
