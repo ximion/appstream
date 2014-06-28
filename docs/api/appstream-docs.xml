@@ -25,11 +25,13 @@
     <xi:include href="xml/as-search-query.xml"/>
     <xi:include href="xml/as-database.xml"/>
     <xi:include href="xml/as-metadata.xml"/>
+    <xi:include href="xml/as-data-pool.xml"/>
 
     <xi:include href="xml/as-distro-details.xml"/>
     <xi:include href="xml/as-menu-parser.xml"/>
     <xi:include href="xml/as-category.xml"/>
 
+    <xi:include href="xml/as-enums.xml"/>
     <xi:include href="xml/as-provides.xml"/>
 
     <xi:include href="xml/as-validator.xml"/>
@@ -58,7 +60,9 @@
 
   <chapter id="manpages">
     <title>AppStream Manual Pages</title>
-     <xi:include href="../sources/man/appstream-index.1.xml"/>
+
+    <xi:include href="../sources/man/appstream-index.1.xml"/>
+    <xi:include href="../sources/man/appstream-validate.1.xml"/>
   </chapter>
 
 </book>

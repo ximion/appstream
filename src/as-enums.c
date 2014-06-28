@@ -21,6 +21,12 @@
 #include "as-enums.h"
 
 /**
+ * SECTION:as-enums
+ * @short_description: Some enums used by various other modules
+ * @include: appstream.h
+ */
+
+/**
  * as_url_kind_to_string:
  * @url_kind: the %AsUrlKind.
  *

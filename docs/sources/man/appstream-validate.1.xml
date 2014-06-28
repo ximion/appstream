@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
 
   <!-- Please adjust the date whenever revising the manpage. -->
   <!ENTITY date        "<date>10 May,2014</date>">
@@ -58,23 +58,23 @@
 		</para>
 	</refsect1>
 
-       <refsect1>
-	       <title>Options</title>
-	       <variablelist>
+	<refsect1>
+	<title>Options</title>
+		<variablelist>
 
-		<varlistentry>
-			<term><option>--version</option></term>
-			<listitem>
-				<para>Display version number of &package;</para>
-			</listitem>
-		</varlistentry>
+			<varlistentry>
+				<term><option>--version</option></term>
+				<listitem>
+					<para>Display version number of &package;</para>
+				</listitem>
+			</varlistentry>
 
-		<varlistentry>
-			<term><option>--verbose</option></term>
-			<listitem>
-				<para>Switch to verbose mode</para>
-			</listitem>
-		</varlistentry>
+			<varlistentry>
+				<term><option>--verbose</option></term>
+				<listitem>
+					<para>Switch to verbose mode</para>
+				</listitem>
+			</varlistentry>
 
 		</variablelist>
 	</refsect1>
@@ -85,7 +85,8 @@
 	</refsect1>
 <refsect1>
 <title>AUTHOR</title>
-<para>This manual page was written by Matthias Klumpp <email>matthias@tenstral.net</email>.
+<para>
+	This manual page was written by Matthias Klumpp <email>matthias@tenstral.net</email>.
 </para>
 </refsect1>
 </refentry>
