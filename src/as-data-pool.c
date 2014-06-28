@@ -219,17 +219,22 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
  * as_data_pool_update:
  *
  * Builds an index of all found components in the watched locations.
+ * The function will try to get as much data into the pool as possible, so even if
+ * the updates completes with %FALSE, it might still add components to the pool.
+ *
+ * Returns: %TRUE if update completed without error.
  **/
-void
+gboolean
 as_data_pool_update (AsDataPool *dpool)
 {
 	guint i;
 	AsDataProvider *dprov;
+	gboolean ret = TRUE;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
 	if (!priv->initialized) {
 		g_error ("DataPool has never been initialized and can not find metadata.");
-		return;
+		return FALSE;
 	}
 
 	/* just in case, clear the components table */
@@ -241,9 +246,14 @@ as_data_pool_update (AsDataPool *dpool)
 
 	/* call all AppStream data providers to return components they find */
 	for (i = 0; i < priv->providers->len; i++) {
+		gboolean dret;
 		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
-		as_data_provider_execute (dprov);
+		dret = as_data_provider_execute (dprov);
+		if (!dret)
+			ret = FALSE;
 	}
+
+	return ret;
 }
 
 /**

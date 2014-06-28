@@ -78,18 +78,18 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 
 	doc = xmlParseDoc ((xmlChar*) xmldoc_str);
 	if (doc == NULL) {
-		fprintf (stderr, "Could not parse XML!");
+		fprintf (stderr, "%s\n", "Could not parse XML!");
 		return FALSE;
 	}
 
 	root = xmlDocGetRootElement (doc);
 	if (doc == NULL) {
-		fprintf (stderr, "The XML document is empty.");
+		fprintf (stderr, "%s\n", "The XML document is empty.");
 		return FALSE;
 	}
 
 	if (g_strcmp0 ((gchar*) root->name, "components") != 0) {
-		fprintf (stderr, "XML file does not contain valid AppStream data!");
+		fprintf (stderr, "%s\n", "XML file does not contain valid AppStream data!");
 		return FALSE;
 	}
 
@@ -202,6 +202,8 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 	guint i;
 	GFile *infile;
 	gchar **paths;
+	gboolean ret = TRUE;
+	const gchar *content_type;
 
 	self = (AsProviderAppstreamXML*) base;
 	xml_files = g_ptr_array_new_with_free_func (g_free);
@@ -236,8 +238,10 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 		return FALSE;
 	}
 
+	ret = TRUE;
 	for (i = 0; i < xml_files->len; i++) {
 		gchar *fname;
+		GFileInfo *info = NULL;
 		fname = (gchar*) g_ptr_array_index (xml_files, i);
 		infile = g_file_new_for_path (fname);
 		if (!g_file_query_exists (infile, NULL)) {
@@ -246,16 +250,33 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 			continue;
 		}
 
-		if (g_str_has_suffix (fname, ".xml")) {
-			as_provider_appstream_xml_process_file (self, infile);
-		} else if (g_str_has_suffix (fname, ".xml.gz")) {
-			as_provider_appstream_xml_process_compressed_file (self, infile);
+		info = g_file_query_info (infile,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+		if (info == NULL) {
+			g_debug ("No info for file '%s' found, file was skipped.", fname);
+			g_object_unref (infile);
+			continue;
 		}
+		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		if (g_strcmp0 (content_type, "application/xml") == 0) {
+			ret = as_provider_appstream_xml_process_file (self, infile);
+		} else if (g_strcmp0 (content_type, "application/gzip") == 0 ||
+				g_strcmp0 (content_type, "application/x-gzip") == 0) {
+			ret = as_provider_appstream_xml_process_compressed_file (self, infile);
+		} else {
+			g_warning ("Invalid file of type '%s' found. File '%s' was skipped.", content_type, fname);
+		}
+		g_object_unref (info);
 		g_object_unref (infile);
+
+		if (!ret)
+			break;
 	}
 	g_ptr_array_unref (xml_files);
 
-	return TRUE;
+	return ret;
 }
 
 static void

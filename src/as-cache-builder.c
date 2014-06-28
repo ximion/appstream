@@ -257,6 +257,7 @@ gboolean
 as_builder_refresh_cache (AsBuilder* self, gboolean force)
 {
 	gboolean ret = FALSE;
+	gboolean ret_poolupdate;
 	GList *cpt_list;
 	g_return_val_if_fail (self != NULL, FALSE);
 
@@ -272,7 +273,7 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	g_debug ("Refreshing AppStream cache");
 
 	/* find them wherever they are */
-	as_data_pool_update (self->priv->dpool);
+	ret_poolupdate = as_data_pool_update (self->priv->dpool);
 
 	/* populate the cache */
 	cpt_list = as_data_pool_get_components (self->priv->dpool);
@@ -280,7 +281,10 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	g_list_free (cpt_list);
 
 	if (ret) {
-		g_print ("%s\n", "AppStream cache update completed successfully.");
+		if (ret_poolupdate)
+			g_print ("%s\n", "AppStream cache update completed successfully.");
+		else
+			g_print ("%s\n", "AppStream cache update completed, but some metadata was ignored due to errors.");
 	} else {
 		g_print ("%s\n", "AppStream cache update failed.");
 	}

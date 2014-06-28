@@ -64,7 +64,7 @@ AsDataPool		*as_data_pool_new (void);
 void			as_data_pool_initialize (AsDataPool *dpool);
 gchar**			as_data_pool_get_watched_locations (AsDataPool *dpool);
 
-void			as_data_pool_update (AsDataPool *dpool);
+gboolean		as_data_pool_update (AsDataPool *dpool);
 GList*			as_data_pool_get_components (AsDataPool *dpool);
 
 void			as_data_pool_set_xml_paths (AsDataPool *dpool,
