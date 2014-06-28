@@ -371,6 +371,29 @@
 			</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-project_license">
+				<term>&lt;project_license/&gt;</term>
+				<listitem>
+					<para>
+						The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
+						It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
+						Possible values include:
+						<itemizedlist>
+							<listitem><para>GPL-2.0</para></listitem>
+							<listitem><para>LGPL-3.0+ and GPL-3.0+</para></listitem>
+							<listitem><para>MIT</para></listitem>
+							<listitem><para>CC-BY-SA-2.0</para></listitem>
+							<listitem><para>...</para></listitem>
+						</itemizedlist>
+						A full list of recognized licenses and their identifiers can be found at the
+						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					</para>
+					<para>
+						Although the <literal>project_license</literal> tag is not mandatory, it is recommended to include it.
+					</para>
+				</listitem>
+			</varlistentry>
+
 			<varlistentry id="tag-developer_name">
 			<term>&lt;developer_name/&gt;</term>
 			<listitem>

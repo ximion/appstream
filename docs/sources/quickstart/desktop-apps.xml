@@ -52,6 +52,7 @@
 <component type="desktop">
   <id>gnome-power-statistics.desktop</id>
   <metadata_license>CC0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
   <name>Power Statistics</name>
   <summary>Observe power management</summary>
 
@@ -122,14 +123,24 @@
 			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
-					AppData text file as. This is not typically the same as the project licence. By ommitting the licence value would
+					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content license that you are releasing the one
+					metadata file as. This is not typically the same as the project license. By ommitting the license value would
 					probably mean your data would not be incorporated into the distribution metadata.
-					Permissible licence codes include:
+					Permissible license codes include:
 				</para>
 				<para>
-					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					The license codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 					Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;project_license/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>&lt;project_license/&gt;</literal> tag is indicating the license(s) this application is released under.
+					Take a look at the specification of the <xref linkend="tag-project_license"/> tag for details on how to properly use it.
 				</para>
 			</listitem>
 			</varlistentry>

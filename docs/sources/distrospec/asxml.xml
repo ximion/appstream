@@ -122,7 +122,7 @@
 				<term>&lt;project_license/&gt;</term>
 				<listitem>
 					<para>
-						The <code><![CDATA[<project_license>]]></code> tag is indicating the license of your project/application.
+						The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component.
 						It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
 						Possible values include:
 						<itemizedlist>
@@ -134,9 +134,6 @@
 						</itemizedlist>
 						A full list of recognized licenses and their identifiers can be found at the
 						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-					</para>
-					<para>
-						Although the license tag is not mandatory, it is recommended to include it.
 					</para>
 				</listitem>
 			</varlistentry>
