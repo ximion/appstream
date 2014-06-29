@@ -192,30 +192,30 @@ out:
 
 
 static gboolean
-as_provider_ubuntu_appinstall_real_execute (AsDataProvider* base)
+as_provider_ubuntu_appinstall_real_execute (AsDataProvider *base)
 {
 	AsProviderUbuntuAppinstall * self;
 	GPtrArray* desktop_files;
 	guint i;
 	gchar **paths;
-
-	self = (AsProviderUbuntuAppinstall*) base;
+	self = AS_PROVIDER_UBUNTU_APPINSTALL (base);
 
 	paths = as_data_provider_get_watch_files (base);
 	if (paths == NULL)
 		return TRUE;
 	for (i = 0; paths[i] != NULL; i++) {
 		gchar *fname;
-		if (as_str_empty (paths[i]))
-			continue;
+		guint j;
 		fname = g_build_filename (paths[i], "desktop", NULL);
 		desktop_files = as_utils_find_files_matching (fname, "*.desktop", FALSE);
-		if (desktop_files == NULL)
+		if (desktop_files == NULL) {
+			g_free (fname);
 			return FALSE;
+		}
 
-		for (i = 0; i < desktop_files->len; i++) {
+		for (j = 0; j < desktop_files->len; j++) {
 				const gchar *path;
-				path = (const gchar *) g_ptr_array_index (desktop_files, i);
+				path = (const gchar *) g_ptr_array_index (desktop_files, j);
 				as_provider_ubuntu_appinstall_process_desktop_file (self, path);
 		}
 		g_ptr_array_unref (desktop_files);

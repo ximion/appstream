@@ -155,15 +155,15 @@ as_data_pool_initialize (AsDataPool *dpool)
 	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* added by priority: Appstream XML has the highest, Ubuntu AppInstall the lowest priority */
-	dprov = (AsDataProvider*) as_provider_appstream_xml_new ();
+	dprov = AS_DATA_PROVIDER (as_provider_appstream_xml_new ());
 	as_data_provider_set_watch_files (dprov, priv->asxml_paths);
 	g_ptr_array_add (priv->providers, dprov);
 #ifdef DEBIAN_DEP11
-	dprov = (AsDataProvider*) as_provider_dep11_new ();
+	dprov = AS_DATA_PROVIDER (as_provider_dep11_new ());
 	g_ptr_array_add (priv->providers, dprov);
 #endif
 #ifdef UBUNTU_APPINSTALL
-	dprov = (AsDataProvider*) as_provider_ubuntu_appinstall_new ();
+	dprov = AS_DATA_PROVIDER (as_provider_ubuntu_appinstall_new ());
 	as_data_provider_set_watch_files (dprov, priv->appinstall_paths);
 	g_ptr_array_add (priv->providers, dprov);
 #endif
@@ -351,7 +351,7 @@ as_data_pool_new (void)
 	}
 
 	/* set default directories for Ubuntu AppInstall */
-	priv->appinstall_paths = g_new0 (gchar*, 1 + 1);
+	priv->appinstall_paths = g_new0 (gchar*, 2);
 	priv->appinstall_paths[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
 
 	priv->initialized = FALSE;
