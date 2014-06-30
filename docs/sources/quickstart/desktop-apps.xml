@@ -5,7 +5,7 @@
 ]>
 
 <section id="sect-Quickstart-DesktopApps">
-	<title>For GUI application upstreams</title>
+	<title>For GUI application upstream maintainers</title>
 
 	<section id="qsr-app-introduction">
 		<title>Introduction</title>
@@ -29,14 +29,12 @@
 			Applications can ship one or more files in <filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
 		</para>
 		<para>
-			AppData files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
+			AppData files can - just like all other metainfo files - be translated. See the section about translation for more information about that.
 		</para>
 		<note>
 			<para>
 				All tags defined in the generic component specification are valid in AppData as well, an application is just
 				defined as a specialized component, which has the additional benefit of being displayed in a software-center application.
-				For a compact description of AppData, take a look at <ulink url="http://people.freedesktop.org/~hughsient/appdata/">this AppData draft</ulink> ,
-				which provides application developers with all information necessary to write good AppData files.
 			</para>
 		</note>
 	</section>
@@ -91,7 +89,7 @@
   </provides>
 
   <releases>
-    <release version="3.12.2" timestamp="20140414">
+    <release version="3.12.2" timestamp="1365768000">
       <description>
         <p>Fixes issues X, Y and Z</p>
       </description>
@@ -128,6 +126,23 @@
 					probably mean your data would not be incorporated into the distribution metadata.
 					Permissible license codes include:
 				</para>
+				<itemizedlist>
+					<listitem>
+						<para>CC0-1.0</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY-3.0</para>
+					</listitem>
+					<listitem>
+						<para>CC-BY-SA-3.0</para>
+					</listitem>
+					<listitem>
+						<para>GFDL-1.3</para>
+					</listitem>
+					<listitem>
+						<para>MIT</para>
+					</listitem>
+				</itemizedlist>
 				<para>
 					The license codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 					Take a look at <xref linkend="tag-metadata_license"/> for more details about this tag.
@@ -234,7 +249,7 @@
 					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
 				</para>
 				<para>
-					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 caracters!)
+					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more than 180 caracters!)
 					description of what the user can see on the referenced screenshot.
 				</para>
 				<para>
