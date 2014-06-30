@@ -185,9 +185,8 @@ DatabaseRead::newAppStreamParser ()
         xapian_parser.set_database (m_xapianDB);
         xapian_parser.add_boolean_prefix ("pkg", "XP");
         xapian_parser.add_boolean_prefix ("pkg", "AP");
-        xapian_parser.add_boolean_prefix ("mime", "AM");
+        xapian_parser.add_boolean_prefix ("id", "AI");
         xapian_parser.add_boolean_prefix ("section", "XS");
-        xapian_parser.add_boolean_prefix ("origin", "XOC");
         xapian_parser.add_prefix ("pkg_wildcard", "XP");
         xapian_parser.add_prefix ("pkg_wildcard", "AP");
         xapian_parser.set_default_op (Xapian::Query::OP_AND);
@@ -433,7 +432,6 @@ DatabaseRead::getComponentsByKind (AsComponentKind kinds)
 
 	for (guint i = 0; i < AS_COMPONENT_KIND_LAST;i++) {
 		if ((kinds & (1 << i)) > 0) {
-			g_debug ("%s", as_component_kind_to_string ((AsComponentKind) (1 << i)));
 			item_query = Xapian::Query (Xapian::Query::OP_OR,
 					   Xapian::Query("AT" + string(as_component_kind_to_string ((AsComponentKind) (1 << i)))),
 					   item_query);
