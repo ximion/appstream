@@ -1012,6 +1012,13 @@ as_component_set_keywords (AsComponent* self, gchar** value)
 	g_object_notify ((GObject *) self, "keywords");
 }
 
+/**
+ * as_component_get_icon:
+ * @self: an #AsComponent instance
+ *
+ * Returns the icon name for this component. This is usually
+ * a stock icon name, e.g. "applications-science"
+ */
 const gchar*
 as_component_get_icon (AsComponent* self)
 {
@@ -1019,6 +1026,13 @@ as_component_get_icon (AsComponent* self)
 	return self->priv->icon;
 }
 
+/**
+ * as_component_set_icon:
+ * @self: an #AsComponent instance
+ *
+ * Set a stock icon name for this component,
+ * e.g. "applications-science"
+ */
 void
 as_component_set_icon (AsComponent* self, const gchar* value)
 {
@@ -1029,6 +1043,14 @@ as_component_set_icon (AsComponent* self, const gchar* value)
 	g_object_notify ((GObject *) self, "icon");
 }
 
+/**
+ * as_component_get_icon_url:
+ * @self: an #AsComponent instance
+ *
+ * Returns the full url of this icon, e.g.
+ * "/usr/share/icons/hicolor/64x64/foobar.png"
+ * This might also be an http url pointing at a remote location.
+ */
 const gchar*
 as_component_get_icon_url (AsComponent* self)
 {
@@ -1036,6 +1058,15 @@ as_component_get_icon_url (AsComponent* self)
 	return self->priv->icon_url;
 }
 
+/**
+ * as_component_set_icon_url:
+ * @self: an #AsComponent instance
+ *
+ * Set an icon url for this component, which can be a remote
+ * or local location.
+ * The icon size pointed to should be 64x64 and the icon should ideally be
+ * a PNG icon.
+ */
 void
 as_component_set_icon_url (AsComponent* self, const gchar* value)
 {
