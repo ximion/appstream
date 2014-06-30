@@ -97,7 +97,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	// URLs
 	string urls_str = doc.get_value (XapianValues::URLS);
 	gchar **urls = g_strsplit (urls_str.c_str (), "\n", -1);
-	for (uint i = 0; urls[i] != NULL; i++) {
+	for (uint i = 0; urls[i] != NULL; i += 2) {
 		/* urls are stored in form of "type \n url" (so we just need one stringsplit here...) */
 		if (urls[i+1] == NULL)
 			break;
