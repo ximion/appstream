@@ -425,14 +425,20 @@ DatabaseRead::getComponentsByProvides (AsProvidesKind kind, const gchar *value, 
 }
 
 GPtrArray*
-DatabaseRead::getComponentsByKind (AsComponentKind kind)
+DatabaseRead::getComponentsByKind (AsComponentKind kinds)
 {
 	GPtrArray *cptArray = g_ptr_array_new_with_free_func (g_object_unref);
 
-	Xapian::Query item_query;
-	item_query = Xapian::Query (Xapian::Query::OP_OR,
-					   Xapian::Query("AT" + string(as_component_kind_to_string (kind))),
-					   Xapian::Query ());
+	Xapian::Query item_query = Xapian::Query();
+
+	for (guint i = 0; i < AS_COMPONENT_KIND_LAST;i++) {
+		if ((kinds & (1 << i)) > 0) {
+			g_debug ("%s", as_component_kind_to_string ((AsComponentKind) (1 << i)));
+			item_query = Xapian::Query (Xapian::Query::OP_OR,
+					   Xapian::Query("AT" + string(as_component_kind_to_string ((AsComponentKind) (1 << i)))),
+					   item_query);
+		}
+	}
 
 	item_query.serialise ();
 

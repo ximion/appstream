@@ -53,7 +53,7 @@ GPtrArray			*xa_database_read_get_components_by_provides (XADatabaseRead *db,
 														const gchar *value,
 														const gchar *data);
 GPtrArray			*xa_database_read_get_components_by_kind (XADatabaseRead *db,
-													AsComponentKind kind);
+													AsComponentKind kinds);
 
 /* methods for database write access */
 

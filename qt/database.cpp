@@ -105,12 +105,12 @@ out:
 }
 
 QList<Component*>
-Database::getComponentsByKind(Component::Kind kind)
+Database::getComponentsByKind(Component::Kind kinds)
 {
     QList<Component*> cpts;
     GPtrArray *array;
 
-    array = as_database_get_components_by_kind(priv->db, (AsComponentKind) kind);
+    array = as_database_get_components_by_kind(priv->db, (AsComponentKind) kinds);
     if (array == NULL)
         return cpts;
     if (array->len == 0) {

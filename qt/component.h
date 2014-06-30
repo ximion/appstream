@@ -37,13 +37,13 @@ class ASQTSHARED_EXPORT Component : public QObject
 
 public:
     enum Kind  {
-        KindUnknown,
-        KindGeneric,
-        KindDesktop,
-        KindFont,
-        KindCodec,
-        KindInputmethod,
-        KindAddon
+        KindUnknown = 0,
+        KindGeneric = 1 << 0,
+        KindDesktop = 1 << 1,
+        KindFont = 1 << 2,
+        KindCodec = 1 << 3,
+        KindInputmethod = 1 << 4,
+        KindAddon = 1 << 5
     };
 
     Component(QObject *parent = 0);

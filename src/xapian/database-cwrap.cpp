@@ -64,9 +64,9 @@ xa_database_read_get_components_by_provides (XADatabaseRead *db, AsProvidesKind 
 };
 
 GPtrArray*
-xa_database_read_get_components_by_kind (XADatabaseRead *db, AsComponentKind kind)
+xa_database_read_get_components_by_kind (XADatabaseRead *db, AsComponentKind kinds)
 {
-	return realDbRead (db)->getComponentsByKind (kind);
+	return realDbRead (db)->getComponentsByKind (kinds);
 };
 
 /* methods for database write access */

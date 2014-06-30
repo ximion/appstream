@@ -246,21 +246,21 @@ as_database_get_components_by_provides (AsDatabase* self, AsProvidesKind kind, c
 /**
  * as_database_get_components_by_kind:
  * @self a valid #AsDatabase instance
- * @kind an #AsComponentKind
+ * @kinds an #AsComponentKind bitfield
  *
  * Find components of a given kind.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */
 GPtrArray*
-as_database_get_components_by_kind (AsDatabase* self, AsComponentKind kind)
+as_database_get_components_by_kind (AsDatabase* self, AsComponentKind kinds)
 {
 	GPtrArray* cpt_array;
 	g_return_val_if_fail (self != NULL, NULL);
 	if (!self->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_get_components_by_kind (self->priv->db, kind);
+	cpt_array = xa_database_read_get_components_by_kind (self->priv->db, kinds);
 
 	return cpt_array;
 }
