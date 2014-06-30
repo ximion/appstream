@@ -112,9 +112,6 @@ as_description_markup_convert_simple (const gchar *markup)
 					goto out;
 				}
 			}
-		} else {
-			/* only <p>, <ul> and <ol> is valid here */
-			/* we might catch that as proper GError later */
 		}
 	}
 

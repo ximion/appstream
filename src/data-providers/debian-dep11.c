@@ -43,7 +43,7 @@ static gboolean
 as_provider_dep11_real_execute (AsDataProvider* base)
 {
 	gboolean ret = FALSE;
-	ret = FALSE;
+	ret = TRUE;
 
 	/* TODO */
 
