@@ -218,7 +218,6 @@ as_provider_appstream_xml_real_execute (AsDataProvider* base)
 		path = paths[i];
 
 		if (!g_file_test (path, G_FILE_TEST_EXISTS)) {
-			g_free (path);
 			continue;
 		}
 		xmls = as_utils_find_files_matching (path, "*.xml*", FALSE);
