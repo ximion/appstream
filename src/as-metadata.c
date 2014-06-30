@@ -58,7 +58,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_metadata_get_instance_private (o))
 
 static gchar*		as_metadata_parse_value (AsMetadata* metad, xmlNode* node, gboolean translated);
-static gchar**		as_metadata_get_children_as_array (AsMetadata* metad, xmlNode* node, const gchar* element_name);
+static gchar**		as_metadata_get_children_as_strv (AsMetadata* metad, xmlNode* node, const gchar* element_name);
 
 /**
  * as_metadata_finalize:
@@ -184,7 +184,7 @@ out:
 }
 
 static gchar**
-as_metadata_get_children_as_array (AsMetadata* metad, xmlNode* node, const gchar* element_name)
+as_metadata_get_children_as_strv (AsMetadata* metad, xmlNode* node, const gchar* element_name)
 {
 	GPtrArray *list;
 	xmlNode *iter;
@@ -545,6 +545,35 @@ as_metadata_set_component_type_from_node (xmlNode *node, AsComponent *cpt)
 	g_free (cpttype);
 }
 
+static void
+as_metadata_process_languages_tag (AsMetadata* metad, xmlNode* node, AsComponent* cpt)
+{
+	xmlNode *iter;
+	gchar *prop;
+	g_return_if_fail (metad != NULL);
+	g_return_if_fail (cpt != NULL);
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "lang") == 0) {
+			guint64 percentage = 0;
+			gchar *locale;
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "percentage");
+			if (prop != NULL) {
+				percentage = g_ascii_strtoll (prop, NULL, 10);
+				g_free (prop);
+			}
+
+			locale = as_metadata_parse_value (metad, iter, TRUE);
+			as_component_add_language (cpt, locale, percentage);
+			g_free (locale);
+		}
+	}
+}
+
 /**
  * as_metadata_parse_component_node:
  */
@@ -668,19 +697,19 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 			}
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			gchar **cat_array;
-			cat_array = as_metadata_get_children_as_array (metad, iter, "category");
+			cat_array = as_metadata_get_children_as_strv (metad, iter, "category");
 			as_component_set_categories (cpt, cat_array);
 			g_strfreev (cat_array);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			gchar **kw_array;
-			kw_array = as_metadata_get_children_as_array (metad, iter, "keyword");
+			kw_array = as_metadata_get_children_as_strv (metad, iter, "keyword");
 			as_component_set_keywords (cpt, kw_array);
 			g_strfreev (kw_array);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			gchar **mime_array;
 			guint i;
 
-			mime_array = as_metadata_get_children_as_array (metad, iter, "mimetype");
+			mime_array = as_metadata_get_children_as_strv (metad, iter, "mimetype");
 			for (i = 0; mime_array[i] != NULL; i++) {
 				as_component_add_provided_item (cpt, AS_PROVIDES_KIND_MIMETYPE, mime_array[i], "");
 			}
@@ -706,6 +735,8 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
 			if (content != NULL)
 				as_component_add_extends (cpt, content);
+		} else if (g_strcmp0 (node_name, "languages") == 0) {
+			as_metadata_process_languages_tag (metad, iter, cpt);
 		}
 		g_free (content);
 	}

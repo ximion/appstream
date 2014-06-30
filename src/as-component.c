@@ -69,6 +69,7 @@ struct _AsComponentPrivate {
 	GPtrArray *releases; /* of AsRelease */
 	GHashTable *urls; /* of key:utf8 */
 	GPtrArray *extends; /* of utf8:string */
+	GHashTable *languages; /* of key:utf8 */
 	int priority; /* used internally */
 };
 
@@ -211,6 +212,7 @@ as_component_construct (GType object_type)
 	self->priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 	self->priv->urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	self->priv->extends = g_ptr_array_new_with_free_func (g_free);
+	self->priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	as_component_set_priority (self, 0);
 
@@ -240,6 +242,7 @@ as_component_finalize (GObject* obj)
 	g_ptr_array_unref (self->priv->releases);
 	g_hash_table_unref (self->priv->urls);
 	g_ptr_array_unref (self->priv->extends);
+	g_hash_table_unref (self->priv->languages);
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (obj);
 }
 
@@ -1340,6 +1343,68 @@ as_component_set_priority (AsComponent* self, int priority)
 {
 	g_return_if_fail (self != NULL);
 	self->priv->priority = priority;
+}
+
+/**
+ * as_component_add_language:
+ * @self: an #AsComponent instance.
+ * @locale: the locale, or %NULL. e.g. "en_GB"
+ * @percentage: the percentage completion of the translation, 0 for locales with unknown amount of translation
+ *
+ * Adds a language to the component.
+ *
+ * Since: 0.7.0
+ **/
+void
+as_component_add_language (AsComponent *self, const gchar *locale, gint percentage)
+{
+	if (locale == NULL)
+		locale = "C";
+	g_hash_table_insert (self->priv->languages,
+						 g_strdup (locale),
+						 GINT_TO_POINTER (percentage));
+}
+
+/**
+ * as_component_get_language:
+ * @self: an #AsComponent instance.
+ * @locale: the locale, or %NULL. e.g. "en_GB"
+ *
+ * Gets the translation coverage in percent for a specific locale
+ *
+ * Returns: a percentage value, -1 if locale was not found
+ *
+ * Since: 0.7.0
+ **/
+gint
+as_component_get_language (AsComponent *self, const gchar *locale)
+{
+	gboolean ret;
+	gpointer value = NULL;
+
+	if (locale == NULL)
+		locale = "C";
+	ret = g_hash_table_lookup_extended (self->priv->languages,
+					    locale, NULL, &value);
+	if (!ret)
+		return -1;
+	return GPOINTER_TO_INT (value);
+}
+
+/**
+ * as_app_get_languages:
+ * @self: an #AsComponent instance.
+ *
+ * Get a list of all languages.
+ *
+ * Returns: (transfer container) (element-type utf8): list of locales
+ *
+ * Since: 0.7.0
+ **/
+GList*
+as_component_get_languages (AsComponent *self)
+{
+	return g_hash_table_get_keys (self->priv->languages);
 }
 
 static void
