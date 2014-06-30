@@ -18,6 +18,7 @@
  */
 
 #include "component.h"
+#include "screenshot.h"
 #include <QSharedData>
 #include <QStringList>
 #include <QUrl>
@@ -41,6 +42,7 @@ class Asmara::ComponentData : public QSharedData {
         QString m_projectLicense;
         QString m_summary;
         QMultiHash<Component::UrlKind, QUrl> m_urls;
+        QList<Asmara::ScreenShot> m_screenshots;
         bool operator==(const ComponentData& other) const {
             if(m_categories != other.m_categories) {
                 return false;
@@ -85,6 +87,9 @@ class Asmara::ComponentData : public QSharedData {
                 return false;
             }
             if(m_urls != other.m_urls) {
+                return false;
+            }
+            if(m_screenshots != other.m_screenshots) {
                 return false;
             }
             return true;
@@ -289,6 +294,16 @@ Component::Kind Component::stringToKind(const QString& kindString) {
     return KindUnknown;
 
 }
+
+void Component::setScreenShots(const QList< ScreenShot >& screenshots) {
+    d->m_screenshots = screenshots;
+}
+
+const QList< ScreenShot >& Component::screenShots() const {
+    return d->m_screenshots;
+}
+
+
 
 
 Component::UrlKind Component::stringToUrlKind(const QString& urlKindString) {

@@ -29,6 +29,8 @@
 
 namespace Asmara {
 
+class ScreenShot;
+
 class ComponentData;
 
 /**
@@ -119,9 +121,8 @@ class ASMARA_EXPORT Component {
         static UrlKind stringToUrlKind(const QString& urlKindString);
         static QString urlKindToString(Asmara::Component::UrlKind kind);
 
-#if 0 // todo for later
-        QList<Screenshot> getScreenshots();
-#endif
+        const QList<Asmara::ScreenShot>& screenShots() const;
+        void setScreenShots(const QList<Asmara::ScreenShot>& screenshots);
 
     private:
         QSharedDataPointer<ComponentData> d;

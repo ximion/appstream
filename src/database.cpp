@@ -24,6 +24,7 @@
 #define QT_NO_KEYWORDS
 
 #include "database.h"
+#include "screenshotxmlparser_p.h"
 #include <xapian.h>
 #include <QStringList>
 #include <QUrl>
@@ -160,7 +161,9 @@ Component xapianDocToComponent(Xapian::Document document) {
 
     // Screenshot data
     QString screenshotXml = value(document,XapianValues::SCREENSHOT_DATA);
-    Q_UNUSED(screenshotXml);
+    QXmlStreamReader reader(screenshotXml);
+    QList<Asmara::ScreenShot> screenshots = parseScreenShotsXml(&reader);
+    component.setScreenShots(screenshots);
 
     // Compulsory-for-desktop information
     QStringList compulsory = value(document, XapianValues::COMPULSORY_FOR).split(";");

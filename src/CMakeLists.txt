@@ -1,9 +1,15 @@
-SET(ASMARA_SRC component.cpp database.cpp
+SET(ASMARA_SRC
+	component.cpp
+	database.cpp
+	image.cpp
+	screenshot.cpp
 )
 
 SET(ASMARA_PUBLIC_HEADERS
     component.h
     database.h
+    image.h
+    screenshot.cpp
 )
 
 add_library(Asmara SHARED ${ASMARA_SRC})
