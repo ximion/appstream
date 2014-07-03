@@ -105,7 +105,7 @@ const QStringList& Component::compulsoryForDesktops() const {
     return d->m_compulsoryForDesktops;
 }
 
-const QString& Component::description() {
+const QString& Component::description() const {
     return d->m_description;
 }
 

@@ -79,7 +79,7 @@ class ASMARA_EXPORT Component {
         const QString& summary() const;
         void setSummary(const QString& summary);
 
-        const QString& description();
+        const QString& description() const;
         void setDescription(const QString& description);
 
         const QString& projectLicense() const;
