@@ -4,6 +4,9 @@ include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 add_compiler_export_flags()
 
+remove_definitions ("--include config.h")
+
+
 ENABLE_TESTING()
 
 SET(APPSTREAMQT_SO_VERSION 0)
