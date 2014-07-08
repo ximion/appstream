@@ -224,8 +224,9 @@ static void
 as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gchar *node_path, AsComponent *cpt, const gchar *format)
 {
 	gchar *lang;
+
 	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
-	if (!as_str_empty (lang)) {
+	if (lang != NULL) {
 		as_validator_add_issue (validator,
 				cpt,
 				AS_ISSUE_IMPORTANCE_ERROR,
@@ -271,7 +272,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 		if (g_strcmp0 (node_name, "p") == 0) {
 			if (mode == AS_PARSER_MODE_DISTRO) {
 				as_validator_check_nolocalized (validator,
-									node,
+									iter,
 									"description/p",
 									cpt,
 									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
@@ -288,7 +289,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
 			if (mode == AS_PARSER_MODE_DISTRO) {
 				as_validator_check_nolocalized (validator,
-									node,
+									iter,
 									"description/ul",
 									cpt,
 									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
@@ -297,7 +298,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
 			if (mode == AS_PARSER_MODE_DISTRO) {
 				as_validator_check_nolocalized (validator,
-									node,
+									iter,
 									"description/ul",
 									cpt,
 									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
@@ -515,7 +516,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	if ((!provides_found) && (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP)) {
 		as_validator_add_issue (validator,
 					cpt,
-					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_IMPORTANCE_INFO,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"Component describes a desktop-application, but has no 'provides' tag. It should at least define a 'binary' as public interface.");
 	}
