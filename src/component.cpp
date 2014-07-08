@@ -43,6 +43,7 @@ class Asmara::ComponentData : public QSharedData {
         QString m_summary;
         QMultiHash<Component::UrlKind, QUrl> m_urls;
         QList<Asmara::ScreenShot> m_screenshots;
+        QMultiHash<Provides::Kind, Provides> m_provides;
         bool operator==(const ComponentData& other) const {
             if(m_categories != other.m_categories) {
                 return false;
@@ -90,6 +91,9 @@ class Asmara::ComponentData : public QSharedData {
                 return false;
             }
             if(m_screenshots != other.m_screenshots) {
+                return false;
+            }
+            if(m_provides != other.m_provides) {
                 return false;
             }
             return true;
@@ -339,5 +343,20 @@ static QHash<Component::UrlKind,QString> buildUrlKindMap() {
 QString Component::urlKindToString(Component::UrlKind kind) {
     static const QHash<UrlKind, QString> kindMap = buildUrlKindMap();
     return kindMap.value(kind);
+}
+
+QList< Asmara::Provides > Component::provides() const {
+    return d->m_provides.values();
+}
+
+QList<Asmara::Provides> Component::provides(Provides::Kind kind) const {
+    return d->m_provides.values(kind);
+}
+
+
+void Component::setProvides(QList<Asmara::Provides> provides) {
+    Q_FOREACH(const Asmara::Provides& provide, provides) {
+        d->m_provides.insertMulti(provide.kind(), provide);
+    }
 }
 

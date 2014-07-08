@@ -24,7 +24,9 @@
 #include <QSharedDataPointer>
 #include <QObject>
 #include <QUrl>
+#include <QStringList>
 #include "asmara_export.h"
+#include "provides.h"
 
 
 namespace Asmara {
@@ -120,6 +122,19 @@ class ASMARA_EXPORT Component {
 
         static UrlKind stringToUrlKind(const QString& urlKindString);
         static QString urlKindToString(Asmara::Component::UrlKind kind);
+
+        /**
+         * \param kind for provides
+         * \return a list of all provides for this \param kind
+         */
+        QList<Asmara::Provides> provides(Provides::Kind kind) const;
+        void setProvides(QList<Asmara::Provides> provides);
+        /**
+         * \return the full list of provides for all kinds.
+         * Note that it might be ordered differently than the list given with
+         * \ref setProvides, but it will have the same entries.
+         */
+        QList<Asmara::Provides> provides() const;
 
         const QList<Asmara::ScreenShot>& screenShots() const;
         void setScreenShots(const QList<Asmara::ScreenShot>& screenshots);

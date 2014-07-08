@@ -140,6 +140,27 @@ Component xapianDocToComponent(Xapian::Document document) {
         qWarning("Bad url strings for package: %s %s", qPrintable(packageName), qPrintable(concatUrlStrings));
     }
 
+    QString concatProvides = value(document, XapianValues::PROVIDED_ITEMS);
+    QStringList providesList = concatProvides.split('\n',QString::SkipEmptyParts);
+    QList<Provides> provideslist;
+    Q_FOREACH(const QString& string, providesList) {
+        QStringList providesParts = string.split(';',QString::SkipEmptyParts);
+        if(providesParts.size() < 2) {
+            qWarning("Bad component parts for package %s %s",qPrintable(packageName), qPrintable(string));
+            continue;
+        }
+        QString kindString = providesParts.takeFirst();
+        Provides::Kind kind = Provides::stringToKind(kindString);
+        Provides provides;
+        provides.setKind(kind);
+        QString value = providesParts.takeFirst();
+        provides.setValue(value);
+        QString extraData = providesParts.join(";");
+        provides.setExtraData(extraData);
+        provideslist << provides;
+    }
+    component.setProvides(provideslist);
+
     // Application icon
     QString icon = value(document,XapianValues::ICON);
     component.setIcon(icon);

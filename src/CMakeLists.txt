@@ -1,14 +1,16 @@
 SET(ASMARA_SRC
-	component.cpp
-	database.cpp
-	image.cpp
-	screenshot.cpp
+          component.cpp
+          database.cpp
+          image.cpp
+          provides.cpp
+          screenshot.cpp
 )
 
 SET(ASMARA_PUBLIC_HEADERS
     component.h
     database.h
     image.h
+    provides.h
     screenshot.h
 )
 
