@@ -22,9 +22,9 @@
 #include <QSharedData>
 #include <QUrl>
 
-using namespace Asmara;
+using namespace Appstream;
 
-class Asmara::ImageData : public QSharedData {
+class Appstream::ImageData : public QSharedData {
     public:
         ImageData() : m_height(0), m_width(0), m_kind(Image::Unknown) {
         }

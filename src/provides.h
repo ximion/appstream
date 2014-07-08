@@ -18,19 +18,19 @@
  *
  */
 
-#ifndef ASMARA_PROVIDES_H
-#define ASMARA_PROVIDES_H
+#ifndef APPSTREAMQT_PROVIDES_H
+#define APPSTREAMQT_PROVIDES_H
 
 #include <QSharedDataPointer>
 #include <QString>
 #include <QObject>
-#include "asmara_export.h"
+#include "appstreamqt_export.h"
 
-namespace Asmara {
+namespace Appstream {
 
 class ProvidesData;
 
-class ASMARA_EXPORT Provides {
+class APPSTREAMQT_EXPORT Provides {
     Q_GADGET
     Q_ENUMS(Kind)
     public:
@@ -70,4 +70,4 @@ class ASMARA_EXPORT Provides {
 };
 }
 
-#endif // ASMARA_PROVIDES_H
+#endif // APPSTREAMQT_PROVIDES_H

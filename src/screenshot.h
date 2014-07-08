@@ -18,17 +18,17 @@
  *
  */
 
-#ifndef ASMARA_SCREENSHOT_H
-#define ASMARA_SCREENSHOT_H
+#ifndef APPSTREAMQT_SCREENSHOT_H
+#define APPSTREAMQT_SCREENSHOT_H
 
 #include <QSharedDataPointer>
 
-#include "asmara_export.h"
+#include "appstreamqt_export.h"
 
 class QString;
 template<class T >
 class QList;
-namespace Asmara {
+namespace Appstream {
 
 class Image;
 
@@ -39,7 +39,7 @@ class ScreenShotData;
  * A screenshot might appear in various resolutions
  */
 
-class ASMARA_EXPORT ScreenShot {
+class APPSTREAMQT_EXPORT ScreenShot {
 public:
     ScreenShot();
     ScreenShot(const ScreenShot& other);
@@ -54,11 +54,11 @@ public:
     bool isDefault() const;
     void setDefault(bool default_);
 
-    void setImages(const QList<Asmara::Image>& images);
+    void setImages(const QList<Appstream::Image>& images);
     /**
      * \return the images for this screenshot
      */
-    const QList<Asmara::Image> images() const;
+    const QList<Appstream::Image> images() const;
 
     /**
      * \return caption for this image or a null QString if no caption
@@ -72,4 +72,4 @@ private:
 };
 }
 
-#endif // ASMARA_SCREENSHOT_H
+#endif // APPSTREAMQT_SCREENSHOT_H

@@ -18,23 +18,23 @@
  *
  */
 
-#ifndef ASMARA_IMAGE_H
-#define ASMARA_IMAGE_H
+#ifndef APPSTREAMQT_IMAGE_H
+#define APPSTREAMQT_IMAGE_H
 
 #include <QSharedDataPointer>
 #include <QObject>
-#include "asmara_export.h"
+#include "appstreamqt_export.h"
 
 class QUrl;
 class QString;
-namespace Asmara {
+namespace Appstream {
 
 class ImageData;
 
 /**
  * A reference to a image that can be accessed thru a URL
  */
-class ASMARA_EXPORT Image {
+class APPSTREAMQT_EXPORT Image {
     Q_GADGET
     Q_ENUMS(Kind)
     public:
@@ -78,6 +78,6 @@ class ASMARA_EXPORT Image {
 };
 }
 
-#endif // ASMARA_IMAGE_H
+#endif // APPSTREAMQT_IMAGE_H
 
 class QUrl;

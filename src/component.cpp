@@ -1,5 +1,5 @@
 /*
- * Part of libAsmara, a library for accessing AppStream on-disk database
+ * Part of Appstream, a library for accessing AppStream on-disk database
  * Copyright 2014  Sune Vuorela <sune@vuorela.dk>
  *
  * This library is free software; you can redistribute it and/or
@@ -23,9 +23,9 @@
 #include <QStringList>
 #include <QUrl>
 
-using namespace Asmara;
+using namespace Appstream;
 
-class Asmara::ComponentData : public QSharedData {
+class Appstream::ComponentData : public QSharedData {
     public:
         QStringList m_categories;
         QStringList m_compulsoryForDesktops;
@@ -42,7 +42,7 @@ class Asmara::ComponentData : public QSharedData {
         QString m_projectLicense;
         QString m_summary;
         QMultiHash<Component::UrlKind, QUrl> m_urls;
-        QList<Asmara::ScreenShot> m_screenshots;
+        QList<Appstream::ScreenShot> m_screenshots;
         QMultiHash<Provides::Kind, Provides> m_provides;
         bool operator==(const ComponentData& other) const {
             if(m_categories != other.m_categories) {
@@ -345,17 +345,17 @@ QString Component::urlKindToString(Component::UrlKind kind) {
     return kindMap.value(kind);
 }
 
-QList< Asmara::Provides > Component::provides() const {
+QList< Appstream::Provides > Component::provides() const {
     return d->m_provides.values();
 }
 
-QList<Asmara::Provides> Component::provides(Provides::Kind kind) const {
+QList<Appstream::Provides> Component::provides(Provides::Kind kind) const {
     return d->m_provides.values(kind);
 }
 
 
-void Component::setProvides(QList<Asmara::Provides> provides) {
-    Q_FOREACH(const Asmara::Provides& provide, provides) {
+void Component::setProvides(QList<Appstream::Provides> provides) {
+    Q_FOREACH(const Appstream::Provides& provide, provides) {
         d->m_provides.insertMulti(provide.kind(), provide);
     }
 }

@@ -9,7 +9,7 @@ class ScreenShotXmlParserTest : public QObject {
         void testData01();
 };
 
-using namespace Asmara;
+using namespace Appstream;
 
 void ScreenShotXmlParserTest::testData01() {
 
@@ -61,7 +61,7 @@ void ScreenShotXmlParserTest::testData01() {
                         "</screenshot>"
                     "</screenshots>");
     QXmlStreamReader reader(data1);
-    QList<Asmara::ScreenShot> screenshots = parseScreenShotsXml(&reader);
+    QList<Appstream::ScreenShot> screenshots = parseScreenShotsXml(&reader);
     QCOMPARE(screenshots.length(),4);
 
     QVERIFY(screenshots.first().isDefault());

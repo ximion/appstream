@@ -1,5 +1,5 @@
 /*
- * Part of libAsmara, a library for accessing AppStream on-disk database
+ * Part of Appstream, a library for accessing AppStream on-disk database
  * Copyright 2014  Sune Vuorela <sune@vuorela.dk>
  *
  * This library is free software; you can redistribute it and/or
@@ -18,18 +18,18 @@
  *
  */
 
-#ifndef ASMARA_COMPONENT_H
-#define ASMARA_COMPONENT_H
+#ifndef APPSTREAMQT_COMPONENT_H
+#define APPSTREAMQT_COMPONENT_H
 
 #include <QSharedDataPointer>
 #include <QObject>
 #include <QUrl>
 #include <QStringList>
-#include "asmara_export.h"
+#include "appstreamqt_export.h"
 #include "provides.h"
 
 
-namespace Asmara {
+namespace Appstream {
 
 class ScreenShot;
 
@@ -38,7 +38,7 @@ class ComponentData;
 /**
  * Describes a Component (package) in appstream
  */
-class ASMARA_EXPORT Component {
+class APPSTREAMQT_EXPORT Component {
     Q_GADGET
     Q_ENUMS(Kind UrlKind)
     public:
@@ -121,27 +121,27 @@ class ASMARA_EXPORT Component {
         static QString kindToString(Kind kind);
 
         static UrlKind stringToUrlKind(const QString& urlKindString);
-        static QString urlKindToString(Asmara::Component::UrlKind kind);
+        static QString urlKindToString(Appstream::Component::UrlKind kind);
 
         /**
          * \param kind for provides
          * \return a list of all provides for this \param kind
          */
-        QList<Asmara::Provides> provides(Provides::Kind kind) const;
-        void setProvides(QList<Asmara::Provides> provides);
+        QList<Appstream::Provides> provides(Provides::Kind kind) const;
+        void setProvides(QList<Appstream::Provides> provides);
         /**
          * \return the full list of provides for all kinds.
          * Note that it might be ordered differently than the list given with
          * \ref setProvides, but it will have the same entries.
          */
-        QList<Asmara::Provides> provides() const;
+        QList<Appstream::Provides> provides() const;
 
-        const QList<Asmara::ScreenShot>& screenShots() const;
-        void setScreenShots(const QList<Asmara::ScreenShot>& screenshots);
+        const QList<Appstream::ScreenShot>& screenShots() const;
+        void setScreenShots(const QList<Appstream::ScreenShot>& screenshots);
 
     private:
         QSharedDataPointer<ComponentData> d;
 };
 }
 
-#endif // ASMARA_COMPONENT_H
+#endif // APPSTREAMQT_COMPONENT_H

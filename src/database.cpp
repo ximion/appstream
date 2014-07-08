@@ -1,5 +1,5 @@
 /*
- * Part of libAsmara, a library for accessing AppStream on-disk database
+ * Part of Appstream, a library for accessing AppStream on-disk database
  * Copyright 2014  Sune Vuorela <sune@vuorela.dk>
  *
  * Based upon database-read.hpp
@@ -29,7 +29,7 @@
 #include <QStringList>
 #include <QUrl>
 
-using namespace Asmara;
+using namespace Appstream;
 
 namespace XapianValues {
     //the xapian values are taken from the appstream library
@@ -65,7 +65,7 @@ enum XapianValues {
 } // namespace
 
 
-class Asmara::DatabasePrivate {
+class Appstream::DatabasePrivate {
     public:
         DatabasePrivate(const QString& dbpath) : m_dbPath(dbpath) {
         }
@@ -183,7 +183,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     // Screenshot data
     QString screenshotXml = value(document,XapianValues::SCREENSHOT_DATA);
     QXmlStreamReader reader(screenshotXml);
-    QList<Asmara::ScreenShot> screenshots = parseScreenShotsXml(&reader);
+    QList<Appstream::ScreenShot> screenshots = parseScreenShotsXml(&reader);
     component.setScreenShots(screenshots);
 
     // Compulsory-for-desktop information

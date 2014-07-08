@@ -6,7 +6,7 @@
 #include "screenshot.h"
 
 namespace {
-    inline Asmara::Image parseImageXml(QXmlStreamReader* reader, bool* failure) {
+    inline Appstream::Image parseImageXml(QXmlStreamReader* reader, bool* failure) {
         int level = 0;
         Q_ASSERT(reader->name() == QLatin1String("image"));
         QString type;
@@ -33,17 +33,17 @@ namespace {
         }
         QUrl url = QUrl::fromUserInput(reader->readElementText());
 
-        Asmara::Image image;
+        Appstream::Image image;
         image.setUrl(url);
-        image.setKind(Asmara::Image::stringToKind(type));
+        image.setKind(Appstream::Image::stringToKind(type));
         image.setWidth(width);
         image.setHeight(height);
         return image;
     }
 
-    inline Asmara::ScreenShot parseScreenShotXml(QXmlStreamReader* reader, bool* failure) {
+    inline Appstream::ScreenShot parseScreenShotXml(QXmlStreamReader* reader, bool* failure) {
         int level = 0;
-        QList<Asmara::Image> images;
+        QList<Appstream::Image> images;
         bool default_ = reader->attributes().value(QLatin1String("type")) == QLatin1String("default");
         QString caption;
         while(!(*failure) && !reader->atEnd()) {
@@ -73,17 +73,17 @@ namespace {
         if(level!=0) {
             *failure = true;
         }
-        Asmara::ScreenShot screenShot;
+        Appstream::ScreenShot screenShot;
         screenShot.setImages(images);
         screenShot.setDefault(default_);
         screenShot.setCaption(caption);
         return screenShot;
     }
 
-    inline QList<Asmara::ScreenShot> parseScreenShotsXml(QXmlStreamReader* reader) {
+    inline QList<Appstream::ScreenShot> parseScreenShotsXml(QXmlStreamReader* reader) {
         int level = 0;
         bool failure = false;
-        QList<Asmara::ScreenShot> screenShots;
+        QList<Appstream::ScreenShot> screenShots;
         while(!reader->atEnd() && !failure) {
             QXmlStreamReader::TokenType token = reader->readNext();
             if(token == QXmlStreamReader::StartDocument) {
@@ -103,7 +103,7 @@ namespace {
             }
         }
         if(failure || level != 0 || reader->hasError()) {
-            return QList<Asmara::ScreenShot>();
+            return QList<Appstream::ScreenShot>();
         } else {
             return screenShots;
         }

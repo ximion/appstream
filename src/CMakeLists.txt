@@ -1,4 +1,4 @@
-SET(ASMARA_SRC
+SET(APPSTREAMQT_SRC
           component.cpp
           database.cpp
           image.cpp
@@ -6,7 +6,7 @@ SET(ASMARA_SRC
           screenshot.cpp
 )
 
-SET(ASMARA_PUBLIC_HEADERS
+SET(APPSTREAMQT_PUBLIC_HEADERS
     component.h
     database.h
     image.h
@@ -14,40 +14,40 @@ SET(ASMARA_PUBLIC_HEADERS
     screenshot.h
 )
 
-add_library(Asmara SHARED ${ASMARA_SRC})
-target_link_libraries(Asmara PUBLIC ${QT_QTCORE_LIBRARY} PRIVATE ${XAPIAN_LIBRARIES})
-generate_export_header(Asmara)
+add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
+target_link_libraries(AppstreamQt PUBLIC ${QT_QTCORE_LIBRARY} PRIVATE ${XAPIAN_LIBRARIES})
+generate_export_header(AppstreamQt)
 
-set_property(TARGET Asmara PROPERTY VERSION "${ASMARA_SO_VERSION}.0.0")
-set_property(TARGET Asmara PROPERTY SOVERSION "${ASMARA_SO_VERSION}" )
+set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_SO_VERSION}.0.0")
+set_property(TARGET AppstreamQt PROPERTY SOVERSION "${APPSTREAMQT_SO_VERSION}" )
 
-install(TARGETS Asmara EXPORT AsmaraTargets
+install(TARGETS AppstreamQt EXPORT AppstreamQtTargets
     RUNTIME DESTINATION "bin"
     LIBRARY DESTINATION "lib"
     ARCHIVE DESTINATION "lib"
     INCLUDES DESTINATION "include"
 )
 
-install(FILES ${ASMARA_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/asmara_export.h DESTINATION "include/Asmara")
+install(FILES ${APPSTREAMQT_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/appstreamqt_export.h DESTINATION "include/AppstreamQt")
 
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/AsmaraConfigVersion.cmake VERSION ${ASMARA_VERSION} COMPATIBILITY SameMajorVersion )
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfigVersion.cmake VERSION ${APPSTREAMQT_VERSION} COMPATIBILITY SameMajorVersion )
 
-export(TARGETS Asmara
-       FILE "${CMAKE_CURRENT_BINARY_DIR}/AsmaraTargets.cmake")
+export(TARGETS AppstreamQt
+       FILE "${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtTargets.cmake")
 
-set(ConfigPackageLocation lib/cmake/Asmara)
+set(ConfigPackageLocation lib/cmake/AppstreamQt)
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/AsmaraConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/AsmaraConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/AppstreamQtConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfig.cmake"
   @ONLY
 )
 
-install(EXPORT AsmaraTargets
-    FILE AsmaraTargets.cmake
+install(EXPORT AppstreamQtTargets
+    FILE AppstreamQtTargets.cmake
     DESTINATION ${ConfigPackageLocation})
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AsmaraConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AsmaraConfig.cmake DESTINATION ${ConfigPackageLocation})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
 
 add_subdirectory(test)
 

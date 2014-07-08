@@ -23,15 +23,15 @@
 #include <QString>
 #include "image.h"
 
-using namespace Asmara;
+using namespace Appstream;
 
-class Asmara::ScreenShotData : public QSharedData {
+class Appstream::ScreenShotData : public QSharedData {
     public:
         ScreenShotData() : m_default(false) {
         }
         bool m_default;
         QString m_caption;
-        QList<Asmara::Image> m_images;
+        QList<Appstream::Image> m_images;
         bool operator==(const ScreenShotData& other) {
             if(m_default != other.m_default) {
                 return false;

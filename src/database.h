@@ -1,5 +1,5 @@
 /*
- * Part of libAsmara, a library for accessing AppStream on-disk database
+ * Part of Appstream, a library for accessing AppStream on-disk database
  *
  * Copyright 2014  Sune Vuorela <sune@vuorela.dk>
  *
@@ -19,23 +19,23 @@
  *
  */
 
-#ifndef ASMARA_DATABASE_H
-#define ASMARA_DATABASE_H
+#ifndef APPSTREAMQT_DATABASE_H
+#define APPSTREAMQT_DATABASE_H
 
-#include "asmara_export.h"
+#include "appstreamqt_export.h"
 
 
 #include <QString>
 #include <QList>
 #include <QStringList>
 #include "component.h"
-namespace Asmara {
+namespace Appstream {
 
 /**
  * Represents a handle to an appstream database
  */
 class DatabasePrivate;
-class ASMARA_EXPORT Database {
+class APPSTREAMQT_EXPORT Database {
     public:
         /**
          * Constructs a database object
@@ -73,4 +73,4 @@ class ASMARA_EXPORT Database {
 };
 }
 
-#endif // ASMARA_DATABASE_H
+#endif // APPSTREAMQT_DATABASE_H

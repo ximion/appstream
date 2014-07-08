@@ -23,9 +23,9 @@
 #include <QString>
 #include <QHash>
 
-using namespace Asmara;
+using namespace Appstream;
 
-class Asmara::ProvidesData : public QSharedData {
+class Appstream::ProvidesData : public QSharedData {
     public:
         Provides::Kind m_kind;
         QString m_value;
