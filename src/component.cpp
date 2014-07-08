@@ -333,6 +333,7 @@ static QHash<Component::UrlKind,QString> buildUrlKindMap() {
     map.insert(Component::UrlKindHelp,QLatin1String("help"));
     map.insert(Component::UrlKindHomepage, QLatin1String("homepage"));
     map.insert(Component::UrlKindUnknown, QLatin1String("unknown"));
+    return map;
 }
 
 QString Component::urlKindToString(Component::UrlKind kind) {
