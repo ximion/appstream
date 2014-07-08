@@ -100,7 +100,7 @@
 	</section>
 
 	<section id="qsr-app-contents">
-		<title>Metadata file contents</title>
+		<title>Recommended metadata file contents</title>
 
 		<para>
 			This is a list of tags you might want to define for your application. For a full list of all possible tags, take a look at
@@ -357,7 +357,101 @@
 					<listitem>
 						<para>Try not to repeat the application's name in the caption.</para>
 					</listitem>
+					<listitem>
+						<para>Do not end your caption with a fullstop.</para>
+					</listitem>
 				</itemizedlist>
+
+				<para>
+					Some examples of good and bad screenshot choices:
+				</para>
+
+				<informaltable frame='none' colsep="0">
+					<tgroup cols='2'>
+						<colspec colwidth='0.5in'/>
+						<colspec colwidth='0.5in'/>
+						<tbody>
+							<row>
+								<entry>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/scr-examples/xterm-bad.png" />
+										</imageobject>
+										<caption>
+											<para>
+												<emphasis role="bold">BAD:</emphasis> Not on Linux
+											</para>
+										</caption>
+									</mediaobject>
+								</entry>
+
+								<entry>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/scr-examples/geany-good.png" />
+										</imageobject>
+										<caption>
+											<para><emphasis role="bold">GOOD</emphasis></para>
+										</caption>
+									</mediaobject>
+								</entry>
+							</row>
+							<row>
+								<entry>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/scr-examples/xmedcon-bad.png" />
+										</imageobject>
+										<caption>
+											<para>
+												<emphasis role="bold">BAD:</emphasis> Not 16:9, shows the whole desktop and too many small windows
+											</para>
+										</caption>
+									</mediaobject>
+								</entry>
+
+								<entry>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/scr-examples/xonotic-good.png" />
+										</imageobject>
+										<caption>
+											<para>
+												<emphasis role="bold">GOOD:</emphasis> No window border required for fullscreen game
+											</para>
+										</caption>
+									</mediaobject>
+								</entry>
+							</row>
+							<row>
+								<entry>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/scr-examples/gameconqueror-bad.png" />
+										</imageobject>
+										<caption>
+											<para>
+												<emphasis role="bold">BAD:</emphasis> Uses custom font, custom color theme and is not 16:9
+											</para>
+										</caption>
+									</mediaobject>
+								</entry>
+
+								<entry>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/scr-examples/wireshark-good.png" />
+										</imageobject>
+										<caption>
+											<para><emphasis role="bold">GOOD</emphasis></para>
+										</caption>
+									</mediaobject>
+								</entry>
+							</row>
+						</tbody>
+					</tgroup>
+				</informaltable>
+
 			</listitem>
 			</varlistentry>
 
@@ -369,7 +463,7 @@
 					Links of type <code>homepage</code> should be a link to the upstream homepage for the application.
 				</para>
 				<para>
-					For other possible values, tage a look at the tag's description in <xref linkend="spec-component-filespec"/>.
+					For other possible values, tage a look at the tag's description at <xref linkend="tag-url"/>.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -378,11 +472,53 @@
 			<term>&lt;project_group/&gt;</term>
 			<listitem>
 				<para>
-					This tag is described for generic components at <xref linkend="spec-component-filespec"/>. You should use it for your application if appropriate.
+					This tag is described for generic components at <xref linkend="tag-project_group"/>. You should use it for your application if appropriate.
 				</para>
 			</listitem>
 			</varlistentry>
 
+			<varlistentry>
+			<term>&lt;developer_name/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;developer_name/&gt;</code> tag is designed to represent the developers or project responsible for development of the project described in the metadata.
+				</para>
+				<para>
+					Values might be for example "The GNOME Foundation" or "The KDE Community".
+					You must not include hyperlinks or emails in this field, if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
+				</para>
+				<para>
+					This tag is translatable.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;update_contact/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;update_contact/&gt;</code> tag is an optional tag which can be added to provide an email address distributors can use to contact the project
+					about invalid or incomplete metadata, or in case the specification has changed, about old metadata. It can also be used to ask general questions in case of
+					an update of the component described in the metadata file. Spam protection using <code>_AT_</code> is valid.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<update_contact>developer_AT_example.com</update_contact>]]></programlisting>
+			</listitem>
+			</varlistentry>
+
+		</variablelist>
+	</section>
+
+	<section id="qsr-app-contents-suggestions">
+		<title>Suggested metadata file contents</title>
+
+		<para>
+			You may choose to add these tags as well, if you need them.
+		</para>
+
+		<variablelist>
 			<varlistentry>
 			<term>&lt;provides/&gt;</term>
 			<listitem>
