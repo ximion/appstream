@@ -9,7 +9,7 @@ SET(ASMARA_PUBLIC_HEADERS
     component.h
     database.h
     image.h
-    screenshot.cpp
+    screenshot.h
 )
 
 add_library(Asmara SHARED ${ASMARA_SRC})
