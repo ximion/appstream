@@ -107,7 +107,11 @@ as_provides_kind_from_string (const gchar *kind_str)
  * consists of a type-part describing the items type, and a name-part,
  * containing the name of the item. Both are separated by a semicolon,
  * so an item of type KIND_LIBRARY and name libappstream.so.0 will become
- * "lib;libappstream.so.0"
+ * "lib;libappstream.so.0;"
+ * A provides-item might also contain a "data" part, describing additional
+ * information about it. For example, for a KIND_DBUS provides type,
+ * the item might look like: dbus;org.freedesktop.PackageKit;system
+ * (specifying that the service name is on the system bus)
  *
  * @kind a #AsProvidesKind describing the type of the item string
  * @value the name of the item as string
