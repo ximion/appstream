@@ -29,33 +29,6 @@
 #include "appstream.h"
 #include "as-cache-builder.h"
 
-#define TYPE_AS_CLIENT (as_client_get_type ())
-#define AS_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_AS_CLIENT, ASClient))
-#define AS_CLIENT_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_AS_CLIENT, ASClientClass))
-#define IS_AS_CLIENT(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_AS_CLIENT))
-#define IS_AS_CLIENT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_AS_CLIENT))
-#define AS_CLIENT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_AS_CLIENT, ASClientClass))
-
-typedef struct _ASClient ASClient;
-typedef struct _ASClientClass ASClientClass;
-typedef struct _ASClientPrivate ASClientPrivate;
-
-struct _ASClient {
-	GObject parent_instance;
-	ASClientPrivate * priv;
-};
-
-struct _ASClientClass {
-	GObjectClass parent_class;
-};
-
-struct _ASClientPrivate {
-	GMainLoop* loop;
-	gint exit_code;
-};
-
-
-static gpointer as_client_parent_class = NULL;
 static gboolean as_client_o_show_version = FALSE;
 static gboolean as_client_o_verbose_mode = FALSE;
 static gboolean as_client_o_no_color = FALSE;
@@ -67,70 +40,6 @@ static gchar* as_client_o_get_id = NULL;
 static gboolean as_client_o_what_provides = FALSE;
 static gchar* as_client_o_type = NULL;
 static gchar* as_client_o_value = NULL;
-
-GType as_client_get_type (void) G_GNUC_CONST;
-#define AS_CLIENT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), TYPE_AS_CLIENT, ASClientPrivate))
-
-ASClient* as_client_new (gchar** args, int argc);
-ASClient* as_client_construct (GType object_type, gchar** args, int argc);
-void as_client_set_exit_code (ASClient* self, gint value);
-void as_client_run (ASClient* self);
-gint as_client_get_exit_code (ASClient* self);
-
-static void as_client_finalize (GObject* obj);
-
-ASClient*
-as_client_construct (GType object_type, gchar** args, int argc)
-{
-	ASClient * self;
-	GOptionContext* opt_context;
-	GError * error = NULL;
-
-	const GOptionEntry AS_CLIENT_options[] = {
-		{ "version", 0, 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the program version"), NULL },
-		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, _("Show extra debugging information"), NULL },
-		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, _("Don't show colored output"), NULL },
-		{ "refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, _("Rebuild the component information cache"), NULL },
-		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, _("Enforce a cache refresh"), NULL },
-		{ "search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, _("Search the component database"), NULL },
-		{ "details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, _("Print detailed output about found components"), NULL },
-		{ "get", 0, 0, G_OPTION_ARG_STRING, &as_client_o_get_id, _("Get component by id"), NULL },
-		{ "what-provides", 0, 0, G_OPTION_ARG_NONE, &as_client_o_what_provides, _("Get components which provide the given item"), NULL },
-		{ "type", 't', 0, G_OPTION_ARG_STRING, &as_client_o_type, _("Select a provides type (e.g. lib, bin, python3, ...)"), NULL },
-		{ "value", 'v', 0, G_OPTION_ARG_STRING, &as_client_o_value, _("Select a value for the provides-item which needs to be found"), NULL },
-		{ NULL }
-	};
-
-	self = (ASClient*) g_object_new (object_type, NULL);
-	as_client_set_exit_code (self, 0);
-
-	opt_context = g_option_context_new ("- Appstream-Index client tool.");
-	g_option_context_set_help_enabled (opt_context, TRUE);
-	g_option_context_add_main_entries (opt_context, AS_CLIENT_options, NULL);
-
-	g_option_context_parse (opt_context, &argc, &args, &error);
-	if (error != NULL) {
-		gchar *msg;
-		msg = g_strconcat (error->message, "\n", NULL);
-		fprintf (stdout, "%s", msg);
-		g_free (msg);
-		fprintf (stdout, _("Run '%s --help' to see a full list of available command line options.\n"), args[0]);
-		as_client_set_exit_code (self, 1);
-		g_error_free (error);
-		goto out;
-	}
-
-out:
-	g_option_context_free (opt_context);
-	return self;
-}
-
-
-ASClient*
-as_client_new (gchar** args, int argc)
-{
-	return as_client_construct (TYPE_AS_CLIENT, args, argc);
-}
 
 static gchar*
 format_long_output (const gchar *str)
@@ -284,20 +193,49 @@ as_print_component (AsComponent *cpt)
 	}
 }
 
-void
-as_client_run (ASClient* self)
+int
+as_client_run (char **argv, int argc)
 {
-	AsDatabase* db = NULL;
+	GOptionContext *opt_context;
+	GError *error = NULL;
+	int exit_code = 0;
+	AsDatabase *db = NULL;
 	guint i;
 
-	g_return_if_fail (self != NULL);
+	const GOptionEntry client_options[] = {
+		{ "version", 0, 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the program version"), NULL },
+		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, _("Show extra debugging information"), NULL },
+		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, _("Don't show colored output"), NULL },
+		{ "refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, _("Rebuild the component information cache"), NULL },
+		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, _("Enforce a cache refresh"), NULL },
+		{ "search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, _("Search the component database"), NULL },
+		{ "details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, _("Print detailed output about found components"), NULL },
+		{ "get", 0, 0, G_OPTION_ARG_STRING, &as_client_o_get_id, _("Get component by id"), NULL },
+		{ "what-provides", 0, 0, G_OPTION_ARG_NONE, &as_client_o_what_provides, _("Get components which provide the given item"), NULL },
+		{ "type", 't', 0, G_OPTION_ARG_STRING, &as_client_o_type, _("Select a provides type (e.g. lib, bin, python3, ...)"), NULL },
+		{ "value", 'v', 0, G_OPTION_ARG_STRING, &as_client_o_value, _("Select a value for the provides-item which needs to be found"), NULL },
+		{ NULL }
+	};
 
-	if (self->priv->exit_code > 0) {
-		return;
+	opt_context = g_option_context_new ("- Appstream-Index client tool.");
+	g_option_context_set_help_enabled (opt_context, TRUE);
+	g_option_context_add_main_entries (opt_context, client_options, NULL);
+
+	g_option_context_parse (opt_context, &argc, &argv, &error);
+	if (error != NULL) {
+		gchar *msg;
+		msg = g_strconcat (error->message, "\n", NULL);
+		fprintf (stdout, "%s", msg);
+		g_free (msg);
+		fprintf (stdout, _("Run '%s --help' to see a full list of available command line options.\n"), argv[0]);
+		exit_code = 1;
+		g_error_free (error);
+		goto out;
 	}
+
 	if (as_client_o_show_version) {
 		fprintf (stdout, "Appstream-Index client tool version: %s\n", VERSION);
-		return;
+		goto out;
 	}
 
 	/* just a hack, we might need proper message handling later */
@@ -315,7 +253,7 @@ as_client_run (ASClient* self)
 		cpt_list = as_database_find_components_by_str (db, as_client_o_search, NULL);
 		if (cpt_list == NULL) {
 			fprintf (stderr, "Unable to find component matching %s!\n", as_client_o_search);
-			as_client_set_exit_code (self, 4);
+			exit_code = 4;
 			goto out;
 		}
 
@@ -339,7 +277,7 @@ as_client_run (ASClient* self)
 		AsBuilder *builder;
 		if (getuid () != ((uid_t) 0)) {
 			fprintf (stdout, "You need to run this command with superuser permissions!\n");
-			as_client_set_exit_code (self, 2);
+			exit_code = 2;
 			goto out;
 		}
 
@@ -355,7 +293,7 @@ as_client_run (ASClient* self)
 		cpt = as_database_get_component_by_id (db, as_client_o_get_id);
 		if (cpt == NULL) {
 			fprintf (stderr, "Unable to find component with id %s!\n", as_client_o_get_id);
-			as_client_set_exit_code (self, 4);
+			exit_code = 4;
 			goto out;
 		}
 		as_print_component (cpt);
@@ -367,7 +305,7 @@ as_client_run (ASClient* self)
 
 		if (as_client_o_value == NULL) {
 			fprintf (stderr, "No value for the provides-item to search for defined.\n");
-			as_client_set_exit_code (self, 1);
+			exit_code = 1;
 			goto out;
 		}
 
@@ -377,7 +315,7 @@ as_client_run (ASClient* self)
 			fprintf (stderr, "Invalid type for provides-item selected. Valid values are:\n");
 			for (i = 1; i < AS_PROVIDES_KIND_LAST; i++)
 				fprintf (stdout, " * %s\n", as_provides_kind_to_string (i));
-			as_client_set_exit_code (self, 5);
+			exit_code = 5;
 			goto out;
 		}
 
@@ -385,7 +323,7 @@ as_client_run (ASClient* self)
 		cpt_list = as_database_get_components_by_provides (db, kind, as_client_o_value, "");
 		if (cpt_list == NULL) {
 			fprintf (stderr, "Unable to find component providing '%s:%s'!\n", as_client_o_type, as_client_o_value);
-			as_client_set_exit_code (self, 4);
+			exit_code = 4;
 			goto out;
 		}
 
@@ -411,12 +349,14 @@ as_client_run (ASClient* self)
 
 out:
 	g_object_unref (db);
+	g_option_context_free (opt_context);
+
+	return exit_code;
 }
 
 int
 main (int argc, char ** argv)
 {
-	ASClient* client;
 	gint code = 0;
 
 	/* bind locale */
@@ -426,73 +366,7 @@ main (int argc, char ** argv)
 	textdomain (GETTEXT_PACKAGE);
 
 	/* run the application */
-	client = as_client_new (argv, argc);
-	as_client_run (client);
+	code = as_client_run (argv, argc);
 
-	code = client->priv->exit_code;
-	g_object_unref (client);
 	return code;
-}
-
-
-gint
-as_client_get_exit_code (ASClient* self)
-{
-	g_return_val_if_fail (self != NULL, 0);
-	return self->priv->exit_code;
-}
-
-
-void
-as_client_set_exit_code (ASClient* self, gint value)
-{
-	g_return_if_fail (self != NULL);
-	self->priv->exit_code = value;
-}
-
-
-static void
-as_client_class_init (ASClientClass * klass)
-{
-	as_client_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (ASClientPrivate));
-	G_OBJECT_CLASS (klass)->finalize = as_client_finalize;
-}
-
-
-static void
-as_client_instance_init (ASClient * self)
-{
-	self->priv = AS_CLIENT_GET_PRIVATE (self);
-}
-
-
-static void as_client_finalize (GObject* obj)
-{
-	G_OBJECT_CLASS (as_client_parent_class)->finalize (obj);
-}
-
-
-GType
-as_client_get_type (void)
-{
-	static volatile gsize as_client_type_id__volatile = 0;
-	if (g_once_init_enter (&as_client_type_id__volatile)) {
-		static const GTypeInfo g_define_type_info = {
-					sizeof (ASClientClass),
-					(GBaseInitFunc) NULL,
-					(GBaseFinalizeFunc) NULL,
-					(GClassInitFunc) as_client_class_init,
-					(GClassFinalizeFunc) NULL,
-					NULL,
-					sizeof (ASClient),
-					0,
-					(GInstanceInitFunc) as_client_instance_init,
-					NULL
-		};
-		GType as_client_type_id;
-		as_client_type_id = g_type_register_static (G_TYPE_OBJECT, "ASClient", &g_define_type_info, 0);
-		g_once_init_leave (&as_client_type_id__volatile, as_client_type_id);
-	}
-	return as_client_type_id__volatile;
 }
