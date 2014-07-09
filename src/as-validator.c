@@ -387,17 +387,12 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		gchar *node_content;
+		gboolean tag_valid = TRUE;
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 		node_name = (const gchar*) iter->name;
 		node_content = (gchar*) xmlNodeGetContent (iter);
-
-		as_validator_check_content_empty (validator,
-								node_content,
-								node_name,
-								AS_ISSUE_IMPORTANCE_WARNING,
-								cpt);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
 			gchar *prop;
@@ -493,6 +488,15 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 				AS_ISSUE_KIND_TAG_UNKNOWN,
 				"Found invalid tag: '%s'. Non-standard tags have to be prefixed with \"x-\".",
 				node_name);
+			tag_valid = FALSE;
+		}
+
+		if (tag_valid) {
+			as_validator_check_content_empty (validator,
+								node_content,
+								node_name,
+								AS_ISSUE_IMPORTANCE_WARNING,
+								cpt);
 		}
 
 		g_free (node_content);
