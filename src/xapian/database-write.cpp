@@ -66,14 +66,15 @@ DatabaseWrite::initialize (const gchar *dbPath)
 }
 
 static
-void simple_hashtable_to_str (gchar *key, gchar *value, gchar **text)
+void url_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
 {
-	gchar *tmp;
+	g_string_append_printf (gstr, "%s\n%s\n", key, value);
+}
 
-	tmp = g_strdup (*text);
-	g_free (*text);
-    *text = g_strdup_printf ("%s\n%s\n%s", tmp, key, value);
-	g_free (tmp);
+static
+void langs_hashtable_to_str (gchar *key, gint value, GString *gstr)
+{
+	g_string_append_printf (gstr, "%s\n%i\n", key, value);
 }
 
 bool
@@ -120,8 +121,8 @@ DatabaseWrite::rebuild (GList *cpt_list)
 	}
 
 	for (GList *list = cpt_list; list != NULL; list = list->next) {
-		gchar *cstr;
 		AsComponent *cpt = (AsComponent*) list->data;
+		GString *gstr;
 
 		Xapian::Document doc;
 		term_generator.set_document (doc);
@@ -165,11 +166,18 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// URLs
 		GHashTable *urls;
-		cstr = g_strdup ("");
 		urls = as_component_get_urls (cpt);
-		g_hash_table_foreach(urls, (GHFunc) simple_hashtable_to_str, &cstr);
-		doc.add_value (XapianValues::URLS, cstr);
-		g_free (cstr);
+		if (g_hash_table_size (urls) > 0) {
+			gchar *cstr;
+			gstr = g_string_new ("");
+			g_hash_table_foreach(urls, (GHFunc) url_hashtable_to_str, gstr);
+			if (gstr->len > 0)
+				g_string_truncate (gstr, gstr->len - 1);
+
+			cstr = g_string_free (gstr, FALSE);
+			doc.add_value (XapianValues::URLS, cstr);
+			g_free (cstr);
+		}
 
 		// Application icon
 		doc.add_value (XapianValues::ICON, as_component_get_icon (cpt));
@@ -189,7 +197,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		gchar **categories = as_component_get_categories (cpt);
 		string categories_str = "";
 		for (uint i = 0; categories[i] != NULL; i++) {
-			if (categories[i] == NULL)
+			if (as_str_empty (categories[i]))
 				continue;
 
 			string cat = categories[i];
@@ -251,11 +259,18 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// Languages
 		GHashTable *langs_table;
-		cstr = g_strdup ("");
 		langs_table = as_component_get_languages_map (cpt);
-		g_hash_table_foreach(langs_table, (GHFunc) simple_hashtable_to_str, &cstr);
-		doc.add_value (XapianValues::LANGUAGES, cstr);
-		g_free (cstr);
+		if (g_hash_table_size (langs_table) > 0) {
+			gchar *cstr;
+			gstr = g_string_new ("");
+			g_hash_table_foreach (langs_table, (GHFunc) langs_hashtable_to_str, gstr);
+			if (gstr->len > 0)
+				g_string_truncate (gstr, gstr->len - 1);
+
+			cstr = g_string_free (gstr, FALSE);
+			doc.add_value (XapianValues::LANGUAGES, cstr);
+			g_free (cstr);
+		}
 
 		// Postprocess
 		string docData = doc.get_data ();

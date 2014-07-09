@@ -167,8 +167,8 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		/* language information is stored in form of "locale \n <percentage:int>" (so we just need one stringsplit) */
 		if (lang_data[i+1] == NULL)
 			break;
-		percentage = g_ascii_strtoll (urls[i+1], NULL, 10);
-		as_component_add_language (cpt, urls[i], percentage);
+		percentage = g_ascii_strtoll (lang_data[i+1], NULL, 10);
+		as_component_add_language (cpt, lang_data[i], percentage);
 	}
 
 	// TODO: Read out keywords?
