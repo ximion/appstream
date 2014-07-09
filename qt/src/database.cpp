@@ -25,45 +25,12 @@
 
 #include "database.h"
 #include "screenshotxmlparser_p.h"
+#include <database-common.hpp>
 #include <xapian.h>
 #include <QStringList>
 #include <QUrl>
 
 using namespace Appstream;
-
-namespace XapianValues {
-    //the xapian values are taken from the appstream library
-enum XapianValues {
-    TYPE = 140,
-    IDENTIFIER = 141,
-    CPTNAME = 142,
-    CPTNAME_UNTRANSLATED = 143,
-    PKGNAME = 144,
-
-    SUMMARY = 145,
-    DESCRIPTION = 146,
-    CATEGORIES = 147,
-
-    ICON = 148,
-    ICON_URL = 149,
-
-    PROVIDED_ITEMS = 150,
-    SCREENSHOT_DATA = 152, // screenshot definitions, as XML
-    RELEASES_DATA = 153, // releases definitions, as XML
-
-    LICENSE = 154,
-    URLS = 155,
-
-    PROJECT_GROUP = 160,
-
-    COMPULSORY_FOR = 170,
-
-    GETTEXT_DOMAIN = 180,
-    ARCHIVE_SECTION = 181,
-    ARCHIVE_CHANNEL = 182
-};
-} // namespace
-
 
 class Appstream::DatabasePrivate {
     public:

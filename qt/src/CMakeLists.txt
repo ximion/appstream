@@ -1,4 +1,5 @@
-SET(APPSTREAMQT_SRC
+
+set(APPSTREAMQT_SRC
           component.cpp
           database.cpp
           image.cpp
@@ -6,12 +7,16 @@ SET(APPSTREAMQT_SRC
           screenshot.cpp
 )
 
-SET(APPSTREAMQT_PUBLIC_HEADERS
+set(APPSTREAMQT_PUBLIC_HEADERS
     component.h
     database.h
     image.h
     provides.h
     screenshot.h
+)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}
+		    ${CMAKE_SOURCE_DIR}/src/xapian
 )
 
 add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
