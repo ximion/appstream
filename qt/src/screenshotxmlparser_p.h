@@ -7,7 +7,6 @@
 
 namespace {
     inline Appstream::Image parseImageXml(QXmlStreamReader* reader, bool* failure) {
-        int level = 0;
         Q_ASSERT(reader->name() == QLatin1String("image"));
         QString type;
         if(reader->attributes().hasAttribute(QLatin1String("type"))) {

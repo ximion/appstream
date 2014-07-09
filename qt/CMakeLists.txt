@@ -1,22 +1,21 @@
-PROJECT(AppstreamQt)
-cmake_minimum_required(VERSION 2.8.12)
+project(AppstreamQt)
+
 include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 add_compiler_export_flags()
 
+find_package(Qt4 4.8.0 COMPONENTS QtCore REQUIRED)
+find_package(Xapian 1.2 REQUIRED)
+
 remove_definitions ("--include config.h")
-
-
 ENABLE_TESTING()
 
 SET(APPSTREAMQT_SO_VERSION 0)
 SET(APPSTREAMQT_VERSION "0.1")
 
 set(QT_USE_IMPORTED_TARGETS true)
-FIND_PACKAGE(Qt4 4.8.0 COMPONENTS QtCore REQUIRED)
-include(${QT_USE_FILE})
 
-find_package(Xapian 1.2 REQUIRED)
+include(${QT_USE_FILE})
 
 set(CMAKE_AUTOMOC on)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -28,4 +27,3 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 add_subdirectory(src)
-
