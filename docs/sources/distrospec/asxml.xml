@@ -37,8 +37,7 @@
 		<title>General XML structure</title>
 		<para>
 			The XML starts with an <code>&lt;components&gt;</code> tag as root element. It has all the
-			<code>&lt;component&gt;</code>, <code>&lt;application&gt;</code>, <code>&lt;font&gt;</code> and
-			<code>&lt;inputmethod&gt;</code> elements as children.
+			<code>&lt;component&gt;</code> tags of different <literal>type</literal> as children.
 		</para>
 		<para>
 			Data to fill the different component elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
