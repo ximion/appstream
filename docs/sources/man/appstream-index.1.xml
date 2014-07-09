@@ -63,42 +63,52 @@
 		<variablelist>
 
 			<varlistentry>
-				<term><option>--version</option></term>
-				<listitem>
-					<para>Display version number of &package;</para>
-				</listitem>
-			</varlistentry>
-
-			<varlistentry>
-				<term><option>--no-color</option></term>
-				<listitem>
-					<para>Don't print colored output.</para>
-				</listitem>
-			</varlistentry>
-
-			<varlistentry>
-				<term><option>--refresh</option></term>
-				<listitem>
-					<para>
-						Trigger a database refresh, if necessary.
-						In case you want to force the database to be rebuilt, supply the <option>--force</option> flag.
-					</para>
-					<para>This command must be executed with root permission.</para>
-				</listitem>
-			</varlistentry>
-
-			<varlistentry>
-				<term><option>--get <replaceable>ID</replaceable></option></term>
+				<term><option>get <replaceable>ID</replaceable></option></term>
 				<listitem>
 					<para>Get a component by it's identifier.</para>
 				</listitem>
 			</varlistentry>
 
 			<varlistentry>
-				<term><option>-s</option></term>
-				<term><option>--search <replaceable>TERM</replaceable></option></term>
+				<term><option>s</option></term>
+				<term><option>search <replaceable>TERM</replaceable></option></term>
 				<listitem>
 					<para>Search the AppStream component database for a given search term.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>what-provides <replaceable>TYPE</replaceable> <replaceable>TERM</replaceable></option></term>
+				<listitem>
+					<para>
+						Return components which provide a given item. An item type can be specified using the
+						<option><replaceable>TYPE</replaceable></option> parameter, a value to search for has to be
+						supplied using the <option><replaceable>TERM</replaceable></option> parameter.
+					</para>
+					<para>Examples:</para>
+					<para>
+						Get components which handle the "text/xml" mimetype.
+					</para>
+					<para>
+						<command>&package;</command> what-provides mimetype "text/xml"
+					</para>
+					<para>
+						Get component which provides the "libfoo.so.2" library.
+					</para>
+					<para>
+						<command>&package;</command> what-provides lib libfoo.so.2
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>refresh</option></term>
+				<listitem>
+					<para>
+						Trigger a database refresh, if necessary.
+						In case you want to force the database to be rebuilt, supply the <option>--force</option> flag.
+					</para>
+					<para>This command must be executed with root permission.</para>
 				</listitem>
 			</varlistentry>
 
@@ -110,26 +120,16 @@
 			</varlistentry>
 
 			<varlistentry>
-				<term><option>--what-provides</option></term>
+				<term><option>--no-color</option></term>
 				<listitem>
-					<para>
-						Return components which provide a given item. An item type can be specified using the
-						<option>-t <replaceable>TYPE</replaceable></option> option, a value to search for has to be
-						supplied using the <option>-v <replaceable>TERM</replaceable></option> option.
-					</para>
-					<para>Examples:</para>
-					<para>
-						Get components which handle the "text/xml" mimetype.
-					</para>
-					<para>
-						<command>&package;</command> --what-provides -t mimetype -v text/xml
-					</para>
-					<para>
-						Get component which provides the "libfoo.so.2" library.
-					</para>
-					<para>
-						<command>&package;</command> --what-provides -t lib -v libfoo.so.2
-					</para>
+					<para>Don't print colored output.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>--version</option></term>
+				<listitem>
+					<para>Display the version number of &package;</para>
 				</listitem>
 			</varlistentry>
 

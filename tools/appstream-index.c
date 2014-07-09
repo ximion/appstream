@@ -29,17 +29,11 @@
 #include "appstream.h"
 #include "as-cache-builder.h"
 
-static gboolean as_client_o_show_version = FALSE;
-static gboolean as_client_o_verbose_mode = FALSE;
-static gboolean as_client_o_no_color = FALSE;
-static gboolean as_client_o_refresh = FALSE;
-static gboolean as_client_o_force = FALSE;
-static gchar* as_client_o_search = NULL;
-static gboolean as_client_o_details = FALSE;
-static gchar* as_client_o_get_id = NULL;
-static gboolean as_client_o_what_provides = FALSE;
-static gchar* as_client_o_type = NULL;
-static gchar* as_client_o_value = NULL;
+static gboolean optn_show_version = FALSE;
+static gboolean optn_verbose_mode = FALSE;
+static gboolean optn_no_color = FALSE;
+static gboolean optn_force = FALSE;
+static gboolean optn_details = FALSE;
 
 static gchar*
 format_long_output (const gchar *str)
@@ -104,6 +98,21 @@ as_print_separator ()
 }
 
 static void
+as_print_stderr (const gchar *format, ...)
+{
+	va_list args;
+	gchar *str;
+
+	va_start (args, format);
+	str = g_strdup_vprintf (format, args);
+	va_end (args);
+
+	g_printerr ("%s\n", str);
+
+	g_free (str);
+}
+
+static void
 as_print_component (AsComponent *cpt)
 {
 	gchar *short_idline;
@@ -122,7 +131,7 @@ as_print_component (AsComponent *cpt)
 	g_free (short_idline);
 	short_idline = NULL;
 
-	if (as_client_o_details) {
+	if (optn_details) {
 		GPtrArray *sshot_array;
 		GPtrArray *imgs = NULL;
 		GPtrArray *provided_items;
@@ -193,33 +202,65 @@ as_print_component (AsComponent *cpt)
 	}
 }
 
+/**
+ * as_client_get_summary:
+ **/
+static gchar *
+as_client_get_summary ()
+{
+	GString *string;
+	string = g_string_new ("");
+
+	/* TRANSLATORS: This is the header to the --help menu */
+	g_string_append_printf (string, "%s\n\n%s\n", _("AppStream-Index Client Tool"),
+				/* these are commands we can use with appstream-index */
+				_("Subcommands:"));
+
+	g_string_append_printf (string, "  %s - %s\n", "search [TERM]", _("Search the component database"));
+	g_string_append_printf (string, "  %s - %s\n", "get [COMPONENT-ID]", _("Get information about a component by its id"));
+	g_string_append_printf (string, "  %s - %s\n", "what-provides [TYPE] [VALUE]", _("Get components which provide the given item"));
+	g_string_append_printf (string, "    %s - %s\n", "[TYPE]", _("A provides-item type (e.g. lib, bin, python3, ...)"));
+	g_string_append_printf (string, "    %s - %s\n", "[VALUE]", _("Select a value for the provides-item which needs to be found"));
+	g_string_append_printf (string, "  %s - %s\n", "refresh", _("Rebuild the component information cache"));
+
+	return g_string_free (string, FALSE);
+}
+
 int
 as_client_run (char **argv, int argc)
 {
 	GOptionContext *opt_context;
 	GError *error = NULL;
+
 	int exit_code = 0;
+	gchar *command = NULL;
+	gchar *value1 = NULL;
+	gchar *value2 = NULL;
+
+	gchar *summary;
+	gchar *options_help = NULL;
+
 	AsDatabase *db = NULL;
 	guint i;
 
 	const GOptionEntry client_options[] = {
-		{ "version", 0, 0, G_OPTION_ARG_NONE, &as_client_o_show_version, _("Show the program version"), NULL },
-		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_verbose_mode, _("Show extra debugging information"), NULL },
-		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_no_color, _("Don't show colored output"), NULL },
-		{ "refresh", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_refresh, _("Rebuild the component information cache"), NULL },
-		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &as_client_o_force, _("Enforce a cache refresh"), NULL },
-		{ "search", 's', 0, G_OPTION_ARG_STRING, &as_client_o_search, _("Search the component database"), NULL },
-		{ "details", 0, 0, G_OPTION_ARG_NONE, &as_client_o_details, _("Print detailed output about found components"), NULL },
-		{ "get", 0, 0, G_OPTION_ARG_STRING, &as_client_o_get_id, _("Get component by id"), NULL },
-		{ "what-provides", 0, 0, G_OPTION_ARG_NONE, &as_client_o_what_provides, _("Get components which provide the given item"), NULL },
-		{ "type", 't', 0, G_OPTION_ARG_STRING, &as_client_o_type, _("Select a provides type (e.g. lib, bin, python3, ...)"), NULL },
-		{ "value", 'v', 0, G_OPTION_ARG_STRING, &as_client_o_value, _("Select a value for the provides-item which needs to be found"), NULL },
+		{ "version", 0, 0, G_OPTION_ARG_NONE, &optn_show_version, _("Show the program version"), NULL },
+		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_verbose_mode, _("Show extra debugging information"), NULL },
+		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_no_color, _("Don't show colored output"), NULL },
+		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_force, _("Enforce a cache refresh"), NULL },
+		{ "details", 0, 0, G_OPTION_ARG_NONE, &optn_details, _("Print detailed output about found components"), NULL },
 		{ NULL }
 	};
 
-	opt_context = g_option_context_new ("- Appstream-Index client tool.");
+	opt_context = g_option_context_new ("- Appstream-Index Client Tool.");
 	g_option_context_set_help_enabled (opt_context, TRUE);
 	g_option_context_add_main_entries (opt_context, client_options, NULL);
+
+	/* set the summary text */
+	summary = as_client_get_summary ();
+	g_option_context_set_summary (opt_context, summary) ;
+	options_help = g_option_context_get_help (opt_context, TRUE, NULL);
+	g_free (summary);
 
 	g_option_context_parse (opt_context, &argc, &argv, &error);
 	if (error != NULL) {
@@ -227,38 +268,57 @@ as_client_run (char **argv, int argc)
 		msg = g_strconcat (error->message, "\n", NULL);
 		fprintf (stdout, "%s", msg);
 		g_free (msg);
-		fprintf (stdout, _("Run '%s --help' to see a full list of available command line options.\n"), argv[0]);
+		as_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
 		exit_code = 1;
 		g_error_free (error);
 		goto out;
 	}
 
-	if (as_client_o_show_version) {
+	if (optn_show_version) {
 		fprintf (stdout, "Appstream-Index client tool version: %s\n", VERSION);
 		goto out;
 	}
 
 	/* just a hack, we might need proper message handling later */
-	if (as_client_o_verbose_mode) {
+	if (optn_verbose_mode) {
 		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	}
 
+	if (argc < 2) {
+		g_printerr ("%s\n", _("You need to specify a command."));
+		as_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
+		exit_code = 1;
+		goto out;
+	}
+
+	command = argv[1];
+	if (argc > 2)
+		value1 = argv[2];
+	if (argc > 3)
+		value2 = argv[3];
+
 	/* prepare the AppStream database connection */
 	db = as_database_new ();
-	if (as_client_o_search != NULL) {
+	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
 		GPtrArray* cpt_list = NULL;
-		/* search for stuff */
 
+		if (value1 == NULL) {
+			fprintf (stderr, "%s\n", _("You need to specify a term to search for."));
+			exit_code = 2;
+			goto out;
+		}
+
+		/* search for stuff */
 		as_database_open (db);
-		cpt_list = as_database_find_components_by_str (db, as_client_o_search, NULL);
+		cpt_list = as_database_find_components_by_str (db, value1, NULL);
 		if (cpt_list == NULL) {
-			fprintf (stderr, "Unable to find component matching %s!\n", as_client_o_search);
+			as_print_stderr (_("Unable to find component matching %s!"), value1);
 			exit_code = 4;
 			goto out;
 		}
 
 		if (cpt_list->len == 0) {
-			fprintf (stdout, "No component matching '%s' found.\n", as_client_o_search);
+			fprintf (stdout, "No component matching '%s' found.\n", value1);
 			g_ptr_array_unref (cpt_list);
 			goto out;
 		}
@@ -273,46 +333,52 @@ as_client_run (char **argv, int argc)
 		}
 		g_ptr_array_unref (cpt_list);
 
-	} else if (as_client_o_refresh) {
+	} else if (g_strcmp0 (command, "refresh") == 0) {
 		AsBuilder *builder;
 		if (getuid () != ((uid_t) 0)) {
-			fprintf (stdout, "You need to run this command with superuser permissions!\n");
+			g_print ("%s\n", _("You need to run this command with superuser permissions!"));
 			exit_code = 2;
 			goto out;
 		}
 
 		builder = as_builder_new ();
 		as_builder_initialize (builder);
-		as_builder_refresh_cache (builder, as_client_o_force);
+		as_builder_refresh_cache (builder, optn_force);
 		g_object_unref (builder);
-	} else if (as_client_o_get_id != NULL) {
+	} else if (g_strcmp0 (command, "get") == 0) {
 		AsComponent *cpt;
 		/* get component by id */
 
+		if (value1 == NULL) {
+			fprintf (stderr, "%s\n", _("You need to specify a component-id."));
+			exit_code = 2;
+			goto out;
+		}
+
 		as_database_open (db);
-		cpt = as_database_get_component_by_id (db, as_client_o_get_id);
+		cpt = as_database_get_component_by_id (db, value1);
 		if (cpt == NULL) {
-			fprintf (stderr, "Unable to find component with id %s!\n", as_client_o_get_id);
+			fprintf (stderr, "Unable to find component with id %s!\n", value1);
 			exit_code = 4;
 			goto out;
 		}
 		as_print_component (cpt);
 		g_object_unref (cpt);
-	} else if (as_client_o_what_provides) {
+	} else if (g_strcmp0 (command, "what-provides") == 0) {
 		GPtrArray* cpt_list = NULL;
 		AsProvidesKind kind;
 		/* get component providing an item */
 
-		if (as_client_o_value == NULL) {
-			fprintf (stderr, "No value for the provides-item to search for defined.\n");
+		if (value2 == NULL) {
+			g_printerr ("%s\n", _("No value for the provides-item to search for defined."));
 			exit_code = 1;
 			goto out;
 		}
 
-		kind = as_provides_kind_from_string (as_client_o_type);
+		kind = as_provides_kind_from_string (value1);
 		if (kind == AS_PROVIDES_KIND_UNKNOWN) {
 			uint i;
-			fprintf (stderr, "Invalid type for provides-item selected. Valid values are:\n");
+			g_printerr ("%s\n", _("Invalid type for provides-item selected. Valid values are:"));
 			for (i = 1; i < AS_PROVIDES_KIND_LAST; i++)
 				fprintf (stdout, " * %s\n", as_provides_kind_to_string (i));
 			exit_code = 5;
@@ -320,15 +386,15 @@ as_client_run (char **argv, int argc)
 		}
 
 		as_database_open (db);
-		cpt_list = as_database_get_components_by_provides (db, kind, as_client_o_value, "");
+		cpt_list = as_database_get_components_by_provides (db, kind, value2, "");
 		if (cpt_list == NULL) {
-			fprintf (stderr, "Unable to find component providing '%s:%s'!\n", as_client_o_type, as_client_o_value);
+			as_print_stderr (_("Unable to find component providing '%s:%s'!"), value1, value2);
 			exit_code = 4;
 			goto out;
 		}
 
 		if (cpt_list->len == 0) {
-			fprintf (stdout, "No component providing '%s:%s' found.\n", as_client_o_type, as_client_o_value);
+			fprintf (stdout, "No component providing '%s:%s' found.\n", value1, value2);
 			g_ptr_array_unref (cpt_list);
 			goto out;
 		}
@@ -343,13 +409,17 @@ as_client_run (char **argv, int argc)
 		}
 		g_ptr_array_unref (cpt_list);
 	} else {
-		fprintf (stderr, "No command specified.\n");
+		as_print_stderr (_("Command '%s' is unknown."), command);
+		exit_code = 1;
 		goto out;
 	}
 
 out:
-	g_object_unref (db);
 	g_option_context_free (opt_context);
+	if (db != NULL)
+		g_object_unref (db);
+	if (options_help != NULL)
+		g_free (options_help);
 
 	return exit_code;
 }
