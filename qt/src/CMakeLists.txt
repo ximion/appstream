@@ -28,7 +28,7 @@ add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
 target_link_libraries(AppstreamQt PUBLIC ${QT_QTCORE_LIBRARY} PRIVATE ${XAPIAN_LIBRARIES})
 generate_export_header(AppstreamQt)
 
-set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_VERSION}")
+set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_SO_VERSION}.0.0")
 set_property(TARGET AppstreamQt PROPERTY SOVERSION "${APPSTREAMQT_SO_VERSION}" )
 
 install(TARGETS AppstreamQt EXPORT AppstreamQtTargets
@@ -60,3 +60,4 @@ install(EXPORT AppstreamQtTargets
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
 
 add_subdirectory(test)
+
