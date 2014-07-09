@@ -21,6 +21,7 @@
 
 #include "config.h"
 
+#include <config.h>
 #include <locale.h>
 #include <glib/gi18n-lib.h>
 #include <appstream.h>

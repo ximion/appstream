@@ -20,6 +20,7 @@
 
 #include "as-database.h"
 
+#include <config.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>

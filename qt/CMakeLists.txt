@@ -7,7 +7,6 @@ add_compiler_export_flags()
 find_package(Qt4 4.8.0 COMPONENTS QtCore REQUIRED)
 find_package(Xapian 1.2 REQUIRED)
 
-remove_definitions ("--include config.h")
 ENABLE_TESTING()
 
 SET(APPSTREAMQT_SO_VERSION 0)

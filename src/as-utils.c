@@ -21,6 +21,7 @@
 
 #include "as-utils.h"
 
+#include <config.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
