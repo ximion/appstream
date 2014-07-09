@@ -20,8 +20,8 @@
 	<section id="spec-iconcache-location">
 		<title>Filesystem locations</title>
 		<para>
-			All icons should be placed in <filename>/usr/share/app-info/icons/%{origin}</filename>, where <literal>origin</literal> is the AppStream data origin defined in
-			the AppStream data file (see <xref linkend="spec-asxml-general"/>).
+			All icons should be placed in <filename>/usr/share/app-info/icons/%{origin}/</filename> or <filename>/var/cache/app-info/icons/%{origin}/</filename>,
+			where <literal>origin</literal> is the AppStream data origin defined in the AppStream data file (see <xref linkend="spec-asxml-general"/>).
 		</para>
 		<para>
 			The icon directory should not have subdirectories at the current time. All icons are store in one size.
