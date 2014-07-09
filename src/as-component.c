@@ -1423,7 +1423,7 @@ as_component_get_language (AsComponent *self, const gchar *locale)
 }
 
 /**
- * as_app_get_languages:
+ * as_component_get_languages:
  * @self: an #AsComponent instance.
  *
  * Get a list of all languages.
@@ -1436,6 +1436,22 @@ GList*
 as_component_get_languages (AsComponent *self)
 {
 	return g_hash_table_get_keys (self->priv->languages);
+}
+
+/**
+ * as_component_get_languages_map:
+ * @self: an #AsComponent instance.
+ *
+ * Get a HashMap mapping languages to their completion percentage
+ *
+ * Returns: (transfer none): locales map
+ *
+ * Since: 0.7.0
+ **/
+GHashTable*
+as_component_get_languages_map (AsComponent *self)
+{
+	return self->priv->languages;
 }
 
 static void

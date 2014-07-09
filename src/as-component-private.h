@@ -41,6 +41,8 @@ int					as_component_get_priority (AsComponent* self);
 void				as_component_set_priority (AsComponent* self,
 											   int priority);
 
+GHashTable*			as_component_get_languages_map (AsComponent *self);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENTPRIVATE_H */

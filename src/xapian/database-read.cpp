@@ -73,6 +73,7 @@ AsComponent*
 DatabaseRead::docToComponent (Xapian::Document doc)
 {
 	AsComponent *cpt = as_component_new ();
+	string str;
 
 	// Component type/kind
 	string type_str = doc.get_value (XapianValues::TYPE);
@@ -95,8 +96,8 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_name_original (cpt, appname_orig.c_str ());
 
 	// URLs
-	string urls_str = doc.get_value (XapianValues::URLS);
-	gchar **urls = g_strsplit (urls_str.c_str (), "\n", -1);
+	str = doc.get_value (XapianValues::URLS);
+	gchar **urls = g_strsplit (str.c_str (), "\n", -1);
 	for (uint i = 0; urls[i] != NULL; i += 2) {
 		/* urls are stored in form of "type \n url" (so we just need one stringsplit here...) */
 		if (urls[i+1] == NULL)
@@ -157,6 +158,18 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	// Releases data
 	string releases_xml = doc.get_value (XapianValues::RELEASES_DATA);
 	as_component_load_releases_from_internal_xml (cpt, releases_xml.c_str ());
+
+	// Languages
+	str = doc.get_value (XapianValues::LANGUAGES);
+	gchar **lang_data = g_strsplit (str.c_str (), "\n", -1);
+	for (uint i = 0; lang_data[i] != NULL; i += 2) {
+		gint64 percentage;
+		/* language information is stored in form of "locale \n <percentage:int>" (so we just need one stringsplit) */
+		if (lang_data[i+1] == NULL)
+			break;
+		percentage = g_ascii_strtoll (urls[i+1], NULL, 10);
+		as_component_add_language (cpt, urls[i], percentage);
+	}
 
 	// TODO: Read out keywords?
 

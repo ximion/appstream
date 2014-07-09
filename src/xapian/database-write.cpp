@@ -66,7 +66,7 @@ DatabaseWrite::initialize (const gchar *dbPath)
 }
 
 static
-void url_hashtable_to_text (gchar *key, gchar *value, gchar **text)
+void simple_hashtable_to_str (gchar *key, gchar *value, gchar **text)
 {
 	gchar *tmp;
 
@@ -120,6 +120,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 	}
 
 	for (GList *list = cpt_list; list != NULL; list = list->next) {
+		gchar *cstr;
 		AsComponent *cpt = (AsComponent*) list->data;
 
 		Xapian::Document doc;
@@ -164,11 +165,11 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// URLs
 		GHashTable *urls;
-		gchar *text = g_strdup ("");
+		cstr = g_strdup ("");
 		urls = as_component_get_urls (cpt);
-		g_hash_table_foreach(urls, (GHFunc) url_hashtable_to_text, &text);
-		doc.add_value (XapianValues::URLS, text);
-		g_free (text);
+		g_hash_table_foreach(urls, (GHFunc) simple_hashtable_to_str, &cstr);
+		doc.add_value (XapianValues::URLS, cstr);
+		g_free (cstr);
 
 		// Application icon
 		doc.add_value (XapianValues::ICON, as_component_get_icon (cpt));
@@ -248,7 +249,13 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// Add releases information (XML data)
 		doc.add_value (XapianValues::RELEASES_DATA, as_component_dump_releases_data_xml (cpt));
 
-		// TODO: Look at the SC Xapian database - there are still some values and terms missing!
+		// Languages
+		GHashTable *langs_table;
+		cstr = g_strdup ("");
+		langs_table = as_component_get_languages_map (cpt);
+		g_hash_table_foreach(langs_table, (GHFunc) simple_hashtable_to_str, &cstr);
+		doc.add_value (XapianValues::LANGUAGES, cstr);
+		g_free (cstr);
 
 		// Postprocess
 		string docData = doc.get_data ();
