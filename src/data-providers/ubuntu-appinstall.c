@@ -128,12 +128,18 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 	g_free (desktop_file_name);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "X-AppInstall-Ignore");
-	str2 = g_utf8_strdown (str, (gssize) (-1));
-	g_free (str);
-	if (g_strcmp0 (str2, "true") == 0) {
-		g_free (str2);
+	if (g_strcmp0 (str, "true") == 0) {
+		g_free (str);
 		goto out;
 	}
+	g_free (str);
+
+	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "NoDisplay");
+	if (g_strcmp0 (str, "true") == 0) {
+		g_free (str);
+		goto out;
+	}
+	g_free (str);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "X-AppInstall-Package");
 	as_component_set_pkgname (cpt, str);
@@ -172,6 +178,21 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 		g_strfreev (mimes);
 	}
 	g_free (str);
+
+	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "OnlyShowIn");
+	if (!as_str_empty (str)) {
+		/* we cheat here and assume that if a .desktop file states that it should only be shown in desktop X, it
+		 * is compulsory for that desktop (admittedly, that might be a lie in many cases...).
+		 * Another way would be to simply ignore data which states being desktop-specific, but first try how this works out.
+		 * (AppStream doesn't know a concept for desktop-specific apps, and we are still evaluating if that's a useful thing)
+		 */
+		gchar **compulsory;
+		compulsory = g_strsplit (str, ";", 0);
+		as_component_set_compulsory_for_desktops (cpt, compulsory);
+		g_strfreev (compulsory);
+	}
+	g_free (str);
+
 
 	if (as_component_is_valid (cpt)) {
 		/* everything is fine with this component, we can emit it */
