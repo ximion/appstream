@@ -19,6 +19,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 		    ${CMAKE_SOURCE_DIR}/src/xapian
 )
 
+if(NOT QT)
+    # hack for standalone compilation of the Qt lib (the QT variable is not defined if we build standalone)
+    include_directories(${CMAKE_SOURCE_DIR}/../src/xapian)
+endif()
+
 add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
 target_link_libraries(AppstreamQt PUBLIC ${QT_QTCORE_LIBRARY} PRIVATE ${XAPIAN_LIBRARIES})
 generate_export_header(AppstreamQt)
