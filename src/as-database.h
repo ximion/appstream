@@ -75,8 +75,8 @@ gboolean			as_database_db_exists (AsDatabase* self);
 GPtrArray*			as_database_get_all_components (AsDatabase* self);
 GPtrArray*			as_database_find_components (AsDatabase* self,
 												 AsSearchQuery* query);
-GPtrArray*			as_database_find_components_by_str (AsDatabase* self,
-													const gchar* search_str,
+GPtrArray*			as_database_find_components_by_term (AsDatabase* self,
+													const gchar* search_term,
 													const gchar* categories_str);
 AsComponent*		as_database_get_component_by_id (AsDatabase *self,
 													const gchar *idname);

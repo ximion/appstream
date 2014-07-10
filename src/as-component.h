@@ -191,7 +191,7 @@ GPtrArray*			as_component_get_extends (AsComponent *cpt);
 void				as_component_add_extends (AsComponent* cpt,
 												const gchar* cpt_id);
 
-void				as_component_add_language (AsComponent *cpt,
+void				as_component_add_language (AsComponent *self,
 												const gchar *locale,
 												gint percentage);
 gint				as_component_get_language (AsComponent *self,
