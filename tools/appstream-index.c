@@ -226,6 +226,186 @@ as_client_get_summary ()
 	return g_string_free (string, FALSE);
 }
 
+/**
+ * as_client_refresh_cache:
+ */
+int
+as_client_refresh_cache (const gchar *dbpath, gboolean forced)
+{
+	AsBuilder *builder;
+	gboolean ret;
+
+	if (dbpath == NULL) {
+		if (getuid () != ((uid_t) 0)) {
+			g_print ("%s\n", _("You need to run this command with superuser permissions!"));
+			return 2;
+		}
+	}
+
+	builder = as_builder_new ();
+	as_builder_initialize (builder);
+	/* FIXME: the builder prints messages on error by itself - that needs to be properly handled with GError */
+	ret = as_builder_refresh_cache (builder, forced);
+	g_object_unref (builder);
+
+	if (ret)
+		return 0;
+	else
+		return 6;
+}
+
+/**
+ * as_client_get_component:
+ *
+ * Get component by id
+ */
+int
+as_client_get_component (const gchar *dbpath, const gchar *identifier)
+{
+	AsDatabase *db;
+	AsComponent *cpt;
+	int exit_code;
+
+	if (identifier == NULL) {
+		fprintf (stderr, "%s\n", _("You need to specify a component-id."));
+		return 2;
+	}
+
+	db = as_database_new ();
+	as_database_open (db);
+
+	cpt = as_database_get_component_by_id (db, identifier);
+	if (cpt == NULL) {
+		fprintf (stderr, "Unable to find component with id %s!\n", identifier);
+		exit_code = 4;
+		goto out;
+	}
+	as_print_component (cpt);
+
+out:
+	g_object_unref (db);
+	if (cpt != NULL)
+		g_object_unref (cpt);
+
+	return exit_code;
+}
+
+/**
+ * as_client_search_component:
+ */
+int
+as_client_search_component (const gchar *dbpath, const gchar *search_term)
+{
+	AsDatabase *db;
+	GPtrArray* cpt_list = NULL;
+	guint i;
+	int exit_code = 0;
+
+	db = as_database_new ();
+
+	if (search_term == NULL) {
+		fprintf (stderr, "%s\n", _("You need to specify a term to search for."));
+		exit_code = 2;
+		goto out;
+	}
+
+	/* search for stuff */
+	as_database_open (db);
+	cpt_list = as_database_find_components_by_str (db, search_term, NULL);
+	if (cpt_list == NULL) {
+		as_print_stderr (_("Unable to find component matching %s!"), search_term);
+		exit_code = 4;
+		goto out;
+	}
+
+	if (cpt_list->len == 0) {
+		fprintf (stdout, "No component matching '%s' found.\n", search_term);
+		g_ptr_array_unref (cpt_list);
+		goto out;
+	}
+
+	for (i = 0; i < cpt_list->len; i++) {
+		AsComponent *cpt;
+		cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
+
+		as_print_component (cpt);
+
+		as_print_separator ();
+	}
+
+out:
+	if (cpt_list != NULL)
+		g_ptr_array_unref (cpt_list);
+	g_object_unref (db);
+
+	return exit_code;
+}
+
+/**
+ * as_client_what_provides:
+ *
+ * Get component providing an item
+ */
+int
+as_client_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *value, const gchar *data)
+{
+	AsDatabase *db = NULL;
+	GPtrArray* cpt_list = NULL;
+	AsProvidesKind kind;
+	guint i;
+	int exit_code;
+
+	if (value == NULL) {
+		g_printerr ("%s\n", _("No value for the provides-item to search for defined."));
+		exit_code = 1;
+		goto out;
+	}
+
+	kind = as_provides_kind_from_string (kind_str);
+	if (kind == AS_PROVIDES_KIND_UNKNOWN) {
+		uint i;
+		g_printerr ("%s\n", _("Invalid type for provides-item selected. Valid values are:"));
+		for (i = 1; i < AS_PROVIDES_KIND_LAST; i++)
+			fprintf (stdout, " * %s\n", as_provides_kind_to_string (i));
+		exit_code = 5;
+		goto out;
+	}
+
+	db = as_database_new ();
+	as_database_open (db);
+
+	cpt_list = as_database_get_components_by_provides (db, kind, value, data);
+	if (cpt_list == NULL) {
+		as_print_stderr (_("Unable to find component providing '%s:%s:%s'!"), kind_str, value, data);
+		exit_code = 4;
+		goto out;
+	}
+
+	if (cpt_list->len == 0) {
+		fprintf (stdout, "No component providing '%s:%s:%s' found.\n", kind_str, value, data);
+		goto out;
+	}
+
+	for (i = 0; i < cpt_list->len; i++) {
+		AsComponent *cpt;
+		cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
+
+		as_print_component (cpt);
+		as_print_separator ();
+	}
+
+out:
+	if (db != NULL)
+		g_object_unref (db);
+	if (cpt_list != NULL)
+		g_ptr_array_unref (cpt_list);
+
+	return exit_code;
+}
+
+/**
+ * as_client_run:
+ */
 int
 as_client_run (char **argv, int argc)
 {
@@ -236,12 +416,10 @@ as_client_run (char **argv, int argc)
 	gchar *command = NULL;
 	gchar *value1 = NULL;
 	gchar *value2 = NULL;
+	gchar *value3 = NULL;
 
 	gchar *summary;
 	gchar *options_help = NULL;
-
-	AsDatabase *db = NULL;
-	guint i;
 
 	const GOptionEntry client_options[] = {
 		{ "version", 0, 0, G_OPTION_ARG_NONE, &optn_show_version, _("Show the program version"), NULL },
@@ -296,118 +474,17 @@ as_client_run (char **argv, int argc)
 		value1 = argv[2];
 	if (argc > 3)
 		value2 = argv[3];
+	if (argc > 4)
+		value3 = argv[4];
 
-	/* prepare the AppStream database connection */
-	db = as_database_new ();
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
-		GPtrArray* cpt_list = NULL;
-
-		if (value1 == NULL) {
-			fprintf (stderr, "%s\n", _("You need to specify a term to search for."));
-			exit_code = 2;
-			goto out;
-		}
-
-		/* search for stuff */
-		as_database_open (db);
-		cpt_list = as_database_find_components_by_str (db, value1, NULL);
-		if (cpt_list == NULL) {
-			as_print_stderr (_("Unable to find component matching %s!"), value1);
-			exit_code = 4;
-			goto out;
-		}
-
-		if (cpt_list->len == 0) {
-			fprintf (stdout, "No component matching '%s' found.\n", value1);
-			g_ptr_array_unref (cpt_list);
-			goto out;
-		}
-
-		for (i = 0; i < cpt_list->len; i++) {
-			AsComponent *cpt;
-			cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
-
-			as_print_component (cpt);
-
-			as_print_separator ();
-		}
-		g_ptr_array_unref (cpt_list);
-
+		exit_code = as_client_search_component (NULL, value1);
 	} else if (g_strcmp0 (command, "refresh") == 0) {
-		AsBuilder *builder;
-		if (getuid () != ((uid_t) 0)) {
-			g_print ("%s\n", _("You need to run this command with superuser permissions!"));
-			exit_code = 2;
-			goto out;
-		}
-
-		builder = as_builder_new ();
-		as_builder_initialize (builder);
-		as_builder_refresh_cache (builder, optn_force);
-		g_object_unref (builder);
+		exit_code = as_client_refresh_cache (NULL, optn_force);
 	} else if (g_strcmp0 (command, "get") == 0) {
-		AsComponent *cpt;
-		/* get component by id */
-
-		if (value1 == NULL) {
-			fprintf (stderr, "%s\n", _("You need to specify a component-id."));
-			exit_code = 2;
-			goto out;
-		}
-
-		as_database_open (db);
-		cpt = as_database_get_component_by_id (db, value1);
-		if (cpt == NULL) {
-			fprintf (stderr, "Unable to find component with id %s!\n", value1);
-			exit_code = 4;
-			goto out;
-		}
-		as_print_component (cpt);
-		g_object_unref (cpt);
+		exit_code = as_client_get_component (NULL, value1);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
-		GPtrArray* cpt_list = NULL;
-		AsProvidesKind kind;
-		/* get component providing an item */
-
-		if (value2 == NULL) {
-			g_printerr ("%s\n", _("No value for the provides-item to search for defined."));
-			exit_code = 1;
-			goto out;
-		}
-
-		kind = as_provides_kind_from_string (value1);
-		if (kind == AS_PROVIDES_KIND_UNKNOWN) {
-			uint i;
-			g_printerr ("%s\n", _("Invalid type for provides-item selected. Valid values are:"));
-			for (i = 1; i < AS_PROVIDES_KIND_LAST; i++)
-				fprintf (stdout, " * %s\n", as_provides_kind_to_string (i));
-			exit_code = 5;
-			goto out;
-		}
-
-		as_database_open (db);
-		cpt_list = as_database_get_components_by_provides (db, kind, value2, "");
-		if (cpt_list == NULL) {
-			as_print_stderr (_("Unable to find component providing '%s:%s'!"), value1, value2);
-			exit_code = 4;
-			goto out;
-		}
-
-		if (cpt_list->len == 0) {
-			fprintf (stdout, "No component providing '%s:%s' found.\n", value1, value2);
-			g_ptr_array_unref (cpt_list);
-			goto out;
-		}
-
-		for (i = 0; i < cpt_list->len; i++) {
-			AsComponent *cpt;
-			cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
-
-			as_print_component (cpt);
-
-			as_print_separator ();
-		}
-		g_ptr_array_unref (cpt_list);
+		exit_code = as_client_what_provides (NULL, value1, value2, value3);
 	} else {
 		as_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;
@@ -416,8 +493,6 @@ as_client_run (char **argv, int argc)
 
 out:
 	g_option_context_free (opt_context);
-	if (db != NULL)
-		g_object_unref (db);
 	if (options_help != NULL)
 		g_free (options_help);
 
