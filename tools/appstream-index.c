@@ -34,6 +34,8 @@ static gboolean optn_verbose_mode = FALSE;
 static gboolean optn_no_color = FALSE;
 static gboolean optn_force = FALSE;
 static gboolean optn_details = FALSE;
+static gchar *optn_dbpath = NULL;
+static gchar *optn_datapath = NULL;
 
 static gchar*
 format_long_output (const gchar *str)
@@ -230,7 +232,7 @@ as_client_get_summary ()
  * as_client_refresh_cache:
  */
 int
-as_client_refresh_cache (const gchar *dbpath, gboolean forced)
+as_client_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
 {
 	AsBuilder *builder;
 	gboolean ret;
@@ -242,7 +244,20 @@ as_client_refresh_cache (const gchar *dbpath, gboolean forced)
 		}
 	}
 
-	builder = as_builder_new ();
+	if (dbpath == NULL)
+		builder = as_builder_new ();
+	else
+		builder = as_builder_new_path (dbpath);
+
+	if (datapath != NULL) {
+		gchar **strv;
+		/* the user wants data from a different path to be used */
+		strv = g_new0 (gchar*, 2);
+		strv[0] = g_strdup (datapath);
+		as_builder_set_data_source_directories (builder, strv);
+		g_strfreev (strv);
+	}
+
 	as_builder_initialize (builder);
 	/* FIXME: the builder prints messages on error by itself - that needs to be properly handled with GError */
 	ret = as_builder_refresh_cache (builder, forced);
@@ -252,6 +267,16 @@ as_client_refresh_cache (const gchar *dbpath, gboolean forced)
 		return 0;
 	else
 		return 6;
+}
+
+AsDatabase*
+as_client_database_new_path (const gchar *dbpath)
+{
+	AsDatabase *db;
+	db = as_database_new ();
+	if (dbpath != NULL)
+		as_database_set_database_path (db, dbpath);
+	return db;
 }
 
 /**
@@ -271,7 +296,7 @@ as_client_get_component (const gchar *dbpath, const gchar *identifier)
 		return 2;
 	}
 
-	db = as_database_new ();
+	db = as_client_database_new_path (dbpath);
 	as_database_open (db);
 
 	cpt = as_database_get_component_by_id (db, identifier);
@@ -301,7 +326,7 @@ as_client_search_component (const gchar *dbpath, const gchar *search_term)
 	guint i;
 	int exit_code = 0;
 
-	db = as_database_new ();
+	db = as_client_database_new_path (dbpath);
 
 	if (search_term == NULL) {
 		fprintf (stderr, "%s\n", _("You need to specify a term to search for."));
@@ -371,7 +396,7 @@ as_client_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar
 		goto out;
 	}
 
-	db = as_database_new ();
+	db = as_client_database_new_path (dbpath);
 	as_database_open (db);
 
 	cpt_list = as_database_get_components_by_provides (db, kind, value, data);
@@ -427,6 +452,8 @@ as_client_run (char **argv, int argc)
 		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_no_color, _("Don't show colored output"), NULL },
 		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_force, _("Enforce a cache refresh"), NULL },
 		{ "details", 0, 0, G_OPTION_ARG_NONE, &optn_details, _("Print detailed output about found components"), NULL },
+		{ "dbpath", 0, 0, G_OPTION_ARG_STRING, &optn_dbpath, _("Manually set the location of the AppStream cache"), NULL },
+		{ "datapath", 0, 0, G_OPTION_ARG_STRING, &optn_datapath, _("Manually set the location of AppStream metadata for cache regeneration"), NULL },
 		{ NULL }
 	};
 
@@ -478,13 +505,13 @@ as_client_run (char **argv, int argc)
 		value3 = argv[4];
 
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
-		exit_code = as_client_search_component (NULL, value1);
+		exit_code = as_client_search_component (optn_dbpath, value1);
 	} else if (g_strcmp0 (command, "refresh") == 0) {
-		exit_code = as_client_refresh_cache (NULL, optn_force);
+		exit_code = as_client_refresh_cache (optn_dbpath, optn_datapath, optn_force);
 	} else if (g_strcmp0 (command, "get") == 0) {
-		exit_code = as_client_get_component (NULL, value1);
+		exit_code = as_client_get_component (optn_dbpath, value1);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
-		exit_code = as_client_what_provides (NULL, value1, value2, value3);
+		exit_code = as_client_what_provides (optn_dbpath, value1, value2, value3);
 	} else {
 		as_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;

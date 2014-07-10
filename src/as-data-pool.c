@@ -51,6 +51,11 @@ const gchar* AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
 										"/var/cache/app-info/xmls",
 										"/var/lib/app-info/xmls",
 										NULL};
+const gchar* AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
+										"/var/cache/app-info/yaml",
+										"/var/lib/app-info/yaml",
+										NULL};
+
 #define AS_PROVIDER_UBUNTU_APPINSTALL_DIR "/usr/share/app-install"
 
 typedef struct _AsDataPoolPrivate	AsDataPoolPrivate;
@@ -348,6 +353,16 @@ as_data_pool_new (void)
 			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
 		else
 			priv->asxml_paths[i] = NULL;
+	}
+
+	/* set watched default directories for Debian DEP11 AppStream data */
+	len = G_N_ELEMENTS (AS_APPSTREAM_DEP11_PATHS);
+	priv->dep11_paths = g_new0 (gchar *, len + 1);
+	for (i = 0; i < len+1; i++) {
+		if (i < len)
+			priv->dep11_paths[i] = g_strdup (AS_APPSTREAM_DEP11_PATHS[i]);
+		else
+			priv->dep11_paths[i] = NULL;
 	}
 
 	/* set default directories for Ubuntu AppInstall */

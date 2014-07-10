@@ -252,7 +252,11 @@ out:
 	return ret;
 }
 
-
+/**
+ * as_builder_refresh_cache:
+ *
+ * Update the AppStream Xapian cache
+ */
 gboolean
 as_builder_refresh_cache (AsBuilder* self, gboolean force)
 {
@@ -290,6 +294,55 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	}
 
 	return ret;
+}
+
+/**
+ * as_builder_set_data_source_directories:
+ * @self a valid #AsBuilder instance
+ * @dirs a zero-terminated array of data input directories.
+ *
+ * Set locations for the database builder to pull it's data from.
+ * This is mainly used for testing purposes. Each location should have an
+ * "xmls" and/or "yaml" subdirectory with the actual data as (compressed)
+ * AppStream XML or DEP-11 YAML in it.
+ */
+void
+as_builder_set_data_source_directories (AsBuilder *self, gchar **dirs)
+{
+	guint i;
+	GPtrArray *xmldirs;
+	GPtrArray *yamldirs;
+	gchar **strv;
+
+	xmldirs = g_ptr_array_new_with_free_func (g_free);
+	yamldirs = g_ptr_array_new_with_free_func (g_free);
+
+	for (i = 0; dirs[i] != NULL; i++) {
+		gchar *path;
+		path = g_build_filename (dirs[i], "xmls", NULL);
+		if (g_file_test (path, G_FILE_TEST_EXISTS))
+			g_ptr_array_add (xmldirs, g_strdup (path));
+		g_free (path);
+
+		path = g_build_filename (dirs[i], "yaml", NULL);
+		if (g_file_test (path, G_FILE_TEST_EXISTS))
+			g_ptr_array_add (yamldirs, g_strdup (path));
+		g_free (path);
+	}
+
+	strv = as_ptr_array_to_strv (xmldirs);
+	as_data_pool_set_xml_paths (self->priv->dpool, strv);
+	g_strfreev (strv);
+
+	strv = as_ptr_array_to_strv (yamldirs);
+	as_data_pool_set_dep11_paths (self->priv->dpool, strv);
+	g_strfreev (strv);
+
+	/* nuke AppInstall search, in case the provider is enabled */
+	as_data_pool_set_appinstall_paths (self->priv->dpool, NULL);
+
+	g_ptr_array_unref (xmldirs);
+	g_ptr_array_unref (yamldirs);
 }
 
 static void
