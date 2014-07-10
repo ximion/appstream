@@ -76,7 +76,7 @@ as_database_construct (GType object_type)
 
 	self->priv->db = xa_database_read_new ();
 	self->priv->opened = FALSE;
-	as_database_set_database_path (self, AS_APPSTREAM_DATABASE_PATH);
+	as_database_set_database_path (self, AS_APPSTREAM_CACHE_PATH);
 
 	return self;
 }
@@ -99,8 +99,11 @@ static gboolean
 as_database_real_open (AsDatabase* self)
 {
 	gboolean ret = FALSE;
+	gchar *path;
 
-	ret = xa_database_read_open (self->priv->db, self->priv->database_path);
+	path = g_build_filename (self->priv->database_path, "xapian", NULL);
+	ret = xa_database_read_open (self->priv->db, path);
+	g_free (path);
 	self->priv->opened = ret;
 
 	return ret;
@@ -173,9 +176,9 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query)
 }
 
 /**
- * as_database_find_components_by_str:
+ * as_database_find_components_by_term:
  * @self: a valid #AsDatabase instance
- * @search_str: the string to search for
+ * @search_term: the string to search for
  * @categories_str: (allow-none) (default NULL): a comma-separated list of category names, or NULL to search in all categories
  *
  * Find components in the Appstream database by searching for a simple string.
@@ -183,14 +186,14 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query)
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
 GPtrArray*
-as_database_find_components_by_str (AsDatabase* self, const gchar* search_str, const gchar* categories_str)
+as_database_find_components_by_term (AsDatabase* self, const gchar* search_term, const gchar* categories_str)
 {
 	GPtrArray* cpt_array;
 	AsSearchQuery* query;
 	g_return_val_if_fail (self != NULL, NULL);
-	g_return_val_if_fail (search_str != NULL, NULL);
+	g_return_val_if_fail (search_term != NULL, NULL);
 
-	query = as_search_query_new (search_str);
+	query = as_search_query_new (search_term);
 	if (categories_str == NULL) {
 		as_search_query_set_search_all_categories (query);
 	} else {
@@ -272,7 +275,6 @@ as_database_get_database_path (AsDatabase* self)
 	g_return_val_if_fail (self != NULL, NULL);
 	return self->priv->database_path;
 }
-
 
 void
 as_database_set_database_path (AsDatabase* self, const gchar* value)

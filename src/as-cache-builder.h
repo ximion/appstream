@@ -52,9 +52,7 @@ struct _AsBuilderClass {
 GType as_builder_get_type (void) G_GNUC_CONST;
 
 AsBuilder*		as_builder_new (void);
-AsBuilder*		as_builder_construct (GType object_type);
 AsBuilder*		as_builder_new_path (const gchar* dbpath);
-AsBuilder*		as_builder_construct_path (GType object_type, const gchar* dbpath);
 
 gboolean		as_builder_initialize (AsBuilder* self);
 gboolean		as_builder_refresh_cache (AsBuilder* self, gboolean force);

@@ -35,7 +35,8 @@
 struct _AsBuilderPrivate
 {
 	struct XADatabaseWrite* db_w;
-	gchar* db_build_path;
+	gchar* db_path;
+	gchar* cache_path;
 	AsDataPool *dpool;
 };
 
@@ -46,8 +47,8 @@ static gpointer as_builder_parent_class = NULL;
 static gboolean as_builder_appstream_data_changed (AsBuilder* self);
 static void as_builder_finalize (GObject* obj);
 
-AsBuilder*
-as_builder_construct (GType object_type)
+static AsBuilder*
+as_builder_construct (GType object_type, const gchar *dbpath)
 {
 	AsBuilder *self = NULL;
 	AsBuilderPrivate *priv;
@@ -57,8 +58,16 @@ as_builder_construct (GType object_type)
 	priv->db_w = xa_database_write_new ();
 	priv->dpool = as_data_pool_new ();
 
+	/* update database path if necessary */
+	if (as_str_empty (dbpath)) {
+		priv->cache_path = g_strdup (AS_APPSTREAM_CACHE_PATH);
+	} else {
+		priv->cache_path = g_strdup (dbpath);
+	}
+	priv->db_path = g_build_filename (priv->cache_path, "xapian", NULL);
+
 	/* ensure db directory exists */
-	as_utils_touch_dir (AS_APPSTREAM_DATABASE_PATH);
+	as_utils_touch_dir (priv->db_path);
 
 	return self;
 }
@@ -73,21 +82,7 @@ as_builder_construct (GType object_type)
 AsBuilder*
 as_builder_new (void)
 {
-	return as_builder_construct (AS_TYPE_BUILDER);
-}
-
-
-AsBuilder*
-as_builder_construct_path (GType object_type, const gchar* dbpath)
-{
-	AsBuilder * self = NULL;
-	g_return_val_if_fail (dbpath != NULL, NULL);
-
-	self = as_builder_construct (AS_TYPE_BUILDER);
-	g_free (self->priv->db_build_path);
-	self->priv->db_build_path = g_strdup (dbpath);
-
-	return self;
+	return as_builder_construct (AS_TYPE_BUILDER, NULL);
 }
 
 /**
@@ -102,7 +97,7 @@ as_builder_construct_path (GType object_type, const gchar* dbpath)
 AsBuilder*
 as_builder_new_path (const gchar* dbpath)
 {
-	return as_builder_construct_path (AS_TYPE_BUILDER, dbpath);
+	return as_builder_construct (AS_TYPE_BUILDER, dbpath);
 }
 
 /**
@@ -114,17 +109,11 @@ as_builder_initialize (AsBuilder* self)
 	gboolean ret;
 	AsBuilderPrivate *priv = self->priv;
 
-	/* update database path if necessary */
-	if (as_str_empty (priv->db_build_path)) {
-		g_free (priv->db_build_path);
-		priv->db_build_path = g_strdup (AS_APPSTREAM_DATABASE_PATH);
-	}
-
 	as_data_pool_initialize (self->priv->dpool);
 
-	as_utils_touch_dir (self->priv->db_build_path);
+	as_utils_touch_dir (self->priv->db_path);
 
-	ret = xa_database_write_initialize (priv->db_w, priv->db_build_path);
+	ret = xa_database_write_initialize (priv->db_w, priv->db_path);
 	return ret;
 }
 
@@ -143,7 +132,7 @@ as_builder_appstream_data_changed (AsBuilder* self)
 	GError *error = NULL;
 	g_return_val_if_fail (self != NULL, FALSE);
 
-	fname = g_build_filename (AS_APPSTREAM_CACHE_PATH, "cache.watch", NULL, NULL);
+	fname = g_build_filename (self->priv->cache_path, "cache.watch", NULL, NULL);
 	file = g_file_new_for_path (fname);
 	g_free (fname);
 
@@ -265,11 +254,13 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	GList *cpt_list;
 	g_return_val_if_fail (self != NULL, FALSE);
 
-	if (!force) {
-		/* check if we need to refresh the cache */
-		/* (which is only necessary if the AppStream data has changed) */
-		if (!as_builder_appstream_data_changed (self)) {
-			g_debug ("Data did not change, no cache refresh done.");
+	/* check if we need to refresh the cache */
+	/* (which is only necessary if the AppStream data has changed) */
+	if (!as_builder_appstream_data_changed (self)) {
+		g_debug ("Data did not change, no cache refresh needed.");
+		if (force) {
+			g_debug ("Forcing refresh anyway.");
+		} else {
 			ret = TRUE;
 			return ret;
 		}
@@ -369,7 +360,8 @@ as_builder_finalize (GObject* obj)
 
 	xa_database_write_free (self->priv->db_w);
 	g_object_unref (self->priv->dpool);
-	g_free (self->priv->db_build_path);
+	g_free (self->priv->cache_path);
+	g_free (self->priv->db_path);
 
 	G_OBJECT_CLASS (as_builder_parent_class)->finalize (obj);
 }

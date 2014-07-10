@@ -30,7 +30,6 @@ G_BEGIN_DECLS
 #define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
 #define AS_CONFIG_NAME "/etc/appstream.conf"
 #define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
-#define AS_APPSTREAM_DATABASE_PATH AS_APPSTREAM_CACHE_PATH "/xapian"
 
 #define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
 

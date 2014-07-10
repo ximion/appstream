@@ -211,7 +211,7 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 		if (wfiles == NULL)
 			continue;
 		for (j = 0; wfiles[j] != NULL; j++) {
-			g_ptr_array_add (res_array, wfiles[j]);
+			g_ptr_array_add (res_array, g_strdup (wfiles[j]));
 		}
 	}
 
