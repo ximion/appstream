@@ -2,21 +2,22 @@
 # List of source files containing translatable strings.
 #
 # library sources
+src/as-cache-builder.c
 src/as-category.c
 src/as-component.c
-src/as-database-builder.c
 src/as-database.c
+src/as-data-pool.c
+src/as-data-provider.c
 src/as-distro-details.c
+src/as-enums.c
+src/as-image.c
+src/as-menu-parser.c
 src/as-metadata.c
 src/as-provides.c
-src/as-search-query.c
-src/as-database-write.c
-src/as-image.c
 src/as-release.c
-src/as-utils.c
-src/as-data-provider.c
-src/as-menu-parser.c
 src/as-screenshot.c
+src/as-search-query.c
+src/as-utils.c
 src/as-validator.c
 src/as-validator-issue.c
 # tools sources

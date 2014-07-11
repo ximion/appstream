@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: appstream\n"
         "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-        "POT-Creation-Date: 2014-05-12 18:17+0200\n"
+        "POT-Creation-Date: 2014-07-11 18:15+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,21 @@ msgstr  "Project-Id-Version: appstream\n"
         "Content-Type: text/plain; charset=CHARSET\n"
         "Content-Transfer-Encoding: 8bit\n"
 
+msgid   "A provides-item type (e.g. lib, bin, python3, ...)"
+msgstr  ""
+
 msgid   "AppStream Validation Utility"
 msgstr  ""
 
+#. TRANSLATORS: This is the header to the --help menu
+msgid   "AppStream-Index Client Tool"
+msgstr  ""
+
 msgid   "Categories"
+msgstr  ""
+
+#, c-format
+msgid   "Command '%s' is unknown."
 msgstr  ""
 
 msgid   "Compulsory for"
@@ -41,10 +52,10 @@ msgstr  ""
 msgid   "File %s not found or permission denied!"
 msgstr  ""
 
-msgid   "Get component by id"
+msgid   "Get components which provide the given item"
 msgstr  ""
 
-msgid   "Get components which provide the given item"
+msgid   "Get information about a component by its id"
 msgstr  ""
 
 msgid   "Homepage"
@@ -56,11 +67,23 @@ msgstr  ""
 msgid   "Identifier"
 msgstr  ""
 
+msgid   "Invalid type for provides-item selected. Valid values are:"
+msgstr  ""
+
 #. license
 msgid   "License"
 msgstr  ""
 
+msgid   "Manually set the location of AppStream metadata for cache regeneration"
+msgstr  ""
+
+msgid   "Manually set the location of the AppStream cache"
+msgstr  ""
+
 msgid   "Name"
+msgstr  ""
+
+msgid   "No value for the provides-item to search for defined."
 msgstr  ""
 
 msgid   "Package"
@@ -80,13 +103,10 @@ msgid   "Rebuild the component information cache"
 msgstr  ""
 
 #, c-format
-msgid   "Run '%s --help' to see a full list of available command line options.\n"
+msgid   "Run '%s --help' to see a full list of available command line options."
 msgstr  ""
 
 msgid   "Search the component database"
-msgstr  ""
-
-msgid   "Select a provides type (e.g. lib, bin, python3, ...)"
 msgstr  ""
 
 msgid   "Select a value for the provides-item which needs to be found"
@@ -101,7 +121,19 @@ msgstr  ""
 msgid   "Show the program version"
 msgstr  ""
 
+#. these are commands we can use with appstream-index
+msgid   "Subcommands:"
+msgstr  ""
+
 msgid   "Summary"
+msgstr  ""
+
+#, c-format
+msgid   "Unable to find component matching %s!"
+msgstr  ""
+
+#, c-format
+msgid   "Unable to find component providing '%s:%s:%s'!"
 msgstr  ""
 
 msgid   "Validation failed."
@@ -111,7 +143,19 @@ msgstr  ""
 msgid   "XDG Menu XML file '%s' is damaged."
 msgstr  ""
 
+msgid   "You need to run this command with superuser permissions!"
+msgstr  ""
+
+msgid   "You need to specify a command."
+msgstr  ""
+
+msgid   "You need to specify a component-id."
+msgstr  ""
+
 msgid   "You need to specify a file to validate!"
+msgstr  ""
+
+msgid   "You need to specify a term to search for."
 msgstr  ""
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
