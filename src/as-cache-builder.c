@@ -20,10 +20,12 @@
 
 #include "as-cache-builder.h"
 
+#include <config.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
 #include <gio/gio.h>
+#include <glib/gi18n-lib.h>
 #include <sys/stat.h>
 
 #include "xapian/database-cwrap.hpp"
@@ -44,8 +46,21 @@ static gpointer as_builder_parent_class = NULL;
 
 #define AS_BUILDER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_BUILDER, AsBuilderPrivate))
 
-static gboolean as_builder_appstream_data_changed (AsBuilder* self);
 static void as_builder_finalize (GObject* obj);
+
+/**
+ * as_builder_error_quark:
+ *
+ * Return value: An error quark.
+ **/
+GQuark
+as_builder_error_quark (void)
+{
+	static GQuark quark = 0;
+	if (!quark)
+		quark = g_quark_from_static_string ("AsBuilderError");
+	return quark;
+}
 
 static AsBuilder*
 as_builder_construct (GType object_type, const gchar *dbpath)
@@ -247,7 +262,7 @@ out:
  * Update the AppStream Xapian cache
  */
 gboolean
-as_builder_refresh_cache (AsBuilder* self, gboolean force)
+as_builder_refresh_cache (AsBuilder* self, gboolean force, GError **error)
 {
 	gboolean ret = FALSE;
 	gboolean ret_poolupdate;
@@ -276,12 +291,16 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force)
 	g_list_free (cpt_list);
 
 	if (ret) {
-		if (ret_poolupdate)
-			g_print ("%s\n", "AppStream cache update completed successfully.");
-		else
-			g_print ("%s\n", "AppStream cache update completed, but some metadata was ignored due to errors.");
+		if (!ret_poolupdate)
+			g_set_error (error,
+				AS_BUILDER_ERROR,
+				AS_BUILDER_ERROR_PARTIALLY_FAILED,
+				_("AppStream cache update completed, but some metadata was ignored due to errors."));
 	} else {
-		g_print ("%s\n", "AppStream cache update failed.");
+		g_set_error (error,
+				AS_BUILDER_ERROR,
+				AS_BUILDER_ERROR_FAILED,
+				_("AppStream cache update failed."));
 	}
 
 	return ret;

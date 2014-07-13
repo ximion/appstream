@@ -52,6 +52,7 @@ gchar*
 test_database_create ()
 {
 	AsBuilder *builder;
+	GError *error = NULL;
 	gchar *path;
 
 	path = g_strdup ("libas-dbtest-XXXXXX");
@@ -60,7 +61,12 @@ test_database_create ()
 
 	builder = as_builder_new_path (path);
 	as_builder_initialize (builder);
-	as_builder_refresh_cache (builder, TRUE);
+	as_builder_refresh_cache (builder, TRUE, &error);
+
+	if (error != NULL) {
+		g_error ("%s", error->message);
+		g_error_free (error);
+	}
 
 	return path;
 }

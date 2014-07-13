@@ -49,13 +49,30 @@ struct _AsBuilderClass {
 	GObjectClass parent_class;
 };
 
+#define	AS_BUILDER_ERROR as_builder_error_quark ()
+GQuark as_builder_error_quark (void);
+
+/**
+ * AsBuilderError:
+ * @AS_BUILDER_ERROR_FAILED:			Generic failure
+ * @AS_BUILDER_ERROR_PARTIALLY_FAILED:	Some parts of the current action have been failed
+ *
+ * The error type.
+ **/
+typedef enum {
+	AS_BUILDER_ERROR_FAILED,
+	AS_BUILDER_ERROR_PARTIALLY_FAILED,
+	/*< private >*/
+	AS_BUILDER_ERROR_LAST
+} AsNodeError;
+
 GType as_builder_get_type (void) G_GNUC_CONST;
 
 AsBuilder*		as_builder_new (void);
 AsBuilder*		as_builder_new_path (const gchar* dbpath);
 
 gboolean		as_builder_initialize (AsBuilder* self);
-gboolean		as_builder_refresh_cache (AsBuilder* self, gboolean force);
+gboolean		as_builder_refresh_cache (AsBuilder* self, gboolean force, GError **error);
 
 void			as_builder_set_data_source_directories (AsBuilder *self, gchar **dirs);
 

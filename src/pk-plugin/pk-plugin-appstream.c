@@ -81,7 +81,7 @@ pk_plugin_transaction_finished_end (PkPlugin *plugin,
 	/* refresh the AppStream cache using the database builder */
 	builder = as_builder_new ();
 	as_builder_initialize (builder);
-	as_builder_refresh_cache (builder, FALSE);
+	as_builder_refresh_cache (builder, FALSE, NULL);
 
 	pk_backend_job_set_percentage (plugin->job, 100);
 	pk_backend_job_set_status (plugin->job, PK_STATUS_ENUM_FINISHED);
