@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components version="0.8" origin="jessie">
+  <component type="desktop">
+    <id>0ad.desktop</id>
+    <pkgname>0ad</pkgname>
+    <name>0 A.D.</name>
+    <summary>A real-time strategy game of ancient warfare</summary>
+    <summary xml:lang="it">Videogioco strategico in tempo reale di guerre antiche</summary>
+    <icon type="cached">0ad.png</icon>
+    <categories>
+      <category>Game</category>
+      <category>StrategyGame</category>
+    </categories>
+  </component>
+  <component type="desktop">
+    <id>0install.desktop</id>
+    <pkgname>0install-core</pkgname>
+    <name>0install</name>
+    <summary>Run or manage Zero Install programs</summary>
+    <summary xml:lang="es">Actualiza o quita programas de tu menú Aplicaciones</summary>
+    <summary xml:lang="sv">Uppdatera eller ta bort Zero Install-program i menyn Program</summary>
+    <description><p>Zero Install is a decentralised cross-distribution software installation system.</p><p>Features include full support for shared libraries (with a SAT solver for dependency resolution), sharing between users, and integration with native platform package managers.</p><p>It supports both binary and source packages, and works on Linux, OS X, Unix and Windows systems. It is fully Open Source.</p></description>
+    <icon type="cached">0install.png</icon>
+    <categories>
+      <category>PackageManager</category>
+      <category>Settings</category>
+      <category>System</category>
+      <category>Utility</category>
+    </categories>
+    <url type="homepage">http://0install.net</url>
+    <screenshots>
+      <screenshot type="default">
+        <image type="source" height="351" width="624">http://people.freedesktop.org/~mak/appstream/debian/screenshots/source/0install-22aeb5e8b09a96f2df0d3a8f79567aeb.png</image>
+        <image type="thumbnail" height="351" width="624">http://people.freedesktop.org/~mak/appstream/debian/screenshots/624x351/0install-22aeb5e8b09a96f2df0d3a8f79567aeb.png</image>
+        <image type="thumbnail" height="63" width="112">http://people.freedesktop.org/~mak/appstream/debian/screenshots/112x63/0install-22aeb5e8b09a96f2df0d3a8f79567aeb.png</image>
+        <image type="thumbnail" height="423" width="752">http://people.freedesktop.org/~mak/appstream/debian/screenshots/752x423/0install-22aeb5e8b09a96f2df0d3a8f79567aeb.png</image>
+      </screenshot>
+    </screenshots>
+    <languages>
+      <lang percentage="88">de</lang>
+      <lang percentage="63">es</lang>
+      <lang percentage="100">sv</lang>
+    </languages>
+  </component>
+  <component type="desktop">
+    <id>3dchess.desktop</id>
+    <pkgname>3dchess</pkgname>
+    <name>3D Chess</name>
+    <summary>3D chess for X11</summary>
+    <summary xml:lang="de">3D-Schach für X11</summary>
+    <icon type="cached">3dchess.png</icon>
+    <categories>
+      <category>BoardGame</category>
+      <category>Game</category>
+    </categories>
+    <keywords>
+      <keyword>3D</keyword>
+      <keyword>X11</keyword>
+      <keyword>board</keyword>
+      <keyword>chess</keyword>
+    </keywords>
+  </component>
+  <component type="desktop">
+    <id>4digits.desktop</id>
+    <pkgname>4digits</pkgname>
+    <name>4digits</name>
+    <name xml:lang="zh_CN">猜数字</name>
+    <name xml:lang="zh_HK">猜數字</name>
+    <name xml:lang="zh_TW">猜數字</name>
+    <summary>A guess-the-number game, aka Bulls and Cows</summary>
+    <summary xml:lang="zh_CN">猜数字游戏</summary>
+    <summary xml:lang="zh_HK">猜數字游戲</summary>
+    <summary xml:lang="zh_TW">猜數字游戲</summary>
+    <icon type="cached">4digits.png</icon>
+    <categories>
+      <category>Game</category>
+      <category>LogicGame</category>
+    </categories>
+    <languages>
+      <lang percentage="100">cs</lang>
+      <lang percentage="100">de</lang>
+      <lang percentage="100">en_GB</lang>
+      <lang percentage="100">es</lang>
+      <lang percentage="90">fr</lang>
+      <lang percentage="100">hu</lang>
+      <lang percentage="100">it</lang>
+      <lang percentage="84">pl</lang>
+      <lang percentage="100">pt_BR</lang>
+      <lang percentage="100">ru</lang>
+      <lang percentage="85">si</lang>
+      <lang percentage="31">tr</lang>
+      <lang percentage="100">zh</lang>
+      <lang percentage="100">zh_CN</lang>
+      <lang percentage="100">zh_TW</lang>
+    </languages>
+  </component>
+  <component type="desktop">
+    <id>kig.desktop</id>
+    <pkgname>kig</pkgname>
+    <name>Kig</name>
+    <name xml:lang="bn">কিগ</name>
+    <name xml:lang="hi">केआईजी</name>
+    <name xml:lang="hne">केआईजी</name>
+    <name xml:lang="ml">കിഗ്</name>
+    <name xml:lang="mr">किग</name>
+    <name xml:lang="ne">किग</name>
+    <name xml:lang="pa">ਕਿਗ</name>
+    <name xml:lang="ta">கிக்</name>
+    <name xml:lang="zh_TW">數學_Kig</name>
+    <summary>Explore Geometric Constructions</summary>
+    <summary xml:lang="ast">Esplorar construcciones xeométriques</summary>
+    <summary xml:lang="be">Вывучэнне геаметрычных фігур</summary>
+    <summary xml:lang="bg">Геометрични конструкции</summary>
+    <summary xml:lang="bn">জ্যামিতি ছবি আঁকা চর্চা করুন</summary>
+    <summary xml:lang="bs">Istražite geometrijske konstrukcije</summary>
+    <summary xml:lang="ca">Explora construccions geomètriques</summary>
+    <summary xml:lang="ca@valencia">Explora construccions geomètriques</summary>
+    <summary xml:lang="cs">Objevujte geometrické konstrukce</summary>
+    <summary xml:lang="csb">Zabôwa geòmetricznëma kònstrukcjama</summary>
+    <summary xml:lang="da">Udforsk geometriske konstruktioner</summary>
+    <summary xml:lang="de">Geometrische Konstruktionen untersuchen</summary>
+    <summary xml:lang="el">Εξερεύνηση γεωμετρικών κατασκευών</summary>
+    <summary xml:lang="eo">Esploru la geometriajn konstruaĵojn</summary>
+    <summary xml:lang="es">Exploración de construcciones geométricas</summary>
+    <summary xml:lang="et">Geomeetriliste kujundite tundmaõppimine</summary>
+    <summary xml:lang="eu">Arakatu geometria egiturak</summary>
+    <summary xml:lang="fa">کاوش ساختارهای هندسی</summary>
+    <summary xml:lang="fi">Tutki geometrisia piirroksia</summary>
+    <summary xml:lang="fr">Explorer les constructions géométriques</summary>
+    <summary xml:lang="ga">Taiscéal Tógálacha Céimseatúla</summary>
+    <summary xml:lang="gl">Explora as figuras xeométricas</summary>
+    <summary xml:lang="gu">ભૂમિતિ આકારોને ઓળખો</summary>
+    <summary xml:lang="he">חקור מבנים גאומטריים</summary>
+    <summary xml:lang="hi">ज्यामितीय कंस्ट्रक्शन एक्सप्लोर करें</summary>
+    <summary xml:lang="hne">ज्यामितीय कंस्ट्रक्सन एक्सप्लोर करव</summary>
+    <summary xml:lang="hr">Istražite geometrijske konstrukcije</summary>
+    <summary xml:lang="hu">Geometriai oktatóprogram</summary>
+    <summary xml:lang="is">Skoða rúmfræðilega byggingu</summary>
+    <summary xml:lang="it">Esplora le costruzioni geometriche</summary>
+    <summary xml:lang="ja">幾何学との対話</summary>
+    <summary xml:lang="ka">გეომეტრიულ ფიგურათა შესწავლა</summary>
+    <summary xml:lang="kk">Геометриямен айналысу</summary>
+    <summary xml:lang="km">រុករក​សំណង់​ធរណីមាត្រ</summary>
+    <summary xml:lang="ko">기하학 탐구하기</summary>
+    <summary xml:lang="lt">Geometrinių konstrukcijų tyrinėjimas</summary>
+    <summary xml:lang="lv">Iepazīstiet ģeometriskās figūras</summary>
+    <summary xml:lang="ml">ജ്യാമിതീയ നിര്‍മ്മിതികള്‍ കണ്ടുപഠിക്കുക</summary>
+    <summary xml:lang="mr">भूमितीय कंस्ट्रक्शन एक्सप्लोर करा</summary>
+    <summary xml:lang="nb">Utforsk geometriske konstruksjoner</summary>
+    <summary xml:lang="nds">Geometersch Konstrukschonen bekieken</summary>
+    <summary xml:lang="ne">ज्यामिति बनावट अन्वेषण गर्नुहोस्</summary>
+    <summary xml:lang="nl">Meetkundige constructies verkennen</summary>
+    <summary xml:lang="nn">Utforsk geometriske konstruksjonar</summary>
+    <summary xml:lang="pa">ਜੁਮੈਟਰੀ ਸੰਰਚਨਾ ਕਰੋ</summary>
+    <summary xml:lang="pl">Zabawa konstrukcjami geometrycznymi</summary>
+    <summary xml:lang="pt">Explorar Construções Geométricas</summary>
+    <summary xml:lang="pt_BR">Explorar construções geométricas</summary>
+    <summary xml:lang="ro">Explorează construcții geometrice</summary>
+    <summary xml:lang="ru">Работа с геометрическими построениями</summary>
+    <summary xml:lang="sk">Prieskum geometrických konštrukcií</summary>
+    <summary xml:lang="sl">Raziskovanje geometrijskih konstrukcij</summary>
+    <summary xml:lang="sv">Utforska geometriska konstruktioner</summary>
+    <summary xml:lang="tr">Geometrik Yapıları Keşfet</summary>
+    <summary xml:lang="ug">گېئومېتىرىيىلىك قۇرۇلمىلارنى ئانالىز قىلىش</summary>
+    <summary xml:lang="uk">Дослідження геометричних конструкцій</summary>
+    <summary xml:lang="vi">Khám phá các phép Dụng Hình học</summary>
+    <summary xml:lang="zh_CN">探索几何构造</summary>
+    <summary xml:lang="zh_TW">作出幾何圖形</summary>
+    <icon type="cached">kig.png</icon>
+    <categories>
+      <category>Education</category>
+      <category>Math</category>
+    </categories>
+    <mimetypes>
+      <mimetype>application/x-kgeo</mimetype>
+      <mimetype>application/x-kig</mimetype>
+    </mimetypes>
+  </component>
+  <component type="desktop">
+    <id>kiki.desktop</id>
+    <pkgname>kiki</pkgname>
+    <name>Kiki</name>
+    <summary>Regular expression testing</summary>
+    <icon type="cached">kiki.png</icon>
+    <categories>
+      <category>Development</category>
+    </categories>
+  </component>
+<component type="desktop">
+    <id>links2.desktop</id>
+    <pkgname>links2</pkgname>
+    <name>Links 2</name>
+    <summary>Web browser running in both graphics and text mode</summary>
+    <summary xml:lang="pt_BR">Navegador web que funciona tanto no modo texto como no modo gráfico</summary>
+    <icon type="cached">links2.png</icon>
+    <categories>
+      <category>Network</category>
+      <category>WebBrowser</category>
+    </categories>
+  </component>
+  <component type="desktop">
+    <id>linpsk.desktop</id>
+    <pkgname>linpsk</pkgname>
+    <name>Linpsk</name>
+    <summary>Amateur Radio Sound Card Communications</summary>
+    <icon type="cached">linpsk.png</icon>
+    <categories>
+      <category>HamRadio</category>
+      <category>Network</category>
+    </categories>
+  </component>
+  <component type="desktop">
+    <id>linuxdcpp.desktop</id>
+    <pkgname>linuxdcpp</pkgname>
+    <name>LinuxDC++</name>
+    <summary>A file-sharing client for the Direct Connect network</summary>
+    <icon type="cached">linuxdcpp.png</icon>
+    <categories>
+      <category>FileTransfer</category>
+      <category>Network</category>
+      <category>P2P</category>
+    </categories>
+    <languages>
+      <lang percentage="98">cs</lang>
+      <lang percentage="25">et</lang>
+      <lang percentage="70">lt</lang>
+      <lang percentage="100">pl</lang>
+      <lang percentage="34">pt</lang>
+      <lang percentage="88">ro</lang>
+      <lang percentage="100">ru</lang>
+      <lang percentage="99">sv</lang>
+    </languages>
+  </component>
+  <component type="desktop">
+    <id>liquidwar.desktop</id>
+    <pkgname>liquidwar</pkgname>
+    <name>Liquid War</name>
+    <summary>A unique multiplayer wargame</summary>
+    <icon type="cached">liquidwar.png</icon>
+    <categories>
+      <category>ArcadeGame</category>
+      <category>Game</category>
+    </categories>
+  </component>
+  <component type="desktop">
+    <id>literki.desktop</id>
+    <pkgname>literki</pkgname>
+    <name>Literki</name>
+    <summary>Hacker's keyboard</summary>
+    <icon type="cached">literki.png</icon>
+    <categories>
+      <category>Application</category>
+      <category>Utility</category>
+    </categories>
+    <mimetypes>
+      <mimetype>text/x-vcard</mimetype>
+    </mimetypes>
+  </component>
+  <component type="desktop">
+    <id>logisim.desktop</id>
+    <pkgname>logisim</pkgname>
+    <name>Logisim</name>
+    <summary>Graphical tool for designing and simulating logic circuits</summary>
+    <icon type="cached">logisim.png</icon>
+    <categories>
+      <category>ComputerScience</category>
+      <category>Education</category>
+      <category>Java</category>
+      <category>Science</category>
+    </categories>
+  </component>
+  <component type="desktop">
+    <id>maitreya7.desktop</id>
+    <pkgname>maitreya</pkgname>
+    <name>Maitreya7</name>
+    <summary>Astrology Software</summary>
+    <icon type="cached">maitreya7.png</icon>
+    <categories>
+      <category>Astronomy</category>
+      <category>Education</category>
+      <category>Science</category>
+    </categories>
+    <keywords>
+      <keyword>Astrology</keyword>
+      <keyword>Vedic Astrology</keyword>
+      <keyword>Western Astrology</keyword>
+    </keywords>
+    <languages>
+      <lang percentage="48">de</lang>
+      <lang percentage="92">es</lang>
+      <lang percentage="99">fr</lang>
+      <lang percentage="100">hu</lang>
+      <lang percentage="59">it</lang>
+      <lang percentage="99">pl</lang>
+      <lang percentage="92">ro</lang>
+      <lang percentage="92">ru</lang>
+      <lang percentage="69">ta</lang>
+      <lang percentage="46">te</lang>
+    </languages>
+  </component>
+  <component type="desktop">
+    <id>massxpert.desktop</id>
+    <pkgname>massxpert</pkgname>
+    <name>massXpert</name>
+    <summary>Bio-polymer mass spectrometry software</summary>
+    <icon type="cached">massxpert.png</icon>
+    <categories>
+      <category>Biology</category>
+      <category>Chemistry</category>
+      <category>Education</category>
+      <category>Science</category>
+    </categories>
+    <keywords>
+      <keyword> Modelling</keyword>
+      <keyword> Polymer chemistry</keyword>
+      <keyword>Biochemistry</keyword>
+    </keywords>
+  </component>
+  <component type="desktop">
+    <id>qsapecng.desktop</id>
+    <pkgname>qsapecng</pkgname>
+    <name>QSapecNG</name>
+    <summary>Symbolic analyzer of linear analog circuits</summary>
+    <summary xml:lang="it">Analizzatore simbolico di circuiti analogici lineari</summary>
+    <icon type="cached">qsapecng.png</icon>
+    <categories>
+      <category>Development</category>
+      <category>Electronics</category>
+    </categories>
+  </component>
+  <component type="desktop">
+    <id>xye.desktop</id>
+    <pkgname>xye</pkgname>
+    <name>Xye</name>
+    <summary>Solve puzzles and action challenges in order to get all the gems in the room.</summary>
+    <icon type="cached">xye.png</icon>
+    <categories>
+      <category>Application</category>
+      <category>Game</category>
+    </categories>
+    <keywords>
+      <keyword>game</keyword>
+      <keyword>gems</keyword>
+      <keyword>logic</keyword>
+      <keyword>puzzle</keyword>
+    </keywords>
+    <mimetypes>
+      <mimetype>application/xye-xml</mimetype>
+    </mimetypes>
+  </component>
+  <component type="desktop">
+    <id>inkscape.desktop</id>
+    <pkgname>inkscape</pkgname>
+    <name>Inkscape</name>
+    <name xml:lang="he">אינקסקייפ</name>
+    <name xml:lang="te_IN">ఇంక్‌స్కేప్</name>
+    <summary>Create and edit Scalable Vector Graphics images</summary>
+    <summary xml:lang="ar">إنشاء و تحرير الرسومات الشعاعية</summary>
+    <summary xml:lang="be">Стварэньне й зьмяненьне відарысаў вэктарнай ґрафікі (SVG)</summary>
+    <summary xml:lang="bg">Създаване и редакция на изображения Scalable Vector Graphics</summary>
+    <summary xml:lang="bn">স্কেলেবল ভেক্টর গ্রাফিক্স ছবি তৈরী ও সম্পাদনা করুন</summary>
+    <summary xml:lang="br">Krouiñ hag embann skeudennoù mod SVG (Scalable Vector Graphics)</summary>
+    <summary xml:lang="ca">Creeu i editeu imatges de gràfics de vectors escalables</summary>
+    <summary xml:lang="ca@valencia">Creeu i editeu imatges de gràfics de vectors escalables</summary>
+    <summary xml:lang="cs">Vytvářejte a upravujte vektorovou grafiku (SVG)</summary>
+    <summary xml:lang="da">Opret og redigér SVG-billeder</summary>
+    <summary xml:lang="de">Skalierbare Vektorgrafiken (SVG) erzeugen und bearbeiten</summary>
+    <summary xml:lang="dz">ཆ་ཚད་འཇལ་བཏུབ་པའི་མཉམ་ཐིག་ཚད་རིས་ཀྱི་གཟུགས་བརྙན་ཚུ་གསར་བསྐྲུན་དང་ཞུན་དག་འབད།</summary>
+    <summary xml:lang="el">Δημιουργήστε και τροποποιήστε διανυσματικές εικόνες τύπου Scalable Vector Graphics</summary>
+    <summary xml:lang="en_US@piglatin">Eatecray andway editway Alablescay Ectorvay Aphicsgray imagesway</summary>
+    <summary xml:lang="eo">Kreu kaj redaktu bildoj en formato SVG (Scalable Vector Graphics)</summary>
+    <summary xml:lang="es">Cree y edite Gráficos Vectoriales Escalables (SVG)</summary>
+    <summary xml:lang="et">SVG-vektorgraafikas piltide joonistamine ja muutmine</summary>
+    <summary xml:lang="eu">Sortu eta editatu Grafiko Bektorial Eskalakor (SVG) irudiak</summary>
+    <summary xml:lang="fi">Luo ja muokkaa Scalable Vector Graphics -piirroksia</summary>
+    <summary xml:lang="fr">Créer et éditer des images Scalable Vector Graphics</summary>
+    <summary xml:lang="gl">Cree e edite imaxes Scalable Vector Graphics</summary>
+    <summary xml:lang="he">יצירה ועריכה של תמונות בגרפיקת וקטורים נמתחת</summary>
+    <summary xml:lang="hr">Stvaranje i uređivanje vektorskih crteža</summary>
+    <summary xml:lang="hu">Scalable Vector Graphics (méretezhető vektorgrafika, SVG)-képek létrehozása és szerkesztése</summary>
+    <summary xml:lang="id">Membuat dan mengedit gambar Scalable Vector Graphics</summary>
+    <summary xml:lang="it">Crea e modifica immagini Scalable Vector Graphics</summary>
+    <summary xml:lang="ja">Scalable Vector Graphics (SVG) イメージの作成と編集を行います</summary>
+    <summary xml:lang="km">បង្កើត និង​កែសម្រួល​​​រូបភាព​ក្រាហ្វិក​វ៉ិចទ័រ​ដែល​អាច​ធ្វើ​មាត្រដ្ឋាន​បាន​​</summary>
+    <summary xml:lang="ko">SVG 이미지  생성 및 편집</summary>
+    <summary xml:lang="lt">Kurti ir redaguoti vektorinius grafinius piešinius</summary>
+    <summary xml:lang="nb">Lag og rediger Skalerbar VektorGrafikk-bilder</summary>
+    <summary xml:lang="ne">स्केलेबुल भेक्टर ग्राफिक्स छविहरू सिर्जना गर्नुहोस् र सम्पादन गर्नुहोस्</summary>
+    <summary xml:lang="nl">SVG-tekeningen (Scalable Vector Graphics) maken en bewerken</summary>
+    <summary xml:lang="nn">Lag og rediger skalerbare vektorbilete (SVG)</summary>
+    <summary xml:lang="pa">ਸਕੇਲੇਬਲ ਵੈਕਟਰ ਗਰਾਫਿਕਸ ਚਿੱਤਰ ਬਣਾਓ ਅਤੇ ਸੋਧੋ</summary>
+    <summary xml:lang="pl">Tworzenie i edycja grafiki wektorowej SVG</summary>
+    <summary xml:lang="pt">Crie e edite imagens Gráficas Vectoriais Escalaveis</summary>
+    <summary xml:lang="pt_BR">Crie e edite desenhos vetoriais escaláveis (SVG)</summary>
+    <summary xml:lang="ro">Creează și editează imagini în format Scalable Vector Graphics</summary>
+    <summary xml:lang="ru">Создание и редактирование масштабируемой векторной графики в формате SVG</summary>
+    <summary xml:lang="sk">Tvorba a úprava obrázkov Scalable Vector Graphics</summary>
+    <summary xml:lang="sl">Ustvarjajte in urejajte vektorske slike SVG</summary>
+    <summary xml:lang="sr">Прављење и уређивање SVG векторских слика</summary>
+    <summary xml:lang="sr@latin">Pravljenje i uređivanje SVG vektorskih slika</summary>
+    <summary xml:lang="sv">Skapa och redigera SVG-bilder</summary>
+    <summary xml:lang="te_IN">సదిశ రేఖాచిత్రాలని సృష్టించండి మరియు దిద్దుబాటు చేయండి</summary>
+    <summary xml:lang="th">สร้างและแก้ไขภาพ Scalable Vector Graphics</summary>
+    <summary xml:lang="tr">Ölçeklenebilir Vektör İmgeleri oluşturur ve düzenler</summary>
+    <summary xml:lang="uk">Створення та редагування зображень у форматі SVG</summary>
+    <summary xml:lang="vi">Tạo và sửa ảnh véc-tơ co giãn được</summary>
+    <summary xml:lang="zh_CN">创建并编辑可缩放矢量图形图像</summary>
+    <summary xml:lang="zh_TW">建立和編輯可縮放向量繪圖圖形</summary>
+    <icon type="cached">inkscape.png</icon>
+    <categories>
+      <category>Graphics</category>
+      <category>VectorGraphics</category>
+    </categories>
+    <mimetypes>
+      <mimetype>application/illustrator</mimetype>
+      <mimetype>application/vnd.corel-draw</mimetype>
+      <mimetype>image/svg+xml</mimetype>
+      <mimetype>image/svg+xml-compressed</mimetype>
+      <mimetype>image/x-eps</mimetype>
+    </mimetypes>
+    <languages>
+      <lang percentage="44">ar</lang>
+      <lang percentage="97">be</lang>
+      <lang percentage="46">bg</lang>
+      <lang percentage="97">br</lang>
+      <lang percentage="97">ca</lang>
+      <lang percentage="97">ca@valencia</lang>
+      <lang percentage="37">cs</lang>
+      <lang percentage="30">da</lang>
+      <lang percentage="97">de</lang>
+      <lang percentage="35">dz</lang>
+      <lang percentage="97">en_GB</lang>
+      <lang percentage="84">en_US@piglatin</lang>
+      <lang percentage="58">eo</lang>
+      <lang percentage="97">es</lang>
+      <lang percentage="61">et</lang>
+      <lang percentage="100">eu</lang>
+      <lang percentage="74">fi</lang>
+      <lang percentage="97">fr</lang>
+      <lang percentage="68">gl</lang>
+      <lang percentage="92">he</lang>
+      <lang percentage="46">hr</lang>
+      <lang percentage="91">hu</lang>
+      <lang percentage="59">id</lang>
+      <lang percentage="84">it</lang>
+      <lang percentage="99">ja</lang>
+      <lang percentage="84">km</lang>
+      <lang percentage="95">ko</lang>
+      <lang percentage="37">lt</lang>
+      <lang percentage="50">nb</lang>
+      <lang percentage="28">ne</lang>
+      <lang percentage="97">nl</lang>
+      <lang percentage="97">pl</lang>
+      <lang percentage="45">pt</lang>
+      <lang percentage="70">pt_BR</lang>
+      <lang percentage="50">ro</lang>
+      <lang percentage="96">ru</lang>
+      <lang percentage="93">sk</lang>
+      <lang percentage="97">sl</lang>
+      <lang percentage="72">sr</lang>
+      <lang percentage="72">sr@latin</lang>
+      <lang percentage="50">sv</lang>
+      <lang percentage="100">uk</lang>
+      <lang percentage="82">vi</lang>
+      <lang percentage="89">zh_CN</lang>
+      <lang percentage="97">zh_TW</lang>
+    </languages>
+    <provides>
+        <binary>inkscape</binary>
+    </provides>
+  </component>
+</components>
