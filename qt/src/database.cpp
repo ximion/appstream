@@ -343,4 +343,9 @@ QList< Component > Database::findComponentsByString(QString searchTerm, QStringL
     return result;
 }
 
+Database::Database() : d(new DatabasePrivate(QLatin1String("/var/cache/app-info/xapian"))) {
+
+}
+
+
 #include "database.moc"
