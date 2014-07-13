@@ -23,7 +23,6 @@
 #include <glib-object.h>
 #include <stdio.h>
 #include <glib/gi18n-lib.h>
-#include <config.h>
 #include <locale.h>
 
 #include "appstream.h"
@@ -115,6 +114,21 @@ as_print_stderr (const gchar *format, ...)
 }
 
 static void
+as_print_stdout (const gchar *format, ...)
+{
+	va_list args;
+	gchar *str;
+
+	va_start (args, format);
+	str = g_strdup_vprintf (format, args);
+	va_end (args);
+
+	g_print ("%s\n", str);
+
+	g_free (str);
+}
+
+static void
 as_print_component (AsComponent *cpt)
 {
 	gchar *short_idline;
@@ -164,7 +178,7 @@ as_print_component (AsComponent *cpt)
 			for (j = 0; j < imgs->len; j++) {
 				img = (AsImage*) g_ptr_array_index (imgs, j);
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-					as_print_key_value ("Sample Screenshot URL", as_image_get_url (img), FALSE);
+					as_print_key_value (_("Sample Screenshot URL"), as_image_get_url (img), FALSE);
 					break;
 				}
 			}
@@ -235,6 +249,7 @@ int
 as_client_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
 {
 	AsBuilder *builder;
+	GError *error = NULL;
 	gboolean ret;
 
 	if (dbpath == NULL) {
@@ -259,9 +274,15 @@ as_client_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean fo
 	}
 
 	as_builder_initialize (builder);
-	/* FIXME: the builder prints messages on error by itself - that needs to be properly handled with GError */
-	ret = as_builder_refresh_cache (builder, forced);
+	ret = as_builder_refresh_cache (builder, forced, &error);
 	g_object_unref (builder);
+
+	if (error == NULL) {
+		g_print ("%s\n", _("AppStream cache update completed successfully."));
+	} else {
+		g_print ("%s\n", error->message);
+		g_error_free (error);
+	}
 
 	if (ret)
 		return 0;
@@ -301,7 +322,7 @@ as_client_get_component (const gchar *dbpath, const gchar *identifier)
 
 	cpt = as_database_get_component_by_id (db, identifier);
 	if (cpt == NULL) {
-		fprintf (stderr, "Unable to find component with id %s!\n", identifier);
+		as_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		exit_code = 4;
 		goto out;
 	}
@@ -338,13 +359,14 @@ as_client_search_component (const gchar *dbpath, const gchar *search_term)
 	as_database_open (db);
 	cpt_list = as_database_find_components_by_term (db, search_term, NULL);
 	if (cpt_list == NULL) {
+		/* TRANSLATORS: We failed to find any component in the database due to an error */
 		as_print_stderr (_("Unable to find component matching %s!"), search_term);
 		exit_code = 4;
 		goto out;
 	}
 
 	if (cpt_list->len == 0) {
-		fprintf (stdout, "No component matching '%s' found.\n", search_term);
+		as_print_stdout (_("No component matching '%s' found."), search_term);
 		g_ptr_array_unref (cpt_list);
 		goto out;
 	}
@@ -407,7 +429,7 @@ as_client_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar
 	}
 
 	if (cpt_list->len == 0) {
-		fprintf (stdout, "No component providing '%s:%s:%s' found.\n", kind_str, value, data);
+		as_print_stdout (_("No component providing '%s:%s:%s' found."), kind_str, value, data);
 		goto out;
 	}
 
@@ -480,7 +502,7 @@ as_client_run (char **argv, int argc)
 	}
 
 	if (optn_show_version) {
-		fprintf (stdout, "Appstream-Index client tool version: %s\n", VERSION);
+		as_print_stdout (_("Appstream-Index client tool version: %s"), VERSION);
 		goto out;
 	}
 
