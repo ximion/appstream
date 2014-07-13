@@ -32,7 +32,9 @@
 namespace Appstream {
 
 /**
- * Represents a handle to an appstream database
+ * Represents a handle to an Appstream database.
+ *
+ * See http://www.freedesktop.org/wiki/Distributions/AppStream/ for details
  */
 class DatabasePrivate;
 class APPSTREAMQT_EXPORT Database {

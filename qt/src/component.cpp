@@ -101,39 +101,35 @@ class Appstream::ComponentData : public QSharedData {
 };
 
 
-const QStringList& Component::categories() const {
+QStringList Component::categories() const {
     return d->m_categories;
 }
 
-const QStringList& Component::compulsoryForDesktops() const {
+QStringList Component::compulsoryForDesktops() const {
     return d->m_compulsoryForDesktops;
 }
 
-const QString& Component::description() const {
+QString Component::description() const {
     return d->m_description;
 }
 
-const QString& Component::developerName() const {
+QString Component::developerName() const {
     return d->m_developerName;
-}
-
-const QStringList& Component::extends() const {
-    return d->m_extends;
 }
 
 bool Component::hasCategory(const QString& category) const {
     return d->m_categories.contains(category);
 }
 
-const QString& Component::icon() const {
+QString Component::icon() const {
     return d->m_icon;
 }
 
-const QUrl& Component::iconUrl() const {
+QUrl Component::iconUrl() const {
     return d->m_iconUrl;
 }
 
-const QString& Component::id() const {
+QString Component::id() const {
     return d->m_id;
 }
 
@@ -145,19 +141,19 @@ Component::Kind Component::kind() const {
     return d->m_kind;
 }
 
-const QString& Component::name() const {
+QString Component::name() const {
     return d->m_name;
 }
 
-const QString& Component::packageName() const {
+QString Component::packageName() const {
     return d->m_packageName;
 }
 
-const QString& Component::projectGroup() const {
+QString Component::projectGroup() const {
     return d->m_projectGroup;
 }
 
-const QString& Component::projectLicense() const {
+QString Component::projectLicense() const {
     return d->m_projectLicense;
 }
 
@@ -185,7 +181,7 @@ void Component::setIconUrl(const QUrl& iconUrl) {
     d->m_iconUrl = iconUrl;
 }
 
-void Component::setId(QString id) {
+void Component::setId(const QString& id) {
     d->m_id = id;
 }
 
@@ -213,7 +209,7 @@ void Component::setSummary(const QString& summary){
     d->m_summary = summary;
 }
 
-const QString& Component::summary() const {
+QString Component::summary() const {
     return d->m_summary;
 }
 
@@ -237,7 +233,7 @@ QList< QUrl > Component::urls(Component::UrlKind kind) const {
     return d->m_urls.values(kind);
 }
 
-const QMultiHash< Component::UrlKind, QUrl >& Component::urls() const {
+QMultiHash< Component::UrlKind, QUrl > Component::urls() const {
     return d->m_urls;
 }
 
@@ -303,7 +299,7 @@ void Component::setScreenShots(const QList< ScreenShot >& screenshots) {
     d->m_screenshots = screenshots;
 }
 
-const QList< ScreenShot >& Component::screenShots() const {
+QList< ScreenShot > Component::screenShots() const {
     return d->m_screenshots;
 }
 
@@ -354,7 +350,7 @@ QList<Appstream::Provides> Component::provides(Provides::Kind kind) const {
 }
 
 
-void Component::setProvides(QList<Appstream::Provides> provides) {
+void Component::setProvides(const QList<Appstream::Provides>& provides) {
     Q_FOREACH(const Appstream::Provides& provide, provides) {
         d->m_provides.insertMulti(provide.kind(), provide);
     }

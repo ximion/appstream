@@ -69,66 +69,59 @@ class APPSTREAMQT_EXPORT Component {
         Kind kind () const;
         void setKind (Component::Kind kind);
 
-        const QString& id() const;
-        void setId(QString id);
+        QString id() const;
+        void setId(const QString& id);
 
-        const QString& packageName() const;
+        QString packageName() const;
         void setPackageName(const QString& packageName);
 
-        const QString& name() const;
+        QString name() const;
         void setName(const QString& name);
 
-        const QString& summary() const;
+        QString summary() const;
         void setSummary(const QString& summary);
 
-        const QString& description() const;
+        QString description() const;
         void setDescription(const QString& description);
 
-        const QString& projectLicense() const;
+        QString projectLicense() const;
         void setProjectLicense(const QString& license);
 
-        const QString& projectGroup() const;
+        QString projectGroup() const;
         void setProjectGroup(const QString& group);
 
-        const QString& developerName() const;
+        QString developerName() const;
         void setDeveloperName(const QString& developerName);
 
-        const QStringList& compulsoryForDesktops() const;
+        QStringList compulsoryForDesktops() const;
         void setCompulsoryForDesktops(const QStringList& desktops);
         bool isCompulsoryForDesktop(const QString& desktop) const;
 
-        const QStringList& categories() const;
+        QStringList categories() const;
         void setCategories(const QStringList& categories);
         bool hasCategory(const QString& category) const;
 
         /**
          * \return generic icon name
          */
-        const QString& icon() const;
+        QString icon() const;
         void setIcon(const QString& icon);
 
-        const QUrl& iconUrl() const;
+        QUrl iconUrl() const;
         void setIconUrl(const QUrl& iconUrl);
 
-        const QStringList& extends() const;
-
         void setUrls(const QMultiHash<UrlKind , QUrl >& urls);
-        const QMultiHash<UrlKind, QUrl>& urls() const;
+        QMultiHash<UrlKind, QUrl> urls() const;
         QList<QUrl> urls(UrlKind kind) const;
 
 
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
-
-        static UrlKind stringToUrlKind(const QString& urlKindString);
-        static QString urlKindToString(Appstream::Component::UrlKind kind);
 
         /**
          * \param kind for provides
          * \return a list of all provides for this \param kind
          */
         QList<Appstream::Provides> provides(Provides::Kind kind) const;
-        void setProvides(QList<Appstream::Provides> provides);
+        void setProvides(const QList<Appstream::Provides>& provides);
         /**
          * \return the full list of provides for all kinds.
          * Note that it might be ordered differently than the list given with
@@ -136,8 +129,14 @@ class APPSTREAMQT_EXPORT Component {
          */
         QList<Appstream::Provides> provides() const;
 
-        const QList<Appstream::ScreenShot>& screenShots() const;
+        QList<Appstream::ScreenShot> screenShots() const;
         void setScreenShots(const QList<Appstream::ScreenShot>& screenshots);
+
+        static Kind stringToKind(const QString& kindString);
+        static QString kindToString(Kind kind);
+
+        static UrlKind stringToUrlKind(const QString& urlKindString);
+        static QString urlKindToString(Appstream::Component::UrlKind kind);
 
     private:
         QSharedDataPointer<ComponentData> d;

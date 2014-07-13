@@ -44,7 +44,7 @@ class Appstream::ProvidesData : public QSharedData {
         }
 };
 
-const QString& Provides::extraData() const {
+QString Provides::extraData() const {
     return d->m_extraData;
 }
 
@@ -139,7 +139,7 @@ Provides::Kind Provides::stringToKind(const QString& kindString)  {
     return Provides::KindUnknown;
 }
 
-const QString& Provides::value() const {
+QString Provides::value() const {
     return d->m_value;
 }
 

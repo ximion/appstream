@@ -25,9 +25,8 @@
 
 #include "appstreamqt_export.h"
 
-class QString;
-template<class T >
-class QList;
+#include <QString>
+#include <QList>
 namespace Appstream {
 
 class Image;
@@ -58,12 +57,12 @@ public:
     /**
      * \return the images for this screenshot
      */
-    const QList<Appstream::Image> images() const;
+    QList<Appstream::Image> images() const;
 
     /**
      * \return caption for this image or a null QString if no caption
      */
-    const QString& caption() const;
+    QString caption() const;
     void setCaption(const QString& caption);
 
 private:

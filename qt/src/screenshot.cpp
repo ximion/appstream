@@ -46,11 +46,11 @@ class Appstream::ScreenShotData : public QSharedData {
         }
 };
 
-const QString& ScreenShot::caption() const {
+QString ScreenShot::caption() const {
     return d->m_caption;
 }
 
-const QList< Image > ScreenShot::images() const {
+QList< Image > ScreenShot::images() const {
     return d->m_images;
 }
 

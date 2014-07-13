@@ -60,10 +60,10 @@ class APPSTREAMQT_EXPORT Provides {
         static QString kindToString(Kind kind);
 
         void setValue(const QString& string);
-        const QString& value() const;
+        QString value() const;
 
         void setExtraData(const QString& string);
-        const QString& extraData() const;
+        QString extraData() const;
 
     private:
         QSharedDataPointer<ProvidesData> d;
