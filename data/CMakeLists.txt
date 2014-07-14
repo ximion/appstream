@@ -1,7 +1,5 @@
 # CMakeLists for UAI data directory
 
-set(servicedir "${CMAKE_INSTALL_PREFIX}/${INSTALL_DIR_LIBEXEC}")
-
 find_program (LC_INTLTOOL_MERGE intltool-merge)
 mark_as_advanced (LC_INTLTOOL_MERGE)
 
@@ -16,7 +14,3 @@ install(FILES appstream.conf
 install(FILES categories.xml
 	DESTINATION share/app-info/
 )
-
-if(VAPI)
-	add_subdirectory(vapi)
-endif()
