@@ -2,7 +2,7 @@
 <Menu>
 	<Menu>
 		<Name>Accessories</Name>
-		<Directory>kde-utilities.directory</Directory>
+		<Directory>Utility.directory</Directory>
 		<Categories>
 			<And>
 				<Category>Utility</Category>
@@ -14,7 +14,7 @@
 	</Menu>
 	<Menu>
 		<Name>Universal Access</Name>
-		<Directory>kde-utilities-accessibility.directory</Directory>
+		<Directory>Utility-Accessibility.directory</Directory>
 		<Categories>
 			<And>
 				<Category>Accessibility</Category>
@@ -27,6 +27,7 @@
 	<Menu>
 		<Name>Developer Tools</Name>
 		<Icon>applications-development</Icon>
+		<Directory>Development.directory</Directory>
 		<Categories>
 			<Or>
 				<Category>Development</Category>
@@ -216,7 +217,7 @@
 	</Menu>
 	<Menu>
 		<Name>Education</Name>
-		<Directory>kde-education.directory</Directory>
+		<Directory>Education.directory</Directory>
 		<Categories>
 			<And>
 				<Category>Education</Category>
@@ -229,6 +230,7 @@
 	<Menu>
 		<Name>Science &amp; Engineering</Name>
 		<Icon>applications-science</Icon>
+		<Directory>kde-science.directory</Directory>
 		<Categories>
 			<Or>
 				<Category>Science</Category>
@@ -396,7 +398,7 @@
 	</Menu>
 	<Menu>
 		<Name>Graphics</Name>
-		<Directory>kde-graphics.directory</Directory>
+		<Directory>Graphics.directory</Directory>
 		<Categories>
 			<And>
 				<Category>Graphics</Category>
