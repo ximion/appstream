@@ -23,6 +23,7 @@
 
 #include "appstream.h"
 #include "../src/as-cache-builder.h"
+#include "../src/as-utils-private.h"
 
 static gchar *datadir = NULL;
 
@@ -56,7 +57,8 @@ test_database_create ()
 	gchar *db_path;
 	gchar **strv;
 
-	db_path = g_strdup ("libas-dbtest-XXXXXX");
+	as_utils_touch_dir ("/var/tmp/appstream-tests/");
+	db_path = g_strdup ("/var/tmp/appstream-tests/libas-dbtest-XXXXXX");
 	db_path = g_mkdtemp (db_path);
 	g_assert (db_path != NULL);
 
@@ -102,6 +104,8 @@ test_database_read (const gchar *dbpath)
 	cpts = as_database_find_components (db, query);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
+	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);
+	g_assert (g_strcmp0 (as_component_get_pkgnames (cpt)[0], "kig") == 0);
 	g_ptr_array_unref (cpts);
 
 	query = as_search_query_new ("");
