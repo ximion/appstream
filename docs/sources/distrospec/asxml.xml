@@ -105,9 +105,16 @@
 						The name of the package which needs to be installed in order to make this component available on the system.
 					</para>
 					<para>
-						This tag can only be defined once, but you can create metapackages as needed and connect them with
-						component metadata via this tag.
+						This tag can be defined multiple times, if a component is split across multiple packages.
 					</para>
+					<important>
+						<para>
+							The preferred way is to create metapackages containing the component metadata, and referncing them
+							from the distribution metadata, and not to use multiple <literal>pkgname</literal> tags.
+							They should only be used multiple times as a workaround or if there is no sensible way of creating a
+							matching metapackage.
+						</para>
+					</important>
 				</listitem>
 			</varlistentry>
 

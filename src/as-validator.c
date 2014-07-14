@@ -419,7 +419,13 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			metadata_license = g_strdup (node_content);
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+			if (g_hash_table_contains (found_tags, node_name)) {
+				as_validator_add_issue (validator,
+					cpt,
+					AS_ISSUE_IMPORTANCE_PEDANTIC,
+					AS_ISSUE_KIND_TAG_DUPLICATED,
+					"The 'pkgname' tag appears multiple times. You can maybe create a metapackage containing the data in order to get rid of defining multiple package names per component.");
+			}
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
