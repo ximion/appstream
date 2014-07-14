@@ -107,9 +107,9 @@ const gchar*		as_component_get_id (AsComponent* self);
 void				as_component_set_id (AsComponent* self,
 											const gchar* value);
 
-const gchar*		as_component_get_pkgname (AsComponent* self);
-void				as_component_set_pkgname (AsComponent* self,
-											const gchar* value);
+gchar**				as_component_get_pkgnames (AsComponent* self);
+void				as_component_set_pkgnames (AsComponent* self,
+												gchar** value);
 
 const gchar*		as_component_get_name (AsComponent* self);
 void				as_component_set_name (AsComponent* self,

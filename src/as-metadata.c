@@ -585,12 +585,14 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 	const gchar *node_name;
 	gchar *content;
 	GPtrArray *compulsory_for_desktops;
+	GPtrArray *pkgnames;
 	gchar **strv;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_return_val_if_fail (metad != NULL, NULL);
 
 	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
+	pkgnames = g_ptr_array_new_with_free_func (g_free);
 
 	/* a fresh app component */
 	cpt = as_component_new ();
@@ -625,7 +627,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				}
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (content != NULL)
-				as_component_set_pkgname (cpt, content);
+				g_ptr_array_add (pkgnames, g_strdup (content));
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			if (content != NULL) {
 				as_component_set_name_original (cpt, content);
@@ -740,6 +742,12 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		}
 		g_free (content);
 	}
+
+	/* add package name information to component */
+	strv = as_ptr_array_to_strv (pkgnames);
+	as_component_set_pkgnames (cpt, strv);
+	g_ptr_array_unref (pkgnames);
+	g_strfreev (strv);
 
 	/* add compulsory information to component as strv */
 	strv = as_ptr_array_to_strv (compulsory_for_desktops);

@@ -132,19 +132,22 @@ static void
 as_print_component (AsComponent *cpt)
 {
 	gchar *short_idline;
+	gchar *pkgs_str;
 	guint j;
 
 	short_idline = g_strdup_printf ("%s [%s]",
 							as_component_get_id (cpt),
 							as_component_kind_to_string (as_component_get_kind (cpt)));
+	pkgs_str = g_strjoinv (", ", as_component_get_pkgnames (cpt));
 
 	as_print_key_value (_("Identifier"), short_idline, FALSE);
 	as_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
 	as_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
-	as_print_key_value (_("Package"), as_component_get_pkgname (cpt), FALSE);
+	as_print_key_value (_("Package"), pkgs_str, FALSE);
 	as_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
 	as_print_key_value (_("Icon"), as_component_get_icon_url (cpt), FALSE);
 	g_free (short_idline);
+	g_free (pkgs_str);
 	short_idline = NULL;
 
 	if (optn_details) {

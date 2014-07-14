@@ -132,17 +132,29 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.set_data (as_component_get_name (cpt));
 
 		// Package name
-		string pkgname = as_component_get_pkgname (cpt);
-		doc.add_value (XapianValues::PKGNAME, pkgname);
-		doc.add_term("AP" + pkgname);
-		if (pkgname.find ("-") != string::npos) {
-			// we need this to work around xapian oddness
-			string tmp = pkgname;
-			replace (tmp.begin(), tmp.end(), '-', '_');
-			doc.add_term (tmp);
+		gchar **pkgs = as_component_get_pkgnames (cpt);
+		if (pkgs == NULL) {
+			g_warning ("Skipped component '%s' from inclusion into database: Does not have package names defined.",
+					   as_component_get_id (cpt));
+			continue;
 		}
-		// add packagename as meta-data too
-		term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
+		gchar *pkgs_cstr = g_strjoinv ("\n", pkgs);
+		string pkgs_str = pkgs_cstr;
+		doc.add_value (XapianValues::PKGNAME, pkgs_str);
+		g_free (pkgs_cstr);
+
+		for (uint i = 0; pkgs[i] != NULL; i++) {
+			string pkgname = pkgs[i];
+			doc.add_term("AP" + pkgname);
+			if (pkgname.find ("-") != string::npos) {
+				// we need this to work around xapian oddness
+				string tmp = pkgname;
+				replace (tmp.begin(), tmp.end(), '-', '_');
+				doc.add_term (tmp);
+			}
+			// add packagename as meta-data too
+			term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
+		}
 
 		// Identifier
 		string idname = as_component_get_id (cpt);

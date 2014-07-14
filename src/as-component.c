@@ -50,8 +50,8 @@
 
 struct _AsComponentPrivate {
 	AsComponentKind kind;
-	gchar *pkgname;
 	gchar *id;
+	gchar **pkgnames;
 	gchar *name;
 	gchar *name_original;
 	gchar *summary;
@@ -80,7 +80,7 @@ static gpointer as_component_parent_class = NULL;
 enum  {
 	AS_COMPONENT_DUMMY_PROPERTY,
 	AS_COMPONENT_KIND,
-	AS_COMPONENT_PKGNAME,
+	AS_COMPONENT_PKGNAMES,
 	AS_COMPONENT_ID,
 	AS_COMPONENT_NAME,
 	AS_COMPONENT_NAME_ORIGINAL,
@@ -193,7 +193,6 @@ as_component_construct (GType object_type)
 	AsComponent * self = NULL;
 	gchar** strv;
 	self = (AsComponent*) g_object_new (object_type, NULL);
-	as_component_set_pkgname (self, "");
 	as_component_set_id (self, "");
 	as_component_set_name_original (self, "");
 	as_component_set_summary (self, "");
@@ -224,8 +223,8 @@ as_component_finalize (GObject* obj)
 {
 	AsComponent *self;
 	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_COMPONENT, AsComponent);
-	g_free (self->priv->pkgname);
 	g_free (self->priv->id);
+	g_strfreev (self->priv->pkgnames);
 	g_free (self->priv->name);
 	g_free (self->priv->name_original);
 	g_free (self->priv->summary);
@@ -279,7 +278,7 @@ as_component_is_valid (AsComponent* self)
 	if (ctype == AS_COMPONENT_KIND_UNKNOWN)
 		return FALSE;
 
-	if ((g_strcmp0 (self->priv->pkgname, "") != 0) &&
+	if ((self->priv->pkgnames != NULL) &&
 		(g_strcmp0 (self->priv->id, "") != 0) &&
 		(g_strcmp0 (self->priv->name, "") != 0) &&
 		(g_strcmp0 (self->priv->name_original, "") != 0)) {
@@ -308,22 +307,26 @@ as_component_to_string (AsComponent* self)
 {
 	gchar* res = NULL;
 	const gchar *name;
+	gchar *pkgs;
 	g_return_val_if_fail (self != NULL, NULL);
 
+	pkgs = g_strjoinv (",", self->priv->pkgnames);
 	name = as_component_get_name (self);
+
 	switch (self->priv->kind) {
 		case AS_COMPONENT_KIND_DESKTOP_APP:
 		{
-			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", self->priv->id, name, self->priv->pkgname, self->priv->summary);
+			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", self->priv->id, name, pkgs, self->priv->summary);
 			break;
 		}
 		default:
 		{
-			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", self->priv->id, name, self->priv->pkgname, self->priv->summary);
+			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", self->priv->id, name, pkgs, self->priv->summary);
 			break;
 		}
 	}
 
+	g_free (pkgs);
 	return res;
 }
 
@@ -646,12 +649,12 @@ as_component_complete (AsComponent* self, gchar *scr_base_url)
 	AsComponentPrivate *priv = self->priv;
 
 	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
-	if (priv->screenshots->len == 0) {
+	if ((priv->screenshots->len == 0) && (priv->pkgnames != NULL)) {
 		gchar *url;
 		AsImage *img;
 		AsScreenshot *sshot;
 
-		url = g_build_filename (scr_base_url, "screenshot", priv->pkgname, NULL);
+		url = g_build_filename (scr_base_url, "screenshot", priv->pkgnames[0], NULL);
 
 		/* screenshots.debian.net-like services dont specify a size, so we choose the default sizes
 		 * (800x600 for source-type images, 160x120 for thumbnails)
@@ -672,7 +675,7 @@ as_component_complete (AsComponent* self, gchar *scr_base_url)
 		g_free (url);
 
 		/* add thumbnail */
-		url = g_build_filename (scr_base_url, "thumbnail", priv->pkgname, NULL);
+		url = g_build_filename (scr_base_url, "thumbnail", priv->pkgnames[0], NULL);
 		img = as_image_new ();
 		as_image_set_url (img, url);
 		as_image_set_width (img, 160);
@@ -865,21 +868,36 @@ as_component_set_kind (AsComponent* self, AsComponentKind value)
 	g_object_notify ((GObject *) self, "kind");
 }
 
-const gchar*
-as_component_get_pkgname (AsComponent* self)
+/**
+ * as_component_get_pkgnames:
+ *
+ * Get a list of package names which this component consists of.
+ * This usually is just one package name.
+ *
+ * Returns: (transfer none): String array of package names
+ */
+gchar**
+as_component_get_pkgnames (AsComponent* self)
 {
 	g_return_val_if_fail (self != NULL, NULL);
-	return self->priv->pkgname;
+	return self->priv->pkgnames;
 }
 
+/**
+ * as_component_set_pkgnames:
+ * @value: (array zero-terminated=1):
+ *
+ * Set a list of package names this component consists of.
+ * (This should usually be just one package name)
+ */
 void
-as_component_set_pkgname (AsComponent* self, const gchar* value)
+as_component_set_pkgnames (AsComponent* self, gchar** value)
 {
 	g_return_if_fail (self != NULL);
 
-	g_free (self->priv->pkgname);
-	self->priv->pkgname = g_strdup (value);
-	g_object_notify ((GObject *) self, "pkgname");
+	g_strfreev (self->priv->pkgnames);
+	self->priv->pkgnames = g_strdupv (value);
+	g_object_notify ((GObject *) self, "pkgnames");
 }
 
 /**
@@ -989,7 +1007,7 @@ as_component_set_description (AsComponent* self, const gchar* value)
 /**
  * as_component_get_keywords:
  *
- * Returns: (transfer full): String array of keywords
+ * Returns: (transfer none): String array of keywords
  */
 gchar**
 as_component_get_keywords (AsComponent* self)
@@ -1463,7 +1481,7 @@ as_component_class_init (AsComponentClass * klass)
 	G_OBJECT_CLASS (klass)->set_property = as_component_set_property;
 	G_OBJECT_CLASS (klass)->finalize = as_component_finalize;
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_KIND, g_param_spec_enum ("kind", "kind", "kind", AS_TYPE_COMPONENT_KIND, 0, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PKGNAME, g_param_spec_string ("pkgname", "pkgname", "pkgname", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_PKGNAMES, g_param_spec_boxed ("pkgnames", "pkgnames", "pkgnames", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_ID, g_param_spec_string ("id", "id", "id", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_NAME, g_param_spec_string ("name", "name", "name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_COMPONENT_NAME_ORIGINAL, g_param_spec_string ("name-original", "name-original", "name-original", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
@@ -1524,8 +1542,8 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_KIND:
 			g_value_set_enum (value, as_component_get_kind (self));
 			break;
-		case AS_COMPONENT_PKGNAME:
-			g_value_set_string (value, as_component_get_pkgname (self));
+		case AS_COMPONENT_PKGNAMES:
+			g_value_set_boxed (value, as_component_get_pkgnames (self));
 			break;
 		case AS_COMPONENT_ID:
 			g_value_set_string (value, as_component_get_id (self));
@@ -1585,8 +1603,8 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 		case AS_COMPONENT_KIND:
 			as_component_set_kind (self, g_value_get_enum (value));
 			break;
-		case AS_COMPONENT_PKGNAME:
-			as_component_set_pkgname (self, g_value_get_string (value));
+		case AS_COMPONENT_PKGNAMES:
+			as_component_set_pkgnames (self, g_value_get_boxed (value));
 			break;
 		case AS_COMPONENT_ID:
 			as_component_set_id (self, g_value_get_string (value));

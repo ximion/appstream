@@ -88,8 +88,10 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_name (cpt, cptName.c_str ());
 
 	// Package name
-	string pkgName = doc.get_value (XapianValues::PKGNAME);;
-	as_component_set_pkgname (cpt, pkgName.c_str ());
+	string pkgNamesStr = doc.get_value (XapianValues::PKGNAME);
+	gchar **pkgs = g_strsplit (pkgNamesStr.c_str (), "\n", -1);
+	as_component_set_pkgnames (cpt, pkgs);
+	g_strfreev (pkgs);
 
 	// Untranslated application name
 	string appname_orig = doc.get_value (XapianValues::CPTNAME_UNTRANSLATED);

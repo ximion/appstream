@@ -94,6 +94,7 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 	GKeyFile *dfile;
 	AsComponent *cpt;
 	gchar **lines;
+	gchar **strv;
 	gchar *str;
 	gchar *str2;
 
@@ -142,8 +143,10 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 	g_free (str);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "X-AppInstall-Package");
-	as_component_set_pkgname (cpt, str);
-	g_free (str);
+	strv = g_new0 (gchar*, 2);
+	strv[0] = str;
+	as_component_set_pkgnames (cpt, strv);
+	g_strfreev (strv);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "Name");
 	as_component_set_name (cpt, str);
