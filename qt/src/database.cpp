@@ -89,8 +89,8 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setName(name);
 
     // Package name
-    QString packageName = value(document,XapianValues::PKGNAME);
-    component.setPackageName(packageName);
+    QStringList packageNames = value(document,XapianValues::PKGNAME).split("\n",QString::SkipEmptyParts);
+    component.setPackageNames(packageNames);
 
     // URLs
     QString concatUrlStrings = value(document, XapianValues::URLS);
@@ -104,7 +104,7 @@ Component xapianDocToComponent(Xapian::Document document) {
         }
         component.setUrls(urls);
     } else {
-        qWarning("Bad url strings for package: %s %s", qPrintable(packageName), qPrintable(concatUrlStrings));
+        qWarning("Bad url strings for package: %s %s", qPrintable(packageNames.join(",")), qPrintable(concatUrlStrings));
     }
 
     QString concatProvides = value(document, XapianValues::PROVIDED_ITEMS);
@@ -113,7 +113,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     Q_FOREACH(const QString& string, providesList) {
         QStringList providesParts = string.split(';',QString::SkipEmptyParts);
         if(providesParts.size() < 2) {
-            qWarning("Bad component parts for package %s %s",qPrintable(packageName), qPrintable(string));
+            qWarning("Bad component parts for package %s %s",qPrintable(packageNames.join(",")), qPrintable(string));
             continue;
         }
         QString kindString = providesParts.takeFirst();

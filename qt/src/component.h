@@ -72,8 +72,8 @@ class APPSTREAMQT_EXPORT Component {
         QString id() const;
         void setId(const QString& id);
 
-        QString packageName() const;
-        void setPackageName(const QString& packageName);
+        QStringList packageNames() const;
+        void setPackageNames(const QStringList& packageName);
 
         QString name() const;
         void setName(const QString& name);

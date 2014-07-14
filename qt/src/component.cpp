@@ -37,7 +37,7 @@ class Appstream::ComponentData : public QSharedData {
         QString m_id;
         Component::Kind m_kind;
         QString m_name;
-        QString m_packageName;
+        QStringList m_packageNames;
         QString m_projectGroup;
         QString m_projectLicense;
         QString m_summary;
@@ -75,7 +75,7 @@ class Appstream::ComponentData : public QSharedData {
             if(m_name != other.m_name) {
                 return false;
             }
-            if(m_packageName != other.m_packageName) {
+            if(m_packageNames != other.m_packageNames) {
                 return false;
             }
             if(m_projectGroup != other.m_projectGroup) {
@@ -145,8 +145,8 @@ QString Component::name() const {
     return d->m_name;
 }
 
-QString Component::packageName() const {
-    return d->m_packageName;
+QStringList Component::packageNames() const {
+    return d->m_packageNames;
 }
 
 QString Component::projectGroup() const {
@@ -193,8 +193,8 @@ void Component::setName(const QString& name) {
     d->m_name = name;
 }
 
-void Component::setPackageName(const QString& packageName) {
-    d->m_packageName = packageName;
+void Component::setPackageNames(const QStringList& packageNames) {
+    d->m_packageNames = packageNames;
 }
 
 void Component::setProjectGroup(const QString& group) {
