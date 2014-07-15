@@ -129,7 +129,7 @@ class APPSTREAMQT_EXPORT Component {
          */
         QList<Appstream::Provides> provides() const;
 
-        QList<Appstream::Screenshot> screenShots() const;
+        QList<Appstream::Screenshot> screenshots() const;
         void setScreenshots(const QList<Appstream::Screenshot>& screenshots);
 
         static Kind stringToKind(const QString& kindString);
