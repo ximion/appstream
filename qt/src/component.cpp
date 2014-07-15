@@ -299,7 +299,7 @@ void Component::setScreenshots(const QList< Screenshot >& screenshots) {
     d->m_screenshots = screenshots;
 }
 
-QList< Screenshot > Component::screenShots() const {
+QList< Screenshot > Component::screenshots() const {
     return d->m_screenshots;
 }
 

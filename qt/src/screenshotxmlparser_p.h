@@ -72,17 +72,17 @@ namespace {
         if(level!=0) {
             *failure = true;
         }
-        Appstream::Screenshot screenShot;
-        screenShot.setImages(images);
-        screenShot.setDefault(default_);
-        screenShot.setCaption(caption);
-        return screenShot;
+        Appstream::Screenshot screenshot;
+        screenshot.setImages(images);
+        screenshot.setDefault(default_);
+        screenshot.setCaption(caption);
+        return screenshot;
     }
 
     inline QList<Appstream::Screenshot> parseScreenshotsXml(QXmlStreamReader* reader) {
         int level = 0;
         bool failure = false;
-        QList<Appstream::Screenshot> screenShots;
+        QList<Appstream::Screenshot> screenshots;
         while(!reader->atEnd() && !failure) {
             QXmlStreamReader::TokenType token = reader->readNext();
             if(token == QXmlStreamReader::StartDocument) {
@@ -92,7 +92,7 @@ namespace {
                 if(reader->name() == QLatin1String("screenshots")) {
                     level++;
                 } else if(reader->name() == QLatin1String("screenshot")) {
-                    screenShots << parseScreenshotXml(reader, &failure);
+                    screenshots << parseScreenshotXml(reader, &failure);
                     Q_ASSERT(reader->tokenType() == QXmlStreamReader::EndElement);
                 }
             } else if (token == QXmlStreamReader::EndElement) {
@@ -104,7 +104,7 @@ namespace {
         if(failure || level != 0 || reader->hasError()) {
             return QList<Appstream::Screenshot>();
         } else {
-            return screenShots;
+            return screenshots;
         }
     }
 }
