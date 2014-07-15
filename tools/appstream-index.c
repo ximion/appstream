@@ -85,7 +85,11 @@ as_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 
 	str = g_strdup_printf ("%s: ", key);
 
-	fprintf (stdout, "%c[%dm%s%c[%dm%s\n", 0x1B, 1, str, 0x1B, 0, fmtval);
+	if (optn_no_color) {
+		fprintf (stdout, "%s%s\n", str, fmtval);
+	} else {
+		fprintf (stdout, "%c[%dm%s%c[%dm%s\n", 0x1B, 1, str, 0x1B, 0, fmtval);
+	}
 
 	g_free (str);
 	g_free (fmtval);
@@ -95,7 +99,11 @@ as_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 static void
 as_print_separator ()
 {
-	fprintf (stdout, "%c[%dm%s\n%c[%dm", 0x1B, 36, "----", 0x1B, 0);
+	if (optn_no_color) {
+		fprintf (stdout, "----\n");
+	} else {
+		fprintf (stdout, "%c[%dm%s\n%c[%dm", 0x1B, 36, "----", 0x1B, 0);
+	}
 }
 
 static void
