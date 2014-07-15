@@ -83,4 +83,6 @@ if (DOCUMENTATION)
 
 	set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM ${CMAKE_CURRENT_SOURCE_DIR}/api)
  	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/api/html;${CMAKE_CURRENT_SOURCE_DIR}/api/xml;${CMAKE_CURRENT_SOURCE_DIR}/api/tmpl")
+
+ 	install(DIRECTORY html/api/html/ DESTINATION share/gtk-doc/html/appstream)
 endif()
