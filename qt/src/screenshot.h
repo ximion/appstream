@@ -31,20 +31,20 @@ namespace Appstream {
 
 class Image;
 
-class ScreenShotData;
+class ScreenshotData;
 
 /**
  * Class to represent a reference to a screenshot
  * A screenshot might appear in various resolutions
  */
 
-class APPSTREAMQT_EXPORT ScreenShot {
+class APPSTREAMQT_EXPORT Screenshot {
 public:
-    ScreenShot();
-    ScreenShot(const ScreenShot& other);
-    ~ScreenShot();
-    ScreenShot& operator=(const ScreenShot& other);
-    bool operator==(const ScreenShot& other);
+    Screenshot();
+    Screenshot(const Screenshot& other);
+    ~Screenshot();
+    Screenshot& operator=(const Screenshot& other);
+    bool operator==(const Screenshot& other);
 
     /**
      * \return true if it is the default screenshot
@@ -66,7 +66,7 @@ public:
     void setCaption(const QString& caption);
 
 private:
-    QSharedDataPointer<ScreenShotData> d;
+    QSharedDataPointer<ScreenshotData> d;
 
 };
 }

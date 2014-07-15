@@ -25,14 +25,14 @@
 
 using namespace Appstream;
 
-class Appstream::ScreenShotData : public QSharedData {
+class Appstream::ScreenshotData : public QSharedData {
     public:
-        ScreenShotData() : m_default(false) {
+        ScreenshotData() : m_default(false) {
         }
         bool m_default;
         QString m_caption;
         QList<Appstream::Image> m_images;
-        bool operator==(const ScreenShotData& other) {
+        bool operator==(const ScreenshotData& other) {
             if(m_default != other.m_default) {
                 return false;
             }
@@ -46,24 +46,24 @@ class Appstream::ScreenShotData : public QSharedData {
         }
 };
 
-QString ScreenShot::caption() const {
+QString Screenshot::caption() const {
     return d->m_caption;
 }
 
-QList< Image > ScreenShot::images() const {
+QList< Image > Screenshot::images() const {
     return d->m_images;
 }
 
-bool ScreenShot::isDefault() const {
+bool Screenshot::isDefault() const {
     return d->m_default;
 }
 
-ScreenShot& ScreenShot::operator=(const ScreenShot& other) {
+Screenshot& Screenshot::operator=(const Screenshot& other) {
     d = other.d;
     return *this;
 }
 
-bool ScreenShot::operator==(const ScreenShot& other) {
+bool Screenshot::operator==(const Screenshot& other) {
     if(d == other.d) {
         return true;
     }
@@ -73,26 +73,26 @@ bool ScreenShot::operator==(const ScreenShot& other) {
     return false;
 }
 
-ScreenShot::ScreenShot(const ScreenShot& other) : d(other.d) {
+Screenshot::Screenshot(const Screenshot& other) : d(other.d) {
 
 }
 
-ScreenShot::ScreenShot() : d(new ScreenShotData) {
+Screenshot::Screenshot() : d(new ScreenshotData) {
 
 }
 
-void ScreenShot::setCaption(const QString& caption) {
+void Screenshot::setCaption(const QString& caption) {
     d->m_caption = caption;
 }
 
-void ScreenShot::setDefault(bool default_) {
+void Screenshot::setDefault(bool default_) {
     d->m_default = default_;
 }
 
-void ScreenShot::setImages(const QList< Image >& images) {
+void Screenshot::setImages(const QList< Image >& images) {
     d->m_images = images;
 }
 
-ScreenShot::~ScreenShot() {
+Screenshot::~Screenshot() {
 
 }

@@ -40,7 +40,7 @@ namespace {
         return image;
     }
 
-    inline Appstream::ScreenShot parseScreenShotXml(QXmlStreamReader* reader, bool* failure) {
+    inline Appstream::Screenshot parseScreenshotXml(QXmlStreamReader* reader, bool* failure) {
         int level = 0;
         QList<Appstream::Image> images;
         bool default_ = reader->attributes().value(QLatin1String("type")) == QLatin1String("default");
@@ -72,17 +72,17 @@ namespace {
         if(level!=0) {
             *failure = true;
         }
-        Appstream::ScreenShot screenShot;
+        Appstream::Screenshot screenShot;
         screenShot.setImages(images);
         screenShot.setDefault(default_);
         screenShot.setCaption(caption);
         return screenShot;
     }
 
-    inline QList<Appstream::ScreenShot> parseScreenShotsXml(QXmlStreamReader* reader) {
+    inline QList<Appstream::Screenshot> parseScreenshotsXml(QXmlStreamReader* reader) {
         int level = 0;
         bool failure = false;
-        QList<Appstream::ScreenShot> screenShots;
+        QList<Appstream::Screenshot> screenShots;
         while(!reader->atEnd() && !failure) {
             QXmlStreamReader::TokenType token = reader->readNext();
             if(token == QXmlStreamReader::StartDocument) {
@@ -92,7 +92,7 @@ namespace {
                 if(reader->name() == QLatin1String("screenshots")) {
                     level++;
                 } else if(reader->name() == QLatin1String("screenshot")) {
-                    screenShots << parseScreenShotXml(reader, &failure);
+                    screenShots << parseScreenshotXml(reader, &failure);
                     Q_ASSERT(reader->tokenType() == QXmlStreamReader::EndElement);
                 }
             } else if (token == QXmlStreamReader::EndElement) {
@@ -102,7 +102,7 @@ namespace {
             }
         }
         if(failure || level != 0 || reader->hasError()) {
-            return QList<Appstream::ScreenShot>();
+            return QList<Appstream::Screenshot>();
         } else {
             return screenShots;
         }

@@ -31,7 +31,7 @@
 
 namespace Appstream {
 
-class ScreenShot;
+class Screenshot;
 
 class ComponentData;
 
@@ -129,8 +129,8 @@ class APPSTREAMQT_EXPORT Component {
          */
         QList<Appstream::Provides> provides() const;
 
-        QList<Appstream::ScreenShot> screenShots() const;
-        void setScreenShots(const QList<Appstream::ScreenShot>& screenshots);
+        QList<Appstream::Screenshot> screenShots() const;
+        void setScreenshots(const QList<Appstream::Screenshot>& screenshots);
 
         static Kind stringToKind(const QString& kindString);
         static QString kindToString(Kind kind);

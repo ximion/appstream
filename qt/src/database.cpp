@@ -150,8 +150,8 @@ Component xapianDocToComponent(Xapian::Document document) {
     // Screenshot data
     QString screenshotXml = value(document,XapianValues::SCREENSHOT_DATA);
     QXmlStreamReader reader(screenshotXml);
-    QList<Appstream::ScreenShot> screenshots = parseScreenShotsXml(&reader);
-    component.setScreenShots(screenshots);
+    QList<Appstream::Screenshot> screenshots = parseScreenshotsXml(&reader);
+    component.setScreenshots(screenshots);
 
     // Compulsory-for-desktop information
     QStringList compulsory = value(document, XapianValues::COMPULSORY_FOR).split(";");

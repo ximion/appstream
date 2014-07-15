@@ -3,7 +3,7 @@
 #include <qxmlstream.h>
 #include "screenshotxmlparser_p.h"
 
-class ScreenShotXmlParserTest : public QObject {
+class ScreenshotXmlParserTest : public QObject {
     Q_OBJECT
     private Q_SLOTS:
         void testData01();
@@ -11,7 +11,7 @@ class ScreenShotXmlParserTest : public QObject {
 
 using namespace Appstream;
 
-void ScreenShotXmlParserTest::testData01() {
+void ScreenshotXmlParserTest::testData01() {
 
     QString data1("<?xml version=\"1.0\"?>"
                     "<screenshots>"
@@ -61,19 +61,19 @@ void ScreenShotXmlParserTest::testData01() {
                         "</screenshot>"
                     "</screenshots>");
     QXmlStreamReader reader(data1);
-    QList<Appstream::ScreenShot> screenshots = parseScreenShotsXml(&reader);
+    QList<Appstream::Screenshot> screenshots = parseScreenshotsXml(&reader);
     QCOMPARE(screenshots.length(),4);
 
     QVERIFY(screenshots.first().isDefault());
     int defaultCounter=0;
-    Q_FOREACH(const ScreenShot& ss, screenshots) {
+    Q_FOREACH(const Screenshot& ss, screenshots) {
         QCOMPARE(ss.images().length(),3);
         if(ss.isDefault()) {
             defaultCounter++;
         }
     }
     QCOMPARE(defaultCounter,1);
-    ScreenShot ss3 = screenshots.at(2);
+    Screenshot ss3 = screenshots.at(2);
     QVERIFY(!ss3.isDefault());
     QVERIFY(ss3.caption().isNull());
     QCOMPARE(ss3.images().length(),3);
@@ -86,6 +86,6 @@ void ScreenShotXmlParserTest::testData01() {
 
 }
 
-QTEST_MAIN(ScreenShotXmlParserTest)
+QTEST_MAIN(ScreenshotXmlParserTest)
 
 #include "screenshotxmlparsertest.moc"

@@ -42,7 +42,7 @@ class Appstream::ComponentData : public QSharedData {
         QString m_projectLicense;
         QString m_summary;
         QMultiHash<Component::UrlKind, QUrl> m_urls;
-        QList<Appstream::ScreenShot> m_screenshots;
+        QList<Appstream::Screenshot> m_screenshots;
         QMultiHash<Provides::Kind, Provides> m_provides;
         bool operator==(const ComponentData& other) const {
             if(m_categories != other.m_categories) {
@@ -295,11 +295,11 @@ Component::Kind Component::stringToKind(const QString& kindString) {
 
 }
 
-void Component::setScreenShots(const QList< ScreenShot >& screenshots) {
+void Component::setScreenshots(const QList< Screenshot >& screenshots) {
     d->m_screenshots = screenshots;
 }
 
-QList< ScreenShot > Component::screenShots() const {
+QList< Screenshot > Component::screenShots() const {
     return d->m_screenshots;
 }
 
