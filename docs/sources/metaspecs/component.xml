@@ -43,6 +43,9 @@
 			Please note that the <filename>/usr/share/appdata/symbols</filename> directory is reserved for a possible future use for storing upstream-generated symbols files for
 			libraries.
 		</para>
+<!--
+		This is currently hidden, because we only want to re-add it to the spec in case it turns out to be really needed.
+		(was a workaround back in the days, before AppStream generators became smarter)
 		<important>
 			<title>Multiarch Support</title>
 			<para>
@@ -54,6 +57,7 @@
 				Make use of the <literal>&lt;architectures/&gt;</literal> tag to indicate that the meta-info file is arch specific.
 			</para>
 		</important>
+-->
 	</section>
 
 	<section id="spec-component-filespec">
