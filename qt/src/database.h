@@ -45,7 +45,7 @@ class APPSTREAMQT_EXPORT Database {
         Database(const QString& dbPath);
         /**
          * Constructs a database object pointing to the default system path
-         * ( /var/cache/app-info/xapian =
+         * ( /var/cache/app-info/xapian )
          */
         Database();
         /**

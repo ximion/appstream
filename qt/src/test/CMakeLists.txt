@@ -6,4 +6,3 @@ include_directories(../ )
 add_executable(screenshotxmlparsertest screenshotxmlparsertest.cpp)
 target_link_libraries(screenshotxmlparsertest ${QT_QTCORE_LIBRARY} ${QT_QTTEST_LIBRARY} AppstreamQt)
 add_test(screenshotxmlparsertest screenshotxmlparsertest)
-
