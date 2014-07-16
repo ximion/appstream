@@ -26,4 +26,16 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
+if (NOT DEFINED INSTALL_DIR_LIB)
+    set(INSTALL_DIR_LIB lib${LIB_SUFFIX}/${CMAKE_LIBRARY_ARCHITECTURE} CACHE PATH "Installation directory for libraries")
+endif()
+
+if (NOT DEFINED INSTALL_DIR_BIN)
+    set(INSTALL_DIR_BIN bin CACHE PATH "Installation directory for executables")
+endif()
+
+if (NOT DEFINED INSTALL_DIR_INC)
+    set(INSTALL_DIR_INC include CACHE PATH "Installation directory for headers")
+endif()
+
 add_subdirectory(src)
