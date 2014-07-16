@@ -319,7 +319,7 @@ QueryPair buildQueries(QString searchTerm, const QStringList& categories, Xapian
     return QueryPair(pkgQuery, fuzzyQuery);
 }
 
-QList< Component > Database::findComponentsByString(QString searchTerm, QStringList categories) {
+QList< Component > Database::findComponentsByString(const QString& searchTerm, const QStringList& categories) {
     QPair<Xapian::Query, Xapian::Query> queryPair = buildQueries(searchTerm.trimmed(), categories, d->m_db);
 
     // "normal" query

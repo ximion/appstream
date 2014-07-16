@@ -72,7 +72,7 @@ class APPSTREAMQT_EXPORT Database {
         /**
          * \return all components matching \param searchTerm in \param category
          */
-        QList<Component> findComponentsByString(QString searchTerm, QStringList categories = QStringList());
+        QList<Component> findComponentsByString(const QString& searchTerm, const QStringList& categories = QStringList());
         ~Database();
     private:
         Q_DISABLE_COPY(Database);
