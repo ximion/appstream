@@ -59,8 +59,8 @@ rm $R_ROOT/release.sh
 
 # create release tarball
 cd ./release-tar-tmp
-tar cvzf "AppStream-$APPSTREAM_VERSION.tar.gz" "./AppStream-$APPSTREAM_VERSION/"
-mv "AppStream-$APPSTREAM_VERSION.tar.gz" ../
+tar cvJf "AppStream-$APPSTREAM_VERSION.tar.xz" "./AppStream-$APPSTREAM_VERSION/"
+mv "AppStream-$APPSTREAM_VERSION.tar.xz" ../
 cd ..
 
 # cleanup
@@ -68,5 +68,5 @@ rm -r ./release-tar-tmp
 
 # sign release, if flag is set
 if [ "$SIGN_RELEASE" = "1" ]; then
- gpg --armor --sign --detach-sig "AppStream-$APPSTREAM_VERSION.tar.gz"
+ gpg --armor --sign --detach-sig "AppStream-$APPSTREAM_VERSION.tar.xz"
 fi
