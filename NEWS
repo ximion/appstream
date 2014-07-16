@@ -1,3 +1,95 @@
+Version 0.7.0
+~~~~~~~~~~~~~~
+Released: 2014-07-16
+
+Notes:
+ The AppStream code has been relicensed from LGPL-3+ to LGPL-2.1+
+ There have also been smaller API breaks in libappstream, see the
+ list below for information about that.
+
+Features:
+ * Allow overriding of watched data dirs (Matthias Klumpp)
+ * More work on the cache-builder to be more flexible (Matthias Klumpp)
+ * Add DataPool helper class (Matthias Klumpp)
+ * Do some major refactoring on how the cache is created (Matthias Klumpp)
+ * validate: Process multiple files (Matthias Klumpp)
+ * Get rid of as_strv_dup (Matthias Klumpp)
+ * Implement support for the "addon" component type (Matthias Klumpp)
+ * Implement support for dbus provides type (Matthias Klumpp)
+ * Allow fetching data by component type (Matthias Klumpp)
+ * Relicense to LGPLv2.1+ and GPLv2+ (Matthias Klumpp)
+ * Drop some deprecated API (Matthias Klumpp)
+ * Add some limited support for parsing legacy upstream metadata files (Matthias Klumpp)
+ * Implement developer_name tag (Matthias Klumpp)
+ * Allow querying the database for multiple component types with one query (Matthias Klumpp)
+ * Implement 'languages' tag (Matthias Klumpp)
+ * Improve code which loads urls from the database (Matthias Klumpp)
+ * validator: Correctly check for compliant localization of tags (Matthias Klumpp)
+ * Share database definition between libas and libas-qt (Matthias Klumpp)
+ * appinstall: Handle NoDisplay as well, and treat OnlyShowIn as compulsority (Matthias Klumpp)
+ * qt: Make it possible to compile only the Qt library (Matthias Klumpp)
+ * Optimize database generation process to save some time (Matthias Klumpp)
+ * asi: Don't use GObject class to handle the tool's internals (Matthias Klumpp)
+ * asi: Improve command syntax (Matthias Klumpp)
+ * asi: Further code improvements (Matthias Klumpp)
+ * Expose internal options for database and data placement to asi (Matthias Klumpp)
+ * Improve database refresh API (Matthias Klumpp)
+ * tests: Make tests work standalone (Matthias Klumpp)
+ * vapi: Move to contrib, it's not static data (Matthias Klumpp)
+ * Update global categories definition (Matthias Klumpp)
+ * Implement support for multiple package names per component (Matthias Klumpp)
+ * qt: Implement support for screenshots (Matthias Klumpp)
+ * qt: More methods to retrieve components from the database (Matthias Klumpp)
+ * docs: Install gtk-doc documentation (Matthias Klumpp)
+ * Use XZ compression for release tarball (Matthias Klumpp)
+ * Use the same datasource-dir method for AsDataPool which was used for AsBuilder (Matthias Klumpp)
+ * qt: Parse the screenshot xml and store it in some relevant datatypes (Sune Vuorela)
+ * qt: Acually return the map built when converting UrlKinds to strings (Sune Vuorela)
+ * qt: Parse and handle the Provides part of the appstream data (Sune Vuorela)
+ * Some Qt cleanups after a review by Andreas. (Sune Vuorela)
+ * qt: Create a database constructor that uses the default system path (Sune Vuorela)
+ * qt: Adapt to multiple package names for a component (Sune Vuorela)
+
+Specification:
+ * spec: Use UNIX epoch instead of YYYYMMDD for timestamps (Matthias Klumpp)
+ * spec: Add new "languages" tag to distro XML (Matthias Klumpp)
+ * spec: Add new component type: Addon (Matthias Klumpp)
+ * spec: Define a 'dbus' type as new 'provides' element (Matthias Klumpp)
+ * spec: Specify a developer_name tag (Matthias Klumpp)
+ * spec: Allow an update_contact tag in upstream-metadata (Matthias Klumpp)
+ * spec: Allow /var/cache location for icons (Matthias Klumpp)
+ * spec: Allow multiple definitions of the 'pkgname' tag (Matthias Klumpp)
+ * spec: Hide multiarch install path section (Matthias Klumpp)
+
+Documentation:
+ * docs: Add quickstart page template (Matthias Klumpp)
+ * docs: Export documentation by default (Matthias Klumpp)
+ * docs: Restructure application description and add quickstart page (Matthias Klumpp)
+ * docs: Explicitly allow the mimetypes tag in generic components (Matthias Klumpp)
+ * docs: Sketch section about translation (Matthias Klumpp)
+ * docs: Various fixes for the spec, add missing project_license to generic component (Matthias Klumpp)
+ * docs: Add Intltool translation Automake integration hints (Matthias Klumpp)
+ * docs: Sketch section about addons (Igor Gnatenko)
+ * docs: Fix some quirks in the distro XML spec (Matthias Klumpp)
+ * docs: Update app quickstart guide and add example screenshots (Matthias Klumpp)
+
+Bugfixes:
+ * Fix some bugs in handling of provides-items (Matthias Klumpp)
+ * Fix some annotations & remove cruft (Matthias Klumpp)
+ * Update tests and fix a memory leak (Matthias Klumpp)
+ * validator: Improve handling of translated metadata files (Matthias Klumpp)
+ * Fix issue when loading compressed metadata files (Matthias Klumpp)
+ * qt: Added 'const' to the description (Floris-Andrei Stoica-Marcu)
+ * Print a better result message on cache update in case of metadata errors (Matthias Klumpp)
+ * Fix crash in AppInstall data provider (Matthias Klumpp)
+ * Remove bogus g_free() of paths strv in ASXML provider (Matthias Klumpp)
+ * Get rid of explicit include of config.h (Matthias Klumpp)
+ * Fix typo in appstream-index manpage (Sune Vuorela)
+ * validator: Only test if valid tags are empty (Matthias Klumpp)
+ * Make creating the Xapian cache at different locations work again (Matthias Klumpp)
+ * Remove leftover cruft from config.h.in (Sune Vuorela)
+ * asi: Respect the no-color option (Matthias Klumpp)
+
 Version 0.6.2
 ~~~~~~~~~~~~~~
 Released: 2014-05-12
