@@ -67,12 +67,8 @@ gchar**			as_data_pool_get_watched_locations (AsDataPool *dpool);
 gboolean		as_data_pool_update (AsDataPool *dpool);
 GList*			as_data_pool_get_components (AsDataPool *dpool);
 
-void			as_data_pool_set_xml_paths (AsDataPool *dpool,
-											gchar** values);
-void			as_data_pool_set_dep11_paths (AsDataPool *dpool,
-											gchar** values);
-void			as_data_pool_set_appinstall_paths (AsDataPool *dpool,
-											gchar** values);
+void			as_data_pool_set_data_source_directories (AsDataPool *dpool,
+														gchar **dirs);
 
 G_END_DECLS
 

@@ -276,39 +276,51 @@ as_data_pool_get_components (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_set_xml_paths:
- * @values: (allow-none) (array zero-terminated=1): The new absolute paths to AppStream XML data
+ * as_builder_set_data_source_directories:
+ * @dpool a valid #AsBuilder instance
+ * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
+ *
+ * Set locations for the data pool to read it's data from.
+ * This is mainly used for testing purposes. Each location should have an
+ * "xmls" and/or "yaml" subdirectory with the actual data as (compressed)
+ * AppStream XML or DEP-11 YAML in it.
  */
 void
-as_data_pool_set_xml_paths (AsDataPool *dpool, gchar** values)
+as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 {
+	guint i;
+	GPtrArray *xmldirs;
+	GPtrArray *yamldirs;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	xmldirs = g_ptr_array_new_with_free_func (g_free);
+	yamldirs = g_ptr_array_new_with_free_func (g_free);
+
+	for (i = 0; dirs[i] != NULL; i++) {
+		gchar *path;
+		path = g_build_filename (dirs[i], "xmls", NULL);
+		if (g_file_test (path, G_FILE_TEST_EXISTS))
+			g_ptr_array_add (xmldirs, g_strdup (path));
+		g_free (path);
+
+		path = g_build_filename (dirs[i], "yaml", NULL);
+		if (g_file_test (path, G_FILE_TEST_EXISTS))
+			g_ptr_array_add (yamldirs, g_strdup (path));
+		g_free (path);
+	}
+
 	g_strfreev (priv->asxml_paths);
-	priv->asxml_paths = g_strdupv (values);
-}
+	priv->asxml_paths = as_ptr_array_to_strv (xmldirs);
 
-/**
- * as_data_pool_set_dep11_paths:
- * @values: (allow-none) (array zero-terminated=1): The new absolute paths to AppStream DEP-11 YAML data
- */
-void
-as_data_pool_set_dep11_paths (AsDataPool *dpool, gchar** values)
-{
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 	g_strfreev (priv->dep11_paths);
-	priv->dep11_paths = g_strdupv (values);
-}
+	priv->dep11_paths = as_ptr_array_to_strv (yamldirs);
 
-/**
- * as_data_pool_set_appinstall_paths:
- * @values: (allow-none) (array zero-terminated=1): The new absolute paths to AppInstall data
- */
-void
-as_data_pool_set_appinstall_paths (AsDataPool *dpool, gchar** values)
-{
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	/* nuke AppInstall search, in case the provider is enabled */
 	g_strfreev (priv->appinstall_paths);
-	priv->appinstall_paths = g_strdupv (values);
+	priv->appinstall_paths = NULL;
+
+	g_ptr_array_unref (xmldirs);
+	g_ptr_array_unref (yamldirs);
 }
 
 /**
