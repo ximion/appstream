@@ -243,7 +243,7 @@
 					A screenshot presents your application to the outside world, and could be seen by hundreds or thousands of people.
 				</para>
 				<para>
-					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> childrens, where at least one of them must have the property
+					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
 					<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
 					one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
 					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
