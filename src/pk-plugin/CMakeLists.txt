@@ -27,4 +27,4 @@ include_directories(${CMAKE_BINARY_DIR}
 		${PACKAGEKIT_PLUGIN_INCLUDE_DIRS}
 )
 
-install(TARGETS pk_plugin_appstream DESTINATION ${INSTALL_DIR_LIB}/packagekit-plugins)
+install(TARGETS pk_plugin_appstream DESTINATION ${INSTALL_DIR_LIB}/packagekit-plugins-2)
