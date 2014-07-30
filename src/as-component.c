@@ -310,7 +310,10 @@ as_component_to_string (AsComponent* self)
 	gchar *pkgs;
 	g_return_val_if_fail (self != NULL, NULL);
 
-	pkgs = g_strjoinv (",", self->priv->pkgnames);
+	if (self->priv->pkgnames == NULL)
+		pkgs = g_strdup ("?");
+	else
+		pkgs = g_strjoinv (",", self->priv->pkgnames);
 	name = as_component_get_name (self);
 
 	switch (self->priv->kind) {
