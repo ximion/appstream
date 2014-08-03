@@ -161,31 +161,28 @@ as_provider_appstream_xml_process_file (AsProviderAppstreamXML* self, GFile* inf
 	gchar* line = NULL;
 	GFileInputStream* ir;
 	GDataInputStream* dis;
+	GString *str = NULL;
 
 	g_return_val_if_fail (self != NULL, FALSE);
 	g_return_val_if_fail (infile != NULL, FALSE);
 
-	xml_doc = g_strdup ("");
 	ir = g_file_read (infile, NULL, NULL);
 	dis = g_data_input_stream_new ((GInputStream*) ir);
 	g_object_unref (ir);
 
+	str = g_string_new ("");
 	while (TRUE) {
-		gchar *str;
-		gchar *tmp;
-
 		line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
 		if (line == NULL) {
 			break;
 		}
 
-		str = g_strconcat (line, "\n", NULL);
+		if (str->len > 0)
+			g_string_append (str, "\n");
+		g_string_append_printf (str, "%s\n", line);
 		g_free (line);
-		tmp = g_strconcat (xml_doc, str, NULL);
-		g_free (str);
-		g_free (xml_doc);
-		xml_doc = tmp;
 	}
+	xml_doc = g_string_free (str, FALSE);
 
 	ret = as_provider_appstream_xml_process_single_document (self, xml_doc);
 	g_object_unref (dis);
