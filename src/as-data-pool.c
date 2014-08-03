@@ -276,7 +276,7 @@ as_data_pool_get_components (AsDataPool *dpool)
 }
 
 /**
- * as_builder_set_data_source_directories:
+ * as_data_pool_set_data_source_directories:
  * @dpool a valid #AsBuilder instance
  * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
  *
