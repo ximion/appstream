@@ -83,16 +83,10 @@ as_metadata_finalize (GObject *object)
 static void
 as_metadata_init (AsMetadata *metad)
 {
-	const gchar * const *locale_names;
-	gchar *tmp;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	locale_names = g_get_language_names ();
 	/* set active locale without UTF-8 suffix */
-	priv->locale = g_strdup (locale_names[0]);
-	tmp = g_strstr_len (priv->locale, -1, ".UTF-8");
-	if (tmp != NULL)
-		*tmp = '\0';
+	priv->locale = as_get_locale ();
 
 	priv->origin_name = NULL;
 	priv->icon_paths = as_distro_details_get_icon_repository_paths ();
@@ -903,7 +897,7 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
  * @metad: a #AsMetadata instance.
  * @locale: the locale.
  *
- * Sets the current locale whcih should be used when parsing metadata.
+ * Sets the current locale which should be used when parsing metadata.
  **/
 void
 as_metadata_set_locale (AsMetadata *metad, const gchar *locale)

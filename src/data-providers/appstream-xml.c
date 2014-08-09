@@ -71,6 +71,7 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 	AsMetadata *metad;
 	AsComponent *cpt;
 	gchar *origin;
+	const gchar *locale;
 	GError *error = NULL;
 
 	g_return_val_if_fail (self != NULL, FALSE);
@@ -95,6 +96,8 @@ as_provider_appstream_xml_process_single_document (AsProviderAppstreamXML* self,
 
 	metad = as_metadata_new ();
 	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+	locale = as_data_provider_get_locale (AS_DATA_PROVIDER (self));
+	as_metadata_set_locale (metad, locale);
 
 	/* set the proper origin of this data */
 	origin = (gchar*) xmlGetProp (root, (xmlChar*) "origin");

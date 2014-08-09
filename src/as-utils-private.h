@@ -34,6 +34,7 @@ GPtrArray*		as_utils_find_files_matching (const gchar* dir, const gchar* pattern
 GPtrArray*		as_utils_find_files (const gchar* dir, gboolean recursive);
 gboolean		as_utils_is_root (void);
 gchar*			as_str_replace (const gchar* str, const gchar* old_str, const gchar* new_str);
+gchar*			as_get_locale (void);
 
 G_END_DECLS
 

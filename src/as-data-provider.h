@@ -65,13 +65,20 @@ struct _AsDataProviderClass
 GType as_data_provider_get_type (void) G_GNUC_CONST;
 
 AsDataProvider*		as_data_provider_construct (GType object_type);
+
 void				as_data_provider_emit_application (AsDataProvider* self,
 													   AsComponent* cpt);
 gboolean			as_data_provider_execute (AsDataProvider* self);
+
 void				as_data_provider_log_error (AsDataProvider* self,
 												const gchar* msg);
 void				as_data_provider_log_warning (AsDataProvider* self,
 												  const gchar* msg);
+
+const gchar*		as_data_provider_get_locale (AsDataProvider *dpool);
+void				as_data_provider_set_locale (AsDataProvider *dprov,
+												 const gchar *locale);
+
 gchar**				as_data_provider_get_watch_files (AsDataProvider* self);
 void				as_data_provider_set_watch_files (AsDataProvider* self,
 													  gchar** value);

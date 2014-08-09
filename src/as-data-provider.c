@@ -23,7 +23,8 @@
 #include <glib-object.h>
 
 struct _AsDataProviderPrivate {
-	gchar** watch_files;
+	gchar **watch_files;
+	gchar *locale;
 };
 
 static gpointer as_data_provider_parent_class = NULL;
@@ -43,12 +44,12 @@ static void as_data_provider_set_property (GObject * object, guint property_id, 
 AsDataProvider*
 as_data_provider_construct (GType object_type)
 {
-	AsDataProvider * self = NULL;
+	AsDataProvider *self = NULL;
 	self = (AsDataProvider*) g_object_new (object_type, NULL);
 	self->priv->watch_files = NULL;
+	self->priv->locale = g_strdup ("C");
 	return self;
 }
-
 
 void
 as_data_provider_emit_application (AsDataProvider* self, AsComponent* cpt)
@@ -58,7 +59,6 @@ as_data_provider_emit_application (AsDataProvider* self, AsComponent* cpt)
 	g_signal_emit_by_name (self, "component", cpt);
 }
 
-
 static gboolean
 as_data_provider_real_execute (AsDataProvider* self)
 {
@@ -66,14 +66,12 @@ as_data_provider_real_execute (AsDataProvider* self)
 	return FALSE;
 }
 
-
 gboolean
 as_data_provider_execute (AsDataProvider* self)
 {
 	g_return_val_if_fail (self != NULL, FALSE);
 	return AS_DATA_PROVIDER_GET_CLASS (self)->execute (self);
 }
-
 
 void
 as_data_provider_log_error (AsDataProvider* self, const gchar* msg)
@@ -83,7 +81,6 @@ as_data_provider_log_error (AsDataProvider* self, const gchar* msg)
 	g_debug ("%s", msg);
 }
 
-
 void
 as_data_provider_log_warning (AsDataProvider* self, const gchar* msg)
 {
@@ -91,7 +88,6 @@ as_data_provider_log_warning (AsDataProvider* self, const gchar* msg)
 	g_return_if_fail (msg != NULL);
 	g_debug ("%s", msg);
 }
-
 
 gchar**
 as_data_provider_get_watch_files (AsDataProvider* self)
@@ -110,6 +106,18 @@ as_data_provider_set_watch_files (AsDataProvider* self, gchar** value)
 	g_object_notify ((GObject *) self, "watch-files");
 }
 
+void
+as_data_provider_set_locale (AsDataProvider *dprov, const gchar *locale)
+{
+	g_free (dprov->priv->locale);
+	dprov->priv->locale = g_strdup (locale);
+}
+
+const gchar*
+as_data_provider_get_locale (AsDataProvider *dprov)
+{
+	return dprov->priv->locale;
+}
 
 static void
 as_data_provider_class_init (AsDataProviderClass * klass)
@@ -127,13 +135,11 @@ as_data_provider_class_init (AsDataProviderClass * klass)
 	g_signal_new ("component", AS_TYPE_DATA_PROVIDER, G_SIGNAL_RUN_LAST, 0, NULL, NULL, g_cclosure_marshal_VOID__OBJECT, G_TYPE_NONE, 1, AS_TYPE_COMPONENT);
 }
 
-
 static void
 as_data_provider_instance_init (AsDataProvider * self)
 {
 	self->priv = AS_DATA_PROVIDER_GET_PRIVATE (self);
 }
-
 
 static void
 as_data_provider_finalize (GObject* obj)
@@ -143,7 +149,6 @@ as_data_provider_finalize (GObject* obj)
 	g_strfreev (self->priv->watch_files);
 	G_OBJECT_CLASS (as_data_provider_parent_class)->finalize (obj);
 }
-
 
 GType
 as_data_provider_get_type (void)
@@ -168,7 +173,6 @@ as_data_provider_get_type (void)
 	return as_data_provider_type_id__volatile;
 }
 
-
 static void
 as_data_provider_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)
 {
@@ -183,7 +187,6 @@ as_data_provider_get_property (GObject * object, guint property_id, GValue * val
 			break;
 	}
 }
-
 
 static void
 as_data_provider_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec)

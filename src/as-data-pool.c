@@ -65,6 +65,7 @@ struct _AsDataPoolPrivate
 	GPtrArray* providers;
 	gchar *scr_base_url;
 	gboolean initialized;
+	gchar *locale;
 
 	gchar **asxml_paths;
 	gchar **dep11_paths;
@@ -253,6 +254,8 @@ as_data_pool_update (AsDataPool *dpool)
 	for (i = 0; i < priv->providers->len; i++) {
 		gboolean dret;
 		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
+		as_data_provider_set_locale (dprov, priv->locale);
+
 		dret = as_data_provider_execute (dprov);
 		if (!dret)
 			ret = FALSE;
@@ -273,6 +276,36 @@ as_data_pool_get_components (AsDataPool *dpool)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 	return g_hash_table_get_values (priv->cpt_table);
+}
+
+/**
+ * as_data_pool_set_locale:
+ * @dpool: a #AsDataPool instance.
+ * @locale: the locale.
+ *
+ * Sets the current locale which should be used when parsing metadata.
+ **/
+void
+as_data_pool_set_locale (AsDataPool *dpool, const gchar *locale)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	g_free (priv->locale);
+	priv->locale = g_strdup (locale);
+}
+
+/**
+ * as_data_pool_get_locale:
+ * @dpool: a #AsDataPool instance.
+ *
+ * Gets the currently used locale.
+ *
+ * Returns: Locale used for metadata parsing.
+ **/
+const gchar *
+as_data_pool_get_locale (AsDataPool *dpool)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	return priv->locale;
 }
 
 /**
@@ -342,6 +375,9 @@ as_data_pool_new (void)
 
 	dpool = g_object_new (AS_TYPE_DATA_POOL, NULL);
 	priv = GET_PRIVATE (dpool);
+
+	/* set active locale */
+	priv->locale = as_get_locale ();
 
 	priv->cpt_table = g_hash_table_new_full (g_str_hash,
 								g_str_equal,
