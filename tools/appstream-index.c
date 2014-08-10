@@ -167,6 +167,9 @@ as_print_component (AsComponent *cpt)
 		gchar *str;
 		gchar **strv;
 
+		/* developer name */
+		as_print_key_value (_("Developer"), as_component_get_developer_name (cpt), FALSE);
+
 		/* long description */
 		str = as_description_markup_convert_simple (as_component_get_description (cpt));
 		as_print_key_value (_("Description"), str, FALSE);
