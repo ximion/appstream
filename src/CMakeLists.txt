@@ -9,7 +9,7 @@ find_library(M_LIB m)
 
 include(GObjectIntrospectionMacros)
 set(INTROSPECTION_GIRS)
-set(INTROSPECTION_SCANNER_ARGS "--identifier-prefix=As" "--symbol-prefix=as_" "--warn-all" "--add-include-path=${CMAKE_CURRENT_SOURCE_DIR}")
+set(INTROSPECTION_SCANNER_ARGS "--identifier-prefix=As" "--symbol-prefix=as" "--warn-all" "--add-include-path=${CMAKE_CURRENT_SOURCE_DIR}")
 set(INTROSPECTION_COMPILER_ARGS "--includedir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
