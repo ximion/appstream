@@ -68,8 +68,10 @@ schema_screenshots = Schema({
 
 schema_icon = Schema({
     Required(Any('stock',
-                 'cached'), msg="A 'stock' or 'cached' icon must at least be provided."): All(str, Length(min=1)),
+                 'cached',
+                 'local'), msg="A 'stock' or 'cached' icon must at least be provided."): All(str, Length(min=1)),
     'cached': All(str, Match(r'.*[.].*$'), msg='Icon entry is missing filename or extension'),
+    'local': All(str, Match(r'^[\'"]?(?:/[^/]+)*[\'"]?$'), msg='Icon entry should be an absolute path'),
     'remote': All(str, Url()),
 })
 
