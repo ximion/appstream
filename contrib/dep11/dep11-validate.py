@@ -69,7 +69,7 @@ schema_screenshots = Schema({
 schema_icon = Schema({
     Required(Any('stock',
                  'cached',
-                 'local'), msg="A 'stock' or 'cached' icon must at least be provided."): All(str, Length(min=1)),
+                 'local'), msg="A 'stock', 'cached' or 'local' icon must at least be provided."): All(str, Length(min=1)),
     'cached': All(str, Match(r'.*[.].*$'), msg='Icon entry is missing filename or extension'),
     'local': All(str, Match(r'^[\'"]?(?:/[^/]+)*[\'"]?$'), msg='Icon entry should be an absolute path'),
     'remote': All(str, Url()),
@@ -84,7 +84,7 @@ schema_url = Schema({
 })
 
 schema_component = Schema({
-    Required('Type'): All(str, Any('generic', 'desktop-app', 'web-app', 'addon', 'codec', 'inputmethod')),
+    Required('Type'): All(str, Any('generic', 'desktop-app', 'web-app', 'addon', 'codec', 'inputmethod', 'font')),
     Required('ID'): All(str, Length(min=1)),
     Required('Name'): All(dict, Length(min=1), schema_translated),
     Required('Packages'): All(list, Length(min=1)),
@@ -117,6 +117,8 @@ class DEP11Validator:
         for lang in ldict.keys():
             if lang == 'x-test':
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Found cruft locale: x-test"))
+            if lang == 'xx':
+                self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Found cruft locale: xx"))
             if lang.endswith('.UTF-8'):
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "AppStream locale names should not specify encoding (ends with .UTF-8)"))
 
@@ -155,6 +157,12 @@ class DEP11Validator:
             self._test_locale_cruft(doc, 'Description')
             self._test_locale_cruft(doc, 'DeveloperName')
             # TODO: test screenshot caption
+
+            desc = doc.get('Description', dict())
+            for d in desc.values():
+                if "<p xml:lang=" in d:
+                    self.add_issue("[%s]: Invalid, localized tag in long description: %s" % (doc['ID'], d))
+                    ret = False
 
         return ret
 
