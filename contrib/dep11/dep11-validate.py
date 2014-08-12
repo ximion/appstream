@@ -67,9 +67,7 @@ schema_screenshots = Schema({
 })
 
 schema_icon = Schema({
-    Required(Any('stock',
-                 'cached',
-                 'local'), msg="A 'stock', 'cached' or 'local' icon must at least be provided."): All(str, Length(min=1)),
+    'stock': All(str, Length(min=1)),
     'cached': All(str, Match(r'.*[.].*$'), msg='Icon entry is missing filename or extension'),
     'local': All(str, Match(r'^[\'"]?(?:/[^/]+)*[\'"]?$'), msg='Icon entry should be an absolute path'),
     'remote': All(str, Url()),
@@ -88,8 +86,8 @@ schema_component = Schema({
     Required('ID'): All(str, Length(min=1)),
     Required('Name'): All(dict, Length(min=1), schema_translated),
     Required('Packages'): All(list, Length(min=1)),
-    'Summary': All(dict, Length(min=1), schema_translated),
-    'Description': All(dict, Length(min=1), schema_translated),
+    'Summary': All(dict, {str: str}, Length(min=1), schema_translated),
+    'Description': All(dict, {str: str}, Length(min=1), schema_translated),
     'Categories': All(list, [str], Length(min=1)),
     'Url': All(dict, Length(min=1), schema_url),
     'Icon': All(dict, Length(min=1), schema_icon),
@@ -122,10 +120,27 @@ class DEP11Validator:
             if lang.endswith('.UTF-8'):
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "AppStream locale names should not specify encoding (ends with .UTF-8)"))
 
+    def _test_custom_objects(self, lines):
+        ret = True
+        for i in range(0, len(lines)):
+            if "!!python/" in lines[i]:
+                self.add_issue("Python object encoded in line %i." % (i))
+                ret = False
+        return ret
+
     def validate(self, fname):
         ret = True
+        ids_found = dict()
+
+        f = open(fname, 'r')
+        lines = f.readlines()
+        f.seek(0)
+
+        # see if there are any Python-specific objects encoded
+        ret = self._test_custom_objects(lines)
+
         try:
-            docs = yaml.load_all(open(fname, 'r'))
+            docs = yaml.load_all(f)
             header = next(docs)
         except Exception as e:
             self.add_issue("Could not parse file: %s" % (str(e)))
@@ -138,19 +153,38 @@ class DEP11Validator:
             ret = False
 
         for doc in docs:
+            docid = doc.get('ID')
             if not doc:
                 self.add_issue("FATAL: Empty document found.")
                 ret = False
                 continue
-            if not doc.get('ID', None):
+            if not docid:
                 self.add_issue("FATAL: Component without ID found.")
                 ret = False
                 continue
+            if ids_found.get(docid):
+                self.add_issue("FATAL: Found two components with the same ID: %s." % (docid))
+                ret = False
+                continue
+            else:
+                ids_found[docid] = True
             try:
                 schema_component(doc)
             except Exception as e:
-                self.add_issue("[%s]: %s" % (doc['ID'], str(e)))
+                self.add_issue("[%s]: %s" % (docid, str(e)))
                 ret = False
+                continue
+
+            # more tests for the icon key
+            icon = doc.get('Icon')
+            if (doc['Type'] == "desktop-app") or (doc['Type'] == "web-app"):
+                if not doc.get('Icon'):
+                    self.add_issue("[%s]: %s" % (docid, "Components containing an application must have an 'Icon' key."))
+                    ret = False
+            if icon:
+                if (not icon.get('stock')) and (not icon.get('cached')) and (not icon.get('local')):
+                    self.add_issue("[%s]: %s" % (docid, "A 'stock', 'cached' or 'local' icon must at least be provided. @ data['Icon']"))
+                    ret = False
 
             self._test_locale_cruft(doc, 'Name')
             self._test_locale_cruft(doc, 'Summary')
