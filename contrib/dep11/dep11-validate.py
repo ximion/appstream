@@ -61,8 +61,8 @@ schema_image = Schema({
 
 schema_screenshots = Schema({
     Required('default', default=False): All(bool),
-    Required('image-source'): All(dict, Length(min=1), schema_image),
-    'image-thumbnail': All(dict, Length(min=1), schema_image),
+    Required('source-image'): All(dict, Length(min=1), schema_image),
+    'thumbnails': All(list, Length(min=1), [schema_image]),
     'caption': All(dict, Length(min=1), schema_translated),
 })
 
@@ -109,9 +109,10 @@ class DEP11Validator:
         self.issue_list.append(msg)
 
     def _test_locale_cruft(self, doc, key):
+        ret = True
         ldict = doc.get(key, None)
         if not ldict:
-            return
+            return ret
         for lang in ldict.keys():
             if lang == 'x-test':
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Found cruft locale: x-test"))
@@ -119,6 +120,11 @@ class DEP11Validator:
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Found cruft locale: xx"))
             if lang.endswith('.UTF-8'):
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "AppStream locale names should not specify encoding (ends with .UTF-8)"))
+            if " " in lang:
+                self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Locale name contains space: '%s'" % (lang)))
+                # this - as opposed to the other issues - is an error
+                ret = False
+        return ret
 
     def _test_custom_objects(self, lines):
         ret = True
@@ -186,10 +192,14 @@ class DEP11Validator:
                     self.add_issue("[%s]: %s" % (docid, "A 'stock', 'cached' or 'local' icon must at least be provided. @ data['Icon']"))
                     ret = False
 
-            self._test_locale_cruft(doc, 'Name')
-            self._test_locale_cruft(doc, 'Summary')
-            self._test_locale_cruft(doc, 'Description')
-            self._test_locale_cruft(doc, 'DeveloperName')
+            if not self._test_locale_cruft(doc, 'Name'):
+                ret = False
+            if not self._test_locale_cruft(doc, 'Summary'):
+                ret = False
+            if not self._test_locale_cruft(doc, 'Description'):
+                ret = False
+            if not self._test_locale_cruft(doc, 'DeveloperName'):
+                ret = False
             # TODO: test screenshot caption
 
             desc = doc.get('Description', dict())
