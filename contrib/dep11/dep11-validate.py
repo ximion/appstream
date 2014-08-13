@@ -19,6 +19,7 @@
 
 import sys
 import yaml
+import xml.etree.ElementTree as ET
 from optparse import OptionParser
 from voluptuous import Schema, Required, All, Any, Length, Range, Match, Url
 
@@ -134,6 +135,36 @@ class DEP11Validator:
                 ret = False
         return ret
 
+    def _validate_description_tag(self, docid, child, allowed_tags):
+        ret = True
+        if not child.tag in allowed_tags:
+            self.add_issue("[%s]: %s" % (docid, "Invalid description markup found: '%s' @ data['Description']" % (child.tag)))
+            ret = False
+        if child.attrib.get('{http://www.w3.org/XML/1998/namespace}lang'):
+            self.add_issue("[%s]: Invalid, localized tag in long description: '%s' => %s @ data['Description']" % (docid, child.tag, child.text))
+            ret = False
+        elif len(child.attrib) > 0:
+            self.add_issue("[%s]: Markup tag has attributes: '%s' => %s @ data['Description']" % (docid, child.tag, child.attrib))
+            ret = False
+        return ret
+
+    def _validate_description(self, docid, desc):
+        ret = True
+        ET.register_namespace("xml", "http://www.w3.org/XML/1998/namespace")
+        try:
+            root = ET.fromstring("<root>%s</root>" % (desc))
+        except Exception as e:
+            self.add_issue("[%s]: %s" % (docid, "Broken description markup found: %s @ data['Description']" % (str(e))))
+            return False
+        for child in root:
+            if not self._validate_description_tag(docid, child, ['p', 'ul', 'ol']):
+                ret = False
+            if (child.tag == 'ul') or (child.tag == 'ol'):
+                for child2 in child:
+                    if not self._validate_description_tag(docid, child2, ['li']):
+                        ret = False
+        return ret
+
     def validate(self, fname):
         ret = True
         ids_found = dict()
@@ -204,8 +235,7 @@ class DEP11Validator:
 
             desc = doc.get('Description', dict())
             for d in desc.values():
-                if "<p xml:lang=" in d:
-                    self.add_issue("[%s]: Invalid, localized tag in long description: %s" % (doc['ID'], d))
+                if not self._validate_description(docid, d):
                     ret = False
 
         return ret
