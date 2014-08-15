@@ -109,23 +109,29 @@ class DEP11Validator:
     def add_issue(self, msg):
         self.issue_list.append(msg)
 
-    def _test_locale_cruft(self, doc, key):
+    def _test_localized_dict(self, doc, ldict, id_string):
         ret = True
-        ldict = doc.get(key, None)
-        if not ldict:
-            return ret
-        for lang in ldict.keys():
+        for lang, value in ldict.items():
             if lang == 'x-test':
-                self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Found cruft locale: x-test"))
+                self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "Found cruft locale: x-test"))
             if lang == 'xx':
-                self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Found cruft locale: xx"))
+                self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "Found cruft locale: xx"))
             if lang.endswith('.UTF-8'):
-                self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "AppStream locale names should not specify encoding (ends with .UTF-8)"))
+                self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "AppStream locale names should not specify encoding (ends with .UTF-8)"))
+            if (value.startswith("\"")) or (value.startswith("\'")):
+                self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "String is quoted: '%s' @ %s" % (value, lang)))
             if " " in lang:
-                self.add_issue("[%s][%s]: %s" % (doc['ID'], key, "Locale name contains space: '%s'" % (lang)))
+                self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "Locale name contains space: '%s'" % (lang)))
                 # this - as opposed to the other issues - is an error
                 ret = False
         return ret
+      
+    def _test_localized(self, doc, key):
+        ldict = doc.get(key, None)
+        if not ldict:
+            return True
+        
+        return self._test_localized_dict(doc, ldict, key)
 
     def _test_custom_objects(self, lines):
         ret = True
@@ -223,15 +229,20 @@ class DEP11Validator:
                     self.add_issue("[%s]: %s" % (docid, "A 'stock', 'cached' or 'local' icon must at least be provided. @ data['Icon']"))
                     ret = False
 
-            if not self._test_locale_cruft(doc, 'Name'):
+            if not self._test_localized(doc, 'Name'):
                 ret = False
-            if not self._test_locale_cruft(doc, 'Summary'):
+            if not self._test_localized(doc, 'Summary'):
                 ret = False
-            if not self._test_locale_cruft(doc, 'Description'):
+            if not self._test_localized(doc, 'Description'):
                 ret = False
-            if not self._test_locale_cruft(doc, 'DeveloperName'):
+            if not self._test_localized(doc, 'DeveloperName'):
                 ret = False
-            # TODO: test screenshot caption
+
+            for shot in doc.get('Screenshots', list()):
+                caption = shot.get('caption')
+                if caption:
+                    if not self._test_localized_dict(doc, caption, "Screenshots.caption"):
+                        ret = False
 
             desc = doc.get('Description', dict())
             for d in desc.values():
