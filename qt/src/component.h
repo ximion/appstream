@@ -132,6 +132,11 @@ class APPSTREAMQT_EXPORT Component {
         QList<Appstream::Screenshot> screenshots() const;
         void setScreenshots(const QList<Appstream::Screenshot>& screenshots);
 
+        /**
+         * \returns whether the component is fully initialized
+         */
+        bool isValid() const;
+
         static Kind stringToKind(const QString& kindString);
         static QString kindToString(Kind kind);
 
