@@ -1,21 +1,34 @@
 project(AppstreamQt)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
+set(APPSTREAM_QT_VERSION "4" CACHE STRING "Used Qt version")
+
 include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 add_compiler_export_flags()
 
-find_package(Qt4 4.8.0 COMPONENTS QtCore REQUIRED)
 find_package(Xapian 1.2 REQUIRED)
 
 ENABLE_TESTING()
 
-set(APPSTREAMQT_SO_VERSION 0)
-set(APPSTREAMQT_VERSION "0.1")
+if(APPSTREAM_QT_VERSION STREQUAL "4")
+    find_package(Qt4 4.8.0 COMPONENTS QtCore REQUIRED)
 
-set(QT_USE_IMPORTED_TARGETS true)
+    set(APPSTREAMQT_SO_VERSION 0)
+    set(APPSTREAMQT_VERSION "0.1")
 
-include(${QT_USE_FILE})
+    set(QT_USE_IMPORTED_TARGETS true)
+
+    include(${QT_USE_FILE})
+else()
+    find_package(Qt5 REQUIRED COMPONENTS Core)
+
+    set(APPSTREAMQT_SO_VERSION 1)
+    set(APPSTREAMQT_VERSION "1.1")
+
+#     when removing qt4 support, remove this too
+    set(QT_QTCORE_LIBRARY Qt5::Core)
+endif()
 
 set(CMAKE_AUTOMOC on)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

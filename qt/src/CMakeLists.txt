@@ -26,6 +26,7 @@ endif()
 
 add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
 target_link_libraries(AppstreamQt PUBLIC ${QT_QTCORE_LIBRARY} PRIVATE ${XAPIAN_LIBRARIES})
+target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${INSTALL_DIR_INC}}/>")
 generate_export_header(AppstreamQt)
 
 set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_SO_VERSION}.0.0")
