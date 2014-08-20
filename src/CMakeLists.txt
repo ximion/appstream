@@ -29,7 +29,6 @@ set(LIBAPPSTREAM_SRC
 		# internal stuff to build the database
 		as-data-provider.c
 		data-providers/appstream-xml.c
-		data-providers/debian-dep11.c
 		data-providers/ubuntu-appinstall.c
 		as-cache-builder.c
 		# (mostly) public API
@@ -49,6 +48,12 @@ set(LIBAPPSTREAM_SRC
 		as-validator.c
 		as-validator-issue.c
 )
+
+# find stuff necessary to build libappstream with DEP-11 support
+if(PROVIDER_DEBIAN_DEP11)
+	pkg_check_modules(YAML REQUIRED yaml-0.1)
+	set(LIBAPPSTREAM_SRC ${LIBAPPSTREAM_SRC} data-providers/debian-dep11.c)
+endif()
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
 		appstream.h
@@ -88,6 +93,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 		    ${GIO2_INCLUDE_DIR}
 		    ${LIBXML2_INCLUDE_DIR}
 		    ${XAPIAN_INCLUDE_DIR}
+		    ${YAML_INCLUDE_DIR}
 )
 
 add_definitions("-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE"
@@ -108,6 +114,7 @@ target_link_libraries(appstream
 		${GIO2_LIBRARIES}
 		${LIBXML2_LIBRARIES}
 		${XAPIAN_LIBRARIES}
+		${YAML_LIBRARIES}
 )
 
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc @ONLY)

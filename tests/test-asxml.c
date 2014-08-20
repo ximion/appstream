@@ -36,23 +36,23 @@ msg (const gchar *s)
 void
 test_appstream_parser ()
 {
-	AsProviderAppstreamXML *asxml;
+	AsProviderXML *asxml;
 	GFile *file;
 	gchar *path;
-	asxml = as_provider_appstream_xml_new ();
+	asxml = as_provider_xml_new ();
 
 	path = g_build_filename (datadir, "appdata.xml", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_provider_appstream_xml_process_file (asxml, file);
+	as_provider_xml_process_file (asxml, file);
 	g_object_unref (file);
 
 	path = g_build_filename (datadir, "appdata.xml.gz", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_provider_appstream_xml_process_compressed_file (asxml, file);
+	as_provider_xml_process_compressed_file (asxml, file);
 	g_object_unref (file);
 	g_object_unref (asxml);
 }
@@ -71,7 +71,7 @@ test_cptprov_cb (gpointer sender, AsComponent* cpt, gpointer user_data)
 void
 test_screenshot_handling ()
 {
-	AsProviderAppstreamXML *asxml;
+	AsProviderXML *asxml;
 	AsComponent *cpt;
 	GFile *file;
 	gchar *path;
@@ -79,7 +79,7 @@ test_screenshot_handling ()
 	GPtrArray *screenshots;
 	guint i;
 
-	asxml = as_provider_appstream_xml_new ();
+	asxml = as_provider_xml_new ();
 
 	found_cpt = NULL;
 	g_signal_connect_object (asxml, "component", (GCallback) test_cptprov_cb, 0, 0);
@@ -88,7 +88,7 @@ test_screenshot_handling ()
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_provider_appstream_xml_process_file (asxml, file);
+	as_provider_xml_process_file (asxml, file);
 	g_object_unref (file);
 	cpt = found_cpt;
 	g_assert (cpt != NULL);

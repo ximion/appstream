@@ -86,7 +86,7 @@ schema_component = Schema({
     Required('Type'): All(str, Any('generic', 'desktop-app', 'web-app', 'addon', 'codec', 'inputmethod', 'font')),
     Required('ID'): All(str, Length(min=1)),
     Required('Name'): All(dict, Length(min=1), schema_translated),
-    Required('Packages'): All(list, Length(min=1)),
+    Required('Packages'): All(list, [str], Length(min=1)),
     'Summary': All(dict, {str: str}, Length(min=1), schema_translated),
     'Description': All(dict, {str: str}, Length(min=1), schema_translated),
     'Categories': All(list, [str], Length(min=1)),
@@ -97,7 +97,7 @@ schema_component = Schema({
     'ProjectGroup': All(str, Length(min=1)),
     'DeveloperName': All(dict, Length(min=1), schema_translated),
     'Screenshots': All(list, Length(min=1), [schema_screenshots]),
-    'Extends': All(str, Length(min=1)),
+    'Extends': All(list, [str], Length(min=1)),
 })
 
 class DEP11Validator:

@@ -21,12 +21,16 @@
 #ifndef __AS_DATAPROVIDERDEP11_H
 #define __AS_DATAPROVIDERDEP11_H
 
-#include <glib-object.h>
+#include <glib.h>
+#include <gio/gio.h>
+
+#include "../as-utils-private.h"
+#include "../as-component.h"
 #include "../as-data-provider.h"
 
 #define AS_PROVIDER_TYPE_DEP11 (as_provider_dep11_get_type ())
-#define AS_PROVIDER_DE_P11(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_PROVIDER_TYPE_DEP11, AsProviderDEP11))
-#define AS_PROVIDER_DE_P11_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_PROVIDER_TYPE_DEP11, AsProviderDEP11Class))
+#define AS_PROVIDER_DEP11(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_PROVIDER_TYPE_DEP11, AsProviderDEP11))
+#define AS_PROVIDER_DEP11_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_PROVIDER_TYPE_DEP11, AsProviderDEP11Class))
 #define AS_PROVIDER_IS_DEP11(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), AS_PROVIDER_TYPE_DEP11))
 #define AS_PROVIDER_IS_DEP11_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), AS_PROVIDER_TYPE_DEP11))
 #define AS_PROVIDER_DEP11_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), AS_PROVIDER_TYPE_DEP11, AsProviderDEP11Class))
@@ -39,7 +43,7 @@ typedef struct _AsProviderDEP11Private AsProviderDEP11Private;
 
 struct _AsProviderDEP11 {
 	AsDataProvider parent_instance;
-	AsProviderDEP11Private * priv;
+	AsProviderDEP11Private *priv;
 };
 
 struct _AsProviderDEP11Class {

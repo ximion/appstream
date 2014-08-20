@@ -25,34 +25,36 @@
 #include <gio/gio.h>
 #include "../as-data-provider.h"
 
-#define AS_PROVIDER_TYPE_APPSTREAM_XML (as_provider_appstream_xml_get_type ())
-#define AS_PROVIDER_APPSTREAM_XML(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_PROVIDER_TYPE_APPSTREAM_XML, AsProviderAppstreamXML))
-#define AS_PROVIDER_APPSTREAM_XML_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_PROVIDER_TYPE_APPSTREAM_XML, AsProviderAppstreamXMLClass))
-#define AS_PROVIDER_IS_APPSTREAM_XML(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), AS_PROVIDER_TYPE_APPSTREAM_XML))
-#define AS_PROVIDER_IS_APPSTREAM_XML_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), AS_PROVIDER_TYPE_APPSTREAM_XML))
-#define AS_PROVIDER_APPSTREAM_XML_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), AS_PROVIDER_TYPE_APPSTREAM_XML, AsProviderAppstreamXMLClass))
+#define AS_PROVIDER_TYPE_XML (as_provider_xml_get_type ())
+#define AS_PROVIDER_XML(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_PROVIDER_TYPE_XML, AsProviderXML))
+#define AS_PROVIDER_XML_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_PROVIDER_TYPE_XML, AsProviderXMLClass))
+#define AS_PROVIDER_IS_APPSTREAM_XML(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), AS_PROVIDER_TYPE_XML))
+#define AS_PROVIDER_IS_APPSTREAM_XML_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), AS_PROVIDER_TYPE_XML))
+#define AS_PROVIDER_XML_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), AS_PROVIDER_TYPE_XML, AsProviderXMLClass))
 
 G_BEGIN_DECLS
 
-typedef struct _AsProviderAppstreamXML AsProviderAppstreamXML;
-typedef struct _AsProviderAppstreamXMLClass AsProviderAppstreamXMLClass;
-typedef struct _AsProviderAppstreamXMLPrivate AsProviderAppstreamXMLPrivate;
+typedef struct _AsProviderXML AsProviderXML;
+typedef struct _AsProviderXMLClass AsProviderXMLClass;
+typedef struct _AsProviderXMLPrivate AsProviderXMLPrivate;
 
-struct _AsProviderAppstreamXML {
+struct _AsProviderXML {
 	AsDataProvider parent_instance;
-	AsProviderAppstreamXMLPrivate * priv;
+	AsProviderXMLPrivate * priv;
 };
 
-struct _AsProviderAppstreamXMLClass {
+struct _AsProviderXMLClass {
 	AsDataProviderClass parent_class;
 };
 
-GType as_provider_appstream_xml_get_type (void) G_GNUC_CONST;
+GType as_provider_xml_get_type (void) G_GNUC_CONST;
 
-AsProviderAppstreamXML* as_provider_appstream_xml_new (void);
-AsProviderAppstreamXML* as_provider_appstream_xml_construct (GType object_type);
-gboolean as_provider_appstream_xml_process_compressed_file (AsProviderAppstreamXML* self, GFile* infile);
-gboolean as_provider_appstream_xml_process_file (AsProviderAppstreamXML* self, GFile* infile);
+AsProviderXML* as_provider_xml_new (void);
+AsProviderXML* as_provider_xml_construct (GType object_type);
+gboolean as_provider_xml_process_compressed_file (AsProviderXML *self,
+												GFile *infile);
+gboolean as_provider_xml_process_file (AsProviderXML *self,
+									   GFile *infile);
 
 G_END_DECLS
 

@@ -161,7 +161,7 @@ as_data_pool_initialize (AsDataPool *dpool)
 	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* added by priority: Appstream XML has the highest, Ubuntu AppInstall the lowest priority */
-	dprov = AS_DATA_PROVIDER (as_provider_appstream_xml_new ());
+	dprov = AS_DATA_PROVIDER (as_provider_xml_new ());
 	as_data_provider_set_watch_files (dprov, priv->asxml_paths);
 	g_ptr_array_add (priv->providers, dprov);
 #ifdef DEBIAN_DEP11
