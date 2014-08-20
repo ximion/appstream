@@ -191,7 +191,7 @@ AsComponent*
 as_component_construct (GType object_type)
 {
 	AsComponent *cpt = NULL;
-	gchar** strv;
+
 	cpt = (AsComponent*) g_object_new (object_type, NULL);
 	as_component_set_id (cpt, "");
 	as_component_set_name_original (cpt, "");
@@ -202,10 +202,8 @@ as_component_construct (GType object_type)
 	as_component_set_project_license (cpt, "");
 	as_component_set_project_group (cpt, "");
 	cpt->priv->keywords = NULL;
+	cpt->priv->categories = NULL;
 
-	strv = g_new0 (gchar*, 1 + 1);
-	strv[0] = NULL;
-	cpt->priv->categories = strv;
 	cpt->priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	cpt->priv->provided_items = g_ptr_array_new_with_free_func (g_free);
 	cpt->priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
@@ -484,31 +482,18 @@ _as_component_serialize_image (AsImage *img, xmlNode *subnode)
 }
 
 /**
- * as_component_dump_screenshot_data_xml:
+ * as_component_xml_add_screenshot_subnodes:
  *
- * Internal function to create XML which gets stored in the AppStream database
- * for screenshots
+ * Add screenshot subnodes to a root node
  */
-gchar*
-as_component_dump_screenshot_data_xml (AsComponent *cpt)
+static void
+as_component_xml_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 {
 	GPtrArray* sslist;
-	xmlDoc *doc;
-	xmlNode *root;
-	guint i;
 	AsScreenshot *sshot;
-	gchar *xmlstr = NULL;
-	g_return_val_if_fail (cpt != NULL, NULL);
+	guint i;
 
 	sslist = as_component_get_screenshots (cpt);
-	if (sslist->len == 0) {
-		return g_strdup ("");
-	}
-
-	doc = xmlNewDoc ((xmlChar*) NULL);
-	root = xmlNewNode (NULL, (xmlChar*) "screenshots");
-	xmlDocSetRootElement (doc, root);
-
 	for (i = 0; i < sslist->len; i++) {
 		xmlNode *subnode;
 		const gchar *str;
@@ -529,6 +514,33 @@ as_component_dump_screenshot_data_xml (AsComponent *cpt)
 		images = as_screenshot_get_images (sshot);
 		g_ptr_array_foreach (images, (GFunc) _as_component_serialize_image, subnode);
 	}
+}
+
+/**
+ * as_component_dump_screenshot_data_xml:
+ *
+ * Internal function to create XML which gets stored in the AppStream database
+ * for screenshots
+ */
+gchar*
+as_component_dump_screenshot_data_xml (AsComponent *cpt)
+{
+	GPtrArray* sslist;
+	xmlDoc *doc;
+	xmlNode *root;
+	gchar *xmlstr = NULL;
+	g_return_val_if_fail (cpt != NULL, NULL);
+
+	sslist = as_component_get_screenshots (cpt);
+	if (sslist->len == 0) {
+		return g_strdup ("");
+	}
+
+	doc = xmlNewDoc ((xmlChar*) NULL);
+	root = xmlNewNode (NULL, (xmlChar*) "screenshots");
+	xmlDocSetRootElement (doc, root);
+
+	as_component_xml_add_screenshot_subnodes (cpt, root);
 
 	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
 	xmlFreeDoc (doc);
@@ -696,31 +708,18 @@ as_component_complete (AsComponent *cpt, gchar *scr_base_url)
 }
 
 /**
- * as_component_dump_releases_data_xml:
+ * as_component_xml_add_release_subnodes:
  *
- * Internal function to create XML which gets stored in the AppStream database
- * for releases
+ * Add release nodes to a root node
  */
-gchar*
-as_component_dump_releases_data_xml (AsComponent *cpt)
+static void
+as_component_xml_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 {
 	GPtrArray* releases;
-	xmlDoc *doc;
-	xmlNode *root;
-	guint i;
 	AsRelease *release;
-	gchar *xmlstr = NULL;
-	g_return_val_if_fail (cpt != NULL, NULL);
+	guint i;
 
 	releases = as_component_get_releases (cpt);
-	if (releases->len == 0) {
-		return g_strdup ("");
-	}
-
-	doc = xmlNewDoc ((xmlChar*) NULL);
-	root = xmlNewNode (NULL, (xmlChar*) "releases");
-	xmlDocSetRootElement (doc, root);
-
 	for (i = 0; i < releases->len; i++) {
 		xmlNode *subnode;
 		const gchar *str;
@@ -742,6 +741,33 @@ as_component_dump_releases_data_xml (AsComponent *cpt)
 			xmlAddChild (subnode, n_desc);
 		}
 	}
+}
+
+/**
+ * as_component_dump_releases_data_xml:
+ *
+ * Internal function to create XML which gets stored in the AppStream database
+ * for releases
+ */
+gchar*
+as_component_dump_releases_data_xml (AsComponent *cpt)
+{
+	GPtrArray* releases;
+	xmlDoc *doc;
+	xmlNode *root;
+	gchar *xmlstr = NULL;
+	g_return_val_if_fail (cpt != NULL, NULL);
+
+	releases = as_component_get_releases (cpt);
+	if (releases->len == 0) {
+		return g_strdup ("");
+	}
+
+	doc = xmlNewDoc ((xmlChar*) NULL);
+	root = xmlNewNode (NULL, (xmlChar*) "releases");
+	xmlDocSetRootElement (doc, root);
+
+	as_component_xml_add_release_subnodes (cpt, root);
 
 	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
 	xmlFreeDoc (doc);
@@ -813,13 +839,115 @@ as_component_load_releases_from_internal_xml (AsComponent *cpt, const gchar* xml
 }
 
 /**
+ * as_component_xml_add_node:
+ *
+ * Add node if value is not empty
+ */
+static xmlNode*
+_as_component_xml_add_node (xmlNode *root, const gchar *name, const gchar *value)
+{
+	if (as_str_empty (value))
+		return NULL;
+
+	return xmlNewTextChild (root, NULL, (xmlChar*) name, (xmlChar*) value);
+}
+
+/**
+ * as_component_xml_add_node_list:
+ *
+ * Add node if value is not empty
+ */
+static void
+_as_component_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
+{
+	xmlNode *node;
+	guint i;
+
+	if (strv == NULL)
+		return;
+
+	if (name == NULL)
+		node = root;
+	else
+		node = xmlNewTextChild (root, NULL, (xmlChar*) name, NULL);
+	for (i = 0; strv[i] != NULL; i++) {
+		xmlNewTextChild (node, NULL, (xmlChar*) child_name, (xmlChar*) strv[i]);
+	}
+}
+
+/**
+ * as_component_to_xml:
+ * @cpt a valid #AsComponent
+ *
+ * Serialize the component data to XML.
+ * Note that this will produce an unlocalized file only, using the
+ * language which was selected when this component was obtained from the
+ * database. You will not receive the source XML back.
+ *
+ * Returns: (transfer full): A string containing the XML. Free with g_free()
+ */
+gchar*
+as_component_to_xml (AsComponent *cpt)
+{
+	xmlDoc *doc;
+	xmlNode *root;
+	xmlNode *node;
+	gchar **strv;
+	gchar *xmlstr = NULL;
+	AsComponentPrivate *priv = cpt->priv;
+	g_return_val_if_fail (cpt != NULL, NULL);
+
+	doc = xmlNewDoc ((xmlChar*) NULL);
+
+	/* define component root node */
+	root = xmlNewNode (NULL, (xmlChar*) "component");
+	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) || (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
+		xmlNewProp (root, (xmlChar*) "type",
+					(xmlChar*) as_component_kind_to_string (priv->kind));
+	}
+	xmlDocSetRootElement (doc, root);
+
+	_as_component_xml_add_node (root, "id", priv->id);
+	_as_component_xml_add_node (root, "name", priv->name);
+	_as_component_xml_add_node (root, "summary", priv->summary);
+	_as_component_xml_add_node (root, "description", priv->description);
+	_as_component_xml_add_node (root, "project_license", priv->project_license);
+	_as_component_xml_add_node (root, "project_group", priv->project_group);
+	_as_component_xml_add_node (root, "developer_name", priv->developer_name);
+
+	_as_component_xml_add_node_list (root, NULL, "pkgname", priv->pkgnames);
+	strv = as_ptr_array_to_strv (priv->extends);
+	_as_component_xml_add_node_list (root, NULL, "extends", strv);
+	g_strfreev (strv);
+	_as_component_xml_add_node_list (root, NULL, "compulsory_for_desktop", priv->compulsory_for_desktops);
+	_as_component_xml_add_node_list (root, "keywords", "keyword", priv->keywords);
+	_as_component_xml_add_node_list (root, "categories", "category", priv->categories);
+
+	/* releases node */
+	if (priv->releases->len > 0) {
+		node = xmlNewTextChild (root, NULL, (xmlChar*) "releases", NULL);
+		as_component_xml_add_release_subnodes (cpt, node);
+	}
+
+	/* screenshots node */
+	if (priv->releases->len > 0) {
+		node = xmlNewTextChild (root, NULL, (xmlChar*) "screenshots", NULL);
+		as_component_xml_add_screenshot_subnodes (cpt, node);
+	}
+
+	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
+	xmlFreeDoc (doc);
+
+	return xmlstr;
+}
+
+/**
  * as_component_provides_item:
- *
- * Checks if this component provides an item of the specified type
- *
  * @cpt a valid #AsComponent
  * @kind the kind of the provides-item
  * @value the value of the provides-item
+ *
+ * Checks if this component provides an item of the specified type
  *
  * Returns: %TRUE if an item was found
  */

@@ -47,6 +47,42 @@ test_simplemarkup ()
 	g_free (str);
 }
 
+gchar**
+_get_dummy_strv (const gchar *value)
+{
+	gchar **strv;
+
+	strv = g_new0 (gchar*, 1 + 2);
+	strv[0] = g_strdup (value);
+	strv[1] = NULL;
+
+	return strv;
+}
+
+void
+test_component ()
+{
+	AsComponent *cpt;
+	gchar *str;
+	gchar **strv;
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+
+	as_component_set_name (cpt, "Test");
+	as_component_set_summary (cpt, "It does things");
+
+	strv = _get_dummy_strv ("fedex");
+	as_component_set_pkgnames (cpt, strv);
+	g_strfreev (strv);
+
+	str = as_component_to_xml (cpt);
+	g_debug ("%s", str);
+
+	g_assert (g_strcmp0 (str, "<?xml version=\"1.0\"?>\n<component type=\"desktop\"><name>Test</name><summary>It does things</summary><pkgname>fedex</pkgname></component>\n") == 0);
+	g_free (str);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -70,6 +106,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/AppStream/MenuParser", test_menuparser);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
+	g_test_add_func ("/AppStream/Component", test_component);
 
 	ret = g_test_run ();
 	g_free (datadir);

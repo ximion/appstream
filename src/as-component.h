@@ -96,107 +96,109 @@ AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
 GType				as_component_get_type (void) G_GNUC_CONST;
 AsComponent*		as_component_new (void);
 AsComponent*		as_component_construct (GType object_type);
-gboolean			as_component_is_valid (AsComponent* self);
-gchar* 				as_component_to_string (AsComponent* self);
+gboolean			as_component_is_valid (AsComponent* cpt);
+gchar* 				as_component_to_string (AsComponent* cpt);
 
-AsComponentKind		as_component_get_kind (AsComponent* self);
-void				as_component_set_kind (AsComponent* self,
+AsComponentKind		as_component_get_kind (AsComponent* cpt);
+void				as_component_set_kind (AsComponent* cpt,
 										   AsComponentKind value);
 
-const gchar*		as_component_get_id (AsComponent* self);
-void				as_component_set_id (AsComponent* self,
+const gchar*		as_component_get_id (AsComponent* cpt);
+void				as_component_set_id (AsComponent* cpt,
 											const gchar* value);
 
-gchar**				as_component_get_pkgnames (AsComponent* self);
-void				as_component_set_pkgnames (AsComponent* self,
+gchar**				as_component_get_pkgnames (AsComponent* cpt);
+void				as_component_set_pkgnames (AsComponent* cpt,
 												gchar** value);
 
-const gchar*		as_component_get_name (AsComponent* self);
-void				as_component_set_name (AsComponent* self,
+const gchar*		as_component_get_name (AsComponent* cpt);
+void				as_component_set_name (AsComponent* cpt,
 											const gchar* value);
-const gchar* 		as_component_get_name_original (AsComponent* self);
-void				as_component_set_name_original (AsComponent* self,
+const gchar* 		as_component_get_name_original (AsComponent* cpt);
+void				as_component_set_name_original (AsComponent* cpt,
 													const gchar* value);
 
-const gchar*		as_component_get_summary (AsComponent* self);
-void				as_component_set_summary (AsComponent* self,
+const gchar*		as_component_get_summary (AsComponent* cpt);
+void				as_component_set_summary (AsComponent* cpt,
 													const gchar* value);
 
-const gchar*		as_component_get_description (AsComponent* self);
-void				as_component_set_description (AsComponent* self,
+const gchar*		as_component_get_description (AsComponent* cpt);
+void				as_component_set_description (AsComponent* cpt,
 													const gchar* value);
 
-const gchar* 		as_component_get_project_license (AsComponent* self);
-void				as_component_set_project_license (AsComponent* self,
+const gchar* 		as_component_get_project_license (AsComponent* cpt);
+void				as_component_set_project_license (AsComponent* cpt,
 													const gchar* value);
 
-const gchar* 		as_component_get_project_group (AsComponent* self);
-void				as_component_set_project_group (AsComponent* self,
+const gchar* 		as_component_get_project_group (AsComponent* cpt);
+void				as_component_set_project_group (AsComponent* cpt,
 													const gchar* value);
 
-const gchar*		as_component_get_developer_name (AsComponent* self);
-void				as_component_set_developer_name (AsComponent* self,
+const gchar*		as_component_get_developer_name (AsComponent* cpt);
+void				as_component_set_developer_name (AsComponent* cpt,
 													const gchar* value);
 
-gchar**				as_component_get_compulsory_for_desktops (AsComponent* self);
-void				as_component_set_compulsory_for_desktops (AsComponent* self,
+gchar**				as_component_get_compulsory_for_desktops (AsComponent* cpt);
+void				as_component_set_compulsory_for_desktops (AsComponent* cpt,
 																gchar** value);
-gboolean			as_component_is_compulsory_for_desktop (AsComponent* self,
+gboolean			as_component_is_compulsory_for_desktop (AsComponent* cpt,
 																const gchar* desktop);
 
-gchar**				as_component_get_categories (AsComponent* self);
-void				as_component_set_categories (AsComponent* self,
+gchar**				as_component_get_categories (AsComponent* cpt);
+void				as_component_set_categories (AsComponent* cpt,
 												 gchar** value);
-void				as_component_set_categories_from_str (AsComponent* self,
+void				as_component_set_categories_from_str (AsComponent* cpt,
 												const gchar* categories_str);
-gboolean			as_component_has_category (AsComponent *self,
+gboolean			as_component_has_category (AsComponent *cpt,
 												const gchar *category);
 
-GPtrArray*			as_component_get_screenshots (AsComponent* self);
-void				as_component_add_screenshot (AsComponent* self,
+GPtrArray*			as_component_get_screenshots (AsComponent* cpt);
+void				as_component_add_screenshot (AsComponent* cpt,
 												AsScreenshot* sshot);
 
-gchar**				as_component_get_keywords (AsComponent* self);
-void				as_component_set_keywords (AsComponent* self,
+gchar**				as_component_get_keywords (AsComponent* cpt);
+void				as_component_set_keywords (AsComponent* cpt,
 												gchar** value);
 
-const gchar*		as_component_get_icon (AsComponent* self);
-void				as_component_set_icon (AsComponent* self,
+const gchar*		as_component_get_icon (AsComponent* cpt);
+void				as_component_set_icon (AsComponent* cpt,
 											const gchar* value);
-const gchar*		as_component_get_icon_url (AsComponent* self);
-void				as_component_set_icon_url (AsComponent* self,
+const gchar*		as_component_get_icon_url (AsComponent* cpt);
+void				as_component_set_icon_url (AsComponent* cpt,
 											const gchar* value);
 
-GPtrArray*			as_component_get_provided_items (AsComponent* self);
-void				as_component_add_provided_item (AsComponent *self,
+GPtrArray*			as_component_get_provided_items (AsComponent* cpt);
+void				as_component_add_provided_item (AsComponent *cpt,
 										AsProvidesKind kind,
 										const gchar *value,
 										const gchar *data);
-gboolean			as_component_provides_item (AsComponent *self,
+gboolean			as_component_provides_item (AsComponent *cpt,
 										AsProvidesKind kind,
 										const gchar *value);
 
-GHashTable*			as_component_get_urls (AsComponent *self);
-const gchar*		as_component_get_url (AsComponent *self,
+GHashTable*			as_component_get_urls (AsComponent *cpt);
+const gchar*		as_component_get_url (AsComponent *cpt,
 										  AsUrlKind url_kind);
-void				as_component_add_url (AsComponent *self,
+void				as_component_add_url (AsComponent *cpt,
 										AsUrlKind url_kind,
 										const gchar *url);
 
-GPtrArray*			as_component_get_releases (AsComponent* self);
-void				as_component_add_release (AsComponent* self,
+GPtrArray*			as_component_get_releases (AsComponent* cpt);
+void				as_component_add_release (AsComponent* cpt,
 												AsRelease* release);
 
 GPtrArray*			as_component_get_extends (AsComponent *cpt);
 void				as_component_add_extends (AsComponent* cpt,
 												const gchar* cpt_id);
 
-void				as_component_add_language (AsComponent *self,
+void				as_component_add_language (AsComponent *cpt,
 												const gchar *locale,
 												gint percentage);
-gint				as_component_get_language (AsComponent *self,
+gint				as_component_get_language (AsComponent *cpt,
 											   const gchar *locale);
-GList*				as_component_get_languages (AsComponent *self);
+GList*				as_component_get_languages (AsComponent *cpt);
+
+gchar*				as_component_to_xml (AsComponent *cpt);
 
 G_END_DECLS
 
