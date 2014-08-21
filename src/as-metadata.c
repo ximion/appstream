@@ -743,7 +743,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 	g_ptr_array_unref (pkgnames);
 	g_strfreev (strv);
 
-	/* add compulsory information to component as strv */
+	/* add compulsoriy information to component as strv */
 	strv = as_ptr_array_to_strv (compulsory_for_desktops);
 	as_component_set_compulsory_for_desktops (cpt, strv);
 	g_ptr_array_unref (compulsory_for_desktops);

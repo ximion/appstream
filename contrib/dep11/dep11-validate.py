@@ -90,6 +90,7 @@ schema_component = Schema({
     'Summary': All(dict, {str: str}, Length(min=1), schema_translated),
     'Description': All(dict, {str: str}, Length(min=1), schema_translated),
     'Categories': All(list, [str], Length(min=1)),
+    'CompulsoryForDesktops': All(list, [str], Length(min=1)),
     'Url': All(dict, Length(min=1), schema_url),
     'Icon': All(dict, Length(min=1), schema_icon),
     'Keywords': All(dict, Length(min=1), schema_keywords),

@@ -277,11 +277,12 @@ as_component_is_valid (AsComponent *cpt)
 		return FALSE;
 
 	if ((cpt->priv->pkgnames != NULL) &&
+		(cpt->priv->pkgnames[0] != NULL) &&
 		(g_strcmp0 (cpt->priv->id, "") != 0) &&
 		(g_strcmp0 (cpt->priv->name, "") != 0) &&
 		(g_strcmp0 (cpt->priv->name_original, "") != 0)) {
-		ret = TRUE;
-		}
+			ret = TRUE;
+	}
 
 #if 0
 	if ((ret) && ctype == AS_COMPONENT_KIND_DESKTOP_APP) {

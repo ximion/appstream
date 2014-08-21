@@ -54,12 +54,12 @@ as_provider_dep11_new (void) {
 }
 
 /**
- * yaml_process_layer:
+ * dep11_yaml_process_layer:
  *
  * Create GNode tree from DEP-11 YAML document
  */
 static void
-yaml_process_layer (yaml_parser_t *parser, GNode *data)
+dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data)
 {
 	GNode *last_leaf = data;
 	yaml_event_t event;
@@ -87,7 +87,7 @@ yaml_process_layer (yaml_parser_t *parser, GNode *data)
 				break;
 			case YAML_MAPPING_START_EVENT:
 				/* depth += 1 */
-				yaml_process_layer (parser, last_leaf);
+				dep11_yaml_process_layer (parser, last_leaf);
 				storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
 				break;
 			case YAML_MAPPING_END_EVENT:
@@ -104,48 +104,132 @@ yaml_process_layer (yaml_parser_t *parser, GNode *data)
 }
 
 /**
- * dep11_get_localized_value:
+ * dep11_get_localized_node:
  */
-static gchar*
-dep11_get_localized_value (GNode *node, const gchar *locale, const gchar *value)
+static GNode*
+dep11_get_localized_node (GNode *node, const gchar *locale)
 {
-	gchar *str;
-	gchar **strv;
+	GNode *n;
+	GNode *tnode = NULL;
+	gchar *key;
+	gchar *locale_short = NULL;
 
-	if (locale == NULL) {
-		if ((as_str_empty (value)) && (g_strcmp0 ((gchar*) node->data, "C") == 0))
-			return g_strdup ((gchar*) node->children->data);
-		return NULL;
+	if (locale != NULL) {
+		gchar **strv;
+		strv = g_strsplit (locale, "_", 0);
+		locale_short = g_strdup (strv[0]);
+		g_strfreev (strv);
 	}
 
-	if (g_strcmp0 ((gchar*) node->data, locale) == 0)
-		return g_strdup ((gchar*) node->children->data);
+	for (n = node->children; n != NULL; n = n->next) {
+			key = (gchar*) n->data;
 
-	strv = g_strsplit (locale, "_", 0);
-	str = g_strdup (strv[0]);
+			if ((tnode == NULL) && (g_strcmp0 (key, "C") == 0)) {
+				tnode = n;
+				if (locale == NULL)
+					goto out;
+			}
+
+			if (g_strcmp0 (key, locale) == 0) {
+				tnode = n;
+				goto out;
+			}
+
+			if (g_strcmp0 (key, locale_short) == 0) {
+				tnode = n;
+				goto out;
+			}
+	}
+
+out:
+	g_free (locale_short);
+	return tnode;
+}
+
+/**
+ * dep11_get_localized_value:
+ *
+ * Get localized string from a translated DEP-11 key
+ */
+static gchar*
+dep11_get_localized_value (GNode *node, const gchar *locale)
+{
+	GNode *tnode;
+
+	tnode = dep11_get_localized_node (node, locale);
+	if (tnode == NULL)
+		return NULL;
+
+	return g_strdup ((gchar*) tnode->children->data);
+}
+
+/**
+ * dep11_list_to_string_array:
+ */
+static void
+dep11_list_to_string_array (GNode *node, GPtrArray *array)
+{
+	GNode *n;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		g_ptr_array_add (array, g_strdup ((gchar*) n->data));
+	}
+}
+
+/**
+ * dep11_list_to_string_array:
+ *
+ * Process a keywords node and add the data to an #AsComponent
+ */
+static void
+dep11_process_keywords (GNode *node, AsComponent *cpt, const gchar *locale)
+{
+	GNode *tnode;
+	GPtrArray *keywords;
+	gchar **strv;
+
+	keywords = g_ptr_array_new_with_free_func (g_free);
+
+	tnode = dep11_get_localized_node (node, locale);
+	/* no node found? */
+	if (tnode == NULL)
+		return;
+
+	dep11_list_to_string_array (tnode, keywords);
+
+	strv = as_ptr_array_to_strv (keywords);
+	as_component_set_keywords (cpt, strv);
+	g_ptr_array_unref (keywords);
 	g_strfreev (strv);
-	if (g_strcmp0 ((gchar*) node->data, str) == 0)
-		return g_strdup ((gchar*) node->children->data);
-	g_free (str);
-
-	return NULL;
 }
 
 /**
  * as_provider_dep11_process_component_doc:
  */
-gboolean
-as_provider_dep11_process_component_node (AsProviderDEP11 *dproc, AsComponent *cpt, GNode *node, const gchar *locale, const gchar *origin)
+AsComponent*
+as_provider_dep11_process_component_node (AsProviderDEP11 *dproc, GNode *root, const gchar *locale, const gchar *origin)
 {
-	GNode *n;
-	gchar *key;
-	gchar *value;
+	GNode *node;
+	AsComponent *cpt;
 
-	key = (gchar*) node->data;
+	gchar **strv;
+	GPtrArray *pkgnames;
+	GPtrArray *categories;
+	GPtrArray *compulsory_for_desktops;
 
-	for (n = node->children; n != NULL; n = n->next) {
+	cpt = as_component_new ();
+
+	pkgnames = g_ptr_array_new_with_free_func (g_free);
+	categories = g_ptr_array_new_with_free_func (g_free);
+	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
+
+	for (node = root->children; node != NULL; node = node->next) {
+		gchar *key;
+		gchar *value;
 		gchar *lvalue;
-		value = (gchar*) n->data;
+
+		key = (gchar*) node->data;
+		value = (gchar*) node->children->data;
 
 		if (g_strcmp0 (key, "Type") == 0) {
 			if (g_strcmp0 (value, "desktop-app") == 0)
@@ -156,43 +240,65 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dproc, AsComponent *c
 				as_component_set_kind (cpt, as_component_kind_from_string (value));
 		} else if (g_strcmp0 (key, "ID") == 0) {
 			as_component_set_id (cpt, value);
+		} else if (g_strcmp0 (key, "Packages") == 0) {
+			dep11_list_to_string_array (node, pkgnames);
 		} else if (g_strcmp0 (key, "Name") == 0) {
-			lvalue = dep11_get_localized_value (n, NULL, as_component_get_name_original (cpt));
+			lvalue = dep11_get_localized_value (node, NULL);
 			if (lvalue != NULL) {
 				as_component_set_name_original (cpt, lvalue);
 				g_free (lvalue);
 			}
-			lvalue = dep11_get_localized_value (n, locale, as_component_get_name (cpt));
+			lvalue = dep11_get_localized_value (node, locale);
 			as_component_set_name (cpt, lvalue);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Summary") == 0) {
-			lvalue = dep11_get_localized_value (n, locale, as_component_get_summary (cpt));
-			if (lvalue != NULL) {
-				as_component_set_summary (cpt, lvalue);
-				g_free (lvalue);
-			}
+			lvalue = dep11_get_localized_value (node, locale);
+			as_component_set_summary (cpt, lvalue);
+			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Description") == 0) {
-			lvalue = dep11_get_localized_value (n, locale, as_component_get_description (cpt));
-			if (lvalue != NULL) {
-				as_component_set_description (cpt, lvalue);
-				g_free (lvalue);
-			}
+			lvalue = dep11_get_localized_value (node, locale);
+			as_component_set_description (cpt, lvalue);
+			g_free (lvalue);
 		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
-			lvalue = dep11_get_localized_value (n, locale, as_component_get_developer_name (cpt));
-			if (lvalue != NULL) {
-				as_component_set_developer_name (cpt, lvalue);
-				g_free (lvalue);
-			}
+			lvalue = dep11_get_localized_value (node, locale);
+			as_component_set_developer_name (cpt, lvalue);
+			g_free (lvalue);
 		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {
 			as_component_set_project_license (cpt, value);
 		} else if (g_strcmp0 (key, "ProjectGroup") == 0) {
 			as_component_set_project_group (cpt, value);
+		} else if (g_strcmp0 (key, "Categories") == 0) {
+			dep11_list_to_string_array (node, categories);
+		} else if (g_strcmp0 (key, "CompulsoryForDesktops") == 0) {
+			dep11_list_to_string_array (node, compulsory_for_desktops);
+		} else if (g_strcmp0 (key, "Extends") == 0) {
+			dep11_list_to_string_array (node, as_component_get_extends (cpt));
+		} else if (g_strcmp0 (key, "Keywords") == 0) {
+			dep11_process_keywords (node, cpt, locale);
 		} else {
-			printf("%s: %s\n", key, value);
+			//printf("%s: %s\n", key, value);
 		}
 	}
 
-	return TRUE;
+	/* add package name information to component */
+	strv = as_ptr_array_to_strv (pkgnames);
+	as_component_set_pkgnames (cpt, strv);
+	g_ptr_array_unref (pkgnames);
+	g_strfreev (strv);
+
+	/* add category information to component */
+	strv = as_ptr_array_to_strv (categories);
+	as_component_set_categories (cpt, strv);
+	g_ptr_array_unref (categories);
+	g_strfreev (strv);
+
+	/* add desktop-compulsority information to component */
+	strv = as_ptr_array_to_strv (compulsory_for_desktops);
+	as_component_set_compulsory_for_desktops (cpt, strv);
+	g_ptr_array_unref (compulsory_for_desktops);
+	g_strfreev (strv);
+
+	return cpt;
 }
 
 /**
@@ -224,14 +330,12 @@ as_provider_dep11_process_data (AsProviderDEP11 *dprov, const gchar *data)
 			AsComponent *cpt;
 			GNode *root = g_node_new("");
 
-			yaml_process_layer (&parser, root);
-			if (!header)
-				cpt = as_component_new ();
+			dep11_yaml_process_layer (&parser, root);
 
-			for (n = root->children; n != NULL; n = n->next) {
-				key = (gchar*) n->data;
-				value = (gchar*) n->children->data;
-				if (header) {
+			if (header) {
+				for (n = root->children; n != NULL; n = n->next) {
+					key = (gchar*) n->data;
+					value = (gchar*) n->children->data;
 					if (g_strcmp0 (key, "File") == 0) {
 						if (g_strcmp0 (value, "DEP-11") != 0) {
 							ret = FALSE;
@@ -245,14 +349,12 @@ as_provider_dep11_process_data (AsProviderDEP11 *dprov, const gchar *data)
 							g_warning ("Invalid DEP-11 file found: No origin set in header.");
 						}
 					}
-				} else {
-					ret = as_provider_dep11_process_component_node (dprov, cpt, n, locale, origin);
-					if (!ret)
-						parse = FALSE;
 				}
-			}
+			} else {
+				cpt = as_provider_dep11_process_component_node (dprov, root, locale, origin);
+				if (cpt == NULL)
+					parse = FALSE;
 
-			if (!header) {
 				if (as_component_is_valid (cpt)) {
 					/* everything is fine with this component, we can emit it */
 					as_data_provider_emit_component (AS_DATA_PROVIDER (dprov), cpt);
@@ -265,6 +367,7 @@ as_provider_dep11_process_data (AsProviderDEP11 *dprov, const gchar *data)
 					g_free (str);
 					g_free (str2);
 				}
+				g_debug ("%s", as_component_to_string (cpt));
 				g_object_unref (cpt);
 			}
 
