@@ -199,7 +199,7 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 
 	if (as_component_is_valid (cpt)) {
 		/* everything is fine with this component, we can emit it */
-		as_data_provider_emit_application ((AsDataProvider*) self, cpt);
+		as_data_provider_emit_component ((AsDataProvider*) self, cpt);
 	} else {
 		str = as_component_to_string (cpt);
 		str2 = g_strdup_printf ("Invalid application found: %s\n", str);
@@ -207,6 +207,7 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 		g_free (str);
 		g_free (str2);
 	}
+	g_object_unref (cpt);
 
 out:
 	g_key_file_unref (dfile);

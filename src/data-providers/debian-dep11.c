@@ -24,7 +24,15 @@
 #include <glib-object.h>
 #include <yaml.h>
 
+#include "../as-utils.h"
+
 static gpointer as_provider_dep11_parent_class = NULL;
+
+enum YamlNodeKind {
+	YAML_VAR,
+	YAML_VAL,
+	YAML_SEQ
+};
 
 /**
  * as_provider_dep11_construct:
@@ -46,16 +54,237 @@ as_provider_dep11_new (void) {
 }
 
 /**
+ * yaml_process_layer:
+ *
+ * Create GNode tree from DEP-11 YAML document
+ */
+static void
+yaml_process_layer (yaml_parser_t *parser, GNode *data)
+{
+	GNode *last_leaf = data;
+	yaml_event_t event;
+	gboolean parse = TRUE;
+	int storage = YAML_VAR; /* the first element must always be of type VAR */
+
+    while (parse) {
+    	yaml_parser_parse (parser, &event);
+
+		/* Parse value either as a new leaf in the mapping
+		 * or as a leaf value (one of them, in case it's a sequence) */
+		switch (event.type) {
+			case YAML_SCALAR_EVENT:
+				if (storage)
+					g_node_append_data(last_leaf, g_strdup((gchar*) event.data.scalar.value));
+				else
+					last_leaf = g_node_append(data, g_node_new(g_strdup((gchar*) event.data.scalar.value)));
+				storage ^= YAML_VAL;
+				break;
+			case YAML_SEQUENCE_START_EVENT:
+				storage = YAML_SEQ;
+				break;
+			case YAML_SEQUENCE_END_EVENT:
+				storage = YAML_VAR;
+				break;
+			case YAML_MAPPING_START_EVENT:
+				/* depth += 1 */
+				yaml_process_layer (parser, last_leaf);
+				storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
+				break;
+			case YAML_MAPPING_END_EVENT:
+			case YAML_STREAM_END_EVENT:
+			case YAML_DOCUMENT_END_EVENT:
+				/* depth -= 1 */
+				parse = FALSE;
+				break;
+			default:
+				break;
+		}
+    	yaml_event_delete(&event);
+    }
+}
+
+/**
+ * dep11_get_localized_value:
+ */
+static gchar*
+dep11_get_localized_value (GNode *node, const gchar *locale, const gchar *value)
+{
+	gchar *str;
+	gchar **strv;
+
+	if (locale == NULL) {
+		if ((as_str_empty (value)) && (g_strcmp0 ((gchar*) node->data, "C") == 0))
+			return g_strdup ((gchar*) node->children->data);
+		return NULL;
+	}
+
+	if (g_strcmp0 ((gchar*) node->data, locale) == 0)
+		return g_strdup ((gchar*) node->children->data);
+
+	strv = g_strsplit (locale, "_", 0);
+	str = g_strdup (strv[0]);
+	g_strfreev (strv);
+	if (g_strcmp0 ((gchar*) node->data, str) == 0)
+		return g_strdup ((gchar*) node->children->data);
+	g_free (str);
+
+	return NULL;
+}
+
+/**
+ * as_provider_dep11_process_component_doc:
+ */
+gboolean
+as_provider_dep11_process_component_node (AsProviderDEP11 *dproc, AsComponent *cpt, GNode *node, const gchar *locale, const gchar *origin)
+{
+	GNode *n;
+	gchar *key;
+	gchar *value;
+
+	key = (gchar*) node->data;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		gchar *lvalue;
+		value = (gchar*) n->data;
+
+		if (g_strcmp0 (key, "Type") == 0) {
+			if (g_strcmp0 (value, "desktop-app") == 0)
+				as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+			else if (g_strcmp0 (value, "generic") == 0)
+				as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+			else
+				as_component_set_kind (cpt, as_component_kind_from_string (value));
+		} else if (g_strcmp0 (key, "ID") == 0) {
+			as_component_set_id (cpt, value);
+		} else if (g_strcmp0 (key, "Name") == 0) {
+			lvalue = dep11_get_localized_value (n, NULL, as_component_get_name_original (cpt));
+			if (lvalue != NULL) {
+				as_component_set_name_original (cpt, lvalue);
+				g_free (lvalue);
+			}
+			lvalue = dep11_get_localized_value (n, locale, as_component_get_name (cpt));
+			as_component_set_name (cpt, lvalue);
+			g_free (lvalue);
+		} else if (g_strcmp0 (key, "Summary") == 0) {
+			lvalue = dep11_get_localized_value (n, locale, as_component_get_summary (cpt));
+			if (lvalue != NULL) {
+				as_component_set_summary (cpt, lvalue);
+				g_free (lvalue);
+			}
+		} else if (g_strcmp0 (key, "Description") == 0) {
+			lvalue = dep11_get_localized_value (n, locale, as_component_get_description (cpt));
+			if (lvalue != NULL) {
+				as_component_set_description (cpt, lvalue);
+				g_free (lvalue);
+			}
+		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
+			lvalue = dep11_get_localized_value (n, locale, as_component_get_developer_name (cpt));
+			if (lvalue != NULL) {
+				as_component_set_developer_name (cpt, lvalue);
+				g_free (lvalue);
+			}
+		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {
+			as_component_set_project_license (cpt, value);
+		} else if (g_strcmp0 (key, "ProjectGroup") == 0) {
+			as_component_set_project_group (cpt, value);
+		} else {
+			printf("%s: %s\n", key, value);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
  * as_provider_dep11_process_data:
  */
 gboolean
 as_provider_dep11_process_data (AsProviderDEP11 *dprov, const gchar *data)
 {
+	yaml_parser_t parser;
+	yaml_event_t event;
 	gboolean ret;
+	gboolean header = TRUE;
+	gboolean parse = TRUE;
+	gchar *origin = NULL;
+	const gchar *locale;
 
+    yaml_parser_initialize (&parser);
+    yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen(data));
+
+	locale = as_data_provider_get_locale (AS_DATA_PROVIDER (dprov));
 	ret = TRUE;
 
-	/* TODO */
+	while (parse) {
+    	yaml_parser_parse(&parser, &event);
+		if (event.type == YAML_DOCUMENT_START_EVENT) {
+			GNode *n;
+			gchar *key;
+			gchar *value;
+			AsComponent *cpt;
+			GNode *root = g_node_new("");
+
+			yaml_process_layer (&parser, root);
+			if (!header)
+				cpt = as_component_new ();
+
+			for (n = root->children; n != NULL; n = n->next) {
+				key = (gchar*) n->data;
+				value = (gchar*) n->children->data;
+				if (header) {
+					if (g_strcmp0 (key, "File") == 0) {
+						if (g_strcmp0 (value, "DEP-11") != 0) {
+							ret = FALSE;
+							g_warning ("Invalid DEP-11 file found: Header invalid");
+						}
+					} else if (g_strcmp0 (key, "Origin") == 0) {
+						if ((value != NULL) && (origin == NULL)) {
+							origin = g_strdup (value);
+						} else {
+							ret = FALSE;
+							g_warning ("Invalid DEP-11 file found: No origin set in header.");
+						}
+					}
+				} else {
+					ret = as_provider_dep11_process_component_node (dprov, cpt, n, locale, origin);
+					if (!ret)
+						parse = FALSE;
+				}
+			}
+
+			if (!header) {
+				if (as_component_is_valid (cpt)) {
+					/* everything is fine with this component, we can emit it */
+					as_data_provider_emit_component (AS_DATA_PROVIDER (dprov), cpt);
+				} else {
+					gchar *str;
+					gchar *str2;
+					str = as_component_to_string (cpt);
+					str2 = g_strdup_printf ("Invalid component found: %s\n", str);
+					as_data_provider_log_warning (AS_DATA_PROVIDER (dprov), str2);
+					g_free (str);
+					g_free (str2);
+				}
+				g_object_unref (cpt);
+			}
+
+			header = FALSE;
+			g_node_destroy(root);
+		}
+
+		/* stop if end of stream is reached */
+		if (event.type == YAML_STREAM_END_EVENT)
+			parse = FALSE;
+
+		/* we don't continue on error */
+		if (!ret)
+			parse = FALSE;
+
+		yaml_event_delete(&event);
+	}
+
+    yaml_parser_delete (&parser);
+	g_free (origin);
 
 	return ret;
 }
@@ -162,6 +391,7 @@ as_provider_dep11_real_execute (AsDataProvider* base)
 		if (!g_file_test (path, G_FILE_TEST_EXISTS)) {
 			continue;
 		}
+
 		yamls = as_utils_find_files_matching (path, "*.yml*", FALSE);
 		if (yamls == NULL)
 			continue;

@@ -95,6 +95,7 @@ schema_component = Schema({
     'Keywords': All(dict, Length(min=1), schema_keywords),
     'Provides': All(dict, Length(min=1), schema_provides),
     'ProjectGroup': All(str, Length(min=1)),
+    'ProjectLicense': All(str, Length(min=1)),
     'DeveloperName': All(dict, Length(min=1), schema_translated),
     'Screenshots': All(list, Length(min=1), [schema_screenshots]),
     'Extends': All(list, [str], Length(min=1)),
@@ -125,12 +126,12 @@ class DEP11Validator:
                 # this - as opposed to the other issues - is an error
                 ret = False
         return ret
-      
+
     def _test_localized(self, doc, key):
         ldict = doc.get(key, None)
         if not ldict:
             return True
-        
+
         return self._test_localized_dict(doc, ldict, key)
 
     def _test_custom_objects(self, lines):

@@ -66,7 +66,7 @@ GType as_data_provider_get_type (void) G_GNUC_CONST;
 
 AsDataProvider*		as_data_provider_construct (GType object_type);
 
-void				as_data_provider_emit_application (AsDataProvider* self,
+void				as_data_provider_emit_component (AsDataProvider* self,
 													   AsComponent* cpt);
 gboolean			as_data_provider_execute (AsDataProvider* self);
 

@@ -52,7 +52,7 @@ as_data_provider_construct (GType object_type)
 }
 
 void
-as_data_provider_emit_application (AsDataProvider* self, AsComponent* cpt)
+as_data_provider_emit_component (AsDataProvider* self, AsComponent* cpt)
 {
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (cpt != NULL);

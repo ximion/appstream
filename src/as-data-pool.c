@@ -166,6 +166,7 @@ as_data_pool_initialize (AsDataPool *dpool)
 	g_ptr_array_add (priv->providers, dprov);
 #ifdef DEBIAN_DEP11
 	dprov = AS_DATA_PROVIDER (as_provider_dep11_new ());
+	as_data_provider_set_watch_files (dprov, priv->dep11_paths);
 	g_ptr_array_add (priv->providers, dprov);
 #endif
 #ifdef UBUNTU_APPINSTALL

@@ -124,7 +124,7 @@ as_provider_xml_process_single_document (AsProviderXML* dprov, const gchar* xmld
 				g_error_free (error);
 				error = NULL;
 			} else if (cpt != NULL) {
-				as_data_provider_emit_application ((AsDataProvider*) dprov, cpt);
+				as_data_provider_emit_component (AS_DATA_PROVIDER (dprov), cpt);
 				g_object_unref (cpt);
 			}
 		}
@@ -250,7 +250,7 @@ as_provider_xml_real_execute (AsDataProvider* base)
 
 	if (xml_files->len == 0) {
 		g_ptr_array_unref (xml_files);
-		return FALSE;
+		return ret;
 	}
 
 	ret = TRUE;
