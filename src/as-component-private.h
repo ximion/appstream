@@ -34,14 +34,15 @@ gchar*				as_component_dump_releases_data_xml (AsComponent* self);
 void				as_component_load_releases_from_internal_xml (AsComponent* self,
 																  const gchar* xmldata);
 
-void				as_component_complete (AsComponent* self,
-										   gchar *scr_base_url);
-
 int					as_component_get_priority (AsComponent* self);
 void				as_component_set_priority (AsComponent* self,
 											   int priority);
 
 GHashTable*			as_component_get_languages_map (AsComponent *self);
+
+void				as_component_complete (AsComponent* self,
+										   gchar *scr_base_url,
+										   gchar **icon_paths);
 
 G_END_DECLS
 

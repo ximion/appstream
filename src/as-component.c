@@ -652,63 +652,6 @@ as_component_load_screenshots_from_internal_xml (AsComponent *cpt, const gchar* 
 }
 
 /**
- * as_component_complete:
- *
- * Private function to complete a AsComponent with
- * additional data found on the system.
- *
- * @scr_base_url Base url for screenshot-service, obtain via #AsDistroDetails
- */
-void
-as_component_complete (AsComponent *cpt, gchar *scr_base_url)
-{
-	AsComponentPrivate *priv = cpt->priv;
-
-	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
-	if ((priv->screenshots->len == 0) && (priv->pkgnames != NULL)) {
-		gchar *url;
-		AsImage *img;
-		AsScreenshot *sshot;
-
-		url = g_build_filename (scr_base_url, "screenshot", priv->pkgnames[0], NULL);
-
-		/* screenshots.debian.net-like services dont specify a size, so we choose the default sizes
-		 * (800x600 for source-type images, 160x120 for thumbnails)
-		 */
-
-		/* add main image */
-		img = as_image_new ();
-		as_image_set_url (img, url);
-		as_image_set_width (img, 800);
-		as_image_set_height (img, 600);
-		as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
-
-		sshot = as_screenshot_new ();
-		as_screenshot_add_image (sshot, img);
-		as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
-
-		g_object_unref (img);
-		g_free (url);
-
-		/* add thumbnail */
-		url = g_build_filename (scr_base_url, "thumbnail", priv->pkgnames[0], NULL);
-		img = as_image_new ();
-		as_image_set_url (img, url);
-		as_image_set_width (img, 160);
-		as_image_set_height (img, 120);
-		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-		as_screenshot_add_image (sshot, img);
-
-		/* add screenshot to component */
-		as_component_add_screenshot (cpt, sshot);
-
-		g_object_unref (img);
-		g_object_unref (sshot);
-		g_free (url);
-	}
-}
-
-/**
  * as_component_xml_add_release_subnodes:
  *
  * Add release nodes to a root node
@@ -1602,6 +1545,130 @@ GHashTable*
 as_component_get_languages_map (AsComponent *cpt)
 {
 	return cpt->priv->languages;
+}
+
+/**
+ * as_component_refine_icon:
+ *
+ * We use this method to ensure the "icon" and "icon_url" properties of
+ * a component are properly set, by finding the icons in default directories.
+ */
+void
+as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
+{
+	const gchar *exensions[] = { "png",
+				     "svg",
+				     "svgz",
+				     "gif",
+				     "ico",
+				     "xcf",
+				     NULL };
+	gchar *tmp_icon_path;
+	const gchar *icon_url;
+	guint i, j;
+
+	icon_url = as_component_get_icon_url (cpt);
+	if (g_str_has_prefix (icon_url, "/") ||
+		g_str_has_prefix (icon_url, "http://")) {
+		/* looks like this component already has a full icon path... */
+		return;
+	}
+	tmp_icon_path = NULL;
+
+	if (g_strcmp0 (icon_url, "") == 0) {
+		icon_url = as_component_get_icon (cpt);
+	}
+
+	/* search local icon path */
+	for (i = 0; icon_paths[i] != NULL; i++) {
+		/* sometimes, the file already has an extension */
+		tmp_icon_path = g_strdup_printf ("%s/%s",
+					     icon_paths[i],
+					     icon_url);
+		if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
+			goto out;
+		g_free (tmp_icon_path);
+
+		/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
+		for (j = 0; exensions[j] != NULL; j++) {
+			tmp_icon_path = g_strdup_printf ("%s/%s.%s",
+					     icon_paths[i],
+					     icon_url,
+					     exensions[j]);
+			if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
+				goto out;
+			g_free (tmp_icon_path);
+			tmp_icon_path = NULL;
+		}
+	}
+
+out:
+	if (tmp_icon_path != NULL) {
+		as_component_set_icon_url (cpt, tmp_icon_path);
+		g_free (tmp_icon_path);
+	}
+}
+
+/**
+ * as_component_complete:
+ * @scr_base_url Base url for screenshot-service, obtain via #AsDistroDetails
+ * @icon_paths Zero-terminated string array of possible (cached) icon locations
+ *
+ * Private function to complete a AsComponent with
+ * additional data found on the system.
+ *
+ * INTERNAL
+ */
+void
+as_component_complete (AsComponent *cpt, gchar *scr_base_url, gchar **icon_paths)
+{
+	AsComponentPrivate *priv = cpt->priv;
+
+	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
+	if ((priv->screenshots->len == 0) && (priv->pkgnames != NULL)) {
+		gchar *url;
+		AsImage *img;
+		AsScreenshot *sshot;
+
+		url = g_build_filename (scr_base_url, "screenshot", priv->pkgnames[0], NULL);
+
+		/* screenshots.debian.net-like services dont specify a size, so we choose the default sizes
+		 * (800x600 for source-type images, 160x120 for thumbnails)
+		 */
+
+		/* add main image */
+		img = as_image_new ();
+		as_image_set_url (img, url);
+		as_image_set_width (img, 800);
+		as_image_set_height (img, 600);
+		as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+
+		sshot = as_screenshot_new ();
+		as_screenshot_add_image (sshot, img);
+		as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
+
+		g_object_unref (img);
+		g_free (url);
+
+		/* add thumbnail */
+		url = g_build_filename (scr_base_url, "thumbnail", priv->pkgnames[0], NULL);
+		img = as_image_new ();
+		as_image_set_url (img, url);
+		as_image_set_width (img, 160);
+		as_image_set_height (img, 120);
+		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+		as_screenshot_add_image (sshot, img);
+
+		/* add screenshot to component */
+		as_component_add_screenshot (cpt, sshot);
+
+		g_object_unref (img);
+		g_object_unref (sshot);
+		g_free (url);
+	}
+
+	/* improve icon paths */
+	as_component_refine_icon (cpt, icon_paths);
 }
 
 static void

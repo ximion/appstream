@@ -50,7 +50,6 @@ struct _AsMetadataPrivate
 	gchar *locale;
 	AsParserMode mode;
 	gchar *origin_name;
-	gchar **icon_paths;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
@@ -70,7 +69,6 @@ as_metadata_finalize (GObject *object)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_free (priv->locale);
-	g_strfreev (priv->icon_paths);
 	if (priv->origin_name != NULL)
 		g_free (priv->origin_name);
 
@@ -89,7 +87,6 @@ as_metadata_init (AsMetadata *metad)
 	priv->locale = as_get_locale ();
 
 	priv->origin_name = NULL;
-	priv->icon_paths = as_distro_details_get_icon_repository_paths ();
 
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 }
@@ -457,69 +454,6 @@ as_metadata_process_provides (AsMetadata* metad, xmlNode* node, AsComponent* cpt
 	}
 }
 
-/**
- * as_metadata_refine_component_icon:
- *
- * We use this method to ensure the "icon" and "icon_url" properties of
- * a component are properly set, by finding the icons in default directories.
- */
-static void
-as_metadata_refine_component_icon (AsMetadata *metad, AsComponent *cpt)
-{
-	const gchar *exensions[] = { "png",
-				     "svg",
-				     "svgz",
-				     "gif",
-				     "ico",
-				     "xcf",
-				     NULL };
-	gchar *tmp_icon_path;
-	const gchar *icon_url;
-	guint i, j;
-	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-
-	icon_url = as_component_get_icon_url (cpt);
-	if (g_str_has_prefix (icon_url, "/") ||
-		g_str_has_prefix (icon_url, "http://")) {
-		/* looks like this component already has a full icon path... */
-		return;
-	}
-	tmp_icon_path = NULL;
-
-	if (g_strcmp0 (icon_url, "") == 0) {
-		icon_url = as_component_get_icon (cpt);
-	}
-
-	/* search local icon path */
-	for (i = 0; priv->icon_paths[i] != NULL; i++) {
-		/* sometimes, the file already has an extension */
-		tmp_icon_path = g_strdup_printf ("%s/%s",
-					     priv->icon_paths[i],
-					     icon_url);
-		if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
-			goto out;
-		g_free (tmp_icon_path);
-
-		/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
-		for (j = 0; exensions[j] != NULL; j++) {
-			tmp_icon_path = g_strdup_printf ("%s/%s.%s",
-					     priv->icon_paths[i],
-					     icon_url,
-					     exensions[j]);
-			if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
-				goto out;
-			g_free (tmp_icon_path);
-			tmp_icon_path = NULL;
-		}
-	}
-
-out:
-	if (tmp_icon_path != NULL) {
-		as_component_set_icon_url (cpt, tmp_icon_path);
-		g_free (tmp_icon_path);
-	}
-}
-
 static void
 as_metadata_set_component_type_from_node (xmlNode *node, AsComponent *cpt)
 {
@@ -750,9 +684,6 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 	g_strfreev (strv);
 
 	if ((allow_invalid) || (as_component_is_valid (cpt))) {
-		/* find local icon on the filesystem */
-		as_metadata_refine_component_icon (metad, cpt);
-
 		return cpt;
 	} else {
 		gchar *cpt_str;

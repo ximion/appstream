@@ -70,6 +70,8 @@ struct _AsDataPoolPrivate
 	gchar **asxml_paths;
 	gchar **dep11_paths;
 	gchar **appinstall_paths;
+
+	gchar **icon_paths;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsDataPool, as_data_pool, G_TYPE_OBJECT)
@@ -91,6 +93,8 @@ as_data_pool_finalize (GObject *object)
 
 	g_strfreev (priv->appinstall_paths);
 	g_strfreev (priv->asxml_paths);
+
+	g_strfreev (priv->icon_paths);
 
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
 }
@@ -124,8 +128,9 @@ as_data_pool_new_component_cb (AsDataProvider *sender, AsComponent* cpt, AsDataP
 	cpt_id = as_component_get_id (cpt);
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cpt_id);
 
-	/* add additional data to the component, e.g. external screenshots */
-	as_component_complete (cpt, priv->scr_base_url);
+	/* add additional data to the component, e.g. external screenshots. Also refines
+	 * the component's icon paths */
+	as_component_complete (cpt, priv->scr_base_url, priv->icon_paths);
 
 	if (existing_cpt) {
 		int priority;
@@ -417,6 +422,9 @@ as_data_pool_new (void)
 	/* set default directories for Ubuntu AppInstall */
 	priv->appinstall_paths = g_new0 (gchar*, 2);
 	priv->appinstall_paths[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
+
+	/* set default icon search locations */
+	priv->icon_paths = as_distro_details_get_icon_repository_paths ();
 
 	priv->initialized = FALSE;
 
