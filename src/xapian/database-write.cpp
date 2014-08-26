@@ -207,19 +207,21 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// Categories
 		gchar **categories = as_component_get_categories (cpt);
-		string categories_str = "";
-		for (uint i = 0; categories[i] != NULL; i++) {
-			if (as_str_empty (categories[i]))
-				continue;
+		if (categories != NULL) {
+			string categories_str = "";
+			for (uint i = 0; categories[i] != NULL; i++) {
+				if (as_str_empty (categories[i]))
+					continue;
 
-			string cat = categories[i];
-			string tmp = cat;
-			transform (tmp.begin (), tmp.end (),
-					tmp.begin (), ::tolower);
-			doc.add_term ("AC" + tmp);
-			categories_str += cat + ";";
+				string cat = categories[i];
+				string tmp = cat;
+				transform (tmp.begin (), tmp.end (),
+						tmp.begin (), ::tolower);
+				doc.add_term ("AC" + tmp);
+				categories_str += cat + ";";
+			}
+			doc.add_value (XapianValues::CATEGORIES, categories_str);
 		}
-		doc.add_value (XapianValues::CATEGORIES, categories_str);
 
 		// Add our keywords (with high priority)
 		gchar **keywords = as_component_get_keywords (cpt);
