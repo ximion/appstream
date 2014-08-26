@@ -343,6 +343,20 @@ QList< Component > Database::findComponentsByString(const QString& searchTerm, c
     return result;
 }
 
+QList<Component> Database::findComponentsByPackageName(const QString& packageName) const
+{
+    Xapian::Query pkgQuery(Xapian::Query::OP_OR,
+                              pkgQuery,
+                              Xapian::Query ("AP" + packageName.trimmed().toStdString()));
+
+    Xapian::Enquire enquire(d->m_db);
+    enquire.set_query (pkgQuery);
+
+    QList<Component> result = parseSearchResults (enquire.get_mset(0,d->m_db.get_doccount()));
+    return result;
+}
+
+
 Database::Database() : d(new DatabasePrivate(QLatin1String("/var/cache/app-info/xapian"))) {
 
 }
