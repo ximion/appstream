@@ -35,6 +35,15 @@ enum YamlNodeKind {
 };
 
 /**
+ * dep11_print_unknown:
+ */
+void
+dep11_print_unknown (const gchar *root, const gchar *key)
+{
+	g_debug ("DEP11: Unknown key '%s/%s' found.", root, key);
+}
+
+/**
  * as_provider_dep11_construct:
  */
 AsProviderDEP11*
@@ -356,6 +365,98 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
 }
 
 /**
+ * dep11_process_image:
+ */
+static void
+dep11_process_image (GNode *node, AsScreenshot *scr)
+{
+	GNode *n;
+	AsImage *img;
+
+	img = as_image_new ();
+
+	for (n = node->children; n != NULL; n = n->next) {
+		gchar *key;
+		gchar *value;
+		guint64 size;
+
+		key = (gchar*) n->data;
+		if (n->children)
+			value = (gchar*) n->children->data;
+		else
+			continue; /* there should be no key without value */
+
+		if (g_strcmp0 (key, "width") == 0) {
+			size = g_ascii_strtoll (value, NULL, 10);
+			as_image_set_width (img, size);
+		} else if (g_strcmp0 (key, "height") == 0) {
+			size = g_ascii_strtoll (value, NULL, 10);
+			as_image_set_height (img, size);
+		} else if (g_strcmp0 (key, "url") == 0) {
+			as_image_set_url (img, value);
+		} else {
+			dep11_print_unknown ("image", key);
+		}
+	}
+
+	as_screenshot_add_image (scr, img);
+	g_object_unref (img);
+}
+
+/**
+ * dep11_process_screenshots:
+ */
+static void
+dep11_process_screenshots (GNode *node, AsComponent *cpt, const gchar *locale)
+{
+	GNode *sn;
+
+	for (sn = node->children; sn != NULL; sn = sn->next) {
+		GNode *n;
+		AsScreenshot *scr;
+		scr = as_screenshot_new ();
+
+		for (n = sn->children; n != NULL; n = n->next) {
+			GNode *in;
+			gchar *key;
+			gchar *value;
+
+			key = (gchar*) n->data;
+			if (n->children)
+				value = (gchar*) n->children->data;
+			else
+				value = NULL;
+
+			if (g_strcmp0 (key, "default") == 0) {
+				if (g_strcmp0 (value, "yes") == 0)
+					as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_DEFAULT);
+				else
+					as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_NORMAL);
+			} else if (g_strcmp0 (key, "caption") == 0) {
+				gchar *lvalue;
+				/* the caption is a localized element */
+				lvalue = dep11_get_localized_value (n, locale);
+				as_screenshot_set_caption (scr, lvalue);
+			} else if (g_strcmp0 (key, "source-image") == 0) {
+				/* there can only be one source image */
+				dep11_process_image (n, scr);
+			} else if (g_strcmp0 (key, "thumbnails") == 0) {
+				/* the thumbnails are a list of images */
+				for (in = n->children; in != NULL; in = in->next) {
+					dep11_process_image (in, scr);
+				}
+			} else {
+				dep11_print_unknown ("screenshot", key);
+			}
+		}
+
+		/* add the result */
+		as_component_add_screenshot (cpt, scr);
+		g_object_unref (scr);
+	}
+}
+
+/**
  * as_provider_dep11_process_component_doc:
  */
 AsComponent*
@@ -433,8 +534,10 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dproc, GNode *root, c
 			dep11_process_icons (node, cpt, origin);
 		} else if (g_strcmp0 (key, "Provides") == 0) {
 			dep11_process_provides (node, cpt);
+		} else if (g_strcmp0 (key, "Screenshots") == 0) {
+			dep11_process_screenshots (node, cpt, locale);
 		} else {
-			//printf("%s: %s\n", key, value);
+			dep11_print_unknown ("root", key);
 		}
 	}
 
