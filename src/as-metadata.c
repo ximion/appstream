@@ -48,6 +48,7 @@ typedef struct _AsMetadataPrivate	AsMetadataPrivate;
 struct _AsMetadataPrivate
 {
 	gchar *locale;
+	gchar *locale_short;
 	AsParserMode mode;
 	gchar *origin_name;
 };
@@ -69,6 +70,7 @@ as_metadata_finalize (GObject *object)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_free (priv->locale);
+	g_free (priv->locale_short);
 	if (priv->origin_name != NULL)
 		g_free (priv->origin_name);
 
@@ -84,7 +86,8 @@ as_metadata_init (AsMetadata *metad)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	/* set active locale without UTF-8 suffix */
-	priv->locale = as_get_locale ();
+	as_metadata_set_locale (metad,
+							as_get_locale ());
 
 	priv->origin_name = NULL;
 
@@ -130,9 +133,6 @@ as_metadata_parse_value (AsMetadata* metad, xmlNode* node, gboolean translated)
 	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
 
 	if (translated) {
-		gchar *current_locale;
-		gchar **strv;
-		gchar *str;
 		/* FIXME: If not-localized generic node comes _after_ the localized ones,
 		 * the not-localized will override the localized. Wrong ordering should
 		 * not happen, but we should deal with that case anyway.
@@ -141,20 +141,16 @@ as_metadata_parse_value (AsMetadata* metad, xmlNode* node, gboolean translated)
 			res = content;
 			goto out;
 		}
-		current_locale = priv->locale;
-		if (g_strcmp0 (lang, current_locale) == 0) {
+
+		if (g_strcmp0 (lang, priv->locale) == 0) {
 			res = content;
 			goto out;
 		}
-		strv = g_strsplit (current_locale, "_", 0);
-		str = g_strdup (strv[0]);
-		g_strfreev (strv);
-		if (g_strcmp0 (lang, str) == 0) {
+
+		if (g_strcmp0 (lang, priv->locale_short) == 0) {
 			res = content;
-			g_free (str);
 			goto out;
 		}
-		g_free (str);
 
 		/* Haven't found a matching locale */
 		res = NULL;
@@ -833,9 +829,16 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 void
 as_metadata_set_locale (AsMetadata *metad, const gchar *locale)
 {
+	gchar **strv;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
 	g_free (priv->locale);
+	g_free (priv->locale_short);
 	priv->locale = g_strdup (locale);
+
+	strv = g_strsplit (priv->locale, "_", 0);
+	priv->locale_short = g_strdup (strv[0]);
+	g_strfreev (strv);
 }
 
 /**

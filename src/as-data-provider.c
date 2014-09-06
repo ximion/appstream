@@ -25,6 +25,7 @@
 struct _AsDataProviderPrivate {
 	gchar **watch_files;
 	gchar *locale;
+	gchar *locale_short;
 };
 
 static gpointer as_data_provider_parent_class = NULL;
@@ -89,6 +90,9 @@ as_data_provider_log_warning (AsDataProvider* self, const gchar* msg)
 	g_debug ("%s", msg);
 }
 
+/**
+ * as_data_provider_get_watch_files:
+ */
 gchar**
 as_data_provider_get_watch_files (AsDataProvider* self)
 {
@@ -96,6 +100,9 @@ as_data_provider_get_watch_files (AsDataProvider* self)
 	return self->priv->watch_files;
 }
 
+/**
+ * as_data_provider_set_watch_files:
+ */
 void
 as_data_provider_set_watch_files (AsDataProvider* self, gchar** value)
 {
@@ -106,17 +113,39 @@ as_data_provider_set_watch_files (AsDataProvider* self, gchar** value)
 	g_object_notify ((GObject *) self, "watch-files");
 }
 
+/**
+ * as_data_provider_set_locale:
+ */
 void
 as_data_provider_set_locale (AsDataProvider *dprov, const gchar *locale)
 {
+	gchar **strv;
+
 	g_free (dprov->priv->locale);
+	g_free (dprov->priv->locale_short);
 	dprov->priv->locale = g_strdup (locale);
+
+	strv = g_strsplit (dprov->priv->locale, "_", 0);
+	dprov->priv->locale_short = g_strdup (strv[0]);
+	g_strfreev (strv);
 }
 
+/**
+ * as_data_provider_get_locale:
+ */
 const gchar*
 as_data_provider_get_locale (AsDataProvider *dprov)
 {
 	return dprov->priv->locale;
+}
+
+/**
+ * as_data_provider_get_locale_short:
+ */
+const gchar*
+as_data_provider_get_locale_short (AsDataProvider *dprov)
+{
+	return dprov->priv->locale_short;
 }
 
 static void
@@ -136,17 +165,21 @@ as_data_provider_class_init (AsDataProviderClass * klass)
 }
 
 static void
-as_data_provider_instance_init (AsDataProvider * self)
+as_data_provider_instance_init (AsDataProvider *dprov)
 {
-	self->priv = AS_DATA_PROVIDER_GET_PRIVATE (self);
+	dprov->priv = AS_DATA_PROVIDER_GET_PRIVATE (dprov);
 }
 
 static void
 as_data_provider_finalize (GObject* obj)
 {
-	AsDataProvider * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_DATA_PROVIDER, AsDataProvider);
-	g_strfreev (self->priv->watch_files);
+	AsDataProvider *dprov;
+	dprov = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_DATA_PROVIDER, AsDataProvider);
+
+	g_strfreev (dprov->priv->watch_files);
+	g_free (dprov->priv->locale);
+	g_free (dprov->priv->locale_short);
+
 	G_OBJECT_CLASS (as_data_provider_parent_class)->finalize (obj);
 }
 
@@ -176,11 +209,11 @@ as_data_provider_get_type (void)
 static void
 as_data_provider_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)
 {
-	AsDataProvider * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATA_PROVIDER, AsDataProvider);
+	AsDataProvider *dprov;
+	dprov = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATA_PROVIDER, AsDataProvider);
 	switch (property_id) {
 		case AS_DATA_PROVIDER_WATCH_FILES:
-			g_value_set_boxed (value, as_data_provider_get_watch_files (self));
+			g_value_set_boxed (value, as_data_provider_get_watch_files (dprov));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -191,11 +224,11 @@ as_data_provider_get_property (GObject * object, guint property_id, GValue * val
 static void
 as_data_provider_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec)
 {
-	AsDataProvider * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATA_PROVIDER, AsDataProvider);
+	AsDataProvider *dprov;
+	dprov = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATA_PROVIDER, AsDataProvider);
 	switch (property_id) {
 		case AS_DATA_PROVIDER_WATCH_FILES:
-			as_data_provider_set_watch_files (self, g_value_get_boxed (value));
+			as_data_provider_set_watch_files (dprov, g_value_get_boxed (value));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

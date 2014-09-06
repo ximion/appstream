@@ -75,6 +75,7 @@ void				as_data_provider_log_error (AsDataProvider* self,
 void				as_data_provider_log_warning (AsDataProvider* self,
 												  const gchar* msg);
 
+const gchar*		as_data_provider_get_locale_short (AsDataProvider *dprov);
 const gchar*		as_data_provider_get_locale (AsDataProvider *dpool);
 void				as_data_provider_set_locale (AsDataProvider *dprov,
 												 const gchar *locale);
