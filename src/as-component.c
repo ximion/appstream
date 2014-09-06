@@ -381,7 +381,7 @@ as_component_add_release (AsComponent *cpt, AsRelease* release)
 GHashTable*
 as_component_get_urls (AsComponent *cpt)
 {
-	g_return_if_fail (cpt != NULL);
+	g_return_val_if_fail (cpt != NULL, NULL);
 	return cpt->priv->urls;
 }
 
@@ -399,7 +399,7 @@ as_component_get_urls (AsComponent *cpt)
 const gchar *
 as_component_get_url (AsComponent *cpt, AsUrlKind url_kind)
 {
-	g_return_if_fail (cpt != NULL);
+	g_return_val_if_fail (cpt != NULL, NULL);
 	return g_hash_table_lookup (cpt->priv->urls,
 				    as_url_kind_to_string (url_kind));
 }

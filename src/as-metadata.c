@@ -306,7 +306,7 @@ as_metadata_parse_upstream_description_tag (AsMetadata* metad, xmlNode* node)
 	gchar *content;
 	gchar *node_name;
 	GString *str;
-	g_return_if_fail (metad != NULL);
+	g_return_val_if_fail (metad != NULL, NULL);
 
 	str = g_string_new ("");
 	for (iter = node->children; iter != NULL; iter = iter->next) {
