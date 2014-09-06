@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Matthias K. <matthias@tenstral.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2014-07-13 17:33+0200\n"
-"PO-Revision-Date: 2014-07-14 02:40+0000\n"
+"POT-Creation-Date: 2014-08-28 19:32+0200\n"
+"PO-Revision-Date: 2014-09-06 16:03+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/appstream/"
-"language/de/)\n"
-"Language: de\n"
+"Language-Team: German (http://www.transifex.com/projects/p/appstream/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
@@ -58,6 +57,10 @@ msgstr ""
 
 msgid "Description"
 msgstr "Beschreibung"
+
+#. developer name
+msgid "Developer"
+msgstr ""
 
 msgid "Don't show colored output"
 msgstr ""
@@ -159,7 +162,8 @@ msgstr ""
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database due to an
+#. error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr ""
@@ -199,6 +203,5 @@ msgstr ""
 #. * provide a list of words in your language that people are likely
 #. * to include in a search but that should normally be ignored in
 #. * the search.
-#.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
