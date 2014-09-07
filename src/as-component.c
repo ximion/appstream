@@ -797,6 +797,49 @@ _as_component_xml_add_node (xmlNode *root, const gchar *name, const gchar *value
 }
 
 /**
+ * _as_component_xml_add_description:
+ *
+ * Add the description markup to the XML tree
+ */
+static gboolean
+_as_component_xml_add_description (xmlNode *root, const gchar *description_markup)
+{
+	gchar *xmldata;
+	xmlDoc *doc;
+	xmlNode *droot;
+	xmlNode *dnode;
+	xmlNode *iter;
+	gboolean ret = TRUE;
+
+	if (as_str_empty (description_markup))
+		return FALSE;
+
+	xmldata = g_strdup_printf ("<root>%s</root>", description_markup);
+	doc = xmlParseDoc ((xmlChar*) xmldata);
+	if (doc == NULL) {
+		ret = FALSE;
+		goto out;
+	}
+
+	droot = xmlDocGetRootElement (doc);
+	if (droot == NULL) {
+		ret = FALSE;
+		goto out;
+	}
+	dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+
+	for (iter = droot->children; iter != NULL; iter = iter->next) {
+		xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
+	}
+
+out:
+	if (doc != NULL)
+		xmlFreeDoc (doc);
+	g_free (xmldata);
+	return ret;
+}
+
+/**
  * as_component_xml_add_node_list:
  *
  * Add node if value is not empty
@@ -854,10 +897,10 @@ as_component_to_xml (AsComponent *cpt)
 	_as_component_xml_add_node (root, "id", priv->id);
 	_as_component_xml_add_node (root, "name", priv->name);
 	_as_component_xml_add_node (root, "summary", priv->summary);
-	_as_component_xml_add_node (root, "description", priv->description);
 	_as_component_xml_add_node (root, "project_license", priv->project_license);
 	_as_component_xml_add_node (root, "project_group", priv->project_group);
 	_as_component_xml_add_node (root, "developer_name", priv->developer_name);
+	_as_component_xml_add_description (root, priv->description);
 
 	_as_component_xml_add_node_list (root, NULL, "pkgname", priv->pkgnames);
 	strv = as_ptr_array_to_strv (priv->extends);

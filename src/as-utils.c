@@ -78,7 +78,7 @@ as_description_markup_convert_simple (const gchar *markup)
 	}
 
 	root = xmlDocGetRootElement (doc);
-	if (doc == NULL) {
+	if (root == NULL) {
 		/* document was empty */
 		ret = FALSE;
 		goto out;
