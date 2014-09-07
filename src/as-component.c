@@ -1406,7 +1406,7 @@ as_component_get_provided_items (AsComponent *cpt)
  * as_component_add_provided_item:
  * @cpt: a #AsComponent instance.
  * @kind: the kind of the provided item (e.g. %AS_PROVIDES_KIND_MIMETYPE)
- * @data: additional data associated with this item, or %NULL.
+ * @data: (allow-none) (default NULL): additional data associated with this item, or %NULL.
  *
  * Adds a provided item to the component.
  *
