@@ -353,9 +353,11 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 			g_free (prop);
 
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "timestamp");
-			timestamp = g_ascii_strtoll (prop, NULL, 10);
-			as_release_set_timestamp (release, timestamp);
-			g_free (prop);
+			if (prop != NULL) {
+				timestamp = g_ascii_strtoll (prop, NULL, 10);
+				as_release_set_timestamp (release, timestamp);
+				g_free (prop);
+			}
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				if (iter->type != XML_ELEMENT_NODE)
