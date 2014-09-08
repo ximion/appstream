@@ -1,3 +1,32 @@
+Version 0.7.1
+~~~~~~~~~~~~~~
+Released: 2014-09-08
+
+Features:
+ * qt: Make it possible to build AppstreamQt against Qt5 (Aleix Pol)
+ * qt: Introduce a method to check if a Qt Appstream::Component is
+   fully initialized (Aleix Pol)
+ * qt: Make it possible to query the database for the components given
+   a package name (Aleix Pol)
+ * Improve generator performance by caching the short language code (Matthias Klumpp)
+ * qt: Print component id instead of package name in warning messages (Matthias Klumpp)
+ * Improve loading of uncompressed distro-metadata (Matthias Klumpp)
+ * Allow manually defining the default locale for a data pool (Matthias Klumpp)
+ * dep11: Add validator for the DEP-11 file-format (Matthias Klumpp)
+ * Add basic function to convert AsComponent to XML (Matthias Klumpp)
+ * dep11: Implement DEP-11 data parser based on libyaml (Matthias Klumpp)
+ * Share icon-refinement and component-completion between all data providers (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Respect the global install paths set by the toplevel CMake file (Matthias Klumpp)
+ * docs: get rid of "childrens" (Vladimír Čunát)
+ * Don't crash if no timestamp was defined (Matthias Klumpp)
+ * Fix FTBFS with Clang (Matthias Klumpp)
+ * docs: Update architecture images to reflect reality (Matthias Klumpp)
+ * Install PK plugin into PK >= 0.9.x plugin path (Matthias Klumpp)
+ * Don't crash in as_component_to_string() if no packages are set (Matthias Klumpp)
+ * Don't crash when generating the database in case a component has no categories (Matthias Klumpp)
+
 Version 0.7.0
 ~~~~~~~~~~~~~~
 Released: 2014-07-16
