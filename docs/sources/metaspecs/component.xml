@@ -75,7 +75,7 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII caracters, dots, hyphens and numbers, spaces are
+					The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers, spaces are
 					not allowed. Specialized metainfo types, such as application or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
 				</para>
 				<para>
@@ -427,7 +427,7 @@
 					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
 				</para>
 				<para>
-					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 caracters!)
+					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 characters!)
 					description of what the user can see on the referenced screenshot.
 				</para>
 				<para>
