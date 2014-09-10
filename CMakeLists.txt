@@ -35,16 +35,10 @@ if(PROVIDER_UBUNTU_APPINSTALL)
 	add_definitions ("-DUBUNTU_APPINSTALL")
 endif()
 
-if(MAINTAINER)
-	add_definitions ("-Wall" "-Werror")
-endif()
-
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX
     "/usr" CACHE PATH "Default install prefix" FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-
-set(XDG_APPS_INSTALL_DIR share/applications)
 
 add_definitions(-DCMAKE_INSTALL_PREFIX="\"${CMAKE_INSTALL_PREFIX}\"")
 add_definitions(-DCMAKE_INSTALL_LIBDIR="\"${CMAKE_INSTALL_LIBDIR}\"")
@@ -98,10 +92,9 @@ endif(TESTS)
 # Custom C flags
 #
 set (MAINTAINER_CFLAGS "-Werror -Wall -Wcast-align -Wuninitialized -Wno-uninitialized -Wempty-body -Wformat-security -Winit-self")
-option (DISABLE_MAINTAINER_CFLAGS "Disable maintainer CFlags" ON)
-if (DISABLE_MAINTAINER_CFLAGS)
+if (NOT MAINTAINER)
 	set (MAINTAINER_CFLAGS "")
-endif (DISABLE_MAINTAINER_CFLAGS)
+endif (NOT MAINTAINER)
 add_definitions(${MAINTAINER_CFLAGS})
 
 # we do always enable this to never run into the missing-include-trap again
