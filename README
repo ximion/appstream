@@ -1,27 +1,46 @@
 AppStream
+=========
 
-=== Dependencies ===
+AppStream is a cross-distro effort for enhancing the way we interact with the software repositories provided by the
+distribution by standardizing sets of additional metadata.
+AppStream provides the foundation to build software-center applications. It additionally provides specifications
+for things like an unified software metadata database, screenshot services and various other things needed to create
+user-friendly application-centers for (Linux) distributions.
 
-## Core
+This repository contains the AppStream specification and a library for accessing the Xapian database which has been
+generated from AppStream metadata.
+
+![AppStream Architecture](docs/sources/images/architecture-small.png "AppStream Architecture")
+
+## Useful Links
+[AppStream Documentation](http://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help
+[Releases](http://www.freedesktop.org/software/appstream/releases/) - All releases of AppStream
+[AppStream on Freedesktop](http://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page
+
+## Developers
+
+### Dependencies
+
+#### Core
  * glib2 (>= 2.36)
  * GObject-Introspection
  * libxml2
  * PackageKit (with backend/plugin development headers)
  * Xapian
 
-## Optional
- * Vala Compiler (vapigen)
+#### Optional
+ * Vala Compiler (vapigen) (for Vala API file)
 
-## Documentation
+#### Documentation
  * Publican
 
-## Qt
- * Qt5 Core
+#### Qt (for libappstream-qt)
+ * Qt4 or Qt5 Core
 
 
-=== Compiling instructions ===
+### Compiling instructions
 
-To compile AppStream-Core, make sure that you have all required libraries (development files!) installed.
+To compile AppStream, make sure that you have all required libraries (development files!) installed.
 Then continue. (the build system will complain about missing dependencies)
 
 You should use CMake directly to build AppStream-Core:
@@ -33,7 +52,7 @@ Possible flags are:
  -DPROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall AppStream data provider
  -DDOCUMENTATION=ON              -- (Re)generate API documentation
 
-=== Installation ===
+### Installation
 
 To install the compiled binaries and required data files, execute
 "make install" with superuser rights.
