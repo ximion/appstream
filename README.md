@@ -13,9 +13,9 @@ generated from AppStream metadata.
 ![AppStream Architecture](docs/sources/images/architecture-small.png "AppStream Architecture")
 
 ## Useful Links
-[AppStream Documentation](http://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help
-[Releases](http://www.freedesktop.org/software/appstream/releases/) - All releases of AppStream
-[AppStream on Freedesktop](http://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page
+[AppStream Documentation](http://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help  
+[Releases](http://www.freedesktop.org/software/appstream/releases/) - All releases of AppStream  
+[AppStream on Freedesktop](http://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page  
 
 ## Developers
 
@@ -43,14 +43,18 @@ generated from AppStream metadata.
 To compile AppStream, make sure that you have all required libraries (development files!) installed.
 Then continue. (the build system will complain about missing dependencies)
 
-You should use CMake directly to build AppStream-Core:
+Use CMake to configure AppStream and build it with make:
+```bash
 mkdir build
 cd build
-cmake .. <flags>
-Possible flags are:
- -DPROVIDER_DEBIAN_DEP11=ON      -- Enable support for Debian DEP11 AppStream format
- -DPROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall AppStream data provider
- -DDOCUMENTATION=ON              -- (Re)generate API documentation
+cmake <flags> ..
+make
+```
+Possible AppStream-specific flags are:  
+ -DPROVIDER_DEBIAN_DEP11=ON      -- Enable support for Debian DEP11 AppStream format  
+ -DPROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall data  
+ -DDOCUMENTATION=ON              -- (Re)generate API documentation  
+ -DMAINTAINER=ON                 -- Enable strict compiler options - use this if you write a patch for AppStream
 
 ### Installation
 
