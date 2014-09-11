@@ -1061,6 +1061,10 @@ as_component_set_name (AsComponent *cpt, const gchar* value)
 {
 	g_return_if_fail (cpt != NULL);
 
+	/* safety measure, so we can always convert this to a C++ string */
+	if (value == NULL)
+		value = "";
+
 	g_free (cpt->priv->name);
 	cpt->priv->name = g_strdup (value);
 	g_object_notify ((GObject *) cpt, "name");
@@ -1077,6 +1081,10 @@ void
 as_component_set_name_original (AsComponent *cpt, const gchar* value)
 {
 	g_return_if_fail (cpt != NULL);
+
+	/* safety measure, so we can always convert this to a C++ string */
+	if (value == NULL)
+		value = "";
 
 	g_free (cpt->priv->name_original);
 	cpt->priv->name_original = g_strdup (value);
@@ -1095,6 +1103,10 @@ void
 as_component_set_summary (AsComponent *cpt, const gchar* value)
 {
 	g_return_if_fail (cpt != NULL);
+
+	/* safety measure, so we can always convert this to a C++ string */
+	if (value == NULL)
+		value = "";
 
 	g_free (cpt->priv->summary);
 	cpt->priv->summary = g_strdup (value);
@@ -1116,6 +1128,10 @@ void
 as_component_set_description (AsComponent *cpt, const gchar* value)
 {
 	g_return_if_fail (cpt != NULL);
+
+	/* safety measure, so we can always convert this to a C++ string */
+	if (value == NULL)
+		value = "";
 
 	g_free (cpt->priv->description);
 	cpt->priv->description = g_strdup (value);
@@ -1174,6 +1190,10 @@ as_component_set_icon (AsComponent *cpt, const gchar* value)
 {
 	g_return_if_fail (cpt != NULL);
 
+	/* safety measure, so we can always convert this to a C++ string */
+	if (value == NULL)
+		value = "";
+
 	g_free (cpt->priv->icon);
 	cpt->priv->icon = g_strdup (value);
 	g_object_notify ((GObject *) cpt, "icon");
@@ -1207,6 +1227,10 @@ void
 as_component_set_icon_url (AsComponent *cpt, const gchar* value)
 {
 	g_return_if_fail (cpt != NULL);
+
+	/* safety measure, so we can always convert this to a C++ string */
+	if (value == NULL)
+		value = "";
 
 	g_free (cpt->priv->icon_url);
 	cpt->priv->icon_url = g_strdup (value);
