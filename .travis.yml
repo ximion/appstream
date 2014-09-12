@@ -1,0 +1,16 @@
+# Travis CI config for AppStream
+
+language: c
+
+compiler:
+  - gcc
+  - clang
+before_script:
+  - env | sort
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -qq && sudo apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
+  - sudo apt-get install -qq cmake intltool libglib2.0-dev libxml2-dev gtk-doc-tools libgirepository1.0-dev libqt4-dev libxapian-dev libyaml-dev xmlto
+script:
+  - mkdir build && cd build
+  - cmake -DPROVIDER_DEBIAN_DEP11=ON -DPROVIDER_UBUNTU_APPINSTALL=ON -DMAINTAINER=ON -DTESTS=ON -DDOCUMENTATION=ON -DQT=ON ..
+  - make && make test ARGS=-V && make install DESTDIR=./install_root/
