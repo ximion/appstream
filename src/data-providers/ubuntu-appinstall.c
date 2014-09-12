@@ -226,8 +226,9 @@ as_provider_ubuntu_appinstall_real_execute (AsDataProvider *base)
 	self = AS_PROVIDER_UBUNTU_APPINSTALL (base);
 
 	paths = as_data_provider_get_watch_files (base);
-	if (paths == NULL)
+	if ((paths == NULL) || (paths[0] == NULL))
 		return TRUE;
+
 	for (i = 0; paths[i] != NULL; i++) {
 		gchar *fname;
 		guint j;

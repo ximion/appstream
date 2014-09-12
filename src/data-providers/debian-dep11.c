@@ -742,8 +742,9 @@ as_provider_dep11_real_execute (AsDataProvider* base)
 	yaml_files = g_ptr_array_new_with_free_func (g_free);
 
 	paths = as_data_provider_get_watch_files (base);
-	if (paths == NULL)
+	if ((paths == NULL) || (paths[0] == NULL))
 		return TRUE;
+
 	for (i = 0; paths[i] != NULL; i++) {
 		gchar *path;
 		GPtrArray *yamls;
