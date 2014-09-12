@@ -96,10 +96,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 		    ${YAML_INCLUDE_DIR}
 )
 
-add_definitions("-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE"
-	"-DI_KNOW_THE_PACKAGEKIT_PLUGIN_API_IS_SUBJECT_TO_CHANGE"
-	"-DAS_COMPILATION"
-)
+add_definitions("-DAS_COMPILATION")
 
 # ensure that the GI compiler has been found (apparently, the automatic tests fail on some machines)
 if (INTROSPECTION_COMPILER STREQUAL "")
@@ -145,6 +142,3 @@ gir_add_introspections(INTROSPECTION_GIRS)
 install(TARGETS appstream DESTINATION ${INSTALL_DIR_LIB})
 install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION include/Appstream)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${INSTALL_DIR_LIB}/pkgconfig/)
-
-# include the PackageKit plugin
-add_subdirectory(pk-plugin)
