@@ -888,7 +888,7 @@ as_component_to_xml (AsComponent *cpt)
 
 	/* define component root node */
 	root = xmlNewNode (NULL, (xmlChar*) "component");
-	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) || (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
+	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) && (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
 		xmlNewProp (root, (xmlChar*) "type",
 					(xmlChar*) as_component_kind_to_string (priv->kind));
 	}
