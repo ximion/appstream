@@ -158,7 +158,7 @@ as_menu_parser_parse (AsMenuParser* self)
 	/* parse the document from path */
 	xdoc = xmlParseFile (self->priv->menu_file);
 	if (xdoc == NULL) {
-		g_warning (_ ("File %s not found or permission denied!"), self->priv->menu_file);
+		g_debug (_ ("File %s not found or permission denied!"), self->priv->menu_file);
 		return NULL;
 	}
 
