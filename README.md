@@ -18,6 +18,7 @@ generated from AppStream metadata.
 [AppStream on Freedesktop](http://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page  
 
 ## Developers
+[![Build Status](https://travis-ci.org/ximion/appstream.svg?branch=master)](https://travis-ci.org/ximion/appstream)
 
 ### Dependencies
 
