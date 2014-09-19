@@ -28,8 +28,12 @@ test_menuparser ()
 {
 	AsMenuParser *parser;
 	GList *menu_dirs;
+	gchar *path;
 
-	parser = as_menu_parser_new ();
+	path = g_build_filename (datadir, "categories.xml", NULL);
+	parser = as_menu_parser_new_from_file (path);
+	g_free (path);
+
 	menu_dirs = as_menu_parser_parse (parser);
 	g_assert (g_list_length (menu_dirs) > 4);
 
@@ -93,9 +97,8 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	datadir = argv[1];
-	g_assert (datadir != NULL);
-	datadir = g_build_filename (datadir, "data", NULL);
+	g_assert (argv[1] != NULL);
+	datadir = g_build_filename (argv[1], "data", NULL);
 	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
