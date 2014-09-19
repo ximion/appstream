@@ -8,13 +8,12 @@
 #define GETTEXT_PACKAGE "@GETTEXT_PACKAGE@"
 
 /* Paths */
-#define LOCALEDIR "@LOCALE_DIR@"
-#define PKGDATADIR "@PKGDATADIR@"
-#define PKGLIBDIR "@PKGLIBDIR@"
-#define PREFIXDIR "@PREFIXDIR@"
-#define DATADIR "@DATADIR@"
-#define LIBDIR "@LIBDIR@"
-#define BUILDDIR "@BUILDDIR@"
+#define LOCALEDIR "@CMAKE_INSTALL_FULL_LOCALEDIR@"
+#define PKGLIBDIR "@CMAKE_INSTALL_FULL_LIBEXECDIR@/appstream"
+#define PREFIXDIR "@CMAKE_INSTALL_PREFIX@"
+#define DATADIR "@CMAKE_INSTALL_FULL_DATADIR@/appstream"
+#define LIBDIR "@CMAKE_INSTALL_FULL_LIBDIR@"
+#define BUILDDIR "@CMAKE_BINARY_DIR@"
 
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #define HAVE_GETTEXT 1

@@ -26,7 +26,7 @@ else()
     set(APPSTREAMQT_SO_VERSION 1)
     set(APPSTREAMQT_VERSION "1.1")
 
-#     when removing qt4 support, remove this too
+    # when removing qt4 support, remove this too
     set(QT_QTCORE_LIBRARY Qt5::Core)
 endif()
 
@@ -39,16 +39,17 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-if (NOT DEFINED INSTALL_DIR_LIB)
-    set(INSTALL_DIR_LIB lib${LIB_SUFFIX}/${CMAKE_LIBRARY_ARCHITECTURE} CACHE PATH "Installation directory for libraries")
-endif()
+# Paths
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX
+    "/usr" CACHE PATH "Default install prefix" FORCE)
+endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
-if (NOT DEFINED INSTALL_DIR_BIN)
-    set(INSTALL_DIR_BIN bin CACHE PATH "Installation directory for executables")
-endif()
-
-if (NOT DEFINED INSTALL_DIR_INC)
-    set(INSTALL_DIR_INC include CACHE PATH "Installation directory for headers")
-endif()
+# Special case for /etc and /var when prefix is /usr
+if(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
+  set(CMAKE_INSTALL_SYSCONFDIR "/etc" CACHE PATH "read-only single-machine data (etc)")
+  set(CMAKE_INSTALL_LOCALSTATEDIR "/var" CACHE PATH "modifiable single-machine data (var)")
+endif(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
+include(GNUInstallDirs)
 
 add_subdirectory(src)

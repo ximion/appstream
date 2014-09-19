@@ -35,17 +35,22 @@ if(PROVIDER_UBUNTU_APPINSTALL)
 	add_definitions ("-DUBUNTU_APPINSTALL")
 endif()
 
+#
+# Default paths
+#
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX
     "/usr" CACHE PATH "Default install prefix" FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
-add_definitions(-DCMAKE_INSTALL_PREFIX="\"${CMAKE_INSTALL_PREFIX}\"")
-add_definitions(-DCMAKE_INSTALL_LIBDIR="\"${CMAKE_INSTALL_LIBDIR}\"")
-
-set(CMAKE_INSTALL_LIBDIR "lib/${CMAKE_LIBRARY_ARCHITECTURE}" CACHE PATH "Output directory for libraries")
-
+# Special case for /etc and /var when prefix is /usr
+if(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
+  set(CMAKE_INSTALL_SYSCONFDIR "/etc" CACHE PATH "read-only single-machine data (etc)")
+  set(CMAKE_INSTALL_LOCALSTATEDIR "/var" CACHE PATH "modifiable single-machine data (var)")
+endif(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
+include(GNUInstallDirs)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/data/cmake/)
+
 message(STATUS "Compiling AppStream version ${AS_VERSION}")
 
 add_custom_target(distclean
@@ -58,27 +63,10 @@ add_custom_target(distclean
 find_package (Gettext REQUIRED)
 
 #
-# Default paths
-#
-set(INSTALL_DIR_BIN bin CACHE PATH "Installation directory for executables")
-set(INSTALL_DIR_LIB lib${LIB_SUFFIX}/${CMAKE_LIBRARY_ARCHITECTURE} CACHE PATH "Installation directory for libraries")
-set(INSTALL_DIR_LIBEXEC "${INSTALL_DIR_LIB}/appstream" CACHE PATH "Installation directory for executables use by a library")
-set(INSTALL_DIR_INC include CACHE PATH "Installation directory for headers")
-set(INSTALL_DIR_SYSCONF /etc CACHE PATH "Installation directory for system configuration files")
-
-#
 # Configure files
 #
-set (PREFIXDIR "${CMAKE_INSTALL_PREFIX}")
-set (DATADIR "${CMAKE_INSTALL_PREFIX}/share")
-set (PKGDATADIR "${DATA_INSTALL_DIR}")
-set (LIBDIR "${INSTALL_DIR_LIB}")
-set (PKGLIBDIR "${INSTALL_DIR_LIBEXEC}")
 set (GETTEXT_PACKAGE "appstream")
-set (LOCALE_DIR "${DATADIR}/locale")
 set (VERSION "${AS_VERSION}")
-set (BUILDDIR "${CMAKE_BINARY_DIR}")
-
 configure_file(config.h.in ${CMAKE_BINARY_DIR}/config.h)
 
 #

@@ -38,5 +38,5 @@ target_link_libraries(appstream-validate
 		appstream
 )
 
-install(TARGETS appstream-index DESTINATION ${INSTALL_DIR_BIN})
-install(TARGETS appstream-validate DESTINATION ${INSTALL_DIR_BIN})
+install(TARGETS appstream-index DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS appstream-validate DESTINATION ${CMAKE_INSTALL_BINDIR})
