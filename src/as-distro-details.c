@@ -212,8 +212,8 @@ as_distro_details_config_distro_get_bool (AsDistroDetails* self, const gchar* ke
 {
 	gboolean value;
 
-	g_return_val_if_fail (self != NULL, NULL);
-	g_return_val_if_fail (key != NULL, NULL);
+	g_return_val_if_fail (self != NULL, FALSE);
+	g_return_val_if_fail (key != NULL, FALSE);
 
 	value = g_key_file_get_boolean (self->priv->keyf, self->priv->distro_id, key, NULL);
 
