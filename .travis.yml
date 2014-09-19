@@ -11,8 +11,8 @@ before_script:
   - sudo add-apt-repository "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main restricted universe multiverse" -y
   - sudo apt-get update -qq
   - sudo apt-get install -qq zlib1g # workarounds for upgrade issues
-  - sudo apt-get install -qq cmake intltool libglib2.0-dev libxml2-dev gtk-doc-tools libgirepository1.0-dev libqt4-dev libxapian-dev libyaml-dev xmlto
+  - sudo apt-get install -qq cmake intltool libglib2.0-dev libxml2-dev gtk-doc-tools libgirepository1.0-dev libqt4-dev libxapian-dev libyaml-dev xmlto publican
 script:
   - mkdir build && cd build
   - cmake -DPROVIDER_DEBIAN_DEP11=ON -DPROVIDER_UBUNTU_APPINSTALL=ON -DMAINTAINER=ON -DTESTS=ON -DDOCUMENTATION=ON -DQT=ON ..
-  - make && make test ARGS=-V && make install DESTDIR=./install_root/
+  - make all documentation && make test ARGS=-V && make install DESTDIR=./install_root/
