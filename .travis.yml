@@ -1,5 +1,7 @@
 # Travis CI config for AppStream
 
+# unattended full upgrade: sudo apt-get -o Dpkg::Options::="--force-confold" --force-yes -fuy dist-upgrade
+
 language: c
 
 compiler:
@@ -7,8 +9,8 @@ compiler:
   - clang
 before_script:
   - env | sort
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo apt-get update -qq && sudo apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
+  - sudo add-apt-repository "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main restricted universe multiverse" -y
+  - sudo apt-get update -qq
   - sudo apt-get install -qq cmake intltool libglib2.0-dev libxml2-dev gtk-doc-tools libgirepository1.0-dev libqt4-dev libxapian-dev libyaml-dev xmlto
 script:
   - mkdir build && cd build
