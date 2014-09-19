@@ -24,6 +24,7 @@
 #include <glib.h>
 #include "../as-provides.h"
 #include "../as-component.h"
+#include "../as-search-query.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,9 +32,6 @@ extern "C" {
 
 typedef struct XADatabaseRead XADatabaseRead;
 typedef struct XADatabaseWrite XADatabaseWrite;
-
-typedef struct _AsSearchQuery AsSearchQuery;
-typedef struct _AsComponent AsComponent;
 
 /* methods for database read access */
 
