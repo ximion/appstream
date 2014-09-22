@@ -794,7 +794,7 @@ as_provider_dep11_real_execute (AsDataProvider* base)
 			continue;
 		}
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-		if (g_strcmp0 (content_type, "application/x-yaml") == 0) {
+		if ((g_strcmp0 (content_type, "application/x-yaml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0)) {
 			ret = as_provider_dep11_process_file (dprov, infile);
 		} else if (g_strcmp0 (content_type, "application/gzip") == 0 ||
 				g_strcmp0 (content_type, "application/x-gzip") == 0) {
