@@ -1,3 +1,24 @@
+Version 0.7.2
+~~~~~~~~~~~~~~
+Released: 2014-09-22
+
+Notes:
+ * This release drops the PackageKit plugin (and the build dependency on PK alltogether).
+   This means that AppStream will no longer automagically update the Xapian index. Please
+   make sure that tools or packages which modify the AppStream distro XML/YAML call
+   'appstream-index refresh' when they are done. (reason for dropping the plugin is PackageKit
+   removing support for plugins with its 1.0 release)
+
+Features:
+ * Remove the PackageKit plugin (Matthias Klumpp)
+ * Use GNUInstallDirs (Matthias Klumpp)
+
+Bugfixes:
+ * Ensure that we do not convert NULL to a C++ string (Matthias Klumpp)
+ * Fix check for generic/unknown component in XML serialization (Matthias Klumpp)
+ * Fix tests on a system which doesn't have a 'categories.xml' (Matthias Klumpp)
+ * Fix some compiler warnings with clang (Matthias Klumpp)
+
 Version 0.7.1
 ~~~~~~~~~~~~~~
 Released: 2014-09-08
