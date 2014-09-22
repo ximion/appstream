@@ -26,11 +26,11 @@ generated from AppStream metadata.
  * glib2 (>= 2.36)
  * GObject-Introspection
  * libxml2
- * PackageKit (with backend/plugin development headers)
  * Xapian
 
 #### Optional
  * Vala Compiler (vapigen) (for Vala API file)
+ * libyaml (for DEP-11 support)
 
 #### Documentation
  * Publican
