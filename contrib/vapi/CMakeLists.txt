@@ -10,7 +10,7 @@ endif (VAPIGEN STREQUAL "")
 
 add_custom_command (OUTPUT ${APPSTREAM_VAPI_FILE}
 			COMMAND ${VAPIGEN} --metadatadir=${CMAKE_CURRENT_SOURCE_DIR} -d . --vapidir=${CMAKE_CURRENT_SOURCE_DIR}
-					${CMAKE_BINARY_DIR}/src/Appstream-${AS_VERSION_BASE}.gir
+					${CMAKE_BINARY_DIR}/src/AppStream-${AS_VERSION_BASE}.gir
 					--library=appstream
 					--pkg glib-2.0 --pkg gio-2.0 --pkg gobject-2.0
 			WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}

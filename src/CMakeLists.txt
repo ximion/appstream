@@ -126,19 +126,19 @@ macro(_list_prefix _outvar _listvar _prefix)
 endmacro(_list_prefix)
 
 set(introspection_files ${LIBAPPSTREAM_SRC} ${LIBAPPSTREAM_PUBLIC_HEADERS})
-set(Appstream_0_7_gir "appstream")
-set(Appstream_0_7_gir_INCLUDES GObject-2.0 Gio-2.0)
-set(Appstream_0_7_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION")
-set(Appstream_0_7_gir_LIBS appstream)
+set(AppStream_0_7_gir "appstream")
+set(AppStream_0_7_gir_INCLUDES GObject-2.0 Gio-2.0)
+set(AppStream_0_7_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION")
+set(AppStream_0_7_gir_LIBS appstream)
 
-_list_prefix(Appstream_0_7_gir_FILES introspection_files "${CMAKE_CURRENT_SOURCE_DIR}/")
-set(Appstream_0_7_gir_SCANNERFLAGS --c-include appstream.h)
-set(Appstream_0_7_gir_EXPORT_PACKAGES appstream)
+_list_prefix(AppStream_0_7_gir_FILES introspection_files "${CMAKE_CURRENT_SOURCE_DIR}/")
+set(AppStream_0_7_gir_SCANNERFLAGS --c-include appstream.h)
+set(AppStream_0_7_gir_EXPORT_PACKAGES appstream)
 
-list(APPEND INTROSPECTION_GIRS Appstream-0.7.gir)
+list(APPEND INTROSPECTION_GIRS AppStream-0.7.gir)
 gir_add_introspections(INTROSPECTION_GIRS)
 ####
 
 install(TARGETS appstream DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Appstream)
+install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/AppStream)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)
