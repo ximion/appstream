@@ -20,12 +20,21 @@
 	<section id="spec-iconcache-location">
 		<title>Filesystem locations</title>
 		<para>
-			All icons should be placed in <filename>/usr/share/app-info/icons/%{origin}/</filename> or <filename>/var/cache/app-info/icons/%{origin}/</filename>,
-			where <literal>origin</literal> is the AppStream data origin defined in the AppStream data file (see <xref linkend="spec-asxml-general"/>).
+			All icons of type <literal>cached</literal> must be placed in <filename>/usr/share/app-info/icons/%{origin}/%{size}/</filename> or <filename>/var/cache/app-info/icons/%{origin}/%{size}/</filename>,
+			where <literal>origin</literal> is the AppStream data origin defined in the AppStream data file (see <xref linkend="spec-asxml-general"/>), and <literal>size</literal>
+			is <code>64x64</code> or <code>128x128</code> depending on the size of the icon. And icon might be present with different sizes in both directories.
 		</para>
 		<para>
-			The icon directory should not have subdirectories at the current time. All icons are store in one size.
+			For example the cache icon <code>krita.png</code> of a component in a data file with the origin <code>jessie</code> should be stored in
+			<filename>/usr/share/app-info/icons/jessie/64x64/krita.png</filename> (or in the <filename>/var/cache</filename> location).
 		</para>
+		<note>
+			<title>Legacy Support</title>
+			<para>
+				In order to support the old icon cache layout, client applications may also look for icons in the folder below the size-directories, assuming
+				that the icons placed there are of size <code>64x64</code> pixels.
+			</para>
+		</note>
 	</section>
 
 </section>
