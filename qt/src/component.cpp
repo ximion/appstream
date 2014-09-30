@@ -22,6 +22,7 @@
 #include <QSharedData>
 #include <QStringList>
 #include <QUrl>
+#include <QMultiHash>
 
 using namespace Appstream;
 

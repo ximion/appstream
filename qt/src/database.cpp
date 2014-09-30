@@ -29,6 +29,7 @@
 #include <xapian.h>
 #include <QStringList>
 #include <QUrl>
+#include <QMultiHash>
 
 using namespace Appstream;
 
