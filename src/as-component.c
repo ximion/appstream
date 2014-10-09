@@ -1630,9 +1630,10 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 				     "ico",
 				     "xcf",
 				     NULL };
+	const gchar *sizes[] = { "", "64x64", "128x128", NULL };
 	gchar *tmp_icon_path;
 	const gchar *icon_url;
-	guint i, j;
+	guint i, j, k;
 
 	icon_url = as_component_get_icon_url (cpt);
 	if (g_str_has_prefix (icon_url, "/") ||
@@ -1648,24 +1649,28 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 
 	/* search local icon path */
 	for (i = 0; icon_paths[i] != NULL; i++) {
-		/* sometimes, the file already has an extension */
-		tmp_icon_path = g_strdup_printf ("%s/%s",
-					     icon_paths[i],
-					     icon_url);
-		if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
-			goto out;
-		g_free (tmp_icon_path);
-
-		/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
-		for (j = 0; exensions[j] != NULL; j++) {
-			tmp_icon_path = g_strdup_printf ("%s/%s.%s",
-					     icon_paths[i],
-					     icon_url,
-					     exensions[j]);
+		for (j = 0; sizes[j] != NULL; j++) {
+			/* sometimes, the file already has an extension */
+			tmp_icon_path = g_strdup_printf ("%s/%s/%s",
+							icon_paths[i],
+							sizes[j],
+							icon_url);
 			if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
 				goto out;
 			g_free (tmp_icon_path);
-			tmp_icon_path = NULL;
+
+			/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
+			for (k = 0; exensions[k] != NULL; k++) {
+				tmp_icon_path = g_strdup_printf ("%s/%s/%s.%s",
+							icon_paths[i],
+							sizes[j],
+							icon_url,
+							exensions[k]);
+				if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
+					goto out;
+				g_free (tmp_icon_path);
+				tmp_icon_path = NULL;
+			}
 		}
 	}
 
