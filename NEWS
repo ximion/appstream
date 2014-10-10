@@ -1,3 +1,19 @@
+Version 0.7.3
+~~~~~~~~~~~~~~
+Released: 2014-10-10
+
+Features:
+ * Implement basic support for the new icon cache layout (Matthias Klumpp)
+
+Specification:
+ * spec: Update the icon-cache layout to allow icons with larger sizes (Matthias Klumpp)
+
+Bugfixes:
+ * Treat the text/plain mimetype equal to YAML or XML (Matthias Klumpp)
+ * Use camel-case for the AppStream GIR (as used everywhere else) (Matthias Klumpp)
+ * qt: Include QMultiHash (Aleix Pol)
+ * Fix wrong DATADIR variable (Matthias Klumpp)
+
 Version 0.7.2
 ~~~~~~~~~~~~~~
 Released: 2014-09-22
