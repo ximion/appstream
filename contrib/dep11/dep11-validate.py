@@ -113,6 +113,9 @@ class DEP11Validator:
     def add_issue(self, msg):
         self.issue_list.append(msg)
 
+    def _is_quoted(self, s):
+        return (s.startswith("\"") and s.endswith("\"")) or (s.startswith("\'") and s.endswith("\'"))
+
     def _test_localized_dict(self, doc, ldict, id_string):
         ret = True
         for lang, value in ldict.items():
@@ -122,7 +125,7 @@ class DEP11Validator:
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "Found cruft locale: xx"))
             if lang.endswith('.UTF-8'):
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "AppStream locale names should not specify encoding (ends with .UTF-8)"))
-            if (value.startswith("\"")) or (value.startswith("\'")):
+            if self._is_quoted(value):
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "String is quoted: '%s' @ %s" % (value, lang)))
             if " " in lang:
                 self.add_issue("[%s][%s]: %s" % (doc['ID'], id_string, "Locale name contains space: '%s'" % (lang)))
