@@ -330,10 +330,16 @@ as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 	guint i;
 	GPtrArray *xmldirs;
 	GPtrArray *yamldirs;
+	GPtrArray *icondirs;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
 	xmldirs = g_ptr_array_new_with_free_func (g_free);
 	yamldirs = g_ptr_array_new_with_free_func (g_free);
+
+	icondirs = g_ptr_array_new_with_free_func (g_free);
+	for (i = 0; priv->icon_paths[i] != NULL; i++) {
+		g_ptr_array_add (icondirs, g_strdup (priv->icon_paths[i]));
+	}
 
 	for (i = 0; dirs[i] != NULL; i++) {
 		gchar *path;
@@ -346,13 +352,23 @@ as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 		if (g_file_test (path, G_FILE_TEST_EXISTS))
 			g_ptr_array_add (yamldirs, g_strdup (path));
 		g_free (path);
+
+		path = g_build_filename (dirs[i], "icons", NULL);
+		if (g_file_test (path, G_FILE_TEST_EXISTS))
+			g_ptr_array_add (icondirs, g_strdup (path));
+		g_free (path);
 	}
 
+	/* add new metadata directories */
 	g_strfreev (priv->asxml_paths);
 	priv->asxml_paths = as_ptr_array_to_strv (xmldirs);
 
 	g_strfreev (priv->dep11_paths);
 	priv->dep11_paths = as_ptr_array_to_strv (yamldirs);
+
+	/* add new icon search locations */
+	g_strfreev (priv->icon_paths);
+	priv->icon_paths = as_ptr_array_to_strv (icondirs);
 
 	/* nuke AppInstall search, in case the provider is enabled */
 	g_strfreev (priv->appinstall_paths);
