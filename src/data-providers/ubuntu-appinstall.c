@@ -233,6 +233,11 @@ as_provider_ubuntu_appinstall_real_execute (AsDataProvider *base)
 		gchar *fname;
 		guint j;
 		fname = g_build_filename (paths[i], "desktop", NULL);
+		if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
+			g_free (fname);
+			continue;
+		}
+
 		desktop_files = as_utils_find_files_matching (fname, "*.desktop", FALSE);
 		if (desktop_files == NULL) {
 			g_free (fname);
