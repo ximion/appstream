@@ -767,9 +767,10 @@ as_provider_dep11_real_execute (AsDataProvider* base)
 		g_ptr_array_unref (yamls);
 	}
 
+	/* do we have metadata at all? */
 	if (yaml_files->len == 0) {
 		g_ptr_array_unref (yaml_files);
-		return FALSE;
+		return TRUE;
 	}
 
 	ret = TRUE;

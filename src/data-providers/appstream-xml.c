@@ -249,12 +249,12 @@ as_provider_xml_real_execute (AsDataProvider* base)
 		g_ptr_array_unref (xmls);
 	}
 
+	/* check if we have XML data */
 	if (xml_files->len == 0) {
 		g_ptr_array_unref (xml_files);
-		return ret;
+		return TRUE;
 	}
 
-	ret = TRUE;
 	for (i = 0; i < xml_files->len; i++) {
 		gchar *fname;
 		GFileInfo *info = NULL;
