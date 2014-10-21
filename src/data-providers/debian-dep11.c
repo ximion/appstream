@@ -246,7 +246,7 @@ dep11_process_urls (GNode *node, AsComponent *cpt)
  * dep11_process_icons:
  */
 static void
-dep11_process_icons (GNode *node, AsComponent *cpt, const gchar *origin)
+dep11_process_icons (GNode *node, AsComponent *cpt)
 {
 	GNode *n;
 	gchar *key;
@@ -262,14 +262,7 @@ dep11_process_icons (GNode *node, AsComponent *cpt, const gchar *origin)
 			} else if (g_strcmp0 (key, "cached") == 0) {
 				icon_url = as_component_get_icon_url (cpt);
 				if ((g_strcmp0 (icon_url, "") == 0) || (g_str_has_prefix (icon_url, "http://"))) {
-					gchar *icon_path_part;
-					/* prepend the origin, to have canonical paths later */
-					if (origin == NULL)
-						icon_path_part = g_strdup (value);
-					else
-						icon_path_part = g_strdup_printf ("%s/%s", origin, value);
-					as_component_set_icon_url (cpt, icon_path_part);
-					g_free (icon_path_part);
+					as_component_set_icon_url (cpt, value);
 				}
 			} else if (g_strcmp0 (key, "local") == 0) {
 				as_component_set_icon_url (cpt, value);
@@ -532,7 +525,7 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 		} else if (g_strcmp0 (key, "Url") == 0) {
 			dep11_process_urls (node, cpt);
 		} else if (g_strcmp0 (key, "Icon") == 0) {
-			dep11_process_icons (node, cpt, origin);
+			dep11_process_icons (node, cpt);
 		} else if (g_strcmp0 (key, "Provides") == 0) {
 			dep11_process_provides (node, cpt);
 		} else if (g_strcmp0 (key, "Screenshots") == 0) {
@@ -541,6 +534,9 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 			dep11_print_unknown ("root", key);
 		}
 	}
+
+	/* set component origin */
+	as_component_set_origin (cpt, origin);
 
 	/* add package name information to component */
 	strv = as_ptr_array_to_strv (pkgnames);

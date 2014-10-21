@@ -176,6 +176,10 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_value (XapianValues::TYPE, type_str);
 		doc.add_term ("AT" + type_str);
 
+		// Origin
+		string cptOrigin = as_component_get_origin (cpt);
+		doc.add_value (XapianValues::ORIGIN, cptOrigin);
+
 		// URLs
 		GHashTable *urls;
 		urls = as_component_get_urls (cpt);

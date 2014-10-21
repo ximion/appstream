@@ -107,6 +107,10 @@ const gchar*		as_component_get_id (AsComponent* cpt);
 void				as_component_set_id (AsComponent* cpt,
 											const gchar* value);
 
+const gchar*		as_component_get_origin (AsComponent* cpt);
+void				as_component_set_origin (AsComponent* cpt,
+											const gchar* origin);
+
 gchar**				as_component_get_pkgnames (AsComponent* cpt);
 void				as_component_set_pkgnames (AsComponent* cpt,
 												gchar** value);

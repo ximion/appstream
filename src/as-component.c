@@ -51,6 +51,7 @@
 struct _AsComponentPrivate {
 	AsComponentKind kind;
 	gchar *id;
+	gchar *origin;
 	gchar **pkgnames;
 	gchar *name;
 	gchar *name_original;
@@ -194,6 +195,7 @@ as_component_construct (GType object_type)
 
 	cpt = (AsComponent*) g_object_new (object_type, NULL);
 	as_component_set_id (cpt, "");
+	as_component_set_origin (cpt, "");
 	as_component_set_name_original (cpt, "");
 	as_component_set_summary (cpt, "");
 	as_component_set_description (cpt, "");
@@ -1045,6 +1047,34 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
 	g_object_notify ((GObject *) cpt, "id");
 }
 
+/**
+ * as_component_get_origin:
+ */
+const gchar*
+as_component_get_origin (AsComponent *cpt)
+{
+	g_return_val_if_fail (cpt != NULL, NULL);
+	return cpt->priv->origin;
+}
+
+/**
+ * as_component_set_origin:
+ */
+void
+as_component_set_origin (AsComponent *cpt, const gchar* origin)
+{
+	g_return_if_fail (cpt != NULL);
+
+	/* safety measure, so we never set this to NULL */
+	if (origin == NULL)
+		origin = "";
+	g_free (cpt->priv->origin);
+	cpt->priv->origin = g_strdup (origin);
+}
+
+/**
+ * as_component_get_name:
+ */
 const gchar*
 as_component_get_name (AsComponent *cpt)
 {
@@ -1056,6 +1086,9 @@ as_component_get_name (AsComponent *cpt)
 	return cpt->priv->name;
 }
 
+/**
+ * as_component_set_name:
+ */
 void
 as_component_set_name (AsComponent *cpt, const gchar* value)
 {
@@ -1634,6 +1667,7 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 	gchar *tmp_icon_path;
 	const gchar *icon_url;
 	guint i, j, k;
+	AsComponentPrivate *priv = cpt->priv;
 
 	icon_url = as_component_get_icon_url (cpt);
 	if (g_str_has_prefix (icon_url, "/") ||
@@ -1651,8 +1685,9 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 	for (i = 0; icon_paths[i] != NULL; i++) {
 		for (j = 0; sizes[j] != NULL; j++) {
 			/* sometimes, the file already has an extension */
-			tmp_icon_path = g_strdup_printf ("%s/%s/%s",
+			tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
 							icon_paths[i],
+							priv->origin,
 							sizes[j],
 							icon_url);
 			if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS))
@@ -1661,8 +1696,9 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 
 			/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
 			for (k = 0; exensions[k] != NULL; k++) {
-				tmp_icon_path = g_strdup_printf ("%s/%s/%s.%s",
+				tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s.%s",
 							icon_paths[i],
+							priv->origin,
 							sizes[j],
 							icon_url,
 							exensions[k]);

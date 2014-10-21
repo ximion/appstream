@@ -97,6 +97,10 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	string appname_orig = doc.get_value (XapianValues::CPTNAME_UNTRANSLATED);
 	as_component_set_name_original (cpt, appname_orig.c_str ());
 
+	// Origin
+	string cptOrigin = doc.get_value (XapianValues::ORIGIN);
+	as_component_set_name (cpt, cptOrigin.c_str ());
+
 	// URLs
 	str = doc.get_value (XapianValues::URLS);
 	gchar **urls = g_strsplit (str.c_str (), "\n", -1);
@@ -109,7 +113,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 			as_component_add_url (cpt, ukind, urls[i+1]);
 	}
 
-	// Application icon
+	// Icon
 	string appIcon = doc.get_value (XapianValues::ICON);
 	as_component_set_icon (cpt, appIcon.c_str ());
 	appIcon = doc.get_value (XapianValues::ICON_URL);
