@@ -153,7 +153,7 @@ as_print_component (AsComponent *cpt)
 	as_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
 	as_print_key_value (_("Package"), pkgs_str, FALSE);
 	as_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
-	as_print_key_value (_("Icon"), as_component_get_icon_url (cpt), FALSE);
+	as_print_key_value (_("Icon"), as_component_get_icon_url_for_size (cpt, 64, 64), FALSE);
 	g_free (short_idline);
 	g_free (pkgs_str);
 	short_idline = NULL;

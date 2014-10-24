@@ -167,7 +167,6 @@ void				as_component_set_keywords (AsComponent *cpt,
 const gchar*		as_component_get_icon (AsComponent *cpt);
 void				as_component_set_icon (AsComponent *cpt,
 											const gchar* value);
-const gchar*		as_component_get_icon_url (AsComponent *cpt);
 const gchar*		as_component_get_icon_url_for_size (AsComponent *cpt,
 											int width,
 											int height);
@@ -209,6 +208,11 @@ gint				as_component_get_language (AsComponent *cpt,
 GList*				as_component_get_languages (AsComponent *cpt);
 
 gchar*				as_component_to_xml (AsComponent *cpt);
+
+/** DEPRECATED */
+
+/* use G_GNUC_DEPRECATED on this later */
+const gchar*		as_component_get_icon_url (AsComponent *cpt);
 
 G_END_DECLS
 

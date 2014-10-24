@@ -1283,10 +1283,37 @@ as_component_add_icon_url (AsComponent *cpt, int width, int height, const gchar*
 }
 
 /**
+ * as_component_get_icon_url_for_size:
+ * @cpt: an #AsComponent instance
+ * @width: An icon width
+ * @height: An icon height
+ *
+ * Returns the full url for an icon with the given width and height.
+ * In case no icon matching the size is found, %NULL is returned.
+ * The returned path will either be a http link or an absolute, local
+ * path to the image file of the icon.
+ *
+ * Since: 0.7.4
+ */
+const gchar*
+as_component_get_icon_url_for_size (AsComponent *cpt, int width, int height)
+{
+	gchar *size;
+	gchar *icon_url;
+	g_return_if_fail (cpt != NULL);
+
+	size = g_strdup_printf ("%ix%i", width, height);
+	icon_url = g_hash_table_lookup (cpt->priv->icon_urls, size);
+	g_free (size);
+
+	return icon_url;
+}
+
+/**
  * as_component_get_icon_urls:
  * @cpt: a #AsComponent instance.
  *
- * Gets the icon-urls set for the component.
+ * Gets the icon-urls has table for the component.
  *
  * Returns: (transfer none): A hash map of icon urls and sizes
  *
