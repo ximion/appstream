@@ -1724,7 +1724,7 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 	guint i, j, k;
 	AsComponentPrivate *priv = cpt->priv;
 
-	/* Ssee if we have an icon without known size.
+	/* See if we have an icon without known size.
 	 * These icons have a zero-dimensional width and height (therefore the "0x0" key)
 	 */
 	icon_url = g_strdup (g_hash_table_lookup (priv->icon_urls, "0x0"));
