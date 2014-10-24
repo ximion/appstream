@@ -112,12 +112,25 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		if (ukind != AS_URL_KIND_UNKNOWN)
 			as_component_add_url (cpt, ukind, urls[i+1]);
 	}
+	g_strfreev (urls);
 
-	// Icon
+	// Stock icon
 	string appIcon = doc.get_value (XapianValues::ICON);
 	as_component_set_icon (cpt, appIcon.c_str ());
-	appIcon = doc.get_value (XapianValues::ICON_URL);
-	as_component_set_icon_url (cpt, appIcon.c_str ());
+
+	// Icon urls
+	str = doc.get_value (XapianValues::ICON_URLS);
+	gchar **icon_urls = g_strsplit (str.c_str (), "\n", -1);
+	GHashTable *cpt_icon_urls = as_component_get_icon_urls (cpt);
+	for (uint i = 0; icon_urls[i] != NULL; i += 2) {
+		/* icon-urls are stored in form of "size \n url"
+		 * A "size" is a string in the form of "WIDTHxHEIGHT", e.g. "64x64"
+		 */
+		if (icon_urls[i+1] == NULL)
+			break;
+		g_hash_table_insert (cpt_icon_urls, g_strdup (icon_urls[i]), g_strdup (icon_urls[i+1]));
+	}
+	g_strfreev (icon_urls);
 
 	// Summary
 	string appSummary = doc.get_value (XapianValues::SUMMARY);

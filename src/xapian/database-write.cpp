@@ -66,7 +66,7 @@ DatabaseWrite::initialize (const gchar *dbPath)
 }
 
 static
-void url_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
+void string_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
 {
 	g_string_append_printf (gstr, "%s\n%s\n", key, value);
 }
@@ -186,7 +186,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		if (g_hash_table_size (urls) > 0) {
 			gchar *cstr;
 			gstr = g_string_new ("");
-			g_hash_table_foreach(urls, (GHFunc) url_hashtable_to_str, gstr);
+			g_hash_table_foreach(urls, (GHFunc) string_hashtable_to_str, gstr);
 			if (gstr->len > 0)
 				g_string_truncate (gstr, gstr->len - 1);
 
@@ -195,9 +195,22 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			g_free (cstr);
 		}
 
-		// Application icon
+		// Stock icon
 		doc.add_value (XapianValues::ICON, as_component_get_icon (cpt));
-		doc.add_value (XapianValues::ICON_URL, as_component_get_icon_url (cpt));
+		// Icon urls
+		GHashTable *icon_urls;
+		icon_urls = as_component_get_icon_urls (cpt);
+		if (g_hash_table_size (icon_urls) > 0) {
+			gchar *cstr;
+			gstr = g_string_new ("");
+			g_hash_table_foreach(icon_urls, (GHFunc) string_hashtable_to_str, gstr);
+			if (gstr->len > 0)
+				g_string_truncate (gstr, gstr->len - 1);
+
+			cstr = g_string_free (gstr, FALSE);
+			doc.add_value (XapianValues::ICON_URLS, cstr);
+			g_free (cstr);
+		}
 
 		// Summary
 		string cptSummary = as_component_get_summary (cpt);

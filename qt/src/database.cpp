@@ -129,12 +129,27 @@ Component xapianDocToComponent(Xapian::Document document) {
     }
     component.setProvides(provideslist);
 
-    // Application icon
+    // Stock icon
     QString icon = value(document,XapianValues::ICON);
     component.setIcon(icon);
 
-    QUrl iconUrl = QUrl::fromUserInput(value(document,XapianValues::ICON_URL));
-    component.setIconUrl(iconUrl);
+    // Icon urls
+    QString concatIconUrlStrings = value(document, XapianValues::ICON_URLS);
+    QStringList iconUrlStrings= concatUrlStrings.split('\n',QString::SkipEmptyParts);
+    if(iconUrlStrings.size() %2 == 0) {
+        for(int i = 0; i < urlStrings.size(); i=i+2) {
+            QString size = urlStrings.at(i);
+            QUrl url = QUrl::fromUserInput(urlStrings.at(i+1));
+            // TODO: We need to extend the API to support the multiple-icons feature
+			// This code just restores the existing functionality
+            if (size == "64x64") {
+                component.setIconUrl(url);
+                break;
+            }
+        }
+    } else {
+        qWarning("Bad icon-url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatUrlStrings));
+    }
 
     // Summary
     QString summary = value(document,XapianValues::SUMMARY);
