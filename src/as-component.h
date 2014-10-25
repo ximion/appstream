@@ -209,7 +209,7 @@ GList*				as_component_get_languages (AsComponent *cpt);
 
 gchar*				as_component_to_xml (AsComponent *cpt);
 
-/** DEPRECATED */
+/* DEPRECATED */
 
 /* use G_GNUC_DEPRECATED on this later */
 const gchar*		as_component_get_icon_url (AsComponent *cpt);

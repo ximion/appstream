@@ -868,7 +868,7 @@ _as_component_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *
 
 /**
  * as_component_to_xml:
- * @cpt a valid #AsComponent
+ * @cpt: a valid #AsComponent
  *
  * Serialize the component data to XML.
  * Note that this will produce an unlocalized file only, using the
@@ -934,9 +934,9 @@ as_component_to_xml (AsComponent *cpt)
 
 /**
  * as_component_provides_item:
- * @cpt a valid #AsComponent
- * @kind the kind of the provides-item
- * @value the value of the provides-item
+ * @cpt: a valid #AsComponent
+ * @kind: the kind of the provides-item
+ * @value: the value of the provides-item
  *
  * Checks if this component provides an item of the specified type
  *
@@ -1300,7 +1300,7 @@ as_component_get_icon_url_for_size (AsComponent *cpt, int width, int height)
 {
 	gchar *size;
 	gchar *icon_url;
-	g_return_if_fail (cpt != NULL);
+	g_return_val_if_fail (cpt != NULL, NULL);
 
 	size = g_strdup_printf ("%ix%i", width, height);
 	icon_url = g_hash_table_lookup (cpt->priv->icon_urls, size);
@@ -1357,8 +1357,8 @@ as_component_set_categories (AsComponent *cpt, gchar** value)
  *
  * Set the categories list from a string
  *
- * @cpt a valid #AsComponent instance
- * @categories_str Semicolon-separated list of category-names
+ * @cpt: a valid #AsComponent instance
+ * @categories_str: Semicolon-separated list of category-names
  */
 void
 as_component_set_categories_from_str (AsComponent *cpt, const gchar* categories_str)
@@ -1375,7 +1375,7 @@ as_component_set_categories_from_str (AsComponent *cpt, const gchar* categories_
 
 /**
  * as_component_has_category:
- * @cpt an #AsComponent object
+ * @cpt: an #AsComponent object
  *
  * Check if component is in the specified category.
  **/
@@ -1518,8 +1518,8 @@ as_component_set_compulsory_for_desktops (AsComponent *cpt, gchar** value)
 
 /**
  * as_component_is_compulsory_for_desktop:
- * @cpt an #AsComponent object
- * @desktop the desktop-id to test for
+ * @cpt: an #AsComponent object
+ * @desktop: the desktop-id to test for
  *
  * Check if this component is compulsory for the given desktop.
  *
@@ -1803,8 +1803,8 @@ out:
 
 /**
  * as_component_complete:
- * @scr_base_url Base url for screenshot-service, obtain via #AsDistroDetails
- * @icon_paths Zero-terminated string array of possible (cached) icon locations
+ * @scr_base_url: Base url for screenshot-service, obtain via #AsDistroDetails
+ * @icon_paths: Zero-terminated string array of possible (cached) icon locations
  *
  * Private function to complete a AsComponent with
  * additional data found on the system.

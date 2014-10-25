@@ -64,7 +64,7 @@ typedef enum {
 	AS_BUILDER_ERROR_PARTIALLY_FAILED,
 	/*< private >*/
 	AS_BUILDER_ERROR_LAST
-} AsNodeError;
+} AsBuilderError;
 
 GType as_builder_get_type (void) G_GNUC_CONST;
 

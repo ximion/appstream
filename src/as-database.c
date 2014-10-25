@@ -224,10 +224,10 @@ as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
 
 /**
  * as_database_get_components_by_provides:
- * @self a valid #AsDatabase instance
- * @kind an #AsProvidesKind
- * @value a value of the selected provides kind
- * @data (allow-none) (default NULL): additional provides data
+ * @self: a valid #AsDatabase instance
+ * @kind: an #AsProvidesKind
+ * @value: a value of the selected provides kind
+ * @data: (allow-none) (default NULL): additional provides data
  *
  * Find components in the Appstream database.
  *
@@ -249,8 +249,8 @@ as_database_get_components_by_provides (AsDatabase* self, AsProvidesKind kind, c
 
 /**
  * as_database_get_components_by_kind:
- * @self a valid #AsDatabase instance
- * @kinds an #AsComponentKind bitfield
+ * @self: a valid #AsDatabase instance
+ * @kinds: an #AsComponentKind bitfield
  *
  * Find components of a given kind.
  *
