@@ -596,14 +596,14 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				as_component_set_icon (cpt, content);
 			} else if (g_strcmp0 (prop, "cached") == 0) {
 				icon_url = as_component_get_icon_url_for_size (cpt, 0, 0);
-				if ((g_strcmp0 (icon_url, "") == 0) || (g_str_has_prefix (icon_url, "http://"))) {
+				if ((icon_url == NULL) || (g_str_has_prefix (icon_url, "http://"))) {
 					as_component_add_icon_url (cpt, 0, 0, content);
 				}
 			} else if (g_strcmp0 (prop, "local") == 0) {
 				as_component_add_icon_url (cpt, 0, 0, content);
 			} else if (g_strcmp0 (prop, "remote") == 0) {
 				icon_url = as_component_get_icon_url_for_size (cpt, 0, 0);
-				if (g_strcmp0 (icon_url, "") == 0)
+				if (icon_url == NULL)
 					as_component_add_icon_url (cpt, 0, 0, content);
 			}
 		} else if (g_strcmp0 (node_name, "url") == 0) {

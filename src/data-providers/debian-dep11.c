@@ -261,14 +261,14 @@ dep11_process_icons (GNode *node, AsComponent *cpt)
 				as_component_set_icon (cpt, value);
 			} else if (g_strcmp0 (key, "cached") == 0) {
 				icon_url = as_component_get_icon_url_for_size (cpt, 0, 0);
-				if ((g_strcmp0 (icon_url, "") == 0) || (g_str_has_prefix (icon_url, "http://"))) {
+				if ((icon_url == NULL) || (g_str_has_prefix (icon_url, "http://"))) {
 					as_component_add_icon_url (cpt, 0, 0, value);
 				}
 			} else if (g_strcmp0 (key, "local") == 0) {
 				as_component_add_icon_url (cpt, 0, 0, value);
 			} else if (g_strcmp0 (key, "remote") == 0) {
 				icon_url = as_component_get_icon_url_for_size (cpt, 0, 0);
-				if (g_strcmp0 (icon_url, "") == 0)
+				if (icon_url == NULL)
 					as_component_add_icon_url (cpt, 0, 0, value);
 			}
 	}
