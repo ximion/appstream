@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QUrl>
 #include <QStringList>
+#include <QSize>
 #include "appstreamqt_export.h"
 #include "provides.h"
 
@@ -102,13 +103,14 @@ class APPSTREAMQT_EXPORT Component {
         bool hasCategory(const QString& category) const;
 
         /**
-         * \return generic icon name
+         * \return generic (stock) icon name
          */
         QString icon() const;
         void setIcon(const QString& icon);
 
-        QUrl iconUrl() const;
-        void setIconUrl(const QUrl& iconUrl);
+        QUrl iconUrl(const QSize& size = QSize()) const;
+        void setIconUrls(const QHash<QString , QUrl >& iconUrls);
+        void setIconUrl(const QUrl& iconUrl, const QSize& size = QSize());
 
         void setUrls(const QMultiHash<UrlKind , QUrl >& urls);
         QMultiHash<UrlKind, QUrl> urls() const;

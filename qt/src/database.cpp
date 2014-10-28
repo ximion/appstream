@@ -95,7 +95,7 @@ Component xapianDocToComponent(Xapian::Document document) {
 
     // URLs
     QString concatUrlStrings = value(document, XapianValues::URLS);
-    QStringList urlStrings= concatUrlStrings.split('\n',QString::SkipEmptyParts);
+    QStringList urlStrings = concatUrlStrings.split('\n',QString::SkipEmptyParts);
     if(urlStrings.size() %2 == 0) {
         QMultiHash<Component::UrlKind, QUrl> urls;
         for(int i = 0; i < urlStrings.size(); i=i+2) {
@@ -135,20 +135,17 @@ Component xapianDocToComponent(Xapian::Document document) {
 
     // Icon urls
     QString concatIconUrlStrings = value(document, XapianValues::ICON_URLS);
-    QStringList iconUrlStrings= concatUrlStrings.split('\n',QString::SkipEmptyParts);
+    QStringList iconUrlStrings = concatIconUrlStrings.split('\n',QString::SkipEmptyParts);
     if(iconUrlStrings.size() %2 == 0) {
-        for(int i = 0; i < urlStrings.size(); i=i+2) {
-            QString size = urlStrings.at(i);
-            QUrl url = QUrl::fromUserInput(urlStrings.at(i+1));
-            // TODO: We need to extend the API to support the multiple-icons feature
-			// This code just restores the existing functionality
-            if (size == "64x64") {
-                component.setIconUrl(url);
-                break;
-            }
+        QHash<QString, QUrl> iconUrls;
+        for(int i = 0; i < iconUrlStrings.size(); i=i+2) {
+            QString size = iconUrlStrings.at(i);
+            QUrl url = QUrl::fromUserInput(iconUrlStrings.at(i+1));
+            iconUrls.insert(size, url);
         }
+        component.setIconUrls(iconUrls);
     } else {
-        qWarning("Bad icon-url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatUrlStrings));
+        qWarning("Bad icon-url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatIconUrlStrings));
     }
 
     // Summary

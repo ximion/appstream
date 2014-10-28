@@ -34,7 +34,6 @@ class Appstream::ComponentData : public QSharedData {
         QString m_developerName;
         QStringList m_extends;
         QString m_icon;
-        QUrl m_iconUrl;
         QString m_id;
         Component::Kind m_kind;
         QString m_name;
@@ -42,6 +41,7 @@ class Appstream::ComponentData : public QSharedData {
         QString m_projectGroup;
         QString m_projectLicense;
         QString m_summary;
+        QHash<QString, QUrl> m_iconUrls;
         QMultiHash<Component::UrlKind, QUrl> m_urls;
         QList<Appstream::Screenshot> m_screenshots;
         QMultiHash<Provides::Kind, Provides> m_provides;
@@ -64,7 +64,7 @@ class Appstream::ComponentData : public QSharedData {
             if(m_icon != other.m_icon) {
                 return false;
             }
-            if(m_iconUrl != other.m_iconUrl) {
+            if(m_iconUrls != other.m_iconUrls) {
                 return false;
             }
             if(m_id != other.m_id) {
@@ -126,8 +126,12 @@ QString Component::icon() const {
     return d->m_icon;
 }
 
-QUrl Component::iconUrl() const {
-    return d->m_iconUrl;
+QUrl Component::iconUrl(const QSize& size) const {
+    QString sizeStr = "64x64";
+    // if no size was specified, we assume 64x64
+    if (size.isValid())
+        sizeStr = QString("%1x%2").arg(size.width()).arg(size.height());
+    return d->m_iconUrls.value(sizeStr);
 }
 
 QString Component::id() const {
@@ -178,8 +182,16 @@ void Component::setIcon(const QString& icon) {
     d->m_icon = icon;
 }
 
-void Component::setIconUrl(const QUrl& iconUrl) {
-    d->m_iconUrl = iconUrl;
+void Component::setIconUrl(const QUrl& iconUrl, const QSize& size) {
+    QString sizeStr = "64x64";
+    // if no size was specified, we assume 64x64
+    if (size.isValid())
+        sizeStr = QString("%1x%2").arg(size.width()).arg(size.height());
+    d->m_iconUrls.insert(sizeStr, iconUrl);
+}
+
+void Component::setIconUrls(const QHash< QString, QUrl >& iconUrls) {
+    d->m_iconUrls = iconUrls;
 }
 
 void Component::setId(const QString& id) {
