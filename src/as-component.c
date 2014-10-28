@@ -1203,7 +1203,7 @@ as_component_set_keywords (AsComponent *cpt, gchar** value)
  * as_component_get_icon:
  * @cpt: an #AsComponent instance
  *
- * Returns the icon name for this component. This is usually
+ * Returns: The icon name for this component. This is usually
  * a stock icon name, e.g. "applications-science"
  */
 const gchar*
@@ -1238,10 +1238,9 @@ as_component_set_icon (AsComponent *cpt, const gchar* value)
  * as_component_get_icon_url:
  * @cpt: an #AsComponent instance
  *
- * Returns the full url of this icon, e.g.
+ * Returns: The full url of this icon, e.g.
  * "/usr/share/icons/hicolor/64x64/foobar.png"
  * This might also be an http url pointing at a remote location.
- *
  * The icon will have the default icon size, which is usually 64x64 pixels.
  */
 const gchar*
@@ -1354,11 +1353,10 @@ as_component_set_categories (AsComponent *cpt, gchar** value)
 
 /**
  * as_component_set_categories_from_str:
- *
- * Set the categories list from a string
- *
  * @cpt: a valid #AsComponent instance
  * @categories_str: Semicolon-separated list of category-names
+ *
+ * Set the categories list from a string
  */
 void
 as_component_set_categories_from_str (AsComponent *cpt, const gchar* categories_str)
