@@ -436,6 +436,14 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
 			prop = as_validator_check_type_property (validator, cpt, iter);
+			if ((g_strcmp0 (prop, "cached") == 0) || (g_strcmp0 (prop, "stock") == 0)) {
+				if (g_strrstr (node_content, "/") != NULL)
+					as_validator_add_issue (validator,
+						cpt,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"Icons of type 'stock' or 'cached' must not contain a full or relative path to the icon.");
+			}
 			g_free (prop);
 		} else if (g_strcmp0 (node_name, "url") == 0) {
 			gchar *prop;
@@ -526,7 +534,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	if ((!provides_found) && (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP)) {
 		as_validator_add_issue (validator,
 					cpt,
-					AS_ISSUE_IMPORTANCE_INFO,
+					AS_ISSUE_IMPORTANCE_PEDANTIC,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"Component describes a desktop-application, but has no 'provides' tag. It should at least define a 'binary' as public interface.");
 	}
