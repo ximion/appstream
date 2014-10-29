@@ -39,8 +39,7 @@ using namespace Appstream;
 DatabaseRead::DatabaseRead () :
     m_xapianDB(0)
 {
-	// we cache these for performance reasons
-	m_systemCategories = as_get_system_categories ();
+
 }
 
 DatabaseRead::~DatabaseRead ()

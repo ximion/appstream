@@ -31,7 +31,7 @@
 
 struct _AsProviderXMLPrivate
 {
-	GList* system_categories;
+
 };
 
 static gpointer as_provider_xml_parent_class = NULL;
@@ -48,12 +48,7 @@ AsProviderXML*
 as_provider_xml_construct (GType object_type)
 {
 	AsProviderXML *dprov = NULL;
-	GList *syscat;
 	dprov = (AsProviderXML*) as_data_provider_construct (object_type);
-
-	/* cache categories for performance reasons */
-	syscat = as_get_system_categories ();
-	dprov->priv->system_categories = syscat;
 
 	return dprov;
 }
@@ -313,9 +308,11 @@ as_provider_xml_instance_init (AsProviderXML * dprov)
 static void
 as_provider_xml_finalize (GObject* obj)
 {
+#if 0
 	AsProviderXML * dprov;
 	dprov = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_PROVIDER_TYPE_XML, AsProviderXML);
-	g_list_free (dprov->priv->system_categories);
+#endif
+
 	G_OBJECT_CLASS (as_provider_xml_parent_class)->finalize (obj);
 }
 

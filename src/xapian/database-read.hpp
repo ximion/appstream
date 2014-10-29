@@ -54,7 +54,6 @@ public:
 private:
 	Xapian::Database m_xapianDB;
 	string m_dbPath;
-	GList *m_systemCategories;
 
 	AsComponent *docToComponent (Xapian::Document);
 
