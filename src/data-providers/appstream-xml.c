@@ -31,7 +31,7 @@
 
 struct _AsProviderXMLPrivate
 {
-
+	guint none; /* placeholder */
 };
 
 static gpointer as_provider_xml_parent_class = NULL;

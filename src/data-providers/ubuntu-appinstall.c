@@ -31,7 +31,7 @@
 
 struct _AsProviderUbuntuAppinstallPrivate
 {
-
+	guint none; /* placeholder */
 };
 
 static gpointer as_provider_ubuntu_appinstall_parent_class = NULL;
