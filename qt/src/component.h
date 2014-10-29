@@ -108,14 +108,18 @@ class APPSTREAMQT_EXPORT Component {
         QString icon() const;
         void setIcon(const QString& icon);
 
-        QUrl iconUrl(const QSize& size = QSize()) const;
-        void setIconUrls(const QHash<QString , QUrl >& iconUrls);
-        void setIconUrl(const QUrl& iconUrl, const QSize& size = QSize());
+        /**
+         * \return absolute path to an icon of the given size
+         */
+        QUrl iconUrl() const;
+        QUrl iconUrl(const QSize& size) const;
+        void setIconUrl(const QUrl& iconUrl);
+        void addIconUrl(const QUrl& iconUrl, const QSize& size);
+
 
         void setUrls(const QMultiHash<UrlKind , QUrl >& urls);
         QMultiHash<UrlKind, QUrl> urls() const;
         QList<QUrl> urls(UrlKind kind) const;
-
 
 
         /**

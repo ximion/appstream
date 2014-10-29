@@ -134,6 +134,10 @@ QUrl Component::iconUrl(const QSize& size) const {
     return d->m_iconUrls.value(sizeStr);
 }
 
+QUrl Component::iconUrl() const {
+    return this->iconUrl(QSize());
+}
+
 QString Component::id() const {
     return d->m_id;
 }
@@ -182,7 +186,7 @@ void Component::setIcon(const QString& icon) {
     d->m_icon = icon;
 }
 
-void Component::setIconUrl(const QUrl& iconUrl, const QSize& size) {
+void Component::addIconUrl(const QUrl& iconUrl, const QSize& size) {
     QString sizeStr = "64x64";
     // if no size was specified, we assume 64x64
     if (size.isValid())
@@ -190,8 +194,8 @@ void Component::setIconUrl(const QUrl& iconUrl, const QSize& size) {
     d->m_iconUrls.insert(sizeStr, iconUrl);
 }
 
-void Component::setIconUrls(const QHash< QString, QUrl >& iconUrls) {
-    d->m_iconUrls = iconUrls;
+void Component::setIconUrl(const QUrl& iconUrl) {
+    this->addIconUrl(iconUrl, QSize());
 }
 
 void Component::setId(const QString& id) {
