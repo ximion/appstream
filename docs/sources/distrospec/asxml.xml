@@ -244,14 +244,14 @@
 					</para>
 					<para>
 						<literal>cached</literal> icons are loaded from the AppStream icon cache. The icon tag should contain the icon file name, including it's
-						extension.
+						extension. It must not contain a full or relative path to the icon file.
 					</para>
 					<para>
-						<literal>local</literal> icons are reserved for AppStream data installed by local applications or via 3rd-party application installers,
-						such as Listaller. They should specify a full file path.
+						<literal>local</literal> icons are reserved for AppStream data installed by local applications or via 3rd-party application installers.
+						They should specify a full file path.
 					</para>
 					<para>
-						<literal>remote</literal> icons loaded from a remote URL. This is currently not implemented anywhere, but might be used in future.
+						<literal>remote</literal> icons loaded from a remote URL. Currently, at least HTTP urls must be supported.
 					</para>
 					<para>
 						Examples of the different methods to specify an icon:
