@@ -1,3 +1,25 @@
+Version 0.7.4
+~~~~~~~~~~~~~~
+Released: 2014-10-30
+
+Notes:
+
+Features:
+ * Add local icon directories to the icon search path (Matthias Klumpp)
+ * Properly handle origin and icons in size-specific directories (Matthias Klumpp)
+ * Allow client applications to fetch icons in multiple sizes (Matthias Klumpp)
+ * qt: Implement multisize-icons (Matthias Klumpp)
+ * qt: Add documentation to the deprecated methods (Matthias Klumpp)
+ * validator: Ensure that stock and cached icons only contain the icon basename (Matthias Klumpp)
+
+Specification:
+
+Bugfixes:
+ * dep11: refine quote test (Matthias Klumpp)
+ * Don't count it as problem if no metadata is found (Matthias Klumpp)
+ * Check if AppInstall directory exists, before attempting to scan it (Matthias Klumpp)
+ * Don't query system categories while processing metadata (Matthias Klumpp)
+
 Version 0.7.3
 ~~~~~~~~~~~~~~
 Released: 2014-10-10
