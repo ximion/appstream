@@ -63,6 +63,18 @@ as_provider_dep11_new (void) {
 }
 
 /**
+ * _dep11_yaml_free_node:
+ */
+static gboolean
+_dep11_yaml_free_node (GNode *node, gpointer data)
+{
+	if (node->data != NULL)
+		g_free (node->data);
+
+	return FALSE;
+}
+
+/**
  * dep11_yaml_process_layer:
  *
  * Create GNode tree from DEP-11 YAML document
@@ -116,7 +128,8 @@ dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data)
 			default:
 				break;
 		}
-    	yaml_event_delete(&event);
+
+    	yaml_event_delete (&event);
     }
 }
 
@@ -584,7 +597,7 @@ as_provider_dep11_process_data (AsProviderDEP11 *dprov, const gchar *data)
 			gchar *key;
 			gchar *value;
 			AsComponent *cpt;
-			GNode *root = g_node_new("");
+			GNode *root = g_node_new (g_strdup (""));
 
 			dep11_yaml_process_layer (&parser, root);
 
@@ -627,7 +640,14 @@ as_provider_dep11_process_data (AsProviderDEP11 *dprov, const gchar *data)
 			}
 
 			header = FALSE;
-			g_node_destroy(root);
+
+			g_node_traverse (root,
+					G_IN_ORDER,
+					G_TRAVERSE_ALL,
+					-1,
+					_dep11_yaml_free_node,
+					NULL);
+			g_node_destroy (root);
 		}
 
 		/* stop if end of stream is reached */
