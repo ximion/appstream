@@ -98,7 +98,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Origin
 	string cptOrigin = doc.get_value (XapianValues::ORIGIN);
-	as_component_set_name (cpt, cptOrigin.c_str ());
+	as_component_set_origin (cpt, cptOrigin.c_str ());
 
 	// URLs
 	str = doc.get_value (XapianValues::URLS);
