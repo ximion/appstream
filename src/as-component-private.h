@@ -23,6 +23,7 @@
 
 #include <glib-object.h>
 #include "as-component.h"
+#include <libxml/tree.h>
 
 G_BEGIN_DECLS
 
@@ -44,7 +45,7 @@ void				as_component_complete (AsComponent* self,
 										   gchar *scr_base_url,
 										   gchar **icon_paths);
 
-gchar				*as_component_to_xml (AsComponent *cpt);
+xmlNode				*as_component_serialize_to_xmlnode (AsComponent *cpt);
 
 G_END_DECLS
 

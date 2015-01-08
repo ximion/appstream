@@ -848,17 +848,34 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
  *
  * The first #AsComponent added to the internal list will be transformed.
  * In case no component is present, %NULL is returned.
+ *
+ * Returns: (transfer full): A string containing the XML. Free with g_free()
  */
 gchar*
 as_metadata_component_to_upstream_xml (AsMetadata *metad)
 {
+	xmlDoc *doc;
+	xmlNode *root;
+	gchar *xmlstr = NULL;
 	AsComponent *cpt;
 
 	cpt = as_metadata_get_component (metad);
 	if (cpt == NULL)
 		return NULL;
 
-	return as_component_to_xml (cpt);
+	doc = xmlNewDoc ((xmlChar*) NULL);
+
+	/* define component root node */
+	root = as_component_serialize_to_xmlnode (cpt);
+	if (root == NULL)
+		goto out;
+	xmlDocSetRootElement (doc, root);
+
+out:
+	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
+	xmlFreeDoc (doc);
+
+	return xmlstr;
 }
 
 /**
@@ -867,13 +884,44 @@ as_metadata_component_to_upstream_xml (AsMetadata *metad)
  * Serialize all #AsComponent instances into AppStream
  * distro-XML data.
  * %NULL is returned if there is nothing to serialize.
+ *
+ * Returns: (transfer full): A string containing the XML. Free with g_free()
  */
 gchar*
 as_metadata_components_to_distro_xml (AsMetadata *metad)
 {
-	/* FIXME: This is a stub at time */
+	xmlDoc *doc;
+	xmlNode *root;
+	gchar *xmlstr = NULL;
+	guint i;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	return NULL;
+	if (priv->cpts->len == 0)
+		return NULL;
+
+	root = xmlNewNode (NULL, (xmlChar*) "components");
+	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.7");
+	if (priv->origin_name != NULL)
+		xmlNewProp (root, (xmlChar*) "origin", (xmlChar*) priv->origin_name);
+
+	for (i = 0; i < priv->cpts->len; i++) {
+		AsComponent *cpt;
+		xmlNode *node;
+		cpt = AS_COMPONENT (g_ptr_array_index (priv->cpts, i));
+
+		node = as_component_serialize_to_xmlnode (cpt);
+		if (node == NULL)
+			continue;
+		xmlAddChild (root, node);
+	}
+
+	doc = xmlNewDoc ((xmlChar*) NULL);
+	xmlDocSetRootElement (doc, root);
+
+	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
+	xmlFreeDoc (doc);
+
+	return xmlstr;
 }
 
 /**

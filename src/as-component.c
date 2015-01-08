@@ -867,69 +867,57 @@ _as_component_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *
 }
 
 /**
- * as_component_to_xml:
+ * as_component_serialize_to_xmlnode:
  * @cpt: a valid #AsComponent
  *
- * Serialize the component data to XML.
- * Note that this will produce an unlocalized file only, using the
- * language which was selected when this component was obtained from the
- * database. You will not receive the source XML back.
+ * Serialize the component data to an xmlNode.
  *
- * Returns: (transfer full): A string containing the XML. Free with g_free()
  */
-gchar*
-as_component_to_xml (AsComponent *cpt)
+xmlNode*
+as_component_serialize_to_xmlnode (AsComponent *cpt)
 {
-	xmlDoc *doc;
-	xmlNode *root;
+	xmlNode *cnode;
 	xmlNode *node;
 	gchar **strv;
-	gchar *xmlstr = NULL;
 	AsComponentPrivate *priv = cpt->priv;
 	g_return_val_if_fail (cpt != NULL, NULL);
 
-	doc = xmlNewDoc ((xmlChar*) NULL);
-
 	/* define component root node */
-	root = xmlNewNode (NULL, (xmlChar*) "component");
+	cnode = xmlNewNode (NULL, (xmlChar*) "component");
 	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) && (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
-		xmlNewProp (root, (xmlChar*) "type",
+		xmlNewProp (cnode, (xmlChar*) "type",
 					(xmlChar*) as_component_kind_to_string (priv->kind));
 	}
-	xmlDocSetRootElement (doc, root);
 
-	_as_component_xml_add_node (root, "id", priv->id);
-	_as_component_xml_add_node (root, "name", priv->name);
-	_as_component_xml_add_node (root, "summary", priv->summary);
-	_as_component_xml_add_node (root, "project_license", priv->project_license);
-	_as_component_xml_add_node (root, "project_group", priv->project_group);
-	_as_component_xml_add_node (root, "developer_name", priv->developer_name);
-	_as_component_xml_add_description (root, priv->description);
+	_as_component_xml_add_node (cnode, "id", priv->id);
+	_as_component_xml_add_node (cnode, "name", priv->name);
+	_as_component_xml_add_node (cnode, "summary", priv->summary);
+	_as_component_xml_add_node (cnode, "project_license", priv->project_license);
+	_as_component_xml_add_node (cnode, "project_group", priv->project_group);
+	_as_component_xml_add_node (cnode, "developer_name", priv->developer_name);
+	_as_component_xml_add_description (cnode, priv->description);
 
-	_as_component_xml_add_node_list (root, NULL, "pkgname", priv->pkgnames);
+	_as_component_xml_add_node_list (cnode, NULL, "pkgname", priv->pkgnames);
 	strv = as_ptr_array_to_strv (priv->extends);
-	_as_component_xml_add_node_list (root, NULL, "extends", strv);
+	_as_component_xml_add_node_list (cnode, NULL, "extends", strv);
 	g_strfreev (strv);
-	_as_component_xml_add_node_list (root, NULL, "compulsory_for_desktop", priv->compulsory_for_desktops);
-	_as_component_xml_add_node_list (root, "keywords", "keyword", priv->keywords);
-	_as_component_xml_add_node_list (root, "categories", "category", priv->categories);
+	_as_component_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", priv->compulsory_for_desktops);
+	_as_component_xml_add_node_list (cnode, "keywords", "keyword", priv->keywords);
+	_as_component_xml_add_node_list (cnode, "categories", "category", priv->categories);
 
 	/* releases node */
 	if (priv->releases->len > 0) {
-		node = xmlNewTextChild (root, NULL, (xmlChar*) "releases", NULL);
+		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "releases", NULL);
 		as_component_xml_add_release_subnodes (cpt, node);
 	}
 
 	/* screenshots node */
 	if (priv->releases->len > 0) {
-		node = xmlNewTextChild (root, NULL, (xmlChar*) "screenshots", NULL);
+		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
 		as_component_xml_add_screenshot_subnodes (cpt, node);
 	}
 
-	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
-	xmlFreeDoc (doc);
-
-	return xmlstr;
+	return cnode;
 }
 
 /**
