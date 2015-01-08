@@ -51,6 +51,8 @@ struct _AsMetadataPrivate
 	gchar *locale_short;
 	AsParserMode mode;
 	gchar *origin_name;
+
+	GPtrArray *cpts;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
@@ -71,6 +73,7 @@ as_metadata_finalize (GObject *object)
 
 	g_free (priv->locale);
 	g_free (priv->locale_short);
+	g_ptr_array_unref (priv->cpts);
 	if (priv->origin_name != NULL)
 		g_free (priv->origin_name);
 
@@ -90,32 +93,21 @@ as_metadata_init (AsMetadata *metad)
 							as_get_locale ());
 
 	priv->origin_name = NULL;
-
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
+
+	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
- * as_metadata_class_init:
+ * as_metadata_clear_cpt_list:
+ *
  **/
 static void
-as_metadata_class_init (AsMetadataClass *klass)
+as_metadata_clear_cpt_list (AsMetadata *metad)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->finalize = as_metadata_finalize;
-}
-
-/**
- * as_metadata_error_quark:
- *
- * Return value: An error quark.
- **/
-GQuark
-as_metadata_error_quark (void)
-{
-	static GQuark quark = 0;
-	if (!quark)
-		quark = g_quark_from_static_string ("AsMetadataError");
-	return quark;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_ptr_array_unref (priv->cpts);
+	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 static gchar*
@@ -696,12 +688,44 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 	return NULL;
 }
 
-static AsComponent*
+/**
+ * as_metadata_parse_components_node:
+ */
+void
+as_metadata_parse_components_node (AsMetadata* metad, xmlNode* node, gboolean allow_invalid, GError **error)
+{
+	AsComponent *cpt;
+	xmlNode* iter;
+	GError *tmp_error = NULL;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
+			cpt = as_metadata_parse_component_node (metad, iter, allow_invalid, &tmp_error);
+			if (tmp_error != NULL) {
+				g_propagate_error (error, tmp_error);
+				return;
+			} else if (cpt != NULL) {
+				g_ptr_array_add (priv->cpts, cpt);
+			}
+		}
+	}
+}
+
+/**
+ * as_metadata_process_document:
+ */
+void
 as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError **error)
 {
 	xmlDoc* doc;
 	xmlNode* root;
 	AsComponent *cpt = NULL;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_return_val_if_fail (metad != NULL, FALSE);
 	g_return_val_if_fail (xmldoc_str != NULL, FALSE);
@@ -712,7 +736,7 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
 				     "Could not parse XML!");
-		return NULL;
+		return;
 	}
 
 	root = xmlDocGetRootElement (doc);
@@ -721,27 +745,34 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
 				     "The XML document is empty.");
-		return NULL;
+		return;
 	}
 
-	if (g_strcmp0 ((gchar*) root->name, "component") != 0) {
-		if (g_strcmp0 ((gchar*) root->name, "application") != 0) {
-			g_set_error_literal (error,
-						AS_METADATA_ERROR,
-						AS_METADATA_ERROR_FAILED,
-						"XML file does not contain valid AppStream data!");
-			goto out;
-		} else {
-			g_debug ("Parsing legacy AppStream metadata file.");
-		}
-	}
+	/* clear results list */
+	as_metadata_clear_cpt_list (metad);
 
-	cpt = as_metadata_parse_component_node (metad, root, TRUE, error);
+	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
+		as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+		as_metadata_parse_components_node (metad, root, FALSE, error);
+	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
+		as_metadata_set_parser_mode (metad, AS_PARSER_MODE_UPSTREAM);
+		cpt = as_metadata_parse_component_node (metad, root, TRUE, error);
+		g_ptr_array_add (priv->cpts, cpt);
+	} else if  (g_strcmp0 ((gchar*) root->name, "application") == 0) {
+		as_metadata_set_parser_mode (metad, AS_PARSER_MODE_UPSTREAM);
+		g_debug ("Parsing legacy AppStream metadata file.");
+		cpt = as_metadata_parse_component_node (metad, root, TRUE, error);
+		g_ptr_array_add (priv->cpts, cpt);
+	} else {
+		g_set_error_literal (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_FAILED,
+					"XML file does not contain valid AppStream data!");
+		goto out;
+	}
 
 out:
 	xmlFreeDoc (doc);
-
-	return cpt;
 }
 
 /**
@@ -750,20 +781,16 @@ out:
  * @data: XML data describing a component
  * @error: A #GError or %NULL.
  *
- * Parses AppStream upstream metadata.
+ * Parses AppStream metadata.
  *
- * Returns: (transfer full): the #AsComponent of this data, or NULL on error
  **/
-AsComponent*
+void
 as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
 {
-	AsComponent *cpt;
 	g_return_val_if_fail (metad != NULL, NULL);
 	g_return_val_if_fail (data != NULL, NULL);
 
-	cpt = as_metadata_process_document (metad, data, error);
-
-	return cpt;
+	as_metadata_process_document (metad, data, error);
 }
 
 /**
@@ -774,12 +801,10 @@ as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
  *
  * Parses an AppStream upstream metadata file.
  *
- * Returns: (transfer full): the #AsComponent of this file, or NULL on error
  **/
-AsComponent*
+void
 as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 {
-	AsComponent *cpt;
 	gchar* xml_doc;
 	gchar* line = NULL;
 	GFileInputStream* ir;
@@ -810,11 +835,42 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 		xml_doc = tmp;
 	}
 
-	cpt = as_metadata_process_document (metad, xml_doc, error);
+	as_metadata_process_document (metad, xml_doc, error);
 	g_object_unref (dis);
 	g_free (xml_doc);
+}
 
-	return cpt;
+/**
+ * as_metadata_get_component:
+ * @metad: a #AsMetadata instance.
+ *
+ * Gets the #AsComponent which has been parsed from the XML.
+ * If the AppStream XML contained multiple components, return the first
+ * component that has been parsed.
+ *
+ * Returns: (transfer none): An #AsComponent or %NULL
+ **/
+AsComponent*
+as_metadata_get_component (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	if (priv->cpts->len == 0)
+		return NULL;
+	return AS_COMPONENT (g_ptr_array_index (priv->cpts, 0));
+}
+
+/**
+ * as_metadata_get_components:
+ * @metad: a #AsMetadata instance.
+ *
+ * Returns: (transfer none) (element-type AsComponent): A #GPtrArray of all parsed components
+ **/
+GPtrArray*
+as_metadata_get_components (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->cpts;
 }
 
 /**
@@ -896,6 +952,30 @@ as_metadata_get_parser_mode (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->mode;
+}
+
+/**
+ * as_metadata_class_init:
+ **/
+static void
+as_metadata_class_init (AsMetadataClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	object_class->finalize = as_metadata_finalize;
+}
+
+/**
+ * as_metadata_error_quark:
+ *
+ * Return value: An error quark.
+ **/
+GQuark
+as_metadata_error_quark (void)
+{
+	static GQuark quark = 0;
+	if (!quark)
+		quark = g_quark_from_static_string ("AsMetadataError");
+	return quark;
 }
 
 /**

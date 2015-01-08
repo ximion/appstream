@@ -79,12 +79,17 @@ GType		 	as_metadata_get_type	(void);
 AsMetadata*		as_metadata_new			(void);
 GQuark			as_metadata_error_quark	(void);
 
-AsComponent*	as_metadata_parse_file (AsMetadata* metad,
-										GFile* infile,
+void			as_metadata_parse_file (AsMetadata *metad,
+										GFile *infile,
 										GError **error);
-AsComponent*	as_metadata_parse_data (AsMetadata* metad,
+void			as_metadata_parse_data (AsMetadata *metad,
 										const gchar *data,
 										GError **error);
+
+AsComponent		*as_metadata_get_component (AsMetadata *metad);
+GPtrArray		*as_metadata_get_components (AsMetadata *metad);
+
+
 void			as_metadata_set_locale (AsMetadata *metad,
 										const gchar *locale);
 const gchar*	as_metadata_get_locale (AsMetadata *metad);

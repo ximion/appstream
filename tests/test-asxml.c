@@ -132,16 +132,16 @@ test_appstream_parser_legacy ()
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	cpt = as_metadata_parse_file (metad, file, &error);
+	as_metadata_parse_file (metad, file, &error);
+	cpt = as_metadata_get_component (metad);
 	g_object_unref (file);
-	g_assert (error == NULL);
+	g_assert_no_error (error);
 	g_assert (cpt != NULL);
 
 	g_assert (g_strcmp0 (as_component_get_summary (cpt), "Application manager for GNOME") == 0);
 	g_assert (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
 
 	g_object_unref (metad);
-	g_object_unref (cpt);
 }
 
 int
