@@ -101,7 +101,7 @@ as_database_real_open (AsDatabase* self)
 	gboolean ret = FALSE;
 	gchar *path;
 
-	path = g_build_filename (self->priv->database_path, "xapian", NULL);
+	path = g_build_filename (self->priv->database_path, "xapian", "C", NULL);
 	ret = xa_database_read_open (self->priv->db, path);
 	g_free (path);
 	self->priv->opened = ret;

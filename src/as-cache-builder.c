@@ -79,7 +79,7 @@ as_builder_construct (GType object_type, const gchar *dbpath)
 	} else {
 		priv->cache_path = g_strdup (dbpath);
 	}
-	priv->db_path = g_build_filename (priv->cache_path, "xapian", NULL);
+	priv->db_path = g_build_filename (priv->cache_path, "xapian", "C", NULL);
 
 	/* ensure db directory exists */
 	as_utils_touch_dir (priv->db_path);

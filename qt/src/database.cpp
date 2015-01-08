@@ -377,7 +377,7 @@ QList<Component> Database::findComponentsByPackageName(const QString& packageNam
 }
 
 
-Database::Database() : d(new DatabasePrivate(QLatin1String("/var/cache/app-info/xapian"))) {
+Database::Database() : d(new DatabasePrivate(QLatin1String("/var/cache/app-info/xapian/C"))) {
 
 }
 
