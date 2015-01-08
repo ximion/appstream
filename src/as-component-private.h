@@ -44,6 +44,8 @@ void				as_component_complete (AsComponent* self,
 										   gchar *scr_base_url,
 										   gchar **icon_paths);
 
+gchar				*as_component_to_xml (AsComponent *cpt);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENTPRIVATE_H */

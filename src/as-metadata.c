@@ -99,11 +99,11 @@ as_metadata_init (AsMetadata *metad)
 }
 
 /**
- * as_metadata_clear_cpt_list:
+ * as_metadata_clear_components:
  *
  **/
-static void
-as_metadata_clear_cpt_list (AsMetadata *metad)
+void
+as_metadata_clear_components (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	g_ptr_array_unref (priv->cpts);
@@ -749,7 +749,7 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 	}
 
 	/* clear results list */
-	as_metadata_clear_cpt_list (metad);
+	as_metadata_clear_components (metad);
 
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
@@ -838,6 +838,57 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 	as_metadata_process_document (metad, xml_doc, error);
 	g_object_unref (dis);
 	g_free (xml_doc);
+}
+
+/**
+ * as_metadata_component_to_upstream_xml:
+ *
+ * Convert an #AsComponent to upstream XML.
+ * (The amount of localization included in the metadata depends on how the #AsComponent
+ * was initially loaded)
+ *
+ * The first #AsComponent added to the internal list will be transformed.
+ * In case no component is present, %NULL is returned.
+ */
+gchar*
+as_metadata_component_to_upstream_xml (AsMetadata *metad)
+{
+	AsComponent *cpt;
+
+	cpt = as_metadata_get_component (metad);
+	if (cpt == NULL)
+		return NULL;
+
+	return as_component_to_xml (cpt);
+}
+
+/**
+ * as_metadata_components_to_distro_xml:
+ *
+ * Serialize all #AsComponent instances into AppStream
+ * distro-XML data.
+ * %NULL is returned if there is nothing to serialize.
+ */
+gchar*
+as_metadata_components_to_distro_xml (AsMetadata *metad)
+{
+	/* FIXME: This is a stub at time */
+
+	return NULL;
+}
+
+/**
+ * as_metadata_add_component:
+ *
+ * Add an #AsComponent to the list of components.
+ * This can be used to add multiple components in order to
+ * produce a distro-XML AppStream metadata file.
+ */
+void
+as_metadata_add_component (AsMetadata *metad, AsComponent *cpt)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 }
 
 /**

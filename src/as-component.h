@@ -207,8 +207,6 @@ gint				as_component_get_language (AsComponent *cpt,
 											   const gchar *locale);
 GList*				as_component_get_languages (AsComponent *cpt);
 
-gchar*				as_component_to_xml (AsComponent *cpt);
-
 /* DEPRECATED */
 
 /* use G_GNUC_DEPRECATED on this later */

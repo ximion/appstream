@@ -67,6 +67,7 @@ void
 test_component ()
 {
 	AsComponent *cpt;
+	AsMetadata *metad;
 	gchar *str;
 	gchar **strv;
 
@@ -80,7 +81,10 @@ test_component ()
 	as_component_set_pkgnames (cpt, strv);
 	g_strfreev (strv);
 
-	str = as_component_to_xml (cpt);
+	metad = as_metadata_new ();
+	as_metadata_add_component (metad, cpt);
+	str = as_metadata_component_to_upstream_xml (metad);
+	g_object_unref (metad);
 	g_debug ("%s", str);
 
 	g_assert (g_strcmp0 (str, "<?xml version=\"1.0\"?>\n<component type=\"desktop\"><name>Test</name><summary>It does things</summary><pkgname>fedex</pkgname></component>\n") == 0);
