@@ -491,7 +491,7 @@ _as_component_serialize_image (AsImage *img, xmlNode *subnode)
  *
  * Add screenshot subnodes to a root node
  */
-static void
+void
 as_component_xml_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 {
 	GPtrArray* sslist;
@@ -660,7 +660,7 @@ as_component_load_screenshots_from_internal_xml (AsComponent *cpt, const gchar* 
  *
  * Add release nodes to a root node
  */
-static void
+void
 as_component_xml_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 {
 	GPtrArray* releases;
@@ -784,140 +784,6 @@ as_component_load_releases_from_internal_xml (AsComponent *cpt, const gchar* xml
 			g_object_unref (release);
 		}
 	}
-}
-
-/**
- * as_component_xml_add_node:
- *
- * Add node if value is not empty
- */
-static xmlNode*
-_as_component_xml_add_node (xmlNode *root, const gchar *name, const gchar *value)
-{
-	if (as_str_empty (value))
-		return NULL;
-
-	return xmlNewTextChild (root, NULL, (xmlChar*) name, (xmlChar*) value);
-}
-
-/**
- * _as_component_xml_add_description:
- *
- * Add the description markup to the XML tree
- */
-static gboolean
-_as_component_xml_add_description (xmlNode *root, const gchar *description_markup)
-{
-	gchar *xmldata;
-	xmlDoc *doc;
-	xmlNode *droot;
-	xmlNode *dnode;
-	xmlNode *iter;
-	gboolean ret = TRUE;
-
-	if (as_str_empty (description_markup))
-		return FALSE;
-
-	xmldata = g_strdup_printf ("<root>%s</root>", description_markup);
-	doc = xmlParseDoc ((xmlChar*) xmldata);
-	if (doc == NULL) {
-		ret = FALSE;
-		goto out;
-	}
-
-	droot = xmlDocGetRootElement (doc);
-	if (droot == NULL) {
-		ret = FALSE;
-		goto out;
-	}
-	dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
-
-	for (iter = droot->children; iter != NULL; iter = iter->next) {
-		xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
-	}
-
-out:
-	if (doc != NULL)
-		xmlFreeDoc (doc);
-	g_free (xmldata);
-	return ret;
-}
-
-/**
- * as_component_xml_add_node_list:
- *
- * Add node if value is not empty
- */
-static void
-_as_component_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
-{
-	xmlNode *node;
-	guint i;
-
-	if (strv == NULL)
-		return;
-
-	if (name == NULL)
-		node = root;
-	else
-		node = xmlNewTextChild (root, NULL, (xmlChar*) name, NULL);
-	for (i = 0; strv[i] != NULL; i++) {
-		xmlNewTextChild (node, NULL, (xmlChar*) child_name, (xmlChar*) strv[i]);
-	}
-}
-
-/**
- * as_component_serialize_to_xmlnode:
- * @cpt: a valid #AsComponent
- *
- * Serialize the component data to an xmlNode.
- *
- */
-xmlNode*
-as_component_serialize_to_xmlnode (AsComponent *cpt)
-{
-	xmlNode *cnode;
-	xmlNode *node;
-	gchar **strv;
-	AsComponentPrivate *priv = cpt->priv;
-	g_return_val_if_fail (cpt != NULL, NULL);
-
-	/* define component root node */
-	cnode = xmlNewNode (NULL, (xmlChar*) "component");
-	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) && (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
-		xmlNewProp (cnode, (xmlChar*) "type",
-					(xmlChar*) as_component_kind_to_string (priv->kind));
-	}
-
-	_as_component_xml_add_node (cnode, "id", priv->id);
-	_as_component_xml_add_node (cnode, "name", priv->name);
-	_as_component_xml_add_node (cnode, "summary", priv->summary);
-	_as_component_xml_add_node (cnode, "project_license", priv->project_license);
-	_as_component_xml_add_node (cnode, "project_group", priv->project_group);
-	_as_component_xml_add_node (cnode, "developer_name", priv->developer_name);
-	_as_component_xml_add_description (cnode, priv->description);
-
-	_as_component_xml_add_node_list (cnode, NULL, "pkgname", priv->pkgnames);
-	strv = as_ptr_array_to_strv (priv->extends);
-	_as_component_xml_add_node_list (cnode, NULL, "extends", strv);
-	g_strfreev (strv);
-	_as_component_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", priv->compulsory_for_desktops);
-	_as_component_xml_add_node_list (cnode, "keywords", "keyword", priv->keywords);
-	_as_component_xml_add_node_list (cnode, "categories", "category", priv->categories);
-
-	/* releases node */
-	if (priv->releases->len > 0) {
-		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "releases", NULL);
-		as_component_xml_add_release_subnodes (cpt, node);
-	}
-
-	/* screenshots node */
-	if (priv->releases->len > 0) {
-		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
-		as_component_xml_add_screenshot_subnodes (cpt, node);
-	}
-
-	return cnode;
 }
 
 /**

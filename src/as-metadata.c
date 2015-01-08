@@ -840,6 +840,145 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 }
 
 /**
+ * as_component_xml_add_node:
+ *
+ * Add node if value is not empty
+ */
+static xmlNode*
+as_metadata_xml_add_node (xmlNode *root, const gchar *name, const gchar *value)
+{
+	if (as_str_empty (value))
+		return NULL;
+
+	return xmlNewTextChild (root, NULL, (xmlChar*) name, (xmlChar*) value);
+}
+
+/**
+ * as_metadata_xml_add_description:
+ *
+ * Add the description markup to the XML tree
+ */
+static gboolean
+as_metadata_xml_add_description (xmlNode *root, const gchar *description_markup)
+{
+	gchar *xmldata;
+	xmlDoc *doc;
+	xmlNode *droot;
+	xmlNode *dnode;
+	xmlNode *iter;
+	gboolean ret = TRUE;
+
+	if (as_str_empty (description_markup))
+		return FALSE;
+
+	xmldata = g_strdup_printf ("<root>%s</root>", description_markup);
+	doc = xmlParseDoc ((xmlChar*) xmldata);
+	if (doc == NULL) {
+		ret = FALSE;
+		goto out;
+	}
+
+	droot = xmlDocGetRootElement (doc);
+	if (droot == NULL) {
+		ret = FALSE;
+		goto out;
+	}
+	dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+
+	for (iter = droot->children; iter != NULL; iter = iter->next) {
+		xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
+	}
+
+out:
+	if (doc != NULL)
+		xmlFreeDoc (doc);
+	g_free (xmldata);
+	return ret;
+}
+
+/**
+ * as_component_xml_add_node_list:
+ *
+ * Add node if value is not empty
+ */
+static void
+as_metadata_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
+{
+	xmlNode *node;
+	guint i;
+
+	if (strv == NULL)
+		return;
+
+	if (name == NULL)
+		node = root;
+	else
+		node = xmlNewTextChild (root, NULL, (xmlChar*) name, NULL);
+	for (i = 0; strv[i] != NULL; i++) {
+		xmlNewTextChild (node, NULL, (xmlChar*) child_name, (xmlChar*) strv[i]);
+	}
+}
+
+/**
+ * as_metadata_component_to_node:
+ * @cpt: a valid #AsComponent
+ *
+ * Serialize the component data to an xmlNode.
+ *
+ */
+static xmlNode*
+as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
+{
+	xmlNode *cnode;
+	xmlNode *node;
+	gchar **strv;
+	GPtrArray *releases;
+	GPtrArray *screenshots;
+	AsComponentKind kind;
+	g_return_val_if_fail (cpt != NULL, NULL);
+
+	/* define component root node */
+	kind = as_component_get_kind (cpt);
+	cnode = xmlNewNode (NULL, (xmlChar*) "component");
+	if ((kind != AS_COMPONENT_KIND_GENERIC) && (kind != AS_COMPONENT_KIND_UNKNOWN)) {
+		xmlNewProp (cnode, (xmlChar*) "type",
+					(xmlChar*) as_component_kind_to_string (kind));
+	}
+
+	as_metadata_xml_add_node (cnode, "id", as_component_get_id (cpt));
+	as_metadata_xml_add_node (cnode, "name", as_component_get_name (cpt));
+	as_metadata_xml_add_node (cnode, "summary", as_component_get_summary (cpt));
+	as_metadata_xml_add_node (cnode, "project_license", as_component_get_project_license (cpt));
+	as_metadata_xml_add_node (cnode, "project_group", as_component_get_project_group (cpt));
+	as_metadata_xml_add_node (cnode, "developer_name", as_component_get_developer_name (cpt));
+	as_metadata_xml_add_description (cnode, as_component_get_description (cpt));
+
+	as_metadata_xml_add_node_list (cnode, NULL, "pkgname", as_component_get_pkgnames (cpt));
+	strv = as_ptr_array_to_strv (as_component_get_extends (cpt));
+	as_metadata_xml_add_node_list (cnode, NULL, "extends", strv);
+	g_strfreev (strv);
+	as_metadata_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", as_component_get_compulsory_for_desktops (cpt));
+	as_metadata_xml_add_node_list (cnode, "keywords", "keyword", as_component_get_keywords (cpt));
+	as_metadata_xml_add_node_list (cnode, "categories", "category", as_component_get_categories (cpt));
+
+	/* releases node */
+	releases = as_component_get_releases (cpt);
+	if (releases->len > 0) {
+		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "releases", NULL);
+		as_component_xml_add_release_subnodes (cpt, node);
+	}
+
+	/* screenshots node */
+	screenshots = as_component_get_screenshots (cpt);
+	if (screenshots->len > 0) {
+		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
+		as_component_xml_add_screenshot_subnodes (cpt, node);
+	}
+
+	return cnode;
+}
+
+/**
  * as_metadata_component_to_upstream_xml:
  *
  * Convert an #AsComponent to upstream XML.
@@ -866,7 +1005,7 @@ as_metadata_component_to_upstream_xml (AsMetadata *metad)
 	doc = xmlNewDoc ((xmlChar*) NULL);
 
 	/* define component root node */
-	root = as_component_serialize_to_xmlnode (cpt);
+	root = as_metadata_component_to_node (metad, cpt);
 	if (root == NULL)
 		goto out;
 	xmlDocSetRootElement (doc, root);
@@ -909,7 +1048,7 @@ as_metadata_components_to_distro_xml (AsMetadata *metad)
 		xmlNode *node;
 		cpt = AS_COMPONENT (g_ptr_array_index (priv->cpts, i));
 
-		node = as_component_serialize_to_xmlnode (cpt);
+		node = as_metadata_component_to_node (metad, cpt);
 		if (node == NULL)
 			continue;
 		xmlAddChild (root, node);

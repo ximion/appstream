@@ -45,7 +45,10 @@ void				as_component_complete (AsComponent* self,
 										   gchar *scr_base_url,
 										   gchar **icon_paths);
 
-xmlNode				*as_component_serialize_to_xmlnode (AsComponent *cpt);
+void				as_component_xml_add_screenshot_subnodes (AsComponent *cpt,
+														xmlNode *root);
+void				as_component_xml_add_release_subnodes (AsComponent *cpt,
+														xmlNode *root);
 
 G_END_DECLS
 
