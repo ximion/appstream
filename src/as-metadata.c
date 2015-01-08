@@ -727,8 +727,8 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 	AsComponent *cpt = NULL;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	g_return_val_if_fail (metad != NULL, FALSE);
-	g_return_val_if_fail (xmldoc_str != NULL, FALSE);
+	g_return_if_fail (metad != NULL);
+	g_return_if_fail (xmldoc_str != NULL);
 
 	doc = xmlParseDoc ((xmlChar*) xmldoc_str);
 	if (doc == NULL) {
@@ -787,8 +787,7 @@ out:
 void
 as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
 {
-	g_return_val_if_fail (metad != NULL, NULL);
-	g_return_val_if_fail (data != NULL, NULL);
+	g_return_if_fail (metad != NULL);
 
 	as_metadata_process_document (metad, data, error);
 }
@@ -810,8 +809,8 @@ as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
 	GFileInputStream* ir;
 	GDataInputStream* dis;
 
-	g_return_val_if_fail (metad != NULL, NULL);
-	g_return_val_if_fail (infile != NULL, NULL);
+	g_return_if_fail (metad != NULL);
+	g_return_if_fail (infile != NULL);
 
 	xml_doc = g_strdup ("");
 	ir = g_file_read (infile, NULL, NULL);
