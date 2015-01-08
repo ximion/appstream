@@ -79,10 +79,17 @@ endif(TESTS)
 #
 # Custom C flags
 #
-set (MAINTAINER_CFLAGS "-Werror -Wall -Wcast-align -Wuninitialized -Wno-uninitialized -Wempty-body -Wformat-security -Winit-self")
-if (NOT MAINTAINER)
-	set (MAINTAINER_CFLAGS "")
-endif (NOT MAINTAINER)
+set(MAINTAINER_CFLAGS "")
+if(MAINTAINER)
+	set(MAINTAINER_CFLAGS "-Werror -Wall -Wcast-align -Wno-uninitialized -Wempty-body -Wformat-security -Winit-self")
+	if (CMAKE_COMPILER_IS_GNUCC)
+		execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
+                OUTPUT_VARIABLE GCC_VERSION)
+		if (GCC_VERSION VERSION_GREATER 4.9 OR GCC_VERSION VERSION_EQUAL 4.9)
+			set(MAINTAINER_CFLAGS ${MAINTAINER_CFLAGS} "-fdiagnostics-color=auto")
+		endif()
+	endif()
+endif(MAINTAINER)
 add_definitions(${MAINTAINER_CFLAGS})
 
 # we do always enable this to never run into the missing-include-trap again
