@@ -135,7 +135,7 @@ test_database_read (const gchar *dbpath)
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
 	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);
-	g_assert (g_strcmp0 (as_component_get_name_original (cpt), "Inkscape") == 0);
+	g_assert (g_strcmp0 (as_component_get_name (cpt), "Inkscape") == 0);
 	g_ptr_array_unref (cpts);
 
 	g_object_unref (db);

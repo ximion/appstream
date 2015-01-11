@@ -505,7 +505,7 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 		} else if (g_strcmp0 (key, "Name") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, "C");
 			if (lvalue != NULL) {
-				as_component_set_name_original (cpt, lvalue);
+				as_component_set_name (cpt, lvalue); // TODO: Unlocalized
 				g_free (lvalue);
 			}
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);

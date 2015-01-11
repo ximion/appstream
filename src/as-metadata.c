@@ -548,7 +548,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				g_ptr_array_add (pkgnames, g_strdup (content));
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			if (content != NULL) {
-				as_component_set_name_original (cpt, content);
+				as_component_set_name (cpt, content); // TODO: Set unlocalized
 			} else {
 				content = as_metadata_parse_value (metad, iter, TRUE);
 				if (content != NULL)

@@ -92,10 +92,6 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_pkgnames (cpt, pkgs);
 	g_strfreev (pkgs);
 
-	// Untranslated application name
-	string appname_orig = doc.get_value (XapianValues::CPTNAME_UNTRANSLATED);
-	as_component_set_name_original (cpt, appname_orig.c_str ());
-
 	// Origin
 	string cptOrigin = doc.get_value (XapianValues::ORIGIN);
 	as_component_set_origin (cpt, cptOrigin.c_str ());

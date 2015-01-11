@@ -163,8 +163,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);
 
 		// Untranslated component name
-		string cptNameGeneric = as_component_get_name_original (cpt);
-		doc.add_value (XapianValues::CPTNAME_UNTRANSLATED, cptNameGeneric);
+		string cptNameGeneric = as_component_get_name (cpt); // FIXME: Get the lang:C name here
 		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
 		// Component name
