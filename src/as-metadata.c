@@ -256,7 +256,7 @@ as_metadata_process_screenshot (AsMetadata* metad, xmlNode* node, AsScreenshot* 
 			as_screenshot_add_image (sshot, img);
 		} else if (g_strcmp0 (node_name, "caption") == 0) {
 			if (content != NULL) {
-				as_screenshot_set_caption (sshot, content);
+				as_screenshot_set_caption (sshot, content, NULL);
 			}
 		}
 		g_free (content);
@@ -279,6 +279,10 @@ as_metadata_process_screenshots_tag (AsMetadata* metad, xmlNode* node, AsCompone
 
 		if (g_strcmp0 ((gchar*) iter->name, "screenshot") == 0) {
 			sshot = as_screenshot_new ();
+
+			/* propagate locale */
+			as_screenshot_set_active_locale (sshot, as_component_get_active_locale (cpt));
+
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (g_strcmp0 (prop, "default") == 0)
 				as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
@@ -340,6 +344,9 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 		if (g_strcmp0 ((gchar*) iter->name, "release") == 0) {
 			release = as_release_new ();
 
+			/* propagate locale */
+			as_release_set_active_locale (release, as_component_get_active_locale (cpt));
+
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
 			as_release_set_version (release, prop);
 			g_free (prop);
@@ -363,13 +370,13 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 						if (content == NULL)
 							content = as_metadata_parse_value (metad, iter2, TRUE);
 						if (content != NULL)
-							as_release_set_description (release, content);
+							as_release_set_description (release, content, NULL);
 						g_free (content);
 						break;
 					} else {
 						gchar *text;
 						text = as_metadata_parse_upstream_description_tag (metad, iter2);
-						as_release_set_description (release, text);
+						as_release_set_description (release, text, NULL);
 						g_free (text);
 						break;
 					}
@@ -531,7 +538,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 	}
 
 	/* set active locale for this component */
-	as_component_set_current_locale (cpt, priv->locale);
+	as_component_set_active_locale (cpt, priv->locale);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
@@ -590,14 +597,14 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 			if (g_strcmp0 (prop, "stock") == 0) {
 				as_component_set_icon (cpt, content);
 			} else if (g_strcmp0 (prop, "cached") == 0) {
-				icon_url = as_component_get_icon_url_for_size (cpt, 0, 0);
+				icon_url = as_component_get_icon_url (cpt, 0, 0);
 				if ((icon_url == NULL) || (g_str_has_prefix (icon_url, "http://"))) {
 					as_component_add_icon_url (cpt, 0, 0, content);
 				}
 			} else if (g_strcmp0 (prop, "local") == 0) {
 				as_component_add_icon_url (cpt, 0, 0, content);
 			} else if (g_strcmp0 (prop, "remote") == 0) {
-				icon_url = as_component_get_icon_url_for_size (cpt, 0, 0);
+				icon_url = as_component_get_icon_url (cpt, 0, 0);
 				if (icon_url == NULL)
 					as_component_add_icon_url (cpt, 0, 0, content);
 			}

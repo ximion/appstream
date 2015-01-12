@@ -51,34 +51,34 @@
 typedef struct _AsComponentPrivate	AsComponentPrivate;
 struct _AsComponentPrivate {
 	AsComponentKind kind;
-	gchar *current_locale;
+	gchar			*active_locale;
 
-	gchar *id;
-	gchar *origin;
-	gchar **pkgnames;
+	gchar			*id;
+	gchar			*origin;
+	gchar			**pkgnames;
 
-	GHashTable *name; /* localized entry */
-	GHashTable *summary; /* localized entry */
-	GHashTable *description; /* localized entry */
-	GHashTable *keywords; /* localized entry, value:strv */
-	GHashTable *developer_name; /* localized entry */
+	GHashTable		*name; /* localized entry */
+	GHashTable		*summary; /* localized entry */
+	GHashTable		*description; /* localized entry */
+	GHashTable		*keywords; /* localized entry, value:strv */
+	GHashTable		*developer_name; /* localized entry */
 
-	gchar *icon;
-	gchar **categories;
-	gchar *project_license;
-	gchar *project_group;
-	gchar **compulsory_for_desktops;
+	gchar			*icon;
+	gchar			**categories;
+	gchar			*project_license;
+	gchar			*project_group;
+	gchar			**compulsory_for_desktops;
 
-	GPtrArray *screenshots; /* of AsScreenshot elements */
-	GPtrArray *provided_items; /* of utf8:string */
-	GPtrArray *releases; /* of AsRelease */
+	GPtrArray		*screenshots; /* of AsScreenshot elements */
+	GPtrArray		*provided_items; /* of utf8:string */
+	GPtrArray		*releases; /* of AsRelease */
 
-	GHashTable *urls; /* of key:utf8 */
-	GHashTable *icon_urls; /* of key:utf8 */
-	GPtrArray *extends; /* of utf8:string */
-	GHashTable *languages; /* of key:utf8 */
+	GHashTable		*urls; /* of key:utf8 */
+	GHashTable		*icon_urls; /* of key:utf8 */
+	GPtrArray		*extends; /* of utf8:string */
+	GHashTable		*languages; /* of key:utf8 */
 
-	int priority; /* used internally */
+	gint			priority; /* used internally */
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsComponent, as_component, G_TYPE_OBJECT)
@@ -196,7 +196,7 @@ as_component_init (AsComponent *cpt)
 	as_component_set_project_license (cpt, "");
 	as_component_set_project_group (cpt, "");
 	priv->categories = NULL;
-	priv->current_locale = g_strdup ("C");
+	priv->active_locale = g_strdup ("C");
 
 	/* translatable entities */
 	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
@@ -230,7 +230,7 @@ as_component_finalize (GObject* object)
 	g_free (priv->icon);
 	g_free (priv->project_license);
 	g_free (priv->project_group);
-	g_free (priv->current_locale);
+	g_free (priv->active_locale);
 
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
@@ -556,8 +556,9 @@ as_component_load_screenshots_from_internal_xml (AsComponent *cpt, const gchar* 
 	xmlDoc* doc = NULL;
 	xmlNode* root = NULL;
 	xmlNode *iter;
-	g_return_if_fail (xmldata != NULL);
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
+	g_return_if_fail (xmldata != NULL);
 	if (as_str_empty (xmldata)) {
 		return;
 	}
@@ -577,6 +578,10 @@ as_component_load_screenshots_from_internal_xml (AsComponent *cpt, const gchar* 
 			xmlNode *iter2;
 
 			sshot = as_screenshot_new ();
+
+			/* propagate locale */
+			as_screenshot_set_active_locale (sshot, priv->active_locale);
+
 			typestr = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (g_strcmp0 (typestr, "default") == 0)
 				as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
@@ -636,7 +641,7 @@ as_component_load_screenshots_from_internal_xml (AsComponent *cpt, const gchar* 
 					as_screenshot_add_image (sshot, img);
 				} else if (g_strcmp0 (node_name, "caption") == 0) {
 					if (content != NULL)
-						as_screenshot_set_caption (sshot, content);
+						as_screenshot_set_caption (sshot, content, NULL);
 				}
 				g_free (content);
 			}
@@ -724,6 +729,7 @@ as_component_load_releases_from_internal_xml (AsComponent *cpt, const gchar* xml
 	xmlDoc* doc = NULL;
 	xmlNode* root = NULL;
 	xmlNode *iter;
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	g_return_if_fail (xmldata != NULL);
 
@@ -747,6 +753,9 @@ as_component_load_releases_from_internal_xml (AsComponent *cpt, const gchar* xml
 			xmlNode *iter2;
 			release = as_release_new ();
 
+			/* propagate locale */
+			as_release_set_active_locale (release, priv->active_locale);
+
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
 			as_release_set_version (release, prop);
 			g_free (prop);
@@ -763,7 +772,7 @@ as_component_load_releases_from_internal_xml (AsComponent *cpt, const gchar* xml
 				if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
 					gchar *content;
 					content = (gchar*) xmlNodeGetContent (iter2);
-					as_release_set_description (release, content);
+					as_release_set_description (release, content, NULL);
 					g_free (content);
 					break;
 				}
@@ -918,33 +927,33 @@ as_component_set_origin (AsComponent *cpt, const gchar* origin)
 }
 
 /**
- * as_component_get_current_locale:
+ * as_component_get_active_locale:
  *
- * Get the current activa elocale for this component, which
- * is used to localize messages.
+ * Get the current active locale for this component, which
+ * is used to get localized messages.
  */
 gchar*
-as_component_get_current_locale (AsComponent *cpt)
+as_component_get_active_locale (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->current_locale;
+	return priv->active_locale;
 }
 
 /**
- * as_component_set_current_locale:
+ * as_component_set_active_locale:
  *
- * Get the current activa elocale for this component, which
- * is used to localize messages.
+ * Set the current active locale for this component, which
+ * is used to get localized messages.
  * If the #AsComponent was fetched from a localized database, usually only
  * one locale is available.
  */
 void
-as_component_set_current_locale (AsComponent *cpt, const gchar *locale)
+as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	g_free (priv->current_locale);
-	priv->current_locale = g_strdup (locale);
+	g_free (priv->active_locale);
+	priv->active_locale = g_strdup (locale);
 }
 
 /**
@@ -959,7 +968,7 @@ as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 	gchar *msg;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	msg = g_hash_table_lookup (lht, priv->current_locale);
+	msg = g_hash_table_lookup (lht, priv->active_locale);
 	if (msg == NULL) {
 		/* fall back to untranslated / default */
 		msg = g_hash_table_lookup (lht, "C");
@@ -985,7 +994,7 @@ as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* valu
 	/* if no locale was specified, we assume the default locale */
 	/* CAVE: %NULL does NOT mean lang=C! */
 	if (locale == NULL)
-		locale = priv->current_locale;
+		locale = priv->active_locale;
 
 	g_hash_table_insert (lht,
 						 g_strdup (locale),
@@ -1108,7 +1117,7 @@ as_component_get_keywords (AsComponent *cpt)
 	gchar **strv;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	strv = g_hash_table_lookup (priv->keywords, priv->current_locale);
+	strv = g_hash_table_lookup (priv->keywords, priv->active_locale);
 	if (strv == NULL) {
 		/* fall back to untranslated */
 		strv = g_hash_table_lookup (priv->keywords, "C");
@@ -1131,7 +1140,7 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 
 	/* if no locale was specified, we assume the default locale */
 	if (locale == NULL)
-		locale = priv->current_locale;
+		locale = priv->active_locale;
 
 	g_hash_table_insert (priv->keywords,
 						 g_strdup (locale),
@@ -1756,6 +1765,10 @@ as_component_complete (AsComponent *cpt, gchar *scr_base_url, gchar **icon_paths
 		as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 
 		sshot = as_screenshot_new ();
+
+		/* propagate locale */
+		as_screenshot_set_active_locale (sshot, priv->active_locale);
+
 		as_screenshot_add_image (sshot, img);
 		as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
 
@@ -1851,7 +1864,6 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 {
 	AsComponent *cpt;
 	cpt = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	switch (property_id) {
 		case AS_COMPONENT_KIND:
@@ -1864,7 +1876,7 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			as_component_set_id (cpt, g_value_get_string (value));
 			break;
 		case AS_COMPONENT_NAME:
-			as_component_set_name (cpt, g_value_get_string (value), priv->current_locale);
+			as_component_set_name (cpt, g_value_get_string (value), NULL);
 			break;
 		case AS_COMPONENT_SUMMARY:
 			as_component_set_summary (cpt, g_value_get_string (value), NULL);

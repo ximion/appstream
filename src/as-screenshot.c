@@ -31,18 +31,16 @@
 
 #include "as-screenshot.h"
 
-#include "as-utils.h"
-
 typedef struct _AsScreenshotPrivate	AsScreenshotPrivate;
 struct _AsScreenshotPrivate
 {
 	AsScreenshotKind	kind;
-	gchar				*caption;
+	GHashTable			*caption;
 	GPtrArray			*images;
+	gchar				*active_locale;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsScreenshot, as_screenshot, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_screenshot_get_instance_private (o))
 
 /**
@@ -54,8 +52,9 @@ as_screenshot_finalize (GObject *object)
 	AsScreenshot *screenshot = AS_SCREENSHOT (object);
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 
+	g_free (priv->active_locale);
 	g_ptr_array_unref (priv->images);
-	g_free (priv->caption);
+	g_hash_table_unref (priv->caption);
 
 	G_OBJECT_CLASS (as_screenshot_parent_class)->finalize (object);
 }
@@ -67,9 +66,11 @@ static void
 as_screenshot_init (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+
+	priv->active_locale = g_strdup ("C");
 	priv->kind = AS_SCREENSHOT_KIND_NORMAL;
 	priv->images = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
-	priv->caption = g_strdup ("");
+	priv->caption = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 }
 
 /**
@@ -138,6 +139,21 @@ as_screenshot_get_kind (AsScreenshot *screenshot)
 }
 
 /**
+ * as_screenshot_set_kind:
+ * @screenshot: a #AsScreenshot instance.
+ * @kind: the #AsScreenshotKind.
+ *
+ * Sets the screenshot kind.
+ *
+ **/
+void
+as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	priv->kind = kind;
+}
+
+/**
  * as_screenshot_get_images:
  * @screenshot: a #AsScreenshot instance.
  *
@@ -151,37 +167,6 @@ as_screenshot_get_images (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	return priv->images;
-}
-
-/**
- * as_screenshot_get_caption:
- * @screenshot: a #AsScreenshot instance.
- *
- * Gets the image caption
- *
- * Returns: the caption
- *
- **/
-const gchar *
-as_screenshot_get_caption (AsScreenshot *screenshot)
-{
-	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	return priv->caption;
-}
-
-/**
- * as_screenshot_set_kind:
- * @screenshot: a #AsScreenshot instance.
- * @kind: the #AsScreenshotKind.
- *
- * Sets the screenshot kind.
- *
- **/
-void
-as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind)
-{
-	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	priv->kind = kind;
 }
 
 /**
@@ -200,6 +185,30 @@ as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image)
 }
 
 /**
+ * as_screenshot_get_caption:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Gets the image caption
+ *
+ * Returns: the caption
+ *
+ **/
+const gchar *
+as_screenshot_get_caption (AsScreenshot *screenshot)
+{
+	const gchar *caption;
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+
+	caption = g_hash_table_lookup (priv->caption, priv->active_locale);
+	if (caption == NULL) {
+		/* fall back to untranslated / default */
+		caption = g_hash_table_lookup (priv->caption, "C");
+	}
+
+	return caption;
+}
+
+/**
  * as_screenshot_set_caption:
  * @screenshot: a #AsScreenshot instance.
  * @caption: the caption text.
@@ -208,11 +217,16 @@ as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image)
  *
  **/
 void
-as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption)
+as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption, const gchar *locale)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	g_free (priv->caption);
-	priv->caption = g_strdup (caption);
+
+	if (locale == NULL)
+		locale = priv->active_locale;
+
+	g_hash_table_insert (priv->caption,
+						 g_strdup (locale),
+						 g_strdup (caption));
 }
 
 /**
@@ -229,6 +243,37 @@ as_screenshot_is_valid (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	return priv->images->len > 0;
+}
+
+/**
+ * as_screenshot_get_active_locale:
+ *
+ * Get the current active locale, which
+ * is used to get localized messages.
+ */
+gchar*
+as_screenshot_get_active_locale (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	return priv->active_locale;
+}
+
+/**
+ * as_screenshot_set_active_locale:
+ *
+ * Set the current active locale, which
+ * is used to get localized messages.
+ * If the #AsComponent linking this #AsScreenshot was fetched
+ * from a localized database, usually only
+ * one locale is available.
+ */
+void
+as_screenshot_set_active_locale (AsScreenshot *screenshot, const gchar *locale)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+
+	g_free (priv->active_locale);
+	priv->active_locale = g_strdup (locale);
 }
 
 /**

@@ -79,7 +79,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	string str;
 
 	/* set component active languge (which is the locale the database was built for) */
-	as_component_set_current_locale (cpt, m_dbLocale.c_str ());
+	as_component_set_active_locale (cpt, m_dbLocale.c_str ());
 
 	// Component type/kind
 	string type_str = doc.get_value (XapianValues::TYPE);

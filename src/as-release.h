@@ -59,21 +59,25 @@ struct _AsReleaseClass
 	void (*_as_reserved8)	(void);
 };
 
-GType		 as_release_get_type		(void);
-AsRelease	*as_release_new			(void);
+GType		 as_release_get_type (void);
+AsRelease	*as_release_new (void);
 
-/* getters */
-const gchar	*as_release_get_version		(AsRelease	*release);
-guint64		 as_release_get_timestamp	(AsRelease	*release);
-const gchar	*as_release_get_description	(AsRelease	*release);
-
-/* setters */
-void		 as_release_set_version (AsRelease	*release,
+const gchar	*as_release_get_version (AsRelease *release);
+void		 as_release_set_version (AsRelease *release,
 								const gchar *version);
-void		 as_release_set_timestamp	(AsRelease	*release,
-						 guint64	 timestamp);
-void		 as_release_set_description	(AsRelease	*release,
-						 const gchar	*description);
+
+guint64		 as_release_get_timestamp (AsRelease *release);
+void		 as_release_set_timestamp (AsRelease *release,
+								guint64 timestamp);
+
+const gchar	*as_release_get_description (AsRelease *release);
+void		 as_release_set_description (AsRelease *release,
+								const gchar *description,
+								const gchar *locale);
+
+gchar		*as_release_get_active_locale (AsRelease *release);
+void		as_release_set_active_locale (AsRelease	*release,
+								const gchar *locale);
 
 G_END_DECLS
 

@@ -36,16 +36,13 @@
 
 #include "as-release.h"
 
-#include <stdlib.h>
-
-#include "as-utils.h"
-
 typedef struct _AsReleasePrivate	AsReleasePrivate;
 struct _AsReleasePrivate
 {
-	gchar			*version;
-	gchar			*description;
-	guint64			 timestamp;
+	gchar		*version;
+	GHashTable	*description;
+	guint64		timestamp;
+	gchar		*active_locale;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelease, as_release, G_TYPE_OBJECT)
@@ -62,7 +59,8 @@ as_release_finalize (GObject *object)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
 	g_free (priv->version);
-	g_free (priv->description);
+	g_free (priv->active_locale);
+	g_hash_table_unref (priv->description);
 
 	G_OBJECT_CLASS (as_release_parent_class)->finalize (object);
 }
@@ -73,6 +71,10 @@ as_release_finalize (GObject *object)
 static void
 as_release_init (AsRelease *release)
 {
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	priv->active_locale = g_strdup ("C");
+	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 }
 
 /**
@@ -101,6 +103,20 @@ as_release_get_version (AsRelease *release)
 }
 
 /**
+ * as_release_set_version:
+ * @release: a #AsRelease instance.
+ * @version: the version string.
+ *
+ * Sets the release version.
+ **/
+void
+as_release_set_version (AsRelease *release, const gchar *version)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	priv->version = g_strdup (version);
+}
+
+/**
  * as_release_get_timestamp:
  * @release: a #AsRelease instance.
  *
@@ -113,35 +129,6 @@ as_release_get_timestamp (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	return priv->timestamp;
-}
-
-/**
- * as_release_get_description:
- * @release: a #AsRelease instance.
- *
- * Gets the release description markup for a given locale.
- *
- * Returns: markup, or %NULL for not set or invalid
- **/
-const gchar *
-as_release_get_description (AsRelease *release)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	return priv->description;
-}
-
-/**
- * as_release_set_version:
- * @release: a #AsRelease instance.
- * @version: the version string.
- *
- * Sets the release version.
- **/
-void
-as_release_set_version (AsRelease *release, const gchar *version)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	priv->version = g_strdup (version);
 }
 
 /**
@@ -159,6 +146,29 @@ as_release_set_timestamp (AsRelease *release, guint64 timestamp)
 }
 
 /**
+ * as_release_get_description:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the release description markup for a given locale.
+ *
+ * Returns: markup, or %NULL for not set or invalid
+ **/
+const gchar*
+as_release_get_description (AsRelease *release)
+{
+	const gchar *desc;
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	desc = g_hash_table_lookup (priv->description, priv->active_locale);
+	if (desc == NULL) {
+		/* fall back to untranslated / default */
+		desc = g_hash_table_lookup (priv->description, "C");
+	}
+
+	return desc;
+}
+
+/**
  * as_release_set_description:
  * @release: a #AsRelease instance.
  * @description: the description markup.
@@ -166,10 +176,47 @@ as_release_set_timestamp (AsRelease *release, guint64 timestamp)
  * Sets the description release markup.
  **/
 void
-as_release_set_description (AsRelease *release, const gchar *description)
+as_release_set_description (AsRelease *release, const gchar *description, const gchar *locale)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	priv->description = g_strdup (description);
+
+	if (locale == NULL)
+		locale = priv->active_locale;
+
+	g_hash_table_insert (priv->description,
+						 g_strdup (locale),
+						 g_strdup (description));
+}
+
+/**
+ * as_release_get_active_locale:
+ *
+ * Get the current active locale, which
+ * is used to get localized messages.
+ */
+gchar*
+as_release_get_active_locale (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->active_locale;
+}
+
+/**
+ * as_release_set_active_locale:
+ *
+ * Set the current active locale, which
+ * is used to get localized messages.
+ * If the #AsComponent linking this #AsRelease was fetched
+ * from a localized database, usually only
+ * one locale is available.
+ */
+void
+as_release_set_active_locale (AsRelease *release, const gchar *locale)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	g_free (priv->active_locale);
+	priv->active_locale = g_strdup (locale);
 }
 
 /**

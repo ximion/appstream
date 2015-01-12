@@ -205,8 +205,8 @@ gint				as_component_get_language (AsComponent *cpt,
 											   const gchar *locale);
 GList*				as_component_get_languages (AsComponent *cpt);
 
-gchar				*as_component_get_current_locale (AsComponent *cpt);
-void				as_component_set_current_locale (AsComponent *cpt,
+gchar				*as_component_get_active_locale (AsComponent *cpt);
+void				as_component_set_active_locale (AsComponent *cpt,
 												const gchar *locale);
 
 G_END_DECLS

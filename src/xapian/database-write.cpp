@@ -168,11 +168,11 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_value (XapianValues::CPTNAME, cptName);
 
 		// Untranslated component name
-		string clocale = as_component_get_current_locale (cpt);
-		as_component_set_current_locale (cpt, "C");
+		string clocale = as_component_get_active_locale (cpt);
+		as_component_set_active_locale (cpt, "C");
 		string cptNameGeneric = as_component_get_name (cpt);
 		doc.add_value (XapianValues::CPTNAME_UNTRANSLATED, cptNameGeneric);
-		as_component_set_current_locale (cpt, clocale.c_str());
+		as_component_set_active_locale (cpt, clocale.c_str());
 		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
 		// Type identifier
@@ -317,7 +317,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// infer database locale from single component
 		// TODO: Do that in a smarter way, if we support multiple databases later.
 		if (db_locale.empty ())
-			db_locale = as_component_get_current_locale (cpt);
+			db_locale = as_component_get_active_locale (cpt);
 	}
 
 	db.set_metadata ("db-schema-version", AS_DB_SCHEMA_VERSION);
