@@ -1125,7 +1125,10 @@ as_metadata_get_components (AsMetadata *metad)
  * @metad: a #AsMetadata instance.
  * @locale: the locale.
  *
- * Sets the current locale which should be used when parsing metadata.
+ * Sets the locale which should be read when processing metadata.
+ * All other locales are ignored, which increases parsing speed and
+ * reduces memory usage.
+ * If you set the locale to "ALL", all locales will be read.
  **/
 void
 as_metadata_set_locale (AsMetadata *metad, const gchar *locale)
@@ -1146,7 +1149,8 @@ as_metadata_set_locale (AsMetadata *metad, const gchar *locale)
  * as_metadata_get_locale:
  * @metad: a #AsMetadata instance.
  *
- * Gets the currently used locale.
+ * Gets the current active locale for parsing metadata,
+ * or "ALL" if all locales are read.
  *
  * Returns: Locale used for metadata parsing.
  **/
