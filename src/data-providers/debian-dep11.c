@@ -471,6 +471,7 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 {
 	GNode *node;
 	AsComponent *cpt;
+	const gchar *locale;
 
 	gchar **strv;
 	GPtrArray *pkgnames;
@@ -482,6 +483,8 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 	pkgnames = g_ptr_array_new_with_free_func (g_free);
 	categories = g_ptr_array_new_with_free_func (g_free);
 	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
+
+	locale = as_data_provider_get_locale (AS_DATA_PROVIDER (dprov));
 
 	for (node = root->children; node != NULL; node = node->next) {
 		gchar *key;
@@ -505,11 +508,11 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 		} else if (g_strcmp0 (key, "Name") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, "C");
 			if (lvalue != NULL) {
-				as_component_set_name (cpt, lvalue); // TODO: Unlocalized
+				as_component_set_name (cpt, lvalue, NULL); /* Unlocalized */
 				g_free (lvalue);
 			}
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);
-			as_component_set_name (cpt, lvalue);
+			as_component_set_name (cpt, lvalue, locale);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Summary") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);

@@ -84,7 +84,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Component name
 	string cptName = doc.get_value (XapianValues::CPTNAME);
-	as_component_set_name (cpt, cptName.c_str ());
+	as_component_set_name (cpt, cptName.c_str (), NULL);
 
 	// Package name
 	string pkgNamesStr = doc.get_value (XapianValues::PKGNAME);

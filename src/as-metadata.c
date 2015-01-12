@@ -548,11 +548,11 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				g_ptr_array_add (pkgnames, g_strdup (content));
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			if (content != NULL) {
-				as_component_set_name (cpt, content); // TODO: Set unlocalized
+				as_component_set_name (cpt, content, NULL);
 			} else {
 				content = as_metadata_parse_value (metad, iter, TRUE);
 				if (content != NULL)
-					as_component_set_name (cpt, content);
+					as_component_set_name (cpt, content, priv->locale);
 			}
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			if (content != NULL) {

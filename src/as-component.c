@@ -98,10 +98,6 @@ enum  {
 	AS_COMPONENT_SCREENSHOTS
 };
 
-static void as_component_finalize (GObject* obj);
-static void as_component_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec);
-static void as_component_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
-
 /**
  * as_component_kind_get_type:
  *
@@ -250,31 +246,25 @@ as_component_finalize (GObject* object)
 }
 
 /**
- * as_component_localized_add:
- *
- * Helper function to add a value to a localized property.
- */
-static void
-as_component_localized_add (AsComponent *cpt, GHashTable *la, const gchar *value)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_hash_table_insert (la,
-						 g_strdup (priv->current_locale),
-						 g_strdup (value));
-}
-
-/**
  * as_component_localized_get:
  *
- * Helper function to add a value to a localized property.
+ * Helper function to get a localized property using the current
+ * active locale for this component.
  */
 static gchar*
-as_component_localized_get (AsComponent *cpt, GHashTable *la)
+as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 {
+	gchar *msg;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return g_hash_table_lookup (la, priv->current_locale);
-}
 
+	msg = g_hash_table_lookup (lht, priv->current_locale);
+	if (msg == NULL) {
+		/* fall back to default locale */
+		msg = g_hash_table_lookup (lht, "C");
+	}
+
+	return msg;
+}
 
 /**
  * as_component_is_valid:
@@ -939,13 +929,42 @@ as_component_set_origin (AsComponent *cpt, const gchar* origin)
 }
 
 /**
+ * as_component_get_current_locale:
+ *
+ * Get the current activa elocale for this component, which
+ * is used to localize messages.
+ */
+gchar*
+as_component_get_current_locale (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->current_locale;
+}
+
+/**
+ * as_component_set_current_locale:
+ *
+ * Get the current activa elocale for this component, which
+ * is used to localize messages.
+ * If the #AsComponent was fetched from a localized database, usually only
+ * one locale is available.
+ */
+void
+as_component_set_current_locale (AsComponent *cpt, const gchar *locale)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	g_free (priv->current_locale);
+	priv->current_locale = g_strdup (priv->current_locale);
+}
+
+/**
  * as_component_get_name:
  */
 const gchar*
 as_component_get_name (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	return as_component_localized_get (cpt, priv->name);
 }
 
@@ -953,7 +972,7 @@ as_component_get_name (AsComponent *cpt)
  * as_component_set_name:
  */
 void
-as_component_set_name (AsComponent *cpt, const gchar* value)
+as_component_set_name (AsComponent *cpt, const gchar* value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
@@ -961,7 +980,13 @@ as_component_set_name (AsComponent *cpt, const gchar* value)
 	if (value == NULL)
 		value = "";
 
-	as_component_localized_add (cpt, priv->name, value);
+	if (locale == NULL)
+		locale = "C";
+
+	g_hash_table_insert (priv->name,
+						 g_strdup (locale),
+						 g_strdup (value));
+
 	g_object_notify ((GObject *) cpt, "name");
 }
 
@@ -1772,6 +1797,8 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 {
 	AsComponent *cpt;
 	cpt = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
 	switch (property_id) {
 		case AS_COMPONENT_KIND:
 			as_component_set_kind (cpt, g_value_get_enum (value));
@@ -1783,7 +1810,7 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			as_component_set_id (cpt, g_value_get_string (value));
 			break;
 		case AS_COMPONENT_NAME:
-			as_component_set_name (cpt, g_value_get_string (value));
+			as_component_set_name (cpt, g_value_get_string (value), priv->current_locale);
 			break;
 		case AS_COMPONENT_SUMMARY:
 			as_component_set_summary (cpt, g_value_get_string (value));

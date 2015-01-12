@@ -113,7 +113,8 @@ void				as_component_set_pkgnames (AsComponent *cpt,
 
 const gchar*		as_component_get_name (AsComponent *cpt);
 void				as_component_set_name (AsComponent *cpt,
-											const gchar* value);
+											const gchar *value,
+											const gchar *locale);
 
 const gchar*		as_component_get_summary (AsComponent *cpt);
 void				as_component_set_summary (AsComponent *cpt,
@@ -199,6 +200,10 @@ void				as_component_add_language (AsComponent *cpt,
 gint				as_component_get_language (AsComponent *cpt,
 											   const gchar *locale);
 GList*				as_component_get_languages (AsComponent *cpt);
+
+gchar				*as_component_get_current_locale (AsComponent *cpt);
+void				as_component_set_current_locale (AsComponent *cpt,
+												const gchar *locale);
 
 /* DEPRECATED */
 
