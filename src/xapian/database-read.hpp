@@ -54,6 +54,7 @@ public:
 private:
 	Xapian::Database m_xapianDB;
 	string m_dbPath;
+	string m_dbLocale;
 
 	AsComponent *docToComponent (Xapian::Document);
 

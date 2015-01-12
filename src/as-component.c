@@ -54,8 +54,8 @@ struct _AsComponentPrivate {
 	gchar *id;
 	gchar *origin;
 	gchar **pkgnames;
-	GHashTable *name; /* of key:utf8 */
-	gchar *summary;
+	GHashTable *name; /* localized entry */
+	GHashTable *summary; /* localized entry */
 	gchar *description;
 	gchar **keywords;
 	gchar *icon;
@@ -187,17 +187,17 @@ as_component_init (AsComponent *cpt)
 
 	as_component_set_id (cpt, "");
 	as_component_set_origin (cpt, "");
-	as_component_set_summary (cpt, "");
 	as_component_set_description (cpt, "");
 	as_component_set_icon (cpt, "");
 	as_component_set_project_license (cpt, "");
 	as_component_set_project_group (cpt, "");
 	priv->keywords = NULL;
 	priv->categories = NULL;
-
 	priv->current_locale = g_strdup ("C");
+
 	/* translatable entities */
 	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->summary = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->provided_items = g_ptr_array_new_with_free_func (g_free);
@@ -221,7 +221,6 @@ as_component_finalize (GObject* object)
 
 	g_free (priv->id);
 	g_strfreev (priv->pkgnames);
-	g_free (priv->summary);
 	g_free (priv->description);
 	g_free (priv->icon);
 	g_free (priv->project_license);
@@ -229,6 +228,7 @@ as_component_finalize (GObject* object)
 	g_free (priv->current_locale);
 
 	g_hash_table_unref (priv->name);
+	g_hash_table_unref (priv->summary);
 
 	g_strfreev (priv->keywords);
 	g_strfreev (priv->categories);
@@ -243,27 +243,6 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->languages);
 
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (object);
-}
-
-/**
- * as_component_localized_get:
- *
- * Helper function to get a localized property using the current
- * active locale for this component.
- */
-static gchar*
-as_component_localized_get (AsComponent *cpt, GHashTable *lht)
-{
-	gchar *msg;
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	msg = g_hash_table_lookup (lht, priv->current_locale);
-	if (msg == NULL) {
-		/* fall back to default locale */
-		msg = g_hash_table_lookup (lht, "C");
-	}
-
-	return msg;
 }
 
 /**
@@ -317,6 +296,7 @@ as_component_to_string (AsComponent *cpt)
 {
 	gchar* res = NULL;
 	const gchar *name;
+	const gchar *summary;
 	gchar *pkgs;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
@@ -324,17 +304,19 @@ as_component_to_string (AsComponent *cpt)
 		pkgs = g_strdup ("?");
 	else
 		pkgs = g_strjoinv (",", priv->pkgnames);
+
 	name = as_component_get_name (cpt);
+	summary = as_component_get_summary (cpt);
 
 	switch (priv->kind) {
 		case AS_COMPONENT_KIND_DESKTOP_APP:
 		{
-			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, priv->summary);
+			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
 			break;
 		}
 		default:
 		{
-			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, priv->summary);
+			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
 			break;
 		}
 	}
@@ -959,56 +941,117 @@ as_component_set_current_locale (AsComponent *cpt, const gchar *locale)
 }
 
 /**
+ * as_component_localized_get:
+ *
+ * Helper function to get a localized property using the current
+ * active locale for this component.
+ */
+static gchar*
+as_component_localized_get (AsComponent *cpt, GHashTable *lht)
+{
+	gchar *msg;
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	msg = g_hash_table_lookup (lht, priv->current_locale);
+	if (msg == NULL) {
+		/* fall back to default locale */
+		msg = g_hash_table_lookup (lht, "C");
+	}
+
+	return msg;
+}
+
+/**
+ * as_component_localized_set:
+ *
+ * Helper function to set a localized property.
+ */
+static void
+as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* value, const gchar *locale)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* safety measure, so we can always convert this to a C++ string */
+	if (value == NULL)
+		value = "";
+
+	/* if no locale was specified, we assume the default locale */
+	/* CAVE: %NULL does NOT mean lang=C! */
+	if (locale == NULL)
+		locale = priv->current_locale;
+
+	g_hash_table_insert (lht,
+						 g_strdup (locale),
+						 g_strdup (value));
+}
+
+/**
  * as_component_get_name:
+ *
+ * A human-readable name for this component.
  */
 const gchar*
 as_component_get_name (AsComponent *cpt)
 {
+	const gchar *name;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_component_localized_get (cpt, priv->name);
+
+	name = as_component_localized_get (cpt, priv->name);
+	/* prevent issues when converting to a C++ string */
+	if (name == NULL)
+		return "";
+	return name;
 }
 
 /**
  * as_component_set_name:
+ * @cpt: A valid #AsComponent
+ * @value: The name
+ * @locale: The locale the used for this value, or %NULL to use the current active one.
+ *
+ * Set a human-readable name for this component.
  */
 void
 as_component_set_name (AsComponent *cpt, const gchar* value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* safety measure, so we can always convert this to a C++ string */
-	if (value == NULL)
-		value = "";
-
-	if (locale == NULL)
-		locale = "C";
-
-	g_hash_table_insert (priv->name,
-						 g_strdup (locale),
-						 g_strdup (value));
-
+	as_component_localized_set (cpt, priv->name, value, locale);
 	g_object_notify ((GObject *) cpt, "name");
 }
 
+/**
+ * as_component_get_summary:
+ *
+ * Get a short description of this component.
+ */
 const gchar*
 as_component_get_summary (AsComponent *cpt)
 {
+	const gchar *summary;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	return priv->summary;
+	summary = as_component_localized_get (cpt, priv->summary);
+	/* prevent issues when converting to a C++ string */
+	if (summary == NULL)
+		return "";
+	return summary;
 }
 
+/**
+ * as_component_set_summary:
+ * @cpt: A valid #AsComponent
+ * @value: The summary
+ * @locale: The locale the used for this value, or %NULL to use the current active one.
+ *
+ * Set a short description for this component.
+ */
 void
-as_component_set_summary (AsComponent *cpt, const gchar* value)
+as_component_set_summary (AsComponent *cpt, const gchar* value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* safety measure, so we can always convert this to a C++ string */
-	if (value == NULL)
-		value = "";
-
-	g_free (priv->summary);
-	priv->summary = g_strdup (value);
+	as_component_localized_set (cpt, priv->summary, value, locale);
 	g_object_notify ((GObject *) cpt, "summary");
 }
 
@@ -1813,7 +1856,7 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			as_component_set_name (cpt, g_value_get_string (value), priv->current_locale);
 			break;
 		case AS_COMPONENT_SUMMARY:
-			as_component_set_summary (cpt, g_value_get_string (value));
+			as_component_set_summary (cpt, g_value_get_string (value), NULL);
 			break;
 		case AS_COMPONENT_DESCRIPTION:
 			as_component_set_description (cpt, g_value_get_string (value));

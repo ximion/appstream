@@ -530,6 +530,9 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		g_free (priority_str);
 	}
 
+	/* set active locale for this component */
+	as_component_set_current_locale (cpt, priv->locale);
+
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -548,19 +551,19 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				g_ptr_array_add (pkgnames, g_strdup (content));
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			if (content != NULL) {
-				as_component_set_name (cpt, content, NULL);
+				as_component_set_name (cpt, content, "C"); /* unlocalized, original name (enhances search results) */
 			} else {
 				content = as_metadata_parse_value (metad, iter, TRUE);
 				if (content != NULL)
-					as_component_set_name (cpt, content, priv->locale);
+					as_component_set_name (cpt, content, NULL);
 			}
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			if (content != NULL) {
-				as_component_set_summary (cpt, content);
+				as_component_set_summary (cpt, content, "C");
 			} else {
 				content = as_metadata_parse_value (metad, iter, TRUE);
 				if (content != NULL)
-					as_component_set_summary (cpt, content);
+					as_component_set_summary (cpt, content, NULL);
 			}
 		} else if (g_strcmp0 (node_name, "description") == 0) {
 			if (priv->mode == AS_PARSER_MODE_DISTRO) {

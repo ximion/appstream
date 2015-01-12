@@ -109,7 +109,7 @@ void				as_component_set_origin (AsComponent *cpt,
 
 gchar**				as_component_get_pkgnames (AsComponent *cpt);
 void				as_component_set_pkgnames (AsComponent *cpt,
-												gchar** value);
+											gchar** value);
 
 const gchar*		as_component_get_name (AsComponent *cpt);
 void				as_component_set_name (AsComponent *cpt,
@@ -118,7 +118,8 @@ void				as_component_set_name (AsComponent *cpt,
 
 const gchar*		as_component_get_summary (AsComponent *cpt);
 void				as_component_set_summary (AsComponent *cpt,
-													const gchar* value);
+											const gchar *value,
+											const gchar *locale);
 
 const gchar*		as_component_get_description (AsComponent *cpt);
 void				as_component_set_description (AsComponent *cpt,

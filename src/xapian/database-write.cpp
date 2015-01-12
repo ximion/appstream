@@ -82,6 +82,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 {
 	string old_path = m_dbPath + "_old";
 	string rebuild_path = m_dbPath + "_rb";
+	string db_locale = "";
 
 	// Create the rebuild directory
 	if (!as_utils_touch_dir (rebuild_path.c_str ()))
@@ -162,13 +163,17 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_term("AI" + idname);
 		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);
 
-		// Untranslated component name
-		string cptNameGeneric = as_component_get_name (cpt); // FIXME: Get the lang:C name here
-		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
-
 		// Component name
 		string cptName = as_component_get_name (cpt);
 		doc.add_value (XapianValues::CPTNAME, cptName);
+
+		// Untranslated component name
+		string clocale = as_component_get_current_locale (cpt);
+		as_component_set_current_locale (cpt, "C");
+		string cptNameGeneric = as_component_get_name (cpt);
+		doc.add_value (XapianValues::CPTNAME_UNTRANSLATED, cptNameGeneric);
+		as_component_set_current_locale (cpt, clocale.c_str());
+		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
 		// Type identifier
 		string type_str = as_component_kind_to_string (as_component_get_kind (cpt));
@@ -308,9 +313,15 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		term_generator.index_text_without_positions (docData, WEIGHT_DESKTOP_NAME);
 
 		db.add_document (doc);
+
+		// infer database locale from single component
+		// TODO: Do that in a smarter way, if we support multiple databases later.
+		if (db_locale.empty ())
+			db_locale = as_component_get_current_locale (cpt);
 	}
 
-	db.set_metadata("db-schema-version", AS_DB_SCHEMA_VERSION);
+	db.set_metadata ("db-schema-version", AS_DB_SCHEMA_VERSION);
+	db.set_metadata ("db-locale", db_locale);
 	db.commit ();
 
 	if (g_rename (m_dbPath.c_str (), old_path.c_str ()) < 0) {

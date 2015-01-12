@@ -76,7 +76,7 @@ test_component ()
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 
 	as_component_set_name (cpt, "Test", NULL);
-	as_component_set_summary (cpt, "It does things");
+	as_component_set_summary (cpt, "It does things", NULL);
 
 	strv = _get_dummy_strv ("fedex");
 	as_component_set_pkgnames (cpt, strv);

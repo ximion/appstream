@@ -59,6 +59,10 @@ DatabaseRead::open (const gchar *dbPath)
 		return false;
 	}
 
+	m_dbLocale = m_xapianDB.get_metadata ("db-locale");
+	if (m_dbLocale.empty ())
+		m_dbLocale = "C";
+
 	return true;
 }
 
@@ -74,6 +78,9 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	AsComponent *cpt = as_component_new ();
 	string str;
 
+	/* set component active languge (which is the locale the database was built for) */
+	as_component_set_current_locale (cpt, m_dbLocale.c_str ());
+
 	// Component type/kind
 	string type_str = doc.get_value (XapianValues::TYPE);
 	as_component_set_kind (cpt, as_component_kind_from_string (type_str.c_str ()));
@@ -85,6 +92,8 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	// Component name
 	string cptName = doc.get_value (XapianValues::CPTNAME);
 	as_component_set_name (cpt, cptName.c_str (), NULL);
+	cptName = doc.get_value (XapianValues::CPTNAME_UNTRANSLATED);
+	as_component_set_name (cpt, cptName.c_str (), "C");
 
 	// Package name
 	string pkgNamesStr = doc.get_value (XapianValues::PKGNAME);
@@ -129,7 +138,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Summary
 	string appSummary = doc.get_value (XapianValues::SUMMARY);
-	as_component_set_summary (cpt, appSummary.c_str ());
+	as_component_set_summary (cpt, appSummary.c_str (), NULL);
 
 	// Long description
 	string appDescription = doc.get_value (XapianValues::DESCRIPTION);

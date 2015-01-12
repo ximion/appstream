@@ -152,7 +152,7 @@ as_provider_ubuntu_appinstall_process_desktop_file (AsProviderUbuntuAppinstall* 
 	g_free (str);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "Comment");
-	as_component_set_summary (cpt, str);
+	as_component_set_summary (cpt, str, NULL);
 	g_free (str);
 
 	str = as_provider_ubuntu_appinstall_desktop_file_get_str (self, dfile, "Icon");

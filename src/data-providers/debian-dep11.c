@@ -484,7 +484,9 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 	categories = g_ptr_array_new_with_free_func (g_free);
 	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 
+	/* set active locale for this component */
 	locale = as_data_provider_get_locale (AS_DATA_PROVIDER (dprov));
+	as_component_set_current_locale (cpt, locale);
 
 	for (node = root->children; node != NULL; node = node->next) {
 		gchar *key;
@@ -508,15 +510,15 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 		} else if (g_strcmp0 (key, "Name") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, "C");
 			if (lvalue != NULL) {
-				as_component_set_name (cpt, lvalue, NULL); /* Unlocalized */
+				as_component_set_name (cpt, lvalue, "C"); /* Unlocalized */
 				g_free (lvalue);
 			}
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);
-			as_component_set_name (cpt, lvalue, locale);
+			as_component_set_name (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Summary") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);
-			as_component_set_summary (cpt, lvalue);
+			as_component_set_summary (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Description") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);
