@@ -1176,27 +1176,6 @@ as_component_set_icon (AsComponent *cpt, const gchar* value)
 }
 
 /**
- * as_component_get_icon_url:
- * @cpt: an #AsComponent instance
- *
- * Returns: The full url of this icon, e.g.
- * "/usr/share/icons/hicolor/64x64/foobar.png"
- * This might also be an http url pointing at a remote location.
- * The icon will have the default icon size, which is usually 64x64 pixels.
- */
-const gchar*
-as_component_get_icon_url (AsComponent *cpt)
-{
-	gchar *icon_url;
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	icon_url = g_hash_table_lookup (priv->icon_urls, "64x64");
-	if (icon_url == NULL)
-		return "";
-	return icon_url;
-}
-
-/**
  * as_component_add_icon_url:
  * @cpt: an #AsComponent instance
  * @width: An icon width
@@ -1223,7 +1202,7 @@ as_component_add_icon_url (AsComponent *cpt, int width, int height, const gchar*
 }
 
 /**
- * as_component_get_icon_url_for_size:
+ * as_component_get_icon_url:
  * @cpt: an #AsComponent instance
  * @width: An icon width
  * @height: An icon height
@@ -1236,7 +1215,7 @@ as_component_add_icon_url (AsComponent *cpt, int width, int height, const gchar*
  * Since: 0.7.4
  */
 const gchar*
-as_component_get_icon_url_for_size (AsComponent *cpt, int width, int height)
+as_component_get_icon_url (AsComponent *cpt, int width, int height)
 {
 	gchar *size;
 	gchar *icon_url;
