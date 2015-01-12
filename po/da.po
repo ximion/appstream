@@ -1,0 +1,207 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Matthias Klumpp
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Joe Hansen <joedalton2@yahoo.dk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: AppStream\n"
+"Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
+"POT-Creation-Date: 2014-09-12 15:14+0200\n"
+"PO-Revision-Date: 2014-11-22 09:40+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish (http://www.transifex.com/projects/p/appstream/language/da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A provides-item type (e.g. lib, bin, python3, ...)"
+msgstr "En provides-item-type (f.eks. lib, bin, python3 ...)"
+
+msgid "AppStream Validation Utility"
+msgstr "AppStreams valideringsredskab"
+
+msgid "AppStream cache update completed successfully."
+msgstr "AppStreams opdatering af mellemlageret er færdig."
+
+#, c-format
+msgid ""
+"AppStream cache update completed, but some metadata was ignored due to "
+"errors."
+msgstr "AppStreams mellemlageropdatering er færdig, men nogle metatdata blev ignoreret på grund af fejl."
+
+#, c-format
+msgid "AppStream cache update failed."
+msgstr "AppStreams mellemlageropdatering mislykkedes."
+
+#. TRANSLATORS: This is the header to the --help menu
+msgid "AppStream-Index Client Tool"
+msgstr "AppStrem-Index' klientværktøj"
+
+#, c-format
+msgid "Appstream-Index client tool version: %s"
+msgstr "AppStream-Index' klientværktøjsversion: %s"
+
+msgid "Categories"
+msgstr "Kategorier"
+
+#, c-format
+msgid "Command '%s' is unknown."
+msgstr "Kommandoen »%s« er ukendt."
+
+msgid "Compulsory for"
+msgstr "Tvungen for"
+
+msgid "Description"
+msgstr "Beskrivelse"
+
+#. developer name
+msgid "Developer"
+msgstr "Udvikler"
+
+msgid "Don't show colored output"
+msgstr "Vis ikke farvet resultat"
+
+msgid "Enforce a cache refresh"
+msgstr "Fremtving en opdatering af mellemlageret"
+
+msgid "Failed to parse arguments"
+msgstr "Kunne ikke fortolke argumenter"
+
+#, c-format
+msgid "File %s not found or permission denied!"
+msgstr "Filen %s blev ikke fundet eller tilladelse nægtet!"
+
+msgid "Get components which provide the given item"
+msgstr "Hent komponenter som tilbyder det givne element"
+
+msgid "Get information about a component by its id"
+msgstr "Hent information om en komponent efter dens id"
+
+msgid "Homepage"
+msgstr "Hjemmeside"
+
+msgid "Icon"
+msgstr "Ikon"
+
+msgid "Identifier"
+msgstr "Identifikator"
+
+msgid "Invalid type for provides-item selected. Valid values are:"
+msgstr "Ugyldig type for provides-item valgt. Gyldige værdier er:"
+
+#. license
+msgid "License"
+msgstr "Licens"
+
+msgid "Manually set the location of AppStream metadata for cache regeneration"
+msgstr "Sæt manuelt placeringen af AppStream-metadata for mellemlagerregenerering"
+
+msgid "Manually set the location of the AppStream cache"
+msgstr "Sæt manuelt placeringen af AppStreams mellemlager"
+
+msgid "Name"
+msgstr "Navn"
+
+#, c-format
+msgid "No component matching '%s' found."
+msgstr "Ingen komponent der matcher »%s« blev fundet."
+
+#, c-format
+msgid "No component providing '%s:%s:%s' found."
+msgstr "Ingen komponent der tilbyder »%s:%s:%s« blev fundet."
+
+msgid "No value for the provides-item to search for defined."
+msgstr "Ingen værdi for provides-item at søge for defineret."
+
+msgid "Package"
+msgstr "Pakke"
+
+msgid "Print detailed output about found components"
+msgstr "Udskriv et detaljeret resultat om fundne komponenter"
+
+#. project group
+msgid "Project Group"
+msgstr "Projektgruppe"
+
+msgid "Provided Items"
+msgstr "Tilbudte elementer"
+
+msgid "Rebuild the component information cache"
+msgstr "Genbyg komponentens informationsmellemlager"
+
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr "Kør »%s --help« for at se en fuld liste over tilgængelige tilvalg for kommandolinjen."
+
+msgid "Sample Screenshot URL"
+msgstr "Prøv på skærmbilledeadresse"
+
+msgid "Search the component database"
+msgstr "Søg i komponentdatabasen"
+
+msgid "Select a value for the provides-item which needs to be found"
+msgstr "Vælg en værdi for provides-item, som skal findes"
+
+msgid "Show extra debugging information"
+msgstr "Vis ekstra fejlsøgningsinformation"
+
+msgid "Show program version"
+msgstr "Vis programversion"
+
+msgid "Show the program version"
+msgstr "Vis programversionen"
+
+#. these are commands we can use with appstream-index
+msgid "Subcommands:"
+msgstr "Underkommandoer:"
+
+msgid "Summary"
+msgstr "Resume"
+
+#. TRANSLATORS: We failed to find any component in the database due to an
+#. error
+#, c-format
+msgid "Unable to find component matching %s!"
+msgstr "Kan ikke finde komponent der matcher %s!"
+
+#, c-format
+msgid "Unable to find component providing '%s:%s:%s'!"
+msgstr "Kan ikke finde komponent der tilbyder »%s:%s:%s«!"
+
+#, c-format
+msgid "Unable to find component with id '%s'!"
+msgstr "Kan ikke finde komponent med id »%s«!"
+
+msgid "Validation failed."
+msgstr "Validering mislykkedes."
+
+#, c-format
+msgid "XDG Menu XML file '%s' is damaged."
+msgstr "XDG Menu XML-file »%s« er ødelagt."
+
+msgid "You need to run this command with superuser permissions!"
+msgstr "Du skal køre denne kommando med superbrugerrettigheder!"
+
+msgid "You need to specify a command."
+msgstr "Du skal specificere en kommando."
+
+msgid "You need to specify a component-id."
+msgstr "Du skal specificere en komponent-id."
+
+msgid "You need to specify a file to validate!"
+msgstr "Du skal specificere en fil at validere!"
+
+msgid "You need to specify a term to search for."
+msgstr "Du skal specificere en term at søge for."
+
+#. TRANSLATORS: List of "grey-listed" words sperated with ";"
+#. * Do not translate this list directly. Instead,
+#. * provide a list of words in your language that people are likely
+#. * to include in a search but that should normally be ignored in
+#. * the search.
+msgid "app;application;package;program;programme;suite;tool"
+msgstr "app;applikation;pakke;program;suite;programpakke;værktøj;redskab"

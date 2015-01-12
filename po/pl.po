@@ -1,0 +1,207 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Matthias Klumpp
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Piotr Drąg <piotrdrag@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: AppStream\n"
+"Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
+"POT-Creation-Date: 2014-09-12 15:14+0200\n"
+"PO-Revision-Date: 2014-11-22 13:21+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/appstream/language/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "A provides-item type (e.g. lib, bin, python3, ...)"
+msgstr "Typ elementu Provides (np. lib, bin, python3...)"
+
+msgid "AppStream Validation Utility"
+msgstr "Narzędzie sprawdzania AppStream"
+
+msgid "AppStream cache update completed successfully."
+msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
+
+#, c-format
+msgid ""
+"AppStream cache update completed, but some metadata was ignored due to "
+"errors."
+msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream, ale część metadanych została zignorowana z powodu błędów."
+
+#, c-format
+msgid "AppStream cache update failed."
+msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
+
+#. TRANSLATORS: This is the header to the --help menu
+msgid "AppStream-Index Client Tool"
+msgstr "Narzędzie klienta AppStream-Index"
+
+#, c-format
+msgid "Appstream-Index client tool version: %s"
+msgstr "Wersja narzędzia klienta AppStream-Index: %s"
+
+msgid "Categories"
+msgstr "Kategorie"
+
+#, c-format
+msgid "Command '%s' is unknown."
+msgstr "Nieznane polecenie \"%s\"."
+
+msgid "Compulsory for"
+msgstr "Obowiązkowe dla"
+
+msgid "Description"
+msgstr "Opis"
+
+#. developer name
+msgid "Developer"
+msgstr "Programista"
+
+msgid "Don't show colored output"
+msgstr "Bez kolorowania wyjścia"
+
+msgid "Enforce a cache refresh"
+msgstr "Wymusza odświeżenie pamięci podręcznej"
+
+msgid "Failed to parse arguments"
+msgstr "Przetworzenie parametrów się nie powiodło"
+
+#, c-format
+msgid "File %s not found or permission denied!"
+msgstr "Nie odnaleziono pliku %s lub odmówiono uprawnień."
+
+msgid "Get components which provide the given item"
+msgstr "Uzyskuje składniki dostarczające podany element"
+
+msgid "Get information about a component by its id"
+msgstr "Uzyskuje informacje o składniku według jego identyfikatora"
+
+msgid "Homepage"
+msgstr "Strona domowa"
+
+msgid "Icon"
+msgstr "Ikona"
+
+msgid "Identifier"
+msgstr "Identyfikator"
+
+msgid "Invalid type for provides-item selected. Valid values are:"
+msgstr "Wybrano nieprawidłowy typ dla elementu Provides. Prawidłowe wartości:"
+
+#. license
+msgid "License"
+msgstr "Licencja"
+
+msgid "Manually set the location of AppStream metadata for cache regeneration"
+msgstr "Ręcznie ustawia położenie metadanych AppStream do tworzenia pamięci podręcznej"
+
+msgid "Manually set the location of the AppStream cache"
+msgstr "Ręcznie ustawia położenie metadanych AppStream"
+
+msgid "Name"
+msgstr "Nazwa"
+
+#, c-format
+msgid "No component matching '%s' found."
+msgstr "Nie odnaleziono składnika pasującego do \"%s\"."
+
+#, c-format
+msgid "No component providing '%s:%s:%s' found."
+msgstr "Nie odnaleziono składnika dostarczającego \"%s:%s:%s\"."
+
+msgid "No value for the provides-item to search for defined."
+msgstr "Nie określono wartości dla wyszukiwanego elementu Provides."
+
+msgid "Package"
+msgstr "Pakiet"
+
+msgid "Print detailed output about found components"
+msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach"
+
+#. project group
+msgid "Project Group"
+msgstr "Grupa projektu"
+
+msgid "Provided Items"
+msgstr "Dostarczane elementy"
+
+msgid "Rebuild the component information cache"
+msgstr "Ponownie buduje pamięć podręczną informacji o składnikach"
+
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr "Wykonanie polecenia \"%s --help\" wyświetli pełną listę dostępnych opcji wiersza poleceń."
+
+msgid "Sample Screenshot URL"
+msgstr "Przykładowy adres URL zrzutu ekranu"
+
+msgid "Search the component database"
+msgstr "Przeszukuje bazę danych składników"
+
+msgid "Select a value for the provides-item which needs to be found"
+msgstr "Proszę wybrać wartość dla elementu Provides, który należy odnaleźć"
+
+msgid "Show extra debugging information"
+msgstr "Wyświetla dodatkowe informacje debugowania"
+
+msgid "Show program version"
+msgstr "Wyświetla wersję programu"
+
+msgid "Show the program version"
+msgstr "Wyświetla wersję programu"
+
+#. these are commands we can use with appstream-index
+msgid "Subcommands:"
+msgstr "Podpolecenia:"
+
+msgid "Summary"
+msgstr "Podsumowanie"
+
+#. TRANSLATORS: We failed to find any component in the database due to an
+#. error
+#, c-format
+msgid "Unable to find component matching %s!"
+msgstr "Nie można odnaleźć składnika pasującego do %s."
+
+#, c-format
+msgid "Unable to find component providing '%s:%s:%s'!"
+msgstr "Nie można odnaleźć składnika dostarczającego \"%s:%s:%s\"."
+
+#, c-format
+msgid "Unable to find component with id '%s'!"
+msgstr "Nie można odnaleźć składnika o identyfikatorze \"%s\"."
+
+msgid "Validation failed."
+msgstr "Sprawdzenie się nie powiodło."
+
+#, c-format
+msgid "XDG Menu XML file '%s' is damaged."
+msgstr "Plik menu XDG w formacie XML \"%s\" jest uszkodzony."
+
+msgid "You need to run this command with superuser permissions!"
+msgstr "Należy wykonać to polecenie z uprawnieniami superużytkownika."
+
+msgid "You need to specify a command."
+msgstr "Należy podać polecenie."
+
+msgid "You need to specify a component-id."
+msgstr "Należy podać identyfikator składnika."
+
+msgid "You need to specify a file to validate!"
+msgstr "Należy podać plik do sprawdzenia."
+
+msgid "You need to specify a term to search for."
+msgstr "Należy podać termin do wyszukania."
+
+#. TRANSLATORS: List of "grey-listed" words sperated with ";"
+#. * Do not translate this list directly. Instead,
+#. * provide a list of words in your language that people are likely
+#. * to include in a search but that should normally be ignored in
+#. * the search.
+msgid "app;application;package;program;programme;suite;tool"
+msgstr "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;zestaw;suite;narzędzie;tool"

@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Matthias Klumpp
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: AppStream\n"
+"Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
+"POT-Creation-Date: 2014-09-12 15:14+0200\n"
+"PO-Revision-Date: 2014-11-21 18:23+0000\n"
+"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"Language-Team: Georgian (http://www.transifex.com/projects/p/appstream/language/ka/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ka\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "A provides-item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+msgid "AppStream Validation Utility"
+msgstr ""
+
+msgid "AppStream cache update completed successfully."
+msgstr ""
+
+#, c-format
+msgid ""
+"AppStream cache update completed, but some metadata was ignored due to "
+"errors."
+msgstr ""
+
+#, c-format
+msgid "AppStream cache update failed."
+msgstr ""
+
+#. TRANSLATORS: This is the header to the --help menu
+msgid "AppStream-Index Client Tool"
+msgstr ""
+
+#, c-format
+msgid "Appstream-Index client tool version: %s"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+#, c-format
+msgid "Command '%s' is unknown."
+msgstr ""
+
+msgid "Compulsory for"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+#. developer name
+msgid "Developer"
+msgstr ""
+
+msgid "Don't show colored output"
+msgstr ""
+
+msgid "Enforce a cache refresh"
+msgstr ""
+
+msgid "Failed to parse arguments"
+msgstr ""
+
+#, c-format
+msgid "File %s not found or permission denied!"
+msgstr ""
+
+msgid "Get components which provide the given item"
+msgstr ""
+
+msgid "Get information about a component by its id"
+msgstr ""
+
+msgid "Homepage"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Identifier"
+msgstr ""
+
+msgid "Invalid type for provides-item selected. Valid values are:"
+msgstr ""
+
+#. license
+msgid "License"
+msgstr ""
+
+msgid "Manually set the location of AppStream metadata for cache regeneration"
+msgstr ""
+
+msgid "Manually set the location of the AppStream cache"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+#, c-format
+msgid "No component matching '%s' found."
+msgstr ""
+
+#, c-format
+msgid "No component providing '%s:%s:%s' found."
+msgstr ""
+
+msgid "No value for the provides-item to search for defined."
+msgstr ""
+
+msgid "Package"
+msgstr ""
+
+msgid "Print detailed output about found components"
+msgstr ""
+
+#. project group
+msgid "Project Group"
+msgstr ""
+
+msgid "Provided Items"
+msgstr ""
+
+msgid "Rebuild the component information cache"
+msgstr ""
+
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr ""
+
+msgid "Sample Screenshot URL"
+msgstr ""
+
+msgid "Search the component database"
+msgstr ""
+
+msgid "Select a value for the provides-item which needs to be found"
+msgstr ""
+
+msgid "Show extra debugging information"
+msgstr ""
+
+msgid "Show program version"
+msgstr ""
+
+msgid "Show the program version"
+msgstr ""
+
+#. these are commands we can use with appstream-index
+msgid "Subcommands:"
+msgstr ""
+
+msgid "Summary"
+msgstr ""
+
+#. TRANSLATORS: We failed to find any component in the database due to an
+#. error
+#, c-format
+msgid "Unable to find component matching %s!"
+msgstr ""
+
+#, c-format
+msgid "Unable to find component providing '%s:%s:%s'!"
+msgstr ""
+
+#, c-format
+msgid "Unable to find component with id '%s'!"
+msgstr ""
+
+msgid "Validation failed."
+msgstr ""
+
+#, c-format
+msgid "XDG Menu XML file '%s' is damaged."
+msgstr ""
+
+msgid "You need to run this command with superuser permissions!"
+msgstr ""
+
+msgid "You need to specify a command."
+msgstr ""
+
+msgid "You need to specify a component-id."
+msgstr ""
+
+msgid "You need to specify a file to validate!"
+msgstr ""
+
+msgid "You need to specify a term to search for."
+msgstr ""
+
+#. TRANSLATORS: List of "grey-listed" words sperated with ";"
+#. * Do not translate this list directly. Instead,
+#. * provide a list of words in your language that people are likely
+#. * to include in a search but that should normally be ignored in
+#. * the search.
+msgid "app;application;package;program;programme;suite;tool"
+msgstr ""

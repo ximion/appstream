@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Necdet Yücel <necdetyucel@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2014-11-28 17:46+0100\n"
-"PO-Revision-Date: 2014-11-21 18:23+0000\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2015-01-12 22:17+0100\n"
+"PO-Revision-Date: 2014-12-28 00:10+0000\n"
+"Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/appstream/"
 "language/tr/)\n"
 "Language: tr\n"
@@ -19,183 +20,188 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Bir sağlanan-öge türü (lib, bin, python3 gibi)"
 
 msgid "AppStream Validation Utility"
-msgstr ""
+msgstr "AppStream Doğrulama Uygulaması"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"AppStream ön bellek güncellemesi tamamlandı ama bazı meta veriler hatalar "
+"yüzünden yok sayıldı."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "AppStream ön bellek güncellemesi başarısız oldu."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream-Index Client Tool"
-msgstr ""
+msgstr "AppStream Dizin İstemci Aracı"
 
 #, c-format
 msgid "Appstream-Index client tool version: %s"
-msgstr ""
+msgstr "Appstream-Dizin istemci aracı sürümü: %s"
 
 msgid "Categories"
-msgstr ""
+msgstr "Sınıflandırmalar"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "'%s' komutu bilinmiyor."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Zorunlu"
 
 msgid "Description"
-msgstr ""
+msgstr "Tanımlama"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Geliştirici"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Çıktıyı renklendirilmiş gösterme"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Ön belleğin yenilenmesini zorla"
 
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Argüman ayrıştırması başarısız"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "%s dosyası bulunamadı veya izin verilmedi!"
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Verilen ögeyi sağlayan bileşenleri alın"
 
 msgid "Get information about a component by its id"
-msgstr ""
+msgstr "Kimliğini kullanarak bir bileşen hakkında bilgi alın"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Web Sitesi"
 
 msgid "Icon"
-msgstr ""
+msgstr "Simge"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Tanımlayıcı"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
-msgstr ""
+msgstr "Seçilen sağlanan öge için geçersiz tür. Geçerli değerler:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Lisans"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Ön belleğin yeniden oluşturulması için AppStream meta verisinin konumunu "
+"elle ayarlayın"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "AppStream ön belleğinin konumunu elle ayarlayın"
 
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "'%s' ile eşleşen bileşen bulunamadı."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "'%s:%s:%s' sağlayan bileşen bulunamadı."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "Sağlanan öge için arama değeri tanımlanmamış."
 
 msgid "Package"
-msgstr ""
+msgstr "Paket"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Bulunan bileşenlerin ayrıntılı çıktılarını yazdır"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Proje Grubu"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Sağlanan Ögeler"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Bileşen bilgisi ön belleğini yeniden oluştur"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Tüm komut satırı işlemlerini görmek için '%s --help' komutunu çalıştırın."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "Örnek Ekran Görüntüsü Adresi"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Bileşen veritabanını ara"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Bulunması gereken sağlanan öge için bir değer seçin"
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Ek hata ayıklama bilgisi göster"
 
 msgid "Show program version"
-msgstr ""
+msgstr "Program sürümünü göster"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Program sürümünü göster"
 
 #. these are commands we can use with appstream-index
 msgid "Subcommands:"
-msgstr ""
+msgstr "Alt komutlar:"
 
 msgid "Summary"
-msgstr ""
+msgstr "Özet"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "%s ile eşleşen bileşen bulunamadı!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "'%s:%s:%s' bileşeni bulunamadı!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Doğrulama başarısız."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "XDG Menü XML dosyası '%s' hasar görmüş."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Bu komutu yetkili kullanıcı haklarıyla çalıştırmanız gerekir!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Bir komut belirtmelisiniz."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Bir bileşen kimliği belirtmelisiniz."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Arama için bir terim belirtmelisiniz."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -204,4 +210,4 @@ msgstr ""
 #. * the search.
 #.
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;uygulama;paket;program;program;takım;araç"

@@ -1,0 +1,207 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Matthias Klumpp
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Balázs Úr <urbalazs@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: AppStream\n"
+"Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
+"POT-Creation-Date: 2014-09-12 15:14+0200\n"
+"PO-Revision-Date: 2014-12-01 19:56+0000\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/appstream/language/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "A provides-item type (e.g. lib, bin, python3, ...)"
+msgstr "Egy szolgáltatás-elem típus (például lib, bin, python3, …)"
+
+msgid "AppStream Validation Utility"
+msgstr "AppStream ellenőrző segédprogram"
+
+msgid "AppStream cache update completed successfully."
+msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
+
+#, c-format
+msgid ""
+"AppStream cache update completed, but some metadata was ignored due to "
+"errors."
+msgstr "Az AppStream gyorsítótár-frissítés befejeződött, de néhány metaadat mellőzve lett a hibák miatt."
+
+#, c-format
+msgid "AppStream cache update failed."
+msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
+
+#. TRANSLATORS: This is the header to the --help menu
+msgid "AppStream-Index Client Tool"
+msgstr "AppStream-Index kliens eszköz"
+
+#, c-format
+msgid "Appstream-Index client tool version: %s"
+msgstr "Appstream-Index kliens eszköz verzió: %s"
+
+msgid "Categories"
+msgstr "Kategóriák"
+
+#, c-format
+msgid "Command '%s' is unknown."
+msgstr "A(z) „%s” parancs ismeretlen."
+
+msgid "Compulsory for"
+msgstr "Kötelező ehhez"
+
+msgid "Description"
+msgstr "Leírás"
+
+#. developer name
+msgid "Developer"
+msgstr "Fejlesztő"
+
+msgid "Don't show colored output"
+msgstr "Ne jelenítsen meg színes kimenetet"
+
+msgid "Enforce a cache refresh"
+msgstr "Gyorsítótár-frissítés kényszerítése"
+
+msgid "Failed to parse arguments"
+msgstr "Nem sikerült az argumentumok feldolgozása "
+
+#, c-format
+msgid "File %s not found or permission denied!"
+msgstr "A(z) %s fájl nem található vagy a hozzáférés megtagadva!"
+
+msgid "Get components which provide the given item"
+msgstr "Komponensek lekérése, amelyek a megadott elemet biztosítják"
+
+msgid "Get information about a component by its id"
+msgstr "Információk beszerzése egy komponensről az azonosítója által"
+
+msgid "Homepage"
+msgstr "Honlap"
+
+msgid "Icon"
+msgstr "Ikon"
+
+msgid "Identifier"
+msgstr "Azonosító"
+
+msgid "Invalid type for provides-item selected. Valid values are:"
+msgstr "Érvénytelen típus a kiválasztott szolgáltatás-elemhez. Az érvényes értékek:"
+
+#. license
+msgid "License"
+msgstr "Licenc"
+
+msgid "Manually set the location of AppStream metadata for cache regeneration"
+msgstr "Az AppStream metaadatok helyének kézi beállítása a gyorsítótár újra előállításához"
+
+msgid "Manually set the location of the AppStream cache"
+msgstr "Az AppStream gyorsítótár helyének kézi beállítása"
+
+msgid "Name"
+msgstr "Név"
+
+#, c-format
+msgid "No component matching '%s' found."
+msgstr "Nem található erre illeszkedő komponens: „%s”."
+
+#, c-format
+msgid "No component providing '%s:%s:%s' found."
+msgstr "Nem található „%s:%s:%s” szolgáltatását biztosító komponens."
+
+msgid "No value for the provides-item to search for defined."
+msgstr "Nincs érték a szolgáltatás-elemhez a meghatározott kereséséhez."
+
+msgid "Package"
+msgstr "Csomag"
+
+msgid "Print detailed output about found components"
+msgstr "Részletes kimenet írása a megtalált komponensekről"
+
+#. project group
+msgid "Project Group"
+msgstr "Projektcsoport"
+
+msgid "Provided Items"
+msgstr "Szolgáltatott elemek"
+
+msgid "Rebuild the component information cache"
+msgstr "A komponens információs gyorsítótár újraépítése"
+
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr "Futtassa a(z) „%s --help” parancsot az elérhető parancssori kapcsolók teljes listájáért."
+
+msgid "Sample Screenshot URL"
+msgstr "Minta képernyőkép URL"
+
+msgid "Search the component database"
+msgstr "A komponens adatbázis keresése"
+
+msgid "Select a value for the provides-item which needs to be found"
+msgstr "Válasszon egy értéket ahhoz a szolgáltatás-elemhez, amelyet meg kell találni"
+
+msgid "Show extra debugging information"
+msgstr "További hibakeresési információk megjelenítése"
+
+msgid "Show program version"
+msgstr "Programverzió megjelenítése"
+
+msgid "Show the program version"
+msgstr "A programverzió megjelenítése"
+
+#. these are commands we can use with appstream-index
+msgid "Subcommands:"
+msgstr "Alparancsok:"
+
+msgid "Summary"
+msgstr "Összegzés"
+
+#. TRANSLATORS: We failed to find any component in the database due to an
+#. error
+#, c-format
+msgid "Unable to find component matching %s!"
+msgstr "Nem található a következőre illeszkedő komponens: %s!"
+
+#, c-format
+msgid "Unable to find component providing '%s:%s:%s'!"
+msgstr "Nem található a következőt biztosító komponens: „%s:%s:%s”!"
+
+#, c-format
+msgid "Unable to find component with id '%s'!"
+msgstr "Nem található komponens a következő azonosítóval: „%s”!"
+
+msgid "Validation failed."
+msgstr "Az ellenőrzés nem sikerült."
+
+#, c-format
+msgid "XDG Menu XML file '%s' is damaged."
+msgstr "A(z) „%s” XDG menü XML fájl sérült."
+
+msgid "You need to run this command with superuser permissions!"
+msgstr "Ezt a parancsot rendszergazdai jogosultságokkal kell futtatnia!"
+
+msgid "You need to specify a command."
+msgstr "Meg kell adnia egy parancsot."
+
+msgid "You need to specify a component-id."
+msgstr "Meg kell adnia egy komponens-azonosítót."
+
+msgid "You need to specify a file to validate!"
+msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
+
+msgid "You need to specify a term to search for."
+msgstr "Meg kell adnia egy kifejezést a kereséshez."
+
+#. TRANSLATORS: List of "grey-listed" words sperated with ";"
+#. * Do not translate this list directly. Instead,
+#. * provide a list of words in your language that people are likely
+#. * to include in a search but that should normally be ignored in
+#. * the search.
+msgid "app;application;package;program;programme;suite;tool"
+msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"

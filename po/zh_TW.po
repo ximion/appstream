@@ -1,0 +1,206 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Matthias Klumpp
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: AppStream\n"
+"Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
+"POT-Creation-Date: 2014-09-12 15:14+0200\n"
+"PO-Revision-Date: 2014-11-22 14:11+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/appstream/language/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "A provides-item type (e.g. lib, bin, python3, ...)"
+msgstr "提供項目的類型 (如：lib、bin、python3...等)"
+
+msgid "AppStream Validation Utility"
+msgstr "AppStream 驗證用公用程式"
+
+msgid "AppStream cache update completed successfully."
+msgstr "AppStream 快取更新成功完成。"
+
+#, c-format
+msgid ""
+"AppStream cache update completed, but some metadata was ignored due to "
+"errors."
+msgstr "AppStream 快取更新完成，但有些中介資料因為錯誤而被忽略。"
+
+#, c-format
+msgid "AppStream cache update failed."
+msgstr "AppStream 快取更新失敗。"
+
+#. TRANSLATORS: This is the header to the --help menu
+msgid "AppStream-Index Client Tool"
+msgstr "AppStream-Index 客戶端工具"
+
+#, c-format
+msgid "Appstream-Index client tool version: %s"
+msgstr "Appstream-Index 客戶端工具版本：%s"
+
+msgid "Categories"
+msgstr "類別"
+
+#, c-format
+msgid "Command '%s' is unknown."
+msgstr "指令「%s」未知。"
+
+msgid "Compulsory for"
+msgstr "強制項目為"
+
+msgid "Description"
+msgstr "描述"
+
+#. developer name
+msgid "Developer"
+msgstr "開發者"
+
+msgid "Don't show colored output"
+msgstr "不要顯示色彩化的輸出"
+
+msgid "Enforce a cache refresh"
+msgstr "強制快取重新整理"
+
+msgid "Failed to parse arguments"
+msgstr "無法解析引數"
+
+#, c-format
+msgid "File %s not found or permission denied!"
+msgstr "找不到檔案 %s，或未獲得存取許可！"
+
+msgid "Get components which provide the given item"
+msgstr "取得可提供給定項目的組件"
+
+msgid "Get information about a component by its id"
+msgstr "根據其 id 取得有關組件的資訊"
+
+msgid "Homepage"
+msgstr "首頁"
+
+msgid "Icon"
+msgstr "圖示"
+
+msgid "Identifier"
+msgstr "辨識碼"
+
+msgid "Invalid type for provides-item selected. Valid values are:"
+msgstr "選取的提供項目其類型無效。有效的值為："
+
+#. license
+msgid "License"
+msgstr "授權條款"
+
+msgid "Manually set the location of AppStream metadata for cache regeneration"
+msgstr "手動設定快取重製用的 AppStream 中介資料位置"
+
+msgid "Manually set the location of the AppStream cache"
+msgstr "手動設定 AppStream 快取的位置"
+
+msgid "Name"
+msgstr "名稱"
+
+#, c-format
+msgid "No component matching '%s' found."
+msgstr "找不到符合「%s」的組件。"
+
+#, c-format
+msgid "No component providing '%s:%s:%s' found."
+msgstr "找不到提供「%s:%s:%s」的組件。"
+
+msgid "No value for the provides-item to search for defined."
+msgstr "沒有定義要搜尋的提供項目值。"
+
+msgid "Package"
+msgstr "軟體包"
+
+msgid "Print detailed output about found components"
+msgstr "列印有關找到之組件的詳細輸出"
+
+#. project group
+msgid "Project Group"
+msgstr "專案群組"
+
+msgid "Provided Items"
+msgstr "提供的項目"
+
+msgid "Rebuild the component information cache"
+msgstr "重建組件資訊快取"
+
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
+
+msgid "Sample Screenshot URL"
+msgstr "樣本螢幕快照 URL"
+
+msgid "Search the component database"
+msgstr "搜尋組件資料庫"
+
+msgid "Select a value for the provides-item which needs to be found"
+msgstr "為需要尋找的提供項目選取個值"
+
+msgid "Show extra debugging information"
+msgstr "顯示額外除錯資訊"
+
+msgid "Show program version"
+msgstr "顯示程式版本"
+
+msgid "Show the program version"
+msgstr "顯示程式版本"
+
+#. these are commands we can use with appstream-index
+msgid "Subcommands:"
+msgstr "子指令："
+
+msgid "Summary"
+msgstr "摘要"
+
+#. TRANSLATORS: We failed to find any component in the database due to an
+#. error
+#, c-format
+msgid "Unable to find component matching %s!"
+msgstr "找不到符合 %s 的組件！"
+
+#, c-format
+msgid "Unable to find component providing '%s:%s:%s'!"
+msgstr "找不到提供「%s:%s:%s」的組件！"
+
+#, c-format
+msgid "Unable to find component with id '%s'!"
+msgstr "找不到 id 為「%s」的組件！"
+
+msgid "Validation failed."
+msgstr "驗證失敗。"
+
+#, c-format
+msgid "XDG Menu XML file '%s' is damaged."
+msgstr "XDG 選單 XML 檔案「%s」已損毀。"
+
+msgid "You need to run this command with superuser permissions!"
+msgstr "您需要以超級使用者的身份執行此指令！"
+
+msgid "You need to specify a command."
+msgstr "您需要指定個指令。"
+
+msgid "You need to specify a component-id."
+msgstr "您需要指定個組件 id。"
+
+msgid "You need to specify a file to validate!"
+msgstr "您需要指定個檔案來驗證！"
+
+msgid "You need to specify a term to search for."
+msgstr "您需要指定個關鍵字來搜尋。"
+
+#. TRANSLATORS: List of "grey-listed" words sperated with ";"
+#. * Do not translate this list directly. Instead,
+#. * provide a list of words in your language that people are likely
+#. * to include in a search but that should normally be ignored in
+#. * the search.
+msgid "app;application;package;program;programme;suite;tool"
+msgstr "app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套件;套裝軟體;工具;公用程式"

@@ -1,0 +1,207 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Matthias Klumpp
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Yuri Chornoivan <yurchor@ukr.net>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: AppStream\n"
+"Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
+"POT-Creation-Date: 2014-09-12 15:14+0200\n"
+"PO-Revision-Date: 2014-11-21 19:11+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/appstream/language/uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "A provides-item type (e.g. lib, bin, python3, ...)"
+msgstr "Тип запису provides (наприклад lib, bin, python3, ...)"
+
+msgid "AppStream Validation Utility"
+msgstr "Інструмент для перевірки AppStream"
+
+msgid "AppStream cache update completed successfully."
+msgstr "Оновлення кешу AppStream успішно завершено."
+
+#, c-format
+msgid ""
+"AppStream cache update completed, but some metadata was ignored due to "
+"errors."
+msgstr "Оновлення кешу AppStream завершено, але деякі метадані було проігноровано через помилки."
+
+#, c-format
+msgid "AppStream cache update failed."
+msgstr "Спроба оновити кеш AppStream зазнала невдачі."
+
+#. TRANSLATORS: This is the header to the --help menu
+msgid "AppStream-Index Client Tool"
+msgstr "Клієнтський інструмент покажчика AppStream"
+
+#, c-format
+msgid "Appstream-Index client tool version: %s"
+msgstr "Версія клієнтського інструмента покажчика Appstream: %s"
+
+msgid "Categories"
+msgstr "Категорії"
+
+#, c-format
+msgid "Command '%s' is unknown."
+msgstr "Невідома команда «%s»."
+
+msgid "Compulsory for"
+msgstr "Обов’язкове для"
+
+msgid "Description"
+msgstr "Опис"
+
+#. developer name
+msgid "Developer"
+msgstr "Розробник"
+
+msgid "Don't show colored output"
+msgstr "Не розфарбовувати виведені дані"
+
+msgid "Enforce a cache refresh"
+msgstr "Примусове оновлення кешу"
+
+msgid "Failed to parse arguments"
+msgstr "Не вдалося обробити аргументи"
+
+#, c-format
+msgid "File %s not found or permission denied!"
+msgstr "Файл %s не знайдено або доступ до нього заборонено!"
+
+msgid "Get components which provide the given item"
+msgstr "Отримати компоненти, які надають вказаний запис"
+
+msgid "Get information about a component by its id"
+msgstr "Отримати інформацію щодо компонента за його ідентифікатором"
+
+msgid "Homepage"
+msgstr "Домашня сторінка"
+
+msgid "Icon"
+msgstr "Піктограма"
+
+msgid "Identifier"
+msgstr "Ідентифікатор"
+
+msgid "Invalid type for provides-item selected. Valid values are:"
+msgstr "Вибрано некоректний тип запису provides. Можливі варіанти:"
+
+#. license
+msgid "License"
+msgstr "Ліцензія"
+
+msgid "Manually set the location of AppStream metadata for cache regeneration"
+msgstr "Встановити розташування метаданих AppStream для повторного створення кешу"
+
+msgid "Manually set the location of the AppStream cache"
+msgstr "Встановити розташування кешу AppStream вручну"
+
+msgid "Name"
+msgstr "Назва"
+
+#, c-format
+msgid "No component matching '%s' found."
+msgstr "Не знайдено компонентів, що відповідали б запиту «%s»."
+
+#, c-format
+msgid "No component providing '%s:%s:%s' found."
+msgstr "Не знайдено компонентів з «%s:%s:%s»."
+
+msgid "No value for the provides-item to search for defined."
+msgstr "Не визначено значення для запису provides, яке слід знайти."
+
+msgid "Package"
+msgstr "Пакунок"
+
+msgid "Print detailed output about found components"
+msgstr "Вивести докладні дані щодо знайдених компонентів"
+
+#. project group
+msgid "Project Group"
+msgstr "Група проектів"
+
+msgid "Provided Items"
+msgstr "Надані записи"
+
+msgid "Rebuild the component information cache"
+msgstr "Перебудувати кеш інформації щодо компонентів"
+
+#, c-format
+msgid "Run '%s --help' to see a full list of available command line options."
+msgstr "Щоб переглянути повний список можливих параметрів командного рядка, віддайте команду «%s --help»."
+
+msgid "Sample Screenshot URL"
+msgstr "Адреса простого знімка вікна"
+
+msgid "Search the component database"
+msgstr "Шукати у базі даних компонентів"
+
+msgid "Select a value for the provides-item which needs to be found"
+msgstr "Вибрати значення для запису provides, яке слід знайти"
+
+msgid "Show extra debugging information"
+msgstr "Показати додаткові діагностичні дані"
+
+msgid "Show program version"
+msgstr "Вивести дані щодо версії програми"
+
+msgid "Show the program version"
+msgstr "Вивести дані щодо версії програми"
+
+#. these are commands we can use with appstream-index
+msgid "Subcommands:"
+msgstr "Підкоманди:"
+
+msgid "Summary"
+msgstr "Резюме"
+
+#. TRANSLATORS: We failed to find any component in the database due to an
+#. error
+#, c-format
+msgid "Unable to find component matching %s!"
+msgstr "Не вдалося знайти компонент, що відповідає запиту %s!"
+
+#, c-format
+msgid "Unable to find component providing '%s:%s:%s'!"
+msgstr "Не вдалося знайти компонент, що забезпечує «%s:%s:%s»!"
+
+#, c-format
+msgid "Unable to find component with id '%s'!"
+msgstr "Не вдалося знайти компонент з ідентифікатором «%s»!"
+
+msgid "Validation failed."
+msgstr "Спроба перевірки зазнала невдачі."
+
+#, c-format
+msgid "XDG Menu XML file '%s' is damaged."
+msgstr "Файл XML меню XDG «%s» пошкоджено."
+
+msgid "You need to run this command with superuser permissions!"
+msgstr "Цю команду слід віддавати від імені привілейованого користувача!"
+
+msgid "You need to specify a command."
+msgstr "Вам слід вказати команду."
+
+msgid "You need to specify a component-id."
+msgstr "Вам слід вказати ідентифікатор компонента."
+
+msgid "You need to specify a file to validate!"
+msgstr "Вам слід вказати файл для перевірки!"
+
+msgid "You need to specify a term to search for."
+msgstr "Вам слід вказати ключ пошуку."
+
+#. TRANSLATORS: List of "grey-listed" words sperated with ";"
+#. * Do not translate this list directly. Instead,
+#. * provide a list of words in your language that people are likely
+#. * to include in a search but that should normally be ignored in
+#. * the search.
+msgid "app;application;package;program;programme;suite;tool"
+msgstr "додаток;застосунок;пакет;програма;програма;комплект;інструмент"
