@@ -51,29 +51,34 @@
 typedef struct _AsComponentPrivate	AsComponentPrivate;
 struct _AsComponentPrivate {
 	AsComponentKind kind;
+	gchar *current_locale;
+
 	gchar *id;
 	gchar *origin;
 	gchar **pkgnames;
+
 	GHashTable *name; /* localized entry */
 	GHashTable *summary; /* localized entry */
-	gchar *description;
-	gchar **keywords;
+	GHashTable *description; /* localized entry */
+	GHashTable *keywords; /* localized entry, value:strv */
+	GHashTable *developer_name; /* localized entry */
+
 	gchar *icon;
 	gchar **categories;
 	gchar *project_license;
 	gchar *project_group;
-	gchar *developer_name;
 	gchar **compulsory_for_desktops;
+
 	GPtrArray *screenshots; /* of AsScreenshot elements */
 	GPtrArray *provided_items; /* of utf8:string */
 	GPtrArray *releases; /* of AsRelease */
+
 	GHashTable *urls; /* of key:utf8 */
 	GHashTable *icon_urls; /* of key:utf8 */
 	GPtrArray *extends; /* of utf8:string */
 	GHashTable *languages; /* of key:utf8 */
-	int priority; /* used internally */
 
-	gchar *current_locale;
+	int priority; /* used internally */
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsComponent, as_component, G_TYPE_OBJECT)
@@ -187,17 +192,18 @@ as_component_init (AsComponent *cpt)
 
 	as_component_set_id (cpt, "");
 	as_component_set_origin (cpt, "");
-	as_component_set_description (cpt, "");
 	as_component_set_icon (cpt, "");
 	as_component_set_project_license (cpt, "");
 	as_component_set_project_group (cpt, "");
-	priv->keywords = NULL;
 	priv->categories = NULL;
 	priv->current_locale = g_strdup ("C");
 
 	/* translatable entities */
 	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->summary = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->developer_name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->keywords = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) g_strfreev);
 
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->provided_items = g_ptr_array_new_with_free_func (g_free);
@@ -221,7 +227,6 @@ as_component_finalize (GObject* object)
 
 	g_free (priv->id);
 	g_strfreev (priv->pkgnames);
-	g_free (priv->description);
 	g_free (priv->icon);
 	g_free (priv->project_license);
 	g_free (priv->project_group);
@@ -229,8 +234,10 @@ as_component_finalize (GObject* object)
 
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
+	g_hash_table_unref (priv->description);
+	g_hash_table_unref (priv->developer_name);
+	g_hash_table_unref (priv->keywords);
 
-	g_strfreev (priv->keywords);
 	g_strfreev (priv->categories);
 	g_strfreev (priv->compulsory_for_desktops);
 
@@ -937,7 +944,7 @@ as_component_set_current_locale (AsComponent *cpt, const gchar *locale)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	g_free (priv->current_locale);
-	priv->current_locale = g_strdup (priv->current_locale);
+	priv->current_locale = g_strdup (locale);
 }
 
 /**
@@ -954,7 +961,7 @@ as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 
 	msg = g_hash_table_lookup (lht, priv->current_locale);
 	if (msg == NULL) {
-		/* fall back to default locale */
+		/* fall back to untranslated / default */
 		msg = g_hash_table_lookup (lht, "C");
 	}
 
@@ -1055,28 +1062,38 @@ as_component_set_summary (AsComponent *cpt, const gchar* value, const gchar *loc
 	g_object_notify ((GObject *) cpt, "summary");
 }
 
+/**
+ * as_component_get_description:
+ *
+ * Get the localized long description of this component.
+ */
 const gchar*
 as_component_get_description (AsComponent *cpt)
 {
-	const gchar* result;
-	const gchar* _tmp0_ = NULL;
+	const gchar *desc;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	_tmp0_ = priv->description;
-	result = _tmp0_;
-	return result;
+
+	desc = as_component_localized_get (cpt, priv->description);
+	/* prevent issues when converting to a C++ string */
+	if (desc == NULL)
+		return "";
+	return desc;
 }
 
+/**
+ * as_component_set_description:
+ * @cpt: A valid #AsComponent
+ * @value: The long description
+ * @locale: The locale the used for this value, or %NULL to use the current active one.
+ *
+ * Set long description for this component.
+ */
 void
-as_component_set_description (AsComponent *cpt, const gchar* value)
+as_component_set_description (AsComponent *cpt, const gchar* value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* safety measure, so we can always convert this to a C++ string */
-	if (value == NULL)
-		value = "";
-
-	g_free (priv->description);
-	priv->description = g_strdup (value);
+	as_component_localized_set (cpt, priv->description, value, locale);
 	g_object_notify ((GObject *) cpt, "description");
 }
 
@@ -1088,21 +1105,38 @@ as_component_set_description (AsComponent *cpt, const gchar* value)
 gchar**
 as_component_get_keywords (AsComponent *cpt)
 {
+	gchar **strv;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->keywords;
+
+	strv = g_hash_table_lookup (priv->keywords, priv->current_locale);
+	if (strv == NULL) {
+		/* fall back to untranslated */
+		strv = g_hash_table_lookup (priv->keywords, "C");
+	}
+
+	return strv;
 }
 
 /**
  * as_component_set_keywords:
- * @value: (array zero-terminated=1):
+ * @value: (array zero-terminated=1): String-array of keywords
+ * @locale: Locale of the values, or %NULL to use current locale.
+ *
+ * Set keywords for this component.
  */
 void
-as_component_set_keywords (AsComponent *cpt, gchar** value)
+as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	g_strfreev (priv->keywords);
-	priv->keywords = g_strdupv (value);
+	/* if no locale was specified, we assume the default locale */
+	if (locale == NULL)
+		locale = priv->current_locale;
+
+	g_hash_table_insert (priv->keywords,
+						 g_strdup (locale),
+						 g_strdupv (value));
+
 	g_object_notify ((GObject *) cpt, "keywords");
 }
 
@@ -1344,7 +1378,7 @@ as_component_get_project_group (AsComponent *cpt)
  * Set the component's project group.
  */
 void
-as_component_set_project_group (AsComponent *cpt, const gchar* value)
+as_component_set_project_group (AsComponent *cpt, const gchar *value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
@@ -1361,7 +1395,7 @@ const gchar*
 as_component_get_developer_name (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->developer_name;
+	return as_component_localized_get (cpt, priv->developer_name);
 }
 
 /**
@@ -1370,12 +1404,10 @@ as_component_get_developer_name (AsComponent *cpt)
  * Set the the component's developer or development team name.
  */
 void
-as_component_set_developer_name (AsComponent *cpt, const gchar* value)
+as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	g_free (priv->developer_name);
-	priv->developer_name = g_strdup (value);
+	as_component_localized_set (cpt, priv->developer_name, value, locale);
 }
 
 /**
@@ -1859,10 +1891,10 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			as_component_set_summary (cpt, g_value_get_string (value), NULL);
 			break;
 		case AS_COMPONENT_DESCRIPTION:
-			as_component_set_description (cpt, g_value_get_string (value));
+			as_component_set_description (cpt, g_value_get_string (value), NULL);
 			break;
 		case AS_COMPONENT_KEYWORDS:
-			as_component_set_keywords (cpt, g_value_get_boxed (value));
+			as_component_set_keywords (cpt, g_value_get_boxed (value), NULL);
 			break;
 		case AS_COMPONENT_ICON:
 			as_component_set_icon (cpt, g_value_get_string (value));
@@ -1877,7 +1909,7 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 			as_component_set_project_group (cpt, g_value_get_string (value));
 			break;
 		case AS_COMPONENT_DEVELOPER_NAME:
-			as_component_set_developer_name (cpt, g_value_get_string (value));
+			as_component_set_developer_name (cpt, g_value_get_string (value), NULL);
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

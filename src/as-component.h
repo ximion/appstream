@@ -123,7 +123,8 @@ void				as_component_set_summary (AsComponent *cpt,
 
 const gchar*		as_component_get_description (AsComponent *cpt);
 void				as_component_set_description (AsComponent *cpt,
-													const gchar* value);
+											const gchar* value,
+											const gchar *locale);
 
 const gchar* 		as_component_get_project_license (AsComponent *cpt);
 void				as_component_set_project_license (AsComponent *cpt,
@@ -131,11 +132,12 @@ void				as_component_set_project_license (AsComponent *cpt,
 
 const gchar* 		as_component_get_project_group (AsComponent *cpt);
 void				as_component_set_project_group (AsComponent *cpt,
-													const gchar* value);
+													const gchar *value);
 
 const gchar*		as_component_get_developer_name (AsComponent *cpt);
 void				as_component_set_developer_name (AsComponent *cpt,
-													const gchar* value);
+											const gchar *value,
+											const gchar *locale);
 
 gchar**				as_component_get_compulsory_for_desktops (AsComponent *cpt);
 void				as_component_set_compulsory_for_desktops (AsComponent *cpt,
@@ -157,7 +159,8 @@ void				as_component_add_screenshot (AsComponent *cpt,
 
 gchar**				as_component_get_keywords (AsComponent *cpt);
 void				as_component_set_keywords (AsComponent *cpt,
-												gchar** value);
+												gchar **value,
+												const gchar *locale);
 
 const gchar*		as_component_get_icon (AsComponent *cpt);
 void				as_component_set_icon (AsComponent *cpt,

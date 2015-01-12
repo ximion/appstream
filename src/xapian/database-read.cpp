@@ -142,7 +142,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Long description
 	string appDescription = doc.get_value (XapianValues::DESCRIPTION);
-	as_component_set_description (cpt, appDescription.c_str ());
+	as_component_set_description (cpt, appDescription.c_str (), NULL);
 
 	// Categories
 	string categories_str = doc.get_value (XapianValues::CATEGORIES);

@@ -82,7 +82,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 {
 	string old_path = m_dbPath + "_old";
 	string rebuild_path = m_dbPath + "_rb";
-	string db_locale = "";
+	string db_locale;
 
 	// Create the rebuild directory
 	if (!as_utils_touch_dir (rebuild_path.c_str ()))

@@ -569,16 +569,16 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 			if (priv->mode == AS_PARSER_MODE_DISTRO) {
 				/* for distros, the "description" tag has a language property, so parsing it is simple */
 				if (content != NULL) {
-					as_component_set_description (cpt, content);
+					as_component_set_description (cpt, content, "C");
 				} else {
 					content = as_metadata_parse_value (metad, iter, TRUE);
 					if (content != NULL)
-						as_component_set_description (cpt, content);
+						as_component_set_description (cpt, content, NULL);
 				}
 			} else {
 				gchar *text;
 				text = as_metadata_parse_upstream_description_tag (metad, iter);
-				as_component_set_description (cpt, text);
+				as_component_set_description (cpt, text, NULL);
 				g_free (text);
 			}
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
@@ -619,7 +619,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			gchar **kw_array;
 			kw_array = as_metadata_get_children_as_strv (metad, iter, "keyword");
-			as_component_set_keywords (cpt, kw_array);
+			as_component_set_keywords (cpt, kw_array, NULL);
 			g_strfreev (kw_array);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			gchar **mime_array;
@@ -642,7 +642,7 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				as_component_set_project_group (cpt, content);
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
 			if (content != NULL)
-				as_component_set_developer_name (cpt, content);
+				as_component_set_developer_name (cpt, content, NULL);
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (content != NULL)
 				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));

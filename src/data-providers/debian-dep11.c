@@ -229,7 +229,7 @@ as_provider_dep11_process_keywords (AsProviderDEP11 *dprov, GNode *node, AsCompo
 	dep11_list_to_string_array (tnode, keywords);
 
 	strv = as_ptr_array_to_strv (keywords);
-	as_component_set_keywords (cpt, strv);
+	as_component_set_keywords (cpt, strv, NULL);
 	g_ptr_array_unref (keywords);
 	g_strfreev (strv);
 }
@@ -522,11 +522,11 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Description") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);
-			as_component_set_description (cpt, lvalue);
+			as_component_set_description (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, NULL);
-			as_component_set_developer_name (cpt, lvalue);
+			as_component_set_developer_name (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {
 			as_component_set_project_license (cpt, value);
