@@ -1,3 +1,27 @@
+Version 0.7.6
+~~~~~~~~~~~~~~
+Released: 2015-01-14
+
+Notes:
+ * This release contains some API and ABI breaks. Recompiling against the new library
+   should be the only necessary step for most software, if you were not using
+   deprecated functionality.
+
+Features:
+ * Update translations
+ * Update database location for possible fast language switching (Matthias Klumpp)
+ * Use colorful output when using GCC and compiling in maintainer-mode (Matthias Klumpp)
+ * Make API to parse distro XML in AsMetadata public (Matthias Klumpp)
+ * Allow building distro XML from a list of AsComponent objects (Matthias Klumpp)
+ * Convert AsComponent into a "modern" GObject (Matthias Klumpp)
+ * Add extra multilanguage support to AsComponent, which is needed for
+   complete serialization (Matthias Klumpp)
+ * Remove functions marked as deprecated (Matthias Klumpp)
+ * Add convenience functions to save generated XML (Matthias Klumpp)
+
+Bugfixes:
+ * Move component serialization to AsMetadata (Matthias Klumpp)
+
 Version 0.7.5
 ~~~~~~~~~~~~~~
 Released: 2014-11-28
