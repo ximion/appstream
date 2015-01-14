@@ -34,6 +34,7 @@
 #include <glib.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
+#include <string.h>
 
 #include "as-metadata.h"
 #include "as-metadata-private.h"
@@ -812,41 +813,198 @@ as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
  *
  **/
 void
-as_metadata_parse_file (AsMetadata* metad, GFile* infile, GError **error)
+as_metadata_parse_file (AsMetadata* metad, GFile* file, GError **error)
 {
 	gchar* xml_doc;
-	gchar* line = NULL;
-	GFileInputStream* ir;
-	GDataInputStream* dis;
+	GFileInputStream* fistream;
+	GFileInfo *info = NULL;
+	const gchar *content_type = NULL;
 
-	g_return_if_fail (metad != NULL);
-	g_return_if_fail (infile != NULL);
+	g_return_if_fail (file != NULL);
 
-	xml_doc = g_strdup ("");
-	ir = g_file_read (infile, NULL, NULL);
-	dis = g_data_input_stream_new ((GInputStream*) ir);
-	g_object_unref (ir);
+	info = g_file_query_info (file,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+	if (info != NULL)
+		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
-	while (TRUE) {
-		gchar *str;
-		gchar *tmp;
+	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
+		GFileInputStream *fistream;
+		GMemoryOutputStream *mem_os;
+		GInputStream *conv_stream;
+		GZlibDecompressor *zdecomp;
+		guint8 *data;
 
-		line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
-		if (line == NULL) {
-			break;
+		/* load a GZip compressed file */
+		fistream = g_file_read (file, NULL, NULL);
+		mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
+		zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
+		conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
+		g_object_unref (zdecomp);
+
+		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
+		data = g_memory_output_stream_get_data (mem_os);
+
+		xml_doc = g_strdup ((const gchar*) data);
+
+		g_object_unref (conv_stream);
+		g_object_unref (mem_os);
+		g_object_unref (fistream);
+	} else {
+		gchar *line = NULL;
+		GString *str;
+		GDataInputStream *dis;
+
+		/* load a plaintext file */
+		str = g_string_new ("");
+		fistream = g_file_read (file, NULL, NULL);
+		dis = g_data_input_stream_new ((GInputStream*) fistream);
+		g_object_unref (fistream);
+
+		while (TRUE) {
+			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
+			if (line == NULL) {
+				break;
+			}
+
+			g_string_append_printf (str, "%s\n", line);
 		}
 
-		str = g_strconcat (line, "\n", NULL);
-		g_free (line);
-		tmp = g_strconcat (xml_doc, str, NULL);
-		g_free (str);
-		g_free (xml_doc);
-		xml_doc = tmp;
+		xml_doc = g_string_free (str, FALSE);
+		g_object_unref (dis);
 	}
 
+	/* parse XML data */
 	as_metadata_process_document (metad, xml_doc, error);
-	g_object_unref (dis);
 	g_free (xml_doc);
+}
+
+/**
+ * as_metadata_save_xml:
+ */
+static void
+as_metadata_save_xml (AsMetadata *metad, const gchar *fname, const gchar *xml_data, GError **error)
+{
+	GFile *file;
+	GError *tmp_error = NULL;
+
+	file = g_file_new_for_path (fname);
+	if (g_str_has_suffix (fname, ".gz")) {
+		GOutputStream *out2 = NULL;
+		GOutputStream *out = NULL;
+		GZlibCompressor *compressor = NULL;
+
+		/* write a gzip compressed file */
+		compressor = g_zlib_compressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP, -1);
+		out = g_memory_output_stream_new_resizable ();
+		out2 = g_converter_output_stream_new (out, G_CONVERTER (compressor));
+		g_object_unref (compressor);
+
+		if (!g_output_stream_write_all (out2, xml_data, strlen (xml_data),
+					NULL, NULL, &tmp_error)) {
+			g_object_unref (out2);
+			g_object_unref (out);
+			g_propagate_error (error, tmp_error);
+			goto out;
+		}
+
+		g_output_stream_close (out2, NULL, &tmp_error);
+		g_object_unref (out2);
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			goto out;
+		}
+
+		if (!g_file_replace_contents (file,
+			g_memory_output_stream_get_data (G_MEMORY_OUTPUT_STREAM (out)),
+						g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (out)),
+						NULL,
+						FALSE,
+						G_FILE_CREATE_NONE,
+						NULL,
+						NULL,
+						&tmp_error)) {
+			g_object_unref (out);
+			g_propagate_error (error, tmp_error);
+			goto out;
+		}
+
+		g_object_unref (out);
+
+	} else {
+		GFileOutputStream *fos = NULL;
+		GDataOutputStream *dos = NULL;
+
+		/* write uncompressed file */
+		if (g_file_query_exists (file, NULL)) {
+			fos = g_file_replace (file,
+							NULL,
+							FALSE,
+							G_FILE_CREATE_REPLACE_DESTINATION,
+							NULL,
+							&tmp_error);
+		} else {
+			fos = g_file_create (file, G_FILE_CREATE_REPLACE_DESTINATION, NULL, &tmp_error);
+		}
+
+		if (tmp_error != NULL) {
+			g_object_unref (fos);
+			g_propagate_error (error, tmp_error);
+			goto out;
+		}
+
+		dos = g_data_output_stream_new (G_OUTPUT_STREAM (fos));
+		g_data_output_stream_put_string (dos, xml_data, NULL, &tmp_error);
+
+		g_object_unref (dos);
+		g_object_unref (fos);
+
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			goto out;
+		}
+	}
+
+out:
+	g_object_unref (file);
+}
+
+
+/**
+ * as_metadata_save_upstream_xml:
+ * @fname: The filename for the new XML file.
+ *
+ * Serialize #AsComponent instance to XML and save it to file.
+ * An existing file at the same location will be overridden.
+ */
+void
+as_metadata_save_upstream_xml (AsMetadata *metad, const gchar *fname, GError **error)
+{
+	gchar *xml_data;
+
+	xml_data = as_metadata_component_to_upstream_xml (metad);
+	as_metadata_save_xml (metad, fname, xml_data, error);
+
+	g_free (xml_data);
+}
+
+/**
+ * as_metadata_save_distro_xml:
+ * @fname: The filename for the new XML file.
+ *
+ * Serialize all #AsComponent instances to XML and save the data to a file.
+ * An existing file at the same location will be overridden.
+ */
+void
+as_metadata_save_distro_xml (AsMetadata *metad, const gchar *fname, GError **error)
+{
+	gchar *xml_data;
+
+	xml_data = as_metadata_components_to_distro_xml (metad);
+	as_metadata_save_xml (metad, fname, xml_data, error);
+
+	g_free (xml_data);
 }
 
 /**

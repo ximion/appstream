@@ -80,7 +80,7 @@ AsMetadata*		as_metadata_new			(void);
 GQuark			as_metadata_error_quark	(void);
 
 void			as_metadata_parse_file (AsMetadata *metad,
-										GFile *infile,
+										GFile *file,
 										GError **error);
 void			as_metadata_parse_data (AsMetadata *metad,
 										const gchar *data,
@@ -95,6 +95,13 @@ void			as_metadata_add_component (AsMetadata *metad,
 										AsComponent *cpt);
 gchar			*as_metadata_component_to_upstream_xml (AsMetadata *metad);
 gchar			*as_metadata_components_to_distro_xml (AsMetadata *metad);
+
+void			as_metadata_save_upstream_xml (AsMetadata *metad,
+										const gchar *fname,
+										GError **error);
+void			as_metadata_save_distro_xml (AsMetadata *metad,
+										const gchar *fname,
+										GError **error);
 
 void			as_metadata_set_locale (AsMetadata *metad,
 										const gchar *locale);
