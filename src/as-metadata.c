@@ -806,7 +806,7 @@ as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
 /**
  * as_metadata_parse_file:
  * @metad: A valid #AsMetadata instance
- * @infile: #GFile for the upstream metadata
+ * @file: #GFile for the upstream metadata
  * @error: A #GError or %NULL.
  *
  * Parses an AppStream upstream metadata file.
