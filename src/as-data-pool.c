@@ -47,11 +47,11 @@
 #include "data-providers/ubuntu-appinstall.h"
 #endif
 
-const gchar* AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
+const gchar *AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
 										"/var/cache/app-info/xmls",
 										"/var/lib/app-info/xmls",
 										NULL};
-const gchar* AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
+const gchar *AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
 										"/var/cache/app-info/yaml",
 										"/var/lib/app-info/yaml",
 										NULL};

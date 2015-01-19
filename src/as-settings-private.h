@@ -27,11 +27,10 @@
 G_BEGIN_DECLS
 
 #define AS_DB_SCHEMA_VERSION "1"
-#define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
 #define AS_CONFIG_NAME "/etc/appstream.conf"
 #define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
 
-#define AS_APPSTREAM_BASE_PATH DATADIR "/app-info"
+#define AS_APPSTREAM_BASE_PATH "/usr/share/app-info"
 
 G_END_DECLS
 

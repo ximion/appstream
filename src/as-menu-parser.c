@@ -77,7 +77,7 @@ AsMenuParser*
 as_menu_parser_construct (GType object_type)
 {
 	AsMenuParser * self = NULL;
-	self = (AsMenuParser*) as_menu_parser_construct_from_file (object_type, DATADIR "/app-info/categories.xml");
+	self = (AsMenuParser*) as_menu_parser_construct_from_file (object_type, "/usr/share/app-info/categories.xml");
 	return self;
 }
 
@@ -409,6 +409,3 @@ as_get_system_categories (void)
 
 	return system_cats;
 }
-
-
-
