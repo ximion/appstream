@@ -324,7 +324,7 @@ as_client_get_component (const gchar *dbpath, const gchar *identifier)
 {
 	AsDatabase *db;
 	AsComponent *cpt;
-	int exit_code;
+	gint exit_code = 0;
 
 	if (identifier == NULL) {
 		fprintf (stderr, "%s\n", _("You need to specify a component-id."));
@@ -359,7 +359,7 @@ as_client_search_component (const gchar *dbpath, const gchar *search_term)
 	AsDatabase *db;
 	GPtrArray* cpt_list = NULL;
 	guint i;
-	int exit_code = 0;
+	gint exit_code = 0;
 
 	db = as_client_database_new_path (dbpath);
 
@@ -414,7 +414,7 @@ as_client_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar
 	GPtrArray* cpt_list = NULL;
 	AsProvidesKind kind;
 	guint i;
-	int exit_code;
+	gint exit_code = 0;
 
 	if (value == NULL) {
 		g_printerr ("%s\n", _("No value for the provides-item to search for defined."));
@@ -473,7 +473,7 @@ as_client_run (char **argv, int argc)
 	GOptionContext *opt_context;
 	GError *error = NULL;
 
-	int exit_code = 0;
+	gint exit_code = 0;
 	gchar *command = NULL;
 	gchar *value1 = NULL;
 	gchar *value2 = NULL;
