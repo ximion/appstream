@@ -40,7 +40,6 @@ void				xa_database_read_free (XADatabaseRead *db);
 
 gboolean			xa_database_read_open (XADatabaseRead *db,
 											const gchar *db_path);
-const gchar			*xa_database_read_get_schema_version (XADatabaseRead *db);
 GPtrArray			*xa_database_read_get_all_components (XADatabaseRead *db);
 GPtrArray			*xa_database_read_find_components (XADatabaseRead *db,
 														AsSearchQuery *query);

@@ -63,13 +63,21 @@ DatabaseRead::open (const gchar *dbPath)
 	if (m_dbLocale.empty ())
 		m_dbLocale = "C";
 
+	m_schemaVersion = m_xapianDB.get_metadata ("db-schema-version");
+
 	return true;
 }
 
 string
 DatabaseRead::getSchemaVersion ()
 {
-	return m_xapianDB.get_metadata ("db-schema-version");
+	return m_schemaVersion;
+}
+
+string
+DatabaseRead::getLocale ()
+{
+	return m_dbLocale;
 }
 
 AsComponent*

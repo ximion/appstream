@@ -32,7 +32,7 @@
 
 using namespace std;
 
-/* _VERY_ ugly hack to make C++ and Vala work together */
+/* small hack to make C++ to C binding easier */
 struct XADatabaseRead {};
 
 class DatabaseRead : public XADatabaseRead
@@ -44,6 +44,7 @@ public:
 	bool open (const gchar *dbPath);
 
 	string getSchemaVersion ();
+	string getLocale ();
 
 	GPtrArray *getAllComponents ();
 	GPtrArray *findComponents (AsSearchQuery *asQuery);
@@ -55,6 +56,7 @@ private:
 	Xapian::Database m_xapianDB;
 	string m_dbPath;
 	string m_dbLocale;
+	string m_schemaVersion;
 
 	AsComponent *docToComponent (Xapian::Document);
 

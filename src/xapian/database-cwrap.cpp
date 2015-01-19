@@ -33,12 +33,6 @@ xa_database_read_open (XADatabaseRead *db, const gchar *db_path)
 	return realDbRead (db)->open (db_path);
 };
 
-const gchar*
-xa_database_read_get_schema_version (XADatabaseRead *db)
-{
-	return realDbRead (db)->getSchemaVersion ().c_str ();
-};
-
 GPtrArray*
 xa_database_read_get_all_components (XADatabaseRead *db)
 {
