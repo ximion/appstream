@@ -27,11 +27,11 @@
 
 G_BEGIN_DECLS
 
-gchar*				as_component_dump_screenshot_data_xml (AsComponent *cpt);
+gchar				*as_component_dump_screenshot_data_xml (AsComponent *cpt);
 void				as_component_load_screenshots_from_internal_xml (AsComponent *cpt,
 																	 const gchar* xmldata);
 
-gchar*				as_component_dump_releases_data_xml (AsComponent *cpt);
+gchar				*as_component_dump_releases_data_xml (AsComponent *cpt);
 void				as_component_load_releases_from_internal_xml (AsComponent *cpt,
 																  const gchar* xmldata);
 
@@ -39,7 +39,7 @@ int					as_component_get_priority (AsComponent *cpt);
 void				as_component_set_priority (AsComponent *cpt,
 											   int priority);
 
-GHashTable*			as_component_get_languages_map (AsComponent *self);
+GHashTable			*as_component_get_languages_map (AsComponent *self);
 
 void				as_component_complete (AsComponent *cpt,
 										   gchar *scr_base_url,
