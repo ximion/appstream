@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Piotr Drąg <piotrdrag@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2014-09-12 15:14+0200\n"
+"POT-Creation-Date: 2015-01-12 22:17+0100\n"
 "PO-Revision-Date: 2014-11-22 13:21+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/appstream/language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/appstream/"
+"language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ elementu Provides (np. lib, bin, python3...)"
@@ -31,7 +33,9 @@ msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
-msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream, ale część metadanych została zignorowana z powodu błędów."
+msgstr ""
+"Pomyślnie ukończono aktualizację pamięci podręcznej AppStream, ale część "
+"metadanych została zignorowana z powodu błędów."
 
 #, c-format
 msgid "AppStream cache update failed."
@@ -98,7 +102,9 @@ msgid "License"
 msgstr "Licencja"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
-msgstr "Ręcznie ustawia położenie metadanych AppStream do tworzenia pamięci podręcznej"
+msgstr ""
+"Ręcznie ustawia położenie metadanych AppStream do tworzenia pamięci "
+"podręcznej"
 
 msgid "Manually set the location of the AppStream cache"
 msgstr "Ręcznie ustawia położenie metadanych AppStream"
@@ -135,7 +141,9 @@ msgstr "Ponownie buduje pamięć podręczną informacji o składnikach"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "Wykonanie polecenia \"%s --help\" wyświetli pełną listę dostępnych opcji wiersza poleceń."
+msgstr ""
+"Wykonanie polecenia \"%s --help\" wyświetli pełną listę dostępnych opcji "
+"wiersza poleceń."
 
 msgid "Sample Screenshot URL"
 msgstr "Przykładowy adres URL zrzutu ekranu"
@@ -162,8 +170,7 @@ msgstr "Podpolecenia:"
 msgid "Summary"
 msgstr "Podsumowanie"
 
-#. TRANSLATORS: We failed to find any component in the database due to an
-#. error
+#. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nie można odnaleźć składnika pasującego do %s."
@@ -203,5 +210,8 @@ msgstr "Należy podać termin do wyszukania."
 #. * provide a list of words in your language that people are likely
 #. * to include in a search but that should normally be ignored in
 #. * the search.
+#.
 msgid "app;application;package;program;programme;suite;tool"
-msgstr "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;zestaw;suite;narzędzie;tool"
+msgstr ""
+"aplikacja;apka;app;application;pakiet;paczka;package;program;programme;"
+"zestaw;suite;narzędzie;tool"

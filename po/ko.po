@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Shinjo Park <kde@peremen.name>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-01-12 22:17+0100\n"
-"PO-Revision-Date: 2014-11-21 18:23+0000\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"PO-Revision-Date: 2015-01-17 12:20+0000\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/appstream/"
 "language/ko/)\n"
 "Language: ko\n"
@@ -19,183 +20,186 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "provides-item 형식(예: lib, bin, python3, ...)"
 
 msgid "AppStream Validation Utility"
-msgstr ""
+msgstr "AppStream 검증 유틸리티"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "AppStream 캐시를 업데이트하였습니다."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"AppStream 캐시를 업데이트하였으나 일부 메타데이터는 오류로 인하여 무시하였습"
+"니다."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "AppStream 캐시 업데이트가 실패하였습니다."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream-Index Client Tool"
-msgstr ""
+msgstr "AppStream-Index 클라이언트 도구"
 
 #, c-format
 msgid "Appstream-Index client tool version: %s"
-msgstr ""
+msgstr "AppStream-Index 클라이언트 도구 버전: %s"
 
 msgid "Categories"
-msgstr ""
+msgstr "분류"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "명령 '%s'이(가) 올바르지 않습니다."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "다음의 필수 사항:"
 
 msgid "Description"
-msgstr ""
+msgstr "설명"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "개발자"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "출력에 색깔 사용하지 않기"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "캐시 강제로 새로 고침"
 
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "인자 해석에 실패했습니다"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "파일 %s을(를) 찾을 수 없거나 권한이 거부되었습니다!"
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "주어진 항목을 가져오는 구성 요소 가져오기"
 
 msgid "Get information about a component by its id"
-msgstr ""
+msgstr "ID로 구성 요소 정보 가져오기"
 
 msgid "Homepage"
-msgstr ""
+msgstr "홈페이지"
 
 msgid "Icon"
-msgstr ""
+msgstr "아이콘"
 
 msgid "Identifier"
-msgstr ""
+msgstr "식별자"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
 msgstr ""
+"provides-item의 잘못된 형식이 선택되었습니다. 올바른 값은 다음과 같습니다:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "라이선스"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
-msgstr ""
+msgstr "캐시를 다시 생성할 AppStream 메타데이터 위치 직접 지정"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "AppStream 캐시 위치 직접 지정"
 
 msgid "Name"
-msgstr ""
+msgstr "이름"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "'%s'와(과) 일치하는 구성 요소를 찾을 수 없습니다."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "'%s:%s:%s'을(를) 제공하는 구성 요소를 찾을 수 없습니다."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "검색할 provides-item의 값이 없습니다."
 
 msgid "Package"
-msgstr ""
+msgstr "패키지"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "찾은 구성 요소에 대한 자세한 출력 표시"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "프로젝트 그룹"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "제공하는 항목"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "구성 요소 정보 캐시 다시 빌드"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
+msgstr "'%s --help'를 입력하면 사용 가능한 명령행 옵션을 볼 수 있습니다."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "예제 스크린샷 URL"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "구성 요소 데이터베이스 검색"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "찾을 provides-item의 값 설정"
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "추가 디버깅 정보 보이기"
 
 msgid "Show program version"
-msgstr ""
+msgstr "프로그램 버전 보이기"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "프로그램 버전 보이기"
 
 #. these are commands we can use with appstream-index
 msgid "Subcommands:"
-msgstr ""
+msgstr "하위 명령:"
 
 msgid "Summary"
-msgstr ""
+msgstr "요약"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "%s와(과) 일치하는 구성 요소를 찾을 수 없습니다!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "'%s:%s:%s'을(를) 제공하는 구성 요소를 찾을 수 없습니다!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "검증에 실패하였습니다."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "XDG 메뉴 XML 파일 '%s'이(가) 손상되었습니다."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "이 명령을 관리자 권한으로 실행해야 합니다!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "명령을 지정해야 합니다."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "component-id를 지정해야 합니다."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "검증할 파일을 지정해야 합니다!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "검색할 항목을 지정해야 합니다."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -205,3 +209,5 @@ msgstr ""
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+"app;application;package;program;programme;suite;tool;앱;프로그램;소프트웨어;"
+"패키지;꾸러미;프로그램;도구"
