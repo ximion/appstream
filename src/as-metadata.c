@@ -751,7 +751,7 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 	}
 
 	root = xmlDocGetRootElement (doc);
-	if (doc == NULL) {
+	if (root == NULL) {
 		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,

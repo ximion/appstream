@@ -87,7 +87,7 @@ as_provider_xml_process_single_document (AsProviderXML* dprov, const gchar* xmld
 	}
 
 	root = xmlDocGetRootElement (doc);
-	if (doc == NULL) {
+	if (root == NULL) {
 		fprintf (stderr, "%s\n", "The XML document is empty.");
 		return FALSE;
 	}

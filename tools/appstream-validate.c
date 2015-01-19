@@ -208,9 +208,8 @@ main (int argc, char *argv[])
 	if (ret)
 		retval = 0;
 out:
-	if (priv != NULL) {
-		g_option_context_free (priv->context);
-		g_free (priv);
-	}
+	g_option_context_free (priv->context);
+	g_free (priv);
+
 	return retval;
 }

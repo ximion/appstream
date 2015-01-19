@@ -630,7 +630,7 @@ as_validator_validate_data (AsValidator *validator,
 	}
 
 	root = xmlDocGetRootElement (doc);
-	if (doc == NULL) {
+	if (root == NULL) {
 		as_validator_add_issue (validator,
 			NULL,
 			AS_ISSUE_IMPORTANCE_ERROR,
