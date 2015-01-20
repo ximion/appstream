@@ -142,7 +142,7 @@ as_metadata_get_node_locale (AsMetadata *metad, xmlNode *node)
 		goto out;
 	}
 
-	if (g_strcmp0 (lang, "ALL") == 0) {
+	if (g_strcmp0 (priv->locale, "ALL") == 0) {
 		/* we should read all languages */
 		goto out;
 	}

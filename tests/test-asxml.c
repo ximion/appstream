@@ -34,21 +34,21 @@ msg (const gchar *s)
 }
 
 void
-test_appstream_parser ()
+test_appstream_xml_provider ()
 {
 	AsProviderXML *asxml;
 	GFile *file;
 	gchar *path;
 	asxml = as_provider_xml_new ();
 
-	path = g_build_filename (datadir, "appdata.xml", NULL);
+	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
 	as_provider_xml_process_file (asxml, file);
 	g_object_unref (file);
 
-	path = g_build_filename (datadir, "appdata.xml.gz", NULL);
+	path = g_build_filename (datadir, "appstream-dxml.xml.gz", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
@@ -84,7 +84,7 @@ test_screenshot_handling ()
 	found_cpt = NULL;
 	g_signal_connect_object (asxml, "component", (GCallback) test_cptprov_cb, 0, 0);
 
-	path = g_build_filename (datadir, "appstream-test2.xml", NULL);
+	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
@@ -138,9 +138,56 @@ test_appstream_parser_legacy ()
 	g_assert_no_error (error);
 	g_assert (cpt != NULL);
 
-	g_assert (g_strcmp0 (as_component_get_summary (cpt), "Application manager for GNOME") == 0);
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Application manager for GNOME");
 	g_assert (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
 
+	g_object_unref (metad);
+}
+
+void
+test_appstream_parser_locale ()
+{
+	AsMetadata *metad;
+	GFile *file;
+	gchar *path;
+	AsComponent *cpt;
+	GError *error = NULL;
+
+	metad = as_metadata_new ();
+
+	path = g_build_filename (datadir, "appdata.xml", NULL);
+	file = g_file_new_for_path (path);
+	g_free (path);
+
+	/* check german only locale */
+	as_metadata_set_locale (metad, "de_DE");
+	as_metadata_parse_file (metad, file, &error);
+	cpt = as_metadata_get_component (metad);
+	g_assert_no_error (error);
+	g_assert (cpt != NULL);
+
+	g_assert (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Feuerfuchs");
+	as_component_set_active_locale (cpt, "C");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
+	/* no french, so fallback */
+	as_component_set_active_locale (cpt, "fr_FR");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
+
+	/* check all locale */
+	as_metadata_set_locale (metad, "ALL");
+	as_metadata_parse_file (metad, file, &error);
+	cpt = as_metadata_get_component (metad);
+	g_assert_no_error (error);
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
+	as_component_set_active_locale (cpt, "de_DE");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Feuerfuchs");
+	/* no french, so fallback */
+	as_component_set_active_locale (cpt, "fr_FR");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefoux");
+
+	g_object_unref (file);
 	g_object_unref (metad);
 }
 
@@ -165,9 +212,10 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/ASXMLParser", test_appstream_parser);
+	g_test_add_func ("/AppStream/ASXMLProvider", test_appstream_xml_provider);
 	g_test_add_func ("/AppStream/Screenshots{dbimexport}", test_screenshot_handling);
 	g_test_add_func ("/AppStream/LegacyData", test_appstream_parser_legacy);
+	g_test_add_func ("/AppStream/XMLParserLocale", test_appstream_parser_locale);
 
 	ret = g_test_run ();
 	g_free (datadir);
