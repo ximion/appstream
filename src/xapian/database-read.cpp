@@ -126,6 +126,19 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	}
 	g_strfreev (urls);
 
+	// Bundles
+	str = doc.get_value (XapianValues::BUNDLES);
+	gchar **bundle_ids = g_strsplit (str.c_str (), "\n", -1);
+	for (uint i = 0; bundle_ids[i] != NULL; i += 2) {
+		/* bundle-ids are stored in form of "type \n id" (so we just need one stringsplit here...) */
+		if (bundle_ids[i+1] == NULL)
+			break;
+		AsBundleKind bkind = as_bundle_kind_from_string (bundle_ids[i]);
+		if (bkind != AS_BUNDLE_KIND_UNKNOWN)
+			as_component_add_bundle_id (cpt, bkind, bundle_ids[i+1]);
+	}
+	g_strfreev (bundle_ids);
+
 	// Stock icon
 	string appIcon = doc.get_value (XapianValues::ICON);
 	as_component_set_icon (cpt, appIcon.c_str ());

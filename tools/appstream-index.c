@@ -137,25 +137,54 @@ as_print_stdout (const gchar *format, ...)
 }
 
 static void
+string_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
+{
+	g_string_append_printf (gstr, "%s:%s, ", key, value);
+}
+
+static gchar*
+as_get_bundle_str (AsComponent *cpt)
+{
+	GHashTable *bundle_ids;
+	GString *gstr;
+
+	bundle_ids = as_component_get_bundle_ids (cpt);
+	if (g_hash_table_size (bundle_ids) <= 0)
+		return NULL;
+
+	gstr = g_string_new ("");
+	g_hash_table_foreach(bundle_ids, (GHFunc) string_hashtable_to_str, gstr);
+	if (gstr->len > 0)
+		g_string_truncate (gstr, gstr->len - 2);
+
+	return g_string_free (gstr, FALSE);
+}
+
+static void
 as_print_component (AsComponent *cpt)
 {
 	gchar *short_idline;
-	gchar *pkgs_str;
+	gchar *pkgs_str = NULL;
+	gchar *bundles_str = NULL;
 	guint j;
 
 	short_idline = g_strdup_printf ("%s [%s]",
 							as_component_get_id (cpt),
 							as_component_kind_to_string (as_component_get_kind (cpt)));
-	pkgs_str = g_strjoinv (", ", as_component_get_pkgnames (cpt));
+	if (as_component_get_pkgnames (cpt) != NULL)
+		pkgs_str = g_strjoinv (", ", as_component_get_pkgnames (cpt));
+	bundles_str = as_get_bundle_str (cpt);
 
 	as_print_key_value (_("Identifier"), short_idline, FALSE);
 	as_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
 	as_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
 	as_print_key_value (_("Package"), pkgs_str, FALSE);
+	as_print_key_value (_("Bundle"), bundles_str, FALSE);
 	as_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
 	as_print_key_value (_("Icon"), as_component_get_icon_url (cpt, 64, 64), FALSE);
 	g_free (short_idline);
 	g_free (pkgs_str);
+	g_free (bundles_str);
 	short_idline = NULL;
 
 	if (optn_details) {

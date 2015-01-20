@@ -77,6 +77,7 @@ struct _AsComponentPrivate {
 	GHashTable		*icon_urls; /* of key:utf8 */
 	GPtrArray		*extends; /* of utf8:string */
 	GHashTable		*languages; /* of key:utf8 */
+	GHashTable		*bundles; /* of key:utf8 */
 
 	gint			priority; /* used internally */
 };
@@ -212,6 +213,7 @@ as_component_init (AsComponent *cpt)
 	priv->icon_urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	priv->bundles = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	as_component_set_priority (cpt, 0);
 }
@@ -248,6 +250,7 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->icon_urls);
 	g_hash_table_unref (priv->languages);
+	g_hash_table_unref (priv->bundles);
 
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (object);
 }
@@ -265,6 +268,7 @@ as_component_is_valid (AsComponent *cpt)
 {
 	gboolean ret = FALSE;
 	const gchar *cname;
+	gboolean has_candidate;
 	AsComponentKind ctype;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
@@ -273,8 +277,9 @@ as_component_is_valid (AsComponent *cpt)
 		return FALSE;
 	cname = as_component_get_name (cpt);
 
-	if ((priv->pkgnames != NULL) &&
-		(priv->pkgnames[0] != NULL) &&
+	has_candidate = (((priv->pkgnames != NULL) && (priv->pkgnames[0] != NULL)) || (g_hash_table_size (priv->bundles) > 0));
+
+	if ((has_candidate) &&
 		(g_strcmp0 (priv->id, "") != 0) &&
 		(cname != NULL) &&
 		(g_strcmp0 (cname, "") != 0)) {
@@ -451,6 +456,61 @@ as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_ptr_array_add (priv->extends, g_strdup (cpt_id));
+}
+
+/**
+ * as_component_get_bundle_ids:
+ * @cpt: a #AsComponent instance.
+ *
+ * Gets the bundle-ids set for the component.
+ *
+ * Returns: (transfer none): Bundle ids
+ *
+ * Since: 0.8.0
+ **/
+GHashTable*
+as_component_get_bundle_ids (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->bundles;
+}
+
+/**
+ * as_component_get_bundle_id:
+ * @cpt: a #AsComponent instance.
+ * @bundle_kind: the bundle kind, e.g. %AS_BUNDLE_KIND_LIMBA.
+ *
+ * Gets a bundle identifier string.
+ *
+ * Returns: string, or %NULL if unset
+ *
+ * Since: 0.8.0
+ **/
+const gchar*
+as_component_get_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return g_hash_table_lookup (priv->bundles,
+				    as_bundle_kind_to_string (bundle_kind));
+}
+
+/**
+ * as_component_add_bundle_id:
+ * @cpt: a #AsComponent instance.
+ * @bundle_kind: the URL kind, e.g. %AS_BUNDLE_KIND_LIMBA
+ * @id: The bundle identification string
+ *
+ * Adds a bundle identifier to the component.
+ *
+ * Since: 0.8.0
+ **/
+void
+as_component_add_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind, const gchar *id)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_hash_table_insert (priv->bundles,
+			     g_strdup (as_bundle_kind_to_string (bundle_kind)),
+			     g_strdup (id));
 }
 
 static void

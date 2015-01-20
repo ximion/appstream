@@ -65,14 +65,14 @@ DatabaseWrite::initialize (const gchar *dbPath)
 	return true;
 }
 
-static
-void string_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
+static void
+string_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
 {
 	g_string_append_printf (gstr, "%s\n%s\n", key, value);
 }
 
-static
-void langs_hashtable_to_str (gchar *key, gint value, GString *gstr)
+static void
+langs_hashtable_to_str (gchar *key, gint value, GString *gstr)
 {
 	g_string_append_printf (gstr, "%s\n%i\n", key, value);
 }
@@ -155,6 +155,21 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			}
 			// add packagename as meta-data too
 			term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
+		}
+
+		// Bundles
+		GHashTable *bundle_ids;
+		bundle_ids = as_component_get_bundle_ids (cpt);
+		if (g_hash_table_size (bundle_ids) > 0) {
+			gchar *cstr;
+			gstr = g_string_new ("");
+			g_hash_table_foreach(bundle_ids, (GHFunc) string_hashtable_to_str, gstr);
+			if (gstr->len > 0)
+				g_string_truncate (gstr, gstr->len - 1);
+
+			cstr = g_string_free (gstr, FALSE);
+			doc.add_value (XapianValues::BUNDLES, cstr);
+			g_free (cstr);
 		}
 
 		// Identifier

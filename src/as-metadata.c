@@ -690,6 +690,17 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 				as_component_add_extends (cpt, content);
 		} else if (g_strcmp0 (node_name, "languages") == 0) {
 			as_metadata_process_languages_tag (metad, iter, cpt);
+		} else if (g_strcmp0 (node_name, "bundle") == 0) {
+			if (content != NULL) {
+				gchar *type_str;
+				AsBundleKind bundle_kind;
+				type_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+				bundle_kind = as_bundle_kind_from_string (type_str);
+				if (bundle_kind != AS_BUNDLE_KIND_UNKNOWN)
+					bundle_kind = AS_BUNDLE_KIND_LIMBA;
+				as_component_add_bundle_id (cpt, bundle_kind, content);
+				g_free (type_str);
+			}
 		}
 
 		g_free (lang);
@@ -1134,6 +1145,7 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	GPtrArray *releases;
 	GPtrArray *screenshots;
 	AsComponentKind kind;
+	guint i;
 	g_return_val_if_fail (cpt != NULL, NULL);
 
 	/* define component root node */
@@ -1159,6 +1171,32 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	as_metadata_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", as_component_get_compulsory_for_desktops (cpt));
 	as_metadata_xml_add_node_list (cnode, "keywords", "keyword", as_component_get_keywords (cpt));
 	as_metadata_xml_add_node_list (cnode, "categories", "category", as_component_get_categories (cpt));
+
+	/* urls */
+	for (i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
+		xmlNode *n;
+		const gchar *value;
+		value = as_component_get_url (cpt, i);
+		if (value == NULL)
+			continue;
+
+		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "url", (xmlChar*) value);
+		xmlNewProp (n, (xmlChar*) "type",
+					(xmlChar*) as_url_kind_to_string (i));
+	}
+
+	/* bundles */
+	for (i = AS_BUNDLE_KIND_UNKNOWN; i < AS_BUNDLE_KIND_LAST; i++) {
+		xmlNode *n;
+		const gchar *value;
+		value = as_component_get_bundle_id (cpt, i);
+		if (value == NULL)
+			continue;
+
+		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "bundle", (xmlChar*) value);
+		xmlNewProp (n, (xmlChar*) "type",
+					(xmlChar*) as_bundle_kind_to_string (i));
+	}
 
 	/* releases node */
 	releases = as_component_get_releases (cpt);
