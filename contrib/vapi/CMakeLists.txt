@@ -4,9 +4,9 @@ set(APPSTREAM_VAPI_FILE "${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi")
 
 find_program (VAPIGEN vapigen)
 mark_as_advanced (VAPIGEN)
-if (VAPIGEN STREQUAL "")
+if (VAPIGEN STREQUAL "VAPIGEN-NOTFOUND")
 	message (FATAL_ERROR "Vapigen was not found. Please install it in order to generate Vala API files!")
-endif (VAPIGEN STREQUAL "")
+endif (VAPIGEN STREQUAL "VAPIGEN-NOTFOUND")
 
 add_custom_command (OUTPUT ${APPSTREAM_VAPI_FILE}
 			COMMAND ${VAPIGEN} --metadatadir=${CMAKE_CURRENT_SOURCE_DIR} -d . --vapidir=${CMAKE_CURRENT_SOURCE_DIR}

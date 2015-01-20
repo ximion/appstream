@@ -2,9 +2,9 @@
 
 find_program (XMLTO xmlto)
 mark_as_advanced (XMLTO)
-if (XMLTO STREQUAL "")
+if (XMLTO STREQUAL "XMLTO-NOTFOUND")
 	message (FATAL_ERROR "Xmlto was not found! Please install it to continue!")
-endif (XMLTO STREQUAL "")
+endif (XMLTO STREQUAL "XMLTO-NOTFOUND")
 
 include (${CMAKE_SOURCE_DIR}/data/cmake/documentation.cmake)
 
@@ -16,9 +16,9 @@ if (DOCUMENTATION)
 	# General project documentation
 	find_program (PUBLICAN publican)
 	mark_as_advanced (PUBLICAN)
-	if (PUBLICAN STREQUAL "")
+	if (PUBLICAN STREQUAL "PUBLICAN-NOTFOUND")
 		message (FATAL_ERROR "Publican was not found. Please install it to continue!")
-	endif (PUBLICAN STREQUAL "")
+	endif (PUBLICAN STREQUAL "PUBLICAN-NOTFOUND")
 
 	# we need to assemble our documentation build-directory before we can built it
 	add_custom_target (assemble-docs
