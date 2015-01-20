@@ -104,7 +104,7 @@ as_provider_xml_process_single_document (AsProviderXML* dprov, const gchar* xmld
 
 	/* set the proper origin of this data */
 	origin = (gchar*) xmlGetProp (root, (xmlChar*) "origin");
-	as_metadata_set_origin_id (metad, origin);
+	as_metadata_set_origin (metad, origin);
 	g_free (origin);
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {

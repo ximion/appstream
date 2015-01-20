@@ -1351,18 +1351,31 @@ as_metadata_get_locale (AsMetadata *metad)
 }
 
 /**
- * as_metadata_set_origin_id:
- * @metad: a #AsMetadata instance.
+ * as_metadata_set_origin:
+ * @metad: an #AsMetadata instance.
  * @origin: the origin of AppStream distro metadata.
  *
- * Internal method to set the origin of AppStream distro metadata
+ * Set the origin of AppStream distro metadata
  **/
 void
-as_metadata_set_origin_id (AsMetadata *metad, const gchar *origin)
+as_metadata_set_origin (AsMetadata *metad, const gchar *origin)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	g_free (priv->origin_name);
 	priv->origin_name = g_strdup (origin);
+}
+
+/**
+ * as_metadata_get_origin:
+ * @metad: an #AsMetadata instance.
+ *
+ * Returns: The origin of AppStream distro metadata
+ **/
+const gchar*
+as_metadata_get_origin (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->origin_name;
 }
 
 /**

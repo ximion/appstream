@@ -105,7 +105,11 @@ void			as_metadata_save_distro_xml (AsMetadata *metad,
 
 void			as_metadata_set_locale (AsMetadata *metad,
 										const gchar *locale);
-const gchar*	as_metadata_get_locale (AsMetadata *metad);
+const gchar		*as_metadata_get_locale (AsMetadata *metad);
+
+const gchar		*as_metadata_get_origin (AsMetadata *metad);
+void			as_metadata_set_origin (AsMetadata *metad,
+										const gchar *origin);
 
 
 G_END_DECLS
