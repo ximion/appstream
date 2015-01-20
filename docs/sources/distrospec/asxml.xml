@@ -494,6 +494,30 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-distro-bundle">
+				<term>&lt;bundle/&gt;</term>
+				<listitem>
+					<para>
+						The optional <literal>bundle</literal> tag indicates that the described software is available as a software bundle via a
+						3rd-party application installer. The value of this tag is the name of the bundle.
+					</para>
+					<para>
+						Software centers may use the information of this tag to offer the user to install the software
+						from 3rd-party sources, or just update an already installed software automatically via the normal update procedure.
+						The <literal>bundle</literal> tag can coexist with the <literal>pkgname</literal> tag, in case a component is available from
+						multiple sources.
+					</para>
+					<para>
+						The <literal>type</literal> property of this tag indicates which 3rd-party software installation solution the bundle belongs to.
+						Currently supported is the <ulink url="http://people.freedesktop.org/~mak/limba/">Limba Project</ulink>, using the value <code>limba</code>.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="XML"><![CDATA[<bundle type="limba">foobar-1.0.2</bundle>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 	</section>
 
