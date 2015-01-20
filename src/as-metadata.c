@@ -1238,7 +1238,7 @@ as_metadata_components_to_distro_xml (AsMetadata *metad)
 		return NULL;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
-	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.7");
+	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.8");
 	if (priv->origin_name != NULL)
 		xmlNewProp (root, (xmlChar*) "origin", (xmlChar*) priv->origin_name);
 
