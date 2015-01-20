@@ -483,8 +483,7 @@
 					<para>
 						Tag example:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<languages>
+					<programlisting language="XML"><![CDATA[<languages>
   <lang percentage="96">gu</lang>
   <lang percentage="94">ca@valencia</lang>
   <lang percentage="91">de</lang>
@@ -499,7 +498,7 @@
 				<listitem>
 					<para>
 						The optional <literal>bundle</literal> tag indicates that the described software is available as a software bundle via a
-						3rd-party application installer. The value of this tag is the name of the bundle.
+						3rd-party application installer. The value of this tag is an identification string for the bundle.
 					</para>
 					<para>
 						Software centers may use the information of this tag to offer the user to install the software
