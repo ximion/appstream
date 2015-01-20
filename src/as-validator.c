@@ -495,6 +495,12 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			}
+		} else if (g_strcmp0 (node_name, "metadata") == 0) {
+			as_validator_add_issue (validator,
+				cpt,
+				AS_ISSUE_IMPORTANCE_PEDANTIC,
+				AS_ISSUE_KIND_TAG_UNKNOWN,
+				"Found custom metadata in <metadata/> tag. Use of this tag is common, but should be avoided if possible.");
 		} else if (!g_str_has_prefix (node_name, "x-")) {
 			as_validator_add_issue (validator,
 				cpt,

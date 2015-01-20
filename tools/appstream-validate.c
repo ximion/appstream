@@ -69,7 +69,7 @@ importance_to_print_string (AsIssueImportance importance, gboolean pretty)
  * print_report:
  **/
 static gboolean
-process_report (GList *issues, gboolean pretty)
+process_report (GList *issues, gboolean pretty, gboolean pedantic)
 {
 	GList *l;
 	AsValidatorIssue *issue;
@@ -85,6 +85,10 @@ process_report (GList *issues, gboolean pretty)
 		if ((importance == AS_ISSUE_IMPORTANCE_ERROR) || (importance == AS_ISSUE_IMPORTANCE_WARNING))
 			errors_found = TRUE;
 
+		/* skip pedantic issues if we should not show them */
+		if ((!pedantic) && (importance == AS_ISSUE_IMPORTANCE_PEDANTIC))
+			continue;
+
 		imp = importance_to_print_string (importance, pretty);
 		g_print ("%s: %s\n",
 				 imp,
@@ -99,7 +103,7 @@ process_report (GList *issues, gboolean pretty)
  * validate_file:
  **/
 static gboolean
-validate_file (gchar *fname, gboolean pretty)
+validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 {
 	GFile *file;
 	gboolean ret;
@@ -119,7 +123,7 @@ validate_file (gchar *fname, gboolean pretty)
 	ret = as_validator_validate_file (validator, file);
 	issues = as_validator_get_issues (validator);
 
-	errors_found = process_report (issues, pretty);
+	errors_found = process_report (issues, pretty, pedantic);
 	if (!ret)
 		errors_found = TRUE;
 
@@ -140,6 +144,7 @@ main (int argc, char *argv[])
 	gboolean verbose = FALSE;
 	gboolean version = FALSE;
 	gboolean no_color = FALSE;
+	gboolean pedantic = FALSE;
 	GError *error = NULL;
 	guint retval = 1;
 	guint i;
@@ -149,6 +154,8 @@ main (int argc, char *argv[])
 			_("Show extra debugging information"), NULL },
 		{ "version", 0, 0, G_OPTION_ARG_NONE, &version,
 			_("Show program version"), NULL },
+		{ "pedantic", 0, 0, G_OPTION_ARG_NONE, &pedantic,
+			_("Show issues from pedantic tests"), NULL },
 		{ "no-color", 0, 0, G_OPTION_ARG_NONE, &no_color,
 			_("Show program version"), NULL },
 		{ NULL}
@@ -193,7 +200,7 @@ main (int argc, char *argv[])
 	ret = TRUE;
 	for (i = 1; i < argc; i++) {
 		gboolean tmp_ret;
-		tmp_ret = validate_file (argv[i], !no_color);
+		tmp_ret = validate_file (argv[i], !no_color, pedantic);
 		if (!tmp_ret)
 			ret = FALSE;
 	}
