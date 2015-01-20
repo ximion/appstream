@@ -172,8 +172,7 @@
 						A long description of the component. It is usually taken from the package descriptions or meta-info files, if they were provided.
 						The description might use markup. Right now, only paragraph, ordered list and unordered list are supported.
 						An example description element might look like this:
-						<programlisting language="XML">
-<![CDATA[<description>
+						<programlisting language="XML"><![CDATA[<description>
   <p>
    Power Statistics is a program used to view historical and current battery
    information and will show programs running on your computer using power.
@@ -258,8 +257,7 @@
 					<para>
 						Examples of the different methods to specify an icon:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<icon type="stock">gimp</icon>
+					<programlisting language="XML"><![CDATA[<icon type="stock">gimp</icon>
 <icon type="cached">firefox.png</icon>
 <icon type="remote" width="64" height="64">http://example.com/icons/foobar.png</icon>
 <icon type="local" width="64" height="64">/usr/share/pixmaps/foobar.png</icon>]]></programlisting>
@@ -284,8 +282,7 @@
 						The data can usually be fetched from the Desktop files.
 						Example:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<mimetypes>
+					<programlisting language="XML"><![CDATA[<mimetypes>
     <mimetype>text/html</mimetype>
     <mimetype>image/jpeg</mimetype>
     <mimetype>application/rss+xml</mimetype>
@@ -303,8 +300,7 @@
 						<ulink url="http://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
 						Example:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<categories>
+					<programlisting language="XML"><![CDATA[<categories>
     <category>GNOME</category>
     <category>GTK</category>
     <category>Network</category>
@@ -330,8 +326,7 @@
 						components, the upstream metadata file usually provides this tag.
 						Example:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<keywords>
+					<programlisting language="XML"><![CDATA[<keywords>
   <keyword>IDE</keyword>
   <keyword>development</keyword>
   <keyword>programming</keyword>
@@ -361,8 +356,7 @@
 						Every image should have a full remote url set, usually pointing to a cache of images maintained by the distributor.
 						Example:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<screenshots>
+					<programlisting language="XML"><![CDATA[<screenshots>
   <screenshot type="default">
     <caption>Foobar showing kitchen-sink functionality</caption>
     <caption xml:lang="si">Foobar shoeewing kischän-sünk funzionality</caption>
@@ -426,12 +420,14 @@
 				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
-						The <code>&lt;releases&gt;</code> tag contains <code>&lt;release/&gt;</code> child tags which
-						describe some metainformation about the current release of the described software.
-						The <code>&lt;release/&gt;</code> tag may be present multiple times (for older releases), but a tag for
-						the current version must always be present.
-						A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
-						and a release timestamp in form of a UNIX epoch.
+						The <literal>releases</literal> tag and its <literal>release</literal> children are structured as described in <xref linkend="tag-releases"/>.
+					</para>
+					<para>
+						Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
+						The <literal>description</literal> tag is structured as described in <xref linkend="tag-distro-description"/>. This also applies to its translation rules.
+					</para>
+					<para>
+						The AppStream distro XML generator may shorten overlong lists of releases to a smaller list, e.g. of 4 <literal>release</literal> tags.
 					</para>
 					<para>
 						Examples for a valid releases tag:

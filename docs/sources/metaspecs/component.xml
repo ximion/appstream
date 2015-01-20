@@ -215,10 +215,13 @@
 						and a release timestamp in form of a UNIX epoch.
 					</para>
 					<para>
+						Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
+						The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>
+					</para>
+					<para>
 						Examples for a valid releases tag:
 					</para>
-					<programlisting language="XML">
-<![CDATA[<releases>
+					<programlisting language="XML"><![CDATA[<releases>
   <release version="1.2" timestamp="1397253600" />
   <release version="1.0" timestamp="1345932000" />
 </releases>]]></programlisting>
