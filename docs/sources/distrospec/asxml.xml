@@ -249,9 +249,11 @@
 					<para>
 						<literal>local</literal> icons are reserved for AppStream data installed by local applications or via 3rd-party application installers.
 						They should specify a full file path.
+						This icon type may have <literal>width</literal> and <literal>height</literal> properties.
 					</para>
 					<para>
 						<literal>remote</literal> icons loaded from a remote URL. Currently, at least HTTP urls must be supported.
+						This icon type may have <literal>width</literal> and <literal>height</literal> properties.
 					</para>
 					<para>
 						Examples of the different methods to specify an icon:
@@ -259,8 +261,8 @@
 					<programlisting language="XML">
 <![CDATA[<icon type="stock">gimp</icon>
 <icon type="cached">firefox.png</icon>
-<icon type="local">/usr/share/pixmaps/foobar.png</icon>
-<icon type="remote">http://example.com/icons/foobar.png</icon>]]></programlisting>
+<icon type="remote" width="64" height="64">http://example.com/icons/foobar.png</icon>
+<icon type="local" width="64" height="64">/usr/share/pixmaps/foobar.png</icon>]]></programlisting>
 					<para>
 						Multiple <code><![CDATA[<icon/>]]></code> tags might be combined for one application, e.g. to define a <literal>stock</literal> icon
 						and a <literal>cached</literal> icon.
