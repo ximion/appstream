@@ -344,9 +344,26 @@
 					</para>
 					<para>
 						Every <code><![CDATA[<screenshot>]]></code> is defined by several images of different sizes.
-						All images should have their width and hight set as arguments. Also, one of the images shoukd be marked as <code>type="source"</code>,
+						All images should have their width and hight set as arguments. Also, one of the images should be marked as <code>type="source"</code>,
 						indicating that it is the unscaled version of the screenshot.
 						Images of <code>type="thumbnail"</code> define thumbnails of the screenshot.
+					</para>
+					<para>
+						The metadata generator should scale the source image down to several thumbnails useful for the client to load.
+						The recommended sizes for thumbnail images are:
+					</para>
+					<itemizedlist>
+						<listitem><para><emphasis>752x423</emphasis> (large)</para></listitem>
+						<listitem><para><emphasis>624x351</emphasis> (normal)</para></listitem>
+						<listitem><para><emphasis>112x63</emphasis> (small)</para></listitem>
+
+						<listitem><para><emphasis>1504x846</emphasis> (large, HiDPI)</para></listitem>
+						<listitem><para><emphasis>1248x702</emphasis> (normal, HiDPI)</para></listitem>
+						<listitem><para><emphasis>224x126</emphasis> (small, HiDPI)</para></listitem>
+					</itemizedlist>
+					<para>
+						In order to support HiDPI screens, the thumbnails should also be available in their bigger sizes. A metadata generator should, however, never attempt
+						to scale up a smaller image to a larger size, and just ship the smaller sizes instead.
 					</para>
 					<para>
 						Optionally, a screenshot can contain a <code><![CDATA[<caption>]]></code> tag, describing the screenshot's caption. This is usually what the user can see
@@ -361,7 +378,8 @@
     <caption>Foobar showing kitchen-sink functionality</caption>
     <caption xml:lang="si">Foobar shoeewing kischän-sünk funzionality</caption>
     <image type="source" width="800" height="600">http://www.example.org/en_US/main.png</image>
-    <image type="thumbnail" width="200" height="150">http://www.example.org/en_US/main-small.png</image>
+    <image type="thumbnail" width="752" height="423">http://www.example.org/en_US/main-large.png</image>
+    <image type="thumbnail" width="112" height="63">http://www.example.org/en_US/main-small.png</image>
   </screenshot>
   <screenshot>
      ....
