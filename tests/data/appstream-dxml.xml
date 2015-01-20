@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<components version="0.6">
+    <component type="desktop">
+        <id>firefox.desktop</id>
+        <pkgname>firefox-bin</pkgname>
+        <name>Firefox</name>
+        <name lang="fr_FR">Firefoux</name>
+        <summary>Web browser</summary>
+        <summary lang="fr_FR">Navigateur web</summary>
+        <project_license>MPL-2</project_license>
+        <keywords>
+            <keyword>internet</keyword>
+            <keyword>web</keyword>
+            <keyword>browser</keyword>
+            <keyword lang="fr_FR">navigateur</keyword>
+        </keywords>
+        <icon type="stock">web-browser</icon>
+        <icon type="cached">firefox.png</icon>
+        <categories>
+            <category>network</category>
+            <category>web</category>
+        </categories>
+        <mimetypes>
+            <mimetype>text/html</mimetype>
+            <mimetype>text/xml</mimetype>
+            <mimetype>application/xhtml+xml</mimetype>
+            <mimetype>application/vnd.mozilla.xul+xml</mimetype>
+            <mimetype>text/mml</mimetype>
+            <mimetype>application/x-xpinstall</mimetype>
+            <mimetype>x-scheme-handler/http</mimetype>
+            <mimetype>x-scheme-handler/https</mimetype>
+        </mimetypes>
+        <url type="homepage">http://www.mozilla.com</url>
+        <screenshots>
+            <screenshot type="default">
+				<caption>Firefox displaying a kitten</caption>
+                <image type="source" width="800" height="600">http://www.awesomedistro.example.org/en_US/firefox.desktop/main.png</image>
+                <image type="thumbnail" width="200" height="150">http://www.awesomedistro.example.org/en_US/firefox.desktop/main-small.png</image>
+            </screenshot>
+        </screenshots>
+    </component>
+    <!-- more components here! -->
+</components>
