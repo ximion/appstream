@@ -116,6 +116,7 @@ Component xapianDocToComponent(Xapian::Document document) {
         qWarning("Bad url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatUrlStrings));
     }
 
+    // Provided items
     QString concatProvides = value(document, XapianValues::PROVIDED_ITEMS);
     QStringList providesList = concatProvides.split('\n',QString::SkipEmptyParts);
     QList<Provides> provideslist;
@@ -136,6 +137,21 @@ Component xapianDocToComponent(Xapian::Document document) {
         provideslist << provides;
     }
     component.setProvides(provideslist);
+
+    // Bundles
+    QString concatBundleIds = value(document, XapianValues::BUNDLES);
+    QStringList bundleIds = concatBundleIds.split('\n',QString::SkipEmptyParts);
+    if(bundleIds.size() %2 == 0) {
+        QHash<Component::BundleKind, QString> bundles;
+        for(int i = 0; i < bundleIds.size(); i=i+2) {
+            Component::BundleKind bkind = Component::stringToBundleKind(bundleIds.at(i));
+            QString bdid = QString(bundleIds.at(i+1));
+            bundles.insertMulti(bkind, bdid);
+        }
+        component.setBundles(bundles);
+    } else {
+        qWarning("Bad bundle strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatBundleIds));
+    }
 
     // Stock icon
     QString icon = value(document,XapianValues::ICON);

@@ -45,6 +45,7 @@ class Appstream::ComponentData : public QSharedData {
         QMultiHash<Component::UrlKind, QUrl> m_urls;
         QList<Appstream::Screenshot> m_screenshots;
         QMultiHash<Provides::Kind, Provides> m_provides;
+        QHash<Component::BundleKind, QString> m_bundles;
         bool operator==(const ComponentData& other) const {
             if(m_categories != other.m_categories) {
                 return false;
@@ -95,6 +96,9 @@ class Appstream::ComponentData : public QSharedData {
                 return false;
             }
             if(m_provides != other.m_provides) {
+                return false;
+            }
+            if(m_bundles != other.m_bundles) {
                 return false;
             }
             return true;
@@ -246,6 +250,17 @@ QMultiHash< Component::UrlKind, QUrl > Component::urls() const {
     return d->m_urls;
 }
 
+void Component::setBundles(const QHash< Component::BundleKind, QString >& bundles) {
+    d->m_bundles = bundles;
+}
+QString Component::bundle(Component::BundleKind kind) const {
+    return d->m_bundles.value(kind);
+}
+
+QHash< Component::BundleKind, QString > Component::bundles() const {
+    return d->m_bundles;
+}
+
 
 
 
@@ -348,6 +363,24 @@ static QHash<Component::UrlKind,QString> buildUrlKindMap() {
 QString Component::urlKindToString(Component::UrlKind kind) {
     static const QHash<UrlKind, QString> kindMap = buildUrlKindMap();
     return kindMap.value(kind);
+}
+
+QString Component::bundleKindToString(Component::BundleKind kind) {
+    if (kind == Component::BundleKindLimba)
+        QLatin1String("limba");
+    if (kind == Component::BundleKindXdgApp)
+        QLatin1String("xdg-app");
+    return QString();
+}
+
+Component::BundleKind Component::stringToBundleKind(const QString& bundleKindString) {
+    if (bundleKindString == QLatin1String("limba")) {
+        return BundleKindLimba;
+    }
+    if (bundleKindString == QLatin1String("xdg-app")) {
+        return BundleKindXdgApp;
+    }
+    return BundleKindUnknown;
 }
 
 QList< Appstream::Provides > Component::provides() const {
