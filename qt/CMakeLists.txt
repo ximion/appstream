@@ -1,7 +1,7 @@
 project(AppstreamQt)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
-set(APPSTREAM_QT_VERSION "4" CACHE STRING "Used Qt version")
+set(APPSTREAM_QT_VERSION "5" CACHE STRING "Used Qt version")
 
 include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
