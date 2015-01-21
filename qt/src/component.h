@@ -109,23 +109,9 @@ class APPSTREAMQT_EXPORT Component {
         void setIcon(const QString& icon);
 
         /**
-         * \return absolute path to a 64x64px sized icon
-         *
-         * \deprecated this method is deprecated, use iconUrl(QSize&) instead.
-         */
-        Q_DECL_DEPRECATED QUrl iconUrl() const;
-
-        /**
          * \return absolute (local or remote) path to an icon of the given size
          */
         QUrl iconUrl(const QSize& size) const;
-
-        /**
-         * Sets the url for an icon of 64x64 pixels
-         *
-         * \deprecated this method is deprecated, use \ref addIconUrl instead.
-         */
-        Q_DECL_DEPRECATED void setIconUrl(const QUrl& iconUrl);
 
         /**
          * Sets the url for an icon

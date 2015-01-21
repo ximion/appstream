@@ -134,10 +134,6 @@ QUrl Component::iconUrl(const QSize& size) const {
     return d->m_iconUrls.value(sizeStr);
 }
 
-QUrl Component::iconUrl() const {
-    return this->iconUrl(QSize());
-}
-
 QString Component::id() const {
     return d->m_id;
 }
@@ -192,10 +188,6 @@ void Component::addIconUrl(const QUrl& iconUrl, const QSize& size) {
     if (size.isValid())
         sizeStr = QString("%1x%2").arg(size.width()).arg(size.height());
     d->m_iconUrls.insert(sizeStr, iconUrl);
-}
-
-void Component::setIconUrl(const QUrl& iconUrl) {
-    this->addIconUrl(iconUrl, QSize());
 }
 
 void Component::setId(const QString& id) {
