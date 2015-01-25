@@ -1117,6 +1117,18 @@ as_component_set_name (AsComponent *cpt, const gchar* value, const gchar *locale
 }
 
 /**
+ * as_component_get_name_table:
+ *
+ * Internal method.
+ */
+GHashTable*
+as_component_get_name_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->name;
+}
+
+/**
  * as_component_get_summary:
  *
  * Get a short description of this component.
@@ -1152,6 +1164,18 @@ as_component_set_summary (AsComponent *cpt, const gchar* value, const gchar *loc
 }
 
 /**
+ * as_component_get_summary_table:
+ *
+ * Internal method.
+ */
+GHashTable*
+as_component_get_summary_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->summary;
+}
+
+/**
  * as_component_get_description:
  *
  * Get the localized long description of this component.
@@ -1184,6 +1208,18 @@ as_component_set_description (AsComponent *cpt, const gchar* value, const gchar 
 
 	as_component_localized_set (cpt, priv->description, value, locale);
 	g_object_notify ((GObject *) cpt, "description");
+}
+
+/**
+ * as_component_get_description_table:
+ *
+ * Internal method.
+ */
+GHashTable*
+as_component_get_description_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->description;
 }
 
 /**
@@ -1227,6 +1263,18 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 						 g_strdupv (value));
 
 	g_object_notify ((GObject *) cpt, "keywords");
+}
+
+/**
+ * as_component_get_keywords_table:
+ *
+ * Internal method.
+ */
+GHashTable*
+as_component_get_keywords_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->keywords;
 }
 
 /**
@@ -1476,6 +1524,18 @@ as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gch
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	as_component_localized_set (cpt, priv->developer_name, value, locale);
+}
+
+/**
+ * as_component_get_developer_name_table:
+ *
+ * Internal method.
+ */
+GHashTable*
+as_component_get_developer_name_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->developer_name;
 }
 
 /**

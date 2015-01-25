@@ -1071,14 +1071,16 @@ as_metadata_xml_add_node (xmlNode *root, const gchar *name, const gchar *value)
  * Add the description markup to the XML tree
  */
 static gboolean
-as_metadata_xml_add_description (xmlNode *root, const gchar *description_markup)
+as_metadata_xml_add_description (AsMetadata *metad, xmlNode *root, const gchar *description_markup, const gchar *lang)
 {
 	gchar *xmldata;
 	xmlDoc *doc;
 	xmlNode *droot;
 	xmlNode *dnode;
 	xmlNode *iter;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	gboolean ret = TRUE;
+	gboolean localized;
 
 	if (as_str_empty (description_markup))
 		return FALSE;
@@ -1097,8 +1099,28 @@ as_metadata_xml_add_description (xmlNode *root, const gchar *description_markup)
 	}
 	dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
 
+	localized = g_strcmp0 (lang, "C") != 0;
+	if (priv->mode != AS_PARSER_MODE_UPSTREAM) {
+		if (localized) {
+			xmlNewProp (dnode,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) lang);
+		}
+	}
+
 	for (iter = droot->children; iter != NULL; iter = iter->next) {
-		xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
+		xmlNode *cn;
+		cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
+
+		if (priv->mode == AS_PARSER_MODE_UPSTREAM) {
+			if ((localized) &&
+				(g_strcmp0 ((const gchar*) iter->name, "ul") != 0) &&
+				(g_strcmp0 ((const gchar*) iter->name, "ol") != 0)) {
+				xmlNewProp (cn,
+						(xmlChar*) "xml:lang",
+						(xmlChar*) lang);
+			}
+		}
 	}
 
 out:
@@ -1131,6 +1153,43 @@ as_metadata_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *ch
 	}
 }
 
+typedef struct {
+	AsMetadata *metad;
+
+	xmlNode *node;
+	const gchar *node_name;
+} AsLocaleWriteHelper;
+
+/**
+ * _as_metadata_lang_hashtable_to_nodes:
+ */
+static void
+_as_metadata_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWriteHelper *helper)
+{
+	xmlNode *cnode;
+	if (as_str_empty (value))
+		return;
+
+	cnode = xmlNewTextChild (helper->node, NULL, (xmlChar*) helper->node_name, (xmlChar*) value);
+	if (g_strcmp0 (key, "C") != 0) {
+		xmlNewProp (cnode,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) key);
+	}
+}
+
+/**
+ * _as_metadata_desc_lang_hashtable_to_nodes:
+ */
+static void
+_as_metadata_desc_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWriteHelper *helper)
+{
+	if (as_str_empty (value))
+		return;
+
+	as_metadata_xml_add_description (helper->metad, helper->node, value, key);
+}
+
 /**
  * as_metadata_component_to_node:
  * @cpt: a valid #AsComponent
@@ -1147,6 +1206,7 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	GPtrArray *releases;
 	GPtrArray *screenshots;
 	AsComponentKind kind;
+	AsLocaleWriteHelper helper;
 	guint i;
 	g_return_val_if_fail (cpt != NULL, NULL);
 
@@ -1159,12 +1219,31 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	}
 
 	as_metadata_xml_add_node (cnode, "id", as_component_get_id (cpt));
-	as_metadata_xml_add_node (cnode, "name", as_component_get_name (cpt));
-	as_metadata_xml_add_node (cnode, "summary", as_component_get_summary (cpt));
+
+	helper.node = cnode;
+	helper.metad = metad;
+	helper.node_name = "name";
+	g_hash_table_foreach (as_component_get_name_table (cpt),
+						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
+						&helper);
+
+	helper.node_name = "summary";
+	g_hash_table_foreach (as_component_get_summary_table (cpt),
+						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
+						&helper);
+
+	helper.node_name = "developer_name";
+	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
+						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
+						&helper);
+
+	helper.node_name = "description";
+	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
+						(GHFunc) _as_metadata_desc_lang_hashtable_to_nodes,
+						&helper);
+
 	as_metadata_xml_add_node (cnode, "project_license", as_component_get_project_license (cpt));
 	as_metadata_xml_add_node (cnode, "project_group", as_component_get_project_group (cpt));
-	as_metadata_xml_add_node (cnode, "developer_name", as_component_get_developer_name (cpt));
-	as_metadata_xml_add_description (cnode, as_component_get_description (cpt));
 
 	as_metadata_xml_add_node_list (cnode, NULL, "pkgname", as_component_get_pkgnames (cpt));
 	strv = as_ptr_array_to_strv (as_component_get_extends (cpt));

@@ -191,6 +191,35 @@ test_appstream_parser_locale ()
 	g_object_unref (metad);
 }
 
+void
+test_appstream_write_locale ()
+{
+	AsMetadata *metad;
+	GFile *file;
+	gchar *tmp;
+	AsComponent *cpt;
+	GError *error = NULL;
+
+	metad = as_metadata_new ();
+
+	tmp = g_build_filename (datadir, "appdata.xml", NULL);
+	file = g_file_new_for_path (tmp);
+	g_free (tmp);
+
+	as_metadata_set_locale (metad, "ALL");
+	as_metadata_parse_file (metad, file, &error);
+	cpt = as_metadata_get_component (metad);
+	g_assert_no_error (error);
+	g_assert (cpt != NULL);
+	g_object_unref (file);
+
+	tmp = as_metadata_component_to_upstream_xml (metad);
+	g_debug ("Generated XML: %s", as_metadata_component_to_upstream_xml (metad));
+	g_free (tmp);
+
+	g_object_unref (metad);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -216,6 +245,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Screenshots{dbimexport}", test_screenshot_handling);
 	g_test_add_func ("/AppStream/LegacyData", test_appstream_parser_legacy);
 	g_test_add_func ("/AppStream/XMLParserLocale", test_appstream_parser_locale);
+	g_test_add_func ("/AppStream/XMLWriterLocale", test_appstream_write_locale);
 
 	ret = g_test_run ();
 	g_free (datadir);

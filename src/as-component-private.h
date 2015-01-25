@@ -39,7 +39,7 @@ int					as_component_get_priority (AsComponent *cpt);
 void				as_component_set_priority (AsComponent *cpt,
 											   int priority);
 
-GHashTable			*as_component_get_languages_map (AsComponent *self);
+GHashTable			*as_component_get_languages_map (AsComponent *cpt);
 
 void				as_component_complete (AsComponent *cpt,
 										   gchar *scr_base_url,
@@ -49,6 +49,12 @@ void				as_component_xml_add_screenshot_subnodes (AsComponent *cpt,
 														xmlNode *root);
 void				as_component_xml_add_release_subnodes (AsComponent *cpt,
 														xmlNode *root);
+
+GHashTable			*as_component_get_name_table (AsComponent *cpt);
+GHashTable			*as_component_get_summary_table (AsComponent *cpt);
+GHashTable			*as_component_get_description_table (AsComponent *cpt);
+GHashTable			*as_component_get_developer_name_table (AsComponent *cpt);
+GHashTable			*as_component_get_keywords_table (AsComponent *cpt);
 
 G_END_DECLS
 
