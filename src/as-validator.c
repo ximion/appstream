@@ -595,34 +595,64 @@ as_validator_validate_file (AsValidator *validator,
 {
 	gboolean ret;
 	gchar* xml_doc;
-	gchar* line = NULL;
-	GFileInputStream* ir;
-	GDataInputStream* dis;
+	GFileInputStream* fistream;
+	GFileInfo *info = NULL;
+	const gchar *content_type = NULL;
 
-	xml_doc = g_strdup ("");
-	ir = g_file_read (metadata_file, NULL, NULL);
-	dis = g_data_input_stream_new ((GInputStream*) ir);
-	g_object_unref (ir);
+	info = g_file_query_info (metadata_file,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+	if (info != NULL)
+		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
-	while (TRUE) {
-		gchar *str;
-		gchar *tmp;
+	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
+		GFileInputStream *fistream;
+		GMemoryOutputStream *mem_os;
+		GInputStream *conv_stream;
+		GZlibDecompressor *zdecomp;
+		guint8 *data;
 
-		line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
-		if (line == NULL) {
-			break;
+		/* load a GZip compressed file */
+		fistream = g_file_read (metadata_file, NULL, NULL);
+		mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
+		zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
+		conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
+		g_object_unref (zdecomp);
+
+		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
+		data = g_memory_output_stream_get_data (mem_os);
+
+		xml_doc = g_strdup ((const gchar*) data);
+
+		g_object_unref (conv_stream);
+		g_object_unref (mem_os);
+		g_object_unref (fistream);
+	} else {
+		gchar *line = NULL;
+		GString *str;
+		GDataInputStream *dis;
+
+		/* load a plaintext file */
+		str = g_string_new ("");
+		fistream = g_file_read (metadata_file, NULL, NULL);
+		dis = g_data_input_stream_new ((GInputStream*) fistream);
+		g_object_unref (fistream);
+
+		while (TRUE) {
+			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
+			if (line == NULL) {
+				break;
+			}
+
+			g_string_append_printf (str, "%s\n", line);
 		}
 
-		str = g_strconcat (line, "\n", NULL);
-		g_free (line);
-		tmp = g_strconcat (xml_doc, str, NULL);
-		g_free (str);
-		g_free (xml_doc);
-		xml_doc = tmp;
+		xml_doc = g_string_free (str, FALSE);
+		g_object_unref (dis);
 	}
 
 	ret = as_validator_validate_data (validator, xml_doc);
-	g_object_unref (dis);
 	g_free (xml_doc);
 
 	return ret;
