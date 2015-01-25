@@ -426,6 +426,14 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 					AS_ISSUE_KIND_TAG_DUPLICATED,
 					"The 'pkgname' tag appears multiple times. You can maybe create a metapackage containing the data in order to get rid of defining multiple package names per component.");
 			}
+		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
+			if (g_hash_table_contains (found_tags, node_name)) {
+				as_validator_add_issue (validator,
+					cpt,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_DUPLICATED,
+					"The 'source_pkgname' tag appears multiple times.");
+			}
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
@@ -485,6 +493,17 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
+		} else if (g_strcmp0 (node_name, "bundle") == 0) {
+			gchar *prop;
+			prop = as_validator_check_type_property (validator, cpt, iter);
+			if ((g_strcmp0 (prop, "limba") != 0) && (g_strcmp0 (prop, "xdg-app") != 0)) {
+				as_validator_add_issue (validator,
+					cpt,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"Unknown type '%s' for <bundle/> tag.", prop);
+			}
+			g_free (prop);
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
 			if (mode == AS_PARSER_MODE_DISTRO) {
 				as_validator_add_issue (validator,
