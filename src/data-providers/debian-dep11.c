@@ -510,6 +510,8 @@ as_provider_dep11_process_component_node (AsProviderDEP11 *dprov, GNode *root, c
 			as_component_set_id (cpt, value);
 		} else if (g_strcmp0 (key, "Packages") == 0) {
 			dep11_list_to_string_array (node, pkgnames);
+		} else if (g_strcmp0 (key, "SourcePackage") == 0) {
+			as_component_set_source_pkgname (cpt, value);
 		} else if (g_strcmp0 (key, "Name") == 0) {
 			lvalue = as_provider_dep11_get_localized_value (dprov, node, "C");
 			if (lvalue != NULL) {

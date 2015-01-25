@@ -157,6 +157,21 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 		}
 
+		// Source package name
+		string spkgname = as_component_get_source_pkgname (cpt);
+		doc.add_value (XapianValues::SOURCE_PKGNAME, spkgname);
+		if (!spkgname.empty()) {
+			doc.add_term("AP" + spkgname);
+			if (spkgname.find ("-") != string::npos) {
+				// we need this to work around xapian oddness
+				string tmp = spkgname;
+				replace (tmp.begin(), tmp.end(), '-', '_');
+				doc.add_term (tmp);
+			}
+			// add packagename as meta-data too
+			term_generator.index_text_without_positions (spkgname, WEIGHT_PKGNAME);
+		}
+
 		// Bundles
 		GHashTable *bundle_ids;
 		bundle_ids = as_component_get_bundle_ids (cpt);

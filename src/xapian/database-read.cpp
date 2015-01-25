@@ -109,6 +109,10 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_pkgnames (cpt, pkgs);
 	g_strfreev (pkgs);
 
+	// Source package name
+	string cptSPkg = doc.get_value (XapianValues::SOURCE_PKGNAME);
+	as_component_set_source_pkgname (cpt, cptSPkg.c_str ());
+
 	// Origin
 	string cptOrigin = doc.get_value (XapianValues::ORIGIN);
 	as_component_set_origin (cpt, cptOrigin.c_str ());

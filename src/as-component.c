@@ -56,6 +56,7 @@ struct _AsComponentPrivate {
 	gchar			*id;
 	gchar			*origin;
 	gchar			**pkgnames;
+	gchar			*source_pkgname;
 
 	GHashTable		*name; /* localized entry */
 	GHashTable		*summary; /* localized entry */
@@ -196,6 +197,7 @@ as_component_init (AsComponent *cpt)
 	as_component_set_icon (cpt, "");
 	as_component_set_project_license (cpt, "");
 	as_component_set_project_group (cpt, "");
+	as_component_set_source_pkgname (cpt, "");
 	priv->categories = NULL;
 	priv->active_locale = g_strdup ("C");
 
@@ -932,6 +934,31 @@ as_component_set_pkgnames (AsComponent *cpt, gchar** value)
 	g_strfreev (priv->pkgnames);
 	priv->pkgnames = g_strdupv (value);
 	g_object_notify ((GObject *) cpt, "pkgnames");
+}
+
+/**
+ * as_component_get_source_pkgname:
+ */
+const gchar*
+as_component_get_source_pkgname (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->source_pkgname;
+}
+
+/**
+ * as_component_set_source_pkgname:
+ */
+void
+as_component_set_source_pkgname (AsComponent *cpt, const gchar* spkgname)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* safety measure, so we never set this to NULL */
+	if (spkgname == NULL)
+		spkgname = "";
+	g_free (priv->source_pkgname);
+	priv->source_pkgname = g_strdup (spkgname);
 }
 
 /**

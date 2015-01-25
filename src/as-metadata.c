@@ -600,6 +600,8 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (content != NULL)
 				g_ptr_array_add (pkgnames, g_strdup (content));
+		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
+			as_component_set_source_pkgname (cpt, content);
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			if (lang != NULL)
 				as_component_set_name (cpt, content, lang);
