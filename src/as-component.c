@@ -194,10 +194,6 @@ as_component_init (AsComponent *cpt)
 
 	as_component_set_id (cpt, "");
 	as_component_set_origin (cpt, "");
-	as_component_set_icon (cpt, "");
-	as_component_set_project_license (cpt, "");
-	as_component_set_project_group (cpt, "");
-	as_component_set_source_pkgname (cpt, "");
 	priv->categories = NULL;
 	priv->active_locale = g_strdup ("C");
 
@@ -954,9 +950,6 @@ as_component_set_source_pkgname (AsComponent *cpt, const gchar* spkgname)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* safety measure, so we never set this to NULL */
-	if (spkgname == NULL)
-		spkgname = "";
 	g_free (priv->source_pkgname);
 	priv->source_pkgname = g_strdup (spkgname);
 }

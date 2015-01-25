@@ -158,18 +158,21 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 
 		// Source package name
-		string spkgname = as_component_get_source_pkgname (cpt);
-		doc.add_value (XapianValues::SOURCE_PKGNAME, spkgname);
-		if (!spkgname.empty()) {
-			doc.add_term("AP" + spkgname);
-			if (spkgname.find ("-") != string::npos) {
-				// we need this to work around xapian oddness
-				string tmp = spkgname;
-				replace (tmp.begin(), tmp.end(), '-', '_');
-				doc.add_term (tmp);
+		const gchar *spkgname_cstr = as_component_get_source_pkgname (cpt);
+		if (spkgname_cstr != NULL) {
+			string spkgname = spkgname_cstr;
+			doc.add_value (XapianValues::SOURCE_PKGNAME, spkgname);
+			if (!spkgname.empty()) {
+				doc.add_term("AP" + spkgname);
+				if (spkgname.find ("-") != string::npos) {
+					// we need this to work around xapian oddness
+					string tmp = spkgname;
+					replace (tmp.begin(), tmp.end(), '-', '_');
+					doc.add_term (tmp);
+				}
+				// add packagename as meta-data too
+				term_generator.index_text_without_positions (spkgname, WEIGHT_PKGNAME);
 			}
-			// add packagename as meta-data too
-			term_generator.index_text_without_positions (spkgname, WEIGHT_PKGNAME);
 		}
 
 		// Bundles
@@ -230,7 +233,10 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 
 		// Stock icon
-		doc.add_value (XapianValues::ICON, as_component_get_icon (cpt));
+		const gchar *stock_icon = as_component_get_icon (cpt);
+		if (stock_icon != NULL)
+			doc.add_value (XapianValues::ICON, stock_icon);
+
 		// Icon urls
 		GHashTable *icon_urls;
 		icon_urls = as_component_get_icon_urls (cpt);
@@ -314,10 +320,14 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_value (XapianValues::COMPULSORY_FOR, compulsory_str);
 
 		// Add project-license
-		doc.add_value (XapianValues::LICENSE, as_component_get_project_license (cpt));
+		const gchar *project_license = as_component_get_project_license (cpt);
+		if (project_license != NULL)
+			doc.add_value (XapianValues::LICENSE, project_license);
 
 		// Add project group
-		doc.add_value (XapianValues::PROJECT_GROUP, as_component_get_project_group (cpt));
+		const gchar *project_group = as_component_get_project_group (cpt);
+		if (project_group != NULL)
+			doc.add_value (XapianValues::PROJECT_GROUP, project_group);
 
 		// Add developer name
 		const gchar *developer_name = as_component_get_developer_name (cpt);
