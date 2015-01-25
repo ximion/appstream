@@ -11,6 +11,8 @@ include (${CMAKE_SOURCE_DIR}/data/cmake/documentation.cmake)
 add_xml_manpages(doc-man-asi "sources/man/appstream-index.1" "" "")
 add_xml_manpages(doc-man-asv "sources/man/appstream-validate.1" "" "")
 
+set(DOC_HTML_EXPORT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/html")
+
 if (DOCUMENTATION)
 	#########################
 	# General project documentation
@@ -50,7 +52,7 @@ if (DOCUMENTATION)
 
 	# a target to export documentation html to the source tree (useful when building the tarballs)
 	add_custom_target (documentation
-		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_BINARY_DIR}/docbuild/AppStream-Docs/en-US/html/" "${CMAKE_CURRENT_SOURCE_DIR}/html"
+		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_BINARY_DIR}/docbuild/AppStream-Docs/en-US/html/" "${DOC_HTML_EXPORT_DIR}"
 		DEPENDS documentation-noexport
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
@@ -83,6 +85,14 @@ if (DOCUMENTATION)
 
 	set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM ${CMAKE_CURRENT_SOURCE_DIR}/api)
  	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/api/html;${CMAKE_CURRENT_SOURCE_DIR}/api/xml;${CMAKE_CURRENT_SOURCE_DIR}/api/tmpl")
+endif()
 
- 	install(DIRECTORY html/api/html/ DESTINATION share/gtk-doc/html/appstream)
+if (INSTALL_PREBUILT_DOCS OR DOCUMENTATION)
+	if (EXISTS "${DOC_HTML_EXPORT_DIR}" AND IS_DIRECTORY "${DOC_HTML_EXPORT_DIR}")
+		install(DIRECTORY "${DOC_HTML_EXPORT_DIR}/" DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/appstream/html)
+
+		install(DIRECTORY DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/)
+		install(CODE "execute_process(COMMAND ln -sf ${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/html appstream
+			WORKING_DIRECTORY ${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/)")
+	endif()
 endif()
