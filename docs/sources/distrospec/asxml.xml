@@ -118,6 +118,19 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-distro-source_pkgname">
+				<term>&lt;source_pkgname/&gt;</term>
+				<listitem>
+					<para>
+						This optional tag is used to specify the source package the binary package this component belongs to was built from.
+					</para>
+					<para>
+						The tag can be used by software center applications to group components. It is otherwise useful for the distributor
+						to assign components to a source package and to fetch additional information about a package from the web.
+					</para>
+				</listitem>
+			</varlistentry>
+
 			<varlistentry id="tag-distro-name">
 				<term>&lt;name/&gt;</term>
 				<listitem>
