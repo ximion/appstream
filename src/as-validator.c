@@ -301,7 +301,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 			if (mode == AS_PARSER_MODE_DISTRO) {
 				as_validator_check_nolocalized (validator,
 									iter,
-									"description/ul",
+									"description/ol",
 									cpt,
 									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
 			}
@@ -522,6 +522,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 				AS_ISSUE_IMPORTANCE_PEDANTIC,
 				AS_ISSUE_KIND_TAG_UNKNOWN,
 				"Found custom metadata in <metadata/> tag. Use of this tag is common, but should be avoided if possible.");
+			tag_valid = FALSE;
 		} else if (!g_str_has_prefix (node_name, "x-")) {
 			as_validator_add_issue (validator,
 				cpt,
