@@ -93,7 +93,16 @@ if (INSTALL_PREBUILT_DOCS OR DOCUMENTATION)
 		install(DIRECTORY "${DOC_HTML_EXPORT_DIR}/" DESTINATION ${CMAKE_INSTALL_DATADIR}/doc/appstream/html)
 
 		install(DIRECTORY DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/)
-		install(CODE "execute_process(COMMAND ln -sf ${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/html appstream
-			WORKING_DIRECTORY ${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/)")
+		install(CODE "if (\"\$ENV{DESTDIR}\" STREQUAL \"\")
+					execute_process (COMMAND \"${CMAKE_COMMAND}\" -E create_symlink
+						${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/html/
+						${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/appstream
+					)
+				else ()
+					execute_process (COMMAND \"${CMAKE_COMMAND}\" -E create_symlink
+						${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/html/
+						\$ENV{DESTDIR}/${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/appstream
+					)
+				endif ()")
 	endif()
 endif()
