@@ -1,3 +1,43 @@
+Version 0.8.0
+~~~~~~~~~~~~~~
+Released: 2015-01-26
+
+Notes:
+ * This release contains a few new tags, <source_pkgname/> and <bundle/>, as well
+   as several specification refinements.
+   Refer to the documentation for detailed explanations.
+
+Features:
+ * qt: Make Qt5 default (Aleix Pol)
+ * validator: Hide pedantic issues by default (Matthias Klumpp)
+ * Make origin a public property of the metadata generator (Matthias Klumpp)
+ * Implement the <bundle/> tag (Matthias Klumpp)
+ * qt: Implement support for bundles (Matthias Klumpp)
+ * Update the validator to the latest spec version (Matthias Klumpp)
+ * Implement <source_pkgname/> tag (Matthias Klumpp)
+ * validator: Make it possible to validate a gzip-compressed metadata file (Matthias Klumpp)
+ * Install prebuilt documentation by default (Matthias Klumpp)
+
+Specification:
+ * spec: Allow width and height properties for "local" and "remote" icons (Matthias Klumpp)
+ * spec: Add <bundle/> tag (Matthias Klumpp)
+ * spec: Allow bundles of type "xdg-app", additionally to "limba" (Matthias Klumpp)
+ * spec: Make clear that <release/> tags may have a <description/> child (Matthias Klumpp)
+ * spec: Recommend screenshot sizes for distro-XML (Matthias Klumpp)
+ * spec: Specify the <source_pkgname/> tag (Matthias Klumpp)
+
+Bugfixes:
+ * Clean up some dead code in Xapian wrapper (Matthias Klumpp)
+ * Fix a couple of minor issues found by static code analysis (Matthias Klumpp)
+ * asi: Always return a valid exit code (Matthias Klumpp)
+ * Always search for data in /usr/share, ignore DATADIR (Aleix Pol)
+ * Correctly read and propagate language properties (Matthias Klumpp)
+ * Add missing developer_name to database (Matthias Klumpp)
+ * Improve database-writing code to ignore NULL values (Matthias Klumpp)
+ * Properly write localized XML for some tags (Matthias Klumpp)
+ * validator: Fix empty-check for description tag (Matthias Klumpp)
+ * validator: Don't perform sanity checks on the metadata tag (Matthias Klumpp)
+
 Version 0.7.6
 ~~~~~~~~~~~~~~
 Released: 2015-01-14
