@@ -27,6 +27,7 @@ option(VAPI "Create and install a Vala API file" OFF)
 option(QT "Build libappstream-qt" OFF)
 option(TESTS "Enable Unit Tests" OFF)
 option(MAINTAINER "Enable maintainer mode" OFF)
+option(DOCUMENTATION "Enable target to build documentation" OFF)
 
 if(PROVIDER_DEBIAN_DEP11)
 	add_definitions ("-DDEBIAN_DEP11")
