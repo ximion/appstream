@@ -263,11 +263,13 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 		node_name = (gchar*) iter->name;
 		node_content = (gchar*) xmlNodeGetContent (iter);
 
-		as_validator_check_content_empty (validator,
+		if ((g_strcmp0 (node_name, "ul") != 0) && (g_strcmp0 (node_name, "ol") != 0)) {
+			as_validator_check_content_empty (validator,
 								node_content,
 								node_name,
 								AS_ISSUE_IMPORTANCE_WARNING,
 								cpt);
+		}
 
 		if (g_strcmp0 (node_name, "p") == 0) {
 			if (mode == AS_PARSER_MODE_DISTRO) {
