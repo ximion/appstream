@@ -201,6 +201,10 @@ Component xapianDocToComponent(Xapian::Document document) {
     QString projectGroup = value(document,XapianValues::PROJECT_GROUP);
     component.setProjectGroup(projectGroup);
 
+    // Developer name
+    QString developerName = value(document,XapianValues::DEVELOPER_NAME);
+    component.setDeveloperName(developerName);
+
     // Releases data
     QString releasesXml = value(document,XapianValues::RELEASES_DATA);
     Q_UNUSED(releasesXml);
