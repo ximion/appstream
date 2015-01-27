@@ -153,7 +153,7 @@ as_get_bundle_str (AsComponent *cpt)
 		return NULL;
 
 	gstr = g_string_new ("");
-	g_hash_table_foreach(bundle_ids, (GHFunc) string_hashtable_to_str, gstr);
+	g_hash_table_foreach (bundle_ids, (GHFunc) string_hashtable_to_str, gstr);
 	if (gstr->len > 0)
 		g_string_truncate (gstr, gstr->len - 2);
 
