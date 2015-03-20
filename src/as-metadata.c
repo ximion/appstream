@@ -783,7 +783,8 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_return_if_fail (metad != NULL);
-	g_return_if_fail (xmldoc_str != NULL);
+	if (xmldoc_str == NULL)
+		xmldoc_str = "";
 
 	doc = xmlParseDoc ((xmlChar*) xmldoc_str);
 	if (doc == NULL) {
@@ -944,6 +945,10 @@ as_metadata_save_xml (AsMetadata *metad, const gchar *fname, const gchar *xml_da
 		out = g_memory_output_stream_new_resizable ();
 		out2 = g_converter_output_stream_new (out, G_CONVERTER (compressor));
 		g_object_unref (compressor);
+
+		/* ensure data is not NULL */
+		if (xml_data == NULL)
+			xml_data = "";
 
 		if (!g_output_stream_write_all (out2, xml_data, strlen (xml_data),
 					NULL, NULL, &tmp_error)) {
