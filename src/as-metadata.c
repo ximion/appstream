@@ -783,8 +783,12 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	g_return_if_fail (metad != NULL);
-	if (xmldoc_str == NULL)
-		xmldoc_str = "";
+
+	if (xmldoc_str == NULL) {
+		/* empty document means no components */
+		as_metadata_clear_components (metad);
+		return;
+	}
 
 	doc = xmlParseDoc ((xmlChar*) xmldoc_str);
 	if (doc == NULL) {
