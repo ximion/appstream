@@ -1,6 +1,6 @@
 #!/bin/bash
 # (c) 2013 Matthias Klumpp, written for the Listaller Project
-# GPLv3+ licensed
+# GPLv2+ licensed
 
 for arg; do
   case $arg in

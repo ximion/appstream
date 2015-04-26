@@ -1,5 +1,5 @@
 # Copyright (C) 2009 Julian Andres Klode <jak@debian.org>.
-# Licensed under GPLv3 or later.
+# Licensed under GPLv2 or later.
 
 macro(add_debiandoc target sourcefiles installdest)
 	foreach(file ${sourcefiles})
