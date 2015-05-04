@@ -30,6 +30,9 @@
 #include <QStringList>
 #include <QUrl>
 #include <QMultiHash>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.database")
 
 using namespace Appstream;
 
@@ -113,7 +116,7 @@ Component xapianDocToComponent(Xapian::Document document) {
         }
         component.setUrls(urls);
     } else {
-        qWarning("Bad url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatUrlStrings));
+        qCWarning(APPSTREAMQT_DB, "Bad url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatUrlStrings));
     }
 
     // Provided items
@@ -123,7 +126,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     Q_FOREACH(const QString& string, providesList) {
         QStringList providesParts = string.split(';',QString::SkipEmptyParts);
         if(providesParts.size() < 2) {
-            qWarning("Bad component parts for component: '%s' (%s)", qPrintable(id), qPrintable(string));
+            qCWarning(APPSTREAMQT_DB, "Bad component parts for component: '%s' (%s)", qPrintable(id), qPrintable(string));
             continue;
         }
         QString kindString = providesParts.takeFirst();
@@ -150,7 +153,7 @@ Component xapianDocToComponent(Xapian::Document document) {
         }
         component.setBundles(bundles);
     } else {
-        qWarning("Bad bundle strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatBundleIds));
+        qCWarning(APPSTREAMQT_DB, "Bad bundle strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatBundleIds));
     }
 
     // Stock icon
@@ -168,7 +171,7 @@ Component xapianDocToComponent(Xapian::Document document) {
             component.addIconUrl(url, size);
         }
     } else {
-        qWarning("Bad icon-url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatIconUrlStrings));
+        qCWarning(APPSTREAMQT_DB, "Bad icon-url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatIconUrlStrings));
     }
 
     // Summary
@@ -246,7 +249,7 @@ Component Database::componentById(const QString& id) const {
 
     Xapian::MSet matches = enquire.get_mset (0, d->m_db.get_doccount ());
     if (matches.size () > 1) {
-        qWarning ("Found more than one component with id '%s'! Returning the first one.", qPrintable(id));
+        qCWarning(APPSTREAMQT_DB, "Found more than one component with id '%s'! Returning the first one.", qPrintable(id));
         Q_ASSERT(false);
     }
     if (matches.empty()) {
@@ -400,6 +403,3 @@ QList<Component> Database::findComponentsByPackageName(const QString& packageNam
 Database::Database() : d(new DatabasePrivate(QLatin1String("/var/cache/app-info/xapian/C"))) {
 
 }
-
-
-#include "database.moc"
