@@ -157,7 +157,7 @@ main (int argc, char *argv[])
 		{ "pedantic", 0, 0, G_OPTION_ARG_NONE, &pedantic,
 			_("Show issues from pedantic tests"), NULL },
 		{ "no-color", 0, 0, G_OPTION_ARG_NONE, &no_color,
-			_("Show program version"), NULL },
+			_("Don't show colored output"), NULL },
 		{ NULL}
 	};
 
