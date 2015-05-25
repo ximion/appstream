@@ -786,7 +786,6 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 
 	if (xmldoc_str == NULL) {
 		/* empty document means no components */
-		as_metadata_clear_components (metad);
 		return;
 	}
 
@@ -807,9 +806,6 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 				     "The XML document is empty.");
 		return;
 	}
-
-	/* clear results list */
-	as_metadata_clear_components (metad);
 
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
