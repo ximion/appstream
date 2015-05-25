@@ -1243,7 +1243,7 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 						&helper);
 
 	helper.node_name = "description";
-	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
+	g_hash_table_foreach (as_component_get_description_table (cpt),
 						(GHFunc) _as_metadata_desc_lang_hashtable_to_nodes,
 						&helper);
 
@@ -1320,10 +1320,13 @@ as_metadata_component_to_upstream_xml (AsMetadata *metad)
 	xmlNode *root;
 	gchar *xmlstr = NULL;
 	AsComponent *cpt;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	cpt = as_metadata_get_component (metad);
 	if (cpt == NULL)
 		return NULL;
+
+	priv->mode = AS_PARSER_MODE_UPSTREAM;
 
 	doc = xmlNewDoc ((xmlChar*) NULL);
 
@@ -1360,6 +1363,8 @@ as_metadata_components_to_distro_xml (AsMetadata *metad)
 
 	if (priv->cpts->len == 0)
 		return NULL;
+
+	priv->mode = AS_PARSER_MODE_DISTRO;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
 	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.8");
