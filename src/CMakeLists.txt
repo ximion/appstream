@@ -27,9 +27,6 @@ set(ASLIB_XAP_SOURCES xapian/database-common.hpp
 set(LIBAPPSTREAM_SRC
 		as-utils.c
 		# internal stuff to build the database
-		as-data-provider.c
-		data-providers/appstream-xml.c
-		data-providers/ubuntu-appinstall.c
 		as-cache-builder.c
 		# (mostly) public API
 		as-metadata.c
@@ -48,12 +45,6 @@ set(LIBAPPSTREAM_SRC
 		as-validator.c
 		as-validator-issue.c
 )
-
-# find stuff necessary to build libappstream with DEP-11 support
-if(PROVIDER_DEBIAN_DEP11)
-	pkg_check_modules(YAML REQUIRED yaml-0.1)
-	set(LIBAPPSTREAM_SRC ${LIBAPPSTREAM_SRC} data-providers/debian-dep11.c)
-endif()
 
 set(LIBAPPSTREAM_PUBLIC_HEADERS
 		appstream.h
@@ -77,14 +68,17 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 
 set(LIBAPPSTREAM_PRIVATE_HEADERS
 		as-utils-private.h
-		as-data-provider.h
-		data-providers/appstream-xml.h
-		data-providers/debian-dep11.h
-		data-providers/ubuntu-appinstall.h
 		as-metadata-private.h
 		as-component-private.h
 		as-cache-builder.h
 )
+
+# find stuff necessary to build libappstream with DEP-11 support
+if(PROVIDER_DEBIAN_DEP11)
+	pkg_check_modules(YAML REQUIRED yaml-0.1)
+	set(LIBAPPSTREAM_SRC ${LIBAPPSTREAM_SRC} as-dep11.c)
+	set(LIBAPPSTREAM_PRIVATE_HEADERS ${LIBAPPSTREAM_PRIVATE_HEADERS} as-dep11.h)
+endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 		    ${CMAKE_BINARY_DIR}

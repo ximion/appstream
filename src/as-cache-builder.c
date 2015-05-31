@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -65,11 +65,11 @@ as_builder_error_quark (void)
 static AsBuilder*
 as_builder_construct (GType object_type, const gchar *dbpath)
 {
-	AsBuilder *self = NULL;
+	AsBuilder *builder = NULL;
 	AsBuilderPrivate *priv;
 
-	self = (AsBuilder*) g_object_new (object_type, NULL);
-	priv = self->priv;
+	builder = (AsBuilder*) g_object_new (object_type, NULL);
+	priv = builder->priv;
 	priv->db_w = xa_database_write_new ();
 	priv->dpool = as_data_pool_new ();
 
@@ -84,7 +84,7 @@ as_builder_construct (GType object_type, const gchar *dbpath)
 	/* ensure db directory exists */
 	as_utils_touch_dir (priv->db_path);
 
-	return self;
+	return builder;
 }
 
 /**
@@ -119,21 +119,19 @@ as_builder_new_path (const gchar* dbpath)
  * as_builder_initialize:
  */
 gboolean
-as_builder_initialize (AsBuilder* self)
+as_builder_initialize (AsBuilder *builder)
 {
 	gboolean ret;
-	AsBuilderPrivate *priv = self->priv;
+	AsBuilderPrivate *priv = builder->priv;
 
-	as_data_pool_initialize (self->priv->dpool);
-
-	as_utils_touch_dir (self->priv->db_path);
+	as_utils_touch_dir (priv->db_path);
 
 	ret = xa_database_write_initialize (priv->db_w, priv->db_path);
 	return ret;
 }
 
 static gboolean
-as_builder_appstream_data_changed (AsBuilder* self)
+as_builder_appstream_data_changed (AsBuilder *builder)
 {
 	gchar *fname;
 	GFile *file;
@@ -145,9 +143,8 @@ as_builder_appstream_data_changed (AsBuilder* self)
 	GDataOutputStream *dos = NULL;
 	GFileOutputStream *fos;
 	GError *error = NULL;
-	g_return_val_if_fail (self != NULL, FALSE);
 
-	fname = g_build_filename (self->priv->cache_path, "cache.watch", NULL, NULL);
+	fname = g_build_filename (builder->priv->cache_path, "cache.watch", NULL, NULL);
 	file = g_file_new_for_path (fname);
 	g_free (fname);
 
@@ -178,7 +175,7 @@ as_builder_appstream_data_changed (AsBuilder* self)
 	}
 
 	watchfile_new = g_strdup ("");
-	files = as_data_pool_get_watched_locations (self->priv->dpool);
+	files = as_data_pool_get_watched_locations (builder->priv->dpool);
 	for (i = 0; files[i] != NULL; i++) {
 		struct stat sbuf;
 		gchar *ctime_str;
@@ -258,16 +255,15 @@ out:
  * Update the AppStream Xapian cache
  */
 gboolean
-as_builder_refresh_cache (AsBuilder* self, gboolean force, GError **error)
+as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error)
 {
 	gboolean ret = FALSE;
 	gboolean ret_poolupdate;
 	GList *cpt_list;
-	g_return_val_if_fail (self != NULL, FALSE);
 
 	/* check if we need to refresh the cache */
 	/* (which is only necessary if the AppStream data has changed) */
-	if (!as_builder_appstream_data_changed (self)) {
+	if (!as_builder_appstream_data_changed (builder)) {
 		g_debug ("Data did not change, no cache refresh needed.");
 		if (force) {
 			g_debug ("Forcing refresh anyway.");
@@ -279,11 +275,11 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force, GError **error)
 	g_debug ("Refreshing AppStream cache");
 
 	/* find them wherever they are */
-	ret_poolupdate = as_data_pool_update (self->priv->dpool);
+	ret_poolupdate = as_data_pool_update (builder->priv->dpool);
 
 	/* populate the cache */
-	cpt_list = as_data_pool_get_components (self->priv->dpool);
-	ret = xa_database_write_rebuild (self->priv->db_w, cpt_list);
+	cpt_list = as_data_pool_get_components (builder->priv->dpool);
+	ret = xa_database_write_rebuild (builder->priv->db_w, cpt_list);
 	g_list_free (cpt_list);
 
 	if (ret) {
@@ -313,9 +309,9 @@ as_builder_refresh_cache (AsBuilder* self, gboolean force, GError **error)
  * AppStream XML or DEP-11 YAML in it.
  */
 void
-as_builder_set_data_source_directories (AsBuilder *self, gchar **dirs)
+as_builder_set_data_source_directories (AsBuilder *builder, gchar **dirs)
 {
-	as_data_pool_set_data_source_directories (self->priv->dpool, dirs);
+	as_data_pool_set_data_source_directories (builder->priv->dpool, dirs);
 }
 
 static void
@@ -328,22 +324,22 @@ as_builder_class_init (AsBuilderClass * klass)
 
 
 static void
-as_builder_instance_init (AsBuilder * self)
+as_builder_instance_init (AsBuilder *builder)
 {
-	self->priv = AS_BUILDER_GET_PRIVATE (self);
+	builder->priv = AS_BUILDER_GET_PRIVATE (builder);
 }
 
 
 static void
 as_builder_finalize (GObject* obj)
 {
-	AsBuilder * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_BUILDER, AsBuilder);
+	AsBuilder *builder;
+	builder = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_BUILDER, AsBuilder);
 
-	xa_database_write_free (self->priv->db_w);
-	g_object_unref (self->priv->dpool);
-	g_free (self->priv->cache_path);
-	g_free (self->priv->db_path);
+	xa_database_write_free (builder->priv->db_w);
+	g_object_unref (builder->priv->dpool);
+	g_free (builder->priv->cache_path);
+	g_free (builder->priv->db_path);
 
 	G_OBJECT_CLASS (as_builder_parent_class)->finalize (obj);
 }

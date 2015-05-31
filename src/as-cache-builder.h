@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -71,8 +71,8 @@ GType as_builder_get_type (void) G_GNUC_CONST;
 AsBuilder*		as_builder_new (void);
 AsBuilder*		as_builder_new_path (const gchar* dbpath);
 
-gboolean		as_builder_initialize (AsBuilder* self);
-gboolean		as_builder_refresh_cache (AsBuilder* self, gboolean force, GError **error);
+gboolean		as_builder_initialize (AsBuilder *builder);
+gboolean		as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error);
 
 void			as_builder_set_data_source_directories (AsBuilder *self, gchar **dirs);
 

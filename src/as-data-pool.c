@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -39,12 +39,10 @@
 #include "as-distro-details.h"
 #include "as-settings-private.h"
 
-#include "data-providers/appstream-xml.h"
+#include "as-metadata.h"
+#include "as-metadata-private.h"
 #ifdef DEBIAN_DEP11
-#include "data-providers/debian-dep11.h"
-#endif
-#ifdef UBUNTU_APPINSTALL
-#include "data-providers/ubuntu-appinstall.h"
+#include "as-dep11.h"
 #endif
 
 const gchar *AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
@@ -56,20 +54,16 @@ const gchar *AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
 										"/var/lib/app-info/yaml",
 										NULL};
 
-#define AS_PROVIDER_UBUNTU_APPINSTALL_DIR "/usr/share/app-install"
-
 typedef struct _AsDataPoolPrivate	AsDataPoolPrivate;
 struct _AsDataPoolPrivate
 {
 	GHashTable* cpt_table;
 	GPtrArray* providers;
 	gchar *scr_base_url;
-	gboolean initialized;
 	gchar *locale;
 
 	gchar **asxml_paths;
 	gchar **dep11_paths;
-	gchar **appinstall_paths;
 
 	gchar **icon_paths;
 };
@@ -91,8 +85,8 @@ as_data_pool_finalize (GObject *object)
 	g_free (priv->scr_base_url);
 	g_hash_table_unref (priv->cpt_table);
 
-	g_strfreev (priv->appinstall_paths);
 	g_strfreev (priv->asxml_paths);
+	g_strfreev (priv->dep11_paths);
 
 	g_strfreev (priv->icon_paths);
 
@@ -118,7 +112,7 @@ as_data_pool_class_init (AsDataPoolClass *klass)
 }
 
 static void
-as_data_pool_new_component_cb (AsDataProvider *sender, AsComponent* cpt, AsDataPool *dpool)
+as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 {
 	const gchar *cpt_id;
 	AsComponent *existing_cpt;
@@ -150,47 +144,6 @@ as_data_pool_new_component_cb (AsDataProvider *sender, AsComponent* cpt, AsDataP
 }
 
 /**
- * as_data_pool_initialize:
- *
- * Initialize the pool with the predefined metadata locations.
- **/
-void
-as_data_pool_initialize (AsDataPool *dpool)
-{
-	AsDataProvider *dprov;
-	guint i;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-
-	/* regenerate data providers, in case someone is calling init twice */
-	g_ptr_array_unref (priv->providers);
-	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
-
-	/* added by priority: Appstream XML has the highest, Ubuntu AppInstall the lowest priority */
-	dprov = AS_DATA_PROVIDER (as_provider_xml_new ());
-	as_data_provider_set_watch_files (dprov, priv->asxml_paths);
-	g_ptr_array_add (priv->providers, dprov);
-#ifdef DEBIAN_DEP11
-	dprov = AS_DATA_PROVIDER (as_provider_dep11_new ());
-	as_data_provider_set_watch_files (dprov, priv->dep11_paths);
-	g_ptr_array_add (priv->providers, dprov);
-#endif
-#ifdef UBUNTU_APPINSTALL
-	dprov = AS_DATA_PROVIDER (as_provider_ubuntu_appinstall_new ());
-	as_data_provider_set_watch_files (dprov, priv->appinstall_paths);
-	g_ptr_array_add (priv->providers, dprov);
-#endif
-	dprov = NULL;
-
-	/* connect all data provider signals */
-	for (i = 0; i < priv->providers->len; i++) {
-		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
-		g_signal_connect_object (dprov, "component", (GCallback) as_data_pool_new_component_cb, dpool, 0);
-	}
-
-	priv->initialized = TRUE;
-}
-
-/**
  * as_data_pool_get_watched_locations:
  * @dpool: a valid #AsDataPool instance
  *
@@ -201,8 +154,6 @@ as_data_pool_initialize (AsDataPool *dpool)
 gchar**
 as_data_pool_get_watched_locations (AsDataPool *dpool)
 {
-	AsDataProvider *dprov;
-	gchar **wfiles;
 	guint i;
 	GPtrArray *res_array;
 	gchar **res;
@@ -210,22 +161,351 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 	g_return_val_if_fail (dpool != NULL, NULL);
 
 	res_array = g_ptr_array_new_with_free_func (g_free);
-	for (i = 0; i < priv->providers->len; i++) {
-		guint j;
-		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
-		wfiles = as_data_provider_get_watch_files (dprov);
-		/* if there is nothing to watch for, we can just continue here */
-		if (wfiles == NULL)
-			continue;
-		for (j = 0; wfiles[j] != NULL; j++) {
-			g_ptr_array_add (res_array, g_strdup (wfiles[j]));
-		}
+	for (i = 0; priv->asxml_paths[i] != NULL; i++) {
+		g_ptr_array_add (res_array, g_strdup (priv->asxml_paths[i]));
 	}
+#ifdef DEBIAN_DEP11
+	for (i = 0; priv->dep11_paths[i] != NULL; i++) {
+		g_ptr_array_add (res_array, g_strdup (priv->dep11_paths[i]));
+	}
+#endif
 
 	res = as_ptr_array_to_strv (res_array);
 	g_ptr_array_unref (res_array);
 	return res;
 }
+
+/**
+ * as_data_pool_read_compressed_file:
+ */
+static gchar*
+as_data_pool_read_compressed_file (AsDataPool *dpool, GFile* infile)
+{
+	GFileInputStream* src_stream;
+	GMemoryOutputStream* mem_os;
+	GInputStream *conv_stream;
+	GZlibDecompressor* zdecomp;
+	guint8* data;
+	gchar *res;
+
+	g_return_val_if_fail (infile != NULL, FALSE);
+
+	src_stream = g_file_read (infile, NULL, NULL);
+	mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
+	zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
+	conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (src_stream), G_CONVERTER (zdecomp));
+	g_object_unref (zdecomp);
+
+	g_output_stream_splice ((GOutputStream*) mem_os, conv_stream, 0, NULL, NULL);
+	data = g_memory_output_stream_get_data (mem_os);
+	res = g_strdup ((const gchar*) data);
+
+	g_object_unref (conv_stream);
+	g_object_unref (mem_os);
+	g_object_unref (src_stream);
+	return res;
+}
+
+/**
+ * as_data_pool_read_file:
+ */
+static gchar*
+as_data_pool_read_file (AsDataPool *dpool, GFile* infile)
+{
+	gchar* data;
+	gchar* line = NULL;
+	GFileInputStream* ir;
+	GDataInputStream* dis;
+	GString *str = NULL;
+
+	g_return_val_if_fail (infile != NULL, FALSE);
+
+	ir = g_file_read (infile, NULL, NULL);
+	dis = g_data_input_stream_new ((GInputStream*) ir);
+	g_object_unref (ir);
+
+	str = g_string_new ("");
+	while (TRUE) {
+		line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
+		if (line == NULL) {
+			break;
+		}
+
+		if (str->len > 0)
+			g_string_append (str, "\n");
+		g_string_append_printf (str, "%s\n", line);
+		g_free (line);
+	}
+
+	data = g_string_free (str, FALSE);
+	g_object_unref (dis);
+
+	return data;
+}
+
+/**
+ * as_data_pool_process_asxml_document:
+ */
+static gboolean
+as_data_pool_process_asxml_document (AsDataPool *dpool, const gchar* xmldoc_str)
+{
+	xmlDoc* doc;
+	xmlNode* root;
+	xmlNode* iter;
+	AsMetadata *metad;
+	AsComponent *cpt;
+	gchar *origin;
+	GError *error = NULL;
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	g_return_val_if_fail (xmldoc_str != NULL, FALSE);
+
+	doc = xmlParseDoc ((xmlChar*) xmldoc_str);
+	if (doc == NULL) {
+		fprintf (stderr, "%s\n", "Could not parse XML!");
+		return FALSE;
+	}
+
+	root = xmlDocGetRootElement (doc);
+	if (root == NULL) {
+		fprintf (stderr, "%s\n", "The XML document is empty.");
+		return FALSE;
+	}
+
+	if (g_strcmp0 ((gchar*) root->name, "components") != 0) {
+		fprintf (stderr, "%s\n", "XML file does not contain valid AppStream data!");
+		return FALSE;
+	}
+
+	metad = as_metadata_new ();
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+	as_metadata_set_locale (metad, priv->locale);
+
+	/* set the proper origin of this data */
+	origin = (gchar*) xmlGetProp (root, (xmlChar*) "origin");
+	as_metadata_set_origin (metad, origin);
+	g_free (origin);
+
+	for (iter = root->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
+			cpt = as_metadata_parse_component_node (metad, iter, FALSE, &error);
+			if (error != NULL) {
+				g_debug ("WARNING: %s", error->message);
+				g_error_free (error);
+				error = NULL;
+			} else if (cpt != NULL) {
+				as_data_pool_add_new_component (dpool, cpt);
+				g_object_unref (cpt);
+			}
+		}
+	}
+	xmlFreeDoc (doc);
+	g_object_unref (metad);
+
+	return TRUE;
+}
+
+/**
+ * as_data_pool_read_asxml:
+ */
+static gboolean
+as_data_pool_read_asxml (AsDataPool* dpool)
+{
+	GPtrArray* xml_files;
+	guint i;
+	GFile *infile;
+	gboolean ret = TRUE;
+	const gchar *content_type;
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	xml_files = g_ptr_array_new_with_free_func (g_free);
+
+	if ((priv->asxml_paths == NULL) || (priv->asxml_paths[0] == NULL))
+		return TRUE;
+
+	for (i = 0; priv->asxml_paths[i] != NULL; i++) {
+		gchar *path;
+		GPtrArray *xmls;
+		guint j;
+		path = priv->asxml_paths[i];
+
+		if (!g_file_test (path, G_FILE_TEST_EXISTS))
+			continue;
+
+		xmls = as_utils_find_files_matching (path, "*.xml*", FALSE);
+		if (xmls == NULL)
+			continue;
+		for (j = 0; j < xmls->len; j++) {
+			const gchar *val;
+			val = (const gchar *) g_ptr_array_index (xmls, j);
+			g_ptr_array_add (xml_files, g_strdup (val));
+		}
+
+		g_ptr_array_unref (xmls);
+	}
+
+	/* check if we have XML data */
+	if (xml_files->len == 0) {
+		g_ptr_array_unref (xml_files);
+		return TRUE;
+	}
+
+	for (i = 0; i < xml_files->len; i++) {
+		gchar *fname;
+		GFileInfo *info = NULL;
+		gchar *data = NULL;
+
+		fname = (gchar*) g_ptr_array_index (xml_files, i);
+		infile = g_file_new_for_path (fname);
+		if (!g_file_query_exists (infile, NULL)) {
+			g_warning ("File '%s' does not exist.", fname);
+			g_object_unref (infile);
+			continue;
+		}
+
+		info = g_file_query_info (infile,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+		if (info == NULL) {
+			g_debug ("No info for file '%s' found, file was skipped.", fname);
+			g_object_unref (infile);
+			continue;
+		}
+		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		if ((g_strcmp0 (content_type, "application/xml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0)) {
+			data = as_data_pool_read_file (dpool, infile);
+		} else if (g_strcmp0 (content_type, "application/gzip") == 0 ||
+				g_strcmp0 (content_type, "application/x-gzip") == 0) {
+			data = as_data_pool_read_compressed_file (dpool, infile);
+		} else {
+			g_warning ("Invalid file of type '%s' found. File '%s' was skipped.", content_type, fname);
+		}
+		g_object_unref (info);
+		g_object_unref (infile);
+
+		if (data != NULL) {
+			ret = as_data_pool_process_asxml_document (dpool, data);
+			g_free (data);
+		}
+
+		if (!ret)
+			break;
+	}
+	g_ptr_array_unref (xml_files);
+
+	return ret;
+}
+
+#ifdef DEBIAN_DEP11
+/**
+ * as_data_pool_read_dep11:
+ */
+static gboolean
+as_data_pool_read_dep11 (AsDataPool *dpool)
+{
+	AsDEP11 *dep11;
+	GPtrArray* yaml_files;
+	guint i;
+	GFile *infile;
+	gboolean ret = TRUE;
+	const gchar *content_type;
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	dep11 = as_dep11_new ();
+	yaml_files = g_ptr_array_new_with_free_func (g_free);
+
+	if ((priv->dep11_paths == NULL) || (priv->dep11_paths[0] == NULL))
+		return TRUE;
+
+	for (i = 0; priv->dep11_paths[i] != NULL; i++) {
+		gchar *path;
+		GPtrArray *yamls;
+		guint j;
+		path = priv->dep11_paths[i];
+
+		if (!g_file_test (path, G_FILE_TEST_EXISTS)) {
+			continue;
+		}
+
+		yamls = as_utils_find_files_matching (path, "*.yml*", FALSE);
+		if (yamls == NULL)
+			continue;
+		for (j = 0; j < yamls->len; j++) {
+			const gchar *val;
+			val = (const gchar *) g_ptr_array_index (yamls, j);
+			g_ptr_array_add (yaml_files, g_strdup (val));
+		}
+
+		g_ptr_array_unref (yamls);
+	}
+
+	/* do we have metadata at all? */
+	if (yaml_files->len == 0) {
+		g_ptr_array_unref (yaml_files);
+		return TRUE;
+	}
+
+	ret = TRUE;
+	for (i = 0; i < yaml_files->len; i++) {
+		gchar *fname;
+		GFileInfo *info = NULL;
+		gchar *data = NULL;
+		GError *tmp_error = NULL;
+
+		fname = (gchar*) g_ptr_array_index (yaml_files, i);
+		infile = g_file_new_for_path (fname);
+		if (!g_file_query_exists (infile, NULL)) {
+			g_warning ("File '%s' does not exist.", fname);
+			g_object_unref (infile);
+			continue;
+		}
+
+		info = g_file_query_info (infile,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+		if (info == NULL) {
+			g_debug ("No info for file '%s' found, file was skipped.", fname);
+			g_object_unref (infile);
+			continue;
+		}
+		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		if ((g_strcmp0 (content_type, "application/x-yaml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0)) {
+			data = as_data_pool_read_file (dpool, infile);
+		} else if (g_strcmp0 (content_type, "application/gzip") == 0 ||
+				g_strcmp0 (content_type, "application/x-gzip") == 0) {
+			data = as_data_pool_read_compressed_file (dpool, infile);
+		} else {
+			g_warning ("Invalid file of type '%s' found. File '%s' was skipped.", content_type, fname);
+		}
+		g_object_unref (info);
+		g_object_unref (infile);
+
+		if (data != NULL) {
+			as_dep11_parse_data (dep11, data, &tmp_error);
+			g_free (data);
+			if (tmp_error != NULL) {
+				g_warning ("DEP11: %s", tmp_error->message);
+				g_error_free (tmp_error);
+			}
+		}
+
+		if (!ret)
+			break;
+	}
+	g_ptr_array_unref (yaml_files);
+
+	return ret;
+}
+#endif
+
+
+
 
 /**
  * as_data_pool_update:
@@ -239,15 +519,8 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 gboolean
 as_data_pool_update (AsDataPool *dpool)
 {
-	guint i;
-	AsDataProvider *dprov;
 	gboolean ret = TRUE;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-
-	if (!priv->initialized) {
-		g_error ("DataPool has never been initialized and can not find metadata.");
-		return FALSE;
-	}
 
 	/* just in case, clear the components table */
 	g_hash_table_unref (priv->cpt_table);
@@ -256,16 +529,12 @@ as_data_pool_update (AsDataPool *dpool)
 						g_free,
 						(GDestroyNotify) g_object_unref);
 
-	/* call all AppStream data providers to return components they find */
-	for (i = 0; i < priv->providers->len; i++) {
-		gboolean dret;
-		dprov = (AsDataProvider*) g_ptr_array_index (priv->providers, i);
-		as_data_provider_set_locale (dprov, priv->locale);
-
-		dret = as_data_provider_execute (dprov);
-		if (!dret)
-			ret = FALSE;
-	}
+	/* read all AppStream metadata that we can find */
+	ret = as_data_pool_read_asxml (dpool);
+#ifdef DEBIAN_DEP11
+	if (!as_data_pool_read_dep11 (dpool))
+		ret = FALSE;
+#endif
 
 	return ret;
 }
@@ -370,10 +639,6 @@ as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 	g_strfreev (priv->icon_paths);
 	priv->icon_paths = as_ptr_array_to_strv (icondirs);
 
-	/* nuke AppInstall search, in case the provider is enabled */
-	g_strfreev (priv->appinstall_paths);
-	priv->appinstall_paths = NULL;
-
 	g_ptr_array_unref (xmldirs);
 	g_ptr_array_unref (yamldirs);
 }
@@ -435,14 +700,8 @@ as_data_pool_new (void)
 			priv->dep11_paths[i] = NULL;
 	}
 
-	/* set default directories for Ubuntu AppInstall */
-	priv->appinstall_paths = g_new0 (gchar*, 2);
-	priv->appinstall_paths[0] = g_strdup (AS_PROVIDER_UBUNTU_APPINSTALL_DIR);
-
 	/* set default icon search locations */
 	priv->icon_paths = as_distro_details_get_icon_repository_paths ();
-
-	priv->initialized = FALSE;
 
 	return AS_DATA_POOL (dpool);
 }

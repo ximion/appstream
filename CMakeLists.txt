@@ -20,8 +20,7 @@ endif(${CMAKE_SOURCE_DIR} MATCHES ${CMAKE_BINARY_DIR})
 #
 # Options
 #
-option(PROVIDER_DEBIAN_DEP11 "Enable DEP11 data provider" ON)
-option(PROVIDER_UBUNTU_APPINSTALL "Enable AppInstall data provider" OFF)
+option(DEBIAN_DEP11 "Enable DEP11 data provider" ON)
 option(L18N "Enable localization" ON)
 option(VAPI "Create and install a Vala API file" OFF)
 option(QT "Build libappstream-qt" OFF)
@@ -29,11 +28,8 @@ option(TESTS "Enable Unit Tests" OFF)
 option(MAINTAINER "Enable maintainer mode" OFF)
 option(DOCUMENTATION "Enable target to build documentation" OFF)
 
-if(PROVIDER_DEBIAN_DEP11)
+if(DEBIAN_DEP11)
 	add_definitions ("-DDEBIAN_DEP11")
-endif()
-if(PROVIDER_UBUNTU_APPINSTALL)
-	add_definitions ("-DUBUNTU_APPINSTALL")
 endif()
 
 #

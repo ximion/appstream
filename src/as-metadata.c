@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -86,11 +86,13 @@ as_metadata_finalize (GObject *object)
 static void
 as_metadata_init (AsMetadata *metad)
 {
+	gchar *str;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	/* set active locale without UTF-8 suffix */
-	as_metadata_set_locale (metad,
-							as_get_locale ());
+	str = as_get_locale ();
+	as_metadata_set_locale (metad, str);
+	g_free (str);
 
 	priv->origin_name = NULL;
 	priv->mode = AS_PARSER_MODE_UPSTREAM;

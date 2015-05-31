@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -61,7 +61,6 @@ struct _AsDataPoolClass
 GType		 	as_data_pool_get_type (void);
 AsDataPool		*as_data_pool_new (void);
 
-void			as_data_pool_initialize (AsDataPool *dpool);
 gchar**			as_data_pool_get_watched_locations (AsDataPool *dpool);
 
 gboolean		as_data_pool_update (AsDataPool *dpool);

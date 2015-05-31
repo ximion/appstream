@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -22,7 +22,6 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "data-providers/appstream-xml.h"
 #include "as-component-private.h"
 
 static gchar *datadir = NULL;
@@ -33,6 +32,7 @@ msg (const gchar *s)
 	g_printf ("%s\n", s);
 }
 
+#if 0
 void
 test_appstream_xml_provider ()
 {
@@ -56,22 +56,13 @@ test_appstream_xml_provider ()
 	g_object_unref (file);
 	g_object_unref (asxml);
 }
-
-static AsComponent *found_cpt;
-void
-test_cptprov_cb (gpointer sender, AsComponent* cpt, gpointer user_data)
-{
-	g_return_if_fail (cpt != NULL);
-
-	if (found_cpt != NULL)
-		g_object_unref (found_cpt);
-	found_cpt = g_object_ref (cpt);
-}
+#endif
 
 void
 test_screenshot_handling ()
 {
-	AsProviderXML *asxml;
+	AsMetadata *metad;
+	GError *error = NULL;
 	AsComponent *cpt;
 	GFile *file;
 	gchar *path;
@@ -79,18 +70,17 @@ test_screenshot_handling ()
 	GPtrArray *screenshots;
 	guint i;
 
-	asxml = as_provider_xml_new ();
-
-	found_cpt = NULL;
-	g_signal_connect_object (asxml, "component", (GCallback) test_cptprov_cb, 0, 0);
+	metad = as_metadata_new ();
 
 	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_provider_xml_process_file (asxml, file);
+	as_metadata_parse_file (metad, file, &error);
 	g_object_unref (file);
-	cpt = found_cpt;
+	g_assert_no_error (error);
+
+	cpt = as_metadata_get_component (metad);
 	g_assert (cpt != NULL);
 
 	xml_data = as_component_dump_screenshot_data_xml (cpt);
@@ -113,8 +103,8 @@ test_screenshot_handling ()
 		g_assert (imgs->len == 2);
 		g_debug ("%s", as_screenshot_get_caption (sshot));
 	}
-	g_object_unref (cpt);
-	g_object_unref (asxml);
+
+	g_object_unref (metad);
 }
 
 void
@@ -242,7 +232,6 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/ASXMLProvider", test_appstream_xml_provider);
 	g_test_add_func ("/AppStream/Screenshots{dbimexport}", test_screenshot_handling);
 	g_test_add_func ("/AppStream/LegacyData", test_appstream_parser_legacy);
 	g_test_add_func ("/AppStream/XMLParserLocale", test_appstream_parser_locale);
