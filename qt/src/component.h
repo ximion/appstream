@@ -50,7 +50,8 @@ class APPSTREAMQT_EXPORT Component {
             KindFont,
             KindCodec,
             KindInputmethod,
-            KindAddon
+            KindAddon,
+            KindFirmware
         };
         enum UrlKind {
             UrlKindUnknown,

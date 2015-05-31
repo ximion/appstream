@@ -287,6 +287,7 @@ QHash<Component::Kind, QString> buildKindMap() {
     map.insert(Component::KindFont, QLatin1String("font"));
     map.insert(Component::KindGeneric, QLatin1String("generic"));
     map.insert(Component::KindInputmethod, QLatin1String("inputmethod"));
+    map.insert(Component::KindAddon, QLatin1String("firmware"));
     map.insert(Component::KindUnknown, QLatin1String("unknown"));
     return map;
 }
@@ -314,6 +315,9 @@ Component::Kind Component::stringToKind(const QString& kindString) {
     }
     if (kindString == QLatin1String("addon")) {
         return KindAddon;
+    }
+    if (kindString == QLatin1String("firmware")) {
+        return KindFirmware;
     }
     return KindUnknown;
 
