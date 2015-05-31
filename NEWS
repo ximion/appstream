@@ -1,3 +1,25 @@
+Version 0.8.1
+~~~~~~~~~~~~~~
+Released: 2015-05-31
+
+Features:
+ * qt: Add QLoggingCategory appstreamqt.database (Daniel Nicoletti)
+ * Don't implicitly clear component list when parsing XML (Matthias Klumpp)
+ * Implement support for firmware component type (Matthias Klumpp)
+ * qt: Recognize firmware component type (Matthias Klumpp)
+
+Specification:
+ * spec: Document the firmware component (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Remove useless moc file on database.cpp (Daniel Nicoletti)
+ * Fix doc symlink install code (Matthias Klumpp)
+ * qt: Load developer_name from database (Matthias Klumpp)
+ * Prevent crash when saving an empty XML document (Matthias Klumpp)
+ * Handle empty XML document as valid file (Matthias Klumpp)
+ * Relicense some remaining files from GPLv3 to GPLv2 (Matthias Klumpp)
+ * Fix typo which prevented description XML from being generated (Matthias Klumpp)
+
 Version 0.8.0
 ~~~~~~~~~~~~~~
 Released: 2015-01-26
