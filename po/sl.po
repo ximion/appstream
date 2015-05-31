@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Martin Srebotnjak <miles@filmsi.net>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-01-12 22:17+0100\n"
-"PO-Revision-Date: 2014-11-21 18:23+0000\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2015-05-31 17:21+0200\n"
+"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/appstream/"
 "language/sl/)\n"
 "Language: sl\n"
@@ -20,183 +21,193 @@ msgstr ""
 "%100==4 ? 2 : 3);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Vrste ponuja-element (npr. lib, bin, python3 ...)"
 
 msgid "AppStream Validation Utility"
-msgstr ""
+msgstr "Orodje preverjanja AppStream"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "Posodobitev predpomnilnika AppStream uspešno dokončana."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"Posodobitev predpomnilnika AppStream je zaključena, del metapodatkov pa je "
+"bil zaradi napak prezrt."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Posodobitev predpomnilnika AppStream je spodletela."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream-Index Client Tool"
-msgstr ""
+msgstr "Orodje odjemalca AppStream-Index"
 
 #, c-format
 msgid "Appstream-Index client tool version: %s"
+msgstr "Različica orodja odjemalca AppStream-Index: %s"
+
+msgid "Bundle"
 msgstr ""
 
 msgid "Categories"
-msgstr ""
+msgstr "Kategorije"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Ukaz »%s« ni znan."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Obvezno za"
 
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Razvijalec"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Ne pokaži izpisa v barvah"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Vsili osvežitev predpomnilnika"
 
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Razčlenjevanje argumentov je spodletelo"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "Datoteke %s ni mogoče najti ali dostop zaradi pravic zavrnjen!"
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Pridobi komponente, ki ponujajo dani element"
 
 msgid "Get information about a component by its id"
-msgstr ""
+msgstr "Pridobi podatke o komponenti z njenim ID"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Domača stran"
 
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identifikator"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
-msgstr ""
+msgstr "Izbrana je neveljavna vrsta za ponuja-element. Veljavne vrednosti so:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Dovoljenje"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Ročno določite mesto metapodatkov AppStream za regeneracijo predpomnilnika"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Ročno določite mesto predpomnilnika AppStream"
 
 msgid "Name"
-msgstr ""
+msgstr "Ime"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Komponente, ki se ujema z »%s«, ni mogoče najti."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "Komponente, ki ponuja »%s:%s:%s«, ni mogoče najti."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "Za iskanje ni določena nobena vrednost za ponuja-element."
 
 msgid "Package"
-msgstr ""
+msgstr "Paket"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Natisni podroben izpis o najdenih komponentah"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Projektna skupina"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Ponujeni elementi"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Ponovno izdelaj predpomnilnik informacij o komponenti"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Zaženite »%s --help«, da se izpiše poln seznam možnosti ukazne vrstice."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "Vzorec naslova URL zaslonske slike"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Išči po zbirki podatkov komponent"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Izberite vrednost za ponuja-element, ki jo je potrebno najti"
 
 msgid "Show extra debugging information"
+msgstr "Pokaži dodatne podatke razhroščevanja"
+
+msgid "Show issues from pedantic tests"
 msgstr ""
 
 msgid "Show program version"
-msgstr ""
+msgstr "Pokaži različico programa"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Pokaži različico programa"
 
 #. these are commands we can use with appstream-index
 msgid "Subcommands:"
-msgstr ""
+msgstr "Podukazi:"
 
 msgid "Summary"
-msgstr ""
+msgstr "Povzetek"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "Komponente, ki zagotavlja »%s:%s:%s«, ni mogoče najti."
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Komponente z id »%s« ni mogoče najti!"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Preverjanje je spodletelo."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "Datoteka XML menija XDG »%s« je okvarjena."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Ta ukaz morate zagnati z dovoljenji naduporabnika!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Navesti morate ukaz."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Navesti morate id komponente."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Navesti morate datoteko za preverjanje!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Določiti morate pojem, ki ga iščete."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -205,4 +216,4 @@ msgstr ""
 #. * the search.
 #.
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;aplikacija;paket;program;programček;programje;orodje"

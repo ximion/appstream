@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Piotr Drąg <piotrdrag@gmail.com>, 2014
+# Piotr Drąg <piotrdrag@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-01-12 22:17+0100\n"
-"PO-Revision-Date: 2014-11-22 13:21+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"POT-Creation-Date: 2015-05-31 17:21+0200\n"
+"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/appstream/"
 "language/pl/)\n"
 "Language: pl\n"
@@ -24,7 +24,7 @@ msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ elementu Provides (np. lib, bin, python3...)"
 
 msgid "AppStream Validation Utility"
-msgstr "Narzędzie sprawdzania AppStream"
+msgstr "Narzędzie sprawdzania poprawności AppStream"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
@@ -48,6 +48,9 @@ msgstr "Narzędzie klienta AppStream-Index"
 #, c-format
 msgid "Appstream-Index client tool version: %s"
 msgstr "Wersja narzędzia klienta AppStream-Index: %s"
+
+msgid "Bundle"
+msgstr ""
 
 msgid "Categories"
 msgstr "Kategorie"
@@ -157,6 +160,9 @@ msgstr "Proszę wybrać wartość dla elementu Provides, który należy odnaleź
 msgid "Show extra debugging information"
 msgstr "Wyświetla dodatkowe informacje debugowania"
 
+msgid "Show issues from pedantic tests"
+msgstr ""
+
 msgid "Show program version"
 msgstr "Wyświetla wersję programu"
 
@@ -184,7 +190,7 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Nie można odnaleźć składnika o identyfikatorze \"%s\"."
 
 msgid "Validation failed."
-msgstr "Sprawdzenie się nie powiodło."
+msgstr "Sprawdzenie poprawności się nie powiodło."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -200,7 +206,7 @@ msgid "You need to specify a component-id."
 msgstr "Należy podać identyfikator składnika."
 
 msgid "You need to specify a file to validate!"
-msgstr "Należy podać plik do sprawdzenia."
+msgstr "Należy podać plik do sprawdzenia poprawności."
 
 msgid "You need to specify a term to search for."
 msgstr "Należy podać termin do wyszukania."

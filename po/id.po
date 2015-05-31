@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Andika Triwidada <andika@gmail.com>, 2014
+# Andika Triwidada <andika@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-01-12 22:17+0100\n"
-"PO-Revision-Date: 2014-11-27 07:32+0000\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2015-05-31 17:21+0200\n"
+"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/appstream/"
 "language/id/)\n"
 "Language: id\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Sebuah tipe buir-penyedia (mis. lib, bin, python3, ...)"
 
 msgid "AppStream Validation Utility"
 msgstr "AppStream Utilitas Validasi"
@@ -47,6 +47,9 @@ msgstr "Alat Klien AppStream-Index"
 #, c-format
 msgid "Appstream-Index client tool version: %s"
 msgstr "Alat klien AppStream-Index versi: %s"
+
+msgid "Bundle"
+msgstr ""
 
 msgid "Categories"
 msgstr "Kategori"
@@ -91,10 +94,11 @@ msgid "Icon"
 msgstr "Ikon"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identifier"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
 msgstr ""
+"Tipe yang dipilih tak valid bagi butir-penyedia. Nilai yang valid adalah:"
 
 #. license
 msgid "License"
@@ -150,6 +154,9 @@ msgid "Select a value for the provides-item which needs to be found"
 msgstr ""
 
 msgid "Show extra debugging information"
+msgstr ""
+
+msgid "Show issues from pedantic tests"
 msgstr ""
 
 msgid "Show program version"

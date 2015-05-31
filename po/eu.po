@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Mikel Olasagasti Uranga <mikel@olasagasti.info>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-01-12 22:17+0100\n"
-"PO-Revision-Date: 2014-11-21 18:23+0000\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2015-05-31 17:21+0200\n"
+"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Basque (http://www.transifex.com/projects/p/appstream/"
 "language/eu/)\n"
 "Language: eu\n"
@@ -45,12 +46,15 @@ msgstr ""
 msgid "Appstream-Index client tool version: %s"
 msgstr ""
 
-msgid "Categories"
+msgid "Bundle"
 msgstr ""
+
+msgid "Categories"
+msgstr "Kategoriak"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "'%s' komandoa ezezaguna da."
 
 msgid "Compulsory for"
 msgstr ""
@@ -60,7 +64,7 @@ msgstr ""
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Garatzailea"
 
 msgid "Don't show colored output"
 msgstr ""
@@ -85,7 +89,7 @@ msgid "Homepage"
 msgstr ""
 
 msgid "Icon"
-msgstr ""
+msgstr "Ikonoa"
 
 msgid "Identifier"
 msgstr ""
@@ -95,7 +99,7 @@ msgstr ""
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Lizentzia"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
@@ -104,7 +108,7 @@ msgid "Manually set the location of the AppStream cache"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #, c-format
 msgid "No component matching '%s' found."
@@ -118,7 +122,7 @@ msgid "No value for the provides-item to search for defined."
 msgstr ""
 
 msgid "Package"
-msgstr ""
+msgstr "Paketea"
 
 msgid "Print detailed output about found components"
 msgstr ""
@@ -147,6 +151,9 @@ msgid "Select a value for the provides-item which needs to be found"
 msgstr ""
 
 msgid "Show extra debugging information"
+msgstr ""
+
+msgid "Show issues from pedantic tests"
 msgstr ""
 
 msgid "Show program version"

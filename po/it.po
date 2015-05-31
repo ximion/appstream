@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-01-12 22:17+0100\n"
-"PO-Revision-Date: 2014-11-21 18:23+0000\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2015-05-31 17:21+0200\n"
+"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/appstream/"
 "language/it/)\n"
 "Language: it\n"
@@ -19,183 +19,194 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Un tipo provides-item (lib, bin, python3, ...)"
 
 msgid "AppStream Validation Utility"
-msgstr ""
+msgstr "Strumento di validazione AppStream"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "Aggiornamento cache AppStream completato con successo."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"Aggiornamento cache AppStream completato, ma alcuni metadati sono stati "
+"ignorati a causa di errori."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Aggiornamento cache AppStream non riuscito."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream-Index Client Tool"
-msgstr ""
+msgstr "Strumento client AppStream-Index"
 
 #, c-format
 msgid "Appstream-Index client tool version: %s"
+msgstr "Versione strumento client AppStream-Index: %s"
+
+msgid "Bundle"
 msgstr ""
 
 msgid "Categories"
-msgstr ""
+msgstr "Categorie"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Comando \"%s\" sconosciuto."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Obbligatorio per"
 
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Sviluppatore"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Non mostra output colorato"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Forza l'aggiornamento della cache"
 
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Analisi argomenti non riuscita"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "File %s non trovato o permesso negato."
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Ottiene i componenti che forniscono l'elemento passato"
 
 msgid "Get information about a component by its id"
-msgstr ""
+msgstr "Ottiene informazioni riguardo a un componente tramite il suo ID"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Sito web"
 
 msgid "Icon"
-msgstr ""
+msgstr "Icona"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identificatore"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
-msgstr ""
+msgstr "Selezionato tipo non valido per provides-item. Valori validi sono:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Licenza"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Imposta manualmente la posizione dei metadati AppStream per la rigenerazione "
+"della cache"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Imposta manualmente la posizione della cache AppStream"
 
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Non è stato trovato alcun componente che corrisponde a \"%s\"."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "Non è stato trovato alcun componente che fornisce \"%s:%s:%s\"."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "Nessun valore definito da cercare per provider-item."
 
 msgid "Package"
-msgstr ""
+msgstr "Pacchetto"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Stampa informazioni dettagliate riguardo ai componenti trovati"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Gruppo progetto"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Elementi forniti"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Rigenera la cache delle informazioni del componente"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Eseguire \"%s --help\" per l'elenco completo delle opzioni a riga di comando."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "URL schermata esempio"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Cerca nel database dei componenti"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Selezionare un valore per il provides-item da cercare"
 
 msgid "Show extra debugging information"
+msgstr "Mostra informazioni aggiuntive di debug"
+
+msgid "Show issues from pedantic tests"
 msgstr ""
 
 msgid "Show program version"
-msgstr ""
+msgstr "Mostra la versione del programma"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Mostra la versione del programma"
 
 #. these are commands we can use with appstream-index
 msgid "Subcommands:"
-msgstr ""
+msgstr "Sotto-comandi:"
 
 msgid "Summary"
-msgstr ""
+msgstr "Riepilogo"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Impossibile trovare un componente che corrisponda a %s."
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "Impossibile trovare un componente che fornisca \"%s:%s:%s\"."
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Impossibile trovare un componente con ID \"%s\"."
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Validazione non riuscita."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "Il file XML XDG Menu \"%s\" è danneggiato."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "È necessario eseguire questo comando con i permessi di amministratore."
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "È necessario specificare un comando."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "È necessario specificare l'ID di un componente."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "È necessario specificare un file da validare."
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "È necessario specificare un termine da cercare."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -205,3 +216,5 @@ msgstr ""
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+"app;applicazione;applicazioni;pacchetto;programma;suite;tool;strumento;"
+"strumenti"

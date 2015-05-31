@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# helix84 <helix84@centrum.sk>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-01-12 22:17+0100\n"
-"PO-Revision-Date: 2014-11-21 18:23+0000\n"
-"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"POT-Creation-Date: 2015-05-31 17:21+0200\n"
+"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/appstream/"
 "language/sk/)\n"
 "Language: sk\n"
@@ -19,183 +20,195 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Typ poskytuje-položku (napr. lib, bin, python3, ...)"
 
 msgid "AppStream Validation Utility"
-msgstr ""
+msgstr "AppStream - Nástroj na overenie"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"Aktualizácia vyrovnávacej pamäte AppStream bola dokončená, ale niektoré "
+"metadáta boli ignorované z dôvodu chýb."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream-Index Client Tool"
-msgstr ""
+msgstr "AppStream - Nástroj klienta indexu"
 
 #, c-format
 msgid "Appstream-Index client tool version: %s"
+msgstr "AppStream - Nástroj klienta indexu, verzia: %s"
+
+msgid "Bundle"
 msgstr ""
 
 msgid "Categories"
-msgstr ""
+msgstr "Kategórie"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Príkaz „%s“ je neznámy."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Povinné pre"
 
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Vývojár"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Nezobrazovať farebný výstup"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Vynútiť aktualizáciu vyrovnávacej pamäte"
 
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Nepodarilo sa spracovať argumenty"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "Súbor %s nebol nájdený alebo bolo zamietnuté oprávnenie."
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Získať komponenty poskytujúce danú položku"
 
 msgid "Get information about a component by its id"
-msgstr ""
+msgstr "Získať informácie o komponente na základe jeho id"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Domovská stránka"
 
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identifikátor"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
-msgstr ""
+msgstr "Vybraný neplatný typ poskytuje-položku. Platné typy sú:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Licencia"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Manuálne nastaviť umiestnenie metadát AppStream na znovuvytvorenie "
+"vyrovnávacej pamäte."
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Manuálne nastaviť umiestnenie vyrovnávacej pamäte AppStream."
 
 msgid "Name"
-msgstr ""
+msgstr "Názov"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Nebol nájdený komponent zodpovedajúci „%s“."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "Nebol nájdený komponent poskytujúci „%s:%s:%s“."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "Nebola definovaná hodnota poskytuje-položku, ktorá sa má hľadať."
 
 msgid "Package"
-msgstr ""
+msgstr "Balík"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Vypísať podrobnosti o nájdených komponentoch"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Skupina projektu"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Poskytované položky"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Znovu vytvoriť vyrovnávaciu pamäť informácií o komponentoch"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
+"riadka."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "Vzorový URL snímky obrazovky"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Hľadať v databáze komponentov"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Vyberte hodnotu poskytuje-položku, ktorú treba nájsť"
 
 msgid "Show extra debugging information"
+msgstr "Zobraziť ladiace informácie naviac"
+
+msgid "Show issues from pedantic tests"
 msgstr ""
 
 msgid "Show program version"
-msgstr ""
+msgstr "Zobraziť verziu programu"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Zobraziť verziu programu"
 
 #. these are commands we can use with appstream-index
 msgid "Subcommands:"
-msgstr ""
+msgstr "Podpríkazy"
 
 msgid "Summary"
-msgstr ""
+msgstr "Zhrnutie"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Nepodarilo sa nájsť komponent zodpovedajúci %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "Nepodarilo sa nájsť komponent poskytujúci „%s:%s:%s“!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Nepodarilo sa nájsť komponent s ID „%s“!"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Overenie zlyhalo."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "XML súbor XDG Menu „%s“ je poškodený."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Tento príkaz musíte spúšťať s oprávnením správcu!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Musíte uviesť príkaz."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Musíte uviesť ID komponentu."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Musíte uviesť súbor, ktorý chcete overiť."
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Musíte uviesť, čo chcete hľadať."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -204,4 +217,4 @@ msgstr ""
 #. * the search.
 #.
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;aplikácia;balík;program;balík;nástroj"
