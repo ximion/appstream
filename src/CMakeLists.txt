@@ -74,7 +74,7 @@ set(LIBAPPSTREAM_PRIVATE_HEADERS
 )
 
 # find stuff necessary to build libappstream with DEP-11 support
-if(PROVIDER_DEBIAN_DEP11)
+if(DEBIAN_DEP11)
 	pkg_check_modules(YAML REQUIRED yaml-0.1)
 	set(LIBAPPSTREAM_SRC ${LIBAPPSTREAM_SRC} as-dep11.c)
 	set(LIBAPPSTREAM_PRIVATE_HEADERS ${LIBAPPSTREAM_PRIVATE_HEADERS} as-dep11.h)
