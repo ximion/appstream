@@ -175,6 +175,7 @@ test_appstream_parser_locale ()
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
 
 	/* check all locale */
+	as_metadata_clear_components (metad);
 	as_metadata_set_locale (metad, "ALL");
 	as_metadata_parse_file (metad, file, &error);
 	cpt = as_metadata_get_component (metad);

@@ -43,6 +43,9 @@ struct _AsReleasePrivate
 	GHashTable	*description;
 	guint64		timestamp;
 	gchar		*active_locale;
+
+	GPtrArray	*locations;
+	gchar		*checksum;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelease, as_release, G_TYPE_OBJECT)
@@ -61,6 +64,8 @@ as_release_finalize (GObject *object)
 	g_free (priv->version);
 	g_free (priv->active_locale);
 	g_hash_table_unref (priv->description);
+	g_ptr_array_unref (priv->locations);
+	g_free (priv->checksum);
 
 	G_OBJECT_CLASS (as_release_parent_class)->finalize (object);
 }
@@ -75,6 +80,7 @@ as_release_init (AsRelease *release)
 
 	priv->active_locale = g_strdup ("C");
 	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->locations = g_ptr_array_new_with_free_func (g_free);
 }
 
 /**
@@ -113,6 +119,7 @@ void
 as_release_set_version (AsRelease *release, const gchar *version)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_free (priv->version);
 	priv->version = g_strdup (version);
 }
 
@@ -217,6 +224,68 @@ as_release_set_active_locale (AsRelease *release, const gchar *locale)
 
 	g_free (priv->active_locale);
 	priv->active_locale = g_strdup (locale);
+}
+
+/**
+ * as_release_get_locations:
+ *
+ * Gets the release locations, typically URLs.
+ *
+ * Returns: (transfer none) (element-type utf8): list of locations
+ *
+ * Since: 0.8.1
+ **/
+GPtrArray*
+as_release_get_locations (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->locations;
+}
+
+/**
+ * as_release_add_location:
+ * @location: An URL of the download location
+ *
+ * Adds a release location.
+ *
+ * Since: 0.8.1
+ **/
+void
+as_release_add_location (AsRelease *release, const gchar *location)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_ptr_array_add (priv->locations, g_strdup (location));
+}
+
+/**
+ * as_release_get_checksum_sha1:
+ *
+ * Gets the release checksum
+ *
+ * Returns: string, or %NULL for not set or invalid
+ *
+ * Since: 0.8.1
+ **/
+const gchar*
+as_release_get_checksum_sha1 (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->checksum;
+}
+
+/**
+ * as_release_set_checksum_sha1:
+ *
+ * Set the release SHA1 checksum.
+ *
+ * Since: 0.8.1
+ */
+void
+as_release_set_checksum_sha1 (AsRelease *release, const gchar *sha1)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_free (priv->checksum);
+	priv->checksum = g_strdup (sha1);
 }
 
 /**

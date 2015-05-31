@@ -71,6 +71,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
  * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
+ * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  *
  * The URL type.
  **/
@@ -82,6 +83,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_CODEC = 1 << 3,
 	AS_COMPONENT_KIND_INPUTMETHOD = 1 << 4,
 	AS_COMPONENT_KIND_ADDON = 1 << 5,
+	AS_COMPONENT_KIND_FIRMWARE = 1 << 6,
 	AS_COMPONENT_KIND_LAST = 7
 } AsComponentKind;
 

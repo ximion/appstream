@@ -122,6 +122,8 @@ as_component_kind_get_type (void)
 					{AS_COMPONENT_KIND_FONT, "AS_COMPONENT_KIND_FONT", "font"},
 					{AS_COMPONENT_KIND_CODEC, "AS_COMPONENT_KIND_CODEC", "codec"},
 					{AS_COMPONENT_KIND_INPUTMETHOD, "AS_COMPONENT_KIND_INPUTMETHOD", "inputmethod"},
+					{AS_COMPONENT_KIND_ADDON, "AS_COMPONENT_KIND_ADDON", "addon"},
+					{AS_COMPONENT_KIND_FIRMWARE, "AS_COMPONENT_KIND_FIRMWARE", "firmware"},
 					{AS_COMPONENT_KIND_LAST, "AS_COMPONENT_KIND_LAST", "last"},
 					{0, NULL, NULL}
 		};
@@ -155,6 +157,8 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "inputmethod";
 	if (kind == AS_COMPONENT_KIND_ADDON)
 		return "addon";
+	if (kind == AS_COMPONENT_KIND_FIRMWARE)
+		return "firmware";
 	return "unknown";
 }
 
@@ -181,6 +185,8 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_INPUTMETHOD;
 	if (g_strcmp0 (kind_str, "addon") == 0)
 		return AS_COMPONENT_KIND_ADDON;
+	if (g_strcmp0 (kind_str, "firmware") == 0)
+		return AS_COMPONENT_KIND_FIRMWARE;
 	return AS_COMPONENT_KIND_UNKNOWN;
 }
 
@@ -725,6 +731,8 @@ as_component_xml_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 		xmlNode *subnode;
 		const gchar *str;
 		gchar *timestamp;
+		GPtrArray *locations;
+		guint j;
 		release = (AsRelease*) g_ptr_array_index (releases, i);
 
 		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
@@ -734,6 +742,22 @@ as_component_xml_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 		xmlNewProp (subnode, (xmlChar*) "timestamp",
 					(xmlChar*) timestamp);
 		g_free (timestamp);
+
+		/* add location urls */
+		locations = as_release_get_locations (release);
+		for (j = 0; j < locations->len; j++) {
+			gchar *lurl;
+			lurl = (gchar*) g_ptr_array_index (locations, j);
+			xmlNewTextChild (subnode, NULL, (xmlChar*) "location", (xmlChar*) lurl);
+		}
+
+		/* add checksum node */
+		if (as_release_get_checksum_sha1 (release) != NULL) {
+			xmlNode *csNode;
+			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
+							(xmlChar*) as_release_get_checksum_sha1 (release));
+			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha1");
+		}
 
 		str = as_release_get_description (release);
 		if (g_strcmp0 (str, "") != 0) {

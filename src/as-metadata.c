@@ -396,12 +396,25 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 			}
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				gchar *content;
+
 				if (iter->type != XML_ELEMENT_NODE)
 					continue;
 
-				if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+				if (g_strcmp0 ((gchar*) iter2->name, "location") == 0) {
+					content = as_metadata_get_node_value (metad, iter2);
+					as_release_add_location (release, content);
+					g_free (content);
+				} else if (g_strcmp0 ((gchar*) iter2->name, "checksum") == 0) {
+					prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+					if (g_strcmp0 (prop, "sha1") == 0) {
+						content = as_metadata_get_node_value (metad, iter2);
+						as_release_set_checksum_sha1 (release, content);
+						g_free (content);
+					}
+					g_free (prop);
+				} else if (g_strcmp0 ((gchar*) iter2->name, "description") == 0) {
 					if (priv->mode == AS_PARSER_MODE_DISTRO) {
-						gchar *content;
 						gchar *lang;
 						/* for distros, the "description" tag has a language property, so parsing it is simple */
 						content = as_metadata_get_node_value (metad, iter2);
@@ -410,13 +423,11 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 							as_release_set_description (release, content, lang);
 						g_free (content);
 						g_free (lang);
-						break;
 					} else {
 						as_metadata_parse_upstream_description_tag (metad,
 																iter2,
 																(GHFunc) as_metadata_upstream_description_to_release,
 																release);
-						break;
 					}
 				}
 			}

@@ -79,6 +79,14 @@ gchar		*as_release_get_active_locale (AsRelease *release);
 void		as_release_set_active_locale (AsRelease	*release,
 								const gchar *locale);
 
+GPtrArray	*as_release_get_locations (AsRelease *release);
+void		as_release_add_location (AsRelease *release,
+								const gchar *location);
+
+const gchar *as_release_get_checksum_sha1 (AsRelease *release);
+void		 as_release_set_checksum_sha1 (AsRelease *release,
+								const gchar *sha1);
+
 G_END_DECLS
 
 #endif /* __AS_RELEASE_H */
