@@ -716,6 +716,83 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 }
 
 /**
+ * as_dep11_parse_file:
+ * @dep11: A valid #AsDEP11 instance
+ * @file: #GFile for the upstream metadata
+ * @error: A #GError or %NULL.
+ *
+ * Parses an AppStream upstream metadata file in DEP-11-YAML format.
+ *
+ **/
+void
+as_dep11_parse_file (AsDEP11 *dep11, GFile* file, GError **error)
+{
+	gchar *yaml_doc;
+	GFileInputStream* fistream;
+	GFileInfo *info = NULL;
+	const gchar *content_type = NULL;
+
+	g_return_if_fail (file != NULL);
+
+	info = g_file_query_info (file,
+				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+				G_FILE_QUERY_INFO_NONE,
+				NULL, NULL);
+	if (info != NULL)
+		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+
+	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
+		GFileInputStream *fistream;
+		GMemoryOutputStream *mem_os;
+		GInputStream *conv_stream;
+		GZlibDecompressor *zdecomp;
+		guint8 *data;
+
+		/* load a GZip compressed file */
+		fistream = g_file_read (file, NULL, NULL);
+		mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
+		zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
+		conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
+		g_object_unref (zdecomp);
+
+		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
+		data = g_memory_output_stream_get_data (mem_os);
+
+		yaml_doc = g_strdup ((const gchar*) data);
+
+		g_object_unref (conv_stream);
+		g_object_unref (mem_os);
+		g_object_unref (fistream);
+	} else {
+		gchar *line = NULL;
+		GString *str;
+		GDataInputStream *dis;
+
+		/* load a plaintext file */
+		str = g_string_new ("");
+		fistream = g_file_read (file, NULL, NULL);
+		dis = g_data_input_stream_new ((GInputStream*) fistream);
+		g_object_unref (fistream);
+
+		while (TRUE) {
+			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
+			if (line == NULL) {
+				break;
+			}
+
+			g_string_append_printf (str, "%s\n", line);
+		}
+
+		yaml_doc = g_string_free (str, FALSE);
+		g_object_unref (dis);
+	}
+
+	/* parse YAML data */
+	as_dep11_parse_data (dep11, yaml_doc, error);
+	g_free (yaml_doc);
+}
+
+/**
  * as_dep11_set_locale:
  * @dep11: a #AsDEP11 instance.
  * @locale: the locale.

@@ -66,6 +66,9 @@ void			as_dep11_set_locale (AsDEP11 *dep11,
 void			as_dep11_parse_data (AsDEP11 *dep11,
 									const gchar *data,
 									GError **error);
+void			as_dep11_parse_file (AsDEP11 *dep11,
+									GFile* file,
+									GError **error);
 
 GPtrArray		*as_dep11_get_components (AsDEP11 *dep11);
 void			as_dep11_clear_components (AsDEP11 *dep11);

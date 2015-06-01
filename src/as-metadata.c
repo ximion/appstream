@@ -60,7 +60,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(o) (as_metadata_get_instance_private (o))
 
-static gchar**		as_metadata_get_children_as_strv (AsMetadata* metad, xmlNode* node, const gchar* element_name);
+static gchar**		as_metadata_get_children_as_strv (AsMetadata *metad, xmlNode* node, const gchar* element_name);
 
 /**
  * as_metadata_finalize:
@@ -116,7 +116,7 @@ as_metadata_clear_components (AsMetadata *metad)
  * as_metadata_get_node_value:
  */
 static gchar*
-as_metadata_get_node_value (AsMetadata* metad, xmlNode* node)
+as_metadata_get_node_value (AsMetadata *metad, xmlNode* node)
 {
 	gchar *content;
 	content = (gchar*) xmlNodeGetContent (node);
@@ -170,7 +170,7 @@ out:
 }
 
 static gchar**
-as_metadata_get_children_as_strv (AsMetadata* metad, xmlNode* node, const gchar* element_name)
+as_metadata_get_children_as_strv (AsMetadata *metad, xmlNode* node, const gchar* element_name)
 {
 	GPtrArray *list;
 	xmlNode *iter;
@@ -205,7 +205,7 @@ as_metadata_get_children_as_strv (AsMetadata* metad, xmlNode* node, const gchar*
  * as_metadata_process_screenshot:
  */
 static void
-as_metadata_process_screenshot (AsMetadata* metad, xmlNode* node, AsScreenshot* scr)
+as_metadata_process_screenshot (AsMetadata *metad, xmlNode* node, AsScreenshot* scr)
 {
 	xmlNode *iter;
 	gchar *node_name;
@@ -275,7 +275,7 @@ as_metadata_process_screenshot (AsMetadata* metad, xmlNode* node, AsScreenshot* 
 }
 
 static void
-as_metadata_process_screenshots_tag (AsMetadata* metad, xmlNode* node, AsComponent* cpt)
+as_metadata_process_screenshots_tag (AsMetadata *metad, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
 	AsScreenshot *sshot = NULL;
@@ -328,7 +328,7 @@ as_metadata_upstream_description_to_release (gchar *key, GString *value, AsRelea
  * as_metadata_parse_upstream_description_tag:
  */
 static void
-as_metadata_parse_upstream_description_tag (AsMetadata* metad, xmlNode* node, GHFunc func, gpointer entity)
+as_metadata_parse_upstream_description_tag (AsMetadata *metad, xmlNode* node, GHFunc func, gpointer entity)
 {
 	xmlNode *iter;
 	gchar *node_name;
@@ -365,7 +365,7 @@ as_metadata_parse_upstream_description_tag (AsMetadata* metad, xmlNode* node, GH
 }
 
 static void
-as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent* cpt)
+as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
 	xmlNode *iter2;
@@ -441,7 +441,7 @@ as_metadata_process_releases_tag (AsMetadata* metad, xmlNode* node, AsComponent*
 }
 
 static void
-as_metadata_process_provides (AsMetadata* metad, xmlNode* node, AsComponent* cpt)
+as_metadata_process_provides (AsMetadata *metad, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
 	gchar *node_name;
@@ -523,7 +523,7 @@ as_metadata_set_component_type_from_node (xmlNode *node, AsComponent *cpt)
 }
 
 static void
-as_metadata_process_languages_tag (AsMetadata* metad, xmlNode* node, AsComponent* cpt)
+as_metadata_process_languages_tag (AsMetadata *metad, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
 	gchar *prop;
@@ -555,7 +555,7 @@ as_metadata_process_languages_tag (AsMetadata* metad, xmlNode* node, AsComponent
  * as_metadata_parse_component_node:
  */
 AsComponent*
-as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean allow_invalid, GError **error)
+as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean allow_invalid, GError **error)
 {
 	AsComponent* cpt;
 	xmlNode *iter;
@@ -760,12 +760,18 @@ as_metadata_parse_component_node (AsMetadata* metad, xmlNode* node, gboolean all
  * as_metadata_parse_components_node:
  */
 void
-as_metadata_parse_components_node (AsMetadata* metad, xmlNode* node, gboolean allow_invalid, GError **error)
+as_metadata_parse_components_node (AsMetadata *metad, xmlNode* node, gboolean allow_invalid, GError **error)
 {
 	AsComponent *cpt;
 	xmlNode* iter;
 	GError *tmp_error = NULL;
+	gchar *origin;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	/* set origin of this metadata */
+	origin = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
+	as_metadata_set_origin (metad, origin);
+	g_free (origin);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
@@ -854,7 +860,7 @@ out:
  *
  **/
 void
-as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
+as_metadata_parse_data (AsMetadata *metad, const gchar *data, GError **error)
 {
 	g_return_if_fail (metad != NULL);
 
@@ -871,9 +877,9 @@ as_metadata_parse_data (AsMetadata* metad, const gchar *data, GError **error)
  *
  **/
 void
-as_metadata_parse_file (AsMetadata* metad, GFile* file, GError **error)
+as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 {
-	gchar* xml_doc;
+	gchar *xml_doc;
 	GFileInputStream* fistream;
 	GFileInfo *info = NULL;
 	const gchar *content_type = NULL;

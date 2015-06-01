@@ -111,6 +111,11 @@ as_data_pool_class_init (AsDataPoolClass *klass)
 	object_class->finalize = as_data_pool_finalize;
 }
 
+/**
+ * as_data_pool_add_new_component:
+ *
+ * Register a new component in the global AppStream metadata pool.
+ */
 static void
 as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 {
@@ -176,150 +181,19 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_read_compressed_file:
- */
-static gchar*
-as_data_pool_read_compressed_file (AsDataPool *dpool, GFile* infile)
-{
-	GFileInputStream* src_stream;
-	GMemoryOutputStream* mem_os;
-	GInputStream *conv_stream;
-	GZlibDecompressor* zdecomp;
-	guint8* data;
-	gchar *res;
-
-	g_return_val_if_fail (infile != NULL, FALSE);
-
-	src_stream = g_file_read (infile, NULL, NULL);
-	mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
-	zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
-	conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (src_stream), G_CONVERTER (zdecomp));
-	g_object_unref (zdecomp);
-
-	g_output_stream_splice ((GOutputStream*) mem_os, conv_stream, 0, NULL, NULL);
-	data = g_memory_output_stream_get_data (mem_os);
-	res = g_strdup ((const gchar*) data);
-
-	g_object_unref (conv_stream);
-	g_object_unref (mem_os);
-	g_object_unref (src_stream);
-	return res;
-}
-
-/**
- * as_data_pool_read_file:
- */
-static gchar*
-as_data_pool_read_file (AsDataPool *dpool, GFile* infile)
-{
-	gchar* data;
-	gchar* line = NULL;
-	GFileInputStream* ir;
-	GDataInputStream* dis;
-	GString *str = NULL;
-
-	g_return_val_if_fail (infile != NULL, FALSE);
-
-	ir = g_file_read (infile, NULL, NULL);
-	dis = g_data_input_stream_new ((GInputStream*) ir);
-	g_object_unref (ir);
-
-	str = g_string_new ("");
-	while (TRUE) {
-		line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
-		if (line == NULL) {
-			break;
-		}
-
-		if (str->len > 0)
-			g_string_append (str, "\n");
-		g_string_append_printf (str, "%s\n", line);
-		g_free (line);
-	}
-
-	data = g_string_free (str, FALSE);
-	g_object_unref (dis);
-
-	return data;
-}
-
-/**
- * as_data_pool_process_asxml_document:
- */
-static gboolean
-as_data_pool_process_asxml_document (AsDataPool *dpool, const gchar* xmldoc_str)
-{
-	xmlDoc* doc;
-	xmlNode* root;
-	xmlNode* iter;
-	AsMetadata *metad;
-	AsComponent *cpt;
-	gchar *origin;
-	GError *error = NULL;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-
-	g_return_val_if_fail (xmldoc_str != NULL, FALSE);
-
-	doc = xmlParseDoc ((xmlChar*) xmldoc_str);
-	if (doc == NULL) {
-		fprintf (stderr, "%s\n", "Could not parse XML!");
-		return FALSE;
-	}
-
-	root = xmlDocGetRootElement (doc);
-	if (root == NULL) {
-		fprintf (stderr, "%s\n", "The XML document is empty.");
-		return FALSE;
-	}
-
-	if (g_strcmp0 ((gchar*) root->name, "components") != 0) {
-		fprintf (stderr, "%s\n", "XML file does not contain valid AppStream data!");
-		return FALSE;
-	}
-
-	metad = as_metadata_new ();
-	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
-	as_metadata_set_locale (metad, priv->locale);
-
-	/* set the proper origin of this data */
-	origin = (gchar*) xmlGetProp (root, (xmlChar*) "origin");
-	as_metadata_set_origin (metad, origin);
-	g_free (origin);
-
-	for (iter = root->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-
-		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
-			cpt = as_metadata_parse_component_node (metad, iter, FALSE, &error);
-			if (error != NULL) {
-				g_debug ("WARNING: %s", error->message);
-				g_error_free (error);
-				error = NULL;
-			} else if (cpt != NULL) {
-				as_data_pool_add_new_component (dpool, cpt);
-				g_object_unref (cpt);
-			}
-		}
-	}
-	xmlFreeDoc (doc);
-	g_object_unref (metad);
-
-	return TRUE;
-}
-
-/**
  * as_data_pool_read_asxml:
  */
 static gboolean
-as_data_pool_read_asxml (AsDataPool* dpool)
+as_data_pool_read_asxml (AsDataPool *dpool)
 {
-	GPtrArray* xml_files;
+	GPtrArray *xml_files;
+	GPtrArray *components;
 	guint i;
 	GFile *infile;
 	gboolean ret = TRUE;
 	const gchar *content_type;
+	AsMetadata *metad;
+	GError *error = NULL;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
 	xml_files = g_ptr_array_new_with_free_func (g_free);
@@ -354,10 +228,13 @@ as_data_pool_read_asxml (AsDataPool* dpool)
 		return TRUE;
 	}
 
+	metad = as_metadata_new ();
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+	as_metadata_set_locale (metad, priv->locale);
+
 	for (i = 0; i < xml_files->len; i++) {
 		gchar *fname;
 		GFileInfo *info = NULL;
-		gchar *data = NULL;
 
 		fname = (gchar*) g_ptr_array_index (xml_files, i);
 		infile = g_file_new_for_path (fname);
@@ -377,26 +254,33 @@ as_data_pool_read_asxml (AsDataPool* dpool)
 			continue;
 		}
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-		if ((g_strcmp0 (content_type, "application/xml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0)) {
-			data = as_data_pool_read_file (dpool, infile);
-		} else if (g_strcmp0 (content_type, "application/gzip") == 0 ||
-				g_strcmp0 (content_type, "application/x-gzip") == 0) {
-			data = as_data_pool_read_compressed_file (dpool, infile);
+		if ((g_strcmp0 (content_type, "application/xml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0) ||
+			(g_strcmp0 (content_type, "application/gzip") == 0 || g_strcmp0 (content_type, "application/x-gzip") == 0)) {
+			as_metadata_parse_file (metad, infile, &error);
+			if (error != NULL) {
+				g_debug ("ASXML-WARNING: %s", error->message);
+				g_error_free (error);
+				error = NULL;
+				ret = FALSE;
+			}
 		} else {
 			g_warning ("Invalid file of type '%s' found. File '%s' was skipped.", content_type, fname);
 		}
 		g_object_unref (info);
 		g_object_unref (infile);
 
-		if (data != NULL) {
-			ret = as_data_pool_process_asxml_document (dpool, data);
-			g_free (data);
-		}
-
 		if (!ret)
 			break;
 	}
+
+	components = as_metadata_get_components (metad);
+	for (i = 0; i < components->len; i++) {
+		as_data_pool_add_new_component (dpool,
+										AS_COMPONENT (g_ptr_array_index (components, i)));
+	}
+
 	g_ptr_array_unref (xml_files);
+	g_object_unref (metad);
 
 	return ret;
 }
@@ -409,14 +293,15 @@ static gboolean
 as_data_pool_read_dep11 (AsDataPool *dpool)
 {
 	AsDEP11 *dep11;
-	GPtrArray* yaml_files;
+	GPtrArray *yaml_files;
+	GPtrArray *components;
 	guint i;
 	GFile *infile;
 	gboolean ret = TRUE;
 	const gchar *content_type;
+	GError *error = NULL;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
-	dep11 = as_dep11_new ();
 	yaml_files = g_ptr_array_new_with_free_func (g_free);
 
 	if ((priv->dep11_paths == NULL) || (priv->dep11_paths[0] == NULL))
@@ -450,12 +335,12 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 		return TRUE;
 	}
 
+	dep11 = as_dep11_new ();
+
 	ret = TRUE;
 	for (i = 0; i < yaml_files->len; i++) {
 		gchar *fname;
 		GFileInfo *info = NULL;
-		gchar *data = NULL;
-		GError *tmp_error = NULL;
 
 		fname = (gchar*) g_ptr_array_index (yaml_files, i);
 		infile = g_file_new_for_path (fname);
@@ -475,29 +360,32 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 			continue;
 		}
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-		if ((g_strcmp0 (content_type, "application/x-yaml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0)) {
-			data = as_data_pool_read_file (dpool, infile);
-		} else if (g_strcmp0 (content_type, "application/gzip") == 0 ||
-				g_strcmp0 (content_type, "application/x-gzip") == 0) {
-			data = as_data_pool_read_compressed_file (dpool, infile);
+		if ((g_strcmp0 (content_type, "application/x-yaml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0) ||
+			(g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
+			as_dep11_parse_file (dep11, infile, &error);
+			if (error != NULL) {
+				g_debug ("DEP11-WARNING: %s", error->message);
+				g_error_free (error);
+				error = NULL;
+				ret = FALSE;
+			}
 		} else {
 			g_warning ("Invalid file of type '%s' found. File '%s' was skipped.", content_type, fname);
 		}
 		g_object_unref (info);
 		g_object_unref (infile);
 
-		if (data != NULL) {
-			as_dep11_parse_data (dep11, data, &tmp_error);
-			g_free (data);
-			if (tmp_error != NULL) {
-				g_warning ("DEP11: %s", tmp_error->message);
-				g_error_free (tmp_error);
-			}
-		}
-
 		if (!ret)
 			break;
 	}
+
+	components = as_dep11_get_components (dep11);
+	for (i = 0; i < components->len; i++) {
+		as_data_pool_add_new_component (dpool,
+										AS_COMPONENT (g_ptr_array_index (components, i)));
+	}
+
+	g_object_unref (dep11);
 	g_ptr_array_unref (yaml_files);
 
 	return ret;
