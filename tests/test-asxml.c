@@ -32,32 +32,6 @@ msg (const gchar *s)
 	g_printf ("%s\n", s);
 }
 
-#if 0
-void
-test_appstream_xml_provider ()
-{
-	AsProviderXML *asxml;
-	GFile *file;
-	gchar *path;
-	asxml = as_provider_xml_new ();
-
-	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
-	file = g_file_new_for_path (path);
-	g_free (path);
-
-	as_provider_xml_process_file (asxml, file);
-	g_object_unref (file);
-
-	path = g_build_filename (datadir, "appstream-dxml.xml.gz", NULL);
-	file = g_file_new_for_path (path);
-	g_free (path);
-
-	as_provider_xml_process_compressed_file (asxml, file);
-	g_object_unref (file);
-	g_object_unref (asxml);
-}
-#endif
-
 void
 test_screenshot_handling ()
 {
@@ -211,6 +185,37 @@ test_appstream_write_locale ()
 	g_object_unref (metad);
 }
 
+void
+test_appstream_write_description ()
+{
+	AsMetadata *metad;
+	gchar *tmp;
+	AsComponent *cpt;
+
+	const gchar *EXPECTED_XML = "<?xml version=\"1.0\"?>\n"
+					"<component><name>Test</name><description><p>First paragraph</p>\n"
+					"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
+					"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description></component>\n";
+
+	metad = as_metadata_new ();
+
+	cpt = as_component_new ();
+	as_component_set_name (cpt, "Test", NULL);
+	as_component_set_description (cpt,
+							"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p>",
+							NULL);
+
+	as_metadata_add_component (metad, cpt);
+
+	tmp = as_metadata_component_to_upstream_xml (metad);
+	g_debug ("Generated XML: %s", as_metadata_component_to_upstream_xml (metad));
+	g_assert_cmpstr (tmp, ==, EXPECTED_XML);
+	g_free (tmp);
+
+	g_object_unref (metad);
+	g_object_unref (cpt);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -236,6 +241,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/LegacyData", test_appstream_parser_legacy);
 	g_test_add_func ("/AppStream/XMLParserLocale", test_appstream_parser_locale);
 	g_test_add_func ("/AppStream/XMLWriterLocale", test_appstream_write_locale);
+	g_test_add_func ("/AppStream/XMLWriterDescription", test_appstream_write_description);
 
 	ret = g_test_run ();
 	g_free (datadir);
