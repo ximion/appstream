@@ -1095,7 +1095,7 @@ as_metadata_xml_add_node (xmlNode *root, const gchar *name, const gchar *value)
  * Add the description markup to the XML tree
  */
 static gboolean
-as_metadata_xml_add_description (AsMetadata *metad, xmlNode *root, const gchar *description_markup, const gchar *lang)
+as_metadata_xml_add_description (AsMetadata *metad, xmlNode *root, xmlNode **desc_node, const gchar *description_markup, const gchar *lang)
 {
 	gchar *xmldata;
 	xmlDoc *doc;
@@ -1121,7 +1121,15 @@ as_metadata_xml_add_description (AsMetadata *metad, xmlNode *root, const gchar *
 		ret = FALSE;
 		goto out;
 	}
-	dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+
+	if (priv->mode == AS_PARSER_MODE_UPSTREAM) {
+		if (*desc_node == NULL)
+			*desc_node = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+		dnode = *desc_node;
+	} else {
+		/* in distro parser mode, we might have multiple <description/> tags */
+		dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+	}
 
 	localized = g_strcmp0 (lang, "C") != 0;
 	if (priv->mode != AS_PARSER_MODE_UPSTREAM) {
@@ -1134,16 +1142,31 @@ as_metadata_xml_add_description (AsMetadata *metad, xmlNode *root, const gchar *
 
 	for (iter = droot->children; iter != NULL; iter = iter->next) {
 		xmlNode *cn;
-		cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
 
-		if (priv->mode == AS_PARSER_MODE_UPSTREAM) {
-			if ((localized) &&
-				(g_strcmp0 ((const gchar*) iter->name, "ul") != 0) &&
-				(g_strcmp0 ((const gchar*) iter->name, "ol") != 0)) {
-				xmlNewProp (cn,
+		if ((g_strcmp0 ((const gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((const gchar*) iter->name, "ol") == 0)) {
+			xmlNode *iter2;
+			xmlNode *enumNode;
+
+			enumNode = xmlNewChild (dnode, NULL, iter->name, NULL);
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				cn = xmlAddChild (enumNode, xmlCopyNode (iter2, TRUE));
+
+				if ((priv->mode == AS_PARSER_MODE_UPSTREAM) && (localized)) {
+					xmlNewProp (cn,
 						(xmlChar*) "xml:lang",
 						(xmlChar*) lang);
+				}
 			}
+
+			continue;
+		}
+
+		cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
+
+		if ((priv->mode == AS_PARSER_MODE_UPSTREAM) && (localized)) {
+			xmlNewProp (cn,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) lang);
 		}
 	}
 
@@ -1180,7 +1203,8 @@ as_metadata_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *ch
 typedef struct {
 	AsMetadata *metad;
 
-	xmlNode *node;
+	xmlNode *parent;
+	xmlNode *nd;
 	const gchar *node_name;
 } AsLocaleWriteHelper;
 
@@ -1194,7 +1218,7 @@ _as_metadata_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWriteHel
 	if (as_str_empty (value))
 		return;
 
-	cnode = xmlNewTextChild (helper->node, NULL, (xmlChar*) helper->node_name, (xmlChar*) value);
+	cnode = xmlNewTextChild (helper->parent, NULL, (xmlChar*) helper->node_name, (xmlChar*) value);
 	if (g_strcmp0 (key, "C") != 0) {
 		xmlNewProp (cnode,
 					(xmlChar*) "xml:lang",
@@ -1211,7 +1235,7 @@ _as_metadata_desc_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWri
 	if (as_str_empty (value))
 		return;
 
-	as_metadata_xml_add_description (helper->metad, helper->node, value, key);
+	as_metadata_xml_add_description (helper->metad, helper->parent, &helper->nd, value, key);
 }
 
 /**
@@ -1244,23 +1268,27 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 
 	as_metadata_xml_add_node (cnode, "id", as_component_get_id (cpt));
 
-	helper.node = cnode;
+	helper.parent = cnode;
 	helper.metad = metad;
+	helper.nd = NULL;
 	helper.node_name = "name";
 	g_hash_table_foreach (as_component_get_name_table (cpt),
 						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
 						&helper);
 
+	helper.nd = NULL;
 	helper.node_name = "summary";
 	g_hash_table_foreach (as_component_get_summary_table (cpt),
 						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
 						&helper);
 
+	helper.nd = NULL;
 	helper.node_name = "developer_name";
 	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
 						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
 						&helper);
 
+	helper.nd = NULL;
 	helper.node_name = "description";
 	g_hash_table_foreach (as_component_get_description_table (cpt),
 						(GHFunc) _as_metadata_desc_lang_hashtable_to_nodes,

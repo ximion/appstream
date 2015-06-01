@@ -197,6 +197,21 @@ test_appstream_write_description ()
 					"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
 					"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description></component>\n";
 
+	const gchar *EXPECTED_XML_LOCALIZED = "<?xml version=\"1.0\"?>\n"
+					"<component><name>Test</name><description><p>First paragraph</p>\n"
+					"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
+					"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p><p xml:lang=\"de\">First paragraph</p>\n"
+					"<ol><li xml:lang=\"de\">One</li><li xml:lang=\"de\">Two</li><li xml:lang=\"de\">Three</li></ol><ul>"
+					"<li xml:lang=\"de\">First</li><li xml:lang=\"de\">Second</li></ul><p xml:lang=\"de\">Paragraph2</p></description></component>\n";
+
+	const gchar *EXPECTED_XML_DISTRO = "<?xml version=\"1.0\"?>\n"
+					"<components version=\"0.8\"><component><name>Test</name><description><p>First paragraph</p>\n"
+					"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
+					"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description>"
+					"<description xml:lang=\"de\"><p>First paragraph</p>\n"
+					"<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul>"
+					"<p>Paragraph2</p></description></component></components>\n";
+
 	metad = as_metadata_new ();
 
 	cpt = as_component_new ();
@@ -208,8 +223,20 @@ test_appstream_write_description ()
 	as_metadata_add_component (metad, cpt);
 
 	tmp = as_metadata_component_to_upstream_xml (metad);
-	g_debug ("Generated XML: %s", as_metadata_component_to_upstream_xml (metad));
 	g_assert_cmpstr (tmp, ==, EXPECTED_XML);
+	g_free (tmp);
+
+	/* add localization */
+	as_component_set_description (cpt,
+							"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul><p>Paragraph2</p>",
+							"de");
+
+	tmp = as_metadata_component_to_upstream_xml (metad);
+	g_assert_cmpstr (tmp, ==, EXPECTED_XML_LOCALIZED);
+	g_free (tmp);
+
+	tmp = as_metadata_components_to_distro_xml (metad);
+	g_assert_cmpstr (tmp, ==, EXPECTED_XML_DISTRO);
 	g_free (tmp);
 
 	g_object_unref (metad);
