@@ -145,7 +145,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Stock icon
 	string appIcon = doc.get_value (XapianValues::ICON);
-	as_component_set_icon (cpt, appIcon.c_str ());
+	as_component_add_icon (cpt, AS_ICON_KIND_STOCK, 0, 0, appIcon.c_str ());
 
 	// Icon urls
 	str = doc.get_value (XapianValues::ICON_URLS);

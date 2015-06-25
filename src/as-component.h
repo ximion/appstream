@@ -87,9 +87,30 @@ typedef enum  {
 	AS_COMPONENT_KIND_LAST = 7
 } AsComponentKind;
 
+/**
+ * AsIconKind:
+ * @AS_ICON_KIND_CACHED:	Icon in the internal caches
+ * @AS_ICON_KIND_STOCK:		Stock icon name
+ * @AS_ICON_KIND_LOCAL:		Local icon name
+ * @AS_ICON_KIND_REMOTE:	Remote icon URL
+ *
+ * The icon type.
+ **/
+typedef enum  {
+	AS_ICON_KIND_UNKNOWN,
+	AS_ICON_KIND_CACHED,
+	AS_ICON_KIND_STOCK,
+	AS_ICON_KIND_LOCAL,
+	AS_ICON_KIND_REMOTE,
+	AS_ICON_KIND_LAST
+} AsIconKind;
+
 GType				as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar			*as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
+
+AsIconKind			as_icon_kind_from_string (const gchar *kind_str);
+const gchar*		as_icon_kind_to_string (AsIconKind kind);
 
 GType				as_component_get_type (void) G_GNUC_CONST;
 AsComponent			*as_component_new (void);
@@ -172,9 +193,16 @@ void				as_component_set_keywords (AsComponent *cpt,
 												gchar **value,
 												const gchar *locale);
 
-const gchar			*as_component_get_icon (AsComponent *cpt);
-void				as_component_set_icon (AsComponent *cpt,
+const gchar			*as_component_get_icon (AsComponent *cpt,
+											AsIconKind kind,
+											int width,
+											int height);
+void				as_component_add_icon (AsComponent *cpt,
+											AsIconKind kind,
+											int width,
+											int height,
 											const gchar* value);
+
 const gchar			*as_component_get_icon_url (AsComponent *cpt,
 											int width,
 											int height);

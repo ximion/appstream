@@ -313,15 +313,18 @@ dep11_process_icons (GNode *node, AsComponent *cpt)
 			value = (gchar*) n->children->data;
 
 			if (g_strcmp0 (key, "stock") == 0) {
-				as_component_set_icon (cpt, value);
+				as_component_add_icon (cpt, AS_ICON_KIND_STOCK, 0, 0, value);
 			} else if (g_strcmp0 (key, "cached") == 0) {
+				as_component_add_icon (cpt, AS_ICON_KIND_CACHED, 0, 0, value);
 				icon_url = as_component_get_icon_url (cpt, 0, 0);
 				if ((icon_url == NULL) || (g_str_has_prefix (icon_url, "http://"))) {
 					as_component_add_icon_url (cpt, 0, 0, value);
 				}
 			} else if (g_strcmp0 (key, "local") == 0) {
+				as_component_add_icon (cpt, AS_ICON_KIND_LOCAL, 0, 0, value);
 				as_component_add_icon_url (cpt, 0, 0, value);
 			} else if (g_strcmp0 (key, "remote") == 0) {
+				as_component_add_icon (cpt, AS_ICON_KIND_REMOTE, 0, 0, value);
 				icon_url = as_component_get_icon_url (cpt, 0, 0);
 				if (icon_url == NULL)
 					as_component_add_icon_url (cpt, 0, 0, value);

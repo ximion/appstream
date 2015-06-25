@@ -233,7 +233,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 
 		// Stock icon
-		const gchar *stock_icon = as_component_get_icon (cpt);
+		const gchar *stock_icon = as_component_get_icon (cpt, AS_ICON_KIND_STOCK, 0, 0);
 		if (stock_icon != NULL)
 			doc.add_value (XapianValues::ICON, stock_icon);
 
