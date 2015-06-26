@@ -116,12 +116,40 @@ as_metadata_clear_components (AsMetadata *metad)
  * as_metadata_get_node_value:
  */
 static gchar*
-as_metadata_get_node_value (AsMetadata *metad, xmlNode* node)
+as_metadata_get_node_value (AsMetadata *metad, xmlNode *node)
 {
 	gchar *content;
 	content = (gchar*) xmlNodeGetContent (node);
 
 	return content;
+}
+
+/**
+ * as_metadata_dump_node_children:
+ */
+static gchar*
+as_metadata_dump_node_children (AsMetadata *metad, xmlNode *node)
+{
+	GString *str = NULL;
+	xmlNode *iter;
+	xmlBufferPtr nodeBuf;
+
+	str = g_string_new ("");
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE) {
+					continue;
+		}
+
+		nodeBuf = xmlBufferCreate();
+		xmlNodeDump (nodeBuf, NULL, iter, 0, 1);
+		if (str->len > 0)
+			g_string_append (str, "\n");
+		g_string_append_printf (str, "%s", (const gchar*) nodeBuf->content);
+		xmlBufferFree (nodeBuf);
+	}
+
+	return g_string_free (str, FALSE);
 }
 
 /**
@@ -418,8 +446,9 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 				} else if (g_strcmp0 ((gchar*) iter2->name, "description") == 0) {
 					if (priv->mode == AS_PARSER_MODE_DISTRO) {
 						gchar *lang;
-						/* for distros, the "description" tag has a language property, so parsing it is simple */
-						content = as_metadata_get_node_value (metad, iter2);
+
+						/* for distro XML, the "description" tag has a language property, so parsing it is simple */
+						content = as_metadata_dump_node_children (metad, iter2);
 						lang = as_metadata_get_node_locale (metad, iter2);
 						if (lang != NULL)
 							as_release_set_description (release, content, lang);
@@ -623,9 +652,12 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 				as_component_set_summary (cpt, content, lang);
 		} else if (g_strcmp0 (node_name, "description") == 0) {
 			if (priv->mode == AS_PARSER_MODE_DISTRO) {
-				/* for distros, the "description" tag has a language property, so parsing it is simple */
+				/* for distro XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
-					as_component_set_description (cpt, content, lang);
+					gchar *desc;
+					desc = as_metadata_dump_node_children (metad, iter);
+					as_component_set_description (cpt, desc, lang);
+					g_free (desc);
 				}
 			} else {
 				as_metadata_parse_upstream_description_tag (metad,
