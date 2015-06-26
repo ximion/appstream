@@ -571,6 +571,33 @@ as_component_add_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind, const gc
 			     g_strdup (id));
 }
 
+/**
+ * as_component_set_bundles_table:
+ * @cpt: a #AsComponent instance.
+ *
+ * Internal function.
+ **/
+void
+as_component_set_bundles_table (AsComponent *cpt, GHashTable *bundles)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_hash_table_unref (priv->bundles);
+	priv->bundles = g_hash_table_ref (bundles);
+}
+
+/**
+ * as_component_has_bundle:
+ * @cpt: a #AsComponent instance.
+ *
+ * Internal function.
+ **/
+gboolean
+as_component_has_bundle (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return g_hash_table_size (priv->bundles) > 0;
+}
+
 static void
 _as_component_serialize_image (AsImage *img, xmlNode *subnode)
 {

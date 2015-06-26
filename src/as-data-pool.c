@@ -139,7 +139,14 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 								  g_strdup (cpt_id),
 								  g_object_ref (cpt));
 		} else {
-			g_debug ("Detected colliding ids: %s was already added.", cpt_id);
+			if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
+				GHashTable *bundles;
+				/* propagate bundle information to existing component */
+				bundles = as_component_get_bundle_ids (cpt);
+				as_component_set_bundles_table (existing_cpt, bundles);
+			} else {
+				g_debug ("Detected colliding ids: %s was already added.", cpt_id);
+			}
 		}
 	} else {
 		g_hash_table_insert (priv->cpt_table,
