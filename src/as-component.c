@@ -806,11 +806,17 @@ as_component_xml_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 		}
 
 		/* add checksum node */
-		if (as_release_get_checksum_sha1 (release) != NULL) {
+		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1) != NULL) {
 			xmlNode *csNode;
 			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
-							(xmlChar*) as_release_get_checksum_sha1 (release));
+							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1));
 			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha1");
+		}
+		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256) != NULL) {
+			xmlNode *csNode;
+			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
+							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256));
+			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha256");
 		}
 
 		str = as_release_get_description (release);

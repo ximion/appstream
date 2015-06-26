@@ -59,6 +59,24 @@ struct _AsReleaseClass
 	void (*_as_reserved8)	(void);
 };
 
+/**
+ * AsChecksumKind:
+ * @AS_CHECKSUM_KIND_NONE:		No checksum
+ * @AS_CHECKSUM_KIND_SHA1:		SHA1
+ * @AS_CHECKSUM_KIND_SHA256:	SHA256
+ *
+ * Checksums supported by #AsRelease
+ **/
+typedef enum  {
+	AS_CHECKSUM_KIND_NONE,
+	AS_CHECKSUM_KIND_SHA1,
+	AS_CHECKSUM_KIND_SHA256,
+	AS_CHECKSUM_KIND_LAST
+} AsChecksumKind;
+
+const gchar		*as_checksum_kind_to_string (AsChecksumKind kind);
+AsChecksumKind	as_checksum_kind_from_string (const gchar *kind_str);
+
 GType		 as_release_get_type (void);
 AsRelease	*as_release_new (void);
 
@@ -83,9 +101,11 @@ GPtrArray	*as_release_get_locations (AsRelease *release);
 void		as_release_add_location (AsRelease *release,
 								const gchar *location);
 
-const gchar *as_release_get_checksum_sha1 (AsRelease *release);
-void		 as_release_set_checksum_sha1 (AsRelease *release,
-								const gchar *sha1);
+const gchar	*as_release_get_checksum (AsRelease *release,
+								AsChecksumKind cs_kind);
+void		as_release_set_checksum (AsRelease *release,
+								const gchar *checksum,
+								AsChecksumKind cs_kind);
 
 G_END_DECLS
 

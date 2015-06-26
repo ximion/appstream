@@ -436,10 +436,13 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 					as_release_add_location (release, content);
 					g_free (content);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "checksum") == 0) {
+					AsChecksumKind cs_kind;
 					prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-					if (g_strcmp0 (prop, "sha1") == 0) {
+
+					cs_kind = as_checksum_kind_from_string (prop);
+					if (cs_kind != AS_CHECKSUM_KIND_NONE) {
 						content = as_metadata_get_node_value (metad, iter2);
-						as_release_set_checksum_sha1 (release, content);
+						as_release_set_checksum (release, content, cs_kind);
 						g_free (content);
 					}
 					g_free (prop);
