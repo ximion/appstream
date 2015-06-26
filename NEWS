@@ -1,3 +1,33 @@
+Version 0.8.2
+~~~~~~~~~~~~~~
+Released: 2015-06-26
+
+Notes:
+ * Ubuntu AppInstall support has been removed from this release, as its data
+   never matched the DEP11/ASXML data and pretty much every distribution can offer
+   one of those better data sources now.
+ * This release contains some heavy refactoring, most importantly it removes the
+   "DataProvider" concept and hardcodes the ASXML/DEP11 metadata parsers.
+   This improves maintainability and speed of the AppStream libraries.
+   Please report any bugs you may find!
+
+Features:
+ * Refactor DataProvider code (Matthias Klumpp)
+ * Remove DEP-11 validator, it belongs to the dep11 package (Matthias Klumpp)
+ * Add icon information to generated XML (Matthias Klumpp)
+ * Allow more than one checksum kind per AsRelease (Matthias Klumpp)
+ * Propagate bundle information in case multiple components with the same id are found
+   (Matthias Klumpp)
+
+Bugfixes:
+ * tests: Add unit test for simple XML description writer (Matthias Klumpp)
+ * Remove some useless code in AsDataPool and recognize DEP-11 data again (Matthias Klumpp)
+ * Fix several quirks in the ASXML description writing code (Matthias Klumpp)
+ * tests: Add rudimentary DEP-11 test (Matthias Klumpp)
+ * Fix a rare double-free corruption (Matthias Klumpp)
+ * Extract correct description markup when reading distro XML (Matthias Klumpp)
+ * Updated POTFILES.in (Piotr Drąg)
+
 Version 0.8.1
 ~~~~~~~~~~~~~~
 Released: 2015-05-31
