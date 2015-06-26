@@ -1951,7 +1951,6 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 		as_component_add_icon_url (cpt, 64, 64, icon_url);
 		goto out;
 	}
-	tmp_icon_path = NULL;
 
 	/* search local icon path */
 	for (i = 0; icon_paths[i] != NULL; i++) {
@@ -1970,10 +1969,13 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 				} else {
 					g_hash_table_insert (priv->icon_urls, g_strdup (sizes[j]), g_strdup (tmp_icon_path));
 				}
+
 				g_free (tmp_icon_path);
+				tmp_icon_path = NULL;
 				continue;
 			}
 			g_free (tmp_icon_path);
+			tmp_icon_path = NULL;
 
 			/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
 			for (k = 0; exensions[k] != NULL; k++) {
@@ -1992,6 +1994,7 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 						g_hash_table_insert (priv->icon_urls, g_strdup (sizes[j]), g_strdup (tmp_icon_path));
 					}
 				}
+
 				g_free (tmp_icon_path);
 				tmp_icon_path = NULL;
 			}
