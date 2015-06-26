@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jozef Mlích <xmlich02@stud.fit.vutbr.cz>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-05-31 17:21+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"PO-Revision-Date: 2015-06-18 10:52+0000\n"
+"Last-Translator: Jozef Mlích <xmlich02@stud.fit.vutbr.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/appstream/language/"
 "cs/)\n"
 "Language: cs\n"
@@ -25,17 +26,19 @@ msgid "AppStream Validation Utility"
 msgstr ""
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "Aktualizace vyrovnávací paměti AppStream byla úspěně dokončená."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"Aktualizace vyrovnávací paměti AppStream byla dokončena, ale některé "
+"metadata byly ignorovány kvůli chybám."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Aktualizace vyrovnávací paměti AppStream selhala."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream-Index Client Tool"
@@ -49,27 +52,27 @@ msgid "Bundle"
 msgstr ""
 
 msgid "Categories"
-msgstr ""
+msgstr "Kategorie"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Příkaz '%s' není známy."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Povinné pro"
 
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Vývojář"
 
 msgid "Don't show colored output"
 msgstr ""
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Vynutit obnovení mezipaměti"
 
 msgid "Failed to parse arguments"
 msgstr ""
@@ -85,20 +88,20 @@ msgid "Get information about a component by its id"
 msgstr ""
 
 msgid "Homepage"
-msgstr ""
+msgstr "Domovská stránka"
 
 msgid "Icon"
-msgstr ""
+msgstr "Ikonka"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identifikátor"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
 msgstr ""
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Licence"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
@@ -107,7 +110,7 @@ msgid "Manually set the location of the AppStream cache"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Jméno"
 
 #, c-format
 msgid "No component matching '%s' found."
@@ -121,14 +124,14 @@ msgid "No value for the provides-item to search for defined."
 msgstr ""
 
 msgid "Package"
-msgstr ""
+msgstr "Balíček"
 
 msgid "Print detailed output about found components"
 msgstr ""
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Skupina projektu"
 
 msgid "Provided Items"
 msgstr ""
@@ -156,17 +159,17 @@ msgid "Show issues from pedantic tests"
 msgstr ""
 
 msgid "Show program version"
-msgstr ""
+msgstr "Zobrazit verzi programu"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Zobrazit verzi programu"
 
 #. these are commands we can use with appstream-index
 msgid "Subcommands:"
 msgstr ""
 
 msgid "Summary"
-msgstr ""
+msgstr "Abstrakt"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format

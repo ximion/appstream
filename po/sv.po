@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Josef Andersson <josef.andersson@fripost.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-05-31 17:21+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"PO-Revision-Date: 2015-06-17 18:37+0000\n"
+"Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/appstream/"
 "language/sv/)\n"
 "Language: sv\n"
@@ -19,189 +20,192 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "En tillhandahåller-objekt-typ (e.g. lib, bin, python3, …)"
 
 msgid "AppStream Validation Utility"
-msgstr ""
+msgstr "AppStream valideringsverktyg"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "Uppdatering av AppStreams cache färdig."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"Uppdatering av cache färdig, men en del metadata ignorerades på grund av fel."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Uppdatering av AppStreams cache misslyckades."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream-Index Client Tool"
-msgstr ""
+msgstr "AppStream-Index kilentverktyg"
 
 #, c-format
 msgid "Appstream-Index client tool version: %s"
-msgstr ""
+msgstr "AppStream-Index klientverktyg version: %s"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Bunt"
 
 msgid "Categories"
-msgstr ""
+msgstr "Kategorier"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Kommando ”%s” är okänt."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Obligatorisks för"
 
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Utvecklare"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Visa inte färgad utdata"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Tvinga en cache-uppdatering"
 
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Misslyckades med att tolka argument"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "Filen %s inte hittad eller tillstånd nekat!"
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Hämta komponenter som tillhandahåller det givna objektet"
 
 msgid "Get information about a component by its id"
-msgstr ""
+msgstr "Hämta information om en komponent genom dess id"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Webbplats"
 
 msgid "Icon"
-msgstr ""
+msgstr "Ikon"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identifierare"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
-msgstr ""
+msgstr "Ogiltig typ för tillhandahåller-objekt vald. Giltiga värden är:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Licens"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
-msgstr ""
+msgstr "Ange manuellt platsen för AppStream-metadata för cache-ombyggnad"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Ange manuellt platsen för AppStream-cachen"
 
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Hittade ingen komponent matchande ”%s”."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "Hittade ingen komponent matchande ”%s:%s:%s”."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "Inga värden för tillhandahåller-objektsöket definierade."
 
 msgid "Package"
-msgstr ""
+msgstr "Paket"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Skriv ut detaljerad utdata om hittade komponenter"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Projektgrupp"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Tillhandahållna objekt"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Bygg om cachen för komponentinformation"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Kör ”%s --help” för att se en fullständig lista över tillgängliga "
+"kommandoradsalternativ."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "URL för samplingsskärmbild"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Sök i komponentdatabasen"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Välj ett värde för tillhandahållar-objektet som behöver hittas"
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Visa extra felsökningsinformation"
 
 msgid "Show issues from pedantic tests"
-msgstr ""
+msgstr "Visa problem från pedantiska tester"
 
 msgid "Show program version"
-msgstr ""
+msgstr "Visa programversion"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Visa programversionen"
 
 #. these are commands we can use with appstream-index
 msgid "Subcommands:"
-msgstr ""
+msgstr "Subkommandon:"
 
 msgid "Summary"
-msgstr ""
+msgstr "Summering"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Kunde inte hitta komponenten matchandes %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "Kunde inte hitta komponenten tillhandahållandes ”%s:%s:%s”!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Kunde inte hitta komponenten med id ”%s”!"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Validering misslyckades."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "XDG Menu XML-filen ”%s” är skadad."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Du behöver köra kommandot med superanvändarrättigheter!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Du behöver specificera ett kommando."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Du behöver specificera ett komponent-id."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Du behöver specificera en fil att validera!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Du behöver specificera en term att söka efter."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -210,4 +214,4 @@ msgstr ""
 #. * the search.
 #.
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;program;paket;svit;verktyg"
