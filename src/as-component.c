@@ -612,13 +612,16 @@ _as_component_serialize_image (AsImage *img, xmlNode *subnode)
 	else
 		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "source");
 
-	size = g_strdup_printf("%i", as_image_get_width (img));
-	xmlNewProp (n_image, (xmlChar*) "width", (xmlChar*) size);
-	g_free (size);
+	if ((as_image_get_width (img) > 0) &&
+		(as_image_get_height (img) > 0)) {
+		size = g_strdup_printf("%i", as_image_get_width (img));
+		xmlNewProp (n_image, (xmlChar*) "width", (xmlChar*) size);
+		g_free (size);
 
-	size = g_strdup_printf("%i", as_image_get_height (img));
-	xmlNewProp (n_image, (xmlChar*) "height", (xmlChar*) size);
-	g_free (size);
+		size = g_strdup_printf("%i", as_image_get_height (img));
+		xmlNewProp (n_image, (xmlChar*) "height", (xmlChar*) size);
+		g_free (size);
+	}
 
 	xmlAddChild (subnode, n_image);
 }

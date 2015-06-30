@@ -238,6 +238,7 @@ as_metadata_process_screenshot (AsMetadata *metad, xmlNode* node, AsScreenshot* 
 	xmlNode *iter;
 	gchar *node_name;
 	gchar *content = NULL;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
@@ -271,10 +272,14 @@ as_metadata_process_screenshot (AsMetadata *metad, xmlNode* node, AsScreenshot* 
 				height = g_ascii_strtoll (str, NULL, 10);
 				g_free (str);
 			}
+
 			/* discard invalid elements */
-			if ((width == 0) || (height == 0)) {
-				g_free (content);
-				continue;
+			if (priv->mode == AS_PARSER_MODE_DISTRO) {
+				/* no sizes are okay for upstream XML, but not for distro XML */
+				if ((width == 0) || (height == 0)) {
+					g_free (content);
+					continue;
+				}
 			}
 
 			as_image_set_width (img, width);
