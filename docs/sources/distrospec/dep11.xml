@@ -28,6 +28,9 @@
 			The DEP-11 YAML metadata can be validated for correctness using the <command>dep11-validate</command> tool from the
 			<ulink url="https://packages.debian.org/source/sid/appstream-dep11">AppStream DEP-11 utils</ulink>.
 		</para>
+		<para>
+			Fields not mentioned in this document are not recognized by DEP-11 YAML parsers.
+		</para>
 	</section>
 
 
@@ -100,17 +103,21 @@
 		</para>
 		<orderedlist>
 			<listitem><para>They are of type <emphasis>dict</emphasis></para></listitem>
-			<listitem><para>They must contain a key <literal>C</literal>, containing the untranslated string as value</para></listitem>
-			<listitem><para>All languages are represented as with their locale name as key in the dict and the translated string as value</para></listitem>
+			<listitem><para>They must contain a key <literal>C</literal>, with the untranslated string as value</para></listitem>
+			<listitem>
+				<para>
+					All languages are represented with their locale name as key in the dict and the translated content as value
+					(which is of type <emphasis>str</emphasis>, unless explicitly stated otherwise)
+				</para>
+			</listitem>
 		</orderedlist>
 		<para>
-			In this document, the type <emphasis>translated</emphasis> is used to indicate that the field contains translated values following this schema.
+			In this document, the type <emphasis>localized</emphasis> is used to indicate that the field contains translated values following this schema.
 		</para>
 		<para>
 			Example for a translated <literal>Name</literal> field:
 		</para>
-		<programlisting language="ruby">
-<![CDATA[Name:
+		<programlisting language="python"><![CDATA[Name:
   C: I am the untranslated string.
   be@latin: Redaktar naładaŭ
   bg: Настройки на програмите
@@ -172,7 +179,7 @@
 				<term>Name</term>
 				<listitem>
 					<para>See <xref linkend="tag-distro-name"/>.</para>
-					<literallayout>Field info: <property>value-type</property>:<emphasis>translated</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
 				</listitem>
 			</varlistentry>
 
@@ -180,7 +187,7 @@
 				<term>Summary</term>
 				<listitem>
 					<para>See <xref linkend="tag-distro-summary"/>.</para>
-					<literallayout>Field info: <property>value-type</property>:<emphasis>translated</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
 				</listitem>
 			</varlistentry>
 
@@ -200,7 +207,7 @@
 						The markup for the description is the same as in the XML specification, so it can be read by anything
 						parsing basic HTML markup.
 					</para>
-					<literallayout>Field info: <property>value-type</property>:<emphasis>translated</emphasis></literallayout>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
 				</listitem>
 			</varlistentry>
 
@@ -225,6 +232,362 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="field-dep11-projectgroup">
+				<term>ProjectGroup</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-project_group"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-icon">
+				<term>Icon</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-icon"/>.</para>
+
+					<para>
+						The <literal>Icon</literal> field has the different icon types as keys for its dict.
+						Currently, only the <literal>stock</literal> and <literal>cached</literal> icon types are supported,
+						with a value of type <emphasis>str</emphasis>.
+					</para>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-categories">
+				<term>Categories</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-categories"/>.</para>
+
+					<para>
+						This field follows its XML counterpart in almost all regards. The different XDG menu category names are encoded in the list, and are
+						of type <emphasis>str</emphasis>.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting><![CDATA[Categories:
+  - GNOME
+  - GTK
+  - Network
+  - Telephony]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-keywords">
+				<term>Keywords</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-keywords"/>.</para>
+
+					<para>
+						This field contains the keywords for this component. The keys define the locales for the respective language, the values are
+						of type <emphasis>list</emphasis> and contain the list of keywords for the respective language. An unlocalized <literal>C</literal>
+						key must be present.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting><![CDATA[Keywords:
+  C:
+    - IDE
+    - development
+    - programming
+  de:
+    - IDE
+    - entwicklung
+    - programmierung]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>translated(list)</emphasis></literallayout>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-screenshots">
+				<term>Screenshots</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-screenshots"/>.</para>
+					<para>
+						The <literal>Screenshots</literal> field contains a list of screenshots. A screenshot is of type
+						<emphasis>dict</emphasis> and contains the following keys:
+					</para>
+
+					<variablelist>
+						<varlistentry>
+						<term>default</term>
+						<listitem>
+							<para>
+								If <literal>default</literal> is <code>true</code>, the screenshot is selected as default screenshot. There has to be at least one
+								screenshot which is marked as default.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>bool</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>source-image</term>
+						<listitem>
+							<para>
+								Describes the source image for this screenshot. It has the following keys:
+							</para>
+							<itemizedlist>
+								<listitem><para><literal>height</literal>, describing the image height (<property>value-type</property>:<emphasis>int</emphasis>)</para></listitem>
+								<listitem><para><literal>width</literal>, describing the image width (<property>value-type</property>:<emphasis>int</emphasis>)</para></listitem>
+								<listitem>
+									<para>
+										<literal>url</literal>, the full image url, or the url component added to <literal>AssetsUrl</literal>,
+										if defined (<property>value-type</property>:<emphasis>int</emphasis>)
+									</para>
+								</listitem>
+							</itemizedlist>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>thumbnails</term>
+						<listitem>
+							<para>
+								A list of an arbitrary number of screenshots. All screenshots are of type <emphasis>dict</emphasis> and must contain the same keys as described for
+								<literal>source-image</literal>.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>caption</term>
+						<listitem>
+							<para>
+								A caption for this screenshot.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+					</variablelist>
+
+					<para>
+						Example for a <literal>Screenshots</literal> field containing one screenshot:
+					</para>
+					<programlisting><![CDATA[Screenshots:
+  - default: true
+    caption:
+      C: Foobar showing kitchen-sink functionality
+      si: Foobar shoeewing kischän-sünk funzionality
+    source-image:
+      height: 800
+      url: http://www.example.org/en_US/main.png
+      width: 600
+    thumbnails:
+      - height: 423
+        width: 752
+        url: http://www.example.org/en_US/main-large.png
+      - height: 63
+        width: 112
+        url: http://www.example.org/en_US/main-small.png]]></programlisting>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+
+			<varlistentry id="field-dep11-compulsoryfordesktop">
+				<term>CompulsoryForDesktop</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-compulsory_for_desktop"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-provides">
+				<term>Provides</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-provides"/>.</para>
+					<para>
+						The <literal>Provides</literal> field is of type <emphasis>dict</emphasis> and can have the following keys set with
+						the described allowed values:
+					</para>
+
+					<variablelist>
+						<varlistentry>
+						<term>libraries</term>
+						<listitem>
+							<para>
+								A list of provided library names.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>binaries</term>
+						<listitem>
+							<para>
+								A list of provided binaries in <envar>PATH</envar>.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>mimetypes</term>
+						<listitem>
+							<para>
+								A list of mimetypes this component can handle.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>firmware</term>
+						<listitem>
+							<para>
+								A list of provided firmware. Each firmware entry is of type <emphasis>dict</emphasis> and has a
+								<literal>type</literal> key, which has either <code>runtime</code> or <code>flashed</code> as
+								value.
+								Firmware of type <code>flashed</code> has a <literal>guid</literal> key, containing the GUID of the device
+								the firmware is flashed on, while firmware of type <code>runtime</code> has a <literal>fname</literal> key,
+								containing the firmware filename which the kernel is looking for.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>dbus</term>
+						<listitem>
+							<para>
+								A list of provided DBus services. Each service entry in the list is of type <emphasis>dict</emphasis> and has a
+								<literal>type</literal> key, which has either <code>system</code> or <code>user</code> as
+								value. <code>user</code> means the DBus service name is for a user/session service, while <code>system</code> means
+								it describes a system service.
+								The <literal>name</literal> key contains the name of the DBus service file. All dict values are of type <emphasis>str</emphasis>.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+					</variablelist>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-developername">
+			<term>DeveloperName</term>
+			<listitem>
+				<para>See <xref linkend="tag-distro-developer_name"/>.</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-releases">
+			<term>Releases</term>
+			<listitem>
+				<para>See <xref linkend="tag-distro-releases"/>.</para>
+				<para>
+					The <literal>Releases</literal> contains a list of releases, where each list items contains the following fields/keys:
+				</para>
+
+				<variablelist>
+						<varlistentry>
+						<term>version</term>
+						<listitem>
+							<para>
+								The version number of this release.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>unix-timestamp</term>
+						<listitem>
+							<para>
+								The UNIX timestamp of when this software was released.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>description</term>
+						<listitem>
+							<para>
+								A description of this release. May contain allowed HTML markup.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+				</variablelist>
+
+				<para>
+					It is recommended to order this list starting with the latest timestamp to the olderst one.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting><![CDATA[Releases:
+  - version: '1.8'
+    unix-timestamp: 1424116753
+    description:
+      C: |
+        <p>This stable release fixes the following bug:</p>
+        <ul>
+          <li>CPU no longer overheats when you hold down spacebar</li>
+        </ul>
+  - version: '1.2'
+    unix-timestamp: 1397253600
+  - version: 1.0
+    unix-timestamp: 1345932000]]></programlisting>
+
+				<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-languages">
+			<term>Languages</term>
+			<listitem>
+				<para>See <xref linkend="tag-distro-languages"/>.</para>
+				<para>
+					The languages list is a list of dictionaries. They must contain a <literal>percentage</literal>
+					key, indicating the completion of translation for this language, and a <literal>locale</literal>
+					key, with the locale string as value.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting><![CDATA[Languages:
+  - locale: gu
+    percentage: 96
+  - locale: ca@valencia
+    percentage: 94
+  - locale: de
+    percentage: 91
+  - locale: eo
+    percentage: 93]]></programlisting>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-bundle">
+			<term>Bundle</term>
+			<listitem>
+				<para>See <xref linkend="tag-distro-bundle"/>.</para>
+				<para>
+					The <literal>Bundle</literal> contains one or two subfields with the value <code>limba</code>, describing a
+					Limba bundle ID, or <code>xdg-app</code> for an XdgApp bundle ID.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting><![CDATA[Bundle:
+  limba: foobar-1.0.2]]></programlisting>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
 		</variablelist>
 
 	</section>
@@ -238,8 +601,9 @@
 		<programlisting>
 <![CDATA[---
 File: DEP-11
+Version: '0.8'
 Origin: chromodoris-main
-Version: '0.6'
+AssetsUrl: http://metadata.tanglu.org/dep11/assets/main/
 ---
 Categories:
   - GNOME
@@ -321,17 +685,17 @@ Screenshots:
   - default: true
     source-image:
       height: 756
-      url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/source/screenshot-1.png
+      url: texstudio_2.8.4+debian-3_amd64/screenshots/source/screenshot-1.png
       width: 1344
     thumbnails:
       - height: 423
-        url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/752x423/screenshot-1.png
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/752x423/screenshot-1.png
         width: 752
       - height: 351
-        url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/624x351/screenshot-1.png
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/624x351/screenshot-1.png
         width: 624
       - height: 63
-        url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/112x63/screenshot-1.png
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/112x63/screenshot-1.png
         width: 112
 Summary:
   C: LaTeX development environment
