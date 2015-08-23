@@ -8,467 +8,467 @@
 	<title>Generic Component</title>
 
 	<section id="spec-component-introduction">
-		<title>Introduction</title>
-		<para>
-			For a distribution, it is good to know more about the content of a package. Which public interfaces (libraries? Python modules?) does it provide? Does it contain codecs? Does it
-			contain firmware? Fonts? An application?
-			All of this information can be used to automatically install missing software or to offer users a choice on what they want to install from a software center.
-		</para>
-		<para>
-			To provide this information, we created the <emphasis role="italic">metainfo</emphasis> files, which allow <emphasis role="bold">upstream projects</emphasis> to describe the content of their software package.
-			If a metainfo file provides a <literal>&lt;provides/&gt;</literal> tag, distributors must also ensure that the package providing the file contain all items referenced
-			by that statement, or is installed by a metapackage depending on packages which provide these items. This gives upstream projects a (very light) way to influence distributor packaging.
-			More information about that can be found below.
-		</para>
-		<para>
-			Several specialized component-metainfo files exist, for example for applications or fonts. These are all based on this generic component XML specification, and are described in the
-			following chapters.
-		</para>
+	<title>Introduction</title>
+	<para>
+		For a distribution, it is good to know more about the content of a package. Which public interfaces (libraries? Python modules?) does it provide? Does it contain codecs? Does it
+		contain firmware? Fonts? An application?
+		All of this information can be used to automatically install missing software or to offer users a choice on what they want to install from a software center.
+	</para>
+	<para>
+		To provide this information, we created the <emphasis role="italic">metainfo</emphasis> files, which allow <emphasis role="bold">upstream projects</emphasis> to describe the content of their software package.
+		If a metainfo file provides a <literal>&lt;provides/&gt;</literal> tag, distributors must also ensure that the package providing the file contain all items referenced
+		by that statement, or is installed by a metapackage depending on packages which provide these items. This gives upstream projects a (very light) way to influence distributor packaging.
+		More information about that can be found below.
+	</para>
+	<para>
+		Several specialized component-metainfo files exist, for example for applications or fonts. These are all based on this generic component XML specification, and are described in the
+		following chapters.
+	</para>
 	</section>
 
 	<section id="spec-component-location">
-		<title>Filesystem locations</title>
+	<title>Filesystem locations</title>
+	<para>
+		Upstream projects can ship one or more metainfo files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>, where <literal>id</literal> is a unique
+		identifier of this specific component.
+	</para>
+	<note>
 		<para>
-			Upstream projects can ship one or more metainfo files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>, where <literal>id</literal> is a unique
-			identifier of this specific component.
+		Applications are a special case here, because they are special in some ways (and also for historical reasons).
+		If your metainfo file covers only an application, as described in the AppData section, install it as
+		<filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
 		</para>
-		<note>
-			<para>
-				Applications are a special case here, because they are special in some ways (and also for historical reasons).
-				If your metainfo file covers only an application, as described in the AppData section, install it as
-				<filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
-			</para>
-		</note>
-		<para>
-			Please note that the <filename>/usr/share/appdata/symbols</filename> directory is reserved for a possible future use for storing upstream-generated symbols files for
-			libraries.
-		</para>
+	</note>
+	<para>
+		Please note that the <filename>/usr/share/appdata/symbols</filename> directory is reserved for a possible future use for storing upstream-generated symbols files for
+		libraries.
+	</para>
 <!--
-		This is currently hidden, because we only want to re-add it to the spec in case it turns out to be really needed.
-		(was a workaround back in the days, before AppStream generators became smarter)
-		<important>
-			<title>Multiarch Support</title>
-			<para>
-				On multiarch-aware systems such as Debian: If a component ships a library, the meta-info file should be in the same package as the library itself, or
-				in a package depending on that library.
-				To make the library packages co-installable, the metadata can be installed into <filename>/usr/share/appdata/&lt;triplet&gt;</filename>, for example
-				<filename>/usr/share/appdata/x86_64-linux-gnu/foobar.metainfo.xml</filename>.
-				Upstream projects which ship components with libraries should adjust their buildsystem to install a multi-arch compatible metainfo file by default.
-				Make use of the <literal>&lt;architectures/&gt;</literal> tag to indicate that the meta-info file is arch specific.
-			</para>
-		</important>
+	This is currently hidden, because we only want to re-add it to the spec in case it turns out to be really needed.
+	(was a workaround back in the days, before AppStream generators became smarter)
+	<important>
+		<title>Multiarch Support</title>
+		<para>
+		On multiarch-aware systems such as Debian: If a component ships a library, the meta-info file should be in the same package as the library itself, or
+		in a package depending on that library.
+		To make the library packages co-installable, the metadata can be installed into <filename>/usr/share/appdata/&lt;triplet&gt;</filename>, for example
+		<filename>/usr/share/appdata/x86_64-linux-gnu/foobar.metainfo.xml</filename>.
+		Upstream projects which ship components with libraries should adjust their buildsystem to install a multi-arch compatible metainfo file by default.
+		Make use of the <literal>&lt;architectures/&gt;</literal> tag to indicate that the meta-info file is arch specific.
+		</para>
+	</important>
 -->
 	</section>
 
 	<section id="spec-component-filespec">
-		<title>XML Specification</title>
+	<title>XML Specification</title>
 
+	<para>
+		The XML for a generic component definition starts with an <code><![CDATA[<component>]]></code> tag as root element.
+		The <code><![CDATA[<component>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag,
+		a <literal>provides</literal> tag with appropriate children is highly recommended.
+		All possible tags in the generic set are:
+	</para>
+
+	<variablelist>
+		<varlistentry id="tag-id-generic">
+		<term>&lt;id/&gt;</term>
+		<listitem>
 		<para>
-			The XML for a generic component definition starts with an <code><![CDATA[<component>]]></code> tag as root element.
-			The <code><![CDATA[<component>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag,
-			a <literal>provides</literal> tag with appropriate children is highly recommended.
-			All possible tags in the generic set are:
+			The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers, spaces are
+			not allowed. Specialized metainfo types, such as application or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
 		</para>
+		<para>
+			Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions. In case it is not, distributors are expected to reject the conflicting components
+			from inclusion into their metadata.
+		</para>
+		</listitem>
+		</varlistentry>
 
-		<variablelist>
-			<varlistentry id="tag-id-generic">
-			<term>&lt;id/&gt;</term>
+		<varlistentry id="tag-metadata_license">
+		<term>&lt;metadata_license/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
+			Metainfo XML file as. This is not typically the same as the project licence. By ommitting the licence value would
+			probably mean your data would not be incorporated into the distribution metadata (so this is a required tag).
+			Permissible licence codes include:
+		</para>
+		<itemizedlist>
 			<listitem>
-				<para>
-					The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers, spaces are
-					not allowed. Specialized metainfo types, such as application or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
-				</para>
-				<para>
-					Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions. In case it is not, distributors are expected to reject the conflicting components
-					from inclusion into their metadata.
-				</para>
+			<para>CC0-1.0</para>
 			</listitem>
-			</varlistentry>
-
-			<varlistentry id="tag-metadata_license">
-			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
-				<para>
-					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
-					Metainfo XML file as. This is not typically the same as the project licence. By ommitting the licence value would
-					probably mean your data would not be incorporated into the distribution metadata (so this is a required tag).
-					Permissible licence codes include:
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>CC0-1.0</para>
-					</listitem>
-					<listitem>
-						<para>CC-BY-3.0</para>
-					</listitem>
-					<listitem>
-						<para>CC-BY-SA-3.0</para>
-					</listitem>
-					<listitem>
-						<para>GFDL-1.3</para>
-					</listitem>
-					<listitem>
-						<para>MIT</para>
-					</listitem>
-				</itemizedlist>
-				<para>
-					The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-					For instance, CC-BY-SA-3.0 corresponds to http://creativecommons.org/licenses/by-sa/3.0/
-				</para>
+			<para>CC-BY-3.0</para>
 			</listitem>
-			</varlistentry>
+			<listitem>
+			<para>CC-BY-SA-3.0</para>
+			</listitem>
+			<listitem>
+			<para>GFDL-1.3</para>
+			</listitem>
+			<listitem>
+			<para>MIT</para>
+			</listitem>
+		</itemizedlist>
+		<para>
+			The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+			For instance, CC-BY-SA-3.0 corresponds to http://creativecommons.org/licenses/by-sa/3.0/
+		</para>
+		</listitem>
+		</varlistentry>
 
-			<varlistentry id="tag-name">
-				<term>&lt;name/&gt;</term>
+		<varlistentry id="tag-name">
+		<term>&lt;name/&gt;</term>
+		<listitem>
+			<para>
+			A human-readable name for this software component. For example, if the component id was "libc", it's name might be "GNU Standard C Library".
+			</para>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-summary">
+		<term>&lt;summary/&gt;</term>
+		<listitem>
+			<para>
+			A short summary of what this component does. If the component is "PackageKit", the summary could be "Provides a package-management abstraction layer".
+			</para>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-description">
+		<term>&lt;description/&gt;</term>
+		<listitem>
+		<para>
+			A long description of this component. Some markup can be used.
+		</para>
+		<para>
+			Do not assume the format is HTML. Only paragraph (p), ordered list (ol) and unordered list (ul) are supported at this time.
+		</para>
+		<para>
+			In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
+			has a language property.
+		</para>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-url">
+		<term>&lt;url/&gt;</term>
+		<listitem>
+			<para>
+			Defines URLs for this component.There are several different URL types allowed:
+			</para>
+			<variablelist>
+			<varlistentry>
+				<term>homepage</term>
 				<listitem>
-					<para>
-						A human-readable name for this software component. For example, if the component id was "libc", it's name might be "GNU Standard C Library".
-					</para>
+				<para>Should be a link to the upstream homepage for the component.</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-summary">
-				<term>&lt;summary/&gt;</term>
+			<varlistentry>
+				<term>bugtracker</term>
 				<listitem>
-					<para>
-						A short summary of what this component does. If the component is "PackageKit", the summary could be "Provides a package-management abstraction layer".
-					</para>
+				<para>Should point to the software's bug tracking system, for users to report new bugs.</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-description">
-			<term>&lt;description/&gt;</term>
-			<listitem>
-				<para>
-					A long description of this component. Some markup can be used.
-				</para>
-				<para>
-					Do not assume the format is HTML. Only paragraph (p), ordered list (ol) and unordered list (ul) are supported at this time.
-				</para>
-				<para>
-					In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
-					has a language property.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry id="tag-url">
-				<term>&lt;url/&gt;</term>
+			<varlistentry>
+				<term>faq</term>
 				<listitem>
-					<para>
-						Defines URLs for this component.There are several different URL types allowed:
-					</para>
-					<variablelist>
-						<varlistentry>
-							<term>homepage</term>
-							<listitem>
-								<para>Should be a link to the upstream homepage for the component.</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>bugtracker</term>
-							<listitem>
-								<para>Should point to the software's bug tracking system, for users to report new bugs.</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>faq</term>
-							<listitem>
-								<para>
-									Should link a FAQ page for this software, to answer some of the most-asked questions in
-									detail, something which you can not do in the component's description.
-								</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>help</term>
-							<listitem>
-								<para>Should provide a link to an online user's reference, a software manual or help page.</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>donation</term>
-							<listitem>
-								<para>
-									Links of this type should point to a webpage showing information on how to donate to
-									the described software project.
-								</para>
-							</listitem>
-						</varlistentry>
-					</variablelist>
+				<para>
+					Should link a FAQ page for this software, to answer some of the most-asked questions in
+					detail, something which you can not do in the component's description.
+				</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-releases">
-				<term>&lt;releases/&gt;</term>
+			<varlistentry>
+				<term>help</term>
 				<listitem>
-					<para>
-						The <code><![CDATA[<releases>]]></code> tag contains <code>&lt;release/&gt;</code> child tags which
-						describe some metainformation about the current release of the described software.
-						The <code>&lt;release/&gt;</code> tag may be present multiple times (for older releases), but a tag for
-						the current version must always be present.
-						A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
-						and a release timestamp in form of a UNIX epoch.
-					</para>
-					<para>
-						Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
-						The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>
-					</para>
-					<para>
-						Examples for a valid releases tag:
-					</para>
-					<programlisting language="XML"><![CDATA[<releases>
+				<para>Should provide a link to an online user's reference, a software manual or help page.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>donation</term>
+				<listitem>
+				<para>
+					Links of this type should point to a webpage showing information on how to donate to
+					the described software project.
+				</para>
+				</listitem>
+			</varlistentry>
+			</variablelist>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-releases">
+		<term>&lt;releases/&gt;</term>
+		<listitem>
+			<para>
+			The <code><![CDATA[<releases>]]></code> tag contains <code>&lt;release/&gt;</code> child tags which
+			describe some metainformation about the current release of the described software.
+			The <code>&lt;release/&gt;</code> tag may be present multiple times (for older releases), but a tag for
+			the current version must always be present.
+			A <literal>release</literal> tag can have the properties <literal>version</literal> and <literal>timestamp</literal> which contain the version number
+			and a release timestamp in form of a UNIX epoch.
+			</para>
+			<para>
+			Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
+			The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>
+			</para>
+			<para>
+			Examples for a valid releases tag:
+			</para>
+			<programlisting language="XML"><![CDATA[<releases>
   <release version="1.2" timestamp="1397253600" />
   <release version="1.0" timestamp="1345932000" />
 </releases>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-provides">
+		<term>&lt;provides/&gt;</term>
+		<listitem>
+			<para>
+			The <literal>provides</literal> tag and it's children describe the public interfaces this application provides.
+			A public interface can be anything which other applications, which are not part of the upstream project, can access or reference.
+			This includes binaries and libraries. Private interfaces should never be added to a <literal>provides</literal> tag.
+			</para>
+			<para>
+			A <literal>provides</literal> tag contain a number of children describing the type and name of the provided public interface items.
+			It is suggested that the build-system auto-generates this tag and it's children.
+			Currently allowed item types are listed below. If you miss something, file a bug against AppStream so we can add the new type.
+			</para>
+
+			<variablelist>
+			<varlistentry>
+				<term>&lt;library/&gt;</term>
+				<listitem>
+				<para>
+					Contains the name of a shared library placed in a publicly accessible library path, such as <filename>/usr/lib</filename>, <filename>/usr/lib/&lt;triplet&gt;</filename>
+					or <filename>/lib</filename>.
+					For example, for the libappstream library, the value for <literal>library</literal> would be <userinput>libappstream.so.1</userinput>.
+				</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-provides">
-				<term>&lt;provides/&gt;</term>
+			<varlistentry>
+				<term>&lt;binary/&gt;</term>
 				<listitem>
-					<para>
-						The <literal>provides</literal> tag and it's children describe the public interfaces this application provides.
-						A public interface can be anything which other applications, which are not part of the upstream project, can access or reference.
-						This includes binaries and libraries. Private interfaces should never be added to a <literal>provides</literal> tag.
-					</para>
-					<para>
-						A <literal>provides</literal> tag contain a number of children describing the type and name of the provided public interface items.
-						It is suggested that the build-system auto-generates this tag and it's children.
-						Currently allowed item types are listed below. If you miss something, file a bug against AppStream so we can add the new type.
-					</para>
+				<para>
+					Name of a binary installed into a location in <envar>PATH</envar>.
+				</para>
+				</listitem>
+			</varlistentry>
 
-					<variablelist>
-						<varlistentry>
-							<term>&lt;library/&gt;</term>
-							<listitem>
-								<para>
-									Contains the name of a shared library placed in a publicly accessible library path, such as <filename>/usr/lib</filename>, <filename>/usr/lib/&lt;triplet&gt;</filename>
-									or <filename>/lib</filename>.
-									For example, for the libappstream library, the value for <literal>library</literal> would be <userinput>libappstream.so.1</userinput>.
-								</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>&lt;binary/&gt;</term>
-							<listitem>
-								<para>
-									Name of a binary installed into a location in <envar>PATH</envar>.
-								</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>&lt;font/&gt;</term>
-							<listitem>
-								<para>
-									Name of a font provided by this component. For example <userinput>Linux Libertine O</userinput>.
-									The tag must have a <literal>file</literal> property stating the filename of the referenced font.
-								</para>
-								<para>
-									Example:
-								</para>
-								<programlisting language="XML"><![CDATA[<provides>
+			<varlistentry>
+				<term>&lt;font/&gt;</term>
+				<listitem>
+				<para>
+					Name of a font provided by this component. For example <userinput>Linux Libertine O</userinput>.
+					The tag must have a <literal>file</literal> property stating the filename of the referenced font.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<provides>
   <font file="LinLibertine_R.otf">Linux Libertine O</font>
 </provides>]]></programlisting>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>&lt;modalias/&gt;</term>
-							<listitem>
-								<para>
-									A modalias glob representing the hardware types (for example USB, PCI, ACPI, DMI) this component handles.
-									Useful for installing printer drivers or other USB protocol drivers for smartphones, firmware, kernel drivers which
-									are not merged upstream yet or whatever else.
-								</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>&lt;firmware/&gt;</term>
-							<listitem>
-								<para>
-									Name of the firmware this component provides, to make it possible to find the right firmware package to install for a given kernel driver.
-									The value is the path below /lib/firmware to the firmware file in question, like the firmware value exported from Linux kernel modules.
-								</para>
-								<para>
-									Example:
-								</para>
-								<programlisting language="XML"><![CDATA[<provides>
-  <firmware>ipw2200-bss.fw</firmware>
-</provides>]]></programlisting>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>&lt;python2/&gt;</term>
-							<listitem>
-								<para>
-									Name of a Python2 module this component provides.
-								</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>&lt;python3/&gt;</term>
-							<listitem>
-								<para>
-									Name of a Python3 module this component provides.
-								</para>
-							</listitem>
-						</varlistentry>
-
-						<varlistentry>
-							<term>&lt;dbus/&gt;</term>
-							<listitem>
-								<para>
-									Contains the name of a DBus service as property. The type of the service must be specified using the <literal>type</literal> property
-									of this tag. Allowed values are <code>session</code> and <code>system</code>.
-								</para>
-								<para>
-									Example:
-								</para>
-								<programlisting language="XML"><![CDATA[<provides>
-  <dbus type="system">org.freedesktop.PackageKit</dbus>
-</provides>]]></programlisting>
-							</listitem>
-						</varlistentry>
-
-					</variablelist>
 				</listitem>
-
 			</varlistentry>
 
-			<varlistentry id="tag-mimetypes">
-				<term>&lt;mimetypes/&gt;</term>
+			<varlistentry>
+				<term>&lt;modalias/&gt;</term>
 				<listitem>
-					<para>
-						This tag can contain one or more <code>&lt;mimetype/&gt;</code> children, describing the mime types this application supports.
-						This tag is especially useful for generic components and addon-type components. For applications, the metadata will automatically
-						be fetched from their .desktop files by the distribution's metadata generator.
-						Example:
-					</para>
-					<programlisting language="XML">
+				<para>
+					A modalias glob representing the hardware types (for example USB, PCI, ACPI, DMI) this component handles.
+					Useful for installing printer drivers or other USB protocol drivers for smartphones, firmware, kernel drivers which
+					are not merged upstream yet or whatever else.
+				</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;firmware/&gt;</term>
+				<listitem>
+				<para>
+					Name of the firmware this component provides, to make it possible to find the right firmware package to install for a given kernel driver.
+					The value is the path below /lib/firmware to the firmware file in question, like the firmware value exported from Linux kernel modules.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<provides>
+  <firmware>ipw2200-bss.fw</firmware>
+</provides>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;python2/&gt;</term>
+				<listitem>
+				<para>
+					Name of a Python2 module this component provides.
+				</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;python3/&gt;</term>
+				<listitem>
+				<para>
+					Name of a Python3 module this component provides.
+				</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;dbus/&gt;</term>
+				<listitem>
+				<para>
+					Contains the name of a DBus service as property. The type of the service must be specified using the <literal>type</literal> property
+					of this tag. Allowed values are <code>session</code> and <code>system</code>.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<provides>
+  <dbus type="system">org.freedesktop.PackageKit</dbus>
+</provides>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			</variablelist>
+		</listitem>
+
+		</varlistentry>
+
+		<varlistentry id="tag-mimetypes">
+		<term>&lt;mimetypes/&gt;</term>
+		<listitem>
+			<para>
+			This tag can contain one or more <code>&lt;mimetype/&gt;</code> children, describing the mime types this application supports.
+			This tag is especially useful for generic components and addon-type components. For applications, the metadata will automatically
+			be fetched from their .desktop files by the distribution's metadata generator.
+			Example:
+			</para>
+			<programlisting language="XML">
 <![CDATA[<mimetypes>
     <mimetype>text/html</mimetype>
     <mimetype>image/jpeg</mimetype>
     <mimetype>application/rss+xml</mimetype>
  </mimetypes>]]></programlisting>
-				</listitem>
-			</varlistentry>
+		</listitem>
+		</varlistentry>
 
-			<varlistentry id="tag-project_group">
-			<term>&lt;project_group/&gt;</term>
-			<listitem>
-				<para>
-					If you include the <code>&lt;project_group/&gt;</code> tag then this identifies your project with a specific upstream umbrella project.
-					Known values include GNOME, KDE, XFCE, MATE and LXDE, although other umbrella projects like Yorba or Mozilla make sense too.
-				</para>
-				<note>
-					<para>
-						You should only identify with an umbrella project if you use all their infrastructure and policies, for instance string freezes dates, bugtracker and source control instance.
-					</para>
-				</note>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry id="tag-project_license">
-				<term>&lt;project_license/&gt;</term>
-				<listitem>
-					<para>
-						The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
-						It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
-						Possible values include:
-						<itemizedlist>
-							<listitem><para>GPL-2.0</para></listitem>
-							<listitem><para>LGPL-3.0+ and GPL-3.0+</para></listitem>
-							<listitem><para>MIT</para></listitem>
-							<listitem><para>CC-BY-SA-2.0</para></listitem>
-							<listitem><para>...</para></listitem>
-						</itemizedlist>
-						A full list of recognized licenses and their identifiers can be found at the
-						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-					</para>
-					<para>
-						Although the <literal>project_license</literal> tag is not mandatory, it is recommended to include it.
-					</para>
-				</listitem>
-			</varlistentry>
-
-			<varlistentry id="tag-developer_name">
-			<term>&lt;developer_name/&gt;</term>
-			<listitem>
-				<para>
-					The <code>&lt;developer_name/&gt;</code> tag is designed to represent the developers or project responsible for development of the project described in the metadata.
-				</para>
-				<para>
-					Values might be for example "The GNOME Foundation" or "The KDE Community".
-					You must not include hyperlinks or emails in this field, if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
-				</para>
-				<para>
-					This tag is translatable.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry id="tag-screenshots">
-			<term>&lt;screenshots/&gt;</term>
-			<listitem>
-				<para>
-					Visual components (like fonts or graphical applications) may choose to add one or multiple screenshots to their metadata.
-				</para>
-				<para>
-					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
-					<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
-					one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
-					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
-				</para>
-				<para>
-					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 characters!)
-					description of what the user can see on the referenced screenshot.
-				</para>
-				<para>
-					Ideally, all screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620px.
-					They should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
-					images where a lossy format like JPEG may compress better.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry id="tag-update_contact">
-			<term>&lt;update_contact/&gt;</term>
-			<listitem>
-				<para>
-					The <code>&lt;update_contact/&gt;</code> tag is an optional tag which can be added to provide an email address distributors can use to contact the project
-					about invalid or incomplete metadata, or in case the specification has changed, about old metadata. It can also be used to ask general questions in case of
-					an update of the component described in the metadata file.
-				</para>
-				<para>
-					The <code>&lt;update_contact/&gt;</code> tag must <emphasis>only be used by distributors</emphasis>. It is not included in the distribution-provided
-					AppStream XML file, and therefore not exposed to the end user via any kind of UI.
-				</para>
-				<para>
-					Upstream authors might decide to add an email address in cleartext, but spam protection using <code>_AT_</code> is also valid.
-				</para>
-				<para>
-					Example:
-				</para>
-				<programlisting language="XML"><![CDATA[<update_contact>developer_AT_example.com</update_contact>]]></programlisting>
-			</listitem>
-			</varlistentry>
-
-		</variablelist>
-
+		<varlistentry id="tag-project_group">
+		<term>&lt;project_group/&gt;</term>
+		<listitem>
 		<para>
-			An example for a very basic component file could look like this:
+			If you include the <code>&lt;project_group/&gt;</code> tag then this identifies your project with a specific upstream umbrella project.
+			Known values include GNOME, KDE, XFCE, MATE and LXDE, although other umbrella projects like Yorba or Mozilla make sense too.
 		</para>
-		<programlisting language="XML">
+		<note>
+			<para>
+			You should only identify with an umbrella project if you use all their infrastructure and policies, for instance string freezes dates, bugtracker and source control instance.
+			</para>
+		</note>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-project_license">
+		<term>&lt;project_license/&gt;</term>
+		<listitem>
+			<para>
+			The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
+			It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
+			Possible values include:
+			<itemizedlist>
+				<listitem><para>GPL-2.0</para></listitem>
+				<listitem><para>LGPL-3.0+ and GPL-3.0+</para></listitem>
+				<listitem><para>MIT</para></listitem>
+				<listitem><para>CC-BY-SA-2.0</para></listitem>
+				<listitem><para>...</para></listitem>
+			</itemizedlist>
+			A full list of recognized licenses and their identifiers can be found at the
+			<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+			</para>
+			<para>
+			Although the <literal>project_license</literal> tag is not mandatory, it is recommended to include it.
+			</para>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-developer_name">
+		<term>&lt;developer_name/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;developer_name/&gt;</code> tag is designed to represent the developers or project responsible for development of the project described in the metadata.
+		</para>
+		<para>
+			Values might be for example "The GNOME Foundation" or "The KDE Community".
+			You must not include hyperlinks or emails in this field, if you want to link to the developer's homepage, use the <xref linkend="tag-url"/>-tag instead.
+		</para>
+		<para>
+			This tag is translatable.
+		</para>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-screenshots">
+		<term>&lt;screenshots/&gt;</term>
+		<listitem>
+		<para>
+			Visual components (like fonts or graphical applications) may choose to add one or multiple screenshots to their metadata.
+		</para>
+		<para>
+			The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
+			<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
+			one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
+			The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
+		</para>
+		<para>
+			Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 characters!)
+			description of what the user can see on the referenced screenshot.
+		</para>
+		<para>
+			Ideally, all screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620px.
+			They should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
+			images where a lossy format like JPEG may compress better.
+		</para>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-update_contact">
+		<term>&lt;update_contact/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;update_contact/&gt;</code> tag is an optional tag which can be added to provide an email address distributors can use to contact the project
+			about invalid or incomplete metadata, or in case the specification has changed, about old metadata. It can also be used to ask general questions in case of
+			an update of the component described in the metadata file.
+		</para>
+		<para>
+			The <code>&lt;update_contact/&gt;</code> tag must <emphasis>only be used by distributors</emphasis>. It is not included in the distribution-provided
+			AppStream XML file, and therefore not exposed to the end user via any kind of UI.
+		</para>
+		<para>
+			Upstream authors might decide to add an email address in cleartext, but spam protection using <code>_AT_</code> is also valid.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<update_contact>developer_AT_example.com</update_contact>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
+	</variablelist>
+
+	<para>
+		An example for a very basic component file could look like this:
+	</para>
+	<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component>
   <id>foobar</id>
@@ -487,7 +487,7 @@
   </releases>
   <developer_name>FooBar Team</developer_name>
 </component>]]>
-		</programlisting>
+	</programlisting>
 
 	</section>
 </section>
