@@ -34,13 +34,13 @@ G_BEGIN_DECLS
  * @AS_PROVIDES_KIND_UNKNOWN:	Unknown kind
  * @AS_PROVIDES_KIND_LIBRARY:	A shared library
  * @AS_PROVIDES_KIND_BINARY:	A binary installed into a directory in PATH
- * @AS_PROVIDES_KIND_FONT:		A font
+ * @AS_PROVIDES_KIND_FONT:	A font
  * @AS_PROVIDES_KIND_MODALIAS:	A modalias
- * @AS_PROVIDES_KIND_FIRMWARE:	Kernel firmware
+ * @AS_PROVIDES_KIND_FIRMWARE:	Runtime or flashed firmware
  * @AS_PROVIDES_KIND_PYTHON2:	A Python2 module
  * @AS_PROVIDES_KIND_PYTHON3:	A Python3 module
  * @AS_PROVIDES_KIND_MIMETYPE:	Provides a handler for a mimetype
- * @AS_PROVIDES_KIND_DBUS:		A DBus service name
+ * @AS_PROVIDES_KIND_DBUS:	A DBus service name
  *
  * Public interfaces components can provide.
  **/
