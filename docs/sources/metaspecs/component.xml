@@ -79,6 +79,10 @@
 			not allowed. Specialized metainfo types, such as application or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
 		</para>
 		<para>
+			A general pattern for a valid ID tag is to use a reverse URL scheme, consisting of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.&lt;type&gt;</literal>, e.g. <code>org.kde.gwenview.desktop</code>
+			or <code>com.hugski.ColorHug2.firmware</code>.
+		</para>
+		<para>
 			Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions. In case it is not, distributors are expected to reject the conflicting components
 			from inclusion into their metadata.
 		</para>
@@ -294,15 +298,9 @@
 				<term>&lt;firmware/&gt;</term>
 				<listitem>
 				<para>
-					Name of the firmware this component provides, to make it possible to find the right firmware package to install for a given kernel driver.
-					The value is the path below /lib/firmware to the firmware file in question, like the firmware value exported from Linux kernel modules.
+					This provided element is described in details for the <literal>firmware</literal> component type, where it is mandatory.
+					Please see <xref linkend="tag-firmware-provides"/> for more information.
 				</para>
-				<para>
-					Example:
-				</para>
-				<programlisting language="XML"><![CDATA[<provides>
-  <firmware>ipw2200-bss.fw</firmware>
-</provides>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
@@ -329,7 +327,7 @@
 				<listitem>
 				<para>
 					Contains the name of a DBus service as property. The type of the service must be specified using the <literal>type</literal> property
-					of this tag. Allowed values are <code>session</code> and <code>system</code>.
+					of this tag. Allowed values are <code>user</code> and <code>system</code>.
 				</para>
 				<para>
 					Example:

@@ -12,7 +12,8 @@
 		<para>
 			Device firmware can be accompanied by AppStream upstream metadata, to be incorporated
 			by a distribution. Tools like <ulink url="https://github.com/hughsie/fwupd">fwupd</ulink> make
-			use of this metadata to automatically update firmware of devices found in the machine.
+			use of this metadata to automatically update flashed firmware of devices found in the machine.
+			Additionally, this component type can also be used for firmware which is loaded to the device at runtime.
 		</para>
 		<para>
 			Firmware can ship one or more files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
@@ -26,9 +27,8 @@
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2015 Richard Hughes <richard@hughsie.com> -->
 <component type="firmware">
-  <id>84f40464-9272-4ef7-9399-cd95f12da696</id>
+  <id>com.hughski.ColorHug2.firmware</id>
   <name>ColorHugALS Firmware</name>
   <summary>Firmware for the ColorHugALS Ambient Light Sensor</summary>
   <description>
@@ -41,6 +41,9 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <developer_name>Hughski Limited</developer_name>
+  <provides>
+    <firmware type="flashed">84f40464-9272-4ef7-9399-cd95f12da696</firmware>
+  </provides>
   <releases>
     <release version="3.0.2" timestamp="1424116753">
       <location>http://www.hughski.com/downloads/colorhug-als/firmware/colorhug-als-3.0.2.cab</location>
@@ -56,7 +59,7 @@
 </component>]]></programlisting>
 
 		<para>
-			You can find additional information on how to create a complete firmware package upstream in
+			You can find additional information on how to create a complete firmware package for flashed firmware upstream in
 			the <ulink url="https://github.com/hughsie/fwupd/blob/master/README.md">README document of fwupd</ulink>.
 		</para>
 
@@ -74,8 +77,8 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For firmware, the value of the <code>&lt;id/&gt;</code> tag must be the GUID of the device the firmware is
-					written for.
+					For firmware, the value of the <code>&lt;id/&gt;</code> tag must be a unique name for the device the firmware belongs to, constsing of the vendor domain and the
+					device name. A reverse URL scheme in form of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.firmware</literal> is used, e.g. <code>com.hughski.ColorHug2.firmware</code>.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -85,7 +88,8 @@
 			<listitem>
 				<para>
 					This tag is almost identical to the generic <xref linkend="tag-releases"/> tag.
-					Additional to the generic tag, for each <code>&lt;release/&gt;</code> child a <code>&lt;location/&gt;</code> tag is allowed.
+					Additional to the generic tag, for each <code>&lt;release/&gt;</code> child a <code>&lt;location/&gt;</code> tag is allowed, in case the component describes
+					flashed firmware.
 				</para>
 				<para id="tag-firmware-location" xreflabel="&lt;location/&gt;">
 					The <code>&lt;location/&gt;</code> tag specifies a remote location where the firmware <literal>.cab</literal> can be downloaded from.
@@ -108,12 +112,45 @@
 			</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-firmware-provides">
+			<term>&lt;provides/&gt; ↪ &lt;firmware/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>provides/firmware</literal> tag describes the technical information needed to associate a firmware with a device, or describes
+					which runtime firmware file it makes available to the kernel.
+				</para>
+				<para>
+					For runtime-loadable firmware, the <literal>type</literal> property of the <literal>firmware</literal> tag needs to be set to <code>runtime</code>,
+					and its value needs to define the filename of a firmware below <filename>/lib/firmware</filename> to the firmware file in question,
+					like the firmware value exported from Linux kernel modules.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<provides>
+  <firmware type="runtime">ipw2200-bss.fw</firmware>
+</provides>]]></programlisting>
+
+				<para>
+					For flashed firmware, the <literal>type</literal> property of the tag needs to be set to <code>flashed</code>.
+					Its value needs to define the GUID of the device the firmware should be flashed onto.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<provides>
+  <firmware type="flashed">84f40464-9272-4ef7-9399-cd95f12da696</firmware>
+</provides>]]></programlisting>
+
+			</listitem>
+			</varlistentry>
+
 		</variablelist>
 
 		<para>
 			For a component of type <literal>firmware</literal>, the following tags are required and must be present for a valid document:
 			<xref linkend="tag-id-generic"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>,
-			<xref linkend="tag-metadata_license"/>.
+			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-firmware-provides"/>.
 		</para>
 
 	</section>
