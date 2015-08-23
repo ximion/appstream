@@ -526,14 +526,14 @@ as_metadata_process_provides (AsMetadata *metad, xmlNode* node, AsComponent* cpt
 
 			if (g_strcmp0 (dbustype_val, "system") == 0)
 				dbustype = "system";
-			else if (g_strcmp0 (dbustype_val, "session") == 0)
-				dbustype = "session";
+			else if (g_strcmp0 (dbustype_val, "user") == 0)
+				dbustype = "user";
 			g_free (dbustype_val);
 
 			/* we don't add malformed provides types */
 			if (dbustype != NULL)
 				g_ptr_array_add (provided_items,
-								as_provides_item_create (AS_PROVIDES_KIND_DBUS, content, dbustype));
+						as_provides_item_create (AS_PROVIDES_KIND_DBUS, content, dbustype));
 		}
 
 		g_free (content);
