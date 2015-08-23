@@ -13,13 +13,21 @@
 		<para>
 			DEP-11 is a YAML implementation of the AppStream Distro specification, which is primarily used by Debian and its derivatives.
 			This document describes the DEP-11 YAML.
+			All AppStream support libraries available today are able to read both the YAML and the XML specification.
 		</para>
 
 		<important>
 			<para>
-				If you want to use AppStream in your distribution, and are not based on Debian, the first place to look at would be the XML specification.
+				If you want to use AppStream in your distribution, and are not based on Debian, please use the XML specification (unless
+				you have strong reasons for preferring YAML).
+				XML is the official format for AppStream Distro metadata.
 			</para>
 		</important>
+
+		<para>
+			The DEP-11 YAML metadata can be validated for correctness using the <command>dep11-validate</command> tool from the
+			<ulink url="https://packages.debian.org/source/sid/appstream-dep11">AppStream DEP-11 utils</ulink>.
+		</para>
 	</section>
 
 
@@ -244,8 +252,6 @@ Name:
   C: Configuration Editor
   be@latin: Redaktar naładaŭ
   bg: Настройки на програмите
-  en@shaw: "\U00010452\U00010469\U0001046F\U00010453\U00010466\U0001045C\U00010458\U0001047C\U00010471\
-    \U00010456\U00010469\U0001046F \U00010467\U0001045B\U00010466\U00010451\U00010479"
   pl: Edytor konfiguracji
 Package: gconf-editor
 Summary:
@@ -332,8 +338,7 @@ Summary:
   fr: Environnement de développement LaTeX
 Type: desktop-app
 Url:
-  homepage: http://texstudio.sourceforge.net/
----]]></programlisting>
+  homepage: http://texstudio.sourceforge.net/]]></programlisting>
 
 	</section>
 </section>
