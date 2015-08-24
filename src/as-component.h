@@ -107,10 +107,10 @@ typedef enum  {
 
 GType				as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar			*as_component_kind_to_string (AsComponentKind kind);
-AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
+AsComponentKind			as_component_kind_from_string (const gchar *kind_str);
 
 AsIconKind			as_icon_kind_from_string (const gchar *kind_str);
-const gchar*		as_icon_kind_to_string (AsIconKind kind);
+const gchar*			as_icon_kind_to_string (AsIconKind kind);
 
 GType				as_component_get_type (void) G_GNUC_CONST;
 AsComponent			*as_component_new (void);
@@ -120,135 +120,135 @@ gchar				*as_component_to_string (AsComponent *cpt);
 
 gchar				*as_component_get_active_locale (AsComponent *cpt);
 void				as_component_set_active_locale (AsComponent *cpt,
-												const gchar *locale);
+								const gchar *locale);
 
-AsComponentKind		as_component_get_kind (AsComponent *cpt);
+AsComponentKind			as_component_get_kind (AsComponent *cpt);
 void				as_component_set_kind (AsComponent *cpt,
-										   AsComponentKind value);
+							AsComponentKind value);
 
 const gchar			*as_component_get_id (AsComponent *cpt);
 void				as_component_set_id (AsComponent *cpt,
-											const gchar* value);
+							const gchar* value);
 
 const gchar			*as_component_get_origin (AsComponent *cpt);
 void				as_component_set_origin (AsComponent *cpt,
-											const gchar* origin);
+								const gchar* origin);
 
 gchar				**as_component_get_pkgnames (AsComponent *cpt);
 void				as_component_set_pkgnames (AsComponent *cpt,
-											gchar **value);
+								gchar **value);
 
 const gchar			*as_component_get_source_pkgname (AsComponent *cpt);
 void				as_component_set_source_pkgname (AsComponent *cpt,
-											const gchar* spkgname);
+									const gchar* spkgname);
 
 const gchar			*as_component_get_name (AsComponent *cpt);
 void				as_component_set_name (AsComponent *cpt,
-											const gchar *value,
-											const gchar *locale);
+							const gchar *value,
+							const gchar *locale);
 
 const gchar			*as_component_get_summary (AsComponent *cpt);
 void				as_component_set_summary (AsComponent *cpt,
-											const gchar *value,
-											const gchar *locale);
+								const gchar *value,
+								const gchar *locale);
 
 const gchar			*as_component_get_description (AsComponent *cpt);
 void				as_component_set_description (AsComponent *cpt,
-											const gchar* value,
-											const gchar *locale);
+								const gchar* value,
+								const gchar *locale);
 
 const gchar			*as_component_get_project_license (AsComponent *cpt);
 void				as_component_set_project_license (AsComponent *cpt,
-													const gchar* value);
+									const gchar* value);
 
 const gchar			*as_component_get_project_group (AsComponent *cpt);
 void				as_component_set_project_group (AsComponent *cpt,
-													const gchar *value);
+									const gchar *value);
 
 const gchar			*as_component_get_developer_name (AsComponent *cpt);
 void				as_component_set_developer_name (AsComponent *cpt,
-											const gchar *value,
-											const gchar *locale);
+									const gchar *value,
+									const gchar *locale);
 
 gchar				**as_component_get_compulsory_for_desktops (AsComponent *cpt);
 void				as_component_set_compulsory_for_desktops (AsComponent *cpt,
-																gchar **value);
+										gchar **value);
 gboolean			as_component_is_compulsory_for_desktop (AsComponent *cpt,
-																const gchar* desktop);
+										const gchar* desktop);
 
 gchar				**as_component_get_categories (AsComponent *cpt);
 void				as_component_set_categories (AsComponent *cpt,
-												 gchar **value);
+								gchar **value);
 void				as_component_set_categories_from_str (AsComponent *cpt,
-												const gchar* categories_str);
+									const gchar* categories_str);
 gboolean			as_component_has_category (AsComponent *cpt,
-												const gchar *category);
+									const gchar *category);
 
 GPtrArray			*as_component_get_screenshots (AsComponent *cpt);
 void				as_component_add_screenshot (AsComponent *cpt,
-												AsScreenshot* sshot);
+								AsScreenshot* sshot);
 
 gchar				**as_component_get_keywords (AsComponent *cpt);
 void				as_component_set_keywords (AsComponent *cpt,
-												gchar **value,
-												const gchar *locale);
+								gchar **value,
+								const gchar *locale);
 
 const gchar			*as_component_get_icon (AsComponent *cpt,
-											AsIconKind kind,
-											int width,
-											int height);
+								AsIconKind kind,
+								int width,
+								int height);
 void				as_component_add_icon (AsComponent *cpt,
-											AsIconKind kind,
-											int width,
-											int height,
-											const gchar* value);
+							AsIconKind kind,
+							int width,
+							int height,
+							const gchar* value);
 
 const gchar			*as_component_get_icon_url (AsComponent *cpt,
-											int width,
-											int height);
+								int width,
+								int height);
 void				as_component_add_icon_url (AsComponent *cpt,
-											int width,
-											int height,
-											const gchar* value);
+								int width,
+								int height,
+								const gchar* value);
 GHashTable			*as_component_get_icon_urls (AsComponent *cpt);
 
 GPtrArray			*as_component_get_provided_items (AsComponent *cpt);
 void				as_component_add_provided_item (AsComponent *cpt,
-										AsProvidesKind kind,
-										const gchar *value,
-										const gchar *data);
+									AsProvidesKind kind,
+									const gchar *value,
+									const gchar *data);
 gboolean			as_component_provides_item (AsComponent *cpt,
-										AsProvidesKind kind,
-										const gchar *value);
+									AsProvidesKind kind,
+									const gchar *value);
 
 GHashTable			*as_component_get_urls (AsComponent *cpt);
 const gchar			*as_component_get_url (AsComponent *cpt,
-										  AsUrlKind url_kind);
+							AsUrlKind url_kind);
 void				as_component_add_url (AsComponent *cpt,
-										AsUrlKind url_kind,
-										const gchar *url);
+							AsUrlKind url_kind,
+							const gchar *url);
 
 GPtrArray			*as_component_get_releases (AsComponent *cpt);
 void				as_component_add_release (AsComponent *cpt,
-												AsRelease* release);
+								AsRelease* release);
 
 GPtrArray			*as_component_get_extends (AsComponent *cpt);
 void				as_component_add_extends (AsComponent *cpt,
-												const gchar *cpt_id);
+								const gchar *cpt_id);
 
 void				as_component_add_language (AsComponent *cpt,
-												const gchar *locale,
-												gint percentage);
+								const gchar *locale,
+								gint percentage);
 gint				as_component_get_language (AsComponent *cpt,
-											   const gchar *locale);
+								const gchar *locale);
 GList*				as_component_get_languages (AsComponent *cpt);
 
 GHashTable			*as_component_get_bundle_ids (AsComponent *cpt);
 const gchar			*as_component_get_bundle_id (AsComponent *cpt,
-										  AsBundleKind bundle_kind);
+								AsBundleKind bundle_kind);
 void				as_component_add_bundle_id (AsComponent *cpt,
-										AsBundleKind bundle_kind,
-										const gchar *id);
+								AsBundleKind bundle_kind,
+								const gchar *id);
 
 G_END_DECLS
 
