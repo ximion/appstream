@@ -85,12 +85,23 @@
 			</varlistentry>
 
 			<varlistentry>
-			<term>AssetsUrl</term>
+			<term>MediaBaseUrl</term>
 			<listitem>
 				<para>
-					The base URL for assets (screenshots, icons, ...) referenced in the metadata file.
+					The base URL for media (screenshots, icons, ...) referenced in the metadata file.
+					If this is set, all urls in the document referencing media will be treated relative to the base url.
 				</para>
 				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>Priority</term>
+			<listitem>
+				<para>
+					The priorization of this metadata file over other metadata.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
 			</listitem>
 			</varlistentry>
 		</variablelist>
@@ -547,7 +558,7 @@
         </ul>
   - version: '1.2'
     unix-timestamp: 1397253600
-  - version: 1.0
+  - version: '1.0'
     unix-timestamp: 1345932000]]></programlisting>
 
 				<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
