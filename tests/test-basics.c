@@ -107,7 +107,7 @@ main (int argc, char **argv)
 	}
 
 	g_assert (argv[1] != NULL);
-	datadir = g_build_filename (argv[1], "data", NULL);
+	datadir = g_build_filename (argv[1], "samples", NULL);
 	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);

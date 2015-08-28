@@ -46,7 +46,7 @@ test_basic ()
 	dep11 = as_dep11_new ();
 	as_dep11_set_locale (dep11, "C");
 
-	path = g_build_filename (datadir, "dep11-0.6.yml", NULL);
+	path = g_build_filename (datadir, "dep11-0.8.yml", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
@@ -85,7 +85,7 @@ main (int argc, char **argv)
 
 	datadir = argv[1];
 	g_assert (datadir != NULL);
-	datadir = g_build_filename (datadir, "data", NULL);
+	datadir = g_build_filename (datadir, "samples", NULL);
 	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
 
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);

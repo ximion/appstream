@@ -1,7 +1,8 @@
 ---
 File: DEP-11
 Origin: chromodoris-main
-Version: '0.6'
+Version: '0.8'
+MediaBaseUrl: http://metadata.tanglu.org/dep11/main/
 ---
 Categories:
   - GNOME
@@ -96,8 +97,7 @@ Name:
   zh_cn: 配置编辑器
   zh_hk: 組態編輯器
   zh_tw: 組態編輯器
-Packages:
-  - gconf-editor
+Package: gconf-editor
 Summary:
   C: Directly edit your entire configuration database
   ar: حرّر مباشرة كامل قاعدة بيانات الإعدادات.
@@ -201,8 +201,7 @@ Name:
   sr: КМ‑плејер
   sr@ijekavian: КМ‑плејер
   sv: Kmplayer
-Packages:
-  - kmplayer
+Package: kmplayer
 Provides:
   mimetypes:
     - application/ogg
@@ -329,8 +328,7 @@ Keywords:
     - bibtex
 Name:
   C: TeXstudio
-Packages:
-  - texstudio
+Package:  texstudio
 ProjectLicense: GPL-2.0
 Provides:
   mimetypes:
@@ -339,17 +337,17 @@ Screenshots:
   - default: true
     source-image:
       height: 756
-      url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/source/screenshot-1.png
+      url: texstudio_2.8.4+debian-3_amd64/screenshots/source/screenshot-1.png
       width: 1344
     thumbnails:
       - height: 423
-        url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/752x423/screenshot-1.png
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/752x423/screenshot-1.png
         width: 752
       - height: 351
-        url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/624x351/screenshot-1.png
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/624x351/screenshot-1.png
         width: 624
       - height: 63
-        url: http://metadata.tanglu.org/dep11/main/texstudio_2.8.4+debian-3_amd64/screenshots/112x63/screenshot-1.png
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/112x63/screenshot-1.png
         width: 112
 Summary:
   C: LaTeX development environment
@@ -367,8 +365,7 @@ Icon:
 Name:
   C: Giggle
   pa: ਗਿੱਗਲ
-Packages:
-  - giggle
+Package: giggle
 Provides:
   mimetypes:
     - x-scheme-handler/git
@@ -406,8 +403,7 @@ Icon:
 Name:
   C: I Have No Tomatoes
   de: Ich Habe Keine Tomaten
-Packages:
-  - tomatoes
+Package: tomatoes
 Summary:
   C: How many tomatoes can you smash in ten short minutes?
   de: Wieviele Tomaten können Sie in zehn kurzen Minuten quetschen?
@@ -434,8 +430,7 @@ Icon:
   cached: pspp_pspp.png
 Name:
   C: GNU PSPP
-Packages:
-  - pspp
+Package: pspp
 Provides:
   mimetypes:
     - application/x-spss-sav
@@ -444,17 +439,17 @@ Screenshots:
   - default: true
     source-image:
       height: 768
-      url: http://metadata.tanglu.org/dep11/main/pspp_0.8.4-1_amd64/screenshots/source/screenshot-1.png
+      url: pspp_0.8.4-1_amd64/screenshots/source/screenshot-1.png
       width: 1142
     thumbnails:
       - height: 423
-        url: http://metadata.tanglu.org/dep11/main/pspp_0.8.4-1_amd64/screenshots/752x423/screenshot-1.png
+        url: pspp_0.8.4-1_amd64/screenshots/752x423/screenshot-1.png
         width: 752
       - height: 351
-        url: http://metadata.tanglu.org/dep11/main/pspp_0.8.4-1_amd64/screenshots/624x351/screenshot-1.png
+        url: pspp_0.8.4-1_amd64/screenshots/624x351/screenshot-1.png
         width: 624
       - height: 63
-        url: http://metadata.tanglu.org/dep11/main/pspp_0.8.4-1_amd64/screenshots/112x63/screenshot-1.png
+        url: pspp_0.8.4-1_amd64/screenshots/112x63/screenshot-1.png
         width: 112
 Summary:
   C: Analyze statistical data with a free alternative to SPSS
