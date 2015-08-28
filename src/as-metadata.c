@@ -52,6 +52,7 @@ struct _AsMetadataPrivate
 	gchar *locale_short;
 	AsParserMode mode;
 	gchar *origin_name;
+	gchar *media_baseurl;
 	gint default_priority;
 
 	GPtrArray *cpts;
@@ -77,6 +78,8 @@ as_metadata_finalize (GObject *object)
 	g_ptr_array_unref (priv->cpts);
 	if (priv->origin_name != NULL)
 		g_free (priv->origin_name);
+	if (priv->media_baseurl != NULL)
+		g_free (priv->media_baseurl);
 
 	G_OBJECT_CLASS (as_metadata_parent_class)->finalize (object);
 }
@@ -96,8 +99,8 @@ as_metadata_init (AsMetadata *metad)
 	g_free (str);
 
 	priv->origin_name = NULL;
+	priv->media_baseurl = NULL;
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
-
 	priv->default_priority = 0;
 
 	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
@@ -295,7 +298,18 @@ as_metadata_process_screenshot (AsMetadata *metad, xmlNode* node, AsScreenshot* 
 				as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
 			}
 			g_free (stype);
-			as_image_set_url (img, content);
+
+			if (priv->media_baseurl == NULL) {
+				/* no baseurl, we can just set the value as URL */
+				as_image_set_url (img, content);
+			} else {
+				/* handle the media baseurl */
+				gchar *tmp;
+				tmp = g_build_filename (priv->media_baseurl, content, NULL);
+				as_image_set_url (img, tmp);
+				g_free (tmp);
+			}
+
 			as_screenshot_add_image (scr, img);
 		} else if (g_strcmp0 (node_name, "caption") == 0) {
 			if (content != NULL) {
@@ -692,7 +706,16 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 				as_component_add_icon_url (cpt, 0, 0, content);
 				as_component_add_icon (cpt, AS_ICON_KIND_LOCAL, 0, 0, content);
 			} else if (g_strcmp0 (prop, "remote") == 0) {
-				as_component_add_icon (cpt, AS_ICON_KIND_REMOTE, 0, 0, content);
+				if (priv->media_baseurl == NULL) {
+					/* no baseurl, we can just set the value as URL */
+					as_component_add_icon (cpt, AS_ICON_KIND_REMOTE, 0, 0, content);
+				} else {
+					/* handle the media baseurl */
+					gchar *tmp;
+					tmp = g_build_filename (priv->media_baseurl, content, NULL);
+					as_component_add_icon (cpt, AS_ICON_KIND_REMOTE, 0, 0, content);
+					g_free (tmp);
+				}
 				icon_url = as_component_get_icon_url (cpt, 0, 0);
 				if (icon_url == NULL)
 					as_component_add_icon_url (cpt, 0, 0, content);
@@ -810,6 +833,8 @@ as_metadata_parse_components_node (AsMetadata *metad, xmlNode* node, gboolean al
 	xmlNode* iter;
 	GError *tmp_error = NULL;
 	gchar *origin;
+	gchar *media_baseurl;
+	gchar *priority_str;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	/* set origin of this metadata */
@@ -817,15 +842,17 @@ as_metadata_parse_components_node (AsMetadata *metad, xmlNode* node, gboolean al
 	as_metadata_set_origin (metad, origin);
 	g_free (origin);
 
-	if (priv->mode == AS_PARSER_MODE_DISTRO) {
-		/* distro metadata allows setting a priority for components */
-		gchar *priority_str;
-		priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
-		if (priority_str != NULL) {
-			priv->default_priority = g_ascii_strtoll (priority_str, NULL, 10);
-		}
-		g_free (priority_str);
+	/* set baseurl for the media files */
+	media_baseurl = (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
+	priv->media_baseurl = media_baseurl;
+	g_free (media_baseurl);
+
+	/* distro metadata allows setting a priority for components */
+	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+	if (priority_str != NULL) {
+		priv->default_priority = g_ascii_strtoll (priority_str, NULL, 10);
 	}
+	g_free (priority_str);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */

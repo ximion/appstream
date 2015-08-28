@@ -35,6 +35,7 @@ struct _AsDEP11Private
 	gchar *locale;
 	gchar *locale_short;
 	gchar *origin_name;
+	gchar *media_baseurl;
 	gint default_priority;
 
 	GPtrArray *cpts;
@@ -64,6 +65,8 @@ as_dep11_finalize (GObject *object)
 	g_ptr_array_unref (priv->cpts);
 	if (priv->origin_name != NULL)
 		g_free (priv->origin_name);
+	if (priv->media_baseurl != NULL)
+		g_free (priv->media_baseurl);
 
 	G_OBJECT_CLASS (as_dep11_parent_class)->finalize (object);
 }
@@ -83,8 +86,9 @@ as_dep11_init (AsDEP11 *dep11)
 	g_free (str);
 
 	priv->origin_name = NULL;
-	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->media_baseurl = NULL;
 	priv->default_priority = 0;
+	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
@@ -186,9 +190,9 @@ as_dep11_get_localized_node (AsDEP11 *dep11, GNode *node, gchar *locale_override
 	GNode *n;
 	GNode *tnode = NULL;
 	gchar *key;
-	AsDEP11Private *priv = GET_PRIVATE (dep11);
 	const gchar *locale;
 	const gchar *locale_short = NULL;
+	AsDEP11Private *priv = GET_PRIVATE (dep11);
 
 	if (locale_override == NULL) {
 		locale = priv->locale;
@@ -443,10 +447,11 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
  * dep11_process_image:
  */
 static void
-dep11_process_image (GNode *node, AsScreenshot *scr)
+dep11_process_image (AsDEP11 * dep11, GNode *node, AsScreenshot *scr)
 {
 	GNode *n;
 	AsImage *img;
+	AsDEP11Private *priv = GET_PRIVATE (dep11);
 
 	img = as_image_new ();
 
@@ -468,7 +473,16 @@ dep11_process_image (GNode *node, AsScreenshot *scr)
 			size = g_ascii_strtoll (value, NULL, 10);
 			as_image_set_height (img, size);
 		} else if (g_strcmp0 (key, "url") == 0) {
-			as_image_set_url (img, value);
+			if (priv->media_baseurl == NULL) {
+				/* no baseurl, we can just set the value as URL */
+				as_image_set_url (img, value);
+			} else {
+				/* handle the media baseurl */
+				gchar *tmp;
+				tmp = g_build_filename (priv->media_baseurl, value, NULL);
+				as_image_set_url (img, tmp);
+				g_free (tmp);
+			}
 		} else {
 			dep11_print_unknown ("image", key);
 		}
@@ -517,11 +531,11 @@ as_dep11_process_screenshots (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
 				as_screenshot_set_caption (scr, lvalue, NULL);
 			} else if (g_strcmp0 (key, "source-image") == 0) {
 				/* there can only be one source image */
-				dep11_process_image (n, scr);
+				dep11_process_image (dep11, n, scr);
 			} else if (g_strcmp0 (key, "thumbnails") == 0) {
 				/* the thumbnails are a list of images */
 				for (in = n->children; in != NULL; in = in->next) {
-					dep11_process_image (in, scr);
+					dep11_process_image (dep11, in, scr);
 				}
 			} else {
 				dep11_print_unknown ("screenshot", key);
@@ -701,6 +715,10 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 					} else if (g_strcmp0 (key, "Priority") == 0) {
 						if (value != NULL) {
 							priv->default_priority = g_ascii_strtoll (value, NULL, 10);
+						}
+					} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
+						if ((value != NULL) && (priv->media_baseurl == NULL)) {
+							priv->media_baseurl = g_strdup (value);
 						}
 					}
 				}
