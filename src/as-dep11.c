@@ -447,7 +447,7 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
  * dep11_process_image:
  */
 static void
-dep11_process_image (AsDEP11 * dep11, GNode *node, AsScreenshot *scr)
+dep11_process_image (AsDEP11 *dep11, GNode *node, AsScreenshot *scr)
 {
 	GNode *n;
 	AsImage *img;
@@ -549,6 +549,54 @@ as_dep11_process_screenshots (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
 }
 
 /**
+ * as_dep11_process_releases:
+ *
+ * Add #AsRelease instances to the #AsComponent
+ */
+static void
+as_dep11_process_releases (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
+{
+	GNode *sn;
+
+	for (sn = node->children; sn != NULL; sn = sn->next) {
+		GNode *n;
+		AsRelease *rel;
+		rel = as_release_new ();
+
+		/* propagate locale */
+		as_release_set_active_locale (rel, as_component_get_active_locale (cpt));
+
+		for (n = sn->children; n != NULL; n = n->next) {
+			gchar *key;
+			gchar *value;
+
+			key = (gchar*) n->data;
+			if (n->children)
+				value = (gchar*) n->children->data;
+			else
+				value = NULL;
+
+			if (g_strcmp0 (key, "unix-timestamp") == 0) {
+				as_release_set_timestamp (rel, g_ascii_strtoll (value, NULL, 10));
+			} else if (g_strcmp0 (key, "version") == 0) {
+				as_release_set_version (rel, value);
+			} else if (g_strcmp0 (key, "description") == 0) {
+				gchar *lvalue;
+				lvalue = as_dep11_get_localized_value (dep11, node, NULL);
+				as_release_set_description (rel, lvalue, NULL);
+				g_free (lvalue);
+			} else {
+				dep11_print_unknown ("screenshot", key);
+			}
+		}
+
+		/* add the result */
+		as_component_add_release (cpt, rel);
+		g_object_unref (rel);
+	}
+}
+
+/**
  * as_dep11_process_component_node:
  */
 AsComponent*
@@ -638,6 +686,8 @@ as_dep11_process_component_node (AsDEP11 *dep11, GNode *root)
 			dep11_process_provides (node, cpt);
 		} else if (g_strcmp0 (key, "Screenshots") == 0) {
 			as_dep11_process_screenshots (dep11, node, cpt);
+		} else if (g_strcmp0 (key, "Releases") == 0) {
+			as_dep11_process_releases (dep11, node, cpt);
 		} else {
 			dep11_print_unknown ("root", key);
 		}
