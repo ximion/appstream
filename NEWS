@@ -1,3 +1,28 @@
+Version 0.8.3
+~~~~~~~~~~~~~~
+Released: 2015-08-28
+
+Notes:
+ * All the different appstream-* tools are now combined in one
+   appstream-cli tool.
+
+Features:
+ * Be less strict about valid screenshot tags
+ * Implement changes on provides/firmware
+ * Rename the 'appstream*' tools to 'appstream-cli'
+ * Implement MediaBaseUrl property
+ * dep11: Implement parsing of Releases
+
+Specification:
+ * docs: Document the new naming scheme for type:firmware component IDs
+ * Start documenting DEP-11 in AppStream as well
+ * docs: Mention the DEP-11 validator tool
+ * docs: Completely describe current DEP-11 spec
+
+Bugfixes:
+ * The DBus session bus is actually an user bus
+ * Fix component priorization for XML and YAML
+
 Version 0.8.2
 ~~~~~~~~~~~~~~
 Released: 2015-06-26
