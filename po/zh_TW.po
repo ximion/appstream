@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
 "PO-Revision-Date: 2015-06-05 12:59+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "提供項目的類型 (如：lib、bin、python3...等)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "AppStream-Index 客戶端工具"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
@@ -42,6 +37,11 @@ msgstr "AppStream 快取更新失敗。"
 #, fuzzy, c-format
 msgid "AppStream client tool version: %s"
 msgstr "Appstream-Index 客戶端工具版本：%s"
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "AppStream 快取更新失敗。"
 
 msgid "Bundle"
 msgstr "套組"
@@ -154,7 +154,7 @@ msgstr "顯示額外除錯資訊"
 msgid "Show the program version"
 msgstr "顯示程式版本"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "子指令："
 
@@ -219,6 +219,9 @@ msgstr ""
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "AppStream 驗證用公用程式"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "AppStream-Index 客戶端工具"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "無法解析引數"

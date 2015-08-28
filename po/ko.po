@@ -4,14 +4,15 @@
 #
 # Translators:
 # Shinjo Park <kde@peremen.name>, 2015
+# Shinjo Park <kde@peremen.name>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
-"Language-Team: Korean (http://www.transifex.com/projects/p/appstream/"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
+"PO-Revision-Date: 2015-07-27 19:56+0000\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
 "language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +22,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "provides-item 형식(예: lib, bin, python3, ...)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "AppStream-Index 클라이언트 도구"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
@@ -46,8 +42,13 @@ msgstr "AppStream 캐시 업데이트가 실패하였습니다."
 msgid "AppStream client tool version: %s"
 msgstr "AppStream-Index 클라이언트 도구 버전: %s"
 
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "AppStream 캐시 업데이트가 실패하였습니다."
+
 msgid "Bundle"
-msgstr ""
+msgstr "번들"
 
 msgid "Categories"
 msgstr "분류"
@@ -158,7 +159,7 @@ msgstr "추가 디버깅 정보 보이기"
 msgid "Show the program version"
 msgstr "프로그램 버전 보이기"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "하위 명령:"
 
@@ -224,8 +225,14 @@ msgstr ""
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "AppStream 검증 유틸리티"
 
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "AppStream-Index 클라이언트 도구"
+
 #~ msgid "Failed to parse arguments"
 #~ msgstr "인자 해석에 실패했습니다"
+
+#~ msgid "Show issues from pedantic tests"
+#~ msgstr "테스트에서 발생한 문제점 보이기"
 
 #~ msgid "Show program version"
 #~ msgstr "프로그램 버전 보이기"

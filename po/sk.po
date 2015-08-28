@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/appstream/"
+"Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ poskytuje-položku (napr. lib, bin, python3, ...)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "AppStream - Nástroj klienta indexu"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
@@ -45,6 +40,11 @@ msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 #, fuzzy, c-format
 msgid "AppStream client tool version: %s"
 msgstr "AppStream - Nástroj klienta indexu, verzia: %s"
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 
 msgid "Bundle"
 msgstr ""
@@ -161,7 +161,7 @@ msgstr "Zobraziť ladiace informácie naviac"
 msgid "Show the program version"
 msgstr "Zobraziť verziu programu"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Podpríkazy"
 
@@ -224,6 +224,9 @@ msgstr "app;aplikácia;balík;program;balík;nástroj"
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "AppStream - Nástroj na overenie"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "AppStream - Nástroj klienta indexu"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Nepodarilo sa spracovať argumenty"

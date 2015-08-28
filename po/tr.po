@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/appstream/"
+"Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
 "language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Bir sağlanan-öge türü (lib, bin, python3 gibi)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "AppStream Dizin İstemci Aracı"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
@@ -45,6 +40,11 @@ msgstr "AppStream ön bellek güncellemesi başarısız oldu."
 #, fuzzy, c-format
 msgid "AppStream client tool version: %s"
 msgstr "Appstream-Dizin istemci aracı sürümü: %s"
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "AppStream ön bellek güncellemesi başarısız oldu."
 
 msgid "Bundle"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr "Ek hata ayıklama bilgisi göster"
 msgid "Show the program version"
 msgstr "Program sürümünü göster"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Alt komutlar:"
 
@@ -223,6 +223,9 @@ msgstr "app;uygulama;paket;program;program;takım;araç"
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "AppStream Doğrulama Uygulaması"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "AppStream Dizin İstemci Aracı"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Argüman ayrıştırması başarısız"

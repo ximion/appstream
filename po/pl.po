@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
-"PO-Revision-Date: 2015-05-31 15:32+0000\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
+"PO-Revision-Date: 2015-08-27 15:03+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/appstream/"
+"Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +21,7 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "Typ elementu Provides (np. lib, bin, python3...)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "Narzędzie klienta AppStream-Index"
+msgstr "Typ elementu Provides (np. lib, bin, python3…)"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
@@ -47,6 +42,11 @@ msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
 msgid "AppStream client tool version: %s"
 msgstr "Wersja narzędzia klienta AppStream-Index: %s"
 
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
+
 msgid "Bundle"
 msgstr "Paczka"
 
@@ -55,7 +55,7 @@ msgstr "Kategorie"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr "Nieznane polecenie \"%s\"."
+msgstr "Nieznane polecenie „%s”."
 
 msgid "Compulsory for"
 msgstr "Obowiązkowe dla"
@@ -116,11 +116,11 @@ msgstr "Nazwa"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr "Nie odnaleziono składnika pasującego do \"%s\"."
+msgstr "Nie odnaleziono składnika pasującego do „%s”."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr "Nie odnaleziono składnika dostarczającego \"%s:%s:%s\"."
+msgstr "Nie odnaleziono składnika dostarczającego „%s:%s:%s”."
 
 msgid "No value for the provides-item to search for defined."
 msgstr "Nie określono wartości dla wyszukiwanego elementu Provides."
@@ -144,8 +144,7 @@ msgstr "Ponownie buduje pamięć podręczną informacji o składnikach"
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
-"Wykonanie polecenia \"%s --help\" wyświetli pełną listę dostępnych opcji "
-"wiersza poleceń."
+"Polecenie „%s --help” wyświetli pełną listę dostępnych opcji wiersza poleceń."
 
 msgid "Sample Screenshot URL"
 msgstr "Przykładowy adres URL zrzutu ekranu"
@@ -162,7 +161,7 @@ msgstr "Wyświetla dodatkowe informacje debugowania"
 msgid "Show the program version"
 msgstr "Wyświetla wersję programu"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Podpolecenia:"
 
@@ -176,11 +175,11 @@ msgstr "Nie można odnaleźć składnika pasującego do %s."
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr "Nie można odnaleźć składnika dostarczającego \"%s:%s:%s\"."
+msgstr "Nie można odnaleźć składnika dostarczającego „%s:%s:%s”."
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr "Nie można odnaleźć składnika o identyfikatorze \"%s\"."
+msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 
 msgid "Validate AppStream XML files for issues"
 msgstr ""
@@ -197,7 +196,7 @@ msgstr "Sprawdzenie poprawności się nie powiodło."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr "Plik menu XDG w formacie XML \"%s\" jest uszkodzony."
+msgstr "Plik menu XDG w formacie XML „%s” jest uszkodzony."
 
 msgid "You need to run this command with superuser permissions!"
 msgstr "Należy wykonać to polecenie z uprawnieniami superużytkownika."
@@ -227,6 +226,9 @@ msgstr ""
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "Narzędzie sprawdzania poprawności AppStream"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "Narzędzie klienta AppStream-Index"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Przetworzenie parametrów się nie powiodło"

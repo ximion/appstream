@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
-"Language-Team: Slovenian (http://www.transifex.com/projects/p/appstream/"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
+"PO-Revision-Date: 2015-07-06 00:41+0000\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
+"Language-Team: Slovenian (http://www.transifex.com/freedesktop/appstream/"
 "language/sl/)\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Vrste ponuja-element (npr. lib, bin, python3 ...)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "Orodje odjemalca AppStream-Index"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Posodobitev predpomnilnika AppStream uspešno dokončana."
@@ -47,8 +42,13 @@ msgstr "Posodobitev predpomnilnika AppStream je spodletela."
 msgid "AppStream client tool version: %s"
 msgstr "Različica orodja odjemalca AppStream-Index: %s"
 
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "Posodobitev predpomnilnika AppStream je spodletela."
+
 msgid "Bundle"
-msgstr ""
+msgstr "Sveženj"
 
 msgid "Categories"
 msgstr "Kategorije"
@@ -160,7 +160,7 @@ msgstr "Pokaži dodatne podatke razhroščevanja"
 msgid "Show the program version"
 msgstr "Pokaži različico programa"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Podukazi:"
 
@@ -224,8 +224,14 @@ msgstr "app;aplikacija;paket;program;programček;programje;orodje"
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "Orodje preverjanja AppStream"
 
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "Orodje odjemalca AppStream-Index"
+
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Razčlenjevanje argumentov je spodletelo"
+
+#~ msgid "Show issues from pedantic tests"
+#~ msgstr "Pokaže težave iz pedantnih preizkusov"
 
 #~ msgid "Show program version"
 #~ msgstr "Pokaži različico programa"

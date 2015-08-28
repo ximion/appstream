@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/appstream/"
+"Language-Team: Danish (http://www.transifex.com/freedesktop/appstream/"
 "language/da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "En provides-item-type (f.eks. lib, bin, python3 ...)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "AppStrem-Index' klientværktøj"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStreams opdatering af mellemlageret er færdig."
@@ -45,6 +40,11 @@ msgstr "AppStreams mellemlageropdatering mislykkedes."
 #, fuzzy, c-format
 msgid "AppStream client tool version: %s"
 msgstr "AppStream-Index' klientværktøjsversion: %s"
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "AppStreams mellemlageropdatering mislykkedes."
 
 msgid "Bundle"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr "Vis ekstra fejlsøgningsinformation"
 msgid "Show the program version"
 msgstr "Vis programversionen"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Underkommandoer:"
 
@@ -223,6 +223,9 @@ msgstr "app;applikation;pakke;program;suite;programpakke;værktøj;redskab"
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "AppStreams valideringsredskab"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "AppStrem-Index' klientværktøj"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Kunne ikke fortolke argumenter"

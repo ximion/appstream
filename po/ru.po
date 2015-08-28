@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
 "PO-Revision-Date: 2015-06-09 20:58+0000\n"
 "Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/appstream/"
+"Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -23,11 +23,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Тип «provides-item» (например, lib, bin, python3, …)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "Клиентский инструмент AppStream-Index"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
@@ -47,6 +42,11 @@ msgstr "Обновление кэша AppStream прошло неудачно"
 #, fuzzy, c-format
 msgid "AppStream client tool version: %s"
 msgstr "Клиентский инструмент AppStream-Index, версия %s"
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "Обновление кэша AppStream прошло неудачно"
 
 msgid "Bundle"
 msgstr "Пакет"
@@ -162,7 +162,7 @@ msgstr "Показывать дополнительную отладочную �
 msgid "Show the program version"
 msgstr "Показать версию программы"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Подкоманды:"
 
@@ -225,6 +225,9 @@ msgstr "app;application;package;program;programme;suite;tool"
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "Утилита проверки AppStream"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "Клиентский инструмент AppStream-Index"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Ошибка при распознавании аргументов"

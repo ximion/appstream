@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
 "PO-Revision-Date: 2015-06-24 17:54+0000\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/appstream/"
+"Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,6 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Egy szolgáltatás-elem típus (például lib, bin, python3, …)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "AppStream-Index kliens eszköz"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
@@ -45,6 +40,11 @@ msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
 #, fuzzy, c-format
 msgid "AppStream client tool version: %s"
 msgstr "Appstream-Index kliens eszköz verzió: %s"
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
 
 msgid "Bundle"
 msgstr "Csomag"
@@ -163,7 +163,7 @@ msgstr "További hibakeresési információk megjelenítése"
 msgid "Show the program version"
 msgstr "A programverzió megjelenítése"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Alparancsok:"
 
@@ -226,6 +226,9 @@ msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "AppStream ellenőrző segédprogram"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "AppStream-Index kliens eszköz"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Nem sikerült az argumentumok feldolgozása "

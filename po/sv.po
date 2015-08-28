@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
-"PO-Revision-Date: 2015-06-17 18:37+0000\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
+"PO-Revision-Date: 2015-07-22 14:00+0000\n"
 "Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/appstream/"
+"Language-Team: Swedish (http://www.transifex.com/freedesktop/appstream/"
 "language/sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "En tillhandahåller-objekt-typ (e.g. lib, bin, python3, …)"
-
-#. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
-msgid "AppStream Client Tool"
-msgstr "AppStream-Index kilentverktyg"
+msgstr "En tillhandahåller-objekt-typ (t.ex. lib, bin, python3, …)"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Uppdatering av AppStreams cache färdig."
@@ -43,7 +38,12 @@ msgstr "Uppdatering av AppStreams cache misslyckades."
 
 #, fuzzy, c-format
 msgid "AppStream client tool version: %s"
-msgstr "AppStream-Index klientverktyg version: %s"
+msgstr "Version av AppStream-Index klientverktyg: %s"
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "Uppdatering av AppStreams cache misslyckades."
 
 msgid "Bundle"
 msgstr "Bunt"
@@ -56,7 +56,7 @@ msgid "Command '%s' is unknown."
 msgstr "Kommando ”%s” är okänt."
 
 msgid "Compulsory for"
-msgstr "Obligatorisks för"
+msgstr "Obligatorisk för"
 
 msgid "Description"
 msgstr "Beskrivning"
@@ -141,7 +141,7 @@ msgstr "Bygg om cachen för komponentinformation"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Kör ”%s --help” för att se en fullständig lista över tillgängliga "
-"kommandoradsalternativ."
+"kommandoradsflaggor."
 
 msgid "Sample Screenshot URL"
 msgstr "URL för samplingsskärmbild"
@@ -150,7 +150,7 @@ msgid "Search the component database"
 msgstr "Sök i komponentdatabasen"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr "Välj ett värde för tillhandahållar-objektet som behöver hittas"
+msgstr "Välj ett värde för tillhandahåller-objektet som måste hittas"
 
 msgid "Show extra debugging information"
 msgstr "Visa extra felsökningsinformation"
@@ -158,7 +158,7 @@ msgstr "Visa extra felsökningsinformation"
 msgid "Show the program version"
 msgstr "Visa programversionen"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr "Subkommandon:"
 
@@ -196,19 +196,19 @@ msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG Menu XML-filen ”%s” är skadad."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr "Du behöver köra kommandot med superanvändarrättigheter!"
+msgstr "Du måste köra kommandot med superanvändarrättigheter!"
 
 msgid "You need to specify a command."
-msgstr "Du behöver specificera ett kommando."
+msgstr "Du måste specificera ett kommando."
 
 msgid "You need to specify a component-id."
-msgstr "Du behöver specificera ett komponent-id."
+msgstr "Du måste specificera ett komponent-id."
 
 msgid "You need to specify a file to validate!"
-msgstr "Du behöver specificera en fil att validera!"
+msgstr "Du måste specificera en fil att validera!"
 
 msgid "You need to specify a term to search for."
-msgstr "Du behöver specificera en term att söka efter."
+msgstr "Du måste specificera en term att söka efter."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -221,6 +221,9 @@ msgstr "app;program;paket;svit;verktyg"
 
 #~ msgid "AppStream Validation Utility"
 #~ msgstr "AppStream valideringsverktyg"
+
+#~ msgid "AppStream-Index Client Tool"
+#~ msgstr "AppStream-Index klientverktyg"
 
 #~ msgid "Failed to parse arguments"
 #~ msgstr "Misslyckades med att tolka argument"

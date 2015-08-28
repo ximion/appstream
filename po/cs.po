@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 19:57+0200\n"
+"POT-Creation-Date: 2015-08-28 21:16+0200\n"
 "PO-Revision-Date: 2015-06-18 10:52+0000\n"
 "Last-Translator: Jozef Mlích <xmlich02@stud.fit.vutbr.cz>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/appstream/language/"
-"cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/freedesktop/appstream/"
+"language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,10 +20,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
-
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream Client Tool"
 msgstr ""
 
 msgid "AppStream cache update completed successfully."
@@ -44,6 +40,11 @@ msgstr "Aktualizace vyrovnávací paměti AppStream selhala."
 #, c-format
 msgid "AppStream client tool version: %s"
 msgstr ""
+
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream command-line interface"
+msgstr "Aktualizace vyrovnávací paměti AppStream selhala."
 
 msgid "Bundle"
 msgstr ""
@@ -155,7 +156,7 @@ msgstr ""
 msgid "Show the program version"
 msgstr "Zobrazit verzi programu"
 
-#. these are commands we can use with appstream-index
+#. these are commands we can use with appstream-cli
 msgid "Subcommands:"
 msgstr ""
 
