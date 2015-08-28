@@ -74,38 +74,38 @@ typedef enum  {
 	AS_CHECKSUM_KIND_LAST
 } AsChecksumKind;
 
-const gchar		*as_checksum_kind_to_string (AsChecksumKind kind);
+const gchar	*as_checksum_kind_to_string (AsChecksumKind kind);
 AsChecksumKind	as_checksum_kind_from_string (const gchar *kind_str);
 
-GType		 as_release_get_type (void);
+GType		as_release_get_type (void);
 AsRelease	*as_release_new (void);
 
 const gchar	*as_release_get_version (AsRelease *release);
-void		 as_release_set_version (AsRelease *release,
-								const gchar *version);
+void		as_release_set_version (AsRelease *release,
+						const gchar *version);
 
-guint64		 as_release_get_timestamp (AsRelease *release);
-void		 as_release_set_timestamp (AsRelease *release,
-								guint64 timestamp);
+guint64		as_release_get_timestamp (AsRelease *release);
+void		as_release_set_timestamp (AsRelease *release,
+						guint64 timestamp);
 
 const gchar	*as_release_get_description (AsRelease *release);
-void		 as_release_set_description (AsRelease *release,
-								const gchar *description,
-								const gchar *locale);
+void		as_release_set_description (AsRelease *release,
+						const gchar *description,
+						const gchar *locale);
 
 gchar		*as_release_get_active_locale (AsRelease *release);
 void		as_release_set_active_locale (AsRelease	*release,
-								const gchar *locale);
+						const gchar *locale);
 
 GPtrArray	*as_release_get_locations (AsRelease *release);
 void		as_release_add_location (AsRelease *release,
-								const gchar *location);
+						const gchar *location);
 
 const gchar	*as_release_get_checksum (AsRelease *release,
-								AsChecksumKind cs_kind);
+						AsChecksumKind cs_kind);
 void		as_release_set_checksum (AsRelease *release,
-								const gchar *checksum,
-								AsChecksumKind cs_kind);
+						const gchar *checksum,
+						AsChecksumKind cs_kind);
 
 G_END_DECLS
 
