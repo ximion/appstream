@@ -52,6 +52,7 @@ struct _AsMetadataPrivate
 	gchar *locale_short;
 	AsParserMode mode;
 	gchar *origin_name;
+	gint default_priority;
 
 	GPtrArray *cpts;
 };
@@ -96,6 +97,8 @@ as_metadata_init (AsMetadata *metad)
 
 	priv->origin_name = NULL;
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
+
+	priv->default_priority = 0;
 
 	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
@@ -620,17 +623,8 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 	/* set component kind */
 	as_metadata_set_component_type_from_node (node, cpt);
 
-	if (priv->mode == AS_PARSER_MODE_DISTRO) {
-		/* distro metadata allows setting a priority for components */
-		gchar *priority_str;
-		priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
-		if (priority_str != NULL) {
-			int priority;
-			priority = g_ascii_strtoll (priority_str, NULL, 10);
-			as_component_set_priority (cpt, priority);
-		}
-		g_free (priority_str);
-	}
+	/* set the priority for this component */
+	as_component_set_priority (cpt, priv->default_priority);
 
 	/* set active locale for this component */
 	as_component_set_active_locale (cpt, priv->locale);
@@ -676,9 +670,9 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 				}
 			} else {
 				as_metadata_parse_upstream_description_tag (metad,
-														iter,
-														(GHFunc) as_metadata_upstream_description_to_cpt,
-														cpt);
+									iter,
+									(GHFunc) as_metadata_upstream_description_to_cpt,
+									cpt);
 			}
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
@@ -822,6 +816,16 @@ as_metadata_parse_components_node (AsMetadata *metad, xmlNode* node, gboolean al
 	origin = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
 	as_metadata_set_origin (metad, origin);
 	g_free (origin);
+
+	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+		/* distro metadata allows setting a priority for components */
+		gchar *priority_str;
+		priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+		if (priority_str != NULL) {
+			priv->default_priority = g_ascii_strtoll (priority_str, NULL, 10);
+		}
+		g_free (priority_str);
+	}
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */

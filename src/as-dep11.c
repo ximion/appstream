@@ -27,6 +27,7 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-metadata.h"
+#include "as-component-private.h"
 
 typedef struct _AsDEP11Private	AsDEP11Private;
 struct _AsDEP11Private
@@ -34,6 +35,7 @@ struct _AsDEP11Private
 	gchar *locale;
 	gchar *locale_short;
 	gchar *origin_name;
+	gint default_priority;
 
 	GPtrArray *cpts;
 };
@@ -82,6 +84,7 @@ as_dep11_init (AsDEP11 *dep11)
 
 	priv->origin_name = NULL;
 	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->default_priority = 0;
 }
 
 /**
@@ -535,7 +538,7 @@ as_dep11_process_screenshots (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
  * as_dep11_process_component_node:
  */
 AsComponent*
-as_dep11_process_component_node (AsDEP11 *dep11, GNode *root, const gchar *origin)
+as_dep11_process_component_node (AsDEP11 *dep11, GNode *root)
 {
 	GNode *node;
 	AsComponent *cpt;
@@ -627,7 +630,10 @@ as_dep11_process_component_node (AsDEP11 *dep11, GNode *root, const gchar *origi
 	}
 
 	/* set component origin */
-	as_component_set_origin (cpt, origin);
+	as_component_set_origin (cpt, priv->origin_name);
+
+	/* set component priority */
+	as_component_set_priority (cpt, priv->default_priority);
 
 	/* add category information to component */
 	strv = as_ptr_array_to_strv (categories);
@@ -654,7 +660,7 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 	yaml_event_t event;
 	gboolean header = TRUE;
 	gboolean parse = TRUE;
-	gchar *origin = NULL;
+	AsDEP11Private *priv = GET_PRIVATE (dep11);
 
 	yaml_parser_initialize (&parser);
 	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen(data));
@@ -683,8 +689,8 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 									"Invalid DEP-11 file found: Header invalid");
 						}
 					} else if (g_strcmp0 (key, "Origin") == 0) {
-						if ((value != NULL) && (origin == NULL)) {
-							origin = g_strdup (value);
+						if ((value != NULL) && (priv->origin_name == NULL)) {
+							priv->origin_name = g_strdup (value);
 						} else {
 							parse = FALSE;
 							g_set_error_literal (error,
@@ -692,10 +698,14 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 									AS_METADATA_ERROR_FAILED,
 									"Invalid DEP-11 file found: No origin set in header.");
 						}
+					} else if (g_strcmp0 (key, "Priority") == 0) {
+						if (value != NULL) {
+							priv->default_priority = g_ascii_strtoll (value, NULL, 10);
+						}
 					}
 				}
 			} else {
-				cpt = as_dep11_process_component_node (dep11, root, origin);
+				cpt = as_dep11_process_component_node (dep11, root);
 				if (cpt == NULL)
 					parse = FALSE;
 
@@ -733,7 +743,6 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 	}
 
 	yaml_parser_delete (&parser);
-	g_free (origin);
 }
 
 /**
