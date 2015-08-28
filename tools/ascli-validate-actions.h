@@ -18,25 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASTOOL_UTILS_H
-#define __ASTOOL_UTILS_H
+#ifndef __ASCLI_VALIDATE_ACTIONS_H
+#define __ASCLI_VALIDATE_ACTIONS_H
 
 #include <glib-object.h>
-#include "appstream.h"
 
 G_BEGIN_DECLS
 
-gchar		*astool_format_long_output (const gchar *str);
-void		astool_print_key_value (const gchar* key, const gchar* val, gboolean highlight);
-void		astool_print_separator (void);
+gboolean		ascli_validate_file (gchar *fname,
+						gboolean pretty,
+						gboolean pedantic);
 
-void		astool_print_stdout (const gchar *format, ...);
-void		astool_print_stderr (const gchar *format, ...);
-
-void		astool_print_component (AsComponent *cpt, gboolean show_detailed);
-
-void		astool_set_colored_output (gboolean colored);
+gint			ascli_validate_files (char **argv,
+						int argc,
+						gboolean no_color,
+						gboolean pedantic);
 
 G_END_DECLS
 
-#endif /* __ASTOOL_UTILS_H */
+#endif /* __ASCLI_VALIDATE_ACTIONS_H */

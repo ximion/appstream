@@ -18,19 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "astool-cache-actions.h"
+#include "ascli-cache-actions.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <stdio.h>
-#include "astool-utils.h"
+#include "ascli-utils.h"
 #include "as-cache-builder.h"
 
 /**
- * astool_refresh_cache:
+ * ascli_refresh_cache:
  */
 int
-astool_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
+ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
 {
 	AsBuilder *builder;
 	GError *error = NULL;
@@ -75,10 +75,10 @@ astool_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean force
 }
 
 /**
- * astool_database_new_path:
+ * ascli_database_new_path:
  */
 static AsDatabase*
-astool_database_new_path (const gchar *dbpath)
+ascli_database_new_path (const gchar *dbpath)
 {
 	AsDatabase *db;
 	db = as_database_new ();
@@ -88,12 +88,12 @@ astool_database_new_path (const gchar *dbpath)
 }
 
 /**
- * astool_get_component:
+ * ascli_get_component:
  *
  * Get component by id
  */
 int
-astool_get_component (const gchar *dbpath, const gchar *identifier, gboolean detailed)
+ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean detailed)
 {
 	AsDatabase *db;
 	AsComponent *cpt;
@@ -104,16 +104,16 @@ astool_get_component (const gchar *dbpath, const gchar *identifier, gboolean det
 		return 2;
 	}
 
-	db = astool_database_new_path (dbpath);
+	db = ascli_database_new_path (dbpath);
 	as_database_open (db);
 
 	cpt = as_database_get_component_by_id (db, identifier);
 	if (cpt == NULL) {
-		astool_print_stderr (_("Unable to find component with id '%s'!"), identifier);
+		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		exit_code = 4;
 		goto out;
 	}
-	astool_print_component (cpt, detailed);
+	ascli_print_component (cpt, detailed);
 
 out:
 	g_object_unref (db);
@@ -124,17 +124,17 @@ out:
 }
 
 /**
- * astool_search_component:
+ * ascli_search_component:
  */
 int
-astool_search_component (const gchar *dbpath, const gchar *search_term, gboolean detailed)
+ascli_search_component (const gchar *dbpath, const gchar *search_term, gboolean detailed)
 {
 	AsDatabase *db;
 	GPtrArray* cpt_list = NULL;
 	guint i;
 	gint exit_code = 0;
 
-	db = astool_database_new_path (dbpath);
+	db = ascli_database_new_path (dbpath);
 
 	if (search_term == NULL) {
 		fprintf (stderr, "%s\n", _("You need to specify a term to search for."));
@@ -147,13 +147,13 @@ astool_search_component (const gchar *dbpath, const gchar *search_term, gboolean
 	cpt_list = as_database_find_components_by_term (db, search_term, NULL);
 	if (cpt_list == NULL) {
 		/* TRANSLATORS: We failed to find any component in the database due to an error */
-		astool_print_stderr (_("Unable to find component matching %s!"), search_term);
+		ascli_print_stderr (_("Unable to find component matching %s!"), search_term);
 		exit_code = 4;
 		goto out;
 	}
 
 	if (cpt_list->len == 0) {
-		astool_print_stdout (_("No component matching '%s' found."), search_term);
+		ascli_print_stdout (_("No component matching '%s' found."), search_term);
 		g_ptr_array_unref (cpt_list);
 		goto out;
 	}
@@ -162,9 +162,9 @@ astool_search_component (const gchar *dbpath, const gchar *search_term, gboolean
 		AsComponent *cpt;
 		cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
-		astool_print_component (cpt, detailed);
+		ascli_print_component (cpt, detailed);
 
-		astool_print_separator ();
+		ascli_print_separator ();
 	}
 
 out:
@@ -176,12 +176,12 @@ out:
 }
 
 /**
- * astool_what_provides:
+ * ascli_what_provides:
  *
  * Get component providing an item
  */
 int
-astool_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *value, const gchar *data, gboolean detailed)
+ascli_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *value, const gchar *data, gboolean detailed)
 {
 	AsDatabase *db = NULL;
 	GPtrArray* cpt_list = NULL;
@@ -205,18 +205,18 @@ astool_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *v
 		goto out;
 	}
 
-	db = astool_database_new_path (dbpath);
+	db = ascli_database_new_path (dbpath);
 	as_database_open (db);
 
 	cpt_list = as_database_get_components_by_provides (db, kind, value, data);
 	if (cpt_list == NULL) {
-		astool_print_stderr (_("Unable to find component providing '%s:%s:%s'!"), kind_str, value, data);
+		ascli_print_stderr (_("Unable to find component providing '%s:%s:%s'!"), kind_str, value, data);
 		exit_code = 4;
 		goto out;
 	}
 
 	if (cpt_list->len == 0) {
-		astool_print_stdout (_("No component providing '%s:%s:%s' found."), kind_str, value, data);
+		ascli_print_stdout (_("No component providing '%s:%s:%s' found."), kind_str, value, data);
 		goto out;
 	}
 
@@ -224,8 +224,8 @@ astool_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *v
 		AsComponent *cpt;
 		cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
-		astool_print_component (cpt, detailed);
-		astool_print_separator ();
+		ascli_print_component (cpt, detailed);
+		ascli_print_separator ();
 	}
 
 out:
@@ -238,12 +238,12 @@ out:
 }
 
 /**
- * astool_dump_component:
+ * ascli_dump_component:
  *
  * Dump the raw upstream XML for a component.
  */
 int
-astool_dump_component (const gchar *dbpath, const gchar *identifier)
+ascli_dump_component (const gchar *dbpath, const gchar *identifier)
 {
 	AsDatabase *db;
 	AsComponent *cpt;
@@ -256,12 +256,12 @@ astool_dump_component (const gchar *dbpath, const gchar *identifier)
 		return 2;
 	}
 
-	db = astool_database_new_path (dbpath);
+	db = ascli_database_new_path (dbpath);
 	as_database_open (db);
 
 	cpt = as_database_get_component_by_id (db, identifier);
 	if (cpt == NULL) {
-		astool_print_stderr (_("Unable to find component with id '%s'!"), identifier);
+		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		exit_code = 4;
 		goto out;
 	}

@@ -18,22 +18,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASTOOL_VALIDATE_ACTIONS_H
-#define __ASTOOL_VALIDATE_ACTIONS_H
+#ifndef __ASCLI_CACHE_ACTIONS_H
+#define __ASCLI_CACHE_ACTIONS_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-gboolean		astool_validate_file (gchar *fname,
-						gboolean pretty,
-						gboolean pedantic);
+int		ascli_what_provides (const gchar *dbpath,
+					const gchar *kind_str,
+					const gchar *value,
+					const gchar *data,
+					gboolean detailed);
 
-gint			astool_validate_files (char **argv,
-						int argc,
-						gboolean no_color,
-						gboolean pedantic);
+int		ascli_search_component (const gchar *dbpath,
+					const gchar *search_term,
+					gboolean detailed);
+
+int		ascli_get_component (const gchar *dbpath,
+					const gchar *identifier,
+					gboolean detailed);
+
+int		ascli_refresh_cache (const gchar *dbpath,
+					const gchar *datapath,
+					gboolean forced);
+
+int		ascli_dump_component (const gchar *dbpath,
+					const gchar *identifier);
+
 
 G_END_DECLS
 
-#endif /* __ASTOOL_VALIDATE_ACTIONS_H */
+#endif /* __ASCLI_CACHE_ACTIONS_H */

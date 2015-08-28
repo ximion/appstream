@@ -1,5 +1,5 @@
-# CMakeLists for appstream-tool
-project(appstream-tool)
+# CMakeLists for the AppStream CLI tool
+project(appstream-cli)
 
 find_package(GLIB2 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
@@ -12,31 +12,29 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 		    ${GIO2_INCLUDE_DIR}
 )
 
-set(ASTOOL_SOURCES
-	appstream-tool.c
-	astool-utils.h
-	astool-utils.c
-	astool-cache-actions.h
-	astool-cache-actions.c
-	astool-validate-actions.h
-	astool-validate-actions.c
+set(ASCLI_SOURCES
+	appstream-cli.c
+	ascli-utils.h
+	ascli-utils.c
+	ascli-cache-actions.h
+	ascli-cache-actions.c
+	ascli-validate-actions.h
+	ascli-validate-actions.c
 )
 
 # Add the appstream client tool
-add_executable(appstream_tool ${ASTOOL_SOURCES})
-set_target_properties(appstream_tool
-	PROPERTIES OUTPUT_NAME appstream)
-add_dependencies(appstream_tool appstream)
+add_executable(appstream-cli ${ASCLI_SOURCES})
+add_dependencies(appstream-cli appstream)
 
 # the client tool uses API which is currently private...
 # needs to be sorted out in future
 add_definitions ("-DAS_COMPILATION")
 
-target_link_libraries(appstream_tool
+target_link_libraries(appstream-cli
 		${M_LIB}
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}
 		appstream
 )
 
-install(TARGETS appstream_tool DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS appstream-cli DESTINATION ${CMAKE_INSTALL_BINDIR})

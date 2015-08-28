@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "astool-validate-actions.h"
+#include "ascli-validate-actions.h"
 
 #include <config.h>
 #include <locale.h>
@@ -95,10 +95,10 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 }
 
 /**
- * astool_validate_file:
+ * ascli_validate_file:
  **/
 gboolean
-astool_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
+ascli_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 {
 	GFile *file;
 	gboolean ret;
@@ -130,10 +130,10 @@ astool_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 }
 
 /**
- * astool_validate_files:
+ * ascli_validate_files:
  */
 gint
-astool_validate_files (char **argv, int argc, gboolean no_color, gboolean pedantic)
+ascli_validate_files (char **argv, int argc, gboolean no_color, gboolean pedantic)
 {
 	gint i;
 	gboolean ret;
@@ -145,7 +145,7 @@ astool_validate_files (char **argv, int argc, gboolean no_color, gboolean pedant
 
 	for (i = 0; i < argc; i++) {
 		gboolean tmp_ret;
-		tmp_ret = astool_validate_file (argv[i], !no_color, pedantic);
+		tmp_ret = ascli_validate_file (argv[i], !no_color, pedantic);
 		if (!tmp_ret)
 			ret = FALSE;
 	}

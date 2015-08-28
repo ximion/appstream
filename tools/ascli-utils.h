@@ -18,35 +18,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASTOOL_CACHE_ACTIONS_H
-#define __ASTOOL_CACHE_ACTIONS_H
+#ifndef __ASCLI_UTILS_H
+#define __ASCLI_UTILS_H
 
 #include <glib-object.h>
+#include "appstream.h"
 
 G_BEGIN_DECLS
 
-int		astool_what_provides (const gchar *dbpath,
-					const gchar *kind_str,
-					const gchar *value,
-					const gchar *data,
-					gboolean detailed);
+gchar		*ascli_format_long_output (const gchar *str);
+void		ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight);
+void		ascli_print_separator (void);
 
-int		astool_search_component (const gchar *dbpath,
-					const gchar *search_term,
-					gboolean detailed);
+void		ascli_print_stdout (const gchar *format, ...);
+void		ascli_print_stderr (const gchar *format, ...);
 
-int		astool_get_component (const gchar *dbpath,
-					const gchar *identifier,
-					gboolean detailed);
+void		ascli_print_component (AsComponent *cpt, gboolean show_detailed);
 
-int		astool_refresh_cache (const gchar *dbpath,
-					const gchar *datapath,
-					gboolean forced);
-
-int		astool_dump_component (const gchar *dbpath,
-					const gchar *identifier);
-
+void		ascli_set_colored_output (gboolean colored);
 
 G_END_DECLS
 
-#endif /* __ASTOOL_CACHE_ACTIONS_H */
+#endif /* __ASCLI_UTILS_H */

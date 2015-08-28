@@ -24,9 +24,9 @@
 #include <glib/gi18n-lib.h>
 #include <locale.h>
 
-#include "astool-utils.h"
-#include "astool-cache-actions.h"
-#include "astool-validate-actions.h"
+#include "ascli-utils.h"
+#include "ascli-cache-actions.h"
+#include "ascli-validate-actions.h"
 
 static gboolean optn_show_version = FALSE;
 static gboolean optn_verbose_mode = FALSE;
@@ -46,8 +46,8 @@ as_client_get_summary ()
 	string = g_string_new ("");
 
 	/* TRANSLATORS: This is the header to the --help menu */
-	g_string_append_printf (string, "%s\n\n%s\n", _("AppStream Client Tool"),
-				/* these are commands we can use with appstream-index */
+	g_string_append_printf (string, "%s\n\n%s\n", _("AppStream command-line interface"),
+				/* these are commands we can use with appstream-cli */
 				_("Subcommands:"));
 
 	g_string_append_printf (string, "  %s - %s\n", "search [TERM]", _("Search the component database"));
@@ -94,7 +94,7 @@ as_client_run (char **argv, int argc)
 		{ NULL }
 	};
 
-	opt_context = g_option_context_new ("- AppStream Client Tool.");
+	opt_context = g_option_context_new ("- AppStream CLI.");
 	g_option_context_set_help_enabled (opt_context, TRUE);
 	g_option_context_add_main_entries (opt_context, client_options, NULL);
 
@@ -110,14 +110,14 @@ as_client_run (char **argv, int argc)
 		msg = g_strconcat (error->message, "\n", NULL);
 		g_print ("%s", msg);
 		g_free (msg);
-		astool_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
+		ascli_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
 		exit_code = 1;
 		g_error_free (error);
 		goto out;
 	}
 
 	if (optn_show_version) {
-		astool_print_stdout (_("AppStream client tool version: %s"), VERSION);
+		ascli_print_stdout (_("AppStream client tool version: %s"), VERSION);
 		goto out;
 	}
 
@@ -128,12 +128,12 @@ as_client_run (char **argv, int argc)
 
 	if (argc < 2) {
 		g_printerr ("%s\n", _("You need to specify a command."));
-		astool_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
+		ascli_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
 		exit_code = 1;
 		goto out;
 	}
 
-	astool_set_colored_output (!optn_no_color);
+	ascli_set_colored_output (!optn_no_color);
 
 	command = argv[1];
 	if (argc > 2)
@@ -144,21 +144,21 @@ as_client_run (char **argv, int argc)
 		value3 = argv[4];
 
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
-		exit_code = astool_search_component (optn_dbpath, value1, optn_details);
+		exit_code = ascli_search_component (optn_dbpath, value1, optn_details);
 	} else if (g_strcmp0 (command, "refresh-index") == 0) {
-		exit_code = astool_refresh_cache (optn_dbpath, optn_datapath, optn_force);
+		exit_code = ascli_refresh_cache (optn_dbpath, optn_datapath, optn_force);
 	} else if (g_strcmp0 (command, "get") == 0) {
-		exit_code = astool_get_component (optn_dbpath, value1, optn_details);
+		exit_code = ascli_get_component (optn_dbpath, value1, optn_details);
 	} else if (g_strcmp0 (command, "dump") == 0) {
-		exit_code = astool_dump_component (optn_dbpath, value1);
+		exit_code = ascli_dump_component (optn_dbpath, value1);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
-		exit_code = astool_what_provides (optn_dbpath, value1, value2, value3, optn_details);
+		exit_code = ascli_what_provides (optn_dbpath, value1, value2, value3, optn_details);
 	} else if (g_strcmp0 (command, "validate") == 0) {
-		exit_code = astool_validate_files (&argv[2], argc-2, optn_no_color, FALSE);
+		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, FALSE);
 	} else if (g_strcmp0 (command, "validate-pedantic") == 0) {
-		exit_code = astool_validate_files (&argv[2], argc-2, optn_no_color, FALSE);
+		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, FALSE);
 	} else {
-		astool_print_stderr (_("Command '%s' is unknown."), command);
+		ascli_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;
 		goto out;
 	}

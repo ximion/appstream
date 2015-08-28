@@ -6,16 +6,16 @@
   <!ENTITY date        "<date>26 July,2012</date>">
   <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
        allowed: see man(7), man(1). -->
-  <!ENTITY package     "appstream-index">
+  <!ENTITY package     "appstream-cli">
   <!ENTITY gnu         "<acronym>GNU</acronym>">
   <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
 ]>
 
 <refentry>
 	<refentryinfo>
-	<title>appstream-index</title>
+	<title>appstream-cli</title>
 	<copyright>
-		<year>2012-2014</year>
+		<year>2012-2015</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
@@ -23,12 +23,12 @@
 	</refentryinfo>
 
 	<refmeta>
-		<refentrytitle>appstream-index</refentrytitle>
+		<refentrytitle>appstream-cli</refentrytitle>
 		<manvolnum>1</manvolnum>
 	</refmeta>
 	<refnamediv>
 		<refname>&package;</refname>
-		<refpurpose>Manage the AppStream component index</refpurpose>
+		<refpurpose>Handle AppStream metadata and the AppStream index</refpurpose>
 	</refnamediv>
 
        <refsynopsisdiv>
@@ -46,11 +46,11 @@
 			This manual page documents briefly the <command>&package;</command> command.
 		</para>
 		<para>
-			<command>&package;</command> manages the AppStream index. The AppStream component
-			index contains a list of all available applications for your distribution, matched with their
-			native package names.
-			It is generated using either AppStream-XML, Debian-DEP-11 or Ubuntu AppInstall data, which is provided
-			by your distributor.
+			<command>&package;</command> is a small helper tool to work with AppStream metadata and
+			access the AppStream component index from the command-line. The AppStream component
+			index contains a list of all available software components for your distribution, matched to their
+			package names.
+			It is generated using AppStream XML or Debian DEP-11 data, which is provided by your distributor.
 		</para>
 		<para>
 			For more information about the AppStream project and the other components which are part of it, take a look at
@@ -102,13 +102,40 @@
 			</varlistentry>
 
 			<varlistentry>
-				<term><option>refresh</option></term>
+				<term><option>refresh-index</option></term>
 				<listitem>
 					<para>
 						Trigger a database refresh, if necessary.
 						In case you want to force the database to be rebuilt, supply the <option>--force</option> flag.
 					</para>
 					<para>This command must be executed with root permission.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>dump <replaceable>ID</replaceable></option></term>
+				<listitem>
+					<para>
+						Dump the XML description of a component with the given ID.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>validate</option></term>
+				<term><option>validate-pedantic <replaceable>FILES</replaceable></option></term>
+				<listitem>
+					<para>
+						Validate AppStream XML metadata for compliance with the specification.
+					</para>
+					<para>
+						Both XML metadata types, upstream and distro XML, are handled.
+						The filetype which should be validated is determined automatically.
+					</para>
+					<para>
+						The <option>validate-pedantic</option> command triggers a more pedantic
+						validation of the file, including minor and style issues in the report.
+					</para>
 				</listitem>
 			</varlistentry>
 

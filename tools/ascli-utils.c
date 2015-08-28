@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "astool-utils.h"
+#include "ascli-utils.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
@@ -29,10 +29,10 @@
 gboolean _nocolor_output = FALSE;
 
 /**
- * astool_format_long_output:
+ * ascli_format_long_output:
  */
 gchar*
-astool_format_long_output (const gchar *str)
+ascli_format_long_output (const gchar *str)
 {
 	gchar *res;
 	gchar *str2;
@@ -60,10 +60,10 @@ astool_format_long_output (const gchar *str)
 }
 
 /**
- * astool_print_key_value:
+ * ascli_print_key_value:
  */
 void
-astool_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
+ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 {
 	gchar *str;
 	gchar *fmtval;
@@ -76,7 +76,7 @@ astool_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 		/* only produces slightly better output (indented).
 		 * we need word-wrapping in future
 		 */
-		fmtval = astool_format_long_output (val);
+		fmtval = ascli_format_long_output (val);
 	} else {
 		fmtval = g_strdup (val);
 	}
@@ -94,10 +94,10 @@ astool_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 }
 
 /**
- * astool_print_separator:
+ * ascli_print_separator:
  */
 void
-astool_print_separator ()
+ascli_print_separator ()
 {
 	if (_nocolor_output) {
 		g_print ("----\n");
@@ -107,10 +107,10 @@ astool_print_separator ()
 }
 
 /**
- * astool_print_stderr:
+ * ascli_print_stderr:
  */
 void
-astool_print_stderr (const gchar *format, ...)
+ascli_print_stderr (const gchar *format, ...)
 {
 	va_list args;
 	gchar *str;
@@ -125,10 +125,10 @@ astool_print_stderr (const gchar *format, ...)
 }
 
 /**
- * astool_print_stdout:
+ * ascli_print_stdout:
  */
 void
-astool_print_stdout (const gchar *format, ...)
+ascli_print_stdout (const gchar *format, ...)
 {
 	va_list args;
 	gchar *str;
@@ -152,10 +152,10 @@ string_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
 }
 
 /**
- * astool_set_colored_output:
+ * ascli_set_colored_output:
  */
 void
-astool_set_colored_output (gboolean colored)
+ascli_set_colored_output (gboolean colored)
 {
 	_nocolor_output = !colored;
 }
@@ -182,12 +182,12 @@ as_get_bundle_str (AsComponent *cpt)
 }
 
 /**
- * astool_print_component:
+ * ascli_print_component:
  *
  * Print well-formatted details about a component to stdout.
  */
 void
-astool_print_component (AsComponent *cpt, gboolean show_detailed)
+ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 {
 	gchar *short_idline;
 	gchar *pkgs_str = NULL;
@@ -201,13 +201,13 @@ astool_print_component (AsComponent *cpt, gboolean show_detailed)
 		pkgs_str = g_strjoinv (", ", as_component_get_pkgnames (cpt));
 	bundles_str = as_get_bundle_str (cpt);
 
-	astool_print_key_value (_("Identifier"), short_idline, FALSE);
-	astool_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
-	astool_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
-	astool_print_key_value (_("Package"), pkgs_str, FALSE);
-	astool_print_key_value (_("Bundle"), bundles_str, FALSE);
-	astool_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
-	astool_print_key_value (_("Icon"), as_component_get_icon_url (cpt, 64, 64), FALSE);
+	ascli_print_key_value (_("Identifier"), short_idline, FALSE);
+	ascli_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
+	ascli_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
+	ascli_print_key_value (_("Package"), pkgs_str, FALSE);
+	ascli_print_key_value (_("Bundle"), bundles_str, FALSE);
+	ascli_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
+	ascli_print_key_value (_("Icon"), as_component_get_icon_url (cpt, 64, 64), FALSE);
 	g_free (short_idline);
 	g_free (pkgs_str);
 	g_free (bundles_str);
@@ -223,11 +223,11 @@ astool_print_component (AsComponent *cpt, gboolean show_detailed)
 		gchar **strv;
 
 		/* developer name */
-		astool_print_key_value (_("Developer"), as_component_get_developer_name (cpt), FALSE);
+		ascli_print_key_value (_("Developer"), as_component_get_developer_name (cpt), FALSE);
 
 		/* long description */
 		str = as_description_markup_convert_simple (as_component_get_description (cpt));
-		astool_print_key_value (_("Description"), str, FALSE);
+		ascli_print_key_value (_("Description"), str, FALSE);
 		g_free (str);
 
 		/* some simple screenshot information */
@@ -247,23 +247,23 @@ astool_print_component (AsComponent *cpt, gboolean show_detailed)
 			for (j = 0; j < imgs->len; j++) {
 				img = (AsImage*) g_ptr_array_index (imgs, j);
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-					astool_print_key_value (_("Sample Screenshot URL"), as_image_get_url (img), FALSE);
+					ascli_print_key_value (_("Sample Screenshot URL"), as_image_get_url (img), FALSE);
 					break;
 				}
 			}
 		}
 
 		/* project group */
-		astool_print_key_value (_("Project Group"), as_component_get_project_group (cpt), FALSE);
+		ascli_print_key_value (_("Project Group"), as_component_get_project_group (cpt), FALSE);
 
 		/* license */
-		astool_print_key_value (_("License"), as_component_get_project_license (cpt), FALSE);
+		ascli_print_key_value (_("License"), as_component_get_project_license (cpt), FALSE);
 
 		/* Categories */
 		strv = as_component_get_categories (cpt);
 		if (strv != NULL) {
 			str = g_strjoinv (", ", strv);
-			astool_print_key_value (_("Categories"), str, FALSE);
+			ascli_print_key_value (_("Categories"), str, FALSE);
 			g_free (str);
 		}
 
@@ -271,7 +271,7 @@ astool_print_component (AsComponent *cpt, gboolean show_detailed)
 		strv = as_component_get_compulsory_for_desktops (cpt);
 		if (strv != NULL) {
 			str = g_strjoinv (", ", strv);
-			astool_print_key_value (_("Compulsory for"), str, FALSE);
+			ascli_print_key_value (_("Compulsory for"), str, FALSE);
 			g_free (str);
 		}
 
@@ -280,7 +280,7 @@ astool_print_component (AsComponent *cpt, gboolean show_detailed)
 		strv = as_ptr_array_to_strv (provided_items);
 		if (strv != NULL) {
 			str = g_strjoinv (" ", strv);
-			astool_print_key_value (_("Provided Items"), str, FALSE);
+			ascli_print_key_value (_("Provided Items"), str, FALSE);
 			g_free (str);
 		}
 		g_strfreev (strv);
