@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Korean (http://www.transifex.com/projects/p/appstream/"
@@ -22,8 +22,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "provides-item 형식(예: lib, bin, python3, ...)"
 
-msgid "AppStream Validation Utility"
-msgstr "AppStream 검증 유틸리티"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "AppStream-Index 클라이언트 도구"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
@@ -40,12 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "AppStream 캐시 업데이트가 실패하였습니다."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "AppStream-Index 클라이언트 도구"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "AppStream-Index 클라이언트 도구 버전: %s"
 
 msgid "Bundle"
@@ -71,11 +69,11 @@ msgstr "개발자"
 msgid "Don't show colored output"
 msgstr "출력에 색깔 사용하지 않기"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "캐시 강제로 새로 고침"
-
-msgid "Failed to parse arguments"
-msgstr "인자 해석에 실패했습니다"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -84,7 +82,8 @@ msgstr "파일 %s을(를) 찾을 수 없거나 권한이 거부되었습니다!"
 msgid "Get components which provide the given item"
 msgstr "주어진 항목을 가져오는 구성 요소 가져오기"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "ID로 구성 요소 정보 가져오기"
 
 msgid "Homepage"
@@ -156,12 +155,6 @@ msgstr "찾을 provides-item의 값 설정"
 msgid "Show extra debugging information"
 msgstr "추가 디버깅 정보 보이기"
 
-msgid "Show issues from pedantic tests"
-msgstr ""
-
-msgid "Show program version"
-msgstr "프로그램 버전 보이기"
-
 msgid "Show the program version"
 msgstr "프로그램 버전 보이기"
 
@@ -185,7 +178,17 @@ msgstr "'%s:%s:%s'을(를) 제공하는 구성 요소를 찾을 수 없습니다
 msgid "Unable to find component with id '%s'!"
 msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "검증에 실패하였습니다."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "검증에 실패하였습니다."
 
 #, c-format
@@ -217,3 +220,12 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;앱;프로그램;소프트웨어;"
 "패키지;꾸러미;프로그램;도구"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "AppStream 검증 유틸리티"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "인자 해석에 실패했습니다"
+
+#~ msgid "Show program version"
+#~ msgstr "프로그램 버전 보이기"

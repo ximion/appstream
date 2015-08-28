@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-06-05 12:59+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
@@ -21,8 +21,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "提供項目的類型 (如：lib、bin、python3...等)"
 
-msgid "AppStream Validation Utility"
-msgstr "AppStream 驗證用公用程式"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "AppStream-Index 客戶端工具"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
@@ -37,12 +39,8 @@ msgstr "AppStream 快取更新完成，但有些中介資料因為錯誤而被�
 msgid "AppStream cache update failed."
 msgstr "AppStream 快取更新失敗。"
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "AppStream-Index 客戶端工具"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Appstream-Index 客戶端工具版本：%s"
 
 msgid "Bundle"
@@ -68,11 +66,11 @@ msgstr "開發者"
 msgid "Don't show colored output"
 msgstr "不要顯示色彩化的輸出"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "強制快取重新整理"
-
-msgid "Failed to parse arguments"
-msgstr "無法解析引數"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -81,7 +79,8 @@ msgstr "找不到檔案 %s，或未獲得存取許可！"
 msgid "Get components which provide the given item"
 msgstr "取得可提供給定項目的組件"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "根據其 id 取得有關組件的資訊"
 
 msgid "Homepage"
@@ -152,12 +151,6 @@ msgstr "為需要尋找的提供項目選取個值"
 msgid "Show extra debugging information"
 msgstr "顯示額外除錯資訊"
 
-msgid "Show issues from pedantic tests"
-msgstr "顯示慎重測試的議題"
-
-msgid "Show program version"
-msgstr "顯示程式版本"
-
 msgid "Show the program version"
 msgstr "顯示程式版本"
 
@@ -181,7 +174,17 @@ msgstr "找不到提供「%s:%s:%s」的組件！"
 msgid "Unable to find component with id '%s'!"
 msgstr "找不到 id 為「%s」的組件！"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "驗證失敗。"
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "驗證失敗。"
 
 #, c-format
@@ -213,3 +216,15 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套"
 "件;套裝軟體;工具;公用程式"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "AppStream 驗證用公用程式"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "無法解析引數"
+
+#~ msgid "Show issues from pedantic tests"
+#~ msgstr "顯示慎重測試的議題"
+
+#~ msgid "Show program version"
+#~ msgstr "顯示程式版本"

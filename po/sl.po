@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovenian (http://www.transifex.com/projects/p/appstream/"
@@ -23,8 +23,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Vrste ponuja-element (npr. lib, bin, python3 ...)"
 
-msgid "AppStream Validation Utility"
-msgstr "Orodje preverjanja AppStream"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "Orodje odjemalca AppStream-Index"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Posodobitev predpomnilnika AppStream uspešno dokončana."
@@ -41,12 +43,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Posodobitev predpomnilnika AppStream je spodletela."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "Orodje odjemalca AppStream-Index"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Različica orodja odjemalca AppStream-Index: %s"
 
 msgid "Bundle"
@@ -72,11 +70,11 @@ msgstr "Razvijalec"
 msgid "Don't show colored output"
 msgstr "Ne pokaži izpisa v barvah"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Vsili osvežitev predpomnilnika"
-
-msgid "Failed to parse arguments"
-msgstr "Razčlenjevanje argumentov je spodletelo"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -85,7 +83,8 @@ msgstr "Datoteke %s ni mogoče najti ali dostop zaradi pravic zavrnjen!"
 msgid "Get components which provide the given item"
 msgstr "Pridobi komponente, ki ponujajo dani element"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Pridobi podatke o komponenti z njenim ID"
 
 msgid "Homepage"
@@ -158,12 +157,6 @@ msgstr "Izberite vrednost za ponuja-element, ki jo je potrebno najti"
 msgid "Show extra debugging information"
 msgstr "Pokaži dodatne podatke razhroščevanja"
 
-msgid "Show issues from pedantic tests"
-msgstr ""
-
-msgid "Show program version"
-msgstr "Pokaži različico programa"
-
 msgid "Show the program version"
 msgstr "Pokaži različico programa"
 
@@ -187,7 +180,17 @@ msgstr "Komponente, ki zagotavlja »%s:%s:%s«, ni mogoče najti."
 msgid "Unable to find component with id '%s'!"
 msgstr "Komponente z id »%s« ni mogoče najti!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Preverjanje je spodletelo."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Preverjanje je spodletelo."
 
 #, c-format
@@ -217,3 +220,12 @@ msgstr "Določiti morate pojem, ki ga iščete."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplikacija;paket;program;programček;programje;orodje"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "Orodje preverjanja AppStream"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Razčlenjevanje argumentov je spodletelo"
+
+#~ msgid "Show program version"
+#~ msgstr "Pokaži različico programa"

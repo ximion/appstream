@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-06-09 20:58+0000\n"
 "Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/appstream/"
@@ -24,8 +24,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Тип «provides-item» (например, lib, bin, python3, …)"
 
-msgid "AppStream Validation Utility"
-msgstr "Утилита проверки AppStream"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "Клиентский инструмент AppStream-Index"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
@@ -42,12 +44,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Обновление кэша AppStream прошло неудачно"
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "Клиентский инструмент AppStream-Index"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Клиентский инструмент AppStream-Index, версия %s"
 
 msgid "Bundle"
@@ -73,11 +71,11 @@ msgstr "Разработчик"
 msgid "Don't show colored output"
 msgstr "Не показывать цветной вывод"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Принудительно обновить кэш"
-
-msgid "Failed to parse arguments"
-msgstr "Ошибка при распознавании аргументов"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -86,7 +84,8 @@ msgstr "Файл %s не найден или доступ к нему запре
 msgid "Get components which provide the given item"
 msgstr "Получить компоненты, которые предоставляют данный элемент"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Получить информацию о компоненте по его идентификатору"
 
 msgid "Homepage"
@@ -160,12 +159,6 @@ msgstr "Выберите значение для «provides-item», которо
 msgid "Show extra debugging information"
 msgstr "Показывать дополнительную отладочную информацию"
 
-msgid "Show issues from pedantic tests"
-msgstr "Показать результаты педантичных тестов"
-
-msgid "Show program version"
-msgstr "Показать версию программы"
-
 msgid "Show the program version"
 msgstr "Показать версию программы"
 
@@ -189,7 +182,17 @@ msgstr "Не удаётся найти компоненту, предостав�
 msgid "Unable to find component with id '%s'!"
 msgstr "Не удаётся найти компоненту с идентификатором '%s'!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Проверка прошла неудачно"
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Проверка прошла неудачно"
 
 #, c-format
@@ -219,3 +222,15 @@ msgstr "Вы должны указать термин для поиска."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "Утилита проверки AppStream"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Ошибка при распознавании аргументов"
+
+#~ msgid "Show issues from pedantic tests"
+#~ msgstr "Показать результаты педантичных тестов"
+
+#~ msgid "Show program version"
+#~ msgstr "Показать версию программы"

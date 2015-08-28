@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:32+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/appstream/"
@@ -23,8 +23,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ elementu Provides (np. lib, bin, python3...)"
 
-msgid "AppStream Validation Utility"
-msgstr "Narzędzie sprawdzania poprawności AppStream"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "Narzędzie klienta AppStream-Index"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
@@ -41,12 +43,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "Narzędzie klienta AppStream-Index"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Wersja narzędzia klienta AppStream-Index: %s"
 
 msgid "Bundle"
@@ -72,11 +70,11 @@ msgstr "Programista"
 msgid "Don't show colored output"
 msgstr "Bez kolorowania wyjścia"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Wymusza odświeżenie pamięci podręcznej"
-
-msgid "Failed to parse arguments"
-msgstr "Przetworzenie parametrów się nie powiodło"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -85,7 +83,8 @@ msgstr "Nie odnaleziono pliku %s lub odmówiono uprawnień."
 msgid "Get components which provide the given item"
 msgstr "Uzyskuje składniki dostarczające podany element"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Uzyskuje informacje o składniku według jego identyfikatora"
 
 msgid "Homepage"
@@ -160,12 +159,6 @@ msgstr "Proszę wybrać wartość dla elementu Provides, który należy odnaleź
 msgid "Show extra debugging information"
 msgstr "Wyświetla dodatkowe informacje debugowania"
 
-msgid "Show issues from pedantic tests"
-msgstr "Wyświetla problemy z drobiazgowych testów"
-
-msgid "Show program version"
-msgstr "Wyświetla wersję programu"
-
 msgid "Show the program version"
 msgstr "Wyświetla wersję programu"
 
@@ -189,7 +182,17 @@ msgstr "Nie można odnaleźć składnika dostarczającego \"%s:%s:%s\"."
 msgid "Unable to find component with id '%s'!"
 msgstr "Nie można odnaleźć składnika o identyfikatorze \"%s\"."
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Sprawdzenie poprawności się nie powiodło."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Sprawdzenie poprawności się nie powiodło."
 
 #, c-format
@@ -221,3 +224,15 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;"
 "zestaw;suite;narzędzie;tool"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "Narzędzie sprawdzania poprawności AppStream"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Przetworzenie parametrów się nie powiodło"
+
+#~ msgid "Show issues from pedantic tests"
+#~ msgstr "Wyświetla problemy z drobiazgowych testów"
+
+#~ msgid "Show program version"
+#~ msgstr "Wyświetla wersję programu"

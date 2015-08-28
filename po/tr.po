@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/appstream/"
@@ -22,8 +22,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Bir sağlanan-öge türü (lib, bin, python3 gibi)"
 
-msgid "AppStream Validation Utility"
-msgstr "AppStream Doğrulama Uygulaması"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "AppStream Dizin İstemci Aracı"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
@@ -40,12 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "AppStream ön bellek güncellemesi başarısız oldu."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "AppStream Dizin İstemci Aracı"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Appstream-Dizin istemci aracı sürümü: %s"
 
 msgid "Bundle"
@@ -71,11 +69,11 @@ msgstr "Geliştirici"
 msgid "Don't show colored output"
 msgstr "Çıktıyı renklendirilmiş gösterme"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Ön belleğin yenilenmesini zorla"
-
-msgid "Failed to parse arguments"
-msgstr "Argüman ayrıştırması başarısız"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -84,7 +82,8 @@ msgstr "%s dosyası bulunamadı veya izin verilmedi!"
 msgid "Get components which provide the given item"
 msgstr "Verilen ögeyi sağlayan bileşenleri alın"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Kimliğini kullanarak bir bileşen hakkında bilgi alın"
 
 msgid "Homepage"
@@ -158,12 +157,6 @@ msgstr "Bulunması gereken sağlanan öge için bir değer seçin"
 msgid "Show extra debugging information"
 msgstr "Ek hata ayıklama bilgisi göster"
 
-msgid "Show issues from pedantic tests"
-msgstr ""
-
-msgid "Show program version"
-msgstr "Program sürümünü göster"
-
 msgid "Show the program version"
 msgstr "Program sürümünü göster"
 
@@ -187,7 +180,17 @@ msgstr "'%s:%s:%s' bileşeni bulunamadı!"
 msgid "Unable to find component with id '%s'!"
 msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Doğrulama başarısız."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Doğrulama başarısız."
 
 #, c-format
@@ -217,3 +220,12 @@ msgstr "Arama için bir terim belirtmelisiniz."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;uygulama;paket;program;program;takım;araç"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "AppStream Doğrulama Uygulaması"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Argüman ayrıştırması başarısız"
+
+#~ msgid "Show program version"
+#~ msgstr "Program sürümünü göster"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-06-02 13:13+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/"
@@ -22,8 +22,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "A provides-item type (e.g. lib, bin, python3, ...)"
 
-msgid "AppStream Validation Utility"
-msgstr "AppStream Validation Utility"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "AppStream-Index Client Tool"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream cache update completed successfully."
@@ -40,12 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "AppStream cache update failed."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "AppStream-Index Client Tool"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Appstream-Index client tool version: %s"
 
 msgid "Bundle"
@@ -71,11 +69,11 @@ msgstr "Developer"
 msgid "Don't show colored output"
 msgstr "Don't show coloured output"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Enforce a cache refresh"
-
-msgid "Failed to parse arguments"
-msgstr "Failed to parse arguments"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -84,7 +82,8 @@ msgstr "File %s not found or permission denied!"
 msgid "Get components which provide the given item"
 msgstr "Get components which provide the given item"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Get information about a component by its id"
 
 msgid "Homepage"
@@ -155,12 +154,6 @@ msgstr "Select a value for the provides-item which needs to be found"
 msgid "Show extra debugging information"
 msgstr "Show extra debugging information"
 
-msgid "Show issues from pedantic tests"
-msgstr "Show issues from pedantic tests"
-
-msgid "Show program version"
-msgstr "Show program version"
-
 msgid "Show the program version"
 msgstr "Show the program version"
 
@@ -184,7 +177,17 @@ msgstr "Unable to find component providing '%s:%s:%s'!"
 msgid "Unable to find component with id '%s'!"
 msgstr "Unable to find component with id '%s'!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Validation failed."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Validation failed."
 
 #, c-format
@@ -214,3 +217,15 @@ msgstr "You need to specify a term to search for."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "AppStream Validation Utility"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Failed to parse arguments"
+
+#~ msgid "Show issues from pedantic tests"
+#~ msgstr "Show issues from pedantic tests"
+
+#~ msgid "Show program version"
+#~ msgstr "Show program version"

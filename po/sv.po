@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-06-17 18:37+0000\n"
 "Last-Translator: Josef Andersson <josef.andersson@fripost.org>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/appstream/"
@@ -22,8 +22,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "En tillhandahåller-objekt-typ (e.g. lib, bin, python3, …)"
 
-msgid "AppStream Validation Utility"
-msgstr "AppStream valideringsverktyg"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "AppStream-Index kilentverktyg"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Uppdatering av AppStreams cache färdig."
@@ -39,12 +41,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Uppdatering av AppStreams cache misslyckades."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "AppStream-Index kilentverktyg"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "AppStream-Index klientverktyg version: %s"
 
 msgid "Bundle"
@@ -70,11 +68,11 @@ msgstr "Utvecklare"
 msgid "Don't show colored output"
 msgstr "Visa inte färgad utdata"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Tvinga en cache-uppdatering"
-
-msgid "Failed to parse arguments"
-msgstr "Misslyckades med att tolka argument"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -83,7 +81,8 @@ msgstr "Filen %s inte hittad eller tillstånd nekat!"
 msgid "Get components which provide the given item"
 msgstr "Hämta komponenter som tillhandahåller det givna objektet"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Hämta information om en komponent genom dess id"
 
 msgid "Homepage"
@@ -156,12 +155,6 @@ msgstr "Välj ett värde för tillhandahållar-objektet som behöver hittas"
 msgid "Show extra debugging information"
 msgstr "Visa extra felsökningsinformation"
 
-msgid "Show issues from pedantic tests"
-msgstr "Visa problem från pedantiska tester"
-
-msgid "Show program version"
-msgstr "Visa programversion"
-
 msgid "Show the program version"
 msgstr "Visa programversionen"
 
@@ -185,7 +178,17 @@ msgstr "Kunde inte hitta komponenten tillhandahållandes ”%s:%s:%s”!"
 msgid "Unable to find component with id '%s'!"
 msgstr "Kunde inte hitta komponenten med id ”%s”!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Validering misslyckades."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Validering misslyckades."
 
 #, c-format
@@ -215,3 +218,15 @@ msgstr "Du behöver specificera en term att söka efter."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;program;paket;svit;verktyg"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "AppStream valideringsverktyg"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Misslyckades med att tolka argument"
+
+#~ msgid "Show issues from pedantic tests"
+#~ msgstr "Visa problem från pedantiska tester"
+
+#~ msgid "Show program version"
+#~ msgstr "Visa programversion"

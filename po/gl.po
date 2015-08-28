@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Galician (http://www.transifex.com/projects/p/appstream/"
@@ -22,8 +22,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Un tipo de elemento fornecedor (p.ex. lib, bin, python3, …)"
 
-msgid "AppStream Validation Utility"
-msgstr "Utilidade de validación de AppStream"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "Ferramenta cliente do índice de AppStream"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Actualización de caché de AppStream completada con éxito."
@@ -40,12 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Fallou a actualización da caché de AppStream."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "Ferramenta cliente do índice de AppStream"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Versión da ferramenta cliente do índice de AppStream: %s"
 
 msgid "Bundle"
@@ -71,11 +69,11 @@ msgstr "Desenvolvedor"
 msgid "Don't show colored output"
 msgstr "Non mostrar a saída con cores"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Forzar a actualización da caché"
-
-msgid "Failed to parse arguments"
-msgstr "Produciuse un fallo ao analizar os argumentos"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -84,7 +82,8 @@ msgstr "Non se atopou o ficheiro %s ou denegouse o permiso!"
 msgid "Get components which provide the given item"
 msgstr "Obter compoñentes que fornezan o elemento proporcionado"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Obter informacion sobre un compoñente mediante o seu id"
 
 msgid "Homepage"
@@ -161,12 +160,6 @@ msgstr "Seleccione un valor para os elementos que fornecen que precise atopar"
 msgid "Show extra debugging information"
 msgstr "Mostra información de depuración adicional"
 
-msgid "Show issues from pedantic tests"
-msgstr ""
-
-msgid "Show program version"
-msgstr "Mostra a versión do programa"
-
 msgid "Show the program version"
 msgstr "Mostra a versión do programa"
 
@@ -190,7 +183,17 @@ msgstr "Non foi posíbel atopar os compoñentes que fornecen «%s:%s:%s»!"
 msgid "Unable to find component with id '%s'!"
 msgstr "Non foi posíbel atopar compoñentes co id «%s»!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Fallou a validación."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Fallou a validación."
 
 #, c-format
@@ -220,3 +223,12 @@ msgstr "Debe especificar o termo a buscar."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicativo;aplicación;paquete;programa;suite;ferramenta"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "Utilidade de validación de AppStream"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Produciuse un fallo ao analizar os argumentos"
+
+#~ msgid "Show program version"
+#~ msgstr "Mostra a versión do programa"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/appstream/"
@@ -22,7 +22,9 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr ""
 
-msgid "AppStream Validation Utility"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
 msgstr "Utilidad de validación de AppStream"
 
 msgid "AppStream cache update completed successfully."
@@ -38,12 +40,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr ""
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr ""
-
 #, c-format
-msgid "Appstream-Index client tool version: %s"
+msgid "AppStream client tool version: %s"
 msgstr ""
 
 msgid "Bundle"
@@ -69,10 +67,10 @@ msgstr "Desarrollador"
 msgid "Don't show colored output"
 msgstr ""
 
-msgid "Enforce a cache refresh"
+msgid "Dump raw XML metadata for a component matching the ID"
 msgstr ""
 
-msgid "Failed to parse arguments"
+msgid "Enforce a cache refresh"
 msgstr ""
 
 #, c-format
@@ -82,7 +80,7 @@ msgstr ""
 msgid "Get components which provide the given item"
 msgstr ""
 
-msgid "Get information about a component by its id"
+msgid "Get information about a component by its ID"
 msgstr ""
 
 msgid "Homepage"
@@ -153,12 +151,6 @@ msgstr ""
 msgid "Show extra debugging information"
 msgstr ""
 
-msgid "Show issues from pedantic tests"
-msgstr ""
-
-msgid "Show program version"
-msgstr "Mostrar la versión del programa"
-
 msgid "Show the program version"
 msgstr "Mostrar la versión del programa"
 
@@ -182,7 +174,17 @@ msgstr ""
 msgid "Unable to find component with id '%s'!"
 msgstr ""
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Falló la validación."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Falló la validación."
 
 #, c-format
@@ -212,3 +214,6 @@ msgstr ""
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicación;paquete;programa;suite;conjunto;herramienta"
+
+#~ msgid "Show program version"
+#~ msgstr "Mostrar la versión del programa"

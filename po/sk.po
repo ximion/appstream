@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovak (http://www.transifex.com/projects/p/appstream/"
@@ -22,8 +22,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ poskytuje-položku (napr. lib, bin, python3, ...)"
 
-msgid "AppStream Validation Utility"
-msgstr "AppStream - Nástroj na overenie"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "AppStream - Nástroj klienta indexu"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
@@ -40,12 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "AppStream - Nástroj klienta indexu"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "AppStream - Nástroj klienta indexu, verzia: %s"
 
 msgid "Bundle"
@@ -71,11 +69,11 @@ msgstr "Vývojár"
 msgid "Don't show colored output"
 msgstr "Nezobrazovať farebný výstup"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Vynútiť aktualizáciu vyrovnávacej pamäte"
-
-msgid "Failed to parse arguments"
-msgstr "Nepodarilo sa spracovať argumenty"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -84,7 +82,8 @@ msgstr "Súbor %s nebol nájdený alebo bolo zamietnuté oprávnenie."
 msgid "Get components which provide the given item"
 msgstr "Získať komponenty poskytujúce danú položku"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Získať informácie o komponente na základe jeho id"
 
 msgid "Homepage"
@@ -159,12 +158,6 @@ msgstr "Vyberte hodnotu poskytuje-položku, ktorú treba nájsť"
 msgid "Show extra debugging information"
 msgstr "Zobraziť ladiace informácie naviac"
 
-msgid "Show issues from pedantic tests"
-msgstr ""
-
-msgid "Show program version"
-msgstr "Zobraziť verziu programu"
-
 msgid "Show the program version"
 msgstr "Zobraziť verziu programu"
 
@@ -188,7 +181,17 @@ msgstr "Nepodarilo sa nájsť komponent poskytujúci „%s:%s:%s“!"
 msgid "Unable to find component with id '%s'!"
 msgstr "Nepodarilo sa nájsť komponent s ID „%s“!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Overenie zlyhalo."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Overenie zlyhalo."
 
 #, c-format
@@ -218,3 +221,12 @@ msgstr "Musíte uviesť, čo chcete hľadať."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplikácia;balík;program;balík;nástroj"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "AppStream - Nástroj na overenie"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Nepodarilo sa spracovať argumenty"
+
+#~ msgid "Show program version"
+#~ msgstr "Zobraziť verziu programu"

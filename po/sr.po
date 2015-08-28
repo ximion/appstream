@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-06-26 14:43+0200\n"
+"POT-Creation-Date: 2015-08-28 19:57+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/appstream/"
@@ -23,8 +23,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Врста достављене ставке (нпр. „lib“, „bin“, „python3“, ...)"
 
-msgid "AppStream Validation Utility"
-msgstr "Помагало потврђивања Програмског тока"
+#. TRANSLATORS: This is the header to the --help menu
+#, fuzzy
+msgid "AppStream Client Tool"
+msgstr "Алат клијента индекса Програмског тока"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Освежавање оставе Програмског тока је успешно обављено."
@@ -41,12 +43,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Освежавање оставе Програмског тока није успело."
 
-#. TRANSLATORS: This is the header to the --help menu
-msgid "AppStream-Index Client Tool"
-msgstr "Алат клијента индекса Програмског тока"
-
-#, c-format
-msgid "Appstream-Index client tool version: %s"
+#, fuzzy, c-format
+msgid "AppStream client tool version: %s"
 msgstr "Издање алата клијента индекса Програмског тока: %s"
 
 msgid "Bundle"
@@ -72,11 +70,11 @@ msgstr "Програмер"
 msgid "Don't show colored output"
 msgstr "Не приказује обојени излаз"
 
+msgid "Dump raw XML metadata for a component matching the ID"
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr "Приморава освежавање оставе"
-
-msgid "Failed to parse arguments"
-msgstr "Нисам успео да обрадим аргументе"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -85,7 +83,8 @@ msgstr "Нисам пронашао датотеку „%s“ или су овл
 msgid "Get components which provide the given item"
 msgstr "Добавља састојке који обезбеђују дату ставку"
 
-msgid "Get information about a component by its id"
+#, fuzzy
+msgid "Get information about a component by its ID"
 msgstr "Добавља податке о састојку према његовом иб-у"
 
 msgid "Homepage"
@@ -160,12 +159,6 @@ msgstr "Бира вредност за „обезбеђује-ставку“ �
 msgid "Show extra debugging information"
 msgstr "Приказује додатне податке прочишћавања"
 
-msgid "Show issues from pedantic tests"
-msgstr ""
-
-msgid "Show program version"
-msgstr "Приказује издање програма"
-
 msgid "Show the program version"
 msgstr "Приказује издање програма"
 
@@ -189,7 +182,17 @@ msgstr "Не могу да пронађем састојак који обезб
 msgid "Unable to find component with id '%s'!"
 msgstr "Не могу да пронађем састојак са иб-ом „%s“!"
 
+msgid "Validate AppStream XML files for issues"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgstr ""
+
 msgid "Validation failed."
+msgstr "Потврђивање није успело."
+
+#, fuzzy
+msgid "Validation was successful."
 msgstr "Потврђивање није успело."
 
 #, c-format
@@ -219,3 +222,12 @@ msgstr "Морате да наведете појам за тражење."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "апп;апликација;пакет;програм;комплет;алат;"
+
+#~ msgid "AppStream Validation Utility"
+#~ msgstr "Помагало потврђивања Програмског тока"
+
+#~ msgid "Failed to parse arguments"
+#~ msgstr "Нисам успео да обрадим аргументе"
+
+#~ msgid "Show program version"
+#~ msgstr "Приказује издање програма"
