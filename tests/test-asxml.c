@@ -193,32 +193,32 @@ test_appstream_write_description ()
 	AsComponent *cpt;
 
 	const gchar *EXPECTED_XML = "<?xml version=\"1.0\"?>\n"
-					"<component><name>Test</name><description><p>First paragraph</p>\n"
-					"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
-					"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description></component>\n";
+				"<component><name>Test</name><description><p>First paragraph</p>\n"
+				"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
+				"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description></component>\n";
 
 	const gchar *EXPECTED_XML_LOCALIZED = "<?xml version=\"1.0\"?>\n"
-					"<component><name>Test</name><description><p>First paragraph</p>\n"
-					"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
-					"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p><p xml:lang=\"de\">First paragraph</p>\n"
-					"<ol><li xml:lang=\"de\">One</li><li xml:lang=\"de\">Two</li><li xml:lang=\"de\">Three</li></ol><ul>"
-					"<li xml:lang=\"de\">First</li><li xml:lang=\"de\">Second</li></ul><p xml:lang=\"de\">Paragraph2</p></description></component>\n";
+				"<component><name>Test</name><description><p>First paragraph</p>\n"
+				"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
+				"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p><p xml:lang=\"de\">First paragraph</p>\n"
+				"<ol><li xml:lang=\"de\">One</li><li xml:lang=\"de\">Two</li><li xml:lang=\"de\">Three</li></ol><ul>"
+				"<li xml:lang=\"de\">First</li><li xml:lang=\"de\">Second</li></ul><p xml:lang=\"de\">Paragraph2</p></description></component>\n";
 
 	const gchar *EXPECTED_XML_DISTRO = "<?xml version=\"1.0\"?>\n"
-					"<components version=\"0.8\"><component><name>Test</name><description><p>First paragraph</p>\n"
-					"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
-					"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description>"
-					"<description xml:lang=\"de\"><p>First paragraph</p>\n"
-					"<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul>"
-					"<p>Paragraph2</p></description></component></components>\n";
+				"<components version=\"0.8\"><component><name>Test</name><description><p>First paragraph</p>\n"
+				"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
+				"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description>"
+				"<description xml:lang=\"de\"><p>First paragraph</p>\n"
+				"<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul>"
+				"<p>Paragraph2</p></description></component></components>\n";
 
 	metad = as_metadata_new ();
 
 	cpt = as_component_new ();
 	as_component_set_name (cpt, "Test", NULL);
 	as_component_set_description (cpt,
-							"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p>",
-							NULL);
+				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p>",
+				NULL);
 
 	as_metadata_add_component (metad, cpt);
 
@@ -228,8 +228,8 @@ test_appstream_write_description ()
 
 	/* add localization */
 	as_component_set_description (cpt,
-							"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul><p>Paragraph2</p>",
-							"de");
+				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul><p>Paragraph2</p>",
+				"de");
 
 	tmp = as_metadata_component_to_upstream_xml (metad);
 	g_assert_cmpstr (tmp, ==, EXPECTED_XML_LOCALIZED);

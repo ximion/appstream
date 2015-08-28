@@ -21,5 +21,7 @@ src/as-utils.c
 src/as-validator.c
 src/as-validator-issue.c
 # tools sources
-tools/appstream-index.c
-tools/appstream-validate.c
+tools/appstream-tool.c
+tools/astool-utils.c
+tools/astool-cache-actions.c
+tools/astool-validate-actions.c

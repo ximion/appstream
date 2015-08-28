@@ -1,7 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
- * Copyright (C)      2014 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -19,16 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#include "astool-validate-actions.h"
 
 #include <config.h>
 #include <locale.h>
 #include <glib/gi18n-lib.h>
 #include <appstream.h>
-
-typedef struct {
-	GOptionContext	*context;
-} AsValidateToolPrivate;
 
 /**
  * importance_to_print_string:
@@ -100,10 +95,10 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 }
 
 /**
- * validate_file:
+ * astool_validate_file:
  **/
-static gboolean
-validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
+gboolean
+astool_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 {
 	GFile *file;
 	gboolean ret;
@@ -130,93 +125,37 @@ validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 	g_list_free (issues);
 	g_object_unref (file);
 	g_object_unref (validator);
+
 	return !errors_found;
 }
 
 /**
- * main:
- **/
-int
-main (int argc, char *argv[])
+ * astool_validate_files:
+ */
+gint
+astool_validate_files (char **argv, int argc, gboolean no_color, gboolean pedantic)
 {
-	AsValidateToolPrivate *priv;
+	gint i;
 	gboolean ret;
-	gboolean verbose = FALSE;
-	gboolean version = FALSE;
-	gboolean no_color = FALSE;
-	gboolean pedantic = FALSE;
-	GError *error = NULL;
-	guint retval = 1;
-	guint i;
 
-	const GOptionEntry options[] = {
-		{ "verbose", 0, 0, G_OPTION_ARG_NONE, &verbose,
-			_("Show extra debugging information"), NULL },
-		{ "version", 0, 0, G_OPTION_ARG_NONE, &version,
-			_("Show program version"), NULL },
-		{ "pedantic", 0, 0, G_OPTION_ARG_NONE, &pedantic,
-			_("Show issues from pedantic tests"), NULL },
-		{ "no-color", 0, 0, G_OPTION_ARG_NONE, &no_color,
-			_("Don't show colored output"), NULL },
-		{ NULL}
-	};
-
-	setlocale (LC_ALL, "");
-
-	/* create helper object */
-	priv = g_new0 (AsValidateToolPrivate, 1);
-
-	/* get a list of the commands */
-	priv->context = g_option_context_new (NULL);
-
-	g_set_application_name (_("AppStream Validation Utility"));
-	g_option_context_add_main_entries (priv->context, options, NULL);
-	ret = g_option_context_parse (priv->context, &argc, &argv, &error);
-	if (!ret) {
-		g_print ("%s: %s\n",
-			 _("Failed to parse arguments"),
-			 error->message);
-		g_error_free (error);
-		goto out;
+	if (argc < 1) {
+		g_print ("%s\n", _("You need to specify a file to validate!"));
+		return 1;
 	}
 
-	/* just a hack, we might need proper message handling later */
-	if (verbose) {
-		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
-	}
-
-	if (version) {
-		g_print ("Appstream validation tool version: %s\n", VERSION);
-		retval = 0;
-		goto out;
-	}
-
-	if (argc <= 1) {
-		g_print ("%s\n",
-				 _("You need to specify a file to validate!"));
-		goto out;
-	}
-
-	ret = TRUE;
-	for (i = 1; i < argc; i++) {
+	for (i = 0; i < argc; i++) {
 		gboolean tmp_ret;
-		tmp_ret = validate_file (argv[i], !no_color, pedantic);
+		tmp_ret = astool_validate_file (argv[i], !no_color, pedantic);
 		if (!tmp_ret)
 			ret = FALSE;
 	}
 
-	if (!ret) {
-		g_print ("%s\n",
-				 _("Validation failed."));
-		retval = 3;
+	if (ret) {
+		g_print ("%s\n", _("Validation was successful."));
+	} else {
+		g_print ("%s\n", _("Validation failed."));
+		return 3;
 	}
 
-	/* success? */
-	if (ret)
-		retval = 0;
-out:
-	g_option_context_free (priv->context);
-	g_free (priv);
-
-	return retval;
+	return 0;
 }
