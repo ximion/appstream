@@ -194,7 +194,7 @@ as_metadata_get_node_locale (AsMetadata *metad, xmlNode *node)
 	}
 
 	/* If we are here, we haven't found a matching locale.
-	 * In that case, we return %NULL to indicate that this elemant should not be added.
+	 * In that case, we return %NULL to indicate that this element should not be added.
 	 */
 	g_free (lang);
 	lang = NULL;
@@ -395,9 +395,13 @@ as_metadata_parse_upstream_description_tag (AsMetadata *metad, xmlNode* node, GH
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
+		lang = as_metadata_get_node_locale (metad, iter);
+		if (lang == NULL)
+			/* this locale is not for us */
+			continue;
+
 		node_name = (gchar*) iter->name;
 		content = as_metadata_get_node_value (metad, iter);
-		lang = as_metadata_get_node_locale (metad, iter);
 
 		str = g_hash_table_lookup (desc, lang);
 		if (str == NULL) {
@@ -481,9 +485,9 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 						g_free (lang);
 					} else {
 						as_metadata_parse_upstream_description_tag (metad,
-																iter2,
-																(GHFunc) as_metadata_upstream_description_to_release,
-																release);
+												iter2,
+												(GHFunc) as_metadata_upstream_description_to_release,
+												release);
 					}
 				}
 			}
