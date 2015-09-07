@@ -54,18 +54,18 @@ struct _AsValidatorClass
 	void (*_as_reserved4)	(void);
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
-	void (*_as_reserved7)	(void);
-	void (*_as_reserved8)	(void);
 };
 
 GType		 as_validator_get_type		(void);
-AsValidator	*as_validator_new			(void);
+AsValidator	*as_validator_new		(void);
 
-void		as_validator_clear_issues	(AsValidator *validator);
+void		as_validator_clear_issues (AsValidator *validator);
 gboolean	as_validator_validate_file (AsValidator *validator,
-										GFile* metadata_file);
+						GFile* metadata_file);
 gboolean	as_validator_validate_data (AsValidator *validator,
-										const gchar *metadata);
+						const gchar *metadata);
+gboolean	as_validator_validate_tree (AsValidator *validator,
+						const gchar *root_dir);
 
 GList		*as_validator_get_issues (AsValidator *validator);
 

@@ -33,6 +33,7 @@ static gboolean optn_verbose_mode = FALSE;
 static gboolean optn_no_color = FALSE;
 static gboolean optn_force = FALSE;
 static gboolean optn_details = FALSE;
+static gboolean optn_pedantic = FALSE;
 static gchar *optn_dbpath = NULL;
 static gchar *optn_datapath = NULL;
 
@@ -60,7 +61,7 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "refresh-index", _("Rebuild the component information cache"));
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "validate", _("Validate AppStream XML files for issues"));
-	g_string_append_printf (string, "  %s - %s\n", "validate-pedantic", _("Validate AppStream XML files for issues, even pedantic ones"));
+	g_string_append_printf (string, "  %s - %s\n", "validate-tree", _("Validate an installed file-tree of an application for valid metadata"));
 
 	return g_string_free (string, FALSE);
 }
@@ -91,6 +92,7 @@ as_client_run (char **argv, int argc)
 		{ "details", 0, 0, G_OPTION_ARG_NONE, &optn_details, _("Print detailed output about found components"), NULL },
 		{ "dbpath", 0, 0, G_OPTION_ARG_STRING, &optn_dbpath, _("Manually set the location of the AppStream cache"), NULL },
 		{ "datapath", 0, 0, G_OPTION_ARG_STRING, &optn_datapath, _("Manually set the location of AppStream metadata for cache regeneration"), NULL },
+		{ "pedantic", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_pedantic, _("Print even pedantic hints when validating"), NULL },
 		{ NULL }
 	};
 
@@ -154,9 +156,9 @@ as_client_run (char **argv, int argc)
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
 		exit_code = ascli_what_provides (optn_dbpath, value1, value2, value3, optn_details);
 	} else if (g_strcmp0 (command, "validate") == 0) {
-		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, FALSE);
-	} else if (g_strcmp0 (command, "validate-pedantic") == 0) {
-		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, FALSE);
+		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, optn_pedantic);
+	} else if (g_strcmp0 (command, "validate-tree") == 0) {
+		exit_code = ascli_validate_tree (value1, optn_no_color, optn_pedantic);
 	} else {
 		ascli_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;

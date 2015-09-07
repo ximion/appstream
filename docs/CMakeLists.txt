@@ -8,7 +8,7 @@ endif (XMLTO STREQUAL "XMLTO-NOTFOUND")
 
 include (${CMAKE_SOURCE_DIR}/data/cmake/documentation.cmake)
 
-add_xml_manpages(doc-man-asi "sources/man/appstream-cli.1" "" "")
+add_xml_manpages(doc-man-asi "sources/man/appstreamcli.1" "" "")
 
 set(DOC_HTML_EXPORT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/html")
 

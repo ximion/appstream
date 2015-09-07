@@ -55,8 +55,6 @@ struct _AsValidatorIssueClass
 	void (*_as_reserved4)	(void);
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
-	void (*_as_reserved7)	(void);
-	void (*_as_reserved8)	(void);
 };
 
 /**
@@ -80,9 +78,9 @@ typedef enum {
 
 /**
  * AsIssueKind:
- * @AS_ISSUE_KIND_UNKNOWN:			Type invalid or not known
+ * @AS_ISSUE_KIND_UNKNOWN:		Type invalid or not known
  * @AS_ISSUE_KIND_MARKUP_INVALID:	The XML markup is invalid
- * @AS_ISSUE_KIND_LEGACY:			An element from a legacy AppStream specification has been found
+ * @AS_ISSUE_KIND_LEGACY:		An element from a legacy AppStream specification has been found
  * @AS_ISSUE_KIND_TAG_DUPLICATED:	A tag is duplicated
  * @AS_ISSUE_KIND_TAG_MISSING:		A required tag is missing
  * @AS_ISSUE_KIND_TAG_UNKNOWN:		An unknown tag was found
@@ -91,6 +89,7 @@ typedef enum {
  * @AS_ISSUE_KIND_PROPERTY_INVALID:	A property is invalid
  * @AS_ISSUE_KIND_VALUE_WRONG:		The value of a tag or property is wrong
  * @AS_ISSUE_KIND_VALUE_ISSUE:		There is an issue with a tag or property value (often non-fatal)
+ * @AS_ISSUE_KIND_FILE_MISSING:		A required file or other metadata was missing.
  *
  * The issue type.
  **/
@@ -106,24 +105,25 @@ typedef enum {
 	AS_ISSUE_KIND_PROPERTY_INVALID,
 	AS_ISSUE_KIND_VALUE_WRONG,
 	AS_ISSUE_KIND_VALUE_ISSUE,
+	AS_ISSUE_KIND_FILE_MISSING,
 	/*< private >*/
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;
 
-GType		 		as_validator_issue_get_type (void);
+GType		 	as_validator_issue_get_type (void);
 AsValidatorIssue*	as_validator_issue_new (void);
 
-AsIssueKind			as_validator_issue_get_kind (AsValidatorIssue *issue);
-void				as_validator_issue_set_kind (AsValidatorIssue *issue,
-												AsIssueKind kind);
+AsIssueKind		as_validator_issue_get_kind (AsValidatorIssue *issue);
+void			as_validator_issue_set_kind (AsValidatorIssue *issue,
+								AsIssueKind kind);
 
 AsIssueImportance	as_validator_issue_get_importance (AsValidatorIssue *issue);
-void 				as_validator_issue_set_importance (AsValidatorIssue *issue,
-													AsIssueImportance importance);
+void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
+								AsIssueImportance importance);
 
-const gchar*		as_validator_issue_get_message	(AsValidatorIssue	*issue);
-void				as_validator_issue_set_message	(AsValidatorIssue	*issue,
-													const gchar *message);
+const gchar*		as_validator_issue_get_message	(AsValidatorIssue *issue);
+void			as_validator_issue_set_message	(AsValidatorIssue *issue,
+								const gchar *message);
 
 
 G_END_DECLS

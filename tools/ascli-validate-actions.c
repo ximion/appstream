@@ -69,7 +69,7 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 	GList *l;
 	AsValidatorIssue *issue;
 	AsIssueImportance importance;
-	gboolean errors_found = FALSE;
+	gboolean no_errors = TRUE;
 	gchar *imp;
 
 	for (l = issues; l != NULL; l = l->next) {
@@ -78,7 +78,7 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 
 		/* if there are errors or warnings, we consider the validation to be failed */
 		if ((importance == AS_ISSUE_IMPORTANCE_ERROR) || (importance == AS_ISSUE_IMPORTANCE_WARNING))
-			errors_found = TRUE;
+			no_errors = FALSE;
 
 		/* skip pedantic issues if we should not show them */
 		if ((!pedantic) && (importance == AS_ISSUE_IMPORTANCE_PEDANTIC))
@@ -91,7 +91,7 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 		g_free (imp);
 	}
 
-	return errors_found;
+	return no_errors;
 }
 
 /**
@@ -102,7 +102,7 @@ ascli_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 {
 	GFile *file;
 	gboolean ret;
-	gboolean errors_found;
+	gboolean errors_found = FALSE;
 	AsValidator *validator;
 	GList *issues;
 
@@ -116,9 +116,11 @@ ascli_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 
 	validator = as_validator_new ();
 	ret = as_validator_validate_file (validator, file);
+	if (!ret)
+		errors_found = TRUE;
 	issues = as_validator_get_issues (validator);
 
-	errors_found = process_report (issues, pretty, pedantic);
+	ret = process_report (issues, pretty, pedantic);
 	if (!ret)
 		errors_found = TRUE;
 
@@ -133,7 +135,7 @@ ascli_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
  * ascli_validate_files:
  */
 gint
-ascli_validate_files (char **argv, int argc, gboolean no_color, gboolean pedantic)
+ascli_validate_files (gchar **argv, gint argc, gboolean no_color, gboolean pedantic)
 {
 	gint i;
 	gboolean ret;
@@ -151,6 +153,40 @@ ascli_validate_files (char **argv, int argc, gboolean no_color, gboolean pedanti
 	}
 
 	if (ret) {
+		g_print ("%s\n", _("Validation was successful."));
+	} else {
+		g_print ("%s\n", _("Validation failed."));
+		return 3;
+	}
+
+	return 0;
+}
+
+/**
+ * ascli_validate_tree:
+ */
+gint
+ascli_validate_tree (const gchar *root_dir, gboolean no_color, gboolean pedantic)
+{
+	gboolean no_errors = TRUE;
+	AsValidator *validator;
+	GList *issues;
+
+	if (root_dir == NULL) {
+		g_print ("%s\n", _("You need to specify a root directory to start validation!"));
+		return 1;
+	}
+
+	validator = as_validator_new ();
+	as_validator_validate_tree (validator, root_dir);
+	issues = as_validator_get_issues (validator);
+
+	no_errors = process_report (issues, !no_color, pedantic);
+
+	g_list_free (issues);
+	g_object_unref (validator);
+
+	if (no_errors) {
 		g_print ("%s\n", _("Validation was successful."));
 	} else {
 		g_print ("%s\n", _("Validation failed."));

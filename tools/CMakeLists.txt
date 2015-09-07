@@ -23,18 +23,18 @@ set(ASCLI_SOURCES
 )
 
 # Add the appstream client tool
-add_executable(appstream-cli ${ASCLI_SOURCES})
-add_dependencies(appstream-cli appstream)
+add_executable(appstreamcli ${ASCLI_SOURCES})
+add_dependencies(appstreamcli appstream)
 
 # the client tool uses API which is currently private...
 # needs to be sorted out in future
 add_definitions ("-DAS_COMPILATION")
 
-target_link_libraries(appstream-cli
+target_link_libraries(appstreamcli
 		${M_LIB}
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}
 		appstream
 )
 
-install(TARGETS appstream-cli DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS appstreamcli DESTINATION ${CMAKE_INSTALL_BINDIR})
