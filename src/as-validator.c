@@ -51,7 +51,6 @@ typedef struct _AsValidatorPrivate	AsValidatorPrivate;
 struct _AsValidatorPrivate
 {
 	GHashTable *issues; /* of utf8 string->AsValidatorIssue objects */
-	GPtrArray *validated_cpts;
 
 	AsComponent *current_cpt;
 	gchar *current_fname;
@@ -60,8 +59,6 @@ struct _AsValidatorPrivate
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(o) (as_validator_get_instance_private (o))
-
-static gboolean as_validator_validate_data_internal (AsValidator *validator, const gchar *metadata, const gchar *file_hint);
 
 /**
  * as_validator_finalize:
@@ -73,7 +70,9 @@ as_validator_finalize (GObject *object)
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
 	g_hash_table_unref (priv->issues);
-	g_ptr_array_unref (priv->validated_cpts);
+	g_free (priv->current_fname);
+	if (priv->current_cpt != NULL)
+		g_object_unref (priv->current_cpt);
 
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
@@ -87,7 +86,6 @@ as_validator_init (AsValidator *validator)
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
 	priv->issues = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
-	priv->validated_cpts = g_ptr_array_new_with_free_func (g_object_unref);
 
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
@@ -142,6 +140,60 @@ as_validator_add_issue (AsValidator *validator, AsIssueImportance importance, As
 }
 
 /**
+ * as_validator_set_current_fname:
+ *
+ * Sets the name of the file we are currently dealing with.
+ **/
+static void
+as_validator_set_current_fname (AsValidator *validator, const gchar *fname)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_free (priv->current_fname);
+	priv->current_fname = g_strdup (fname);
+}
+
+/**
+ * as_validator_clear_current_fname:
+ *
+ * Clears the current filename.
+ **/
+static void
+as_validator_clear_current_fname (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_free (priv->current_fname);
+	priv->current_fname = NULL;
+}
+
+/**
+ * as_validator_set_current_cpt:
+ *
+ * Sets the #AsComponent we are currently analyzing.
+ **/
+static void
+as_validator_set_current_cpt (AsValidator *validator, AsComponent *cpt)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	if (priv->current_cpt != NULL)
+		g_object_unref (priv->current_cpt);
+	priv->current_cpt = g_object_ref (cpt);
+}
+
+/**
+ * as_validator_clear_current_cpt:
+ *
+ * Clears the current component.
+ **/
+static void
+as_validator_clear_current_cpt (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	if (priv->current_cpt != NULL)
+		g_object_unref (priv->current_cpt);
+	priv->current_cpt = NULL;
+}
+
+/**
  * as_validator_clear_issues:
  *
  * Clears the list of issues
@@ -151,9 +203,6 @@ as_validator_clear_issues (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_hash_table_remove_all (priv->issues);
-
-	g_ptr_array_unref (priv->validated_cpts);
-	priv->validated_cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
@@ -372,7 +421,7 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 /**
  * as_validator_validate_component_node:
  **/
-static void
+static AsComponent*
 as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsParserMode mode)
 {
 	gchar *cpttype;
@@ -382,7 +431,6 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	gchar *metadata_license = NULL;
 	gboolean provides_found = FALSE;
 	GHashTable *found_tags;
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
@@ -395,7 +443,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	g_object_unref (metad);
 	g_assert (cpt != NULL);
 
-	priv->current_cpt = cpt;
+	as_validator_set_current_cpt (validator, cpt);
 
 	/* check if component type is valid */
 	cpttype = (gchar*) xmlGetProp (root, (xmlChar*) "type");
@@ -409,11 +457,6 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		}
 	}
 	g_free (cpttype);
-
-	/* add to list of found components - we need this when validating installed filetrees */
-	if (as_component_get_id (cpt) != NULL)
-		g_ptr_array_add (priv->validated_cpts,
-				g_object_ref (cpt));
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
@@ -598,9 +641,8 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 						"The component is an addon, but no 'extends' tag was specified.");
 	}
 
-	if (cpt != NULL)
-		g_object_unref (cpt);
-	priv->current_cpt = NULL;
+	as_validator_clear_current_cpt (validator);
+	return cpt;
 }
 
 /**
@@ -617,7 +659,6 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	GFileInfo *info = NULL;
 	const gchar *content_type = NULL;
 	_cleanup_free_ gchar *fname = NULL;
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
 	info = g_file_query_info (metadata_file,
 				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
@@ -627,10 +668,9 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
 	fname = g_file_get_basename (metadata_file);
-	priv->current_fname = fname;
+	as_validator_set_current_fname (validator, fname);
 
 	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-		GFileInputStream *fistream;
 		GMemoryOutputStream *mem_os;
 		GInputStream *conv_stream;
 		GZlibDecompressor *zdecomp;
@@ -675,33 +715,30 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 		g_object_unref (dis);
 	}
 
-	ret = as_validator_validate_data_internal (validator, xml_doc, fname);
+	ret = as_validator_validate_data (validator, xml_doc);
 	g_free (xml_doc);
 
-	priv->current_fname = NULL;
+	as_validator_clear_current_fname (validator);
 
 	return ret;
 }
 
 /**
- * as_validator_validate_data_internal:
- *
- * Validate AppStream XML data
- **/
-static gboolean
-as_validator_validate_data_internal (AsValidator *validator, const gchar *metadata, const gchar *file_hint)
+ * as_validator_open_xml_document:
+ */
+static xmlNode*
+as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, xmlDoc **xdoc)
 {
-	gboolean ret;
-	xmlDoc* doc;
-	xmlNode* root;
+	xmlDoc *doc;
+	xmlNode *root = NULL;
 
-	doc = xmlParseDoc ((xmlChar*) metadata);
+	doc = xmlParseDoc ((xmlChar*) xmldata);
 	if (doc == NULL) {
 		as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_MARKUP_INVALID,
 					"Could not parse XML data.");
-		return FALSE;
+		return NULL;
 	}
 
 	root = xmlDocGetRootElement (doc);
@@ -710,15 +747,43 @@ as_validator_validate_data_internal (AsValidator *validator, const gchar *metada
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_MARKUP_INVALID,
 					"The XML document is empty.");
-		return FALSE;
+		goto out;
 	}
+
+out:
+	if (root != NULL)
+		*xdoc = doc;
+	else
+		xmlFreeDoc (doc);
+	return root;
+}
+
+/**
+ * as_validator_validate_data:
+ *
+ * Validate AppStream XML data
+ **/
+gboolean
+as_validator_validate_data (AsValidator *validator, const gchar *metadata)
+{
+	gboolean ret;
+	xmlNode* root;
+	xmlDoc *doc;
+	AsComponent *cpt;
+
+	root = as_validator_open_xml_document (validator, metadata, &doc);
+	if (!root)
+		return FALSE;
+
 
 	ret = TRUE;
 
 	if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		as_validator_validate_component_node (validator,
+		cpt = as_validator_validate_component_node (validator,
 							root,
 							AS_PARSER_MODE_UPSTREAM);
+		if (cpt != NULL)
+			g_object_unref (cpt);
 	} else if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		xmlNode *iter;
 		const gchar *node_name;
@@ -728,9 +793,11 @@ as_validator_validate_data_internal (AsValidator *validator, const gchar *metada
 				continue;
 			node_name = (const gchar*) iter->name;
 			if (g_strcmp0 (node_name, "component") == 0) {
-				as_validator_validate_component_node (validator,
+				cpt = as_validator_validate_component_node (validator,
 									iter,
 									AS_PARSER_MODE_DISTRO);
+				if (cpt != NULL)
+					g_object_unref (cpt);
 			} else {
 				as_validator_add_issue (validator,
 							AS_ISSUE_IMPORTANCE_ERROR,
@@ -744,7 +811,7 @@ as_validator_validate_data_internal (AsValidator *validator, const gchar *metada
 		as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_LEGACY,
-					"Your file is in a legacy AppStream format, which can not be validated. Please migrate it to version 0.6 (or higher) of the specification.");
+					"The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher).");
 		ret = FALSE;
 	}
 
@@ -753,14 +820,80 @@ as_validator_validate_data_internal (AsValidator *validator, const gchar *metada
 }
 
 /**
- * as_validator_validate_data:
+ * MInfoCheckData:
  *
- * Validate AppStream XML data
- **/
-gboolean
-as_validator_validate_data (AsValidator *validator, const gchar *metadata)
+ * Helper for HashTable iteration
+ */
+struct MInfoCheckData {
+	AsValidator *validator;
+	GHashTable *desktop_fnames;
+};
+
+/**
+ * as_matches_metainfo:
+ *
+ * Check if filname matches %basename.(appdata|metainfo).xml
+ */
+static gboolean
+as_matches_metainfo (const gchar *fname, const gchar *basename)
 {
-	return as_validator_validate_data_internal (validator, metadata, NULL);
+	_cleanup_free_ gchar *tmp = NULL;
+
+	tmp = g_strdup_printf ("%s.metainfo.xml", basename);
+	if (g_strcmp0 (fname, tmp) == 0)
+		return TRUE;
+	g_free (tmp);
+	tmp = g_strdup_printf ("%s.appdata.xml", basename);
+	if (g_strcmp0 (fname, tmp) == 0)
+		return TRUE;
+
+	return FALSE;
+}
+
+/**
+ * as_validator_analyze_component_metainfo_relation_cb:
+ *
+ * Helper function for GHashTable foreach iteration.
+ */
+static void
+as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsComponent *cpt, struct MInfoCheckData *data)
+{
+	gchar *tmp;
+
+	/* if we have no component-id, we can't check anything */
+	if (as_component_get_id (cpt) == NULL)
+		return;
+
+	as_validator_set_current_cpt (data->validator, cpt);
+	as_validator_set_current_fname (data->validator, fname);
+
+
+	/* check if the fname and the component-id match */
+	tmp = g_strndup (as_component_get_id (cpt),
+				g_strrstr (as_component_get_id (cpt), ".") - as_component_get_id (cpt));
+	if (!as_matches_metainfo (fname, tmp)) {
+		/* the name-without-type didn't match - check for the full id in the component name */
+		if (!as_matches_metainfo (fname, as_component_get_id (cpt))) {
+			as_validator_add_issue (data->validator,
+					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_KIND_WRONG_NAME,
+					"The metainfo filename does not match the component ID.");
+		}
+	}
+	g_free (tmp);
+
+	/* check if the referenced .desktop file exists */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
+		if (!g_hash_table_contains (data->desktop_fnames, as_component_get_id (cpt))) {
+			as_validator_add_issue (data->validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_FILE_MISSING,
+					"Component metadata refers to a non-existing .desktop file.");
+		}
+	}
+
+	as_validator_clear_current_cpt (data->validator);
+	as_validator_clear_current_fname (data->validator);
 }
 
 /**
@@ -776,9 +909,10 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	GPtrArray *mfiles = NULL;
 	GPtrArray *dfiles = NULL;
 	GHashTable *dfilenames = NULL;
+	GHashTable *validated_cpts = NULL;
 	guint i;
 	gboolean ret = TRUE;
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	struct MInfoCheckData ht_helper;
 
 	/* cleanup */
 	as_validator_clear_issues (validator);
@@ -803,12 +937,24 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 					"No XDG applications directory found.");
 	}
 
+	/* holds a filename -> component mapping */
+	validated_cpts = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
+						g_free,
+						g_object_unref);
+
 	/* validate all metainfo files */
 	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE);
 	for (i = 0; i < mfiles->len; i++) {
 		const gchar *fname;
 		GFile *file;
-		gboolean tmp_ret;
+		gchar *line = NULL;
+		GString *str;
+		GDataInputStream *dis;
+		GFileInputStream *fistream;
+		xmlNode* root;
+		xmlDoc *doc;
+		_cleanup_free_ gchar *fname_basename = NULL;
 
 		fname = (const gchar*) g_ptr_array_index (mfiles, i);
 		file = g_file_new_for_path (fname);
@@ -818,10 +964,59 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 			continue;
 		}
 
-		tmp_ret = as_validator_validate_file (validator, file);
-		if (!tmp_ret)
-			ret = FALSE;
+		fname_basename = g_path_get_basename (fname);
+		as_validator_set_current_fname (validator, fname_basename);
+
+		/* load a plaintext file */
+		str = g_string_new ("");
+		fistream = g_file_read (file, NULL, NULL);
+		dis = g_data_input_stream_new ((GInputStream*) fistream);
+		g_object_unref (fistream);
+
+		while (TRUE) {
+			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
+			if (line == NULL) {
+				break;
+			}
+
+			g_string_append_printf (str, "%s\n", line);
+		}
+		g_object_unref (dis);
 		g_object_unref (file);
+
+		/* now read the XML */
+		root = as_validator_open_xml_document (validator, str->str, &doc);
+		g_string_free (str, TRUE);
+		if (!root) {
+			as_validator_clear_current_fname (validator);
+			continue;
+		}
+
+		if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
+			AsComponent *cpt;
+			cpt = as_validator_validate_component_node (validator,
+							root,
+							AS_PARSER_MODE_UPSTREAM);
+			if (cpt != NULL)
+				g_hash_table_insert (validated_cpts,
+							g_strdup (fname_basename),
+							cpt);
+		} else if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_NOT_ALLOWED,
+					"The metainfo file specifies multiple components. This is not allowed.");
+			ret = FALSE;
+		} else if (g_str_has_prefix ((gchar*) root->name, "application")) {
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_LEGACY,
+					"The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher).");
+			ret = FALSE;
+		}
+
+		as_validator_clear_current_fname (validator);
+		xmlFreeDoc (doc);
 	}
 
 	/* check if we have matching .desktop files */
@@ -839,26 +1034,12 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		}
 	}
 
-	for (i = 0; i < priv->validated_cpts->len; i++) {
-		AsComponent *cpt;
-		cpt = AS_COMPONENT (g_ptr_array_index (priv->validated_cpts, i));
-
-		/* we only care about .desktop apps for now */
-		if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_DESKTOP_APP)
-			continue;
-
-		priv->current_cpt = cpt;
-
-		if (!g_hash_table_contains (dfilenames, as_component_get_id (cpt))) {
-			as_validator_add_issue (validator,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_FILE_MISSING,
-					"Component metadata refers to a non-existing .desktop file.");
-			ret = FALSE;
-		}
-
-		priv->current_cpt = NULL;
-	}
+	/* validate the component-id <-> filename relations and availability of other metadata */
+	ht_helper.validator = validator;
+	ht_helper.desktop_fnames = dfilenames;
+	g_hash_table_foreach (validated_cpts,
+				(GHFunc) as_validator_analyze_component_metainfo_relation_cb,
+				&ht_helper);
 
 out:
 	if (mfiles != NULL)
@@ -867,6 +1048,8 @@ out:
 		g_ptr_array_unref (dfiles);
 	if (dfilenames != NULL)
 		g_hash_table_unref (dfilenames);
+	if (validated_cpts != NULL)
+		g_hash_table_unref (validated_cpts);
 
 	return ret;
 }
