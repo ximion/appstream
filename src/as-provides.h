@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -62,9 +62,11 @@ typedef enum  {
 const gchar*		as_provides_kind_to_string (AsProvidesKind kind);
 AsProvidesKind		as_provides_kind_from_string (const gchar *kind_str);
 
-gchar*				as_provides_item_create (AsProvidesKind kind, const gchar *value, const gchar *data);
+gchar*			as_provides_item_create (AsProvidesKind kind,
+							const gchar *value,
+							const gchar *data);
 AsProvidesKind		as_provides_item_get_kind (const gchar *item);
-gchar*				as_provides_item_get_value (const gchar *item);
+gchar*			as_provides_item_get_value (const gchar *item);
 
 G_END_DECLS
 

@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
  * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
@@ -36,7 +36,7 @@
 
 #include "as-release.h"
 
-typedef struct _AsReleasePrivate	AsReleasePrivate;
+typedef struct _AsReleasePrivate AsReleasePrivate;
 struct _AsReleasePrivate
 {
 	gchar		*version;
@@ -233,8 +233,8 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
 		locale = priv->active_locale;
 
 	g_hash_table_insert (priv->description,
-						 g_strdup (locale),
-						 g_strdup (description));
+				g_strdup (locale),
+				g_strdup (description));
 }
 
 /**

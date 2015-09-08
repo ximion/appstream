@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -46,15 +46,16 @@
 #endif
 
 const gchar *AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
-										"/var/cache/app-info/xmls",
-										"/var/lib/app-info/xmls",
-										NULL};
+						"/var/cache/app-info/xmls",
+						"/var/lib/app-info/xmls",
+						NULL};
 const gchar *AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
-										"/var/cache/app-info/yaml",
-										"/var/lib/app-info/yaml",
-										NULL};
+						"/var/cache/app-info/yaml",
+						"/var/lib/app-info/yaml",
+						NULL};
 
 typedef struct _AsDataPoolPrivate	AsDataPoolPrivate;
+
 struct _AsDataPoolPrivate
 {
 	GHashTable* cpt_table;
@@ -136,8 +137,8 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 		priority = as_component_get_priority (existing_cpt);
 		if (priority < as_component_get_priority (cpt)) {
 			g_hash_table_replace (priv->cpt_table,
-								  g_strdup (cpt_id),
-								  g_object_ref (cpt));
+						g_strdup (cpt_id),
+						g_object_ref (cpt));
 		} else {
 			if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
 				GHashTable *bundles;
@@ -150,8 +151,8 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 		}
 	} else {
 		g_hash_table_insert (priv->cpt_table,
-							g_strdup (cpt_id),
-							g_object_ref (cpt));
+					g_strdup (cpt_id),
+					g_object_ref (cpt));
 	}
 }
 
@@ -283,7 +284,7 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 	components = as_metadata_get_components (metad);
 	for (i = 0; i < components->len; i++) {
 		as_data_pool_add_new_component (dpool,
-										AS_COMPONENT (g_ptr_array_index (components, i)));
+						AS_COMPONENT (g_ptr_array_index (components, i)));
 	}
 
 	g_ptr_array_unref (xml_files);
@@ -389,7 +390,7 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 	components = as_dep11_get_components (dep11);
 	for (i = 0; i < components->len; i++) {
 		as_data_pool_add_new_component (dpool,
-										AS_COMPONENT (g_ptr_array_index (components, i)));
+						AS_COMPONENT (g_ptr_array_index (components, i)));
 	}
 
 	g_object_unref (dep11);
@@ -562,9 +563,9 @@ as_data_pool_new (void)
 	priv->locale = as_get_locale ();
 
 	priv->cpt_table = g_hash_table_new_full (g_str_hash,
-								g_str_equal,
-								g_free,
-								(GDestroyNotify) g_object_unref);
+						g_str_equal,
+						g_free,
+						(GDestroyNotify) g_object_unref);
 	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
 	distro = as_distro_details_new ();

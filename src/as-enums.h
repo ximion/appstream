@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -27,12 +27,12 @@ G_BEGIN_DECLS
 
 /**
  * AsUrlKind:
- * @AS_URL_KIND_UNKNOWN:		Type invalid or not known
- * @AS_URL_KIND_HOMEPAGE:		Project homepage
- * @AS_URL_KIND_BUGTRACKER:		Bugtracker
- * @AS_URL_KIND_FAQ:			FAQ page
- * @AS_URL_KIND_HELP:			Help manual
- * @AS_URL_KIND_DONATION:		Page with information about how to donate to the project
+ * @AS_URL_KIND_UNKNOWN:	Type invalid or not known
+ * @AS_URL_KIND_HOMEPAGE:	Project homepage
+ * @AS_URL_KIND_BUGTRACKER:	Bugtracker
+ * @AS_URL_KIND_FAQ:		FAQ page
+ * @AS_URL_KIND_HELP:		Help manual
+ * @AS_URL_KIND_DONATION:	Page with information about how to donate to the project
  *
  * The URL type.
  **/
@@ -52,9 +52,9 @@ AsUrlKind		as_url_kind_from_string (const gchar *url_kind);
 
 /**
  * AsBundleKind:
- * @AS_BUNDLE_KIND_UNKNOWN:		Type invalid or not known
- * @AS_BUNDLE_KIND_LIMBA:		A Limba bundle
- * @AS_BUNDLE_KIND_XDG_APP:		An xdg-app bundle
+ * @AS_BUNDLE_KIND_UNKNOWN:	Type invalid or not known
+ * @AS_BUNDLE_KIND_LIMBA:	A Limba bundle
+ * @AS_BUNDLE_KIND_XDG_APP:	An xdg-app bundle
  *
  * The bundle type.
  **/
@@ -66,7 +66,7 @@ typedef enum {
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
 
-const gchar		*as_bundle_kind_to_string (AsBundleKind bundle_kind);
+const gchar	*as_bundle_kind_to_string (AsBundleKind bundle_kind);
 AsBundleKind	as_bundle_kind_from_string (const gchar *bundle_kind);
 
 G_END_DECLS

@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -216,20 +216,20 @@ as_menu_parser_parse_category_entry (AsMenuParser* self, xmlNode* nd, AsCategory
 		if (g_strcmp0 ((gchar*) iter->name, "And") == 0) {
 			xmlNode *not_iter;
 			as_menu_parser_extend_category_name_list (self,
-													iter,
-													as_category_get_included (cat));
+								  iter,
+								  as_category_get_included (cat));
 			/* check for "Not" elements */
 			for (not_iter = iter->children; not_iter != NULL; not_iter = not_iter->next) {
 				if (g_strcmp0 ((gchar*) not_iter->name, "Not") == 0) {
 					as_menu_parser_extend_category_name_list (self,
-													not_iter,
-													as_category_get_excluded (cat));
+										  not_iter,
+										  as_category_get_excluded (cat));
 				}
 			}
 		} else if (g_strcmp0 ((gchar*) iter->name, "Or") == 0) {
 			as_menu_parser_extend_category_name_list (self,
-													iter,
-													as_category_get_included (cat));
+								  iter,
+								  as_category_get_included (cat));
 		}
 	}
 }
@@ -307,7 +307,9 @@ as_menu_parser_class_init (AsMenuParserClass * klass)
 	G_OBJECT_CLASS (klass)->get_property = as_menu_parser_get_property;
 	G_OBJECT_CLASS (klass)->set_property = as_menu_parser_set_property;
 	G_OBJECT_CLASS (klass)->finalize = as_menu_parser_finalize;
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_MENU_PARSER_UPDATE_CATEGORY_DATA, g_param_spec_boolean ("update-category-data", "update-category-data", "update-category-data", FALSE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	g_object_class_install_property (G_OBJECT_CLASS (klass),
+					AS_MENU_PARSER_UPDATE_CATEGORY_DATA,
+					g_param_spec_boolean ("update-category-data", "update-category-data", "update-category-data", FALSE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 }
 
 

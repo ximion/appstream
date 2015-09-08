@@ -1,7 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -89,13 +88,13 @@ AsImageKind	 as_image_get_kind		(AsImage *image);
 
 /* setters */
 void		 as_image_set_url		(AsImage *image,
-									 const gchar *url);
+							const gchar *url);
 void		 as_image_set_width		(AsImage *image,
-									 guint width);
+							guint width);
 void		 as_image_set_height		(AsImage *image,
-										 guint height);
+							guint height);
 void		 as_image_set_kind		(AsImage *image,
-									 AsImageKind kind);
+							AsImageKind kind);
 
 G_END_DECLS
 

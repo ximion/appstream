@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -326,8 +326,8 @@ as_database_class_init (AsDatabaseClass * klass)
 	G_OBJECT_CLASS (klass)->set_property = as_database_set_property;
 	G_OBJECT_CLASS (klass)->finalize = as_database_finalize;
 	g_object_class_install_property (G_OBJECT_CLASS (klass),
-									AS_DATABASE_DATABASE_PATH,
-									g_param_spec_string ("database-path", "database-path", "database-path", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE)
+						AS_DATABASE_DATABASE_PATH,
+						g_param_spec_string ("database-path", "database-path", "database-path", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE)
 	);
 }
 

@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -33,9 +33,9 @@
 
 #define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
 
-#define AS_TYPE_COMPONENT			(as_component_get_type())
-#define AS_COMPONENT(obj)			(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_COMPONENT, AsComponent))
-#define AS_COMPONENT_CLASS(cls)	(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_COMPONENT, AsComponentClass))
+#define AS_TYPE_COMPONENT		(as_component_get_type())
+#define AS_COMPONENT(obj)		(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_COMPONENT, AsComponent))
+#define AS_COMPONENT_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_COMPONENT, AsComponentClass))
 #define AS_IS_COMPONENT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_COMPONENT))
 #define AS_IS_COMPONENT_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_COMPONENT))
 #define AS_COMPONENT_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_COMPONENT, AsComponentClass))
@@ -180,9 +180,9 @@ gchar				**as_component_get_categories (AsComponent *cpt);
 void				as_component_set_categories (AsComponent *cpt,
 								gchar **value);
 void				as_component_set_categories_from_str (AsComponent *cpt,
-									const gchar* categories_str);
+								const gchar* categories_str);
 gboolean			as_component_has_category (AsComponent *cpt,
-									const gchar *category);
+								const gchar *category);
 
 GPtrArray			*as_component_get_screenshots (AsComponent *cpt);
 void				as_component_add_screenshot (AsComponent *cpt,

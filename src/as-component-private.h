@@ -1,6 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -29,26 +29,26 @@ G_BEGIN_DECLS
 
 gchar				*as_component_dump_screenshot_data_xml (AsComponent *cpt);
 void				as_component_load_screenshots_from_internal_xml (AsComponent *cpt,
-																	 const gchar* xmldata);
+											const gchar* xmldata);
 
 gchar				*as_component_dump_releases_data_xml (AsComponent *cpt);
 void				as_component_load_releases_from_internal_xml (AsComponent *cpt,
-																  const gchar* xmldata);
+										const gchar* xmldata);
 
-int					as_component_get_priority (AsComponent *cpt);
+int				as_component_get_priority (AsComponent *cpt);
 void				as_component_set_priority (AsComponent *cpt,
-											   int priority);
+								int priority);
 
 GHashTable			*as_component_get_languages_map (AsComponent *cpt);
 
 void				as_component_complete (AsComponent *cpt,
-										   gchar *scr_base_url,
-										   gchar **icon_paths);
+							gchar *scr_base_url,
+							gchar **icon_paths);
 
 void				as_component_xml_add_screenshot_subnodes (AsComponent *cpt,
-														xmlNode *root);
+										xmlNode *root);
 void				as_component_xml_add_release_subnodes (AsComponent *cpt,
-														xmlNode *root);
+										xmlNode *root);
 
 GHashTable			*as_component_get_name_table (AsComponent *cpt);
 GHashTable			*as_component_get_summary_table (AsComponent *cpt);
@@ -56,7 +56,7 @@ GHashTable			*as_component_get_description_table (AsComponent *cpt);
 GHashTable			*as_component_get_developer_name_table (AsComponent *cpt);
 GHashTable			*as_component_get_keywords_table (AsComponent *cpt);
 void				as_component_set_bundles_table (AsComponent *cpt,
-													GHashTable *bundles);
+								GHashTable *bundles);
 gboolean			as_component_has_bundle (AsComponent *cpt);
 
 G_END_DECLS

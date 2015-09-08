@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -60,19 +60,19 @@ struct _AsMenuParserClass
 	void (*_as_reserved8)	(void);
 };
 
-GType					as_menu_parser_get_type (void) G_GNUC_CONST;
+GType				as_menu_parser_get_type (void) G_GNUC_CONST;
 
-AsMenuParser*			as_menu_parser_new (void);
-AsMenuParser*			as_menu_parser_construct (GType object_type);
-AsMenuParser*			as_menu_parser_new_from_file (const gchar* menu_file);
-AsMenuParser*			as_menu_parser_construct_from_file (GType object_type,
-															const gchar* menu_file);
-void					as_menu_parser_set_update_category_data (AsMenuParser* self,
-																 gboolean value);
-GList*					as_menu_parser_parse (AsMenuParser* self);
-gboolean				as_menu_parser_get_update_category_data (AsMenuParser* self);
+AsMenuParser			*as_menu_parser_new (void);
+AsMenuParser			*as_menu_parser_construct (GType object_type);
+AsMenuParser			*as_menu_parser_new_from_file (const gchar *menu_file);
+AsMenuParser			*as_menu_parser_construct_from_file (GType object_type,
+									const gchar* menu_file);
+void				as_menu_parser_set_update_category_data (AsMenuParser* self,
+									gboolean value);
+GList				*as_menu_parser_parse (AsMenuParser *self);
+gboolean			as_menu_parser_get_update_category_data (AsMenuParser* self);
 
-GList*					as_get_system_categories (void);
+GList				*as_get_system_categories (void);
 
 G_END_DECLS
 

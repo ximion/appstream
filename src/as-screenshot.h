@@ -1,7 +1,7 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
- * Copyright (C)      2014 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -77,30 +77,30 @@ typedef enum {
 	AS_SCREENSHOT_KIND_LAST
 } AsScreenshotKind;
 
-AsScreenshotKind	as_screenshot_kind_from_string (const gchar *kind);
-const gchar			*as_screenshot_kind_to_string	(AsScreenshotKind kind);
+AsScreenshotKind		as_screenshot_kind_from_string (const gchar *kind);
+const gchar			*as_screenshot_kind_to_string (AsScreenshotKind kind);
 gboolean			as_screenshot_is_valid (AsScreenshot *screenshot);
 
-GType		 		as_screenshot_get_type		(void);
-AsScreenshot		*as_screenshot_new		(void);
+GType		 		as_screenshot_get_type (void);
+AsScreenshot			*as_screenshot_new (void);
 
-AsScreenshotKind	as_screenshot_get_kind (AsScreenshot *screenshot);
+AsScreenshotKind		as_screenshot_get_kind (AsScreenshot *screenshot);
 void		 		as_screenshot_set_kind (AsScreenshot *screenshot,
-											AsScreenshotKind kind);
+							AsScreenshotKind kind);
 
 const gchar			*as_screenshot_get_caption (AsScreenshot *screenshot);
 void				as_screenshot_set_caption (AsScreenshot *screenshot,
-										const gchar *caption,
-										const gchar *locale);
+								const gchar *caption,
+								const gchar *locale);
 
 
 GPtrArray			*as_screenshot_get_images (AsScreenshot *screenshot);
 void				as_screenshot_add_image (AsScreenshot *screenshot,
-											AsImage *image);
+								AsImage *image);
 
 gchar				*as_screenshot_get_active_locale (AsScreenshot *screenshot);
 void				as_screenshot_set_active_locale (AsScreenshot *screenshot,
-											const gchar *locale);
+									const gchar *locale);
 
 G_END_DECLS
 

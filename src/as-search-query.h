@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -60,22 +60,22 @@ struct _AsSearchQueryClass
 	void (*_as_reserved8)	(void);
 };
 
-GType					as_search_query_get_type (void) G_GNUC_CONST;
+GType				as_search_query_get_type (void) G_GNUC_CONST;
 
-AsSearchQuery*			as_search_query_new (const gchar* term);
-AsSearchQuery*			as_search_query_construct (GType object_type,
-												   const gchar* term);
-void					as_search_query_set_search_term (AsSearchQuery* self,
-														 const gchar* value);
-gboolean				as_search_query_get_search_all_categories (AsSearchQuery* self);
-gchar**					as_search_query_get_categories (AsSearchQuery* self);
-void					as_search_query_set_search_all_categories (AsSearchQuery* self);
-void					as_search_query_set_categories (AsSearchQuery* self,
-														gchar** value);
-void					as_search_query_set_categories_from_string (AsSearchQuery* self,
-																	const gchar* categories_str);
-void					as_search_query_sanitize_search_term (AsSearchQuery* self);
-const gchar*			as_search_query_get_search_term (AsSearchQuery* self);
+AsSearchQuery			*as_search_query_new (const gchar* term);
+AsSearchQuery			*as_search_query_construct (GType object_type,
+								const gchar* term);
+void				as_search_query_set_search_term (AsSearchQuery* self,
+								 const gchar* value);
+gboolean			as_search_query_get_search_all_categories (AsSearchQuery* self);
+gchar				**as_search_query_get_categories (AsSearchQuery* self);
+void				as_search_query_set_search_all_categories (AsSearchQuery* self);
+void				as_search_query_set_categories (AsSearchQuery* self,
+									gchar** value);
+void				as_search_query_set_categories_from_string (AsSearchQuery* self,
+										const gchar* categories_str);
+void				as_search_query_sanitize_search_term (AsSearchQuery* self);
+const gchar			*as_search_query_get_search_term (AsSearchQuery* self);
 
 G_END_DECLS
 

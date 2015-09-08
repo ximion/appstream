@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -54,7 +54,7 @@ GQuark as_builder_error_quark (void);
 
 /**
  * AsBuilderError:
- * @AS_BUILDER_ERROR_FAILED:			Generic failure
+ * @AS_BUILDER_ERROR_FAILED:		Generic failure
  * @AS_BUILDER_ERROR_PARTIALLY_FAILED:	Some parts of the current action have been failed
  *
  * The error type.

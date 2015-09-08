@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -61,14 +61,14 @@ AsDEP11*		as_dep11_new (void);
 
 const gchar		*as_dep11_get_locale (AsDEP11 *dep11);
 void			as_dep11_set_locale (AsDEP11 *dep11,
-									const gchar *locale);
+						const gchar *locale);
 
 void			as_dep11_parse_data (AsDEP11 *dep11,
-									const gchar *data,
-									GError **error);
+						const gchar *data,
+						GError **error);
 void			as_dep11_parse_file (AsDEP11 *dep11,
-									GFile* file,
-									GError **error);
+						GFile* file,
+						GError **error);
 
 GPtrArray		*as_dep11_get_components (AsDEP11 *dep11);
 void			as_dep11_clear_components (AsDEP11 *dep11);

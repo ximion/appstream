@@ -1,7 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
- * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -59,10 +58,10 @@ struct _AsValidatorIssueClass
 
 /**
  * AsIssueImportance:
- * @AS_ISSUE_IMPORTANCE_ERROR:			There is a serious error in your metadata
- * @AS_ISSUE_IMPORTANCE_WARNING:		Something which should be fixed, but is not fatal
- * @AS_ISSUE_IMPORTANCE_INFO:			Non-essential information on how to improve your metadata
- * @AS_ISSUE_IMPORTANCE_PEDANTIC:		Pedantic information
+ * @AS_ISSUE_IMPORTANCE_ERROR:		There is a serious error in your metadata
+ * @AS_ISSUE_IMPORTANCE_WARNING:	Something which should be fixed, but is not fatal
+ * @AS_ISSUE_IMPORTANCE_INFO:		Non-essential information on how to improve your metadata
+ * @AS_ISSUE_IMPORTANCE_PEDANTIC:	Pedantic information
  *
  * The importance of an issue found by #AsValidator
  **/
@@ -111,18 +110,18 @@ typedef enum {
 } AsIssueKind;
 
 GType		 	as_validator_issue_get_type (void);
-AsValidatorIssue*	as_validator_issue_new (void);
+AsValidatorIssue	*as_validator_issue_new (void);
 
 AsIssueKind		as_validator_issue_get_kind (AsValidatorIssue *issue);
 void			as_validator_issue_set_kind (AsValidatorIssue *issue,
-								AsIssueKind kind);
+							AsIssueKind kind);
 
 AsIssueImportance	as_validator_issue_get_importance (AsValidatorIssue *issue);
 void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
 								AsIssueImportance importance);
 
-const gchar*		as_validator_issue_get_message	(AsValidatorIssue *issue);
-void			as_validator_issue_set_message	(AsValidatorIssue *issue,
+const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);
+void			as_validator_issue_set_message (AsValidatorIssue *issue,
 								const gchar *message);
 
 

@@ -1,6 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -44,12 +44,12 @@ typedef enum {
 	AS_PARSER_MODE_LAST
 } AsParserMode;
 
-AsComponent*	as_metadata_parse_component_node (AsMetadata* metad,
-												xmlNode* node,
-												gboolean allow_invalid,
-												GError **error);
-void			as_metadata_set_parser_mode (AsMetadata *metad,
-										AsParserMode mode);
+AsComponent	*as_metadata_parse_component_node (AsMetadata* metad,
+							xmlNode* node,
+							gboolean allow_invalid,
+							GError **error);
+void		as_metadata_set_parser_mode (AsMetadata *metad,
+						AsParserMode mode);
 AsParserMode	as_metadata_get_parser_mode (AsMetadata *metad);
 
 G_END_DECLS

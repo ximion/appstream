@@ -1,6 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -25,9 +25,9 @@
 
 G_BEGIN_DECLS
 
-gboolean		as_str_empty (const gchar* str);
-gchar			*as_description_markup_convert_simple (const gchar *markup);
-gchar**			as_ptr_array_to_strv (GPtrArray *array);
+gboolean	as_str_empty (const gchar* str);
+gchar		*as_description_markup_convert_simple (const gchar *markup);
+gchar**		as_ptr_array_to_strv (GPtrArray *array);
 
 G_END_DECLS
 

@@ -1,6 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -33,9 +33,9 @@
 typedef struct _AsValidatorIssuePrivate	AsValidatorIssuePrivate;
 struct _AsValidatorIssuePrivate
 {
-	AsIssueKind		 	kind;
+	AsIssueKind		kind;
 	AsIssueImportance	importance;
-	gchar				*message;
+	gchar			*message;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)

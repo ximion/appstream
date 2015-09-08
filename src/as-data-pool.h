@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -66,12 +66,12 @@ gchar**			as_data_pool_get_watched_locations (AsDataPool *dpool);
 gboolean		as_data_pool_update (AsDataPool *dpool);
 GList*			as_data_pool_get_components (AsDataPool *dpool);
 
-const gchar *	as_data_pool_get_locale (AsDataPool *dpool);
+const gchar 		*as_data_pool_get_locale (AsDataPool *dpool);
 void			as_data_pool_set_locale (AsDataPool *dpool,
-										 const gchar *locale);
+							const gchar *locale);
 
 void			as_data_pool_set_data_source_directories (AsDataPool *dpool,
-														gchar **dirs);
+									gchar **dirs);
 
 G_END_DECLS
 

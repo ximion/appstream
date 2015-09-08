@@ -1,6 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -884,9 +884,9 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 
 		if (!g_hash_table_contains (dfilenames, as_component_get_id (cpt))) {
 			as_validator_add_issue (validator,
-					cpt,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_FILE_MISSING,
+						cpt,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_FILE_MISSING,
 					"Component metadata refers to a non-existing .desktop file.");
 			ret = FALSE;
 		}

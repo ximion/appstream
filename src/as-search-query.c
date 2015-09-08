@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -45,8 +45,8 @@
  */
 
 struct _AsSearchQueryPrivate {
-	gchar* search_term;
-	gchar** categories;
+	gchar *search_term;
+	gchar **categories;
 };
 
 static gpointer as_search_query_parent_class = NULL;
@@ -312,12 +312,12 @@ as_search_query_class_init (AsSearchQueryClass * klass)
 	G_OBJECT_CLASS (klass)->set_property = as_search_query_set_property;
 	G_OBJECT_CLASS (klass)->finalize = as_search_query_finalize;
 	g_object_class_install_property (G_OBJECT_CLASS (klass),
-									 AS_SEARCH_QUERY_SEARCH_TERM,
-									 g_param_spec_string ("search-term", "search-term", "search-term", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE)
+						AS_SEARCH_QUERY_SEARCH_TERM,
+						g_param_spec_string ("search-term", "search-term", "search-term", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE)
 	);
 	g_object_class_install_property (G_OBJECT_CLASS (klass),
-									 AS_SEARCH_QUERY_CATEGORIES,
-								  g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE)
+						AS_SEARCH_QUERY_CATEGORIES,
+						g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE)
 	);
 }
 

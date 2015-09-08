@@ -1,6 +1,6 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -27,8 +27,8 @@
 
 #include <glib-object.h>
 
-#define AS_TYPE_VALIDATOR			(as_validator_get_type())
-#define AS_VALIDATOR(obj)			(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_VALIDATOR, AsValidator))
+#define AS_TYPE_VALIDATOR		(as_validator_get_type())
+#define AS_VALIDATOR(obj)		(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_VALIDATOR, AsValidator))
 #define AS_VALIDATOR_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_VALIDATOR, AsValidatorClass))
 #define AS_IS_VALIDATOR(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_VALIDATOR))
 #define AS_IS_VALIDATOR_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_VALIDATOR))
@@ -36,7 +36,7 @@
 
 G_BEGIN_DECLS
 
-typedef struct _AsValidator	AsValidator;
+typedef struct _AsValidator		AsValidator;
 typedef struct _AsValidatorClass	AsValidatorClass;
 
 struct _AsValidator
@@ -56,8 +56,8 @@ struct _AsValidatorClass
 	void (*_as_reserved6)	(void);
 };
 
-GType		 as_validator_get_type		(void);
-AsValidator	*as_validator_new		(void);
+GType		 as_validator_get_type (void);
+AsValidator	*as_validator_new (void);
 
 void		as_validator_clear_issues (AsValidator *validator);
 gboolean	as_validator_validate_file (AsValidator *validator,

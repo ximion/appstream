@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
@@ -45,7 +45,7 @@ typedef struct _AsDatabasePrivate AsDatabasePrivate;
 struct _AsDatabase
 {
 	GObject parent_instance;
-	AsDatabasePrivate * priv;
+	AsDatabasePrivate *priv;
 };
 
 struct _AsDatabaseClass
@@ -65,27 +65,27 @@ struct _AsDatabaseClass
 
 GType as_database_get_type (void) G_GNUC_CONST;
 
-AsDatabase*			as_database_new (void);
-AsDatabase*			as_database_construct (GType object_type);
+AsDatabase			*as_database_new (void);
+AsDatabase			*as_database_construct (GType object_type);
 void				as_database_set_database_path (AsDatabase* self,
-												   const gchar* value);
+								const gchar* value);
 gboolean			as_database_open (AsDatabase* self);
-const gchar*		as_database_get_database_path (AsDatabase* self);
+const gchar			*as_database_get_database_path (AsDatabase* self);
 gboolean			as_database_db_exists (AsDatabase* self);
-GPtrArray*			as_database_get_all_components (AsDatabase* self);
-GPtrArray*			as_database_find_components (AsDatabase* self,
-												 AsSearchQuery* query);
-GPtrArray*			as_database_find_components_by_term (AsDatabase* self,
-													const gchar* search_term,
-													const gchar* categories_str);
-AsComponent*		as_database_get_component_by_id (AsDatabase *self,
-													const gchar *idname);
-GPtrArray*			as_database_get_components_by_provides (AsDatabase* self,
-													 AsProvidesKind kind,
-													 const gchar *value,
-													 const gchar *data);
-GPtrArray*			as_database_get_components_by_kind (AsDatabase* self,
-													 AsComponentKind kinds);
+GPtrArray			*as_database_get_all_components (AsDatabase* self);
+GPtrArray			*as_database_find_components (AsDatabase* self,
+								AsSearchQuery* query);
+GPtrArray			*as_database_find_components_by_term (AsDatabase* self,
+									const gchar* search_term,
+									const gchar* categories_str);
+AsComponent			*as_database_get_component_by_id (AsDatabase *self,
+									const gchar *idname);
+GPtrArray			*as_database_get_components_by_provides (AsDatabase* self,
+									 AsProvidesKind kind,
+									 const gchar *value,
+									 const gchar *data);
+GPtrArray			*as_database_get_components_by_kind (AsDatabase* self,
+									AsComponentKind kinds);
 
 G_END_DECLS
 

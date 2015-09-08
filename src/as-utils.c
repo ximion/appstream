@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C)      2014 Richard Hughes <richard@hughsie.com>
@@ -319,8 +319,8 @@ as_utils_find_files_matching (const gchar* dir, const gchar* pattern, gboolean r
 		if (g_file_info_get_is_hidden (file_info))
 			continue;
 		path = g_build_filename (dir,
-								 g_file_info_get_name (file_info),
-								 NULL);
+					 g_file_info_get_name (file_info),
+					 NULL);
 		if ((!g_file_test (path, G_FILE_TEST_IS_REGULAR)) && (recursive)) {
 			GPtrArray *subdir_list;
 			guint i;
@@ -334,7 +334,7 @@ as_utils_find_files_matching (const gchar* dir, const gchar* pattern, gboolean r
 			}
 			for (i=0; i<subdir_list->len; i++)
 				g_ptr_array_add (list,
-								 g_strdup ((gchar *) g_ptr_array_index (subdir_list, i)));
+						 g_strdup ((gchar *) g_ptr_array_index (subdir_list, i)));
 			g_ptr_array_unref (subdir_list);
 		} else {
 			if (!as_str_empty (pattern)) {

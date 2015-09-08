@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 4; indent-tabs-mode: t; c-basic-offset: 4 -*-
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C)      2014 Richard Hughes <richard@hughsie.com>
@@ -225,8 +225,8 @@ as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption, const
 		locale = priv->active_locale;
 
 	g_hash_table_insert (priv->caption,
-						 g_strdup (locale),
-						 g_strdup (caption));
+				g_strdup (locale),
+				g_strdup (caption));
 }
 
 /**
