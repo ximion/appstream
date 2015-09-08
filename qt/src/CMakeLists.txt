@@ -25,7 +25,7 @@ if(NOT QT)
 endif()
 
 add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
-target_link_libraries(AppstreamQt PUBLIC ${QT_QTCORE_LIBRARY} PRIVATE ${XAPIAN_LIBRARIES})
+target_link_libraries(AppstreamQt PUBLIC Qt5::Core PRIVATE ${XAPIAN_LIBRARIES})
 target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
 generate_export_header(AppstreamQt)
 
