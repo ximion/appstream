@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 21:16+0200\n"
+"POT-Creation-Date: 2015-09-08 05:11+0200\n"
 "PO-Revision-Date: 2015-07-27 19:56+0000\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
@@ -130,6 +130,9 @@ msgstr "패키지"
 msgid "Print detailed output about found components"
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시"
 
+msgid "Print even pedantic hints when validating"
+msgstr ""
+
 #. project group
 msgid "Project Group"
 msgstr "프로젝트 그룹"
@@ -182,7 +185,7 @@ msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 msgid "Validate AppStream XML files for issues"
 msgstr ""
 
-msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
 
 msgid "Validation failed."
@@ -206,6 +209,10 @@ msgid "You need to specify a component-id."
 msgstr "component-id를 지정해야 합니다."
 
 msgid "You need to specify a file to validate!"
+msgstr "검증할 파일을 지정해야 합니다!"
+
+#, fuzzy
+msgid "You need to specify a root directory to start validation!"
 msgstr "검증할 파일을 지정해야 합니다!"
 
 msgid "You need to specify a term to search for."

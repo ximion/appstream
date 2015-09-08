@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 21:16+0200\n"
+"POT-Creation-Date: 2015-09-08 05:11+0200\n"
 "PO-Revision-Date: 2015-06-02 13:13+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
@@ -128,6 +128,9 @@ msgstr "Package"
 msgid "Print detailed output about found components"
 msgstr "Print detailed output about found components"
 
+msgid "Print even pedantic hints when validating"
+msgstr ""
+
 #. project group
 msgid "Project Group"
 msgstr "Project Group"
@@ -180,7 +183,7 @@ msgstr "Unable to find component with id '%s'!"
 msgid "Validate AppStream XML files for issues"
 msgstr ""
 
-msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
 
 msgid "Validation failed."
@@ -204,6 +207,10 @@ msgid "You need to specify a component-id."
 msgstr "You need to specify a component-id."
 
 msgid "You need to specify a file to validate!"
+msgstr "You need to specify a file to validate!"
+
+#, fuzzy
+msgid "You need to specify a root directory to start validation!"
 msgstr "You need to specify a file to validate!"
 
 msgid "You need to specify a term to search for."

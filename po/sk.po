@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-08-28 21:16+0200\n"
+"POT-Creation-Date: 2015-09-08 05:11+0200\n"
 "PO-Revision-Date: 2015-05-31 15:20+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
@@ -130,6 +130,9 @@ msgstr "Balík"
 msgid "Print detailed output about found components"
 msgstr "Vypísať podrobnosti o nájdených komponentoch"
 
+msgid "Print even pedantic hints when validating"
+msgstr ""
+
 #. project group
 msgid "Project Group"
 msgstr "Skupina projektu"
@@ -184,7 +187,7 @@ msgstr "Nepodarilo sa nájsť komponent s ID „%s“!"
 msgid "Validate AppStream XML files for issues"
 msgstr ""
 
-msgid "Validate AppStream XML files for issues, even pedantic ones"
+msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
 
 msgid "Validation failed."
@@ -208,6 +211,10 @@ msgid "You need to specify a component-id."
 msgstr "Musíte uviesť ID komponentu."
 
 msgid "You need to specify a file to validate!"
+msgstr "Musíte uviesť súbor, ktorý chcete overiť."
+
+#, fuzzy
+msgid "You need to specify a root directory to start validation!"
 msgstr "Musíte uviesť súbor, ktorý chcete overiť."
 
 msgid "You need to specify a term to search for."
