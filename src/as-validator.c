@@ -738,7 +738,7 @@ as_validator_validate_data_internal (AsValidator *validator, const gchar *metada
 		as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_LEGACY,
-					"Your file is in a legacy AppStream format, which can not be validated. Please migrate it to spec version 0.6 or above.");
+					"Your file is in a legacy AppStream format, which can not be validated. Please migrate it to version 0.6 (or higher) of the specification.");
 		ret = FALSE;
 	}
 
