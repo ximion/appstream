@@ -36,7 +36,7 @@ generated from AppStream metadata.
  * Publican
 
 #### Qt (for libappstream-qt)
- * Qt4 or Qt5 Core
+ * Qt5 Core
 
 
 ### Compiling instructions
