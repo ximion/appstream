@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ascli-cache-actions.h"
+#include "ascli-mdata-actions.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
@@ -93,10 +93,9 @@ ascli_database_new_path (const gchar *dbpath)
  * Get component by id
  */
 int
-ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean detailed)
+ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean detailed, gboolean no_cache)
 {
-	AsDatabase *db;
-	AsComponent *cpt;
+	AsComponent *cpt = NULL;
 	gint exit_code = 0;
 
 	if (identifier == NULL) {
@@ -104,10 +103,23 @@ ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean deta
 		return 2;
 	}
 
-	db = ascli_database_new_path (dbpath);
-	as_database_open (db);
+	if (no_cache) {
+		AsDataPool *dpool;
 
-	cpt = as_database_get_component_by_id (db, identifier);
+		dpool = as_data_pool_new ();
+		as_data_pool_update (dpool);
+		cpt = as_data_pool_get_component_by_id (dpool, identifier);
+		g_object_unref (dpool);
+	} else {
+		AsDatabase *db;
+
+		db = ascli_database_new_path (dbpath);
+		as_database_open (db);
+
+		cpt = as_database_get_component_by_id (db, identifier);
+		g_object_unref (db);
+	}
+
 	if (cpt == NULL) {
 		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		exit_code = 4;
@@ -116,7 +128,6 @@ ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean deta
 	ascli_print_component (cpt, detailed);
 
 out:
-	g_object_unref (db);
 	if (cpt != NULL)
 		g_object_unref (cpt);
 
@@ -243,10 +254,9 @@ out:
  * Dump the raw upstream XML for a component.
  */
 int
-ascli_dump_component (const gchar *dbpath, const gchar *identifier)
+ascli_dump_component (const gchar *dbpath, const gchar *identifier, gboolean no_cache)
 {
-	AsDatabase *db;
-	AsComponent *cpt;
+	AsComponent *cpt = NULL;
 	AsMetadata *metad;
 	gchar *tmp;
 	gint exit_code = 0;
@@ -256,10 +266,23 @@ ascli_dump_component (const gchar *dbpath, const gchar *identifier)
 		return 2;
 	}
 
-	db = ascli_database_new_path (dbpath);
-	as_database_open (db);
+	if (no_cache) {
+		AsDataPool *dpool;
 
-	cpt = as_database_get_component_by_id (db, identifier);
+		dpool = as_data_pool_new ();
+		as_data_pool_update (dpool);
+		cpt = as_data_pool_get_component_by_id (dpool, identifier);
+		g_object_unref (dpool);
+	} else {
+		AsDatabase *db;
+
+		db = ascli_database_new_path (dbpath);
+		as_database_open (db);
+
+		cpt = as_database_get_component_by_id (db, identifier);
+		g_object_unref (db);
+	}
+
 	if (cpt == NULL) {
 		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		exit_code = 4;
@@ -276,7 +299,6 @@ ascli_dump_component (const gchar *dbpath, const gchar *identifier)
 	g_free (tmp);
 
 out:
-	g_object_unref (db);
 	if (cpt != NULL)
 		g_object_unref (cpt);
 

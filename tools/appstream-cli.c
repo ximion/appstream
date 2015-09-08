@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -25,7 +25,7 @@
 #include <locale.h>
 
 #include "ascli-utils.h"
-#include "ascli-cache-actions.h"
+#include "ascli-mdata-actions.h"
 #include "ascli-validate-actions.h"
 
 static gboolean optn_show_version = FALSE;
@@ -34,6 +34,7 @@ static gboolean optn_no_color = FALSE;
 static gboolean optn_force = FALSE;
 static gboolean optn_details = FALSE;
 static gboolean optn_pedantic = FALSE;
+static gboolean optn_no_cache = FALSE;
 static gchar *optn_dbpath = NULL;
 static gchar *optn_datapath = NULL;
 
@@ -90,6 +91,7 @@ as_client_run (char **argv, int argc)
 		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_no_color, _("Don't show colored output"), NULL },
 		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_force, _("Enforce a cache refresh"), NULL },
 		{ "details", 0, 0, G_OPTION_ARG_NONE, &optn_details, _("Print detailed output about found components"), NULL },
+		{ "no-cache", 0, 0, G_OPTION_ARG_NONE, &optn_no_cache, _("Do not use the Xapian cache when performing the request"), NULL },
 		{ "dbpath", 0, 0, G_OPTION_ARG_STRING, &optn_dbpath, _("Manually set the location of the AppStream cache"), NULL },
 		{ "datapath", 0, 0, G_OPTION_ARG_STRING, &optn_datapath, _("Manually set the location of AppStream metadata for cache regeneration"), NULL },
 		{ "pedantic", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_pedantic, _("Print even pedantic hints when validating"), NULL },
@@ -146,13 +148,22 @@ as_client_run (char **argv, int argc)
 		value3 = argv[4];
 
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
-		exit_code = ascli_search_component (optn_dbpath, value1, optn_details);
-	} else if (g_strcmp0 (command, "refresh-index") == 0) {
-		exit_code = ascli_refresh_cache (optn_dbpath, optn_datapath, optn_force);
+		exit_code = ascli_search_component (optn_dbpath,
+							value1,
+							optn_details);
+	} else if ((g_strcmp0 (command, "refresh-index") == 0) || (g_strcmp0 (command, "refresh") == 0)) {
+		exit_code = ascli_refresh_cache (optn_dbpath,
+						 optn_datapath,
+						 optn_force);
 	} else if (g_strcmp0 (command, "get") == 0) {
-		exit_code = ascli_get_component (optn_dbpath, value1, optn_details);
+		exit_code = ascli_get_component (optn_dbpath,
+						 value1,
+						 optn_details,
+						 optn_no_cache);
 	} else if (g_strcmp0 (command, "dump") == 0) {
-		exit_code = ascli_dump_component (optn_dbpath, value1);
+		exit_code = ascli_dump_component (optn_dbpath,
+							value1,
+							optn_no_cache);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
 		exit_code = ascli_what_provides (optn_dbpath, value1, value2, value3, optn_details);
 	} else if (g_strcmp0 (command, "validate") == 0) {

@@ -16,8 +16,8 @@ set(ASCLI_SOURCES
 	appstream-cli.c
 	ascli-utils.h
 	ascli-utils.c
-	ascli-cache-actions.h
-	ascli-cache-actions.c
+	ascli-mdata-actions.h
+	ascli-mdata-actions.c
 	ascli-validate-actions.h
 	ascli-validate-actions.c
 )

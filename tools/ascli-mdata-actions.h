@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASCLI_CACHE_ACTIONS_H
-#define __ASCLI_CACHE_ACTIONS_H
+#ifndef __ASCLI_MDATA_ACTIONS_H
+#define __ASCLI_MDATA_ACTIONS_H
 
 #include <glib-object.h>
 
@@ -37,16 +37,18 @@ int		ascli_search_component (const gchar *dbpath,
 
 int		ascli_get_component (const gchar *dbpath,
 					const gchar *identifier,
-					gboolean detailed);
+					gboolean detailed,
+					gboolean no_cache);
 
 int		ascli_refresh_cache (const gchar *dbpath,
 					const gchar *datapath,
 					gboolean forced);
 
 int		ascli_dump_component (const gchar *dbpath,
-					const gchar *identifier);
+					const gchar *identifier,
+					gboolean no_cache);
 
 
 G_END_DECLS
 
-#endif /* __ASCLI_CACHE_ACTIONS_H */
+#endif /* __ASCLI_MDATA_ACTIONS_H */

@@ -450,6 +450,23 @@ as_data_pool_get_components (AsDataPool *dpool)
 }
 
 /**
+ * as_data_pool_get_component_by_id:
+ *
+ * Get a specific component by its ID.
+ *
+ * Returns: (transfer full): An #AsComponent
+ */
+AsComponent*
+as_data_pool_get_component_by_id (AsDataPool *dpool, const gchar *id)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	if (id == NULL)
+		return NULL;
+
+	return g_object_ref (AS_COMPONENT (g_hash_table_lookup (priv->cpt_table, id)));
+}
+
+/**
  * as_data_pool_set_locale:
  * @dpool: a #AsDataPool instance.
  * @locale: the locale.

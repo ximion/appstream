@@ -26,17 +26,18 @@
 #define __AS_DATAPOOL_H
 
 #include <glib-object.h>
+#include "as-component.h"
 
 #define AS_TYPE_DATA_POOL		(as_data_pool_get_type())
 #define AS_DATA_POOL(obj)		(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_DATA_POOL, AsDataPool))
-#define AS_DATA_POOL_CLASS(cls)	(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_DATA_POOL, AsDataPoolClass))
-#define AS_IS_DATA_POOL(obj)	(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_DATA_POOL))
+#define AS_DATA_POOL_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_DATA_POOL, AsDataPoolClass))
+#define AS_IS_DATA_POOL(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_DATA_POOL))
 #define AS_IS_DATA_POOL_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_DATA_POOL))
 #define AS_DATA_POOL_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_DATA_POOL, AsDataPoolClass))
 
 G_BEGIN_DECLS
 
-typedef struct _AsDataPool		AsDataPool;
+typedef struct _AsDataPool	AsDataPool;
 typedef struct _AsDataPoolClass	AsDataPoolClass;
 
 struct _AsDataPool
@@ -61,10 +62,12 @@ struct _AsDataPoolClass
 GType		 	as_data_pool_get_type (void);
 AsDataPool		*as_data_pool_new (void);
 
-gchar**			as_data_pool_get_watched_locations (AsDataPool *dpool);
+gchar			**as_data_pool_get_watched_locations (AsDataPool *dpool);
 
 gboolean		as_data_pool_update (AsDataPool *dpool);
-GList*			as_data_pool_get_components (AsDataPool *dpool);
+GList			*as_data_pool_get_components (AsDataPool *dpool);
+AsComponent		*as_data_pool_get_component_by_id (AsDataPool *dpool,
+								const gchar *id);
 
 const gchar 		*as_data_pool_get_locale (AsDataPool *dpool);
 void			as_data_pool_set_locale (AsDataPool *dpool,
