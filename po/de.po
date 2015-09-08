@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2015
 # Matthias K. <matthias@tenstral.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 13:52+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/freedesktop/appstream/"
 "language/de/)\n"
 "Language: de\n"
@@ -22,6 +22,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Ein Stellt-bereit-Eintragstyp (z.B. lib, bin, python3, …)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "AppStream-Client-Werkzeugversion: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
@@ -38,17 +42,12 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualisierung des AppStream-Zwischenspeichers ist fehlgeschlagen."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "AppStream-Index Client-Werkzeug Version: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Aktualisierung des AppStream-Zwischenspeichers ist fehlgeschlagen."
+msgstr "AppStream-Befehlszeilenoberfläche"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Bündel"
 
 msgid "Categories"
 msgstr "Kategorien"
@@ -67,11 +66,14 @@ msgstr "Beschreibung"
 msgid "Developer"
 msgstr "Entwickler"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Keine farbige Ausgabe anzeigen"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Roh-XML-Metadaten für eine zur Kennung passende Komponente ausgeben"
 
 msgid "Enforce a cache refresh"
 msgstr "Aktualisierung des Zwischenspeichers erzwingen"
@@ -83,9 +85,8 @@ msgstr "Datei %s nicht gefunden oder Zugriff verweigert!"
 msgid "Get components which provide the given item"
 msgstr "Komponenten ermitteln, die das angegebene Objekt bereitstellen"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Informationen zu einer Komponente anhand deren ID ermitteln"
+msgstr "Informationen zu einer Komponente anhand deren Kennung einholen"
 
 msgid "Homepage"
 msgstr "Homepage"
@@ -133,7 +134,7 @@ msgid "Print detailed output about found components"
 msgstr "Detaillierte Ausgabe über gefundene Komponenten ausgeben"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Sogar pedantische Hinweise bei der Validierung ausgeben"
 
 #. project group
 msgid "Project Group"
@@ -155,17 +156,17 @@ msgid "Sample Screenshot URL"
 msgstr "Adresse des Beispiel-Bildschirmfotos"
 
 msgid "Search the component database"
-msgstr "Die Komponentendatenbank durchsuchen"
+msgstr "Komponentendatenbank durchsuchen"
 
 msgid "Select a value for the provides-item which needs to be found"
 msgstr ""
 "Einen Wert für den Stellt-bereit-Eintrag wählen, der gefunden werden soll"
 
 msgid "Show extra debugging information"
-msgstr "Zusätzliche Debugging-Informationen anzeigen"
+msgstr "Zusätzliche Fehlersuchinformationen anzeigen"
 
 msgid "Show the program version"
-msgstr "Die Programmversion anzeigen"
+msgstr "Programmversion anzeigen"
 
 #. these are commands we can use with appstream-cli
 msgid "Subcommands:"
@@ -188,17 +189,18 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "AppStream-XML-Dateien für Probleme validieren"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Einen installierten Dateibaum einer Anwendung auf gültige Metadaten "
+"validieren"
 
 msgid "Validation failed."
 msgstr "Validierung fehlgeschlagen."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Validierung fehlgeschlagen."
+msgstr "Validierung war erfolgreich."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -211,14 +213,14 @@ msgid "You need to specify a command."
 msgstr "Sie müssen einen Befehl angeben."
 
 msgid "You need to specify a component-id."
-msgstr "Sie müssen eine Komponenten-ID angeben."
+msgstr "Sie müssen eine Komponentenkennung angeben."
 
 msgid "You need to specify a file to validate!"
 msgstr "Sie müssen eine Datei zum Überprüfen angeben."
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Sie müssen eine Datei zum Überprüfen angeben."
+msgstr ""
+"Sie müssen ein Root-Verzeichnis angeben, um die Validierung zu starten!"
 
 msgid "You need to specify a term to search for."
 msgstr "Sie müssen einen Suchbegriff angeben."
@@ -231,15 +233,3 @@ msgstr "Sie müssen einen Suchbegriff angeben."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;anwendung;paket;programm;programme;suite;werkzeug"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "AppStream-Validierungswerkzeug"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "AppStream-Index Client-Werkzeug"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Argumente konnten nicht ausgewertet werden"
-
-#~ msgid "Show program version"
-#~ msgstr "Programmversion anzeigen"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-06-02 13:13+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 10:03+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
 "freedesktop/appstream/language/en_GB/)\n"
@@ -21,6 +21,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "A provides-item type (e.g. lib, bin, python3, ...)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "AppStream client tool version: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream cache update completed successfully."
@@ -37,14 +41,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "AppStream cache update failed."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Appstream-Index client tool version: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "AppStream cache update failed."
+msgstr "AppStream command-line interface"
 
 msgid "Bundle"
 msgstr "Bundle"
@@ -66,11 +65,14 @@ msgstr "Description"
 msgid "Developer"
 msgstr "Developer"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Don't show coloured output"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Dump raw XML metadata for a component matching the ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Enforce a cache refresh"
@@ -82,9 +84,8 @@ msgstr "File %s not found or permission denied!"
 msgid "Get components which provide the given item"
 msgstr "Get components which provide the given item"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Get information about a component by its id"
+msgstr "Get information about a component by its ID"
 
 msgid "Homepage"
 msgstr "Homepage"
@@ -129,7 +130,7 @@ msgid "Print detailed output about found components"
 msgstr "Print detailed output about found components"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Print even pedantic hints when validating"
 
 #. project group
 msgid "Project Group"
@@ -181,17 +182,16 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Unable to find component with id '%s'!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Validate AppStream XML files for issues"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
-msgstr ""
+msgstr "Validate an installed file-tree of an application for valid metadata"
 
 msgid "Validation failed."
 msgstr "Validation failed."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Validation failed."
+msgstr "Validation was successful."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -209,9 +209,8 @@ msgstr "You need to specify a component-id."
 msgid "You need to specify a file to validate!"
 msgstr "You need to specify a file to validate!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "You need to specify a file to validate!"
+msgstr "You need to specify a root directory to start validation!"
 
 msgid "You need to specify a term to search for."
 msgstr "You need to specify a term to search for."
@@ -224,18 +223,3 @@ msgstr "You need to specify a term to search for."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "AppStream Validation Utility"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "AppStream-Index Client Tool"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Failed to parse arguments"
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "Show issues from pedantic tests"
-
-#~ msgid "Show program version"
-#~ msgstr "Show program version"

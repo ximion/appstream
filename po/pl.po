@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-08-27 15:03+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 15:43+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
@@ -22,6 +22,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ elementu Provides (np. lib, bin, python3…)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "Wersja narzędzia klienta AppStream: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
@@ -38,14 +42,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Wersja narzędzia klienta AppStream-Index: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
+msgstr "Interfejs wiersza poleceń AppStream"
 
 msgid "Bundle"
 msgstr "Paczka"
@@ -67,11 +66,14 @@ msgstr "Opis"
 msgid "Developer"
 msgstr "Programista"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Bez kolorowania wyjścia"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Zrzuca surowe metadane XML dla składnika pasującego do identyfikatora"
 
 msgid "Enforce a cache refresh"
 msgstr "Wymusza odświeżenie pamięci podręcznej"
@@ -83,7 +85,6 @@ msgstr "Nie odnaleziono pliku %s lub odmówiono uprawnień."
 msgid "Get components which provide the given item"
 msgstr "Uzyskuje składniki dostarczające podany element"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
 msgstr "Uzyskuje informacje o składniku według jego identyfikatora"
 
@@ -132,7 +133,7 @@ msgid "Print detailed output about found components"
 msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Wyświetla także drobiazgowe uwagi podczas sprawdzania poprawności"
 
 #. project group
 msgid "Project Group"
@@ -185,17 +186,16 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Sprawdza poprawność plików XML AppStream"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
-msgstr ""
+msgstr "Sprawdza poprawność metadanych zainstalowanego drzewa plików programu"
 
 msgid "Validation failed."
 msgstr "Sprawdzenie poprawności się nie powiodło."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Sprawdzenie poprawności się nie powiodło."
+msgstr "Pomyślnie sprawdzono poprawność."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -213,9 +213,8 @@ msgstr "Należy podać identyfikator składnika."
 msgid "You need to specify a file to validate!"
 msgstr "Należy podać plik do sprawdzenia poprawności."
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Należy podać plik do sprawdzenia poprawności."
+msgstr "Należy podać główny katalog, aby rozpocząć sprawdzanie poprawności."
 
 msgid "You need to specify a term to search for."
 msgstr "Należy podać termin do wyszukania."
@@ -230,18 +229,3 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;"
 "zestaw;suite;narzędzie;tool"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "Narzędzie sprawdzania poprawności AppStream"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Narzędzie klienta AppStream-Index"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Przetworzenie parametrów się nie powiodło"
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "Wyświetla problemy z drobiazgowych testów"
-
-#~ msgid "Show program version"
-#~ msgstr "Wyświetla wersję programu"

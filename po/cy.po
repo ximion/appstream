@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Welsh (http://www.transifex.com/freedesktop/appstream/"
 "language/cy/)\n"
@@ -22,6 +22,10 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr ""
 
+#, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr ""
+
 msgid "AppStream cache update completed successfully."
 msgstr ""
 
@@ -33,10 +37,6 @@ msgstr ""
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
-
-#, c-format
-msgid "AppStream client tool version: %s"
 msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu
@@ -61,6 +61,9 @@ msgstr ""
 
 #. developer name
 msgid "Developer"
+msgstr ""
+
+msgid "Do not use the Xapian cache when performing the request"
 msgstr ""
 
 msgid "Don't show colored output"

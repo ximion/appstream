@@ -121,7 +121,7 @@ as_client_run (char **argv, int argc)
 	}
 
 	if (optn_show_version) {
-		ascli_print_stdout (_("AppStream client tool version: %s"), VERSION);
+		ascli_print_stdout (_("AppStream CLI tool version: %s"), VERSION);
 		goto out;
 	}
 

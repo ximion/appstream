@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-06-24 17:54+0000\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -21,6 +21,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Egy szolgáltatás-elem típus (például lib, bin, python3, …)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "AppStream kliens eszköz verzió: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
@@ -37,14 +41,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Appstream-Index kliens eszköz verzió: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
+msgstr "AppStream parancssoros felület"
 
 msgid "Bundle"
 msgstr "Csomag"
@@ -66,11 +65,14 @@ msgstr "Leírás"
 msgid "Developer"
 msgstr "Fejlesztő"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Ne jelenítsen meg színes kimenetet"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz"
 
 msgid "Enforce a cache refresh"
 msgstr "Gyorsítótár-frissítés kényszerítése"
@@ -80,11 +82,10 @@ msgid "File %s not found or permission denied!"
 msgstr "A(z) %s fájl nem található vagy a hozzáférés megtagadva!"
 
 msgid "Get components which provide the given item"
-msgstr "Komponensek lekérése, amelyek a megadott elemet biztosítják"
+msgstr "Összetevők lekérése, amelyek a megadott elemet biztosítják"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Információk beszerzése egy komponensről az azonosítója által"
+msgstr "Információk kérése egy összetevőről az azonosítója szerint"
 
 msgid "Homepage"
 msgstr "Honlap"
@@ -116,11 +117,11 @@ msgstr "Név"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr "Nem található erre illeszkedő komponens: „%s”."
+msgstr "Nem található erre illeszkedő összetevő: „%s”."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr "Nem található „%s:%s:%s” szolgáltatását biztosító komponens."
+msgstr "Nem található „%s:%s:%s” szolgáltatását biztosító összetevő."
 
 msgid "No value for the provides-item to search for defined."
 msgstr "Nincs érték a szolgáltatás-elemhez a meghatározott kereséséhez."
@@ -129,7 +130,7 @@ msgid "Package"
 msgstr "Csomag"
 
 msgid "Print detailed output about found components"
-msgstr "Részletes kimenet írása a megtalált komponensekről"
+msgstr "Részletes kimenet írása a megtalált összetevőről"
 
 msgid "Print even pedantic hints when validating"
 msgstr ""
@@ -142,7 +143,7 @@ msgid "Provided Items"
 msgstr "Szolgáltatott elemek"
 
 msgid "Rebuild the component information cache"
-msgstr "A komponens információs gyorsítótár újraépítése"
+msgstr "Az összetevő információs gyorsítótár újraépítése"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -154,7 +155,7 @@ msgid "Sample Screenshot URL"
 msgstr "Minta képernyőkép URL"
 
 msgid "Search the component database"
-msgstr "A komponens adatbázis keresése"
+msgstr "Az összetevő adatbázis keresése"
 
 msgid "Select a value for the provides-item which needs to be found"
 msgstr ""
@@ -176,18 +177,18 @@ msgstr "Összegzés"
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr "Nem található a következőre illeszkedő komponens: %s!"
+msgstr "Nem található a következőre illeszkedő összetevő: %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr "Nem található a következőt biztosító komponens: „%s:%s:%s”!"
+msgstr "Nem található a következőt biztosító összetevő: „%s:%s:%s”!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr "Nem található komponens a következő azonosítóval: „%s”!"
+msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
@@ -195,9 +196,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "Az ellenőrzés nem sikerült."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Az ellenőrzés nem sikerült."
+msgstr "Az ellenőrzés sikeres volt."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -210,14 +210,13 @@ msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."
 
 msgid "You need to specify a component-id."
-msgstr "Meg kell adnia egy komponens-azonosítót."
+msgstr "Meg kell adnia egy összetevő-azonosítót."
 
 msgid "You need to specify a file to validate!"
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
+msgstr ""
 
 msgid "You need to specify a term to search for."
 msgstr "Meg kell adnia egy kifejezést a kereséshez."
@@ -230,18 +229,3 @@ msgstr "Meg kell adnia egy kifejezést a kereséshez."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "AppStream ellenőrző segédprogram"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "AppStream-Index kliens eszköz"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Nem sikerült az argumentumok feldolgozása "
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "Hibák megjelenítése a kínosan aprólékos tesztekből"
-
-#~ msgid "Show program version"
-#~ msgstr "Programverzió megjelenítése"

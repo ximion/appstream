@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-06-09 20:58+0000\n"
-"Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -23,6 +23,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Тип «provides-item» (например, lib, bin, python3, …)"
+
+#, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
@@ -39,14 +43,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Обновление кэша AppStream прошло неудачно"
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Клиентский инструмент AppStream-Index, версия %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Обновление кэша AppStream прошло неудачно"
+msgstr ""
 
 msgid "Bundle"
 msgstr "Пакет"
@@ -68,6 +67,9 @@ msgstr "Описание"
 msgid "Developer"
 msgstr "Разработчик"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Не показывать цветной вывод"
 
@@ -84,9 +86,8 @@ msgstr "Файл %s не найден или доступ к нему запре
 msgid "Get components which provide the given item"
 msgstr "Получить компоненты, которые предоставляют данный элемент"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Получить информацию о компоненте по его идентификатору"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Домашняя станица"
@@ -194,9 +195,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "Проверка прошла неудачно"
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Проверка прошла неудачно"
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -214,9 +214,8 @@ msgstr "Вы должны указать идентификатор компон
 msgid "You need to specify a file to validate!"
 msgstr "Вы должны указать файл для проверки!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Вы должны указать файл для проверки!"
+msgstr ""
 
 msgid "You need to specify a term to search for."
 msgstr "Вы должны указать термин для поиска."
@@ -229,18 +228,3 @@ msgstr "Вы должны указать термин для поиска."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "Утилита проверки AppStream"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Клиентский инструмент AppStream-Index"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Ошибка при распознавании аргументов"
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "Показать результаты педантичных тестов"
-
-#~ msgid "Show program version"
-#~ msgstr "Показать версию программы"

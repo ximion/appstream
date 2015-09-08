@@ -17,6 +17,12 @@ add_custom_target (l10n-update
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+add_custom_target (l10n-maintain
+	${LC_INTLTOOL_UPDATE} -m "${LPKNAME}"
+	DEPENDS POTFILES.in
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 file (GLOB _translations ${CMAKE_CURRENT_SOURCE_DIR}/*.po)
         gettext_create_translations (${LPKNAME}.pot
 				     ALL ${_translations}

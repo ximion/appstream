@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
 "language/sr/)\n"
@@ -22,6 +22,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Врста достављене ставке (нпр. „lib“, „bin“, „python3“, ...)"
+
+#, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Освежавање оставе Програмског тока је успешно обављено."
@@ -38,14 +42,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Освежавање оставе Програмског тока није успело."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Издање алата клијента индекса Програмског тока: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Освежавање оставе Програмског тока није успело."
+msgstr ""
 
 msgid "Bundle"
 msgstr ""
@@ -67,6 +66,9 @@ msgstr "Опис"
 msgid "Developer"
 msgstr "Програмер"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Не приказује обојени излаз"
 
@@ -83,9 +85,8 @@ msgstr "Нисам пронашао датотеку „%s“ или су овл
 msgid "Get components which provide the given item"
 msgstr "Добавља састојке који обезбеђују дату ставку"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Добавља податке о састојку према његовом иб-у"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Матична страница"
@@ -194,9 +195,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "Потврђивање није успело."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Потврђивање није успело."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -214,9 +214,8 @@ msgstr "Морате да наведете иб састојка."
 msgid "You need to specify a file to validate!"
 msgstr "Морате да наведете датотеку за потврђивање!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Морате да наведете датотеку за потврђивање!"
+msgstr ""
 
 msgid "You need to specify a term to search for."
 msgstr "Морате да наведете појам за тражење."
@@ -229,15 +228,3 @@ msgstr "Морате да наведете појам за тражење."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "апп;апликација;пакет;програм;комплет;алат;"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "Помагало потврђивања Програмског тока"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Алат клијента индекса Програмског тока"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Нисам успео да обрадим аргументе"
-
-#~ msgid "Show program version"
-#~ msgstr "Приказује издање програма"

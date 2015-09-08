@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-07-10 18:37+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 05:02+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/freedesktop/appstream/"
 "language/uk/)\n"
@@ -22,6 +22,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Тип запису provides (наприклад lib, bin, python3, ...)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "Версія клієнтської частини засобу AppStream: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Оновлення кешу AppStream успішно завершено."
@@ -38,14 +42,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Спроба оновити кеш AppStream зазнала невдачі."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Версія клієнтського інструмента покажчика Appstream: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Спроба оновити кеш AppStream зазнала невдачі."
+msgstr "Інтерфейс командного рядка AppStream"
 
 msgid "Bundle"
 msgstr "Кортеж"
@@ -67,11 +66,16 @@ msgstr "Опис"
 msgid "Developer"
 msgstr "Розробник"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Не розфарбовувати виведені дані"
 
 msgid "Dump raw XML metadata for a component matching the ID"
 msgstr ""
+"Створити дамп необроблених метаданих XML для компонента з відповідним "
+"ідентифікатором"
 
 msgid "Enforce a cache refresh"
 msgstr "Примусове оновлення кешу"
@@ -83,9 +87,8 @@ msgstr "Файл %s не знайдено або доступ до нього з
 msgid "Get components which provide the given item"
 msgstr "Отримати компоненти, які надають вказаний запис"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Отримати інформацію щодо компонента за його ідентифікатором"
+msgstr "Отримати дані щодо компонента за його ідентифікатором"
 
 msgid "Homepage"
 msgstr "Домашня сторінка"
@@ -131,7 +134,7 @@ msgid "Print detailed output about found components"
 msgstr "Вивести докладні дані щодо знайдених компонентів"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Виводити навіть найдрібніші неточності під час перевірки"
 
 #. project group
 msgid "Project Group"
@@ -185,17 +188,17 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Не вдалося знайти компонент з ідентифікатором «%s»!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Перевірити файли XML AppStream на вади"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Перевіряти на коректність метаданих усю встановлену ієрархію файлів програми"
 
 msgid "Validation failed."
 msgstr "Спроба перевірки зазнала невдачі."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Спроба перевірки зазнала невдачі."
+msgstr "Перевірку пройдено."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -213,9 +216,8 @@ msgstr "Вам слід вказати ідентифікатор компоне
 msgid "You need to specify a file to validate!"
 msgstr "Вам слід вказати файл для перевірки!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Вам слід вказати файл для перевірки!"
+msgstr "Для перевірки слід вказати кореневий каталог!"
 
 msgid "You need to specify a term to search for."
 msgstr "Вам слід вказати ключ пошуку."
@@ -228,18 +230,3 @@ msgstr "Вам слід вказати ключ пошуку."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "додаток;застосунок;пакет;програма;програма;комплект;інструмент"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "Інструмент для перевірки AppStream"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Клієнтський інструмент покажчика AppStream"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Не вдалося обробити аргументи"
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "Показувати вади, виявлені доскіпливим тестуванням"
-
-#~ msgid "Show program version"
-#~ msgstr "Вивести дані щодо версії програми"

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-06-05 12:59+0000\n"
-"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -20,6 +20,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "提供項目的類型 (如：lib、bin、python3...等)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "AppStream 客戶端工具版本：%s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
@@ -34,14 +38,9 @@ msgstr "AppStream 快取更新完成，但有些中介資料因為錯誤而被�
 msgid "AppStream cache update failed."
 msgstr "AppStream 快取更新失敗。"
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Appstream-Index 客戶端工具版本：%s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "AppStream 快取更新失敗。"
+msgstr "AppStream 指令列介面"
 
 msgid "Bundle"
 msgstr "套組"
@@ -63,11 +62,14 @@ msgstr "描述"
 msgid "Developer"
 msgstr "開發者"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "不要顯示色彩化的輸出"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "傾印符合該 ID 之組件的原生 XML 中介資料"
 
 msgid "Enforce a cache refresh"
 msgstr "強制快取重新整理"
@@ -79,9 +81,8 @@ msgstr "找不到檔案 %s，或未獲得存取許可！"
 msgid "Get components which provide the given item"
 msgstr "取得可提供給定項目的組件"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "根據其 id 取得有關組件的資訊"
+msgstr "根據其 ID 取得組件的資料"
 
 msgid "Homepage"
 msgstr "首頁"
@@ -178,7 +179,7 @@ msgid "Unable to find component with id '%s'!"
 msgstr "找不到 id 為「%s」的組件！"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "根據問題驗證 AppStream XML 檔案"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
@@ -186,9 +187,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "驗證失敗。"
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "驗證失敗。"
+msgstr "驗證成功。"
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -206,9 +206,8 @@ msgstr "您需要指定個組件 id。"
 msgid "You need to specify a file to validate!"
 msgstr "您需要指定個檔案來驗證！"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "您需要指定個檔案來驗證！"
+msgstr ""
 
 msgid "You need to specify a term to search for."
 msgstr "您需要指定個關鍵字來搜尋。"
@@ -223,18 +222,3 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套"
 "件;套裝軟體;工具;公用程式"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "AppStream 驗證用公用程式"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "AppStream-Index 客戶端工具"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "無法解析引數"
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "顯示慎重測試的議題"
-
-#~ msgid "Show program version"
-#~ msgstr "顯示程式版本"

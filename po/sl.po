@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-07-06 00:41+0000\n"
-"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovenian (http://www.transifex.com/freedesktop/appstream/"
 "language/sl/)\n"
 "Language: sl\n"
@@ -22,6 +22,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Vrste ponuja-element (npr. lib, bin, python3 ...)"
+
+#, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Posodobitev predpomnilnika AppStream uspešno dokončana."
@@ -38,14 +42,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Posodobitev predpomnilnika AppStream je spodletela."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Različica orodja odjemalca AppStream-Index: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Posodobitev predpomnilnika AppStream je spodletela."
+msgstr ""
 
 msgid "Bundle"
 msgstr "Sveženj"
@@ -67,6 +66,9 @@ msgstr "Opis"
 msgid "Developer"
 msgstr "Razvijalec"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Ne pokaži izpisa v barvah"
 
@@ -83,9 +85,8 @@ msgstr "Datoteke %s ni mogoče najti ali dostop zaradi pravic zavrnjen!"
 msgid "Get components which provide the given item"
 msgstr "Pridobi komponente, ki ponujajo dani element"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Pridobi podatke o komponenti z njenim ID"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Domača stran"
@@ -192,9 +193,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "Preverjanje je spodletelo."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Preverjanje je spodletelo."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -212,9 +212,8 @@ msgstr "Navesti morate id komponente."
 msgid "You need to specify a file to validate!"
 msgstr "Navesti morate datoteko za preverjanje!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Navesti morate datoteko za preverjanje!"
+msgstr ""
 
 msgid "You need to specify a term to search for."
 msgstr "Določiti morate pojem, ki ga iščete."
@@ -227,18 +226,3 @@ msgstr "Določiti morate pojem, ki ga iščete."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplikacija;paket;program;programček;programje;orodje"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "Orodje preverjanja AppStream"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Orodje odjemalca AppStream-Index"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Razčlenjevanje argumentov je spodletelo"
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "Pokaže težave iz pedantnih preizkusov"
-
-#~ msgid "Show program version"
-#~ msgstr "Pokaži različico programa"

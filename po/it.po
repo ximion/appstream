@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-06-01 09:30+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 07:41+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian (http://www.transifex.com/freedesktop/appstream/"
 "language/it/)\n"
@@ -20,6 +20,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Un tipo provides-item (lib, bin, python3, ...)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "Strumento client AppStream versione: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Aggiornamento cache AppStream completato con successo."
@@ -36,14 +40,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aggiornamento cache AppStream non riuscito."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Versione strumento client AppStream-Index: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Aggiornamento cache AppStream non riuscito."
+msgstr "Interfaccia a riga di comando AppStream"
 
 msgid "Bundle"
 msgstr "Bundle"
@@ -65,11 +64,15 @@ msgstr "Descrizione"
 msgid "Developer"
 msgstr "Sviluppatore"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Non mostra output colorato"
 
 msgid "Dump raw XML metadata for a component matching the ID"
 msgstr ""
+"Esegue il dump dei meta-dati XML per un componente che corrisponde all'ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Forza l'aggiornamento della cache"
@@ -81,7 +84,6 @@ msgstr "File %s non trovato o permesso negato."
 msgid "Get components which provide the given item"
 msgstr "Ottiene i componenti che forniscono l'elemento passato"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
 msgstr "Ottiene informazioni riguardo a un componente tramite il suo ID"
 
@@ -130,7 +132,7 @@ msgid "Print detailed output about found components"
 msgstr "Stampa informazioni dettagliate riguardo ai componenti trovati"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Stampa suggerimenti prolissi durante la validazione"
 
 #. project group
 msgid "Project Group"
@@ -183,17 +185,17 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Impossibile trovare un componente con ID \"%s\"."
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Esegue la validazione dei file XML AppStream"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Esegue la validazione dei meta-dati di un file installato di un'applicazione"
 
 msgid "Validation failed."
 msgstr "Validazione non riuscita."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Validazione non riuscita."
+msgstr "Validazione eseguita con successo."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -211,9 +213,10 @@ msgstr "È necessario specificare l'ID di un componente."
 msgid "You need to specify a file to validate!"
 msgstr "È necessario specificare un file da validare."
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "È necessario specificare un file da validare."
+msgstr ""
+"È necessario specificare una directory principale per iniziare la "
+"validazione."
 
 msgid "You need to specify a term to search for."
 msgstr "È necessario specificare un termine da cercare."
@@ -228,18 +231,3 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;applicazione;applicazioni;pacchetto;programma;suite;tool;strumento;"
 "strumenti"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "Strumento di validazione AppStream"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Strumento client AppStream-Index"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Analisi argomenti non riuscita"
-
-#~ msgid "Show issues from pedantic tests"
-#~ msgstr "Mostra gli errori dai test"
-
-#~ msgid "Show program version"
-#~ msgstr "Mostra la versione del programma"

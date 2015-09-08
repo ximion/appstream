@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Indonesian (http://www.transifex.com/freedesktop/appstream/"
 "language/id/)\n"
@@ -21,6 +21,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Sebuah tipe buir-penyedia (mis. lib, bin, python3, ...)"
+
+#, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Pemutakhiran singgahan AppStream berakhir dengan sukses."
@@ -37,14 +41,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Pemutakhiran singgahan AppStream gagal."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Alat klien AppStream-Index versi: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Pemutakhiran singgahan AppStream gagal."
+msgstr ""
 
 msgid "Bundle"
 msgstr ""
@@ -66,6 +65,9 @@ msgstr "Deskripsi"
 msgid "Developer"
 msgstr "Pengembang"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Jangan tampilkan keluaran berwarna"
 
@@ -82,9 +84,8 @@ msgstr "Berkas %s tak ditemukan atau tak diizinkan!"
 msgid "Get components which provide the given item"
 msgstr "Dapatkan komponen yang menyediakan butir yang diberikan"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Dapatkan informasi tentang suatu komponen berdasarkan id-nya"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Beranda"
@@ -190,9 +191,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "Validasi gagal."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Validasi gagal."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -224,12 +224,3 @@ msgstr ""
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "AppStream Utilitas Validasi"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Alat Klien AppStream-Index"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Gagal mengurai argumen"

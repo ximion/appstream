@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Necdet Yücel <necdetyucel@gmail.com>, 2014
+# Necdet Yücel <necdetyucel@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
 "language/tr/)\n"
@@ -21,6 +21,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Bir sağlanan-öge türü (lib, bin, python3 gibi)"
+
+#, fuzzy, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr "AppStream istemci aracı sürümü: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
@@ -37,17 +41,12 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "AppStream ön bellek güncellemesi başarısız oldu."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Appstream-Dizin istemci aracı sürümü: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "AppStream ön bellek güncellemesi başarısız oldu."
+msgstr "AppStream komut satırı arayüzü"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Takım"
 
 msgid "Categories"
 msgstr "Sınıflandırmalar"
@@ -66,11 +65,14 @@ msgstr "Tanımlama"
 msgid "Developer"
 msgstr "Geliştirici"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Çıktıyı renklendirilmiş gösterme"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Kimlik ile eşleşen bileşen için ham XML verisini dök"
 
 msgid "Enforce a cache refresh"
 msgstr "Ön belleğin yenilenmesini zorla"
@@ -82,9 +84,8 @@ msgstr "%s dosyası bulunamadı veya izin verilmedi!"
 msgid "Get components which provide the given item"
 msgstr "Verilen ögeyi sağlayan bileşenleri alın"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Kimliğini kullanarak bir bileşen hakkında bilgi alın"
+msgstr "Kimliği ile bir bileşen hakkında bilgi al"
 
 msgid "Homepage"
 msgstr "Web Sitesi"
@@ -184,7 +185,7 @@ msgid "Unable to find component with id '%s'!"
 msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "AppStream XML dosyalarını sorunlar için doğrula"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
@@ -192,9 +193,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "Doğrulama başarısız."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Doğrulama başarısız."
+msgstr "Doğrulama işlemi tamamlandı."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -212,9 +212,8 @@ msgstr "Bir bileşen kimliği belirtmelisiniz."
 msgid "You need to specify a file to validate!"
 msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
+msgstr ""
 
 msgid "You need to specify a term to search for."
 msgstr "Arama için bir terim belirtmelisiniz."
@@ -227,15 +226,3 @@ msgstr "Arama için bir terim belirtmelisiniz."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;uygulama;paket;program;program;takım;araç"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "AppStream Doğrulama Uygulaması"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "AppStream Dizin İstemci Aracı"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Argüman ayrıştırması başarısız"
-
-#~ msgid "Show program version"
-#~ msgstr "Program sürümünü göster"

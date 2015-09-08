@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-09-08 05:11+0200\n"
-"PO-Revision-Date: 2015-05-31 15:20+0000\n"
+"POT-Creation-Date: 2015-09-08 20:27+0200\n"
+"PO-Revision-Date: 2015-09-08 03:12+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Galician (http://www.transifex.com/freedesktop/appstream/"
 "language/gl/)\n"
@@ -21,6 +21,10 @@ msgstr ""
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Un tipo de elemento fornecedor (p.ex. lib, bin, python3, …)"
+
+#, c-format
+msgid "AppStream CLI tool version: %s"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Actualización de caché de AppStream completada con éxito."
@@ -37,14 +41,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Fallou a actualización da caché de AppStream."
 
-#, fuzzy, c-format
-msgid "AppStream client tool version: %s"
-msgstr "Versión da ferramenta cliente do índice de AppStream: %s"
-
 #. TRANSLATORS: This is the header to the --help menu
-#, fuzzy
 msgid "AppStream command-line interface"
-msgstr "Fallou a actualización da caché de AppStream."
+msgstr ""
 
 msgid "Bundle"
 msgstr ""
@@ -66,6 +65,9 @@ msgstr "Descrición"
 msgid "Developer"
 msgstr "Desenvolvedor"
 
+msgid "Do not use the Xapian cache when performing the request"
+msgstr ""
+
 msgid "Don't show colored output"
 msgstr "Non mostrar a saída con cores"
 
@@ -82,9 +84,8 @@ msgstr "Non se atopou o ficheiro %s ou denegouse o permiso!"
 msgid "Get components which provide the given item"
 msgstr "Obter compoñentes que fornezan o elemento proporcionado"
 
-#, fuzzy
 msgid "Get information about a component by its ID"
-msgstr "Obter informacion sobre un compoñente mediante o seu id"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Páxina principal"
@@ -195,9 +196,8 @@ msgstr ""
 msgid "Validation failed."
 msgstr "Fallou a validación."
 
-#, fuzzy
 msgid "Validation was successful."
-msgstr "Fallou a validación."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -215,9 +215,8 @@ msgstr "Debe especificar un id de compoñente."
 msgid "You need to specify a file to validate!"
 msgstr "Debe especificar un ficheiro a validar!"
 
-#, fuzzy
 msgid "You need to specify a root directory to start validation!"
-msgstr "Debe especificar un ficheiro a validar!"
+msgstr ""
 
 msgid "You need to specify a term to search for."
 msgstr "Debe especificar o termo a buscar."
@@ -230,15 +229,3 @@ msgstr "Debe especificar o termo a buscar."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicativo;aplicación;paquete;programa;suite;ferramenta"
-
-#~ msgid "AppStream Validation Utility"
-#~ msgstr "Utilidade de validación de AppStream"
-
-#~ msgid "AppStream-Index Client Tool"
-#~ msgstr "Ferramenta cliente do índice de AppStream"
-
-#~ msgid "Failed to parse arguments"
-#~ msgstr "Produciuse un fallo ao analizar os argumentos"
-
-#~ msgid "Show program version"
-#~ msgstr "Mostra a versión do programa"
