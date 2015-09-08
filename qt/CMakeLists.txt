@@ -11,11 +11,15 @@ find_package(Xapian 1.2 REQUIRED)
 
 ENABLE_TESTING()
 
+if(${AS_VERSION} STREQUAL "")
+    set(AS_VERSION "0.8.4")
+endif()
+
 if(APPSTREAM_QT_VERSION STREQUAL "4")
     find_package(Qt4 4.8.0 COMPONENTS QtCore REQUIRED)
 
     set(APPSTREAMQT_SO_VERSION 0)
-    set(APPSTREAMQT_VERSION "0.1")
+    set(APPSTREAMQT_VERSION ${AS_VERSION})
 
     set(QT_USE_IMPORTED_TARGETS true)
 
@@ -24,7 +28,7 @@ else()
     find_package(Qt5 REQUIRED COMPONENTS Core)
 
     set(APPSTREAMQT_SO_VERSION 1)
-    set(APPSTREAMQT_VERSION "1.1")
+    set(APPSTREAMQT_VERSION ${AS_VERSION})
 
     # when removing qt4 support, remove this too
     set(QT_QTCORE_LIBRARY Qt5::Core)

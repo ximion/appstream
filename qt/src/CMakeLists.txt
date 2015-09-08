@@ -29,7 +29,7 @@ target_link_libraries(AppstreamQt PUBLIC ${QT_QTCORE_LIBRARY} PRIVATE ${XAPIAN_L
 target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
 generate_export_header(AppstreamQt)
 
-set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_SO_VERSION}.0.0")
+set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_VERSION}")
 set_property(TARGET AppstreamQt PROPERTY SOVERSION "${APPSTREAMQT_SO_VERSION}" )
 
 install(TARGETS AppstreamQt EXPORT AppstreamQtTargets
