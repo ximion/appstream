@@ -1,3 +1,21 @@
+Version 0.8.4
+~~~~~~~~~~~~~~
+Released: 2015-09-08
+
+Features:
+ * ascli: Validate whole file trees
+ * qt: Align version number with the AppStream version numbers
+ * validator: Always include the filename in validator output
+ * qt: Remove support for Qt4
+ * ascli: Allow some commands to bypass the cache
+ * Change validator output to make it a bit easier to read
+ * validator: Validate metainfo filenames as well
+ * l10n: Update translations
+
+Bugfixes:
+ * Fix crash when parsing metainfo file without all locales enabled
+ * ascli: Make manpage reflect reality
+
 Version 0.8.3
 ~~~~~~~~~~~~~~
 Released: 2015-08-28
