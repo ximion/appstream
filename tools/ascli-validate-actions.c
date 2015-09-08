@@ -29,35 +29,45 @@
  * importance_to_print_string:
  **/
 static gchar*
-importance_to_print_string (AsIssueImportance importance, gboolean pretty)
+importance_location_to_print_string (AsIssueImportance importance, const gchar *location, gboolean pretty)
 {
+	gchar *str;
+
+	switch (importance) {
+		case AS_ISSUE_IMPORTANCE_ERROR:
+			str = g_strdup_printf ("E - %s", location);
+			break;
+		case AS_ISSUE_IMPORTANCE_WARNING:
+			str = g_strdup_printf ("W - %s", location);
+			break;
+		case AS_ISSUE_IMPORTANCE_INFO:
+			str = g_strdup_printf ("I - %s", location);
+			break;
+		case AS_ISSUE_IMPORTANCE_PEDANTIC:
+			str = g_strdup_printf ("P - %s", location);
+			break;
+		default:
+			str = g_strdup_printf ("U - %s", location);
+	}
+
 	if (pretty) {
 		switch (importance) {
 			case AS_ISSUE_IMPORTANCE_ERROR:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 31, "E", 0x1B, 0);
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 31, str, 0x1B, 0);
 			case AS_ISSUE_IMPORTANCE_WARNING:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 33, "W", 0x1B, 0);
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 33, str, 0x1B, 0);
 			case AS_ISSUE_IMPORTANCE_INFO:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 32, "I", 0x1B, 0);
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 32, str, 0x1B, 0);
 			case AS_ISSUE_IMPORTANCE_PEDANTIC:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 37, "P", 0x1B, 0);
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 37, str, 0x1B, 0);
 			default:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 35, "I", 0x1B, 0);
+				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 35, str, 0x1B, 0);
 		}
 	} else {
-		switch (importance) {
-			case AS_ISSUE_IMPORTANCE_ERROR:
-				return g_strdup ("E");
-			case AS_ISSUE_IMPORTANCE_WARNING:
-				return g_strdup ("W");
-			case AS_ISSUE_IMPORTANCE_INFO:
-				return g_strdup ("I");
-			case AS_ISSUE_IMPORTANCE_PEDANTIC:
-				return g_strdup ("P");
-			default:
-				return g_strdup ("X");
-		}
+		return str;
 	}
+
+	g_free (str);
 }
 
 /**
@@ -70,7 +80,7 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 	AsValidatorIssue *issue;
 	AsIssueImportance importance;
 	gboolean no_errors = TRUE;
-	gchar *imp;
+	gchar *header;
 
 	for (l = issues; l != NULL; l = l->next) {
 		issue = (AsValidatorIssue*) l->data;
@@ -84,11 +94,13 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 		if ((!pedantic) && (importance == AS_ISSUE_IMPORTANCE_PEDANTIC))
 			continue;
 
-		imp = importance_to_print_string (importance, pretty);
-		g_print ("%s: %s\n",
-				 imp,
-				 as_validator_issue_get_message (issue));
-		g_free (imp);
+		header = importance_location_to_print_string (importance,
+								as_validator_issue_get_location (issue),
+								pretty);
+		g_print ("%s\n    %s\n\n",
+				header,
+				as_validator_issue_get_message (issue));
+		g_free (header);
 	}
 
 	return no_errors;

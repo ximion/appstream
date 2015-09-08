@@ -124,6 +124,10 @@ const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);
 void			as_validator_issue_set_message (AsValidatorIssue *issue,
 								const gchar *message);
 
+const gchar		*as_validator_issue_get_location (AsValidatorIssue *issue);
+void			as_validator_issue_set_location (AsValidatorIssue *issue,
+								const gchar *location);
+
 
 G_END_DECLS
 

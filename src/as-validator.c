@@ -102,6 +102,7 @@ as_validator_add_issue (AsValidator *validator, AsIssueImportance importance, As
 	va_list args;
 	gchar *buffer;
 	gchar *str;
+	gchar *id_str;
 	_cleanup_free_ gchar *fname = NULL;
 	AsValidatorIssue *issue;
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
@@ -110,29 +111,34 @@ as_validator_add_issue (AsValidator *validator, AsIssueImportance importance, As
 	buffer = g_strdup_vprintf (format, args);
 	va_end (args);
 
+	issue = as_validator_issue_new ();
+	as_validator_issue_set_kind (issue, kind);
+	as_validator_issue_set_importance (issue, importance);
+	as_validator_issue_set_message (issue, buffer);
+	g_free (buffer);
+
+	/* find location */
 	if (priv->current_fname == NULL)
 		fname = g_strdup ("<unknown>");
 	else
 		fname = g_strdup (priv->current_fname);
 
 	if (priv->current_cpt == NULL)
-		str = g_strdup_printf ("%s:<root> - %s", fname, buffer);
+		str = g_strdup_printf ("%s:<root>", fname);
 	else if (as_str_empty (as_component_get_id (priv->current_cpt)))
-		str = g_strdup_printf ("%s:??? - %s", fname, buffer);
+		str = g_strdup_printf ("%s:???", fname);
 	else
-		str = g_strdup_printf ("%s:%s - %s",
+		str = g_strdup_printf ("%s:%s",
 					fname,
-					as_component_get_id (priv->current_cpt),
-					buffer);
-	g_free (buffer);
+					as_component_get_id (priv->current_cpt));
+	as_validator_issue_set_location (issue, str);
+	g_free (str);
 
-	issue = as_validator_issue_new ();
-	as_validator_issue_set_kind (issue, kind);
-	as_validator_issue_set_importance (issue, importance);
-	as_validator_issue_set_message (issue, str);
-
+	id_str = g_strdup_printf ("%s - %s",
+					as_validator_issue_get_location (issue),
+					as_validator_issue_get_message (issue));
 	/* str ownership is transferred to the hashtable */
-	g_hash_table_insert (priv->issues, str, issue);
+	g_hash_table_insert (priv->issues, id_str, issue);
 }
 
 /**
@@ -841,6 +847,8 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_DESKTOP_APP)
 			continue;
 
+		priv->current_cpt = cpt;
+
 		if (!g_hash_table_contains (dfilenames, as_component_get_id (cpt))) {
 			as_validator_add_issue (validator,
 						AS_ISSUE_IMPORTANCE_ERROR,
@@ -848,6 +856,8 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 					"Component metadata refers to a non-existing .desktop file.");
 			ret = FALSE;
 		}
+
+		priv->current_cpt = NULL;
 	}
 
 out:

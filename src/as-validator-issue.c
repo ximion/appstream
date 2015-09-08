@@ -36,6 +36,7 @@ struct _AsValidatorIssuePrivate
 	AsIssueKind		kind;
 	AsIssueImportance	importance;
 	gchar			*message;
+	gchar			*location;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)
@@ -52,6 +53,7 @@ as_validator_issue_finalize (GObject *object)
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
 
 	g_free (priv->message);
+	g_free (priv->location);
 
 	G_OBJECT_CLASS (as_validator_issue_parent_class)->finalize (object);
 }
@@ -143,7 +145,7 @@ as_validator_issue_set_importance (AsValidatorIssue *issue, AsIssueImportance im
  *
  * Returns: the message
  **/
-const gchar *
+const gchar*
 as_validator_issue_get_message (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
@@ -163,6 +165,36 @@ as_validator_issue_set_message (AsValidatorIssue *issue, const gchar *message)
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
 	g_free (priv->message);
 	priv->message = g_strdup (message);
+}
+
+/**
+ * as_validator_issue_get_location:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * Gets a location hint for the issue.
+ *
+ * Returns: the location hint
+ **/
+const gchar*
+as_validator_issue_get_location (AsValidatorIssue *issue)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	return priv->location;
+}
+
+/**
+ * as_validator_issue_set_location:
+ * @issue: a #AsValidatorIssue instance.
+ * @location: a location hint.
+ *
+ * Sets a location hint for this issue.
+ **/
+void
+as_validator_issue_set_location (AsValidatorIssue *issue, const gchar *location)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	g_free (priv->location);
+	priv->location = g_strdup (location);
 }
 
 /**
