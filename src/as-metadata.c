@@ -463,6 +463,13 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 				as_release_set_timestamp (release, timestamp);
 				g_free (prop);
 			}
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "urgency");
+			if (prop != NULL) {
+				AsUrgencyKind ukind;
+				ukind = as_urgency_kind_from_string (prop);
+				as_release_set_urgency (release, ukind);
+				g_free (prop);
+			}
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				gchar *content;
@@ -1425,13 +1432,24 @@ as_metadata_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 		guint j;
 		release = (AsRelease*) g_ptr_array_index (releases, i);
 
+		/* set release version */
 		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
 		xmlNewProp (subnode, (xmlChar*) "version",
 					(xmlChar*) as_release_get_version (release));
+
+		/* set release timestamp */
 		timestamp = g_strdup_printf ("%ld", as_release_get_timestamp (release));
 		xmlNewProp (subnode, (xmlChar*) "timestamp",
 					(xmlChar*) timestamp);
 		g_free (timestamp);
+
+		/* set release urgency, if we have one */
+		if (as_release_get_urgency (release) != AS_URGENCY_KIND_UNKNOWN) {
+			const gchar *urgency_str;
+			urgency_str = as_urgency_kind_to_string (as_release_get_urgency (release));
+			xmlNewProp (subnode, (xmlChar*) "urgency",
+					(xmlChar*) urgency_str);
+		}
 
 		/* add location urls */
 		locations = as_release_get_locations (release);

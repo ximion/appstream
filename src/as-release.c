@@ -46,6 +46,8 @@ struct _AsReleasePrivate
 
 	GPtrArray	*locations;
 	gchar		**checksums;
+
+	AsUrgencyKind	urgency;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelease, as_release, G_TYPE_OBJECT)
@@ -123,6 +125,7 @@ as_release_init (AsRelease *release)
 	priv->locations = g_ptr_array_new_with_free_func (g_free);
 
 	priv->checksums = g_new0 (gchar*, AS_CHECKSUM_KIND_LAST + 1);
+	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
 }
 
 /**
@@ -192,6 +195,40 @@ as_release_set_timestamp (AsRelease *release, guint64 timestamp)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	priv->timestamp = timestamp;
+}
+
+/**
+ * as_release_get_urgency:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the urgency of the release
+ * (showing how important it is to update to a more recent release)
+ *
+ * Returns: #AsUrgencyKind, or %AS_URGENCY_KIND_UNKNOWN for not set
+ *
+ * Since: 0.6.5
+ **/
+AsUrgencyKind
+as_release_get_urgency (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->urgency;
+}
+
+/**
+ * as_release_set_urgency:
+ * @release: a #AsRelease instance.
+ * @urgency: the urgency of this release/update (as #AsUrgencyKind)
+ *
+ * Sets the release urgency.
+ *
+ * Since: 0.6.5
+ **/
+void
+as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	priv->urgency = urgency;
 }
 
 /**

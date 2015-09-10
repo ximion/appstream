@@ -69,6 +69,29 @@ typedef enum {
 const gchar	*as_bundle_kind_to_string (AsBundleKind bundle_kind);
 AsBundleKind	as_bundle_kind_from_string (const gchar *bundle_kind);
 
+/**
+ * AsUrgencyKind:
+ * @AS_URGENCY_KIND_UNKNOWN:	Urgency is unknown or not set
+ * @AS_URGENCY_KIND_LOW:	Low urgency
+ * @AS_URGENCY_KIND_MEDIUM:	Medium urgency
+ * @AS_URGENCY_KIND_HIGH:	High urgency
+ * @AS_URGENCY_KIND_CRITICAL:	Critical urgency
+ *
+ * The urgency of an #AsRelease
+ **/
+typedef enum {
+	AS_URGENCY_KIND_UNKNOWN,
+	AS_URGENCY_KIND_LOW,
+	AS_URGENCY_KIND_MEDIUM,
+	AS_URGENCY_KIND_HIGH,
+	AS_URGENCY_KIND_CRITICAL,
+	/*< private >*/
+	AS_URGENCY_KIND_LAST
+} AsUrgencyKind;
+
+const gchar	*as_urgency_kind_to_string (AsUrgencyKind urgency_kind);
+AsUrgencyKind	 as_urgency_kind_from_string (const gchar *urgency_kind);
+
 G_END_DECLS
 
 #endif /* __AS_ENUMS_H */

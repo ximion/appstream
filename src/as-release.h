@@ -27,6 +27,7 @@
 #define __AS_RELEASE_H
 
 #include <glib-object.h>
+#include "as-enums.h"
 
 #define AS_TYPE_RELEASE			(as_release_get_type())
 #define AS_RELEASE(obj)			(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_RELEASE, AsRelease))
@@ -106,6 +107,10 @@ const gchar	*as_release_get_checksum (AsRelease *release,
 void		as_release_set_checksum (AsRelease *release,
 						const gchar *checksum,
 						AsChecksumKind cs_kind);
+
+AsUrgencyKind	as_release_get_urgency (AsRelease *release);
+void		as_release_set_urgency (AsRelease *release,
+						AsUrgencyKind urgency);
 
 G_END_DECLS
 
