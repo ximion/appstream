@@ -139,6 +139,7 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 			g_hash_table_replace (priv->cpt_table,
 						g_strdup (cpt_id),
 						g_object_ref (cpt));
+			g_debug ("Replaced '%s' with data of higher priority.", cpt_id);
 		} else {
 			if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
 				GHashTable *bundles;

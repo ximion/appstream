@@ -85,12 +85,14 @@ DatabaseWrite::rebuild (GList *cpt_list)
 	string db_locale;
 
 	// Create the rebuild directory
-	if (!as_utils_touch_dir (rebuild_path.c_str ()))
+	if (!as_utils_touch_dir (rebuild_path.c_str ())) {
+		g_warning ("Unable to create database rebuild directory.");
 		return false;
+	}
 
 	// check if old unrequired version of db still exists on filesystem
 	if (g_file_test (old_path.c_str (), G_FILE_TEST_EXISTS)) {
-		g_warning ("Existing xapian old db was not previously cleaned: '%s'.", old_path.c_str ());
+		g_warning ("Existing xapian old db was not cleaned previously: '%s'.", old_path.c_str ());
 		as_utils_delete_dir_recursive (old_path.c_str ());
 	}
 
@@ -128,14 +130,12 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		Xapian::Document doc;
 		term_generator.set_document (doc);
 
-		//! g_debug ("Adding component: %s", as_component_to_string (cpt));
-
 		doc.set_data (as_component_get_name (cpt));
 
 		// Package name
 		gchar **pkgs = as_component_get_pkgnames (cpt);
 		if (pkgs == NULL) {
-			g_warning ("Skipped component '%s' from inclusion into database: Does not have package names defined.",
+			g_warning ("Skipped component '%s' from inclusion into database: Does not have package name(s) defined.",
 					   as_component_get_id (cpt));
 			continue;
 		}
@@ -357,6 +357,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_term ("AA" + docData);
 		term_generator.index_text_without_positions (docData, WEIGHT_DESKTOP_NAME);
 
+		//! g_debug ("Adding component: %s", as_component_to_string (cpt));
 		db.add_document (doc);
 
 		// infer database locale from single component
