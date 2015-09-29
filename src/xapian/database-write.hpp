@@ -1,6 +1,6 @@
 /* database-write.hpp
  *
- * Copyright (C) 2012-2013 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
