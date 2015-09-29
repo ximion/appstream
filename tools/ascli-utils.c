@@ -34,29 +34,32 @@ gboolean _nocolor_output = FALSE;
 gchar*
 ascli_format_long_output (const gchar *str)
 {
-	gchar *res;
-	gchar *str2;
-	gchar **strv;
-	guint i;
+	GString *res = NULL;
+	guint i, j;
 	gboolean do_linebreak = FALSE;
 
-	str2 = g_strdup (str);
-	for (i = 0; str2[i] != '\0'; ++i) {
-		if ((i != 0) && ((i % 80) == 0))
+	res = g_string_new ("\n  ");
+
+	for (i = 0; str[i] != '\0'; ++i) {
+		if ((j != 0) && ((j % 80) == 0))
 			do_linebreak = TRUE;
-		if ((do_linebreak) && (str2[i] == ' ')) {
+		if (str[i] == '\n') {
 			do_linebreak = FALSE;
-			str2[i] = '\n';
+			g_string_append (res, "\n  ");
+			j = 0;
+			continue;
 		}
+		if ((do_linebreak) && (str[i] == ' ')) {
+			do_linebreak = FALSE;
+			g_string_append (res, "\n  ");
+			continue;
+		}
+
+		g_string_append_c (res, str[i]);
+		j++;
 	}
 
-	strv = g_strsplit (str2, "\n", -1);
-	g_free (str2);
-
-	res = g_strjoinv ("\n  ", strv);
-	g_strfreev (strv);
-
-	return res;
+	return g_string_free (res, FALSE);
 }
 
 /**

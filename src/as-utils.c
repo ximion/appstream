@@ -101,6 +101,8 @@ as_description_markup_convert_simple (const gchar *markup)
 		} else if ((g_strcmp0 ((gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((gchar*) iter->name, "ol") == 0)) {
 			/* iterate over itemize contents */
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
 				if (g_strcmp0 ((gchar*) iter2->name, "li") == 0) {
 					content = (gchar*) xmlNodeGetContent (iter2);
 					g_string_append_printf (str,
