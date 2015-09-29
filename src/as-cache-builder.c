@@ -300,7 +300,7 @@ as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error)
 
 /**
  * as_builder_set_data_source_directories:
- * @self: a valid #AsBuilder instance
+ * @builder: a valid #AsBuilder instance
  * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
  *
  * Set locations for the database builder to pull it's data from.
@@ -315,7 +315,7 @@ as_builder_set_data_source_directories (AsBuilder *builder, gchar **dirs)
 }
 
 static void
-as_builder_class_init (AsBuilderClass * klass)
+as_builder_class_init (AsBuilderClass *klass)
 {
 	as_builder_parent_class = g_type_class_peek_parent (klass);
 	g_type_class_add_private (klass, sizeof (AsBuilderPrivate));
@@ -331,7 +331,7 @@ as_builder_instance_init (AsBuilder *builder)
 
 
 static void
-as_builder_finalize (GObject* obj)
+as_builder_finalize (GObject *obj)
 {
 	AsBuilder *builder;
 	builder = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_BUILDER, AsBuilder);
@@ -345,7 +345,8 @@ as_builder_finalize (GObject* obj)
 }
 
 
-GType as_builder_get_type (void) {
+GType as_builder_get_type (void)
+{
 	static volatile gsize as_builder_type_id__volatile = 0;
 	if (g_once_init_enter (&as_builder_type_id__volatile)) {
 		static const GTypeInfo g_define_type_info = { sizeof (AsBuilderClass),
