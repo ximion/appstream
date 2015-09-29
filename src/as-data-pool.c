@@ -199,7 +199,7 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 	GPtrArray *components;
 	guint i;
 	GFile *infile;
-	gboolean ret = TRUE;
+	gboolean ret;
 	const gchar *content_type;
 	AsMetadata *metad;
 	GError *error = NULL;
@@ -241,6 +241,7 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
 	as_metadata_set_locale (metad, priv->locale);
 
+	ret = TRUE;
 	for (i = 0; i < xml_files->len; i++) {
 		gchar *fname;
 		GFileInfo *info = NULL;
@@ -258,7 +259,7 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 				G_FILE_QUERY_INFO_NONE,
 				NULL, NULL);
 		if (info == NULL) {
-			g_debug ("No info for file '%s' found, file was skipped.", fname);
+			g_debug ("No file-info for '%s' found, file was skipped.", fname);
 			g_object_unref (infile);
 			continue;
 		}
@@ -277,9 +278,6 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 		}
 		g_object_unref (info);
 		g_object_unref (infile);
-
-		if (!ret)
-			break;
 	}
 
 	components = as_metadata_get_components (metad);

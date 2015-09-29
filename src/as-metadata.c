@@ -917,12 +917,14 @@ as_metadata_process_document (AsMetadata *metad, const gchar* xmldoc_str, GError
 	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
 		as_metadata_set_parser_mode (metad, AS_PARSER_MODE_UPSTREAM);
 		cpt = as_metadata_parse_component_node (metad, root, TRUE, error);
-		g_ptr_array_add (priv->cpts, cpt);
+		if (cpt != NULL)
+			g_ptr_array_add (priv->cpts, cpt);
 	} else if  (g_strcmp0 ((gchar*) root->name, "application") == 0) {
 		as_metadata_set_parser_mode (metad, AS_PARSER_MODE_UPSTREAM);
 		g_debug ("Parsing legacy AppStream metadata file.");
 		cpt = as_metadata_parse_component_node (metad, root, TRUE, error);
-		g_ptr_array_add (priv->cpts, cpt);
+		if (cpt != NULL)
+			g_ptr_array_add (priv->cpts, cpt);
 	} else {
 		g_set_error_literal (error,
 					AS_METADATA_ERROR,
