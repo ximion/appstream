@@ -8,11 +8,11 @@ compiler:
   - clang
 before_script:
   - env | sort
-  - sudo add-apt-repository "deb mirror://mirrors.ubuntu.com/US.txt vivid main restricted universe multiverse" -y
+  - sudo add-apt-repository "deb mirror://mirrors.ubuntu.com/US.txt wily main universe" -y
   - sudo apt-get update -qq
   - sudo rm /etc/dpkg/dpkg.cfg.d/multiarch
   - sudo apt-get install -qq zlib1g libpango-1.0-0 dpkg libglib2.0-0 # workarounds for upgrade issues
-  - sudo apt-get install -q cmake intltool libglib2.0-dev libxml2-dev gtk-doc-tools libgirepository1.0-dev qt5-default libxapian-dev libyaml-dev xmlto publican gobject-introspection
+  - sudo apt-get install -q cmake intltool libglib2.0-dev libxml2-dev gtk-doc-tools libgirepository1.0-dev qt5-default libxapian-dev libyaml-dev xmlto publican gobject-introspection libprotobuf-dev protobuf-compiler
 script:
   - mkdir build && cd build
   - cmake -DDEBIAN_DEP11=ON -DMAINTAINER=ON -DTESTS=ON -DDOCUMENTATION=ON -DQT=ON ..
