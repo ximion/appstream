@@ -28,6 +28,7 @@
 #include <vector>
 #include <glib/gstdio.h>
 
+#include "asxentries.pb.h"
 #include "database-common.hpp"
 #include "../as-menu-parser.h"
 #include "../as-component-private.h"
@@ -121,17 +122,17 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_origin (cpt, cptOrigin.c_str ());
 
 	// URLs
+	Urls urls;
 	str = doc.get_value (XapianValues::URLS);
-	gchar **urls = g_strsplit (str.c_str (), "\n", -1);
-	for (uint i = 0; urls[i] != NULL; i += 2) {
-		/* urls are stored in form of "type \n url" (so we just need one stringsplit here...) */
-		if (urls[i+1] == NULL)
-			break;
-		AsUrlKind ukind = as_url_kind_from_string (urls[i]);
+	urls.ParseFromString (str);
+	for (int i = 0; i < urls.url_size(); i++) {
+		const Urls_Url& url = urls.url (i);
+		AsUrlKind ukind = (AsUrlKind) url.type ();
 		if (ukind != AS_URL_KIND_UNKNOWN)
-			as_component_add_url (cpt, ukind, urls[i+1]);
+			as_component_add_url (cpt, ukind, url.url ().c_str ());
 	}
-	g_strfreev (urls);
+
+
 
 	// Bundles
 	str = doc.get_value (XapianValues::BUNDLES);

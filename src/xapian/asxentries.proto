@@ -1,0 +1,20 @@
+package AppStream;
+option optimize_for = LITE_RUNTIME;
+
+message Urls {
+  enum UrlType {
+    UNKNOWN = 0;
+    HOMEPAGE = 1;
+    BUGTRACKER = 2;
+    FAQ = 3;
+    HELP = 4;
+    DONATION = 5;
+  }
+
+  message Url {
+    required UrlType type = 1 [default = UNKNOWN];
+    required string url = 2;
+  }
+
+  repeated Url url = 1;
+}

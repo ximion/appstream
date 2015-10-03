@@ -47,8 +47,8 @@ typedef enum {
 	AS_URL_KIND_LAST
 } AsUrlKind;
 
-const gchar		*as_url_kind_to_string (AsUrlKind url_kind);
-AsUrlKind		as_url_kind_from_string (const gchar *url_kind);
+const gchar	*as_url_kind_to_string (AsUrlKind url_kind);
+AsUrlKind	as_url_kind_from_string (const gchar *url_kind);
 
 /**
  * AsBundleKind:

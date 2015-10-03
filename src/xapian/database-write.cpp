@@ -28,6 +28,7 @@
 #include <iterator>
 #include <glib/gstdio.h>
 
+#include "asxentries.pb.h"
 #include "database-common.hpp"
 #include "../as-utils.h"
 #include "../as-utils-private.h"
@@ -75,6 +76,17 @@ static void
 langs_hashtable_to_str (gchar *key, gint value, GString *gstr)
 {
 	g_string_append_printf (gstr, "%s\n%i\n", key, value);
+}
+
+/**
+ * Helper function to serialize urls for storage in the database
+ */
+static void
+url_hashtable_to_urlentry (gchar *key, gchar *value, Urls *urls)
+{
+	Urls_Url *url = urls->add_url();
+	url->set_type ((Urls_UrlType) as_url_kind_from_string (key));
+	url->set_url (value);
 }
 
 bool
@@ -218,18 +230,14 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_value (XapianValues::ORIGIN, cptOrigin);
 
 		// URLs
-		GHashTable *urls;
-		urls = as_component_get_urls (cpt);
-		if (g_hash_table_size (urls) > 0) {
-			gchar *cstr;
-			gstr = g_string_new ("");
-			g_hash_table_foreach(urls, (GHFunc) string_hashtable_to_str, gstr);
-			if (gstr->len > 0)
-				g_string_truncate (gstr, gstr->len - 1);
-
-			cstr = g_string_free (gstr, FALSE);
-			doc.add_value (XapianValues::URLS, cstr);
-			g_free (cstr);
+		Urls urls;
+		GHashTable *urls_table;
+		urls_table = as_component_get_urls (cpt);
+		if (g_hash_table_size (urls_table) > 0) {
+			string ostr;
+			g_hash_table_foreach (urls_table, (GHFunc) url_hashtable_to_urlentry, &urls);
+			if (urls.SerializeToString (&ostr))
+				doc.add_value (XapianValues::URLS, ostr);
 		}
 
 		// Stock icon
