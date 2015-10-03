@@ -1,6 +1,7 @@
 package AppStream;
 option optimize_for = LITE_RUNTIME;
 
+/* =================================== */
 message Urls {
   enum UrlType {
     UNKNOWN = 0;
@@ -17,4 +18,47 @@ message Urls {
   }
 
   repeated Url url = 1;
+}
+
+/* =================================== */
+message Bundles {
+  enum BundleType {
+    UNKNOWN = 0;
+    LIMBA = 1;
+    XDG_APP = 2;
+  }
+
+  message Bundle {
+    required BundleType type = 1 [default = UNKNOWN];
+    required string id = 2;
+  }
+
+  repeated Bundle bundle = 1;
+}
+
+/* =================================== */
+message Screenshots {
+  message Image {
+    required int32 width  = 1;
+    required int32 height = 2;
+    required string url = 3;
+  }
+
+  message Screenshot {
+    required bool primary = 1 [default = false];
+    required Image source_image = 2;
+    repeated Image thumbnail = 3;
+  }
+
+  repeated Screenshot screenshot = 1;
+}
+
+/* =================================== */
+message Languages {
+  message Language {
+    required string locale = 1;
+    required int32 completion = 2 [default = 0];
+  }
+
+  repeated Language language = 1;
 }
