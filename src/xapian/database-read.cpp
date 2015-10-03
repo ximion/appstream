@@ -34,17 +34,16 @@
 #include "../as-provides.h"
 
 using namespace std;
-using namespace Appstream;
+using namespace AppStream;
 
 DatabaseRead::DatabaseRead () :
-    m_xapianDB(0)
+    m_xapianDB(nullptr)
 {
 
 }
 
 DatabaseRead::~DatabaseRead ()
 {
-
 }
 
 bool
@@ -63,12 +62,16 @@ DatabaseRead::open (const gchar *dbPath)
 	if (m_dbLocale.empty ())
 		m_dbLocale = "C";
 
-	m_schemaVersion = m_xapianDB.get_metadata ("db-schema-version");
+	m_schemaVersion = stoi (m_xapianDB.get_metadata ("db-schema-version"));
+	if (m_schemaVersion != AS_DB_SCHEMA_VERSION) {
+		g_warning ("Attempted to open an old version of the AppStream cache. Please refresh the cache and try again!");
+		return false;
+	}
 
 	return true;
 }
 
-string
+int
 DatabaseRead::getSchemaVersion ()
 {
 	return m_schemaVersion;

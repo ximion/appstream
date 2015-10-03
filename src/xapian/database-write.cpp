@@ -35,7 +35,7 @@
 #include "../as-settings-private.h"
 
 using namespace std;
-using namespace Appstream;
+using namespace AppStream;
 
 DatabaseWrite::DatabaseWrite () :
     m_rwXapianDB(0)
@@ -366,7 +366,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			db_locale = as_component_get_active_locale (cpt);
 	}
 
-	db.set_metadata ("db-schema-version", AS_DB_SCHEMA_VERSION);
+	db.set_metadata ("db-schema-version", to_string (AS_DB_SCHEMA_VERSION));
 	db.set_metadata ("db-locale", db_locale);
 	db.commit ();
 

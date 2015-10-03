@@ -34,6 +34,7 @@
 
 Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.database")
 
+using namespace AppStream;
 using namespace Appstream;
 
 class Appstream::DatabasePrivate {

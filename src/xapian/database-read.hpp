@@ -41,10 +41,10 @@ public:
 	explicit DatabaseRead ();
 	~DatabaseRead ();
 
-	bool open (const gchar *dbPath);
+	bool		open (const gchar *dbPath);
 
-	string getSchemaVersion ();
-	string getLocale ();
+	int		getSchemaVersion ();
+	string		getLocale ();
 
 	GPtrArray	*getAllComponents ();
 	GPtrArray	*findComponents (AsSearchQuery *asQuery);
@@ -56,7 +56,7 @@ private:
 	Xapian::Database m_xapianDB;
 	string m_dbPath;
 	string m_dbLocale;
-	string m_schemaVersion;
+	int m_schemaVersion;
 
 	AsComponent *docToComponent (Xapian::Document);
 

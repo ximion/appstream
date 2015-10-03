@@ -1,6 +1,6 @@
 # CMakeLists for the AppStream Project
 project(appstream)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
 
 set(CMAKE_BUILD_TYPE "Debug")
 
@@ -91,6 +91,9 @@ add_definitions(${MAINTAINER_CFLAGS})
 
 # we do always enable this to never run into the missing-include-trap again
 add_definitions("-Werror=implicit-function-declaration")
+
+# enable C++11
+set(CMAKE_CXX_STANDARD "11")
 
 find_package(PkgConfig REQUIRED)
 

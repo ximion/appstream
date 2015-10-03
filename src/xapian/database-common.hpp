@@ -21,7 +21,7 @@
 #ifndef DATABASE_COMMON_H
 #define DATABASE_COMMON_H
 
-namespace Appstream {
+namespace AppStream {
 
 // values used in the database
 namespace XapianValues {
@@ -74,6 +74,8 @@ static const int WEIGHT_DESKTOP_SUMMARY = 1;
 static const int WEIGHT_PKGNAME = 8;
 static const int WEIGHT_SUMMARY = 5;
 static const int WEIGHT_PK_DESCRIPTION = 1;
+
+static const int AS_DB_SCHEMA_VERSION = 1;
 
 } // End of namespace: AppStream
 
