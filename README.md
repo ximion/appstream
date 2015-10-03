@@ -18,7 +18,7 @@ generated from AppStream metadata.
 [AppStream on Freedesktop](http://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page  
 
 ## Developers
-[![Build Status](https://travis-ci.org/ximion/appstream.svg?branch=master)](https://travis-ci.org/ximion/appstream)
+[![Build Status](https://semaphoreci.com/api/v1/projects/c406ea75-a977-4100-8ae1-66b7ccc54f48/559622/badge.svg)](https://semaphoreci.com/ximion/appstream)
 
 ### Dependencies
 
@@ -52,10 +52,11 @@ cmake <flags> ..
 make
 ```
 Possible AppStream-specific flags are:  
- -DPROVIDER_DEBIAN_DEP11=ON      -- Enable support for Debian DEP11 AppStream format  
- -DPROVIDER_UBUNTU_APPINSTALL=ON -- Enable support for Ubuntu's AppInstall data  
- -DDOCUMENTATION=ON              -- (Re)generate API documentation  
- -DMAINTAINER=ON                 -- Enable strict compiler options - use this if you write a patch for AppStream
+ -DQT=ON              -- Build the Qt5 interface library  
+ -DVAPI=ON            -- Build Vala API to use library with the Vala programming language  
+ -DDEBIAN_DEP11=ON    -- Enable support for Debian DEP11 AppStream format (ON by default)  
+ -DDOCUMENTATION=ON   -- (Re)generate API documentation  
+ -DMAINTAINER=ON      -- Enable strict compiler options - use this if you write a patch for AppStream
 
 ### Installation
 
