@@ -28,8 +28,7 @@
 #include <iterator>
 #include <glib/gstdio.h>
 
-#include "asxentries.pb.h"
-#include "database-common.hpp"
+#include "database-schema.hpp"
 #include "../as-utils.h"
 #include "../as-utils-private.h"
 #include "../as-component-private.h"
@@ -79,12 +78,23 @@ langs_hashtable_to_str (gchar *key, gint value, GString *gstr)
 }
 
 /**
+ * Helper function to serialize bundle data for storage in the database
+ */
+static void
+bundles_hashtable_to_bundleentry (gchar *key, gchar *value, Bundles *bundles)
+{
+	Bundles_Bundle *bdl = bundles->add_bundle ();
+	bdl->set_type ((Bundles_BundleType) as_bundle_kind_from_string (key));
+	bdl->set_id (value);
+}
+
+/**
  * Helper function to serialize urls for storage in the database
  */
 static void
-url_hashtable_to_urlentry (gchar *key, gchar *value, Urls *urls)
+urls_hashtable_to_urlentry (gchar *key, gchar *value, Urls *urls)
 {
-	Urls_Url *url = urls->add_url();
+	Urls_Url *url = urls->add_url ();
 	url->set_type ((Urls_UrlType) as_url_kind_from_string (key));
 	url->set_url (value);
 }
@@ -188,18 +198,16 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 
 		// Bundles
+		Bundles bundles;
 		GHashTable *bundle_ids;
 		bundle_ids = as_component_get_bundle_ids (cpt);
 		if (g_hash_table_size (bundle_ids) > 0) {
-			gchar *cstr;
-			gstr = g_string_new ("");
-			g_hash_table_foreach(bundle_ids, (GHFunc) string_hashtable_to_str, gstr);
-			if (gstr->len > 0)
-				g_string_truncate (gstr, gstr->len - 1);
-
-			cstr = g_string_free (gstr, FALSE);
-			doc.add_value (XapianValues::BUNDLES, cstr);
-			g_free (cstr);
+			string ostr;
+			g_hash_table_foreach (bundle_ids,
+						(GHFunc) bundles_hashtable_to_bundleentry,
+						&bundles);
+			if (bundles.SerializeToString (&ostr))
+				doc.add_value (XapianValues::BUNDLES, ostr);
 		}
 
 		// Identifier
@@ -235,7 +243,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		urls_table = as_component_get_urls (cpt);
 		if (g_hash_table_size (urls_table) > 0) {
 			string ostr;
-			g_hash_table_foreach (urls_table, (GHFunc) url_hashtable_to_urlentry, &urls);
+			g_hash_table_foreach (urls_table, (GHFunc) urls_hashtable_to_urlentry, &urls);
 			if (urls.SerializeToString (&ostr))
 				doc.add_value (XapianValues::URLS, ostr);
 		}

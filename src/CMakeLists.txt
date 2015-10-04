@@ -19,6 +19,7 @@ set(AS_VERSION_BASE "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "Li
 protobuf_generate_cpp(AS_PROTO_SRCS AS_PROTO_HDRS xapian/asxentries.proto)
 
 set(ASLIB_XAP_SOURCES ${AS_PROTO_SRCS} ${AS_PROTO_HDRS}
+		xapian/database-schema.hpp
 		xapian/database-common.hpp
 		xapian/database-read.hpp
 		xapian/database-read.cpp

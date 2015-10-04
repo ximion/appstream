@@ -44,7 +44,7 @@
  */
 
 struct _AsDatabasePrivate {
-	struct XADatabaseRead* db;
+	struct XADatabaseRead *xdb;
 	gboolean opened;
 	gchar* database_path;
 };
@@ -58,7 +58,7 @@ enum  {
 	AS_DATABASE_DATABASE_PATH
 };
 
-static gboolean as_database_real_open (AsDatabase* self);
+static gboolean as_database_real_open (AsDatabase *db);
 static void as_database_finalize (GObject* obj);
 
 /**
@@ -71,14 +71,14 @@ static void as_database_finalize (GObject* obj);
 AsDatabase*
 as_database_construct (GType object_type)
 {
-	AsDatabase * self = NULL;
-	self = (AsDatabase*) g_object_new (object_type, NULL);
+	AsDatabase *db = NULL;
+	db = (AsDatabase*) g_object_new (object_type, NULL);
 
-	self->priv->db = xa_database_read_new ();
-	self->priv->opened = FALSE;
-	as_database_set_database_path (self, AS_APPSTREAM_CACHE_PATH);
+	db->priv->xdb = xa_database_read_new ();
+	db->priv->opened = FALSE;
+	as_database_set_database_path (db, AS_APPSTREAM_CACHE_PATH);
 
-	return self;
+	return db;
 }
 
 /**
@@ -96,65 +96,65 @@ as_database_new (void)
 
 
 static gboolean
-as_database_real_open (AsDatabase* self)
+as_database_real_open (AsDatabase *db)
 {
 	gboolean ret = FALSE;
 	gchar *path;
 
-	path = g_build_filename (self->priv->database_path, "xapian", "C", NULL);
-	ret = xa_database_read_open (self->priv->db, path);
+	path = g_build_filename (db->priv->database_path, "xapian", "C", NULL);
+	ret = xa_database_read_open (db->priv->xdb, path);
 	g_free (path);
-	self->priv->opened = ret;
+	db->priv->opened = ret;
 
 	return ret;
 }
 
 
 gboolean
-as_database_open (AsDatabase* self)
+as_database_open (AsDatabase *db)
 {
-	g_return_val_if_fail (self != NULL, FALSE);
-	return AS_DATABASE_GET_CLASS (self)->open (self);
+	g_return_val_if_fail (db != NULL, FALSE);
+	return AS_DATABASE_GET_CLASS (db)->open (db);
 }
 
 
 /**
  * as_database_db_exists:
- * @self: a valid #AsDatabase instance
+ * @db: a valid #AsDatabase instance
  *
  * Returns: TRUE if the application database exists
  */
 gboolean
-as_database_db_exists (AsDatabase* self)
+as_database_db_exists (AsDatabase *db)
 {
-	g_return_val_if_fail (self != NULL, FALSE);
+	g_return_val_if_fail (db != NULL, FALSE);
 
-	return g_file_test (self->priv->database_path, G_FILE_TEST_IS_DIR);
+	return g_file_test (db->priv->database_path, G_FILE_TEST_IS_DIR);
 }
 
 /**
  * as_database_get_all_components:
- * @self: a valid #AsDatabase instance
+ * @db: a valid #AsDatabase instance
  *
  * Dump a list of all components found in the database.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects
  */
 GPtrArray*
-as_database_get_all_components (AsDatabase* self)
+as_database_get_all_components (AsDatabase *db)
 {
 	GPtrArray* cpt_array = NULL;
-	g_return_val_if_fail (self != NULL, NULL);
-	if (!self->priv->opened)
+	g_return_val_if_fail (db != NULL, NULL);
+	if (!db->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_get_all_components (self->priv->db);
+	cpt_array = xa_database_read_get_all_components (db->priv->xdb);
 	return cpt_array;
 }
 
 /**
  * as_database_find_components:
- * @self: a valid #AsDatabase instance
+ * @db: a valid #AsDatabase instance
  * @query: a #AsSearchQuery
  *
  * Find components in the Appstream database.
@@ -162,22 +162,22 @@ as_database_get_all_components (AsDatabase* self)
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
 GPtrArray*
-as_database_find_components (AsDatabase* self, AsSearchQuery* query)
+as_database_find_components (AsDatabase *db, AsSearchQuery* query)
 {
 	GPtrArray* cpt_array;
-	g_return_val_if_fail (self != NULL, NULL);
+	g_return_val_if_fail (db != NULL, NULL);
 	g_return_val_if_fail (query != NULL, NULL);
-	if (!self->priv->opened)
+	if (!db->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_find_components (self->priv->db, query);
+	cpt_array = xa_database_read_find_components (db->priv->xdb, query);
 
 	return cpt_array;
 }
 
 /**
  * as_database_find_components_by_term:
- * @self: a valid #AsDatabase instance
+ * @db: a valid #AsDatabase instance
  * @search_term: the string to search for
  * @categories_str: (allow-none) (default NULL): a comma-separated list of category names, or NULL to search in all categories
  *
@@ -186,11 +186,11 @@ as_database_find_components (AsDatabase* self, AsSearchQuery* query)
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
 GPtrArray*
-as_database_find_components_by_term (AsDatabase* self, const gchar* search_term, const gchar* categories_str)
+as_database_find_components_by_term (AsDatabase *db, const gchar* search_term, const gchar* categories_str)
 {
 	GPtrArray* cpt_array;
 	AsSearchQuery* query;
-	g_return_val_if_fail (self != NULL, NULL);
+	g_return_val_if_fail (db != NULL, NULL);
 	g_return_val_if_fail (search_term != NULL, NULL);
 
 	query = as_search_query_new (search_term);
@@ -199,14 +199,14 @@ as_database_find_components_by_term (AsDatabase* self, const gchar* search_term,
 	} else {
 		as_search_query_set_categories_from_string (query, categories_str);
 	}
-	cpt_array = as_database_find_components (self, query);
+	cpt_array = as_database_find_components (db, query);
 	g_object_unref (query);
 	return cpt_array;
 }
 
 /**
  * as_database_get_component_by_id:
- * @self: a valid #AsDatabase instance
+ * @db: a valid #AsDatabase instance
  * @idname: the ID of the component
  *
  * Get a component by it's ID
@@ -214,17 +214,17 @@ as_database_find_components_by_term (AsDatabase* self, const gchar* search_term,
  * Returns: (transfer full): an #AsComponent or NULL if none was found
  **/
 AsComponent*
-as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
+as_database_get_component_by_id (AsDatabase *db, const gchar *idname)
 {
-	g_return_val_if_fail (self != NULL, NULL);
+	g_return_val_if_fail (db != NULL, NULL);
 	g_return_val_if_fail (idname != NULL, NULL);
 
-	return xa_database_read_get_component_by_id (self->priv->db, idname);
+	return xa_database_read_get_component_by_id (db->priv->xdb, idname);
 }
 
 /**
  * as_database_get_components_by_provides:
- * @self: a valid #AsDatabase instance
+ * @db: a valid #AsDatabase instance
  * @kind: an #AsProvidesKind
  * @value: a value of the selected provides kind
  * @data: (allow-none) (default NULL): additional provides data
@@ -234,22 +234,22 @@ as_database_get_component_by_id (AsDatabase *self, const gchar *idname)
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */
 GPtrArray*
-as_database_get_components_by_provides (AsDatabase* self, AsProvidesKind kind, const gchar *value, const gchar *data)
+as_database_get_components_by_provides (AsDatabase *db, AsProvidesKind kind, const gchar *value, const gchar *data)
 {
 	GPtrArray* cpt_array;
-	g_return_val_if_fail (self != NULL, NULL);
+	g_return_val_if_fail (db != NULL, NULL);
 	g_return_val_if_fail (value != NULL, NULL);
-	if (!self->priv->opened)
+	if (!db->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_get_components_by_provides (self->priv->db, kind, value, data);
+	cpt_array = xa_database_read_get_components_by_provides (db->priv->xdb, kind, value, data);
 
 	return cpt_array;
 }
 
 /**
  * as_database_get_components_by_kind:
- * @self: a valid #AsDatabase instance
+ * @db: a valid #AsDatabase instance
  * @kinds: an #AsComponentKind bitfield
  *
  * Find components of a given kind.
@@ -257,42 +257,42 @@ as_database_get_components_by_provides (AsDatabase* self, AsProvidesKind kind, c
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */
 GPtrArray*
-as_database_get_components_by_kind (AsDatabase* self, AsComponentKind kinds)
+as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kinds)
 {
 	GPtrArray* cpt_array;
-	g_return_val_if_fail (self != NULL, NULL);
-	if (!self->priv->opened)
+	g_return_val_if_fail (db != NULL, NULL);
+	if (!db->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_get_components_by_kind (self->priv->db, kinds);
+	cpt_array = xa_database_read_get_components_by_kind (db->priv->xdb, kinds);
 
 	return cpt_array;
 }
 
 const gchar*
-as_database_get_database_path (AsDatabase* self)
+as_database_get_database_path (AsDatabase *db)
 {
-	g_return_val_if_fail (self != NULL, NULL);
-	return self->priv->database_path;
+	g_return_val_if_fail (db != NULL, NULL);
+	return db->priv->database_path;
 }
 
 void
-as_database_set_database_path (AsDatabase* self, const gchar* value)
+as_database_set_database_path (AsDatabase *db, const gchar *value)
 {
-	g_return_if_fail (self != NULL);
-	g_free (self->priv->database_path);
-	self->priv->database_path = g_strdup (value);
-	g_object_notify ((GObject *) self, "database-path");
+	g_return_if_fail (db != NULL);
+	g_free (db->priv->database_path);
+	db->priv->database_path = g_strdup (value);
+	g_object_notify ((GObject *) db, "database-path");
 }
 
 static void
-as_database_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec)
+as_database_get_property (GObject *object, guint property_id, GValue *value, GParamSpec *pspec)
 {
-	AsDatabase * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATABASE, AsDatabase);
+	AsDatabase *db;
+	db = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATABASE, AsDatabase);
 	switch (property_id) {
 		case AS_DATABASE_DATABASE_PATH:
-			g_value_set_string (value, as_database_get_database_path (self));
+			g_value_set_string (value, as_database_get_database_path (db));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -302,13 +302,13 @@ as_database_get_property (GObject * object, guint property_id, GValue * value, G
 
 
 static void
-as_database_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec)
+as_database_set_property (GObject * object, guint property_id, const GValue *value, GParamSpec *pspec)
 {
-	AsDatabase * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATABASE, AsDatabase);
+	AsDatabase *db;
+	db = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DATABASE, AsDatabase);
 	switch (property_id) {
 		case AS_DATABASE_DATABASE_PATH:
-			as_database_set_database_path (self, g_value_get_string (value));
+			as_database_set_database_path (db, g_value_get_string (value));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -333,19 +333,19 @@ as_database_class_init (AsDatabaseClass * klass)
 
 
 static void
-as_database_instance_init (AsDatabase * self)
+as_database_instance_init (AsDatabase *db)
 {
-	self->priv = AS_DATABASE_GET_PRIVATE (self);
+	db->priv = AS_DATABASE_GET_PRIVATE (db);
 }
 
 
 static void
 as_database_finalize (GObject* obj)
 {
-	AsDatabase * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_DATABASE, AsDatabase);
-	xa_database_read_free (self->priv->db);
-	g_free (self->priv->database_path);
+	AsDatabase *db;
+	db = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_DATABASE, AsDatabase);
+	xa_database_read_free (db->priv->xdb);
+	g_free (db->priv->database_path);
 	G_OBJECT_CLASS (as_database_parent_class)->finalize (obj);
 }
 

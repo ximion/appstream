@@ -51,7 +51,7 @@ struct _AsDatabase
 struct _AsDatabaseClass
 {
 	GObjectClass parent_class;
-	gboolean (*open) (AsDatabase* self);
+	gboolean (*open) (AsDatabase* db);
 	/*< private >*/
 	void (*_as_reserved1)	(void);
 	void (*_as_reserved2)	(void);
@@ -65,27 +65,27 @@ struct _AsDatabaseClass
 
 GType as_database_get_type (void) G_GNUC_CONST;
 
-AsDatabase			*as_database_new (void);
-AsDatabase			*as_database_construct (GType object_type);
-void				as_database_set_database_path (AsDatabase* self,
-								const gchar* value);
-gboolean			as_database_open (AsDatabase* self);
-const gchar			*as_database_get_database_path (AsDatabase* self);
-gboolean			as_database_db_exists (AsDatabase* self);
-GPtrArray			*as_database_get_all_components (AsDatabase* self);
-GPtrArray			*as_database_find_components (AsDatabase* self,
-								AsSearchQuery* query);
-GPtrArray			*as_database_find_components_by_term (AsDatabase* self,
-									const gchar* search_term,
-									const gchar* categories_str);
-AsComponent			*as_database_get_component_by_id (AsDatabase *self,
-									const gchar *idname);
-GPtrArray			*as_database_get_components_by_provides (AsDatabase* self,
-									 AsProvidesKind kind,
-									 const gchar *value,
-									 const gchar *data);
-GPtrArray			*as_database_get_components_by_kind (AsDatabase* self,
-									AsComponentKind kinds);
+AsDatabase		*as_database_new (void);
+AsDatabase		*as_database_construct (GType object_type);
+void			as_database_set_database_path (AsDatabase *db,
+						const gchar* value);
+gboolean		as_database_open (AsDatabase *db);
+const gchar		*as_database_get_database_path (AsDatabase *db);
+gboolean		as_database_db_exists (AsDatabase *db);
+GPtrArray		*as_database_get_all_components (AsDatabase *db);
+GPtrArray		*as_database_find_components (AsDatabase *db,
+							AsSearchQuery* query);
+GPtrArray		*as_database_find_components_by_term (AsDatabase *db,
+								const gchar *search_term,
+								const gchar *categories_str);
+AsComponent		*as_database_get_component_by_id (AsDatabase *db,
+								const gchar *idname);
+GPtrArray		*as_database_get_components_by_provides (AsDatabase* db,
+								 AsProvidesKind kind,
+								 const gchar *value,
+								 const gchar *data);
+GPtrArray		*as_database_get_components_by_kind (AsDatabase *db,
+								AsComponentKind kinds);
 
 G_END_DECLS
 

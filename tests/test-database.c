@@ -142,6 +142,15 @@ test_database_read (const gchar *dbpath)
 
 	g_ptr_array_unref (cpts);
 
+	/* test a component in a different file, with no package but a bundle instead */
+	cpt = as_database_get_component_by_id (db, "neverball.desktop");
+	g_assert_nonnull (cpt);
+
+	g_assert (g_strcmp0 (as_component_get_name (cpt), "Neverball") == 0);
+	g_assert (g_strcmp0 (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), "http://neverball.org/") == 0);
+	g_assert (g_strcmp0 (as_component_get_bundle_id (cpt, AS_BUNDLE_KIND_LIMBA), "neverball-1.6.0") == 0);
+
+	g_object_unref (cpt);
 	g_object_unref (db);
 }
 
