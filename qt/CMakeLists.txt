@@ -6,6 +6,7 @@ include(GenerateExportHeader)
 add_compiler_export_flags()
 
 find_package(Xapian 1.2 REQUIRED)
+find_package(Protobuf REQUIRED)
 
 ENABLE_TESTING()
 

@@ -25,7 +25,7 @@
 
 #include "database.h"
 #include "screenshotxmlparser_p.h"
-#include <database-common.hpp>
+#include <database-schema.hpp>
 #include <xapian.h>
 #include <QStringList>
 #include <QUrl>

@@ -16,16 +16,18 @@ set(APPSTREAMQT_PUBLIC_HEADERS
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
-		    ${CMAKE_SOURCE_DIR}/src/xapian
+                    ${CMAKE_SOURCE_DIR}/src/xapian
 )
+
+protobuf_generate_cpp(AS_PROTO_SRCS AS_PROTO_HDRS ${CMAKE_SOURCE_DIR}/src/xapian/asxentries.proto)
 
 if(NOT QT)
     # hack for standalone compilation of the Qt lib (the QT variable is not defined if we build standalone)
     include_directories(${CMAKE_SOURCE_DIR}/../src/xapian)
 endif()
 
-add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
-target_link_libraries(AppstreamQt PUBLIC Qt5::Core PRIVATE ${XAPIAN_LIBRARIES})
+add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC} ${AS_PROTO_SRCS})
+target_link_libraries(AppstreamQt PUBLIC Qt5::Core PRIVATE ${XAPIAN_LIBRARIES} ${PROTOBUF_LITE_LIBRARIES})
 target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
 generate_export_header(AppstreamQt)
 
