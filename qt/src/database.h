@@ -24,11 +24,11 @@
 
 #include "appstreamqt_export.h"
 
-
 #include <QString>
 #include <QList>
 #include <QStringList>
 #include "component.h"
+
 namespace Appstream {
 
 /**

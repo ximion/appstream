@@ -24,13 +24,16 @@
 #define QT_NO_KEYWORDS
 
 #include "database.h"
-#include "screenshotxmlparser_p.h"
+
 #include <database-schema.hpp>
 #include <xapian.h>
 #include <QStringList>
 #include <QUrl>
 #include <QMultiHash>
 #include <QLoggingCategory>
+
+#include "image.h"
+#include "screenshot.h"
 
 Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.database")
 
@@ -88,6 +91,7 @@ QSize parseSizeString(QString s)
 
 Component xapianDocToComponent(Xapian::Document document) {
     Component component;
+    std::string str;
 
     // kind
     QString kindString = value (document, XapianValues::TYPE);
@@ -187,10 +191,40 @@ Component xapianDocToComponent(Xapian::Document document) {
     QStringList categories = value(document, XapianValues::CATEGORIES).split(";");
     component.setCategories(categories);
 
-    // Screenshot data
-    QString screenshotXml = value(document,XapianValues::SCREENSHOTS);
-    QXmlStreamReader reader(screenshotXml);
-    QList<Appstream::Screenshot> screenshots = parseScreenshotsXml(&reader);
+    // Screenshots
+    Screenshots pb_scrs;
+    str = document.get_value (XapianValues::SCREENSHOTS);
+    pb_scrs.ParseFromString (str);
+    QList<Appstream::Screenshot> screenshots;
+    for (int i = 0; i < pb_scrs.screenshot_size (); i++) {
+        const Screenshots_Screenshot& pb_scr = pb_scrs.screenshot (i);
+        Appstream::Screenshot scr;
+        QList<Appstream::Image> images;
+
+        if (pb_scr.primary())
+            scr.setDefault(true);
+        if (pb_scr.has_caption())
+            scr.setCaption(QString::fromStdString(pb_scr.caption()));
+
+        for (int j = 0; j < pb_scr.image_size(); j++) {
+            const Screenshots_Image& pb_img = pb_scr.image(j);
+            Appstream::Image image;
+
+            image.setUrl(QString::fromStdString(pb_img.url()));
+            image.setWidth(pb_img.width ());
+            image.setHeight(pb_img.height ());
+
+            if (pb_img.source ()) {
+                image.setKind(Appstream::Image::Kind::Plain);
+            } else {
+                image.setKind(Appstream::Image::Kind::Thumbnail);
+            }
+
+            images.append(image);
+        }
+
+        screenshots.append(scr);
+    }
     component.setScreenshots(screenshots);
 
     // Compulsory-for-desktop information
@@ -209,9 +243,11 @@ Component xapianDocToComponent(Xapian::Document document) {
     QString developerName = value(document,XapianValues::DEVELOPER_NAME);
     component.setDeveloperName(developerName);
 
-    // Releases data
-    QString releasesXml = value(document,XapianValues::RELEASES);
-    Q_UNUSED(releasesXml);
+    // Releases
+    Releases pb_rels;
+    str = document.get_value (XapianValues::RELEASES);
+    pb_rels.ParseFromString (str);
+    Q_UNUSED(pb_rels);
 
     return component;
 }

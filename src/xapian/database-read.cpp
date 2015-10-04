@@ -210,6 +210,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 			as_image_set_width (img, pb_img.width ());
 			as_image_set_height (img, pb_img.height ());
+			as_image_set_url (img, pb_img.url ().c_str ());
 
 			as_screenshot_add_image (scr, img);
 			g_object_unref (img);
