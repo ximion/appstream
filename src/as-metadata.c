@@ -324,6 +324,9 @@ as_metadata_process_screenshot (AsMetadata *metad, xmlNode* node, AsScreenshot* 
 	}
 }
 
+/**
+ * as_metadata_process_screenshots_tag:
+ */
 static void
 as_metadata_process_screenshots_tag (AsMetadata *metad, xmlNode* node, AsComponent* cpt)
 {
@@ -356,6 +359,11 @@ as_metadata_process_screenshots_tag (AsMetadata *metad, xmlNode* node, AsCompone
 	}
 }
 
+/**
+ * as_metadata_upstream_description_to_cpt:
+ *
+ * Helper function for GHashTable
+ */
 static void
 as_metadata_upstream_description_to_cpt (gchar *key, GString *value, AsComponent *cpt)
 {
@@ -365,6 +373,11 @@ as_metadata_upstream_description_to_cpt (gchar *key, GString *value, AsComponent
 	g_string_free (value, TRUE);
 }
 
+/**
+ * as_metadata_upstream_description_to_release:
+ *
+ * Helper function for GHashTable
+ */
 static void
 as_metadata_upstream_description_to_release (gchar *key, GString *value, AsRelease *rel)
 {
@@ -1326,6 +1339,72 @@ _as_metadata_desc_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWri
 }
 
 /**
+ * _as_metadata_serialize_image:
+ */
+static void
+_as_metadata_serialize_image (AsImage *img, xmlNode *subnode)
+{
+	xmlNode* n_image = NULL;
+	gchar *size;
+	g_return_if_fail (img != NULL);
+	g_return_if_fail (subnode != NULL);
+
+	n_image = xmlNewTextChild (subnode, NULL, (xmlChar*) "image", (xmlChar*) as_image_get_url (img));
+	if (as_image_get_kind (img) == AS_IMAGE_KIND_THUMBNAIL)
+		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "thumbnail");
+	else
+		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "source");
+
+	if ((as_image_get_width (img) > 0) &&
+		(as_image_get_height (img) > 0)) {
+		size = g_strdup_printf("%i", as_image_get_width (img));
+		xmlNewProp (n_image, (xmlChar*) "width", (xmlChar*) size);
+		g_free (size);
+
+		size = g_strdup_printf("%i", as_image_get_height (img));
+		xmlNewProp (n_image, (xmlChar*) "height", (xmlChar*) size);
+		g_free (size);
+	}
+
+	xmlAddChild (subnode, n_image);
+}
+
+/**
+ * as_metadata_add_screenshot_subnodes:
+ *
+ * Add screenshot subnodes to a root node
+ */
+static void
+as_metadata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
+{
+	GPtrArray* sslist;
+	AsScreenshot *sshot;
+	guint i;
+
+	sslist = as_component_get_screenshots (cpt);
+	for (i = 0; i < sslist->len; i++) {
+		xmlNode *subnode;
+		const gchar *str;
+		GPtrArray *images;
+		sshot = (AsScreenshot*) g_ptr_array_index (sslist, i);
+
+		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "screenshot", (xmlChar*) "");
+		if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
+			xmlNewProp (subnode, (xmlChar*) "type", (xmlChar*) "default");
+
+		str = as_screenshot_get_caption (sshot);
+		if (g_strcmp0 (str, "") != 0) {
+			xmlNode* n_caption;
+			n_caption = xmlNewTextChild (subnode, NULL, (xmlChar*) "caption", (xmlChar*) str);
+			xmlAddChild (subnode, n_caption);
+		}
+
+		images = as_screenshot_get_images (sshot);
+		g_ptr_array_foreach (images, (GFunc) _as_metadata_serialize_image, subnode);
+	}
+}
+
+/**
  * as_metadata_component_to_node:
  * @cpt: a valid #AsComponent
  *
@@ -1442,7 +1521,7 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	screenshots = as_component_get_screenshots (cpt);
 	if (screenshots->len > 0) {
 		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
-		as_component_xml_add_screenshot_subnodes (cpt, node);
+		as_metadata_add_screenshot_subnodes (cpt, node);
 	}
 
 	return cnode;

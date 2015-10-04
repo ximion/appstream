@@ -183,8 +183,42 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	}
 
 	// Screenshot data
-	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOTS);
-	as_component_load_screenshots_from_internal_xml (cpt, screenshot_xml.c_str ());
+	Screenshots screenshots;
+	str = doc.get_value (XapianValues::SCREENSHOTS);
+	screenshots.ParseFromString (str);
+	for (int i = 0; i < screenshots.screenshot_size (); i++) {
+		const Screenshots_Screenshot& pb_scr = screenshots.screenshot (i);
+		AsScreenshot *scr = as_screenshot_new ();
+		as_screenshot_set_active_locale (scr, m_dbLocale.c_str ());
+
+		if (pb_scr.primary ())
+			as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_DEFAULT);
+		else
+			as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_NORMAL);
+
+		if (pb_scr.has_caption ())
+			as_screenshot_set_caption (scr, pb_scr.caption ().c_str (), NULL);
+
+		for (int j = 0; j < pb_scr.image_size (); j++) {
+			const Screenshots_Image& pb_img = pb_scr.image (j);
+			AsImage *img = as_image_new ();
+
+			if (pb_img.source ()) {
+				as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+			} else {
+				as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+			}
+
+			as_image_set_width (img, pb_img.width ());
+			as_image_set_height (img, pb_img.height ());
+
+			as_screenshot_add_image (scr, img);
+			g_object_unref (img);
+		}
+
+		as_component_add_screenshot (cpt, scr);
+		g_object_unref (scr);
+	}
 
 	// Compulsory-for-desktop information
 	string compulsory_str = doc.get_value (XapianValues::COMPULSORY_FOR);

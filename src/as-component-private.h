@@ -27,10 +27,6 @@
 
 G_BEGIN_DECLS
 
-gchar				*as_component_dump_screenshot_data_xml (AsComponent *cpt);
-void				as_component_load_screenshots_from_internal_xml (AsComponent *cpt,
-											const gchar* xmldata);
-
 gchar				*as_component_dump_releases_data_xml (AsComponent *cpt);
 void				as_component_load_releases_from_internal_xml (AsComponent *cpt,
 										const gchar* xmldata);
@@ -45,8 +41,6 @@ void				as_component_complete (AsComponent *cpt,
 							gchar *scr_base_url,
 							gchar **icon_paths);
 
-void				as_component_xml_add_screenshot_subnodes (AsComponent *cpt,
-										xmlNode *root);
 void				as_component_xml_add_release_subnodes (AsComponent *cpt,
 										xmlNode *root);
 

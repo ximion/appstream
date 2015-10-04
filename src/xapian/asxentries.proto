@@ -51,16 +51,16 @@ message Bundles {
  */
 message Screenshots {
   message Image {
-    required int32 width  = 1;
-    required int32 height = 2;
-    required string url = 3;
+    required bool source = 1 [default = false];
+    required int32 width  = 2;
+    required int32 height = 3;
+    required string url = 4;
   }
 
   message Screenshot {
     required bool primary = 1 [default = false];
     optional string caption = 2;
-    required Image source_image = 3;
-    repeated Image thumbnail = 4;
+    repeated Image image = 3;
   }
 
   repeated Screenshot screenshot = 1;

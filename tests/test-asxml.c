@@ -40,7 +40,6 @@ test_screenshot_handling ()
 	AsComponent *cpt;
 	GFile *file;
 	gchar *path;
-	gchar *xml_data;
 	GPtrArray *screenshots;
 	guint i;
 
@@ -57,16 +56,9 @@ test_screenshot_handling ()
 	cpt = as_metadata_get_component (metad);
 	g_assert (cpt != NULL);
 
-	xml_data = as_component_dump_screenshot_data_xml (cpt);
-	g_debug ("%s", xml_data);
-
 	// dirty...
 	g_debug ("%s", as_component_to_string (cpt));
 	screenshots = as_component_get_screenshots (cpt);
-	g_assert (screenshots->len > 0);
-	g_ptr_array_remove_range (screenshots, 0, screenshots->len);
-
-	as_component_load_screenshots_from_internal_xml (cpt, xml_data);
 	g_assert (screenshots->len > 0);
 
 	for (i = 0; i < screenshots->len; i++) {

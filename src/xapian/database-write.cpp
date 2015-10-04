@@ -99,6 +99,28 @@ urls_hashtable_to_urlentry (gchar *key, gchar *value, Urls *urls)
 	url->set_url (value);
 }
 
+/**
+ * Helper function to serialize AsImage instances for storage in the database
+ */
+static void
+images_array_to_imageentry (AsImage *img, Screenshots_Screenshot *pb_sshot)
+{
+	Screenshots_Image *pb_img;
+
+	pb_img = pb_sshot->add_image ();
+	pb_img->set_url (as_image_get_url (img));
+
+	if (as_image_get_kind (img) == AS_IMAGE_KIND_THUMBNAIL)
+		pb_img->set_source (false);
+	else
+		pb_img->set_source (true);
+
+	if ((as_image_get_width (img) > 0) && (as_image_get_height (img) > 0)) {
+		pb_img->set_width (as_image_get_width (img));
+		pb_img->set_height (as_image_get_height (img));
+	}
+}
+
 bool
 DatabaseWrite::rebuild (GList *cpt_list)
 {
@@ -326,7 +348,25 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		g_strfreev (provides_items);
 
 		// Add screenshot information
-		doc.add_value (XapianValues::SCREENSHOTS, as_component_dump_screenshot_data_xml (cpt));
+		Screenshots screenshots;
+		GPtrArray *sslist = as_component_get_screenshots (cpt);
+		for (uint i = 0; i < sslist->len; i++) {
+			AsScreenshot *sshot = (AsScreenshot*) g_ptr_array_index (sslist, i);
+			Screenshots_Screenshot *pb_sshot = screenshots.add_screenshot ();
+
+			if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
+				pb_sshot->set_primary (true);
+
+			if (as_screenshot_get_caption (sshot) != NULL)
+				pb_sshot->set_caption (as_screenshot_get_caption (sshot));
+
+			g_ptr_array_foreach (as_screenshot_get_images (sshot),
+						(GFunc) images_array_to_imageentry,
+						pb_sshot);
+		}
+		string ostr;
+		if (screenshots.SerializeToString (&ostr))
+			doc.add_value (XapianValues::SCREENSHOTS, ostr);
 
 		// Add compulsory-for-desktop information
 		gchar **compulsory = as_component_get_compulsory_for_desktops (cpt);
