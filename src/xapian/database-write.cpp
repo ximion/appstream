@@ -35,7 +35,7 @@
 #include "../as-settings-private.h"
 
 using namespace std;
-using namespace AppStream;
+using namespace ASCache;
 
 DatabaseWrite::DatabaseWrite () :
     m_rwXapianDB(0)
@@ -161,9 +161,9 @@ DatabaseWrite::rebuild (GList *cpt_list)
 					   as_component_get_id (cpt));
 			continue;
 		}
-		gchar *pkgs_cstr = g_strjoinv ("\n", pkgs);
+		gchar *pkgs_cstr = g_strjoinv (";", pkgs);
 		string pkgs_str = pkgs_cstr;
-		doc.add_value (XapianValues::PKGNAME, pkgs_str);
+		doc.add_value (XapianValues::PKGNAMES, pkgs_str);
 		g_free (pkgs_cstr);
 
 		for (uint i = 0; pkgs[i] != NULL; i++) {
@@ -325,8 +325,8 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 		g_strfreev (provides_items);
 
-		// Add screenshot information (XML data)
-		doc.add_value (XapianValues::SCREENSHOT_DATA, as_component_dump_screenshot_data_xml (cpt));
+		// Add screenshot information
+		doc.add_value (XapianValues::SCREENSHOTS, as_component_dump_screenshot_data_xml (cpt));
 
 		// Add compulsory-for-desktop information
 		gchar **compulsory = as_component_get_compulsory_for_desktops (cpt);
@@ -355,7 +355,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			doc.add_value (XapianValues::DEVELOPER_NAME, developer_name);
 
 		// Add releases information (XML data)
-		doc.add_value (XapianValues::RELEASES_DATA, as_component_dump_releases_data_xml (cpt));
+		doc.add_value (XapianValues::RELEASES, as_component_dump_releases_data_xml (cpt));
 
 		// Languages
 		GHashTable *langs_table;

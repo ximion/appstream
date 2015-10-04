@@ -34,8 +34,8 @@
 
 Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.database")
 
-using namespace AppStream;
 using namespace Appstream;
+using namespace ASCache;
 
 class Appstream::DatabasePrivate {
     public:
@@ -102,7 +102,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setName(name);
 
     // Package name
-    QStringList packageNames = value(document,XapianValues::PKGNAME).split("\n",QString::SkipEmptyParts);
+    QStringList packageNames = value(document,XapianValues::PKGNAMES).split(";",QString::SkipEmptyParts);
     component.setPackageNames(packageNames);
 
     // URLs
@@ -188,7 +188,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setCategories(categories);
 
     // Screenshot data
-    QString screenshotXml = value(document,XapianValues::SCREENSHOT_DATA);
+    QString screenshotXml = value(document,XapianValues::SCREENSHOTS);
     QXmlStreamReader reader(screenshotXml);
     QList<Appstream::Screenshot> screenshots = parseScreenshotsXml(&reader);
     component.setScreenshots(screenshots);
@@ -210,7 +210,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setDeveloperName(developerName);
 
     // Releases data
-    QString releasesXml = value(document,XapianValues::RELEASES_DATA);
+    QString releasesXml = value(document,XapianValues::RELEASES);
     Q_UNUSED(releasesXml);
 
     return component;

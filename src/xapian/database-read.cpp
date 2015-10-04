@@ -34,7 +34,7 @@
 #include "../as-provides.h"
 
 using namespace std;
-using namespace AppStream;
+using namespace ASCache;
 
 DatabaseRead::DatabaseRead () :
     m_xapianDB(nullptr)
@@ -107,8 +107,8 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_name (cpt, cptName.c_str (), "C");
 
 	// Package name
-	string pkgNamesStr = doc.get_value (XapianValues::PKGNAME);
-	gchar **pkgs = g_strsplit (pkgNamesStr.c_str (), "\n", -1);
+	string pkgNamesStr = doc.get_value (XapianValues::PKGNAMES);
+	gchar **pkgs = g_strsplit (pkgNamesStr.c_str (), ";", -1);
 	as_component_set_pkgnames (cpt, pkgs);
 	g_strfreev (pkgs);
 
@@ -183,7 +183,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	}
 
 	// Screenshot data
-	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOT_DATA);
+	string screenshot_xml = doc.get_value (XapianValues::SCREENSHOTS);
 	as_component_load_screenshots_from_internal_xml (cpt, screenshot_xml.c_str ());
 
 	// Compulsory-for-desktop information
@@ -205,7 +205,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_developer_name (cpt, developerName.c_str (), NULL);
 
 	// Releases data
-	string releases_xml = doc.get_value (XapianValues::RELEASES_DATA);
+	string releases_xml = doc.get_value (XapianValues::RELEASES);
 	as_component_load_releases_from_internal_xml (cpt, releases_xml.c_str ());
 
 	// Languages

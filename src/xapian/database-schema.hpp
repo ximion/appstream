@@ -1,6 +1,6 @@
 /* database-schema.hpp -- Common specs for AppStream Xapian database
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -19,4 +19,66 @@
  */
 
 #include "asxentries.pb.h"
-#include "database-common.hpp"
+
+#ifndef DATABASE_SCHEMA_H
+#define DATABASE_SCHEMA_H
+
+namespace ASCache {
+
+// database schema version
+static const int AS_DB_SCHEMA_VERSION = 2;
+
+// values used in the database
+namespace XapianValues {
+
+enum XapianValues {
+	TYPE = 120,
+	IDENTIFIER = 121,
+	CPTNAME = 122,
+	CPTNAME_UNTRANSLATED = 123,
+	PKGNAMES = 124,       // semicolon-separated list of strings
+	SOURCE_PKGNAME = 125,
+	BUNDLES = 126,        // protobuf serialization: Bundles
+
+	SUMMARY = 127,
+	DESCRIPTION = 128,
+	CATEGORIES = 129,     // semicolon-separated list of strings
+
+	ICON = 130,
+	ICON_URLS = 131,
+
+	PROVIDED_ITEMS = 140, // protobuf serialization: ProvidedItems
+	SCREENSHOTS = 141,    // protobuf serialization: Screenshots
+	RELEASES = 142,       // protobuf serialization: Releases
+
+	LICENSE = 150,
+	URLS = 151,           // protobuf serialization: Urls
+
+	PROJECT_GROUP = 160,
+	DEVELOPER_NAME = 161,
+
+	COMPULSORY_FOR = 170, // semicolon-separated list of strings
+	LANGUAGES = 171,      // protobuf serialization: Languages
+
+	ORIGIN = 180,
+
+//!	GETTEXT_DOMAIN = 180,
+//!	ARCHIVE_SECTION = 181,
+//!	ARCHIVE_CHANNEL = 182
+};
+
+};
+
+// weights for the different fields
+static const int WEIGHT_DESKTOP_NAME = 10;
+static const int WEIGHT_DESKTOP_KEYWORD = 5;
+static const int WEIGHT_DESKTOP_GENERICNAME = 3;
+static const int WEIGHT_DESKTOP_SUMMARY = 1;
+
+static const int WEIGHT_PKGNAME = 8;
+static const int WEIGHT_SUMMARY = 5;
+static const int WEIGHT_PK_DESCRIPTION = 1;
+
+} // End of namespace: ASCache
+
+#endif // DATABASE_SCHEMA_H
