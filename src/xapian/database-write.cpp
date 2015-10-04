@@ -311,13 +311,17 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// Data of provided items
 		gchar **provides_items = as_ptr_array_to_strv (as_component_get_provided_items (cpt));
 		if (provides_items != NULL) {
-			gchar *provides_items_str = g_strjoinv ("\n", provides_items);
-			doc.add_value (XapianValues::PROVIDED_ITEMS, string(provides_items_str));
+			ProvidedItems items;
+			string ostr;
+
 			for (uint i = 0; provides_items[i] != NULL; i++) {
-				string item = provides_items[i];
-				doc.add_term ("AE" + item);
+				string item_str = provides_items[i];
+				items.add_item (item_str);
+				doc.add_term ("AE" + item_str);
 			}
-			g_free (provides_items_str);
+			if (items.SerializeToString (&ostr))
+				doc.add_value (XapianValues::PROVIDED_ITEMS, ostr);
+
 		}
 		g_strfreev (provides_items);
 

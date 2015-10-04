@@ -54,6 +54,11 @@ message Screenshots {
 }
 
 /* =================================== */
+message ProvidedItems {
+  repeated string item = 1;
+}
+
+/* =================================== */
 message Languages {
   message Language {
     required string locale = 1;
