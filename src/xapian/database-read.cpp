@@ -220,7 +220,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		as_component_add_language (cpt, lang_data[i], percentage);
 	}
 
-	// TODO: Read out keywords?
+	// TODO: Read out keywords? - actually not necessary, since they're already in the database and used by the search engine
 
 	return cpt;
 }
