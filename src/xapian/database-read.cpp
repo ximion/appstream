@@ -147,18 +147,17 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_add_icon (cpt, AS_ICON_KIND_STOCK, 0, 0, appIcon.c_str ());
 
 	// Icon urls
+	IconUrls iurls;
 	str = doc.get_value (XapianValues::ICON_URLS);
-	gchar **icon_urls = g_strsplit (str.c_str (), "\n", -1);
+	iurls.ParseFromString (str);
 	GHashTable *cpt_icon_urls = as_component_get_icon_urls (cpt);
-	for (uint i = 0; icon_urls[i] != NULL; i += 2) {
-		/* icon-urls are stored in form of "size \n url"
-		 * A "size" is a string in the form of "WIDTHxHEIGHT", e.g. "64x64"
-		 */
-		if (icon_urls[i+1] == NULL)
-			break;
-		g_hash_table_insert (cpt_icon_urls, g_strdup (icon_urls[i]), g_strdup (icon_urls[i+1]));
+	for (int i = 0; i < iurls.icon_size (); i++) {
+		const IconUrls_Icon& icon = iurls.icon (i);
+
+		g_hash_table_insert (cpt_icon_urls,
+					g_strdup (icon.size ().c_str ()),
+					g_strdup (icon.url ().c_str ()));
 	}
-	g_strfreev (icon_urls);
 
 	// Summary
 	string appSummary = doc.get_value (XapianValues::SUMMARY);
@@ -239,22 +238,52 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_developer_name (cpt, developerName.c_str (), NULL);
 
 	// Releases data
-	string releases_xml = doc.get_value (XapianValues::RELEASES);
-	as_component_load_releases_from_internal_xml (cpt, releases_xml.c_str ());
+	Releases pb_rels;
+	str = doc.get_value (XapianValues::RELEASES);
+	pb_rels.ParseFromString (str);
+	for (int i = 0; i < pb_rels.release_size (); i++) {
+		const Releases_Release& pb_rel = pb_rels.release (i);
+		AsRelease *rel = as_release_new ();
+		as_release_set_active_locale (rel, m_dbLocale.c_str ());
+
+		as_release_set_version (rel, pb_rel.version ().c_str ());
+		as_release_set_timestamp (rel, pb_rel.unix_timestamp ());
+
+		if (pb_rel.has_description ())
+			as_release_set_description (rel, pb_rel.description ().c_str (), NULL);
+
+		for (int j = 0; j < pb_rel.location_size (); j++)
+			as_release_add_location (rel, pb_rel.location (j).c_str ());
+
+		for (int j = 0; j < pb_rel.checksum_size (); j++) {
+			const Releases_Checksum& pb_cs = pb_rel.checksum (j);
+			AsChecksumKind cskind;
+			cskind = (AsChecksumKind) pb_cs.type ();
+			if (cskind >= AS_CHECKSUM_KIND_LAST) {
+				g_warning ("Found invalid checksum type in database for component '%s'", id_str.c_str ());
+				continue;
+			}
+			as_release_set_checksum (rel, pb_cs.value ().c_str (), cskind);
+		}
+
+		as_component_add_release (cpt, rel);
+		g_object_unref (rel);
+	}
 
 	// Languages
+	Languages langs;
 	str = doc.get_value (XapianValues::LANGUAGES);
-	gchar **lang_data = g_strsplit (str.c_str (), "\n", -1);
-	for (uint i = 0; lang_data[i] != NULL; i += 2) {
-		gint64 percentage;
-		/* language information is stored in form of "locale \n <percentage:int>" (so we just need one stringsplit) */
-		if (lang_data[i+1] == NULL)
-			break;
-		percentage = g_ascii_strtoll (lang_data[i+1], NULL, 10);
-		as_component_add_language (cpt, lang_data[i], percentage);
+	langs.ParseFromString (str);
+	for (int i = 0; i < langs.language_size (); i++) {
+		const Languages_Language& lang = langs.language (i);
+
+		as_component_add_language (cpt,
+					   lang.locale ().c_str (),
+					   lang.percentage ());
 	}
 
 	// TODO: Read out keywords? - actually not necessary, since they're already in the database and used by the search engine
+	//       or do we really need to know what the defined keywords have been for each component?
 
 	return cpt;
 }

@@ -23,10 +23,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <stdlib.h>
-#include <string.h>
-#include <libxml/tree.h>
-#include <libxml/parser.h>
 
 #include "as-utils.h"
 #include "as-utils-private.h"
@@ -326,7 +322,6 @@ as_component_is_valid (AsComponent *cpt)
 {
 	gboolean ret = FALSE;
 	const gchar *cname;
-	gboolean has_candidate;
 	AsComponentKind ctype;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
@@ -335,9 +330,7 @@ as_component_is_valid (AsComponent *cpt)
 		return FALSE;
 	cname = as_component_get_name (cpt);
 
-	has_candidate = (((priv->pkgnames != NULL) && (priv->pkgnames[0] != NULL)) || (g_hash_table_size (priv->bundles) > 0));
-
-	if ((has_candidate) &&
+	if ((as_component_has_install_candidate (cpt)) &&
 		(g_strcmp0 (priv->id, "") != 0) &&
 		(cname != NULL) &&
 		(g_strcmp0 (cname, "") != 0)) {
@@ -370,7 +363,7 @@ as_component_to_string (AsComponent *cpt)
 	gchar *pkgs;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (priv->pkgnames == NULL)
+	if (as_component_has_package (cpt))
 		pkgs = g_strdup ("?");
 	else
 		pkgs = g_strjoinv (",", priv->pkgnames);
@@ -599,161 +592,28 @@ as_component_has_bundle (AsComponent *cpt)
 }
 
 /**
- * as_component_xml_add_release_subnodes:
+ * as_component_has_package:
+ * @cpt: a #AsComponent instance.
  *
- * Add release nodes to a root node
- */
-void
-as_component_xml_add_release_subnodes (AsComponent *cpt, xmlNode *root)
+ * Internal function.
+ **/
+gboolean
+as_component_has_package (AsComponent *cpt)
 {
-	GPtrArray* releases;
-	AsRelease *release;
-	guint i;
-
-	releases = as_component_get_releases (cpt);
-	for (i = 0; i < releases->len; i++) {
-		xmlNode *subnode;
-		const gchar *str;
-		gchar *timestamp;
-		GPtrArray *locations;
-		guint j;
-		release = (AsRelease*) g_ptr_array_index (releases, i);
-
-		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
-		xmlNewProp (subnode, (xmlChar*) "version",
-					(xmlChar*) as_release_get_version (release));
-		timestamp = g_strdup_printf ("%ld", as_release_get_timestamp (release));
-		xmlNewProp (subnode, (xmlChar*) "timestamp",
-					(xmlChar*) timestamp);
-		g_free (timestamp);
-
-		/* add location urls */
-		locations = as_release_get_locations (release);
-		for (j = 0; j < locations->len; j++) {
-			gchar *lurl;
-			lurl = (gchar*) g_ptr_array_index (locations, j);
-			xmlNewTextChild (subnode, NULL, (xmlChar*) "location", (xmlChar*) lurl);
-		}
-
-		/* add checksum node */
-		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1) != NULL) {
-			xmlNode *csNode;
-			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
-							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1));
-			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha1");
-		}
-		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256) != NULL) {
-			xmlNode *csNode;
-			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
-							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256));
-			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha256");
-		}
-
-		str = as_release_get_description (release);
-		if (g_strcmp0 (str, "") != 0) {
-			xmlNode* n_desc;
-			n_desc = xmlNewTextChild (subnode, NULL, (xmlChar*) "description", (xmlChar*) str);
-			xmlAddChild (subnode, n_desc);
-		}
-	}
-}
-
-/**
- * as_component_dump_releases_data_xml:
- *
- * Internal function to create XML which gets stored in the AppStream database
- * for releases
- */
-gchar*
-as_component_dump_releases_data_xml (AsComponent *cpt)
-{
-	GPtrArray* releases;
-	xmlDoc *doc;
-	xmlNode *root;
-	gchar *xmlstr = NULL;
-
-	releases = as_component_get_releases (cpt);
-	if (releases->len == 0) {
-		return g_strdup ("");
-	}
-
-	doc = xmlNewDoc ((xmlChar*) NULL);
-	root = xmlNewNode (NULL, (xmlChar*) "releases");
-	xmlDocSetRootElement (doc, root);
-
-	as_component_xml_add_release_subnodes (cpt, root);
-
-	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
-	xmlFreeDoc (doc);
-
-	return xmlstr;
-}
-
-/**
- * as_component_load_releases_from_internal_xml:
- *
- * Internal function to load the releases list
- * using the database-internal XML data.
- */
-void
-as_component_load_releases_from_internal_xml (AsComponent *cpt, const gchar* xmldata)
-{
-	xmlDoc* doc = NULL;
-	xmlNode* root = NULL;
-	xmlNode *iter;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return (priv->pkgnames != NULL) && (priv->pkgnames[0] != NULL);
+}
 
-	g_return_if_fail (xmldata != NULL);
-
-	if (as_str_empty (xmldata)) {
-		return;
-	}
-
-	doc = xmlParseDoc ((xmlChar*) xmldata);
-	root = xmlDocGetRootElement (doc);
-
-	if (root == NULL) {
-		xmlFreeDoc (doc);
-		return;
-	}
-
-	for (iter = root->children; iter != NULL; iter = iter->next) {
-		if (g_strcmp0 ((gchar*) iter->name, "release") == 0) {
-			AsRelease *release;
-			gchar *prop;
-			guint64 timestamp;
-			xmlNode *iter2;
-			release = as_release_new ();
-
-			/* propagate locale */
-			as_release_set_active_locale (release, priv->active_locale);
-
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
-			as_release_set_version (release, prop);
-			g_free (prop);
-
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "timestamp");
-			timestamp = g_ascii_strtoll (prop, NULL, 10);
-			as_release_set_timestamp (release, timestamp);
-			g_free (prop);
-
-			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
-				if (iter->type != XML_ELEMENT_NODE)
-					continue;
-
-				if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
-					gchar *content;
-					content = (gchar*) xmlNodeGetContent (iter2);
-					as_release_set_description (release, content, NULL);
-					g_free (content);
-					break;
-				}
-			}
-
-			as_component_add_release (cpt, release);
-			g_object_unref (release);
-		}
-	}
+/**
+ * as_component_has_install_candidate:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: %TRUE if the component has an installable component (package, bundle, ...) set.
+ **/
+gboolean
+as_component_has_install_candidate (AsComponent *cpt)
+{
+	return as_component_has_bundle (cpt) || as_component_has_package (cpt);
 }
 
 /**
@@ -1678,8 +1538,8 @@ as_component_add_language (AsComponent *cpt, const gchar *locale, gint percentag
 	if (locale == NULL)
 		locale = "C";
 	g_hash_table_insert (priv->languages,
-						 g_strdup (locale),
-						 GINT_TO_POINTER (percentage));
+				g_strdup (locale),
+				GINT_TO_POINTER (percentage));
 }
 
 /**
@@ -1861,7 +1721,7 @@ as_component_complete (AsComponent *cpt, gchar *scr_base_url, gchar **icon_paths
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
-	if ((priv->screenshots->len == 0) && (priv->pkgnames != NULL)) {
+	if ((priv->screenshots->len == 0) && (as_component_has_package (cpt))) {
 		gchar *url;
 		AsImage *img;
 		AsScreenshot *sshot;

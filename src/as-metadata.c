@@ -1405,6 +1405,66 @@ as_metadata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 }
 
 /**
+ * as_metadata_add_release_subnodes:
+ *
+ * Add release nodes to a root node
+ */
+static void
+as_metadata_add_release_subnodes (AsComponent *cpt, xmlNode *root)
+{
+	GPtrArray* releases;
+	AsRelease *release;
+	guint i;
+
+	releases = as_component_get_releases (cpt);
+	for (i = 0; i < releases->len; i++) {
+		xmlNode *subnode;
+		const gchar *str;
+		gchar *timestamp;
+		GPtrArray *locations;
+		guint j;
+		release = (AsRelease*) g_ptr_array_index (releases, i);
+
+		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
+		xmlNewProp (subnode, (xmlChar*) "version",
+					(xmlChar*) as_release_get_version (release));
+		timestamp = g_strdup_printf ("%ld", as_release_get_timestamp (release));
+		xmlNewProp (subnode, (xmlChar*) "timestamp",
+					(xmlChar*) timestamp);
+		g_free (timestamp);
+
+		/* add location urls */
+		locations = as_release_get_locations (release);
+		for (j = 0; j < locations->len; j++) {
+			gchar *lurl;
+			lurl = (gchar*) g_ptr_array_index (locations, j);
+			xmlNewTextChild (subnode, NULL, (xmlChar*) "location", (xmlChar*) lurl);
+		}
+
+		/* add checksum node */
+		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1) != NULL) {
+			xmlNode *csNode;
+			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
+							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1));
+			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha1");
+		}
+		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256) != NULL) {
+			xmlNode *csNode;
+			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
+							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256));
+			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha256");
+		}
+
+		str = as_release_get_description (release);
+		if (g_strcmp0 (str, "") != 0) {
+			xmlNode* n_desc;
+			n_desc = xmlNewTextChild (subnode, NULL, (xmlChar*) "description", (xmlChar*) str);
+			xmlAddChild (subnode, n_desc);
+		}
+	}
+}
+
+/**
  * as_metadata_component_to_node:
  * @cpt: a valid #AsComponent
  *
@@ -1514,7 +1574,7 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	releases = as_component_get_releases (cpt);
 	if (releases->len > 0) {
 		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "releases", NULL);
-		as_component_xml_add_release_subnodes (cpt, node);
+		as_metadata_add_release_subnodes (cpt, node);
 	}
 
 	/* screenshots node */

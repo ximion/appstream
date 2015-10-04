@@ -23,35 +23,30 @@
 
 #include <glib-object.h>
 #include "as-component.h"
-#include <libxml/tree.h>
 
 G_BEGIN_DECLS
 
-gchar				*as_component_dump_releases_data_xml (AsComponent *cpt);
-void				as_component_load_releases_from_internal_xml (AsComponent *cpt,
-										const gchar* xmldata);
+int			as_component_get_priority (AsComponent *cpt);
+void			as_component_set_priority (AsComponent *cpt,
+							int priority);
 
-int				as_component_get_priority (AsComponent *cpt);
-void				as_component_set_priority (AsComponent *cpt,
-								int priority);
+GHashTable		*as_component_get_languages_map (AsComponent *cpt);
 
-GHashTable			*as_component_get_languages_map (AsComponent *cpt);
+void			as_component_complete (AsComponent *cpt,
+						gchar *scr_base_url,
+						gchar **icon_paths);
 
-void				as_component_complete (AsComponent *cpt,
-							gchar *scr_base_url,
-							gchar **icon_paths);
+GHashTable		*as_component_get_name_table (AsComponent *cpt);
+GHashTable		*as_component_get_summary_table (AsComponent *cpt);
+GHashTable		*as_component_get_description_table (AsComponent *cpt);
+GHashTable		*as_component_get_developer_name_table (AsComponent *cpt);
+GHashTable		*as_component_get_keywords_table (AsComponent *cpt);
+void			as_component_set_bundles_table (AsComponent *cpt,
+							GHashTable *bundles);
 
-void				as_component_xml_add_release_subnodes (AsComponent *cpt,
-										xmlNode *root);
-
-GHashTable			*as_component_get_name_table (AsComponent *cpt);
-GHashTable			*as_component_get_summary_table (AsComponent *cpt);
-GHashTable			*as_component_get_description_table (AsComponent *cpt);
-GHashTable			*as_component_get_developer_name_table (AsComponent *cpt);
-GHashTable			*as_component_get_keywords_table (AsComponent *cpt);
-void				as_component_set_bundles_table (AsComponent *cpt,
-								GHashTable *bundles);
-gboolean			as_component_has_bundle (AsComponent *cpt);
+gboolean		as_component_has_bundle (AsComponent *cpt);
+gboolean		as_component_has_package (AsComponent *cpt);
+gboolean		as_component_has_install_candidate (AsComponent *cpt);
 
 G_END_DECLS
 

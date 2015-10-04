@@ -45,6 +45,22 @@ message Bundles {
 }
 
 /**
+ * IconUrls:
+ * A list of preprocessed, absolute icon urls.
+ * The definition of icons can be found at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-icon
+ * (we only care about the url-types here)
+ */
+message IconUrls {
+  message Icon {
+    required string size = 1;
+    required string url = 2;
+  }
+
+  repeated Icon icon = 1;
+}
+
+/**
  * Screenshots:
  * A list of screenshot definitions, origin XML described at:
  * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-screenshots
@@ -85,7 +101,7 @@ message ProvidedItems {
 message Languages {
   message Language {
     required string locale = 1;
-    required int32 completion = 2 [default = 0];
+    required int32 percentage = 2 [default = 0];
   }
 
   repeated Language language = 1;
@@ -97,10 +113,23 @@ message Languages {
  * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-releases
  */
 message Releases {
+  enum ChecksumType {
+    NONE = 0;
+    SHA1 = 1;
+    SHA256 = 2;
+  }
+
+  message Checksum {
+    required ChecksumType type = 1 [default = NONE];
+    required string value = 2;
+  }
+
   message Release {
     required string version  = 1;
     required int64 unix_timestamp = 2;
-    required string description = 3;
+    repeated Checksum checksum = 3;
+    optional string description = 4;
+    repeated string location = 5;
   }
 
   repeated Release release = 1;

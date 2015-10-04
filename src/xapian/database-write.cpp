@@ -65,16 +65,15 @@ DatabaseWrite::initialize (const gchar *dbPath)
 	return true;
 }
 
+/**
+ * Helper function to serialize language completion information for storage in the database
+ */
 static void
-string_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
+langs_hashtable_to_langentry (gchar *key, gint value, Languages *pb_langs)
 {
-	g_string_append_printf (gstr, "%s\n%s\n", key, value);
-}
-
-static void
-langs_hashtable_to_str (gchar *key, gint value, GString *gstr)
-{
-	g_string_append_printf (gstr, "%s\n%i\n", key, value);
+	Languages_Language *pb_lang = pb_langs->add_language ();
+	pb_lang->set_locale (key);
+	pb_lang->set_percentage (value);
 }
 
 /**
@@ -97,6 +96,17 @@ urls_hashtable_to_urlentry (gchar *key, gchar *value, Urls *urls)
 	Urls_Url *url = urls->add_url ();
 	url->set_type ((Urls_UrlType) as_url_kind_from_string (key));
 	url->set_url (value);
+}
+
+/**
+ * Helper function to serialize icon urls for storage in the database
+ */
+static void
+icon_urls_hashtable_to_iconentry (gchar *key, gchar *value, IconUrls *iurls)
+{
+	IconUrls_Icon *icon = iurls->add_icon ();
+	icon->set_size (key);
+	icon->set_url (value);
 }
 
 /**
@@ -169,36 +179,39 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 	for (GList *list = cpt_list; list != NULL; list = list->next) {
 		AsComponent *cpt = (AsComponent*) list->data;
-		GString *gstr;
 
 		Xapian::Document doc;
 		term_generator.set_document (doc);
 
 		doc.set_data (as_component_get_name (cpt));
 
-		// Package name
-		gchar **pkgs = as_component_get_pkgnames (cpt);
-		if (pkgs == NULL) {
-			g_warning ("Skipped component '%s' from inclusion into database: Does not have package name(s) defined.",
+		// Sanity check
+		if (!as_component_has_install_candidate (cpt)) {
+			g_warning ("Skipped component '%s' from inclusion into database: Does not have an installation candidate.",
 					   as_component_get_id (cpt));
 			continue;
 		}
-		gchar *pkgs_cstr = g_strjoinv (";", pkgs);
-		string pkgs_str = pkgs_cstr;
-		doc.add_value (XapianValues::PKGNAMES, pkgs_str);
-		g_free (pkgs_cstr);
 
-		for (uint i = 0; pkgs[i] != NULL; i++) {
-			string pkgname = pkgs[i];
-			doc.add_term("AP" + pkgname);
-			if (pkgname.find ("-") != string::npos) {
-				// we need this to work around xapian oddness
-				string tmp = pkgname;
-				replace (tmp.begin(), tmp.end(), '-', '_');
-				doc.add_term (tmp);
+		// Package name
+		gchar **pkgs = as_component_get_pkgnames (cpt);
+		if (pkgs != NULL) {
+			gchar *pkgs_cstr = g_strjoinv (";", pkgs);
+			string pkgs_str = pkgs_cstr;
+			doc.add_value (XapianValues::PKGNAMES, pkgs_str);
+			g_free (pkgs_cstr);
+
+			for (uint i = 0; pkgs[i] != NULL; i++) {
+				string pkgname = pkgs[i];
+				doc.add_term("AP" + pkgname);
+				if (pkgname.find ("-") != string::npos) {
+					// we need this to work around xapian oddness
+					string tmp = pkgname;
+					replace (tmp.begin(), tmp.end(), '-', '_');
+					doc.add_term (tmp);
+				}
+				// add packagename as meta-data too
+				term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 			}
-			// add packagename as meta-data too
-			term_generator.index_text_without_positions (pkgname, WEIGHT_PKGNAME);
 		}
 
 		// Source package name
@@ -221,8 +234,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// Bundles
 		Bundles bundles;
-		GHashTable *bundle_ids;
-		bundle_ids = as_component_get_bundle_ids (cpt);
+		GHashTable *bundle_ids = as_component_get_bundle_ids (cpt);
 		if (g_hash_table_size (bundle_ids) > 0) {
 			string ostr;
 			g_hash_table_foreach (bundle_ids,
@@ -260,12 +272,15 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_value (XapianValues::ORIGIN, cptOrigin);
 
 		// URLs
-		Urls urls;
 		GHashTable *urls_table;
 		urls_table = as_component_get_urls (cpt);
 		if (g_hash_table_size (urls_table) > 0) {
+			Urls urls;
 			string ostr;
-			g_hash_table_foreach (urls_table, (GHFunc) urls_hashtable_to_urlentry, &urls);
+
+			g_hash_table_foreach (urls_table,
+						(GHFunc) urls_hashtable_to_urlentry,
+						&urls);
 			if (urls.SerializeToString (&ostr))
 				doc.add_value (XapianValues::URLS, ostr);
 		}
@@ -279,15 +294,14 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		GHashTable *icon_urls;
 		icon_urls = as_component_get_icon_urls (cpt);
 		if (g_hash_table_size (icon_urls) > 0) {
-			gchar *cstr;
-			gstr = g_string_new ("");
-			g_hash_table_foreach(icon_urls, (GHFunc) string_hashtable_to_str, gstr);
-			if (gstr->len > 0)
-				g_string_truncate (gstr, gstr->len - 1);
+			IconUrls iurls;
+			string ostr;
 
-			cstr = g_string_free (gstr, FALSE);
-			doc.add_value (XapianValues::ICON_URLS, cstr);
-			g_free (cstr);
+			g_hash_table_foreach(icon_urls,
+						(GHFunc) icon_urls_hashtable_to_iconentry,
+						&iurls);
+			if (iurls.SerializeToString (&ostr))
+				doc.add_value (XapianValues::ICON_URLS, ostr);
 		}
 
 		// Summary
@@ -354,6 +368,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			AsScreenshot *sshot = (AsScreenshot*) g_ptr_array_index (sslist, i);
 			Screenshots_Screenshot *pb_sshot = screenshots.add_screenshot ();
 
+			pb_sshot->set_primary (false);
 			if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
 				pb_sshot->set_primary (true);
 
@@ -364,9 +379,9 @@ DatabaseWrite::rebuild (GList *cpt_list)
 						(GFunc) images_array_to_imageentry,
 						pb_sshot);
 		}
-		string ostr;
-		if (screenshots.SerializeToString (&ostr))
-			doc.add_value (XapianValues::SCREENSHOTS, ostr);
+		string scr_ostr;
+		if (screenshots.SerializeToString (&scr_ostr))
+			doc.add_value (XapianValues::SCREENSHOTS, scr_ostr);
 
 		// Add compulsory-for-desktop information
 		gchar **compulsory = as_component_get_compulsory_for_desktops (cpt);
@@ -394,22 +409,54 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		if (developer_name != NULL)
 			doc.add_value (XapianValues::DEVELOPER_NAME, developer_name);
 
-		// Add releases information (XML data)
-		doc.add_value (XapianValues::RELEASES, as_component_dump_releases_data_xml (cpt));
+		// Add releases information
+		Releases pb_rels;
+		GPtrArray *releases = as_component_get_releases (cpt);
+		for (uint i = 0; i < releases->len; i++) {
+			AsRelease *rel = (AsRelease*) g_ptr_array_index (releases, i);
+			Releases_Release *pb_rel = pb_rels.add_release ();
+
+			pb_rel->set_version (as_release_get_version (rel));
+			pb_rel->set_unix_timestamp (as_release_get_timestamp (rel));
+
+			// add location urls
+			GPtrArray *locations = as_release_get_locations (rel);
+			for (uint j = 0; j < locations->len; j++) {
+				pb_rel->add_location ((gchar*) g_ptr_array_index (locations, j));
+			}
+
+			// add checksum info
+			if (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA1) != NULL) {
+				Releases_Checksum *pb_cs = pb_rel->add_checksum ();
+				pb_cs->set_type (Releases_ChecksumType_SHA1);
+				pb_cs->set_value (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA1));
+			}
+			if (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA256) != NULL) {
+				Releases_Checksum *pb_cs = pb_rel->add_checksum ();
+				pb_cs->set_type (Releases_ChecksumType_SHA256);
+				pb_cs->set_value (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA256));
+			}
+
+			if (as_release_get_description (rel) != NULL)
+				pb_rel->set_description (as_release_get_description (rel));
+		}
+		string rel_ostr;
+		if (pb_rels.SerializeToString (&rel_ostr))
+			doc.add_value (XapianValues::RELEASES, rel_ostr);
 
 		// Languages
 		GHashTable *langs_table;
 		langs_table = as_component_get_languages_map (cpt);
 		if (g_hash_table_size (langs_table) > 0) {
-			gchar *cstr;
-			gstr = g_string_new ("");
-			g_hash_table_foreach (langs_table, (GHFunc) langs_hashtable_to_str, gstr);
-			if (gstr->len > 0)
-				g_string_truncate (gstr, gstr->len - 1);
+			Languages pb_langs;
+			string ostr;
 
-			cstr = g_string_free (gstr, FALSE);
-			doc.add_value (XapianValues::LANGUAGES, cstr);
-			g_free (cstr);
+			g_hash_table_foreach (langs_table,
+						(GHFunc) langs_hashtable_to_langentry,
+						&pb_langs);
+
+			if (pb_rels.SerializeToString (&ostr))
+				doc.add_value (XapianValues::LANGUAGES, ostr);
 		}
 
 		// Postprocess
