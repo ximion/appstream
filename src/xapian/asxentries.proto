@@ -1,7 +1,11 @@
 package AppStream;
 option optimize_for = LITE_RUNTIME;
 
-/* =================================== */
+/**
+ * Urls:
+ * A list of urls, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-url
+ */
 message Urls {
   enum UrlType {
     UNKNOWN = 0;
@@ -20,7 +24,11 @@ message Urls {
   repeated Url url = 1;
 }
 
-/* =================================== */
+/**
+ * Bundles:
+ * A list of bundles, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-bundle
+ */
 message Bundles {
   enum BundleType {
     UNKNOWN = 0;
@@ -36,7 +44,11 @@ message Bundles {
   repeated Bundle bundle = 1;
 }
 
-/* =================================== */
+/**
+ * Screenshots:
+ * A list of screenshot definitions, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-screenshots
+ */
 message Screenshots {
   message Image {
     required int32 width  = 1;
@@ -46,19 +58,30 @@ message Screenshots {
 
   message Screenshot {
     required bool primary = 1 [default = false];
-    required Image source_image = 2;
-    repeated Image thumbnail = 3;
+    optional string caption = 2;
+    required Image source_image = 3;
+    repeated Image thumbnail = 4;
   }
 
   repeated Screenshot screenshot = 1;
 }
 
-/* =================================== */
+/**
+ * ProvidedItems:
+ * A list of provided items. We use the semicolon-separated provided-type
+ * serialization here.
+ * The definition of provided-items can be found at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-provides
+ */
 message ProvidedItems {
   repeated string item = 1;
 }
 
-/* =================================== */
+/**
+ * Languages:
+ * A list of localization information, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-languages
+ */
 message Languages {
   message Language {
     required string locale = 1;
@@ -66,4 +89,19 @@ message Languages {
   }
 
   repeated Language language = 1;
+}
+
+/**
+ * Releases:
+ * A list of information about releases, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-releases
+ */
+message Releases {
+  message Release {
+    required string version  = 1;
+    required int64 unix_timestamp = 2;
+    required string description = 3;
+  }
+
+  repeated Release release = 1;
 }
