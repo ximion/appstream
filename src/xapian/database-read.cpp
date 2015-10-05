@@ -120,17 +120,6 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	string cptOrigin = doc.get_value (XapianValues::ORIGIN);
 	as_component_set_origin (cpt, cptOrigin.c_str ());
 
-	// URLs
-	Urls urls;
-	str = doc.get_value (XapianValues::URLS);
-	urls.ParseFromString (str);
-	for (int i = 0; i < urls.url_size (); i++) {
-		const Urls_Url& url = urls.url (i);
-		AsUrlKind ukind = (AsUrlKind) url.type ();
-		if (ukind != AS_URL_KIND_UNKNOWN)
-			as_component_add_url (cpt, ukind, url.url ().c_str ());
-	}
-
 	// Bundles
 	Bundles bundles;
 	str = doc.get_value (XapianValues::BUNDLES);
@@ -140,6 +129,17 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		AsBundleKind bkind = (AsBundleKind) bdl.type ();
 		if (bkind != AS_BUNDLE_KIND_UNKNOWN)
 			as_component_add_bundle_id (cpt, bkind, bdl.id ().c_str ());
+	}
+
+	// URLs
+	Urls urls;
+	str = doc.get_value (XapianValues::URLS);
+	urls.ParseFromString (str);
+	for (int i = 0; i < urls.url_size (); i++) {
+		const Urls_Url& url = urls.url (i);
+		AsUrlKind ukind = (AsUrlKind) url.type ();
+		if (ukind != AS_URL_KIND_UNKNOWN)
+			as_component_add_url (cpt, ukind, url.url ().c_str ());
 	}
 
 	// Stock icon
