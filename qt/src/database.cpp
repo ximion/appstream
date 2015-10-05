@@ -128,11 +128,12 @@ Component xapianDocToComponent(Xapian::Document document) {
     for (int i = 0; i < pb_bundles.bundle_size (); i++) {
         const Bundles_Bundle& bdl = pb_bundles.bundle (i);
         auto bkind = (Component::BundleKind) bdl.type ();
+        auto bdlid = QString::fromStdString(bdl.id ());
 
         if (bkind != Component::BundleKindUnknown) {
-            bundles.insertMulti(bkind, QString::fromStdString(bdl.id ()));
+            bundles.insertMulti(bkind, bdlid);
         } else {
-            qCWarning(APPSTREAMQT_DB, "Found bundle of unknown type for '%s': %s", qPrintable(id), bdl.id ());
+            qCWarning(APPSTREAMQT_DB, "Found bundle of unknown type for '%s': %s", qPrintable(id), qPrintable(bdlid));
         }
 
     }
