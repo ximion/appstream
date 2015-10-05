@@ -45,9 +45,11 @@ class Appstream::DatabasePrivate {
     public:
         DatabasePrivate(const QString& dbpath) : m_dbPath(dbpath) {
         }
+
         QString m_dbPath;
         QString m_errorString;
         Xapian::Database m_db;
+
         bool open() {
             try {
                 m_db = Xapian::Database (m_dbPath.trimmed().toStdString());
@@ -55,8 +57,16 @@ class Appstream::DatabasePrivate {
                 m_errorString = QString::fromStdString (error.get_msg());
                 return false;
             }
+
+            int schemaVersion = stoi (m_db.get_metadata ("db-schema-version"));
+            if (schemaVersion != AS_DB_SCHEMA_VERSION) {
+                qCWarning(APPSTREAMQT_DB, "Attempted to open an old version of the AppStream cache. Please refresh the cache and try again!");
+                return false;
+            }
+
             return true;
         }
+
         ~DatabasePrivate() {
             m_db.close();
         }
