@@ -1,6 +1,7 @@
 /*
  * Part of Appstream, a library for accessing AppStream on-disk database
- * Copyright 2014  Sune Vuorela <sune@vuorela.dk>
+ * Copyright (C) 2014  Sune Vuorela <sune@vuorela.dk>
+ * Copyright (C) 2015  Matthias Klumpp <matthias@tenstral.net>
  *
  * Based upon database-read.hpp
  * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
@@ -109,29 +110,53 @@ Component xapianDocToComponent(Xapian::Document document) {
     QStringList packageNames = value(document,XapianValues::PKGNAMES).split(";",QString::SkipEmptyParts);
     component.setPackageNames(packageNames);
 
-    // URLs
-    QString concatUrlStrings = value(document, XapianValues::URLS);
-    QStringList urlStrings = concatUrlStrings.split('\n',QString::SkipEmptyParts);
-    if(urlStrings.size() %2 == 0) {
-        QMultiHash<Component::UrlKind, QUrl> urls;
-        for(int i = 0; i < urlStrings.size(); i=i+2) {
-            Component::UrlKind ukind = Component::stringToUrlKind(urlStrings.at(i));
-            QUrl url = QUrl::fromUserInput(urlStrings.at(i+1));
-            urls.insertMulti(ukind, url);
+    // Bundles
+    ASCache::Bundles pb_bundles;
+    str = document.get_value (XapianValues::BUNDLES);
+    pb_bundles.ParseFromString (str);
+    QHash<Component::BundleKind, QString> bundles;
+    for (int i = 0; i < pb_bundles.bundle_size (); i++) {
+        const Bundles_Bundle& bdl = pb_bundles.bundle (i);
+        auto bkind = (Component::BundleKind) bdl.type ();
+
+        if (bkind != Component::BundleKindUnknown) {
+            bundles.insertMulti(bkind, QString::fromStdString(bdl.id ()));
+        } else {
+            qCWarning(APPSTREAMQT_DB, "Found bundle of unknown type for '%s': %s", qPrintable(id), bdl.id ());
         }
-        component.setUrls(urls);
-    } else {
-        qCWarning(APPSTREAMQT_DB, "Bad url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatUrlStrings));
+
     }
+    component.setBundles(bundles);
+
+    // URLs
+    ASCache::Urls pb_urls;
+    str = document.get_value (XapianValues::URLS);
+    pb_urls.ParseFromString (str);
+    QMultiHash<Component::UrlKind, QUrl> urls;
+    for (int i = 0; i < pb_urls.url_size (); i++) {
+        const Urls_Url& pb_url = pb_urls.url (i);
+        auto ukind = (Component::UrlKind) pb_url.type ();
+        QUrl url = QUrl::fromUserInput(url.url ());
+
+        if (ukind != Component::UrlKindUnknown) {
+            urls.insertMulti(ukind, url);
+        } else {
+            qCWarning(APPSTREAMQT_DB, "URL of unknown type found for '%s': %s", qPrintable(id), qPrintable(url.toString()));
+        }
+    }
+    component.setUrls(urls);
 
     // Provided items
-    QString concatProvides = value(document, XapianValues::PROVIDED_ITEMS);
-    QStringList providesList = concatProvides.split('\n',QString::SkipEmptyParts);
+    ASCache::ProvidedItems pb_pitems;
+    str = document.get_value (XapianValues::PROVIDED_ITEMS);
+    pb_pitems.ParseFromString (str);
     QList<Provides> provideslist;
-    Q_FOREACH(const QString& string, providesList) {
-        QStringList providesParts = string.split(';',QString::SkipEmptyParts);
+    for (int i = 0; i < pb_pitems.item_size (); i++) {
+        const QString& itemData = QString::fromStdString(pb_pitems.item (i));
+
+        QStringList providesParts = itemData.split(';',QString::SkipEmptyParts);
         if(providesParts.size() < 2) {
-            qCWarning(APPSTREAMQT_DB, "Bad component parts for component: '%s' (%s)", qPrintable(id), qPrintable(string));
+            qCWarning(APPSTREAMQT_DB, "Bad component parts for component: '%s' (%s)", qPrintable(id), qPrintable(itemData));
             continue;
         }
         QString kindString = providesParts.takeFirst();
@@ -145,21 +170,6 @@ Component xapianDocToComponent(Xapian::Document document) {
         provideslist << provides;
     }
     component.setProvides(provideslist);
-
-    // Bundles
-    QString concatBundleIds = value(document, XapianValues::BUNDLES);
-    QStringList bundleIds = concatBundleIds.split('\n',QString::SkipEmptyParts);
-    if(bundleIds.size() %2 == 0) {
-        QHash<Component::BundleKind, QString> bundles;
-        for(int i = 0; i < bundleIds.size(); i=i+2) {
-            Component::BundleKind bkind = Component::stringToBundleKind(bundleIds.at(i));
-            QString bdid = QString(bundleIds.at(i+1));
-            bundles.insertMulti(bkind, bdid);
-        }
-        component.setBundles(bundles);
-    } else {
-        qCWarning(APPSTREAMQT_DB, "Bad bundle strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatBundleIds));
-    }
 
     // Stock icon
     QString icon = value(document,XapianValues::ICON);
@@ -192,7 +202,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setCategories(categories);
 
     // Screenshots
-    Screenshots pb_scrs;
+    ASCache::Screenshots pb_scrs;
     str = document.get_value (XapianValues::SCREENSHOTS);
     pb_scrs.ParseFromString (str);
     QList<Appstream::Screenshot> screenshots;
