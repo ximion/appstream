@@ -37,13 +37,14 @@ using namespace std;
 using namespace ASCache;
 
 DatabaseRead::DatabaseRead () :
-    m_xapianDB(nullptr)
+    m_dbPath("")
 {
 
 }
 
 DatabaseRead::~DatabaseRead ()
 {
+	m_xapianDB.close ();
 }
 
 bool

@@ -38,13 +38,14 @@ using namespace std;
 using namespace ASCache;
 
 DatabaseWrite::DatabaseWrite () :
-    m_rwXapianDB(0)
+    m_rwXapianDB(nullptr)
 {
 }
 
 DatabaseWrite::~DatabaseWrite ()
 {
 	if (m_rwXapianDB) {
+		m_rwXapianDB->close ();
 		delete m_rwXapianDB;
 	}
 }
