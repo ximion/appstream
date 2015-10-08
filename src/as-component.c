@@ -377,6 +377,11 @@ as_component_to_string (AsComponent *cpt)
 			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
 			break;
 		}
+		case AS_COMPONENT_KIND_UNKNOWN:
+		{
+			res = g_strdup_printf ("[UNKNOWN::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
+			break;
+		}
 		default:
 		{
 			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
