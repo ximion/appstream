@@ -16,6 +16,10 @@ set(INTROSPECTION_COMPILER_ARGS "--includedir=${CMAKE_CURRENT_SOURCE_DIR}")
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 set(AS_VERSION_BASE "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
+if (PROTOBUF_PROTOC_EXECUTABLE STREQUAL "PROTOBUF_PROTOC_EXECUTABLE-NOTFOUND")
+	message (FATAL_ERROR "ProtoBuf compiler (protoc) was not found!")
+endif ()
+
 protobuf_generate_cpp(AS_PROTO_SRCS AS_PROTO_HDRS xapian/asxentries.proto)
 
 set(ASLIB_XAP_SOURCES ${AS_PROTO_SRCS} ${AS_PROTO_HDRS}
