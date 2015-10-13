@@ -3,13 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Марко М. Костић (Marko M. Kostić) <marko.m.kostic@gmail.com>, 2015
+# Miloš Popović <gpopac@gmail.com>, 2015
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-10-05 11:59+0000\n"
+"Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/freedesktop/"
 "appstream/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -20,198 +23,207 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Vrsta dostavljene stavke (npr. „lib“, „bin“, „python3“, ...)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Izdanje komandne alatke Programskog toka: %s"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "Osvežavanje ostave Programskog toka je uspešno obavljeno."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"Osvežavanje ostave Programskog toka je obavljeno, ali neki metapodaci su "
+"zanemareni zbog grešaka."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Osvežavanje ostave Programskog toka nije uspelo."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Naredbeno sučelje Programskog toka"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Paket"
 
 msgid "Categories"
-msgstr ""
+msgstr "Kategorije"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Naredba „%s“ nije poznata."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Obavezujući za"
 
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Programer"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Ne koristi keš Zapijana (Xapian) prilikom slanja zahteva"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Ne prikazuje obojeni izlaz"
 
 msgid "Dump raw XML metadata for a component matching the ID"
 msgstr ""
+"Izbaci sirove „XML“ metapodatke vezane za komponentu koja se podudara sa IB-"
+"om"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Primorava osvežavanje ostave"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "Nisam pronašao datoteku „%s“ ili su ovlašćenja odbijena!"
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Dobavlja sastojke koji obezbeđuju datu stavku"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Dobavi podatke o komponenti koristeći IB"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Matična stranica"
 
 msgid "Icon"
-msgstr ""
+msgstr "Ikonica"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Odrednik"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
 msgstr ""
+"Neispravna vrsta za izabrano „obezbeđuje-stavku“. Ispravne vrednosti su:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Dozvola"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Ručno postavite mesto metapodataka Programskog toka za ponovno stvaranje "
+"ostave"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Ručno postavite mesto ostave Programskog toka"
 
 msgid "Name"
-msgstr ""
+msgstr "Naziv"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Nisam našao sastojak koji odgovara „%s“."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "Nisam našao sastojak koji obezbeđuje „%s:%s:%s“."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "Nije određena vrednost za „obezbeđuje-stavku“ za traženje."
 
 msgid "Package"
-msgstr ""
+msgstr "Paket"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Ispisuje opširni izlaz o nađenim sastojcima"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Prikaži najmanje sitnice prilikom potvrđivanja"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Grupa projekta"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Obezbeđene stavke"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Ponovo izgrađuje ostavu podataka sastojka"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Pokrenite „%s --help“ da vidite čitav spisak dostupnih opcija linije naredbi."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "Adresa uzorka snimka ekrana"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Pretražuje bazu podataka sastojaka"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Bira vrednost za „obezbeđuje-stavku“ koja treba biti pronađena"
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Prikazuje dodatne podatke pročišćavanja"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Prikazuje izdanje programa"
 
 #. these are commands we can use with appstream-cli
 msgid "Subcommands:"
-msgstr ""
+msgstr "Podnaredbe:"
 
 msgid "Summary"
-msgstr ""
+msgstr "Sažetak"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Ne mogu da pronađem sastojak koji odgovara „%s“!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "Ne mogu da pronađem sastojak koji obezbeđuje „%s:%s:%s“!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Ne mogu da pronađem sastojak sa ib-om „%s“!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Proverite da li postoje greške u „XML“ datotekama Programskog toka"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Potvrdite da li instalirano stablo datoteka programa ima ispravne metapodatke"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Potvrđivanje nije uspelo."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Potvrđivanje je uspelo."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "IksML datoteka „%s“ IksDG izbornika je oštećena."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Morate da pokrenete ovu naredbu sa ovlašćenjima administratora!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Morate da navedete naredbu."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Morate da navedete ib sastojka."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Morate da navedete datoteku za potvrđivanje!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Morate navesti fasciklu najvišeg nivoa za počinjanje potvrđivanja!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Morate da navedete pojam za traženje."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -221,3 +233,5 @@ msgstr ""
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+"app;application;package;program;programme;suite;tool;app;aplikacija;paket;"
+"program;komplet;alat;aplikacija;komplet;alat"

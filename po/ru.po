@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-09-10 13:29+0000\n"
+"Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -26,7 +26,7 @@ msgstr "Тип «provides-item» (например, lib, bin, python3, …)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Версия AppStream CLI-программы: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
@@ -45,7 +45,7 @@ msgstr "Обновление кэша AppStream прошло неудачно"
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Интерфейс командной строки AppStream"
 
 msgid "Bundle"
 msgstr "Пакет"
@@ -68,13 +68,15 @@ msgid "Developer"
 msgstr "Разработчик"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Не использовать Xapian кэш при выполнении запроса"
 
 msgid "Don't show colored output"
 msgstr "Не показывать цветной вывод"
 
 msgid "Dump raw XML metadata for a component matching the ID"
 msgstr ""
+"Выдать необработанные XML-данные для компонента с соответствующим "
+"идентификатором"
 
 msgid "Enforce a cache refresh"
 msgstr "Принудительно обновить кэш"
@@ -87,7 +89,7 @@ msgid "Get components which provide the given item"
 msgstr "Получить компоненты, которые предоставляют данный элемент"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Получить информацию о компоненте по его идентификатору"
 
 msgid "Homepage"
 msgstr "Домашняя станица"
@@ -133,7 +135,7 @@ msgid "Print detailed output about found components"
 msgstr "Напечатать подробный вывод о найденных компонентах"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Выводить даже мельчайшие неточности при проверке"
 
 #. project group
 msgid "Project Group"
@@ -187,16 +189,17 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Не удаётся найти компоненту с идентификатором '%s'!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Проверить файлы XML AppStream на недостатки"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Проверять установленную иерархию файлов приложения на корректность метаданных"
 
 msgid "Validation failed."
 msgstr "Проверка прошла неудачно"
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Проверка успешно пройдена."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -215,7 +218,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Вы должны указать файл для проверки!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Вы должны указать корневой каталог для начала проверки!"
 
 msgid "You need to specify a term to search for."
 msgstr "Вы должны указать термин для поиска."

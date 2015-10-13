@@ -4,14 +4,15 @@
 #
 # Translators:
 # Shinjo Park <kde@peremen.name>, 2015
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2015
 # Shinjo Park <kde@peremen.name>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-10-04 17:39+0000\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
 "language/ko/)\n"
 "Language: ko\n"
@@ -25,7 +26,7 @@ msgstr "provides-item 형식(예: lib, bin, python3, ...)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "AppStream CLI 도구 버전: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
@@ -44,7 +45,7 @@ msgstr "AppStream 캐시 업데이트가 실패하였습니다."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "AppStream 명령행 인터페이스"
 
 msgid "Bundle"
 msgstr "번들"
@@ -67,13 +68,13 @@ msgid "Developer"
 msgstr "개발자"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "요청을 수행할 때 Xapian 캐시 활용 안 함"
 
 msgid "Don't show colored output"
 msgstr "출력에 색깔 사용하지 않기"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "구성요소 ID 일치 비교용으로 원시 XML 메타데이터 덤프"
 
 msgid "Enforce a cache refresh"
 msgstr "캐시 강제로 새로 고침"
@@ -86,7 +87,7 @@ msgid "Get components which provide the given item"
 msgstr "주어진 항목을 가져오는 구성 요소 가져오기"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "구성 요소 정보를 ID로 가져오기"
 
 msgid "Homepage"
 msgstr "홈페이지"
@@ -132,7 +133,7 @@ msgid "Print detailed output about found components"
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "검증할 때 세세한 힌트도 출력"
 
 #. project group
 msgid "Project Group"
@@ -184,16 +185,16 @@ msgid "Unable to find component with id '%s'!"
 msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "이슈 처리 용도의 AppStream XML 파일 검증"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
-msgstr ""
+msgstr "메타데이터 검증 용도로 프로그램 설치 파일 트리 검증"
 
 msgid "Validation failed."
 msgstr "검증에 실패하였습니다."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "검증을 끝냈습니다."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -212,7 +213,7 @@ msgid "You need to specify a file to validate!"
 msgstr "검증할 파일을 지정해야 합니다!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "검증을 시작하려면 루트 디렉터리를 지정해야합니다!"
 
 msgid "You need to specify a term to search for."
 msgstr "검색할 항목을 지정해야 합니다."

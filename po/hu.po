@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-09-17 14:41+0000\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -22,9 +22,9 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Egy szolgáltatás-elem típus (például lib, bin, python3, …)"
 
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "AppStream kliens eszköz verzió: %s"
+msgstr "AppStream CLI eszközverzió: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
@@ -66,7 +66,7 @@ msgid "Developer"
 msgstr "Fejlesztő"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
 
 msgid "Don't show colored output"
 msgstr "Ne jelenítsen meg színes kimenetet"
@@ -133,7 +133,7 @@ msgid "Print detailed output about found components"
 msgstr "Részletes kimenet írása a megtalált összetevőről"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Még az akadékoskodó tippeket is nyomtassa ellenőrzéskor"
 
 #. project group
 msgid "Project Group"
@@ -192,6 +192,7 @@ msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Egy alkalmazás telepített fájl-fájnak ellenőrzése az érvényes metaadatoknál"
 
 msgid "Validation failed."
 msgstr "Az ellenőrzés nem sikerült."
@@ -216,7 +217,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Meg kell adnia egy gyökérkönyvtárat az ellenőrzés megkezdéséhez!"
 
 msgid "You need to specify a term to search for."
 msgstr "Meg kell adnia egy kifejezést a kereséshez."

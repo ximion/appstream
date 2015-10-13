@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-10-12 10:35+0000\n"
+"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -19,198 +20,208 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Un tipus provides-item (p. ex. lib, bin, python3, etc.)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Versió de l'eina de la interfície de línia d'ordres de l'AppStream: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr ""
+"S'ha completat correctament l'actualització de la memòria cau de l'AppStream."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"S'ha completat l'actualització de la memòria cau de l'AppStream, però es van "
+"ignorar algunes metadades a causa d'errors."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Ha fallat l'actualització de la memòria cau de l'AppStream."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Interfície de línia d'ordres de l'AppStream"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Agrupació"
 
 msgid "Categories"
-msgstr ""
+msgstr "Categories"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Es desconeix l'ordre «%s»."
 
 msgid "Compulsory for"
-msgstr ""
+msgstr "Obligatori per"
 
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Desenvolupador"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "No utilitzis la memòria cau del Xapian quan facis una petició"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "No mostris una sortida acolorida"
 
 msgid "Dump raw XML metadata for a component matching the ID"
 msgstr ""
+"Bolca les metadades XML en pla per a un component que coincideixi amb l'id."
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Força una actualització de la memòria cau"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "No es va trobar el fitxer %s o es va denegar el permís!"
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Obté els components que proporcionen un element indicat"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Obté la informació sobre un component amb el seu id."
 
 msgid "Homepage"
-msgstr ""
+msgstr "Pàgina inicial"
 
 msgid "Icon"
-msgstr ""
+msgstr "Icona"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identificador"
 
 msgid "Invalid type for provides-item selected. Valid values are:"
 msgstr ""
+"Tipus no vàlid per al provides-item seleccionat. Els valors vàlids són:"
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Llicència"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Estableix manualment la ubicació de les metadades de l'AppStream per a la "
+"regeneració de la memòria cau"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Estableix manualment la ubicació de la memòria cau de l'AppStream."
 
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "No s'ha trobat cap component que coincideixi «%s»."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+msgstr "No s'ha trobat el component que proporciona '%s:%s:%s'."
 
 msgid "No value for the provides-item to search for defined."
-msgstr ""
+msgstr "No s'ha definit cap valor a provides-item per a la cerca."
 
 msgid "Package"
-msgstr ""
+msgstr "Paquet"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Imprimeix la sortida detallada sobre els components trobats"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Imprimeix els consells en la validació, fins i tot els redundants"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Grup del projecte"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Elements proporcionats"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Reconstrueix la memòria cau de la informació del component"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Executeu '%s --help' per veure una llista completa de les opcions "
+"disponibles de la línia d'ordres."
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "URL de la captura de pantalla de mostra"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Cerca el component a la base de dades."
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Selecciona un valor per al provides-item que s'hagi de trobar"
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Mostra la informació extra de depuració"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Mostra la versió de l'aplicació"
 
 #. these are commands we can use with appstream-cli
 msgid "Subcommands:"
-msgstr ""
+msgstr "Subordres:"
 
 msgid "Summary"
-msgstr ""
+msgstr "Resum"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "No es pot trobar la coincidència del component %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+msgstr "No s'ha pogut trobar el component que proporciona '%s:%s:%s'!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "No s'ha pogut trobar cap component amb l'id. «%s»!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Valida els fitxers XML de l'AppStream per incidències"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Valida un file-tree instal·lat d'una aplicació per validar les metadades"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Ha fallat la validació."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "S'ha validat correctament."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "El fitxer XML del menú XDG «%s» està malmès."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Heu d'executar aquesta ordre amb els permisos del superusuari!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Heu d'especificar una ordre."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Heu d'especificar un component-id."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Heu d'especificar un fitxer per validar!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Heu d'especificar un directori arrel per iniciar la validació!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Heu d'especificar un terme per a la cerca."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,

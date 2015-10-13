@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Fran Diéguez <frandieguez@ubuntu.com>, 2014
+# Fran Diéguez <frandieguez@ubuntu.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-09-15 09:22+0000\n"
+"Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician (http://www.transifex.com/freedesktop/appstream/"
 "language/gl/)\n"
 "Language: gl\n"
@@ -24,7 +24,7 @@ msgstr "Un tipo de elemento fornecedor (p.ex. lib, bin, python3, …)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Versión da ferramenta cliente de AppStream: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Actualización de caché de AppStream completada con éxito."
@@ -43,10 +43,10 @@ msgstr "Fallou a actualización da caché de AppStream."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Interface por liña de ordes de AppStream"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Paquete"
 
 msgid "Categories"
 msgstr "Categorías"
@@ -66,13 +66,13 @@ msgid "Developer"
 msgstr "Desenvolvedor"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Non usar a caché de Xapian ao levar a cabo a consulta"
 
 msgid "Don't show colored output"
 msgstr "Non mostrar a saída con cores"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Volcar metadatos XML en bruto para un compoñente que coincida co ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Forzar a actualización da caché"
@@ -85,7 +85,7 @@ msgid "Get components which provide the given item"
 msgstr "Obter compoñentes que fornezan o elemento proporcionado"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Obter informacion sobre un compoñente mediante o seu id"
 
 msgid "Homepage"
 msgstr "Páxina principal"
@@ -126,6 +126,7 @@ msgstr "Non se atopou ningún compoñente que forneza «%s:%s:%s»"
 
 msgid "No value for the provides-item to search for defined."
 msgstr ""
+"Non hai ningún valor definido para os elementos-fornecedores para buscar"
 
 msgid "Package"
 msgstr "Paquete"
@@ -134,7 +135,7 @@ msgid "Print detailed output about found components"
 msgstr "Mostrar a información detallada sobre os compoñentes atopados"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Mostrar suxestións incluso pedantes ao validar"
 
 #. project group
 msgid "Project Group"
@@ -188,16 +189,18 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Non foi posíbel atopar compoñentes co id «%s»!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Validar ficheiros XML AppStream para atopar problemas"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Validar un árbore de ficheiros instalados dun aplicativo para buscar "
+"metadatos válidos"
 
 msgid "Validation failed."
 msgstr "Fallou a validación."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Validación rematada con éxito."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -216,7 +219,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Debe especificar un ficheiro a validar!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Debe especificar un directorio raíz para comezar a validación!"
 
 msgid "You need to specify a term to search for."
 msgstr "Debe especificar o termo a buscar."

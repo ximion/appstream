@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dušan Kazik <prescott66@gmail.com>, 2015
 # helix84 <helix84@centrum.sk>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-09-23 21:25+0000\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
 "Language: sk\n"
@@ -24,7 +25,7 @@ msgstr "Typ poskytuje-položku (napr. lib, bin, python3, ...)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Verzia nástroja AppStream CLI: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
@@ -43,10 +44,10 @@ msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Rozhranie príkazového riadku AppStream"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Balík"
 
 msgid "Categories"
 msgstr "Kategórie"
@@ -66,26 +67,26 @@ msgid "Developer"
 msgstr "Vývojár"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Nepoužije vyrovnávaciu pamäť Xapian pri vykonávaní požiadavky"
 
 msgid "Don't show colored output"
-msgstr "Nezobrazovať farebný výstup"
+msgstr "Nebude zobrazovať farebný výstup"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Vyprázdni súrové metaúdaje XML súčasti zhodujúcej sa s ID"
 
 msgid "Enforce a cache refresh"
-msgstr "Vynútiť aktualizáciu vyrovnávacej pamäte"
+msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
 
 #, c-format
 msgid "File %s not found or permission denied!"
 msgstr "Súbor %s nebol nájdený alebo bolo zamietnuté oprávnenie."
 
 msgid "Get components which provide the given item"
-msgstr "Získať komponenty poskytujúce danú položku"
+msgstr "Získa súčasti poskytujúce danú položku"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Získa informácie o súčasti podľa jej ID"
 
 msgid "Homepage"
 msgstr "Domovská stránka"
@@ -105,22 +106,22 @@ msgstr "Licencia"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
-"Manuálne nastaviť umiestnenie metadát AppStream na znovuvytvorenie "
+"Ručne nastaví umiestnenie metaúdajov AppStream na znovuvytvorenie "
 "vyrovnávacej pamäte."
 
 msgid "Manually set the location of the AppStream cache"
-msgstr "Manuálne nastaviť umiestnenie vyrovnávacej pamäte AppStream."
+msgstr "Ručne nastaví umiestnenie vyrovnávacej pamäte AppStream."
 
 msgid "Name"
 msgstr "Názov"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr "Nebol nájdený komponent zodpovedajúci „%s“."
+msgstr "Nebola nájdená súčasť zodpovedajúca „%s“."
 
 #, c-format
 msgid "No component providing '%s:%s:%s' found."
-msgstr "Nebol nájdený komponent poskytujúci „%s:%s:%s“."
+msgstr "Nebola nájdená súčasť poskytujúca „%s:%s:%s“."
 
 msgid "No value for the provides-item to search for defined."
 msgstr "Nebola definovaná hodnota poskytuje-položku, ktorá sa má hľadať."
@@ -129,10 +130,10 @@ msgid "Package"
 msgstr "Balík"
 
 msgid "Print detailed output about found components"
-msgstr "Vypísať podrobnosti o nájdených komponentoch"
+msgstr "Vypíše podrobnosti o nájdených súčastiach"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Vypíše ešte podrobnejšie rady pri overovaní"
 
 #. project group
 msgid "Project Group"
@@ -142,7 +143,7 @@ msgid "Provided Items"
 msgstr "Poskytované položky"
 
 msgid "Rebuild the component information cache"
-msgstr "Znovu vytvoriť vyrovnávaciu pamäť informácií o komponentoch"
+msgstr "Znovu vytvorí vyrovnávaciu pamäť informácií o súčastiach"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -160,10 +161,10 @@ msgid "Select a value for the provides-item which needs to be found"
 msgstr "Vyberte hodnotu poskytuje-položku, ktorú treba nájsť"
 
 msgid "Show extra debugging information"
-msgstr "Zobraziť ladiace informácie naviac"
+msgstr "Zobrazí ladiace informácie naviac"
 
 msgid "Show the program version"
-msgstr "Zobraziť verziu programu"
+msgstr "Zobrazí verziu programu"
 
 #. these are commands we can use with appstream-cli
 msgid "Subcommands:"
@@ -175,27 +176,27 @@ msgstr "Zhrnutie"
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr "Nepodarilo sa nájsť komponent zodpovedajúci %s!"
+msgstr "Nie je možné nájsť súčasť zodpovedajúcu %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr "Nepodarilo sa nájsť komponent poskytujúci „%s:%s:%s“!"
+msgstr "Nie je možné nájsť súčasť poskytujúcu „%s:%s:%s“!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr "Nepodarilo sa nájsť komponent s ID „%s“!"
+msgstr "Nie je možné nájsť súčasť s ID „%s“!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Overí súbory XML AppStream prípadov"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
-msgstr ""
+msgstr "Overí nainštalovaný strom súborov aplikácie pre platné metaúdaje"
 
 msgid "Validation failed."
 msgstr "Overenie zlyhalo."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Overenie bolo úspešné."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -208,13 +209,13 @@ msgid "You need to specify a command."
 msgstr "Musíte uviesť príkaz."
 
 msgid "You need to specify a component-id."
-msgstr "Musíte uviesť ID komponentu."
+msgstr "Musíte uviesť ID súčasti."
 
 msgid "You need to specify a file to validate!"
 msgstr "Musíte uviesť súbor, ktorý chcete overiť."
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Na zahájenie overovania musíte určiť koreňový adresár!"
 
 msgid "You need to specify a term to search for."
 msgstr "Musíte uviesť, čo chcete hľadať."

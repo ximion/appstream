@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 15:43+0000\n"
+"PO-Revision-Date: 2015-09-08 20:34+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
@@ -23,9 +23,9 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ elementu Provides (np. lib, bin, python3…)"
 
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "Wersja narzędzia klienta AppStream: %s"
+msgstr "Wersja narzędzia klienta AppStream w wierszu poleceń: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
@@ -67,7 +67,7 @@ msgid "Developer"
 msgstr "Programista"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Bez używania pamięci podręcznej Xapian podczas wykonywania żądania"
 
 msgid "Don't show colored output"
 msgstr "Bez kolorowania wyjścia"

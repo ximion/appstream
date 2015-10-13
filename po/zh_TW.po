@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
 "POT-Creation-Date: 2015-09-08 20:27+0200\n"
-"PO-Revision-Date: 2015-09-08 03:12+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"PO-Revision-Date: 2015-09-19 16:23+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -21,9 +21,9 @@ msgstr ""
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
 msgstr "提供項目的類型 (如：lib、bin、python3...等)"
 
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "AppStream 客戶端工具版本：%s"
+msgstr "AppStream CLI 工具版本：%s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
@@ -63,7 +63,7 @@ msgid "Developer"
 msgstr "開發者"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "執行請求時不要使用 Xapian 快取"
 
 msgid "Don't show colored output"
 msgstr "不要顯示色彩化的輸出"
@@ -127,7 +127,7 @@ msgid "Print detailed output about found components"
 msgstr "列印有關找到之組件的詳細輸出"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "驗證時也列印出繁冗的提示"
 
 #. project group
 msgid "Project Group"
@@ -182,7 +182,7 @@ msgid "Validate AppStream XML files for issues"
 msgstr "根據問題驗證 AppStream XML 檔案"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
-msgstr ""
+msgstr "根據有效的中介資料來驗證應用程式的已安裝檔案樹"
 
 msgid "Validation failed."
 msgstr "驗證失敗。"
@@ -207,7 +207,7 @@ msgid "You need to specify a file to validate!"
 msgstr "您需要指定個檔案來驗證！"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "您需要指定根基目錄才能開始驗證！"
 
 msgid "You need to specify a term to search for."
 msgstr "您需要指定個關鍵字來搜尋。"
