@@ -54,7 +54,7 @@ make
 make test
 ```
 Possible AppStream-specific flags are:  
- -DTESTS=ON           -- Enable unit tests
+ -DTESTS=ON           -- Enable unit tests  
  -DQT=ON              -- Build the Qt5 interface library  
  -DVAPI=ON            -- Build Vala API to use library with the Vala programming language  
  -DDEBIAN_DEP11=ON    -- Enable support for Debian DEP11 AppStream format (ON by default)  
