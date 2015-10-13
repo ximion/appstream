@@ -58,7 +58,13 @@ class Appstream::DatabasePrivate {
                 return false;
             }
 
-            int schemaVersion = stoi (m_db.get_metadata ("db-schema-version"));
+            int schemaVersion = 0;
+            try {
+                schemaVersion = stoi (m_db.get_metadata ("db-schema-version"));
+            } catch (...) {
+                qCWarning(APPSTREAMQT_DB, "Unable to read database schema version, assuming 0.");
+            }
+
             if (schemaVersion != AS_DB_SCHEMA_VERSION) {
                 qCWarning(APPSTREAMQT_DB, "Attempted to open an old version of the AppStream cache. Please refresh the cache and try again!");
                 return false;

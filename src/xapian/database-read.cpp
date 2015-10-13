@@ -63,7 +63,13 @@ DatabaseRead::open (const gchar *dbPath)
 	if (m_dbLocale.empty ())
 		m_dbLocale = "C";
 
-	m_schemaVersion = stoi (m_xapianDB.get_metadata ("db-schema-version"));
+	try {
+		m_schemaVersion = stoi (m_xapianDB.get_metadata ("db-schema-version"));
+	} catch (...) {
+		g_warning ("Unable to read database schema version, assuming 0.");
+		m_schemaVersion = 0;
+	}
+
 	if (m_schemaVersion != AS_DB_SCHEMA_VERSION) {
 		g_warning ("Attempted to open an old version of the AppStream cache. Please refresh the cache and try again!");
 		return false;
