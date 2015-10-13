@@ -22,22 +22,23 @@ generated from AppStream metadata.
 
 ### Dependencies
 
-#### Core
+#### Required
+ * cmake
  * glib2 (>= 2.36)
  * GObject-Introspection
  * libxml2
  * Xapian
+ * ProtoBuf
 
 #### Optional
- * Vala Compiler (vapigen) (for Vala API file)
+ * Vala Compiler (vapigen) (for Vala VAPI file)
  * libyaml (for DEP-11 support)
 
-#### Documentation
+#### Documentation / Specification
  * Publican
 
 #### Qt (for libappstream-qt)
  * Qt5 Core
-
 
 ### Compiling instructions
 
@@ -50,8 +51,10 @@ mkdir build
 cd build
 cmake <flags> ..
 make
+make test
 ```
 Possible AppStream-specific flags are:  
+ -DTESTS=ON           -- Enable unit tests
  -DQT=ON              -- Build the Qt5 interface library  
  -DVAPI=ON            -- Build Vala API to use library with the Vala programming language  
  -DDEBIAN_DEP11=ON    -- Enable support for Debian DEP11 AppStream format (ON by default)  
@@ -62,3 +65,7 @@ Possible AppStream-specific flags are:
 
 To install the compiled binaries and required data files, execute
 "make install" with superuser rights.
+
+## Translators
+You can help translating AppStream via the Freedesktop.org group at Transifex.
+Check out the [AppStream Transifex Page](https://www.transifex.com/freedesktop/appstream/).
