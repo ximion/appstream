@@ -22,7 +22,7 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-set(APPSTREAMQT_SRC
+set(APPSTREAMQT_SRC ${CMAKE_BINARY_DIR}/src/asxentries.pb.cc
           component.cpp
           database.cpp
           image.cpp

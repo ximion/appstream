@@ -153,7 +153,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     for (int i = 0; i < pb_urls.url_size (); i++) {
         const Urls_Url& pb_url = pb_urls.url (i);
         auto ukind = (Component::UrlKind) pb_url.type ();
-        QUrl url = QUrl::fromUserInput(url.url ());
+        QUrl url = QUrl::fromUserInput(QString::fromStdString(pb_url.url ()));
 
         if (ukind != Component::UrlKindUnknown) {
             urls.insertMulti(ukind, url);
