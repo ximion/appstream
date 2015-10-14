@@ -7,14 +7,8 @@ add_compiler_export_flags()
 
 find_package(Xapian 1.2 REQUIRED)
 find_package(Protobuf REQUIRED)
-
-ENABLE_TESTING()
-
-if(${AS_VERSION} STREQUAL "")
-    set(AS_VERSION "0.8.4")
-endif()
-
 find_package(Qt5 REQUIRED COMPONENTS Core)
+include(GNUInstallDirs)
 
 set(APPSTREAMQT_SO_VERSION 1)
 set(APPSTREAMQT_VERSION ${AS_VERSION})
@@ -28,17 +22,62 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-# Paths
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX
-    "/usr" CACHE PATH "Default install prefix" FORCE)
-endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+set(APPSTREAMQT_SRC
+          component.cpp
+          database.cpp
+          image.cpp
+          provides.cpp
+          screenshot.cpp
+)
 
-# Special case for /etc and /var when prefix is /usr
-if(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
-  set(CMAKE_INSTALL_SYSCONFDIR "/etc" CACHE PATH "read-only single-machine data (etc)")
-  set(CMAKE_INSTALL_LOCALSTATEDIR "/var" CACHE PATH "modifiable single-machine data (var)")
-endif(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
-include(GNUInstallDirs)
+set(APPSTREAMQT_PUBLIC_HEADERS
+    component.h
+    database.h
+    image.h
+    provides.h
+    screenshot.h
+)
 
-add_subdirectory(src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}
+                    ${CMAKE_SOURCE_DIR}/src/xapian
+                    ${CMAKE_BINARY_DIR}/src
+)
+
+add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
+add_dependencies(AppstreamQt appstream)
+target_link_libraries(AppstreamQt PUBLIC Qt5::Core PRIVATE ${XAPIAN_LIBRARIES} ${PROTOBUF_LITE_LIBRARIES})
+target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
+generate_export_header(AppstreamQt)
+
+set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_VERSION}")
+set_property(TARGET AppstreamQt PROPERTY SOVERSION "${APPSTREAMQT_SO_VERSION}" )
+
+install(TARGETS AppstreamQt EXPORT AppstreamQtTargets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(FILES ${APPSTREAMQT_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/appstreamqt_export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/AppstreamQt")
+
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfigVersion.cmake VERSION ${APPSTREAMQT_VERSION} COMPATIBILITY SameMajorVersion )
+
+export(TARGETS AppstreamQt
+       FILE "${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtTargets.cmake")
+
+set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/AppstreamQt)
+
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/AppstreamQtConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfig.cmake"
+  @ONLY
+)
+
+install(EXPORT AppstreamQtTargets
+    FILE AppstreamQtTargets.cmake
+    DESTINATION ${ConfigPackageLocation})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
+
+add_subdirectory(test)
