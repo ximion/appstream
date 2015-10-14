@@ -22,7 +22,7 @@ if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-set(APPSTREAMQT_SRC ${CMAKE_BINARY_DIR}/src/asxentries.pb.cc
+set(APPSTREAMQT_SRC
           component.cpp
           database.cpp
           image.cpp
@@ -38,12 +38,18 @@ set(APPSTREAMQT_PUBLIC_HEADERS
     screenshot.h
 )
 
+set(ASCACHEPROTO_SRC
+    ${CMAKE_BINARY_DIR}/src/asxentries.pb.h
+    ${CMAKE_BINARY_DIR}/src/asxentries.pb.cc
+)
+set_source_files_properties(${ASCACHEPROTO_SRC} PROPERTIES GENERATED TRUE)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
                     ${CMAKE_SOURCE_DIR}/src/xapian
                     ${CMAKE_BINARY_DIR}/src
 )
 
-add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
+add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC} ${ASCACHEPROTO_SRC})
 add_dependencies(AppstreamQt appstream)
 target_link_libraries(AppstreamQt PUBLIC Qt5::Core PRIVATE ${XAPIAN_LIBRARIES} ${PROTOBUF_LITE_LIBRARIES})
 target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
