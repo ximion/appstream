@@ -24,7 +24,6 @@ option(DEBIAN_DEP11 "Enable DEP11 data provider" ON)
 option(L18N "Enable localization" ON)
 option(VAPI "Create and install a Vala API file" OFF)
 option(QT "Build libappstream-qt" OFF)
-option(TESTS "Enable Unit Tests" OFF)
 option(MAINTAINER "Enable maintainer mode" OFF)
 option(DOCUMENTATION "Enable target to build documentation" OFF)
 
@@ -67,11 +66,9 @@ set (VERSION "${AS_VERSION}")
 configure_file(config.h.in ${CMAKE_BINARY_DIR}/config.h)
 
 #
-# Enable/disable testing
+# Enable testing
 #
-if(TESTS)
-	enable_testing()
-endif(TESTS)
+enable_testing()
 
 #
 # Custom C flags
