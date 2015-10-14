@@ -256,6 +256,8 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 		as_release_set_version (rel, pb_rel.version ().c_str ());
 		as_release_set_timestamp (rel, pb_rel.unix_timestamp ());
+		if (pb_rel.has_urgency ())
+			as_release_set_urgency (rel, (AsUrgencyKind) pb_rel.urgency ());
 
 		if (pb_rel.has_description ())
 			as_release_set_description (rel, pb_rel.description ().c_str (), NULL);

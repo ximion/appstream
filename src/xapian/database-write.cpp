@@ -207,7 +207,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 				if (pkgname.find ("-") != string::npos) {
 					// we need this to work around xapian oddness
 					string tmp = pkgname;
-					replace (tmp.begin(), tmp.end(), '-', '_');
+					replace (tmp.begin (), tmp.end (), '-', '_');
 					doc.add_term (tmp);
 				}
 				// add packagename as meta-data too
@@ -225,7 +225,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 				if (spkgname.find ("-") != string::npos) {
 					// we need this to work around xapian oddness
 					string tmp = spkgname;
-					replace (tmp.begin(), tmp.end(), '-', '_');
+					replace (tmp.begin (), tmp.end (), '-', '_');
 					doc.add_term (tmp);
 				}
 				// add packagename as meta-data too
@@ -417,8 +417,13 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			AsRelease *rel = (AsRelease*) g_ptr_array_index (releases, i);
 			Releases_Release *pb_rel = pb_rels.add_release ();
 
+			// version
 			pb_rel->set_version (as_release_get_version (rel));
+			// UNIX timestamp
 			pb_rel->set_unix_timestamp (as_release_get_timestamp (rel));
+			// release urgency (if set)
+			if (as_release_get_urgency (rel) != AS_URGENCY_KIND_UNKNOWN)
+				pb_rel->set_urgency ((Releases_UrgencyType) as_release_get_urgency (rel));
 
 			// add location urls
 			GPtrArray *locations = as_release_get_locations (rel);

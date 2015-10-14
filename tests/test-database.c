@@ -153,9 +153,14 @@ test_database_read (const gchar *dbpath)
 	g_assert_cmpstr (as_component_get_bundle_id (cpt, AS_BUNDLE_KIND_LIMBA), ==, "neverball-1.6.0");
 
 	rels = as_component_get_releases (cpt);
-	g_assert (rels->len == 1);
+	g_assert (rels->len == 2);
 
 	rel = AS_RELEASE (g_ptr_array_index (rels, 0));
+	g_assert_cmpstr (as_release_get_version (rel), ==, "1.6.1");
+	g_assert (as_release_get_timestamp (rel) == 123465789);
+	g_assert (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
+
+	rel = AS_RELEASE (g_ptr_array_index (rels, 1));
 	g_assert_cmpstr (as_release_get_version (rel), ==, "1.6.0");
 	g_assert (as_release_get_timestamp (rel) == 123456789);
 

@@ -119,17 +119,26 @@ message Releases {
     SHA256 = 2;
   }
 
+  enum UrgencyType {
+    UNKNOWN = 0;
+    LOW = 1;
+    MEDIUM = 2;
+    HIGH = 3;
+    CRITICAL = 4;
+  }
+
   message Checksum {
     required ChecksumType type = 1 [default = NONE];
     required string value = 2;
   }
 
   message Release {
-    required string version  = 1;
+    required string version = 1;
     required int64 unix_timestamp = 2;
-    repeated Checksum checksum = 3;
+    optional UrgencyType urgency = 3;
     optional string description = 4;
-    repeated string location = 5;
+    repeated Checksum checksum = 5;
+    repeated string location = 6;
   }
 
   repeated Release release = 1;
