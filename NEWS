@@ -1,3 +1,31 @@
+Version 0.8.5
+~~~~~~~~~~~~~~
+Released: 2015-10-14
+
+Features:
+ * Update README
+ * Use ProtoBuf to serialize data for the Xapian cache
+ * Annotate the proto definition with descriptions about the messages
+ * Restructure database schema definition
+ * qt: Read screenshots pb data
+ * qt: Fully support the new database layout
+ * Show if component type is unknown in debug output
+ * Implement the release-urgency property
+ * qt: Don't build standalone - this now only leads to potential errors
+ * qt: Add some very basic unit tests
+ * Enable unit-tests unconditionally
+
+Specification:
+ * spec: Document the release-urgency property
+
+Bugfixes:
+ * Don't stop processing completely, if XML file with errors is found
+ * cli: Fix display of detailed output
+ * Correctly check the database schema version
+ * Move default cache to avoid errors when the old db is still around
+ * qt: Ensure database schema version matches
+ * Don't crash if database schema is unknown
+
 Version 0.8.4
 ~~~~~~~~~~~~~~
 Released: 2015-09-08
