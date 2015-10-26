@@ -364,9 +364,9 @@ as_component_to_string (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	if (as_component_has_package (cpt))
-		pkgs = g_strdup ("?");
-	else
 		pkgs = g_strjoinv (",", priv->pkgnames);
+	else
+		pkgs = g_strdup ("?");
 
 	name = as_component_get_name (cpt);
 	summary = as_component_get_summary (cpt);
