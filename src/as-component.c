@@ -431,7 +431,7 @@ as_component_add_release (AsComponent *cpt, AsRelease* release)
  *
  * Gets the URLs set for the component.
  *
- * Returns: (transfer none): URLs
+ * Returns: (transfer none) (element-type utf8 utf8): URLs
  *
  * Since: 0.6.2
  **/
@@ -520,7 +520,7 @@ as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
  *
  * Gets the bundle-ids set for the component.
  *
- * Returns: (transfer none): Bundle ids
+ * Returns: (transfer none) (element-type utf8 utf8): Bundle ids
  *
  * Since: 0.8.0
  **/
@@ -1208,7 +1208,7 @@ as_component_get_icon_url (AsComponent *cpt, int width, int height)
  *
  * Gets the icon-urls has table for the component.
  *
- * Returns: (transfer none): A hash map of icon urls and sizes
+ * Returns: (transfer none) (element-type utf8 utf8): A hash map of icon urls and sizes
  *
  * Since: 0.7.4
  **/
