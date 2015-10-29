@@ -193,17 +193,16 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setIcon(icon);
 
     // Icon urls
-    QString concatIconUrlStrings = value(document, XapianValues::ICON_URLS);
-    QStringList iconUrlStrings = concatIconUrlStrings.split('\n',QString::SkipEmptyParts);
-    if(iconUrlStrings.size() %2 == 0) {
-        for(int i = 0; i < iconUrlStrings.size(); i=i+2) {
-            QString sizeStr = iconUrlStrings.at(i);
-            QUrl url = QUrl::fromUserInput(iconUrlStrings.at(i+1));
-            QSize size = parseSizeString(sizeStr);
-            component.addIconUrl(url, size);
-        }
-    } else {
-        qCWarning(APPSTREAMQT_DB, "Bad icon-url strings for component: '%s' (%s)", qPrintable(id), qPrintable(concatIconUrlStrings));
+    ASCache::IconUrls iurls;
+    str = document.get_value (XapianValues::ICON_URLS);
+    iurls.ParseFromString (str);
+    for (int i = 0; i < iurls.icon_size (); i++) {
+        const IconUrls_Icon& icon = iurls.icon (i);
+        QString sizeStr = QString::fromStdString(icon.size ());
+        QUrl url = QUrl::fromUserInput(QString::fromStdString(icon.url()));
+
+        QSize size = parseSizeString(sizeStr);
+        component.addIconUrl(url, size);
     }
 
     // Summary

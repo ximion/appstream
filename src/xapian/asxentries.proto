@@ -53,7 +53,7 @@ message Bundles {
  */
 message IconUrls {
   message Icon {
-    required string size = 1;
+    required string size = 1; // to become int height; int width soon
     required string url = 2;
   }
 
