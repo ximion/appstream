@@ -60,6 +60,8 @@ struct _AsSearchQueryClass
 	void (*_as_reserved8)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsSearchQuery, g_object_unref)
+
 GType				as_search_query_get_type (void) G_GNUC_CONST;
 
 AsSearchQuery			*as_search_query_new (const gchar* term);

@@ -63,7 +63,9 @@ struct _AsDatabaseClass
 	void (*_as_reserved8)	(void);
 };
 
-GType as_database_get_type (void) G_GNUC_CONST;
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsDatabase, g_object_unref)
+
+GType			as_database_get_type (void) G_GNUC_CONST;
 
 AsDatabase		*as_database_new (void);
 AsDatabase		*as_database_construct (GType object_type);

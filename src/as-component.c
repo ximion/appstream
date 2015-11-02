@@ -1067,7 +1067,7 @@ as_component_get_keywords_table (AsComponent *cpt)
 const gchar*
 as_component_get_icon (AsComponent *cpt, AsIconKind kind, int width, int height)
 {
-	_cleanup_free_ gchar *size = NULL;
+	g_autofree gchar *size = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	if (kind == AS_ICON_KIND_STOCK)
@@ -1105,7 +1105,7 @@ as_component_get_icon (AsComponent *cpt, AsIconKind kind, int width, int height)
 void
 as_component_add_icon (AsComponent *cpt, AsIconKind kind, int width, int height, const gchar* value)
 {
-	_cleanup_free_ gchar *size = NULL;
+	g_autofree gchar *size = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	if (kind == AS_ICON_KIND_STOCK) {

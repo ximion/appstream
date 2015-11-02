@@ -62,6 +62,8 @@ struct _AsMetadataClass
 	void (*_as_reserved8)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsMetadata, g_object_unref)
+
 /**
  * AsMetadataError:
  * @AS_METADATA_ERROR_FAILED: Generic failure

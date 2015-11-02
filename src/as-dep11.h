@@ -55,6 +55,8 @@ struct _AsDEP11Class
 	void (*_as_reserved6)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsDEP11, g_object_unref)
+
 GType			as_dep11_get_type (void) G_GNUC_CONST;
 
 AsDEP11*		as_dep11_new (void);

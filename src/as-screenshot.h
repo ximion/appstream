@@ -61,6 +61,8 @@ struct _AsScreenshotClass
 	void (*_as_reserved8)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsScreenshot, g_object_unref)
+
 /**
  * AsScreenshotKind:
  * @AS_SCREENSHOT_KIND_UNKNOWN:		Type invalid or not known

@@ -62,6 +62,8 @@ struct _AsComponentClass
 	void (*_as_reserved6)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsComponent, g_object_unref)
+
 /**
  * AsComponentKind:
  * @AS_COMPONENT_KIND_UNKNOWN:		Type invalid or not known

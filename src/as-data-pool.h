@@ -59,6 +59,8 @@ struct _AsDataPoolClass
 	void (*_as_reserved8) (void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsDataPool, g_object_unref)
+
 GType		 	as_data_pool_get_type (void);
 AsDataPool		*as_data_pool_new (void);
 

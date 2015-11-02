@@ -101,7 +101,7 @@ as_validator_add_issue (AsValidator *validator, AsIssueImportance importance, As
 	gchar *buffer;
 	gchar *str;
 	gchar *id_str;
-	_cleanup_free_ gchar *fname = NULL;
+	g_autofree gchar *fname = NULL;
 	AsValidatorIssue *issue;
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
@@ -658,7 +658,7 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	GFileInputStream* fistream;
 	GFileInfo *info = NULL;
 	const gchar *content_type = NULL;
-	_cleanup_free_ gchar *fname = NULL;
+	g_autofree gchar *fname = NULL;
 
 	info = g_file_query_info (metadata_file,
 				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
@@ -837,7 +837,7 @@ struct MInfoCheckData {
 static gboolean
 as_matches_metainfo (const gchar *fname, const gchar *basename)
 {
-	_cleanup_free_ gchar *tmp = NULL;
+	g_autofree gchar *tmp = NULL;
 
 	tmp = g_strdup_printf ("%s.metainfo.xml", basename);
 	if (g_strcmp0 (fname, tmp) == 0)
@@ -904,8 +904,8 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 gboolean
 as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 {
-	_cleanup_free_ gchar *metainfo_dir = NULL;
-	_cleanup_free_ gchar *apps_dir = NULL;
+	g_autofree gchar *metainfo_dir = NULL;
+	g_autofree gchar *apps_dir = NULL;
 	GPtrArray *mfiles = NULL;
 	GPtrArray *dfiles = NULL;
 	GHashTable *dfilenames = NULL;
@@ -954,7 +954,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		GFileInputStream *fistream;
 		xmlNode* root;
 		xmlDoc *doc;
-		_cleanup_free_ gchar *fname_basename = NULL;
+		g_autofree gchar *fname_basename = NULL;
 
 		fname = (const gchar*) g_ptr_array_index (mfiles, i);
 		file = g_file_new_for_path (fname);

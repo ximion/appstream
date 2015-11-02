@@ -52,6 +52,8 @@ struct _AsBuilderClass {
 #define	AS_BUILDER_ERROR as_builder_error_quark ()
 GQuark as_builder_error_quark (void);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsBuilder, g_object_unref)
+
 /**
  * AsBuilderError:
  * @AS_BUILDER_ERROR_FAILED:		Generic failure
@@ -66,15 +68,18 @@ typedef enum {
 	AS_BUILDER_ERROR_LAST
 } AsBuilderError;
 
-GType as_builder_get_type (void) G_GNUC_CONST;
+GType			as_builder_get_type (void) G_GNUC_CONST;
 
 AsBuilder*		as_builder_new (void);
 AsBuilder*		as_builder_new_path (const gchar* dbpath);
 
 gboolean		as_builder_initialize (AsBuilder *builder);
-gboolean		as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error);
+gboolean		as_builder_refresh_cache (AsBuilder *builder,
+							gboolean force,
+							GError **error);
 
-void			as_builder_set_data_source_directories (AsBuilder *self, gchar **dirs);
+void			as_builder_set_data_source_directories (AsBuilder *self,
+								gchar **dirs);
 
 G_END_DECLS
 

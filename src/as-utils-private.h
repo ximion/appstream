@@ -25,14 +25,6 @@
 
 G_BEGIN_DECLS
 
-#define GS_DEFINE_CLEANUP_FUNCTION(Type, name, func) \
-  static inline void name (void *v) \
-  { \
-    func (*(Type*)v); \
-  }
-GS_DEFINE_CLEANUP_FUNCTION(void*, gs_local_free, g_free)
-#define _cleanup_free_ __attribute__ ((cleanup(gs_local_free)))
-
 gboolean		as_utils_touch_dir (const gchar* dirname);
 gboolean		as_utils_delete_dir_recursive (const gchar* dirname);
 gchar*			as_string_strip (const gchar* str);

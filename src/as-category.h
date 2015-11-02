@@ -58,6 +58,8 @@ struct _AsCategoryClass
 	void (*_as_reserved6)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsCategory, g_object_unref)
+
 GType				as_category_get_type (void) G_GNUC_CONST;
 
 AsCategory*			as_category_new (void);

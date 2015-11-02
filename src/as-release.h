@@ -60,6 +60,8 @@ struct _AsReleaseClass
 	void (*_as_reserved8)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsRelease, g_object_unref)
+
 /**
  * AsChecksumKind:
  * @AS_CHECKSUM_KIND_NONE:		No checksum

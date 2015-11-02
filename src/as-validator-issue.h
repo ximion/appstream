@@ -56,6 +56,8 @@ struct _AsValidatorIssueClass
 	void (*_as_reserved6)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsValidatorIssue, g_object_unref)
+
 /**
  * AsIssueImportance:
  * @AS_ISSUE_IMPORTANCE_ERROR:		There is a serious error in your metadata

@@ -56,6 +56,8 @@ struct _AsValidatorClass
 	void (*_as_reserved6)	(void);
 };
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsValidator, g_object_unref)
+
 GType		 as_validator_get_type (void);
 AsValidator	*as_validator_new (void);
 
