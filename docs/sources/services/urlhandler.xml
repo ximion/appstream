@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-Services-UrlHandler">
+	<title>Url handler</title>
+
+	<section id="spec-asurl-introduction">
+		<title>Introduction</title>
+		<para>
+			In order to allow installation of AppStream components from websites, software-centers implementing AppStream
+			may choose to also support the <literal>appstream://</literal> urls.
+		</para>
+		<para>
+			This allows upstream projects to trigger an installation of their application from their homepage on any supporting
+			distribution.
+			It also is helpful for web-based software-centers.
+		</para>
+	</section>
+
+	<section id="spec-asurl-service">
+		<title>URL schema</title>
+		<para>
+			Software-centers handling <literal>appstream://</literal> URLs must provide a handler for the <literal>x-scheme-handler/appstream</literal>
+			mimetype.
+			An AppStream URL follows the schema <code>appstream://%{component-id}</code>.
+		</para>
+		<para>
+			Example HTML code:
+		</para>
+		<programlisting language="HTML"><![CDATA[<a href="appstream://org.kde.discover.desktop">Install KDE Discover</a>
+<a href="appstream://org.gnome.Software.desktop">Install GNOME-Software</a>
+<a href="appstream://org.freedesktop.AppStream">Install libappstream</a>]]></programlisting>
+	</section>
+</section>
