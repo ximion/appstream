@@ -52,6 +52,25 @@ enum YamlNodeKind {
 };
 
 /**
+ * as_dep11_init:
+ **/
+static void
+as_dep11_init (AsDEP11 *dep11)
+{
+	g_autofree gchar *str;
+	AsDEP11Private *priv = GET_PRIVATE (dep11);
+
+	/* set active locale without UTF-8 suffix */
+	str = as_get_locale ();
+	as_dep11_set_locale (dep11, str);
+
+	priv->origin_name = NULL;
+	priv->media_baseurl = NULL;
+	priv->default_priority = 0;
+	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
+}
+
+/**
  * as_dep11_finalize:
  **/
 static void
@@ -62,33 +81,11 @@ as_dep11_finalize (GObject *object)
 
 	g_free (priv->locale);
 	g_free (priv->locale_short);
+	g_free (priv->origin_name);
+	g_free (priv->media_baseurl);
 	g_ptr_array_unref (priv->cpts);
-	if (priv->origin_name != NULL)
-		g_free (priv->origin_name);
-	if (priv->media_baseurl != NULL)
-		g_free (priv->media_baseurl);
 
 	G_OBJECT_CLASS (as_dep11_parent_class)->finalize (object);
-}
-
-/**
- * as_dep11_init:
- **/
-static void
-as_dep11_init (AsDEP11 *dep11)
-{
-	gchar *str;
-	AsDEP11Private *priv = GET_PRIVATE (dep11);
-
-	/* set active locale without UTF-8 suffix */
-	str = as_get_locale ();
-	as_dep11_set_locale (dep11, str);
-	g_free (str);
-
-	priv->origin_name = NULL;
-	priv->media_baseurl = NULL;
-	priv->default_priority = 0;
-	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
