@@ -811,6 +811,15 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 	}
 
 	yaml_parser_delete (&parser);
+
+	/* reset the global document properties */
+	g_free (priv->origin_name);
+	priv->origin_name = NULL;
+
+	g_free (priv->media_baseurl);
+	priv->media_baseurl = NULL;
+
+	priv->default_priority = 0;
 }
 
 /**
