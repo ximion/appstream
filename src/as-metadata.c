@@ -162,8 +162,8 @@ as_metadata_dump_node_children (AsMetadata *metad, xmlNode *node)
  * as_metadata_get_node_locale:
  * @node: A XML node
  *
- * Returns the locale of a node, if the node should be considered for inclusion.
- * Returns %NULL if the node should be ignored due to a not-matching locale.
+ * Returns: The locale of a node, if the node should be considered for inclusion.
+ * %NULL if the node should be ignored due to a not-matching locale.
  */
 gchar*
 as_metadata_get_node_locale (AsMetadata *metad, xmlNode *node)

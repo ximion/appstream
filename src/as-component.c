@@ -230,7 +230,7 @@ as_icon_kind_from_string (const gchar *kind_str)
 		return AS_ICON_KIND_REMOTE;
 	if (g_strcmp0 (kind_str, "stock") == 0)
 		return AS_ICON_KIND_STOCK;
-	return AS_COMPONENT_KIND_UNKNOWN;
+	return AS_ICON_KIND_UNKNOWN;
 }
 
 /**

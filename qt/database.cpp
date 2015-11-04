@@ -452,7 +452,7 @@ QList< Component > Database::findComponentsByString(const QString& searchTerm, c
 QList<Component> Database::findComponentsByPackageName(const QString& packageName) const
 {
     Xapian::Query pkgQuery(Xapian::Query::OP_OR,
-                              pkgQuery,
+                              Xapian::Query(),
                               Xapian::Query ("AP" + packageName.trimmed().toStdString()));
 
     Xapian::Enquire enquire(d->m_db);

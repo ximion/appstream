@@ -234,7 +234,7 @@ as_search_query_sanitize_search_term (AsSearchQuery* self)
 
 /**
  * as_search_query_get_search_term:
- * @self an instance of #AsSearchQuery
+ * @self: an instance of #AsSearchQuery
  *
  * Returns the search-term we currently use
  */
@@ -247,8 +247,8 @@ as_search_query_get_search_term (AsSearchQuery* self)
 
 /**
  * as_search_query_set_search_term:
- * @self an instance of #AsSearchQuery
- * @value the string to search for
+ * @self: an instance of #AsSearchQuery
+ * @value: the string to search for
  *
  * Set the search-term we use for the search. Multiple terms may be
  * comma-separated.
