@@ -1,7 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -64,8 +63,8 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsRelease, g_object_unref)
 
 /**
  * AsChecksumKind:
- * @AS_CHECKSUM_KIND_NONE:		No checksum
- * @AS_CHECKSUM_KIND_SHA1:		SHA1
+ * @AS_CHECKSUM_KIND_NONE:	No checksum
+ * @AS_CHECKSUM_KIND_SHA1:	SHA1
  * @AS_CHECKSUM_KIND_SHA256:	SHA256
  *
  * Checksums supported by #AsRelease
@@ -79,6 +78,27 @@ typedef enum  {
 
 const gchar	*as_checksum_kind_to_string (AsChecksumKind kind);
 AsChecksumKind	as_checksum_kind_from_string (const gchar *kind_str);
+
+/**
+ * AsSizeKind:
+ * @AS_SIZE_KIND_UNKNOWN:	Unknown size
+ * @AS_SIZE_KIND_DOWNLOAD:	Size of download of component
+ * @AS_SIZE_KIND_INSTALLED:	Size of installed component
+ *
+ * The release size kind.
+ *
+ * Since: 0.8.6
+ **/
+typedef enum {
+	AS_SIZE_KIND_UNKNOWN,
+	AS_SIZE_KIND_DOWNLOAD,
+	AS_SIZE_KIND_INSTALLED,
+	/*< private >*/
+	AS_SIZE_KIND_LAST
+} AsSizeKind;
+
+const gchar	*as_size_kind_to_string (AsSizeKind size_kind);
+AsSizeKind	as_size_kind_from_string (const gchar *size_kind);
 
 GType		as_release_get_type (void);
 AsRelease	*as_release_new (void);
@@ -105,14 +125,20 @@ void		as_release_add_location (AsRelease *release,
 						const gchar *location);
 
 const gchar	*as_release_get_checksum (AsRelease *release,
-						AsChecksumKind cs_kind);
+						AsChecksumKind kind);
 void		as_release_set_checksum (AsRelease *release,
 						const gchar *checksum,
-						AsChecksumKind cs_kind);
+						AsChecksumKind kind);
 
 AsUrgencyKind	as_release_get_urgency (AsRelease *release);
 void		as_release_set_urgency (AsRelease *release,
 						AsUrgencyKind urgency);
+
+guint64		as_release_get_size (AsRelease *release,
+					AsSizeKind kind);
+void		as_release_set_size (AsRelease *release,
+					guint64 size,
+					AsSizeKind kind);
 
 G_END_DECLS
 

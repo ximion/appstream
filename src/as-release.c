@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C)      2014 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -46,6 +46,7 @@ struct _AsReleasePrivate
 
 	GPtrArray	*locations;
 	gchar		**checksums;
+	guint64		size[AS_SIZE_KIND_LAST];
 
 	AsUrgencyKind	urgency;
 };
@@ -95,6 +96,66 @@ as_checksum_kind_from_string (const gchar *kind_str)
 }
 
 /**
+ * as_size_kind_to_string:
+ * @size_kind: the #AsSizeKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @size_kind
+ *
+ * Since: 0.8.6
+ **/
+const gchar*
+as_size_kind_to_string (AsSizeKind size_kind)
+{
+	if (size_kind == AS_SIZE_KIND_INSTALLED)
+		return "installed";
+	if (size_kind == AS_SIZE_KIND_DOWNLOAD)
+		return "download";
+	return "unknown";
+}
+
+/**
+ * as_size_kind_from_string:
+ * @size_kind: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: an #AsSizeKind or %AS_SIZE_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.8.6
+ **/
+AsSizeKind
+as_size_kind_from_string (const gchar *size_kind)
+{
+	if (g_strcmp0 (size_kind, "download") == 0)
+		return AS_SIZE_KIND_DOWNLOAD;
+	if (g_strcmp0 (size_kind, "installed") == 0)
+		return AS_SIZE_KIND_INSTALLED;
+	return AS_SIZE_KIND_UNKNOWN;
+}
+
+/**
+ * as_release_init:
+ **/
+static void
+as_release_init (AsRelease *release)
+{
+	guint i;
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	priv->active_locale = g_strdup ("C");
+	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->locations = g_ptr_array_new_with_free_func (g_free);
+
+	priv->checksums = g_new0 (gchar*, AS_CHECKSUM_KIND_LAST + 1);
+	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
+
+	for (i = 0; i < AS_SIZE_KIND_LAST; i++)
+		priv->size[i] = 0;
+}
+
+/**
  * as_release_finalize:
  **/
 static void
@@ -110,22 +171,6 @@ as_release_finalize (GObject *object)
 	g_strfreev (priv->checksums);
 
 	G_OBJECT_CLASS (as_release_parent_class)->finalize (object);
-}
-
-/**
- * as_release_init:
- **/
-static void
-as_release_init (AsRelease *release)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-
-	priv->active_locale = g_strdup ("C");
-	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->locations = g_ptr_array_new_with_free_func (g_free);
-
-	priv->checksums = g_new0 (gchar*, AS_CHECKSUM_KIND_LAST + 1);
-	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
 }
 
 /**
@@ -229,6 +274,45 @@ as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	priv->urgency = urgency;
+}
+
+/**
+ * as_release_get_size:
+ * @release: a #AsRelease instance
+ * @kind: a #AsSizeKind
+ *
+ * Gets the release size.
+ *
+ * Returns: The size of the given kind of this release.
+ *
+ * Since: 0.8.6
+ **/
+guint64
+as_release_get_size (AsRelease *release, AsSizeKind kind)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_val_if_fail (kind < AS_SIZE_KIND_LAST, 0);
+	return priv->size[kind];
+}
+
+/**
+ * as_release_set_size:
+ * @release: a #AsRelease instance
+ * @size: a size in bytes, or 0 for unknown
+ * @kind: a #AsSizeKind
+ *
+ * Sets the release size for the given kind.
+ *
+ * Since: 0.8.6
+ **/
+void
+as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (kind < AS_SIZE_KIND_LAST);
+	g_return_if_fail (kind != 0);
+
+	priv->size[kind] = size;
 }
 
 /**
@@ -346,12 +430,14 @@ as_release_add_location (AsRelease *release, const gchar *location)
  * Since: 0.8.2
  **/
 const gchar*
-as_release_get_checksum (AsRelease *release, AsChecksumKind cs_kind)
+as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_return_val_if_fail (cs_kind < AS_CHECKSUM_KIND_LAST, NULL);
-	g_return_val_if_fail (cs_kind != 0, NULL);
-	return priv->checksums[cs_kind];
+	g_return_val_if_fail (kind < AS_CHECKSUM_KIND_LAST, NULL);
+	if (kind == 0)
+		return NULL;
+
+	return priv->checksums[kind];
 }
 
 /**
@@ -362,15 +448,14 @@ as_release_get_checksum (AsRelease *release, AsChecksumKind cs_kind)
  * Since: 0.8.2
  */
 void
-as_release_set_checksum (AsRelease *release, const gchar *checksum, AsChecksumKind cs_kind)
+as_release_set_checksum (AsRelease *release, const gchar *checksum, AsChecksumKind kind)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_return_if_fail (kind < AS_CHECKSUM_KIND_LAST);
+	g_return_if_fail (kind != 0);
 
-	g_return_if_fail (cs_kind < AS_CHECKSUM_KIND_LAST);
-	g_return_if_fail (cs_kind != 0);
-
-	g_free (priv->checksums[cs_kind]);
-	priv->checksums[cs_kind] = g_strdup (checksum);
+	g_free (priv->checksums[kind]);
+	priv->checksums[kind] = g_strdup (checksum);
 }
 
 /**
@@ -380,7 +465,7 @@ as_release_set_checksum (AsRelease *release, const gchar *checksum, AsChecksumKi
  *
  * Returns: (transfer full): a #AsRelease
  **/
-AsRelease *
+AsRelease*
 as_release_new (void)
 {
 	AsRelease *release;

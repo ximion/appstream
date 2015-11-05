@@ -113,23 +113,34 @@ message Languages {
  * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-releases
  */
 message Releases {
-  enum ChecksumType {
-    NONE = 0;
-    SHA1 = 1;
-    SHA256 = 2;
-  }
-
   enum UrgencyType {
-    UNKNOWN = 0;
+    NOTSET = 0; // can't be UNKNOWN, since we can only have this valud once in this scope
     LOW = 1;
     MEDIUM = 2;
     HIGH = 3;
     CRITICAL = 4;
   }
 
+  enum ChecksumType {
+    NONE = 0;
+    SHA1 = 1;
+    SHA256 = 2;
+  }
+
+  enum SizeType {
+    UNKNOWN = 0;
+    DOWNLOAD = 1;
+    INSTALLED = 2;
+  }
+
   message Checksum {
     required ChecksumType type = 1 [default = NONE];
     required string value = 2;
+  }
+
+  message Size {
+    required SizeType type = 1 [default = UNKNOWN];
+    required int64 value = 2;
   }
 
   message Release {
@@ -139,6 +150,7 @@ message Releases {
     optional string description = 4;
     repeated Checksum checksum = 5;
     repeated string location = 6;
+    repeated Size size = 7;
   }
 
   repeated Release release = 1;

@@ -483,7 +483,7 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 					g_free (content);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "checksum") == 0) {
 					AsChecksumKind cs_kind;
-					prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+					prop = (gchar*) xmlGetProp (iter2, (xmlChar*) "type");
 
 					cs_kind = as_checksum_kind_from_string (prop);
 					if (cs_kind != AS_CHECKSUM_KIND_NONE) {
@@ -492,9 +492,24 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 						g_free (content);
 					}
 					g_free (prop);
+				} else if (g_strcmp0 ((gchar*) iter2->name, "size") == 0) {
+					AsSizeKind s_kind;
+					prop = (gchar*) xmlGetProp (iter2, (xmlChar*) "type");
+
+					s_kind = as_size_kind_from_string (prop);
+					if (s_kind != AS_SIZE_KIND_UNKNOWN) {
+						guint64 size;
+
+						content = as_metadata_get_node_value (metad, iter2);
+						size = g_ascii_strtoull (content, NULL, 10);
+						g_free (content);
+						if (size > 0)
+							as_release_set_size (release, size, s_kind);
+					}
+					g_free (prop);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "description") == 0) {
 					if (priv->mode == AS_PARSER_MODE_DISTRO) {
-						gchar *lang;
+						g_autofree gchar *lang;
 
 						/* for distro XML, the "description" tag has a language property, so parsing it is simple */
 						content = as_metadata_dump_node_children (metad, iter2);
@@ -502,7 +517,6 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 						if (lang != NULL)
 							as_release_set_description (release, content, lang);
 						g_free (content);
-						g_free (lang);
 					} else {
 						as_metadata_parse_upstream_description_tag (metad,
 												iter2,
@@ -1460,19 +1474,37 @@ as_metadata_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 		}
 
 		/* add checksum node */
-		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1) != NULL) {
-			xmlNode *csNode;
-			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
-							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA1));
-			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha1");
-		}
-		if (as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256) != NULL) {
-			xmlNode *csNode;
-			csNode = xmlNewTextChild (subnode, NULL, (xmlChar*) "checksum",
-							(xmlChar*) as_release_get_checksum (release, AS_CHECKSUM_KIND_SHA256));
-			xmlNewProp (csNode, (xmlChar*) "type", (xmlChar*) "sha256");
+		for (j = 0; j < AS_CHECKSUM_KIND_LAST; j++) {
+			if (as_release_get_checksum (release, j) != NULL) {
+				xmlNode *cs_node;
+				cs_node = xmlNewTextChild (subnode,
+								NULL,
+								(xmlChar*) "checksum",
+								(xmlChar*) as_release_get_checksum (release, j));
+				xmlNewProp (cs_node,
+						(xmlChar*) "type",
+						(xmlChar*) as_checksum_kind_to_string (j));
+			}
 		}
 
+		/* add size node */
+		for (j = 0; j < AS_SIZE_KIND_LAST; j++) {
+			if (as_release_get_size (release, j) > 0) {
+				xmlNode *s_node;
+				g_autofree gchar *size_str;
+
+				size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, as_release_get_size (release, j));
+				s_node = xmlNewTextChild (subnode,
+							  NULL,
+							  (xmlChar*) "size",
+							  (xmlChar*) size_str);
+				xmlNewProp (s_node,
+						(xmlChar*) "type",
+						(xmlChar*) as_size_kind_to_string (j));
+			}
+		}
+
+		/* add description */
 		str = as_release_get_description (release);
 		if (g_strcmp0 (str, "") != 0) {
 			xmlNode* n_desc;

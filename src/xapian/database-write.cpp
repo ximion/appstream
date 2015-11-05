@@ -432,17 +432,24 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			}
 
 			// add checksum info
-			if (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA1) != NULL) {
-				Releases_Checksum *pb_cs = pb_rel->add_checksum ();
-				pb_cs->set_type (Releases_ChecksumType_SHA1);
-				pb_cs->set_value (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA1));
-			}
-			if (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA256) != NULL) {
-				Releases_Checksum *pb_cs = pb_rel->add_checksum ();
-				pb_cs->set_type (Releases_ChecksumType_SHA256);
-				pb_cs->set_value (as_release_get_checksum (rel, AS_CHECKSUM_KIND_SHA256));
+			for (uint j = 0; j < AS_CHECKSUM_KIND_LAST; j++) {
+				if (as_release_get_checksum (rel, (AsChecksumKind) j) != NULL) {
+					Releases_Checksum *pb_cs = pb_rel->add_checksum ();
+					pb_cs->set_type ((Releases_ChecksumType) j);
+					pb_cs->set_value (as_release_get_checksum (rel, (AsChecksumKind) j));
+				}
 			}
 
+			// add size info
+			for (uint j = 0; j < AS_SIZE_KIND_LAST; j++) {
+				if (as_release_get_size (rel, (AsSizeKind) j) > 0) {
+					Releases_Size *pb_s = pb_rel->add_size ();
+					pb_s->set_type ((Releases_SizeType) j);
+					pb_s->set_value (as_release_get_size (rel, (AsSizeKind) j));
+				}
+			}
+
+			// add description
 			if (as_release_get_description (rel) != NULL)
 				pb_rel->set_description (as_release_get_description (rel));
 		}

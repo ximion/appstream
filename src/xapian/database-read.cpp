@@ -262,18 +262,32 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		if (pb_rel.has_description ())
 			as_release_set_description (rel, pb_rel.description ().c_str (), NULL);
 
+		// load locations
 		for (int j = 0; j < pb_rel.location_size (); j++)
 			as_release_add_location (rel, pb_rel.location (j).c_str ());
 
+		// load checksums
 		for (int j = 0; j < pb_rel.checksum_size (); j++) {
 			const Releases_Checksum& pb_cs = pb_rel.checksum (j);
-			AsChecksumKind cskind;
-			cskind = (AsChecksumKind) pb_cs.type ();
+			AsChecksumKind cskind = (AsChecksumKind) pb_cs.type ();
+
 			if (cskind >= AS_CHECKSUM_KIND_LAST) {
-				g_warning ("Found invalid checksum type in database for component '%s'", id_str.c_str ());
+				g_warning ("Found invalid release-checksum type in database for component '%s'", id_str.c_str ());
 				continue;
 			}
 			as_release_set_checksum (rel, pb_cs.value ().c_str (), cskind);
+		}
+
+		// load sizes
+		for (int j = 0; j < pb_rel.size_size (); j++) {
+			const Releases_Size& pb_s = pb_rel.size (j);
+			AsSizeKind skind = (AsSizeKind) pb_s.type ();
+
+			if (skind >= AS_SIZE_KIND_LAST) {
+				g_warning ("Found invalid release-size type in database for component '%s'", id_str.c_str ());
+				continue;
+			}
+			as_release_set_size (rel, pb_s.value (), skind);
 		}
 
 		as_component_add_release (cpt, rel);
