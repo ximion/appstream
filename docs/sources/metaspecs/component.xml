@@ -238,10 +238,20 @@
 				The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>
 			</para>
 			<para>
+				A <literal>release</literal> tag may also have one or multiple <literal>size</literal> tags as children, which define the installed and download size
+				of this component release. This is useful in case the component does not have a corresponding native package in a distribution, for example if it is a Limba
+				bundle or LVFS firmware.
+				The size type is defined via a <literal>type</literal> property on the <literal>size</literal> tag, and may assume the value <code>download</code> or <code>installed</code>.
+				The size itself is set as value and must be given in bytes.
+			</para>
+			<para>
 			Examples for a valid releases tag:
 			</para>
 			<programlisting language="XML"><![CDATA[<releases>
-  <release version="1.2" timestamp="1397253600 urgency="high" />
+  <release version="1.2" timestamp="1397253600 urgency="high">
+    <size type="download">12345678</size>
+    <size type="installed">42424242</size>
+  </release>
   <release version="1.0" timestamp="1345932000" />
 </releases>]]></programlisting>
 		</listitem>
