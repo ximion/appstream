@@ -827,6 +827,7 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 struct MInfoCheckData {
 	AsValidator *validator;
 	GHashTable *desktop_fnames;
+	gchar *apps_dir;
 };
 
 /**
@@ -867,7 +868,6 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 	as_validator_set_current_cpt (data->validator, cpt);
 	as_validator_set_current_fname (data->validator, fname);
 
-
 	/* check if the fname and the component-id match */
 	tmp = g_strndup (as_component_get_id (cpt),
 				g_strrstr (as_component_get_id (cpt), ".") - as_component_get_id (cpt));
@@ -884,7 +884,46 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 
 	/* check if the referenced .desktop file exists */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-		if (!g_hash_table_contains (data->desktop_fnames, as_component_get_id (cpt))) {
+		if (g_hash_table_contains (data->desktop_fnames, as_component_get_id (cpt))) {
+			g_autofree gchar *desktop_fname_full = NULL;
+			g_autoptr(GKeyFile) dfile = NULL;
+			GError *tmp_error = NULL;
+
+			desktop_fname_full = g_build_filename (data->apps_dir, as_component_get_id (cpt), NULL);
+			dfile = g_key_file_new ();
+
+			g_key_file_load_from_file (dfile, desktop_fname_full, G_KEY_FILE_NONE, &tmp_error);
+			if (tmp_error != NULL) {
+				as_validator_add_issue (data->validator,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_READ_ERROR,
+						"Unable to read associated .desktop file: %s", tmp_error->message);
+				g_error_free (tmp_error);
+				tmp_error = NULL;
+			} else {
+				/* we successfully opened the .desktop file, now perform some checks */
+
+				/* name */
+				if ((g_strcmp0 (as_component_get_name (cpt), "") == 0) &&
+				    (!g_key_file_has_key (dfile, "Desktop Entry", "Name", NULL))) {
+					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
+					as_validator_add_issue (data->validator,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_VALUE_MISSING,
+							"The component is missing a name (none found in its metainfo or .desktop file)");
+				}
+
+				/* summary */
+				if ((g_strcmp0 (as_component_get_summary (cpt), "") == 0) &&
+				    (!g_key_file_has_key (dfile, "Desktop Entry", "Comment", NULL))) {
+					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
+					as_validator_add_issue (data->validator,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_VALUE_MISSING,
+							"The component is missing a summary (none found in its metainfo or .desktop file)");
+				}
+			}
+		} else {
 			as_validator_add_issue (data->validator,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_FILE_MISSING,
@@ -1037,6 +1076,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	/* validate the component-id <-> filename relations and availability of other metadata */
 	ht_helper.validator = validator;
 	ht_helper.desktop_fnames = dfilenames;
+	ht_helper.apps_dir = apps_dir;
 	g_hash_table_foreach (validated_cpts,
 				(GHFunc) as_validator_analyze_component_metainfo_relation_cb,
 				&ht_helper);

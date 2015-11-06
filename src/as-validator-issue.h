@@ -88,10 +88,12 @@ typedef enum {
  * @AS_ISSUE_KIND_TAG_NOT_ALLOWED:	A tag is not allowed in the current context
  * @AS_ISSUE_KIND_PROPERTY_MISSING:	A required property is missing
  * @AS_ISSUE_KIND_PROPERTY_INVALID:	A property is invalid
+ * @AS_ISSUE_KIND_VALUE_MISSING:	A value is missing
  * @AS_ISSUE_KIND_VALUE_WRONG:		The value of a tag or property is wrong
  * @AS_ISSUE_KIND_VALUE_ISSUE:		There is an issue with a tag or property value (often non-fatal)
  * @AS_ISSUE_KIND_FILE_MISSING:		A required file or other metadata was missing
  * @AS_ISSUE_KIND_WRONG_NAME:		The naming of an entity is wrong
+ * @AS_ISSUE_KIND_READ_ERROR:		Reading of data failed
  *
  * The issue type.
  **/
@@ -105,10 +107,12 @@ typedef enum {
 	AS_ISSUE_KIND_TAG_NOT_ALLOWED,
 	AS_ISSUE_KIND_PROPERTY_MISSING,
 	AS_ISSUE_KIND_PROPERTY_INVALID,
+	AS_ISSUE_KIND_VALUE_MISSING,
 	AS_ISSUE_KIND_VALUE_WRONG,
 	AS_ISSUE_KIND_VALUE_ISSUE,
 	AS_ISSUE_KIND_FILE_MISSING,
 	AS_ISSUE_KIND_WRONG_NAME,
+	AS_ISSUE_KIND_READ_ERROR,
 	/*< private >*/
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;
