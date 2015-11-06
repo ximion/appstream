@@ -1,3 +1,25 @@
+Version 0.8.6
+~~~~~~~~~~~~~~
+Released: 2015-11-06
+
+Features:
+ * Define autoptr macros for AppStream types (Matthias Klumpp)
+ * Implement the release/size tag (Matthias Klumpp)
+ * validator: Check for missing name / summary in metainfo and .desktop files
+   (Matthias Klumpp)
+
+Specification:
+ * spec: Specify the appstream:// URL handler (Matthias Klumpp)
+ * spec: Add new size tag to the release tag (Matthias Klumpp)
+
+
+Bugfixes:
+ * Don't fail displaying package names in component_to_string (Matthias Klumpp)
+ * Fixed VAPI compilation. (Corentin Noël)
+ * qt: Correctly load icon urls again (Matthias Klumpp)
+ * Add missing GIR annotations. (Corentin Noël)
+ * Reinitialize the DEP-11 parser after each file (Corentin Noël)
+
 Version 0.8.5
 ~~~~~~~~~~~~~~
 Released: 2015-10-14
