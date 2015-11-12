@@ -15,6 +15,7 @@
 	<Menu>
 		<Name>Universal Access</Name>
 		<Directory>Utility-Accessibility.directory</Directory>
+        <Icon>preferences-desktop-accessibility</Icon>
 		<Categories>
 			<And>
 				<Category>Accessibility</Category>
@@ -29,13 +30,7 @@
 		<Icon>applications-development</Icon>
 		<Directory>Development.directory</Directory>
 		<Categories>
-			<Or>
-				<Category>Development</Category>
-				<SCSection>devel</SCSection>
-				<SCSection>restricted/devel</SCSection>
-				<SCSection>universe/devel</SCSection>
-				<SCSection>multiverse/devel</SCSection>
-			</Or>
+            <Category>Development</Category>
 			<Filename>emacs.desktop</Filename>
 		</Categories>
 		<Menu>
@@ -218,6 +213,7 @@
 	<Menu>
 		<Name>Education</Name>
 		<Directory>Education.directory</Directory>
+        <Icon>applications-education</Icon>
 		<Categories>
 			<And>
 				<Category>Education</Category>
@@ -336,6 +332,7 @@
 	<Menu>
 		<Name>Games</Name>
 		<Directory>kde-games.directory</Directory>
+        <Icon>applications-games</Icon>
 		<Categories>
 			<And>
 				<Category>Game</Category>
@@ -398,6 +395,7 @@
 	</Menu>
 	<Menu>
 		<Name>Graphics</Name>
+        <Icon>applications-graphics</Icon>
 		<Directory>Graphics.directory</Directory>
 		<Categories>
 			<And>
@@ -472,6 +470,7 @@
 	<Menu>
 		<Name>Internet</Name>
 		<Directory>kde-internet.directory</Directory>
+        <Icon>applications-internet</Icon>
 		<Categories>
 			<And>
 				<Category>Network</Category>
@@ -517,6 +516,7 @@
 	<Menu>
 		<Name>Multimedia</Name>
 		<Directory>kde-multimedia.directory</Directory>
+        <Icon>applications-multimedia</Icon>
 		<Categories>
 			<And>
 				<Category>AudioVideo</Category>
@@ -526,6 +526,7 @@
 	<Menu>
 		<Name>Office</Name>
 		<Directory>kde-office.directory</Directory>
+        <Icon>applications-office</Icon>
 		<Categories>
 			<And>
 				<Category>Office</Category>
