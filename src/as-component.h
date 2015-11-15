@@ -74,7 +74,7 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsComponent, g_object_unref)
  * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
- * @AS_COMPONENT_KIND_LAST:		Flag offset
+ * @AS_COMPONENT_KIND_LAST:(skip)
  *
  * The URL type.
  **/
@@ -97,7 +97,7 @@ typedef enum  {
  * @AS_ICON_KIND_STOCK:		Stock icon name
  * @AS_ICON_KIND_LOCAL:		Local icon name
  * @AS_ICON_KIND_REMOTE:	Remote icon URL
- * @AS_ICON_KIND_LAST:	Flag offset
+ * @AS_ICON_KIND_LAST:(skip)
  *
  * The icon type.
  **/
