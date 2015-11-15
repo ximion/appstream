@@ -311,6 +311,7 @@ as_component_finalize (GObject* object)
 
 /**
  * as_component_is_valid:
+ * @cpt: a #AsComponent instance.
  *
  * Check if the essential properties of this Component are
  * populated with useful data.
@@ -348,6 +349,7 @@ as_component_is_valid (AsComponent *cpt)
 
 /**
  * as_component_to_string:
+ * @cpt: a #AsComponent instance.
  *
  * Returns a string identifying this component.
  * (useful for debugging)
@@ -449,7 +451,7 @@ as_component_get_urls (AsComponent *cpt)
  *
  * Gets a URL.
  *
- * Returns: string, or %NULL if unset
+ * Returns: (nullable): string, or %NULL if unset
  *
  * Since: 0.6.2
  **/
@@ -538,7 +540,7 @@ as_component_get_bundle_ids (AsComponent *cpt)
  *
  * Gets a bundle identifier string.
  *
- * Returns: string, or %NULL if unset
+ * Returns: (nullable): string, or %NULL if unset
  *
  * Since: 0.8.0
  **/
@@ -655,8 +657,11 @@ as_component_provides_item (AsComponent *cpt, AsProvidesKind kind, const gchar *
 
 /**
  * as_component_get_kind:
+ * @cpt: a #AsComponent instance.
  *
  * Returns the #AsComponentKind of this component.
+ *
+ * Returns: the kind of #this.
  */
 AsComponentKind
 as_component_get_kind (AsComponent *cpt)
@@ -667,6 +672,8 @@ as_component_get_kind (AsComponent *cpt)
 
 /**
  * as_component_set_kind:
+ * @cpt: a #AsComponent instance.
+ * @value: the #AsComponentKind.
  *
  * Sets the #AsComponentKind of this component.
  */
@@ -681,6 +688,7 @@ as_component_set_kind (AsComponent *cpt, AsComponentKind value)
 
 /**
  * as_component_get_pkgnames:
+ * @cpt: a #AsComponent instance.
  *
  * Get a list of package names which this component consists of.
  * This usually is just one package name.
@@ -696,6 +704,7 @@ as_component_get_pkgnames (AsComponent *cpt)
 
 /**
  * as_component_set_pkgnames:
+ * @cpt: a #AsComponent instance.
  * @value: (array zero-terminated=1):
  *
  * Set a list of package names this component consists of.
@@ -713,6 +722,9 @@ as_component_set_pkgnames (AsComponent *cpt, gchar** value)
 
 /**
  * as_component_get_source_pkgname:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: the source package name.
  */
 const gchar*
 as_component_get_source_pkgname (AsComponent *cpt)
@@ -723,6 +735,8 @@ as_component_get_source_pkgname (AsComponent *cpt)
 
 /**
  * as_component_set_source_pkgname:
+ * @cpt: a #AsComponent instance.
+ * @spkgname: the source package name.
  */
 void
 as_component_set_source_pkgname (AsComponent *cpt, const gchar* spkgname)
@@ -735,8 +749,11 @@ as_component_set_source_pkgname (AsComponent *cpt, const gchar* spkgname)
 
 /**
  * as_component_get_id:
+ * @cpt: a #AsComponent instance.
  *
  * Set the unique identifier for this component.
+ *
+ * Returns: the unique identifier.
  */
 const gchar*
 as_component_get_id (AsComponent *cpt)
@@ -747,6 +764,8 @@ as_component_get_id (AsComponent *cpt)
 
 /**
  * as_component_set_id:
+ * @cpt: a #AsComponent instance.
+ * @value: the unique identifier.
  *
  * Set the unique identifier for this component.
  */
@@ -762,6 +781,7 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
 
 /**
  * as_component_get_origin:
+ * @cpt: a #AsComponent instance.
  */
 const gchar*
 as_component_get_origin (AsComponent *cpt)
@@ -772,6 +792,8 @@ as_component_get_origin (AsComponent *cpt)
 
 /**
  * as_component_set_origin:
+ * @cpt: a #AsComponent instance.
+ * @origin: the origin.
  */
 void
 as_component_set_origin (AsComponent *cpt, const gchar* origin)
@@ -787,9 +809,12 @@ as_component_set_origin (AsComponent *cpt, const gchar* origin)
 
 /**
  * as_component_get_active_locale:
+ * @cpt: a #AsComponent instance.
  *
  * Get the current active locale for this component, which
  * is used to get localized messages.
+ *
+ * Returns: the current active locale.
  */
 gchar*
 as_component_get_active_locale (AsComponent *cpt)
@@ -800,6 +825,8 @@ as_component_get_active_locale (AsComponent *cpt)
 
 /**
  * as_component_set_active_locale:
+ * @cpt: a #AsComponent instance.
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
  *
  * Set the current active locale for this component, which
  * is used to get localized messages.
@@ -817,6 +844,8 @@ as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
 
 /**
  * as_component_localized_get:
+ * @cpt: a #AsComponent instance.
+ * @lht: (element-type utf8 utf8): the #GHashTable on which the value will be retreived.
  *
  * Helper function to get a localized property using the current
  * active locale for this component.
@@ -838,6 +867,10 @@ as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 
 /**
  * as_component_localized_set:
+ * @cpt: a #AsComponent instance.
+ * @lht: (element-type utf8 utf8): the #GHashTable on which the value will be added.
+ * @value: the value to add.
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB".
  *
  * Helper function to set a localized property.
  */
@@ -862,8 +895,11 @@ as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* valu
 
 /**
  * as_component_get_name:
+ * @cpt: a #AsComponent instance.
  *
  * A human-readable name for this component.
+ *
+ * Returns: the name.
  */
 const gchar*
 as_component_get_name (AsComponent *cpt)
@@ -882,7 +918,7 @@ as_component_get_name (AsComponent *cpt)
  * as_component_set_name:
  * @cpt: A valid #AsComponent
  * @value: The name
- * @locale: The locale the used for this value, or %NULL to use the current active one.
+ * @locale: (nullable): The locale the used for this value, or %NULL to use the current active one.
  *
  * Set a human-readable name for this component.
  */
@@ -897,6 +933,7 @@ as_component_set_name (AsComponent *cpt, const gchar* value, const gchar *locale
 
 /**
  * as_component_get_name_table:
+ * @cpt: a #AsComponent instance.
  *
  * Internal method.
  */
@@ -909,8 +946,11 @@ as_component_get_name_table (AsComponent *cpt)
 
 /**
  * as_component_get_summary:
+ * @cpt: a #AsComponent instance.
  *
  * Get a short description of this component.
+ *
+ * Returns: the summary.
  */
 const gchar*
 as_component_get_summary (AsComponent *cpt)
@@ -929,7 +969,7 @@ as_component_get_summary (AsComponent *cpt)
  * as_component_set_summary:
  * @cpt: A valid #AsComponent
  * @value: The summary
- * @locale: The locale the used for this value, or %NULL to use the current active one.
+ * @locale: (nullable): The locale the used for this value, or %NULL to use the current active one.
  *
  * Set a short description for this component.
  */
@@ -944,6 +984,7 @@ as_component_set_summary (AsComponent *cpt, const gchar* value, const gchar *loc
 
 /**
  * as_component_get_summary_table:
+ * @cpt: a #AsComponent instance.
  *
  * Internal method.
  */
@@ -956,8 +997,11 @@ as_component_get_summary_table (AsComponent *cpt)
 
 /**
  * as_component_get_description:
+ * @cpt: a #AsComponent instance.
  *
  * Get the localized long description of this component.
+ *
+ * Returns: the description.
  */
 const gchar*
 as_component_get_description (AsComponent *cpt)
@@ -976,7 +1020,7 @@ as_component_get_description (AsComponent *cpt)
  * as_component_set_description:
  * @cpt: A valid #AsComponent
  * @value: The long description
- * @locale: The locale the used for this value, or %NULL to use the current active one.
+ * @locale: (nullable): The locale the used for this value, or %NULL to use the current active one.
  *
  * Set long description for this component.
  */
@@ -991,6 +1035,7 @@ as_component_set_description (AsComponent *cpt, const gchar* value, const gchar 
 
 /**
  * as_component_get_description_table:
+ * @cpt: a #AsComponent instance.
  *
  * Internal method.
  */
@@ -1003,6 +1048,7 @@ as_component_get_description_table (AsComponent *cpt)
 
 /**
  * as_component_get_keywords:
+ * @cpt: a #AsComponent instance.
  *
  * Returns: (transfer none): String array of keywords
  */
@@ -1023,8 +1069,9 @@ as_component_get_keywords (AsComponent *cpt)
 
 /**
  * as_component_set_keywords:
+ * @cpt: a #AsComponent instance.
  * @value: (array zero-terminated=1): String-array of keywords
- * @locale: Locale of the values, or %NULL to use current locale.
+ * @locale: (nullable): Locale of the values, or %NULL to use current locale.
  *
  * Set keywords for this component.
  */
@@ -1046,6 +1093,7 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 
 /**
  * as_component_get_keywords_table:
+ * @cpt: a #AsComponent instance.
  *
  * Internal method.
  */
@@ -1060,7 +1108,7 @@ as_component_get_keywords_table (AsComponent *cpt)
  * as_component_get_icon:
  * @cpt: an #AsComponent instance
  *
- * Returns: The raw icon data found for the given icon kind and size.
+ * Returns: (nullable): The raw icon data found for the given icon kind and size.
  * If the icon kind is %AS_ICON_KIND_STOCK, the size is ignored.
  * %NULL is returned in case no icon was found.
  */
@@ -1099,6 +1147,10 @@ as_component_get_icon (AsComponent *cpt, AsIconKind kind, int width, int height)
 /**
  * as_component_add_icon:
  * @cpt: an #AsComponent instance
+ * @kind: the #AsIconKind of the icon
+ * @width: the width of the icon
+ * @height: the height of the icon
+ * @value: the full icon url
  *
  * Add an icon of the given type to this component.
  */
@@ -1181,7 +1233,7 @@ as_component_add_icon_url (AsComponent *cpt, int width, int height, const gchar*
  * it will always return a full path or url to a valid icon, in contrast
  * to the as_component_get_icon() method, which returns unprocessed icon data.
  *
- * Returns: The full url for an icon with the given width and height.
+ * Returns: (nullable): The full url for an icon with the given width and height.
  * In case no icon matching the size is found, %NULL is returned.
  * The returned path will either be a http link or an absolute, local
  * path to the image file of the icon.
@@ -1221,6 +1273,7 @@ as_component_get_icon_urls (AsComponent *cpt)
 
 /**
  * as_component_get_categories:
+ * @cpt: a #AsComponent instance.
  *
  * Returns: (transfer none): String array of categories
  */
@@ -1233,7 +1286,8 @@ as_component_get_categories (AsComponent *cpt)
 
 /**
  * as_component_set_categories:
- * @value: (array zero-terminated=1):
+ * @cpt: a #AsComponent instance.
+ * @value: (array zero-terminated=1): the categories name
  */
 void
 as_component_set_categories (AsComponent *cpt, gchar** value)
@@ -1267,8 +1321,11 @@ as_component_set_categories_from_str (AsComponent *cpt, const gchar* categories_
 /**
  * as_component_has_category:
  * @cpt: an #AsComponent object
+ * @category: the specified category to check
  *
  * Check if component is in the specified category.
+ *
+ * Returns: %TRUE if the component is in the specified category.
  **/
 gboolean
 as_component_has_category (AsComponent *cpt, const gchar* category)
@@ -1288,8 +1345,11 @@ as_component_has_category (AsComponent *cpt, const gchar* category)
 
 /**
  * as_component_get_project_license:
+ * @cpt: a #AsComponent instance.
  *
  * Get the license of the project this component belongs to.
+ *
+ * Returns: the license.
  */
 const gchar*
 as_component_get_project_license (AsComponent *cpt)
@@ -1300,6 +1360,8 @@ as_component_get_project_license (AsComponent *cpt)
 
 /**
  * as_component_set_project_license:
+ * @cpt: a #AsComponent instance.
+ * @value: the project license.
  *
  * Set the project license.
  */
@@ -1315,8 +1377,11 @@ as_component_set_project_license (AsComponent *cpt, const gchar* value)
 
 /**
  * as_component_get_project_group:
+ * @cpt: a #AsComponent instance.
  *
  * Get the component's project group.
+ *
+ * Returns: the project group.
  */
 const gchar*
 as_component_get_project_group (AsComponent *cpt)
@@ -1327,6 +1392,8 @@ as_component_get_project_group (AsComponent *cpt)
 
 /**
  * as_component_set_project_group:
+ * @cpt: a #AsComponent instance.
+ * @value: the project group.
  *
  * Set the component's project group.
  */
@@ -1341,8 +1408,11 @@ as_component_set_project_group (AsComponent *cpt, const gchar *value)
 
 /**
  * as_component_get_developer_name:
+ * @cpt: a #AsComponent instance.
  *
  * Get the component's developer or development team name.
+ *
+ * Returns: the developer name.
  */
 const gchar*
 as_component_get_developer_name (AsComponent *cpt)
@@ -1353,6 +1423,9 @@ as_component_get_developer_name (AsComponent *cpt)
 
 /**
  * as_component_set_developer_name:
+ * @cpt: a #AsComponent instance.
+ * @value: the developer or developer team name
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
  *
  * Set the the component's developer or development team name.
  */
@@ -1365,6 +1438,7 @@ as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gch
 
 /**
  * as_component_get_developer_name_table:
+ * @cpt: a #AsComponent instance.
  *
  * Internal method.
  */
@@ -1377,6 +1451,7 @@ as_component_get_developer_name_table (AsComponent *cpt)
 
 /**
  * as_component_get_screenshots:
+ * @cpt: a #AsComponent instance.
  *
  * Get a list of associated screenshots.
  *
@@ -1392,6 +1467,7 @@ as_component_get_screenshots (AsComponent *cpt)
 
 /**
  * as_component_get_compulsory_for_desktops:
+ * @cpt: a #AsComponent instance.
  *
  * Return value: (transfer none): A list of desktops where this component is compulsory
  **/
@@ -1405,6 +1481,8 @@ as_component_get_compulsory_for_desktops (AsComponent *cpt)
 
 /**
  * as_component_set_compulsory_for_desktops:
+ * @cpt: a #AsComponent instance.
+ * @value: (array zero-terminated=1): the array of desktop ids.
  *
  * Set a list of desktops where this component is compulsory.
  **/
@@ -1444,6 +1522,7 @@ as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar* desktop)
 
 /**
  * as_component_get_provided_items:
+ * @cpt: a #AsComponent instance.
  *
  * Get an array of the provides-items this component is
  * associated with.
@@ -1462,6 +1541,7 @@ as_component_get_provided_items (AsComponent *cpt)
  * as_component_add_provided_item:
  * @cpt: a #AsComponent instance.
  * @kind: the kind of the provided item (e.g. %AS_PROVIDES_KIND_MIMETYPE)
+ * @value: the item to add.
  * @data: (allow-none) (default NULL): additional data associated with this item, or %NULL.
  *
  * Adds a provided item to the component.
@@ -1481,6 +1561,7 @@ as_component_add_provided_item (AsComponent *cpt, AsProvidesKind kind, const gch
 
 /**
  * as_component_get_releases:
+ * @cpt: a #AsComponent instance.
  *
  * Get an array of the #AsRelease items this component
  * provides.
@@ -1497,6 +1578,7 @@ as_component_get_releases (AsComponent *cpt)
 
 /**
  * as_component_get_priority:
+ * @cpt: a #AsComponent instance.
  *
  * Returns the priority of this component.
  * This method is used internally.
@@ -1512,6 +1594,8 @@ as_component_get_priority (AsComponent *cpt)
 
 /**
  * as_component_set_priority:
+ * @cpt: a #AsComponent instance.
+ * @priority: the given priority
  *
  * Sets the priority of this component.
  * This method is used internally.
@@ -1528,7 +1612,7 @@ as_component_set_priority (AsComponent *cpt, int priority)
 /**
  * as_component_add_language:
  * @cpt: an #AsComponent instance.
- * @locale: the locale, or %NULL. e.g. "en_GB"
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
  * @percentage: the percentage completion of the translation, 0 for locales with unknown amount of translation
  *
  * Adds a language to the component.
@@ -1550,7 +1634,7 @@ as_component_add_language (AsComponent *cpt, const gchar *locale, gint percentag
 /**
  * as_component_get_language:
  * @cpt: an #AsComponent instance.
- * @locale: the locale, or %NULL. e.g. "en_GB"
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
  *
  * Gets the translation coverage in percent for a specific locale
  *
@@ -1610,6 +1694,7 @@ as_component_get_languages_map (AsComponent *cpt)
 
 /**
  * as_component_refine_icon:
+ * @cpt: a #AsComponent instance.
  *
  * We use this method to ensure the "icon" and "icon_url" properties of
  * a component are properly set, by finding the icons in default directories.
@@ -1712,6 +1797,7 @@ out:
 
 /**
  * as_component_complete:
+ * @cpt: a #AsComponent instance.
  * @scr_base_url: Base url for screenshot-service, obtain via #AsDistroDetails
  * @icon_paths: Zero-terminated string array of possible (cached) icon locations
  *
@@ -1892,46 +1978,118 @@ as_component_class_init (AsComponentClass * klass)
 	object_class->finalize = as_component_finalize;
 	object_class->get_property = as_component_get_property;
 	object_class->set_property = as_component_set_property;
-
+	/**
+	 * AsComponent:kind:
+	 *
+	 * the #AsComponentKind of this component
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_KIND,
 					g_param_spec_enum ("kind", "kind", "kind", AS_TYPE_COMPONENT_KIND, 0, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:pkgnames:
+	 *
+	 * string array of packages name
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_PKGNAMES,
 					g_param_spec_boxed ("pkgnames", "pkgnames", "pkgnames", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:id:
+	 *
+	 * the unique identifier
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_ID,
 					g_param_spec_string ("id", "id", "id", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:name:
+	 *
+	 * the name
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_NAME,
 					g_param_spec_string ("name", "name", "name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:summary:
+	 *
+	 * the summary
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_SUMMARY,
 					g_param_spec_string ("summary", "summary", "summary", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:description:
+	 *
+	 * the description
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_DESCRIPTION,
 					g_param_spec_string ("description", "description", "description", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:keywords:
+	 *
+	 * string array of keywords
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_KEYWORDS,
 					g_param_spec_boxed ("keywords", "keywords", "keywords", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:icon-urls:
+	 * (type GHashTable(utf8,utf8))
+	 *
+	 * hash map of icon urls and sizes
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_ICON_URLS,
 					g_param_spec_boxed ("icon-urls", "icon-urls", "icon-urls", G_TYPE_HASH_TABLE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+	/**
+	 * AsComponent:urls:
+	 * (type GHashTable(utf8,utf8))
+	 *
+	 * the urls associated with this component
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_URLS,
 					g_param_spec_boxed ("urls", "urls", "urls", G_TYPE_HASH_TABLE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+	/**
+	 * AsComponent:categories:
+	 *
+	 * string array of categories
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_CATEGORIES,
 					g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:project-license:
+	 *
+	 * the project license
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_PROJECT_LICENSE,
 					g_param_spec_string ("project-license", "project-license", "project-license", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:project-group:
+	 *
+	 * the project group
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_PROJECT_GROUP,
 					g_param_spec_string ("project-group", "project-group", "project-group", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:developer-name:
+	 *
+	 * the developer name
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_DEVELOPER_NAME,
 					g_param_spec_string ("developer-name", "developer-name", "developer-name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+	/**
+	 * AsComponent:screenshots:
+	 * (type GPtrArray(AsScreenshot)):
+	 *
+	 * An array of #AsScreenshot instances
+	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_SCREENSHOTS,
 					g_param_spec_boxed ("screenshots", "screenshots", "screenshots", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
