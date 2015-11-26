@@ -97,11 +97,11 @@ as_search_query_construct (GType object_type, const gchar* term)
 
 /**
  * as_search_query_new:
+ * @term: the string to search for
  *
  * Creates a new #AsSearchQuery.
  *
  * Returns: (transfer full): a new #AsSearchQuery
- *
  **/
 AsSearchQuery*
 as_search_query_new (const gchar* term)
@@ -143,10 +143,10 @@ as_search_query_set_search_all_categories (AsSearchQuery* self)
 
 /**
  * as_search_query_set_categories_from_string:
+ * @self: an instance of #AsSearchQuery
+ * @categories_str: Semicolon-separated list of category-names
  *
  * Set the categories list from a string
- *
- * @categories_str Semicolon-separated list of category-names
  */
 void
 as_search_query_set_categories_from_string (AsSearchQuery* self, const gchar* categories_str)
@@ -236,7 +236,7 @@ as_search_query_sanitize_search_term (AsSearchQuery* self)
  * as_search_query_get_search_term:
  * @self: an instance of #AsSearchQuery
  *
- * Returns the search-term we currently use
+ * Returns: the search-term we currently use
  */
 const gchar*
 as_search_query_get_search_term (AsSearchQuery* self)
@@ -294,6 +294,13 @@ str_array_dup (gchar** self)
 	return result;
 }
 
+/**
+ * as_search_query_set_categories:
+ * @self: an instance of #AsSearchQuery
+ * @value: (array zero-terminated=1): a null-terminated string array of categories
+ *
+ * Set the categories to search
+ */
 void
 as_search_query_set_categories (AsSearchQuery* self, gchar** value)
 {
