@@ -146,8 +146,8 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 				/* propagate bundle information to existing component */
 				bundles = as_component_get_bundle_ids (cpt);
 				as_component_set_bundles_table (existing_cpt, bundles);
-			} else {
-				g_debug ("Detected colliding ids: %s was already added.", cpt_id);
+			} else if (priority == as_component_get_priority (cpt)) {
+				g_debug ("Detected colliding ids: %s was already added with the same priority.", cpt_id);
 			}
 		}
 	} else {
