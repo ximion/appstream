@@ -70,15 +70,12 @@ typedef struct
 	GPtrArray		*releases; /* of AsRelease */
 
 	GHashTable		*urls; /* of key:utf8 */
-	GHashTable		*icon_urls; /* of key:utf8 */
 	GPtrArray		*extends; /* of utf8:string */
 	GHashTable		*languages; /* of key:utf8 */
 	GHashTable		*bundles; /* of key:utf8 */
 
-	gchar			*icon_stock;
-	GHashTable		*icons_remote; /* of key:utf8 */
-	GHashTable		*icons_local; /* of key:utf8 */
-	GHashTable		*icons_cache; /* of key:utf8 */
+	GPtrArray		*icons; /* of AsIcon elements */
+	GHashTable		*icons_sizetab; /* of key:utf8 */
 
 	gint			priority; /* used internally */
 } AsComponentPrivate;
@@ -95,7 +92,7 @@ enum  {
 	AS_COMPONENT_SUMMARY,
 	AS_COMPONENT_DESCRIPTION,
 	AS_COMPONENT_KEYWORDS,
-	AS_COMPONENT_ICON_URLS,
+	AS_COMPONENT_ICONS,
 	AS_COMPONENT_URLS,
 	AS_COMPONENT_CATEGORIES,
 	AS_COMPONENT_PROJECT_LICENSE,
@@ -190,50 +187,6 @@ as_component_kind_from_string (const gchar *kind_str)
 }
 
 /**
- * as_icon_kind_to_string:
- * @kind: the %AsIconKind.
- *
- * Converts the enumerated value to an text representation.
- *
- * Returns: string version of @kind
- **/
-const gchar*
-as_icon_kind_to_string (AsIconKind kind)
-{
-	if (kind == AS_ICON_KIND_CACHED)
-		return "cached";
-	if (kind == AS_ICON_KIND_LOCAL)
-		return "local";
-	if (kind == AS_ICON_KIND_REMOTE)
-		return "remote";
-	if (kind == AS_ICON_KIND_STOCK)
-		return "stock";
-	return "unknown";
-}
-
-/**
- * as_icon_kind_from_string:
- * @kind_str: the string.
- *
- * Converts the text representation to an enumerated value.
- *
- * Returns: a #AsIconKind or %AS_ICON_KIND_UNKNOWN for unknown
- **/
-AsIconKind
-as_icon_kind_from_string (const gchar *kind_str)
-{
-	if (g_strcmp0 (kind_str, "cached") == 0)
-		return AS_ICON_KIND_CACHED;
-	if (g_strcmp0 (kind_str, "local") == 0)
-		return AS_ICON_KIND_LOCAL;
-	if (g_strcmp0 (kind_str, "remote") == 0)
-		return AS_ICON_KIND_REMOTE;
-	if (g_strcmp0 (kind_str, "stock") == 0)
-		return AS_ICON_KIND_STOCK;
-	return AS_ICON_KIND_UNKNOWN;
-}
-
-/**
  * as_component_init:
  **/
 static void
@@ -257,7 +210,10 @@ as_component_init (AsComponent *cpt)
 	priv->provided_items = g_ptr_array_new_with_free_func (g_free);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
-	priv->icon_urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
+	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
 	priv->urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	priv->bundles = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
@@ -294,17 +250,11 @@ as_component_finalize (GObject* object)
 	g_ptr_array_unref (priv->releases);
 	g_ptr_array_unref (priv->extends);
 	g_hash_table_unref (priv->urls);
-	g_hash_table_unref (priv->icon_urls);
 	g_hash_table_unref (priv->languages);
 	g_hash_table_unref (priv->bundles);
 
-	g_free (priv->icon_stock);
-	if (priv->icons_remote != NULL)
-		g_hash_table_unref (priv->icons_remote);
-	if (priv->icons_local != NULL)
-		g_hash_table_unref (priv->icons_local);
-	if (priv->icons_cache != NULL)
-		g_hash_table_unref (priv->icons_cache);
+	g_ptr_array_unref (priv->icons);
+	g_hash_table_unref (priv->icons_sizetab);
 
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (object);
 }
@@ -1105,121 +1055,65 @@ as_component_get_keywords_table (AsComponent *cpt)
 }
 
 /**
- * as_component_get_icon:
+ * as_component_get_icons:
  * @cpt: an #AsComponent instance
  *
- * Returns: (nullable): The raw icon data found for the given icon kind and size.
- * If the icon kind is %AS_ICON_KIND_STOCK, the size is ignored.
- * %NULL is returned in case no icon was found.
+ * Returns: (transfer none): A #GPtrArray of all icons for this component.
  */
-const gchar*
-as_component_get_icon (AsComponent *cpt, AsIconKind kind, int width, int height)
+GPtrArray*
+as_component_get_icons (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->icons;
+}
+
+/**
+ * as_component_get_icon_by_size:
+ * @cpt: an #AsComponent instance
+ * @width: The icon width in pixels.
+ * @height: the icon height in pixels.
+ *
+ * Gets an icon matching the size constraints.
+ * The icons are not filtered by type, and the first-best icon
+ * which matches the size is returned.
+ * If you want more control over which icons you use for displaying,
+ * use the as_component_get_icons() function to get a list of all icons.
+ *
+ * Returns: An icon matching the given width/height, or %NULL if not found.
+ */
+AsIcon*
+as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height)
 {
 	g_autofree gchar *size = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (kind == AS_ICON_KIND_STOCK)
-		return priv->icon_stock;
+	if ((width == 0) && (height == 0))
+		return NULL;
 
 	size = g_strdup_printf ("%ix%i", width, height);
-
-	if (kind == AS_ICON_KIND_CACHED) {
-		if (priv->icons_cache == NULL)
-			return NULL;
-		return g_hash_table_lookup (priv->icons_cache, size);
-	}
-
-	if (kind == AS_ICON_KIND_LOCAL) {
-		if (priv->icons_local == NULL)
-			return NULL;
-		return g_hash_table_lookup (priv->icons_local, size);
-	}
-
-	if (kind == AS_ICON_KIND_REMOTE) {
-		if (priv->icons_remote == NULL)
-			return NULL;
-		return g_hash_table_lookup (priv->icons_remote, size);
-	}
-
-	return NULL;
+	return g_hash_table_lookup (priv->icons_sizetab, size);
 }
 
 /**
  * as_component_add_icon:
  * @cpt: an #AsComponent instance
- * @kind: the #AsIconKind of the icon
- * @width: the width of the icon
- * @height: the height of the icon
- * @value: the full icon url
+ * @icon: the valid #AsIcon instance to add.
  *
- * Add an icon of the given type to this component.
+ * Add an icon to this component.
  */
 void
-as_component_add_icon (AsComponent *cpt, AsIconKind kind, int width, int height, const gchar* value)
+as_component_add_icon (AsComponent *cpt, AsIcon *icon)
 {
-	g_autofree gchar *size = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	if (kind == AS_ICON_KIND_STOCK) {
-		g_free (priv->icon_stock);
-		priv->icon_stock = g_strdup (value);
-		return;
+	g_ptr_array_add (priv->icons, g_object_ref (icon));
+	if ((as_icon_get_width (icon) != 0) && (as_icon_get_height (icon) != 0)) {
+		gchar *size = NULL;
+		size = g_strdup_printf ("%ix%i",
+					as_icon_get_width (icon),
+					as_icon_get_height (icon));
+		g_hash_table_insert (priv->icons_sizetab, size, icon);
 	}
-
-	size = g_strdup_printf ("%ix%i", width, height);
-
-	if (kind == AS_ICON_KIND_CACHED) {
-		if (priv->icons_cache == NULL)
-			priv->icons_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-		g_hash_table_insert (priv->icons_cache, g_strdup (size), g_strdup (value));
-		return;
-	}
-
-	if (kind == AS_ICON_KIND_LOCAL) {
-		if (priv->icons_local == NULL)
-			priv->icons_local = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-		g_hash_table_insert (priv->icons_local, g_strdup (size), g_strdup (value));
-		return;
-	}
-
-	if (kind == AS_ICON_KIND_REMOTE) {
-		if (priv->icons_remote == NULL)
-			priv->icons_remote = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-		g_hash_table_insert (priv->icons_remote, g_strdup (size), g_strdup (value));
-		return;
-	}
-}
-
-/**
- * as_component_add_icon_url:
- * @cpt: an #AsComponent instance
- * @width: An icon width
- * @height: An icon height
- * @value: The full icon url
- *
- * Set an icon url for this component, which can be a remote
- * or local location.
- *
- * The icon_url does not end up in XML generated for this component,
- * it is mereley designed to be a fast way to get icon information
- * for a component.
- * If you want to set an icon which gets serialized to AppStream xml,
- * use the as_component_add_icon() method instead.
- *
- * Since: 0.7.4
- */
-void
-as_component_add_icon_url (AsComponent *cpt, int width, int height, const gchar* value)
-{
-	gchar *size;
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	/* safety measure, to protect against invalid path values */
-	if (value == NULL)
-		value = "";
-
-	size = g_strdup_printf ("%ix%i", width, height);
-	g_hash_table_insert (priv->icon_urls, size, g_strdup (value));
 }
 
 /**
@@ -1244,31 +1138,14 @@ const gchar*
 as_component_get_icon_url (AsComponent *cpt, int width, int height)
 {
 	gchar *size;
-	gchar *icon_url;
+	AsIcon *icon;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	size = g_strdup_printf ("%ix%i", width, height);
-	icon_url = g_hash_table_lookup (priv->icon_urls, size);
+	icon = g_hash_table_lookup (priv->icons_sizetab, size);
 	g_free (size);
 
-	return icon_url;
-}
-
-/**
- * as_component_get_icon_urls:
- * @cpt: a #AsComponent instance.
- *
- * Gets the icon-urls has table for the component.
- *
- * Returns: (transfer none) (element-type utf8 utf8): A hash map of icon urls and sizes
- *
- * Since: 0.7.4
- **/
-GHashTable*
-as_component_get_icon_urls (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->icon_urls;
+	return as_icon_get_filename (icon);
 }
 
 /**
@@ -1693,14 +1570,42 @@ as_component_get_languages_map (AsComponent *cpt)
 }
 
 /**
- * as_component_refine_icon:
+ * as_component_add_icon_full:
+ *
+ * Internal helper function for as_component_refine_icons()
+ */
+static void
+as_component_add_icon_full (AsComponent *cpt, AsIconKind kind, const gchar *size_str, const gchar *fname)
+{
+	g_autoptr(AsIcon) icon = NULL;
+
+	icon = as_icon_new ();
+	as_icon_set_kind (icon, kind);
+	as_icon_set_filename (icon, fname);
+
+	if (g_strcmp0 (size_str, "128x128") == 0) {
+		as_icon_set_width (icon, 128);
+		as_icon_set_height (icon, 128);
+	} else {
+		/* it's either "64x64", emptystring or NULL, in any case we assume 64x64
+		 * This has to be adapted as soon as we support more than 2 icon sizes, but
+		 * we are lazy here to not hurt performance too much. */
+		as_icon_set_width (icon, 64);
+		as_icon_set_height (icon, 64);
+	}
+
+	as_component_add_icon (cpt, icon);
+}
+
+/**
+ * as_component_refine_icons:
  * @cpt: a #AsComponent instance.
  *
  * We use this method to ensure the "icon" and "icon_url" properties of
  * a component are properly set, by finding the icons in default directories.
  */
-void
-as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
+static void
+as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 {
 	const gchar *exensions[] = { "png",
 				     "svg",
@@ -1711,85 +1616,107 @@ as_component_refine_icon (AsComponent *cpt, gchar **icon_paths)
 				     NULL };
 	const gchar *sizes[] = { "", "64x64", "128x128", NULL };
 	gchar *tmp_icon_path = NULL;
-	gchar *icon_url = NULL;
-	guint i, j, k;
+	const gchar *icon_url = NULL;
+	guint i, j, k, l;
+	g_autoptr(GPtrArray) icons = NULL;
+	g_autoptr(GHashTable) icons_sizetab = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* See if we have an icon without known size.
-	 * These icons have a zero-dimensional width and height (therefore the "0x0" key)
-	 */
-	icon_url = g_strdup (g_hash_table_lookup (priv->icon_urls, "0x0"));
-	if (icon_url == NULL) {
-		/* okay, see if we have a stock icon */
-		icon_url = g_strdup (as_component_get_icon (cpt, AS_ICON_KIND_STOCK, 0, 0));
-		if ((icon_url == NULL) || (g_strcmp0 (icon_url, "") == 0)) {
-			/* nothing to do... */
-			return;
+	if (priv->icons->len == 0)
+		return;
+
+	/* take control of the old icon list and hashtable and rewrite it */
+	icons = priv->icons;
+	icons_sizetab = priv->icons_sizetab;
+	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+	/* Process the icons we have and extract sizes */
+	for (i = 0; i < icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+
+		/* we can't do anything about remote icons (yet?), so just don't do anything to them */
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE) {
+			as_component_add_icon (cpt, icon);
+			continue;
 		}
-	}
-	g_hash_table_remove (priv->icon_urls, "0x0");
 
-	if (g_str_has_prefix (icon_url, "/") ||
-		g_str_has_prefix (icon_url, "http://")) {
-		/* looks like this component already has a full icon path,
-		 * or is a weblink. We assume 64x64 in that case
-		 */
-		as_component_add_icon_url (cpt, 64, 64, icon_url);
-		goto out;
-	}
+		/* get some icon name we want to resolve */
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_CACHED)
+			icon_url = as_icon_get_filename (icon);
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK)
+			icon_url = as_icon_get_name (icon);
 
-	/* search local icon path */
-	for (i = 0; icon_paths[i] != NULL; i++) {
-		for (j = 0; sizes[j] != NULL; j++) {
-			/* sometimes, the file already has an extension */
-			tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
-							icon_paths[i],
-							priv->origin,
-							sizes[j],
-							icon_url);
-			if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
-				/* we have an icon! */
-				if (g_strcmp0 (sizes[j], "") == 0) {
-					/* old icon directory, so assume 64x64 */
-					as_component_add_icon_url (cpt, 64, 64, g_strdup (tmp_icon_path));
-				} else {
-					g_hash_table_insert (priv->icon_urls, g_strdup (sizes[j]), g_strdup (tmp_icon_path));
-				}
+		if (g_str_has_prefix (icon_url, "/") ||
+			g_str_has_prefix (icon_url, "http://")) {
+			/* looks like this component already has a full icon path,
+			 * or is a weblink. */
+			as_component_add_icon (cpt, icon);
+			continue;
+		}
 
-				g_free (tmp_icon_path);
-				tmp_icon_path = NULL;
-				continue;
-			}
-			g_free (tmp_icon_path);
-			tmp_icon_path = NULL;
-
-			/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
-			for (k = 0; exensions[k] != NULL; k++) {
-				tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s.%s",
-							icon_paths[i],
-							priv->origin,
-							sizes[j],
-							icon_url,
-							exensions[k]);
+		/* search local icon path */
+		for (l = 0; icon_paths[l] != NULL; l++) {
+			for (j = 0; sizes[j] != NULL; j++) {
+				/* sometimes, the file already has an extension */
+				tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
+								icon_paths[l],
+								priv->origin,
+								sizes[j],
+								icon_url);
 				if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
 					/* we have an icon! */
 					if (g_strcmp0 (sizes[j], "") == 0) {
 						/* old icon directory, so assume 64x64 */
-						as_component_add_icon_url (cpt, 64, 64, g_strdup (tmp_icon_path));
+						as_component_add_icon_full (cpt,
+									    as_icon_get_kind (icon),
+									    "64x64",
+									    tmp_icon_path);
 					} else {
-						g_hash_table_insert (priv->icon_urls, g_strdup (sizes[j]), g_strdup (tmp_icon_path));
+						as_component_add_icon_full (cpt,
+									    as_icon_get_kind (icon),
+									    sizes[j],
+									    tmp_icon_path);
 					}
-				}
 
+					g_free (tmp_icon_path);
+					tmp_icon_path = NULL;
+					continue;
+				}
 				g_free (tmp_icon_path);
 				tmp_icon_path = NULL;
+
+				/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
+				for (k = 0; exensions[k] != NULL; k++) {
+					tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s.%s",
+								icon_paths[l],
+								priv->origin,
+								sizes[j],
+								icon_url,
+								exensions[k]);
+					if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
+						/* we have an icon! */
+						if (g_strcmp0 (sizes[j], "") == 0) {
+							/* old icon directory, so assume 64x64 */
+							as_component_add_icon_full (cpt,
+									    as_icon_get_kind (icon),
+									    "64x64",
+									    tmp_icon_path);
+						} else {
+							as_component_add_icon_full (cpt,
+									    as_icon_get_kind (icon),
+									    sizes[j],
+									    tmp_icon_path);
+						}
+					}
+
+					g_free (tmp_icon_path);
+					tmp_icon_path = NULL;
+				}
 			}
 		}
 	}
 
-out:
-	if (icon_url != NULL)
-		g_free (icon_url);
 	if (tmp_icon_path != NULL) {
 		g_free (tmp_icon_path);
 	}
@@ -1859,7 +1786,7 @@ as_component_complete (AsComponent *cpt, gchar *scr_base_url, gchar **icon_paths
 	}
 
 	/* improve icon paths */
-	as_component_refine_icon (cpt, icon_paths);
+	as_component_refine_icons (cpt, icon_paths);
 }
 
 /**
@@ -1892,8 +1819,8 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_KEYWORDS:
 			g_value_set_boxed (value, as_component_get_keywords (cpt));
 			break;
-		case AS_COMPONENT_ICON_URLS:
-			g_value_set_boxed (value, as_component_get_icon_urls (cpt));
+		case AS_COMPONENT_ICONS:
+			g_value_set_boxed (value, as_component_get_icons (cpt));
 			break;
 		case AS_COMPONENT_URLS:
 			g_value_set_boxed (value, as_component_get_urls (cpt));
@@ -2041,8 +1968,8 @@ as_component_class_init (AsComponentClass * klass)
 	 * hash map of icon urls and sizes
 	 */
 	g_object_class_install_property (object_class,
-					AS_COMPONENT_ICON_URLS,
-					g_param_spec_boxed ("icon-urls", "icon-urls", "icon-urls", G_TYPE_HASH_TABLE, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+					AS_COMPONENT_ICONS,
+					g_param_spec_boxed ("icon-urls", "icon-urls", "icon-urls", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 	/**
 	 * AsComponent:urls:
 	 * (type GHashTable(utf8,utf8))

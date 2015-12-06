@@ -149,21 +149,26 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 			as_component_add_url (cpt, ukind, url.url ().c_str ());
 	}
 
-	// Stock icon
-	string appIcon = doc.get_value (XapianValues::ICON);
-	as_component_add_icon (cpt, AS_ICON_KIND_STOCK, 0, 0, appIcon.c_str ());
+	// Icons
+	Icons icons;
+	str = doc.get_value (XapianValues::ICONS);
+	icons.ParseFromString (str);
+	for (int i = 0; i < icons.icon_size (); i++) {
+		const Icons_Icon& pbIcon = icons.icon (i);
 
-	// Icon urls
-	IconUrls iurls;
-	str = doc.get_value (XapianValues::ICON_URLS);
-	iurls.ParseFromString (str);
-	GHashTable *cpt_icon_urls = as_component_get_icon_urls (cpt);
-	for (int i = 0; i < iurls.icon_size (); i++) {
-		const IconUrls_Icon& icon = iurls.icon (i);
+		AsIcon *icon = as_icon_new ();
+		as_icon_set_width (icon, pbIcon.width ());
+		as_icon_set_height (icon, pbIcon.height ());
 
-		g_hash_table_insert (cpt_icon_urls,
-					g_strdup (icon.size ().c_str ()),
-					g_strdup (icon.url ().c_str ()));
+		if (pbIcon.type () == Icons_IconType_REMOTE) {
+			as_icon_set_kind (icon, AS_ICON_KIND_REMOTE);
+			as_icon_set_url (icon, pbIcon.url ().c_str ());
+		} else {
+			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+			as_icon_set_filename (icon, pbIcon.url ().c_str ());
+		}
+		as_component_add_icon (cpt, icon);
+		g_object_unref (icon);
 	}
 
 	// Summary

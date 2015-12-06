@@ -44,8 +44,7 @@ enum XapianValues {
 	DESCRIPTION = 128,
 	CATEGORIES = 129,     // semicolon-separated list of strings
 
-	ICON = 130,
-	ICON_URLS = 131,
+	ICONS = 130,          // protobuf serialization: Icons
 
 	PROVIDED_ITEMS = 140, // protobuf serialization: ProvidedItems
 	SCREENSHOTS = 141,    // protobuf serialization: Screenshots

@@ -195,6 +195,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	gchar *short_idline;
 	gchar *pkgs_str = NULL;
 	gchar *bundles_str = NULL;
+	AsIcon *icon = NULL;
 	guint j;
 
 	short_idline = g_strdup_printf ("%s [%s]",
@@ -204,13 +205,15 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		pkgs_str = g_strjoinv (", ", as_component_get_pkgnames (cpt));
 	bundles_str = as_get_bundle_str (cpt);
 
+	icon = as_component_get_icon_by_size (cpt, 64, 64);
+
 	ascli_print_key_value (_("Identifier"), short_idline, FALSE);
 	ascli_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
 	ascli_print_key_value (_("Summary"), as_component_get_summary (cpt), FALSE);
 	ascli_print_key_value (_("Package"), pkgs_str, FALSE);
 	ascli_print_key_value (_("Bundle"), bundles_str, FALSE);
 	ascli_print_key_value (_("Homepage"), as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), FALSE);
-	ascli_print_key_value (_("Icon"), as_component_get_icon_url (cpt, 64, 64), FALSE);
+	ascli_print_key_value (_("Icon"), icon == NULL ? NULL : as_icon_get_name (icon), FALSE);
 	g_free (short_idline);
 	g_free (pkgs_str);
 	g_free (bundles_str);

@@ -29,6 +29,7 @@
 #include "as-screenshot.h"
 #include "as-provides.h"
 #include "as-release.h"
+#include "as-icon.h"
 #include "as-enums.h"
 
 G_BEGIN_DECLS
@@ -60,7 +61,6 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
- * @AS_COMPONENT_KIND_LAST:(skip)
  *
  * The URL type.
  **/
@@ -73,35 +73,13 @@ typedef enum  {
 	AS_COMPONENT_KIND_INPUTMETHOD = 1 << 4,
 	AS_COMPONENT_KIND_ADDON = 1 << 5,
 	AS_COMPONENT_KIND_FIRMWARE = 1 << 6,
+	/*< private >*/
 	AS_COMPONENT_KIND_LAST = 7
 } AsComponentKind;
-
-/**
- * AsIconKind:
- * @AS_ICON_KIND_UNKNOWN:	Unknown icon kind
- * @AS_ICON_KIND_CACHED:	Icon in the internal caches
- * @AS_ICON_KIND_STOCK:		Stock icon name
- * @AS_ICON_KIND_LOCAL:		Local icon name
- * @AS_ICON_KIND_REMOTE:	Remote icon URL
- * @AS_ICON_KIND_LAST:(skip)
- *
- * The icon type.
- **/
-typedef enum  {
-	AS_ICON_KIND_UNKNOWN,
-	AS_ICON_KIND_CACHED,
-	AS_ICON_KIND_STOCK,
-	AS_ICON_KIND_LOCAL,
-	AS_ICON_KIND_REMOTE,
-	AS_ICON_KIND_LAST
-} AsIconKind;
 
 GType			as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar		*as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
-
-AsIconKind		as_icon_kind_from_string (const gchar *kind_str);
-const gchar*		as_icon_kind_to_string (AsIconKind kind);
 
 AsComponent		*as_component_new (void);
 
@@ -183,24 +161,12 @@ void			as_component_set_keywords (AsComponent *cpt,
 							gchar **value,
 							const gchar *locale);
 
-const gchar		*as_component_get_icon (AsComponent *cpt,
-							AsIconKind kind,
-							int width,
-							int height);
+GPtrArray		*as_component_get_icons (AsComponent *cpt);
+AsIcon			*as_component_get_icon_by_size (AsComponent *cpt,
+							guint width,
+							guint height);
 void			as_component_add_icon (AsComponent *cpt,
-						AsIconKind kind,
-						int width,
-						int height,
-						const gchar* value);
-
-const gchar		*as_component_get_icon_url (AsComponent *cpt,
-							int width,
-							int height);
-void			as_component_add_icon_url (AsComponent *cpt,
-							int width,
-							int height,
-							const gchar* value);
-GHashTable		*as_component_get_icon_urls (AsComponent *cpt);
+						AsIcon *icon);
 
 GPtrArray		*as_component_get_provided_items (AsComponent *cpt);
 void			as_component_add_provided_item (AsComponent *cpt,
@@ -239,6 +205,12 @@ const gchar		*as_component_get_bundle_id (AsComponent *cpt,
 void			as_component_add_bundle_id (AsComponent *cpt,
 							AsBundleKind bundle_kind,
 							const gchar *id);
+
+/* DEPRECATED */
+
+G_GNUC_DEPRECATED const gchar	*as_component_get_icon_url (AsComponent *cpt,
+						int width,
+						int height);
 
 G_END_DECLS
 

@@ -302,36 +302,48 @@ dep11_process_urls (GNode *node, AsComponent *cpt)
 }
 
 /**
- * dep11_process_icons:
+ * as_dep11_process_icons:
  */
 static void
-dep11_process_icons (GNode *node, AsComponent *cpt)
+as_dep11_process_icons (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
 {
 	GNode *n;
 	gchar *key;
 	gchar *value;
-	const gchar *icon_url;
+	AsDEP11Private *priv = GET_PRIVATE (dep11);
 
 	for (n = node->children; n != NULL; n = n->next) {
+		g_autoptr(AsIcon) icon = NULL;
+
 		key = (gchar*) n->data;
 		value = (gchar*) n->children->data;
+		icon = as_icon_new ();
 
 		if (g_strcmp0 (key, "stock") == 0) {
-			as_component_add_icon (cpt, AS_ICON_KIND_STOCK, 0, 0, value);
+			as_icon_set_kind (icon, AS_ICON_KIND_STOCK);
+			as_icon_set_name (icon, value);
+			as_component_add_icon (cpt, icon);
 		} else if (g_strcmp0 (key, "cached") == 0) {
-			as_component_add_icon (cpt, AS_ICON_KIND_CACHED, 0, 0, value);
-			icon_url = as_component_get_icon_url (cpt, 0, 0);
-			if ((icon_url == NULL) || (g_str_has_prefix (icon_url, "http://"))) {
-				as_component_add_icon_url (cpt, 0, 0, value);
-			}
+			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+			as_icon_set_filename (icon, value);
+			as_component_add_icon (cpt, icon);
 		} else if (g_strcmp0 (key, "local") == 0) {
-			as_component_add_icon (cpt, AS_ICON_KIND_LOCAL, 0, 0, value);
-			as_component_add_icon_url (cpt, 0, 0, value);
+			as_icon_set_kind (icon, AS_ICON_KIND_LOCAL);
+			as_icon_set_filename (icon, value);
+			as_component_add_icon (cpt, icon);
 		} else if (g_strcmp0 (key, "remote") == 0) {
-			as_component_add_icon (cpt, AS_ICON_KIND_REMOTE, 0, 0, value);
-			icon_url = as_component_get_icon_url (cpt, 0, 0);
-			if (icon_url == NULL)
-				as_component_add_icon_url (cpt, 0, 0, value);
+			as_icon_set_kind (icon, AS_ICON_KIND_REMOTE);
+			if (priv->media_baseurl == NULL) {
+				/* no baseurl, we can just set the value as URL */
+				as_icon_set_url (icon, value);
+			} else {
+				/* handle the media baseurl */
+				gchar *tmp;
+				tmp = g_build_filename (priv->media_baseurl, value, NULL);
+				as_icon_set_url (icon, tmp);
+				g_free (tmp);
+			}
+			as_component_add_icon (cpt, icon);
 		}
 	}
 }
@@ -678,7 +690,7 @@ as_dep11_process_component_node (AsDEP11 *dep11, GNode *root)
 		} else if (g_strcmp0 (key, "Url") == 0) {
 			dep11_process_urls (node, cpt);
 		} else if (g_strcmp0 (key, "Icon") == 0) {
-			dep11_process_icons (node, cpt);
+			as_dep11_process_icons (dep11, node, cpt);
 		} else if (g_strcmp0 (key, "Provides") == 0) {
 			dep11_process_provides (node, cpt);
 		} else if (g_strcmp0 (key, "Screenshots") == 0) {

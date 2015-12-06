@@ -98,14 +98,6 @@ QString value(Xapian::Document document, XapianValues::XapianValues index) {
     return QString::fromStdString(document.get_value(index));
 }
 
-QSize parseSizeString(QString s)
-{
-    QStringList sl = s.split("x");
-    if (sl.count() != 2)
-        return QSize();
-    return QSize(sl[0].toInt(),sl[1].toInt());
-}
-
 Component xapianDocToComponent(Xapian::Document document) {
     Component component;
     std::string str;
@@ -188,20 +180,15 @@ Component xapianDocToComponent(Xapian::Document document) {
     }
     component.setProvides(provideslist);
 
-    // Stock icon
-    QString icon = value(document,XapianValues::ICON);
-    component.setIcon(icon);
+    // Icons
+    ASCache::Icons pbIcons;
+    str = document.get_value (XapianValues::ICONS);
+    pbIcons.ParseFromString (str);
+    for (int i = 0; i < pbIcons.icon_size (); i++) {
+        const Icons_Icon& pbIcon = pbIcons.icon (i);
 
-    // Icon urls
-    ASCache::IconUrls iurls;
-    str = document.get_value (XapianValues::ICON_URLS);
-    iurls.ParseFromString (str);
-    for (int i = 0; i < iurls.icon_size (); i++) {
-        const IconUrls_Icon& icon = iurls.icon (i);
-        QString sizeStr = QString::fromStdString(icon.size ());
-        QUrl url = QUrl::fromUserInput(QString::fromStdString(icon.url()));
-
-        QSize size = parseSizeString(sizeStr);
+        auto size = QSize(pbIcon.width(), pbIcon.height());
+        QUrl url = QUrl::fromUserInput(QString::fromStdString(pbIcon.url()));
         component.addIconUrl(url, size);
     }
 

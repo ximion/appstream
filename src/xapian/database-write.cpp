@@ -100,17 +100,6 @@ urls_hashtable_to_urlentry (gchar *key, gchar *value, Urls *urls)
 }
 
 /**
- * Helper function to serialize icon urls for storage in the database
- */
-static void
-icon_urls_hashtable_to_iconentry (gchar *key, gchar *value, IconUrls *iurls)
-{
-	IconUrls_Icon *icon = iurls->add_icon ();
-	icon->set_size (key);
-	icon->set_url (value);
-}
-
-/**
  * Helper function to serialize AsImage instances for storage in the database
  */
 static void
@@ -286,24 +275,29 @@ DatabaseWrite::rebuild (GList *cpt_list)
 				doc.add_value (XapianValues::URLS, ostr);
 		}
 
-		// Stock icon
-		const gchar *stock_icon = as_component_get_icon (cpt, AS_ICON_KIND_STOCK, 0, 0);
-		if (stock_icon != NULL)
-			doc.add_value (XapianValues::ICON, stock_icon);
+		// Icons
+		GPtrArray *icons = as_component_get_icons (cpt);
+		Icons pbIcons;
+		for (uint i = 0; i < icons->len; i++) {
+			AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
 
-		// Icon urls
-		GHashTable *icon_urls;
-		icon_urls = as_component_get_icon_urls (cpt);
-		if (g_hash_table_size (icon_urls) > 0) {
-			IconUrls iurls;
-			string ostr;
+			Icons_Icon *pbIcon = pbIcons.add_icon ();
+			pbIcon->set_width (as_icon_get_width (icon));
+			pbIcon->set_height (as_icon_get_height (icon));
 
-			g_hash_table_foreach(icon_urls,
-						(GHFunc) icon_urls_hashtable_to_iconentry,
-						&iurls);
-			if (iurls.SerializeToString (&ostr))
-				doc.add_value (XapianValues::ICON_URLS, ostr);
+			if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE) {
+				pbIcon->set_type (Icons_IconType_REMOTE);
+				pbIcon->set_url (as_icon_get_url (icon));
+			} else {
+				/* TODO: Properly support STOCK and LOCAL icons */
+				pbIcon->set_type (Icons_IconType_CACHED);
+				pbIcon->set_url (as_icon_get_filename (icon));
+			}
 		}
+		string icons_ostr;
+		if (pbIcons.SerializeToString (&icons_ostr))
+			doc.add_value (XapianValues::ICONS, icons_ostr);
+
 
 		// Summary
 		string cptSummary = as_component_get_summary (cpt);

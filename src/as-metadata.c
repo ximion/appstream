@@ -728,35 +728,38 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 			}
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
 			gchar *prop;
-			const gchar *icon_url;
+			g_autoptr(AsIcon) icon = NULL;
 			if (content == NULL)
 				continue;
+
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			icon = as_icon_new ();
+
 			if (g_strcmp0 (prop, "stock") == 0) {
-				as_component_add_icon (cpt, AS_ICON_KIND_STOCK, 0, 0, content);
+				as_icon_set_kind (icon, AS_ICON_KIND_STOCK);
+				as_icon_set_name (icon, content);
+				as_component_add_icon (cpt, icon);
 			} else if (g_strcmp0 (prop, "cached") == 0) {
-				as_component_add_icon (cpt, AS_ICON_KIND_CACHED, 0, 0, content);
-				icon_url = as_component_get_icon_url (cpt, 0, 0);
-				if ((icon_url == NULL) || (g_str_has_prefix (icon_url, "http://"))) {
-					as_component_add_icon_url (cpt, 0, 0, content);
-				}
+				as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+				as_icon_set_filename (icon, content);
+				as_component_add_icon (cpt, icon);
 			} else if (g_strcmp0 (prop, "local") == 0) {
-				as_component_add_icon_url (cpt, 0, 0, content);
-				as_component_add_icon (cpt, AS_ICON_KIND_LOCAL, 0, 0, content);
+				as_icon_set_kind (icon, AS_ICON_KIND_LOCAL);
+				as_icon_set_filename (icon, content);
+				as_component_add_icon (cpt, icon);
 			} else if (g_strcmp0 (prop, "remote") == 0) {
+				as_icon_set_kind (icon, AS_ICON_KIND_REMOTE);
 				if (priv->media_baseurl == NULL) {
 					/* no baseurl, we can just set the value as URL */
-					as_component_add_icon (cpt, AS_ICON_KIND_REMOTE, 0, 0, content);
+					as_icon_set_url (icon, content);
 				} else {
 					/* handle the media baseurl */
 					gchar *tmp;
 					tmp = g_build_filename (priv->media_baseurl, content, NULL);
-					as_component_add_icon (cpt, AS_ICON_KIND_REMOTE, 0, 0, content);
+					as_icon_set_url (icon, tmp);
 					g_free (tmp);
 				}
-				icon_url = as_component_get_icon_url (cpt, 0, 0);
-				if (icon_url == NULL)
-					as_component_add_icon_url (cpt, 0, 0, content);
+				as_component_add_icon (cpt, icon);
 			}
 		} else if (g_strcmp0 (node_name, "url") == 0) {
 			if (content != NULL) {
@@ -1529,6 +1532,7 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	gchar **strv;
 	GPtrArray *releases;
 	GPtrArray *screenshots;
+	GPtrArray *icons;
 	AsComponentKind kind;
 	AsLocaleWriteHelper helper;
 	guint i;
@@ -1595,16 +1599,27 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	}
 
 	/* icons */
-	for (i = AS_ICON_KIND_UNKNOWN; i < AS_ICON_KIND_LAST; i++) {
+	icons = as_component_get_icons (cpt);
+	for (i = 0; i < icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
 		xmlNode *n;
 		const gchar *value;
-		value = as_component_get_icon (cpt, i, 0, 0); /* TODO: Add size information to output XML */
+
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_LOCAL)
+			value = as_icon_get_filename (icon);
+		else if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE)
+			value = as_icon_get_url (icon);
+		else
+			value = as_icon_get_name (icon);
+
 		if (value == NULL)
 			continue;
 
 		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "icon", (xmlChar*) value);
 		xmlNewProp (n, (xmlChar*) "type",
-					(xmlChar*) as_icon_kind_to_string (i));
+					(xmlChar*) as_icon_kind_to_string (as_icon_get_kind (icon)));
+
+		/* TODO: Prevent adding the same icon node multiple times? */
 	}
 
 	/* bundles */
