@@ -31,24 +31,12 @@
 #include "as-release.h"
 #include "as-enums.h"
 
-#define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
-
-#define AS_TYPE_COMPONENT		(as_component_get_type())
-#define AS_COMPONENT(obj)		(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_COMPONENT, AsComponent))
-#define AS_COMPONENT_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_COMPONENT, AsComponentClass))
-#define AS_IS_COMPONENT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_COMPONENT))
-#define AS_IS_COMPONENT_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_COMPONENT))
-#define AS_COMPONENT_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_COMPONENT, AsComponentClass))
-
 G_BEGIN_DECLS
 
-typedef struct _AsComponent		AsComponent;
-typedef struct _AsComponentClass	AsComponentClass;
+#define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
 
-struct _AsComponent
-{
-	GObject			parent;
-};
+#define AS_TYPE_COMPONENT (as_component_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsComponent, as_component, AS, COMPONENT, GObject)
 
 struct _AsComponentClass
 {
@@ -61,8 +49,6 @@ struct _AsComponentClass
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
 };
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsComponent, g_object_unref)
 
 /**
  * AsComponentKind:
@@ -117,7 +103,6 @@ AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
 AsIconKind		as_icon_kind_from_string (const gchar *kind_str);
 const gchar*		as_icon_kind_to_string (AsIconKind kind);
 
-GType			as_component_get_type (void) G_GNUC_CONST;
 AsComponent		*as_component_new (void);
 
 gboolean		as_component_is_valid (AsComponent *cpt);

@@ -44,8 +44,8 @@
  * See also: #AsProvidesKind, #AsDatabase
  */
 
-typedef struct _AsComponentPrivate	AsComponentPrivate;
-struct _AsComponentPrivate {
+typedef struct
+{
 	AsComponentKind kind;
 	gchar			*active_locale;
 
@@ -81,7 +81,7 @@ struct _AsComponentPrivate {
 	GHashTable		*icons_cache; /* of key:utf8 */
 
 	gint			priority; /* used internally */
-};
+} AsComponentPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsComponent, as_component, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_component_get_instance_private (o))
