@@ -65,17 +65,17 @@ typedef struct
 	gchar			*project_group;
 	gchar			**compulsory_for_desktops;
 
+	GPtrArray		*extends; /* of string */
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
-	GPtrArray		*provided_items; /* of utf8:string */
-	GPtrArray		*releases; /* of AsRelease */
+	GPtrArray		*releases; /* of AsRelease elements */
 
-	GHashTable		*urls; /* of key:utf8 */
-	GPtrArray		*extends; /* of utf8:string */
-	GHashTable		*languages; /* of key:utf8 */
-	GHashTable		*bundles; /* of key:utf8 */
+	GHashTable		*provided; /* of int:object */
+	GHashTable		*urls; /* of utf8:utf8 */
+	GHashTable		*languages; /* of utf8:utf8 */
+	GHashTable		*bundles; /* of utf8:utf8 */
 
 	GPtrArray		*icons; /* of AsIcon elements */
-	GHashTable		*icons_sizetab; /* of key:utf8 */
+	GHashTable		*icons_sizetab; /* of utf8:object (object owned by priv->icons array) */
 
 	gint			priority; /* used internally */
 } AsComponentPrivate;
@@ -207,13 +207,13 @@ as_component_init (AsComponent *cpt)
 	priv->keywords = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) g_strfreev);
 
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
-	priv->provided_items = g_ptr_array_new_with_free_func (g_free);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
 
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
+	priv->provided = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	priv->bundles = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
@@ -246,9 +246,9 @@ as_component_finalize (GObject* object)
 	g_strfreev (priv->compulsory_for_desktops);
 
 	g_ptr_array_unref (priv->screenshots);
-	g_ptr_array_unref (priv->provided_items);
 	g_ptr_array_unref (priv->releases);
 	g_ptr_array_unref (priv->extends);
+	g_hash_table_unref (priv->provided);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
 	g_hash_table_unref (priv->bundles);
@@ -405,7 +405,7 @@ as_component_get_urls (AsComponent *cpt)
  *
  * Since: 0.6.2
  **/
-const gchar *
+const gchar*
 as_component_get_url (AsComponent *cpt, AsUrlKind url_kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
@@ -571,38 +571,6 @@ gboolean
 as_component_has_install_candidate (AsComponent *cpt)
 {
 	return as_component_has_bundle (cpt) || as_component_has_package (cpt);
-}
-
-/**
- * as_component_provides_item:
- * @cpt: a valid #AsComponent
- * @kind: the kind of the provides-item
- * @value: the value of the provides-item
- *
- * Checks if this component provides an item of the specified type
- *
- * Returns: %TRUE if an item was found
- */
-gboolean
-as_component_provides_item (AsComponent *cpt, AsProvidesKind kind, const gchar *value)
-{
-	guint i;
-	gboolean ret = FALSE;
-	gchar *item;
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	item = as_provides_item_create (kind, value, "");
-	for (i = 0; i < priv->provided_items->len; i++) {
-		gchar *cval;
-		cval = (gchar*) g_ptr_array_index (priv->provided_items, i);
-		if (g_strcmp0 (item, cval) == 0) {
-			ret = TRUE;
-			break;
-		}
-	}
-
-	g_free (item);
-	return ret;
 }
 
 /**
@@ -1398,42 +1366,84 @@ as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar* desktop)
 }
 
 /**
- * as_component_get_provided_items:
+ * as_component_get_provided_for_kind:
  * @cpt: a #AsComponent instance.
+ * @kind: kind of the provided item, e.g. %AS_PROVIDED_KIND_MIMETYPE
  *
- * Get an array of the provides-items this component is
- * associated with.
+ * Get an #AsProvided object for the given interface type,
+ * containing information about the public interfaces (mimetypes, firmware, DBus services, ...)
+ * this component provides.
  *
- * Return value: (element-type utf8) (transfer none): A list of desktops where this component is compulsory
+ * Returns: (transfer none): #AsProvided containing the items this component provides, or %NULL.
  **/
-GPtrArray*
-as_component_get_provided_items (AsComponent *cpt)
+AsProvided*
+as_component_get_provided_for_kind (AsComponent *cpt, AsProvidedKind kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return AS_PROVIDED (g_hash_table_lookup (priv->provided, GINT_TO_POINTER (kind)));
+}
 
-	return priv->provided_items;
+/**
+ * as_component_get_provided:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get a list of #AsProvided objects associated with this component.
+ *
+ * Returns: (transfer container) (element-type AsProvided): A list of #AsProvided objects.
+ **/
+GList*
+as_component_get_provided (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return g_hash_table_get_values (priv->provided);
+}
+
+/**
+ * as_component_add_provided:
+ * @cpt: a #AsComponent instance.
+ * @prov: a #AsProvided instance.
+ *
+ * Add a set of provided items to this component.
+ *
+ * Since: 0.6.2
+ **/
+void
+as_component_add_provided (AsComponent *cpt, AsProvided *prov)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_hash_table_insert (priv->provided,
+				GINT_TO_POINTER (as_provided_get_kind (prov)),
+				g_object_ref (prov));
 }
 
 /**
  * as_component_add_provided_item:
  * @cpt: a #AsComponent instance.
- * @kind: the kind of the provided item (e.g. %AS_PROVIDES_KIND_MIMETYPE)
- * @value: the item to add.
- * @data: (allow-none) (default NULL): additional data associated with this item, or %NULL.
+ * @kind: the kind of the provided item (e.g. %AS_PROVIDED_KIND_MIMETYPE)
+ * @item: the item to add.
  *
  * Adds a provided item to the component.
  *
- * Since: 0.6.2
+ * Internal function for use by the metadata reading classes.
  **/
 void
-as_component_add_provided_item (AsComponent *cpt, AsProvidesKind kind, const gchar *value, const gchar *data)
+as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, const gchar *item)
 {
+	AsProvided *prov;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
 	/* we just skip empty items */
-	if (as_str_empty (value))
+	if (as_str_empty (item))
 		return;
-	g_ptr_array_add (priv->provided_items,
-			     as_provides_item_create (kind, value, data));
+
+	prov = as_component_get_provided_for_kind (cpt, kind);
+	if (prov == NULL) {
+		prov = as_provided_new ();
+		as_provided_set_kind (prov, kind);
+		g_hash_table_insert (priv->provided, GINT_TO_POINTER (kind), prov);
+	}
+
+	as_provided_add_item (prov, item);
 }
 
 /**

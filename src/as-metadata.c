@@ -538,11 +538,9 @@ as_metadata_process_provides (AsMetadata *metad, xmlNode* node, AsComponent* cpt
 	xmlNode *iter;
 	gchar *node_name;
 	gchar *content = NULL;
-	GPtrArray *provided_items;
 	g_return_if_fail (metad != NULL);
 	g_return_if_fail (cpt != NULL);
 
-	provided_items = as_component_get_provided_items (cpt);
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -554,48 +552,34 @@ as_metadata_process_provides (AsMetadata *metad, xmlNode* node, AsComponent* cpt
 			continue;
 
 		if (g_strcmp0 (node_name, "library") == 0) {
-			g_ptr_array_add (provided_items,
-					 as_provides_item_create (AS_PROVIDES_KIND_LIBRARY, content, ""));
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_LIBRARY, content);
 		} else if (g_strcmp0 (node_name, "binary") == 0) {
-			g_ptr_array_add (provided_items,
-					 as_provides_item_create (AS_PROVIDES_KIND_BINARY, content, ""));
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_BINARY, content);
 		} else if (g_strcmp0 (node_name, "font") == 0) {
-			g_ptr_array_add (provided_items,
-					 as_provides_item_create (AS_PROVIDES_KIND_FONT, content, ""));
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FONT, content);
 		} else if (g_strcmp0 (node_name, "modalias") == 0) {
-			g_ptr_array_add (provided_items,
-					 as_provides_item_create (AS_PROVIDES_KIND_MODALIAS, content, ""));
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MODALIAS, content);
 		} else if (g_strcmp0 (node_name, "firmware") == 0) {
-			gchar *fwtype;
+			g_autofree gchar *fwtype = NULL;
 			fwtype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (fwtype != NULL) {
-				/* we don't add malformed provides types */
-				if ((g_strcmp0 (fwtype, "runtime") == 0) || (g_strcmp0 (fwtype, "flashed") == 0))
-					g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_FIRMWARE, content, fwtype));
-				g_free (fwtype);
+				if (g_strcmp0 (fwtype, "runtime") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_RUNTIME, content);
+				else if (g_strcmp0 (fwtype, "flashed") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_FLASHED, content);
 			}
 		} else if (g_strcmp0 (node_name, "python2") == 0) {
-			g_ptr_array_add (provided_items,
-					 as_provides_item_create (AS_PROVIDES_KIND_PYTHON2, content, ""));
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON_2, content);
 		} else if (g_strcmp0 (node_name, "python3") == 0) {
-			g_ptr_array_add (provided_items,
-					 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, content, ""));
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, content);
 		} else if (g_strcmp0 (node_name, "dbus") == 0) {
-			gchar *dbustype_val;
-			const gchar *dbustype = NULL;
-			dbustype_val = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			g_autofree gchar *dbustype = NULL;
+			dbustype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 
-			if (g_strcmp0 (dbustype_val, "system") == 0)
-				dbustype = "system";
-			else if (g_strcmp0 (dbustype_val, "user") == 0)
-				dbustype = "user";
-			g_free (dbustype_val);
-
-			/* we don't add malformed provides types */
-			if (dbustype != NULL)
-				g_ptr_array_add (provided_items,
-						as_provides_item_create (AS_PROVIDES_KIND_DBUS, content, dbustype));
+			if (g_strcmp0 (dbustype, "system") == 0)
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_SYSTEM, content);
+			else if ((g_strcmp0 (dbustype, "user") == 0) || (g_strcmp0 (dbustype, "session") == 0))
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_USER, content);
 		}
 
 		g_free (content);
@@ -782,14 +766,16 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 			as_component_set_keywords (cpt, kw_array, NULL);
 			g_strfreev (kw_array);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
-			gchar **mime_array;
+			g_auto(GStrv) mime_array = NULL;
 			guint i;
 
+			/* Mimetypes are essentially provided interfaces, that's why they belong into Asprovided.
+			 * However, due to historic reasons, the spec has an own toplevel tag for them, so we need
+			 * to parse them here. */
 			mime_array = as_metadata_get_children_as_strv (metad, iter, "mimetype");
 			for (i = 0; mime_array[i] != NULL; i++) {
-				as_component_add_provided_item (cpt, AS_PROVIDES_KIND_MIMETYPE, mime_array[i], "");
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, mime_array[i]);
 			}
-			g_strfreev (mime_array);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_metadata_process_provides (metad, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {

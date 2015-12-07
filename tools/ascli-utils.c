@@ -222,7 +222,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	if (show_detailed) {
 		GPtrArray *sshot_array;
 		GPtrArray *imgs = NULL;
-		GPtrArray *provided_items;
+		GList *provided;
+		GList *l;
 		AsScreenshot *sshot;
 		AsImage *img;
 		gchar *str;
@@ -282,13 +283,24 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		}
 
 		/* Provided Items */
-		provided_items = as_component_get_provided_items (cpt);
-		strv = as_ptr_array_to_strv (provided_items);
-		if (strv != NULL) {
-			str = g_strjoinv (" ", strv);
-			ascli_print_key_value (_("Provided Items"), str, FALSE);
-			g_free (str);
+		provided = as_component_get_provided (cpt);
+		if (provided != NULL)
+			ascli_print_key_value (_("Provided Items"), "↓", FALSE);
+		for (l = provided; l != NULL; l = l->next) {
+			g_autofree gchar **items = NULL;
+			AsProvided *prov = AS_PROVIDED (l->data);
+
+			items = as_provided_get_items (prov);
+			if (items != NULL) {
+				g_autofree gchar *keyname = NULL;
+
+				str = g_strjoinv (" ", items);
+				keyname = g_strdup_printf (" %s",
+								as_provided_kind_to_l10n_string (as_provided_get_kind (prov)));
+
+				ascli_print_key_value (keyname, str, FALSE);
+				g_free (str);
+			}
 		}
-		g_strfreev (strv);
 	}
 }

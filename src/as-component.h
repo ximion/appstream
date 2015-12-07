@@ -26,11 +26,11 @@
 #define __AS_COMPONENT_H
 
 #include <glib-object.h>
-#include "as-screenshot.h"
-#include "as-provides.h"
-#include "as-release.h"
-#include "as-icon.h"
 #include "as-enums.h"
+#include "as-provided.h"
+#include "as-icon.h"
+#include "as-screenshot.h"
+#include "as-release.h"
 
 G_BEGIN_DECLS
 
@@ -168,14 +168,11 @@ AsIcon			*as_component_get_icon_by_size (AsComponent *cpt,
 void			as_component_add_icon (AsComponent *cpt,
 						AsIcon *icon);
 
-GPtrArray		*as_component_get_provided_items (AsComponent *cpt);
-void			as_component_add_provided_item (AsComponent *cpt,
-							AsProvidesKind kind,
-							const gchar *value,
-							const gchar *data);
-gboolean		as_component_provides_item (AsComponent *cpt,
-							AsProvidesKind kind,
-							const gchar *value);
+void			as_component_add_provided (AsComponent *cpt,
+							AsProvided *prov);
+AsProvided		*as_component_get_provided_for_kind (AsComponent *cpt,
+							AsProvidedKind kind);
+GList			*as_component_get_provided (AsComponent *cpt);
 
 GHashTable		*as_component_get_urls (AsComponent *cpt);
 const gchar		*as_component_get_url (AsComponent *cpt,

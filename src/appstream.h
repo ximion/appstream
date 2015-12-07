@@ -28,7 +28,7 @@ extern "C" {
 
 #include <as-component.h>
 #include <as-enums.h>
-#include <as-provides.h>
+#include <as-provided.h>
 #include <as-metadata.h>
 #include <as-data-pool.h>
 #include <as-database.h>

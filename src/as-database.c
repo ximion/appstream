@@ -226,23 +226,22 @@ as_database_get_component_by_id (AsDatabase *db, const gchar *idname)
  * as_database_get_components_by_provides:
  * @db: a valid #AsDatabase instance
  * @kind: an #AsProvidesKind
- * @value: a value of the selected provides kind
- * @data: (allow-none) (default NULL): additional provides data
+ * @item: the name of the provided item.
  *
  * Find components in the Appstream database.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */
 GPtrArray*
-as_database_get_components_by_provides (AsDatabase *db, AsProvidesKind kind, const gchar *value, const gchar *data)
+as_database_get_components_by_provides (AsDatabase *db, AsProvidedKind kind, const gchar *item)
 {
 	GPtrArray* cpt_array;
 	g_return_val_if_fail (db != NULL, NULL);
-	g_return_val_if_fail (value != NULL, NULL);
+	g_return_val_if_fail (item != NULL, NULL);
 	if (!db->priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_get_components_by_provides (db->priv->xdb, kind, value, data);
+	cpt_array = xa_database_read_get_components_by_provides (db->priv->xdb, kind, item);
 
 	return cpt_array;
 }

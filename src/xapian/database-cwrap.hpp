@@ -22,7 +22,6 @@
 #define DATABASE_CWRAP_H
 
 #include <glib.h>
-#include "../as-provides.h"
 #include "../as-component.h"
 #include "../as-search-query.h"
 
@@ -46,9 +45,8 @@ GPtrArray		*xa_database_read_find_components (XADatabaseRead *db,
 AsComponent		*xa_database_read_get_component_by_id (XADatabaseRead *db,
 								const gchar *idname);
 GPtrArray		*xa_database_read_get_components_by_provides (XADatabaseRead *db,
-									AsProvidesKind kind,
-									const gchar *value,
-									const gchar *data);
+									AsProvidedKind kind,
+									const gchar *item);
 GPtrArray		*xa_database_read_get_components_by_kind (XADatabaseRead *db,
 									AsComponentKind kinds);
 

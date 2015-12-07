@@ -48,6 +48,10 @@ gboolean		as_component_has_bundle (AsComponent *cpt);
 gboolean		as_component_has_package (AsComponent *cpt);
 gboolean		as_component_has_install_candidate (AsComponent *cpt);
 
+void			as_component_add_provided_item (AsComponent *cpt,
+							AsProvidedKind kind,
+							const gchar *item);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENTPRIVATE_H */

@@ -340,21 +340,29 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 
 		// Data of provided items
-		gchar **provides_items = as_ptr_array_to_strv (as_component_get_provided_items (cpt));
-		if (provides_items != NULL) {
-			ProvidedItems items;
-			string ostr;
+		ASCache::ProvidedItems pbPI;
+		for (uint j = 0; j < AS_PROVIDED_KIND_LAST; j++) {
+			AsProvidedKind kind = (AsProvidedKind) j;
+			string kind_str;
+			AsProvided *prov = as_component_get_provided_for_kind (cpt, kind);
+			if (prov == NULL)
+				continue;
 
-			for (uint i = 0; provides_items[i] != NULL; i++) {
-				string item_str = provides_items[i];
-				items.add_item (item_str);
-				doc.add_term ("AE" + item_str);
+			auto *pbProv = pbPI.add_provided ();
+			pbProv->set_type ((ProvidedItems_ItemType) kind);
+
+			kind_str = as_provided_kind_to_string (kind);
+			gchar **items = as_provided_get_items (prov);
+			for (uint j = 0; items[j] != NULL; j++) {
+				string item = items[j];
+				pbProv->add_item (item);
+				doc.add_term ("AE" + kind_str + ";" + item);
 			}
-			if (items.SerializeToString (&ostr))
-				doc.add_value (XapianValues::PROVIDED_ITEMS, ostr);
-
+			g_free (items);
 		}
-		g_strfreev (provides_items);
+		string pitems_ostr;
+		if (pbPI.SerializeToString (&pitems_ostr))
+				doc.add_value (XapianValues::PROVIDED_ITEMS, pitems_ostr);
 
 		// Add screenshot information
 		Screenshots screenshots;

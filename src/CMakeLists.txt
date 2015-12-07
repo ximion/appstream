@@ -32,7 +32,7 @@ set(ASLIB_XAP_SOURCES ${AS_PROTO_SRCS} ${AS_PROTO_HDRS}
 		xapian/database-cwrap.cpp
 )
 
-set(LIBAPPSTREAM_SRC
+set(APPSTREAM_LIB_SRC
 		as-utils.c
 		# internal stuff to build the database
 		as-cache-builder.c
@@ -40,7 +40,7 @@ set(LIBAPPSTREAM_SRC
 		as-metadata.c
 		as-component.c
 		as-enums.c
-		as-provides.c
+		as-provided.c
 		as-data-pool.c
 		as-search-query.c
 		as-database.c
@@ -55,14 +55,14 @@ set(LIBAPPSTREAM_SRC
 		as-icon.c
 )
 
-set(LIBAPPSTREAM_PUBLIC_HEADERS
+set(APPSTREAM_LIB_PUBLIC_HEADERS
 		appstream.h
 		as-utils.h
 		as-metadata.h
 		as-component.h
 		as-data-pool.h
 		as-enums.h
-		as-provides.h
+		as-provided.h
 		as-search-query.h
 		as-database.h
 		as-category.h
@@ -76,7 +76,7 @@ set(LIBAPPSTREAM_PUBLIC_HEADERS
 		as-icon.h
 )
 
-set(LIBAPPSTREAM_PRIVATE_HEADERS
+set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-utils-private.h
 		as-metadata-private.h
 		as-component-private.h
@@ -86,8 +86,8 @@ set(LIBAPPSTREAM_PRIVATE_HEADERS
 # find stuff necessary to build libappstream with DEP-11 support
 if(DEBIAN_DEP11)
 	pkg_check_modules(YAML REQUIRED yaml-0.1)
-	set(LIBAPPSTREAM_SRC ${LIBAPPSTREAM_SRC} as-dep11.c)
-	set(LIBAPPSTREAM_PRIVATE_HEADERS ${LIBAPPSTREAM_PRIVATE_HEADERS} as-dep11.h)
+	set(APPSTREAM_LIB_SRC ${APPSTREAM_LIB_SRC} as-dep11.c)
+	set(APPSTREAM_LIB_PRIVATE_HEADERS ${APPSTREAM_LIB_PRIVATE_HEADERS} as-dep11.h)
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
@@ -108,7 +108,7 @@ if (INTROSPECTION_COMPILER STREQUAL "")
   message(FATAL_ERROR "GObject-Introspection was not found! Please install it to continue.")
 endif()
 
-add_library(appstream SHARED ${ASLIB_XAP_SOURCES} ${LIBAPPSTREAM_SRC} ${LIBAPPSTREAM_PUBLIC_HEADERS} ${LIBAPPSTREAM_PRIVATE_HEADERS})
+add_library(appstream SHARED ${ASLIB_XAP_SOURCES} ${APPSTREAM_LIB_SRC} ${APPSTREAM_LIB_PUBLIC_HEADERS} ${APPSTREAM_LIB_PRIVATE_HEADERS})
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 target_link_libraries(appstream
@@ -131,7 +131,7 @@ macro(_list_prefix _outvar _listvar _prefix)
   endforeach()
 endmacro(_list_prefix)
 
-set(introspection_files ${LIBAPPSTREAM_SRC} ${LIBAPPSTREAM_PUBLIC_HEADERS})
+set(introspection_files ${APPSTREAM_LIB_SRC} ${APPSTREAM_LIB_PUBLIC_HEADERS})
 set(AppStream_0_8_gir "appstream")
 set(AppStream_0_8_gir_INCLUDES GObject-2.0 Gio-2.0)
 set(AppStream_0_8_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION")
@@ -146,5 +146,5 @@ gir_add_introspections(INTROSPECTION_GIRS)
 ####
 
 install(TARGETS appstream DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(FILES ${LIBAPPSTREAM_PUBLIC_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/AppStream)
+install(FILES ${APPSTREAM_LIB_PUBLIC_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/AppStream)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig/)

@@ -27,8 +27,7 @@ G_BEGIN_DECLS
 
 int		ascli_what_provides (const gchar *dbpath,
 					const gchar *kind_str,
-					const gchar *value,
-					const gchar *data,
+					const gchar *item,
 					gboolean detailed);
 
 int		ascli_search_component (const gchar *dbpath,

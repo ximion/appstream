@@ -133,7 +133,7 @@ test_database_read (const gchar *dbpath)
 	g_ptr_array_unref (cpts);
 	g_object_unref (query);
 
-	cpts = as_database_get_components_by_provides (db, AS_PROVIDES_KIND_BINARY, "inkscape", NULL);
+	cpts = as_database_get_components_by_provides (db, AS_PROVIDED_KIND_BINARY, "inkscape");
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
 	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);

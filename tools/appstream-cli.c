@@ -80,7 +80,6 @@ as_client_run (char **argv, int argc)
 	gchar *command = NULL;
 	gchar *value1 = NULL;
 	gchar *value2 = NULL;
-	gchar *value3 = NULL;
 
 	gchar *summary;
 	gchar *options_help = NULL;
@@ -144,8 +143,6 @@ as_client_run (char **argv, int argc)
 		value1 = argv[2];
 	if (argc > 3)
 		value2 = argv[3];
-	if (argc > 4)
-		value3 = argv[4];
 
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
 		exit_code = ascli_search_component (optn_dbpath,
@@ -165,7 +162,7 @@ as_client_run (char **argv, int argc)
 							value1,
 							optn_no_cache);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
-		exit_code = ascli_what_provides (optn_dbpath, value1, value2, value3, optn_details);
+		exit_code = ascli_what_provides (optn_dbpath, value1, value2, optn_details);
 	} else if (g_strcmp0 (command, "validate") == 0) {
 		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, optn_pedantic);
 	} else if (g_strcmp0 (command, "validate-tree") == 0) {

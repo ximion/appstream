@@ -192,26 +192,26 @@ out:
  * Get component providing an item
  */
 int
-ascli_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *value, const gchar *data, gboolean detailed)
+ascli_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *item, gboolean detailed)
 {
 	AsDatabase *db = NULL;
 	GPtrArray* cpt_list = NULL;
-	AsProvidesKind kind;
+	AsProvidedKind kind;
 	guint i;
 	gint exit_code = 0;
 
-	if (value == NULL) {
-		g_printerr ("%s\n", _("No value for the provides-item to search for defined."));
+	if (item == NULL) {
+		g_printerr ("%s\n", _("No value for the item to search for defined."));
 		exit_code = 1;
 		goto out;
 	}
 
-	kind = as_provides_kind_from_string (kind_str);
-	if (kind == AS_PROVIDES_KIND_UNKNOWN) {
+	kind = as_provided_kind_from_string (kind_str);
+	if (kind == AS_PROVIDED_KIND_UNKNOWN) {
 		uint i;
-		g_printerr ("%s\n", _("Invalid type for provides-item selected. Valid values are:"));
-		for (i = 1; i < AS_PROVIDES_KIND_LAST; i++)
-			fprintf (stdout, " * %s\n", as_provides_kind_to_string (i));
+		g_printerr ("%s\n", _("Invalid type for provided item selected. Valid values are:"));
+		for (i = 1; i < AS_PROVIDED_KIND_LAST; i++)
+			fprintf (stdout, " * %s\n", as_provided_kind_to_string (i));
 		exit_code = 5;
 		goto out;
 	}
@@ -219,15 +219,15 @@ ascli_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *va
 	db = ascli_database_new_path (dbpath);
 	as_database_open (db);
 
-	cpt_list = as_database_get_components_by_provides (db, kind, value, data);
+	cpt_list = as_database_get_components_by_provides (db, kind, item);
 	if (cpt_list == NULL) {
-		ascli_print_stderr (_("Unable to find component providing '%s:%s:%s'!"), kind_str, value, data);
+		ascli_print_stderr (_("Unable to find component providing '%s;%s'!"), kind_str, item);
 		exit_code = 4;
 		goto out;
 	}
 
 	if (cpt_list->len == 0) {
-		ascli_print_stdout (_("No component providing '%s:%s:%s' found."), kind_str, value, data);
+		ascli_print_stdout (_("No component providing '%s;%s' found."), kind_str, item);
 		goto out;
 	}
 

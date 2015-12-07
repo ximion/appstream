@@ -83,9 +83,8 @@ GPtrArray		*as_database_find_components_by_term (AsDatabase *db,
 AsComponent		*as_database_get_component_by_id (AsDatabase *db,
 								const gchar *idname);
 GPtrArray		*as_database_get_components_by_provides (AsDatabase* db,
-								 AsProvidesKind kind,
-								 const gchar *value,
-								 const gchar *data);
+								 AsProvidedKind kind,
+								 const gchar *item);
 GPtrArray		*as_database_get_components_by_kind (AsDatabase *db,
 								AsComponentKind kinds);
 

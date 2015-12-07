@@ -156,27 +156,19 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setUrls(urls);
 
     // Provided items
-    ASCache::ProvidedItems pb_pitems;
+    ASCache::ProvidedItems pbPI;
     str = document.get_value (XapianValues::PROVIDED_ITEMS);
-    pb_pitems.ParseFromString (str);
+    pbPI.ParseFromString (str);
     QList<Provides> provideslist;
-    for (int i = 0; i < pb_pitems.item_size (); i++) {
-        const QString& itemData = QString::fromStdString(pb_pitems.item (i));
+    for (int i = 0; i < pbPI.provided_size (); i++) {
+        const ProvidedItems_Provided& pbProv = pbPI.provided (i);
 
-        QStringList providesParts = itemData.split(';',QString::SkipEmptyParts);
-        if(providesParts.size() < 2) {
-            qCWarning(APPSTREAMQT_DB, "Bad component parts for component: '%s' (%s)", qPrintable(id), qPrintable(itemData));
-            continue;
+        for (int j = 0; j < pbProv.item_size (); j++) {
+            Provides provides;
+            provides.setKind((Provides::Kind) pbProv.type ());
+            provides.setValue(QString::fromStdString(pbProv.item (j)));
+            provideslist << provides;
         }
-        QString kindString = providesParts.takeFirst();
-        Provides::Kind kind = Provides::stringToKind(kindString);
-        Provides provides;
-        provides.setKind(kind);
-        QString value = providesParts.takeFirst();
-        provides.setValue(value);
-        QString extraData = providesParts.join(";");
-        provides.setExtraData(extraData);
-        provideslist << provides;
     }
     component.setProvides(provideslist);
 
@@ -326,11 +318,10 @@ QList< Component > Database::componentsByKind(Component::Kind kind) const {
 Xapian::QueryParser newAppStreamParser (Xapian::Database db) {
     Xapian::QueryParser xapian_parser = Xapian::QueryParser ();
     xapian_parser.set_database (db);
-    xapian_parser.add_boolean_prefix ("pkg", "XP");
+    xapian_parser.add_boolean_prefix ("id", "AI");
     xapian_parser.add_boolean_prefix ("pkg", "AP");
-    xapian_parser.add_boolean_prefix ("mime", "AM");
+    xapian_parser.add_boolean_prefix ("provides", "AE");
     xapian_parser.add_boolean_prefix ("section", "XS");
-    xapian_parser.add_boolean_prefix ("origin", "XOC");
     xapian_parser.add_prefix ("pkg_wildcard", "XP");
     xapian_parser.add_prefix ("pkg_wildcard", "AP");
     xapian_parser.set_default_op (Xapian::Query::OP_AND);

@@ -49,7 +49,7 @@ public:
 	GPtrArray	*getAllComponents ();
 	GPtrArray	*findComponents (AsSearchQuery *asQuery);
 	AsComponent	*getComponentById (const gchar *idname);
-	GPtrArray	*getComponentsByProvides (AsProvidesKind kind, const gchar *value, const gchar *data);
+	GPtrArray	*getComponentsByProvides (AsProvidedKind kind, const gchar *item);
 	GPtrArray	*getComponentsByKind (AsComponentKind kinds);
 
 private:

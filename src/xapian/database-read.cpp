@@ -31,7 +31,6 @@
 #include "database-schema.hpp"
 #include "../as-menu-parser.h"
 #include "../as-component-private.h"
-#include "../as-provides.h"
 
 using namespace std;
 using namespace ASCache;
@@ -184,13 +183,21 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	as_component_set_categories_from_str (cpt, categories_str.c_str ());
 
 	// Provided items
-	ProvidedItems pitems;
+	ASCache::ProvidedItems pbPI;
 	str = doc.get_value (XapianValues::PROVIDED_ITEMS);
-	pitems.ParseFromString (str);
-	GPtrArray *pitems_array = as_component_get_provided_items (cpt);
-	for (int i = 0; i < pitems.item_size (); i++) {
-		const string& item_data = pitems.item (i);
-		g_ptr_array_add (pitems_array, g_strdup (item_data.c_str ()));
+	pbPI.ParseFromString (str);
+	for (int i = 0; i < pbPI.provided_size (); i++) {
+		const ProvidedItems_Provided& pbProv = pbPI.provided (i);
+
+		AsProvided *prov = as_provided_new ();
+		as_provided_set_kind (prov, (AsProvidedKind) pbProv.type ());
+
+		for (int j = 0; j < pbProv.item_size (); j++) {
+			const string& item = pbProv.item (j);
+			as_provided_add_item (prov, item.c_str ());
+		}
+
+		as_component_add_provided (cpt, prov);
 	}
 
 	// Screenshot data
@@ -336,14 +343,14 @@ Xapian::QueryParser
 DatabaseRead::newAppStreamParser ()
 {
 	Xapian::QueryParser xapian_parser = Xapian::QueryParser ();
-        xapian_parser.set_database (m_xapianDB);
-        xapian_parser.add_boolean_prefix ("pkg", "XP");
-        xapian_parser.add_boolean_prefix ("pkg", "AP");
-        xapian_parser.add_boolean_prefix ("id", "AI");
-        xapian_parser.add_boolean_prefix ("section", "XS");
-        xapian_parser.add_prefix ("pkg_wildcard", "XP");
-        xapian_parser.add_prefix ("pkg_wildcard", "AP");
-        xapian_parser.set_default_op (Xapian::Query::OP_AND);
+	xapian_parser.set_database (m_xapianDB);
+	xapian_parser.add_boolean_prefix ("id", "AI");
+	xapian_parser.add_boolean_prefix ("pkg", "AP");
+	xapian_parser.add_boolean_prefix ("provides", "AE");
+	xapian_parser.add_boolean_prefix ("section", "XS");
+	xapian_parser.add_prefix ("pkg_wildcard", "XP");
+	xapian_parser.add_prefix ("pkg_wildcard", "AP");
+	xapian_parser.set_default_op (Xapian::Query::OP_AND);
         return xapian_parser;
 }
 
@@ -555,18 +562,20 @@ DatabaseRead::getComponentById (const gchar *idname)
 }
 
 GPtrArray*
-DatabaseRead::getComponentsByProvides (AsProvidesKind kind, const gchar *value, const gchar *data)
+DatabaseRead::getComponentsByProvides (AsProvidedKind kind, const gchar *item)
 {
 	/* Create new array to store the AsComponent objects */
 	GPtrArray *cptArray = g_ptr_array_new_with_free_func (g_object_unref);
 
 	Xapian::Query item_query;
-	gchar *provides_item;
-	provides_item = as_provides_item_create (kind, value, data);
+	gchar *element_id;
+	element_id = g_strdup_printf ("%s;%s",
+					 as_provided_kind_to_string (kind),
+					 item);
 	item_query = Xapian::Query (Xapian::Query::OP_OR,
-					   Xapian::Query("AE" + string(provides_item)),
+					   Xapian::Query("AE" + string(element_id)),
 					   Xapian::Query ());
-	g_free (provides_item);
+	g_free (element_id);
 
 	item_query.serialise ();
 

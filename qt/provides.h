@@ -44,13 +44,15 @@ class APPSTREAMQT_EXPORT Provides {
             KindUnknown,
             KindLibrary,
             KindBinary,
+            KindMimetype,
             KindFont,
             KindModAlias,
-            KindFirmware,
             KindPython2Module,
             KindPython3Module,
-            KindMimetype,
-            KindDbusService
+            KindDBusSystemService,
+            KindDBusUserService,
+            KindFirmwareRuntime,
+            KindFirmwareFlashed
         };
 
         void setKind(Kind kind);

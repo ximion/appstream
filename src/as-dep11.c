@@ -357,31 +357,25 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
 	GNode *n;
 	GNode *sn;
 	gchar *key;
-	GPtrArray *provided_items;
 
-	provided_items = as_component_get_provided_items (cpt);
 	for (n = node->children; n != NULL; n = n->next) {
 		key = (gchar*) n->data;
 
 		if (g_strcmp0 (key, "libraries") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				g_ptr_array_add (provided_items,
-						 as_provides_item_create (AS_PROVIDES_KIND_LIBRARY, (gchar*) sn->data, ""));
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_LIBRARY, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "binaries") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				g_ptr_array_add (provided_items,
-						 as_provides_item_create (AS_PROVIDES_KIND_BINARY, (gchar*) sn->data, ""));
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_BINARY, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "fonts") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				g_ptr_array_add (provided_items,
-						 as_provides_item_create (AS_PROVIDES_KIND_FONT, (gchar*) sn->data, ""));
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FONT, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "modaliases") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				g_ptr_array_add (provided_items,
-						 as_provides_item_create (AS_PROVIDES_KIND_MODALIAS, (gchar*) sn->data, ""));
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MODALIAS, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "firmware") == 0) {
 			GNode *dn;
@@ -396,7 +390,7 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
 					if (dn->children)
 						dvalue = (gchar*) dn->children->data;
 					else
-						dvalue = NULL;
+						continue;
 					if (g_strcmp0 (dkey, "type") == 0) {
 						kind = dvalue;
 					} else if ((g_strcmp0 (dkey, "guid") == 0) || (g_strcmp0 (dkey, "fname") == 0)) {
@@ -404,24 +398,25 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
 					}
 				}
 				/* we don't add malformed provides types */
-				if ((kind != NULL) && (fwdata != NULL))
-					g_ptr_array_add (provided_items,
-							 as_provides_item_create (AS_PROVIDES_KIND_FIRMWARE, fwdata, kind));
+				if ((kind == NULL) || (fwdata == NULL))
+					continue;
+
+				if (g_strcmp0 (kind, "runtime") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_RUNTIME, fwdata);
+				else if (g_strcmp0 (kind, "flashed") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_FLASHED, fwdata);
 			}
 		} else if (g_strcmp0 (key, "python2") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				g_ptr_array_add (provided_items,
-						 as_provides_item_create (AS_PROVIDES_KIND_PYTHON2, (gchar*) sn->data, ""));
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON_2, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "python3") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				g_ptr_array_add (provided_items,
-						 as_provides_item_create (AS_PROVIDES_KIND_PYTHON3, (gchar*) sn->data, ""));
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "mimetypes") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				g_ptr_array_add (provided_items,
-						 as_provides_item_create (AS_PROVIDES_KIND_MIMETYPE, (gchar*) sn->data, ""));
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "dbus") == 0) {
 			GNode *dn;
@@ -444,9 +439,13 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
 					}
 				}
 				/* we don't add malformed provides types */
-				if ((kind != NULL) && (service != NULL))
-					g_ptr_array_add (provided_items,
-							as_provides_item_create (AS_PROVIDES_KIND_DBUS, service, kind));
+				if ((kind == NULL) || (service == NULL))
+					continue;
+
+				if (g_strcmp0 (kind, "system") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_SYSTEM, service);
+				else if ((g_strcmp0 (kind, "user") == 0) || (g_strcmp0 (kind, "session") == 0))
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_USER, service);
 			}
 		}
 	}
