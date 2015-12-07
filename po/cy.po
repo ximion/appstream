@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-08 18:27+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Welsh (http://www.transifex.com/freedesktop/appstream/"
@@ -43,6 +43,9 @@ msgstr ""
 msgid "AppStream command-line interface"
 msgstr ""
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr ""
 
@@ -54,6 +57,12 @@ msgid "Command '%s' is unknown."
 msgstr ""
 
 msgid "Compulsory for"
+msgstr ""
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
 msgstr ""
 
 msgid "Description"
@@ -79,6 +88,12 @@ msgstr ""
 msgid "File %s not found or permission denied!"
 msgstr ""
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr ""
 
@@ -94,7 +109,10 @@ msgstr ""
 msgid "Identifier"
 msgstr ""
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+msgid "Invalid type for provided item selected. Valid values are:"
+msgstr ""
+
+msgid "Libraries"
 msgstr ""
 
 #. license
@@ -107,6 +125,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr ""
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr ""
 
@@ -115,10 +139,10 @@ msgid "No component matching '%s' found."
 msgstr ""
 
 #, c-format
-msgid "No component providing '%s:%s:%s' found."
+msgid "No component providing '%s;%s' found."
 msgstr ""
 
-msgid "No value for the provides-item to search for defined."
+msgid "No value for the item to search for defined."
 msgstr ""
 
 msgid "Package"
@@ -137,11 +161,20 @@ msgstr ""
 msgid "Provided Items"
 msgstr ""
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr ""
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
+msgstr ""
+
+msgid "Runtime Firmware"
 msgstr ""
 
 msgid "Sample Screenshot URL"
@@ -172,7 +205,7 @@ msgid "Unable to find component matching %s!"
 msgstr ""
 
 #, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+msgid "Unable to find component providing '%s;%s'!"
 msgstr ""
 
 #, c-format

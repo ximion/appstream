@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-10 13:29+0000\n"
 "Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
@@ -47,6 +47,9 @@ msgstr "Обновление кэша AppStream прошло неудачно"
 msgid "AppStream command-line interface"
 msgstr "Интерфейс командной строки AppStream"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "Пакет"
 
@@ -59,6 +62,12 @@ msgstr "Команда '%s' неизвестна"
 
 msgid "Compulsory for"
 msgstr "Обязательно для"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Описание"
@@ -85,6 +94,12 @@ msgstr "Принудительно обновить кэш"
 msgid "File %s not found or permission denied!"
 msgstr "Файл %s не найден или доступ к нему запрещён!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Получить компоненты, которые предоставляют данный элемент"
 
@@ -100,8 +115,12 @@ msgstr "Значок"
 msgid "Identifier"
 msgstr "Идентификатор"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Выбран неверный тип для «provides-item». Допустимые значения:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -114,6 +133,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr "Установить вручную местоположение кэша AppStream"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "Имя"
 
@@ -121,11 +146,12 @@ msgstr "Имя"
 msgid "No component matching '%s' found."
 msgstr "Не найдено компоненты, соответствующей  '%s' ."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "Не найдено компоненты, предоставляющей '%s:%s:%s'"
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "Не определено значение «provides-item» для поиска."
 
 msgid "Package"
@@ -144,6 +170,12 @@ msgstr "Проектная группа"
 msgid "Provided Items"
 msgstr "Предоставляемые элементы"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Перестроить кэш информации о компонентах"
 
@@ -152,6 +184,9 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Запустите '%s --help' чтоб увидеть полный список доступных параметров "
 "командной строки."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "URL-адрес примера снимка экрана"
@@ -180,8 +215,8 @@ msgstr "Сводка"
 msgid "Unable to find component matching %s!"
 msgstr "Не удаётся найти компоненту, соответствующую %s!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "Не удаётся найти компоненту, предоставляющую '%s:%s:%s'!"
 
 #, c-format

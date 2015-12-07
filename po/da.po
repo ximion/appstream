@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-08 18:27+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Danish (http://www.transifex.com/freedesktop/appstream/"
@@ -45,6 +45,9 @@ msgstr "AppStreams mellemlageropdatering mislykkedes."
 msgid "AppStream command-line interface"
 msgstr ""
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr ""
 
@@ -57,6 +60,12 @@ msgstr "Kommandoen »%s« er ukendt."
 
 msgid "Compulsory for"
 msgstr "Tvungen for"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Beskrivelse"
@@ -81,6 +90,12 @@ msgstr "Fremtving en opdatering af mellemlageret"
 msgid "File %s not found or permission denied!"
 msgstr "Filen %s blev ikke fundet eller tilladelse nægtet!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Hent komponenter som tilbyder det givne element"
 
@@ -96,8 +111,12 @@ msgstr "Ikon"
 msgid "Identifier"
 msgstr "Identifikator"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Ugyldig type for provides-item valgt. Gyldige værdier er:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -110,6 +129,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr "Sæt manuelt placeringen af AppStreams mellemlager"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "Navn"
 
@@ -117,11 +142,12 @@ msgstr "Navn"
 msgid "No component matching '%s' found."
 msgstr "Ingen komponent der matcher »%s« blev fundet."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "Ingen komponent der tilbyder »%s:%s:%s« blev fundet."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "Ingen værdi for provides-item at søge for defineret."
 
 msgid "Package"
@@ -140,6 +166,12 @@ msgstr "Projektgruppe"
 msgid "Provided Items"
 msgstr "Tilbudte elementer"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Genbyg komponentens informationsmellemlager"
 
@@ -148,6 +180,9 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Kør »%s --help« for at se en fuld liste over tilgængelige tilvalg for "
 "kommandolinjen."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "Prøv på skærmbilledeadresse"
@@ -176,8 +211,8 @@ msgstr "Resume"
 msgid "Unable to find component matching %s!"
 msgstr "Kan ikke finde komponent der matcher %s!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "Kan ikke finde komponent der tilbyder »%s:%s:%s«!"
 
 #, c-format

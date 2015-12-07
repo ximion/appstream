@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-10-04 17:39+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
@@ -47,6 +47,9 @@ msgstr "AppStream 캐시 업데이트가 실패하였습니다."
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령행 인터페이스"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "번들"
 
@@ -59,6 +62,12 @@ msgstr "명령 '%s'이(가) 올바르지 않습니다."
 
 msgid "Compulsory for"
 msgstr "다음의 필수 사항:"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "설명"
@@ -83,6 +92,12 @@ msgstr "캐시 강제로 새로 고침"
 msgid "File %s not found or permission denied!"
 msgstr "파일 %s을(를) 찾을 수 없거나 권한이 거부되었습니다!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "주어진 항목을 가져오는 구성 요소 가져오기"
 
@@ -98,9 +113,13 @@ msgstr "아이콘"
 msgid "Identifier"
 msgstr "식별자"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "provides-item의 잘못된 형식이 선택되었습니다. 올바른 값은 다음과 같습니다:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -112,6 +131,12 @@ msgstr "캐시를 다시 생성할 AppStream 메타데이터 위치 직접 지�
 msgid "Manually set the location of the AppStream cache"
 msgstr "AppStream 캐시 위치 직접 지정"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "이름"
 
@@ -119,11 +144,12 @@ msgstr "이름"
 msgid "No component matching '%s' found."
 msgstr "'%s'와(과) 일치하는 구성 요소를 찾을 수 없습니다."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "'%s:%s:%s'을(를) 제공하는 구성 요소를 찾을 수 없습니다."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "검색할 provides-item의 값이 없습니다."
 
 msgid "Package"
@@ -142,12 +168,21 @@ msgstr "프로젝트 그룹"
 msgid "Provided Items"
 msgstr "제공하는 항목"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "구성 요소 정보 캐시 다시 빌드"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "'%s --help'를 입력하면 사용 가능한 명령행 옵션을 볼 수 있습니다."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "예제 스크린샷 URL"
@@ -176,8 +211,8 @@ msgstr "요약"
 msgid "Unable to find component matching %s!"
 msgstr "%s와(과) 일치하는 구성 요소를 찾을 수 없습니다!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "'%s:%s:%s'을(를) 제공하는 구성 요소를 찾을 수 없습니다!"
 
 #, c-format

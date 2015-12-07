@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
-"PO-Revision-Date: 2015-09-08 18:27+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
+"PO-Revision-Date: 2015-12-01 08:36+0000\n"
+"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/freedesktop/appstream/"
 "language/pt/)\n"
 "Language: pt\n"
@@ -19,198 +20,242 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Um tipo provides-item (ex: lib, bin, python3, ...)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Versão da ferramenta de cliente AppStream: %s"
 
 msgid "AppStream cache update completed successfully."
-msgstr ""
+msgstr "Atualização da cache da AppStream terminada com sucesso."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
+"Atualização da cache da AppStream terminada. mas alguns metadados foram "
+"ignorados devido a erros."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr ""
+msgstr "Atualização da cache da AppStream falhou."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
+msgstr "Ambiente da linha de comandos do AppStream"
+
+msgid "Binaries"
 msgstr ""
 
 msgid "Bundle"
-msgstr ""
+msgstr "Pacote"
 
 msgid "Categories"
-msgstr ""
+msgstr "Categorias"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "Comando \"%s\" desconhecido."
 
 msgid "Compulsory for"
+msgstr "Obrigatório para"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
 msgstr ""
 
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #. developer name
 msgid "Developer"
-msgstr ""
+msgstr "Programador"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Não usar a cache Xapian ao realizar o pedido"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Não mostrar saída colorida"
 
 msgid "Dump raw XML metadata for a component matching the ID"
 msgstr ""
+"Despejar metadados XML em bruto para um componente que corresponda à ID"
 
 msgid "Enforce a cache refresh"
-msgstr ""
+msgstr "Forçar a atualização da cache"
 
 #, c-format
 msgid "File %s not found or permission denied!"
+msgstr "Ficheiro %s não encontrado ou permissão negada!"
+
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
 msgstr ""
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Obter componentes que forneçam o item dado"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Obter informação sobre um componente pela sua id"
 
 msgid "Homepage"
-msgstr ""
+msgstr "Página inicial"
 
 msgid "Icon"
-msgstr ""
+msgstr "Ícone"
 
 msgid "Identifier"
-msgstr ""
+msgstr "Identificador"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
+msgstr "Tipo inválido para o provides-item selecionado. Valores válidos são:"
+
+msgid "Libraries"
 msgstr ""
 
 #. license
 msgid "License"
-msgstr ""
+msgstr "Licença"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Definir manualmente a localização dos metadados da AppStream para "
+"atualização da cache"
 
 msgid "Manually set the location of the AppStream cache"
+msgstr "Definir manualmente a localização da cache da AppStream"
+
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Sem correspondência para \"%s\"."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
-msgstr ""
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
+msgstr "Sem componente que forneça \"%s:%s:%s\"."
 
-msgid "No value for the provides-item to search for defined."
-msgstr ""
+#, fuzzy
+msgid "No value for the item to search for defined."
+msgstr "Sem valor definido para procurar o provides-item."
 
 msgid "Package"
-msgstr ""
+msgstr "Pacote"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Imprimir saída detalhada sobre componentes encontrados"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Imprimir até dicas pedantes ao validar"
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Grupo do projeto"
 
 msgid "Provided Items"
+msgstr "Itens fornecidos"
+
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
 msgstr ""
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Reconstruir a cache de informação do componente"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Execute \"%s --help\" para ver uma lista das opções de linha de comandos "
+"disponíveis."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "URL da captura de ecrã amostra"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Procurar na base de dados de componentes"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Selecione um valor para o provides-item que tem de ser encontrado"
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Mostrar informação extra de depuração"
 
 msgid "Show the program version"
-msgstr ""
+msgstr "Mostrar versão do programa"
 
 #. these are commands we can use with appstream-cli
 msgid "Subcommands:"
-msgstr ""
+msgstr "Subcomandos"
 
 msgid "Summary"
-msgstr ""
+msgstr "Resumo"
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Impossível encontrar componente como %s!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
-msgstr ""
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
+msgstr "Impossível encontrar componente que forneça \"%s:%s:%s\"!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Impossível encontrar componente com a id \"%s\"!"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Validar ficheiros XML AppStream para problemas"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Validar uma árvore de ficheiros de uma aplicação instalada para metadados "
+"válidos"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "A validação falhou."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Validação com sucesso."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "Ficheiro XML XDG Menu \"%s\" está danificado."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Tem de executar este comando com permissões de superutilizador!"
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Tem de especificar um comando."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Tem de especificar uma id de componente."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Tem de especificar um ficheiro a validar!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Tem de especificar uma pasta raiz para começar a validação!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Tem de especificar um termo a procurar."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -219,4 +264,4 @@ msgstr ""
 #. * the search.
 #.
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;aplicação;pacote;programa;conjunto;ferramenta"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-10-05 11:59+0000\n"
 "Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/freedesktop/"
@@ -48,6 +48,9 @@ msgstr "Osvežavanje ostave Programskog toka nije uspelo."
 msgid "AppStream command-line interface"
 msgstr "Naredbeno sučelje Programskog toka"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "Paket"
 
@@ -60,6 +63,12 @@ msgstr "Naredba „%s“ nije poznata."
 
 msgid "Compulsory for"
 msgstr "Obavezujući za"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Opis"
@@ -86,6 +95,12 @@ msgstr "Primorava osvežavanje ostave"
 msgid "File %s not found or permission denied!"
 msgstr "Nisam pronašao datoteku „%s“ ili su ovlašćenja odbijena!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Dobavlja sastojke koji obezbeđuju datu stavku"
 
@@ -101,9 +116,13 @@ msgstr "Ikonica"
 msgid "Identifier"
 msgstr "Odrednik"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Neispravna vrsta za izabrano „obezbeđuje-stavku“. Ispravne vrednosti su:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -117,6 +136,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr "Ručno postavite mesto ostave Programskog toka"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "Naziv"
 
@@ -124,11 +149,12 @@ msgstr "Naziv"
 msgid "No component matching '%s' found."
 msgstr "Nisam našao sastojak koji odgovara „%s“."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "Nisam našao sastojak koji obezbeđuje „%s:%s:%s“."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "Nije određena vrednost za „obezbeđuje-stavku“ za traženje."
 
 msgid "Package"
@@ -147,6 +173,12 @@ msgstr "Grupa projekta"
 msgid "Provided Items"
 msgstr "Obezbeđene stavke"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Ponovo izgrađuje ostavu podataka sastojka"
 
@@ -154,6 +186,9 @@ msgstr "Ponovo izgrađuje ostavu podataka sastojka"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Pokrenite „%s --help“ da vidite čitav spisak dostupnih opcija linije naredbi."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "Adresa uzorka snimka ekrana"
@@ -182,8 +217,8 @@ msgstr "Sažetak"
 msgid "Unable to find component matching %s!"
 msgstr "Ne mogu da pronađem sastojak koji odgovara „%s“!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "Ne mogu da pronađem sastojak koji obezbeđuje „%s:%s:%s“!"
 
 #, c-format

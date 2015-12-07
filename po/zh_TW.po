@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-19 16:23+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
@@ -42,6 +42,9 @@ msgstr "AppStream 快取更新失敗。"
 msgid "AppStream command-line interface"
 msgstr "AppStream 指令列介面"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "套組"
 
@@ -54,6 +57,12 @@ msgstr "指令「%s」未知。"
 
 msgid "Compulsory for"
 msgstr "強制項目為"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "描述"
@@ -78,6 +87,12 @@ msgstr "強制快取重新整理"
 msgid "File %s not found or permission denied!"
 msgstr "找不到檔案 %s，或未獲得存取許可！"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "取得可提供給定項目的組件"
 
@@ -93,8 +108,12 @@ msgstr "圖示"
 msgid "Identifier"
 msgstr "辨識碼"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "選取的提供項目其類型無效。有效的值為："
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -106,6 +125,12 @@ msgstr "手動設定快取重製用的 AppStream 中介資料位置"
 msgid "Manually set the location of the AppStream cache"
 msgstr "手動設定 AppStream 快取的位置"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "名稱"
 
@@ -113,11 +138,12 @@ msgstr "名稱"
 msgid "No component matching '%s' found."
 msgstr "找不到符合「%s」的組件。"
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "找不到提供「%s:%s:%s」的組件。"
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "沒有定義要搜尋的提供項目值。"
 
 msgid "Package"
@@ -136,12 +162,21 @@ msgstr "專案群組"
 msgid "Provided Items"
 msgstr "提供的項目"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "重建組件資訊快取"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "樣本螢幕快照 URL"
@@ -170,8 +205,8 @@ msgstr "摘要"
 msgid "Unable to find component matching %s!"
 msgstr "找不到符合 %s 的組件！"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "找不到提供「%s:%s:%s」的組件！"
 
 #, c-format

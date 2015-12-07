@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-16 10:15+0000\n"
 "Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
@@ -45,6 +45,9 @@ msgstr "AppStream ön bellek güncellemesi başarısız oldu."
 msgid "AppStream command-line interface"
 msgstr "AppStream komut satırı arayüzü"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "Takım"
 
@@ -57,6 +60,12 @@ msgstr "'%s' komutu bilinmiyor."
 
 msgid "Compulsory for"
 msgstr "Zorunlu"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Tanımlama"
@@ -81,6 +90,12 @@ msgstr "Ön belleğin yenilenmesini zorla"
 msgid "File %s not found or permission denied!"
 msgstr "%s dosyası bulunamadı veya izin verilmedi!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Verilen ögeyi sağlayan bileşenleri alın"
 
@@ -96,8 +111,12 @@ msgstr "Simge"
 msgid "Identifier"
 msgstr "Tanımlayıcı"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Seçilen sağlanan öge için geçersiz tür. Geçerli değerler:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -111,6 +130,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr "AppStream ön belleğinin konumunu elle ayarlayın"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "İsim"
 
@@ -118,11 +143,12 @@ msgstr "İsim"
 msgid "No component matching '%s' found."
 msgstr "'%s' ile eşleşen bileşen bulunamadı."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "'%s:%s:%s' sağlayan bileşen bulunamadı."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "Sağlanan öge için arama değeri tanımlanmamış."
 
 msgid "Package"
@@ -141,6 +167,12 @@ msgstr "Proje Grubu"
 msgid "Provided Items"
 msgstr "Sağlanan Ögeler"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Bileşen bilgisi ön belleğini yeniden oluştur"
 
@@ -148,6 +180,9 @@ msgstr "Bileşen bilgisi ön belleğini yeniden oluştur"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Tüm komut satırı işlemlerini görmek için '%s --help' komutunu çalıştırın."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "Örnek Ekran Görüntüsü Adresi"
@@ -176,8 +211,8 @@ msgstr "Özet"
 msgid "Unable to find component matching %s!"
 msgstr "%s ile eşleşen bileşen bulunamadı!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "'%s:%s:%s' bileşeni bulunamadı!"
 
 #, c-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-08 18:27+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovenian (http://www.transifex.com/freedesktop/appstream/"
@@ -46,6 +46,9 @@ msgstr "Posodobitev predpomnilnika AppStream je spodletela."
 msgid "AppStream command-line interface"
 msgstr ""
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "Sveženj"
 
@@ -58,6 +61,12 @@ msgstr "Ukaz »%s« ni znan."
 
 msgid "Compulsory for"
 msgstr "Obvezno za"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Opis"
@@ -82,6 +91,12 @@ msgstr "Vsili osvežitev predpomnilnika"
 msgid "File %s not found or permission denied!"
 msgstr "Datoteke %s ni mogoče najti ali dostop zaradi pravic zavrnjen!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Pridobi komponente, ki ponujajo dani element"
 
@@ -97,8 +112,12 @@ msgstr "Ikona"
 msgid "Identifier"
 msgstr "Identifikator"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Izbrana je neveljavna vrsta za ponuja-element. Veljavne vrednosti so:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -111,6 +130,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr "Ročno določite mesto predpomnilnika AppStream"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "Ime"
 
@@ -118,11 +143,12 @@ msgstr "Ime"
 msgid "No component matching '%s' found."
 msgstr "Komponente, ki se ujema z »%s«, ni mogoče najti."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "Komponente, ki ponuja »%s:%s:%s«, ni mogoče najti."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "Za iskanje ni določena nobena vrednost za ponuja-element."
 
 msgid "Package"
@@ -141,6 +167,12 @@ msgstr "Projektna skupina"
 msgid "Provided Items"
 msgstr "Ponujeni elementi"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Ponovno izdelaj predpomnilnik informacij o komponenti"
 
@@ -148,6 +180,9 @@ msgstr "Ponovno izdelaj predpomnilnik informacij o komponenti"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Zaženite »%s --help«, da se izpiše poln seznam možnosti ukazne vrstice."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "Vzorec naslova URL zaslonske slike"
@@ -176,8 +211,8 @@ msgstr "Povzetek"
 msgid "Unable to find component matching %s!"
 msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "Komponente, ki zagotavlja »%s:%s:%s«, ni mogoče najti."
 
 #, c-format

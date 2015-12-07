@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-23 21:25+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
@@ -46,6 +46,9 @@ msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 msgid "AppStream command-line interface"
 msgstr "Rozhranie príkazového riadku AppStream"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "Balík"
 
@@ -58,6 +61,12 @@ msgstr "Príkaz „%s“ je neznámy."
 
 msgid "Compulsory for"
 msgstr "Povinné pre"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Popis"
@@ -82,6 +91,12 @@ msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
 msgid "File %s not found or permission denied!"
 msgstr "Súbor %s nebol nájdený alebo bolo zamietnuté oprávnenie."
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Získa súčasti poskytujúce danú položku"
 
@@ -97,8 +112,12 @@ msgstr "Ikona"
 msgid "Identifier"
 msgstr "Identifikátor"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Vybraný neplatný typ poskytuje-položku. Platné typy sú:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -112,6 +131,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr "Ručne nastaví umiestnenie vyrovnávacej pamäte AppStream."
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "Názov"
 
@@ -119,11 +144,12 @@ msgstr "Názov"
 msgid "No component matching '%s' found."
 msgstr "Nebola nájdená súčasť zodpovedajúca „%s“."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "Nebola nájdená súčasť poskytujúca „%s:%s:%s“."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "Nebola definovaná hodnota poskytuje-položku, ktorá sa má hľadať."
 
 msgid "Package"
@@ -142,6 +168,12 @@ msgstr "Skupina projektu"
 msgid "Provided Items"
 msgstr "Poskytované položky"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Znovu vytvorí vyrovnávaciu pamäť informácií o súčastiach"
 
@@ -150,6 +182,9 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
 "riadka."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "Vzorový URL snímky obrazovky"
@@ -178,8 +213,8 @@ msgstr "Zhrnutie"
 msgid "Unable to find component matching %s!"
 msgstr "Nie je možné nájsť súčasť zodpovedajúcu %s!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "Nie je možné nájsť súčasť poskytujúcu „%s:%s:%s“!"
 
 #, c-format

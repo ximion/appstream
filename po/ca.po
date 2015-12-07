@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-10-12 10:35+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
@@ -46,6 +46,9 @@ msgstr "Ha fallat l'actualització de la memòria cau de l'AppStream."
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres de l'AppStream"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "Agrupació"
 
@@ -58,6 +61,12 @@ msgstr "Es desconeix l'ordre «%s»."
 
 msgid "Compulsory for"
 msgstr "Obligatori per"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Descripció"
@@ -83,6 +92,12 @@ msgstr "Força una actualització de la memòria cau"
 msgid "File %s not found or permission denied!"
 msgstr "No es va trobar el fitxer %s o es va denegar el permís!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Obté els components que proporcionen un element indicat"
 
@@ -98,9 +113,13 @@ msgstr "Icona"
 msgid "Identifier"
 msgstr "Identificador"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Tipus no vàlid per al provides-item seleccionat. Els valors vàlids són:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -114,6 +133,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache"
 msgstr "Estableix manualment la ubicació de la memòria cau de l'AppStream."
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "Nom"
 
@@ -121,11 +146,12 @@ msgstr "Nom"
 msgid "No component matching '%s' found."
 msgstr "No s'ha trobat cap component que coincideixi «%s»."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "No s'ha trobat el component que proporciona '%s:%s:%s'."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "No s'ha definit cap valor a provides-item per a la cerca."
 
 msgid "Package"
@@ -144,6 +170,12 @@ msgstr "Grup del projecte"
 msgid "Provided Items"
 msgstr "Elements proporcionats"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Reconstrueix la memòria cau de la informació del component"
 
@@ -152,6 +184,9 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Executeu '%s --help' per veure una llista completa de les opcions "
 "disponibles de la línia d'ordres."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "URL de la captura de pantalla de mostra"
@@ -180,8 +215,8 @@ msgstr "Resum"
 msgid "Unable to find component matching %s!"
 msgstr "No es pot trobar la coincidència del component %s!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "No s'ha pogut trobar el component que proporciona '%s:%s:%s'!"
 
 #, c-format

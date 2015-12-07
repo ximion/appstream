@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-11-05 02:36+0100\n"
+"POT-Creation-Date: 2015-12-07 23:55+0100\n"
 "PO-Revision-Date: 2015-09-09 10:44+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
@@ -45,6 +45,9 @@ msgstr "AppStream cache update failed."
 msgid "AppStream command-line interface"
 msgstr "AppStream command-line interface"
 
+msgid "Binaries"
+msgstr ""
+
 msgid "Bundle"
 msgstr "Bundle"
 
@@ -57,6 +60,12 @@ msgstr "Command '%s' is unknown."
 
 msgid "Compulsory for"
 msgstr "Compulsory for"
+
+msgid "DBus Session Services"
+msgstr ""
+
+msgid "DBus System Services"
+msgstr ""
 
 msgid "Description"
 msgstr "Description"
@@ -81,6 +90,12 @@ msgstr "Enforce a cache refresh"
 msgid "File %s not found or permission denied!"
 msgstr "File %s not found or permission denied!"
 
+msgid "Flashed Firmware"
+msgstr ""
+
+msgid "Fonts"
+msgstr ""
+
 msgid "Get components which provide the given item"
 msgstr "Get components which provide the given item"
 
@@ -96,8 +111,12 @@ msgstr "Icon"
 msgid "Identifier"
 msgstr "Identifier"
 
-msgid "Invalid type for provides-item selected. Valid values are:"
+#, fuzzy
+msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Invalid type for provides-item selected. Valid values are:"
+
+msgid "Libraries"
+msgstr ""
 
 #. license
 msgid "License"
@@ -109,6 +128,12 @@ msgstr "Manually set the location of AppStream metadata for cache regeneration"
 msgid "Manually set the location of the AppStream cache"
 msgstr "Manually set the location of the AppStream cache"
 
+msgid "Mimetypes"
+msgstr ""
+
+msgid "Modaliases"
+msgstr ""
+
 msgid "Name"
 msgstr "Name"
 
@@ -116,11 +141,12 @@ msgstr "Name"
 msgid "No component matching '%s' found."
 msgstr "No component matching '%s' found."
 
-#, c-format
-msgid "No component providing '%s:%s:%s' found."
+#, fuzzy, c-format
+msgid "No component providing '%s;%s' found."
 msgstr "No component providing '%s:%s:%s' found."
 
-msgid "No value for the provides-item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for defined."
 msgstr "No value for the provides-item to search for defined."
 
 msgid "Package"
@@ -139,12 +165,21 @@ msgstr "Project Group"
 msgid "Provided Items"
 msgstr "Provided Items"
 
+msgid "Python (Version 2)"
+msgstr ""
+
+msgid "Python 3"
+msgstr ""
+
 msgid "Rebuild the component information cache"
 msgstr "Rebuild the component information cache"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Run '%s --help' to see a full list of available command line options."
+
+msgid "Runtime Firmware"
+msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "Sample Screenshot URL"
@@ -173,8 +208,8 @@ msgstr "Summary"
 msgid "Unable to find component matching %s!"
 msgstr "Unable to find component matching %s!"
 
-#, c-format
-msgid "Unable to find component providing '%s:%s:%s'!"
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s;%s'!"
 msgstr "Unable to find component providing '%s:%s:%s'!"
 
 #, c-format
