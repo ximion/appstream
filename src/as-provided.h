@@ -54,8 +54,8 @@ struct _AsProvidedClass
  * @AS_PROVIDED_KIND_MODALIAS:		A modalias
  * @AS_PROVIDED_KIND_PYTHON_2:		A Python2 module
  * @AS_PROVIDED_KIND_PYTHON:		A Python3 module
- * @AS_PROVIDE_KIND_DBUS_SYSTEM:	A DBus service name on the system bus.
- * @AS_PROVIDE_KIND_DBUS_USER:		A DBus service name on the user/session bus.
+ * @AS_PROVIDED_KIND_DBUS_SYSTEM:	A DBus service name on the system bus.
+ * @AS_PROVIDED_KIND_DBUS_USER:		A DBus service name on the user/session bus.
  * @AS_PROVIDED_KIND_FIRMWARE_RUNTIME:	Firmware flashed at runtime.
  * @AS_PROVIDED_KIND_FIRMWARE_FLASHED:	Firmware flashed permanently to the device.
  *

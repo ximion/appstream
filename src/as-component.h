@@ -96,11 +96,11 @@ void			as_component_set_kind (AsComponent *cpt,
 
 const gchar		*as_component_get_id (AsComponent *cpt);
 void			as_component_set_id (AsComponent *cpt,
-						const gchar* value);
+						const gchar *value);
 
 const gchar		*as_component_get_origin (AsComponent *cpt);
 void			as_component_set_origin (AsComponent *cpt,
-							const gchar* origin);
+							const gchar *origin);
 
 gchar			**as_component_get_pkgnames (AsComponent *cpt);
 void			as_component_set_pkgnames (AsComponent *cpt,
@@ -122,12 +122,12 @@ void			as_component_set_summary (AsComponent *cpt,
 
 const gchar		*as_component_get_description (AsComponent *cpt);
 void			as_component_set_description (AsComponent *cpt,
-							const gchar* value,
+							const gchar *value,
 							const gchar *locale);
 
 const gchar		*as_component_get_project_license (AsComponent *cpt);
 void			as_component_set_project_license (AsComponent *cpt,
-								const gchar* value);
+								const gchar *value);
 
 const gchar		*as_component_get_project_group (AsComponent *cpt);
 void			as_component_set_project_group (AsComponent *cpt,
@@ -142,19 +142,17 @@ gchar			**as_component_get_compulsory_for_desktops (AsComponent *cpt);
 void			as_component_set_compulsory_for_desktops (AsComponent *cpt,
 									gchar **value);
 gboolean		as_component_is_compulsory_for_desktop (AsComponent *cpt,
-									const gchar* desktop);
+									const gchar *desktop);
 
 gchar			**as_component_get_categories (AsComponent *cpt);
 void			as_component_set_categories (AsComponent *cpt,
 							gchar **value);
-void			as_component_set_categories_from_str (AsComponent *cpt,
-							const gchar* categories_str);
 gboolean		as_component_has_category (AsComponent *cpt,
 							const gchar *category);
 
 GPtrArray		*as_component_get_screenshots (AsComponent *cpt);
 void			as_component_add_screenshot (AsComponent *cpt,
-							AsScreenshot* sshot);
+							AsScreenshot *sshot);
 
 gchar			**as_component_get_keywords (AsComponent *cpt);
 void			as_component_set_keywords (AsComponent *cpt,

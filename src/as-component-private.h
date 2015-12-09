@@ -53,6 +53,9 @@ void			as_component_add_provided_item (AsComponent *cpt,
 							AsProvidedKind kind,
 							const gchar *item);
 
+void			as_component_set_categories_from_str (AsComponent *cpt,
+							const gchar* categories_str);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENTPRIVATE_H */

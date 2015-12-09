@@ -194,9 +194,7 @@ as_component_init (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_component_set_id (cpt, "");
-	as_component_set_origin (cpt, "");
-	priv->categories = NULL;
+	/* our default locale is "unlocalized" */
 	priv->active_locale = g_strdup ("C");
 
 	/* translatable entities */
@@ -1040,7 +1038,7 @@ as_component_get_icons (AsComponent *cpt)
  * @height: the icon height in pixels.
  *
  * Gets an icon matching the size constraints.
- * The icons are not filtered by type, and the first-best icon
+ * The icons are not filtered by type, and the first icon
  * which matches the size is returned.
  * If you want more control over which icons you use for displaying,
  * use the as_component_get_icons() function to get a list of all icons.
@@ -1118,7 +1116,7 @@ as_component_set_categories (AsComponent *cpt, gchar** value)
  * Set the categories list from a string
  */
 void
-as_component_set_categories_from_str (AsComponent *cpt, const gchar* categories_str)
+as_component_set_categories_from_str (AsComponent *cpt, const gchar *categories_str)
 {
 	gchar** cats = NULL;
 
@@ -1796,7 +1794,7 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 			g_value_set_boxed (value, as_component_get_keywords (cpt));
 			break;
 		case AS_COMPONENT_ICONS:
-			g_value_set_boxed (value, as_component_get_icons (cpt));
+			g_value_set_pointer (value, as_component_get_icons (cpt));
 			break;
 		case AS_COMPONENT_URLS:
 			g_value_set_boxed (value, as_component_get_urls_table (cpt));
@@ -1938,17 +1936,17 @@ as_component_class_init (AsComponentClass * klass)
 					AS_COMPONENT_KEYWORDS,
 					g_param_spec_boxed ("keywords", "keywords", "keywords", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	/**
-	 * AsComponent:icon-urls:
-	 * (type GHashTable(utf8,utf8))
+	 * AsComponent:icons:
+	 * (type GList(AsIcon))
 	 *
 	 * hash map of icon urls and sizes
 	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_ICONS,
-					g_param_spec_boxed ("icon-urls", "icon-urls", "icon-urls", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+					g_param_spec_pointer ("icons", "icons", "icons", G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 	/**
 	 * AsComponent:urls:
-	 * (type GHashTable(utf8,utf8))
+	 * (type GHashTable(AsUrlKind,utf8))
 	 *
 	 * the urls associated with this component
 	 */
