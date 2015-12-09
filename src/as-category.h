@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -27,24 +27,10 @@
 
 #include <glib-object.h>
 
-#define AS_TYPE_CATEGORY (as_category_get_type ())
-#define AS_CATEGORY(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_CATEGORY, AsCategory))
-#define AS_CATEGORY_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_TYPE_CATEGORY, AsCategoryClass))
-#define AS_IS_CATEGORY(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), AS_TYPE_CATEGORY))
-#define AS_IS_CATEGORY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), AS_TYPE_CATEGORY))
-#define AS_CATEGORY_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), AS_TYPE_CATEGORY, AsCategoryClass))
-
 G_BEGIN_DECLS
 
-typedef struct _AsCategory AsCategory;
-typedef struct _AsCategoryClass AsCategoryClass;
-typedef struct _AsCategoryPrivate AsCategoryPrivate;
-
-struct _AsCategory
-{
-	GObject parent_instance;
-	AsCategoryPrivate *priv;
-};
+#define AS_TYPE_CATEGORY (as_category_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsCategory, as_category, AS, CATEGORY, GObject)
 
 struct _AsCategoryClass
 {
@@ -58,34 +44,39 @@ struct _AsCategoryClass
 	void (*_as_reserved6)	(void);
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsCategory, g_object_unref)
+AsCategory		*as_category_new (void);
+void			as_category_complete (AsCategory *cat);
 
-GType				as_category_get_type (void) G_GNUC_CONST;
+const gchar		*as_category_get_directory (AsCategory *cat);
+void			as_category_set_directory (AsCategory *cat,
+							const gchar* value);
 
-AsCategory*			as_category_new (void);
-AsCategory*			as_category_construct (GType object_type);
-void				as_category_complete (AsCategory* self);
-const gchar*			as_category_get_directory (AsCategory* self);
-const gchar*			as_category_get_name (AsCategory* self);
-void				as_category_set_icon (AsCategory* self,
-							const gchar* value);
-void				as_category_set_name (AsCategory* self,
-							const gchar* value);
-const gchar*			as_category_get_summary (AsCategory* self);
-const gchar*			as_category_get_icon (AsCategory* self);
-void				as_category_add_subcategory (AsCategory* self,
-								AsCategory* cat);
-void				as_category_remove_subcategory (AsCategory* self,
-								AsCategory* cat);
-gboolean			as_category_has_subcategory (AsCategory* self);
-void				as_category_set_directory (AsCategory* self,
-								const gchar* value);
-GList*				as_category_get_included (AsCategory* self);
-GList*				as_category_get_excluded (AsCategory* self);
-gint				as_category_get_level (AsCategory* self);
-void				as_category_set_level (AsCategory* self,
-							gint value);
-GList*				as_category_get_subcategories (AsCategory* self);
+const gchar		*as_category_get_name (AsCategory *cat);
+void			as_category_set_name (AsCategory *cat,
+						const gchar *value);
+
+const gchar		*as_category_get_summary (AsCategory *cat);
+void			as_category_set_summary (AsCategory *cat,
+						const gchar *value);
+
+const gchar		*as_category_get_icon (AsCategory *cat);
+void			as_category_set_icon (AsCategory *cat,
+						const gchar* value);
+
+gboolean		as_category_has_subcategory (AsCategory *cat);
+void			as_category_add_subcategory (AsCategory *cat,
+							AsCategory *subcat);
+void			as_category_remove_subcategory (AsCategory *cat,
+							AsCategory *subcat);
+
+GList			*as_category_get_included (AsCategory *cat);
+GList			*as_category_get_excluded (AsCategory *cat);
+
+GList			*as_category_get_subcategories (AsCategory *cat);
+
+gint			as_category_get_level (AsCategory *cat);
+void			as_category_set_level (AsCategory *cat,
+						gint value);
 
 G_END_DECLS
 
