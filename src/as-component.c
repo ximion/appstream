@@ -1022,7 +1022,7 @@ as_component_get_keywords_table (AsComponent *cpt)
  * as_component_get_icons:
  * @cpt: an #AsComponent instance
  *
- * Returns: (transfer none): A #GPtrArray of all icons for this component.
+ * Returns: (element-type AsIcon) (transfer none): A #GPtrArray of all icons for this component.
  */
 GPtrArray*
 as_component_get_icons (AsComponent *cpt)
@@ -1043,7 +1043,7 @@ as_component_get_icons (AsComponent *cpt)
  * If you want more control over which icons you use for displaying,
  * use the as_component_get_icons() function to get a list of all icons.
  *
- * Returns: An icon matching the given width/height, or %NULL if not found.
+ * Returns: (transfer none): An icon matching the given width/height, or %NULL if not found.
  */
 AsIcon*
 as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height)

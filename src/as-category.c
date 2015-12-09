@@ -261,13 +261,14 @@ as_category_get_summary (AsCategory *cat)
 }
 
 /**
- * as_category_get_summary:
+ * as_category_set_summary:
  * @cat: An instance of #AsCategory.
+ * @value: A new short summary of this category.
  *
  * Get the summary (short description) of this category.
  */
 void
-as_category_set_summary (AsCategory *cat, const gchar* value)
+as_category_set_summary (AsCategory *cat, const gchar *value)
 {
 	AsCategoryPrivate *priv = GET_PRIVATE (cat);
 
