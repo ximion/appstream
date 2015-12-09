@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -27,24 +27,10 @@
 
 #include <glib-object.h>
 
-#define AS_TYPE_MENU_PARSER (as_menu_parser_get_type ())
-#define AS_MENU_PARSER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_MENU_PARSER, AsMenuParser))
-#define AS_MENU_PARSER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_TYPE_MENU_PARSER, AsMenuParserClass))
-#define AS_IS_MENU_PARSER(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), AS_TYPE_MENU_PARSER))
-#define AS_IS_MENU_PARSER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), AS_TYPE_MENU_PARSER))
-#define AS_MENU_PARSER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), AS_TYPE_MENU_PARSER, AsMenuParserClass))
-
 G_BEGIN_DECLS
 
-typedef struct _AsMenuParser AsMenuParser;
-typedef struct _AsMenuParserClass AsMenuParserClass;
-typedef struct _AsMenuParserPrivate AsMenuParserPrivate;
-
-struct _AsMenuParser
-{
-	GObject parent_instance;
-	AsMenuParserPrivate *priv;
-};
+#define AS_TYPE_MENU_PARSER (as_menu_parser_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsMenuParser, as_menu_parser, AS, MENU_PARSER, GObject)
 
 struct _AsMenuParserClass
 {
@@ -58,21 +44,17 @@ struct _AsMenuParserClass
 	void (*_as_reserved6)	(void);
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsMenuParser, g_object_unref)
 
-GType				as_menu_parser_get_type (void) G_GNUC_CONST;
+AsMenuParser		*as_menu_parser_new (void);
+AsMenuParser		*as_menu_parser_new_from_file (const gchar *menu_file);
 
-AsMenuParser			*as_menu_parser_new (void);
-AsMenuParser			*as_menu_parser_construct (GType object_type);
-AsMenuParser			*as_menu_parser_new_from_file (const gchar *menu_file);
-AsMenuParser			*as_menu_parser_construct_from_file (GType object_type,
-									const gchar* menu_file);
-void				as_menu_parser_set_update_category_data (AsMenuParser* self,
-									gboolean value);
-GList				*as_menu_parser_parse (AsMenuParser *self);
-gboolean			as_menu_parser_get_update_category_data (AsMenuParser* self);
+GList			*as_menu_parser_parse (AsMenuParser *mp);
 
-GList				*as_get_system_categories (void);
+gboolean		as_menu_parser_get_update_category_data (AsMenuParser *mp);
+void			as_menu_parser_set_update_category_data (AsMenuParser *mp,
+								 gboolean value);
+
+GList			*as_get_system_categories (void);
 
 G_END_DECLS
 

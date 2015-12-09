@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
- * Copyright (C) 2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -33,17 +33,15 @@
 #include "config.h"
 #include "as-image.h"
 
-typedef struct _AsImagePrivate	AsImagePrivate;
-struct _AsImagePrivate
+typedef struct
 {
 	AsImageKind		 kind;
 	gchar			*url;
 	guint			 width;
 	guint			 height;
-};
+} AsImagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsImage, as_image, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_image_get_instance_private (o))
 
 /**
@@ -67,17 +65,6 @@ static void
 as_image_init (AsImage *image)
 {
 }
-
-/**
- * as_image_class_init:
- **/
-static void
-as_image_class_init (AsImageClass *klass)
-{
-	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->finalize = as_image_finalize;
-}
-
 
 /**
  * as_image_kind_from_string:
@@ -243,6 +230,16 @@ as_image_set_kind (AsImage *image, AsImageKind kind)
 }
 
 /**
+ * as_image_class_init:
+ **/
+static void
+as_image_class_init (AsImageClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	object_class->finalize = as_image_finalize;
+}
+
+/**
  * as_image_new:
  *
  * Creates a new #AsImage.
@@ -250,7 +247,7 @@ as_image_set_kind (AsImage *image, AsImageKind kind)
  * Returns: (transfer full): a #AsImage
  *
  **/
-AsImage *
+AsImage*
 as_image_new (void)
 {
 	AsImage *image;

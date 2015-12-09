@@ -65,7 +65,7 @@ typedef enum  {
 } AsIconKind;
 
 AsIconKind	as_icon_kind_from_string (const gchar *kind_str);
-const gchar*	as_icon_kind_to_string (AsIconKind kind);
+const gchar	*as_icon_kind_to_string (AsIconKind kind);
 
 AsIcon		*as_icon_new (void);
 
