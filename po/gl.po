@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-07 23:55+0100\n"
+"POT-Creation-Date: 2015-12-09 23:50+0100\n"
 "PO-Revision-Date: 2015-09-15 09:22+0000\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician (http://www.transifex.com/freedesktop/appstream/"
@@ -210,6 +210,9 @@ msgstr "Subordes:"
 msgid "Summary"
 msgstr "Resumo"
 
+msgid "Tried to perform query on closed database."
+msgstr ""
+
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
@@ -222,6 +225,9 @@ msgstr "Non foi posíbel atopar os compoñentes que fornecen «%s:%s:%s»!"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Non foi posíbel atopar compoñentes co id «%s»!"
+
+msgid "Unable to open the AppStream software component cache."
+msgstr ""
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Validar ficheiros XML AppStream para atopar problemas"

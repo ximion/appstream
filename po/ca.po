@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-07 23:55+0100\n"
+"POT-Creation-Date: 2015-12-09 23:50+0100\n"
 "PO-Revision-Date: 2015-10-12 10:35+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
@@ -210,6 +210,9 @@ msgstr "Subordres:"
 msgid "Summary"
 msgstr "Resum"
 
+msgid "Tried to perform query on closed database."
+msgstr ""
+
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
@@ -222,6 +225,9 @@ msgstr "No s'ha pogut trobar el component que proporciona '%s:%s:%s'!"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "No s'ha pogut trobar cap component amb l'id. «%s»!"
+
+msgid "Unable to open the AppStream software component cache."
+msgstr ""
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Valida els fitxers XML de l'AppStream per incidències"

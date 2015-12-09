@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-07 23:55+0100\n"
+"POT-Creation-Date: 2015-12-09 23:50+0100\n"
 "PO-Revision-Date: 2015-09-19 16:23+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
@@ -200,6 +200,9 @@ msgstr "子指令："
 msgid "Summary"
 msgstr "摘要"
 
+msgid "Tried to perform query on closed database."
+msgstr ""
+
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
@@ -212,6 +215,9 @@ msgstr "找不到提供「%s:%s:%s」的組件！"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "找不到 id 為「%s」的組件！"
+
+msgid "Unable to open the AppStream software component cache."
+msgstr ""
 
 msgid "Validate AppStream XML files for issues"
 msgstr "根據問題驗證 AppStream XML 檔案"
