@@ -585,9 +585,9 @@ as_data_pool_new (void)
 	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
 	distro = as_distro_details_new ();
-	priv->scr_base_url = as_distro_details_config_distro_get_str (distro, "ScreenshotUrl");
+	priv->scr_base_url = as_distro_details_get_str (distro, "ScreenshotUrl");
 	if (priv->scr_base_url == NULL) {
-		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_distro_name (distro));
+		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_name (distro));
 		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
 	}
 	g_object_unref (distro);
@@ -613,7 +613,7 @@ as_data_pool_new (void)
 	}
 
 	/* set default icon search locations */
-	priv->icon_paths = as_distro_details_get_icon_repository_paths ();
+	priv->icon_paths = as_get_icon_repository_paths ();
 
 	return AS_DATA_POOL (dpool);
 }

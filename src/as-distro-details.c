@@ -31,7 +31,7 @@
 
 /**
  * SECTION:as-distro-details
- * @short_description: Object providing information about the current distribution
+ * @short_description: Provides information about the current distribution
  * @include: appstream.h
  *
  * This object abstracts various distribution-specific settings and provides information
@@ -42,12 +42,16 @@
  * See also: #AsDatabase
  */
 
-struct _AsDistroDetailsPrivate {
+typedef struct
+{
 	gchar* distro_id;
 	gchar* distro_name;
 	gchar* distro_version;
 	GKeyFile* keyf;
-};
+} AsDistroDetailsPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (AsDistroDetails, as_distro_details, G_TYPE_OBJECT)
+#define GET_PRIVATE(o) (as_distro_details_get_instance_private (o))
 
 /**
  * AS_ICON_PATHS:
@@ -56,48 +60,35 @@ struct _AsDistroDetailsPrivate {
  */
 const gchar* AS_ICON_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/icons", "/var/cache/app-info/icons", NULL};
 
-static gpointer as_distro_details_parent_class = NULL;
-#define AS_DISTRO_DETAILS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_DISTRO_DETAILS, AsDistroDetailsPrivate))
-
 enum  {
 	AS_DISTRO_DETAILS_DUMMY_PROPERTY,
-	AS_DISTRO_DETAILS_DISTRO_ID,
-	AS_DISTRO_DETAILS_DISTRO_NAME,
-	AS_DISTRO_DETAILS_DISTRO_VERSION
+	AS_DISTRO_DETAILS_ID,
+	AS_DISTRO_DETAILS_NAME,
+	AS_DISTRO_DETAILS_VERSION
 };
 
-static void as_distro_details_set_distro_id (AsDistroDetails* self, const gchar* value);
-static void as_distro_details_set_distro_name (AsDistroDetails* self, const gchar* value);
-static void as_distro_details_set_distro_version (AsDistroDetails* self, const gchar* value);
-
-static void as_distro_details_finalize (GObject* obj);
-static void as_distro_details_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec);
-static void as_distro_details_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec);
+static void as_distro_details_set_id (AsDistroDetails *distro, const gchar *value);
+static void as_distro_details_set_name (AsDistroDetails *distro, const gchar *value);
+static void as_distro_details_set_version (AsDistroDetails *distro, const gchar *value);
 
 /**
- * as_distro_details_construct:
- *
- * Construct a new #AsDistroDetails instance.
- *
- * Returns: (transfer full): a new #AsDistroDetails instance.
+ * as_distro_details_init:
  **/
-AsDistroDetails*
-as_distro_details_construct (GType object_type)
+static void
+as_distro_details_init (AsDistroDetails *distro)
 {
-	AsDistroDetails * self = NULL;
 	GFile* f = NULL;
 	gchar *line;
 	GError *error = NULL;
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
 
-	self = (AsDistroDetails*) g_object_new (object_type, NULL);
-
-	as_distro_details_set_distro_id (self, "unknown");
-	as_distro_details_set_distro_name (self, "");
-	as_distro_details_set_distro_version (self, "");
+	as_distro_details_set_id (distro, "unknown");
+	as_distro_details_set_name (distro, "");
+	as_distro_details_set_version (distro, "");
 
 	/* load configuration */
-	self->priv->keyf = g_key_file_new ();
-	g_key_file_load_from_file (self->priv->keyf, AS_CONFIG_NAME, G_KEY_FILE_NONE, NULL);
+	priv->keyf = g_key_file_new ();
+	g_key_file_load_from_file (priv->keyf, AS_CONFIG_NAME, G_KEY_FILE_NONE, NULL);
 
 	/* get details about the distribution we are running on */
 	f = g_file_new_for_path ("/etc/os-release");
@@ -135,11 +126,11 @@ as_distro_details_construct (GType object_type)
 			}
 
 			if (g_strcmp0 (data[0], "ID") == 0)
-				as_distro_details_set_distro_id (self, dvalue);
+				as_distro_details_set_id (distro, dvalue);
 			else if (g_strcmp0 (data[0], "NAME") == 0)
-				as_distro_details_set_distro_name (self, dvalue);
+				as_distro_details_set_name (distro, dvalue);
 			else if (g_strcmp0 (data[0], "VERSION_ID") == 0)
-				as_distro_details_set_distro_version (self, dvalue);
+				as_distro_details_set_version (distro, dvalue);
 
 			g_free (line);
 		}
@@ -149,25 +140,27 @@ out:
 	if (error != NULL)
 		g_error_free (error);
 	g_object_unref (f);
-
-	return self;
 }
 
 /**
- * as_distro_details_new:
- *
- * Creates a new #AsDistroDetails instance.
- *
- * Returns: (transfer full): a new #AsDistroDetails instance.
+ * as_distro_details_finalize:
  **/
-AsDistroDetails*
-as_distro_details_new (void) {
-	return as_distro_details_construct (AS_TYPE_DISTRO_DETAILS);
+static void
+as_distro_details_finalize (GObject *object)
+{
+	AsDistroDetails *distro = AS_DISTRO_DETAILS (object);
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+
+	g_free (priv->distro_id);
+	g_free (priv->distro_name);
+	g_free (priv->distro_version);
+	g_key_file_unref (priv->keyf);
+
+	G_OBJECT_CLASS (as_distro_details_parent_class)->finalize (object);
 }
 
-
 /**
- * as_distro_details_get_icon_repository_paths:
+ * as_get_icon_repository_paths:
  *
  * Returns list of icon-paths for software-center applications to use.
  * Icons of software (even if it is not installed) are stored in these
@@ -176,7 +169,7 @@ as_distro_details_new (void) {
  * Returns: (transfer full): A NULL-terminated array of paths.
  */
 gchar**
-as_distro_details_get_icon_repository_paths ()
+as_get_icon_repository_paths ()
 {
 	gchar **paths;
 	guint len;
@@ -194,168 +187,122 @@ as_distro_details_get_icon_repository_paths ()
 	return paths;
 }
 
+/**
+ * as_distro_details_get_str:
+ */
 gchar*
-as_distro_details_config_distro_get_str (AsDistroDetails* self, const gchar* key)
+as_distro_details_get_str (AsDistroDetails *distro, const gchar *key)
 {
 	gchar *value;
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
 
-	g_return_val_if_fail (self != NULL, NULL);
 	g_return_val_if_fail (key != NULL, NULL);
 
-	value = g_key_file_get_string (self->priv->keyf, self->priv->distro_id, key, NULL);
-
+	value = g_key_file_get_string (priv->keyf, priv->distro_id, key, NULL);
 	return value;
 }
-
-gboolean
-as_distro_details_config_distro_get_bool (AsDistroDetails* self, const gchar* key)
-{
-	gboolean value;
-
-	g_return_val_if_fail (self != NULL, FALSE);
-	g_return_val_if_fail (key != NULL, FALSE);
-
-	value = g_key_file_get_boolean (self->priv->keyf, self->priv->distro_id, key, NULL);
-
-	return value;
-}
-
-
-const gchar*
-as_distro_details_get_distro_id (AsDistroDetails* self)
-{
-	g_return_val_if_fail (self != NULL, NULL);
-	return self->priv->distro_id;
-}
-
-
-static void
-as_distro_details_set_distro_id (AsDistroDetails* self, const gchar* value)
-{
-	g_return_if_fail (self != NULL);
-
-	g_free (self->priv->distro_id);
-	self->priv->distro_id = g_strdup (value);
-	g_object_notify ((GObject *) self, "distro-id");
-}
-
-
-const gchar*
-as_distro_details_get_distro_name (AsDistroDetails* self)
-{
-	g_return_val_if_fail (self != NULL, NULL);
-	return self->priv->distro_name;
-}
-
-
-static void
-as_distro_details_set_distro_name (AsDistroDetails* self, const gchar* value)
-{
-	g_return_if_fail (self != NULL);
-
-	g_free (self->priv->distro_name);
-	self->priv->distro_name = g_strdup (value);
-	g_object_notify ((GObject *) self, "distro-name");
-}
-
-
-const gchar*
-as_distro_details_get_distro_version (AsDistroDetails* self)
-{
-	g_return_val_if_fail (self != NULL, NULL);
-	return self->priv->distro_version;
-}
-
-
-static void
-as_distro_details_set_distro_version (AsDistroDetails* self, const gchar* value)
-{
-	g_return_if_fail (self != NULL);
-
-	g_free (self->priv->distro_version);
-	self->priv->distro_version = g_strdup (value);
-	g_object_notify ((GObject *) self, "distro-version");
-}
-
-
-static void
-as_distro_details_class_init (AsDistroDetailsClass * klass)
-{
-	as_distro_details_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (AsDistroDetailsPrivate));
-	G_OBJECT_CLASS (klass)->get_property = as_distro_details_get_property;
-	G_OBJECT_CLASS (klass)->set_property = as_distro_details_set_property;
-	G_OBJECT_CLASS (klass)->finalize = as_distro_details_finalize;
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_DISTRO_DETAILS_DISTRO_ID, g_param_spec_string ("distro-id", "distro-id", "distro-id", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_DISTRO_DETAILS_DISTRO_NAME, g_param_spec_string ("distro-name", "distro-name", "distro-name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
-	g_object_class_install_property (G_OBJECT_CLASS (klass), AS_DISTRO_DETAILS_DISTRO_VERSION, g_param_spec_string ("distro-version", "distro-version", "distro-version", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
-}
-
-
-static void
-as_distro_details_instance_init (AsDistroDetails * self)
-{
-	self->priv = AS_DISTRO_DETAILS_GET_PRIVATE (self);
-}
-
-
-static void
-as_distro_details_finalize (GObject* obj)
-{
-	AsDistroDetails * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
-	g_free (self->priv->distro_id);
-	g_free (self->priv->distro_name);
-	g_free (self->priv->distro_version);
-	g_key_file_unref (self->priv->keyf);
-	G_OBJECT_CLASS (as_distro_details_parent_class)->finalize (obj);
-}
-
 
 /**
- * as_distro_details_get_type:
- *
- * Get details about the AppStream settings for the
- * current distribution
+ * as_distro_details_get_bool:
  */
-GType
-as_distro_details_get_type (void)
+gboolean
+as_distro_details_get_bool (AsDistroDetails *distro, const gchar *key)
 {
-	static volatile gsize as_distro_details_type_id__volatile = 0;
-	if (g_once_init_enter (&as_distro_details_type_id__volatile)) {
-		static const GTypeInfo g_define_type_info = {
-					sizeof (AsDistroDetailsClass),
-					(GBaseInitFunc) NULL,
-					(GBaseFinalizeFunc) NULL,
-					(GClassInitFunc) as_distro_details_class_init,
-					(GClassFinalizeFunc) NULL,
-					NULL,
-					sizeof (AsDistroDetails),
-					0,
-					(GInstanceInitFunc) as_distro_details_instance_init,
-					NULL
-		};
-		GType as_distro_details_type_id;
-		as_distro_details_type_id = g_type_register_static (G_TYPE_OBJECT, "AsDistroDetails", &g_define_type_info, 0);
-		g_once_init_leave (&as_distro_details_type_id__volatile, as_distro_details_type_id);
-	}
-	return as_distro_details_type_id__volatile;
+	gboolean value;
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+
+	g_return_val_if_fail (key != NULL, FALSE);
+
+	value = g_key_file_get_boolean (priv->keyf, priv->distro_id, key, NULL);
+	return value;
 }
 
+/**
+ * as_distro_details_get_id:
+ */
+const gchar*
+as_distro_details_get_id (AsDistroDetails *distro)
+{
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+	return priv->distro_id;
+}
 
+/**
+ * as_distro_details_set_distro_id:
+ */
 static void
-as_distro_details_get_property (GObject * object, guint property_id, GValue * value, GParamSpec * pspec) {
-	AsDistroDetails * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
+as_distro_details_set_id (AsDistroDetails *distro, const gchar *value)
+{
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+
+	g_free (priv->distro_id);
+	priv->distro_id = g_strdup (value);
+	g_object_notify ((GObject *) distro, "id");
+}
+
+/**
+ * as_distro_details_get_name:
+ */
+const gchar*
+as_distro_details_get_name (AsDistroDetails *distro)
+{
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+	return priv->distro_name;
+}
+
+/**
+ * as_distro_details_set_name:
+ */
+static void
+as_distro_details_set_name (AsDistroDetails *distro, const gchar *value)
+{
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+
+	g_free (priv->distro_name);
+	priv->distro_name = g_strdup (value);
+	g_object_notify ((GObject *) distro, "name");
+}
+
+/**
+ * as_distro_details_get_version:
+ */
+const gchar*
+as_distro_details_get_version (AsDistroDetails *distro)
+{
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+	return priv->distro_version;
+}
+
+/**
+ * as_distro_details_set_version:
+ */
+static void
+as_distro_details_set_version (AsDistroDetails *distro, const gchar *value)
+{
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+
+	g_free (priv->distro_version);
+	priv->distro_version = g_strdup (value);
+	g_object_notify ((GObject *) distro, "version");
+}
+
+/**
+ * as_distro_details_get_property:
+ */
+static void
+as_distro_details_get_property (GObject *object, guint property_id, GValue *value, GParamSpec *pspec)
+{
+	AsDistroDetails  *distro;
+	distro = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
 	switch (property_id) {
-		case AS_DISTRO_DETAILS_DISTRO_ID:
-			g_value_set_string (value, as_distro_details_get_distro_id (self));
+		case AS_DISTRO_DETAILS_ID:
+			g_value_set_string (value, as_distro_details_get_id (distro));
 			break;
-		case AS_DISTRO_DETAILS_DISTRO_NAME:
-			g_value_set_string (value, as_distro_details_get_distro_name (self));
+		case AS_DISTRO_DETAILS_NAME:
+			g_value_set_string (value, as_distro_details_get_name (distro));
 			break;
-		case AS_DISTRO_DETAILS_DISTRO_VERSION:
-			g_value_set_string (value, as_distro_details_get_distro_version (self));
+		case AS_DISTRO_DETAILS_VERSION:
+			g_value_set_string (value, as_distro_details_get_version (distro));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -363,23 +310,63 @@ as_distro_details_get_property (GObject * object, guint property_id, GValue * va
 	}
 }
 
-
+/**
+ * as_distro_details_set_property:
+ */
 static void
-as_distro_details_set_property (GObject * object, guint property_id, const GValue * value, GParamSpec * pspec) {
-	AsDistroDetails * self;
-	self = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
+as_distro_details_set_property (GObject *object, guint property_id, const GValue *value, GParamSpec *pspec)
+{
+	AsDistroDetails  *distro;
+	distro = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_DISTRO_DETAILS, AsDistroDetails);
 	switch (property_id) {
-		case AS_DISTRO_DETAILS_DISTRO_ID:
-			as_distro_details_set_distro_id (self, g_value_get_string (value));
+		case AS_DISTRO_DETAILS_ID:
+			as_distro_details_set_id (distro, g_value_get_string (value));
 			break;
-		case AS_DISTRO_DETAILS_DISTRO_NAME:
-			as_distro_details_set_distro_name (self, g_value_get_string (value));
+		case AS_DISTRO_DETAILS_NAME:
+			as_distro_details_set_name (distro, g_value_get_string (value));
 			break;
-		case AS_DISTRO_DETAILS_DISTRO_VERSION:
-			as_distro_details_set_distro_version (self, g_value_get_string (value));
+		case AS_DISTRO_DETAILS_VERSION:
+			as_distro_details_set_version (distro, g_value_get_string (value));
 			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
 			break;
 	}
+}
+
+/**
+ * as_distro_details_class_init:
+ **/
+static void
+as_distro_details_class_init (AsDistroDetailsClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	object_class->finalize = as_distro_details_finalize;
+	object_class->get_property = as_distro_details_get_property;
+	object_class->set_property = as_distro_details_set_property;
+
+	g_object_class_install_property (object_class,
+						AS_DISTRO_DETAILS_ID,
+						g_param_spec_string ("id", "id", "id", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+	g_object_class_install_property (object_class,
+						AS_DISTRO_DETAILS_NAME,
+						g_param_spec_string ("name", "name", "name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+	g_object_class_install_property (object_class,
+						AS_DISTRO_DETAILS_VERSION,
+						g_param_spec_string ("version", "version", "version", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+}
+
+/**
+ * as_distro_details_new:
+ *
+ * Creates a new instance of #AsDistroDetails.
+ *
+ * Returns: (transfer full): a #AsDistroDetails.
+ **/
+AsDistroDetails*
+as_distro_details_new (void)
+{
+	AsDistroDetails *distro;
+	distro = g_object_new (AS_TYPE_DISTRO_DETAILS, NULL);
+	return AS_DISTRO_DETAILS (distro);
 }
