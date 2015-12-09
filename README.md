@@ -54,11 +54,12 @@ make
 make test
 ```
 Possible AppStream-specific flags are:  
- -DQT=ON              -- Build the Qt5 interface library  
- -DVAPI=ON            -- Build Vala API to use library with the Vala programming language  
- -DDEBIAN_DEP11=ON    -- Enable support for Debian DEP11 AppStream format (ON by default)  
- -DDOCUMENTATION=ON   -- (Re)generate API documentation  
- -DMAINTAINER=ON      -- Enable strict compiler options - use this if you write a patch for AppStream
+ -DQT=ON              -- Build the Qt5 interface library.  
+ -DVAPI=ON            -- Build Vala API to use library with the Vala programming language.  
+ -DEP11=ON            -- Enable support for the YAML-based DEP-11 AppStream format (ON by default).  
+ -DDOCUMENTATION=ON   -- (Re)generate API documentation.  
+ -DMAINTAINER=ON      -- Enable strict compiler options - use this if you write a patch for AppStream.  
+ -DAPT_SUPPORT=ON     -- Enable integration with the APT package manager on Debian.
 
 ### Installation
 
