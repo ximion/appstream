@@ -132,16 +132,16 @@ macro(_list_prefix _outvar _listvar _prefix)
 endmacro(_list_prefix)
 
 set(introspection_files ${APPSTREAM_LIB_SRC} ${APPSTREAM_LIB_PUBLIC_HEADERS})
-set(AppStream_0_8_gir "appstream")
-set(AppStream_0_8_gir_INCLUDES GObject-2.0 Gio-2.0)
-set(AppStream_0_8_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION")
-set(AppStream_0_8_gir_LIBS appstream)
+set(AppStream_1_0_gir "appstream")
+set(AppStream_1_0_gir_INCLUDES GObject-2.0 Gio-2.0)
+set(AppStream_1_0_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION")
+set(AppStream_1_0_gir_LIBS appstream)
 
-_list_prefix(AppStream_0_8_gir_FILES introspection_files "${CMAKE_CURRENT_SOURCE_DIR}/")
-set(AppStream_0_8_gir_SCANNERFLAGS --c-include appstream.h)
-set(AppStream_0_8_gir_EXPORT_PACKAGES appstream)
+_list_prefix(AppStream_1_0_gir_FILES introspection_files "${CMAKE_CURRENT_SOURCE_DIR}/")
+set(AppStream_1_0_gir_SCANNERFLAGS --c-include appstream.h)
+set(AppStream_1_0_gir_EXPORT_PACKAGES appstream)
 
-list(APPEND INTROSPECTION_GIRS AppStream-0.8.gir)
+list(APPEND INTROSPECTION_GIRS AppStream-1.0.gir)
 gir_add_introspections(INTROSPECTION_GIRS)
 ####
 
