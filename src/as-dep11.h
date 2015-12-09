@@ -26,22 +26,10 @@
 
 #include "as-component.h"
 
-#define AS_TYPE_DEP11			(as_dep11_get_type())
-#define AS_DEP11(obj)			(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_DEP11, AsDEP11))
-#define AS_DEP11_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_DEP11, AsDEP11Class))
-#define AS_IS_DEP11(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_DEP11))
-#define AS_IS_DEP11_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_DEP11))
-#define AS_DEP11_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_DEP11, AsDEP11Class))
-
 G_BEGIN_DECLS
 
-typedef struct _AsDEP11	AsDEP11;
-typedef struct _AsDEP11Class	AsDEP11Class;
-
-struct _AsDEP11
-{
-	GObject			parent;
-};
+#define AS_TYPE_DEP11 (as_dep11_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsDEP11, as_dep11, AS, DEP11, GObject)
 
 struct _AsDEP11Class
 {
@@ -54,10 +42,6 @@ struct _AsDEP11Class
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
 };
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsDEP11, g_object_unref)
-
-GType			as_dep11_get_type (void) G_GNUC_CONST;
 
 AsDEP11*		as_dep11_new (void);
 

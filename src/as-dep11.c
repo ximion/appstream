@@ -29,8 +29,7 @@
 #include "as-metadata.h"
 #include "as-component-private.h"
 
-typedef struct _AsDEP11Private	AsDEP11Private;
-struct _AsDEP11Private
+typedef struct
 {
 	gchar *locale;
 	gchar *locale_short;
@@ -39,10 +38,9 @@ struct _AsDEP11Private
 	gint default_priority;
 
 	GPtrArray *cpts;
-};
+} AsDEP11Private;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsDEP11, as_dep11, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_dep11_get_instance_private (o))
 
 enum YamlNodeKind {
