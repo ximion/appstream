@@ -45,26 +45,49 @@ struct _AsDatabaseClass
 	void (*_as_reserved6)	(void);
 };
 
+/**
+ * AsDatabaseError:
+ * @AS_DATABASE_ERROR_FAILED:		Generic failure
+ * @AS_DATABASE_ERROR_CLOSED:		Tried to perform action on a closed database.
+ * @AS_DATABASE_ERROR_TERM_INVALID:	A query term was invalid.
+ *
+ * A database query error.
+ **/
+typedef enum {
+	AS_DATABASE_ERROR_FAILED,
+	AS_DATABASE_ERROR_CLOSED,
+	AS_DATABASE_ERROR_TERM_INVALID,
+	/*< private >*/
+	AS_DATABASE_ERROR_LAST
+} AsDatabaseError;
+
+#define	AS_DATABASE_ERROR	as_database_error_quark ()
+
 AsDatabase		*as_database_new (void);
-gboolean		as_database_open (AsDatabase *db);
+GQuark			as_database_error_quark (void);
+gboolean		as_database_open (AsDatabase *db,
+						GError **error);
 
 const gchar		*as_database_get_location (AsDatabase *db);
 void			as_database_set_location (AsDatabase *db,
 							const gchar *dir);
 
-GPtrArray		*as_database_get_all_components (AsDatabase *db);
-
 GPtrArray		*as_database_find_components (AsDatabase *db,
 							const gchar *term,
-							const gchar *cats_str);
+							const gchar *cats_str,
+							GError **error);
 
+GPtrArray		*as_database_get_all_components (AsDatabase *db, GError **error);
 AsComponent		*as_database_get_component_by_id (AsDatabase *db,
-								const gchar *cid);
+								const gchar *cid,
+								GError **error);
 GPtrArray		*as_database_get_components_by_provides (AsDatabase* db,
 								 AsProvidedKind kind,
-								 const gchar *item);
+								 const gchar *item,
+								 GError **error);
 GPtrArray		*as_database_get_components_by_kind (AsDatabase *db,
-								AsComponentKind kind);
+								AsComponentKind kind,
+								GError **error);
 
 G_END_DECLS
 

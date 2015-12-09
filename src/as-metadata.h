@@ -50,19 +50,20 @@ struct _AsMetadataClass
 
 /**
  * AsMetadataError:
- * @AS_METADATA_ERROR_FAILED: Generic failure
+ * @AS_METADATA_ERROR_FAILED:	Generic failure
  *
- * The error type.
+ * A metadata processing error.
  **/
 typedef enum {
 	AS_METADATA_ERROR_FAILED,
+	/*< private >*/
 	AS_METADATA_ERROR_LAST
 } AsMetadataError;
 
-#define	AS_METADATA_ERROR		as_metadata_error_quark ()
+#define	AS_METADATA_ERROR	as_metadata_error_quark ()
 
 AsMetadata		*as_metadata_new (void);
-GQuark			as_metadata_error_quark	(void);
+GQuark			as_metadata_error_quark (void);
 
 void			as_metadata_parse_file (AsMetadata *metad,
 							GFile *file,

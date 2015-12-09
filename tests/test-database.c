@@ -89,41 +89,49 @@ test_database_read (const gchar *dbpath)
 	GPtrArray *rels;
 	AsRelease *rel;
 	AsComponent *cpt;
+	g_autoptr(GError) error = NULL;
 
 	db = as_database_new ();
 	as_database_set_location (db, dbpath);
-	as_database_open (db);
+	as_database_open (db, &error);
+	g_assert_no_error (error);
 
-	cpts = as_database_get_all_components (db);
+	cpts = as_database_get_all_components (db, &error);
+	g_assert_no_error (error);
 	g_assert (cpts != NULL);
 
 	print_cptarray (cpts);
 
 	msg ("==============================");
 
-	cpts = as_database_find_components (db, "kig", NULL);
+	cpts = as_database_find_components (db, "kig", NULL, &error);
+	g_assert_no_error (error);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
 	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);
 	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
 	g_ptr_array_unref (cpts);
 
-	cpts = as_database_find_components (db, NULL, "science");
+	cpts = as_database_find_components (db, NULL, "science", &error);
+	g_assert_no_error (error);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 3);
 	g_ptr_array_unref (cpts);
 
-	cpts = as_database_find_components (db, "logic", "science");
+	cpts = as_database_find_components (db, "logic", "science", &error);
+	g_assert_no_error (error);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
 	g_ptr_array_unref (cpts);
 
-	cpts = as_database_find_components (db, "logic", NULL);
+	cpts = as_database_find_components (db, "logic", NULL, &error);
+	g_assert_no_error (error);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 2);
 	g_ptr_array_unref (cpts);
 
-	cpts = as_database_get_components_by_provides (db, AS_PROVIDED_KIND_BINARY, "inkscape");
+	cpts = as_database_get_components_by_provides (db, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
+	g_assert_no_error (error);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
 	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);
@@ -135,7 +143,8 @@ test_database_read (const gchar *dbpath)
 	g_ptr_array_unref (cpts);
 
 	/* test a component in a different file, with no package but a bundle instead */
-	cpt = as_database_get_component_by_id (db, "neverball.desktop");
+	cpt = as_database_get_component_by_id (db, "neverball.desktop", &error);
+	g_assert_no_error (error);
 	g_assert_nonnull (cpt);
 
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");

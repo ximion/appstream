@@ -833,16 +833,12 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 	if ((allow_invalid) || (as_component_is_valid (cpt))) {
 		return cpt;
 	} else {
-		gchar *cpt_str;
-		gchar *msg;
+		g_autofree gchar *cpt_str = NULL;
 		cpt_str = as_component_to_string (cpt);
-		msg = g_strdup_printf ("Invalid component: %s", cpt_str);
-		g_free (cpt_str);
-		g_set_error_literal (error,
+		g_set_error (error,
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
-				     msg);
-		g_free (msg);
+				     "Invalid component: %s", cpt_str);
 		g_object_unref (cpt);
 	}
 

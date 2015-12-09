@@ -113,13 +113,14 @@ as_database_class_init (AsDatabaseClass *klass)
 /**
  * as_database_open:
  * @db: An instance of #AsDatabase.
+ * @error: A #GError or %NULL.
  *
  * Open the current AppStream metadata cache for reading.
  *
  * Returns: %TRUE on success, %FALSE on error.
  */
 gboolean
-as_database_open (AsDatabase *db)
+as_database_open (AsDatabase *db, GError **error)
 {
 	gboolean ret = FALSE;
 	g_autofree gchar *path = NULL;
@@ -129,24 +130,51 @@ as_database_open (AsDatabase *db)
 	ret = xa_database_read_open (priv->xdb, path);
 	priv->opened = ret;
 
+	if (!ret)
+		g_set_error_literal (error,
+					AS_DATABASE_ERROR,
+					AS_DATABASE_ERROR_FAILED,
+					_("Unable to open the AppStream software component cache."));
+
 	return ret;
+}
+
+/**
+ * as_database_test_opened:
+ * @db: An instance of #AsDatabase.
+ * @error: A #GError or %NULL.
+ */
+static gboolean
+as_database_test_opened (AsDatabase *db, GError **error)
+{
+	AsDatabasePrivate *priv = GET_PRIVATE (db);
+
+	if (!priv->opened) {
+		g_set_error_literal (error,
+					AS_DATABASE_ERROR,
+					AS_DATABASE_ERROR_CLOSED,
+					_("Tried to perform query on closed database."));
+		return FALSE;
+	}
+	return TRUE;
 }
 
 /**
  * as_database_get_all_components:
  * @db: An instance of #AsDatabase.
+ * @error: A #GError or %NULL.
  *
  * Dump a list of all software components found in the database.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects.
  */
 GPtrArray*
-as_database_get_all_components (AsDatabase *db)
+as_database_get_all_components (AsDatabase *db, GError **error)
 {
 	GPtrArray *cpts = NULL;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 
-	if (!priv->opened)
+	if (!as_database_test_opened (db, error))
 		return NULL;
 
 	cpts = xa_database_read_get_all_components (priv->xdb);
@@ -206,6 +234,7 @@ as_database_sanitize_search_term (AsDatabase *db, const gchar *term)
  * @db: An instance of #AsDatabase.
  * @term: (nullable): a search-term to look for.
  * @cats_str: (nullable): A semicolon-delimited list of category names, e.g. "science;development".
+ * @error: A #GError or %NULL.
  *
  * Find components in the Appstream database, which match a given term
  * in a set of categories.
@@ -213,19 +242,19 @@ as_database_sanitize_search_term (AsDatabase *db, const gchar *term)
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
 GPtrArray*
-as_database_find_components (AsDatabase *db, const gchar *term, const gchar *cats_str)
+as_database_find_components (AsDatabase *db, const gchar *term, const gchar *cats_str, GError **error)
 {
 	GPtrArray *cpts;
 	g_autofree gchar *sterm = NULL;
 	g_auto(GStrv) cats = NULL;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 
-	if (!priv->opened)
+	if (!as_database_test_opened (db, error))
 		return NULL;
 
 	/* return everything if term and categories are both NULL or empty */
 	if ((as_str_empty (term)) && (as_str_empty (cats_str)))
-		return as_database_get_all_components (db);
+		return as_database_get_all_components (db, error);
 
 	/* sanitize our search term */
 	sterm = as_database_sanitize_search_term (db, term);
@@ -241,16 +270,26 @@ as_database_find_components (AsDatabase *db, const gchar *term, const gchar *cat
  * as_database_get_component_by_id:
  * @db: An instance of #AsDatabase.
  * @cid: the ID of the component, e.g. "org.kde.gwenview.desktop"
+ * @error: A #GError or %NULL.
  *
  * Get a component by its AppStream-ID.
  *
  * Returns: (transfer full): an #AsComponent or %NULL if none was found.
  **/
 AsComponent*
-as_database_get_component_by_id (AsDatabase *db, const gchar *cid)
+as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **error)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-	g_return_val_if_fail (cid != NULL, NULL);
+
+	if (!as_database_test_opened (db, error))
+		return NULL;
+	if (cid == NULL) {
+		g_set_error_literal (error,
+					AS_DATABASE_ERROR,
+					AS_DATABASE_ERROR_TERM_INVALID,
+					"Search term must not be NULL.");
+		return NULL;
+	}
 
 	return xa_database_read_get_component_by_id (priv->xdb, cid);
 }
@@ -260,46 +299,59 @@ as_database_get_component_by_id (AsDatabase *db, const gchar *cid)
  * @db: An instance of #AsDatabase.
  * @kind: an #AsProvidesKind
  * @item: the name of the provided item.
+ * @error: A #GError or %NULL.
  *
  * Find components in the Appstream database.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */
 GPtrArray*
-as_database_get_components_by_provides (AsDatabase *db, AsProvidedKind kind, const gchar *item)
+as_database_get_components_by_provides (AsDatabase *db, AsProvidedKind kind, const gchar *item, GError **error)
 {
 	GPtrArray* cpt_array;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-	g_return_val_if_fail (item != NULL, NULL);
 
-	if (!priv->opened)
+	if (!as_database_test_opened (db, error))
 		return NULL;
+	if (item == NULL) {
+		g_set_error_literal (error,
+					AS_DATABASE_ERROR,
+					AS_DATABASE_ERROR_TERM_INVALID,
+					"Search term must not be NULL.");
+		return NULL;
+	}
 
 	cpt_array = xa_database_read_get_components_by_provides (priv->xdb, kind, item);
-
 	return cpt_array;
 }
 
 /**
  * as_database_get_components_by_kind:
  * @db: An instance of #AsDatabase.
- * @kind: an #AsComponentKind-
+ * @kind: an #AsComponentKind.
+ * @error: A #GError or %NULL.
  *
  * Return a list of all components in the database which match a certain kind.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, %NULL on error
  */
 GPtrArray*
-as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind)
+as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind, GError **error)
 {
 	GPtrArray* cpt_array;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 
-	if (!priv->opened)
+	if (!as_database_test_opened (db, error))
 		return NULL;
+	if (kind >= AS_COMPONENT_KIND_LAST) {
+		g_set_error_literal (error,
+					AS_DATABASE_ERROR,
+					AS_DATABASE_ERROR_TERM_INVALID,
+					"Can not search for unknown component type.");
+		return NULL;
+	}
 
 	cpt_array = xa_database_read_get_components_by_kind (priv->xdb, kind);
-
 	return cpt_array;
 }
 
@@ -329,6 +381,20 @@ as_database_set_location (AsDatabase *db, const gchar *dir)
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 	g_free (priv->database_path);
 	priv->database_path = g_strdup (dir);
+}
+
+/**
+ * as_database_error_quark:
+ *
+ * Return value: An error quark.
+ **/
+GQuark
+as_database_error_quark (void)
+{
+	static GQuark quark = 0;
+	if (!quark)
+		quark = g_quark_from_static_string ("AsDatabaseError");
+	return quark;
 }
 
 /**
