@@ -151,7 +151,7 @@ ascli_search_component (const gchar *dbpath, const gchar *search_term, gboolean 
 
 	/* search for stuff */
 	as_database_open (db);
-	cpt_list = as_database_find_components_by_term (db, search_term, NULL);
+	cpt_list = as_database_find_components (db, search_term, NULL);
 	if (cpt_list == NULL) {
 		/* TRANSLATORS: We failed to find any component in the database due to an error */
 		ascli_print_stderr (_("Unable to find component matching %s!"), search_term);

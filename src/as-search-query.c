@@ -44,20 +44,14 @@
  * See also: #AsDatabase
  */
 
+#define AS_SEARCH_GREYLIST_STR ""
+
 struct _AsSearchQueryPrivate {
 	gchar *search_term;
 	gchar **categories;
 };
 
 static gpointer as_search_query_parent_class = NULL;
-
-/* TRANSLATORS: List of "grey-listed" words sperated with ";"
- * Do not translate this list directly. Instead,
- * provide a list of words in your language that people are likely
- * to include in a search but that should normally be ignored in
- * the search.
- */
-#define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
 #define AS_SEARCH_QUERY_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_SEARCH_QUERY, AsSearchQueryPrivate))
 

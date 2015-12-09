@@ -85,7 +85,6 @@ void
 test_database_read (const gchar *dbpath)
 {
 	AsDatabase *db;
-	AsSearchQuery *query;
 	GPtrArray *cpts = NULL;
 	GPtrArray *rels;
 	AsRelease *rel;
@@ -102,36 +101,27 @@ test_database_read (const gchar *dbpath)
 
 	msg ("==============================");
 
-	query = as_search_query_new ("kig");
-	cpts = as_database_find_components (db, query);
+	cpts = as_database_find_components (db, "kig", NULL);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
 	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);
 	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
 	g_ptr_array_unref (cpts);
 
-	query = as_search_query_new ("");
-	as_search_query_set_categories_from_string (query, "science");
-	cpts = as_database_find_components (db, query);
+	cpts = as_database_find_components (db, NULL, "science");
 	print_cptarray (cpts);
 	g_assert (cpts->len == 3);
 	g_ptr_array_unref (cpts);
-	g_object_unref (query);
 
-	query = as_search_query_new ("logic");
-	as_search_query_set_categories_from_string (query, "science");
-	cpts = as_database_find_components (db, query);
+	cpts = as_database_find_components (db, "logic", "science");
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);
 	g_ptr_array_unref (cpts);
-	g_object_unref (query);
 
-	query = as_search_query_new ("logic");
-	cpts = as_database_find_components (db, query);
+	cpts = as_database_find_components (db, "logic", NULL);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 2);
 	g_ptr_array_unref (cpts);
-	g_object_unref (query);
 
 	cpts = as_database_get_components_by_provides (db, AS_PROVIDED_KIND_BINARY, "inkscape");
 	print_cptarray (cpts);
