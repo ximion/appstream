@@ -31,11 +31,11 @@ add_executable(as-test-asxml test-asxml.c)
 add_dependencies(as-test-asxml appstream)
 add_test(asxml-test as-test-asxml ${CMAKE_CURRENT_SOURCE_DIR})
 
-if(DEBIAN_DEP11)
-# AppStream DEP-11 parser tests
-add_executable(as-test-dep11 test-dep11.c)
-add_dependencies(as-test-dep11 appstream)
-add_test(dep11-test as-test-dep11 ${CMAKE_CURRENT_SOURCE_DIR})
+if(DEP11)
+	# AppStream DEP-11 parser tests
+	add_executable(as-test-dep11 test-dep11.c)
+	add_dependencies(as-test-dep11 appstream)
+	add_test(dep11-test as-test-dep11 ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
 
 # AppStream database tests

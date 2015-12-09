@@ -1,0 +1,46 @@
+## This file is provided by appstreamcli(1) to download DEP-11
+## metadata files.
+
+Acquire::IndexTargets {
+
+    # The YAML metadata files
+    deb::DEP-11  {
+        MetaKey "$(COMPONENT)/dep11/Components-$(NATIVE_ARCHITECTURE).yml";
+        ShortDescription "Components-$(NATIVE_ARCHITECTURE)";
+        Description "$(RELEASE)/$(COMPONENT) $(NATIVE_ARCHITECTURE) DEP-11 Metadata";
+
+        flatMetaKey "Components-$(NATIVE_ARCHITECTURE)";
+        flatDescription "$(RELEASE) DEP-11 Metadata";
+        KeepCompressed "true";
+    };
+
+    # Normal-sized icons for GUI components described in the DEP-11
+    # YAML metadata.
+    deb::DEP-11-icons  {
+        MetaKey "$(COMPONENT)/dep11/icons-64x64.tar";
+        ShortDescription "icons-64x64";
+        Description "$(RELEASE)/$(COMPONENT) DEP-11 64x64 Icons";
+
+        flatMetaKey "icons-64x64";
+        flatDescription "$(RELEASE) DEP-11 64x64 Icons";
+        KeepCompressed "true";
+    };
+
+    # Icons suitable for HiDPI displays, for GUI components described in
+    # the DEP-11 YAML metadata.
+    deb::DEP-11-icons-hidpi  {
+        MetaKey "$(COMPONENT)/dep11/icons-128x128.tar";
+        ShortDescription "icons-64x64";
+        Description "$(RELEASE)/$(COMPONENT) DEP-11 128x128 Icons";
+
+        flatMetaKey "icons-128x128";
+        flatDescription "$(RELEASE) DEP-11 64x64 Icons";
+        KeepCompressed "true";
+        DefaultEnabled "false";
+    };
+};
+
+# When Apt's cache is updated (i.e. apt-cache update)
+APT::Update::Post-Invoke-Success {
+    "/usr/bin/test -e /usr/bin/appstreamcli && appstreamcli refresh";
+};

@@ -20,15 +20,16 @@ endif(${CMAKE_SOURCE_DIR} MATCHES ${CMAKE_BINARY_DIR})
 #
 # Options
 #
-option(DEBIAN_DEP11 "Enable DEP11 data provider" ON)
+option(DEP11 "Enable DEP11 data provider" ON)
 option(L18N "Enable localization" ON)
 option(VAPI "Create and install a Vala API file" OFF)
 option(QT "Build libappstream-qt" OFF)
 option(MAINTAINER "Enable maintainer mode" OFF)
 option(DOCUMENTATION "Enable target to build documentation" OFF)
+option(APT_SUPPORT "Enable integration with APT on Debian" OFF)
 
-if(DEBIAN_DEP11)
-	add_definitions ("-DDEBIAN_DEP11")
+if(DEP11)
+	add_definitions ("-DDEP11")
 endif()
 
 #

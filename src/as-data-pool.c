@@ -41,7 +41,7 @@
 
 #include "as-metadata.h"
 #include "as-metadata-private.h"
-#ifdef DEBIAN_DEP11
+#ifdef DEP11
 #include "as-dep11.h"
 #endif
 
@@ -178,7 +178,7 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 	for (i = 0; priv->asxml_paths[i] != NULL; i++) {
 		g_ptr_array_add (res_array, g_strdup (priv->asxml_paths[i]));
 	}
-#ifdef DEBIAN_DEP11
+#ifdef DEP11
 	for (i = 0; priv->dep11_paths[i] != NULL; i++) {
 		g_ptr_array_add (res_array, g_strdup (priv->dep11_paths[i]));
 	}
@@ -292,7 +292,7 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 	return ret;
 }
 
-#ifdef DEBIAN_DEP11
+#ifdef DEP11
 /**
  * as_data_pool_read_dep11:
  */
@@ -426,7 +426,7 @@ as_data_pool_update (AsDataPool *dpool)
 
 	/* read all AppStream metadata that we can find */
 	ret = as_data_pool_read_asxml (dpool);
-#ifdef DEBIAN_DEP11
+#ifdef DEP11
 	if (!as_data_pool_read_dep11 (dpool))
 		ret = FALSE;
 #endif
@@ -602,7 +602,7 @@ as_data_pool_new (void)
 			priv->asxml_paths[i] = NULL;
 	}
 
-	/* set watched default directories for Debian DEP11 AppStream data */
+	/* set watched default directories for Debian DEP-11 AppStream data */
 	len = G_N_ELEMENTS (AS_APPSTREAM_DEP11_PATHS);
 	priv->dep11_paths = g_new0 (gchar *, len + 1);
 	for (i = 0; i < len+1; i++) {
