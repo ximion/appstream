@@ -32,7 +32,7 @@
 int
 ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
 {
-	AsBuilder *builder;
+	g_autoptr(AsCacheBuilder) cbuilder = NULL;
 	GError *error = NULL;
 	gboolean ret;
 
@@ -43,23 +43,19 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 		}
 	}
 
-	if (dbpath == NULL)
-		builder = as_builder_new ();
-	else
-		builder = as_builder_new_path (dbpath);
+	cbuilder = as_cache_builder_new ();
 
 	if (datapath != NULL) {
 		gchar **strv;
 		/* the user wants data from a different path to be used */
 		strv = g_new0 (gchar*, 2);
 		strv[0] = g_strdup (datapath);
-		as_builder_set_data_source_directories (builder, strv);
+		as_cache_builder_set_data_source_directories (cbuilder, strv);
 		g_strfreev (strv);
 	}
 
-	as_builder_initialize (builder);
-	ret = as_builder_refresh_cache (builder, forced, &error);
-	g_object_unref (builder);
+	as_cache_builder_setup (cbuilder, dbpath);
+	ret = as_cache_builder_refresh (cbuilder, forced, &error);
 
 	if (error == NULL) {
 		g_print ("%s\n", _("AppStream cache update completed successfully."));

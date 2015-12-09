@@ -22,65 +22,55 @@
 #error "Only <appstream.h> can be included directly."
 #endif
 
-#ifndef __AS_DATABASEBUILDER_H
-#define __AS_DATABASEBUILDER_H
+#ifndef __AS_CACHE_BUILDER_H
+#define __AS_CACHE_BUILDER_H
 
 #include <glib-object.h>
 
-#define AS_TYPE_BUILDER (as_builder_get_type ())
-#define AS_BUILDER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), AS_TYPE_BUILDER, AsBuilder))
-#define AS_BUILDER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), AS_TYPE_BUILDER, AsBuilderClass))
-#define AS_IS_BUILDER(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), AS_TYPE_BUILDER))
-#define AS_IS_BUILDER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), AS_TYPE_BUILDER))
-#define AS_BUILDER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), AS_TYPE_BUILDER, AsBuilderClass))
+#define AS_TYPE_CACHE_BUILDER (as_cache_builder_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsCacheBuilder, as_cache_builder, AS, CACHE_BUILDER, GObject)
 
 G_BEGIN_DECLS
 
-typedef struct _AsBuilder AsBuilder;
-typedef struct _AsBuilderClass AsBuilderClass;
-typedef struct _AsBuilderPrivate AsBuilderPrivate;
-
-struct _AsBuilder {
-	GObject parent_instance;
-	AsBuilderPrivate * priv;
-};
-
-struct _AsBuilderClass {
+struct _AsCacheBuilderClass {
 	GObjectClass parent_class;
+	/*< private >*/
+	void (*_as_reserved1)	(void);
+	void (*_as_reserved2)	(void);
+	void (*_as_reserved3)	(void);
+	void (*_as_reserved4)	(void);
+	void (*_as_reserved5)	(void);
+	void (*_as_reserved6)	(void);
 };
 
-#define	AS_BUILDER_ERROR as_builder_error_quark ()
-GQuark as_builder_error_quark (void);
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsBuilder, g_object_unref)
+#define	AS_CACHE_BUILDER_ERROR as_cache_builder_error_quark ()
+GQuark as_cache_builder_error_quark (void);
 
 /**
- * AsBuilderError:
- * @AS_BUILDER_ERROR_FAILED:		Generic failure
- * @AS_BUILDER_ERROR_PARTIALLY_FAILED:	Some parts of the current action have been failed
+ * AsCacheBuilderError:
+ * @AS_CACHE_BUILDER_ERROR_FAILED:		Generic failure
+ * @AS_CACHE_BUILDER_ERROR_PARTIALLY_FAILED:	Some parts of the current action have been failed
  *
  * The error type.
  **/
 typedef enum {
-	AS_BUILDER_ERROR_FAILED,
-	AS_BUILDER_ERROR_PARTIALLY_FAILED,
+	AS_CACHE_BUILDER_ERROR_FAILED,
+	AS_CACHE_BUILDER_ERROR_PARTIALLY_FAILED,
 	/*< private >*/
-	AS_BUILDER_ERROR_LAST
-} AsBuilderError;
+	AS_CACHE_BUILDER_ERROR_LAST
+} AsCacheBuilderError;
 
-GType			as_builder_get_type (void) G_GNUC_CONST;
+AsCacheBuilder		*as_cache_builder_new (void);
 
-AsBuilder*		as_builder_new (void);
-AsBuilder*		as_builder_new_path (const gchar* dbpath);
-
-gboolean		as_builder_initialize (AsBuilder *builder);
-gboolean		as_builder_refresh_cache (AsBuilder *builder,
+gboolean		as_cache_builder_setup (AsCacheBuilder *builder,
+						const gchar *dbpath);
+gboolean		as_cache_builder_refresh (AsCacheBuilder *builder,
 							gboolean force,
 							GError **error);
 
-void			as_builder_set_data_source_directories (AsBuilder *self,
+void			as_cache_builder_set_data_source_directories (AsCacheBuilder *self,
 								gchar **dirs);
 
 G_END_DECLS
 
-#endif /* __AS_DATABASEBUILDER_H */
+#endif /* __AS_CACHE_BUILDER_H */

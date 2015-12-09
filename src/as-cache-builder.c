@@ -34,46 +34,86 @@
 #include "as-data-pool.h"
 #include "as-settings-private.h"
 
-struct _AsBuilderPrivate
+typedef struct
 {
 	struct XADatabaseWrite* db_w;
 	gchar* db_path;
 	gchar* cache_path;
 	AsDataPool *dpool;
-};
+} AsCacheBuilderPrivate;
 
-static gpointer as_builder_parent_class = NULL;
-
-#define AS_BUILDER_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), AS_TYPE_BUILDER, AsBuilderPrivate))
-
-static void as_builder_finalize (GObject* obj);
+G_DEFINE_TYPE_WITH_PRIVATE (AsCacheBuilder, as_cache_builder, G_TYPE_OBJECT)
+#define GET_PRIVATE(o) (as_cache_builder_get_instance_private (o))
 
 /**
- * as_builder_error_quark:
+ * as_cache_builder_error_quark:
  *
  * Return value: An error quark.
  **/
 GQuark
-as_builder_error_quark (void)
+as_cache_builder_error_quark (void)
 {
 	static GQuark quark = 0;
 	if (!quark)
-		quark = g_quark_from_static_string ("AsBuilderError");
+		quark = g_quark_from_static_string ("AsCacheBuilderError");
 	return quark;
 }
 
-static AsBuilder*
-as_builder_construct (GType object_type, const gchar *dbpath)
+/**
+ * as_cache_builder_init:
+ **/
+static void
+as_cache_builder_init (AsCacheBuilder *builder)
 {
-	AsBuilder *builder = NULL;
-	AsBuilderPrivate *priv;
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
-	builder = (AsBuilder*) g_object_new (object_type, NULL);
-	priv = builder->priv;
 	priv->db_w = xa_database_write_new ();
 	priv->dpool = as_data_pool_new ();
+	priv->cache_path = NULL;
+}
+
+/**
+ * as_cache_builder_finalize:
+ */
+static void
+as_cache_builder_finalize (GObject *object)
+{
+	AsCacheBuilder *builder = AS_CACHE_BUILDER (object);
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
+
+	xa_database_write_free (priv->db_w);
+	g_object_unref (priv->dpool);
+	g_free (priv->cache_path);
+	g_free (priv->db_path);
+
+	G_OBJECT_CLASS (as_cache_builder_parent_class)->finalize (object);
+}
+
+/**
+ * as_cache_builder_class_init:
+ **/
+static void
+as_cache_builder_class_init (AsCacheBuilderClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	object_class->finalize = as_cache_builder_finalize;
+}
+
+/**
+ * as_cache_builder_setup:
+ * @builder: An instance of #AsCacheBuilder.
+ * @dbpath: (nullable) (defaulr NULL): Path to the database directory, or %NULL to use defaulr.
+ *
+ * Initialize the cache builder.
+ */
+gboolean
+as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath)
+{
+	gboolean ret;
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
 	/* update database path if necessary */
+	g_free (priv->cache_path);
 	if (as_str_empty (dbpath)) {
 		priv->cache_path = g_strdup (AS_APPSTREAM_CACHE_PATH);
 	} else {
@@ -84,54 +124,15 @@ as_builder_construct (GType object_type, const gchar *dbpath)
 	/* ensure db directory exists */
 	as_utils_touch_dir (priv->db_path);
 
-	return builder;
-}
-
-/**
- * as_builder_new:
- *
- * Creates a new #AsBuilder.
- *
- * Returns: (transfer full): an #AsBuilder
- **/
-AsBuilder*
-as_builder_new (void)
-{
-	return as_builder_construct (AS_TYPE_BUILDER, NULL);
-}
-
-/**
- * as_builder_new_path:
- *
- * Creates a new #AsBuilder with custom database path.
- *
- * @path path to the new Xapian database
- *
- * Returns: (transfer full): an #AsBuilder
- **/
-AsBuilder*
-as_builder_new_path (const gchar* dbpath)
-{
-	return as_builder_construct (AS_TYPE_BUILDER, dbpath);
-}
-
-/**
- * as_builder_initialize:
- */
-gboolean
-as_builder_initialize (AsBuilder *builder)
-{
-	gboolean ret;
-	AsBuilderPrivate *priv = builder->priv;
-
-	as_utils_touch_dir (priv->db_path);
-
 	ret = xa_database_write_initialize (priv->db_w, priv->db_path);
 	return ret;
 }
 
+/**
+ * as_cache_builder_appstream_data_changed:
+ */
 static gboolean
-as_builder_appstream_data_changed (AsBuilder *builder)
+as_cache_builder_appstream_data_changed (AsCacheBuilder *builder)
 {
 	gchar *fname;
 	GFile *file;
@@ -143,8 +144,9 @@ as_builder_appstream_data_changed (AsBuilder *builder)
 	GDataOutputStream *dos = NULL;
 	GFileOutputStream *fos;
 	GError *error = NULL;
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
-	fname = g_build_filename (builder->priv->cache_path, "cache.watch", NULL, NULL);
+	fname = g_build_filename (priv->cache_path, "cache.watch", NULL, NULL);
 	file = g_file_new_for_path (fname);
 	g_free (fname);
 
@@ -175,7 +177,7 @@ as_builder_appstream_data_changed (AsBuilder *builder)
 	}
 
 	watchfile_new = g_strdup ("");
-	files = as_data_pool_get_watched_locations (builder->priv->dpool);
+	files = as_data_pool_get_watched_locations (priv->dpool);
 	for (i = 0; files[i] != NULL; i++) {
 		struct stat sbuf;
 		gchar *ctime_str;
@@ -250,20 +252,23 @@ out:
 }
 
 /**
- * as_builder_refresh_cache:
+ * as_cache_builder_refresh:
+ * @builder: An instance of #AsCacheBuilder.
+ * @force: Enforce refresh, even if source data has not changed.
  *
  * Update the AppStream Xapian cache
  */
 gboolean
-as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error)
+as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **error)
 {
 	gboolean ret = FALSE;
 	gboolean ret_poolupdate;
 	GList *cpt_list;
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
 	/* check if we need to refresh the cache */
 	/* (which is only necessary if the AppStream data has changed) */
-	if (!as_builder_appstream_data_changed (builder)) {
+	if (!as_cache_builder_appstream_data_changed (builder)) {
 		g_debug ("Data did not change, no cache refresh needed.");
 		if (force) {
 			g_debug ("Forcing refresh anyway.");
@@ -275,23 +280,23 @@ as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error)
 	g_debug ("Refreshing AppStream cache");
 
 	/* find them wherever they are */
-	ret_poolupdate = as_data_pool_update (builder->priv->dpool);
+	ret_poolupdate = as_data_pool_update (priv->dpool);
 
 	/* populate the cache */
-	cpt_list = as_data_pool_get_components (builder->priv->dpool);
-	ret = xa_database_write_rebuild (builder->priv->db_w, cpt_list);
+	cpt_list = as_data_pool_get_components (priv->dpool);
+	ret = xa_database_write_rebuild (priv->db_w, cpt_list);
 	g_list_free (cpt_list);
 
 	if (ret) {
 		if (!ret_poolupdate)
 			g_set_error (error,
-				AS_BUILDER_ERROR,
-				AS_BUILDER_ERROR_PARTIALLY_FAILED,
+				AS_CACHE_BUILDER_ERROR,
+				AS_CACHE_BUILDER_ERROR_PARTIALLY_FAILED,
 				_("AppStream cache update completed, but some metadata was ignored due to errors."));
 	} else {
 		g_set_error (error,
-				AS_BUILDER_ERROR,
-				AS_BUILDER_ERROR_FAILED,
+				AS_CACHE_BUILDER_ERROR,
+				AS_CACHE_BUILDER_ERROR_FAILED,
 				_("AppStream cache update failed."));
 	}
 
@@ -299,8 +304,8 @@ as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error)
 }
 
 /**
- * as_builder_set_data_source_directories:
- * @builder: a valid #AsBuilder instance
+ * as_cache_builder_set_data_source_directories:
+ * @builder: a valid #AsCacheBuilder instance
  * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
  *
  * Set locations for the database builder to pull it's data from.
@@ -309,60 +314,23 @@ as_builder_refresh_cache (AsBuilder *builder, gboolean force, GError **error)
  * AppStream XML or DEP-11 YAML in it.
  */
 void
-as_builder_set_data_source_directories (AsBuilder *builder, gchar **dirs)
+as_cache_builder_set_data_source_directories (AsCacheBuilder *builder, gchar **dirs)
 {
-	as_data_pool_set_data_source_directories (builder->priv->dpool, dirs);
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
+	as_data_pool_set_data_source_directories (priv->dpool, dirs);
 }
 
-static void
-as_builder_class_init (AsBuilderClass *klass)
+/**
+ * as_cache_builder_new:
+ *
+ * Creates a new #AsCacheBuilder.
+ *
+ * Returns: (transfer full): a new #AsCacheBuilder
+ **/
+AsCacheBuilder*
+as_cache_builder_new (void)
 {
-	as_builder_parent_class = g_type_class_peek_parent (klass);
-	g_type_class_add_private (klass, sizeof (AsBuilderPrivate));
-	G_OBJECT_CLASS (klass)->finalize = as_builder_finalize;
-}
-
-
-static void
-as_builder_instance_init (AsBuilder *builder)
-{
-	builder->priv = AS_BUILDER_GET_PRIVATE (builder);
-}
-
-
-static void
-as_builder_finalize (GObject *obj)
-{
-	AsBuilder *builder;
-	builder = G_TYPE_CHECK_INSTANCE_CAST (obj, AS_TYPE_BUILDER, AsBuilder);
-
-	xa_database_write_free (builder->priv->db_w);
-	g_object_unref (builder->priv->dpool);
-	g_free (builder->priv->cache_path);
-	g_free (builder->priv->db_path);
-
-	G_OBJECT_CLASS (as_builder_parent_class)->finalize (obj);
-}
-
-
-GType as_builder_get_type (void)
-{
-	static volatile gsize as_builder_type_id__volatile = 0;
-	if (g_once_init_enter (&as_builder_type_id__volatile)) {
-		static const GTypeInfo g_define_type_info = { sizeof (AsBuilderClass),
-									(GBaseInitFunc) NULL,
-									(GBaseFinalizeFunc) NULL,
-									(GClassInitFunc) as_builder_class_init,
-									(GClassFinalizeFunc) NULL,
-									NULL,
-									sizeof (AsBuilder),
-									0,
-									(GInstanceInitFunc) as_builder_instance_init,
-									NULL
-		};
-		GType as_builder_type_id;
-		as_builder_type_id = g_type_register_static (G_TYPE_OBJECT, "AsBuilder", &g_define_type_info, 0);
-		g_once_init_leave (&as_builder_type_id__volatile, as_builder_type_id);
-	}
-	return as_builder_type_id__volatile;
+	AsCacheBuilder *builder;
+	builder = g_object_new (AS_TYPE_CACHE_BUILDER, NULL);
+	return AS_CACHE_BUILDER (builder);
 }

@@ -52,10 +52,11 @@ print_cptarray (GPtrArray *cpt_array)
 gchar*
 test_database_create ()
 {
-	AsBuilder *builder;
+	g_autoptr(AsCacheBuilder) builder = NULL;
 	GError *error = NULL;
 	gchar *db_path;
 	gchar **strv;
+	gboolean ret;
 
 	as_utils_touch_dir ("/var/tmp/appstream-tests/");
 	db_path = g_strdup ("/var/tmp/appstream-tests/libas-dbtest-XXXXXX");
@@ -66,17 +67,16 @@ test_database_create ()
 	strv = g_new0 (gchar*, 2);
 	strv[0] = g_build_filename (datadir, "distro", NULL);
 
-	builder = as_builder_new_path (db_path);
-	as_builder_set_data_source_directories (builder, strv);
+	builder = as_cache_builder_new ();
+	as_cache_builder_set_data_source_directories (builder, strv);
 	g_strfreev (strv);
 
-	as_builder_initialize (builder);
-	as_builder_refresh_cache (builder, TRUE, &error);
+	ret = as_cache_builder_setup (builder, db_path);
+	g_assert (ret == TRUE);
 
-	if (error != NULL) {
-		g_error ("%s", error->message);
-		g_error_free (error);
-	}
+	ret = as_cache_builder_refresh (builder, TRUE, &error);
+	g_assert_no_error (error);
+	g_assert (ret == TRUE);
 
 	return db_path;
 }
