@@ -62,19 +62,19 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  *
- * The URL type.
+ * The type of an #AsComponent.
  **/
 typedef enum  {
-	AS_COMPONENT_KIND_UNKNOWN = 0,
-	AS_COMPONENT_KIND_GENERIC = 1 << 0,
-	AS_COMPONENT_KIND_DESKTOP_APP = 1 << 1,
-	AS_COMPONENT_KIND_FONT = 1 << 2,
-	AS_COMPONENT_KIND_CODEC = 1 << 3,
-	AS_COMPONENT_KIND_INPUTMETHOD = 1 << 4,
-	AS_COMPONENT_KIND_ADDON = 1 << 5,
-	AS_COMPONENT_KIND_FIRMWARE = 1 << 6,
+	AS_COMPONENT_KIND_UNKNOWN,
+	AS_COMPONENT_KIND_GENERIC,
+	AS_COMPONENT_KIND_DESKTOP_APP,
+	AS_COMPONENT_KIND_FONT,
+	AS_COMPONENT_KIND_CODEC,
+	AS_COMPONENT_KIND_INPUTMETHOD,
+	AS_COMPONENT_KIND_ADDON,
+	AS_COMPONENT_KIND_FIRMWARE,
 	/*< private >*/
-	AS_COMPONENT_KIND_LAST = 7
+	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
 
 GType			as_component_kind_get_type (void) G_GNUC_CONST;
@@ -174,7 +174,6 @@ AsProvided		*as_component_get_provided_for_kind (AsComponent *cpt,
 							AsProvidedKind kind);
 GList			*as_component_get_provided (AsComponent *cpt);
 
-GHashTable		*as_component_get_urls (AsComponent *cpt);
 const gchar		*as_component_get_url (AsComponent *cpt,
 						AsUrlKind url_kind);
 void			as_component_add_url (AsComponent *cpt,
@@ -202,12 +201,6 @@ const gchar		*as_component_get_bundle_id (AsComponent *cpt,
 void			as_component_add_bundle_id (AsComponent *cpt,
 							AsBundleKind bundle_kind,
 							const gchar *id);
-
-/* DEPRECATED */
-
-G_GNUC_DEPRECATED const gchar	*as_component_get_icon_url (AsComponent *cpt,
-						int width,
-						int height);
 
 G_END_DECLS
 

@@ -59,8 +59,6 @@ struct _AsDatabaseClass
 	void (*_as_reserved4)	(void);
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
-	void (*_as_reserved7)	(void);
-	void (*_as_reserved8)	(void);
 };
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsDatabase, g_object_unref)

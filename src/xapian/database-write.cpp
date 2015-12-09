@@ -92,10 +92,12 @@ bundles_hashtable_to_bundleentry (gchar *key, gchar *value, Bundles *bundles)
  * Helper function to serialize urls for storage in the database
  */
 static void
-urls_hashtable_to_urlentry (gchar *key, gchar *value, Urls *urls)
+urls_hashtable_to_urlentry (gpointer ukind_ptr, gchar *value, Urls *urls)
 {
+	AsUrlKind ukind = (AsUrlKind) GPOINTER_TO_INT (ukind_ptr);
+
 	Urls_Url *url = urls->add_url ();
-	url->set_type ((Urls_UrlType) as_url_kind_from_string (key));
+	url->set_type ((Urls_UrlType) ukind);
 	url->set_url (value);
 }
 
@@ -263,7 +265,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// URLs
 		GHashTable *urls_table;
-		urls_table = as_component_get_urls (cpt);
+		urls_table = as_component_get_urls_table (cpt);
 		if (g_hash_table_size (urls_table) > 0) {
 			Urls urls;
 			string ostr;

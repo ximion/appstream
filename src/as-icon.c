@@ -39,7 +39,6 @@ typedef struct
 } AsIconPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsIcon, as_icon, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_icon_get_instance_private (o))
 
 /**

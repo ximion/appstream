@@ -54,17 +54,15 @@ struct _AsImageClass
 	void (*_as_reserved4)	(void);
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
-	void (*_as_reserved7)	(void);
-	void (*_as_reserved8)	(void);
 };
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsImage, g_object_unref)
 
 /**
  * AsImageKind:
- * @AS_IMAGE_KIND_UNKNOWN:		Type invalid or not known
- * @AS_IMAGE_KIND_SOURCE:		The source image at full resolution
- * @AS_IMAGE_KIND_THUMBNAIL:		A thumbnail at reduced resolution
+ * @AS_IMAGE_KIND_UNKNOWN:	Type invalid or not known
+ * @AS_IMAGE_KIND_SOURCE:	The source image at full resolution
+ * @AS_IMAGE_KIND_THUMBNAIL:	A thumbnail at reduced resolution
  *
  * The image type.
  **/
@@ -72,11 +70,12 @@ typedef enum {
 	AS_IMAGE_KIND_UNKNOWN,
 	AS_IMAGE_KIND_SOURCE,
 	AS_IMAGE_KIND_THUMBNAIL,
+	/*< private >*/
 	AS_IMAGE_KIND_LAST
 } AsImageKind;
 
-AsImageKind	 as_image_kind_from_string (const gchar	*kind);
-const gchar	*as_image_kind_to_string (AsImageKind	 kind);
+AsImageKind	 as_image_kind_from_string (const gchar *kind);
+const gchar	*as_image_kind_to_string (AsImageKind kind);
 
 GType		 as_image_get_type (void);
 AsImage		*as_image_new (void);

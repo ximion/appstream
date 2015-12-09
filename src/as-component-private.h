@@ -41,6 +41,7 @@ GHashTable		*as_component_get_summary_table (AsComponent *cpt);
 GHashTable		*as_component_get_description_table (AsComponent *cpt);
 GHashTable		*as_component_get_developer_name_table (AsComponent *cpt);
 GHashTable		*as_component_get_keywords_table (AsComponent *cpt);
+GHashTable		*as_component_get_urls_table (AsComponent *cpt);
 void			as_component_set_bundles_table (AsComponent *cpt,
 							GHashTable *bundles);
 

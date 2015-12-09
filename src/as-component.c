@@ -70,7 +70,7 @@ typedef struct
 	GPtrArray		*releases; /* of AsRelease elements */
 
 	GHashTable		*provided; /* of int:object */
-	GHashTable		*urls; /* of utf8:utf8 */
+	GHashTable		*urls; /* of int:utf8 */
 	GHashTable		*languages; /* of utf8:utf8 */
 	GHashTable		*bundles; /* of utf8:utf8 */
 
@@ -214,7 +214,7 @@ as_component_init (AsComponent *cpt)
 	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	priv->provided = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
-	priv->urls = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	priv->bundles = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
@@ -378,17 +378,17 @@ as_component_add_release (AsComponent *cpt, AsRelease* release)
 }
 
 /**
- * as_component_get_urls:
+ * as_component_get_urls_table:
  * @cpt: a #AsComponent instance.
  *
  * Gets the URLs set for the component.
  *
- * Returns: (transfer none) (element-type utf8 utf8): URLs
+ * Returns: (transfer none) (element-type AsUrlKind utf8): URLs
  *
  * Since: 0.6.2
  **/
 GHashTable*
-as_component_get_urls (AsComponent *cpt)
+as_component_get_urls_table (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->urls;
@@ -410,7 +410,7 @@ as_component_get_url (AsComponent *cpt, AsUrlKind url_kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return g_hash_table_lookup (priv->urls,
-				    as_url_kind_to_string (url_kind));
+				    GINT_TO_POINTER (url_kind));
 }
 
 /**
@@ -424,13 +424,11 @@ as_component_get_url (AsComponent *cpt, AsUrlKind url_kind)
  * Since: 0.6.2
  **/
 void
-as_component_add_url (AsComponent *cpt,
-					  AsUrlKind url_kind,
-					  const gchar *url)
+as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_hash_table_insert (priv->urls,
-			     g_strdup (as_url_kind_to_string (url_kind)),
+			     GINT_TO_POINTER (url_kind),
 			     g_strdup (url));
 }
 
@@ -1082,38 +1080,6 @@ as_component_add_icon (AsComponent *cpt, AsIcon *icon)
 					as_icon_get_height (icon));
 		g_hash_table_insert (priv->icons_sizetab, size, icon);
 	}
-}
-
-/**
- * as_component_get_icon_url:
- * @cpt: an #AsComponent instance
- * @width: An icon width
- * @height: An icon height
- *
- * A convenience method to retrieve an icon for this component.
- * This method is designed to be used by software center applications,
- * it will always return a full path or url to a valid icon, in contrast
- * to the as_component_get_icon() method, which returns unprocessed icon data.
- *
- * Returns: (nullable): The full url for an icon with the given width and height.
- * In case no icon matching the size is found, %NULL is returned.
- * The returned path will either be a http link or an absolute, local
- * path to the image file of the icon.
- *
- * Since: 0.7.4
- */
-const gchar*
-as_component_get_icon_url (AsComponent *cpt, int width, int height)
-{
-	gchar *size;
-	AsIcon *icon;
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	size = g_strdup_printf ("%ix%i", width, height);
-	icon = g_hash_table_lookup (priv->icons_sizetab, size);
-	g_free (size);
-
-	return as_icon_get_filename (icon);
 }
 
 /**
@@ -1833,7 +1799,7 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 			g_value_set_boxed (value, as_component_get_icons (cpt));
 			break;
 		case AS_COMPONENT_URLS:
-			g_value_set_boxed (value, as_component_get_urls (cpt));
+			g_value_set_boxed (value, as_component_get_urls_table (cpt));
 			break;
 		case AS_COMPONENT_CATEGORIES:
 			g_value_set_boxed (value, as_component_get_categories (cpt));
