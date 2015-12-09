@@ -133,7 +133,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 	string db_locale;
 
 	// Create the rebuild directory
-	if (g_mkdir_with_parents (rebuild_path.c_str (), 755) != 0) {
+	if (g_mkdir_with_parents (rebuild_path.c_str (), 0755) != 0) {
 		g_warning ("Unable to create database rebuild directory.");
 		return false;
 	}

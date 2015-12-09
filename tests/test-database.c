@@ -58,7 +58,7 @@ test_database_create ()
 	gchar **strv;
 	gboolean ret;
 
-	g_mkdir_with_parents ("/var/tmp/appstream-tests/", 755);
+	g_mkdir_with_parents ("/var/tmp/appstream-tests/", 0755);
 	db_path = g_strdup ("/var/tmp/appstream-tests/libas-dbtest-XXXXXX");
 	db_path = g_mkdtemp (db_path);
 	g_assert (db_path != NULL);
