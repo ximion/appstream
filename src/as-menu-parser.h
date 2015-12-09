@@ -44,7 +44,6 @@ struct _AsMenuParserClass
 	void (*_as_reserved6)	(void);
 };
 
-
 AsMenuParser		*as_menu_parser_new (void);
 AsMenuParser		*as_menu_parser_new_from_file (const gchar *menu_file);
 

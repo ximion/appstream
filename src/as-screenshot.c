@@ -31,14 +31,13 @@
 
 #include "as-screenshot.h"
 
-typedef struct _AsScreenshotPrivate	AsScreenshotPrivate;
-struct _AsScreenshotPrivate
+typedef struct
 {
-	AsScreenshotKind	kind;
-	GHashTable			*caption;
-	GPtrArray			*images;
-	gchar				*active_locale;
-};
+	AsScreenshotKind kind;
+	GHashTable *caption;
+	GPtrArray *images;
+	gchar *active_locale;
+} AsScreenshotPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsScreenshot, as_screenshot, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_screenshot_get_instance_private (o))

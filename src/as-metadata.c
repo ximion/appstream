@@ -45,8 +45,7 @@
 #include "as-component-private.h"
 #include "as-distro-details.h"
 
-typedef struct _AsMetadataPrivate	AsMetadataPrivate;
-struct _AsMetadataPrivate
+typedef struct
 {
 	gchar *locale;
 	gchar *locale_short;
@@ -56,13 +55,12 @@ struct _AsMetadataPrivate
 	gint default_priority;
 
 	GPtrArray *cpts;
-};
+} AsMetadataPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_metadata_get_instance_private (o))
 
-static gchar**		as_metadata_get_children_as_strv (AsMetadata *metad, xmlNode* node, const gchar* element_name);
+static gchar	**as_metadata_get_children_as_strv (AsMetadata *metad, xmlNode *node, const gchar *element_name);
 
 /**
  * as_metadata_finalize:
@@ -489,7 +487,7 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 					cs_kind = as_checksum_kind_from_string (prop);
 					if (cs_kind != AS_CHECKSUM_KIND_NONE) {
 						content = as_metadata_get_node_value (metad, iter2);
-						as_release_set_checksum (release, content, cs_kind);
+						as_release_set_checksum (release, cs_kind, content);
 						g_free (content);
 					}
 					g_free (prop);
@@ -505,7 +503,7 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 						size = g_ascii_strtoull (content, NULL, 10);
 						g_free (content);
 						if (size > 0)
-							as_release_set_size (release, size, s_kind);
+							as_release_set_size (release, s_kind, size);
 					}
 					g_free (prop);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "description") == 0) {

@@ -287,7 +287,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 				g_warning ("Found invalid release-checksum type in database for component '%s'", id_str.c_str ());
 				continue;
 			}
-			as_release_set_checksum (rel, pb_cs.value ().c_str (), cskind);
+			as_release_set_checksum (rel, cskind, pb_cs.value ().c_str ());
 		}
 
 		// load sizes
@@ -299,7 +299,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 				g_warning ("Found invalid release-size type in database for component '%s'", id_str.c_str ());
 				continue;
 			}
-			as_release_set_size (rel, pb_s.value (), skind);
+			as_release_set_size (rel, skind, pb_s.value ());
 		}
 
 		as_component_add_release (cpt, rel);

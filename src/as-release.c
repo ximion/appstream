@@ -36,8 +36,7 @@
 
 #include "as-release.h"
 
-typedef struct _AsReleasePrivate AsReleasePrivate;
-struct _AsReleasePrivate
+typedef struct
 {
 	gchar		*version;
 	GHashTable	*description;
@@ -49,10 +48,9 @@ struct _AsReleasePrivate
 	guint64		size[AS_SIZE_KIND_LAST];
 
 	AsUrgencyKind	urgency;
-};
+} AsReleasePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelease, as_release, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_release_get_instance_private (o))
 
 /**
@@ -298,15 +296,15 @@ as_release_get_size (AsRelease *release, AsSizeKind kind)
 /**
  * as_release_set_size:
  * @release: a #AsRelease instance
- * @size: a size in bytes, or 0 for unknown
  * @kind: a #AsSizeKind
+ * @size: a size in bytes, or 0 for unknown
  *
  * Sets the release size for the given kind.
  *
  * Since: 0.8.6
  **/
 void
-as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
+as_release_set_size (AsRelease *release, AsSizeKind kind, guint64 size)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_return_if_fail (kind < AS_SIZE_KIND_LAST);
@@ -442,13 +440,16 @@ as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
 
 /**
  * as_release_set_checksum:
+ * @release: An instance of #AsRelease.
+ * @kind: The kind of this checksum, e.g. %AS_CHECKSUM_KIND_SHA256
+ * @checksum: The checksum as string.
  *
  * Set the release checksum.
  *
  * Since: 0.8.2
  */
 void
-as_release_set_checksum (AsRelease *release, const gchar *checksum, AsChecksumKind kind)
+as_release_set_checksum (AsRelease *release, AsChecksumKind kind, const gchar *checksum)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_return_if_fail (kind < AS_CHECKSUM_KIND_LAST);

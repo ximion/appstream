@@ -102,7 +102,7 @@ as_cache_builder_class_init (AsCacheBuilderClass *klass)
 /**
  * as_cache_builder_setup:
  * @builder: An instance of #AsCacheBuilder.
- * @dbpath: (nullable) (defaulr NULL): Path to the database directory, or %NULL to use defaulr.
+ * @dbpath: (nullable) (default NULL): Path to the database directory, or %NULL to use defaulr.
  *
  * Initialize the cache builder.
  */

@@ -28,22 +28,10 @@
 #include <glib-object.h>
 #include "as-enums.h"
 
-#define AS_TYPE_RELEASE			(as_release_get_type())
-#define AS_RELEASE(obj)			(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_RELEASE, AsRelease))
-#define AS_RELEASE_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_RELEASE, AsReleaseClass))
-#define AS_IS_RELEASE(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_RELEASE))
-#define AS_IS_RELEASE_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_RELEASE))
-#define AS_RELEASE_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_RELEASE, AsReleaseClass))
-
 G_BEGIN_DECLS
 
-typedef struct _AsRelease	AsRelease;
-typedef struct _AsReleaseClass	AsReleaseClass;
-
-struct _AsRelease
-{
-	GObject			parent;
-};
+#define AS_TYPE_RELEASE (as_release_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsRelease, as_release, AS, RELEASE, GObject)
 
 struct _AsReleaseClass
 {
@@ -56,8 +44,6 @@ struct _AsReleaseClass
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
 };
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsRelease, g_object_unref)
 
 /**
  * AsChecksumKind:
@@ -98,7 +84,6 @@ typedef enum {
 const gchar	*as_size_kind_to_string (AsSizeKind size_kind);
 AsSizeKind	as_size_kind_from_string (const gchar *size_kind);
 
-GType		as_release_get_type (void);
 AsRelease	*as_release_new (void);
 
 const gchar	*as_release_get_version (AsRelease *release);
@@ -125,8 +110,8 @@ void		as_release_add_location (AsRelease *release,
 const gchar	*as_release_get_checksum (AsRelease *release,
 						AsChecksumKind kind);
 void		as_release_set_checksum (AsRelease *release,
-						const gchar *checksum,
-						AsChecksumKind kind);
+						AsChecksumKind kind,
+						const gchar *checksum);
 
 AsUrgencyKind	as_release_get_urgency (AsRelease *release);
 void		as_release_set_urgency (AsRelease *release,
@@ -135,8 +120,8 @@ void		as_release_set_urgency (AsRelease *release,
 guint64		as_release_get_size (AsRelease *release,
 					AsSizeKind kind);
 void		as_release_set_size (AsRelease *release,
-					guint64 size,
-					AsSizeKind kind);
+					AsSizeKind kind,
+					guint64 size);
 
 G_END_DECLS
 
