@@ -91,7 +91,7 @@ test_database_read (const gchar *dbpath)
 	AsComponent *cpt;
 
 	db = as_database_new ();
-	as_database_set_database_path (db, dbpath);
+	as_database_set_location (db, dbpath);
 	as_database_open (db);
 
 	cpts = as_database_get_all_components (db);

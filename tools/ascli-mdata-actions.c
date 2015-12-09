@@ -79,7 +79,7 @@ ascli_database_new_path (const gchar *dbpath)
 	AsDatabase *db;
 	db = as_database_new ();
 	if (dbpath != NULL)
-		as_database_set_database_path (db, dbpath);
+		as_database_set_location (db, dbpath);
 	return db;
 }
 

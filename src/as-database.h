@@ -48,9 +48,9 @@ struct _AsDatabaseClass
 AsDatabase		*as_database_new (void);
 gboolean		as_database_open (AsDatabase *db);
 
-const gchar		*as_database_get_database_path (AsDatabase *db);
-void			as_database_set_database_path (AsDatabase *db,
-						const gchar *dir);
+const gchar		*as_database_get_location (AsDatabase *db);
+void			as_database_set_location (AsDatabase *db,
+							const gchar *dir);
 
 GPtrArray		*as_database_get_all_components (AsDatabase *db);
 
@@ -59,12 +59,12 @@ GPtrArray		*as_database_find_components (AsDatabase *db,
 							const gchar *cats_str);
 
 AsComponent		*as_database_get_component_by_id (AsDatabase *db,
-								const gchar *idname);
+								const gchar *cid);
 GPtrArray		*as_database_get_components_by_provides (AsDatabase* db,
 								 AsProvidedKind kind,
 								 const gchar *item);
 GPtrArray		*as_database_get_components_by_kind (AsDatabase *db,
-								AsComponentKind kinds);
+								AsComponentKind kind);
 
 G_END_DECLS
 

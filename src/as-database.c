@@ -43,11 +43,11 @@
  * about the data provided by this AppStream database.
  *
  * By default, the global software component cache is used as datasource, unless a different database
- * is explicitly defined via %as_database_set_database_path().
+ * is explicitly defined via %as_database_set_location().
  *
  * A new cache can be created using the appstreamcli(1) utility.
  *
- * See also: #AsComponent
+ * See also: #AsComponent, #AsDataPool
  */
 
 typedef struct
@@ -79,7 +79,7 @@ as_database_init (AsDatabase *db)
 
 	priv->xdb = xa_database_read_new ();
 	priv->opened = FALSE;
-	as_database_set_database_path (db, AS_APPSTREAM_CACHE_PATH);
+	as_database_set_location (db, AS_APPSTREAM_CACHE_PATH);
 
 	priv->term_greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", -1);
 }
@@ -240,19 +240,19 @@ as_database_find_components (AsDatabase *db, const gchar *term, const gchar *cat
 /**
  * as_database_get_component_by_id:
  * @db: An instance of #AsDatabase.
- * @idname: the ID of the component
+ * @cid: the ID of the component, e.g. "org.kde.gwenview.desktop"
  *
- * Get a component by it's ID
+ * Get a component by its AppStream-ID.
  *
- * Returns: (transfer full): an #AsComponent or NULL if none was found
+ * Returns: (transfer full): an #AsComponent or %NULL if none was found.
  **/
 AsComponent*
-as_database_get_component_by_id (AsDatabase *db, const gchar *idname)
+as_database_get_component_by_id (AsDatabase *db, const gchar *cid)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-	g_return_val_if_fail (idname != NULL, NULL);
+	g_return_val_if_fail (cid != NULL, NULL);
 
-	return xa_database_read_get_component_by_id (priv->xdb, idname);
+	return xa_database_read_get_component_by_id (priv->xdb, cid);
 }
 
 /**
@@ -283,14 +283,14 @@ as_database_get_components_by_provides (AsDatabase *db, AsProvidedKind kind, con
 /**
  * as_database_get_components_by_kind:
  * @db: An instance of #AsDatabase.
- * @kinds: an #AsComponentKind bitfield
+ * @kind: an #AsComponentKind-
  *
- * Find components of a given kind.
+ * Return a list of all components in the database which match a certain kind.
  *
- * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, %NULL on error
  */
 GPtrArray*
-as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kinds)
+as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind)
 {
 	GPtrArray* cpt_array;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
@@ -298,33 +298,33 @@ as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kinds)
 	if (!priv->opened)
 		return NULL;
 
-	cpt_array = xa_database_read_get_components_by_kind (priv->xdb, kinds);
+	cpt_array = xa_database_read_get_components_by_kind (priv->xdb, kind);
 
 	return cpt_array;
 }
 
 /**
- * as_database_get_database_path:
+ * as_database_get_location:
  * @db: An instance of #AsDatabase.
  *
  * Get the current path of the AppStream database we use.
  */
 const gchar*
-as_database_get_database_path (AsDatabase *db)
+as_database_get_location (AsDatabase *db)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 	return priv->database_path;
 }
 
 /**
- * as_database_set_database_path:
+ * as_database_set_location:
  * @db: An instance of #AsDatabase.
  * @dir: The directory of the Xapian database.
  *
  * Set the location of the AppStream database we use.
  */
 void
-as_database_set_database_path (AsDatabase *db, const gchar *dir)
+as_database_set_location (AsDatabase *db, const gchar *dir)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 	g_free (priv->database_path);
