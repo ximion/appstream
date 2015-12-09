@@ -121,8 +121,8 @@ as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath)
 	}
 	priv->db_path = g_build_filename (priv->cache_path, "xapian", "default", NULL);
 
-	/* ensure db directory exists */
-	as_utils_touch_dir (priv->db_path);
+	/* try to create db directory, in case it doesn't exist */
+	g_mkdir_with_parents (priv->db_path, 755);
 
 	ret = xa_database_write_initialize (priv->db_w, priv->db_path);
 	return ret;

@@ -94,7 +94,7 @@ as_metadata_init (AsMetadata *metad)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	/* set active locale without UTF-8 suffix */
-	str = as_get_locale ();
+	str = as_get_current_locale ();
 	as_metadata_set_locale (metad, str);
 	g_free (str);
 
@@ -223,7 +223,8 @@ as_metadata_get_children_as_strv (AsMetadata *metad, xmlNode* node, const gchar*
 			content = (gchar*) xmlNodeGetContent (iter);
 			if (content != NULL) {
 				gchar *s;
-				s = as_string_strip (content);
+				s = g_strdup (content);
+				g_strstrip (s);
 				g_ptr_array_add (list, s);
 			}
 			g_free (content);

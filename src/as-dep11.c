@@ -61,7 +61,7 @@ as_dep11_init (AsDEP11 *dep11)
 	AsDEP11Private *priv = GET_PRIVATE (dep11);
 
 	/* set active locale without UTF-8 suffix */
-	str = as_get_locale ();
+	str = as_get_current_locale ();
 	as_dep11_set_locale (dep11, str);
 
 	priv->origin_name = NULL;

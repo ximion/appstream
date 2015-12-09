@@ -576,7 +576,7 @@ as_data_pool_new (void)
 	priv = GET_PRIVATE (dpool);
 
 	/* set active locale */
-	priv->locale = as_get_locale ();
+	priv->locale = as_get_current_locale ();
 
 	priv->cpt_table = g_hash_table_new_full (g_str_hash,
 						g_str_equal,

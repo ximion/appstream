@@ -25,9 +25,9 @@
 
 G_BEGIN_DECLS
 
-gboolean	as_str_empty (const gchar* str);
 gchar		*as_description_markup_convert_simple (const gchar *markup);
-gchar**		as_ptr_array_to_strv (GPtrArray *array);
+gchar		*as_get_current_locale (void);
+gboolean	as_str_empty (const gchar* str);
 
 G_END_DECLS
 
