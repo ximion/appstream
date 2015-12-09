@@ -81,10 +81,12 @@ langs_hashtable_to_langentry (gchar *key, gint value, Languages *pb_langs)
  * Helper function to serialize bundle data for storage in the database
  */
 static void
-bundles_hashtable_to_bundleentry (gchar *key, gchar *value, Bundles *bundles)
+bundles_hashtable_to_bundleentry (gpointer bkind_ptr, gchar *value, Bundles *bundles)
 {
+	AsBundleKind bkind = (AsBundleKind) GPOINTER_TO_INT (bkind_ptr);
+
 	Bundles_Bundle *bdl = bundles->add_bundle ();
-	bdl->set_type ((Bundles_BundleType) as_bundle_kind_from_string (key));
+	bdl->set_type ((Bundles_BundleType) bkind);
 	bdl->set_id (value);
 }
 
@@ -226,7 +228,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 		// Bundles
 		Bundles bundles;
-		GHashTable *bundle_ids = as_component_get_bundle_ids (cpt);
+		GHashTable *bundle_ids = as_component_get_bundles_table (cpt);
 		if (g_hash_table_size (bundle_ids) > 0) {
 			string ostr;
 			g_hash_table_foreach (bundle_ids,

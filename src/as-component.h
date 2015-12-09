@@ -195,7 +195,7 @@ gint			as_component_get_language (AsComponent *cpt,
 							const gchar *locale);
 GList*			as_component_get_languages (AsComponent *cpt);
 
-GHashTable		*as_component_get_bundle_ids (AsComponent *cpt);
+gboolean		as_component_has_bundle (AsComponent *cpt);
 const gchar		*as_component_get_bundle_id (AsComponent *cpt,
 							AsBundleKind bundle_kind);
 void			as_component_add_bundle_id (AsComponent *cpt,

@@ -146,15 +146,6 @@ ascli_print_stdout (const gchar *format, ...)
 }
 
 /**
- * string_hashtable_to_str:
- */
-static void
-string_hashtable_to_str (gchar *key, gchar *value, GString *gstr)
-{
-	g_string_append_printf (gstr, "%s:%s, ", key, value);
-}
-
-/**
  * ascli_set_colored_output:
  */
 void
@@ -169,15 +160,25 @@ ascli_set_colored_output (gboolean colored)
 static gchar*
 as_get_bundle_str (AsComponent *cpt)
 {
-	GHashTable *bundle_ids;
+	guint i;
 	GString *gstr;
 
-	bundle_ids = as_component_get_bundle_ids (cpt);
-	if (g_hash_table_size (bundle_ids) <= 0)
+	if (!as_component_has_bundle (cpt))
 		return NULL;
 
 	gstr = g_string_new ("");
-	g_hash_table_foreach (bundle_ids, (GHFunc) string_hashtable_to_str, gstr);
+	for (i = 0; i < AS_BUNDLE_KIND_LAST; i++) {
+		AsBundleKind kind = (AsBundleKind) i;
+		const gchar *bundle_id;
+
+		bundle_id = as_component_get_bundle_id (cpt, kind);
+		if (bundle_id == NULL)
+			continue;
+		g_string_append_printf (gstr, "%s:%s, ",
+					as_bundle_kind_to_string (kind),
+					bundle_id);
+
+	}
 	if (gstr->len > 0)
 		g_string_truncate (gstr, gstr->len - 2);
 

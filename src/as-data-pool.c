@@ -144,7 +144,7 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 			if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
 				GHashTable *bundles;
 				/* propagate bundle information to existing component */
-				bundles = as_component_get_bundle_ids (cpt);
+				bundles = as_component_get_bundles_table (cpt);
 				as_component_set_bundles_table (existing_cpt, bundles);
 			} else if (priority == as_component_get_priority (cpt)) {
 				g_debug ("Detected colliding ids: %s was already added with the same priority.", cpt_id);

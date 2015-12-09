@@ -72,7 +72,7 @@ typedef struct
 	GHashTable		*provided; /* of int:object */
 	GHashTable		*urls; /* of int:utf8 */
 	GHashTable		*languages; /* of utf8:utf8 */
-	GHashTable		*bundles; /* of utf8:utf8 */
+	GHashTable		*bundles; /* of int:utf8 */
 
 	GPtrArray		*icons; /* of AsIcon elements */
 	GHashTable		*icons_sizetab; /* of utf8:object (object owned by priv->icons array) */
@@ -215,8 +215,8 @@ as_component_init (AsComponent *cpt)
 
 	priv->provided = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
+	priv->bundles = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	priv->bundles = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	as_component_set_priority (cpt, 0);
 }
@@ -465,17 +465,17 @@ as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
 }
 
 /**
- * as_component_get_bundle_ids:
+ * as_component_get_bundles_table:
  * @cpt: a #AsComponent instance.
  *
  * Gets the bundle-ids set for the component.
  *
- * Returns: (transfer none) (element-type utf8 utf8): Bundle ids
+ * Returns: (transfer none) (element-type AsBundleKind utf8): Bundle ids
  *
  * Since: 0.8.0
  **/
 GHashTable*
-as_component_get_bundle_ids (AsComponent *cpt)
+as_component_get_bundles_table (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->bundles;
@@ -497,7 +497,7 @@ as_component_get_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return g_hash_table_lookup (priv->bundles,
-				    as_bundle_kind_to_string (bundle_kind));
+				    GINT_TO_POINTER (bundle_kind));
 }
 
 /**
@@ -515,8 +515,21 @@ as_component_add_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind, const gc
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_hash_table_insert (priv->bundles,
-			     g_strdup (as_bundle_kind_to_string (bundle_kind)),
+			     GINT_TO_POINTER (bundle_kind),
 			     g_strdup (id));
+}
+
+/**
+ * as_component_has_bundle:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: %TRUE if this component has a bundle-id associated.
+ **/
+gboolean
+as_component_has_bundle (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return g_hash_table_size (priv->bundles) > 0;
 }
 
 /**
@@ -531,19 +544,6 @@ as_component_set_bundles_table (AsComponent *cpt, GHashTable *bundles)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_hash_table_unref (priv->bundles);
 	priv->bundles = g_hash_table_ref (bundles);
-}
-
-/**
- * as_component_has_bundle:
- * @cpt: a #AsComponent instance.
- *
- * Internal function.
- **/
-gboolean
-as_component_has_bundle (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return g_hash_table_size (priv->bundles) > 0;
 }
 
 /**
