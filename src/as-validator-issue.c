@@ -30,17 +30,15 @@
 
 #include "as-validator-issue.h"
 
-typedef struct _AsValidatorIssuePrivate	AsValidatorIssuePrivate;
-struct _AsValidatorIssuePrivate
+typedef struct
 {
 	AsIssueKind		kind;
 	AsIssueImportance	importance;
 	gchar			*message;
 	gchar			*location;
-};
+} AsValidatorIssuePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_validator_issue_get_instance_private (o))
 
 /**

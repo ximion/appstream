@@ -27,22 +27,10 @@
 
 #include <glib-object.h>
 
-#define AS_TYPE_VALIDATOR_ISSUE			(as_validator_issue_get_type())
-#define AS_VALIDATOR_ISSUE(obj)			(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_VALIDATOR_ISSUE, AsValidatorIssue))
-#define AS_VALIDATOR_ISSUE_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_VALIDATOR_ISSUE, AsValidatorIssueClass))
-#define AS_IS_VALIDATOR_ISSUE(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_VALIDATOR_ISSUE))
-#define AS_IS_VALIDATOR_ISSUE_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_VALIDATOR_ISSUE))
-#define AS_VALIDATOR_ISSUE_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_VALIDATOR_ISSUE, AsValidatorIssueClass))
-
 G_BEGIN_DECLS
 
-typedef struct _AsValidatorIssue		AsValidatorIssue;
-typedef struct _AsValidatorIssueClass		AsValidatorIssueClass;
-
-struct _AsValidatorIssue
-{
-	GObject			parent;
-};
+#define AS_TYPE_VALIDATOR_ISSUE (as_validator_issue_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsValidatorIssue, as_validator_issue, AS, VALIDATOR_ISSUE, GObject)
 
 struct _AsValidatorIssueClass
 {
@@ -55,8 +43,6 @@ struct _AsValidatorIssueClass
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
 };
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsValidatorIssue, g_object_unref)
 
 /**
  * AsIssueImportance:
@@ -117,7 +103,6 @@ typedef enum {
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;
 
-GType		 	as_validator_issue_get_type (void);
 AsValidatorIssue	*as_validator_issue_new (void);
 
 AsIssueKind		as_validator_issue_get_kind (AsValidatorIssue *issue);

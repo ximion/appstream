@@ -27,22 +27,10 @@
 
 #include <glib-object.h>
 
-#define AS_TYPE_VALIDATOR		(as_validator_get_type())
-#define AS_VALIDATOR(obj)		(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_VALIDATOR, AsValidator))
-#define AS_VALIDATOR_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_VALIDATOR, AsValidatorClass))
-#define AS_IS_VALIDATOR(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_VALIDATOR))
-#define AS_IS_VALIDATOR_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_VALIDATOR))
-#define AS_VALIDATOR_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_VALIDATOR, AsValidatorClass))
-
 G_BEGIN_DECLS
 
-typedef struct _AsValidator		AsValidator;
-typedef struct _AsValidatorClass	AsValidatorClass;
-
-struct _AsValidator
-{
-	GObject			parent;
-};
+#define AS_TYPE_VALIDATOR (as_validator_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsValidator, as_validator, AS, VALIDATOR, GObject)
 
 struct _AsValidatorClass
 {
@@ -56,9 +44,6 @@ struct _AsValidatorClass
 	void (*_as_reserved6)	(void);
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsValidator, g_object_unref)
-
-GType		 as_validator_get_type (void);
 AsValidator	*as_validator_new (void);
 
 void		as_validator_clear_issues (AsValidator *validator);
