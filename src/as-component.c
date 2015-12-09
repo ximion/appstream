@@ -1936,8 +1936,7 @@ as_component_class_init (AsComponentClass * klass)
 					AS_COMPONENT_KEYWORDS,
 					g_param_spec_boxed ("keywords", "keywords", "keywords", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	/**
-	 * AsComponent:icons:
-	 * (type GList(AsIcon))
+	 * AsComponent:icons: (type GList(AsIcon))
 	 *
 	 * hash map of icon urls and sizes
 	 */
@@ -1945,8 +1944,7 @@ as_component_class_init (AsComponentClass * klass)
 					AS_COMPONENT_ICONS,
 					g_param_spec_pointer ("icons", "icons", "icons", G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 	/**
-	 * AsComponent:urls:
-	 * (type GHashTable(AsUrlKind,utf8))
+	 * AsComponent:urls: (type GHashTable(AsUrlKind,utf8))
 	 *
 	 * the urls associated with this component
 	 */
@@ -1986,8 +1984,7 @@ as_component_class_init (AsComponentClass * klass)
 					AS_COMPONENT_DEVELOPER_NAME,
 					g_param_spec_string ("developer-name", "developer-name", "developer-name", NULL, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
 	/**
-	 * AsComponent:screenshots:
-	 * (type GPtrArray(AsScreenshot)):
+	 * AsComponent:screenshots: (type GPtrArray(AsScreenshot)):
 	 *
 	 * An array of #AsScreenshot instances
 	 */
