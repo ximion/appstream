@@ -402,28 +402,30 @@ DatabaseRead::getQueryForCategory (gchar *cat_id)
  * search to the given category
  */
 vector<Xapian::Query>
-DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
+DatabaseRead::queryListForTermCats (const gchar *term, gchar **categories)
 {
 	// prepare search-term
-	as_search_query_sanitize_search_term (asQuery);
-	string search_term = as_search_query_get_search_term (asQuery);
-	bool searchAll = as_search_query_get_search_all_categories (asQuery);
+	bool globalSearch = false;
+	string search_term = term == NULL ? "" : term;
+	if (categories == NULL)
+		globalSearch = true;
 
-	// generate category query
+	// generate category query (if we are not searching globally in all categories)
 	Xapian::Query category_query = Xapian::Query ();
-	gchar **categories = as_search_query_get_categories (asQuery);
-	string categories_str = "";
-	for (uint i = 0; categories[i] != NULL; i++) {
-		gchar *cat_id = categories[i];
+	if (not globalSearch) {
+		for (uint i = 0; categories[i] != NULL; i++) {
+			gchar *cat_id = categories[i];
 
-		category_query = Xapian::Query (Xapian::Query::OP_OR,
+			category_query = Xapian::Query (Xapian::Query::OP_OR,
 						 category_query,
 						 getQueryForCategory (cat_id));
+		}
 	}
 
 	// empty query returns a query that matches nothing (for performance
 	// reasons)
-	if ((search_term.compare ("") == 0) && (searchAll)) {
+	// We caught the "both criteria zero" case way earlier, so this is just additional safety.
+	if ((search_term.compare ("") == 0) && (globalSearch)) {
 		Xapian::Query vv[2] = { Xapian::Query(), Xapian::Query () };
 		vector<Xapian::Query> res(&vv[0], &vv[0]+2);
 		return res;
@@ -432,8 +434,8 @@ DatabaseRead::queryListFromSearchEntry (AsSearchQuery *asQuery)
 	// we cheat and return a match-all query for single letter searches
 	if (search_term.length () < 2) {
 		Xapian::Query allQuery = addCategoryToQuery (Xapian::Query (""), category_query);
-		// I want C++11!
-        Xapian::Query vv[2] = { allQuery, allQuery };
+		// NOTE: I want C++11!
+		Xapian::Query vv[2] = { allQuery, allQuery };
 		vector<Xapian::Query> res(&vv[0], &vv[0]+2);
 		return res;
 	}
@@ -488,14 +490,13 @@ DatabaseRead::appendSearchResults (Xapian::Enquire enquire, GPtrArray *cptArray)
 }
 
 GPtrArray*
-DatabaseRead::findComponents (AsSearchQuery *asQuery)
+DatabaseRead::findComponents (const gchar *term, gchar **cats)
 {
 	// Create new array to store the AsComponent objects
 	GPtrArray *cptArray = g_ptr_array_new_with_free_func (g_object_unref);
-	vector<Xapian::Query> qlist;
 
 	// "normal" query
-	qlist = queryListFromSearchEntry (asQuery);
+	auto qlist = queryListForTermCats (term, cats);
 	Xapian::Query query = qlist[0];
 	query.serialise ();
 

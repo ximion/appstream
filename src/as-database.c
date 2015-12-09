@@ -30,6 +30,7 @@
 #include <glib/gstdio.h>
 
 #include "as-utils.h"
+#include "as-utils-private.h"
 #include "as-settings-private.h"
 
 /**
@@ -53,7 +54,8 @@ typedef struct
 {
 	struct XADatabaseRead *xdb;
 	gboolean opened;
-	gchar* database_path;
+	gchar *database_path;
+	gchar **term_greylist;
 } AsDatabasePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsDatabase, as_database, G_TYPE_OBJECT)
@@ -78,6 +80,8 @@ as_database_init (AsDatabase *db)
 	priv->xdb = xa_database_read_new ();
 	priv->opened = FALSE;
 	as_database_set_database_path (db, AS_APPSTREAM_CACHE_PATH);
+
+	priv->term_greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", -1);
 }
 
 /**
@@ -91,6 +95,7 @@ as_database_finalize (GObject *object)
 
 	xa_database_read_free (priv->xdb);
 	g_free (priv->database_path);
+	g_strfreev (priv->term_greylist);
 
 	G_OBJECT_CLASS (as_database_parent_class)->finalize (object);
 }
@@ -149,10 +154,58 @@ as_database_get_all_components (AsDatabase *db)
 }
 
 /**
+ * as_database_sanitize_search_term:
+ *
+ * Improve the search term slightly, by stripping whitespaces and
+ * removing greylist words.
+ */
+static gchar*
+as_database_sanitize_search_term (AsDatabase *db, const gchar *term)
+{
+	gchar *res_term;
+	AsDatabasePrivate *priv = GET_PRIVATE (db);
+
+	if (term == NULL)
+		return NULL;
+	res_term = g_strdup (term);
+
+	/* check if there is a ":" in the search, if so, it means the user
+	 * could be using a xapian prefix like "pkg:" or "mime:" and in this case
+	 * we do not want to alter the search term (as application is in the
+	 * greylist but a common mime-type prefix)
+	 */
+	if (strstr (term, ":") == NULL) {
+		guint i;
+
+		/* filter query by greylist (to avoid overly generic search terms) */
+		for (i = 0; priv->term_greylist[i] != NULL; i++) {
+			gchar *str;
+			str = as_str_replace (res_term, priv->term_greylist[i], "");
+			g_free (res_term);
+			res_term = str;
+		}
+
+		/* restore query if it was just greylist words */
+		if (g_strcmp0 (res_term, "") == 0) {
+			g_debug ("grey-list replaced all terms, restoring");
+			g_free (res_term);
+			res_term = g_strdup (term);
+		}
+	}
+
+	/* we have to strip the leading and trailing whitespaces to avoid having
+	 * different results for e.g. 'font ' and 'font' (LP: #506419)
+	 */
+	g_strstrip (res_term);
+
+	return res_term;
+}
+
+/**
  * as_database_find_components:
  * @db: An instance of #AsDatabase.
  * @term: (nullable): a search-term to look for.
- * @cats_str: (nullable): A set of categories to be searched in.
+ * @cats_str: (nullable): A semicolon-delimited list of category names, e.g. "science;development".
  *
  * Find components in the Appstream database, which match a given term
  * in a set of categories.
@@ -163,25 +216,24 @@ GPtrArray*
 as_database_find_components (AsDatabase *db, const gchar *term, const gchar *cats_str)
 {
 	GPtrArray *cpts;
-	AsSearchQuery* query;
+	g_autofree gchar *sterm = NULL;
+	g_auto(GStrv) cats = NULL;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
+
+	if (!priv->opened)
+		return NULL;
 
 	/* return everything if term and categories are both NULL or empty */
 	if ((as_str_empty (term)) && (as_str_empty (cats_str)))
 		return as_database_get_all_components (db);
 
-	if (!priv->opened)
-		return NULL;
+	/* sanitize our search term */
+	sterm = as_database_sanitize_search_term (db, term);
 
-	query = as_search_query_new (term);
-	if (cats_str == NULL) {
-		as_search_query_set_search_all_categories (query);
-	} else {
-		as_search_query_set_categories_from_string (query, cats_str);
-	}
+	if (cats_str != NULL)
+		cats = g_strsplit (cats_str, ";", -1);
 
-	cpts = xa_database_read_find_components (priv->xdb, query);
-	g_object_unref (query);
+	cpts = xa_database_read_find_components (priv->xdb, sterm, cats);
 	return cpts;
 }
 

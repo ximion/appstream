@@ -40,9 +40,9 @@ xa_database_read_get_all_components (XADatabaseRead *db)
 };
 
 GPtrArray*
-xa_database_read_find_components (XADatabaseRead *db, AsSearchQuery *query)
+xa_database_read_find_components (XADatabaseRead *db, const gchar *term, gchar **cats)
 {
-	return realDbRead (db)->findComponents (query);
+	return realDbRead (db)->findComponents (term, cats);
 };
 
 AsComponent*

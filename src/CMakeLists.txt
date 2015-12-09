@@ -42,7 +42,6 @@ set(APPSTREAM_LIB_SRC
 		as-enums.c
 		as-provided.c
 		as-data-pool.c
-		as-search-query.c
 		as-database.c
 		as-category.c
 		as-menu-parser.c
@@ -63,7 +62,6 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 		as-data-pool.h
 		as-enums.h
 		as-provided.h
-		as-search-query.h
 		as-database.h
 		as-category.h
 		as-menu-parser.h

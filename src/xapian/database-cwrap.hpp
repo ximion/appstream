@@ -23,7 +23,6 @@
 
 #include <glib.h>
 #include "../as-component.h"
-#include "../as-search-query.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,7 +40,8 @@ gboolean		xa_database_read_open (XADatabaseRead *db,
 						const gchar *db_path);
 GPtrArray		*xa_database_read_get_all_components (XADatabaseRead *db);
 GPtrArray		*xa_database_read_find_components (XADatabaseRead *db,
-								AsSearchQuery *query);
+								const gchar *term,
+								gchar **cats);
 AsComponent		*xa_database_read_get_component_by_id (XADatabaseRead *db,
 								const gchar *idname);
 GPtrArray		*xa_database_read_get_components_by_provides (XADatabaseRead *db,
