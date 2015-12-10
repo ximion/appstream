@@ -42,6 +42,7 @@ typedef struct
 	struct XADatabaseWrite* db_w;
 	gchar* db_path;
 	gchar* cache_path;
+	time_t cache_ctime;
 	AsDataPool *dpool;
 } AsCacheBuilderPrivate;
 
@@ -73,6 +74,7 @@ as_cache_builder_init (AsCacheBuilder *builder)
 	priv->db_w = xa_database_write_new ();
 	priv->dpool = as_data_pool_new ();
 	priv->cache_path = NULL;
+	priv->cache_ctime = 0;
 }
 
 /**
@@ -103,6 +105,25 @@ as_cache_builder_class_init (AsCacheBuilderClass *klass)
 }
 
 /**
+ * as_cache_builder_update_cache_ctime:
+ *
+ * Update the cached cache-ctime. We need to cache it prior to potentially
+ * creating a new database, so we will always rebuild the database in case
+ * none existed previously.
+ */
+static void
+as_cache_builder_update_cache_ctime (AsCacheBuilder *builder)
+{
+	struct stat cache_sbuf;
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
+
+	if (stat (priv->db_path, &cache_sbuf) < 0)
+		priv->cache_ctime = 0;
+	else
+		priv->cache_ctime = cache_sbuf.st_ctime;
+}
+
+/**
  * as_cache_builder_setup:
  * @builder: An instance of #AsCacheBuilder.
  * @dbpath: (nullable) (default NULL): Path to the database directory, or %NULL to use default.
@@ -124,6 +145,9 @@ as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath)
 	}
 	priv->db_path = g_build_filename (priv->cache_path, "xapian", "default", NULL);
 
+	/* check the ctime of the cache directory, if it exists at all */
+	as_cache_builder_update_cache_ctime (builder);
+
 	/* try to create db directory, in case it doesn't exist */
 	g_mkdir_with_parents (priv->db_path, 0755);
 
@@ -138,15 +162,8 @@ static gboolean
 as_cache_builder_appstream_data_changed (AsCacheBuilder *builder)
 {
 	guint i;
-	time_t cache_ctime;
-	struct stat cache_sbuf;
 	g_auto(GStrv) locations = NULL;
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
-
-	if (stat (priv->cache_path, &cache_sbuf) < 0)
-		cache_ctime = 0;
-	else
-		cache_ctime = cache_sbuf.st_ctime;
 
 	locations = as_data_pool_get_watched_locations (priv->dpool);
 	for (i = 0; locations[i] != NULL; i++) {
@@ -157,7 +174,7 @@ as_cache_builder_appstream_data_changed (AsCacheBuilder *builder)
 		if (stat (fname, &sb) < 0)
 			continue;
 
-		if (sb.st_ctime > cache_ctime)
+		if (sb.st_ctime > priv->cache_ctime)
 			return TRUE;
 	}
 
@@ -265,7 +282,6 @@ as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **err
 	g_autoptr(GError) tmp_error = NULL;
 	gboolean data_changed = FALSE;
 	guint i;
-	time_t cache_ctime;
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
 	/* we can't do anything here if we're not root */
@@ -306,20 +322,12 @@ as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **err
 
 	/* get the last time we touched the database */
 	if (!data_changed) {
-		struct stat cache_sbuf;
-
-		if (stat (priv->cache_path, &cache_sbuf) < 0)
-			cache_ctime = 0;
-		else
-			cache_ctime = cache_sbuf.st_ctime;
-
 		for (i = 0; i < yml_files->len; i++) {
 			struct stat sb;
 			const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
 			if (stat (fname, &sb) < 0)
 				continue;
-			g_debug ("C: %lli vs. %lli", (long long) sb.st_ctime, (long long) cache_ctime);
-			if (sb.st_ctime > cache_ctime) {
+			if (sb.st_ctime > priv->cache_ctime) {
 				/* we need to update the cache */
 				data_changed = TRUE;
 				break;
@@ -459,7 +467,8 @@ as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **erro
 				_("AppStream cache update completed, but some metadata was ignored due to errors."));
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
-		as_touch_location (priv->cache_path);
+		as_touch_location (priv->db_path);
+		as_cache_builder_update_cache_ctime (builder);
 	} else {
 		g_set_error (error,
 				AS_CACHE_BUILDER_ERROR,
