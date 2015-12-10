@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASCLI_INSTALL_ACTIONS_H
-#define __ASCLI_INSTALL_ACTIONS_H
+#ifndef __ASCLI_PKGMGR_ACTIONS_H
+#define __ASCLI_PKGMGR_ACTIONS_H
 
 #include <glib-object.h>
 #include "appstream.h"
@@ -27,7 +27,8 @@
 G_BEGIN_DECLS
 
 int ascli_install_component (const gchar *identifier);
+int ascli_remove_component (const gchar *identifier);
 
 G_END_DECLS
 
-#endif /* __ASCLI_INSTALL_ACTIONS_H */
+#endif /* __ASCLI_PKGMGR_ACTIONS_H */

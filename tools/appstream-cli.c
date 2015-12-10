@@ -27,7 +27,7 @@
 #include "ascli-utils.h"
 #include "ascli-mdata-actions.h"
 #include "ascli-validate-actions.h"
-#include "ascli-install-actions.h"
+#include "ascli-pkgmgr-actions.h"
 
 static gboolean optn_show_version = FALSE;
 static gboolean optn_verbose_mode = FALSE;
@@ -170,6 +170,8 @@ as_client_run (char **argv, int argc)
 		exit_code = ascli_validate_tree (value1, optn_no_color, optn_pedantic);
 	} else if (g_strcmp0 (command, "install") == 0) {
 		exit_code = ascli_install_component (value1);
+	} else if (g_strcmp0 (command, "remove") == 0) {
+		exit_code = ascli_remove_component (value1);
 	} else {
 		ascli_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;

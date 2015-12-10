@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ascli-install-actions.h"
+#include "ascli-pkgmgr-actions.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
@@ -28,12 +28,14 @@
 #include "ascli-utils.h"
 
 /**
- * exec_pm_install:
+ * exec_pm_action:
  *
- * Run the native package manager to install an application.
+ * Run the native package manager to perform an action (install/remove) on
+ * a set of packages.
+ * The PM will replace the current process tree.
  */
 static int
-exec_pm_install (gchar **pkgnames)
+exec_pm_action (const gchar *action, gchar **pkgnames)
 {
 	int ret;
 	const gchar *exe = NULL;
@@ -55,7 +57,7 @@ exec_pm_install (gchar **pkgnames)
 
 	cmd = g_new0 (gchar*, 3 + g_strv_length (pkgnames) + 1);
 	cmd[0] = g_strdup (exe);
-	cmd[1] = g_strdup ("install");
+	cmd[1] = g_strdup (action);
 	for (i = 0; pkgnames[i] != NULL; i++) {
 		cmd[2+i] = g_strdup (pkgnames[i]);
 	}
@@ -66,18 +68,12 @@ exec_pm_install (gchar **pkgnames)
 	return ret;
 }
 
-/**
- * ascli_install_component:
- *
- * Install a component matching the given ID.
- */
-int
-ascli_install_component (const gchar *identifier)
+static int
+ascli_get_component_pkgnames (const gchar *identifier, gchar ***pkgnames)
 {
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AsDatabase) db = NULL;
 	AsComponent *cpt = NULL;
-	gchar **pkgnames;
 	gint exit_code = 0;
 
 	if (identifier == NULL) {
@@ -107,17 +103,58 @@ ascli_install_component (const gchar *identifier)
 		goto out;
 	}
 
-	pkgnames = as_component_get_pkgnames (cpt);
-	if (pkgnames == NULL) {
+	/* we need a variable to take the pkgnames array */
+	g_assert (pkgnames != NULL);
+
+	*pkgnames = g_strdupv (as_component_get_pkgnames (cpt));
+	if (*pkgnames == NULL) {
 		ascli_print_stderr (_("Component '%s' has no installation candidate."), identifier);
 		exit_code = 1;
 		goto out;
 	}
-
-	exit_code = exec_pm_install (pkgnames);
 out:
 	if (cpt != NULL)
 		g_object_unref (cpt);
 
 	return exit_code;
+}
+
+/**
+ * ascli_install_component:
+ *
+ * Install a component matching the given ID.
+ */
+int
+ascli_install_component (const gchar *identifier)
+{
+	g_auto(GStrv) pkgnames = NULL;
+	gint exit_code = 0;
+
+	exit_code = ascli_get_component_pkgnames (identifier, &pkgnames);
+	if (exit_code != 0)
+		return exit_code;
+
+	exit_code = exec_pm_action ("install", pkgnames);
+	return exit_code;
+
+}
+
+/**
+ * ascli_remove_component:
+ *
+ * Remove a component matching the given ID.
+ */
+int
+ascli_remove_component (const gchar *identifier)
+{
+	g_auto(GStrv) pkgnames = NULL;
+	gint exit_code = 0;
+
+	exit_code = ascli_get_component_pkgnames (identifier, &pkgnames);
+	if (exit_code != 0)
+		return exit_code;
+
+	exit_code = exec_pm_action ("remove", pkgnames);
+	return exit_code;
+
 }
