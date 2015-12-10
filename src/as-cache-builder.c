@@ -105,14 +105,14 @@ as_cache_builder_class_init (AsCacheBuilderClass *klass)
 }
 
 /**
- * as_cache_builder_update_cache_ctime:
+ * as_cache_builder_check_cache_ctime:
  *
  * Update the cached cache-ctime. We need to cache it prior to potentially
  * creating a new database, so we will always rebuild the database in case
  * none existed previously.
  */
 static void
-as_cache_builder_update_cache_ctime (AsCacheBuilder *builder)
+as_cache_builder_check_cache_ctime (AsCacheBuilder *builder)
 {
 	struct stat cache_sbuf;
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
@@ -146,7 +146,7 @@ as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath)
 	priv->db_path = g_build_filename (priv->cache_path, "xapian", "default", NULL);
 
 	/* check the ctime of the cache directory, if it exists at all */
-	as_cache_builder_update_cache_ctime (builder);
+	as_cache_builder_check_cache_ctime (builder);
 
 	/* try to create db directory, in case it doesn't exist */
 	g_mkdir_with_parents (priv->db_path, 0755);
@@ -468,7 +468,7 @@ as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **erro
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
 		as_touch_location (priv->db_path);
-		as_cache_builder_update_cache_ctime (builder);
+		as_cache_builder_check_cache_ctime (builder);
 	} else {
 		g_set_error (error,
 				AS_CACHE_BUILDER_ERROR,
