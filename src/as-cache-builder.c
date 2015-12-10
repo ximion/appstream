@@ -294,20 +294,24 @@ as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **err
 		return;
 	}
 
-	yml_files = as_utils_find_files_matching (appstream_yml_target, "*", FALSE, &tmp_error);
-	if (tmp_error != NULL) {
-		g_warning ("Could not scan for broken symlinks in DEP-11 target: %s", tmp_error->message);
-		return;
-	}
-	for (i = 0; i < yml_files->len; i++) {
-		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
-		if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
-			g_remove (fname);
-			data_changed = TRUE;
+
+	if (g_file_test (appstream_yml_target, G_FILE_TEST_IS_DIR)) {
+		g_autoptr(GPtrArray) ytfiles = NULL;
+
+		ytfiles = as_utils_find_files_matching (appstream_yml_target, "*", FALSE, &tmp_error);
+		if (tmp_error != NULL) {
+			g_warning ("Could not scan for broken symlinks in DEP-11 target: %s", tmp_error->message);
+			return;
+		}
+		for (i = 0; i < ytfiles->len; i++) {
+			const gchar *fname = (const gchar*) g_ptr_array_index (ytfiles, i);
+			if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
+				g_remove (fname);
+				data_changed = TRUE;
+			}
 		}
 	}
 
-	g_ptr_array_unref (yml_files);
 	yml_files = as_utils_find_files_matching (apt_lists_dir, "*Components-*.yml.gz", FALSE, &tmp_error);
 	if (tmp_error != NULL) {
 		g_warning ("Could not scan for APT-downloaded DEP-11 files: %s", tmp_error->message);
