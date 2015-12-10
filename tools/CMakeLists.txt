@@ -20,6 +20,8 @@ set(ASCLI_SOURCES
 	ascli-mdata-actions.c
 	ascli-validate-actions.h
 	ascli-validate-actions.c
+	ascli-install-actions.h
+	ascli-install-actions.c
 )
 
 # Add the appstream client tool
