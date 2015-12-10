@@ -7,12 +7,12 @@ src/as-category.c
 src/as-component.c
 src/as-database.c
 src/as-data-pool.c
+src/as-dep11.c
 src/as-distro-details.c
 src/as-enums.c
 src/as-image.c
 src/as-menu-parser.c
 src/as-metadata.c
-src/as-dep11.c
 src/as-provided.c
 src/as-release.c
 src/as-screenshot.c
@@ -23,4 +23,5 @@ src/as-validator-issue.c
 tools/appstream-cli.c
 tools/ascli-utils.c
 tools/ascli-mdata-actions.c
+tools/ascli-pkgmgr-actions.c
 tools/ascli-validate-actions.c

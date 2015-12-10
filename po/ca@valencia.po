@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-08 18:27+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 22:51+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Catalan (Valencian) (http://www.transifex.com/freedesktop/"
 "appstream/language/ca@valencia/)\n"
@@ -38,6 +38,9 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr ""
 
+msgid "AppStream cache update is not necessary."
+msgstr ""
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr ""
@@ -53,6 +56,10 @@ msgstr ""
 
 #, c-format
 msgid "Command '%s' is unknown."
+msgstr ""
+
+#, c-format
+msgid "Component '%s' has no installation candidate."
 msgstr ""
 
 msgid "Compulsory for"
@@ -141,6 +148,11 @@ msgstr ""
 msgid "No component providing '%s;%s' found."
 msgstr ""
 
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
 msgstr ""
 
@@ -215,6 +227,10 @@ msgid "Unable to find component with id '%s'!"
 msgstr ""
 
 msgid "Unable to open the AppStream software component cache."
+msgstr ""
+
+#, c-format
+msgid "Unable to spawn package manager: %s"
 msgstr ""
 
 msgid "Validate AppStream XML files for issues"

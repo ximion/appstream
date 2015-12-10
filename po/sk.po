@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-23 21:25+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-10 07:53+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
@@ -42,12 +42,16 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Rozhranie príkazového riadku AppStream"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Binárne súbory"
 
 msgid "Bundle"
 msgstr "Balík"
@@ -59,14 +63,18 @@ msgstr "Kategórie"
 msgid "Command '%s' is unknown."
 msgstr "Príkaz „%s“ je neznámy."
 
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
+
 msgid "Compulsory for"
 msgstr "Povinné pre"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Služby relácie zbernice DBus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Služby systému zbernice DBus"
 
 msgid "Description"
 msgstr "Popis"
@@ -92,10 +100,10 @@ msgid "File %s not found or permission denied!"
 msgstr "Súbor %s nebol nájdený alebo bolo zamietnuté oprávnenie."
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Nainštalovaný firmvér"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Písma"
 
 msgid "Get components which provide the given item"
 msgstr "Získa súčasti poskytujúce danú položku"
@@ -112,12 +120,11 @@ msgstr "Ikona"
 msgid "Identifier"
 msgstr "Identifikátor"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Vybraný neplatný typ poskytuje-položku. Platné typy sú:"
+msgstr "Vybratý neplatný typ pre poskytnutú položku. Platné hodnoty sú:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Knižnice"
 
 #. license
 msgid "License"
@@ -132,10 +139,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Ručne nastaví umiestnenie vyrovnávacej pamäte AppStream."
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Typy MIME"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modaliasy"
 
 msgid "Name"
 msgstr "Názov"
@@ -144,13 +151,17 @@ msgstr "Názov"
 msgid "No component matching '%s' found."
 msgstr "Nebola nájdená súčasť zodpovedajúca „%s“."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Nebola nájdená súčasť poskytujúca „%s:%s:%s“."
+msgstr "Nebol nájdený komponent poskytujúci „%s;%s“."
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Nebola definovaná hodnota poskytuje-položku, ktorá sa má hľadať."
+msgstr "Nebola definovaná hodnota položky, ktorá sa má hľadať."
 
 msgid "Package"
 msgstr "Balík"
@@ -169,10 +180,10 @@ msgid "Provided Items"
 msgstr "Poskytované položky"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (verzia 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Znovu vytvorí vyrovnávaciu pamäť informácií o súčastiach"
@@ -209,16 +220,16 @@ msgid "Summary"
 msgstr "Zhrnutie"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Bol uskutočnený pokus o vykonanie požiadavky na zavretú databázu."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nie je možné nájsť súčasť zodpovedajúcu %s!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Nie je možné nájsť súčasť poskytujúcu „%s:%s:%s“!"
+msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -226,6 +237,12 @@ msgstr "Nie je možné nájsť súčasť s ID „%s“!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+"Nie je možné otvoriť vyrovnávaciu pamäť softvérového komponentu nástroja "
+"AppStream."
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Nie je možné nájsť súčasť zodpovedajúcu %s!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Overí súbory XML AppStream prípadov"

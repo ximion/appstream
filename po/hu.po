@@ -4,13 +4,14 @@
 #
 # Translators:
 # Balázs Úr <urbalazs@gmail.com>, 2014-2015
+# kelemeng <kelemeng@ubuntu.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-17 14:41+0000\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-10 14:29+0000\n"
+"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -41,12 +42,16 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream parancssoros felület"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Binárisok"
 
 msgid "Bundle"
 msgstr "Csomag"
@@ -58,14 +63,18 @@ msgstr "Kategóriák"
 msgid "Command '%s' is unknown."
 msgstr "A(z) „%s” parancs ismeretlen."
 
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
+
 msgid "Compulsory for"
 msgstr "Kötelező ehhez"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "D-Bus munkamenet-szolgáltatások"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "D-Bus rendszerszolgáltatások"
 
 msgid "Description"
 msgstr "Leírás"
@@ -91,10 +100,10 @@ msgid "File %s not found or permission denied!"
 msgstr "A(z) %s fájl nem található vagy a hozzáférés megtagadva!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Flashelt firmware"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Betűkészletek"
 
 msgid "Get components which provide the given item"
 msgstr "Összetevők lekérése, amelyek a megadott elemet biztosítják"
@@ -111,13 +120,12 @@ msgstr "Ikon"
 msgid "Identifier"
 msgstr "Azonosító"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
-"Érvénytelen típus a kiválasztott szolgáltatás-elemhez. Az érvényes értékek:"
+"Érvénytelen típus a kiválasztott biztosított elemhez. Az érvényes értékek:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Programkönyvtárak"
 
 #. license
 msgid "License"
@@ -132,10 +140,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Az AppStream gyorsítótár helyének kézi beállítása"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "MIME-típusok"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modaliasok"
 
 msgid "Name"
 msgstr "Név"
@@ -144,13 +152,17 @@ msgstr "Név"
 msgid "No component matching '%s' found."
 msgstr "Nem található erre illeszkedő összetevő: „%s”."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Nem található „%s:%s:%s” szolgáltatását biztosító összetevő."
+msgstr "Nem található „%s;%s” szolgáltatását biztosító összetevő."
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Nincs érték a szolgáltatás-elemhez a meghatározott kereséséhez."
+msgstr "Nincs érték az elemhez a meghatározott kereséséhez."
 
 msgid "Package"
 msgstr "Csomag"
@@ -169,10 +181,10 @@ msgid "Provided Items"
 msgstr "Szolgáltatott elemek"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (2-es verzió)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Az összetevő információs gyorsítótár újraépítése"
@@ -184,7 +196,7 @@ msgstr ""
 "listájáért."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Futásidejű firmware"
 
 msgid "Sample Screenshot URL"
 msgstr "Minta képernyőkép URL"
@@ -210,23 +222,27 @@ msgid "Summary"
 msgstr "Összegzés"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Kísérlet lezárt adatbázison keresésre."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nem található a következőre illeszkedő összetevő: %s!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Nem található a következőt biztosító összetevő: „%s:%s:%s”!"
+msgstr "Nem található a következőt biztosító összetevő: „%s;%s”!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 
 msgid "Unable to open the AppStream software component cache."
-msgstr ""
+msgstr "Nem nyitható meg az AppStream szoftverösszetevő-gyorsítótár."
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Nem található a következőre illeszkedő összetevő: %s!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál"

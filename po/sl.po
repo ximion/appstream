@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-08 18:27+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 22:51+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovenian (http://www.transifex.com/freedesktop/appstream/"
 "language/sl/)\n"
@@ -42,6 +42,10 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Posodobitev predpomnilnika AppStream je spodletela."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "Posodobitev predpomnilnika AppStream uspešno dokončana."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr ""
@@ -58,6 +62,10 @@ msgstr "Kategorije"
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Ukaz »%s« ni znan."
+
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
 
 msgid "Compulsory for"
 msgstr "Obvezno za"
@@ -112,9 +120,8 @@ msgstr "Ikona"
 msgid "Identifier"
 msgstr "Identifikator"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Izbrana je neveljavna vrsta za ponuja-element. Veljavne vrednosti so:"
+msgstr ""
 
 msgid "Libraries"
 msgstr ""
@@ -143,13 +150,17 @@ msgstr "Ime"
 msgid "No component matching '%s' found."
 msgstr "Komponente, ki se ujema z »%s«, ni mogoče najti."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Komponente, ki ponuja »%s:%s:%s«, ni mogoče najti."
+msgstr ""
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Za iskanje ni določena nobena vrednost za ponuja-element."
+msgstr ""
 
 msgid "Package"
 msgstr "Paket"
@@ -214,9 +225,9 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Komponente, ki zagotavlja »%s:%s:%s«, ni mogoče najti."
+msgstr ""
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -224,6 +235,10 @@ msgstr "Komponente z id »%s« ni mogoče najti!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Komponente, ki se ujema z %s, ni mogoče najti."
 
 msgid "Validate AppStream XML files for issues"
 msgstr ""

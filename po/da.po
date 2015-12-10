@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-08 18:27+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 22:51+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Danish (http://www.transifex.com/freedesktop/appstream/"
 "language/da/)\n"
@@ -41,6 +41,10 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "AppStreams mellemlageropdatering mislykkedes."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "AppStreams opdatering af mellemlageret er færdig."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr ""
@@ -57,6 +61,10 @@ msgstr "Kategorier"
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Kommandoen »%s« er ukendt."
+
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
 
 msgid "Compulsory for"
 msgstr "Tvungen for"
@@ -111,9 +119,8 @@ msgstr "Ikon"
 msgid "Identifier"
 msgstr "Identifikator"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Ugyldig type for provides-item valgt. Gyldige værdier er:"
+msgstr ""
 
 msgid "Libraries"
 msgstr ""
@@ -142,13 +149,17 @@ msgstr "Navn"
 msgid "No component matching '%s' found."
 msgstr "Ingen komponent der matcher »%s« blev fundet."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Ingen komponent der tilbyder »%s:%s:%s« blev fundet."
+msgstr ""
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Ingen værdi for provides-item at søge for defineret."
+msgstr ""
 
 msgid "Package"
 msgstr "Pakke"
@@ -214,9 +225,9 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Kan ikke finde komponent der matcher %s!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Kan ikke finde komponent der tilbyder »%s:%s:%s«!"
+msgstr ""
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -224,6 +235,10 @@ msgstr "Kan ikke finde komponent med id »%s«!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Kan ikke finde komponent der matcher %s!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr ""

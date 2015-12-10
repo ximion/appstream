@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-10 13:29+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-10 06:33+0000\n"
 "Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
@@ -22,7 +22,7 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "Тип «provides-item» (например, lib, bin, python3, …)"
+msgstr "Тип предоставляющего элемента (например, lib, bin, python3, …)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
@@ -43,12 +43,16 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Обновление кэша AppStream прошло неудачно"
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "Обновление кэша AppStream завершено успешно."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Интерфейс командной строки AppStream"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Исполняемые файлы"
 
 msgid "Bundle"
 msgstr "Пакет"
@@ -60,14 +64,18 @@ msgstr "Категории"
 msgid "Command '%s' is unknown."
 msgstr "Команда '%s' неизвестна"
 
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
+
 msgid "Compulsory for"
 msgstr "Обязательно для"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Сессионные DBus службы"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Системные DBus службы"
 
 msgid "Description"
 msgstr "Описание"
@@ -95,10 +103,10 @@ msgid "File %s not found or permission denied!"
 msgstr "Файл %s не найден или доступ к нему запрещён!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Прошитая микропрограмма"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Шрифты"
 
 msgid "Get components which provide the given item"
 msgstr "Получить компоненты, которые предоставляют данный элемент"
@@ -115,12 +123,12 @@ msgstr "Значок"
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Выбран неверный тип для «provides-item». Допустимые значения:"
+msgstr ""
+"Выбран неверный тип для предоставленного элемента. Допустимые значения:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Библиотеки"
 
 #. license
 msgid "License"
@@ -134,10 +142,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Установить вручную местоположение кэша AppStream"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "MIME-типы"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modalias'ы"
 
 msgid "Name"
 msgstr "Имя"
@@ -146,13 +154,17 @@ msgstr "Имя"
 msgid "No component matching '%s' found."
 msgstr "Не найдено компоненты, соответствующей  '%s' ."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Не найдено компоненты, предоставляющей '%s:%s:%s'"
+msgstr "Не найдены компоненты, предоставляющие '%s;%s'"
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Не определено значение «provides-item» для поиска."
+msgstr "Не определено значение для элемента поиска"
 
 msgid "Package"
 msgstr "Пакет"
@@ -168,13 +180,13 @@ msgid "Project Group"
 msgstr "Проектная группа"
 
 msgid "Provided Items"
-msgstr "Предоставляемые элементы"
+msgstr "Предоставленные элементы"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (версия 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Перестроить кэш информации о компонентах"
@@ -186,7 +198,7 @@ msgstr ""
 "командной строки."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Выполняемая микропрограмма"
 
 msgid "Sample Screenshot URL"
 msgstr "URL-адрес примера снимка экрана"
@@ -195,7 +207,8 @@ msgid "Search the component database"
 msgstr "Поиск по базе данных компонентов"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr "Выберите значение для «provides-item», которое необходимо найти"
+msgstr ""
+"Выберите значение для предоставляющего элемента, которое необходимо найти"
 
 msgid "Show extra debugging information"
 msgstr "Показывать дополнительную отладочную информацию"
@@ -211,23 +224,27 @@ msgid "Summary"
 msgstr "Сводка"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Попытка выполнения запроса из закрытой базы данных."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Не удаётся найти компоненту, соответствующую %s!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Не удаётся найти компоненту, предоставляющую '%s:%s:%s'!"
+msgstr "Не удаётся найти компоненту, предоставляющую '%s;%s'!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Не удаётся найти компоненту с идентификатором '%s'!"
 
 msgid "Unable to open the AppStream software component cache."
-msgstr ""
+msgstr "Не удаётся открыть кэш компонентов программного обеспечения AppStream."
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Не удаётся найти компоненту, соответствующую %s!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Проверить файлы XML AppStream на недостатки"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-08 20:34+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 23:05+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
@@ -42,12 +42,16 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Interfejs wiersza poleceń AppStream"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Pliki binarne"
 
 msgid "Bundle"
 msgstr "Paczka"
@@ -59,14 +63,18 @@ msgstr "Kategorie"
 msgid "Command '%s' is unknown."
 msgstr "Nieznane polecenie „%s”."
 
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
+
 msgid "Compulsory for"
 msgstr "Obowiązkowe dla"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Usługi sesji D-Bus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Usługi systemowe D-Bus"
 
 msgid "Description"
 msgstr "Opis"
@@ -92,10 +100,10 @@ msgid "File %s not found or permission denied!"
 msgstr "Nie odnaleziono pliku %s lub odmówiono uprawnień."
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Wgrane oprogramowanie sprzętowe"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Czcionki"
 
 msgid "Get components which provide the given item"
 msgstr "Uzyskuje składniki dostarczające podany element"
@@ -112,12 +120,11 @@ msgstr "Ikona"
 msgid "Identifier"
 msgstr "Identyfikator"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Wybrano nieprawidłowy typ dla elementu Provides. Prawidłowe wartości:"
+msgstr "Wybrano nieprawidłowy typ dla podanego elementu. Prawidłowe wartości:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Biblioteki"
 
 #. license
 msgid "License"
@@ -132,10 +139,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Ręcznie ustawia położenie metadanych AppStream"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Typy MIME"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Pliki „modalias”"
 
 msgid "Name"
 msgstr "Nazwa"
@@ -144,13 +151,17 @@ msgstr "Nazwa"
 msgid "No component matching '%s' found."
 msgstr "Nie odnaleziono składnika pasującego do „%s”."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Nie odnaleziono składnika dostarczającego „%s:%s:%s”."
+msgstr "Nie odnaleziono składnika dostarczającego „%s;%s”."
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Nie określono wartości dla wyszukiwanego elementu Provides."
+msgstr "Nie określono wartości dla wyszukiwanego elementu."
 
 msgid "Package"
 msgstr "Pakiet"
@@ -169,10 +180,10 @@ msgid "Provided Items"
 msgstr "Dostarczane elementy"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (wersja 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Ponownie buduje pamięć podręczną informacji o składnikach"
@@ -183,7 +194,7 @@ msgstr ""
 "Polecenie „%s --help” wyświetli pełną listę dostępnych opcji wiersza poleceń."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Oprogramowanie sprzętowe wgrywane podczas uruchamiania systemu"
 
 msgid "Sample Screenshot URL"
 msgstr "Przykładowy adres URL zrzutu ekranu"
@@ -208,16 +219,16 @@ msgid "Summary"
 msgstr "Podsumowanie"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Próbowano wykonać zapytanie na zamkniętej bazie danych."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nie można odnaleźć składnika pasującego do %s."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Nie można odnaleźć składnika dostarczającego „%s:%s:%s”."
+msgstr "Nie można odnaleźć składnika dostarczającego „%s;%s”."
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -225,6 +236,11 @@ msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+"Nie można otworzyć pamięci podręcznej składników oprogramowania AppStream."
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Nie można odnaleźć składnika pasującego do %s."
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Sprawdza poprawność plików XML AppStream"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-10-05 11:59+0000\n"
-"Last-Translator: Miloš Popović <gpopac@gmail.com>\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 22:51+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/freedesktop/"
 "appstream/language/sr@latin/)\n"
 "Language: sr@latin\n"
@@ -44,6 +44,10 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Osvežavanje ostave Programskog toka nije uspelo."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "Osvežavanje ostave Programskog toka je uspešno obavljeno."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Naredbeno sučelje Programskog toka"
@@ -60,6 +64,10 @@ msgstr "Kategorije"
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Naredba „%s“ nije poznata."
+
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
 
 msgid "Compulsory for"
 msgstr "Obavezujući za"
@@ -116,10 +124,8 @@ msgstr "Ikonica"
 msgid "Identifier"
 msgstr "Odrednik"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
-"Neispravna vrsta za izabrano „obezbeđuje-stavku“. Ispravne vrednosti su:"
 
 msgid "Libraries"
 msgstr ""
@@ -149,13 +155,17 @@ msgstr "Naziv"
 msgid "No component matching '%s' found."
 msgstr "Nisam našao sastojak koji odgovara „%s“."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Nisam našao sastojak koji obezbeđuje „%s:%s:%s“."
+msgstr ""
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Nije određena vrednost za „obezbeđuje-stavku“ za traženje."
+msgstr ""
 
 msgid "Package"
 msgstr "Paket"
@@ -220,9 +230,9 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Ne mogu da pronađem sastojak koji odgovara „%s“!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Ne mogu da pronađem sastojak koji obezbeđuje „%s:%s:%s“!"
+msgstr ""
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -230,6 +240,10 @@ msgstr "Ne mogu da pronađem sastojak sa ib-om „%s“!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Ne mogu da pronađem sastojak koji odgovara „%s“!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Proverite da li postoje greške u „XML“ datotekama Programskog toka"

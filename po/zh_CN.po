@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-11-09 14:37+0000\n"
-"Last-Translator: Mingye Wang <arthur200126@gmail.com>\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 22:51+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -39,6 +39,10 @@ msgstr "AppStream 缓存更新已完成，但某些元数据因为出错而被�
 msgid "AppStream cache update failed."
 msgstr "AppStream 缓存更新失败。"
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "AppStream 缓存更新成功完成。"
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
@@ -55,6 +59,10 @@ msgstr "类别"
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "命令“%s”未知。"
+
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
 
 msgid "Compulsory for"
 msgstr "强制项目以供"
@@ -109,9 +117,8 @@ msgstr "图标"
 msgid "Identifier"
 msgstr "识别码"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "选取的提供项目类型无效。有效的值为："
+msgstr ""
 
 msgid "Libraries"
 msgstr ""
@@ -139,13 +146,17 @@ msgstr "名称"
 msgid "No component matching '%s' found."
 msgstr "未找到符合“%s”的组件。"
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "未找到提供“%s:%s:%s”的组件。"
+msgstr ""
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "没有定义要搜索的提供项目值。"
+msgstr ""
 
 msgid "Package"
 msgstr "软件包"
@@ -209,9 +220,9 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "未找到符合 %s 的组件！"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "未找到提供 “%s:%s:%s”的组件！"
+msgstr ""
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -219,6 +230,10 @@ msgstr "未找到 id 为“%s”的组件！"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "未找到符合 %s 的组件！"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "验证 AppStream XML 文件以寻找问题"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-08 20:31+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-10 05:16+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/freedesktop/appstream/"
 "language/uk/)\n"
@@ -42,12 +42,16 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Спроба оновити кеш AppStream зазнала невдачі."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "Оновлення кешу AppStream успішно завершено."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Інтерфейс командного рядка AppStream"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Двійкові файли"
 
 msgid "Bundle"
 msgstr "Кортеж"
@@ -59,14 +63,18 @@ msgstr "Категорії"
 msgid "Command '%s' is unknown."
 msgstr "Невідома команда «%s»."
 
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
+
 msgid "Compulsory for"
 msgstr "Обов’язкове для"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Служби сеансів DBus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Служби системи DBus"
 
 msgid "Description"
 msgstr "Опис"
@@ -94,10 +102,10 @@ msgid "File %s not found or permission denied!"
 msgstr "Файл %s не знайдено або доступ до нього заборонено!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Записувані мікропрограми"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Шрифти"
 
 msgid "Get components which provide the given item"
 msgstr "Отримати компоненти, які надають вказаний запис"
@@ -114,12 +122,11 @@ msgstr "Піктограма"
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Вибрано некоректний тип запису provides. Можливі варіанти:"
+msgstr "Вибрано некоректний тип для запису «provided». Коректні значення:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Бібліотеки"
 
 #. license
 msgid "License"
@@ -133,10 +140,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Встановити розташування кешу AppStream вручну"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Типи MIME"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Альтернативні режими"
 
 msgid "Name"
 msgstr "Назва"
@@ -145,13 +152,17 @@ msgstr "Назва"
 msgid "No component matching '%s' found."
 msgstr "Не знайдено компонентів, що відповідали б запиту «%s»."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Не знайдено компонентів з «%s:%s:%s»."
+msgstr "Не знайдено компонента, що містить «%s;%s»."
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Не визначено значення для запису provides, яке слід знайти."
+msgstr "Не визначено значення запису, яке слід знайти."
 
 msgid "Package"
 msgstr "Пакунок"
@@ -170,10 +181,10 @@ msgid "Provided Items"
 msgstr "Надані записи"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (версія 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Перебудувати кеш інформації щодо компонентів"
@@ -185,7 +196,7 @@ msgstr ""
 "команду «%s --help»."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Виконувана мікропрограма"
 
 msgid "Sample Screenshot URL"
 msgstr "Адреса простого знімка вікна"
@@ -210,16 +221,16 @@ msgid "Summary"
 msgstr "Резюме"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Спроба виконання дії над закритою базою даних."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Не вдалося знайти компонент, що відповідає запиту %s!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Не вдалося знайти компонент, що забезпечує «%s:%s:%s»!"
+msgstr "Не вдалося знайти компонент, що забезпечує «%s;%s»!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -227,6 +238,11 @@ msgstr "Не вдалося знайти компонент з ідентифі�
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+"Не вдалося відкрити кеш компонентів програмного забезпечення AppStream."
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Не вдалося знайти компонент, що відповідає запиту %s!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Перевірити файли XML AppStream на вади"

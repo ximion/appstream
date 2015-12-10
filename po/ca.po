@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-10-12 10:35+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 23:01+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
@@ -42,12 +42,17 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Ha fallat l'actualització de la memòria cau de l'AppStream."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr ""
+"S'ha completat correctament l'actualització de la memòria cau de l'AppStream."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres de l'AppStream"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Binaris"
 
 msgid "Bundle"
 msgstr "Agrupació"
@@ -59,14 +64,18 @@ msgstr "Categories"
 msgid "Command '%s' is unknown."
 msgstr "Es desconeix l'ordre «%s»."
 
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
+
 msgid "Compulsory for"
 msgstr "Obligatori per"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Serveis de sistema de DBus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Serveis de sistema de DBus"
 
 msgid "Description"
 msgstr "Descripció"
@@ -93,10 +102,10 @@ msgid "File %s not found or permission denied!"
 msgstr "No es va trobar el fitxer %s o es va denegar el permís!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Microprogramari flaix"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Tipus de lletres"
 
 msgid "Get components which provide the given item"
 msgstr "Obté els components que proporcionen un element indicat"
@@ -113,13 +122,13 @@ msgstr "Icona"
 msgid "Identifier"
 msgstr "Identificador"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
-"Tipus no vàlid per al provides-item seleccionat. Els valors vàlids són:"
+"Tipus no vàlid per a l'ítem proporcionat que s'ha seleccionat. Els valors "
+"vàlids són:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Biblioteques"
 
 #. license
 msgid "License"
@@ -134,10 +143,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Estableix manualment la ubicació de la memòria cau de l'AppStream."
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Mini tipus"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modaliases"
 
 msgid "Name"
 msgstr "Nom"
@@ -146,13 +155,17 @@ msgstr "Nom"
 msgid "No component matching '%s' found."
 msgstr "No s'ha trobat cap component que coincideixi «%s»."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "No s'ha trobat el component que proporciona '%s:%s:%s'."
+msgstr "No s'ha trobat cap component que proporcioni '%s;%s'."
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "No s'ha definit cap valor a provides-item per a la cerca."
+msgstr "Es desconeix el valor de l'ítem definit en la cerca."
 
 msgid "Package"
 msgstr "Paquet"
@@ -171,10 +184,10 @@ msgid "Provided Items"
 msgstr "Elements proporcionats"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (versió 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Reconstrueix la memòria cau de la informació del component"
@@ -186,7 +199,7 @@ msgstr ""
 "disponibles de la línia d'ordres."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Microprogramari en temps d'execució"
 
 msgid "Sample Screenshot URL"
 msgstr "URL de la captura de pantalla de mostra"
@@ -211,16 +224,16 @@ msgid "Summary"
 msgstr "Resum"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Es va intentar de fer la consulta sobre la base de dades tancada."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "No es pot trobar la coincidència del component %s!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "No s'ha pogut trobar el component que proporciona '%s:%s:%s'!"
+msgstr "No s'ha pogut trobar el component que proporciona '%s;%s'!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -228,6 +241,11 @@ msgstr "No s'ha pogut trobar cap component amb l'id. «%s»!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+"No s'ha pogut obrir la memòria cau dels components de programari d'AppStream."
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "No es pot trobar la coincidència del component %s!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Valida els fitxers XML de l'AppStream per incidències"

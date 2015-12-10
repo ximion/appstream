@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-09-08 21:48+0000\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-10 16:22+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/freedesktop/appstream/"
 "language/de/)\n"
@@ -42,12 +42,16 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualisierung des AppStream-Zwischenspeichers ist fehlgeschlagen."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream-Befehlszeilenoberfläche"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Binärdateien"
 
 msgid "Bundle"
 msgstr "Bündel"
@@ -59,14 +63,18 @@ msgstr "Kategorien"
 msgid "Command '%s' is unknown."
 msgstr "Kommando '%s' ist unbekannt."
 
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
+
 msgid "Compulsory for"
 msgstr "Obligatorisch für"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "DBus-Sitzungsdienste"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "DBus-Systemdienste"
 
 msgid "Description"
 msgstr "Beschreibung"
@@ -92,10 +100,10 @@ msgid "File %s not found or permission denied!"
 msgstr "Datei %s nicht gefunden oder Zugriff verweigert!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Aufgespielte Firmware"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Schriftarten"
 
 msgid "Get components which provide the given item"
 msgstr "Komponenten ermitteln, die das angegebene Objekt bereitstellen"
@@ -112,13 +120,11 @@ msgstr "Symbol"
 msgid "Identifier"
 msgstr "Bezeichner"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
-"Ungültiger Typ für Stellt-bereit-Eintrag ausgewählt. Zulässige Werte sind:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Bibliotheken"
 
 #. license
 msgid "License"
@@ -133,7 +139,7 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Ort des AppStream-Zwischenspeichers manuell angeben"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "MIME-Typen"
 
 msgid "Modaliases"
 msgstr ""
@@ -145,13 +151,17 @@ msgstr "Name"
 msgid "No component matching '%s' found."
 msgstr "Es wurde keine auf »%s« passende Komponente gefunden."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "Keine Komponente gefunden, die »%s:%s:%s« bereitstellt."
+msgstr ""
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "Kein Wert für den zu suchenden Stellt-bereit-Eintrag definiert."
+msgstr ""
 
 msgid "Package"
 msgstr "Paket"
@@ -170,10 +180,10 @@ msgid "Provided Items"
 msgstr "Bereitgestellte Dinge"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (Version 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Informations-Zwischenspeicher der Komponente neu erstellen"
@@ -185,7 +195,7 @@ msgstr ""
 "Befehlszeilenoptionen zu sehen."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Laufzeit-Firmware"
 
 msgid "Sample Screenshot URL"
 msgstr "Adresse des Beispiel-Bildschirmfotos"
@@ -218,9 +228,9 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Eine %s entsprechende Komponente konnte nicht gefunden werden!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "Es wurde keine Komponente gefunden, die »%s:%s:%s« bereitstellt!"
+msgstr ""
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -228,6 +238,10 @@ msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "Eine %s entsprechende Komponente konnte nicht gefunden werden!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "AppStream-XML-Dateien für Probleme validieren"

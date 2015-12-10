@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-09 23:50+0100\n"
-"PO-Revision-Date: 2015-10-04 17:39+0000\n"
-"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
+"POT-Creation-Date: 2015-12-10 23:51+0100\n"
+"PO-Revision-Date: 2015-12-09 22:51+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
 "language/ko/)\n"
 "Language: ko\n"
@@ -43,6 +43,10 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "AppStream 캐시 업데이트가 실패하였습니다."
 
+#, fuzzy
+msgid "AppStream cache update is not necessary."
+msgstr "AppStream 캐시를 업데이트하였습니다."
+
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령행 인터페이스"
@@ -59,6 +63,10 @@ msgstr "분류"
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "명령 '%s'이(가) 올바르지 않습니다."
+
+#, c-format
+msgid "Component '%s' has no installation candidate."
+msgstr ""
 
 msgid "Compulsory for"
 msgstr "다음의 필수 사항:"
@@ -113,10 +121,8 @@ msgstr "아이콘"
 msgid "Identifier"
 msgstr "식별자"
 
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
-"provides-item의 잘못된 형식이 선택되었습니다. 올바른 값은 다음과 같습니다:"
 
 msgid "Libraries"
 msgstr ""
@@ -144,13 +150,17 @@ msgstr "이름"
 msgid "No component matching '%s' found."
 msgstr "'%s'와(과) 일치하는 구성 요소를 찾을 수 없습니다."
 
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s;%s' found."
-msgstr "'%s:%s:%s'을(를) 제공하는 구성 요소를 찾을 수 없습니다."
+msgstr ""
 
-#, fuzzy
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
+msgstr ""
+
 msgid "No value for the item to search for defined."
-msgstr "검색할 provides-item의 값이 없습니다."
+msgstr ""
 
 msgid "Package"
 msgstr "패키지"
@@ -214,9 +224,9 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "%s와(과) 일치하는 구성 요소를 찾을 수 없습니다!"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr "'%s:%s:%s'을(를) 제공하는 구성 요소를 찾을 수 없습니다!"
+msgstr ""
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -224,6 +234,10 @@ msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+
+#, fuzzy, c-format
+msgid "Unable to spawn package manager: %s"
+msgstr "%s와(과) 일치하는 구성 요소를 찾을 수 없습니다!"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "이슈 처리 용도의 AppStream XML 파일 검증"
