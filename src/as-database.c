@@ -233,11 +233,12 @@ as_database_sanitize_search_term (AsDatabase *db, const gchar *term)
  * as_database_find_components:
  * @db: An instance of #AsDatabase.
  * @term: (nullable): a search-term to look for.
- * @cats_str: (nullable): A semicolon-delimited list of category names, e.g. "science;development".
+ * @cats_str: (nullable): A semicolon-delimited list of lower-cased category names, e.g. "science;development".
  * @error: A #GError or %NULL.
  *
- * Find components in the Appstream database, which match a given term
- * in a set of categories.
+ * Find components in the AppStream database, which match a given term.
+ * You can limit the search to a specific set of categories by setting the categories string to
+ * a semicolon-separated list of lower-cased category names.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found
  */
