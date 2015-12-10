@@ -46,12 +46,12 @@
 #endif
 
 const gchar *AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
-						"/var/cache/app-info/xmls",
 						"/var/lib/app-info/xmls",
+						"/var/cache/app-info/xmls",
 						NULL};
 const gchar *AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
-						"/var/cache/app-info/yaml",
 						"/var/lib/app-info/yaml",
+						"/var/cache/app-info/yaml",
 						NULL};
 
 typedef struct
@@ -260,7 +260,7 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 		if (!g_file_test (path, G_FILE_TEST_EXISTS))
 			continue;
 
-		xmls = as_utils_find_files_matching (path, "*.xml*", FALSE);
+		xmls = as_utils_find_files_matching (path, "*.xml*", FALSE, NULL);
 		if (xmls == NULL)
 			continue;
 		for (j = 0; j < xmls->len; j++) {
@@ -365,7 +365,7 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 			continue;
 		}
 
-		yamls = as_utils_find_files_matching (path, "*.yml*", FALSE);
+		yamls = as_utils_find_files_matching (path, "*.yml*", FALSE, NULL);
 		if (yamls == NULL)
 			continue;
 		for (j = 0; j < yamls->len; j++) {

@@ -31,6 +31,9 @@ option(APT_SUPPORT "Enable integration with APT on Debian" OFF)
 if(DEP11)
 	add_definitions ("-DDEP11")
 endif()
+if(APT_SUPPORT)
+	add_definitions ("-DAPT_SUPPORT")
+endif()
 
 #
 # Default paths

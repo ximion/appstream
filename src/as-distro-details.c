@@ -58,7 +58,10 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsDistroDetails, as_distro_details, G_TYPE_OBJECT)
  *
  * The path where software icons (of not-installed software) are located.
  */
-const gchar* AS_ICON_PATHS[3] = {AS_APPSTREAM_BASE_PATH "/icons", "/var/cache/app-info/icons", NULL};
+const gchar* AS_ICON_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/icons",
+				"/var/lib/app-info/icons",
+				"/var/cache/app-info/icons",
+				NULL};
 
 enum  {
 	AS_DISTRO_DETAILS_DUMMY_PROPERTY,

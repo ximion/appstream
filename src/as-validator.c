@@ -988,7 +988,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 						g_object_unref);
 
 	/* validate all metainfo files */
-	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE);
+	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE, NULL);
 	for (i = 0; i < mfiles->len; i++) {
 		const gchar *fname;
 		GFile *file;
@@ -1068,7 +1068,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 						g_str_equal,
 						g_free,
 						NULL);
-	dfiles = as_utils_find_files_matching (apps_dir, "*.desktop", FALSE);
+	dfiles = as_utils_find_files_matching (apps_dir, "*.desktop", FALSE, NULL);
 	if (dfiles != NULL) {
 		for (i = 0; i < dfiles->len; i++) {
 			const gchar *fname;

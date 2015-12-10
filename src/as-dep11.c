@@ -732,6 +732,11 @@ as_dep11_parse_data (AsDEP11 *dep11, const gchar *data, GError **error)
 	gboolean parse = TRUE;
 	AsDEP11Private *priv = GET_PRIVATE (dep11);
 
+	/* we ignore empty data - usually happens if the file is broken, e.g. by disk corruption
+	 * or download interruption. */
+	if (data == NULL)
+		return;
+
 	yaml_parser_initialize (&parser);
 	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen(data));
 

@@ -25,21 +25,23 @@
 
 G_BEGIN_DECLS
 
-gboolean	as_utils_delete_dir_recursive (const gchar* dirname);
-GPtrArray*	as_utils_categories_from_strv (gchar **categories_strv,
-						GPtrArray *system_categories);
-GPtrArray*	as_utils_categories_from_str (const gchar *categories_str,
-						GPtrArray *system_categories);
-GPtrArray*	as_utils_find_files_matching (const gchar *dir,
-						const gchar *pattern,
-						gboolean recursive);
-GPtrArray*	as_utils_find_files (const gchar *dir,
-					gboolean recursive);
-gboolean	as_utils_is_root (void);
-gchar*		as_str_replace (const gchar *str,
-				const gchar *old_str,
-				const gchar *new_str);
-gchar**		as_ptr_array_to_strv (GPtrArray *array);
+gboolean		as_utils_delete_dir_recursive (const gchar* dirname);
+GPtrArray		*as_utils_categories_from_strv (gchar **categories_strv,
+							GPtrArray *system_categories);
+GPtrArray		*as_utils_categories_from_str (const gchar *categories_str,
+							GPtrArray *system_categories);
+GPtrArray		*as_utils_find_files_matching (const gchar *dir,
+							const gchar *pattern,
+							gboolean recursive,
+							GError **error);
+GPtrArray		*as_utils_find_files (const gchar *dir,
+						gboolean recursive,
+						GError **error);
+gboolean		as_utils_is_root (void);
+gchar			*as_str_replace (const gchar *str,
+					 const gchar *old_str,
+					 const gchar *new_str);
+gchar			**as_ptr_array_to_strv (GPtrArray *array);
 
 G_END_DECLS
 
