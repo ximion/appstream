@@ -381,6 +381,7 @@ as_database_set_location (AsDatabase *db, const gchar *dir)
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 	g_free (priv->database_path);
 	priv->database_path = g_strdup (dir);
+	g_debug ("AppSteam cache location altered to: %s", dir);
 }
 
 /**

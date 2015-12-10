@@ -28,22 +28,10 @@
 #include <glib-object.h>
 #include "as-component.h"
 
-#define AS_TYPE_DATA_POOL		(as_data_pool_get_type())
-#define AS_DATA_POOL(obj)		(G_TYPE_CHECK_INSTANCE_CAST((obj), AS_TYPE_DATA_POOL, AsDataPool))
-#define AS_DATA_POOL_CLASS(cls)		(G_TYPE_CHECK_CLASS_CAST((cls), AS_TYPE_DATA_POOL, AsDataPoolClass))
-#define AS_IS_DATA_POOL(obj)		(G_TYPE_CHECK_INSTANCE_TYPE((obj), AS_TYPE_DATA_POOL))
-#define AS_IS_DATA_POOL_CLASS(cls)	(G_TYPE_CHECK_CLASS_TYPE((cls), AS_TYPE_DATA_POOL))
-#define AS_DATA_POOL_GET_CLASS(obj)	(G_TYPE_INSTANCE_GET_CLASS((obj), AS_TYPE_DATA_POOL, AsDataPoolClass))
-
 G_BEGIN_DECLS
 
-typedef struct _AsDataPool	AsDataPool;
-typedef struct _AsDataPoolClass	AsDataPoolClass;
-
-struct _AsDataPool
-{
-	GObject parent;
-};
+#define AS_TYPE_DATA_POOL (as_data_pool_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsDataPool, as_data_pool, AS, DATA_POOL, GObject)
 
 struct _AsDataPoolClass
 {
@@ -57,21 +45,34 @@ struct _AsDataPoolClass
 	void (*_as_reserved6) (void);
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsDataPool, g_object_unref)
+/**
+ * AsDataPoolError:
+ * @AS_DATA_POOL_ERROR_FAILED:		Generic failure
+ *
+ * A metadata pool error.
+ **/
+typedef enum {
+	AS_DATA_POOL_ERROR_FAILED,
+	/*< private >*/
+	AS_DATA_POOL_ERROR_LAST
+} AsDataPoolError;
 
-GType		 	as_data_pool_get_type (void);
+#define AS_DATA_POOL_ERROR	as_data_pool_error_quark ()
+GQuark			as_data_pool_error_quark (void);
+
 AsDataPool		*as_data_pool_new (void);
-
-gchar			**as_data_pool_get_watched_locations (AsDataPool *dpool);
-
-gboolean		as_data_pool_update (AsDataPool *dpool);
-GList			*as_data_pool_get_components (AsDataPool *dpool);
-AsComponent		*as_data_pool_get_component_by_id (AsDataPool *dpool,
-								const gchar *id);
 
 const gchar 		*as_data_pool_get_locale (AsDataPool *dpool);
 void			as_data_pool_set_locale (AsDataPool *dpool,
 							const gchar *locale);
+
+gchar			**as_data_pool_get_watched_locations (AsDataPool *dpool);
+
+gboolean		as_data_pool_update (AsDataPool *dpool, GError **error);
+
+GList			*as_data_pool_get_components (AsDataPool *dpool);
+AsComponent		*as_data_pool_get_component_by_id (AsDataPool *dpool,
+								const gchar *id);
 
 void			as_data_pool_set_data_source_directories (AsDataPool *dpool,
 									gchar **dirs);

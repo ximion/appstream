@@ -100,12 +100,16 @@ ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean deta
 	}
 
 	if (no_cache) {
-		AsDataPool *dpool;
+		g_autoptr(AsDataPool) dpool = NULL;
 
 		dpool = as_data_pool_new ();
-		as_data_pool_update (dpool);
+		as_data_pool_update (dpool, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			exit_code = 1;
+			goto out;
+		}
 		cpt = as_data_pool_get_component_by_id (dpool, identifier);
-		g_object_unref (dpool);
 	} else {
 		g_autoptr(AsDatabase) db = NULL;
 
@@ -285,12 +289,16 @@ ascli_dump_component (const gchar *dbpath, const gchar *identifier, gboolean no_
 	}
 
 	if (no_cache) {
-		AsDataPool *dpool;
+		g_autoptr(AsDataPool) dpool = NULL;
 
 		dpool = as_data_pool_new ();
-		as_data_pool_update (dpool);
+		as_data_pool_update (dpool, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			exit_code = 1;
+			goto out;
+		}
 		cpt = as_data_pool_get_component_by_id (dpool, identifier);
-		g_object_unref (dpool);
 	} else {
 		g_autoptr(AsDatabase) db = NULL;
 

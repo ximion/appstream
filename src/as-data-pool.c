@@ -54,9 +54,7 @@ const gchar *AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
 						"/var/lib/app-info/yaml",
 						NULL};
 
-typedef struct _AsDataPoolPrivate	AsDataPoolPrivate;
-
-struct _AsDataPoolPrivate
+typedef struct
 {
 	GHashTable* cpt_table;
 	GPtrArray* providers;
@@ -67,11 +65,62 @@ struct _AsDataPoolPrivate
 	gchar **dep11_paths;
 
 	gchar **icon_paths;
-};
+} AsDataPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsDataPool, as_data_pool, G_TYPE_OBJECT)
-
 #define GET_PRIVATE(o) (as_data_pool_get_instance_private (o))
+
+/**
+ * as_data_pool_init:
+ **/
+static void
+as_data_pool_init (AsDataPool *dpool)
+{
+	AsDistroDetails *distro;
+	guint len;
+	guint i;
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	/* set active locale */
+	priv->locale = as_get_current_locale ();
+
+	priv->cpt_table = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
+						g_free,
+						(GDestroyNotify) g_object_unref);
+	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
+
+	distro = as_distro_details_new ();
+	priv->scr_base_url = as_distro_details_get_str (distro, "ScreenshotUrl");
+	if (priv->scr_base_url == NULL) {
+		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_name (distro));
+		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
+	}
+	g_object_unref (distro);
+
+	/* set watched default directories for AppStream XML */
+	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
+	priv->asxml_paths = g_new0 (gchar *, len + 1);
+	for (i = 0; i < len+1; i++) {
+		if (i < len)
+			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
+		else
+			priv->asxml_paths[i] = NULL;
+	}
+
+	/* set watched default directories for Debian DEP-11 AppStream data */
+	len = G_N_ELEMENTS (AS_APPSTREAM_DEP11_PATHS);
+	priv->dep11_paths = g_new0 (gchar *, len + 1);
+	for (i = 0; i < len+1; i++) {
+		if (i < len)
+			priv->dep11_paths[i] = g_strdup (AS_APPSTREAM_DEP11_PATHS[i]);
+		else
+			priv->dep11_paths[i] = NULL;
+	}
+
+	/* set default icon search locations */
+	priv->icon_paths = as_get_icon_repository_paths ();
+}
 
 /**
  * as_data_pool_finalize:
@@ -92,14 +141,6 @@ as_data_pool_finalize (GObject *object)
 	g_strfreev (priv->icon_paths);
 
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
-}
-
-/**
- * as_data_pool_init:
- **/
-static void
-as_data_pool_init (AsDataPool *dpool)
-{
 }
 
 /**
@@ -159,7 +200,7 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 
 /**
  * as_data_pool_get_watched_locations:
- * @dpool: a valid #AsDataPool instance
+ * @dpool: An instance of #AsDataPool.
  *
  * Return a list of all locations which are searched for metadata.
  *
@@ -404,6 +445,8 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 
 /**
  * as_data_pool_update:
+ * @dpool: An instance of #AsDataPool.
+ * @error: A #GError or %NULL.
  *
  * Builds an index of all found components in the watched locations.
  * The function will try to get as much data into the pool as possible, so even if
@@ -412,7 +455,7 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
  * Returns: %TRUE if update completed without error.
  **/
 gboolean
-as_data_pool_update (AsDataPool *dpool)
+as_data_pool_update (AsDataPool *dpool, GError **error)
 {
 	gboolean ret = TRUE;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
@@ -436,6 +479,7 @@ as_data_pool_update (AsDataPool *dpool)
 
 /**
  * as_data_pool_get_components:
+ * @dpool: An instance of #AsDataPool.
  *
  * Get a list of found components.
  *
@@ -450,6 +494,8 @@ as_data_pool_get_components (AsDataPool *dpool)
 
 /**
  * as_data_pool_get_component_by_id:
+ * @dpool: An instance of #AsDataPool.
+ * @id: The AppStream-ID to look for.
  *
  * Get a specific component by its ID.
  *
@@ -467,7 +513,7 @@ as_data_pool_get_component_by_id (AsDataPool *dpool, const gchar *id)
 
 /**
  * as_data_pool_set_locale:
- * @dpool: a #AsDataPool instance.
+ * @dpool: An instance of #AsDataPool.
  * @locale: the locale.
  *
  * Sets the current locale which should be used when parsing metadata.
@@ -482,7 +528,7 @@ as_data_pool_set_locale (AsDataPool *dpool, const gchar *locale)
 
 /**
  * as_data_pool_get_locale:
- * @dpool: a #AsDataPool instance.
+ * @dpool: An instance of #AsDataPool.
  *
  * Gets the currently used locale.
  *
@@ -497,7 +543,7 @@ as_data_pool_get_locale (AsDataPool *dpool)
 
 /**
  * as_data_pool_set_data_source_directories:
- * @dpool a valid #AsBuilder instance
+ * @dpool: An instance of #AsDataPool.
  * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
  *
  * Set locations for the data pool to read it's data from.
@@ -556,6 +602,20 @@ as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 }
 
 /**
+ * as_data_pool_error_quark:
+ *
+ * Return value: An error quark.
+ **/
+GQuark
+as_data_pool_error_quark (void)
+{
+	static GQuark quark = 0;
+	if (!quark)
+		quark = g_quark_from_static_string ("AsDataPool");
+	return quark;
+}
+
+/**
  * as_data_pool_new:
  *
  * Creates a new #AsDataPool.
@@ -563,57 +623,10 @@ as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
  * Returns: (transfer full): a #AsDataPool
  *
  **/
-AsDataPool *
+AsDataPool*
 as_data_pool_new (void)
 {
 	AsDataPool *dpool;
-	AsDataPoolPrivate *priv;
-	AsDistroDetails *distro;
-	guint len;
-	guint i;
-
 	dpool = g_object_new (AS_TYPE_DATA_POOL, NULL);
-	priv = GET_PRIVATE (dpool);
-
-	/* set active locale */
-	priv->locale = as_get_current_locale ();
-
-	priv->cpt_table = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						(GDestroyNotify) g_object_unref);
-	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
-
-	distro = as_distro_details_new ();
-	priv->scr_base_url = as_distro_details_get_str (distro, "ScreenshotUrl");
-	if (priv->scr_base_url == NULL) {
-		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_name (distro));
-		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
-	}
-	g_object_unref (distro);
-
-	/* set watched default directories for AppStream XML */
-	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
-	priv->asxml_paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
-		else
-			priv->asxml_paths[i] = NULL;
-	}
-
-	/* set watched default directories for Debian DEP-11 AppStream data */
-	len = G_N_ELEMENTS (AS_APPSTREAM_DEP11_PATHS);
-	priv->dep11_paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			priv->dep11_paths[i] = g_strdup (AS_APPSTREAM_DEP11_PATHS[i]);
-		else
-			priv->dep11_paths[i] = NULL;
-	}
-
-	/* set default icon search locations */
-	priv->icon_paths = as_get_icon_repository_paths ();
-
 	return AS_DATA_POOL (dpool);
 }
