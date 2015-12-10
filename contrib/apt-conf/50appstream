@@ -2,7 +2,6 @@
 ## metadata files.
 
 Acquire::IndexTargets {
-
     # The YAML metadata files
     deb::DEP-11  {
         MetaKey "$(COMPONENT)/dep11/Components-$(NATIVE_ARCHITECTURE).yml";
@@ -40,7 +39,7 @@ Acquire::IndexTargets {
     };
 };
 
-# When Apt's cache is updated (i.e. apt-cache update)
+# Refresh AppStream cache when APT's cache is updated (i.e. apt-cache update)
 APT::Update::Post-Invoke-Success {
     "/usr/bin/test -e /usr/bin/appstreamcli && appstreamcli refresh";
 };
