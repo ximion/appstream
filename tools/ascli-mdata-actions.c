@@ -57,16 +57,24 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 	as_cache_builder_setup (cbuilder, dbpath);
 	ret = as_cache_builder_refresh (cbuilder, forced, &error);
 
-	if (error == NULL) {
-		g_print ("%s\n", _("AppStream cache update completed successfully."));
-	} else {
-		g_printerr ("%s\n", error->message);
-	}
-
-	if (ret)
+	if (ret) {
+		/* we performed a cache refresh, check if we had errors */
+		if (error == NULL) {
+			g_print ("%s\n", _("AppStream cache update completed successfully."));
+		} else {
+			g_printerr ("%s\n", error->message);
+		}
 		return 0;
-	else
-		return 6;
+	} else {
+		/* cache wasn't updated, so the update wasn't necessary, or we have a fatal error */
+		if (error == NULL) {
+			g_print ("%s\n", _("AppStream cache update is not necessary."));
+			return 0;
+		} else {
+			g_printerr ("%s\n", error->message);
+			return 6;
+		}
+	}
 }
 
 /**

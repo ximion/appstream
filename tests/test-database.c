@@ -72,11 +72,17 @@ test_database_create ()
 	g_strfreev (strv);
 
 	ret = as_cache_builder_setup (builder, db_path);
-	g_assert (ret == TRUE);
+	g_assert (ret);
 
+	/* build the cache for the first time (enforcing build) */
 	ret = as_cache_builder_refresh (builder, TRUE, &error);
 	g_assert_no_error (error);
-	g_assert (ret == TRUE);
+	g_assert (ret);
+
+	/* if we refresh the cache for the second time, we should receive FALSE, as we don't need to update it again */
+	ret = as_cache_builder_refresh (builder, FALSE, &error);
+	g_assert_no_error (error);
+	g_assert (!ret);
 
 	return db_path;
 }

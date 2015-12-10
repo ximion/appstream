@@ -105,7 +105,7 @@ as_cache_builder_class_init (AsCacheBuilderClass *klass)
 /**
  * as_cache_builder_setup:
  * @builder: An instance of #AsCacheBuilder.
- * @dbpath: (nullable) (default NULL): Path to the database directory, or %NULL to use defaulr.
+ * @dbpath: (nullable) (default NULL): Path to the database directory, or %NULL to use default.
  *
  * Initialize the cache builder.
  */
@@ -137,125 +137,34 @@ as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath)
 static gboolean
 as_cache_builder_appstream_data_changed (AsCacheBuilder *builder)
 {
-	gchar *fname;
-	GFile *file;
-	GPtrArray *watchfile_old;
-	gchar *watchfile_new = NULL;
-	gchar **files;
 	guint i;
-	gboolean ret = FALSE;
-	GDataOutputStream *dos = NULL;
-	GFileOutputStream *fos;
-	GError *error = NULL;
+	time_t cache_ctime;
+	struct stat cache_sbuf;
+	g_auto(GStrv) locations = NULL;
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
-	fname = g_build_filename (priv->cache_path, "cache.watch", NULL, NULL);
-	file = g_file_new_for_path (fname);
-	g_free (fname);
+	if (stat (priv->cache_path, &cache_sbuf) < 0)
+		cache_ctime = 0;
+	else
+		cache_ctime = cache_sbuf.st_ctime;
 
-	watchfile_old = g_ptr_array_new_with_free_func (g_free);
-	if (g_file_query_exists (file, NULL)) {
-		GDataInputStream* dis;
-		GFileInputStream* fis;
-		GError *e = NULL;
-		gchar* line;
+	locations = as_data_pool_get_watched_locations (priv->dpool);
+	for (i = 0; locations[i] != NULL; i++) {
+		struct stat sb;
+		gchar *fname;
 
-		fis = g_file_read (file, NULL, &e);
-		dis = g_data_input_stream_new ((GInputStream*) fis);
-		g_object_unref (fis);
-
-		if (e != NULL) {
-			ret = TRUE;
-			g_error_free (e);
-			goto out;
-		}
-
-		while ((line = g_data_input_stream_read_line (dis, NULL, NULL, NULL)) != NULL) {
-			g_ptr_array_add (watchfile_old, line);
-		}
-		g_object_unref (dis);
-	} else {
-		/* no watch-file: data might have changed, so we rebuild the cache */
-		ret = TRUE;
-	}
-
-	watchfile_new = g_strdup ("");
-	files = as_data_pool_get_watched_locations (priv->dpool);
-	for (i = 0; files[i] != NULL; i++) {
-		struct stat sbuf;
-		gchar *ctime_str;
-		gchar *tmp;
-		guint j;
-		gchar *wentry;
-
-		fname = files[i];
-		if (stat (fname, &sbuf) == -1)
+		fname = locations[i];
+		if (stat (fname, &sb) < 0)
 			continue;
 
-		ctime_str = g_strdup_printf ("%ld", (glong) sbuf.st_ctime);
-		tmp = g_strdup_printf ("%s%s %s\n", watchfile_new, fname, ctime_str);
-		g_free (watchfile_new);
-		watchfile_new = tmp;
-
-		/* no need to perform test for a up-to-date data from the old watch file if it is empty */
-		if (watchfile_old->len == 0)
-			continue;
-
-		for (j = 0; j < watchfile_old->len; j++) {
-			gchar **wparts;
-			wentry = (gchar*) g_ptr_array_index (watchfile_old, j);
-
-			if (g_str_has_prefix (wentry, fname)) {
-				wparts = g_strsplit (wentry, " ", 2);
-				if (g_strcmp0 (wparts[1], ctime_str) != 0)
-					ret = TRUE;
-				g_strfreev (wparts);
-				break;
-			}
-		}
-		g_free (ctime_str);
-	}
-	g_strfreev (files);
-
-	/* write our (new) watchfile */
-	if (g_file_query_exists (file, NULL))
-		g_file_delete (file, NULL, &error);
-	if (error != NULL) {
-		ret = TRUE;
-		g_error_free (error);
-		goto out;
+		if (sb.st_ctime > cache_ctime)
+			return TRUE;
 	}
 
-	fos = g_file_create (file, G_FILE_CREATE_REPLACE_DESTINATION, NULL, &error);
-	dos = g_data_output_stream_new ((GOutputStream*) fos);
-	g_object_unref (fos);
-	if (error != NULL) {
-		ret = TRUE;
-		g_error_free (error);
-		goto out;
-	}
-
-	g_data_output_stream_put_string (dos, watchfile_new, NULL, &error);
-	if (error != NULL) {
-		ret = TRUE;
-		g_error_free (error);
-		goto out;
-	}
-
-
-out:
-	g_ptr_array_unref (watchfile_old);
-	g_object_unref (file);
-	if (watchfile_new != NULL)
-		g_free (watchfile_new);
-	if (dos != NULL)
-		g_object_unref (dos);
-
-	return ret;
+	return FALSE;
 }
 
 #ifdef APT_SUPPORT
-
 /**
  * as_cache_builder_get_yml_data_origin:
  */
@@ -313,9 +222,8 @@ as_cache_builder_get_yml_data_origin (const gchar *fname)
  * as_cache_builder_extract_icons:
  */
 static void
-as_cache_builder_extract_icons (const gchar *origin, const gchar *apt_basename, const gchar *apt_lists_dir, const gchar *icons_size)
+as_cache_builder_extract_icons (const gchar *asicons_target, const gchar *origin, const gchar *apt_basename, const gchar *apt_lists_dir, const gchar *icons_size)
 {
-	const gchar *appstream_icons_target = "/var/lib/app-info/icons";
 	g_autofree gchar *icons_tarball = NULL;
 	g_autofree gchar *target_dir = NULL;
 	g_autofree gchar *cmd = NULL;
@@ -329,7 +237,7 @@ as_cache_builder_extract_icons (const gchar *origin, const gchar *apt_basename, 
 		return;
 	}
 
-	target_dir = g_build_filename (appstream_icons_target, origin, icons_size, NULL);
+	target_dir = g_build_filename (asicons_target, origin, icons_size, NULL);
 	g_mkdir_with_parents (target_dir, 0755);
 
 	cmd = g_strdup_printf ("/bin/tar -xzf '%s' -C '%s'", icons_tarball, target_dir);
@@ -338,7 +246,7 @@ as_cache_builder_extract_icons (const gchar *origin, const gchar *apt_basename, 
 		g_debug ("Failed to run tar: %s", tmp_error->message);
 	}
 	if (res != 0) {
-		g_debug ("Running tar failed with exist code %i: %s", res, stderr_txt);
+		g_debug ("Running tar failed with exit-code %i: %s", res, stderr_txt);
 	}
 }
 
@@ -348,20 +256,25 @@ as_cache_builder_extract_icons (const gchar *origin, const gchar *apt_basename, 
  * Scan for additional metadata in 3rd-party directories and move it to the right place.
  */
 static void
-as_cache_builder_scan (AsCacheBuilder *builder, GError **error)
+as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **error)
 {
 	const gchar *apt_lists_dir = "/var/lib/apt/lists/";
 	const gchar *appstream_yml_target = "/var/lib/app-info/yaml";
+	const gchar *appstream_icons_target = "/var/lib/app-info/icons";
 	g_autoptr(GPtrArray) yml_files = NULL;
 	g_autoptr(GError) tmp_error = NULL;
+	gboolean data_changed = FALSE;
 	guint i;
+	time_t cache_ctime;
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
 	/* we can't do anything here if we're not root */
 	if (!as_utils_is_root ())
 		return;
 
+	/* skip this step if the APT lists directory doesn't exist */
 	if (!g_file_test (apt_lists_dir, G_FILE_TEST_IS_DIR)) {
-		/* directory not found, nothing to do here */
+		g_debug ("APT lists directory (%s) not found!", apt_lists_dir);
 		return;
 	}
 
@@ -374,6 +287,7 @@ as_cache_builder_scan (AsCacheBuilder *builder, GError **error)
 		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
 		if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
 			g_remove (fname);
+			data_changed = TRUE;
 		}
 	}
 
@@ -384,8 +298,48 @@ as_cache_builder_scan (AsCacheBuilder *builder, GError **error)
 		return;
 	}
 
-	if (yml_files->len > 0)
-		g_mkdir_with_parents (appstream_yml_target, 0755);
+	/* no data found? skip scan step */
+	if (yml_files->len <= 0) {
+		g_debug ("Couldn't find DEP-11 data in APT directories.");
+		return;
+	}
+
+	/* get the last time we touched the database */
+	if (!data_changed) {
+		struct stat cache_sbuf;
+
+		if (stat (priv->cache_path, &cache_sbuf) < 0)
+			cache_ctime = 0;
+		else
+			cache_ctime = cache_sbuf.st_ctime;
+
+		for (i = 0; i < yml_files->len; i++) {
+			struct stat sb;
+			const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
+			if (stat (fname, &sb) < 0)
+				continue;
+			g_debug ("C: %lli vs. %lli", (long long) sb.st_ctime, (long long) cache_ctime);
+			if (sb.st_ctime > cache_ctime) {
+				/* we need to update the cache */
+				data_changed = TRUE;
+				break;
+			}
+		}
+	}
+
+	/* no changes means nothing to do here */
+	if ((!data_changed) && (!force))
+		return;
+
+	/* this is not really great, but we simply can't detect if we should remove an icons folder or not,
+	 * or which specific icons we should drop from a folder.
+	 * So, we hereby simply "own" the icons directory and all it's contents, anything put in there by 3rd-parties will
+	 * be deleted.
+	 * (And there should actually be no cases 3rd-parties put icons there on a Debian machine, since metadata in packages
+	 * will land in /usr/share/app-info anyway)
+	 */
+	as_utils_delete_dir_recursive (appstream_icons_target);
+	g_mkdir_with_parents (appstream_yml_target, 0755);
 
 	for (i = 0; i < yml_files->len; i++) {
 		g_autofree gchar *fbasename = NULL;
@@ -424,9 +378,20 @@ as_cache_builder_scan (AsCacheBuilder *builder, GError **error)
 		file_baseprefix = g_strndup (fbasename, strlen (fbasename) - strlen (g_strrstr (fbasename, "_") + 1));
 
 		/* extract icons to their destination (if they exist at all */
-		as_cache_builder_extract_icons (origin, file_baseprefix, apt_lists_dir, "64x64");
-		as_cache_builder_extract_icons (origin, file_baseprefix, apt_lists_dir, "128x128");
+		as_cache_builder_extract_icons (appstream_icons_target,
+						origin,
+						file_baseprefix,
+						apt_lists_dir,
+						"64x64");
+		as_cache_builder_extract_icons (appstream_icons_target,
+						origin,
+						file_baseprefix,
+						apt_lists_dir,
+						"128x128");
 	}
+
+	/* ensure the cache-rebuild process notices these changes */
+	as_touch_location (appstream_yml_target);
 }
 #endif
 
@@ -435,7 +400,9 @@ as_cache_builder_scan (AsCacheBuilder *builder, GError **error)
  * @builder: An instance of #AsCacheBuilder.
  * @force: Enforce refresh, even if source data has not changed.
  *
- * Update the AppStream Xapian cache
+ * Update the AppStream Xapian cache.
+ *
+ * Returns: %TRUE if the cache was updated, %FALSE on error or if the cache update was not necessary and has been skipped.
  */
 gboolean
 as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **error)
@@ -449,16 +416,12 @@ as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **erro
 	/* collect metadata */
 #ifdef APT_SUPPORT
 	/* currently, we only do something here if we are running with explicit APT support compiled in */
-	if (force) {
-		/* at time, we can't detect if the data has changed and rebuild the cache on-demand, so we simply only scan for new data if the force
-		 * parameter is also given, and we will rebuild anyway. */
-		as_cache_builder_scan (builder, &tmp_error);
-		if (tmp_error != NULL) {
-			/* the exact error is not forwarded here, since we might be able to partially update the cache */
-			g_warning ("Error while collecting metadata: %s", tmp_error->message);
-			g_error_free (tmp_error);
-			tmp_error = NULL;
-		}
+	as_cache_builder_scan_apt (builder, force, &tmp_error);
+	if (tmp_error != NULL) {
+		/* the exact error is not forwarded here, since we might be able to partially update the cache */
+		g_warning ("Error while collecting metadata: %s", tmp_error->message);
+		g_error_free (tmp_error);
+		tmp_error = NULL;
 	}
 #endif
 
@@ -469,8 +432,7 @@ as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **erro
 		if (force) {
 			g_debug ("Forcing refresh anyway.");
 		} else {
-			ret = TRUE;
-			return ret;
+			return FALSE;
 		}
 	}
 	g_debug ("Refreshing AppStream cache");
@@ -490,11 +452,14 @@ as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **erro
 	g_list_free (cpt_list);
 
 	if (ret) {
-		if (!ret_poolupdate)
+		if (!ret_poolupdate) {
 			g_set_error (error,
 				AS_CACHE_BUILDER_ERROR,
 				AS_CACHE_BUILDER_ERROR_PARTIALLY_FAILED,
 				_("AppStream cache update completed, but some metadata was ignored due to errors."));
+		}
+		/* update the cache mtime, to not needlessly rebuild it again */
+		as_touch_location (priv->cache_path);
 	} else {
 		g_set_error (error,
 				AS_CACHE_BUILDER_ERROR,
@@ -502,7 +467,7 @@ as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **erro
 				_("AppStream cache update failed."));
 	}
 
-	return ret;
+	return TRUE;
 }
 
 /**

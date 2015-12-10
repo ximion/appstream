@@ -31,6 +31,9 @@
 #include <sys/types.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
+#include <time.h>
+#include <utime.h>
+#include <sys/stat.h>
 
 #include "as-category.h"
 
@@ -465,4 +468,27 @@ as_str_replace (const gchar *str, const gchar *old, const gchar *new)
 	strcpy(r, p);
 
 	return ret;
+}
+
+/**
+ * as_touch_location:
+ * @fname: The file or directory to touch.
+ *
+ * Change mtime of a filesystem location.
+ */
+gboolean
+as_touch_location (const gchar *fname)
+{
+	struct stat sb;
+	struct utimbuf new_times;
+
+	if (stat (fname, &sb) < 0)
+		return FALSE;
+
+	new_times.actime = sb.st_atime;
+	new_times.modtime = time (NULL);
+	if (utime (fname, &new_times) < 0)
+		return FALSE;
+
+	return TRUE;
 }
