@@ -29,11 +29,11 @@ Acquire::IndexTargets {
     # the DEP-11 YAML metadata.
     deb::DEP-11-icons-hidpi  {
         MetaKey "$(COMPONENT)/dep11/icons-128x128.tar";
-        ShortDescription "icons-64x64";
+        ShortDescription "icons-128x128";
         Description "$(RELEASE)/$(COMPONENT) DEP-11 128x128 Icons";
 
         flatMetaKey "icons-128x128";
-        flatDescription "$(RELEASE) DEP-11 64x64 Icons";
+        flatDescription "$(RELEASE) DEP-11 128x128 Icons";
         KeepCompressed "true";
         DefaultEnabled "false";
     };
