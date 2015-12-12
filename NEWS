@@ -1,3 +1,45 @@
+Version 0.9.0
+~~~~~~~~~~~~~~
+Released: 2015-12-12
+
+Notes:
+ * This release breaks API/ABI, ensure you adjust your depending applications!
+   All code marked as legacy has been removed, as well as some older, now unnecessary
+   classes. Instead, new classes, like AsProvided, have now been introduced.
+   Take a look at the API documentation for furher information.
+ * For Debian-based systems, we now provide full integration with the APT package-manager.
+   Support for this feature needs to be explicitly enabled at build-time.
+
+Features:
+ * Use modern GLib macros to declare types (Matthias Klumpp)
+ * Refactor icon handling (Matthias Klumpp)
+ * Refactor handling of provided items (Matthias Klumpp)
+ * Modernize AsCacheBuilder class (Matthias Klumpp)
+ * Modernize AsCategory class (Matthias Klumpp)
+ * Bump API level (Matthias Klumpp)
+ * Make some AsComponent methods private (Matthias Klumpp)
+ * Drop obsolete utility functions (Matthias Klumpp)
+ * Modernize AsDatabase class (Matthias Klumpp)
+ * Drop AsSearchQuery (Matthias Klumpp)
+ * Make AsDistroDetails a modern class (Matthias Klumpp)
+ * Modernize AsMenuParser and AsImage (Matthias Klumpp)
+ * Update validator classes (Matthias Klumpp)
+ * Improve error handling for database queries. (Matthias Klumpp)
+ * Initial code to improve APT integration (Matthias Klumpp)
+ * Refine the AsDataPool class (Matthias Klumpp)
+ * cli: Add new install command to directly install components (Matthias Klumpp)
+ * cli: Make removal of packages by component-id possible (Matthias Klumpp)
+ * Make cache builder smarter in detecting metadata changes (Matthias Klumpp)
+ * l10n: Update translations
+
+Bugfixes:
+ * categories: Add missing icon names (Aleix Pol)
+ * Tweak the component-id-collision test slightly (Matthias Klumpp)
+ * AsComponent: Added missing documentation (Corentin Noël)
+ * gir: Fix warnings (Matthias Klumpp)
+ * Always build a new cache if none existed yet in the target location (Matthias Klumpp)
+ * Don't do symlink maintenance if target doesn't exist yet (Matthias Klumpp)
+
 Version 0.8.6
 ~~~~~~~~~~~~~~
 Released: 2015-11-06
