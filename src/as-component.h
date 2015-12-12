@@ -34,8 +34,6 @@
 
 G_BEGIN_DECLS
 
-#define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
-
 #define AS_TYPE_COMPONENT (as_component_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsComponent, as_component, AS, COMPONENT, GObject)
 
@@ -76,6 +74,8 @@ typedef enum  {
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
+
+#define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
 
 GType			as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar		*as_component_kind_to_string (AsComponentKind kind);

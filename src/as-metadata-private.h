@@ -30,8 +30,8 @@ G_BEGIN_DECLS
 
 /**
  * AsParserMode:
- * @AS_PARSER_MODE_UPSTREAM: Parse Appstream upstream metadata
- * @AS_PARSER_MODE_DISTRO: Parse Appstream distribution metadata
+ * @AS_PARSER_MODE_UPSTREAM:	Parse Appstream upstream metadata
+ * @AS_PARSER_MODE_DISTRO:	Parse Appstream distribution metadata
  *
  * There are a few differences between Appstream's upstream metadata
  * and the distribution metadata.
@@ -41,6 +41,7 @@ G_BEGIN_DECLS
 typedef enum {
 	AS_PARSER_MODE_UPSTREAM,
 	AS_PARSER_MODE_DISTRO,
+	/*< private >*/
 	AS_PARSER_MODE_LAST
 } AsParserMode;
 

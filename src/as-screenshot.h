@@ -50,15 +50,15 @@ struct _AsScreenshotClass
 /**
  * AsScreenshotKind:
  * @AS_SCREENSHOT_KIND_UNKNOWN:		Type invalid or not known
- * @AS_SCREENSHOT_KIND_NORMAL:		Optional screenshot
- * @AS_SCREENSHOT_KIND_DEFAULT:		Screenshot to show by default
+ * @AS_SCREENSHOT_KIND_DEFAULT:		The primary screenshot to show by default
+ * @AS_SCREENSHOT_KIND_EXTRA:		Optional screenshot
  *
  * The screenshot type.
  **/
 typedef enum {
 	AS_SCREENSHOT_KIND_UNKNOWN,
-	AS_SCREENSHOT_KIND_NORMAL,
 	AS_SCREENSHOT_KIND_DEFAULT,
+	AS_SCREENSHOT_KIND_EXTRA,
 	/*< private >*/
 	AS_SCREENSHOT_KIND_LAST
 } AsScreenshotKind;

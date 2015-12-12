@@ -76,9 +76,9 @@ AsComponent		*as_metadata_get_component (AsMetadata *metad);
 GPtrArray		*as_metadata_get_components (AsMetadata *metad);
 
 void			as_metadata_clear_components (AsMetadata *metad);
-
 void			as_metadata_add_component (AsMetadata *metad,
 							AsComponent *cpt);
+
 gchar			*as_metadata_component_to_upstream_xml (AsMetadata *metad);
 gchar			*as_metadata_components_to_distro_xml (AsMetadata *metad);
 

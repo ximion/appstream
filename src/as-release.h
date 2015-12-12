@@ -57,6 +57,7 @@ typedef enum  {
 	AS_CHECKSUM_KIND_NONE,
 	AS_CHECKSUM_KIND_SHA1,
 	AS_CHECKSUM_KIND_SHA256,
+	/*< private >*/
 	AS_CHECKSUM_KIND_LAST
 } AsChecksumKind;
 
@@ -110,8 +111,8 @@ void		as_release_add_location (AsRelease *release,
 const gchar	*as_release_get_checksum (AsRelease *release,
 						AsChecksumKind kind);
 void		as_release_set_checksum (AsRelease *release,
-						AsChecksumKind kind,
-						const gchar *checksum);
+						const gchar *checksum,
+						AsChecksumKind kind);
 
 AsUrgencyKind	as_release_get_urgency (AsRelease *release);
 void		as_release_set_urgency (AsRelease *release,
@@ -120,8 +121,8 @@ void		as_release_set_urgency (AsRelease *release,
 guint64		as_release_get_size (AsRelease *release,
 					AsSizeKind kind);
 void		as_release_set_size (AsRelease *release,
-					AsSizeKind kind,
-					guint64 size);
+					guint64 size,
+					AsSizeKind kind);
 
 G_END_DECLS
 

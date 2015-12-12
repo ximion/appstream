@@ -77,11 +77,12 @@ GPtrArray		*as_database_find_components (AsDatabase *db,
 							const gchar *cats_str,
 							GError **error);
 
-GPtrArray		*as_database_get_all_components (AsDatabase *db, GError **error);
+GPtrArray		*as_database_get_all_components (AsDatabase *db,
+							 GError **error);
 AsComponent		*as_database_get_component_by_id (AsDatabase *db,
 								const gchar *cid,
 								GError **error);
-GPtrArray		*as_database_get_components_by_provides (AsDatabase* db,
+GPtrArray		*as_database_get_components_by_provided_item (AsDatabase *db,
 								 AsProvidedKind kind,
 								 const gchar *item,
 								 GError **error);

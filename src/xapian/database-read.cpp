@@ -212,7 +212,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		if (pb_scr.primary ())
 			as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_DEFAULT);
 		else
-			as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_NORMAL);
+			as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_EXTRA);
 
 		if (pb_scr.has_caption ())
 			as_screenshot_set_caption (scr, pb_scr.caption ().c_str (), NULL);
@@ -287,7 +287,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 				g_warning ("Found invalid release-checksum type in database for component '%s'", id_str.c_str ());
 				continue;
 			}
-			as_release_set_checksum (rel, cskind, pb_cs.value ().c_str ());
+			as_release_set_checksum (rel, pb_cs.value ().c_str (), cskind);
 		}
 
 		// load sizes
@@ -299,7 +299,7 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 				g_warning ("Found invalid release-size type in database for component '%s'", id_str.c_str ());
 				continue;
 			}
-			as_release_set_size (rel, skind, pb_s.value ());
+			as_release_set_size (rel, pb_s.value (), skind);
 		}
 
 		as_component_add_release (cpt, rel);

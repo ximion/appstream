@@ -529,7 +529,7 @@ as_dep11_process_screenshots (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
 				if (g_strcmp0 (value, "yes") == 0)
 					as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_DEFAULT);
 				else
-					as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_NORMAL);
+					as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_EXTRA);
 			} else if (g_strcmp0 (key, "caption") == 0) {
 				gchar *lvalue;
 				/* the caption is a localized element */

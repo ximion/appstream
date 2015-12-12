@@ -296,15 +296,15 @@ as_release_get_size (AsRelease *release, AsSizeKind kind)
 /**
  * as_release_set_size:
  * @release: a #AsRelease instance
- * @kind: a #AsSizeKind
  * @size: a size in bytes, or 0 for unknown
+ * @kind: a #AsSizeKind
  *
  * Sets the release size for the given kind.
  *
  * Since: 0.8.6
  **/
 void
-as_release_set_size (AsRelease *release, AsSizeKind kind, guint64 size)
+as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_return_if_fail (kind < AS_SIZE_KIND_LAST);
@@ -441,15 +441,15 @@ as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
 /**
  * as_release_set_checksum:
  * @release: An instance of #AsRelease.
- * @kind: The kind of this checksum, e.g. %AS_CHECKSUM_KIND_SHA256
  * @checksum: The checksum as string.
+ * @kind: The kind of this checksum, e.g. %AS_CHECKSUM_KIND_SHA256
  *
  * Set the release checksum.
  *
  * Since: 0.8.2
  */
 void
-as_release_set_checksum (AsRelease *release, AsChecksumKind kind, const gchar *checksum)
+as_release_set_checksum (AsRelease *release, const gchar *checksum, AsChecksumKind kind)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_return_if_fail (kind < AS_CHECKSUM_KIND_LAST);

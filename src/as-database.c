@@ -296,7 +296,7 @@ as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **erro
 }
 
 /**
- * as_database_get_components_by_provides:
+ * as_database_get_components_by_provided_item:
  * @db: An instance of #AsDatabase.
  * @kind: an #AsProvidesKind
  * @item: the name of the provided item.
@@ -307,7 +307,7 @@ as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **erro
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found, NULL on error
  */
 GPtrArray*
-as_database_get_components_by_provides (AsDatabase *db, AsProvidedKind kind, const gchar *item, GError **error)
+as_database_get_components_by_provided_item (AsDatabase *db, AsProvidedKind kind, const gchar *item, GError **error)
 {
 	GPtrArray* cpt_array;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);

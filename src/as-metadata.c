@@ -487,7 +487,7 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 					cs_kind = as_checksum_kind_from_string (prop);
 					if (cs_kind != AS_CHECKSUM_KIND_NONE) {
 						content = as_metadata_get_node_value (metad, iter2);
-						as_release_set_checksum (release, cs_kind, content);
+						as_release_set_checksum (release, content, cs_kind);
 						g_free (content);
 					}
 					g_free (prop);
@@ -503,7 +503,7 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 						size = g_ascii_strtoull (content, NULL, 10);
 						g_free (content);
 						if (size > 0)
-							as_release_set_size (release, s_kind, size);
+							as_release_set_size (release, size, s_kind);
 					}
 					g_free (prop);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "description") == 0) {

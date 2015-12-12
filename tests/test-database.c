@@ -136,7 +136,7 @@ test_database_read (const gchar *dbpath)
 	g_assert (cpts->len == 2);
 	g_ptr_array_unref (cpts);
 
-	cpts = as_database_get_components_by_provides (db, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
+	cpts = as_database_get_components_by_provided_item (db, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
 	g_assert_no_error (error);
 	print_cptarray (cpts);
 	g_assert (cpts->len == 1);

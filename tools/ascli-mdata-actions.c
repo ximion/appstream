@@ -244,7 +244,7 @@ ascli_what_provides (const gchar *dbpath, const gchar *kind_str, const gchar *it
 	db = ascli_database_new_path (dbpath);
 	as_database_open (db, NULL);
 
-	cpt_list = as_database_get_components_by_provides (db, kind, item, &error);
+	cpt_list = as_database_get_components_by_provided_item (db, kind, item, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		exit_code = 1;
