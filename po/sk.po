@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-10 23:51+0100\n"
-"PO-Revision-Date: 2015-12-10 07:53+0000\n"
+"POT-Creation-Date: 2015-12-12 18:14+0100\n"
+"PO-Revision-Date: 2015-12-11 14:53+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
@@ -42,9 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 
-#, fuzzy
 msgid "AppStream cache update is not necessary."
-msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
+msgstr "Aktualizácia vyrovnávacej pamäte nástroja AppStream nie je potrebná."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
@@ -65,7 +64,7 @@ msgstr "Príkaz „%s“ je neznámy."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Komponent „%s“ nemá kandidáta na inštaláciu."
 
 msgid "Compulsory for"
 msgstr "Povinné pre"
@@ -159,6 +158,8 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Nenašiel sa vhodný CLI správca balíkov. Prosím, uistite sa, že máte "
+"dostupného napr. klienta „pkcon“ (je súčasťou nástroja PackageKit)."
 
 msgid "No value for the item to search for defined."
 msgstr "Nebola definovaná hodnota položky, ktorá sa má hľadať."
@@ -195,7 +196,7 @@ msgstr ""
 "riadka."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Firmvér rozhrania"
 
 msgid "Sample Screenshot URL"
 msgstr "Vzorový URL snímky obrazovky"
@@ -240,9 +241,9 @@ msgstr ""
 "Nie je možné otvoriť vyrovnávaciu pamäť softvérového komponentu nástroja "
 "AppStream."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Nie je možné nájsť súčasť zodpovedajúcu %s!"
+msgstr "Nie je možné spustiť správcu balíkov: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Overí súbory XML AppStream prípadov"

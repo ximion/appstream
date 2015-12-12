@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-10 23:51+0100\n"
-"PO-Revision-Date: 2015-12-09 23:05+0000\n"
+"POT-Creation-Date: 2015-12-12 18:14+0100\n"
+"PO-Revision-Date: 2015-12-10 23:21+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
@@ -42,9 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
 
-#, fuzzy
 msgid "AppStream cache update is not necessary."
-msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
+msgstr "Aktualizacja pamięci podręcznej AppStream jest niepotrzebna."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
@@ -65,7 +64,7 @@ msgstr "Nieznane polecenie „%s”."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Składnik „%s” nie posiada kandydata instalacji."
 
 msgid "Compulsory for"
 msgstr "Obowiązkowe dla"
@@ -159,6 +158,9 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Nie odnaleziono odpowiedniego interfejsu wiersza poleceń menedżera pakietów. "
+"Proszę się upewnić, że dostępne jest np. polecenie „pkcon” (część pakietu "
+"PackageKit)."
 
 msgid "No value for the item to search for defined."
 msgstr "Nie określono wartości dla wyszukiwanego elementu."
@@ -238,9 +240,9 @@ msgid "Unable to open the AppStream software component cache."
 msgstr ""
 "Nie można otworzyć pamięci podręcznej składników oprogramowania AppStream."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Nie można odnaleźć składnika pasującego do %s."
+msgstr "Nie można wywołać menedżera pakietów: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Sprawdza poprawność plików XML AppStream"

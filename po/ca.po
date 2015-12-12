@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-10 23:51+0100\n"
-"PO-Revision-Date: 2015-12-09 23:01+0000\n"
+"POT-Creation-Date: 2015-12-12 18:14+0100\n"
+"PO-Revision-Date: 2015-12-11 09:02+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
@@ -24,32 +24,30 @@ msgstr "Un tipus provides-item (p. ex. lib, bin, python3, etc.)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "Versió de l'eina de la interfície de línia d'ordres de l'AppStream: %s"
+msgstr "Versió de l'eina de la interfície de línia d'ordres d'AppStream: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr ""
-"S'ha completat correctament l'actualització de la memòria cau de l'AppStream."
+"S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
-"S'ha completat l'actualització de la memòria cau de l'AppStream, però es van "
+"S'ha completat l'actualització de la memòria cau d'AppStream, però es van "
 "ignorar algunes metadades a causa d'errors."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr "Ha fallat l'actualització de la memòria cau de l'AppStream."
+msgstr "Ha fallat l'actualització de la memòria cau d'AppStream."
 
-#, fuzzy
 msgid "AppStream cache update is not necessary."
-msgstr ""
-"S'ha completat correctament l'actualització de la memòria cau de l'AppStream."
+msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr "Interfície de línia d'ordres de l'AppStream"
+msgstr "Interfície de línia d'ordres d'AppStream"
 
 msgid "Binaries"
 msgstr "Binaris"
@@ -66,7 +64,7 @@ msgstr "Es desconeix l'ordre «%s»."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "El component «%s» no té cap candidat d'instal·lació."
 
 msgid "Compulsory for"
 msgstr "Obligatori per"
@@ -136,11 +134,11 @@ msgstr "Llicència"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
-"Estableix manualment la ubicació de les metadades de l'AppStream per a la "
+"Estableix manualment la ubicació de les metadades d'AppStream per a la "
 "regeneració de la memòria cau"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr "Estableix manualment la ubicació de la memòria cau de l'AppStream."
+msgstr "Estableix manualment la ubicació de la memòria cau d'AppStream."
 
 msgid "Mimetypes"
 msgstr "Mini tipus"
@@ -163,6 +161,8 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"No s'ha trobat cap interfície de línia d'ordres adequada. Si us plau, "
+"assegureu-vos que p. ex. «pkcon» (part de PackageKit) estigui disponible."
 
 msgid "No value for the item to search for defined."
 msgstr "Es desconeix el valor de l'ítem definit en la cerca."
@@ -243,12 +243,12 @@ msgid "Unable to open the AppStream software component cache."
 msgstr ""
 "No s'ha pogut obrir la memòria cau dels components de programari d'AppStream."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "No es pot trobar la coincidència del component %s!"
+msgstr "No s'ha pogut generar el gestor de paquets: %s"
 
 msgid "Validate AppStream XML files for issues"
-msgstr "Valida els fitxers XML de l'AppStream per incidències"
+msgstr "Valida els fitxers XML d'AppStream per incidències"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""

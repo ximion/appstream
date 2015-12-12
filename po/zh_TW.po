@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-10 23:51+0100\n"
-"PO-Revision-Date: 2015-12-10 15:20+0000\n"
+"POT-Creation-Date: 2015-12-12 18:14+0100\n"
+"PO-Revision-Date: 2015-12-11 14:49+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
@@ -38,9 +38,8 @@ msgstr "AppStream 快取更新完成，但有些中介資料因為錯誤而被�
 msgid "AppStream cache update failed."
 msgstr "AppStream 快取更新失敗。"
 
-#, fuzzy
 msgid "AppStream cache update is not necessary."
-msgstr "AppStream 快取更新成功完成。"
+msgstr "不必更新 AppStream 快取。"
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
@@ -61,7 +60,7 @@ msgstr "指令「%s」未知。"
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "「%s」組件尚無安裝候選。"
 
 msgid "Compulsory for"
 msgstr "強制項目為"
@@ -152,7 +151,7 @@ msgstr "找不到供應「%s;%s」的組件。"
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
+msgstr "s"
 
 msgid "No value for the item to search for defined."
 msgstr "要搜尋的項目未定義該值。"
@@ -230,9 +229,9 @@ msgstr "找不到 id 為「%s」的組件！"
 msgid "Unable to open the AppStream software component cache."
 msgstr "無法開啟 AppStream 軟體組件快取。"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "找不到符合 %s 的組件！"
+msgstr "無法多重啟動軟體包管理程式：%s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "根據問題驗證 AppStream XML 檔案"

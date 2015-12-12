@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-10 23:51+0100\n"
-"PO-Revision-Date: 2015-12-10 05:16+0000\n"
+"POT-Creation-Date: 2015-12-12 18:14+0100\n"
+"PO-Revision-Date: 2015-12-11 14:10+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/freedesktop/appstream/"
 "language/uk/)\n"
@@ -42,9 +42,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Спроба оновити кеш AppStream зазнала невдачі."
 
-#, fuzzy
 msgid "AppStream cache update is not necessary."
-msgstr "Оновлення кешу AppStream успішно завершено."
+msgstr "Оновлення кешу AppStream непотрібне."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
@@ -65,7 +64,7 @@ msgstr "Невідома команда «%s»."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Для компонента «%s» немає кандидата для встановлення."
 
 msgid "Compulsory for"
 msgstr "Обов’язкове для"
@@ -160,6 +159,8 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Не знайдено відповідного засобу керування пакунками з командного рядка. Будь "
+"ласка, встановіть, наприклад, «pkcon» (частину PackageKit)."
 
 msgid "No value for the item to search for defined."
 msgstr "Не визначено значення запису, яке слід знайти."
@@ -240,9 +241,9 @@ msgid "Unable to open the AppStream software component cache."
 msgstr ""
 "Не вдалося відкрити кеш компонентів програмного забезпечення AppStream."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Не вдалося знайти компонент, що відповідає запиту %s!"
+msgstr "Не вдалося запустити засіб керування пакунками: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Перевірити файли XML AppStream на вади"

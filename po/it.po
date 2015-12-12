@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-10 23:51+0100\n"
-"PO-Revision-Date: 2015-12-09 22:51+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2015-12-12 18:14+0100\n"
+"PO-Revision-Date: 2015-12-11 08:22+0000\n"
+"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian (http://www.transifex.com/freedesktop/appstream/"
 "language/it/)\n"
 "Language: it\n"
@@ -40,9 +40,8 @@ msgstr ""
 msgid "AppStream cache update failed."
 msgstr "Aggiornamento cache AppStream non riuscito."
 
-#, fuzzy
 msgid "AppStream cache update is not necessary."
-msgstr "Aggiornamento cache AppStream completato con successo."
+msgstr "Aggiornamento cache AppStream non necessario."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
@@ -63,7 +62,7 @@ msgstr "Comando \"%s\" sconosciuto."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Il componente \"%s\" non ha alcun candidato per l'installazione."
 
 msgid "Compulsory for"
 msgstr "Obbligatorio per"
@@ -158,6 +157,8 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Nessun gestore di pacchetti CLI trovato. Assicurarsi che \"pkcon\" (parte di "
+"PackageKit) sia disponibile."
 
 msgid "No value for the item to search for defined."
 msgstr "Nessun valore per l'elemento da cercare definito."
@@ -218,7 +219,7 @@ msgid "Summary"
 msgstr "Riepilogo"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Tentata interrogazione su un database chiuso."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
@@ -234,11 +235,11 @@ msgid "Unable to find component with id '%s'!"
 msgstr "Impossibile trovare un componente con ID \"%s\"."
 
 msgid "Unable to open the AppStream software component cache."
-msgstr ""
+msgstr "Impossibile aprire la cache dei componenti software di AppStream."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Impossibile trovare un componente che corrisponda a %s."
+msgstr "Impossibile lanciare il gestore di pacchetti: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Esegue la validazione dei file XML AppStream"
