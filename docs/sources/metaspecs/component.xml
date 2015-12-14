@@ -94,7 +94,7 @@
 		<listitem>
 		<para>
 			The <code>&lt;metadata_license/&gt;</code> tag indicates the content licence that you are releasing the one
-			Metainfo XML file as. This is not typically the same as the project licence. Omitting the license value can result
+			Metainfo XML file under. This is not typically the same as the project licence. Omitting the license value can result
 			in your data not being incorporated into the distribution metadata (so this is a required tag).
 		</para>
 		<para>
@@ -120,7 +120,8 @@
 		</itemizedlist>
 		<para>
 			The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-			For instance, CC-BY-SA-3.0 corresponds to http://creativecommons.org/licenses/by-sa/3.0/
+			For instance, CC-BY-SA-3.0 corresponds to the license at
+			<ulink url="http://creativecommons.org/licenses/by-sa/3.0/">creativecommons.org/licenses/by-sa/3.0</ulink>.
 		</para>
 		</listitem>
 		</varlistentry>
