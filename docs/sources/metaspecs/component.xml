@@ -93,10 +93,13 @@
 		<term>&lt;metadata_license/&gt;</term>
 		<listitem>
 		<para>
-			The <code>&lt;metadata_license/&gt;</code> tag is indicating the content licence that you are releasing the one
-			Metainfo XML file as. This is not typically the same as the project licence. By ommitting the licence value would
-			probably mean your data would not be incorporated into the distribution metadata (so this is a required tag).
-			Permissible licence codes include:
+			The <code>&lt;metadata_license/&gt;</code> tag indicates the content licence that you are releasing the one
+			Metainfo XML file as. This is not typically the same as the project licence. Omitting the license value can result
+			in your data not being incorporated into the distribution metadata (so this is a required tag).
+		</para>
+		<para>
+			A permissive license ensures your data can be combined with arbitrary other data in one file.
+			Primissive licence names include:
 		</para>
 		<itemizedlist>
 			<listitem>
@@ -126,7 +129,7 @@
 		<term>&lt;name/&gt;</term>
 		<listitem>
 			<para>
-			A human-readable name for this software component. For example, if the component id was "libc", it's name might be "GNU Standard C Library".
+			A human-readable name for this software component. For example, if the component id was "libc", its name might be "GNU Standard C Library".
 			</para>
 		</listitem>
 		</varlistentry>
