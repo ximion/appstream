@@ -127,14 +127,22 @@ as_database_open (AsDatabase *db, GError **error)
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 
 	path = g_build_filename (priv->database_path, "xapian", "default", NULL);
+	if (!g_file_test (path, G_FILE_TEST_IS_DIR)) {
+		g_set_error_literal (error,
+				AS_DATABASE_ERROR,
+				AS_DATABASE_ERROR_MISSING,
+				_("AppStream software component cache was not found. This could mean AppStream was set up incorrectly, or your distribution does not provide any AppStream metadata."));
+		return FALSE;
+	}
+
 	ret = xa_database_read_open (priv->xdb, path);
 	priv->opened = ret;
 
 	if (!ret)
 		g_set_error_literal (error,
-					AS_DATABASE_ERROR,
-					AS_DATABASE_ERROR_FAILED,
-					_("Unable to open the AppStream software component cache."));
+				AS_DATABASE_ERROR,
+				AS_DATABASE_ERROR_FAILED,
+				_("Unable to open the AppStream software component cache."));
 
 	return ret;
 }

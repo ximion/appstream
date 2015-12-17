@@ -48,6 +48,7 @@ struct _AsDatabaseClass
 /**
  * AsDatabaseError:
  * @AS_DATABASE_ERROR_FAILED:		Generic failure
+ * @AS_DATABASE_ERROR_MISSING:		Database was not found
  * @AS_DATABASE_ERROR_CLOSED:		Tried to perform action on a closed database.
  * @AS_DATABASE_ERROR_TERM_INVALID:	A query term was invalid.
  *
@@ -55,6 +56,7 @@ struct _AsDatabaseClass
  **/
 typedef enum {
 	AS_DATABASE_ERROR_FAILED,
+	AS_DATABASE_ERROR_MISSING,
 	AS_DATABASE_ERROR_CLOSED,
 	AS_DATABASE_ERROR_TERM_INVALID,
 	/*< private >*/
