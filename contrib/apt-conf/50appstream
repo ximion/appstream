@@ -11,6 +11,7 @@ Acquire::IndexTargets {
         flatMetaKey "Components-$(NATIVE_ARCHITECTURE)";
         flatDescription "$(RELEASE) DEP-11 Metadata";
         KeepCompressed "true";
+        KeepCompressedAs "gz";
     };
 
     # Normal-sized icons for GUI components described in the DEP-11
@@ -23,6 +24,7 @@ Acquire::IndexTargets {
         flatMetaKey "icons-64x64";
         flatDescription "$(RELEASE) DEP-11 64x64 Icons";
         KeepCompressed "true";
+        KeepCompressedAs "gz";
     };
 
     # Icons suitable for HiDPI displays, for GUI components described in
@@ -35,6 +37,7 @@ Acquire::IndexTargets {
         flatMetaKey "icons-128x128";
         flatDescription "$(RELEASE) DEP-11 128x128 Icons";
         KeepCompressed "true";
+        KeepCompressedAs "gz";
         DefaultEnabled "false";
     };
 };
