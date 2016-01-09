@@ -10,8 +10,10 @@
 	<section id="spec-fontdata-introduction">
 		<title>Introduction</title>
 		<para>
-			It is a nice feature for a software center to allows users the installation of additional fonts.
-			This meta-info specification describes how metadata about fonts should be structured.
+			A software center can allow users to install additional fonts using font metadata.
+			Also, applications can use font metadata to find missing fonts (e.g. a special methematical font is needed)
+			in the distribution's software sources.
+			This meta-info specification describes how metadata for fonts / font collections should be structured.
 		</para>
 		<para>
 			Font packages can ship one or more files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
@@ -24,17 +26,19 @@
 	<section id="spec-fontdata-example">
 		<title>Example file</title>
 		<para>
-			The font meta-info file should look like this:
+			A minimal font metainfo file can look like this:
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="font">
-  <id>LinLibertine_M.otf</id>
+  <id>LinuxLibertine.font</id>
   <metadata_license>CC0</metadata_license>
-  <name>Libertine</name>
-  <summary>Linux Libertine Open fonts</summary>
-  <font_classifier>Mono</font_classifier>
-  <font_parent>Libertine</font_parent>
+  <name>Linux Libertine</name>
+  <summary>Linux Libertine fonts</summary>
+  <provides>
+    <font file="LinLibertine_R.otf">Linux Libertine O</font>
+    <font file="LinLibertine_M.otf">Linux Libertine Mono</font>
+  </provides>
 </component>]]></programlisting>
 	</section>
 
@@ -50,7 +54,8 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For fonts, the <literal>%{id}</literal> is the same name as the installed font file.
+					For fonts, the <literal>%{id}</literal> must be the name of the font or font bundle without whitespaces, and must be suffixed
+					with <code>.font</code>.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -68,7 +73,7 @@
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
-					Set a name for your font.
+					Set a name for your font or font collection.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -91,6 +96,9 @@
 				<para>
 					Do not assume the format is HTML. Only paragraph, ordered list and unordered list are supported at this time.
 				</para>
+				<para>
+					See the generic component <xref linkend="tag-description"/> for a detailed description of this tag.
+				</para>
 			</listitem>
 			</varlistentry>
 
@@ -98,17 +106,14 @@
 			<term>&lt;screenshots/&gt;</term>
 			<listitem>
 				<para>
-					A screenshot presents your font to the outside world, and could be seen by hundreds or thousands of people.
+					A screenshot presents your font to the outside world.
 				</para>
 				<para>
-					The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
-					<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
-					one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
-					The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
+					If the font metadata does not define an own screenshot, the AppStream generator is supposed to render one or multiple
+					sample images using the respective font.
 				</para>
 				<para>
-					Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 characters!)
-					description of what the user can see on the referenced screenshot.
+					See the generic component <xref linkend="tag-screenshots"/> for a detailed description of this tag.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -131,53 +136,9 @@
 					This tag is described in detail for generic components at <xref linkend="tag-provides"/>.
 				</para>
 				<para>
-					You can add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames and names known to the system.
-					If this tag is not present, the <literal>name</literal> and <literal>id</literal> tag values will be used by the
-					distribution's Appstream-generator to recreate this tag, so it's not required to add it.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry>
-			<term>&lt;font_classifier/&gt;</term>
-			<listitem>
-				<para>
-					Define a description of the font face to caption it when compared against other fonts in the same family.
-				</para>
-				<para>
-					Some commonly used values are, for example:
-				</para>
-				<itemizedlist>
-					<listitem>
-						<para>Mono</para>
-					</listitem>
-					<listitem>
-						<para>Mono Extra Light</para>
-					</listitem>
-					<listitem>
-						<para>Outline</para>
-					</listitem>
-					<listitem>
-						<para>Sans</para>
-					</listitem>
-					<listitem>
-						<para>Serif</para>
-					</listitem>
-					<listitem>
-						<para>Condensed</para>
-					</listitem>
-					<listitem>
-						<para>...</para>
-					</listitem>
-				</itemizedlist>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry>
-			<term>&lt;font_parent/&gt;</term>
-			<listitem>
-				<para>
-					The name of the font package this particular font is part of. This is a required tag.
+					You should add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames and names known to the system.
+					If this tag is not present, the <literal>name</literal> and <literal>id</literal> tag values can be used by the
+					distribution's AppStream-generator to recreate this tag.
 				</para>
 			</listitem>
 			</varlistentry>
