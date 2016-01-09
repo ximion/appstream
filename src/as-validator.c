@@ -428,7 +428,6 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	AsMetadata *metad;
 	AsComponent *cpt;
 	gchar *metadata_license = NULL;
-	gboolean provides_found = FALSE;
 	GHashTable *found_tags;
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -494,7 +493,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 				as_validator_add_issue (validator,
 							AS_ISSUE_IMPORTANCE_PEDANTIC,
 							AS_ISSUE_KIND_TAG_DUPLICATED,
-							"The 'pkgname' tag appears multiple times. You can maybe create a metapackage containing the data in order to get rid of defining multiple package names per component.");
+							"The 'pkgname' tag appears multiple times. You should evaluate creating a metapackage containing the data in order to avoid defining multiple package names per component.");
 			}
 		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
 			if (g_hash_table_contains (found_tags, node_name)) {
@@ -543,7 +542,6 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			as_validator_check_children_quick (validator, iter, "mimetype", cpt);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
-			provides_found = TRUE;
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_validator_check_children_quick (validator, iter, "screenshot", cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
@@ -589,7 +587,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 			as_validator_add_issue (validator,
 						AS_ISSUE_IMPORTANCE_WARNING,
 						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found invalid tag: '%s'. Non-standard tags have to be prefixed with \"x-\".",
+						"Found invalid tag: '%s'. Non-standard tags must be prefixed with \"x-\".",
 				node_name);
 			tag_valid = FALSE;
 		}
@@ -619,13 +617,21 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		g_free (metadata_license);
 	}
 
-	if ((!provides_found) && (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP)) {
-		as_validator_add_issue (validator,
-					AS_ISSUE_IMPORTANCE_PEDANTIC,
+	/* validate font specific stuff */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT) {
+		if (!g_str_has_suffix (as_component_get_id (cpt), ".font"))
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"Components of type 'font' must have an AppStream ID with a '.font' suffix.");
+		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_FONT) == NULL)
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_WARNING,
 					AS_ISSUE_KIND_TAG_MISSING,
-					"Component describes a desktop-application, but has no 'provides' tag. It should at least define a 'binary' as public interface.");
+					"Type 'font' component, but no font information was provided via a provides/font tag.");
 	}
 
+	/* validate addon specific stuff */
 	if (as_component_get_extends (cpt)->len > 0) {
 		if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON)
 			as_validator_add_issue (validator,
