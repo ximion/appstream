@@ -253,7 +253,7 @@ as_metadata_process_screenshot (AsMetadata *metad, xmlNode* node, AsScreenshot* 
 		node_name = (gchar*) iter->name;
 		content = as_metadata_get_node_value (metad, iter);
 		if (g_strcmp0 (node_name, "image") == 0) {
-			AsImage *img;
+			g_autoptr(AsImage) img = NULL;
 			guint64 width;
 			guint64 height;
 			gchar *stype;
@@ -1055,13 +1055,13 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 static void
 as_metadata_save_xml (AsMetadata *metad, const gchar *fname, const gchar *xml_data, GError **error)
 {
-	GFile *file;
+	g_autoptr(GFile) file = NULL;
 	GError *tmp_error = NULL;
 
 	file = g_file_new_for_path (fname);
 	if (g_str_has_suffix (fname, ".gz")) {
-		GOutputStream *out2 = NULL;
-		GOutputStream *out = NULL;
+		g_autoptr(GOutputStream) out2 = NULL;
+		g_autoptr(GOutputStream) out = NULL;
 		GZlibCompressor *compressor = NULL;
 
 		/* write a gzip compressed file */
@@ -1076,17 +1076,14 @@ as_metadata_save_xml (AsMetadata *metad, const gchar *fname, const gchar *xml_da
 
 		if (!g_output_stream_write_all (out2, xml_data, strlen (xml_data),
 					NULL, NULL, &tmp_error)) {
-			g_object_unref (out2);
-			g_object_unref (out);
 			g_propagate_error (error, tmp_error);
-			goto out;
+			return;
 		}
 
 		g_output_stream_close (out2, NULL, &tmp_error);
-		g_object_unref (out2);
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);
-			goto out;
+			return;
 		}
 
 		if (!g_file_replace_contents (file,
@@ -1098,13 +1095,9 @@ as_metadata_save_xml (AsMetadata *metad, const gchar *fname, const gchar *xml_da
 						NULL,
 						NULL,
 						&tmp_error)) {
-			g_object_unref (out);
 			g_propagate_error (error, tmp_error);
-			goto out;
+			return;
 		}
-
-		g_object_unref (out);
-
 	} else {
 		GFileOutputStream *fos = NULL;
 		GDataOutputStream *dos = NULL;
@@ -1124,7 +1117,7 @@ as_metadata_save_xml (AsMetadata *metad, const gchar *fname, const gchar *xml_da
 		if (tmp_error != NULL) {
 			g_object_unref (fos);
 			g_propagate_error (error, tmp_error);
-			goto out;
+			return;
 		}
 
 		dos = g_data_output_stream_new (G_OUTPUT_STREAM (fos));
@@ -1135,12 +1128,9 @@ as_metadata_save_xml (AsMetadata *metad, const gchar *fname, const gchar *xml_da
 
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);
-			goto out;
+			return;
 		}
 	}
-
-out:
-	g_object_unref (file);
 }
 
 
