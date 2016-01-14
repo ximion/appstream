@@ -44,5 +44,5 @@ Acquire::IndexTargets {
 
 # Refresh AppStream cache when APT's cache is updated (i.e. apt-cache update)
 APT::Update::Post-Invoke-Success {
-    "/usr/bin/test -e /usr/bin/appstreamcli && appstreamcli refresh > /dev/null";
+    "if /usr/bin/test -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi";
 };
