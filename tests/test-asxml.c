@@ -182,19 +182,24 @@ test_appstream_write_description ()
 {
 	AsMetadata *metad;
 	gchar *tmp;
+	AsRelease *rel;
 	AsComponent *cpt;
 
 	const gchar *EXPECTED_XML = "<?xml version=\"1.0\"?>\n"
 				"<component><name>Test</name><description><p>First paragraph</p>\n"
 				"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
-				"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description></component>\n";
+				"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description>"
+				"<releases><release version=\"1.0\" date=\"2016-04-11T22:00:00Z\"><description/></release></releases>"
+				"</component>\n";
 
 	const gchar *EXPECTED_XML_LOCALIZED = "<?xml version=\"1.0\"?>\n"
 				"<component><name>Test</name><description><p>First paragraph</p>\n"
 				"<ol><li>One</li><li>Two</li><li>Three</li></ol>\n"
 				"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p><p xml:lang=\"de\">First paragraph</p>\n"
 				"<ol><li xml:lang=\"de\">One</li><li xml:lang=\"de\">Two</li><li xml:lang=\"de\">Three</li></ol><ul>"
-				"<li xml:lang=\"de\">First</li><li xml:lang=\"de\">Second</li></ul><p xml:lang=\"de\">Paragraph2</p></description></component>\n";
+				"<li xml:lang=\"de\">First</li><li xml:lang=\"de\">Second</li></ul><p xml:lang=\"de\">Paragraph2</p></description>"
+				"<releases><release version=\"1.0\" date=\"2016-04-11T22:00:00Z\"><description/></release></releases>"
+				"</component>\n";
 
 	const gchar *EXPECTED_XML_DISTRO = "<?xml version=\"1.0\"?>\n"
 				"<components version=\"0.8\"><component><name>Test</name><description><p>First paragraph</p>\n"
@@ -202,7 +207,9 @@ test_appstream_write_description ()
 				"<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p></description>"
 				"<description xml:lang=\"de\"><p>First paragraph</p>\n"
 				"<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul>"
-				"<p>Paragraph2</p></description></component></components>\n";
+				"<p>Paragraph2</p></description>"
+				"<releases><release version=\"1.0\" timestamp=\"1460412000\"><description/></release></releases>"
+				"</component></components>\n";
 
 	metad = as_metadata_new ();
 
@@ -211,6 +218,11 @@ test_appstream_write_description ()
 	as_component_set_description (cpt,
 				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3</p>",
 				NULL);
+	rel = as_release_new ();
+	as_release_set_version (rel, "1.0");
+	as_release_set_timestamp (rel, 1460412000);
+	as_component_add_release (cpt, rel);
+	g_object_unref (rel);
 
 	as_metadata_add_component (metad, cpt);
 

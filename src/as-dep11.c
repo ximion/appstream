@@ -584,6 +584,13 @@ as_dep11_process_releases (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
 
 			if (g_strcmp0 (key, "unix-timestamp") == 0) {
 				as_release_set_timestamp (rel, g_ascii_strtoll (value, NULL, 10));
+			} else if (g_strcmp0 (key, "date") == 0) {
+				GTimeVal time;
+				if (g_time_val_from_iso8601 (value, &time)) {
+					as_release_set_timestamp (rel, time.tv_sec);
+				} else {
+					g_debug ("Invalid ISO-8601 date in releases of %s", as_component_get_id (cpt));
+				}
 			} else if (g_strcmp0 (key, "version") == 0) {
 				as_release_set_version (rel, value);
 			} else if (g_strcmp0 (key, "description") == 0) {
@@ -592,7 +599,7 @@ as_dep11_process_releases (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
 				as_release_set_description (rel, lvalue, NULL);
 				g_free (lvalue);
 			} else {
-				dep11_print_unknown ("screenshot", key);
+				dep11_print_unknown ("release", key);
 			}
 		}
 

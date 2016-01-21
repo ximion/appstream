@@ -456,6 +456,17 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 			as_release_set_version (release, prop);
 			g_free (prop);
 
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "date");
+			if (prop != NULL) {
+				GTimeVal time;
+				if (g_time_val_from_iso8601 (prop, &time)) {
+					as_release_set_timestamp (release, time.tv_sec);
+				} else {
+					g_debug ("Invalid ISO-8601 date in releases of %s", as_component_get_id (cpt));
+				}
+				g_free (prop);
+			}
+
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "timestamp");
 			if (prop != NULL) {
 				timestamp = g_ascii_strtoll (prop, NULL, 10);
@@ -1405,17 +1416,18 @@ as_metadata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
  * Add release nodes to a root node
  */
 static void
-as_metadata_add_release_subnodes (AsComponent *cpt, xmlNode *root)
+as_metadata_add_release_subnodes (AsMetadata *metad, AsComponent *cpt, xmlNode *root)
 {
 	GPtrArray* releases;
 	AsRelease *release;
 	guint i;
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	releases = as_component_get_releases (cpt);
 	for (i = 0; i < releases->len; i++) {
 		xmlNode *subnode;
 		const gchar *str;
-		gchar *timestamp;
+		glong unixtime;
 		GPtrArray *locations;
 		guint j;
 		release = (AsRelease*) g_ptr_array_index (releases, i);
@@ -1425,11 +1437,24 @@ as_metadata_add_release_subnodes (AsComponent *cpt, xmlNode *root)
 		xmlNewProp (subnode, (xmlChar*) "version",
 					(xmlChar*) as_release_get_version (release));
 
-		/* set release timestamp */
-		timestamp = g_strdup_printf ("%ld", as_release_get_timestamp (release));
-		xmlNewProp (subnode, (xmlChar*) "timestamp",
-					(xmlChar*) timestamp);
-		g_free (timestamp);
+		/* set release timestamp / date */
+		unixtime = as_release_get_timestamp (release);
+		if (unixtime > 0 ) {
+			g_autofree gchar *time_str = NULL;
+
+			if (priv->mode == AS_PARSER_MODE_DISTRO) {
+				time_str = g_strdup_printf ("%ld", unixtime);
+				xmlNewProp (subnode, (xmlChar*) "timestamp",
+						(xmlChar*) time_str);
+			} else {
+				GTimeVal time;
+				time.tv_sec = unixtime;
+				time.tv_usec = 0;
+				time_str = g_time_val_to_iso8601 (&time);
+				xmlNewProp (subnode, (xmlChar*) "date",
+						(xmlChar*) time_str);
+			}
+		}
 
 		/* set release urgency, if we have one */
 		if (as_release_get_urgency (release) != AS_URGENCY_KIND_UNKNOWN) {
@@ -1524,26 +1549,26 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	helper.nd = NULL;
 	helper.node_name = "name";
 	g_hash_table_foreach (as_component_get_name_table (cpt),
-						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
-						&helper);
+					(GHFunc) _as_metadata_lang_hashtable_to_nodes,
+					&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "summary";
 	g_hash_table_foreach (as_component_get_summary_table (cpt),
-						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
-						&helper);
+					(GHFunc) _as_metadata_lang_hashtable_to_nodes,
+					&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "developer_name";
 	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
-						(GHFunc) _as_metadata_lang_hashtable_to_nodes,
-						&helper);
+					(GHFunc) _as_metadata_lang_hashtable_to_nodes,
+					&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "description";
 	g_hash_table_foreach (as_component_get_description_table (cpt),
-						(GHFunc) _as_metadata_desc_lang_hashtable_to_nodes,
-						&helper);
+					(GHFunc) _as_metadata_desc_lang_hashtable_to_nodes,
+					&helper);
 
 	as_metadata_xml_add_node (cnode, "project_license", as_component_get_project_license (cpt));
 	as_metadata_xml_add_node (cnode, "project_group", as_component_get_project_group (cpt));
@@ -1610,7 +1635,7 @@ as_metadata_component_to_node (AsMetadata *metad, AsComponent *cpt)
 	releases = as_component_get_releases (cpt);
 	if (releases->len > 0) {
 		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "releases", NULL);
-		as_metadata_add_release_subnodes (cpt, node);
+		as_metadata_add_release_subnodes (metad, cpt, node);
 	}
 
 	/* screenshots node */
