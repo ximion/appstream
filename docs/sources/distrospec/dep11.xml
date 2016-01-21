@@ -526,7 +526,23 @@
 							<para>
 								The UNIX timestamp of when this software was released.
 							</para>
-							<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+							<para>
+								One of the <literal>unix-timestamp</literal> or <literal>date</literal> fields must be present.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>maybe</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>date</term>
+						<listitem>
+							<para>
+								The <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> date of when this software was released.
+							</para>
+							<para>
+								One of the <literal>unix-timestamp</literal> or <literal>date</literal> fields must be present.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>maybe</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 

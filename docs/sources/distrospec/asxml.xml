@@ -459,9 +459,11 @@
 					</para>
 					<para>
 						The AppStream distro XML generator may shorten overlong lists of releases to a smaller list, e.g. of 4 <literal>release</literal> tags.
+						It may also convert ISO 8601 <literal>date</literal> properties of the metainfo file into an UNIX timestamp <literal>timestamp</literal> property.
+						It should avoid generating metadata containing both properties on a <literal>release</literal> tag.
 					</para>
 					<para>
-						Examples for a valid releases tag:
+						Example for a valid releases tag:
 					</para>
 					<programlisting language="XML"><![CDATA[<releases>
   <release version="1.8" timestamp="1424116753">
