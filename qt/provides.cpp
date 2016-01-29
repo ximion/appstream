@@ -54,7 +54,7 @@ Provides::Kind Provides::kind() const {
 
 static QHash<Provides::Kind, QString> buildProvidesKindMap() {
     QHash<Provides::Kind, QString> map;
-    map.insert(Provides::KindLibrary, QLatin1String("lib"));
+    map.insert(Provides::KindLibrary, QStringLiteral("lib"));
     map.insert(Provides::KindBinary, QLatin1String("bin"));
     map.insert(Provides::KindMimetype, QLatin1String("mimetype"));
     map.insert(Provides::KindFont, QLatin1String("font"));

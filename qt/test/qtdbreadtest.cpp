@@ -16,13 +16,10 @@ void DatabaseReadTest::testRead01()
 {
     // first, create a new database
     QProcess *p = new QProcess(this);
-    QStringList args;
     QTemporaryDir dbdir;
     QVERIFY(dbdir.isValid());
 
-    args.append("refresh-index");
-    args.append("--datapath=" AS_SAMPLE_DATA);
-    args.append("--dbpath=" + dbdir.path());
+    const QStringList args = { "refresh-index", "--datapath=" AS_SAMPLE_DATA, "--dbpath=" + dbdir.path()};
     p->start(ASCLI_EXECUTABLE, args);
     p->waitForFinished();
 
@@ -42,7 +39,7 @@ void DatabaseReadTest::testRead01()
     Component cpt = db->componentById("neverball.desktop");
     QVERIFY(!cpt.id().isEmpty());
 
-    QVERIFY(cpt.name() == "Neverball");
+    QCOMPARE(cpt.name(), QLatin1String("Neverball"));
 
     delete db;
 }

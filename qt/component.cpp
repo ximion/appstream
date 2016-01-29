@@ -131,10 +131,12 @@ QString Component::icon() const {
 }
 
 QUrl Component::iconUrl(const QSize& size) const {
-    QString sizeStr = "64x64";
+    QString sizeStr;
     // if no size was specified, we assume 64x64
     if (size.isValid())
-        sizeStr = QString("%1x%2").arg(size.width()).arg(size.height());
+        sizeStr = QStringLiteral("%1x%2").arg(size.width()).arg(size.height());
+    else
+        sizeStr = QStringLiteral("64x64");
     return d->m_iconUrls.value(sizeStr);
 }
 
@@ -187,10 +189,12 @@ void Component::setIcon(const QString& icon) {
 }
 
 void Component::addIconUrl(const QUrl& iconUrl, const QSize& size) {
-    QString sizeStr = "64x64";
+    QString sizeStr;
     // if no size was specified, we assume 64x64
     if (size.isValid())
-        sizeStr = QString("%1x%2").arg(size.width()).arg(size.height());
+        sizeStr = QStringLiteral("%1x%2").arg(size.width()).arg(size.height());
+    else
+        sizeStr = QStringLiteral("64x64");
     d->m_iconUrls.insert(sizeStr, iconUrl);
 }
 
@@ -275,26 +279,23 @@ bool Component::operator==(const Component& other) {
     return false;
 }
 
-Component::~Component() {
+Component::~Component() = default;
 
-}
-
-QHash<Component::Kind, QString> buildKindMap() {
-    QHash<Component::Kind,QString> map;
-    map.insert(Component::KindAddon, QLatin1String("addon"));
-    map.insert(Component::KindCodec, QLatin1String("codec"));
-    map.insert(Component::KindDesktop, QLatin1String("desktop"));
-    map.insert(Component::KindFont, QLatin1String("font"));
-    map.insert(Component::KindGeneric, QLatin1String("generic"));
-    map.insert(Component::KindInputmethod, QLatin1String("inputmethod"));
-    map.insert(Component::KindAddon, QLatin1String("firmware"));
-    map.insert(Component::KindUnknown, QLatin1String("unknown"));
-    return map;
-}
+typedef QHash<Component::Kind, QString> KindMap;
+Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
+    { Component::KindAddon, QLatin1String("addon") },
+    { Component::KindCodec, QLatin1String("codec") },
+    { Component::KindDesktop, QLatin1String("desktop") },
+    { Component::KindFont, QLatin1String("font") },
+    { Component::KindGeneric, QLatin1String("generic") },
+    { Component::KindInputmethod, QLatin1String("inputmethod") },
+    { Component::KindAddon, QLatin1String("firmware") },
+    { Component::KindUnknown, QLatin1String("unknown") }
+    }
+));
 
 QString Component::kindToString(Component::Kind kind) {
-    static QHash<Kind, QString> kindMap = buildKindMap();
-    return kindMap.value(kind);
+    return kindMap->value(kind);
 }
 
 Component::Kind Component::stringToKind(const QString& kindString) {
@@ -353,28 +354,29 @@ Component::UrlKind Component::stringToUrlKind(const QString& urlKindString) {
     return UrlKindUnknown;
 }
 
-static QHash<Component::UrlKind,QString> buildUrlKindMap() {
-    QHash<Component::UrlKind, QString> map;
-    map.insert(Component::UrlKindBugtracker,QLatin1String("bugtracker"));
-    map.insert(Component::UrlKindDonation,QLatin1String("donation"));
-    map.insert(Component::UrlKindFaq,QLatin1String("faq"));
-    map.insert(Component::UrlKindHelp,QLatin1String("help"));
-    map.insert(Component::UrlKindHomepage, QLatin1String("homepage"));
-    map.insert(Component::UrlKindUnknown, QLatin1String("unknown"));
-    return map;
-}
+typedef QHash<Component::UrlKind, QString> UrlKindMap;
+Q_GLOBAL_STATIC_WITH_ARGS(UrlKindMap, urlKindMap, ({
+        { Component::UrlKindBugtracker, QLatin1String("bugtracker") },
+        { Component::UrlKindDonation, QLatin1String("donation") },
+        { Component::UrlKindFaq, QLatin1String("faq") },
+        { Component::UrlKindHelp, QLatin1String("help") },
+        { Component::UrlKindHomepage, QLatin1String("homepage") },
+        { Component::UrlKindUnknown, QLatin1String("unknown") },
+    }));
 
 QString Component::urlKindToString(Component::UrlKind kind) {
-    static const QHash<UrlKind, QString> kindMap = buildUrlKindMap();
-    return kindMap.value(kind);
+    return urlKindMap->value(kind);
 }
 
 QString Component::bundleKindToString(Component::BundleKind kind) {
-    if (kind == Component::BundleKindLimba)
-        QLatin1String("limba");
-    if (kind == Component::BundleKindXdgApp)
-        QLatin1String("xdg-app");
-    return QString();
+    switch (kind) {
+        case Component::BundleKindLimba:
+            return QStringLiteral("limba");
+        case Component::BundleKindXdgApp:
+            return QStringLiteral("xdg-app");
+        default:
+            return QString();
+    }
 }
 
 Component::BundleKind Component::stringToBundleKind(const QString& bundleKindString) {

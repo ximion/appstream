@@ -2,7 +2,7 @@
 #ifndef __TEST_DATAPATHS_H
 #define __TEST_DATAPATHS_H
 
-#define ASCLI_EXECUTABLE "@CMAKE_BINARY_DIR@/tools/appstreamcli"
+#define ASCLI_EXECUTABLE QStringLiteral("@CMAKE_BINARY_DIR@/tools/appstreamcli")
 #define AS_SAMPLE_DATA   "@CMAKE_SOURCE_DIR@/tests/samples/distro"
 
 #endif // __TEST_DATAPATHS_H
