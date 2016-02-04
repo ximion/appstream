@@ -1,3 +1,30 @@
+Version 0.9.1
+~~~~~~~~~~~~~~
+Released: 2016-02-04
+
+Features:
+ * Improve Qt5 usage (Aleix Pol)
+ * Also use Q_GLOBAL_STATIC for Provides::kindToString (Aleix Pol)
+ * validator: Validate the font component type (Matthias Klumpp)
+ * Implement date property on release tags (Matthias Klumpp)
+ * Ship ITS files from KDE upstream (Matthias Klumpp)
+
+Specification:
+ * doc: Clarify why the metadata_license tag is needed (Matthias Klumpp)
+ * spec: Specify font component type (Matthias Klumpp)
+ * doc: Update year and version (Matthias Klumpp)
+ * spec: Specify a date attribute on release tags, containing an ISO8601 time (Matthias Klumpp)
+
+Bugfixes:
+ * Lower cmake requirement to 3.1.0 (Harald Sitter)
+ * doc: DEP-11 URLs are no integers (Matthias Klumpp)
+ * apt: Hide appstreamcli stdout output (Matthias Klumpp)
+ * Return specific error when cache was not found (Matthias Klumpp)
+ * apt: Ensure DEP-11 files stay gzip compressed (Matthias Klumpp)
+ * apt: Correctly test for appstreamcli (Matthias Klumpp)
+ * Fix a few memory leaks (Matthias Klumpp)
+ * Work around limitations of GLibs time_val_from_iso8601 function (Matthias Klumpp)
+
 Version 0.9.0
 ~~~~~~~~~~~~~~
 Released: 2015-12-12
