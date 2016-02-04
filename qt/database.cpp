@@ -115,7 +115,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setName(name);
 
     // Package name
-    QStringList packageNames = value(document,XapianValues::PKGNAMES).split(";",QString::SkipEmptyParts);
+    QStringList packageNames = value(document,XapianValues::PKGNAMES).split(QLatin1Char(';'),QString::SkipEmptyParts);
     component.setPackageNames(packageNames);
 
     // Bundles
@@ -193,7 +193,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setDescription(description);
 
     // Categories
-    QStringList categories = value(document, XapianValues::CATEGORIES).split(";");
+    QStringList categories = value(document, XapianValues::CATEGORIES).split(QLatin1Char(';'));
     component.setCategories(categories);
 
     // Screenshots
@@ -215,7 +215,7 @@ Component xapianDocToComponent(Xapian::Document document) {
             const Screenshots_Image& pb_img = pb_scr.image(j);
             Appstream::Image image;
 
-            image.setUrl(QString::fromStdString(pb_img.url()));
+            image.setUrl(QUrl(QString::fromStdString(pb_img.url())));
             image.setWidth(pb_img.width ());
             image.setHeight(pb_img.height ());
 
@@ -233,7 +233,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setScreenshots(screenshots);
 
     // Compulsory-for-desktop information
-    QStringList compulsory = value(document, XapianValues::COMPULSORY_FOR).split(";");
+    QStringList compulsory = value(document, XapianValues::COMPULSORY_FOR).split(QLatin1Char(';'));
     component.setCompulsoryForDesktops(compulsory);
 
     // License
@@ -355,8 +355,8 @@ QueryPair buildQueries(QString searchTerm, const QStringList& categories, Xapian
     Xapian::Query pkgQuery = Xapian::Query ();
 
     // try split on one magic char
-    if(searchTerm.contains(',')) {
-        QStringList parts = searchTerm.split(',');
+    if(searchTerm.contains(QLatin1Char(','))) {
+        QStringList parts = searchTerm.split(QLatin1Char(','));
         Q_FOREACH(const QString& part, parts) {
             pkgQuery = Xapian::Query (Xapian::Query::OP_OR,
                                    pkgQuery,
@@ -367,7 +367,7 @@ QueryPair buildQueries(QString searchTerm, const QStringList& categories, Xapian
         }
     } else {
         // try another
-        QStringList parts = searchTerm.split('\n');
+        QStringList parts = searchTerm.split(QLatin1Char('\n'));
         Q_FOREACH(const QString& part, parts) {
             pkgQuery = Xapian::Query (Xapian::Query::OP_OR,
                                        Xapian::Query("XP" + part.trimmed().toStdString()),
@@ -379,9 +379,9 @@ QueryPair buildQueries(QString searchTerm, const QStringList& categories, Xapian
     }
 
     // get a search query
-    if (!searchTerm.contains (':')) {  // ie, not a mimetype query
+    if (!searchTerm.contains (QLatin1Char(':'))) {  // ie, not a mimetype query
         // we need this to work around xapian oddness
-        searchTerm = searchTerm.replace('-','_');
+        searchTerm = searchTerm.replace(QLatin1Char('-'), QLatin1Char('_'));
     }
 
     Xapian::QueryParser parser = newAppStreamParser (db);
@@ -441,6 +441,6 @@ QList<Component> Database::findComponentsByPackageName(const QString& packageNam
 }
 
 
-Database::Database() : d(new DatabasePrivate(QLatin1String("/var/cache/app-info/xapian/default"))) {
+Database::Database() : d(new DatabasePrivate(QStringLiteral("/var/cache/app-info/xapian/default"))) {
 
 }
