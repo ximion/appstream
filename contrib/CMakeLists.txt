@@ -1,4 +1,5 @@
 
+add_subdirectory(its)
 if(VAPI)
 	add_subdirectory(vapi)
 endif()
