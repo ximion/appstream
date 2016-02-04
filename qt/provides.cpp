@@ -52,28 +52,25 @@ Provides::Kind Provides::kind() const {
     return d->m_kind;
 }
 
-static QHash<Provides::Kind, QString> buildProvidesKindMap() {
-    QHash<Provides::Kind, QString> map;
-    map.insert(Provides::KindLibrary, QStringLiteral("lib"));
-    map.insert(Provides::KindBinary, QLatin1String("bin"));
-    map.insert(Provides::KindMimetype, QLatin1String("mimetype"));
-    map.insert(Provides::KindFont, QLatin1String("font"));
-    map.insert(Provides::KindModAlias, QLatin1String("modalias"));
-    map.insert(Provides::KindPython2Module, QLatin1String("python2"));
-    map.insert(Provides::KindPython3Module, QLatin1String("python"));
-    map.insert(Provides::KindDBusSystemService, QLatin1String("dbus:system"));
-    map.insert(Provides::KindDBusUserService, QLatin1String("dbus:user"));
-    map.insert(Provides::KindFirmwareRuntime, QLatin1String("firmware:runtime"));
-    map.insert(Provides::KindFirmwareFlashed, QLatin1String("firmware:flashed"));
-    map.insert(Provides::KindUnknown, QLatin1String("unknown"));
-
-    return map;
-}
+typedef QHash<Provides::Kind, QString> KindToString;
+Q_GLOBAL_STATIC_WITH_ARGS(KindToString, s_providesKindMap, ({
+    { Provides::KindLibrary, QLatin1String("lib") },
+    { Provides::KindBinary, QLatin1String("bin") },
+    { Provides::KindMimetype, QLatin1String("mimetype") },
+    { Provides::KindFont, QLatin1String("font") },
+    { Provides::KindModAlias, QLatin1String("modalias") },
+    { Provides::KindPython2Module, QLatin1String("python2") },
+    { Provides::KindPython3Module, QLatin1String("python") },
+    { Provides::KindDBusSystemService, QLatin1String("dbus:system") },
+    { Provides::KindDBusUserService, QLatin1String("dbus:user") },
+    { Provides::KindFirmwareRuntime, QLatin1String("firmware:runtime") },
+    { Provides::KindFirmwareFlashed, QLatin1String("firmware:flashed") },
+    { Provides::KindUnknown, QLatin1String("unknown") }
+}))
 
 
 QString Provides::kindToString(Provides::Kind kind) {
-    static QHash<Provides::Kind, QString> map = buildProvidesKindMap();
-    return map.value(kind);
+    return s_providesKindMap->value(kind);
 }
 
 Provides& Provides::operator=(const Provides& other) {
