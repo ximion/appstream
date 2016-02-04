@@ -585,9 +585,10 @@ as_dep11_process_releases (AsDEP11 *dep11, GNode *node, AsComponent *cpt)
 			if (g_strcmp0 (key, "unix-timestamp") == 0) {
 				as_release_set_timestamp (rel, g_ascii_strtoll (value, NULL, 10));
 			} else if (g_strcmp0 (key, "date") == 0) {
-				GTimeVal time;
-				if (g_time_val_from_iso8601 (value, &time)) {
-					as_release_set_timestamp (rel, time.tv_sec);
+				g_autoptr(GDateTime) time;
+				time = as_iso8601_to_datetime (value);
+				if (time != NULL) {
+					as_release_set_timestamp (rel, g_date_time_to_unix (time));
 				} else {
 					g_debug ("Invalid ISO-8601 date in releases of %s", as_component_get_id (cpt));
 				}

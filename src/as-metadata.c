@@ -458,9 +458,10 @@ as_metadata_process_releases_tag (AsMetadata *metad, xmlNode* node, AsComponent*
 
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "date");
 			if (prop != NULL) {
-				GTimeVal time;
-				if (g_time_val_from_iso8601 (prop, &time)) {
-					as_release_set_timestamp (release, time.tv_sec);
+				g_autoptr(GDateTime) time;
+				time = as_iso8601_to_datetime (prop);
+				if (time != NULL) {
+					as_release_set_timestamp (release, g_date_time_to_unix (time));
 				} else {
 					g_debug ("Invalid ISO-8601 date in releases of %s", as_component_get_id (cpt));
 				}
