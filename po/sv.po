@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
 # Josef Andersson <josef.andersson@fripost.org>, 2015
+# sebras <sebras@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-10 22:56+0000\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 15:33+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/freedesktop/appstream/"
 "language/sv/)\n"
@@ -24,7 +25,7 @@ msgstr "En tillhandahåller-objekt-typ (t.ex. lib, bin, python3, …)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Version av AppStreams CLI-verktyg: %s"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Uppdatering av AppStreams cache färdig."
@@ -41,14 +42,20 @@ msgid "AppStream cache update failed."
 msgstr "Uppdatering av AppStreams cache misslyckades."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Uppdatering av AppStream-cache behövs inte."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
+msgstr "AppStreams kommandoradsgränssnitt"
+
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
 msgstr ""
 
 msgid "Binaries"
-msgstr ""
+msgstr "Binärer"
 
 msgid "Bundle"
 msgstr "Bunt"
@@ -62,16 +69,16 @@ msgstr "Kommando ”%s” är okänt."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Komponenten ”%s” har ingen installationskandidat."
 
 msgid "Compulsory for"
 msgstr "Obligatorisk för"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "DBus-sessionstjänster"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "DBus-systemtjänster"
 
 msgid "Description"
 msgstr "Beskrivning"
@@ -81,13 +88,13 @@ msgid "Developer"
 msgstr "Utvecklare"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Använd inte Xapian-cachen när begäran hanteras"
 
 msgid "Don't show colored output"
 msgstr "Visa inte färgad utdata"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Dumpa rå XML-metadata för en komponent som matchar ID:t"
 
 msgid "Enforce a cache refresh"
 msgstr "Tvinga en cache-uppdatering"
@@ -97,16 +104,16 @@ msgid "File %s not found or permission denied!"
 msgstr "Filen %s inte hittad eller tillstånd nekat!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Programmerad fastmjukvara"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Typsnitt"
 
 msgid "Get components which provide the given item"
 msgstr "Hämta komponenter som tillhandahåller det givna objektet"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Hämtar information om en komponent givet dess ID"
 
 msgid "Homepage"
 msgstr "Webbplats"
@@ -118,10 +125,10 @@ msgid "Identifier"
 msgstr "Identifierare"
 
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
+msgstr "Ogiltig typ vald för tillhandahållet objekt. Giltiga värden är:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Bibliotek"
 
 #. license
 msgid "License"
@@ -134,10 +141,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Ange manuellt platsen för AppStream-cachen"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Mime-typer"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Mod-alias"
 
 msgid "Name"
 msgstr "Namn"
@@ -148,15 +155,17 @@ msgstr "Hittade ingen komponent matchande ”%s”."
 
 #, c-format
 msgid "No component providing '%s;%s' found."
-msgstr ""
+msgstr "Ingen komponent som tillhandahåller ”%s;%s” hittades."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Inget lämpligt CLI för pakethanterare hittades. Säkerställ att t.ex. "
+"”pkcon” (en del av PackageKit) finns tillgänglig."
 
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "Inget värdet för objektet att leta efter finns definierat."
 
 msgid "Package"
 msgstr "Paket"
@@ -165,7 +174,7 @@ msgid "Print detailed output about found components"
 msgstr "Skriv ut detaljerad utdata om hittade komponenter"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Skriv ut även pedantiska tips vid validering"
 
 #. project group
 msgid "Project Group"
@@ -175,10 +184,10 @@ msgid "Provided Items"
 msgstr "Tillhandahållna objekt"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (Version 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Bygg om cachen för komponentinformation"
@@ -190,7 +199,7 @@ msgstr ""
 "kommandoradsflaggor."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Fasmjukvara för körtid"
 
 msgid "Sample Screenshot URL"
 msgstr "URL för samplingsskärmbild"
@@ -215,7 +224,7 @@ msgid "Summary"
 msgstr "Summering"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Försökte utföra en förfrågan mot en stängd databas."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
@@ -224,30 +233,31 @@ msgstr "Kunde inte hitta komponenten matchandes %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "Kunde inte hitta komponent som tillhandahåller ”%s;%s”!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Kunde inte hitta komponenten med id ”%s”!"
 
 msgid "Unable to open the AppStream software component cache."
-msgstr ""
+msgstr "Kan inte öppna AppStreams programvarukomponentscache."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Kunde inte starta pakethanterare: %s"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Leta genom AppStream XML-filer efter fel "
 
 msgid "Validate an installed file-tree of an application for valid metadata"
 msgstr ""
+"Leta geom ett installerat filträd för ett program efter giltig metadata"
 
 msgid "Validation failed."
 msgstr "Validering misslyckades."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Valideringen var framgångsrik"
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -266,7 +276,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Du måste specificera en fil att validera!"
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Du måste ange en rotkatalog för att påbörja valideringen!"
 
 msgid "You need to specify a term to search for."
 msgstr "Du måste specificera en term att söka efter."

@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
 # Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2015
@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-11 09:02+0000\n"
-"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -48,6 +48,12 @@ msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
+
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
+msgstr ""
 
 msgid "Binaries"
 msgstr "Binaris"

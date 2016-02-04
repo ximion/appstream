@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-11 14:49+0000\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 16:07+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
@@ -44,6 +44,14 @@ msgstr "不必更新 AppStream 快取。"
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream 指令列介面"
+
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
+msgstr ""
+"找不到 AppStream 軟體組件快取。這可能代表 AppStream 設置不正確，或是您的散布"
+"版未提供任何 AppStream 中介資料。"
 
 msgid "Binaries"
 msgstr "二進位檔"

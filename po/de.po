@@ -1,16 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
 # Ettore Atalan <atalanttore@googlemail.com>, 2014-2015
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2016
 # Matthias K. <matthias@tenstral.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-10 22:56+0000\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 15:33+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: German (http://www.transifex.com/freedesktop/appstream/"
 "language/de/)\n"
@@ -43,11 +44,17 @@ msgid "AppStream cache update failed."
 msgstr "Aktualisierung des AppStream-Zwischenspeichers ist fehlgeschlagen."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Aktualisierung des AppStream-Zwischenspeichers ist nicht nötig."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream-Befehlszeilenoberfläche"
+
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
+msgstr ""
 
 msgid "Binaries"
 msgstr "Binärdateien"
@@ -64,7 +71,7 @@ msgstr "Kommando '%s' ist unbekannt."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Komponente »%s« hat keinen Installationskandidaten."
 
 msgid "Compulsory for"
 msgstr "Obligatorisch für"
@@ -121,6 +128,7 @@ msgstr "Bezeichner"
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
+"Ungültiger Typ für bereitgestelltes Objekt angegeben. Gültige Werte sind:"
 
 msgid "Libraries"
 msgstr "Bibliotheken"
@@ -141,7 +149,7 @@ msgid "Mimetypes"
 msgstr "MIME-Typen"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modaliase"
 
 msgid "Name"
 msgstr "Name"
@@ -152,15 +160,18 @@ msgstr "Es wurde keine auf »%s« passende Komponente gefunden."
 
 #, c-format
 msgid "No component providing '%s;%s' found."
-msgstr ""
+msgstr "Keine Komponente gefunden, die »%s;%s« bereitstellt."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Keine verwendbare Befehlszeilenschnittstelle einer Paketverwaltung gefunden. "
+"Bitte stellen Sie sicher, dass zum Beispiel »pkcon« (Teil von PackageKit) "
+"verfügbar ist."
 
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "Kein Wert für das zu suchende Objekt angegeben."
 
 msgid "Package"
 msgstr "Paket"
@@ -176,7 +187,7 @@ msgid "Project Group"
 msgstr "Projektgruppe"
 
 msgid "Provided Items"
-msgstr "Bereitgestellte Dinge"
+msgstr "Bereitgestellte Objekte"
 
 msgid "Python (Version 2)"
 msgstr "Python (Version 2)"
@@ -220,7 +231,7 @@ msgid "Summary"
 msgstr "Zusammenfassung"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Es wurde versucht, eine geschlossene Datenbank abzufragen."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
@@ -229,7 +240,7 @@ msgstr "Eine %s entsprechende Komponente konnte nicht gefunden werden!"
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "Es konnte keine Komponente gefunden werden, die »%s;%s« bereitstellt!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -237,10 +248,12 @@ msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+"Der Zwischenspeicher der AppStream-Softwarekomponente konnte nicht geöffnet "
+"werden."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "AppStream-XML-Dateien für Probleme validieren"

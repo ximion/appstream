@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Balázs Úr <urbalazs@gmail.com>, 2014-2015
+# Balázs Úr <urbalazs@gmail.com>, 2014-2016
 # kelemeng <kelemeng@ubuntu.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-10 22:56+0000\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 15:33+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
@@ -43,11 +43,17 @@ msgid "AppStream cache update failed."
 msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Az AppStream gyorsítótár frissítése nem szükséges."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream parancssoros felület"
+
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
+msgstr ""
 
 msgid "Binaries"
 msgstr "Binárisok"
@@ -64,7 +70,7 @@ msgstr "A(z) „%s” parancs ismeretlen."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "A(z) „%s” összetevőnek nincs telepítésre jelölt változata."
 
 msgid "Compulsory for"
 msgstr "Kötelező ehhez"
@@ -159,6 +165,8 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Nem található megfelelő csomagkezelő CLI. Győződjön meg arról, hogy például "
+"a „pkcon” (a PackageKit része) elérhető-e."
 
 msgid "No value for the item to search for defined."
 msgstr "Nincs érték az elemhez a meghatározott kereséséhez."
@@ -241,7 +249,7 @@ msgstr "Nem nyitható meg az AppStream szoftverösszetevő-gyorsítótár."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál"

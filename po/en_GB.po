@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
 # Andi Chandler <andi@gowling.com>, 2015
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-10 22:56+0000\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 15:33+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
 "freedesktop/appstream/language/en_GB/)\n"
@@ -42,14 +42,20 @@ msgid "AppStream cache update failed."
 msgstr "AppStream cache update failed."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "AppStream cache update is not necessary."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "AppStream command-line interface"
 
-msgid "Binaries"
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
 msgstr ""
+
+msgid "Binaries"
+msgstr "Binaries"
 
 msgid "Bundle"
 msgstr "Bundle"
@@ -63,16 +69,16 @@ msgstr "Command '%s' is unknown."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Component '%s' has no installation candidate."
 
 msgid "Compulsory for"
 msgstr "Compulsory for"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "DBus Session Services"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "DBus System Services"
 
 msgid "Description"
 msgstr "Description"
@@ -98,10 +104,10 @@ msgid "File %s not found or permission denied!"
 msgstr "File %s not found or permission denied!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Flashed Firmware"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Fonts"
 
 msgid "Get components which provide the given item"
 msgstr "Get components which provide the given item"
@@ -119,10 +125,10 @@ msgid "Identifier"
 msgstr "Identifier"
 
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
+msgstr "Invalid type for provided item selected. Valid values are:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Libraries"
 
 #. license
 msgid "License"
@@ -135,10 +141,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Manually set the location of the AppStream cache"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Mimetypes"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modaliases"
 
 msgid "Name"
 msgstr "Name"
@@ -149,15 +155,17 @@ msgstr "No component matching '%s' found."
 
 #, c-format
 msgid "No component providing '%s;%s' found."
-msgstr ""
+msgstr "No component providing '%s;%s' found."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
 
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "No value for the item to search for defined."
 
 msgid "Package"
 msgstr "Package"
@@ -176,10 +184,10 @@ msgid "Provided Items"
 msgstr "Provided Items"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (Version 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Rebuild the component information cache"
@@ -189,7 +197,7 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Run '%s --help' to see a full list of available command line options."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Runtime Firmware"
 
 msgid "Sample Screenshot URL"
 msgstr "Sample Screenshot URL"
@@ -214,7 +222,7 @@ msgid "Summary"
 msgstr "Summary"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Tried to perform query on closed database."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
@@ -223,18 +231,18 @@ msgstr "Unable to find component matching %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "Unable to find component providing '%s;%s'!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Unable to find component with id '%s'!"
 
 msgid "Unable to open the AppStream software component cache."
-msgstr ""
+msgstr "Unable to open the AppStream software component cache."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Unable to spawn package manager: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Validate AppStream XML files for issues"

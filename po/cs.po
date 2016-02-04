@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
 # Jozef Mlích <xmlich02@stud.fit.vutbr.cz>, 2015
+# Marek Černocký <marek@manet.cz>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-10 22:56+0000\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 15:33+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Czech (http://www.transifex.com/freedesktop/appstream/"
 "language/cs/)\n"
@@ -20,59 +21,65 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Typ poskytující položky (např. lib, bin, python3, …)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Verze nástroje AppStream CLI: %s"
 
 msgid "AppStream cache update completed successfully."
-msgstr "Aktualizace vyrovnávací paměti AppStream byla úspěně dokončená."
+msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
-"Aktualizace vyrovnávací paměti AppStream byla dokončena, ale některé "
-"metadata byly ignorovány kvůli chybám."
+"Aktualizace mezipaměti AppStream byla dokončena, ale některé metadata byla "
+"ignorována kvůli chybám."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr "Aktualizace vyrovnávací paměti AppStream selhala."
+msgstr "Aktualizace mezipaměti AppStream selhala."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Aktualizace mezipaměti AppStream není zapotřebí."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
+msgstr "Rozhraní příkazového řádku pro AppStream"
+
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
 msgstr ""
 
 msgid "Binaries"
-msgstr ""
+msgstr "Spustitelné soubory"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Zabaleno pomocí"
 
 msgid "Categories"
 msgstr "Kategorie"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr "Příkaz '%s' není známy."
+msgstr "Příkaz „%s“ není znám."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Komponenta „%s“ nemá kandidáta na instalaci."
 
 msgid "Compulsory for"
 msgstr "Povinné pro"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Služba sezení pro D-Bus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Systémová služba pro D-Bus"
 
 msgid "Description"
 msgstr "Popis"
@@ -82,32 +89,32 @@ msgid "Developer"
 msgstr "Vývojář"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Nepoužívat mezipaměť Xapian, když se provádí požadavek"
 
 msgid "Don't show colored output"
-msgstr ""
+msgstr "Nezobrazovat výstup obarvený"
 
 msgid "Dump raw XML metadata for a component matching the ID"
-msgstr ""
+msgstr "Vypsat surová metadata XML pro komponentu s příslušným ID"
 
 msgid "Enforce a cache refresh"
-msgstr "Vynutit obnovení mezipaměti"
+msgstr "Vynutit aktualizaci mezipaměti"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "Soubor %s nebyl nalezen nebo byl odepřen přístup."
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Trvalý firmware"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Fonty"
 
 msgid "Get components which provide the given item"
-msgstr ""
+msgstr "Získat komponentu, která poskytuje zadanou položku"
 
 msgid "Get information about a component by its ID"
-msgstr ""
+msgstr "Získat informace o komponentě podle jejího ID"
 
 msgid "Homepage"
 msgstr "Domovská stránka"
@@ -116,159 +123,163 @@ msgid "Icon"
 msgstr "Ikonka"
 
 msgid "Identifier"
-msgstr "Identifikátor"
+msgstr "ID"
 
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
+msgstr "Vybrán neplatný typ pro poskytovanou položku. Platné hodnoty jsou:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Knihovny"
 
 #. license
 msgid "License"
 msgstr "Licence"
 
 msgid "Manually set the location of AppStream metadata for cache regeneration"
-msgstr ""
+msgstr "Ručně nastavit umístění metadat AppStream pro obnovení mezipaměti"
 
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Ručně nastavit umístění mezipaměti AppStream"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Typ MIME"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modul"
 
 msgid "Name"
-msgstr "Jméno"
+msgstr "Název"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Nebyla nalezena žádná komponenta odpovídající „%s“."
 
 #, c-format
 msgid "No component providing '%s;%s' found."
-msgstr ""
+msgstr "Nebyla nalezena žádná komponenta poskytující „%s;%s“."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Nebyl nalezen žádný použitelný správné balíčků pro příkazový řádek. "
+"Zajistěte prosím, aby byl dostupný například „pkcon“ (součást PackageKit)"
 
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "Není určena žádná hodnota pro položku, která se má najít."
 
 msgid "Package"
 msgstr "Balíček"
 
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "O nalezené komponentě vypsat podrobnosti"
 
 msgid "Print even pedantic hints when validating"
-msgstr ""
+msgstr "Při ověřování vypisovat i pedantské rady"
 
 #. project group
 msgid "Project Group"
 msgstr "Skupina projektu"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Poskytované položky"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (veze 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
-msgstr ""
+msgstr "Znovu sestavit mezipaměť s informacemi o komponentách"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Spuštěním „%s --help“ si zobrazíte úplný seznam možných přepínačů "
+"příkazového řádku."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Nahrávaný firmware"
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "URL snímku obrazovky s ukázkou"
 
 msgid "Search the component database"
-msgstr ""
+msgstr "Vyhledat v databázi komponent"
 
 msgid "Select a value for the provides-item which needs to be found"
-msgstr ""
+msgstr "Nastavit hodnotu pro poskytující položku, kterou potřebujete najít"
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Zobrazovat doplňující informace pro ladění"
 
 msgid "Show the program version"
 msgstr "Zobrazit verzi programu"
 
 #. these are commands we can use with appstream-cli
 msgid "Subcommands:"
-msgstr ""
+msgstr "Dílčí příkazy:"
 
 msgid "Summary"
-msgstr "Abstrakt"
+msgstr "Shrnutí"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Pokus o provedení dotazu na zavřené databázi."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Nelze najít komponentu odpovídající %s."
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "Nelze najít komponentu poskytující „%s;%s“"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Nelze najít komponentu s ID „%s“."
 
 msgid "Unable to open the AppStream software component cache."
-msgstr ""
+msgstr "Nelze otevřít mezipaměť softwarových komponent AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Nelze spustit správce balíčků: %s"
 
 msgid "Validate AppStream XML files for issues"
-msgstr ""
+msgstr "Ověřit soubory XML AppStream ohledně problémů"
 
 msgid "Validate an installed file-tree of an application for valid metadata"
-msgstr ""
+msgstr "Ověřit nainstalovaný strom souborů aplikace ohledně platnosti metadat"
 
 msgid "Validation failed."
-msgstr ""
+msgstr "Ověření selhalo."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Ověření bylo úspěšné."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "Soubor XML „%s“ s XDG Menu je poškozený."
 
 msgid "You need to run this command with superuser permissions!"
-msgstr ""
+msgstr "Tento příkaz musíte spustit s oprávněním superuživatele."
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Musíte zadat příkaz."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Musíte určit ID komponenty"
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Musíte určit soubor, který se má ověřit."
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Aby mohlo začít ověřování, musíte zadat kořenovou složku."
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Musíte zadat výraz, který se má hledat."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -278,3 +289,4 @@ msgstr ""
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+"app;apka;aplikace;balíček;balík;program;sada;příslušenství;nástroj;pomůcka;"

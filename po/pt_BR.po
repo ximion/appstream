@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the appstream package.
 #
 # Translators:
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2015-12-12 18:14+0100\n"
-"PO-Revision-Date: 2015-12-10 22:56+0000\n"
+"POT-Creation-Date: 2016-02-04 17:19+0100\n"
+"PO-Revision-Date: 2016-02-04 15:33+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
 "appstream/language/pt_BR/)\n"
@@ -42,14 +42,20 @@ msgid "AppStream cache update failed."
 msgstr "Atualização do cache do AppStream falhou."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Atualização do cache do AppStream não é necessária."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
 msgstr "Interface de linha de comando do AppStream"
 
-msgid "Binaries"
+msgid ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
 msgstr ""
+
+msgid "Binaries"
+msgstr "Binários"
 
 msgid "Bundle"
 msgstr "Bundle"
@@ -63,16 +69,16 @@ msgstr "Comando \"%s\" é desconhecido."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "O componente '%s' não possui candidato a instalação."
 
 msgid "Compulsory for"
 msgstr "Compulsório para"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Serviços de sessão do DBus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Serviços de sistema do DBus"
 
 msgid "Description"
 msgstr "Descrição"
@@ -99,10 +105,10 @@ msgid "File %s not found or permission denied!"
 msgstr "Arquivo %s não localizado ou permissão negada!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Firmware descarregado"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Fontes"
 
 msgid "Get components which provide the given item"
 msgstr "Obter componentes que fornecem o item dado"
@@ -120,10 +126,10 @@ msgid "Identifier"
 msgstr "Identificador"
 
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
+msgstr "Tipo inválido para o item fornecido selecionado. Valores válidos são:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Bibliotecas"
 
 #. license
 msgid "License"
@@ -138,10 +144,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Definir manualmente a localização do cache do AppStream"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Tipos MIME"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modos alternativos"
 
 msgid "Name"
 msgstr "Nome"
@@ -152,15 +158,17 @@ msgstr "Nenhum componente encontrado que corresponda a \"%s\"."
 
 #, c-format
 msgid "No component providing '%s;%s' found."
-msgstr ""
+msgstr "Nenhum componente fornecendo '%s;%s' encontrado."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Nenhum gerenciado de pacotes CLI adequado encontrado. Por favor, certifique-"
+"se de que, ex.: \"pkcon\" (parte de PackageKit), está disponível."
 
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "Nenhum valor definido para o item pesquisar por."
 
 msgid "Package"
 msgstr "Pacote"
@@ -179,10 +187,10 @@ msgid "Provided Items"
 msgstr "Itens fornecidos"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (Versão 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache"
 msgstr "Recompilar o cache de informação do componente"
@@ -194,7 +202,7 @@ msgstr ""
 "comando disponíveis."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Firmware de tempo real"
 
 msgid "Sample Screenshot URL"
 msgstr "URL de amostra de captura de tela"
@@ -219,7 +227,7 @@ msgid "Summary"
 msgstr "Resumo"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Tentada consulta a banco de dados fechado."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
@@ -228,7 +236,7 @@ msgstr "Não foi possível encontrar um componente correspondendo a %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "Não foi possível localizar componente fornecendo '%s;%s'!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
@@ -236,10 +244,11 @@ msgstr "Não foi possível encontrar um componente com ID \"%s\"!"
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
+"Não foi possível abrir o cache de componentes de software do AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Não foi possível invocar o gerenciador de pacotes: %s"
 
 msgid "Validate AppStream XML files for issues"
 msgstr "Validar arquivos XML AppStream por problemas"
