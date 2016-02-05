@@ -483,7 +483,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 					as_validator_add_issue (validator,
 								AS_ISSUE_IMPORTANCE_WARNING,
 								AS_ISSUE_KIND_VALUE_WRONG,
-								"Component id belongs to a desktop-application, but doesn't resemble the .desktop file name: \"%s\"",
+								"Component id belongs to a desktop-application, but does not resemble the .desktop file name: \"%s\"",
 								node_content);
 			}
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
@@ -625,6 +625,26 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_VALUE_WRONG,
 					"The summary tag must not contain tabs or linebreaks.");
+	}
+
+	/* check if we have a description */
+	if (as_str_empty (as_component_get_description (cpt))) {
+		AsComponentKind cpt_kind;
+		cpt_kind = as_component_get_kind (cpt);
+
+		if ((cpt_kind == AS_COMPONENT_KIND_ADDON) ||
+			(cpt_kind == AS_COMPONENT_KIND_DESKTOP_APP) ||
+			(cpt_kind == AS_COMPONENT_KIND_FONT)) {
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"The component is missing a long description. Components of this type must have a long description.");
+		} else {
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_INFO,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"The component is missing a long description. It is recommended to add one.");
+		}
 	}
 
 	/* validate font specific stuff */
