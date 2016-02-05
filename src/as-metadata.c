@@ -252,6 +252,8 @@ as_metadata_process_screenshot (AsMetadata *metad, xmlNode* node, AsScreenshot* 
 
 		node_name = (gchar*) iter->name;
 		content = as_metadata_get_node_value (metad, iter);
+		g_strstrip (content);
+
 		if (g_strcmp0 (node_name, "image") == 0) {
 			g_autoptr(AsImage) img = NULL;
 			guint64 width;
@@ -686,6 +688,7 @@ as_metadata_parse_component_node (AsMetadata *metad, xmlNode* node, gboolean all
 
 		node_name = (const gchar*) iter->name;
 		content = as_metadata_get_node_value (metad, iter);
+		g_strstrip (content);
 		lang = as_metadata_get_node_locale (metad, iter);
 
 		if (g_strcmp0 (node_name, "id") == 0) {

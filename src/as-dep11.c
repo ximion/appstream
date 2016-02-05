@@ -639,6 +639,7 @@ as_dep11_process_component_node (AsDEP11 *dep11, GNode *root)
 
 		key = (gchar*) node->data;
 		value = (gchar*) node->children->data;
+		g_strstrip (value);
 
 		if (g_strcmp0 (key, "Type") == 0) {
 			if (g_strcmp0 (value, "desktop-app") == 0)
@@ -661,6 +662,7 @@ as_dep11_process_component_node (AsDEP11 *dep11, GNode *root)
 			as_component_set_source_pkgname (cpt, value);
 		} else if (g_strcmp0 (key, "Name") == 0) {
 			lvalue = as_dep11_get_localized_value (dep11, node, "C");
+			g_strstrip (lvalue);
 			if (lvalue != NULL) {
 				as_component_set_name (cpt, lvalue, "C"); /* Unlocalized */
 				g_free (lvalue);
@@ -670,14 +672,17 @@ as_dep11_process_component_node (AsDEP11 *dep11, GNode *root)
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Summary") == 0) {
 			lvalue = as_dep11_get_localized_value (dep11, node, NULL);
+			g_strstrip (lvalue);
 			as_component_set_summary (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Description") == 0) {
 			lvalue = as_dep11_get_localized_value (dep11, node, NULL);
+			g_strstrip (lvalue);
 			as_component_set_description (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
 			lvalue = as_dep11_get_localized_value (dep11, node, NULL);
+			g_strstrip (lvalue);
 			as_component_set_developer_name (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {

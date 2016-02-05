@@ -429,6 +429,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	AsComponent *cpt;
 	gchar *metadata_license = NULL;
 	GHashTable *found_tags;
+	const gchar *summary;
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
@@ -615,6 +616,15 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 						"The essential tag 'metadata_license' is missing.");
 	} else {
 		g_free (metadata_license);
+	}
+
+	/* check if the summary is sane */
+	summary = as_component_get_summary (cpt);
+	if ((summary != NULL) && ((strstr (summary, "\n") != NULL) || (strstr (summary, "\t") != NULL))) {
+		as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"The summary tag must not contain tabs or linebreaks.");
 	}
 
 	/* validate font specific stuff */

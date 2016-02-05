@@ -150,7 +150,7 @@ gint
 ascli_validate_files (gchar **argv, gint argc, gboolean no_color, gboolean pedantic)
 {
 	gint i;
-	gboolean ret;
+	gboolean ret = TRUE;
 
 	if (argc < 1) {
 		g_print ("%s\n", _("You need to specify a file to validate!"));
