@@ -229,6 +229,7 @@ Component xapianDocToComponent(Xapian::Document document) {
 
             images.append(image);
         }
+        scr.setImages(images);
 
         screenshots.append(scr);
     }
