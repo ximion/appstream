@@ -114,9 +114,10 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Package name
 	string pkgNamesStr = doc.get_value (XapianValues::PKGNAMES);
-	gchar **pkgs = g_strsplit (pkgNamesStr.c_str (), ";", -1);
-	as_component_set_pkgnames (cpt, pkgs);
-	g_strfreev (pkgs);
+	if (!pkgNamesStr.empty ()) {
+		g_auto(GStrv) pkgs = g_strsplit (pkgNamesStr.c_str (), ";", -1);
+		as_component_set_pkgnames (cpt, pkgs);
+	}
 
 	// Source package name
 	string cptSPkg = doc.get_value (XapianValues::SOURCE_PKGNAME);
@@ -135,6 +136,15 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		AsBundleKind bkind = (AsBundleKind) bdl.type ();
 		if (bkind != AS_BUNDLE_KIND_UNKNOWN)
 			as_component_add_bundle_id (cpt, bkind, bdl.id ().c_str ());
+	}
+
+	// Extends
+	string extendsStr = doc.get_value (XapianValues::EXTENDS);
+	if (!extendsStr.empty ()) {
+		g_auto(GStrv) extends = g_strsplit (extendsStr.c_str (), ";", -1);
+		for (uint i = 0; extends[i] != NULL; i++) {
+			as_component_add_extends (cpt, extends[i]);
+		}
 	}
 
 	// URLs

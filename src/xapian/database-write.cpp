@@ -226,6 +226,21 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			}
 		}
 
+		// Type identifier
+		string type_str = as_component_kind_to_string (as_component_get_kind (cpt));
+		doc.add_value (XapianValues::TYPE, type_str);
+		doc.add_term ("AT" + type_str);
+
+		// Identifier
+		string idname = as_component_get_id (cpt);
+		doc.add_value (XapianValues::IDENTIFIER, idname);
+		doc.add_term("AI" + idname);
+		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);
+
+		// Origin
+		string cptOrigin = as_component_get_origin (cpt);
+		doc.add_value (XapianValues::ORIGIN, cptOrigin);
+
 		// Bundles
 		Bundles bundles;
 		GHashTable *bundle_ids = as_component_get_bundles_table (cpt);
@@ -237,12 +252,6 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			if (bundles.SerializeToString (&ostr))
 				doc.add_value (XapianValues::BUNDLES, ostr);
 		}
-
-		// Identifier
-		string idname = as_component_get_id (cpt);
-		doc.add_value (XapianValues::IDENTIFIER, idname);
-		doc.add_term("AI" + idname);
-		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);
 
 		// Component name
 		string cptName = as_component_get_name (cpt);
@@ -256,14 +265,19 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		as_component_set_active_locale (cpt, clocale.c_str());
 		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
-		// Type identifier
-		string type_str = as_component_kind_to_string (as_component_get_kind (cpt));
-		doc.add_value (XapianValues::TYPE, type_str);
-		doc.add_term ("AT" + type_str);
-
-		// Origin
-		string cptOrigin = as_component_get_origin (cpt);
-		doc.add_value (XapianValues::ORIGIN, cptOrigin);
+		// Add extends information
+		GPtrArray *extends = as_component_get_extends (cpt);
+		if (extends != NULL) {
+			ostringstream extends_sstr;
+			for (uint i = 0; i < extends->len; i++) {
+				const gchar *e_cptid = (const gchar*) g_ptr_array_index (extends, i);
+				if (i == extends->len)
+					extends_sstr << e_cptid << ";";
+				else
+					extends_sstr << e_cptid;
+			}
+			doc.add_value (XapianValues::EXTENDS, extends_sstr.str ());
+		}
 
 		// URLs
 		GHashTable *urls_table;
@@ -316,7 +330,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		// Categories
 		gchar **categories = as_component_get_categories (cpt);
 		if (categories != NULL) {
-			string categories_str = "";
+			ostringstream categories_sstr;
 			for (uint i = 0; categories[i] != NULL; i++) {
 				if (as_str_empty (categories[i]))
 					continue;
@@ -326,9 +340,9 @@ DatabaseWrite::rebuild (GList *cpt_list)
 				transform (tmp.begin (), tmp.end (),
 						tmp.begin (), ::tolower);
 				doc.add_term ("AC" + tmp);
-				categories_str += cat + ";";
+				categories_sstr << cat << ";";
 			}
-			doc.add_value (XapianValues::CATEGORIES, categories_str);
+			doc.add_value (XapianValues::CATEGORIES, categories_sstr.str ());
 		}
 
 		// Add our keywords (with high priority)

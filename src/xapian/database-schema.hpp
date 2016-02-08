@@ -39,12 +39,13 @@ enum XapianValues {
 	PKGNAMES = 124,       // semicolon-separated list of strings
 	SOURCE_PKGNAME = 125,
 	BUNDLES = 126,        // protobuf serialization: Bundles
+	EXTENDS = 127,        // semicolon-separated list of strings
 
-	SUMMARY = 127,
-	DESCRIPTION = 128,
-	CATEGORIES = 129,     // semicolon-separated list of strings
+	SUMMARY = 130,
+	DESCRIPTION = 131,
+	CATEGORIES = 132,     // semicolon-separated list of strings
 
-	ICONS = 130,          // protobuf serialization: Icons
+	ICONS = 133,          // protobuf serialization: Icons
 
 	PROVIDED_ITEMS = 140, // protobuf serialization: ProvidedItems
 	SCREENSHOTS = 141,    // protobuf serialization: Screenshots

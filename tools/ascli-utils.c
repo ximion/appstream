@@ -22,6 +22,7 @@
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
+#include "as-utils-private.h"
 
 /**
  * Set to true if we don't want colored output
@@ -223,6 +224,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	if (show_detailed) {
 		GPtrArray *sshot_array;
 		GPtrArray *imgs = NULL;
+		GPtrArray *extends;
 		GList *provided;
 		GList *l;
 		AsScreenshot *sshot;
@@ -232,6 +234,16 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 
 		/* developer name */
 		ascli_print_key_value (_("Developer"), as_component_get_developer_name (cpt), FALSE);
+
+		/* extends data (e.g. for addons) */
+		extends = as_component_get_extends (cpt);
+		if (extends != NULL) {
+			g_auto(GStrv) extends_strv = NULL;
+			extends_strv = as_ptr_array_to_strv (extends);
+			str = g_strjoinv (", ", extends_strv);
+			ascli_print_key_value (_("Extends"), str, FALSE);
+			g_free (str);
+		}
 
 		/* long description */
 		str = as_description_markup_convert_simple (as_component_get_description (cpt));
