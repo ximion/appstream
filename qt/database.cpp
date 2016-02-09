@@ -196,6 +196,10 @@ Component xapianDocToComponent(Xapian::Document document) {
     QStringList categories = value(document, XapianValues::CATEGORIES).split(QLatin1Char(';'));
     component.setCategories(categories);
 
+    // Extends
+    const QStringList extends = value(document, XapianValues::EXTENDS).split(QLatin1Char(';'));
+    component.setExtends(extends);
+
     // Screenshots
     ASCache::Screenshots pb_scrs;
     str = document.get_value (XapianValues::SCREENSHOTS);

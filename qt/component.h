@@ -108,6 +108,9 @@ class APPSTREAMQT_EXPORT Component {
         void setCategories(const QStringList& categories);
         bool hasCategory(const QString& category) const;
 
+        QStringList extends() const;
+        void setExtends(const QStringList& extends);
+
         /**
          * \return generic (stock) icon name
          */

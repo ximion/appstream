@@ -230,6 +230,14 @@ QString Component::summary() const {
     return d->m_summary;
 }
 
+QStringList Component::extends() const {
+    return d->m_extends;
+}
+
+void Component::setExtends(const QStringList& extends) {
+    d->m_extends = extends;
+}
+
 Component::Component(const Component& other) : d(other.d) {
 
 }
