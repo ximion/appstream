@@ -123,6 +123,7 @@ Component xapianDocToComponent(Xapian::Document document) {
     str = document.get_value (XapianValues::BUNDLES);
     pb_bundles.ParseFromString (str);
     QHash<Component::BundleKind, QString> bundles;
+    bundles.reserve (pb_bundles.bundle_size ());
     for (int i = 0; i < pb_bundles.bundle_size (); i++) {
         const Bundles_Bundle& bdl = pb_bundles.bundle (i);
         auto bkind = (Component::BundleKind) bdl.type ();
