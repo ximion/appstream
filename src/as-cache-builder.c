@@ -182,6 +182,11 @@ as_cache_builder_appstream_data_changed (AsCacheBuilder *builder)
 }
 
 #ifdef APT_SUPPORT
+
+#define YAML_SEPARATOR "---"
+/* Compilers will optimise this to a constant */
+#define YAML_SEPARATOR_LEN strlen(YAML_SEPARATOR)
+
 /**
  * as_cache_builder_get_yml_data_origin:
  */
@@ -197,7 +202,7 @@ as_cache_builder_get_yml_data_origin (const gchar *fname)
 	g_autofree gchar *str = NULL;
 	g_auto(GStrv) strv = NULL;
 	guint i;
-	gchar *tmp;
+	gchar *start, *end;
 	gchar *origin = NULL;
 
 	file = g_file_new_for_path (fname);
@@ -215,10 +220,14 @@ as_cache_builder_get_yml_data_origin (const gchar *fname)
 	 */
 	if (data == NULL)
 		return NULL;
-	tmp = g_strstr_len (data, 400, "---");
-	if (tmp == NULL)
+	/* start points to the start of the document, i.e. "File:" normally */
+	start = g_strstr_len (data, 400, YAML_SEPARATOR) + YAML_SEPARATOR_LEN;
+	if (start == NULL)
 		return NULL;
-	str = g_strndup (tmp+3, strlen(tmp) - strlen (g_strstr_len (tmp+3, -1, "---")) - 3);
+	/* Find the end of the first document - can be NULL if there is only one,
+	 * for example if we're given YAML for an empty archive */
+	end = g_strstr_len (start, -1, YAML_SEPARATOR);
+	str = g_strndup (start, strlen(start) - (end ? strlen(end) : 0));
 
 	strv = g_strsplit (str, "\n", -1);
 	for (i = 0; strv[i] != NULL; i++) {
