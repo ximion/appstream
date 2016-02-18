@@ -632,8 +632,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		AsComponentKind cpt_kind;
 		cpt_kind = as_component_get_kind (cpt);
 
-		if ((cpt_kind == AS_COMPONENT_KIND_ADDON) ||
-			(cpt_kind == AS_COMPONENT_KIND_DESKTOP_APP) ||
+		if ((cpt_kind == AS_COMPONENT_KIND_DESKTOP_APP) ||
 			(cpt_kind == AS_COMPONENT_KIND_FONT)) {
 			as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_ERROR,
