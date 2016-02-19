@@ -56,6 +56,7 @@ GQuark as_cache_builder_error_quark (void);
 typedef enum {
 	AS_CACHE_BUILDER_ERROR_FAILED,
 	AS_CACHE_BUILDER_ERROR_PARTIALLY_FAILED,
+	AS_CACHE_BUILDER_ERROR_UNWRITABLE_DEST,
 	/*< private >*/
 	AS_CACHE_BUILDER_ERROR_LAST
 } AsCacheBuilderError;

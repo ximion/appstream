@@ -149,7 +149,9 @@ as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath)
 	as_cache_builder_check_cache_ctime (builder);
 
 	/* try to create db directory, in case it doesn't exist */
-	g_mkdir_with_parents (priv->db_path, 0755);
+	if (g_mkdir_with_parents (priv->db_path, 0755) < 0 ||
+		!as_utils_is_writable (priv->db_path))
+		return FALSE;
 
 	ret = xa_database_write_initialize (priv->db_w, priv->db_path);
 	return ret;
@@ -293,9 +295,15 @@ as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **err
 	guint i;
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
-	/* we can't do anything here if we're not root */
-	if (!as_utils_is_root ())
+	/* we can't do anything here if we can't write to the target directories */
+	if (!as_utils_is_writable (appstream_yml_target) || !as_utils_is_writable (appstream_icons_target))
+	{
+		g_set_error (error,
+				AS_CACHE_BUILDER_ERROR,
+				AS_CACHE_BUILDER_ERROR_UNWRITABLE_DEST,
+				_("Cannot write to destination directory."));
 		return;
+	}
 
 	/* skip this step if the APT lists directory doesn't exist */
 	if (!g_file_test (apt_lists_dir, G_FILE_TEST_IS_DIR)) {
@@ -441,6 +449,14 @@ as_cache_builder_refresh (AsCacheBuilder *builder, gboolean force, GError **erro
 	if (tmp_error != NULL) {
 		/* the exact error is not forwarded here, since we might be able to partially update the cache */
 		g_warning ("Error while collecting metadata: %s", tmp_error->message);
+		if (g_error_matches (tmp_error,
+			AS_CACHE_BUILDER_ERROR,
+			AS_CACHE_BUILDER_ERROR_UNWRITABLE_DEST))
+		{
+			GError *err = g_error_copy (tmp_error);
+			*error = err;
+			return FALSE;
+		}
 		g_error_free (tmp_error);
 		tmp_error = NULL;
 	}
