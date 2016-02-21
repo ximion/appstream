@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include "ascli-utils.h"
 #include "as-cache-builder.h"
+#include "as-settings-private.h"
 
 /**
  * ascli_refresh_cache:
@@ -35,13 +36,6 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 	g_autoptr(AsCacheBuilder) cbuilder = NULL;
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
-
-	if (dbpath == NULL) {
-		if (getuid () != ((uid_t) 0)) {
-			g_print ("%s\n", _("You need to run this command with superuser permissions!"));
-			return 2;
-		}
-	}
 
 	cbuilder = as_cache_builder_new ();
 
@@ -54,7 +48,12 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 		g_strfreev (strv);
 	}
 
-	as_cache_builder_setup (cbuilder, dbpath);
+	ret = as_cache_builder_setup (cbuilder, dbpath);
+	if (!ret)
+	{
+		g_printerr ("Can't write to %s\n", dbpath ? dbpath : AS_APPSTREAM_CACHE_PATH);
+		return 2;
+	}
 	ret = as_cache_builder_refresh (cbuilder, forced, &error);
 
 	if (ret) {
