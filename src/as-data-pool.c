@@ -41,9 +41,7 @@
 
 #include "as-metadata.h"
 #include "as-metadata-private.h"
-#ifdef DEP11
-#include "as-dep11.h"
-#endif
+#include "as-yamldata.h"
 
 const gchar *AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
 						"/var/lib/app-info/xmls",
@@ -219,11 +217,9 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 	for (i = 0; priv->asxml_paths[i] != NULL; i++) {
 		g_ptr_array_add (res_array, g_strdup (priv->asxml_paths[i]));
 	}
-#ifdef DEP11
 	for (i = 0; priv->dep11_paths[i] != NULL; i++) {
 		g_ptr_array_add (res_array, g_strdup (priv->dep11_paths[i]));
 	}
-#endif
 
 	res = as_ptr_array_to_strv (res_array);
 	g_ptr_array_unref (res_array);
@@ -333,15 +329,14 @@ as_data_pool_read_asxml (AsDataPool *dpool)
 	return ret;
 }
 
-#ifdef DEP11
 /**
  * as_data_pool_read_dep11:
  */
 static gboolean
 as_data_pool_read_dep11 (AsDataPool *dpool)
 {
-	AsDEP11 *dep11;
-	GPtrArray *yaml_files;
+	g_autoptr(AsYAMLData) ydata = NULL;
+	g_autoptr(GPtrArray) yaml_files = NULL;
 	GPtrArray *components;
 	guint i;
 	GFile *infile;
@@ -383,7 +378,7 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 		return TRUE;
 	}
 
-	dep11 = as_dep11_new ();
+	ydata = as_yamldata_new ();
 
 	ret = TRUE;
 	for (i = 0; i < yaml_files->len; i++) {
@@ -410,7 +405,7 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 		if ((g_strcmp0 (content_type, "application/x-yaml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0) ||
 			(g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-			as_dep11_parse_file (dep11, infile, &error);
+			as_yamldata_parse_file (ydata, infile, &error);
 			if (error != NULL) {
 				g_debug ("DEP11-WARNING: %s", error->message);
 				g_error_free (error);
@@ -427,21 +422,14 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 			break;
 	}
 
-	components = as_dep11_get_components (dep11);
+	components = as_yamldata_get_components (ydata);
 	for (i = 0; i < components->len; i++) {
 		as_data_pool_add_new_component (dpool,
 						AS_COMPONENT (g_ptr_array_index (components, i)));
 	}
 
-	g_object_unref (dep11);
-	g_ptr_array_unref (yaml_files);
-
 	return ret;
 }
-#endif
-
-
-
 
 /**
  * as_data_pool_update:
@@ -469,10 +457,8 @@ as_data_pool_update (AsDataPool *dpool, GError **error)
 
 	/* read all AppStream metadata that we can find */
 	ret = as_data_pool_read_asxml (dpool);
-#ifdef DEP11
 	if (!as_data_pool_read_dep11 (dpool))
 		ret = FALSE;
-#endif
 
 	return ret;
 }

@@ -27,16 +27,14 @@ add_dependencies(as-test-basics appstream)
 add_test(basic-test as-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream XML parser tests
-add_executable(as-test-asxml test-asxml.c)
-add_dependencies(as-test-asxml appstream)
-add_test(asxml-test as-test-asxml ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(as-test-xmldata test-xmldata.c)
+add_dependencies(as-test-xmldata appstream)
+add_test(asxml-test as-test-xmldata ${CMAKE_CURRENT_SOURCE_DIR})
 
-if(DEP11)
-	# AppStream DEP-11 parser tests
-	add_executable(as-test-dep11 test-dep11.c)
-	add_dependencies(as-test-dep11 appstream)
-	add_test(dep11-test as-test-dep11 ${CMAKE_CURRENT_SOURCE_DIR})
-endif()
+# AppStream DEP-11 parser tests
+add_executable(as-test-yamldata test-yamldata.c)
+add_dependencies(as-test-yamldata appstream)
+add_test(dep11-test as-test-yamldata ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream database tests
 add_executable(as-test-database test-database.c)

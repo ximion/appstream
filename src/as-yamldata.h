@@ -18,8 +18,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_DEP11_H
-#define __AS_DEP11_H
+#ifndef __AS_YAMLDATA_H
+#define __AS_YAMLDATA_H
 
 #include <glib.h>
 #include <gio/gio.h>
@@ -28,10 +28,10 @@
 
 G_BEGIN_DECLS
 
-#define AS_TYPE_DEP11 (as_dep11_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AsDEP11, as_dep11, AS, DEP11, GObject)
+#define AS_TYPE_YAMLDATA (as_yamldata_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsYAMLData, as_yamldata, AS, YAMLDATA, GObject)
 
-struct _AsDEP11Class
+struct _AsYAMLDataClass
 {
 	GObjectClass		parent_class;
 	/*< private >*/
@@ -43,22 +43,22 @@ struct _AsDEP11Class
 	void (*_as_reserved6)	(void);
 };
 
-AsDEP11*		as_dep11_new (void);
+AsYAMLData		*as_yamldata_new (void);
 
-const gchar		*as_dep11_get_locale (AsDEP11 *dep11);
-void			as_dep11_set_locale (AsDEP11 *dep11,
+const gchar		*as_yamldata_get_locale (AsYAMLData *ydata);
+void			as_yamldata_set_locale (AsYAMLData *ydata,
 						const gchar *locale);
 
-void			as_dep11_parse_data (AsDEP11 *dep11,
+void			as_yamldata_parse_data (AsYAMLData *ydata,
 						const gchar *data,
 						GError **error);
-void			as_dep11_parse_file (AsDEP11 *dep11,
+void			as_yamldata_parse_file (AsYAMLData *ydata,
 						GFile* file,
 						GError **error);
 
-GPtrArray		*as_dep11_get_components (AsDEP11 *dep11);
-void			as_dep11_clear_components (AsDEP11 *dep11);
+GPtrArray		*as_yamldata_get_components (AsYAMLData *ydata);
+void			as_yamldata_clear_components (AsYAMLData *ydata);
 
 G_END_DECLS
 
-#endif /* __AS_DEP11_H */
+#endif /* __AS_YAMLDATA_H */

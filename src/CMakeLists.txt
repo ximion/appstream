@@ -7,6 +7,7 @@ find_package(LibXml2 REQUIRED)
 find_package(Xapian 1.2 REQUIRED)
 find_package(Protobuf REQUIRED)
 find_library(M_LIB m)
+pkg_check_modules(YAML REQUIRED yaml-0.1)
 
 include(GObjectIntrospectionMacros)
 set(INTROSPECTION_GIRS)
@@ -36,6 +37,7 @@ set(APPSTREAM_LIB_SRC
 		as-utils.c
 		# internal stuff to build the database
 		as-cache-builder.c
+		as-yamldata.c
 		# (mostly) public API
 		as-metadata.c
 		as-component.c
@@ -76,17 +78,11 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 
 set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-utils-private.h
+		as-yamldata.h
 		as-metadata-private.h
 		as-component-private.h
 		as-cache-builder.h
 )
-
-# find stuff necessary to build libappstream with DEP-11 support
-if(DEP11)
-	pkg_check_modules(YAML REQUIRED yaml-0.1)
-	set(APPSTREAM_LIB_SRC ${APPSTREAM_LIB_SRC} as-dep11.c)
-	set(APPSTREAM_LIB_PRIVATE_HEADERS ${APPSTREAM_LIB_PRIVATE_HEADERS} as-dep11.h)
-endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
 		    ${CMAKE_BINARY_DIR}
