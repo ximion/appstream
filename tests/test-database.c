@@ -71,7 +71,8 @@ test_database_create ()
 	as_cache_builder_set_data_source_directories (builder, strv);
 	g_strfreev (strv);
 
-	ret = as_cache_builder_setup (builder, db_path);
+	ret = as_cache_builder_setup (builder, db_path, &error);
+	g_assert_no_error (error);
 	g_assert (ret);
 
 	/* build the cache for the first time (enforcing build) */

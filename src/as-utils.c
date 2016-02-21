@@ -420,6 +420,32 @@ as_utils_is_root (void)
 }
 
 /**
+ * as_utils_is_writable:
+ * @path: the path to check.
+ *
+ * Checks if a path is writable.
+ */
+gboolean
+as_utils_is_writable (const gchar *path)
+{
+	g_autoptr(GFile) file = NULL;
+	g_autoptr(GFileInfo) file_info = NULL;
+
+	file = g_file_new_for_path (path);
+	file_info = g_file_query_info (
+		file,
+		G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE,
+		G_FILE_QUERY_INFO_NONE,
+		NULL,
+		NULL);
+
+	if (file_info && g_file_info_has_attribute (file_info, G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE))
+		return g_file_info_get_attribute_boolean (file_info, G_FILE_ATTRIBUTE_ACCESS_CAN_WRITE);
+
+	return FALSE;
+}
+
+/**
  * as_get_current_locale:
  *
  * Returns a locale string as used in the AppStream specification.

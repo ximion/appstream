@@ -36,15 +36,7 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
 
-	if (dbpath == NULL) {
-		if (getuid () != ((uid_t) 0)) {
-			g_print ("%s\n", _("You need to run this command with superuser permissions!"));
-			return 2;
-		}
-	}
-
 	cbuilder = as_cache_builder_new ();
-
 	if (datapath != NULL) {
 		gchar **strv;
 		/* the user wants data from a different path to be used */
@@ -54,7 +46,15 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 		g_strfreev (strv);
 	}
 
-	as_cache_builder_setup (cbuilder, dbpath);
+	as_cache_builder_setup (cbuilder, dbpath, &error);
+	if (error != NULL) {
+		if (g_error_matches (error, AS_CACHE_BUILDER_ERROR, AS_CACHE_BUILDER_ERROR_TARGET_NOT_WRITABLE))
+			g_printerr ("%s\n%s\n", error->message, _("You might need superuser permissions to perform this action."));
+		else
+			g_printerr ("%s\n", error->message);
+		return 2;
+	}
+
 	ret = as_cache_builder_refresh (cbuilder, forced, &error);
 
 	if (ret) {
@@ -64,6 +64,8 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 		} else {
 			g_printerr ("%s\n", error->message);
 		}
+
+		/* no > 0 error code, since we updated something */
 		return 0;
 	} else {
 		/* cache wasn't updated, so the update wasn't necessary, or we have a fatal error */

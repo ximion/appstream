@@ -41,6 +41,7 @@ GPtrArray		*as_utils_find_files (const gchar *dir,
 						GError **error);
 
 gboolean		as_utils_is_root (void);
+gboolean		as_utils_is_writable (const gchar *path);
 
 gchar			*as_str_replace (const gchar *str,
 					 const gchar *old_str,
