@@ -40,7 +40,6 @@
 #include "as-settings-private.h"
 
 #include "as-metadata.h"
-#include "as-metadata-private.h"
 #include "as-yamldata.h"
 
 const gchar *AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",

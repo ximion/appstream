@@ -18,20 +18,21 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_YAMLDATA_H
-#define __AS_YAMLDATA_H
+#ifndef __AS_XMLDATA_H
+#define __AS_XMLDATA_H
 
-#include <glib.h>
-#include <gio/gio.h>
+#include <glib-object.h>
+#include <libxml/tree.h>
 
 #include "as-component.h"
+#include "as-metadata.h"
 
 G_BEGIN_DECLS
 
-#define AS_TYPE_YAMLDATA (as_yamldata_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AsYAMLData, as_yamldata, AS, YAMLDATA, GObject)
+#define AS_TYPE_XMLDATA (as_xmldata_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsXMLData, as_xmldata, AS, XMLDATA, GObject)
 
-struct _AsYAMLDataClass
+struct _AsXMLDataClass
 {
 	GObjectClass		parent_class;
 	/*< private >*/
@@ -43,22 +44,34 @@ struct _AsYAMLDataClass
 	void (*_as_reserved6)	(void);
 };
 
-AsYAMLData		*as_yamldata_new (void);
+AsXMLData		*as_xmldata_new (void);
 
-const gchar		*as_yamldata_get_locale (AsYAMLData *ydt);
-void			as_yamldata_set_locale (AsYAMLData *ydt,
-						const gchar *locale);
+void			as_xmldata_initialize (AsXMLData *xdt,
+						const gchar *locale,
+						const gchar *origin,
+						const gchar *media_baseurl,
+						gint priority);
 
-void			as_yamldata_parse_data (AsYAMLData *ydt,
-						const gchar *data,
-						GError **error);
-void			as_yamldata_parse_file (AsYAMLData *ydt,
-						GFile* file,
-						GError **error);
+AsComponent		*as_xmldata_parse_upstream_data (AsXMLData *xdt,
+							const gchar *data,
+							GError **error);
+GPtrArray		*as_xmldata_parse_distro_data (AsXMLData *xdt,
+							const gchar *data,
+							GError **error);
 
-GPtrArray		*as_yamldata_get_components (AsYAMLData *ydt);
-void			as_yamldata_clear_components (AsYAMLData *ydt);
+gchar			*as_xmldata_serialize_to_upstream (AsXMLData *xdt,
+								AsComponent *cpt);
+gchar			*as_xmldata_serialize_to_distro (AsXMLData *xdt,
+								GPtrArray *cpts);
+
+void			as_xmldata_set_parser_mode (AsXMLData *xdt,
+							AsParserMode mode);
+AsComponent		*as_xmldata_parse_component_node (AsXMLData *metad,
+								xmlNode *node,
+								gboolean allow_invalid,
+								GError **error);
+
 
 G_END_DECLS
 
-#endif /* __AS_YAMLDATA_H */
+#endif /* __AS_XMLDATA_H */

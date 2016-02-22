@@ -37,6 +37,7 @@ set(APPSTREAM_LIB_SRC
 		as-utils.c
 		# internal stuff to build the database
 		as-cache-builder.c
+		as-xmldata.c
 		as-yamldata.c
 		# (mostly) public API
 		as-metadata.c
@@ -78,8 +79,8 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 
 set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-utils-private.h
+		as-xmldata.h
 		as-yamldata.h
-		as-metadata-private.h
 		as-component-private.h
 		as-cache-builder.h
 )

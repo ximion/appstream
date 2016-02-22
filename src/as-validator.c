@@ -39,11 +39,9 @@
 #include "as-validator.h"
 #include "as-validator-issue.h"
 
-#include "as-metadata.h"
-#include "as-metadata-private.h"
-
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-xmldata.h"
 #include "as-component.h"
 #include "as-component-private.h"
 
@@ -425,7 +423,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 {
 	gchar *cpttype;
 	xmlNode *iter;
-	AsMetadata *metad;
+	AsXMLData *xdt;
 	AsComponent *cpt;
 	gchar *metadata_license = NULL;
 	GHashTable *found_tags;
@@ -434,12 +432,12 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	/* validate the resulting AsComponent for sanity */
-	metad = as_metadata_new ();
-	as_metadata_set_locale (metad, "C");
-	as_metadata_set_parser_mode (metad, mode);
+	xdt = as_xmldata_new ();
+	as_xmldata_initialize (xdt, "C", NULL, NULL, 0);
+	as_xmldata_set_parser_mode (xdt, mode);
 
-	cpt = as_metadata_parse_component_node (metad, root, TRUE, NULL);
-	g_object_unref (metad);
+	cpt = as_xmldata_parse_component_node (xdt, root, TRUE, NULL);
+	g_object_unref (xdt);
 	g_assert (cpt != NULL);
 
 	as_validator_set_current_cpt (validator, cpt);

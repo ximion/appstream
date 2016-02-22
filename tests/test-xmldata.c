@@ -22,6 +22,7 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
+#include "as-xmldata.h"
 #include "as-component-private.h"
 
 static gchar *datadir = NULL;
@@ -44,6 +45,7 @@ test_screenshot_handling ()
 	guint i;
 
 	metad = as_metadata_new ();
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
 
 	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
 	file = g_file_new_for_path (path);
@@ -137,6 +139,7 @@ test_appstream_parser_locale ()
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 
+	as_component_set_active_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefox");
 	as_component_set_active_locale (cpt, "de_DE");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Feuerfuchs");
