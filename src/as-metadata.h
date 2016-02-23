@@ -87,7 +87,11 @@ GQuark			as_metadata_error_quark (void);
 void			as_metadata_parse_file (AsMetadata *metad,
 							GFile *file,
 							GError **error);
-void			as_metadata_parse_data (AsMetadata *metad,
+
+void			as_metadata_parse_xml (AsMetadata *metad,
+							const gchar *data,
+							GError **error);
+void			as_metadata_parse_yaml (AsMetadata *metad,
 							const gchar *data,
 							GError **error);
 

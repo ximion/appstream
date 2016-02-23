@@ -45,19 +45,19 @@ struct _AsYAMLDataClass
 
 AsYAMLData		*as_yamldata_new (void);
 
+void			as_yamldata_initialize (AsYAMLData *ydt,
+						const gchar *locale,
+						const gchar *origin,
+						const gchar *media_baseurl,
+						gint priority);
+
+GPtrArray		*as_yamldata_parse_distro_data (AsYAMLData *ydt,
+							const gchar *data,
+							GError **error);
+
 const gchar		*as_yamldata_get_locale (AsYAMLData *ydt);
 void			as_yamldata_set_locale (AsYAMLData *ydt,
 						const gchar *locale);
-
-void			as_yamldata_parse_data (AsYAMLData *ydt,
-						const gchar *data,
-						GError **error);
-void			as_yamldata_parse_file (AsYAMLData *ydt,
-						GFile* file,
-						GError **error);
-
-GPtrArray		*as_yamldata_get_components (AsYAMLData *ydt);
-void			as_yamldata_clear_components (AsYAMLData *ydt);
 
 G_END_DECLS
 

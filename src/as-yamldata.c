@@ -33,11 +33,10 @@ typedef struct
 {
 	gchar *locale;
 	gchar *locale_short;
-	gchar *origin_name;
+	gchar *origin;
 	gchar *media_baseurl;
-	gint default_priority;
 
-	GPtrArray *cpts;
+	gint default_priority;
 } AsYAMLDataPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsYAMLData, as_yamldata, G_TYPE_OBJECT)
@@ -62,10 +61,9 @@ as_yamldata_init (AsYAMLData *ydt)
 	str = as_get_current_locale ();
 	as_yamldata_set_locale (ydt, str);
 
-	priv->origin_name = NULL;
+	priv->origin = NULL;
 	priv->media_baseurl = NULL;
 	priv->default_priority = 0;
-	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**
@@ -79,21 +77,38 @@ as_yamldata_finalize (GObject *object)
 
 	g_free (priv->locale);
 	g_free (priv->locale_short);
-	g_free (priv->origin_name);
+	g_free (priv->origin);
 	g_free (priv->media_baseurl);
-	g_ptr_array_unref (priv->cpts);
 
 	G_OBJECT_CLASS (as_yamldata_parent_class)->finalize (object);
 }
 
 /**
- * as_yamldata_add_component:
+ * as_yamldata_initialize:
+ * @ydt: An instance of #AsYAMLData
+ *
+ * Initialize the YAML handler.
  */
-static void
-as_yamldata_add_component (AsYAMLData *ydt, AsComponent *cpt)
+void
+as_yamldata_initialize (AsYAMLData *ydt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, gint priority)
 {
+	g_auto(GStrv) strv = NULL;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
-	g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+
+	g_free (priv->locale);
+	g_free (priv->locale_short);
+	priv->locale = g_strdup (locale);
+
+	strv = g_strsplit (priv->locale, "_", 0);
+	priv->locale_short = g_strdup (strv[0]);
+
+	g_free (priv->origin);
+	priv->origin = g_strdup (origin);
+
+	g_free (priv->media_baseurl);
+	priv->media_baseurl = g_strdup (media_baseurl);
+
+	priv->default_priority = priority;
 }
 
 /**
@@ -713,7 +728,7 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 	}
 
 	/* set component origin */
-	as_component_set_origin (cpt, priv->origin_name);
+	as_component_set_origin (cpt, priv->origin);
 
 	/* set component priority */
 	as_component_set_priority (cpt, priv->default_priority);
@@ -734,24 +749,44 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 }
 
 /**
- * as_yamldata_process_data:
+ * as_yamldata_parse_distro_data:
+ * @ydt: An instance of #AsYAMLData
+ * @data: YAML metadata to parse
+ *
+ * Read an array of #AsComponent from AppStream YAML metadata.
+ *
+ * Returns: (transfer full) (element-type AsComponent): An array of #AsComponent or %NULL
  */
-void
-as_yamldata_parse_data (AsYAMLData *ydt, const gchar *data, GError **error)
+GPtrArray*
+as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **error)
 {
 	yaml_parser_t parser;
 	yaml_event_t event;
 	gboolean header = TRUE;
 	gboolean parse = TRUE;
+	GPtrArray *cpts = NULL;;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	/* we ignore empty data - usually happens if the file is broken, e.g. by disk corruption
 	 * or download interruption. */
 	if (data == NULL)
-		return;
+		return NULL;
 
+	/* create container for the components we find */
+	cpts = g_ptr_array_new_with_free_func (g_object_unref);
+
+	/* reset the global document properties */
+	g_free (priv->origin);
+	priv->origin = NULL;
+
+	g_free (priv->media_baseurl);
+	priv->media_baseurl = NULL;
+
+	priv->default_priority = 0;
+
+	/* initialize YAML parser */
 	yaml_parser_initialize (&parser);
-	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen(data));
+	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen (data));
 
 	while (parse) {
 		yaml_parser_parse(&parser, &event);
@@ -777,8 +812,8 @@ as_yamldata_parse_data (AsYAMLData *ydt, const gchar *data, GError **error)
 									"Invalid DEP-11 file found: Header invalid");
 						}
 					} else if (g_strcmp0 (key, "Origin") == 0) {
-						if ((value != NULL) && (priv->origin_name == NULL)) {
-							priv->origin_name = g_strdup (value);
+						if ((value != NULL) && (priv->origin == NULL)) {
+							priv->origin = g_strdup (value);
 						} else {
 							parse = FALSE;
 							g_set_error_literal (error,
@@ -803,17 +838,13 @@ as_yamldata_parse_data (AsYAMLData *ydt, const gchar *data, GError **error)
 
 				if (as_component_is_valid (cpt)) {
 					/* everything is fine with this component, we can emit it */
-					as_yamldata_add_component (ydt, cpt);
+					g_ptr_array_add (cpts, cpt);
 				} else {
-					gchar *str;
-					gchar *str2;
+					g_autofree gchar *str = NULL;
 					str = as_component_to_string (cpt);
-					str2 = g_strdup_printf ("Invalid component found: %s\n", str);
-					g_debug ("DEP-11-Warning: %s", str2);
-					g_free (str);
-					g_free (str2);
+					g_debug ("WARNING: Invalid component found: %s", str);
+					g_object_unref (cpt);
 				}
-				g_object_unref (cpt);
 			}
 
 			header = FALSE;
@@ -836,96 +867,12 @@ as_yamldata_parse_data (AsYAMLData *ydt, const gchar *data, GError **error)
 
 	yaml_parser_delete (&parser);
 
-	/* reset the global document properties */
-	g_free (priv->origin_name);
-	priv->origin_name = NULL;
-
-	g_free (priv->media_baseurl);
-	priv->media_baseurl = NULL;
-
-	priv->default_priority = 0;
-}
-
-/**
- * as_yamldata_parse_file:
- * @dep11: A valid #AsDEP11 instance
- * @file: #GFile for the upstream metadata
- * @error: A #GError or %NULL.
- *
- * Parses an AppStream upstream metadata file in DEP-11-YAML format.
- *
- **/
-void
-as_yamldata_parse_file (AsYAMLData *ydt, GFile* file, GError **error)
-{
-	gchar *yaml_doc;
-	GFileInputStream* fistream;
-	GFileInfo *info = NULL;
-	const gchar *content_type = NULL;
-
-	g_return_if_fail (file != NULL);
-
-	info = g_file_query_info (file,
-				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				G_FILE_QUERY_INFO_NONE,
-				NULL, NULL);
-	if (info != NULL)
-		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-
-	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-		GFileInputStream *fistream;
-		GMemoryOutputStream *mem_os;
-		GInputStream *conv_stream;
-		GZlibDecompressor *zdecomp;
-		guint8 *data;
-
-		/* load a GZip compressed file */
-		fistream = g_file_read (file, NULL, NULL);
-		mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
-		zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
-		conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
-		g_object_unref (zdecomp);
-
-		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
-		data = g_memory_output_stream_get_data (mem_os);
-
-		yaml_doc = g_strdup ((const gchar*) data);
-
-		g_object_unref (conv_stream);
-		g_object_unref (mem_os);
-		g_object_unref (fistream);
-	} else {
-		gchar *line = NULL;
-		GString *str;
-		GDataInputStream *dis;
-
-		/* load a plaintext file */
-		str = g_string_new ("");
-		fistream = g_file_read (file, NULL, NULL);
-		dis = g_data_input_stream_new ((GInputStream*) fistream);
-		g_object_unref (fistream);
-
-		while (TRUE) {
-			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
-			if (line == NULL) {
-				break;
-			}
-
-			g_string_append_printf (str, "%s\n", line);
-		}
-
-		yaml_doc = g_string_free (str, FALSE);
-		g_object_unref (dis);
-	}
-
-	/* parse YAML data */
-	as_yamldata_parse_data (ydt, yaml_doc, error);
-	g_free (yaml_doc);
+	return cpts;
 }
 
 /**
  * as_yamldata_set_locale:
- * @dep11: a #AsDEP11 instance.
+ * @ydt: a #AsYAMLData instance.
  * @locale: the locale.
  *
  * Sets the locale which should be read when processing DEP-11 metadata.
@@ -950,7 +897,7 @@ as_yamldata_set_locale (AsYAMLData *ydt, const gchar *locale)
 
 /**
  * as_yamldata_get_locale:
- * @dep11: a #AsDEP11 instance.
+ * @ydt: a #AsYAMLData instance.
  *
  * Gets the current active locale for parsing DEP-11 metadata.,
  * or "ALL" if all locales are read.
@@ -962,30 +909,6 @@ as_yamldata_get_locale (AsYAMLData *ydt)
 {
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 	return priv->locale;
-}
-
-/**
- * as_yamldata_get_components:
- * @dep11: an #AsDEP11 instance.
- *
- * Returns: (transfer none) (element-type AsComponent): A #GPtrArray of all parsed components
- **/
-GPtrArray*
-as_yamldata_get_components (AsYAMLData *ydt)
-{
-	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
-	return priv->cpts;
-}
-
-/**
- * as_yamldata_clear_components:
- **/
-void
-as_yamldata_clear_components (AsYAMLData *ydt)
-{
-	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
-	g_ptr_array_unref (priv->cpts);
-	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
 
 /**

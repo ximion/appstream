@@ -35,7 +35,7 @@ println (const gchar *s)
 void
 test_basic ()
 {
-	g_autoptr(AsYAMLData) ydata = NULL;
+	g_autoptr(AsMetadata) mdata = NULL;
 	gchar *path;
 	GFile *file;
 	GPtrArray *cpts;
@@ -43,18 +43,19 @@ test_basic ()
 	AsComponent *cpt_tomatoes;
 	GError *error = NULL;
 
-	ydata = as_yamldata_new ();
-	as_yamldata_set_locale (ydata, "C");
+	mdata = as_metadata_new ();
+	as_metadata_set_locale (mdata, "C");
+	as_metadata_set_parser_mode (mdata, AS_PARSER_MODE_DISTRO);
 
 	path = g_build_filename (datadir, "dep11-0.8.yml", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_yamldata_parse_file (ydata, file, &error);
+	as_metadata_parse_file (mdata, file, &error);
 	g_object_unref (file);
 	g_assert_no_error (error);
 
-	cpts = as_yamldata_get_components (ydata);
+	cpts = as_metadata_get_components (mdata);
 	g_assert (cpts->len == 6);
 
 	for (i = 0; i < cpts->len; i++) {

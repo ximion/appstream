@@ -226,149 +226,70 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_read_asxml:
+ * as_data_pool_read_metadata:
  */
 static gboolean
-as_data_pool_read_asxml (AsDataPool *dpool)
+as_data_pool_read_metadata (AsDataPool *dpool)
 {
-	GPtrArray *xml_files;
-	GPtrArray *components;
-	guint i;
-	GFile *infile;
-	gboolean ret;
-	const gchar *content_type;
-	AsMetadata *metad;
-	GError *error = NULL;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-
-	xml_files = g_ptr_array_new_with_free_func (g_free);
-
-	if ((priv->asxml_paths == NULL) || (priv->asxml_paths[0] == NULL))
-		return TRUE;
-
-	for (i = 0; priv->asxml_paths[i] != NULL; i++) {
-		gchar *path;
-		GPtrArray *xmls;
-		guint j;
-		path = priv->asxml_paths[i];
-
-		if (!g_file_test (path, G_FILE_TEST_EXISTS))
-			continue;
-
-		xmls = as_utils_find_files_matching (path, "*.xml*", FALSE, NULL);
-		if (xmls == NULL)
-			continue;
-		for (j = 0; j < xmls->len; j++) {
-			const gchar *val;
-			val = (const gchar *) g_ptr_array_index (xmls, j);
-			g_ptr_array_add (xml_files, g_strdup (val));
-		}
-
-		g_ptr_array_unref (xmls);
-	}
-
-	/* check if we have XML data */
-	if (xml_files->len == 0) {
-		g_ptr_array_unref (xml_files);
-		return TRUE;
-	}
-
-	metad = as_metadata_new ();
-	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
-	as_metadata_set_locale (metad, priv->locale);
-
-	ret = TRUE;
-	for (i = 0; i < xml_files->len; i++) {
-		gchar *fname;
-		GFileInfo *info = NULL;
-
-		fname = (gchar*) g_ptr_array_index (xml_files, i);
-		infile = g_file_new_for_path (fname);
-		if (!g_file_query_exists (infile, NULL)) {
-			g_warning ("File '%s' does not exist.", fname);
-			g_object_unref (infile);
-			continue;
-		}
-
-		info = g_file_query_info (infile,
-				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				G_FILE_QUERY_INFO_NONE,
-				NULL, NULL);
-		if (info == NULL) {
-			g_debug ("No file-info for '%s' found, file was skipped.", fname);
-			g_object_unref (infile);
-			continue;
-		}
-		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-		if ((g_strcmp0 (content_type, "application/xml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0) ||
-			(g_strcmp0 (content_type, "application/gzip") == 0 || g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-			as_metadata_parse_file (metad, infile, &error);
-			if (error != NULL) {
-				g_debug ("ASXML-WARNING: %s", error->message);
-				g_error_free (error);
-				error = NULL;
-				ret = FALSE;
-			}
-		} else {
-			g_warning ("Invalid file of type '%s' found. File '%s' was skipped.", content_type, fname);
-		}
-		g_object_unref (info);
-		g_object_unref (infile);
-	}
-
-	components = as_metadata_get_components (metad);
-	for (i = 0; i < components->len; i++) {
-		as_data_pool_add_new_component (dpool,
-						AS_COMPONENT (g_ptr_array_index (components, i)));
-	}
-
-	g_ptr_array_unref (xml_files);
-	g_object_unref (metad);
-
-	return ret;
-}
-
-/**
- * as_data_pool_read_dep11:
- */
-static gboolean
-as_data_pool_read_dep11 (AsDataPool *dpool)
-{
-	g_autoptr(AsYAMLData) ydata = NULL;
+	g_autoptr(GPtrArray) xml_files = NULL;
 	g_autoptr(GPtrArray) yaml_files = NULL;
-	GPtrArray *components;
+	GPtrArray *cpts;
 	guint i;
-	GFile *infile;
-	gboolean ret = TRUE;
-	const gchar *content_type;
+	gboolean ret;
+	g_autoptr(AsMetadata) metad = NULL;
 	GError *error = NULL;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
-	yaml_files = g_ptr_array_new_with_free_func (g_free);
+	/* find AppStream XML */
+	if (priv->asxml_paths != NULL) {
+		xml_files = g_ptr_array_new_with_free_func (g_free);
 
-	if ((priv->dep11_paths == NULL) || (priv->dep11_paths[0] == NULL))
-		return TRUE;
+		for (i = 0; priv->asxml_paths[i] != NULL; i++) {
+			gchar *path;
+			g_autoptr(GPtrArray) xmls = NULL;
+			guint j;
+			path = priv->asxml_paths[i];
 
-	for (i = 0; priv->dep11_paths[i] != NULL; i++) {
-		gchar *path;
-		GPtrArray *yamls;
-		guint j;
-		path = priv->dep11_paths[i];
+			if (!g_file_test (path, G_FILE_TEST_EXISTS))
+				continue;
 
-		if (!g_file_test (path, G_FILE_TEST_EXISTS)) {
-			continue;
+			xmls = as_utils_find_files_matching (path, "*.xml*", FALSE, NULL);
+			if (xmls == NULL)
+				continue;
+			for (j = 0; j < xmls->len; j++) {
+				const gchar *val;
+				val = (const gchar *) g_ptr_array_index (xmls, j);
+				g_ptr_array_add (xml_files,
+							g_strdup (val));
+			}
 		}
+	}
 
-		yamls = as_utils_find_files_matching (path, "*.yml*", FALSE, NULL);
-		if (yamls == NULL)
-			continue;
-		for (j = 0; j < yamls->len; j++) {
-			const gchar *val;
-			val = (const gchar *) g_ptr_array_index (yamls, j);
-			g_ptr_array_add (yaml_files, g_strdup (val));
+
+	/* find AppStream YAML */
+	if (priv->dep11_paths != NULL) {
+		yaml_files = g_ptr_array_new_with_free_func (g_free);
+
+		for (i = 0; priv->dep11_paths[i] != NULL; i++) {
+			gchar *path;
+			g_autoptr(GPtrArray) yamls = NULL;
+			guint j;
+			path = priv->dep11_paths[i];
+
+			if (!g_file_test (path, G_FILE_TEST_EXISTS)) {
+				continue;
+			}
+
+			yamls = as_utils_find_files_matching (path, "*.yml*", FALSE, NULL);
+			if (yamls == NULL)
+				continue;
+			for (j = 0; j < yamls->len; j++) {
+				const gchar *val;
+				val = (const gchar *) g_ptr_array_index (yamls, j);
+				g_ptr_array_add (yaml_files,
+							g_strdup (val));
+			}
 		}
-
-		g_ptr_array_unref (yamls);
 	}
 
 	/* do we have metadata at all? */
@@ -377,54 +298,67 @@ as_data_pool_read_dep11 (AsDataPool *dpool)
 		return TRUE;
 	}
 
-	ydata = as_yamldata_new ();
+
+	metad = as_metadata_new ();
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+	as_metadata_set_locale (metad, priv->locale);
 
 	ret = TRUE;
-	for (i = 0; i < yaml_files->len; i++) {
-		gchar *fname;
-		GFileInfo *info = NULL;
 
-		fname = (gchar*) g_ptr_array_index (yaml_files, i);
-		infile = g_file_new_for_path (fname);
-		if (!g_file_query_exists (infile, NULL)) {
-			g_warning ("File '%s' does not exist.", fname);
-			g_object_unref (infile);
-			continue;
-		}
+	/* process XML metadata, if we have any */
+	if ((xml_files != NULL) && (xml_files->len > 0)) {
+		for (i = 0; i < xml_files->len; i++) {
+			g_autoptr(GFile) infile = NULL;
+			gchar *fname;
 
-		info = g_file_query_info (infile,
-				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-				G_FILE_QUERY_INFO_NONE,
-				NULL, NULL);
-		if (info == NULL) {
-			g_debug ("No info for file '%s' found, file was skipped.", fname);
-			g_object_unref (infile);
-			continue;
-		}
-		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-		if ((g_strcmp0 (content_type, "application/x-yaml") == 0) || (g_strcmp0 (content_type, "text/plain") == 0) ||
-			(g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-			as_yamldata_parse_file (ydata, infile, &error);
+			fname = (gchar*) g_ptr_array_index (xml_files, i);
+			g_debug ("Reading: %s", fname);
+
+			infile = g_file_new_for_path (fname);
+			if (!g_file_query_exists (infile, NULL)) {
+				g_warning ("Metadata file '%s' does not exist.", fname);
+				continue;
+			}
+
+			as_metadata_parse_file (metad, infile, &error);
 			if (error != NULL) {
-				g_debug ("DEP11-WARNING: %s", error->message);
+				g_debug ("WARNING: %s", error->message);
 				g_error_free (error);
 				error = NULL;
 				ret = FALSE;
 			}
-		} else {
-			g_warning ("Invalid file of type '%s' found. File '%s' was skipped.", content_type, fname);
 		}
-		g_object_unref (info);
-		g_object_unref (infile);
-
-		if (!ret)
-			break;
 	}
 
-	components = as_yamldata_get_components (ydata);
-	for (i = 0; i < components->len; i++) {
+	/* process YAML metadata, if we have any */
+	if ((yaml_files != NULL) && (yaml_files->len > 0)) {
+		for (i = 0; i < yaml_files->len; i++) {
+			g_autoptr(GFile) infile = NULL;
+			gchar *fname;
+
+			fname = (gchar*) g_ptr_array_index (yaml_files, i);
+			g_debug ("Reading: %s", fname);
+
+			infile = g_file_new_for_path (fname);
+			if (!g_file_query_exists (infile, NULL)) {
+				g_warning ("Metadata file '%s' does not exist.", fname);
+				continue;
+			}
+
+			as_metadata_parse_file (metad, infile, &error);
+			if (error != NULL) {
+				g_debug ("WARNING: %s", error->message);
+				g_error_free (error);
+				error = NULL;
+				ret = FALSE;
+			}
+		}
+	}
+
+	cpts = as_metadata_get_components (metad);
+	for (i = 0; i < cpts->len; i++) {
 		as_data_pool_add_new_component (dpool,
-						AS_COMPONENT (g_ptr_array_index (components, i)));
+						AS_COMPONENT (g_ptr_array_index (cpts, i)));
 	}
 
 	return ret;
@@ -455,10 +389,7 @@ as_data_pool_update (AsDataPool *dpool, GError **error)
 						(GDestroyNotify) g_object_unref);
 
 	/* read all AppStream metadata that we can find */
-	ret = as_data_pool_read_asxml (dpool);
-	if (!as_data_pool_read_dep11 (dpool))
-		ret = FALSE;
-
+	ret = as_data_pool_read_metadata (dpool);
 	return ret;
 }
 

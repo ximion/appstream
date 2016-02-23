@@ -53,6 +53,7 @@ typedef struct
 	gint default_priority;
 
 	AsXMLData *xdt;
+	AsYAMLData *ydt;
 
 	GPtrArray *cpts;
 } AsMetadataPrivate;
@@ -97,6 +98,8 @@ as_metadata_finalize (GObject *object)
 		g_free (priv->media_baseurl);
 	if (priv->xdt != NULL)
 		g_object_unref (priv->xdt);
+	if (priv->ydt != NULL)
+		g_object_unref (priv->ydt);
 
 	G_OBJECT_CLASS (as_metadata_parent_class)->finalize (object);
 }
@@ -108,10 +111,31 @@ static void
 as_metadata_init_xml (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
 	if (priv->xdt != NULL)
 		return;
+
 	priv->xdt = as_xmldata_new ();
 	as_xmldata_initialize (priv->xdt,
+				priv->locale,
+				priv->origin,
+				priv->media_baseurl,
+				priv->default_priority);
+}
+
+/**
+ * as_metadata_init_yaml:
+ **/
+static void
+as_metadata_init_yaml (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	if (priv->ydt != NULL)
+		return;
+
+	priv->ydt = as_yamldata_new ();
+	as_yamldata_initialize (priv->ydt,
 				priv->locale,
 				priv->origin,
 				priv->media_baseurl,
@@ -125,8 +149,15 @@ static void
 as_metadata_reload_parsers (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
 	if (priv->xdt != NULL)
 		as_xmldata_initialize (priv->xdt,
+					priv->locale,
+					priv->origin,
+					priv->media_baseurl,
+					priv->default_priority);
+	if (priv->ydt != NULL)
+		as_yamldata_initialize (priv->ydt,
 					priv->locale,
 					priv->origin,
 					priv->media_baseurl,
@@ -145,16 +176,14 @@ as_metadata_clear_components (AsMetadata *metad)
 }
 
 /**
- * as_metadata_parse_data:
+ * as_metadata_parse_xml:
  * @metad: A valid #AsMetadata instance
- * @data: XML data describing a component
- * @error: A #GError or %NULL.
+ * @data: XML data describing one or more software components.
  *
- * Parses AppStream metadata.
- *
+ * Parses AppStream XML metadata.
  **/
 void
-as_metadata_parse_data (AsMetadata *metad, const gchar *data, GError **error)
+as_metadata_parse_xml (AsMetadata *metad, const gchar *data, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
@@ -183,6 +212,39 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, GError **error)
 }
 
 /**
+ * as_metadata_parse_yaml:
+ * @metad: A valid #AsMetadata instance
+ * @data: YAML data describing one or more software components.
+ * @error: A #GError or %NULL.
+ *
+ * Parses AppStream YAML metadata.
+ **/
+void
+as_metadata_parse_yaml (AsMetadata *metad, const gchar *data, GError **error)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	as_metadata_init_yaml (metad);
+
+	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+		guint i;
+		g_autoptr(GPtrArray) new_cpts = NULL;
+
+		new_cpts = as_yamldata_parse_distro_data (priv->ydt, data, error);
+		if (new_cpts == NULL)
+			return;
+		for (i = 0; i < new_cpts->len; i++) {
+			AsComponent *cpt;
+			cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
+			g_ptr_array_add (priv->cpts,
+						g_object_ref (cpt));
+		}
+	} else {
+		g_warning ("Can not load non-distro AppStream YAML data, since their format is not specified.");
+	}
+}
+
+/**
  * as_metadata_parse_file:
  * @metad: A valid #AsMetadata instance
  * @file: #GFile for the upstream metadata
@@ -194,12 +256,12 @@ as_metadata_parse_data (AsMetadata *metad, const gchar *data, GError **error)
 void
 as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 {
-	g_autofree gchar *xml_doc = NULL;
+	g_autofree gchar *asdata_doc = NULL;
 	GFileInputStream* fistream;
 	GFileInfo *info = NULL;
+	g_autofree gchar *file_basename = NULL;
+	gboolean is_yaml_doc = FALSE;
 	const gchar *content_type = NULL;
-
-	g_return_if_fail (file != NULL);
 
 	info = g_file_query_info (file,
 				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
@@ -207,6 +269,20 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 				NULL, NULL);
 	if (info != NULL)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+
+
+	/* check if we are dealing with a YAML document, assume XML otherwise */
+	if (g_strcmp0 (content_type, "application/x-yaml") == 0)
+		is_yaml_doc = TRUE;
+
+	file_basename = g_file_get_basename (file);
+	if ((g_str_has_suffix (file_basename, ".yml.gz") == 0) ||
+	    (g_str_has_suffix (file_basename, ".yaml.gz") == 0) ||
+	    (g_str_has_suffix (file_basename, ".yml") == 0) ||
+	    (g_str_has_suffix (file_basename, ".yaml") == 0)) {
+		is_yaml_doc = TRUE;
+	}
+
 
 	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
 		GFileInputStream *fistream;
@@ -225,7 +301,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
 		data = g_memory_output_stream_get_data (mem_os);
 
-		xml_doc = g_strdup ((const gchar*) data);
+		asdata_doc = g_strdup ((const gchar*) data);
 
 		g_object_unref (conv_stream);
 		g_object_unref (mem_os);
@@ -250,12 +326,15 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 			g_string_append_printf (str, "%s\n", line);
 		}
 
-		xml_doc = g_string_free (str, FALSE);
+		asdata_doc = g_string_free (str, FALSE);
 		g_object_unref (dis);
 	}
 
-	/* parse XML data */
-	as_metadata_parse_data (metad, xml_doc, error);
+	/* parse metadata */
+	if (is_yaml_doc)
+		as_metadata_parse_yaml (metad, asdata_doc, error);
+	else
+		as_metadata_parse_xml (metad, asdata_doc, error);
 }
 
 /**
