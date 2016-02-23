@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Piotr Drąg <piotrdrag@gmail.com>, 2014-2015
+# Piotr Drąg <piotrdrag@gmail.com>, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
@@ -54,12 +54,19 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"Nie odnaleziono pamięci podręcznej składników oprogramowania AppStream. Może "
+"to oznaczać, że niepoprawnie ustawiono AppStream lub dystrybucja nie "
+"dostarcza metadanych AppStream."
 
 msgid "Binaries"
 msgstr "Pliki binarne"
 
 msgid "Bundle"
 msgstr "Paczka"
+
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
 
 msgid "Categories"
 msgstr "Kategorie"
@@ -99,6 +106,9 @@ msgstr "Zrzuca surowe metadane XML dla składnika pasującego do identyfikatora"
 
 msgid "Enforce a cache refresh"
 msgstr "Wymusza odświeżenie pamięci podręcznej"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -266,8 +276,8 @@ msgstr "Pomyślnie sprawdzono poprawność."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "Plik menu XDG w formacie XML „%s” jest uszkodzony."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Należy wykonać to polecenie z uprawnieniami superużytkownika."
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Należy podać polecenie."

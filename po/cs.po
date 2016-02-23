@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Czech (http://www.transifex.com/freedesktop/appstream/"
 "language/cs/)\n"
@@ -61,6 +61,10 @@ msgstr "Spustitelné soubory"
 msgid "Bundle"
 msgstr "Zabaleno pomocí"
 
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
+
 msgid "Categories"
 msgstr "Kategorie"
 
@@ -99,6 +103,9 @@ msgstr "Vypsat surová metadata XML pro komponentu s příslušným ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Vynutit aktualizaci mezipaměti"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -263,8 +270,8 @@ msgstr "Ověření bylo úspěšné."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "Soubor XML „%s“ s XDG Menu je poškozený."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Tento příkaz musíte spustit s oprávněním superuživatele."
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Musíte zadat příkaz."

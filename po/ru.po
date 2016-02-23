@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Serge Vylekzhanin <vylekzhanin@mail.ru>, 2014-2015
+# Serge Vylekzhanin <vylekzhanin@mail.ru>, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
@@ -55,12 +55,19 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"Не найден кэш компонентов программного обеспечения AppStream. Это может "
+"означать, что AppStream настроен некорректно или Ваш дистрибутив не "
+"предоставляет никаких метаданных AppStream."
 
 msgid "Binaries"
 msgstr "Исполняемые файлы"
 
 msgid "Bundle"
 msgstr "Пакет"
+
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
 
 msgid "Categories"
 msgstr "Категории"
@@ -102,6 +109,9 @@ msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Принудительно обновить кэш"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -270,8 +280,8 @@ msgstr "Проверка успешно пройдена."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XML файл меню XDG '%s' повреждён."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Вы должны запустить эту команду с правами суперпользователя!"
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Вы должны указать команду"

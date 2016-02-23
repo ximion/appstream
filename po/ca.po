@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2015
+# Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
@@ -54,12 +54,19 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"No s'ha trobat la memòria cau dels components de programari d'AppStream. "
+"Això podria significar que AppStream estigui configurat de forma incorrecta, "
+"o la vostra distribució no proporciona cap metadada AppStream."
 
 msgid "Binaries"
 msgstr "Binaris"
 
 msgid "Bundle"
 msgstr "Agrupació"
+
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
 
 msgid "Categories"
 msgstr "Categories"
@@ -100,6 +107,9 @@ msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Força una actualització de la memòria cau"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -270,8 +280,8 @@ msgstr "S'ha validat correctament."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "El fitxer XML del menú XDG «%s» està malmès."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Heu d'executar aquesta ordre amb els permisos del superusuari!"
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Heu d'especificar una ordre."

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Dušan Kazik <prescott66@gmail.com>, 2015
+# Dušan Kazik <prescott66@gmail.com>, 2015-2016
 # helix84 <helix84@centrum.sk>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
@@ -54,12 +54,19 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"Vyrovnávacia pamäť softvérovej súčasti AppStreamu nebola nájdená. Toto môže "
+"znamenať, že AppStream nebol nainštalovaný správne, alebo že vaša "
+"distribúcia neposkytuje žiadne metaúdaje pre AppStream."
 
 msgid "Binaries"
 msgstr "Binárne súbory"
 
 msgid "Bundle"
 msgstr "Balík"
+
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
 
 msgid "Categories"
 msgstr "Kategórie"
@@ -99,6 +106,9 @@ msgstr "Vyprázdni súrové metaúdaje XML súčasti zhodujúcej sa s ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -267,8 +277,8 @@ msgstr "Overenie bolo úspešné."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XML súbor XDG Menu „%s“ je poškodený."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Tento príkaz musíte spúšťať s oprávnením správcu!"
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Musíte uviesť príkaz."

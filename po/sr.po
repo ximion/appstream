@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
 "language/sr/)\n"
@@ -63,6 +63,10 @@ msgstr ""
 msgid "Bundle"
 msgstr "Пакет"
 
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
+
 msgid "Categories"
 msgstr "Категорије"
 
@@ -103,6 +107,9 @@ msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Приморава освежавање оставе"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -267,8 +274,8 @@ msgstr "Потврђивање је успело."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "ИксМЛ датотека „%s“ ИксДГ изборника је оштећена."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Морате да покренете ову наредбу са овлашћењима администратора!"
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Морате да наведете наредбу."

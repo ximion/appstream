@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
 "appstream/language/pt_BR/)\n"
@@ -60,6 +60,10 @@ msgstr "Binários"
 msgid "Bundle"
 msgstr "Bundle"
 
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
+
 msgid "Categories"
 msgstr "Categorias"
 
@@ -99,6 +103,9 @@ msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Reforçar uma renovação do cache"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -268,8 +275,8 @@ msgstr "Validação bem sucedida."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "O arquivo XML \"%s\" de Menu XDG está corrompido."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Você precisa executar esse comando com permissões de superusuário!"
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Você precisa especificar um comando."

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Andi Chandler <andi@gowling.com>, 2015
+# Andi Chandler <andi@gowling.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
 "freedesktop/appstream/language/en_GB/)\n"
@@ -53,12 +53,19 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"AppStream software component cache was not found. This could mean AppStream "
+"was set up incorrectly, or your distribution does not provide any AppStream "
+"metadata."
 
 msgid "Binaries"
 msgstr "Binaries"
 
 msgid "Bundle"
 msgstr "Bundle"
+
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
 
 msgid "Categories"
 msgstr "Categories"
@@ -98,6 +105,9 @@ msgstr "Dump raw XML metadata for a component matching the ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Enforce a cache refresh"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -260,8 +270,8 @@ msgstr "Validation was successful."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG Menu XML file '%s' is damaged."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "You need to run this command with superuser permissions!"
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "You need to specify a command."

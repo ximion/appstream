@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
@@ -61,6 +61,10 @@ msgstr "Binárisok"
 msgid "Bundle"
 msgstr "Csomag"
 
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
+
 msgid "Categories"
 msgstr "Kategóriák"
 
@@ -99,6 +103,9 @@ msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőh
 
 msgid "Enforce a cache refresh"
 msgstr "Gyorsítótár-frissítés kényszerítése"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -268,8 +275,8 @@ msgstr "Az ellenőrzés sikeres volt."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "A(z) „%s” XDG menü XML fájl sérült."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "Ezt a parancsot rendszergazdai jogosultságokkal kell futtatnia!"
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."

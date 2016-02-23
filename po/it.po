@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-04 17:19+0100\n"
-"PO-Revision-Date: 2016-02-04 15:33+0000\n"
+"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Italian (http://www.transifex.com/freedesktop/appstream/"
 "language/it/)\n"
@@ -52,12 +52,19 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"La cache software di AppStream non è stata trovata. Ciò può essere dovuto a "
+"una configurazione errata di AppStream o alla mancanza di meta-dati "
+"AppStream non forniti della propria distribuzione."
 
 msgid "Binaries"
 msgstr "Binari"
 
 msgid "Bundle"
 msgstr "Bundle"
+
+#, c-format
+msgid "Cache location '%s' is not writable."
+msgstr ""
 
 msgid "Categories"
 msgstr "Categorie"
@@ -98,6 +105,9 @@ msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Forza l'aggiornamento della cache"
+
+msgid "Extends"
+msgstr ""
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -264,8 +274,8 @@ msgstr "Validazione eseguita con successo."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "Il file XML XDG Menu \"%s\" è danneggiato."
 
-msgid "You need to run this command with superuser permissions!"
-msgstr "È necessario eseguire questo comando con i permessi di amministratore."
+msgid "You might need superuser permissions to perform this action."
+msgstr ""
 
 msgid "You need to specify a command."
 msgstr "È necessario specificare un comando."
