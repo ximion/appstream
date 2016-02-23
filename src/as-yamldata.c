@@ -789,7 +789,7 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen (data));
 
 	while (parse) {
-		yaml_parser_parse(&parser, &event);
+		yaml_parser_parse (&parser, &event);
 		if (event.type == YAML_DOCUMENT_START_EVENT) {
 			GNode *n;
 			gchar *key;
@@ -801,8 +801,18 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 
 			if (header) {
 				for (n = root->children; n != NULL; n = n->next) {
+					if ((n->data == NULL) || (n->children == NULL)) {
+						parse = FALSE;
+						g_set_error_literal (error,
+								AS_METADATA_ERROR,
+								AS_METADATA_ERROR_FAILED,
+								"Invalid DEP-11 file found: Header invalid");
+						break;
+					}
+
 					key = (gchar*) n->data;
 					value = (gchar*) n->children->data;
+
 					if (g_strcmp0 (key, "File") == 0) {
 						if (g_strcmp0 (value, "DEP-11") != 0) {
 							parse = FALSE;

@@ -213,11 +213,17 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 	g_return_val_if_fail (dpool != NULL, NULL);
 
 	res_array = g_ptr_array_new_with_free_func (g_free);
-	for (i = 0; priv->asxml_paths[i] != NULL; i++) {
-		g_ptr_array_add (res_array, g_strdup (priv->asxml_paths[i]));
+
+	if (priv->asxml_paths != NULL) {
+		for (i = 0; priv->asxml_paths[i] != NULL; i++) {
+			g_ptr_array_add (res_array, g_strdup (priv->asxml_paths[i]));
+		}
 	}
-	for (i = 0; priv->dep11_paths[i] != NULL; i++) {
-		g_ptr_array_add (res_array, g_strdup (priv->dep11_paths[i]));
+
+	if (priv->dep11_paths != NULL) {
+		for (i = 0; priv->dep11_paths[i] != NULL; i++) {
+			g_ptr_array_add (res_array, g_strdup (priv->dep11_paths[i]));
+		}
 	}
 
 	res = as_ptr_array_to_strv (res_array);
@@ -291,13 +297,6 @@ as_data_pool_read_metadata (AsDataPool *dpool)
 			}
 		}
 	}
-
-	/* do we have metadata at all? */
-	if (yaml_files->len == 0) {
-		g_ptr_array_unref (yaml_files);
-		return TRUE;
-	}
-
 
 	metad = as_metadata_new ();
 	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
@@ -504,10 +503,16 @@ as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 
 	/* add new metadata directories */
 	g_strfreev (priv->asxml_paths);
-	priv->asxml_paths = as_ptr_array_to_strv (xmldirs);
+	if (xmldirs->len > 0)
+		priv->asxml_paths = as_ptr_array_to_strv (xmldirs);
+	else
+		priv->asxml_paths = NULL;
 
 	g_strfreev (priv->dep11_paths);
-	priv->dep11_paths = as_ptr_array_to_strv (yamldirs);
+	if (yamldirs->len > 0)
+		priv->dep11_paths = as_ptr_array_to_strv (yamldirs);
+	else
+		priv->dep11_paths = NULL;
 
 	/* add new icon search locations */
 	g_strfreev (priv->icon_paths);

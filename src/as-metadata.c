@@ -276,10 +276,10 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 		is_yaml_doc = TRUE;
 
 	file_basename = g_file_get_basename (file);
-	if ((g_str_has_suffix (file_basename, ".yml.gz") == 0) ||
-	    (g_str_has_suffix (file_basename, ".yaml.gz") == 0) ||
-	    (g_str_has_suffix (file_basename, ".yml") == 0) ||
-	    (g_str_has_suffix (file_basename, ".yaml") == 0)) {
+	if ((g_str_has_suffix (file_basename, ".yml.gz")) ||
+	    (g_str_has_suffix (file_basename, ".yaml.gz")) ||
+	    (g_str_has_suffix (file_basename, ".yml")) ||
+	    (g_str_has_suffix (file_basename, ".yaml"))) {
 		is_yaml_doc = TRUE;
 	}
 
