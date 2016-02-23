@@ -38,12 +38,11 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 
 	cbuilder = as_cache_builder_new ();
 	if (datapath != NULL) {
-		gchar **strv;
+		g_auto(GStrv) strv = NULL;
 		/* the user wants data from a different path to be used */
 		strv = g_new0 (gchar*, 2);
 		strv[0] = g_strdup (datapath);
 		as_cache_builder_set_data_source_directories (cbuilder, strv);
-		g_strfreev (strv);
 	}
 
 	as_cache_builder_setup (cbuilder, dbpath, &error);

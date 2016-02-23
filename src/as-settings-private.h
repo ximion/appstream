@@ -29,7 +29,8 @@ G_BEGIN_DECLS
 #define AS_CONFIG_NAME "/etc/appstream.conf"
 #define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
 
-#define AS_APPSTREAM_BASE_PATH "/usr/share/app-info"
+/* declared in as-data-pool.c */
+extern const gchar *AS_APPSTREAM_METADATA_PATHS[4];
 
 G_END_DECLS
 

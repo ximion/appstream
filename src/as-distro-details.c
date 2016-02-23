@@ -53,16 +53,6 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsDistroDetails, as_distro_details, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_distro_details_get_instance_private (o))
 
-/**
- * AS_ICON_PATHS:
- *
- * The path where software icons (of not-installed software) are located.
- */
-const gchar* AS_ICON_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/icons",
-				"/var/lib/app-info/icons",
-				"/var/cache/app-info/icons",
-				NULL};
-
 enum  {
 	AS_DISTRO_DETAILS_DUMMY_PROPERTY,
 	AS_DISTRO_DETAILS_ID,
@@ -178,13 +168,10 @@ as_get_icon_repository_paths ()
 	guint len;
 	guint i;
 
-	len = G_N_ELEMENTS (AS_ICON_PATHS);
+	len = G_N_ELEMENTS (AS_APPSTREAM_METADATA_PATHS);
 	paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			paths[i] = g_strdup (AS_ICON_PATHS[i]);
-		else
-			paths[i] = NULL;
+	for (i = 0; i < len; i++) {
+		paths[i] = g_build_filename (AS_APPSTREAM_METADATA_PATHS[i], "icons", NULL);
 	}
 
 	return paths;

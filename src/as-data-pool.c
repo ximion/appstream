@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -42,24 +42,13 @@
 #include "as-metadata.h"
 #include "as-yamldata.h"
 
-const gchar *AS_APPSTREAM_XML_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/xmls",
-						"/var/lib/app-info/xmls",
-						"/var/cache/app-info/xmls",
-						NULL};
-const gchar *AS_APPSTREAM_DEP11_PATHS[4] = {AS_APPSTREAM_BASE_PATH "/yaml",
-						"/var/lib/app-info/yaml",
-						"/var/cache/app-info/yaml",
-						NULL};
-
 typedef struct
 {
 	GHashTable* cpt_table;
-	GPtrArray* providers;
 	gchar *scr_base_url;
 	gchar *locale;
 
-	gchar **asxml_paths;
-	gchar **dep11_paths;
+	GPtrArray *mdata_dirs;
 
 	gchar **icon_paths;
 } AsDataPoolPrivate;
@@ -68,14 +57,23 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsDataPool, as_data_pool, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_data_pool_get_instance_private (o))
 
 /**
+ * AS_APPSTREAM_METADATA_PATHS:
+ *
+ * Locations where system AppStream metadata can be stored.
+ */
+const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
+						"/var/lib/app-info",
+						"/var/cache/app-info",
+						NULL};
+
+/**
  * as_data_pool_init:
  **/
 static void
 as_data_pool_init (AsDataPool *dpool)
 {
-	AsDistroDetails *distro;
-	guint len;
 	guint i;
+	g_autoptr(AsDistroDetails) distro = NULL;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
 	/* set active locale */
@@ -85,7 +83,6 @@ as_data_pool_init (AsDataPool *dpool)
 						g_str_equal,
 						g_free,
 						(GDestroyNotify) g_object_unref);
-	priv->providers = g_ptr_array_new_with_free_func (g_object_unref);
 
 	distro = as_distro_details_new ();
 	priv->scr_base_url = as_distro_details_get_str (distro, "ScreenshotUrl");
@@ -93,26 +90,12 @@ as_data_pool_init (AsDataPool *dpool)
 		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_name (distro));
 		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
 	}
-	g_object_unref (distro);
 
-	/* set watched default directories for AppStream XML */
-	len = G_N_ELEMENTS (AS_APPSTREAM_XML_PATHS);
-	priv->asxml_paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			priv->asxml_paths[i] = g_strdup (AS_APPSTREAM_XML_PATHS[i]);
-		else
-			priv->asxml_paths[i] = NULL;
-	}
-
-	/* set watched default directories for Debian DEP-11 AppStream data */
-	len = G_N_ELEMENTS (AS_APPSTREAM_DEP11_PATHS);
-	priv->dep11_paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len+1; i++) {
-		if (i < len)
-			priv->dep11_paths[i] = g_strdup (AS_APPSTREAM_DEP11_PATHS[i]);
-		else
-			priv->dep11_paths[i] = NULL;
+	/* set watched default directories for AppStream metadata */
+	priv->mdata_dirs = g_ptr_array_new_with_free_func (g_free);
+	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++) {
+		g_ptr_array_add (priv->mdata_dirs,
+					g_strdup (AS_APPSTREAM_METADATA_PATHS[i]));
 	}
 
 	/* set default icon search locations */
@@ -128,13 +111,10 @@ as_data_pool_finalize (GObject *object)
 	AsDataPool *dpool = AS_DATA_POOL (object);
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
-	g_ptr_array_unref (priv->providers);
 	g_free (priv->scr_base_url);
 	g_hash_table_unref (priv->cpt_table);
 
-	g_strfreev (priv->asxml_paths);
-	g_strfreev (priv->dep11_paths);
-
+	g_ptr_array_unref (priv->mdata_dirs);
 	g_strfreev (priv->icon_paths);
 
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
@@ -206,28 +186,10 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 gchar**
 as_data_pool_get_watched_locations (AsDataPool *dpool)
 {
-	guint i;
-	GPtrArray *res_array;
 	gchar **res;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-	g_return_val_if_fail (dpool != NULL, NULL);
 
-	res_array = g_ptr_array_new_with_free_func (g_free);
-
-	if (priv->asxml_paths != NULL) {
-		for (i = 0; priv->asxml_paths[i] != NULL; i++) {
-			g_ptr_array_add (res_array, g_strdup (priv->asxml_paths[i]));
-		}
-	}
-
-	if (priv->dep11_paths != NULL) {
-		for (i = 0; priv->dep11_paths[i] != NULL; i++) {
-			g_ptr_array_add (res_array, g_strdup (priv->dep11_paths[i]));
-		}
-	}
-
-	res = as_ptr_array_to_strv (res_array);
-	g_ptr_array_unref (res_array);
+	res = as_ptr_array_to_strv (priv->mdata_dirs);
 	return res;
 }
 
@@ -237,8 +199,6 @@ as_data_pool_get_watched_locations (AsDataPool *dpool)
 static gboolean
 as_data_pool_read_metadata (AsDataPool *dpool)
 {
-	g_autoptr(GPtrArray) xml_files = NULL;
-	g_autoptr(GPtrArray) yaml_files = NULL;
 	GPtrArray *cpts;
 	guint i;
 	gboolean ret;
@@ -246,96 +206,72 @@ as_data_pool_read_metadata (AsDataPool *dpool)
 	GError *error = NULL;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
-	/* find AppStream XML */
-	if (priv->asxml_paths != NULL) {
-		xml_files = g_ptr_array_new_with_free_func (g_free);
-
-		for (i = 0; priv->asxml_paths[i] != NULL; i++) {
-			gchar *path;
-			g_autoptr(GPtrArray) xmls = NULL;
-			guint j;
-			path = priv->asxml_paths[i];
-
-			if (!g_file_test (path, G_FILE_TEST_EXISTS))
-				continue;
-
-			xmls = as_utils_find_files_matching (path, "*.xml*", FALSE, NULL);
-			if (xmls == NULL)
-				continue;
-			for (j = 0; j < xmls->len; j++) {
-				const gchar *val;
-				val = (const gchar *) g_ptr_array_index (xmls, j);
-				g_ptr_array_add (xml_files,
-							g_strdup (val));
-			}
-		}
-	}
-
-
-	/* find AppStream YAML */
-	if (priv->dep11_paths != NULL) {
-		yaml_files = g_ptr_array_new_with_free_func (g_free);
-
-		for (i = 0; priv->dep11_paths[i] != NULL; i++) {
-			gchar *path;
-			g_autoptr(GPtrArray) yamls = NULL;
-			guint j;
-			path = priv->dep11_paths[i];
-
-			if (!g_file_test (path, G_FILE_TEST_EXISTS)) {
-				continue;
-			}
-
-			yamls = as_utils_find_files_matching (path, "*.yml*", FALSE, NULL);
-			if (yamls == NULL)
-				continue;
-			for (j = 0; j < yamls->len; j++) {
-				const gchar *val;
-				val = (const gchar *) g_ptr_array_index (yamls, j);
-				g_ptr_array_add (yaml_files,
-							g_strdup (val));
-			}
-		}
-	}
-
+	/* prepare metadata parser */
 	metad = as_metadata_new ();
 	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
 	as_metadata_set_locale (metad, priv->locale);
 
+	/* find AppStream XML and YAML metadata */
 	ret = TRUE;
+	for (i = 0; i < priv->mdata_dirs->len; i++) {
+		const gchar *root_path;
+		g_autofree gchar *xml_path = NULL;
+		g_autofree gchar *yaml_path = NULL;
+		g_autoptr(GPtrArray) mdata_files = NULL;
+		gboolean subdir_found = FALSE;
+		guint j;
 
-	/* process XML metadata, if we have any */
-	if ((xml_files != NULL) && (xml_files->len > 0)) {
-		for (i = 0; i < xml_files->len; i++) {
-			g_autoptr(GFile) infile = NULL;
-			gchar *fname;
+		root_path = (const gchar *) g_ptr_array_index (priv->mdata_dirs, i);
+		if (!g_file_test (root_path, G_FILE_TEST_EXISTS))
+			continue;
 
-			fname = (gchar*) g_ptr_array_index (xml_files, i);
-			g_debug ("Reading: %s", fname);
+		xml_path = g_build_filename (root_path, "xmls", NULL);
+		yaml_path = g_build_filename (root_path, "yaml", NULL);
+		mdata_files = g_ptr_array_new_with_free_func (g_free);
 
-			infile = g_file_new_for_path (fname);
-			if (!g_file_query_exists (infile, NULL)) {
-				g_warning ("Metadata file '%s' does not exist.", fname);
-				continue;
-			}
+		/* find XML data */
+		if (g_file_test (xml_path, G_FILE_TEST_IS_DIR)) {
+			g_autoptr(GPtrArray) xmls = NULL;
 
-			as_metadata_parse_file (metad, infile, &error);
-			if (error != NULL) {
-				g_debug ("WARNING: %s", error->message);
-				g_error_free (error);
-				error = NULL;
-				ret = FALSE;
+			subdir_found = TRUE;
+			xmls = as_utils_find_files_matching (xml_path, "*.xml*", FALSE, NULL);
+			if (xmls != NULL) {
+				for (j = 0; j < xmls->len; j++) {
+					const gchar *val;
+					val = (const gchar *) g_ptr_array_index (xmls, j);
+					g_ptr_array_add (mdata_files,
+								g_strdup (val));
+				}
 			}
 		}
-	}
 
-	/* process YAML metadata, if we have any */
-	if ((yaml_files != NULL) && (yaml_files->len > 0)) {
-		for (i = 0; i < yaml_files->len; i++) {
+		/* find YAML data */
+		if (g_file_test (yaml_path, G_FILE_TEST_IS_DIR)) {
+			g_autoptr(GPtrArray) yamls = NULL;
+
+			subdir_found = TRUE;
+			yamls = as_utils_find_files_matching (yaml_path, "*.yml*", FALSE, NULL);
+			if (yamls != NULL) {
+				for (j = 0; j < yamls->len; j++) {
+					const gchar *val;
+					val = (const gchar *) g_ptr_array_index (yamls, j);
+					g_ptr_array_add (mdata_files,
+								g_strdup (val));
+				}
+			}
+		}
+
+		if (!subdir_found) {
+			g_debug ("No metadata-specific subdirectories found in '%s'", root_path);
+			continue;
+		}
+
+		/* parse the found data */
+		for (j = 0; j < mdata_files->len; j++) {
 			g_autoptr(GFile) infile = NULL;
-			gchar *fname;
+			const gchar *fname;
 
-			fname = (gchar*) g_ptr_array_index (yaml_files, i);
+			fname = (const gchar*) g_ptr_array_index (mdata_files, j);
 			g_debug ("Reading: %s", fname);
 
 			infile = g_file_new_for_path (fname);
@@ -470,13 +406,11 @@ void
 as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 {
 	guint i;
-	GPtrArray *xmldirs;
-	GPtrArray *yamldirs;
 	GPtrArray *icondirs;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
-	xmldirs = g_ptr_array_new_with_free_func (g_free);
-	yamldirs = g_ptr_array_new_with_free_func (g_free);
+	/* clear array */
+	g_ptr_array_set_size (priv->mdata_dirs, 0);
 
 	icondirs = g_ptr_array_new_with_free_func (g_free);
 	for (i = 0; priv->icon_paths[i] != NULL; i++) {
@@ -484,42 +418,18 @@ as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
 	}
 
 	for (i = 0; dirs[i] != NULL; i++) {
-		gchar *path;
-		path = g_build_filename (dirs[i], "xmls", NULL);
-		if (g_file_test (path, G_FILE_TEST_EXISTS))
-			g_ptr_array_add (xmldirs, g_strdup (path));
-		g_free (path);
+		g_autofree gchar *path = NULL;
 
-		path = g_build_filename (dirs[i], "yaml", NULL);
-		if (g_file_test (path, G_FILE_TEST_EXISTS))
-			g_ptr_array_add (yamldirs, g_strdup (path));
-		g_free (path);
+		g_ptr_array_add (priv->mdata_dirs, g_strdup (dirs[i]));
 
 		path = g_build_filename (dirs[i], "icons", NULL);
 		if (g_file_test (path, G_FILE_TEST_EXISTS))
 			g_ptr_array_add (icondirs, g_strdup (path));
-		g_free (path);
 	}
-
-	/* add new metadata directories */
-	g_strfreev (priv->asxml_paths);
-	if (xmldirs->len > 0)
-		priv->asxml_paths = as_ptr_array_to_strv (xmldirs);
-	else
-		priv->asxml_paths = NULL;
-
-	g_strfreev (priv->dep11_paths);
-	if (yamldirs->len > 0)
-		priv->dep11_paths = as_ptr_array_to_strv (yamldirs);
-	else
-		priv->dep11_paths = NULL;
 
 	/* add new icon search locations */
 	g_strfreev (priv->icon_paths);
 	priv->icon_paths = as_ptr_array_to_strv (icondirs);
-
-	g_ptr_array_unref (xmldirs);
-	g_ptr_array_unref (yamldirs);
 }
 
 /**
