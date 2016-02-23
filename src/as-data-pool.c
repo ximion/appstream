@@ -176,28 +176,25 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 }
 
 /**
- * as_data_pool_get_watched_locations:
+ * as_data_pool_get_metadata_locations:
  * @dpool: An instance of #AsDataPool.
  *
  * Return a list of all locations which are searched for metadata.
  *
- * Returns: (transfer full): A string-list of watched (absolute) filepaths
+ * Returns: (transfer none): A string-list of watched (absolute) filepaths
  **/
-gchar**
-as_data_pool_get_watched_locations (AsDataPool *dpool)
+GPtrArray*
+as_data_pool_get_metadata_locations (AsDataPool *dpool)
 {
-	gchar **res;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-
-	res = as_ptr_array_to_strv (priv->mdata_dirs);
-	return res;
+	return priv->mdata_dirs;
 }
 
 /**
- * as_data_pool_read_metadata:
+ * as_data_pool_load_metadata:
  */
 static gboolean
-as_data_pool_read_metadata (AsDataPool *dpool)
+as_data_pool_load_metadata (AsDataPool *dpool)
 {
 	GPtrArray *cpts;
 	guint i;
@@ -319,12 +316,12 @@ as_data_pool_update (AsDataPool *dpool, GError **error)
 	/* just in case, clear the components table */
 	g_hash_table_unref (priv->cpt_table);
 	priv->cpt_table = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						(GDestroyNotify) g_object_unref);
+							g_str_equal,
+							g_free,
+							(GDestroyNotify) g_object_unref);
 
 	/* read all AppStream metadata that we can find */
-	ret = as_data_pool_read_metadata (dpool);
+	ret = as_data_pool_load_metadata (dpool);
 	return ret;
 }
 
@@ -393,7 +390,7 @@ as_data_pool_get_locale (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_set_data_source_directories:
+ * as_data_pool_set_metadata_locations:
  * @dpool: An instance of #AsDataPool.
  * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
  *
@@ -403,7 +400,7 @@ as_data_pool_get_locale (AsDataPool *dpool)
  * AppStream XML or DEP-11 YAML in it.
  */
 void
-as_data_pool_set_data_source_directories (AsDataPool *dpool, gchar **dirs)
+as_data_pool_set_metadata_locations (AsDataPool *dpool, gchar **dirs)
 {
 	guint i;
 	GPtrArray *icondirs;

@@ -158,25 +158,50 @@ as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath, GError **e
 }
 
 /**
+ * as_cache_builder_ctime_newer:
+ *
+ * Returns: %TRUE if ctime of file is newer than the cached time.
+ */
+static gboolean
+as_cache_builder_ctime_newer (AsCacheBuilder *builder, const gchar *dir)
+{
+	struct stat sb;
+	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
+
+	if (stat (dir, &sb) < 0)
+		return FALSE;
+
+	if (sb.st_ctime > priv->cache_ctime)
+		return TRUE;
+
+	return FALSE;
+}
+
+/**
  * as_cache_builder_appstream_data_changed:
  */
 static gboolean
 as_cache_builder_appstream_data_changed (AsCacheBuilder *builder)
 {
 	guint i;
-	g_auto(GStrv) locations = NULL;
+	GPtrArray *locations;
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
-	locations = as_data_pool_get_watched_locations (priv->dpool);
-	for (i = 0; locations[i] != NULL; i++) {
-		struct stat sb;
-		gchar *fname;
+	locations = as_data_pool_get_metadata_locations (priv->dpool);
+	for (i = 0; i < locations->len; i++) {
+		g_autofree gchar *xml_dir = NULL;
+		g_autofree gchar *yaml_dir = NULL;
+		const gchar *dir_root = (const gchar*) g_ptr_array_index (locations, i);
 
-		fname = locations[i];
-		if (stat (fname, &sb) < 0)
-			continue;
+		if (as_cache_builder_ctime_newer (builder, dir_root))
+			return TRUE;
 
-		if (sb.st_ctime > priv->cache_ctime)
+		xml_dir = g_build_filename (dir_root, "xmls", NULL);
+		if (as_cache_builder_ctime_newer (builder, xml_dir))
+			return TRUE;
+
+		yaml_dir = g_build_filename (dir_root, "yaml", NULL);
+		if (as_cache_builder_ctime_newer (builder, yaml_dir))
 			return TRUE;
 	}
 
@@ -520,7 +545,7 @@ void
 as_cache_builder_set_data_source_directories (AsCacheBuilder *builder, gchar **dirs)
 {
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
-	as_data_pool_set_data_source_directories (priv->dpool, dirs);
+	as_data_pool_set_metadata_locations (priv->dpool, dirs);
 }
 
 /**
