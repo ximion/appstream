@@ -111,6 +111,9 @@ class APPSTREAMQT_EXPORT Component {
         QStringList extends() const;
         void setExtends(const QStringList& extends);
 
+        QStringList extensions() const;
+        void setExtensions(const QStringList& extensions);
+
         /**
          * \return generic (stock) icon name
          */

@@ -201,6 +201,10 @@ Component xapianDocToComponent(Xapian::Document document) {
     const QStringList extends = value(document, XapianValues::EXTENDS).split(QLatin1Char(';'));
     component.setExtends(extends);
 
+    // Extensions
+    const QStringList extensions = value(document, XapianValues::EXTENSIONS).split(QLatin1Char(';'));
+    component.setExtensions(extensions);
+
     // Screenshots
     ASCache::Screenshots pb_scrs;
     str = document.get_value (XapianValues::SCREENSHOTS);

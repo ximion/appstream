@@ -33,6 +33,7 @@ class Appstream::ComponentData : public QSharedData {
         QString m_description;
         QString m_developerName;
         QStringList m_extends;
+        QStringList m_extensions;
         QString m_icon;
         QString m_id;
         Component::Kind m_kind;
@@ -101,6 +102,9 @@ class Appstream::ComponentData : public QSharedData {
             if(m_bundles != other.m_bundles) {
                 return false;
             }
+
+            // we don't check for m_extensions, since this is auto-generated and not a specific property of a component.
+
             return true;
         }
 };
@@ -236,6 +240,14 @@ QStringList Component::extends() const {
 
 void Component::setExtends(const QStringList& extends) {
     d->m_extends = extends;
+}
+
+QStringList Component::extensions() const {
+    return d->m_extensions;
+}
+
+void Component::setExtensions(const QStringList& extensions) {
+    d->m_extensions = extensions;
 }
 
 Component::Component(const Component& other) : d(other.d) {
