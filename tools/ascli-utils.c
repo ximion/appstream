@@ -187,6 +187,33 @@ as_get_bundle_str (AsComponent *cpt)
 }
 
 /**
+ * ascli_ptrarray_to_pretty:
+ *
+ * Pretty-print a GPtrArray.
+ */
+static gchar*
+ascli_ptrarray_to_pretty (GPtrArray *array)
+{
+	GString *rstr = NULL;
+	guint i;
+
+	if (array->len == 1) {
+		return g_strdup (g_ptr_array_index (array, 0));
+	}
+
+	rstr = g_string_new ("");
+	for (i = 0; i < array->len; i++) {
+		const gchar *astr = (const gchar*) g_ptr_array_index (array, i);
+
+		g_string_append_printf (rstr, "- %s\n", astr);
+	}
+	if (rstr->len > 0)
+		g_string_truncate (rstr, rstr->len - 1);
+
+	return g_string_free (rstr, FALSE);
+}
+
+/**
  * ascli_print_component:
  *
  * Print well-formatted details about a component to stdout.
@@ -225,6 +252,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		GPtrArray *sshot_array;
 		GPtrArray *imgs = NULL;
 		GPtrArray *extends;
+		GPtrArray *extensions;
 		GList *provided;
 		GList *l;
 		AsScreenshot *sshot;
@@ -238,9 +266,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		/* extends data (e.g. for addons) */
 		extends = as_component_get_extends (cpt);
 		if (extends != NULL) {
-			g_auto(GStrv) extends_strv = NULL;
-			extends_strv = as_ptr_array_to_strv (extends);
-			str = g_strjoinv (", ", extends_strv);
+			str = ascli_ptrarray_to_pretty (extends);
 			ascli_print_key_value (_("Extends"), str, FALSE);
 			g_free (str);
 		}
@@ -292,6 +318,14 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		if (strv != NULL) {
 			str = g_strjoinv (", ", strv);
 			ascli_print_key_value (_("Compulsory for"), str, FALSE);
+			g_free (str);
+		}
+
+		/* list of addons extending this component */
+		extensions = as_component_get_extensions (cpt);
+		if (extensions != NULL) {
+			str = ascli_ptrarray_to_pretty (extensions);
+			ascli_print_key_value (_("Extensions"), str, FALSE);
 			g_free (str);
 		}
 

@@ -125,6 +125,33 @@ images_array_to_imageentry (AsImage *img, Screenshots_Screenshot *pb_sshot)
 	}
 }
 
+/**
+ * Turn a GPtrArray (containing C strings) into a semicolon-separated list
+ * of strings as sdt__string
+ */
+static string
+ptrarray_to_semicolon_str (GPtrArray *array)
+{
+	if (array == NULL)
+		return string();
+	if (array->len == 0)
+		return string();
+
+	ostringstream res_sstr;
+	for (uint i = 0; i < array->len; i++) {
+		const gchar *acstr = (const gchar*) g_ptr_array_index (array, i);
+		if (i == array->len-1)
+			res_sstr << acstr;
+		else
+			res_sstr << acstr << ";";
+	}
+
+	return res_sstr.str ();
+}
+
+/**
+ * Recreate the database from a given component list.
+ */
 bool
 DatabaseWrite::rebuild (GList *cpt_list)
 {
@@ -265,19 +292,13 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		as_component_set_active_locale (cpt, clocale.c_str());
 		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
 
-		// Add extends information
+		// Extends
 		GPtrArray *extends = as_component_get_extends (cpt);
-		if (extends != NULL) {
-			ostringstream extends_sstr;
-			for (uint i = 0; i < extends->len; i++) {
-				const gchar *e_cptid = (const gchar*) g_ptr_array_index (extends, i);
-				if (i == extends->len)
-					extends_sstr << e_cptid << ";";
-				else
-					extends_sstr << e_cptid;
-			}
-			doc.add_value (XapianValues::EXTENDS, extends_sstr.str ());
-		}
+		doc.add_value (XapianValues::EXTENDS, ptrarray_to_semicolon_str (extends));
+
+		// Extensions
+		GPtrArray *exts = as_component_get_extensions (cpt);
+		doc.add_value (XapianValues::EXTENSIONS, ptrarray_to_semicolon_str (exts));
 
 		// URLs
 		GHashTable *urls_table;

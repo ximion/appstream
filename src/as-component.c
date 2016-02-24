@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -66,6 +66,7 @@ typedef struct
 	gchar			**compulsory_for_desktops;
 
 	GPtrArray		*extends; /* of string */
+	GPtrArray		*extensions; /* of string */
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
 	GPtrArray		*releases; /* of AsRelease elements */
 
@@ -206,7 +207,6 @@ as_component_init (AsComponent *cpt)
 
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
-	priv->extends = g_ptr_array_new_with_free_func (g_free);
 
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -245,11 +245,15 @@ as_component_finalize (GObject* object)
 
 	g_ptr_array_unref (priv->screenshots);
 	g_ptr_array_unref (priv->releases);
-	g_ptr_array_unref (priv->extends);
 	g_hash_table_unref (priv->provided);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
 	g_hash_table_unref (priv->bundles);
+
+	if (priv->extends != NULL)
+		g_ptr_array_unref (priv->extends);
+	if (priv->extensions != NULL)
+		g_ptr_array_unref (priv->extensions);
 
 	g_ptr_array_unref (priv->icons);
 	g_hash_table_unref (priv->icons_sizetab);
@@ -430,14 +434,16 @@ as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url)
 			     g_strdup (url));
 }
 
- /**
+/**
   * as_component_get_extends:
   * @cpt: an #AsComponent instance.
   *
   * Returns a string list of IDs of components which
   * are extended by this addon.
   *
-  * Returns: (element-type utf8) (transfer none): an array
+  * See %as_component_get_extends() for the reverse.
+  *
+  * Returns: (element-type utf8) (transfer none): A #GPtrArray or %NULL if not set.
   *
   * Since: 0.7.0
 **/
@@ -445,6 +451,8 @@ GPtrArray*
 as_component_get_extends (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->extends == NULL)
+		priv->extends = g_ptr_array_new_with_free_func (g_free);
 	return priv->extends;
 }
 
@@ -454,12 +462,56 @@ as_component_get_extends (AsComponent *cpt)
  * @cpt_id: The id of a component which is extended by this component
  *
  * Add a reference to the extended component
+ *
+ * Since: 0.7.0
  **/
 void
 as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->extends == NULL)
+		priv->extends = g_ptr_array_new_with_free_func (g_free);
 	g_ptr_array_add (priv->extends, g_strdup (cpt_id));
+}
+
+/**
+  * as_component_get_extensions:
+  * @cpt: an #AsComponent instance.
+  *
+  * Returns a string list of IDs of components which
+  * are addons extending this component in functionality.
+  *
+  * This is the reverse of %as_component_get_extends()
+  *
+  * Returns: (element-type utf8) (transfer none): A #GPtrArray or %NULL if not set.
+  *
+  * Since: 0.9.2
+**/
+GPtrArray*
+as_component_get_extensions (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->extensions == NULL)
+		priv->extensions = g_ptr_array_new_with_free_func (g_free);
+	return priv->extensions;
+}
+
+/**
+ * as_component_add_extension:
+ * @cpt: a #AsComponent instance.
+ * @cpt_id: The id of a component extending this component.
+ *
+ * Add a reference to the extension enhancing this component.
+ *
+ * Since: 0.9.2
+ **/
+void
+as_component_add_extension (AsComponent* cpt, const gchar* cpt_id)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->extensions == NULL)
+		priv->extensions = g_ptr_array_new_with_free_func (g_free);
+	g_ptr_array_add (priv->extensions, g_strdup (cpt_id));
 }
 
 /**

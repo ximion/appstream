@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -184,6 +184,10 @@ void			as_component_add_release (AsComponent *cpt,
 
 GPtrArray		*as_component_get_extends (AsComponent *cpt);
 void			as_component_add_extends (AsComponent *cpt,
+							const gchar *cpt_id);
+
+GPtrArray		*as_component_get_extensions (AsComponent *cpt);
+void			as_component_add_extension (AsComponent *cpt,
 							const gchar *cpt_id);
 
 void			as_component_add_language (AsComponent *cpt,

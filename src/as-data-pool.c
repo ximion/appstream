@@ -176,6 +176,49 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 }
 
 /**
+ * as_data_pool_update_extension_info:
+ *
+ * Populate the "extensions" property of each #AsComponent, using the
+ * "extends" information from other components.
+ */
+static void
+as_data_pool_update_extension_info (AsDataPool *dpool)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	g_hash_table_iter_init (&iter, priv->cpt_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		AsComponent *cpt;
+		GPtrArray *extends;
+		const gchar *cid;
+		guint i;
+
+		cpt = AS_COMPONENT (value);
+		cid = (const gchar*) key;
+
+		extends = as_component_get_extends (cpt);
+
+		if ((extends == NULL) || (extends->len == 0))
+			continue;
+
+		for (i = 0; i < extends->len; i++) {
+			AsComponent *extended_cpt;
+			const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
+
+			extended_cpt = g_hash_table_lookup (priv->cpt_table, extended_cid);
+			if (extended_cpt == NULL) {
+				g_debug ("%s extends %s, but %s was not found.", as_component_get_id (cpt), extended_cid, extended_cid);
+				continue;
+			}
+
+			as_component_add_extension (extended_cpt, cid);
+		}
+	}
+}
+
+/**
  * as_data_pool_get_metadata_locations:
  * @dpool: An instance of #AsDataPool.
  *
@@ -322,6 +365,10 @@ as_data_pool_update (AsDataPool *dpool, GError **error)
 
 	/* read all AppStream metadata that we can find */
 	ret = as_data_pool_load_metadata (dpool);
+
+	/* set the "extension" information */
+	as_data_pool_update_extension_info (dpool);
+
 	return ret;
 }
 

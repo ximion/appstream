@@ -147,6 +147,15 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		}
 	}
 
+	// Extensions
+	string extsStr = doc.get_value (XapianValues::EXTENSIONS);
+	if (!extsStr.empty ()) {
+		g_auto(GStrv) exts = g_strsplit (extsStr.c_str (), ";", -1);
+		for (uint i = 0; exts[i] != NULL; i++) {
+			as_component_add_extension (cpt, exts[i]);
+		}
+	}
+
 	// URLs
 	Urls urls;
 	str = doc.get_value (XapianValues::URLS);
