@@ -768,10 +768,6 @@ void
 as_component_set_origin (AsComponent *cpt, const gchar* origin)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	/* safety measure, so we never set this to NULL */
-	if (origin == NULL)
-		origin = "";
 	g_free (priv->origin);
 	priv->origin = g_strdup (origin);
 }
@@ -848,18 +844,14 @@ as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* valu
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* safety measure, so we can always convert this to a C++ string */
-	if (value == NULL)
-		value = "";
-
 	/* if no locale was specified, we assume the default locale */
 	/* CAVE: %NULL does NOT mean lang=C! */
 	if (locale == NULL)
 		locale = priv->active_locale;
 
 	g_hash_table_insert (lht,
-						 g_strdup (locale),
-						 g_strdup (value));
+				g_strdup (locale),
+				g_strdup (value));
 }
 
 /**
@@ -873,14 +865,8 @@ as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* valu
 const gchar*
 as_component_get_name (AsComponent *cpt)
 {
-	const gchar *name;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	name = as_component_localized_get (cpt, priv->name);
-	/* prevent issues when converting to a C++ string */
-	if (name == NULL)
-		return "";
-	return name;
+	return as_component_localized_get (cpt, priv->name);
 }
 
 /**
@@ -924,14 +910,8 @@ as_component_get_name_table (AsComponent *cpt)
 const gchar*
 as_component_get_summary (AsComponent *cpt)
 {
-	const gchar *summary;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	summary = as_component_localized_get (cpt, priv->summary);
-	/* prevent issues when converting to a C++ string */
-	if (summary == NULL)
-		return "";
-	return summary;
+	return as_component_localized_get (cpt, priv->summary);
 }
 
 /**
@@ -975,14 +955,8 @@ as_component_get_summary_table (AsComponent *cpt)
 const gchar*
 as_component_get_description (AsComponent *cpt)
 {
-	const gchar *desc;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	desc = as_component_localized_get (cpt, priv->description);
-	/* prevent issues when converting to a C++ string */
-	if (desc == NULL)
-		return "";
-	return desc;
+	return as_component_localized_get (cpt, priv->description);
 }
 
 /**

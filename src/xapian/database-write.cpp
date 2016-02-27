@@ -265,8 +265,9 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);
 
 		// Origin
-		string cptOrigin = as_component_get_origin (cpt);
-		doc.add_value (XapianValues::ORIGIN, cptOrigin);
+		const gchar *cptOrigin = as_component_get_origin (cpt);
+		if (cptOrigin != NULL)
+			doc.add_value (XapianValues::ORIGIN, cptOrigin);
 
 		// Bundles
 		Bundles bundles;
@@ -281,16 +282,24 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		}
 
 		// Component name
-		string cptName = as_component_get_name (cpt);
-		doc.add_value (XapianValues::CPTNAME, cptName);
+		const gchar *cptName = as_component_get_name (cpt);
+		if (cptName != NULL)
+			doc.add_value (XapianValues::CPTNAME, cptName);
 
 		// Untranslated component name
-		string clocale = as_component_get_active_locale (cpt);
+		string clocale = as_component_get_active_locale (cpt)? as_component_get_active_locale (cpt) : "";
 		as_component_set_active_locale (cpt, "C");
-		string cptNameGeneric = as_component_get_name (cpt);
-		doc.add_value (XapianValues::CPTNAME_UNTRANSLATED, cptNameGeneric);
-		as_component_set_active_locale (cpt, clocale.c_str());
-		term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
+
+		const gchar *cptNameGeneric = as_component_get_name (cpt);
+		if (cptNameGeneric != NULL) {
+			doc.add_value (XapianValues::CPTNAME_UNTRANSLATED, cptNameGeneric);
+			term_generator.index_text_without_positions (cptNameGeneric, WEIGHT_DESKTOP_GENERICNAME);
+		}
+
+		if (clocale.empty ())
+			as_component_set_active_locale (cpt, NULL);
+		else
+			as_component_set_active_locale (cpt, clocale.c_str());
 
 		// Extends
 		GPtrArray *extends = as_component_get_extends (cpt);
@@ -339,14 +348,18 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 
 		// Summary
-		string cptSummary = as_component_get_summary (cpt);
-		doc.add_value (XapianValues::SUMMARY, cptSummary);
-		term_generator.index_text_without_positions (cptSummary, WEIGHT_DESKTOP_SUMMARY);
+		const gchar *cptSummary = as_component_get_summary (cpt);
+		if (cptSummary != NULL) {
+			doc.add_value (XapianValues::SUMMARY, cptSummary);
+			term_generator.index_text_without_positions (cptSummary, WEIGHT_DESKTOP_SUMMARY);
+		}
 
 		// Long description
-		string description = as_component_get_description (cpt);
-		doc.add_value (XapianValues::DESCRIPTION, description);
-		term_generator.index_text_without_positions (description, WEIGHT_DESKTOP_SUMMARY);
+		const gchar *description = as_component_get_description (cpt);
+		if (description != NULL) {
+			doc.add_value (XapianValues::DESCRIPTION, description);
+			term_generator.index_text_without_positions (description, WEIGHT_DESKTOP_SUMMARY);
+		}
 
 		// Categories
 		gchar **categories = as_component_get_categories (cpt);

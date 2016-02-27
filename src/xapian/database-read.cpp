@@ -108,9 +108,11 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Component name
 	string cptName = doc.get_value (XapianValues::CPTNAME);
-	as_component_set_name (cpt, cptName.c_str (), NULL);
+	if (!cptName.empty ())
+		as_component_set_name (cpt, cptName.c_str (), NULL);
 	cptName = doc.get_value (XapianValues::CPTNAME_UNTRANSLATED);
-	as_component_set_name (cpt, cptName.c_str (), "C");
+	if (!cptName.empty ())
+		as_component_set_name (cpt, cptName.c_str (), "C");
 
 	// Package name
 	string pkgNamesStr = doc.get_value (XapianValues::PKGNAMES);
@@ -121,11 +123,13 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Source package name
 	string cptSPkg = doc.get_value (XapianValues::SOURCE_PKGNAME);
-	as_component_set_source_pkgname (cpt, cptSPkg.c_str ());
+	if (!cptSPkg.empty ())
+		as_component_set_source_pkgname (cpt, cptSPkg.c_str ());
 
 	// Origin
 	string cptOrigin = doc.get_value (XapianValues::ORIGIN);
-	as_component_set_origin (cpt, cptOrigin.c_str ());
+	if (!cptOrigin.empty ())
+		as_component_set_origin (cpt, cptOrigin.c_str ());
 
 	// Bundles
 	Bundles bundles;
@@ -190,16 +194,19 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 	}
 
 	// Summary
-	string appSummary = doc.get_value (XapianValues::SUMMARY);
-	as_component_set_summary (cpt, appSummary.c_str (), NULL);
+	string cptSummary = doc.get_value (XapianValues::SUMMARY);
+	if (!cptSummary.empty ())
+		as_component_set_summary (cpt, cptSummary.c_str (), NULL);
 
 	// Long description
-	string appDescription = doc.get_value (XapianValues::DESCRIPTION);
-	as_component_set_description (cpt, appDescription.c_str (), NULL);
+	string cptDescription = doc.get_value (XapianValues::DESCRIPTION);
+	if (!cptDescription.empty ())
+		as_component_set_description (cpt, cptDescription.c_str (), NULL);
 
 	// Categories
 	string categories_str = doc.get_value (XapianValues::CATEGORIES);
-	as_component_set_categories_from_str (cpt, categories_str.c_str ());
+	if (!categories_str.empty ())
+		as_component_set_categories_from_str (cpt, categories_str.c_str ());
 
 	// Provided items
 	ASCache::ProvidedItems pbPI;
@@ -260,21 +267,26 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 
 	// Compulsory-for-desktop information
 	string compulsory_str = doc.get_value (XapianValues::COMPULSORY_FOR);
-	gchar **strv = g_strsplit (compulsory_str.c_str (), ";", -1);
-	as_component_set_compulsory_for_desktops (cpt, strv);
-	g_strfreev (strv);
+	if (!compulsory_str.empty ()) {
+		g_auto(GStrv) strv = NULL;
+		strv = g_strsplit (compulsory_str.c_str (), ";", -1);
+		as_component_set_compulsory_for_desktops (cpt, strv);
+	}
 
 	// License
 	string license = doc.get_value (XapianValues::LICENSE);
-	as_component_set_project_license (cpt, license.c_str ());
+	if (!license.empty ())
+		as_component_set_project_license (cpt, license.c_str ());
 
 	// Project group
-	string project_group = doc.get_value (XapianValues::PROJECT_GROUP);
-	as_component_set_project_group (cpt, project_group.c_str ());
+	string projectGroup = doc.get_value (XapianValues::PROJECT_GROUP);
+	if (!projectGroup.empty ())
+		as_component_set_project_group (cpt, projectGroup.c_str ());
 
 	// Source package name
 	string developerName = doc.get_value (XapianValues::DEVELOPER_NAME);
-	as_component_set_developer_name (cpt, developerName.c_str (), NULL);
+	if (!developerName.empty ())
+		as_component_set_developer_name (cpt, developerName.c_str (), NULL);
 
 	// Releases data
 	Releases pb_rels;
