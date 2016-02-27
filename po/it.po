@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
-"PO-Revision-Date: 2016-02-23 00:22+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
+"PO-Revision-Date: 2016-02-23 07:18+0000\n"
+"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian (http://www.transifex.com/freedesktop/appstream/"
 "language/it/)\n"
 "Language: it\n"
@@ -64,7 +64,7 @@ msgstr "Bundle"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Non è possibile scrivere sulla posizione cache «%s»"
 
 msgid "Categories"
 msgstr "Categorie"
@@ -99,7 +99,8 @@ msgstr "Non usa la cache Xapian durante le richieste"
 msgid "Don't show colored output"
 msgstr "Non mostra output colorato"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Esegue il dump dei meta-dati XML per un componente che corrisponde all'ID"
 
@@ -107,7 +108,11 @@ msgid "Enforce a cache refresh"
 msgstr "Forza l'aggiornamento della cache"
 
 msgid "Extends"
-msgstr ""
+msgstr "Estende"
+
+#, fuzzy
+msgid "Extensions"
+msgstr "Estende"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -119,10 +124,12 @@ msgstr "Firmware caricato"
 msgid "Fonts"
 msgstr "Caratteri"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Ottiene i componenti che forniscono l'elemento passato"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Ottiene informazioni riguardo a un componente tramite il suo ID"
 
 msgid "Homepage"
@@ -133,6 +140,9 @@ msgstr "Icona"
 
 msgid "Identifier"
 msgstr "Identificatore"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Tipo non valido per l'elemento selezionato. Valori valido sono:"
@@ -201,7 +211,8 @@ msgstr "Python (versione 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Rigenera la cache delle informazioni del componente"
 
 #, c-format
@@ -215,10 +226,12 @@ msgstr "Firmware di esecuzione"
 msgid "Sample Screenshot URL"
 msgstr "URL schermata esempio"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Cerca nel database dei componenti"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "Selezionare un valore per il provides-item da cercare"
 
 msgid "Show extra debugging information"
@@ -257,10 +270,12 @@ msgstr "Impossibile aprire la cache dei componenti software di AppStream."
 msgid "Unable to spawn package manager: %s"
 msgstr "Impossibile lanciare il gestore di pacchetti: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "Esegue la validazione dei file XML AppStream"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Esegue la validazione dei meta-dati di un file installato di un'applicazione"
 
@@ -276,6 +291,8 @@ msgstr "Il file XML XDG Menu \"%s\" è danneggiato."
 
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Potrebbero essere necessari i permessi di amministrazione per eseguire "
+"questa azione."
 
 msgid "You need to specify a command."
 msgstr "È necessario specificare un comando."

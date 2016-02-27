@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
-"PO-Revision-Date: 2016-02-23 00:22+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
+"PO-Revision-Date: 2016-02-24 23:01+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -61,7 +61,7 @@ msgstr "套組"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "無法寫入「%s」快取位置。"
 
 msgid "Categories"
 msgstr "類別"
@@ -96,14 +96,19 @@ msgstr "執行請求時不要使用 Xapian 快取"
 msgid "Don't show colored output"
 msgstr "不要顯示色彩化的輸出"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 之組件的原生 XML 中介資料"
 
 msgid "Enforce a cache refresh"
 msgstr "強制快取重新整理"
 
 msgid "Extends"
-msgstr ""
+msgstr "擴展"
+
+#, fuzzy
+msgid "Extensions"
+msgstr "擴展"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -115,10 +120,12 @@ msgstr "快閃記憶韌體"
 msgid "Fonts"
 msgstr "字型"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "取得可提供給定項目的組件"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "根據其 ID 取得組件的資料"
 
 msgid "Homepage"
@@ -129,6 +136,9 @@ msgstr "圖示"
 
 msgid "Identifier"
 msgstr "辨識碼"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "選取的供應項目類型無效。有效的值有："
@@ -193,7 +203,8 @@ msgstr "Python (第 2 版)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "重建組件資訊快取"
 
 #, c-format
@@ -206,10 +217,12 @@ msgstr "執行時期韌體"
 msgid "Sample Screenshot URL"
 msgstr "樣本螢幕快照 URL"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "搜尋組件資料庫"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "為需要尋找的提供項目選取個值"
 
 msgid "Show extra debugging information"
@@ -248,10 +261,12 @@ msgstr "無法開啟 AppStream 軟體組件快取。"
 msgid "Unable to spawn package manager: %s"
 msgstr "無法多重啟動軟體包管理程式：%s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "根據問題驗證 AppStream XML 檔案"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "根據有效的中介資料來驗證應用程式的已安裝檔案樹"
 
 msgid "Validation failed."
@@ -265,7 +280,7 @@ msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG 選單 XML 檔案「%s」已損毀。"
 
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "您也許需要超級使用者權利才能執行此動作。"
 
 msgid "You need to specify a command."
 msgstr "您需要指定個指令。"

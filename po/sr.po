@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
 "PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
@@ -100,7 +100,8 @@ msgstr "Не користи кеш Запијана (Xapian) приликом с
 msgid "Don't show colored output"
 msgstr "Не приказује обојени излаз"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Избаци сирове „XML“ метаподатке везане за компоненту која се подудара са ИБ-"
 "ом"
@@ -109,6 +110,9 @@ msgid "Enforce a cache refresh"
 msgstr "Приморава освежавање оставе"
 
 msgid "Extends"
+msgstr ""
+
+msgid "Extensions"
 msgstr ""
 
 #, c-format
@@ -121,10 +125,12 @@ msgstr ""
 msgid "Fonts"
 msgstr ""
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Добавља састојке који обезбеђују дату ставку"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Добави податке о компоненти користећи ИБ"
 
 msgid "Homepage"
@@ -135,6 +141,9 @@ msgstr "Иконица"
 
 msgid "Identifier"
 msgstr "Одредник"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
@@ -201,7 +210,8 @@ msgstr ""
 msgid "Python 3"
 msgstr ""
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Поново изграђује оставу података састојка"
 
 #, c-format
@@ -215,10 +225,12 @@ msgstr ""
 msgid "Sample Screenshot URL"
 msgstr "Адреса узорка снимка екрана"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Претражује базу података састојака"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "Бира вредност за „обезбеђује-ставку“ која треба бити пронађена"
 
 msgid "Show extra debugging information"
@@ -257,10 +269,12 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "Проверите да ли постоје грешке у „XML“ датотекама Програмског тока"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Потврдите да ли инсталирано стабло датотека програма има исправне метаподатке"
 

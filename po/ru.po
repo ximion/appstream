@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
-"PO-Revision-Date: 2016-02-23 00:22+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
+"PO-Revision-Date: 2016-02-24 17:14+0000\n"
+"Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -67,7 +67,7 @@ msgstr "Пакет"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Кэш, расположенный в '%s', недоступен для записи."
 
 msgid "Categories"
 msgstr "Категории"
@@ -102,7 +102,8 @@ msgstr "Не использовать Xapian кэш при выполнении 
 msgid "Don't show colored output"
 msgstr "Не показывать цветной вывод"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Выдать необработанные XML-данные для компонента с соответствующим "
 "идентификатором"
@@ -111,7 +112,11 @@ msgid "Enforce a cache refresh"
 msgstr "Принудительно обновить кэш"
 
 msgid "Extends"
-msgstr ""
+msgstr "Расширения"
+
+#, fuzzy
+msgid "Extensions"
+msgstr "Расширения"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -123,10 +128,12 @@ msgstr "Прошитая микропрограмма"
 msgid "Fonts"
 msgstr "Шрифты"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Получить компоненты, которые предоставляют данный элемент"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Получить информацию о компоненте по его идентификатору"
 
 msgid "Homepage"
@@ -137,6 +144,9 @@ msgstr "Значок"
 
 msgid "Identifier"
 msgstr "Идентификатор"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
@@ -205,7 +215,8 @@ msgstr "Python (версия 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Перестроить кэш информации о компонентах"
 
 #, c-format
@@ -220,10 +231,12 @@ msgstr "Выполняемая микропрограмма"
 msgid "Sample Screenshot URL"
 msgstr "URL-адрес примера снимка экрана"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Поиск по базе данных компонентов"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr ""
 "Выберите значение для предоставляющего элемента, которое необходимо найти"
 
@@ -263,10 +276,12 @@ msgstr "Не удаётся открыть кэш компонентов про�
 msgid "Unable to spawn package manager: %s"
 msgstr "Не удаётся запустить процесс менеджера пакетов: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "Проверить файлы XML AppStream на недостатки"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Проверять установленную иерархию файлов приложения на корректность метаданных"
 
@@ -282,6 +297,7 @@ msgstr "XML файл меню XDG '%s' повреждён."
 
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Для выполнения этого действия Вам могут понадобиться права администратора."
 
 msgid "You need to specify a command."
 msgstr "Вы должны указать команду"

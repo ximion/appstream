@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
 "PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
@@ -99,13 +99,17 @@ msgstr "요청을 수행할 때 Xapian 캐시 활용 안 함"
 msgid "Don't show colored output"
 msgstr "출력에 색깔 사용하지 않기"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "구성요소 ID 일치 비교용으로 원시 XML 메타데이터 덤프"
 
 msgid "Enforce a cache refresh"
 msgstr "캐시 강제로 새로 고침"
 
 msgid "Extends"
+msgstr ""
+
+msgid "Extensions"
 msgstr ""
 
 #, c-format
@@ -118,10 +122,12 @@ msgstr ""
 msgid "Fonts"
 msgstr ""
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "주어진 항목을 가져오는 구성 요소 가져오기"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "구성 요소 정보를 ID로 가져오기"
 
 msgid "Homepage"
@@ -132,6 +138,9 @@ msgstr "아이콘"
 
 msgid "Identifier"
 msgstr "식별자"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
@@ -196,7 +205,8 @@ msgstr ""
 msgid "Python 3"
 msgstr ""
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "구성 요소 정보 캐시 다시 빌드"
 
 #, c-format
@@ -209,10 +219,12 @@ msgstr ""
 msgid "Sample Screenshot URL"
 msgstr "예제 스크린샷 URL"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "구성 요소 데이터베이스 검색"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "찾을 provides-item의 값 설정"
 
 msgid "Show extra debugging information"
@@ -251,10 +263,12 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "이슈 처리 용도의 AppStream XML 파일 검증"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "메타데이터 검증 용도로 프로그램 설치 파일 트리 검증"
 
 msgid "Validation failed."

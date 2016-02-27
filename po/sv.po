@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
 "PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/freedesktop/appstream/"
@@ -97,13 +97,17 @@ msgstr "Använd inte Xapian-cachen när begäran hanteras"
 msgid "Don't show colored output"
 msgstr "Visa inte färgad utdata"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Dumpa rå XML-metadata för en komponent som matchar ID:t"
 
 msgid "Enforce a cache refresh"
 msgstr "Tvinga en cache-uppdatering"
 
 msgid "Extends"
+msgstr ""
+
+msgid "Extensions"
 msgstr ""
 
 #, c-format
@@ -116,10 +120,12 @@ msgstr "Programmerad fastmjukvara"
 msgid "Fonts"
 msgstr "Typsnitt"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Hämta komponenter som tillhandahåller det givna objektet"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Hämtar information om en komponent givet dess ID"
 
 msgid "Homepage"
@@ -130,6 +136,9 @@ msgstr "Ikon"
 
 msgid "Identifier"
 msgstr "Identifierare"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Ogiltig typ vald för tillhandahållet objekt. Giltiga värden är:"
@@ -196,7 +205,8 @@ msgstr "Python (Version 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Bygg om cachen för komponentinformation"
 
 #, c-format
@@ -211,10 +221,12 @@ msgstr "Fasmjukvara för körtid"
 msgid "Sample Screenshot URL"
 msgstr "URL för samplingsskärmbild"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Sök i komponentdatabasen"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "Välj ett värde för tillhandahåller-objektet som måste hittas"
 
 msgid "Show extra debugging information"
@@ -253,10 +265,12 @@ msgstr "Kan inte öppna AppStreams programvarukomponentscache."
 msgid "Unable to spawn package manager: %s"
 msgstr "Kunde inte starta pakethanterare: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "Leta genom AppStream XML-filer efter fel "
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Leta geom ett installerat filträd för ett program efter giltig metadata"
 

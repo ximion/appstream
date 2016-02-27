@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
-"PO-Revision-Date: 2016-02-23 00:22+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
+"PO-Revision-Date: 2016-02-23 10:44+0000\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
 "Language: sk\n"
@@ -66,7 +66,7 @@ msgstr "Balík"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Umiestnenie vyrovnávacej pamäte „%s“ nie je zapisovateľné."
 
 msgid "Categories"
 msgstr "Kategórie"
@@ -101,13 +101,17 @@ msgstr "Nepoužije vyrovnávaciu pamäť Xapian pri vykonávaní požiadavky"
 msgid "Don't show colored output"
 msgstr "Nebude zobrazovať farebný výstup"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Vyprázdni súrové metaúdaje XML súčasti zhodujúcej sa s ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
 
 msgid "Extends"
+msgstr ""
+
+msgid "Extensions"
 msgstr ""
 
 #, c-format
@@ -120,10 +124,12 @@ msgstr "Nainštalovaný firmvér"
 msgid "Fonts"
 msgstr "Písma"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Získa súčasti poskytujúce danú položku"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Získa informácie o súčasti podľa jej ID"
 
 msgid "Homepage"
@@ -134,6 +140,9 @@ msgstr "Ikona"
 
 msgid "Identifier"
 msgstr "Identifikátor"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Vybratý neplatný typ pre poskytnutú položku. Platné hodnoty sú:"
@@ -202,7 +211,8 @@ msgstr "Python (verzia 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Znovu vytvorí vyrovnávaciu pamäť informácií o súčastiach"
 
 #, c-format
@@ -217,10 +227,12 @@ msgstr "Firmvér rozhrania"
 msgid "Sample Screenshot URL"
 msgstr "Vzorový URL snímky obrazovky"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Hľadať v databáze komponentov"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "Vyberte hodnotu poskytuje-položku, ktorú treba nájsť"
 
 msgid "Show extra debugging information"
@@ -261,10 +273,12 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr "Nie je možné spustiť správcu balíkov: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "Overí súbory XML AppStream prípadov"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Overí nainštalovaný strom súborov aplikácie pre platné metaúdaje"
 
 msgid "Validation failed."
@@ -279,6 +293,7 @@ msgstr "XML súbor XDG Menu „%s“ je poškodený."
 
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Na vykonanie tejto akcie možno budete musieť mať oprávnenia administrátora."
 
 msgid "You need to specify a command."
 msgstr "Musíte uviesť príkaz."

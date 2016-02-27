@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Rafael Fontenelle <rffontenelle@gmail.com>, 2015
+# Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
-"PO-Revision-Date: 2016-02-23 00:22+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
+"PO-Revision-Date: 2016-02-25 06:43+0000\n"
+"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
 "appstream/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -53,6 +53,9 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"O cache de componente de software do AppStream não foi encontrado. Isso pode "
+"significar que o AppStream foi configurado incorretamente ou  que sua "
+"distribuição não fornece qualquer metadados de AppStream."
 
 msgid "Binaries"
 msgstr "Binários"
@@ -62,7 +65,7 @@ msgstr "Bundle"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "A localização de cache \"%s\" não é gravável"
 
 msgid "Categories"
 msgstr "Categorias"
@@ -97,7 +100,8 @@ msgstr "Não usar o cache do Xapian ao realizar a requisição"
 msgid "Don't show colored output"
 msgstr "Não mostrar saída colorida"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Despejar metadados XML não tratados para um componente coincidindo com o ID"
 
@@ -105,7 +109,11 @@ msgid "Enforce a cache refresh"
 msgstr "Reforçar uma renovação do cache"
 
 msgid "Extends"
-msgstr ""
+msgstr "Estende"
+
+#, fuzzy
+msgid "Extensions"
+msgstr "Estende"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -117,10 +125,12 @@ msgstr "Firmware descarregado"
 msgid "Fonts"
 msgstr "Fontes"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Obter componentes que fornecem o item dado"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Obter informação sobre um componente por seu ID"
 
 msgid "Homepage"
@@ -131,6 +141,9 @@ msgstr "Ícone"
 
 msgid "Identifier"
 msgstr "Identificador"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Tipo inválido para o item fornecido selecionado. Valores válidos são:"
@@ -199,7 +212,8 @@ msgstr "Python (Versão 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Recompilar o cache de informação do componente"
 
 #, c-format
@@ -214,10 +228,12 @@ msgstr "Firmware de tempo real"
 msgid "Sample Screenshot URL"
 msgstr "URL de amostra de captura de tela"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Pesquisar a base de dados de componente"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "Selecionar um valor para o provides-item que precisa ser encontrado"
 
 msgid "Show extra debugging information"
@@ -257,10 +273,12 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr "Não foi possível invocar o gerenciador de pacotes: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "Validar arquivos XML AppStream por problemas"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Validar uma árvore de arquivo instalado de um aplicativo para metadados "
 "válidos"
@@ -277,6 +295,7 @@ msgstr "O arquivo XML \"%s\" de Menu XDG está corrompido."
 
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Você pode precisar de permissões de super-usuário para realizar esta ação"
 
 msgid "You need to specify a command."
 msgstr "Você precisa especificar um comando."

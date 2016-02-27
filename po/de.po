@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
 "PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: German (http://www.transifex.com/freedesktop/appstream/"
@@ -99,13 +99,17 @@ msgstr "Xapian-Zwischenspeicher beim Ausführen der Anfrage nicht verwenden"
 msgid "Don't show colored output"
 msgstr "Keine farbige Ausgabe anzeigen"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Roh-XML-Metadaten für eine zur Kennung passende Komponente ausgeben"
 
 msgid "Enforce a cache refresh"
 msgstr "Aktualisierung des Zwischenspeichers erzwingen"
 
 msgid "Extends"
+msgstr ""
+
+msgid "Extensions"
 msgstr ""
 
 #, c-format
@@ -118,10 +122,12 @@ msgstr "Aufgespielte Firmware"
 msgid "Fonts"
 msgstr "Schriftarten"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Komponenten ermitteln, die das angegebene Objekt bereitstellen"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Informationen zu einer Komponente anhand deren Kennung einholen"
 
 msgid "Homepage"
@@ -132,6 +138,9 @@ msgstr "Symbol"
 
 msgid "Identifier"
 msgstr "Bezeichner"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
@@ -202,7 +211,8 @@ msgstr "Python (Version 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Informations-Zwischenspeicher der Komponente neu erstellen"
 
 #, c-format
@@ -217,10 +227,12 @@ msgstr "Laufzeit-Firmware"
 msgid "Sample Screenshot URL"
 msgstr "Adresse des Beispiel-Bildschirmfotos"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Komponentendatenbank durchsuchen"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr ""
 "Einen Wert für den Stellt-bereit-Eintrag wählen, der gefunden werden soll"
 
@@ -262,10 +274,12 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "AppStream-XML-Dateien für Probleme validieren"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Einen installierten Dateibaum einer Anwendung auf gültige Metadaten "
 "validieren"

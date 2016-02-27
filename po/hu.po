@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
 "PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
@@ -98,13 +98,17 @@ msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
 msgid "Don't show colored output"
 msgstr "Ne jelenítsen meg színes kimenetet"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz"
 
 msgid "Enforce a cache refresh"
 msgstr "Gyorsítótár-frissítés kényszerítése"
 
 msgid "Extends"
+msgstr ""
+
+msgid "Extensions"
 msgstr ""
 
 #, c-format
@@ -117,10 +121,12 @@ msgstr "Flashelt firmware"
 msgid "Fonts"
 msgstr "Betűkészletek"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Összetevők lekérése, amelyek a megadott elemet biztosítják"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Információk kérése egy összetevőről az azonosítója szerint"
 
 msgid "Homepage"
@@ -131,6 +137,9 @@ msgstr "Ikon"
 
 msgid "Identifier"
 msgstr "Azonosító"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
@@ -200,7 +209,8 @@ msgstr "Python (2-es verzió)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Az összetevő információs gyorsítótár újraépítése"
 
 #, c-format
@@ -215,10 +225,12 @@ msgstr "Futásidejű firmware"
 msgid "Sample Screenshot URL"
 msgstr "Minta képernyőkép URL"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Az összetevő adatbázis keresése"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr ""
 "Válasszon egy értéket ahhoz a szolgáltatás-elemhez, amelyet meg kell találni"
 
@@ -258,10 +270,12 @@ msgstr "Nem nyitható meg az AppStream szoftverösszetevő-gyorsítótár."
 msgid "Unable to spawn package manager: %s"
 msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Egy alkalmazás telepített fájl-fájnak ellenőrzése az érvényes metaadatoknál"
 

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Boyuan Yang <073plan@gmail.com>, 2015
-# 白铭骢 <jeffbai@aosc.xyz>, 2015
+# 白铭骢 <jeffbai@aosc.xyz>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
-"PO-Revision-Date: 2016-02-23 00:22+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
+"PO-Revision-Date: 2016-02-23 18:48+0000\n"
+"Last-Translator: 白铭骢 <jeffbai@aosc.xyz>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -52,6 +52,8 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"未找到 AppStream 软件组件缓存。这可能意味着 AppStream 未正确配置，或你的发行"
+"版没有提供人呢和 AppStream 元数据。"
 
 msgid "Binaries"
 msgstr "二进制"
@@ -61,7 +63,7 @@ msgstr "套件"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "缓存位置“%s“不可写"
 
 msgid "Categories"
 msgstr "类别"
@@ -96,14 +98,19 @@ msgstr "处理请求时不要使用 Xapian 缓存"
 msgid "Don't show colored output"
 msgstr "不要显示带色彩的输出"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "转储符合该 ID 的组件的原始 XML 元数据"
 
 msgid "Enforce a cache refresh"
 msgstr "强制刷新缓存"
 
 msgid "Extends"
-msgstr ""
+msgstr "扩展"
+
+#, fuzzy
+msgid "Extensions"
+msgstr "扩展"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -115,10 +122,12 @@ msgstr "已刷入的固件"
 msgid "Fonts"
 msgstr "字体"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "获取可提供给定项目的组件"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "根据其 ID 取得相应组建的信息"
 
 msgid "Homepage"
@@ -129,6 +138,9 @@ msgstr "图标"
 
 msgid "Identifier"
 msgstr "识别码"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "选取的提供项目类型无效。有效的值为："
@@ -195,7 +207,8 @@ msgstr "Python (版本 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "重建组件信息缓存"
 
 #, c-format
@@ -208,10 +221,12 @@ msgstr "运行时固件"
 msgid "Sample Screenshot URL"
 msgstr "示例屏幕截图 URL"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "搜索组件数据库"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "选取要寻找的提供项目"
 
 msgid "Show extra debugging information"
@@ -250,10 +265,12 @@ msgstr "无法打开 AppStream 软件组件缓存。"
 msgid "Unable to spawn package manager: %s"
 msgstr "无法启动软件包管理器：%s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "验证 AppStream XML 文件以寻找问题"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "根据有效的元数据来验证应用程序的已安装文件树"
 
 msgid "Validation failed."
@@ -267,7 +284,7 @@ msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG 菜单 XML 文件“%s”已损坏。"
 
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "你可能需要超级用户权限以进行此动作。"
 
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"

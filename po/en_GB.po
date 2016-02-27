@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-23 01:23+0100\n"
+"POT-Creation-Date: 2016-02-27 18:49+0100\n"
 "PO-Revision-Date: 2016-02-23 00:22+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
@@ -100,13 +100,17 @@ msgstr "Do not use the Xapian cache when performing the request"
 msgid "Don't show colored output"
 msgstr "Don't show coloured output"
 
-msgid "Dump raw XML metadata for a component matching the ID"
+#, fuzzy
+msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Dump raw XML metadata for a component matching the ID"
 
 msgid "Enforce a cache refresh"
 msgstr "Enforce a cache refresh"
 
 msgid "Extends"
+msgstr ""
+
+msgid "Extensions"
 msgstr ""
 
 #, c-format
@@ -119,10 +123,12 @@ msgstr "Flashed Firmware"
 msgid "Fonts"
 msgstr "Fonts"
 
-msgid "Get components which provide the given item"
+#, fuzzy
+msgid "Get components which provide the given item."
 msgstr "Get components which provide the given item"
 
-msgid "Get information about a component by its ID"
+#, fuzzy
+msgid "Get information about a component by its ID."
 msgstr "Get information about a component by its ID"
 
 msgid "Homepage"
@@ -133,6 +139,9 @@ msgstr "Icon"
 
 msgid "Identifier"
 msgstr "Identifier"
+
+msgid "Install software matching the component-id."
+msgstr ""
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Invalid type for provided item selected. Valid values are:"
@@ -199,7 +208,8 @@ msgstr "Python (Version 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache"
+#, fuzzy
+msgid "Rebuild the component information cache."
 msgstr "Rebuild the component information cache"
 
 #, c-format
@@ -212,10 +222,12 @@ msgstr "Runtime Firmware"
 msgid "Sample Screenshot URL"
 msgstr "Sample Screenshot URL"
 
-msgid "Search the component database"
+#, fuzzy
+msgid "Search the component database."
 msgstr "Search the component database"
 
-msgid "Select a value for the provides-item which needs to be found"
+#, fuzzy
+msgid "Select a value for the provides-item which needs to be found."
 msgstr "Select a value for the provides-item which needs to be found"
 
 msgid "Show extra debugging information"
@@ -254,10 +266,12 @@ msgstr "Unable to open the AppStream software component cache."
 msgid "Unable to spawn package manager: %s"
 msgstr "Unable to spawn package manager: %s"
 
-msgid "Validate AppStream XML files for issues"
+#, fuzzy
+msgid "Validate AppStream XML files for issues."
 msgstr "Validate AppStream XML files for issues"
 
-msgid "Validate an installed file-tree of an application for valid metadata"
+#, fuzzy
+msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Validate an installed file-tree of an application for valid metadata"
 
 msgid "Validation failed."
