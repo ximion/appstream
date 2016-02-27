@@ -153,6 +153,22 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>install <replaceable>ID</replaceable></option></term>
+				<listitem>
+					<para>
+						Install a software component by its ID.
+					</para>
+					<para>
+						This resolves the AppStream component ID to the package name which provides it and
+						then calls the distribution's package manager to install the software.
+					</para>
+					<para>
+						This feature is experimental.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>--details</option></term>
 				<listitem>
 					<para>Print out more information about a found component.</para>

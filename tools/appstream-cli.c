@@ -53,17 +53,19 @@ as_client_get_summary ()
 				/* these are commands we can use with appstream-cli */
 				_("Subcommands:"));
 
-	g_string_append_printf (string, "  %s - %s\n", "search [TERM]", _("Search the component database"));
-	g_string_append_printf (string, "  %s - %s\n", "get [COMPONENT-ID]", _("Get information about a component by its ID"));
-	g_string_append_printf (string, "  %s - %s\n", "what-provides [TYPE] [VALUE]", _("Get components which provide the given item"));
+	g_string_append_printf (string, "  %s - %s\n", "search [TERM]", _("Search the component database."));
+	g_string_append_printf (string, "  %s - %s\n", "get [COMPONENT-ID]", _("Get information about a component by its ID."));
+	g_string_append_printf (string, "  %s - %s\n", "what-provides [TYPE] [VALUE]", _("Get components which provide the given item."));
 	g_string_append_printf (string, "    %s - %s\n", "[TYPE]", _("A provides-item type (e.g. lib, bin, python3, ...)"));
-	g_string_append_printf (string, "    %s - %s\n", "[VALUE]", _("Select a value for the provides-item which needs to be found"));
+	g_string_append_printf (string, "    %s - %s\n", "[VALUE]", _("Select a value for the provides-item which needs to be found."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "dump [COMPONENT-ID]", _("Dump raw XML metadata for a component matching the ID"));
-	g_string_append_printf (string, "  %s - %s\n", "refresh-index", _("Rebuild the component information cache"));
+	g_string_append_printf (string, "  %s - %s\n", "dump [COMPONENT-ID]", _("Dump raw XML metadata for a component matching the ID."));
+	g_string_append_printf (string, "  %s - %s\n", "refresh-index", _("Rebuild the component information cache."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "validate", _("Validate AppStream XML files for issues"));
-	g_string_append_printf (string, "  %s - %s\n", "validate-tree", _("Validate an installed file-tree of an application for valid metadata"));
+	g_string_append_printf (string, "  %s - %s\n", "validate [FILE]", _("Validate AppStream XML files for issues."));
+	g_string_append_printf (string, "  %s - %s\n", "validate-tree [DIRECTORY]", _("Validate an installed file-tree of an application for valid metadata."));
+	g_string_append (string, "\n");
+	g_string_append_printf (string, "  %s - %s\n", "install [COMPONENT-ID]", _("Install software matching the component-id."));
 
 	return g_string_free (string, FALSE);
 }
