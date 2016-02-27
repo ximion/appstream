@@ -496,6 +496,30 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-translation">
+		<term>&lt;translation/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;translation/&gt;</code> tag is an optional tag which can be added to specify the translation domain used for this software component.
+			It may be used by the AppStream distro metadata generator to determine the translation status of the respective software.
+		</para>
+		<para>
+			The tag must have a <literal>type</literal> property, assuming the value of the translation system which is used. Right now, allowed trabslation systems and
+			values for <literal>type</literal> are:
+			<itemizedlist>
+				<listitem><para>gettext</para></listitem>
+				<listitem><para>qt</para></listitem>
+			</itemizedlist>
+			In case a software components gets its translation from multiple translation domains, the <code>&lt;translation/&gt;</code> tag may be defined more
+			than once.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<translation type="gettext">foobar</translation>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 	</variablelist>
 
 	<para>
@@ -508,7 +532,7 @@
   <name>Foo Bar</name>
   <summary>A foo-ish bar</summary>
   <url type="homepage">http://www.example.org</url>
-  <metadata_license>CC0</metadata_license>
+  <metadata_license>CC0-1.0</metadata_license>
 
   <provides>
     <library>libfoobar.so.2</library>
