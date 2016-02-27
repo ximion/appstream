@@ -678,8 +678,8 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, gboolean allow_i
 	as_component_set_active_locale (cpt, priv->locale);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
-		gchar *content;
-		gchar *lang;
+		g_autofree gchar *content = NULL;
+		g_autofree gchar *lang = NULL;
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -823,10 +823,22 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, gboolean allow_i
 				as_component_add_bundle_id (cpt, bundle_kind, content);
 				g_free (type_str);
 			}
-		}
+		} else if (g_strcmp0 (node_name, "translation") == 0) {
+			if (content != NULL) {
+				g_autofree gchar *trtype_str = NULL;
+				AsTranslationKind tr_kind;
+				trtype_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+				tr_kind = as_translation_kind_from_string (trtype_str);
+				if (tr_kind != AS_TRANSLATION_KIND_UNKNOWN) {
+					g_autoptr(AsTranslation) tr = NULL;
 
-		g_free (lang);
-		g_free (content);
+					tr = as_translation_new ();
+					as_translation_set_kind (tr, tr_kind);
+					as_translation_set_id (tr, content);
+					as_component_add_translation (cpt, tr);
+				}
+			}
+		}
 	}
 
 	/* set the origin of this component */
@@ -1253,6 +1265,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	GPtrArray *releases;
 	GPtrArray *screenshots;
 	GPtrArray *icons;
+	GPtrArray *translations;
 	AsComponentKind kind;
 	AsLocaleWriteHelper helper;
 	guint i;
@@ -1353,6 +1366,16 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "bundle", (xmlChar*) value);
 		xmlNewProp (n, (xmlChar*) "type",
 					(xmlChar*) as_bundle_kind_to_string (i));
+	}
+
+	/* translations */
+	translations = as_component_get_translations (cpt);
+	for (i = 0; i < translations->len; i++) {
+		AsTranslation *tr = AS_TRANSLATION (g_ptr_array_index (translations, i));
+		xmlNode *n;
+		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "translation", (xmlChar*) as_translation_get_id (tr));
+		xmlNewProp (n, (xmlChar*) "type",
+					(xmlChar*) as_translation_kind_to_string (as_translation_get_kind (tr)));
 	}
 
 	/* releases node */

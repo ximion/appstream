@@ -199,7 +199,6 @@ as_data_pool_update_extension_info (AsDataPool *dpool)
 		cid = (const gchar*) key;
 
 		extends = as_component_get_extends (cpt);
-
 		if ((extends == NULL) || (extends->len == 0))
 			continue;
 

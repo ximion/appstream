@@ -105,10 +105,14 @@ test_appstream_parser_legacy ()
 void
 test_appstream_parser_locale ()
 {
-	AsMetadata *metad;
-	GFile *file;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GFile) file = NULL;
 	gchar *path;
 	AsComponent *cpt;
+
+	GPtrArray *trs;
+	AsTranslation *tr;
+
 	GError *error = NULL;
 
 	metad = as_metadata_new ();
@@ -147,8 +151,11 @@ test_appstream_parser_locale ()
 	as_component_set_active_locale (cpt, "fr_FR");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Firefoux");
 
-	g_object_unref (file);
-	g_object_unref (metad);
+	/* check if reading <translation/> tag succeeded */
+	trs = as_component_get_translations (cpt);
+	g_assert_cmpint (trs->len, ==, 1);
+	tr = AS_TRANSLATION (g_ptr_array_index (trs, 0));
+	g_assert_cmpstr (as_translation_get_id (tr), ==, "firefox");
 }
 
 void

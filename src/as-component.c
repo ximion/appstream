@@ -75,6 +75,8 @@ typedef struct
 	GHashTable		*languages; /* of utf8:utf8 */
 	GHashTable		*bundles; /* of int:utf8 */
 
+	GPtrArray		*translations; /* of AsTranslation */
+
 	GPtrArray		*icons; /* of AsIcon elements */
 	GHashTable		*icons_sizetab; /* of utf8:object (object owned by priv->icons array) */
 
@@ -254,6 +256,8 @@ as_component_finalize (GObject* object)
 		g_ptr_array_unref (priv->extends);
 	if (priv->extensions != NULL)
 		g_ptr_array_unref (priv->extensions);
+	if (priv->translations != NULL)
+		g_ptr_array_unref (priv->translations);
 
 	g_ptr_array_unref (priv->icons);
 	g_hash_table_unref (priv->icons_sizetab);
@@ -284,9 +288,8 @@ as_component_is_valid (AsComponent *cpt)
 	cname = as_component_get_name (cpt);
 
 	if ((as_component_has_install_candidate (cpt)) &&
-		(g_strcmp0 (priv->id, "") != 0) &&
-		(cname != NULL) &&
-		(g_strcmp0 (cname, "") != 0)) {
+		(!as_str_empty (priv->id)) &&
+		(!as_str_empty (cname))) {
 			ret = TRUE;
 	}
 
@@ -1593,6 +1596,48 @@ as_component_get_languages_map (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->languages;
+}
+
+/**
+ * as_component_get_translations:
+ * @cpt: an #AsComponent instance.
+ *
+ * Get a #GPtrArray of #AsTranslation objects describing the
+ * translation systems and translation-ids (e.g. Gettext domains) used
+ * by this software component.
+ *
+ * Only set for metainfo files.
+ *
+ * Returns: (transfer none) (element-type AsTranslation): An array of #AsTranslation objects.
+ *
+ * Since: 0.9.2
+ */
+GPtrArray*
+as_component_get_translations (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->translations == NULL)
+		priv->translations = g_ptr_array_new_with_free_func (g_object_unref);
+	return priv->translations;
+}
+
+/**
+ * as_component_add_translation:
+ * @cpt: an #AsComponent instance.
+ * @tr: an #AsTranslation instance.
+ *
+ * Assign an #AsTranslation object describing the translation system used
+ * by this component.
+ *
+ * Since: 0.9.2
+ */
+void
+as_component_add_translation (AsComponent *cpt, AsTranslation *tr)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->translations == NULL)
+		priv->translations = g_ptr_array_new_with_free_func (g_object_unref);
+	g_ptr_array_add (priv->translations, g_object_ref (tr));
 }
 
 /**

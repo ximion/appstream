@@ -55,6 +55,7 @@ set(APPSTREAM_LIB_SRC
 		as-validator.c
 		as-validator-issue.c
 		as-icon.c
+		as-translation.c
 )
 
 set(APPSTREAM_LIB_PUBLIC_HEADERS
@@ -75,6 +76,7 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 		as-validator.h
 		as-validator-issue.h
 		as-icon.h
+		as-translation.h
 )
 
 set(APPSTREAM_LIB_PRIVATE_HEADERS

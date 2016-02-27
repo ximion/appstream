@@ -556,9 +556,20 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_DISTRO)) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
+		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+			g_autofree gchar *prop = NULL;
+			AsTranslationKind trkind;
+			prop = as_validator_check_type_property (validator, cpt, iter);
+			trkind = as_translation_kind_from_string (prop);
+			if (trkind == AS_TRANSLATION_KIND_UNKNOWN) {
+				as_validator_add_issue (validator,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_VALUE_WRONG,
+							"Unknown type '%s' for <translation/> tag.", prop);
+			}
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
-			gchar *prop;
+			g_autofree gchar *prop = NULL;
 			prop = as_validator_check_type_property (validator, cpt, iter);
 			if ((g_strcmp0 (prop, "limba") != 0) && (g_strcmp0 (prop, "xdg-app") != 0)) {
 				as_validator_add_issue (validator,
@@ -566,7 +577,6 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 							AS_ISSUE_KIND_VALUE_WRONG,
 							"Unknown type '%s' for <bundle/> tag.", prop);
 			}
-			g_free (prop);
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
 			if (mode == AS_PARSER_MODE_DISTRO) {
 				as_validator_add_issue (validator,
