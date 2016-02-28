@@ -30,9 +30,9 @@
 using namespace std;
 
 /* _VERY_ ugly hack to make C++ and Vala work together */
-struct XADatabaseWrite {};
+struct G_GNUC_INTERNAL XADatabaseWrite {};
 
-class DatabaseWrite : public XADatabaseWrite
+class G_GNUC_INTERNAL DatabaseWrite : public XADatabaseWrite
 {
 public:
 	explicit DatabaseWrite ();
@@ -49,6 +49,7 @@ private:
 
 };
 
+G_GNUC_INTERNAL
 inline DatabaseWrite* realDbWrite (XADatabaseWrite* d) { return static_cast<DatabaseWrite*>(d); }
 
 #endif // DATABASE_WRITE_H

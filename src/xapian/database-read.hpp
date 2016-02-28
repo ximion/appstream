@@ -32,9 +32,9 @@
 using namespace std;
 
 /* small hack to make C++ to C binding easier */
-struct XADatabaseRead {};
+struct G_GNUC_INTERNAL XADatabaseRead {};
 
-class DatabaseRead : public XADatabaseRead
+class G_GNUC_INTERNAL DatabaseRead : public XADatabaseRead
 {
 public:
 	explicit DatabaseRead ();
@@ -67,6 +67,7 @@ private:
 	vector<Xapian::Query>	queryListForTermCats (const gchar *term, gchar **categories);
 };
 
+G_GNUC_INTERNAL
 inline DatabaseRead* realDbRead (XADatabaseRead* d) { return static_cast<DatabaseRead*>(d); }
 
 #endif // DATABASE_READ_H
