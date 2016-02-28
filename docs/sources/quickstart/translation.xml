@@ -14,14 +14,14 @@
 			metadata.
 		</para>
 
-		<tip>
+		<note>
 			<title>For KDE developers</title>
 			<para>
 				If you are a KDE developer and using the KDE infrastructure with it's localization support, you need to do nothing
 				to get translated metadata. Just place your <filename>*.appdata.xml*</filename> or <filename>*.metainfo.xml*</filename> file
 				at a sane place, and the l10n-script will translate the file in-place automatically.
 			</para>
-		</tip>
+		</note>
 	</section>
 
 	<section id="qsr-l10n-intltool">
