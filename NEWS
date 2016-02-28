@@ -1,3 +1,38 @@
+Version 0.9.2
+~~~~~~~~~~~~~~
+Released: 2016-02-28
+
+Features:
+ * qt: Improve usage of Qt containers (Aleix Pol)
+ * qt: Implement Component::extends on the Qt front-end (Aleix Pol)
+ * qt: Also call reserve for bundles on the Qt frontend (Aleix Pol)
+ * validator: strstrip values when reading XML/YAML and validate linebreaks in summaries (Matthias Klumpp)
+ * validator: Check if a description is present (Matthias Klumpp)
+ * Always build with YAML support (Matthias Klumpp)
+ * Move XML parser into its own class (Matthias Klumpp)
+ * Make data-pool use the new YAML-aware metadata parser (Matthias Klumpp)
+ * Simplify data-pool building routine (Matthias Klumpp)
+ * Preprocess extension information for frontends (Matthias Klumpp)
+ * qt: Use the new extensions property (Matthias Klumpp)
+ * Implement translations tag (Matthias Klumpp)
+ * cli: Document the "install" command (Matthias Klumpp)
+ * l10n: Update
+
+Specification:
+ * spec: Document the translation tag (Matthias Klumpp)
+ * doc: Don't use <tip/> tags in documentation (Matthias Klumpp)
+ * spec: Mention the essential tags for a type:desktop component (Matthias Klumpp)
+
+Bugfixes:
+ * as-cache-builder: Cope with no YAML documents (Iain Lane)
+ * 50appstream: Don't run if we can't write to the system paths (Iain Lane)
+ * Check for writability instead of root permissions when updating the cache (Matthias Klumpp)
+ * qt: Don't compute screenshot images and then forget about them (Aleix Pol)
+ * Add the missing extends property to the Xapian cache (Matthias Klumpp)
+ * validator: Don't fail validation for description-less addons. (Matthias Klumpp)
+ * Make reading empty cache values more robust (Matthias Klumpp)
+ * Check if GIR scanner & compiler are really installed (Matthias Klumpp)
+
 Version 0.9.1
 ~~~~~~~~~~~~~~
 Released: 2016-02-04
