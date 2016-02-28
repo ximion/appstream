@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-27 18:49+0100\n"
-"PO-Revision-Date: 2016-02-24 23:01+0000\n"
+"POT-Creation-Date: 2016-02-28 17:01+0100\n"
+"PO-Revision-Date: 2016-02-28 04:06+0000\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
@@ -96,9 +96,8 @@ msgstr "執行請求時不要使用 Xapian 快取"
 msgid "Don't show colored output"
 msgstr "不要顯示色彩化的輸出"
 
-#, fuzzy
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "傾印符合該 ID 之組件的原生 XML 中介資料"
+msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
 msgid "Enforce a cache refresh"
 msgstr "強制快取重新整理"
@@ -106,9 +105,8 @@ msgstr "強制快取重新整理"
 msgid "Extends"
 msgstr "擴展"
 
-#, fuzzy
 msgid "Extensions"
-msgstr "擴展"
+msgstr "擴充套件"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -120,13 +118,11 @@ msgstr "快閃記憶韌體"
 msgid "Fonts"
 msgstr "字型"
 
-#, fuzzy
 msgid "Get components which provide the given item."
-msgstr "取得可提供給定項目的組件"
+msgstr "取得提供指定項目的組件"
 
-#, fuzzy
 msgid "Get information about a component by its ID."
-msgstr "根據其 ID 取得組件的資料"
+msgstr "根據 ID 取得組件的資訊。"
 
 msgid "Homepage"
 msgstr "首頁"
@@ -138,7 +134,7 @@ msgid "Identifier"
 msgstr "辨識碼"
 
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "安裝符合組件 ID 的軟體。"
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "選取的供應項目類型無效。有效的值有："
@@ -203,9 +199,8 @@ msgstr "Python (第 2 版)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#, fuzzy
 msgid "Rebuild the component information cache."
-msgstr "重建組件資訊快取"
+msgstr "重建組件資訊快取。"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -217,13 +212,11 @@ msgstr "執行時期韌體"
 msgid "Sample Screenshot URL"
 msgstr "樣本螢幕快照 URL"
 
-#, fuzzy
 msgid "Search the component database."
-msgstr "搜尋組件資料庫"
+msgstr "搜尋組件資料庫。"
 
-#, fuzzy
 msgid "Select a value for the provides-item which needs to be found."
-msgstr "為需要尋找的提供項目選取個值"
+msgstr "選取需要尋找的項目提供之值。"
 
 msgid "Show extra debugging information"
 msgstr "顯示額外除錯資訊"
@@ -261,13 +254,11 @@ msgstr "無法開啟 AppStream 軟體組件快取。"
 msgid "Unable to spawn package manager: %s"
 msgstr "無法多重啟動軟體包管理程式：%s"
 
-#, fuzzy
 msgid "Validate AppStream XML files for issues."
-msgstr "根據問題驗證 AppStream XML 檔案"
+msgstr "驗證 AppStream XML 檔是否有問題。"
 
-#, fuzzy
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr "根據有效的中介資料來驗證應用程式的已安裝檔案樹"
+msgstr "驗證已安裝應用程式的檔案樹是否存在有效的中介資料。"
 
 msgid "Validation failed."
 msgstr "驗證失敗。"

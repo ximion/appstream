@@ -5,14 +5,14 @@
 # Translators:
 # Miloš Popović <gpopac@gmail.com>, 2015
 # Марко М. Костић (Marko M. Kostić) <marko.m.kostic@gmail.com>, 2015
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-27 18:49+0100\n"
-"PO-Revision-Date: 2016-02-23 00:22+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-02-28 17:01+0100\n"
+"PO-Revision-Date: 2016-02-27 20:16+0000\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
 "language/sr/)\n"
 "Language: sr\n"
@@ -45,7 +45,7 @@ msgid "AppStream cache update failed."
 msgstr "Освежавање оставе Програмског тока није успело."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Освежавање оставе Програмског тока није потребно."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
@@ -56,16 +56,19 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"Нисам нашао оставу састојка софтвера Програмског тока. Ово може да значи да "
+"Програмски ток није подешен како треба, или да ваша дистрибуција не "
+"обезбеђује никакве метаподатке Програмског тока"
 
 msgid "Binaries"
-msgstr ""
+msgstr "Извршни"
 
 msgid "Bundle"
 msgstr "Пакет"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Место оставе „%s“ није за уписивање."
 
 msgid "Categories"
 msgstr "Категорије"
@@ -76,16 +79,16 @@ msgstr "Наредба „%s“ није позната."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Састојак „%s“ нема кандидата за инсталацију."
 
 msgid "Compulsory for"
 msgstr "Обавезујући за"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Услуге сесије Д-сабирнице"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Услуге система Д-сабирнице"
 
 msgid "Description"
 msgstr "Опис"
@@ -100,38 +103,33 @@ msgstr "Не користи кеш Запијана (Xapian) приликом с
 msgid "Don't show colored output"
 msgstr "Не приказује обојени излаз"
 
-#, fuzzy
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Избаци сирове „XML“ метаподатке везане за компоненту која се подудара са ИБ-"
-"ом"
+msgstr "Избацује сирове ИксМЛ метаподатке за састојак који одговара ИБ-у."
 
 msgid "Enforce a cache refresh"
 msgstr "Приморава освежавање оставе"
 
 msgid "Extends"
-msgstr ""
+msgstr "Проширује"
 
 msgid "Extensions"
-msgstr ""
+msgstr "Проширења"
 
 #, c-format
 msgid "File %s not found or permission denied!"
 msgstr "Нисам пронашао датотеку „%s“ или су овлашћења одбијена!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Преточени уграђени програм"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Словни ликови"
 
-#, fuzzy
 msgid "Get components which provide the given item."
-msgstr "Добавља састојке који обезбеђују дату ставку"
+msgstr "Добавите састојке који достављају дату ставку."
 
-#, fuzzy
 msgid "Get information about a component by its ID."
-msgstr "Добави податке о компоненти користећи ИБ"
+msgstr "Добавите податке о састојку према његовом ИБ-у."
 
 msgid "Homepage"
 msgstr "Матична страница"
@@ -143,13 +141,14 @@ msgid "Identifier"
 msgstr "Одредник"
 
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "Инсталирајте софтвер који одговара иб-у састојка."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
+"Изабрана је неисправна врста за достављену ставку. Исправне вредности су:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Библиотеке"
 
 #. license
 msgid "License"
@@ -164,10 +163,10 @@ msgid "Manually set the location of the AppStream cache"
 msgstr "Ручно поставите место оставе Програмског тока"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Миме врсте"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Модалијаси"
 
 msgid "Name"
 msgstr "Назив"
@@ -178,15 +177,17 @@ msgstr "Нисам нашао састојак који одговара „%s�
 
 #, c-format
 msgid "No component providing '%s;%s' found."
-msgstr ""
+msgstr "Нисам нашао састојак који обезбеђује „%s;%s“."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Нисам нашао одговарајућу конзолу управника пакета. Уверите се да је доступан "
+"нпр. „pkcon“ (део Пакетског комплета)."
 
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "Нема вредности за ставку за тражење за одређене."
 
 msgid "Package"
 msgstr "Пакет"
@@ -205,14 +206,13 @@ msgid "Provided Items"
 msgstr "Обезбеђене ставке"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Питон (2. издање)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Питон 3"
 
-#, fuzzy
 msgid "Rebuild the component information cache."
-msgstr "Поново изграђује оставу података састојка"
+msgstr "Поново изградите оставу података састојка."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -220,18 +220,16 @@ msgstr ""
 "Покрените „%s --help“ да видите читав списак доступних опција линије наредби."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Уграђени програм времена покретања"
 
 msgid "Sample Screenshot URL"
 msgstr "Адреса узорка снимка екрана"
 
-#, fuzzy
 msgid "Search the component database."
-msgstr "Претражује базу података састојака"
+msgstr "Претражите базу података састојака."
 
-#, fuzzy
 msgid "Select a value for the provides-item which needs to be found."
-msgstr "Бира вредност за „обезбеђује-ставку“ која треба бити пронађена"
+msgstr "Изаберите вредност за достављање ставке која треба да се нађе."
 
 msgid "Show extra debugging information"
 msgstr "Приказује додатне податке прочишћавања"
@@ -247,7 +245,7 @@ msgid "Summary"
 msgstr "Сажетак"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Покушах да обавим упит над затвореном базом података."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
@@ -256,27 +254,25 @@ msgstr "Не могу да пронађем састојак који одгов
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "Не могу да нађем састојак који доставља „%s;%s“!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Не могу да пронађем састојак са иб-ом „%s“!"
 
 msgid "Unable to open the AppStream software component cache."
-msgstr ""
+msgstr "Не могу да отворим оставу састојка софтвера Програмског тока."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Не могу да изродим управника пакета: %s"
 
-#, fuzzy
 msgid "Validate AppStream XML files for issues."
-msgstr "Проверите да ли постоје грешке у „XML“ датотекама Програмског тока"
+msgstr "Потврдите ИксМЛ датотеке Програмског тока за проблемима."
 
-#, fuzzy
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
-"Потврдите да ли инсталирано стабло датотека програма има исправне метаподатке"
+"Потврдите инсталирано стабло датотека програма за исправним метаподацима."
 
 msgid "Validation failed."
 msgstr "Потврђивање није успело."
@@ -289,7 +285,7 @@ msgid "XDG Menu XML file '%s' is damaged."
 msgstr "ИксМЛ датотека „%s“ ИксДГ изборника је оштећена."
 
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "Биће вам потребна овлашћења администратора за обављање ове радње."
 
 msgid "You need to specify a command."
 msgstr "Морате да наведете наредбу."

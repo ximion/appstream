@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-27 18:49+0100\n"
-"PO-Revision-Date: 2016-02-23 10:44+0000\n"
+"POT-Creation-Date: 2016-02-28 17:01+0100\n"
+"PO-Revision-Date: 2016-02-27 19:05+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
@@ -101,9 +101,8 @@ msgstr "Nepoužije vyrovnávaciu pamäť Xapian pri vykonávaní požiadavky"
 msgid "Don't show colored output"
 msgstr "Nebude zobrazovať farebný výstup"
 
-#, fuzzy
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "Vyprázdni súrové metaúdaje XML súčasti zhodujúcej sa s ID"
+msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
@@ -112,7 +111,7 @@ msgid "Extends"
 msgstr ""
 
 msgid "Extensions"
-msgstr ""
+msgstr "Rozšírenia"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -124,13 +123,11 @@ msgstr "Nainštalovaný firmvér"
 msgid "Fonts"
 msgstr "Písma"
 
-#, fuzzy
 msgid "Get components which provide the given item."
-msgstr "Získa súčasti poskytujúce danú položku"
+msgstr "Získa komponenty, ktoré poskytujú zadanú položku."
 
-#, fuzzy
 msgid "Get information about a component by its ID."
-msgstr "Získa informácie o súčasti podľa jej ID"
+msgstr "Získa informácie o komponente podľa jeho ID."
 
 msgid "Homepage"
 msgstr "Domovská stránka"
@@ -142,7 +139,7 @@ msgid "Identifier"
 msgstr "Identifikátor"
 
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "Nainštaluje softvér zhodujúci sa s položkou component-id."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Vybratý neplatný typ pre poskytnutú položku. Platné hodnoty sú:"
@@ -211,9 +208,8 @@ msgstr "Python (verzia 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#, fuzzy
 msgid "Rebuild the component information cache."
-msgstr "Znovu vytvorí vyrovnávaciu pamäť informácií o súčastiach"
+msgstr "Znovu zostaví vyrovnávaciu pamäť informácií o komponentoch."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -227,13 +223,11 @@ msgstr "Firmvér rozhrania"
 msgid "Sample Screenshot URL"
 msgstr "Vzorový URL snímky obrazovky"
 
-#, fuzzy
 msgid "Search the component database."
-msgstr "Hľadať v databáze komponentov"
+msgstr "Vyhľadá databázu komponentov."
 
-#, fuzzy
 msgid "Select a value for the provides-item which needs to be found."
-msgstr "Vyberte hodnotu poskytuje-položku, ktorú treba nájsť"
+msgstr "Vyberte hodnotu položky provides-item, ktorú treba nájsť."
 
 msgid "Show extra debugging information"
 msgstr "Zobrazí ladiace informácie naviac"
@@ -273,13 +267,11 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr "Nie je možné spustiť správcu balíkov: %s"
 
-#, fuzzy
 msgid "Validate AppStream XML files for issues."
-msgstr "Overí súbory XML AppStream prípadov"
+msgstr ""
 
-#, fuzzy
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr "Overí nainštalovaný strom súborov aplikácie pre platné metaúdaje"
+msgstr ""
 
 msgid "Validation failed."
 msgstr "Overenie zlyhalo."
