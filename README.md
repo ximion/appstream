@@ -17,6 +17,8 @@ generated from AppStream metadata.
 [Releases](http://www.freedesktop.org/software/appstream/releases/) - All releases of AppStream  
 [AppStream on Freedesktop](http://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page  
 
+For help and development discussion, check out the [AppStream mailinglist](https://lists.freedesktop.org/mailman/listinfo/appstream).
+
 ## Developers
 [![Build Status](https://semaphoreci.com/api/v1/projects/c406ea75-a977-4100-8ae1-66b7ccc54f48/559622/badge.svg)](https://semaphoreci.com/ximion/appstream)
 
