@@ -649,10 +649,9 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 /**
  * as_xmldata_parse_component_node:
  */
-AsComponent*
-as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, gboolean allow_invalid, GError **error)
+gboolean
+as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt, gboolean allow_invalid, GError **error)
 {
-	AsComponent* cpt;
 	xmlNode *iter;
 	const gchar *node_name;
 	GPtrArray *compulsory_for_desktops;
@@ -660,13 +659,8 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, gboolean allow_i
 	gchar **strv;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
-	g_return_val_if_fail (xdt != NULL, NULL);
-
 	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	pkgnames = g_ptr_array_new_with_free_func (g_free);
-
-	/* a fresh app component */
-	cpt = as_component_new ();
 
 	/* set component kind */
 	as_xmldata_set_component_type_from_node (node, cpt);
@@ -857,7 +851,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, gboolean allow_i
 	g_strfreev (strv);
 
 	if ((allow_invalid) || (as_component_is_valid (cpt))) {
-		return cpt;
+		return TRUE;
 	} else {
 		g_autofree gchar *cpt_str = NULL;
 		cpt_str = as_component_to_string (cpt);
@@ -865,10 +859,9 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, gboolean allow_i
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
 				     "Invalid component: %s", cpt_str);
-		g_object_unref (cpt);
 	}
 
-	return NULL;
+	return FALSE;
 }
 
 /**
@@ -877,7 +870,6 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, gboolean allow_i
 static void
 as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node, gboolean allow_invalid, GError **error)
 {
-	AsComponent *cpt;
 	xmlNode* iter;
 	GError *tmp_error = NULL;
 	gchar *media_baseurl;
@@ -906,12 +898,16 @@ as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node
 			continue;
 
 		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
-			cpt = as_xmldata_parse_component_node (xdt, iter, allow_invalid, &tmp_error);
+			g_autoptr(AsComponent) cpt = NULL;
+			gboolean ret;
+
+			cpt = as_component_new ();
+			ret = as_xmldata_parse_component_node (xdt, iter, cpt, allow_invalid, &tmp_error);
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
 				return;
-			} else if (cpt != NULL) {
-				g_ptr_array_add (cpts, cpt);
+			} else if (ret) {
+				g_ptr_array_add (cpts, g_object_ref (cpt));
 			}
 		}
 	}
@@ -1396,26 +1392,25 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 }
 
 /**
- * as_xmldata_parse_upstream_data:
+ * as_xmldata_update_cpt_with_upstream_data:
  * @xdt: An instance of #AsXMLData
  * @data: XML representing upstream metadata.
+ * @cpt: Component that should be updated.
  * @error: A #GError
  *
  * Parse AppStream upstream metadata.
- *
- * Returns: (transfer full): An #AsComponent, deserialized from the XML.
  */
-AsComponent*
-as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **error)
+gboolean
+as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsComponent *cpt, GError **error)
 {
-	xmlDoc* doc;
-	xmlNode* root;
-	AsComponent *cpt = NULL;
+	xmlDoc *doc;
+	xmlNode *root;
+	gboolean ret = FALSE;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	if (data == NULL) {
 		/* empty document means no components */
-		return NULL;
+		return FALSE;
 	}
 
 	doc = xmlParseDoc ((xmlChar*) data);
@@ -1424,7 +1419,7 @@ as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **erro
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
 				     "Could not parse XML!");
-		return NULL;
+		return FALSE;
 	}
 
 	root = xmlDocGetRootElement (doc);
@@ -1446,10 +1441,10 @@ as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **erro
 				     "Tried to parse distro metadata as upstream metadata.");
 		goto out;
 	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		cpt = as_xmldata_parse_component_node (xdt, root, TRUE, error);
+		ret = as_xmldata_parse_component_node (xdt, root, cpt, TRUE, error);
 	} else if  (g_strcmp0 ((gchar*) root->name, "application") == 0) {
 		g_debug ("Parsing legacy AppStream metadata file.");
-		cpt = as_xmldata_parse_component_node (xdt, root, TRUE, error);
+		ret = as_xmldata_parse_component_node (xdt, root, cpt, TRUE, error);
 	} else {
 		g_set_error_literal (error,
 					AS_METADATA_ERROR,
@@ -1460,7 +1455,32 @@ as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **erro
 
 out:
 	xmlFreeDoc (doc);
-	return cpt;
+	return ret;
+}
+
+/**
+ * as_xmldata_parse_upstream_data:
+ * @xdt: An instance of #AsXMLData
+ * @data: XML representing upstream metadata.
+ * @error: A #GError
+ *
+ * Parse AppStream upstream metadata.
+ *
+ * Returns: (transfer full): An #AsComponent, deserialized from the XML.
+ */
+AsComponent*
+as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **error)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	gboolean ret;
+
+	cpt = as_component_new ();
+	ret = as_xmldata_update_cpt_with_upstream_data (xdt, data, cpt, error);
+
+	if (ret)
+		return g_object_ref (cpt);
+	else
+		return NULL;
 }
 
 /**
@@ -1510,12 +1530,15 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		as_xmldata_parse_components_node (xdt, cpts, root, FALSE, error);
 	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		AsComponent *cpt;
+		g_autoptr(AsComponent) cpt = NULL;
+		gboolean ret;
+
+		cpt = as_component_new ();
 		/* we explicitly allow parsing single component entries in distro-XML mode, since this is a scenario
 		 * which might very well happen, e.g. in AppStream metadata generators */
-		cpt = as_xmldata_parse_component_node (xdt, root, TRUE, error);
-		if (cpt != NULL)
-			g_ptr_array_add (cpts, cpt);
+		ret = as_xmldata_parse_component_node (xdt, root, cpt, TRUE, error);
+		if (ret)
+			g_ptr_array_add (cpts, g_object_ref (cpt));
 	} else {
 		g_set_error_literal (error,
 					AS_METADATA_ERROR,

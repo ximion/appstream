@@ -436,9 +436,9 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 	as_xmldata_initialize (xdt, "C", NULL, NULL, 0);
 	as_xmldata_set_parser_mode (xdt, mode);
 
-	cpt = as_xmldata_parse_component_node (xdt, root, TRUE, NULL);
+	cpt = as_component_new ();
+	as_xmldata_parse_component_node (xdt, root, cpt, TRUE, NULL);
 	g_object_unref (xdt);
-	g_assert (cpt != NULL);
 
 	as_validator_set_current_cpt (validator, cpt);
 
