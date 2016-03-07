@@ -551,3 +551,15 @@ as_touch_location (const gchar *fname)
 
 	return TRUE;
 }
+
+/**
+ * as_reset_umask:
+ *
+ * Reset umask potentially set by the user to a default value,
+ * so we can create files with the correct permissions.
+ */
+void
+as_reset_umask (void)
+{
+	umask (0022);
+}

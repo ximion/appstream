@@ -50,6 +50,7 @@ gchar			*as_str_replace (const gchar *str,
 gchar			**as_ptr_array_to_strv (GPtrArray *array);
 
 gboolean		as_touch_location (const gchar *fname);
+void			as_reset_umask (void);
 
 G_END_DECLS
 

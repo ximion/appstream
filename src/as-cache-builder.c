@@ -139,6 +139,9 @@ as_cache_builder_setup (AsCacheBuilder *builder, const gchar *dbpath, GError **e
 	}
 	priv->db_path = g_build_filename (priv->cache_path, "xapian", "default", NULL);
 
+	/* users umask shouldn't interfere with us creating new files */
+	as_reset_umask ();
+
 	/* check the ctime of the cache directory, if it exists at all */
 	as_cache_builder_check_cache_ctime (builder);
 
