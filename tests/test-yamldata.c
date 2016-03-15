@@ -33,7 +33,7 @@ println (const gchar *s)
 }
 
 void
-test_basic ()
+test_basic (void)
 {
 	g_autoptr(AsMetadata) mdata = NULL;
 	gchar *path;
@@ -72,6 +72,45 @@ test_basic ()
 	g_assert_cmpstr (as_component_get_pkgnames (cpt_tomatoes)[0], ==, "tomatoes");
 }
 
+void
+test_yamlwrite (void)
+{
+	g_autoptr(AsYAMLData) ydata = NULL;
+	g_autoptr(GPtrArray) cpts = NULL;
+	g_autofree gchar *resdata = NULL;
+	AsComponent *cpt = NULL;
+	GError *error = NULL;
+	gchar *_PKGNAME1[2] = {"fwdummy", NULL};
+	gchar *_PKGNAME2[2] = {"foobar-pkg", NULL};
+
+	ydata = as_yamldata_new ();
+	cpts = g_ptr_array_new_with_free_func (g_object_unref);
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_FIRMWARE);
+	as_component_set_id (cpt, "org.example.test.firmware");
+	as_component_set_pkgnames (cpt, _PKGNAME1);
+	as_component_set_name (cpt, "Unittest Firmware", "C");
+	as_component_set_name (cpt, "Ünittest Fürmwäre (dummy Eintrag)", "de_DE");
+	as_component_add_extends (cpt, "org.example.alpha");
+	as_component_add_extends (cpt, "org.example.beta");
+	as_component_add_url (cpt, AS_URL_KIND_HOMEPAGE, "https://example.com");
+	g_ptr_array_add (cpts, cpt);
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.freedesktop.foobar.desktop");
+	as_component_set_pkgnames (cpt, _PKGNAME2);
+	as_component_set_name (cpt, "TEST!!", "C");
+	g_ptr_array_add (cpts, cpt);
+
+	resdata = as_yamldata_serialize_to_distro (ydata, cpts, TRUE, FALSE, &error);
+	g_assert_no_error (error);
+	g_debug ("%s", resdata);
+
+	/* TODO: Actually test the resulting output */
+}
+
 int
 main (int argc, char **argv)
 {
@@ -93,7 +132,8 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/DEP-11/Basic", test_basic);
+	g_test_add_func ("/YAML/Basic", test_basic);
+	g_test_add_func ("/YAML/Write", test_yamlwrite);
 
 	ret = g_test_run ();
 	g_free (datadir);

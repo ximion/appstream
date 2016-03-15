@@ -55,6 +55,12 @@ GPtrArray		*as_yamldata_parse_distro_data (AsYAMLData *ydt,
 							const gchar *data,
 							GError **error);
 
+gchar			*as_yamldata_serialize_to_distro (AsYAMLData *ydt,
+								GPtrArray *cpts,
+								gboolean write_header,
+								gboolean add_timestamp,
+								GError **error);
+
 const gchar		*as_yamldata_get_locale (AsYAMLData *ydt);
 void			as_yamldata_set_locale (AsYAMLData *ydt,
 						const gchar *locale);

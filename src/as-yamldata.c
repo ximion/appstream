@@ -628,7 +628,7 @@ as_yamldata_process_releases (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 /**
  * as_yamldata_process_component_node:
  */
-AsComponent*
+static AsComponent*
 as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 {
 	GNode *node;
@@ -746,6 +746,499 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 	g_strfreev (strv);
 
 	return cpt;
+}
+
+/**
+ * as_yaml_mapping_start:
+ */
+static void
+as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
+{
+	gint ret;
+	yaml_event_t event;
+	g_assert (value != NULL);
+
+	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+}
+
+/**
+ * as_yaml_emit_str_entry:
+ */
+static void
+as_yaml_emit_str_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
+{
+	yaml_event_t event;
+	gint ret;
+
+	if (value == NULL)
+		return;
+
+	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) key, strlen (key), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+
+	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+}
+
+/**
+ * as_yaml_mapping_start:
+ */
+static void
+as_yaml_mapping_start (yaml_emitter_t *emitter)
+{
+	yaml_event_t event;
+
+	yaml_mapping_start_event_initialize (&event, NULL, NULL, 1, YAML_ANY_MAPPING_STYLE);
+	g_assert (yaml_emitter_emit (emitter, &event));
+}
+
+/**
+ * as_yaml_mapping_end:
+ */
+static void
+as_yaml_mapping_end (yaml_emitter_t *emitter)
+{
+	yaml_event_t event;
+
+	yaml_mapping_end_event_initialize (&event);
+	g_assert (yaml_emitter_emit (emitter, &event));
+}
+
+/**
+ * as_yaml_sequence_start:
+ */
+static void
+as_yaml_sequence_start (yaml_emitter_t *emitter)
+{
+	yaml_event_t event;
+
+	yaml_sequence_start_event_initialize (&event, NULL, NULL, 1, YAML_ANY_SEQUENCE_STYLE);
+	g_assert (yaml_emitter_emit (emitter, &event));
+}
+
+/**
+ * as_yaml_sequence_end:
+ */
+static void
+as_yaml_sequence_end (yaml_emitter_t *emitter)
+{
+	yaml_event_t event;
+
+	yaml_sequence_end_event_initialize (&event);
+	g_assert (yaml_emitter_emit (emitter, &event));
+}
+
+/**
+ * as_yaml_emit_lang_hashtable_entries:
+ */
+static void
+as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *emitter)
+{
+	if (as_str_empty (value))
+		return;
+
+	as_yaml_emit_str_entry (emitter, key, value);
+}
+
+/**
+ * as_yaml_emit_localized_entry:
+ */
+static void
+as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	if (ltab == NULL)
+		return;
+	if (g_hash_table_size (ltab) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	/* start mapping for localized entry */
+	as_yaml_mapping_start (emitter);
+	/* emit entries */
+	g_hash_table_foreach (ltab,
+				(GHFunc) as_yaml_emit_lang_hashtable_entries,
+				emitter);
+	/* finalize */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_yaml_emit_sequence:
+ */
+static void
+as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *list)
+{
+	guint i;
+
+	if (list == NULL)
+		return;
+	if (list->len == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	as_yaml_sequence_start (emitter);
+	for (i = 0; i < list->len; i++) {
+		const gchar *value = (const gchar *) g_ptr_array_index (list, i);
+		as_yaml_emit_scalar (emitter, value);
+	}
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_emit_sequence_from_strv:
+ */
+static void
+as_yaml_emit_sequence_from_strv (yaml_emitter_t *emitter, const gchar *key, gchar **strv)
+{
+	guint i;
+
+	if (strv == NULL)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	as_yaml_sequence_start (emitter);
+	for (i = 0; strv[i] != NULL; i++) {
+		as_yaml_emit_scalar (emitter, strv[i]);
+	}
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_localized_list_helper:
+ */
+static void
+as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter)
+{
+	guint i;
+	if (strv == NULL)
+		return;
+
+	as_yaml_sequence_start (emitter);
+	for (i = 0; strv[i] != NULL; i++) {
+		as_yaml_emit_scalar (emitter, strv[i]);
+	}
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_emit_localized_lists:
+ */
+void
+as_yaml_emit_localized_lists (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	if (ltab == NULL)
+		return;
+	if (g_hash_table_size (ltab) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	/* start mapping for localized entry */
+	as_yaml_mapping_start (emitter);
+	/* emit entries */
+	g_hash_table_foreach (ltab,
+				(GHFunc) as_yaml_localized_list_helper,
+				emitter);
+	/* finalize */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_yamldata_process_component_node:
+ */
+static void
+as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
+{
+	guint i;
+	gint res;
+	const gchar *cstr;
+	gchar **pkgnames;
+	yaml_event_t event;
+	AsComponentKind kind;
+	GHashTable *htable;
+	GPtrArray *icons;
+
+	/* we only serialize a component with minimal necessary information */
+	if (!as_component_is_valid (cpt))
+		return;
+
+	/* new document for this component */
+	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
+	res = yaml_emitter_emit (emitter, &event);
+	g_assert (res);
+
+	/* open main mapping */
+	as_yaml_mapping_start (emitter);
+
+	/* write component kind */
+	kind = as_component_get_kind (cpt);
+	if (kind == AS_COMPONENT_KIND_DESKTOP_APP)
+		cstr = "desktop-app";
+	else if (kind == AS_COMPONENT_KIND_GENERIC)
+		cstr = "generic";
+	else
+		cstr = as_component_kind_to_string (kind);
+	as_yaml_emit_str_entry (emitter, "Type", cstr);
+
+	/* AppStream-ID */
+	as_yaml_emit_str_entry (emitter, "ID", as_component_get_id (cpt));
+
+	/* SourcePackage */
+	as_yaml_emit_str_entry (emitter, "SourcePackage", as_component_get_source_pkgname (cpt));
+
+	/* Package */
+	pkgnames = as_component_get_pkgnames (cpt);
+	/* NOTE: a DEP-11 component does *not* support multiple packages per component */
+	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
+		as_yaml_emit_str_entry (emitter, "Package", pkgnames[0]);
+
+	/* Extends */
+	as_yaml_emit_sequence (emitter,
+				"Extends",
+				as_component_get_extends (cpt));
+
+	/* Name */
+	as_yaml_emit_localized_entry (emitter,
+					"Name",
+					as_component_get_name_table (cpt));
+
+	/* Summary */
+	as_yaml_emit_localized_entry (emitter,
+					"Summary",
+					as_component_get_summary_table (cpt));
+
+	/* Description */
+	as_yaml_emit_localized_entry (emitter,
+					"Description",
+					as_component_get_description_table (cpt));
+
+	/* DeveloperName */
+	as_yaml_emit_localized_entry (emitter,
+					"DeveloperName",
+					as_component_get_developer_name_table (cpt));
+
+	/* ProjectGroup */
+	as_yaml_emit_str_entry (emitter, "ProjectGroup", as_component_get_project_group (cpt));
+
+	/* ProjectLicense */
+	as_yaml_emit_str_entry (emitter, "ProjectLicense", as_component_get_project_license (cpt));
+
+	/* CompulsoryForDesktops */
+	as_yaml_emit_sequence_from_strv (emitter,
+					 "CompulsoryForDesktops",
+					 as_component_get_compulsory_for_desktops (cpt));
+
+	/* Categories */
+	as_yaml_emit_sequence_from_strv (emitter,
+					 "Categories",
+					 as_component_get_categories (cpt));
+
+	/* Keywords */
+	as_yaml_emit_localized_lists (emitter,
+					"Keywords",
+					as_component_get_keywords_table (cpt));
+
+	/* Urls */
+	htable = as_component_get_urls_table (cpt);
+	if ((htable != NULL) && (g_hash_table_size (htable) > 0)) {
+		as_yaml_emit_scalar (emitter, "Urls");
+
+		as_yaml_mapping_start (emitter);
+		for (i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
+			const gchar *value;
+			value = as_component_get_url (cpt, i);
+			if (value == NULL)
+				continue;
+
+			as_yaml_emit_str_entry (emitter, as_url_kind_to_string (i), value);
+		}
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* Icons */
+	icons = as_component_get_icons (cpt);
+	if (icons->len > 0) {
+		as_yaml_emit_scalar (emitter, "Icon");
+
+		as_yaml_mapping_start (emitter);
+		for (i = 0; i < icons->len; i++) {
+			const gchar *value;
+			AsIconKind ikind;
+			AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+
+			ikind = as_icon_get_kind (icon);
+			if (ikind == AS_ICON_KIND_LOCAL)
+				value = as_icon_get_filename (icon);
+			else if (ikind == AS_ICON_KIND_REMOTE)
+				value = as_icon_get_url (icon);
+			else
+				value = as_icon_get_name (icon);
+
+			if (value == NULL)
+				continue;
+
+			if (ikind == AS_ICON_KIND_REMOTE) {
+				/* remote icons get special treatment */
+
+				g_warning ("Handling of 'remote' type DEP-11 icons is not yet implemented!");
+				/* NOTE: A remote node is specified like this:
+				 * Icons:
+				 *   cached: foobar.png
+				 *   remote:
+				 *     - width: 64
+				 *       height: 64
+				 *       url: http://example.org/icons/foobar.png
+				 */
+			} else {
+				as_yaml_emit_str_entry (emitter, as_icon_kind_to_string (ikind), value);
+			}
+		}
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* Bundles */
+	htable = as_component_get_bundles_table (cpt);
+	if ((htable != NULL) && (g_hash_table_size (htable) > 0)) {
+		as_yaml_emit_scalar (emitter, "Bundles");
+		as_yaml_mapping_start (emitter);
+		for (i = AS_BUNDLE_KIND_UNKNOWN; i < AS_BUNDLE_KIND_LAST; i++) {
+			const gchar *value;
+			value = as_component_get_bundle_id (cpt, i);
+			if (value == NULL)
+				continue;
+
+			as_yaml_emit_str_entry (emitter, as_bundle_kind_to_string (i), value);
+		}
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* TODO: Screenshots, Releases, Translations */
+
+	/* close main mapping */
+	as_yaml_mapping_end (emitter);
+
+	/* finalize the document */
+	yaml_document_end_event_initialize (&event, 1);
+	res = yaml_emitter_emit (emitter, &event);
+	g_assert (res);
+}
+
+/**
+ * as_yaml_write_header:
+ *
+ * Emit a DEP-11 header for the new document.
+ */
+static void
+as_yaml_write_header (yaml_emitter_t *emitter, const gchar *origin, const gchar *media_baseurl)
+{
+	gint res;
+	yaml_event_t event;
+
+	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
+	res = yaml_emitter_emit (emitter, &event);
+	g_assert (res);
+
+	as_yaml_mapping_start (emitter);
+
+	as_yaml_emit_str_entry (emitter, "File", "DEP-11");
+	as_yaml_emit_str_entry (emitter, "Version", "0.8");
+	as_yaml_emit_str_entry (emitter, "Origin", origin);
+	if (media_baseurl != NULL)
+		as_yaml_emit_str_entry (emitter, "MediaBaseUrl", media_baseurl);
+
+	as_yaml_mapping_end (emitter);
+
+	yaml_document_end_event_initialize (&event, 1);
+	res = yaml_emitter_emit (emitter, &event);
+	g_assert (res);
+}
+
+/**
+ * as_yamldata_write_handler:
+ *
+ * Helper function to store the emitted YAML document.
+ */
+static int
+as_yamldata_write_handler (void *ptr, unsigned char *buffer, size_t size)
+{
+	GString *str;
+	str = (GString*) ptr;
+	g_string_append_len (str, (const gchar*) buffer, size);
+
+	return 1;
+}
+
+/**
+ * as_yamldata_serialize_to_distro:
+ */
+gchar*
+as_yamldata_serialize_to_distro (AsYAMLData *ydt, GPtrArray *cpts, gboolean write_header, gboolean add_timestamp, GError **error)
+{
+	yaml_emitter_t emitter;
+	yaml_event_t event;
+	GString *out_data;
+	gboolean res = FALSE;
+	guint i;
+	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
+
+	if (cpts->len == 0)
+		return NULL;
+
+	yaml_emitter_initialize (&emitter);
+	yaml_emitter_set_indent (&emitter, 2);
+
+	/* create a GString to receive the output the emitter generates */
+	out_data = g_string_new ("");
+	yaml_emitter_set_output (&emitter, as_yamldata_write_handler, out_data);
+
+	/* emit start event */
+	yaml_stream_start_event_initialize (&event, YAML_UTF8_ENCODING);
+	if (!yaml_emitter_emit (&emitter, &event))
+		goto error;
+
+	/* write header */
+	if (write_header)
+		as_yaml_write_header (&emitter, priv->origin, priv->media_baseurl);
+
+	/* write components as YAML documents */
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt;
+		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		as_yaml_serialize_component (ydt, &emitter, cpt);
+	}
+
+	/* emit end event */
+	yaml_stream_end_event_initialize (&event);
+	yaml_emitter_emit (&emitter, &event);
+	yaml_emitter_emit (&emitter, &event);
+
+	res = TRUE;
+	goto out;
+
+error:
+	g_set_error_literal (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FAILED,
+				"Emission of YAML event failed.");
+
+out:
+	/* Destroy the Emitter object. */
+	yaml_emitter_delete (&emitter);
+
+	if (res) {
+		return g_string_free (out_data, FALSE);
+	} else {
+		g_string_free (out_data, TRUE);
+		return NULL;
+	}
 }
 
 /**
