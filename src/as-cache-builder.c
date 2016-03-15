@@ -328,6 +328,7 @@ as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **err
 	g_autoptr(GPtrArray) yml_files = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	gboolean data_changed = FALSE;
+	gboolean metadata_target_empty = FALSE;
 	guint i;
 	AsCacheBuilderPrivate *priv = GET_PRIVATE (builder);
 
@@ -358,6 +359,15 @@ as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **err
 				data_changed = TRUE;
 			}
 		}
+	} else {
+		/* we would actually need to check whether there is metadata in that directory at all,
+		 * and if the new metadata from APT is already included. We don't do that for
+		 * performance reasons.
+		 * The reason why we do this check at all is APT putting files with the *server* ctime/mtime
+		 * into it's lists directory, and that time might be lower than the time the metadata cache
+		 * was last updated, which results in no cache update at all.
+		 */
+		metadata_target_empty = TRUE;
 	}
 
 	yml_files = as_utils_find_files_matching (apt_lists_dir, "*Components-*.yml.gz", FALSE, &tmp_error);
@@ -370,6 +380,9 @@ as_cache_builder_scan_apt (AsCacheBuilder *builder, gboolean force, GError **err
 	if (yml_files->len <= 0) {
 		g_debug ("Couldn't find DEP-11 data in APT directories.");
 		return;
+	} else {
+		if (metadata_target_empty)
+			data_changed = TRUE;
 	}
 
 	/* get the last time we touched the database */
