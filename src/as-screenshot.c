@@ -30,6 +30,7 @@
  */
 
 #include "as-screenshot.h"
+#include "as-screenshot-private.h"
 
 typedef struct
 {
@@ -273,6 +274,18 @@ as_screenshot_set_active_locale (AsScreenshot *screenshot, const gchar *locale)
 
 	g_free (priv->active_locale);
 	priv->active_locale = g_strdup (locale);
+}
+
+/**
+ * as_screenshot_get_caption_table:
+ *
+ * Internal function.
+ */
+GHashTable*
+as_screenshot_get_caption_table (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	return priv->caption;
 }
 
 /**

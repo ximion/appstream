@@ -72,11 +72,49 @@ test_basic (void)
 	g_assert_cmpstr (as_component_get_pkgnames (cpt_tomatoes)[0], ==, "tomatoes");
 }
 
+static AsScreenshot*
+test_h_create_dummy_screenshot (void)
+{
+	AsScreenshot *scr;
+	AsImage *img;
+
+	scr = as_screenshot_new ();
+	as_screenshot_set_caption (scr, "The FooBar mainwindow", "C");
+	as_screenshot_set_caption (scr, "Le FooBar mainwindow", "fr");
+
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_width (img, 840);
+	as_image_set_height (img, 560);
+	as_image_set_url (img, "https://example.org/images/foobar-full.png");
+	as_screenshot_add_image (scr, img);
+	g_object_unref (img);
+
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+	as_image_set_width (img, 400);
+	as_image_set_height (img, 200);
+	as_image_set_url (img, "https://example.org/images/foobar-small.png");
+	as_screenshot_add_image (scr, img);
+	g_object_unref (img);
+
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+	as_image_set_width (img, 210);
+	as_image_set_height (img, 120);
+	as_image_set_url (img, "https://example.org/images/foobar-smaller.png");
+	as_screenshot_add_image (scr, img);
+	g_object_unref (img);
+
+	return scr;
+}
+
 void
 test_yamlwrite (void)
 {
 	g_autoptr(AsYAMLData) ydata = NULL;
 	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsScreenshot) scr = NULL;
 	g_autofree gchar *resdata = NULL;
 	AsComponent *cpt = NULL;
 	GError *error = NULL;
@@ -102,6 +140,9 @@ test_yamlwrite (void)
 	as_component_set_id (cpt, "org.freedesktop.foobar.desktop");
 	as_component_set_pkgnames (cpt, _PKGNAME2);
 	as_component_set_name (cpt, "TEST!!", "C");
+	scr = test_h_create_dummy_screenshot ();
+	as_component_add_screenshot (cpt, scr);
+
 	g_ptr_array_add (cpts, cpt);
 
 	resdata = as_yamldata_serialize_to_distro (ydata, cpts, TRUE, FALSE, &error);

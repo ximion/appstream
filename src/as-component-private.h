@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,8 +18,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_COMPONENTPRIVATE_H
-#define __AS_COMPONENTPRIVATE_H
+#ifndef __AS_COMPONENT_PRIVATE_H
+#define __AS_COMPONENT_PRIVATE_H
 
 #include <glib-object.h>
 #include "as-component.h"
@@ -58,4 +58,4 @@ void			as_component_set_categories_from_str (AsComponent *cpt,
 
 G_END_DECLS
 
-#endif /* __AS_COMPONENTPRIVATE_H */
+#endif /* __AS_COMPONENT_PRIVATE_H */

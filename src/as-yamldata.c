@@ -28,6 +28,7 @@
 #include "as-utils-private.h"
 #include "as-metadata.h"
 #include "as-component-private.h"
+#include "as-screenshot-private.h"
 
 typedef struct
 {
@@ -764,10 +765,10 @@ as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
 }
 
 /**
- * as_yaml_emit_str_entry:
+ * as_yaml_emit_entry:
  */
 static void
-as_yaml_emit_str_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
+as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
 {
 	yaml_event_t event;
 	gint ret;
@@ -841,7 +842,7 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *e
 	if (as_str_empty (value))
 		return;
 
-	as_yaml_emit_str_entry (emitter, key, value);
+	as_yaml_emit_entry (emitter, key, value);
 }
 
 /**
@@ -1021,7 +1022,7 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 				as_yaml_sequence_start (emitter);
 				for (i = 0; items[i] != NULL; i++) {
 					as_yaml_mapping_start (emitter);
-					as_yaml_emit_str_entry (emitter, "name", items[i]);
+					as_yaml_emit_entry (emitter, "name", items[i]);
 					/* FIXME: Also emit "file" entry, but at time we don't seem to store this? */
 					as_yaml_mapping_end (emitter);
 				}
@@ -1070,8 +1071,8 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 			for (i = 0; dbus_system[i] != NULL; i++) {
 				as_yaml_mapping_start (emitter);
 
-				as_yaml_emit_str_entry (emitter, "type", "system");
-				as_yaml_emit_str_entry (emitter, "service", dbus_system[i]);
+				as_yaml_emit_entry (emitter, "type", "system");
+				as_yaml_emit_entry (emitter, "service", dbus_system[i]);
 
 				as_yaml_mapping_end (emitter);
 			}
@@ -1081,8 +1082,8 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 			for (i = 0; dbus_user[i] != NULL; i++) {
 				as_yaml_mapping_start (emitter);
 
-				as_yaml_emit_str_entry (emitter, "type", "user");
-				as_yaml_emit_str_entry (emitter, "service", dbus_user[i]);
+				as_yaml_emit_entry (emitter, "type", "user");
+				as_yaml_emit_entry (emitter, "service", dbus_user[i]);
 
 				as_yaml_mapping_end (emitter);
 			}
@@ -1100,8 +1101,8 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 			for (i = 0; fw_runtime[i] != NULL; i++) {
 				as_yaml_mapping_start (emitter);
 
-				as_yaml_emit_str_entry (emitter, "type", "runtime");
-				as_yaml_emit_str_entry (emitter, "guid", fw_runtime[i]);
+				as_yaml_emit_entry (emitter, "type", "runtime");
+				as_yaml_emit_entry (emitter, "guid", fw_runtime[i]);
 
 				as_yaml_mapping_end (emitter);
 			}
@@ -1111,8 +1112,8 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 			for (i = 0; fw_flashed[i] != NULL; i++) {
 				as_yaml_mapping_start (emitter);
 
-				as_yaml_emit_str_entry (emitter, "type", "flashed");
-				as_yaml_emit_str_entry (emitter, "fname", fw_flashed[i]);
+				as_yaml_emit_entry (emitter, "type", "flashed");
+				as_yaml_emit_entry (emitter, "fname", fw_flashed[i]);
 
 				as_yaml_mapping_end (emitter);
 			}
@@ -1122,6 +1123,96 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 	}
 
 	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_yaml_emit_image:
+ *
+ * Helper for as_yaml_emit_screenshots
+ */
+static void
+as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
+{
+	g_autofree gchar *url = NULL;
+	gchar *size;
+	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
+
+	as_yaml_mapping_start (emitter);
+	if (priv->media_baseurl == NULL)
+		url = g_strdup (as_image_get_url (img));
+	else
+		url = as_str_replace (as_image_get_url (img), priv->media_baseurl, "");
+
+	as_yaml_emit_entry (emitter, "url", url);
+	if ((as_image_get_width (img) > 0) &&
+		(as_image_get_height (img) > 0)) {
+		size = g_strdup_printf("%i", as_image_get_width (img));
+		as_yaml_emit_entry (emitter, "width", size);
+		g_free (size);
+
+		size = g_strdup_printf("%i", as_image_get_height (img));
+		as_yaml_emit_entry (emitter, "height", size);
+		g_free (size);
+	}
+	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_yaml_emit_screenshots:
+ */
+void
+as_yaml_emit_screenshots (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
+{
+	GPtrArray *sslist;
+	AsScreenshot *scr;
+	guint i;
+
+	sslist = as_component_get_screenshots (cpt);
+	if ((sslist == NULL) || (sslist->len == 0))
+		return;
+
+	as_yaml_emit_scalar (emitter, "Screenshots");
+	as_yaml_sequence_start (emitter);
+	for (i = 0; i < sslist->len; i++) {
+		GPtrArray *images;
+		guint j;
+		AsImage *source_img = NULL;
+		scr = AS_SCREENSHOT (g_ptr_array_index (sslist, i));
+
+		as_yaml_mapping_start (emitter);
+
+		if (as_screenshot_get_kind (scr) == AS_SCREENSHOT_KIND_DEFAULT)
+			as_yaml_emit_entry (emitter, "default", "true");
+
+		as_yaml_emit_localized_entry (emitter,
+						"caption",
+						as_screenshot_get_caption_table (scr));
+
+		images = as_screenshot_get_images (scr);
+		as_yaml_emit_scalar (emitter, "thumbnails");
+		as_yaml_sequence_start (emitter);
+		for (j = 0; j < images->len; j++) {
+			AsImage *img = AS_IMAGE (g_ptr_array_index (images, j));
+
+			if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
+				source_img = img;
+				continue;
+			}
+			as_yaml_emit_image (ydt, emitter, img);
+		}
+		as_yaml_sequence_end (emitter);
+
+		/* technically, we *must* have a source-image by now, but better be safe... */
+		if (source_img != NULL) {
+			as_yaml_emit_scalar (emitter, "source-image");
+			as_yaml_emit_image (ydt, emitter, source_img);
+		}
+
+		as_yaml_mapping_end (emitter);
+	}
+	as_yaml_sequence_end (emitter);
+
+
 }
 
 /**
@@ -1159,19 +1250,19 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 		cstr = "generic";
 	else
 		cstr = as_component_kind_to_string (kind);
-	as_yaml_emit_str_entry (emitter, "Type", cstr);
+	as_yaml_emit_entry (emitter, "Type", cstr);
 
 	/* AppStream-ID */
-	as_yaml_emit_str_entry (emitter, "ID", as_component_get_id (cpt));
+	as_yaml_emit_entry (emitter, "ID", as_component_get_id (cpt));
 
 	/* SourcePackage */
-	as_yaml_emit_str_entry (emitter, "SourcePackage", as_component_get_source_pkgname (cpt));
+	as_yaml_emit_entry (emitter, "SourcePackage", as_component_get_source_pkgname (cpt));
 
 	/* Package */
 	pkgnames = as_component_get_pkgnames (cpt);
 	/* NOTE: a DEP-11 component does *not* support multiple packages per component */
 	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
-		as_yaml_emit_str_entry (emitter, "Package", pkgnames[0]);
+		as_yaml_emit_entry (emitter, "Package", pkgnames[0]);
 
 	/* Extends */
 	as_yaml_emit_sequence (emitter,
@@ -1199,10 +1290,10 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 					as_component_get_developer_name_table (cpt));
 
 	/* ProjectGroup */
-	as_yaml_emit_str_entry (emitter, "ProjectGroup", as_component_get_project_group (cpt));
+	as_yaml_emit_entry (emitter, "ProjectGroup", as_component_get_project_group (cpt));
 
 	/* ProjectLicense */
-	as_yaml_emit_str_entry (emitter, "ProjectLicense", as_component_get_project_license (cpt));
+	as_yaml_emit_entry (emitter, "ProjectLicense", as_component_get_project_license (cpt));
 
 	/* CompulsoryForDesktops */
 	as_yaml_emit_sequence_from_strv (emitter,
@@ -1231,7 +1322,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 			if (value == NULL)
 				continue;
 
-			as_yaml_emit_str_entry (emitter, as_url_kind_to_string (i), value);
+			as_yaml_emit_entry (emitter, as_url_kind_to_string (i), value);
 		}
 		as_yaml_mapping_end (emitter);
 	}
@@ -1271,7 +1362,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 				 *       url: http://example.org/icons/foobar.png
 				 */
 			} else {
-				as_yaml_emit_str_entry (emitter, as_icon_kind_to_string (ikind), value);
+				as_yaml_emit_entry (emitter, as_icon_kind_to_string (ikind), value);
 			}
 		}
 		as_yaml_mapping_end (emitter);
@@ -1288,7 +1379,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 			if (value == NULL)
 				continue;
 
-			as_yaml_emit_str_entry (emitter, as_bundle_kind_to_string (i), value);
+			as_yaml_emit_entry (emitter, as_bundle_kind_to_string (i), value);
 		}
 		as_yaml_mapping_end (emitter);
 	}
@@ -1296,8 +1387,10 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	/* Provides */
 	as_yaml_emit_provides (emitter, cpt);
 
+	/* Screenshots */
+	as_yaml_emit_screenshots (ydt, emitter, cpt);
 
-	/* TODO: Screenshots, Releases, Translations */
+	/* TODO: Releases, Translations */
 
 	/* close main mapping */
 	as_yaml_mapping_end (emitter);
@@ -1325,11 +1418,11 @@ as_yaml_write_header (yaml_emitter_t *emitter, const gchar *origin, const gchar 
 
 	as_yaml_mapping_start (emitter);
 
-	as_yaml_emit_str_entry (emitter, "File", "DEP-11");
-	as_yaml_emit_str_entry (emitter, "Version", "0.8");
-	as_yaml_emit_str_entry (emitter, "Origin", origin);
+	as_yaml_emit_entry (emitter, "File", "DEP-11");
+	as_yaml_emit_entry (emitter, "Version", "0.8");
+	as_yaml_emit_entry (emitter, "Origin", origin);
 	if (media_baseurl != NULL)
-		as_yaml_emit_str_entry (emitter, "MediaBaseUrl", media_baseurl);
+		as_yaml_emit_entry (emitter, "MediaBaseUrl", media_baseurl);
 
 	as_yaml_mapping_end (emitter);
 

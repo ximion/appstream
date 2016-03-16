@@ -92,6 +92,7 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-xmldata.h
 		as-yamldata.h
 		as-component-private.h
+		as-screenshot-private.h
 		as-cache-builder.h
 )
 
