@@ -53,7 +53,7 @@ typedef struct
 	gint default_priority;
 
 	gboolean update_existing;
-	gboolean write_headers;
+	gboolean write_header;
 
 	AsXMLData *xdt;
 	AsYAMLData *ydt;
@@ -80,7 +80,7 @@ as_metadata_init (AsMetadata *metad)
 
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 	priv->default_priority = 0;
-	priv->write_headers = TRUE;
+	priv->write_header = TRUE;
 	priv->update_existing = FALSE;
 
 	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
@@ -492,7 +492,7 @@ as_metadata_components_to_distro_yaml (AsMetadata *metad)
 
 	yamlstr = as_yamldata_serialize_to_distro (priv->ydt,
 							priv->cpts,
-							TRUE, /* write header */
+							priv->write_header,
 							TRUE, /* add timestamp */
 							NULL);
 	return yamlstr;
@@ -695,7 +695,7 @@ as_metadata_set_parser_mode (AsMetadata *metad, AsParserMode mode)
 /**
  * as_metadata_set_update_existing:
  * @metad: an #AsMetadata instance.
- * @update: A bool value.
+ * @update: A boolean value.
  *
  * If set to %TRUE, the parser will not create new components but
  * instead update existing components in the pool with new metadata.
@@ -721,6 +721,40 @@ as_metadata_get_update_existing (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->update_existing;
+}
+
+/**
+ * as_metadata_set_write_header:
+ * @metad: an #AsMetadata instance.
+ * @wheader: A boolean value.
+ *
+ * If set to %TRUE, tehe metadata writer will omit writing a DEP-11
+ * header document when in YAML mode, and will not write a root components node
+ * when writing XML data.
+ * Please keep in mind that this will create an invalid DEP-11 YAML AppStream
+ * distro metadata file, and an invalid XML file.
+ * This parameter should only be changed e.g. by the appstream-generator tool.
+ *
+ * NOTE: Right now, this feature is only implemented for YAML!
+ **/
+void
+as_metadata_set_write_header (AsMetadata *metad, gboolean wheader)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	priv->write_header = wheader;
+}
+
+/**
+ * as_metadata_get_write_header:
+ * @metad: an #AsMetadata instance.
+ *
+ * Returns: Whether we will write a header/root node in distro metadata.
+ **/
+gboolean
+as_metadata_get_write_header (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->write_header;
 }
 
 /**

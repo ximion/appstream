@@ -130,6 +130,10 @@ gboolean		as_metadata_get_update_existing (AsMetadata *metad);
 void			as_metadata_set_update_existing (AsMetadata *metad,
 								gboolean update);
 
+gboolean		as_metadata_get_write_header (AsMetadata *metad);
+void			as_metadata_set_write_header (AsMetadata *metad,
+								gboolean wheader);
+
 void			as_metadata_set_parser_mode (AsMetadata *metad,
 							AsParserMode mode);
 AsParserMode		as_metadata_get_parser_mode (AsMetadata *metad);
