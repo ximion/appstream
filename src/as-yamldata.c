@@ -951,6 +951,180 @@ as_yaml_emit_localized_lists (yaml_emitter_t *emitter, const gchar *key, GHashTa
 }
 
 /**
+ * as_yaml_emit_provides:
+ */
+void
+as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
+{
+	GList *l;
+	GList *plist;
+	guint i;
+
+	g_auto(GStrv) dbus_system = NULL;
+	g_auto(GStrv) dbus_user = NULL;
+
+	g_auto(GStrv) fw_runtime = NULL;
+	g_auto(GStrv) fw_flashed = NULL;
+
+	plist = as_component_get_provided (cpt);
+	if (plist == NULL)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Provides");
+	as_yaml_mapping_start (emitter);
+	for (l = plist; l != NULL; l = l->next) {
+		AsProvidedKind kind;
+		g_autofree gchar **items = NULL;
+		AsProvided *prov = AS_PROVIDED (l->data);
+
+		items = as_provided_get_items (prov);
+		if (items == NULL)
+			continue;
+
+
+		kind = as_provided_get_kind (prov);
+
+		switch (kind) {
+			case AS_PROVIDED_KIND_LIBRARY:
+				as_yaml_emit_sequence_from_strv (emitter,
+							"libraries",
+							items);
+				break;
+			case AS_PROVIDED_KIND_BINARY:
+				as_yaml_emit_sequence_from_strv (emitter,
+							"binaries",
+							items);
+				break;
+			case AS_PROVIDED_KIND_MIMETYPE:
+				as_yaml_emit_sequence_from_strv (emitter,
+							"mimetypes",
+							items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON_2:
+				as_yaml_emit_sequence_from_strv (emitter,
+							"python2",
+							items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON:
+				as_yaml_emit_sequence_from_strv (emitter,
+							"python3",
+							items);
+				break;
+			case AS_PROVIDED_KIND_MODALIAS:
+				as_yaml_emit_sequence_from_strv (emitter,
+							"modaliases",
+							items);
+				break;
+			case AS_PROVIDED_KIND_FONT:
+				as_yaml_emit_scalar (emitter, "fonts");
+
+				as_yaml_sequence_start (emitter);
+				for (i = 0; items[i] != NULL; i++) {
+					as_yaml_mapping_start (emitter);
+					as_yaml_emit_str_entry (emitter, "name", items[i]);
+					/* FIXME: Also emit "file" entry, but at time we don't seem to store this? */
+					as_yaml_mapping_end (emitter);
+				}
+				as_yaml_sequence_end (emitter);
+				break;
+			case AS_PROVIDED_KIND_DBUS_SYSTEM:
+				if (dbus_system == NULL) {
+					dbus_system = g_strdupv (items);
+				} else {
+					g_critical ("Hit dbus:system twice, this should never happen!");
+				}
+				break;
+			case AS_PROVIDED_KIND_DBUS_USER:
+				if (dbus_user == NULL) {
+					dbus_user = g_strdupv (items);
+				} else {
+					g_critical ("Hit dbus:user twice, this should never happen!");
+				}
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
+				if (fw_runtime == NULL) {
+					fw_runtime = g_strdupv (items);
+				} else {
+					g_critical ("Hit firmware:runtime twice, this should never happen!");
+				}
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
+				if (fw_flashed == NULL) {
+					fw_flashed = g_strdupv (items);
+				} else {
+					g_critical ("Hit dbus-user twice, this should never happen!");
+				}
+				break;
+			default:
+				g_warning ("Ignoring unknown type of provided items: %s", as_provided_kind_to_string (kind));
+				break;
+		}
+	}
+
+	/* dbus subsection */
+	if ((dbus_system != NULL) || (dbus_user != NULL)) {
+		as_yaml_emit_scalar (emitter, "dbus");
+		as_yaml_sequence_start (emitter);
+
+		if (dbus_system != NULL) {
+			for (i = 0; dbus_system[i] != NULL; i++) {
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_str_entry (emitter, "type", "system");
+				as_yaml_emit_str_entry (emitter, "service", dbus_system[i]);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		if (dbus_user != NULL) {
+			for (i = 0; dbus_user[i] != NULL; i++) {
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_str_entry (emitter, "type", "user");
+				as_yaml_emit_str_entry (emitter, "service", dbus_user[i]);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* firmware subsection */
+	if ((fw_runtime != NULL) || (fw_flashed != NULL)) {
+		as_yaml_emit_scalar (emitter, "firmware");
+		as_yaml_sequence_start (emitter);
+
+		if (fw_runtime != NULL) {
+			for (i = 0; fw_runtime[i] != NULL; i++) {
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_str_entry (emitter, "type", "runtime");
+				as_yaml_emit_str_entry (emitter, "guid", fw_runtime[i]);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		if (fw_flashed != NULL) {
+			for (i = 0; fw_flashed[i] != NULL; i++) {
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_str_entry (emitter, "type", "flashed");
+				as_yaml_emit_str_entry (emitter, "fname", fw_flashed[i]);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_yamldata_process_component_node:
  */
 static void
@@ -1118,6 +1292,10 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 		}
 		as_yaml_mapping_end (emitter);
 	}
+
+	/* Provides */
+	as_yaml_emit_provides (emitter, cpt);
+
 
 	/* TODO: Screenshots, Releases, Translations */
 
