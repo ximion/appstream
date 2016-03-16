@@ -842,6 +842,7 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *e
 	if (as_str_empty (value))
 		return;
 
+	g_strstrip (value);
 	as_yaml_emit_entry (emitter, key, value);
 }
 
@@ -906,6 +907,8 @@ as_yaml_emit_sequence_from_strv (yaml_emitter_t *emitter, const gchar *key, gcha
 
 	as_yaml_sequence_start (emitter);
 	for (i = 0; strv[i] != NULL; i++) {
+		if (as_str_empty (strv[i]))
+			continue;
 		as_yaml_emit_scalar (emitter, strv[i]);
 	}
 	as_yaml_sequence_end (emitter);
@@ -921,6 +924,7 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 	if (strv == NULL)
 		return;
 
+	as_yaml_emit_scalar (emitter, key);
 	as_yaml_sequence_start (emitter);
 	for (i = 0; strv[i] != NULL; i++) {
 		as_yaml_emit_scalar (emitter, strv[i]);
@@ -1143,6 +1147,7 @@ as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
 	else
 		url = as_str_replace (as_image_get_url (img), priv->media_baseurl, "");
 
+	g_strstrip (url);
 	as_yaml_emit_entry (emitter, "url", url);
 	if ((as_image_get_width (img) > 0) &&
 		(as_image_get_height (img) > 0)) {
