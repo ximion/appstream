@@ -25,9 +25,10 @@
 #include <locale.h>
 
 #include "ascli-utils.h"
-#include "ascli-mdata-actions.h"
-#include "ascli-validate-actions.h"
-#include "ascli-pkgmgr-actions.h"
+#include "ascli-actions-mdata.h"
+#include "ascli-actions-validate.h"
+#include "ascli-actions-pkgmgr.h"
+#include "ascli-actions-misc.h"
 
 static gboolean optn_show_version = FALSE;
 static gboolean optn_verbose_mode = FALSE;

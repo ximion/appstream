@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -18,17 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASCLI_PKGMGR_ACTIONS_H
-#define __ASCLI_PKGMGR_ACTIONS_H
+#include "ascli-actions-misc.h"
 
-#include <glib-object.h>
-#include "appstream.h"
+#include <config.h>
+#include <glib/gi18n-lib.h>
 
-G_BEGIN_DECLS
-
-int ascli_install_component (const gchar *identifier);
-int ascli_remove_component (const gchar *identifier);
-
-G_END_DECLS
-
-#endif /* __ASCLI_PKGMGR_ACTIONS_H */
+#include "ascli-utils.h"

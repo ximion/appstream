@@ -16,12 +16,14 @@ set(ASCLI_SOURCES
 	appstream-cli.c
 	ascli-utils.h
 	ascli-utils.c
-	ascli-mdata-actions.h
-	ascli-mdata-actions.c
-	ascli-validate-actions.h
-	ascli-validate-actions.c
-	ascli-pkgmgr-actions.h
-	ascli-pkgmgr-actions.c
+	ascli-actions-mdata.h
+	ascli-actions-mdata.c
+	ascli-actions-validate.h
+	ascli-actions-validate.c
+	ascli-actions-pkgmgr.h
+	ascli-actions-pkgmgr.c
+	ascli-actions-misc.h
+	ascli-actions-misc.c
 )
 
 # Add the appstream client tool

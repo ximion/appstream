@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASCLI_MDATA_ACTIONS_H
-#define __ASCLI_MDATA_ACTIONS_H
+#ifndef __ASCLI_ACTIONS_MDATA_H
+#define __ASCLI_ACTIONS_MDATA_H
 
 #include <glib-object.h>
 
@@ -52,4 +52,4 @@ int		ascli_put_metainfo (const gchar *fname);
 
 G_END_DECLS
 
-#endif /* __ASCLI_MDATA_ACTIONS_H */
+#endif /* __ASCLI_ACTIONS_MDATA_H */

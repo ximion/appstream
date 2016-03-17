@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -18,26 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __ASCLI_VALIDATE_ACTIONS_H
-#define __ASCLI_VALIDATE_ACTIONS_H
+#ifndef __ASCLI_ACTIONS_MISC_H
+#define __ASCLI_ACTIONS_MISC_H
 
 #include <glib-object.h>
+#include "appstream.h"
 
 G_BEGIN_DECLS
 
-gboolean		ascli_validate_file (gchar *fname,
-						gboolean pretty,
-						gboolean pedantic);
 
-gint			ascli_validate_files (gchar **argv,
-						gint argc,
-						gboolean no_color,
-						gboolean pedantic);
-
-gint			ascli_validate_tree (const gchar *root_dir,
-						gboolean no_color,
-						gboolean pedantic);
 
 G_END_DECLS
 
-#endif /* __ASCLI_VALIDATE_ACTIONS_H */
+#endif /* __ASCLI_ACTIONS_MISC_H */

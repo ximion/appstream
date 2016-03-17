@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2015-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ascli-pkgmgr-actions.h"
+#include "ascli-actions-pkgmgr.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
