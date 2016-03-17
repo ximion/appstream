@@ -66,6 +66,10 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "validate-tree [DIRECTORY]", _("Validate an installed file-tree of an application for valid metadata."));
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "install [COMPONENT-ID]", _("Install software matching the component-id."));
+	g_string_append_printf (string, "  %s - %s\n", "remove  [COMPONENT-ID]", _("Remove software matching the component-id."));
+	g_string_append (string, "\n");
+	g_string_append_printf (string, "  %s - %s\n", "put [FILE]", _("Install a metadata file into the right location."));
+	g_string_append_printf (string, "  %s - %s\n", "status", _("Display various information about installed AppStream metadata."));
 
 	return g_string_free (string, FALSE);
 }
@@ -174,6 +178,8 @@ as_client_run (char **argv, int argc)
 		exit_code = ascli_install_component (value1);
 	} else if (g_strcmp0 (command, "remove") == 0) {
 		exit_code = ascli_remove_component (value1);
+	} else if (g_strcmp0 (command, "put") == 0) {
+		exit_code = ascli_put_metainfo (value1);
 	} else {
 		ascli_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;

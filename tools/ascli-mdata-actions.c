@@ -23,8 +23,11 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <stdio.h>
+#include <glib/gstdio.h>
+
 #include "ascli-utils.h"
 #include "as-cache-builder.h"
+#include "as-utils-private.h"
 
 /**
  * ascli_refresh_cache:
@@ -342,4 +345,45 @@ out:
 		g_object_unref (cpt);
 
 	return exit_code;
+}
+
+/**
+ * ascli_put_metainfo:
+ *
+ * Install a metainfo file.
+ */
+int
+ascli_put_metainfo (const gchar *fname)
+{
+	g_autofree gchar *tmp = NULL;
+	g_autofree gchar *dest = NULL;
+	g_autoptr(GError) error = NULL;
+	const gchar *metainfo_target = "/usr/share/appdata";
+
+	if (fname == NULL) {
+		ascli_print_stderr (_("You need to specify a metadata file."));
+		return 2;
+	}
+
+	if (!as_utils_is_writable (metainfo_target)) {
+		ascli_print_stderr (_("Unable to write to '%s', can not install metainfo file."), metainfo_target);
+		return 1;
+	}
+
+	if ((!g_str_has_suffix (fname, ".metainfo.xml")) && (!g_str_has_suffix (fname, ".appdata.xml"))) {
+		ascli_print_stderr (_("Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' extension."));
+		return 2;
+	}
+
+	tmp = g_path_get_basename (fname);
+	dest = g_build_filename (metainfo_target, tmp, NULL);
+
+	as_copy_file (fname, dest, &error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 3;
+	}
+	g_chmod (dest, 0755);
+
+	return 0;
 }

@@ -47,6 +47,8 @@ int		ascli_dump_component (const gchar *dbpath,
 					const gchar *identifier,
 					gboolean no_cache);
 
+int		ascli_put_metainfo (const gchar *fname);
+
 
 G_END_DECLS
 
