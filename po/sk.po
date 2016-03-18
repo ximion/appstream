@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 19:05+0000\n"
-"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
 "Language: sk\n"
@@ -26,6 +26,9 @@ msgstr "Typ poskytuje-položku (napr. lib, bin, python3, ...)"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Verzia nástroja AppStream CLI: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
@@ -68,6 +71,12 @@ msgstr "Balík"
 msgid "Cache location '%s' is not writable."
 msgstr "Umiestnenie vyrovnávacej pamäte „%s“ nie je zapisovateľné."
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Kategórie"
 
@@ -95,6 +104,12 @@ msgstr "Popis"
 msgid "Developer"
 msgstr "Vývojár"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Nepoužije vyrovnávaciu pamäť Xapian pri vykonávaní požiadavky"
 
@@ -102,6 +117,9 @@ msgid "Don't show colored output"
 msgstr "Nebude zobrazovať farebný výstup"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
@@ -123,6 +141,10 @@ msgstr "Nainštalovaný firmvér"
 msgid "Fonts"
 msgstr "Písma"
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "Získa komponenty, ktoré poskytujú zadanú položku."
 
@@ -135,8 +157,14 @@ msgstr "Domovská stránka"
 msgid "Icon"
 msgstr "Ikona"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Identifikátor"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr "Nainštaluje softvér zhodujúci sa s položkou component-id."
@@ -176,6 +204,9 @@ msgstr "Nebola nájdená súčasť zodpovedajúca „%s“."
 msgid "No component providing '%s;%s' found."
 msgstr "Nebol nájdený komponent poskytujúci „%s;%s“."
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -211,6 +242,9 @@ msgstr "Python 3"
 msgid "Rebuild the component information cache."
 msgstr "Znovu zostaví vyrovnávaciu pamäť informácií o komponentoch."
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -242,6 +276,19 @@ msgstr "Podpríkazy"
 msgid "Summary"
 msgstr "Zhrnutie"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr "Bol uskutočnený pokus o vykonanie požiadavky na zavretú databázu."
 
@@ -267,6 +314,13 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr "Nie je možné spustiť správcu balíkov: %s"
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -278,6 +332,10 @@ msgstr "Overenie zlyhalo."
 
 msgid "Validation was successful."
 msgstr "Overenie bolo úspešné."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -295,6 +353,9 @@ msgstr "Musíte uviesť ID súčasti."
 
 msgid "You need to specify a file to validate!"
 msgstr "Musíte uviesť súbor, ktorý chcete overiť."
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Na zahájenie overovania musíte určiť koreňový adresár!"

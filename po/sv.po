@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/freedesktop/appstream/"
 "language/sv/)\n"
@@ -26,6 +26,9 @@ msgstr "En tillhandahåller-objekt-typ (t.ex. lib, bin, python3, …)"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Version av AppStreams CLI-verktyg: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Uppdatering av AppStreams cache färdig."
@@ -64,6 +67,12 @@ msgstr "Bunt"
 msgid "Cache location '%s' is not writable."
 msgstr ""
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -91,6 +100,12 @@ msgstr "Beskrivning"
 msgid "Developer"
 msgstr "Utvecklare"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Använd inte Xapian-cachen när begäran hanteras"
 
@@ -98,6 +113,9 @@ msgid "Don't show colored output"
 msgstr "Visa inte färgad utdata"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
@@ -119,6 +137,10 @@ msgstr "Programmerad fastmjukvara"
 msgid "Fonts"
 msgstr "Typsnitt"
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr ""
 
@@ -131,8 +153,14 @@ msgstr "Webbplats"
 msgid "Icon"
 msgstr "Ikon"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Identifierare"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -170,6 +198,9 @@ msgstr "Hittade ingen komponent matchande ”%s”."
 msgid "No component providing '%s;%s' found."
 msgstr "Ingen komponent som tillhandahåller ”%s;%s” hittades."
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -205,6 +236,9 @@ msgstr "Python 3"
 msgid "Rebuild the component information cache."
 msgstr ""
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -236,6 +270,19 @@ msgstr "Subkommandon:"
 msgid "Summary"
 msgstr "Summering"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr "Försökte utföra en förfrågan mot en stängd databas."
 
@@ -259,6 +306,13 @@ msgstr "Kan inte öppna AppStreams programvarukomponentscache."
 msgid "Unable to spawn package manager: %s"
 msgstr "Kunde inte starta pakethanterare: %s"
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -270,6 +324,10 @@ msgstr "Validering misslyckades."
 
 msgid "Validation was successful."
 msgstr "Valideringen var framgångsrik"
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -286,6 +344,9 @@ msgstr "Du måste specificera ett komponent-id."
 
 msgid "You need to specify a file to validate!"
 msgstr "Du måste specificera en fil att validera!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Du måste ange en rotkatalog för att påbörja valideringen!"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-28 10:54+0000\n"
-"Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -27,6 +27,9 @@ msgstr "Тип предоставляющего элемента (наприме
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Версия AppStream CLI-программы: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
@@ -69,6 +72,12 @@ msgstr "Пакет"
 msgid "Cache location '%s' is not writable."
 msgstr "Кэш, расположенный в '%s', недоступен для записи."
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Категории"
 
@@ -96,6 +105,12 @@ msgstr "Описание"
 msgid "Developer"
 msgstr "Разработчик"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Не использовать Xapian кэш при выполнении запроса"
 
@@ -106,6 +121,9 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Создать дамп необработанных метаданных XML для компонента с соответствующим "
 "идентификатором."
+
+msgid "Empty."
+msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Принудительно обновить кэш"
@@ -126,6 +144,10 @@ msgstr "Прошитая микропрограмма"
 msgid "Fonts"
 msgstr "Шрифты"
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "Получить компоненты, которые предоставляют данную запись."
 
@@ -138,8 +160,14 @@ msgstr "Домашняя станица"
 msgid "Icon"
 msgstr "Значок"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Идентификатор"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -181,6 +209,9 @@ msgstr "Не найдено компоненты, соответствующей
 msgid "No component providing '%s;%s' found."
 msgstr "Не найдены компоненты, предоставляющие '%s;%s'"
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -216,6 +247,9 @@ msgstr "Python 3"
 msgid "Rebuild the component information cache."
 msgstr "Перестроить кэш информации о компонентах."
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -247,6 +281,19 @@ msgstr "Подкоманды:"
 msgid "Summary"
 msgstr "Сводка"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr "Попытка выполнения запроса из закрытой базы данных."
 
@@ -270,6 +317,13 @@ msgstr "Не удаётся открыть кэш компонентов про�
 msgid "Unable to spawn package manager: %s"
 msgstr "Не удаётся запустить процесс менеджера пакетов: %s"
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr "Проверить файлы XML AppStream на недостатки."
 
@@ -283,6 +337,10 @@ msgstr "Проверка прошла неудачно"
 
 msgid "Validation was successful."
 msgstr "Проверка успешно пройдена."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -300,6 +358,9 @@ msgstr "Вы должны указать идентификатор компон
 
 msgid "You need to specify a file to validate!"
 msgstr "Вы должны указать файл для проверки!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Вы должны указать корневой каталог для начала проверки!"

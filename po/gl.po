@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Galician (http://www.transifex.com/freedesktop/appstream/"
 "language/gl/)\n"
@@ -25,6 +25,9 @@ msgstr "Un tipo de elemento fornecedor (p.ex. lib, bin, python3, …)"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Versión da ferramenta cliente de AppStream: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Actualización de caché de AppStream completada con éxito."
@@ -64,6 +67,12 @@ msgstr "Paquete"
 msgid "Cache location '%s' is not writable."
 msgstr ""
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Categorías"
 
@@ -91,6 +100,12 @@ msgstr "Descrición"
 msgid "Developer"
 msgstr "Desenvolvedor"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Non usar a caché de Xapian ao levar a cabo a consulta"
 
@@ -98,6 +113,9 @@ msgid "Don't show colored output"
 msgstr "Non mostrar a saída con cores"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
@@ -119,6 +137,10 @@ msgstr ""
 msgid "Fonts"
 msgstr ""
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr ""
 
@@ -131,8 +153,14 @@ msgstr "Páxina principal"
 msgid "Icon"
 msgstr "Icona"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Identificador"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -172,6 +200,9 @@ msgstr "Non hai ningún compoñente que coincida con «%s»."
 msgid "No component providing '%s;%s' found."
 msgstr ""
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -205,6 +236,9 @@ msgstr ""
 msgid "Rebuild the component information cache."
 msgstr ""
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -236,6 +270,19 @@ msgstr "Subordes:"
 msgid "Summary"
 msgstr "Resumo"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr ""
 
@@ -259,6 +306,13 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -270,6 +324,10 @@ msgstr "Fallou a validación."
 
 msgid "Validation was successful."
 msgstr "Validación rematada con éxito."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -286,6 +344,9 @@ msgstr "Debe especificar un id de compoñente."
 
 msgid "You need to specify a file to validate!"
 msgstr "Debe especificar un ficheiro a validar!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Debe especificar un directorio raíz para comezar a validación!"

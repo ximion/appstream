@@ -4,12 +4,13 @@
 #
 # Translators:
 # Adolfo Jayme Barrientos, 2014
+# Adolfo Jayme Barrientos, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Spanish (http://www.transifex.com/freedesktop/appstream/"
 "language/es/)\n"
@@ -24,6 +25,9 @@ msgstr ""
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
+msgstr ""
+
+msgid "AppStream Status:"
 msgstr ""
 
 msgid "AppStream cache update completed successfully."
@@ -44,7 +48,7 @@ msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Interfaz de consola de AppStream"
 
 msgid ""
 "AppStream software component cache was not found. This could mean AppStream "
@@ -53,7 +57,7 @@ msgid ""
 msgstr ""
 
 msgid "Binaries"
-msgstr ""
+msgstr "Binarios"
 
 msgid "Bundle"
 msgstr ""
@@ -62,25 +66,31 @@ msgstr ""
 msgid "Cache location '%s' is not writable."
 msgstr ""
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Categorías"
 
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr ""
+msgstr "La orden «%s» es desconocida."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "El componente «%s» no posee ningún candidato de instalación."
 
 msgid "Compulsory for"
 msgstr ""
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Servicios de sesión de DBus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Servicios de sistema de DBus"
 
 msgid "Description"
 msgstr "Descripción"
@@ -88,6 +98,12 @@ msgstr "Descripción"
 #. developer name
 msgid "Developer"
 msgstr "Desarrollador"
+
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr ""
@@ -98,6 +114,9 @@ msgstr ""
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 
+msgid "Empty."
+msgstr ""
+
 msgid "Enforce a cache refresh"
 msgstr ""
 
@@ -105,32 +124,42 @@ msgid "Extends"
 msgstr ""
 
 msgid "Extensions"
-msgstr ""
+msgstr "Extensiones"
 
 #, c-format
 msgid "File %s not found or permission denied!"
-msgstr ""
+msgstr "No se encontró el archivo «%s» o se denegó el acceso."
 
 msgid "Flashed Firmware"
 msgstr ""
 
 msgid "Fonts"
+msgstr "Tipos de letra"
+
+#, c-format
+msgid "Found %i components."
 msgstr ""
 
 msgid "Get components which provide the given item."
-msgstr ""
+msgstr "Obtener componentes que proporcionen el elemento dado."
 
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Obtener información sobre un componente mediante su id."
 
 msgid "Homepage"
-msgstr ""
+msgstr "Sitio web"
 
 msgid "Icon"
 msgstr "Icono"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Identificador"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -139,7 +168,7 @@ msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 
 msgid "Libraries"
-msgstr ""
+msgstr "Bibliotecas"
 
 #. license
 msgid "License"
@@ -152,7 +181,7 @@ msgid "Manually set the location of the AppStream cache"
 msgstr ""
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Tipos MIME"
 
 msgid "Modaliases"
 msgstr ""
@@ -162,10 +191,13 @@ msgstr "Nombre"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "No se encontró ningún componente que coincida con «%s»."
 
 #, c-format
 msgid "No component providing '%s;%s' found."
+msgstr "No se encontró ningún componente que proporcione «%s;%s»."
+
+msgid "No icons."
 msgstr ""
 
 msgid ""
@@ -187,23 +219,28 @@ msgstr ""
 
 #. project group
 msgid "Project Group"
-msgstr ""
+msgstr "Grupo de proyecto"
 
 msgid "Provided Items"
-msgstr ""
+msgstr "Elementos proporcionados"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (versión 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component information cache."
+msgstr ""
+
+msgid "Remove software matching the component-id."
 msgstr ""
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Ejecute «%s --help» para ver una lista competa de las opciones de consola "
+"disponibles."
 
 msgid "Runtime Firmware"
 msgstr ""
@@ -212,13 +249,13 @@ msgid "Sample Screenshot URL"
 msgstr ""
 
 msgid "Search the component database."
-msgstr ""
+msgstr "Buscar en la base de datos de componentes."
 
 msgid "Select a value for the provides-item which needs to be found."
 msgstr ""
 
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Mostrar información adicional de depuración"
 
 msgid "Show the program version"
 msgstr "Mostrar la versión del programa"
@@ -230,21 +267,34 @@ msgstr "Subórdenes:"
 msgid "Summary"
 msgstr "Resumen"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr ""
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "No se pudo encontrar un componente que coincida con %s."
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "No se pudo encontrar un componente que proporcione «%s;%s»."
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "No se pudo encontrar el componente cuyo id. es «%s»."
 
 msgid "Unable to open the AppStream software component cache."
 msgstr ""
@@ -253,8 +303,15 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
-msgid "Validate AppStream XML files for issues."
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
+msgid "Validate AppStream XML files for issues."
+msgstr "Validar archivos XML de AppStream para buscar errores."
 
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
@@ -263,29 +320,38 @@ msgid "Validation failed."
 msgstr "Falló la validación."
 
 msgid "Validation was successful."
+msgstr "Se realizó la validación correctamente."
+
+#, c-format
+msgid "We have information on %i software components."
 msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "El archivo XML de menú XDG «%s» está dañado."
 
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Es posible que necesite privilegios administrativos para realizar esta "
+"acción."
 
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Debe especificar una orden."
 
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Debe especificar un id. de componente."
 
 msgid "You need to specify a file to validate!"
+msgstr "Debe especificar el archivo que se validará."
+
+msgid "You need to specify a metadata file."
 msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Debe especificar una carpeta raíz para comenzar con la validación."
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Debe especificar un término de búsqueda."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,

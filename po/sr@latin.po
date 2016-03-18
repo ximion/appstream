@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/freedesktop/"
 "appstream/language/sr@latin/)\n"
@@ -28,6 +28,9 @@ msgstr "Vrsta dostavljene stavke (npr. „lib“, „bin“, „python3“, ...)
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Izdanje komandne alatke Programskog toka: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Osvežavanje ostave Programskog toka je uspešno obavljeno."
@@ -67,6 +70,12 @@ msgstr "Paket"
 msgid "Cache location '%s' is not writable."
 msgstr ""
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Kategorije"
 
@@ -94,6 +103,12 @@ msgstr "Opis"
 msgid "Developer"
 msgstr "Programer"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Ne koristi keš Zapijana (Xapian) prilikom slanja zahteva"
 
@@ -101,6 +116,9 @@ msgid "Don't show colored output"
 msgstr "Ne prikazuje obojeni izlaz"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
@@ -122,6 +140,10 @@ msgstr ""
 msgid "Fonts"
 msgstr ""
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr ""
 
@@ -134,8 +156,14 @@ msgstr "Matična stranica"
 msgid "Icon"
 msgstr "Ikonica"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Odrednik"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -175,6 +203,9 @@ msgstr "Nisam našao sastojak koji odgovara „%s“."
 msgid "No component providing '%s;%s' found."
 msgstr ""
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -208,6 +239,9 @@ msgstr ""
 msgid "Rebuild the component information cache."
 msgstr ""
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -238,6 +272,19 @@ msgstr "Podnaredbe:"
 msgid "Summary"
 msgstr "Sažetak"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr ""
 
@@ -261,6 +308,13 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -272,6 +326,10 @@ msgstr "Potvrđivanje nije uspelo."
 
 msgid "Validation was successful."
 msgstr "Potvrđivanje je uspelo."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -288,6 +346,9 @@ msgstr "Morate da navedete ib sastojka."
 
 msgid "You need to specify a file to validate!"
 msgstr "Morate da navedete datoteku za potvrđivanje!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Morate navesti fasciklu najvišeg nivoa za počinjanje potvrđivanja!"

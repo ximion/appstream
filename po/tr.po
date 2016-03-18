@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
 "language/tr/)\n"
@@ -26,6 +26,9 @@ msgstr "Bir sağlanan-öge türü (lib, bin, python3 gibi)"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI araç sürümü: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
@@ -65,6 +68,12 @@ msgstr "Takım"
 msgid "Cache location '%s' is not writable."
 msgstr ""
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Sınıflandırmalar"
 
@@ -92,6 +101,12 @@ msgstr "Tanımlama"
 msgid "Developer"
 msgstr "Geliştirici"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "İstekte bulunurken Xapian belleğini kullanma"
 
@@ -99,6 +114,9 @@ msgid "Don't show colored output"
 msgstr "Çıktıyı renklendirilmiş gösterme"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
@@ -120,6 +138,10 @@ msgstr ""
 msgid "Fonts"
 msgstr "Yazı Tipleri"
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr ""
 
@@ -132,8 +154,14 @@ msgstr "Web Sitesi"
 msgid "Icon"
 msgstr "Simge"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Tanımlayıcı"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -173,6 +201,9 @@ msgstr "'%s' ile eşleşen bileşen bulunamadı."
 msgid "No component providing '%s;%s' found."
 msgstr "'%s;%s' sağlayan hiçbir bileşen bulunamadı."
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -206,6 +237,9 @@ msgstr "Python 3"
 msgid "Rebuild the component information cache."
 msgstr ""
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -236,6 +270,19 @@ msgstr "Alt komutlar:"
 msgid "Summary"
 msgstr "Özet"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr ""
 
@@ -259,6 +306,13 @@ msgstr "AppStream yazılım bileşeni önbelleği açılamadı."
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -270,6 +324,10 @@ msgstr "Doğrulama başarısız."
 
 msgid "Validation was successful."
 msgstr "Doğrulama işlemi tamamlandı."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -286,6 +344,9 @@ msgstr "Bir bileşen kimliği belirtmelisiniz."
 
 msgid "You need to specify a file to validate!"
 msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Doğrulamayı başlatmak için bir kök dizini belirtmelisiniz!"

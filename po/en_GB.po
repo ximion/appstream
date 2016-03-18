@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
 "freedesktop/appstream/language/en_GB/)\n"
@@ -25,6 +25,9 @@ msgstr "A provides-item type (e.g. lib, bin, python3, ...)"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI tool version: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream cache update completed successfully."
@@ -65,6 +68,12 @@ msgstr "Bundle"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
+msgstr "Cache location '%s' is not writable."
+
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
 msgstr ""
 
 msgid "Categories"
@@ -94,6 +103,12 @@ msgstr "Description"
 msgid "Developer"
 msgstr "Developer"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Do not use the Xapian cache when performing the request"
 
@@ -101,16 +116,19 @@ msgid "Don't show colored output"
 msgstr "Don't show coloured output"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr "Dump raw XML metadata for a component matching the ID."
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Enforce a cache refresh"
 
 msgid "Extends"
-msgstr ""
+msgstr "Extends"
 
 msgid "Extensions"
-msgstr ""
+msgstr "Extensions"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -122,11 +140,15 @@ msgstr "Flashed Firmware"
 msgid "Fonts"
 msgstr "Fonts"
 
-msgid "Get components which provide the given item."
+#, c-format
+msgid "Found %i components."
 msgstr ""
 
+msgid "Get components which provide the given item."
+msgstr "Get components which provide the given item."
+
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Get information about a component by its ID."
 
 msgid "Homepage"
 msgstr "Homepage"
@@ -134,11 +156,17 @@ msgstr "Homepage"
 msgid "Icon"
 msgstr "Icon"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Identifier"
 
-msgid "Install software matching the component-id."
+msgid "Install a metadata file into the right location."
 msgstr ""
+
+msgid "Install software matching the component-id."
+msgstr "Install software matching the component-id."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Invalid type for provided item selected. Valid values are:"
@@ -173,6 +201,9 @@ msgstr "No component matching '%s' found."
 msgid "No component providing '%s;%s' found."
 msgstr "No component providing '%s;%s' found."
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -206,6 +237,9 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component information cache."
+msgstr "Rebuild the component information cache."
+
+msgid "Remove software matching the component-id."
 msgstr ""
 
 #, c-format
@@ -219,10 +253,10 @@ msgid "Sample Screenshot URL"
 msgstr "Sample Screenshot URL"
 
 msgid "Search the component database."
-msgstr ""
+msgstr "Search the component database."
 
 msgid "Select a value for the provides-item which needs to be found."
-msgstr ""
+msgstr "Select a value for the provides-item which needs to be found."
 
 msgid "Show extra debugging information"
 msgstr "Show extra debugging information"
@@ -236,6 +270,19 @@ msgstr "Subcommands:"
 
 msgid "Summary"
 msgstr "Summary"
+
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
 
 msgid "Tried to perform query on closed database."
 msgstr "Tried to perform query on closed database."
@@ -260,11 +307,18 @@ msgstr "Unable to open the AppStream software component cache."
 msgid "Unable to spawn package manager: %s"
 msgstr "Unable to spawn package manager: %s"
 
-msgid "Validate AppStream XML files for issues."
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 
-msgid "Validate an installed file-tree of an application for valid metadata."
+msgid "Upstream metadata:"
 msgstr ""
+
+msgid "Validate AppStream XML files for issues."
+msgstr "Validate AppStream XML files for issues."
+
+msgid "Validate an installed file-tree of an application for valid metadata."
+msgstr "Validate an installed file-tree of an application for valid metadata."
 
 msgid "Validation failed."
 msgstr "Validation failed."
@@ -273,11 +327,15 @@ msgid "Validation was successful."
 msgstr "Validation was successful."
 
 #, c-format
+msgid "We have information on %i software components."
+msgstr ""
+
+#, c-format
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG Menu XML file '%s' is damaged."
 
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "You might need superuser permissions to perform this action."
 
 msgid "You need to specify a command."
 msgstr "You need to specify a command."
@@ -287,6 +345,9 @@ msgstr "You need to specify a component-id."
 
 msgid "You need to specify a file to validate!"
 msgstr "You need to specify a file to validate!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "You need to specify a root directory to start validation!"

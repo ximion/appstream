@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
@@ -26,6 +26,9 @@ msgstr "Egy szolgáltatás-elem típus (például lib, bin, python3, …)"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI eszközverzió: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
@@ -65,6 +68,12 @@ msgstr "Csomag"
 msgid "Cache location '%s' is not writable."
 msgstr ""
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Kategóriák"
 
@@ -92,6 +101,12 @@ msgstr "Leírás"
 msgid "Developer"
 msgstr "Fejlesztő"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
 
@@ -99,6 +114,9 @@ msgid "Don't show colored output"
 msgstr "Ne jelenítsen meg színes kimenetet"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
@@ -120,6 +138,10 @@ msgstr "Flashelt firmware"
 msgid "Fonts"
 msgstr "Betűkészletek"
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr ""
 
@@ -132,8 +154,14 @@ msgstr "Honlap"
 msgid "Icon"
 msgstr "Ikon"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Azonosító"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -174,6 +202,9 @@ msgstr "Nem található erre illeszkedő összetevő: „%s”."
 msgid "No component providing '%s;%s' found."
 msgstr "Nem található „%s;%s” szolgáltatását biztosító összetevő."
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -209,6 +240,9 @@ msgstr "Python 3"
 msgid "Rebuild the component information cache."
 msgstr ""
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -240,6 +274,19 @@ msgstr "Alparancsok:"
 msgid "Summary"
 msgstr "Összegzés"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr "Kísérlet lezárt adatbázison keresésre."
 
@@ -263,6 +310,13 @@ msgstr "Nem nyitható meg az AppStream szoftverösszetevő-gyorsítótár."
 msgid "Unable to spawn package manager: %s"
 msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -274,6 +328,10 @@ msgstr "Az ellenőrzés nem sikerült."
 
 msgid "Validation was successful."
 msgstr "Az ellenőrzés sikeres volt."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -290,6 +348,9 @@ msgstr "Meg kell adnia egy összetevő-azonosítót."
 
 msgid "You need to specify a file to validate!"
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Meg kell adnia egy gyökérkönyvtárat az ellenőrzés megkezdéséhez!"

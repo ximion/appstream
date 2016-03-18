@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 17:50+0000\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_CN/)\n"
@@ -26,6 +26,9 @@ msgstr "提供的项目类型（如：lib、bin、python3...等）"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 工具版本： %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
@@ -65,6 +68,12 @@ msgstr "套件"
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s“不可写"
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "类别"
 
@@ -92,6 +101,12 @@ msgstr "描述"
 msgid "Developer"
 msgstr "开发者"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "处理请求时不要使用 Xapian 缓存"
 
@@ -99,6 +114,9 @@ msgid "Don't show colored output"
 msgstr "不要显示带色彩的输出"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
+
+msgid "Empty."
 msgstr ""
 
 msgid "Enforce a cache refresh"
@@ -108,7 +126,7 @@ msgid "Extends"
 msgstr "扩展"
 
 msgid "Extensions"
-msgstr ""
+msgstr "扩展"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -120,11 +138,15 @@ msgstr "已刷入的固件"
 msgid "Fonts"
 msgstr "字体"
 
-msgid "Get components which provide the given item."
+#, c-format
+msgid "Found %i components."
 msgstr ""
 
+msgid "Get components which provide the given item."
+msgstr "获取可提供指定项目的组件。"
+
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "根据 ID 获取相应组件的信息。"
 
 msgid "Homepage"
 msgstr "主页"
@@ -132,11 +154,17 @@ msgstr "主页"
 msgid "Icon"
 msgstr "图标"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "识别码"
 
-msgid "Install software matching the component-id."
+msgid "Install a metadata file into the right location."
 msgstr ""
+
+msgid "Install software matching the component-id."
+msgstr "安装匹配组件 ID 的软件。"
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "选取的提供项目类型无效。有效的值为："
@@ -171,6 +199,9 @@ msgstr "未找到符合“%s”的组件。"
 msgid "No component providing '%s;%s' found."
 msgstr "未找到提供“%s;%s”的组件。"
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -204,6 +235,9 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component information cache."
+msgstr "重建组件信息缓存。"
+
+msgid "Remove software matching the component-id."
 msgstr ""
 
 #, c-format
@@ -217,10 +251,10 @@ msgid "Sample Screenshot URL"
 msgstr "示例屏幕截图 URL"
 
 msgid "Search the component database."
-msgstr ""
+msgstr "搜索组件数据库。"
 
 msgid "Select a value for the provides-item which needs to be found."
-msgstr ""
+msgstr "选择需要查找的提供项目值。"
 
 msgid "Show extra debugging information"
 msgstr "显示额外的调试信息"
@@ -234,6 +268,19 @@ msgstr "子命令："
 
 msgid "Summary"
 msgstr "摘要"
+
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
 
 msgid "Tried to perform query on closed database."
 msgstr "试图在已关闭的数据库中进行查询。"
@@ -258,17 +305,28 @@ msgstr "无法打开 AppStream 软件组件缓存。"
 msgid "Unable to spawn package manager: %s"
 msgstr "无法启动软件包管理器：%s"
 
-msgid "Validate AppStream XML files for issues."
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 
-msgid "Validate an installed file-tree of an application for valid metadata."
+msgid "Upstream metadata:"
 msgstr ""
+
+msgid "Validate AppStream XML files for issues."
+msgstr "验证 AppStream XML 文件以寻找问题。"
+
+msgid "Validate an installed file-tree of an application for valid metadata."
+msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
 msgid "Validation failed."
 msgstr "验证失败。"
 
 msgid "Validation was successful."
 msgstr "验证成功。"
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -285,6 +343,9 @@ msgstr "您需要指定一个组件 ID。"
 
 msgid "You need to specify a file to validate!"
 msgstr "您需要指定用来验证的文件！"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "您需要指定根目录以开始验证！"

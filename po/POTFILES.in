@@ -24,6 +24,7 @@ src/as-yamldata.c
 # tools sources
 tools/appstream-cli.c
 tools/ascli-utils.c
-tools/ascli-mdata-actions.c
-tools/ascli-pkgmgr-actions.c
-tools/ascli-validate-actions.c
+tools/ascli-actions-mdata.c
+tools/ascli-actions-pkgmgr.c
+tools/ascli-actions-validate.c
+tools/ascli-actions-misc.c

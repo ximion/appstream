@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-28 15:30+0000\n"
-"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Italian (http://www.transifex.com/freedesktop/appstream/"
 "language/it/)\n"
 "Language: it\n"
@@ -24,6 +24,9 @@ msgstr "Un tipo provides-item (lib, bin, python3, ...)"
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Version strumento CLI AppStream: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Aggiornamento cache AppStream completato con successo."
@@ -66,6 +69,12 @@ msgstr "Bundle"
 msgid "Cache location '%s' is not writable."
 msgstr "Non è possibile scrivere sulla posizione cache \"%s\""
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Categorie"
 
@@ -93,6 +102,12 @@ msgstr "Descrizione"
 msgid "Developer"
 msgstr "Sviluppatore"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Non usa la cache Xapian durante le richieste"
 
@@ -102,6 +117,9 @@ msgstr "Non mostra output colorato"
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Esegue il dump dei meta-dati XML per un componente che corrisponde all'ID"
+
+msgid "Empty."
+msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Forza l'aggiornamento della cache"
@@ -122,6 +140,10 @@ msgstr "Firmware caricato"
 msgid "Fonts"
 msgstr "Caratteri"
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "Ottiene i componenti che forniscono l'oggetto dato"
 
@@ -134,8 +156,14 @@ msgstr "Sito web"
 msgid "Icon"
 msgstr "Icona"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Identificatore"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr "Installa software che corrisponde all'ID del componente"
@@ -175,6 +203,9 @@ msgstr "Non è stato trovato alcun componente che corrisponde a \"%s\"."
 msgid "No component providing '%s;%s' found."
 msgstr "Non è stato trovato alcun componente che fornisce \"%s;%s\"."
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -210,6 +241,9 @@ msgstr "Python 3"
 msgid "Rebuild the component information cache."
 msgstr "Rigenera la cache delle informazioni del componente"
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -240,6 +274,19 @@ msgstr "Sotto-comandi:"
 msgid "Summary"
 msgstr "Riepilogo"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr "Tentata interrogazione su un database chiuso."
 
@@ -263,6 +310,13 @@ msgstr "Impossibile aprire la cache dei componenti software di AppStream."
 msgid "Unable to spawn package manager: %s"
 msgstr "Impossibile lanciare il gestore di pacchetti: %s"
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr "Esegue la validazione dei file XML AppStream"
 
@@ -276,6 +330,10 @@ msgstr "Validazione non riuscita."
 
 msgid "Validation was successful."
 msgstr "Validazione eseguita con successo."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -294,6 +352,9 @@ msgstr "È necessario specificare l'ID di un componente."
 
 msgid "You need to specify a file to validate!"
 msgstr "È necessario specificare un file da validare."
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr ""

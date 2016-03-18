@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-02-28 17:01+0100\n"
-"PO-Revision-Date: 2016-02-27 20:16+0000\n"
-"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"POT-Creation-Date: 2016-03-18 01:20+0100\n"
+"PO-Revision-Date: 2016-03-18 00:19+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
 "language/sr/)\n"
 "Language: sr\n"
@@ -28,6 +28,9 @@ msgstr "Врста достављене ставке (нпр. „lib“, „bin�
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Издање командне алатке Програмског тока: %s"
+
+msgid "AppStream Status:"
+msgstr ""
 
 msgid "AppStream cache update completed successfully."
 msgstr "Освежавање оставе Програмског тока је успешно обављено."
@@ -70,6 +73,12 @@ msgstr "Пакет"
 msgid "Cache location '%s' is not writable."
 msgstr "Место оставе „%s“ није за уписивање."
 
+#, c-format
+msgid ""
+"Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
+"extension."
+msgstr ""
+
 msgid "Categories"
 msgstr "Категорије"
 
@@ -97,6 +106,12 @@ msgstr "Опис"
 msgid "Developer"
 msgstr "Програмер"
 
+msgid "Display various information about installed AppStream metadata."
+msgstr ""
+
+msgid "Distribution metadata:"
+msgstr ""
+
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Не користи кеш Запијана (Xapian) приликом слања захтева"
 
@@ -105,6 +120,9 @@ msgstr "Не приказује обојени излаз"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Избацује сирове ИксМЛ метаподатке за састојак који одговара ИБ-у."
+
+msgid "Empty."
+msgstr ""
 
 msgid "Enforce a cache refresh"
 msgstr "Приморава освежавање оставе"
@@ -125,6 +143,10 @@ msgstr "Преточени уграђени програм"
 msgid "Fonts"
 msgstr "Словни ликови"
 
+#, c-format
+msgid "Found %i components."
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "Добавите састојке који достављају дату ставку."
 
@@ -137,8 +159,14 @@ msgstr "Матична страница"
 msgid "Icon"
 msgstr "Иконица"
 
+msgid "Iconsets"
+msgstr ""
+
 msgid "Identifier"
 msgstr "Одредник"
+
+msgid "Install a metadata file into the right location."
+msgstr ""
 
 msgid "Install software matching the component-id."
 msgstr "Инсталирајте софтвер који одговара иб-у састојка."
@@ -179,6 +207,9 @@ msgstr "Нисам нашао састојак који одговара „%s�
 msgid "No component providing '%s;%s' found."
 msgstr "Нисам нашао састојак који обезбеђује „%s;%s“."
 
+msgid "No icons."
+msgstr ""
+
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -214,6 +245,9 @@ msgstr "Питон 3"
 msgid "Rebuild the component information cache."
 msgstr "Поново изградите оставу података састојка."
 
+msgid "Remove software matching the component-id."
+msgstr ""
+
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -244,6 +278,19 @@ msgstr "Поднаредбе:"
 msgid "Summary"
 msgstr "Сажетак"
 
+msgid "Summary:"
+msgstr ""
+
+msgid "The system metadata cache does not exist."
+msgstr ""
+
+msgid "The system metadata cache exists."
+msgstr ""
+
+#, c-format
+msgid "There was an error while trying to find additional information: %s"
+msgstr ""
+
 msgid "Tried to perform query on closed database."
 msgstr "Покушах да обавим упит над затвореном базом података."
 
@@ -267,6 +314,13 @@ msgstr "Не могу да отворим оставу састојка софт
 msgid "Unable to spawn package manager: %s"
 msgstr "Не могу да изродим управника пакета: %s"
 
+#, c-format
+msgid "Unable to write to '%s', can not install metainfo file."
+msgstr ""
+
+msgid "Upstream metadata:"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr "Потврдите ИксМЛ датотеке Програмског тока за проблемима."
 
@@ -279,6 +333,10 @@ msgstr "Потврђивање није успело."
 
 msgid "Validation was successful."
 msgstr "Потврђивање је успело."
+
+#, c-format
+msgid "We have information on %i software components."
+msgstr ""
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -295,6 +353,9 @@ msgstr "Морате да наведете иб састојка."
 
 msgid "You need to specify a file to validate!"
 msgstr "Морате да наведете датотеку за потврђивање!"
+
+msgid "You need to specify a metadata file."
+msgstr ""
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Морате навести фасциклу највишег нивоа за почињање потврђивања!"
