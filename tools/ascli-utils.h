@@ -32,6 +32,7 @@ void		ascli_print_separator (void);
 
 void		ascli_print_stdout (const gchar *format, ...);
 void		ascli_print_stderr (const gchar *format, ...);
+void		ascli_print_highlight (const gchar* msg);
 
 void		ascli_print_component (AsComponent *cpt, gboolean show_detailed);
 

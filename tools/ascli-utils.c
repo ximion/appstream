@@ -98,6 +98,19 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 }
 
 /**
+ * ascli_print_highlight:
+ */
+void
+ascli_print_highlight (const gchar* msg)
+{
+	if (_nocolor_output) {
+		g_print ("%s\n", msg);
+	} else {
+		g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, msg, 0x1B, 0);
+	}
+}
+
+/**
  * ascli_print_separator:
  */
 void

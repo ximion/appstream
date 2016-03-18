@@ -26,7 +26,7 @@
 
 G_BEGIN_DECLS
 
-
+int		ascli_show_status (void);
 
 G_END_DECLS
 

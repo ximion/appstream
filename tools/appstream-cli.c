@@ -181,6 +181,8 @@ as_client_run (char **argv, int argc)
 		exit_code = ascli_remove_component (value1);
 	} else if (g_strcmp0 (command, "put") == 0) {
 		exit_code = ascli_put_metainfo (value1);
+	} else if (g_strcmp0 (command, "status") == 0) {
+		exit_code = ascli_show_status ();
 	} else {
 		ascli_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;
