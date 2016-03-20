@@ -1469,6 +1469,8 @@ as_yamldata_serialize_to_distro (AsYAMLData *ydt, GPtrArray *cpts, gboolean writ
 
 	yaml_emitter_initialize (&emitter);
 	yaml_emitter_set_indent (&emitter, 2);
+	yaml_emitter_set_unicode (&emitter, TRUE);
+	yaml_emitter_set_width (&emitter, 120);
 
 	/* create a GString to receive the output the emitter generates */
 	out_data = g_string_new ("");
@@ -1506,7 +1508,8 @@ error:
 				"Emission of YAML event failed.");
 
 out:
-	/* Destroy the Emitter object. */
+	yaml_emitter_flush (&emitter);
+	/* destroy the Emitter object */
 	yaml_emitter_delete (&emitter);
 
 	if (res) {
