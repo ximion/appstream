@@ -902,6 +902,8 @@ as_yaml_emit_sequence_from_strv (yaml_emitter_t *emitter, const gchar *key, gcha
 
 	if (strv == NULL)
 		return;
+	if (strv[0] == '\0')
+		return;
 
 	as_yaml_emit_scalar (emitter, key);
 
@@ -1335,8 +1337,10 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	/* Icons */
 	icons = as_component_get_icons (cpt);
 	if (icons->len > 0) {
-		as_yaml_emit_scalar (emitter, "Icon");
+		gboolean stock_icon_added = FALSE;
+		gboolean cache_icon_added = FALSE;
 
+		as_yaml_emit_scalar (emitter, "Icon");
 		as_yaml_mapping_start (emitter);
 		for (i = 0; i < icons->len; i++) {
 			const gchar *value;
@@ -1354,20 +1358,36 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 			if (value == NULL)
 				continue;
 
-			if (ikind == AS_ICON_KIND_REMOTE) {
-				/* remote icons get special treatment */
+			switch (ikind) {
+				case AS_ICON_KIND_REMOTE:
+					/* remote icons get special treatment */
 
-				g_warning ("Handling of 'remote' type DEP-11 icons is not yet implemented!");
-				/* NOTE: A remote node is specified like this:
-				 * Icons:
-				 *   cached: foobar.png
-				 *   remote:
-				 *     - width: 64
-				 *       height: 64
-				 *       url: http://example.org/icons/foobar.png
-				 */
-			} else {
-				as_yaml_emit_entry (emitter, as_icon_kind_to_string (ikind), value);
+					g_warning ("Handling of 'remote' type DEP-11 icons is not yet implemented!");
+					/* NOTE: A remote node is specified like this:
+					* Icons:
+					*   cached: foobar.png
+					*   remote:
+					*     - width: 64
+					*       height: 64
+					*       url: http://example.org/icons/foobar.png
+					*/
+					break;
+				case AS_ICON_KIND_LOCAL:
+					g_warning ("The DEP-11 spec does not support type:local icons!");
+					break;
+				case AS_ICON_KIND_CACHED:
+					if (!cache_icon_added)
+						as_yaml_emit_entry (emitter, as_icon_kind_to_string (ikind), value);
+					cache_icon_added = TRUE;
+					break;
+				case AS_ICON_KIND_STOCK:
+					if (!stock_icon_added)
+						as_yaml_emit_entry (emitter, as_icon_kind_to_string (ikind), value);
+					stock_icon_added = TRUE;
+					break;
+				default:
+					g_warning ("Unknown icon type: %s", as_icon_kind_to_string (ikind));
+					break;
 			}
 		}
 		as_yaml_mapping_end (emitter);
