@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-18 01:20+0100\n"
-"PO-Revision-Date: 2016-03-18 00:19+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-03-24 18:48+0100\n"
+"PO-Revision-Date: 2016-03-20 15:50+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -26,7 +26,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 工具版本：%s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream 狀態："
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
@@ -70,7 +70,7 @@ msgstr "無法寫入「%s」快取位置。"
 msgid ""
 "Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
 "extension."
-msgstr ""
+msgstr "無法套用「%s」：檔案沒有「metainfo.xml」或「.appdata.xml」擴展名。"
 
 msgid "Categories"
 msgstr "類別"
@@ -100,10 +100,10 @@ msgid "Developer"
 msgstr "開發者"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "顯示各種已安裝之 AppStream 中介資料的相關資訊。"
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "散佈版中介資料："
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "執行請求時不要使用 Xapian 快取"
@@ -115,7 +115,7 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
 msgid "Empty."
-msgstr ""
+msgstr "空的。"
 
 msgid "Enforce a cache refresh"
 msgstr "強制快取重新整理"
@@ -138,7 +138,7 @@ msgstr "字型"
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "找到 %i 個組件。"
 
 msgid "Get components which provide the given item."
 msgstr "取得提供指定項目的組件"
@@ -153,13 +153,13 @@ msgid "Icon"
 msgstr "圖示"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "圖示集"
 
 msgid "Identifier"
 msgstr "辨識碼"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "安裝中介資料檔到適當位置。"
 
 msgid "Install software matching the component-id."
 msgstr "安裝符合組件 ID 的軟體。"
@@ -198,7 +198,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "找不到供應「%s;%s」的組件。"
 
 msgid "No icons."
-msgstr ""
+msgstr "無圖示。"
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -234,7 +234,7 @@ msgid "Rebuild the component information cache."
 msgstr "重建組件資訊快取。"
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "移除符合該組件 ID 的軟體。"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -266,17 +266,17 @@ msgid "Summary"
 msgstr "摘要"
 
 msgid "Summary:"
-msgstr ""
+msgstr "摘要："
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "不存在系統中介資料快取。"
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "系統中介資料快取已存在。"
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "試圖尋找額外資訊時發生錯誤：%s"
 
 msgid "Tried to perform query on closed database."
 msgstr "已試圖查詢關閉的資料庫。"
@@ -303,10 +303,10 @@ msgstr "無法多重啟動軟體包管理程式：%s"
 
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "上游中介資料："
 
 msgid "Validate AppStream XML files for issues."
 msgstr "驗證 AppStream XML 檔是否有問題。"
@@ -322,7 +322,7 @@ msgstr "驗證成功。"
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "我們有 %i 個軟體組件的相關資訊。"
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -341,7 +341,7 @@ msgid "You need to specify a file to validate!"
 msgstr "您需要指定個檔案來驗證！"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "您需要指定中介資料檔。"
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "您需要指定根基目錄才能開始驗證！"

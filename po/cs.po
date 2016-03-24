@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-18 01:20+0100\n"
-"PO-Revision-Date: 2016-03-18 00:19+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-03-24 18:48+0100\n"
+"PO-Revision-Date: 2016-03-21 12:53+0000\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/freedesktop/appstream/"
 "language/cs/)\n"
 "Language: cs\n"
@@ -28,25 +28,25 @@ msgid "AppStream CLI tool version: %s"
 msgstr "Verze nástroje AppStream CLI: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Stav AppStreamu:"
 
 msgid "AppStream cache update completed successfully."
-msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
+msgstr "Aktualizace mezipaměti AppStreamu byla úspěšně dokončena."
 
 #, c-format
 msgid ""
 "AppStream cache update completed, but some metadata was ignored due to "
 "errors."
 msgstr ""
-"Aktualizace mezipaměti AppStream byla dokončena, ale některé metadata byla "
+"Aktualizace mezipaměti AppStreamu byla dokončena, ale některé metadata byla "
 "ignorována kvůli chybám."
 
 #, c-format
 msgid "AppStream cache update failed."
-msgstr "Aktualizace mezipaměti AppStream selhala."
+msgstr "Aktualizace mezipaměti AppStreamu selhala."
 
 msgid "AppStream cache update is not necessary."
-msgstr "Aktualizace mezipaměti AppStream není zapotřebí."
+msgstr "Aktualizace mezipaměti AppStreamu není zapotřebí."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
@@ -76,6 +76,8 @@ msgid ""
 "Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Nelze zkopírovat „%s“: Soubor nemá „metainfo.xml“ nebo rozšíření „.appdata."
+"xml“."
 
 msgid "Categories"
 msgstr "Kategorie"
@@ -105,10 +107,10 @@ msgid "Developer"
 msgstr "Vývojář"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "Zobrazit různorodé informace o nainstalovaných metadatech AppStream."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Metadata distribuce:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Nepoužívat mezipaměť Xapian, když se provádí požadavek"
@@ -120,7 +122,7 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Vypsat surová metadata XML pro komponentu s odpovídajícím ID."
 
 msgid "Empty."
-msgstr ""
+msgstr "Prázdné."
 
 msgid "Enforce a cache refresh"
 msgstr "Vynutit aktualizaci mezipaměti"
@@ -158,13 +160,13 @@ msgid "Icon"
 msgstr "Ikonka"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Sady ikon"
 
 msgid "Identifier"
 msgstr "ID"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Nainstalovat soubor s metadaty na správné místo."
 
 msgid "Install software matching the component-id."
 msgstr "Nainstalovat software odpovídající ID komponenty."
@@ -203,7 +205,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "Nebyla nalezena žádná komponenta poskytující „%s;%s“."
 
 msgid "No icons."
-msgstr ""
+msgstr "Žádné ikony."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -241,7 +243,7 @@ msgid "Rebuild the component information cache."
 msgstr "Znovu sestavit mezipaměť s informacemi o komponentách."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Odebrat software odpovídající komponentě s ID."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -275,17 +277,17 @@ msgid "Summary"
 msgstr "Shrnutí"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Shrnutí:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "Mezipaměť se systémovými metadaty neexistuje."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "Mezipaměť se systémovými metadaty existuje."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "Při pokusu vyhledat doplňující informace nastala chyba: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Pokus o provedení dotazu na zavřené databázi."
@@ -313,9 +315,10 @@ msgstr "Nelze spustit správce balíčků: %s"
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
+"Nelze zapisovat do „%s“, proto nelze nainstalovat soubor s metainformacemi."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "Metadata z projektu:"
 
 msgid "Validate AppStream XML files for issues."
 msgstr "Ověřit, jestli soubor XML ve formátu AppStream neobsahuje chyby."
@@ -352,7 +355,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Musíte určit soubor, který se má ověřit."
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Musíte uvést soubor s metadaty."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Aby mohlo začít ověřování, musíte zadat kořenovou složku."

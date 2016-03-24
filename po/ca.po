@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-18 01:20+0100\n"
-"PO-Revision-Date: 2016-03-18 00:19+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-03-24 18:48+0100\n"
+"PO-Revision-Date: 2016-03-18 06:33+0000\n"
+"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -27,7 +27,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "Versió de l'eina de la interfície de línia d'ordres d'AppStream: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Estat d'AppStream:"
 
 msgid "AppStream cache update completed successfully."
 msgstr ""
@@ -76,6 +76,8 @@ msgid ""
 "Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"No es pot copiar «%s»: El fitxer no és «metainfo.xml» ni té una extensió «."
+"appdata.xml»."
 
 msgid "Categories"
 msgstr "Categories"
@@ -105,10 +107,10 @@ msgid "Developer"
 msgstr "Desenvolupador"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "Mostra informació diversa sobre metadades instal·lades d'AppStream."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Metadades de la distribució:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "No utilitzis la memòria cau del Xapian quan facis una petició"
@@ -121,7 +123,7 @@ msgstr ""
 "Bolca les metadades XML en pla per a un component que coincideixi amb l'id."
 
 msgid "Empty."
-msgstr ""
+msgstr "Buit."
 
 msgid "Enforce a cache refresh"
 msgstr "Força una actualització de la memòria cau"
@@ -144,7 +146,7 @@ msgstr "Tipus de lletres"
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "S'han trobat %i components."
 
 msgid "Get components which provide the given item."
 msgstr "Obté els components que proporcionen un element indicat."
@@ -159,13 +161,13 @@ msgid "Icon"
 msgstr "Icona"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Conjunts d'icones"
 
 msgid "Identifier"
 msgstr "Identificador"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Instal·la un fitxer de metadades al lloc correcte."
 
 msgid "Install software matching the component-id."
 msgstr "Instal·la aquell programari que coincideixi amb «component-id»."
@@ -208,7 +210,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "No s'ha trobat cap component que proporcioni '%s;%s'."
 
 msgid "No icons."
-msgstr ""
+msgstr "Sense icones."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -246,7 +248,7 @@ msgid "Rebuild the component information cache."
 msgstr "Reconstrueix la memòria cau de la informació del component."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Suprimeix aquell programari que coincideixi amb «component-id»."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -280,17 +282,18 @@ msgid "Summary"
 msgstr "Resum"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Resum:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "La memòria cau de les metadades del sistema no existeix."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "La memòria cau de les metadades del sistema existeix."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
 msgstr ""
+"S'ha produït un error mentre s'intentava trobar la informació addicional: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Es va intentar de fer la consulta sobre la base de dades tancada."
@@ -318,10 +321,10 @@ msgstr "No s'ha pogut generar el gestor de paquets: %s"
 
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "No es pot escriure a «%s», no es pot instal·lar el fitxer metainfo."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "Metadades de la línia de desenvolupament:"
 
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida els fitxers XML d'AppStream per incidències."
@@ -339,7 +342,7 @@ msgstr "S'ha validat correctament."
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Tenim informació sobre %i components de programari."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -360,7 +363,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Heu d'especificar un fitxer per validar!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Heu d'especificar un fitxer de metadades."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Heu d'especificar un directori arrel per iniciar la validació!"

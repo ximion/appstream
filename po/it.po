@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-18 01:20+0100\n"
-"PO-Revision-Date: 2016-03-18 00:19+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-03-24 18:48+0100\n"
+"PO-Revision-Date: 2016-03-18 07:12+0000\n"
+"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian (http://www.transifex.com/freedesktop/appstream/"
 "language/it/)\n"
 "Language: it\n"
@@ -26,7 +26,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "Version strumento CLI AppStream: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Stato AppStream:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Aggiornamento cache AppStream completato con successo."
@@ -56,8 +56,8 @@ msgid ""
 "metadata."
 msgstr ""
 "La cache software di AppStream non è stata trovata. Ciò può essere dovuto a "
-"una configurazione errata di AppStream o alla mancanza di meta-dati "
-"AppStream non forniti della propria distribuzione."
+"una configurazione errata di AppStream o alla mancanza di metadati AppStream "
+"non forniti della propria distribuzione."
 
 msgid "Binaries"
 msgstr "Binari"
@@ -74,6 +74,8 @@ msgid ""
 "Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Impossibile copiare \"%s\": il file non ha un'estensione \"metainfo.xml\" o "
+"\".appdata.xml\"."
 
 msgid "Categories"
 msgstr "Categorie"
@@ -103,10 +105,10 @@ msgid "Developer"
 msgstr "Sviluppatore"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "Visualizza informazioni riguardo ai metadati AppStream installati."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Metadati della distribuzione:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Non usa la cache Xapian durante le richieste"
@@ -119,7 +121,7 @@ msgstr ""
 "Esegue il dump dei meta-dati XML per un componente che corrisponde all'ID"
 
 msgid "Empty."
-msgstr ""
+msgstr "Vuota."
 
 msgid "Enforce a cache refresh"
 msgstr "Forza l'aggiornamento della cache"
@@ -142,7 +144,7 @@ msgstr "Caratteri"
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Trovati %i componenti."
 
 msgid "Get components which provide the given item."
 msgstr "Ottiene i componenti che forniscono l'oggetto dato"
@@ -157,13 +159,13 @@ msgid "Icon"
 msgstr "Icona"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Insieme di icone"
 
 msgid "Identifier"
 msgstr "Identificatore"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Installa un file metadati nella corretta posizione"
 
 msgid "Install software matching the component-id."
 msgstr "Installa software che corrisponde all'ID del componente"
@@ -204,7 +206,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "Non è stato trovato alcun componente che fornisce \"%s;%s\"."
 
 msgid "No icons."
-msgstr ""
+msgstr "Nessuna icona."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -242,7 +244,7 @@ msgid "Rebuild the component information cache."
 msgstr "Rigenera la cache delle informazioni del componente"
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Rimuove software tramite l'ID del componente"
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -275,17 +277,17 @@ msgid "Summary"
 msgstr "Riepilogo"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Riepilogo:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "La cache di sistema dei metadati non esiste."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "Trovata la cache di sistema dei metadati."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "Si è verificato un errore nel recuperare informazioni aggiuntive: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Tentata interrogazione su un database chiuso."
@@ -313,9 +315,10 @@ msgstr "Impossibile lanciare il gestore di pacchetti: %s"
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
+"Impossibile scrivere su \"%s\", impossibile installare il file metainfo."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "Metadati upstream:"
 
 msgid "Validate AppStream XML files for issues."
 msgstr "Esegue la validazione dei file XML AppStream"
@@ -333,7 +336,7 @@ msgstr "Validazione eseguita con successo."
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Trovate informazioni su %i componenti software."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -354,7 +357,7 @@ msgid "You need to specify a file to validate!"
 msgstr "È necessario specificare un file da validare."
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "È necessario specificare un file di metadati."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr ""

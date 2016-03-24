@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-18 01:20+0100\n"
-"PO-Revision-Date: 2016-03-18 00:19+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-03-24 18:48+0100\n"
+"PO-Revision-Date: 2016-03-18 07:15+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/freedesktop/appstream/"
 "language/uk/)\n"
 "Language: uk\n"
@@ -28,7 +28,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "Версія інструмента командного рядка AppStream: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Стан AppStream:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Оновлення кешу AppStream успішно завершено."
@@ -76,6 +76,8 @@ msgid ""
 "Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Не вдалося скопіювати «%s»: назва файла не має суфікса «metainfo.xml» або «."
+"appdata.xml»."
 
 msgid "Categories"
 msgstr "Категорії"
@@ -105,10 +107,10 @@ msgid "Developer"
 msgstr "Розробник"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "Вивести різноманітні дані щодо встановлених метаданих AppStream."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Метадані дистрибутива:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Не використовувати кеш Xapian під час виконання запиту"
@@ -122,7 +124,7 @@ msgstr ""
 "ідентифікатором."
 
 msgid "Empty."
-msgstr ""
+msgstr "Порожньо."
 
 msgid "Enforce a cache refresh"
 msgstr "Примусове оновлення кешу"
@@ -145,7 +147,7 @@ msgstr "Шрифти"
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Знайдено %i компонентів."
 
 msgid "Get components which provide the given item."
 msgstr "Отримати компоненти, які надають вказаний запис."
@@ -160,13 +162,13 @@ msgid "Icon"
 msgstr "Піктограма"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Набори піктограм"
 
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Встановити файл метаданих у належному місці."
 
 msgid "Install software matching the component-id."
 msgstr ""
@@ -207,7 +209,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "Не знайдено компонента, що містить «%s;%s»."
 
 msgid "No icons."
-msgstr ""
+msgstr "Немає піктограм."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -245,7 +247,7 @@ msgid "Rebuild the component information cache."
 msgstr "Перебудувати кеш інформації щодо компонентів."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Вилучити програмне забезпечення, вказане ідентифікатором компонента."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -279,17 +281,17 @@ msgid "Summary"
 msgstr "Резюме"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Резюме:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "Кешу метаданих системи не існує."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "Кеш метаданих системи існує."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "Під час спроби знайти додаткову інформацію сталася помилка: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Спроба виконання дії над закритою базою даних."
@@ -318,9 +320,10 @@ msgstr "Не вдалося запустити засіб керування п�
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
+"Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "Метадані з основної гілки розробки:"
 
 msgid "Validate AppStream XML files for issues."
 msgstr "Перевірити файли XML AppStream на вади."
@@ -337,7 +340,7 @@ msgstr "Перевірку пройдено."
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Маємо дані щодо %i компонентів програмного забезпечення."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -356,7 +359,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Вам слід вказати файл для перевірки!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Вам слід вказати файл метаданих."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Для перевірки слід вказати кореневий каталог!"

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Balázs Úr <urbalazs@gmail.com>, 2014-2016
-# kelemeng <kelemeng@ubuntu.com>, 2015
+# kelemeng <kelemeng@ubuntu.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-18 01:20+0100\n"
-"PO-Revision-Date: 2016-03-18 00:19+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-03-24 18:48+0100\n"
+"PO-Revision-Date: 2016-03-18 10:53+0000\n"
+"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -28,7 +28,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI eszközverzió: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream állapot:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
@@ -57,6 +57,9 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"Az AppStream szoftverkomponens-gyorsítótár nem található. Ez jelentheti azt, "
+"hogy az AppStream hibásan lett beállítva, vagy hogy a disztribúció nem "
+"biztosít AppStream metaadatokat."
 
 msgid "Binaries"
 msgstr "Binárisok"
@@ -66,13 +69,15 @@ msgstr "Csomag"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "„%s” gyorsítótárhely nem írható."
 
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"„%s” nem másolható. A fájl nem rendelkezik „metainfo.xml” vagy „appdata.xml” "
+"kiterjesztéssel."
 
 msgid "Categories"
 msgstr "Kategóriák"
@@ -103,9 +108,10 @@ msgstr "Fejlesztő"
 
 msgid "Display various information about installed AppStream metadata."
 msgstr ""
+"Különböző információk megjelenítése a telepített AppStream metaadatokról."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Disztribúció metaadatok:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
@@ -114,19 +120,19 @@ msgid "Don't show colored output"
 msgstr "Ne jelenítsen meg színes kimenetet"
 
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz."
 
 msgid "Empty."
-msgstr ""
+msgstr "Üres."
 
 msgid "Enforce a cache refresh"
 msgstr "Gyorsítótár-frissítés kényszerítése"
 
 msgid "Extends"
-msgstr ""
+msgstr "Kibővíti"
 
 msgid "Extensions"
-msgstr ""
+msgstr "Kiterjesztések"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -140,13 +146,13 @@ msgstr "Betűkészletek"
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "%i komponens található"
 
 msgid "Get components which provide the given item."
-msgstr ""
+msgstr "Összetevők lekérése, amelyek a megadott elemet biztosítják."
 
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Információk kérése egy összetevőről az azonosítója szerint."
 
 msgid "Homepage"
 msgstr "Honlap"
@@ -155,16 +161,16 @@ msgid "Icon"
 msgstr "Ikon"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Ikonkészletek"
 
 msgid "Identifier"
 msgstr "Azonosító"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Metaadatfájl telepítése a megfelelő helyre."
 
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "A component-id-nek megfelelő szoftver telepítése."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
@@ -203,7 +209,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "Nem található „%s;%s” szolgáltatását biztosító összetevő."
 
 msgid "No icons."
-msgstr ""
+msgstr "Nincsenek ikonok."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -238,10 +244,10 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component information cache."
-msgstr ""
+msgstr "Az összetevő információs gyorsítótár újraépítése."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "A component-id-nek megfelelő szoftver eltávolítása."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -256,10 +262,11 @@ msgid "Sample Screenshot URL"
 msgstr "Minta képernyőkép URL"
 
 msgid "Search the component database."
-msgstr ""
+msgstr "Keresés az összetevő adatbázisban."
 
 msgid "Select a value for the provides-item which needs to be found."
 msgstr ""
+"Válasszon egy értéket ahhoz a provides-item-hez, amelyet meg kell találni."
 
 msgid "Show extra debugging information"
 msgstr "További hibakeresési információk megjelenítése"
@@ -275,17 +282,18 @@ msgid "Summary"
 msgstr "Összegzés"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Összegzés:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "A rendszer metaadat-gyorsítótára nem létezik."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "A rendszer metaadat-gyorsítótára létezik."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
 msgstr ""
+"Hiba történt a további információk megkeresésére tett kísérlet közben: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Kísérlet lezárt adatbázison keresésre."
@@ -312,16 +320,17 @@ msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "Eredeti metaadatok:"
 
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál."
 
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
+"Egy alkalmazás telepített fájlfájának összevetése az érvényes metaadatokkal."
 
 msgid "Validation failed."
 msgstr "Az ellenőrzés nem sikerült."
@@ -331,14 +340,14 @@ msgstr "Az ellenőrzés sikeres volt."
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "%i szoftverkomponensről van információnk."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "A(z) „%s” XDG menü XML fájl sérült."
 
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "A művelet végrehajtásához rendszergazdai jogokra lehet szükség."
 
 msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."
@@ -350,7 +359,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Meg kell adnia egy metaadatfájlt."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Meg kell adnia egy gyökérkönyvtárat az ellenőrzés megkezdéséhez!"

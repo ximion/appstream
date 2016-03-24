@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-18 01:20+0100\n"
-"PO-Revision-Date: 2016-03-18 00:19+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-03-24 18:48+0100\n"
+"PO-Revision-Date: 2016-03-21 20:58+0000\n"
+"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
 "appstream/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -27,7 +27,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "Versão da ferramenta CLI do AppStream: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Status do AppStream:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Atualização do cache do AppStream concluído com sucesso."
@@ -75,6 +75,8 @@ msgid ""
 "Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Não foi possível copiar \"%s\": O arquivo não possui um \"metainfo.xml\" ou "
+"uma extensão \".appdata.xml\"."
 
 msgid "Categories"
 msgstr "Categorias"
@@ -104,10 +106,10 @@ msgid "Developer"
 msgstr "Desenvolvedor"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "Exibe várias informações sobre metadados AppStream instalados."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Metadados de distribuição:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Não usar o cache do Xapian ao realizar a requisição"
@@ -117,9 +119,10 @@ msgstr "Não mostrar saída colorida"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
+"Despejar metadados XML não tratados para um componente coincidindo com o ID."
 
 msgid "Empty."
-msgstr ""
+msgstr "Vazio."
 
 msgid "Enforce a cache refresh"
 msgstr "Reforçar uma renovação do cache"
@@ -128,7 +131,7 @@ msgid "Extends"
 msgstr "Estende"
 
 msgid "Extensions"
-msgstr ""
+msgstr "Extensões"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -142,13 +145,13 @@ msgstr "Fontes"
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Encontrados %i componentes."
 
 msgid "Get components which provide the given item."
-msgstr ""
+msgstr "Obtém componentes que fornecem o item dado."
 
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Obtém informação sobre um componente por seu ID."
 
 msgid "Homepage"
 msgstr "Página inícial"
@@ -157,16 +160,16 @@ msgid "Icon"
 msgstr "Ícone"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Conjunto de ícones"
 
 msgid "Identifier"
 msgstr "Identificador"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Instala um arquivo de metadados na localização certa."
 
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "Instala software correspondente ao component-id."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Tipo inválido para o item fornecido selecionado. Valores válidos são:"
@@ -204,7 +207,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "Nenhum componente fornecendo '%s;%s' encontrado."
 
 msgid "No icons."
-msgstr ""
+msgstr "Nenhum ícone."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -239,7 +242,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component information cache."
-msgstr ""
+msgstr "Recompilar o cache de informação do componente."
 
 msgid "Remove software matching the component-id."
 msgstr ""
