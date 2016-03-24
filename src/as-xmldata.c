@@ -35,6 +35,7 @@
 #include <glib.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
+#include <libxml/xmlsave.h>
 #include <string.h>
 
 #include "as-utils.h"
@@ -1586,25 +1587,18 @@ out:
 }
 
 /**
- * as_xmldata_serialize_to_distro:
- * @xdt: An instance of #AsXMLData
- * @cpt: The component to serialize.
+ * as_xmldata_serialize_to_distro_with_rootnode:
  *
- * Serialize an #AsComponent to distro XML.
- *
- * Returns: XML metadata.
+ * Returns: Valid distro XML metadata.
  */
-gchar*
-as_xmldata_serialize_to_distro (AsXMLData *xdt, GPtrArray *cpts)
+static gchar*
+as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 {
 	xmlDoc *doc;
 	xmlNode *root;
 	gchar *xmlstr = NULL;
 	guint i;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
-
-	if (cpts->len == 0)
-		return NULL;
 
 	priv->mode = AS_PARSER_MODE_DISTRO;
 	root = xmlNewNode (NULL, (xmlChar*) "components");
@@ -1630,6 +1624,70 @@ as_xmldata_serialize_to_distro (AsXMLData *xdt, GPtrArray *cpts)
 	xmlFreeDoc (doc);
 
 	return xmlstr;
+}
+
+/**
+ * as_xmldata_serialize_to_distro_without_rootnode:
+ *
+ * Returns: Distro XML metadata slices without rootnode.
+ */
+static gchar*
+as_xmldata_serialize_to_distro_without_rootnode (AsXMLData *xdt, GPtrArray *cpts)
+{
+	guint i;
+	GString *out_data;
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	out_data = g_string_new ("");
+	priv->mode = AS_PARSER_MODE_DISTRO;
+
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt;
+		xmlDoc *doc;
+		xmlNode *node;
+		xmlBufferPtr buf;
+		xmlSaveCtxtPtr sctx;
+		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		node = as_xmldata_component_to_node (xdt, cpt);
+		if (node == NULL)
+			continue;
+
+		doc = xmlNewDoc ((xmlChar*) NULL);
+		xmlDocSetRootElement (doc, node);
+
+		buf = xmlBufferCreate ();
+		sctx = xmlSaveToBuffer (buf, "utf-8", XML_SAVE_FORMAT | XML_SAVE_NO_DECL);
+		xmlSaveDoc (sctx, doc);
+		xmlSaveClose (sctx);
+
+		g_string_append (out_data, (const gchar*) xmlBufferContent (buf));
+		xmlBufferFree (buf);
+		xmlFreeDoc (doc);
+	}
+
+	return g_string_free (out_data, FALSE);
+}
+
+/**
+ * as_xmldata_serialize_to_distro:
+ * @xdt: An instance of #AsXMLData
+ * @cpt: The component to serialize.
+ *
+ * Serialize an #AsComponent to distro XML.
+ *
+ * Returns: XML metadata.
+ */
+gchar*
+as_xmldata_serialize_to_distro (AsXMLData *xdt, GPtrArray *cpts, gboolean write_header)
+{
+	if (cpts->len == 0)
+		return NULL;
+
+	if (write_header)
+		return as_xmldata_serialize_to_distro_with_rootnode (xdt, cpts);
+	else
+		return as_xmldata_serialize_to_distro_without_rootnode (xdt, cpts);
 }
 
 /**

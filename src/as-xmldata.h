@@ -66,7 +66,8 @@ gboolean		as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt,
 gchar			*as_xmldata_serialize_to_upstream (AsXMLData *xdt,
 								AsComponent *cpt);
 gchar			*as_xmldata_serialize_to_distro (AsXMLData *xdt,
-								GPtrArray *cpts);
+							 GPtrArray *cpts,
+							 gboolean write_header);
 
 void			as_xmldata_set_parser_mode (AsXMLData *xdt,
 							AsParserMode mode);

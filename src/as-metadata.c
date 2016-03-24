@@ -562,7 +562,7 @@ as_metadata_components_to_distro_xml (AsMetadata *metad)
 	if (priv->cpts->len == 0)
 		return NULL;
 
-	xmlstr = as_xmldata_serialize_to_distro (priv->xdt, priv->cpts);
+	xmlstr = as_xmldata_serialize_to_distro (priv->xdt, priv->cpts, priv->write_header);
 	return xmlstr;
 }
 
