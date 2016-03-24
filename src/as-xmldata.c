@@ -1579,7 +1579,7 @@ as_xmldata_serialize_to_upstream (AsXMLData *xdt, AsComponent *cpt)
 	xmlDocSetRootElement (doc, root);
 
 out:
-	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
+	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
 	xmlFreeDoc (doc);
 
 	return xmlstr;
@@ -1626,7 +1626,7 @@ as_xmldata_serialize_to_distro (AsXMLData *xdt, GPtrArray *cpts)
 	doc = xmlNewDoc ((xmlChar*) NULL);
 	xmlDocSetRootElement (doc, root);
 
-	xmlDocDumpMemory (doc, (xmlChar**) (&xmlstr), NULL);
+	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
 	xmlFreeDoc (doc);
 
 	return xmlstr;

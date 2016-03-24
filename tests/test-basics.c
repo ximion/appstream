@@ -89,8 +89,20 @@ test_component ()
 	g_object_unref (metad);
 	g_debug ("%s", str2);
 
-	g_assert_cmpstr (str, ==, "<?xml version=\"1.0\"?>\n<component type=\"desktop\"><name>Test</name><summary>It does things</summary><pkgname>fedex</pkgname></component>\n");
-	g_assert_cmpstr (str2, ==, "<?xml version=\"1.0\"?>\n<components version=\"0.8\"><component type=\"desktop\"><name>Test</name><summary>It does things</summary><pkgname>fedex</pkgname></component></components>\n");
+	g_assert_cmpstr (str, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				  "<component type=\"desktop\">\n"
+				  "  <name>Test</name>\n"
+				  "  <summary>It does things</summary>\n"
+				  "  <pkgname>fedex</pkgname>\n"
+				  "</component>\n");
+	g_assert_cmpstr (str2, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				   "<components version=\"0.8\">\n"
+				   "  <component type=\"desktop\">\n"
+				   "    <name>Test</name>\n"
+				   "    <summary>It does things</summary>\n"
+				   "    <pkgname>fedex</pkgname>\n"
+				   "  </component>\n"
+				   "</components>\n");
 
 	g_free (str);
 	g_free (str2);
