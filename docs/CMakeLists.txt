@@ -17,9 +17,9 @@ if (DOCUMENTATION)
 	# General project documentation
 	find_program (PUBLICAN publican)
 	mark_as_advanced (PUBLICAN)
-	if (PUBLICAN STREQUAL "PUBLICAN-NOTFOUND")
+	if (NOT PUBLICAN)
 		message (FATAL_ERROR "Publican was not found. Please install it to continue!")
-	endif (PUBLICAN STREQUAL "PUBLICAN-NOTFOUND")
+	endif ()
 
 	# we need to assemble our documentation build-directory before we can built it
 	add_custom_target (assemble-docs

@@ -15,17 +15,17 @@ set(INTROSPECTION_SCANNER_ARGS "--identifier-prefix=As" "--symbol-prefix=as" "--
 set(INTROSPECTION_COMPILER_ARGS "--includedir=${CMAKE_CURRENT_SOURCE_DIR}")
 
 # check if the git tools are really found.
-if (INTROSPECTION_SCANNER STREQUAL "INTROSPECTION_SCANNER-NOTFOUND")
+if (NOT INTROSPECTION_SCANNER)
 	message (FATAL_ERROR "GObject introspection scanner was not found! Please install it to continue.")
 endif ()
-if (INTROSPECTION_COMPILER STREQUAL "INTROSPECTION_SCANNER-NOTFOUND")
+if (NOT INTROSPECTION_COMPILER)
 	message (FATAL_ERROR "GObject introspection compiler was not found! Please install it to continue.")
 endif ()
 
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
 set(AS_VERSION_BASE "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
 
-if (PROTOBUF_PROTOC_EXECUTABLE STREQUAL "PROTOBUF_PROTOC_EXECUTABLE-NOTFOUND")
+if (NOT PROTOBUF_PROTOC_EXECUTABLE)
 	message (FATAL_ERROR "ProtoBuf compiler (protoc) was not found!")
 endif ()
 
