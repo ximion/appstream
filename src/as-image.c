@@ -113,7 +113,7 @@ as_image_kind_to_string (AsImageKind kind)
  * Returns: URL
  *
  **/
-const gchar *
+const gchar*
 as_image_get_url (AsImage *image)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);

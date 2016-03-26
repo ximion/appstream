@@ -61,14 +61,14 @@ test_screenshot_handling ()
 	// dirty...
 	g_debug ("%s", as_component_to_string (cpt));
 	screenshots = as_component_get_screenshots (cpt);
-	g_assert (screenshots->len > 0);
+	g_assert_cmpint (screenshots->len, >, 0);
 
 	for (i = 0; i < screenshots->len; i++) {
 		GPtrArray *imgs;
 		AsScreenshot *sshot = (AsScreenshot*) g_ptr_array_index (screenshots, i);
 
 		imgs = as_screenshot_get_images (sshot);
-		g_assert (imgs->len == 2);
+		g_assert_cmpint (imgs->len, ==, 2);
 		g_debug ("%s", as_screenshot_get_caption (sshot));
 	}
 
@@ -82,6 +82,7 @@ test_appstream_parser_legacy ()
 	GFile *file;
 	gchar *path;
 	AsComponent *cpt;
+	GPtrArray *screenshots;
 	GError *error = NULL;
 
 	metad = as_metadata_new ();
@@ -98,6 +99,9 @@ test_appstream_parser_legacy ()
 
 	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Application manager for GNOME");
 	g_assert (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP);
+
+	screenshots = as_component_get_screenshots (cpt);
+	g_assert_cmpint (screenshots->len, ==, 5);
 
 	g_object_unref (metad);
 }

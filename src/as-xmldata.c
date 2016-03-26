@@ -235,93 +235,117 @@ as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode* node, const gchar* ele
 }
 
 /**
+ * as_xmldata_process_image:
+ *
+ * Read node as image node and add it to an existing screenshot.
+ */
+static void
+as_xmldata_process_image (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
+{
+	g_autoptr(AsImage) img = NULL;
+	g_autofree gchar *content = NULL;
+	guint64 width;
+	guint64 height;
+	gchar *stype;
+	gchar *str;
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	content = as_xmldata_get_node_value (xdt, node);
+	if (content == NULL)
+		return;
+	g_strstrip (content);
+
+	img = as_image_new ();
+
+	str = (gchar*) xmlGetProp (node, (xmlChar*) "width");
+	if (str == NULL) {
+		width = 0;
+	} else {
+		width = g_ascii_strtoll (str, NULL, 10);
+		g_free (str);
+	}
+	str = (gchar*) xmlGetProp (node, (xmlChar*) "height");
+	if (str == NULL) {
+		height = 0;
+	} else {
+		height = g_ascii_strtoll (str, NULL, 10);
+		g_free (str);
+	}
+
+	/* discard invalid elements */
+	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+		/* no sizes are okay for upstream XML, but not for distro XML */
+		if ((width == 0) || (height == 0))
+			return;
+	}
+
+	as_image_set_width (img, width);
+	as_image_set_height (img, height);
+
+	stype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	if (g_strcmp0 (stype, "thumbnail") == 0) {
+		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+	} else {
+		as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	}
+	g_free (stype);
+
+	if (priv->media_baseurl == NULL) {
+		/* no baseurl, we can just set the value as URL */
+		as_image_set_url (img, content);
+	} else {
+		/* handle the media baseurl */
+		gchar *tmp;
+		tmp = g_build_filename (priv->media_baseurl, content, NULL);
+		as_image_set_url (img, tmp);
+		g_free (tmp);
+	}
+
+	as_screenshot_add_image (scr, img);
+}
+
+/**
  * as_xmldata_process_screenshot:
  */
 static void
-as_xmldata_process_screenshot (AsXMLData *xdt, xmlNode* node, AsScreenshot* scr)
+as_xmldata_process_screenshot (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
 {
 	xmlNode *iter;
 	gchar *node_name;
-	gchar *content = NULL;
-	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+	gboolean subnode_found = FALSE;
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
+		subnode_found = TRUE;
 
 		node_name = (gchar*) iter->name;
-		content = as_xmldata_get_node_value (xdt, iter);
-		g_strstrip (content);
 
 		if (g_strcmp0 (node_name, "image") == 0) {
-			g_autoptr(AsImage) img = NULL;
-			guint64 width;
-			guint64 height;
-			gchar *stype;
-			gchar *str;
-			if (content == NULL) {
-				continue;
-			}
-			img = as_image_new ();
-
-			str = (gchar*) xmlGetProp (iter, (xmlChar*) "width");
-			if (str == NULL) {
-				width = 0;
-			} else {
-				width = g_ascii_strtoll (str, NULL, 10);
-				g_free (str);
-			}
-			str = (gchar*) xmlGetProp (iter, (xmlChar*) "height");
-			if (str == NULL) {
-				height = 0;
-			} else {
-				height = g_ascii_strtoll (str, NULL, 10);
-				g_free (str);
-			}
-
-			/* discard invalid elements */
-			if (priv->mode == AS_PARSER_MODE_DISTRO) {
-				/* no sizes are okay for upstream XML, but not for distro XML */
-				if ((width == 0) || (height == 0)) {
-					g_free (content);
-					continue;
-				}
-			}
-
-			as_image_set_width (img, width);
-			as_image_set_height (img, height);
-
-			stype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
-			if (g_strcmp0 (stype, "thumbnail") == 0) {
-				as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-			} else {
-				as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
-			}
-			g_free (stype);
-
-			if (priv->media_baseurl == NULL) {
-				/* no baseurl, we can just set the value as URL */
-				as_image_set_url (img, content);
-			} else {
-				/* handle the media baseurl */
-				gchar *tmp;
-				tmp = g_build_filename (priv->media_baseurl, content, NULL);
-				as_image_set_url (img, tmp);
-				g_free (tmp);
-			}
-
-			as_screenshot_add_image (scr, img);
+			as_xmldata_process_image (xdt, iter, scr);
 		} else if (g_strcmp0 (node_name, "caption") == 0) {
-			if (content != NULL) {
-				gchar *lang;
-				lang = as_xmldata_get_node_locale (xdt, iter);
-				if (lang != NULL)
-					as_screenshot_set_caption (scr, content, lang);
-				g_free (lang);
-			}
+			g_autofree gchar *content = NULL;
+			g_autofree gchar *lang = NULL;
+
+			content = as_xmldata_get_node_value (xdt, iter);
+			if (content == NULL)
+				continue;
+			g_strstrip (content);
+
+
+			lang = as_xmldata_get_node_locale (xdt, iter);
+			if (lang != NULL)
+				as_screenshot_set_caption (scr, content, lang);
 		}
-		g_free (content);
+	}
+
+	if (!subnode_found) {
+		/*
+		 * We are dealing with a legacy screenshots tag in the form of
+		 * <screenshot>URL</screenshot>.
+		 * We treat it as an <image/> tag here, which is roughly equivalent. */
+		as_xmldata_process_image (xdt, node, scr);
 	}
 }
 
