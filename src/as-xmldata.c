@@ -972,6 +972,10 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 	if (as_str_empty (description_markup))
 		return FALSE;
 
+	/* skip cruft */
+	if (as_is_cruft_locale (lang))
+		return FALSE;
+
 	xmldata = g_strdup_printf ("<root>%s</root>", description_markup);
 	doc = xmlParseDoc ((xmlChar*) xmldata);
 	if (doc == NULL) {
@@ -1081,11 +1085,15 @@ _as_xmldata_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWriteHelp
 	if (as_str_empty (value))
 		return;
 
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
 	cnode = xmlNewTextChild (helper->parent, NULL, (xmlChar*) helper->node_name, (xmlChar*) value);
 	if (g_strcmp0 (key, "C") != 0) {
 		xmlNewProp (cnode,
-					(xmlChar*) "xml:lang",
-					(xmlChar*) key);
+				(xmlChar*) "xml:lang",
+				(xmlChar*) key);
 	}
 }
 

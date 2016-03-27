@@ -53,6 +53,9 @@ gboolean		as_touch_location (const gchar *fname);
 gboolean		as_copy_file (const gchar *source, const gchar *destination, GError **error);
 void			as_reset_umask (void);
 
+gboolean		as_is_cruft_locale (const gchar *locale);
+gchar			*as_locale_strip_encoding (gchar *locale);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_PRIVATE_H */

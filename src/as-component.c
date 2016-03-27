@@ -850,7 +850,7 @@ as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* valu
 		locale = priv->active_locale;
 
 	g_hash_table_insert (lht,
-				g_strdup (locale),
+				as_locale_strip_encoding (g_strdup (locale)),
 				g_strdup (value));
 }
 

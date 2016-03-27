@@ -608,3 +608,37 @@ as_copy_file (const gchar *source, const gchar *destination, GError **error)
 	fclose (fsrc);
 	return TRUE;
 }
+
+/**
+ * as_is_cruft_locale:
+ *
+ * Checks whether the given locale is valid or a cruft or dummy
+ * locale.
+ */
+gboolean
+as_is_cruft_locale (const gchar *locale)
+{
+	if (locale == NULL)
+		return FALSE;
+	if (g_strcmp0 (locale, "x-test") == 0)
+		return TRUE;
+	if (g_strcmp0 (locale, "xx") == 0)
+		return TRUE;
+	return FALSE;
+}
+
+/**
+ * as_locale_strip_encoding:
+ *
+ * Remove the encoding from a locale string.
+ * The function modifies the string directly.
+ */
+gchar*
+as_locale_strip_encoding (gchar *locale)
+{
+	gchar *tmp;
+	tmp = g_strstr_len (locale, -1, ".UTF-8");
+	if (tmp != NULL)
+		*tmp = '\0';
+	return locale;
+}

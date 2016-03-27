@@ -32,6 +32,8 @@
 #include "as-screenshot.h"
 #include "as-screenshot-private.h"
 
+#include "as-utils-private.h"
+
 typedef struct
 {
 	AsScreenshotKind kind;
@@ -225,7 +227,7 @@ as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption, const
 		locale = priv->active_locale;
 
 	g_hash_table_insert (priv->caption,
-				g_strdup (locale),
+				as_locale_strip_encoding (g_strdup (locale)),
 				g_strdup (caption));
 }
 

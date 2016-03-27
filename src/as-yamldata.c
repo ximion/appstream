@@ -842,6 +842,10 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *e
 	if (as_str_empty (value))
 		return;
 
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
 	g_strstrip (value);
 	as_yaml_emit_entry (emitter, key, value);
 }
@@ -926,6 +930,10 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 	if (strv == NULL)
 		return;
 
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
 	as_yaml_emit_scalar (emitter, key);
 	as_yaml_sequence_start (emitter);
 	for (i = 0; strv[i] != NULL; i++) {
@@ -988,9 +996,7 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 		if (items == NULL)
 			continue;
 
-
 		kind = as_provided_get_kind (prov);
-
 		switch (kind) {
 			case AS_PROVIDED_KIND_LIBRARY:
 				as_yaml_emit_sequence_from_strv (emitter,
@@ -1320,7 +1326,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	/* Urls */
 	htable = as_component_get_urls_table (cpt);
 	if ((htable != NULL) && (g_hash_table_size (htable) > 0)) {
-		as_yaml_emit_scalar (emitter, "Urls");
+		as_yaml_emit_scalar (emitter, "Url");
 
 		as_yaml_mapping_start (emitter);
 		for (i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
