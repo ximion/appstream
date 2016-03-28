@@ -432,42 +432,7 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 			continue;
 
 		node_name = (gchar*) iter->name;
-		if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
-			GList *l;
-			xmlNode *iter2;
-
-			/* append listing node tag to every locale string */
-			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
-				g_string_append_printf (l->data, "\n<%s>", node_name);
-			}
-
-			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
-				g_autofree gchar *lang = NULL;
-				g_autofree gchar *content = NULL;
-				g_autofree gchar *tmp = NULL;
-
-				if (iter2->type != XML_ELEMENT_NODE)
-					continue;
-
-				lang = as_xmldata_get_node_locale (xdt, iter2);
-				if (lang == NULL)
-					continue;
-
-				/* we can not allow adding new languages starting with a enum tag, so we skip the entry if the locale is unknown */
-				str = g_hash_table_lookup (desc, lang);
-				if (str == NULL)
-					continue;
-
-				tmp = as_xmldata_get_node_value (xdt, iter2);
-				content = g_markup_escape_text (tmp, -1);
-				g_string_append_printf (str, "\n  <%s>%s</%s>", (gchar*) iter2->name, content, (gchar*) iter2->name);
-			}
-
-			/* close listing tags */
-			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
-				g_string_append_printf (l->data, "\n</%s>", node_name);
-			}
-		} else {
+		if (g_strcmp0 (node_name, "p") == 0) {
 			g_autofree gchar *lang = NULL;
 			g_autofree gchar *content = NULL;
 			g_autofree gchar *tmp = NULL;
@@ -485,7 +450,45 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 
 			tmp = as_xmldata_get_node_value (xdt, iter);
 			content = g_markup_escape_text (tmp, -1);
-			g_string_append_printf (str, "\n<%s>%s</%s>", node_name, content, node_name);
+			g_string_append_printf (str, "<%s>%s</%s>\n", node_name, content, node_name);
+
+		} else if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
+			GList *l;
+			xmlNode *iter2;
+
+			/* append listing node tag to every locale string */
+			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
+				g_string_append_printf (l->data, "<%s>\n", node_name);
+			}
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				g_autofree gchar *lang = NULL;
+				g_autofree gchar *content = NULL;
+				g_autofree gchar *tmp = NULL;
+
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) iter2->name, "li") != 0)
+					continue;
+
+				lang = as_xmldata_get_node_locale (xdt, iter2);
+				if (lang == NULL)
+					continue;
+
+				/* we can not allow adding new languages starting with a enum tag, so we skip the entry if the locale is unknown */
+				str = g_hash_table_lookup (desc, lang);
+				if (str == NULL)
+					continue;
+
+				tmp = as_xmldata_get_node_value (xdt, iter2);
+				content = g_markup_escape_text (tmp, -1);
+				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
+			}
+
+			/* close listing tags */
+			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
+				g_string_append_printf (l->data, "</%s>\n", node_name);
+			}
 		}
 	}
 
@@ -1047,12 +1050,23 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 	for (iter = droot->children; iter != NULL; iter = iter->next) {
 		xmlNode *cn;
 
-		if ((g_strcmp0 ((const gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((const gchar*) iter->name, "ol") == 0)) {
+		if (g_strcmp0 ((const gchar*) iter->name, "p") == 0) {
+			cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
+
+			if ((priv->mode == AS_PARSER_MODE_UPSTREAM) && (localized)) {
+				xmlNewProp (cn,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) lang);
+			}
+		} else if ((g_strcmp0 ((const gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((const gchar*) iter->name, "ol") == 0)) {
 			xmlNode *iter2;
 			xmlNode *enumNode;
 
 			enumNode = xmlNewChild (dnode, NULL, iter->name, NULL);
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (g_strcmp0 ((const gchar*) iter2->name, "li") != 0)
+					continue;
+
 				cn = xmlAddChild (enumNode, xmlCopyNode (iter2, TRUE));
 
 				if ((priv->mode == AS_PARSER_MODE_UPSTREAM) && (localized)) {
@@ -1063,14 +1077,6 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 			}
 
 			continue;
-		}
-
-		cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
-
-		if ((priv->mode == AS_PARSER_MODE_UPSTREAM) && (localized)) {
-			xmlNewProp (cn,
-					(xmlChar*) "xml:lang",
-					(xmlChar*) lang);
 		}
 	}
 
