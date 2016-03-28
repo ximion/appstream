@@ -765,6 +765,29 @@ as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
 }
 
 /**
+ * as_yaml_emit_scalar_key:
+ */
+static void
+as_yaml_emit_scalar_key (yaml_emitter_t *emitter, const gchar *key)
+{
+	yaml_scalar_style_t keystyle;
+	yaml_event_t event;
+	gint ret;
+
+	/* Some locale are "no", which - if unquoted - are interpreted as booleans.
+	 * Since we hever have boolean keys, we can disallow creating bool keys for all keys. */
+	keystyle = YAML_ANY_SCALAR_STYLE;
+	if (g_strcmp0 (key, "no") == 0)
+		keystyle = YAML_SINGLE_QUOTED_SCALAR_STYLE;
+	if (g_strcmp0 (key, "yes") == 0)
+		keystyle = YAML_SINGLE_QUOTED_SCALAR_STYLE;
+
+	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) key, strlen (key), TRUE, TRUE, keystyle);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+}
+
+/**
  * as_yaml_emit_entry:
  */
 static void
@@ -776,9 +799,7 @@ as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *valu
 	if (value == NULL)
 		return;
 
-	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) key, strlen (key), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	as_yaml_emit_scalar_key (emitter, key);
 
 	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
@@ -797,9 +818,7 @@ as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar 
 	if (value == NULL)
 		return;
 
-	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) key, strlen (key), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
-	ret = yaml_emitter_emit (emitter, &event);
-	g_assert (ret);
+	as_yaml_emit_scalar_key (emitter, key);
 
 	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_FOLDED_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
@@ -971,7 +990,7 @@ as_yaml_emit_sequence_from_strv (yaml_emitter_t *emitter, const gchar *key, gcha
 	if (strv[0] == '\0')
 		return;
 
-	as_yaml_emit_scalar (emitter, key);
+	as_yaml_emit_scalar_key (emitter, key);
 
 	as_yaml_sequence_start (emitter);
 	for (i = 0; strv[i] != NULL; i++) {
