@@ -371,7 +371,7 @@ ascli_put_metainfo (const gchar *fname)
 	}
 
 	if ((!g_str_has_suffix (fname, ".metainfo.xml")) && (!g_str_has_suffix (fname, ".appdata.xml"))) {
-		ascli_print_stderr (_("Can not copy '%s': File does not have a 'metainfo.xml' or '.appdata.xml' extension."));
+		ascli_print_stderr (_("Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' extension."));
 		return 2;
 	}
 
