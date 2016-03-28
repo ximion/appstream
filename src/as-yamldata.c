@@ -786,6 +786,27 @@ as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *valu
 }
 
 /**
+ * as_yaml_emit_long_entry:
+ */
+static void
+as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
+{
+	yaml_event_t event;
+	gint ret;
+
+	if (value == NULL)
+		return;
+
+	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) key, strlen (key), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+
+	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_FOLDED_SCALAR_STYLE);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+}
+
+/**
  * as_yaml_mapping_start:
  */
 static void
@@ -851,10 +872,27 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *e
 }
 
 /**
+ * as_yaml_emit_lang_hashtable_entries_long:
+ */
+static void
+as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, yaml_emitter_t *emitter)
+{
+	if (as_str_empty (value))
+		return;
+
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
+	g_strstrip (value);
+	as_yaml_emit_long_entry (emitter, key, value);
+}
+
+/**
  * as_yaml_emit_localized_entry:
  */
 static void
-as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab, GHFunc tfunc)
 {
 	if (ltab == NULL)
 		return;
@@ -867,10 +905,34 @@ as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTa
 	as_yaml_mapping_start (emitter);
 	/* emit entries */
 	g_hash_table_foreach (ltab,
-				(GHFunc) as_yaml_emit_lang_hashtable_entries,
+				tfunc,
 				emitter);
 	/* finalize */
 	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_yaml_emit_localized_entry:
+ */
+static void
+as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	as_yaml_emit_localized_entry_with_func (emitter,
+						key,
+						ltab,
+						(GHFunc) as_yaml_emit_lang_hashtable_entries);
+}
+
+/**
+ * as_yaml_emit_long_localized_entry:
+ */
+static void
+as_yaml_emit_long_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	as_yaml_emit_localized_entry_with_func (emitter,
+						key,
+						ltab,
+						(GHFunc) as_yaml_emit_lang_hashtable_entries_long);
 }
 
 /**
@@ -1293,7 +1355,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 					as_component_get_summary_table (cpt));
 
 	/* Description */
-	as_yaml_emit_localized_entry (emitter,
+	as_yaml_emit_long_localized_entry (emitter,
 					"Description",
 					as_component_get_description_table (cpt));
 
