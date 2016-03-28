@@ -425,31 +425,68 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 	desc = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
-		gchar *lang;
-		gchar *content;
 		GString *str;
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		lang = as_xmldata_get_node_locale (xdt, iter);
-		if (lang == NULL)
-			/* this locale is not for us */
-			continue;
-
 		node_name = (gchar*) iter->name;
-		content = as_xmldata_get_node_value (xdt, iter);
+		if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
+			GList *l;
+			xmlNode *iter2;
 
-		str = g_hash_table_lookup (desc, lang);
-		if (str == NULL) {
-			str = g_string_new ("");
-			g_hash_table_insert (desc, g_strdup (lang), str);
+			/* append listing node tag to every locale string */
+			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
+				g_string_append_printf (l->data, "\n<%s>", node_name);
+			}
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				g_autofree gchar *lang = NULL;
+				g_autofree gchar *content = NULL;
+				g_autofree gchar *tmp = NULL;
+
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+
+				lang = as_xmldata_get_node_locale (xdt, iter2);
+				if (lang == NULL)
+					continue;
+
+				/* we can not allow adding new languages starting with a enum tag, so we skip the entry if the locale is unknown */
+				str = g_hash_table_lookup (desc, lang);
+				if (str == NULL)
+					continue;
+
+				tmp = as_xmldata_get_node_value (xdt, iter2);
+				content = g_markup_escape_text (tmp, -1);
+				g_string_append_printf (str, "\n  <%s>%s</%s>", (gchar*) iter2->name, content, (gchar*) iter2->name);
+			}
+
+			/* close listing tags */
+			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
+				g_string_append_printf (l->data, "\n</%s>", node_name);
+			}
+		} else {
+			g_autofree gchar *lang = NULL;
+			g_autofree gchar *content = NULL;
+			g_autofree gchar *tmp = NULL;
+
+			lang = as_xmldata_get_node_locale (xdt, iter);
+			if (lang == NULL)
+				/* this locale is not for us */
+				continue;
+
+			str = g_hash_table_lookup (desc, lang);
+			if (str == NULL) {
+				str = g_string_new ("");
+				g_hash_table_insert (desc, g_strdup (lang), str);
+			}
+
+			tmp = as_xmldata_get_node_value (xdt, iter);
+			content = g_markup_escape_text (tmp, -1);
+			g_string_append_printf (str, "\n<%s>%s</%s>", node_name, content, node_name);
 		}
-
-		g_string_append_printf (str, "\n<%s>%s</%s>", node_name, content, node_name);
-		g_free (lang);
-		g_free (content);
 	}
 
 	g_hash_table_foreach (desc, func, entity);
@@ -556,9 +593,9 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 						g_free (content);
 					} else {
 						as_xmldata_parse_upstream_description_tag (xdt,
-												iter2,
-												(GHFunc) as_xmldata_upstream_description_to_release,
-												release);
+											iter2,
+											(GHFunc) as_xmldata_upstream_description_to_release,
+											release);
 					}
 				}
 			}
