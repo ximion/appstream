@@ -1674,6 +1674,7 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 			gchar *key;
 			gchar *value;
 			AsComponent *cpt;
+			gboolean header_found = FALSE;
 			GNode *root = g_node_new (g_strdup (""));
 
 			dep11_yaml_process_layer (&parser, root);
@@ -1700,6 +1701,7 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 									AS_METADATA_ERROR_FAILED,
 									"Invalid DEP-11 file found: Header invalid");
 						}
+						header_found = TRUE;
 					} else if (g_strcmp0 (key, "Origin") == 0) {
 						if ((value != NULL) && (priv->origin == NULL)) {
 							priv->origin = g_strdup (value);
@@ -1720,7 +1722,10 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 						}
 					}
 				}
-			} else {
+			}
+			header = FALSE;
+
+			if (!header_found) {
 				cpt = as_yamldata_process_component_node (ydt, root);
 				if (cpt == NULL)
 					parse = FALSE;
@@ -1735,8 +1740,6 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 					g_object_unref (cpt);
 				}
 			}
-
-			header = FALSE;
 
 			g_node_traverse (root,
 					G_IN_ORDER,
