@@ -653,6 +653,9 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 		gchar *value;
 		gchar *lvalue;
 
+		if (node->children == NULL)
+			continue;
+
 		key = (gchar*) node->data;
 		value = (gchar*) node->children->data;
 		g_strstrip (value);
@@ -1702,7 +1705,12 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 									"Invalid DEP-11 file found: Header invalid");
 						}
 						header_found = TRUE;
-					} else if (g_strcmp0 (key, "Origin") == 0) {
+					}
+
+					if (!header_found)
+						break;
+
+					if (g_strcmp0 (key, "Origin") == 0) {
 						if ((value != NULL) && (priv->origin == NULL)) {
 							priv->origin = g_strdup (value);
 						} else {
