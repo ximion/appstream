@@ -71,10 +71,9 @@ gchar			*as_xmldata_serialize_to_distro (AsXMLData *xdt,
 
 void			as_xmldata_set_parser_mode (AsXMLData *xdt,
 							AsParserMode mode);
-gboolean		as_xmldata_parse_component_node (AsXMLData *metad,
+void			as_xmldata_parse_component_node (AsXMLData *metad,
 								xmlNode *node,
 								AsComponent *cpt,
-								gboolean allow_invalid,
 								GError **error);
 
 

@@ -56,7 +56,7 @@ test_basic (void)
 	g_assert_no_error (error);
 
 	cpts = as_metadata_get_components (mdata);
-	g_assert (cpts->len == 6);
+	g_assert_cmpint (cpts->len, ==, 6);
 
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt;
@@ -130,6 +130,7 @@ test_yamlwrite (void)
 	as_component_set_pkgnames (cpt, _PKGNAME1);
 	as_component_set_name (cpt, "Unittest Firmware", "C");
 	as_component_set_name (cpt, "Ünittest Fürmwäre (dummy Eintrag)", "de_DE");
+	as_component_set_summary (cpt, "Just part of an unittest.", "C");
 	as_component_add_extends (cpt, "org.example.alpha");
 	as_component_add_extends (cpt, "org.example.beta");
 	as_component_add_url (cpt, AS_URL_KIND_HOMEPAGE, "https://example.com");
@@ -140,6 +141,7 @@ test_yamlwrite (void)
 	as_component_set_id (cpt, "org.freedesktop.foobar.desktop");
 	as_component_set_pkgnames (cpt, _PKGNAME2);
 	as_component_set_name (cpt, "TEST!!", "C");
+	as_component_set_summary (cpt, "Just part of an unittest.", "C");
 	scr = test_h_create_dummy_screenshot ();
 	as_component_add_screenshot (cpt, scr);
 

@@ -714,8 +714,8 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 /**
  * as_xmldata_parse_component_node:
  */
-gboolean
-as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt, gboolean allow_invalid, GError **error)
+void
+as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt, GError **error)
 {
 	xmlNode *iter;
 	const gchar *node_name;
@@ -914,26 +914,13 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	as_component_set_compulsory_for_desktops (cpt, strv);
 	g_ptr_array_unref (compulsory_for_desktops);
 	g_strfreev (strv);
-
-	if ((allow_invalid) || (as_component_is_valid (cpt))) {
-		return TRUE;
-	} else {
-		g_autofree gchar *cpt_str = NULL;
-		cpt_str = as_component_to_string (cpt);
-		g_set_error (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
-				     "Invalid component: %s", cpt_str);
-	}
-
-	return FALSE;
 }
 
 /**
  * as_xmldata_parse_components_node:
  */
 static void
-as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node, gboolean allow_invalid, GError **error)
+as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node, GError **error)
 {
 	xmlNode* iter;
 	GError *tmp_error = NULL;
@@ -964,14 +951,13 @@ as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node
 
 		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
 			g_autoptr(AsComponent) cpt = NULL;
-			gboolean ret;
 
 			cpt = as_component_new ();
-			ret = as_xmldata_parse_component_node (xdt, iter, cpt, allow_invalid, &tmp_error);
+			as_xmldata_parse_component_node (xdt, iter, cpt, &tmp_error);
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
 				return;
-			} else if (ret) {
+			} else {
 				g_ptr_array_add (cpts, g_object_ref (cpt));
 			}
 		}
@@ -1510,6 +1496,7 @@ as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsC
 	/* switch to upstream format parsing */
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 
+	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
@@ -1517,15 +1504,16 @@ as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsC
 				     "Tried to parse distro metadata as upstream metadata.");
 		goto out;
 	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		ret = as_xmldata_parse_component_node (xdt, root, cpt, TRUE, error);
+		as_xmldata_parse_component_node (xdt, root, cpt, error);
 	} else if  (g_strcmp0 ((gchar*) root->name, "application") == 0) {
 		g_debug ("Parsing legacy AppStream metadata file.");
-		ret = as_xmldata_parse_component_node (xdt, root, cpt, TRUE, error);
+		as_xmldata_parse_component_node (xdt, root, cpt, error);
 	} else {
 		g_set_error_literal (error,
 					AS_METADATA_ERROR,
 					AS_METADATA_ERROR_FAILED,
 					"XML file does not contain valid AppStream data!");
+		ret = FALSE;
 		goto out;
 	}
 
@@ -1604,17 +1592,15 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 	cpts = g_ptr_array_new_with_free_func (g_object_unref);
 
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
-		as_xmldata_parse_components_node (xdt, cpts, root, FALSE, error);
+		as_xmldata_parse_components_node (xdt, cpts, root, error);
 	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
 		g_autoptr(AsComponent) cpt = NULL;
-		gboolean ret;
 
 		cpt = as_component_new ();
 		/* we explicitly allow parsing single component entries in distro-XML mode, since this is a scenario
 		 * which might very well happen, e.g. in AppStream metadata generators */
-		ret = as_xmldata_parse_component_node (xdt, root, cpt, TRUE, error);
-		if (ret)
-			g_ptr_array_add (cpts, g_object_ref (cpt));
+		as_xmldata_parse_component_node (xdt, root, cpt, error);
+		g_ptr_array_add (cpts, g_object_ref (cpt));
 	} else {
 		g_set_error_literal (error,
 					AS_METADATA_ERROR,
@@ -1644,6 +1630,11 @@ as_xmldata_serialize_to_upstream (AsXMLData *xdt, AsComponent *cpt)
 	xmlNode *root;
 	gchar *xmlstr = NULL;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	if (!as_component_is_valid (cpt)) {
+		g_debug ("Can not serialize '%s': Component is invalid.", as_component_get_id (cpt));
+		return NULL;
+	}
 
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 	doc = xmlNewDoc ((xmlChar*) NULL);
@@ -1685,6 +1676,11 @@ as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 		AsComponent *cpt;
 		xmlNode *node;
 		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		if (!as_component_is_valid (cpt)) {
+			g_debug ("Can not serialize '%s': Component is invalid.", as_component_get_id (cpt));
+			continue;
+		}
 
 		node = as_xmldata_component_to_node (xdt, cpt);
 		if (node == NULL)

@@ -75,6 +75,7 @@ test_component ()
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 
+	as_component_set_id (cpt, "org.example.test.desktop");
 	as_component_set_name (cpt, "Test", NULL);
 	as_component_set_summary (cpt, "It does things", NULL);
 
@@ -91,6 +92,7 @@ test_component ()
 
 	g_assert_cmpstr (str, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				  "<component type=\"desktop\">\n"
+				  "  <id>org.example.test.desktop</id>\n"
 				  "  <name>Test</name>\n"
 				  "  <summary>It does things</summary>\n"
 				  "  <pkgname>fedex</pkgname>\n"
@@ -98,6 +100,7 @@ test_component ()
 	g_assert_cmpstr (str2, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				   "<components version=\"0.8\">\n"
 				   "  <component type=\"desktop\">\n"
+				   "    <id>org.example.test.desktop</id>\n"
 				   "    <name>Test</name>\n"
 				   "    <summary>It does things</summary>\n"
 				   "    <pkgname>fedex</pkgname>\n"

@@ -44,7 +44,7 @@
 
 typedef struct
 {
-	GHashTable* cpt_table;
+	GHashTable *cpt_table;
 	gchar *scr_base_url;
 	gchar *locale;
 
@@ -178,43 +178,84 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 /**
  * as_data_pool_update_extension_info:
  *
- * Populate the "extensions" property of each #AsComponent, using the
+ * Populate the "extensions" property of an #AsComponent, using the
  * "extends" information from other components.
  */
 static void
-as_data_pool_update_extension_info (AsDataPool *dpool)
+as_data_pool_update_extension_info (AsDataPool *dpool, AsComponent *cpt)
+{
+	guint i;
+	GPtrArray *extends;
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	extends = as_component_get_extends (cpt);
+	if ((extends == NULL) || (extends->len == 0))
+		return;
+
+	for (i = 0; i < extends->len; i++) {
+		AsComponent *extended_cpt;
+		const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
+
+		extended_cpt = g_hash_table_lookup (priv->cpt_table, extended_cid);
+		if (extended_cpt == NULL) {
+			g_debug ("%s extends %s, but %s was not found.", as_component_get_id (cpt), extended_cid, extended_cid);
+			return;
+		}
+
+		as_component_add_extension (extended_cpt, as_component_get_id (cpt));
+	}
+}
+
+/**
+ * as_data_pool_refine_data:
+ *
+ * Automatically refine the data we have about software components in the pool.
+ *
+ * Returns: %TRUE if all metadata was used, %FALSE if we skipped some stuff.
+ */
+static gboolean
+as_data_pool_refine_data (AsDataPool *dpool)
 {
 	GHashTableIter iter;
 	gpointer key, value;
+	GHashTable *refined_cpts;
+	gboolean ret = TRUE;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	/* since we might remove stuff from the pool, we need a new table to store the result */
+	refined_cpts = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
+						g_free,
+						(GDestroyNotify) g_object_unref);
 
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
 		AsComponent *cpt;
-		GPtrArray *extends;
 		const gchar *cid;
-		guint i;
-
 		cpt = AS_COMPONENT (value);
 		cid = (const gchar*) key;
 
-		extends = as_component_get_extends (cpt);
-		if ((extends == NULL) || (extends->len == 0))
+		/* validate the component */
+		if (!as_component_is_valid (cpt)) {
+			g_debug ("WARNING: Skipped component '%s': The component is invalid.", as_component_get_id (cpt));
+			ret = FALSE;
 			continue;
-
-		for (i = 0; i < extends->len; i++) {
-			AsComponent *extended_cpt;
-			const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
-
-			extended_cpt = g_hash_table_lookup (priv->cpt_table, extended_cid);
-			if (extended_cpt == NULL) {
-				g_debug ("%s extends %s, but %s was not found.", as_component_get_id (cpt), extended_cid, extended_cid);
-				continue;
-			}
-
-			as_component_add_extension (extended_cpt, cid);
 		}
+
+		/* set the "extension" information */
+		as_data_pool_update_extension_info (dpool, cpt);
+
+		/* add to results table */
+		g_hash_table_insert (refined_cpts,
+					g_strdup (cid),
+					g_object_ref (cpt));
 	}
+
+	/* set refined components as new pool content */
+	g_hash_table_unref (priv->cpt_table);
+	priv->cpt_table = refined_cpts;
+
+	return ret;
 }
 
 /**
@@ -352,23 +393,26 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 gboolean
 as_data_pool_update (AsDataPool *dpool, GError **error)
 {
-	gboolean ret = TRUE;
+	gboolean ret;
+	gboolean ret2;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
 	/* just in case, clear the components table */
-	g_hash_table_unref (priv->cpt_table);
-	priv->cpt_table = g_hash_table_new_full (g_str_hash,
-							g_str_equal,
-							g_free,
-							(GDestroyNotify) g_object_unref);
+	if (g_hash_table_size (priv->cpt_table) > 0) {
+		g_hash_table_unref (priv->cpt_table);
+		priv->cpt_table = g_hash_table_new_full (g_str_hash,
+							 g_str_equal,
+							 g_free,
+							 (GDestroyNotify) g_object_unref);
+	}
 
 	/* read all AppStream metadata that we can find */
 	ret = as_data_pool_load_metadata (dpool);
 
-	/* set the "extension" information */
-	as_data_pool_update_extension_info (dpool);
+	/* automatically refine the metadata we have in the pool */
+	ret2 = as_data_pool_refine_data (dpool);
 
-	return ret;
+	return ret && ret2;
 }
 
 /**

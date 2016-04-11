@@ -201,17 +201,20 @@ DatabaseWrite::rebuild (GList *cpt_list)
 	for (GList *list = cpt_list; list != NULL; list = list->next) {
 		AsComponent *cpt = (AsComponent*) list->data;
 
-		Xapian::Document doc;
-		term_generator.set_document (doc);
-
-		doc.set_data (as_component_get_name (cpt));
-
 		// Sanity check
 		if (!as_component_is_valid (cpt)) {
-			g_warning ("Skipped component '%s' from inclusion into database: The component is invalid.",
+			// we should *never* get here, all invalid stuff should be filtered out at this point
+			g_critical ("Skipped component '%s' from inclusion into database: The component is invalid.",
 					   as_component_get_id (cpt));
 			continue;
 		}
+
+		// Prepare document
+		Xapian::Document doc;
+		term_generator.set_document (doc);
+
+		string cid = as_component_get_id (cpt);
+		doc.set_data (as_component_get_name (cpt));
 
 		// Package name
 		gchar **pkgs = as_component_get_pkgnames (cpt);
@@ -259,10 +262,9 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.add_term ("AT" + type_str);
 
 		// Identifier
-		string idname = as_component_get_id (cpt);
-		doc.add_value (XapianValues::IDENTIFIER, idname);
-		doc.add_term("AI" + idname);
-		term_generator.index_text_without_positions (idname, WEIGHT_PKGNAME);
+		doc.add_value (XapianValues::IDENTIFIER, cid);
+		doc.add_term("AI" + cid);
+		term_generator.index_text_without_positions (cid, WEIGHT_PKGNAME);
 
 		// Origin
 		const gchar *cptOrigin = as_component_get_origin (cpt);

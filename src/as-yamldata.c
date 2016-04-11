@@ -1328,8 +1328,10 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	GPtrArray *icons;
 
 	/* we only serialize a component with minimal necessary information */
-	if (!as_component_is_valid (cpt))
+	if (!as_component_is_valid (cpt)) {
+		g_debug ("Can not serialize '%s': Component is invalid.", as_component_get_id (cpt));
 		return;
+	}
 
 	/* new document for this component */
 	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
@@ -1735,18 +1737,13 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 
 			if (!header_found) {
 				cpt = as_yamldata_process_component_node (ydt, root);
-				if (cpt == NULL)
+				if (cpt == NULL) {
+					g_warning ("Parsing of YAML metadata failed: Could not read data for component.");
 					parse = FALSE;
-
-				if (as_component_is_valid (cpt)) {
-					/* everything is fine with this component, we can emit it */
-					g_ptr_array_add (cpts, cpt);
-				} else {
-					g_autofree gchar *str = NULL;
-					str = as_component_to_string (cpt);
-					g_debug ("WARNING: Invalid component found: %s", str);
-					g_object_unref (cpt);
 				}
+
+				/* add found component to the results set */
+				g_ptr_array_add (cpts, cpt);
 			}
 
 			g_node_traverse (root,

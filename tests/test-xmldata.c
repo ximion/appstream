@@ -201,7 +201,9 @@ test_appstream_write_description ()
 
 	const gchar *EXPECTED_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				    "<component>\n"
+				    "  <id>org.example.Test</id>\n"
 				    "  <name>Test</name>\n"
+				    "  <summary>Just a unittest.</summary>\n"
 				    "  <description>\n"
 				    "    <p>First paragraph</p>\n"
 				    "    <ol>\n"
@@ -223,7 +225,10 @@ test_appstream_write_description ()
 
 	const gchar *EXPECTED_XML_LOCALIZED = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 						"<component>\n"
+						"  <id>org.example.Test</id>\n"
 						"  <name>Test</name>\n"
+						"  <summary>Just a unittest.</summary>\n"
+						"  <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
 						"  <description>\n"
 						"    <p>First paragraph</p>\n"
 						"    <ol>\n"
@@ -257,7 +262,10 @@ test_appstream_write_description ()
 	const gchar *EXPECTED_XML_DISTRO = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 					   "<components version=\"0.8\">\n"
 					   "  <component>\n"
+					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
+					   "    <summary>Just a unittest.</summary>\n"
+					   "    <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
 					   "    <description>\n"
 					   "      <p>First paragraph</p>\n"
 					   "      <ol>\n"
@@ -294,7 +302,10 @@ test_appstream_write_description ()
 	metad = as_metadata_new ();
 
 	cpt = as_component_new ();
-	as_component_set_name (cpt, "Test", NULL);
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.Test");
+	as_component_set_name (cpt, "Test", "C");
+	as_component_set_summary (cpt, "Just a unittest.", "C");
 	as_component_set_description (cpt,
 				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three is &gt; 2 &amp; 1</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3 &amp; the last one</p>",
 				NULL);
@@ -311,6 +322,7 @@ test_appstream_write_description ()
 	g_free (tmp);
 
 	/* add localization */
+	as_component_set_summary (cpt, "Nur ein Unittest.", "de");
 	as_component_set_description (cpt,
 				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul><p>Paragraph2</p>",
 				"de");
