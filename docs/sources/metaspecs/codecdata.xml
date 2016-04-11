@@ -76,7 +76,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry>
+			<varlistentry id="tag-id-codec">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -95,8 +95,8 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry>
-			<term>&lt;provides/&gt;</term>
+			<varlistentry id="tag-codec-provides">
+			<term>&lt;provides/&gt; ↪ &lt;codec/&gt;</term>
 			<listitem>
 				<para>
 					This tag is described for generic components at <xref linkend="sect-Metadata-GenericComponent"/> in detail.
@@ -110,5 +110,9 @@
 			</varlistentry>
 		</variablelist>
 
+		<para>
+			For a component of type <literal>codec</literal>, the following tags are required and must be present: <xref linkend="tag-id-codec"/>, <xref linkend="tag-name"/>,
+			<xref linkend="tag-summary"/>, <xref linkend="tag-metadata_license"/>, <xref linkend="tag-codec-provides"/>.
+		</para>
 	</section>
 </section>
