@@ -286,8 +286,8 @@ as_component_is_valid (AsComponent *cpt)
 	ctype = priv->kind;
 	if (ctype == AS_COMPONENT_KIND_UNKNOWN)
 		return FALSE;
-	cname = g_hash_table_lookup (priv->name, "C");
-	csummary = g_hash_table_lookup (priv->summary, "C");
+	cname = as_component_get_name (cpt);
+	csummary = as_component_get_summary (cpt);
 
 	if ((!as_str_empty (priv->id)) &&
 		(!as_str_empty (cname)) &&

@@ -207,8 +207,8 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		doc.set_data (as_component_get_name (cpt));
 
 		// Sanity check
-		if (!as_component_has_install_candidate (cpt)) {
-			g_warning ("Skipped component '%s' from inclusion into database: Does not have an installation candidate.",
+		if (!as_component_is_valid (cpt)) {
+			g_warning ("Skipped component '%s' from inclusion into database: The component is invalid.",
 					   as_component_get_id (cpt));
 			continue;
 		}
