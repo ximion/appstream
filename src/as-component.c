@@ -279,25 +279,21 @@ as_component_is_valid (AsComponent *cpt)
 {
 	gboolean ret = FALSE;
 	const gchar *cname;
+	const gchar *csummary;
 	AsComponentKind ctype;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	ctype = priv->kind;
 	if (ctype == AS_COMPONENT_KIND_UNKNOWN)
 		return FALSE;
-	cname = as_component_get_name (cpt);
+	cname = g_hash_table_lookup (priv->name, "C");
+	csummary = g_hash_table_lookup (priv->summary, "C");
 
-	if ((as_component_has_install_candidate (cpt)) &&
-		(!as_str_empty (priv->id)) &&
-		(!as_str_empty (cname))) {
+	if ((!as_str_empty (priv->id)) &&
+		(!as_str_empty (cname)) &&
+		(!as_str_empty (csummary))) {
 			ret = TRUE;
 	}
-
-#if 0
-	if ((ret) && ctype == AS_COMPONENT_KIND_DESKTOP_APP) {
-		ret = g_strcmp0 (priv->desktop_file, "") != 0;
-	}
-#endif
 
 	return ret;
 }
