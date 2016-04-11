@@ -16,7 +16,7 @@
 			Additionally, this component type can also be used for firmware which is loaded to the device at runtime.
 		</para>
 		<para>
-			Firmware can ship one or more files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
+			Firmware can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 	</section>
 

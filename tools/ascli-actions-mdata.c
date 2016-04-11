@@ -358,7 +358,7 @@ ascli_put_metainfo (const gchar *fname)
 	g_autofree gchar *tmp = NULL;
 	g_autofree gchar *dest = NULL;
 	g_autoptr(GError) error = NULL;
-	const gchar *metainfo_target = "/usr/share/appdata";
+	const gchar *metainfo_target = "/usr/share/metainfo";
 
 	if (fname == NULL) {
 		ascli_print_stderr (_("You need to specify a metadata file."));

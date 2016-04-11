@@ -16,7 +16,7 @@
 			This meta-info specification describes how metadata for fonts / font collections should be structured.
 		</para>
 		<para>
-			Font packages can ship one or more files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
+			Font packages can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
 			Font metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.

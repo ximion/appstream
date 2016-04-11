@@ -37,7 +37,8 @@ ascli_show_status (void)
 {
 	guint i;
 	g_autoptr(AsDatabase) cache = NULL;
-	const gchar *metainfo_path = "/usr/share/appdata";
+	const gchar *metainfo_path = "/usr/share/metainfo";
+	const gchar *appdata_path = "/usr/share/appdata";
 
 	ascli_print_highlight (_("AppStream Status:"));
 	ascli_print_stdout ("Version: %s", VERSION);
@@ -117,7 +118,18 @@ ascli_show_status (void)
 			ascli_print_stdout ("  - %s", msg);
 		}
 	} else {
-		ascli_print_stdout ("  - %s", _("Empty."));
+		if (!g_file_test (appdata_path, G_FILE_TEST_IS_DIR))
+			ascli_print_stdout ("  - %s", _("Empty."));
+	}
+	if (g_file_test (appdata_path, G_FILE_TEST_IS_DIR)) {
+		g_autoptr(GPtrArray) xmls = NULL;
+		g_autofree gchar *msg = NULL;
+
+		xmls = as_utils_find_files_matching (appdata_path, "*.xml", FALSE, NULL);
+		if (xmls != NULL) {
+			msg = g_strdup_printf (_("Found %i components in legacy paths."), xmls->len);
+			ascli_print_stdout ("  - %s", msg);
+		}
 	}
 	g_print ("\n");
 

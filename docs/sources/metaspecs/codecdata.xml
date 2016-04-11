@@ -13,7 +13,7 @@
 			Software centers might want to special-case codec handling. Therefore, we provide a component type for them.
 		</para>
 		<para>
-			Codecs can ship one or more files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>.
+			Codecs can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
 			Codec metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.

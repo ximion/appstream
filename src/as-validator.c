@@ -1004,7 +1004,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	/* cleanup */
 	as_validator_clear_issues (validator);
 
-	metainfo_dir = g_build_filename (root_dir, "usr", "share", "appdata", NULL);
+	metainfo_dir = g_build_filename (root_dir, "usr", "share", "metainfo", NULL);
 	apps_dir = g_build_filename (root_dir, "usr", "share", "applications", NULL);
 
 	/* check if we actually have a directory which could hold metadata */

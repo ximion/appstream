@@ -20,7 +20,7 @@
 		<para>
 			The AppData files override any values which are automatically fetched by the AppStream data generator, which means that it's data takes precedence over
 			data which has already been defined in a .desktop-file.
-			Applications can ship one or more files in <filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
+			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
 		<note>
 			<para>

@@ -29,20 +29,24 @@
 	<section id="spec-component-location">
 	<title>Filesystem locations</title>
 	<para>
-		Upstream projects can ship one or more metainfo files in <filename>/usr/share/appdata/%{id}.metainfo.xml</filename>, where <literal>id</literal> is a unique
+		Upstream projects can ship one or more metainfo files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>, where <literal>id</literal> is a unique
 		identifier of this specific component.
 	</para>
 	<note>
 		<para>
-		Applications are a special case here, because they are special in some ways (and also for historical reasons).
-		If your metainfo file covers only an application, as described in the AppData section, install it as
-		<filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
+			Applications are a special case here, because they are usually treated differently by software centers (and also for historical reasons).
+			If your metainfo file covers only an application, as described in the AppData section, install it as
+			<filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
 	</note>
-	<para>
-		Please note that the <filename>/usr/share/appdata/symbols</filename> directory is reserved for a possible future use for storing upstream-generated symbols files for
-		libraries.
-	</para>
+	<important>
+		<title>Legacy Path</title>
+		<para>
+			The <filename>/usr/share/appdata/</filename> path must be scanned by AppStream tools as well, to support legacy applications installing
+			metadata there.
+			For new software components, it is advised not to use this directory.
+		</para>
+	</important>
 <!--
 	This is currently hidden, because we only want to re-add it to the spec in case it turns out to be really needed.
 	(was a workaround back in the days, before AppStream generators became smarter)
@@ -51,8 +55,8 @@
 		<para>
 		On multiarch-aware systems such as Debian: If a component ships a library, the meta-info file should be in the same package as the library itself, or
 		in a package depending on that library.
-		To make the library packages co-installable, the metadata can be installed into <filename>/usr/share/appdata/&lt;triplet&gt;</filename>, for example
-		<filename>/usr/share/appdata/x86_64-linux-gnu/foobar.metainfo.xml</filename>.
+		To make the library packages co-installable, the metadata can be installed into <filename>/usr/share/metainfo/&lt;triplet&gt;</filename>, for example
+		<filename>/usr/share/metainfo/x86_64-linux-gnu/foobar.metainfo.xml</filename>.
 		Upstream projects which ship components with libraries should adjust their buildsystem to install a multi-arch compatible metainfo file by default.
 		Make use of the <literal>&lt;architectures/&gt;</literal> tag to indicate that the meta-info file is arch specific.
 		</para>
@@ -545,6 +549,11 @@
   <developer_name>FooBar Team</developer_name>
 </component>]]>
 	</programlisting>
+
+	<para>
+		For a component of type <literal>generic</literal>, the minimal amount of required tags is: <xref linkend="tag-id-generic"/>, <xref linkend="tag-name"/>,
+		<xref linkend="tag-summary"/>, <xref linkend="tag-metadata_license"/>.
+	</para>
 
 	</section>
 </section>
