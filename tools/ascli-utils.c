@@ -53,6 +53,7 @@ ascli_format_long_output (const gchar *str)
 		if ((do_linebreak) && (str[i] == ' ')) {
 			do_linebreak = FALSE;
 			g_string_append (res, "\n  ");
+			j = 0;
 			continue;
 		}
 

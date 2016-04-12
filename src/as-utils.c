@@ -66,6 +66,9 @@ as_description_markup_convert_simple (const gchar *markup)
 	gchar *formatted = NULL;
 	GString *str = NULL;
 
+	if (markup == NULL)
+		return NULL;
+
 	/* is this actually markup */
 	if (g_strrstr (markup, "<") == NULL) {
 		formatted = g_strdup (markup);
