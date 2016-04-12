@@ -131,6 +131,47 @@ as_data_pool_class_init (AsDataPoolClass *klass)
 }
 
 /**
+ * as_data_pool_merge_components:
+ *
+ * Merge selected data from two components.
+ */
+static void
+as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsComponent *dest_cpt)
+{
+	guint i;
+	gchar **cats;
+
+	/* FIXME: We only do this for GNOME Software compatibility. In future, we need better rules on what to merge how, and
+	 * whether we want to merge stuff at all. */
+
+	cats = as_component_get_categories (src_cpt);
+	if (cats != NULL) {
+		g_autoptr(GHashTable) cat_table = NULL;
+		gchar **new_cats = NULL;
+
+		cat_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+		for (i = 0; cats[i] != NULL; i++) {
+			g_hash_table_add (cat_table, g_strdup (cats[i]));
+		}
+		cats = as_component_get_categories (dest_cpt);
+		if (cats != NULL) {
+			for (i = 0; cats[i] != NULL; i++) {
+				g_hash_table_add (cat_table, g_strdup (cats[i]));
+			}
+		}
+
+		new_cats = (gchar**) g_hash_table_get_keys_as_array (cat_table, NULL);
+		as_component_set_categories (dest_cpt, new_cats);
+	}
+
+	if (as_component_get_pkgnames (src_cpt) != NULL)
+		as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
+
+	if (as_component_has_bundle (src_cpt))
+		as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));
+}
+
+/**
  * as_data_pool_add_new_component:
  *
  * Register a new component in the global AppStream metadata pool.
@@ -159,13 +200,44 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 						g_object_ref (cpt));
 			g_debug ("Replaced '%s' with data of higher priority.", cpt_id);
 		} else {
+			gboolean ecpt_has_name;
+			gboolean ncpt_has_name;
+
 			if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
 				GHashTable *bundles;
 				/* propagate bundle information to existing component */
 				bundles = as_component_get_bundles_table (cpt);
 				as_component_set_bundles_table (existing_cpt, bundles);
-			} else if (priority == as_component_get_priority (cpt)) {
+
+				return;
+			}
+
+			ecpt_has_name = as_component_get_name (existing_cpt) != NULL;
+			ncpt_has_name = as_component_get_name (cpt) != NULL;
+			if ((ecpt_has_name) && (!ncpt_has_name)) {
+				/* existing component is updated with data from the new one */
+				as_data_pool_merge_components (dpool, cpt, existing_cpt);
+				g_debug ("Merged stub data for component %s (<-, based on name)", cpt_id);
+				return;
+			}
+
+			if ((!ecpt_has_name) && (ncpt_has_name)) {
+				/* new component is updated with data from the existing component,
+				 * then it replaces the prior metadata */
+				as_data_pool_merge_components (dpool, existing_cpt, cpt);
+				g_hash_table_replace (priv->cpt_table,
+						g_strdup (cpt_id),
+						g_object_ref (cpt));
+				g_debug ("Merged stub data for component %s (->, based on name)", cpt_id);
+				return;
+			}
+
+			if (priority == as_component_get_priority (cpt)) {
 				g_debug ("Detected colliding ids: %s was already added with the same priority.", cpt_id);
+				return;
+			} else {
+				g_debug ("Detected colliding ids: %s was already added with a higher priority.", cpt_id);
+				return;
 			}
 		}
 	} else {

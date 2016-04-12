@@ -187,13 +187,13 @@ DatabaseWrite::rebuild (GList *cpt_list)
 		 * spelling corrections, but it allows setting the flag and will
 		 * raise a exception much later
 		 */
-		db.add_spelling("test");
-		db.remove_spelling("test");
+		db.add_spelling ("test");
+		db.remove_spelling ("test");
 
 		/* this enables the flag for it (we only reach this line if
 		 * the db supports spelling suggestions)
 		 */
-		term_generator.set_flags(Xapian::TermGenerator::FLAG_SPELLING);
+		term_generator.set_flags (Xapian::TermGenerator::FLAG_SPELLING);
 	} catch (const Xapian::UnimplementedError &error) {
 		// Ignore
 	}
