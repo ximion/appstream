@@ -10,11 +10,13 @@
 		<title>What is AppStream?</title>
 
 		<para>
-			AppStream is a cross-distro effort for building Software-Center applications and enhancing metadata provided by software components.
-			It provides specifications for meta-information which is shipped by upstream projects and can be consumed by other software. The meta-information
-			includes data which is interesting to display in software centers and is mainly useful for end-users, as well as descriptions about the public
-			interfaces a software component provides, which is mainly useful for developers, 3rd-party software installers and for automatically installing
-			missing components on a distribution, for example missing firmware.
+			AppStream is a cross-distro effort for ehnacing the metadata available about software components in the Linux and free-software ecosystem.
+			One of the project's goals is to make building software-center applications possible, and make interaction with the package sources of a
+			distribution smarter.
+			AppStream provides specifications for meta-information which is shipped by upstream projects and can be consumed by other software.
+			The meta-information includes data which is interesting to display in software centers and is mainly useful for end-users, as well as descriptions
+			about the public interfaces a software component provides, which is mainly useful for developers, 3rd-party software installers and for automatically
+			installing missing components on a distribution, for example missing firmware or mimetype-handlers.
 		</para>
 		<para>
 			Distributors provide metadata as well, which describes all components available in a software repository. That data is composed of the upstream-metainfo
