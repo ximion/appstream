@@ -57,7 +57,7 @@
 			<term>version</term>
 			<listitem>
 				<para>
-					This property declares the AppStream spec version this file is based on (currently 0.6). The property is required.
+					This property declares the AppStream spec version this file is based on (currently 0.9). The property is required.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -68,6 +68,16 @@
 				<para>
 					Defines the repository-id this AppStream XML file belongs to. This usually matches the filename without extension (see the explanation on how to pick a good filename above).
 					It is also used to associate the right cached icons with AppStream metadata. This property is required.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>architecture</term>
+			<listitem>
+				<para>
+					Defines the architecture this data belongs to. This information is useful to resolve AppStream-ID conflicts on multiarch systems,
+					which appear if the user has metadata for two architectures installed. This property is optional.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -503,23 +513,6 @@
     <p>This stable release fixes problems.</p>
   </description>
 </release>]]></programlisting>
-				</listitem>
-			</varlistentry>
-
-
-			<varlistentry id="tag-distro-architectures">
-				<term>&lt;architectures/&gt;</term>
-				<listitem>
-					<para>
-						If the <literal>architectures</literal> tag is present, the component is not available on all architectures the distribution supports.
-						Supported architectures for this component are specified as children using the <literal>arch</literal> tag.
-					</para>
-					<para>
-						For example, this marks a component to only be available on i686:
-					</para>
-					<programlisting language="XML"><![CDATA[<architectures>
-  <arch>i686</arch>
-</architectures>]]></programlisting>
 				</listitem>
 			</varlistentry>
 

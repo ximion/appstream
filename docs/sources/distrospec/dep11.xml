@@ -96,6 +96,17 @@
 			</varlistentry>
 
 			<varlistentry>
+			<term>Architecture</term>
+			<listitem>
+				<para>
+					Defines the architecture this data belongs to. This information is useful to resolve AppStream-ID conflicts on multiarch systems,
+					which appear if the user has metadata for two architectures installed.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
 			<term>Priority</term>
 			<listitem>
 				<para>
@@ -153,6 +164,18 @@
 				</para>
 				<para>See <xref linkend="tag-distro-component-id"/>.</para>
 				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-priority">
+			<term>ID</term>
+			<listitem>
+				<para>
+					The <literal>Priority</literal> field sets the priority this component's metadata should have over other meadata in the pool.
+					Data with a higher priority replaces data with a lower priority.
+				</para>
+				<para>See <xref linkend="spec-asxml-tags"/>.</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
 			</listitem>
 			</varlistentry>
 
