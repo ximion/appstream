@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-28 19:39+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-12 01:56+0200\n"
+"PO-Revision-Date: 2016-03-28 17:41+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
 "Language: pl\n"
@@ -76,6 +76,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Nie można skopiować „%s”: plik nie posiada rozszerzenia „.metainfo.xml” lub "
+"„.appdata.xml”."
 
 msgid "Categories"
 msgstr "Kategorie"
@@ -140,6 +142,10 @@ msgstr "Wgrane oprogramowanie sprzętowe"
 
 msgid "Fonts"
 msgstr "Czcionki"
+
+#, fuzzy, c-format
+msgid "Found %i components in legacy paths."
+msgstr "Odnaleziono składniki: %i."
 
 #, c-format
 msgid "Found %i components."

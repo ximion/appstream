@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2015
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016
 # Matthias K. <matthias@tenstral.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-28 19:39+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-12 01:56+0200\n"
+"PO-Revision-Date: 2016-03-28 18:34+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/freedesktop/appstream/"
 "language/de/)\n"
 "Language: de\n"
@@ -29,7 +29,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "AppStream-CLI-Werkzeugversion: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream-Status:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
@@ -58,6 +58,9 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"AppStream-Softwarekomponenten-Zwischenspeicher wurde nicht gefunden. Dies "
+"könnte bedeuten, dass AppStream falsch eingerichtet wurde oder Ihre "
+"Distribution keine AppStream-Metadaten bereitstellt."
 
 msgid "Binaries"
 msgstr "Binärdateien"
@@ -67,13 +70,15 @@ msgstr "Bündel"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Zwischenspeicheradresse '%s' ist nicht schreibbar."
 
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Kann '%s' nicht kopieren: Datei hat keine '.metainfo.xml'- oder '.appdata."
+"xml'-Erweiterung."
 
 msgid "Categories"
 msgstr "Kategorien"
@@ -104,9 +109,10 @@ msgstr "Entwickler"
 
 msgid "Display various information about installed AppStream metadata."
 msgstr ""
+"Verschiedene Informationen über installierte AppStream-Metadaten anzeigen."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Distributions-Metadaten:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Xapian-Zwischenspeicher beim Ausführen der Anfrage nicht verwenden"
@@ -115,19 +121,19 @@ msgid "Don't show colored output"
 msgstr "Keine farbige Ausgabe anzeigen"
 
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "Roh-XML-Metadaten für eine zur Kennung passende Komponente ausgeben."
 
 msgid "Empty."
-msgstr ""
+msgstr "Leer."
 
 msgid "Enforce a cache refresh"
 msgstr "Aktualisierung des Zwischenspeichers erzwingen"
 
 msgid "Extends"
-msgstr ""
+msgstr "Erweitert"
 
 msgid "Extensions"
-msgstr ""
+msgstr "Erweiterungen"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -139,15 +145,19 @@ msgstr "Aufgespielte Firmware"
 msgid "Fonts"
 msgstr "Schriftarten"
 
+#, fuzzy, c-format
+msgid "Found %i components in legacy paths."
+msgstr "%i Komponenten gefunden."
+
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "%i Komponenten gefunden."
 
 msgid "Get components which provide the given item."
-msgstr ""
+msgstr "Komponenten ermitteln, die das angegebene Objekt bereitstellen."
 
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Informationen zu einer Komponente anhand deren ID ermitteln."
 
 msgid "Homepage"
 msgstr "Homepage"
@@ -156,16 +166,16 @@ msgid "Icon"
 msgstr "Symbol"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Symbolsätze"
 
 msgid "Identifier"
 msgstr "Bezeichner"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Metadaten im richtigen Ort installieren."
 
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "Software mit passender Komponentenkennung installieren."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
@@ -204,7 +214,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "Keine Komponente gefunden, die »%s;%s« bereitstellt."
 
 msgid "No icons."
-msgstr ""
+msgstr "Keine Symbole"
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -240,10 +250,10 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component information cache."
-msgstr ""
+msgstr "Informations-Zwischenspeicher der Komponente neu erstellen."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Software mit passender Komponentenkennung entfernen."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -258,10 +268,11 @@ msgid "Sample Screenshot URL"
 msgstr "Adresse des Beispiel-Bildschirmfotos"
 
 msgid "Search the component database."
-msgstr ""
+msgstr "Komponentendatenbank durchsuchen."
 
 msgid "Select a value for the provides-item which needs to be found."
 msgstr ""
+"Einen Wert für den Stellt-bereit-Eintrag wählen, der gefunden werden soll."
 
 msgid "Show extra debugging information"
 msgstr "Zusätzliche Fehlersuchinformationen anzeigen"
@@ -277,17 +288,18 @@ msgid "Summary"
 msgstr "Zusammenfassung"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Zusammenfassung:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "Der Systemmetadaten-Zwischenspeicher ist nicht vorhanden."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "Der Systemmetadaten-Zwischenspeicher ist vorhanden."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
 msgstr ""
+"Es gab einen Fehler beim Versuch zusätzliche Informationen zu finden: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Es wurde versucht, eine geschlossene Datenbank abzufragen."
@@ -317,15 +329,18 @@ msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
+"'%s' kann nicht geschrieben werden, kann metainfo-Datei nicht installieren."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "Vorgeschaltete Metadaten:"
 
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "AppStream-XML-Dateien für Probleme validieren."
 
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
+"Einen installierten Dateibaum einer Anwendung auf gültige Metadaten "
+"validieren."
 
 msgid "Validation failed."
 msgstr "Validierung fehlgeschlagen."
@@ -335,7 +350,7 @@ msgstr "Validierung war erfolgreich."
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Wir haben Informationen zu %i Softwarekomponenten."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -343,6 +358,7 @@ msgstr "XDG-Menü-XML-Datei »%s« ist beschädigt."
 
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Sie brauchen vielleicht Administratorrechte, um diese Aktion auszuführen."
 
 msgid "You need to specify a command."
 msgstr "Sie müssen einen Befehl angeben."
@@ -354,7 +370,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Sie müssen eine Datei zum Überprüfen angeben."
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Sie müssen eine Metadatendatei angeben."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr ""

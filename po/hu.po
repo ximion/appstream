@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-28 19:39+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-12 01:56+0200\n"
+"PO-Revision-Date: 2016-04-01 07:13+0000\n"
+"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
 "Language: hu\n"
@@ -76,6 +76,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"„%s” nem másolható. A fájl nem rendelkezik „.metainfo.xml” vagy „.appdata."
+"xml” kiterjesztéssel."
 
 msgid "Categories"
 msgstr "Kategóriák"
@@ -141,6 +143,10 @@ msgstr "Flashelt firmware"
 
 msgid "Fonts"
 msgstr "Betűkészletek"
+
+#, fuzzy, c-format
+msgid "Found %i components in legacy paths."
+msgstr "%i komponens található"
 
 #, c-format
 msgid "Found %i components."

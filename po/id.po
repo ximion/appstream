@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Andika Triwidada <andika@gmail.com>, 2014-2015
+# Andika Triwidada <andika@gmail.com>, 2014-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-28 19:39+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-12 01:56+0200\n"
+"PO-Revision-Date: 2016-04-10 10:26+0000\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/freedesktop/appstream/"
 "language/id/)\n"
 "Language: id\n"
@@ -24,10 +24,10 @@ msgstr "Sebuah tipe buir-penyedia (mis. lib, bin, python3, ...)"
 
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr ""
+msgstr "Alat CLI AppStream versi: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Status AppStream:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "Pemutakhiran singgahan AppStream berakhir dengan sukses."
@@ -45,11 +45,11 @@ msgid "AppStream cache update failed."
 msgstr "Pemutakhiran singgahan AppStream gagal."
 
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Pemutakhiran singgahan AppStream tidak perlu."
 
 #. TRANSLATORS: This is the header to the --help menu
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Antar muka baris perintah AppStream"
 
 msgid ""
 "AppStream software component cache was not found. This could mean AppStream "
@@ -58,20 +58,22 @@ msgid ""
 msgstr ""
 
 msgid "Binaries"
-msgstr ""
+msgstr "Biner"
 
 msgid "Bundle"
-msgstr ""
+msgstr "Bundel"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Lokasi singgahan '%s' tidak dapat ditulisi."
 
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Tidak bisa menyalin '%s': Berkas tidak memiliki ekstensi '.metainfo.xml' "
+"atau '.appdata.xml'."
 
 msgid "Categories"
 msgstr "Kategori"
@@ -82,16 +84,16 @@ msgstr "Perintah '%s' tak dikenal."
 
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Komponen '%s' tidak punya kandidat instalasi."
 
 msgid "Compulsory for"
 msgstr "Wajib bagi"
 
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Layanan Sesi DBus"
 
 msgid "DBus System Services"
-msgstr ""
+msgstr "Layanan Sistem DBus"
 
 msgid "Description"
 msgstr "Deskripsi"
@@ -102,21 +104,22 @@ msgstr "Pengembang"
 
 msgid "Display various information about installed AppStream metadata."
 msgstr ""
+"Tampilkan berbagai informasi tentang metadata AppStream yang terpasang."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Metadata distribusi:"
 
 msgid "Do not use the Xapian cache when performing the request"
-msgstr ""
+msgstr "Jangan gunakan singgahan Xapian ketika melaksanakan permintaan"
 
 msgid "Don't show colored output"
 msgstr "Jangan tampilkan keluaran berwarna"
 
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "Curahkan metadata XML mentah bagi suatu komponen yang cocok ID-nya."
 
 msgid "Empty."
-msgstr ""
+msgstr "Kosong."
 
 msgid "Enforce a cache refresh"
 msgstr "Paksakan penyegaran singgahan"
@@ -125,27 +128,31 @@ msgid "Extends"
 msgstr ""
 
 msgid "Extensions"
-msgstr ""
+msgstr "Ekstensi"
 
 #, c-format
 msgid "File %s not found or permission denied!"
 msgstr "Berkas %s tak ditemukan atau tak diizinkan!"
 
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Firmware yang di-flash"
 
 msgid "Fonts"
-msgstr ""
+msgstr "Fonta"
+
+#, fuzzy, c-format
+msgid "Found %i components in legacy paths."
+msgstr "Ditemukan %i komponen."
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Ditemukan %i komponen."
 
 msgid "Get components which provide the given item."
-msgstr ""
+msgstr "Dapatkan komponen yang menyediakan butir yang diberikan."
 
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 
 msgid "Homepage"
 msgstr "Beranda"
@@ -154,16 +161,16 @@ msgid "Icon"
 msgstr "Ikon"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Set ikon"
 
 msgid "Identifier"
 msgstr "Identifier"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Pasang suatu berkas metadata ke lokasi yang benar."
 
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "Pasang perangkat lunak yang cocok dengan id komponen."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""

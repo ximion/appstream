@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-28 19:39+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-12 01:56+0200\n"
+"PO-Revision-Date: 2016-04-07 09:42+0000\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
 "language/ko/)\n"
 "Language: ko\n"
@@ -29,7 +29,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 도구 버전: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream 상태:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
@@ -76,6 +76,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"'%s'을(를) 복사할 수 없음: '.metainfo.xml' 또는 '.appdata.xml' 파일 확장자가 "
+"아닙니다."
 
 msgid "Categories"
 msgstr "분류"
@@ -105,10 +107,10 @@ msgid "Developer"
 msgstr "개발자"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "설치한 AppStream 메타데이터의 다양한 정보를 나타냅니다."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "배포판 메타데이터:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "요청을 수행할 때 Xapian 캐시 활용 안 함"
@@ -120,7 +122,7 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
 
 msgid "Empty."
-msgstr ""
+msgstr "비어 있음."
 
 msgid "Enforce a cache refresh"
 msgstr "캐시 강제로 새로 고침"
@@ -141,9 +143,13 @@ msgstr "펌웨어를 플래싱했습니다"
 msgid "Fonts"
 msgstr "글꼴"
 
+#, fuzzy, c-format
+msgid "Found %i components in legacy paths."
+msgstr "구성 요소 %i개를 찾았습니다."
+
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "구성 요소 %i개를 찾았습니다."
 
 msgid "Get components which provide the given item."
 msgstr "주어진 항목을 제공하는 구성요소를 가져옵니다."
@@ -158,13 +164,13 @@ msgid "Icon"
 msgstr "아이콘"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "아이콘셋"
 
 msgid "Identifier"
 msgstr "식별자"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "올바른 위치에 메타데이터 파일을 설치하십시오."
 
 msgid "Install software matching the component-id."
 msgstr "구성요소 ID와 일치하는 프로그램을 설치합니다."
@@ -204,7 +210,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "'%s;%s' 을(를) 제공하는 구성요소가 없습니다."
 
 msgid "No icons."
-msgstr ""
+msgstr "아이콘 없음."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -242,7 +248,7 @@ msgid "Rebuild the component information cache."
 msgstr "구성 요소 정보 캐시를 다시 만듭니다."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "component-id에 일치하는 프로그램을 제거합니다."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -274,17 +280,17 @@ msgid "Summary"
 msgstr "요약"
 
 msgid "Summary:"
-msgstr ""
+msgstr "요약:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "시스템 메타데이터 캐시가 없습니다."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "시스템 메타데이터 캐시가 있습니다."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "추가 정보를 찾는 도중 오류가 발생했습니다: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "닫아놓은 데이터베이스에 대해 요청 수행을 시도했습니다."
@@ -311,10 +317,10 @@ msgstr "꾸러미 관리자를 초기화 할 수 없습니다: %s"
 
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "'%s'에 기록할 수 없어 메터 정보 파일을 설치할 수 없습니다."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "업스트림 메타데이터:"
 
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML 파일의 문제를 검증합니다."
@@ -331,7 +337,7 @@ msgstr "검증을 끝냈습니다."
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "소프트웨어 구성 요소 %i개 정보가 있습니다."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -350,7 +356,7 @@ msgid "You need to specify a file to validate!"
 msgstr "검증할 파일을 지정해야 합니다!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "메타데이터 파일을 지정해야합니다."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "검증을 시작하려면 루트 디렉터리를 지정해야합니다!"

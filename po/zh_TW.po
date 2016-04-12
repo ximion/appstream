@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
+# Hotellook, 2014
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-28 19:39+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-12 01:56+0200\n"
+"PO-Revision-Date: 2016-03-29 14:14+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -70,7 +72,7 @@ msgstr "無法寫入「%s」快取位置。"
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
-msgstr ""
+msgstr "無法複製「%s」：檔案沒有「.metainfo.xml」或「.appdata.xml」擴展名。"
 
 msgid "Categories"
 msgstr "類別"
@@ -135,6 +137,10 @@ msgstr "快閃記憶韌體"
 
 msgid "Fonts"
 msgstr "字型"
+
+#, fuzzy, c-format
+msgid "Found %i components in legacy paths."
+msgstr "找到 %i 個組件。"
 
 #, c-format
 msgid "Found %i components."

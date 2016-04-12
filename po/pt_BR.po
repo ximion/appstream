@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-03-28 19:39+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-12 01:56+0200\n"
+"PO-Revision-Date: 2016-04-05 10:32+0000\n"
+"Last-Translator: Rafael Fontenelle <rffontenelle@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
 "appstream/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -75,6 +75,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Não foi possível copiar \"%s\": O arquivo não possui uma extensão \"."
+"metainfo.xml\" ou \".appdata.xml\"."
 
 msgid "Categories"
 msgstr "Categorias"
@@ -140,6 +142,10 @@ msgstr "Firmware descarregado"
 
 msgid "Fonts"
 msgstr "Fontes"
+
+#, fuzzy, c-format
+msgid "Found %i components in legacy paths."
+msgstr "Encontrados %i componentes."
 
 #, c-format
 msgid "Found %i components."
@@ -243,7 +249,7 @@ msgid "Rebuild the component information cache."
 msgstr "Recompilar o cache de informação do componente."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Remove software correspondendo ao component-id."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -258,10 +264,10 @@ msgid "Sample Screenshot URL"
 msgstr "URL de amostra de captura de tela"
 
 msgid "Search the component database."
-msgstr ""
+msgstr "Pesquisa na base de dados de componente."
 
 msgid "Select a value for the provides-item which needs to be found."
-msgstr ""
+msgstr "Seleciona um valor para o provides-item que precisa ser encontrado."
 
 msgid "Show extra debugging information"
 msgstr "Mostrar informação extra de depuração"
@@ -277,17 +283,17 @@ msgid "Summary"
 msgstr "Resumo"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Resumo:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "O cache de metadados de sistema não existe."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "O cache de metadados de sistema existe."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "Ocorreu um erro ao tentar localizar informações adicionais: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Tentada consulta a banco de dados fechado."
@@ -316,15 +322,19 @@ msgstr "Não foi possível invocar o gerenciador de pacotes: %s"
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
+"Não foi possível escrever em \"%s\", não foi possível instalar arquivo de "
+"metainfo."
 
 msgid "Upstream metadata:"
-msgstr ""
+msgstr "Metadados do upstream:"
 
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "Valida os arquivos XML de AppStream por problemas."
 
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
+"Valida uma árvore de arquivo instalado de um aplicativo para metadados "
+"válidos."
 
 msgid "Validation failed."
 msgstr "Validação falhou."
@@ -334,7 +344,7 @@ msgstr "Validação bem sucedida."
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Nós temos informação sobre %i componentes de software."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -354,7 +364,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Você precisa especificar um arquivo para validar!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Você precisa especificar um arquivo de metadados."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Você precisa especificar um diretório raiz para iniciar validação!"
