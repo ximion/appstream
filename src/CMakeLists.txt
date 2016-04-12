@@ -40,6 +40,7 @@ set(ASLIB_XAP_SOURCES ${AS_PROTO_SRCS} ${AS_PROTO_HDRS}
 		xapian/database-cwrap.hpp
 		xapian/database-cwrap.cpp
 )
+set_source_files_properties(${ASLIB_XAP_SOURCES} PROPERTIES COMPILE_FLAGS "-fvisibility=hidden")
 
 set(APPSTREAM_LIB_SRC
 		as-utils.c
