@@ -47,6 +47,7 @@ typedef struct
 	GHashTable *cpt_table;
 	gchar *scr_base_url;
 	gchar *locale;
+	gchar *current_arch;
 
 	GPtrArray *mdata_dirs;
 
@@ -100,6 +101,9 @@ as_data_pool_init (AsDataPool *dpool)
 
 	/* set default icon search locations */
 	priv->icon_paths = as_get_icon_repository_paths ();
+
+	/* set the current architecture */
+	priv->current_arch = as_get_current_arch ();
 }
 
 /**
@@ -116,6 +120,8 @@ as_data_pool_finalize (GObject *object)
 
 	g_ptr_array_unref (priv->mdata_dirs);
 	g_strfreev (priv->icon_paths);
+
+	g_free (priv->current_arch);
 
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
 }
@@ -181,6 +187,7 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 {
 	const gchar *cpt_id;
 	AsComponent *existing_cpt;
+	int priority;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 	g_return_if_fail (cpt != NULL);
 
@@ -191,59 +198,80 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 	 * the component's icon paths */
 	as_component_complete (cpt, priv->scr_base_url, priv->icon_paths);
 
-	if (existing_cpt) {
-		int priority;
-		priority = as_component_get_priority (existing_cpt);
-		if (priority < as_component_get_priority (cpt)) {
-			g_hash_table_replace (priv->cpt_table,
-						g_strdup (cpt_id),
-						g_object_ref (cpt));
-			g_debug ("Replaced '%s' with data of higher priority.", cpt_id);
-		} else {
-			gboolean ecpt_has_name;
-			gboolean ncpt_has_name;
-
-			if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
-				GHashTable *bundles;
-				/* propagate bundle information to existing component */
-				bundles = as_component_get_bundles_table (cpt);
-				as_component_set_bundles_table (existing_cpt, bundles);
-
-				return;
-			}
-
-			ecpt_has_name = as_component_get_name (existing_cpt) != NULL;
-			ncpt_has_name = as_component_get_name (cpt) != NULL;
-			if ((ecpt_has_name) && (!ncpt_has_name)) {
-				/* existing component is updated with data from the new one */
-				as_data_pool_merge_components (dpool, cpt, existing_cpt);
-				g_debug ("Merged stub data for component %s (<-, based on name)", cpt_id);
-				return;
-			}
-
-			if ((!ecpt_has_name) && (ncpt_has_name)) {
-				/* new component is updated with data from the existing component,
-				 * then it replaces the prior metadata */
-				as_data_pool_merge_components (dpool, existing_cpt, cpt);
-				g_hash_table_replace (priv->cpt_table,
-						g_strdup (cpt_id),
-						g_object_ref (cpt));
-				g_debug ("Merged stub data for component %s (->, based on name)", cpt_id);
-				return;
-			}
-
-			if (priority == as_component_get_priority (cpt)) {
-				g_debug ("Detected colliding ids: %s was already added with the same priority.", cpt_id);
-				return;
-			} else {
-				g_debug ("Detected colliding ids: %s was already added with a higher priority.", cpt_id);
-				return;
-			}
-		}
-	} else {
+	if (existing_cpt == NULL) {
 		g_hash_table_insert (priv->cpt_table,
 					g_strdup (cpt_id),
 					g_object_ref (cpt));
+		return;
+	}
+
+	/* if we are here, we have duplicates */
+	priority = as_component_get_priority (existing_cpt);
+	if (priority < as_component_get_priority (cpt)) {
+		g_hash_table_replace (priv->cpt_table,
+					g_strdup (cpt_id),
+					g_object_ref (cpt));
+		g_debug ("Replaced '%s' with data of higher priority.", cpt_id);
+	} else {
+		gboolean ecpt_has_name;
+		gboolean ncpt_has_name;
+
+		if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
+			GHashTable *bundles;
+			/* propagate bundle information to existing component */
+			bundles = as_component_get_bundles_table (cpt);
+			as_component_set_bundles_table (existing_cpt, bundles);
+			return;
+		}
+
+		ecpt_has_name = as_component_get_name (existing_cpt) != NULL;
+		ncpt_has_name = as_component_get_name (cpt) != NULL;
+		if ((ecpt_has_name) && (!ncpt_has_name)) {
+			/* existing component is updated with data from the new one */
+			as_data_pool_merge_components (dpool, cpt, existing_cpt);
+			g_debug ("Merged stub data for component %s (<-, based on name)", cpt_id);
+			return;
+		}
+
+		if ((!ecpt_has_name) && (ncpt_has_name)) {
+			/* new component is updated with data from the existing component,
+			 * then it replaces the prior metadata */
+			as_data_pool_merge_components (dpool, existing_cpt, cpt);
+			g_hash_table_replace (priv->cpt_table,
+					g_strdup (cpt_id),
+					g_object_ref (cpt));
+			g_debug ("Merged stub data for component %s (->, based on name)", cpt_id);
+			return;
+		}
+
+		if (as_component_get_architecture (cpt) != NULL) {
+			if (as_arch_compatible (as_component_get_architecture (cpt), priv->current_arch)) {
+				const gchar *earch;
+				/* this component is compatible with our current architecture */
+
+				earch = as_component_get_architecture (existing_cpt);
+				if (earch != NULL) {
+					if (as_arch_compatible (earch, priv->current_arch)) {
+						g_hash_table_replace (priv->cpt_table,
+									g_strdup (cpt_id),
+									g_object_ref (cpt));
+						g_debug ("Preferred component for native architecture for %s (was %s)", cpt_id, earch);
+						return;
+					} else {
+						g_debug ("Ignored additional entry for '%s' on architecture %s.", cpt_id, earch);
+						return;
+					}
+				}
+			}
+		}
+
+		if (priority == as_component_get_priority (cpt)) {
+			g_debug ("Detected colliding ids: %s was already added with the same priority.", cpt_id);
+			return;
+		} else {
+			g_debug ("Detected colliding ids: %s was already added with a higher priority.", cpt_id);
+			return;
+		}
 	}
 }
 

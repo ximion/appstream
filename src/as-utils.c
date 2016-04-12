@@ -33,6 +33,7 @@
 #include <libxml/parser.h>
 #include <time.h>
 #include <utime.h>
+#include <sys/utsname.h>
 #include <sys/stat.h>
 #include <errno.h>
 
@@ -644,4 +645,52 @@ as_locale_strip_encoding (gchar *locale)
 	if (tmp != NULL)
 		*tmp = '\0';
 	return locale;
+}
+
+/**
+ * as_get_current_arch:
+ *
+ * Get the current architecture as vendor strings
+ * (e.g. "amd64" instead of "x86_64").
+ *
+ * Returns: (transfer full): The current OS architecture as string
+ */
+gchar*
+as_get_current_arch (void)
+{
+	gchar *arch;
+	struct utsname uts;
+
+	uname (&uts);
+
+	if (g_strcmp0 (uts.machine, "x86_64") == 0) {
+		arch = g_strdup ("amd64");
+	} else if (g_pattern_match_simple ("i?86", uts.machine)) {
+		arch = g_strdup ("ia32");
+	} else if (g_strcmp0 (uts.machine, "aarch64")) {
+		arch = g_strdup ("arm64");
+	} else {
+		arch = g_strdup (uts.machine);
+	}
+
+	return arch;
+}
+
+/**
+ * as_arch_compatible:
+ * @arch1: Architecture 1
+ * @arch2: Architecture 2
+ *
+ * Compares two architectures and returns %TRUE if they are compatible.
+ */
+gboolean
+as_arch_compatible (const gchar *arch1, const gchar *arch2)
+{
+	if (g_strcmp0 (arch1, arch2) == 0)
+		return TRUE;
+	if (g_strcmp0 (arch1, "all") == 0)
+		return TRUE;
+	if (g_strcmp0 (arch2, "all") == 0)
+		return TRUE;
+	return FALSE;
 }

@@ -56,6 +56,10 @@ void			as_reset_umask (void);
 gboolean		as_is_cruft_locale (const gchar *locale);
 gchar			*as_locale_strip_encoding (gchar *locale);
 
+gchar			*as_get_current_arch (void);
+gboolean		as_arch_compatible (const gchar *arch1,
+					    const gchar *arch2);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_PRIVATE_H */
