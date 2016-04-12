@@ -37,6 +37,7 @@ typedef struct
 	gchar *origin;
 	gchar *media_baseurl;
 
+	gchar *arch;
 	gint default_priority;
 } AsYAMLDataPrivate;
 
@@ -80,6 +81,7 @@ as_yamldata_finalize (GObject *object)
 	g_free (priv->locale_short);
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
+	g_free (priv->arch);
 
 	G_OBJECT_CLASS (as_yamldata_parent_class)->finalize (object);
 }
@@ -91,7 +93,7 @@ as_yamldata_finalize (GObject *object)
  * Initialize the YAML handler.
  */
 void
-as_yamldata_initialize (AsYAMLData *ydt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, gint priority)
+as_yamldata_initialize (AsYAMLData *ydt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, const gchar *arch, gint priority)
 {
 	g_auto(GStrv) strv = NULL;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
@@ -108,6 +110,9 @@ as_yamldata_initialize (AsYAMLData *ydt, const gchar *locale, const gchar *origi
 
 	g_free (priv->media_baseurl);
 	priv->media_baseurl = g_strdup (media_baseurl);
+
+	g_free (priv->arch);
+	priv->origin = g_strdup (arch);
 
 	priv->default_priority = priority;
 }
@@ -738,6 +743,9 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 
 	/* set component origin */
 	as_component_set_origin (cpt, priv->origin);
+
+	/* set component architecture */
+	as_component_set_architecture (cpt, priv->arch);
 
 	/* add category information to component */
 	strv = as_ptr_array_to_strv (categories);
@@ -1521,15 +1529,16 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 }
 
 /**
- * as_yaml_write_header:
+ * as_yamldata_write_header:
  *
  * Emit a DEP-11 header for the new document.
  */
 static void
-as_yaml_write_header (yaml_emitter_t *emitter, const gchar *origin, const gchar *media_baseurl)
+as_yamldata_write_header (AsYAMLData *ydt, yaml_emitter_t *emitter)
 {
 	gint res;
 	yaml_event_t event;
+	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
 	res = yaml_emitter_emit (emitter, &event);
@@ -1539,9 +1548,13 @@ as_yaml_write_header (yaml_emitter_t *emitter, const gchar *origin, const gchar 
 
 	as_yaml_emit_entry (emitter, "File", "DEP-11");
 	as_yaml_emit_entry (emitter, "Version", "0.8");
-	as_yaml_emit_entry (emitter, "Origin", origin);
-	if (media_baseurl != NULL)
-		as_yaml_emit_entry (emitter, "MediaBaseUrl", media_baseurl);
+	as_yaml_emit_entry (emitter, "Origin", priv->origin);
+	if (priv->media_baseurl != NULL)
+		as_yaml_emit_entry (emitter, "MediaBaseUrl", priv->media_baseurl);
+	if (priv->arch != NULL)
+		as_yaml_emit_entry (emitter, "Architecture", priv->arch);
+	if (priv->default_priority != 0)
+		as_yaml_emit_entry (emitter, "Priority", priv->arch);
 
 	as_yaml_mapping_end (emitter);
 
@@ -1576,7 +1589,6 @@ as_yamldata_serialize_to_distro (AsYAMLData *ydt, GPtrArray *cpts, gboolean writ
 	GString *out_data;
 	gboolean res = FALSE;
 	guint i;
-	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	if (cpts->len == 0)
 		return NULL;
@@ -1597,7 +1609,7 @@ as_yamldata_serialize_to_distro (AsYAMLData *ydt, GPtrArray *cpts, gboolean writ
 
 	/* write header */
 	if (write_header)
-		as_yaml_write_header (&emitter, priv->origin, priv->media_baseurl);
+		as_yamldata_write_header (ydt, &emitter);
 
 	/* write components as YAML documents */
 	for (i = 0; i < cpts->len; i++) {
@@ -1665,6 +1677,9 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 	g_free (priv->origin);
 	priv->origin = NULL;
 
+	g_free (priv->arch);
+	priv->arch = NULL;
+
 	g_free (priv->media_baseurl);
 	priv->media_baseurl = NULL;
 
@@ -1731,6 +1746,10 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 					} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
 						if ((value != NULL) && (priv->media_baseurl == NULL)) {
 							priv->media_baseurl = g_strdup (value);
+						}
+					} else if (g_strcmp0 (key, "Architecture") == 0) {
+						if ((value != NULL) && (priv->arch == NULL)) {
+							priv->arch = g_strdup (value);
 						}
 					}
 				}

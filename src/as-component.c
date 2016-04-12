@@ -80,6 +80,7 @@ typedef struct
 	GPtrArray		*icons; /* of AsIcon elements */
 	GHashTable		*icons_sizetab; /* of utf8:object (object owned by priv->icons array) */
 
+	gchar			*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
 } AsComponentPrivate;
 
@@ -235,6 +236,7 @@ as_component_finalize (GObject* object)
 	g_free (priv->project_license);
 	g_free (priv->project_group);
 	g_free (priv->active_locale);
+	g_free (priv->arch);
 
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
@@ -761,11 +763,37 @@ as_component_get_origin (AsComponent *cpt)
  * @origin: the origin.
  */
 void
-as_component_set_origin (AsComponent *cpt, const gchar* origin)
+as_component_set_origin (AsComponent *cpt, const gchar *origin)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_free (priv->origin);
 	priv->origin = g_strdup (origin);
+}
+
+/**
+ * as_component_get_architecture:
+ * @cpt: a #AsComponent instance.
+ *
+ * The architecture of the software component this data was generated from.
+ */
+const gchar*
+as_component_get_architecture (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->arch;
+}
+
+/**
+ * as_component_set_architecture:
+ * @cpt: a #AsComponent instance.
+ * @arch: the architecture string.
+ */
+void
+as_component_set_architecture (AsComponent *cpt, const gchar *arch)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_free (priv->arch);
+	priv->arch = g_strdup (arch);
 }
 
 /**

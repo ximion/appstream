@@ -138,6 +138,10 @@ void			as_metadata_set_parser_mode (AsMetadata *metad,
 							AsParserMode mode);
 AsParserMode		as_metadata_get_parser_mode (AsMetadata *metad);
 
+const gchar		*as_metadata_get_architecture (AsMetadata *metad);
+void			as_metadata_set_architecture (AsMetadata *metad,
+							const gchar *arch);
+
 G_END_DECLS
 
 #endif /* __AS_METADATA_H */

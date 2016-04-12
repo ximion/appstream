@@ -49,6 +49,8 @@ typedef struct
 	gchar *locale_short;
 	gchar *origin;
 	gchar *media_baseurl;
+
+	gchar *arch;
 	gint default_priority;
 
 	AsParserMode mode;
@@ -84,6 +86,7 @@ as_xmldata_finalize (GObject *object)
 	g_free (priv->locale_short);
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
+	g_free (priv->arch);
 
 	G_OBJECT_CLASS (as_xmldata_parent_class)->finalize (object);
 }
@@ -95,7 +98,7 @@ as_xmldata_finalize (GObject *object)
  * Initialize the XML handler.
  */
 void
-as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, gint priority)
+as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, const gchar *arch, gint priority)
 {
 	g_auto(GStrv) strv = NULL;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
@@ -112,6 +115,9 @@ as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin,
 
 	g_free (priv->media_baseurl);
 	priv->media_baseurl = g_strdup (media_baseurl);
+
+	g_free (priv->arch);
+	priv->arch = g_strdup (arch);
 
 	priv->default_priority = priority;
 }
@@ -911,6 +917,9 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	/* set the origin of this component */
 	as_component_set_origin (cpt, priv->origin);
 
+	/* set the architecture of this component */
+	as_component_set_architecture (cpt, priv->arch);
+
 	/* add package name information to component */
 	strv = as_ptr_array_to_strv (pkgnames);
 	as_component_set_pkgnames (cpt, strv);
@@ -932,7 +941,6 @@ as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node
 {
 	xmlNode* iter;
 	GError *tmp_error = NULL;
-	gchar *media_baseurl;
 	gchar *priority_str;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
@@ -941,9 +949,12 @@ as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node
 	priv->origin = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
 
 	/* set baseurl for the media files */
-	media_baseurl = (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
-	priv->media_baseurl = media_baseurl;
-	g_free (media_baseurl);
+	g_free (priv->media_baseurl);
+	priv->media_baseurl =  (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
+
+	/* set architecture for the components */
+	g_free (priv->arch);
+	priv->arch =  (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
 
 	/* distro metadata allows setting a priority for components */
 	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
@@ -1679,6 +1690,8 @@ as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.8");
 	if (priv->origin != NULL)
 		xmlNewProp (root, (xmlChar*) "origin", (xmlChar*) priv->origin);
+	if (priv->arch != NULL)
+		xmlNewProp (root, (xmlChar*) "architecture", (xmlChar*) priv->arch);
 
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt;

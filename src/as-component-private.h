@@ -56,6 +56,10 @@ void			as_component_add_provided_item (AsComponent *cpt,
 void			as_component_set_categories_from_str (AsComponent *cpt,
 							const gchar* categories_str);
 
+const gchar		*as_component_get_architecture (AsComponent *cpt);
+void			 as_component_set_architecture (AsComponent *cpt,
+							const gchar *arch);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENT_PRIVATE_H */

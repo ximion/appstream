@@ -50,6 +50,7 @@ typedef struct
 	AsParserMode mode;
 	gchar *origin;
 	gchar *media_baseurl;
+	gchar *arch;
 	gint default_priority;
 
 	gboolean update_existing;
@@ -97,10 +98,9 @@ as_metadata_finalize (GObject *object)
 
 	g_free (priv->locale);
 	g_ptr_array_unref (priv->cpts);
-	if (priv->origin != NULL)
-		g_free (priv->origin);
-	if (priv->media_baseurl != NULL)
-		g_free (priv->media_baseurl);
+	g_free (priv->origin);
+	g_free (priv->media_baseurl);
+	g_free (priv->arch);
 	if (priv->xdt != NULL)
 		g_object_unref (priv->xdt);
 	if (priv->ydt != NULL)
@@ -125,6 +125,7 @@ as_metadata_init_xml (AsMetadata *metad)
 				priv->locale,
 				priv->origin,
 				priv->media_baseurl,
+				priv->arch,
 				priv->default_priority);
 }
 
@@ -144,6 +145,7 @@ as_metadata_init_yaml (AsMetadata *metad)
 				priv->locale,
 				priv->origin,
 				priv->media_baseurl,
+				priv->arch,
 				priv->default_priority);
 }
 
@@ -160,12 +162,14 @@ as_metadata_reload_parsers (AsMetadata *metad)
 					priv->locale,
 					priv->origin,
 					priv->media_baseurl,
+					priv->arch,
 					priv->default_priority);
 	if (priv->ydt != NULL)
 		as_yamldata_initialize (priv->ydt,
 					priv->locale,
 					priv->origin,
 					priv->media_baseurl,
+					priv->arch,
 					priv->default_priority);
 }
 
@@ -676,6 +680,35 @@ as_metadata_get_origin (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->origin;
+}
+
+/**
+ * as_metadata_set_architecture:
+ * @metad: an #AsMetadata instance.
+ * @arch: an architecture string.
+ *
+ * Set the architecture the components in this metadata belong to.
+ **/
+void
+as_metadata_set_architecture (AsMetadata *metad, const gchar *arch)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_free (priv->arch);
+	priv->arch = g_strdup (arch);
+	as_metadata_reload_parsers (metad);
+}
+
+/**
+ * as_metadata_get_architecture:
+ * @metad: an #AsMetadata instance.
+ *
+ * Returns: The architecture of AppStream distro metadata
+ **/
+const gchar*
+as_metadata_get_architecture (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->arch;
 }
 
 /**

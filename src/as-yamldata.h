@@ -49,6 +49,7 @@ void			as_yamldata_initialize (AsYAMLData *ydt,
 						const gchar *locale,
 						const gchar *origin,
 						const gchar *media_baseurl,
+						const gchar *arch,
 						gint priority);
 
 GPtrArray		*as_yamldata_parse_distro_data (AsYAMLData *ydt,

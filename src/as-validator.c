@@ -433,7 +433,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 
 	/* validate the resulting AsComponent for sanity */
 	xdt = as_xmldata_new ();
-	as_xmldata_initialize (xdt, "C", NULL, NULL, 0);
+	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
 	as_xmldata_set_parser_mode (xdt, mode);
 
 	cpt = as_component_new ();

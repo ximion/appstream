@@ -50,6 +50,7 @@ void			as_xmldata_initialize (AsXMLData *xdt,
 						const gchar *locale,
 						const gchar *origin,
 						const gchar *media_baseurl,
+						const gchar *arch,
 						gint priority);
 
 AsComponent		*as_xmldata_parse_upstream_data (AsXMLData *xdt,
