@@ -648,6 +648,9 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 	/* set active locale for this component */
 	as_component_set_active_locale (cpt, priv->locale);
 
+	/* set component default priority */
+	as_component_set_priority (cpt, priv->default_priority);
+
 	for (node = root->children; node != NULL; node = node->next) {
 		gchar *key;
 		gchar *value;
@@ -669,6 +672,8 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 				as_component_set_kind (cpt, as_component_kind_from_string (value));
 		} else if (g_strcmp0 (key, "ID") == 0) {
 			as_component_set_id (cpt, value);
+		} else if (g_strcmp0 (key, "Priority") == 0) {
+			as_component_set_priority (cpt, g_ascii_strtoll (value, NULL, 10));
 		} else if (g_strcmp0 (key, "Package") == 0) {
 			gchar **strv;
 			strv = g_new0 (gchar*, 1 + 2);
@@ -733,9 +738,6 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 
 	/* set component origin */
 	as_component_set_origin (cpt, priv->origin);
-
-	/* set component priority */
-	as_component_set_priority (cpt, priv->default_priority);
 
 	/* add category information to component */
 	strv = as_ptr_array_to_strv (categories);

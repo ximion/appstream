@@ -722,6 +722,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	GPtrArray *compulsory_for_desktops;
 	GPtrArray *pkgnames;
 	gchar **strv;
+	g_autofree gchar *priority_str;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
@@ -731,7 +732,14 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	as_xmldata_set_component_type_from_node (node, cpt);
 
 	/* set the priority for this component */
-	as_component_set_priority (cpt, priv->default_priority);
+	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+	if (priority_str == NULL) {
+		as_component_set_priority (cpt, priv->default_priority);
+	} else {
+		as_component_set_priority (cpt,
+					   g_ascii_strtoll (priority_str, NULL, 10));
+
+	}
 
 	/* set active locale for this component */
 	as_component_set_active_locale (cpt, priv->locale);
