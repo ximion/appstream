@@ -460,10 +460,12 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 
 		} else if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
 			GList *l;
+			g_autoptr(GList) vlist = NULL;
 			xmlNode *iter2;
 
 			/* append listing node tag to every locale string */
-			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
+			vlist = g_hash_table_get_values (desc);
+			for (l = vlist; l != NULL; l = l->next) {
 				g_string_append_printf (l->data, "<%s>\n", node_name);
 			}
 
@@ -492,7 +494,7 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 			}
 
 			/* close listing tags */
-			for (l = g_hash_table_get_values (desc); l != NULL; l = l->next) {
+			for (l = vlist; l != NULL; l = l->next) {
 				g_string_append_printf (l->data, "</%s>\n", node_name);
 			}
 		}
