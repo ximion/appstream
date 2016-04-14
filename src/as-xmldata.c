@@ -54,12 +54,39 @@ typedef struct
 	gint default_priority;
 
 	AsParserMode mode;
+	gchar *last_error_msg;
 } AsXMLDataPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsXMLData, as_xmldata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_xmldata_get_instance_private (o))
 
 static gchar	**as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode *node, const gchar *element_name);
+
+/**
+ * libxml_generic_error:
+ *
+ * Catch out-of-context errors emitted by libxml2.
+ */
+static void
+libxml_generic_error (AsXMLData *xdt, const char *msg, ...)
+{
+	gchar *tmp;
+	gchar str[1024];
+	va_list arg_ptr;
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	va_start (arg_ptr, msg);
+	vsnprintf (str, 1024, msg, arg_ptr);
+	va_end (arg_ptr);
+
+	if (priv->last_error_msg == NULL)
+		tmp = g_strdup (str);
+	else
+		tmp = g_strdup_printf ("%s%s", priv->last_error_msg, str);
+
+	g_free (priv->last_error_msg);
+	priv->last_error_msg = tmp;
+}
 
 /**
  * as_xmldata_init:
@@ -71,6 +98,7 @@ as_xmldata_init (AsXMLData *xdt)
 
 	priv->default_priority = 0;
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
+	xmlSetGenericErrorFunc (xdt, (xmlGenericErrorFunc) libxml_generic_error);
 }
 
 /**
@@ -87,6 +115,7 @@ as_xmldata_finalize (GObject *object)
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
+	g_free (priv->last_error_msg);
 
 	G_OBJECT_CLASS (as_xmldata_parent_class)->finalize (object);
 }
@@ -120,6 +149,17 @@ as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin,
 	priv->arch = g_strdup (arch);
 
 	priv->default_priority = priority;
+}
+
+/**
+ * as_xmldata_clear_error:
+ */
+void
+as_xmldata_clear_error (AsXMLData *xdt)
+{
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+	g_free (priv->last_error_msg);
+	priv->last_error_msg = NULL;
 }
 
 /**
@@ -1498,10 +1538,11 @@ as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsC
 
 	doc = xmlParseDoc ((xmlChar*) data);
 	if (doc == NULL) {
-		g_set_error_literal (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
-				     "Could not parse XML!");
+		g_set_error (error,
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_FAILED,
+			     "Could not parse XML: %s", priv->last_error_msg);
+		as_xmldata_clear_error (xdt);
 		return FALSE;
 	}
 
@@ -1593,10 +1634,11 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 
 	doc = xmlParseDoc ((xmlChar*) data);
 	if (doc == NULL) {
-		g_set_error_literal (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
-				     "Could not parse XML!");
+		g_set_error (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FAILED,
+				"Could not parse XML: %s", priv->last_error_msg);
+		as_xmldata_clear_error (xdt);
 		return NULL;
 	}
 
