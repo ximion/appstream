@@ -366,7 +366,7 @@ as_data_pool_refine_data (AsDataPool *dpool)
  *
  * Return a list of all locations which are searched for metadata.
  *
- * Returns: (transfer none): A string-list of watched (absolute) filepaths
+ * Returns: (transfer none) (element-type utf8): A string-list of watched (absolute) filepaths
  **/
 GPtrArray*
 as_data_pool_get_metadata_locations (AsDataPool *dpool)

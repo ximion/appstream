@@ -810,7 +810,7 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 }
 
 /**
- * as_yaml_mapping_start:
+ * as_yaml_emit_scalar:
  */
 static void
 as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
@@ -968,7 +968,7 @@ as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, yaml_emitter
 }
 
 /**
- * as_yaml_emit_localized_entry:
+ * as_yaml_emit_localized_entry_with_func:
  */
 static void
 as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab, GHFunc tfunc)
@@ -1451,7 +1451,7 @@ as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 }
 
 /**
- * as_yamldata_process_component_node:
+ * as_yaml_serialize_component:
  */
 static void
 as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
