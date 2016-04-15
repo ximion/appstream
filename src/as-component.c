@@ -1121,16 +1121,14 @@ as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height)
 void
 as_component_add_icon (AsComponent *cpt, AsIcon *icon)
 {
+	gchar *size = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	g_ptr_array_add (priv->icons, g_object_ref (icon));
-	if ((as_icon_get_width (icon) != 0) && (as_icon_get_height (icon) != 0)) {
-		gchar *size = NULL;
-		size = g_strdup_printf ("%ix%i",
-					as_icon_get_width (icon),
-					as_icon_get_height (icon));
-		g_hash_table_insert (priv->icons_sizetab, size, icon);
-	}
+	size = g_strdup_printf ("%ix%i",
+				as_icon_get_width (icon),
+				as_icon_get_height (icon));
+	g_hash_table_insert (priv->icons_sizetab, size, icon);
 }
 
 /**
