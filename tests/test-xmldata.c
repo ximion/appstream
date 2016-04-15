@@ -160,6 +160,9 @@ test_appstream_parser_locale ()
 	g_assert_cmpint (trs->len, ==, 1);
 	tr = AS_TRANSLATION (g_ptr_array_index (trs, 0));
 	g_assert_cmpstr (as_translation_get_id (tr), ==, "firefox");
+
+	/* check if we loaded the right amount of icons */
+	g_assert_cmpint (as_component_get_icons (cpt)->len, ==, 2);
 }
 
 void

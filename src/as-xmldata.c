@@ -760,6 +760,26 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 }
 
 /**
+ * as_xml_icon_set_size_from_node:
+ */
+static void
+as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
+{
+	gchar *val;
+
+	val = (gchar*) xmlGetProp (node, (xmlChar*) "width");
+	if (val != NULL) {
+		as_icon_set_width (icon, g_ascii_strtoll (val, NULL, 10));
+		g_free (val);
+	}
+	val = (gchar*) xmlGetProp (node, (xmlChar*) "height");
+	if (val != NULL) {
+		as_icon_set_height (icon, g_ascii_strtoll (val, NULL, 10));
+		g_free (val);
+	}
+}
+
+/**
  * as_xmldata_parse_component_node:
  */
 void
@@ -854,10 +874,12 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			} else if (g_strcmp0 (prop, "cached") == 0) {
 				as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
 				as_icon_set_filename (icon, content);
+				as_xml_icon_set_size_from_node (iter, icon);
 				as_component_add_icon (cpt, icon);
 			} else if (g_strcmp0 (prop, "local") == 0) {
 				as_icon_set_kind (icon, AS_ICON_KIND_LOCAL);
 				as_icon_set_filename (icon, content);
+				as_xml_icon_set_size_from_node (iter, icon);
 				as_component_add_icon (cpt, icon);
 			} else if (g_strcmp0 (prop, "remote") == 0) {
 				as_icon_set_kind (icon, AS_ICON_KIND_REMOTE);
@@ -871,6 +893,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 					as_icon_set_url (icon, tmp);
 					g_free (tmp);
 				}
+				as_xml_icon_set_size_from_node (iter, icon);
 				as_component_add_icon (cpt, icon);
 			}
 		} else if (g_strcmp0 (node_name, "url") == 0) {
