@@ -112,6 +112,7 @@ test_h_create_dummy_screenshot (void)
 void
 test_yamlwrite (void)
 {
+	guint i;
 	g_autoptr(AsYAMLData) ydata = NULL;
 	g_autoptr(GPtrArray) cpts = NULL;
 	g_autoptr(AsScreenshot) scr = NULL;
@@ -145,6 +146,25 @@ test_yamlwrite (void)
 	scr = test_h_create_dummy_screenshot ();
 	as_component_add_screenshot (cpt, scr);
 
+	for (i = 1; i <= 3; i++) {
+		g_autoptr(AsIcon) icon = NULL;
+
+		icon = as_icon_new ();
+		if (i != 3)
+			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+		else
+			as_icon_set_kind (icon, AS_ICON_KIND_STOCK);
+		as_icon_set_width (icon, i * 20);
+		as_icon_set_height (icon, i * 20);
+
+		if (i != 3)
+			as_icon_set_filename (icon, "test_writetest.png");
+		else
+			as_icon_set_filename (icon, "yml-writetest");
+
+		as_component_add_icon (cpt, icon);
+	}
+
 	g_ptr_array_add (cpts, cpt);
 
 	resdata = as_yamldata_serialize_to_distro (ydata, cpts, TRUE, FALSE, &error);
@@ -152,6 +172,75 @@ test_yamlwrite (void)
 	g_debug ("%s", resdata);
 
 	/* TODO: Actually test the resulting output */
+}
+
+void
+test_yaml_read_icons (void)
+{
+	guint i;
+	GError *error = NULL;
+	AsComponent *cpt;
+	GPtrArray *icons;
+	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsYAMLData) ydt = NULL;
+	const gchar *yamldata_icons_legacy = "---\n"
+					"ID: org.example.Test\n"
+					"Icon:\n"
+					"  cached: test_test.png\n"
+					"  stock: test\n";
+	const gchar *yamldata_icons_current = "---\n"
+					"ID: org.example.Test\n"
+					"Icon:\n"
+					"  cached:\n"
+					"    - width: 64\n"
+					"      height: 64\n"
+					"      name: test_test.png\n"
+					"    - width: 128\n"
+					"      height: 128\n"
+					"      name: test_test.png\n"
+					"  stock: test\n";
+
+	ydt = as_yamldata_new ();
+
+	/* check the legacy icons */
+	cpts = as_yamldata_parse_distro_data (ydt, yamldata_icons_legacy, &error);
+	g_assert_no_error (error);
+
+	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
+
+	icons = as_component_get_icons (cpt);
+	g_assert_cmpint (icons->len, ==, 2);
+	for (i = 0; i < icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_CACHED)
+			g_assert_cmpstr (as_icon_get_filename (icon), ==, "test_test.png");
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK)
+			g_assert_cmpstr (as_icon_get_name (icon), ==, "test");
+	}
+
+	/* check the new style icons tag */
+	g_ptr_array_unref (cpts);
+	cpts = as_yamldata_parse_distro_data (ydt, yamldata_icons_current, &error);
+	g_assert_no_error (error);
+
+	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
+
+	icons = as_component_get_icons (cpt);
+	g_assert_cmpint (icons->len, ==, 3);
+	for (i = 0; i < icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_CACHED)
+			g_assert_cmpstr (as_icon_get_filename (icon), ==, "test_test.png");
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK)
+			g_assert_cmpstr (as_icon_get_name (icon), ==, "test");
+	}
+
+	g_assert_nonnull (as_component_get_icon_by_size (cpt, 64, 64));
+	g_assert_nonnull (as_component_get_icon_by_size (cpt, 128, 128));
 }
 
 int
@@ -177,6 +266,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/Basic", test_basic);
 	g_test_add_func ("/YAML/Write", test_yamlwrite);
+	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
 
 	ret = g_test_run ();
 	g_free (datadir);

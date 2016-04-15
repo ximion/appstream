@@ -219,23 +219,23 @@ as_yamldata_get_localized_node (AsYAMLData *ydt, GNode *node, gchar *locale_over
 	}
 
 	for (n = node->children; n != NULL; n = n->next) {
-			key = (gchar*) n->data;
+		key = (gchar*) n->data;
 
-			if ((tnode == NULL)	&& (g_strcmp0 (key, "C") == 0)) {
-				tnode = n;
-				if (locale == NULL)
-					goto out;
-			}
-
-			if (g_strcmp0 (key, locale) == 0) {
-				tnode = n;
+		if ((tnode == NULL) && (g_strcmp0 (key, "C") == 0)) {
+			tnode = n;
+			if (locale == NULL)
 				goto out;
-			}
+		}
 
-			if (g_strcmp0 (key, locale_short) == 0) {
-				tnode = n;
-				goto out;
-			}
+		if (g_strcmp0 (key, locale) == 0) {
+			tnode = n;
+			goto out;
+		}
+
+		if (g_strcmp0 (key, locale_short) == 0) {
+			tnode = n;
+			goto out;
+		}
 	}
 
 out:
@@ -321,6 +321,57 @@ dep11_process_urls (GNode *node, AsComponent *cpt)
 }
 
 /**
+ * as_yamldata_process_icon:
+ */
+static void
+as_yamldata_process_icon (AsYAMLData *ydt, GNode *node, AsComponent *cpt, AsIconKind kind)
+{
+	GNode *n;
+	gchar *key;
+	gchar *value;
+	guint64 size;
+	g_autoptr(AsIcon) icon = NULL;
+	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
+
+	icon = as_icon_new ();
+	as_icon_set_kind (icon, kind);
+
+	for (n = node->children; n != NULL; n = n->next) {
+		key = (gchar*) n->data;
+		value = (gchar*) n->children->data;
+
+		if (g_strcmp0 (key, "width") == 0) {
+			size = g_ascii_strtoll (value, NULL, 10);
+			as_icon_set_width (icon, size);
+		} else if (g_strcmp0 (key, "height") == 0) {
+			size = g_ascii_strtoll (value, NULL, 10);
+			as_icon_set_height (icon, size);
+		} else {
+			if (kind == AS_ICON_KIND_REMOTE) {
+				if (g_strcmp0 (key, "url") == 0) {
+					if (priv->media_baseurl == NULL) {
+						/* no baseurl, we can just set the value as URL */
+						as_icon_set_url (icon, value);
+					} else {
+						/* handle the media baseurl */
+						gchar *tmp;
+						tmp = g_build_filename (priv->media_baseurl, value, NULL);
+						as_icon_set_url (icon, tmp);
+						g_free (tmp);
+					}
+				}
+			} else {
+				if (g_strcmp0 (key, "name") == 0) {
+					as_icon_set_filename (icon, value);
+				}
+			}
+		}
+	}
+
+	as_component_add_icon (cpt, icon);
+}
+
+/**
  * as_yamldata_process_icons:
  */
 static void
@@ -329,40 +380,37 @@ as_yamldata_process_icons (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 	GNode *n;
 	gchar *key;
 	gchar *value;
-	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	for (n = node->children; n != NULL; n = n->next) {
-		g_autoptr(AsIcon) icon = NULL;
-
 		key = (gchar*) n->data;
 		value = (gchar*) n->children->data;
-		icon = as_icon_new ();
 
 		if (g_strcmp0 (key, "stock") == 0) {
+			g_autoptr(AsIcon) icon = as_icon_new ();
 			as_icon_set_kind (icon, AS_ICON_KIND_STOCK);
 			as_icon_set_name (icon, value);
 			as_component_add_icon (cpt, icon);
 		} else if (g_strcmp0 (key, "cached") == 0) {
-			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
-			as_icon_set_filename (icon, value);
-			as_component_add_icon (cpt, icon);
-		} else if (g_strcmp0 (key, "local") == 0) {
-			as_icon_set_kind (icon, AS_ICON_KIND_LOCAL);
-			as_icon_set_filename (icon, value);
-			as_component_add_icon (cpt, icon);
-		} else if (g_strcmp0 (key, "remote") == 0) {
-			as_icon_set_kind (icon, AS_ICON_KIND_REMOTE);
-			if (priv->media_baseurl == NULL) {
-				/* no baseurl, we can just set the value as URL */
-				as_icon_set_url (icon, value);
+			if (n->children->next == NULL) {
+				g_autoptr(AsIcon) icon = as_icon_new ();
+				/* we have a legacy YAML file */
+				as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+				as_icon_set_filename (icon, value);
+				as_component_add_icon (cpt, icon);
 			} else {
-				/* handle the media baseurl */
-				gchar *tmp;
-				tmp = g_build_filename (priv->media_baseurl, value, NULL);
-				as_icon_set_url (icon, tmp);
-				g_free (tmp);
+				GNode *sn;
+				/* we have a recent YAML file */
+				for (sn = n->children; sn != NULL; sn = sn->next)
+					as_yamldata_process_icon (ydt, sn, cpt, AS_ICON_KIND_CACHED);
 			}
-			as_component_add_icon (cpt, icon);
+		} else if (g_strcmp0 (key, "local") == 0) {
+			GNode *sn;
+			for (sn = n->children; sn != NULL; sn = sn->next)
+				as_yamldata_process_icon (ydt, sn, cpt, AS_ICON_KIND_LOCAL);
+		} else if (g_strcmp0 (key, "remote") == 0) {
+			GNode *sn;
+			for (sn = n->children; sn != NULL; sn = sn->next)
+				as_yamldata_process_icon (ydt, sn, cpt, AS_ICON_KIND_REMOTE);
 		}
 	}
 }
@@ -1322,6 +1370,83 @@ as_yaml_emit_screenshots (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent 
 
 }
 
+static void
+as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
+{
+	guint i;
+	GHashTableIter iter;
+	gpointer key, value;
+	gboolean stock_icon_added = FALSE;
+	g_autoptr(GHashTable) icons_table = NULL;
+
+	/* we need to emit the icons in order, so we first need to sort them properly */
+	icons_table = g_hash_table_new_full (g_direct_hash,
+					     g_direct_equal,
+					     NULL,
+					     (GDestroyNotify) g_ptr_array_unref);
+	for (i = 0; i < icons->len; i++) {
+		GPtrArray *ilist;
+		AsIconKind ikind;
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+
+		ikind = as_icon_get_kind (icon);
+		ilist = g_hash_table_lookup (icons_table, GINT_TO_POINTER (ikind));
+		if (ilist == NULL) {
+			ilist = g_ptr_array_new ();
+			g_hash_table_insert (icons_table, GINT_TO_POINTER (ikind), ilist);
+		}
+
+		g_ptr_array_add (ilist, icon);
+	}
+
+	g_hash_table_iter_init (&iter, icons_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		GPtrArray *ilist;
+		AsIconKind ikind;
+
+		ikind = (AsIconKind) GPOINTER_TO_INT (key);
+		ilist = (GPtrArray*) value;
+
+		if (ikind == AS_ICON_KIND_STOCK) {
+			/* there can always be only one stock icon, so this is easy */
+			if (!stock_icon_added)
+				as_yaml_emit_entry (emitter,
+						    as_icon_kind_to_string (ikind),
+						    as_icon_get_name (AS_ICON (g_ptr_array_index (ilist, 0))));
+			stock_icon_added = TRUE;
+		} else {
+			as_yaml_emit_scalar (emitter, as_icon_kind_to_string (ikind));
+			as_yaml_sequence_start (emitter);
+
+			for (i = 0; i < ilist->len; i++) {
+				gchar *size;
+				AsIcon *icon = AS_ICON (g_ptr_array_index (ilist, i));
+
+				as_yaml_mapping_start (emitter);
+
+				if (ikind == AS_ICON_KIND_REMOTE)
+					as_yaml_emit_entry (emitter, "url", as_icon_get_url (icon));
+				else if (ikind == AS_ICON_KIND_LOCAL)
+					as_yaml_emit_entry (emitter, "name", as_icon_get_filename (icon));
+				else
+					as_yaml_emit_entry (emitter, "name", as_icon_get_name (icon));
+
+				size = g_strdup_printf("%i", as_icon_get_width (icon));
+				as_yaml_emit_entry (emitter, "width", size);
+				g_free (size);
+
+				size = g_strdup_printf("%i", as_icon_get_width (icon));
+				as_yaml_emit_entry (emitter, "height", size);
+				g_free (size);
+
+				as_yaml_mapping_end (emitter);
+			}
+
+			as_yaml_sequence_end (emitter);
+		}
+	}
+}
+
 /**
  * as_yamldata_process_component_node:
  */
@@ -1439,59 +1564,9 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	/* Icons */
 	icons = as_component_get_icons (cpt);
 	if (icons->len > 0) {
-		gboolean stock_icon_added = FALSE;
-		gboolean cache_icon_added = FALSE;
-
 		as_yaml_emit_scalar (emitter, "Icon");
 		as_yaml_mapping_start (emitter);
-		for (i = 0; i < icons->len; i++) {
-			const gchar *value;
-			AsIconKind ikind;
-			AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
-
-			ikind = as_icon_get_kind (icon);
-			if (ikind == AS_ICON_KIND_LOCAL)
-				value = as_icon_get_filename (icon);
-			else if (ikind == AS_ICON_KIND_REMOTE)
-				value = as_icon_get_url (icon);
-			else
-				value = as_icon_get_name (icon);
-
-			if (value == NULL)
-				continue;
-
-			switch (ikind) {
-				case AS_ICON_KIND_REMOTE:
-					/* remote icons get special treatment */
-
-					g_warning ("Handling of 'remote' type DEP-11 icons is not yet implemented!");
-					/* NOTE: A remote node is specified like this:
-					* Icons:
-					*   cached: foobar.png
-					*   remote:
-					*     - width: 64
-					*       height: 64
-					*       url: http://example.org/icons/foobar.png
-					*/
-					break;
-				case AS_ICON_KIND_LOCAL:
-					g_warning ("The DEP-11 spec does not support type:local icons!");
-					break;
-				case AS_ICON_KIND_CACHED:
-					if (!cache_icon_added)
-						as_yaml_emit_entry (emitter, as_icon_kind_to_string (ikind), value);
-					cache_icon_added = TRUE;
-					break;
-				case AS_ICON_KIND_STOCK:
-					if (!stock_icon_added)
-						as_yaml_emit_entry (emitter, as_icon_kind_to_string (ikind), value);
-					stock_icon_added = TRUE;
-					break;
-				default:
-					g_warning ("Unknown icon type: %s", as_icon_kind_to_string (ikind));
-					break;
-			}
-		}
+		as_yaml_emit_icons (emitter, icons);
 		as_yaml_mapping_end (emitter);
 	}
 
