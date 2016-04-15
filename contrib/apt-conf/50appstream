@@ -8,8 +8,6 @@ Acquire::IndexTargets {
         ShortDescription "Components-$(NATIVE_ARCHITECTURE)";
         Description "$(RELEASE)/$(COMPONENT) $(NATIVE_ARCHITECTURE) DEP-11 Metadata";
 
-        flatMetaKey "Components-$(NATIVE_ARCHITECTURE)";
-        flatDescription "$(RELEASE) DEP-11 Metadata";
         KeepCompressed "true";
         KeepCompressedAs "gz";
     };
@@ -21,8 +19,6 @@ Acquire::IndexTargets {
         ShortDescription "icons-64x64";
         Description "$(RELEASE)/$(COMPONENT) DEP-11 64x64 Icons";
 
-        flatMetaKey "icons-64x64";
-        flatDescription "$(RELEASE) DEP-11 64x64 Icons";
         KeepCompressed "true";
         KeepCompressedAs "gz";
     };
@@ -34,15 +30,13 @@ Acquire::IndexTargets {
         ShortDescription "icons-128x128";
         Description "$(RELEASE)/$(COMPONENT) DEP-11 128x128 Icons";
 
-        flatMetaKey "icons-128x128";
-        flatDescription "$(RELEASE) DEP-11 128x128 Icons";
         KeepCompressed "true";
         KeepCompressedAs "gz";
         DefaultEnabled "false";
     };
 };
 
-# Refresh AppStream cache when APT's cache is updated (i.e. apt-cache update)
+# Refresh AppStream cache when APT's cache is updated (i.e. apt update)
 APT::Update::Post-Invoke-Success {
     "if /usr/bin/test -w /var/cache/app-info -a -e /usr/bin/appstreamcli; then appstreamcli refresh > /dev/null; fi";
 };
