@@ -1722,6 +1722,32 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 			continue;
 		}
 
+		/* skip the full cache search if we already have size information */
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_CACHED) {
+			if (as_icon_get_width (icon) > 0) {
+				gboolean icon_found = FALSE;
+
+				for (l = 0; icon_paths[l] != NULL; l++) {
+					tmp_icon_path = g_strdup_printf ("%s/%s/%ix%i/%s",
+									icon_paths[l],
+									priv->origin,
+									as_icon_get_width (icon),
+									as_icon_get_height (icon),
+									icon_url);
+					if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
+						as_icon_set_filename (icon, tmp_icon_path);
+						as_component_add_icon (cpt, icon);
+						icon_found = TRUE;
+					}
+					g_free (tmp_icon_path);
+					if (icon_found)
+						break;
+				}
+				if (icon_found)
+					continue;
+			}
+		}
+
 		/* search local icon path */
 		for (l = 0; icon_paths[l] != NULL; l++) {
 			for (j = 0; sizes[j] != NULL; j++) {

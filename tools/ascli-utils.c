@@ -242,8 +242,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	guint j;
 
 	short_idline = g_strdup_printf ("%s [%s]",
-							as_component_get_id (cpt),
-							as_component_kind_to_string (as_component_get_kind (cpt)));
+					as_component_get_id (cpt),
+					as_component_kind_to_string (as_component_get_kind (cpt)));
 	if (as_component_get_pkgnames (cpt) != NULL)
 		pkgs_str = g_strjoinv (", ", as_component_get_pkgnames (cpt));
 	bundles_str = as_get_bundle_str (cpt);
