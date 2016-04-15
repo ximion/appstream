@@ -1453,13 +1453,15 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	/* icons */
 	icons = as_component_get_icons (cpt);
 	for (i = 0; i < icons->len; i++) {
-		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+		AsIconKind ikind;
 		xmlNode *n;
 		const gchar *value;
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
 
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_LOCAL)
+		ikind = as_icon_get_kind (icon);
+		if (ikind == AS_ICON_KIND_LOCAL)
 			value = as_icon_get_filename (icon);
-		else if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE)
+		else if (ikind == AS_ICON_KIND_REMOTE)
 			value = as_icon_get_url (icon);
 		else
 			value = as_icon_get_name (icon);
@@ -1469,9 +1471,21 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 
 		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "icon", (xmlChar*) value);
 		xmlNewProp (n, (xmlChar*) "type",
-					(xmlChar*) as_icon_kind_to_string (as_icon_get_kind (icon)));
+					(xmlChar*) as_icon_kind_to_string (ikind));
 
-		/* TODO: Prevent adding the same icon node multiple times? */
+		if (ikind != AS_ICON_KIND_STOCK) {
+			if (as_icon_get_width (icon) > 0) {
+				g_autofree gchar *size = NULL;
+				size = g_strdup_printf ("%i", as_icon_get_width (icon));
+				xmlNewProp (n, (xmlChar*) "width", (xmlChar*) size);
+			}
+
+			if (as_icon_get_height (icon) > 0) {
+				g_autofree gchar *size = NULL;
+				size = g_strdup_printf ("%i", as_icon_get_height (icon));
+				xmlNewProp (n, (xmlChar*) "height", (xmlChar*) size);
+			}
+		}
 	}
 
 	/* bundles */

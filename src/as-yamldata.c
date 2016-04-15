@@ -1431,13 +1431,17 @@ as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 				else
 					as_yaml_emit_entry (emitter, "name", as_icon_get_name (icon));
 
-				size = g_strdup_printf("%i", as_icon_get_width (icon));
-				as_yaml_emit_entry (emitter, "width", size);
-				g_free (size);
+				if (as_icon_get_width (icon) > 0) {
+					size = g_strdup_printf("%i", as_icon_get_width (icon));
+					as_yaml_emit_entry (emitter, "width", size);
+					g_free (size);
+				}
 
-				size = g_strdup_printf("%i", as_icon_get_width (icon));
-				as_yaml_emit_entry (emitter, "height", size);
-				g_free (size);
+				if (as_icon_get_height (icon) > 0) {
+					size = g_strdup_printf("%i", as_icon_get_height (icon));
+					as_yaml_emit_entry (emitter, "height", size);
+					g_free (size);
+				}
 
 				as_yaml_mapping_end (emitter);
 			}

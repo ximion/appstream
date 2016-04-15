@@ -194,10 +194,11 @@ test_appstream_write_locale ()
 void
 test_appstream_write_description ()
 {
-	AsMetadata *metad;
+	guint i;
 	gchar *tmp;
 	AsRelease *rel;
-	AsComponent *cpt;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
 
 	const gchar *EXPECTED_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				    "<component>\n"
@@ -218,6 +219,9 @@ test_appstream_write_description ()
 				    "    </ul>\n"
 				    "    <p>Paragraph3 &amp; the last one</p>\n"
 				    "  </description>\n"
+				    "  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+				    "  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+				    "  <icon type=\"stock\">xml-writetest</icon>\n"
 				    "  <releases>\n"
 				    "    <release version=\"1.0\" date=\"2016-04-11T22:00:00Z\"><description/></release>\n"
 				    "  </releases>\n"
@@ -254,6 +258,9 @@ test_appstream_write_description ()
 						"    </ul>\n"
 						"    <p xml:lang=\"de\">Paragraph2</p>\n"
 						"  </description>\n"
+						"  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+						"  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+						"  <icon type=\"stock\">xml-writetest</icon>\n"
 						"  <releases>\n"
 						"    <release version=\"1.0\" date=\"2016-04-11T22:00:00Z\"><description/></release>\n"
 						"  </releases>\n"
@@ -293,6 +300,9 @@ test_appstream_write_description ()
 					   "      </ul>\n"
 					   "      <p>Paragraph2</p>\n"
 					   "    </description>\n"
+					   "    <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+					   "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+					   "    <icon type=\"stock\">xml-writetest</icon>\n"
 					   "    <releases>\n"
 					   "      <release version=\"1.0\" timestamp=\"1460412000\"><description/></release>\n"
 					   "    </releases>\n"
@@ -315,6 +325,25 @@ test_appstream_write_description ()
 	as_component_add_release (cpt, rel);
 	g_object_unref (rel);
 
+	for (i = 1; i <= 3; i++) {
+		g_autoptr(AsIcon) icon = NULL;
+
+		icon = as_icon_new ();
+		if (i != 3)
+			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+		else
+			as_icon_set_kind (icon, AS_ICON_KIND_STOCK);
+		as_icon_set_width (icon, i * 20);
+		as_icon_set_height (icon, i * 20);
+
+		if (i != 3)
+			as_icon_set_filename (icon, "test_writetest.png");
+		else
+			as_icon_set_filename (icon, "xml-writetest");
+
+		as_component_add_icon (cpt, icon);
+	}
+
 	as_metadata_add_component (metad, cpt);
 
 	tmp = as_metadata_component_to_upstream_xml (metad);
@@ -334,9 +363,6 @@ test_appstream_write_description ()
 	tmp = as_metadata_components_to_distro_xml (metad);
 	g_assert_cmpstr (tmp, ==, EXPECTED_XML_DISTRO);
 	g_free (tmp);
-
-	g_object_unref (metad);
-	g_object_unref (cpt);
 }
 
 int
