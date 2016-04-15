@@ -146,6 +146,7 @@ as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsCompon
 {
 	guint i;
 	gchar **cats;
+	gchar **pkgnames;
 
 	/* FIXME: We only do this for GNOME Software compatibility. In future, we need better rules on what to merge how, and
 	 * whether we want to merge stuff at all. */
@@ -170,7 +171,8 @@ as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsCompon
 		as_component_set_categories (dest_cpt, new_cats);
 	}
 
-	if (as_component_get_pkgnames (src_cpt) != NULL)
+	pkgnames = as_component_get_pkgnames (src_cpt);
+	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
 		as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
 
 	if (as_component_has_bundle (src_cpt))

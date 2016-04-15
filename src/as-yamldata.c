@@ -728,13 +728,12 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 		} else if (g_strcmp0 (key, "Priority") == 0) {
 			as_component_set_priority (cpt, g_ascii_strtoll (value, NULL, 10));
 		} else if (g_strcmp0 (key, "Package") == 0) {
-			gchar **strv;
-			strv = g_new0 (gchar*, 1 + 2);
+			g_auto(GStrv) strv = NULL;
+			strv = g_new0 (gchar*, 1 + 1);
 			strv[0] = g_strdup (value);
 			strv[1] = NULL;
 
 			as_component_set_pkgnames (cpt, strv);
-			g_strfreev (strv);
 		} else if (g_strcmp0 (key, "SourcePackage") == 0) {
 			as_component_set_source_pkgname (cpt, value);
 		} else if (g_strcmp0 (key, "Name") == 0) {
