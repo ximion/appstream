@@ -219,6 +219,11 @@ as_cache_builder_appstream_data_changed (AsCacheBuilder *builder)
 
 /**
  * as_cache_builder_get_yml_data_origin:
+ *
+ * Extract the data origin from the AppStream YAML file.
+ * We don't use the #AsYAMLData loader, because it is much
+ * slower than just loading the initial parts of the file and
+ * extracting the origin manually.
  */
 gchar*
 as_cache_builder_get_yml_data_origin (const gchar *fname)
@@ -268,6 +273,15 @@ as_cache_builder_get_yml_data_origin (const gchar *fname)
 		strv2 = g_strsplit (strv[i], ":", 2);
 		g_strstrip (strv2[1]);
 		origin = g_strdup (strv2[1]);
+
+		/* remove quotes, in case the string is quoted */
+		if ((g_str_has_prefix (origin, "\"")) && (g_str_has_suffix (origin, "\""))) {
+			g_autofree gchar *tmp = NULL;
+
+			tmp = origin;
+			origin = g_strndup (tmp + 1, strlen (tmp) - 2);
+		}
+
 		break;
 	}
 
