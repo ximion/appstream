@@ -1,3 +1,43 @@
+Version 0.9.4
+~~~~~~~~~~~~~~
+Released: 2016-04-18
+
+Features:
+ * Handle legacy screenshot tags (Matthias Klumpp)
+ * Print prettier YAML documents (Matthias Klumpp)
+ * yaml: Allow loading of distro metadata slices without header (Matthias Klumpp)
+ * Do not check for installation candidate on minimal validation (Matthias Klumpp)
+ * Don't check if component has an installation candidate before including it (Matthias Klumpp)
+ * Quick-check components only when the pool is fully loaded (Matthias Klumpp)
+ * Support the stub data of GNOME Software (Matthias Klumpp)
+ * Support reading per-component priorities (Matthias Klumpp)
+ * Implement the architecture property (Matthias Klumpp)
+ * Use architecture data to resolve conflicting IDs (Matthias Klumpp)
+ * Add icon size information to generated XML (Matthias Klumpp)
+ * xml: Load size hints for icons (Matthias Klumpp)
+ * l10n: Update
+
+Specification:
+ * docs: Explicitly define more minimally required tags per component type (Matthias Klumpp)
+ * Make /usr/share/metainfo the canonical path for upstream metadata (Matthias Klumpp)
+ * spec: Make architecture a property of <components/>, and no tag (Matthias Klumpp)
+ * spec: Update the cached icon DEP-11 specification to allow size information (Matthias Klumpp)
+
+Bugfixes:
+ * Fix a few minor issues spotted by the YAML validator (Matthias Klumpp)
+ * Correctly build distro XML descriptions from upstream XML (Matthias Klumpp)
+ * Be very strict about which elements are allowed in a description tag (Matthias Klumpp)
+ * yaml: Prevent bool keys (Matthias Klumpp)
+ * ascli: Properly print long descriptions and wrap lines (Matthias Klumpp)
+ * Export less C++ symbols (Matthias Klumpp)
+ * Show a better error message when failing to parse XML (Matthias Klumpp)
+ * Allow adding 0x0 icons (Matthias Klumpp)
+ * yaml: Implement the updated "cached" icon format in a backwards-compatible way (Matthias Klumpp)
+ * apt: Drop flat repository entries (Matthias Klumpp)
+ * Probe less sizes if we already have size information (Matthias Klumpp)
+ * Don't make stubs delete package information from valid components (Matthias Klumpp)
+ * apt: Handle quoted origin entries properly (Matthias Klumpp)
+
 Version 0.9.3
 ~~~~~~~~~~~~~~
 Released: 2016-03-24
