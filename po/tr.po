@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Muhammet Kara <muhammetk@gmail.com>, 2015
+# Muhammet Kara <muhammetk@gmail.com>, 2015-2016
 # Necdet Yücel <necdetyucel@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-12 01:56+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-18 16:09+0200\n"
+"PO-Revision-Date: 2016-04-17 20:00+0000\n"
+"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
 "language/tr/)\n"
 "Language: tr\n"
@@ -28,7 +28,7 @@ msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI araç sürümü: %s"
 
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream Durumu:"
 
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
@@ -57,6 +57,9 @@ msgid ""
 "was set up incorrectly, or your distribution does not provide any AppStream "
 "metadata."
 msgstr ""
+"AppStream yazılım bileşeni önbelleği bulunamadı. Bu, AppStream'in yanlış "
+"şekilde kurulduğu ya da dağıtımınızın hiç bir AppStream üst verisi "
+"sağlamadığı anlamına gelebilir."
 
 msgid "Binaries"
 msgstr "İkili Kodlar"
@@ -66,13 +69,15 @@ msgstr "Takım"
 
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Önbellek konumu '%s', yazılabilir değil."
 
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"'%s' kopyalanamıyor: Dosyanın bir '.metainfo.xml' ya da '.appdata.xml' "
+"uzantısı yok."
 
 msgid "Categories"
 msgstr "Sınıflandırmalar"
@@ -102,10 +107,10 @@ msgid "Developer"
 msgstr "Geliştirici"
 
 msgid "Display various information about installed AppStream metadata."
-msgstr ""
+msgstr "Kurulu AppStream üst verisi hakkındaki çeşitli bilgileri görüntüleyin."
 
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Dağıtım üst verisi:"
 
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "İstekte bulunurken Xapian belleğini kullanma"
@@ -114,10 +119,10 @@ msgid "Don't show colored output"
 msgstr "Çıktıyı renklendirilmiş gösterme"
 
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "Kimlik ile eşleşen bileşen için ham XML üst verisini dök."
 
 msgid "Empty."
-msgstr ""
+msgstr "Boş."
 
 msgid "Enforce a cache refresh"
 msgstr "Ön belleğin yenilenmesini zorla"
@@ -126,7 +131,7 @@ msgid "Extends"
 msgstr ""
 
 msgid "Extensions"
-msgstr ""
+msgstr "Uzantılar"
 
 #, c-format
 msgid "File %s not found or permission denied!"
@@ -275,20 +280,20 @@ msgid "Summary"
 msgstr "Özet"
 
 msgid "Summary:"
-msgstr ""
+msgstr "Özet:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "Sistem üst veri önbelleği mevcut değil."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "Sistem üst veri önbelleği mevcut."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "Ek bilgiler bulunmaya çalışılırken bir hata oluştu: %s"
 
 msgid "Tried to perform query on closed database."
-msgstr ""
+msgstr "Kapalı veri tabanı üzerinde sorgu yürütmeye çalışıldı."
 
 #. TRANSLATORS: We failed to find any component in the database due to an error
 #, c-format
@@ -308,11 +313,11 @@ msgstr "AppStream yazılım bileşeni önbelleği açılamadı."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Paket yöneticisi meydana getirilemiyor: %s"
 
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "'%s'e yazılamadı, üst bilgi dosyası kurulamıyor."
 
 msgid "Upstream metadata:"
 msgstr ""

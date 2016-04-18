@@ -4,15 +4,16 @@
 #
 # Translators:
 # Boyuan YANG <073plan@gmail.com>, 2015
+# Dz Chen <wsxy162@gmail.com>, 2016
 # Mingcong Bai <jeffbai@aosc.xyz>, 2016
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-12 01:56+0200\n"
-"PO-Revision-Date: 2016-03-28 17:38+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-04-18 16:09+0200\n"
+"PO-Revision-Date: 2016-04-13 17:47+0000\n"
+"Last-Translator: Dz Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -73,7 +74,7 @@ msgstr "缓存位置“%s“不可写"
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
-msgstr ""
+msgstr "无法复制“%s”：文件没有“.metainfo.xml”或“.appdata.xml”扩展名。"
 
 msgid "Categories"
 msgstr "类别"
@@ -139,9 +140,9 @@ msgstr "已刷入的固件"
 msgid "Fonts"
 msgstr "字体"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Found %i components in legacy paths."
-msgstr "找到 %i 个组件。"
+msgstr "在旧版路径中找到了 %i 个组件。"
 
 #, c-format
 msgid "Found %i components."
