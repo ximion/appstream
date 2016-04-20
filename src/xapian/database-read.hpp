@@ -21,15 +21,10 @@
 #ifndef DATABASE_READ_H
 #define DATABASE_READ_H
 
-#include <iostream>
-#include <string>
-#include <list>
 #include <xapian.h>
 #include <glib.h>
 
 #include "../as-component.h"
-
-using namespace std;
 
 /* small hack to make C++ to C binding easier */
 struct G_GNUC_INTERNAL XADatabaseRead {};
@@ -43,7 +38,7 @@ public:
 	bool		open (const gchar *dbPath);
 
 	int		getSchemaVersion ();
-	string		getLocale ();
+	std::string	getLocale ();
 
 	GPtrArray	*getAllComponents ();
 	GPtrArray	*findComponents (const gchar *term, gchar **cats);
@@ -53,18 +48,18 @@ public:
 
 private:
 	Xapian::Database m_xapianDB;
-	string m_dbPath;
-	string m_dbLocale;
+	std::string m_dbPath;
+	std::string m_dbLocale;
 	int m_schemaVersion;
 
 	AsComponent *docToComponent (Xapian::Document);
 
-	Xapian::QueryParser	newAppStreamParser ();
-	Xapian::Query		addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
-	Xapian::Query		getQueryForPkgNames (vector<string> pkgnames);
-	Xapian::Query		getQueryForCategory (gchar *cat_id);
-	void			appendSearchResults (Xapian::Enquire enquire, GPtrArray *cptArray);
-	vector<Xapian::Query>	queryListForTermCats (const gchar *term, gchar **categories);
+	Xapian::QueryParser		newAppStreamParser ();
+	Xapian::Query			addCategoryToQuery (Xapian::Query query, Xapian::Query category_query);
+	Xapian::Query			getQueryForPkgNames (std::vector<std::string> pkgnames);
+	Xapian::Query			getQueryForCategory (gchar *cat_id);
+	void				appendSearchResults (Xapian::Enquire enquire, GPtrArray *cptArray);
+	std::vector<Xapian::Query>	queryListForTermCats (const gchar *term, gchar **categories);
 };
 
 G_GNUC_INTERNAL

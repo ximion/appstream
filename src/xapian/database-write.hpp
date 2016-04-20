@@ -21,15 +21,11 @@
 #ifndef DATABASE_WRITE_H
 #define DATABASE_WRITE_H
 
-#include <iostream>
-#include <string>
 #include <xapian.h>
 #include <glib.h>
 #include "../as-component.h"
 
-using namespace std;
-
-/* _VERY_ ugly hack to make C++ and Vala work together */
+/* small hack to make C++ to C binding easier */
 struct G_GNUC_INTERNAL XADatabaseWrite {};
 
 class G_GNUC_INTERNAL DatabaseWrite : public XADatabaseWrite
@@ -45,7 +41,7 @@ public:
 
 private:
 	Xapian::WritableDatabase *m_rwXapianDB;
-	string m_dbPath;
+	std::string m_dbPath;
 
 };
 
