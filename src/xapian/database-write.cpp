@@ -335,13 +335,16 @@ DatabaseWrite::rebuild (GList *cpt_list)
 			pbIcon->set_width (as_icon_get_width (icon));
 			pbIcon->set_height (as_icon_get_height (icon));
 
-			if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE) {
+			if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+				pbIcon->set_type (Icons_IconType_STOCK);
+				pbIcon->set_value (as_icon_get_name (icon));
+			} else if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE) {
 				pbIcon->set_type (Icons_IconType_REMOTE);
-				pbIcon->set_url (as_icon_get_url (icon));
+				pbIcon->set_value (as_icon_get_url (icon));
 			} else {
-				/* TODO: Properly support STOCK and LOCAL icons */
+				/* TODO: Do we want to support icons of type LOCAL? */
 				pbIcon->set_type (Icons_IconType_CACHED);
-				pbIcon->set_url (as_icon_get_filename (icon));
+				pbIcon->set_value (as_icon_get_filename (icon));
 			}
 		}
 		string icons_ostr;

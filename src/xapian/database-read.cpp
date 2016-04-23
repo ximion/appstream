@@ -182,12 +182,15 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 		as_icon_set_width (icon, pbIcon.width ());
 		as_icon_set_height (icon, pbIcon.height ());
 
-		if (pbIcon.type () == Icons_IconType_REMOTE) {
+		if (pbIcon.type () == Icons_IconType_STOCK) {
+			as_icon_set_kind (icon, AS_ICON_KIND_STOCK);
+			as_icon_set_url (icon, pbIcon.value ().c_str ());
+		} else if (pbIcon.type () == Icons_IconType_REMOTE) {
 			as_icon_set_kind (icon, AS_ICON_KIND_REMOTE);
-			as_icon_set_url (icon, pbIcon.url ().c_str ());
+			as_icon_set_url (icon, pbIcon.value ().c_str ());
 		} else {
 			as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
-			as_icon_set_filename (icon, pbIcon.url ().c_str ());
+			as_icon_set_filename (icon, pbIcon.value ().c_str ());
 		}
 		as_component_add_icon (cpt, icon);
 		g_object_unref (icon);

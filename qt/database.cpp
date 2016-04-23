@@ -180,9 +180,13 @@ Component xapianDocToComponent(Xapian::Document document) {
     for (int i = 0; i < pbIcons.icon_size (); i++) {
         const Icons_Icon& pbIcon = pbIcons.icon (i);
 
-        auto size = QSize(pbIcon.width(), pbIcon.height());
-        QUrl url = QUrl::fromUserInput(QString::fromStdString(pbIcon.url()));
-        component.addIconUrl(url, size);
+        if (pbIcon.type () == Icons_IconType_STOCK) {
+            component.setIcon(QString::fromStdString(pbIcon.value()));
+        } else {
+            auto size = QSize(pbIcon.width(), pbIcon.height());
+            QUrl url = QUrl::fromUserInput(QString::fromStdString(pbIcon.value()));
+            component.addIconUrl(url, size);
+        }
     }
 
     // Summary

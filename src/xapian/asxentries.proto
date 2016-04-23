@@ -54,15 +54,16 @@ message Bundles {
 message Icons {
   enum IconType {
     UNKNOWN = 0;
-    CACHED = 1;
-    REMOTE = 2;
+    STOCK = 1;
+    CACHED = 2;
+    REMOTE = 3;
   }
 
   message Icon {
     required IconType type = 1 [default = UNKNOWN];
     required int32 width = 2;
     required int32 height = 3;
-    required string url = 4;
+    required string value = 4;
   }
 
   repeated Icon icon = 1;

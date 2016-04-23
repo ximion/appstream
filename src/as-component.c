@@ -1674,7 +1674,7 @@ as_component_add_icon_full (AsComponent *cpt, AsIconKind kind, const gchar *size
 static void
 as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 {
-	const gchar *exensions[] = { "png",
+	const gchar *extensions[] = { "png",
 				     "svg",
 				     "svgz",
 				     "gif",
@@ -1682,8 +1682,7 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 				     "xcf",
 				     NULL };
 	const gchar *sizes[] = { "", "64x64", "128x128", NULL };
-	gchar *tmp_icon_path = NULL;
-	const gchar *icon_url = NULL;
+	const gchar *icon_fname = NULL;
 	guint i, j, k, l;
 	g_autoptr(GPtrArray) icons = NULL;
 	g_autoptr(GHashTable) icons_sizetab = NULL;
@@ -1700,63 +1699,79 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 
 	/* Process the icons we have and extract sizes */
 	for (i = 0; i < icons->len; i++) {
+		AsIconKind ikind;
 		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
 
-		/* we can't do anything about remote icons (yet?), so just don't do anything to them */
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE) {
+		ikind = as_icon_get_kind (icon);
+		if (ikind == AS_ICON_KIND_REMOTE) {
+			/* no processing / icon-search is needed (and possible) for remote icons */
+			as_component_add_icon (cpt, icon);
+			continue;
+		} else if (ikind == AS_ICON_KIND_STOCK) {
+			/* since AppStream 0.9, we are not expected to find stock icon names in cache
+			 * directories anymore, so we can just add it without changes */
 			as_component_add_icon (cpt, icon);
 			continue;
 		}
 
-		/* get some icon name we want to resolve */
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_CACHED)
-			icon_url = as_icon_get_filename (icon);
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK)
-			icon_url = as_icon_get_name (icon);
+		if ((ikind != AS_ICON_KIND_CACHED) && (ikind != AS_ICON_KIND_LOCAL)) {
+			g_warning ("Found icon of unknown type, skipping it: %s", as_icon_kind_to_string (ikind));
+			continue;
+		}
 
-		if (g_str_has_prefix (icon_url, "/") ||
-			g_str_has_prefix (icon_url, "http://")) {
-			/* looks like this component already has a full icon path,
-			 * or is a weblink. */
+		/* get icon name we want to resolve
+		 * (it's "filename", because we should only get here if we have
+		 *  a CACHED or LOCAL icon) */
+		icon_fname = as_icon_get_filename (icon);
+
+		if (g_str_has_prefix (icon_fname, "/")) {
+			/* looks like this component already has a full icon path */
 			as_component_add_icon (cpt, icon);
+
+			/* assume 64x64px icon, if not defined otherwise */
+			if ((as_icon_get_width (icon) == 0) && (as_icon_get_height (icon) == 0)) {
+				as_icon_set_width (icon, 64);
+				as_icon_set_height (icon, 64);
+			}
+
 			continue;
 		}
 
 		/* skip the full cache search if we already have size information */
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_CACHED) {
-			if (as_icon_get_width (icon) > 0) {
-				gboolean icon_found = FALSE;
+		if ((ikind == AS_ICON_KIND_CACHED) && (as_icon_get_width (icon) > 0)) {
+			for (l = 0; icon_paths[l] != NULL; l++) {
+				g_autofree gchar *tmp_icon_path_wh = NULL;
+				tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i/%s",
+								icon_paths[l],
+								priv->origin,
+								as_icon_get_width (icon),
+								as_icon_get_height (icon),
+								icon_fname);
 
-				for (l = 0; icon_paths[l] != NULL; l++) {
-					tmp_icon_path = g_strdup_printf ("%s/%s/%ix%i/%s",
-									icon_paths[l],
-									priv->origin,
-									as_icon_get_width (icon),
-									as_icon_get_height (icon),
-									icon_url);
-					if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
-						as_icon_set_filename (icon, tmp_icon_path);
-						as_component_add_icon (cpt, icon);
-						icon_found = TRUE;
-					}
-					g_free (tmp_icon_path);
-					if (icon_found)
-						break;
+				if (g_file_test (tmp_icon_path_wh, G_FILE_TEST_EXISTS)) {
+					as_icon_set_filename (icon, tmp_icon_path_wh);
+					as_component_add_icon (cpt, icon);
+					break;
 				}
-				if (icon_found)
-					continue;
 			}
+
+			/* we don't need a full search anymore - the icon having size information means that
+			 * it will be in the "origin" subdirectory with the appropriate size, so there is no
+			 * reason to start a big icon-hunt */
+			continue;
 		}
 
 		/* search local icon path */
 		for (l = 0; icon_paths[l] != NULL; l++) {
 			for (j = 0; sizes[j] != NULL; j++) {
+				g_autofree gchar *tmp_icon_path = NULL;
 				/* sometimes, the file already has an extension */
 				tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
 								icon_paths[l],
 								priv->origin,
 								sizes[j],
-								icon_url);
+								icon_fname);
+
 				if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
 					/* we have an icon! */
 					if (g_strcmp0 (sizes[j], "") == 0) {
@@ -1771,47 +1786,37 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 									    sizes[j],
 									    tmp_icon_path);
 					}
-
-					g_free (tmp_icon_path);
-					tmp_icon_path = NULL;
 					continue;
 				}
-				g_free (tmp_icon_path);
-				tmp_icon_path = NULL;
 
 				/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
-				for (k = 0; exensions[k] != NULL; k++) {
-					tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s.%s",
+				for (k = 0; extensions[k] != NULL; k++) {
+					g_autofree gchar *tmp_icon_path_ext = NULL;
+					tmp_icon_path_ext = g_strdup_printf ("%s/%s/%s/%s.%s",
 								icon_paths[l],
 								priv->origin,
 								sizes[j],
-								icon_url,
-								exensions[k]);
-					if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
+								icon_fname,
+								extensions[k]);
+
+					if (g_file_test (tmp_icon_path_ext, G_FILE_TEST_EXISTS)) {
 						/* we have an icon! */
 						if (g_strcmp0 (sizes[j], "") == 0) {
 							/* old icon directory, so assume 64x64 */
 							as_component_add_icon_full (cpt,
 									    as_icon_get_kind (icon),
 									    "64x64",
-									    tmp_icon_path);
+									    tmp_icon_path_ext);
 						} else {
 							as_component_add_icon_full (cpt,
 									    as_icon_get_kind (icon),
 									    sizes[j],
-									    tmp_icon_path);
+									    tmp_icon_path_ext);
 						}
 					}
-
-					g_free (tmp_icon_path);
-					tmp_icon_path = NULL;
 				}
 			}
 		}
-	}
-
-	if (tmp_icon_path != NULL) {
-		g_free (tmp_icon_path);
 	}
 }
 
