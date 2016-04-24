@@ -40,10 +40,12 @@ ascli_show_status (void)
 	const gchar *metainfo_path = "/usr/share/metainfo";
 	const gchar *appdata_path = "/usr/share/appdata";
 
+	/* TRANSLATORS: In the status report of ascli: Header */
 	ascli_print_highlight (_("AppStream Status:"));
-	ascli_print_stdout ("Version: %s", VERSION);
+	ascli_print_stdout (_("Version: %s"), VERSION);
 	g_print ("\n");
 
+	/* TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions */
 	ascli_print_highlight (_("Distribution metadata:"));
 	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++) {
 		g_autofree gchar *xml_path = NULL;
@@ -107,7 +109,8 @@ ascli_show_status (void)
 		g_print ("\n");
 	}
 
-	ascli_print_highlight (_("Upstream metadata:"));
+	/* TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report */
+	ascli_print_highlight (_("Metainfo files:"));
 	if (g_file_test (metainfo_path, G_FILE_TEST_IS_DIR)) {
 		g_autoptr(GPtrArray) xmls = NULL;
 		g_autofree gchar *msg = NULL;
@@ -119,6 +122,7 @@ ascli_show_status (void)
 		}
 	} else {
 		if (!g_file_test (appdata_path, G_FILE_TEST_IS_DIR))
+			/* TRANSLATORS: No metainfo files have been found */
 			ascli_print_stdout ("  - %s", _("Empty."));
 	}
 	if (g_file_test (appdata_path, G_FILE_TEST_IS_DIR)) {
@@ -127,12 +131,14 @@ ascli_show_status (void)
 
 		xmls = as_utils_find_files_matching (appdata_path, "*.xml", FALSE, NULL);
 		if (xmls != NULL) {
+			/* TRANSLATORS: Found metainfo files in legacy directories */
 			msg = g_strdup_printf (_("Found %i components in legacy paths."), xmls->len);
 			ascli_print_stdout ("  - %s", msg);
 		}
 	}
 	g_print ("\n");
 
+	/* TRANSLATORS: Status summary in ascli */
 	ascli_print_highlight (_("Summary:"));
 	cache = as_database_new ();
 	if (g_file_test (as_database_get_location (cache), G_FILE_TEST_IS_DIR)) {

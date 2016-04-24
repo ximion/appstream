@@ -51,26 +51,26 @@ as_client_get_summary ()
 
 	/* TRANSLATORS: This is the header to the --help menu */
 	g_string_append_printf (string, "%s\n\n%s\n", _("AppStream command-line interface"),
-				/* these are commands we can use with appstream-cli */
+				/* these are commands we can use with appstreamcli */
 				_("Subcommands:"));
 
-	g_string_append_printf (string, "  %s - %s\n", "search [TERM]", _("Search the component database."));
-	g_string_append_printf (string, "  %s - %s\n", "get [COMPONENT-ID]", _("Get information about a component by its ID."));
-	g_string_append_printf (string, "  %s - %s\n", "what-provides [TYPE] [VALUE]", _("Get components which provide the given item."));
-	g_string_append_printf (string, "    %s - %s\n", "[TYPE]", _("A provides-item type (e.g. lib, bin, python3, ...)"));
-	g_string_append_printf (string, "    %s - %s\n", "[VALUE]", _("Select a value for the provides-item which needs to be found."));
+	g_string_append_printf (string, "  %s - %s\n", "search TERM     ", _("Search the component database."));
+	g_string_append_printf (string, "  %s - %s\n", "get COMPONENT-ID", _("Get information about a component by its ID."));
+	g_string_append_printf (string, "  %s - %s\n", "what-provides TYPE VALUE", _("Get components which provide the given item."));
+	g_string_append_printf (string, "    %s - %s\n", "TYPE ", _("An item type (e.g. lib, bin, python3, ...)"));
+	g_string_append_printf (string, "    %s - %s\n", "VALUE", _("Value of the item that should be found."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "dump [COMPONENT-ID]", _("Dump raw XML metadata for a component matching the ID."));
-	g_string_append_printf (string, "  %s - %s\n", "refresh-index", _("Rebuild the component information cache."));
+	g_string_append_printf (string, "  %s - %s\n", "dump COMPONENT-ID", _("Dump raw XML metadata for a component matching the ID."));
+	g_string_append_printf (string, "  %s - %s\n", "refresh-index    ", _("Rebuild the component metadata cache."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "validate [FILE]", _("Validate AppStream XML files for issues."));
-	g_string_append_printf (string, "  %s - %s\n", "validate-tree [DIRECTORY]", _("Validate an installed file-tree of an application for valid metadata."));
+	g_string_append_printf (string, "  %s - %s\n", "validate FILE          ", _("Validate AppStream XML files for issues."));
+	g_string_append_printf (string, "  %s - %s\n", "validate-tree DIRECTORY", _("Validate an installed file-tree of an application for valid metadata."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "install [COMPONENT-ID]", _("Install software matching the component-id."));
-	g_string_append_printf (string, "  %s - %s\n", "remove  [COMPONENT-ID]", _("Remove software matching the component-id."));
+	g_string_append_printf (string, "  %s - %s\n", "install COMPONENT-ID", _("Install software matching the component-id."));
+	g_string_append_printf (string, "  %s - %s\n", "remove  COMPONENT-ID", _("Remove software matching the component-id."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "put [FILE]", _("Install a metadata file into the right location."));
-	g_string_append_printf (string, "  %s - %s\n", "status", _("Display various information about installed AppStream metadata."));
+	g_string_append_printf (string, "  %s - %s\n", "put FILE", _("Install a metadata file into the right location."));
+	g_string_append_printf (string, "  %s - %s\n", "status  ", _("Display status information about available AppStream metadata."));
 
 	return g_string_free (string, FALSE);
 }
@@ -93,15 +93,55 @@ as_client_run (char **argv, int argc)
 	gchar *options_help = NULL;
 
 	const GOptionEntry client_options[] = {
-		{ "version", 0, 0, G_OPTION_ARG_NONE, &optn_show_version, _("Show the program version"), NULL },
-		{ "verbose", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_verbose_mode, _("Show extra debugging information"), NULL },
-		{ "no-color", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_no_color, _("Don't show colored output"), NULL },
-		{ "force", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_force, _("Enforce a cache refresh"), NULL },
-		{ "details", 0, 0, G_OPTION_ARG_NONE, &optn_details, _("Print detailed output about found components"), NULL },
-		{ "no-cache", 0, 0, G_OPTION_ARG_NONE, &optn_no_cache, _("Do not use the Xapian cache when performing the request"), NULL },
-		{ "dbpath", 0, 0, G_OPTION_ARG_STRING, &optn_dbpath, _("Manually set the location of the AppStream cache"), NULL },
-		{ "datapath", 0, 0, G_OPTION_ARG_STRING, &optn_datapath, _("Manually set the location of AppStream metadata for cache regeneration"), NULL },
-		{ "pedantic", (gchar) 0, 0, G_OPTION_ARG_NONE, &optn_pedantic, _("Print even pedantic hints when validating"), NULL },
+		{ "version", 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_show_version,
+			/* TRANSLATORS: ascli flag description for: --version */
+			_("Show the program version"),
+			NULL },
+		{ "verbose", (gchar) 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_verbose_mode,
+			/* TRANSLATORS: ascli flag description for: --verbose */
+			_("Show extra debugging information"),
+			NULL },
+		{ "no-color", (gchar) 0, 0,
+			G_OPTION_ARG_NONE, &optn_no_color,
+			/* TRANSLATORS: ascli flag description for: --no-color */
+			_("Don't show colored output"), NULL },
+		{ "force", (gchar) 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_force,
+			/* TRANSLATORS: ascli flag description for: --force */
+			_("Enforce a cache refresh"),
+			NULL },
+		{ "details", 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_details,
+			/* TRANSLATORS: ascli flag description for: --details */
+			_("Print detailed output about found components"),
+			NULL },
+		{ "no-cache", 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_no_cache,
+			/* TRANSLATORS: ascli flag description for: --no-cache */
+			_("Do not use the Xapian cache when performing the request"),
+			NULL },
+		{ "dbpath", 0, 0,
+			G_OPTION_ARG_STRING,
+			&optn_dbpath,
+			/* TRANSLATORS: ascli flag description for: --dbpath */
+			_("Manually set the location of the AppStream cache"), NULL },
+		{ "datapath", 0, 0,
+			G_OPTION_ARG_STRING,
+			&optn_datapath,
+			/* TRANSLATORS: ascli flag description for: --datapath */
+			_("Manually set the location of AppStream metadata for cache regeneration"), NULL },
+		{ "pedantic", (gchar) 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_pedantic,
+			/* TRANSLATORS: ascli flag description for: --pedantic */
+			_("Also print pedantic hints when validating"), NULL },
 		{ NULL }
 	};
 
@@ -128,6 +168,7 @@ as_client_run (char **argv, int argc)
 	}
 
 	if (optn_show_version) {
+		/* TRANSLATORS: Output if appstreamcli --version is executed. */
 		ascli_print_stdout (_("AppStream CLI tool version: %s"), VERSION);
 		goto out;
 	}
@@ -138,6 +179,7 @@ as_client_run (char **argv, int argc)
 	}
 
 	if (argc < 2) {
+		/* TRANSLATORS: ascli has been run without command. */
 		g_printerr ("%s\n", _("You need to specify a command."));
 		ascli_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
 		exit_code = 1;
@@ -184,6 +226,7 @@ as_client_run (char **argv, int argc)
 	} else if (g_strcmp0 (command, "status") == 0) {
 		exit_code = ascli_show_status ();
 	} else {
+		/* TRANSLATORS: ascli has been run with unknown command. */
 		ascli_print_stderr (_("Command '%s' is unknown."), command);
 		exit_code = 1;
 		goto out;

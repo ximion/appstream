@@ -51,6 +51,7 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 	as_cache_builder_setup (cbuilder, dbpath, &error);
 	if (error != NULL) {
 		if (g_error_matches (error, AS_CACHE_BUILDER_ERROR, AS_CACHE_BUILDER_ERROR_TARGET_NOT_WRITABLE))
+			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
 			g_printerr ("%s\n%s\n", error->message, _("You might need superuser permissions to perform this action."));
 		else
 			g_printerr ("%s\n", error->message);
@@ -62,6 +63,7 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 	if (ret) {
 		/* we performed a cache refresh, check if we had errors */
 		if (error == NULL) {
+			/* TRANSLATORS: Updating the metadata cache succeeded */
 			g_print ("%s\n", _("AppStream cache update completed successfully."));
 		} else {
 			g_printerr ("%s\n", error->message);
@@ -107,6 +109,7 @@ ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean deta
 	gint exit_code = 0;
 
 	if (identifier == NULL) {
+		/* TRANSLATORS: An AppStream component-id is missing in the command-line arguments */
 		fprintf (stderr, "%s\n", _("You need to specify a component-id."));
 		return 2;
 	}
