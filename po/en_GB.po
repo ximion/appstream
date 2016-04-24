@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-18 16:09+0200\n"
-"PO-Revision-Date: 2016-04-11 23:59+0000\n"
+"POT-Creation-Date: 2016-04-24 23:08+0200\n"
+"PO-Revision-Date: 2016-04-24 21:06+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
 "freedesktop/appstream/language/en_GB/)\n"
@@ -19,16 +19,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "A provides-item type (e.g. lib, bin, python3, ...)"
+#. TRANSLATORS: ascli flag description for: --pedantic
+msgid "Also print pedantic hints when validating"
+msgstr ""
 
+msgid "An item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+#. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI tool version: %s"
 
+#. TRANSLATORS: In the status report of ascli: Header
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream Status:"
 
+#. TRANSLATORS: Updating the metadata cache succeeded
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream cache update completed successfully."
 
@@ -75,10 +82,13 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "extension."
 msgstr ""
+"Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
+"extension."
 
 msgid "Categories"
 msgstr "Categories"
 
+#. TRANSLATORS: ascli has been run with unknown command.
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Command '%s' is unknown."
@@ -103,24 +113,29 @@ msgstr "Description"
 msgid "Developer"
 msgstr "Developer"
 
-msgid "Display various information about installed AppStream metadata."
+msgid "Display status information about available AppStream metadata."
 msgstr ""
 
+#. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Distribution metadata:"
 
+#. TRANSLATORS: ascli flag description for: --no-cache
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Do not use the Xapian cache when performing the request"
 
+#. TRANSLATORS: ascli flag description for: --no-color
 msgid "Don't show colored output"
 msgstr "Don't show coloured output"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Dump raw XML metadata for a component matching the ID."
 
+#. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
-msgstr ""
+msgstr "Empty."
 
+#. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Enforce a cache refresh"
 
@@ -140,13 +155,14 @@ msgstr "Flashed Firmware"
 msgid "Fonts"
 msgstr "Fonts"
 
+#. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "Found %i components in legacy paths."
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Found %i components."
 
 msgid "Get components which provide the given item."
 msgstr "Get components which provide the given item."
@@ -161,13 +177,13 @@ msgid "Icon"
 msgstr "Icon"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Iconsets"
 
 msgid "Identifier"
 msgstr "Identifier"
 
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Install a metadata file into the right location."
 
 msgid "Install software matching the component-id."
 msgstr "Install software matching the component-id."
@@ -182,11 +198,17 @@ msgstr "Libraries"
 msgid "License"
 msgstr "Licence"
 
+#. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr "Manually set the location of AppStream metadata for cache regeneration"
 
+#. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
 msgstr "Manually set the location of the AppStream cache"
+
+#. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+msgid "Metainfo files:"
+msgstr ""
 
 msgid "Mimetypes"
 msgstr "Mimetypes"
@@ -206,7 +228,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "No component providing '%s;%s' found."
 
 msgid "No icons."
-msgstr ""
+msgstr "No icons."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -221,11 +243,9 @@ msgstr "No value for the item to search for defined."
 msgid "Package"
 msgstr "Package"
 
+#. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
 msgstr "Print detailed output about found components"
-
-msgid "Print even pedantic hints when validating"
-msgstr "Print even pedantic hints when validating"
 
 #. project group
 msgid "Project Group"
@@ -240,11 +260,11 @@ msgstr "Python (Version 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache."
-msgstr "Rebuild the component information cache."
+msgid "Rebuild the component metadata cache."
+msgstr ""
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Remove software matching the component-id."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
@@ -259,34 +279,34 @@ msgstr "Sample Screenshot URL"
 msgid "Search the component database."
 msgstr "Search the component database."
 
-msgid "Select a value for the provides-item which needs to be found."
-msgstr "Select a value for the provides-item which needs to be found."
-
+#. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
 msgstr "Show extra debugging information"
 
+#. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
 msgstr "Show the program version"
 
-#. these are commands we can use with appstream-cli
+#. these are commands we can use with appstreamcli
 msgid "Subcommands:"
 msgstr "Subcommands:"
 
 msgid "Summary"
 msgstr "Summary"
 
+#. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
-msgstr ""
+msgstr "Summary:"
 
 msgid "The system metadata cache does not exist."
-msgstr ""
+msgstr "The system metadata cache does not exist."
 
 msgid "The system metadata cache exists."
-msgstr ""
+msgstr "The system metadata cache exists."
 
 #, c-format
 msgid "There was an error while trying to find additional information: %s"
-msgstr ""
+msgstr "There was an error while trying to find additional information: %s"
 
 msgid "Tried to perform query on closed database."
 msgstr "Tried to perform query on closed database."
@@ -313,10 +333,7 @@ msgstr "Unable to spawn package manager: %s"
 
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
-
-msgid "Upstream metadata:"
-msgstr ""
+msgstr "Unable to write to '%s', can not install metainfo file."
 
 msgid "Validate AppStream XML files for issues."
 msgstr "Validate AppStream XML files for issues."
@@ -330,20 +347,30 @@ msgstr "Validation failed."
 msgid "Validation was successful."
 msgstr "Validation was successful."
 
+msgid "Value of the item that should be found."
+msgstr ""
+
+#, c-format
+msgid "Version: %s"
+msgstr ""
+
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "We have information on %i software components."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG Menu XML file '%s' is damaged."
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr "You might need superuser permissions to perform this action."
 
+#. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
 msgstr "You need to specify a command."
 
+#. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
 msgstr "You need to specify a component-id."
 
@@ -351,7 +378,7 @@ msgid "You need to specify a file to validate!"
 msgstr "You need to specify a file to validate!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "You need to specify a metadata file."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "You need to specify a root directory to start validation!"

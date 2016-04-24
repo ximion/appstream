@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-18 16:09+0200\n"
-"PO-Revision-Date: 2016-04-11 23:59+0000\n"
+"POT-Creation-Date: 2016-04-24 23:08+0200\n"
+"PO-Revision-Date: 2016-04-24 21:06+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
 "language/ko/)\n"
@@ -21,16 +21,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "provides-item 형식(예: lib, bin, python3, ...)"
+#. TRANSLATORS: ascli flag description for: --pedantic
+msgid "Also print pedantic hints when validating"
+msgstr ""
 
+msgid "An item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+#. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 도구 버전: %s"
 
+#. TRANSLATORS: In the status report of ascli: Header
 msgid "AppStream Status:"
 msgstr "AppStream 상태:"
 
+#. TRANSLATORS: Updating the metadata cache succeeded
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
 
@@ -82,6 +89,7 @@ msgstr ""
 msgid "Categories"
 msgstr "분류"
 
+#. TRANSLATORS: ascli has been run with unknown command.
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "명령 '%s'이(가) 올바르지 않습니다."
@@ -106,24 +114,29 @@ msgstr "설명"
 msgid "Developer"
 msgstr "개발자"
 
-msgid "Display various information about installed AppStream metadata."
-msgstr "설치한 AppStream 메타데이터의 다양한 정보를 나타냅니다."
+msgid "Display status information about available AppStream metadata."
+msgstr ""
 
+#. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
 msgstr "배포판 메타데이터:"
 
+#. TRANSLATORS: ascli flag description for: --no-cache
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "요청을 수행할 때 Xapian 캐시 활용 안 함"
 
+#. TRANSLATORS: ascli flag description for: --no-color
 msgid "Don't show colored output"
 msgstr "출력에 색깔 사용하지 않기"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
 
+#. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "비어 있음."
 
+#. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "캐시 강제로 새로 고침"
 
@@ -143,6 +156,7 @@ msgstr "펌웨어를 플래싱했습니다"
 msgid "Fonts"
 msgstr "글꼴"
 
+#. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr ""
@@ -186,11 +200,17 @@ msgstr "라이브러리"
 msgid "License"
 msgstr "라이선스"
 
+#. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr "캐시를 다시 생성할 AppStream 메타데이터 위치 직접 지정"
 
+#. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
 msgstr "AppStream 캐시 위치 직접 지정"
+
+#. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+msgid "Metainfo files:"
+msgstr ""
 
 msgid "Mimetypes"
 msgstr "MIME 형식"
@@ -225,11 +245,9 @@ msgstr "항목 검색에 필요한 값을 지정하지 않았습니다."
 msgid "Package"
 msgstr "꾸러미"
 
+#. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시"
-
-msgid "Print even pedantic hints when validating"
-msgstr "검증할 때 세세한 힌트도 출력"
 
 #. project group
 msgid "Project Group"
@@ -244,8 +262,8 @@ msgstr "파이썬(버전 2)"
 msgid "Python 3"
 msgstr "파이썬 3"
 
-msgid "Rebuild the component information cache."
-msgstr "구성 요소 정보 캐시를 다시 만듭니다."
+msgid "Rebuild the component metadata cache."
+msgstr ""
 
 msgid "Remove software matching the component-id."
 msgstr "component-id에 일치하는 프로그램을 제거합니다."
@@ -263,22 +281,22 @@ msgstr "예제 스크린샷 URL"
 msgid "Search the component database."
 msgstr "구성요소 데이터베이스를 검색합니다."
 
-msgid "Select a value for the provides-item which needs to be found."
-msgstr "찾아야 할 제공 항목의 값을 선택하십시오."
-
+#. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
 msgstr "추가 디버깅 정보 보이기"
 
+#. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
 msgstr "프로그램 버전 보이기"
 
-#. these are commands we can use with appstream-cli
+#. these are commands we can use with appstreamcli
 msgid "Subcommands:"
 msgstr "하위 명령:"
 
 msgid "Summary"
 msgstr "요약"
 
+#. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
 msgstr "요약:"
 
@@ -319,9 +337,6 @@ msgstr "꾸러미 관리자를 초기화 할 수 없습니다: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "'%s'에 기록할 수 없어 메터 정보 파일을 설치할 수 없습니다."
 
-msgid "Upstream metadata:"
-msgstr "업스트림 메타데이터:"
-
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML 파일의 문제를 검증합니다."
 
@@ -335,6 +350,13 @@ msgstr "검증에 실패하였습니다."
 msgid "Validation was successful."
 msgstr "검증을 끝냈습니다."
 
+msgid "Value of the item that should be found."
+msgstr ""
+
+#, c-format
+msgid "Version: %s"
+msgstr ""
+
 #, c-format
 msgid "We have information on %i software components."
 msgstr "소프트웨어 구성 요소 %i개 정보가 있습니다."
@@ -343,12 +365,15 @@ msgstr "소프트웨어 구성 요소 %i개 정보가 있습니다."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG 메뉴 XML 파일 '%s'이(가) 손상되었습니다."
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr "이 동작을 수행하려면 최고 사용자 권한이 필요합니다."
 
+#. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
 msgstr "명령을 지정해야 합니다."
 
+#. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
 msgstr "component-id를 지정해야 합니다."
 

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-18 16:09+0200\n"
-"PO-Revision-Date: 2016-04-12 06:36+0000\n"
-"Last-Translator: Serge Vylekzhanin <vylekzhanin@mail.ru>\n"
+"POT-Creation-Date: 2016-04-24 23:08+0200\n"
+"PO-Revision-Date: 2016-04-24 21:06+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Russian (http://www.transifex.com/freedesktop/appstream/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -21,16 +21,23 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "Тип предоставляющего элемента (например, lib, bin, python3, …)"
+#. TRANSLATORS: ascli flag description for: --pedantic
+msgid "Also print pedantic hints when validating"
+msgstr ""
 
+msgid "An item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+#. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Версия AppStream CLI-программы: %s"
 
+#. TRANSLATORS: In the status report of ascli: Header
 msgid "AppStream Status:"
 msgstr "Статус AppStream:"
 
+#. TRANSLATORS: Updating the metadata cache succeeded
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
 
@@ -83,6 +90,7 @@ msgstr ""
 msgid "Categories"
 msgstr "Категории"
 
+#. TRANSLATORS: ascli has been run with unknown command.
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Команда '%s' неизвестна"
@@ -107,15 +115,18 @@ msgstr "Описание"
 msgid "Developer"
 msgstr "Разработчик"
 
-msgid "Display various information about installed AppStream metadata."
-msgstr "Отобразить различную информацию об установленных метаданных AppStream."
+msgid "Display status information about available AppStream metadata."
+msgstr ""
 
+#. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
 msgstr "Метаданные дистрибуции:"
 
+#. TRANSLATORS: ascli flag description for: --no-cache
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Не использовать Xapian кэш при выполнении запроса"
 
+#. TRANSLATORS: ascli flag description for: --no-color
 msgid "Don't show colored output"
 msgstr "Не показывать цветной вывод"
 
@@ -124,9 +135,11 @@ msgstr ""
 "Создать дамп необработанных метаданных XML для компонента с соответствующим "
 "идентификатором."
 
+#. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "Пусто."
 
+#. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Принудительно обновить кэш"
 
@@ -146,6 +159,7 @@ msgstr "Прошитая микропрограмма"
 msgid "Fonts"
 msgstr "Шрифты"
 
+#. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "Найдено %i компонент в унаследованных путях."
@@ -191,12 +205,18 @@ msgstr "Библиотеки"
 msgid "License"
 msgstr "Лицензия"
 
+#. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
 "Установить вручную местоположение метаданных AppStream для регенерации кэша"
 
+#. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
 msgstr "Установить вручную местоположение кэша AppStream"
+
+#. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+msgid "Metainfo files:"
+msgstr ""
 
 msgid "Mimetypes"
 msgstr "MIME-типы"
@@ -231,11 +251,9 @@ msgstr "Не определено значение для элемента по�
 msgid "Package"
 msgstr "Пакет"
 
+#. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
 msgstr "Напечатать подробный вывод о найденных компонентах"
-
-msgid "Print even pedantic hints when validating"
-msgstr "Выводить даже мельчайшие неточности при проверке"
 
 #. project group
 msgid "Project Group"
@@ -250,8 +268,8 @@ msgstr "Python (версия 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache."
-msgstr "Перестроить кэш информации о компонентах."
+msgid "Rebuild the component metadata cache."
+msgstr ""
 
 msgid "Remove software matching the component-id."
 msgstr ""
@@ -272,22 +290,22 @@ msgstr "URL-адрес примера снимка экрана"
 msgid "Search the component database."
 msgstr "Поиск по базе данных компонентов."
 
-msgid "Select a value for the provides-item which needs to be found."
-msgstr "Выберите значение для «provides-item», которое необходимо найти."
-
+#. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
 msgstr "Показывать дополнительную отладочную информацию"
 
+#. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
 msgstr "Показать версию программы"
 
-#. these are commands we can use with appstream-cli
+#. these are commands we can use with appstreamcli
 msgid "Subcommands:"
 msgstr "Подкоманды:"
 
 msgid "Summary"
 msgstr "Сводка"
 
+#. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
 msgstr "Сводка:"
 
@@ -328,9 +346,6 @@ msgstr "Не удаётся запустить процесс менеджера
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Не удаётся записать в '%s', невозможно установить файл метаинформации."
 
-msgid "Upstream metadata:"
-msgstr "Метаданные Upstream:"
-
 msgid "Validate AppStream XML files for issues."
 msgstr "Проверить файлы XML AppStream на недостатки."
 
@@ -345,6 +360,13 @@ msgstr "Проверка прошла неудачно"
 msgid "Validation was successful."
 msgstr "Проверка успешно пройдена."
 
+msgid "Value of the item that should be found."
+msgstr ""
+
+#, c-format
+msgid "Version: %s"
+msgstr ""
+
 #, c-format
 msgid "We have information on %i software components."
 msgstr "У нас есть информация о компонентах программного обеспечения %i."
@@ -353,13 +375,16 @@ msgstr "У нас есть информация о компонентах про
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XML файл меню XDG '%s' повреждён."
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
 "Для выполнения этого действия Вам могут понадобиться права администратора."
 
+#. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
 msgstr "Вам необходимо указать команду"
 
+#. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
 msgstr "Вам необходимо указать идентификатор компоненты."
 

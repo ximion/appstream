@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-18 16:09+0200\n"
-"PO-Revision-Date: 2016-04-11 23:59+0000\n"
+"POT-Creation-Date: 2016-04-24 23:08+0200\n"
+"PO-Revision-Date: 2016-04-24 21:06+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Czech (http://www.transifex.com/freedesktop/appstream/"
 "language/cs/)\n"
@@ -20,16 +20,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "Typ poskytující položky (např. lib, bin, python3, …)"
+#. TRANSLATORS: ascli flag description for: --pedantic
+msgid "Also print pedantic hints when validating"
+msgstr ""
 
+msgid "An item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+#. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Verze nástroje AppStream CLI: %s"
 
+#. TRANSLATORS: In the status report of ascli: Header
 msgid "AppStream Status:"
 msgstr "Stav AppStreamu:"
 
+#. TRANSLATORS: Updating the metadata cache succeeded
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStreamu byla úspěšně dokončena."
 
@@ -82,6 +89,7 @@ msgstr ""
 msgid "Categories"
 msgstr "Kategorie"
 
+#. TRANSLATORS: ascli has been run with unknown command.
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Příkaz „%s“ není znám."
@@ -106,24 +114,29 @@ msgstr "Popis"
 msgid "Developer"
 msgstr "Vývojář"
 
-msgid "Display various information about installed AppStream metadata."
-msgstr "Zobrazit různorodé informace o nainstalovaných metadatech AppStream."
+msgid "Display status information about available AppStream metadata."
+msgstr ""
 
+#. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
 msgstr "Metadata distribuce:"
 
+#. TRANSLATORS: ascli flag description for: --no-cache
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Nepoužívat mezipaměť Xapian, když se provádí požadavek"
 
+#. TRANSLATORS: ascli flag description for: --no-color
 msgid "Don't show colored output"
 msgstr "Nezobrazovat výstup obarvený"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Vypsat surová metadata XML pro komponentu s odpovídajícím ID."
 
+#. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "Prázdné."
 
+#. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Vynutit aktualizaci mezipaměti"
 
@@ -143,6 +156,7 @@ msgstr "Trvalý firmware"
 msgid "Fonts"
 msgstr "Fonty"
 
+#. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr ""
@@ -185,11 +199,17 @@ msgstr "Knihovny"
 msgid "License"
 msgstr "Licence"
 
+#. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr "Ručně nastavit umístění metadat AppStream pro obnovení mezipaměti"
 
+#. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
 msgstr "Ručně nastavit umístění mezipaměti AppStream"
+
+#. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+msgid "Metainfo files:"
+msgstr ""
 
 msgid "Mimetypes"
 msgstr "Typ MIME"
@@ -224,11 +244,9 @@ msgstr "Není určena žádná hodnota pro položku, která se má najít."
 msgid "Package"
 msgstr "Balíček"
 
+#. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
 msgstr "O nalezené komponentě vypsat podrobnosti"
-
-msgid "Print even pedantic hints when validating"
-msgstr "Při ověřování vypisovat i pedantské rady"
 
 #. project group
 msgid "Project Group"
@@ -243,8 +261,8 @@ msgstr "Python (veze 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache."
-msgstr "Znovu sestavit mezipaměť s informacemi o komponentách."
+msgid "Rebuild the component metadata cache."
+msgstr ""
 
 msgid "Remove software matching the component-id."
 msgstr "Odebrat software odpovídající komponentě s ID."
@@ -264,22 +282,22 @@ msgstr "URL snímku obrazovky s ukázkou"
 msgid "Search the component database."
 msgstr "Prohledat databázi komponent."
 
-msgid "Select a value for the provides-item which needs to be found."
-msgstr "Vybrat hodnotu pro poskytující položku, kterou potřebujete najít."
-
+#. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
 msgstr "Zobrazovat doplňující informace pro ladění"
 
+#. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
 msgstr "Zobrazit verzi programu"
 
-#. these are commands we can use with appstream-cli
+#. these are commands we can use with appstreamcli
 msgid "Subcommands:"
 msgstr "Dílčí příkazy:"
 
 msgid "Summary"
 msgstr "Shrnutí"
 
+#. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
 msgstr "Shrnutí:"
 
@@ -321,9 +339,6 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 "Nelze zapisovat do „%s“, proto nelze nainstalovat soubor s metainformacemi."
 
-msgid "Upstream metadata:"
-msgstr "Metadata z projektu:"
-
 msgid "Validate AppStream XML files for issues."
 msgstr "Ověřit, jestli soubor XML ve formátu AppStream neobsahuje chyby."
 
@@ -337,6 +352,13 @@ msgstr "Ověření selhalo."
 msgid "Validation was successful."
 msgstr "Ověření bylo úspěšné."
 
+msgid "Value of the item that should be found."
+msgstr ""
+
+#, c-format
+msgid "Version: %s"
+msgstr ""
+
 #, c-format
 msgid "We have information on %i software components."
 msgstr ""
@@ -345,13 +367,16 @@ msgstr ""
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "Soubor XML „%s“ s XDG Menu je poškozený."
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
 "K provedení této činnosti možná budete potřebovat oprávnění superuživatele."
 
+#. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
 msgstr "Musíte zadat příkaz."
 
+#. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
 msgstr "Musíte určit ID komponenty"
 

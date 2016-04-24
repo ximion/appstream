@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-18 16:09+0200\n"
-"PO-Revision-Date: 2016-04-11 23:59+0000\n"
+"POT-Creation-Date: 2016-04-24 23:08+0200\n"
+"PO-Revision-Date: 2016-04-24 21:06+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream/"
 "language/hu/)\n"
@@ -20,16 +20,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "Egy szolgáltatás-elem típus (például lib, bin, python3, …)"
+#. TRANSLATORS: ascli flag description for: --pedantic
+msgid "Also print pedantic hints when validating"
+msgstr ""
 
+msgid "An item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+#. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI eszközverzió: %s"
 
+#. TRANSLATORS: In the status report of ascli: Header
 msgid "AppStream Status:"
 msgstr "AppStream állapot:"
 
+#. TRANSLATORS: Updating the metadata cache succeeded
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
 
@@ -82,6 +89,7 @@ msgstr ""
 msgid "Categories"
 msgstr "Kategóriák"
 
+#. TRANSLATORS: ascli has been run with unknown command.
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "A(z) „%s” parancs ismeretlen."
@@ -106,25 +114,29 @@ msgstr "Leírás"
 msgid "Developer"
 msgstr "Fejlesztő"
 
-msgid "Display various information about installed AppStream metadata."
+msgid "Display status information about available AppStream metadata."
 msgstr ""
-"Különböző információk megjelenítése a telepített AppStream metaadatokról."
 
+#. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
 msgstr "Disztribúció metaadatok:"
 
+#. TRANSLATORS: ascli flag description for: --no-cache
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
 
+#. TRANSLATORS: ascli flag description for: --no-color
 msgid "Don't show colored output"
 msgstr "Ne jelenítsen meg színes kimenetet"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz."
 
+#. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "Üres."
 
+#. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Gyorsítótár-frissítés kényszerítése"
 
@@ -144,6 +156,7 @@ msgstr "Flashelt firmware"
 msgid "Fonts"
 msgstr "Betűkészletek"
 
+#. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr ""
@@ -187,13 +200,19 @@ msgstr "Programkönyvtárak"
 msgid "License"
 msgstr "Licenc"
 
+#. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
 "Az AppStream metaadatok helyének kézi beállítása a gyorsítótár újra "
 "előállításához"
 
+#. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
 msgstr "Az AppStream gyorsítótár helyének kézi beállítása"
+
+#. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+msgid "Metainfo files:"
+msgstr ""
 
 msgid "Mimetypes"
 msgstr "MIME-típusok"
@@ -228,11 +247,9 @@ msgstr "Nincs érték az elemhez a meghatározott kereséséhez."
 msgid "Package"
 msgstr "Csomag"
 
+#. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
 msgstr "Részletes kimenet írása a megtalált összetevőről"
-
-msgid "Print even pedantic hints when validating"
-msgstr "Még az akadékoskodó tippeket is nyomtassa ellenőrzéskor"
 
 #. project group
 msgid "Project Group"
@@ -247,8 +264,8 @@ msgstr "Python (2-es verzió)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache."
-msgstr "Az összetevő információs gyorsítótár újraépítése."
+msgid "Rebuild the component metadata cache."
+msgstr ""
 
 msgid "Remove software matching the component-id."
 msgstr "A component-id-nek megfelelő szoftver eltávolítása."
@@ -268,23 +285,22 @@ msgstr "Minta képernyőkép URL"
 msgid "Search the component database."
 msgstr "Keresés az összetevő adatbázisban."
 
-msgid "Select a value for the provides-item which needs to be found."
-msgstr ""
-"Válasszon egy értéket ahhoz a provides-item-hez, amelyet meg kell találni."
-
+#. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
 msgstr "További hibakeresési információk megjelenítése"
 
+#. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
 msgstr "A programverzió megjelenítése"
 
-#. these are commands we can use with appstream-cli
+#. these are commands we can use with appstreamcli
 msgid "Subcommands:"
 msgstr "Alparancsok:"
 
 msgid "Summary"
 msgstr "Összegzés"
 
+#. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
 msgstr "Összegzés:"
 
@@ -326,9 +342,6 @@ msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
 
-msgid "Upstream metadata:"
-msgstr "Eredeti metaadatok:"
-
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál."
 
@@ -342,6 +355,13 @@ msgstr "Az ellenőrzés nem sikerült."
 msgid "Validation was successful."
 msgstr "Az ellenőrzés sikeres volt."
 
+msgid "Value of the item that should be found."
+msgstr ""
+
+#, c-format
+msgid "Version: %s"
+msgstr ""
+
 #, c-format
 msgid "We have information on %i software components."
 msgstr "%i szoftverkomponensről van információnk."
@@ -350,12 +370,15 @@ msgstr "%i szoftverkomponensről van információnk."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "A(z) „%s” XDG menü XML fájl sérült."
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr "A művelet végrehajtásához rendszergazdai jogokra lehet szükség."
 
+#. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."
 
+#. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
 msgstr "Meg kell adnia egy összetevő-azonosítót."
 

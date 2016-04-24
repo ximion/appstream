@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-18 16:09+0200\n"
-"PO-Revision-Date: 2016-04-12 13:51+0000\n"
+"POT-Creation-Date: 2016-04-24 23:08+0200\n"
+"PO-Revision-Date: 2016-04-24 21:06+0000\n"
 "Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
@@ -20,16 +20,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "提供項目的類型 (如：lib、bin、python3...等)"
+#. TRANSLATORS: ascli flag description for: --pedantic
+msgid "Also print pedantic hints when validating"
+msgstr ""
 
+msgid "An item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+#. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 工具版本：%s"
 
+#. TRANSLATORS: In the status report of ascli: Header
 msgid "AppStream Status:"
 msgstr "AppStream 狀態："
 
+#. TRANSLATORS: Updating the metadata cache succeeded
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
 
@@ -77,6 +84,7 @@ msgstr "無法複製「%s」：檔案沒有「.metainfo.xml」或「.appdata.xml
 msgid "Categories"
 msgstr "類別"
 
+#. TRANSLATORS: ascli has been run with unknown command.
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "指令「%s」未知。"
@@ -101,24 +109,29 @@ msgstr "描述"
 msgid "Developer"
 msgstr "開發者"
 
-msgid "Display various information about installed AppStream metadata."
-msgstr "顯示各種已安裝之 AppStream 中介資料的相關資訊。"
+msgid "Display status information about available AppStream metadata."
+msgstr ""
 
+#. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
 msgstr "散佈版中介資料："
 
+#. TRANSLATORS: ascli flag description for: --no-cache
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "執行請求時不要使用 Xapian 快取"
 
+#. TRANSLATORS: ascli flag description for: --no-color
 msgid "Don't show colored output"
 msgstr "不要顯示色彩化的輸出"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
+#. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "空的。"
 
+#. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "強制快取重新整理"
 
@@ -138,6 +151,7 @@ msgstr "快閃記憶韌體"
 msgid "Fonts"
 msgstr "字型"
 
+#. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "遺留路徑中找到 %i 個組件。"
@@ -180,11 +194,17 @@ msgstr "函式庫"
 msgid "License"
 msgstr "授權條款"
 
+#. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr "手動設定快取重製用的 AppStream 中介資料位置"
 
+#. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
 msgstr "手動設定 AppStream 快取的位置"
+
+#. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+msgid "Metainfo files:"
+msgstr ""
 
 msgid "Mimetypes"
 msgstr "Mimetypes"
@@ -217,11 +237,9 @@ msgstr "要搜尋的項目未定義該值。"
 msgid "Package"
 msgstr "軟體包"
 
+#. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
 msgstr "列印有關找到之組件的詳細輸出"
-
-msgid "Print even pedantic hints when validating"
-msgstr "驗證時也列印出繁冗的提示"
 
 #. project group
 msgid "Project Group"
@@ -236,8 +254,8 @@ msgstr "Python (第 2 版)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache."
-msgstr "重建組件資訊快取。"
+msgid "Rebuild the component metadata cache."
+msgstr ""
 
 msgid "Remove software matching the component-id."
 msgstr "移除符合該組件 ID 的軟體。"
@@ -255,22 +273,22 @@ msgstr "樣本螢幕快照 URL"
 msgid "Search the component database."
 msgstr "搜尋組件資料庫。"
 
-msgid "Select a value for the provides-item which needs to be found."
-msgstr "選取需要尋找的項目提供之值。"
-
+#. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
 msgstr "顯示額外除錯資訊"
 
+#. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
 msgstr "顯示程式版本"
 
-#. these are commands we can use with appstream-cli
+#. these are commands we can use with appstreamcli
 msgid "Subcommands:"
 msgstr "子指令："
 
 msgid "Summary"
 msgstr "摘要"
 
+#. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
 msgstr "摘要："
 
@@ -311,9 +329,6 @@ msgstr "無法多重啟動軟體包管理程式：%s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
-msgid "Upstream metadata:"
-msgstr "上游中介資料："
-
 msgid "Validate AppStream XML files for issues."
 msgstr "驗證 AppStream XML 檔是否有問題。"
 
@@ -326,6 +341,13 @@ msgstr "驗證失敗。"
 msgid "Validation was successful."
 msgstr "驗證成功。"
 
+msgid "Value of the item that should be found."
+msgstr ""
+
+#, c-format
+msgid "Version: %s"
+msgstr ""
+
 #, c-format
 msgid "We have information on %i software components."
 msgstr "我們有 %i 個軟體組件的相關資訊。"
@@ -334,12 +356,15 @@ msgstr "我們有 %i 個軟體組件的相關資訊。"
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "XDG 選單 XML 檔案「%s」已損毀。"
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr "您也許需要超級使用者權利才能執行此動作。"
 
+#. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
 msgstr "您需要指定個指令。"
 
+#. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
 msgstr "您需要指定個組件 id。"
 

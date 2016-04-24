@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-18 16:09+0200\n"
-"PO-Revision-Date: 2016-04-14 10:47+0000\n"
-"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
+"POT-Creation-Date: 2016-04-24 23:08+0200\n"
+"PO-Revision-Date: 2016-04-24 21:06+0000\n"
+"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -19,16 +19,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "A provides-item type (e.g. lib, bin, python3, ...)"
-msgstr "Un tipus de «provides-item» (p. ex. lib, bin, python3, etc.)"
+#. TRANSLATORS: ascli flag description for: --pedantic
+msgid "Also print pedantic hints when validating"
+msgstr ""
 
+msgid "An item type (e.g. lib, bin, python3, ...)"
+msgstr ""
+
+#. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Versió de l'eina de la interfície de línia d'ordres d'AppStream: %s"
 
+#. TRANSLATORS: In the status report of ascli: Header
 msgid "AppStream Status:"
 msgstr "Estat d'AppStream:"
 
+#. TRANSLATORS: Updating the metadata cache succeeded
 msgid "AppStream cache update completed successfully."
 msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
@@ -82,6 +89,7 @@ msgstr ""
 msgid "Categories"
 msgstr "Categories"
 
+#. TRANSLATORS: ascli has been run with unknown command.
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Es desconeix l'ordre «%s»."
@@ -106,15 +114,18 @@ msgstr "Descripció"
 msgid "Developer"
 msgstr "Desenvolupador"
 
-msgid "Display various information about installed AppStream metadata."
-msgstr "Mostra informació diversa sobre metadades instal·lades d'AppStream."
+msgid "Display status information about available AppStream metadata."
+msgstr ""
 
+#. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
 msgstr "Metadades de la distribució:"
 
+#. TRANSLATORS: ascli flag description for: --no-cache
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "No utilitzis la memòria cau del Xapian quan facis una petició"
 
+#. TRANSLATORS: ascli flag description for: --no-color
 msgid "Don't show colored output"
 msgstr "No mostris una sortida acolorida"
 
@@ -122,9 +133,11 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Bolca les metadades XML en pla per a un component que coincideixi amb l'id."
 
+#. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "Buit."
 
+#. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Força una actualització de la memòria cau"
 
@@ -144,6 +157,7 @@ msgstr "Microprogramari flaix"
 msgid "Fonts"
 msgstr "Tipus de lletres"
 
+#. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "S'han trobat %i components als camins del llegat."
@@ -188,13 +202,19 @@ msgstr "Biblioteques"
 msgid "License"
 msgstr "Llicència"
 
+#. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
 "Estableix manualment la ubicació de les metadades d'AppStream per a la "
 "regeneració de la memòria cau"
 
+#. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
 msgstr "Estableix manualment la ubicació de la memòria cau d'AppStream."
+
+#. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+msgid "Metainfo files:"
+msgstr ""
 
 msgid "Mimetypes"
 msgstr "Mini tipus"
@@ -229,11 +249,9 @@ msgstr "Es desconeix el valor de l'ítem definit en la cerca."
 msgid "Package"
 msgstr "Paquet"
 
+#. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
 msgstr "Imprimeix la sortida detallada sobre els components trobats"
-
-msgid "Print even pedantic hints when validating"
-msgstr "Imprimeix els consells en la validació, fins i tot els redundants"
 
 #. project group
 msgid "Project Group"
@@ -248,8 +266,8 @@ msgstr "Python (versió 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-msgid "Rebuild the component information cache."
-msgstr "Reconstrueix la memòria cau de la informació del component."
+msgid "Rebuild the component metadata cache."
+msgstr ""
 
 msgid "Remove software matching the component-id."
 msgstr "Suprimeix aquell programari que coincideixi amb «component-id»."
@@ -269,22 +287,22 @@ msgstr "URL de la captura de pantalla de mostra"
 msgid "Search the component database."
 msgstr "Cerca a la base de dades de components."
 
-msgid "Select a value for the provides-item which needs to be found."
-msgstr "Selecciona un valor per al «provides-item» que s'hagi de trobar."
-
+#. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
 msgstr "Mostra la informació extra de depuració"
 
+#. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
 msgstr "Mostra la versió de l'aplicació"
 
-#. these are commands we can use with appstream-cli
+#. these are commands we can use with appstreamcli
 msgid "Subcommands:"
 msgstr "Subordres:"
 
 msgid "Summary"
 msgstr "Resum"
 
+#. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
 msgstr "Resum:"
 
@@ -327,9 +345,6 @@ msgstr "No s'ha pogut generar el gestor de paquets: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "No es pot escriure a «%s», no es pot instal·lar el fitxer metainfo."
 
-msgid "Upstream metadata:"
-msgstr "Metadades de la línia de desenvolupament:"
-
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida els fitxers XML d'AppStream per incidències."
 
@@ -344,6 +359,13 @@ msgstr "Ha fallat la validació."
 msgid "Validation was successful."
 msgstr "S'ha validat correctament."
 
+msgid "Value of the item that should be found."
+msgstr ""
+
+#, c-format
+msgid "Version: %s"
+msgstr ""
+
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Tenim informació sobre %i components de programari."
@@ -352,14 +374,17 @@ msgstr "Tenim informació sobre %i components de programari."
 msgid "XDG Menu XML file '%s' is damaged."
 msgstr "El fitxer XML del menú XDG «%s» està malmès."
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
 "És probable que es necessitin els permisos de superusuari per realitzar "
 "aquesta acció."
 
+#. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
 msgstr "Heu d'especificar una ordre."
 
+#. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
 msgstr "Heu d'especificar un «component-id»."
 
