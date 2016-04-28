@@ -433,50 +433,50 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 static void
 as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTable *known_tags, AsComponent *cpt)
 {
-	gchar *lang;
+	g_autofree gchar *lang = NULL;
+	gchar *tag_id;
 	const gchar *node_name;
 
-	/* localized tags may appear more than once, we only test the unlocalized versions */
-	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
-	if (lang != NULL) {
-		g_free (lang);
-		return;
-	}
+	/* generate tag-id to make a unique identifier for localized and unlocalized tags */
 	node_name = (const gchar*) node->name;
+	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
+	if (lang == NULL)
+		tag_id = g_strdup (node_name);
+	else
+		tag_id = g_strdup_printf ("%s (lang=%s)", node_name, lang);
 
-	if (g_hash_table_contains (known_tags, node_name)) {
+	if (g_hash_table_contains (known_tags, tag_id)) {
 		as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_TAG_DUPLICATED,
 					"The tag '%s' appears multiple times, while it should only be defined once per component.",
-					node_name);
+					tag_id);
 	}
+
+	/* add to list of known tags (takes ownership/frees tag_id) */
+	g_hash_table_add (known_tags, tag_id);
 }
 
 /**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
-as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsParserMode mode)
+as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xmlNode *root)
 {
 	gchar *cpttype;
 	xmlNode *iter;
-	AsXMLData *xdt;
 	AsComponent *cpt;
 	gchar *metadata_license = NULL;
 	GHashTable *found_tags;
 	const gchar *summary;
+	AsParserMode mode;
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	mode = as_xmldata_get_parser_mode (xdt);
 
 	/* validate the resulting AsComponent for sanity */
-	xdt = as_xmldata_new ();
-	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
-	as_xmldata_set_parser_mode (xdt, mode);
-
 	cpt = as_component_new ();
 	as_xmldata_parse_component_node (xdt, root, cpt, NULL);
-	g_object_unref (xdt);
 
 	as_validator_set_current_cpt (validator, cpt);
 
@@ -495,7 +495,7 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
-		gchar *node_content;
+		g_autofree gchar *node_content = NULL;
 		gboolean tag_valid = TRUE;
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -530,14 +530,14 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 				as_validator_add_issue (validator,
 							AS_ISSUE_IMPORTANCE_PEDANTIC,
 							AS_ISSUE_KIND_TAG_DUPLICATED,
-							"The 'pkgname' tag appears multiple times. You should evaluate creating a metapackage containing the data in order to avoid defining multiple package names per component.");
+							"The tag 'pkgname' appears multiple times. You should evaluate creating a metapackage containing the data in order to avoid defining multiple package names per component.");
 			}
 		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
 			if (g_hash_table_contains (found_tags, node_name)) {
 				as_validator_add_issue (validator,
 							AS_ISSUE_IMPORTANCE_ERROR,
 							AS_ISSUE_KIND_TAG_DUPLICATED,
-							"The 'source_pkgname' tag appears multiple times.");
+							"The tag 'source_pkgname' appears multiple times.");
 			}
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
@@ -646,10 +646,6 @@ as_validator_validate_component_node (AsValidator *validator, xmlNode *root, AsP
 							AS_ISSUE_IMPORTANCE_WARNING,
 							cpt);
 		}
-
-		g_free (node_content);
-
-		g_hash_table_add (found_tags, g_strdup (node_name));
 	}
 
 	g_hash_table_unref (found_tags);
@@ -855,32 +851,34 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 	gboolean ret;
 	xmlNode* root;
 	xmlDoc *doc;
+	g_autoptr(AsXMLData) xdt = NULL;
 	AsComponent *cpt;
 
 	root = as_validator_open_xml_document (validator, metadata, &doc);
 	if (!root)
 		return FALSE;
 
-	ret = TRUE;
+	xdt = as_xmldata_new ();
+	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
 
+	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		cpt = as_validator_validate_component_node (validator,
-							root,
-							AS_PARSER_MODE_UPSTREAM);
+		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_UPSTREAM);
+		cpt = as_validator_validate_component_node (validator, xdt, root);
 		if (cpt != NULL)
 			g_object_unref (cpt);
 	} else if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		xmlNode *iter;
 		const gchar *node_name;
+
+		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_DISTRO);
 		for (iter = root->children; iter != NULL; iter = iter->next) {
 			/* discard spaces */
 			if (iter->type != XML_ELEMENT_NODE)
 				continue;
 			node_name = (const gchar*) iter->name;
 			if (g_strcmp0 (node_name, "component") == 0) {
-				cpt = as_validator_validate_component_node (validator,
-									iter,
-									AS_PARSER_MODE_DISTRO);
+				cpt = as_validator_validate_component_node (validator, xdt, iter);
 				if (cpt != NULL)
 					g_object_unref (cpt);
 			} else {
@@ -897,6 +895,13 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_LEGACY,
 					"The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher).");
+		ret = FALSE;
+	} else {
+		as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_UNKNOWN,
+					"Unknown root tag found: '%s' - maybe not a metainfo document?",
+					(gchar*) root->name);
 		ret = FALSE;
 	}
 
@@ -1038,6 +1043,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	GHashTable *validated_cpts = NULL;
 	guint i;
 	gboolean ret = TRUE;
+	g_autoptr(AsXMLData) xdt = NULL;
 	struct MInfoCheckData ht_helper;
 
 	/* cleanup */
@@ -1068,6 +1074,11 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 						g_str_equal,
 						g_free,
 						g_object_unref);
+
+	/* set up XML parser */
+	xdt = as_xmldata_new ();
+	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
+	as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_UPSTREAM);
 
 	/* validate all metainfo files */
 	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE, NULL);
@@ -1121,8 +1132,8 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
 			AsComponent *cpt;
 			cpt = as_validator_validate_component_node (validator,
-							root,
-							AS_PARSER_MODE_UPSTREAM);
+								    xdt,
+								    root);
 			if (cpt != NULL)
 				g_hash_table_insert (validated_cpts,
 							g_strdup (fname_basename),

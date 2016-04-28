@@ -70,6 +70,7 @@ gchar			*as_xmldata_serialize_to_distro (AsXMLData *xdt,
 							 GPtrArray *cpts,
 							 gboolean write_header);
 
+AsParserMode		as_xmldata_get_parser_mode (AsXMLData *xdt);
 void			as_xmldata_set_parser_mode (AsXMLData *xdt,
 							AsParserMode mode);
 void			as_xmldata_parse_component_node (AsXMLData *metad,

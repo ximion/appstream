@@ -1872,6 +1872,16 @@ as_xmldata_serialize_to_distro (AsXMLData *xdt, GPtrArray *cpts, gboolean write_
 }
 
 /**
+ * as_xmldata_get_parser_mode:
+ */
+AsParserMode
+as_xmldata_get_parser_mode (AsXMLData *xdt)
+{
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+	return priv->mode;
+}
+
+/**
  * as_xmldata_set_parser_mode:
  */
 void
