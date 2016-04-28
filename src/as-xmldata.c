@@ -1409,10 +1409,10 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	GPtrArray *releases;
 	GPtrArray *screenshots;
 	GPtrArray *icons;
-	GPtrArray *translations;
 	AsComponentKind kind;
 	AsLocaleWriteHelper helper;
 	guint i;
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 	g_return_val_if_fail (cpt != NULL, NULL);
 
 	/* define component root node */
@@ -1527,13 +1527,18 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	}
 
 	/* translations */
-	translations = as_component_get_translations (cpt);
-	for (i = 0; i < translations->len; i++) {
-		AsTranslation *tr = AS_TRANSLATION (g_ptr_array_index (translations, i));
-		xmlNode *n;
-		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "translation", (xmlChar*) as_translation_get_id (tr));
-		xmlNewProp (n, (xmlChar*) "type",
-					(xmlChar*) as_translation_kind_to_string (as_translation_get_kind (tr)));
+	if (priv->mode == AS_PARSER_MODE_UPSTREAM) {
+		GPtrArray *translations;
+
+		/* the translations tag is only valid in metainfo files */
+		translations = as_component_get_translations (cpt);
+		for (i = 0; i < translations->len; i++) {
+			AsTranslation *tr = AS_TRANSLATION (g_ptr_array_index (translations, i));
+			xmlNode *n;
+			n = xmlNewTextChild (cnode, NULL, (xmlChar*) "translation", (xmlChar*) as_translation_get_id (tr));
+			xmlNewProp (n, (xmlChar*) "type",
+						(xmlChar*) as_translation_kind_to_string (as_translation_get_kind (tr)));
+		}
 	}
 
 	/* releases node */
