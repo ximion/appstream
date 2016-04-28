@@ -68,24 +68,20 @@ static gchar	**as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode *node, c
  * Catch out-of-context errors emitted by libxml2.
  */
 static void
-libxml_generic_error (AsXMLData *xdt, const char *msg, ...)
+libxml_generic_error (AsXMLData *xdt, const char *format, ...)
 {
-	gchar *tmp;
-	gchar str[1024];
+	GString *str;
 	va_list arg_ptr;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
-	va_start (arg_ptr, msg);
-	vsnprintf (str, 1024, msg, arg_ptr);
+	str = g_string_new (priv->last_error_msg? priv->last_error_msg : "");
+
+	va_start (arg_ptr, format);
+	g_string_append_vprintf (str, format, arg_ptr);
 	va_end (arg_ptr);
 
-	if (priv->last_error_msg == NULL)
-		tmp = g_strdup (str);
-	else
-		tmp = g_strdup_printf ("%s%s", priv->last_error_msg, str);
-
 	g_free (priv->last_error_msg);
-	priv->last_error_msg = tmp;
+	priv->last_error_msg = g_string_free (str, FALSE);
 }
 
 /**
@@ -98,6 +94,7 @@ as_xmldata_init (AsXMLData *xdt)
 
 	priv->default_priority = 0;
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
+	priv->last_error_msg = NULL;
 	xmlSetGenericErrorFunc (xdt, (xmlGenericErrorFunc) libxml_generic_error);
 }
 
@@ -118,6 +115,17 @@ as_xmldata_finalize (GObject *object)
 	g_free (priv->last_error_msg);
 
 	G_OBJECT_CLASS (as_xmldata_parent_class)->finalize (object);
+}
+
+/**
+ * as_xmldata_clear_error:
+ */
+static void
+as_xmldata_clear_error (AsXMLData *xdt)
+{
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+	g_free (priv->last_error_msg);
+	priv->last_error_msg = NULL;
 }
 
 /**
@@ -149,17 +157,8 @@ as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin,
 	priv->arch = g_strdup (arch);
 
 	priv->default_priority = priority;
-}
 
-/**
- * as_xmldata_clear_error:
- */
-void
-as_xmldata_clear_error (AsXMLData *xdt)
-{
-	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
-	g_free (priv->last_error_msg);
-	priv->last_error_msg = NULL;
+	as_xmldata_clear_error (xdt);
 }
 
 /**
@@ -1087,7 +1086,10 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 		return FALSE;
 
 	xmldata = g_strdup_printf ("<root>%s</root>", description_markup);
-	doc = xmlParseDoc ((xmlChar*) xmldata);
+	doc = xmlReadMemory (xmldata, strlen (xmldata),
+			     NULL,
+			     "utf-8",
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
 	if (doc == NULL) {
 		ret = FALSE;
 		goto out;
@@ -1573,7 +1575,10 @@ as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsC
 		return FALSE;
 	}
 
-	doc = xmlParseDoc ((xmlChar*) data);
+	doc = xmlReadMemory (data, strlen (data),
+			     NULL,
+			     "utf-8",
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
 	if (doc == NULL) {
 		g_set_error (error,
 			     AS_METADATA_ERROR,
@@ -1669,7 +1674,10 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 		return NULL;
 	}
 
-	doc = xmlParseDoc ((xmlChar*) data);
+	doc = xmlReadMemory (data, strlen (data),
+			     NULL,
+			     "utf-8",
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
 	if (doc == NULL) {
 		g_set_error (error,
 				AS_METADATA_ERROR,

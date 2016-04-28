@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -51,10 +51,34 @@ typedef struct
 
 	AsComponent *current_cpt;
 	gchar *current_fname;
+
+	gchar *last_error_msg;
 } AsValidatorPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_get_instance_private (o))
+
+/**
+ * libxml_generic_error:
+ *
+ * Catch out-of-context errors emitted by libxml2.
+ */
+static void
+libxml_generic_error (AsValidator *validator, const char *format, ...)
+{
+	GString *str;
+	va_list arg_ptr;
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+
+	str = g_string_new (priv->last_error_msg? priv->last_error_msg : "");
+
+	va_start (arg_ptr, format);
+	g_string_append_vprintf (str, format, arg_ptr);
+	va_end (arg_ptr);
+
+	g_free (priv->last_error_msg);
+	priv->last_error_msg = g_string_free (str, FALSE);
+}
 
 /**
  * as_validator_finalize:
@@ -69,6 +93,7 @@ as_validator_finalize (GObject *object)
 	g_free (priv->current_fname);
 	if (priv->current_cpt != NULL)
 		g_object_unref (priv->current_cpt);
+	g_free (priv->last_error_msg);
 
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
@@ -85,6 +110,19 @@ as_validator_init (AsValidator *validator)
 
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
+	priv->last_error_msg = NULL;
+	xmlSetGenericErrorFunc (validator, (xmlGenericErrorFunc) libxml_generic_error);
+}
+
+/**
+ * as_validator_clear_error:
+ */
+void
+as_validator_clear_error (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_free (priv->last_error_msg);
+	priv->last_error_msg = NULL;
 }
 
 /**
@@ -775,13 +813,15 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, xm
 {
 	xmlDoc *doc;
 	xmlNode *root = NULL;
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
-	doc = xmlParseDoc ((xmlChar*) xmldata);
+	doc = xmlReadMemory (xmldata, strlen (xmldata), NULL, "utf-8", XML_PARSE_NOBLANKS | XML_PARSE_NONET);
 	if (doc == NULL) {
 		as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_MARKUP_INVALID,
-					"Could not parse XML data.");
+					"Could not parse XML data: %s", priv->last_error_msg);
+		as_validator_clear_error (validator);
 		return NULL;
 	}
 
@@ -820,7 +860,6 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 	root = as_validator_open_xml_document (validator, metadata, &doc);
 	if (!root)
 		return FALSE;
-
 
 	ret = TRUE;
 
