@@ -285,13 +285,14 @@ as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode* node, const gchar* ele
  * Read node as image node and add it to an existing screenshot.
  */
 static void
-as_xmldata_process_image (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
+as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScreenshot *scr)
 {
 	g_autoptr(AsImage) img = NULL;
 	g_autofree gchar *content = NULL;
+	g_autofree gchar *stype = NULL;
 	guint64 width;
 	guint64 height;
-	gchar *stype;
+	AsImageKind ikind;
 	gchar *str;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
@@ -317,23 +318,29 @@ as_xmldata_process_image (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
 		g_free (str);
 	}
 
-	/* discard invalid elements */
-	if (priv->mode == AS_PARSER_MODE_DISTRO) {
-		/* no sizes are okay for upstream XML, but not for distro XML */
-		if ((width == 0) || (height == 0))
-			return;
-	}
-
 	as_image_set_width (img, width);
 	as_image_set_height (img, height);
 
 	stype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
 	if (g_strcmp0 (stype, "thumbnail") == 0) {
-		as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+		ikind = AS_IMAGE_KIND_THUMBNAIL;
+		as_image_set_kind (img, ikind);
 	} else {
-		as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+		ikind = AS_IMAGE_KIND_SOURCE;
+		as_image_set_kind (img, ikind);
 	}
-	g_free (stype);
+
+	/* discard invalid elements */
+	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+		/* no sizes are okay for upstream XML, but not for distro XML */
+		if ((width == 0) || (height == 0)) {
+			if (ikind != AS_IMAGE_KIND_SOURCE) {
+				/* thumbnails w/o size information must never happen */
+				g_debug ("WARNING: Ignored screenshot thumbnail image without size information for %s", as_component_get_id (cpt));
+				return;
+			}
+		}
+	}
 
 	if (priv->media_baseurl == NULL) {
 		/* no baseurl, we can just set the value as URL */
@@ -353,7 +360,7 @@ as_xmldata_process_image (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
  * as_xmldata_process_screenshot:
  */
 static void
-as_xmldata_process_screenshot (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
+as_xmldata_process_screenshot (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScreenshot *scr)
 {
 	xmlNode *iter;
 	gchar *node_name;
@@ -368,7 +375,7 @@ as_xmldata_process_screenshot (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
 		node_name = (gchar*) iter->name;
 
 		if (g_strcmp0 (node_name, "image") == 0) {
-			as_xmldata_process_image (xdt, iter, scr);
+			as_xmldata_process_image (xdt, cpt, iter, scr);
 		} else if (g_strcmp0 (node_name, "caption") == 0) {
 			g_autofree gchar *content = NULL;
 			g_autofree gchar *lang = NULL;
@@ -390,7 +397,7 @@ as_xmldata_process_screenshot (AsXMLData *xdt, xmlNode *node, AsScreenshot *scr)
 		 * We are dealing with a legacy screenshots tag in the form of
 		 * <screenshot>URL</screenshot>.
 		 * We treat it as an <image/> tag here, which is roughly equivalent. */
-		as_xmldata_process_image (xdt, node, scr);
+		as_xmldata_process_image (xdt, cpt, node, scr);
 	}
 }
 
@@ -420,7 +427,7 @@ as_xmldata_process_screenshots_tag (AsXMLData *xdt, xmlNode* node, AsComponent* 
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (g_strcmp0 (prop, "default") == 0)
 				as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
-			as_xmldata_process_screenshot (xdt, iter, sshot);
+			as_xmldata_process_screenshot (xdt, cpt, iter, sshot);
 			if (as_screenshot_is_valid (sshot))
 				as_component_add_screenshot (cpt, sshot);
 			g_free (prop);

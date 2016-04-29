@@ -119,10 +119,8 @@ images_array_to_imageentry (AsImage *img, Screenshots_Screenshot *pb_sshot)
 	else
 		pb_img->set_source (true);
 
-	if ((as_image_get_width (img) > 0) && (as_image_get_height (img) > 0)) {
-		pb_img->set_width (as_image_get_width (img));
-		pb_img->set_height (as_image_get_height (img));
-	}
+	pb_img->set_width (as_image_get_width (img));
+	pb_img->set_height (as_image_get_height (img));
 }
 
 /**
