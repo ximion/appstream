@@ -354,10 +354,9 @@ as_yamldata_process_icon (AsYAMLData *ydt, GNode *node, AsComponent *cpt, AsIcon
 						as_icon_set_url (icon, value);
 					} else {
 						/* handle the media baseurl */
-						gchar *tmp;
-						tmp = g_build_filename (priv->media_baseurl, value, NULL);
-						as_icon_set_url (icon, tmp);
-						g_free (tmp);
+						g_autofree gchar *url = NULL;
+						url = g_build_filename (priv->media_baseurl, value, NULL);
+						as_icon_set_url (icon, url);
 					}
 				}
 			} else {
@@ -378,12 +377,12 @@ static void
 as_yamldata_process_icons (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 {
 	GNode *n;
-	gchar *key;
-	gchar *value;
+	const gchar *key;
+	const gchar *value;
 
 	for (n = node->children; n != NULL; n = n->next) {
-		key = (gchar*) n->data;
-		value = (gchar*) n->children->data;
+		key = (const gchar*) n->data;
+		value = (const gchar*) n->children->data;
 
 		if (g_strcmp0 (key, "stock") == 0) {
 			g_autoptr(AsIcon) icon = as_icon_new ();
