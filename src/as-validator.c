@@ -51,34 +51,10 @@ typedef struct
 
 	AsComponent *current_cpt;
 	gchar *current_fname;
-
-	gchar *last_error_msg;
 } AsValidatorPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_get_instance_private (o))
-
-/**
- * libxml_generic_error:
- *
- * Catch out-of-context errors emitted by libxml2.
- */
-static void
-libxml_generic_error (AsValidator *validator, const char *format, ...)
-{
-	GString *str;
-	va_list arg_ptr;
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-
-	str = g_string_new (priv->last_error_msg? priv->last_error_msg : "");
-
-	va_start (arg_ptr, format);
-	g_string_append_vprintf (str, format, arg_ptr);
-	va_end (arg_ptr);
-
-	g_free (priv->last_error_msg);
-	priv->last_error_msg = g_string_free (str, FALSE);
-}
 
 /**
  * as_validator_finalize:
@@ -93,7 +69,6 @@ as_validator_finalize (GObject *object)
 	g_free (priv->current_fname);
 	if (priv->current_cpt != NULL)
 		g_object_unref (priv->current_cpt);
-	g_free (priv->last_error_msg);
 
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
@@ -110,19 +85,6 @@ as_validator_init (AsValidator *validator)
 
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
-	priv->last_error_msg = NULL;
-	xmlSetGenericErrorFunc (validator, (xmlGenericErrorFunc) libxml_generic_error);
-}
-
-/**
- * as_validator_clear_error:
- */
-void
-as_validator_clear_error (AsValidator *validator)
-{
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	g_free (priv->last_error_msg);
-	priv->last_error_msg = NULL;
 }
 
 /**
@@ -804,38 +766,25 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 /**
  * as_validator_open_xml_document:
  */
-static xmlNode*
-as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, xmlDoc **xdoc)
+static xmlDoc*
+as_validator_open_xml_document (AsValidator *validator, AsXMLData *xdt, const gchar *xmldata)
 {
 	xmlDoc *doc;
-	xmlNode *root = NULL;
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_autoptr(GError) error = NULL;
 
-	doc = xmlReadMemory (xmldata, strlen (xmldata), NULL, "utf-8", XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+	doc = as_xmldata_parse_document (xdt, xmldata, &error);
 	if (doc == NULL) {
-		as_validator_add_issue (validator,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_MARKUP_INVALID,
-					"Could not parse XML data: %s", priv->last_error_msg);
-		as_validator_clear_error (validator);
+		if (error != NULL) {
+			as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_MARKUP_INVALID,
+						error->message);
+		}
+
 		return NULL;
 	}
 
-	root = xmlDocGetRootElement (doc);
-	if (root == NULL) {
-		as_validator_add_issue (validator,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_MARKUP_INVALID,
-					"The XML document is empty.");
-		goto out;
-	}
-
-out:
-	if (root != NULL)
-		*xdoc = doc;
-	else
-		xmlFreeDoc (doc);
-	return root;
+	return doc;
 }
 
 /**
@@ -854,12 +803,14 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 	g_autoptr(AsXMLData) xdt = NULL;
 	AsComponent *cpt;
 
-	root = as_validator_open_xml_document (validator, metadata, &doc);
-	if (!root)
-		return FALSE;
-
+	/* load the XML data */
 	xdt = as_xmldata_new ();
 	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
+
+	doc = as_validator_open_xml_document (validator, xdt, metadata);
+	if (doc == NULL)
+		return FALSE;
+	root = xmlDocGetRootElement (doc);
 
 	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
@@ -1089,7 +1040,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		GString *str;
 		GDataInputStream *dis;
 		GFileInputStream *fistream;
-		xmlNode* root;
+		xmlNode *root;
 		xmlDoc *doc;
 		g_autofree gchar *fname_basename = NULL;
 
@@ -1122,12 +1073,13 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		g_object_unref (file);
 
 		/* now read the XML */
-		root = as_validator_open_xml_document (validator, str->str, &doc);
+		doc = as_validator_open_xml_document (validator, xdt, str->str);
 		g_string_free (str, TRUE);
-		if (!root) {
+		if (doc == NULL) {
 			as_validator_clear_current_fname (validator);
 			continue;
 		}
+		root = xmlDocGetRootElement (doc);
 
 		if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
 			AsComponent *cpt;

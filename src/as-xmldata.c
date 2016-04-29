@@ -1580,27 +1580,10 @@ as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsC
 		return FALSE;
 	}
 
-	doc = xmlReadMemory (data, strlen (data),
-			     NULL,
-			     "utf-8",
-			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
-	if (doc == NULL) {
-		g_set_error (error,
-			     AS_METADATA_ERROR,
-			     AS_METADATA_ERROR_FAILED,
-			     "Could not parse XML: %s", priv->last_error_msg);
-		as_xmldata_clear_error (xdt);
+	doc = as_xmldata_parse_document (xdt, data, error);
+	if (doc == NULL)
 		return FALSE;
-	}
-
 	root = xmlDocGetRootElement (doc);
-	if (root == NULL) {
-		g_set_error_literal (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
-				     "The XML document appears to be empty.");
-		goto out;
-	}
 
 	/* switch to upstream format parsing */
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
@@ -1657,21 +1640,13 @@ as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **erro
 }
 
 /**
- * as_xmldata_parse_distro_data:
- * @xdt: An instance of #AsXMLData
- * @data: XML representing distro metadata.
- * @error: A #GError
- *
- * Parse AppStream upstream metadata.
- *
- * Returns: (transfer full) (element-type AsComponent): An array of #AsComponent, deserialized from the XML.
+ * as_xmldata_parse_document:
  */
-GPtrArray*
-as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
+xmlDoc*
+as_xmldata_parse_document (AsXMLData *xdt, const gchar *data, GError **error)
 {
-	xmlDoc* doc;
-	xmlNode* root;
-	GPtrArray *cpts = NULL;
+	xmlDoc *doc;
+	xmlNode *root;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	if (data == NULL) {
@@ -1687,7 +1662,7 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 		g_set_error (error,
 				AS_METADATA_ERROR,
 				AS_METADATA_ERROR_FAILED,
-				"Could not parse XML: %s", priv->last_error_msg);
+				"Could not parse XML data: %s", priv->last_error_msg);
 		as_xmldata_clear_error (xdt);
 		return NULL;
 	}
@@ -1698,8 +1673,35 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_FAILED,
 				     "The XML document is empty.");
-		goto out;
+		xmlFreeDoc (doc);
+		return NULL;
 	}
+
+	return doc;
+}
+
+/**
+ * as_xmldata_parse_distro_data:
+ * @xdt: An instance of #AsXMLData
+ * @data: XML representing distro metadata.
+ * @error: A #GError
+ *
+ * Parse AppStream upstream metadata.
+ *
+ * Returns: (transfer full) (element-type AsComponent): An array of #AsComponent, deserialized from the XML.
+ */
+GPtrArray*
+as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
+{
+	xmlDoc *doc;
+	xmlNode *root;
+	GPtrArray *cpts = NULL;
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	doc = as_xmldata_parse_document (xdt, data, error);
+	if (doc == NULL)
+		return NULL;
+	root = xmlDocGetRootElement (doc);
 
 	priv->mode = AS_PARSER_MODE_DISTRO;
 	cpts = g_ptr_array_new_with_free_func (g_object_unref);

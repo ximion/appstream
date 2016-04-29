@@ -78,6 +78,10 @@ void			as_xmldata_parse_component_node (AsXMLData *metad,
 								AsComponent *cpt,
 								GError **error);
 
+xmlDoc			*as_xmldata_parse_document (AsXMLData *xdt,
+							const gchar *data,
+							GError **error);
+
 
 G_END_DECLS
 
