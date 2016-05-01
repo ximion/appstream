@@ -109,6 +109,7 @@ urls_hashtable_to_urlentry (gpointer ukind_ptr, gchar *value, Urls *urls)
 static void
 images_array_to_imageentry (AsImage *img, Screenshots_Screenshot *pb_sshot)
 {
+	const gchar *locale;
 	Screenshots_Image *pb_img;
 
 	pb_img = pb_sshot->add_image ();
@@ -121,6 +122,10 @@ images_array_to_imageentry (AsImage *img, Screenshots_Screenshot *pb_sshot)
 
 	pb_img->set_width (as_image_get_width (img));
 	pb_img->set_height (as_image_get_height (img));
+
+	locale = as_image_get_locale (img);
+	if (locale != NULL)
+		pb_img->set_locale (locale);
 }
 
 /**

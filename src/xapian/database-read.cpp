@@ -259,6 +259,8 @@ DatabaseRead::docToComponent (Xapian::Document doc)
 			as_image_set_width (img, pb_img.width ());
 			as_image_set_height (img, pb_img.height ());
 			as_image_set_url (img, pb_img.url ().c_str ());
+			if (pb_img.has_locale ())
+				as_image_set_locale (img, pb_img.locale ().c_str ());
 
 			as_screenshot_add_image (scr, img);
 			g_object_unref (img);

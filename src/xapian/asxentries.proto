@@ -80,6 +80,7 @@ message Screenshots {
     required int32 width  = 2;
     required int32 height = 3;
     required string url = 4;
+    optional string locale = 5;
   }
 
   message Screenshot {
