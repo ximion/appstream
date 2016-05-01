@@ -33,6 +33,7 @@
 #include "as-screenshot-private.h"
 
 #include "as-utils-private.h"
+#include "as-utils.h"
 
 typedef struct
 {
@@ -276,6 +277,35 @@ as_screenshot_set_active_locale (AsScreenshot *screenshot, const gchar *locale)
 
 	g_free (priv->active_locale);
 	priv->active_locale = g_strdup (locale);
+}
+
+/**
+ * as_screenshot_get_images_localized:
+ * @screenshot: an #AsScreenshot instance.
+ *
+ * Returns all images that are compatible with a specific locale.
+ *
+ * Returns: (element-type AsImage) (transfer container): an array
+ *
+ * Since: 0.9.5
+ **/
+GPtrArray *
+as_screenshot_get_images_localized (AsScreenshot *screenshot)
+{
+	AsImage *img;
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	GPtrArray *res;
+	guint i;
+
+	/* user wants a specific locale */
+	res = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+	for (i = 0; i < priv->images->len; i++) {
+		img = g_ptr_array_index (priv->images, i);
+		if (!as_utils_locale_is_compatible (as_image_get_locale (img), priv->active_locale))
+			continue;
+		g_ptr_array_add (res, g_object_ref (img));
+	}
+	return res;
 }
 
 /**

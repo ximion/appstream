@@ -87,6 +87,8 @@ gchar				*as_screenshot_get_active_locale (AsScreenshot *screenshot);
 void				as_screenshot_set_active_locale (AsScreenshot *screenshot,
 									const gchar *locale);
 
+GPtrArray			*as_screenshot_get_images_localized (AsScreenshot *screenshot);
+
 G_END_DECLS
 
 #endif /* __AS_SCREENSHOT_H */

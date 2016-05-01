@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
- * Copyright (C)      2014 Richard Hughes <richard@hughsie.com>
+ * Copyright (C)      2016 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -691,6 +691,74 @@ as_arch_compatible (const gchar *arch1, const gchar *arch2)
 	if (g_strcmp0 (arch1, "all") == 0)
 		return TRUE;
 	if (g_strcmp0 (arch2, "all") == 0)
+		return TRUE;
+	return FALSE;
+}
+
+/**
+ * as_utils_locale_to_language:
+ **/
+static gchar*
+as_utils_locale_to_language (const gchar *locale)
+{
+	gchar *tmp;
+	gchar *country_code;
+
+	/* invalid */
+	if (locale == NULL)
+		return NULL;
+
+	/* return the part before the _ (not always 2 chars!) */
+	country_code = g_strdup (locale);
+	tmp = g_strstr_len (country_code, -1, "_");
+	if (tmp != NULL)
+		*tmp = '\0';
+	return country_code;
+}
+
+/**
+ * as_utils_locale_is_compatible:
+ * @locale1: a locale string, or %NULL
+ * @locale2: a locale string, or %NULL
+ *
+ * Calculates if one locale is compatible with another.
+ * When doing the calculation the locale and language code is taken into
+ * account if possible.
+ *
+ * Returns: %TRUE if the locale is compatible.
+ *
+ * Since: 0.9.5
+ **/
+gboolean
+as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2)
+{
+	g_autofree gchar *lang1 = as_utils_locale_to_language (locale1);
+	g_autofree gchar *lang2 = as_utils_locale_to_language (locale2);
+
+	/* we've specified "don't care" and locale unspecified */
+	if (locale1 == NULL && locale2 == NULL)
+		return TRUE;
+
+	/* forward */
+	if (locale1 == NULL && locale2 != NULL) {
+		const gchar *const *locales = g_get_language_names ();
+		return g_strv_contains (locales, locale2) ||
+		       g_strv_contains (locales, lang2);
+	}
+
+	/* backwards */
+	if (locale1 != NULL && locale2 == NULL) {
+		const gchar *const *locales = g_get_language_names ();
+		return g_strv_contains (locales, locale1) ||
+		       g_strv_contains (locales, lang1);
+	}
+
+	/* both specified */
+	if (g_strcmp0 (locale1, locale2) == 0)
+		return TRUE;
+	if (g_strcmp0 (locale1, lang2) == 0)
+		return TRUE;
+	if (g_strcmp0 (lang1, locale2) == 0)
 		return TRUE;
 	return FALSE;
 }

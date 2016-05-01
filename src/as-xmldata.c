@@ -290,6 +290,7 @@ as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScr
 	g_autoptr(AsImage) img = NULL;
 	g_autofree gchar *content = NULL;
 	g_autofree gchar *stype = NULL;
+	g_autofree gchar *lang = NULL;
 	guint64 width;
 	guint64 height;
 	AsImageKind ikind;
@@ -302,6 +303,12 @@ as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScr
 	g_strstrip (content);
 
 	img = as_image_new ();
+	lang = as_xmldata_get_node_locale (xdt, node);
+
+	/* check if this image is for us */
+	if (lang == NULL)
+		return;
+	as_image_set_locale (img, lang);
 
 	str = (gchar*) xmlGetProp (node, (xmlChar*) "width");
 	if (str == NULL) {

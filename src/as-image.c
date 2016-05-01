@@ -35,10 +35,11 @@
 
 typedef struct
 {
-	AsImageKind		 kind;
-	gchar			*url;
-	guint			 width;
-	guint			 height;
+	AsImageKind	kind;
+	gchar		*url;
+	guint		width;
+	guint		height;
+	gchar		*locale;
 } AsImagePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsImage, as_image, G_TYPE_OBJECT)
@@ -54,6 +55,7 @@ as_image_finalize (GObject *object)
 	AsImagePrivate *priv = GET_PRIVATE (image);
 
 	g_free (priv->url);
+	g_free (priv->locale);
 
 	G_OBJECT_CLASS (as_image_parent_class)->finalize (object);
 }
@@ -105,51 +107,18 @@ as_image_kind_to_string (AsImageKind kind)
 }
 
 /**
- * as_image_get_url:
+ * as_image_set_kind:
  * @image: a #AsImage instance.
+ * @kind: the #AsImageKind, e.g. %AS_IMAGE_KIND_THUMBNAIL.
  *
- * Gets the full qualified URL for the image, usually pointing at some mirror.
- *
- * Returns: URL
+ * Sets the image kind.
  *
  **/
-const gchar*
-as_image_get_url (AsImage *image)
+void
+as_image_set_kind (AsImage *image, AsImageKind kind)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
-	return priv->url;
-}
-
-/**
- * as_image_get_width:
- * @image: a #AsImage instance.
- *
- * Gets the image width.
- *
- * Returns: width in pixels
- *
- **/
-guint
-as_image_get_width (AsImage *image)
-{
-	AsImagePrivate *priv = GET_PRIVATE (image);
-	return priv->width;
-}
-
-/**
- * as_image_get_height:
- * @image: a #AsImage instance.
- *
- * Gets the image height.
- *
- * Returns: height in pixels
- *
- **/
-guint
-as_image_get_height (AsImage *image)
-{
-	AsImagePrivate *priv = GET_PRIVATE (image);
-	return priv->height;
+	priv->kind = kind;
 }
 
 /**
@@ -169,6 +138,22 @@ as_image_get_kind (AsImage *image)
 }
 
 /**
+ * as_image_get_url:
+ * @image: a #AsImage instance.
+ *
+ * Gets the full qualified URL for the image, usually pointing at some mirror.
+ *
+ * Returns: URL
+ *
+ **/
+const gchar*
+as_image_get_url (AsImage *image)
+{
+	AsImagePrivate *priv = GET_PRIVATE (image);
+	return priv->url;
+}
+
+/**
  * as_image_set_url:
  * @image: a #AsImage instance.
  * @url: the URL.
@@ -182,6 +167,22 @@ as_image_set_url (AsImage *image, const gchar *url)
 	AsImagePrivate *priv = GET_PRIVATE (image);
 	g_free (priv->url);
 	priv->url = g_strdup (url);
+}
+
+/**
+ * as_image_get_width:
+ * @image: a #AsImage instance.
+ *
+ * Gets the image width.
+ *
+ * Returns: width in pixels
+ *
+ **/
+guint
+as_image_get_width (AsImage *image)
+{
+	AsImagePrivate *priv = GET_PRIVATE (image);
+	return priv->width;
 }
 
 /**
@@ -200,6 +201,22 @@ as_image_set_width (AsImage *image, guint width)
 }
 
 /**
+ * as_image_get_height:
+ * @image: a #AsImage instance.
+ *
+ * Gets the image height.
+ *
+ * Returns: height in pixels
+ *
+ **/
+guint
+as_image_get_height (AsImage *image)
+{
+	AsImagePrivate *priv = GET_PRIVATE (image);
+	return priv->height;
+}
+
+/**
  * as_image_set_height:
  * @image: a #AsImage instance.
  * @height: the height in pixels.
@@ -215,18 +232,37 @@ as_image_set_height (AsImage *image, guint height)
 }
 
 /**
- * as_image_set_kind:
+ * as_image_get_locale:
  * @image: a #AsImage instance.
- * @kind: the #AsImageKind, e.g. %AS_IMAGE_KIND_THUMBNAIL.
  *
- * Sets the image kind.
+ * Get locale for this image.
  *
+ * Returns: Locale string
+ *
+ * Since: 0.9.5
  **/
-void
-as_image_set_kind (AsImage *image, AsImageKind kind)
+const gchar*
+as_image_get_locale (AsImage *image)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
-	priv->kind = kind;
+	return priv->locale;
+}
+
+/**
+ * as_image_set_url:
+ * @image: a #AsImage instance.
+ * @locale: the locale string.
+ *
+ * Sets the locale for this image.
+ *
+ * Since: 0.9.5
+ **/
+void
+as_image_set_locale (AsImage *image, const gchar *locale)
+{
+	AsImagePrivate *priv = GET_PRIVATE (image);
+	g_free (priv->locale);
+	priv->locale = g_strdup (locale);
 }
 
 /**

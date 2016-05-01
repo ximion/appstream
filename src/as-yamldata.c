@@ -557,6 +557,8 @@ dep11_process_image (AsYAMLData *ydt, GNode *node, AsScreenshot *scr)
 				as_image_set_url (img, tmp);
 				g_free (tmp);
 			}
+		} else if (g_strcmp0 (key, "lang") == 0) {
+			as_image_set_locale (img, value);
 		} else {
 			dep11_print_unknown ("image", key);
 		}
