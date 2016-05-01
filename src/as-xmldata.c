@@ -46,7 +46,6 @@
 typedef struct
 {
 	gchar *locale;
-	gchar *locale_short;
 	gchar *origin;
 	gchar *media_baseurl;
 
@@ -108,7 +107,6 @@ as_xmldata_finalize (GObject *object)
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	g_free (priv->locale);
-	g_free (priv->locale_short);
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
@@ -137,15 +135,10 @@ as_xmldata_clear_error (AsXMLData *xdt)
 void
 as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, const gchar *arch, gint priority)
 {
-	g_auto(GStrv) strv = NULL;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	g_free (priv->locale);
-	g_free (priv->locale_short);
 	priv->locale = g_strdup (locale);
-
-	strv = g_strsplit (priv->locale, "_", 0);
-	priv->locale_short = g_strdup (strv[0]);
 
 	g_free (priv->origin);
 	priv->origin = g_strdup (origin);
@@ -226,13 +219,7 @@ as_xmldata_get_node_locale (AsXMLData *xdt, xmlNode *node)
 		goto out;
 	}
 
-	if (g_strcmp0 (lang, priv->locale) == 0) {
-		goto out;
-	}
-
-	if (g_strcmp0 (lang, priv->locale_short) == 0) {
-		g_free (lang);
-		lang = g_strdup (priv->locale);
+	if (as_utils_locale_is_compatible (priv->locale, lang)) {
 		goto out;
 	}
 

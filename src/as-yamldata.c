@@ -33,7 +33,6 @@
 typedef struct
 {
 	gchar *locale;
-	gchar *locale_short;
 	gchar *origin;
 	gchar *media_baseurl;
 
@@ -78,7 +77,6 @@ as_yamldata_finalize (GObject *object)
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	g_free (priv->locale);
-	g_free (priv->locale_short);
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
@@ -95,15 +93,10 @@ as_yamldata_finalize (GObject *object)
 void
 as_yamldata_initialize (AsYAMLData *ydt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, const gchar *arch, gint priority)
 {
-	g_auto(GStrv) strv = NULL;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	g_free (priv->locale);
-	g_free (priv->locale_short);
 	priv->locale = g_strdup (locale);
-
-	strv = g_strsplit (priv->locale, "_", 0);
-	priv->locale_short = g_strdup (strv[0]);
 
 	g_free (priv->origin);
 	priv->origin = g_strdup (origin);
@@ -207,35 +200,29 @@ as_yamldata_get_localized_node (AsYAMLData *ydt, GNode *node, gchar *locale_over
 	GNode *tnode = NULL;
 	gchar *key;
 	const gchar *locale;
-	const gchar *locale_short = NULL;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
-	if (locale_override == NULL) {
+	if (locale_override == NULL)
 		locale = priv->locale;
-		locale_short = priv->locale_short;
-	} else {
+	else
 		locale = locale_override;
-		locale_short = NULL;
-	}
 
 	for (n = node->children; n != NULL; n = n->next) {
 		key = (gchar*) n->data;
 
 		if ((tnode == NULL) && (g_strcmp0 (key, "C") == 0)) {
 			tnode = n;
-			if (locale == NULL)
+			if (g_strcmp0 (locale, "C") == 0)
 				goto out;
 		}
 
-		if (g_strcmp0 (key, locale) == 0) {
+		if (g_strcmp0 (locale, key) == 0) {
 			tnode = n;
 			goto out;
 		}
 
-		if (g_strcmp0 (key, locale_short) == 0) {
+		if (as_utils_locale_is_compatible (locale, key))
 			tnode = n;
-			goto out;
-		}
 	}
 
 out:
@@ -1880,16 +1867,9 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 void
 as_yamldata_set_locale (AsYAMLData *ydt, const gchar *locale)
 {
-	gchar **strv;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
-
 	g_free (priv->locale);
-	g_free (priv->locale_short);
 	priv->locale = g_strdup (locale);
-
-	strv = g_strsplit (priv->locale, "_", 0);
-	priv->locale_short = g_strdup (strv[0]);
-	g_strfreev (strv);
 }
 
 /**
