@@ -1233,6 +1233,7 @@ _as_xmldata_serialize_image (AsImage *img, xmlNode *subnode)
 {
 	xmlNode* n_image = NULL;
 	gchar *size;
+	const gchar *locale;
 	g_return_if_fail (img != NULL);
 	g_return_if_fail (subnode != NULL);
 
@@ -1251,6 +1252,11 @@ _as_xmldata_serialize_image (AsImage *img, xmlNode *subnode)
 		size = g_strdup_printf("%i", as_image_get_height (img));
 		xmlNewProp (n_image, (xmlChar*) "height", (xmlChar*) size);
 		g_free (size);
+	}
+
+	locale = as_image_get_locale (img);
+	if (locale != NULL) {
+		xmlNewProp (n_image, (xmlChar*) "xml:lang", (xmlChar*) locale);
 	}
 
 	xmlAddChild (subnode, n_image);

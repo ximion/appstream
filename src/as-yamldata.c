@@ -1296,6 +1296,7 @@ as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
 		as_yaml_emit_entry (emitter, "height", size);
 		g_free (size);
 	}
+	as_yaml_emit_entry (emitter, "lang", as_image_get_locale (img));
 	as_yaml_mapping_end (emitter);
 }
 
