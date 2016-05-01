@@ -42,6 +42,7 @@
 #include "as-utils-private.h"
 #include "as-metadata.h"
 #include "as-component-private.h"
+#include "as-release-private.h"
 
 typedef struct
 {
@@ -1193,10 +1194,10 @@ typedef struct {
 } AsLocaleWriteHelper;
 
 /**
- * _as_xmldata_lang_hashtable_to_nodes:
+ * as_xml_lang_hashtable_to_nodes_cb:
  */
 static void
-_as_xmldata_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWriteHelper *helper)
+as_xml_lang_hashtable_to_nodes_cb (gchar *key, gchar *value, AsLocaleWriteHelper *helper)
 {
 	xmlNode *cnode;
 	if (as_str_empty (value))
@@ -1215,10 +1216,10 @@ _as_xmldata_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWriteHelp
 }
 
 /**
- * _as_xmldata_desc_lang_hashtable_to_nodes:
+ * as_xml_desc_lang_hashtable_to_nodes_cb:
  */
 static void
-_as_xmldata_desc_lang_hashtable_to_nodes (gchar *key, gchar *value, AsLocaleWriteHelper *helper)
+as_xml_desc_lang_hashtable_to_nodes_cb (gchar *key, gchar *value, AsLocaleWriteHelper *helper)
 {
 	if (as_str_empty (value))
 		return;
@@ -1306,22 +1307,26 @@ as_xmldata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 static void
 as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root)
 {
-	GPtrArray* releases;
+	GPtrArray *releases;
 	AsRelease *release;
 	guint i;
+	AsLocaleWriteHelper helper;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	/* prepare helper */
+	helper.xdt = xdt;
+	helper.nd = NULL;
 
 	releases = as_component_get_releases (cpt);
 	for (i = 0; i < releases->len; i++) {
 		xmlNode *subnode;
-		const gchar *str;
 		glong unixtime;
 		GPtrArray *locations;
 		guint j;
 		release = (AsRelease*) g_ptr_array_index (releases, i);
 
 		/* set release version */
-		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
+		subnode = xmlNewChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
 		xmlNewProp (subnode, (xmlChar*) "version",
 					(xmlChar*) as_release_get_version (release));
 
@@ -1392,12 +1397,11 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 		}
 
 		/* add description */
-		str = as_release_get_description (release);
-		if (g_strcmp0 (str, "") != 0) {
-			xmlNode* n_desc;
-			n_desc = xmlNewTextChild (subnode, NULL, (xmlChar*) "description", (xmlChar*) str);
-			xmlAddChild (subnode, n_desc);
-		}
+		helper.parent = subnode;
+		helper.node_name = "description";
+		g_hash_table_foreach (as_release_get_description_table (release),
+				      (GHFunc) as_xml_desc_lang_hashtable_to_nodes_cb,
+				      &helper);
 	}
 }
 
@@ -1475,25 +1479,25 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	helper.nd = NULL;
 	helper.node_name = "name";
 	g_hash_table_foreach (as_component_get_name_table (cpt),
-					(GHFunc) _as_xmldata_lang_hashtable_to_nodes,
+					(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
 					&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "summary";
 	g_hash_table_foreach (as_component_get_summary_table (cpt),
-					(GHFunc) _as_xmldata_lang_hashtable_to_nodes,
+					(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
 					&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "developer_name";
 	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
-					(GHFunc) _as_xmldata_lang_hashtable_to_nodes,
+					(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
 					&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "description";
 	g_hash_table_foreach (as_component_get_description_table (cpt),
-					(GHFunc) _as_xmldata_desc_lang_hashtable_to_nodes,
+					(GHFunc) as_xml_desc_lang_hashtable_to_nodes_cb,
 					&helper);
 
 	as_xmldata_xml_add_node (cnode, "project_license", as_component_get_project_license (cpt));

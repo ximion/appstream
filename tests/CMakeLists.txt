@@ -21,22 +21,27 @@ include_directories(${CMAKE_BINARY_DIR}
 		${LIBXML2_INCLUDE_DIR}
 )
 
+set (TEST_COMMON_SRC
+	as-test-utils.h
+	as-test-utils.c
+)
+
 # Basic tests
-add_executable(as-test-basics test-basics.c)
+add_executable(as-test-basics test-basics.c ${TEST_COMMON_SRC})
 add_dependencies(as-test-basics appstream)
 add_test(test-basic as-test-basics ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream XML parser tests
-add_executable(as-test-xmldata test-xmldata.c)
+add_executable(as-test-xmldata test-xmldata.c ${TEST_COMMON_SRC})
 add_dependencies(as-test-xmldata appstream)
 add_test(test-xml as-test-xmldata ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream DEP-11 parser tests
-add_executable(as-test-yamldata test-yamldata.c)
+add_executable(as-test-yamldata test-yamldata.c ${TEST_COMMON_SRC})
 add_dependencies(as-test-yamldata appstream)
 add_test(test-yaml as-test-yamldata ${CMAKE_CURRENT_SOURCE_DIR})
 
 # AppStream database tests
-add_executable(as-test-database test-database.c)
+add_executable(as-test-database test-database.c ${TEST_COMMON_SRC})
 add_dependencies(as-test-database appstream)
 add_test(test-database as-test-database ${CMAKE_CURRENT_SOURCE_DIR})
