@@ -449,12 +449,43 @@
 		</para>
 		<para>
 			The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
-			<code>type="default"</code> to indicate the application's primary screenshot. Every <code>&lt;screenshot/&gt;</code> tag must have at least
-			one <code>&lt;image/&gt;</code> child, which should define the width and height of the referenced image in it's properties.
-			The value of the <code>&lt;image/&gt;</code> tag is a direct URL to a screenshot uploaded to a public location on the web.
+			<code>type="default"</code> to indicate the primary screenshot of the software. Every <code>&lt;screenshot/&gt;</code> tag must have at least
+			one <code>&lt;image/&gt;</code> child.
 		</para>
 		<para>
-			Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a <code>&lt;caption/&gt;</code> child, defining a short (not more then 255 characters!)
+			The value of the <code>&lt;image/&gt;</code> tag is a direct HTTP/HTTPS/FTP URL to a screenshot uploaded to a public location on the web.
+			The <code>&lt;image/&gt;</code> tag may have the following properties:
+			<itemizedlist>
+				<listitem>
+					<para><code>type</code></para>
+					<para>
+						The type of the image, <code>source</code> for the source image, and <code>thumbnail</code> for a thumbnail image.
+						In case the type is <code>thumbnail</code>, the <code>width</code> and <code>height</code> properties must be present.
+					</para>
+				</listitem>
+				<listitem>
+					<para><code>width</code></para>
+					<para>
+						The width of the image in pixels.
+					</para>
+				</listitem>
+				<listitem>
+					<para><code>height</code></para>
+					<para>
+						The height of the image in pixels.
+					</para>
+				</listitem>
+				<listitem>
+					<para><code>xml:lang</code></para>
+					<para>
+						The language this screenshot image is translated in. This property should only be present if there are multiple images with
+						different locales present.
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para>
+			Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a translatable <code>&lt;caption/&gt;</code> child, defining a short (ideally not more then 256 characters)
 			description of what the user can see on the referenced screenshot.
 		</para>
 		<para>
@@ -462,6 +493,21 @@
 			They should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
 			images where a lossy format like JPEG may compress better.
 		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<screenshots>
+  <screenshot type="default">
+    <caption>The FooBar main window.</caption>
+    <image type="source" width="1600" height="900">https://example.com/foobar/screenshot-1.png</image>
+  </screenshot>
+  <screenshot>
+    <caption>Foobar showing the frobnicate functionality.</caption>
+    <image type="source" width="1600" height="900">https://example.com/foobar/screenshot-2.png</image>
+  </screenshot>
+ </screenshots>]]></programlisting>
+
 		</listitem>
 		</varlistentry>
 

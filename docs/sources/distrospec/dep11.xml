@@ -356,8 +356,6 @@
 						Example:
 					</para>
 					<programlisting><![CDATA[Categories:
-  - GNOME
-  - GTK
   - Network
   - Telephony]]></programlisting>
 					<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
@@ -419,12 +417,26 @@
 								Describes the source image for this screenshot. It has the following keys:
 							</para>
 							<itemizedlist>
-								<listitem><para><literal>height</literal>, describing the image height (<property>value-type</property>:<emphasis>int</emphasis>)</para></listitem>
-								<listitem><para><literal>width</literal>, describing the image width (<property>value-type</property>:<emphasis>int</emphasis>)</para></listitem>
 								<listitem>
+									<para><literal>height</literal></para>
+									<para>The image height (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>width</literal></para>
+									<para>The image width (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>url</literal></para>
 									<para>
-										<literal>url</literal>, the full image url, or the url component added to <literal>AssetsUrl</literal>,
-										if defined (<property>value-type</property>:<emphasis>str</emphasis>)
+										The full image url, or the url component added to <literal>MediaBaseUrl</literal>,
+										if defined (<property>value-type</property>:<emphasis>str</emphasis>).
+									</para>
+								</listitem>
+								<listitem>
+									<para><literal>lang</literal></para>
+									<para>
+										The language this screenshot image is translated in. The value is a locale string.
+										(<property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis>)
 									</para>
 								</listitem>
 							</itemizedlist>
@@ -439,7 +451,7 @@
 								A list of an arbitrary number of screenshots. All screenshots are of type <emphasis>dict</emphasis> and must contain the same keys as described for
 								<literal>source-image</literal>.
 							</para>
-							<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 
@@ -719,7 +731,7 @@
 File: DEP-11
 Version: '0.8'
 Origin: chromodoris-main
-AssetsUrl: http://metadata.tanglu.org/dep11/assets/main/
+MediaBaseUrl: http://metadata.tanglu.org/appstream/media/
 ---
 Categories:
   - GNOME
