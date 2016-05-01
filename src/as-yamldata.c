@@ -668,6 +668,47 @@ as_yamldata_process_releases (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 }
 
 /**
+ * as_yamldata_process_languages:
+ */
+static void
+as_yamldata_process_languages (GNode *node, AsComponent *cpt)
+{
+	GNode *sn;
+
+	for (sn = node->children; sn != NULL; sn = sn->next) {
+		GNode *n;
+		g_autofree gchar *locale = NULL;
+		g_autofree gchar *percentage_str = NULL;
+
+		for (n = sn->children; n != NULL; n = n->next) {
+			gchar *key;
+			gchar *value;
+
+			key = (gchar*) n->data;
+			if (n->children)
+				value = (gchar*) n->children->data;
+			else
+				value = NULL;
+
+			if (g_strcmp0 (key, "locale") == 0) {
+				if (locale == NULL)
+					locale = g_strdup (value);
+			} else if (g_strcmp0 (key, "percentage") == 0) {
+				if (percentage_str == NULL)
+					percentage_str = g_strdup (value);
+			} else {
+				dep11_print_unknown ("languages", key);
+			}
+		}
+
+		if ((locale != NULL) && (percentage_str != NULL))
+			as_component_add_language (cpt,
+						   locale,
+						   g_ascii_strtoll (percentage_str, NULL, 10));
+	}
+}
+
+/**
  * as_yamldata_process_component_node:
  */
 static AsComponent*
@@ -769,6 +810,8 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 			dep11_process_provides (node, cpt);
 		} else if (g_strcmp0 (key, "Screenshots") == 0) {
 			as_yamldata_process_screenshots (ydt, node, cpt);
+		} else if (g_strcmp0 (key, "Languages") == 0) {
+			as_yamldata_process_languages (node, cpt);
 		} else if (g_strcmp0 (key, "Releases") == 0) {
 			as_yamldata_process_releases (ydt, node, cpt);
 		} else {
@@ -1101,7 +1144,7 @@ void
 as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 {
 	GList *l;
-	GList *plist;
+	g_autoptr(GList) plist = NULL;
 	guint i;
 
 	g_auto(GStrv) dbus_system = NULL;
@@ -1440,6 +1483,42 @@ as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 }
 
 /**
+ * as_yaml_emit_languages:
+ */
+void
+as_yaml_emit_languages (yaml_emitter_t *emitter, AsComponent *cpt)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+	GHashTable *lang_table;
+
+	lang_table = as_component_get_languages_map (cpt);
+	if (g_hash_table_size (lang_table) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Languages");
+	as_yaml_sequence_start (emitter);
+
+	g_hash_table_iter_init (&iter, lang_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		guint percentage;
+		const gchar *locale;
+		g_autofree gchar *percentage_str = NULL;
+
+		locale = (const gchar*) key;
+		percentage = GPOINTER_TO_INT (value);
+		percentage_str = g_strdup_printf("%i", percentage);
+
+		as_yaml_mapping_start (emitter);
+		as_yaml_emit_entry (emitter, "locale", locale);
+		as_yaml_emit_entry (emitter, "percentage", percentage_str);
+		as_yaml_mapping_end (emitter);
+	}
+
+	as_yaml_sequence_end (emitter);
+}
+
+/**
  * as_yaml_serialize_component:
  */
 static void
@@ -1584,7 +1663,10 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	/* Screenshots */
 	as_yaml_emit_screenshots (ydt, emitter, cpt);
 
-	/* TODO: Releases, Translations */
+	/* Translation details */
+	as_yaml_emit_languages (emitter, cpt);
+
+	/* TODO: Releases */
 
 	/* close main mapping */
 	as_yaml_mapping_end (emitter);

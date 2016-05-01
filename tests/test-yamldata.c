@@ -143,6 +143,8 @@ test_yamlwrite (void)
 	as_component_set_pkgnames (cpt, _PKGNAME2);
 	as_component_set_name (cpt, "TEST!!", "C");
 	as_component_set_summary (cpt, "Just part of an unittest.", "C");
+	as_component_add_language (cpt, "en_GB", 100);
+	as_component_add_language (cpt, "de_DE", 84);
 	scr = test_h_create_dummy_screenshot ();
 	as_component_add_screenshot (cpt, scr);
 
@@ -174,14 +176,30 @@ test_yamlwrite (void)
 	/* TODO: Actually test the resulting output */
 }
 
+AsComponent*
+as_yaml_test_read_data (const gchar *data)
+{
+	AsComponent *cpt;
+	GError *error = NULL;
+	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsYAMLData) ydt = NULL;
+
+	ydt = as_yamldata_new ();
+
+	cpts = as_yamldata_parse_distro_data (ydt, data, &error);
+	g_assert_no_error (error);
+
+	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+	return g_object_ref (cpt);
+}
+
 void
 test_yaml_read_icons (void)
 {
 	guint i;
-	GError *error = NULL;
-	AsComponent *cpt;
 	GPtrArray *icons;
-	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+
 	g_autoptr(AsYAMLData) ydt = NULL;
 	const gchar *yamldata_icons_legacy = "---\n"
 					"ID: org.example.Test\n"
@@ -203,10 +221,7 @@ test_yaml_read_icons (void)
 	ydt = as_yamldata_new ();
 
 	/* check the legacy icons */
-	cpts = as_yamldata_parse_distro_data (ydt, yamldata_icons_legacy, &error);
-	g_assert_no_error (error);
-
-	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+	cpt = as_yaml_test_read_data (yamldata_icons_legacy);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
 
 	icons = as_component_get_icons (cpt);
@@ -221,11 +236,8 @@ test_yaml_read_icons (void)
 	}
 
 	/* check the new style icons tag */
-	g_ptr_array_unref (cpts);
-	cpts = as_yamldata_parse_distro_data (ydt, yamldata_icons_current, &error);
-	g_assert_no_error (error);
-
-	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+	g_object_unref (cpt);
+	cpt = as_yaml_test_read_data (yamldata_icons_current);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
 
 	icons = as_component_get_icons (cpt);
@@ -241,6 +253,26 @@ test_yaml_read_icons (void)
 
 	g_assert_nonnull (as_component_get_icon_by_size (cpt, 64, 64));
 	g_assert_nonnull (as_component_get_icon_by_size (cpt, 128, 128));
+}
+
+void
+test_yaml_read_languages (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	const gchar *yamldata_languages = "---\n"
+					"ID: org.example.Test\n"
+					"Languages:\n"
+					"  - locale: de_DE\n"
+					"    percentage: 48\n"
+					"  - locale: en_GB\n"
+					"    percentage: 100\n";
+
+	cpt = as_yaml_test_read_data (yamldata_languages);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
+
+	g_assert_cmpint (as_component_get_language (cpt, "de_DE"), ==, 48);
+	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "invalid_C"), ==, -1);
 }
 
 int
@@ -267,6 +299,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Basic", test_basic);
 	g_test_add_func ("/YAML/Write", test_yamlwrite);
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
+	g_test_add_func ("/YAML/Read/Languages", test_yaml_read_languages);
 
 	ret = g_test_run ();
 	g_free (datadir);
