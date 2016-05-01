@@ -82,6 +82,8 @@ xmlDoc			*as_xmldata_parse_document (AsXMLData *xdt,
 							const gchar *data,
 							GError **error);
 
+void			as_xmldata_set_check_valid (AsXMLData *xdt, gboolean check);
+
 
 G_END_DECLS
 

@@ -53,6 +53,8 @@ typedef struct
 	gint default_priority;
 
 	AsParserMode mode;
+	gboolean check_valid;
+
 	gchar *last_error_msg;
 } AsXMLDataPrivate;
 
@@ -94,6 +96,7 @@ as_xmldata_init (AsXMLData *xdt)
 	priv->default_priority = 0;
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 	priv->last_error_msg = NULL;
+	priv->check_valid = TRUE;
 	xmlSetGenericErrorFunc (xdt, (xmlGenericErrorFunc) libxml_generic_error);
 }
 
@@ -734,7 +737,6 @@ static void
 as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
-	gchar *prop;
 	g_return_if_fail (xdt != NULL);
 	g_return_if_fail (cpt != NULL);
 
@@ -745,16 +747,15 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 
 		if (g_strcmp0 ((gchar*) iter->name, "lang") == 0) {
 			guint64 percentage = 0;
-			gchar *locale;
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "percentage");
-			if (prop != NULL) {
-				percentage = g_ascii_strtoll (prop, NULL, 10);
-				g_free (prop);
-			}
+			g_autofree gchar *locale = NULL;
+			g_autofree gchar *prop = NULL;
 
-			locale = as_xmldata_get_node_locale (xdt, iter);
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "percentage");
+			if (prop != NULL)
+				percentage = g_ascii_strtoll (prop, NULL, 10);
+
+			locale = as_xmldata_get_node_value (xdt, iter);
 			as_component_add_language (cpt, locale, percentage);
-			g_free (locale);
 		}
 	}
 }
@@ -1401,6 +1402,43 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 }
 
 /**
+ * as_xml_serialize_languages:
+ */
+static void
+as_xml_serialize_languages (AsComponent *cpt, xmlNode *cnode)
+{
+	xmlNode *node;
+	GHashTable *lang_table;
+	GHashTableIter iter;
+	gpointer key, value;
+
+	lang_table = as_component_get_languages_map (cpt);
+	if (g_hash_table_size (lang_table) == 0)
+		return;
+
+	node = xmlNewTextChild (cnode, NULL, (xmlChar*) "languages", NULL);
+	g_hash_table_iter_init (&iter, lang_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		guint percentage;
+		const gchar *locale;
+		xmlNode *l_node;
+		g_autofree gchar *percentage_str = NULL;
+
+		locale = (const gchar*) key;
+		percentage = GPOINTER_TO_INT (value);
+		percentage_str = g_strdup_printf("%i", percentage);
+
+		l_node = xmlNewTextChild (node,
+					  NULL,
+					  (xmlChar*) "lang",
+					  (xmlChar*) locale);
+		xmlNewProp (l_node,
+			    (xmlChar*) "percentage",
+			    (xmlChar*) percentage_str);
+	}
+}
+
+/**
  * as_xmldata_component_to_node:
  * @cpt: a valid #AsComponent
  *
@@ -1548,6 +1586,13 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 		}
 	}
 
+	/* screenshots node */
+	screenshots = as_component_get_screenshots (cpt);
+	if (screenshots->len > 0) {
+		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
+		as_xmldata_add_screenshot_subnodes (cpt, node);
+	}
+
 	/* releases node */
 	releases = as_component_get_releases (cpt);
 	if (releases->len > 0) {
@@ -1555,12 +1600,8 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 		as_xmldata_add_release_subnodes (xdt, cpt, node);
 	}
 
-	/* screenshots node */
-	screenshots = as_component_get_screenshots (cpt);
-	if (screenshots->len > 0) {
-		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
-		as_xmldata_add_screenshot_subnodes (cpt, node);
-	}
+	/* languages node */
+	as_xml_serialize_languages (cpt, cnode);
 
 	return cnode;
 }
@@ -1753,7 +1794,7 @@ as_xmldata_serialize_to_upstream (AsXMLData *xdt, AsComponent *cpt)
 	gchar *xmlstr = NULL;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
-	if (!as_component_is_valid (cpt)) {
+	if ((priv->check_valid) && (!as_component_is_valid (cpt))) {
 		g_debug ("Can not serialize '%s': Component is invalid.", as_component_get_id (cpt));
 		return NULL;
 	}
@@ -1801,7 +1842,7 @@ as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 		xmlNode *node;
 		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
-		if (!as_component_is_valid (cpt)) {
+		if ((priv->check_valid) && (!as_component_is_valid (cpt))) {
 			g_debug ("Can not serialize '%s': Component is invalid.", as_component_get_id (cpt));
 			continue;
 		}
@@ -1903,6 +1944,20 @@ as_xmldata_set_parser_mode (AsXMLData *xdt, AsParserMode mode)
 {
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 	priv->mode = mode;
+}
+
+/**
+ * as_xmldata_set_check_valid:
+ * @check: %TRUE if check should be enabled.
+ *
+ * Set whether we should perform basic validity checks on the component
+ * before serializing it to XML.
+ */
+void
+as_xmldata_set_check_valid (AsXMLData *xdt, gboolean check)
+{
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+	priv->check_valid = check;
 }
 
 /**

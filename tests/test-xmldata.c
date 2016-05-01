@@ -368,6 +368,93 @@ test_appstream_write_description ()
 	g_free (tmp);
 }
 
+AsComponent*
+as_xml_test_read_data (const gchar *data, AsParserMode mode)
+{
+	AsComponent *cpt;
+	GError *error = NULL;
+	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsXMLData) xdt = NULL;
+
+	xdt = as_xmldata_new ();
+	as_xmldata_set_check_valid (xdt, FALSE);
+
+	if (mode == AS_PARSER_MODE_UPSTREAM) {
+		cpt = as_xmldata_parse_upstream_data (xdt, data, &error);
+		g_assert_no_error (error);
+	} else {
+		cpts = as_xmldata_parse_distro_data (xdt, data, &error);
+		g_assert_no_error (error);
+		cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+	}
+
+	return g_object_ref (cpt);
+}
+
+gchar*
+as_xml_test_serialize (AsComponent *cpt, AsParserMode mode)
+{
+	gchar *data;
+	g_autoptr(AsXMLData) xdt = NULL;
+
+	xdt = as_xmldata_new ();
+	as_xmldata_set_check_valid (xdt, FALSE);
+
+	if (mode == AS_PARSER_MODE_UPSTREAM) {
+		data = as_xmldata_serialize_to_upstream (xdt, cpt);
+	} else {
+		g_autoptr(GPtrArray) cpts = NULL;
+		cpts = g_ptr_array_new ();
+		g_ptr_array_add (cpts, cpt);
+		data = as_xmldata_serialize_to_distro (xdt, cpts, TRUE);
+	}
+
+	return data;
+}
+
+void
+test_xml_read_languages (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	const gchar *xmldata_languages = "<component>\n"
+					 "  <id>org.example.LangTest</id>\n"
+					 "  <languages>\n"
+					 "    <lang percentage=\"48\">de_DE</lang>\n"
+					 "    <lang percentage=\"100\">en_GB</lang>\n"
+					 "  </languages>\n"
+					 "</component>\n";
+
+	cpt = as_xml_test_read_data (xmldata_languages, AS_PARSER_MODE_UPSTREAM);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.LangTest");
+
+	g_assert_cmpint (as_component_get_language (cpt, "de_DE"), ==, 48);
+	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "invalid_C"), ==, -1);
+}
+
+void
+test_xml_write_languages (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	const gchar *expected_lang_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					 "<component>\n"
+					 "  <id>org.example.LangTest</id>\n"
+					 "  <languages>\n"
+					 "    <lang percentage=\"86\">de_DE</lang>\n"
+					 "    <lang percentage=\"98\">en_GB</lang>\n"
+					 "  </languages>\n"
+					 "</component>\n";
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.LangTest");
+	as_component_add_language (cpt, "de_DE", 86);
+	as_component_add_language (cpt, "en_GB", 98);
+
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
+	g_assert_cmpstr (res, ==, expected_lang_xml);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -389,11 +476,13 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/Screenshots{dbimexport}", test_screenshot_handling);
-	g_test_add_func ("/AppStream/LegacyData", test_appstream_parser_legacy);
-	g_test_add_func ("/AppStream/XMLParserLocale", test_appstream_parser_locale);
-	g_test_add_func ("/AppStream/XMLWriterLocale", test_appstream_write_locale);
-	g_test_add_func ("/AppStream/XMLWriterDescription", test_appstream_write_description);
+	g_test_add_func ("/XML/Screenshots", test_screenshot_handling);
+	g_test_add_func ("/XML/LegacyData", test_appstream_parser_legacy);
+	g_test_add_func ("/XML/Read/ParserLocale", test_appstream_parser_locale);
+	g_test_add_func ("/XML/Write/WriterLocale", test_appstream_write_locale);
+	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
+	g_test_add_func ("/XML/Read/Languages", test_xml_read_languages);
+	g_test_add_func ("/XML/Write/Languages", test_xml_write_languages);
 
 	ret = g_test_run ();
 	g_free (datadir);
