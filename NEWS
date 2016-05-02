@@ -1,3 +1,29 @@
+Version 0.9.5
+~~~~~~~~~~~~~~
+Released: 2016-05-02
+
+Features:
+ * Update README (Matthias Klumpp)
+ * Provide a bit more hints for translators (Matthias Klumpp)
+ * Improve error messages when reading broken XML (Matthias Klumpp)
+ * Load all XML in AsXMLData (Matthias Klumpp)
+ * Implement reading localized images from metadata (Matthias Klumpp)
+ * Write localized images in XML/YAML serialize routines (Matthias Klumpp)
+ * Unify codepaths for checking compatible locales (Matthias Klumpp)
+ * yaml: Implement read/write support for the Languages field (Matthias Klumpp)
+ * xml: Serialize and read languages tag properly (Matthias Klumpp)
+ * validator: Validate files in legacy paths too (Matthias Klumpp)
+
+Specification:
+ * spec: Allow localized screenshot images (Matthias Klumpp)
+
+Bugfixes:
+ * Refactor icon-finding code and fix rare double-free corruption (Matthias Klumpp)
+ * Properly validate randomly ordered XML tags for duplicates (Matthias Klumpp)
+ * validator: The translation tag is only valid in metainfo files (Matthias Klumpp)
+ * Be slightly less pedantic about size info when reading screenshot images (Matthias Klumpp)
+ * xml: Properly write <release/> description tag (Matthias Klumpp)
+
 Version 0.9.4
 ~~~~~~~~~~~~~~
 Released: 2016-04-18
