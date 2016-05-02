@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-24 23:08+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-05-02 19:07+0200\n"
+"PO-Revision-Date: 2016-04-25 06:31+0000\n"
+"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian (http://www.transifex.com/freedesktop/appstream/"
 "language/it/)\n"
 "Language: it\n"
@@ -20,10 +20,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "Stampa suggerimenti prolissi durante la validazione"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Un tipo di elemento (lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -114,6 +114,7 @@ msgstr "Sviluppatore"
 
 msgid "Display status information about available AppStream metadata."
 msgstr ""
+"Visualizza informazioni di stato riguardo ai metadati AppStream installati."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -129,7 +130,7 @@ msgstr "Non mostra output colorato"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
-"Esegue il dump dei meta-dati XML per un componente che corrisponde all'ID"
+"Esegue il dump dei metadati XML per un componente che corrisponde all'ID"
 
 #. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
@@ -210,7 +211,7 @@ msgstr "Imposta manualmente la posizione della cache AppStream"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "File metainfo:"
 
 msgid "Mimetypes"
 msgstr "Tipi MIME"
@@ -263,7 +264,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Rigenera la cache dei metadati del componente."
 
 msgid "Remove software matching the component-id."
 msgstr "Rimuove software tramite l'ID del componente"
@@ -344,7 +345,7 @@ msgstr "Esegue la validazione dei file XML AppStream"
 
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
-"Esegue la validazione di un file di un'applicazione installata per meta-dati "
+"Esegue la validazione di un file di un'applicazione installata per metadati "
 "validi"
 
 msgid "Validation failed."
@@ -354,11 +355,11 @@ msgid "Validation was successful."
 msgstr "Validazione eseguita con successo."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Valore dell'elemento da trovare."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Versione: %s"
 
 #, c-format
 msgid "We have information on %i software components."

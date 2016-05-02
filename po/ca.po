@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-24 23:08+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-05-02 19:07+0200\n"
+"PO-Revision-Date: 2016-04-24 21:21+0000\n"
+"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -22,9 +22,10 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
 msgstr ""
+"Imprimeix també els consells en la validació, fins i tot els redundants"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Un tipus d'element (p. ex. lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -116,6 +117,7 @@ msgstr "Desenvolupador"
 
 msgid "Display status information about available AppStream metadata."
 msgstr ""
+"Mostra informació de l'estat sobre les metadades disponibles d'AppStream."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -214,7 +216,7 @@ msgstr "Estableix manualment la ubicació de la memòria cau d'AppStream."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Fitxers Metainfo:"
 
 msgid "Mimetypes"
 msgstr "Mini tipus"
@@ -267,7 +269,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Reconstrueix la memòria cau de les metadades del component."
 
 msgid "Remove software matching the component-id."
 msgstr "Suprimeix aquell programari que coincideixi amb «component-id»."
@@ -360,11 +362,11 @@ msgid "Validation was successful."
 msgstr "S'ha validat correctament."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "El valor de l'element que s'ha de trobar."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Versió: %s"
 
 #, c-format
 msgid "We have information on %i software components."

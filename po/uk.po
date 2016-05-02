@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-24 23:08+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-05-02 19:07+0200\n"
+"PO-Revision-Date: 2016-04-25 06:08+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/freedesktop/appstream/"
 "language/uk/)\n"
 "Language: uk\n"
@@ -22,10 +22,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "Також виводити найдрібніші неточності під час перевірки"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Тип запису (наприклад lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -115,7 +115,7 @@ msgid "Developer"
 msgstr "Розробник"
 
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Вивести дані щодо стану доступних метаданих AppStream."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -213,7 +213,7 @@ msgstr "Встановити розташування кешу AppStream вру�
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Файли metainfo:"
 
 msgid "Mimetypes"
 msgstr "Типи MIME"
@@ -266,7 +266,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Перебудувати кеш метаданих щодо компонентів"
 
 msgid "Remove software matching the component-id."
 msgstr "Вилучити програмне забезпечення, вказане ідентифікатором компонента."
@@ -358,11 +358,11 @@ msgid "Validation was successful."
 msgstr "Перевірку пройдено."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Значення запису, який має бути знайдено."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Версія: %s"
 
 #, c-format
 msgid "We have information on %i software components."

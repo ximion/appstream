@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-24 23:08+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-05-02 19:07+0200\n"
+"PO-Revision-Date: 2016-04-24 21:14+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
 "Language: pl\n"
@@ -22,10 +22,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "Wyświetla także drobiazgowe uwagi podczas sprawdzania poprawności"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Typ elementu (np. lib, bin, python3…)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -115,7 +115,7 @@ msgid "Developer"
 msgstr "Programista"
 
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Wyświetla informacje o stanie dostępnych metadanych AppStream."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -211,7 +211,7 @@ msgstr "Ręcznie ustawia położenie metadanych AppStream"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Pliki Metainfo:"
 
 msgid "Mimetypes"
 msgstr "Typy MIME"
@@ -265,7 +265,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Ponownie buduje pamięć podręczną metadanych składników."
 
 msgid "Remove software matching the component-id."
 msgstr "Usuwa oprogramowanie pasujące do identyfikatora składnika."
@@ -354,11 +354,11 @@ msgid "Validation was successful."
 msgstr "Pomyślnie sprawdzono poprawność."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Wartość wyszukiwanego elementu."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Wersja: %s"
 
 #, c-format
 msgid "We have information on %i software components."

@@ -6,14 +6,15 @@
 # Boyuan YANG <073plan@gmail.com>, 2015
 # Dz Chen <wsxy162@gmail.com>, 2016
 # Mingcong Bai <jeffbai@aosc.xyz>, 2016
+# Mingye Wang <arthur200126@gmail.com>, 2016
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-04-24 23:08+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-05-02 19:07+0200\n"
+"PO-Revision-Date: 2016-04-28 01:03+0000\n"
+"Last-Translator: Mingye Wang <arthur200126@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -24,10 +25,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "验证时同样输出迂腐的提示"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "一个项目类型（如：lib、bin、python3…）"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -112,7 +113,7 @@ msgid "Developer"
 msgstr "开发者"
 
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -206,7 +207,7 @@ msgstr "手动设置 AppStream 缓存的位置"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "元信息文件："
 
 msgid "Mimetypes"
 msgstr "MIME 类型"
@@ -259,7 +260,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "重建组件元数据缓存。"
 
 msgid "Remove software matching the component-id."
 msgstr "卸载匹配 component-id 的软件。"
@@ -346,11 +347,11 @@ msgid "Validation was successful."
 msgstr "验证成功。"
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "应该要找到的物品值。"
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "版本：%s"
 
 #, c-format
 msgid "We have information on %i software components."
