@@ -323,7 +323,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
 		data = g_memory_output_stream_get_data (mem_os);
 
-		asdata_doc = g_strdup ((const gchar*) data);
+		asdata_doc = g_strndup ((const gchar*) data, g_memory_output_stream_get_size (mem_os));
 
 		g_object_unref (conv_stream);
 		g_object_unref (mem_os);
