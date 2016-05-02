@@ -1117,7 +1117,7 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 /**
  * as_yaml_emit_localized_lists:
  */
-void
+static void
 as_yaml_emit_localized_lists (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
 {
 	if (ltab == NULL)
@@ -1140,7 +1140,7 @@ as_yaml_emit_localized_lists (yaml_emitter_t *emitter, const gchar *key, GHashTa
 /**
  * as_yaml_emit_provides:
  */
-void
+static void
 as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 {
 	GList *l;
@@ -1346,7 +1346,7 @@ as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
 /**
  * as_yaml_emit_screenshots:
  */
-void
+static void
 as_yaml_emit_screenshots (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
 {
 	GPtrArray *sslist;
