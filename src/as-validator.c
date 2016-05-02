@@ -987,9 +987,11 @@ gboolean
 as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 {
 	g_autofree gchar *metainfo_dir = NULL;
+	g_autofree gchar *legacy_metainfo_dir = NULL;
 	g_autofree gchar *apps_dir = NULL;
-	GPtrArray *mfiles = NULL;
-	GPtrArray *dfiles = NULL;
+	g_autoptr(GPtrArray) mfiles = NULL;
+	g_autoptr(GPtrArray) mfiles_legacy = NULL;
+	g_autoptr(GPtrArray) dfiles = NULL;
 	GHashTable *dfilenames = NULL;
 	GHashTable *validated_cpts = NULL;
 	guint i;
@@ -1001,10 +1003,12 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	as_validator_clear_issues (validator);
 
 	metainfo_dir = g_build_filename (root_dir, "usr", "share", "metainfo", NULL);
+	legacy_metainfo_dir = g_build_filename (root_dir, "usr", "share", "appdata", NULL);
 	apps_dir = g_build_filename (root_dir, "usr", "share", "applications", NULL);
 
 	/* check if we actually have a directory which could hold metadata */
-	if (!g_file_test (metainfo_dir, G_FILE_TEST_IS_DIR)) {
+	if ((!g_file_test (metainfo_dir, G_FILE_TEST_IS_DIR)) &&
+	    (!g_file_test (legacy_metainfo_dir, G_FILE_TEST_IS_DIR))) {
 		as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_INFO,
 					AS_ISSUE_KIND_FILE_MISSING,
@@ -1033,6 +1037,31 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 
 	/* validate all metainfo files */
 	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE, NULL);
+	mfiles_legacy = as_utils_find_files_matching (legacy_metainfo_dir, "*.xml", FALSE, NULL);
+
+	/* in case we only have legacy files */
+	if (mfiles == NULL)
+		mfiles = g_ptr_array_new_with_free_func (g_free);
+
+	if (mfiles_legacy != NULL) {
+		for (i = 0; i < mfiles_legacy->len; i++) {
+			const gchar *fname;
+			g_autofree gchar *fname_basename = NULL;
+
+			/* process metainfo files in legacy paths */
+			fname = (const gchar*) g_ptr_array_index (mfiles_legacy, i);
+			fname_basename = g_path_get_basename (fname);
+			as_validator_set_current_fname (validator, fname_basename);
+
+			as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_KIND_LEGACY,
+						"The metainfo file is stored in a legacy path. Please place it in '/usr/share/metainfo'.");
+
+			g_ptr_array_add (mfiles, g_strdup (fname));
+		}
+	}
+
 	for (i = 0; i < mfiles->len; i++) {
 		const gchar *fname;
 		GFile *file;
@@ -1132,10 +1161,6 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 				&ht_helper);
 
 out:
-	if (mfiles != NULL)
-		g_ptr_array_unref (mfiles);
-	if (dfiles != NULL)
-		g_ptr_array_unref (dfiles);
 	if (dfilenames != NULL)
 		g_hash_table_unref (dfilenames);
 	if (validated_cpts != NULL)
