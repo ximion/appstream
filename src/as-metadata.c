@@ -286,7 +286,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, GError **error)
 	g_autoptr(GConverter) conv = NULL;
 	g_autoptr(GString) asdata = NULL;
 	gssize len;
-	const gsize buffer_size = 1024 * 24;
+	const gsize buffer_size = 1024 * 32;
 	g_autofree gchar *buffer = NULL;
 	const gchar *content_type = NULL;
 

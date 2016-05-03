@@ -693,12 +693,18 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 gboolean
 as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 {
-	gboolean ret;
-	gchar* xml_doc;
-	GFileInputStream* fistream;
-	GFileInfo *info = NULL;
-	const gchar *content_type = NULL;
+	g_autoptr(GFileInfo) info = NULL;
+	g_autoptr(GInputStream) file_stream = NULL;
+	g_autoptr(GInputStream) stream_data = NULL;
+	g_autoptr(GConverter) conv = NULL;
+	g_autoptr(GString) asxmldata = NULL;
 	g_autofree gchar *fname = NULL;
+	gssize len;
+	const gsize buffer_size = 1024 * 32;
+	g_autofree gchar *buffer = NULL;
+	const gchar *content_type = NULL;
+	g_autoptr(GError) tmp_error = NULL;
+	gboolean ret;
 
 	info = g_file_query_info (metadata_file,
 				G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
@@ -710,54 +716,42 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	fname = g_file_get_basename (metadata_file);
 	as_validator_set_current_fname (validator, fname);
 
+	file_stream = G_INPUT_STREAM (g_file_read (metadata_file, NULL, &tmp_error));
+	if (tmp_error != NULL) {
+		as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_READ_ERROR,
+					"Unable to read file: %s", tmp_error->message);
+		return FALSE;
+	}
+	if (file_stream == NULL)
+		return FALSE;
+
 	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-		GMemoryOutputStream *mem_os;
-		GInputStream *conv_stream;
-		GZlibDecompressor *zdecomp;
-		guint8 *data;
-
-		/* load a GZip compressed file */
-		fistream = g_file_read (metadata_file, NULL, NULL);
-		mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
-		zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
-		conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
-		g_object_unref (zdecomp);
-
-		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
-		data = g_memory_output_stream_get_data (mem_os);
-
-		xml_doc = g_strdup ((const gchar*) data);
-
-		g_object_unref (conv_stream);
-		g_object_unref (mem_os);
-		g_object_unref (fistream);
+		/* decompress the GZip stream */
+		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+		stream_data = g_converter_input_stream_new (file_stream, conv);
 	} else {
-		gchar *line = NULL;
-		GString *str;
-		GDataInputStream *dis;
-
-		/* load a plaintext file */
-		str = g_string_new ("");
-		fistream = g_file_read (metadata_file, NULL, NULL);
-		dis = g_data_input_stream_new ((GInputStream*) fistream);
-		g_object_unref (fistream);
-
-		while (TRUE) {
-			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
-			if (line == NULL) {
-				break;
-			}
-
-			g_string_append_printf (str, "%s\n", line);
-		}
-
-		xml_doc = g_string_free (str, FALSE);
-		g_object_unref (dis);
+		stream_data = g_object_ref (file_stream);
 	}
 
-	ret = as_validator_validate_data (validator, xml_doc);
-	g_free (xml_doc);
+	asxmldata = g_string_new ("");
+	buffer = g_malloc (buffer_size);
+	while ((len = g_input_stream_read (stream_data, buffer, buffer_size, NULL, &tmp_error)) > 0) {
+		g_string_append_len (asxmldata, buffer, len);
+	}
+	if (tmp_error != NULL) {
+		as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_READ_ERROR,
+					"Unable to read file: %s", tmp_error->message);
+		return FALSE;
+	}
+	/* check if there was an error */
+	if (len < 0)
+		return FALSE;
 
+	ret = as_validator_validate_data (validator, asxmldata->str);
 	as_validator_clear_current_fname (validator);
 
 	return ret;
@@ -1064,11 +1058,13 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 
 	for (i = 0; i < mfiles->len; i++) {
 		const gchar *fname;
-		GFile *file;
-		gchar *line = NULL;
-		GString *str;
-		GDataInputStream *dis;
-		GFileInputStream *fistream;
+		g_autoptr(GFile) file = NULL;
+		g_autoptr(GInputStream) file_stream = NULL;
+		g_autoptr(GError) tmp_error = NULL;
+		g_autoptr(GString) asdata = NULL;
+		gssize len;
+		const gsize buffer_size = 1024 * 24;
+		g_autofree gchar *buffer = NULL;
 		xmlNode *root;
 		xmlDoc *doc;
 		g_autofree gchar *fname_basename = NULL;
@@ -1085,25 +1081,31 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		as_validator_set_current_fname (validator, fname_basename);
 
 		/* load a plaintext file */
-		str = g_string_new ("");
-		fistream = g_file_read (file, NULL, NULL);
-		dis = g_data_input_stream_new ((GInputStream*) fistream);
-		g_object_unref (fistream);
-
-		while (TRUE) {
-			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
-			if (line == NULL) {
-				break;
-			}
-
-			g_string_append_printf (str, "%s\n", line);
+		file_stream = G_INPUT_STREAM (g_file_read (file, NULL, &tmp_error));
+		if (tmp_error != NULL) {
+			as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_READ_ERROR,
+						"Unable to read file: %s", tmp_error->message);
+			continue;
 		}
-		g_object_unref (dis);
-		g_object_unref (file);
+
+		asdata = g_string_new ("");
+		buffer = g_malloc (buffer_size);
+		while ((len = g_input_stream_read (file_stream, buffer, buffer_size, NULL, &tmp_error)) > 0) {
+			g_string_append_len (asdata, buffer, len);
+		}
+		/* check if there was an error */
+		if (tmp_error != NULL) {
+			as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_READ_ERROR,
+						"Unable to read file: %s", tmp_error->message);
+			continue;
+		}
 
 		/* now read the XML */
-		doc = as_validator_open_xml_document (validator, xdt, str->str);
-		g_string_free (str, TRUE);
+		doc = as_validator_open_xml_document (validator, xdt, asdata->str);
 		if (doc == NULL) {
 			as_validator_clear_current_fname (validator);
 			continue;
