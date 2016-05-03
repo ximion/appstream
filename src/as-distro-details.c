@@ -87,7 +87,7 @@ as_distro_details_init (AsDistroDetails *distro)
 	f = g_file_new_for_path ("/etc/os-release");
 	if (g_file_query_exists (f, NULL)) {
 		GDataInputStream *dis;
-		GFileInputStream* fis;
+		GFileInputStream *fis;
 
 		fis = g_file_read (f, NULL, &error);
 		if (error != NULL)

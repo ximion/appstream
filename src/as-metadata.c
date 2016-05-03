@@ -276,13 +276,18 @@ as_metadata_parse_yaml (AsMetadata *metad, const gchar *data, GError **error)
  *
  **/
 void
-as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
+as_metadata_parse_file (AsMetadata *metad, GFile *file, GError **error)
 {
-	g_autofree gchar *asdata_doc = NULL;
-	GFileInputStream* fistream;
-	GFileInfo *info = NULL;
 	g_autofree gchar *file_basename = NULL;
 	gboolean is_yaml_doc = FALSE;
+	g_autoptr(GFileInfo) info = NULL;
+	g_autoptr(GInputStream) file_stream = NULL;
+	g_autoptr(GInputStream) stream_data = NULL;
+	g_autoptr(GConverter) conv = NULL;
+	g_autoptr(GString) asdata = NULL;
+	gssize len;
+	const gsize buffer_size = 1024 * 24;
+	g_autofree gchar *buffer = NULL;
 	const gchar *content_type = NULL;
 
 	info = g_file_query_info (file,
@@ -291,7 +296,6 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 				NULL, NULL);
 	if (info != NULL)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-
 
 	/* check if we are dealing with a YAML document, assume XML otherwise */
 	if (g_strcmp0 (content_type, "application/x-yaml") == 0)
@@ -305,58 +309,37 @@ as_metadata_parse_file (AsMetadata *metad, GFile* file, GError **error)
 		is_yaml_doc = TRUE;
 	}
 
+	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
+	if (file_stream == NULL)
+		return;
 
 	if ((g_strcmp0 (content_type, "application/gzip") == 0) || (g_strcmp0 (content_type, "application/x-gzip") == 0)) {
-		GFileInputStream *fistream;
-		GMemoryOutputStream *mem_os;
-		GInputStream *conv_stream;
-		GZlibDecompressor *zdecomp;
-		guint8 *data;
-
-		/* load a GZip compressed file */
-		fistream = g_file_read (file, NULL, NULL);
-		mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
-		zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
-		conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
-		g_object_unref (zdecomp);
-
-		g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
-		data = g_memory_output_stream_get_data (mem_os);
-
-		asdata_doc = g_strndup ((const gchar*) data, g_memory_output_stream_get_size (mem_os));
-
-		g_object_unref (conv_stream);
-		g_object_unref (mem_os);
-		g_object_unref (fistream);
+		/* decompress the GZip stream */
+		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+		stream_data = g_converter_input_stream_new (file_stream, conv);
 	} else {
-		gchar *line = NULL;
-		GString *str;
-		GDataInputStream *dis;
-
-		/* load a plaintext file */
-		str = g_string_new ("");
-		fistream = g_file_read (file, NULL, NULL);
-		dis = g_data_input_stream_new ((GInputStream*) fistream);
-		g_object_unref (fistream);
-
-		while (TRUE) {
-			line = g_data_input_stream_read_line (dis, NULL, NULL, NULL);
-			if (line == NULL) {
-				break;
-			}
-
-			g_string_append_printf (str, "%s\n", line);
-		}
-
-		asdata_doc = g_string_free (str, FALSE);
-		g_object_unref (dis);
+		stream_data = g_object_ref (file_stream);
 	}
+
+	/* Now read the whole file into memory to parse it.
+	 * On memory-contrained systems we could adjust the code later to allow parsing
+	 * a stream of data instead.
+	 */
+
+	asdata = g_string_new ("");
+	buffer = g_malloc (buffer_size);
+	while ((len = g_input_stream_read (stream_data, buffer, buffer_size, NULL, error)) > 0) {
+		g_string_append_len (asdata, buffer, len);
+	}
+	/* check if there was an error */
+	if (len < 0)
+		return;
 
 	/* parse metadata */
 	if (is_yaml_doc)
-		as_metadata_parse_yaml (metad, asdata_doc, error);
+		as_metadata_parse_yaml (metad, asdata->str, error);
 	else
-		as_metadata_parse_xml (metad, asdata_doc, error);
+		as_metadata_parse_xml (metad, asdata->str, error);
 }
 
 /**
