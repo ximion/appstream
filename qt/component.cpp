@@ -426,6 +426,7 @@ void Component::setProvides(const QList<Appstream::Provides>& provides) {
 
 bool Component::isValid() const
 {
-    return !d->m_name.isEmpty();
+    return !d->m_id.isEmpty() &&
+           !d->m_name.isEmpty() &&
+           !d->m_summary.isEmpty();
 }
-
