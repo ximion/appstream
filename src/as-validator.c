@@ -642,7 +642,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"The component is missing a long description. Components of this type must have a long description.");
-		} else {
+		} else if (cpt_kind != AS_COMPONENT_KIND_GENERIC) {
 			as_validator_add_issue (validator,
 					AS_ISSUE_IMPORTANCE_INFO,
 					AS_ISSUE_KIND_TAG_MISSING,
