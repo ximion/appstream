@@ -249,7 +249,7 @@ as_image_get_locale (AsImage *image)
 }
 
 /**
- * as_image_set_url:
+ * as_image_set_locale:
  * @image: a #AsImage instance.
  * @locale: the locale string.
  *
