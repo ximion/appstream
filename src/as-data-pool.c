@@ -121,6 +121,7 @@ as_data_pool_finalize (GObject *object)
 	g_ptr_array_unref (priv->mdata_dirs);
 	g_strfreev (priv->icon_paths);
 
+	g_free (priv->locale);
 	g_free (priv->current_arch);
 
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);

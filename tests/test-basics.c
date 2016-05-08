@@ -26,19 +26,15 @@ static gchar *datadir = NULL;
 void
 test_menuparser ()
 {
-	AsMenuParser *parser;
-	GList *menu_dirs;
-	gchar *path;
+	g_autoptr(AsMenuParser) parser = NULL;
+	g_autoptr(GList) menu_dirs = NULL;
+	g_autofree gchar *path = NULL;
 
 	path = g_build_filename (datadir, "categories.xml", NULL);
 	parser = as_menu_parser_new_from_file (path);
-	g_free (path);
 
 	menu_dirs = as_menu_parser_parse (parser);
 	g_assert (g_list_length (menu_dirs) > 4);
-
-	g_object_unref (parser);
-	g_list_free (menu_dirs);
 }
 
 void

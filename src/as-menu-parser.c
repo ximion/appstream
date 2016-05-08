@@ -87,12 +87,12 @@ as_menu_parser_init (AsMenuParser *mp)
 }
 
 /**
- * _as_menu_parser_complete_categories:
+ * as_menu_parser_complete_categories_cb:
  *
  * Helper function.
  */
 static void
-_as_menu_parser_complete_categories (AsCategory *cat, gpointer user_data)
+as_menu_parser_complete_categories_cb (AsCategory *cat, gpointer user_data)
 {
 	g_return_if_fail (cat != NULL);
 	as_category_complete (cat);
@@ -143,7 +143,9 @@ as_menu_parser_parse (AsMenuParser *mp)
 
 	if (priv->update_category_data) {
 		/* complete the missing information from desktop-directories folder */
-		g_list_foreach (category_list, (GFunc) _as_menu_parser_complete_categories, NULL);
+		g_list_foreach (category_list,
+				(GFunc) as_menu_parser_complete_categories_cb,
+				NULL);
 	}
 
 	return category_list;
