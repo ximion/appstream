@@ -132,6 +132,10 @@ configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINA
 
 ####
 # GObject Introspection
+
+if(NOT (MAINTAINER AND SANITIZERS))
+# compiling GIR doesn't work well with asan, needs to be investigated.
+
 macro(_list_prefix _outvar _listvar _prefix)
   set(${_outvar})
   foreach(_item IN LISTS ${_listvar})
@@ -142,7 +146,7 @@ endmacro(_list_prefix)
 set(introspection_files ${APPSTREAM_LIB_SRC} ${APPSTREAM_LIB_PUBLIC_HEADERS})
 set(AppStream_1_0_gir "appstream")
 set(AppStream_1_0_gir_INCLUDES GObject-2.0 Gio-2.0)
-set(AppStream_1_0_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION")
+set(AppStream_1_0_gir_CFLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/" "-DAS_COMPILATION" ${MAINTAINER_CFLAGS})
 set(AppStream_1_0_gir_LIBS appstream)
 
 _list_prefix(AppStream_1_0_gir_FILES introspection_files "${CMAKE_CURRENT_SOURCE_DIR}/")
@@ -151,6 +155,8 @@ set(AppStream_1_0_gir_EXPORT_PACKAGES appstream)
 
 list(APPEND INTROSPECTION_GIRS AppStream-1.0.gir)
 gir_add_introspections(INTROSPECTION_GIRS)
+
+endif()
 ####
 
 install(TARGETS appstream DESTINATION ${CMAKE_INSTALL_LIBDIR})

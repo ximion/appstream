@@ -62,7 +62,7 @@ macro(gir_add_introspections introspections_girs)
               ${_gir_includes}
               ${_gir_export_packages}
               ${${_gir_name}_SCANNERFLAGS}
-              ${${_gir_name}_CFLAGS}
+              --cflags-begin ${${_gir_name}_CFLAGS} --cflags-end
               ${${_gir_name}_FILES}
               --output ${CMAKE_CURRENT_BINARY_DIR}/${gir}
       DEPENDS ${${_gir_name}_FILES}

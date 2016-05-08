@@ -10,3 +10,7 @@ target_link_libraries(qtdbreadtest
     AppstreamQt
 )
 add_test(qtdbreadtest qtdbreadtest)
+
+if(SANITIZERS)
+	set_tests_properties(qtdbreadtest PROPERTIES ENVIRONMENT ASAN_OPTIONS=detect_leaks=0)
+endif()
