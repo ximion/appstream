@@ -1,6 +1,6 @@
 # CMakeLists for the AppStream Project
 project(appstream)
-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
 
 set(CMAKE_BUILD_TYPE "Debug")
 

@@ -25,7 +25,7 @@ If you are looking for a way to generate distribution AppStream metadata for a p
 you may want to take a look at [appstream-generator](https://github.com/ximion/appstream-generator).
 
 ## Developers
-[![Build Status](https://semaphoreci.com/api/v1/projects/c406ea75-a977-4100-8ae1-66b7ccc54f48/559622/badge.svg)](https://semaphoreci.com/ximion/appstream)
+[![Build Status](https://travis-ci.org/ximion/appstream.svg?branch=master)](https://travis-ci.org/ximion/appstream)
 
 ### Dependencies
 
