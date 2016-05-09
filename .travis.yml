@@ -38,4 +38,5 @@ script:
   - make install DESTDIR=./install_root/
   # now run tests with sanitizers enabled as well
   - make clean && cmake -DMAINTAINER=ON -DDOCUMENTATION=ON -DQT=ON -DAPT_SUPPORT=ON -DVAPI=ON -DSANITIZERS=ON ..
-  - make && make test ARGS=-V
+  # compilation with ASAN doesn't work on Clang at time, so disable it temporarily
+  - if [ "$CC" != "clang-3.8" ]; then make && make test ARGS=-V; fi

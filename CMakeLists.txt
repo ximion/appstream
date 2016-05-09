@@ -87,10 +87,13 @@ if(MAINTAINER)
 	endif()
 
 	if(SANITIZERS)
-		set(MAINTAINER_CFLAGS ${MAINTAINER_CFLAGS} "-fsanitize=address" "-lasan"
-					"-fsanitize=undefined" "-lubsan" "-fno-sanitize-recover"
-		)
+		set(MAINTAINER_CFLAGS ${MAINTAINER_CFLAGS} "-fsanitize=address" "-fsanitize=undefined")
 		set(SANITIZER_LIBS "asan" "ubsan")
+		if ("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+			set(MAINTAINER_CFLAGS ${MAINTAINER_CFLAGS} "-fno-sanitize-recover=undefined,integer")
+		else()
+			set(MAINTAINER_CFLAGS ${MAINTAINER_CFLAGS} "-fno-sanitize-recover")
+		endif()
 	endif()
 endif(MAINTAINER)
 add_definitions(${MAINTAINER_CFLAGS})
