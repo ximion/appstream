@@ -1,5 +1,4 @@
 # CMakeLists for the AppStream CLI tool
-project(appstream-cli)
 
 find_package(GLIB2 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
@@ -35,6 +34,7 @@ add_dependencies(appstreamcli appstream)
 add_definitions ("-DAS_COMPILATION")
 
 target_link_libraries(appstreamcli
+		${SANITIZER_LIBS}
 		${M_LIB}
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}

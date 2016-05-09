@@ -75,6 +75,7 @@ enable_testing()
 # Custom C flags
 #
 set(MAINTAINER_CFLAGS "")
+set(SANITIZER_LIBS "")
 if(MAINTAINER)
 	set(MAINTAINER_CFLAGS "-Werror" "-Wall" "-Wcast-align" "-Wno-uninitialized" "-Wempty-body" "-Wformat-security" "-Winit-self")
 	if (CMAKE_COMPILER_IS_GNUCC)
@@ -86,9 +87,10 @@ if(MAINTAINER)
 	endif()
 
 	if(SANITIZERS)
-		set(MAINTAINER_CFLAGS ${MAINTAINER_CFLAGS} "-fsanitize=address" "-fno-omit-frame-pointer")
-		set(CMAKE_SHARED_LINKER_FLAGS "-fsanitize=address")
-		set(CMAKE_EXE_LINKER_FLAGS "-fsanitize=address")
+		set(MAINTAINER_CFLAGS ${MAINTAINER_CFLAGS} "-fsanitize=address" "-lasan"
+					"-fsanitize=undefined" "-lubsan" "-fno-sanitize-recover"
+		)
+		set(SANITIZER_LIBS "asan" "ubsan")
 	endif()
 endif(MAINTAINER)
 add_definitions(${MAINTAINER_CFLAGS})

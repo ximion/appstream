@@ -51,7 +51,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 
 add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC} ${ASCACHEPROTO_SRC})
 add_dependencies(AppstreamQt appstream)
-target_link_libraries(AppstreamQt PUBLIC Qt5::Core PRIVATE ${XAPIAN_LIBRARIES} ${PROTOBUF_LITE_LIBRARIES})
+target_link_libraries(AppstreamQt PUBLIC Qt5::Core PRIVATE ${XAPIAN_LIBRARIES} ${PROTOBUF_LITE_LIBRARIES} ${SANITIZER_LIBS})
 target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
 generate_export_header(AppstreamQt)
 

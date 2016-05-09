@@ -120,6 +120,7 @@ add_library(appstream SHARED ${ASLIB_XAP_SOURCES} ${APPSTREAM_LIB_SRC} ${APPSTRE
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 target_link_libraries(appstream
+		${SANITIZER_LIBS}
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}
 		${LIBXML2_LIBRARIES}

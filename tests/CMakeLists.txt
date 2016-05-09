@@ -5,7 +5,8 @@ pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(LibXml2 REQUIRED)
 find_library(M_LIB m)
 
-link_libraries(${M_LIB}
+link_libraries(${SANITIZER_LIBS}
+		${M_LIB}
 		${GLIB2_LIBRARIES}
 		${GIO2_LIBRARIES}
 		${LIBXML2_LIBRARIES}
