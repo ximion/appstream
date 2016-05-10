@@ -1474,7 +1474,6 @@ GPtrArray*
 as_component_get_releases (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	return priv->releases;
 }
 

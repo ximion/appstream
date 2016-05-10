@@ -1332,7 +1332,7 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 
 		/* set release timestamp / date */
 		unixtime = as_release_get_timestamp (release);
-		if (unixtime > 0 ) {
+		if (unixtime > 0) {
 			g_autofree gchar *time_str = NULL;
 
 			if (priv->mode == AS_PARSER_MODE_DISTRO) {
@@ -1360,8 +1360,8 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 		/* add location urls */
 		locations = as_release_get_locations (release);
 		for (j = 0; j < locations->len; j++) {
-			gchar *lurl;
-			lurl = (gchar*) g_ptr_array_index (locations, j);
+			const gchar *lurl;
+			lurl = (const gchar*) g_ptr_array_index (locations, j);
 			xmlNewTextChild (subnode, NULL, (xmlChar*) "location", (xmlChar*) lurl);
 		}
 

@@ -29,6 +29,7 @@
 #include "as-metadata.h"
 #include "as-component-private.h"
 #include "as-screenshot-private.h"
+#include "as-release-private.h"
 
 typedef struct
 {
@@ -38,6 +39,7 @@ typedef struct
 
 	gchar *arch;
 	gint default_priority;
+	AsParserMode mode;
 } AsYAMLDataPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsYAMLData, as_yamldata, G_TYPE_OBJECT)
@@ -65,6 +67,9 @@ as_yamldata_init (AsYAMLData *ydt)
 	priv->origin = NULL;
 	priv->media_baseurl = NULL;
 	priv->default_priority = 0;
+
+	/* the YAML data is only for distro-metadata at time */
+	priv->mode = AS_PARSER_MODE_DISTRO;
 }
 
 /**
@@ -1312,7 +1317,7 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 /**
  * as_yaml_emit_image:
  *
- * Helper for as_yaml_emit_screenshots
+ * Helper for as_yaml_data_emit_screenshots
  */
 static void
 as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
@@ -1344,10 +1349,10 @@ as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
 }
 
 /**
- * as_yaml_emit_screenshots:
+ * as_yaml_data_emit_screenshots:
  */
 static void
-as_yaml_emit_screenshots (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
+as_yaml_data_emit_screenshots (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
 {
 	GPtrArray *sslist;
 	AsScreenshot *scr;
@@ -1401,6 +1406,9 @@ as_yaml_emit_screenshots (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent 
 
 }
 
+/**
+ * as_yaml_emit_icons:
+ */
 static void
 as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 {
@@ -1485,7 +1493,7 @@ as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 /**
  * as_yaml_emit_languages:
  */
-void
+static void
 as_yaml_emit_languages (yaml_emitter_t *emitter, AsComponent *cpt)
 {
 	GHashTableIter iter;
@@ -1512,6 +1520,92 @@ as_yaml_emit_languages (yaml_emitter_t *emitter, AsComponent *cpt)
 		as_yaml_mapping_start (emitter);
 		as_yaml_emit_entry (emitter, "locale", locale);
 		as_yaml_emit_entry (emitter, "percentage", percentage_str);
+		as_yaml_mapping_end (emitter);
+	}
+
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_emit_releases:
+ */
+static void
+as_yaml_data_emit_releases (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
+{
+	guint i;
+	GPtrArray *releases;
+	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
+
+	releases = as_component_get_releases (cpt);
+	if (releases->len == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Releases");
+	as_yaml_sequence_start (emitter);
+
+	for (i = 0; i < releases->len; i++) {
+		guint j;
+		guint64 unixtime;
+		AsUrgencyKind urgency;
+		GPtrArray *locations;
+		AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, i));
+
+		/* start mapping for this release */
+		as_yaml_mapping_start (emitter);
+
+		/* version */
+		as_yaml_emit_entry (emitter,
+				    "version",
+				    as_release_get_version (rel));
+
+		/* timestamp & date */
+		unixtime = as_release_get_timestamp (rel);
+		if (unixtime > 0) {
+			g_autofree gchar *time_str = NULL;
+
+			if (priv->mode == AS_PARSER_MODE_DISTRO) {
+				time_str = g_strdup_printf ("%ld", unixtime);
+				as_yaml_emit_entry (emitter, "unix-timestamp", time_str);
+			} else {
+				GTimeVal time;
+				time.tv_sec = unixtime;
+				time.tv_usec = 0;
+				time_str = g_time_val_to_iso8601 (&time);
+				as_yaml_emit_entry (emitter, "date", time_str);
+			}
+		}
+
+		/* urgency */
+		urgency = as_release_get_urgency (rel);
+		if (urgency != AS_URGENCY_KIND_UNKNOWN) {
+			as_yaml_emit_entry (emitter,
+					    "urgency",
+					    as_urgency_kind_to_string (urgency));
+		}
+
+		/* description */
+		as_yaml_emit_long_localized_entry (emitter,
+						   "description",
+						   as_release_get_description_table (rel));
+
+		/* location URLs */
+		locations = as_release_get_locations (rel);
+		if (locations->len > 0) {
+			as_yaml_emit_scalar (emitter, "locations");
+			as_yaml_sequence_start (emitter);
+			for (j = 0; j < locations->len; j++) {
+				const gchar *lurl;
+				lurl = (const gchar*) g_ptr_array_index (locations, j);
+				as_yaml_emit_scalar (emitter, lurl);
+			}
+
+			as_yaml_sequence_end (emitter);
+		}
+
+		/* TODO: Checksum and size are missing, because they are not specified yet for DEP-11.
+		 * Will need to be added when/if we need it. */
+
+		/* end mapping for the release */
 		as_yaml_mapping_end (emitter);
 	}
 
@@ -1661,12 +1755,13 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	as_yaml_emit_provides (emitter, cpt);
 
 	/* Screenshots */
-	as_yaml_emit_screenshots (ydt, emitter, cpt);
+	as_yaml_data_emit_screenshots (ydt, emitter, cpt);
 
 	/* Translation details */
 	as_yaml_emit_languages (emitter, cpt);
 
-	/* TODO: Releases */
+	/* Releases */
+	as_yaml_data_emit_releases (ydt, emitter, cpt);
 
 	/* close main mapping */
 	as_yaml_mapping_end (emitter);

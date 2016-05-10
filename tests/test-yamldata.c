@@ -116,6 +116,8 @@ test_yamlwrite (void)
 	g_autoptr(AsYAMLData) ydata = NULL;
 	g_autoptr(GPtrArray) cpts = NULL;
 	g_autoptr(AsScreenshot) scr = NULL;
+	g_autoptr(AsRelease) rel1 = NULL;
+	g_autoptr(AsRelease) rel2 = NULL;
 	g_autofree gchar *resdata = NULL;
 	AsComponent *cpt = NULL;
 	GError *error = NULL;
@@ -166,6 +168,20 @@ test_yamlwrite (void)
 
 		as_component_add_icon (cpt, icon);
 	}
+
+	rel1 = as_release_new ();
+	as_release_set_version (rel1, "1.0");
+	as_release_set_timestamp (rel1, 1460463132);
+	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
+	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de_DE");
+	as_component_add_release (cpt, rel1);
+
+	rel2 = as_release_new ();
+	as_release_set_version (rel2, "1.2");
+	as_release_set_timestamp (rel2, 1462288512);
+	as_release_set_description (rel2, "<p>The CPU no longer overheats when you hold down spacebar.</p>", "C");
+	as_release_set_urgency (rel2, AS_URGENCY_KIND_MEDIUM);
+	as_component_add_release (cpt, rel2);
 
 	g_ptr_array_add (cpts, cpt);
 
