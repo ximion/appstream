@@ -164,7 +164,7 @@ DatabaseWrite::rebuild (GList *cpt_list)
 
 	// Create the rebuild directory
 	if (g_mkdir_with_parents (rebuild_path.c_str (), 0755) != 0) {
-		g_warning ("Unable to create database rebuild directory.");
+		g_warning ("Unable to create database rebuild directory: %s", g_strerror (errno));
 		return false;
 	}
 
@@ -553,11 +553,11 @@ DatabaseWrite::rebuild (GList *cpt_list)
 	db.commit ();
 
 	if (g_rename (m_dbPath.c_str (), old_path.c_str ()) < 0) {
-		g_critical ("Error while moving old database out of the way.");
+		g_critical ("Error while moving old database out of the way: %s", g_strerror (errno));
 		return false;
 	}
 	if (g_rename (rebuild_path.c_str (), m_dbPath.c_str ()) < 0) {
-		g_critical ("Error while moving rebuilt database.");
+		g_critical ("Error while moving rebuilt database: %s", g_strerror (errno));
 		return false;
 	}
 	as_utils_delete_dir_recursive (old_path.c_str ());
