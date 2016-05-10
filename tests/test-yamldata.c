@@ -177,20 +177,31 @@ test_yamlwrite (void)
 }
 
 AsComponent*
-as_yaml_test_read_data (const gchar *data)
+as_yaml_test_read_data (const gchar *data, GError **error)
 {
-	AsComponent *cpt;
-	GError *error = NULL;
+	AsComponent *cpt = NULL;
 	g_autoptr(GPtrArray) cpts = NULL;
 	g_autoptr(AsYAMLData) ydt = NULL;
 
 	ydt = as_yamldata_new ();
 
-	cpts = as_yamldata_parse_distro_data (ydt, data, &error);
-	g_assert_no_error (error);
+	cpts = as_yamldata_parse_distro_data (ydt, data, error);
 
-	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
-	return g_object_ref (cpt);
+	if (cpts->len > 0) {
+		cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+		g_object_ref (cpt);
+	}
+	return cpt;
+}
+
+AsComponent*
+as_yaml_test_read_data_ok (const gchar *data)
+{
+	GError *error = NULL;
+	AsComponent *cpt = as_yaml_test_read_data (data, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (cpt);
+	return cpt;
 }
 
 void
@@ -221,7 +232,7 @@ test_yaml_read_icons (void)
 	ydt = as_yamldata_new ();
 
 	/* check the legacy icons */
-	cpt = as_yaml_test_read_data (yamldata_icons_legacy);
+	cpt = as_yaml_test_read_data_ok (yamldata_icons_legacy);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
 
 	icons = as_component_get_icons (cpt);
@@ -237,7 +248,7 @@ test_yaml_read_icons (void)
 
 	/* check the new style icons tag */
 	g_object_unref (cpt);
-	cpt = as_yaml_test_read_data (yamldata_icons_current);
+	cpt = as_yaml_test_read_data_ok (yamldata_icons_current);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
 
 	icons = as_component_get_icons (cpt);
@@ -267,12 +278,33 @@ test_yaml_read_languages (void)
 					"  - locale: en_GB\n"
 					"    percentage: 100\n";
 
-	cpt = as_yaml_test_read_data (yamldata_languages);
+	cpt = as_yaml_test_read_data_ok (yamldata_languages);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
 
 	g_assert_cmpint (as_component_get_language (cpt, "de_DE"), ==, 48);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "invalid_C"), ==, -1);
+}
+
+void
+test_yaml_corrupt_data (void)
+{
+	GError *error = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	const gchar *yamldata_corrupt = "---\n"
+					"ID: org.example.Test\n"
+					"\007\n";
+
+	cpt = as_yaml_test_read_data (yamldata_corrupt, &error);
+
+	g_assert_error (error, AS_METADATA_ERROR, AS_METADATA_ERROR_FAILED);
+	g_assert_null (cpt);
+
+	if (error != NULL) {
+		g_assert_true (g_str_has_prefix (error->message, "Invalid DEP-11 file found: YAML parsing error"));
+		g_error_free (error);
+		error = NULL;
+	}
 }
 
 int
@@ -300,6 +332,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Write", test_yamlwrite);
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
 	g_test_add_func ("/YAML/Read/Languages", test_yaml_read_languages);
+	g_test_add_func ("/YAML/Read/Corrupt", test_yaml_corrupt_data);
 
 	ret = g_test_run ();
 	g_free (datadir);
