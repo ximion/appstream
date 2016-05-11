@@ -142,7 +142,7 @@ as_yamldata_free_node (GNode *node, gpointer data)
  * Create GNode tree from DEP-11 YAML document
  */
 static void
-dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data)
+dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data, GError **error)
 {
 	GNode *last_leaf = data;
 	GNode *last_scalar;
@@ -152,7 +152,13 @@ dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data)
 	int storage = YAML_VAR; /* the first element must always be of type VAR */
 
 	while (parse) {
-		yaml_parser_parse (parser, &event);
+		if (!yaml_parser_parse (parser, &event)) {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_FAILED,
+					"Invalid DEP-11 file found: YAML parsing error (%s)", parser->problem);
+			break;
+		}
 
 		/* Parse value either as a new leaf in the mapping
 		 * or as a leaf value (one of them, in case it's a sequence) */
@@ -177,7 +183,9 @@ dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data)
 				last_scalar = last_leaf;
 				if (in_sequence)
 					last_leaf = g_node_append (last_leaf, g_node_new (g_strdup ("-")));
-				dep11_yaml_process_layer (parser, last_leaf);
+				dep11_yaml_process_layer (parser, last_leaf, error);
+				if (*error != NULL)
+					parse = FALSE;
 				last_leaf = last_scalar;
 				storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
 				break;
@@ -1934,7 +1942,14 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen (data));
 
 	while (parse) {
-		yaml_parser_parse (&parser, &event);
+		if (!yaml_parser_parse (&parser, &event)) {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_FAILED,
+					"Invalid DEP-11 file found: YAML parsing error (%s)", parser.problem);
+			break;
+		}
+
 		if (event.type == YAML_DOCUMENT_START_EVENT) {
 			GNode *n;
 			gchar *key;
@@ -1943,9 +1958,9 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 			gboolean header_found = FALSE;
 			GNode *root = g_node_new (g_strdup (""));
 
-			dep11_yaml_process_layer (&parser, root);
+			dep11_yaml_process_layer (&parser, root, error);
 
-			if (header) {
+			if (header && *error == NULL) {
 				for (n = root->children; n != NULL; n = n->next) {
 					if ((n->data == NULL) || (n->children == NULL)) {
 						parse = FALSE;
@@ -2020,8 +2035,8 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 			g_node_destroy (root);
 		}
 
-		/* stop if end of stream is reached */
-		if (event.type == YAML_STREAM_END_EVENT)
+		/* stop if end of stream is reached or error was encountered */
+		if (event.type == YAML_STREAM_END_EVENT || *error != NULL)
 			parse = FALSE;
 
 		yaml_event_delete(&event);
