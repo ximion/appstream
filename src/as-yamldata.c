@@ -125,10 +125,10 @@ dep11_print_unknown (const gchar *root, const gchar *key)
 }
 
 /**
- * as_yamldata_free_node:
+ * as_yaml_free_node:
  */
 static gboolean
-as_yamldata_free_node (GNode *node, gpointer data)
+as_yaml_free_node (GNode *node, gpointer data)
 {
 	if (node->data != NULL)
 		g_free (node->data);
@@ -137,22 +137,29 @@ as_yamldata_free_node (GNode *node, gpointer data)
 }
 
 /**
- * dep11_yaml_process_layer:
+ * as_yaml_process_layer:
  *
  * Create GNode tree from DEP-11 YAML document
  */
 static void
-dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data)
+as_yaml_process_layer (yaml_parser_t *parser, GNode *data, GError **error)
 {
 	GNode *last_leaf = data;
 	GNode *last_scalar;
 	yaml_event_t event;
 	gboolean parse = TRUE;
 	gboolean in_sequence = FALSE;
+	GError *tmp_error = NULL;
 	int storage = YAML_VAR; /* the first element must always be of type VAR */
 
 	while (parse) {
-		yaml_parser_parse (parser, &event);
+		if (!yaml_parser_parse (parser, &event)) {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_PARSE,
+					"Invalid DEP-11 file found. Could not parse YAML: %s", parser->problem);
+			break;
+		}
 
 		/* Parse value either as a new leaf in the mapping
 		 * or as a leaf value (one of them, in case it's a sequence) */
@@ -177,7 +184,13 @@ dep11_yaml_process_layer (yaml_parser_t *parser, GNode *data)
 				last_scalar = last_leaf;
 				if (in_sequence)
 					last_leaf = g_node_append (last_leaf, g_node_new (g_strdup ("-")));
-				dep11_yaml_process_layer (parser, last_leaf);
+
+				as_yaml_process_layer (parser, last_leaf, &tmp_error);
+				if (tmp_error != NULL) {
+					g_propagate_error (error, tmp_error);
+					parse = FALSE;
+				}
+
 				last_leaf = last_scalar;
 				storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
 				break;
@@ -1906,7 +1919,8 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 	yaml_event_t event;
 	gboolean header = TRUE;
 	gboolean parse = TRUE;
-	GPtrArray *cpts = NULL;;
+	gboolean ret = TRUE;
+	g_autoptr(GPtrArray) cpts = NULL;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	/* we ignore empty data - usually happens if the file is broken, e.g. by disk corruption
@@ -1934,16 +1948,35 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 	yaml_parser_set_input_string (&parser, (unsigned char*) data, strlen (data));
 
 	while (parse) {
-		yaml_parser_parse (&parser, &event);
+		if (!yaml_parser_parse (&parser, &event)) {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_PARSE,
+					"Invalid DEP-11 file found. Could not parse YAML: %s", parser.problem);
+			ret = FALSE;
+			break;
+		}
+
 		if (event.type == YAML_DOCUMENT_START_EVENT) {
 			GNode *n;
 			gchar *key;
 			gchar *value;
 			AsComponent *cpt;
 			gboolean header_found = FALSE;
-			GNode *root = g_node_new (g_strdup (""));
+			GError *tmp_error = NULL;
+			g_autoptr(GNode) root = NULL;
 
-			dep11_yaml_process_layer (&parser, root);
+			root = g_node_new (g_strdup (""));
+			as_yaml_process_layer (&parser, root, &tmp_error);
+			if (tmp_error != NULL) {
+				/* stop immediately, since we found an error when parsing the document */
+				g_propagate_error (error, tmp_error);
+				g_free (root->data);
+				yaml_event_delete (&event);
+				ret = FALSE;
+				parse = FALSE;
+				break;
+			}
 
 			if (header) {
 				for (n = root->children; n != NULL; n = n->next) {
@@ -1953,6 +1986,7 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 								AS_METADATA_ERROR,
 								AS_METADATA_ERROR_FAILED,
 								"Invalid DEP-11 file found: Header invalid");
+						ret = FALSE;
 						break;
 					}
 
@@ -2005,6 +2039,7 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 				if (cpt == NULL) {
 					g_warning ("Parsing of YAML metadata failed: Could not read data for component.");
 					parse = FALSE;
+					ret = FALSE;
 				}
 
 				/* add found component to the results set */
@@ -2015,21 +2050,24 @@ as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **erro
 					G_IN_ORDER,
 					G_TRAVERSE_ALL,
 					-1,
-					as_yamldata_free_node,
+					as_yaml_free_node,
 					NULL);
-			g_node_destroy (root);
 		}
 
 		/* stop if end of stream is reached */
 		if (event.type == YAML_STREAM_END_EVENT)
 			parse = FALSE;
 
-		yaml_event_delete(&event);
+		yaml_event_delete (&event);
 	}
 
 	yaml_parser_delete (&parser);
 
-	return cpts;
+	/* return NULL on error, otherwise return the list of found components */
+	if (ret)
+		return g_ptr_array_ref (cpts);
+	else
+		return NULL;
 }
 
 /**

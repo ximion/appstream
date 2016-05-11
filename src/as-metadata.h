@@ -67,7 +67,8 @@ typedef enum {
 
 /**
  * AsMetadataError:
- * @AS_METADATA_ERROR_FAILED:			Generic failure
+ * @AS_METADATA_ERROR_FAILED:			Generic failure.
+ * @AS_METADATA_ERROR_PARSE:			Unable to parse the metadata file.
  * @AS_METADATA_ERROR_UNEXPECTED_FORMAT_KIND:	Expected upstream metadata but got distro metadata, or vice versa.
  * @AS_METADATA_ERROR_NO_COMPONENT:		We expected a component in the pool, but couldn't find one.
  *
@@ -75,6 +76,7 @@ typedef enum {
  **/
 typedef enum {
 	AS_METADATA_ERROR_FAILED,
+	AS_METADATA_ERROR_PARSE,
 	AS_METADATA_ERROR_UNEXPECTED_FORMAT_KIND,
 	AS_METADATA_ERROR_NO_COMPONENT,
 	/*< private >*/
