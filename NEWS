@@ -1,3 +1,23 @@
+Version 0.9.6
+~~~~~~~~~~~~~~
+Released: 2016-05-12
+
+Features:
+ * Improve metadata file decompression code (Matthias Klumpp)
+ * validator: Simplify loading of data too (Matthias Klumpp)
+ * Make it easy to compile with Address Sanitizer enabled (Matthias Klumpp)
+ * Allow compiling with UBSan as well (Matthias Klumpp)
+ * Add back support for Travis CI (Matthias Klumpp)
+ * yaml: Write Releases field (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Properly check for component validity (Matthias Klumpp)
+ * Ensure decompressed metadata is null-terminated (Neil Mayhew)
+ * validator: Long descriptions are not needed for generic components (Matthias Klumpp)
+ * Make VAPI generation depend on GIR typelibs explicitly (Matthias Klumpp)
+ * Be more verbose when failing to move the cache directory (Matthias Klumpp)
+ * Handle format errors when parsing YAML metadata (Neil Mayhew)
+
 Version 0.9.5
 ~~~~~~~~~~~~~~
 Released: 2016-05-02
