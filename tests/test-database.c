@@ -54,14 +54,14 @@ test_database_create ()
 {
 	g_autoptr(AsCacheBuilder) builder = NULL;
 	GError *error = NULL;
-	gchar *db_path;
-	gchar **strv;
+	g_autofree gchar *db_path = NULL;
+	g_auto(GStrv) strv = NULL;
 	gboolean ret;
 
 	g_mkdir_with_parents ("/var/tmp/appstream-tests/", 0755);
 	db_path = g_strdup ("/var/tmp/appstream-tests/libas-dbtest-XXXXXX");
 	db_path = g_mkdtemp (db_path);
-	g_assert (db_path != NULL);
+	g_assert_nonnull (db_path);
 
 	/* we use some sample-data to simulate loading distro data */
 	strv = g_new0 (gchar*, 2);
@@ -69,7 +69,6 @@ test_database_create ()
 
 	builder = as_cache_builder_new ();
 	as_cache_builder_set_data_source_directories (builder, strv);
-	g_strfreev (strv);
 
 	ret = as_cache_builder_setup (builder, db_path, &error);
 	g_assert_no_error (error);
@@ -85,7 +84,7 @@ test_database_create ()
 	g_assert_no_error (error);
 	g_assert (!ret);
 
-	return db_path;
+	return g_strdup (db_path);
 }
 
 void
