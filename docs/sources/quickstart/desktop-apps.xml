@@ -26,7 +26,7 @@
 		</para>
 		<para>
 			The AppData files override any values which are automatically fetched by the AppStream data generator.
-			Applications can ship one or more files in <filename>/usr/share/appdata/%{id}.appdata.xml</filename>.
+			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
 		<para>
 			AppData files can - just like all other metainfo files - be translated. See the section about translation for more information about that.
