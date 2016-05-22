@@ -1228,10 +1228,10 @@ as_xml_desc_lang_hashtable_to_nodes_cb (gchar *key, gchar *value, AsLocaleWriteH
 }
 
 /**
- * _as_xmldata_serialize_image:
+ * as_xml_serialize_image:
  */
 static void
-_as_xmldata_serialize_image (AsImage *img, xmlNode *subnode)
+as_xml_serialize_image (AsImage *img, xmlNode *subnode)
 {
 	xmlNode* n_image = NULL;
 	gchar *size;
@@ -1283,7 +1283,7 @@ as_xmldata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 		GPtrArray *images;
 		sshot = (AsScreenshot*) g_ptr_array_index (sslist, i);
 
-		subnode = xmlNewTextChild (root, NULL, (xmlChar*) "screenshot", (xmlChar*) "");
+		subnode = xmlNewChild (root, NULL, (xmlChar*) "screenshot", (xmlChar*) "");
 		if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
 			xmlNewProp (subnode, (xmlChar*) "type", (xmlChar*) "default");
 
@@ -1295,7 +1295,7 @@ as_xmldata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 		}
 
 		images = as_screenshot_get_images (sshot);
-		g_ptr_array_foreach (images, (GFunc) _as_xmldata_serialize_image, subnode);
+		g_ptr_array_foreach (images, (GFunc) as_xml_serialize_image, subnode);
 	}
 }
 
