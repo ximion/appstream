@@ -1295,7 +1295,7 @@ as_xmldata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 			xmlNewProp (subnode, (xmlChar*) "type", (xmlChar*) "default");
 
 		str = as_screenshot_get_caption (sshot);
-		if (g_strcmp0 (str, "") != 0) {
+		if (str != NULL) {
 			xmlNode* n_caption;
 			n_caption = xmlNewTextChild (subnode, NULL, (xmlChar*) "caption", (xmlChar*) str);
 			xmlAddChild (subnode, n_caption);
