@@ -74,8 +74,10 @@ libxml_generic_error (AsXMLData *xdt, const char *format, ...)
 {
 	GString *str;
 	va_list arg_ptr;
+	static GMutex mutex;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
+	g_mutex_lock (&mutex);
 	str = g_string_new (priv->last_error_msg? priv->last_error_msg : "");
 
 	va_start (arg_ptr, format);
@@ -84,6 +86,7 @@ libxml_generic_error (AsXMLData *xdt, const char *format, ...)
 
 	g_free (priv->last_error_msg);
 	priv->last_error_msg = g_string_free (str, FALSE);
+	g_mutex_unlock (&mutex);
 }
 
 /**
@@ -98,7 +101,6 @@ as_xmldata_init (AsXMLData *xdt)
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 	priv->last_error_msg = NULL;
 	priv->check_valid = TRUE;
-	xmlSetGenericErrorFunc (xdt, (xmlGenericErrorFunc) libxml_generic_error);
 }
 
 /**
@@ -115,6 +117,7 @@ as_xmldata_finalize (GObject *object)
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
 	g_free (priv->last_error_msg);
+	xmlSetGenericErrorFunc (xdt, NULL);
 
 	G_OBJECT_CLASS (as_xmldata_parent_class)->finalize (object);
 }
@@ -125,9 +128,14 @@ as_xmldata_finalize (GObject *object)
 static void
 as_xmldata_clear_error (AsXMLData *xdt)
 {
+	static GMutex mutex;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	g_mutex_lock (&mutex);
 	g_free (priv->last_error_msg);
 	priv->last_error_msg = NULL;
+	xmlSetGenericErrorFunc (xdt, (xmlGenericErrorFunc) libxml_generic_error);
+	g_mutex_unlock (&mutex);
 }
 
 /**
@@ -1072,7 +1080,7 @@ as_xmldata_xml_add_node (xmlNode *root, const gchar *name, const gchar *value)
 static gboolean
 as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_node, const gchar *description_markup, const gchar *lang)
 {
-	gchar *xmldata;
+	g_autofree gchar *xmldata = NULL;
 	xmlDoc *doc;
 	xmlNode *droot;
 	xmlNode *dnode;
@@ -1158,7 +1166,6 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 out:
 	if (doc != NULL)
 		xmlFreeDoc (doc);
-	g_free (xmldata);
 	return ret;
 }
 
@@ -1706,6 +1713,7 @@ as_xmldata_parse_document (AsXMLData *xdt, const gchar *data, GError **error)
 		return NULL;
 	}
 
+	as_xmldata_clear_error (xdt);
 	doc = xmlReadMemory (data, strlen (data),
 			     NULL,
 			     "utf-8",
@@ -1715,7 +1723,6 @@ as_xmldata_parse_document (AsXMLData *xdt, const gchar *data, GError **error)
 				AS_METADATA_ERROR,
 				AS_METADATA_ERROR_FAILED,
 				"Could not parse XML data: %s", priv->last_error_msg);
-		as_xmldata_clear_error (xdt);
 		return NULL;
 	}
 
@@ -1802,6 +1809,7 @@ as_xmldata_serialize_to_upstream (AsXMLData *xdt, AsComponent *cpt)
 		g_debug ("Can not serialize '%s': Component is invalid.", as_component_get_id (cpt));
 		return NULL;
 	}
+	as_xmldata_clear_error (xdt);
 
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 	doc = xmlNewDoc ((xmlChar*) NULL);
@@ -1833,7 +1841,10 @@ as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 	guint i;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
+	/* initialize */
+	as_xmldata_clear_error (xdt);
 	priv->mode = AS_PARSER_MODE_DISTRO;
+
 	root = xmlNewNode (NULL, (xmlChar*) "components");
 	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.8");
 	if (priv->origin != NULL)
@@ -1880,6 +1891,7 @@ as_xmldata_serialize_to_distro_without_rootnode (AsXMLData *xdt, GPtrArray *cpts
 
 	out_data = g_string_new ("");
 	priv->mode = AS_PARSER_MODE_DISTRO;
+	as_xmldata_clear_error (xdt);
 
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt;
