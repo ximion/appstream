@@ -718,7 +718,7 @@ as_component_set_source_pkgname (AsComponent *cpt, const gchar* spkgname)
  * as_component_get_id:
  * @cpt: a #AsComponent instance.
  *
- * Set the unique identifier for this component.
+ * Get the unique identifier for this component.
  *
  * Returns: the unique identifier.
  */
