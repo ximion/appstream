@@ -674,11 +674,12 @@ as_xmldata_process_provides (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
 {
 	xmlNode *iter;
 	gchar *node_name;
-	gchar *content = NULL;
 	g_return_if_fail (xdt != NULL);
 	g_return_if_fail (cpt != NULL);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *content = NULL;
+
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
@@ -718,8 +719,6 @@ as_xmldata_process_provides (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
 			else if ((g_strcmp0 (dbustype, "user") == 0) || (g_strcmp0 (dbustype, "session") == 0))
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_USER, content);
 		}
-
-		g_free (content);
 	}
 }
 
@@ -930,7 +929,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			g_auto(GStrv) mime_array = NULL;
 			guint i;
 
-			/* Mimetypes are essentially provided interfaces, that's why they belong into Asprovided.
+			/* Mimetypes are essentially provided interfaces, that's why they belong into AsProvided.
 			 * However, due to historic reasons, the spec has an own toplevel tag for them, so we need
 			 * to parse them here. */
 			mime_array = as_xmldata_get_children_as_strv (xdt, iter, "mimetype");
@@ -1413,6 +1412,113 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 }
 
 /**
+ * as_xml_serialize_provides:
+ */
+static void
+as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
+{
+	xmlNode *node;
+	g_autoptr(GList) prov_list = NULL;
+	GList *l;
+	gchar **items;
+	guint i;
+	AsProvided *prov_mime;
+
+	prov_list = as_component_get_provided (cpt);
+	if (prov_list == NULL)
+		return;
+
+	prov_mime = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MIMETYPE);
+	if (prov_mime != NULL) {
+		/* mimetypes get special treatment in XML for historical reasons */
+		node = xmlNewChild (cnode, NULL, (xmlChar*) "mimetypes", NULL);
+		items = as_provided_get_items (prov_mime);
+
+		for (i = 0; items[i] != NULL; i++) {
+			xmlNewTextChild (node,
+					  NULL,
+					  (xmlChar*) "mimetype",
+					  (xmlChar*) items[i]);
+		}
+	}
+
+	/* check if we only had mimetype provided items, in that case we don't need to continue */
+	if ((as_provided_get_kind (AS_PROVIDED (prov_list->data)) == AS_PROVIDED_KIND_MIMETYPE) &&
+	    (prov_list->next == NULL))
+		return;
+
+	node = xmlNewChild (cnode, NULL, (xmlChar*) "provides", NULL);
+	for (l = prov_list; l != NULL; l = l->next) {
+		AsProvided *prov = AS_PROVIDED (l->data);
+
+		items = as_provided_get_items (prov);
+		switch (as_provided_get_kind (prov)) {
+			case AS_PROVIDED_KIND_MIMETYPE:
+				/* we already handled those */
+				break;
+			case AS_PROVIDED_KIND_LIBRARY:
+				as_xmldata_xml_add_node_list (node, NULL,
+							      "library",
+							      items);
+				break;
+			case AS_PROVIDED_KIND_BINARY:
+				as_xmldata_xml_add_node_list (node, NULL,
+							      "binary",
+							      items);
+				break;
+			case AS_PROVIDED_KIND_MODALIAS:
+				as_xmldata_xml_add_node_list (node, NULL,
+							      "modalias",
+							      items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON_2:
+				as_xmldata_xml_add_node_list (node, NULL,
+							      "python2",
+							      items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON:
+				as_xmldata_xml_add_node_list (node, NULL,
+							      "python3",
+							      items);
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
+				for (i = 0; items[i] != NULL; i++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL, (xmlChar*) "firmware", (xmlChar*) items[i]);
+					xmlNewProp (n, (xmlChar*) "type", (xmlChar*) "runtime");
+				}
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
+				for (i = 0; items[i] != NULL; i++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL, (xmlChar*) "firmware", (xmlChar*) items[i]);
+					xmlNewProp (n, (xmlChar*) "type", (xmlChar*) "runtime");
+				}
+				break;
+			case AS_PROVIDED_KIND_DBUS_SYSTEM:
+				for (i = 0; items[i] != NULL; i++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL, (xmlChar*) "dbus", (xmlChar*) items[i]);
+					xmlNewProp (n, (xmlChar*) "type", (xmlChar*) "system");
+				}
+				break;
+			case AS_PROVIDED_KIND_DBUS_USER:
+				for (i = 0; items[i] != NULL; i++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL, (xmlChar*) "dbus", (xmlChar*) items[i]);
+					xmlNewProp (n, (xmlChar*) "type", (xmlChar*) "user");
+				}
+				break;
+
+			default:
+				/* TODO: Serialize fonts tag properly */
+				g_debug ("Couldn't serialize provided-item type '%s'", as_provided_kind_to_string (as_provided_get_kind (prov)));
+				break;
+		}
+	}
+}
+
+/**
  * as_xml_serialize_languages:
  */
 static void
@@ -1427,7 +1533,7 @@ as_xml_serialize_languages (AsComponent *cpt, xmlNode *cnode)
 	if (g_hash_table_size (lang_table) == 0)
 		return;
 
-	node = xmlNewTextChild (cnode, NULL, (xmlChar*) "languages", NULL);
+	node = xmlNewChild (cnode, NULL, (xmlChar*) "languages", NULL);
 	g_hash_table_iter_init (&iter, lang_table);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
 		guint percentage;
@@ -1600,16 +1706,19 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	/* screenshots node */
 	screenshots = as_component_get_screenshots (cpt);
 	if (screenshots->len > 0) {
-		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
+		node = xmlNewChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
 		as_xmldata_add_screenshot_subnodes (cpt, node);
 	}
 
 	/* releases node */
 	releases = as_component_get_releases (cpt);
 	if (releases->len > 0) {
-		node = xmlNewTextChild (cnode, NULL, (xmlChar*) "releases", NULL);
+		node = xmlNewChild (cnode, NULL, (xmlChar*) "releases", NULL);
 		as_xmldata_add_release_subnodes (xdt, cpt, node);
 	}
+
+	/* provides & mimetypes node */
+	as_xml_serialize_provides (cpt, cnode);
 
 	/* languages node */
 	as_xml_serialize_languages (cpt, cnode);

@@ -489,6 +489,54 @@ test_xml_write_releases (void)
 	g_assert (as_test_compare_lines (res, expected_rel_xml));
 }
 
+void
+test_xml_write_provides (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsProvided) prov_mime = NULL;
+	g_autoptr(AsProvided) prov_bin = NULL;
+	g_autoptr(AsProvided) prov_dbus = NULL;
+	g_autofree gchar *res = NULL;
+	const gchar *expected_prov_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.ProvidesTest</id>\n"
+					"  <mimetypes>\n"
+					"    <mimetype>image/png</mimetype>\n"
+					"    <mimetype>text/plain</mimetype>\n"
+					"    <mimetype>application/xml</mimetype>\n"
+					"  </mimetypes>\n"
+					"  <provides>\n"
+					"    <binary>foobar</binary>\n"
+					"    <binary>foobar-viewer</binary>\n"
+					"    <dbus type=\"system\">org.example.ProvidesTest.Modify</dbus>\n"
+					"  </provides>\n"
+					"</component>\n";
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.ProvidesTest");
+
+	prov_mime = as_provided_new ();
+	as_provided_set_kind (prov_mime, AS_PROVIDED_KIND_MIMETYPE);
+	as_provided_add_item (prov_mime, "text/plain");
+	as_provided_add_item (prov_mime, "application/xml");
+	as_provided_add_item (prov_mime, "image/png");
+	as_component_add_provided (cpt, prov_mime);
+
+	prov_bin = as_provided_new ();
+	as_provided_set_kind (prov_bin, AS_PROVIDED_KIND_BINARY);
+	as_provided_add_item (prov_bin, "foobar");
+	as_provided_add_item (prov_bin, "foobar-viewer");
+	as_component_add_provided (cpt, prov_bin);
+
+	prov_dbus = as_provided_new ();
+	as_provided_set_kind (prov_dbus, AS_PROVIDED_KIND_DBUS_SYSTEM);
+	as_provided_add_item (prov_dbus, "org.example.ProvidesTest.Modify");
+	as_component_add_provided (cpt, prov_dbus);
+
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
+	g_assert (as_test_compare_lines (res, expected_prov_xml));
+}
+
 int
 main (int argc, char **argv)
 {
@@ -518,6 +566,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/Languages", test_xml_read_languages);
 	g_test_add_func ("/XML/Write/Languages", test_xml_write_languages);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
+	g_test_add_func ("/XML/Write/Provides", test_xml_write_provides);
 
 	ret = g_test_run ();
 	g_free (datadir);
