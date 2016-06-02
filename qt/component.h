@@ -41,7 +41,6 @@ class ComponentData;
  */
 class APPSTREAMQT_EXPORT Component {
     Q_GADGET
-    Q_ENUMS(Kind UrlKind)
     public:
         enum Kind  {
             KindUnknown,
@@ -53,6 +52,8 @@ class APPSTREAMQT_EXPORT Component {
             KindAddon,
             KindFirmware
         };
+        Q_ENUM(Kind)
+
         enum UrlKind {
             UrlKindUnknown,
             UrlKindHomepage,
@@ -61,11 +62,14 @@ class APPSTREAMQT_EXPORT Component {
             UrlKindHelp,
             UrlKindDonation
         };
+        Q_ENUM(UrlKind)
+
         enum BundleKind {
             BundleKindUnknown,
             BundleKindLimba,
             BundleKindXdgApp
         };
+        Q_ENUM(BundleKind)
 
         Component();
         Component(const Component& other);

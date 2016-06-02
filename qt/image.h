@@ -43,13 +43,14 @@ class ImageData;
  */
 class APPSTREAMQT_EXPORT Image {
     Q_GADGET
-    Q_ENUMS(Kind)
     public:
         enum Kind {
             Unknown,
             Thumbnail,
             Plain
         };
+        Q_ENUM(Kind)
+
         Image();
         Image(const Image& other);
         ~Image();
