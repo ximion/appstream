@@ -2,41 +2,19 @@
 
 language: c
 sudo: required
-dist: trusty # we would actually rather want xenial :-/
+dist: trusty
+
+services:
+  - docker
 
 compiler:
   - gcc
   - clang
 
 before_script:
-  # set up a more recent toolchain
-  - sudo add-apt-repository -y "ppa:ubuntu-toolchain-r/test"
-  - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add -
-  - sudo apt-add-repository -y "deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.8 main"
-  - sudo apt-get update -qq
-  - sudo apt-get install --yes -q gcc-5 g++-5 clang-3.8
-  - if [ "$CC" = "gcc" ]; then export CXX="g++-5" CC="gcc-5"; fi
-  - if [ "$CC" = "clang" ]; then export CXX="clang++-3.8" CC="clang-3.8"; fi
-  # set up build prerequisites
-  - sudo add-apt-repository -y "ppa:ximion/packagekit"
-  - sudo add-apt-repository -y "ppa:swooshycueb/qt5-stuff"
-  - sudo apt-get update -qq
-  - sudo apt-get install --yes -q cmake intltool libglib2.0-dev libxml2-dev gtk-doc-tools libgirepository1.0-dev qt5-default
-        libxapian-dev libyaml-dev xmlto publican gobject-introspection libprotobuf-dev protobuf-compiler valac
-  # dirty hack to ensure Xapian doesn't complain about compiler ABI mismatch
-  - mkdir tmp && cd tmp && sudo apt purge --yes aptitude libxapian22
-  - sudo apt-get build-dep --yes -q xapian-core
-  - apt-get source xapian-core && cd xapian-core-1.2.16
-  - ./configure --prefix=/usr --sysconfdir=/etc && make -j2 && sudo make install
-  - cd ../.. && sudo rm -r tmp/
+  - docker build -t appstream -f tests/ci/Dockerfile .
+  - if [ "$CC" = "gcc" ]; then export CXX="g++-6" CC="gcc-6"; fi
 
 script:
-  - mkdir build && cd build
-  - cmake -DMAINTAINER=ON -DDOCUMENTATION=ON -DQT=ON -DAPT_SUPPORT=ON -DVAPI=ON ..
-  - make all documentation
-  - make test ARGS=-V
-  - make install DESTDIR=./install_root/
-  # now run tests with sanitizers enabled as well
-  - make clean && cmake -DMAINTAINER=ON -DDOCUMENTATION=ON -DQT=ON -DAPT_SUPPORT=ON -DVAPI=ON -DSANITIZERS=ON ..
-  # compilation with ASAN doesn't work on Clang at time, so disable it temporarily
-  - if [ "$CC" != "clang-3.8" ]; then make && make test ARGS=-V; fi
+  - docker run -t -e CC=$CC -e CXX=$CXX -v `pwd`:/build appstream
+    ./tests/ci/build_and_test.sh
