@@ -1058,7 +1058,7 @@ as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node
 }
 
 /**
- * as_component_xml_add_node:
+ * as_xmldata_xml_add_node:
  *
  * Add node if value is not empty
  */
@@ -1169,7 +1169,7 @@ out:
 }
 
 /**
- * as_component_xml_add_node_list:
+ * as_xmldata_xml_add_node_list:
  *
  * Add node if value is not empty
  */
