@@ -40,6 +40,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-xml-utils.h"
 #include "as-metadata.h"
 #include "as-component-private.h"
 #include "as-release-private.h"
@@ -55,39 +56,10 @@ typedef struct
 
 	AsParserMode mode;
 	gboolean check_valid;
-
-	gchar *last_error_msg;
 } AsXMLDataPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsXMLData, as_xmldata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_xmldata_get_instance_private (o))
-
-static gchar	**as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode *node, const gchar *element_name);
-
-/**
- * libxml_generic_error:
- *
- * Catch out-of-context errors emitted by libxml2.
- */
-static void
-libxml_generic_error (AsXMLData *xdt, const char *format, ...)
-{
-	GString *str;
-	va_list arg_ptr;
-	static GMutex mutex;
-	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
-
-	g_mutex_lock (&mutex);
-	str = g_string_new (priv->last_error_msg? priv->last_error_msg : "");
-
-	va_start (arg_ptr, format);
-	g_string_append_vprintf (str, format, arg_ptr);
-	va_end (arg_ptr);
-
-	g_free (priv->last_error_msg);
-	priv->last_error_msg = g_string_free (str, FALSE);
-	g_mutex_unlock (&mutex);
-}
 
 /**
  * as_xmldata_init:
@@ -99,7 +71,6 @@ as_xmldata_init (AsXMLData *xdt)
 
 	priv->default_priority = 0;
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
-	priv->last_error_msg = NULL;
 	priv->check_valid = TRUE;
 }
 
@@ -116,26 +87,9 @@ as_xmldata_finalize (GObject *object)
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
-	g_free (priv->last_error_msg);
 	xmlSetGenericErrorFunc (xdt, NULL);
 
 	G_OBJECT_CLASS (as_xmldata_parent_class)->finalize (object);
-}
-
-/**
- * as_xmldata_clear_error:
- */
-static void
-as_xmldata_clear_error (AsXMLData *xdt)
-{
-	static GMutex mutex;
-	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
-
-	g_mutex_lock (&mutex);
-	g_free (priv->last_error_msg);
-	priv->last_error_msg = NULL;
-	xmlSetGenericErrorFunc (xdt, (xmlGenericErrorFunc) libxml_generic_error);
-	g_mutex_unlock (&mutex);
 }
 
 /**
@@ -162,48 +116,6 @@ as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin,
 	priv->arch = g_strdup (arch);
 
 	priv->default_priority = priority;
-
-	as_xmldata_clear_error (xdt);
-}
-
-/**
- * as_xmldata_get_node_value:
- */
-static gchar*
-as_xmldata_get_node_value (AsXMLData *xdt, xmlNode *node)
-{
-	gchar *content;
-	content = (gchar*) xmlNodeGetContent (node);
-
-	return content;
-}
-
-/**
- * as_xmldata_dump_node_children:
- */
-static gchar*
-as_xmldata_dump_node_children (AsXMLData *xdt, xmlNode *node)
-{
-	GString *str = NULL;
-	xmlNode *iter;
-	xmlBufferPtr nodeBuf;
-
-	str = g_string_new ("");
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE) {
-					continue;
-		}
-
-		nodeBuf = xmlBufferCreate();
-		xmlNodeDump (nodeBuf, NULL, iter, 0, 1);
-		if (str->len > 0)
-			g_string_append (str, "\n");
-		g_string_append_printf (str, "%s", (const gchar*) nodeBuf->content);
-		xmlBufferFree (nodeBuf);
-	}
-
-	return g_string_free (str, FALSE);
 }
 
 /**
@@ -245,39 +157,6 @@ out:
 	return lang;
 }
 
-static gchar**
-as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode* node, const gchar* element_name)
-{
-	GPtrArray *list;
-	xmlNode *iter;
-	gchar **res;
-	g_return_val_if_fail (xdt != NULL, NULL);
-	g_return_val_if_fail (element_name != NULL, NULL);
-	list = g_ptr_array_new_with_free_func (g_free);
-
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE) {
-					continue;
-		}
-		if (g_strcmp0 ((gchar*) iter->name, element_name) == 0) {
-			gchar* content = NULL;
-			content = (gchar*) xmlNodeGetContent (iter);
-			if (content != NULL) {
-				gchar *s;
-				s = g_strdup (content);
-				g_strstrip (s);
-				g_ptr_array_add (list, s);
-			}
-			g_free (content);
-		}
-	}
-
-	res = as_ptr_array_to_strv (list);
-	g_ptr_array_unref (list);
-	return res;
-}
-
 /**
  * as_xmldata_process_image:
  *
@@ -296,7 +175,7 @@ as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScr
 	gchar *str;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
-	content = as_xmldata_get_node_value (xdt, node);
+	content = as_xml_get_node_value (node);
 	if (content == NULL)
 		return;
 	g_strstrip (content);
@@ -386,7 +265,7 @@ as_xmldata_process_screenshot (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, 
 			g_autofree gchar *content = NULL;
 			g_autofree gchar *lang = NULL;
 
-			content = as_xmldata_get_node_value (xdt, iter);
+			content = as_xml_get_node_value (iter);
 			if (content == NULL)
 				continue;
 			g_strstrip (content);
@@ -506,7 +385,7 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 				g_hash_table_insert (desc, g_strdup (lang), str);
 			}
 
-			tmp = as_xmldata_get_node_value (xdt, iter);
+			tmp = as_xml_get_node_value (iter);
 			content = g_markup_escape_text (tmp, -1);
 			g_string_append_printf (str, "<%s>%s</%s>\n", node_name, content, node_name);
 
@@ -540,7 +419,7 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 				if (str == NULL)
 					continue;
 
-				tmp = as_xmldata_get_node_value (xdt, iter2);
+				tmp = as_xml_get_node_value (iter2);
 				content = g_markup_escape_text (tmp, -1);
 				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
@@ -615,7 +494,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 					continue;
 
 				if (g_strcmp0 ((gchar*) iter2->name, "location") == 0) {
-					content = as_xmldata_get_node_value (xdt, iter2);
+					content = as_xml_get_node_value (iter2);
 					as_release_add_location (release, content);
 					g_free (content);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "checksum") == 0) {
@@ -624,7 +503,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 
 					cs_kind = as_checksum_kind_from_string (prop);
 					if (cs_kind != AS_CHECKSUM_KIND_NONE) {
-						content = as_xmldata_get_node_value (xdt, iter2);
+						content = as_xml_get_node_value (iter2);
 						as_release_set_checksum (release, content, cs_kind);
 						g_free (content);
 					}
@@ -637,7 +516,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 					if (s_kind != AS_SIZE_KIND_UNKNOWN) {
 						guint64 size;
 
-						content = as_xmldata_get_node_value (xdt, iter2);
+						content = as_xml_get_node_value (iter2);
 						size = g_ascii_strtoull (content, NULL, 10);
 						g_free (content);
 						if (size > 0)
@@ -649,7 +528,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 						g_autofree gchar *lang;
 
 						/* for distro XML, the "description" tag has a language property, so parsing it is simple */
-						content = as_xmldata_dump_node_children (xdt, iter2);
+						content = as_xml_dump_node_children (iter2);
 						lang = as_xmldata_get_node_locale (xdt, iter2);
 						if (lang != NULL)
 							as_release_set_description (release, content, lang);
@@ -685,7 +564,7 @@ as_xmldata_process_provides (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
 			continue;
 
 		node_name = (gchar*) iter->name;
-		content = as_xmldata_get_node_value (xdt, iter);
+		content = as_xml_get_node_value (iter);
 		if (content == NULL)
 			continue;
 
@@ -762,7 +641,7 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 			if (prop != NULL)
 				percentage = g_ascii_strtoll (prop, NULL, 10);
 
-			locale = as_xmldata_get_node_value (xdt, iter);
+			locale = as_xml_get_node_value (iter);
 			as_component_add_language (cpt, locale, percentage);
 		}
 	}
@@ -830,7 +709,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			continue;
 
 		node_name = (const gchar*) iter->name;
-		content = as_xmldata_get_node_value (xdt, iter);
+		content = as_xml_get_node_value (iter);
 		g_strstrip (content);
 		lang = as_xmldata_get_node_locale (xdt, iter);
 
@@ -857,7 +736,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				/* for distro XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
 					gchar *desc;
-					desc = as_xmldata_dump_node_children (xdt, iter);
+					desc = as_xml_dump_node_children (iter);
 					as_component_set_description (cpt, desc, lang);
 					g_free (desc);
 				}
@@ -917,12 +796,12 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			}
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			gchar **cat_array;
-			cat_array = as_xmldata_get_children_as_strv (xdt, iter, "category");
+			cat_array = as_xml_get_children_as_strv (iter, "category");
 			as_component_set_categories (cpt, cat_array);
 			g_strfreev (cat_array);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			gchar **kw_array;
-			kw_array = as_xmldata_get_children_as_strv (xdt, iter, "keyword");
+			kw_array = as_xml_get_children_as_strv (iter, "keyword");
 			as_component_set_keywords (cpt, kw_array, NULL);
 			g_strfreev (kw_array);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
@@ -932,7 +811,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			/* Mimetypes are essentially provided interfaces, that's why they belong into AsProvided.
 			 * However, due to historic reasons, the spec has an own toplevel tag for them, so we need
 			 * to parse them here. */
-			mime_array = as_xmldata_get_children_as_strv (xdt, iter, "mimetype");
+			mime_array = as_xml_get_children_as_strv (iter, "mimetype");
 			for (i = 0; mime_array[i] != NULL; i++) {
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, mime_array[i]);
 			}
@@ -1748,7 +1627,7 @@ as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsC
 		return FALSE;
 	}
 
-	doc = as_xmldata_parse_document (xdt, data, error);
+	doc = as_xml_parse_document (data, error);
 	if (doc == NULL)
 		return FALSE;
 	root = xmlDocGetRootElement (doc);
@@ -1808,47 +1687,6 @@ as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **erro
 }
 
 /**
- * as_xmldata_parse_document:
- */
-xmlDoc*
-as_xmldata_parse_document (AsXMLData *xdt, const gchar *data, GError **error)
-{
-	xmlDoc *doc;
-	xmlNode *root;
-	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
-
-	if (data == NULL) {
-		/* empty document means no components */
-		return NULL;
-	}
-
-	as_xmldata_clear_error (xdt);
-	doc = xmlReadMemory (data, strlen (data),
-			     NULL,
-			     "utf-8",
-			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
-	if (doc == NULL) {
-		g_set_error (error,
-				AS_METADATA_ERROR,
-				AS_METADATA_ERROR_FAILED,
-				"Could not parse XML data: %s", priv->last_error_msg);
-		return NULL;
-	}
-
-	root = xmlDocGetRootElement (doc);
-	if (root == NULL) {
-		g_set_error_literal (error,
-				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_FAILED,
-				     "The XML document is empty.");
-		xmlFreeDoc (doc);
-		return NULL;
-	}
-
-	return doc;
-}
-
-/**
  * as_xmldata_parse_distro_data:
  * @xdt: An instance of #AsXMLData
  * @data: XML representing distro metadata.
@@ -1866,7 +1704,7 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 	GPtrArray *cpts = NULL;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
-	doc = as_xmldata_parse_document (xdt, data, error);
+	doc = as_xml_parse_document (data, error);
 	if (doc == NULL)
 		return NULL;
 	root = xmlDocGetRootElement (doc);
@@ -1918,7 +1756,6 @@ as_xmldata_serialize_to_upstream (AsXMLData *xdt, AsComponent *cpt)
 		g_debug ("Can not serialize '%s': Component is invalid.", as_component_get_id (cpt));
 		return NULL;
 	}
-	as_xmldata_clear_error (xdt);
 
 	priv->mode = AS_PARSER_MODE_UPSTREAM;
 	doc = xmlNewDoc ((xmlChar*) NULL);
@@ -1951,7 +1788,6 @@ as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	/* initialize */
-	as_xmldata_clear_error (xdt);
 	priv->mode = AS_PARSER_MODE_DISTRO;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
@@ -2000,7 +1836,6 @@ as_xmldata_serialize_to_distro_without_rootnode (AsXMLData *xdt, GPtrArray *cpts
 
 	out_data = g_string_new ("");
 	priv->mode = AS_PARSER_MODE_DISTRO;
-	as_xmldata_clear_error (xdt);
 
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt;

@@ -41,6 +41,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-xml-utils.h"
 #include "as-xmldata.h"
 #include "as-component.h"
 #include "as-component-private.h"
@@ -766,7 +767,7 @@ as_validator_open_xml_document (AsValidator *validator, AsXMLData *xdt, const gc
 	xmlDoc *doc;
 	g_autoptr(GError) error = NULL;
 
-	doc = as_xmldata_parse_document (xdt, xmldata, &error);
+	doc = as_xml_parse_document (xmldata, &error);
 	if (doc == NULL) {
 		if (error != NULL) {
 			as_validator_add_issue (validator,
