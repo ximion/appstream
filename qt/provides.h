@@ -32,7 +32,6 @@ class ProvidesData;
 
 class APPSTREAMQT_EXPORT Provides {
     Q_GADGET
-    Q_ENUMS(Kind)
     public:
         Provides();
         Provides(const Provides& other);
@@ -54,6 +53,7 @@ class APPSTREAMQT_EXPORT Provides {
             KindFirmwareRuntime,
             KindFirmwareFlashed
         };
+        Q_ENUM(Kind)
 
         void setKind(Kind kind);
         Kind kind() const;
