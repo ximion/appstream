@@ -13,9 +13,9 @@ compiler:
 
 before_script:
   - docker build -t appstream -f tests/ci/Dockerfile .
-  - if [ "$CC" = "clang" ]; then export CXX="clang++" CC="clang"; fi
-  - if [ "$CC" = "gcc" ]; then export CXX="g++-6" CC="gcc-6"; fi
+  - if [ "$CC" = "clang" ]; then export CVENDOR="clang" CXX="clang" CC="clang"; fi
+  - if [ "$CC" = "gcc" ]; then export CVENDOR="gcc" CXX="g++" CC="gcc"; fi
 
 script:
-  - docker run -t -e CC=$CC -e CXX=$CXX -v `pwd`:/build appstream
+  - docker run -t -e COMPILER_VENDOR=$CVENDOR -e CC=$CC -e CXX=$CXX -v `pwd`:/build appstream
     ./tests/ci/build_and_test.sh
