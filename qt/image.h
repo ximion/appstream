@@ -86,6 +86,6 @@ class APPSTREAMQT_EXPORT Image {
 };
 }
 
-#endif // APPSTREAMQT_IMAGE_H
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Image& image);
 
-class QUrl;
+#endif // APPSTREAMQT_IMAGE_H

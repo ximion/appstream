@@ -71,4 +71,6 @@ private:
 };
 }
 
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Screenshot& screenshot);
+
 #endif // APPSTREAMQT_SCREENSHOT_H

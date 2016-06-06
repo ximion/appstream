@@ -21,9 +21,18 @@
 #include "screenshot.h"
 #include <QSharedData>
 #include <QString>
+#include <QDebug>
 #include "image.h"
 
 using namespace Appstream;
+
+QDebug operator<<(QDebug s, const Appstream::Screenshot& screenshot) {
+    s.nospace() << "Appstream::Screenshot(";
+    if (!screenshot.caption().isEmpty())
+        s.nospace() << screenshot.caption() << ":";
+    s.nospace() << screenshot.images() << ')';
+    return s.space();
+}
 
 class Appstream::ScreenshotData : public QSharedData {
     public:
