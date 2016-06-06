@@ -9,7 +9,7 @@ services:
 
 compiler:
   - gcc
-  - clang
+  #- clang
 
 before_script:
   - docker build -t appstream -f tests/ci/Dockerfile .
