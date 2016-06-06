@@ -21,6 +21,7 @@
 #include "image.h"
 #include <QSharedData>
 #include <QUrl>
+#include <QDebug>
 
 using namespace Appstream;
 
@@ -120,7 +121,10 @@ int Image::width() const {
     return d->m_width;
 }
 
-
+QDebug operator<<(QDebug s, const Appstream::Image& image) {
+    s.nospace() << "Appstream::Image(" << image.url() << ',' << image.kind() << "[" << image.width() << "x" << image.height() << "])";
+    return s.space();
+}
 
 
 

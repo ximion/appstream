@@ -72,4 +72,6 @@ class APPSTREAMQT_EXPORT Provides {
 };
 }
 
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Provides& provides);
+
 #endif // APPSTREAMQT_PROVIDES_H

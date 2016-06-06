@@ -21,6 +21,7 @@
 #include "provides.h"
 #include <QSharedData>
 #include <QString>
+#include <QDebug>
 #include <QHash>
 
 using namespace Appstream;
@@ -153,7 +154,10 @@ Provides::~Provides() {
 
 }
 
-
+QDebug operator<<(QDebug s, const Appstream::Provides& provides) {
+    s.nospace() << "Appstream::Provides(" << provides.kind() << ',' << provides.value() << "])";
+    return s.space();
+}
 
 
 
