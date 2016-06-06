@@ -1263,7 +1263,7 @@ as_xml_serialize_image (AsImage *img, xmlNode *subnode)
 	}
 
 	locale = as_image_get_locale (img);
-	if (locale != NULL) {
+	if ((locale != NULL) && (g_strcmp0 (locale, "C") != 0)) {
 		xmlNewProp (n_image, (xmlChar*) "xml:lang", (xmlChar*) locale);
 	}
 
