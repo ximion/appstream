@@ -13,6 +13,7 @@ compiler:
 
 before_script:
   - docker build -t appstream -f tests/ci/Dockerfile .
+  - if [ "$CC" = "clang" ]; then export CXX="clang++" CC="clang"; fi
   - if [ "$CC" = "gcc" ]; then export CXX="g++-6" CC="gcc-6"; fi
 
 script:
