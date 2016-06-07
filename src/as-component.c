@@ -1822,7 +1822,7 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 /**
  * as_component_complete:
  * @cpt: a #AsComponent instance.
- * @scr_base_url: Base url for screenshot-service, obtain via #AsDistroDetails
+ * @scr_service_url: Base url for screenshot-service, obtain via #AsDistroDetails
  * @icon_paths: Zero-terminated string array of possible (cached) icon locations
  *
  * Private function to complete a AsComponent with
@@ -1831,17 +1831,24 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
  * INTERNAL
  */
 void
-as_component_complete (AsComponent *cpt, gchar *scr_base_url, gchar **icon_paths)
+as_component_complete (AsComponent *cpt, gchar *scr_service_url, gchar **icon_paths)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* improve icon paths */
+	as_component_refine_icons (cpt, icon_paths);
+
+	/* if there is no screenshot service URL, there is nothing left to do for us */
+	if (scr_service_url == NULL)
+		return;
 
 	/* we want screenshot data from 3rd-party screenshot servers, if the component doesn't have screenshots defined already */
 	if ((priv->screenshots->len == 0) && (as_component_has_package (cpt))) {
 		gchar *url;
 		AsImage *img;
-		AsScreenshot *sshot;
+		g_autoptr(AsScreenshot) sshot = NULL;
 
-		url = g_build_filename (scr_base_url, "screenshot", priv->pkgnames[0], NULL);
+		url = g_build_filename (scr_service_url, "screenshot", priv->pkgnames[0], NULL);
 
 		/* screenshots.debian.net-like services dont specify a size, so we choose the default sizes
 		 * (800x600 for source-type images, 160x120 for thumbnails)
@@ -1866,7 +1873,7 @@ as_component_complete (AsComponent *cpt, gchar *scr_base_url, gchar **icon_paths
 		g_free (url);
 
 		/* add thumbnail */
-		url = g_build_filename (scr_base_url, "thumbnail", priv->pkgnames[0], NULL);
+		url = g_build_filename (scr_service_url, "thumbnail", priv->pkgnames[0], NULL);
 		img = as_image_new ();
 		as_image_set_url (img, url);
 		as_image_set_width (img, 160);
@@ -1878,12 +1885,8 @@ as_component_complete (AsComponent *cpt, gchar *scr_base_url, gchar **icon_paths
 		as_component_add_screenshot (cpt, sshot);
 
 		g_object_unref (img);
-		g_object_unref (sshot);
 		g_free (url);
 	}
-
-	/* improve icon paths */
-	as_component_refine_icons (cpt, icon_paths);
 }
 
 /**

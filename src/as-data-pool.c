@@ -45,7 +45,7 @@
 typedef struct
 {
 	GHashTable *cpt_table;
-	gchar *scr_base_url;
+	gchar *screenshot_service_url;
 	gchar *locale;
 	gchar *current_arch;
 
@@ -86,11 +86,7 @@ as_data_pool_init (AsDataPool *dpool)
 						(GDestroyNotify) g_object_unref);
 
 	distro = as_distro_details_new ();
-	priv->scr_base_url = as_distro_details_get_str (distro, "ScreenshotUrl");
-	if (priv->scr_base_url == NULL) {
-		g_debug ("Unable to determine screenshot service for distribution '%s'. Using the Debian services.", as_distro_details_get_name (distro));
-		priv->scr_base_url = g_strdup ("http://screenshots.debian.net");
-	}
+	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
 
 	/* set watched default directories for AppStream metadata */
 	priv->mdata_dirs = g_ptr_array_new_with_free_func (g_free);
@@ -115,7 +111,7 @@ as_data_pool_finalize (GObject *object)
 	AsDataPool *dpool = AS_DATA_POOL (object);
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
-	g_free (priv->scr_base_url);
+	g_free (priv->screenshot_service_url);
 	g_hash_table_unref (priv->cpt_table);
 
 	g_ptr_array_unref (priv->mdata_dirs);
@@ -199,7 +195,7 @@ as_data_pool_add_new_component (AsDataPool *dpool, AsComponent *cpt)
 
 	/* add additional data to the component, e.g. external screenshots. Also refines
 	 * the component's icon paths */
-	as_component_complete (cpt, priv->scr_base_url, priv->icon_paths);
+	as_component_complete (cpt, priv->screenshot_service_url, priv->icon_paths);
 
 	if (existing_cpt == NULL) {
 		g_hash_table_insert (priv->cpt_table,
