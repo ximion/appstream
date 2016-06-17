@@ -515,10 +515,26 @@
 		<title>Suggested metadata file contents</title>
 
 		<para>
-			You may choose to add these tags as well, if you need them.
+			It is useful to add these tags as well if they make sense for the described application.
+			They are not strictly required to be present though.
 		</para>
 
 		<variablelist>
+			<varlistentry>
+			<term>&lt;releases/&gt;</term>
+			<listitem>
+				<para>
+					The application metainfo may at least provides one <code>&lt;releases/&gt;</code> tag,
+					which has one or more <code>&lt;release/&gt;</code> subnodes to define the version and release date of this
+					application. For details, see <xref linkend="tag-releases"/> .
+				</para>
+				<para>
+					It is very useful to attach short release-notes to a <code>&lt;release/&gt;</code> using the <code>&lt;description/&gt;</code>
+					subnode. These release-notes should contain brief information about what is new in the release, in a way which is understandable by non-technical users.
+				</para>
+			</listitem>
+			</varlistentry>
+
 			<varlistentry>
 			<term>&lt;provides/&gt;</term>
 			<listitem>
@@ -526,23 +542,8 @@
 					This tag is described in detail for generic components at <xref linkend="tag-provides"/>.
 				</para>
 				<para>
-					If your application ships a binary in a location in the default <envar>PATH</envar>, you should add at least a child of type
-					<code>&lt;binary/&gt;</code> to make that new executable known to the distribution.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry>
-			<term>&lt;releases/&gt;</term>
-			<listitem>
-				<para>
-					The application metainfo should at least provide one <code>&lt;releases/&gt;</code> tag,
-					which has one or more <code>&lt;release/&gt;</code> childs to define the version and release date of this
-					application. For details, see <xref linkend="tag-releases"/> .
-				</para>
-				<para>
-					Additionally, the <code>&lt;release/&gt;</code> might be described in a short manner using the <code>&lt;description/&gt;</code> child tag, which should give brief information about what is new
-					in the release, in a way which is understandable by non-technical users.
+					If your application ships a binary in a location in the default <envar>PATH</envar>, it is useful to add at least a child of type
+					<code>&lt;binary/&gt;</code> to make it easily possible to find your application's metadata using the name of its binary.
 				</para>
 			</listitem>
 			</varlistentry>
