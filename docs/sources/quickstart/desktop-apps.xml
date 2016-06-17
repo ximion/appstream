@@ -524,8 +524,8 @@
 			<term>&lt;releases/&gt;</term>
 			<listitem>
 				<para>
-					The application metainfo may at least provides one <code>&lt;releases/&gt;</code> tag,
-					which has one or more <code>&lt;release/&gt;</code> subnodes to define the version and release date of this
+					The application metainfo may include one <code>&lt;releases/&gt;</code> tag, which
+					has one or multiple <code>&lt;release/&gt;</code> subnodes to define the version and release date of this
 					application. For details, see <xref linkend="tag-releases"/> .
 				</para>
 				<para>
