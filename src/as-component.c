@@ -72,6 +72,7 @@ typedef struct
 	GPtrArray		*extensions; /* of string */
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
 	GPtrArray		*releases; /* of AsRelease elements */
+	GPtrArray		*suggestions; /* of AsSuggested elements */
 
 	GHashTable		*provided; /* of int:object */
 	GHashTable		*urls; /* of int:utf8 */
@@ -245,6 +246,7 @@ as_component_init (AsComponent *cpt)
 
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -288,6 +290,7 @@ as_component_finalize (GObject* object)
 
 	g_ptr_array_unref (priv->screenshots);
 	g_ptr_array_unref (priv->releases);
+	g_ptr_array_unref (priv->suggestions);
 	g_hash_table_unref (priv->provided);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
@@ -403,6 +406,22 @@ as_component_add_screenshot (AsComponent *cpt, AsScreenshot* sshot)
 
 	sslist = as_component_get_screenshots (cpt);
 	g_ptr_array_add (sslist, g_object_ref (sshot));
+}
+
+/**
+ * as_component_get_releases:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get an array of the #AsRelease items this component
+ * provides.
+ *
+ * Return value: (element-type AsRelease) (transfer none): A list of releases
+ **/
+GPtrArray*
+as_component_get_releases (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->releases;
 }
 
 /**
@@ -1566,19 +1585,33 @@ as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, const gch
 }
 
 /**
- * as_component_get_releases:
+ * as_component_add_suggested:
  * @cpt: a #AsComponent instance.
+ * @suggested: The #AsSuggested
  *
- * Get an array of the #AsRelease items this component
- * provides.
- *
- * Return value: (element-type AsRelease) (transfer none): A list of releases
+ * Add an #AsSuggested to this component.
  **/
-GPtrArray*
-as_component_get_releases (AsComponent *cpt)
+void
+as_component_add_suggested (AsComponent *cpt, AsSuggested *suggested)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->releases;
+	g_ptr_array_add (priv->suggestions,
+			 g_object_ref (suggested));
+}
+
+/**
+ * as_component_get_suggested:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get a list of associated suggestions.
+ *
+ * Returns: (transfer none) (element-type AsSuggested): an array of #AsSuggested instances
+ */
+GPtrArray*
+as_component_get_suggested (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->suggestions;
 }
 
 /**

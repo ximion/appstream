@@ -32,6 +32,7 @@
 #include "as-screenshot.h"
 #include "as-release.h"
 #include "as-translation.h"
+#include "as-suggested.h"
 
 G_BEGIN_DECLS
 
@@ -218,6 +219,10 @@ const gchar		*as_component_get_bundle_id (AsComponent *cpt,
 void			as_component_add_bundle_id (AsComponent *cpt,
 							AsBundleKind bundle_kind,
 							const gchar *id);
+
+GPtrArray		*as_component_get_suggested (AsComponent *cpt);
+void			as_component_add_suggested (AsComponent *cpt,
+						    AsSuggested *suggested);
 
 GPtrArray		*as_component_get_search_tokens (AsComponent *cpt);
 guint			as_component_search_matches (AsComponent *cpt,

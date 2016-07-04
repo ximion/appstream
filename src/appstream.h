@@ -37,6 +37,7 @@ extern "C" {
 #include <as-distro-details.h>
 #include <as-icon.h>
 #include <as-screenshot.h>
+#include <as-suggested.h>
 #include <as-image.h>
 
 #include <as-validator.h>
