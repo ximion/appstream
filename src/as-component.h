@@ -32,6 +32,7 @@
 #include "as-screenshot.h"
 #include "as-release.h"
 #include "as-translation.h"
+#include "as-suggested.h"
 
 G_BEGIN_DECLS
 
@@ -154,6 +155,10 @@ gboolean		as_component_has_category (AsComponent *cpt,
 GPtrArray		*as_component_get_screenshots (AsComponent *cpt);
 void			as_component_add_screenshot (AsComponent *cpt,
 							AsScreenshot *sshot);
+
+GPtrArray		*as_component_get_suggestions (AsComponent *cpt);
+void			as_component_add_suggestion (AsComponent *cpt,
+							AsSuggested *suggested);
 
 gchar			**as_component_get_keywords (AsComponent *cpt);
 void			as_component_set_keywords (AsComponent *cpt,
