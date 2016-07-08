@@ -44,6 +44,7 @@ set_source_files_properties(${ASLIB_XAP_SOURCES} PROPERTIES COMPILE_FLAGS "-fvis
 
 set(APPSTREAM_LIB_SRC
 		as-utils.c
+		as-xml-utils.c
 		# internal stuff to build the database
 		as-cache-builder.c
 		as-xmldata.c
@@ -90,6 +91,7 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 
 set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-utils-private.h
+		as-xml-utils.h
 		as-xmldata.h
 		as-yamldata.h
 		as-component-private.h
