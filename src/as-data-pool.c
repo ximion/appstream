@@ -33,6 +33,8 @@
 #include "config.h"
 #include "as-data-pool.h"
 
+#include <glib/gi18n-lib.h>
+
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-component-private.h"
@@ -52,6 +54,7 @@ typedef struct
 	GPtrArray *mdata_dirs;
 
 	gchar **icon_paths;
+	gchar **term_greylist;
 } AsDataPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsDataPool, as_data_pool, G_TYPE_OBJECT)
@@ -66,6 +69,14 @@ const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
 						"/var/lib/app-info",
 						"/var/cache/app-info",
 						NULL};
+
+/* TRANSLATORS: List of "grey-listed" words sperated with ";"
+ * Do not translate this list directly. Instead,
+ * provide a list of words in your language that people are likely
+ * to include in a search but that should normally be ignored in
+ * the search.
+ */
+#define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
 /**
  * as_data_pool_init:
@@ -100,6 +111,8 @@ as_data_pool_init (AsDataPool *dpool)
 
 	/* set the current architecture */
 	priv->current_arch = as_get_current_arch ();
+
+	priv->term_greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", -1);
 }
 
 /**
@@ -119,6 +132,8 @@ as_data_pool_finalize (GObject *object)
 
 	g_free (priv->locale);
 	g_free (priv->current_arch);
+
+	g_strfreev (priv->term_greylist);
 
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
 }
@@ -546,6 +561,84 @@ as_data_pool_get_component_by_id (AsDataPool *dpool, const gchar *id)
 		return NULL;
 
 	return g_object_ref (AS_COMPONENT (g_hash_table_lookup (priv->cpt_table, id)));
+}
+
+/**
+ * as_data_pool_sanitize_search_term:
+ *
+ * Improve the search term slightly, by stripping whitespaces and
+ * removing greylist words.
+ */
+static gchar*
+as_data_pool_sanitize_search_term (AsDataPool *dpool, const gchar *term)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	gchar *res_term;
+	guint i;
+
+	if (term == NULL)
+		return NULL;
+	res_term = g_strdup (term);
+
+	/* filter query by greylist (to avoid overly generic search terms) */
+	for (i = 0; priv->term_greylist[i] != NULL; i++) {
+		gchar *str;
+		str = as_str_replace (res_term, priv->term_greylist[i], "");
+		g_free (res_term);
+		res_term = str;
+	}
+
+	/* restore query if it was just greylist words */
+	if (g_strcmp0 (res_term, "") == 0) {
+		g_debug ("grey-list replaced all terms, restoring");
+		g_free (res_term);
+		res_term = g_strdup (term);
+	}
+
+	/* we have to strip the leading and trailing whitespaces to avoid having
+	 * different results for e.g. 'font ' and 'font' (LP: #506419)
+	 */
+	g_strstrip (res_term);
+
+	return res_term;
+}
+
+/**
+ * as_data_pool_search:
+ * @dpool: An instance of #AsDataPool
+ * @term: A search term/string
+ *
+ * Search for a list of components matching the search terms.
+ * The list will be unordered.
+ *
+ * Since: 0.9.7
+ */
+GPtrArray*
+as_data_pool_search (AsDataPool *dpool, const gchar *term)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	g_autofree gchar *sane_term = NULL;
+	GPtrArray *results;
+	GHashTableIter iter;
+	gpointer value;
+
+	/* sanitize user's search term */
+	sane_term = as_data_pool_sanitize_search_term (dpool, term);
+	results = g_ptr_array_new_with_free_func (g_object_unref);
+
+	g_hash_table_iter_init (&iter, priv->cpt_table);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		guint res;
+		AsComponent *cpt = AS_COMPONENT (value);
+
+		res = as_component_search_matches (cpt, sane_term);
+		if (res == 0)
+			continue;
+
+		g_ptr_array_add (results, g_object_ref (cpt));
+	}
+
+	return results;
 }
 
 /**

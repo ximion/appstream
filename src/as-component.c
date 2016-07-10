@@ -82,7 +82,25 @@ typedef struct
 
 	gchar			*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
+
+	gsize			token_cache_valid;
+	GHashTable		*token_cache; /* of utf8:AsTokenType* */
 } AsComponentPrivate;
+
+typedef enum {
+	AS_TOKEN_MATCH_NONE		= 0,
+	AS_TOKEN_MATCH_MIMETYPE		= 1 << 0,
+	AS_TOKEN_MATCH_PKGNAME		= 1 << 1,
+	AS_TOKEN_MATCH_DESCRIPTION	= 1 << 2,
+	AS_TOKEN_MATCH_SUMMARY		= 1 << 3,
+	AS_TOKEN_MATCH_KEYWORD		= 1 << 4,
+	AS_TOKEN_MATCH_NAME		= 1 << 5,
+	AS_TOKEN_MATCH_ID		= 1 << 6,
+
+	AS_TOKEN_MATCH_LAST
+} AsTokenMatch;
+
+typedef guint16	AsTokenType; /* big enough for both bitshifts */
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsComponent, as_component, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_component_get_instance_private (o))
@@ -219,6 +237,8 @@ as_component_init (AsComponent *cpt)
 	priv->bundles = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
+	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
 	as_component_set_priority (cpt, 0);
 }
 
@@ -263,6 +283,8 @@ as_component_finalize (GObject* object)
 
 	g_ptr_array_unref (priv->icons);
 	g_hash_table_unref (priv->icons_sizetab);
+
+	g_hash_table_unref (priv->token_cache);
 
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (object);
 }
@@ -1887,6 +1909,241 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, gchar **icon_pa
 		g_object_unref (img);
 		g_free (url);
 	}
+}
+
+/**
+ * as_component_add_token_helper:
+ */
+static void
+as_component_add_token_helper (AsComponent *cpt,
+			   const gchar *value,
+			   AsTokenMatch match_flag)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	AsTokenType *match_pval;
+
+	/* invalid */
+	if (!as_utils_search_token_valid (value))
+		return;
+
+	/* does the token already exist */
+	match_pval = g_hash_table_lookup (priv->token_cache, value);
+	if (match_pval != NULL) {
+		*match_pval |= match_flag;
+		return;
+	}
+
+	/* create and add */
+	match_pval = g_new0 (AsTokenType, 1);
+	*match_pval = match_flag;
+	g_hash_table_insert (priv->token_cache,
+			     g_strdup (value),
+			     match_pval);
+}
+
+/**
+ * as_component_add_token:
+ */
+static void
+as_component_add_token (AsComponent *cpt,
+		  const gchar *value,
+		  gboolean allow_split,
+		  AsTokenMatch match_flag)
+{
+	/* add extra tokens for names like x-plane or half-life */
+	if (allow_split && g_strstr_len (value, -1, "-") != NULL) {
+		guint i;
+		g_auto(GStrv) split = g_strsplit (value, "-", -1);
+		for (i = 0; split[i] != NULL; i++)
+			as_component_add_token_helper (cpt, split[i], match_flag);
+	}
+
+	/* add the whole token always, even when we split on hyphen */
+	as_component_add_token_helper (cpt, value, match_flag);
+}
+
+/**
+ * as_component_add_tokens:
+ */
+static void
+as_component_add_tokens (AsComponent *cpt,
+		   const gchar *value,
+		   gboolean allow_split,
+		   AsTokenMatch match_flag)
+{
+	guint i;
+	g_auto(GStrv) values_utf8 = NULL;
+	g_auto(GStrv) values_ascii = NULL;
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* sanity check */
+	if (value == NULL) {
+		g_critical ("trying to add NULL search token to %s",
+			    as_component_get_id (cpt));
+		return;
+	}
+
+	/* tokenize with UTF-8 fallbacks */
+	if (g_strstr_len (value, -1, "+") == NULL &&
+	    g_strstr_len (value, -1, "-") == NULL) {
+		values_utf8 = g_str_tokenize_and_fold (value, priv->active_locale, &values_ascii);
+	}
+
+	/* add each token */
+	for (i = 0; values_utf8 != NULL && values_utf8[i] != NULL; i++)
+		as_component_add_token (cpt, values_utf8[i], allow_split, match_flag);
+	for (i = 0; values_ascii != NULL && values_ascii[i] != NULL; i++)
+		as_component_add_token (cpt, values_ascii[i], allow_split, match_flag);
+}
+
+/**
+ * as_component_create_token_cache_target:
+ */
+static void
+as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (donor);
+	const gchar *tmp;
+	gchar **keywords;
+	AsProvided *prov;
+	guint i;
+
+	/* tokenize all the data we have */
+	if (priv->id != NULL) {
+		as_component_add_token (cpt, priv->id, FALSE,
+				  AS_TOKEN_MATCH_ID);
+	}
+
+	tmp = as_component_get_name (cpt);
+	if (tmp != NULL) {
+		as_component_add_tokens (cpt, tmp, TRUE, AS_TOKEN_MATCH_NAME);
+	}
+
+	tmp = as_component_get_summary (cpt);
+	if (tmp != NULL) {
+		as_component_add_tokens (cpt, tmp, TRUE, AS_TOKEN_MATCH_SUMMARY);
+	}
+
+	tmp = as_component_get_description (cpt);
+	if (tmp != NULL) {
+		as_component_add_tokens (cpt, tmp, FALSE, AS_TOKEN_MATCH_DESCRIPTION);
+	}
+
+	keywords = as_component_get_keywords (cpt);
+	if (keywords != NULL) {
+		for (i = 0; keywords[i] != NULL; i++)
+			as_component_add_tokens (cpt, tmp, FALSE, AS_TOKEN_MATCH_KEYWORD);
+	}
+
+	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MIMETYPE);
+	if (prov != NULL) {
+		gchar **items = as_provided_get_items (prov);
+		for (i = 0; items[i] != NULL; i++)
+			as_component_add_token (cpt, items[i], FALSE, AS_TOKEN_MATCH_MIMETYPE);
+	}
+
+	if (priv->pkgnames != NULL) {
+		for (i = 0; priv->pkgnames[i] != NULL; i++)
+			as_component_add_token (cpt, priv->pkgnames[i], FALSE, AS_TOKEN_MATCH_PKGNAME);
+	}
+}
+
+/**
+ * as_component_create_token_cache:
+ */
+static void
+as_component_create_token_cache (AsComponent *cpt)
+{
+	as_component_create_token_cache_target (cpt, cpt);
+
+	/* FIXME: TODO */
+	/*
+	for (i = 0; i < priv->addons->len; i++) {
+		donor = g_ptr_array_index (priv->addons, i);
+		as_component_create_token_cache_target (cpt, donor);
+	}
+	*/
+}
+
+/**
+ * as_component_search_matches:
+ * @cpt: a #AsComponent instance.
+ * @search: the search term.
+ *
+ * Searches component data for a specific keyword.
+ *
+ * Returns: a match scrore, where 0 is no match and 100 is the best match.
+ *
+ * Since: 0.9.7
+ **/
+guint
+as_component_search_matches (AsComponent *cpt, const gchar *search_term)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	AsTokenType *match_pval;
+	GList *l;
+	AsTokenMatch result = 0;
+	g_autoptr(GList) keys = NULL;
+
+	/* nothing to do */
+	if (search_term == NULL)
+		return 0;
+
+	/* ensure the token cache is created */
+	if (g_once_init_enter (&priv->token_cache_valid)) {
+		as_component_create_token_cache (cpt);
+		g_once_init_leave (&priv->token_cache_valid, TRUE);
+	}
+
+	/* find the exact match (which is more awesome than a partial match) */
+	match_pval = g_hash_table_lookup (priv->token_cache, search_term);
+	if (match_pval != NULL)
+		return *match_pval << 2;
+
+	/* need to do partial match */
+	keys = g_hash_table_get_keys (priv->token_cache);
+	for (l = keys; l != NULL; l = l->next) {
+		const gchar *key = l->data;
+		if (g_str_has_prefix (key, search_term)) {
+			match_pval = g_hash_table_lookup (priv->token_cache, key);
+			result |= *match_pval;
+		}
+	}
+
+	return result;
+}
+
+/**
+ * as_component_get_search_tokens:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns all search tokens for this component.
+ *
+ * Returns: (transfer full): The string search tokens
+ *
+ * Since: 0.9.7
+ */
+GPtrArray*
+as_component_get_search_tokens (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	GList *l;
+	GPtrArray *array;
+	g_autoptr(GList) keys = NULL;
+
+	/* ensure the token cache is created */
+	if (g_once_init_enter (&priv->token_cache_valid)) {
+		as_component_create_token_cache (cpt);
+		g_once_init_leave (&priv->token_cache_valid, TRUE);
+	}
+
+	/* return all the token cache */
+	keys = g_hash_table_get_keys (priv->token_cache);
+	array = g_ptr_array_new_with_free_func (g_free);
+	for (l = keys; l != NULL; l = l->next)
+		g_ptr_array_add (array, g_strdup (l->data));
+
+	return array;
 }
 
 /**

@@ -209,6 +209,10 @@ void			as_component_add_bundle_id (AsComponent *cpt,
 							AsBundleKind bundle_kind,
 							const gchar *id);
 
+GPtrArray		*as_component_get_search_tokens (AsComponent *cpt);
+guint			 as_component_search_matches (AsComponent *cpt,
+						      const gchar *search_term);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENT_H */

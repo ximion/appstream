@@ -32,7 +32,8 @@ int		ascli_what_provides (const gchar *dbpath,
 
 int		ascli_search_component (const gchar *dbpath,
 					const gchar *search_term,
-					gboolean detailed);
+					gboolean detailed,
+					gboolean no_cache);
 
 int		ascli_get_component (const gchar *dbpath,
 					const gchar *identifier,

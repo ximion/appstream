@@ -72,6 +72,8 @@ GList			*as_data_pool_get_components (AsDataPool *dpool);
 AsComponent		*as_data_pool_get_component_by_id (AsDataPool *dpool,
 								const gchar *id);
 
+GPtrArray		*as_data_pool_search (AsDataPool *dpool, const gchar *term);
+
 GPtrArray		*as_data_pool_get_metadata_locations (AsDataPool *dpool);
 void			as_data_pool_set_metadata_locations (AsDataPool *dpool,
 								gchar **dirs);

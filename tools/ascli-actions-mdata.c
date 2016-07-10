@@ -163,42 +163,50 @@ out:
  * ascli_search_component:
  */
 int
-ascli_search_component (const gchar *dbpath, const gchar *search_term, gboolean detailed)
+ascli_search_component (const gchar *dbpath, const gchar *search_term, gboolean detailed, gboolean no_cache)
 {
 	g_autoptr(AsDatabase) db = NULL;
-	GPtrArray* cpt_list = NULL;
+	g_autoptr(GPtrArray) cpt_list = NULL;
 	guint i;
 	g_autoptr(GError) error = NULL;
-	gint exit_code = 0;
-
-	db = ascli_database_new_path (dbpath);
 
 	if (search_term == NULL) {
 		fprintf (stderr, "%s\n", _("You need to specify a term to search for."));
-		exit_code = 2;
-		goto out;
+		return 2;
 	}
 
-	/* search for stuff */
-	as_database_open (db, NULL);
-	cpt_list = as_database_find_components (db, search_term, NULL, &error);
-	if (error != NULL) {
-		g_printerr ("%s\n", error->message);
-		exit_code = 1;
-		goto out;
+	if (no_cache) {
+		g_autoptr(AsDataPool) dpool = NULL;
+
+		dpool = as_data_pool_new ();
+		as_data_pool_update (dpool, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+		cpt_list = as_data_pool_search (dpool, search_term);
+	} else {
+		db = ascli_database_new_path (dbpath);
+
+		/* search for stuff */
+		as_database_open (db, NULL);
+		cpt_list = as_database_find_components (db, search_term, NULL, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
 	}
 
 	if (cpt_list == NULL) {
 		/* TRANSLATORS: We failed to find any component in the database due to an error */
 		ascli_print_stderr (_("Unable to find component matching %s!"), search_term);
-		exit_code = 4;
-		goto out;
+		return 4;
 	}
 
 	if (cpt_list->len == 0) {
 		ascli_print_stdout (_("No component matching '%s' found."), search_term);
 		g_ptr_array_unref (cpt_list);
-		goto out;
+		return 0;
 	}
 
 	for (i = 0; i < cpt_list->len; i++) {
@@ -206,15 +214,10 @@ ascli_search_component (const gchar *dbpath, const gchar *search_term, gboolean 
 		cpt = (AsComponent*) g_ptr_array_index (cpt_list, i);
 
 		ascli_print_component (cpt, detailed);
-
 		ascli_print_separator ();
 	}
 
-out:
-	if (cpt_list != NULL)
-		g_ptr_array_unref (cpt_list);
-
-	return exit_code;
+	return 0;
 }
 
 /**

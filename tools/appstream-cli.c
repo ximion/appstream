@@ -197,7 +197,8 @@ as_client_run (char **argv, int argc)
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
 		exit_code = ascli_search_component (optn_dbpath,
 							value1,
-							optn_details);
+							optn_details,
+							optn_no_cache);
 	} else if ((g_strcmp0 (command, "refresh-index") == 0) || (g_strcmp0 (command, "refresh") == 0)) {
 		exit_code = ascli_refresh_cache (optn_dbpath,
 						 optn_datapath,

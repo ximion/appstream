@@ -60,6 +60,8 @@ gchar			*as_get_current_arch (void);
 gboolean		as_arch_compatible (const gchar *arch1,
 					    const gchar *arch2);
 
+gboolean		as_utils_search_token_valid (const gchar *token);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_PRIVATE_H */

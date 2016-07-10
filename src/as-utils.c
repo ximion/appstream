@@ -762,3 +762,50 @@ as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2)
 		return TRUE;
 	return FALSE;
 }
+
+/**
+ * as_utils_search_token_valid:
+ * @token: the search token
+ *
+ * Checks the search token if it is valid. Valid tokens are at least 3 chars in
+ * length, not common words like "and", and do not contain markup.
+ *
+ * Returns: %TRUE is the search token was valid.
+ **/
+gboolean
+as_utils_search_token_valid (const gchar *token)
+{
+	guint i;
+	/* TODO: Localize this list */
+	const gchar *blacklist[] = {
+		"and", "the", "application", "for", "you", "your",
+		"with", "can", "are", "from", "that", "use", "allows", "also",
+		"this", "other", "all", "using", "has", "some", "like", "them",
+		"well", "not", "using", "not", "but", "set", "its", "into",
+		"such", "was", "they", "where", "want", "only", "about",
+		"uses", "font", "features", "designed", "provides", "which",
+		"many", "used", "org", "fonts", "open", "more", "based",
+		"different", "including", "will", "multiple", "out", "have",
+		"each", "when", "need", "most", "both", "their", "even",
+		"way", "several", "been", "while", "very", "add", "under",
+		"what", "those", "much", "either", "currently", "one",
+		"support", "make", "over", "these", "there", "without", "etc",
+		"main",
+		NULL };
+	if (strlen (token) < 3)
+		return FALSE;
+	if (g_strstr_len (token, -1, "<") != NULL)
+		return FALSE;
+	if (g_strstr_len (token, -1, ">") != NULL)
+		return FALSE;
+	if (g_strstr_len (token, -1, "(") != NULL)
+		return FALSE;
+	if (g_strstr_len (token, -1, ")") != NULL)
+		return FALSE;
+	for (i = 0; blacklist[i] != NULL; i++)  {
+		if (g_strcmp0 (token, blacklist[i]) == 0)
+			return FALSE;
+	}
+
+	return TRUE;
+}
