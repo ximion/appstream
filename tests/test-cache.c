@@ -22,7 +22,6 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "../src/as-cache-builder.h"
 #include "../src/as-utils-private.h"
 
 static gchar *datadir = NULL;

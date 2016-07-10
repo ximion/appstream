@@ -65,6 +65,7 @@ typedef enum {
 
 #define	AS_DATABASE_ERROR	as_database_error_quark ()
 
+//G_GNUC_DEPRECATED
 AsDatabase		*as_database_new (void);
 GQuark			as_database_error_quark (void);
 gboolean		as_database_open (AsDatabase *db,

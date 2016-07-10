@@ -33,8 +33,17 @@
 #include "config.h"
 #include "as-data-pool.h"
 
+#include <glib.h>
+#include <glib/gstdio.h>
+#include <glib-object.h>
+#include <gio/gio.h>
 #include <glib/gi18n-lib.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <errno.h>
 
+#include "pb/as-cache-internal.h"
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-component-private.h"
@@ -55,6 +64,10 @@ typedef struct
 
 	gchar **icon_paths;
 	gchar **term_greylist;
+
+	gchar *sys_cache_path;
+	gchar *user_cache_path;
+	time_t cache_ctime;
 } AsDataPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsDataPool, as_data_pool, G_TYPE_OBJECT)
@@ -77,6 +90,28 @@ const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
  * the search.
  */
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
+
+/**
+ * as_data_pool_check_cache_ctime:
+ * @dpool: An instance of #AsCacheBuilder
+ *
+ * Update the cached cache-ctime. We need to cache it prior to potentially
+ * creating a new database, so we will always rebuild the database in case
+ * none existed previously.
+ */
+static void
+as_data_pool_check_cache_ctime (AsDataPool *dpool)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	struct stat cache_sbuf;
+	g_autofree gchar *fname = NULL;
+
+	fname = g_strdup_printf ("%s/%s.pb", priv->sys_cache_path, priv->locale);
+	if (stat (fname, &cache_sbuf) < 0)
+		priv->cache_ctime = 0;
+	else
+		priv->cache_ctime = cache_sbuf.st_ctime;
+}
 
 /**
  * as_data_pool_init:
@@ -112,7 +147,18 @@ as_data_pool_init (AsDataPool *dpool)
 	/* set the current architecture */
 	priv->current_arch = as_get_current_arch ();
 
+	/* set up our localized search-term greylist */
 	priv->term_greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", -1);
+
+	/* system-wide cache locations */
+	priv->sys_cache_path = g_build_filename (AS_APPSTREAM_CACHE_PATH, "pb", NULL);
+
+	/* users umask shouldn't interfere with us creating new files when we are root */
+	if (as_utils_is_root ())
+		as_reset_umask ();
+
+	/* check the ctime of the cache directory, if it exists at all */
+	as_data_pool_check_cache_ctime (dpool);
 }
 
 /**
@@ -134,6 +180,9 @@ as_data_pool_finalize (GObject *object)
 	g_free (priv->current_arch);
 
 	g_strfreev (priv->term_greylist);
+
+	g_free (priv->sys_cache_path);
+	g_free (priv->user_cache_path);
 
 	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
 }
@@ -639,6 +688,440 @@ as_data_pool_search (AsDataPool *dpool, const gchar *term)
 	}
 
 	return results;
+}
+
+/**
+ * as_data_pool_ctime_newer:
+ *
+ * Returns: %TRUE if ctime of file is newer than the cached time.
+ */
+static gboolean
+as_data_pool_ctime_newer (AsDataPool *dpool, const gchar *dir)
+{
+	struct stat sb;
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+
+	if (stat (dir, &sb) < 0)
+		return FALSE;
+
+	if (sb.st_ctime > priv->cache_ctime)
+		return TRUE;
+
+	return FALSE;
+}
+
+/**
+ * as_data_pool_appstream_data_changed:
+ */
+static gboolean
+as_data_pool_appstream_data_changed (AsDataPool *dpool)
+{
+	guint i;
+	GPtrArray *locations;
+
+	locations = as_data_pool_get_metadata_locations (dpool);
+	for (i = 0; i < locations->len; i++) {
+		g_autofree gchar *xml_dir = NULL;
+		g_autofree gchar *yaml_dir = NULL;
+		const gchar *dir_root = (const gchar*) g_ptr_array_index (locations, i);
+
+		if (as_data_pool_ctime_newer (dpool, dir_root))
+			return TRUE;
+
+		xml_dir = g_build_filename (dir_root, "xmls", NULL);
+		if (as_data_pool_ctime_newer (dpool, xml_dir))
+			return TRUE;
+
+		yaml_dir = g_build_filename (dir_root, "yaml", NULL);
+		if (as_data_pool_ctime_newer (dpool, yaml_dir))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+#ifdef APT_SUPPORT
+
+#define YAML_SEPARATOR "---"
+/* Compilers will optimise this to a constant */
+#define YAML_SEPARATOR_LEN strlen(YAML_SEPARATOR)
+
+/**
+ * as_data_pool_get_yml_data_origin:
+ *
+ * Extract the data origin from the AppStream YAML file.
+ * We don't use the #AsYAMLData loader, because it is much
+ * slower than just loading the initial parts of the file and
+ * extracting the origin manually.
+ */
+gchar*
+as_data_pool_get_yml_data_origin (const gchar *fname)
+{
+	const gchar *data;
+	GZlibDecompressor *zdecomp;
+	g_autoptr(GFileInputStream) fistream = NULL;
+	g_autoptr(GMemoryOutputStream) mem_os = NULL;
+	g_autoptr(GInputStream) conv_stream = NULL;
+	g_autoptr(GFile) file = NULL;
+	g_autofree gchar *str = NULL;
+	g_auto(GStrv) strv = NULL;
+	guint i;
+	gchar *start, *end;
+	gchar *origin = NULL;
+
+	file = g_file_new_for_path (fname);
+	fistream = g_file_read (file, NULL, NULL);
+	mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
+	zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
+	conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
+	g_object_unref (zdecomp);
+
+	g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
+	data = (const gchar*) g_memory_output_stream_get_data (mem_os);
+
+	/* faster than a regular expression?
+	 * Get the first YAML document, then extract the origin string.
+	 */
+	if (data == NULL)
+		return NULL;
+	/* start points to the start of the document, i.e. "File:" normally */
+	start = g_strstr_len (data, 400, YAML_SEPARATOR) + YAML_SEPARATOR_LEN;
+	if (start == NULL)
+		return NULL;
+	/* Find the end of the first document - can be NULL if there is only one,
+	 * for example if we're given YAML for an empty archive */
+	end = g_strstr_len (start, -1, YAML_SEPARATOR);
+	str = g_strndup (start, strlen(start) - (end ? strlen(end) : 0));
+
+	strv = g_strsplit (str, "\n", -1);
+	for (i = 0; strv[i] != NULL; i++) {
+		g_auto(GStrv) strv2 = NULL;
+		if (!g_str_has_prefix (strv[i], "Origin:"))
+			continue;
+
+		strv2 = g_strsplit (strv[i], ":", 2);
+		g_strstrip (strv2[1]);
+		origin = g_strdup (strv2[1]);
+
+		/* remove quotes, in case the string is quoted */
+		if ((g_str_has_prefix (origin, "\"")) && (g_str_has_suffix (origin, "\""))) {
+			g_autofree gchar *tmp = NULL;
+
+			tmp = origin;
+			origin = g_strndup (tmp + 1, strlen (tmp) - 2);
+		}
+
+		break;
+	}
+
+	return origin;
+}
+
+/**
+ * as_data_pool_extract_icons:
+ */
+static void
+as_data_pool_extract_icons (const gchar *asicons_target,
+			    const gchar *origin,
+			    const gchar *apt_basename,
+			    const gchar *apt_lists_dir,
+			    const gchar *icons_size)
+{
+	g_autofree gchar *icons_tarball = NULL;
+	g_autofree gchar *target_dir = NULL;
+	g_autofree gchar *cmd = NULL;
+	g_autofree gchar *stderr_txt = NULL;
+	gint res;
+	g_autoptr(GError) tmp_error = NULL;
+
+	icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.gz", apt_lists_dir, apt_basename, icons_size);
+	if (!g_file_test (icons_tarball, G_FILE_TEST_EXISTS)) {
+		/* no icons found, stop here */
+		return;
+	}
+
+	target_dir = g_build_filename (asicons_target, origin, icons_size, NULL);
+	if (g_mkdir_with_parents (target_dir, 0755) > 0) {
+		g_debug ("Unable to create '%s': %s", target_dir, g_strerror (errno));
+		return;
+	}
+
+	if (!as_utils_is_writable (target_dir)) {
+		g_debug ("Unable to write to '%s': Can't add AppStream icon-cache from APT to the pool.", target_dir);
+		return;
+	}
+
+	cmd = g_strdup_printf ("/bin/tar -xzf '%s' -C '%s'", icons_tarball, target_dir);
+	g_spawn_command_line_sync (cmd, NULL, &stderr_txt, &res, &tmp_error);
+	if (tmp_error != NULL) {
+		g_debug ("Failed to run tar: %s", tmp_error->message);
+	}
+	if (res != 0) {
+		g_debug ("Running tar failed with exit-code %i: %s", res, stderr_txt);
+	}
+}
+
+/**
+ * as_data_pool_scan_apt:
+ *
+ * Scan for additional metadata in 3rd-party directories and move it to the right place.
+ */
+static void
+as_data_pool_scan_apt (AsDataPool *dpool, gboolean force, GError **error)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	const gchar *apt_lists_dir = "/var/lib/apt/lists/";
+	const gchar *appstream_yml_target = "/var/lib/app-info/yaml";
+	const gchar *appstream_icons_target = "/var/lib/app-info/icons";
+	g_autoptr(GPtrArray) yml_files = NULL;
+	g_autoptr(GError) tmp_error = NULL;
+	gboolean data_changed = FALSE;
+	guint i;
+
+	/* skip this step if the APT lists directory doesn't exist */
+	if (!g_file_test (apt_lists_dir, G_FILE_TEST_IS_DIR)) {
+		g_debug ("APT lists directory (%s) not found!", apt_lists_dir);
+		return;
+	}
+
+	if (g_file_test (appstream_yml_target, G_FILE_TEST_IS_DIR)) {
+		g_autoptr(GPtrArray) ytfiles = NULL;
+
+		/* we can't modify the files here if we don't have write access */
+		if (!as_utils_is_writable (appstream_yml_target)) {
+			g_debug ("Unable to write to '%s': Can't add AppStream data from APT to the pool.", appstream_yml_target);
+			return;
+		}
+
+		ytfiles = as_utils_find_files_matching (appstream_yml_target, "*", FALSE, &tmp_error);
+		if (tmp_error != NULL) {
+			g_warning ("Could not scan for broken symlinks in DEP-11 target: %s", tmp_error->message);
+			return;
+		}
+		for (i = 0; i < ytfiles->len; i++) {
+			const gchar *fname = (const gchar*) g_ptr_array_index (ytfiles, i);
+			if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
+				g_remove (fname);
+				data_changed = TRUE;
+			}
+		}
+	}
+
+	yml_files = as_utils_find_files_matching (apt_lists_dir, "*Components-*.yml.gz", FALSE, &tmp_error);
+	if (tmp_error != NULL) {
+		g_warning ("Could not scan for APT-downloaded DEP-11 files: %s", tmp_error->message);
+		return;
+	}
+
+	/* no data found? skip scan step */
+	if (yml_files->len <= 0) {
+		g_debug ("Couldn't find DEP-11 data in APT directories.");
+		return;
+	}
+
+	/* We have to check if our metadata is in the target directory at all, and - if not - trigger a cache refresh.
+	 * This is needed because APT is putting files with the *server* ctime/mtime into it's lists directory,
+	 * and that time might be lower than the time the metadata cache was last updated, which may result
+	 * in no cache update being triggered at all.
+	 */
+	for (i = 0; i < yml_files->len; i++) {
+		g_autofree gchar *fbasename = NULL;
+		g_autofree gchar *dest_fname = NULL;
+		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
+
+		fbasename = g_path_get_basename (fname);
+		dest_fname = g_build_filename (appstream_yml_target, fbasename, NULL);
+		if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
+			data_changed = TRUE;
+			g_debug ("File '%s' missing, cache update is needed.", dest_fname);
+			break;
+		}
+	}
+
+	/* get the last time we touched the database */
+	if (!data_changed) {
+		for (i = 0; i < yml_files->len; i++) {
+			struct stat sb;
+			const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
+			if (stat (fname, &sb) < 0)
+				continue;
+			if (sb.st_ctime > priv->cache_ctime) {
+				/* we need to update the cache */
+				data_changed = TRUE;
+				break;
+			}
+		}
+	}
+
+	/* no changes means nothing to do here */
+	if ((!data_changed) && (!force))
+		return;
+
+	/* this is not really great, but we simply can't detect if we should remove an icons folder or not,
+	 * or which specific icons we should drop from a folder.
+	 * So, we hereby simply "own" the icons directory and all it's contents, anything put in there by 3rd-parties will
+	 * be deleted.
+	 * (And there should actually be no cases 3rd-parties put icons there on a Debian machine, since metadata in packages
+	 * will land in /usr/share/app-info anyway)
+	 */
+	as_utils_delete_dir_recursive (appstream_icons_target);
+	if (g_mkdir_with_parents (appstream_yml_target, 0755) > 0) {
+		g_debug ("Unable to create '%s': %s", appstream_yml_target, g_strerror (errno));
+		return;
+	}
+
+	for (i = 0; i < yml_files->len; i++) {
+		g_autofree gchar *fbasename = NULL;
+		g_autofree gchar *dest_fname = NULL;
+		g_autofree gchar *origin = NULL;
+		g_autofree gchar *file_baseprefix = NULL;
+		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
+
+		fbasename = g_path_get_basename (fname);
+		dest_fname = g_build_filename (appstream_yml_target, fbasename, NULL);
+
+		if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
+			/* file not found, let's symlink */
+			if (symlink (fname, dest_fname) != 0) {
+				g_debug ("Unable to set symlink (%s -> %s): %s",
+							fname,
+							dest_fname,
+							g_strerror (errno));
+				continue;
+			}
+		} else if (!g_file_test (dest_fname, G_FILE_TEST_IS_SYMLINK)) {
+			/* file found, but it isn't a symlink, try to rescue */
+			g_debug ("Regular file '%s' found, which doesn't belong there. Removing it.", dest_fname);
+			g_remove (dest_fname);
+			continue;
+		}
+
+		/* get DEP-11 data origin */
+		origin = as_data_pool_get_yml_data_origin (dest_fname);
+		if (origin == NULL) {
+			g_warning ("No origin found for file %s", fbasename);
+			continue;
+		}
+
+		/* get base prefix for this file in the APT download cache */
+		file_baseprefix = g_strndup (fbasename, strlen (fbasename) - strlen (g_strrstr (fbasename, "_") + 1));
+
+		/* extract icons to their destination (if they exist at all */
+		as_data_pool_extract_icons (appstream_icons_target,
+						origin,
+						file_baseprefix,
+						apt_lists_dir,
+						"64x64");
+		as_data_pool_extract_icons (appstream_icons_target,
+						origin,
+						file_baseprefix,
+						apt_lists_dir,
+						"128x128");
+	}
+
+	/* ensure the cache-rebuild process notices these changes */
+	as_touch_location (appstream_yml_target);
+}
+#endif
+
+/**
+ * as_data_pool_refresh_cache:
+ * @dpool: An instance of #AsDataPool.
+ * @force: Enforce refresh, even if source data has not changed.
+ *
+ * Update the AppStream cache. There is normally no need to call this function manually, because cache updates are handled
+ * transparently in the background.
+ *
+ * Returns: %TRUE if the cache was updated, %FALSE on error or if the cache update was not necessary and has been skipped.
+ */
+gboolean
+as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	gboolean ret = FALSE;
+	gboolean ret_poolupdate;
+	GList *cpt_list;
+	g_autofree gchar *cache_fname = NULL;
+	g_autoptr(GError) tmp_error = NULL;
+
+	/* try to create cache directory, in case it doesn't exist */
+	g_mkdir_with_parents (priv->sys_cache_path, 0755);
+	if (!as_utils_is_writable (priv->sys_cache_path)) {
+		g_set_error (error,
+				AS_DATA_POOL_ERROR,
+				AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE,
+				_("Cache location '%s' is not writable."), priv->sys_cache_path);
+		return FALSE;
+	}
+
+	/* collect metadata */
+#ifdef APT_SUPPORT
+	/* currently, we only do something here if we are running with explicit APT support compiled in */
+	as_data_pool_scan_apt (dpool, force, &tmp_error);
+	if (tmp_error != NULL) {
+		/* the exact error is not forwarded here, since we might be able to partially update the cache */
+		g_warning ("Error while collecting metadata: %s", tmp_error->message);
+		g_error_free (tmp_error);
+		tmp_error = NULL;
+	}
+#endif
+
+	/* create the filename of our cache */
+	cache_fname = g_strdup_printf ("%s/%s.pb", priv->sys_cache_path, priv->locale);
+
+	/* check if we need to refresh the cache
+	 * (which is only necessary if the AppStream data has changed) */
+	if (!as_data_pool_appstream_data_changed (dpool)) {
+		g_debug ("Data did not change, no cache refresh needed.");
+		if (force) {
+			g_debug ("Forcing refresh anyway.");
+		} else {
+			return FALSE;
+		}
+	}
+	g_debug ("Refreshing AppStream cache");
+
+	/* find them wherever they are */
+	ret_poolupdate = as_data_pool_update (dpool, &tmp_error);
+	if (tmp_error != NULL) {
+		/* the exact error is not forwarded here, since we might be able to partially update the cache */
+		g_warning ("Error while updating the in-memory data pool: %s", tmp_error->message);
+		g_error_free (tmp_error);
+		tmp_error = NULL;
+	}
+
+	/* populate the cache */
+	cpt_list = as_data_pool_get_components (dpool);
+	as_cache_write (cache_fname, priv->locale, cpt_list, &tmp_error);
+	g_list_free (cpt_list);
+	if (tmp_error != NULL) {
+		/* the exact error is not forwarded here, since we might be able to partially update the cache */
+		g_warning ("Error while updating the cache: %s", tmp_error->message);
+		g_error_free (tmp_error);
+		tmp_error = NULL;
+		ret = FALSE;
+	} else {
+		ret = TRUE;
+	}
+
+	if (ret) {
+		if (!ret_poolupdate) {
+			g_set_error (error,
+				AS_DATA_POOL_ERROR,
+				AS_DATA_POOL_ERROR_CACHE_INCOMPLETE,
+				_("AppStream cache update completed, but some metadata was ignored due to errors."));
+		}
+		/* update the cache mtime, to not needlessly rebuild it again */
+		as_touch_location (cache_fname);
+		as_data_pool_check_cache_ctime (dpool);
+	} else {
+		g_set_error (error,
+				AS_DATA_POOL_ERROR,
+				AS_DATA_POOL_ERROR_FAILED,
+				_("AppStream cache update failed."));
+	}
+
+	return TRUE;
 }
 
 /**

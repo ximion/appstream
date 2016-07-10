@@ -490,9 +490,9 @@ as_ptr_array_to_strv (GPtrArray *array)
 	g_return_val_if_fail (array != NULL, NULL);
 
 	/* copy the array to a strv */
-	value = g_new0 (gchar *, array->len + 1);
-	for (i=0; i<array->len; i++) {
-		value_temp = (const gchar *) g_ptr_array_index (array, i);
+	value = g_new0 (gchar*, array->len + 1);
+	for (i = 0; i < array->len; i++) {
+		value_temp = (const gchar*) g_ptr_array_index (array, i);
 		value[i] = g_strdup (value_temp);
 	}
 

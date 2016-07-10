@@ -1,6 +1,6 @@
 /* database-write.hpp
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,34 +18,23 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DATABASE_WRITE_H
-#define DATABASE_WRITE_H
+#ifndef AS_CACHE_INTERNAL_H
+#define AS_CACHE_INTERNAL_H
 
-#include <xapian.h>
-#include <glib.h>
-#include "../as-component.h"
+#include <glib-object.h>
 
-/* small hack to make C++ to C binding easier */
-struct G_GNUC_INTERNAL XADatabaseWrite {};
-
-class G_GNUC_INTERNAL DatabaseWrite : public XADatabaseWrite
-{
-public:
-	explicit DatabaseWrite ();
-	~DatabaseWrite ();
-
-	bool initialize (const gchar *dbPath);
-
-	bool addComponent (AsComponent *cpt);
-	bool rebuild (GList *cpt_list);
-
-private:
-	Xapian::WritableDatabase *m_rwXapianDB;
-	std::string m_dbPath;
-
-};
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 G_GNUC_INTERNAL
-inline DatabaseWrite* realDbWrite (XADatabaseWrite* d) { return static_cast<DatabaseWrite*>(d); }
+void as_cache_write (const gchar *path, const gchar *locale, GList *cpt_list, GError **error);
 
-#endif // DATABASE_WRITE_H
+G_GNUC_INTERNAL
+GPtrArray *as_cache_read (const gchar *fname, GError **error);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // AS_CACHE_INTERNAL_H

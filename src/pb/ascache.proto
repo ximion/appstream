@@ -1,0 +1,212 @@
+package ASCache;
+option optimize_for = LITE_RUNTIME;
+
+/**
+ * Cache:
+ * A list of software components, container class for the cache.
+ */
+message Cache {
+    required int32 cache_version = 1;
+    required string locale = 2;
+
+    repeated Component component = 3;
+}
+
+/**
+ * Component:
+ * A software component, as described at
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html
+ */
+message Component {
+    required int32  type        = 1;
+    required string id          = 2;
+    required string name        = 3;
+    required string summary     = 4;
+    optional string description = 5;
+    repeated string category    = 6;
+    repeated string keyword     = 7;
+
+    optional string origin         = 10;
+    optional string source_pkgname = 11;
+    repeated string pkgname        = 12;
+    repeated Bundle bundle         = 13;
+
+    optional string developer_name = 20;
+    optional string project_group  = 21;
+    optional string license        = 22;
+    repeated string compulsory_for = 23;
+
+    repeated string extends = 24;
+    repeated string addon   = 25;
+
+    repeated Provided provided = 26;
+
+    repeated Url url   = 30;
+    repeated Icon icon = 31;
+
+    repeated Screenshot screenshot = 32;
+
+    repeated Language language = 33;
+    repeated Release release = 34;
+
+    repeated string search_token = 40; // TODO
+}
+
+/**
+ * Url:
+ * A list of urls, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-url
+ */
+message Url {
+    enum Type {
+        UNKNOWN = 0;
+        HOMEPAGE = 1;
+        BUGTRACKER = 2;
+        FAQ = 3;
+        HELP = 4;
+        DONATION = 5;
+    }
+
+    required Type type = 1 [default = UNKNOWN];
+    required string url = 2;
+}
+
+/**
+ * Bundle:
+ * A list of bundles, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-bundle
+ */
+message Bundle {
+    enum Type {
+        UNKNOWN = 0;
+        LIMBA = 1;
+        FLATPAK = 2;
+    }
+
+    required Type type = 1 [default = UNKNOWN];
+    required string id = 2;
+}
+
+/**
+ * Icon:
+ * A list of preprocessed, absolute icon urls.
+ * The definition of icons can be found at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-icon
+ * (we only care about the url-types here)
+ */
+message Icon {
+    enum Type {
+        UNKNOWN = 0;
+        STOCK  = 1;
+        CACHED = 2;
+        LOCAL  = 3;
+        REMOTE = 4;
+    }
+
+    required Type type = 1 [default = UNKNOWN];
+    required int32 width = 2;
+    required int32 height = 3;
+    required string value = 4;
+}
+
+/**
+ * Screenshot:
+ * A list of screenshot definitions, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-screenshots
+ */
+message Screenshot {
+    message Image {
+        required bool source = 1 [default = false];
+        required int32 width    = 2;
+        required int32 height = 3;
+        required string url = 4;
+        optional string locale = 5;
+    }
+
+    required bool primary = 1 [default = false];
+    optional string caption = 2;
+    repeated Image image = 3;
+}
+
+/**
+ * Provided:
+ * A list of provided items. We use the semicolon-separated provided-type
+ * serialization here.
+ * The definition of provided-items can be found at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-provides
+ */
+message Provided {
+    // Keep ItemType aligned with AsProvidedKind
+    enum Type {
+        UNKNOWN    = 0;
+        LIBRARY    = 1;
+        BINARY     = 2;
+        MIMETYPE = 3;
+        FONT         = 4;
+        MODALIAS = 5;
+        PYTHON_2 = 6;
+        PYTHON     = 7;
+        DBUS_SYSTEM = 8;
+        DBUS_USER     = 9;
+        FIRMWARE_RUNTIME = 10;
+        FIRMWARE_FLASHED = 11;
+    }
+
+    required Type type = 1 [default = UNKNOWN];
+    repeated string item = 2;
+}
+
+/**
+ * Language:
+ * A list of localization information, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-languages
+ */
+message Language {
+    required string locale = 1;
+    required int32 percentage = 2 [default = 0];
+}
+
+/**
+ * Release:
+ * A list of information about releases, origin XML described at:
+ * http://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-releases
+ */
+message Release {
+    enum UrgencyType {
+        NOTSET = 0; // can't be UNKNOWN, since we can only have this valud once in this scope
+        LOW = 1;
+        MEDIUM = 2;
+        HIGH = 3;
+        CRITICAL = 4;
+    }
+
+    enum ChecksumType {
+        NONE = 0;
+        SHA1 = 1;
+        SHA256 = 2;
+    }
+
+    enum SizeType {
+        UNKNOWN = 0;
+        DOWNLOAD = 1;
+        INSTALLED = 2;
+    }
+
+    message Checksum {
+        required ChecksumType type = 1 [default = NONE];
+        required string value = 2;
+    }
+
+    message Size {
+        required SizeType type = 1 [default = UNKNOWN];
+        required int64 value = 2;
+    }
+
+    required string version = 1;
+    required int64 unix_timestamp = 2;
+    optional UrgencyType urgency = 3;
+    optional string description = 4;
+    repeated Checksum checksum = 5;
+    repeated string location = 6;
+    repeated Size size = 7;
+}

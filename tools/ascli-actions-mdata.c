@@ -26,7 +26,6 @@
 #include <glib/gstdio.h>
 
 #include "ascli-utils.h"
-#include "as-cache-builder.h"
 #include "as-utils-private.h"
 
 /**
@@ -35,30 +34,28 @@
 int
 ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
 {
-	g_autoptr(AsCacheBuilder) cbuilder = NULL;
+	g_autoptr(AsDataPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
 
-	cbuilder = as_cache_builder_new ();
+	dpool = as_data_pool_new ();
 	if (datapath != NULL) {
 		g_auto(GStrv) strv = NULL;
 		/* the user wants data from a different path to be used */
 		strv = g_new0 (gchar*, 2);
 		strv[0] = g_strdup (datapath);
-		as_cache_builder_set_data_source_directories (cbuilder, strv);
+		as_data_pool_set_metadata_locations (dpool, strv);
 	}
 
-	as_cache_builder_setup (cbuilder, dbpath, &error);
+	ret = as_data_pool_refresh_cache (dpool, forced, &error);
 	if (error != NULL) {
-		if (g_error_matches (error, AS_CACHE_BUILDER_ERROR, AS_CACHE_BUILDER_ERROR_TARGET_NOT_WRITABLE))
+		if (g_error_matches (error, AS_DATA_POOL_ERROR, AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE))
 			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
 			g_printerr ("%s\n%s\n", error->message, _("You might need superuser permissions to perform this action."));
 		else
 			g_printerr ("%s\n", error->message);
 		return 2;
 	}
-
-	ret = as_cache_builder_refresh (cbuilder, forced, &error);
 
 	if (ret) {
 		/* we performed a cache refresh, check if we had errors */

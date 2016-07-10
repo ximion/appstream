@@ -46,13 +46,31 @@ struct _AsDataPoolClass
 };
 
 /**
+ * AsCacheFlags:
+ * @AS_CACHE_FLAG_NONE:		Type invalid or not known
+ * @AS_CACHE_FLAG_USE_USER:	Create an user-specific metadata cache.
+ * @AS_CACHE_FLAG_USE_SYSTEM:	Use and - if possible - update the global metadata cache.
+ *
+ * Flags on how caching should be used.
+ **/
+typedef enum {
+	AS_CACHE_FLAG_NONE = 0,
+	AS_CACHE_FLAG_USE_USER   = 1 << 0,
+	AS_CACHE_FLAG_USE_SYSTEM = 1 << 1,
+} AsCacheFlags;
+
+/**
  * AsDataPoolError:
- * @AS_DATA_POOL_ERROR_FAILED:		Generic failure
+ * @AS_DATA_POOL_ERROR_FAILED:			Generic failure
+ * @AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE:	We do not have write-access to the cache target location.
+ * @AS_DATA_POOL_ERROR_CACHE_INCOMPLETE:	The cache was built, but we had to ignore some metadata.
  *
  * A metadata pool error.
  **/
 typedef enum {
 	AS_DATA_POOL_ERROR_FAILED,
+	AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE,
+	AS_DATA_POOL_ERROR_CACHE_INCOMPLETE,
 	/*< private >*/
 	AS_DATA_POOL_ERROR_LAST
 } AsDataPoolError;
@@ -77,6 +95,10 @@ GPtrArray		*as_data_pool_search (AsDataPool *dpool, const gchar *term);
 GPtrArray		*as_data_pool_get_metadata_locations (AsDataPool *dpool);
 void			as_data_pool_set_metadata_locations (AsDataPool *dpool,
 								gchar **dirs);
+
+gboolean		as_data_pool_refresh_cache (AsDataPool *dpool,
+						    gboolean force,
+						    GError **error);
 
 G_END_DECLS
 

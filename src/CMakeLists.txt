@@ -4,7 +4,6 @@ find_package(GLIB2 2.46 REQUIRED)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(GI REQUIRED)
 find_package(LibXml2 REQUIRED)
-find_package(Xapian 1.2 REQUIRED)
 find_package(Protobuf REQUIRED)
 find_library(M_LIB m)
 pkg_check_modules(YAML REQUIRED yaml-0.1)
@@ -29,23 +28,16 @@ if (NOT PROTOBUF_PROTOC_EXECUTABLE)
 	message (FATAL_ERROR "ProtoBuf compiler (protoc) was not found!")
 endif ()
 
-protobuf_generate_cpp(AS_PROTO_SRCS AS_PROTO_HDRS xapian/asxentries.proto)
-
-set(ASLIB_XAP_SOURCES ${AS_PROTO_SRCS} ${AS_PROTO_HDRS}
-		xapian/database-schema.hpp
-		xapian/database-read.hpp
-		xapian/database-read.cpp
-		xapian/database-write.hpp
-		xapian/database-write.cpp
-		xapian/database-cwrap.hpp
-		xapian/database-cwrap.cpp
+protobuf_generate_cpp(AS_PROTO_SRCS AS_PROTO_HDRS pb/ascache.proto)
+set(ASLIB_CACHE_SOURCES ${AS_PROTO_SRCS} ${AS_PROTO_HDRS}
+		pb/as-cache-internal.h
+		pb/as-cache-internal.cpp
 )
-set_source_files_properties(${ASLIB_XAP_SOURCES} PROPERTIES COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
+set_source_files_properties(${ASLIB_CACHE_SOURCES} PROPERTIES COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
 
 set(APPSTREAM_LIB_SRC
 		as-utils.c
 		# internal stuff to build the database
-		as-cache-builder.c
 		as-xmldata.c
 		as-yamldata.c
 		# (mostly) public API
@@ -95,17 +87,15 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-component-private.h
 		as-screenshot-private.h
 		as-release-private.h
-		as-cache-builder.h
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/xapian
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/pb
 		    ${CMAKE_BINARY_DIR}
 		    ${CMAKE_BINARY_DIR}/src
 		    ${GLIB2_INCLUDE_DIR}
 		    ${GIO2_INCLUDE_DIR}
 		    ${LIBXML2_INCLUDE_DIR}
 		    ${YAML_INCLUDE_DIR}
-		    ${XAPIAN_INCLUDE_DIR}
 		    ${PROTOBUF_INCLUDE_DIRS}
 )
 
@@ -116,7 +106,7 @@ if (INTROSPECTION_COMPILER STREQUAL "")
   message(FATAL_ERROR "GObject-Introspection was not found! Please install it to continue.")
 endif()
 
-add_library(appstream SHARED ${ASLIB_XAP_SOURCES} ${APPSTREAM_LIB_SRC} ${APPSTREAM_LIB_PUBLIC_HEADERS} ${APPSTREAM_LIB_PRIVATE_HEADERS})
+add_library(appstream SHARED ${ASLIB_CACHE_SOURCES} ${APPSTREAM_LIB_SRC} ${APPSTREAM_LIB_PUBLIC_HEADERS} ${APPSTREAM_LIB_PRIVATE_HEADERS})
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 target_link_libraries(appstream
@@ -125,8 +115,7 @@ target_link_libraries(appstream
 		${GIO2_LIBRARIES}
 		${LIBXML2_LIBRARIES}
 		${YAML_LIBRARIES}
-		${XAPIAN_LIBRARIES}
-		${PROTOBUF_LITE_LIBRARIES}
+		${PROTOBUF_LIBRARIES}
 )
 
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc @ONLY)

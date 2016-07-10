@@ -26,12 +26,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
-#include <database-cwrap.hpp>
 #include <glib/gstdio.h>
 
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-settings-private.h"
+#include "as-data-pool.h"
 
 /**
  * SECTION:as-database
@@ -52,22 +52,11 @@
 
 typedef struct
 {
-	struct XADatabaseRead *xdb;
-	gboolean opened;
-	gchar *database_path;
-	gchar **term_greylist;
+	AsDataPool *dpool;
 } AsDatabasePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsDatabase, as_database, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_database_get_instance_private (o))
-
-/* TRANSLATORS: List of "grey-listed" words sperated with ";"
- * Do not translate this list directly. Instead,
- * provide a list of words in your language that people are likely
- * to include in a search but that should normally be ignored in
- * the search.
- */
-#define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
 /**
  * as_database_init:
@@ -77,11 +66,7 @@ as_database_init (AsDatabase *db)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 
-	priv->xdb = xa_database_read_new ();
-	priv->opened = FALSE;
-	as_database_set_location (db, AS_APPSTREAM_CACHE_PATH);
-
-	priv->term_greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", -1);
+	priv->dpool = as_data_pool_new ();
 }
 
 /**
@@ -93,9 +78,7 @@ as_database_finalize (GObject *object)
 	AsDatabase *db = AS_DATABASE (object);
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
 
-	xa_database_read_free (priv->xdb);
-	g_free (priv->database_path);
-	g_strfreev (priv->term_greylist);
+	g_object_unref (priv->dpool);
 
 	G_OBJECT_CLASS (as_database_parent_class)->finalize (object);
 }
@@ -122,29 +105,8 @@ as_database_class_init (AsDatabaseClass *klass)
 gboolean
 as_database_open (AsDatabase *db, GError **error)
 {
-	gboolean ret = FALSE;
-	g_autofree gchar *path = NULL;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	path = g_build_filename (priv->database_path, "xapian", "default", NULL);
-	if (!g_file_test (path, G_FILE_TEST_IS_DIR)) {
-		g_set_error_literal (error,
-				AS_DATABASE_ERROR,
-				AS_DATABASE_ERROR_MISSING,
-				_("AppStream software component cache was not found. This could mean AppStream was set up incorrectly, or your distribution does not provide any AppStream metadata."));
-		return FALSE;
-	}
-
-	ret = xa_database_read_open (priv->xdb, path);
-	priv->opened = ret;
-
-	if (!ret)
-		g_set_error_literal (error,
-				AS_DATABASE_ERROR,
-				AS_DATABASE_ERROR_FAILED,
-				_("Unable to open the AppStream software component cache."));
-
-	return ret;
+	return as_data_pool_update (priv->dpool, error);
 }
 
 /**
@@ -155,15 +117,6 @@ as_database_open (AsDatabase *db, GError **error)
 static gboolean
 as_database_test_opened (AsDatabase *db, GError **error)
 {
-	AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	if (!priv->opened) {
-		g_set_error_literal (error,
-					AS_DATABASE_ERROR,
-					AS_DATABASE_ERROR_CLOSED,
-					_("Tried to perform query on closed database."));
-		return FALSE;
-	}
 	return TRUE;
 }
 
@@ -179,62 +132,8 @@ as_database_test_opened (AsDatabase *db, GError **error)
 GPtrArray*
 as_database_get_all_components (AsDatabase *db, GError **error)
 {
-	GPtrArray *cpts = NULL;
-	AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	if (!as_database_test_opened (db, error))
-		return NULL;
-
-	cpts = xa_database_read_get_all_components (priv->xdb);
-	return cpts;
-}
-
-/**
- * as_database_sanitize_search_term:
- *
- * Improve the search term slightly, by stripping whitespaces and
- * removing greylist words.
- */
-static gchar*
-as_database_sanitize_search_term (AsDatabase *db, const gchar *term)
-{
-	gchar *res_term;
-	AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	if (term == NULL)
-		return NULL;
-	res_term = g_strdup (term);
-
-	/* check if there is a ":" in the search, if so, it means the user
-	 * could be using a xapian prefix like "pkg:" or "mime:" and in this case
-	 * we do not want to alter the search term (as application is in the
-	 * greylist but a common mime-type prefix)
-	 */
-	if (strstr (term, ":") == NULL) {
-		guint i;
-
-		/* filter query by greylist (to avoid overly generic search terms) */
-		for (i = 0; priv->term_greylist[i] != NULL; i++) {
-			gchar *str;
-			str = as_str_replace (res_term, priv->term_greylist[i], "");
-			g_free (res_term);
-			res_term = str;
-		}
-
-		/* restore query if it was just greylist words */
-		if (g_strcmp0 (res_term, "") == 0) {
-			g_debug ("grey-list replaced all terms, restoring");
-			g_free (res_term);
-			res_term = g_strdup (term);
-		}
-	}
-
-	/* we have to strip the leading and trailing whitespaces to avoid having
-	 * different results for e.g. 'font ' and 'font' (LP: #506419)
-	 */
-	g_strstrip (res_term);
-
-	return res_term;
+	//AsDatabasePrivate *priv = GET_PRIVATE (db);
+	return NULL; // FIXME, as_data_pool_get_components (priv->dpool);
 }
 
 /**
@@ -253,26 +152,8 @@ as_database_sanitize_search_term (AsDatabase *db, const gchar *term)
 GPtrArray*
 as_database_find_components (AsDatabase *db, const gchar *term, const gchar *cats_str, GError **error)
 {
-	GPtrArray *cpts;
-	g_autofree gchar *sterm = NULL;
-	g_auto(GStrv) cats = NULL;
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	if (!as_database_test_opened (db, error))
-		return NULL;
-
-	/* return everything if term and categories are both NULL or empty */
-	if ((as_str_empty (term)) && (as_str_empty (cats_str)))
-		return as_database_get_all_components (db, error);
-
-	/* sanitize our search term */
-	sterm = as_database_sanitize_search_term (db, term);
-
-	if (cats_str != NULL)
-		cats = g_strsplit (cats_str, ";", -1);
-
-	cpts = xa_database_read_find_components (priv->xdb, sterm, cats);
-	return cpts;
+	return as_data_pool_search (priv->dpool, term);
 }
 
 /**
@@ -289,9 +170,6 @@ AsComponent*
 as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **error)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	if (!as_database_test_opened (db, error))
-		return NULL;
 	if (cid == NULL) {
 		g_set_error_literal (error,
 					AS_DATABASE_ERROR,
@@ -300,7 +178,7 @@ as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **erro
 		return NULL;
 	}
 
-	return xa_database_read_get_component_by_id (priv->xdb, cid);
+	return as_data_pool_get_component_by_id (priv->dpool, cid);
 }
 
 /**
@@ -317,8 +195,8 @@ as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **erro
 GPtrArray*
 as_database_get_components_by_provided_item (AsDatabase *db, AsProvidedKind kind, const gchar *item, GError **error)
 {
-	GPtrArray* cpt_array;
-	AsDatabasePrivate *priv = GET_PRIVATE (db);
+	//GPtrArray* cpt_array;
+	//AsDatabasePrivate *priv = GET_PRIVATE (db);
 
 	if (!as_database_test_opened (db, error))
 		return NULL;
@@ -330,8 +208,9 @@ as_database_get_components_by_provided_item (AsDatabase *db, AsProvidedKind kind
 		return NULL;
 	}
 
-	cpt_array = xa_database_read_get_components_by_provides (priv->xdb, kind, item);
-	return cpt_array;
+	// FIXME
+	//cpt_array = xa_database_read_get_components_by_provides (priv->xdb, kind, item);
+	return NULL;
 }
 
 /**
@@ -347,8 +226,8 @@ as_database_get_components_by_provided_item (AsDatabase *db, AsProvidedKind kind
 GPtrArray*
 as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind, GError **error)
 {
-	GPtrArray* cpt_array;
-	AsDatabasePrivate *priv = GET_PRIVATE (db);
+	//GPtrArray* cpt_array;
+	//AsDatabasePrivate *priv = GET_PRIVATE (db);
 
 	if (!as_database_test_opened (db, error))
 		return NULL;
@@ -360,8 +239,10 @@ as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind, GError
 		return NULL;
 	}
 
-	cpt_array = xa_database_read_get_components_by_kind (priv->xdb, kind);
-	return cpt_array;
+	// FIXME
+	return NULL;
+	//cpt_array = xa_database_read_get_components_by_kind (priv->xdb, kind);
+	//return cpt_array;
 }
 
 /**
@@ -373,8 +254,7 @@ as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind, GError
 const gchar*
 as_database_get_location (AsDatabase *db)
 {
-	AsDatabasePrivate *priv = GET_PRIVATE (db);
-	return priv->database_path;
+	return NULL;
 }
 
 /**
@@ -387,10 +267,6 @@ as_database_get_location (AsDatabase *db)
 void
 as_database_set_location (AsDatabase *db, const gchar *dir)
 {
-	AsDatabasePrivate *priv = GET_PRIVATE (db);
-	g_free (priv->database_path);
-	priv->database_path = g_strdup (dir);
-	g_debug ("AppSteam cache location altered to: %s", dir);
 }
 
 /**
