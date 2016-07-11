@@ -23,15 +23,14 @@
  */
 
 #define QT_NO_KEYWORDS
-
 #include "database.h"
 
-#include <database-schema.hpp>
-#include <xapian.h>
+#include <appstream.h>
 #include <QStringList>
 #include <QUrl>
 #include <QMultiHash>
 #include <QLoggingCategory>
+#include "as-component-private.h"
 
 #include "image.h"
 #include "screenshot.h"
@@ -39,34 +38,27 @@
 Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.database")
 
 using namespace Appstream;
-using namespace ASCache;
 
 class Appstream::DatabasePrivate {
     public:
-        DatabasePrivate(const QString& dbpath) : m_dbPath(dbpath) {
+        DatabasePrivate(const QString& cachePath) : m_cachePath(cachePath) {
         }
 
-        QString m_dbPath;
+        QString m_cachePath;
         QString m_errorString;
-        Xapian::Database m_db;
+        AsDataPool *m_dpool;
 
         bool open() {
-            try {
-                m_db = Xapian::Database (m_dbPath.trimmed().toStdString());
-            } catch (const Xapian::Error &error) {
-                m_errorString = QString::fromStdString (error.get_msg());
-                return false;
-            }
+            g_autoptr(GError) error = NULL;
 
-            int schemaVersion = 0;
-            try {
-                schemaVersion = stoi (m_db.get_metadata ("db-schema-version"));
-            } catch (...) {
-                qCWarning(APPSTREAMQT_DB, "Unable to read database schema version, assuming 0.");
-            }
+            m_dpool = as_data_pool_new ();
 
-            if (schemaVersion != AS_DB_SCHEMA_VERSION) {
-                qCWarning(APPSTREAMQT_DB, "Attempted to open an old version of the AppStream cache. Please refresh the cache and try again!");
+            if (m_cachePath.isEmpty())
+                as_data_pool_load (m_dpool, NULL, &error);
+            else
+                as_data_pool_load_cache_file (m_dpool, qPrintable(m_cachePath), &error);
+            if (error != NULL) {
+                m_errorString = QString::fromUtf8 (error->message);
                 return false;
             }
 
@@ -74,11 +66,11 @@ class Appstream::DatabasePrivate {
         }
 
         ~DatabasePrivate() {
-            m_db.close();
+            g_object_unref (m_dpool);
         }
 };
 
-Database::Database(const QString& dbPath) : d(new DatabasePrivate(dbPath)) {
+Database::Database(const QString& cachePath) : d(new DatabasePrivate(cachePath)) {
 
 }
 
@@ -94,152 +86,170 @@ Database::~Database() {
     // empty. needed for the scoped pointer for the private pointer
 }
 
-QString value(Xapian::Document document, XapianValues::XapianValues index) {
-    return QString::fromStdString(document.get_value(index));
+QString value(const gchar *cstr) {
+    return QString::fromUtf8(cstr);
 }
 
-Component xapianDocToComponent(Xapian::Document document) {
+QStringList value(gchar **strv) {
+    QStringList res;
+    if (strv == NULL)
+        return res;
+    for (uint i = 0; strv[i] != NULL; i++) {
+        res.append (QString::fromUtf8(strv[i]));
+    }
+    return res;
+}
+
+QStringList value(GPtrArray *array) {
+    QStringList res;
+    res.reserve(array->len);
+    for (uint i = 0; i < array->len; i++) {
+        auto strval = (const gchar*) g_ptr_array_index (array, i);
+	res.append (QString::fromUtf8(strval));
+    }
+    return res;
+}
+
+Component convertAsComponent(AsComponent *cpt) {
     Component component;
     std::string str;
 
     // kind
-    QString kindString = value (document, XapianValues::TYPE);
+    QString kindString = value (as_component_kind_to_string (as_component_get_kind (cpt)));
     component.setKind(Component::stringToKind(kindString));
 
     // Identifier
-    QString id = value(document, XapianValues::IDENTIFIER);
+    QString id = value(as_component_get_id (cpt));
     component.setId(id);
 
     // Component name
-    QString name = value(document,XapianValues::CPTNAME);
+    QString name = value(as_component_get_name (cpt));
     component.setName(name);
 
+    // Summary
+    QString summary = value(as_component_get_summary (cpt));
+    component.setSummary(summary);
+
     // Package name
-    QStringList packageNames = value(document,XapianValues::PKGNAMES).split(QLatin1Char(';'),QString::SkipEmptyParts);
+    QStringList packageNames = value(as_component_get_pkgnames (cpt));
     component.setPackageNames(packageNames);
 
     // Bundles
-    ASCache::Bundles pb_bundles;
-    str = document.get_value (XapianValues::BUNDLES);
-    pb_bundles.ParseFromString (str);
-    QHash<Component::BundleKind, QString> bundles;
-    bundles.reserve (pb_bundles.bundle_size ());
-    for (int i = 0; i < pb_bundles.bundle_size (); i++) {
-        const Bundles_Bundle& bdl = pb_bundles.bundle (i);
-        auto bkind = (Component::BundleKind) bdl.type ();
-        auto bdlid = QString::fromStdString(bdl.id ());
+    auto bundle_ids = as_component_get_bundles_table (cpt);
+    if (g_hash_table_size (bundle_ids) > 0) {
+        GHashTableIter iter;
+        gpointer key, strPtr;
 
-        if (bkind != Component::BundleKindUnknown) {
-            bundles.insertMulti(bkind, bdlid);
-        } else {
-            qCWarning(APPSTREAMQT_DB, "Found bundle of unknown type for '%s': %s", qPrintable(id), qPrintable(bdlid));
+        QHash<Component::BundleKind, QString> bundles;
+        g_hash_table_iter_init (&iter, bundle_ids);
+        while (g_hash_table_iter_next (&iter, &key, &strPtr)) {
+            auto bkind = (Component::BundleKind) GPOINTER_TO_INT (key);
+            auto bval = QString::fromUtf8((const gchar*) strPtr);
+            bundles.insertMulti(bkind, bval);
         }
-
+        component.setBundles(bundles);
     }
-    component.setBundles(bundles);
 
     // URLs
-    ASCache::Urls pb_urls;
-    str = document.get_value (XapianValues::URLS);
-    pb_urls.ParseFromString (str);
-    QMultiHash<Component::UrlKind, QUrl> urls;
-    for (int i = 0; i < pb_urls.url_size (); i++) {
-        const Urls_Url& pb_url = pb_urls.url (i);
-        auto ukind = (Component::UrlKind) pb_url.type ();
-        QUrl url = QUrl::fromUserInput(QString::fromStdString(pb_url.url ()));
+    auto urls_table = as_component_get_urls_table (cpt);
+    if (g_hash_table_size (urls_table) > 0) {
+        GHashTableIter iter;
+        gpointer key, cstrUrl;
 
-        if (ukind != Component::UrlKindUnknown) {
-            urls.insertMulti(ukind, url);
-        } else {
-            qCWarning(APPSTREAMQT_DB, "URL of unknown type found for '%s': %s", qPrintable(id), qPrintable(url.toString()));
+        QMultiHash<Component::UrlKind, QUrl> urls;
+        g_hash_table_iter_init (&iter, bundle_ids);
+        while (g_hash_table_iter_next (&iter, &key, &cstrUrl)) {
+            auto ukind = (Component::UrlKind) GPOINTER_TO_INT (key);
+            auto url = QUrl::fromUserInput(QString::fromUtf8((const gchar*) cstrUrl));
+
+            if (ukind != Component::UrlKindUnknown) {
+                urls.insertMulti(ukind, url);
+            } else {
+                qCWarning(APPSTREAMQT_DB, "URL of unknown type found for '%s': %s", qPrintable(id), qPrintable(url.toString()));
+            }
         }
+        component.setUrls(urls);
     }
-    component.setUrls(urls);
 
     // Provided items
-    ASCache::ProvidedItems pbPI;
-    str = document.get_value (XapianValues::PROVIDED_ITEMS);
-    pbPI.ParseFromString (str);
     QList<Provides> provideslist;
-    for (int i = 0; i < pbPI.provided_size (); i++) {
-        const ProvidedItems_Provided& pbProv = pbPI.provided (i);
+    for (uint j = 0; j < AS_PROVIDED_KIND_LAST; j++) {
+        AsProvidedKind kind = (AsProvidedKind) j;
 
-        for (int j = 0; j < pbProv.item_size (); j++) {
+        AsProvided *prov = as_component_get_provided_for_kind (cpt, kind);
+        if (prov == NULL)
+            continue;
+
+        auto pkind = (Provides::Kind) kind;
+        gchar **items = as_provided_get_items (prov);
+	for (uint j = 0; items[j] != NULL; j++) {
             Provides provides;
-            provides.setKind((Provides::Kind) pbProv.type ());
-            provides.setValue(QString::fromStdString(pbProv.item (j)));
+            provides.setKind(pkind);
+            provides.setValue(QString::fromUtf8(items[j]));
             provideslist << provides;
         }
     }
     component.setProvides(provideslist);
 
     // Icons
-    ASCache::Icons pbIcons;
-    str = document.get_value (XapianValues::ICONS);
-    pbIcons.ParseFromString (str);
-    for (int i = 0; i < pbIcons.icon_size (); i++) {
-        const Icons_Icon& pbIcon = pbIcons.icon (i);
-
-        if (pbIcon.type () == Icons_IconType_STOCK) {
-            component.setIcon(QString::fromStdString(pbIcon.value()));
+    auto icons = as_component_get_icons (cpt);
+    for (uint i = 0; i < icons->len; i++) {
+        auto icon = AS_ICON (g_ptr_array_index (icons, i));
+        if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+            component.setIcon(QString::fromUtf8(as_icon_get_name (icon)));
         } else {
-            auto size = QSize(pbIcon.width(), pbIcon.height());
-            QUrl url = QUrl::fromUserInput(QString::fromStdString(pbIcon.value()));
+            // TODO: Support more icon types properly
+            auto size = QSize(as_icon_get_width (icon),
+                              as_icon_get_height (icon));
+            QUrl url = QUrl::fromUserInput(QString::fromUtf8(as_icon_get_filename (icon)));
             component.addIconUrl(url, size);
         }
     }
 
-    // Summary
-    QString summary = value(document,XapianValues::SUMMARY);
-    component.setSummary(summary);
-
     // Long description
-    QString description = value(document,XapianValues::DESCRIPTION);
+    QString description = value(as_component_get_description (cpt));
     component.setDescription(description);
 
     // Categories
-    QStringList categories = value(document, XapianValues::CATEGORIES).split(QLatin1Char(';'));
+    QStringList categories = value(as_component_get_categories (cpt));
     component.setCategories(categories);
 
     // Extends
-    const QStringList extends = value(document, XapianValues::EXTENDS).split(QLatin1Char(';'));
+    const QStringList extends = value(as_component_get_extends (cpt));
     component.setExtends(extends);
 
     // Extensions
-    const QStringList extensions = value(document, XapianValues::EXTENSIONS).split(QLatin1Char(';'));
+    const QStringList extensions = value(as_component_get_extensions (cpt));
     component.setExtensions(extensions);
 
     // Screenshots
-    ASCache::Screenshots pb_scrs;
-    str = document.get_value (XapianValues::SCREENSHOTS);
-    pb_scrs.ParseFromString (str);
     QList<Appstream::Screenshot> screenshots;
-    screenshots.reserve(pb_scrs.screenshot_size ());
-    for (int i = 0; i < pb_scrs.screenshot_size (); i++) {
-        const Screenshots_Screenshot& pb_scr = pb_scrs.screenshot (i);
-        Appstream::Screenshot scr;
+    auto scrs = as_component_get_screenshots (cpt);
+    for (uint i = 0; i < scrs->len; i++) {
+        auto cscr = AS_SCREENSHOT (g_ptr_array_index (scrs, i));
+	Appstream::Screenshot scr;
 
-        if (pb_scr.primary())
+        if (as_screenshot_get_kind (cscr) == AS_SCREENSHOT_KIND_DEFAULT)
             scr.setDefault(true);
-        if (pb_scr.has_caption())
-            scr.setCaption(QString::fromStdString(pb_scr.caption()));
+
+        if (as_screenshot_get_caption (cscr) != NULL)
+            scr.setCaption(QString::fromUtf8(as_screenshot_get_caption (cscr)));
 
         QList<Appstream::Image> images;
-        images.reserve(pb_scr.image_size());
-        for (int j = 0; j < pb_scr.image_size(); j++) {
-            const Screenshots_Image& pb_img = pb_scr.image(j);
+        auto images_array = as_screenshot_get_images (cscr);
+        for (uint j = 0; j < images_array->len; j++) {
+            auto cimg = AS_IMAGE (g_ptr_array_index (images_array, j));
+
             Appstream::Image image;
 
-            image.setUrl(QUrl(QString::fromStdString(pb_img.url())));
-            image.setWidth(pb_img.width ());
-            image.setHeight(pb_img.height ());
+            image.setUrl(QUrl(QString::fromUtf8(as_image_get_url (cimg))));
+            image.setWidth(as_image_get_width (cimg));
+            image.setHeight(as_image_get_height (cimg));
 
-            if (pb_img.source ()) {
-                image.setKind(Appstream::Image::Kind::Plain);
-            } else {
+            if (as_image_get_kind (cimg) == AS_IMAGE_KIND_THUMBNAIL)
                 image.setKind(Appstream::Image::Kind::Thumbnail);
-            }
-
+            else
+                image.setKind(Appstream::Image::Kind::Plain);
             images.append(image);
         }
         scr.setImages(images);
@@ -249,197 +259,73 @@ Component xapianDocToComponent(Xapian::Document document) {
     component.setScreenshots(screenshots);
 
     // Compulsory-for-desktop information
-    QStringList compulsory = value(document, XapianValues::COMPULSORY_FOR).split(QLatin1Char(';'));
+    QStringList compulsory = value(as_component_get_compulsory_for_desktops (cpt));
     component.setCompulsoryForDesktops(compulsory);
 
     // License
-    QString license = value(document,XapianValues::LICENSE);
+    QString license = value(as_component_get_project_license (cpt));
     component.setProjectLicense(license);
 
     // Project group
-    QString projectGroup = value(document,XapianValues::PROJECT_GROUP);
+    QString projectGroup = value(as_component_get_project_group (cpt));
     component.setProjectGroup(projectGroup);
 
     // Developer name
-    QString developerName = value(document,XapianValues::DEVELOPER_NAME);
+    QString developerName = value(as_component_get_developer_name (cpt));
     component.setDeveloperName(developerName);
 
     // Releases
-    Releases pb_rels;
-    str = document.get_value (XapianValues::RELEASES);
-    pb_rels.ParseFromString (str);
-    Q_UNUSED(pb_rels);
+      // TODO
 
     return component;
 }
 
-QList<Component> parseSearchResults(Xapian::MSet matches) {
+QList< Component > Database::allComponents() const
+{
     QList<Component> components;
-    components.reserve(matches.size());
-    for (Xapian::MSetIterator it = matches.begin(); it != matches.end(); ++it) {
-        Xapian::Document document = it.get_document ();
-        components << xapianDocToComponent(document);
-    }
-    return components;
-}
 
-QList< Component > Database::allComponents() const {
-    QList<Component> components;
-    components.reserve(d->m_db.get_termfreq(std::string()));
+    // get a pointer array of all components we have
+    auto array = as_data_pool_get_components (d->m_dpool);
+    components.reserve(array->len);
 
-    // Iterate through all Xapian documents
-    Xapian::PostingIterator it = d->m_db.postlist_begin (std::string());
-    for (Xapian::PostingIterator it = d->m_db.postlist_begin(std::string());it != d->m_db.postlist_end(std::string()); ++it) {
-        Xapian::Document doc = d->m_db.get_document (*it);
-        Component component = xapianDocToComponent (doc);
-        components << component;
+    // create QList of AppStream::Component out of the AsComponents
+    for (uint i = 0; i < array->len; i++) {
+        auto cpt = AS_COMPONENT (g_ptr_array_index (array, i));
+        components << convertAsComponent(cpt);
     }
 
     return components;
 }
 
-Component Database::componentById(const QString& id) const {
-    Xapian::Query id_query = Xapian::Query (Xapian::Query::OP_OR,
-                                            Xapian::Query("AI" + id.trimmed().toStdString()),
-                                            Xapian::Query ());
-    id_query.serialise ();
-
-    Xapian::Enquire enquire = Xapian::Enquire (d->m_db);
-    enquire.set_query (id_query);
-
-    Xapian::MSet matches = enquire.get_mset (0, d->m_db.get_doccount ());
-    if (matches.size () > 1) {
-        qCWarning(APPSTREAMQT_DB, "Found more than one component with id '%s'! Returning the first one.", qPrintable(id));
-        Q_ASSERT(false);
-    }
-    if (matches.empty()) {
+Component Database::componentById(const QString& id) const
+{
+    auto cpt = as_data_pool_get_component_by_id (d->m_dpool, qPrintable(id));
+    if (cpt == NULL)
         return Component();
-    }
 
-    Xapian::Document document = matches[matches.get_firstitem ()].get_document ();
-
-    return xapianDocToComponent(document);
+    return convertAsComponent(cpt);
 }
 
-QList< Component > Database::componentsByKind(Component::Kind kind) const {
-    Xapian::Query item_query;
-    item_query = Xapian::Query ("AT" + Component::kindToString(kind).toStdString());
+QList< Component > Database::componentsByKind(Component::Kind kind) const
+{
+    QList<Component> res;
+    // FIXME
+    // TODO
 
-    item_query.serialise ();
-
-    Xapian::Enquire enquire = Xapian::Enquire (d->m_db);
-    enquire.set_query (item_query);
-    Xapian::MSet matches = enquire.get_mset (0, d->m_db.get_doccount ());
-    return parseSearchResults(matches);
+    return res;
 }
 
-Xapian::QueryParser newAppStreamParser (Xapian::Database db) {
-    Xapian::QueryParser xapian_parser = Xapian::QueryParser ();
-    xapian_parser.set_database (db);
-    xapian_parser.add_boolean_prefix ("id", "AI");
-    xapian_parser.add_boolean_prefix ("pkg", "AP");
-    xapian_parser.add_boolean_prefix ("provides", "AE");
-    xapian_parser.add_boolean_prefix ("section", "XS");
-    xapian_parser.add_prefix ("pkg_wildcard", "XP");
-    xapian_parser.add_prefix ("pkg_wildcard", "AP");
-    xapian_parser.set_default_op (Xapian::Query::OP_AND);
-    return xapian_parser;
-}
+QList< Component > Database::findComponentsByString(const QString& searchTerm, const QStringList& categories)
+{
+    Q_UNUSED(categories); // FIXME
 
-typedef QPair<Xapian::Query, Xapian::Query> QueryPair;
+    auto res_array = as_data_pool_search (d->m_dpool, qPrintable(searchTerm));
+    QList<Component> result;
+    result.reserve(res_array->len);
 
-QueryPair buildQueries(QString searchTerm, const QStringList& categories, Xapian::Database db) {
-    // empty query returns a query that matches nothing (for performance
-    // reasons)
-    if (searchTerm.isEmpty() && categories.isEmpty()) {
-        return QueryPair();
-    }
-
-    // generate category query
-    Xapian::Query categoryQuery = Xapian::Query ();
-    Q_FOREACH(const QString& category, categories) {
-        categoryQuery = Xapian::Query(Xapian::Query::OP_OR,
-                                      categoryQuery,
-                                      Xapian::Query(category.trimmed().toLower().toStdString()));
-    }
-
-        // we cheat and return a match-all query for single letter searches
-    if (searchTerm.size() < 2) {
-        Xapian::Query allQuery = Xapian::Query(Xapian::Query::OP_OR,Xapian::Query (""), categoryQuery);
-        return QueryPair(allQuery,allQuery);
-    }
-
-    // get a pkg query
-    Xapian::Query pkgQuery = Xapian::Query ();
-
-    // try split on one magic char
-    if(searchTerm.contains(QLatin1Char(','))) {
-        QStringList parts = searchTerm.split(QLatin1Char(','));
-        Q_FOREACH(const QString& part, parts) {
-            pkgQuery = Xapian::Query (Xapian::Query::OP_OR,
-                                   pkgQuery,
-                                   Xapian::Query ("XP" + part.trimmed().toStdString()));
-            pkgQuery = Xapian::Query (Xapian::Query::OP_OR,
-                                   pkgQuery,
-                                   Xapian::Query ("AP" + part.trimmed().toStdString()));
-        }
-    } else {
-        // try another
-        QStringList parts = searchTerm.split(QLatin1Char('\n'));
-        Q_FOREACH(const QString& part, parts) {
-            pkgQuery = Xapian::Query (Xapian::Query::OP_OR,
-                                       Xapian::Query("XP" + part.trimmed().toStdString()),
-                                       pkgQuery);
-        }
-    }
-    if(!categoryQuery.empty()) {
-        pkgQuery = Xapian::Query(Xapian::Query::OP_AND,pkgQuery, categoryQuery);
-    }
-
-    // get a search query
-    if (!searchTerm.contains (QLatin1Char(':'))) {  // ie, not a mimetype query
-        // we need this to work around xapian oddness
-        searchTerm = searchTerm.replace(QLatin1Char('-'), QLatin1Char('_'));
-    }
-
-    Xapian::QueryParser parser = newAppStreamParser (db);
-    Xapian::Query fuzzyQuery = parser.parse_query (searchTerm.trimmed().toStdString(),
-                                                    Xapian::QueryParser::FLAG_PARTIAL |
-                                                    Xapian::QueryParser::FLAG_BOOLEAN);
-    // if the query size goes out of hand, omit the FLAG_PARTIAL
-    // (LP: #634449)
-    if (fuzzyQuery.get_length () > 1000) {
-        fuzzyQuery = parser.parse_query(searchTerm.trimmed().toStdString(),
-                                         Xapian::QueryParser::FLAG_BOOLEAN);
-    }
-
-    // now add categories
-    if(!categoryQuery.empty()) {
-        fuzzyQuery = Xapian::Query(Xapian::Query::OP_AND,fuzzyQuery, categoryQuery);
-    }
-
-    return QueryPair(pkgQuery, fuzzyQuery);
-}
-
-QList< Component > Database::findComponentsByString(const QString& searchTerm, const QStringList& categories) {
-    QPair<Xapian::Query, Xapian::Query> queryPair = buildQueries(searchTerm.trimmed(), categories, d->m_db);
-
-    // "normal" query
-    Xapian::Query query = queryPair.first;
-    query.serialise ();
-
-    Xapian::Enquire enquire = Xapian::Enquire (d->m_db);
-    enquire.set_query (query);
-    QList<Component> result = parseSearchResults (enquire.get_mset(0,d->m_db.get_doccount()));
-
-    // do fuzzy query if we got no results
-    if (result.isEmpty()) {
-        query = queryPair.second;
-        query.serialise ();
-
-        enquire = Xapian::Enquire (d->m_db);
-        enquire.set_query (query);
-        result = parseSearchResults(enquire.get_mset(0,d->m_db.get_doccount()));
+    for (uint i = 0; i < res_array->len; i++) {
+        auto cpt = AS_COMPONENT (g_ptr_array_index (res_array, i));
+        result << convertAsComponent(cpt);
     }
 
     return result;
@@ -447,18 +333,13 @@ QList< Component > Database::findComponentsByString(const QString& searchTerm, c
 
 QList<Component> Database::findComponentsByPackageName(const QString& packageName) const
 {
-    Xapian::Query pkgQuery(Xapian::Query::OP_OR,
-                              Xapian::Query(),
-                              Xapian::Query ("AP" + packageName.trimmed().toStdString()));
-
-    Xapian::Enquire enquire(d->m_db);
-    enquire.set_query (pkgQuery);
-
-    QList<Component> result = parseSearchResults (enquire.get_mset(0,d->m_db.get_doccount()));
+    // FIXME
+    // TODO
+    QList<Component> result;
     return result;
 }
 
 
-Database::Database() : d(new DatabasePrivate(QStringLiteral("/var/cache/app-info/xapian/default"))) {
+Database::Database() : d(new DatabasePrivate(QString())) {
 
 }

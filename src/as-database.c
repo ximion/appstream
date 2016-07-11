@@ -106,18 +106,7 @@ gboolean
 as_database_open (AsDatabase *db, GError **error)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-	return as_data_pool_update (priv->dpool, error);
-}
-
-/**
- * as_database_test_opened:
- * @db: An instance of #AsDatabase.
- * @error: A #GError or %NULL.
- */
-static gboolean
-as_database_test_opened (AsDatabase *db, GError **error)
-{
-	return TRUE;
+	return as_data_pool_load (priv->dpool, NULL, error);
 }
 
 /**
@@ -132,8 +121,8 @@ as_database_test_opened (AsDatabase *db, GError **error)
 GPtrArray*
 as_database_get_all_components (AsDatabase *db, GError **error)
 {
-	//AsDatabasePrivate *priv = GET_PRIVATE (db);
-	return NULL; // FIXME, as_data_pool_get_components (priv->dpool);
+	AsDatabasePrivate *priv = GET_PRIVATE (db);
+	return as_data_pool_get_components (priv->dpool);
 }
 
 /**
@@ -198,8 +187,6 @@ as_database_get_components_by_provided_item (AsDatabase *db, AsProvidedKind kind
 	//GPtrArray* cpt_array;
 	//AsDatabasePrivate *priv = GET_PRIVATE (db);
 
-	if (!as_database_test_opened (db, error))
-		return NULL;
 	if (item == NULL) {
 		g_set_error_literal (error,
 					AS_DATABASE_ERROR,
@@ -229,8 +216,6 @@ as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind, GError
 	//GPtrArray* cpt_array;
 	//AsDatabasePrivate *priv = GET_PRIVATE (db);
 
-	if (!as_database_test_opened (db, error))
-		return NULL;
 	if (kind >= AS_COMPONENT_KIND_LAST) {
 		g_set_error_literal (error,
 					AS_DATABASE_ERROR,

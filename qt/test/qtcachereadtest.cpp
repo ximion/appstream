@@ -1,6 +1,7 @@
 
 #include <QtTest>
 #include <QObject>
+#include <QTemporaryFile>
 #include "database.h"
 #include "testpaths.h"
 
@@ -16,10 +17,10 @@ void DatabaseReadTest::testRead01()
 {
     // first, create a new database
     QProcess *p = new QProcess(this);
-    QTemporaryDir dbdir;
-    QVERIFY(dbdir.isValid());
+    QTemporaryFile cfile;
+    QVERIFY(cfile.open());
 
-    const QStringList args = { "refresh-index", "--datapath=" AS_SAMPLE_DATA, "--dbpath=" + dbdir.path()};
+    const QStringList args = { "refresh-index", "--force", "--datapath=" AS_SAMPLE_DATA, "--dbpath=" + cfile.fileName()};
     p->start(ASCLI_EXECUTABLE, args);
     p->waitForFinished();
 
@@ -30,7 +31,7 @@ void DatabaseReadTest::testRead01()
 
     // we now have a database, let's read some data
 
-    auto *db = new Database(dbdir.path() + "/xapian/default");
+    auto *db = new Database(cfile.fileName());
     QVERIFY(db->open());
 
     QList<Component> cpts = db->allComponents();
@@ -46,4 +47,4 @@ void DatabaseReadTest::testRead01()
 
 QTEST_MAIN(DatabaseReadTest)
 
-#include "qtdbreadtest.moc"
+#include "qtcachereadtest.moc"

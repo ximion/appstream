@@ -47,7 +47,17 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 		as_data_pool_set_metadata_locations (dpool, strv);
 	}
 
-	ret = as_data_pool_refresh_cache (dpool, forced, &error);
+	if (dbpath == NULL) {
+		ret = as_data_pool_refresh_cache (dpool, forced, &error);
+	} else {
+		if (forced)
+			as_data_pool_load_metadata (dpool);
+		else
+			as_data_pool_load (dpool, NULL, &error);
+		if (error == NULL)
+			as_data_pool_save_cache_file (dpool, dbpath, &error);
+	}
+
 	if (error != NULL) {
 		if (g_error_matches (error, AS_DATA_POOL_ERROR, AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE))
 			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
@@ -115,7 +125,7 @@ ascli_get_component (const gchar *dbpath, const gchar *identifier, gboolean deta
 		g_autoptr(AsDataPool) dpool = NULL;
 
 		dpool = as_data_pool_new ();
-		as_data_pool_update (dpool, &error);
+		as_data_pool_load (dpool, NULL, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			exit_code = 1;
@@ -176,7 +186,7 @@ ascli_search_component (const gchar *dbpath, const gchar *search_term, gboolean 
 		g_autoptr(AsDataPool) dpool = NULL;
 
 		dpool = as_data_pool_new ();
-		as_data_pool_update (dpool, &error);
+		as_data_pool_load (dpool, NULL, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;
@@ -307,7 +317,7 @@ ascli_dump_component (const gchar *dbpath, const gchar *identifier, gboolean no_
 		g_autoptr(AsDataPool) dpool = NULL;
 
 		dpool = as_data_pool_new ();
-		as_data_pool_update (dpool, &error);
+		as_data_pool_load (dpool, NULL, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			exit_code = 1;

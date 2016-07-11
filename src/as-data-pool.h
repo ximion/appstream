@@ -26,6 +26,7 @@
 #define __AS_DATAPOOL_H
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include "as-component.h"
 
 G_BEGIN_DECLS
@@ -84,13 +85,25 @@ const gchar 		*as_data_pool_get_locale (AsDataPool *dpool);
 void			as_data_pool_set_locale (AsDataPool *dpool,
 							const gchar *locale);
 
-gboolean		as_data_pool_update (AsDataPool *dpool, GError **error);
+gboolean		as_data_pool_load (AsDataPool *dpool,
+					   GCancellable *cancellable,
+					   GError **error);
+gboolean		as_data_pool_load_metadata (AsDataPool *dpool);
 
-GList			*as_data_pool_get_components (AsDataPool *dpool);
+gboolean		as_data_pool_load_cache_file (AsDataPool *dpool,
+						      const gchar *fname,
+						      GError **error);
+gboolean		as_data_pool_save_cache_file (AsDataPool *dpool,
+						      const gchar *fname,
+						      GError **error);
+
+void			as_data_pool_clear (AsDataPool *dpool);
+
+GPtrArray		*as_data_pool_get_components (AsDataPool *dpool);
 AsComponent		*as_data_pool_get_component_by_id (AsDataPool *dpool,
 								const gchar *id);
-
-GPtrArray		*as_data_pool_search (AsDataPool *dpool, const gchar *term);
+GPtrArray		*as_data_pool_search (AsDataPool *dpool,
+					      const gchar *term);
 
 GPtrArray		*as_data_pool_get_metadata_locations (AsDataPool *dpool);
 void			as_data_pool_set_metadata_locations (AsDataPool *dpool,

@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 G_GNUC_INTERNAL
-void as_cache_write (const gchar *path, const gchar *locale, GList *cpt_list, GError **error);
+void as_cache_write (const gchar *path, const gchar *locale, GPtrArray *cpts, GError **error);
 
 G_GNUC_INTERNAL
 GPtrArray *as_cache_read (const gchar *fname, GError **error);

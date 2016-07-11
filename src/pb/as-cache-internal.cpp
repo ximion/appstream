@@ -99,7 +99,7 @@ images_array_to_imageentry_cb (AsImage *img, ASCache::Screenshot *pb_sshot)
  * Rebuild an AppStream cache file.
  */
 void
-as_cache_write (const gchar *fname, const gchar *locale, GList *cpt_list, GError **error)
+as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError **error)
 {
 	// check if old unrequired version of db still exists on filesystem
 	if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
@@ -110,10 +110,12 @@ as_cache_write (const gchar *fname, const gchar *locale, GList *cpt_list, GError
 	ASCache::Cache cache;
 
 	cache.set_cache_version (1);
+	if (locale == NULL)
+		locale = "C";
 	cache.set_locale (locale);
 
-	for (GList *list = cpt_list; list != NULL; list = list->next) {
-		AsComponent *cpt = (AsComponent*) list->data;
+	for (uint cindex = 0; cindex < cpts->len; cindex++) {
+		auto cpt = AS_COMPONENT (g_ptr_array_index (cpts, cindex));
 
 		// Sanity check
 		if (!as_component_is_valid (cpt)) {
@@ -163,7 +165,7 @@ as_cache_write (const gchar *fname, const gchar *locale, GList *cpt_list, GError
 		if (g_hash_table_size (bundle_ids) > 0) {
 			g_hash_table_foreach (bundle_ids,
 						(GHFunc) bundles_hashtable_to_bundleentry_cb,
-						&pb_cpt);
+						pb_cpt);
 		}
 
 		// Extends
@@ -181,12 +183,11 @@ as_cache_write (const gchar *fname, const gchar *locale, GList *cpt_list, GError
 		}
 
 		// URLs
-		GHashTable *urls_table;
-		urls_table = as_component_get_urls_table (cpt);
+		auto urls_table = as_component_get_urls_table (cpt);
 		if (g_hash_table_size (urls_table) > 0) {
 			g_hash_table_foreach (urls_table,
 						(GHFunc) urls_hashtable_to_urlentry_cb,
-						&pb_cpt);
+						pb_cpt);
 		}
 
 		// Icons
@@ -339,12 +340,12 @@ as_cache_write (const gchar *fname, const gchar *locale, GList *cpt_list, GError
 		if (g_hash_table_size (langs_table) > 0) {
 			g_hash_table_foreach (langs_table,
 						(GHFunc) langs_hashtable_to_langentry_cb,
-						&pb_cpt);
+						pb_cpt);
 		}
 	}
 
 	// Save the cache object to disk
-	int fd = open (fname, O_WRONLY | O_CREAT);
+	int fd = open (fname, O_WRONLY | O_CREAT, 0755);
 	// TODO: Handle error
 
 	google::protobuf::io::FileOutputStream ostream (fd);
