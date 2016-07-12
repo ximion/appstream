@@ -282,10 +282,11 @@ Component convertAsComponent(AsComponent *cpt) {
 
 QList< Component > Database::allComponents() const
 {
+    g_autoptr(GPtrArray) array = NULL;
     QList<Component> components;
 
     // get a pointer array of all components we have
-    auto array = as_data_pool_get_components (d->m_dpool);
+    array = as_data_pool_get_components (d->m_dpool);
     components.reserve(array->len);
 
     // create QList of AppStream::Component out of the AsComponents
@@ -299,7 +300,9 @@ QList< Component > Database::allComponents() const
 
 Component Database::componentById(const QString& id) const
 {
-    auto cpt = as_data_pool_get_component_by_id (d->m_dpool, qPrintable(id));
+    g_autoptr(AsComponent) cpt = NULL;
+
+    cpt = as_data_pool_get_component_by_id (d->m_dpool, qPrintable(id));
     if (cpt == NULL)
         return Component();
 
@@ -308,23 +311,36 @@ Component Database::componentById(const QString& id) const
 
 QList< Component > Database::componentsByKind(Component::Kind kind) const
 {
-    QList<Component> res;
-    // FIXME
-    // TODO
+    g_autoptr(GPtrArray) array = NULL;
+    g_autoptr(GError) error = NULL;
+    QList<Component> result;
 
-    return res;
+    array = as_data_pool_get_components_by_kind (d->m_dpool, (AsComponentKind) kind, &error);
+    if (error != NULL) {
+        qCCritical(APPSTREAMQT_DB, "Unable to get components by kind: %s", error->message);
+        return result;
+    }
+
+    result.reserve(array->len);
+    for (uint i = 0; i < array->len; i++) {
+        auto cpt = AS_COMPONENT (g_ptr_array_index (array, i));
+        result << convertAsComponent(cpt);
+    }
+
+    return result;
 }
 
 QList< Component > Database::findComponentsByString(const QString& searchTerm, const QStringList& categories)
 {
     Q_UNUSED(categories); // FIXME
 
-    auto res_array = as_data_pool_search (d->m_dpool, qPrintable(searchTerm));
+    g_autoptr(GPtrArray) array = NULL;
+    array = as_data_pool_search (d->m_dpool, qPrintable(searchTerm));
     QList<Component> result;
-    result.reserve(res_array->len);
+    result.reserve(array->len);
 
-    for (uint i = 0; i < res_array->len; i++) {
-        auto cpt = AS_COMPONENT (g_ptr_array_index (res_array, i));
+    for (uint i = 0; i < array->len; i++) {
+        auto cpt = AS_COMPONENT (g_ptr_array_index (array, i));
         result << convertAsComponent(cpt);
     }
 
