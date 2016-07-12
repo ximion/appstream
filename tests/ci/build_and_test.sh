@@ -10,8 +10,7 @@ set -x
 # on the CI system.
 #
 
-# this prevents a warning about ABI mismatch from Xapian when compiled with Clang
-if [ "$COMPILER_VENDOR" = "clang" ]; then export CXXFLAGS="-Wno-#warnings"; fi
+$CC --version
 
 # configure AppStream build with all flags enabled
 mkdir build && cd build

@@ -20,7 +20,6 @@ RUN apt-get install -yq --no-install-recommends \
     qt5-default \
     libyaml-dev \
     xmlto \
-    libxapian-dev \
     publican \
     gobject-introspection \
     libprotobuf-dev \
