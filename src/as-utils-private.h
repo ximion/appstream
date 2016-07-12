@@ -24,6 +24,8 @@
 #include <glib-object.h>
 
 G_BEGIN_DECLS
+#define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
+#pragma GCC visibility push(hidden)
 
 gboolean		as_utils_delete_dir_recursive (const gchar* dirname);
 
@@ -32,15 +34,19 @@ GPtrArray		*as_utils_categories_from_strv (gchar **categories_strv,
 GPtrArray		*as_utils_categories_from_str (const gchar *categories_str,
 							GPtrArray *system_categories);
 
+AS_INTERNAL_VISIBLE
 GPtrArray		*as_utils_find_files_matching (const gchar *dir,
 							const gchar *pattern,
 							gboolean recursive,
 							GError **error);
+AS_INTERNAL_VISIBLE
 GPtrArray		*as_utils_find_files (const gchar *dir,
 						gboolean recursive,
 						GError **error);
 
 gboolean		as_utils_is_root (void);
+
+AS_INTERNAL_VISIBLE
 gboolean		as_utils_is_writable (const gchar *path);
 
 gchar			*as_str_replace (const gchar *str,
@@ -50,8 +56,10 @@ gchar			*as_str_replace (const gchar *str,
 gchar			**as_ptr_array_to_strv (GPtrArray *array);
 
 gboolean		as_touch_location (const gchar *fname);
-gboolean		as_copy_file (const gchar *source, const gchar *destination, GError **error);
 void			as_reset_umask (void);
+
+AS_INTERNAL_VISIBLE
+gboolean		as_copy_file (const gchar *source, const gchar *destination, GError **error);
 
 gboolean		as_is_cruft_locale (const gchar *locale);
 gchar			*as_locale_strip_encoding (gchar *locale);
@@ -62,6 +70,7 @@ gboolean		as_arch_compatible (const gchar *arch1,
 
 gboolean		as_utils_search_token_valid (const gchar *token);
 
+#pragma GCC visibility pop
 G_END_DECLS
 
 #endif /* __AS_UTILS_PRIVATE_H */

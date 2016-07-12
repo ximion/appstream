@@ -24,9 +24,11 @@
 #include "as-release.h"
 
 G_BEGIN_DECLS
+#pragma GCC visibility push(hidden)
 
 GHashTable	*as_release_get_description_table (AsRelease *release);
 
+#pragma GCC visibility pop
 G_END_DECLS
 
 #endif /* __AS_RELEASE_PRIVATE_H */

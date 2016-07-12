@@ -25,9 +25,11 @@
 #include "as-screenshot.h"
 
 G_BEGIN_DECLS
+#pragma GCC visibility push(hidden)
 
 GHashTable		*as_screenshot_get_caption_table (AsScreenshot *screenshot);
 
+#pragma GCC visibility pop
 G_END_DECLS
 
 #endif /* __AS_SCREENSHOT_PRIVATE_H */
