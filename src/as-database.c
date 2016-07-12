@@ -159,14 +159,6 @@ AsComponent*
 as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **error)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
-	if (cid == NULL) {
-		g_set_error_literal (error,
-					AS_DATABASE_ERROR,
-					AS_DATABASE_ERROR_TERM_INVALID,
-					"Search term must not be NULL.");
-		return NULL;
-	}
-
 	return as_data_pool_get_component_by_id (priv->dpool, cid);
 }
 
@@ -184,20 +176,8 @@ as_database_get_component_by_id (AsDatabase *db, const gchar *cid, GError **erro
 GPtrArray*
 as_database_get_components_by_provided_item (AsDatabase *db, AsProvidedKind kind, const gchar *item, GError **error)
 {
-	//GPtrArray* cpt_array;
-	//AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	if (item == NULL) {
-		g_set_error_literal (error,
-					AS_DATABASE_ERROR,
-					AS_DATABASE_ERROR_TERM_INVALID,
-					"Search term must not be NULL.");
-		return NULL;
-	}
-
-	// FIXME
-	//cpt_array = xa_database_read_get_components_by_provides (priv->xdb, kind, item);
-	return NULL;
+	AsDatabasePrivate *priv = GET_PRIVATE (db);
+	return as_data_pool_get_components_by_provided_item (priv->dpool, kind, item, error);
 }
 
 /**
@@ -213,21 +193,8 @@ as_database_get_components_by_provided_item (AsDatabase *db, AsProvidedKind kind
 GPtrArray*
 as_database_get_components_by_kind (AsDatabase *db, AsComponentKind kind, GError **error)
 {
-	//GPtrArray* cpt_array;
-	//AsDatabasePrivate *priv = GET_PRIVATE (db);
-
-	if (kind >= AS_COMPONENT_KIND_LAST) {
-		g_set_error_literal (error,
-					AS_DATABASE_ERROR,
-					AS_DATABASE_ERROR_TERM_INVALID,
-					"Can not search for unknown component type.");
-		return NULL;
-	}
-
-	// FIXME
-	return NULL;
-	//cpt_array = xa_database_read_get_components_by_kind (priv->xdb, kind);
-	//return cpt_array;
+	AsDatabasePrivate *priv = GET_PRIVATE (db);
+	return as_data_pool_get_components_by_kind (priv->dpool, kind, error);
 }
 
 /**

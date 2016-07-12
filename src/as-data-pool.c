@@ -20,14 +20,20 @@
 
 /**
  * SECTION:as-data-pool
- * @short_description: Collect and temporarily store metadata from different sources
+ * @short_description: Provides access to the AppStream metadata pool.
  *
- * This class contains a temporary pool of metadata which has been collected from different
- * sources on the system.
- * It can directly be used, but usually it is accessed through a #AsDatabase instance.
- * This class is used by internally by the cache builder, but might be useful for others.
+ * This class loads AppStream metadata from various sources and refines it with existing
+ * knowledge about the system (e.g. by setting absolute pazhs for cached icons).
+ * An #AsDataPool will use an on-disk cache to store metadata is has read and refined to
+ * speed up the loading time when the same data is requested a second time.
  *
- * See also: #AsDatabase
+ * You can find AppStream metadata matching farious criteria, and also add new metadata to
+ * the pool.
+ * The caching behavior can be controlled by the application using #AsDataPool.
+ *
+ * An AppStream cache object can also be created and read using the appstreamcli(1) utility.
+ *
+ * See also: #AsComponent
  */
 
 #include "config.h"
@@ -65,6 +71,7 @@ typedef struct
 	gchar **icon_paths;
 	gchar **term_greylist;
 
+	AsCacheFlags cflags;
 	gchar *sys_cache_path;
 	gchar *user_cache_path;
 	time_t cache_ctime;
@@ -706,7 +713,7 @@ as_data_pool_save_cache_file (AsDataPool *dpool, const gchar *fname, GError **er
  *
  * Get a list of found components.
  *
- * Returns: (element-type AsComponent) (transfer none): an array of #AsComponent instances.
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent instances.
  */
 GPtrArray*
 as_data_pool_get_components (AsDataPool *dpool)
@@ -739,10 +746,118 @@ AsComponent*
 as_data_pool_get_component_by_id (AsDataPool *dpool, const gchar *id)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	gpointer match;
+
 	if (id == NULL)
 		return NULL;
 
-	return g_object_ref (AS_COMPONENT (g_hash_table_lookup (priv->cpt_table, id)));
+	match = g_hash_table_lookup (priv->cpt_table, id);
+	if (match == NULL)
+		return NULL;
+
+	return g_object_ref (AS_COMPONENT (match));
+}
+
+/**
+ * as_data_pool_get_components_by_provided_item:
+ * @dpool: An instance of #AsDataPool.
+ * @kind: An #AsProvidesKind
+ * @item: The value of the provided item.
+ * @error: A #GError or %NULL.
+ *
+ * Find components in the AppStream data pool whcih provide a certain item.
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
+ */
+GPtrArray*
+as_data_pool_get_components_by_provided_item (AsDataPool *dpool,
+					      AsProvidedKind kind,
+					      const gchar *item,
+					      GError **error)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	GHashTableIter iter;
+	gpointer value;
+	GPtrArray *results;
+
+	if (item == NULL) {
+		g_set_error_literal (error,
+					AS_DATA_POOL_ERROR,
+					AS_DATA_POOL_ERROR_TERM_INVALID,
+					"Search term must not be NULL.");
+		return NULL;
+	}
+
+	results = g_ptr_array_new_with_free_func (g_object_unref);
+	g_hash_table_iter_init (&iter, priv->cpt_table);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		g_autoptr(GList) provided = NULL;
+		GList *l;
+		AsComponent *cpt = AS_COMPONENT (value);
+
+		provided = as_component_get_provided (cpt);
+		for (l = provided; l != NULL; l = l->next) {
+			AsProvided *prov = AS_PROVIDED (l->data);
+			if (kind != AS_PROVIDED_KIND_UNKNOWN) {
+				/* check if the kind matches. an unknown kind matches all provides types */
+				if (as_provided_get_kind (prov) != kind)
+					continue;
+			}
+
+			if (as_provided_has_item (prov, item))
+				g_ptr_array_add (results, g_object_ref (cpt));
+		}
+	}
+
+	return results;
+}
+
+/**
+ * as_data_pool_get_components_by_kind:
+ * @dpool: An instance of #AsDatabase.
+ * @kind: An #AsComponentKind.
+ * @error: A #GError or %NULL.
+ *
+ * Return a list of all components in the database which are of a certain kind.
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
+ */
+GPtrArray*
+as_data_pool_get_components_by_kind (AsDataPool *dpool,
+				     AsComponentKind kind,
+				     GError **error)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	GHashTableIter iter;
+	gpointer value;
+	GPtrArray *results;
+
+	if (kind >= AS_COMPONENT_KIND_LAST) {
+		g_set_error_literal (error,
+					AS_DATA_POOL_ERROR,
+					AS_DATA_POOL_ERROR_TERM_INVALID,
+					"Can not search for unknown component type.");
+		return NULL;
+	}
+
+	if (kind == AS_COMPONENT_KIND_UNKNOWN) {
+		g_set_error_literal (error,
+					AS_DATA_POOL_ERROR,
+					AS_DATA_POOL_ERROR_TERM_INVALID,
+					"Can not search for unknown component type.");
+		return NULL;
+	}
+
+	results = g_ptr_array_new_with_free_func (g_object_unref);
+	g_hash_table_iter_init (&iter, priv->cpt_table);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		AsComponent *cpt = AS_COMPONENT (value);
+
+		if (as_component_get_kind (cpt) == kind)
+				g_ptr_array_add (results, g_object_ref (cpt));
+	}
+
+	return results;
 }
 
 /**
@@ -1188,8 +1303,8 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 		if (!ret_poolupdate) {
 			g_set_error (error,
 				AS_DATA_POOL_ERROR,
-				AS_DATA_POOL_ERROR_CACHE_INCOMPLETE,
-				_("AppStream cache update completed, but some metadata was ignored due to errors."));
+				AS_DATA_POOL_ERROR_INCOMPLETE,
+				_("AppStream data pool was loaded, but some metadata was ignored due to errors."));
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
 		as_touch_location (cache_fname);
@@ -1290,6 +1405,33 @@ as_data_pool_set_metadata_locations (AsDataPool *dpool, gchar **dirs)
 }
 
 /**
+ * as_data_pool_get_cache_flags:
+ * @dpool: An instance of #AsDataPool.
+ *
+ * Get the #AsCacheFlags for this data pool.
+ */
+AsCacheFlags
+as_data_pool_get_cache_flags (AsDataPool *dpool)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	return priv->cflags;
+}
+
+/**
+ * as_data_pool_set_cache_flags:
+ * @dpool: An instance of #AsDataPool.
+ * @flags: The new #AsCacheFlags.
+ *
+ * Set the #AsCacheFlags for this data pool.
+ */
+void
+as_data_pool_set_cache_flags (AsDataPool *dpool, AsCacheFlags flags)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	priv->cflags = flags;
+}
+
+/**
  * as_data_pool_error_quark:
  *
  * Return value: An error quark.
@@ -1317,4 +1459,15 @@ as_data_pool_new (void)
 	AsDataPool *dpool;
 	dpool = g_object_new (AS_TYPE_DATA_POOL, NULL);
 	return AS_DATA_POOL (dpool);
+}
+
+/* DEPRECATED */
+
+/**
+ * as_data_pool_update:
+ */
+gboolean
+as_data_pool_update (AsDataPool *dpool, GError **error)
+{
+	return as_data_pool_load (dpool, NULL, error);
 }

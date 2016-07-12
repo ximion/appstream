@@ -72,35 +72,25 @@ static int
 ascli_get_component_pkgnames (const gchar *identifier, gchar ***pkgnames)
 {
 	g_autoptr(GError) error = NULL;
-	g_autoptr(AsDatabase) db = NULL;
-	AsComponent *cpt = NULL;
-	gint exit_code = 0;
+	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
 
 	if (identifier == NULL) {
 		ascli_print_stderr (_("You need to specify a component-id."));
 		return 2;
 	}
 
-	db = as_database_new ();
-
-	as_database_open (db, &error);
+	dpool = as_data_pool_new ();
+	as_data_pool_load (dpool, NULL, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
-		exit_code = 1;
-		goto out;
+		return 1;
 	}
 
-	cpt = as_database_get_component_by_id (db, identifier, &error);
-	if (error != NULL) {
-		g_printerr ("%s\n", error->message);
-		exit_code = 1;
-		goto out;
-	}
-
+	cpt = as_data_pool_get_component_by_id (dpool, identifier);
 	if (cpt == NULL) {
 		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
-		exit_code = 4;
-		goto out;
+		return 4;
 	}
 
 	/* we need a variable to take the pkgnames array */
@@ -109,14 +99,10 @@ ascli_get_component_pkgnames (const gchar *identifier, gchar ***pkgnames)
 	*pkgnames = g_strdupv (as_component_get_pkgnames (cpt));
 	if (*pkgnames == NULL) {
 		ascli_print_stderr (_("Component '%s' has no installation candidate."), identifier);
-		exit_code = 1;
-		goto out;
+		return 1;
 	}
-out:
-	if (cpt != NULL)
-		g_object_unref (cpt);
 
-	return exit_code;
+	return 0;
 }
 
 /**

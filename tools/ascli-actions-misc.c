@@ -36,7 +36,8 @@ int
 ascli_show_status (void)
 {
 	guint i;
-	g_autoptr(AsDatabase) cache = NULL;
+	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(GError) error = NULL;
 	const gchar *metainfo_path = "/usr/share/metainfo";
 	const gchar *appdata_path = "/usr/share/appdata";
 
@@ -140,21 +141,20 @@ ascli_show_status (void)
 
 	/* TRANSLATORS: Status summary in ascli */
 	ascli_print_highlight (_("Summary:"));
-	cache = as_database_new ();
-	if (g_file_test (as_database_get_location (cache), G_FILE_TEST_IS_DIR)) {
-		g_autoptr(GPtrArray) cpts = NULL;
-		g_autoptr(GError) error = NULL;
 
-		ascli_print_stdout (_("The system metadata cache exists."));
-		as_database_open (cache, NULL);
-		cpts = as_database_get_all_components (cache, &error);
-		if (error != NULL) {
-			ascli_print_stdout (_("There was an error while trying to find additional information: %s"), error->message);
-		} else {
-			ascli_print_stdout (_("We have information on %i software components."), cpts->len);
-		}
+	dpool = as_data_pool_new ();
+	as_data_pool_load (dpool, NULL, &error);
+	if (error == NULL) {
+		g_autoptr(GPtrArray) cpts = NULL;
+		cpts = as_data_pool_get_components (dpool);
+
+		ascli_print_stdout (_("We have information on %i software components."), cpts->len);
+		/* TODO: Request the on-disk cache status from #AsDataPool and display it here.
+		 * ascli_print_stdout (_("The system metadata cache exists."));
+		 * ascli_print_stdout (_("The system metadata cache does not exist."));
+		 */
 	} else {
-		ascli_print_stdout (_("The system metadata cache does not exist."));
+		ascli_print_stderr (_("Error while loading the metadata pool: %s"), error->message);
 	}
 
 	return 0;

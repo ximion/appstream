@@ -64,14 +64,15 @@ typedef enum {
  * AsDataPoolError:
  * @AS_DATA_POOL_ERROR_FAILED:			Generic failure
  * @AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE:	We do not have write-access to the cache target location.
- * @AS_DATA_POOL_ERROR_CACHE_INCOMPLETE:	The cache was built, but we had to ignore some metadata.
+ * @AS_DATA_POOL_ERROR_INCOMPLETE:		The pool was loaded, but we had to ignore some metadata.
  *
  * A metadata pool error.
  **/
 typedef enum {
 	AS_DATA_POOL_ERROR_FAILED,
 	AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE,
-	AS_DATA_POOL_ERROR_CACHE_INCOMPLETE,
+	AS_DATA_POOL_ERROR_INCOMPLETE,
+	AS_DATA_POOL_ERROR_TERM_INVALID,
 	/*< private >*/
 	AS_DATA_POOL_ERROR_LAST
 } AsDataPoolError;
@@ -102,6 +103,13 @@ void			as_data_pool_clear (AsDataPool *dpool);
 GPtrArray		*as_data_pool_get_components (AsDataPool *dpool);
 AsComponent		*as_data_pool_get_component_by_id (AsDataPool *dpool,
 								const gchar *id);
+GPtrArray		*as_data_pool_get_components_by_provided_item (AsDataPool *dpool,
+								 AsProvidedKind kind,
+								 const gchar *item,
+								 GError **error);
+GPtrArray		*as_data_pool_get_components_by_kind (AsDataPool *dpool,
+								AsComponentKind kind,
+								GError **error);
 GPtrArray		*as_data_pool_search (AsDataPool *dpool,
 					      const gchar *term);
 
@@ -109,9 +117,16 @@ GPtrArray		*as_data_pool_get_metadata_locations (AsDataPool *dpool);
 void			as_data_pool_set_metadata_locations (AsDataPool *dpool,
 								gchar **dirs);
 
+AsCacheFlags		as_data_pool_get_cache_flags (AsDataPool *dpool);
+void			as_data_pool_set_cache_flags (AsDataPool *dpool,
+						      AsCacheFlags flags);
+
 gboolean		as_data_pool_refresh_cache (AsDataPool *dpool,
 						    gboolean force,
 						    GError **error);
+
+G_GNUC_DEPRECATED
+gboolean		as_data_pool_update (AsDataPool *dpool, GError **error);
 
 G_END_DECLS
 

@@ -25,26 +25,26 @@
 
 G_BEGIN_DECLS
 
-int		ascli_what_provides (const gchar *dbpath,
+int		ascli_what_provides (const gchar *cachepath,
 					const gchar *kind_str,
 					const gchar *item,
 					gboolean detailed);
 
-int		ascli_search_component (const gchar *dbpath,
+int		ascli_search_component (const gchar *cachepath,
 					const gchar *search_term,
 					gboolean detailed,
 					gboolean no_cache);
 
-int		ascli_get_component (const gchar *dbpath,
+int		ascli_get_component (const gchar *cachepath,
 					const gchar *identifier,
 					gboolean detailed,
 					gboolean no_cache);
 
-int		ascli_refresh_cache (const gchar *dbpath,
+int		ascli_refresh_cache (const gchar *cachepath,
 					const gchar *datapath,
 					gboolean forced);
 
-int		ascli_dump_component (const gchar *dbpath,
+int		ascli_dump_component (const gchar *cachepath,
 					const gchar *identifier,
 					gboolean no_cache);
 

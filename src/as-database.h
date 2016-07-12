@@ -54,6 +54,7 @@ struct _AsDatabaseClass
  *
  * A database query error.
  **/
+G_GNUC_DEPRECATED
 typedef enum {
 	AS_DATABASE_ERROR_FAILED,
 	AS_DATABASE_ERROR_MISSING,
@@ -65,30 +66,38 @@ typedef enum {
 
 #define	AS_DATABASE_ERROR	as_database_error_quark ()
 
-//G_GNUC_DEPRECATED
+G_GNUC_DEPRECATED
 AsDatabase		*as_database_new (void);
 GQuark			as_database_error_quark (void);
+G_GNUC_DEPRECATED
 gboolean		as_database_open (AsDatabase *db,
 						GError **error);
 
+G_GNUC_DEPRECATED
 const gchar		*as_database_get_location (AsDatabase *db);
+G_GNUC_DEPRECATED
 void			as_database_set_location (AsDatabase *db,
 							const gchar *dir);
 
+G_GNUC_DEPRECATED
 GPtrArray		*as_database_find_components (AsDatabase *db,
 							const gchar *term,
 							const gchar *cats_str,
 							GError **error);
 
+G_GNUC_DEPRECATED
 GPtrArray		*as_database_get_all_components (AsDatabase *db,
 							 GError **error);
+G_GNUC_DEPRECATED
 AsComponent		*as_database_get_component_by_id (AsDatabase *db,
 								const gchar *cid,
 								GError **error);
+G_GNUC_DEPRECATED
 GPtrArray		*as_database_get_components_by_provided_item (AsDatabase *db,
 								 AsProvidedKind kind,
 								 const gchar *item,
 								 GError **error);
+G_GNUC_DEPRECATED
 GPtrArray		*as_database_get_components_by_kind (AsDatabase *db,
 								AsComponentKind kind,
 								GError **error);
