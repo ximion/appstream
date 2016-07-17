@@ -37,10 +37,11 @@ set_source_files_properties(${ASLIB_CACHE_SOURCES} PROPERTIES COMPILE_FLAGS "-fv
 
 set(APPSTREAM_LIB_SRC
 		as-utils.c
-		# internal stuff to build the database
+		# internal
 		as-xmldata.c
 		as-yamldata.c
-		# (mostly) public API
+		as-distro-extras.c
+		# (mostly) public
 		as-metadata.c
 		as-component.c
 		as-enums.c
@@ -87,6 +88,7 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-component-private.h
 		as-screenshot-private.h
 		as-release-private.h
+		as-distro-extras.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/pb

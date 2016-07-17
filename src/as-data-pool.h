@@ -125,6 +125,9 @@ gboolean		as_data_pool_refresh_cache (AsDataPool *dpool,
 						    gboolean force,
 						    GError **error);
 
+G_GNUC_INTERNAL
+time_t			as_data_pool_get_cache_age (AsDataPool *dpool);
+
 G_GNUC_DEPRECATED
 gboolean		as_data_pool_update (AsDataPool *dpool, GError **error);
 
