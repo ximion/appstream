@@ -215,6 +215,7 @@ as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsCompon
 	guint i;
 	gchar **cats;
 	gchar **pkgnames;
+	GPtrArray* suggestions;
 
 	/* FIXME: We only do this for GNOME Software compatibility. In future, we need better rules on what to merge how, and
 	 * whether we want to merge stuff at all. */
@@ -242,6 +243,12 @@ as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsCompon
 	pkgnames = as_component_get_pkgnames (src_cpt);
 	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
 		as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
+
+	suggestions = as_component_get_suggestions (src_cpt);
+	if (suggestions != NULL) {
+		for (i = 0; i < suggestions->len; i++)
+			as_component_add_suggestion (dest_cpt, g_ptr_array_index (suggestions, i));
+	}
 
 	if (as_component_has_bundle (src_cpt))
 		as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));
