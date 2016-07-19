@@ -54,6 +54,8 @@ gchar			*as_str_replace (const gchar *str,
 					 const gchar *new_str);
 
 gchar			**as_ptr_array_to_strv (GPtrArray *array);
+const gchar		*as_ptr_array_find_string (GPtrArray *array,
+						   const gchar *value);
 
 gboolean		as_touch_location (const gchar *fname);
 void			as_reset_umask (void);

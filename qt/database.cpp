@@ -349,9 +349,22 @@ QList< Component > Database::findComponentsByString(const QString& searchTerm, c
 
 QList<Component> Database::findComponentsByPackageName(const QString& packageName) const
 {
-    // FIXME
-    // TODO
+    const gchar *pkgname = qPrintable(packageName);
     QList<Component> result;
+
+    g_autoptr(GPtrArray) cpts = as_data_pool_get_components (d->m_dpool);
+    for (uint i = 0; i < cpts->len; i++) {
+        auto cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+	auto pkgnames = as_component_get_pkgnames (cpt);
+	if (pkgnames == NULL)
+            continue;
+
+        for (uint j = 0; pkgnames[j] != NULL; j++) {
+            if (g_strcmp0 (pkgnames[j], pkgname) == 0)
+                result << convertAsComponent(cpt);
+	}
+    }
+
     return result;
 }
 

@@ -717,6 +717,28 @@ as_utils_locale_to_language (const gchar *locale)
 }
 
 /**
+ * as_ptr_array_find_string:
+ * @array: gchar* array
+ * @value: string to find
+ *
+ * Finds a string in a pointer array.
+ *
+ * Returns: the const string, or %NULL if not found
+ **/
+const gchar*
+as_ptr_array_find_string (GPtrArray *array, const gchar *value)
+{
+	const gchar *tmp;
+	guint i;
+	for (i = 0; i < array->len; i++) {
+		tmp = g_ptr_array_index (array, i);
+		if (g_strcmp0 (tmp, value) == 0)
+			return tmp;
+	}
+	return NULL;
+}
+
+/**
  * as_utils_locale_is_compatible:
  * @locale1: a locale string, or %NULL
  * @locale2: a locale string, or %NULL

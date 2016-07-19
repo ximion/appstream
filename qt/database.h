@@ -76,6 +76,7 @@ class APPSTREAMQT_EXPORT Database {
         /**
          * \return all components that have \param packageName assigned as the package
          */
+	Q_DECL_DEPRECATED
         QList<Component> findComponentsByPackageName(const QString& packageName) const;
         ~Database();
     private:
