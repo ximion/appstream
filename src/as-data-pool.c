@@ -240,6 +240,9 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 		as_component_set_categories (dest_cpt, new_cats);
 	}
 
+	/* merge names */
+	as_component_set_name (dest_cpt, as_component_get_name (src_cpt), as_component_get_active_locale (src_cpt));
+
 	/* merge package names */
 	pkgnames = as_component_get_pkgnames (src_cpt);
 	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
@@ -579,10 +582,11 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
-		/* handle the special case of merge components */
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_MERGE) {
 			AsComponent *existing_merge;
 			const gchar *cpt_id;
+
+			/* handle the special case of merge components */
 
 			cpt_id = as_component_get_id (cpt);
 			existing_merge = g_hash_table_lookup (merge_cpts, cpt_id);
@@ -600,14 +604,14 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 				}
 			}
 
-		}
-
-		/* handle all normal component types */
-		as_data_pool_add_component (dpool, cpt, &error);
-		if (error != NULL) {
-			g_debug ("Data ignored: %s", error->message);
-			g_error_free (error);
-			error = NULL;
+		} else {
+			/* handle all normal component types */
+			as_data_pool_add_component (dpool, cpt, &error);
+			if (error != NULL) {
+				g_debug ("Data ignored: %s", error->message);
+				g_error_free (error);
+				error = NULL;
+			}
 		}
 	}
 
