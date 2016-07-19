@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components version="0.8" origin="jessie">
+  <component type="desktop">
+    <id>test.desktop</id>
+    <pkgname>test</pkgname>
+    <name>Test</name>
+    <suggests type="heuristic">
+      <id>test1.desktop</id>
+      <id>test2.desktop</id>
+    </suggests>
+  </component>
+  <component type="desktop">
+    <id>test1.desktop</id>
+    <pkgname>test</pkgname>
+    <name>Test</name>
+  </component>
+  <component type="desktop">
+    <id>test1.desktop</id>
+    <suggests type="heuristic">
+      <id>test5.desktop</id>
+      <id>test6.desktop</id>
+    </suggests>
+  </component>
+</components>

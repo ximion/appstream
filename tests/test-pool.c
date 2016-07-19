@@ -193,6 +193,70 @@ test_pool_read ()
 	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 0);
 }
 
+void
+test_merge_components ()
+{
+	guint i;
+
+	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(GError) error = NULL;
+	g_auto(GStrv) strv = NULL;
+	g_auto(GStrv) expected_cpts_id = NULL;
+	g_autoptr(GPtrArray) suggestions = NULL;
+
+	GPtrArray* cpts_id = NULL;
+	AsComponent *cpt = NULL;
+	AsSuggested *suggested = NULL;
+	AsSuggestedKind suggested_kind;
+	gchar *cpt_id = NULL;
+
+	dpool = as_data_pool_new ();
+
+	strv = g_new0 (gchar*, 2);
+	strv[0] = g_build_filename (datadir, "distro", NULL);
+
+	as_data_pool_set_metadata_locations (dpool, strv);
+	as_data_pool_load_metadata (dpool);
+
+	cpt = as_data_pool_get_component_by_id (dpool, "test.desktop");
+	suggestions = as_component_get_suggestions (cpt);
+	suggested = (AsSuggested *) g_ptr_array_index (suggestions, 0);
+	cpts_id = as_suggested_get_components_id (suggested);
+	suggested_kind = as_suggested_get_kind (suggested);
+
+	expected_cpts_id = g_new0 (gchar*, 3);
+	expected_cpts_id[0] = g_strdup ("test1.desktop");
+	expected_cpts_id[1] = g_strdup ("test2.desktop");
+
+	g_assert_cmpint (suggestions->len, ==, 2);
+	g_assert_cmpint (suggested_kind, ==, AS_SUGGESTED_KIND_HEURISTIC);
+
+	for (i = 0; i < cpts_id->len; i++) {
+		cpt_id = (gchar*) g_ptr_array_index (cpts_id, i);
+		g_assert_cmpstr (cpt_id, ==, expected_cpts_id[i]);
+	}
+
+	cpt = as_data_pool_get_component_by_id (dpool, "test1.desktop");
+	suggestions = as_component_get_suggestions (cpt);
+	suggested = (AsSuggested *) g_ptr_array_index (suggestions, 0);
+	cpts_id = as_suggested_get_components_id (suggested);
+	suggested_kind = as_suggested_get_kind (suggested);
+
+	expected_cpts_id = g_new0 (gchar*, 3);
+	expected_cpts_id[0] = g_strdup ("test5.desktop");
+	expected_cpts_id[1] = g_strdup ("test6.desktop");
+
+	g_assert_cmpint (suggestions->len, ==, 2);
+	g_assert_cmpint (suggested_kind, ==, AS_SUGGESTED_KIND_HEURISTIC);
+
+	for (i = 0; i < cpts_id->len; i++) {
+		cpt_id = (gchar*) g_ptr_array_index (cpts_id, i);
+		g_assert_cmpstr (cpt_id, ==, expected_cpts_id[i]);
+	}
+
+}
+
 int
 main (int argc, char **argv)
 {
@@ -216,6 +280,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
+	g_test_add_func ("/AppStream/ComponentMerge", test_merge_components);
 
 	ret = g_test_run ();
 	g_free (datadir);
