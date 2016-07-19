@@ -65,6 +65,7 @@ gboolean		as_copy_file (const gchar *source, const gchar *destination, GError **
 
 gboolean		as_is_cruft_locale (const gchar *locale);
 gchar			*as_locale_strip_encoding (gchar *locale);
+gchar			*as_utils_locale_to_language (const gchar *locale);
 
 gchar			*as_get_current_arch (void);
 gboolean		as_arch_compatible (const gchar *arch1,

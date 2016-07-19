@@ -26,6 +26,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-stemmer.h"
 
 /**
  * SECTION:as-component
@@ -1917,17 +1918,22 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, gchar **icon_pa
 static void
 as_component_add_token_helper (AsComponent *cpt,
 			   const gchar *value,
-			   AsTokenMatch match_flag)
+			   AsTokenMatch match_flag,
+			   AsStemmer *stemmer)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	AsTokenType *match_pval;
+	g_autofree gchar *token_stemmed = NULL;
 
 	/* invalid */
 	if (!as_utils_search_token_valid (value))
 		return;
 
+	/* create a stemmed version of our token */
+	token_stemmed = as_stemmer_stem (stemmer, value);
+
 	/* does the token already exist */
-	match_pval = g_hash_table_lookup (priv->token_cache, value);
+	match_pval = g_hash_table_lookup (priv->token_cache, token_stemmed);
 	if (match_pval != NULL) {
 		*match_pval |= match_flag;
 		return;
@@ -1937,7 +1943,7 @@ as_component_add_token_helper (AsComponent *cpt,
 	match_pval = g_new0 (AsTokenType, 1);
 	*match_pval = match_flag;
 	g_hash_table_insert (priv->token_cache,
-			     g_strdup (value),
+			     g_steal_pointer (&token_stemmed),
 			     match_pval);
 }
 
@@ -1950,16 +1956,20 @@ as_component_add_token (AsComponent *cpt,
 		  gboolean allow_split,
 		  AsTokenMatch match_flag)
 {
+	g_autoptr(AsStemmer) stemmer = NULL;
+
+	stemmer = as_stemmer_new ();
+
 	/* add extra tokens for names like x-plane or half-life */
 	if (allow_split && g_strstr_len (value, -1, "-") != NULL) {
 		guint i;
 		g_auto(GStrv) split = g_strsplit (value, "-", -1);
 		for (i = 0; split[i] != NULL; i++)
-			as_component_add_token_helper (cpt, split[i], match_flag);
+			as_component_add_token_helper (cpt, split[i], match_flag, stemmer);
 	}
 
 	/* add the whole token always, even when we split on hyphen */
-	as_component_add_token_helper (cpt, value, match_flag);
+	as_component_add_token_helper (cpt, value, match_flag, stemmer);
 }
 
 /**

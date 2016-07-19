@@ -54,6 +54,7 @@
 #include "as-distro-details.h"
 #include "as-settings-private.h"
 #include "as-distro-extras.h"
+#include "as-stemmer.h"
 
 #include "as-metadata.h"
 #include "as-yamldata.h"
@@ -945,34 +946,40 @@ static gchar*
 as_data_pool_sanitize_search_term (AsDataPool *dpool, const gchar *term)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-	gchar *res_term;
+	g_autoptr(AsStemmer) stemmer = NULL;
+	g_autofree gchar *tmp_term = NULL;
+	gchar *term_stemmed = NULL;
 	guint i;
 
 	if (term == NULL)
 		return NULL;
-	res_term = g_utf8_strdown (term, -1);
+	tmp_term = g_utf8_strdown (term, -1);
 
 	/* filter query by greylist (to avoid overly generic search terms) */
 	for (i = 0; priv->term_greylist[i] != NULL; i++) {
 		gchar *str;
-		str = as_str_replace (res_term, priv->term_greylist[i], "");
-		g_free (res_term);
-		res_term = str;
+		str = as_str_replace (tmp_term, priv->term_greylist[i], "");
+		g_free (tmp_term);
+		tmp_term = str;
 	}
 
 	/* restore query if it was just greylist words */
-	if (g_strcmp0 (res_term, "") == 0) {
+	if (g_strcmp0 (tmp_term, "") == 0) {
 		g_debug ("grey-list replaced all terms, restoring");
-		g_free (res_term);
-		res_term = g_utf8_strdown (term, -1);
+		g_free (tmp_term);
+		tmp_term = g_utf8_strdown (term, -1);
 	}
 
 	/* we have to strip the leading and trailing whitespaces to avoid having
 	 * different results for e.g. 'font ' and 'font' (LP: #506419)
 	 */
-	g_strstrip (res_term);
+	g_strstrip (tmp_term);
 
-	return res_term;
+	/* stem the string */
+	stemmer = as_stemmer_new ();
+	term_stemmed = as_stemmer_stem (stemmer, tmp_term);
+
+	return term_stemmed;
 }
 
 /**
@@ -999,6 +1006,7 @@ as_data_pool_search (AsDataPool *dpool, const gchar *term)
 	/* sanitize user's search term */
 	sane_term = as_data_pool_sanitize_search_term (dpool, term);
 	results = g_ptr_array_new_with_free_func (g_object_unref);
+	g_debug ("Searching for: %s", sane_term);
 
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {

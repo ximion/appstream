@@ -698,8 +698,11 @@ as_arch_compatible (const gchar *arch1, const gchar *arch2)
 
 /**
  * as_utils_locale_to_language:
- **/
-static gchar*
+ * @locale: The locale string.
+ *
+ * Get language part from a locale string.
+ */
+gchar*
 as_utils_locale_to_language (const gchar *locale)
 {
 	gchar *tmp;

@@ -23,6 +23,7 @@ endif(${CMAKE_SOURCE_DIR} MATCHES ${CMAKE_BINARY_DIR})
 option(L18N "Enable localization" ON)
 option(VAPI "Create and install a Vala API file" OFF)
 option(QT "Build libappstream-qt" OFF)
+option(STEMMING "Use stemming while searching. Requires Snowball (libstemmer)" OFF)
 option(MAINTAINER "Enable maintainer mode (use strict compiler flags, e.g. -Werror)" OFF)
 option(DOCUMENTATION "Enable target to build documentation" OFF)
 option(APT_SUPPORT "Enable integration with APT on Debian" OFF)
@@ -30,6 +31,9 @@ option(SANITIZERS "Compile with sanitizers (address / thread sanitizer) enabled.
 
 if(APT_SUPPORT)
 	add_definitions ("-DAPT_SUPPORT")
+endif()
+if(STEMMING)
+	add_definitions ("-DUSE_STEMMING")
 endif()
 
 #

@@ -8,6 +8,10 @@ find_package(Protobuf REQUIRED)
 find_library(M_LIB m)
 pkg_check_modules(YAML REQUIRED yaml-0.1)
 
+if (STEMMING)
+	find_library(SNOWBALL_LIB stemmer)
+endif ()
+
 include(GObjectIntrospectionMacros)
 set(INTROSPECTION_GIRS)
 set(INTROSPECTION_SCANNER_ARGS "--identifier-prefix=As" "--symbol-prefix=as" "--warn-all" "--add-include-path=${CMAKE_CURRENT_SOURCE_DIR}")
@@ -41,6 +45,7 @@ set(APPSTREAM_LIB_SRC
 		as-xmldata.c
 		as-yamldata.c
 		as-distro-extras.c
+		as-stemmer.c
 		# (mostly) public
 		as-metadata.c
 		as-component.c
@@ -89,6 +94,7 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-screenshot-private.h
 		as-release-private.h
 		as-distro-extras.h
+		as-stemmer.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/pb
@@ -161,6 +167,7 @@ target_link_libraries(appstream
 		${LIBXML2_LIBRARIES}
 		${YAML_LIBRARIES}
 		${PROTOBUF_LIBRARIES}
+		${SNOWBALL_LIB}
 )
 
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/appstream.pc.in ${CMAKE_CURRENT_BINARY_DIR}/appstream.pc @ONLY)
