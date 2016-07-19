@@ -2032,7 +2032,7 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
 	keywords = as_component_get_keywords (cpt);
 	if (keywords != NULL) {
 		for (i = 0; keywords[i] != NULL; i++)
-			as_component_add_tokens (cpt, tmp, FALSE, AS_TOKEN_MATCH_KEYWORD);
+			as_component_add_tokens (cpt, keywords[i], FALSE, AS_TOKEN_MATCH_KEYWORD);
 	}
 
 	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MIMETYPE);

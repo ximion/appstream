@@ -27,14 +27,7 @@
 
 static gchar *datadir = NULL;
 
-#if 0
-void
-msg (const gchar *s)
-{
-	g_printf ("%s\n", s);
-}
-
-void
+static void
 print_cptarray (GPtrArray *cpt_array)
 {
 	guint i;
@@ -49,146 +42,6 @@ print_cptarray (GPtrArray *cpt_array)
 	}
 	g_printf ("----\n");
 }
-
-gchar*
-test_database_create ()
-{
-	g_autoptr(AsCacheBuilder) builder = NULL;
-	GError *error = NULL;
-	g_autofree gchar *db_path = NULL;
-	g_auto(GStrv) strv = NULL;
-	gboolean ret;
-
-	g_mkdir_with_parents ("/var/tmp/appstream-tests/", 0755);
-	db_path = g_strdup ("/var/tmp/appstream-tests/libas-dbtest-XXXXXX");
-	db_path = g_mkdtemp (db_path);
-	g_assert_nonnull (db_path);
-
-	/* we use some sample-data to simulate loading distro data */
-	strv = g_new0 (gchar*, 2);
-	strv[0] = g_build_filename (datadir, "distro", NULL);
-
-	builder = as_cache_builder_new ();
-	as_cache_builder_set_data_source_directories (builder, strv);
-
-	ret = as_cache_builder_setup (builder, db_path, &error);
-	g_assert_no_error (error);
-	g_assert (ret);
-
-	/* build the cache for the first time (enforcing build) */
-	ret = as_cache_builder_refresh (builder, TRUE, &error);
-	g_assert_no_error (error);
-	g_assert (ret);
-
-	/* if we refresh the cache for the second time, we should receive FALSE, as we don't need to update it again */
-	ret = as_cache_builder_refresh (builder, FALSE, &error);
-	g_assert_no_error (error);
-	g_assert (!ret);
-
-	return g_strdup (db_path);
-}
-
-void
-test_database_read (const gchar *dbpath)
-{
-	AsDatabase *db;
-	GPtrArray *cpts = NULL;
-	GPtrArray *rels;
-	AsRelease *rel;
-	AsComponent *cpt;
-	g_autoptr(GError) error = NULL;
-
-	db = as_database_new ();
-	as_database_set_location (db, dbpath);
-	as_database_open (db, &error);
-	g_assert_no_error (error);
-
-	cpts = as_database_get_all_components (db, &error);
-	g_assert_no_error (error);
-	g_assert (cpts != NULL);
-
-	print_cptarray (cpts);
-
-	msg ("==============================");
-
-	cpts = as_database_find_components (db, "kig", NULL, &error);
-	g_assert_no_error (error);
-	print_cptarray (cpts);
-	g_assert (cpts->len == 1);
-	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);
-	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
-	g_ptr_array_unref (cpts);
-
-	cpts = as_database_find_components (db, NULL, "science", &error);
-	g_assert_no_error (error);
-	print_cptarray (cpts);
-	g_assert (cpts->len == 3);
-	g_ptr_array_unref (cpts);
-
-	cpts = as_database_find_components (db, "logic", "science", &error);
-	g_assert_no_error (error);
-	print_cptarray (cpts);
-	g_assert (cpts->len == 1);
-	g_ptr_array_unref (cpts);
-
-	cpts = as_database_find_components (db, "logic", NULL, &error);
-	g_assert_no_error (error);
-	print_cptarray (cpts);
-	g_assert (cpts->len == 2);
-	g_ptr_array_unref (cpts);
-
-	cpts = as_database_get_components_by_provided_item (db, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
-	g_assert_no_error (error);
-	print_cptarray (cpts);
-	g_assert (cpts->len == 1);
-	cpt = (AsComponent*) g_ptr_array_index (cpts, 0);
-
-	g_assert_cmpstr (as_component_get_name (cpt), ==, "Inkscape");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://inkscape.org/");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://inkscape.org/learn/faq/");
-
-	g_ptr_array_unref (cpts);
-
-	/* test a component in a different file, with no package but a bundle instead */
-	cpt = as_database_get_component_by_id (db, "neverball.desktop", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (cpt);
-
-	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");
-	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "http://neverball.org/");
-	g_assert_cmpstr (as_component_get_bundle_id (cpt, AS_BUNDLE_KIND_LIMBA), ==, "neverball-1.6.0");
-
-	rels = as_component_get_releases (cpt);
-	g_assert_cmpint (rels->len, ==, 2);
-
-	rel = AS_RELEASE (g_ptr_array_index (rels, 0));
-	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.1");
-	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123465888);
-	g_assert (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
-	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
-	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_INSTALLED), ==, 42424242);
-
-	rel = AS_RELEASE (g_ptr_array_index (rels, 1));
-	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.0");
-	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123456789);
-	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 0);
-
-	g_object_unref (cpt);
-	g_object_unref (db);
-}
-
-void
-test_database ()
-{
-	gchar *path;
-
-	path = test_database_create ();
-	test_database_read (path);
-
-	g_free (path);
-}
-
-#endif
 
 void
 test_cache ()
@@ -247,6 +100,94 @@ test_cache ()
 	g_assert_cmpstr (as_component_get_summary (cpt2), ==, "Another unit-test dummy entry");
 }
 
+void
+test_pool_read ()
+{
+	g_autoptr(AsDataPool) dpool = NULL;
+	g_auto(GStrv) datadirs = NULL;
+	g_autoptr(GPtrArray) all_cpts = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	GPtrArray *rels;
+	AsRelease *rel;
+	AsComponent *cpt;
+	g_autoptr(GError) error = NULL;
+
+	/* create DataPool and load sample metadata */
+	datadirs = g_new0(gchar*, 1 + 1);
+	datadirs[0] = g_build_filename (datadir, "distro", NULL);
+
+	dpool = as_data_pool_new ();
+	as_data_pool_set_metadata_locations (dpool, datadirs);
+
+	/* TODO: as_data_pool_load (dpool, NULL, &error);
+	g_assert_no_error (error); */
+	as_data_pool_load_metadata (dpool);
+
+	all_cpts = as_data_pool_get_components (dpool);
+	g_assert_nonnull (all_cpts);
+
+	print_cptarray (all_cpts);
+
+	g_print ("==============================\n");
+
+	result = as_data_pool_search (dpool, "kig");
+	print_cptarray (result);
+	g_assert (result->len == 1);
+	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
+	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
+	g_ptr_array_unref (result);
+
+	result = as_data_pool_search (dpool, "web");
+	print_cptarray (result);
+	g_assert (result->len == 1);
+	g_ptr_array_unref (result);
+
+	result = as_data_pool_search (dpool, "logic");
+	print_cptarray (result);
+	g_assert (result->len == 2);
+	g_ptr_array_unref (result);
+
+	result = as_data_pool_search (dpool, "bIoChemistrY");
+	print_cptarray (result);
+	g_assert (result->len == 1);
+	g_ptr_array_unref (result);
+
+	result = as_data_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
+	g_assert_no_error (error);
+	print_cptarray (result);
+	g_assert (result->len == 1);
+	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Inkscape");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://inkscape.org/");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://inkscape.org/learn/faq/");
+
+	g_ptr_array_unref (result);
+
+	/* test a component in a different file, with no package but a bundle instead */
+	cpt = as_data_pool_get_component_by_id (dpool, "neverball.desktop");
+	g_assert_nonnull (cpt);
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "http://neverball.org/");
+	g_assert_cmpstr (as_component_get_bundle_id (cpt, AS_BUNDLE_KIND_LIMBA), ==, "neverball-1.6.0");
+
+	rels = as_component_get_releases (cpt);
+	g_assert_cmpint (rels->len, ==, 2);
+
+	rel = AS_RELEASE (g_ptr_array_index (rels, 0));
+	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.1");
+	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123465888);
+	g_assert (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
+	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
+	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_INSTALLED), ==, 42424242);
+
+	rel = AS_RELEASE (g_ptr_array_index (rels, 1));
+	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.0");
+	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123456789);
+	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 0);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -269,6 +210,7 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/Cache", test_cache);
+	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
 
 	ret = g_test_run ();
 	g_free (datadir);

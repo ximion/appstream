@@ -253,6 +253,8 @@ as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsCompon
  * @error: A #GError or %NULL
  *
  * Register a new component in the AppStream metadata pool.
+ *
+ * Returns: %TRUE if the new component was successfully added to the pool.
  */
 gboolean
 as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
@@ -338,10 +340,16 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 		}
 
 		if (priority == as_component_get_priority (cpt)) {
-			g_debug ("Detected colliding ids: %s was already added with the same priority.", cpt_id);
+			g_set_error (error,
+					AS_DATA_POOL_ERROR,
+					AS_DATA_POOL_ERROR_COLLISION,
+					"Detected colliding ids: %s was already added with the same priority.", cpt_id);
 			return FALSE;
 		} else {
-			g_debug ("Detected colliding ids: %s was already added with a higher priority.", cpt_id);
+			g_set_error (error,
+					AS_DATA_POOL_ERROR,
+					AS_DATA_POOL_ERROR_COLLISION,
+					"Detected colliding ids: %s was already added with a higher priority.", cpt_id);
 			return FALSE;
 		}
 	}
@@ -475,6 +483,7 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 			g_autoptr(GPtrArray) xmls = NULL;
 
 			subdir_found = TRUE;
+			g_debug ("Searching for data in: %s", xml_path);
 			xmls = as_utils_find_files_matching (xml_path, "*.xml*", FALSE, NULL);
 			if (xmls != NULL) {
 				for (j = 0; j < xmls->len; j++) {
@@ -491,6 +500,7 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 			g_autoptr(GPtrArray) yamls = NULL;
 
 			subdir_found = TRUE;
+			g_debug ("Searching for data in: %s", yaml_path);
 			yamls = as_utils_find_files_matching (yaml_path, "*.yml*", FALSE, NULL);
 			if (yamls != NULL) {
 				for (j = 0; j < yamls->len; j++) {
@@ -503,7 +513,7 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 		}
 
 		if (!subdir_found) {
-			g_debug ("No metadata-specific subdirectories found in '%s'", root_path);
+			g_debug ("No metadata directories found in '%s'", root_path);
 			continue;
 		}
 
@@ -535,7 +545,12 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 	for (i = 0; i < cpts->len; i++) {
 		as_data_pool_add_component (dpool,
 					    AS_COMPONENT (g_ptr_array_index (cpts, i)),
-					    NULL);
+					    &error);
+		if (error != NULL) {
+			g_debug ("Data ignored: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
 	}
 
 	return ret;
@@ -685,7 +700,12 @@ as_data_pool_load_cache_file (AsDataPool *dpool, const gchar *fname, GError **er
 
 	/* add cache objects to the pool */
 	for (i = 0; i < cpts->len; i++) {
-		as_data_pool_add_component (dpool, AS_COMPONENT (g_ptr_array_index (cpts, i)), NULL);
+		as_data_pool_add_component (dpool, AS_COMPONENT (g_ptr_array_index (cpts, i)), &tmp_error);
+		if (tmp_error != NULL) {
+			g_warning ("Cached data ignored: %s", tmp_error->message);
+			g_error_free (tmp_error);
+			tmp_error = NULL;
+		}
 	}
 
 	return TRUE;
@@ -841,7 +861,7 @@ as_data_pool_get_components_by_kind (AsDataPool *dpool,
 		g_set_error_literal (error,
 					AS_DATA_POOL_ERROR,
 					AS_DATA_POOL_ERROR_TERM_INVALID,
-					"Can not search for unknown component type.");
+					_("Can not search for unknown component type."));
 		return NULL;
 	}
 
@@ -849,7 +869,7 @@ as_data_pool_get_components_by_kind (AsDataPool *dpool,
 		g_set_error_literal (error,
 					AS_DATA_POOL_ERROR,
 					AS_DATA_POOL_ERROR_TERM_INVALID,
-					"Can not search for unknown component type.");
+					_("Can not search for unknown component type."));
 		return NULL;
 	}
 
@@ -880,7 +900,7 @@ as_data_pool_sanitize_search_term (AsDataPool *dpool, const gchar *term)
 
 	if (term == NULL)
 		return NULL;
-	res_term = g_strdup (term);
+	res_term = g_utf8_strdown (term, -1);
 
 	/* filter query by greylist (to avoid overly generic search terms) */
 	for (i = 0; priv->term_greylist[i] != NULL; i++) {
@@ -894,7 +914,7 @@ as_data_pool_sanitize_search_term (AsDataPool *dpool, const gchar *term)
 	if (g_strcmp0 (res_term, "") == 0) {
 		g_debug ("grey-list replaced all terms, restoring");
 		g_free (res_term);
-		res_term = g_strdup (term);
+		res_term = g_utf8_strdown (term, -1);
 	}
 
 	/* we have to strip the leading and trailing whitespaces to avoid having
