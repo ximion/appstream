@@ -99,6 +99,9 @@ gboolean		as_data_pool_save_cache_file (AsDataPool *dpool,
 						      GError **error);
 
 void			as_data_pool_clear (AsDataPool *dpool);
+gboolean		as_data_pool_add_component (AsDataPool *dpool,
+							AsComponent *cpt,
+							GError **error);
 
 GPtrArray		*as_data_pool_get_components (AsDataPool *dpool);
 AsComponent		*as_data_pool_get_component_by_id (AsDataPool *dpool,

@@ -42,14 +42,14 @@ add_executable(as-test-yamldata test-yamldata.c ${TEST_COMMON_SRC})
 add_dependencies(as-test-yamldata appstream)
 add_test(test-yaml as-test-yamldata ${CMAKE_CURRENT_SOURCE_DIR})
 
-# AppStream cache tests
-#add_executable(as-test-cache test-cache.c ${TEST_COMMON_SRC})
-#add_dependencies(as-test-cache appstream)
-#add_test(test-cache as-test-cache ${CMAKE_CURRENT_SOURCE_DIR})
+# AppStream data pool and cache tests
+add_executable(as-test-pool test-pool.c ${TEST_COMMON_SRC})
+add_dependencies(as-test-pool appstream)
+add_test(test-pool as-test-pool ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(SANITIZERS)
 	set_tests_properties(test-basic PROPERTIES ENVIRONMENT ASAN_OPTIONS=detect_leaks=0)
 	set_tests_properties(test-xml PROPERTIES ENVIRONMENT ASAN_OPTIONS=detect_leaks=0)
 	set_tests_properties(test-yaml PROPERTIES ENVIRONMENT ASAN_OPTIONS=detect_leaks=0)
-	#set_tests_properties(test-cache PROPERTIES ENVIRONMENT ASAN_OPTIONS=detect_leaks=0)
+	set_tests_properties(test-pool PROPERTIES ENVIRONMENT ASAN_OPTIONS=detect_leaks=0)
 endif()

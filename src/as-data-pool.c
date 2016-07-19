@@ -248,17 +248,20 @@ as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsCompon
 
 /**
  * as_data_pool_add_component:
+ * @dpool: An instance of #AsDataPool
+ * @cpt: The #AsComponent to add to the pool.
+ * @error: A #GError or %NULL
  *
- * Register a new component in the global AppStream metadata pool.
+ * Register a new component in the AppStream metadata pool.
  */
-static void
-as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt)
+gboolean
+as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 {
 	const gchar *cpt_id;
 	AsComponent *existing_cpt;
 	int priority;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-	g_return_if_fail (cpt != NULL);
+	g_return_val_if_fail (cpt != NULL, FALSE);
 
 	cpt_id = as_component_get_id (cpt);
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cpt_id);
@@ -271,7 +274,7 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt)
 		g_hash_table_insert (priv->cpt_table,
 					g_strdup (cpt_id),
 					g_object_ref (cpt));
-		return;
+		return TRUE;
 	}
 
 	/* if we are here, we have duplicates */
@@ -290,7 +293,7 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt)
 			/* propagate bundle information to existing component */
 			bundles = as_component_get_bundles_table (cpt);
 			as_component_set_bundles_table (existing_cpt, bundles);
-			return;
+			return TRUE;
 		}
 
 		ecpt_has_name = as_component_get_name (existing_cpt) != NULL;
@@ -299,7 +302,7 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt)
 			/* existing component is updated with data from the new one */
 			as_data_pool_merge_components (dpool, cpt, existing_cpt);
 			g_debug ("Merged stub data for component %s (<-, based on name)", cpt_id);
-			return;
+			return TRUE;
 		}
 
 		if ((!ecpt_has_name) && (ncpt_has_name)) {
@@ -310,7 +313,7 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt)
 					g_strdup (cpt_id),
 					g_object_ref (cpt));
 			g_debug ("Merged stub data for component %s (->, based on name)", cpt_id);
-			return;
+			return TRUE;
 		}
 
 		if (as_component_get_architecture (cpt) != NULL) {
@@ -325,10 +328,10 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt)
 									g_strdup (cpt_id),
 									g_object_ref (cpt));
 						g_debug ("Preferred component for native architecture for %s (was %s)", cpt_id, earch);
-						return;
+						return TRUE;
 					} else {
 						g_debug ("Ignored additional entry for '%s' on architecture %s.", cpt_id, earch);
-						return;
+						return FALSE;
 					}
 				}
 			}
@@ -336,12 +339,14 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt)
 
 		if (priority == as_component_get_priority (cpt)) {
 			g_debug ("Detected colliding ids: %s was already added with the same priority.", cpt_id);
-			return;
+			return FALSE;
 		} else {
 			g_debug ("Detected colliding ids: %s was already added with a higher priority.", cpt_id);
-			return;
+			return FALSE;
 		}
 	}
+
+	return TRUE;
 }
 
 /**
@@ -529,7 +534,8 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 	cpts = as_metadata_get_components (metad);
 	for (i = 0; i < cpts->len; i++) {
 		as_data_pool_add_component (dpool,
-					    AS_COMPONENT (g_ptr_array_index (cpts, i)));
+					    AS_COMPONENT (g_ptr_array_index (cpts, i)),
+					    NULL);
 	}
 
 	return ret;
@@ -679,7 +685,7 @@ as_data_pool_load_cache_file (AsDataPool *dpool, const gchar *fname, GError **er
 
 	/* add cache objects to the pool */
 	for (i = 0; i < cpts->len; i++) {
-		as_data_pool_add_component (dpool, AS_COMPONENT (g_ptr_array_index (cpts, i)));
+		as_data_pool_add_component (dpool, AS_COMPONENT (g_ptr_array_index (cpts, i)), NULL);
 	}
 
 	return TRUE;

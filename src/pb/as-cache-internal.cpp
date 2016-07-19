@@ -120,7 +120,7 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 		// Sanity check
 		if (!as_component_is_valid (cpt)) {
 			// we should *never* get here, all invalid stuff should be filtered out at this point
-			g_critical ("Skipped component '%s' from inclusion into database: The component is invalid.",
+			g_critical ("Skipped component '%s' from inclusion into the cache: The component is invalid.",
 					   as_component_get_id (cpt));
 			continue;
 		}

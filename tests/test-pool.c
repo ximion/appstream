@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -24,8 +24,10 @@
 #include "appstream.h"
 #include "../src/as-utils-private.h"
 
+
 static gchar *datadir = NULL;
 
+#if 0
 void
 msg (const gchar *s)
 {
@@ -186,6 +188,65 @@ test_database ()
 	g_free (path);
 }
 
+#endif
+
+void
+test_cache ()
+{
+	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsComponent) cpt1 = NULL;
+	g_autoptr(AsComponent) cpt2 = NULL;
+	g_autoptr(GError) error = NULL;
+
+	/* prepare our components */
+	cpt1 = as_component_new ();
+	as_component_set_kind (cpt1, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt1, "org.example.FooBar1");
+	as_component_set_name (cpt1, "FooBar App 1", NULL);
+	as_component_set_summary (cpt1, "A unit-test dummy entry", NULL);
+
+	cpt2 = as_component_new ();
+	as_component_set_kind (cpt2, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt2, "org.example.NewFooBar");
+	as_component_set_name (cpt2, "Second FooBar App", NULL);
+	as_component_set_summary (cpt2, "Another unit-test dummy entry", NULL);
+
+	/* add data to the pool */
+	dpool = as_data_pool_new ();
+	as_data_pool_add_component (dpool, cpt1, &error);
+	g_assert_no_error (error);
+
+	as_data_pool_add_component (dpool, cpt2, &error);
+	g_assert_no_error (error);
+
+	/* export cache file and destroy old data pool */
+	as_data_pool_save_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
+	g_assert_no_error (error);
+	g_object_unref (dpool);
+	g_object_unref (cpt1);
+	g_object_unref (cpt2);
+
+	/* load cache file */
+	dpool = as_data_pool_new ();
+	as_data_pool_load_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
+	g_assert_no_error (error);
+
+	/* validate */
+	cpt1 = as_data_pool_get_component_by_id (dpool, "org.example.FooBar1");
+	g_assert_nonnull (cpt1);
+
+	cpt2 = as_data_pool_get_component_by_id (dpool, "org.example.NewFooBar");
+	g_assert_nonnull (cpt2);
+
+	g_assert_cmpint (as_component_get_kind (cpt1), ==, AS_COMPONENT_KIND_GENERIC);
+	g_assert_cmpstr (as_component_get_name (cpt1), ==, "FooBar App 1");
+	g_assert_cmpstr (as_component_get_summary (cpt1), ==, "A unit-test dummy entry");
+
+	g_assert_cmpint (as_component_get_kind (cpt2), ==, AS_COMPONENT_KIND_DESKTOP_APP);
+	g_assert_cmpstr (as_component_get_name (cpt2), ==, "Second FooBar App");
+	g_assert_cmpstr (as_component_get_summary (cpt2), ==, "Another unit-test dummy entry");
+}
+
 int
 main (int argc, char **argv)
 {
@@ -207,7 +268,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/Database", test_database);
+	g_test_add_func ("/AppStream/Cache", test_cache);
 
 	ret = g_test_run ();
 	g_free (datadir);
