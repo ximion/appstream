@@ -142,6 +142,10 @@ GPtrArray*
 as_database_find_components (AsDatabase *db, const gchar *term, const gchar *cats_str, GError **error)
 {
 	AsDatabasePrivate *priv = GET_PRIVATE (db);
+
+	if (term == NULL)
+		return as_data_pool_get_components_by_categories (priv->dpool, cats_str);
+
 	return as_data_pool_search (priv->dpool, term);
 }
 
