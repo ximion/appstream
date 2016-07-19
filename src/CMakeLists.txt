@@ -108,7 +108,50 @@ if (INTROSPECTION_COMPILER STREQUAL "")
   message(FATAL_ERROR "GObject-Introspection was not found! Please install it to continue.")
 endif()
 
-add_library(appstream SHARED ${ASLIB_CACHE_SOURCES} ${APPSTREAM_LIB_SRC} ${APPSTREAM_LIB_PUBLIC_HEADERS} ${APPSTREAM_LIB_PRIVATE_HEADERS})
+# GResources
+find_program (GCR_TOOL glib-compile-resources)
+if (NOT GCR_TOOL)
+	message(FATAL_ERROR "Could not find glib-compile-resources! Please mek the tool available to continue.")
+endif ()
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/as-resources.h
+	DEPENDS appstream.gresource.xml
+		${CMAKE_SOURCE_DIR}/data/xdg-category-names.txt
+	COMMAND ${GCR_TOOL}
+		"--sourcedir=${CMAKE_SOURCE_DIR}/data"
+		"--target=as-resources.h"
+		"--generate-header"
+		"--c-name=as"
+		"${CMAKE_CURRENT_SOURCE_DIR}/appstream.gresource.xml"
+	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+	VERBATIM
+)
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/as-resources.c
+	DEPENDS appstream.gresource.xml
+		${CMAKE_SOURCE_DIR}/data/xdg-category-names.txt
+	COMMAND ${GCR_TOOL}
+		"--sourcedir=${CMAKE_SOURCE_DIR}/data"
+		"--target=as-resources.c"
+		"--generate-source"
+		"--c-name=as"
+		"${CMAKE_CURRENT_SOURCE_DIR}/appstream.gresource.xml"
+	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+	VERBATIM
+)
+
+set (APPSTREAM_LIB_GRESOURCE ${CMAKE_CURRENT_BINARY_DIR}/as-resources.c
+			      ${CMAKE_CURRENT_BINARY_DIR}/as-resources.h
+)
+
+add_library(appstream SHARED
+		${ASLIB_CACHE_SOURCES}
+		${APPSTREAM_LIB_SRC}
+		${APPSTREAM_LIB_PUBLIC_HEADERS}
+		${APPSTREAM_LIB_PRIVATE_HEADERS}
+		${APPSTREAM_LIB_GRESOURCE}
+)
+
 set_target_properties(appstream PROPERTIES VERSION ${AS_VERSION} SOVERSION ${APPSTREAM_LIB_API_LEVEL})
 
 target_link_libraries(appstream

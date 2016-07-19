@@ -886,7 +886,7 @@ as_data_pool_get_components_by_kind (AsDataPool *dpool,
 }
 
 /**
- * as_data_pool_get_components_by_kind:
+ * as_data_pool_get_components_by_categories:
  * @dpool: An instance of #AsDatabase.
  * @categories: A semicolon-separated list of XDG categories to include.
  *
@@ -901,14 +901,23 @@ as_data_pool_get_components_by_categories (AsDataPool *dpool, const gchar *categ
 	GHashTableIter iter;
 	gpointer value;
 	g_auto(GStrv) cats = NULL;
+	guint i;
 	GPtrArray *results;
 
 	cats = g_strsplit (categories, ";", -1);
 	results = g_ptr_array_new_with_free_func (g_object_unref);
+
+	/* sanity check */
+	for (i = 0; cats[i] != NULL; i++) {
+		if (!as_utils_is_category_name (cats[i])) {
+			g_warning ("'%s' is not a valid XDG category name, search results might be invalid or empty.", cats[i]);
+		}
+	}
+
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
 		gchar **cpt_cats;
-		guint i, j;
+		guint j;
 		AsComponent *cpt = AS_COMPONENT (value);
 
 		cpt_cats = as_component_get_categories (cpt);
@@ -973,6 +982,8 @@ as_data_pool_sanitize_search_term (AsDataPool *dpool, const gchar *term)
  *
  * Search for a list of components matching the search terms.
  * The list will be unordered.
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of the found #AsComponent objects.
  *
  * Since: 0.9.7
  */

@@ -38,6 +38,7 @@
 #include <errno.h>
 
 #include "as-category.h"
+#include "as-resources.h"
 
 /**
  * SECTION:as-utils
@@ -830,4 +831,33 @@ as_utils_search_token_valid (const gchar *token)
 	}
 
 	return TRUE;
+}
+
+/**
+ * as_utils_is_category_id:
+ * @category_name: an XDG category name, e.g. "ProjectManagement"
+ *
+ * Searches the known list of registered XDG category names.
+ * See https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
+ * for a reference.
+ *
+ * Returns: %TRUE if the category name is valid
+ *
+ * Since: 0.9.7
+ **/
+gboolean
+as_utils_is_category_name (const gchar *category_name)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+
+	/* load the readonly data section and look for the icon name */
+	data = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/xdg-category-names.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", category_name);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
 }

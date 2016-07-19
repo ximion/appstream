@@ -2068,7 +2068,7 @@ as_component_create_token_cache (AsComponent *cpt)
 /**
  * as_component_search_matches:
  * @cpt: a #AsComponent instance.
- * @search: the search term.
+ * @search_term: the search term.
  *
  * Searches component data for a specific keyword.
  *
@@ -2119,7 +2119,7 @@ as_component_search_matches (AsComponent *cpt, const gchar *search_term)
  *
  * Returns all search tokens for this component.
  *
- * Returns: (transfer full): The string search tokens
+ * Returns: (transfer full) (element-type utf8): The string search tokens
  *
  * Since: 0.9.7
  */

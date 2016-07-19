@@ -30,6 +30,7 @@ gchar		*as_get_current_locale (void);
 gboolean	as_str_empty (const gchar* str);
 GDateTime	*as_iso8601_to_datetime (const gchar *iso_date);
 gboolean	as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2);
+gboolean	as_utils_is_category_name (const gchar *category_name);
 
 G_END_DECLS
 
