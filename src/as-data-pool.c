@@ -843,7 +843,7 @@ as_data_pool_get_components_by_provided_item (AsDataPool *dpool,
  * @kind: An #AsComponentKind.
  * @error: A #GError or %NULL.
  *
- * Return a list of all components in the database which are of a certain kind.
+ * Return a list of all components in the pool which are of a certain kind.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
  */
@@ -880,6 +880,47 @@ as_data_pool_get_components_by_kind (AsDataPool *dpool,
 
 		if (as_component_get_kind (cpt) == kind)
 				g_ptr_array_add (results, g_object_ref (cpt));
+	}
+
+	return results;
+}
+
+/**
+ * as_data_pool_get_components_by_kind:
+ * @dpool: An instance of #AsDatabase.
+ * @categories: A semicolon-separated list of XDG categories to include.
+ *
+ * Return a list of components which are in one of the categories.
+ *
+ * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
+ */
+GPtrArray*
+as_data_pool_get_components_by_categories (AsDataPool *dpool, const gchar *categories)
+{
+	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	GHashTableIter iter;
+	gpointer value;
+	g_auto(GStrv) cats = NULL;
+	GPtrArray *results;
+
+	cats = g_strsplit (categories, ";", -1);
+	results = g_ptr_array_new_with_free_func (g_object_unref);
+	g_hash_table_iter_init (&iter, priv->cpt_table);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		gchar **cpt_cats;
+		guint i, j;
+		AsComponent *cpt = AS_COMPONENT (value);
+
+		cpt_cats = as_component_get_categories (cpt);
+		if (cpt_cats == NULL)
+			continue;
+
+		for (i = 0; cats[i] != NULL; i++) {
+			for (j = 0; cpt_cats[j] != NULL; j++) {
+				if (g_strcmp0 (cats[i], cpt_cats[j]) == 0)
+					g_ptr_array_add (results, g_object_ref (cpt));
+			}
+		}
 	}
 
 	return results;

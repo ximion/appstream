@@ -132,30 +132,35 @@ test_pool_read ()
 
 	result = as_data_pool_search (dpool, "kig");
 	print_cptarray (result);
-	g_assert (result->len == 1);
+	g_assert_cmpint (result->len, ==, 1);
 	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
 	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
 	g_ptr_array_unref (result);
 
 	result = as_data_pool_search (dpool, "web");
 	print_cptarray (result);
-	g_assert (result->len == 1);
+	g_assert_cmpint (result->len, ==, 1);
 	g_ptr_array_unref (result);
 
 	result = as_data_pool_search (dpool, "logic");
 	print_cptarray (result);
-	g_assert (result->len == 2);
+	g_assert_cmpint (result->len, ==, 2);
 	g_ptr_array_unref (result);
 
 	result = as_data_pool_search (dpool, "bIoChemistrY");
 	print_cptarray (result);
-	g_assert (result->len == 1);
+	g_assert_cmpint (result->len, ==, 1);
+	g_ptr_array_unref (result);
+
+	result = as_data_pool_get_components_by_categories (dpool, "Science");
+	print_cptarray (result);
+	g_assert_cmpint (result->len, ==, 3);
 	g_ptr_array_unref (result);
 
 	result = as_data_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
 	g_assert_no_error (error);
 	print_cptarray (result);
-	g_assert (result->len == 1);
+	g_assert_cmpint (result->len, ==, 1);
 	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
 
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Inkscape");

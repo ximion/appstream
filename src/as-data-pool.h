@@ -114,6 +114,8 @@ GPtrArray		*as_data_pool_get_components_by_provided_item (AsDataPool *dpool,
 GPtrArray		*as_data_pool_get_components_by_kind (AsDataPool *dpool,
 								AsComponentKind kind,
 								GError **error);
+GPtrArray		*as_data_pool_get_components_by_categories (AsDataPool *dpool,
+								 const gchar *categories);
 GPtrArray		*as_data_pool_search (AsDataPool *dpool,
 					      const gchar *term);
 
