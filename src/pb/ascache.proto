@@ -49,7 +49,16 @@ message Component {
     repeated Language language = 33;
     repeated Release release = 34;
 
-    repeated string search_token = 40; // TODO
+    repeated SearchToken search_token = 40;
+}
+
+/**
+ * SearchToken:
+ * An internal search token.
+ */
+message SearchToken {
+    required string term = 1;
+    required int32 match_val = 2;
 }
 
 /**

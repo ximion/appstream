@@ -49,7 +49,7 @@ langs_hashtable_to_langentry_cb (gchar *key, gint value, ASCache::Component *pb_
  * Helper function to serialize bundle data for storage in the cache.
  */
 static void
-bundles_hashtable_to_bundleentry_cb (gpointer bkind_ptr, gchar *value, ASCache::Component *pb_cpt)
+bundles_hashtable_to_bundleentry_cb (gpointer bkind_ptr, const gchar *value, ASCache::Component *pb_cpt)
 {
 	AsBundleKind bkind = (AsBundleKind) GPOINTER_TO_INT (bkind_ptr);
 
@@ -62,13 +62,27 @@ bundles_hashtable_to_bundleentry_cb (gpointer bkind_ptr, gchar *value, ASCache::
  * Helper function to serialize urls for storage in the cache.
  */
 static void
-urls_hashtable_to_urlentry_cb (gpointer ukind_ptr, gchar *value, ASCache::Component *pb_cpt)
+urls_hashtable_to_urlentry_cb (gpointer ukind_ptr, const gchar *value, ASCache::Component *pb_cpt)
 {
 	AsUrlKind ukind = (AsUrlKind) GPOINTER_TO_INT (ukind_ptr);
 
 	auto pb_url = pb_cpt->add_url ();
 	pb_url->set_type ((ASCache::Url_Type) ukind);
 	pb_url->set_url (value);
+}
+
+/**
+ * Helper function to serialize search tokens for storage in the cache.
+ */
+static void
+token_hashtable_to_tokenentry_cb (const gchar *term, AsTokenType *match_pval, ASCache::Component *pb_cpt)
+{
+	if (match_pval == NULL)
+		return;
+
+	auto pb_token = pb_cpt->add_search_token ();
+	pb_token->set_term (term);
+	pb_token->set_match_val (*match_pval);
 }
 
 /**
@@ -342,6 +356,14 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 						(GHFunc) langs_hashtable_to_langentry_cb,
 						pb_cpt);
 		}
+
+		// Search tokens
+		auto token_table = as_component_get_token_cache_table (cpt);
+		if (g_hash_table_size (token_table) > 0) {
+			g_hash_table_foreach (token_table,
+						(GHFunc) token_hashtable_to_tokenentry_cb,
+						pb_cpt);
+		}
 	}
 
 	// Save the cache object to disk
@@ -598,9 +620,25 @@ buffer_to_component (const ASCache::Component& pb_cpt, const gchar *locale)
 					   pb_lang.percentage ());
 	}
 
+	// Search tokens
+	if (pb_cpt.search_token_size () > 0) {
+		auto token_cache = as_component_get_token_cache_table (cpt);
+		for (int i = 0; i < pb_cpt.search_token_size (); i++) {
+			auto pb_token = pb_cpt.search_token (i);
+
+			AsTokenType *match_pval = g_new0 (AsTokenType, 1);
+			*match_pval = pb_token.match_val ();
+			g_hash_table_insert (token_cache,
+						g_strdup (pb_token.term ().c_str ()),
+						match_pval);
+		}
+
+		/* we added things to the token cache, so we just assume it's valid */
+		as_component_set_token_cache_valid (cpt, TRUE);
+	}
+
 	// TODO:
-	//   * Read out keywords
-	//   * Read out search terms
+	//   * Read out keywords?
 
 	return cpt;
 }

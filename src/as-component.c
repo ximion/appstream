@@ -101,8 +101,6 @@ typedef enum {
 	AS_TOKEN_MATCH_LAST
 } AsTokenMatch;
 
-typedef guint16	AsTokenType; /* big enough for both bitshifts */
-
 G_DEFINE_TYPE_WITH_PRIVATE (AsComponent, as_component, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_component_get_instance_private (o))
 
@@ -2154,6 +2152,35 @@ as_component_get_search_tokens (AsComponent *cpt)
 		g_ptr_array_add (array, g_strdup (l->data));
 
 	return array;
+}
+
+/**
+ * as_component_get_token_cache_table:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get the raw token table.
+ *
+ * This is internal API.
+ **/
+GHashTable*
+as_component_get_token_cache_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->token_cache;
+}
+
+/**
+ * as_component_set_token_cache_valid:
+ * @cpt: a #AsComponent instance.
+ * @valid: Whether the token cache is considered to be valid.
+ *
+ * This is internal API.
+ **/
+void
+as_component_set_token_cache_valid (AsComponent *cpt, gboolean valid)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv->token_cache_valid = valid;
 }
 
 /**
