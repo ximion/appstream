@@ -368,7 +368,10 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 
 	// Save the cache object to disk
 	int fd = open (fname, O_WRONLY | O_CREAT, 0755);
-	// TODO: Handle error
+	if (fd < 0) {
+		g_critical ("Unable to write cache file '%s': %s", fname, g_strerror (errno));
+		return;
+	}
 
 	google::protobuf::io::FileOutputStream ostream (fd);
 	if (cache.SerializeToZeroCopyStream (&ostream)) {
@@ -651,7 +654,10 @@ GPtrArray*
 as_cache_read (const gchar *fname, GError **error)
 {
 	int fd = open (fname, O_RDONLY);
-	// TODO: Handle error
+	if (fd < 0) {
+		g_critical ("Unable to read cache file '%s': %s", fname, g_strerror (errno));
+		return NULL;
+	}
 
 	google::protobuf::io::FileInputStream istream (fd);
 
@@ -659,6 +665,7 @@ as_cache_read (const gchar *fname, GError **error)
 	auto ret = cache.ParseFromZeroCopyStream (&istream);
 	if (!ret) {
 		// TODO: Emit error
+		g_critical ("Unable to parse cache file '%s'", g_strerror (errno));
 		return NULL;
 	}
 
