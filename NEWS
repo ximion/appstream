@@ -1,3 +1,41 @@
+Version 0.9.7
+~~~~~~~~~~~~~~
+Released: 2016-07-20
+
+Notes:
+ * This release contains a lot of very invasive changes and deprecates some API, most
+   notably AsDatabase. Please test this release carefully.
+   There will be an API/ABI break in a future release, so if possible please adjust your
+   code to not use deprecated interfaces.
+
+Features:
+ * Don't fall back to Debian screenshots server if none is specified for the distro (Matthias Klumpp)
+ * Split out distro-specific helpers (Matthias Klumpp)
+ * Implement Xapian-less search (Matthias Klumpp)
+ * Use a pure PB cache instead of Xapian (Matthias Klumpp)
+ * qt: Don't rely on Xapian for searches (Matthias Klumpp)
+ * Deprecate AsDatabase (Matthias Klumpp)
+ * Hide internal symbols from the symbols table (Matthias Klumpp)
+ * Allow injecting components into the pool and unittest the cache (Matthias Klumpp)
+ * Add by-category filter to AsDataPool (Matthias Klumpp)
+ * Validate Freedesktop category names (Matthias Klumpp)
+ * Allow building AppStream with stemming support (Matthias Klumpp)
+ * Cache search tokens (Matthias Klumpp)
+
+Specification:
+ * docs/quickstart: Clarify the role of releases/provides (Matthias Klumpp)
+ * docs/quickstart: Screenshot images don't need to define width/height (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Properly expose enums for introspection (Aleix Pol)
+ * qt: Make it possible to easily output data types using QDebug (Aleix Pol)
+ * xml: Fix formatting of <screenshot/> tag (Matthias Klumpp)
+ * xml: Work around non-threadsafe behavior of libxml2 (Matthias Klumpp)
+ * xml: Properly write provides tag (Matthias Klumpp)
+ * Fix code documentation for as_component_get_id (Lucas Moura)
+ * Fix some xmldata methods documentation (Lucas Moura)
+ * cli: Create metainfo directory if it is missing and respect DESTDIR (Matthias Klumpp)
+
 Version 0.9.6
 ~~~~~~~~~~~~~~
 Released: 2016-05-12
