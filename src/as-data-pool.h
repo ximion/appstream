@@ -65,6 +65,8 @@ typedef enum {
  * @AS_DATA_POOL_ERROR_FAILED:			Generic failure
  * @AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE:	We do not have write-access to the cache target location.
  * @AS_DATA_POOL_ERROR_INCOMPLETE:		The pool was loaded, but we had to ignore some metadata.
+ * @AS_DATA_POOL_ERROR_COLLISION:		An AppStream-ID collision occured (a component with that ID already existed in the pool)
+ * @AS_DATA_POOL_ERROR_TERM_INVALID:		A search or selection term was invalid.
  *
  * A metadata pool error.
  **/
