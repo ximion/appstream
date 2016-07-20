@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-28 01:03+0000\n"
-"Last-Translator: Mingye Wang <arthur200126@gmail.com>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -44,12 +44,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr "AppStream 缓存更新已完成，但某些元数据因为出错而被忽略。"
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream 缓存更新失败。"
 
@@ -60,13 +54,10 @@ msgstr "无需更新 AppStream 缓存。"
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"未找到 AppStream 软件组件缓存。这可能意味着 AppStream 未正确配置，或你的发行"
-"版没有提供人呢和 AppStream 元数据。"
 
 msgid "Binaries"
 msgstr "二进制"
@@ -81,8 +72,11 @@ msgstr "缓存位置“%s“不可写"
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
-msgstr "无法复制“%s”：文件没有“.metainfo.xml”或“.appdata.xml”扩展名。"
+"suffix."
+msgstr ""
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "类别"
@@ -137,6 +131,10 @@ msgstr "空。"
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "强制刷新缓存"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr "扩展"
@@ -297,20 +295,7 @@ msgstr "摘要"
 msgid "Summary:"
 msgstr "概览："
 
-msgid "The system metadata cache does not exist."
-msgstr "未找到系统元数据缓存。"
-
-msgid "The system metadata cache exists."
-msgstr "找到系统元数据缓存。"
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "尝试查找附加信息时出错：%s"
-
-msgid "Tried to perform query on closed database."
-msgstr "试图在已关闭的数据库中进行查询。"
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "未找到符合 %s 的组件！"
@@ -322,9 +307,6 @@ msgstr "未找到提供“%s;%s”的组件！"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "未找到 id 为“%s”的组件！"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr "无法打开 AppStream 软件组件缓存。"
 
 #, c-format
 msgid "Unable to spawn package manager: %s"

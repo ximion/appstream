@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
 "language/tr/)\n"
 "Language: tr\n"
@@ -25,7 +25,7 @@ msgid "Also print pedantic hints when validating"
 msgstr ""
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Bir öge türü (ör. lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -41,14 +41,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"AppStream ön bellek güncellemesi tamamlandı ama bazı meta veriler hatalar "
-"yüzünden yok sayıldı."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream ön bellek güncellemesi başarısız oldu."
 
@@ -59,14 +51,10 @@ msgstr "AppStream önbellek güncellemesi gerekli değil."
 msgid "AppStream command-line interface"
 msgstr "AppStream komut satırı arayüzü"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"AppStream yazılım bileşeni önbelleği bulunamadı. Bu, AppStream'in yanlış "
-"şekilde kurulduğu ya da dağıtımınızın hiç bir AppStream üst verisi "
-"sağlamadığı anlamına gelebilir."
 
 msgid "Binaries"
 msgstr "İkili Kodlar"
@@ -81,10 +69,11 @@ msgstr "Önbellek konumu '%s', yazılabilir değil."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"'%s' kopyalanamıyor: Dosyanın bir '.metainfo.xml' ya da '.appdata.xml' "
-"uzantısı yok."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "Sınıflandırmalar"
@@ -116,6 +105,7 @@ msgstr "Geliştirici"
 
 msgid "Display status information about available AppStream metadata."
 msgstr ""
+"Kullanılabilir AppStream üst verileri hakkındaki durum bilgilerini göster."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -140,6 +130,10 @@ msgstr "Boş."
 msgid "Enforce a cache refresh"
 msgstr "Ön belleğin yenilenmesini zorla"
 
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
+
 msgid "Extends"
 msgstr ""
 
@@ -163,7 +157,7 @@ msgstr ""
 
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "%i bileşen bulundu."
 
 msgid "Get components which provide the given item."
 msgstr ""
@@ -178,7 +172,7 @@ msgid "Icon"
 msgstr "Simge"
 
 msgid "Iconsets"
-msgstr ""
+msgstr "Simge Kümeleri"
 
 msgid "Identifier"
 msgstr "Tanımlayıcı"
@@ -211,7 +205,7 @@ msgstr "AppStream ön belleğinin konumunu elle ayarlayın"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Üst veri dosyaları:"
 
 msgid "Mimetypes"
 msgstr "Mime Türleri"
@@ -231,7 +225,7 @@ msgid "No component providing '%s;%s' found."
 msgstr "'%s;%s' sağlayan hiçbir bileşen bulunamadı."
 
 msgid "No icons."
-msgstr ""
+msgstr "Simge yok."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
@@ -279,7 +273,7 @@ msgid "Sample Screenshot URL"
 msgstr "Örnek Ekran Görüntüsü Adresi"
 
 msgid "Search the component database."
-msgstr ""
+msgstr "Bileşen veri tabanında arama yapın."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
@@ -300,20 +294,7 @@ msgstr "Özet"
 msgid "Summary:"
 msgstr "Özet:"
 
-msgid "The system metadata cache does not exist."
-msgstr "Sistem üst veri önbelleği mevcut değil."
-
-msgid "The system metadata cache exists."
-msgstr "Sistem üst veri önbelleği mevcut."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "Ek bilgiler bulunmaya çalışılırken bir hata oluştu: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Kapalı veri tabanı üzerinde sorgu yürütmeye çalışıldı."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "%s ile eşleşen bileşen bulunamadı!"
@@ -326,9 +307,6 @@ msgstr "'%s;%s' sağlayan bileşen bulunamadı!"
 msgid "Unable to find component with id '%s'!"
 msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
 
-msgid "Unable to open the AppStream software component cache."
-msgstr "AppStream yazılım bileşeni önbelleği açılamadı."
-
 #, c-format
 msgid "Unable to spawn package manager: %s"
 msgstr "Paket yöneticisi meydana getirilemiyor: %s"
@@ -338,7 +316,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "'%s'e yazılamadı, üst bilgi dosyası kurulamıyor."
 
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "AppStream XML dosyalarını sorunlar için doğrula."
 
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
@@ -350,15 +328,15 @@ msgid "Validation was successful."
 msgstr "Doğrulama işlemi tamamlandı."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Bulunması gereken ögenin değeri."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Sürüm: %s"
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "%i yazılım bileşeni hakkındaki bilgilere sahibiz."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
@@ -367,6 +345,8 @@ msgstr "XDG Menü XML dosyası '%s' hasar görmüş."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Bu eylemi gerçekleştirmek için yetkili kullanıcı izinlerine ihtiyaç "
+"duyabilirsiniz."
 
 #. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
@@ -380,7 +360,7 @@ msgid "You need to specify a file to validate!"
 msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Bir üst veri dosyası belirtmeniz gerekiyor."
 
 msgid "You need to specify a root directory to start validation!"
 msgstr "Doğrulamayı başlatmak için bir kök dizini belirtmelisiniz!"

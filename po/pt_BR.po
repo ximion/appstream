@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
 "appstream/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -40,14 +40,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "Atualização do cache do AppStream concluído com sucesso."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"Atualização do cache do AppStream concluído, mas alguns metadados foram "
-"ignorados por causa de erros."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Atualização do cache do AppStream falhou."
 
@@ -58,14 +50,10 @@ msgstr "Atualização do cache do AppStream não é necessária."
 msgid "AppStream command-line interface"
 msgstr "Interface de linha de comando do AppStream"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"O cache de componente de software do AppStream não foi encontrado. Isso pode "
-"significar que o AppStream foi configurado incorretamente ou  que sua "
-"distribuição não fornece qualquer metadados de AppStream."
 
 msgid "Binaries"
 msgstr "Binários"
@@ -80,10 +68,11 @@ msgstr "A localização de cache \"%s\" não é gravável"
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"Não foi possível copiar \"%s\": O arquivo não possui uma extensão \"."
-"metainfo.xml\" ou \".appdata.xml\"."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "Categorias"
@@ -139,6 +128,10 @@ msgstr "Vazio."
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Reforçar uma renovação do cache"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr "Estende"
@@ -303,20 +296,7 @@ msgstr "Resumo"
 msgid "Summary:"
 msgstr "Resumo:"
 
-msgid "The system metadata cache does not exist."
-msgstr "O cache de metadados de sistema não existe."
-
-msgid "The system metadata cache exists."
-msgstr "O cache de metadados de sistema existe."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "Ocorreu um erro ao tentar localizar informações adicionais: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Tentada consulta a banco de dados fechado."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Não foi possível encontrar um componente correspondendo a %s!"
@@ -328,10 +308,6 @@ msgstr "Não foi possível localizar componente fornecendo '%s;%s'!"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Não foi possível encontrar um componente com ID \"%s\"!"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr ""
-"Não foi possível abrir o cache de componentes de software do AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"

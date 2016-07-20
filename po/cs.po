@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Czech (http://www.transifex.com/freedesktop/appstream/"
 "language/cs/)\n"
 "Language: cs\n"
@@ -41,14 +41,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStreamu byla úspěšně dokončena."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"Aktualizace mezipaměti AppStreamu byla dokončena, ale některé metadata byla "
-"ignorována kvůli chybám."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualizace mezipaměti AppStreamu selhala."
 
@@ -59,14 +51,10 @@ msgstr "Aktualizace mezipaměti AppStreamu není zapotřebí."
 msgid "AppStream command-line interface"
 msgstr "Rozhraní příkazového řádku pro AppStream"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"Nebyla nalezena mezipaměť se softwarovými komponentami z AppStream. To může "
-"znamenat, že AppStream nebyl správně nastaven, nebo že vaše distribuce "
-"neposkytuje žádná metadata pro AppStream."
 
 msgid "Binaries"
 msgstr "Spustitelné soubory"
@@ -81,10 +69,11 @@ msgstr "Do umístění mezipaměti „%s“ nelze zapisovat."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"Nelze zkopírovat „%s“: Soubor nemá příponu „.metainfo.xml“ nebo „.appdata."
-"xml“."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "Kategorie"
@@ -139,6 +128,10 @@ msgstr "Prázdné."
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Vynutit aktualizaci mezipaměti"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr "Rozšiřuje"
@@ -301,20 +294,7 @@ msgstr "Shrnutí"
 msgid "Summary:"
 msgstr "Shrnutí:"
 
-msgid "The system metadata cache does not exist."
-msgstr "Mezipaměť se systémovými metadaty neexistuje."
-
-msgid "The system metadata cache exists."
-msgstr "Mezipaměť se systémovými metadaty existuje."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "Při pokusu vyhledat doplňující informace nastala chyba: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Pokus o provedení dotazu na zavřené databázi."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nelze najít komponentu odpovídající %s."
@@ -326,9 +306,6 @@ msgstr "Nelze najít komponentu poskytující „%s;%s“"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Nelze najít komponentu s ID „%s“."
-
-msgid "Unable to open the AppStream software component cache."
-msgstr "Nelze otevřít mezipaměť softwarových komponent AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"

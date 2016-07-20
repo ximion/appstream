@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
-# Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2015-2016
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:21+0000\n"
-"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -42,14 +42,6 @@ msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"S'ha completat l'actualització de la memòria cau d'AppStream, però es van "
-"ignorar algunes metadades a causa d'errors."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Ha fallat l'actualització de la memòria cau d'AppStream."
 
@@ -60,14 +52,10 @@ msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"No s'ha trobat la memòria cau dels components de programari d'AppStream. "
-"Això podria significar que AppStream estigui configurat de forma incorrecta, "
-"o la vostra distribució no proporciona cap metadada AppStream."
 
 msgid "Binaries"
 msgstr "Binaris"
@@ -82,10 +70,11 @@ msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"No es pot copiar «%s»: El fitxer no té una extensió «.metainfo.xml» o «."
-"appdata.xml»."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "Categories"
@@ -142,6 +131,10 @@ msgstr "Buit."
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Força una actualització de la memòria cau"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr "Estén"
@@ -308,21 +301,7 @@ msgstr "Resum"
 msgid "Summary:"
 msgstr "Resum:"
 
-msgid "The system metadata cache does not exist."
-msgstr "La memòria cau de les metadades del sistema no existeix."
-
-msgid "The system metadata cache exists."
-msgstr "La memòria cau de les metadades del sistema existeix."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr ""
-"S'ha produït un error mentre s'intentava trobar la informació addicional: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Es va intentar de fer la consulta sobre la base de dades tancada."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "No es pot trobar la coincidència del component %s!"
@@ -334,10 +313,6 @@ msgstr "No s'ha pogut trobar el component que proporciona '%s;%s'!"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "No s'ha pogut trobar cap component amb l'id. «%s»!"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr ""
-"No s'ha pogut obrir la memòria cau dels components de programari d'AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"

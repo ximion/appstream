@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-25 06:08+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/freedesktop/appstream/"
 "language/uk/)\n"
 "Language: uk\n"
@@ -41,14 +41,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "Оновлення кешу AppStream успішно завершено."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"Оновлення кешу AppStream завершено, але деякі метадані було проігноровано "
-"через помилки."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Спроба оновити кеш AppStream зазнала невдачі."
 
@@ -59,14 +51,10 @@ msgstr "Оновлення кешу AppStream непотрібне."
 msgid "AppStream command-line interface"
 msgstr "Інтерфейс командного рядка AppStream"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"Не знайдено кешу компонентів програмного забезпечення AppStream. Це може "
-"означати, що AppStream налаштовано некоректним чином або у дистрибутиві не "
-"передбачено надання метаданих AppStream."
 
 msgid "Binaries"
 msgstr "Двійкові файли"
@@ -81,10 +69,11 @@ msgstr "Запис до адреси каталогу кешу, «%s», немо
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"Не вдалося скопіювати «%s»: назва файла не має суфікса «.metainfo.xml» або «."
-"appdata.xml»."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "Категорії"
@@ -141,6 +130,10 @@ msgstr "Порожньо."
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Примусове оновлення кешу"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr "Розширення"
@@ -305,20 +298,7 @@ msgstr "Резюме"
 msgid "Summary:"
 msgstr "Резюме:"
 
-msgid "The system metadata cache does not exist."
-msgstr "Кешу метаданих системи не існує."
-
-msgid "The system metadata cache exists."
-msgstr "Кеш метаданих системи існує."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "Під час спроби знайти додаткову інформацію сталася помилка: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Спроба виконання дії над закритою базою даних."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Не вдалося знайти компонент, що відповідає запиту %s!"
@@ -330,10 +310,6 @@ msgstr "Не вдалося знайти компонент, що забезпе
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Не вдалося знайти компонент з ідентифікатором «%s»!"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr ""
-"Не вдалося відкрити кеш компонентів програмного забезпечення AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"

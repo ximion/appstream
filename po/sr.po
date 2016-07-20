@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
 "language/sr/)\n"
 "Language: sr\n"
@@ -43,14 +43,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "Освежавање оставе Програмског тока је успешно обављено."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"Освежавање оставе Програмског тока је обављено, али неки метаподаци су "
-"занемарени због грешака."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Освежавање оставе Програмског тока није успело."
 
@@ -61,14 +53,10 @@ msgstr "Освежавање оставе Програмског тока ниј
 msgid "AppStream command-line interface"
 msgstr "Наредбено сучеље Програмског тока"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"Нисам нашао оставу састојка софтвера Програмског тока. Ово може да значи да "
-"Програмски ток није подешен како треба, или да ваша дистрибуција не "
-"обезбеђује никакве метаподатке Програмског тока"
 
 msgid "Binaries"
 msgstr "Извршни"
@@ -83,7 +71,10 @@ msgstr "Место оставе „%s“ није за уписивање."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
+msgstr ""
+
+msgid "Can not search for unknown component type."
 msgstr ""
 
 msgid "Categories"
@@ -139,6 +130,10 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Приморава освежавање оставе"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr "Проширује"
@@ -303,20 +298,7 @@ msgstr "Сажетак"
 msgid "Summary:"
 msgstr ""
 
-msgid "The system metadata cache does not exist."
-msgstr ""
-
-msgid "The system metadata cache exists."
-msgstr ""
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr ""
-
-msgid "Tried to perform query on closed database."
-msgstr "Покушах да обавим упит над затвореном базом података."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Не могу да пронађем састојак који одговара „%s“!"
@@ -328,9 +310,6 @@ msgstr "Не могу да нађем састојак који доставља
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Не могу да пронађем састојак са иб-ом „%s“!"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr "Не могу да отворим оставу састојка софтвера Програмског тока."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
 "language/ko/)\n"
 "Language: ko\n"
@@ -23,10 +23,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "검증할 때 세세한 힌트도 출력"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "항목 형식(예: lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -42,14 +42,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"AppStream 캐시를 업데이트하였으나 일부 메타데이터는 오류로 인하여 무시하였습"
-"니다."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream 캐시 업데이트가 실패하였습니다."
 
@@ -60,13 +52,10 @@ msgstr "AppStream 캐시 업데이트가 불필요합니다."
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령행 인터페이스"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"AppStream 프로그램 구성요소 캐시를 찾을 수 없습니다. AppStream을 제대로 설정"
-"하지 않았거나 배포판에서 AppStream 메타데이터를 제공하지 않았음을 의미합니다."
 
 msgid "Binaries"
 msgstr "바이너리"
@@ -81,10 +70,11 @@ msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"'%s'을(를) 복사할 수 없음: '.metainfo.xml' 또는 '.appdata.xml' 파일 확장자가 "
-"아닙니다."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "분류"
@@ -115,7 +105,7 @@ msgid "Developer"
 msgstr "개발자"
 
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "설치한 AppStream 메타데이터의 상태 정보를 나타냅니다."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -140,6 +130,10 @@ msgstr "비어 있음."
 msgid "Enforce a cache refresh"
 msgstr "캐시 강제로 새로 고침"
 
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
+
 msgid "Extends"
 msgstr "확장"
 
@@ -159,7 +153,7 @@ msgstr "글꼴"
 #. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "기존 경로에서 구성 요소 %i개를 찾았습니다."
 
 #, c-format
 msgid "Found %i components."
@@ -210,7 +204,7 @@ msgstr "AppStream 캐시 위치 직접 지정"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "메타 정보 파일:"
 
 msgid "Mimetypes"
 msgstr "MIME 형식"
@@ -263,7 +257,7 @@ msgid "Python 3"
 msgstr "파이썬 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "구성요소 메타데이터 캐시를 다시 만듭니다."
 
 msgid "Remove software matching the component-id."
 msgstr "component-id에 일치하는 프로그램을 제거합니다."
@@ -300,20 +294,7 @@ msgstr "요약"
 msgid "Summary:"
 msgstr "요약:"
 
-msgid "The system metadata cache does not exist."
-msgstr "시스템 메타데이터 캐시가 없습니다."
-
-msgid "The system metadata cache exists."
-msgstr "시스템 메타데이터 캐시가 있습니다."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "추가 정보를 찾는 도중 오류가 발생했습니다: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "닫아놓은 데이터베이스에 대해 요청 수행을 시도했습니다."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "%s와(과) 일치하는 구성 요소를 찾을 수 없습니다!"
@@ -325,9 +306,6 @@ msgstr "'%s;%s'을(를) 제공하는 구성요소를 찾을 수 없습니다!"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr "AppStream 프로그램 구성요소 캐시를 열 수 없습니다."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
@@ -351,11 +329,11 @@ msgid "Validation was successful."
 msgstr "검증을 끝냈습니다."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "찾아야 할 항목의 값입니다."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "버전: %s"
 
 #, c-format
 msgid "We have information on %i software components."

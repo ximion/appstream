@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:14+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Polish (http://www.transifex.com/freedesktop/appstream/"
 "language/pl/)\n"
 "Language: pl\n"
@@ -41,14 +41,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"Pomyślnie ukończono aktualizację pamięci podręcznej AppStream, ale część "
-"metadanych została zignorowana z powodu błędów."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
 
@@ -59,14 +51,10 @@ msgstr "Aktualizacja pamięci podręcznej AppStream jest niepotrzebna."
 msgid "AppStream command-line interface"
 msgstr "Interfejs wiersza poleceń AppStream"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"Nie odnaleziono pamięci podręcznej składników oprogramowania AppStream. Może "
-"to oznaczać, że niepoprawnie ustawiono AppStream lub dystrybucja nie "
-"dostarcza metadanych AppStream."
 
 msgid "Binaries"
 msgstr "Pliki binarne"
@@ -81,10 +69,11 @@ msgstr "Położenie pamięci podręcznej „%s” nie jest zapisywalne."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"Nie można skopiować „%s”: plik nie posiada rozszerzenia „.metainfo.xml” lub "
-"„.appdata.xml”."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "Kategorie"
@@ -139,6 +128,10 @@ msgstr "Puste."
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Wymusza odświeżenie pamięci podręcznej"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr "Rozszerza"
@@ -303,20 +296,7 @@ msgstr "Podsumowanie"
 msgid "Summary:"
 msgstr "Podsumowanie:"
 
-msgid "The system metadata cache does not exist."
-msgstr "Pamięć podręczna systemowych metadanych nie istnieje."
-
-msgid "The system metadata cache exists."
-msgstr "Pamięć podręczna systemowych metadanych istnieje."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "Wystąpił błąd podczas próby odnalezienia dodatkowych informacji: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Próbowano wykonać zapytanie na zamkniętej bazie danych."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nie można odnaleźć składnika pasującego do %s."
@@ -328,10 +308,6 @@ msgstr "Nie można odnaleźć składnika dostarczającego „%s;%s”."
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
-
-msgid "Unable to open the AppStream software component cache."
-msgstr ""
-"Nie można otworzyć pamięci podręcznej składników oprogramowania AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"

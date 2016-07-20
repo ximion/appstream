@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
 "language/sk/)\n"
 "Language: sk\n"
@@ -25,7 +25,7 @@ msgid "Also print pedantic hints when validating"
 msgstr ""
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Typ položky (napr. lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -41,14 +41,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"Aktualizácia vyrovnávacej pamäte AppStream bola dokončená, ale niektoré "
-"metadáta boli ignorované z dôvodu chýb."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 
@@ -59,14 +51,10 @@ msgstr "Aktualizácia vyrovnávacej pamäte nástroja AppStream nie je potrebná
 msgid "AppStream command-line interface"
 msgstr "Rozhranie príkazového riadku AppStream"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"Vyrovnávacia pamäť softvérovej súčasti AppStreamu nebola nájdená. Toto môže "
-"znamenať, že AppStream nebol nainštalovaný správne, alebo že vaša "
-"distribúcia neposkytuje žiadne metaúdaje pre AppStream."
 
 msgid "Binaries"
 msgstr "Binárne súbory"
@@ -81,7 +69,10 @@ msgstr "Umiestnenie vyrovnávacej pamäte „%s“ nie je zapisovateľné."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
+msgstr ""
+
+msgid "Can not search for unknown component type."
 msgstr ""
 
 msgid "Categories"
@@ -137,6 +128,10 @@ msgstr "Prázdne."
 #. TRANSLATORS: ascli flag description for: --force
 msgid "Enforce a cache refresh"
 msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
+
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
 
 msgid "Extends"
 msgstr ""
@@ -301,20 +296,7 @@ msgstr "Zhrnutie"
 msgid "Summary:"
 msgstr "Zhrnutie:"
 
-msgid "The system metadata cache does not exist."
-msgstr "Systémová vyrovnávacia pamäť metaúdajov neexistuje."
-
-msgid "The system metadata cache exists."
-msgstr "Systémová vyrovnávacia pamäť metaúdajov existuje."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr "Vyskytla sa chyba pri hľadaní dodatočných informácií: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Bol uskutočnený pokus o vykonanie požiadavky na zavretú databázu."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nie je možné nájsť súčasť zodpovedajúcu %s!"
@@ -326,11 +308,6 @@ msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“!"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Nie je možné nájsť súčasť s ID „%s“!"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr ""
-"Nie je možné otvoriť vyrovnávaciu pamäť softvérového komponentu nástroja "
-"AppStream."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
@@ -353,11 +330,11 @@ msgid "Validation was successful."
 msgstr "Overenie bolo úspešné."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Hodnota položky, ktorá by sa mala nájsť."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Verzia: %s"
 
 #, c-format
 msgid "We have information on %i software components."

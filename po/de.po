@@ -5,14 +5,14 @@
 # Translators:
 # Ettore Atalan <atalanttore@googlemail.com>, 2014-2016
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016
-# Matthias K. <matthias@tenstral.net>, 2014
+# Matthias Klumpp <matthias@tenstral.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-05-02 19:07+0200\n"
-"PO-Revision-Date: 2016-04-24 21:06+0000\n"
-"Last-Translator: Matthias K. <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-07-20 14:40+0200\n"
+"PO-Revision-Date: 2016-07-20 12:40+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: German (http://www.transifex.com/freedesktop/appstream/"
 "language/de/)\n"
 "Language: de\n"
@@ -23,10 +23,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "Auch pedantische Hinweise bei der Validierung ausgeben"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Ein Eintragstyp (z.B. lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -42,14 +42,6 @@ msgid "AppStream cache update completed successfully."
 msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
 
 #, c-format
-msgid ""
-"AppStream cache update completed, but some metadata was ignored due to "
-"errors."
-msgstr ""
-"Aktualisierung des AppStream-Zwischenspeichers war erfolgreich, aber einige "
-"Metadaten wurden wegen Fehlern ignoriert."
-
-#, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualisierung des AppStream-Zwischenspeichers ist fehlgeschlagen."
 
@@ -60,14 +52,10 @@ msgstr "Aktualisierung des AppStream-Zwischenspeichers ist nicht nötig."
 msgid "AppStream command-line interface"
 msgstr "AppStream-Befehlszeilenoberfläche"
 
+#, c-format
 msgid ""
-"AppStream software component cache was not found. This could mean AppStream "
-"was set up incorrectly, or your distribution does not provide any AppStream "
-"metadata."
+"AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"AppStream-Softwarekomponenten-Zwischenspeicher wurde nicht gefunden. Dies "
-"könnte bedeuten, dass AppStream falsch eingerichtet wurde oder Ihre "
-"Distribution keine AppStream-Metadaten bereitstellt."
 
 msgid "Binaries"
 msgstr "Binärdateien"
@@ -82,10 +70,11 @@ msgstr "Zwischenspeicheradresse '%s' ist nicht schreibbar."
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
-"extension."
+"suffix."
 msgstr ""
-"Kann '%s' nicht kopieren: Datei hat keine '.metainfo.xml'- oder '.appdata."
-"xml'-Erweiterung."
+
+msgid "Can not search for unknown component type."
+msgstr ""
 
 msgid "Categories"
 msgstr "Kategorien"
@@ -116,7 +105,7 @@ msgid "Developer"
 msgstr "Entwickler"
 
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Statusinformationen über verfügbare AppStream-Metadaten anzeigen."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -141,6 +130,10 @@ msgstr "Leer."
 msgid "Enforce a cache refresh"
 msgstr "Aktualisierung des Zwischenspeichers erzwingen"
 
+#, c-format
+msgid "Error while loading the metadata pool: %s"
+msgstr ""
+
 msgid "Extends"
 msgstr "Erweitert"
 
@@ -160,7 +153,7 @@ msgstr "Schriftarten"
 #. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "%i Komponenten in veralteten Pfaden gefunden."
 
 #, c-format
 msgid "Found %i components."
@@ -213,7 +206,7 @@ msgstr "Ort des AppStream-Zwischenspeichers manuell angeben"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Metainfo-Dateien:"
 
 msgid "Mimetypes"
 msgstr "MIME-Typen"
@@ -267,7 +260,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Metadaten-Zwischenspeicher der Komponente neu erstellen"
 
 msgid "Remove software matching the component-id."
 msgstr "Software mit passender Komponentenkennung entfernen."
@@ -306,21 +299,7 @@ msgstr "Zusammenfassung"
 msgid "Summary:"
 msgstr "Zusammenfassung:"
 
-msgid "The system metadata cache does not exist."
-msgstr "Der Systemmetadaten-Zwischenspeicher ist nicht vorhanden."
-
-msgid "The system metadata cache exists."
-msgstr "Der Systemmetadaten-Zwischenspeicher ist vorhanden."
-
-#, c-format
-msgid "There was an error while trying to find additional information: %s"
-msgstr ""
-"Es gab einen Fehler beim Versuch zusätzliche Informationen zu finden: %s"
-
-msgid "Tried to perform query on closed database."
-msgstr "Es wurde versucht, eine geschlossene Datenbank abzufragen."
-
-#. TRANSLATORS: We failed to find any component in the database due to an error
+#. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Eine %s entsprechende Komponente konnte nicht gefunden werden!"
@@ -332,11 +311,6 @@ msgstr "Es konnte keine Komponente gefunden werden, die »%s;%s« bereitstellt!"
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
-
-msgid "Unable to open the AppStream software component cache."
-msgstr ""
-"Der Zwischenspeicher der AppStream-Softwarekomponente konnte nicht geöffnet "
-"werden."
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
@@ -362,11 +336,11 @@ msgid "Validation was successful."
 msgstr "Validierung war erfolgreich."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Wert des Objekts, das gefunden werden soll."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Version: %s"
 
 #, c-format
 msgid "We have information on %i software components."
