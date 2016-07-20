@@ -854,6 +854,10 @@ as_utils_is_category_name (const gchar *category_name)
 	g_autoptr(GBytes) data = NULL;
 	g_autofree gchar *key = NULL;
 
+	/* custom spec-extensions are generally valid if prefixed correctly */
+	if (g_str_has_prefix (category_name, "X-"))
+		return TRUE;
+
 	/* load the readonly data section and look for the icon name */
 	data = g_resource_lookup_data (as_get_resource (),
 				       "/org/freedesktop/appstream/xdg-category-names.txt",

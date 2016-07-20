@@ -894,7 +894,7 @@ as_matches_metainfo (const gchar *fname, const gchar *basename)
 static void
 as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsComponent *cpt, struct MInfoCheckData *data)
 {
-	gchar *tmp;
+	g_autofree gchar *cid_base = NULL;
 
 	/* if we have no component-id, we can't check anything */
 	if (as_component_get_id (cpt) == NULL)
@@ -904,9 +904,13 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 	as_validator_set_current_fname (data->validator, fname);
 
 	/* check if the fname and the component-id match */
-	tmp = g_strndup (as_component_get_id (cpt),
-				g_strrstr (as_component_get_id (cpt), ".") - as_component_get_id (cpt));
-	if (!as_matches_metainfo (fname, tmp)) {
+	if (g_str_has_suffix (as_component_get_id (cpt), ".desktop")) {
+		cid_base = g_strndup (as_component_get_id (cpt),
+					g_strrstr (as_component_get_id (cpt), ".") - as_component_get_id (cpt));
+	} else {
+		cid_base = g_strdup (as_component_get_id (cpt));
+	}
+	if (!as_matches_metainfo (fname, cid_base)) {
 		/* the name-without-type didn't match - check for the full id in the component name */
 		if (!as_matches_metainfo (fname, as_component_get_id (cpt))) {
 			as_validator_add_issue (data->validator,
@@ -915,7 +919,6 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 					"The metainfo filename does not match the component ID.");
 		}
 	}
-	g_free (tmp);
 
 	/* check if the referenced .desktop file exists */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
@@ -940,7 +943,8 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 
 				/* name */
 				if ((g_strcmp0 (as_component_get_name (cpt), "") == 0) &&
-				    (!g_key_file_has_key (dfile, "Desktop Entry", "Name", NULL))) {
+				    (!g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
+								 G_KEY_FILE_DESKTOP_KEY_NAME, NULL))) {
 					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
 					as_validator_add_issue (data->validator,
 							AS_ISSUE_IMPORTANCE_ERROR,
@@ -950,13 +954,37 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 
 				/* summary */
 				if ((g_strcmp0 (as_component_get_summary (cpt), "") == 0) &&
-				    (!g_key_file_has_key (dfile, "Desktop Entry", "Comment", NULL))) {
+				    (!g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
+								 G_KEY_FILE_DESKTOP_KEY_COMMENT, NULL))) {
 					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
 					as_validator_add_issue (data->validator,
 							AS_ISSUE_IMPORTANCE_ERROR,
 							AS_ISSUE_KIND_VALUE_MISSING,
 							"The component is missing a summary (none found in its metainfo or .desktop file)");
 				}
+
+				/* categories */
+				if (g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
+								G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL)) {
+					g_autofree gchar *cats_str = NULL;
+					g_auto(GStrv) cats = NULL;
+					guint i;
+
+					cats_str = g_key_file_get_string (dfile, G_KEY_FILE_DESKTOP_GROUP,
+										 G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL);
+					cats = g_strsplit (cats_str, ";", -1);
+					for (i = 0; cats[i] != NULL; i++) {
+						if (as_str_empty (cats[i]))
+							continue;
+						if (!as_utils_is_category_name (cats[i])) {
+							as_validator_add_issue (data->validator,
+										AS_ISSUE_IMPORTANCE_ERROR,
+										AS_ISSUE_KIND_VALUE_WRONG,
+										"The category '%s' defined in the .desktop file does not exist.", cats[i]);
+						}
+					}
+				}
+
 			}
 		} else {
 			as_validator_add_issue (data->validator,
