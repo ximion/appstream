@@ -67,7 +67,7 @@ class APPSTREAMQT_EXPORT Component {
         enum BundleKind {
             BundleKindUnknown,
             BundleKindLimba,
-            BundleKindXdgApp
+            BundleKindFlatpak
         };
         Q_ENUM(BundleKind)
 

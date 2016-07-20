@@ -392,8 +392,8 @@ QString Component::bundleKindToString(Component::BundleKind kind) {
     switch (kind) {
         case Component::BundleKindLimba:
             return QStringLiteral("limba");
-        case Component::BundleKindXdgApp:
-            return QStringLiteral("xdg-app");
+        case Component::BundleKindFlatpak:
+            return QStringLiteral("flatpak");
         default:
             return QString();
     }
@@ -403,8 +403,8 @@ Component::BundleKind Component::stringToBundleKind(const QString& bundleKindStr
     if (bundleKindString == QLatin1String("limba")) {
         return BundleKindLimba;
     }
-    if (bundleKindString == QLatin1String("xdg-app")) {
-        return BundleKindXdgApp;
+    if (bundleKindString == QLatin1String("flatpak")) {
+        return BundleKindFlatpak;
     }
     return BundleKindUnknown;
 }

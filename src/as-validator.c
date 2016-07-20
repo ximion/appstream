@@ -571,7 +571,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
 			g_autofree gchar *prop = NULL;
 			prop = as_validator_check_type_property (validator, cpt, iter);
-			if ((g_strcmp0 (prop, "limba") != 0) && (g_strcmp0 (prop, "xdg-app") != 0)) {
+			if ((g_strcmp0 (prop, "limba") != 0) && (g_strcmp0 (prop, "flatpak") != 0)) {
 				as_validator_add_issue (validator,
 							AS_ISSUE_IMPORTANCE_ERROR,
 							AS_ISSUE_KIND_VALUE_WRONG,

@@ -89,8 +89,8 @@ as_bundle_kind_to_string (AsBundleKind bundle_kind)
 {
 	if (bundle_kind == AS_BUNDLE_KIND_LIMBA)
 		return "limba";
-	if (bundle_kind == AS_BUNDLE_KIND_XDG_APP)
-		return "xdg-app";
+	if (bundle_kind == AS_BUNDLE_KIND_FLATPAK)
+		return "flatpak";
 	return "unknown";
 }
 
