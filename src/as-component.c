@@ -2059,7 +2059,7 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
 /**
  * as_component_create_token_cache:
  */
-static void
+void
 as_component_create_token_cache (AsComponent *cpt)
 {
 	as_component_create_token_cache_target (cpt, cpt);

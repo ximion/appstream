@@ -358,6 +358,7 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 		}
 
 		// Search tokens
+		as_component_create_token_cache (cpt);
 		auto token_table = as_component_get_token_cache_table (cpt);
 		if (g_hash_table_size (token_table) > 0) {
 			g_hash_table_foreach (token_table,
