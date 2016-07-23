@@ -1,16 +1,17 @@
 AppStream
 =========
 
-AppStream is a cross-distro effort for enhancing the way we interact with the software repositories provided by (Linux) distributions
-by standardizing sets of additional metadata.
-It provides specifications for things like an unified software metadata database, screenshot services and various other useful bits
-needed to create user-friendly software-centers or other tools requiring rich software metadata.
+AppStream is a cross-distro effort for providing metadata for software in the (Linux) ecosystem. It provides a convenient way
+to get information about not installed software, and is one of the building blocks for software centers.
+It consists of specifications for things like upstream metainfo files, an unified software metadata pool for distributors,
+screenshot services and various other useful bits needed to create user-friendly software-centers or other tools requiring
+rich metadata for software and other content.
 
 This repository contains:
  * the AppStream specification
- * the `appstreamcli` utility to access metadata, rebuild the Xapian cache, show diagnostic information, etc. (see `man appstreamcli`)
- * a GLib/GObject based library for reading and writing AppStream metadata in XML and YAML, accessing the Xapian metadata cache, and for various other useful methods.
- * a Qt5 based library for reading the AppStream cache.
+ * the `appstreamcli` utility to access metadata, manipulate caches, show diagnostic information, etc. (see `man appstreamcli`)
+ * a GLib/GObject based library for reading and writing AppStream metadata in XML and YAML, accessing the system data pool, and for various other useful methods.
+ * a Qt5 based library for accessing AppStream.
 
 ![AppStream Architecture](docs/sources/images/architecture-small.png "AppStream Architecture")
 
@@ -35,11 +36,11 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
  * GObject-Introspection
  * libxml2
  * libyaml
- * Xapian
  * ProtoBuf
 
 #### Optional
  * Vala Compiler (vapigen) (for Vala VAPI file)
+ * [Snowball](http://snowballstem.org/download.html) (for stemming support)
 
 #### Documentation / Specification
  * Publican
@@ -65,6 +66,7 @@ Possible AppStream-specific flags are:
  -DVAPI=ON            -- Build Vala API to use library with the Vala programming language.  
  -DDOCUMENTATION=ON   -- (Re)generate API documentation.  
  -DMAINTAINER=ON      -- Enable strict compiler options - use this if you write a patch for AppStream.  
+ -DSTEMMING           -- Enable support for stemming in fulltext searches.  
  -DAPT_SUPPORT=ON     -- Enable integration with the APT package manager on Debian.
 
 ### Installation
