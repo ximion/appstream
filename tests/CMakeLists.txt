@@ -1,6 +1,6 @@
 # CMakeLists for UAI Unit Tests
 
-find_package(GLIB2 REQUIRED)
+pkg_check_modules(GLIB2 REQUIRED glib-2.0>=2.46)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(LibXml2 REQUIRED)
 find_library(M_LIB m)
@@ -17,8 +17,8 @@ include_directories(${CMAKE_BINARY_DIR}
 		${CMAKE_SOURCE_DIR}/src
 		${CMAKE_SOURCE_DIR}/src/xapian
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${GLIB2_INCLUDE_DIR}
-		${GIO2_INCLUDE_DIR}
+		${GLIB2_INCLUDE_DIRS}
+		${GIO2_INCLUDE_DIRS}
 		${LIBXML2_INCLUDE_DIR}
 )
 

@@ -6,7 +6,7 @@ include(GenerateExportHeader)
 add_compiler_export_flags()
 
 find_package(Qt5 REQUIRED COMPONENTS Core)
-find_package(GLIB2 2.46 REQUIRED)
+pkg_check_modules(GLIB2 REQUIRED glib-2.0>=2.46)
 include(GNUInstallDirs)
 
 set(APPSTREAMQT_SO_VERSION 1)
@@ -40,7 +40,7 @@ set(APPSTREAMQT_PUBLIC_HEADERS
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
                     ${CMAKE_SOURCE_DIR}/src
                     ${CMAKE_BINARY_DIR}/src
-                    ${GLIB2_INCLUDE_DIR}
+                    ${GLIB2_INCLUDE_DIRS}
 )
 
 add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})

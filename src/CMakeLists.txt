@@ -1,7 +1,7 @@
 # CMakeLists for AppStream database shared lib
 
-find_package(GLIB2 2.46 REQUIRED)
-pkg_check_modules(GIO2 REQUIRED gio-2.0>=2.46)
+pkg_check_modules(GLIB2 REQUIRED glib-2.0>=2.46)
+pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(GI REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_package(Protobuf REQUIRED)
@@ -100,8 +100,8 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/pb
 		    ${CMAKE_BINARY_DIR}
 		    ${CMAKE_BINARY_DIR}/src
-		    ${GLIB2_INCLUDE_DIR}
-		    ${GIO2_INCLUDE_DIR}
+		    ${GLIB2_INCLUDE_DIRS}
+		    ${GIO2_INCLUDE_DIRS}
 		    ${LIBXML2_INCLUDE_DIR}
 		    ${YAML_INCLUDE_DIR}
 		    ${PROTOBUF_INCLUDE_DIRS}
