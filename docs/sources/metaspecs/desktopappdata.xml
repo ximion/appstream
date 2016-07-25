@@ -10,15 +10,21 @@
 	<section id="spec-appdata-introduction">
 		<title>Introduction</title>
 		<para>
-			Upstream projects can ship a small XML file containing additional metadata to describe their application.
+			A desktop application is an application which has a graphica user interface and is commonly used with mouse and keyboard. It also ships a Freedesktop
+			.desktop file to be visible in application menus.
+		</para>
+		<para>
+			AppStream generators may pull data from the preexisting .desktop files to represent an application in the AppStream metadata pool. Upstream projects should
+			ship a small XML file containing additional metadata to describe their application though, to enhance the available metadata.
 			This data includes things like screenshots, long descriptions, icon information and various other things needed
 			to present the application properly to the user.
+			For some distributions, the presence of this metadata is a prerequisite for the application showing up in the metadata pool and being presented in software centers.
 		</para>
 		<para>
-			The file described in this document is built upon the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
+			The file described in this document is built upon the generic component metadata with fields specific for desktop applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
 		</para>
 		<para>
-			The AppData files override any values which are automatically fetched by the AppStream data generator, which means that it's data takes precedence over
+			The metainfo files override any values which are automatically fetched from other sources by the AppStream data generator, which means that its data will always take precedence over
 			data which has already been defined in a .desktop-file.
 			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
@@ -35,14 +41,14 @@
 
 		<para>
 			The basic structure for a generic component as described at <xref linkend="spec-component-filespec"/> applies.
-			Note that the XML root must have the <literal>type</literal> property set to <code>desktop</code>, which in a generic component this
+			Note that the XML root must have the <literal>type</literal> property set to <code>desktop</code>, while in a generic component this
 			property can be omitted. This clearly identified this metainfo document as describing an application.
 		</para>
 
 		<note>
 			<para>
-				All tags defined in the generic component specification are valid in AppData as well, an application is just
-				defined as a specialized component, which has the additional benefit of being displayed in a software-center application.
+				All tags defined in the generic component specification are valid for desktop application components as well. An application is just
+				a specialized component, allowing tools like software centers to filter out the component types they want to display.
 			</para>
 		</note>
 
@@ -57,7 +63,7 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For applications, the <literal>&lt;id/&gt;</literal> tag value must be the same name as the installed .desktop file for the application.
+					For applications, the <code>&lt;id/&gt;</code> tag value must be the same name as the installed .desktop file for the application.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -66,7 +72,7 @@
 			<term>&lt;metadata_license/&gt;</term>
 			<listitem>
 				<para>
-					The <code>&lt;metadata_license/&gt;</code> as described in <xref linkend="tag-metadata_license"/> must be present.
+					The <code>&lt;metadata_license/&gt;</code> tag as described in <xref linkend="tag-metadata_license"/> must be present.
 				</para>
 			</listitem>
 			</varlistentry>
