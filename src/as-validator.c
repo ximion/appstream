@@ -425,12 +425,15 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 static AsComponent*
 as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xmlNode *root)
 {
-	gchar *cpttype;
 	xmlNode *iter;
 	AsComponent *cpt;
-	gchar *metadata_license = NULL;
-	GHashTable *found_tags;
+	guint i;
+	g_autofree gchar *metadata_license = NULL;
+	g_autofree gchar *cpttype = NULL;
+	g_autoptr(GHashTable) found_tags = NULL;
+	g_auto(GStrv) cid_parts = NULL;
 	const gchar *summary;
+	const gchar *cid;
 	AsParserMode mode;
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -439,7 +442,6 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	/* validate the resulting AsComponent for sanity */
 	cpt = as_component_new ();
 	as_xmldata_parse_component_node (xdt, root, cpt, NULL);
-
 	as_validator_set_current_cpt (validator, cpt);
 
 	/* check if component type is valid */
@@ -453,7 +455,52 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 						cpttype);
 		}
 	}
-	g_free (cpttype);
+
+	/* validate the AppStream ID */
+	cid = as_component_get_id (cpt);
+	cid_parts = g_strsplit (cid, ".", 3);
+	if (g_strv_length (cid_parts) != 3) {
+		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
+			/* since the ID and .desktop-file-id are tied together, we can't make this an error for desktop apps */
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"The component ID is not a reverse domain-name. Please update the ID and that of the accompanying .desktop file to follow the latest version of the specifications and avoid future issues.");
+		} else {
+			/* anything which isn't a .desktop app should follow the schema though */
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"The component ID is no reverse domain-name.");
+		}
+	} else {
+		/* some people just add random dots to their ID - check if we have an actual known TLD as first part, to be more certain that this is a reverse domain name
+		 * (this issue happens quite often with old .desktop files) */
+		if (!as_utils_is_tld (cid_parts[0])) {
+			as_validator_add_issue (validator,
+						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"The component ID might not follow the reverse domain-name schema (we do not know about the TLD '%s').", cid_parts[0]);
+		}
+	}
+
+	/* validate characters in AppStream ID */
+	for (i = 0; cid[i] != '\0'; i++) {
+		/* check if we have a printable, alphanumeric ASCII character or a dot, hyphen or underscore */
+		if ((!g_ascii_isalnum (cid[i])) &&
+		    (cid[i] != '.') &&
+		    (cid[i] != '-') &&
+		    (cid[i] != '_')) {
+			g_autofree gchar *c = NULL;
+			c = g_utf8_substring (cid, i, i + 1);
+			as_validator_add_issue (validator,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"The component ID contains an invalid character: '%s'", c);
+		}
+	}
+
+
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
@@ -610,16 +657,12 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		}
 	}
 
-	g_hash_table_unref (found_tags);
-
 	if (metadata_license == NULL) {
 		if (mode == AS_PARSER_MODE_UPSTREAM)
 			as_validator_add_issue (validator,
 						AS_ISSUE_IMPORTANCE_ERROR,
 						AS_ISSUE_KIND_TAG_MISSING,
 						"The essential tag 'metadata_license' is missing.");
-	} else {
-		g_free (metadata_license);
 	}
 
 	/* check if the summary is sane */

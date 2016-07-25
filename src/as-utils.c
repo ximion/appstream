@@ -858,7 +858,7 @@ as_utils_is_category_name (const gchar *category_name)
 	if (g_str_has_prefix (category_name, "X-"))
 		return TRUE;
 
-	/* load the readonly data section and look for the icon name */
+	/* load the readonly data section and look for the category name */
 	data = g_resource_lookup_data (as_get_resource (),
 				       "/org/freedesktop/appstream/xdg-category-names.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
@@ -866,5 +866,33 @@ as_utils_is_category_name (const gchar *category_name)
 	if (data == NULL)
 		return FALSE;
 	key = g_strdup_printf ("\n%s\n", category_name);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
+ * as_utils_is_tld:
+ * @tld: a top-level domain without dot, e.g. "de", "org", "name"
+ *
+ * Searches the known list of TLDs we allow for AppStream IDs.
+ * This excludes internationalized names.
+ *
+ * Returns: %TRUE if the TLD is valid
+ *
+ * Since: 0.9.8
+ **/
+gboolean
+as_utils_is_tld (const gchar *tld)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+
+	/* load the readonly data section and look for the TLD */
+	data = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/iana-filtered-tld-list.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", tld);
 	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
 }
