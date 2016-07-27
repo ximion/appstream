@@ -130,6 +130,11 @@ class APPSTREAMQT_EXPORT Component {
         QUrl iconUrl(const QSize& size) const;
 
         /**
+         * \return urls to each icon
+         */
+        QMap<QSize, QUrl> iconUrls() const;
+
+        /**
          * Sets the url for an icon
          *
          * The url can be an absolute filepath or a HTTP remote link.
