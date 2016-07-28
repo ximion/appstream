@@ -22,9 +22,15 @@
 #include <QSharedData>
 #include <QStringList>
 #include <QUrl>
+#include <QMap>
 #include <QMultiHash>
 
 using namespace Appstream;
+
+static bool operator<(QSize a, QSize b)
+{
+    return a.width() < b.width() || (a.width() == b.width() && a.height() < b.height());
+}
 
 class Appstream::ComponentData : public QSharedData {
     public:
@@ -42,7 +48,7 @@ class Appstream::ComponentData : public QSharedData {
         QString m_projectGroup;
         QString m_projectLicense;
         QString m_summary;
-        QHash<QString, QUrl> m_iconUrls;
+        QMap<QSize, QUrl> m_iconUrls;
         QMultiHash<Component::UrlKind, QUrl> m_urls;
         QList<Appstream::Screenshot> m_screenshots;
         QMultiHash<Provides::Kind, Provides> m_provides;
@@ -135,13 +141,7 @@ QString Component::icon() const {
 }
 
 QUrl Component::iconUrl(const QSize& size) const {
-    QString sizeStr;
-    // if no size was specified, we assume 64x64
-    if (size.isValid())
-        sizeStr = QStringLiteral("%1x%2").arg(size.width()).arg(size.height());
-    else
-        sizeStr = QStringLiteral("64x64");
-    return d->m_iconUrls.value(sizeStr);
+    return d->m_iconUrls.value(size.isValid() ? size : QSize(64, 64));
 }
 
 QString Component::id() const {
@@ -193,13 +193,12 @@ void Component::setIcon(const QString& icon) {
 }
 
 void Component::addIconUrl(const QUrl& iconUrl, const QSize& size) {
-    QString sizeStr;
-    // if no size was specified, we assume 64x64
-    if (size.isValid())
-        sizeStr = QStringLiteral("%1x%2").arg(size.width()).arg(size.height());
-    else
-        sizeStr = QStringLiteral("64x64");
-    d->m_iconUrls.insert(sizeStr, iconUrl);
+    d->m_iconUrls.insert(size, iconUrl);
+}
+
+QMap<QSize, QUrl> Component::iconUrls() const
+{
+    return d->m_iconUrls;
 }
 
 void Component::setId(const QString& id) {
