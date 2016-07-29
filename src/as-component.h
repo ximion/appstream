@@ -61,6 +61,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
  * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
+ * @AS_COMPONENT_KIND_MERGE:		A component used to provide additional information to an existing component
  *
  * The type of an #AsComponent.
  **/
@@ -73,6 +74,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_INPUTMETHOD,
 	AS_COMPONENT_KIND_ADDON,
 	AS_COMPONENT_KIND_FIRMWARE,
+	AS_COMPONENT_KIND_MERGE,
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
