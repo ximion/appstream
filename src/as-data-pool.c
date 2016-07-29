@@ -216,9 +216,15 @@ as_data_pool_merge_components (AsDataPool *dpool, AsComponent *src_cpt, AsCompon
 	gchar **cats;
 	gchar **pkgnames;
 	GPtrArray* suggestions;
+	AsComponentKind src_kind;
 
 	/* FIXME: We only do this for GNOME Software compatibility. In future, we need better rules on what to merge how, and
 	 * whether we want to merge stuff at all. */
+
+	src_kind = as_component_get_kind (src_cpt);
+	
+	if (src_kind != AS_COMPONENT_KIND_MERGE)
+		return;
 
 	cats = as_component_get_categories (src_cpt);
 	if (cats != NULL) {
