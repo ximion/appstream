@@ -2076,7 +2076,7 @@ as_component_create_token_cache (AsComponent *cpt)
 /**
  * as_component_search_matches:
  * @cpt: a #AsComponent instance.
- * @search_term: the search term.
+ * @term: the search term.
  *
  * Searches component data for a specific keyword.
  *
@@ -2085,7 +2085,7 @@ as_component_create_token_cache (AsComponent *cpt)
  * Since: 0.9.7
  **/
 guint
-as_component_search_matches (AsComponent *cpt, const gchar *search_term)
+as_component_search_matches (AsComponent *cpt, const gchar *term)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	AsTokenType *match_pval;
@@ -2094,7 +2094,7 @@ as_component_search_matches (AsComponent *cpt, const gchar *search_term)
 	g_autoptr(GList) keys = NULL;
 
 	/* nothing to do */
-	if (search_term == NULL)
+	if (term == NULL)
 		return 0;
 
 	/* ensure the token cache is created */
@@ -2104,7 +2104,7 @@ as_component_search_matches (AsComponent *cpt, const gchar *search_term)
 	}
 
 	/* find the exact match (which is more awesome than a partial match) */
-	match_pval = g_hash_table_lookup (priv->token_cache, search_term);
+	match_pval = g_hash_table_lookup (priv->token_cache, term);
 	if (match_pval != NULL)
 		return *match_pval << 2;
 
@@ -2112,13 +2112,43 @@ as_component_search_matches (AsComponent *cpt, const gchar *search_term)
 	keys = g_hash_table_get_keys (priv->token_cache);
 	for (l = keys; l != NULL; l = l->next) {
 		const gchar *key = l->data;
-		if (g_str_has_prefix (key, search_term)) {
+		if (g_str_has_prefix (key, term)) {
 			match_pval = g_hash_table_lookup (priv->token_cache, key);
 			result |= *match_pval;
 		}
 	}
 
 	return result;
+}
+
+/**
+ * as_component_search_matches_all:
+ * @cpt: a #AsComponent instance.
+ * @terms: the search terms.
+ *
+ * Searches component data for all the specific keywords.
+ *
+ * Returns: a match score, where 0 is no match and larger numbers are better
+ * matches.
+ *
+ * Since: 0.9.8
+ */
+guint
+as_component_search_matches_all (AsComponent *cpt, gchar **terms)
+{
+	guint i;
+	guint matches_sum = 0;
+	guint tmp;
+
+	/* do *all* search keywords match */
+	for (i = 0; terms[i] != NULL; i++) {
+		tmp = as_component_search_matches (cpt, terms[i]);
+		if (tmp == 0)
+			return 0;
+		matches_sum |= tmp;
+	}
+
+	return matches_sum;
 }
 
 /**

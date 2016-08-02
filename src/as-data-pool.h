@@ -119,7 +119,7 @@ GPtrArray		*as_data_pool_get_components_by_kind (AsDataPool *dpool,
 GPtrArray		*as_data_pool_get_components_by_categories (AsDataPool *dpool,
 								 const gchar *categories);
 GPtrArray		*as_data_pool_search (AsDataPool *dpool,
-					      const gchar *term);
+					      const gchar *search);
 
 GPtrArray		*as_data_pool_get_metadata_locations (AsDataPool *dpool);
 void			as_data_pool_set_metadata_locations (AsDataPool *dpool,

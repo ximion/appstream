@@ -113,11 +113,12 @@ test_pool_read ()
 	g_autoptr(GError) error = NULL;
 
 	/* create DataPool and load sample metadata */
-	datadirs = g_new0(gchar*, 1 + 1);
+	datadirs = g_new0 (gchar*, 1 + 1);
 	datadirs[0] = g_build_filename (datadir, "distro", NULL);
 
 	dpool = as_data_pool_new ();
 	as_data_pool_set_metadata_locations (dpool, datadirs);
+	as_data_pool_set_locale (dpool, "C");
 
 	/* TODO: as_data_pool_load (dpool, NULL, &error);
 	g_assert_no_error (error); */
@@ -148,6 +149,11 @@ test_pool_read ()
 	g_ptr_array_unref (result);
 
 	result = as_data_pool_search (dpool, "bIoChemistrY");
+	print_cptarray (result);
+	g_assert_cmpint (result->len, ==, 1);
+	g_ptr_array_unref (result);
+
+	result = as_data_pool_search (dpool, "scalable graphics");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	g_ptr_array_unref (result);

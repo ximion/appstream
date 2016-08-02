@@ -937,55 +937,68 @@ as_data_pool_get_components_by_categories (AsDataPool *dpool, const gchar *categ
 }
 
 /**
- * as_data_pool_sanitize_search_term:
+ * as_data_pool_build_search_terms:
  *
- * Improve the search term slightly, by stripping whitespaces and
- * removing greylist words.
+ * Build an array of search terms from a search string and improve the search terms
+ * slightly, by stripping whitespaces, casefolding the terms and removing greylist words.
  */
-static gchar*
-as_data_pool_sanitize_search_term (AsDataPool *dpool, const gchar *term)
+static gchar**
+as_data_pool_build_search_terms (AsDataPool *dpool, const gchar *search)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 	g_autoptr(AsStemmer) stemmer = NULL;
-	g_autofree gchar *tmp_term = NULL;
-	gchar *term_stemmed = NULL;
+	g_autofree gchar *tmp_str = NULL;
+	g_auto(GStrv) strv = NULL;
+	gchar **terms;
 	guint i;
+	guint idx;
 
-	if (term == NULL)
+	if (search == NULL)
 		return NULL;
-	tmp_term = g_utf8_strdown (term, -1);
+	tmp_str = g_utf8_casefold (search, -1);
 
 	/* filter query by greylist (to avoid overly generic search terms) */
 	for (i = 0; priv->term_greylist[i] != NULL; i++) {
 		gchar *str;
-		str = as_str_replace (tmp_term, priv->term_greylist[i], "");
-		g_free (tmp_term);
-		tmp_term = str;
+		str = as_str_replace (tmp_str, priv->term_greylist[i], "");
+		g_free (tmp_str);
+		tmp_str = str;
 	}
 
 	/* restore query if it was just greylist words */
-	if (g_strcmp0 (tmp_term, "") == 0) {
+	if (g_strcmp0 (tmp_str, "") == 0) {
 		g_debug ("grey-list replaced all terms, restoring");
-		g_free (tmp_term);
-		tmp_term = g_utf8_strdown (term, -1);
+		g_free (tmp_str);
+		tmp_str = g_utf8_casefold (search, -1);
 	}
 
 	/* we have to strip the leading and trailing whitespaces to avoid having
 	 * different results for e.g. 'font ' and 'font' (LP: #506419)
 	 */
-	g_strstrip (tmp_term);
+	g_strstrip (tmp_str);
 
-	/* stem the string */
+	strv = g_strsplit (tmp_str, " ", -1);
+	terms = g_new0 (gchar *, g_strv_length (strv) + 1);
+	idx = 0;
 	stemmer = as_stemmer_new ();
-	term_stemmed = as_stemmer_stem (stemmer, tmp_term);
+	for (i = 0; strv[i] != NULL; i++) {
+		if (!as_utils_search_token_valid (strv[i]))
+			continue;
+		/* stem the string and add it to terms */
+		terms[idx++] = as_stemmer_stem (stemmer, strv[i]);
+	}
+	if (idx == 0) {
+		g_free (terms);
+		return NULL;
+	}
 
-	return term_stemmed;
+	return terms;
 }
 
 /**
  * as_data_pool_search:
  * @dpool: An instance of #AsDataPool
- * @term: A search term/string
+ * @search: A search string
  *
  * Search for a list of components matching the search terms.
  * The list will be unordered.
@@ -995,25 +1008,28 @@ as_data_pool_sanitize_search_term (AsDataPool *dpool, const gchar *term)
  * Since: 0.9.7
  */
 GPtrArray*
-as_data_pool_search (AsDataPool *dpool, const gchar *term)
+as_data_pool_search (AsDataPool *dpool, const gchar *search)
 {
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-	g_autofree gchar *sane_term = NULL;
+	g_auto(GStrv) terms = NULL;
 	GPtrArray *results;
 	GHashTableIter iter;
 	gpointer value;
+	g_autofree gchar *tmp_str = NULL;
 
 	/* sanitize user's search term */
-	sane_term = as_data_pool_sanitize_search_term (dpool, term);
+	terms = as_data_pool_build_search_terms (dpool, search);
 	results = g_ptr_array_new_with_free_func (g_object_unref);
-	g_debug ("Searching for: %s", sane_term);
+
+	tmp_str = g_strjoinv (" ", terms);
+	g_debug ("Searching for: %s", tmp_str);
 
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
 		guint res;
 		AsComponent *cpt = AS_COMPONENT (value);
 
-		res = as_component_search_matches (cpt, sane_term);
+		res = as_component_search_matches_all (cpt, terms);
 		if (res == 0)
 			continue;
 
