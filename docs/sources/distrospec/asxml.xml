@@ -11,7 +11,7 @@
 		<title>Introduction</title>
 
 		<para>
-			AppStream XML files are small textfiles describing all available applications in the distribution's package repositories.
+			AppStream XML files are small text files describing all available applications in the distribution's package repositories.
 			The XML files might be compressed with GZip.
 		</para>
 	</section>
@@ -19,7 +19,7 @@
 	<section id="spec-asxml-filenaming">
 		<title>File naming and location</title>
 		<para>
-			The XML files must have an unique name, which is usually the distribution's name and version, combined with the name of the repository/origin.
+			The XML files must have a unique name, which is usually the distribution's name and version, combined with the name of the repository/origin.
 			For example in Debian 8 (Jessie), the filename for the main repository component would be <filename>debian-jessie-main.xml.gz</filename>.
 			For Fedora 20 (Heisenbug) updates it would be <filename>fedora-20-updates.xml.gz</filename>.
 			3rd-party repositories use a vendor name and repository-name combination, for example Ubuntu PPAs might get <filename>ppa-ubuntu12.04-username-foobar.xml</filename>.
@@ -27,7 +27,7 @@
 		<para>
 			There are two valid locations to store AppStream XML data. <filename>/usr/share/app-info/xmls</filename> stores all AppStream data which
 			has been installed via software packages, while <filename>/var/cache/app-info/xmls</filename> stores application data which was downloaded
-			by the package manager or placed there by other tools (e.g. Limba).
+			by the package manager or placed there by other tools (for example, Limba).
 			The XML files can either be plain files or be compressed with gzip. It is always a good idea to compress the files, because they tend to become
 			quite large.
 		</para>
@@ -36,8 +36,8 @@
 	<section id="spec-asxml-general">
 		<title>General XML structure</title>
 		<para>
-			The XML starts with an <code>&lt;components&gt;</code> tag as root element. It has all the
-			<code>&lt;component&gt;</code> tags of different <literal>type</literal> as children.
+			The XML starts with a <code>&lt;components&gt;</code> tag as the root element. It has all the
+			<code>&lt;component&gt;</code> tags of different <literal>type</literal>s as children.
 		</para>
 		<para>
 			Data to fill the different component elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
@@ -66,7 +66,7 @@
 			<term>origin</term>
 			<listitem>
 				<para>
-					Defines the repository-id this AppStream XML file belongs to. This usually matches the filename without extension (see the explanation on how to pick a good filename above).
+					Defines the repository ID this AppStream XML file belongs to. This usually matches the filename without extension (see the explanation on how to pick a good filename above).
 					It is also used to associate the right cached icons with AppStream metadata. This property is required.
 				</para>
 			</listitem>
@@ -93,7 +93,7 @@
 		<para>
 			Additionally to the <literal>type</literal> property, every <literal>&lt;component/&gt;</literal> tag in AppStream distro data
 			may have a <literal>priority</literal> property, defining the priority of this specific metadata over other metadata from different
-			AppStream XML files (e.g. from a different repository) which have the same component-id. The value of this tag is an integer, if the
+			AppStream XML files (for example, from a different repository) which have the same component-id. The value of this tag is an integer, if the
 			property is missing, a value of <code>"0"</code> is assumed.
 		</para>
 
@@ -285,7 +285,7 @@
 <icon type="remote" width="64" height="64">http://example.com/icons/foobar.png</icon>
 <icon type="local" width="64" height="64">/usr/share/pixmaps/foobar.png</icon>]]></programlisting>
 					<para>
-						Multiple <code><![CDATA[<icon/>]]></code> tags might be combined for one application, e.g. to define a <literal>stock</literal> icon
+						Multiple <code><![CDATA[<icon/>]]></code> tags might be combined for one application, for example to define a <literal>stock</literal> icon
 						and a <literal>cached</literal> icon.
 						Software-Centers should always prefer the stock icon, if it is available, and fall back to the other icon types if they can not find it.
 						The <emphasis>libappstream</emphasis> library makes it easy to do that, if you are not accessing the Xapian database manually.
@@ -473,7 +473,7 @@
 						The <literal>description</literal> tag is structured as described in <xref linkend="tag-distro-description"/>. This also applies to its translation rules.
 					</para>
 					<para>
-						The AppStream distro XML generator may shorten overlong lists of releases to a smaller list, e.g. of 4 <literal>release</literal> tags.
+						The AppStream distro XML generator may shorten overlong lists of releases to a smaller list, for example of 4 <literal>release</literal> tags.
 						It may also convert ISO 8601 <literal>date</literal> properties of the metainfo file into an UNIX timestamp <literal>timestamp</literal> property.
 						It should avoid generating metadata containing both properties on a <literal>release</literal> tag.
 					</para>
