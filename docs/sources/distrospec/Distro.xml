@@ -4,17 +4,18 @@
 %BOOK_ENTITIES;
 ]>
 <chapter id="chap-DistroData">
-	<title>Distribution Metadata and Services</title>
+	<title>Distribution Metadata</title>
 	<para>
-		AppStream provides an own Metadata format which gets shipped by the distributions and is read by the Xapian database generator or
-		software centers directly.
+		Additionally to the metainfo files shipped by upstream projects, AppStream also provides an XML or YAML format
+		to make information about not installed software components known to the system.
 	</para>
 	<para>
-		This chapter contains information about it.
+		This chapter documents this distribution metadata format and icon cache used on the client side.
 	</para>
 
 	<xi:include href="asxml.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="dep11.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="merge-metadata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="iconcache.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 
 </chapter>
