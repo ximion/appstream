@@ -148,14 +148,21 @@ test_pool_read ()
 	g_assert_cmpint (result->len, ==, 2);
 	g_ptr_array_unref (result);
 
+	/* search for mixed-case strings */
 	result = as_data_pool_search (dpool, "bIoChemistrY");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	g_ptr_array_unref (result);
 
+	/* test searching for multiple words */
 	result = as_data_pool_search (dpool, "scalable graphics");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
+	g_ptr_array_unref (result);
+
+	/* we return all components if the search string is too short */
+	result = as_data_pool_search (dpool, "sh");
+	g_assert_cmpint (result->len, ==, 18);
 	g_ptr_array_unref (result);
 
 	result = as_data_pool_get_components_by_categories (dpool, "Science");

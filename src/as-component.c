@@ -2145,6 +2145,15 @@ as_component_search_matches_all (AsComponent *cpt, gchar **terms)
 	guint matches_sum = 0;
 	guint tmp;
 
+	if (terms == NULL) {
+		/* if the terms list is NULL, we usually had a too short search term when
+		 * tokenizing the search string. In any case, we treat NULL as match-all
+		 * value.
+		 * (users will see a full list of all entries that way, which they will
+		 * recognize as hint to make their search more narrow) */
+		return 1;
+	}
+
 	/* do *all* search keywords match */
 	for (i = 0; terms[i] != NULL; i++) {
 		tmp = as_component_search_matches (cpt, terms[i]);

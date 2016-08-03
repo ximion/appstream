@@ -987,6 +987,7 @@ as_data_pool_build_search_terms (AsDataPool *dpool, const gchar *search)
 		/* stem the string and add it to terms */
 		terms[idx++] = as_stemmer_stem (stemmer, strv[i]);
 	}
+	/* if we have no valid terms, return NULL */
 	if (idx == 0) {
 		g_free (terms);
 		return NULL;
@@ -1015,14 +1016,18 @@ as_data_pool_search (AsDataPool *dpool, const gchar *search)
 	GPtrArray *results;
 	GHashTableIter iter;
 	gpointer value;
-	g_autofree gchar *tmp_str = NULL;
 
 	/* sanitize user's search term */
 	terms = as_data_pool_build_search_terms (dpool, search);
 	results = g_ptr_array_new_with_free_func (g_object_unref);
 
-	tmp_str = g_strjoinv (" ", terms);
-	g_debug ("Searching for: %s", tmp_str);
+	if (terms == NULL) {
+		g_debug ("Search term invalid. Matching everything.");
+	} else {
+		g_autofree gchar *tmp_str = NULL;
+		tmp_str = g_strjoinv (" ", terms);
+		g_debug ("Searching for: %s", tmp_str);
+	}
 
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
