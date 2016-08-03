@@ -11,15 +11,15 @@
 		<title>Introduction</title>
 		<para>
 			A software center can allow users to install additional fonts using font metadata.
-			Also, applications can use font metadata to find missing fonts (e.g. a special methematical font is needed)
+			Also, applications can use font metadata to find missing fonts (for example, if a special mathematical font is needed)
 			in the distribution's software sources.
-			This meta-info specification describes how metadata for fonts / font collections should be structured.
+			This meta-info specification describes how metadata for fonts or font collections should be structured.
 		</para>
 		<para>
 			Font packages can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
-			Font metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
+			Font metadata files can – just like all other metainfo files – be translated. See the section about translation for more information.
 		</para>
 	</section>
 
@@ -46,7 +46,7 @@
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>font</code>.
-			This clearly identified this metainfo document as describing a font.
+			This clearly identifies this metainfo document as describing a font.
 		</para>
 
 		<variablelist>
@@ -54,7 +54,7 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For fonts, the <literal>%{id}</literal> must be the name of the font or font bundle without whitespaces, and must be suffixed
+					For fonts, the <literal>%{id}</literal> must be the name of the font or font bundle without whitespace, and must be suffixed
 					with <code>.font</code>.
 				</para>
 			</listitem>
@@ -73,7 +73,7 @@
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
-					Set a name for your font or font collection.
+					Set a name for the font or font collection.
 				</para>
 			</listitem>
 			</varlistentry>

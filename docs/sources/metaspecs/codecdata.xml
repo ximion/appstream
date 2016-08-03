@@ -16,7 +16,7 @@
 			Codecs can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
-			Codec metadata files can - just likle all other metainfo files - be translated. See the section about translation for more information about that.
+			Codec metadata files can – just like all other metainfo files – be translated. See the section about translation for more information.
 		</para>
 	</section>
 
@@ -72,7 +72,7 @@
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>codec</code>.
-			This clearly identified this metainfo document as describing a codec.
+			This clearly identifies this metainfo document as describing a codec.
 		</para>
 
 		<variablelist>
@@ -81,7 +81,7 @@
 			<listitem>
 				<para>
 					For codecs, there are no special requirements for what their <literal>%{id}</literal> should be.
-					But, as for any other component, you should pick a reasonable and unique name.
+					But, as for any other component, the name must be unique.
 				</para>
 			</listitem>
 			</varlistentry>

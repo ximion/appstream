@@ -13,7 +13,7 @@
 			Device firmware can be accompanied by AppStream upstream metadata, to be incorporated
 			by a distribution. Tools like <ulink url="https://github.com/hughsie/fwupd">fwupd</ulink> make
 			use of this metadata to automatically update flashed firmware of devices found in the machine.
-			Additionally, this component type can also be used for firmware which is loaded to the device at runtime.
+			Additionally, this component type can also be used for firmware which is loaded onto the device at runtime.
 		</para>
 		<para>
 			Firmware can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
@@ -69,7 +69,7 @@
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>firmware</code>.
-			This clearly identified this metainfo document as describing firmware.
+			This clearly identifies this metainfo document as describing firmware.
 		</para>
 
 		<variablelist>
@@ -78,7 +78,7 @@
 			<listitem>
 				<para>
 					For firmware, the value of the <code>&lt;id/&gt;</code> tag must be a unique name for the device the firmware belongs to, constsing of the vendor domain and the
-					device name. A reverse URL scheme in form of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.firmware</literal> is used, e.g. <code>com.hughski.ColorHug2.firmware</code>.
+					device name. A reverse URL scheme in the form of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.firmware</literal> is used, for example <code>com.hughski.ColorHug2.firmware</code>.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -93,7 +93,7 @@
 				</para>
 				<para id="tag-firmware-location" xreflabel="&lt;location/&gt;">
 					The <code>&lt;location/&gt;</code> tag specifies a remote location where the firmware <literal>.cab</literal> can be downloaded from.
-					The download location needs to be accessibly via <literal>HTTP</literal>, <literal>HTTPS</literal> or <literal>FTP</literal>.
+					The download location needs to be accessible via HTTP, HTTPS or FTP.
 				</para>
 				<para>
 					Example:

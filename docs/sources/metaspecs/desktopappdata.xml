@@ -10,11 +10,11 @@
 	<section id="spec-appdata-introduction">
 		<title>Introduction</title>
 		<para>
-			A desktop application is an application which has a graphica user interface and is commonly used with mouse and keyboard. It also ships a Freedesktop
-			.desktop file to be visible in application menus.
+			A desktop application is an application which has a graphical user interface and is commonly used with mouse and keyboard. It also ships a Freedesktop
+			<filename>.desktop</filename> file to be visible in application menus.
 		</para>
 		<para>
-			AppStream generators may pull data from the preexisting .desktop files to represent an application in the AppStream metadata pool. Upstream projects should
+			AppStream generators may pull data from the preexisting <filename>.desktop</filename> files to represent an application in the AppStream metadata pool. Upstream projects should
 			ship a small XML file containing additional metadata to describe their application though, to enhance the available metadata.
 			This data includes things like screenshots, long descriptions, icon information and various other things needed
 			to present the application properly to the user.
@@ -25,7 +25,7 @@
 		</para>
 		<para>
 			The metainfo files override any values which are automatically fetched from other sources by the AppStream data generator, which means that its data will always take precedence over
-			data which has already been defined in a .desktop-file.
+			data which has already been defined in a <filename>.desktop</filename> file.
 			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
 		<note>
@@ -42,7 +42,7 @@
 		<para>
 			The basic structure for a generic component as described at <xref linkend="spec-component-filespec"/> applies.
 			Note that the XML root must have the <literal>type</literal> property set to <code>desktop</code>, while in a generic component this
-			property can be omitted. This clearly identified this metainfo document as describing an application.
+			property can be omitted. This clearly identifies this metainfo document as describing an application.
 		</para>
 
 		<note>
@@ -63,7 +63,7 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For applications, the <code>&lt;id/&gt;</code> tag value must be the same name as the installed .desktop file for the application.
+					For applications, the <code>&lt;id/&gt;</code> tag value must be the same name as the installed <filename>.desktop</filename> file for the application.
 				</para>
 			</listitem>
 			</varlistentry>
