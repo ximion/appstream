@@ -16,7 +16,7 @@
 	</para>
 	<para>
 		To provide this information, we created the <emphasis role="italic">metainfo</emphasis> files, which allow <emphasis role="bold">upstream projects</emphasis> to describe the content of their software package.
-		If a metainfo file provides a <literal>&lt;provides/&gt;</literal> tag, distributors must also ensure that the package providing the file contain all items referenced
+		If a metainfo file contains a <literal>&lt;provides/&gt;</literal> tag, distributors must also ensure that the package providing the file contains all items referenced
 		by that statement, or is installed by a metapackage depending on packages which provide these items. This gives upstream projects a (very light) way to influence distributor packaging.
 		More information about that can be found below.
 	</para>
@@ -55,8 +55,8 @@
 	<title>XML Specification</title>
 
 	<para>
-		The XML for a generic component definition starts with an <code><![CDATA[<component>]]></code> tag as root element.
-		The <code><![CDATA[<component>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag,
+		The XML for a generic component definition starts with a <code><![CDATA[<component>]]></code> tag as the root element.
+		The <code><![CDATA[<component>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag; and
 		a <literal>provides</literal> tag with appropriate children is highly recommended.
 		All possible tags in the generic set are:
 	</para>
@@ -66,12 +66,12 @@
 		<term>&lt;id/&gt;</term>
 		<listitem>
 		<para>
-			The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers, spaces are
-			not allowed. Specialized metainfo types, such as application or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
+			The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers. Spaces are
+			not allowed. Specialized metainfo types, such as applications or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
 		</para>
 		<para>
-			A general pattern for a valid ID tag is to use a reverse URL scheme, consisting of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.&lt;type&gt;</literal>, e.g. <code>org.kde.gwenview.desktop</code>
-			or <code>com.hugski.ColorHug2.firmware</code>.
+			A general pattern for a valid ID tag is to use a reverse URI scheme, consisting of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.&lt;type&gt;</literal>, for example <code>org.kde.gwenview.desktop</code>
+			or <code>com.hugski.ColorHug2.firmware</code>. Ownership of <literal>&lt;vendor&gt;.&lt;tld&gt;</literal> in the domain name system guarantees uniqueness of IDs.
 		</para>
 		<para>
 			Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions. In case it is not, distributors are expected to reject the conflicting components
@@ -84,34 +84,34 @@
 		<term>&lt;metadata_license/&gt;</term>
 		<listitem>
 		<para>
-			The <code>&lt;metadata_license/&gt;</code> tag indicates the content licence that you are releasing the one
-			Metainfo XML file under. This is not typically the same as the project licence. Omitting the license value can result
+			The <code>&lt;metadata_license/&gt;</code> tag indicates the content license that you are releasing the one
+			Metainfo XML file under. This is typically not the same as the project license. Omitting the license value can result
 			in your data not being incorporated into the distribution metadata (so this is a required tag).
 		</para>
 		<para>
 			A permissive license ensures your data can be combined with arbitrary other data in one file.
-			Primissive licence names include:
+			Permissive license names include:
 		</para>
 		<itemizedlist>
 			<listitem>
-			<para>CC0-1.0</para>
+			<para><literal>CC0-1.0</literal></para>
 			</listitem>
 			<listitem>
-			<para>CC-BY-3.0</para>
+			<para><literal>CC-BY-3.0</literal></para>
 			</listitem>
 			<listitem>
-			<para>CC-BY-SA-3.0</para>
+			<para><literal>CC-BY-SA-3.0</literal></para>
 			</listitem>
 			<listitem>
-			<para>GFDL-1.3</para>
+			<para><literal>GFDL-1.3</literal></para>
 			</listitem>
 			<listitem>
-			<para>MIT</para>
+			<para><literal>MIT</literal></para>
 			</listitem>
 		</itemizedlist>
 		<para>
-			The licence codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
-			For instance, CC-BY-SA-3.0 corresponds to the license at
+			The license codes correspond to the identifiers found at the <ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+			For instance, <literal>CC-BY-SA-3.0</literal> corresponds to the license at
 			<ulink url="http://creativecommons.org/licenses/by-sa/3.0/">creativecommons.org/licenses/by-sa/3.0</ulink>.
 		</para>
 		</listitem>
@@ -121,7 +121,7 @@
 		<term>&lt;name/&gt;</term>
 		<listitem>
 			<para>
-			A human-readable name for this software component. For example, if the component id was "libc", its name might be "GNU Standard C Library".
+			A human-readable name for this software component. For example, if the component ID was "libc", its name might be "GNU Standard C Library".
 			</para>
 		</listitem>
 		</varlistentry>
@@ -142,7 +142,7 @@
 			A long description of this component. Some markup can be used.
 		</para>
 		<para>
-			Do not assume the format is HTML. Only paragraph (p), ordered list (ol) and unordered list (ul) are supported at this time.
+			Do not assume the format is HTML. Only paragraph (<literal>p</literal>), ordered list (<literal>ol</literal>) and unordered list (<literal>ul</literal>) are supported at this time.
 		</para>
 		<para>
 			In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
@@ -177,7 +177,7 @@
 				<listitem>
 				<para>
 					Should link a FAQ page for this software, to answer some of the most-asked questions in
-					detail, something which you can not do in the component's description.
+					detail, something which you cannot do in the component's description.
 				</para>
 				</listitem>
 			</varlistentry>
@@ -213,20 +213,20 @@
 			</para>
 			<para>
 				A <literal>release</literal> tag can have the properties <literal>version</literal>, <literal>date</literal> and <literal>timestamp</literal>.
-				The <literal>date</literal> property can have any time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> format as value and
+				The <literal>date</literal> property can have any time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> format as its value and
 				should be present for every release.
-				The <literal>timestamp</literal> tag contains the release time in form of a UNIX epoch. This tag should not be used in metainfo files in newly
-				written metadata, but will still be parsed in case it is present. The the <literal>timestamp</literal> property is mainly used in generated distro-meadata.
+				The <literal>timestamp</literal> tag contains the release time in the form of a UNIX epoch. This tag should not be used in metainfo files in newly
+				written metadata, but will still be parsed in case it is present. The the <literal>timestamp</literal> property is mainly used in generated distro-metadata.
 				In case both release-time tags are present, the <literal>timestamp</literal> tag will take precedence over <literal>date</literal>.
 			</para>
 			<para>
 				Optionally, the <code>&lt;release/&gt;</code> tag may also have an <literal>urgency</literal> property, having one of the following values:
 			</para>
 			<itemizedlist>
-				<listitem><para>low</para></listitem>
-				<listitem><para>medium</para></listitem>
-				<listitem><para>high</para></listitem>
-				<listitem><para>critical</para></listitem>
+				<listitem><para><literal>low</literal></para></listitem>
+				<listitem><para><literal>medium</literal></para></listitem>
+				<listitem><para><literal>high</literal></para></listitem>
+				<listitem><para><literal>critical</literal></para></listitem>
 			</itemizedlist>
 			<para>
 				The <literal>urgency</literal> defines how important it is to install the new release as an update. This is especially important for <literal>type=firmware</literal>
@@ -236,14 +236,14 @@
 			</para>
 			<para>
 				Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
-				The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>
+				The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>.
 			</para>
 			<para>
 				A <literal>release</literal> tag may also have one or multiple <literal>size</literal> tags as children, which define the installed and download size
 				of this component release. This is useful in case the component does not have a corresponding native package in a distribution, for example if it is a Limba
 				bundle or LVFS firmware.
 				The size type is defined via a <literal>type</literal> property on the <literal>size</literal> tag, and may assume the value <code>download</code> or <code>installed</code>.
-				The size itself is set as value and must be given in bytes.
+				The size itself is set as the value and must be given in bytes.
 			</para>
 			<para>
 			Examples for a valid releases tag:
@@ -262,14 +262,15 @@
 		<term>&lt;provides/&gt;</term>
 		<listitem>
 			<para>
-			The <literal>provides</literal> tag and it's children describe the public interfaces this application provides.
+			The <literal>provides</literal> tag and its children describe the public interfaces this application provides.
 			A public interface can be anything which other applications, which are not part of the upstream project, can access or reference.
 			This includes binaries and libraries. Private interfaces should never be added to a <literal>provides</literal> tag.
 			</para>
 			<para>
 			A <literal>provides</literal> tag contain a number of children describing the type and name of the provided public interface items.
-			It is suggested that the build-system auto-generates this tag and it's children.
-			Currently allowed item types are listed below. If you miss something, file a bug against AppStream so we can add the new type.
+			It is suggested that the build system auto-generates this tag and its children.
+			Currently allowed item types are listed below. If you miss something,
+			<ulink url="https://github.com/ximion/appstream/issues/new">file a bug against AppStream</ulink> so we can add the new type.
 			</para>
 
 			<variablelist>
@@ -314,8 +315,8 @@
 				<listitem>
 				<para>
 					A modalias glob representing the hardware types (for example USB, PCI, ACPI, DMI) this component handles.
-					Useful for installing printer drivers or other USB protocol drivers for smartphones, firmware, kernel drivers which
-					are not merged upstream yet or whatever else.
+					Useful for installing printer drivers or other USB protocol drivers for smartphones, firmware, and
+					out of tree kernel drivers.
 				</para>
 				</listitem>
 			</varlistentry>
@@ -334,7 +335,7 @@
 				<term>&lt;python2/&gt;</term>
 				<listitem>
 				<para>
-					Name of a Python2 module this component provides.
+					Name of a Python 2 module this component provides.
 				</para>
 				</listitem>
 			</varlistentry>
@@ -343,7 +344,7 @@
 				<term>&lt;python3/&gt;</term>
 				<listitem>
 				<para>
-					Name of a Python3 module this component provides.
+					Name of a Python 3 module this component provides.
 				</para>
 				</listitem>
 			</varlistentry>
@@ -352,7 +353,7 @@
 				<term>&lt;dbus/&gt;</term>
 				<listitem>
 				<para>
-					Contains the name of a DBus service as property. The type of the service must be specified using the <literal>type</literal> property
+					Contains the well-known name of a D-Bus service as its value. The type of the service must be specified using the <literal>type</literal> property
 					of this tag. Allowed values are <code>user</code> and <code>system</code>.
 				</para>
 				<para>
@@ -373,9 +374,9 @@
 		<term>&lt;mimetypes/&gt;</term>
 		<listitem>
 			<para>
-			This tag can contain one or more <code>&lt;mimetype/&gt;</code> children, describing the mime types this application supports.
+			This tag can contain one or more <code>&lt;mimetype/&gt;</code> children, describing the MIME types this application supports.
 			This tag is especially useful for generic components and addon-type components. For applications, the metadata will automatically
-			be fetched from their .desktop files by the distribution's metadata generator.
+			be fetched from their <filename>.desktop</filename> files by the distribution's metadata generator.
 			Example:
 			</para>
 			<programlisting language="XML">
@@ -392,11 +393,11 @@
 		<listitem>
 		<para>
 			If you include the <code>&lt;project_group/&gt;</code> tag then this identifies your project with a specific upstream umbrella project.
-			Known values include GNOME, KDE, XFCE, MATE and LXDE, although other umbrella projects like Yorba or Mozilla make sense too.
+			Known values include <literal>GNOME</literal>, <literal>KDE</literal>, <literal>XFCE</literal>, <literal>MATE</literal> and <literal>LXDE</literal>, although other umbrella projects like Yorba or Mozilla make sense too.
 		</para>
 		<note>
 			<para>
-			You should only identify with an umbrella project if you use all their infrastructure and policies, for instance string freezes dates, bugtracker and source control instance.
+			You should only identify with an umbrella project if you use <emphasis>all</emphasis> their infrastructure and policies, for instance string freezes dates, bugtracker and source control instance.
 			</para>
 		</note>
 		</listitem>
@@ -410,11 +411,10 @@
 			It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
 			Possible values include:
 			<itemizedlist>
-				<listitem><para>GPL-2.0</para></listitem>
-				<listitem><para>LGPL-3.0+ and GPL-3.0+</para></listitem>
-				<listitem><para>MIT</para></listitem>
-				<listitem><para>CC-BY-SA-2.0</para></listitem>
-				<listitem><para>...</para></listitem>
+				<listitem><para><literal>GPL-2.0</literal></para></listitem>
+				<listitem><para><literal>LGPL-3.0+ and GPL-3.0+</literal></para></listitem>
+				<listitem><para><literal>MIT</literal></para></listitem>
+				<listitem><para><literal>CC-BY-SA-2.0</literal></para></listitem>
 			</itemizedlist>
 			A full list of recognized licenses and their identifiers can be found at the
 			<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
@@ -459,7 +459,7 @@
 				<listitem>
 					<para><code>type</code></para>
 					<para>
-						The type of the image, <code>source</code> for the source image, and <code>thumbnail</code> for a thumbnail image.
+						The type of the image: <code>source</code> for the source image, and <code>thumbnail</code> for a thumbnail image.
 						In case the type is <code>thumbnail</code>, the <code>width</code> and <code>height</code> properties must be present.
 					</para>
 				</listitem>
@@ -489,7 +489,7 @@
 			description of what the user can see on the referenced screenshot.
 		</para>
 		<para>
-			Ideally, all screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620px.
+			Ideally, all screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620 pixels.
 			They should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
 			images where a lossy format like JPEG may compress better.
 		</para>
@@ -516,7 +516,7 @@
 		<listitem>
 		<para>
 			The <code>&lt;update_contact/&gt;</code> tag is an optional tag which can be added to provide an email address distributors can use to contact the project
-			about invalid or incomplete metadata, or in case the specification has changed, about old metadata. It can also be used to ask general questions in case of
+			about invalid or incomplete metadata or – in case the specification has changed – about old metadata. It can also be used to ask general questions in case of
 			an update of the component described in the metadata file.
 		</para>
 		<para>
@@ -544,8 +544,8 @@
 			The tag must have a <literal>type</literal> property, assuming the value of the translation system which is used. Right now, allowed translation systems and
 			values for <literal>type</literal> are:
 			<itemizedlist>
-				<listitem><para>gettext</para></listitem>
-				<listitem><para>qt</para></listitem>
+				<listitem><para><literal>gettext</literal></para></listitem>
+				<listitem><para><literal>qt</literal></para></listitem>
 			</itemizedlist>
 			In case a software components gets its translation from multiple translation domains, the <code>&lt;translation/&gt;</code> tag may be defined more
 			than once.

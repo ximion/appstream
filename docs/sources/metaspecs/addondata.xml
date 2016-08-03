@@ -40,7 +40,7 @@
 		<title>File specification</title>
 		<para>
 			Note that the XML root must have the <literal>type</literal> property set to <code>addon</code>.
-			This clearly identified this metainfo document as describing an addon to an existing software.
+			This clearly identifies this metainfo document as describing an addon to existing software.
 		</para>
 
 		<variablelist>
@@ -49,7 +49,7 @@
 			<listitem>
 				<para>
 					For addons, there are no special requirements for what their <literal>%{id}</literal> should be.
-					You might want to prefix your id with "addon-" though, to make it easily recognizable.
+					You might want to prefix your ID with "addon-" though, to make it easily recognizable.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -58,11 +58,10 @@
 			<term>&lt;extends/&gt;</term>
 			<listitem>
 				<para>
-					This tag is refers to the id of the component this addon is extending.
+					This tag is refers to the ID of the component this addon is extending.
 				</para>
 				<para>
-					So for example if I have a plugin "kipi" which extends the application "Gwenview", I need to refer to
-					it's identifier like:
+					For example, if there is a plugin "kipi" which extens the application "Gwenview", it needs to be referred to as:
 				</para>
 				<programlisting language="XML"><![CDATA[<extends>gwenview.desktop</extends>]]></programlisting>
 				<para>
