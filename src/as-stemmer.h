@@ -28,7 +28,6 @@
 #include <glib-object.h>
 
 G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
 
 #define AS_TYPE_STEMMER	(as_stemmer_get_type ())
 G_DECLARE_FINAL_TYPE (AsStemmer, as_stemmer, AS, STEMMER, GObject)
@@ -40,7 +39,6 @@ void			as_stemmer_reload (AsStemmer *stemmer,
 gchar			*as_stemmer_stem (AsStemmer *stemmer,
 						const gchar *term);
 
-#pragma GCC visibility pop
 G_END_DECLS
 
 #endif /* __AS_STEMMER_H */
