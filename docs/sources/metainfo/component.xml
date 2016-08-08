@@ -36,7 +36,7 @@
 	<note>
 		<para>
 			Applications are a special case here, because they are usually treated differently by software centers (and also for historical reasons).
-			If your metainfo file covers only an application, as described in the AppData section, install it as
+			If your metainfo file contains an application, as described in <xref linkend="sect-Metadata-Application"/>, you may want to install it as
 			<filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
 	</note>
