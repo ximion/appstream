@@ -324,19 +324,19 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 
 		if ((g_strcmp0 (node_name, "ul") != 0) && (g_strcmp0 (node_name, "ol") != 0)) {
 			as_validator_check_content_empty (validator,
-								node,
-								node_name,
-								AS_ISSUE_IMPORTANCE_WARNING,
-								cpt);
+							  node,
+							  node_name,
+							  AS_ISSUE_IMPORTANCE_WARNING,
+							  cpt);
 		}
 
 		if (g_strcmp0 (node_name, "p") == 0) {
 			if (mode == AS_PARSER_MODE_DISTRO) {
 				as_validator_check_nolocalized (validator,
-									iter,
-									"description/p",
-									cpt,
-									"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
+								iter,
+								"description/p",
+								cpt,
+								"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
 			}
 			if ((first_paragraph) && (strlen (node_content) < 100)) {
 				as_validator_add_issue (validator, iter,
@@ -432,6 +432,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	as_validator_set_current_cpt (validator, cpt);
 
 	/* check if component type is valid */
+	cid = as_component_get_id (cpt);
 	cpttype = (gchar*) xmlGetProp (root, (xmlChar*) "type");
 	if (cpttype != NULL) {
 		if (as_component_kind_from_string (cpttype) == AS_COMPONENT_KIND_UNKNOWN) {
@@ -443,8 +444,14 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		}
 	}
 
+	if ((as_component_get_kind (cpt) == AS_COMPONENT_KIND_MERGE) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+		as_validator_add_issue (validator, root,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"The 'merge' component type is not allowed and not useful in metainfo files. Maybe you wanted to use the 'addon' type?");
+	}
+
 	/* validate the AppStream ID */
-	cid = as_component_get_id (cpt);
 	cid_parts = g_strsplit (cid, ".", 3);
 	if (g_strv_length (cid_parts) != 3) {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
