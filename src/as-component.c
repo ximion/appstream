@@ -70,6 +70,7 @@ typedef struct
 	GPtrArray		*extensions; /* of string */
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
 	GPtrArray		*releases; /* of AsRelease elements */
+	GPtrArray		*suggestions; /* of AsSuggested elements */
 
 	GHashTable		*provided; /* of int:object */
 	GHashTable		*urls; /* of int:utf8 */
@@ -119,7 +120,8 @@ enum  {
 	AS_COMPONENT_PROJECT_LICENSE,
 	AS_COMPONENT_PROJECT_GROUP,
 	AS_COMPONENT_DEVELOPER_NAME,
-	AS_COMPONENT_SCREENSHOTS
+	AS_COMPONENT_SCREENSHOTS,
+	AS_COMPONENT_SUGGESTIONS
 };
 
 /**
@@ -232,6 +234,7 @@ as_component_init (AsComponent *cpt)
 
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -273,6 +276,7 @@ as_component_finalize (GObject* object)
 
 	g_ptr_array_unref (priv->screenshots);
 	g_ptr_array_unref (priv->releases);
+	g_ptr_array_unref (priv->suggestions);
 	g_hash_table_unref (priv->provided);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
@@ -404,6 +408,22 @@ as_component_add_release (AsComponent *cpt, AsRelease* release)
 
 	releases = as_component_get_releases (cpt);
 	g_ptr_array_add (releases, g_object_ref (release));
+}
+
+/**
+ * as_component_add_suggestion:
+ * @cpt: a #AsComponent instance.
+ * @suggested: The #AsSuggested to add
+ *
+ * Add an #AsSuggested to this component.
+ **/
+void
+as_component_add_suggestion (AsComponent *cpt, AsSuggested* suggested)
+{
+	GPtrArray* suggestions;
+
+	suggestions = as_component_get_suggestions (cpt);
+	g_ptr_array_add (suggestions, g_object_ref (suggested));
 }
 
 /**
@@ -1366,6 +1386,22 @@ as_component_get_compulsory_for_desktops (AsComponent *cpt)
 }
 
 /**
+ * as_component_get_suggestions:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get a list of associated suggestions.
+ *
+ * Returns: (element-type AsSuggested) (transfer none): an array of #AsSuggested instances
+ */
+GPtrArray*
+as_component_get_suggestions (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	return priv->suggestions;
+}
+
+/**
  * as_component_set_compulsory_for_desktops:
  * @cpt: a #AsComponent instance.
  * @value: (array zero-terminated=1): the array of desktop ids.
@@ -2278,6 +2314,9 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 		case AS_COMPONENT_SCREENSHOTS:
 			g_value_set_boxed (value, as_component_get_screenshots (cpt));
 			break;
+		case AS_COMPONENT_SUGGESTIONS:
+			g_value_set_boxed (value, as_component_get_suggestions (cpt));
+			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
 			break;
@@ -2455,6 +2494,14 @@ as_component_class_init (AsComponentClass * klass)
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_SCREENSHOTS,
 					g_param_spec_boxed ("screenshots", "screenshots", "screenshots", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
+	/**
+	 * AsComponent:suggestions: (type GPtrArray(AsSuggested)):
+	 *
+	 * An array of #AsSuggested instances
+	 */
+	g_object_class_install_property (object_class,
+					AS_COMPONENT_SUGGESTIONS,
+					g_param_spec_boxed ("suggestions", "suggestions", "suggestions", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 }
 
 /**

@@ -215,8 +215,15 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 	guint i;
 	gchar **cats;
 	gchar **pkgnames;
+	GPtrArray* suggestions;
+	AsComponentKind src_kind;
 
 	/* FIXME: We need to merge more attributes */
+
+	src_kind = as_component_get_kind (src_cpt);
+	
+	if (src_kind != AS_COMPONENT_KIND_MERGE)
+		return;
 
 	cats = as_component_get_categories (src_cpt);
 	if (cats != NULL) {
@@ -241,6 +248,12 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 	pkgnames = as_component_get_pkgnames (src_cpt);
 	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
 		as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
+
+	suggestions = as_component_get_suggestions (src_cpt);
+	if (suggestions != NULL) {
+		for (i = 0; i < suggestions->len; i++)
+			as_component_add_suggestion (dest_cpt, g_ptr_array_index (suggestions, i));
+	}
 
 	if (as_component_has_bundle (src_cpt))
 		as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));

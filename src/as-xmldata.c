@@ -443,6 +443,50 @@ as_xmldata_process_screenshots_tag (AsXMLData *xdt, xmlNode* node, AsComponent* 
 }
 
 /**
+ * as_xmldata_process_suggests_tag:
+ */
+static void
+as_xmldata_process_suggests_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
+{
+	xmlNode *iter;
+	AsSuggested *suggested = NULL;
+	AsSuggestedKind suggested_kind;
+	gchar *node_name;
+	gchar *type_str;
+	gchar *content;
+
+	g_return_if_fail (xdt != NULL);
+	g_return_if_fail (cpt != NULL);
+
+	suggested = as_suggested_new ();
+	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+
+	if (type_str != NULL) {
+		suggested_kind = as_suggested_kind_from_string (type_str);
+		as_suggested_set_kind (suggested, suggested_kind);
+	}
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		node_name = (gchar*) iter->name;
+
+		if (g_strcmp0 (node_name, "id") == 0) {
+			content = as_xmldata_get_node_value (xdt, iter);
+
+			if (content != NULL)
+				as_suggested_add_component_id (suggested, content);
+		}
+
+		if (as_suggested_is_valid (suggested))
+			as_component_add_suggestion (cpt, suggested);
+
+	}
+}
+
+/**
  * as_xmldata_upstream_description_to_cpt:
  *
  * Helper function for GHashTable
@@ -940,6 +984,8 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			as_xmldata_process_provides (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_xmldata_process_screenshots_tag (xdt, iter, cpt);
+		} else if (g_strcmp0 (node_name, "suggests") == 0) {
+			as_xmldata_process_suggests_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
 			if (content != NULL)
 				as_component_set_project_license (cpt, content);
