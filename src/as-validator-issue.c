@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -35,7 +35,10 @@ typedef struct
 	AsIssueKind		kind;
 	AsIssueImportance	importance;
 	gchar			*message;
-	gchar			*location;
+
+	gchar			*fname;
+	gchar			*cid;
+	gint			line;
 } AsValidatorIssuePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)
@@ -51,7 +54,8 @@ as_validator_issue_finalize (GObject *object)
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
 
 	g_free (priv->message);
-	g_free (priv->location);
+	g_free (priv->fname);
+	g_free (priv->cid);
 
 	G_OBJECT_CLASS (as_validator_issue_parent_class)->finalize (object);
 }
@@ -65,6 +69,7 @@ as_validator_issue_init (AsValidatorIssue *issue)
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
 	priv->kind = AS_ISSUE_KIND_UNKNOWN;
 	priv->importance = AS_ISSUE_IMPORTANCE_UNKNOWN;
+	priv->line = -1;
 }
 
 /**
@@ -166,33 +171,126 @@ as_validator_issue_set_message (AsValidatorIssue *issue, const gchar *message)
 }
 
 /**
- * as_validator_issue_get_location:
+ * as_validator_issue_get_cid:
  * @issue: a #AsValidatorIssue instance.
  *
- * Gets a location hint for the issue.
+ * The component-id this issue is about.
  *
- * Returns: the location hint
+ * Returns: a component-id.
  **/
 const gchar*
-as_validator_issue_get_location (AsValidatorIssue *issue)
+as_validator_issue_get_cid (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	return priv->location;
+	return priv->cid;
 }
 
 /**
- * as_validator_issue_set_location:
+ * as_validator_issue_set_cid:
  * @issue: a #AsValidatorIssue instance.
- * @location: a location hint.
+ * @cid: a component-id.
  *
- * Sets a location hint for this issue.
+ * Sets the component-id this issue is about.
  **/
 void
-as_validator_issue_set_location (AsValidatorIssue *issue, const gchar *location)
+as_validator_issue_set_cid (AsValidatorIssue *issue, const gchar *cid)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	g_free (priv->location);
-	priv->location = g_strdup (location);
+	g_free (priv->cid);
+	priv->cid = g_strdup (cid);
+}
+
+/**
+ * as_validator_issue_get_line:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * Gets the line number where this issue was found.
+ *
+ * Returns: the line number where this issue occured, or -1 if unknown.
+ **/
+gint
+as_validator_issue_get_line (AsValidatorIssue *issue)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	return priv->line;
+}
+
+/**
+ * as_validator_issue_set_line:
+ * @issue: a #AsValidatorIssue instance.
+ * @line: the line number.
+ *
+ * Sets the importance for this issue.
+ **/
+void
+as_validator_issue_set_line (AsValidatorIssue *issue, gint line)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	priv->line = line;
+}
+
+/**
+ * as_validator_issue_get_filename:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * The name of the file this issue was found in.
+ *
+ * Returns: the filename
+ **/
+const gchar*
+as_validator_issue_get_filename (AsValidatorIssue *issue)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	return priv->fname;
+}
+
+/**
+ * as_validator_issue_set_filename:
+ * @issue: a #AsValidatorIssue instance.
+ * @fname: the filename.
+ *
+ * Sets the name of the file the issue was found in.
+ **/
+void
+as_validator_issue_set_filename (AsValidatorIssue *issue, const gchar *fname)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	g_free (priv->fname);
+	priv->fname = g_strdup (fname);
+}
+
+/**
+ * as_validator_issue_get_location:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * Builds a string containing all information about the location
+ * where this issue occured that we know about.
+ *
+ * Returns: (transfer full): the location hint as string.
+ **/
+gchar*
+as_validator_issue_get_location (AsValidatorIssue *issue)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	GString *location;
+
+	location = g_string_new ("");
+
+	if (priv->fname == NULL)
+		g_string_append (location, "~");
+	else
+		g_string_append (location, priv->fname);
+
+	if (priv->cid == NULL)
+		g_string_append (location, ":~");
+	else
+		g_string_append_printf (location, ":%s", priv->cid);
+
+	if (priv->line >= 0) {
+		g_string_append_printf (location, ":%i", priv->line);
+	}
+
+	return g_string_free (location, FALSE);
 }
 
 /**

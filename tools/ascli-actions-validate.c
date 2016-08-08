@@ -80,10 +80,12 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 	AsValidatorIssue *issue;
 	AsIssueImportance importance;
 	gboolean no_errors = TRUE;
-	gchar *header;
 
 	for (l = issues; l != NULL; l = l->next) {
-		issue = (AsValidatorIssue*) l->data;
+		g_autofree gchar *location = NULL;
+		g_autofree gchar *header = NULL;
+
+		issue = AS_VALIDATOR_ISSUE (l->data);
 		importance = as_validator_issue_get_importance (issue);
 
 		/* if there are errors or warnings, we consider the validation to be failed */
@@ -94,13 +96,13 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 		if ((!pedantic) && (importance == AS_ISSUE_IMPORTANCE_PEDANTIC))
 			continue;
 
+		location = as_validator_issue_get_location (issue);
 		header = importance_location_to_print_string (importance,
-								as_validator_issue_get_location (issue),
+								location,
 								pretty);
 		g_print ("%s\n    %s\n\n",
 				header,
 				as_validator_issue_get_message (issue));
-		g_free (header);
 	}
 
 	return no_errors;

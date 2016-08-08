@@ -115,11 +115,21 @@ void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
 
 const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);
 void			as_validator_issue_set_message (AsValidatorIssue *issue,
-								const gchar *message);
+							const gchar *message);
 
-const gchar		*as_validator_issue_get_location (AsValidatorIssue *issue);
-void			as_validator_issue_set_location (AsValidatorIssue *issue,
-								const gchar *location);
+const gchar		*as_validator_issue_get_cid (AsValidatorIssue *issue);
+void			as_validator_issue_set_cid (AsValidatorIssue *issue,
+						    const gchar *cid);
+
+const gchar		*as_validator_issue_get_filename (AsValidatorIssue *issue);
+void			as_validator_issue_set_filename (AsValidatorIssue *issue,
+							 const gchar *fname);
+
+gint			as_validator_issue_get_line (AsValidatorIssue *issue);
+void			as_validator_issue_set_line (AsValidatorIssue *issue,
+						     gint line);
+
+gchar			*as_validator_issue_get_location (AsValidatorIssue *issue);
 
 
 G_END_DECLS
