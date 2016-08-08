@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,36 +18,21 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __APPSTREAM_H
-#define __APPSTREAM_H
+#ifndef __AS_SPDX_H
+#define __AS_SPDX_H
 
-#define __APPSTREAM_H_INSIDE__
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <glib.h>
 
-#include <as-component.h>
-#include <as-enums.h>
-#include <as-provided.h>
-#include <as-metadata.h>
-#include <as-data-pool.h>
-#include <as-database.h>
-#include <as-category.h>
-#include <as-menu-parser.h>
-#include <as-distro-details.h>
-#include <as-icon.h>
-#include <as-screenshot.h>
-#include <as-image.h>
+G_BEGIN_DECLS
 
-#include <as-validator.h>
-#include <as-validator-issue.h>
+gboolean	 as_is_spdx_license_id (const gchar *license_id);
+gboolean	 as_is_spdx_license_expression (const gchar *license);
 
-#include <as-utils.h>
-#include <as-spdx.h>
+gchar		**as_spdx_license_tokenize (const gchar *license);
+gchar		*as_spdx_license_detokenize (gchar **license_tokens);
 
-#ifdef __cplusplus
-};
-#endif
-#undef __APPSTREAM_H_INSIDE__
+gchar		*as_license_to_spdx_id (const gchar *license);
 
-#endif /* __APPSTREAM_H */
+G_END_DECLS
+
+#endif /* __AS_SPDX_H */

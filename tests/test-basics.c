@@ -107,6 +107,114 @@ test_component ()
 	g_free (str2);
 }
 
+static void
+test_spdx (void)
+{
+	gchar **tok;
+	gchar *tmp;
+
+	/* simple */
+	tok = as_spdx_license_tokenize ("LGPL-2.0+");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@LGPL-2.0+");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* empty */
+	tok = as_spdx_license_tokenize ("");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* invalid */
+	tok = as_spdx_license_tokenize (NULL);
+	g_assert (tok == NULL);
+
+	/* random */
+	tok = as_spdx_license_tokenize ("Public Domain");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "Public Domain");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* multiple licences */
+	tok = as_spdx_license_tokenize ("LGPL-2.0+ AND GPL-2.0 AND LGPL-3.0");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@LGPL-2.0+  &  @GPL-2.0  &  @LGPL-3.0");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* multiple licences, deprectated 'and' & 'or' */
+	tok = as_spdx_license_tokenize ("LGPL-2.0+ and GPL-2.0 or LGPL-3.0");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@LGPL-2.0+  &  @GPL-2.0  |  @LGPL-3.0");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* brackets */
+	tok = as_spdx_license_tokenize ("LGPL-2.0+ and (GPL-2.0 or GPL-2.0+) and MIT");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@LGPL-2.0+  &  (  @GPL-2.0  |  @GPL-2.0+  )  &  @MIT");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* detokenisation */
+	tok = as_spdx_license_tokenize ("LGPLv2+ and (QPL or GPLv2) and MIT");
+	tmp = as_spdx_license_detokenize (tok);
+	g_assert_cmpstr (tmp, ==, "LGPLv2+ AND (QPL OR GPLv2) AND MIT");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* detokenisation literals */
+	tok = as_spdx_license_tokenize ("Public Domain");
+	tmp = as_spdx_license_detokenize (tok);
+	g_assert_cmpstr (tmp, ==, "Public Domain");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* invalid tokens */
+	tmp = as_spdx_license_detokenize (NULL);
+	g_assert (tmp == NULL);
+
+	/* leading brackets */
+	tok = as_spdx_license_tokenize ("(MPLv1.1 or LGPLv3+) and LGPLv3");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "(  MPLv1.1  |  LGPLv3+  )  &  LGPLv3");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/*  trailing brackets */
+	tok = as_spdx_license_tokenize ("MPLv1.1 and (LGPLv3 or GPLv3)");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "MPLv1.1  &  (  LGPLv3  |  GPLv3  )");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/*  deprecated names */
+	tok = as_spdx_license_tokenize ("CC0 and (CC0 or CC0)");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@CC0-1.0  &  (  @CC0-1.0  |  @CC0-1.0  )");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* SPDX strings */
+	g_assert (as_is_spdx_license_expression ("CC0-1.0"));
+	g_assert (as_is_spdx_license_expression ("CC0"));
+	g_assert (as_is_spdx_license_expression ("LicenseRef-proprietary"));
+	g_assert (as_is_spdx_license_expression ("CC0-1.0 and GFDL-1.3"));
+	g_assert (as_is_spdx_license_expression ("CC0-1.0 AND GFDL-1.3"));
+	g_assert (as_is_spdx_license_expression ("NOASSERTION"));
+	g_assert (!as_is_spdx_license_expression ("CC0 dave"));
+	g_assert (!as_is_spdx_license_expression (""));
+	g_assert (!as_is_spdx_license_expression (NULL));
+
+	/* importing non-SPDX formats */
+	tmp = as_license_to_spdx_id ("CC0 and (Public Domain and GPLv3+ with exceptions)");
+	g_assert_cmpstr (tmp, ==, "CC0-1.0 AND (LicenseRef-public-domain AND GPL-3.0+)");
+	g_free (tmp);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -130,6 +238,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/MenuParser", test_menuparser);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 	g_test_add_func ("/AppStream/Component", test_component);
+	g_test_add_func ("/AppStream/SPDX", test_spdx);
 
 	ret = g_test_run ();
 	g_free (datadir);

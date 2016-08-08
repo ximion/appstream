@@ -47,6 +47,7 @@ set(APPSTREAM_LIB_SRC
 		as-distro-extras.c
 		as-stemmer.c
 		# (mostly) public
+		as-spdx.c
 		as-metadata.c
 		as-component.c
 		as-enums.c
@@ -68,6 +69,7 @@ set(APPSTREAM_LIB_SRC
 set(APPSTREAM_LIB_PUBLIC_HEADERS
 		appstream.h
 		as-utils.h
+		as-spdx.h
 		as-metadata.h
 		as-component.h
 		as-data-pool.h
