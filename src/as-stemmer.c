@@ -73,13 +73,32 @@ as_stemmer_init (AsStemmer *stemmer)
 	g_autofree gchar *locale = NULL;
 	g_autofree gchar *lang = NULL;
 
+	g_mutex_init (&stemmer->mutex);
+
 	locale = as_get_current_locale ();
 	lang = as_utils_locale_to_language (locale);
-	g_debug ("Stemming language is: %s", lang);
 
-	stemmer->sb = sb_stemmer_new (lang, NULL);
-	g_mutex_init (&stemmer->mutex);
+	as_stemmer_reload (stemmer, lang);
 #endif
+}
+
+/**
+ * as_stemmer_reload:
+ * @stemmer: A #AsStemmer
+ * @lang: The stemming language.
+ *
+ * Allows realoading the #AsStemmer with a different language.
+ */
+void
+as_stemmer_reload (AsStemmer *stemmer, const gchar *lang)
+{
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&stemmer->mutex);
+	sb_stemmer_delete (stemmer->sb);
+	stemmer->sb = sb_stemmer_new (lang, NULL);
+	if (stemmer->sb == NULL)
+		g_debug ("Language %s can not be stemmed.", lang);
+	//else
+	//	g_debug ("Stemming language is: %s", lang);
 }
 
 /**
@@ -120,18 +139,16 @@ as_stemmer_class_init (AsStemmerClass *klass)
 }
 
 /**
- * as_stemmer_new:
+ * as_stemmer_get:
  *
- * Creates a new #AsStemmer.
+ * Gets the global #AsStemmer instance.
  *
- * Returns: (transfer full): a #AsStemmer
+ * Returns: (transfer none): an #AsStemmer
  **/
 AsStemmer*
-as_stemmer_new (void)
+as_stemmer_get (void)
 {
-	if (as_stemmer_object != NULL) {
-		g_object_ref (as_stemmer_object);
-	} else {
+	if (as_stemmer_object == NULL) {
 		as_stemmer_object = g_object_new (AS_TYPE_STEMMER, NULL);
 		g_object_add_weak_pointer (as_stemmer_object, &as_stemmer_object);
 	}

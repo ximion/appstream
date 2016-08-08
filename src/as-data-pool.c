@@ -1027,7 +1027,7 @@ as_data_pool_build_search_terms (AsDataPool *dpool, const gchar *search)
 	strv = g_strsplit (tmp_str, " ", -1);
 	terms = g_new0 (gchar *, g_strv_length (strv) + 1);
 	idx = 0;
-	stemmer = as_stemmer_new ();
+	stemmer = g_object_ref (as_stemmer_get ());
 	for (i = 0; strv[i] != NULL; i++) {
 		if (!as_utils_search_token_valid (strv[i]))
 			continue;

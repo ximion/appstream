@@ -1961,7 +1961,7 @@ as_component_add_token (AsComponent *cpt,
 {
 	g_autoptr(AsStemmer) stemmer = NULL;
 
-	stemmer = as_stemmer_new ();
+	stemmer = g_object_ref (as_stemmer_get ());
 
 	/* add extra tokens for names like x-plane or half-life */
 	if (allow_split && g_strstr_len (value, -1, "-") != NULL) {
