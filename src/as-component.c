@@ -62,10 +62,11 @@ typedef struct
 	GHashTable		*keywords; /* localized entry, value:strv */
 	GHashTable		*developer_name; /* localized entry */
 
-	gchar			**categories;
+	gchar			*metadata_license;
 	gchar			*project_license;
 	gchar			*project_group;
 	gchar			**compulsory_for_desktops;
+	gchar			**categories;
 
 	GPtrArray		*extends; /* of string */
 	GPtrArray		*extensions; /* of string */
@@ -269,6 +270,7 @@ as_component_finalize (GObject* object)
 
 	g_free (priv->id);
 	g_strfreev (priv->pkgnames);
+	g_free (priv->metadata_license);
 	g_free (priv->project_license);
 	g_free (priv->project_group);
 	g_free (priv->active_locale);
@@ -1276,6 +1278,36 @@ as_component_has_category (AsComponent *cpt, const gchar* category)
 }
 
 /**
+ * as_component_get_metadata_license:
+ * @cpt: a #AsComponent instance.
+ *
+ * The license the metadata iself is subjected to.
+ *
+ * Returns: the license.
+ */
+const gchar*
+as_component_get_metadata_license (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->metadata_license;
+}
+
+/**
+ * as_component_set_metadata_license:
+ * @cpt: a #AsComponent instance.
+ * @value: the metadata license.
+ *
+ * Set the license this metadata is licensed under.
+ */
+void
+as_component_set_metadata_license (AsComponent *cpt, const gchar *value)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_free (priv->metadata_license);
+	priv->metadata_license = g_strdup (value);
+}
+
+/**
  * as_component_get_project_license:
  * @cpt: a #AsComponent instance.
  *
@@ -1298,7 +1330,7 @@ as_component_get_project_license (AsComponent *cpt)
  * Set the project license.
  */
 void
-as_component_set_project_license (AsComponent *cpt, const gchar* value)
+as_component_set_project_license (AsComponent *cpt, const gchar *value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 

@@ -41,6 +41,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-spdx.h"
 #include "as-xmldata.h"
 #include "as-component.h"
 #include "as-component-private.h"
@@ -415,13 +416,13 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	xmlNode *iter;
 	AsComponent *cpt;
 	guint i;
-	g_autofree gchar *metadata_license = NULL;
 	g_autofree gchar *cpttype = NULL;
 	g_autoptr(GHashTable) found_tags = NULL;
 	g_auto(GStrv) cid_parts = NULL;
 	const gchar *summary;
 	const gchar *cid;
 	AsParserMode mode;
+	gboolean has_metadata_license = FALSE;
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	mode = as_xmldata_get_parser_mode (xdt);
@@ -526,8 +527,19 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 								node_content);
 			}
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
-			metadata_license = g_strdup (node_content);
+			has_metadata_license = TRUE;
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+
+			/* the license must allow easy mixing of metadata in metainfo files */
+			if (mode == AS_PARSER_MODE_UPSTREAM) {
+				if (!as_license_is_metadata_license (node_content)) {
+					as_validator_add_issue (validator, iter,
+								AS_ISSUE_IMPORTANCE_WARNING,
+								AS_ISSUE_KIND_VALUE_WRONG,
+								"The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC-0-1.0 or MIT "
+								"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
+				}
+			}
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (g_hash_table_contains (found_tags, node_name)) {
 				as_validator_add_issue (validator, iter,
@@ -646,12 +658,12 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		}
 	}
 
-	if (metadata_license == NULL) {
-		if (mode == AS_PARSER_MODE_UPSTREAM)
-			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_TAG_MISSING,
-						"The essential tag 'metadata_license' is missing.");
+	/* emit an error if we are missing the metadata license in metainfo files */
+	if ((!has_metadata_license) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+		as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"The essential tag 'metadata_license' is missing.");
 	}
 
 	/* check if the summary is sane */

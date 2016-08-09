@@ -33,6 +33,8 @@ gchar		*as_spdx_license_detokenize (gchar **license_tokens);
 
 gchar		*as_license_to_spdx_id (const gchar *license);
 
+gboolean	as_license_is_metadata_license (const gchar *license);
+
 G_END_DECLS
 
 #endif /* __AS_SPDX_H */

@@ -407,3 +407,76 @@ as_license_to_spdx_id (const gchar *license)
 
 	return g_string_free (str, FALSE);
 }
+
+static gboolean
+as_validate_is_content_license_id (const gchar *license_id)
+{
+	if (g_strcmp0 (license_id, "@CC0-1.0") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-3.0") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-3.0+") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-4.0") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-4.0+") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-SA-3.0") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-SA-3.0+") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-SA-4.0") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@CC-BY-SA-4.0+") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@GFDL-1.1") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@GFDL-1.2") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@GFDL-1.3") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@FSFAP") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@MIT") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "@0BSD") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "&") == 0)
+		return TRUE;
+	if (g_strcmp0 (license_id, "|") == 0)
+		return TRUE;
+	return FALSE;
+}
+
+/**
+ * as_license_is_metadata_license:
+ * @license: The SPDX license string to test.
+ *
+ * Check if the metadata license is suitable for mixing with other
+ * metadata and redistributing the bundled result (this means we
+ * prefer permissive licenses here, to not require people shipping
+ * catalog metadata to perform a full license review).
+ *
+ * This method checks against a hardcoded list of permissive licenses
+ * commonly used to license metadata under.
+ *
+ * Retrurns: %TRUE if the license contains only permissive licenses suitable
+ * as metadata license.
+ */
+gboolean
+as_license_is_metadata_license (const gchar *license)
+{
+	guint i;
+	g_auto(GStrv) tokens = NULL;
+
+	tokens = as_spdx_license_tokenize (license);
+	if (tokens == NULL)
+		return FALSE;
+
+	for (i = 0; tokens[i] != NULL; i++) {
+		if (!as_validate_is_content_license_id (tokens[i]))
+			return FALSE;
+	}
+
+	return TRUE;
+}

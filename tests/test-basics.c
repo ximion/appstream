@@ -213,6 +213,13 @@ test_spdx (void)
 	tmp = as_license_to_spdx_id ("CC0 and (Public Domain and GPLv3+ with exceptions)");
 	g_assert_cmpstr (tmp, ==, "CC0-1.0 AND (LicenseRef-public-domain AND GPL-3.0+)");
 	g_free (tmp);
+
+	/* licenses suitable for metadata licensing */
+	g_assert (as_license_is_metadata_license ("CC0"));
+	g_assert (as_license_is_metadata_license ("CC0-1.0"));
+	g_assert (as_license_is_metadata_license ("0BSD"));
+	g_assert (as_license_is_metadata_license ("MIT AND FSFAP"));
+	g_assert (!as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
 }
 
 int

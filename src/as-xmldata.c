@@ -940,12 +940,12 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			as_xmldata_process_provides (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_xmldata_process_screenshots_tag (xdt, iter, cpt);
+		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
+			as_component_set_metadata_license (cpt, content);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
-			if (content != NULL)
-				as_component_set_project_license (cpt, content);
+			as_component_set_project_license (cpt, content);
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
-			if (content != NULL)
-				as_component_set_project_group (cpt, content);
+			as_component_set_project_group (cpt, content);
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
 			if (lang != NULL)
 				as_component_set_developer_name (cpt, content, lang);
@@ -955,8 +955,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_xmldata_process_releases_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
-			if (content != NULL)
-				as_component_add_extends (cpt, content);
+			as_component_add_extends (cpt, content);
 		} else if (g_strcmp0 (node_name, "languages") == 0) {
 			as_xmldata_process_languages_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {

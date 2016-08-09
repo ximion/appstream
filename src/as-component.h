@@ -132,9 +132,13 @@ void			as_component_set_description (AsComponent *cpt,
 							const gchar *value,
 							const gchar *locale);
 
+const gchar		*as_component_get_metadata_license (AsComponent *cpt);
+void			as_component_set_metadata_license (AsComponent *cpt,
+							   const gchar *value);
+
 const gchar		*as_component_get_project_license (AsComponent *cpt);
 void			as_component_set_project_license (AsComponent *cpt,
-								const gchar *value);
+							  const gchar *value);
 
 const gchar		*as_component_get_project_group (AsComponent *cpt);
 void			as_component_set_project_group (AsComponent *cpt,
