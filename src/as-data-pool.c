@@ -241,7 +241,8 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 	}
 
 	/* merge names */
-	as_component_set_name (dest_cpt, as_component_get_name (src_cpt), as_component_get_active_locale (src_cpt));
+	if (as_component_get_name (src_cpt) != NULL)
+		as_component_set_name (dest_cpt, as_component_get_name (src_cpt), as_component_get_active_locale (src_cpt));
 
 	/* merge package names */
 	pkgnames = as_component_get_pkgnames (src_cpt);

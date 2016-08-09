@@ -323,7 +323,6 @@ as_component_finalize (GObject* object)
 gboolean
 as_component_is_valid (AsComponent *cpt)
 {
-	gboolean ret = FALSE;
 	const gchar *cname;
 	const gchar *csummary;
 	AsComponentKind ctype;
@@ -332,16 +331,20 @@ as_component_is_valid (AsComponent *cpt)
 	ctype = priv->kind;
 	if (ctype == AS_COMPONENT_KIND_UNKNOWN)
 		return FALSE;
+	if (ctype == AS_COMPONENT_KIND_MERGE) {
+		/* merge components only need an ID to be valid */
+		return !as_str_empty (priv->id);
+	}
+
 	cname = as_component_get_name (cpt);
 	csummary = as_component_get_summary (cpt);
-
 	if ((!as_str_empty (priv->id)) &&
 		(!as_str_empty (cname)) &&
 		(!as_str_empty (csummary))) {
-			ret = TRUE;
+			return TRUE;
 	}
 
-	return ret;
+	return FALSE;
 }
 
 /**
