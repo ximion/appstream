@@ -524,8 +524,7 @@
 		<para>
 			Example:
 		</para>
-		<programlisting language="XML">
-<![CDATA[<screenshots>
+		<programlisting language="XML"><![CDATA[<screenshots>
   <screenshot type="default">
     <caption>The FooBar main window.</caption>
     <image type="source" width="1600" height="900">https://example.com/foobar/screenshot-1.png</image>
@@ -582,6 +581,31 @@
 			Example:
 		</para>
 		<programlisting language="XML"><![CDATA[<translation type="gettext">foobar</translation>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
+		<varlistentry id="tag-suggests">
+		<term>&lt;suggests/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;suggests/&gt;</code> tag is an optional tag which can be added to specify the component-ids of other software this components suggests.
+			Software centers might present the suggested software on the installation page of the described component.
+		</para>
+		<para>
+			The tag may have a <literal>type</literal> property, with the value <code>upstream</code>, indicating that this suggestion originates from the upstream project.
+			If no <literal>type</literal> property is given, <code>upstream</code> is implicitly assumed as value. Metainfo files must not define other <literal>suggests</literal>
+			types, those are reserved for AppStream catalog XML (see <xref linkend="tag-distro-suggests"/> in catalog XML).
+		</para>
+		<para>
+			The <literal>suggests</literal> tag must have one or more <code>&lt;id/&gt;</code> tags as children, specifying the IDs of the suggested other software components.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<suggests>
+  <id>org.kde.gwenview.desktop</id>
+  <id>org.inkscape.Inkscape</id>
+</suggests>]]></programlisting>
 		</listitem>
 		</varlistentry>
 

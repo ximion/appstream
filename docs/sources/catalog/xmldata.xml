@@ -578,6 +578,31 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-distro-suggests">
+				<term>&lt;suggests/&gt;</term>
+				<listitem>
+					<para>
+						The optional <literal>suggests</literal> tag provides suggestions of other software made by this component.
+						It follows the same schema as described for metainfo files in <xref linkend="tag-suggests"/>.
+					</para>
+					<para>
+						Additionally to the <literal>upstream</literal> type allowed for metainfo files, the catalog data also allows a
+						<literal>heuristic</literal> type, which is added by automatic recommendation services, and might be based on the user's
+						preferences. It is commonly injected into existing metadata via a <literal>merge</literal> pseudo-component.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="XML"><![CDATA[<suggests type="upstream">
+  <id>org.kde.gwenview.desktop</id>
+  <id>org.inkscape.Inkscape</id>
+</suggests>
+<suggests type="heuristic">
+  <id>org.gimp.gimp.desktop</id>
+</suggests>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 	</section>
 
