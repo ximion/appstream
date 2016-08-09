@@ -46,7 +46,7 @@ if (DOCUMENTATION)
 			VERBATIM
 	)
 
-	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_CURRENT_SOURCE_DIR}/html)
+	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${DOC_HTML_EXPORT_DIR})
 	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${CMAKE_BINARY_DIR}/docbuild)
 
 	# a target to export documentation html to the source tree (useful when building the tarballs)
@@ -57,7 +57,7 @@ if (DOCUMENTATION)
 	)
 	add_custom_command(
 		TARGET documentation POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/api/html" "${CMAKE_CURRENT_SOURCE_DIR}/html/api/html"
+		COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/api/html" "${DOC_HTML_EXPORT_DIR}/api"
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 
@@ -71,7 +71,7 @@ if (DOCUMENTATION)
 	include(UseGtkDoc)
 
 	gtk_doc_add_module(appstream ${CMAKE_SOURCE_DIR}/src
-		IGNOREHEADERS as-component-private.h as-utils.h as-database-write.h as-settings-private.h
+		IGNOREHEADERS as-component-private.h as-utils-private.h as-settings-private.h as-cache-internal.h
 		SUFFIXES h c hh cc
 		LDFLAGS
 			-L${CMAKE_CURRENT_BINARY_DIR}/../src
@@ -83,7 +83,19 @@ if (DOCUMENTATION)
 		DEPENDS appstream)
 
 	set_directory_properties (PROPERTIES CLEAN_NO_CUSTOM ${CMAKE_CURRENT_SOURCE_DIR}/api)
- 	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/api/html;${CMAKE_CURRENT_SOURCE_DIR}/api/xml;${CMAKE_CURRENT_SOURCE_DIR}/api/tmpl")
+	set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_CURRENT_SOURCE_DIR}/api/html;${CMAKE_CURRENT_SOURCE_DIR}/api/xml;${CMAKE_CURRENT_SOURCE_DIR}/api/tmpl")
+
+	#file(GLOB EXTRA_CLEANUP_FILES   "${CMAKE_CURRENT_SOURCE_DIR}/api/*.txt"
+	#				"${CMAKE_CURRENT_SOURCE_DIR}/api/*.stamp"
+	#				"${CMAKE_CURRENT_SOURCE_DIR}/api/*.c"
+	#				"${CMAKE_CURRENT_SOURCE_DIR}/api/*.bak"
+	#)
+	#set(EXTRA_CLEANUP_FILES_LIST "")
+	#foreach(fname ${EXTRA_CLEANUP_FILES})
+	#	list(APPEND EXTRA_CLEANUP_FILES_LIST "${fname}")
+	#endforeach(fname)
+
+	#set_directory_properties (PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${EXTRA_CLEANUP_FILES_LIST}")
 endif()
 
 option(INSTALL_PREBUILT_DOCS "Install prebuilt documentation, if found" ON)
@@ -94,12 +106,12 @@ if (INSTALL_PREBUILT_DOCS OR DOCUMENTATION)
 		install(DIRECTORY DESTINATION ${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/)
 		install(CODE "if (\"\$ENV{DESTDIR}\" STREQUAL \"\")
 					execute_process (COMMAND \"${CMAKE_COMMAND}\" -E create_symlink
-						${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/html/
+						${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/
 						${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/appstream
 					)
 				else ()
 					execute_process (COMMAND \"${CMAKE_COMMAND}\" -E create_symlink
-						${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/html/
+						${CMAKE_INSTALL_FULL_DATADIR}/doc/appstream/html/api/
 						\$ENV{DESTDIR}/${CMAKE_INSTALL_FULL_DATADIR}/gtk-doc/html/appstream
 					)
 				endif ()")
