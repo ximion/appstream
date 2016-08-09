@@ -77,8 +77,9 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For firmware, the value of the <code>&lt;id/&gt;</code> tag must be a unique name for the device the firmware belongs to, constsing of the vendor domain and the
-					device name. A reverse URL scheme in the form of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.firmware</literal> is used, for example <code>com.hughski.ColorHug2.firmware</code>.
+					For firmware, the value of the <code>&lt;id/&gt;</code> tag must follow the reverse-DNS scheme as described for generic components.
+					It is sometimes useful to suffix the ID with <literal>.firmware</literal> to make it more unique.
+					For example <code>com.hughski.ColorHug2.firmware</code>.
 				</para>
 			</listitem>
 			</varlistentry>

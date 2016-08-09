@@ -51,7 +51,7 @@
 	<section id="spec-imdata-filespec">
 		<title>File specification</title>
 		<para>
-			Note that the XML root must have the <literal>type</literal> property set to <code>inputmethod</code>.
+			Note that the XML root must have the <literal>type</literal> property set to <literal>inputmethod</literal>.
 			This clearly identifies this metainfo document as describing an input method instead of a generic software component.
 		</para>
 
@@ -60,7 +60,8 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For input methods, the <literal>%{id}</literal> is the same name as the input method's database filename.
+					For input methods, the <literal>%{id}</literal> should follow the standard reverse-domain-name scheme.
+					For the product name part, it is recommended to take the database filename of the input method.
 				</para>
 			</listitem>
 			</varlistentry>

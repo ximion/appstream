@@ -66,16 +66,20 @@
 		<term>&lt;id/&gt;</term>
 		<listitem>
 		<para>
-			The <code language="XML"><![CDATA[<id>]]></code> tag is a short and unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers. Spaces are
-			not allowed. Specialized metainfo types, such as applications or fonts, may apply additional restrictions on the <literal>id</literal> tag value.
+			The <code language="XML"><![CDATA[<id>]]></code> tag is a unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers. Spaces are
+			not allowed.
 		</para>
 		<para>
-			A general pattern for a valid ID tag is to use a reverse URI scheme, consisting of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;.&lt;type&gt;</literal>, for example <code>org.kde.gwenview.desktop</code>
-			or <code>com.hugski.ColorHug2.firmware</code>. Ownership of <literal>&lt;vendor&gt;.&lt;tld&gt;</literal> in the domain name system guarantees uniqueness of IDs.
+			A general pattern for a valid ID tag is to use a reverse-DNS scheme, consisting of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;</literal>, for example <code>org.kde.gwenview</code>
+			or <code>com.hugski.ColorHug2</code>. Ownership of <literal>&lt;vendor&gt;.&lt;tld&gt;</literal> in the domain name system guarantees uniqueness of IDs.
 		</para>
 		<para>
-			Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions. In case it is not, distributors are expected to reject the conflicting components
-			from inclusion into their metadata.
+			To increase the uniqueness and to distinguish between different pieces of a software suite, it is suggested to append the type name to the component-id in these cases.
+			For example, one can use <code>com.hugski.ColorHug2</code> for the client tools to control hardware, and <code>com.hugski.ColorHug2.firmware</code> for the runtime firmware files.
+		</para>
+		<para>
+			Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions and software deployment platforms.
+			In case it is not unique, distributors are expected to reject the conflicting components from inclusion into their metadata and notify the upstream projects about this issue.
 		</para>
 		</listitem>
 		</varlistentry>
@@ -107,6 +111,9 @@
 			</listitem>
 			<listitem>
 			<para><literal>MIT</literal></para>
+			</listitem>
+			<listitem>
+			<para><literal>FSFAP</literal></para>
 			</listitem>
 		</itemizedlist>
 		<para>

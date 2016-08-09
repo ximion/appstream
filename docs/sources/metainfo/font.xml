@@ -54,8 +54,8 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For fonts, the <literal>%{id}</literal> must be the name of the font or font bundle without whitespace, and must be suffixed
-					with <code>.font</code>.
+					For fonts, the <literal>%{id}</literal> must follow the reverse-DNS scheme as described for generic components.
+					For the product name part, it is recommended to take the the name of the font or font bundle without whitespace.
 				</para>
 			</listitem>
 			</varlistentry>

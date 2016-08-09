@@ -11,7 +11,7 @@
 		<title>Introduction</title>
 		<para>
 			Some software is not standalone, but rather extends existing software installed on the system.
-			The "Addon" component type exists to reflect that.
+			The <literal>addon</literal> component type exists to reflect that.
 		</para>
 		<para>
 			Software which provides addons can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
@@ -48,8 +48,7 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For addons, there are no special requirements for what their <literal>%{id}</literal> should be.
-					You might want to prefix your ID with "addon-" though, to make it easily recognizable.
+					For addons, the <literal>%{id}</literal> must follow the component-id naming conventions (see <xref linkend="tag-id-generic"/>).
 				</para>
 			</listitem>
 			</varlistentry>

@@ -80,8 +80,7 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For codecs, there are no special requirements for what their <literal>%{id}</literal> should be.
-					But, as for any other component, the name must be unique.
+					For codecs, the <literal>%{id}</literal> must follow the component-id naming conventions (see <xref linkend="tag-id-generic"/>).
 				</para>
 			</listitem>
 			</varlistentry>
