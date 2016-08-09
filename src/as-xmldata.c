@@ -62,7 +62,7 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsXMLData, as_xmldata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_xmldata_get_instance_private (o))
 
-static gchar	**as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode *node, const gchar *element_name);
+static gchar	**as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name);
 
 /**
  * libxml_generic_error:
@@ -145,7 +145,12 @@ as_xmldata_clear_error (AsXMLData *xdt)
  * Initialize the XML handler.
  */
 void
-as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, const gchar *arch, gint priority)
+as_xmldata_initialize (AsXMLData *xdt,
+		       const gchar *locale,
+		       const gchar *origin,
+		       const gchar *media_baseurl,
+		       const gchar *arch,
+		       gint priority)
 {
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
@@ -167,13 +172,15 @@ as_xmldata_initialize (AsXMLData *xdt, const gchar *locale, const gchar *origin,
 }
 
 /**
- * as_xmldata_get_node_value:
+ * as_xml_get_node_value:
  */
 static gchar*
-as_xmldata_get_node_value (AsXMLData *xdt, xmlNode *node)
+as_xml_get_node_value (xmlNode *node)
 {
 	gchar *content;
 	content = (gchar*) xmlNodeGetContent (node);
+	if (content != NULL)
+		g_strstrip (content);
 
 	return content;
 }
@@ -245,31 +252,28 @@ out:
 	return lang;
 }
 
+/**
+ * as_xml_get_children_as_strv:
+ */
 static gchar**
-as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode* node, const gchar* element_name)
+as_xml_get_children_as_strv (xmlNode* node, const gchar* element_name)
 {
 	GPtrArray *list;
 	xmlNode *iter;
 	gchar **res;
-	g_return_val_if_fail (xdt != NULL, NULL);
 	g_return_val_if_fail (element_name != NULL, NULL);
-	list = g_ptr_array_new_with_free_func (g_free);
 
+	list = g_ptr_array_new_with_free_func (g_free);
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE) {
 					continue;
 		}
 		if (g_strcmp0 ((gchar*) iter->name, element_name) == 0) {
-			gchar* content = NULL;
-			content = (gchar*) xmlNodeGetContent (iter);
-			if (content != NULL) {
-				gchar *s;
-				s = g_strdup (content);
-				g_strstrip (s);
-				g_ptr_array_add (list, s);
-			}
-			g_free (content);
+			gchar *content;
+			content = as_xml_get_node_value (iter);
+			if (content != NULL)
+				g_ptr_array_add (list, g_strdup (content));
 		}
 	}
 
@@ -286,6 +290,7 @@ as_xmldata_get_children_as_strv (AsXMLData *xdt, xmlNode* node, const gchar* ele
 static void
 as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScreenshot *scr)
 {
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 	g_autoptr(AsImage) img = NULL;
 	g_autofree gchar *content = NULL;
 	g_autofree gchar *stype = NULL;
@@ -294,12 +299,10 @@ as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScr
 	guint64 height;
 	AsImageKind ikind;
 	gchar *str;
-	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
-	content = as_xmldata_get_node_value (xdt, node);
+	content = as_xml_get_node_value (node);
 	if (content == NULL)
 		return;
-	g_strstrip (content);
 
 	img = as_image_new ();
 	lang = as_xmldata_get_node_locale (xdt, node);
@@ -386,11 +389,9 @@ as_xmldata_process_screenshot (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, 
 			g_autofree gchar *content = NULL;
 			g_autofree gchar *lang = NULL;
 
-			content = as_xmldata_get_node_value (xdt, iter);
+			content = as_xml_get_node_value (iter);
 			if (content == NULL)
 				continue;
-			g_strstrip (content);
-
 
 			lang = as_xmldata_get_node_locale (xdt, iter);
 			if (lang != NULL)
@@ -443,12 +444,12 @@ as_xmldata_process_screenshots_tag (AsXMLData *xdt, xmlNode* node, AsComponent* 
 }
 
 /**
- * as_xmldata_upstream_description_to_cpt:
+ * as_xmldata_metainfo_description_to_cpt:
  *
  * Helper function for GHashTable
  */
 static void
-as_xmldata_upstream_description_to_cpt (gchar *key, GString *value, AsComponent *cpt)
+as_xmldata_metainfo_description_to_cpt (gchar *key, GString *value, AsComponent *cpt)
 {
 	g_assert (AS_IS_COMPONENT (cpt));
 
@@ -457,12 +458,12 @@ as_xmldata_upstream_description_to_cpt (gchar *key, GString *value, AsComponent 
 }
 
 /**
- * as_xmldata_upstream_description_to_release:
+ * as_xmldata_metainfo_description_to_release:
  *
  * Helper function for GHashTable
  */
 static void
-as_xmldata_upstream_description_to_release (gchar *key, GString *value, AsRelease *rel)
+as_xmldata_metainfo_description_to_release (gchar *key, GString *value, AsRelease *rel)
 {
 	g_assert (AS_IS_RELEASE (rel));
 
@@ -471,10 +472,10 @@ as_xmldata_upstream_description_to_release (gchar *key, GString *value, AsReleas
 }
 
 /**
- * as_xmldata_parse_upstream_description_tag:
+ * as_xmldata_process_metainfo_description_tag:
  */
 static void
-as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc func, gpointer entity)
+as_xmldata_process_metainfo_description_tag (AsXMLData *xdt, xmlNode *node, GHFunc func, gpointer entity)
 {
 	xmlNode *iter;
 	gchar *node_name;
@@ -506,7 +507,7 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 				g_hash_table_insert (desc, g_strdup (lang), str);
 			}
 
-			tmp = as_xmldata_get_node_value (xdt, iter);
+			tmp = as_xml_get_node_value (iter);
 			content = g_markup_escape_text (tmp, -1);
 			g_string_append_printf (str, "<%s>%s</%s>\n", node_name, content, node_name);
 
@@ -540,7 +541,7 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 				if (str == NULL)
 					continue;
 
-				tmp = as_xmldata_get_node_value (xdt, iter2);
+				tmp = as_xml_get_node_value (iter2);
 				content = g_markup_escape_text (tmp, -1);
 				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
@@ -556,23 +557,26 @@ as_xmldata_parse_upstream_description_tag (AsXMLData *xdt, xmlNode* node, GHFunc
 	g_hash_table_unref (desc);
 }
 
+/**
+ * as_xmldata_process_releases_tag:
+ */
 static void
-as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
+as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt)
 {
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 	xmlNode *iter;
 	xmlNode *iter2;
-	AsRelease *release = NULL;
 	gchar *prop;
 	guint64 timestamp;
-	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
-	g_return_if_fail (cpt != NULL);
 
+	g_return_if_fail (cpt != NULL);
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
 		if (g_strcmp0 ((gchar*) iter->name, "release") == 0) {
+			g_autoptr(AsRelease) release = NULL;
 			release = as_release_new ();
 
 			/* propagate locale */
@@ -609,24 +613,22 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 			}
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
-				gchar *content;
+				g_autofree gchar *content = NULL;
 
 				if (iter->type != XML_ELEMENT_NODE)
 					continue;
 
 				if (g_strcmp0 ((gchar*) iter2->name, "location") == 0) {
-					content = as_xmldata_get_node_value (xdt, iter2);
+					content = as_xml_get_node_value (iter2);
 					as_release_add_location (release, content);
-					g_free (content);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "checksum") == 0) {
 					AsChecksumKind cs_kind;
 					prop = (gchar*) xmlGetProp (iter2, (xmlChar*) "type");
 
 					cs_kind = as_checksum_kind_from_string (prop);
 					if (cs_kind != AS_CHECKSUM_KIND_NONE) {
-						content = as_xmldata_get_node_value (xdt, iter2);
+						content = as_xml_get_node_value (iter2);
 						as_release_set_checksum (release, content, cs_kind);
-						g_free (content);
 					}
 					g_free (prop);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "size") == 0) {
@@ -637,9 +639,8 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 					if (s_kind != AS_SIZE_KIND_UNKNOWN) {
 						guint64 size;
 
-						content = as_xmldata_get_node_value (xdt, iter2);
+						content = as_xml_get_node_value (iter2);
 						size = g_ascii_strtoull (content, NULL, 10);
-						g_free (content);
 						if (size > 0)
 							as_release_set_size (release, size, s_kind);
 					}
@@ -653,28 +654,28 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt
 						lang = as_xmldata_get_node_locale (xdt, iter2);
 						if (lang != NULL)
 							as_release_set_description (release, content, lang);
-						g_free (content);
 					} else {
-						as_xmldata_parse_upstream_description_tag (xdt,
+						as_xmldata_process_metainfo_description_tag (xdt,
 											iter2,
-											(GHFunc) as_xmldata_upstream_description_to_release,
+											(GHFunc) as_xmldata_metainfo_description_to_release,
 											release);
 					}
 				}
 			}
 
 			as_component_add_release (cpt, release);
-			g_object_unref (release);
 		}
 	}
 }
 
+/**
+ * as_xmldata_process_provides_tag:
+ */
 static void
-as_xmldata_process_provides (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
+as_xmldata_process_provides_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
 	gchar *node_name;
-	g_return_if_fail (xdt != NULL);
 	g_return_if_fail (cpt != NULL);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
@@ -685,7 +686,7 @@ as_xmldata_process_provides (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
 			continue;
 
 		node_name = (gchar*) iter->name;
-		content = as_xmldata_get_node_value (xdt, iter);
+		content = as_xml_get_node_value (iter);
 		if (content == NULL)
 			continue;
 
@@ -722,10 +723,13 @@ as_xmldata_process_provides (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
 	}
 }
 
+/**
+ * as_component_set_kind_from_node:
+ */
 static void
-as_xmldata_set_component_type_from_node (xmlNode *node, AsComponent *cpt)
+as_component_set_kind_from_node (AsComponent *cpt, xmlNode *node)
 {
-	gchar *cpttype;
+	g_autofree gchar *cpttype = NULL;
 
 	/* find out which kind of component we are dealing with */
 	cpttype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
@@ -738,9 +742,11 @@ as_xmldata_set_component_type_from_node (xmlNode *node, AsComponent *cpt)
 		if (ckind == AS_COMPONENT_KIND_UNKNOWN)
 			g_debug ("An unknown component was found: %s", cpttype);
 	}
-	g_free (cpttype);
 }
 
+/**
+ * as_xmldata_process_languages_tag:
+ */
 static void
 as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cpt)
 {
@@ -762,7 +768,7 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 			if (prop != NULL)
 				percentage = g_ascii_strtoll (prop, NULL, 10);
 
-			locale = as_xmldata_get_node_value (xdt, iter);
+			locale = as_xml_get_node_value (iter);
 			as_component_add_language (cpt, locale, percentage);
 		}
 	}
@@ -806,7 +812,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	pkgnames = g_ptr_array_new_with_free_func (g_free);
 
 	/* set component kind */
-	as_xmldata_set_component_type_from_node (node, cpt);
+	as_component_set_kind_from_node (cpt, node);
 
 	/* set the priority for this component */
 	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
@@ -830,8 +836,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			continue;
 
 		node_name = (const gchar*) iter->name;
-		content = as_xmldata_get_node_value (xdt, iter);
-		g_strstrip (content);
+		content = as_xml_get_node_value (iter);
 		lang = as_xmldata_get_node_locale (xdt, iter);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
@@ -839,7 +844,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				if ((priv->mode == AS_PARSER_MODE_UPSTREAM) &&
 					(as_component_get_kind (cpt) == AS_COMPONENT_KIND_GENERIC)) {
 					/* parse legacy component type information */
-					as_xmldata_set_component_type_from_node (iter, cpt);
+					as_component_set_kind_from_node (cpt, iter);
 				}
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (content != NULL)
@@ -862,9 +867,9 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 					g_free (desc);
 				}
 			} else {
-				as_xmldata_parse_upstream_description_tag (xdt,
+				as_xmldata_process_metainfo_description_tag (xdt,
 									iter,
-									(GHFunc) as_xmldata_upstream_description_to_cpt,
+									(GHFunc) as_xmldata_metainfo_description_to_cpt,
 									cpt);
 			}
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
@@ -917,12 +922,12 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			}
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			gchar **cat_array;
-			cat_array = as_xmldata_get_children_as_strv (xdt, iter, "category");
+			cat_array = as_xml_get_children_as_strv (iter, "category");
 			as_component_set_categories (cpt, cat_array);
 			g_strfreev (cat_array);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			gchar **kw_array;
-			kw_array = as_xmldata_get_children_as_strv (xdt, iter, "keyword");
+			kw_array = as_xml_get_children_as_strv (iter, "keyword");
 			as_component_set_keywords (cpt, kw_array, NULL);
 			g_strfreev (kw_array);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
@@ -932,12 +937,12 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			/* Mimetypes are essentially provided interfaces, that's why they belong into AsProvided.
 			 * However, due to historic reasons, the spec has an own toplevel tag for them, so we need
 			 * to parse them here. */
-			mime_array = as_xmldata_get_children_as_strv (xdt, iter, "mimetype");
+			mime_array = as_xml_get_children_as_strv (iter, "mimetype");
 			for (i = 0; mime_array[i] != NULL; i++) {
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, mime_array[i]);
 			}
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
-			as_xmldata_process_provides (xdt, iter, cpt);
+			as_xmldata_process_provides_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_xmldata_process_screenshots_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
