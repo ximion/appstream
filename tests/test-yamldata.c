@@ -26,12 +26,11 @@
 
 static gchar *datadir = NULL;
 
-void
-println (const gchar *s)
-{
-	g_printf ("%s\n", s);
-}
-
+/**
+ * test_basic:
+ *
+ * Test basic functions related to YAML processing.
+ */
 void
 test_basic (void)
 {
@@ -109,6 +108,11 @@ test_h_create_dummy_screenshot (void)
 	return scr;
 }
 
+/**
+ * test_yamlwrite:
+ *
+ * Test writing a YAML document.
+ */
 void
 test_yamlwrite (void)
 {
@@ -222,6 +226,11 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 	return g_object_ref (cpt);
 }
 
+/**
+ * test_yaml_read_icons:
+ *
+ * Test reading the Icons field.
+ */
 void
 test_yaml_read_icons (void)
 {
@@ -284,6 +293,11 @@ test_yaml_read_icons (void)
 	g_assert_nonnull (as_component_get_icon_by_size (cpt, 128, 128));
 }
 
+/**
+ * test_yaml_read_languages:
+ *
+ * Test if reading the Languages field works.
+ */
 void
 test_yaml_read_languages (void)
 {
@@ -324,6 +338,9 @@ test_yaml_corrupt_data (void)
 	g_assert_null (cpt);
 }
 
+/**
+ * main:
+ */
 int
 main (int argc, char **argv)
 {

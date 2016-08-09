@@ -43,6 +43,11 @@ print_cptarray (GPtrArray *cpt_array)
 	g_printf ("----\n");
 }
 
+/**
+ * test_cache:
+ *
+ * Test reading data from cache files.
+ */
 void
 test_cache ()
 {
@@ -100,6 +105,11 @@ test_cache ()
 	g_assert_cmpstr (as_component_get_summary (cpt2), ==, "Another unit-test dummy entry");
 }
 
+/**
+ * test_pool_read:
+ *
+ * Test reading information from the metadata pool.
+ */
 void
 test_pool_read ()
 {
@@ -203,6 +213,11 @@ test_pool_read ()
 	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 0);
 }
 
+/**
+ * test_merge_components:
+ *
+ * Test merging of component data via the "merge" pseudo-component.
+ */
 void
 test_merge_components ()
 {
@@ -255,6 +270,9 @@ test_merge_components ()
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Kiki (name changed by merge)");
 }
 
+/**
+ * main:
+ */
 int
 main (int argc, char **argv)
 {
