@@ -775,6 +775,47 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 }
 
 /**
+ * as_xmldata_process_suggests_tag:
+ */
+static void
+as_xmldata_process_suggests_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt)
+{
+	xmlNode *iter;
+	g_autoptr(AsSuggested) suggested = NULL;
+	g_autofree gchar *type_str = NULL;
+
+	suggested = as_suggested_new ();
+	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+
+	if (type_str != NULL) {
+		AsSuggestedKind kind;
+		kind = as_suggested_kind_from_string (type_str);
+		if (kind == AS_SUGGESTED_KIND_UNKNOWN) {
+			g_debug ("Component '%s' has a suggests tag of unknown type '%s'. Ignoring it.",
+				 as_component_get_id (cpt), type_str);
+			return;
+		}
+		as_suggested_set_kind (suggested, kind);
+	}
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "id") == 0) {
+			g_autofree gchar *content = NULL;
+			content = as_xml_get_node_value (iter);
+
+			if (content != NULL)
+				as_suggested_add_id (suggested, content);
+		}
+	}
+
+	if (as_suggested_is_valid (suggested))
+		as_component_add_suggested (cpt, suggested);
+}
+
+/**
  * as_xml_icon_set_size_from_node:
  */
 static void
@@ -989,6 +1030,8 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 					as_component_add_translation (cpt, tr);
 				}
 			}
+		} else if (g_strcmp0 (node_name, "suggests") == 0) {
+			as_xmldata_process_suggests_tag (xdt, iter, cpt);
 		}
 	}
 
