@@ -55,8 +55,8 @@
 	<title>XML Specification</title>
 
 	<para>
-		The XML for a generic component definition starts with a <code><![CDATA[<component>]]></code> tag as the root element.
-		The <code><![CDATA[<component>]]></code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag; and
+		The XML for a generic component definition starts with a <code>&lt;component&gt;</code> tag as the root element.
+		The <code>&lt;component&gt;</code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag; and
 		a <literal>provides</literal> tag with appropriate children is highly recommended.
 		All possible tags in the generic set are:
 	</para>
@@ -70,8 +70,8 @@
 			not allowed.
 		</para>
 		<para>
-			A general pattern for a valid ID tag is to use a reverse-DNS scheme, consisting of <literal>&lt;tld&gt;.&lt;vendor&gt;.&lt;product&gt;</literal>, for example <code>org.kde.gwenview</code>
-			or <code>com.hugski.ColorHug2</code>. Ownership of <literal>&lt;vendor&gt;.&lt;tld&gt;</literal> in the domain name system guarantees uniqueness of IDs.
+			A general pattern for a valid ID tag is to use a reverse-DNS scheme, consisting of <literal>{tld}.{vendor}.{product}</literal>, for example <code>org.kde.gwenview</code>
+			or <code>com.hugski.ColorHug2</code>. Ownership of <literal>{vendor}.{tld}</literal> in the domain name system guarantees uniqueness of IDs.
 		</para>
 		<para>
 			To increase the uniqueness and to distinguish between different pieces of a software suite, it is suggested to append the type name to the component-id in these cases.
