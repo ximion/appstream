@@ -710,9 +710,33 @@
 					<para>See <xref linkend="tag-extends"/>.</para>
 					<para>
 						Contains a list of AppStream IDs of the other component extended by the described component.
-						This field may only be used with component-type <code>addon</code>.
+						This field may only be used with component-type <literal>addon</literal>.
 					</para>
 					<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-suggests">
+				<term>Suggests</term>
+				<listitem>
+					<para>See <xref linkend="tag-distro-suggests"/>.</para>
+					<para>
+						A list of dictionaries containing suggested software components. The dictionaries must have a <literal>type</literal> key
+						with the string value <code>upstream</code> or <code>heuristic</code> depending on where the suggestion originates from.
+						The also must have a <literal>ids</literal> key containing a list of component-ids of the suggested software.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting><![CDATA[Provides:
+  - type: upstream
+    ids:
+      - org.example.Awesome
+  - type: heuristic
+    ids:
+      - org.example.Test1
+      - org.example.Test2]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
 				</listitem>
 			</varlistentry>
 

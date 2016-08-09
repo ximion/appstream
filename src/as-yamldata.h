@@ -66,6 +66,8 @@ const gchar		*as_yamldata_get_locale (AsYAMLData *ydt);
 void			as_yamldata_set_locale (AsYAMLData *ydt,
 						const gchar *locale);
 
+void			as_yamldata_set_check_valid (AsYAMLData *ydt, gboolean check);
+
 G_END_DECLS
 
 #endif /* __AS_YAMLDATA_H */
