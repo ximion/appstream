@@ -167,6 +167,8 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "generic";
 	if (kind == AS_COMPONENT_KIND_DESKTOP_APP)
 		return "desktop";
+	if (kind == AS_COMPONENT_KIND_CONSOLE_APP)
+		return "console-application";
 	if (kind == AS_COMPONENT_KIND_FONT)
 		return "font";
 	if (kind == AS_COMPONENT_KIND_CODEC)
@@ -195,7 +197,9 @@ as_component_kind_from_string (const gchar *kind_str)
 {
 	if (g_strcmp0 (kind_str, "generic") == 0)
 		return AS_COMPONENT_KIND_GENERIC;
-	if (g_strcmp0 (kind_str, "desktop") == 0)
+	if (g_strcmp0 (kind_str, "desktop-application") == 0)
+		return AS_COMPONENT_KIND_DESKTOP_APP;
+	if (g_strcmp0 (kind_str, "console-application") == 0)
 		return AS_COMPONENT_KIND_DESKTOP_APP;
 	if (g_strcmp0 (kind_str, "font") == 0)
 		return AS_COMPONENT_KIND_FONT;
@@ -209,6 +213,13 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_FIRMWARE;
 	if (g_strcmp0 (kind_str, "merge") == 0)
 		return AS_COMPONENT_KIND_MERGE;
+
+	/* legacy */
+	if (g_strcmp0 (kind_str, "desktop") == 0)
+		return AS_COMPONENT_KIND_DESKTOP_APP;
+	if (g_strcmp0 (kind_str, "desktop-app") == 0)
+		return AS_COMPONENT_KIND_DESKTOP_APP;
+
 	return AS_COMPONENT_KIND_UNKNOWN;
 }
 

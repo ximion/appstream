@@ -669,7 +669,8 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		cpt_kind = as_component_get_kind (cpt);
 
 		if ((cpt_kind == AS_COMPONENT_KIND_DESKTOP_APP) ||
-			(cpt_kind == AS_COMPONENT_KIND_FONT)) {
+		    (cpt_kind == AS_COMPONENT_KIND_CONSOLE_APP) ||
+		    (cpt_kind == AS_COMPONENT_KIND_FONT)) {
 			as_validator_add_issue (validator, NULL,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_TAG_MISSING,
@@ -680,6 +681,15 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 					AS_ISSUE_KIND_TAG_MISSING,
 					"The component is missing a long description. It is recommended to add one.");
 		}
+	}
+
+	/* validate console-app specific stuff */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_CONSOLE_APP) {
+		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_BINARY) == NULL)
+			as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"Type 'console-application' component, but no information about binaries in $PATH was provided via a provides/binary tag.");
 	}
 
 	/* validate font specific stuff */

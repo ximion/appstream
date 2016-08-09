@@ -764,9 +764,7 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 		g_strstrip (value);
 
 		if (g_strcmp0 (key, "Type") == 0) {
-			if (g_strcmp0 (value, "desktop-app") == 0)
-				as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
-			else if (g_strcmp0 (value, "generic") == 0)
+			if (g_strcmp0 (value, "generic") == 0)
 				as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
 			else
 				as_component_set_kind (cpt, as_component_kind_from_string (value));
