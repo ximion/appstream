@@ -215,9 +215,11 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 	guint i;
 	gchar **cats;
 	gchar **pkgnames;
+	GPtrArray *suggestions;
 
 	/* FIXME: We need to merge more attributes */
 
+	/* merge categories */
 	cats = as_component_get_categories (src_cpt);
 	if (cats != NULL) {
 		g_autoptr(GHashTable) cat_table = NULL;
@@ -238,12 +240,23 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 		as_component_set_categories (dest_cpt, new_cats);
 	}
 
+	/* merge package names */
 	pkgnames = as_component_get_pkgnames (src_cpt);
 	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
 		as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
 
+	/* merge bundles */
 	if (as_component_has_bundle (src_cpt))
 		as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));
+
+	/* merge suggestions */
+	suggestions = as_component_get_suggested (src_cpt);
+	if (suggestions != NULL) {
+		for (i = 0; i < suggestions->len; i++) {
+			as_component_add_suggested (dest_cpt,
+						    AS_SUGGESTED (g_ptr_array_index (suggestions, i)));
+		}
+	}
 }
 
 /**
