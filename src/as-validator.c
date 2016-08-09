@@ -694,11 +694,6 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 
 	/* validate font specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT) {
-		if (!g_str_has_suffix (as_component_get_id (cpt), ".font"))
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"Components of type 'font' must have an AppStream ID with a '.font' suffix.");
 		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_FONT) == NULL)
 			as_validator_add_issue (validator, NULL,
 					AS_ISSUE_IMPORTANCE_WARNING,
@@ -964,12 +959,12 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 
 	/* check if the referenced .desktop file exists */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-		if (g_hash_table_contains (data->desktop_fnames, as_component_get_id (cpt))) {
+		if (g_hash_table_contains (data->desktop_fnames, as_component_get_desktop_id (cpt))) {
 			g_autofree gchar *desktop_fname_full = NULL;
 			g_autoptr(GKeyFile) dfile = NULL;
 			GError *tmp_error = NULL;
 
-			desktop_fname_full = g_build_filename (data->apps_dir, as_component_get_id (cpt), NULL);
+			desktop_fname_full = g_build_filename (data->apps_dir, as_component_get_desktop_id (cpt), NULL);
 			dfile = g_key_file_new ();
 
 			g_key_file_load_from_file (dfile, desktop_fname_full, G_KEY_FILE_NONE, &tmp_error);
