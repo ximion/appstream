@@ -587,6 +587,62 @@ test_xml_write_provides (void)
 }
 
 /**
+ * test_xml_write_suggests:
+ *
+ * Test writing the suggests tag.
+ */
+void
+test_xml_write_suggests (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsSuggested) sug_us = NULL;
+	g_autoptr(AsSuggested) sug_hr = NULL;
+	g_autofree gchar *res = NULL;
+	const gchar *expected_sug_xml_mi = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.SuggestsTest</id>\n"
+					"  <suggests type=\"upstream\">\n"
+					"    <id>org.example.Awesome</id>\n"
+					"  </suggests>\n"
+					"</component>\n";
+	const gchar *expected_sug_xml_coll = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<components version=\"0.8\">\n"
+					"  <component>\n"
+					"    <id>org.example.SuggestsTest</id>\n"
+					"    <suggests type=\"upstream\">\n"
+					"      <id>org.example.Awesome</id>\n"
+					"    </suggests>\n"
+					"    <suggests type=\"heuristic\">\n"
+					"      <id>org.example.MachineLearning</id>\n"
+					"      <id>org.example.Stuff</id>\n"
+					"    </suggests>\n"
+					"  </component>\n"
+					"</components>\n";
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.SuggestsTest");
+
+	sug_us = as_suggested_new ();
+	as_suggested_set_kind (sug_us, AS_SUGGESTED_KIND_UPSTREAM);
+	as_suggested_add_id (sug_us, "org.example.Awesome");
+	as_component_add_suggested (cpt, sug_us);
+
+	sug_hr = as_suggested_new ();
+	as_suggested_set_kind (sug_hr, AS_SUGGESTED_KIND_HEURISTIC);
+	as_suggested_add_id (sug_hr, "org.example.MachineLearning");
+	as_suggested_add_id (sug_hr, "org.example.Stuff");
+	as_component_add_suggested (cpt, sug_hr);
+
+	/* test metainfo serialization */
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
+	g_assert (as_test_compare_lines (res, expected_sug_xml_mi));
+
+	/* test collection serialization */
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_DISTRO);
+	g_assert (as_test_compare_lines (res, expected_sug_xml_coll));
+}
+
+/**
  * main:
  */
 int
@@ -619,6 +675,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Write/Languages", test_xml_write_languages);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 	g_test_add_func ("/XML/Write/Provides", test_xml_write_provides);
+	g_test_add_func ("/XML/Write/Suggests", test_xml_write_suggests);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -1569,7 +1569,7 @@ as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
  * as_xml_serialize_languages:
  */
 static void
-as_xml_serialize_languages (AsComponent *cpt, xmlNode *cnode)
+as_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 {
 	xmlNode *node;
 	GHashTable *lang_table;
@@ -1580,7 +1580,7 @@ as_xml_serialize_languages (AsComponent *cpt, xmlNode *cnode)
 	if (g_hash_table_size (lang_table) == 0)
 		return;
 
-	node = xmlNewChild (cnode, NULL, (xmlChar*) "languages", NULL);
+	node = xmlNewChild (cptnode, NULL, (xmlChar*) "languages", NULL);
 	g_hash_table_iter_init (&iter, lang_table);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
 		guint percentage;
@@ -1599,6 +1599,47 @@ as_xml_serialize_languages (AsComponent *cpt, xmlNode *cnode)
 		xmlNewProp (l_node,
 			    (xmlChar*) "percentage",
 			    (xmlChar*) percentage_str);
+	}
+}
+
+/**
+ * as_xmldata_serialize_suggests:
+ */
+static void
+as_xmldata_serialize_suggests (AsXMLData *xdt, AsComponent *cpt, xmlNode *cptnode)
+{
+	GPtrArray *suggestions;
+	guint i;
+	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	suggestions = as_component_get_suggested (cpt);
+	if ((suggestions == NULL) || (suggestions->len == 0))
+		return;
+
+	for (i = 0; i < suggestions->len; i++) {
+		guint j;
+		GPtrArray *cpt_ids;
+		xmlNode *node;
+		AsSuggestedKind kind;
+		AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (suggestions, i));
+
+		/* non-upstream tags are not allowed in metainfo files */
+		kind = as_suggested_get_kind (suggested);
+		if ((kind != AS_SUGGESTED_KIND_UPSTREAM) && (priv->mode == AS_PARSER_MODE_UPSTREAM))
+			continue;
+
+		node = xmlNewChild (cptnode, NULL, (xmlChar*) "suggests", NULL);
+		xmlNewProp (node,
+			    (xmlChar*) "type",
+			    (xmlChar*) as_suggested_kind_to_string (kind));
+
+		cpt_ids = as_suggested_get_ids (suggested);
+		for (j = 0; j < cpt_ids->len; j++) {
+			const gchar *cid = (const gchar*) g_ptr_array_index (cpt_ids, j);
+			xmlNewTextChild (node, NULL,
+					 (xmlChar*) "id",
+					 (xmlChar*) cid);
+		}
 	}
 }
 
@@ -1769,6 +1810,9 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 
 	/* languages node */
 	as_xml_serialize_languages (cpt, cnode);
+
+	/* suggests node */
+	as_xmldata_serialize_suggests (xdt, cpt, cnode);
 
 	return cnode;
 }
