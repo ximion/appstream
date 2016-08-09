@@ -33,6 +33,7 @@ G_BEGIN_DECLS
  * @AS_URL_KIND_FAQ:		FAQ page
  * @AS_URL_KIND_HELP:		Help manual
  * @AS_URL_KIND_DONATION:	Page with information about how to donate to the project
+ * @AS_URL_KIND_TRANSLATE:	Page with instructions on how to translate the project / submit translations.
  *
  * The URL type.
  **/
@@ -43,6 +44,7 @@ typedef enum {
 	AS_URL_KIND_FAQ,
 	AS_URL_KIND_HELP,
 	AS_URL_KIND_DONATION,
+	AS_URL_KIND_TRANSLATE,
 	/*< private >*/
 	AS_URL_KIND_LAST
 } AsUrlKind;

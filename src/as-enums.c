@@ -47,6 +47,8 @@ as_url_kind_to_string (AsUrlKind url_kind)
 		return "help";
 	if (url_kind == AS_URL_KIND_DONATION)
 		return "donation";
+	if (url_kind == AS_URL_KIND_TRANSLATE)
+		return "translate";
 	return "unknown";
 }
 
@@ -71,6 +73,8 @@ as_url_kind_from_string (const gchar *url_kind)
 		return AS_URL_KIND_HELP;
 	if (g_strcmp0 (url_kind, "donation") == 0)
 		return AS_URL_KIND_DONATION;
+	if (g_strcmp0 (url_kind, "translate") == 0)
+		return AS_URL_KIND_TRANSLATE;
 	return AS_URL_KIND_UNKNOWN;
 }
 
@@ -107,8 +111,8 @@ as_bundle_kind_from_string (const gchar *bundle_kind)
 {
 	if (g_strcmp0 (bundle_kind, "limba") == 0)
 		return AS_BUNDLE_KIND_LIMBA;
-	if (g_strcmp0 (bundle_kind, "xdg-app") == 0)
-		return AS_BUNDLE_KIND_LIMBA;
+	if (g_strcmp0 (bundle_kind, "flatpak") == 0)
+		return AS_BUNDLE_KIND_FLATPAK;
 	return AS_BUNDLE_KIND_UNKNOWN;
 }
 
