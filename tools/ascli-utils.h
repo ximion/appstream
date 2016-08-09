@@ -26,15 +26,19 @@
 
 G_BEGIN_DECLS
 
-gchar		*ascli_format_long_output (const gchar *str);
-void		ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight);
+gchar		*ascli_format_long_output (const gchar *str,
+					   guint indent_level);
+void		ascli_print_key_value (const gchar *key,
+				       const gchar *val,
+				       gboolean highlight);
 void		ascli_print_separator (void);
 
 void		ascli_print_stdout (const gchar *format, ...);
 void		ascli_print_stderr (const gchar *format, ...);
 void		ascli_print_highlight (const gchar* msg);
 
-void		ascli_print_component (AsComponent *cpt, gboolean show_detailed);
+void		ascli_print_component (AsComponent *cpt,
+				       gboolean show_detailed);
 
 void		ascli_set_colored_output (gboolean colored);
 

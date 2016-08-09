@@ -33,32 +33,54 @@ gboolean _nocolor_output = FALSE;
  * ascli_format_long_output:
  */
 gchar*
-ascli_format_long_output (const gchar *str)
+ascli_format_long_output (const gchar *str, guint indent_level)
 {
 	GString *res = NULL;
-	guint i, j;
-	gboolean do_linebreak = FALSE;
+	guint count = 0;
+	gssize last_space = 0;
+	const gchar *char_ptr = str;
 
-	res = g_string_new ("\n  ");
+	g_autofree gchar *spacing = NULL;
+	g_autofree gchar *break_indent = NULL;
 
-	for (i = 0; str[i] != '\0'; ++i) {
-		if ((j != 0) && ((j % 80) == 0))
-			do_linebreak = TRUE;
-		if (str[i] == '\n') {
-			do_linebreak = FALSE;
-			g_string_append (res, "\n  ");
-			j = 0;
-			continue;
+	spacing = g_strnfill (indent_level, ' ');
+	break_indent = g_strdup_printf ("\n%s", spacing);
+
+	res = g_string_sized_new (strlen (str));
+
+	while (*char_ptr != '\0') {
+		gunichar uchar = g_utf8_get_char_validated (char_ptr, -1);
+
+		if (uchar == '\n') {
+			g_string_append (res, break_indent);
+			count = 0;
+			last_space = 0;
+			goto next;
 		}
-		if ((do_linebreak) && (str[i] == ' ')) {
-			do_linebreak = FALSE;
-			g_string_append (res, "\n  ");
-			j = 0;
-			continue;
+
+		g_string_append_unichar (res, uchar);
+		count++;
+
+		if (g_unichar_isspace (uchar)) {
+			last_space = res->len;
+			if (count > 80) {
+				g_string_append (res, break_indent);
+				count = 0;
+				last_space = 0;
+				goto next;
+			}
+		} else if (count > 80) {
+			/* insert a linebreak at previous position */
+			if (last_space > 0) {
+				g_string_erase (res, last_space, 0);
+				g_string_insert (res, last_space, break_indent);
+				count = 0;
+				last_space = 0;
+			}
 		}
 
-		g_string_append_c (res, str[i]);
-		j++;
+	next:
+		char_ptr = g_utf8_next_char (char_ptr);
 	}
 
 	return g_string_free (res, FALSE);
@@ -81,7 +103,7 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 		/* only produces slightly better output (indented).
 		 * we need word-wrapping in future
 		 */
-		fmtval = ascli_format_long_output (val);
+		fmtval = ascli_format_long_output (val, 2);
 	} else {
 		fmtval = g_strdup (val);
 	}
@@ -89,7 +111,7 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 	str = g_strdup_printf ("%s: ", key);
 
 	if (_nocolor_output) {
-		g_print ("%s%s\n", str, fmtval);
+		g_print ("%s%s\n  ", str, fmtval);
 	} else {
 		g_print ("%c[%dm%s%c[%dm%s\n", 0x1B, 1, str, 0x1B, 0, fmtval);
 	}

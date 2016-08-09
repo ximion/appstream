@@ -25,6 +25,8 @@
 #include <glib/gi18n-lib.h>
 #include <appstream.h>
 
+#include "ascli-utils.h"
+
 /**
  * importance_to_print_string:
  **/
@@ -84,6 +86,7 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 	for (l = issues; l != NULL; l = l->next) {
 		g_autofree gchar *location = NULL;
 		g_autofree gchar *header = NULL;
+		g_autofree gchar *message = NULL;
 
 		issue = AS_VALIDATOR_ISSUE (l->data);
 		importance = as_validator_issue_get_importance (issue);
@@ -100,9 +103,11 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 		header = importance_location_to_print_string (importance,
 								location,
 								pretty);
+
+		message = ascli_format_long_output (as_validator_issue_get_message (issue), 4);
 		g_print ("%s\n    %s\n\n",
 				header,
-				as_validator_issue_get_message (issue));
+				message);
 	}
 
 	return no_errors;
