@@ -1,3 +1,42 @@
+Version 0.9.8
+~~~~~~~~~~~~~~
+Released: 2016-08-10
+
+Features:
+ * qt: Different approach for storing the icon size and url relation (Aleix Pol)
+ * Strictly validate AppStream IDs (Matthias Klumpp)
+ * Add AsSuggested class (Lucas Moura)
+ * tests: Test merges for suggestions (Lucas Moura)
+ * Add functions handling SPDX license ids and expressions (Matthias Klumpp)
+ * validator: Include a line-hint in the issue report (Matthias Klumpp)
+ * Implement console-application component type (Matthias Klumpp)
+ * validator: Validate files following the new cid scheme properly (Matthias Klumpp)
+ * validator: Validate metadata_license for permissiveness (Matthias Klumpp)
+ * Compress cache data (Matthias Klumpp)
+ * Implement "translate" URL type (Matthias Klumpp)
+ * xml: Implement the suggests tag (Matthias Klumpp)
+ * yaml: Implement reading and writing of Suggests field (Matthias Klumpp)
+ * Consider merge components valid if they have at least an ID (Matthias Klumpp)
+ * yaml: Read/write merge components (Matthias Klumpp)
+
+Specification:
+ * spec: Add console-application component type (Matthias Klumpp)
+ * spec: Streamline the requirements for component-ids (Matthias Klumpp)
+ * spec: Define a "translate" URL type (Matthias Klumpp)
+ * spec: Specify the suggests tag (Matthias Klumpp)
+ * spec: Describe the merge property (Matthias Klumpp)
+ * spec: Proofreading fixes (Philip Withnall)
+
+Bugfixes:
+ * Make searching for multiple terms work properly again (Matthias Klumpp)
+ * Don't fail on invalid search terms (Matthias Klumpp)
+ * Don't re-instantiate stemmer on each use (Matthias Klumpp)
+ * ascli: Line-wrap unicode texts properly on the console (Matthias Klumpp)
+ * Add missing docs to the API reference (Matthias Klumpp)
+ * tests: Add test description to each test (Matthias Klumpp)
+ * Sort search results by default (Matthias Klumpp)
+ * Fix a few issues with merging (Matthias Klumpp)
+
 Version 0.9.7
 ~~~~~~~~~~~~~~
 Released: 2016-07-20
