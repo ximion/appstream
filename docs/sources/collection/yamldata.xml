@@ -188,6 +188,7 @@
 					<itemizedlist>
 						<listitem><para><code>generic</code> for <xref linkend="sect-Metadata-GenericComponent"/></para></listitem>
 						<listitem><para><code>desktop-app</code> for <xref linkend="sect-Metadata-Application"/></para></listitem>
+						<listitem><para><code>console-application</code> for <xref linkend="sect-Metadata-ConsoleApplication"/></para></listitem>
 						<listitem><para><code>addon</code> for <xref linkend="sect-Metadata-Addon"/></para></listitem>
 						<listitem><para><code>codec</code> for <xref linkend="sect-Metadata-Codec"/></para></listitem>
 						<listitem><para><code>inputmethod</code> for <xref linkend="sect-Metadata-InputMethod"/></para></listitem>
@@ -195,6 +196,18 @@
 					</itemizedlist>
 
 					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-merge">
+				<term>Merge</term>
+				<listitem>
+					<para>
+						The optional <literal>Merge</literal> field describes the merge strategy that should be applied when merging data of this component into
+						its base. It may assume the values <code>append</code> or <code>replace</code>.
+					</para>
+					<para>See <xref linkend="spec-asxml-tags"/> for a description on how merging works.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
 				</listitem>
 			</varlistentry>
 

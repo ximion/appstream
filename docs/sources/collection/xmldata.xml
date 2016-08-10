@@ -96,6 +96,14 @@
 			AppStream XML files (for example, from a different repository) which have the same component-id. The value of this tag is an integer, if the
 			property is missing, a value of <code>"0"</code> is assumed.
 		</para>
+		<para>
+			In order to <emphasis>merge</emphasis> metadata, each component in distro data may also have a <literal>merge</literal> property, assuming the
+			values <code>append</code> or <code>replace</code>. If the value is <code>append</code>, all data this component describes will be appended
+			to data of the component with the same ID. If the value is <code>replace</code> the fields of the target component will be replaced with the
+			ones present in the merge component.
+			Merge components with a higher priority take precedence. If a component has a <literal>merge</literal> property, the only tag that must at least
+			be present for it is the <code>&lt;id/&gt;</code> tag.
+		</para>
 
 		<variablelist>
 			<varlistentry id="tag-distro-component-id">
