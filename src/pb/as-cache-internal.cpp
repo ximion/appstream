@@ -140,6 +140,12 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 			continue;
 		}
 
+		if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
+			g_debug ("Skipping '%s' from cache inclusion, it is a merge component.",
+				 as_component_get_id (cpt));
+			continue;
+		}
+
 		// new Protobuf cache component
 		auto pb_cpt = cache.add_component ();
 

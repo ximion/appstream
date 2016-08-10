@@ -213,58 +213,68 @@ static void
 as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 {
 	guint i;
-	gchar **cats;
-	gchar **pkgnames;
-	GPtrArray *suggestions;
-	AsMergeKind merge_mode;
+	AsMergeKind merge_kind;
 
-	merge_mode = as_component_get_merge_kind (src_cpt);
-	g_return_if_fail (merge_mode != AS_MERGE_KIND_NONE);
+	merge_kind = as_component_get_merge_kind (src_cpt);
+	g_return_if_fail (merge_kind != AS_MERGE_KIND_NONE);
 
 	/* FIXME: We need to merge more attributes */
 
-	/* merge categories */
-	cats = as_component_get_categories (src_cpt);
-	if (cats != NULL) {
-		g_autoptr(GHashTable) cat_table = NULL;
-		gchar **new_cats = NULL;
+	/* merge stuff in append mode */
+	if (merge_kind == AS_MERGE_KIND_APPEND) {
+		gchar **cats;
+		GPtrArray *suggestions;
 
-		cat_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-		for (i = 0; cats[i] != NULL; i++) {
-			g_hash_table_add (cat_table, g_strdup (cats[i]));
-		}
-		cats = as_component_get_categories (dest_cpt);
+		/* merge categories */
+		cats = as_component_get_categories (src_cpt);
 		if (cats != NULL) {
+			g_autoptr(GHashTable) cat_table = NULL;
+			gchar **new_cats = NULL;
+
+			cat_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 			for (i = 0; cats[i] != NULL; i++) {
 				g_hash_table_add (cat_table, g_strdup (cats[i]));
 			}
+			cats = as_component_get_categories (dest_cpt);
+			if (cats != NULL) {
+				for (i = 0; cats[i] != NULL; i++) {
+					g_hash_table_add (cat_table, g_strdup (cats[i]));
+				}
+			}
+
+			new_cats = (gchar**) g_hash_table_get_keys_as_array (cat_table, NULL);
+			as_component_set_categories (dest_cpt, new_cats);
 		}
 
-		new_cats = (gchar**) g_hash_table_get_keys_as_array (cat_table, NULL);
-		as_component_set_categories (dest_cpt, new_cats);
-	}
-
-	/* merge names */
-	if (as_component_get_name (src_cpt) != NULL)
-		as_component_set_name (dest_cpt, as_component_get_name (src_cpt), as_component_get_active_locale (src_cpt));
-
-	/* merge package names */
-	pkgnames = as_component_get_pkgnames (src_cpt);
-	if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
-		as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
-
-	/* merge bundles */
-	if (as_component_has_bundle (src_cpt))
-		as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));
-
-	/* merge suggestions */
-	suggestions = as_component_get_suggested (src_cpt);
-	if (suggestions != NULL) {
-		for (i = 0; i < suggestions->len; i++) {
-			as_component_add_suggested (dest_cpt,
+		/* merge suggestions */
+		suggestions = as_component_get_suggested (src_cpt);
+		if (suggestions != NULL) {
+			for (i = 0; i < suggestions->len; i++) {
+				as_component_add_suggested (dest_cpt,
 						    AS_SUGGESTED (g_ptr_array_index (suggestions, i)));
+			}
 		}
 	}
+
+	/* merge stuff in replace mode */
+	if (merge_kind == AS_MERGE_KIND_REPLACE) {
+		gchar **pkgnames;
+
+		/* merge names */
+		if (as_component_get_name (src_cpt) != NULL)
+			as_component_set_name (dest_cpt, as_component_get_name (src_cpt), as_component_get_active_locale (src_cpt));
+
+		/* merge package names */
+		pkgnames = as_component_get_pkgnames (src_cpt);
+		if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
+			as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
+
+		/* merge bundles */
+		if (as_component_has_bundle (src_cpt))
+			as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));
+	}
+
+	g_debug ("Merged data for '%s'", as_component_get_id (dest_cpt));
 }
 
 /**
@@ -307,7 +317,6 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 
 	if (merge_kind_new != AS_MERGE_KIND_NONE) {
 		as_merge_components (existing_cpt, cpt);
-		g_debug ("Merged data for '%s'", cid);
 		return TRUE;
 	} else if (merge_kind_pool != AS_MERGE_KIND_NONE) {
 		/* this means the component in the pool is the merge-component.
@@ -319,7 +328,6 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 		as_merge_components (cpt, existing_cpt);
 		g_object_unref (existing_cpt);
 
-		g_debug ("Merged data for '%s'", cid);
 		return TRUE;
 	}
 

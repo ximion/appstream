@@ -1675,7 +1675,7 @@ as_component_get_merge_kind (AsComponent *cpt)
 /**
  * as_component_set_merge_kind:
  * @cpt: a #AsComponent instance.
- * @value: the #AsMergeKind.
+ * @kind: the #AsMergeKind.
  *
  * Sets the #AsMergeKind for this component.
  *
