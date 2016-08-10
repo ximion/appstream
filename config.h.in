@@ -33,4 +33,10 @@
 /* Version number of package */
 #define VERSION "@VERSION@"
 
-#endif /*CONFIG_H*/
+/* Set if we have APT support */
+#cmakedefine HAVE_APT_SUPPORT
+
+/* Set if we have stemming support */
+#cmakedefine HAVE_STEMMING
+
+#endif /* CONFIG_H */

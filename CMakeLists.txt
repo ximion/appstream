@@ -29,13 +29,6 @@ option(DOCUMENTATION "Enable target to build documentation" OFF)
 option(APT_SUPPORT "Enable integration with APT on Debian" OFF)
 option(SANITIZERS "Compile with sanitizers (address / thread sanitizer) enabled. Requires maintainer mode to be ON too." OFF)
 
-if(APT_SUPPORT)
-	add_definitions ("-DAPT_SUPPORT")
-endif()
-if(STEMMING)
-	add_definitions ("-DUSE_STEMMING")
-endif()
-
 #
 # Default paths
 #
@@ -68,6 +61,12 @@ find_package (Gettext REQUIRED)
 #
 set (GETTEXT_PACKAGE "appstream")
 set (VERSION "${AS_VERSION}")
+if(APT_SUPPORT)
+	set (HAVE_APT_SUPPORT true)
+endif()
+if(STEMMING)
+	set (HAVE_STEMMING true)
+endif()
 configure_file(config.h.in ${CMAKE_BINARY_DIR}/config.h)
 
 #

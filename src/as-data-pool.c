@@ -1130,7 +1130,7 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 	}
 
 	/* collect metadata */
-#ifdef APT_SUPPORT
+#ifdef HAVE_APT_SUPPORT
 	/* currently, we only do something here if we are running with explicit APT support compiled in */
 	as_data_pool_scan_apt (dpool, force, &tmp_error);
 	if (tmp_error != NULL) {
