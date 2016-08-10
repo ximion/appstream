@@ -30,9 +30,9 @@ G_BEGIN_DECLS
 
 typedef guint16		AsTokenType; /* big enough for both bitshifts */
 
-int			as_component_get_priority (AsComponent *cpt);
+gint			as_component_get_priority (AsComponent *cpt);
 void			as_component_set_priority (AsComponent *cpt,
-							int priority);
+							gint priority);
 
 GHashTable		*as_component_get_languages_map (AsComponent *cpt);
 
@@ -72,6 +72,10 @@ void			 as_component_create_token_cache (AsComponent *cpt);
 GHashTable		*as_component_get_token_cache_table (AsComponent *cpt);
 void			 as_component_set_token_cache_valid (AsComponent *cpt,
 							     gboolean valid);
+
+guint			as_component_get_sort_score (AsComponent *cpt);
+void			as_component_set_sort_score (AsComponent *cpt,
+							guint score);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -1062,6 +1062,27 @@ as_data_pool_build_search_terms (AsDataPool *dpool, const gchar *search)
 }
 
 /**
+ * as_sort_components_by_score_cb:
+ *
+ * helper method to sort result arrays by the #AsComponent match score.
+ */
+static gint
+as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
+{
+	guint s1, s2;
+	AsComponent *cpt1 = *((AsComponent **) a);
+	AsComponent *cpt2 = *((AsComponent **) b);
+	s1 = as_component_get_sort_score (cpt1);
+	s2 = as_component_get_sort_score (cpt2);
+
+	if (s1 < s2)
+		return -1;
+	if (s1 > s2)
+		return 1;
+	return 0;
+}
+
+/**
  * as_data_pool_search:
  * @dpool: An instance of #AsDataPool
  * @search: A search string
@@ -1096,15 +1117,18 @@ as_data_pool_search (AsDataPool *dpool, const gchar *search)
 
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		guint res;
+		guint score;
 		AsComponent *cpt = AS_COMPONENT (value);
 
-		res = as_component_search_matches_all (cpt, terms);
-		if (res == 0)
+		score = as_component_search_matches_all (cpt, terms);
+		if (score == 0)
 			continue;
 
 		g_ptr_array_add (results, g_object_ref (cpt));
 	}
+
+	/* sort the results by their priority */
+	g_ptr_array_sort (results, as_sort_components_by_score_cb);
 
 	return results;
 }

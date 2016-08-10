@@ -87,6 +87,7 @@ typedef struct
 	gchar			*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
 
+	guint			sort_score; /* used to priorize components in listings */
 	gsize			token_cache_valid;
 	GHashTable		*token_cache; /* of utf8:AsTokenType* */
 } AsComponentPrivate;
@@ -1626,7 +1627,7 @@ as_component_get_suggested (AsComponent *cpt)
  *
  * Since: 0.6.1
  */
-int
+gint
 as_component_get_priority (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
@@ -1644,10 +1645,41 @@ as_component_get_priority (AsComponent *cpt)
  * Since: 0.6.1
  */
 void
-as_component_set_priority (AsComponent *cpt, int priority)
+as_component_set_priority (AsComponent *cpt, gint priority)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	priv->priority = priority;
+}
+
+/**
+ * as_component_get_sort_score:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns the sorting priority of this component.
+ *
+ * Since: 0.9.8
+ */
+guint
+as_component_get_sort_score (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->sort_score;
+}
+
+/**
+ * as_component_set_sort_score:
+ * @cpt: a #AsComponent instance.
+ * @score: the given sorting score
+ *
+ * Sets the sorting score of this component.
+ *
+ * Since: 0.9.8
+ */
+void
+as_component_set_sort_score (AsComponent *cpt, guint score)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv->sort_score = score;
 }
 
 /**
@@ -2255,17 +2287,20 @@ as_component_search_matches (AsComponent *cpt, const gchar *term)
 guint
 as_component_search_matches_all (AsComponent *cpt, gchar **terms)
 {
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	guint i;
 	guint matches_sum = 0;
 	guint tmp;
 
+	priv->sort_score = 0;
 	if (terms == NULL) {
 		/* if the terms list is NULL, we usually had a too short search term when
 		 * tokenizing the search string. In any case, we treat NULL as match-all
 		 * value.
 		 * (users will see a full list of all entries that way, which they will
 		 * recognize as hint to make their search more narrow) */
-		return 1;
+		priv->sort_score = 1;
+		return priv->sort_score;
 	}
 
 	/* do *all* search keywords match */
@@ -2276,7 +2311,8 @@ as_component_search_matches_all (AsComponent *cpt, gchar **terms)
 		matches_sum |= tmp;
 	}
 
-	return matches_sum;
+	priv->sort_score = matches_sum;
+	return priv->sort_score;
 }
 
 /**
