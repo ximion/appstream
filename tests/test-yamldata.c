@@ -139,7 +139,7 @@ as_yaml_test_serialize (AsComponent *cpt)
  * Test writing a YAML document.
  */
 void
-test_yamlwrite (void)
+test_yamlwrite_general (void)
 {
 	guint i;
 	g_autoptr(AsYAMLData) ydata = NULL;
@@ -153,9 +153,89 @@ test_yamlwrite (void)
 	gchar *_PKGNAME1[2] = {"fwdummy", NULL};
 	gchar *_PKGNAME2[2] = {"foobar-pkg", NULL};
 
+	const gchar *expected_yaml = "---\n"
+				"File: DEP-11\n"
+				"Version: 0.8\n"
+				"---\n"
+				"Type: firmware\n"
+				"ID: org.example.test.firmware\n"
+				"Package: fwdummy\n"
+				"Extends:\n"
+				"- org.example.alpha\n"
+				"- org.example.beta\n"
+				"Name:\n"
+				"  de_DE: Ünittest Fürmwäre (dummy Eintrag)\n"
+				"  C: Unittest Firmware\n"
+				"Summary:\n"
+				"  C: Just part of an unittest.\n"
+				"Url:\n"
+				"  homepage: https://example.com\n"
+				"---\n"
+				"Type: desktop-app\n"
+				"ID: org.freedesktop.foobar.desktop\n"
+				"Package: foobar-pkg\n"
+				"Name:\n"
+				"  C: TEST!!\n"
+				"Summary:\n"
+				"  C: Just part of an unittest.\n"
+				"Icon:\n"
+				"  cached:\n"
+				"  - name: test_writetest.png\n"
+				"    width: 20\n"
+				"    height: 20\n"
+				"  - name: test_writetest.png\n"
+				"    width: 40\n"
+				"    height: 40\n"
+				"  stock: yml-writetest\n"
+				"Screenshots:\n"
+				"- caption:\n"
+				"    fr: Le FooBar mainwindow\n"
+				"    C: The FooBar mainwindow\n"
+				"  thumbnails:\n"
+				"  - url: https://example.org/images/foobar-small.png\n"
+				"    width: 400\n"
+				"    height: 200\n"
+				"  - url: https://example.org/images/foobar-smaller.png\n"
+				"    width: 210\n"
+				"    height: 120\n"
+				"  source-image:\n"
+				"    url: https://example.org/images/foobar-full.png\n"
+				"    width: 840\n"
+				"    height: 560\n"
+				"Languages:\n"
+				"- locale: de_DE\n"
+				"  percentage: 84\n"
+				"- locale: en_GB\n"
+				"  percentage: 100\n"
+				"Releases:\n"
+				"- version: 1.0\n"
+				"  unix-timestamp: 1460463132\n"
+				"  description:\n"
+				"    de_DE: >-\n"
+				"      <p>Großartige erste Veröffentlichung.</p>\n"
+				"\n"
+				"      <p>Zweite zeile.</p>\n"
+				"    C: >-\n"
+				"      <p>Awesome initial release.</p>\n"
+				"\n"
+				"      <p>Second paragraph.</p>\n"
+				"- version: 1.2\n"
+				"  unix-timestamp: 1462288512\n"
+				"  urgency: medium\n"
+				"  description:\n"
+				"    C: >-\n"
+				"      <p>The CPU no longer overheats when you hold down spacebar.</p>\n"
+				"---\n"
+				"Type: generic\n"
+				"ID: org.example.ATargetComponent\n"
+				"Merge: replace\n"
+				"Name:\n"
+				"  C: ReplaceThis!\n";
+
 	ydata = as_yamldata_new ();
 	cpts = g_ptr_array_new_with_free_func (g_object_unref);
 
+	/* firmware component */
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_FIRMWARE);
 	as_component_set_id (cpt, "org.example.test.firmware");
@@ -168,6 +248,7 @@ test_yamlwrite (void)
 	as_component_add_url (cpt, AS_URL_KIND_HOMEPAGE, "https://example.com");
 	g_ptr_array_add (cpts, cpt);
 
+	/* component with icons, screenshots and release descriptions */
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 	as_component_set_id (cpt, "org.freedesktop.foobar.desktop");
@@ -214,11 +295,19 @@ test_yamlwrite (void)
 
 	g_ptr_array_add (cpts, cpt);
 
+	/* merge component */
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_merge_kind (cpt, AS_MERGE_KIND_REPLACE);
+	as_component_set_id (cpt, "org.example.ATargetComponent");
+	as_component_set_name (cpt, "ReplaceThis!", "C");
+	g_ptr_array_add (cpts, cpt);
+
+	/* serialize and validate */
 	resdata = as_yamldata_serialize_to_distro (ydata, cpts, TRUE, FALSE, &error);
 	g_assert_no_error (error);
-	g_debug ("%s", resdata);
 
-	/* TODO: Actually test the resulting output */
+	g_assert (as_test_compare_lines (resdata, expected_yaml));
 }
 
 /**
@@ -481,11 +570,11 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/YAML/Basic", test_basic);
-	g_test_add_func ("/YAML/Write", test_yamlwrite);
+	g_test_add_func ("/YAML/Write/General", test_yamlwrite_general);
+	g_test_add_func ("/YAML/Read/CorruptData", test_yaml_corrupt_data);
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
 	g_test_add_func ("/YAML/Read/Languages", test_yaml_read_languages);
 	g_test_add_func ("/YAML/Read/Suggests", test_yaml_read_suggests);
-	g_test_add_func ("/YAML/Read/CorruptData", test_yaml_corrupt_data);
 	g_test_add_func ("/YAML/Write/Suggests", test_yaml_write_suggests);
 
 	ret = g_test_run ();

@@ -806,16 +806,15 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 	as_component_set_priority (cpt, priv->default_priority);
 
 	for (node = root->children; node != NULL; node = node->next) {
-		gchar *key;
-		gchar *value;
+		const gchar *key;
+		const gchar *value;
 		gchar *lvalue;
 
 		if (node->children == NULL)
 			continue;
 
-		key = (gchar*) node->data;
-		value = (gchar*) node->children->data;
-		g_strstrip (value);
+		key = (const gchar*) node->data;
+		value = as_yaml_node_get_value (node);
 
 		if (g_strcmp0 (key, "Type") == 0) {
 			if (g_strcmp0 (value, "generic") == 0)
@@ -826,6 +825,8 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 			as_component_set_id (cpt, value);
 		} else if (g_strcmp0 (key, "Priority") == 0) {
 			as_component_set_priority (cpt, g_ascii_strtoll (value, NULL, 10));
+		} else if (g_strcmp0 (key, "Merge") == 0) {
+			as_component_set_merge_kind (cpt, as_merge_kind_from_string (value));
 		} else if (g_strcmp0 (key, "Package") == 0) {
 			g_auto(GStrv) strv = NULL;
 			strv = g_new0 (gchar*, 1 + 1);
@@ -977,13 +978,20 @@ as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar 
 {
 	yaml_event_t event;
 	gint ret;
+	g_autofree gchar *value_clean = NULL;
 
 	if (value == NULL)
 		return;
 
 	as_yaml_emit_scalar_key (emitter, key);
-
-	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_FOLDED_SCALAR_STYLE);
+	yaml_scalar_event_initialize (&event,
+					NULL,
+					NULL,
+					(yaml_char_t*) value,
+					strlen (value),
+					TRUE,
+					TRUE,
+					YAML_FOLDED_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -1760,6 +1768,21 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 
 	/* AppStream-ID */
 	as_yaml_emit_entry (emitter, "ID", as_component_get_id (cpt));
+
+	/* priority */
+	if (as_component_get_priority (cpt) != 0) {
+		g_autofree gchar *priority_str = g_strdup_printf ("%i", as_component_get_priority (cpt));
+		as_yaml_emit_entry (emitter,
+				    "Priority",
+				    priority_str);
+	}
+
+	/* merge strategy */
+	if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
+		as_yaml_emit_entry (emitter,
+				    "Merge",
+				    as_merge_kind_to_string (as_component_get_merge_kind (cpt)));
+	}
 
 	/* SourcePackage */
 	as_yaml_emit_entry (emitter, "SourcePackage", as_component_get_source_pkgname (cpt));
