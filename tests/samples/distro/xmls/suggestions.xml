@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components version="0.10" origin="as-testsuite">
-  <component type="merge">
+  <component merge="append">
     <id>links2.desktop</id>
     <suggests type="heuristic">
       <id>org.example.test1</id>
       <id>org.example.test2</id>
     </suggests>
   </component>
-  <component type="merge">
+  <component merge="replace">
     <id>kiki.desktop</id>
     <name>Kiki (name changed by merge)</name>
   </component>
-  <component type="merge">
+  <component merge="append">
     <id>literki.desktop</id>
     <suggests type="heuristic">
       <id>org.example.test3</id>

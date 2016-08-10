@@ -80,10 +80,29 @@ typedef enum  {
 } AsComponentKind;
 
 #define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
-
 GType			as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar		*as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
+
+/**
+ * AsMergeKind:
+ * @AS_MERGE_KIND_NONE:		No merge is happening.
+ * @AS_MERGE_KIND_REPLACE:	Merge replacing data of target.
+ * @AS_MERGE_KIND_APPEND:	Merge appending data to target.
+ *
+ * Defines how #AsComponent data should be merged if the component is
+ * set for merge.
+ **/
+typedef enum  {
+	AS_MERGE_KIND_NONE,
+	AS_MERGE_KIND_REPLACE,
+	AS_MERGE_KIND_APPEND,
+	/*< private >*/
+	AS_MERGE_KIND_LAST
+} AsMergeKind;
+
+const gchar		*as_merge_kind_to_string (AsMergeKind kind);
+AsMergeKind		as_merge_kind_from_string (const gchar *kind_str);
 
 AsComponent		*as_component_new (void);
 
@@ -227,6 +246,10 @@ guint			as_component_search_matches (AsComponent *cpt,
 						      const gchar *term);
 guint			as_component_search_matches_all (AsComponent *cpt,
 							 gchar **terms);
+
+AsMergeKind		as_component_get_merge_kind (AsComponent *cpt);
+void			as_component_set_merge_kind (AsComponent *cpt,
+							AsMergeKind kind);
 
 G_END_DECLS
 

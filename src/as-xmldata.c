@@ -847,6 +847,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	GPtrArray *pkgnames;
 	gchar **strv;
 	g_autofree gchar *priority_str;
+	g_autofree gchar *merge_str;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
@@ -863,6 +864,12 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 		as_component_set_priority (cpt,
 					   g_ascii_strtoll (priority_str, NULL, 10));
 
+	}
+
+	/* set the merge method for this component */
+	merge_str = (gchar*) xmlGetProp (node, (xmlChar*) "merge");
+	if (merge_str != NULL) {
+		as_component_set_merge_kind (cpt, as_merge_kind_from_string (merge_str));
 	}
 
 	/* set active locale for this component */
@@ -1665,7 +1672,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 	g_return_val_if_fail (cpt != NULL, NULL);
 
-	/* define component root node */
+	/* define component root node properties */
 	kind = as_component_get_kind (cpt);
 	cnode = xmlNewNode (NULL, (xmlChar*) "component");
 	if ((kind != AS_COMPONENT_KIND_GENERIC) && (kind != AS_COMPONENT_KIND_UNKNOWN)) {
@@ -1673,6 +1680,27 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 					(xmlChar*) as_component_kind_to_string (kind));
 	}
 
+	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+		AsMergeKind merge_kind;
+		gint priority;
+
+		/* write some propties which only exist in collection XML */
+
+		merge_kind = as_component_get_merge_kind (cpt);
+		priority = as_component_get_priority (cpt);
+
+		if (merge_kind != AS_MERGE_KIND_NONE) {
+			xmlNewProp (cnode, (xmlChar*) "merge",
+						(xmlChar*) as_merge_kind_to_string (merge_kind));
+		}
+
+		if (priority != 0) {
+			g_autofree gchar *priority_str = g_strdup_printf ("%i", priority);
+			xmlNewProp (cnode, (xmlChar*) "priority", (xmlChar*) priority_str);
+		}
+	}
+
+	/* component tags */
 	as_xmldata_xml_add_node (cnode, "id", as_component_get_id (cpt));
 
 	helper.parent = cnode;

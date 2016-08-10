@@ -216,6 +216,10 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 	gchar **cats;
 	gchar **pkgnames;
 	GPtrArray *suggestions;
+	AsMergeKind merge_mode;
+
+	merge_mode = as_component_get_merge_kind (src_cpt);
+	g_return_if_fail (merge_mode != AS_MERGE_KIND_NONE);
 
 	/* FIXME: We need to merge more attributes */
 
@@ -264,37 +268,6 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 }
 
 /**
- * as_data_pool_apply_data_merges:
- *
- * Merge data from a merge-component into the target component in the pool.
- */
-static void
-as_data_pool_apply_data_merges (AsDataPool *dpool, GHashTable *merge_cpts)
-{
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-	GHashTableIter iter;
-	gpointer key, value;
-
-	g_hash_table_iter_init (&iter, merge_cpts);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
-		AsComponent *merge_cpt;
-		AsComponent *pool_cpt;
-		const gchar *cid;
-
-		cid = (const gchar*) key;
-		merge_cpt = AS_COMPONENT (value);
-		pool_cpt = g_hash_table_lookup (priv->cpt_table, cid);
-
-		if (pool_cpt == NULL) {
-			g_debug ("Could not find target for merge component '%s'.", cid);
-			continue;
-		}
-
-		as_merge_components (pool_cpt, merge_cpt);
-	}
-}
-
-/**
  * as_data_pool_add_component:
  * @dpool: An instance of #AsDataPool
  * @cpt: The #AsComponent to add to the pool.
@@ -310,12 +283,9 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 	const gchar *cid;
 	AsComponent *existing_cpt;
 	gint pool_priority;
+	AsMergeKind merge_kind_new;
+	AsMergeKind merge_kind_pool;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
-
-	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_MERGE) {
-		g_warning ("Tried to add merge component '%s' to the metadata pool. This is not allowed.", as_component_get_id (cpt));
-		return FALSE;
-	}
 
 	cid = as_component_get_id (cpt);
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cid);
@@ -331,8 +301,30 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 		return TRUE;
 	}
 
-	/* if we are here, we might have duplicates, so check if we should merge things, replace a component
-	 * or if we have an actual error in the metadata */
+	/* perform metadata merges if necessary */
+	merge_kind_new = as_component_get_merge_kind (cpt);
+	merge_kind_pool = as_component_get_merge_kind (existing_cpt);
+
+	if (merge_kind_new != AS_MERGE_KIND_NONE) {
+		as_merge_components (existing_cpt, cpt);
+		g_debug ("Merged data for '%s'", cid);
+		return TRUE;
+	} else if (merge_kind_pool != AS_MERGE_KIND_NONE) {
+		/* this means the component in the pool is the merge-component.
+		 * replace it with the actual metadata and merge the two components together */
+		g_object_ref (existing_cpt);
+		g_hash_table_replace (priv->cpt_table,
+				      g_strdup (cid),
+				      g_object_ref (cpt));
+		as_merge_components (cpt, existing_cpt);
+		g_object_unref (existing_cpt);
+
+		g_debug ("Merged data for '%s'", cid);
+		return TRUE;
+	}
+
+	/* if we are here, we might have duplicates and no merges, so check if we should replace a component
+	 * with data of higher priority, or if we have an actual error in the metadata */
 	pool_priority = as_component_get_priority (existing_cpt);
 	if (pool_priority < as_component_get_priority (cpt)) {
 		g_hash_table_replace (priv->cpt_table,
@@ -340,6 +332,7 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 					g_object_ref (cpt));
 		g_debug ("Replaced '%s' with data of higher priority.", cid);
 	} else {
+		/* bundles are treated specially here */
 		if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
 			GHashTable *bundles;
 			/* propagate bundle information to existing component */
@@ -483,7 +476,6 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 	guint i;
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;
-	g_autoptr(GHashTable) merge_cpts = NULL;
 	GError *error = NULL;
 	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
 
@@ -573,51 +565,18 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 		}
 	}
 
-	/* we store merge components in a separate hash table */
-	merge_cpts = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						(GDestroyNotify) g_object_unref);
-
+	/* add found components to the metadata pool */
 	cpts = as_metadata_get_components (metad);
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
-		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_MERGE) {
-			AsComponent *existing_merge;
-			const gchar *cpt_id;
-
-			/* handle the special case of merge components */
-
-			cpt_id = as_component_get_id (cpt);
-			existing_merge = g_hash_table_lookup (merge_cpts, cpt_id);
-			if (existing_merge == NULL) {
-				g_hash_table_insert (merge_cpts,
-						     g_strdup (cpt_id),
-						     g_object_ref (cpt));
-			} else {
-				if (as_component_get_priority (existing_merge) < as_component_get_priority (cpt)) {
-					g_hash_table_replace (merge_cpts,
-							g_strdup (cpt_id),
-							g_object_ref (cpt));
-				} else if (as_component_get_priority (existing_merge) == as_component_get_priority (cpt)) {
-					g_warning ("Found merge component duplicate: %s", cpt_id);
-				}
-			}
-
-		} else {
-			/* handle all normal component types */
-			as_data_pool_add_component (dpool, cpt, &error);
-			if (error != NULL) {
-				g_debug ("Data ignored: %s", error->message);
-				g_error_free (error);
-				error = NULL;
-			}
+		as_data_pool_add_component (dpool, cpt, &error);
+		if (error != NULL) {
+			g_debug ("Metadata ignored: %s", error->message);
+			g_error_free (error);
+			error = NULL;
 		}
 	}
-
-	/* merge data from merge-components into the pool */
-	as_data_pool_apply_data_merges (dpool, merge_cpts);
 
 	return ret;
 }

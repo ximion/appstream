@@ -86,6 +86,7 @@ typedef struct
 
 	gchar			*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
+	AsMergeKind		merge_kind; /* whether and how the component data should be merged */
 
 	guint			sort_score; /* used to priorize components in listings */
 	gsize			token_cache_valid;
@@ -157,13 +158,13 @@ as_component_kind_get_type (void)
 
 /**
  * as_component_kind_to_string:
- * @kind: the %AsComponentKind.
+ * @kind: the #AsComponentKind.
  *
  * Converts the enumerated value to an text representation.
  *
  * Returns: string version of @kind
  **/
-const gchar *
+const gchar*
 as_component_kind_to_string (AsComponentKind kind)
 {
 	if (kind == AS_COMPONENT_KIND_GENERIC)
@@ -220,6 +221,46 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_DESKTOP_APP;
 
 	return AS_COMPONENT_KIND_UNKNOWN;
+}
+
+/**
+ * as_merge_kind_to_string:
+ * @kind: the #AsMergeKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @kind
+ **/
+const gchar*
+as_merge_kind_to_string (AsMergeKind kind)
+{
+	if (kind == AS_MERGE_KIND_NONE)
+		return "none";
+	if (kind == AS_MERGE_KIND_REPLACE)
+		return "replace";
+	if (kind == AS_MERGE_KIND_APPEND)
+		return "append";
+
+	return "unknown";
+}
+
+/**
+ * as_merge_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsMergeKind or %AS_MERGE_KIND_NONE for unknown
+ **/
+AsMergeKind
+as_merge_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "replace") == 0)
+		return AS_MERGE_KIND_REPLACE;
+	if (g_strcmp0 (kind_str, "append") == 0)
+		return AS_MERGE_KIND_APPEND;
+
+	return AS_MERGE_KIND_NONE;
 }
 
 /**
@@ -327,7 +368,7 @@ as_component_is_valid (AsComponent *cpt)
 	ctype = priv->kind;
 	if (ctype == AS_COMPONENT_KIND_UNKNOWN)
 		return FALSE;
-	if (ctype == AS_COMPONENT_KIND_MERGE) {
+	if (priv->merge_kind != AS_MERGE_KIND_NONE) {
 		/* merge components only need an ID to be valid */
 		return !as_str_empty (priv->id);
 	}
@@ -1611,6 +1652,40 @@ as_component_get_suggested (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->suggestions;
+}
+
+/**
+ * as_component_get_merge_kind:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get the merge method which should apply to duplicate components
+ * with this ID.
+ *
+ * Returns: the #AsMergeKind of this component.
+ *
+ * Since: 0.9.8
+ */
+AsMergeKind
+as_component_get_merge_kind (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->merge_kind;
+}
+
+/**
+ * as_component_set_merge_kind:
+ * @cpt: a #AsComponent instance.
+ * @value: the #AsMergeKind.
+ *
+ * Sets the #AsMergeKind for this component.
+ *
+ * Since: 0.9.8
+ */
+void
+as_component_set_merge_kind (AsComponent *cpt, AsMergeKind kind)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv->merge_kind = kind;
 }
 
 /**

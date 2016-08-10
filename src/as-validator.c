@@ -445,11 +445,18 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		}
 	}
 
-	if ((as_component_get_kind (cpt) == AS_COMPONENT_KIND_MERGE) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+	if ((as_component_get_priority (cpt) != 0) && (mode == AS_PARSER_MODE_UPSTREAM)) {
 		as_validator_add_issue (validator, root,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_VALUE_WRONG,
-					"The 'merge' component type is not allowed and not useful in metainfo files. Maybe you wanted to use the 'addon' type?");
+					"The component has a priority value set. This is not allowed in metainfo files.");
+	}
+
+	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+		as_validator_add_issue (validator, root,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"The component has a 'merge' method defined. This is not allowed in metainfo files.");
 	}
 
 	/* validate the AppStream ID */
