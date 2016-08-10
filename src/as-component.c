@@ -145,7 +145,6 @@ as_component_kind_get_type (void)
 					{AS_COMPONENT_KIND_INPUTMETHOD, "AS_COMPONENT_KIND_INPUTMETHOD", "inputmethod"},
 					{AS_COMPONENT_KIND_ADDON, "AS_COMPONENT_KIND_ADDON", "addon"},
 					{AS_COMPONENT_KIND_FIRMWARE, "AS_COMPONENT_KIND_FIRMWARE", "firmware"},
-					{AS_COMPONENT_KIND_MERGE, "AS_COMPONENT_KIND_MERGE", "merge"},
 					{AS_COMPONENT_KIND_LAST, "AS_COMPONENT_KIND_LAST", "last"},
 					{0, NULL, NULL}
 		};
@@ -183,8 +182,6 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "addon";
 	if (kind == AS_COMPONENT_KIND_FIRMWARE)
 		return "firmware";
-	if (kind == AS_COMPONENT_KIND_MERGE)
-		return "merge";
 	return "unknown";
 }
 
@@ -215,8 +212,6 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_ADDON;
 	if (g_strcmp0 (kind_str, "firmware") == 0)
 		return AS_COMPONENT_KIND_FIRMWARE;
-	if (g_strcmp0 (kind_str, "merge") == 0)
-		return AS_COMPONENT_KIND_MERGE;
 
 	/* legacy */
 	if (g_strcmp0 (kind_str, "desktop") == 0)
