@@ -31,7 +31,6 @@ extern "C" {
 #include <as-provided.h>
 #include <as-metadata.h>
 #include <as-data-pool.h>
-#include <as-database.h>
 #include <as-category.h>
 #include <as-menu-parser.h>
 #include <as-distro-details.h>
