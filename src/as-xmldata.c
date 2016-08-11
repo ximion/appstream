@@ -600,7 +600,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 
 			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "timestamp");
 			if (prop != NULL) {
-				timestamp = g_ascii_strtoll (prop, NULL, 10);
+				timestamp = atol (prop);
 				as_release_set_timestamp (release, timestamp);
 				g_free (prop);
 			}
@@ -1396,7 +1396,7 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 			g_autofree gchar *time_str = NULL;
 
 			if (priv->mode == AS_PARSER_MODE_DISTRO) {
-				time_str = g_strdup_printf ("%ld", unixtime);
+				time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
 				xmlNewProp (subnode, (xmlChar*) "timestamp",
 						(xmlChar*) time_str);
 			} else {

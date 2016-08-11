@@ -679,7 +679,7 @@ as_yamldata_process_releases (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 			value = as_yaml_node_get_value (n);
 
 			if (g_strcmp0 (key, "unix-timestamp") == 0) {
-				as_release_set_timestamp (rel, g_ascii_strtoll (value, NULL, 10));
+				as_release_set_timestamp (rel, atol (value));
 			} else if (g_strcmp0 (key, "date") == 0) {
 				g_autoptr(GDateTime) time;
 				time = as_iso8601_to_datetime (value);
@@ -1639,7 +1639,7 @@ as_yaml_data_emit_releases (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 			g_autofree gchar *time_str = NULL;
 
 			if (priv->mode == AS_PARSER_MODE_DISTRO) {
-				time_str = g_strdup_printf ("%ld", unixtime);
+				time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
 				as_yaml_emit_entry (emitter, "unix-timestamp", time_str);
 			} else {
 				GTimeVal time;
