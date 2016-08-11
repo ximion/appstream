@@ -27,8 +27,7 @@ G_BEGIN_DECLS
 
 gchar		*as_description_markup_convert_simple (const gchar *markup);
 gchar		*as_get_current_locale (void);
-gboolean	as_str_empty (const gchar* str);
-GDateTime	*as_iso8601_to_datetime (const gchar *iso_date);
+
 gboolean	as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2);
 gboolean	as_utils_is_category_name (const gchar *category_name);
 gboolean	as_utils_is_tld (const gchar *tld);

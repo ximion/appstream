@@ -96,7 +96,7 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 	gchar *fmtval;
 	g_return_if_fail (key != NULL);
 
-	if (as_str_empty (val))
+	if ((val == NULL) || (g_strcmp0 (val, "") == 0))
 		return;
 
 	if (strlen (val) > 120) {

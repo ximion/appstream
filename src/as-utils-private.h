@@ -27,6 +27,9 @@ G_BEGIN_DECLS
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 #pragma GCC visibility push(hidden)
 
+gboolean		as_str_empty (const gchar* str);
+GDateTime		*as_iso8601_to_datetime (const gchar *iso_date);
+
 gboolean		as_utils_delete_dir_recursive (const gchar* dirname);
 
 GPtrArray		*as_utils_categories_from_strv (gchar **categories_strv,
