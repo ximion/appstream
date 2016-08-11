@@ -57,10 +57,11 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_GENERIC:		A generic (= without specialized type) component
  * @AS_COMPONENT_KIND_DESKTOP_APP:	An application with a .desktop-file
  * @AS_COMPONENT_KIND_CONSOLE_APP:	A console application
+ * @AS_COMPONENT_KIND_WEB_APP:		A web application
+ * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  * @AS_COMPONENT_KIND_FONT:		A font
  * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
  * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
- * @AS_COMPONENT_KIND_ADDON:		An extension of existing software, which does not run standalone
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  *
  * The type of an #AsComponent.
@@ -69,12 +70,13 @@ typedef enum  {
 	AS_COMPONENT_KIND_UNKNOWN,
 	AS_COMPONENT_KIND_GENERIC,
 	AS_COMPONENT_KIND_DESKTOP_APP,
+	AS_COMPONENT_KIND_CONSOLE_APP,
+	AS_COMPONENT_KIND_WEB_APP,
+	AS_COMPONENT_KIND_ADDON,
 	AS_COMPONENT_KIND_FONT,
 	AS_COMPONENT_KIND_CODEC,
 	AS_COMPONENT_KIND_INPUTMETHOD,
-	AS_COMPONENT_KIND_ADDON,
 	AS_COMPONENT_KIND_FIRMWARE,
-	AS_COMPONENT_KIND_CONSOLE_APP,
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
