@@ -2019,7 +2019,7 @@ as_xmldata_parse_document (AsXMLData *xdt, const gchar *data, GError **error)
  *
  * Parse AppStream upstream metadata.
  *
- * Returns: (transfer full) (element-type AsComponent): An array of #AsComponent, deserialized from the XML.
+ * Returns: (transfer container) (element-type AsComponent): An array of #AsComponent, deserialized from the XML.
  */
 GPtrArray*
 as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)

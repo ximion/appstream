@@ -92,9 +92,7 @@ as_screenshot_class_init (AsScreenshotClass *klass)
  *
  * Converts the text representation to an enumerated value.
  *
- * Returns: (transfer full): a %AsScreenshotKind, or
- *                           %AS_SCREENSHOT_KIND_UNKNOWN if not known.
- *
+ * Returns: a %AsScreenshotKind, or %AS_SCREENSHOT_KIND_UNKNOWN if not known.
  **/
 AsScreenshotKind
 as_screenshot_kind_from_string (const gchar *kind)
@@ -113,7 +111,6 @@ as_screenshot_kind_from_string (const gchar *kind)
  * Converts the enumerated value to an text representation.
  *
  * Returns: string version of @kind
- *
  **/
 const gchar *
 as_screenshot_kind_to_string (AsScreenshotKind kind)
@@ -132,7 +129,6 @@ as_screenshot_kind_to_string (AsScreenshotKind kind)
  * Gets the screenshot kind.
  *
  * Returns: a #AsScreenshotKind
- *
  **/
 AsScreenshotKind
 as_screenshot_get_kind (AsScreenshot *screenshot)
@@ -147,7 +143,6 @@ as_screenshot_get_kind (AsScreenshot *screenshot)
  * @kind: the #AsScreenshotKind.
  *
  * Sets the screenshot kind.
- *
  **/
 void
 as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind)
@@ -163,7 +158,6 @@ as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind)
  * Gets the image sizes included in the screenshot.
  *
  * Returns: (element-type AsImage) (transfer none): an array
- *
  **/
 GPtrArray*
 as_screenshot_get_images (AsScreenshot *screenshot)
@@ -178,7 +172,6 @@ as_screenshot_get_images (AsScreenshot *screenshot)
  * @image: a #AsImage instance.
  *
  * Adds an image to the screenshot.
- *
  **/
 void
 as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image)
@@ -194,7 +187,6 @@ as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image)
  * Gets the image caption
  *
  * Returns: the caption
- *
  **/
 const gchar *
 as_screenshot_get_caption (AsScreenshot *screenshot)
@@ -217,7 +209,6 @@ as_screenshot_get_caption (AsScreenshot *screenshot)
  * @caption: the caption text.
  *
  * Sets a caption on the screenshot
- *
  **/
 void
 as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption, const gchar *locale)
@@ -239,7 +230,6 @@ as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption, const
  * Performs a quick validation on this screenshot
  *
  * Returns: TRUE if the screenshot is a complete #AsScreenshot
- *
  **/
 gboolean
 as_screenshot_is_valid (AsScreenshot *screenshot)
@@ -326,7 +316,6 @@ as_screenshot_get_caption_table (AsScreenshot *screenshot)
  * Creates a new #AsScreenshot.
  *
  * Returns: (transfer full): a #AsScreenshot
- *
  **/
 AsScreenshot *
 as_screenshot_new (void)

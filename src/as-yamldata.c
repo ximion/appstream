@@ -2041,7 +2041,7 @@ out:
  *
  * Read an array of #AsComponent from AppStream YAML metadata.
  *
- * Returns: (transfer full) (element-type AsComponent): An array of #AsComponent or %NULL
+ * Returns: (transfer container) (element-type AsComponent): An array of #AsComponent or %NULL
  */
 GPtrArray*
 as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **error)

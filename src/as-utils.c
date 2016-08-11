@@ -258,7 +258,7 @@ out:
  *
  * Create a list of categories from string array
  *
- * Returns: (element-type AsCategory) (transfer full): #GPtrArray of #AsCategory objects matching the strings in the array
+ * Returns: (transfer container) (element-type AsCategory): #GPtrArray of #AsCategory objects matching the strings in the array
  */
 GPtrArray*
 as_utils_categories_from_strv (gchar** categories_strv, GPtrArray* system_categories)
@@ -309,7 +309,7 @@ as_utils_categories_from_strv (gchar** categories_strv, GPtrArray* system_catego
  *
  * Create a list of categories from semicolon-separated string
  *
- * Returns: (element-type AsCategory) (transfer full): #GPtrArray of #AsCategory objcts matching the strings in the array
+ * Returns: (transfer container) (element-type AsCategory): #GPtrArray of #AsCategory objcts matching the strings in the array
  */
 GPtrArray*
 as_utils_categories_from_str (const gchar* categories_str, GPtrArray* system_categories)

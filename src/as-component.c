@@ -2365,7 +2365,7 @@ as_component_search_matches_all (AsComponent *cpt, gchar **terms)
  *
  * Returns all search tokens for this component.
  *
- * Returns: (transfer full) (element-type utf8): The string search tokens
+ * Returns: (transfer container) (element-type utf8): The string search tokens
  *
  * Since: 0.9.7
  */

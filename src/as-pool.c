@@ -774,7 +774,7 @@ as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
  *
  * Get a list of found components.
  *
- * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent instances.
+ * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent instances.
  */
 GPtrArray*
 as_pool_get_components (AsPool *pool)
@@ -828,7 +828,7 @@ as_pool_get_component_by_id (AsPool *pool, const gchar *id)
  *
  * Find components in the AppStream data pool whcih provide a certain item.
  *
- * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
+ * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
 as_pool_get_components_by_provided_item (AsPool *pool,
@@ -881,7 +881,7 @@ as_pool_get_components_by_provided_item (AsPool *pool,
  *
  * Return a list of all components in the pool which are of a certain kind.
  *
- * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
+ * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
 as_pool_get_components_by_kind (AsPool *pool,
@@ -928,7 +928,7 @@ as_pool_get_components_by_kind (AsPool *pool,
  *
  * Return a list of components which are in one of the categories.
  *
- * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
+ * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
 as_pool_get_components_by_categories (AsPool *pool, const gchar *categories)
@@ -1052,7 +1052,7 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
  * Search for a list of components matching the search terms.
  * The list will be unordered.
  *
- * Returns: (element-type AsComponent) (transfer full): an array of the found #AsComponent objects.
+ * Returns: (transfer container) (element-type AsComponent): an array of the found #AsComponent objects.
  *
  * Since: 0.9.7
  */
