@@ -242,13 +242,9 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 
 		// Categories
 		auto categories = as_component_get_categories (cpt);
-		if (categories != NULL) {
-			for (uint i = 0; categories[i] != NULL; i++) {
-				if (as_str_empty (categories[i]))
-					continue;
-
-				pb_cpt->add_category (categories[i]);
-			}
+		for (uint i = 0; i < categories->len; i++) {
+			auto cat = (const gchar*) g_ptr_array_index (categories, i);
+			pb_cpt->add_category (cat);
 		}
 
 		// Provided Items
@@ -290,12 +286,10 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 		}
 
 		// Compulsory-for-desktop
-		gchar **strv;
-		strv = as_component_get_compulsory_for_desktops (cpt);
-		if (strv != NULL) {
-			for (uint i = 0; strv[i] != NULL; i++) {
-				pb_cpt->add_compulsory_for (strv[i]);
-			}
+		auto compulsory = as_component_get_compulsory_for_desktops (cpt);
+		for (uint i = 0; i < compulsory->len; i++) {
+			auto desktop = (const gchar*) g_ptr_array_index (compulsory, i);
+			pb_cpt->add_compulsory_for (desktop);
 		}
 
 		// Add project-license
@@ -503,11 +497,8 @@ buffer_to_component (const ASCache::Component& pb_cpt, const gchar *locale)
 	// Categories
 	size = pb_cpt.category_size ();
 	if (size > 0) {
-		g_auto(GStrv) strv = g_new0 (gchar*, size + 1);
-		for (int i = 0; i < size; i++) {
-			strv[i] = g_strdup (pb_cpt.category (i).c_str ());
-		}
-		as_component_set_categories (cpt, strv);
+		for (int i = 0; i < size; i++)
+			as_component_add_category (cpt, pb_cpt.category (i).c_str ());
 	}
 
 	// Provided items
@@ -562,11 +553,8 @@ buffer_to_component (const ASCache::Component& pb_cpt, const gchar *locale)
 	// Compulsory-for-desktop information
 	size = pb_cpt.compulsory_for_size ();
 	if (size > 0) {
-		g_auto(GStrv) strv = g_new0 (gchar*, size + 1);
-		for (int i = 0; i < size; i++) {
-			strv[i] = g_strdup (pb_cpt.compulsory_for (i).c_str ());
-		}
-		as_component_set_compulsory_for_desktops (cpt, strv);
+		for (int i = 0; i < size; i++)
+			as_component_set_compulsory_for_desktop (cpt, pb_cpt.compulsory_for (i).c_str ());
 	}
 
 	// License

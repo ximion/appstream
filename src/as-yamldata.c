@@ -292,15 +292,17 @@ as_yamldata_get_localized_value (AsYAMLData *ydt, GNode *node, gchar *locale_ove
 }
 
 /**
- * as_yaml_list_to_string_array:
+ * as_yaml_list_to_str_array:
  */
 static void
-as_yaml_list_to_string_array (GNode *node, GPtrArray *array)
+as_yaml_list_to_str_array (GNode *node, GPtrArray *array)
 {
 	GNode *n;
 
 	for (n = node->children; n != NULL; n = n->next) {
-		g_ptr_array_add (array, g_strdup (as_yaml_node_get_key (n)));
+		const gchar *val = as_yaml_node_get_key (n);
+		if (val != NULL)
+			g_ptr_array_add (array, g_strdup (val));
 	}
 }
 
@@ -323,7 +325,7 @@ as_yamldata_process_keywords (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 	if (tnode == NULL)
 		return;
 
-	as_yaml_list_to_string_array (tnode, keywords);
+	as_yaml_list_to_str_array (tnode, keywords);
 
 	strv = as_ptr_array_to_strv (keywords);
 	as_component_set_keywords (cpt, strv, NULL);
@@ -551,10 +553,10 @@ dep11_process_provides (GNode *node, AsComponent *cpt)
 }
 
 /**
- * dep11_process_image:
+ * as_yamldata_process_image:
  */
 static void
-dep11_process_image (AsYAMLData *ydt, GNode *node, AsScreenshot *scr)
+as_yamldata_process_image (AsYAMLData *ydt, GNode *node, AsScreenshot *scr)
 {
 	GNode *n;
 	AsImage *img;
@@ -636,11 +638,11 @@ as_yamldata_process_screenshots (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 				as_screenshot_set_caption (scr, lvalue, NULL);
 			} else if (g_strcmp0 (key, "source-image") == 0) {
 				/* there can only be one source image */
-				dep11_process_image (ydt, n, scr);
+				as_yamldata_process_image (ydt, n, scr);
 			} else if (g_strcmp0 (key, "thumbnails") == 0) {
 				/* the thumbnails are a list of images */
 				for (in = n->children; in != NULL; in = in->next) {
-					dep11_process_image (ydt, in, scr);
+					as_yamldata_process_image (ydt, in, scr);
 				}
 			} else {
 				as_yaml_print_unknown ("screenshot", key);
@@ -768,7 +770,7 @@ as_yamldata_process_suggests (GNode *node, AsComponent *cpt)
 				as_suggested_set_kind (sug,
 						       as_suggested_kind_from_string (value));
 			} else if (g_strcmp0 (key, "ids") == 0) {
-				as_yaml_list_to_string_array (n,
+				as_yaml_list_to_str_array (n,
 							      as_suggested_get_ids (sug));
 			} else {
 				as_yaml_print_unknown ("Suggests", key);
@@ -786,18 +788,11 @@ as_yamldata_process_suggests (GNode *node, AsComponent *cpt)
 static AsComponent*
 as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 {
+	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 	GNode *node;
 	AsComponent *cpt;
 
-	gchar **strv;
-	GPtrArray *categories;
-	GPtrArray *compulsory_for_desktops;
-	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
-
 	cpt = as_component_new ();
-
-	categories = g_ptr_array_new_with_free_func (g_free);
-	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 
 	/* set active locale for this component */
 	as_component_set_active_locale (cpt, priv->locale);
@@ -866,11 +861,14 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 		} else if (g_strcmp0 (key, "ProjectGroup") == 0) {
 			as_component_set_project_group (cpt, value);
 		} else if (g_strcmp0 (key, "Categories") == 0) {
-			as_yaml_list_to_string_array (node, categories);
+			as_yaml_list_to_str_array (node,
+						   as_component_get_categories (cpt));
 		} else if (g_strcmp0 (key, "CompulsoryForDesktops") == 0) {
-			as_yaml_list_to_string_array (node, compulsory_for_desktops);
+			as_yaml_list_to_str_array (node,
+						   as_component_get_compulsory_for_desktops (cpt));
 		} else if (g_strcmp0 (key, "Extends") == 0) {
-			as_yaml_list_to_string_array (node, as_component_get_extends (cpt));
+			as_yaml_list_to_str_array (node,
+						   as_component_get_extends (cpt));
 		} else if (g_strcmp0 (key, "Keywords") == 0) {
 			as_yamldata_process_keywords (ydt, node, cpt);
 		} else if (g_strcmp0 (key, "Url") == 0) {
@@ -897,18 +895,6 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 
 	/* set component architecture */
 	as_component_set_architecture (cpt, priv->arch);
-
-	/* add category information to component */
-	strv = as_ptr_array_to_strv (categories);
-	as_component_set_categories (cpt, strv);
-	g_ptr_array_unref (categories);
-	g_strfreev (strv);
-
-	/* add desktop-compulsority information to component */
-	strv = as_ptr_array_to_strv (compulsory_for_desktops);
-	as_component_set_compulsory_for_desktops (cpt, strv);
-	g_ptr_array_unref (compulsory_for_desktops);
-	g_strfreev (strv);
 
 	return cpt;
 }
@@ -1162,13 +1148,38 @@ as_yaml_emit_sequence_from_strv (yaml_emitter_t *emitter, const gchar *key, gcha
 		return;
 
 	as_yaml_emit_scalar_key (emitter, key);
-
 	as_yaml_sequence_start (emitter);
+
 	for (i = 0; strv[i] != NULL; i++) {
 		if (as_str_empty (strv[i]))
 			continue;
 		as_yaml_emit_scalar (emitter, strv[i]);
 	}
+
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_emit_sequence_from_str_array:
+ */
+static void
+as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter, const gchar *key, GPtrArray *array)
+{
+	guint i;
+
+	if (array == NULL)
+		return;
+	if (array->len == 0)
+		return;
+
+	as_yaml_emit_scalar_key (emitter, key);
+	as_yaml_sequence_start (emitter);
+
+	for (i = 0; i < array->len; i++) {
+		const gchar *val = (const gchar*) g_ptr_array_index (array, i);
+		as_yaml_emit_scalar (emitter, val);
+	}
+
 	as_yaml_sequence_end (emitter);
 }
 
@@ -1825,14 +1836,14 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	as_yaml_emit_entry (emitter, "ProjectLicense", as_component_get_project_license (cpt));
 
 	/* CompulsoryForDesktops */
-	as_yaml_emit_sequence_from_strv (emitter,
-					 "CompulsoryForDesktops",
-					 as_component_get_compulsory_for_desktops (cpt));
+	as_yaml_emit_sequence_from_str_array (emitter,
+						"CompulsoryForDesktops",
+						as_component_get_compulsory_for_desktops (cpt));
 
 	/* Categories */
-	as_yaml_emit_sequence_from_strv (emitter,
-					 "Categories",
-					 as_component_get_categories (cpt));
+	as_yaml_emit_sequence_from_str_array (emitter,
+						"Categories",
+						as_component_get_categories (cpt));
 
 	/* Keywords */
 	as_yaml_emit_localized_lists (emitter,

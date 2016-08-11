@@ -65,11 +65,11 @@ typedef struct
 	gchar			*metadata_license;
 	gchar			*project_license;
 	gchar			*project_group;
-	gchar			**compulsory_for_desktops;
-	gchar			**categories;
 
-	GPtrArray		*extends; /* of string */
-	GPtrArray		*extensions; /* of string */
+	GPtrArray		*categories; /* of utf8 */
+	GPtrArray		*compulsory_for_desktops; /* of utf8 */
+	GPtrArray		*extends; /* of utf8 */
+	GPtrArray		*extensions; /* of utf8 */
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
 	GPtrArray		*releases; /* of AsRelease elements */
 	GPtrArray		*suggestions; /* of AsSuggested elements */
@@ -289,6 +289,9 @@ as_component_init (AsComponent *cpt)
 	priv->developer_name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->keywords = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) g_strfreev);
 
+	/* lists */
+	priv->categories = g_ptr_array_new_with_free_func (g_free);
+	priv->compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
@@ -296,6 +299,7 @@ as_component_init (AsComponent *cpt)
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
+	/* others */
 	priv->provided = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->bundles = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
@@ -330,8 +334,8 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->developer_name);
 	g_hash_table_unref (priv->keywords);
 
-	g_strfreev (priv->categories);
-	g_strfreev (priv->compulsory_for_desktops);
+	g_ptr_array_unref (priv->categories);
+	g_ptr_array_unref (priv->compulsory_for_desktops);
 
 	g_ptr_array_unref (priv->screenshots);
 	g_ptr_array_unref (priv->releases);
@@ -1276,9 +1280,9 @@ as_component_add_icon (AsComponent *cpt, AsIcon *icon)
  * as_component_get_categories:
  * @cpt: a #AsComponent instance.
  *
- * Returns: (transfer none): String array of categories
+ * Returns: (transfer none) (element-type utf8): String array of categories
  */
-gchar**
+GPtrArray*
 as_component_get_categories (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
@@ -1286,37 +1290,19 @@ as_component_get_categories (AsComponent *cpt)
 }
 
 /**
- * as_component_set_categories:
+ * as_component_add_category:
  * @cpt: a #AsComponent instance.
- * @value: (array zero-terminated=1): the categories name
+ * @category: the categories name to add.
+ *
+ * Add a category.
  */
 void
-as_component_set_categories (AsComponent *cpt, gchar** value)
+as_component_add_category (AsComponent *cpt, const gchar *category)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_return_if_fail (category != NULL);
 
-	g_strfreev (priv->categories);
-	priv->categories = g_strdupv (value);
-	g_object_notify ((GObject *) cpt, "categories");
-}
-
-/**
- * as_component_set_categories_from_str:
- * @cpt: a valid #AsComponent instance
- * @categories_str: Semicolon-separated list of category-names
- *
- * Set the categories list from a string
- */
-void
-as_component_set_categories_from_str (AsComponent *cpt, const gchar *categories_str)
-{
-	gchar** cats = NULL;
-
-	g_return_if_fail (categories_str != NULL);
-
-	cats = g_strsplit (categories_str, ";", 0);
-	as_component_set_categories (cpt, cats);
-	g_strfreev (cats);
+	g_ptr_array_add (priv->categories, g_strdup (category));
 }
 
 /**
@@ -1329,19 +1315,10 @@ as_component_set_categories_from_str (AsComponent *cpt, const gchar *categories_
  * Returns: %TRUE if the component is in the specified category.
  **/
 gboolean
-as_component_has_category (AsComponent *cpt, const gchar* category)
+as_component_has_category (AsComponent *cpt, const gchar *category)
 {
-	gchar **categories;
-	guint i;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	categories = priv->categories;
-	for (i = 0; categories[i] != NULL; i++) {
-		if (g_strcmp0 (categories[i], category) == 0)
-			return TRUE;
-	}
-
-	return FALSE;
+	return as_ptr_array_find_string (priv->categories, category) != NULL;
 }
 
 /**
@@ -1492,7 +1469,6 @@ GPtrArray*
 as_component_get_screenshots (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	return priv->screenshots;
 }
 
@@ -1500,30 +1476,29 @@ as_component_get_screenshots (AsComponent *cpt)
  * as_component_get_compulsory_for_desktops:
  * @cpt: a #AsComponent instance.
  *
- * Return value: (transfer none): A list of desktops where this component is compulsory
+ * Return value: (transfer none) (element-type utf8): A list of desktops where this component is compulsory
  **/
-gchar **
+GPtrArray*
 as_component_get_compulsory_for_desktops (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	return priv->compulsory_for_desktops;
 }
 
 /**
- * as_component_set_compulsory_for_desktops:
+ * as_component_set_compulsory_for_desktop:
  * @cpt: a #AsComponent instance.
- * @value: (array zero-terminated=1): the array of desktop ids.
+ * @desktop: The name of the desktop.
  *
- * Set a list of desktops where this component is compulsory.
+ * Mark this component to be compulsory for the specified desktop environment.
  **/
 void
-as_component_set_compulsory_for_desktops (AsComponent *cpt, gchar** value)
+as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_return_if_fail (desktop != NULL);
 
-	g_strfreev (priv->compulsory_for_desktops);
-	priv->compulsory_for_desktops = g_strdupv (value);
+	g_ptr_array_add (priv->compulsory_for_desktops, g_strdup (desktop));
 }
 
 /**
@@ -1536,19 +1511,10 @@ as_component_set_compulsory_for_desktops (AsComponent *cpt, gchar** value)
  * Returns: %TRUE if compulsory, %FALSE otherwise.
  **/
 gboolean
-as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar* desktop)
+as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop)
 {
-	gchar **compulsory_for_desktops;
-	guint i;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	compulsory_for_desktops = priv->compulsory_for_desktops;
-	for (i = 0; compulsory_for_desktops[i] != NULL; i++) {
-		if (g_strcmp0 (compulsory_for_desktops[i], desktop) == 0)
-			return TRUE;
-	}
-
-	return FALSE;
+	return as_ptr_array_find_string (priv->compulsory_for_desktops, desktop) != NULL;
 }
 
 /**
@@ -2543,9 +2509,6 @@ as_component_set_property (GObject * object, guint property_id, const GValue * v
 		case AS_COMPONENT_KEYWORDS:
 			as_component_set_keywords (cpt, g_value_get_boxed (value), NULL);
 			break;
-		case AS_COMPONENT_CATEGORIES:
-			as_component_set_categories (cpt, g_value_get_boxed (value));
-			break;
 		case AS_COMPONENT_PROJECT_LICENSE:
 			as_component_set_project_license (cpt, g_value_get_string (value));
 			break;
@@ -2650,7 +2613,7 @@ as_component_class_init (AsComponentClass * klass)
 	 */
 	g_object_class_install_property (object_class,
 					AS_COMPONENT_CATEGORIES,
-					g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_STRV, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE | G_PARAM_WRITABLE));
+					g_param_spec_boxed ("categories", "categories", "categories", G_TYPE_PTR_ARRAY, G_PARAM_STATIC_NAME | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB | G_PARAM_READABLE));
 	/**
 	 * AsComponent:project-license:
 	 *

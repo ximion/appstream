@@ -222,28 +222,31 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 
 	/* merge stuff in append mode */
 	if (merge_kind == AS_MERGE_KIND_APPEND) {
-		gchar **cats;
 		GPtrArray *suggestions;
+		GPtrArray *cats;
 
 		/* merge categories */
 		cats = as_component_get_categories (src_cpt);
-		if (cats != NULL) {
+		if (cats->len > 0) {
 			g_autoptr(GHashTable) cat_table = NULL;
-			gchar **new_cats = NULL;
+			GPtrArray *dest_categories;
 
 			cat_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-			for (i = 0; cats[i] != NULL; i++) {
-				g_hash_table_add (cat_table, g_strdup (cats[i]));
+			for (i = 0; i < cats->len; i++) {
+				const gchar *cat = (const gchar*) g_ptr_array_index (cats, i);
+				g_hash_table_add (cat_table, g_strdup (cat));
 			}
-			cats = as_component_get_categories (dest_cpt);
-			if (cats != NULL) {
-				for (i = 0; cats[i] != NULL; i++) {
-					g_hash_table_add (cat_table, g_strdup (cats[i]));
+
+			dest_categories = as_component_get_categories (dest_cpt);
+			if (dest_categories->len > 0) {
+				for (i = 0; i < dest_categories->len; i++) {
+					const gchar *cat = (const gchar*) g_ptr_array_index (dest_categories, i);
+					g_hash_table_add (cat_table, g_strdup (cat));
 				}
 			}
 
-			new_cats = (gchar**) g_hash_table_get_keys_as_array (cat_table, NULL);
-			as_component_set_categories (dest_cpt, new_cats);
+			g_ptr_array_set_size (dest_categories, 0);
+			as_hash_table_string_keys_to_array (cat_table, dest_categories);
 		}
 
 		/* merge suggestions */
@@ -949,19 +952,11 @@ as_pool_get_components_by_categories (AsPool *pool, const gchar *categories)
 
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		gchar **cpt_cats;
-		guint j;
 		AsComponent *cpt = AS_COMPONENT (value);
 
-		cpt_cats = as_component_get_categories (cpt);
-		if (cpt_cats == NULL)
-			continue;
-
 		for (i = 0; cats[i] != NULL; i++) {
-			for (j = 0; cpt_cats[j] != NULL; j++) {
-				if (g_strcmp0 (cats[i], cpt_cats[j]) == 0)
-					g_ptr_array_add (results, g_object_ref (cpt));
-			}
+			if (as_component_has_category (cpt, cats[i]))
+				g_ptr_array_add (results, g_object_ref (cpt));
 		}
 	}
 

@@ -742,6 +742,28 @@ as_ptr_array_find_string (GPtrArray *array, const gchar *value)
 	return NULL;
 }
 
+
+/**
+ * as_hash_table_keys_to_array:
+ * @table: The hash table.
+ * @array: The pointer array.
+ *
+ * Add keys of a hash table to a pointer array.
+ * The hash table keys must be strings.
+ */
+void
+as_hash_table_string_keys_to_array (GHashTable *table, GPtrArray *array)
+{
+	GHashTableIter iter;
+	gpointer value;
+
+	g_hash_table_iter_init (&iter, table);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		const gchar *str = (const gchar*) value;
+		g_ptr_array_add (array, g_strdup (str));
+	}
+}
+
 /**
  * as_utils_locale_is_compatible:
  * @locale1: a locale string, or %NULL

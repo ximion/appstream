@@ -62,8 +62,6 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsXMLData, as_xmldata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_xmldata_get_instance_private (o))
 
-static gchar	**as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name);
-
 /**
  * libxml_generic_error:
  *
@@ -253,29 +251,40 @@ out:
 }
 
 /**
- * as_xml_get_children_as_strv:
+ * as_xml_add_children_values_to_array:
  */
-static gchar**
-as_xml_get_children_as_strv (xmlNode* node, const gchar* element_name)
+static void
+as_xml_add_children_values_to_array (xmlNode *node, const gchar *element_name, GPtrArray *array)
 {
-	GPtrArray *list;
 	xmlNode *iter;
-	gchar **res;
-	g_return_val_if_fail (element_name != NULL, NULL);
 
-	list = g_ptr_array_new_with_free_func (g_free);
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE) {
-					continue;
+			continue;
 		}
-		if (g_strcmp0 ((gchar*) iter->name, element_name) == 0) {
-			gchar *content;
-			content = as_xml_get_node_value (iter);
+		if (g_strcmp0 ((const gchar*) iter->name, element_name) == 0) {
+			gchar *content = as_xml_get_node_value (iter);
+			/* transfer ownership of content to array */
 			if (content != NULL)
-				g_ptr_array_add (list, g_strdup (content));
+				g_ptr_array_add (array, content);
 		}
 	}
+}
+
+/**
+ * as_xml_get_children_as_strv:
+ */
+static gchar**
+as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name)
+{
+	GPtrArray *list;
+	gchar **res;
+
+	list = g_ptr_array_new_with_free_func (g_free);
+	as_xml_add_children_values_to_array (node,
+					     element_name,
+					     list);
 
 	res = as_ptr_array_to_strv (list);
 	g_ptr_array_unref (list);
@@ -843,14 +852,12 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 {
 	xmlNode *iter;
 	const gchar *node_name;
-	GPtrArray *compulsory_for_desktops;
 	GPtrArray *pkgnames;
 	gchar **strv;
 	g_autofree gchar *priority_str;
 	g_autofree gchar *merge_str;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
-	compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	pkgnames = g_ptr_array_new_with_free_func (g_free);
 
 	/* set component kind */
@@ -969,10 +976,9 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				g_free (urltype_str);
 			}
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
-			gchar **cat_array;
-			cat_array = as_xml_get_children_as_strv (iter, "category");
-			as_component_set_categories (cpt, cat_array);
-			g_strfreev (cat_array);
+			as_xml_add_children_values_to_array (iter,
+							     "category",
+							     as_component_get_categories (cpt));
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			gchar **kw_array;
 			kw_array = as_xml_get_children_as_strv (iter, "keyword");
@@ -1004,7 +1010,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				as_component_set_developer_name (cpt, content, lang);
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (content != NULL)
-				g_ptr_array_add (compulsory_for_desktops, g_strdup (content));
+				as_component_set_compulsory_for_desktop (cpt, content);
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_xmldata_process_releases_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
@@ -1052,12 +1058,6 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	strv = as_ptr_array_to_strv (pkgnames);
 	as_component_set_pkgnames (cpt, strv);
 	g_ptr_array_unref (pkgnames);
-	g_strfreev (strv);
-
-	/* add compulsoriy information to component as strv */
-	strv = as_ptr_array_to_strv (compulsory_for_desktops);
-	as_component_set_compulsory_for_desktops (cpt, strv);
-	g_ptr_array_unref (compulsory_for_desktops);
 	g_strfreev (strv);
 }
 
@@ -1223,25 +1223,68 @@ out:
 }
 
 /**
- * as_xmldata_xml_add_node_list:
+ * as_xml_add_node_list_strv:
  *
- * Add node if value is not empty
+ * Add node with a list of children containing the strv contents.
  */
 static void
-as_xmldata_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
+as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
 {
 	xmlNode *node;
 	guint i;
 
+	/* don't add the node if we have no values */
 	if (strv == NULL)
+		return;
+	if (strv[0] == '\0')
 		return;
 
 	if (name == NULL)
 		node = root;
 	else
-		node = xmlNewTextChild (root, NULL, (xmlChar*) name, NULL);
+		node = xmlNewChild (root,
+				    NULL,
+				    (xmlChar*) name,
+				    NULL);
 	for (i = 0; strv[i] != NULL; i++) {
-		xmlNewTextChild (node, NULL, (xmlChar*) child_name, (xmlChar*) strv[i]);
+		xmlNewTextChild (node,
+				 NULL,
+				 (xmlChar*) child_name,
+				 (xmlChar*) strv[i]);
+	}
+}
+
+/**
+ * as_xml_add_node_list:
+ *
+ * Add node with a list of children containing the string array contents.
+ */
+static void
+as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, GPtrArray *array)
+{
+	xmlNode *node;
+	guint i;
+
+	/* don't add the node if we have no values */
+	if (array == NULL)
+		return;
+	if (array->len == 0)
+		return;
+
+	if (name == NULL)
+		node = root;
+	else
+		node = xmlNewChild (root,
+				    NULL,
+				    (xmlChar*) name,
+				    NULL);
+
+	for (i = 0; i < array->len; i++) {
+		const xmlChar *value = (const xmlChar*) g_ptr_array_index (array, i);
+		xmlNewTextChild (node,
+				 NULL,
+				 (xmlChar*) child_name,
+				 value);
 	}
 }
 
@@ -1511,27 +1554,27 @@ as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 				/* we already handled those */
 				break;
 			case AS_PROVIDED_KIND_LIBRARY:
-				as_xmldata_xml_add_node_list (node, NULL,
+				as_xml_add_node_list_strv (node, NULL,
 							      "library",
 							      items);
 				break;
 			case AS_PROVIDED_KIND_BINARY:
-				as_xmldata_xml_add_node_list (node, NULL,
+				as_xml_add_node_list_strv (node, NULL,
 							      "binary",
 							      items);
 				break;
 			case AS_PROVIDED_KIND_MODALIAS:
-				as_xmldata_xml_add_node_list (node, NULL,
+				as_xml_add_node_list_strv (node, NULL,
 							      "modalias",
 							      items);
 				break;
 			case AS_PROVIDED_KIND_PYTHON_2:
-				as_xmldata_xml_add_node_list (node, NULL,
+				as_xml_add_node_list_strv (node, NULL,
 							      "python2",
 							      items);
 				break;
 			case AS_PROVIDED_KIND_PYTHON:
-				as_xmldata_xml_add_node_list (node, NULL,
+				as_xml_add_node_list_strv (node, NULL,
 							      "python3",
 							      items);
 				break;
@@ -1732,13 +1775,14 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	as_xmldata_xml_add_node (cnode, "project_license", as_component_get_project_license (cpt));
 	as_xmldata_xml_add_node (cnode, "project_group", as_component_get_project_group (cpt));
 
-	as_xmldata_xml_add_node_list (cnode, NULL, "pkgname", as_component_get_pkgnames (cpt));
+	as_xml_add_node_list_strv (cnode, NULL, "pkgname", as_component_get_pkgnames (cpt));
 	strv = as_ptr_array_to_strv (as_component_get_extends (cpt));
-	as_xmldata_xml_add_node_list (cnode, NULL, "extends", strv);
+	as_xml_add_node_list_strv (cnode, NULL, "extends", strv);
 	g_strfreev (strv);
-	as_xmldata_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", as_component_get_compulsory_for_desktops (cpt));
-	as_xmldata_xml_add_node_list (cnode, "keywords", "keyword", as_component_get_keywords (cpt));
-	as_xmldata_xml_add_node_list (cnode, "categories", "category", as_component_get_categories (cpt));
+
+	as_xml_add_node_list_strv (cnode, "keywords", "keyword", as_component_get_keywords (cpt));
+	as_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", as_component_get_compulsory_for_desktops (cpt));
+	as_xml_add_node_list (cnode, "categories", "category", as_component_get_categories (cpt));
 
 	/* urls */
 	for (i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {

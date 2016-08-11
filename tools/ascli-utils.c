@@ -237,11 +237,10 @@ ascli_ptrarray_to_pretty (GPtrArray *array)
 		return g_strdup (g_ptr_array_index (array, 0));
 	}
 
-	rstr = g_string_new ("");
+	rstr = g_string_new ("\n");
 	for (i = 0; i < array->len; i++) {
 		const gchar *astr = (const gchar*) g_ptr_array_index (array, i);
-
-		g_string_append_printf (rstr, "- %s\n", astr);
+		g_string_append_printf (rstr, " - %s\n", astr);
 	}
 	if (rstr->len > 0)
 		g_string_truncate (rstr, rstr->len - 1);
@@ -289,19 +288,20 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		GPtrArray *imgs = NULL;
 		GPtrArray *extends;
 		GPtrArray *extensions;
+		GPtrArray *categories;
+		GPtrArray *compulsory_desktops;
 		GList *provided;
 		GList *l;
 		AsScreenshot *sshot;
 		AsImage *img;
 		gchar *str;
-		gchar **strv;
 
 		/* developer name */
 		ascli_print_key_value (_("Developer"), as_component_get_developer_name (cpt), FALSE);
 
 		/* extends data (e.g. for addons) */
 		extends = as_component_get_extends (cpt);
-		if (extends != NULL) {
+		if (extends->len > 0) {
 			str = ascli_ptrarray_to_pretty (extends);
 			ascli_print_key_value (_("Extends"), str, FALSE);
 			g_free (str);
@@ -342,24 +342,24 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		ascli_print_key_value (_("License"), as_component_get_project_license (cpt), FALSE);
 
 		/* Categories */
-		strv = as_component_get_categories (cpt);
-		if (strv != NULL) {
-			str = g_strjoinv (", ", strv);
+		categories = as_component_get_categories (cpt);
+		if (categories->len > 0) {
+			str = ascli_ptrarray_to_pretty (categories);
 			ascli_print_key_value (_("Categories"), str, FALSE);
 			g_free (str);
 		}
 
-		/* desktop-compulsority */
-		strv = as_component_get_compulsory_for_desktops (cpt);
-		if (strv != NULL) {
-			str = g_strjoinv (", ", strv);
+		/* Desktop-compulsority */
+		compulsory_desktops = as_component_get_compulsory_for_desktops (cpt);
+		if (compulsory_desktops->len > 0) {
+			str = ascli_ptrarray_to_pretty (compulsory_desktops);
 			ascli_print_key_value (_("Compulsory for"), str, FALSE);
 			g_free (str);
 		}
 
 		/* list of addons extending this component */
 		extensions = as_component_get_extensions (cpt);
-		if (extensions != NULL) {
+		if (extensions->len > 0) {
 			str = ascli_ptrarray_to_pretty (extensions);
 			ascli_print_key_value (_("Extensions"), str, FALSE);
 			g_free (str);

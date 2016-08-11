@@ -169,15 +169,15 @@ void			as_component_set_developer_name (AsComponent *cpt,
 								const gchar *value,
 								const gchar *locale);
 
-gchar			**as_component_get_compulsory_for_desktops (AsComponent *cpt);
-void			as_component_set_compulsory_for_desktops (AsComponent *cpt,
-									gchar **value);
+GPtrArray		*as_component_get_compulsory_for_desktops (AsComponent *cpt);
+void			as_component_set_compulsory_for_desktop (AsComponent *cpt,
+								  const gchar *desktop);
 gboolean		as_component_is_compulsory_for_desktop (AsComponent *cpt,
-									const gchar *desktop);
+								const gchar *desktop);
 
-gchar			**as_component_get_categories (AsComponent *cpt);
-void			as_component_set_categories (AsComponent *cpt,
-							gchar **value);
+GPtrArray		*as_component_get_categories (AsComponent *cpt);
+void			as_component_add_category (AsComponent *cpt,
+							const gchar *category);
 gboolean		as_component_has_category (AsComponent *cpt,
 							const gchar *category);
 
