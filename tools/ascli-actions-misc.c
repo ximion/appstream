@@ -36,7 +36,7 @@ int
 ascli_show_status (void)
 {
 	guint i;
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
 	const gchar *metainfo_path = "/usr/share/metainfo";
 	const gchar *appdata_path = "/usr/share/appdata";
@@ -142,14 +142,14 @@ ascli_show_status (void)
 	/* TRANSLATORS: Status summary in ascli */
 	ascli_print_highlight (_("Summary:"));
 
-	dpool = as_data_pool_new ();
-	as_data_pool_load (dpool, NULL, &error);
+	dpool = as_pool_new ();
+	as_pool_load (dpool, NULL, &error);
 	if (error == NULL) {
 		g_autoptr(GPtrArray) cpts = NULL;
-		cpts = as_data_pool_get_components (dpool);
+		cpts = as_pool_get_components (dpool);
 
 		ascli_print_stdout (_("We have information on %i software components."), cpts->len);
-		/* TODO: Request the on-disk cache status from #AsDataPool and display it here.
+		/* TODO: Request the on-disk cache status from #AsPool and display it here.
 		 * ascli_print_stdout (_("The system metadata cache exists."));
 		 * ascli_print_stdout (_("The system metadata cache does not exist."));
 		 */

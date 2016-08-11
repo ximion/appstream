@@ -19,17 +19,17 @@
  */
 
 /**
- * SECTION:as-data-pool
- * @short_description: Provides access to the AppStream metadata pool.
+ * SECTION:as-pool
+ * @short_description: Access the AppStream metadata pool.
  *
  * This class loads AppStream metadata from various sources and refines it with existing
  * knowledge about the system (e.g. by setting absolute pazhs for cached icons).
- * An #AsDataPool will use an on-disk cache to store metadata is has read and refined to
+ * An #AsPool will use an on-disk cache to store metadata is has read and refined to
  * speed up the loading time when the same data is requested a second time.
  *
  * You can find AppStream metadata matching farious criteria, and also add new metadata to
  * the pool.
- * The caching behavior can be controlled by the application using #AsDataPool.
+ * The caching behavior can be controlled by the application using #AsPool.
  *
  * An AppStream cache object can also be created and read using the appstreamcli(1) utility.
  *
@@ -37,7 +37,7 @@
  */
 
 #include "config.h"
-#include "as-data-pool.h"
+#include "as-pool.h"
 
 #include <glib.h>
 #include <glib/gstdio.h>
@@ -75,10 +75,10 @@ typedef struct
 	gchar *sys_cache_path;
 	gchar *user_cache_path;
 	time_t cache_ctime;
-} AsDataPoolPrivate;
+} AsPoolPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (AsDataPool, as_data_pool, G_TYPE_OBJECT)
-#define GET_PRIVATE(o) (as_data_pool_get_instance_private (o))
+G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
+#define GET_PRIVATE(o) (as_pool_get_instance_private (o))
 
 /**
  * AS_APPSTREAM_METADATA_PATHS:
@@ -99,17 +99,17 @@ const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
 /**
- * as_data_pool_check_cache_ctime:
- * @dpool: An instance of #AsCacheBuilder
+ * as_pool_check_cache_ctime:
+ * @pool: An instance of #AsPool
  *
  * Update the cached cache-ctime. We need to cache it prior to potentially
  * creating a new database, so we will always rebuild the database in case
  * none existed previously.
  */
 static void
-as_data_pool_check_cache_ctime (AsDataPool *dpool)
+as_pool_check_cache_ctime (AsPool *pool)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	struct stat cache_sbuf;
 	g_autofree gchar *fname = NULL;
 
@@ -121,14 +121,14 @@ as_data_pool_check_cache_ctime (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_init:
+ * as_pool_init:
  **/
 static void
-as_data_pool_init (AsDataPool *dpool)
+as_pool_init (AsPool *pool)
 {
 	guint i;
 	g_autoptr(AsDistroDetails) distro = NULL;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* set active locale */
 	priv->locale = as_get_current_locale ();
@@ -165,17 +165,17 @@ as_data_pool_init (AsDataPool *dpool)
 		as_reset_umask ();
 
 	/* check the ctime of the cache directory, if it exists at all */
-	as_data_pool_check_cache_ctime (dpool);
+	as_pool_check_cache_ctime (pool);
 }
 
 /**
- * as_data_pool_finalize:
+ * as_pool_finalize:
  **/
 static void
-as_data_pool_finalize (GObject *object)
+as_pool_finalize (GObject *object)
 {
-	AsDataPool *dpool = AS_DATA_POOL (object);
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPool *pool = AS_POOL (object);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	g_free (priv->screenshot_service_url);
 	g_hash_table_unref (priv->cpt_table);
@@ -191,17 +191,17 @@ as_data_pool_finalize (GObject *object)
 	g_free (priv->sys_cache_path);
 	g_free (priv->user_cache_path);
 
-	G_OBJECT_CLASS (as_data_pool_parent_class)->finalize (object);
+	G_OBJECT_CLASS (as_pool_parent_class)->finalize (object);
 }
 
 /**
- * as_data_pool_class_init:
+ * as_pool_class_init:
  **/
 static void
-as_data_pool_class_init (AsDataPoolClass *klass)
+as_pool_class_init (AsPoolClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->finalize = as_data_pool_finalize;
+	object_class->finalize = as_pool_finalize;
 }
 
 /**
@@ -278,8 +278,8 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 }
 
 /**
- * as_data_pool_add_component:
- * @dpool: An instance of #AsDataPool
+ * as_pool_add_component:
+ * @pool: An instance of #AsPool
  * @cpt: The #AsComponent to add to the pool.
  * @error: A #GError or %NULL
  *
@@ -288,14 +288,14 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
  * Returns: %TRUE if the new component was successfully added to the pool.
  */
 gboolean
-as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
+as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 {
 	const gchar *cid;
 	AsComponent *existing_cpt;
 	gint pool_priority;
 	AsMergeKind merge_kind_new;
 	AsMergeKind merge_kind_pool;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	cid = as_component_get_id (cpt);
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cid);
@@ -373,14 +373,14 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 
 		if (pool_priority == as_component_get_priority (cpt)) {
 			g_set_error (error,
-					AS_DATA_POOL_ERROR,
-					AS_DATA_POOL_ERROR_COLLISION,
+					AS_POOL_ERROR,
+					AS_POOL_ERROR_COLLISION,
 					"Detected colliding ids: %s was already added with the same priority.", cid);
 			return FALSE;
 		} else {
 			g_set_error (error,
-					AS_DATA_POOL_ERROR,
-					AS_DATA_POOL_ERROR_COLLISION,
+					AS_POOL_ERROR,
+					AS_POOL_ERROR_COLLISION,
 					"Detected colliding ids: %s was already added with a higher priority.", cid);
 			return FALSE;
 		}
@@ -390,17 +390,17 @@ as_data_pool_add_component (AsDataPool *dpool, AsComponent *cpt, GError **error)
 }
 
 /**
- * as_data_pool_update_extension_info:
+ * as_pool_update_extension_info:
  *
  * Populate the "extensions" property of an #AsComponent, using the
  * "extends" information from other components.
  */
 static void
-as_data_pool_update_extension_info (AsDataPool *dpool, AsComponent *cpt)
+as_pool_update_extension_info (AsPool *pool, AsComponent *cpt)
 {
 	guint i;
 	GPtrArray *extends;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	extends = as_component_get_extends (cpt);
 	if ((extends == NULL) || (extends->len == 0))
@@ -421,20 +421,20 @@ as_data_pool_update_extension_info (AsDataPool *dpool, AsComponent *cpt)
 }
 
 /**
- * as_data_pool_refine_data:
+ * as_pool_refine_data:
  *
  * Automatically refine the data we have about software components in the pool.
  *
  * Returns: %TRUE if all metadata was used, %FALSE if we skipped some stuff.
  */
 static gboolean
-as_data_pool_refine_data (AsDataPool *dpool)
+as_pool_refine_data (AsPool *pool)
 {
 	GHashTableIter iter;
 	gpointer key, value;
 	GHashTable *refined_cpts;
 	gboolean ret = TRUE;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* since we might remove stuff from the pool, we need a new table to store the result */
 	refined_cpts = g_hash_table_new_full (g_str_hash,
@@ -457,7 +457,7 @@ as_data_pool_refine_data (AsDataPool *dpool)
 		}
 
 		/* set the "extension" information */
-		as_data_pool_update_extension_info (dpool, cpt);
+		as_pool_update_extension_info (pool, cpt);
 
 		/* add to results table */
 		g_hash_table_insert (refined_cpts,
@@ -473,19 +473,19 @@ as_data_pool_refine_data (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_load_metadata:
+ * as_pool_load_metadata:
  *
  * Load fresh metadata from AppStream directories.
  */
 gboolean
-as_data_pool_load_metadata (AsDataPool *dpool)
+as_pool_load_metadata (AsPool *pool)
 {
 	GPtrArray *cpts;
 	guint i;
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;
 	GError *error = NULL;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
@@ -578,7 +578,7 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
-		as_data_pool_add_component (dpool, cpt, &error);
+		as_pool_add_component (pool, cpt, &error);
 		if (error != NULL) {
 			g_debug ("Metadata ignored: %s", error->message);
 			g_error_free (error);
@@ -590,15 +590,15 @@ as_data_pool_load_metadata (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_clear:
- * @dpool: An #AsDataPool.
+ * as_pool_clear:
+ * @pool: An #AsPool.
  *
  * Remove all metadat from the pool.
  */
 void
-as_data_pool_clear (AsDataPool *dpool)
+as_pool_clear (AsPool *pool)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	if (g_hash_table_size (priv->cpt_table) > 0) {
 		g_hash_table_unref (priv->cpt_table);
 		priv->cpt_table = g_hash_table_new_full (g_str_hash,
@@ -609,15 +609,15 @@ as_data_pool_clear (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_ctime_newer:
+ * as_pool_ctime_newer:
  *
  * Returns: %TRUE if ctime of file is newer than the cached time.
  */
 static gboolean
-as_data_pool_ctime_newer (AsDataPool *dpool, const gchar *dir)
+as_pool_ctime_newer (AsPool *pool, const gchar *dir)
 {
 	struct stat sb;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	if (stat (dir, &sb) < 0)
 		return FALSE;
@@ -629,29 +629,29 @@ as_data_pool_ctime_newer (AsDataPool *dpool, const gchar *dir)
 }
 
 /**
- * as_data_pool_appstream_data_changed:
+ * as_pool_appstream_data_changed:
  */
 static gboolean
-as_data_pool_metadata_changed (AsDataPool *dpool)
+as_pool_metadata_changed (AsPool *pool)
 {
 	guint i;
 	GPtrArray *locations;
 
-	locations = as_data_pool_get_metadata_locations (dpool);
+	locations = as_pool_get_metadata_locations (pool);
 	for (i = 0; i < locations->len; i++) {
 		g_autofree gchar *xml_dir = NULL;
 		g_autofree gchar *yaml_dir = NULL;
 		const gchar *dir_root = (const gchar*) g_ptr_array_index (locations, i);
 
-		if (as_data_pool_ctime_newer (dpool, dir_root))
+		if (as_pool_ctime_newer (pool, dir_root))
 			return TRUE;
 
 		xml_dir = g_build_filename (dir_root, "xmls", NULL);
-		if (as_data_pool_ctime_newer (dpool, xml_dir))
+		if (as_pool_ctime_newer (pool, xml_dir))
 			return TRUE;
 
 		yaml_dir = g_build_filename (dir_root, "yaml", NULL);
-		if (as_data_pool_ctime_newer (dpool, yaml_dir))
+		if (as_pool_ctime_newer (pool, yaml_dir))
 			return TRUE;
 	}
 
@@ -659,8 +659,8 @@ as_data_pool_metadata_changed (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_load:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_load:
+ * @pool: An instance of #AsPool.
  * @error: A #GError or %NULL.
  *
  * Builds an index of all found components in the watched locations.
@@ -673,11 +673,11 @@ as_data_pool_metadata_changed (AsDataPool *dpool)
  * Returns: %TRUE if update completed without error.
  **/
 gboolean
-as_data_pool_load (AsDataPool *dpool, GCancellable *cancellable, GError **error)
+as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
 	gboolean ret;
 	gboolean ret2;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* load means to reload, so we get rid of all the old data */
 	if (g_hash_table_size (priv->cpt_table) > 0) {
@@ -688,37 +688,37 @@ as_data_pool_load (AsDataPool *dpool, GCancellable *cancellable, GError **error)
 							 (GDestroyNotify) g_object_unref);
 	}
 
-	if (!as_data_pool_metadata_changed (dpool)) {
+	if (!as_pool_metadata_changed (pool)) {
 		g_autofree gchar *fname = NULL;
 		g_debug ("Caches are up to date, using existing metadata.");
 
 		fname = g_strdup_printf ("%s/%s.pb", priv->sys_cache_path, priv->locale);
 		if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
-			return as_data_pool_load_cache_file (dpool, fname, error);
+			return as_pool_load_cache_file (pool, fname, error);
 		} else {
 			g_debug ("Missing cache for language '%s', attempting to load fresh data.", priv->locale);
 		}
 	}
 
 	/* read all AppStream metadata that we can find */
-	ret = as_data_pool_load_metadata (dpool);
+	ret = as_pool_load_metadata (pool);
 
 	/* automatically refine the metadata we have in the pool */
-	ret2 = as_data_pool_refine_data (dpool);
+	ret2 = as_pool_refine_data (pool);
 
 	return ret && ret2;
 }
 
 /**
- * as_data_pool_load_cache_file:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_load_cache_file:
+ * @pool: An instance of #AsPool.
  * @fname: Filename of the cache file to load into the pool.
  * @error: A #GError or %NULL.
  *
  * Load AppStream metadata from a cache file.
  */
 gboolean
-as_data_pool_load_cache_file (AsDataPool *dpool, const gchar *fname, GError **error)
+as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 {
 	g_autoptr(GPtrArray) cpts = NULL;
 	guint i;
@@ -733,7 +733,7 @@ as_data_pool_load_cache_file (AsDataPool *dpool, const gchar *fname, GError **er
 
 	/* add cache objects to the pool */
 	for (i = 0; i < cpts->len; i++) {
-		as_data_pool_add_component (dpool, AS_COMPONENT (g_ptr_array_index (cpts, i)), &tmp_error);
+		as_pool_add_component (pool, AS_COMPONENT (g_ptr_array_index (cpts, i)), &tmp_error);
 		if (tmp_error != NULL) {
 			g_warning ("Cached data ignored: %s", tmp_error->message);
 			g_error_free (tmp_error);
@@ -745,20 +745,20 @@ as_data_pool_load_cache_file (AsDataPool *dpool, const gchar *fname, GError **er
 }
 
 /**
- * as_data_pool_save_cache_file:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_save_cache_file:
+ * @pool: An instance of #AsPool.
  * @fname: Filename of the cache file the pool contents should be dumped to.
  * @error: A #GError or %NULL.
  *
  * Serialize AppStream metadata to a cache file.
  */
 gboolean
-as_data_pool_save_cache_file (AsDataPool *dpool, const gchar *fname, GError **error)
+as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GPtrArray) cpts = NULL;
 
-	cpts = as_data_pool_get_components (dpool);
+	cpts = as_pool_get_components (pool);
 	as_cache_write (fname, priv->locale, cpts, error);
 	g_ptr_array_unref (cpts);
 
@@ -766,17 +766,17 @@ as_data_pool_save_cache_file (AsDataPool *dpool, const gchar *fname, GError **er
 }
 
 /**
- * as_data_pool_get_components:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_get_components:
+ * @pool: An instance of #AsPool.
  *
  * Get a list of found components.
  *
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent instances.
  */
 GPtrArray*
-as_data_pool_get_components (AsDataPool *dpool)
+as_pool_get_components (AsPool *pool)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GHashTableIter iter;
 	gpointer value;
 	GPtrArray *cpts;
@@ -792,8 +792,8 @@ as_data_pool_get_components (AsDataPool *dpool)
 }
 
 /**
- * as_data_pool_get_component_by_id:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_get_component_by_id:
+ * @pool: An instance of #AsPool.
  * @id: The AppStream-ID to look for.
  *
  * Get a specific component by its ID.
@@ -801,9 +801,9 @@ as_data_pool_get_components (AsDataPool *dpool)
  * Returns: (transfer full): An #AsComponent
  */
 AsComponent*
-as_data_pool_get_component_by_id (AsDataPool *dpool, const gchar *id)
+as_pool_get_component_by_id (AsPool *pool, const gchar *id)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gpointer match;
 
 	if (id == NULL)
@@ -817,8 +817,8 @@ as_data_pool_get_component_by_id (AsDataPool *dpool, const gchar *id)
 }
 
 /**
- * as_data_pool_get_components_by_provided_item:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_get_components_by_provided_item:
+ * @pool: An instance of #AsPool.
  * @kind: An #AsProvidesKind
  * @item: The value of the provided item.
  * @error: A #GError or %NULL.
@@ -828,20 +828,20 @@ as_data_pool_get_component_by_id (AsDataPool *dpool, const gchar *id)
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_data_pool_get_components_by_provided_item (AsDataPool *dpool,
+as_pool_get_components_by_provided_item (AsPool *pool,
 					      AsProvidedKind kind,
 					      const gchar *item,
 					      GError **error)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GHashTableIter iter;
 	gpointer value;
 	GPtrArray *results;
 
 	if (item == NULL) {
 		g_set_error_literal (error,
-					AS_DATA_POOL_ERROR,
-					AS_DATA_POOL_ERROR_TERM_INVALID,
+					AS_POOL_ERROR,
+					AS_POOL_ERROR_TERM_INVALID,
 					"Search term must not be NULL.");
 		return NULL;
 	}
@@ -871,8 +871,8 @@ as_data_pool_get_components_by_provided_item (AsDataPool *dpool,
 }
 
 /**
- * as_data_pool_get_components_by_kind:
- * @dpool: An instance of #AsDatabase.
+ * as_pool_get_components_by_kind:
+ * @pool: An instance of #AsDatabase.
  * @kind: An #AsComponentKind.
  * @error: A #GError or %NULL.
  *
@@ -881,27 +881,27 @@ as_data_pool_get_components_by_provided_item (AsDataPool *dpool,
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_data_pool_get_components_by_kind (AsDataPool *dpool,
+as_pool_get_components_by_kind (AsPool *pool,
 				     AsComponentKind kind,
 				     GError **error)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GHashTableIter iter;
 	gpointer value;
 	GPtrArray *results;
 
 	if (kind >= AS_COMPONENT_KIND_LAST) {
 		g_set_error_literal (error,
-					AS_DATA_POOL_ERROR,
-					AS_DATA_POOL_ERROR_TERM_INVALID,
+					AS_POOL_ERROR,
+					AS_POOL_ERROR_TERM_INVALID,
 					_("Can not search for unknown component type."));
 		return NULL;
 	}
 
 	if (kind == AS_COMPONENT_KIND_UNKNOWN) {
 		g_set_error_literal (error,
-					AS_DATA_POOL_ERROR,
-					AS_DATA_POOL_ERROR_TERM_INVALID,
+					AS_POOL_ERROR,
+					AS_POOL_ERROR_TERM_INVALID,
 					_("Can not search for unknown component type."));
 		return NULL;
 	}
@@ -919,8 +919,8 @@ as_data_pool_get_components_by_kind (AsDataPool *dpool,
 }
 
 /**
- * as_data_pool_get_components_by_categories:
- * @dpool: An instance of #AsDatabase.
+ * as_pool_get_components_by_categories:
+ * @pool: An instance of #AsDatabase.
  * @categories: A semicolon-separated list of XDG categories to include.
  *
  * Return a list of components which are in one of the categories.
@@ -928,9 +928,9 @@ as_data_pool_get_components_by_kind (AsDataPool *dpool,
  * Returns: (element-type AsComponent) (transfer full): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_data_pool_get_components_by_categories (AsDataPool *dpool, const gchar *categories)
+as_pool_get_components_by_categories (AsPool *pool, const gchar *categories)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GHashTableIter iter;
 	gpointer value;
 	g_auto(GStrv) cats = NULL;
@@ -969,15 +969,15 @@ as_data_pool_get_components_by_categories (AsDataPool *dpool, const gchar *categ
 }
 
 /**
- * as_data_pool_build_search_terms:
+ * as_pool_build_search_terms:
  *
  * Build an array of search terms from a search string and improve the search terms
  * slightly, by stripping whitespaces, casefolding the terms and removing greylist words.
  */
 static gchar**
-as_data_pool_build_search_terms (AsDataPool *dpool, const gchar *search)
+as_pool_build_search_terms (AsPool *pool, const gchar *search)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsStemmer) stemmer = NULL;
 	g_autofree gchar *tmp_str = NULL;
 	g_auto(GStrv) strv = NULL;
@@ -1050,8 +1050,8 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
 }
 
 /**
- * as_data_pool_search:
- * @dpool: An instance of #AsDataPool
+ * as_pool_search:
+ * @pool: An instance of #AsPool
  * @search: A search string
  *
  * Search for a list of components matching the search terms.
@@ -1062,16 +1062,16 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
  * Since: 0.9.7
  */
 GPtrArray*
-as_data_pool_search (AsDataPool *dpool, const gchar *search)
+as_pool_search (AsPool *pool, const gchar *search)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_auto(GStrv) terms = NULL;
 	GPtrArray *results;
 	GHashTableIter iter;
 	gpointer value;
 
 	/* sanitize user's search term */
-	terms = as_data_pool_build_search_terms (dpool, search);
+	terms = as_pool_build_search_terms (pool, search);
 	results = g_ptr_array_new_with_free_func (g_object_unref);
 
 	if (terms == NULL) {
@@ -1101,8 +1101,8 @@ as_data_pool_search (AsDataPool *dpool, const gchar *search)
 }
 
 /**
- * as_data_pool_refresh_cache:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_refresh_cache:
+ * @pool: An instance of #AsPool.
  * @force: Enforce refresh, even if source data has not changed.
  *
  * Update the AppStream cache. There is normally no need to call this function manually, because cache updates are handled
@@ -1111,9 +1111,9 @@ as_data_pool_search (AsDataPool *dpool, const gchar *search)
  * Returns: %TRUE if the cache was updated, %FALSE on error or if the cache update was not necessary and has been skipped.
  */
 gboolean
-as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
+as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = FALSE;
 	gboolean ret_poolupdate;
 	g_autofree gchar *cache_fname = NULL;
@@ -1123,8 +1123,8 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 	g_mkdir_with_parents (priv->sys_cache_path, 0755);
 	if (!as_utils_is_writable (priv->sys_cache_path)) {
 		g_set_error (error,
-				AS_DATA_POOL_ERROR,
-				AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE,
+				AS_POOL_ERROR,
+				AS_POOL_ERROR_TARGET_NOT_WRITABLE,
 				_("Cache location '%s' is not writable."), priv->sys_cache_path);
 		return FALSE;
 	}
@@ -1132,7 +1132,7 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 	/* collect metadata */
 #ifdef HAVE_APT_SUPPORT
 	/* currently, we only do something here if we are running with explicit APT support compiled in */
-	as_data_pool_scan_apt (dpool, force, &tmp_error);
+	as_pool_scan_apt (pool, force, &tmp_error);
 	if (tmp_error != NULL) {
 		/* the exact error is not forwarded here, since we might be able to partially update the cache */
 		g_warning ("Error while collecting metadata: %s", tmp_error->message);
@@ -1146,7 +1146,7 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 
 	/* check if we need to refresh the cache
 	 * (which is only necessary if the AppStream data has changed) */
-	if (!as_data_pool_metadata_changed (dpool)) {
+	if (!as_pool_metadata_changed (pool)) {
 		g_debug ("Data did not change, no cache refresh needed.");
 		if (force) {
 			g_debug ("Forcing refresh anyway.");
@@ -1157,7 +1157,7 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 	g_debug ("Refreshing AppStream cache");
 
 	/* find them wherever they are */
-	ret_poolupdate = as_data_pool_load (dpool, NULL, &tmp_error);
+	ret_poolupdate = as_pool_load (pool, NULL, &tmp_error);
 	if (tmp_error != NULL) {
 		/* the exact error is not forwarded here, since we might be able to partially update the cache */
 		g_warning ("Error while updating the in-memory data pool: %s", tmp_error->message);
@@ -1166,7 +1166,7 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 	}
 
 	/* save the cache object */
-	as_data_pool_save_cache_file (dpool, cache_fname, &tmp_error);
+	as_pool_save_cache_file (pool, cache_fname, &tmp_error);
 	if (tmp_error != NULL) {
 		/* the exact error is not forwarded here, since we might be able to partially update the cache */
 		g_warning ("Error while updating the cache: %s", tmp_error->message);
@@ -1180,17 +1180,17 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 	if (ret) {
 		if (!ret_poolupdate) {
 			g_set_error (error,
-				AS_DATA_POOL_ERROR,
-				AS_DATA_POOL_ERROR_INCOMPLETE,
+				AS_POOL_ERROR,
+				AS_POOL_ERROR_INCOMPLETE,
 				_("AppStream data pool was loaded, but some metadata was ignored due to errors."));
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
 		as_touch_location (cache_fname);
-		as_data_pool_check_cache_ctime (dpool);
+		as_pool_check_cache_ctime (pool);
 	} else {
 		g_set_error (error,
-				AS_DATA_POOL_ERROR,
-				AS_DATA_POOL_ERROR_FAILED,
+				AS_POOL_ERROR,
+				AS_POOL_ERROR_FAILED,
 				_("AppStream cache update failed."));
 	}
 
@@ -1198,53 +1198,53 @@ as_data_pool_refresh_cache (AsDataPool *dpool, gboolean force, GError **error)
 }
 
 /**
- * as_data_pool_set_locale:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_set_locale:
+ * @pool: An instance of #AsPool.
  * @locale: the locale.
  *
  * Sets the current locale which should be used when parsing metadata.
  **/
 void
-as_data_pool_set_locale (AsDataPool *dpool, const gchar *locale)
+as_pool_set_locale (AsPool *pool, const gchar *locale)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_free (priv->locale);
 	priv->locale = g_strdup (locale);
 }
 
 /**
- * as_data_pool_get_locale:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_get_locale:
+ * @pool: An instance of #AsPool.
  *
  * Gets the currently used locale.
  *
  * Returns: Locale used for metadata parsing.
  **/
 const gchar *
-as_data_pool_get_locale (AsDataPool *dpool)
+as_pool_get_locale (AsPool *pool)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	return priv->locale;
 }
 
 /**
- * as_data_pool_get_metadata_locations:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_get_metadata_locations:
+ * @pool: An instance of #AsPool.
  *
  * Return a list of all locations which are searched for metadata.
  *
  * Returns: (transfer none) (element-type utf8): A string-list of watched (absolute) filepaths
  **/
 GPtrArray*
-as_data_pool_get_metadata_locations (AsDataPool *dpool)
+as_pool_get_metadata_locations (AsPool *pool)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	return priv->mdata_dirs;
 }
 
 /**
- * as_data_pool_set_metadata_locations:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_set_metadata_locations:
+ * @pool: An instance of #AsPool.
  * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
  *
  * Set locations for the data pool to read it's data from.
@@ -1253,11 +1253,11 @@ as_data_pool_get_metadata_locations (AsDataPool *dpool)
  * AppStream XML or DEP-11 YAML in it.
  */
 void
-as_data_pool_set_metadata_locations (AsDataPool *dpool, gchar **dirs)
+as_pool_set_metadata_locations (AsPool *pool, gchar **dirs)
 {
 	guint i;
 	GPtrArray *icondirs;
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* clear array */
 	g_ptr_array_set_size (priv->mdata_dirs, 0);
@@ -1283,82 +1283,71 @@ as_data_pool_set_metadata_locations (AsDataPool *dpool, gchar **dirs)
 }
 
 /**
- * as_data_pool_get_cache_flags:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_get_cache_flags:
+ * @pool: An instance of #AsPool.
  *
  * Get the #AsCacheFlags for this data pool.
  */
 AsCacheFlags
-as_data_pool_get_cache_flags (AsDataPool *dpool)
+as_pool_get_cache_flags (AsPool *pool)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	return priv->cflags;
 }
 
 /**
- * as_data_pool_set_cache_flags:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_set_cache_flags:
+ * @pool: An instance of #AsPool.
  * @flags: The new #AsCacheFlags.
  *
  * Set the #AsCacheFlags for this data pool.
  */
 void
-as_data_pool_set_cache_flags (AsDataPool *dpool, AsCacheFlags flags)
+as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	priv->cflags = flags;
 }
 
 /**
- * as_data_pool_get_cache_age:
- * @dpool: An instance of #AsDataPool.
+ * as_pool_get_cache_age:
+ * @pool: An instance of #AsPool.
  *
  * Get the age of our internal cache.
  */
 time_t
-as_data_pool_get_cache_age (AsDataPool *dpool)
+as_pool_get_cache_age (AsPool *pool)
 {
-	AsDataPoolPrivate *priv = GET_PRIVATE (dpool);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	return priv->cache_ctime;
 }
 
 /**
- * as_data_pool_error_quark:
+ * as_pool_error_quark:
  *
  * Return value: An error quark.
  **/
 GQuark
-as_data_pool_error_quark (void)
+as_pool_error_quark (void)
 {
 	static GQuark quark = 0;
 	if (!quark)
-		quark = g_quark_from_static_string ("AsDataPool");
+		quark = g_quark_from_static_string ("AsPool");
 	return quark;
 }
 
 /**
- * as_data_pool_new:
+ * as_pool_new:
  *
- * Creates a new #AsDataPool.
+ * Creates a new #AsPool.
  *
- * Returns: (transfer full): a #AsDataPool
+ * Returns: (transfer full): a #AsPool
  *
  **/
-AsDataPool*
-as_data_pool_new (void)
+AsPool*
+as_pool_new (void)
 {
-	AsDataPool *dpool;
-	dpool = g_object_new (AS_TYPE_DATA_POOL, NULL);
-	return AS_DATA_POOL (dpool);
-}
-
-/* DEPRECATED */
-
-/**
- * as_data_pool_update:
- */
-gboolean
-as_data_pool_update (AsDataPool *dpool, GError **error)
-{
-	return as_data_pool_load (dpool, NULL, error);
+	AsPool *pool;
+	pool = g_object_new (AS_TYPE_POOL, NULL);
+	return AS_POOL (pool);
 }

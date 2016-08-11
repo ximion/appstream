@@ -158,12 +158,12 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 }
 
 /**
- * as_data_pool_scan_apt:
+ * as_pool_scan_apt:
  *
  * Scan for additional metadata in 3rd-party directories and move it to the right place.
  */
 void
-as_data_pool_scan_apt (AsDataPool *dpool, gboolean force, GError **error)
+as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 {
 	const gchar *apt_lists_dir = "/var/lib/apt/lists/";
 	const gchar *appstream_yml_target = "/var/lib/app-info/yaml";
@@ -240,7 +240,7 @@ as_data_pool_scan_apt (AsDataPool *dpool, gboolean force, GError **error)
 			const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
 			if (stat (fname, &sb) < 0)
 				continue;
-			if (sb.st_ctime > as_data_pool_get_cache_age (dpool)) {
+			if (sb.st_ctime > as_pool_get_cache_age (pool)) {
 				/* we need to update the cache */
 				data_changed = TRUE;
 				break;

@@ -52,7 +52,7 @@ set(APPSTREAM_LIB_SRC
 		as-component.c
 		as-enums.c
 		as-provided.c
-		as-data-pool.c
+		as-pool.c
 		as-category.c
 		as-menu-parser.c
 		as-distro-details.c
@@ -72,7 +72,7 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 		as-spdx.h
 		as-metadata.h
 		as-component.h
-		as-data-pool.h
+		as-pool.h
 		as-enums.h
 		as-provided.h
 		as-category.h

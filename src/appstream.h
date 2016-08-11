@@ -30,7 +30,7 @@ extern "C" {
 #include <as-enums.h>
 #include <as-provided.h>
 #include <as-metadata.h>
-#include <as-data-pool.h>
+#include <as-pool.h>
 #include <as-category.h>
 #include <as-menu-parser.h>
 #include <as-distro-details.h>

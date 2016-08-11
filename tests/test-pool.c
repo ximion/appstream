@@ -51,7 +51,7 @@ print_cptarray (GPtrArray *cpt_array)
 void
 test_cache ()
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(AsComponent) cpt1 = NULL;
 	g_autoptr(AsComponent) cpt2 = NULL;
 	g_autoptr(GError) error = NULL;
@@ -70,30 +70,30 @@ test_cache ()
 	as_component_set_summary (cpt2, "Another unit-test dummy entry", NULL);
 
 	/* add data to the pool */
-	dpool = as_data_pool_new ();
-	as_data_pool_add_component (dpool, cpt1, &error);
+	dpool = as_pool_new ();
+	as_pool_add_component (dpool, cpt1, &error);
 	g_assert_no_error (error);
 
-	as_data_pool_add_component (dpool, cpt2, &error);
+	as_pool_add_component (dpool, cpt2, &error);
 	g_assert_no_error (error);
 
 	/* export cache file and destroy old data pool */
-	as_data_pool_save_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
+	as_pool_save_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
 	g_assert_no_error (error);
 	g_object_unref (dpool);
 	g_object_unref (cpt1);
 	g_object_unref (cpt2);
 
 	/* load cache file */
-	dpool = as_data_pool_new ();
-	as_data_pool_load_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
+	dpool = as_pool_new ();
+	as_pool_load_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
 	g_assert_no_error (error);
 
 	/* validate */
-	cpt1 = as_data_pool_get_component_by_id (dpool, "org.example.FooBar1");
+	cpt1 = as_pool_get_component_by_id (dpool, "org.example.FooBar1");
 	g_assert_nonnull (cpt1);
 
-	cpt2 = as_data_pool_get_component_by_id (dpool, "org.example.NewFooBar");
+	cpt2 = as_pool_get_component_by_id (dpool, "org.example.NewFooBar");
 	g_assert_nonnull (cpt2);
 
 	g_assert_cmpint (as_component_get_kind (cpt1), ==, AS_COMPONENT_KIND_GENERIC);
@@ -113,7 +113,7 @@ test_cache ()
 void
 test_pool_read ()
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_auto(GStrv) datadirs = NULL;
 	g_autoptr(GPtrArray) all_cpts = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -126,58 +126,58 @@ test_pool_read ()
 	datadirs = g_new0 (gchar*, 1 + 1);
 	datadirs[0] = g_build_filename (datadir, "distro", NULL);
 
-	dpool = as_data_pool_new ();
-	as_data_pool_set_metadata_locations (dpool, datadirs);
-	as_data_pool_set_locale (dpool, "C");
+	dpool = as_pool_new ();
+	as_pool_set_metadata_locations (dpool, datadirs);
+	as_pool_set_locale (dpool, "C");
 
-	/* TODO: as_data_pool_load (dpool, NULL, &error);
+	/* TODO: as_pool_load (dpool, NULL, &error);
 	g_assert_no_error (error); */
-	as_data_pool_load_metadata (dpool);
+	as_pool_load_metadata (dpool);
 
-	all_cpts = as_data_pool_get_components (dpool);
+	all_cpts = as_pool_get_components (dpool);
 	g_assert_nonnull (all_cpts);
 	g_assert_cmpint (all_cpts->len, ==, 18);
 
-	result = as_data_pool_search (dpool, "kig");
+	result = as_pool_search (dpool, "kig");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
 	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
 	g_ptr_array_unref (result);
 
-	result = as_data_pool_search (dpool, "web");
+	result = as_pool_search (dpool, "web");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	g_ptr_array_unref (result);
 
-	result = as_data_pool_search (dpool, "logic");
+	result = as_pool_search (dpool, "logic");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 2);
 	g_ptr_array_unref (result);
 
 	/* search for mixed-case strings */
-	result = as_data_pool_search (dpool, "bIoChemistrY");
+	result = as_pool_search (dpool, "bIoChemistrY");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	g_ptr_array_unref (result);
 
 	/* test searching for multiple words */
-	result = as_data_pool_search (dpool, "scalable graphics");
+	result = as_pool_search (dpool, "scalable graphics");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	g_ptr_array_unref (result);
 
 	/* we return all components if the search string is too short */
-	result = as_data_pool_search (dpool, "sh");
+	result = as_pool_search (dpool, "sh");
 	g_assert_cmpint (result->len, ==, 18);
 	g_ptr_array_unref (result);
 
-	result = as_data_pool_get_components_by_categories (dpool, "Science");
+	result = as_pool_get_components_by_categories (dpool, "Science");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 3);
 	g_ptr_array_unref (result);
 
-	result = as_data_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
+	result = as_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
 	g_assert_no_error (error);
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
@@ -190,7 +190,7 @@ test_pool_read ()
 	g_ptr_array_unref (result);
 
 	/* test a component in a different file, with no package but a bundle instead */
-	cpt = as_data_pool_get_component_by_id (dpool, "neverball.desktop");
+	cpt = as_pool_get_component_by_id (dpool, "neverball.desktop");
 	g_assert_nonnull (cpt);
 
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");
@@ -221,7 +221,7 @@ test_pool_read ()
 void
 test_merge_components ()
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_auto(GStrv) datadirs = NULL;
 	AsComponent *cpt;
 	GPtrArray *suggestions;
@@ -232,14 +232,14 @@ test_merge_components ()
 	datadirs = g_new0 (gchar*, 1 + 1);
 	datadirs[0] = g_build_filename (datadir, "distro", NULL);
 
-	dpool = as_data_pool_new ();
-	as_data_pool_set_metadata_locations (dpool, datadirs);
-	as_data_pool_set_locale (dpool, "C");
+	dpool = as_pool_new ();
+	as_pool_set_metadata_locations (dpool, datadirs);
+	as_pool_set_locale (dpool, "C");
 
-	as_data_pool_load_metadata (dpool);
+	as_pool_load_metadata (dpool);
 
 	/* test injection of suggests tags */
-	cpt = as_data_pool_get_component_by_id (dpool, "links2.desktop");
+	cpt = as_pool_get_component_by_id (dpool, "links2.desktop");
 	g_assert_nonnull (cpt);
 
 	suggestions = as_component_get_suggested (cpt);
@@ -252,7 +252,7 @@ test_merge_components ()
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test1");
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test2");
 
-	cpt = as_data_pool_get_component_by_id (dpool, "literki.desktop");
+	cpt = as_pool_get_component_by_id (dpool, "literki.desktop");
 	g_assert_nonnull (cpt);
 	suggestions = as_component_get_suggested (cpt);
 	suggested = AS_SUGGESTED (g_ptr_array_index (suggestions, 0));
@@ -265,7 +265,7 @@ test_merge_components ()
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test4");
 
 	/* test if names get overridden */
-	cpt = as_data_pool_get_component_by_id (dpool, "kiki.desktop");
+	cpt = as_pool_get_component_by_id (dpool, "kiki.desktop");
 	g_assert_nonnull (cpt);
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Kiki (name changed by merge)");
 }

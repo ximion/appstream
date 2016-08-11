@@ -22,14 +22,14 @@
 #define __AS_DISTRO_EXTRAS_H
 
 #include <glib-object.h>
-#include "as-data-pool.h"
+#include "as-pool.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-void		as_data_pool_scan_apt (AsDataPool *dpool,
-					gboolean force,
-					GError **error);
+void		as_pool_scan_apt (AsPool *pool,
+				  gboolean force,
+				  GError **error);
 
 #pragma GCC visibility pop
 G_END_DECLS

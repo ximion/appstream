@@ -46,17 +46,17 @@ class Appstream::DatabasePrivate {
 
         QString m_cachePath;
         QString m_errorString;
-        AsDataPool *m_dpool;
+        AsPool *m_dpool;
 
         bool open() {
             g_autoptr(GError) error = NULL;
 
-            m_dpool = as_data_pool_new ();
+            m_dpool = as_pool_new ();
 
             if (m_cachePath.isEmpty())
-                as_data_pool_load (m_dpool, NULL, &error);
+                as_pool_load (m_dpool, NULL, &error);
             else
-                as_data_pool_load_cache_file (m_dpool, qPrintable(m_cachePath), &error);
+                as_pool_load_cache_file (m_dpool, qPrintable(m_cachePath), &error);
             if (error != NULL) {
                 m_errorString = QString::fromUtf8 (error->message);
                 return false;
@@ -286,7 +286,7 @@ QList< Component > Database::allComponents() const
     QList<Component> components;
 
     // get a pointer array of all components we have
-    array = as_data_pool_get_components (d->m_dpool);
+    array = as_pool_get_components (d->m_dpool);
     components.reserve(array->len);
 
     // create QList of AppStream::Component out of the AsComponents
@@ -302,7 +302,7 @@ Component Database::componentById(const QString& id) const
 {
     g_autoptr(AsComponent) cpt = NULL;
 
-    cpt = as_data_pool_get_component_by_id (d->m_dpool, qPrintable(id));
+    cpt = as_pool_get_component_by_id (d->m_dpool, qPrintable(id));
     if (cpt == NULL)
         return Component();
 
@@ -315,7 +315,7 @@ QList< Component > Database::componentsByKind(Component::Kind kind) const
     g_autoptr(GError) error = NULL;
     QList<Component> result;
 
-    array = as_data_pool_get_components_by_kind (d->m_dpool, (AsComponentKind) kind, &error);
+    array = as_pool_get_components_by_kind (d->m_dpool, (AsComponentKind) kind, &error);
     if (error != NULL) {
         qCCritical(APPSTREAMQT_DB, "Unable to get components by kind: %s", error->message);
         return result;
@@ -335,7 +335,7 @@ QList< Component > Database::findComponentsByString(const QString& searchTerm, c
     Q_UNUSED(categories); // FIXME
 
     g_autoptr(GPtrArray) array = NULL;
-    array = as_data_pool_search (d->m_dpool, qPrintable(searchTerm));
+    array = as_pool_search (d->m_dpool, qPrintable(searchTerm));
     QList<Component> result;
     result.reserve(array->len);
 
@@ -352,7 +352,7 @@ QList<Component> Database::findComponentsByPackageName(const QString& packageNam
     const gchar *pkgname = qPrintable(packageName);
     QList<Component> result;
 
-    g_autoptr(GPtrArray) cpts = as_data_pool_get_components (d->m_dpool);
+    g_autoptr(GPtrArray) cpts = as_pool_get_components (d->m_dpool);
     for (uint i = 0; i < cpts->len; i++) {
         auto cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 	auto pkgnames = as_component_get_pkgnames (cpt);

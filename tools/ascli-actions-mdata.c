@@ -34,32 +34,32 @@
 int
 ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
 
-	dpool = as_data_pool_new ();
+	dpool = as_pool_new ();
 	if (datapath != NULL) {
 		g_auto(GStrv) strv = NULL;
 		/* the user wants data from a different path to be used */
 		strv = g_new0 (gchar*, 2);
 		strv[0] = g_strdup (datapath);
-		as_data_pool_set_metadata_locations (dpool, strv);
+		as_pool_set_metadata_locations (dpool, strv);
 	}
 
 	if (dbpath == NULL) {
-		ret = as_data_pool_refresh_cache (dpool, forced, &error);
+		ret = as_pool_refresh_cache (dpool, forced, &error);
 	} else {
 		if (forced)
-			as_data_pool_load_metadata (dpool);
+			as_pool_load_metadata (dpool);
 		else
-			as_data_pool_load (dpool, NULL, &error);
+			as_pool_load (dpool, NULL, &error);
 		if (error == NULL)
-			as_data_pool_save_cache_file (dpool, dbpath, &error);
+			as_pool_save_cache_file (dpool, dbpath, &error);
 	}
 
 	if (error != NULL) {
-		if (g_error_matches (error, AS_DATA_POOL_ERROR, AS_DATA_POOL_ERROR_TARGET_NOT_WRITABLE))
+		if (g_error_matches (error, AS_POOL_ERROR, AS_POOL_ERROR_TARGET_NOT_WRITABLE))
 			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
 			g_printerr ("%s\n%s\n", error->message, _("You might need superuser permissions to perform this action."));
 		else
@@ -93,22 +93,22 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 /**
  * ascli_data_pool_new_and_open:
  */
-static AsDataPool*
+static AsPool*
 ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error)
 {
-	AsDataPool *dpool;
+	AsPool *dpool;
 
-	dpool = as_data_pool_new ();
+	dpool = as_pool_new ();
 	if (cachepath == NULL) {
 		/* no cache object to load, we can use a normal pool - unless caching
 		 * is generally disallowed. */
 		if (no_cache)
-			as_data_pool_set_cache_flags (dpool, AS_CACHE_FLAG_NONE);
+			as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_NONE);
 
-		as_data_pool_load (dpool, NULL, error);
+		as_pool_load (dpool, NULL, error);
 	} else {
 		/* use an exported cache object */
-		as_data_pool_load_cache_file (dpool, cachepath, error);
+		as_pool_load_cache_file (dpool, cachepath, error);
 	}
 
 	return dpool;
@@ -122,7 +122,7 @@ ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError 
 int
 ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean detailed, gboolean no_cache)
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 
@@ -138,7 +138,7 @@ ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean d
 		return 1;
 	}
 
-	cpt = as_data_pool_get_component_by_id (dpool, identifier);
+	cpt = as_pool_get_component_by_id (dpool, identifier);
 	if (cpt == NULL) {
 		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		return 4;
@@ -154,7 +154,7 @@ ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean d
 int
 ascli_search_component (const gchar *cachepath, const gchar *search_term, gboolean detailed, gboolean no_cache)
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) cpt_list = NULL;
 	guint i;
 	g_autoptr(GError) error = NULL;
@@ -170,7 +170,7 @@ ascli_search_component (const gchar *cachepath, const gchar *search_term, gboole
 		return 1;
 	}
 
-	cpt_list = as_data_pool_search (dpool, search_term);
+	cpt_list = as_pool_search (dpool, search_term);
 	if (cpt_list == NULL) {
 		/* TRANSLATORS: We failed to find any component in the database, likely due to an error */
 		ascli_print_stderr (_("Unable to find component matching %s!"), search_term);
@@ -200,7 +200,7 @@ ascli_search_component (const gchar *cachepath, const gchar *search_term, gboole
 int
 ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar *item, gboolean detailed)
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) cpt_list = NULL;
 	AsProvidedKind kind;
 	guint i;
@@ -226,7 +226,7 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 		return 1;
 	}
 
-	cpt_list = as_data_pool_get_components_by_provided_item (dpool, kind, item, &error);
+	cpt_list = as_pool_get_components_by_provided_item (dpool, kind, item, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 2;
@@ -260,7 +260,7 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 int
 ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean no_cache)
 {
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(AsMetadata) metad = NULL;
 	gchar *tmp;
@@ -277,7 +277,7 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean 
 		return 1;
 	}
 
-	cpt = as_data_pool_get_component_by_id (dpool, identifier);
+	cpt = as_pool_get_component_by_id (dpool, identifier);
 	if (cpt == NULL) {
 		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		return 4;

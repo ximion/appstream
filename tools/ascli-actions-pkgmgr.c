@@ -72,7 +72,7 @@ static int
 ascli_get_component_pkgnames (const gchar *identifier, gchar ***pkgnames)
 {
 	g_autoptr(GError) error = NULL;
-	g_autoptr(AsDataPool) dpool = NULL;
+	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 
 	if (identifier == NULL) {
@@ -80,14 +80,14 @@ ascli_get_component_pkgnames (const gchar *identifier, gchar ***pkgnames)
 		return 2;
 	}
 
-	dpool = as_data_pool_new ();
-	as_data_pool_load (dpool, NULL, &error);
+	dpool = as_pool_new ();
+	as_pool_load (dpool, NULL, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
 	}
 
-	cpt = as_data_pool_get_component_by_id (dpool, identifier);
+	cpt = as_pool_get_component_by_id (dpool, identifier);
 	if (cpt == NULL) {
 		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
 		return 4;
