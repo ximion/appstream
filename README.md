@@ -27,6 +27,7 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
 
 ## Developers
 [![Build Status](https://travis-ci.org/ximion/appstream.svg?branch=master)](https://travis-ci.org/ximion/appstream)
+[![Translation status](https://hosted.weblate.org/widgets/appstream/-/svg-badge.svg)](https://hosted.weblate.org/engage/appstream/?utm_source=widget)
 
 ### Dependencies
 
@@ -75,5 +76,5 @@ To install the compiled binaries and required data, execute
 `make install` with superuser permission.
 
 ## Translators
-You can help translating AppStream via the Freedesktop.org group at Transifex.
-Check out the [AppStream Transifex Page](https://www.transifex.com/freedesktop/appstream/).
+You can help translating AppStream via Weblate.
+Check out the [AppStream Weblate Page](https://hosted.weblate.org/projects/appstream/translations/).
