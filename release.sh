@@ -54,7 +54,6 @@ find ./release-tar-tmp -name .gitignore -type f -delete
 find ./release-tar-tmp -name '*~' -type f -delete
 find ./release-tar-tmp -name '*.bak' -type f -delete
 find ./release-tar-tmp -name '*.o' -type f -delete
-rm -rf $R_ROOT/.tx
 rm -f $R_ROOT/.travis.yml
 rm $R_ROOT/release.sh
 
