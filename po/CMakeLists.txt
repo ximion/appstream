@@ -1,4 +1,4 @@
-# CMakeLists for AppStream-Core localisation
+# CMakeLists for AppStream localisation
 
 find_program (LC_INTLTOOL_UPDATE intltool-update)
 mark_as_advanced (LC_INTLTOOL_UPDATE)
