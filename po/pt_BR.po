@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
+# André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-07-20 14:40+0200\n"
-"PO-Revision-Date: 2016-07-20 12:40+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-08-15 20:56+0200\n"
+"PO-Revision-Date: 2016-08-15 18:48+0000\n"
+"Last-Translator: André Marcelo Alvarenga <alvarenga@kde.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
 "appstream/language/pt_BR/)\n"
 "Language: pt_BR\n"
@@ -24,7 +25,7 @@ msgid "Also print pedantic hints when validating"
 msgstr ""
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Um tipo de item (p.ex., lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -70,9 +71,11 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
+"Não é possível copiar '%s': O arquivo não tem um sufixo '.metainfo.xml' ou '."
+"appdata.xml'."
 
 msgid "Can not search for unknown component type."
-msgstr ""
+msgstr "Não é possível procurar por um tipo de componente desconhecido."
 
 msgid "Categories"
 msgstr "Categorias"
@@ -334,11 +337,11 @@ msgid "Validation was successful."
 msgstr "Validação bem sucedida."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Valor do item que deve ser encontrado."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Versão: %s"
 
 #, c-format
 msgid "We have information on %i software components."

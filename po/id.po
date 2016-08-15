@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-07-20 14:40+0200\n"
-"PO-Revision-Date: 2016-07-20 12:40+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-08-15 20:56+0200\n"
+"PO-Revision-Date: 2016-08-15 18:48+0000\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/freedesktop/appstream/"
 "language/id/)\n"
 "Language: id\n"
@@ -21,10 +21,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "Cetak juga saran pedantik ketika memvalidasi"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Suatu tipe butir (mis. lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -54,6 +54,8 @@ msgstr "Antar muka baris perintah AppStream"
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
+"Pool data AppStream dimuat, tapi beberapa metadata diabaikan karena "
+"kesalahan."
 
 msgid "Binaries"
 msgstr "Biner"
@@ -70,9 +72,11 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
+"Tidak bisa menyalin '%s': Berkas tidak memiliki akhiran '.metainfo.xml' atau "
+"'.appdata.xml'."
 
 msgid "Can not search for unknown component type."
-msgstr ""
+msgstr "Tidak bisa mencari tipe komponen yang tak dikenal."
 
 msgid "Categories"
 msgstr "Kategori"
@@ -103,7 +107,7 @@ msgid "Developer"
 msgstr "Pengembang"
 
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -130,10 +134,10 @@ msgstr "Paksakan penyegaran singgahan"
 
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "Kesalahan ketika memuat pool metadata: %s"
 
 msgid "Extends"
-msgstr ""
+msgstr "Memperluas"
 
 msgid "Extensions"
 msgstr "Ekstensi"
@@ -151,7 +155,7 @@ msgstr "Fonta"
 #. TRANSLATORS: Found metainfo files in legacy directories
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "Ditemukan %i komponan dalam path legasi."
 
 #, c-format
 msgid "Found %i components."
@@ -183,9 +187,11 @@ msgstr "Pasang perangkat lunak yang cocok dengan id komponen."
 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
+"Tipe yang dipilih tak valid bagi butir yang disediakan. Nilai yang valid "
+"adalah:"
 
 msgid "Libraries"
-msgstr ""
+msgstr "Pustaka"
 
 #. license
 msgid "License"
@@ -194,49 +200,52 @@ msgstr "Lisensi"
 #. TRANSLATORS: ascli flag description for: --datapath
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
+"Secara manual menata lokasi metadata AppStream bagi regenerasi singgahan"
 
 #. TRANSLATORS: ascli flag description for: --dbpath
 msgid "Manually set the location of the AppStream cache"
-msgstr ""
+msgstr "Secara manual menata lokasi singgahan AppStream"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Berkas metainfo:"
 
 msgid "Mimetypes"
-msgstr ""
+msgstr "Mimetype"
 
 msgid "Modaliases"
-msgstr ""
+msgstr "Modalias"
 
 msgid "Name"
 msgstr "Nama"
 
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Tidak ditemukan komponen yang cocok '%s'."
 
 #, c-format
 msgid "No component providing '%s;%s' found."
-msgstr ""
+msgstr "Tidak ditemukan komponen yang menyediakan '%s;%s'."
 
 msgid "No icons."
-msgstr ""
+msgstr "Tak ada ikon."
 
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Tidak ditemukan CLI manajer paket yang cocok. Harap pastikan bahwa mis. "
+"\"pkcon\" (bagian dari PackageKit) tersedia."
 
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "Tidak ada nilai yang didefinisikan dari butir yang mesti ditemukan."
 
 msgid "Package"
 msgstr "Paket"
 
 #. TRANSLATORS: ascli flag description for: --details
 msgid "Print detailed output about found components"
-msgstr ""
+msgstr "Cetak keluaran terrinci tentang komponen yang ditemukan"
 
 #. project group
 msgid "Project Group"
@@ -246,120 +255,122 @@ msgid "Provided Items"
 msgstr "Butir Yang Disediakan"
 
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "Python (Versi 2)"
 
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Bangun ulang singgahan metadata komponen."
 
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Buang perangkat lunak yang cocok dengan id komponen."
 
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
+"Jalankan '%s --help' untuk melihat daftar lengkap opsi baris perintah yang "
+"tersedia."
 
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Firmware Runtime"
 
 msgid "Sample Screenshot URL"
-msgstr ""
+msgstr "Contoh URL Cuplikan Layar"
 
 msgid "Search the component database."
-msgstr ""
+msgstr "Cari basis data komponen."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 msgid "Show extra debugging information"
-msgstr ""
+msgstr "Tampilkan informasi debug ekstra"
 
 #. TRANSLATORS: ascli flag description for: --version
 msgid "Show the program version"
-msgstr ""
+msgstr "Tampilkan versi program"
 
 #. these are commands we can use with appstreamcli
 msgid "Subcommands:"
-msgstr ""
+msgstr "Sub perintah:"
 
 msgid "Summary"
-msgstr ""
+msgstr "Ringkasan"
 
 #. TRANSLATORS: Status summary in ascli
 msgid "Summary:"
-msgstr ""
+msgstr "Ringkasan:"
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr ""
+msgstr "Tidak bisa menemukan komponen yang cocok %s!"
 
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
-msgstr ""
+msgstr "Tidak bisa menemukan komponen yang menyediakan '%s;%s'!"
 
 #, c-format
 msgid "Unable to find component with id '%s'!"
-msgstr ""
+msgstr "Tidak bisa menemukan komponen dengan id '%s'!"
 
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Tidak bisa men-spawn manajer paket: %s"
 
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "Tidak bisa menulis ke '%s', tidak bisa memasang berkas metainfo."
 
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "Validasikan berkas XML AppStream apakah bermasalah."
 
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
+msgstr "Validasikan metadata pohon berkas terpasang dari suatu aplikasi."
 
 msgid "Validation failed."
 msgstr "Validasi gagal."
 
 msgid "Validation was successful."
-msgstr ""
+msgstr "Validasi sukses."
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Nilai dari butir yang mesti ditemukan."
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Versi: %s"
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Kami punya informasi atas %i komponen perangkat lunak."
 
 #, c-format
 msgid "XDG Menu XML file '%s' is damaged."
-msgstr ""
+msgstr "Berkas XML Menu XDG '%s' rusak."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "Anda mungkin perlu hak superuser untuk melakukan aksi ini."
 
 #. TRANSLATORS: ascli has been run without command.
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Anda perlu menyatakan suatu perintah."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 msgid "You need to specify a component-id."
-msgstr ""
+msgstr "Anda perlu menyatakan sebuah id komponen."
 
 msgid "You need to specify a file to validate!"
-msgstr ""
+msgstr "Anda perlu menyatakan sebuah berkas yang akan divalidasi!"
 
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Anda perlu menyatakan suatu berkas metadata."
 
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Anda perlu menyatakan suatu direktori akar untuk memulai validasi!"
 
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Anda perlu menyatakan istilah yang akan dicari."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -368,4 +379,4 @@ msgstr ""
 #. * the search.
 #.
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;application;package;program;programme;suite;tool;aplikasi;paket"

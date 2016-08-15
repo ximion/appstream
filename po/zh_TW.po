@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-07-20 14:40+0200\n"
-"PO-Revision-Date: 2016-07-20 12:40+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-08-15 20:56+0200\n"
+"PO-Revision-Date: 2016-08-15 18:48+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
 "appstream/language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -22,10 +22,10 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
-msgstr ""
+msgstr "驗證時也列印繁冗的提示"
 
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "項目類型（例：lib、bin、python3…等）"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #, c-format
@@ -54,7 +54,7 @@ msgstr "AppStream 指令列介面"
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr ""
+msgstr "已載入 AppStrem 資料集池，但是有些中介資料因錯誤而忽略。"
 
 msgid "Binaries"
 msgstr "二進位檔"
@@ -70,10 +70,10 @@ msgstr "無法寫入「%s」快取位置。"
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
-msgstr ""
+msgstr "無法複製「%s」：檔案沒有「.metainfo.xml」或「.appdata.xml」後綴字。"
 
 msgid "Can not search for unknown component type."
-msgstr ""
+msgstr "無法搜尋未知的組件類型。"
 
 msgid "Categories"
 msgstr "類別"
@@ -104,7 +104,7 @@ msgid "Developer"
 msgstr "開發者"
 
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "顯示可用的 AppStream 中介資料相關狀態資訊"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 msgid "Distribution metadata:"
@@ -131,7 +131,7 @@ msgstr "強制快取重新整理"
 
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "載入中介資料集池時發生錯誤：%s"
 
 msgid "Extends"
 msgstr "擴展"
@@ -202,7 +202,7 @@ msgstr "手動設定 AppStream 快取的位置"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 msgid "Metainfo files:"
-msgstr ""
+msgstr "中介資料檔："
 
 msgid "Mimetypes"
 msgstr "Mimetypes"
@@ -253,7 +253,7 @@ msgid "Python 3"
 msgstr "Python 3"
 
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "重建組件的中介資料快取。"
 
 msgid "Remove software matching the component-id."
 msgstr "移除符合該組件 ID 的軟體。"
@@ -324,11 +324,11 @@ msgid "Validation was successful."
 msgstr "驗證成功。"
 
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "應找到的項目值。"
 
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "版本：%s"
 
 #, c-format
 msgid "We have information on %i software components."

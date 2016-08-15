@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the appstream package.
 #
 # Translators:
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: distributions@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-07-20 14:40+0200\n"
-"PO-Revision-Date: 2016-07-20 12:40+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
+"POT-Creation-Date: 2016-08-15 20:56+0200\n"
+"PO-Revision-Date: 2016-08-15 18:48+0000\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/appstream/"
 "language/ca/)\n"
 "Language: ca\n"
@@ -56,6 +57,8 @@ msgstr "Interfície de línia d'ordres d'AppStream"
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
+"S'han carregat l'agrupació de dades d'AppStream, però s'han ignorat algunes "
+"metadades a causa d'errors."
 
 msgid "Binaries"
 msgstr "Binaris"
@@ -72,9 +75,11 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
+"No es pot copiar «%s»: El fitxer no té un sufix «.metainfo.xml» o «.appdata."
+"xml»."
 
 msgid "Can not search for unknown component type."
-msgstr ""
+msgstr "No es pot cercar un tipus de component desconegut."
 
 msgid "Categories"
 msgstr "Categories"
@@ -135,6 +140,7 @@ msgstr "Força una actualització de la memòria cau"
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
+"S'ha produït un error mentre es carregava l'agrupació de les metadades: %s"
 
 msgid "Extends"
 msgstr "Estén"
