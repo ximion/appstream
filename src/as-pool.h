@@ -133,7 +133,6 @@ gboolean		as_pool_refresh_cache (AsPool *pool,
 						gboolean force,
 						GError **error);
 
-G_GNUC_INTERNAL
 time_t			as_pool_get_cache_age (AsPool *pool);
 
 G_END_DECLS
