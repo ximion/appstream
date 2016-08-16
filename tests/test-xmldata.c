@@ -380,11 +380,11 @@ test_appstream_write_description ()
 				"de");
 
 	tmp = as_metadata_component_to_upstream_xml (metad);
-	g_assert_cmpstr (tmp, ==, EXPECTED_XML_LOCALIZED);
+	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
 	tmp = as_metadata_components_to_distro_xml (metad);
-	g_assert_cmpstr (tmp, ==, EXPECTED_XML_DISTRO);
+	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 }
 
@@ -492,7 +492,7 @@ test_xml_write_languages (void)
 	as_component_add_language (cpt, "en_GB", 98);
 
 	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
-	g_assert_cmpstr (res, ==, expected_lang_xml);
+	g_assert (as_test_compare_lines (res, expected_lang_xml));
 }
 
 /**

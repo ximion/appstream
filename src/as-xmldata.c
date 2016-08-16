@@ -1423,7 +1423,7 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 	releases = as_component_get_releases (cpt);
 	for (i = 0; i < releases->len; i++) {
 		xmlNode *subnode;
-		glong unixtime;
+		guint64 unixtime;
 		GPtrArray *locations;
 		guint j;
 		release = (AsRelease*) g_ptr_array_index (releases, i);
