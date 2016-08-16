@@ -103,10 +103,27 @@ typedef enum  {
 	AS_MERGE_KIND_LAST
 } AsMergeKind;
 
+/**
+ * AsValueFlags:
+ * @AS_VALUE_FLAGS_NONE:			No flags.
+ * @AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
+ *
+ * Set how values assigned to an #AsComponent should be treated when
+ * they are set or retrieved.
+ */
+typedef enum {
+	AS_VALUE_FLAGS_NONE = 0,
+	AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK = 1 << 0,
+} AsValueFlags;
+
 const gchar		*as_merge_kind_to_string (AsMergeKind kind);
 AsMergeKind		as_merge_kind_from_string (const gchar *kind_str);
 
 AsComponent		*as_component_new (void);
+
+AsValueFlags		as_component_get_value_flags (AsComponent *cpt);
+void			as_component_set_value_flags (AsComponent *cpt,
+						      AsValueFlags flags);
 
 gboolean		as_component_is_valid (AsComponent *cpt);
 gchar			*as_component_to_string (AsComponent *cpt);

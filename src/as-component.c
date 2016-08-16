@@ -91,6 +91,8 @@ typedef struct
 	guint			sort_score; /* used to priorize components in listings */
 	gsize			token_cache_valid;
 	GHashTable		*token_cache; /* of utf8:AsTokenType* */
+
+	AsValueFlags		value_flags;
 } AsComponentPrivate;
 
 typedef enum {
@@ -984,14 +986,14 @@ as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
  * Helper function to get a localized property using the current
  * active locale for this component.
  */
-static gchar*
+static const gchar*
 as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 {
 	gchar *msg;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	msg = g_hash_table_lookup (lht, priv->active_locale);
-	if (msg == NULL) {
+	if ((msg == NULL) && (!as_flags_contains (priv->value_flags, AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK))) {
 		/* fall back to untranslated / default */
 		msg = g_hash_table_lookup (lht, "C");
 	}
@@ -2419,6 +2421,33 @@ as_component_set_token_cache_valid (AsComponent *cpt, gboolean valid)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	priv->token_cache_valid = valid;
+}
+
+/**
+ * as_component_set_value_flags
+ * @cpt: a #AsComponent instance.
+ * @flag: #AsValueFlags to set on @cpt.
+ *
+ */
+void
+as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv->value_flags = flags;
+}
+
+/**
+ * as_component_get_value_flags
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: The #AsValueFlags that are set on @cpt.
+ *
+ */
+AsValueFlags
+as_component_get_value_flags (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->value_flags;
 }
 
 /**

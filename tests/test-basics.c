@@ -107,6 +107,39 @@ test_component ()
 	g_free (str2);
 }
 
+/**
+ * test_translation_fallback:
+ *
+ * Test that the AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK flag works.
+ *
+ */
+void
+test_translation_fallback (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsValueFlags flags;
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.example.ATargetComponent");
+	as_component_set_description (cpt, "<p>It's broken!</p>", "C");
+	flags = as_component_get_value_flags (cpt);
+
+	/* there is no de translation */
+	as_component_set_active_locale (cpt, "de");
+	g_assert_nonnull (as_component_get_description (cpt));
+
+	/* if the flag is set, we don't fall back to C */
+	as_flags_add (flags, AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK);
+	as_component_set_value_flags (cpt, flags);
+	g_assert_null (as_component_get_description (cpt));
+
+	/* ...but after removing it, again we do */
+	as_flags_remove (flags, AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK);
+	as_component_set_value_flags (cpt, flags);
+	g_assert_nonnull (as_component_get_description (cpt));
+}
+
 static void
 test_spdx (void)
 {
@@ -246,6 +279,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
+	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
 
 	ret = g_test_run ();
 	g_free (datadir);
