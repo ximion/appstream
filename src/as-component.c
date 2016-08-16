@@ -140,9 +140,9 @@ as_component_kind_get_type (void)
 		static const GEnumValue values[] = {
 					{AS_COMPONENT_KIND_UNKNOWN,     "AS_COMPONENT_KIND_UNKNOWN",     "unknown"},
 					{AS_COMPONENT_KIND_GENERIC,     "AS_COMPONENT_KIND_GENERIC",     "generic"},
-					{AS_COMPONENT_KIND_DESKTOP_APP, "AS_COMPONENT_KIND_DESKTOP_APP", "desktop-application"},
-					{AS_COMPONENT_KIND_CONSOLE_APP, "AS_COMPONENT_KIND_CONSOLE_APP", "console-application"},
-					{AS_COMPONENT_KIND_WEB_APP,     "AS_COMPONENT_KIND_WEB_APP",     "web-application"},
+					{AS_COMPONENT_KIND_DESKTOP_APP, "AS_COMPONENT_KIND_DESKTOP_APP", "desktop-app"},
+					{AS_COMPONENT_KIND_CONSOLE_APP, "AS_COMPONENT_KIND_CONSOLE_APP", "console-app"},
+					{AS_COMPONENT_KIND_WEB_APP,     "AS_COMPONENT_KIND_WEB_APP",     "web-app"},
 					{AS_COMPONENT_KIND_ADDON,       "AS_COMPONENT_KIND_ADDON",       "addon"},
 					{AS_COMPONENT_KIND_FONT,        "AS_COMPONENT_KIND_FONT",        "font"},
 					{AS_COMPONENT_KIND_CODEC,       "AS_COMPONENT_KIND_CODEC",       "codec"},
