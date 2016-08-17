@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 #define as_flags_remove(bitfield,enum)		do { ((bitfield) &= ~(as_flags_value(enum))); } while (0)
 #define as_flags_invert(bitfield,enum)		do { ((bitfield) ^= (as_flags_value(enum))); } while (0)
 #define as_flags_contains(bitfield,enum)	(((bitfield) & (as_flags_value(enum))) > 0)
-#define as_flags_value(enum)			((guint64) 1 << (enum))
+#define as_flags_value(enum)			((guint64) (enum))
 
 /**
  * AsUrlKind:
