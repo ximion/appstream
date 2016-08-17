@@ -2426,7 +2426,7 @@ as_component_set_token_cache_valid (AsComponent *cpt, gboolean valid)
 /**
  * as_component_set_value_flags
  * @cpt: a #AsComponent instance.
- * @flag: #AsValueFlags to set on @cpt.
+ * @flags: #AsValueFlags to set on @cpt.
  *
  */
 void
