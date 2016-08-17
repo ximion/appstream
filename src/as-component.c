@@ -2424,9 +2424,9 @@ as_component_set_token_cache_valid (AsComponent *cpt, gboolean valid)
 }
 
 /**
- * as_component_set_value_flags
+ * as_component_set_value_flags:
  * @cpt: a #AsComponent instance.
- * @flag: #AsValueFlags to set on @cpt.
+ * @flags: #AsValueFlags to set on @cpt.
  *
  */
 void
@@ -2437,7 +2437,7 @@ as_component_set_value_flags (AsComponent *cpt, AsValueFlags flags)
 }
 
 /**
- * as_component_get_value_flags
+ * as_component_get_value_flags:
  * @cpt: a #AsComponent instance.
  *
  * Returns: The #AsValueFlags that are set on @cpt.
