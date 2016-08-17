@@ -605,7 +605,12 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
-			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+			if (!as_utils_is_desktop_environment (node_content)) {
+				as_validator_add_issue (validator, iter,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_VALUE_WRONG,
+							"Unknown desktop-id '%s'.", node_content);
+			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_children_quick (validator, iter, "release", cpt);
 		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_DISTRO)) {
@@ -626,7 +631,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
 			g_autofree gchar *prop = NULL;
 			prop = as_validator_check_type_property (validator, cpt, iter);
-			if ((g_strcmp0 (prop, "limba") != 0) && (g_strcmp0 (prop, "flatpak") != 0)) {
+			if (as_bundle_kind_from_string (prop) == AS_BUNDLE_KIND_UNKNOWN) {
 				as_validator_add_issue (validator, iter,
 							AS_ISSUE_IMPORTANCE_ERROR,
 							AS_ISSUE_KIND_VALUE_WRONG,

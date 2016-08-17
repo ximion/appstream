@@ -31,6 +31,7 @@ gchar		*as_get_current_locale (void);
 gboolean	as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2);
 gboolean	as_utils_is_category_name (const gchar *category_name);
 gboolean	as_utils_is_tld (const gchar *tld);
+gboolean	as_utils_is_desktop_environment (const gchar *desktop);
 
 G_END_DECLS
 

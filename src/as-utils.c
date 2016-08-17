@@ -918,3 +918,31 @@ as_utils_is_tld (const gchar *tld)
 	key = g_strdup_printf ("\n%s\n", tld);
 	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
 }
+
+/**
+ * as_utils_is_desktop_environment:
+ * @desktop: a desktop environment id.
+ *
+ * Searches the known list of desktop environments AppStream
+ * knows about.
+ *
+ * Returns: %TRUE if the desktop-id is valid
+ *
+ * Since: 0.10.0
+ **/
+gboolean
+as_utils_is_desktop_environment (const gchar *desktop)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+
+	/* load the readonly data section and look for the TLD */
+	data = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/desktop-environments.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", desktop);
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
