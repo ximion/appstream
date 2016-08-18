@@ -74,6 +74,7 @@ message Url {
         FAQ = 3;
         HELP = 4;
         DONATION = 5;
+        TRANSLATE = 6;
     }
 
     required Type type = 1 [default = UNKNOWN];
