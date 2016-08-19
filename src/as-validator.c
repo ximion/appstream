@@ -1003,7 +1003,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 				/* we successfully opened the .desktop file, now perform some checks */
 
 				/* name */
-				if ((g_strcmp0 (as_component_get_name (cpt), "") == 0) &&
+				if (as_str_empty (as_component_get_name (cpt)) &&
 				    (!g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
 								 G_KEY_FILE_DESKTOP_KEY_NAME, NULL))) {
 					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
@@ -1014,7 +1014,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 				}
 
 				/* summary */
-				if ((g_strcmp0 (as_component_get_summary (cpt), "") == 0) &&
+				if (as_str_empty (as_component_get_summary (cpt)) &&
 				    (!g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
 								 G_KEY_FILE_DESKTOP_KEY_COMMENT, NULL))) {
 					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
