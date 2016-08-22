@@ -27,6 +27,7 @@ set(APPSTREAMQT_SRC
           image.cpp
           provides.cpp
           screenshot.cpp
+          release.cpp
 )
 
 set(APPSTREAMQT_PUBLIC_HEADERS
@@ -35,6 +36,7 @@ set(APPSTREAMQT_PUBLIC_HEADERS
     image.h
     provides.h
     screenshot.h
+    release.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}

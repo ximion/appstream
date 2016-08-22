@@ -34,6 +34,7 @@
 
 #include "image.h"
 #include "screenshot.h"
+#include "release.h"
 
 Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.database")
 
@@ -112,7 +113,6 @@ QStringList value(GPtrArray *array) {
 
 Component convertAsComponent(AsComponent *cpt) {
     Component component;
-    std::string str;
 
     // kind
     QString kindString = value (as_component_kind_to_string (as_component_get_kind (cpt)));
@@ -275,7 +275,13 @@ Component convertAsComponent(AsComponent *cpt) {
     component.setDeveloperName(developerName);
 
     // Releases
-      // TODO
+    QList<Release> releases;
+    auto releaseArray = as_component_get_releases(cpt);
+    for (uint i = 0; i < releaseArray->len; i++) {
+        auto release = AS_RELEASE (g_ptr_array_index (releaseArray, i));
+        releases += Release(release);
+    }
+    component.setReleases(releases);
 
     return component;
 }
