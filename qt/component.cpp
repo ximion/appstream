@@ -19,6 +19,7 @@
 
 #include "component.h"
 #include "screenshot.h"
+#include "release.h"
 #include <QSharedData>
 #include <QStringList>
 #include <QUrl>
@@ -53,6 +54,7 @@ class Appstream::ComponentData : public QSharedData {
         QList<Appstream::Screenshot> m_screenshots;
         QMultiHash<Provides::Kind, Provides> m_provides;
         QHash<Component::BundleKind, QString> m_bundles;
+        QList<Release> m_releases;
         bool operator==(const ComponentData& other) const {
             if(m_categories != other.m_categories) {
                 return false;
@@ -106,6 +108,9 @@ class Appstream::ComponentData : public QSharedData {
                 return false;
             }
             if(m_bundles != other.m_bundles) {
+                return false;
+            }
+            if(m_releases != other.m_releases) {
                 return false;
             }
 
@@ -421,6 +426,16 @@ void Component::setProvides(const QList<Appstream::Provides>& provides) {
     Q_FOREACH(const Appstream::Provides& provide, provides) {
         d->m_provides.insertMulti(provide.kind(), provide);
     }
+}
+
+QList<Appstream::Release> Appstream::Component::releases() const
+{
+    return d->m_releases;
+}
+
+void Appstream::Component::setReleases(const QList<Appstream::Release>& releases)
+{
+    d->m_releases = releases;
 }
 
 bool Component::isValid() const

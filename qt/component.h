@@ -29,10 +29,10 @@
 #include "appstreamqt_export.h"
 #include "provides.h"
 
-
 namespace Appstream {
 
 class Screenshot;
+class Release;
 
 class ComponentData;
 
@@ -168,6 +168,8 @@ class APPSTREAMQT_EXPORT Component {
         QHash<BundleKind, QString> bundles() const;
         QString bundle(BundleKind kind) const;
 
+        void setReleases(const QList<Appstream::Release> &releases);
+        QList<Appstream::Release> releases() const;
 
         /**
          * \returns whether the component is fully initialized
