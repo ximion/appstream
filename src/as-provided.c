@@ -42,6 +42,8 @@ typedef struct
 {
 	AsProvidedKind	kind;
 	GHashTable	*items;
+
+	GPtrArray	*items_array;
 } AsProvidedPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsProvided, as_provided, G_TYPE_OBJECT)
@@ -183,6 +185,7 @@ as_provided_init (AsProvided *prov)
 
 	priv->kind = AS_PROVIDED_KIND_UNKNOWN;
 	priv->items = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	priv->items_array = g_ptr_array_new ();
 }
 
 /**
@@ -247,13 +250,23 @@ as_provided_has_item (AsProvided *prov, const gchar *item)
  *
  * Get an array of provided data.
  *
- * Returns: (transfer container): An utf-8 array of provided items, free with g_free()
+ * Returns: (transfer none) (element-type utf8): An utf-8 array of provided items, free with g_free()
  */
-gchar**
+GPtrArray*
 as_provided_get_items (AsProvided *prov)
 {
+	g_autofree gchar **strv = NULL;
+	guint i;
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
-	return (gchar**) g_hash_table_get_keys_as_array (priv->items, NULL);
+	if (priv->items_array != NULL)
+		return priv->items_array;
+
+	strv = (gchar**) g_hash_table_get_keys_as_array (priv->items, NULL);
+	priv->items_array = g_ptr_array_new ();
+	for (i = 0; strv[i] != NULL; i++) {
+		g_ptr_array_add (priv->items_array, strv[i]);
+	}
+	return priv->items_array;
 }
 
 /**
@@ -267,6 +280,12 @@ as_provided_add_item (AsProvided *prov, const gchar *item)
 {
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
 	g_hash_table_add (priv->items, g_strdup (item));
+
+	/* invalidate list */
+	if (priv->items_array != NULL) {
+		g_ptr_array_unref (priv->items_array);
+		priv->items_array = NULL;
+	}
 }
 
 /**

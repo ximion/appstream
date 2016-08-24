@@ -2281,9 +2281,12 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
 
 	prov = as_component_get_provided_for_kind (donor, AS_PROVIDED_KIND_MIMETYPE);
 	if (prov != NULL) {
-		gchar **items = as_provided_get_items (prov);
-		for (i = 0; items[i] != NULL; i++)
-			as_component_add_token (cpt, items[i], FALSE, AS_TOKEN_MATCH_MIMETYPE);
+		GPtrArray *items = as_provided_get_items (prov);
+		for (i = 0; i < items->len; i++)
+			as_component_add_token (cpt,
+						(const gchar*) g_ptr_array_index (items, i),
+						FALSE,
+						AS_TOKEN_MATCH_MIMETYPE);
 	}
 
 	if (priv->pkgnames != NULL) {

@@ -181,11 +181,12 @@ Component convertAsComponent(AsComponent *cpt) {
             continue;
 
         auto pkind = (Provides::Kind) kind;
-        gchar **items = as_provided_get_items (prov);
-	for (uint j = 0; items[j] != NULL; j++) {
+        auto items = as_provided_get_items (prov);
+	for (uint j = 0; j < items->len; j++) {
+            const gchar *value = (const gchar*) g_ptr_array_index (items, j);
             Provides provides;
             provides.setKind(pkind);
-            provides.setValue(QString::fromUtf8(items[j]));
+            provides.setValue(QString::fromUtf8(value));
             provideslist << provides;
         }
     }

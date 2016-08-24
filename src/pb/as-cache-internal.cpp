@@ -260,12 +260,11 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 			pb_prov->set_type ((ASCache::Provided_Type) kind);
 
 			kind_str = as_provided_kind_to_string (kind);
-			gchar **items = as_provided_get_items (prov);
-			for (uint j = 0; items[j] != NULL; j++) {
-				string item = items[j];
+			auto items = as_provided_get_items (prov);
+			for (uint j = 0; j < items->len; j++) {
+				string item = (const gchar*) g_ptr_array_index (items, j);
 				pb_prov->add_item (item);
 			}
-			g_free (items);
 		}
 
 		// Screenshots

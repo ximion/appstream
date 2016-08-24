@@ -370,17 +370,15 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		if (provided != NULL)
 			ascli_print_key_value (_("Provided Items"), "↓", FALSE);
 		for (l = provided; l != NULL; l = l->next) {
-			g_autofree gchar **items = NULL;
+			GPtrArray *items = NULL;
 			AsProvided *prov = AS_PROVIDED (l->data);
 
 			items = as_provided_get_items (prov);
-			if (items != NULL) {
+			if (items->len > 0) {
 				g_autofree gchar *keyname = NULL;
 
-				str = g_strjoinv (" ", items);
-				keyname = g_strdup_printf (" %s",
-								as_provided_kind_to_l10n_string (as_provided_get_kind (prov)));
-
+				str = ascli_ptrarray_to_pretty (items);
+				keyname = g_strdup_printf (" %s", as_provided_kind_to_l10n_string (as_provided_get_kind (prov)));
 				ascli_print_key_value (keyname, str, FALSE);
 				g_free (str);
 			}
