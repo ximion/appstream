@@ -37,7 +37,6 @@
 #include <sys/stat.h>
 #include <errno.h>
 
-#include "as-category.h"
 #include "as-resources.h"
 
 /**
@@ -249,81 +248,6 @@ out:
 		g_error_free (error);
 	}
 	return ret;
-}
-
-/**
- * as_utils_categories_from_strv:
- * @categories_strv: a string array
- * @system_categories: list of #AsCategory objects available on this system
- *
- * Create a list of categories from string array
- *
- * Returns: (transfer container) (element-type AsCategory): #GPtrArray of #AsCategory objects matching the strings in the array
- */
-GPtrArray*
-as_utils_categories_from_strv (gchar** categories_strv, GPtrArray* system_categories)
-{
-	GPtrArray *cat_list;
-	guint i;
-
-	g_return_val_if_fail (categories_strv != NULL, NULL);
-	g_return_val_if_fail (system_categories != NULL, NULL);
-
-	/* This should be done way smarter... */
-	cat_list = g_ptr_array_new_with_free_func (g_object_unref);
-	for (i = 0; categories_strv[i] != NULL; i++) {
-		gchar *idstr;
-		guint j;
-		idstr = categories_strv[i];
-		for (j = 0; j < system_categories->len; j++) {
-			AsCategory *sys_cat;
-			gchar *catname1;
-			gchar *catname2;
-			gchar *str;
-			sys_cat = (AsCategory*) g_ptr_array_index (system_categories, j);
-			catname1 = g_strdup (as_category_get_name (sys_cat));
-			if (catname1 == NULL)
-				continue;
-			str = g_utf8_strdown (catname1, -1);
-			g_free (catname1);
-			catname1 = str;
-			catname2 = g_utf8_strdown (idstr, -1);
-			if (g_strcmp0 (catname1, catname2) == 0) {
-				g_free (catname1);
-				g_free (catname2);
-				g_ptr_array_add (cat_list, g_object_ref (sys_cat));
-				break;
-			}
-			g_free (catname1);
-			g_free (catname2);
-		}
-	}
-
-	return cat_list;
-}
-
-/**
- * as_utils_categories_from_str:
- * @categories_str: string with semicolon-separated categories
- * @system_categories: list of #AsCategory objects available on this system
- *
- * Create a list of categories from semicolon-separated string
- *
- * Returns: (transfer container) (element-type AsCategory): #GPtrArray of #AsCategory objcts matching the strings in the array
- */
-GPtrArray*
-as_utils_categories_from_str (const gchar* categories_str, GPtrArray* system_categories)
-{
-	gchar **cats;
-	GPtrArray *cat_list;
-
-	g_return_val_if_fail (categories_str != NULL, NULL);
-
-	cats = g_strsplit (categories_str, ";", 0);
-	cat_list = as_utils_categories_from_strv (cats, system_categories);
-	g_strfreev (cats);
-
-	return cat_list;
 }
 
 /**

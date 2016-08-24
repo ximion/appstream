@@ -32,11 +32,6 @@ GDateTime		*as_iso8601_to_datetime (const gchar *iso_date);
 
 gboolean		as_utils_delete_dir_recursive (const gchar* dirname);
 
-GPtrArray		*as_utils_categories_from_strv (gchar **categories_strv,
-							GPtrArray *system_categories);
-GPtrArray		*as_utils_categories_from_str (const gchar *categories_str,
-							GPtrArray *system_categories);
-
 AS_INTERNAL_VISIBLE
 GPtrArray		*as_utils_find_files_matching (const gchar *dir,
 							const gchar *pattern,
