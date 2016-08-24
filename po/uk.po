@@ -8,18 +8,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-15 21:15+0200\n"
+"POT-Creation-Date: 2016-08-24 06:34+0200\n"
 "PO-Revision-Date: 2016-08-16 05:37+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian "
-"<https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.8-dev\n"
+
+#. TRANSLATORS: this is the main category for Add-ons
+msgid "Add-ons"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
@@ -59,6 +63,10 @@ msgstr ""
 "Сховище даних AppStream завантажено, але деякі метадані проігноровано через "
 "помилки."
 
+#. TRANSLATORS: this is the menu spec main category for Audio & Video
+msgid "Audio & Video"
+msgstr ""
+
 msgid "Binaries"
 msgstr "Двійкові файли"
 
@@ -88,6 +96,10 @@ msgstr "Категорії"
 msgid "Command '%s' is unknown."
 msgstr "Невідома команда «%s»."
 
+#. TRANSLATORS: this is the menu spec main category for Communication
+msgid "Communication & News"
+msgstr ""
+
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "Для компонента «%s» немає кандидата для встановлення."
@@ -106,6 +118,11 @@ msgstr "Опис"
 
 #. developer name
 msgid "Developer"
+msgstr "Розробник"
+
+#. TRANSLATORS: this is the menu spec main category for Development
+#, fuzzy
+msgid "Developer Tools"
 msgstr "Розробник"
 
 msgid "Display status information about available AppStream metadata."
@@ -128,6 +145,10 @@ msgstr ""
 "Створити дамп необроблених метаданих XML для компонента з відповідним "
 "ідентифікатором."
 
+#. TRANSLATORS: this is the menu spec main category for Education
+msgid "Education"
+msgstr ""
+
 #. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "Порожньо."
@@ -146,10 +167,6 @@ msgstr "Розширення"
 msgid "Extensions"
 msgstr "Розширення"
 
-#, c-format
-msgid "File %s not found or permission denied!"
-msgstr "Файл %s не знайдено або доступ до нього заборонено!"
-
 msgid "Flashed Firmware"
 msgstr "Записувані мікропрограми"
 
@@ -165,11 +182,19 @@ msgstr "За застарілими шляхами знайдено %i комп�
 msgid "Found %i components."
 msgstr "Знайдено %i компонентів."
 
+#. TRANSLATORS: this is the menu spec main category for Game
+msgid "Games"
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "Отримати компоненти, які надають вказаний запис."
 
 msgid "Get information about a component by its ID."
 msgstr "Отримати інформацію щодо компонента за його ідентифікатором."
+
+#. TRANSLATORS: this is the menu spec main category for Graphics
+msgid "Graphics & Photography"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Домашня сторінка"
@@ -243,6 +268,10 @@ msgstr ""
 msgid "No value for the item to search for defined."
 msgstr "Не визначено значення запису, яке слід знайти."
 
+#. TRANSLATORS: this is the menu spec main category for Office
+msgid "Office"
+msgstr ""
+
 msgid "Package"
 msgstr "Пакунок"
 
@@ -280,6 +309,10 @@ msgstr "Виконувана мікропрограма"
 
 msgid "Sample Screenshot URL"
 msgstr "Адреса простого знімка вікна"
+
+#. TRANSLATORS: this is the menu spec main category for Science
+msgid "Science"
+msgstr ""
 
 msgid "Search the component database."
 msgstr "Шукати у базі даних компонентів."
@@ -325,6 +358,10 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 "Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
 
+#. TRANSLATORS: this is the menu spec main category for Utilities
+msgid "Utilities"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr "Перевірити файли XML AppStream на вади."
 
@@ -348,10 +385,6 @@ msgstr "Версія: %s"
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Маємо дані щодо %i компонентів програмного забезпечення."
-
-#, c-format
-msgid "XDG Menu XML file '%s' is damaged."
-msgstr "Файл XML меню XDG «%s» пошкоджено."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
@@ -385,3 +418,9 @@ msgstr "Вам слід вказати ключ пошуку."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "додаток;застосунок;пакет;програма;програма;комплект;інструмент"
+
+#~ msgid "File %s not found or permission denied!"
+#~ msgstr "Файл %s не знайдено або доступ до нього заборонено!"
+
+#~ msgid "XDG Menu XML file '%s' is damaged."
+#~ msgstr "Файл XML меню XDG «%s» пошкоджено."

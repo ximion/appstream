@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-15 21:15+0200\n"
+"POT-Creation-Date: 2016-08-24 06:34+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Serbian (Latin) (http://www.transifex.com/freedesktop/"
@@ -21,6 +21,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. TRANSLATORS: this is the main category for Add-ons
+msgid "Add-ons"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
@@ -58,6 +62,10 @@ msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Audio & Video
+msgid "Audio & Video"
+msgstr ""
+
 msgid "Binaries"
 msgstr ""
 
@@ -85,6 +93,10 @@ msgstr "Kategorije"
 msgid "Command '%s' is unknown."
 msgstr "Naredba „%s“ nije poznata."
 
+#. TRANSLATORS: this is the menu spec main category for Communication
+msgid "Communication & News"
+msgstr ""
+
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr ""
@@ -105,6 +117,11 @@ msgstr "Opis"
 msgid "Developer"
 msgstr "Programer"
 
+#. TRANSLATORS: this is the menu spec main category for Development
+#, fuzzy
+msgid "Developer Tools"
+msgstr "Programer"
+
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 
@@ -121,6 +138,10 @@ msgid "Don't show colored output"
 msgstr "Ne prikazuje obojeni izlaz"
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+#. TRANSLATORS: this is the menu spec main category for Education
+msgid "Education"
 msgstr ""
 
 #. TRANSLATORS: No metainfo files have been found
@@ -141,10 +162,6 @@ msgstr ""
 msgid "Extensions"
 msgstr ""
 
-#, c-format
-msgid "File %s not found or permission denied!"
-msgstr "Nisam pronašao datoteku „%s“ ili su ovlašćenja odbijena!"
-
 msgid "Flashed Firmware"
 msgstr ""
 
@@ -160,10 +177,18 @@ msgstr ""
 msgid "Found %i components."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Game
+msgid "Games"
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr ""
 
 msgid "Get information about a component by its ID."
+msgstr ""
+
+#. TRANSLATORS: this is the menu spec main category for Graphics
+msgid "Graphics & Photography"
 msgstr ""
 
 msgid "Homepage"
@@ -236,6 +261,10 @@ msgstr ""
 msgid "No value for the item to search for defined."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Office
+msgid "Office"
+msgstr ""
+
 msgid "Package"
 msgstr "Paket"
 
@@ -272,6 +301,10 @@ msgstr ""
 
 msgid "Sample Screenshot URL"
 msgstr "Adresa uzorka snimka ekrana"
+
+#. TRANSLATORS: this is the menu spec main category for Science
+msgid "Science"
+msgstr ""
 
 msgid "Search the component database."
 msgstr ""
@@ -316,6 +349,10 @@ msgstr ""
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Utilities
+msgid "Utilities"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -338,10 +375,6 @@ msgstr ""
 #, c-format
 msgid "We have information on %i software components."
 msgstr ""
-
-#, c-format
-msgid "XDG Menu XML file '%s' is damaged."
-msgstr "IksML datoteka „%s“ IksDG izbornika je oštećena."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
@@ -377,3 +410,9 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;app;aplikacija;paket;"
 "program;komplet;alat;aplikacija;komplet;alat"
+
+#~ msgid "File %s not found or permission denied!"
+#~ msgstr "Nisam pronašao datoteku „%s“ ili su ovlašćenja odbijena!"
+
+#~ msgid "XDG Menu XML file '%s' is damaged."
+#~ msgstr "IksML datoteka „%s“ IksDG izbornika je oštećena."

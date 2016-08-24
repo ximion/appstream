@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-15 21:15+0200\n"
+"POT-Creation-Date: 2016-08-24 06:34+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/freedesktop/appstream/"
@@ -19,6 +19,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. TRANSLATORS: this is the main category for Add-ons
+msgid "Add-ons"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
@@ -56,6 +60,10 @@ msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Audio & Video
+msgid "Audio & Video"
+msgstr ""
+
 msgid "Binaries"
 msgstr ""
 
@@ -83,6 +91,10 @@ msgstr "Luokat"
 msgid "Command '%s' is unknown."
 msgstr "Komento '%s' on tuntematon."
 
+#. TRANSLATORS: this is the menu spec main category for Communication
+msgid "Communication & News"
+msgstr ""
+
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr ""
@@ -103,6 +115,11 @@ msgstr "Kuvaus"
 msgid "Developer"
 msgstr "Kehittäjä"
 
+#. TRANSLATORS: this is the menu spec main category for Development
+#, fuzzy
+msgid "Developer Tools"
+msgstr "Kehittäjä"
+
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 
@@ -119,6 +136,10 @@ msgid "Don't show colored output"
 msgstr ""
 
 msgid "Dump raw XML metadata for a component matching the ID."
+msgstr ""
+
+#. TRANSLATORS: this is the menu spec main category for Education
+msgid "Education"
 msgstr ""
 
 #. TRANSLATORS: No metainfo files have been found
@@ -139,10 +160,6 @@ msgstr ""
 msgid "Extensions"
 msgstr ""
 
-#, c-format
-msgid "File %s not found or permission denied!"
-msgstr ""
-
 msgid "Flashed Firmware"
 msgstr ""
 
@@ -158,10 +175,18 @@ msgstr ""
 msgid "Found %i components."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Game
+msgid "Games"
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr ""
 
 msgid "Get information about a component by its ID."
+msgstr ""
+
+#. TRANSLATORS: this is the menu spec main category for Graphics
+msgid "Graphics & Photography"
 msgstr ""
 
 msgid "Homepage"
@@ -232,6 +257,10 @@ msgstr ""
 msgid "No value for the item to search for defined."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Office
+msgid "Office"
+msgstr ""
+
 msgid "Package"
 msgstr "Paketti"
 
@@ -266,6 +295,10 @@ msgid "Runtime Firmware"
 msgstr ""
 
 msgid "Sample Screenshot URL"
+msgstr ""
+
+#. TRANSLATORS: this is the menu spec main category for Science
+msgid "Science"
 msgstr ""
 
 msgid "Search the component database."
@@ -311,6 +344,10 @@ msgstr ""
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Utilities
+msgid "Utilities"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
@@ -332,10 +369,6 @@ msgstr "Versio: %s"
 
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
-
-#, c-format
-msgid "XDG Menu XML file '%s' is damaged."
 msgstr ""
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.

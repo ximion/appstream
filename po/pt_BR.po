@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-15 21:15+0200\n"
+"POT-Creation-Date: 2016-08-24 06:34+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: André Marcelo Alvarenga <alvarenga@kde.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/freedesktop/"
@@ -19,6 +19,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. TRANSLATORS: this is the main category for Add-ons
+msgid "Add-ons"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
@@ -56,6 +60,10 @@ msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
 
+#. TRANSLATORS: this is the menu spec main category for Audio & Video
+msgid "Audio & Video"
+msgstr ""
+
 msgid "Binaries"
 msgstr "Binários"
 
@@ -85,6 +93,10 @@ msgstr "Categorias"
 msgid "Command '%s' is unknown."
 msgstr "Comando \"%s\" é desconhecido."
 
+#. TRANSLATORS: this is the menu spec main category for Communication
+msgid "Communication & News"
+msgstr ""
+
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "O componente '%s' não possui candidato a instalação."
@@ -103,6 +115,11 @@ msgstr "Descrição"
 
 #. developer name
 msgid "Developer"
+msgstr "Desenvolvedor"
+
+#. TRANSLATORS: this is the menu spec main category for Development
+#, fuzzy
+msgid "Developer Tools"
 msgstr "Desenvolvedor"
 
 msgid "Display status information about available AppStream metadata."
@@ -124,6 +141,10 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Despejar metadados XML não tratados para um componente coincidindo com o ID."
 
+#. TRANSLATORS: this is the menu spec main category for Education
+msgid "Education"
+msgstr ""
+
 #. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
 msgstr "Vazio."
@@ -142,10 +163,6 @@ msgstr "Estende"
 msgid "Extensions"
 msgstr "Extensões"
 
-#, c-format
-msgid "File %s not found or permission denied!"
-msgstr "Arquivo %s não localizado ou permissão negada!"
-
 msgid "Flashed Firmware"
 msgstr "Firmware descarregado"
 
@@ -161,11 +178,19 @@ msgstr ""
 msgid "Found %i components."
 msgstr "Encontrados %i componentes."
 
+#. TRANSLATORS: this is the menu spec main category for Game
+msgid "Games"
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "Obtém componentes que fornecem o item dado."
 
 msgid "Get information about a component by its ID."
 msgstr "Obtém informação sobre um componente por seu ID."
+
+#. TRANSLATORS: this is the menu spec main category for Graphics
+msgid "Graphics & Photography"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Página inícial"
@@ -239,6 +264,10 @@ msgstr ""
 msgid "No value for the item to search for defined."
 msgstr "Nenhum valor definido para o item pesquisar por."
 
+#. TRANSLATORS: this is the menu spec main category for Office
+msgid "Office"
+msgstr ""
+
 msgid "Package"
 msgstr "Pacote"
 
@@ -276,6 +305,10 @@ msgstr "Firmware de tempo real"
 
 msgid "Sample Screenshot URL"
 msgstr "URL de amostra de captura de tela"
+
+#. TRANSLATORS: this is the menu spec main category for Science
+msgid "Science"
+msgstr ""
 
 msgid "Search the component database."
 msgstr "Pesquisa na base de dados de componente."
@@ -322,6 +355,10 @@ msgstr ""
 "Não foi possível escrever em \"%s\", não foi possível instalar arquivo de "
 "metainfo."
 
+#. TRANSLATORS: this is the menu spec main category for Utilities
+msgid "Utilities"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida os arquivos XML de AppStream por problemas."
 
@@ -346,10 +383,6 @@ msgstr "Versão: %s"
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Nós temos informação sobre %i componentes de software."
-
-#, c-format
-msgid "XDG Menu XML file '%s' is damaged."
-msgstr "O arquivo XML \"%s\" de Menu XDG está corrompido."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
@@ -384,3 +417,9 @@ msgstr "Você precisa especificar um termo para pesquisar por."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicativo;pacote;programa;suíte;ferramenta"
+
+#~ msgid "File %s not found or permission denied!"
+#~ msgstr "Arquivo %s não localizado ou permissão negada!"
+
+#~ msgid "XDG Menu XML file '%s' is damaged."
+#~ msgstr "O arquivo XML \"%s\" de Menu XDG está corrompido."

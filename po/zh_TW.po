@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-15 21:15+0200\n"
+"POT-Creation-Date: 2016-08-24 06:34+0200\n"
 "PO-Revision-Date: 2016-08-15 15:48+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -19,6 +19,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 2.8-dev\n"
+
+#. TRANSLATORS: this is the main category for Add-ons
+msgid "Add-ons"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
@@ -56,6 +60,10 @@ msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr "已載入 AppStrem 資料集池，但是有些中介資料因錯誤而忽略。"
 
+#. TRANSLATORS: this is the menu spec main category for Audio & Video
+msgid "Audio & Video"
+msgstr ""
+
 msgid "Binaries"
 msgstr "二進位檔"
 
@@ -83,6 +91,10 @@ msgstr "類別"
 msgid "Command '%s' is unknown."
 msgstr "指令「%s」未知。"
 
+#. TRANSLATORS: this is the menu spec main category for Communication
+msgid "Communication & News"
+msgstr ""
+
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "「%s」組件尚無安裝候選。"
@@ -103,6 +115,11 @@ msgstr "描述"
 msgid "Developer"
 msgstr "開發者"
 
+#. TRANSLATORS: this is the menu spec main category for Development
+#, fuzzy
+msgid "Developer Tools"
+msgstr "開發者"
+
 msgid "Display status information about available AppStream metadata."
 msgstr "顯示可用的 AppStream 中介資料相關狀態資訊"
 
@@ -120,6 +137,10 @@ msgstr "不要顯示色彩化的輸出"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
+
+#. TRANSLATORS: this is the menu spec main category for Education
+msgid "Education"
+msgstr ""
 
 #. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
@@ -139,10 +160,6 @@ msgstr "擴展"
 msgid "Extensions"
 msgstr "擴充套件"
 
-#, c-format
-msgid "File %s not found or permission denied!"
-msgstr "找不到檔案 %s，或未獲得存取許可！"
-
 msgid "Flashed Firmware"
 msgstr "快閃記憶韌體"
 
@@ -158,11 +175,19 @@ msgstr "遺留路徑中找到 %i 個組件。"
 msgid "Found %i components."
 msgstr "找到 %i 個組件。"
 
+#. TRANSLATORS: this is the menu spec main category for Game
+msgid "Games"
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "取得提供指定項目的組件。"
 
 msgid "Get information about a component by its ID."
 msgstr "根據 ID 取得組件的資訊。"
+
+#. TRANSLATORS: this is the menu spec main category for Graphics
+msgid "Graphics & Photography"
+msgstr ""
 
 msgid "Homepage"
 msgstr "首頁"
@@ -234,6 +259,10 @@ msgstr ""
 msgid "No value for the item to search for defined."
 msgstr "要搜尋的項目未定義該值。"
 
+#. TRANSLATORS: this is the menu spec main category for Office
+msgid "Office"
+msgstr ""
+
 msgid "Package"
 msgstr "軟體包"
 
@@ -269,6 +298,10 @@ msgstr "執行時期韌體"
 
 msgid "Sample Screenshot URL"
 msgstr "樣本螢幕快照 URL"
+
+#. TRANSLATORS: this is the menu spec main category for Science
+msgid "Science"
+msgstr ""
 
 msgid "Search the component database."
 msgstr "搜尋組件資料庫。"
@@ -313,6 +346,10 @@ msgstr "無法多重啟動軟體包管理程式：%s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
+#. TRANSLATORS: this is the menu spec main category for Utilities
+msgid "Utilities"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr "驗證 AppStream XML 檔是否有問題。"
 
@@ -335,10 +372,6 @@ msgstr "版本：%s"
 #, c-format
 msgid "We have information on %i software components."
 msgstr "我們有 %i 個軟體組件的相關資訊。"
-
-#, c-format
-msgid "XDG Menu XML file '%s' is damaged."
-msgstr "XDG 選單 XML 檔案「%s」已損毀。"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
@@ -374,3 +407,9 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套"
 "件;套裝軟體;工具;公用程式"
+
+#~ msgid "File %s not found or permission denied!"
+#~ msgstr "找不到檔案 %s，或未獲得存取許可！"
+
+#~ msgid "XDG Menu XML file '%s' is damaged."
+#~ msgstr "XDG 選單 XML 檔案「%s」已損毀。"

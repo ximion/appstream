@@ -328,7 +328,7 @@ static const AsCategoryData msdata[] = {
 	/* TRANSLATORS: this is the menu spec main category for Office */
 	{ "office",		map_office,		N_("Office"),
 				"applications-office" },
-	/* TRANSLATORS: this is the menu spec main category for Add-ons */
+	/* TRANSLATORS: this is the main category for Add-ons */
 	{ "addons",		map_addons,		N_("Add-ons"),
 				"applications-other" },
 	/* TRANSLATORS: this is the menu spec main category for Science */

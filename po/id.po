@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-15 21:15+0200\n"
+"POT-Creation-Date: 2016-08-24 06:34+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/freedesktop/appstream/"
@@ -18,6 +18,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. TRANSLATORS: this is the main category for Add-ons
+msgid "Add-ons"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 msgid "Also print pedantic hints when validating"
@@ -57,6 +61,10 @@ msgstr ""
 "Pool data AppStream dimuat, tapi beberapa metadata diabaikan karena "
 "kesalahan."
 
+#. TRANSLATORS: this is the menu spec main category for Audio & Video
+msgid "Audio & Video"
+msgstr ""
+
 msgid "Binaries"
 msgstr "Biner"
 
@@ -86,6 +94,10 @@ msgstr "Kategori"
 msgid "Command '%s' is unknown."
 msgstr "Perintah '%s' tak dikenal."
 
+#. TRANSLATORS: this is the menu spec main category for Communication
+msgid "Communication & News"
+msgstr ""
+
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponen '%s' tidak punya kandidat instalasi."
@@ -106,6 +118,11 @@ msgstr "Deskripsi"
 msgid "Developer"
 msgstr "Pengembang"
 
+#. TRANSLATORS: this is the menu spec main category for Development
+#, fuzzy
+msgid "Developer Tools"
+msgstr "Pengembang"
+
 msgid "Display status information about available AppStream metadata."
 msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 
@@ -123,6 +140,10 @@ msgstr "Jangan tampilkan keluaran berwarna"
 
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Curahkan metadata XML mentah bagi suatu komponen yang cocok ID-nya."
+
+#. TRANSLATORS: this is the menu spec main category for Education
+msgid "Education"
+msgstr ""
 
 #. TRANSLATORS: No metainfo files have been found
 msgid "Empty."
@@ -142,10 +163,6 @@ msgstr "Memperluas"
 msgid "Extensions"
 msgstr "Ekstensi"
 
-#, c-format
-msgid "File %s not found or permission denied!"
-msgstr "Berkas %s tak ditemukan atau tak diizinkan!"
-
 msgid "Flashed Firmware"
 msgstr "Firmware yang di-flash"
 
@@ -161,11 +178,19 @@ msgstr "Ditemukan %i komponan dalam path legasi."
 msgid "Found %i components."
 msgstr "Ditemukan %i komponen."
 
+#. TRANSLATORS: this is the menu spec main category for Game
+msgid "Games"
+msgstr ""
+
 msgid "Get components which provide the given item."
 msgstr "Dapatkan komponen yang menyediakan butir yang diberikan."
 
 msgid "Get information about a component by its ID."
 msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
+
+#. TRANSLATORS: this is the menu spec main category for Graphics
+msgid "Graphics & Photography"
+msgstr ""
 
 msgid "Homepage"
 msgstr "Beranda"
@@ -240,6 +265,10 @@ msgstr ""
 msgid "No value for the item to search for defined."
 msgstr "Tidak ada nilai yang didefinisikan dari butir yang mesti ditemukan."
 
+#. TRANSLATORS: this is the menu spec main category for Office
+msgid "Office"
+msgstr ""
+
 msgid "Package"
 msgstr "Paket"
 
@@ -277,6 +306,10 @@ msgstr "Firmware Runtime"
 
 msgid "Sample Screenshot URL"
 msgstr "Contoh URL Cuplikan Layar"
+
+#. TRANSLATORS: this is the menu spec main category for Science
+msgid "Science"
+msgstr ""
 
 msgid "Search the component database."
 msgstr "Cari basis data komponen."
@@ -321,6 +354,10 @@ msgstr "Tidak bisa men-spawn manajer paket: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Tidak bisa menulis ke '%s', tidak bisa memasang berkas metainfo."
 
+#. TRANSLATORS: this is the menu spec main category for Utilities
+msgid "Utilities"
+msgstr ""
+
 msgid "Validate AppStream XML files for issues."
 msgstr "Validasikan berkas XML AppStream apakah bermasalah."
 
@@ -343,10 +380,6 @@ msgstr "Versi: %s"
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Kami punya informasi atas %i komponen perangkat lunak."
-
-#, c-format
-msgid "XDG Menu XML file '%s' is damaged."
-msgstr "Berkas XML Menu XDG '%s' rusak."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 msgid "You might need superuser permissions to perform this action."
@@ -380,3 +413,9 @@ msgstr "Anda perlu menyatakan istilah yang akan dicari."
 #.
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool;aplikasi;paket"
+
+#~ msgid "File %s not found or permission denied!"
+#~ msgstr "Berkas %s tak ditemukan atau tak diizinkan!"
+
+#~ msgid "XDG Menu XML file '%s' is damaged."
+#~ msgstr "Berkas XML Menu XDG '%s' rusak."
