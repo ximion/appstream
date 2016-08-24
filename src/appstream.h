@@ -32,7 +32,6 @@ extern "C" {
 #include <as-metadata.h>
 #include <as-pool.h>
 #include <as-category.h>
-#include <as-menu-parser.h>
 #include <as-distro-details.h>
 #include <as-icon.h>
 #include <as-screenshot.h>

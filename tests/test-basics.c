@@ -23,20 +23,25 @@
 
 static gchar *datadir = NULL;
 
+/**
+ * test_categories:
+ *
+ * Test #AsCategory properties.
+ */
 void
-test_menuparser ()
+test_categories ()
 {
-	g_autoptr(AsMenuParser) parser = NULL;
-	g_autoptr(GList) menu_dirs = NULL;
-	g_autofree gchar *path = NULL;
+	g_autoptr(GPtrArray) default_cats;
 
-	path = g_build_filename (datadir, "categories.xml", NULL);
-	parser = as_menu_parser_new_from_file (path);
-
-	menu_dirs = as_menu_parser_parse (parser);
-	g_assert (g_list_length (menu_dirs) > 4);
+	default_cats = as_get_default_categories (TRUE);
+	g_assert_cmpint (default_cats->len, ==, 10);
 }
 
+/**
+ * test_simplemarkup:
+ *
+ * Test as_description_markup_convert_simple()
+ */
 void
 test_simplemarkup ()
 {
@@ -47,6 +52,9 @@ test_simplemarkup ()
 	g_free (str);
 }
 
+/**
+ * _get_dummy_strv:
+ */
 gchar**
 _get_dummy_strv (const gchar *value)
 {
@@ -59,6 +67,11 @@ _get_dummy_strv (const gchar *value)
 	return strv;
 }
 
+/**
+ * test_component:
+ *
+ * Test basic properties of an #AsComponent.
+ */
 void
 test_component ()
 {
@@ -111,7 +124,6 @@ test_component ()
  * test_translation_fallback:
  *
  * Test that the AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK flag works.
- *
  */
 void
 test_translation_fallback (void)
@@ -140,6 +152,11 @@ test_translation_fallback (void)
 	g_assert_nonnull (as_component_get_description (cpt));
 }
 
+/**
+ * test_spdx:
+ *
+ * Test SPDX license description parsing.
+ */
 static void
 test_spdx (void)
 {
@@ -275,7 +292,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/MenuParser", test_menuparser);
+	g_test_add_func ("/AppStream/Categories", test_categories);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);

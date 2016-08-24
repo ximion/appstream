@@ -54,7 +54,6 @@ set(APPSTREAM_LIB_SRC
 		as-provided.c
 		as-pool.c
 		as-category.c
-		as-menu-parser.c
 		as-distro-details.c
 		as-screenshot.c
 		as-image.c
@@ -76,7 +75,6 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 		as-enums.h
 		as-provided.h
 		as-category.h
-		as-menu-parser.h
 		as-distro-details.h
 		as-screenshot.h
 		as-image.h

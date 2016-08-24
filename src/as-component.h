@@ -33,6 +33,7 @@
 #include "as-release.h"
 #include "as-translation.h"
 #include "as-suggested.h"
+#include "as-category.h"
 
 G_BEGIN_DECLS
 
@@ -269,6 +270,9 @@ guint			as_component_search_matches_all (AsComponent *cpt,
 AsMergeKind		as_component_get_merge_kind (AsComponent *cpt);
 void			as_component_set_merge_kind (AsComponent *cpt,
 							AsMergeKind kind);
+
+gboolean		as_component_is_member_of_category (AsComponent *cpt,
+							    AsCategory *category);
 
 G_END_DECLS
 

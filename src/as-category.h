@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -40,16 +40,13 @@ struct _AsCategoryClass
 	void (*_as_reserved2)	(void);
 	void (*_as_reserved3)	(void);
 	void (*_as_reserved4)	(void);
-	void (*_as_reserved5)	(void);
-	void (*_as_reserved6)	(void);
 };
 
 AsCategory		*as_category_new (void);
-void			as_category_complete (AsCategory *cat);
 
-const gchar		*as_category_get_directory (AsCategory *cat);
-void			as_category_set_directory (AsCategory *cat,
-							const gchar* value);
+const gchar		*as_category_get_id (AsCategory *cat);
+void			as_category_set_id (AsCategory *cat,
+						const gchar *id);
 
 const gchar		*as_category_get_name (AsCategory *cat);
 void			as_category_set_name (AsCategory *cat,
@@ -63,20 +60,18 @@ const gchar		*as_category_get_icon (AsCategory *cat);
 void			as_category_set_icon (AsCategory *cat,
 						const gchar* value);
 
-gboolean		as_category_has_subcategory (AsCategory *cat);
-void			as_category_add_subcategory (AsCategory *cat,
-							AsCategory *subcat);
-void			as_category_remove_subcategory (AsCategory *cat,
-							AsCategory *subcat);
+GPtrArray		*as_category_get_children (AsCategory *cat);
+gboolean		as_category_has_children (AsCategory *cat);
+void			as_category_add_child (AsCategory *cat,
+					       AsCategory *subcat);
+void			as_category_remove_child (AsCategory *cat,
+						  AsCategory *subcat);
 
-GList			*as_category_get_included (AsCategory *cat);
-GList			*as_category_get_excluded (AsCategory *cat);
+GPtrArray		*as_category_get_desktop_groups (AsCategory *cat);
+void			as_category_add_desktop_group (AsCategory *cat,
+							const gchar *group_name);
 
-GList			*as_category_get_subcategories (AsCategory *cat);
-
-gint			as_category_get_level (AsCategory *cat);
-void			as_category_set_level (AsCategory *cat,
-						gint value);
+GPtrArray		*as_get_default_categories (gboolean with_special);
 
 G_END_DECLS
 
