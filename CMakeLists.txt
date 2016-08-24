@@ -80,7 +80,7 @@ enable_testing()
 set(MAINTAINER_CFLAGS "")
 set(SANITIZER_LIBS "")
 if(MAINTAINER)
-	set(MAINTAINER_CFLAGS "-Werror" "-Wall" "-Wcast-align" "-Wno-uninitialized" "-Wempty-body" "-Wformat-security" "-Winit-self")
+	set(MAINTAINER_CFLAGS "-Werror" "-Wall" "-Wextra" "-Wcast-align" "-Wno-uninitialized" "-Wempty-body" "-Wformat-security" "-Winit-self")
 	if (CMAKE_COMPILER_IS_GNUCC)
 		execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
                 OUTPUT_VARIABLE GCC_VERSION)
@@ -101,8 +101,9 @@ if(MAINTAINER)
 endif(MAINTAINER)
 add_definitions(${MAINTAINER_CFLAGS})
 
-# we do always enable this to never run into the missing-include-trap again
-add_definitions("-Werror=implicit-function-declaration")
+# a few compiler warning flags we always want enabled
+add_definitions("-Werror=implicit-function-declaration" "-Wno-unused-parameter")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-discarded-qualifiers")
 
 # enable C++11
 set(CMAKE_CXX_STANDARD "11")

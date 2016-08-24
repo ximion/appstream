@@ -32,6 +32,7 @@
 #include "../as-utils.h"
 #include "../as-utils-private.h"
 #include "../as-component-private.h"
+#include "../as-pool.h"
 
 using namespace std;
 
@@ -382,7 +383,9 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 		ostream.Close ();
 		return;
 	} else {
-		// TODO: Set error
+		g_set_error (error, AS_POOL_ERROR,
+			     AS_POOL_ERROR_FAILED,
+			     "Unable to save cache file: %s", fname);
 		return;
 	}
 }
@@ -663,7 +666,9 @@ as_cache_read (const gchar *fname, GError **error)
 	ASCache::Cache cache;
 	auto ret = cache.ParseFromZeroCopyStream (&izstream);
 	if (!ret) {
-		// TODO: Emit error
+		g_set_error (error, AS_POOL_ERROR,
+			     AS_POOL_ERROR_FAILED,
+			     "Unable to read cache file: %s", g_strerror (errno));
 		g_critical ("Unable to parse cache file '%s'", g_strerror (errno));
 		return NULL;
 	}

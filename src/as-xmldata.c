@@ -184,10 +184,10 @@ as_xml_get_node_value (xmlNode *node)
 }
 
 /**
- * as_xmldata_dump_node_children:
+ * as_xml_dump_node_children:
  */
 static gchar*
-as_xmldata_dump_node_children (AsXMLData *xdt, xmlNode *node)
+as_xml_dump_node_children (xmlNode *node)
 {
 	GString *str = NULL;
 	xmlNode *iter;
@@ -659,7 +659,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 						g_autofree gchar *lang;
 
 						/* for distro XML, the "description" tag has a language property, so parsing it is simple */
-						content = as_xmldata_dump_node_children (xdt, iter2);
+						content = as_xml_dump_node_children (iter2);
 						lang = as_xmldata_get_node_locale (xdt, iter2);
 						if (lang != NULL)
 							as_release_set_description (release, content, lang);
@@ -678,10 +678,10 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 }
 
 /**
- * as_xmldata_process_provides_tag:
+ * as_xml_process_provides_tag:
  */
 static void
-as_xmldata_process_provides_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt)
+as_xml_process_provides_tag (xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
 	gchar *node_name;
@@ -784,10 +784,10 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 }
 
 /**
- * as_xmldata_process_suggests_tag:
+ * as_xml_process_suggests_tag:
  */
 static void
-as_xmldata_process_suggests_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt)
+as_xml_process_suggests_tag (xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
 	g_autoptr(AsSuggested) suggested = NULL;
@@ -917,7 +917,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				/* for distro XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
 					gchar *desc;
-					desc = as_xmldata_dump_node_children (xdt, iter);
+					desc = as_xml_dump_node_children (iter);
 					as_component_set_description (cpt, desc, lang);
 					g_free (desc);
 				}
@@ -996,7 +996,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, mime_array[i]);
 			}
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
-			as_xmldata_process_provides_tag (xdt, iter, cpt);
+			as_xml_process_provides_tag (iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_xmldata_process_screenshots_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
@@ -1044,7 +1044,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				}
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
-			as_xmldata_process_suggests_tag (xdt, iter, cpt);
+			as_xml_process_suggests_tag (iter, cpt);
 		}
 	}
 
