@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-24 06:34+0200\n"
+"POT-Creation-Date: 2016-08-24 20:39+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/freedesktop/"
@@ -19,378 +19,767 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: ../src/as-category.c:164
+#, fuzzy
+msgctxt "Category of Graphics"
+msgid "3D Graphics"
+msgstr "Categorias"
+
+#: ../src/as-category.c:119
+msgctxt "Category of Games"
+msgid "Action"
+msgstr ""
+
 #. TRANSLATORS: this is the main category for Add-ons
+#: ../src/as-category.c:316
 msgid "Add-ons"
 msgstr ""
 
+#: ../src/as-category.c:122
+msgctxt "Category of Games"
+msgid "Adventure"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --pedantic
+#: ../tools/appstream-cli.c:144
 msgid "Also print pedantic hints when validating"
 msgstr ""
 
+#: ../tools/appstream-cli.c:60
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
+#: ../tools/appstream-cli.c:172
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr ""
 
 #. TRANSLATORS: In the status report of ascli: Header
+#: ../tools/ascli-actions-misc.c:45
 msgid "AppStream Status:"
 msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
+#: ../tools/ascli-actions-mdata.c:74
 msgid "AppStream cache update completed successfully."
 msgstr ""
 
+#: ../src/as-pool.c:1189
 #, c-format
 msgid "AppStream cache update failed."
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:84
 msgid "AppStream cache update is not necessary."
 msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu
+#: ../tools/appstream-cli.c:53
 msgid "AppStream command-line interface"
 msgstr ""
 
+#: ../src/as-pool.c:1180
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
 
+#: ../src/as-category.c:125
+msgctxt "Category of Games"
+msgid "Arcade"
+msgstr ""
+
+#: ../src/as-category.c:230
+msgctxt "Category of Science"
+msgid "Artificial Intelligence"
+msgstr ""
+
+#: ../src/as-category.c:97
+msgctxt "Category of Education"
+msgid "Astronomy"
+msgstr ""
+
+#: ../src/as-category.c:233
+msgctxt "Category of Science"
+msgid "Astronomy"
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
+#: ../src/as-category.c:298
 msgid "Audio & Video"
 msgstr ""
 
+#: ../src/as-category.c:64
+msgctxt "Category of AudioVideo"
+msgid "Audio Creation & Editing"
+msgstr ""
+
+#: ../src/as-provided.c:140
 msgid "Binaries"
 msgstr "Binaris"
 
+#: ../src/as-category.c:128
+msgctxt "Category of Games"
+msgid "Blocks"
+msgstr ""
+
+#: ../src/as-category.c:131
+msgctxt "Category of Games"
+msgid "Board"
+msgstr ""
+
+#: ../tools/ascli-utils.c:278
 msgid "Bundle"
 msgstr ""
 
+#: ../src/as-pool.c:1123
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr ""
 
+#: ../src/as-category.c:187
+msgctxt "Category of Office"
+msgid "Calendar"
+msgstr ""
+
+#: ../tools/ascli-actions-mdata.c:330
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
 
+#: ../src/as-pool.c:900 ../src/as-pool.c:908
 msgid "Can not search for unknown component type."
 msgstr ""
 
+#: ../src/as-category.c:134
+msgctxt "Category of Games"
+msgid "Card"
+msgstr ""
+
+#: ../tools/ascli-utils.c:348
 msgid "Categories"
 msgstr "Categorias"
 
+#: ../src/as-category.c:255
+msgctxt "Category of Communication"
+msgid "Chat"
+msgstr ""
+
+#: ../src/as-category.c:100
+msgctxt "Category of Education"
+msgid "Chemistry"
+msgstr ""
+
+#: ../src/as-category.c:236
+msgctxt "Category of Science"
+msgid "Chemistry"
+msgstr ""
+
+#: ../src/as-category.c:210
+msgctxt "Category of Addons"
+msgid "Codecs"
+msgstr ""
+
 #. TRANSLATORS: ascli has been run with unknown command.
+#: ../tools/appstream-cli.c:231
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Communication
+#: ../src/as-category.c:322
 msgid "Communication & News"
 msgstr ""
 
+#: ../tools/ascli-actions-pkgmgr.c:101
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr ""
 
+#: ../tools/ascli-utils.c:356
 msgid "Compulsory for"
 msgstr ""
 
+#: ../src/as-provided.c:154
 msgid "DBus Session Services"
 msgstr ""
 
+#: ../src/as-provided.c:152
 msgid "DBus System Services"
 msgstr ""
 
+#: ../src/as-category.c:191
+msgctxt "Category of Office"
+msgid "Database"
+msgstr ""
+
+#: ../src/as-category.c:82
+msgctxt "Category of Development"
+msgid "Debuggers"
+msgstr ""
+
+#: ../tools/ascli-utils.c:312
 msgid "Description"
 msgstr "Descripcion"
 
 #. developer name
+#: ../tools/ascli-utils.c:300
 msgid "Developer"
 msgstr "Desvolopaire"
 
 #. TRANSLATORS: this is the menu spec main category for Development
+#: ../src/as-category.c:301
 #, fuzzy
 msgid "Developer Tools"
 msgstr "Desvolopaire"
 
+#: ../tools/appstream-cli.c:73
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
+#: ../tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-cache
+#: ../tools/appstream-cli.c:128
 msgid "Do not use the Xapian cache when performing the request"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-color
+#: ../tools/appstream-cli.c:111
 msgid "Don't show colored output"
 msgstr ""
 
+#: ../tools/appstream-cli.c:63
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Education
+#: ../src/as-category.c:304
 msgid "Education"
 msgstr ""
 
 #. TRANSLATORS: No metainfo files have been found
+#: ../tools/ascli-actions-misc.c:107 ../tools/ascli-actions-misc.c:127
 msgid "Empty."
 msgstr "Void."
 
+#: ../src/as-category.c:137
+msgctxt "Category of Games"
+msgid "Emulators"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --force
+#: ../tools/appstream-cli.c:116
 msgid "Enforce a cache refresh"
 msgstr ""
 
+#: ../tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
 
+#: ../tools/ascli-utils.c:306
 msgid "Extends"
 msgstr ""
 
+#: ../tools/ascli-utils.c:364
 msgid "Extensions"
 msgstr "Extensions"
 
+#: ../src/as-category.c:61
+msgctxt "Category of AudioVideo"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:252
+msgctxt "Category of Communication"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:79
+msgctxt "Category of Development"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:94
+msgctxt "Category of Education"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:116
+msgctxt "Category of Games"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:161
+msgctxt "Category of Graphics"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:184
+msgctxt "Category of Office"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:227
+msgctxt "Category of Science"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:274
+msgctxt "Category of Utility"
+msgid "Featured"
+msgstr ""
+
+#: ../src/as-category.c:283
+msgctxt "Category of Utility"
+msgid "File System"
+msgstr ""
+
+#: ../src/as-category.c:194
+msgctxt "Category of Office"
+msgid "Finance"
+msgstr ""
+
+#: ../src/as-provided.c:158
 msgid "Flashed Firmware"
 msgstr ""
 
+#: ../src/as-provided.c:144
+msgid "Fonts"
+msgstr "Poliças"
+
+#: ../src/as-category.c:207
+#, fuzzy
+msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Poliças"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
+#: ../tools/ascli-actions-misc.c:136
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr ""
 
+#: ../tools/ascli-actions-misc.c:121
 #, c-format
 msgid "Found %i components."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Game
+#: ../src/as-category.c:307
 msgid "Games"
 msgstr ""
 
+#: ../tools/appstream-cli.c:59
 msgid "Get components which provide the given item."
 msgstr ""
 
+#: ../tools/appstream-cli.c:58
 msgid "Get information about a component by its ID."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
+#: ../src/as-category.c:310
 msgid "Graphics & Photography"
 msgstr ""
 
+#: ../tools/ascli-utils.c:279
 msgid "Homepage"
 msgstr "Pagina d'acuèlh"
 
+#: ../src/as-category.c:85
+msgctxt "Category of Development"
+msgid "IDEs"
+msgstr ""
+
+#: ../tools/ascli-utils.c:280
 msgid "Icon"
 msgstr "Icòna"
 
+#: ../tools/ascli-actions-misc.c:92
 msgid "Iconsets"
 msgstr ""
 
+#: ../tools/ascli-utils.c:274
 msgid "Identifier"
 msgstr ""
 
+#: ../src/as-category.c:213
+msgctxt "Category of Addons"
+msgid "Input Sources"
+msgstr ""
+
+#: ../tools/appstream-cli.c:72
 msgid "Install a metadata file into the right location."
 msgstr ""
 
+#: ../tools/appstream-cli.c:69
 msgid "Install software matching the component-id."
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:217
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 
+#: ../src/as-category.c:140
+msgctxt "Category of Games"
+msgid "Kids"
+msgstr ""
+
+#: ../src/as-category.c:216
+msgctxt "Category of Addons"
+msgid "Language Packs"
+msgstr ""
+
+#: ../src/as-category.c:103
+msgctxt "Category of Education"
+msgid "Languages"
+msgstr ""
+
+#: ../src/as-provided.c:138
 msgid "Libraries"
 msgstr "Bibliiotècas"
 
 #. license
+#: ../tools/ascli-utils.c:342
 msgid "License"
 msgstr "Licéncia"
 
+#: ../src/as-category.c:219
+msgctxt "Category of Addons"
+msgid "Localization"
+msgstr ""
+
+#: ../src/as-category.c:143
+msgctxt "Category of Games"
+msgid "Logic"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --datapath
+#: ../tools/appstream-cli.c:139
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --dbpath
+#: ../tools/appstream-cli.c:134
 msgid "Manually set the location of the AppStream cache"
 msgstr ""
 
+#: ../src/as-category.c:107
+msgctxt "Category of Education"
+msgid "Math"
+msgstr ""
+
+#: ../src/as-category.c:239
+msgctxt "Category of Science"
+msgid "Math"
+msgstr ""
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
+#: ../tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr ""
 
+#: ../src/as-provided.c:142
 msgid "Mimetypes"
 msgstr "Tipes Mime"
 
+#: ../src/as-provided.c:146
 msgid "Modaliases"
 msgstr ""
 
+#: ../src/as-category.c:70
+msgctxt "Category of AudioVideo"
+msgid "Music Players"
+msgstr ""
+
+#: ../tools/ascli-utils.c:275
 msgid "Name"
 msgstr "Nom"
 
+#: ../src/as-category.c:262
+msgctxt "Category of Communication"
+msgid "News"
+msgstr ""
+
+#: ../tools/ascli-actions-mdata.c:181
 #, c-format
 msgid "No component matching '%s' found."
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:241
 #, c-format
 msgid "No component providing '%s;%s' found."
 msgstr ""
 
+#: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
 msgstr ""
 
+#: ../tools/ascli-actions-pkgmgr.c:53
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:210
 msgid "No value for the item to search for defined."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Office
+#: ../src/as-category.c:313
 msgid "Office"
 msgstr ""
 
+#: ../tools/ascli-utils.c:277
 msgid "Package"
 msgstr "Paquetatge"
 
+#: ../src/as-category.c:167
+msgctxt "Category of Graphics"
+msgid "Photography"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --details
+#: ../tools/appstream-cli.c:122
 msgid "Print detailed output about found components"
 msgstr ""
 
 #. project group
+#: ../tools/ascli-utils.c:339
 msgid "Project Group"
 msgstr ""
 
+#: ../tools/ascli-utils.c:371
 msgid "Provided Items"
 msgstr ""
 
+#: ../src/as-provided.c:148
 msgid "Python (Version 2)"
 msgstr "Python (Version 2)"
 
+#: ../src/as-provided.c:150
 msgid "Python 3"
 msgstr "Python 3"
 
+#: ../tools/appstream-cli.c:64
 msgid "Rebuild the component metadata cache."
 msgstr ""
 
+#: ../tools/appstream-cli.c:70
 msgid "Remove software matching the component-id."
 msgstr ""
 
+#: ../src/as-category.c:244
+msgctxt "Category of Science"
+msgid "Robotics"
+msgstr ""
+
+#: ../src/as-category.c:146
+msgctxt "Category of Games"
+msgid "Role Playing"
+msgstr ""
+
+#: ../tools/appstream-cli.c:164 ../tools/appstream-cli.c:184
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 
+#: ../src/as-provided.c:156
 msgid "Runtime Firmware"
 msgstr ""
 
+#: ../tools/ascli-utils.c:332
 msgid "Sample Screenshot URL"
 msgstr ""
 
+#: ../src/as-category.c:170
+msgctxt "Category of Graphics"
+msgid "Scanning"
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Science
+#: ../src/as-category.c:319
 msgid "Science"
 msgstr ""
 
+#: ../tools/appstream-cli.c:57
 msgid "Search the component database."
 msgstr ""
 
+#: ../src/as-category.c:289
+msgctxt "Category of Utility"
+msgid "Security"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --verbose
+#: ../tools/appstream-cli.c:106
 msgid "Show extra debugging information"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --version
+#: ../tools/appstream-cli.c:100
 msgid "Show the program version"
 msgstr ""
 
+#: ../src/as-category.c:149
+msgctxt "Category of Games"
+msgid "Sports"
+msgstr ""
+
+#: ../src/as-category.c:153
+msgctxt "Category of Games"
+msgid "Strategy"
+msgstr ""
+
 #. these are commands we can use with appstreamcli
+#: ../tools/appstream-cli.c:55
 msgid "Subcommands:"
 msgstr "Soscomandas :"
 
+#: ../tools/ascli-utils.c:276
 msgid "Summary"
 msgstr "Resumit"
 
 #. TRANSLATORS: Status summary in ascli
+#: ../tools/ascli-actions-misc.c:143
 msgid "Summary:"
 msgstr "Resumit :"
 
+#: ../src/as-category.c:286
+msgctxt "Category of Utility"
+msgid "System Monitoring"
+msgstr ""
+
+#: ../src/as-category.c:280
+msgctxt "Category of Utility"
+msgid "Terminal Emulators"
+msgstr ""
+
+#: ../src/as-category.c:277
+msgctxt "Category of Utility"
+msgid "Text Editors"
+msgstr ""
+
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
+#: ../tools/ascli-actions-mdata.c:176
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:236
 #, c-format
 msgid "Unable to find component providing '%s;%s'!"
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:282
+#: ../tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Unable to find component with id '%s'!"
 msgstr ""
 
+#: ../tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:325
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
+#: ../src/as-category.c:325
 msgid "Utilities"
 msgstr ""
 
+#: ../tools/appstream-cli.c:66
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
+#: ../tools/appstream-cli.c:67
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 
+#: ../tools/ascli-actions-validate.c:177 ../tools/ascli-actions-validate.c:211
 msgid "Validation failed."
 msgstr ""
 
+#: ../tools/ascli-actions-validate.c:175 ../tools/ascli-actions-validate.c:209
 msgid "Validation was successful."
 msgstr ""
 
+#: ../tools/appstream-cli.c:61
 msgid "Value of the item that should be found."
 msgstr ""
 
+#: ../src/as-category.c:173
+#, fuzzy
+msgctxt "Category of Graphics"
+msgid "Vector Graphics"
+msgstr "Categorias"
+
+#: ../tools/ascli-actions-misc.c:46
 #, c-format
 msgid "Version: %s"
 msgstr "Version : %s"
 
+#: ../src/as-category.c:176
+msgctxt "Category of Graphics"
+msgid "Viewers"
+msgstr ""
+
+#: ../tools/ascli-actions-misc.c:151
 #, c-format
 msgid "We have information on %i software components."
 msgstr ""
 
+#: ../src/as-category.c:266
+msgctxt "Category of Communication"
+msgid "Web Browsers"
+msgstr ""
+
+#: ../src/as-category.c:198
+msgctxt "Category of Office"
+msgid "Word Processor"
+msgstr ""
+
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
+#: ../tools/ascli-actions-mdata.c:64
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
+#: ../tools/appstream-cli.c:183
 msgid "You need to specify a command."
 msgstr ""
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
+#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:270
+#: ../tools/ascli-actions-pkgmgr.c:79
 msgid "You need to specify a component-id."
 msgstr ""
 
+#: ../tools/ascli-actions-validate.c:163
 msgid "You need to specify a file to validate!"
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:312
 msgid "You need to specify a metadata file."
 msgstr ""
 
+#: ../tools/ascli-actions-validate.c:195
 msgid "You need to specify a root directory to start validation!"
 msgstr ""
 
+#: ../tools/ascli-actions-mdata.c:163
 msgid "You need to specify a term to search for."
 msgstr ""
 
@@ -400,5 +789,18 @@ msgstr ""
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
+#: ../src/as-pool.c:99
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Category of Games"
+#~ msgstr "Categorias"
+
+#, fuzzy
+#~ msgid "Category of Office"
+#~ msgstr "Categorias"
+
+#, fuzzy
+#~ msgid "Category of Science"
+#~ msgstr "Categorias"

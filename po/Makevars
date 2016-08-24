@@ -8,7 +8,8 @@ subdir = po
 top_builddir = ../
 
 # These options get passed to xgettext.
-XGETTEXT_OPTIONS = -L C -i -s --keyword=_ --keyword=N_ --keyword=__ --no-wrap --no-location \
+XGETTEXT_OPTIONS = --from-code=UTF-8 --keyword=_ --keyword=N_ --keyword='C_:1c,2' --keyword='NC_:1c,2' \
+	-i -s --no-wrap \
 	--package-name="appstream" \
 	--copyright-holder="Matthias Klumpp"
 
