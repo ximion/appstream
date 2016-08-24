@@ -2490,6 +2490,23 @@ as_component_get_value_flags (AsComponent *cpt)
 }
 
 /**
+ * as_component_has_desktop_group:
+ *
+ * Internal helper method for %as_component_is_member_of_category
+ */
+static gboolean
+as_component_has_desktop_group (AsComponent *cpt, const gchar *desktop_group)
+{
+	guint i;
+	g_auto(GStrv) split = g_strsplit (desktop_group, "::", -1);
+	for (i = 0; split[i] != NULL; i++) {
+		if (!as_component_has_category (cpt, split[i]))
+			return FALSE;
+	}
+	return TRUE;
+}
+
+/**
  * as_component_is_member_of_category:
  * @cpt: a #AsComponent instance.
  * @category: The category to test.
@@ -2499,20 +2516,14 @@ as_component_get_value_flags (AsComponent *cpt)
 gboolean
 as_component_is_member_of_category (AsComponent *cpt, AsCategory *category)
 {
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	GPtrArray *cdesktop_groups;
 	guint i;
 
 	cdesktop_groups = as_category_get_desktop_groups (category);
-	for (i = 0; i < priv->categories->len; i++) {
-		guint j;
-		const gchar *cat_name = (const gchar*) g_ptr_array_index (priv->categories, i);
-
-		for (j = 0; j < cdesktop_groups->len; j++) {
-			const gchar *cdg_name = (const gchar*) g_ptr_array_index (cdesktop_groups, j);
-			if (g_strcmp0 (cdg_name, cat_name) == 0)
-				return TRUE;
-		}
+	for (i = 0; i < cdesktop_groups->len; i++) {
+		const gchar *cdg_name = (const gchar*) g_ptr_array_index (cdesktop_groups, i);
+		if (as_component_has_desktop_group (cpt, cdg_name))
+			return TRUE;
 	}
 
 	return FALSE;

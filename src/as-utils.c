@@ -38,6 +38,8 @@
 #include <errno.h>
 
 #include "as-resources.h"
+#include "as-category.h"
+#include "as-component.h"
 
 /**
  * SECTION:as-utils
@@ -869,4 +871,58 @@ as_utils_is_desktop_environment (const gchar *desktop)
 		return FALSE;
 	key = g_strdup_printf ("\n%s\n", desktop);
 	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
+ * as_pool_sort_into_categories:
+ * @cpts: (element-type AsComponent): List of components.
+ * @categories: (element-type AsCategory): List of categories to sort components into.
+ * @check_duplicates: Whether to check for duplicates.
+ *
+ * Sorts all components in @cpts into the #AsCategory categories listed in @categories.
+ */
+void
+as_utils_sort_components_into_categories (GPtrArray *cpts, GPtrArray *categories, gboolean check_duplicates)
+{
+	guint i;
+
+	for (i = 0; i < cpts->len; i++) {
+		guint j;
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		for (j = 0; j < categories->len; j++) {
+			guint k;
+			GPtrArray *children;
+			gboolean added_to_main = FALSE;
+			AsCategory *main_cat = AS_CATEGORY (g_ptr_array_index (categories, j));
+
+			if (as_component_is_member_of_category (cpt, main_cat)) {
+				if (!check_duplicates || !as_category_has_component (main_cat, cpt)) {
+					as_category_add_component (main_cat, cpt);
+					added_to_main = TRUE;
+				}
+			}
+
+			/* fortunately, categories are only nested one level deep in all known cases.
+			 * if this will ever change, we will need to adjust this code to go through
+			 * a whole tree of categories, eww... */
+			children = as_category_get_children (main_cat);
+			for (k = 0; k < children->len; k++) {
+				AsCategory *subcat = AS_CATEGORY (g_ptr_array_index (children, k));
+
+				/* skip duplicates */
+				if (check_duplicates && as_category_has_component (subcat, cpt))
+					continue;
+
+				if (as_component_is_member_of_category (cpt, subcat)) {
+					as_category_add_component (subcat, cpt);
+					if (!added_to_main) {
+						if (!check_duplicates || !as_category_has_component (main_cat, cpt)) {
+							as_category_add_component (main_cat, cpt);
+						}
+					}
+				}
+			}
+		}
+	}
 }

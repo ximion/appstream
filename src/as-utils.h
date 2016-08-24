@@ -33,6 +33,10 @@ gboolean	as_utils_is_category_name (const gchar *category_name);
 gboolean	as_utils_is_tld (const gchar *tld);
 gboolean	as_utils_is_desktop_environment (const gchar *desktop);
 
+void		as_utils_sort_components_into_categories (GPtrArray *cpts,
+							  GPtrArray *categories,
+							  gboolean check_duplicates);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_H */

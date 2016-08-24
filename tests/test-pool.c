@@ -117,9 +117,11 @@ test_pool_read ()
 	g_auto(GStrv) datadirs = NULL;
 	g_autoptr(GPtrArray) all_cpts = NULL;
 	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(GPtrArray) categories = NULL;
 	GPtrArray *rels;
 	AsRelease *rel;
 	AsComponent *cpt;
+	guint i;
 	g_autoptr(GError) error = NULL;
 
 	/* create DataPool and load sample metadata */
@@ -211,6 +213,48 @@ test_pool_read ()
 	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.0");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123456789);
 	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 0);
+
+	/* check categorization */
+	categories = as_get_default_categories (TRUE);
+	as_utils_sort_components_into_categories (all_cpts, categories, FALSE);
+	for (i = 0; i < categories->len; i++) {
+		const gchar *cat_id;
+		gint cpt_count;
+		AsCategory *cat = AS_CATEGORY (g_ptr_array_index (categories, i));
+
+		cat_id = as_category_get_id (cat);
+		cpt_count = as_category_get_components (cat)->len;
+
+		if (g_strcmp0 (cat_id, "communication") == 0)
+			g_assert_cmpint (cpt_count, ==, 3);
+		else if (g_strcmp0 (cat_id, "utilities") == 0)
+			g_assert_cmpint (cpt_count, ==, 2);
+		else if (g_strcmp0 (cat_id, "audio-video") == 0)
+			g_assert_cmpint (cpt_count, ==, 0);
+		else if (g_strcmp0 (cat_id, "developer-tools") == 0)
+			g_assert_cmpint (cpt_count, ==, 2);
+		else if (g_strcmp0 (cat_id, "education") == 0)
+			g_assert_cmpint (cpt_count, ==, 4);
+		else if (g_strcmp0 (cat_id, "games") == 0)
+			g_assert_cmpint (cpt_count, ==, 5);
+		else if (g_strcmp0 (cat_id, "graphics") == 0)
+			g_assert_cmpint (cpt_count, ==, 1);
+		else if (g_strcmp0 (cat_id, "office") == 0)
+			g_assert_cmpint (cpt_count, ==, 0);
+		else if (g_strcmp0 (cat_id, "addons") == 0)
+			g_assert_cmpint (cpt_count, ==, 0);
+		else if (g_strcmp0 (cat_id, "science") == 0)
+			g_assert_cmpint (cpt_count, ==, 3);
+		else {
+			g_error ("Unhandled category: %s", cat_id);
+			g_assert_not_reached ();
+		}
+
+		if (g_strcmp0 (cat_id, "graphics") == 0) {
+			cpt = g_ptr_array_index (as_category_get_components (cat), 0);
+			g_assert_cmpstr (as_component_get_id (cpt), ==, "inkscape.desktop");
+		}
+	}
 }
 
 /**
