@@ -852,7 +852,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 {
 	xmlNode *iter;
 	const gchar *node_name;
-	GPtrArray *pkgnames;
+	g_autoptr(GPtrArray) pkgnames = NULL;
 	gchar **strv;
 	g_autofree gchar *priority_str;
 	g_autofree gchar *merge_str;
@@ -980,10 +980,11 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 							     "category",
 							     as_component_get_categories (cpt));
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
-			gchar **kw_array;
-			kw_array = as_xml_get_children_as_strv (iter, "keyword");
-			as_component_set_keywords (cpt, kw_array, NULL);
-			g_strfreev (kw_array);
+			if (lang != NULL) {
+				g_auto(GStrv) kw_array = NULL;
+				kw_array = as_xml_get_children_as_strv (iter, "keyword");
+				as_component_set_keywords (cpt, kw_array, lang);
+			}
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			g_auto(GStrv) mime_array = NULL;
 			guint i;
@@ -1061,7 +1062,6 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 	/* add package name information to component */
 	strv = as_ptr_array_to_strv (pkgnames);
 	as_component_set_pkgnames (cpt, strv);
-	g_ptr_array_unref (pkgnames);
 	g_strfreev (strv);
 }
 
@@ -1116,12 +1116,12 @@ as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node
 }
 
 /**
- * as_xmldata_xml_add_node:
+ * as_xml_add_text_node:
  *
  * Add node if value is not empty
  */
 static xmlNode*
-as_xmldata_xml_add_node (xmlNode *root, const gchar *name, const gchar *value)
+as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
 {
 	if (as_str_empty (value))
 		return NULL;
@@ -1231,7 +1231,7 @@ out:
  *
  * Add node with a list of children containing the strv contents.
  */
-static void
+static xmlNode*
 as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
 {
 	xmlNode *node;
@@ -1239,9 +1239,9 @@ as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_
 
 	/* don't add the node if we have no values */
 	if (strv == NULL)
-		return;
+		return NULL;
 	if (strv[0] == '\0')
-		return;
+		return NULL;
 
 	if (name == NULL)
 		node = root;
@@ -1256,6 +1256,8 @@ as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_
 				 (xmlChar*) child_name,
 				 (xmlChar*) strv[i]);
 	}
+
+	return node;
 }
 
 /**
@@ -1319,6 +1321,28 @@ as_xml_lang_hashtable_to_nodes_cb (gchar *key, gchar *value, AsLocaleWriteHelper
 		xmlNewProp (cnode,
 				(xmlChar*) "xml:lang",
 				(xmlChar*) key);
+	}
+}
+
+/**
+ * as_xml_keywords_table_to_nodes_cb:
+ */
+static void
+as_xml_keywords_table_to_nodes_cb (gchar *key, gchar **keywords, AsLocaleWriteHelper *helper)
+{
+	xmlNode *node;
+
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
+	node = as_xml_add_node_list_strv (helper->parent, "keywords", "keyword", keywords);
+	if (node == NULL)
+		return;
+	if (g_strcmp0 (key, "C") != 0) {
+		xmlNewProp (node,
+			    (xmlChar*) "xml:lang",
+			    (xmlChar*) key);
 	}
 }
 
@@ -1709,7 +1733,6 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 {
 	xmlNode *cnode;
 	xmlNode *node;
-	gchar **strv;
 	GPtrArray *releases;
 	GPtrArray *screenshots;
 	GPtrArray *icons;
@@ -1748,27 +1771,27 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	}
 
 	/* component tags */
-	as_xmldata_xml_add_node (cnode, "id", as_component_get_id (cpt));
+	as_xml_add_text_node (cnode, "id", as_component_get_id (cpt));
 
 	helper.parent = cnode;
 	helper.xdt = xdt;
 	helper.nd = NULL;
 	helper.node_name = "name";
 	g_hash_table_foreach (as_component_get_name_table (cpt),
-					(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
-					&helper);
+				(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
+				&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "summary";
 	g_hash_table_foreach (as_component_get_summary_table (cpt),
-					(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
-					&helper);
+				(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
+				&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "developer_name";
 	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
-					(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
-					&helper);
+				(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
+				&helper);
 
 	helper.nd = NULL;
 	helper.node_name = "description";
@@ -1776,17 +1799,20 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 					(GHFunc) as_xml_desc_lang_hashtable_to_nodes_cb,
 					&helper);
 
-	as_xmldata_xml_add_node (cnode, "project_license", as_component_get_project_license (cpt));
-	as_xmldata_xml_add_node (cnode, "project_group", as_component_get_project_group (cpt));
+	as_xml_add_text_node (cnode, "project_license", as_component_get_project_license (cpt));
+	as_xml_add_text_node (cnode, "project_group", as_component_get_project_group (cpt));
 
 	as_xml_add_node_list_strv (cnode, NULL, "pkgname", as_component_get_pkgnames (cpt));
-	strv = as_ptr_array_to_strv (as_component_get_extends (cpt));
-	as_xml_add_node_list_strv (cnode, NULL, "extends", strv);
-	g_strfreev (strv);
 
-	as_xml_add_node_list_strv (cnode, "keywords", "keyword", as_component_get_keywords (cpt));
+	as_xml_add_node_list (cnode, NULL, "extends", as_component_get_extends (cpt));
 	as_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", as_component_get_compulsory_for_desktops (cpt));
 	as_xml_add_node_list (cnode, "categories", "category", as_component_get_categories (cpt));
+
+	helper.nd = NULL;
+	helper.node_name = "keywords";
+	g_hash_table_foreach (as_component_get_keywords_table (cpt),
+				(GHFunc) as_xml_keywords_table_to_nodes_cb,
+				&helper);
 
 	/* urls */
 	for (i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
