@@ -1019,14 +1019,18 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			as_xmldata_process_languages_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
 			if (content != NULL) {
-				gchar *type_str;
+				g_autofree gchar *type_str = NULL;
 				AsBundleKind bundle_kind;
+				g_autoptr(AsBundle) bundle = NULL;
+
 				type_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 				bundle_kind = as_bundle_kind_from_string (type_str);
 				if (bundle_kind != AS_BUNDLE_KIND_UNKNOWN)
 					bundle_kind = AS_BUNDLE_KIND_LIMBA;
-				as_component_add_bundle_id (cpt, bundle_kind, content);
-				g_free (type_str);
+				bundle = as_bundle_new ();
+				as_bundle_set_kind (bundle, bundle_kind);
+				as_bundle_set_id (bundle, content);
+				as_component_add_bundle (cpt, bundle);
 			}
 		} else if (g_strcmp0 (node_name, "translation") == 0) {
 			if (content != NULL) {
@@ -1838,14 +1842,16 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	/* bundles */
 	for (i = AS_BUNDLE_KIND_UNKNOWN; i < AS_BUNDLE_KIND_LAST; i++) {
 		xmlNode *n;
-		const gchar *value;
-		value = as_component_get_bundle_id (cpt, i);
-		if (value == NULL)
+		AsBundle *bundle = AS_BUNDLE (as_component_get_bundle (cpt, i));
+		if (bundle == NULL)
 			continue;
 
-		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "bundle", (xmlChar*) value);
-		xmlNewProp (n, (xmlChar*) "type",
-					(xmlChar*) as_bundle_kind_to_string (i));
+		n = xmlNewTextChild (cnode, NULL,
+				     (xmlChar*) "bundle",
+				     (xmlChar*) as_bundle_get_id (bundle));
+		xmlNewProp (n,
+			    (xmlChar*) "type",
+			    (xmlChar*) as_bundle_kind_to_string (i));
 	}
 
 	/* translations */

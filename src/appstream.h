@@ -37,6 +37,7 @@ extern "C" {
 #include <as-screenshot.h>
 #include <as-suggested.h>
 #include <as-image.h>
+#include <as-bundle.h>
 
 #include <as-validator.h>
 #include <as-validator-issue.h>

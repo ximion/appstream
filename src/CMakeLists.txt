@@ -52,6 +52,7 @@ set(APPSTREAM_LIB_SRC
 		as-component.c
 		as-enums.c
 		as-provided.c
+		as-bundle.c
 		as-pool.c
 		as-category.c
 		as-distro-details.c
@@ -74,6 +75,7 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 		as-pool.h
 		as-enums.h
 		as-provided.h
+		as-bundle.h
 		as-category.h
 		as-distro-details.h
 		as-screenshot.h

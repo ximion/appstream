@@ -305,7 +305,7 @@ as_component_init (AsComponent *cpt)
 	/* others */
 	priv->provided = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
-	priv->bundles = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
+	priv->bundles = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
@@ -637,9 +637,9 @@ as_component_add_extension (AsComponent* cpt, const gchar* cpt_id)
  * as_component_get_bundles_table:
  * @cpt: a #AsComponent instance.
  *
- * Gets the bundle-ids set for the component.
+ * Gets the bundles set for the component.
  *
- * Returns: (transfer none) (element-type AsBundleKind utf8): Bundle ids
+ * Returns: (transfer none) (element-type AsBundleKind AsBundle): Bundle ids
  *
  * Since: 0.8.0
  **/
@@ -657,12 +657,12 @@ as_component_get_bundles_table (AsComponent *cpt)
  *
  * Gets a bundle identifier string.
  *
- * Returns: (nullable): string, or %NULL if unset
+ * Returns: (transfer none): An #AsBundle, or %NULL if not set.
  *
  * Since: 0.8.0
  **/
-const gchar*
-as_component_get_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind)
+AsBundle*
+as_component_get_bundle (AsComponent *cpt, AsBundleKind bundle_kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return g_hash_table_lookup (priv->bundles,
@@ -670,29 +670,29 @@ as_component_get_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind)
 }
 
 /**
- * as_component_add_bundle_id:
+ * as_component_add_bundle:
  * @cpt: a #AsComponent instance.
  * @bundle_kind: the URL kind, e.g. %AS_BUNDLE_KIND_LIMBA
  * @id: The bundle identification string
  *
- * Adds a bundle identifier to the component.
+ * Adds a bundle to the component.
  *
  * Since: 0.8.0
  **/
 void
-as_component_add_bundle_id (AsComponent *cpt, AsBundleKind bundle_kind, const gchar *id)
+as_component_add_bundle (AsComponent *cpt, AsBundle *bundle)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_hash_table_insert (priv->bundles,
-			     GINT_TO_POINTER (bundle_kind),
-			     g_strdup (id));
+			     GINT_TO_POINTER (as_bundle_get_kind (bundle)),
+			     g_object_ref (bundle));
 }
 
 /**
  * as_component_has_bundle:
  * @cpt: a #AsComponent instance.
  *
- * Returns: %TRUE if this component has a bundle-id associated.
+ * Returns: %TRUE if this component has a bundle associated.
  **/
 gboolean
 as_component_has_bundle (AsComponent *cpt)

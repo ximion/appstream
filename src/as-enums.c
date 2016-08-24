@@ -34,7 +34,7 @@
  *
  * Returns: string version of @url_kind
  **/
-const gchar *
+const gchar*
 as_url_kind_to_string (AsUrlKind url_kind)
 {
 	if (url_kind == AS_URL_KIND_HOMEPAGE)
@@ -76,44 +76,6 @@ as_url_kind_from_string (const gchar *url_kind)
 	if (g_strcmp0 (url_kind, "translate") == 0)
 		return AS_URL_KIND_TRANSLATE;
 	return AS_URL_KIND_UNKNOWN;
-}
-
-/**
- * as_bundle_kind_to_string:
- * @bundle_kind: the %AsBundleKind.
- *
- * Converts the enumerated value to an text representation.
- *
- * Returns: string version of @bundle_kind
- *
- * Since: 0.8.0
- **/
-const gchar *
-as_bundle_kind_to_string (AsBundleKind bundle_kind)
-{
-	if (bundle_kind == AS_BUNDLE_KIND_LIMBA)
-		return "limba";
-	if (bundle_kind == AS_BUNDLE_KIND_FLATPAK)
-		return "flatpak";
-	return "unknown";
-}
-
-/**
- * as_bundle_kind_from_string:
- * @bundle_kind: the string.
- *
- * Converts the text representation to an enumerated value.
- *
- * Returns: a #AsBundleKind or %AS_BUNDLE_KIND_UNKNOWN for unknown
- **/
-AsBundleKind
-as_bundle_kind_from_string (const gchar *bundle_kind)
-{
-	if (g_strcmp0 (bundle_kind, "limba") == 0)
-		return AS_BUNDLE_KIND_LIMBA;
-	if (g_strcmp0 (bundle_kind, "flatpak") == 0)
-		return AS_BUNDLE_KIND_FLATPAK;
-	return AS_BUNDLE_KIND_UNKNOWN;
 }
 
 /**

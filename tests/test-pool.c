@@ -121,6 +121,7 @@ test_pool_read ()
 	GPtrArray *rels;
 	AsRelease *rel;
 	AsComponent *cpt;
+	AsBundle *bundle;
 	guint i;
 	g_autoptr(GError) error = NULL;
 
@@ -197,7 +198,9 @@ test_pool_read ()
 
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "http://neverball.org/");
-	g_assert_cmpstr (as_component_get_bundle_id (cpt, AS_BUNDLE_KIND_LIMBA), ==, "neverball-1.6.0");
+	bundle = as_component_get_bundle (cpt, AS_BUNDLE_KIND_LIMBA);
+	g_assert_nonnull (bundle);
+	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "neverball-1.6.0");
 
 	rels = as_component_get_releases (cpt);
 	g_assert_cmpint (rels->len, ==, 2);

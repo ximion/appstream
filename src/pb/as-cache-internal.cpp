@@ -51,13 +51,13 @@ langs_hashtable_to_langentry_cb (gchar *key, gint value, ASCache::Component *pb_
  * Helper function to serialize bundle data for storage in the cache.
  */
 static void
-bundles_hashtable_to_bundleentry_cb (gpointer bkind_ptr, const gchar *value, ASCache::Component *pb_cpt)
+bundles_hashtable_to_bundleentry_cb (gpointer bkind_ptr, AsBundle *bundle, ASCache::Component *pb_cpt)
 {
-	AsBundleKind bkind = (AsBundleKind) GPOINTER_TO_INT (bkind_ptr);
+	AsBundleKind bkind = as_bundle_get_kind (bundle);
 
 	auto pb_bundle = pb_cpt->add_bundle ();
 	pb_bundle->set_type ((ASCache::Bundle_Type) bkind);
-	pb_bundle->set_id (value);
+	pb_bundle->set_id (as_bundle_get_id (bundle));
 }
 
 /**
@@ -442,8 +442,12 @@ buffer_to_component (const ASCache::Component& pb_cpt, const gchar *locale)
 	for (int i = 0; i < pb_cpt.bundle_size (); i++) {
 		auto bdl = pb_cpt.bundle (i);
 		AsBundleKind bkind = (AsBundleKind) bdl.type ();
-		if (bkind != AS_BUNDLE_KIND_UNKNOWN)
-			as_component_add_bundle_id (cpt, bkind, bdl.id ().c_str ());
+		if (bkind != AS_BUNDLE_KIND_UNKNOWN) {
+			g_autoptr(AsBundle) bundle = as_bundle_new ();
+			as_bundle_set_kind (bundle, bkind);
+			as_bundle_set_id (bundle, bdl.id ().c_str ());
+			as_component_add_bundle (cpt, bundle);
+		}
 	}
 
 	// Extends

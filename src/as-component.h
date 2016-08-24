@@ -34,6 +34,7 @@
 #include "as-translation.h"
 #include "as-suggested.h"
 #include "as-category.h"
+#include "as-bundle.h"
 
 G_BEGIN_DECLS
 
@@ -254,11 +255,10 @@ void			as_component_add_translation (AsComponent *cpt,
 							AsTranslation *tr);
 
 gboolean		as_component_has_bundle (AsComponent *cpt);
-const gchar		*as_component_get_bundle_id (AsComponent *cpt,
-							AsBundleKind bundle_kind);
-void			as_component_add_bundle_id (AsComponent *cpt,
-							AsBundleKind bundle_kind,
-							const gchar *id);
+AsBundle		*as_component_get_bundle (AsComponent *cpt,
+						  AsBundleKind bundle_kind);
+void			as_component_add_bundle (AsComponent *cpt,
+						 AsBundle *bundle);
 
 GPtrArray		*as_component_get_suggested (AsComponent *cpt);
 void			as_component_add_suggested (AsComponent *cpt,

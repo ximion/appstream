@@ -1882,12 +1882,13 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 		as_yaml_emit_scalar (emitter, "Bundles");
 		as_yaml_mapping_start (emitter);
 		for (i = AS_BUNDLE_KIND_UNKNOWN; i < AS_BUNDLE_KIND_LAST; i++) {
-			const gchar *value;
-			value = as_component_get_bundle_id (cpt, i);
-			if (value == NULL)
+			AsBundle *bundle = AS_BUNDLE (as_component_get_bundle (cpt, i));
+			if (bundle == NULL)
 				continue;
 
-			as_yaml_emit_entry (emitter, as_bundle_kind_to_string (i), value);
+			as_yaml_emit_entry (emitter,
+					    as_bundle_kind_to_string (as_bundle_get_kind (bundle)),
+					    as_bundle_get_id (bundle));
 		}
 		as_yaml_mapping_end (emitter);
 	}

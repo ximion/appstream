@@ -206,14 +206,14 @@ as_get_bundle_str (AsComponent *cpt)
 	gstr = g_string_new ("");
 	for (i = 0; i < AS_BUNDLE_KIND_LAST; i++) {
 		AsBundleKind kind = (AsBundleKind) i;
-		const gchar *bundle_id;
+		AsBundle *bundle;
 
-		bundle_id = as_component_get_bundle_id (cpt, kind);
-		if (bundle_id == NULL)
+		bundle = as_component_get_bundle (cpt, kind);
+		if (bundle == NULL)
 			continue;
 		g_string_append_printf (gstr, "%s:%s, ",
 					as_bundle_kind_to_string (kind),
-					bundle_id);
+					as_bundle_get_id (bundle));
 
 	}
 	if (gstr->len > 0)
