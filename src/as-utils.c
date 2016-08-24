@@ -874,7 +874,7 @@ as_utils_is_desktop_environment (const gchar *desktop)
 }
 
 /**
- * as_pool_sort_into_categories:
+ * as_utils_sort_components_into_categories:
  * @cpts: (element-type AsComponent): List of components.
  * @categories: (element-type AsCategory): List of categories to sort components into.
  * @check_duplicates: Whether to check for duplicates.
