@@ -106,15 +106,17 @@ typedef enum  {
 
 /**
  * AsValueFlags:
- * @AS_VALUE_FLAGS_NONE:			No flags.
- * @AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
+ * @AS_VALUE_FLAG_NONE:				No flags.
+ * @AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
+ * @AS_VALUE_FLAG_DUPLICATE_CHECK:		Check for duplicates when adding items to list values.
  *
  * Set how values assigned to an #AsComponent should be treated when
  * they are set or retrieved.
  */
 typedef enum {
-	AS_VALUE_FLAGS_NONE = 0,
-	AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK = 1 << 0,
+	AS_VALUE_FLAG_NONE = 0,
+	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 0,
+	AS_VALUE_FLAG_DUPLICATE_CHECK = 1 << 1
 } AsValueFlags;
 
 const gchar		*as_merge_kind_to_string (AsMergeKind kind);
@@ -147,13 +149,14 @@ const gchar		*as_component_get_origin (AsComponent *cpt);
 void			as_component_set_origin (AsComponent *cpt,
 							const gchar *origin);
 
+gchar			*as_component_get_pkgname (AsComponent *cpt);
 gchar			**as_component_get_pkgnames (AsComponent *cpt);
 void			as_component_set_pkgnames (AsComponent *cpt,
 							gchar **value);
 
 const gchar		*as_component_get_source_pkgname (AsComponent *cpt);
 void			as_component_set_source_pkgname (AsComponent *cpt,
-								const gchar* spkgname);
+							 const gchar* spkgname);
 
 const gchar		*as_component_get_name (AsComponent *cpt);
 void			as_component_set_name (AsComponent *cpt,

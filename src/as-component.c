@@ -296,6 +296,7 @@ as_component_init (AsComponent *cpt)
 	priv->compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->extends = g_ptr_array_new_with_free_func (g_free);
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
@@ -341,14 +342,14 @@ as_component_finalize (GObject* object)
 
 	g_ptr_array_unref (priv->screenshots);
 	g_ptr_array_unref (priv->releases);
+	g_ptr_array_unref (priv->extends);
 	g_ptr_array_unref (priv->suggestions);
 	g_hash_table_unref (priv->provided);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
 	g_hash_table_unref (priv->bundles);
 
-	if (priv->extends != NULL)
-		g_ptr_array_unref (priv->extends);
+
 	if (priv->extensions != NULL)
 		g_ptr_array_unref (priv->extensions);
 	if (priv->translations != NULL)
@@ -566,8 +567,6 @@ GPtrArray*
 as_component_get_extends (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	if (priv->extends == NULL)
-		priv->extends = g_ptr_array_new_with_free_func (g_free);
 	return priv->extends;
 }
 
@@ -584,9 +583,14 @@ void
 as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	if (priv->extends == NULL)
-		priv->extends = g_ptr_array_new_with_free_func (g_free);
-	g_ptr_array_add (priv->extends, g_strdup (cpt_id));
+
+	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+		/* check for duplicates */
+		if (as_ptr_array_find_string (priv->extends, cpt_id) != NULL)
+			return;
+	}
+	g_ptr_array_add (priv->extends,
+			 g_strdup (cpt_id));
 }
 
 /**
@@ -781,6 +785,30 @@ as_component_get_pkgnames (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->pkgnames;
+}
+
+/**
+ * as_component_get_pkgname:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get the first package name of the list of packages that need to be installed
+ * for this component to be present on the system.
+ * Since most components consist of only one package, this is safe to use for
+ * about 90% of all cases.
+ *
+ * However, to support a component fully, please use %as_component_get_pkgnames() for
+ * getting all packages that need to be installed, and use this method only to
+ * e.g. get the main package to perform a quick "is it installed?" check.
+ *
+ * Returns: (transfer none): String array of package names
+ */
+gchar*
+as_component_get_pkgname (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if ((priv->pkgnames == NULL) || (priv->pkgnames[0] == '\0'))
+		return NULL;
+	return priv->pkgnames[0];
 }
 
 /**
@@ -993,7 +1021,7 @@ as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	msg = g_hash_table_lookup (lht, priv->active_locale);
-	if ((msg == NULL) && (!as_flags_contains (priv->value_flags, AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK))) {
+	if ((msg == NULL) && (!as_flags_contains (priv->value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
 		/* fall back to untranslated / default */
 		msg = g_hash_table_lookup (lht, "C");
 	}
@@ -1199,8 +1227,8 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 		locale = priv->active_locale;
 
 	g_hash_table_insert (priv->keywords,
-						 g_strdup (locale),
-						 g_strdupv (value));
+				g_strdup (locale),
+				g_strdupv (value));
 
 	g_object_notify ((GObject *) cpt, "keywords");
 }
@@ -1302,9 +1330,14 @@ void
 as_component_add_category (AsComponent *cpt, const gchar *category)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_return_if_fail (category != NULL);
 
-	g_ptr_array_add (priv->categories, g_strdup (category));
+	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+		/* check for duplicates */
+		if (as_ptr_array_find_string (priv->categories, category) != NULL)
+			return;
+	}
+	g_ptr_array_add (priv->categories,
+			 g_strdup (category));
 }
 
 /**
@@ -1500,7 +1533,13 @@ as_component_set_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_return_if_fail (desktop != NULL);
 
-	g_ptr_array_add (priv->compulsory_for_desktops, g_strdup (desktop));
+	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+		/* check for duplicates */
+		if (as_ptr_array_find_string (priv->compulsory_for_desktops, desktop) != NULL)
+			return;
+	}
+	g_ptr_array_add (priv->compulsory_for_desktops,
+			 g_strdup (desktop));
 }
 
 /**

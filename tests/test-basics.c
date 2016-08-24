@@ -142,12 +142,12 @@ test_translation_fallback (void)
 	g_assert_nonnull (as_component_get_description (cpt));
 
 	/* if the flag is set, we don't fall back to C */
-	as_flags_add (flags, AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK);
+	as_flags_add (flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
 	as_component_set_value_flags (cpt, flags);
 	g_assert_null (as_component_get_description (cpt));
 
 	/* ...but after removing it, again we do */
-	as_flags_remove (flags, AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK);
+	as_flags_remove (flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
 	as_component_set_value_flags (cpt, flags);
 	g_assert_nonnull (as_component_get_description (cpt));
 }
