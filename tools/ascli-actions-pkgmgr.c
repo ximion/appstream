@@ -73,10 +73,11 @@ ascli_get_component_pkgnames (const gchar *identifier, gchar ***pkgnames)
 {
 	g_autoptr(GError) error = NULL;
 	g_autoptr(AsPool) dpool = NULL;
-	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	AsComponent *cpt;
 
 	if (identifier == NULL) {
-		ascli_print_stderr (_("You need to specify a component-id."));
+		ascli_print_stderr (_("You need to specify a component-ID."));
 		return 2;
 	}
 
@@ -87,17 +88,21 @@ ascli_get_component_pkgnames (const gchar *identifier, gchar ***pkgnames)
 		return 1;
 	}
 
-	cpt = as_pool_get_component_by_id (dpool, identifier);
-	if (cpt == NULL) {
-		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
+	result = as_pool_get_component_by_id (dpool, identifier);
+	if (result->len == 0) {
+		ascli_print_stderr (_("Unable to find component with ID '%s'!"), identifier);
 		return 4;
 	}
+
+	/* FIXME: Ask user which component they want to install? */
+	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
 
 	/* we need a variable to take the pkgnames array */
 	g_assert (pkgnames != NULL);
 
 	*pkgnames = g_strdupv (as_component_get_pkgnames (cpt));
 	if (*pkgnames == NULL) {
+		/* TRANSLATORS: We found no distribution package or bundle to install to make this software available */
 		ascli_print_stderr (_("Component '%s' has no installation candidate."), identifier);
 		return 1;
 	}

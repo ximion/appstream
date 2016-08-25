@@ -44,6 +44,23 @@ print_cptarray (GPtrArray *cpt_array)
 }
 
 /**
+ * _as_get_single_component_by_cid:
+ *
+ * Internal helper to get a single #AsComponent by its
+ * component identifier.
+ */
+static AsComponent*
+_as_get_single_component_by_cid (AsPool *pool, const gchar *cid)
+{
+	g_autoptr(GPtrArray) result = NULL;
+
+	result = as_pool_get_component_by_id (pool, cid);
+	if (result->len == 0)
+		return NULL;
+	return g_object_ref (AS_COMPONENT (g_ptr_array_index (result, 0)));
+}
+
+/**
  * test_cache:
  *
  * Test reading data from cache files.
@@ -90,10 +107,10 @@ test_cache ()
 	g_assert_no_error (error);
 
 	/* validate */
-	cpt1 = as_pool_get_component_by_id (dpool, "org.example.FooBar1");
+	cpt1 = _as_get_single_component_by_cid (dpool, "org.example.FooBar1");
 	g_assert_nonnull (cpt1);
 
-	cpt2 = as_pool_get_component_by_id (dpool, "org.example.NewFooBar");
+	cpt2 = _as_get_single_component_by_cid (dpool, "org.example.NewFooBar");
 	g_assert_nonnull (cpt2);
 
 	g_assert_cmpint (as_component_get_kind (cpt1), ==, AS_COMPONENT_KIND_GENERIC);
@@ -193,7 +210,7 @@ test_pool_read ()
 	g_ptr_array_unref (result);
 
 	/* test a component in a different file, with no package but a bundle instead */
-	cpt = as_pool_get_component_by_id (dpool, "neverball.desktop");
+	cpt = _as_get_single_component_by_cid (dpool, "neverball.desktop");
 	g_assert_nonnull (cpt);
 
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");
@@ -286,7 +303,7 @@ test_merge_components ()
 	as_pool_load_metadata (dpool);
 
 	/* test injection of suggests tags */
-	cpt = as_pool_get_component_by_id (dpool, "links2.desktop");
+	cpt = _as_get_single_component_by_cid (dpool, "links2.desktop");
 	g_assert_nonnull (cpt);
 
 	suggestions = as_component_get_suggested (cpt);
@@ -299,7 +316,7 @@ test_merge_components ()
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test1");
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test2");
 
-	cpt = as_pool_get_component_by_id (dpool, "literki.desktop");
+	cpt = _as_get_single_component_by_cid (dpool, "literki.desktop");
 	g_assert_nonnull (cpt);
 	suggestions = as_component_get_suggested (cpt);
 	suggested = AS_SUGGESTED (g_ptr_array_index (suggestions, 0));
@@ -312,7 +329,7 @@ test_merge_components ()
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 1), ==, "org.example.test4");
 
 	/* test if names get overridden */
-	cpt = as_pool_get_component_by_id (dpool, "kiki.desktop");
+	cpt = _as_get_single_component_by_cid (dpool, "kiki.desktop");
 	g_assert_nonnull (cpt);
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Kiki (name changed by merge)");
 }

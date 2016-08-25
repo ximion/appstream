@@ -307,13 +307,15 @@ QList< Component > Database::allComponents() const
 
 Component Database::componentById(const QString& id) const
 {
-    g_autoptr(AsComponent) cpt = NULL;
+    g_autoptr(GPtrArray) result = NULL;
 
-    cpt = as_pool_get_component_by_id (d->m_dpool, qPrintable(id));
-    if (cpt == NULL)
+    result = as_pool_get_component_by_id (d->m_dpool, qPrintable(id));
+    if (result->len == 0)
         return Component();
 
-    return convertAsComponent(cpt);
+    /* TODO: Return all metadata sets describing the component with this ID. Requires API break. */
+
+    return convertAsComponent(AS_COMPONENT (g_ptr_array_index (result, 0)));
 }
 
 QList< Component > Database::componentsByKind(Component::Kind kind) const

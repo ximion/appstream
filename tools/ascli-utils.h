@@ -39,6 +39,8 @@ void		ascli_print_highlight (const gchar* msg);
 
 void		ascli_print_component (AsComponent *cpt,
 				       gboolean show_detailed);
+void		ascli_print_components (GPtrArray *cpts,
+					gboolean show_detailed);
 
 void		ascli_set_colored_output (gboolean colored);
 

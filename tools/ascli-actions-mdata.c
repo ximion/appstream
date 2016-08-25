@@ -124,11 +124,11 @@ ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean d
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
-	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GPtrArray) result = NULL;
 
 	if (identifier == NULL) {
 		/* TRANSLATORS: An AppStream component-id is missing in the command-line arguments */
-		fprintf (stderr, "%s\n", _("You need to specify a component-id."));
+		fprintf (stderr, "%s\n", _("You need to specify a component-ID."));
 		return 2;
 	}
 
@@ -138,12 +138,13 @@ ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean d
 		return 1;
 	}
 
-	cpt = as_pool_get_component_by_id (dpool, identifier);
-	if (cpt == NULL) {
-		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
+	result = as_pool_get_component_by_id (dpool, identifier);
+	if (result->len == 0) {
+		ascli_print_stderr (_("Unable to find component with ID '%s'!"), identifier);
 		return 4;
 	}
-	ascli_print_component (cpt, detailed);
+
+	ascli_print_components (result, detailed);
 
 	return 0;
 }
@@ -155,8 +156,7 @@ int
 ascli_search_component (const gchar *cachepath, const gchar *search_term, gboolean detailed, gboolean no_cache)
 {
 	g_autoptr(AsPool) dpool = NULL;
-	g_autoptr(GPtrArray) cpt_list = NULL;
-	guint i;
+	g_autoptr(GPtrArray) result = NULL;
 	g_autoptr(GError) error = NULL;
 
 	if (search_term == NULL) {
@@ -170,24 +170,20 @@ ascli_search_component (const gchar *cachepath, const gchar *search_term, gboole
 		return 1;
 	}
 
-	cpt_list = as_pool_search (dpool, search_term);
-	if (cpt_list == NULL) {
+	result = as_pool_search (dpool, search_term);
+	if (result->len == 0) {
 		/* TRANSLATORS: We failed to find any component in the database, likely due to an error */
 		ascli_print_stderr (_("Unable to find component matching %s!"), search_term);
 		return 4;
 	}
 
-	if (cpt_list->len == 0) {
+	if (result->len == 0) {
 		ascli_print_stdout (_("No component matching '%s' found."), search_term);
 		return 0;
 	}
 
-	for (i = 0; i < cpt_list->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpt_list, i));
-
-		ascli_print_component (cpt, detailed);
-		ascli_print_separator ();
-	}
+	/* show the result */
+	ascli_print_components (result, detailed);
 
 	return 0;
 }
@@ -201,9 +197,8 @@ int
 ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar *item, gboolean detailed)
 {
 	g_autoptr(AsPool) dpool = NULL;
-	g_autoptr(GPtrArray) cpt_list = NULL;
+	g_autoptr(GPtrArray) result = NULL;
 	AsProvidedKind kind;
-	guint i;
 	g_autoptr(GError) error = NULL;
 
 	if (item == NULL) {
@@ -226,28 +221,22 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 		return 1;
 	}
 
-	cpt_list = as_pool_get_components_by_provided_item (dpool, kind, item, &error);
+	result = as_pool_get_components_by_provided_item (dpool, kind, item, &error);
 	if (error != NULL) {
-		g_printerr ("%s\n", error->message);
+		/* TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes) */
+		ascli_print_stderr (_("Unable to find component providing '%s::%s': %s"),
+				    kind_str, item, error->message);
 		return 2;
 	}
 
-	if (cpt_list == NULL) {
-		ascli_print_stderr (_("Unable to find component providing '%s;%s'!"), kind_str, item);
-		return 4;
-	}
-
-	if (cpt_list->len == 0) {
-		ascli_print_stdout (_("No component providing '%s;%s' found."), kind_str, item);
+	if (result->len == 0) {
+		/* TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results */
+		ascli_print_stdout (_("No component providing '%s::%s' found."), kind_str, item);
 		return 0;
 	}
 
-	for (i = 0; i < cpt_list->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpt_list, i));
-
-		ascli_print_component (cpt, detailed);
-		ascli_print_separator ();
-	}
+	/* show results */
+	ascli_print_components (result, detailed);
 
 	return 0;
 }
@@ -261,13 +250,14 @@ int
 ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean no_cache)
 {
 	g_autoptr(AsPool) dpool = NULL;
-	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GPtrArray) result = NULL;
 	g_autoptr(AsMetadata) metad = NULL;
-	gchar *tmp;
+	guint i;
 	g_autoptr(GError) error = NULL;
 
 	if (identifier == NULL) {
-		fprintf (stderr, "%s\n", _("You need to specify a component-id."));
+		/* TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified. */
+		fprintf (stderr, "%s\n", _("You need to specify a component-ID."));
 		return 2;
 	}
 
@@ -277,19 +267,23 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean 
 		return 1;
 	}
 
-	cpt = as_pool_get_component_by_id (dpool, identifier);
-	if (cpt == NULL) {
-		ascli_print_stderr (_("Unable to find component with id '%s'!"), identifier);
+	result = as_pool_get_component_by_id (dpool, identifier);
+	if (result->len == 0) {
+		ascli_print_stderr (_("Unable to find component with ID '%s'!"), identifier);
 		return 4;
 	}
 
 	/* convert the obtained component to XML */
 	metad = as_metadata_new ();
-	as_metadata_add_component (metad, cpt);
-	tmp = as_metadata_component_to_upstream_xml (metad);
+	for (i = 0; i < result->len; i++) {
+		g_autofree gchar *xmldata = NULL;
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (result, i));
 
-	g_print ("%s\n", tmp);
-	g_free (tmp);
+		as_metadata_clear_components (metad);
+		as_metadata_add_component (metad, cpt);
+		xmldata = as_metadata_component_to_upstream_xml (metad);
+		g_print ("%s\n", xmldata);
+	}
 
 	return 0;
 }

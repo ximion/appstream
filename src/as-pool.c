@@ -277,7 +277,7 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 			as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));
 	}
 
-	g_debug ("Merged data for '%s'", as_component_get_id (dest_cpt));
+	g_debug ("Merged data for '%s'", as_component_get_data_id (dest_cpt));
 }
 
 /**
@@ -293,15 +293,15 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 gboolean
 as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 {
-	const gchar *cid;
+	const gchar *cdid;
 	AsComponent *existing_cpt;
 	gint pool_priority;
 	AsMergeKind merge_kind_new;
 	AsMergeKind merge_kind_pool;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
-	cid = as_component_get_id (cpt);
-	existing_cpt = g_hash_table_lookup (priv->cpt_table, cid);
+	cdid = as_component_get_data_id (cpt);
+	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
 
 	/* add additional data to the component, e.g. external screenshots. Also refines
 	 * the component's icon paths */
@@ -309,7 +309,7 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 
 	if (existing_cpt == NULL) {
 		g_hash_table_insert (priv->cpt_table,
-					g_strdup (cid),
+					g_strdup (cdid),
 					g_object_ref (cpt));
 		return TRUE;
 	}
@@ -326,7 +326,7 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 		 * replace it with the actual metadata and merge the two components together */
 		g_object_ref (existing_cpt);
 		g_hash_table_replace (priv->cpt_table,
-				      g_strdup (cid),
+				      g_strdup (cdid),
 				      g_object_ref (cpt));
 		as_merge_components (cpt, existing_cpt);
 		g_object_unref (existing_cpt);
@@ -339,9 +339,9 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 	pool_priority = as_component_get_priority (existing_cpt);
 	if (pool_priority < as_component_get_priority (cpt)) {
 		g_hash_table_replace (priv->cpt_table,
-					g_strdup (cid),
+					g_strdup (cdid),
 					g_object_ref (cpt));
-		g_debug ("Replaced '%s' with data of higher priority.", cid);
+		g_debug ("Replaced '%s' with data of higher priority.", cdid);
 	} else {
 		/* bundles are treated specially here */
 		if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
@@ -362,12 +362,12 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 				if (earch != NULL) {
 					if (as_arch_compatible (earch, priv->current_arch)) {
 						g_hash_table_replace (priv->cpt_table,
-									g_strdup (cid),
+									g_strdup (cdid),
 									g_object_ref (cpt));
-						g_debug ("Preferred component for native architecture for %s (was %s)", cid, earch);
+						g_debug ("Preferred component for native architecture for %s (was %s)", cdid, earch);
 						return TRUE;
 					} else {
-						g_debug ("Ignored additional entry for '%s' on architecture %s.", cid, earch);
+						g_debug ("Ignored additional entry for '%s' on architecture %s.", cdid, earch);
 						return FALSE;
 					}
 				}
@@ -378,13 +378,13 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 			g_set_error (error,
 					AS_POOL_ERROR,
 					AS_POOL_ERROR_COLLISION,
-					"Detected colliding ids: %s was already added with the same priority.", cid);
+					"Detected colliding ids: %s was already added with the same priority.", cdid);
 			return FALSE;
 		} else {
 			g_set_error (error,
 					AS_POOL_ERROR,
 					AS_POOL_ERROR_COLLISION,
-					"Detected colliding ids: %s was already added with a higher priority.", cid);
+					"Detected colliding ids: %s was already added with a higher priority.", cdid);
 			return FALSE;
 		}
 	}
@@ -411,15 +411,15 @@ as_pool_update_extension_info (AsPool *pool, AsComponent *cpt)
 
 	for (i = 0; i < extends->len; i++) {
 		AsComponent *extended_cpt;
-		const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
+		const gchar *extended_cdid = (const gchar*) g_ptr_array_index (extends, i);
 
-		extended_cpt = g_hash_table_lookup (priv->cpt_table, extended_cid);
+		extended_cpt = g_hash_table_lookup (priv->cpt_table, extended_cdid);
 		if (extended_cpt == NULL) {
-			g_debug ("%s extends %s, but %s was not found.", as_component_get_id (cpt), extended_cid, extended_cid);
+			g_debug ("%s extends %s, but %s was not found.", as_component_get_data_id (cpt), extended_cdid, extended_cdid);
 			return;
 		}
 
-		as_component_add_extension (extended_cpt, as_component_get_id (cpt));
+		as_component_add_extension (extended_cpt, as_component_get_data_id (cpt));
 	}
 }
 
@@ -448,9 +448,9 @@ as_pool_refine_data (AsPool *pool)
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
 		AsComponent *cpt;
-		const gchar *cid;
+		const gchar *cdid;
 		cpt = AS_COMPONENT (value);
-		cid = (const gchar*) key;
+		cdid = (const gchar*) key;
 
 		/* validate the component */
 		if (!as_component_is_valid (cpt)) {
@@ -464,7 +464,7 @@ as_pool_refine_data (AsPool *pool)
 
 		/* add to results table */
 		g_hash_table_insert (refined_cpts,
-					g_strdup (cid),
+					g_strdup (cdid),
 					g_object_ref (cpt));
 	}
 
@@ -800,23 +800,32 @@ as_pool_get_components (AsPool *pool)
  * @id: The AppStream-ID to look for.
  *
  * Get a specific component by its ID.
+ * This function may contain multiple results if we have
+ * data describing this component from multiple scopes/origin types.
  *
- * Returns: (transfer full): An #AsComponent
+ * Returns: (transfer container): An #AsComponent
  */
-AsComponent*
-as_pool_get_component_by_id (AsPool *pool, const gchar *id)
+GPtrArray*
+as_pool_get_component_by_id (AsPool *pool, const gchar *cid)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GPtrArray *result;
 	gpointer match;
 
-	if (id == NULL)
+	result = g_ptr_array_new_with_free_func (g_object_unref);
+
+	if (cid == NULL)
 		return NULL;
 
-	match = g_hash_table_lookup (priv->cpt_table, id);
+	/* FIXME: The table contains cdids (data-ids, instead of component-ids).
+	 * We need a better lookup mechanism here */
+	match = g_hash_table_lookup (priv->cpt_table, cid);
 	if (match == NULL)
-		return NULL;
+		return result;
 
-	return g_object_ref (AS_COMPONENT (match));
+	g_ptr_array_add (result,
+			 g_object_ref (AS_COMPONENT (match)));
+	return result;
 }
 
 /**

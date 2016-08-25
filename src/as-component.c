@@ -51,6 +51,7 @@ typedef struct
 	gchar			*active_locale;
 
 	gchar			*id;
+	gchar			*data_id;
 	gchar			*origin;
 	gchar			**pkgnames;
 	gchar			*source_pkgname;
@@ -323,6 +324,7 @@ as_component_finalize (GObject* object)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	g_free (priv->id);
+	g_free (priv->data_id);
 	g_strfreev (priv->pkgnames);
 	g_free (priv->metadata_license);
 	g_free (priv->project_license);
@@ -859,9 +861,14 @@ as_component_set_source_pkgname (AsComponent *cpt, const gchar* spkgname)
  * as_component_get_id:
  * @cpt: a #AsComponent instance.
  *
- * Get the unique identifier for this component.
+ * Get the unique AppStream identifier for this component.
+ * This ID is unique for the described component, but does
+ * not uniquely identify the metadata set.
  *
- * Returns: the unique identifier.
+ * For a unique ID for this metadata set in the current
+ * session, use %as_component_get_data_id()
+ *
+ * Returns: the unique AppStream identifier.
  */
 const gchar*
 as_component_get_id (AsComponent *cpt)
@@ -875,7 +882,7 @@ as_component_get_id (AsComponent *cpt)
  * @cpt: a #AsComponent instance.
  * @value: the unique identifier.
  *
- * Set the unique identifier for this component.
+ * Set the AppStream identifier for this component.
  */
 void
 as_component_set_id (AsComponent *cpt, const gchar* value)
@@ -888,6 +895,51 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
 
 	priv->id = g_strdup (value);
 	g_object_notify ((GObject *) cpt, "id");
+}
+
+/**
+ * as_component_get_data_id:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get a unique identifier for this metadata set.
+ * This unique ID is only valid for the current session,
+ * as opposed to the AppStream ID which uniquely identifies
+ * a software component.
+ *
+ * The format of the unique id usually is:
+ * %{scope}/%{origin_type}/%{appstream_id}
+ *
+ * For example:
+ * system/distributor/org.example.FooBar
+ *
+ * Returns: the unique session-specific identifier.
+ */
+const gchar*
+as_component_get_data_id (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->data_id == NULL)
+		return priv->id;
+	return priv->data_id;
+}
+
+/**
+ * as_component_set_data_id:
+ * @cpt: a #AsComponent instance.
+ * @value: the unique session-specific identifier.
+ *
+ * Set the session-specific unique metadata identifier for this
+ * component.
+ * If two components have a different data_id but the same ID,
+ * they will be treated as independent sets of metadata describing
+ * the same component type.
+ */
+void
+as_component_set_data_id (AsComponent *cpt, const gchar* value)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_free (priv->data_id);
+	priv->data_id = g_strdup (value);
 }
 
 /**

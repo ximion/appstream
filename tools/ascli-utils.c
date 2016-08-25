@@ -385,3 +385,22 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		}
 	}
 }
+
+/**
+ * ascli_print_components:
+ *
+ * Print well-formatted details about multiple components to stdout.
+ */
+void
+ascli_print_components (GPtrArray *cpts, gboolean show_detailed)
+{
+	guint i;
+
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT(g_ptr_array_index (cpts, i));
+		ascli_print_component (cpt, show_detailed);
+
+		if (i < cpts->len-1)
+			ascli_print_separator ();
+	}
+}

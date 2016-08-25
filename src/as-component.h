@@ -129,20 +129,21 @@ AsValueFlags		as_component_get_value_flags (AsComponent *cpt);
 void			as_component_set_value_flags (AsComponent *cpt,
 						      AsValueFlags flags);
 
-gboolean		as_component_is_valid (AsComponent *cpt);
-gchar			*as_component_to_string (AsComponent *cpt);
-
 gchar			*as_component_get_active_locale (AsComponent *cpt);
 void			as_component_set_active_locale (AsComponent *cpt,
 							const gchar *locale);
 
-AsComponentKind		as_component_get_kind (AsComponent *cpt);
-void			as_component_set_kind (AsComponent *cpt,
-						AsComponentKind value);
-
 const gchar		*as_component_get_id (AsComponent *cpt);
 void			as_component_set_id (AsComponent *cpt,
 						const gchar *value);
+
+const gchar		*as_component_get_data_id (AsComponent *cpt);
+void			as_component_set_data_id (AsComponent *cpt,
+							const gchar *value);
+
+AsComponentKind		as_component_get_kind (AsComponent *cpt);
+void			as_component_set_kind (AsComponent *cpt,
+						AsComponentKind value);
 
 const gchar		*as_component_get_desktop_id (AsComponent *cpt);
 
@@ -276,6 +277,9 @@ void			as_component_set_merge_kind (AsComponent *cpt,
 
 gboolean		as_component_is_member_of_category (AsComponent *cpt,
 							    AsCategory *category);
+
+gboolean		as_component_is_valid (AsComponent *cpt);
+gchar			*as_component_to_string (AsComponent *cpt);
 
 G_END_DECLS
 
