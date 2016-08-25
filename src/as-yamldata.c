@@ -1209,8 +1209,7 @@ as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTab
 static void
 as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 {
-	GList *l;
-	g_autoptr(GList) plist = NULL;
+	GPtrArray *plist;
 	guint i;
 
 	g_autoptr(GPtrArray) dbus_system = NULL;
@@ -1220,18 +1219,19 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 	g_autoptr(GPtrArray) fw_flashed = NULL;
 
 	plist = as_component_get_provided (cpt);
-	if (plist == NULL)
+	if (plist->len == 0)
 		return;
 
 	as_yaml_emit_scalar (emitter, "Provides");
 	as_yaml_mapping_start (emitter);
-	for (l = plist; l != NULL; l = l->next) {
+	for (i = 0; i < plist->len; i++) {
 		AsProvidedKind kind;
 		GPtrArray *items;
-		AsProvided *prov = AS_PROVIDED (l->data);
+		guint j;
+		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (plist, i));
 
 		items = as_provided_get_items (prov);
-		if (items == NULL)
+		if (items->len == 0)
 			continue;
 
 		kind = as_provided_get_kind (prov);
@@ -1270,11 +1270,11 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 				as_yaml_emit_scalar (emitter, "fonts");
 
 				as_yaml_sequence_start (emitter);
-				for (i = 0; i < items->len; i++) {
+				for (j = 0; j < items->len; j++) {
 					as_yaml_mapping_start (emitter);
 					as_yaml_emit_entry (emitter,
 							    "name",
-							    (const gchar*) g_ptr_array_index (items, i));
+							    (const gchar*) g_ptr_array_index (items, j));
 					/* FIXME: Also emit "file" entry, but at time we don't seem to store this? */
 					as_yaml_mapping_end (emitter);
 				}

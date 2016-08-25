@@ -72,9 +72,9 @@ typedef struct
 	GPtrArray		*extensions; /* of utf8 */
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
 	GPtrArray		*releases; /* of AsRelease elements */
+	GPtrArray		*provided; /* of AsProvided */
 	GPtrArray		*suggestions; /* of AsSuggested elements */
 
-	GHashTable		*provided; /* of int:object */
 	GHashTable		*urls; /* of int:utf8 */
 	GHashTable		*languages; /* of utf8:utf8 */
 	GHashTable		*bundles; /* of int:utf8 */
@@ -296,6 +296,7 @@ as_component_init (AsComponent *cpt)
 	priv->compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->provided = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 
@@ -303,7 +304,6 @@ as_component_init (AsComponent *cpt)
 	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	/* others */
-	priv->provided = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->bundles = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -342,9 +342,9 @@ as_component_finalize (GObject* object)
 
 	g_ptr_array_unref (priv->screenshots);
 	g_ptr_array_unref (priv->releases);
+	g_ptr_array_unref (priv->provided);
 	g_ptr_array_unref (priv->extends);
 	g_ptr_array_unref (priv->suggestions);
-	g_hash_table_unref (priv->provided);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
 	g_hash_table_unref (priv->bundles);
@@ -1572,7 +1572,14 @@ AsProvided*
 as_component_get_provided_for_kind (AsComponent *cpt, AsProvidedKind kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return AS_PROVIDED (g_hash_table_lookup (priv->provided, GINT_TO_POINTER (kind)));
+	guint i;
+
+	for (i = 0; i < priv->provided->len; i++) {
+		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
+		if (as_provided_get_kind (prov) == kind)
+			return prov;
+	}
+	return NULL;
 }
 
 /**
@@ -1581,13 +1588,13 @@ as_component_get_provided_for_kind (AsComponent *cpt, AsProvidedKind kind)
  *
  * Get a list of #AsProvided objects associated with this component.
  *
- * Returns: (transfer container) (element-type AsProvided): A list of #AsProvided objects.
+ * Returns: (transfer none) (element-type AsProvided): A list of #AsProvided objects.
  **/
-GList*
+GPtrArray*
 as_component_get_provided (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return g_hash_table_get_values (priv->provided);
+	return priv->provided;
 }
 
 /**
@@ -1603,9 +1610,23 @@ void
 as_component_add_provided (AsComponent *cpt, AsProvided *prov)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_hash_table_insert (priv->provided,
-				GINT_TO_POINTER (as_provided_get_kind (prov)),
-				g_object_ref (prov));
+
+	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
+		guint i;
+		for (i = 0; i < priv->provided->len; i++) {
+			AsProvided *eprov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
+			if (as_provided_get_kind (prov) == as_provided_get_kind (eprov)) {
+				/* replace existing entry */
+				g_ptr_array_remove_index (priv->provided, i);
+				g_ptr_array_add (priv->provided,
+						 g_object_ref (prov));
+				return;
+			}
+		}
+	}
+
+	g_ptr_array_add (priv->provided,
+			 g_object_ref (prov));
 }
 
 /**
@@ -1616,7 +1637,7 @@ as_component_add_provided (AsComponent *cpt, AsProvided *prov)
  *
  * Adds a provided item to the component.
  *
- * Internal function for use by the metadata reading classes.
+ * Internal convenience function for use by the metadata reading classes.
  **/
 void
 as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, const gchar *item)
@@ -1632,7 +1653,7 @@ as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, const gch
 	if (prov == NULL) {
 		prov = as_provided_new ();
 		as_provided_set_kind (prov, kind);
-		g_hash_table_insert (priv->provided, GINT_TO_POINTER (kind), prov);
+		g_ptr_array_add (priv->provided, prov);
 	}
 
 	as_provided_add_item (prov, item);

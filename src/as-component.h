@@ -223,7 +223,7 @@ void			as_component_add_provided (AsComponent *cpt,
 							AsProvided *prov);
 AsProvided		*as_component_get_provided_for_kind (AsComponent *cpt,
 							AsProvidedKind kind);
-GList			*as_component_get_provided (AsComponent *cpt);
+GPtrArray		*as_component_get_provided (AsComponent *cpt);
 
 const gchar		*as_component_get_url (AsComponent *cpt,
 						AsUrlKind url_kind);

@@ -290,8 +290,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		GPtrArray *extensions;
 		GPtrArray *categories;
 		GPtrArray *compulsory_desktops;
-		GList *provided;
-		GList *l;
+		GPtrArray *provided;
+		guint i;
 		AsScreenshot *sshot;
 		AsImage *img;
 		gchar *str;
@@ -367,11 +367,11 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 
 		/* Provided Items */
 		provided = as_component_get_provided (cpt);
-		if (provided != NULL)
+		if (provided->len > 0)
 			ascli_print_key_value (_("Provided Items"), "↓", FALSE);
-		for (l = provided; l != NULL; l = l->next) {
+		for (i = 0; i < provided->len; i++) {
 			GPtrArray *items = NULL;
-			AsProvided *prov = AS_PROVIDED (l->data);
+			AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provided, i));
 
 			items = as_provided_get_items (prov);
 			if (items->len > 0) {

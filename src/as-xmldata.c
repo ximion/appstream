@@ -1543,14 +1543,13 @@ static void
 as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 {
 	xmlNode *node;
-	g_autoptr(GList) prov_list = NULL;
-	GList *l;
+	GPtrArray *prov_list;
 	GPtrArray *items;
 	guint i;
 	AsProvided *prov_mime;
 
 	prov_list = as_component_get_provided (cpt);
-	if (prov_list == NULL)
+	if (prov_list->len == 0)
 		return;
 
 	prov_mime = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MIMETYPE);
@@ -1568,13 +1567,13 @@ as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 	}
 
 	/* check if we only had mimetype provided items, in that case we don't need to continue */
-	if ((as_provided_get_kind (AS_PROVIDED (prov_list->data)) == AS_PROVIDED_KIND_MIMETYPE) &&
-	    (prov_list->next == NULL))
+	if (prov_list->len == 1)
 		return;
 
 	node = xmlNewChild (cnode, NULL, (xmlChar*) "provides", NULL);
-	for (l = prov_list; l != NULL; l = l->next) {
-		AsProvided *prov = AS_PROVIDED (l->data);
+	for (i = 0; i < prov_list->len; i++) {
+		guint j;
+		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (prov_list, i));
 
 		items = as_provided_get_items (prov);
 		switch (as_provided_get_kind (prov)) {
@@ -1607,44 +1606,44 @@ as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 							items);
 				break;
 			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
-				for (i = 0; i < items->len; i++) {
+				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
 					n = xmlNewTextChild (node, NULL,
 							     (xmlChar*) "firmware",
-							     (xmlChar*) g_ptr_array_index (items, i));
+							     (xmlChar*) g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "runtime");
 				}
 				break;
 			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
-				for (i = 0; i < items->len; i++) {
+				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
 					n = xmlNewTextChild (node, NULL,
 							     (xmlChar*) "firmware",
-							     (xmlChar*) g_ptr_array_index (items, i));
+							     (xmlChar*) g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "runtime");
 				}
 				break;
 			case AS_PROVIDED_KIND_DBUS_SYSTEM:
-				for (i = 0; i < items->len; i++) {
+				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
 					n = xmlNewTextChild (node, NULL,
 							     (xmlChar*) "dbus",
-							     (xmlChar*) g_ptr_array_index (items, i));
+							     (xmlChar*) g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "system");
 				}
 				break;
 			case AS_PROVIDED_KIND_DBUS_USER:
-				for (i = 0; i < items->len; i++) {
+				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
 					n = xmlNewTextChild (node, NULL,
 							     (xmlChar*) "dbus",
-							     (xmlChar*) g_ptr_array_index (items, i));
+							     (xmlChar*) g_ptr_array_index (items, j));
 					xmlNewProp (n,
 						    (xmlChar*) "type",
 						    (xmlChar*) "user");

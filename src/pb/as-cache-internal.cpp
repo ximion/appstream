@@ -249,17 +249,13 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 		}
 
 		// Provided Items
-		for (uint j = 0; j < AS_PROVIDED_KIND_LAST; j++) {
-			AsProvidedKind kind = (AsProvidedKind) j;
-			string kind_str;
-			AsProvided *prov = as_component_get_provided_for_kind (cpt, kind);
-			if (prov == NULL)
-				continue;
+		auto provided = as_component_get_provided (cpt);
+		for (uint i = 0; i < provided->len; i++) {
+			auto prov = AS_PROVIDED (g_ptr_array_index (provided, i));
 
 			auto pb_prov = pb_cpt->add_provided ();
-			pb_prov->set_type ((ASCache::Provided_Type) kind);
+			pb_prov->set_type ((ASCache::Provided_Type) as_provided_get_kind (prov));
 
-			kind_str = as_provided_kind_to_string (kind);
 			auto items = as_provided_get_items (prov);
 			for (uint j = 0; j < items->len; j++) {
 				string item = (const gchar*) g_ptr_array_index (items, j);

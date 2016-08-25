@@ -852,13 +852,13 @@ as_pool_get_components_by_provided_item (AsPool *pool,
 	results = g_ptr_array_new_with_free_func (g_object_unref);
 	g_hash_table_iter_init (&iter, priv->cpt_table);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		g_autoptr(GList) provided = NULL;
-		GList *l;
+		GPtrArray *provided = NULL;
+		guint i;
 		AsComponent *cpt = AS_COMPONENT (value);
 
 		provided = as_component_get_provided (cpt);
-		for (l = provided; l != NULL; l = l->next) {
-			AsProvided *prov = AS_PROVIDED (l->data);
+		for (i = 0; i < provided->len; i++) {
+			AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provided, i));
 			if (kind != AS_PROVIDED_KIND_UNKNOWN) {
 				/* check if the kind matches. an unknown kind matches all provides types */
 				if (as_provided_get_kind (prov) != kind)
