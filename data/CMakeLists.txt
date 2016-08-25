@@ -10,7 +10,3 @@ endif (LC_INTLTOOL_MERGE STREQUAL "LC_INTLTOOL_MERGE-NOTFOUND")
 install(FILES appstream.conf
 	DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}
 )
-
-install(FILES categories.xml
-	DESTINATION share/app-info/
-)
