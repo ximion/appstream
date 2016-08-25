@@ -106,19 +106,19 @@ void			as_metadata_clear_components (AsMetadata *metad);
 void			as_metadata_add_component (AsMetadata *metad,
 							AsComponent *cpt);
 
-gchar			*as_metadata_component_to_upstream_xml (AsMetadata *metad);
-void			as_metadata_save_upstream_xml (AsMetadata *metad,
-							const gchar *fname,
-							GError **error);
-gchar			*as_metadata_components_to_distro_xml (AsMetadata *metad);
-void			as_metadata_save_distro_xml (AsMetadata *metad,
+gchar			*as_metadata_component_to_metainfo_xml (AsMetadata *metad);
+void			as_metadata_save_metainfo_xml (AsMetadata *metad,
 							const gchar *fname,
 							GError **error);
 
-gchar			*as_metadata_components_to_distro_yaml (AsMetadata *metad);
-void			as_metadata_save_distro_yaml (AsMetadata *metad,
-							const gchar *fname,
-							GError **error);
+gchar			*as_metadata_components_to_collection_xml (AsMetadata *metad);
+void			as_metadata_save_collection_xml (AsMetadata *metad,
+							 const gchar *fname,
+							 GError **error);
+gchar			*as_metadata_components_to_collection_yaml (AsMetadata *metad);
+void			as_metadata_save_collection_yaml (AsMetadata *metad,
+							  const gchar *fname,
+							  GError **error);
 
 void			as_metadata_set_locale (AsMetadata *metad,
 							const gchar *locale);

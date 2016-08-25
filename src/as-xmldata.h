@@ -53,22 +53,22 @@ void			as_xmldata_initialize (AsXMLData *xdt,
 						const gchar *arch,
 						gint priority);
 
-AsComponent		*as_xmldata_parse_upstream_data (AsXMLData *xdt,
+AsComponent		*as_xmldata_parse_metainfo_data (AsXMLData *xdt,
 							const gchar *data,
 							GError **error);
-GPtrArray		*as_xmldata_parse_distro_data (AsXMLData *xdt,
-							const gchar *data,
-							GError **error);
-gboolean		as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt,
-								const gchar *data,
-								AsComponent *cpt,
-								GError **error);
+GPtrArray		*as_xmldata_parse_collection_data (AsXMLData *xdt,
+							   const gchar *data,
+							   GError **error);
+gboolean		as_xmldata_update_cpt_with_metainfo_data (AsXMLData *xdt,
+								  const gchar *data,
+								  AsComponent *cpt,
+								  GError **error);
 
-gchar			*as_xmldata_serialize_to_upstream (AsXMLData *xdt,
+gchar			*as_xmldata_serialize_to_metainfo (AsXMLData *xdt,
 								AsComponent *cpt);
-gchar			*as_xmldata_serialize_to_distro (AsXMLData *xdt,
-							 GPtrArray *cpts,
-							 gboolean write_header);
+gchar			*as_xmldata_serialize_to_collection (AsXMLData *xdt,
+								GPtrArray *cpts,
+								gboolean write_header);
 
 AsParserMode		as_xmldata_get_parser_mode (AsXMLData *xdt);
 void			as_xmldata_set_parser_mode (AsXMLData *xdt,

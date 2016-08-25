@@ -94,8 +94,8 @@ test_component ()
 
 	metad = as_metadata_new ();
 	as_metadata_add_component (metad, cpt);
-	str = as_metadata_component_to_upstream_xml (metad);
-	str2 = as_metadata_components_to_distro_xml (metad);
+	str = as_metadata_component_to_metainfo_xml (metad);
+	str2 = as_metadata_components_to_collection_xml (metad);
 	g_object_unref (metad);
 	g_debug ("%s", str2);
 

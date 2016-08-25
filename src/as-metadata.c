@@ -202,7 +202,7 @@ as_metadata_parse_xml (AsMetadata *metad, const gchar *data, GError **error)
 		guint i;
 		g_autoptr(GPtrArray) new_cpts = NULL;
 
-		new_cpts = as_xmldata_parse_distro_data (priv->xdt, data, error);
+		new_cpts = as_xmldata_parse_collection_data (priv->xdt, data, error);
 		if (new_cpts == NULL)
 			return;
 		for (i = 0; i < new_cpts->len; i++) {
@@ -224,9 +224,9 @@ as_metadata_parse_xml (AsMetadata *metad, const gchar *data, GError **error)
 						"No component found that could be updated.");
 				return;
 			}
-			as_xmldata_update_cpt_with_upstream_data (priv->xdt, data, cpt, error);
+			as_xmldata_update_cpt_with_metainfo_data (priv->xdt, data, cpt, error);
 		} else {
-			cpt = as_xmldata_parse_upstream_data (priv->xdt, data, error);
+			cpt = as_xmldata_parse_metainfo_data (priv->xdt, data, error);
 			if (cpt != NULL)
 				g_ptr_array_add (priv->cpts, cpt);
 		}
@@ -252,7 +252,7 @@ as_metadata_parse_yaml (AsMetadata *metad, const gchar *data, GError **error)
 		guint i;
 		g_autoptr(GPtrArray) new_cpts = NULL;
 
-		new_cpts = as_yamldata_parse_distro_data (priv->ydt, data, error);
+		new_cpts = as_yamldata_parse_collection_data (priv->ydt, data, error);
 		if (new_cpts == NULL)
 			return;
 		for (i = 0; i < new_cpts->len; i++) {
@@ -427,39 +427,39 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
 }
 
 /**
- * as_metadata_save_upstream_xml:
+ * as_metadata_save_metainfo_xml:
  * @fname: The filename for the new XML file.
  *
  * Serialize #AsComponent instance to XML and save it to file.
  * An existing file at the same location will be overridden.
  */
 void
-as_metadata_save_upstream_xml (AsMetadata *metad, const gchar *fname, GError **error)
+as_metadata_save_metainfo_xml (AsMetadata *metad, const gchar *fname, GError **error)
 {
 	g_autofree gchar *xml_data = NULL;
 
-	xml_data = as_metadata_component_to_upstream_xml (metad);
+	xml_data = as_metadata_component_to_metainfo_xml (metad);
 	as_metadata_save_data (metad, fname, xml_data, error);
 }
 
 /**
- * as_metadata_save_distro_xml:
+ * as_metadata_save_collection_xml:
  * @fname: The filename for the new XML file.
  *
  * Serialize all #AsComponent instances to XML and save the data to a file.
  * An existing file at the same location will be overridden.
  */
 void
-as_metadata_save_distro_xml (AsMetadata *metad, const gchar *fname, GError **error)
+as_metadata_save_collection_xml (AsMetadata *metad, const gchar *fname, GError **error)
 {
 	g_autofree gchar *xml_data = NULL;
 
-	xml_data = as_metadata_components_to_distro_xml (metad);
+	xml_data = as_metadata_components_to_collection_xml (metad);
 	as_metadata_save_data (metad, fname, xml_data, error);
 }
 
 /**
- * as_metadata_components_to_distro_yaml:
+ * as_metadata_components_to_collection_yaml:
  *
  * Serialize all #AsComponent instances into AppStream DEP-11
  * collection-YAML data.
@@ -468,7 +468,7 @@ as_metadata_save_distro_xml (AsMetadata *metad, const gchar *fname, GError **err
  * Returns: (transfer full): A string containing the YAML markup. Free with g_free()
  */
 gchar*
-as_metadata_components_to_distro_yaml (AsMetadata *metad)
+as_metadata_components_to_collection_yaml (AsMetadata *metad)
 {
 	gchar *yamlstr = NULL;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
@@ -477,7 +477,7 @@ as_metadata_components_to_distro_yaml (AsMetadata *metad)
 	if (priv->cpts->len == 0)
 		return NULL;
 
-	yamlstr = as_yamldata_serialize_to_distro (priv->ydt,
+	yamlstr = as_yamldata_serialize_to_collection (priv->ydt,
 							priv->cpts,
 							priv->write_header,
 							TRUE, /* add timestamp */
@@ -486,23 +486,23 @@ as_metadata_components_to_distro_yaml (AsMetadata *metad)
 }
 
 /**
- * as_metadata_save_distro_yaml:
+ * as_metadata_save_collection_yaml:
  * @fname: The filename for the new YAML file.
  *
  * Serialize all #AsComponent instances to XML and save the data to a file.
  * An existing file at the same location will be overridden.
  */
 void
-as_metadata_save_distro_yaml (AsMetadata *metad, const gchar *fname, GError **error)
+as_metadata_save_collection_yaml (AsMetadata *metad, const gchar *fname, GError **error)
 {
 	g_autofree gchar *yaml_data = NULL;
 
-	yaml_data = as_metadata_components_to_distro_yaml (metad);
+	yaml_data = as_metadata_components_to_collection_yaml (metad);
 	as_metadata_save_data (metad, fname, yaml_data, error);
 }
 
 /**
- * as_metadata_component_to_upstream_xml:
+ * as_metadata_component_to_metainfo_xml:
  *
  * Convert an #AsComponent to upstream XML.
  * (The amount of localization included in the metadata depends on how the #AsComponent
@@ -514,7 +514,7 @@ as_metadata_save_distro_yaml (AsMetadata *metad, const gchar *fname, GError **er
  * Returns: (transfer full): A string containing the XML. Free with g_free()
  */
 gchar*
-as_metadata_component_to_upstream_xml (AsMetadata *metad)
+as_metadata_component_to_metainfo_xml (AsMetadata *metad)
 {
 	gchar *xmlstr = NULL;
 	AsComponent *cpt;
@@ -526,12 +526,12 @@ as_metadata_component_to_upstream_xml (AsMetadata *metad)
 		return NULL;
 
 
-	xmlstr = as_xmldata_serialize_to_upstream (priv->xdt, cpt);
+	xmlstr = as_xmldata_serialize_to_metainfo (priv->xdt, cpt);
 	return xmlstr;
 }
 
 /**
- * as_metadata_components_to_distro_xml:
+ * as_metadata_components_to_collection_xml:
  *
  * Serialize all #AsComponent instances into AppStream
  * collection-XML data.
@@ -540,7 +540,7 @@ as_metadata_component_to_upstream_xml (AsMetadata *metad)
  * Returns: (transfer full): A string containing the XML. Free with g_free()
  */
 gchar*
-as_metadata_components_to_distro_xml (AsMetadata *metad)
+as_metadata_components_to_collection_xml (AsMetadata *metad)
 {
 	gchar *xmlstr = NULL;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
@@ -549,7 +549,7 @@ as_metadata_components_to_distro_xml (AsMetadata *metad)
 	if (priv->cpts->len == 0)
 		return NULL;
 
-	xmlstr = as_xmldata_serialize_to_distro (priv->xdt, priv->cpts, priv->write_header);
+	xmlstr = as_xmldata_serialize_to_collection (priv->xdt, priv->cpts, priv->write_header);
 	return xmlstr;
 }
 

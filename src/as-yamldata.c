@@ -1949,10 +1949,10 @@ as_yamldata_write_handler (void *ptr, unsigned char *buffer, size_t size)
 }
 
 /**
- * as_yamldata_serialize_to_distro:
+ * as_yamldata_serialize_to_collection:
  */
 gchar*
-as_yamldata_serialize_to_distro (AsYAMLData *ydt, GPtrArray *cpts, gboolean write_header, gboolean add_timestamp, GError **error)
+as_yamldata_serialize_to_collection (AsYAMLData *ydt, GPtrArray *cpts, gboolean write_header, gboolean add_timestamp, GError **error)
 {
 	yaml_emitter_t emitter;
 	yaml_event_t event;
@@ -2017,7 +2017,7 @@ out:
 }
 
 /**
- * as_yamldata_parse_distro_data:
+ * as_yamldata_parse_collection_data:
  * @ydt: An instance of #AsYAMLData
  * @data: YAML metadata to parse
  *
@@ -2026,7 +2026,7 @@ out:
  * Returns: (transfer container) (element-type AsComponent): An array of #AsComponent or %NULL
  */
 GPtrArray*
-as_yamldata_parse_distro_data (AsYAMLData *ydt, const gchar *data, GError **error)
+as_yamldata_parse_collection_data (AsYAMLData *ydt, const gchar *data, GError **error)
 {
 	yaml_parser_t parser;
 	yaml_event_t event;

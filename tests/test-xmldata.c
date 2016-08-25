@@ -202,8 +202,8 @@ test_appstream_write_locale ()
 	g_assert (cpt != NULL);
 	g_object_unref (file);
 
-	tmp = as_metadata_component_to_upstream_xml (metad);
-	//g_debug ("Generated XML: %s", as_metadata_component_to_upstream_xml (metad));
+	tmp = as_metadata_component_to_metainfo_xml (metad);
+	//g_debug ("Generated XML: %s", as_metadata_component_to_metainfo_xml (metad));
 	g_free (tmp);
 
 	g_object_unref (metad);
@@ -369,7 +369,7 @@ test_appstream_write_description ()
 
 	as_metadata_add_component (metad, cpt);
 
-	tmp = as_metadata_component_to_upstream_xml (metad);
+	tmp = as_metadata_component_to_metainfo_xml (metad);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML));
 	g_free (tmp);
 
@@ -379,11 +379,11 @@ test_appstream_write_description ()
 				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul><p>Paragraph2</p>",
 				"de");
 
-	tmp = as_metadata_component_to_upstream_xml (metad);
+	tmp = as_metadata_component_to_metainfo_xml (metad);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
-	tmp = as_metadata_components_to_distro_xml (metad);
+	tmp = as_metadata_components_to_collection_xml (metad);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 }
@@ -405,10 +405,10 @@ as_xml_test_read_data (const gchar *data, AsParserMode mode)
 	as_xmldata_set_check_valid (xdt, FALSE);
 
 	if (mode == AS_PARSER_MODE_METAINFO) {
-		cpt = as_xmldata_parse_upstream_data (xdt, data, &error);
+		cpt = as_xmldata_parse_metainfo_data (xdt, data, &error);
 		g_assert_no_error (error);
 	} else {
-		cpts = as_xmldata_parse_distro_data (xdt, data, &error);
+		cpts = as_xmldata_parse_collection_data (xdt, data, &error);
 		g_assert_no_error (error);
 		cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
 	}
@@ -431,12 +431,12 @@ as_xml_test_serialize (AsComponent *cpt, AsParserMode mode)
 	as_xmldata_set_check_valid (xdt, FALSE);
 
 	if (mode == AS_PARSER_MODE_METAINFO) {
-		data = as_xmldata_serialize_to_upstream (xdt, cpt);
+		data = as_xmldata_serialize_to_metainfo (xdt, cpt);
 	} else {
 		g_autoptr(GPtrArray) cpts = NULL;
 		cpts = g_ptr_array_new ();
 		g_ptr_array_add (cpts, cpt);
-		data = as_xmldata_serialize_to_distro (xdt, cpts, TRUE);
+		data = as_xmldata_serialize_to_collection (xdt, cpts, TRUE);
 	}
 
 	return data;

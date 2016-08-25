@@ -281,7 +281,7 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean 
 
 		as_metadata_clear_components (metad);
 		as_metadata_add_component (metad, cpt);
-		xmldata = as_metadata_component_to_upstream_xml (metad);
+		xmldata = as_metadata_component_to_metainfo_xml (metad);
 		g_print ("%s\n", xmldata);
 	}
 

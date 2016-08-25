@@ -1937,7 +1937,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 }
 
 /**
- * as_xmldata_update_cpt_with_upstream_data:
+ * as_xmldata_update_cpt_with_metainfo_data:
  * @xdt: An instance of #AsXMLData
  * @data: XML representing upstream metadata.
  * @cpt: Component that should be updated.
@@ -1946,7 +1946,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
  * Parse AppStream upstream metadata.
  */
 gboolean
-as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsComponent *cpt, GError **error)
+as_xmldata_update_cpt_with_metainfo_data (AsXMLData *xdt, const gchar *data, AsComponent *cpt, GError **error)
 {
 	xmlDoc *doc;
 	xmlNode *root;
@@ -1993,7 +1993,7 @@ out:
 }
 
 /**
- * as_xmldata_parse_upstream_data:
+ * as_xmldata_parse_metainfo_data:
  * @xdt: An instance of #AsXMLData
  * @data: XML representing upstream metadata.
  * @error: A #GError
@@ -2003,13 +2003,13 @@ out:
  * Returns: (transfer full): An #AsComponent, deserialized from the XML.
  */
 AsComponent*
-as_xmldata_parse_upstream_data (AsXMLData *xdt, const gchar *data, GError **error)
+as_xmldata_parse_metainfo_data (AsXMLData *xdt, const gchar *data, GError **error)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	gboolean ret;
 
 	cpt = as_component_new ();
-	ret = as_xmldata_update_cpt_with_upstream_data (xdt, data, cpt, error);
+	ret = as_xmldata_update_cpt_with_metainfo_data (xdt, data, cpt, error);
 
 	if (ret)
 		return g_object_ref (cpt);
@@ -2059,17 +2059,17 @@ as_xmldata_parse_document (AsXMLData *xdt, const gchar *data, GError **error)
 }
 
 /**
- * as_xmldata_parse_distro_data:
+ * as_xmldata_parse_collection_data:
  * @xdt: An instance of #AsXMLData
  * @data: XML representing distro metadata.
  * @error: A #GError
  *
- * Parse AppStream upstream metadata.
+ * Parse AppStream collection metadata.
  *
  * Returns: (transfer container) (element-type AsComponent): An array of #AsComponent, deserialized from the XML.
  */
 GPtrArray*
-as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
+as_xmldata_parse_collection_data (AsXMLData *xdt, const gchar *data, GError **error)
 {
 	xmlDoc *doc;
 	xmlNode *root;
@@ -2108,7 +2108,7 @@ out:
 }
 
 /**
- * as_xmldata_serialize_to_upstream:
+ * as_xmldata_serialize_to_metainfo:
  * @xdt: An instance of #AsXMLData
  * @cpt: The component to serialize.
  *
@@ -2117,7 +2117,7 @@ out:
  * Returns: XML metadata.
  */
 gchar*
-as_xmldata_serialize_to_upstream (AsXMLData *xdt, AsComponent *cpt)
+as_xmldata_serialize_to_metainfo (AsXMLData *xdt, AsComponent *cpt)
 {
 	xmlDoc *doc;
 	xmlNode *root;
@@ -2147,12 +2147,12 @@ out:
 }
 
 /**
- * as_xmldata_serialize_to_distro_with_rootnode:
+ * as_xmldata_serialize_to_collection_with_rootnode:
  *
  * Returns: Valid distro XML metadata.
  */
 static gchar*
-as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
+as_xmldata_serialize_to_collection_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 {
 	xmlDoc *doc;
 	xmlNode *root;
@@ -2197,12 +2197,12 @@ as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 }
 
 /**
- * as_xmldata_serialize_to_distro_without_rootnode:
+ * as_xmldata_serialize_to_collection_without_rootnode:
  *
  * Returns: Distro XML metadata slices without rootnode.
  */
 static gchar*
-as_xmldata_serialize_to_distro_without_rootnode (AsXMLData *xdt, GPtrArray *cpts)
+as_xmldata_serialize_to_collection_without_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 {
 	guint i;
 	GString *out_data;
@@ -2241,24 +2241,24 @@ as_xmldata_serialize_to_distro_without_rootnode (AsXMLData *xdt, GPtrArray *cpts
 }
 
 /**
- * as_xmldata_serialize_to_distro:
+ * as_xmldata_serialize_to_collection:
  * @xdt: An instance of #AsXMLData
  * @cpt: The component to serialize.
  *
- * Serialize an #AsComponent to distro XML.
+ * Serialize an #AsComponent to collection XML.
  *
  * Returns: XML metadata.
  */
 gchar*
-as_xmldata_serialize_to_distro (AsXMLData *xdt, GPtrArray *cpts, gboolean write_header)
+as_xmldata_serialize_to_collection (AsXMLData *xdt, GPtrArray *cpts, gboolean write_header)
 {
 	if (cpts->len == 0)
 		return NULL;
 
 	if (write_header)
-		return as_xmldata_serialize_to_distro_with_rootnode (xdt, cpts);
+		return as_xmldata_serialize_to_collection_with_rootnode (xdt, cpts);
 	else
-		return as_xmldata_serialize_to_distro_without_rootnode (xdt, cpts);
+		return as_xmldata_serialize_to_collection_without_rootnode (xdt, cpts);
 }
 
 /**

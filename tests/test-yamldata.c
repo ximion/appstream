@@ -127,7 +127,7 @@ as_yaml_test_serialize (AsComponent *cpt)
 
 	cpts = g_ptr_array_new ();
 	g_ptr_array_add (cpts, cpt);
-	data = as_yamldata_serialize_to_distro (ydt, cpts, TRUE, FALSE, &error);
+	data = as_yamldata_serialize_to_collection (ydt, cpts, TRUE, FALSE, &error);
 	g_assert_no_error (error);
 
 	return data;
@@ -304,7 +304,7 @@ test_yamlwrite_general (void)
 	g_ptr_array_add (cpts, cpt);
 
 	/* serialize and validate */
-	resdata = as_yamldata_serialize_to_distro (ydata, cpts, TRUE, FALSE, &error);
+	resdata = as_yamldata_serialize_to_collection (ydata, cpts, TRUE, FALSE, &error);
 	g_assert_no_error (error);
 
 	g_assert (as_test_compare_lines (resdata, expected_yaml));
@@ -374,11 +374,11 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 	if (error == NULL) {
 		g_autoptr(GError) local_error = NULL;
 
-		cpts = as_yamldata_parse_distro_data (ydt, data, &local_error);
+		cpts = as_yamldata_parse_collection_data (ydt, data, &local_error);
 		g_assert_no_error (local_error);
 		g_assert_nonnull (cpts);
 	} else {
-		cpts = as_yamldata_parse_distro_data (ydt, data, error);
+		cpts = as_yamldata_parse_collection_data (ydt, data, error);
 		if (cpts == NULL)
 			return NULL;
 	}
