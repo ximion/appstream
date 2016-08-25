@@ -33,7 +33,7 @@ static gchar *datadir = NULL;
  *
  * Test reading screenshot tags.
  */
-void
+static void
 test_screenshot_handling ()
 {
 	AsMetadata *metad;
@@ -80,7 +80,7 @@ test_screenshot_handling ()
  *
  * Test parsing legacy metainfo files.
  */
-void
+static void
 test_appstream_parser_legacy ()
 {
 	AsMetadata *metad;
@@ -116,7 +116,7 @@ test_appstream_parser_legacy ()
  *
  * Test reading localized tags.
  */
-void
+static void
 test_appstream_parser_locale ()
 {
 	g_autoptr(AsMetadata) metad = NULL;
@@ -180,7 +180,7 @@ test_appstream_parser_locale ()
  *
  * Test writing fully localized entries.
  */
-void
+static void
 test_appstream_write_locale ()
 {
 	AsMetadata *metad;
@@ -214,7 +214,7 @@ test_appstream_write_locale ()
  *
  * Test writing the description tag for catalog and metainfo XML.
  */
-void
+static void
 test_appstream_write_description ()
 {
 	guint i;
@@ -393,7 +393,7 @@ test_appstream_write_description ()
  *
  * Helper function for other tests.
  */
-AsComponent*
+static AsComponent*
 as_xml_test_read_data (const gchar *data, AsParserMode mode)
 {
 	AsComponent *cpt;
@@ -421,7 +421,7 @@ as_xml_test_read_data (const gchar *data, AsParserMode mode)
  *
  * Helper function for other tests.
  */
-gchar*
+static gchar*
 as_xml_test_serialize (AsComponent *cpt, AsParserMode mode)
 {
 	gchar *data;
@@ -447,7 +447,7 @@ as_xml_test_serialize (AsComponent *cpt, AsParserMode mode)
  *
  * Test reading the languages tag.
  */
-void
+static void
 test_xml_read_languages (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
@@ -472,7 +472,7 @@ test_xml_read_languages (void)
  *
  * Test writing the languages tag.
  */
-void
+static void
 test_xml_write_languages (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
@@ -500,7 +500,7 @@ test_xml_write_languages (void)
  *
  * Test writing the releases tag.
  */
-void
+static void
 test_xml_write_releases (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
@@ -538,7 +538,7 @@ test_xml_write_releases (void)
  *
  * Test writing the provides tag.
  */
-void
+static void
 test_xml_write_provides (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
@@ -591,7 +591,7 @@ test_xml_write_provides (void)
  *
  * Test writing the suggests tag.
  */
-void
+static void
 test_xml_write_suggests (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;

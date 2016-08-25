@@ -48,7 +48,7 @@ print_cptarray (GPtrArray *cpt_array)
  *
  * Test reading data from cache files.
  */
-void
+static void
 test_cache ()
 {
 	g_autoptr(AsPool) dpool = NULL;
@@ -110,7 +110,7 @@ test_cache ()
  *
  * Test reading information from the metadata pool.
  */
-void
+static void
 test_pool_read ()
 {
 	g_autoptr(AsPool) dpool = NULL;
@@ -265,7 +265,7 @@ test_pool_read ()
  *
  * Test merging of component data via the "merge" pseudo-component.
  */
-void
+static void
 test_merge_components ()
 {
 	g_autoptr(AsPool) dpool = NULL;

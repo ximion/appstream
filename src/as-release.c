@@ -35,6 +35,7 @@
  */
 
 #include "as-release.h"
+#include "as-release-private.h"
 
 typedef struct
 {

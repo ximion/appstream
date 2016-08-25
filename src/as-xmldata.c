@@ -218,7 +218,7 @@ as_xml_dump_node_children (xmlNode *node)
  * Returns: The locale of a node, if the node should be considered for inclusion.
  * %NULL if the node should be ignored due to a not-matching locale.
  */
-gchar*
+static gchar*
 as_xmldata_get_node_locale (AsXMLData *xdt, xmlNode *node)
 {
 	gchar *lang;

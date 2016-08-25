@@ -20,6 +20,7 @@
  */
 
 #include "as-utils.h"
+#include "as-utils-private.h"
 
 #include <config.h>
 #include <glib.h>

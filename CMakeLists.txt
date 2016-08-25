@@ -80,7 +80,19 @@ enable_testing()
 set(MAINTAINER_CFLAGS "")
 set(SANITIZER_LIBS "")
 if(MAINTAINER)
-	set(MAINTAINER_CFLAGS "-Werror" "-Wall" "-Wextra" "-Wcast-align" "-Wno-uninitialized" "-Wempty-body" "-Wformat-security" "-Winit-self")
+	set(MAINTAINER_CFLAGS "-Werror"
+			"-Wall"
+			"-Wextra"
+			"-Wcast-align"
+			"-Wno-uninitialized"
+			"-Wempty-body"
+			"-Wformat-security"
+			"-Winit-self"
+			"-Wnull-dereference"
+			"-Wfloat-equal"
+			#"-Wformat-signedness"
+			"-Winline")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wmissing-declarations")
 	if (CMAKE_COMPILER_IS_GNUCC)
 		execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
                 OUTPUT_VARIABLE GCC_VERSION)

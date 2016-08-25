@@ -28,7 +28,7 @@ static gchar *datadir = NULL;
  *
  * Test #AsCategory properties.
  */
-void
+static void
 test_categories ()
 {
 	g_autoptr(GPtrArray) default_cats;
@@ -42,7 +42,7 @@ test_categories ()
  *
  * Test as_description_markup_convert_simple()
  */
-void
+static void
 test_simplemarkup ()
 {
 	gchar *str;
@@ -55,7 +55,7 @@ test_simplemarkup ()
 /**
  * _get_dummy_strv:
  */
-gchar**
+static gchar**
 _get_dummy_strv (const gchar *value)
 {
 	gchar **strv;
@@ -72,7 +72,7 @@ _get_dummy_strv (const gchar *value)
  *
  * Test basic properties of an #AsComponent.
  */
-void
+static void
 test_component ()
 {
 	AsComponent *cpt;
@@ -125,7 +125,7 @@ test_component ()
  *
  * Test that the AS_VALUE_FLAGS_NO_TRANSLATION_FALLBACK flag works.
  */
-void
+static void
 test_translation_fallback (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;

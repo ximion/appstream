@@ -143,7 +143,7 @@ as_yaml_free_node (GNode *node, gpointer data)
  *
  * Helper method to get the key of a node.
  */
-const gchar*
+static const gchar*
 as_yaml_node_get_key (GNode *n)
 {
 	return (const gchar*) n->data;
@@ -154,7 +154,7 @@ as_yaml_node_get_key (GNode *n)
  *
  * Helper method to get the value of a node.
  */
-const gchar*
+static const gchar*
 as_yaml_node_get_value (GNode *n)
 {
 	if (n->children)

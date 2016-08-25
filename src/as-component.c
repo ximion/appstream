@@ -651,7 +651,7 @@ as_component_get_bundles_table (AsComponent *cpt)
 }
 
 /**
- * as_component_get_bundle_id:
+ * as_component_get_bundle:
  * @cpt: a #AsComponent instance.
  * @bundle_kind: the bundle kind, e.g. %AS_BUNDLE_KIND_LIMBA.
  *
@@ -672,8 +672,7 @@ as_component_get_bundle (AsComponent *cpt, AsBundleKind bundle_kind)
 /**
  * as_component_add_bundle:
  * @cpt: a #AsComponent instance.
- * @bundle_kind: the URL kind, e.g. %AS_BUNDLE_KIND_LIMBA
- * @id: The bundle identification string
+ * @bundle: The #AsBundle to add.
  *
  * Adds a bundle to the component.
  *

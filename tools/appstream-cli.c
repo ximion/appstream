@@ -78,7 +78,7 @@ as_client_get_summary ()
 /**
  * as_client_run:
  */
-int
+static int
 as_client_run (char **argv, int argc)
 {
 	GOptionContext *opt_context;

@@ -32,7 +32,7 @@ static gchar *datadir = NULL;
  *
  * Test basic functions related to YAML processing.
  */
-void
+static void
 test_basic (void)
 {
 	g_autoptr(AsMetadata) mdata = NULL;
@@ -114,7 +114,7 @@ test_h_create_dummy_screenshot (void)
  *
  * Helper function for other tests.
  */
-gchar*
+static gchar*
 as_yaml_test_serialize (AsComponent *cpt)
 {
 	gchar *data;
@@ -138,7 +138,7 @@ as_yaml_test_serialize (AsComponent *cpt)
  *
  * Test writing a YAML document.
  */
-void
+static void
 test_yamlwrite_general (void)
 {
 	guint i;
@@ -315,7 +315,7 @@ test_yamlwrite_general (void)
  *
  * Test writing the Suggests field.
  */
-void
+static void
 test_yaml_write_suggests (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
@@ -362,7 +362,7 @@ test_yaml_write_suggests (void)
  *
  * Helper function to read a single component from YAML data.
  */
-AsComponent*
+static AsComponent*
 as_yaml_test_read_data (const gchar *data, GError **error)
 {
 	AsComponent *cpt;
@@ -392,7 +392,7 @@ as_yaml_test_read_data (const gchar *data, GError **error)
  *
  * Test reading the Icons field.
  */
-void
+static void
 test_yaml_read_icons (void)
 {
 	guint i;
@@ -459,7 +459,7 @@ test_yaml_read_icons (void)
  *
  * Test if reading the Languages field works.
  */
-void
+static void
 test_yaml_read_languages (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
@@ -484,7 +484,7 @@ test_yaml_read_languages (void)
  *
  * Test if reading the Suggests field works.
  */
-void
+static void
 test_yaml_read_suggests (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
@@ -530,7 +530,7 @@ test_yaml_read_suggests (void)
  *
  * Test reading of a broken YAML document.
  */
-void
+static void
 test_yaml_corrupt_data (void)
 {
 	g_autoptr(GError) error = NULL;
