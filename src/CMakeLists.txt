@@ -44,6 +44,7 @@ set(APPSTREAM_LIB_SRC
 		# internal
 		as-xmldata.c
 		as-yamldata.c
+		as-cache-file.c
 		as-distro-extras.c
 		as-stemmer.c
 		# (mostly) public
@@ -92,6 +93,7 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-utils-private.h
 		as-xmldata.h
 		as-yamldata.h
+		as-cache-file.h
 		as-component-private.h
 		as-screenshot-private.h
 		as-release-private.h

@@ -797,13 +797,13 @@ as_pool_get_components (AsPool *pool)
 /**
  * as_pool_get_component_by_id:
  * @pool: An instance of #AsPool.
- * @id: The AppStream-ID to look for.
+ * @cid: The AppStream-ID to look for.
  *
  * Get a specific component by its ID.
  * This function may contain multiple results if we have
  * data describing this component from multiple scopes/origin types.
  *
- * Returns: (transfer container): An #AsComponent
+ * Returns: (transfer container) (element-type AsComponent): An #AsComponent
  */
 GPtrArray*
 as_pool_get_component_by_id (AsPool *pool, const gchar *cid)
