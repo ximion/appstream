@@ -23,7 +23,7 @@
  * @short_description: Validator and report-generator about AppStream XML metadata
  * @include: appstream.h
  *
- * This object is able to validate AppStream XML metadata (distro and upstream)
+ * This object is able to validate AppStream XML metadata (collection and metainfo)
  * and to generate a report about issues found with it.
  *
  * See also: #AsMetadata
@@ -308,7 +308,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 	gchar *node_name;
 	gboolean first_paragraph = TRUE;
 
-	if (mode == AS_PARSER_MODE_UPSTREAM) {
+	if (mode == AS_PARSER_MODE_METAINFO) {
 		as_validator_check_nolocalized (validator,
 						node,
 						(const gchar*) node->name,
@@ -332,12 +332,12 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 		}
 
 		if (g_strcmp0 (node_name, "p") == 0) {
-			if (mode == AS_PARSER_MODE_DISTRO) {
+			if (mode == AS_PARSER_MODE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"description/p",
 								cpt,
-								"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
+								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
 			if ((first_paragraph) && (strlen (node_content) < 100)) {
 				as_validator_add_issue (validator, iter,
@@ -348,21 +348,21 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 			}
 			first_paragraph = FALSE;
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
-			if (mode == AS_PARSER_MODE_DISTRO) {
+			if (mode == AS_PARSER_MODE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"description/ul",
 								cpt,
-								"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
+								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
 			as_validator_check_children_quick (validator, iter, "li", cpt);
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
-			if (mode == AS_PARSER_MODE_DISTRO) {
+			if (mode == AS_PARSER_MODE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"description/ol",
 								cpt,
-								"The '%s' tag should not be localized in distro metadata. Localize the whole 'description' tag instead.");
+								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
 			as_validator_check_children_quick (validator, iter, "li", cpt);
 		} else {
@@ -445,14 +445,14 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		}
 	}
 
-	if ((as_component_get_priority (cpt) != 0) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+	if ((as_component_get_priority (cpt) != 0) && (mode == AS_PARSER_MODE_METAINFO)) {
 		as_validator_add_issue (validator, root,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_VALUE_WRONG,
 					"The component has a priority value set. This is not allowed in metainfo files.");
 	}
 
-	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_PARSER_MODE_METAINFO)) {
 		as_validator_add_issue (validator, root,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_VALUE_WRONG,
@@ -538,7 +538,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 
 			/* the license must allow easy mixing of metadata in metainfo files */
-			if (mode == AS_PARSER_MODE_UPSTREAM) {
+			if (mode == AS_PARSER_MODE_METAINFO) {
 				if (!as_license_is_metadata_license (node_content)) {
 					as_validator_add_issue (validator, iter,
 								AS_ISSUE_IMPORTANCE_WARNING,
@@ -613,10 +613,10 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_children_quick (validator, iter, "release", cpt);
-		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_DISTRO)) {
+		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_COLLECTION)) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
-		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_PARSER_MODE_METAINFO)) {
 			g_autofree gchar *prop = NULL;
 			AsTranslationKind trkind;
 			prop = as_validator_check_type_property (validator, cpt, iter);
@@ -638,11 +638,11 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 							"Unknown type '%s' for <bundle/> tag.", prop);
 			}
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
-			if (mode == AS_PARSER_MODE_DISTRO) {
+			if (mode == AS_PARSER_MODE_COLLECTION) {
 				as_validator_add_issue (validator, iter,
 							AS_ISSUE_IMPORTANCE_WARNING,
 							AS_ISSUE_KIND_TAG_NOT_ALLOWED,
-							"The 'update_contact' tag should not be included in distro AppStream XML.");
+							"The 'update_contact' tag should not be included in collection AppStream XML.");
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			}
@@ -671,7 +671,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	}
 
 	/* emit an error if we are missing the metadata license in metainfo files */
-	if ((!has_metadata_license) && (mode == AS_PARSER_MODE_UPSTREAM)) {
+	if ((!has_metadata_license) && (mode == AS_PARSER_MODE_METAINFO)) {
 		as_validator_add_issue (validator, NULL,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_TAG_MISSING,
@@ -869,7 +869,7 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 
 	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_UPSTREAM);
+		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_METAINFO);
 		cpt = as_validator_validate_component_node (validator, xdt, root);
 		if (cpt != NULL)
 			g_object_unref (cpt);
@@ -877,7 +877,7 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 		xmlNode *iter;
 		const gchar *node_name;
 
-		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_DISTRO);
+		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_COLLECTION);
 		for (iter = root->children; iter != NULL; iter = iter->next) {
 			/* discard spaces */
 			if (iter->type != XML_ELEMENT_NODE)
@@ -1116,7 +1116,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	/* set up XML parser */
 	xdt = as_xmldata_new ();
 	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
-	as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_UPSTREAM);
+	as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_METAINFO);
 
 	/* validate all metainfo files */
 	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE, NULL);

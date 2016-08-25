@@ -84,7 +84,7 @@ message Url {
 /**
  * Bundle:
  * A list of bundles, origin XML described at:
- * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-bundle
+ * http://www.freedesktop.org/software/appstream/docs/chap-CollectionData.html#tag-ct-bundle
  */
 message Bundle {
     enum Type {
@@ -101,7 +101,7 @@ message Bundle {
  * Icon:
  * A list of preprocessed, absolute icon urls.
  * The definition of icons can be found at:
- * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-icon
+ * http://www.freedesktop.org/software/appstream/docs/chap-CollectionData.html#tag-ct-icon
  * (we only care about the url-types here)
  */
 message Icon {
@@ -169,7 +169,7 @@ message Provided {
 /**
  * Language:
  * A list of localization information, origin XML described at:
- * http://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-languages
+ * http://www.freedesktop.org/software/appstream/docs/chap-CollectionData.html#tag-ct-languages
  */
 message Language {
     required string locale = 1;

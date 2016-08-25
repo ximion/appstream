@@ -45,7 +45,7 @@ test_screenshot_handling ()
 	guint i;
 
 	metad = as_metadata_new ();
-	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_COLLECTION);
 
 	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
 	file = g_file_new_for_path (path);
@@ -404,7 +404,7 @@ as_xml_test_read_data (const gchar *data, AsParserMode mode)
 	xdt = as_xmldata_new ();
 	as_xmldata_set_check_valid (xdt, FALSE);
 
-	if (mode == AS_PARSER_MODE_UPSTREAM) {
+	if (mode == AS_PARSER_MODE_METAINFO) {
 		cpt = as_xmldata_parse_upstream_data (xdt, data, &error);
 		g_assert_no_error (error);
 	} else {
@@ -430,7 +430,7 @@ as_xml_test_serialize (AsComponent *cpt, AsParserMode mode)
 	xdt = as_xmldata_new ();
 	as_xmldata_set_check_valid (xdt, FALSE);
 
-	if (mode == AS_PARSER_MODE_UPSTREAM) {
+	if (mode == AS_PARSER_MODE_METAINFO) {
 		data = as_xmldata_serialize_to_upstream (xdt, cpt);
 	} else {
 		g_autoptr(GPtrArray) cpts = NULL;
@@ -459,7 +459,7 @@ test_xml_read_languages (void)
 					 "  </languages>\n"
 					 "</component>\n";
 
-	cpt = as_xml_test_read_data (xmldata_languages, AS_PARSER_MODE_UPSTREAM);
+	cpt = as_xml_test_read_data (xmldata_languages, AS_PARSER_MODE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.LangTest");
 
 	g_assert_cmpint (as_component_get_language (cpt, "de_DE"), ==, 48);
@@ -491,7 +491,7 @@ test_xml_write_languages (void)
 	as_component_add_language (cpt, "de_DE", 86);
 	as_component_add_language (cpt, "en_GB", 98);
 
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_lang_xml));
 }
 
@@ -529,7 +529,7 @@ test_xml_write_releases (void)
 
 	as_component_add_release (cpt, rel);
 
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_rel_xml));
 }
 
@@ -582,7 +582,7 @@ test_xml_write_provides (void)
 	as_provided_add_item (prov_dbus, "org.example.ProvidesTest.Modify");
 	as_component_add_provided (cpt, prov_dbus);
 
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_prov_xml));
 }
 
@@ -634,11 +634,11 @@ test_xml_write_suggests (void)
 	as_component_add_suggested (cpt, sug_hr);
 
 	/* test metainfo serialization */
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_UPSTREAM);
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_sug_xml_mi));
 
 	/* test collection serialization */
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_DISTRO);
+	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_COLLECTION);
 	g_assert (as_test_compare_lines (res, expected_sug_xml_coll));
 }
 

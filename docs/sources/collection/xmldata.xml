@@ -4,14 +4,15 @@
 %BOOK_ENTITIES;
 ]>
 
-<section id="sect-AppStream-ASXML">
-	<title>AppStream distribution XML files</title>
+<section id="sect-AppStream-XML">
+	<title>AppStream collection XML</title>
 
 	<section id="spec-asxml-introduction">
 		<title>Introduction</title>
 
 		<para>
-			AppStream XML files are small text files describing all available applications in the distribution's package repositories.
+			AppStream collection XML files are text files describing all available software components a software repository (usually
+			from a Linux distributor) offers for installation.
 			The XML files might be compressed with GZip.
 		</para>
 	</section>
@@ -91,13 +92,13 @@
 			is described in the AppStream metadata.
 		</para>
 		<para>
-			Additionally to the <literal>type</literal> property, every <literal>&lt;component/&gt;</literal> tag in AppStream distro data
+			Additionally to the <literal>type</literal> property, every <literal>&lt;component/&gt;</literal> tag in AppStream collection data
 			may have a <literal>priority</literal> property, defining the priority of this specific metadata over other metadata from different
 			AppStream XML files (for example, from a different repository) which have the same component-id. The value of this tag is an integer, if the
 			property is missing, a value of <code>"0"</code> is assumed.
 		</para>
 		<para>
-			In order to <emphasis>merge</emphasis> metadata, each component in distro data may also have a <literal>merge</literal> property, assuming the
+			In order to <emphasis>merge</emphasis> metadata, each component in collection data may also have a <literal>merge</literal> property, assuming the
 			values <code>append</code> or <code>replace</code>. If the value is <code>append</code>, all data this component describes will be appended
 			to data of the component with the same ID. If the value is <code>replace</code> the fields of the target component will be replaced with the
 			ones present in the merge component.
@@ -106,7 +107,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-distro-component-id">
+			<varlistentry id="tag-ct-component-id">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -116,7 +117,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-pkgname">
+			<varlistentry id="tag-ct-pkgname">
 				<term>&lt;pkgname/&gt;</term>
 				<listitem>
 					<para>
@@ -127,8 +128,8 @@
 					</para>
 					<important>
 						<para>
-							The preferred way is to create metapackages containing the component metadata, and referncing them
-							from the distribution metadata, and not to use multiple <literal>pkgname</literal> tags.
+							The preferred way is to create metapackages containing the component metadata, and referencing them
+							from the collection metadata, and not to use multiple <literal>pkgname</literal> tags.
 							They should only be used multiple times as a workaround or if there is no sensible way of creating a
 							matching metapackage.
 						</para>
@@ -136,7 +137,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-source_pkgname">
+			<varlistentry id="tag-ct-source_pkgname">
 				<term>&lt;source_pkgname/&gt;</term>
 				<listitem>
 					<para>
@@ -149,7 +150,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-name">
+			<varlistentry id="tag-ct-name">
 				<term>&lt;name/&gt;</term>
 				<listitem>
 					<para>
@@ -162,7 +163,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-project_license">
+			<varlistentry id="tag-ct-project_license">
 				<term>&lt;project_license/&gt;</term>
 				<listitem>
 					<para>
@@ -182,7 +183,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-summary">
+			<varlistentry id="tag-ct-summary">
 				<term>&lt;summary/&gt;</term>
 				<listitem>
 					<para>
@@ -196,7 +197,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-description">
+			<varlistentry id="tag-ct-description">
 				<term>&lt;description/&gt;</term>
 				<listitem>
 					<para>
@@ -231,7 +232,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-url">
+			<varlistentry id="tag-ct-url">
 				<term>&lt;url/&gt;</term>
 				<listitem>
 					<para>
@@ -244,7 +245,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-project_group">
+			<varlistentry id="tag-ct-project_group">
 				<term>&lt;project_group/&gt;</term>
 				<listitem>
 					<para>
@@ -261,7 +262,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-icon">
+			<varlistentry id="tag-ct-icon">
 				<term>&lt;icon/&gt;</term>
 				<listitem>
 					<para>
@@ -305,7 +306,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-mimetypes">
+			<varlistentry id="tag-ct-mimetypes">
 				<term>&lt;mimetypes/&gt;</term>
 				<listitem>
 					<para>
@@ -321,7 +322,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-categories">
+			<varlistentry id="tag-ct-categories">
 				<term>&lt;categories/&gt;</term>
 				<listitem>
 					<para>
@@ -347,7 +348,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-keywords">
+			<varlistentry id="tag-ct-keywords">
 				<term>&lt;keywords/&gt;</term>
 				<listitem>
 					<para>
@@ -371,7 +372,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-screenshots">
+			<varlistentry id="tag-ct-screenshots">
 				<term>&lt;screenshots/&gt;</term>
 				<listitem>
 					<para>
@@ -380,7 +381,7 @@
 						which primarily represents it in a software center.
 					</para>
 					<para>
-						The <literal>screenshots</literal> tag is described for metainfo files in <xref linkend="tag-screenshots"/>. In distro metadata, the tag
+						The <literal>screenshots</literal> tag is described for metainfo files in <xref linkend="tag-screenshots"/>. In collection metadata, the tag
 						has the exact same format as in metainfo files.
 						The metadata generator may add an arbitrary number of resized thumbnails though.
 					</para>
@@ -412,7 +413,7 @@
 						on the image shown. The tag is translatable.
 					</para>
 					<para>
-						Every image should have a full remote url set, usually pointing to a cache of images maintained by the distributor.
+						Every image should have a full remote url set, usually pointing to a cache of images maintained by the repository vendor.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<screenshots>
@@ -430,7 +431,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-compulsory_for_desktop">
+			<varlistentry id="tag-ct-compulsory_for_desktop">
 				<term>&lt;compulsory_for_desktop/&gt;</term>
 				<listitem>
 					<para>
@@ -453,21 +454,20 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-provides">
+			<varlistentry id="tag-ct-provides">
 				<term>&lt;provides/&gt;</term>
 				<listitem>
 					<para>
 						This tag is described in detail at <xref linkend="sect-Metadata-GenericComponent"/>.
 					</para>
 					<para>
-						For generic component types, this tag has to be present.
-						Distributors must ensure that all things described in this tag are present in the package referenced in
-						the associated <literal>pkgname</literal> tag.
+						Distributors and software repository vendors must ensure that all things described in this tag are present in the package referenced in
+						the associated <literal>pkgname</literal> tag (or in dependencies of it).
 					</para>
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-developer_name">
+			<varlistentry id="tag-ct-developer_name">
 			<term>&lt;developer_name/&gt;</term>
 			<listitem>
 				<para>
@@ -476,7 +476,7 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-releases">
+			<varlistentry id="tag-ct-releases">
 				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
@@ -484,10 +484,10 @@
 					</para>
 					<para>
 						Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
-						The <literal>description</literal> tag is structured as described in <xref linkend="tag-distro-description"/>. This also applies to its translation rules.
+						The <literal>description</literal> tag is structured as described in <xref linkend="tag-ct-description"/>. This also applies to its translation rules.
 					</para>
 					<para>
-						The AppStream distro XML generator may shorten overlong lists of releases to a smaller list, for example of 4 <literal>release</literal> tags.
+						The AppStream collection XML generator may shorten overlong lists of releases to a smaller list, for example of 4 <literal>release</literal> tags.
 						It may also convert ISO 8601 <literal>date</literal> properties of the metainfo file into an UNIX timestamp <literal>timestamp</literal> property.
 						It should avoid generating metadata containing both properties on a <literal>release</literal> tag.
 					</para>
@@ -535,7 +535,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-languages">
+			<varlistentry id="tag-ct-languages">
 				<term>&lt;languages/&gt;</term>
 				<listitem>
 					<para>
@@ -564,7 +564,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-bundle">
+			<varlistentry id="tag-ct-bundle">
 				<term>&lt;bundle/&gt;</term>
 				<listitem>
 					<para>
@@ -592,7 +592,7 @@
 				</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-distro-suggests">
+			<varlistentry id="tag-ct-suggests">
 				<term>&lt;suggests/&gt;</term>
 				<listitem>
 					<para>

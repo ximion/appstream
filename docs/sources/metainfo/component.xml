@@ -594,7 +594,7 @@
 		<para>
 			The tag may have a <literal>type</literal> property, with the value <code>upstream</code>, indicating that this suggestion originates from the upstream project.
 			If no <literal>type</literal> property is given, <code>upstream</code> is implicitly assumed as value. Metainfo files must not define other <literal>suggests</literal>
-			types, those are reserved for AppStream catalog XML (see <xref linkend="tag-distro-suggests"/> in catalog XML).
+			types, those are reserved for AppStream catalog XML (see <xref linkend="tag-ct-suggests"/> in catalog XML).
 		</para>
 		<para>
 			The <literal>suggests</literal> tag must have one or more <code>&lt;id/&gt;</code> tags as children, specifying the IDs of the suggested other software components.

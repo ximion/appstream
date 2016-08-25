@@ -96,7 +96,7 @@ as_xmldata_init (AsXMLData *xdt)
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	priv->default_priority = 0;
-	priv->mode = AS_PARSER_MODE_UPSTREAM;
+	priv->mode = AS_PARSER_MODE_METAINFO;
 	priv->last_error_msg = NULL;
 	priv->check_valid = TRUE;
 }
@@ -349,7 +349,7 @@ as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScr
 	}
 
 	/* discard invalid elements */
-	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
 		/* no sizes are okay for upstream XML, but not for distro XML */
 		if ((width == 0) || (height == 0)) {
 			if (ikind != AS_IMAGE_KIND_SOURCE) {
@@ -655,10 +655,10 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 					}
 					g_free (prop);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "description") == 0) {
-					if (priv->mode == AS_PARSER_MODE_DISTRO) {
+					if (priv->mode == AS_PARSER_MODE_COLLECTION) {
 						g_autofree gchar *lang;
 
-						/* for distro XML, the "description" tag has a language property, so parsing it is simple */
+						/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 						content = as_xml_dump_node_children (iter2);
 						lang = as_xmldata_get_node_locale (xdt, iter2);
 						if (lang != NULL)
@@ -896,7 +896,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 
 		if (g_strcmp0 (node_name, "id") == 0) {
 				as_component_set_id (cpt, content);
-				if ((priv->mode == AS_PARSER_MODE_UPSTREAM) &&
+				if ((priv->mode == AS_PARSER_MODE_METAINFO) &&
 					(as_component_get_kind (cpt) == AS_COMPONENT_KIND_GENERIC)) {
 					/* parse legacy component type information */
 					as_component_set_kind_from_node (cpt, iter);
@@ -913,8 +913,8 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			if (lang != NULL)
 				as_component_set_summary (cpt, content, lang);
 		} else if (g_strcmp0 (node_name, "description") == 0) {
-			if (priv->mode == AS_PARSER_MODE_DISTRO) {
-				/* for distro XML, the "description" tag has a language property, so parsing it is simple */
+			if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
 					gchar *desc;
 					desc = as_xml_dump_node_children (iter);
@@ -1088,7 +1088,7 @@ as_xmldata_parse_components_node (AsXMLData *xdt, GPtrArray *cpts, xmlNode* node
 	g_free (priv->arch);
 	priv->arch =  (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
 
-	/* distro metadata allows setting a priority for components */
+	/* collection metadata allows setting a priority for components */
 	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
 	if (priority_str != NULL) {
 		priv->default_priority = g_ascii_strtoll (priority_str, NULL, 10);
@@ -1169,17 +1169,17 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 		goto out;
 	}
 
-	if (priv->mode == AS_PARSER_MODE_UPSTREAM) {
+	if (priv->mode == AS_PARSER_MODE_METAINFO) {
 		if (*desc_node == NULL)
 			*desc_node = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
 		dnode = *desc_node;
 	} else {
-		/* in distro parser mode, we might have multiple <description/> tags */
+		/* in collection-data parser mode, we might have multiple <description/> tags */
 		dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
 	}
 
 	localized = g_strcmp0 (lang, "C") != 0;
-	if (priv->mode != AS_PARSER_MODE_UPSTREAM) {
+	if (priv->mode != AS_PARSER_MODE_METAINFO) {
 		if (localized) {
 			xmlNewProp (dnode,
 					(xmlChar*) "xml:lang",
@@ -1193,7 +1193,7 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 		if (g_strcmp0 ((const gchar*) iter->name, "p") == 0) {
 			cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
 
-			if ((priv->mode == AS_PARSER_MODE_UPSTREAM) && (localized)) {
+			if ((priv->mode == AS_PARSER_MODE_METAINFO) && (localized)) {
 				xmlNewProp (cn,
 					(xmlChar*) "xml:lang",
 					(xmlChar*) lang);
@@ -1209,7 +1209,7 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 
 				cn = xmlAddChild (enumNode, xmlCopyNode (iter2, TRUE));
 
-				if ((priv->mode == AS_PARSER_MODE_UPSTREAM) && (localized)) {
+				if ((priv->mode == AS_PARSER_MODE_METAINFO) && (localized)) {
 					xmlNewProp (cn,
 						(xmlChar*) "xml:lang",
 						(xmlChar*) lang);
@@ -1466,7 +1466,7 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 		if (unixtime > 0) {
 			g_autofree gchar *time_str = NULL;
 
-			if (priv->mode == AS_PARSER_MODE_DISTRO) {
+			if (priv->mode == AS_PARSER_MODE_COLLECTION) {
 				time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
 				xmlNewProp (subnode, (xmlChar*) "timestamp",
 						(xmlChar*) time_str);
@@ -1718,7 +1718,7 @@ as_xmldata_serialize_suggests (AsXMLData *xdt, AsComponent *cpt, xmlNode *cptnod
 
 		/* non-upstream tags are not allowed in metainfo files */
 		kind = as_suggested_get_kind (suggested);
-		if ((kind != AS_SUGGESTED_KIND_UPSTREAM) && (priv->mode == AS_PARSER_MODE_UPSTREAM))
+		if ((kind != AS_SUGGESTED_KIND_UPSTREAM) && (priv->mode == AS_PARSER_MODE_METAINFO))
 			continue;
 
 		node = xmlNewChild (cptnode, NULL, (xmlChar*) "suggests", NULL);
@@ -1765,7 +1765,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 					(xmlChar*) as_component_kind_to_string (kind));
 	}
 
-	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
 		AsMergeKind merge_kind;
 		gint priority;
 
@@ -1896,7 +1896,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	}
 
 	/* translations */
-	if (priv->mode == AS_PARSER_MODE_UPSTREAM) {
+	if (priv->mode == AS_PARSER_MODE_METAINFO) {
 		GPtrArray *translations;
 
 		/* the translations tag is only valid in metainfo files */
@@ -1964,14 +1964,14 @@ as_xmldata_update_cpt_with_upstream_data (AsXMLData *xdt, const gchar *data, AsC
 	root = xmlDocGetRootElement (doc);
 
 	/* switch to upstream format parsing */
-	priv->mode = AS_PARSER_MODE_UPSTREAM;
+	priv->mode = AS_PARSER_MODE_METAINFO;
 
 	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
 				     AS_METADATA_ERROR_UNEXPECTED_FORMAT_KIND,
-				     "Tried to parse distro metadata as upstream metadata.");
+				     "Tried to parse collection metadata as metainfo metadata.");
 		goto out;
 	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
 		as_xmldata_parse_component_node (xdt, root, cpt, error);
@@ -2081,7 +2081,7 @@ as_xmldata_parse_distro_data (AsXMLData *xdt, const gchar *data, GError **error)
 		return NULL;
 	root = xmlDocGetRootElement (doc);
 
-	priv->mode = AS_PARSER_MODE_DISTRO;
+	priv->mode = AS_PARSER_MODE_COLLECTION;
 	cpts = g_ptr_array_new_with_free_func (g_object_unref);
 
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
@@ -2130,7 +2130,7 @@ as_xmldata_serialize_to_upstream (AsXMLData *xdt, AsComponent *cpt)
 	}
 	as_xmldata_clear_error (xdt);
 
-	priv->mode = AS_PARSER_MODE_UPSTREAM;
+	priv->mode = AS_PARSER_MODE_METAINFO;
 	doc = xmlNewDoc ((xmlChar*) NULL);
 
 	/* define component root node */
@@ -2162,7 +2162,7 @@ as_xmldata_serialize_to_distro_with_rootnode (AsXMLData *xdt, GPtrArray *cpts)
 
 	/* initialize */
 	as_xmldata_clear_error (xdt);
-	priv->mode = AS_PARSER_MODE_DISTRO;
+	priv->mode = AS_PARSER_MODE_COLLECTION;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
 	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.8");
@@ -2209,7 +2209,7 @@ as_xmldata_serialize_to_distro_without_rootnode (AsXMLData *xdt, GPtrArray *cpts
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	out_data = g_string_new ("");
-	priv->mode = AS_PARSER_MODE_DISTRO;
+	priv->mode = AS_PARSER_MODE_COLLECTION;
 	as_xmldata_clear_error (xdt);
 
 	for (i = 0; i < cpts->len; i++) {

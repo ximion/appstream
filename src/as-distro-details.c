@@ -39,7 +39,7 @@
  * It is used internalls to get information about the icon-store or the 3rd-party screenshot
  * service distributors may want to provide.
  *
- * See also: #AsDatabase
+ * See also: #AsPool
  */
 
 typedef struct

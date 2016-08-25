@@ -45,7 +45,7 @@ test_basic (void)
 
 	mdata = as_metadata_new ();
 	as_metadata_set_locale (mdata, "C");
-	as_metadata_set_parser_mode (mdata, AS_PARSER_MODE_DISTRO);
+	as_metadata_set_parser_mode (mdata, AS_PARSER_MODE_COLLECTION);
 
 	path = g_build_filename (datadir, "dep11-0.8.yml", NULL);
 	file = g_file_new_for_path (path);

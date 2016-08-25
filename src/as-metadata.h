@@ -50,17 +50,17 @@ struct _AsMetadataClass
 
 /**
  * AsParserMode:
- * @AS_PARSER_MODE_UPSTREAM:	Parse Appstream upstream metadata
- * @AS_PARSER_MODE_DISTRO:	Parse Appstream distribution metadata
+ * @AS_PARSER_MODE_METAINFO:	Parse AppStream upstream metadata (metainfo files)
+ * @AS_PARSER_MODE_COLLECTION:	Parse AppStream metadata collections (shipped by software distributors)
  *
- * There are a few differences between Appstream's upstream metadata
- * and the distribution metadata.
+ * There are a few differences between AppStream's metainfo files (shipped by upstream projects)
+ * and the collection metadata (shipped by distributors).
  * The parser mode indicates which style we should process.
- * Usually you don't want to change this.
+ * Usually you do not want to set this explicitly.
  **/
 typedef enum {
-	AS_PARSER_MODE_UPSTREAM,
-	AS_PARSER_MODE_DISTRO,
+	AS_PARSER_MODE_METAINFO,
+	AS_PARSER_MODE_COLLECTION,
 	/*< private >*/
 	AS_PARSER_MODE_LAST
 } AsParserMode;

@@ -492,7 +492,7 @@ as_pool_load_metadata (AsPool *pool)
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
-	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_DISTRO);
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_COLLECTION);
 	as_metadata_set_locale (metad, priv->locale);
 
 	/* find AppStream XML and YAML metadata */

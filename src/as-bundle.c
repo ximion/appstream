@@ -24,7 +24,7 @@
  * @include: appstream.h
  *
  * This class provides information contained in an AppStream bundle tag.
- * See https://www.freedesktop.org/software/appstream/docs/chap-DistroData.html#tag-distro-bundle
+ * See https://www.freedesktop.org/software/appstream/docs/chap-CollectionData.html#tag-ct-bundle
  * for more information.
  *
  * See also: #AsComponent

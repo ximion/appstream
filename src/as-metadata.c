@@ -79,7 +79,7 @@ as_metadata_init (AsMetadata *metad)
 	as_metadata_set_locale (metad, str);
 	g_free (str);
 
-	priv->mode = AS_PARSER_MODE_UPSTREAM;
+	priv->mode = AS_PARSER_MODE_METAINFO;
 	priv->default_priority = 0;
 	priv->write_header = TRUE;
 	priv->update_existing = FALSE;
@@ -198,7 +198,7 @@ as_metadata_parse_xml (AsMetadata *metad, const gchar *data, GError **error)
 
 	as_metadata_init_xml (metad);
 
-	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
 		guint i;
 		g_autoptr(GPtrArray) new_cpts = NULL;
 
@@ -248,7 +248,7 @@ as_metadata_parse_yaml (AsMetadata *metad, const gchar *data, GError **error)
 
 	as_metadata_init_yaml (metad);
 
-	if (priv->mode == AS_PARSER_MODE_DISTRO) {
+	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
 		guint i;
 		g_autoptr(GPtrArray) new_cpts = NULL;
 
@@ -262,7 +262,7 @@ as_metadata_parse_yaml (AsMetadata *metad, const gchar *data, GError **error)
 						g_object_ref (cpt));
 		}
 	} else {
-		g_warning ("Can not load non-distro AppStream YAML data, since their format is not specified.");
+		g_warning ("Can not load non-collection AppStream YAML data, since their format is not specified.");
 	}
 }
 
@@ -462,7 +462,7 @@ as_metadata_save_distro_xml (AsMetadata *metad, const gchar *fname, GError **err
  * as_metadata_components_to_distro_yaml:
  *
  * Serialize all #AsComponent instances into AppStream DEP-11
- * distro-YAML data.
+ * collection-YAML data.
  * %NULL is returned if there is nothing to serialize.
  *
  * Returns: (transfer full): A string containing the YAML markup. Free with g_free()
@@ -534,7 +534,7 @@ as_metadata_component_to_upstream_xml (AsMetadata *metad)
  * as_metadata_components_to_distro_xml:
  *
  * Serialize all #AsComponent instances into AppStream
- * distro-XML data.
+ * collection-XML data.
  * %NULL is returned if there is nothing to serialize.
  *
  * Returns: (transfer full): A string containing the XML. Free with g_free()
@@ -629,7 +629,7 @@ as_metadata_set_locale (AsMetadata *metad, const gchar *locale)
  *
  * Returns: Locale used for metadata parsing.
  **/
-const gchar *
+const gchar*
 as_metadata_get_locale (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
@@ -748,7 +748,7 @@ as_metadata_get_update_existing (AsMetadata *metad)
  * header document when in YAML mode, and will not write a root components node
  * when writing XML data.
  * Please keep in mind that this will create an invalid DEP-11 YAML AppStream
- * distro metadata file, and an invalid XML file.
+ * collection metadata file, and an invalid XML file.
  * This parameter should only be changed e.g. by the appstream-generator tool.
  *
  * NOTE: Right now, this feature is only implemented for YAML!
@@ -764,7 +764,7 @@ as_metadata_set_write_header (AsMetadata *metad, gboolean wheader)
  * as_metadata_get_write_header:
  * @metad: an #AsMetadata instance.
  *
- * Returns: Whether we will write a header/root node in distro metadata.
+ * Returns: Whether we will write a header/root node in collection metadata.
  **/
 gboolean
 as_metadata_get_write_header (AsMetadata *metad)

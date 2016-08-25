@@ -3,14 +3,14 @@
 <!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
 %BOOK_ENTITIES;
 ]>
-<chapter id="chap-DistroData">
-	<title>Distribution Metadata</title>
+<chapter id="chap-CollectionData">
+	<title>Collection Metadata</title>
 	<para>
-		Additionally to the metainfo files shipped by upstream projects, AppStream also provides an XML or YAML format
+		Additionally to the metainfo files shipped by upstream projects, AppStream also provides an XML and YAML format
 		to make information about not installed software components known to the system.
 	</para>
 	<para>
-		This chapter documents this distribution metadata format and icon cache used on the client side.
+		This chapter documents this collection metadata format and icon cache used on the client side.
 	</para>
 
 	<xi:include href="xmldata.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
