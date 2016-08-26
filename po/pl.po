@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-26 22:23+0200\n"
-"PO-Revision-Date: 2016-08-24 18:58+0000\n"
+"PO-Revision-Date: 2016-08-26 21:05+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish "
+"<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -522,9 +522,9 @@ msgstr "Nie odnaleziono składnika pasującego do „%s”."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: ../tools/ascli-actions-mdata.c:234
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s::%s' found."
-msgstr "Nie odnaleziono składnika dostarczającego „%s;%s”."
+msgstr "Nie odnaleziono składnika dostarczającego „%s::%s”."
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -687,13 +687,13 @@ msgstr "Nie można odnaleźć składnika pasującego do %s."
 
 #. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
 #: ../tools/ascli-actions-mdata.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s::%s': %s"
-msgstr "Nie można odnaleźć składnika dostarczającego „%s;%s”."
+msgstr "Nie można odnaleźć składnika dostarczającego „%s::%s”: %s"
 
 #: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
 #: ../tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 
@@ -776,7 +776,6 @@ msgstr "Należy podać polecenie."
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
 #: ../tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
 msgstr "Należy podać identyfikator składnika."
 
