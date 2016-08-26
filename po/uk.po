@@ -1,46 +1,42 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
 # Translators:
-# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016
+# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-24 20:39+0200\n"
-"PO-Revision-Date: 2016-08-16 05:37+0000\n"
+"PO-Revision-Date: 2016-08-26 12:20+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../src/as-category.c:164
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "Категорії"
+msgstr "Тривимірна графіка"
 
 #: ../src/as-category.c:119
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Бойові ігри"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #: ../src/as-category.c:316
 msgid "Add-ons"
-msgstr ""
+msgstr "Додатки"
 
 #: ../src/as-category.c:122
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Пригоди"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: ../tools/appstream-cli.c:144
@@ -92,32 +88,32 @@ msgstr ""
 #: ../src/as-category.c:125
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Аркади"
 
 #: ../src/as-category.c:230
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Штучний інтелект"
 
 #: ../src/as-category.c:97
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономія"
 
 #: ../src/as-category.c:233
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономія"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: ../src/as-category.c:298
 msgid "Audio & Video"
-msgstr ""
+msgstr "Звук і відео"
 
 #: ../src/as-category.c:64
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Створення і редагування звукових даних"
 
 #: ../src/as-provided.c:140
 msgid "Binaries"
@@ -126,12 +122,12 @@ msgstr "Двійкові файли"
 #: ../src/as-category.c:128
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Кубики"
 
 #: ../src/as-category.c:131
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Ігри на дошці"
 
 #: ../tools/ascli-utils.c:278
 msgid "Bundle"
@@ -145,7 +141,7 @@ msgstr "Запис до адреси каталогу кешу, «%s», немо
 #: ../src/as-category.c:187
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Календарі"
 
 #: ../tools/ascli-actions-mdata.c:330
 #, c-format
@@ -163,7 +159,7 @@ msgstr "Пошук із невідомим типом компонента не�
 #: ../src/as-category.c:134
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Карткові ігри"
 
 #: ../tools/ascli-utils.c:348
 msgid "Categories"
@@ -172,22 +168,22 @@ msgstr "Категорії"
 #: ../src/as-category.c:255
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Спілкування"
 
 #: ../src/as-category.c:100
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Хімія"
 
 #: ../src/as-category.c:236
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Хімія"
 
 #: ../src/as-category.c:210
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Кодеки"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: ../tools/appstream-cli.c:231
@@ -198,7 +194,7 @@ msgstr "Невідома команда «%s»."
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: ../src/as-category.c:322
 msgid "Communication & News"
-msgstr ""
+msgstr "Спілкування і новини"
 
 #: ../tools/ascli-actions-pkgmgr.c:101
 #, c-format
@@ -220,12 +216,12 @@ msgstr "Служби системи DBus"
 #: ../src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "База даних"
 
 #: ../src/as-category.c:82
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Засоби діагностики"
 
 #: ../tools/ascli-utils.c:312
 msgid "Description"
@@ -238,9 +234,8 @@ msgstr "Розробник"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: ../src/as-category.c:301
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Розробник"
+msgstr "Інструменти розробника"
 
 #: ../tools/appstream-cli.c:73
 msgid "Display status information about available AppStream metadata."
@@ -270,7 +265,7 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Education
 #: ../src/as-category.c:304
 msgid "Education"
-msgstr ""
+msgstr "Освіта"
 
 #. TRANSLATORS: No metainfo files have been found
 #: ../tools/ascli-actions-misc.c:107 ../tools/ascli-actions-misc.c:127
@@ -280,7 +275,7 @@ msgstr "Порожньо."
 #: ../src/as-category.c:137
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Імітатори"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: ../tools/appstream-cli.c:116
@@ -303,57 +298,57 @@ msgstr "Розширення"
 #: ../src/as-category.c:61
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:252
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:79
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:94
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:116
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:161
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:184
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:227
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:274
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Рекомендовані"
 
 #: ../src/as-category.c:283
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Файлова система"
 
 #: ../src/as-category.c:194
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Фінанси"
 
 #: ../src/as-provided.c:158
 msgid "Flashed Firmware"
@@ -364,7 +359,6 @@ msgid "Fonts"
 msgstr "Шрифти"
 
 #: ../src/as-category.c:207
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Шрифти"
@@ -383,7 +377,7 @@ msgstr "Знайдено %i компонентів."
 #. TRANSLATORS: this is the menu spec main category for Game
 #: ../src/as-category.c:307
 msgid "Games"
-msgstr ""
+msgstr "Ігри"
 
 #: ../tools/appstream-cli.c:59
 msgid "Get components which provide the given item."
@@ -396,7 +390,7 @@ msgstr "Отримати інформацію щодо компонента за
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: ../src/as-category.c:310
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Графіка і фотомистецтво"
 
 #: ../tools/ascli-utils.c:279
 msgid "Homepage"
@@ -405,7 +399,7 @@ msgstr "Домашня сторінка"
 #: ../src/as-category.c:85
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "Інтегровані середовища розробки (IDE)"
 
 #: ../tools/ascli-utils.c:280
 msgid "Icon"
@@ -422,7 +416,7 @@ msgstr "Ідентифікатор"
 #: ../src/as-category.c:213
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Вхідні коди"
 
 #: ../tools/appstream-cli.c:72
 msgid "Install a metadata file into the right location."
@@ -440,17 +434,17 @@ msgstr "Вибрано некоректний тип для запису «provi
 #: ../src/as-category.c:140
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Для дітей"
 
 #: ../src/as-category.c:216
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Пакунки перекладів"
 
 #: ../src/as-category.c:103
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Мови"
 
 #: ../src/as-provided.c:138
 msgid "Libraries"
@@ -464,12 +458,12 @@ msgstr "Ліцензія"
 #: ../src/as-category.c:219
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Локалізація"
 
 #: ../src/as-category.c:143
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Логічні ігри"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: ../tools/appstream-cli.c:139
@@ -485,12 +479,12 @@ msgstr "Встановити розташування кешу AppStream вру�
 #: ../src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Математика"
 
 #: ../src/as-category.c:239
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Математика"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: ../tools/ascli-actions-misc.c:114
@@ -508,7 +502,7 @@ msgstr "Альтернативні режими"
 #: ../src/as-category.c:70
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Музичні програвачі"
 
 #: ../tools/ascli-utils.c:275
 msgid "Name"
@@ -517,7 +511,7 @@ msgstr "Назва"
 #: ../src/as-category.c:262
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Новини"
 
 #: ../tools/ascli-actions-mdata.c:181
 #, c-format
@@ -548,7 +542,7 @@ msgstr "Не визначено значення запису, яке слід �
 #. TRANSLATORS: this is the menu spec main category for Office
 #: ../src/as-category.c:313
 msgid "Office"
-msgstr ""
+msgstr "Офіс"
 
 #: ../tools/ascli-utils.c:277
 msgid "Package"
@@ -557,7 +551,7 @@ msgstr "Пакунок"
 #: ../src/as-category.c:167
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Фотографія"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: ../tools/appstream-cli.c:122
@@ -592,12 +586,12 @@ msgstr "Вилучити програмне забезпечення, вказа
 #: ../src/as-category.c:244
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Робототехніка"
 
 #: ../src/as-category.c:146
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Рольові ігри"
 
 #: ../tools/appstream-cli.c:164 ../tools/appstream-cli.c:184
 #, c-format
@@ -617,12 +611,12 @@ msgstr "Адреса простого знімка вікна"
 #: ../src/as-category.c:170
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Сканування"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: ../src/as-category.c:319
 msgid "Science"
-msgstr ""
+msgstr "Наука"
 
 #: ../tools/appstream-cli.c:57
 msgid "Search the component database."
@@ -631,7 +625,7 @@ msgstr "Шукати у базі даних компонентів."
 #: ../src/as-category.c:289
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Безпека"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: ../tools/appstream-cli.c:106
@@ -646,12 +640,12 @@ msgstr "Вивести дані щодо версії програми"
 #: ../src/as-category.c:149
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Спортивні ігри"
 
 #: ../src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Стратегії"
 
 #. these are commands we can use with appstreamcli
 #: ../tools/appstream-cli.c:55
@@ -670,17 +664,17 @@ msgstr "Резюме:"
 #: ../src/as-category.c:286
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Стеження за системою"
 
 #: ../src/as-category.c:280
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Емулятори термінала"
 
 #: ../src/as-category.c:277
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Текстові редактори"
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: ../tools/ascli-actions-mdata.c:176
@@ -707,13 +701,12 @@ msgstr "Не вдалося запустити засіб керування п�
 #: ../tools/ascli-actions-mdata.c:325
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
-"Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
+msgstr "Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: ../src/as-category.c:325
 msgid "Utilities"
-msgstr ""
+msgstr "Інструменти"
 
 #: ../tools/appstream-cli.c:66
 msgid "Validate AppStream XML files for issues."
@@ -737,10 +730,9 @@ msgid "Value of the item that should be found."
 msgstr "Значення запису, який має бути знайдено."
 
 #: ../src/as-category.c:173
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Категорії"
+msgstr "Векторна графіка"
 
 #: ../tools/ascli-actions-misc.c:46
 #, c-format
@@ -750,7 +742,7 @@ msgstr "Версія: %s"
 #: ../src/as-category.c:176
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Переглядачі"
 
 #: ../tools/ascli-actions-misc.c:151
 #, c-format
@@ -760,12 +752,12 @@ msgstr "Маємо дані щодо %i компонентів програмн�
 #: ../src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Переглядачі інтернету"
 
 #: ../src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Текстові процесори"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: ../tools/ascli-actions-mdata.c:64
@@ -809,15 +801,12 @@ msgstr "Вам слід вказати ключ пошуку."
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "додаток;застосунок;пакет;програма;програма;комплект;інструмент"
 
-#, fuzzy
 #~ msgid "Category of Games"
 #~ msgstr "Категорії"
 
-#, fuzzy
 #~ msgid "Category of Office"
 #~ msgstr "Категорії"
 
-#, fuzzy
 #~ msgid "Category of Science"
 #~ msgstr "Категорії"
 
