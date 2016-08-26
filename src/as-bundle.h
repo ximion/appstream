@@ -47,6 +47,7 @@ struct _AsBundleClass
 /**
  * AsBundleKind:
  * @AS_BUNDLE_KIND_UNKNOWN:	Type invalid or not known
+ * @AS_BUNDLE_KIND_PACKAGE:	A native package (currently not used)
  * @AS_BUNDLE_KIND_LIMBA:	A Limba bundle
  * @AS_BUNDLE_KIND_FLATPAK:	A Flatpak bundle
  *
@@ -54,6 +55,7 @@ struct _AsBundleClass
  **/
 typedef enum {
 	AS_BUNDLE_KIND_UNKNOWN,
+	AS_BUNDLE_KIND_PACKAGE,
 	AS_BUNDLE_KIND_LIMBA,
 	AS_BUNDLE_KIND_FLATPAK,
 	/*< private >*/

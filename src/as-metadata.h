@@ -66,6 +66,22 @@ typedef enum {
 } AsParserMode;
 
 /**
+ * AsMetadataFormat:
+ * @AS_METADATA_FORMAT_UNKNOWN:	Unknown metadata format.
+ * @AS_METADATA_FORMAT_XML:	AppStream XML metadata.
+ * @AS_METADATA_FORMAT_YAML:	AppStream YAML (DEP-11) metadata.
+ *
+ * Format of the AppStream metadata.
+ **/
+typedef enum {
+	AS_METADATA_FORMAT_UNKNOWN,
+	AS_METADATA_FORMAT_XML,
+	AS_METADATA_FORMAT_YAML,
+	/*< private >*/
+	AS_METADATA_FORMAT_LAST
+} AsMetadataFormat;
+
+/**
  * AsMetadataError:
  * @AS_METADATA_ERROR_FAILED:			Generic failure.
  * @AS_METADATA_ERROR_PARSE:			Unable to parse the metadata file.

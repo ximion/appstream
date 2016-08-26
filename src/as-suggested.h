@@ -46,9 +46,9 @@ struct _AsSuggestedClass
 
 /**
  * AsSuggestedKind:
- * @AS_SUGGESTED_KIND_UNKNOWN:	Unknown suggested kind
- * @AS_SUGGESTED_KIND_UPSTREAM:	Suggestions provided by the upstream project.
- * @AS_SUGGESTED_KIND_HEURISTIC: Suggestions provided by automatic heuristics.
+ * @AS_SUGGESTED_KIND_UNKNOWN:		Unknown suggested kind
+ * @AS_SUGGESTED_KIND_UPSTREAM:		Suggestions provided by the upstream project.
+ * @AS_SUGGESTED_KIND_HEURISTIC:	Suggestions provided by automatic heuristics.
  *
  * The suggested type.
  **/
