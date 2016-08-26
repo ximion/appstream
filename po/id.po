@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-24 20:39+0200\n"
+"POT-Creation-Date: 2016-08-26 22:23+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/freedesktop/appstream/"
@@ -65,7 +65,7 @@ msgstr "Status AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pemutakhiran singgahan AppStream berakhir dengan sukses."
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1198
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Pemutakhiran singgahan AppStream gagal."
@@ -79,7 +79,7 @@ msgstr "Pemutakhiran singgahan AppStream tidak perlu."
 msgid "AppStream command-line interface"
 msgstr "Antar muka baris perintah AppStream"
 
-#: ../src/as-pool.c:1180
+#: ../src/as-pool.c:1189
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -117,7 +117,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: ../src/as-provided.c:140
+#: ../src/as-provided.c:142
 msgid "Binaries"
 msgstr "Biner"
 
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Bundel"
 
-#: ../src/as-pool.c:1123
+#: ../src/as-pool.c:1132
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokasi singgahan '%s' tidak dapat ditulisi."
@@ -145,7 +145,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:330
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -154,7 +154,7 @@ msgstr ""
 "Tidak bisa menyalin '%s': Berkas tidak memiliki akhiran '.metainfo.xml' atau "
 "'.appdata.xml'."
 
-#: ../src/as-pool.c:900 ../src/as-pool.c:908
+#: ../src/as-pool.c:909 ../src/as-pool.c:917
 msgid "Can not search for unknown component type."
 msgstr "Tidak bisa mencari tipe komponen yang tak dikenal."
 
@@ -198,7 +198,8 @@ msgstr "Perintah '%s' tak dikenal."
 msgid "Communication & News"
 msgstr ""
 
-#: ../tools/ascli-actions-pkgmgr.c:101
+#. TRANSLATORS: We found no distribution package or bundle to install to make this software available
+#: ../tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponen '%s' tidak punya kandidat instalasi."
@@ -207,11 +208,11 @@ msgstr "Komponen '%s' tidak punya kandidat instalasi."
 msgid "Compulsory for"
 msgstr "Wajib bagi"
 
-#: ../src/as-provided.c:154
+#: ../src/as-provided.c:156
 msgid "DBus Session Services"
 msgstr "Layanan Sesi DBus"
 
-#: ../src/as-provided.c:152
+#: ../src/as-provided.c:154
 msgid "DBus System Services"
 msgstr "Layanan Sistem DBus"
 
@@ -351,11 +352,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: ../src/as-provided.c:158
+#: ../src/as-provided.c:160
 msgid "Flashed Firmware"
 msgstr "Firmware yang di-flash"
 
-#: ../src/as-provided.c:144
+#: ../src/as-provided.c:146
 msgid "Fonts"
 msgstr "Fonta"
 
@@ -428,7 +429,7 @@ msgstr "Pasang suatu berkas metadata ke lokasi yang benar."
 msgid "Install software matching the component-id."
 msgstr "Pasang perangkat lunak yang cocok dengan id komponen."
 
-#: ../tools/ascli-actions-mdata.c:217
+#: ../tools/ascli-actions-mdata.c:212
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Tipe yang dipilih tak valid bagi butir yang disediakan. Nilai yang valid "
@@ -449,7 +450,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: ../src/as-provided.c:138
+#: ../src/as-provided.c:140
 msgid "Libraries"
 msgstr "Pustaka"
 
@@ -494,11 +495,11 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "Berkas metainfo:"
 
-#: ../src/as-provided.c:142
+#: ../src/as-provided.c:144
 msgid "Mimetypes"
 msgstr "Mimetype"
 
-#: ../src/as-provided.c:146
+#: ../src/as-provided.c:148
 msgid "Modaliases"
 msgstr "Modalias"
 
@@ -521,9 +522,10 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "Tidak ditemukan komponen yang cocok '%s'."
 
-#: ../tools/ascli-actions-mdata.c:241
-#, c-format
-msgid "No component providing '%s;%s' found."
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:234
+#, fuzzy, c-format
+msgid "No component providing '%s::%s' found."
 msgstr "Tidak ditemukan komponen yang menyediakan '%s;%s'."
 
 #: ../tools/ascli-actions-misc.c:103
@@ -538,7 +540,7 @@ msgstr ""
 "Tidak ditemukan CLI manajer paket yang cocok. Harap pastikan bahwa mis. "
 "\"pkcon\" (bagian dari PackageKit) tersedia."
 
-#: ../tools/ascli-actions-mdata.c:210
+#: ../tools/ascli-actions-mdata.c:205
 msgid "No value for the item to search for defined."
 msgstr "Tidak ada nilai yang didefinisikan dari butir yang mesti ditemukan."
 
@@ -570,11 +572,11 @@ msgstr "Grup Proyek"
 msgid "Provided Items"
 msgstr "Butir Yang Disediakan"
 
-#: ../src/as-provided.c:148
+#: ../src/as-provided.c:150
 msgid "Python (Version 2)"
 msgstr "Python (Versi 2)"
 
-#: ../src/as-provided.c:150
+#: ../src/as-provided.c:152
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -603,7 +605,7 @@ msgstr ""
 "Jalankan '%s --help' untuk melihat daftar lengkap opsi baris perintah yang "
 "tersedia."
 
-#: ../src/as-provided.c:156
+#: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Firmware Runtime"
 
@@ -685,15 +687,16 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Tidak bisa menemukan komponen yang cocok %s!"
 
-#: ../tools/ascli-actions-mdata.c:236
-#, c-format
-msgid "Unable to find component providing '%s;%s'!"
+#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
+#: ../tools/ascli-actions-mdata.c:227
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s::%s': %s"
 msgstr "Tidak bisa menemukan komponen yang menyediakan '%s;%s'!"
 
-#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:282
-#: ../tools/ascli-actions-pkgmgr.c:92
-#, c-format
-msgid "Unable to find component with id '%s'!"
+#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
+#: ../tools/ascli-actions-pkgmgr.c:93
+#, fuzzy, c-format
+msgid "Unable to find component with ID '%s'!"
 msgstr "Tidak bisa menemukan komponen dengan id '%s'!"
 
 #: ../tools/ascli-actions-pkgmgr.c:67
@@ -701,7 +704,7 @@ msgstr "Tidak bisa menemukan komponen dengan id '%s'!"
 msgid "Unable to spawn package manager: %s"
 msgstr "Tidak bisa men-spawn manajer paket: %s"
 
-#: ../tools/ascli-actions-mdata.c:325
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Tidak bisa menulis ke '%s', tidak bisa memasang berkas metainfo."
@@ -773,16 +776,18 @@ msgid "You need to specify a command."
 msgstr "Anda perlu menyatakan suatu perintah."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
-#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:270
-#: ../tools/ascli-actions-pkgmgr.c:79
-msgid "You need to specify a component-id."
+#. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
+#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
+#: ../tools/ascli-actions-pkgmgr.c:80
+#, fuzzy
+msgid "You need to specify a component-ID."
 msgstr "Anda perlu menyatakan sebuah id komponen."
 
 #: ../tools/ascli-actions-validate.c:163
 msgid "You need to specify a file to validate!"
 msgstr "Anda perlu menyatakan sebuah berkas yang akan divalidasi!"
 
-#: ../tools/ascli-actions-mdata.c:312
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "Anda perlu menyatakan suatu berkas metadata."
 

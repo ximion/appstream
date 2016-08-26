@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-24 20:39+0200\n"
+"POT-Creation-Date: 2016-08-26 22:23+0200\n"
 "PO-Revision-Date: 2016-08-15 19:46+0000\n"
 "Last-Translator: wsxy162 <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) <https://hosted.weblate.org/projects/"
@@ -70,7 +70,7 @@ msgstr "AppStream 状态："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1198
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream 缓存更新失败。"
@@ -84,7 +84,7 @@ msgstr "无需更新 AppStream 缓存。"
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
-#: ../src/as-pool.c:1180
+#: ../src/as-pool.c:1189
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -120,7 +120,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: ../src/as-provided.c:140
+#: ../src/as-provided.c:142
 msgid "Binaries"
 msgstr "二进制"
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "套件"
 
-#: ../src/as-pool.c:1123
+#: ../src/as-pool.c:1132
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s“不可写"
@@ -148,14 +148,14 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:330
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr "无法复制“%s”：文件没有“.metainfo.xml”或“.appdata.xml”后缀。"
 
-#: ../src/as-pool.c:900 ../src/as-pool.c:908
+#: ../src/as-pool.c:909 ../src/as-pool.c:917
 msgid "Can not search for unknown component type."
 msgstr "无法搜索未知组件类型。"
 
@@ -199,7 +199,8 @@ msgstr "命令“%s”未知。"
 msgid "Communication & News"
 msgstr ""
 
-#: ../tools/ascli-actions-pkgmgr.c:101
+#. TRANSLATORS: We found no distribution package or bundle to install to make this software available
+#: ../tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "'%s' 组件没有安装候选版本。"
@@ -208,11 +209,11 @@ msgstr "'%s' 组件没有安装候选版本。"
 msgid "Compulsory for"
 msgstr "强制项目以供"
 
-#: ../src/as-provided.c:154
+#: ../src/as-provided.c:156
 msgid "DBus Session Services"
 msgstr "DBus 会话服务"
 
-#: ../src/as-provided.c:152
+#: ../src/as-provided.c:154
 msgid "DBus System Services"
 msgstr "DBus 系统服务"
 
@@ -352,11 +353,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: ../src/as-provided.c:158
+#: ../src/as-provided.c:160
 msgid "Flashed Firmware"
 msgstr "已刷入的固件"
 
-#: ../src/as-provided.c:144
+#: ../src/as-provided.c:146
 msgid "Fonts"
 msgstr "字体"
 
@@ -429,7 +430,7 @@ msgstr "将元数据文件安装到正确的位置。"
 msgid "Install software matching the component-id."
 msgstr "安装匹配组件 ID 的软件。"
 
-#: ../tools/ascli-actions-mdata.c:217
+#: ../tools/ascli-actions-mdata.c:212
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "选取的提供项目类型无效。有效的值为："
 
@@ -448,7 +449,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: ../src/as-provided.c:138
+#: ../src/as-provided.c:140
 msgid "Libraries"
 msgstr "库"
 
@@ -492,11 +493,11 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "元信息文件："
 
-#: ../src/as-provided.c:142
+#: ../src/as-provided.c:144
 msgid "Mimetypes"
 msgstr "MIME 类型"
 
-#: ../src/as-provided.c:146
+#: ../src/as-provided.c:148
 msgid "Modaliases"
 msgstr "模块别名"
 
@@ -519,9 +520,10 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "未找到符合“%s”的组件。"
 
-#: ../tools/ascli-actions-mdata.c:241
-#, c-format
-msgid "No component providing '%s;%s' found."
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:234
+#, fuzzy, c-format
+msgid "No component providing '%s::%s' found."
 msgstr "未找到提供“%s;%s”的组件。"
 
 #: ../tools/ascli-actions-misc.c:103
@@ -536,7 +538,7 @@ msgstr ""
 "未找到可用的软件包管理器 CLI。请确定已安装类似“pkcon”（PackageKit 的一部分）"
 "的程序。"
 
-#: ../tools/ascli-actions-mdata.c:210
+#: ../tools/ascli-actions-mdata.c:205
 msgid "No value for the item to search for defined."
 msgstr "没有定义要搜索的提供项目值。"
 
@@ -568,11 +570,11 @@ msgstr "项目群组"
 msgid "Provided Items"
 msgstr "提供的项目"
 
-#: ../src/as-provided.c:148
+#: ../src/as-provided.c:150
 msgid "Python (Version 2)"
 msgstr "Python (版本 2)"
 
-#: ../src/as-provided.c:150
+#: ../src/as-provided.c:152
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -599,7 +601,7 @@ msgstr ""
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 
-#: ../src/as-provided.c:156
+#: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "运行时固件"
 
@@ -681,15 +683,16 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "未找到符合 %s 的组件！"
 
-#: ../tools/ascli-actions-mdata.c:236
-#, c-format
-msgid "Unable to find component providing '%s;%s'!"
+#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
+#: ../tools/ascli-actions-mdata.c:227
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s::%s': %s"
 msgstr "未找到提供“%s;%s”的组件！"
 
-#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:282
-#: ../tools/ascli-actions-pkgmgr.c:92
-#, c-format
-msgid "Unable to find component with id '%s'!"
+#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
+#: ../tools/ascli-actions-pkgmgr.c:93
+#, fuzzy, c-format
+msgid "Unable to find component with ID '%s'!"
 msgstr "未找到 id 为“%s”的组件！"
 
 #: ../tools/ascli-actions-pkgmgr.c:67
@@ -697,7 +700,7 @@ msgstr "未找到 id 为“%s”的组件！"
 msgid "Unable to spawn package manager: %s"
 msgstr "无法启动软件包管理器：%s"
 
-#: ../tools/ascli-actions-mdata.c:325
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "无法写入到“%s”，无法安装元信息文件。"
@@ -769,16 +772,18 @@ msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
-#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:270
-#: ../tools/ascli-actions-pkgmgr.c:79
-msgid "You need to specify a component-id."
+#. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
+#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
+#: ../tools/ascli-actions-pkgmgr.c:80
+#, fuzzy
+msgid "You need to specify a component-ID."
 msgstr "您需要指定一个组件 ID。"
 
 #: ../tools/ascli-actions-validate.c:163
 msgid "You need to specify a file to validate!"
 msgstr "您需要指定用来验证的文件！"
 
-#: ../tools/ascli-actions-mdata.c:312
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "你需要指定一个元数据文件。"
 

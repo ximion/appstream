@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-24 20:39+0200\n"
+"POT-Creation-Date: 2016-08-26 22:23+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
@@ -66,7 +66,7 @@ msgstr "AppStream Durumu:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1198
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream ön bellek güncellemesi başarısız oldu."
@@ -80,7 +80,7 @@ msgstr "AppStream önbellek güncellemesi gerekli değil."
 msgid "AppStream command-line interface"
 msgstr "AppStream komut satırı arayüzü"
 
-#: ../src/as-pool.c:1180
+#: ../src/as-pool.c:1189
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -116,7 +116,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: ../src/as-provided.c:140
+#: ../src/as-provided.c:142
 msgid "Binaries"
 msgstr "İkili Kodlar"
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Takım"
 
-#: ../src/as-pool.c:1123
+#: ../src/as-pool.c:1132
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Önbellek konumu '%s', yazılabilir değil."
@@ -144,14 +144,14 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:330
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
 
-#: ../src/as-pool.c:900 ../src/as-pool.c:908
+#: ../src/as-pool.c:909 ../src/as-pool.c:917
 msgid "Can not search for unknown component type."
 msgstr ""
 
@@ -195,7 +195,8 @@ msgstr "'%s' komutu bilinmiyor."
 msgid "Communication & News"
 msgstr ""
 
-#: ../tools/ascli-actions-pkgmgr.c:101
+#. TRANSLATORS: We found no distribution package or bundle to install to make this software available
+#: ../tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "'%s' bileşeninin hiçbir kurulum adayı yok."
@@ -204,11 +205,11 @@ msgstr "'%s' bileşeninin hiçbir kurulum adayı yok."
 msgid "Compulsory for"
 msgstr "Zorunlu"
 
-#: ../src/as-provided.c:154
+#: ../src/as-provided.c:156
 msgid "DBus Session Services"
 msgstr "DBus Oturum Hizmetleri"
 
-#: ../src/as-provided.c:152
+#: ../src/as-provided.c:154
 msgid "DBus System Services"
 msgstr "DBus Sistem Hizmetleri"
 
@@ -349,11 +350,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: ../src/as-provided.c:158
+#: ../src/as-provided.c:160
 msgid "Flashed Firmware"
 msgstr ""
 
-#: ../src/as-provided.c:144
+#: ../src/as-provided.c:146
 msgid "Fonts"
 msgstr "Yazı Tipleri"
 
@@ -426,7 +427,7 @@ msgstr ""
 msgid "Install software matching the component-id."
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:217
+#: ../tools/ascli-actions-mdata.c:212
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 
@@ -445,7 +446,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: ../src/as-provided.c:138
+#: ../src/as-provided.c:140
 msgid "Libraries"
 msgstr "Kütüphaneler"
 
@@ -491,11 +492,11 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "Üst veri dosyaları:"
 
-#: ../src/as-provided.c:142
+#: ../src/as-provided.c:144
 msgid "Mimetypes"
 msgstr "Mime Türleri"
 
-#: ../src/as-provided.c:146
+#: ../src/as-provided.c:148
 msgid "Modaliases"
 msgstr ""
 
@@ -518,9 +519,10 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "'%s' ile eşleşen bileşen bulunamadı."
 
-#: ../tools/ascli-actions-mdata.c:241
-#, c-format
-msgid "No component providing '%s;%s' found."
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:234
+#, fuzzy, c-format
+msgid "No component providing '%s::%s' found."
 msgstr "'%s;%s' sağlayan hiçbir bileşen bulunamadı."
 
 #: ../tools/ascli-actions-misc.c:103
@@ -533,7 +535,7 @@ msgid ""
 "\" (part of PackageKit) is available."
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:210
+#: ../tools/ascli-actions-mdata.c:205
 msgid "No value for the item to search for defined."
 msgstr ""
 
@@ -565,11 +567,11 @@ msgstr "Proje Grubu"
 msgid "Provided Items"
 msgstr "Sağlanan Ögeler"
 
-#: ../src/as-provided.c:148
+#: ../src/as-provided.c:150
 msgid "Python (Version 2)"
 msgstr "Python (Sürüm 2)"
 
-#: ../src/as-provided.c:150
+#: ../src/as-provided.c:152
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -597,7 +599,7 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Tüm komut satırı işlemlerini görmek için '%s --help' komutunu çalıştırın."
 
-#: ../src/as-provided.c:156
+#: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Çalışma Zamanı Ürün Yazılımı"
 
@@ -679,15 +681,16 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "%s ile eşleşen bileşen bulunamadı!"
 
-#: ../tools/ascli-actions-mdata.c:236
-#, c-format
-msgid "Unable to find component providing '%s;%s'!"
+#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
+#: ../tools/ascli-actions-mdata.c:227
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s::%s': %s"
 msgstr "'%s;%s' sağlayan bileşen bulunamadı!"
 
-#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:282
-#: ../tools/ascli-actions-pkgmgr.c:92
-#, c-format
-msgid "Unable to find component with id '%s'!"
+#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
+#: ../tools/ascli-actions-pkgmgr.c:93
+#, fuzzy, c-format
+msgid "Unable to find component with ID '%s'!"
 msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
 
 #: ../tools/ascli-actions-pkgmgr.c:67
@@ -695,7 +698,7 @@ msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
 msgid "Unable to spawn package manager: %s"
 msgstr "Paket yöneticisi meydana getirilemiyor: %s"
 
-#: ../tools/ascli-actions-mdata.c:325
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "'%s'e yazılamadı, üst bilgi dosyası kurulamıyor."
@@ -769,16 +772,18 @@ msgid "You need to specify a command."
 msgstr "Bir komut belirtmelisiniz."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
-#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:270
-#: ../tools/ascli-actions-pkgmgr.c:79
-msgid "You need to specify a component-id."
+#. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
+#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
+#: ../tools/ascli-actions-pkgmgr.c:80
+#, fuzzy
+msgid "You need to specify a component-ID."
 msgstr "Bir bileşen kimliği belirtmelisiniz."
 
 #: ../tools/ascli-actions-validate.c:163
 msgid "You need to specify a file to validate!"
 msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
 
-#: ../tools/ascli-actions-mdata.c:312
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "Bir üst veri dosyası belirtmeniz gerekiyor."
 

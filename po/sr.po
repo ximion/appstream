@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-24 20:39+0200\n"
+"POT-Creation-Date: 2016-08-26 22:23+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
@@ -68,7 +68,7 @@ msgstr ""
 msgid "AppStream cache update completed successfully."
 msgstr "Освежавање оставе Програмског тока је успешно обављено."
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1198
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Освежавање оставе Програмског тока није успело."
@@ -82,7 +82,7 @@ msgstr "Освежавање оставе Програмског тока ниј
 msgid "AppStream command-line interface"
 msgstr "Наредбено сучеље Програмског тока"
 
-#: ../src/as-pool.c:1180
+#: ../src/as-pool.c:1189
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -118,7 +118,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: ../src/as-provided.c:140
+#: ../src/as-provided.c:142
 msgid "Binaries"
 msgstr "Извршни"
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Пакет"
 
-#: ../src/as-pool.c:1123
+#: ../src/as-pool.c:1132
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Место оставе „%s“ није за уписивање."
@@ -146,14 +146,14 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:330
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
 
-#: ../src/as-pool.c:900 ../src/as-pool.c:908
+#: ../src/as-pool.c:909 ../src/as-pool.c:917
 msgid "Can not search for unknown component type."
 msgstr ""
 
@@ -197,7 +197,8 @@ msgstr "Наредба „%s“ није позната."
 msgid "Communication & News"
 msgstr ""
 
-#: ../tools/ascli-actions-pkgmgr.c:101
+#. TRANSLATORS: We found no distribution package or bundle to install to make this software available
+#: ../tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "Састојак „%s“ нема кандидата за инсталацију."
@@ -206,11 +207,11 @@ msgstr "Састојак „%s“ нема кандидата за инстал�
 msgid "Compulsory for"
 msgstr "Обавезујући за"
 
-#: ../src/as-provided.c:154
+#: ../src/as-provided.c:156
 msgid "DBus Session Services"
 msgstr "Услуге сесије Д-сабирнице"
 
-#: ../src/as-provided.c:152
+#: ../src/as-provided.c:154
 msgid "DBus System Services"
 msgstr "Услуге система Д-сабирнице"
 
@@ -350,11 +351,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: ../src/as-provided.c:158
+#: ../src/as-provided.c:160
 msgid "Flashed Firmware"
 msgstr "Преточени уграђени програм"
 
-#: ../src/as-provided.c:144
+#: ../src/as-provided.c:146
 msgid "Fonts"
 msgstr "Словни ликови"
 
@@ -427,7 +428,7 @@ msgstr ""
 msgid "Install software matching the component-id."
 msgstr "Инсталирајте софтвер који одговара иб-у састојка."
 
-#: ../tools/ascli-actions-mdata.c:217
+#: ../tools/ascli-actions-mdata.c:212
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Изабрана је неисправна врста за достављену ставку. Исправне вредности су:"
@@ -447,7 +448,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: ../src/as-provided.c:138
+#: ../src/as-provided.c:140
 msgid "Libraries"
 msgstr "Библиотеке"
 
@@ -493,11 +494,11 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr ""
 
-#: ../src/as-provided.c:142
+#: ../src/as-provided.c:144
 msgid "Mimetypes"
 msgstr "Миме врсте"
 
-#: ../src/as-provided.c:146
+#: ../src/as-provided.c:148
 msgid "Modaliases"
 msgstr "Модалијаси"
 
@@ -520,9 +521,10 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "Нисам нашао састојак који одговара „%s“."
 
-#: ../tools/ascli-actions-mdata.c:241
-#, c-format
-msgid "No component providing '%s;%s' found."
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:234
+#, fuzzy, c-format
+msgid "No component providing '%s::%s' found."
 msgstr "Нисам нашао састојак који обезбеђује „%s;%s“."
 
 #: ../tools/ascli-actions-misc.c:103
@@ -537,7 +539,7 @@ msgstr ""
 "Нисам нашао одговарајућу конзолу управника пакета. Уверите се да је доступан "
 "нпр. „pkcon“ (део Пакетског комплета)."
 
-#: ../tools/ascli-actions-mdata.c:210
+#: ../tools/ascli-actions-mdata.c:205
 msgid "No value for the item to search for defined."
 msgstr "Нема вредности за ставку за тражење за одређене."
 
@@ -569,11 +571,11 @@ msgstr "Група пројекта"
 msgid "Provided Items"
 msgstr "Обезбеђене ставке"
 
-#: ../src/as-provided.c:148
+#: ../src/as-provided.c:150
 msgid "Python (Version 2)"
 msgstr "Питон (2. издање)"
 
-#: ../src/as-provided.c:150
+#: ../src/as-provided.c:152
 msgid "Python 3"
 msgstr "Питон 3"
 
@@ -601,7 +603,7 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Покрените „%s --help“ да видите читав списак доступних опција линије наредби."
 
-#: ../src/as-provided.c:156
+#: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Уграђени програм времена покретања"
 
@@ -683,15 +685,16 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Не могу да пронађем састојак који одговара „%s“!"
 
-#: ../tools/ascli-actions-mdata.c:236
-#, c-format
-msgid "Unable to find component providing '%s;%s'!"
+#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
+#: ../tools/ascli-actions-mdata.c:227
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s::%s': %s"
 msgstr "Не могу да нађем састојак који доставља „%s;%s“!"
 
-#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:282
-#: ../tools/ascli-actions-pkgmgr.c:92
-#, c-format
-msgid "Unable to find component with id '%s'!"
+#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
+#: ../tools/ascli-actions-pkgmgr.c:93
+#, fuzzy, c-format
+msgid "Unable to find component with ID '%s'!"
 msgstr "Не могу да пронађем састојак са иб-ом „%s“!"
 
 #: ../tools/ascli-actions-pkgmgr.c:67
@@ -699,7 +702,7 @@ msgstr "Не могу да пронађем састојак са иб-ом „%
 msgid "Unable to spawn package manager: %s"
 msgstr "Не могу да изродим управника пакета: %s"
 
-#: ../tools/ascli-actions-mdata.c:325
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
@@ -772,16 +775,18 @@ msgid "You need to specify a command."
 msgstr "Морате да наведете наредбу."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
-#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:270
-#: ../tools/ascli-actions-pkgmgr.c:79
-msgid "You need to specify a component-id."
+#. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
+#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
+#: ../tools/ascli-actions-pkgmgr.c:80
+#, fuzzy
+msgid "You need to specify a component-ID."
 msgstr "Морате да наведете иб састојка."
 
 #: ../tools/ascli-actions-validate.c:163
 msgid "You need to specify a file to validate!"
 msgstr "Морате да наведете датотеку за потврђивање!"
 
-#: ../tools/ascli-actions-mdata.c:312
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr ""
 

@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-24 20:39+0200\n"
+"POT-Creation-Date: 2016-08-26 22:23+0200\n"
 "PO-Revision-Date: 2016-08-25 11:40+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian "
-"<https://hosted.weblate.org/projects/appstream/translations/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
+"translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +64,7 @@ msgstr "Stato AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aggiornamento cache AppStream completato con successo."
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1198
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Aggiornamento cache AppStream non riuscito."
@@ -78,7 +78,7 @@ msgstr "Aggiornamento cache AppStream non necessario."
 msgid "AppStream command-line interface"
 msgstr "Interfaccia a riga di comando AppStream"
 
-#: ../src/as-pool.c:1180
+#: ../src/as-pool.c:1189
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -116,7 +116,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Produzione e modifica audio"
 
-#: ../src/as-provided.c:140
+#: ../src/as-provided.c:142
 msgid "Binaries"
 msgstr "Binari"
 
@@ -134,7 +134,7 @@ msgstr "Tavolo"
 msgid "Bundle"
 msgstr "Bundle"
 
-#: ../src/as-pool.c:1123
+#: ../src/as-pool.c:1132
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Non è possibile scrivere sulla posizione cache \"%s\"."
@@ -144,7 +144,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Calendario"
 
-#: ../tools/ascli-actions-mdata.c:330
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -153,7 +153,7 @@ msgstr ""
 "Impossibile copiare \"%s\": il file non ha un'estensione \".metainfo.xml\" o "
 "\".appdata.xml\"."
 
-#: ../src/as-pool.c:900 ../src/as-pool.c:908
+#: ../src/as-pool.c:909 ../src/as-pool.c:917
 msgid "Can not search for unknown component type."
 msgstr "Impossibile cerare tipi di componenti sconosciuti."
 
@@ -197,7 +197,8 @@ msgstr "Comando \"%s\" sconosciuto."
 msgid "Communication & News"
 msgstr "Comunicazione e notizie"
 
-#: ../tools/ascli-actions-pkgmgr.c:101
+#. TRANSLATORS: We found no distribution package or bundle to install to make this software available
+#: ../tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "Il componente \"%s\" non ha alcun candidato per l'installazione."
@@ -206,11 +207,11 @@ msgstr "Il componente \"%s\" non ha alcun candidato per l'installazione."
 msgid "Compulsory for"
 msgstr "Obbligatorio per"
 
-#: ../src/as-provided.c:154
+#: ../src/as-provided.c:156
 msgid "DBus Session Services"
 msgstr "Servizi di sessione DBus"
 
-#: ../src/as-provided.c:152
+#: ../src/as-provided.c:154
 msgid "DBus System Services"
 msgstr "Servizi di sistema DBus"
 
@@ -351,11 +352,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Finanza"
 
-#: ../src/as-provided.c:158
+#: ../src/as-provided.c:160
 msgid "Flashed Firmware"
 msgstr "Firmware caricato"
 
-#: ../src/as-provided.c:144
+#: ../src/as-provided.c:146
 msgid "Fonts"
 msgstr "Caratteri"
 
@@ -427,7 +428,7 @@ msgstr "Installa un file metadati nella corretta posizione"
 msgid "Install software matching the component-id."
 msgstr "Installa software che corrisponde all'ID del componente"
 
-#: ../tools/ascli-actions-mdata.c:217
+#: ../tools/ascli-actions-mdata.c:212
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Tipo non valido per l'elemento selezionato. Valori valido sono:"
 
@@ -446,7 +447,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Lingue"
 
-#: ../src/as-provided.c:138
+#: ../src/as-provided.c:140
 msgid "Libraries"
 msgstr "Librerie"
 
@@ -492,11 +493,11 @@ msgstr "Matematica"
 msgid "Metainfo files:"
 msgstr "File metainfo:"
 
-#: ../src/as-provided.c:142
+#: ../src/as-provided.c:144
 msgid "Mimetypes"
 msgstr "Tipi MIME"
 
-#: ../src/as-provided.c:146
+#: ../src/as-provided.c:148
 msgid "Modaliases"
 msgstr "Modalias"
 
@@ -519,9 +520,10 @@ msgstr "Notizie"
 msgid "No component matching '%s' found."
 msgstr "Non è stato trovato alcun componente che corrisponde a \"%s\"."
 
-#: ../tools/ascli-actions-mdata.c:241
-#, c-format
-msgid "No component providing '%s;%s' found."
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:234
+#, fuzzy, c-format
+msgid "No component providing '%s::%s' found."
 msgstr "Non è stato trovato alcun componente che fornisce \"%s;%s\"."
 
 #: ../tools/ascli-actions-misc.c:103
@@ -536,7 +538,7 @@ msgstr ""
 "Nessun gestore di pacchetti CLI trovato. Assicurarsi che \"pkcon\" (parte di "
 "PackageKit) sia disponibile."
 
-#: ../tools/ascli-actions-mdata.c:210
+#: ../tools/ascli-actions-mdata.c:205
 msgid "No value for the item to search for defined."
 msgstr "Nessun valore per l'elemento da cercare definito."
 
@@ -568,11 +570,11 @@ msgstr "Gruppo progetto"
 msgid "Provided Items"
 msgstr "Elementi forniti"
 
-#: ../src/as-provided.c:148
+#: ../src/as-provided.c:150
 msgid "Python (Version 2)"
 msgstr "Python (versione 2)"
 
-#: ../src/as-provided.c:150
+#: ../src/as-provided.c:152
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -600,7 +602,7 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Eseguire \"%s --help\" per l'elenco completo delle opzioni a riga di comando."
 
-#: ../src/as-provided.c:156
+#: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Firmware di esecuzione"
 
@@ -682,15 +684,16 @@ msgstr "Editor di testi"
 msgid "Unable to find component matching %s!"
 msgstr "Impossibile trovare un componente che corrisponda a %s."
 
-#: ../tools/ascli-actions-mdata.c:236
-#, c-format
-msgid "Unable to find component providing '%s;%s'!"
+#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
+#: ../tools/ascli-actions-mdata.c:227
+#, fuzzy, c-format
+msgid "Unable to find component providing '%s::%s': %s"
 msgstr "Impossibile trovare un componente che fornisca \"%s;%s\"."
 
-#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:282
-#: ../tools/ascli-actions-pkgmgr.c:92
-#, c-format
-msgid "Unable to find component with id '%s'!"
+#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
+#: ../tools/ascli-actions-pkgmgr.c:93
+#, fuzzy, c-format
+msgid "Unable to find component with ID '%s'!"
 msgstr "Impossibile trovare un componente con ID \"%s\"."
 
 #: ../tools/ascli-actions-pkgmgr.c:67
@@ -698,7 +701,7 @@ msgstr "Impossibile trovare un componente con ID \"%s\"."
 msgid "Unable to spawn package manager: %s"
 msgstr "Impossibile lanciare il gestore di pacchetti: %s"
 
-#: ../tools/ascli-actions-mdata.c:325
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
@@ -774,16 +777,18 @@ msgid "You need to specify a command."
 msgstr "È necessario specificare un comando."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
-#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:270
-#: ../tools/ascli-actions-pkgmgr.c:79
-msgid "You need to specify a component-id."
+#. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
+#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
+#: ../tools/ascli-actions-pkgmgr.c:80
+#, fuzzy
+msgid "You need to specify a component-ID."
 msgstr "È necessario specificare l'ID di un componente."
 
 #: ../tools/ascli-actions-validate.c:163
 msgid "You need to specify a file to validate!"
 msgstr "È necessario specificare un file da validare."
 
-#: ../tools/ascli-actions-mdata.c:312
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "È necessario specificare un file di metadati."
 
