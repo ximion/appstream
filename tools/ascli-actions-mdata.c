@@ -247,7 +247,7 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
  * Dump the raw upstream XML for a component.
  */
 int
-ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean no_cache)
+ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsDataFormat format, gboolean no_cache)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -273,6 +273,10 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean 
 		return 4;
 	}
 
+	/* default to XML if we don't know the format */
+	if (format == AS_DATA_FORMAT_UNKNOWN)
+		format = AS_DATA_FORMAT_XML;
+
 	/* convert the obtained component to XML */
 	metad = as_metadata_new ();
 	for (i = 0; i < result->len; i++) {
@@ -281,7 +285,7 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, gboolean 
 
 		as_metadata_clear_components (metad);
 		as_metadata_add_component (metad, cpt);
-		xmldata = as_metadata_component_to_metainfo_xml (metad);
+		xmldata = as_metadata_component_to_metainfo (metad, format, NULL);
 		g_print ("%s\n", xmldata);
 	}
 

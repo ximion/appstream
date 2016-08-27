@@ -22,6 +22,7 @@
 #define __ASCLI_ACTIONS_MDATA_H
 
 #include <glib-object.h>
+#include <appstream.h>
 
 G_BEGIN_DECLS
 
@@ -46,6 +47,7 @@ int		ascli_refresh_cache (const gchar *cachepath,
 
 int		ascli_dump_component (const gchar *cachepath,
 					const gchar *identifier,
+					AsDataFormat format,
 					gboolean no_cache);
 
 int		ascli_put_metainfo (const gchar *fname);

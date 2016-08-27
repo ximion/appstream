@@ -591,7 +591,10 @@ as_pool_load_metadata (AsPool *pool)
 				continue;
 			}
 
-			as_metadata_parse_file (metad, infile, &error);
+			as_metadata_parse_file (metad,
+						infile,
+						AS_DATA_FORMAT_UNKNOWN,
+						&error);
 			if (error != NULL) {
 				g_debug ("WARNING: %s", error->message);
 				g_error_free (error);

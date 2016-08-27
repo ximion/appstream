@@ -66,6 +66,46 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_metadata_get_instance_private (o))
 
 /**
+ * as_data_format_to_string:
+ * @format: the #AsDataFormat.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @format
+ *
+ * Since: 0.10
+ **/
+const gchar*
+as_data_format_to_string (AsDataFormat format)
+{
+	if (format == AS_DATA_FORMAT_XML)
+		return "xml";
+	if (format == AS_DATA_FORMAT_XML)
+		return "yaml";
+	return "unknown";
+}
+
+/**
+ * as_data_format_from_string:
+ * @format_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsDataFormat or %AS_DATA_FORMAT_UNKNOWN for unknown
+ *
+ * Since: 0.10
+ **/
+AsUrgencyKind
+as_data_format_from_string (const gchar *format_str)
+{
+	if (g_strcmp0 (format_str, "xml") == 0)
+		return AS_DATA_FORMAT_XML;
+	if (g_strcmp0 (format_str, "yaml") == 0)
+		return AS_DATA_FORMAT_YAML;
+	return AS_DATA_FORMAT_UNKNOWN;
+}
+
+/**
  * as_metadata_init:
  **/
 static void
@@ -186,83 +226,74 @@ as_metadata_clear_components (AsMetadata *metad)
 
 /**
  * as_metadata_parse_xml:
- * @metad: A valid #AsMetadata instance
- * @data: XML data describing one or more software components.
- *
- * Parses AppStream XML metadata.
- **/
-void
-as_metadata_parse_xml (AsMetadata *metad, const gchar *data, GError **error)
-{
-	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-
-	as_metadata_init_xml (metad);
-
-	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
-		guint i;
-		g_autoptr(GPtrArray) new_cpts = NULL;
-
-		new_cpts = as_xmldata_parse_collection_data (priv->xdt, data, error);
-		if (new_cpts == NULL)
-			return;
-		for (i = 0; i < new_cpts->len; i++) {
-			AsComponent *cpt;
-			cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
-			g_ptr_array_add (priv->cpts,
-						g_object_ref (cpt));
-		}
-	} else {
-		AsComponent *cpt;
-
-		if (priv->update_existing) {
-			/* we should update the existing component with new metadata */
-			cpt = as_metadata_get_component (metad);
-			if (cpt == NULL) {
-				g_set_error_literal (error,
-						AS_METADATA_ERROR,
-						AS_METADATA_ERROR_NO_COMPONENT,
-						"No component found that could be updated.");
-				return;
-			}
-			as_xmldata_update_cpt_with_metainfo_data (priv->xdt, data, cpt, error);
-		} else {
-			cpt = as_xmldata_parse_metainfo_data (priv->xdt, data, error);
-			if (cpt != NULL)
-				g_ptr_array_add (priv->cpts, cpt);
-		}
-	}
-}
-
-/**
- * as_metadata_parse_yaml:
- * @metad: A valid #AsMetadata instance
- * @data: YAML data describing one or more software components.
+ * @metad: An instance of #AsMetadata.
+ * @data: Metadata describing one or more software components.
+ * @format: The format of the data (XML or YAML).
  * @error: A #GError or %NULL.
  *
- * Parses AppStream YAML metadata.
+ * Parses AppStream metadata.
  **/
 void
-as_metadata_parse_yaml (AsMetadata *metad, const gchar *data, GError **error)
+as_metadata_parse (AsMetadata *metad, const gchar *data, AsDataFormat format, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_return_if_fail (format > AS_DATA_FORMAT_UNKNOWN && format < AS_DATA_FORMAT_LAST);
 
-	as_metadata_init_yaml (metad);
+	if (format == AS_DATA_FORMAT_XML) {
+		as_metadata_init_xml (metad);
 
-	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
-		guint i;
-		g_autoptr(GPtrArray) new_cpts = NULL;
+		if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+			guint i;
+			g_autoptr(GPtrArray) new_cpts = NULL;
 
-		new_cpts = as_yamldata_parse_collection_data (priv->ydt, data, error);
-		if (new_cpts == NULL)
-			return;
-		for (i = 0; i < new_cpts->len; i++) {
+			new_cpts = as_xmldata_parse_collection_data (priv->xdt, data, error);
+			if (new_cpts == NULL)
+				return;
+			for (i = 0; i < new_cpts->len; i++) {
+				AsComponent *cpt;
+				cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
+				g_ptr_array_add (priv->cpts,
+						 g_object_ref (cpt));
+			}
+		} else {
 			AsComponent *cpt;
-			cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
-			g_ptr_array_add (priv->cpts,
-						g_object_ref (cpt));
+
+			if (priv->update_existing) {
+				/* we should update the existing component with new metadata */
+				cpt = as_metadata_get_component (metad);
+				if (cpt == NULL) {
+					g_set_error_literal (error,
+								AS_METADATA_ERROR,
+								AS_METADATA_ERROR_NO_COMPONENT,
+								"No component found that could be updated.");
+					return;
+				}
+				as_xmldata_update_cpt_with_metainfo_data (priv->xdt, data, cpt, error);
+			} else {
+				cpt = as_xmldata_parse_metainfo_data (priv->xdt, data, error);
+				if (cpt != NULL)
+					g_ptr_array_add (priv->cpts, cpt);
+			}
 		}
-	} else {
-		g_warning ("Can not load non-collection AppStream YAML data, since their format is not specified.");
+	} else if (format == AS_DATA_FORMAT_YAML) {
+		as_metadata_init_yaml (metad);
+
+		if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+			guint i;
+			g_autoptr(GPtrArray) new_cpts = NULL;
+
+			new_cpts = as_yamldata_parse_collection_data (priv->ydt, data, error);
+			if (new_cpts == NULL)
+				return;
+			for (i = 0; i < new_cpts->len; i++) {
+				AsComponent *cpt;
+				cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
+				g_ptr_array_add (priv->cpts,
+						 g_object_ref (cpt));
+			}
+		} else {
+			g_warning ("Can not load non-collection AppStream YAML data, since their format is not specified.");
+		}
 	}
 }
 
@@ -270,16 +301,16 @@ as_metadata_parse_yaml (AsMetadata *metad, const gchar *data, GError **error)
  * as_metadata_parse_file:
  * @metad: A valid #AsMetadata instance
  * @file: #GFile for the upstream metadata
+ * @format: The format the data is in, or %AS_DATA_FORMAT_UNKNOWN if not known.
  * @error: A #GError or %NULL.
  *
  * Parses an AppStream upstream metadata file.
  *
  **/
 void
-as_metadata_parse_file (AsMetadata *metad, GFile *file, GError **error)
+as_metadata_parse_file (AsMetadata *metad, GFile *file, AsDataFormat format, GError **error)
 {
 	g_autofree gchar *file_basename = NULL;
-	gboolean is_yaml_doc = FALSE;
 	g_autoptr(GFileInfo) info = NULL;
 	g_autoptr(GInputStream) file_stream = NULL;
 	g_autoptr(GInputStream) stream_data = NULL;
@@ -297,16 +328,21 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, GError **error)
 	if (info != NULL)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
-	/* check if we are dealing with a YAML document, assume XML otherwise */
-	if (g_strcmp0 (content_type, "application/x-yaml") == 0)
-		is_yaml_doc = TRUE;
+	if (format == AS_DATA_FORMAT_UNKNOWN) {
+		/* we should autodetect the format type. assume XML until we can find evidence that it's YAML */
+		format = AS_DATA_FORMAT_XML;
 
-	file_basename = g_file_get_basename (file);
-	if ((g_str_has_suffix (file_basename, ".yml.gz")) ||
-	    (g_str_has_suffix (file_basename, ".yaml.gz")) ||
-	    (g_str_has_suffix (file_basename, ".yml")) ||
-	    (g_str_has_suffix (file_basename, ".yaml"))) {
-		is_yaml_doc = TRUE;
+		/* check if we are dealing with a YAML document, assume XML otherwise */
+		if (g_strcmp0 (content_type, "application/x-yaml") == 0)
+			format = AS_DATA_FORMAT_YAML;
+
+		file_basename = g_file_get_basename (file);
+		if ((g_str_has_suffix (file_basename, ".yml.gz")) ||
+		    (g_str_has_suffix (file_basename, ".yaml.gz")) ||
+		    (g_str_has_suffix (file_basename, ".yml")) ||
+		    (g_str_has_suffix (file_basename, ".yaml"))) {
+			format = AS_DATA_FORMAT_YAML;
+		}
 	}
 
 	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
@@ -336,10 +372,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, GError **error)
 		return;
 
 	/* parse metadata */
-	if (is_yaml_doc)
-		as_metadata_parse_yaml (metad, asdata->str, error);
-	else
-		as_metadata_parse_xml (metad, asdata->str, error);
+	as_metadata_parse (metad, asdata->str, format, error);
 }
 
 /**
@@ -427,98 +460,73 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
 }
 
 /**
- * as_metadata_save_metainfo_xml:
- * @fname: The filename for the new XML file.
+ * as_metadata_save_metainfo:
+ * @fname: The filename for the new metadata file.
+ * @format: The format to save this file in. Only XML is supported at time.
  *
  * Serialize #AsComponent instance to XML and save it to file.
  * An existing file at the same location will be overridden.
  */
 void
-as_metadata_save_metainfo_xml (AsMetadata *metad, const gchar *fname, GError **error)
+as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsDataFormat format, GError **error)
 {
 	g_autofree gchar *xml_data = NULL;
 
-	xml_data = as_metadata_component_to_metainfo_xml (metad);
+	xml_data = as_metadata_component_to_metainfo (metad, format, error);
+	if ((error != NULL) && (*error != NULL))
+		return;
 	as_metadata_save_data (metad, fname, xml_data, error);
 }
 
 /**
  * as_metadata_save_collection_xml:
- * @fname: The filename for the new XML file.
+ * @metad: An instance of #AsMetadata.
+ * @fname: The filename for the new metadata file.
  *
- * Serialize all #AsComponent instances to XML and save the data to a file.
+ * Serialize all #AsComponent instances to XML or YAML metadata and save
+ * the data to a file.
  * An existing file at the same location will be overridden.
  */
 void
-as_metadata_save_collection_xml (AsMetadata *metad, const gchar *fname, GError **error)
+as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsDataFormat format, GError **error)
 {
-	g_autofree gchar *xml_data = NULL;
+	g_autofree gchar *data = NULL;
 
-	xml_data = as_metadata_components_to_collection_xml (metad);
-	as_metadata_save_data (metad, fname, xml_data, error);
+	data = as_metadata_components_to_collection (metad, format, error);
+	if ((error != NULL) && (*error != NULL))
+		return;
+	as_metadata_save_data (metad, fname, data, error);
 }
 
 /**
- * as_metadata_components_to_collection_yaml:
+ * as_metadata_component_to_metainfo:
+ * @metad: An instance of #AsMetadata.
+ * @format: The format to use (XML or YAML)
+ * @error: A #GError
  *
- * Serialize all #AsComponent instances into AppStream DEP-11
- * collection-YAML data.
- * %NULL is returned if there is nothing to serialize.
+ * Convert an #AsComponent to metainfo data.
+ * This will always be XML, YAML is no valid format for metainfo files.
  *
- * Returns: (transfer full): A string containing the YAML markup. Free with g_free()
- */
-gchar*
-as_metadata_components_to_collection_yaml (AsMetadata *metad)
-{
-	gchar *yamlstr = NULL;
-	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-
-	as_metadata_init_yaml (metad);
-	if (priv->cpts->len == 0)
-		return NULL;
-
-	yamlstr = as_yamldata_serialize_to_collection (priv->ydt,
-							priv->cpts,
-							priv->write_header,
-							TRUE, /* add timestamp */
-							NULL);
-	return yamlstr;
-}
-
-/**
- * as_metadata_save_collection_yaml:
- * @fname: The filename for the new YAML file.
- *
- * Serialize all #AsComponent instances to XML and save the data to a file.
- * An existing file at the same location will be overridden.
- */
-void
-as_metadata_save_collection_yaml (AsMetadata *metad, const gchar *fname, GError **error)
-{
-	g_autofree gchar *yaml_data = NULL;
-
-	yaml_data = as_metadata_components_to_collection_yaml (metad);
-	as_metadata_save_data (metad, fname, yaml_data, error);
-}
-
-/**
- * as_metadata_component_to_metainfo_xml:
- *
- * Convert an #AsComponent to upstream XML.
- * (The amount of localization included in the metadata depends on how the #AsComponent
- * was initially loaded)
+ * The amount of localization included in the metadata depends on how the #AsComponent
+ * was initially loaded and whether it contains data for all locale.
  *
  * The first #AsComponent added to the internal list will be transformed.
  * In case no component is present, %NULL is returned.
  *
- * Returns: (transfer full): A string containing the XML. Free with g_free()
+ * Returns: (transfer full): A string containing the XML metadata. Free with g_free()
  */
 gchar*
-as_metadata_component_to_metainfo_xml (AsMetadata *metad)
+as_metadata_component_to_metainfo (AsMetadata *metad, AsDataFormat format, GError **error)
 {
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	gchar *xmlstr = NULL;
 	AsComponent *cpt;
-	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+
+	g_return_val_if_fail (format > AS_DATA_FORMAT_UNKNOWN && format < AS_DATA_FORMAT_LAST, NULL);
+	if (format == AS_DATA_FORMAT_YAML) {
+		g_critical ("Can not serialize to YAML-metainfo, because metainfo files have to be XML data.");
+		return NULL;
+	}
 
 	as_metadata_init_xml (metad);
 	cpt = as_metadata_get_component (metad);
@@ -531,26 +539,44 @@ as_metadata_component_to_metainfo_xml (AsMetadata *metad)
 }
 
 /**
- * as_metadata_components_to_collection_xml:
+ * as_metadata_components_to_collection:
+ * @metad: An instance of #AsMetadata.
+ * @format: The format to serialize the data to (XML or YAML).
+ * @error: A #GError
  *
  * Serialize all #AsComponent instances into AppStream
- * collection-XML data.
+ * collection metadata.
  * %NULL is returned if there is nothing to serialize.
  *
- * Returns: (transfer full): A string containing the XML. Free with g_free()
+ * Returns: (transfer full): A string containing the YAML or XML data. Free with g_free()
  */
 gchar*
-as_metadata_components_to_collection_xml (AsMetadata *metad)
+as_metadata_components_to_collection (AsMetadata *metad, AsDataFormat format, GError **error)
 {
-	gchar *xmlstr = NULL;
+	gchar *data = NULL;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	g_return_val_if_fail (format > AS_DATA_FORMAT_UNKNOWN && format < AS_DATA_FORMAT_LAST, NULL);
 
-	as_metadata_init_xml (metad);
 	if (priv->cpts->len == 0)
 		return NULL;
 
-	xmlstr = as_xmldata_serialize_to_collection (priv->xdt, priv->cpts, priv->write_header);
-	return xmlstr;
+	if (format == AS_DATA_FORMAT_XML) {
+		as_metadata_init_xml (metad);
+		data = as_xmldata_serialize_to_collection (priv->xdt,
+							   priv->cpts,
+							   priv->write_header);
+	} else if (format == AS_DATA_FORMAT_YAML) {
+		as_metadata_init_yaml (metad);
+		data = as_yamldata_serialize_to_collection (priv->ydt,
+							    priv->cpts,
+							    priv->write_header,
+							    TRUE, /* add timestamp */
+							    NULL);
+	} else {
+		g_warning ("Unknown metadata format (%i).", format);
+	}
+
+	return data;
 }
 
 /**

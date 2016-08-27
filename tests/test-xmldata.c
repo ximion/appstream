@@ -51,7 +51,7 @@ test_screenshot_handling ()
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_metadata_parse_file (metad, file, &error);
+	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
 	g_object_unref (file);
 	g_assert_no_error (error);
 
@@ -96,7 +96,7 @@ test_appstream_parser_legacy ()
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_metadata_parse_file (metad, file, &error);
+	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_object_unref (file);
 	g_assert_no_error (error);
@@ -137,7 +137,7 @@ test_appstream_parser_locale ()
 
 	/* check german only locale */
 	as_metadata_set_locale (metad, "de_DE");
-	as_metadata_parse_file (metad, file, &error);
+	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 	g_assert (cpt != NULL);
@@ -153,7 +153,7 @@ test_appstream_parser_locale ()
 	/* check all locale */
 	as_metadata_clear_components (metad);
 	as_metadata_set_locale (metad, "ALL");
-	as_metadata_parse_file (metad, file, &error);
+	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 
@@ -189,6 +189,41 @@ test_appstream_write_locale ()
 	AsComponent *cpt;
 	GError *error = NULL;
 
+	const gchar *EXPECTED_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+				    "<component type=\"desktop\">\n"
+				    "  <id>firefox.desktop</id>\n"
+				    "  <name xml:lang=\"fr_FR\">Firefoux</name>\n"
+				    "  <name>Firefox</name>\n"
+				    "  <name xml:lang=\"de_DE\">Feuerfuchs</name>\n"
+				    "  <summary xml:lang=\"fr_FR\">Navigateur web</summary>\n"
+				    "  <summary>Web browser</summary>\n"
+				    "  <pkgname>firefox-bin</pkgname>\n"
+				    "  <categories>\n"
+				    "    <category>network</category>\n"
+				    "    <category>web</category>\n"
+				    "  </categories>\n"
+				    "  <keywords>\n"
+				    "    <keyword>internet</keyword>\n"
+				    "    <keyword>web</keyword>\n"
+				    "    <keyword>browser</keyword>\n"
+				    "    <keyword>navigateur</keyword>\n"
+				    "  </keywords>\n"
+				    "  <url type=\"homepage\">http://www.mozilla.com</url>\n"
+				    "  <icon type=\"stock\">web-browser</icon>\n"
+				    "  <icon type=\"cached\" width=\"64\" height=\"64\">firefox_web-browser.png</icon>\n"
+				    "  <translation type=\"gettext\">firefox</translation>\n"
+				    "  <mimetypes>\n"
+				    "    <mimetype>text/xml</mimetype>\n"
+				    "    <mimetype>application/vnd.mozilla.xul+xml</mimetype>\n"
+				    "    <mimetype>text/html</mimetype>\n"
+				    "    <mimetype>x-scheme-handler/http</mimetype>\n"
+				    "    <mimetype>text/mml</mimetype>\n"
+				    "    <mimetype>application/x-xpinstall</mimetype>\n"
+				    "    <mimetype>application/xhtml+xml</mimetype>\n"
+				    "    <mimetype>x-scheme-handler/https</mimetype>\n"
+				    "  </mimetypes>\n"
+				    "</component>\n";
+
 	metad = as_metadata_new ();
 
 	tmp = g_build_filename (datadir, "appdata.xml", NULL);
@@ -196,14 +231,18 @@ test_appstream_write_locale ()
 	g_free (tmp);
 
 	as_metadata_set_locale (metad, "ALL");
-	as_metadata_parse_file (metad, file, &error);
+	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 	g_assert (cpt != NULL);
 	g_object_unref (file);
 
-	tmp = as_metadata_component_to_metainfo_xml (metad);
-	//g_debug ("Generated XML: %s", as_metadata_component_to_metainfo_xml (metad));
+	tmp = as_metadata_component_to_metainfo (metad,
+						 AS_DATA_FORMAT_XML,
+						 &error);
+	g_assert_no_error (error);
+
+	g_assert (as_test_compare_lines (tmp, EXPECTED_XML));
 	g_free (tmp);
 
 	g_object_unref (metad);
@@ -369,7 +408,7 @@ test_appstream_write_description ()
 
 	as_metadata_add_component (metad, cpt);
 
-	tmp = as_metadata_component_to_metainfo_xml (metad);
+	tmp = as_metadata_component_to_metainfo (metad, AS_DATA_FORMAT_XML, NULL);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML));
 	g_free (tmp);
 
@@ -379,11 +418,11 @@ test_appstream_write_description ()
 				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul><p>Paragraph2</p>",
 				"de");
 
-	tmp = as_metadata_component_to_metainfo_xml (metad);
+	tmp = as_metadata_component_to_metainfo (metad, AS_DATA_FORMAT_XML, NULL);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
-	tmp = as_metadata_components_to_collection_xml (metad);
+	tmp = as_metadata_components_to_collection (metad, AS_DATA_FORMAT_XML, NULL);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 }

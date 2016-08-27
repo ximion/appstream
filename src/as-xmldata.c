@@ -1974,7 +1974,7 @@ as_xmldata_update_cpt_with_metainfo_data (AsXMLData *xdt, const gchar *data, AsC
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		g_set_error_literal (error,
 				     AS_METADATA_ERROR,
-				     AS_METADATA_ERROR_UNEXPECTED_FORMAT_KIND,
+				     AS_METADATA_ERROR_FORMAT_UNEXPECTED,
 				     "Tried to parse collection metadata as metainfo metadata.");
 		goto out;
 	} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {

@@ -51,7 +51,7 @@ test_basic (void)
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_metadata_parse_file (mdata, file, &error);
+	as_metadata_parse_file (mdata, file, AS_DATA_FORMAT_YAML, &error);
 	g_object_unref (file);
 	g_assert_no_error (error);
 

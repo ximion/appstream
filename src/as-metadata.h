@@ -66,26 +66,29 @@ typedef enum {
 } AsParserMode;
 
 /**
- * AsMetadataFormat:
- * @AS_METADATA_FORMAT_UNKNOWN:	Unknown metadata format.
- * @AS_METADATA_FORMAT_XML:	AppStream XML metadata.
- * @AS_METADATA_FORMAT_YAML:	AppStream YAML (DEP-11) metadata.
+ * AsDataFormat:
+ * @AS_DATA_FORMAT_UNKNOWN:	Unknown metadata format.
+ * @AS_DATA_FORMAT_XML:		AppStream XML metadata.
+ * @AS_DATA_FORMAT_YAML:	AppStream YAML (DEP-11) metadata.
  *
  * Format of the AppStream metadata.
  **/
 typedef enum {
-	AS_METADATA_FORMAT_UNKNOWN,
-	AS_METADATA_FORMAT_XML,
-	AS_METADATA_FORMAT_YAML,
+	AS_DATA_FORMAT_UNKNOWN,
+	AS_DATA_FORMAT_XML,
+	AS_DATA_FORMAT_YAML,
 	/*< private >*/
-	AS_METADATA_FORMAT_LAST
-} AsMetadataFormat;
+	AS_DATA_FORMAT_LAST
+} AsDataFormat;
+
+const gchar		*as_data_format_to_string (AsDataFormat format);
+AsUrgencyKind		 as_data_format_from_string (const gchar *format_str);
 
 /**
  * AsMetadataError:
  * @AS_METADATA_ERROR_FAILED:			Generic failure.
  * @AS_METADATA_ERROR_PARSE:			Unable to parse the metadata file.
- * @AS_METADATA_ERROR_UNEXPECTED_FORMAT_KIND:	Expected upstream metadata but got distro metadata, or vice versa.
+ * @AS_METADATA_ERROR_FORMAT_UNEXPECTED:	Expected collection metadata but got metainfo metadata, or vice versa.
  * @AS_METADATA_ERROR_NO_COMPONENT:		We expected a component in the pool, but couldn't find one.
  *
  * A metadata processing error.
@@ -93,7 +96,7 @@ typedef enum {
 typedef enum {
 	AS_METADATA_ERROR_FAILED,
 	AS_METADATA_ERROR_PARSE,
-	AS_METADATA_ERROR_UNEXPECTED_FORMAT_KIND,
+	AS_METADATA_ERROR_FORMAT_UNEXPECTED,
 	AS_METADATA_ERROR_NO_COMPONENT,
 	/*< private >*/
 	AS_METADATA_ERROR_LAST
@@ -105,15 +108,14 @@ AsMetadata		*as_metadata_new (void);
 GQuark			as_metadata_error_quark (void);
 
 void			as_metadata_parse_file (AsMetadata *metad,
-							GFile *file,
-							GError **error);
+						GFile *file,
+						AsDataFormat format,
+						GError **error);
 
-void			as_metadata_parse_xml (AsMetadata *metad,
-							const gchar *data,
-							GError **error);
-void			as_metadata_parse_yaml (AsMetadata *metad,
-							const gchar *data,
-							GError **error);
+void			as_metadata_parse (AsMetadata *metad,
+						const gchar *data,
+						AsDataFormat format,
+						GError **error);
 
 AsComponent		*as_metadata_get_component (AsMetadata *metad);
 GPtrArray		*as_metadata_get_components (AsMetadata *metad);
@@ -122,19 +124,21 @@ void			as_metadata_clear_components (AsMetadata *metad);
 void			as_metadata_add_component (AsMetadata *metad,
 							AsComponent *cpt);
 
-gchar			*as_metadata_component_to_metainfo_xml (AsMetadata *metad);
-void			as_metadata_save_metainfo_xml (AsMetadata *metad,
+gchar			*as_metadata_component_to_metainfo (AsMetadata *metad,
+								AsDataFormat format,
+								GError **error);
+void			as_metadata_save_metainfo (AsMetadata *metad,
 							const gchar *fname,
+							AsDataFormat format,
 							GError **error);
 
-gchar			*as_metadata_components_to_collection_xml (AsMetadata *metad);
-void			as_metadata_save_collection_xml (AsMetadata *metad,
-							 const gchar *fname,
-							 GError **error);
-gchar			*as_metadata_components_to_collection_yaml (AsMetadata *metad);
-void			as_metadata_save_collection_yaml (AsMetadata *metad,
-							  const gchar *fname,
-							  GError **error);
+gchar			*as_metadata_components_to_collection (AsMetadata *metad,
+								AsDataFormat format,
+								GError **error);
+void			as_metadata_save_collection (AsMetadata *metad,
+							const gchar *fname,
+							AsDataFormat format,
+							GError **error);
 
 void			as_metadata_set_locale (AsMetadata *metad,
 							const gchar *locale);

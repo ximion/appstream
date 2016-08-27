@@ -39,6 +39,7 @@ static gboolean optn_pedantic = FALSE;
 static gboolean optn_no_cache = FALSE;
 static gchar *optn_dbpath = NULL;
 static gchar *optn_datapath = NULL;
+static gchar *optn_format = NULL;
 
 /**
  * as_client_get_summary:
@@ -91,6 +92,7 @@ as_client_run (char **argv, int argc)
 
 	gchar *summary;
 	gchar *options_help = NULL;
+	AsDataFormat dformat;
 
 	const GOptionEntry client_options[] = {
 		{ "version", 0, 0,
@@ -137,6 +139,11 @@ as_client_run (char **argv, int argc)
 			&optn_datapath,
 			/* TRANSLATORS: ascli flag description for: --datapath */
 			_("Manually set the location of AppStream metadata for cache regeneration"), NULL },
+		{ "format", 0, 0,
+			G_OPTION_ARG_STRING,
+			&optn_format,
+			/* TRANSLATORS: ascli flag description for: --format */
+			_("Default to the given metadata format (valid values are 'xml' and 'yaml')."), NULL },
 		{ "pedantic", (gchar) 0, 0,
 			G_OPTION_ARG_NONE,
 			&optn_pedantic,
@@ -188,6 +195,7 @@ as_client_run (char **argv, int argc)
 
 	ascli_set_colored_output (!optn_no_color);
 
+	dformat = as_data_format_from_string (optn_format);
 	command = argv[1];
 	if (argc > 2)
 		value1 = argv[2];
@@ -210,8 +218,9 @@ as_client_run (char **argv, int argc)
 						 optn_no_cache);
 	} else if (g_strcmp0 (command, "dump") == 0) {
 		exit_code = ascli_dump_component (optn_dbpath,
-							value1,
-							optn_no_cache);
+						  value1,
+						  dformat,
+						  optn_no_cache);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
 		exit_code = ascli_what_provides (optn_dbpath, value1, value2, optn_details);
 	} else if (g_strcmp0 (command, "validate") == 0) {
