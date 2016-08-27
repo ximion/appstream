@@ -73,6 +73,9 @@ const gchar	*as_release_get_version (AsRelease *release);
 void		as_release_set_version (AsRelease *release,
 						const gchar *version);
 
+gint		as_release_vercmp (AsRelease *rel1,
+				   AsRelease *rel2);
+
 guint64		as_release_get_timestamp (AsRelease *release);
 void		as_release_set_timestamp (AsRelease *release,
 						guint64 timestamp);

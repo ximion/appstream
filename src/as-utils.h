@@ -37,6 +37,9 @@ void		as_utils_sort_components_into_categories (GPtrArray *cpts,
 							  GPtrArray *categories,
 							  gboolean check_duplicates);
 
+gint		as_utils_compare_versions (const gchar* a,
+					   const gchar *b);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_H */

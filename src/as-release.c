@@ -37,6 +37,8 @@
 #include "as-release.h"
 #include "as-release-private.h"
 
+#include "as-utils.h"
+
 typedef struct
 {
 	gchar		*version;
@@ -170,6 +172,22 @@ as_release_set_version (AsRelease *release, const gchar *version)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_free (priv->version);
 	priv->version = g_strdup (version);
+}
+
+/**
+ * as_release_vercmp:
+ * @rel1: an #AsRelease
+ * @rel2: an #AsRelease
+ *
+ * Compare the version numbers of two releases.
+ *
+ * Returns: 1 if @rel1 version is higher than @rel2, 0 if versions are equal, -1 if @rel1 version is higher than @rel2.
+ */
+gint
+as_release_vercmp (AsRelease *rel1, AsRelease *rel2)
+{
+	return as_utils_compare_versions (as_release_get_version (rel1),
+					  as_release_get_version (rel2));
 }
 
 /**
