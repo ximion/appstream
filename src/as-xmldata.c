@@ -1429,7 +1429,7 @@ as_xmldata_add_screenshot_subnodes (AsComponent *cpt, xmlNode *root)
 			xmlAddChild (subnode, n_caption);
 		}
 
-		images = as_screenshot_get_images (sshot);
+		images = as_screenshot_get_images_all (sshot);
 		g_ptr_array_foreach (images, (GFunc) as_xml_serialize_image, subnode);
 	}
 }

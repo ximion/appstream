@@ -1446,7 +1446,7 @@ as_yaml_data_emit_screenshots (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompo
 						"caption",
 						as_screenshot_get_caption_table (scr));
 
-		images = as_screenshot_get_images (scr);
+		images = as_screenshot_get_images_all (scr);
 		as_yaml_emit_scalar (emitter, "thumbnails");
 		as_yaml_sequence_start (emitter);
 		for (j = 0; j < images->len; j++) {

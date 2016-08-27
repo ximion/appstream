@@ -276,7 +276,7 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 			if (as_screenshot_get_caption (sshot) != NULL)
 				pb_sshot->set_caption (as_screenshot_get_caption (sshot));
 
-			g_ptr_array_foreach (as_screenshot_get_images (sshot),
+			g_ptr_array_foreach (as_screenshot_get_images_all (sshot),
 						(GFunc) images_array_to_imageentry_cb,
 						pb_sshot);
 		}

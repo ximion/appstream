@@ -435,8 +435,7 @@ as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
 /**
  * as_release_add_checksum:
  * @release: An instance of #AsRelease.
- * @checksum: The checksum as string.
- * @kind: The kind of this checksum, e.g. %AS_CHECKSUM_KIND_SHA256
+ * @cs: The #AsChecksum.
  *
  * Add a checksum for the file associated with this release.
  *
