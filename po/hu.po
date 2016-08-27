@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-26 22:23+0200\n"
+"POT-Creation-Date: 2016-08-27 21:27+0200\n"
 "PO-Revision-Date: 2016-08-24 22:14+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
@@ -40,16 +40,16 @@ msgid "Adventure"
 msgstr "Kaland"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:144
+#: ../tools/appstream-cli.c:151
 msgid "Also print pedantic hints when validating"
 msgstr "Az akadékoskodó tippeket is írja ki ellenőrzéskor"
 
-#: ../tools/appstream-cli.c:60
+#: ../tools/appstream-cli.c:61
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Egy elemtípus (például lib, bin, python3, …)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:172
+#: ../tools/appstream-cli.c:179
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI eszközverzió: %s"
@@ -64,7 +64,7 @@ msgstr "AppStream állapot:"
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
 
-#: ../src/as-pool.c:1198
+#: ../src/as-pool.c:1226
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
@@ -74,11 +74,11 @@ msgid "AppStream cache update is not necessary."
 msgstr "Az AppStream gyorsítótár frissítése nem szükséges."
 
 #. TRANSLATORS: This is the header to the --help menu
-#: ../tools/appstream-cli.c:53
+#: ../tools/appstream-cli.c:54
 msgid "AppStream command-line interface"
 msgstr "AppStream parancssoros felület"
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1217
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -134,7 +134,7 @@ msgstr "Tábla"
 msgid "Bundle"
 msgstr "Csomag"
 
-#: ../src/as-pool.c:1132
+#: ../src/as-pool.c:1160
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "„%s” gyorsítótárhely nem írható."
@@ -144,7 +144,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Naptár"
 
-#: ../tools/ascli-actions-mdata.c:324
+#: ../tools/ascli-actions-mdata.c:333
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -153,7 +153,7 @@ msgstr ""
 "A(z) „%s” nem másolható: a fájlnak nincs „.metainfo.xml” vagy „.appdata.xml” "
 "végződése."
 
-#: ../src/as-pool.c:909 ../src/as-pool.c:917
+#: ../src/as-pool.c:937 ../src/as-pool.c:945
 msgid "Can not search for unknown component type."
 msgstr "Nem lehet rákeresni ismeretlen összetevőtípusra."
 
@@ -187,7 +187,7 @@ msgid "Codecs"
 msgstr "Kodekek"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:231
+#: ../tools/appstream-cli.c:240
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "A(z) „%s” parancs ismeretlen."
@@ -225,6 +225,12 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Hibakeresők"
 
+#. TRANSLATORS: ascli flag description for: --format
+#: ../tools/appstream-cli.c:146
+msgid ""
+"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+msgstr ""
+
 #: ../tools/ascli-utils.c:312
 msgid "Description"
 msgstr "Leírás"
@@ -239,7 +245,7 @@ msgstr "Fejlesztő"
 msgid "Developer Tools"
 msgstr "Fejlesztői eszközök"
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:74
 msgid "Display status information about available AppStream metadata."
 msgstr "Állapotinformációk megjelenítése az elérhető AppStream metaadatokról."
 
@@ -249,16 +255,16 @@ msgid "Distribution metadata:"
 msgstr "Disztribúció metaadatok:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:128
+#: ../tools/appstream-cli.c:130
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:111
+#: ../tools/appstream-cli.c:113
 msgid "Don't show colored output"
 msgstr "Ne jelenítsen meg színes kimenetet"
 
-#: ../tools/appstream-cli.c:63
+#: ../tools/appstream-cli.c:64
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz."
 
@@ -278,7 +284,7 @@ msgid "Emulators"
 msgstr "Emulátorok"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:116
+#: ../tools/appstream-cli.c:118
 msgid "Enforce a cache refresh"
 msgstr "Gyorsítótár-frissítés kényszerítése"
 
@@ -379,11 +385,11 @@ msgstr "%i komponens található."
 msgid "Games"
 msgstr "Játékok"
 
-#: ../tools/appstream-cli.c:59
+#: ../tools/appstream-cli.c:60
 msgid "Get components which provide the given item."
 msgstr "Összetevők lekérése, amelyek a megadott elemet biztosítják."
 
-#: ../tools/appstream-cli.c:58
+#: ../tools/appstream-cli.c:59
 msgid "Get information about a component by its ID."
 msgstr "Információk kérése egy összetevőről az azonosítója szerint."
 
@@ -418,11 +424,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Beviteli források"
 
-#: ../tools/appstream-cli.c:72
+#: ../tools/appstream-cli.c:73
 msgid "Install a metadata file into the right location."
 msgstr "Metaadatfájl telepítése a megfelelő helyre."
 
-#: ../tools/appstream-cli.c:69
+#: ../tools/appstream-cli.c:70
 msgid "Install software matching the component-id."
 msgstr "A component-id-nek megfelelő szoftver telepítése."
 
@@ -466,14 +472,14 @@ msgid "Logic"
 msgstr "Logikai"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:139
+#: ../tools/appstream-cli.c:141
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
 "Az AppStream metaadatok helyének kézi beállítása a gyorsítótár újra "
 "előállításához"
 
 #. TRANSLATORS: ascli flag description for: --dbpath
-#: ../tools/appstream-cli.c:134
+#: ../tools/appstream-cli.c:136
 msgid "Manually set the location of the AppStream cache"
 msgstr "Az AppStream gyorsítótár helyének kézi beállítása"
 
@@ -556,7 +562,7 @@ msgid "Photography"
 msgstr "Fényképészet"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:122
+#: ../tools/appstream-cli.c:124
 msgid "Print detailed output about found components"
 msgstr "Részletes kimenet kiírása a megtalált összetevőről"
 
@@ -577,11 +583,11 @@ msgstr "Python (2-es verzió)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: ../tools/appstream-cli.c:64
+#: ../tools/appstream-cli.c:65
 msgid "Rebuild the component metadata cache."
 msgstr "Az összetevő-metaadat gyorsítótár újraépítése."
 
-#: ../tools/appstream-cli.c:70
+#: ../tools/appstream-cli.c:71
 msgid "Remove software matching the component-id."
 msgstr "A component-id-nek megfelelő szoftver eltávolítása."
 
@@ -595,7 +601,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Szerepjátékok"
 
-#: ../tools/appstream-cli.c:164 ../tools/appstream-cli.c:184
+#: ../tools/appstream-cli.c:171 ../tools/appstream-cli.c:191
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -620,7 +626,7 @@ msgstr "Képolvasás"
 msgid "Science"
 msgstr "Tudomány"
 
-#: ../tools/appstream-cli.c:57
+#: ../tools/appstream-cli.c:58
 msgid "Search the component database."
 msgstr "Keresés az összetevő adatbázisban."
 
@@ -630,12 +636,12 @@ msgid "Security"
 msgstr "Biztonság"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:106
+#: ../tools/appstream-cli.c:108
 msgid "Show extra debugging information"
 msgstr "További hibakeresési információk megjelenítése"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:100
+#: ../tools/appstream-cli.c:102
 msgid "Show the program version"
 msgstr "A programverzió megjelenítése"
 
@@ -650,7 +656,7 @@ msgid "Strategy"
 msgstr "Stratégia"
 
 #. these are commands we can use with appstreamcli
-#: ../tools/appstream-cli.c:55
+#: ../tools/appstream-cli.c:56
 msgid "Subcommands:"
 msgstr "Alparancsok:"
 
@@ -701,7 +707,7 @@ msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 msgid "Unable to spawn package manager: %s"
 msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 
-#: ../tools/ascli-actions-mdata.c:319
+#: ../tools/ascli-actions-mdata.c:328
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
@@ -711,11 +717,11 @@ msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthet
 msgid "Utilities"
 msgstr "Segédprogramok"
 
-#: ../tools/appstream-cli.c:66
+#: ../tools/appstream-cli.c:67
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál."
 
-#: ../tools/appstream-cli.c:67
+#: ../tools/appstream-cli.c:68
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Egy alkalmazás telepített fájlfájának összevetése az érvényes metaadatokkal."
@@ -728,7 +734,7 @@ msgstr "Az ellenőrzés nem sikerült."
 msgid "Validation was successful."
 msgstr "Az ellenőrzés sikeres volt."
 
-#: ../tools/appstream-cli.c:61
+#: ../tools/appstream-cli.c:62
 msgid "Value of the item that should be found."
 msgstr "A keresendő elemérték."
 
@@ -768,7 +774,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr "A művelet végrehajtásához rendszergazdai jogokra lehet szükség."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:183
+#: ../tools/appstream-cli.c:190
 msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."
 
@@ -784,7 +790,7 @@ msgstr "Meg kell adnia egy összetevő-azonosítót."
 msgid "You need to specify a file to validate!"
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 
-#: ../tools/ascli-actions-mdata.c:306
+#: ../tools/ascli-actions-mdata.c:315
 msgid "You need to specify a metadata file."
 msgstr "Meg kell adnia egy metaadatfájlt."
 

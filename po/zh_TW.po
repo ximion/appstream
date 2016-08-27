@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-26 22:23+0200\n"
+"POT-Creation-Date: 2016-08-27 21:27+0200\n"
 "PO-Revision-Date: 2016-08-25 22:40+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -41,16 +41,16 @@ msgid "Adventure"
 msgstr "冒險"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:144
+#: ../tools/appstream-cli.c:151
 msgid "Also print pedantic hints when validating"
 msgstr "驗證時也列印繁冗的提示"
 
-#: ../tools/appstream-cli.c:60
+#: ../tools/appstream-cli.c:61
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "項目類型（例：lib、bin、python3…等）"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:172
+#: ../tools/appstream-cli.c:179
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 工具版本：%s"
@@ -65,7 +65,7 @@ msgstr "AppStream 狀態："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
 
-#: ../src/as-pool.c:1198
+#: ../src/as-pool.c:1226
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream 快取更新失敗。"
@@ -75,11 +75,11 @@ msgid "AppStream cache update is not necessary."
 msgstr "不必更新 AppStream 快取。"
 
 #. TRANSLATORS: This is the header to the --help menu
-#: ../tools/appstream-cli.c:53
+#: ../tools/appstream-cli.c:54
 msgid "AppStream command-line interface"
 msgstr "AppStream 指令列介面"
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1217
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -133,7 +133,7 @@ msgstr "棋盤"
 msgid "Bundle"
 msgstr "套組"
 
-#: ../src/as-pool.c:1132
+#: ../src/as-pool.c:1160
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "無法寫入「%s」快取位置。"
@@ -143,14 +143,14 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "行事曆"
 
-#: ../tools/ascli-actions-mdata.c:324
+#: ../tools/ascli-actions-mdata.c:333
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr "無法複製「%s」：檔案沒有「.metainfo.xml」或「.appdata.xml」後綴字。"
 
-#: ../src/as-pool.c:909 ../src/as-pool.c:917
+#: ../src/as-pool.c:937 ../src/as-pool.c:945
 msgid "Can not search for unknown component type."
 msgstr "無法搜尋未知的組件類型。"
 
@@ -184,7 +184,7 @@ msgid "Codecs"
 msgstr "編解碼器"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:231
+#: ../tools/appstream-cli.c:240
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "指令「%s」未知。"
@@ -222,6 +222,12 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "除錯器"
 
+#. TRANSLATORS: ascli flag description for: --format
+#: ../tools/appstream-cli.c:146
+msgid ""
+"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+msgstr ""
+
 #: ../tools/ascli-utils.c:312
 msgid "Description"
 msgstr "描述"
@@ -236,7 +242,7 @@ msgstr "開發者"
 msgid "Developer Tools"
 msgstr "開發者工具"
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:74
 msgid "Display status information about available AppStream metadata."
 msgstr "顯示可用的 AppStream 中介資料相關狀態資訊"
 
@@ -246,16 +252,16 @@ msgid "Distribution metadata:"
 msgstr "散佈版中介資料："
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:128
+#: ../tools/appstream-cli.c:130
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "執行請求時不要使用 Xapian 快取"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:111
+#: ../tools/appstream-cli.c:113
 msgid "Don't show colored output"
 msgstr "不要顯示色彩化的輸出"
 
-#: ../tools/appstream-cli.c:63
+#: ../tools/appstream-cli.c:64
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
@@ -275,7 +281,7 @@ msgid "Emulators"
 msgstr "模擬器"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:116
+#: ../tools/appstream-cli.c:118
 msgid "Enforce a cache refresh"
 msgstr "強制快取重新整理"
 
@@ -376,11 +382,11 @@ msgstr "找到 %i 個組件。"
 msgid "Games"
 msgstr "遊戲"
 
-#: ../tools/appstream-cli.c:59
+#: ../tools/appstream-cli.c:60
 msgid "Get components which provide the given item."
 msgstr "取得提供指定項目的組件。"
 
-#: ../tools/appstream-cli.c:58
+#: ../tools/appstream-cli.c:59
 msgid "Get information about a component by its ID."
 msgstr "根據 ID 取得組件的資訊。"
 
@@ -415,11 +421,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "輸入來源"
 
-#: ../tools/appstream-cli.c:72
+#: ../tools/appstream-cli.c:73
 msgid "Install a metadata file into the right location."
 msgstr "安裝中介資料檔到適當位置。"
 
-#: ../tools/appstream-cli.c:69
+#: ../tools/appstream-cli.c:70
 msgid "Install software matching the component-id."
 msgstr "安裝符合組件 ID 的軟體。"
 
@@ -462,12 +468,12 @@ msgid "Logic"
 msgstr "邏輯"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:139
+#: ../tools/appstream-cli.c:141
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr "手動設定快取重製用的 AppStream 中介資料位置"
 
 #. TRANSLATORS: ascli flag description for: --dbpath
-#: ../tools/appstream-cli.c:134
+#: ../tools/appstream-cli.c:136
 msgid "Manually set the location of the AppStream cache"
 msgstr "手動設定 AppStream 快取的位置"
 
@@ -550,7 +556,7 @@ msgid "Photography"
 msgstr "攝影"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:122
+#: ../tools/appstream-cli.c:124
 msgid "Print detailed output about found components"
 msgstr "列印有關找到之組件的詳細輸出"
 
@@ -571,11 +577,11 @@ msgstr "Python (第 2 版)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: ../tools/appstream-cli.c:64
+#: ../tools/appstream-cli.c:65
 msgid "Rebuild the component metadata cache."
 msgstr "重建組件的中介資料快取。"
 
-#: ../tools/appstream-cli.c:70
+#: ../tools/appstream-cli.c:71
 msgid "Remove software matching the component-id."
 msgstr "移除符合該組件 ID 的軟體。"
 
@@ -589,7 +595,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "角色扮演"
 
-#: ../tools/appstream-cli.c:164 ../tools/appstream-cli.c:184
+#: ../tools/appstream-cli.c:171 ../tools/appstream-cli.c:191
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
@@ -612,7 +618,7 @@ msgstr "掃描"
 msgid "Science"
 msgstr "科學"
 
-#: ../tools/appstream-cli.c:57
+#: ../tools/appstream-cli.c:58
 msgid "Search the component database."
 msgstr "搜尋組件資料庫。"
 
@@ -622,12 +628,12 @@ msgid "Security"
 msgstr "安全"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:106
+#: ../tools/appstream-cli.c:108
 msgid "Show extra debugging information"
 msgstr "顯示額外除錯資訊"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:100
+#: ../tools/appstream-cli.c:102
 msgid "Show the program version"
 msgstr "顯示程式版本"
 
@@ -642,7 +648,7 @@ msgid "Strategy"
 msgstr "策略"
 
 #. these are commands we can use with appstreamcli
-#: ../tools/appstream-cli.c:55
+#: ../tools/appstream-cli.c:56
 msgid "Subcommands:"
 msgstr "子指令："
 
@@ -693,7 +699,7 @@ msgstr "找不到 id 為「%s」的組件！"
 msgid "Unable to spawn package manager: %s"
 msgstr "無法多重啟動軟體包管理程式：%s"
 
-#: ../tools/ascli-actions-mdata.c:319
+#: ../tools/ascli-actions-mdata.c:328
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
@@ -703,11 +709,11 @@ msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 msgid "Utilities"
 msgstr "公用程式"
 
-#: ../tools/appstream-cli.c:66
+#: ../tools/appstream-cli.c:67
 msgid "Validate AppStream XML files for issues."
 msgstr "驗證 AppStream XML 檔是否有問題。"
 
-#: ../tools/appstream-cli.c:67
+#: ../tools/appstream-cli.c:68
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "驗證已安裝應用程式的檔案樹是否存在有效的中介資料。"
 
@@ -719,7 +725,7 @@ msgstr "驗證失敗。"
 msgid "Validation was successful."
 msgstr "驗證成功。"
 
-#: ../tools/appstream-cli.c:61
+#: ../tools/appstream-cli.c:62
 msgid "Value of the item that should be found."
 msgstr "應找到的項目值。"
 
@@ -759,7 +765,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr "您也許需要超級使用者權利才能執行此動作。"
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:183
+#: ../tools/appstream-cli.c:190
 msgid "You need to specify a command."
 msgstr "您需要指定個指令。"
 
@@ -775,7 +781,7 @@ msgstr "您需要指定個組件 id。"
 msgid "You need to specify a file to validate!"
 msgstr "您需要指定個檔案來驗證！"
 
-#: ../tools/ascli-actions-mdata.c:306
+#: ../tools/ascli-actions-mdata.c:315
 msgid "You need to specify a metadata file."
 msgstr "您需要指定中介資料檔。"
 

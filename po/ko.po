@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-26 22:23+0200\n"
+"POT-Creation-Date: 2016-08-27 21:27+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
@@ -43,16 +43,16 @@ msgid "Adventure"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:144
+#: ../tools/appstream-cli.c:151
 msgid "Also print pedantic hints when validating"
 msgstr "검증할 때 세세한 힌트도 출력"
 
-#: ../tools/appstream-cli.c:60
+#: ../tools/appstream-cli.c:61
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "항목 형식(예: lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:172
+#: ../tools/appstream-cli.c:179
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 도구 버전: %s"
@@ -67,7 +67,7 @@ msgstr "AppStream 상태:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
 
-#: ../src/as-pool.c:1198
+#: ../src/as-pool.c:1226
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream 캐시 업데이트가 실패하였습니다."
@@ -77,11 +77,11 @@ msgid "AppStream cache update is not necessary."
 msgstr "AppStream 캐시 업데이트가 불필요합니다."
 
 #. TRANSLATORS: This is the header to the --help menu
-#: ../tools/appstream-cli.c:53
+#: ../tools/appstream-cli.c:54
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령행 인터페이스"
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1217
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -137,7 +137,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "번들"
 
-#: ../src/as-pool.c:1132
+#: ../src/as-pool.c:1160
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
@@ -147,7 +147,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:324
+#: ../tools/ascli-actions-mdata.c:333
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -156,7 +156,7 @@ msgstr ""
 "'%s'을(를) 복사할 수 없음: '.metainfo.xml' 또는 '.appdata.xml' 파일 확장자가 "
 "아닙니다."
 
-#: ../src/as-pool.c:909 ../src/as-pool.c:917
+#: ../src/as-pool.c:937 ../src/as-pool.c:945
 msgid "Can not search for unknown component type."
 msgstr "알 수 없는 구성요소 형식으로 검색할 수 없습니다."
 
@@ -190,7 +190,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:231
+#: ../tools/appstream-cli.c:240
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "명령 '%s'이(가) 올바르지 않습니다."
@@ -228,6 +228,12 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
 
+#. TRANSLATORS: ascli flag description for: --format
+#: ../tools/appstream-cli.c:146
+msgid ""
+"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+msgstr ""
+
 #: ../tools/ascli-utils.c:312
 msgid "Description"
 msgstr "설명"
@@ -243,7 +249,7 @@ msgstr "개발자"
 msgid "Developer Tools"
 msgstr "개발자"
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:74
 msgid "Display status information about available AppStream metadata."
 msgstr "설치한 AppStream 메타데이터의 상태 정보를 나타냅니다."
 
@@ -253,16 +259,16 @@ msgid "Distribution metadata:"
 msgstr "배포판 메타데이터:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:128
+#: ../tools/appstream-cli.c:130
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "요청을 수행할 때 Xapian 캐시 활용 안 함"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:111
+#: ../tools/appstream-cli.c:113
 msgid "Don't show colored output"
 msgstr "출력에 색깔 사용하지 않기"
 
-#: ../tools/appstream-cli.c:63
+#: ../tools/appstream-cli.c:64
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
 
@@ -282,7 +288,7 @@ msgid "Emulators"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:116
+#: ../tools/appstream-cli.c:118
 msgid "Enforce a cache refresh"
 msgstr "캐시 강제로 새로 고침"
 
@@ -384,11 +390,11 @@ msgstr "구성 요소 %i개를 찾았습니다."
 msgid "Games"
 msgstr ""
 
-#: ../tools/appstream-cli.c:59
+#: ../tools/appstream-cli.c:60
 msgid "Get components which provide the given item."
 msgstr "주어진 항목을 제공하는 구성요소를 가져옵니다."
 
-#: ../tools/appstream-cli.c:58
+#: ../tools/appstream-cli.c:59
 msgid "Get information about a component by its ID."
 msgstr "ID와 일치하는 구성요소 정보를 가져옵니다."
 
@@ -423,11 +429,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr ""
 
-#: ../tools/appstream-cli.c:72
+#: ../tools/appstream-cli.c:73
 msgid "Install a metadata file into the right location."
 msgstr "올바른 위치에 메타데이터 파일을 설치하십시오."
 
-#: ../tools/appstream-cli.c:69
+#: ../tools/appstream-cli.c:70
 msgid "Install software matching the component-id."
 msgstr "구성요소 ID와 일치하는 프로그램을 설치합니다."
 
@@ -471,12 +477,12 @@ msgid "Logic"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:139
+#: ../tools/appstream-cli.c:141
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr "캐시를 다시 생성할 AppStream 메타데이터 위치 직접 지정"
 
 #. TRANSLATORS: ascli flag description for: --dbpath
-#: ../tools/appstream-cli.c:134
+#: ../tools/appstream-cli.c:136
 msgid "Manually set the location of the AppStream cache"
 msgstr "AppStream 캐시 위치 직접 지정"
 
@@ -559,7 +565,7 @@ msgid "Photography"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:122
+#: ../tools/appstream-cli.c:124
 msgid "Print detailed output about found components"
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시"
 
@@ -580,11 +586,11 @@ msgstr "파이썬(버전 2)"
 msgid "Python 3"
 msgstr "파이썬 3"
 
-#: ../tools/appstream-cli.c:64
+#: ../tools/appstream-cli.c:65
 msgid "Rebuild the component metadata cache."
 msgstr "구성요소 메타데이터 캐시를 다시 만듭니다."
 
-#: ../tools/appstream-cli.c:70
+#: ../tools/appstream-cli.c:71
 msgid "Remove software matching the component-id."
 msgstr "component-id에 일치하는 프로그램을 제거합니다."
 
@@ -598,7 +604,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr ""
 
-#: ../tools/appstream-cli.c:164 ../tools/appstream-cli.c:184
+#: ../tools/appstream-cli.c:171 ../tools/appstream-cli.c:191
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "'%s --help'를 입력하면 사용 가능한 명령행 옵션을 볼 수 있습니다."
@@ -621,7 +627,7 @@ msgstr ""
 msgid "Science"
 msgstr ""
 
-#: ../tools/appstream-cli.c:57
+#: ../tools/appstream-cli.c:58
 msgid "Search the component database."
 msgstr "구성요소 데이터베이스를 검색합니다."
 
@@ -631,12 +637,12 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:106
+#: ../tools/appstream-cli.c:108
 msgid "Show extra debugging information"
 msgstr "추가 디버깅 정보 보이기"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:100
+#: ../tools/appstream-cli.c:102
 msgid "Show the program version"
 msgstr "프로그램 버전 보이기"
 
@@ -651,7 +657,7 @@ msgid "Strategy"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: ../tools/appstream-cli.c:55
+#: ../tools/appstream-cli.c:56
 msgid "Subcommands:"
 msgstr "하위 명령:"
 
@@ -702,7 +708,7 @@ msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 msgid "Unable to spawn package manager: %s"
 msgstr "꾸러미 관리자를 초기화 할 수 없습니다: %s"
 
-#: ../tools/ascli-actions-mdata.c:319
+#: ../tools/ascli-actions-mdata.c:328
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "'%s'에 기록할 수 없어 메터 정보 파일을 설치할 수 없습니다."
@@ -712,11 +718,11 @@ msgstr "'%s'에 기록할 수 없어 메터 정보 파일을 설치할 수 없�
 msgid "Utilities"
 msgstr ""
 
-#: ../tools/appstream-cli.c:66
+#: ../tools/appstream-cli.c:67
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML 파일의 문제를 검증합니다."
 
-#: ../tools/appstream-cli.c:67
+#: ../tools/appstream-cli.c:68
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "올바른 메타데이터를 가지고 있는지 프로그램의 설치 파일 트리를 검증합니다."
@@ -729,7 +735,7 @@ msgstr "검증에 실패하였습니다."
 msgid "Validation was successful."
 msgstr "검증을 끝냈습니다."
 
-#: ../tools/appstream-cli.c:61
+#: ../tools/appstream-cli.c:62
 msgid "Value of the item that should be found."
 msgstr "찾아야 할 항목의 값입니다."
 
@@ -770,7 +776,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr "이 동작을 수행하려면 최고 사용자 권한이 필요합니다."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:183
+#: ../tools/appstream-cli.c:190
 msgid "You need to specify a command."
 msgstr "명령을 지정해야 합니다."
 
@@ -786,7 +792,7 @@ msgstr "component-id를 지정해야 합니다."
 msgid "You need to specify a file to validate!"
 msgstr "검증할 파일을 지정해야 합니다!"
 
-#: ../tools/ascli-actions-mdata.c:306
+#: ../tools/ascli-actions-mdata.c:315
 msgid "You need to specify a metadata file."
 msgstr "메타데이터 파일을 지정해야합니다."
 

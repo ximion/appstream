@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-26 22:23+0200\n"
+"POT-Creation-Date: 2016-08-27 21:27+0200\n"
 "PO-Revision-Date: 2016-08-20 12:49+0000\n"
 "Last-Translator: Nataliia <sunfly22@bigmir.net>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
@@ -43,16 +43,16 @@ msgid "Adventure"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:144
+#: ../tools/appstream-cli.c:151
 msgid "Also print pedantic hints when validating"
 msgstr "Кроме того, выводить во время проверки педантичные подсказки"
 
-#: ../tools/appstream-cli.c:60
+#: ../tools/appstream-cli.c:61
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Тип элемента (например, lib, bin, python3, …)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:172
+#: ../tools/appstream-cli.c:179
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Версия AppStream CLI-программы: %s"
@@ -67,7 +67,7 @@ msgstr "Статус AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
 
-#: ../src/as-pool.c:1198
+#: ../src/as-pool.c:1226
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Обновление кэша AppStream прошло неудачно."
@@ -77,11 +77,11 @@ msgid "AppStream cache update is not necessary."
 msgstr "Обновление кэша AppStream необязательно."
 
 #. TRANSLATORS: This is the header to the --help menu
-#: ../tools/appstream-cli.c:53
+#: ../tools/appstream-cli.c:54
 msgid "AppStream command-line interface"
 msgstr "Интерфейс командной строки AppStream"
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1217
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -137,7 +137,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Пакет"
 
-#: ../src/as-pool.c:1132
+#: ../src/as-pool.c:1160
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Кэш, расположенный в '%s', недоступен для записи."
@@ -147,7 +147,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:324
+#: ../tools/ascli-actions-mdata.c:333
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -156,7 +156,7 @@ msgstr ""
 "Не удается скопировать '%s': у файла нет '.metainfo.xml' или '.appdata.xml' "
 "окончания."
 
-#: ../src/as-pool.c:909 ../src/as-pool.c:917
+#: ../src/as-pool.c:937 ../src/as-pool.c:945
 msgid "Can not search for unknown component type."
 msgstr "Не удается найти неизвестный тип компоненты."
 
@@ -190,7 +190,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:231
+#: ../tools/appstream-cli.c:240
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Команда '%s 1' неизвестна."
@@ -228,6 +228,12 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
 
+#. TRANSLATORS: ascli flag description for: --format
+#: ../tools/appstream-cli.c:146
+msgid ""
+"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+msgstr ""
+
 #: ../tools/ascli-utils.c:312
 msgid "Description"
 msgstr "Описание"
@@ -243,7 +249,7 @@ msgstr "Разработчик"
 msgid "Developer Tools"
 msgstr "Разработчик"
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:74
 msgid "Display status information about available AppStream metadata."
 msgstr "Показать информацию о состоянии доступных метаданных AppStream."
 
@@ -253,16 +259,16 @@ msgid "Distribution metadata:"
 msgstr "Метаданные дистрибуции:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:128
+#: ../tools/appstream-cli.c:130
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "Не использовать Xapian кэш при выполнении запроса"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:111
+#: ../tools/appstream-cli.c:113
 msgid "Don't show colored output"
 msgstr "Не показывать цветной вывод"
 
-#: ../tools/appstream-cli.c:63
+#: ../tools/appstream-cli.c:64
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Создать дамп необработанных метаданных XML для компоненты с соответствующим "
@@ -284,7 +290,7 @@ msgid "Emulators"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:116
+#: ../tools/appstream-cli.c:118
 msgid "Enforce a cache refresh"
 msgstr "Принудительно обновить кэш"
 
@@ -386,11 +392,11 @@ msgstr "Найдено %i1 компонентов."
 msgid "Games"
 msgstr ""
 
-#: ../tools/appstream-cli.c:59
+#: ../tools/appstream-cli.c:60
 msgid "Get components which provide the given item."
 msgstr "Получить компоненты, которые предоставляют данную запись."
 
-#: ../tools/appstream-cli.c:58
+#: ../tools/appstream-cli.c:59
 msgid "Get information about a component by its ID."
 msgstr "Получить информацию о компоненте по его идентификатору."
 
@@ -425,11 +431,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr ""
 
-#: ../tools/appstream-cli.c:72
+#: ../tools/appstream-cli.c:73
 msgid "Install a metadata file into the right location."
 msgstr "Установить файл метаданных в нужное место."
 
-#: ../tools/appstream-cli.c:69
+#: ../tools/appstream-cli.c:70
 msgid "Install software matching the component-id."
 msgstr ""
 "Установить программное обеспечение, соответствующее идентификатору "
@@ -475,13 +481,13 @@ msgid "Logic"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:139
+#: ../tools/appstream-cli.c:141
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
 "Установить вручную местоположение метаданных AppStream для регенерации кэша"
 
 #. TRANSLATORS: ascli flag description for: --dbpath
-#: ../tools/appstream-cli.c:134
+#: ../tools/appstream-cli.c:136
 msgid "Manually set the location of the AppStream cache"
 msgstr "Установить вручную местоположение кэша AppStream"
 
@@ -564,7 +570,7 @@ msgid "Photography"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:122
+#: ../tools/appstream-cli.c:124
 msgid "Print detailed output about found components"
 msgstr "Напечатать подробный вывод о найденных компонентах"
 
@@ -585,11 +591,11 @@ msgstr "Python (версия 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: ../tools/appstream-cli.c:64
+#: ../tools/appstream-cli.c:65
 msgid "Rebuild the component metadata cache."
 msgstr "Перестроить кэш метаданных компонентах."
 
-#: ../tools/appstream-cli.c:70
+#: ../tools/appstream-cli.c:71
 msgid "Remove software matching the component-id."
 msgstr ""
 "Удалить программное обеспечение, соответствующее идентификатору компоненты."
@@ -604,7 +610,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr ""
 
-#: ../tools/appstream-cli.c:164 ../tools/appstream-cli.c:184
+#: ../tools/appstream-cli.c:171 ../tools/appstream-cli.c:191
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -629,7 +635,7 @@ msgstr ""
 msgid "Science"
 msgstr ""
 
-#: ../tools/appstream-cli.c:57
+#: ../tools/appstream-cli.c:58
 msgid "Search the component database."
 msgstr "Поиск по базе данных компонентов."
 
@@ -639,12 +645,12 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:106
+#: ../tools/appstream-cli.c:108
 msgid "Show extra debugging information"
 msgstr "Показывать дополнительную отладочную информацию"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:100
+#: ../tools/appstream-cli.c:102
 msgid "Show the program version"
 msgstr "Показать версию программы"
 
@@ -659,7 +665,7 @@ msgid "Strategy"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: ../tools/appstream-cli.c:55
+#: ../tools/appstream-cli.c:56
 msgid "Subcommands:"
 msgstr "Подкоманды:"
 
@@ -710,7 +716,7 @@ msgstr "Не удаётся найти компоненту с идентифи�
 msgid "Unable to spawn package manager: %s"
 msgstr "Не удаётся запустить процесс менеджера пакетов: %s"
 
-#: ../tools/ascli-actions-mdata.c:319
+#: ../tools/ascli-actions-mdata.c:328
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Не удаётся записать в '%s', невозможно установить файл метаинформации."
@@ -720,11 +726,11 @@ msgstr "Не удаётся записать в '%s', невозможно ус�
 msgid "Utilities"
 msgstr ""
 
-#: ../tools/appstream-cli.c:66
+#: ../tools/appstream-cli.c:67
 msgid "Validate AppStream XML files for issues."
 msgstr "Проверить файлы XML AppStream на недостатки."
 
-#: ../tools/appstream-cli.c:67
+#: ../tools/appstream-cli.c:68
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Проверить установленную иерархию файлов приложения на корректность "
@@ -738,7 +744,7 @@ msgstr "Проверка прошла неудачно."
 msgid "Validation was successful."
 msgstr "Проверка успешно пройдена."
 
-#: ../tools/appstream-cli.c:61
+#: ../tools/appstream-cli.c:62
 msgid "Value of the item that should be found."
 msgstr "Значение элемента, который должен быть найден."
 
@@ -780,7 +786,7 @@ msgstr ""
 "Для выполнения этого действия Вам могут понадобиться права администратора."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:183
+#: ../tools/appstream-cli.c:190
 msgid "You need to specify a command."
 msgstr "Вам необходимо указать команду."
 
@@ -796,7 +802,7 @@ msgstr "Вам необходимо указать идентификатор к
 msgid "You need to specify a file to validate!"
 msgstr "Вам необходимо указать файл для проверки!"
 
-#: ../tools/ascli-actions-mdata.c:306
+#: ../tools/ascli-actions-mdata.c:315
 msgid "You need to specify a metadata file."
 msgstr "Вам необходимо указать файл метаданных."
 

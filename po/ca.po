@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-26 22:23+0200\n"
+"POT-Creation-Date: 2016-08-27 21:27+0200\n"
 "PO-Revision-Date: 2016-08-15 19:46+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -43,17 +43,17 @@ msgid "Adventure"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:144
+#: ../tools/appstream-cli.c:151
 msgid "Also print pedantic hints when validating"
 msgstr ""
 "Imprimeix també els consells en la validació, fins i tot els redundants"
 
-#: ../tools/appstream-cli.c:60
+#: ../tools/appstream-cli.c:61
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Un tipus d'element (p. ex. lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:172
+#: ../tools/appstream-cli.c:179
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Versió de l'eina de la interfície de línia d'ordres d'AppStream: %s"
@@ -69,7 +69,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
-#: ../src/as-pool.c:1198
+#: ../src/as-pool.c:1226
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Ha fallat l'actualització de la memòria cau d'AppStream."
@@ -79,11 +79,11 @@ msgid "AppStream cache update is not necessary."
 msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 
 #. TRANSLATORS: This is the header to the --help menu
-#: ../tools/appstream-cli.c:53
+#: ../tools/appstream-cli.c:54
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
-#: ../src/as-pool.c:1189
+#: ../src/as-pool.c:1217
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -139,7 +139,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Agrupació"
 
-#: ../src/as-pool.c:1132
+#: ../src/as-pool.c:1160
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
@@ -149,7 +149,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:324
+#: ../tools/ascli-actions-mdata.c:333
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -158,7 +158,7 @@ msgstr ""
 "No es pot copiar «%s»: El fitxer no té un sufix «.metainfo.xml» o «.appdata."
 "xml»."
 
-#: ../src/as-pool.c:909 ../src/as-pool.c:917
+#: ../src/as-pool.c:937 ../src/as-pool.c:945
 msgid "Can not search for unknown component type."
 msgstr "No es pot cercar un tipus de component desconegut."
 
@@ -192,7 +192,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:231
+#: ../tools/appstream-cli.c:240
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Es desconeix l'ordre «%s»."
@@ -230,6 +230,12 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
 
+#. TRANSLATORS: ascli flag description for: --format
+#: ../tools/appstream-cli.c:146
+msgid ""
+"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+msgstr ""
+
 #: ../tools/ascli-utils.c:312
 msgid "Description"
 msgstr "Descripció"
@@ -245,7 +251,7 @@ msgstr "Desenvolupador"
 msgid "Developer Tools"
 msgstr "Desenvolupador"
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:74
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 "Mostra informació de l'estat sobre les metadades disponibles d'AppStream."
@@ -256,16 +262,16 @@ msgid "Distribution metadata:"
 msgstr "Metadades de la distribució:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:128
+#: ../tools/appstream-cli.c:130
 msgid "Do not use the Xapian cache when performing the request"
 msgstr "No utilitzis la memòria cau del Xapian quan facis una petició"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:111
+#: ../tools/appstream-cli.c:113
 msgid "Don't show colored output"
 msgstr "No mostris una sortida acolorida"
 
-#: ../tools/appstream-cli.c:63
+#: ../tools/appstream-cli.c:64
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Bolca les metadades XML en pla per a un component que coincideixi amb l'id."
@@ -286,7 +292,7 @@ msgid "Emulators"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:116
+#: ../tools/appstream-cli.c:118
 msgid "Enforce a cache refresh"
 msgstr "Força una actualització de la memòria cau"
 
@@ -389,11 +395,11 @@ msgstr "S'han trobat %i components."
 msgid "Games"
 msgstr ""
 
-#: ../tools/appstream-cli.c:59
+#: ../tools/appstream-cli.c:60
 msgid "Get components which provide the given item."
 msgstr "Obté els components que proporcionen un element indicat."
 
-#: ../tools/appstream-cli.c:58
+#: ../tools/appstream-cli.c:59
 msgid "Get information about a component by its ID."
 msgstr "Obté la informació sobre un component amb el seu id."
 
@@ -428,11 +434,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr ""
 
-#: ../tools/appstream-cli.c:72
+#: ../tools/appstream-cli.c:73
 msgid "Install a metadata file into the right location."
 msgstr "Instal·la un fitxer de metadades al lloc correcte."
 
-#: ../tools/appstream-cli.c:69
+#: ../tools/appstream-cli.c:70
 msgid "Install software matching the component-id."
 msgstr "Instal·la aquell programari que coincideixi amb «component-id»."
 
@@ -477,14 +483,14 @@ msgid "Logic"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:139
+#: ../tools/appstream-cli.c:141
 msgid "Manually set the location of AppStream metadata for cache regeneration"
 msgstr ""
 "Estableix manualment la ubicació de les metadades d'AppStream per a la "
 "regeneració de la memòria cau"
 
 #. TRANSLATORS: ascli flag description for: --dbpath
-#: ../tools/appstream-cli.c:134
+#: ../tools/appstream-cli.c:136
 msgid "Manually set the location of the AppStream cache"
 msgstr "Estableix manualment la ubicació de la memòria cau d'AppStream"
 
@@ -567,7 +573,7 @@ msgid "Photography"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:122
+#: ../tools/appstream-cli.c:124
 msgid "Print detailed output about found components"
 msgstr "Imprimeix la sortida detallada sobre els components trobats"
 
@@ -588,11 +594,11 @@ msgstr "Python (versió 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: ../tools/appstream-cli.c:64
+#: ../tools/appstream-cli.c:65
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstrueix la memòria cau de les metadades del component."
 
-#: ../tools/appstream-cli.c:70
+#: ../tools/appstream-cli.c:71
 msgid "Remove software matching the component-id."
 msgstr "Suprimeix aquell programari que coincideixi amb «component-id»."
 
@@ -606,7 +612,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr ""
 
-#: ../tools/appstream-cli.c:164 ../tools/appstream-cli.c:184
+#: ../tools/appstream-cli.c:171 ../tools/appstream-cli.c:191
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -631,7 +637,7 @@ msgstr ""
 msgid "Science"
 msgstr ""
 
-#: ../tools/appstream-cli.c:57
+#: ../tools/appstream-cli.c:58
 msgid "Search the component database."
 msgstr "Cerca a la base de dades de components."
 
@@ -641,12 +647,12 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:106
+#: ../tools/appstream-cli.c:108
 msgid "Show extra debugging information"
 msgstr "Mostra la informació extra de depuració"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:100
+#: ../tools/appstream-cli.c:102
 msgid "Show the program version"
 msgstr "Mostra la versió de l'aplicació"
 
@@ -661,7 +667,7 @@ msgid "Strategy"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: ../tools/appstream-cli.c:55
+#: ../tools/appstream-cli.c:56
 msgid "Subcommands:"
 msgstr "Subordres:"
 
@@ -712,7 +718,7 @@ msgstr "No s'ha pogut trobar cap component amb l'id. «%s»!"
 msgid "Unable to spawn package manager: %s"
 msgstr "No s'ha pogut generar el gestor de paquets: %s"
 
-#: ../tools/ascli-actions-mdata.c:319
+#: ../tools/ascli-actions-mdata.c:328
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "No es pot escriure a «%s», no es pot instal·lar el fitxer metainfo."
@@ -722,11 +728,11 @@ msgstr "No es pot escriure a «%s», no es pot instal·lar el fitxer metainfo."
 msgid "Utilities"
 msgstr ""
 
-#: ../tools/appstream-cli.c:66
+#: ../tools/appstream-cli.c:67
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida els fitxers XML d'AppStream per incidències."
 
-#: ../tools/appstream-cli.c:67
+#: ../tools/appstream-cli.c:68
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Valida un arbre de fitxers instal·lats d'una aplicació per validar-ne les "
@@ -740,7 +746,7 @@ msgstr "Ha fallat la validació."
 msgid "Validation was successful."
 msgstr "S'ha validat correctament."
 
-#: ../tools/appstream-cli.c:61
+#: ../tools/appstream-cli.c:62
 msgid "Value of the item that should be found."
 msgstr "El valor de l'element que s'ha de trobar."
 
@@ -783,7 +789,7 @@ msgstr ""
 "aquesta acció."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:183
+#: ../tools/appstream-cli.c:190
 msgid "You need to specify a command."
 msgstr "Heu d'especificar una ordre."
 
@@ -799,7 +805,7 @@ msgstr "Heu d'especificar un «component-id»."
 msgid "You need to specify a file to validate!"
 msgstr "Heu d'especificar un fitxer per validar!"
 
-#: ../tools/ascli-actions-mdata.c:306
+#: ../tools/ascli-actions-mdata.c:315
 msgid "You need to specify a metadata file."
 msgstr "Heu d'especificar un fitxer de metadades."
 
