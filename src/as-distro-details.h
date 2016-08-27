@@ -55,8 +55,6 @@ gchar			*as_distro_details_get_str (AsDistroDetails *distro,
 gboolean		as_distro_details_get_bool (AsDistroDetails *distro,
 							const gchar *key);
 
-gchar			**as_get_icon_repository_paths (void);
-
 G_END_DECLS
 
 #endif /* __AS_DISTRODETAILS_H */

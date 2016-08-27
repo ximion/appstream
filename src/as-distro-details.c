@@ -153,31 +153,6 @@ as_distro_details_finalize (GObject *object)
 }
 
 /**
- * as_get_icon_repository_paths:
- *
- * Returns list of icon-paths for software-center applications to use.
- * Icons of software (even if it is not installed) are stored in these
- * locations.
- *
- * Returns: (transfer full): A NULL-terminated array of paths.
- */
-gchar**
-as_get_icon_repository_paths ()
-{
-	gchar **paths;
-	guint len;
-	guint i;
-
-	len = G_N_ELEMENTS (AS_APPSTREAM_METADATA_PATHS);
-	paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len; i++) {
-		paths[i] = g_build_filename (AS_APPSTREAM_METADATA_PATHS[i], "icons", NULL);
-	}
-
-	return paths;
-}
-
-/**
  * as_distro_details_get_str:
  */
 gchar*
