@@ -280,13 +280,18 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsDataFor
 	/* convert the obtained component to XML */
 	metad = as_metadata_new ();
 	for (i = 0; i < result->len; i++) {
-		g_autofree gchar *xmldata = NULL;
+		g_autofree gchar *metadata = NULL;
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (result, i));
 
 		as_metadata_clear_components (metad);
 		as_metadata_add_component (metad, cpt);
-		xmldata = as_metadata_component_to_metainfo (metad, format, NULL);
-		g_print ("%s\n", xmldata);
+		if (format == AS_DATA_FORMAT_YAML) {
+			/* we allow YAML serialization just this once */
+			metadata = as_metadata_components_to_collection (metad, AS_DATA_FORMAT_YAML, NULL);
+		} else {
+			metadata = as_metadata_component_to_metainfo (metad, format, NULL);
+		}
+		g_print ("%s\n", metadata);
 	}
 
 	return 0;
