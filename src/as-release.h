@@ -27,6 +27,7 @@
 
 #include <glib-object.h>
 #include "as-enums.h"
+#include "as-checksum.h"
 
 G_BEGIN_DECLS
 
@@ -44,25 +45,6 @@ struct _AsReleaseClass
 	void (*_as_reserved5)	(void);
 	void (*_as_reserved6)	(void);
 };
-
-/**
- * AsChecksumKind:
- * @AS_CHECKSUM_KIND_NONE:	No checksum
- * @AS_CHECKSUM_KIND_SHA1:	SHA1
- * @AS_CHECKSUM_KIND_SHA256:	SHA256
- *
- * Checksums supported by #AsRelease
- **/
-typedef enum  {
-	AS_CHECKSUM_KIND_NONE,
-	AS_CHECKSUM_KIND_SHA1,
-	AS_CHECKSUM_KIND_SHA256,
-	/*< private >*/
-	AS_CHECKSUM_KIND_LAST
-} AsChecksumKind;
-
-const gchar	*as_checksum_kind_to_string (AsChecksumKind kind);
-AsChecksumKind	as_checksum_kind_from_string (const gchar *kind_str);
 
 /**
  * AsSizeKind:
@@ -108,11 +90,11 @@ GPtrArray	*as_release_get_locations (AsRelease *release);
 void		as_release_add_location (AsRelease *release,
 						const gchar *location);
 
-const gchar	*as_release_get_checksum (AsRelease *release,
+GPtrArray	*as_release_get_checksums (AsRelease *release);
+AsChecksum	*as_release_get_checksum (AsRelease *release,
 						AsChecksumKind kind);
-void		as_release_set_checksum (AsRelease *release,
-						const gchar *checksum,
-						AsChecksumKind kind);
+void		as_release_add_checksum (AsRelease *release,
+					 AsChecksum *cs);
 
 AsUrgencyKind	as_release_get_urgency (AsRelease *release);
 void		as_release_set_urgency (AsRelease *release,

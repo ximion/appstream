@@ -35,9 +35,12 @@ extern "C" {
 #include <as-distro-details.h>
 #include <as-icon.h>
 #include <as-screenshot.h>
-#include <as-suggested.h>
 #include <as-image.h>
 #include <as-bundle.h>
+#include <as-release.h>
+#include <as-checksum.h>
+#include <as-translation.h>
+#include <as-suggested.h>
 
 #include <as-validator.h>
 #include <as-validator-issue.h>

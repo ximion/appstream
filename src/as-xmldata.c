@@ -636,8 +636,12 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 
 					cs_kind = as_checksum_kind_from_string (prop);
 					if (cs_kind != AS_CHECKSUM_KIND_NONE) {
+						g_autoptr(AsChecksum) cs = as_checksum_new ();
 						content = as_xml_get_node_value (iter2);
-						as_release_set_checksum (release, content, cs_kind);
+
+						as_checksum_set_kind (cs, cs_kind);
+						as_checksum_set_value (cs, content);
+						as_release_add_checksum (release, cs);
 					}
 					g_free (prop);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "size") == 0) {

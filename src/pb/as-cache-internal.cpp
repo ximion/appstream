@@ -324,12 +324,14 @@ as_cache_write (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError
 			}
 
 			// add checksum info
-			for (uint j = 0; j < AS_CHECKSUM_KIND_LAST; j++) {
-				if (as_release_get_checksum (rel, (AsChecksumKind) j) != NULL) {
-					auto pb_cs = pb_rel->add_checksum ();
-					pb_cs->set_type ((ASCache::Release_ChecksumType) j);
-					pb_cs->set_value (as_release_get_checksum (rel, (AsChecksumKind) j));
-				}
+			auto checksums = as_release_get_checksums (rel);
+			for (uint j = 0; j < checksums->len; j++) {
+				auto cs = AS_CHECKSUM (g_ptr_array_index (checksums, j));
+
+				auto pb_cs = pb_rel->add_checksum ();
+				pb_cs->set_type ((ASCache::Release_ChecksumType)
+						 as_checksum_get_kind (cs));
+				pb_cs->set_value (as_checksum_get_value (cs));
 			}
 
 			// add size info
@@ -590,13 +592,12 @@ buffer_to_component (const ASCache::Component& pb_cpt, const gchar *locale)
 		// load checksums
 		for (int j = 0; j < pb_rel.checksum_size (); j++) {
 			auto pb_cs = pb_rel.checksum (j);
-			AsChecksumKind cskind = (AsChecksumKind) pb_cs.type ();
+			g_autoptr(AsChecksum) cs = as_checksum_new ();
 
-			if (cskind >= AS_CHECKSUM_KIND_LAST) {
-				g_warning ("Found invalid release-checksum type in database for component '%s'", as_component_get_id (cpt));
-				continue;
-			}
-			as_release_set_checksum (rel, pb_cs.value ().c_str (), cskind);
+			as_checksum_set_kind (cs, (AsChecksumKind) pb_cs.type ());
+			as_checksum_set_value (cs, pb_cs.value ().c_str ());
+
+			as_release_add_checksum (rel, cs);
 		}
 
 		// load sizes

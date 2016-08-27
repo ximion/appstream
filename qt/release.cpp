@@ -105,13 +105,13 @@ Checksum Release::checksum() const
     {
         auto cs = as_release_get_checksum(d->m_release, AS_CHECKSUM_KIND_SHA256);
         if (cs)
-            return Checksum { Checksum::Sha256Checksum, QByteArray(cs) };
+            return Checksum { Checksum::Sha256Checksum, QByteArray(as_checksum_get_value (cs)) };
     }
 
     {
         auto cs = as_release_get_checksum(d->m_release, AS_CHECKSUM_KIND_SHA1);
         if (cs)
-            return Checksum { Checksum::Sha1Checksum, QByteArray(cs) };
+            return Checksum { Checksum::Sha1Checksum, QByteArray(as_checksum_get_value (cs)) };
     }
     return Checksum { Checksum::NoneChecksum, "" };
 }
