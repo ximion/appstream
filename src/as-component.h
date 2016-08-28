@@ -154,11 +154,11 @@ void			as_component_set_origin (AsComponent *cpt,
 gchar			*as_component_get_pkgname (AsComponent *cpt);
 gchar			**as_component_get_pkgnames (AsComponent *cpt);
 void			as_component_set_pkgnames (AsComponent *cpt,
-							gchar **value);
+							gchar **packages);
 
 const gchar		*as_component_get_source_pkgname (AsComponent *cpt);
 void			as_component_set_source_pkgname (AsComponent *cpt,
-							 const gchar* spkgname);
+							 const gchar *spkgname);
 
 const gchar		*as_component_get_name (AsComponent *cpt);
 void			as_component_set_name (AsComponent *cpt,

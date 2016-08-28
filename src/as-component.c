@@ -815,18 +815,18 @@ as_component_get_pkgname (AsComponent *cpt)
 /**
  * as_component_set_pkgnames:
  * @cpt: a #AsComponent instance.
- * @value: (array zero-terminated=1):
+ * @packages: (array zero-terminated=1):
  *
  * Set a list of package names this component consists of.
  * (This should usually be just one package name)
  */
 void
-as_component_set_pkgnames (AsComponent *cpt, gchar** value)
+as_component_set_pkgnames (AsComponent *cpt, gchar **packages)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	g_strfreev (priv->pkgnames);
-	priv->pkgnames = g_strdupv (value);
+	priv->pkgnames = g_strdupv (packages);
 	g_object_notify ((GObject *) cpt, "pkgnames");
 }
 
