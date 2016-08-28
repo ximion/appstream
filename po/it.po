@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-27 21:27+0200\n"
-"PO-Revision-Date: 2016-08-25 11:40+0000\n"
+"PO-Revision-Date: 2016-08-28 13:50+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,6 +230,8 @@ msgstr "Strumenti di debug"
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
+"Valore predefinito del formato dei metadati (valori validi sono \"xml\" e \""
+"yaml\")"
 
 #: ../tools/ascli-utils.c:312
 msgid "Description"
@@ -528,9 +530,9 @@ msgstr "Non è stato trovato alcun componente che corrisponde a \"%s\"."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: ../tools/ascli-actions-mdata.c:234
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s::%s' found."
-msgstr "Non è stato trovato alcun componente che fornisce \"%s;%s\"."
+msgstr "Non è stato trovato alcun componente che fornisce \"%s::%s\"."
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -692,13 +694,13 @@ msgstr "Impossibile trovare un componente che corrisponda a %s."
 
 #. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
 #: ../tools/ascli-actions-mdata.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s::%s': %s"
-msgstr "Impossibile trovare un componente che fornisca \"%s;%s\"."
+msgstr "Impossibile trovare un componente che fornisca \"%s::%s\": %s"
 
 #: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
 #: ../tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Impossibile trovare un componente con ID \"%s\"."
 
@@ -786,7 +788,6 @@ msgstr "È necessario specificare un comando."
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
 #: ../tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
 msgstr "È necessario specificare l'ID di un componente."
 
