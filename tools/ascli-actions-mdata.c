@@ -32,7 +32,7 @@
  * ascli_refresh_cache:
  */
 int
-ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced)
+ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean forced)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
@@ -48,12 +48,12 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 		as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_NONE);
 	}
 
-	if (dbpath == NULL) {
+	if (cachepath == NULL) {
 		ret = as_pool_refresh_cache (dpool, forced, &error);
 	} else {
 		as_pool_load (dpool, NULL, &error);
 		if (error == NULL)
-			as_pool_save_cache_file (dpool, dbpath, &error);
+			as_pool_save_cache_file (dpool, cachepath, &error);
 	}
 
 	if (error != NULL) {

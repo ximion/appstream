@@ -20,7 +20,7 @@ void DatabaseReadTest::testRead01()
     QTemporaryFile cfile;
     QVERIFY(cfile.open());
 
-    const QStringList args = { "refresh-cache", "--force", "--datadir=" AS_SAMPLE_DATA, "--cachedir=" + cfile.fileName()};
+    const QStringList args = { "refresh-cache", "--force", "--datapath=" AS_SAMPLE_DATA, "--cachepath=" + cfile.fileName()};
     p->start(ASCLI_EXECUTABLE, args);
     p->waitForFinished();
 

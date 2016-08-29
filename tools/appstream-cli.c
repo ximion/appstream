@@ -37,8 +37,8 @@ static gboolean optn_force = FALSE;
 static gboolean optn_details = FALSE;
 static gboolean optn_pedantic = FALSE;
 static gboolean optn_no_cache = FALSE;
-static gchar *optn_cachedir = NULL;
-static gchar *optn_datadir = NULL;
+static gchar *optn_cachepath = NULL;
+static gchar *optn_datapath = NULL;
 static gchar *optn_format = NULL;
 
 /**
@@ -99,46 +99,46 @@ as_client_run (char **argv, int argc)
 			G_OPTION_ARG_NONE,
 			&optn_show_version,
 			/* TRANSLATORS: ascli flag description for: --version */
-			_("Show the program version"),
+			_("Show the program version."),
 			NULL },
 		{ "verbose", (gchar) 0, 0,
 			G_OPTION_ARG_NONE,
 			&optn_verbose_mode,
 			/* TRANSLATORS: ascli flag description for: --verbose */
-			_("Show extra debugging information"),
+			_("Show extra debugging information."),
 			NULL },
 		{ "no-color", (gchar) 0, 0,
 			G_OPTION_ARG_NONE, &optn_no_color,
 			/* TRANSLATORS: ascli flag description for: --no-color */
-			_("Don't show colored output"), NULL },
+			_("Don't show colored output."), NULL },
 		{ "force", (gchar) 0, 0,
 			G_OPTION_ARG_NONE,
 			&optn_force,
 			/* TRANSLATORS: ascli flag description for: --force */
-			_("Enforce a cache refresh"),
+			_("Enforce a cache refresh."),
 			NULL },
 		{ "details", 0, 0,
 			G_OPTION_ARG_NONE,
 			&optn_details,
 			/* TRANSLATORS: ascli flag description for: --details */
-			_("Print detailed output about found components"),
+			_("Print detailed output about found components."),
 			NULL },
 		{ "no-cache", 0, 0,
 			G_OPTION_ARG_NONE,
 			&optn_no_cache,
 			/* TRANSLATORS: ascli flag description for: --no-cache */
-			_("Do not use the Xapian cache when performing the request"),
+			_("Do not use the Xapian cache when performing the request."),
 			NULL },
-		{ "cachedir", 0, 0,
+		{ "cachepath", 0, 0,
 			G_OPTION_ARG_STRING,
-			&optn_cachedir,
-			/* TRANSLATORS: ascli flag description for: --cachedir */
-			_("Manually set the location of the AppStream cache"), NULL },
-		{ "datadir", 0, 0,
+			&optn_cachepath,
+			/* TRANSLATORS: ascli flag description for: --cachepath */
+			_("Manually set the location of the AppStream cache."), NULL },
+		{ "datapath", 0, 0,
 			G_OPTION_ARG_STRING,
-			&optn_datadir,
-			/* TRANSLATORS: ascli flag description for: --datadir */
-			_("Manually set the location of AppStream metadata for cache regeneration"), NULL },
+			&optn_datapath,
+			/* TRANSLATORS: ascli flag description for: --datapath */
+			_("Manually set the location of AppStream metadata to scan."), NULL },
 		{ "format", 0, 0,
 			G_OPTION_ARG_STRING,
 			&optn_format,
@@ -148,7 +148,7 @@ as_client_run (char **argv, int argc)
 			G_OPTION_ARG_NONE,
 			&optn_pedantic,
 			/* TRANSLATORS: ascli flag description for: --pedantic */
-			_("Also print pedantic hints when validating"), NULL },
+			_("Also print pedantic hints when validating."), NULL },
 		{ NULL }
 	};
 
@@ -203,26 +203,26 @@ as_client_run (char **argv, int argc)
 		value2 = argv[3];
 
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
-		exit_code = ascli_search_component (optn_cachedir,
+		exit_code = ascli_search_component (optn_cachepath,
 							value1,
 							optn_details,
 							optn_no_cache);
 	} else if ((g_strcmp0 (command, "refresh-cache") == 0) || (g_strcmp0 (command, "refresh") == 0)) {
-		exit_code = ascli_refresh_cache (optn_cachedir,
-						 optn_datadir,
+		exit_code = ascli_refresh_cache (optn_cachepath,
+						 optn_datapath,
 						 optn_force);
 	} else if (g_strcmp0 (command, "get") == 0) {
-		exit_code = ascli_get_component (optn_cachedir,
+		exit_code = ascli_get_component (optn_cachepath,
 						 value1,
 						 optn_details,
 						 optn_no_cache);
 	} else if (g_strcmp0 (command, "dump") == 0) {
-		exit_code = ascli_dump_component (optn_cachedir,
+		exit_code = ascli_dump_component (optn_cachepath,
 						  value1,
 						  dformat,
 						  optn_no_cache);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
-		exit_code = ascli_what_provides (optn_cachedir, value1, value2, optn_details);
+		exit_code = ascli_what_provides (optn_cachepath, value1, value2, optn_details);
 	} else if (g_strcmp0 (command, "validate") == 0) {
 		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, optn_pedantic);
 	} else if (g_strcmp0 (command, "validate-tree") == 0) {
