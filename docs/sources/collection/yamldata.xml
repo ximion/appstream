@@ -700,20 +700,21 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-bundle">
+			<varlistentry id="field-dep11-bundles">
 			<term>Bundle</term>
 			<listitem>
 				<para>See <xref linkend="tag-ct-bundle"/>.</para>
 				<para>
-					The <literal>Bundle</literal> contains one or two subfields with the value <code>limba</code>, describing a
-					Limba bundle ID, or <code>flatpak</code> for a Flatpak bundle ID.
+					The <literal>Bundle</literal> contains a list of dictionaries with the keys <literal>type</literal>, having the value <code>limba</code>, describing a
+					Limba bundle ID, or <code>flatpak</code> for a Flatpak bundle ID, and <literal>id</literal> for the associated bundle-id.
 				</para>
 				<para>
 					Example:
 				</para>
-				<programlisting><![CDATA[Bundle:
-  limba: foobar-1.0.2]]></programlisting>
-				<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
+				<programlisting><![CDATA[Bundles:
+  - type: limba
+    id: foobar-1.0.2]]></programlisting>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
 			</listitem>
 			</varlistentry>
 

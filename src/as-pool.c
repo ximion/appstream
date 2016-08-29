@@ -299,7 +299,7 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 
 		/* merge bundles */
 		if (as_component_has_bundle (src_cpt))
-			as_component_set_bundles_table (dest_cpt, as_component_get_bundles_table (src_cpt));
+			as_component_set_bundles_array (dest_cpt, as_component_get_bundles (src_cpt));
 	}
 
 	g_debug ("Merged data for '%s'", as_component_get_data_id (dest_cpt));
@@ -370,10 +370,10 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 	} else {
 		/* bundles are treated specially here */
 		if ((!as_component_has_bundle (existing_cpt)) && (as_component_has_bundle (cpt))) {
-			GHashTable *bundles;
+			GPtrArray *bundles;
 			/* propagate bundle information to existing component */
-			bundles = as_component_get_bundles_table (cpt);
-			as_component_set_bundles_table (existing_cpt, bundles);
+			bundles = as_component_get_bundles (cpt);
+			as_component_set_bundles_array (existing_cpt, bundles);
 			return TRUE;
 		}
 

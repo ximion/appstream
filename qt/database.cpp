@@ -135,16 +135,15 @@ Component convertAsComponent(AsComponent *cpt) {
     component.setPackageNames(packageNames);
 
     // Bundles
-    auto bundle_ids = as_component_get_bundles_table (cpt);
-    if (g_hash_table_size (bundle_ids) > 0) {
-        GHashTableIter iter;
-        gpointer key, strPtr;
-
+    auto bundles_array = as_component_get_bundles (cpt);
+    if (bundles_array->len > 0) {
         QHash<Component::BundleKind, QString> bundles;
-        g_hash_table_iter_init (&iter, bundle_ids);
-        while (g_hash_table_iter_next (&iter, &key, &strPtr)) {
-            auto bkind = (Component::BundleKind) GPOINTER_TO_INT (key);
-            auto bval = QString::fromUtf8((const gchar*) strPtr);
+
+        for (uint i = 0; i < bundles_array->len; i++) {
+            auto bundle = AS_BUNDLE (g_ptr_array_index (bundles_array, i));
+
+            auto bkind = (Component::BundleKind) as_bundle_get_kind (bundle);
+            auto bval = QString::fromUtf8(as_bundle_get_id (bundle));
             bundles.insertMulti(bkind, bval);
         }
         component.setBundles(bundles);
@@ -157,7 +156,7 @@ Component convertAsComponent(AsComponent *cpt) {
         gpointer key, cstrUrl;
 
         QMultiHash<Component::UrlKind, QUrl> urls;
-        g_hash_table_iter_init (&iter, bundle_ids);
+        g_hash_table_iter_init (&iter, urls_table);
         while (g_hash_table_iter_next (&iter, &key, &cstrUrl)) {
             auto ukind = (Component::UrlKind) GPOINTER_TO_INT (key);
             auto url = QUrl::fromUserInput(QString::fromUtf8((const gchar*) cstrUrl));
@@ -173,8 +172,8 @@ Component convertAsComponent(AsComponent *cpt) {
 
     // Provided items
     QList<Provides> provideslist;
-    for (uint j = 0; j < AS_PROVIDED_KIND_LAST; j++) {
-        AsProvidedKind kind = (AsProvidedKind) j;
+    for (uint i = 0; i < AS_PROVIDED_KIND_LAST; i++) {
+        AsProvidedKind kind = (AsProvidedKind) i;
 
         AsProvided *prov = as_component_get_provided_for_kind (cpt, kind);
         if (prov == NULL)

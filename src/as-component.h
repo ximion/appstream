@@ -256,6 +256,7 @@ void			as_component_add_translation (AsComponent *cpt,
 							AsTranslation *tr);
 
 gboolean		as_component_has_bundle (AsComponent *cpt);
+GPtrArray		*as_component_get_bundles (AsComponent *cpt);
 AsBundle		*as_component_get_bundle (AsComponent *cpt,
 						  AsBundleKind bundle_kind);
 void			as_component_add_bundle (AsComponent *cpt,
