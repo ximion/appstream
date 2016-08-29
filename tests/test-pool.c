@@ -23,6 +23,7 @@
 
 #include "appstream.h"
 #include "../src/as-utils-private.h"
+#include "as-cache-file.h"
 
 
 static gchar *datadir = NULL;
@@ -95,7 +96,7 @@ test_cache ()
 	g_assert_no_error (error);
 
 	/* export cache file and destroy old data pool */
-	as_pool_save_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
+	as_pool_save_cache_file (dpool, "/tmp/as-unittest-cache.gvz", &error);
 	g_assert_no_error (error);
 	g_object_unref (dpool);
 	g_object_unref (cpt1);
@@ -103,7 +104,7 @@ test_cache ()
 
 	/* load cache file */
 	dpool = as_pool_new ();
-	as_pool_load_cache_file (dpool, "/tmp/as-unittest-cache.pb", &error);
+	as_pool_load_cache_file (dpool, "/tmp/as-unittest-cache.gvz", &error);
 	g_assert_no_error (error);
 
 	/* validate */
@@ -123,6 +124,58 @@ test_cache ()
 }
 
 /**
+ * test_get_sampledata_pool:
+ *
+ * Internal helper to get a pool with the sample data locations set.
+ */
+static AsPool*
+test_get_sampledata_pool ()
+{
+	AsPool *pool;
+	g_auto(GStrv) datadirs = NULL;
+
+	/* create DataPool and load sample metadata */
+	datadirs = g_new0 (gchar*, 1 + 1);
+	datadirs[0] = g_build_filename (datadir, "distro", NULL);
+
+	pool = as_pool_new ();
+	as_pool_set_metadata_locations (pool, datadirs);
+	as_pool_set_locale (pool, "C");
+
+	return pool;
+}
+
+/**
+ * test_cache_file:
+ *
+ * Test if cache file (de)serialization works.
+ */
+static void
+test_cache_file ()
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(GPtrArray) cpts_prev = NULL;
+	g_autoptr(GPtrArray) cpts = NULL;
+	GError *error = NULL;
+
+	pool = test_get_sampledata_pool ();
+	as_pool_load_metadata (pool);
+
+	cpts_prev = as_pool_get_components (pool);
+	g_assert_cmpint (cpts_prev->len, ==, 18);
+
+	as_cache_file_save ("/tmp/as-unittest-dummy.gvz", "C", cpts_prev, &error);
+	g_assert_no_error (error);
+
+	cpts = as_cache_file_read ("/tmp/as-unittest-dummy.gvz", &error);
+	g_assert_no_error (error);
+
+	/* TODO: Serialize components and check if they are equal to what we attempted to store in the cache */
+
+	g_assert_cmpint (cpts->len, ==, 18);
+}
+
+/**
  * test_pool_read:
  *
  * Test reading information from the metadata pool.
@@ -131,7 +184,6 @@ static void
 test_pool_read ()
 {
 	g_autoptr(AsPool) dpool = NULL;
-	g_auto(GStrv) datadirs = NULL;
 	g_autoptr(GPtrArray) all_cpts = NULL;
 	g_autoptr(GPtrArray) result = NULL;
 	g_autoptr(GPtrArray) categories = NULL;
@@ -142,13 +194,8 @@ test_pool_read ()
 	guint i;
 	g_autoptr(GError) error = NULL;
 
-	/* create DataPool and load sample metadata */
-	datadirs = g_new0 (gchar*, 1 + 1);
-	datadirs[0] = g_build_filename (datadir, "distro", NULL);
-
-	dpool = as_pool_new ();
-	as_pool_set_metadata_locations (dpool, datadirs);
-	as_pool_set_locale (dpool, "C");
+	/* load sample data */
+	dpool = test_get_sampledata_pool ();
 
 	/* TODO: as_pool_load (dpool, NULL, &error);
 	g_assert_no_error (error); */
@@ -358,8 +405,9 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
+	g_test_add_func ("/AppStream/CacheFile", test_cache_file);
+	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
 
 	ret = g_test_run ();
