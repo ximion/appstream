@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-27 21:27+0200\n"
-"PO-Revision-Date: 2016-08-27 19:45+0000\n"
+"PO-Revision-Date: 2016-08-29 15:17+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish "
 "<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
@@ -54,7 +54,7 @@ msgstr "Typ elementu (np. lib, bin, python3…)"
 #: ../tools/appstream-cli.c:179
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "Wersja narzędzia klienta AppStream w wierszu poleceń: %s"
+msgstr "Wersja narzędzia klienta AppStream w wierszu poleceń: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: ../tools/ascli-actions-misc.c:45
@@ -85,7 +85,7 @@ msgstr "Interfejs wiersza poleceń AppStream"
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
-"Wczytano pulę danych AppStream, ale zignorowano część metadanych z powodu "
+"Wczytano pulę danych AppStream, ale zignorowano część metadanych z powodu "
 "błędów."
 
 #: ../src/as-category.c:125
@@ -111,12 +111,12 @@ msgstr "Astronomia"
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: ../src/as-category.c:298
 msgid "Audio & Video"
-msgstr "Dźwięk i obraz"
+msgstr "Dźwięk i obraz"
 
 #: ../src/as-category.c:64
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr "Tworzenie i edycja dźwięku"
+msgstr "Tworzenie i edycja dźwięku"
 
 #: ../src/as-provided.c:142
 msgid "Binaries"
@@ -125,7 +125,7 @@ msgstr "Pliki binarne"
 #: ../src/as-category.c:128
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr "Gry w klocki"
+msgstr "Gry w klocki"
 
 #: ../src/as-category.c:131
 msgctxt "Category of Games"
@@ -197,7 +197,7 @@ msgstr "Nieznane polecenie „%s”."
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: ../src/as-category.c:322
 msgid "Communication & News"
-msgstr "Komunikacja i aktualności"
+msgstr "Komunikacja i aktualności"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: ../tools/ascli-actions-pkgmgr.c:106
@@ -232,7 +232,7 @@ msgstr "Debugery"
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
-"Domyślnie używa podanego formatu metadanych (prawidłowe wartości to „xml” i "
+"Domyślnie używa podanego formatu metadanych (prawidłowe wartości to „xml” i "
 "„yaml”)."
 
 #: ../tools/ascli-utils.c:312
@@ -251,7 +251,7 @@ msgstr "Narzędzia programistyczne"
 
 #: ../tools/appstream-cli.c:74
 msgid "Display status information about available AppStream metadata."
-msgstr "Wyświetla informacje o stanie dostępnych metadanych AppStream."
+msgstr "Wyświetla informacje o stanie dostępnych metadanych AppStream."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: ../tools/ascli-actions-misc.c:50
@@ -377,7 +377,7 @@ msgstr "Czcionki"
 #: ../tools/ascli-actions-misc.c:136
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr "Odnaleziono składniki w przestarzałych ścieżkach: %i."
+msgstr "Odnaleziono składniki w przestarzałych ścieżkach: %i."
 
 #: ../tools/ascli-actions-misc.c:121
 #, c-format
@@ -391,16 +391,16 @@ msgstr "Gry"
 
 #: ../tools/appstream-cli.c:60
 msgid "Get components which provide the given item."
-msgstr "Uzyskuje składniki dostarczające podany element."
+msgstr "Pobiera składniki dostarczające podany element."
 
 #: ../tools/appstream-cli.c:59
 msgid "Get information about a component by its ID."
-msgstr "Uzyskuje informacje o składniku według jego identyfikatora."
+msgstr "Pobiera informacje o składniku według jego identyfikatora."
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: ../src/as-category.c:310
 msgid "Graphics & Photography"
-msgstr "Grafika i fotografia"
+msgstr "Grafika i fotografia"
 
 #: ../tools/ascli-utils.c:279
 msgid "Homepage"
@@ -568,7 +568,7 @@ msgstr "Fotografia"
 #. TRANSLATORS: ascli flag description for: --details
 #: ../tools/appstream-cli.c:124
 msgid "Print detailed output about found components"
-msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach"
+msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach"
 
 #. project group
 #: ../tools/ascli-utils.c:339
@@ -703,7 +703,7 @@ msgstr "Nie można odnaleźć składnika dostarczającego „%s::%s”: %s"
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
+msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 
 #: ../tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -758,7 +758,7 @@ msgstr "Przeglądarki"
 #: ../tools/ascli-actions-misc.c:151
 #, c-format
 msgid "We have information on %i software components."
-msgstr "Informacje o składnikach oprogramowania: %i."
+msgstr "Informacje o składnikach oprogramowania: %i."
 
 #: ../src/as-category.c:266
 msgctxt "Category of Communication"
