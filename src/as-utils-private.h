@@ -28,6 +28,8 @@ G_BEGIN_DECLS
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 #pragma GCC visibility push(hidden)
 
+gchar			*as_get_current_locale (void);
+
 gboolean		as_str_empty (const gchar* str);
 GDateTime		*as_iso8601_to_datetime (const gchar *iso_date);
 

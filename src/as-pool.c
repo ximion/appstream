@@ -855,7 +855,6 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
  * @pool: An instance of #AsPool.
  * @kind: An #AsProvidesKind
  * @item: The value of the provided item.
- * @error: A #GError or %NULL.
  *
  * Find components in the AppStream data pool whcih provide a certain item.
  *
@@ -864,21 +863,15 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 GPtrArray*
 as_pool_get_components_by_provided_item (AsPool *pool,
 					      AsProvidedKind kind,
-					      const gchar *item,
-					      GError **error)
+					      const gchar *item)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GHashTableIter iter;
 	gpointer value;
 	GPtrArray *results;
 
-	if (item == NULL) {
-		g_set_error_literal (error,
-					AS_POOL_ERROR,
-					AS_POOL_ERROR_TERM_INVALID,
-					"Search term must not be NULL.");
-		return NULL;
-	}
+	/* sanity check */
+	g_return_val_if_fail (item != NULL, NULL);
 
 	results = g_ptr_array_new_with_free_func (g_object_unref);
 	g_hash_table_iter_init (&iter, priv->cpt_table);
@@ -908,37 +901,21 @@ as_pool_get_components_by_provided_item (AsPool *pool,
  * as_pool_get_components_by_kind:
  * @pool: An instance of #AsDatabase.
  * @kind: An #AsComponentKind.
- * @error: A #GError or %NULL.
  *
  * Return a list of all components in the pool which are of a certain kind.
  *
  * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_pool_get_components_by_kind (AsPool *pool,
-				     AsComponentKind kind,
-				     GError **error)
+as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GHashTableIter iter;
 	gpointer value;
 	GPtrArray *results;
 
-	if (kind >= AS_COMPONENT_KIND_LAST) {
-		g_set_error_literal (error,
-					AS_POOL_ERROR,
-					AS_POOL_ERROR_TERM_INVALID,
-					_("Can not search for unknown component type."));
-		return NULL;
-	}
-
-	if (kind == AS_COMPONENT_KIND_UNKNOWN) {
-		g_set_error_literal (error,
-					AS_POOL_ERROR,
-					AS_POOL_ERROR_TERM_INVALID,
-					_("Can not search for unknown component type."));
-		return NULL;
-	}
+	/* sanity check */
+	g_return_val_if_fail ((kind < AS_COMPONENT_KIND_LAST) && (kind > AS_COMPONENT_KIND_UNKNOWN), NULL);
 
 	results = g_ptr_array_new_with_free_func (g_object_unref);
 	g_hash_table_iter_init (&iter, priv->cpt_table);

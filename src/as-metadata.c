@@ -490,11 +490,11 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
 		/* write uncompressed file */
 		if (g_file_query_exists (file, NULL)) {
 			fos = g_file_replace (file,
-							NULL,
-							FALSE,
-							G_FILE_CREATE_REPLACE_DESTINATION,
-							NULL,
-							&tmp_error);
+						NULL,
+						FALSE,
+						G_FILE_CREATE_REPLACE_DESTINATION,
+						NULL,
+						&tmp_error);
 		} else {
 			fos = g_file_create (file, G_FILE_CREATE_REPLACE_DESTINATION, NULL, &tmp_error);
 		}

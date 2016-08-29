@@ -45,11 +45,13 @@ test_categories ()
 static void
 test_simplemarkup ()
 {
-	gchar *str;
-	str = as_description_markup_convert_simple ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>");
-	g_debug ("%s", str);
+	g_autofree gchar *str = NULL;
+	GError *error = NULL;
+
+	str = as_markup_convert_simple ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>", &error);
+	g_assert_no_error (error);
+
 	g_assert (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
-	g_free (str);
 }
 
 /**

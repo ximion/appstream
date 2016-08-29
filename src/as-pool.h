@@ -66,7 +66,6 @@ typedef enum {
  * @AS_POOL_ERROR_TARGET_NOT_WRITABLE:	We do not have write-access to the cache target location.
  * @AS_POOL_ERROR_INCOMPLETE:		The pool was loaded, but we had to ignore some metadata.
  * @AS_POOL_ERROR_COLLISION:		An AppStream-ID collision occured (a component with that ID already existed in the pool)
- * @AS_POOL_ERROR_TERM_INVALID:		A search or selection term was invalid.
  *
  * A metadata pool error.
  **/
@@ -75,7 +74,6 @@ typedef enum {
 	AS_POOL_ERROR_TARGET_NOT_WRITABLE,
 	AS_POOL_ERROR_INCOMPLETE,
 	AS_POOL_ERROR_COLLISION,
-	AS_POOL_ERROR_TERM_INVALID,
 	/*< private >*/
 	AS_POOL_ERROR_LAST
 } AsPoolError;
@@ -110,11 +108,9 @@ GPtrArray		*as_pool_get_components_by_id (AsPool *pool,
 							const gchar *cid);
 GPtrArray		*as_pool_get_components_by_provided_item (AsPool *pool,
 								  AsProvidedKind kind,
-								  const gchar *item,
-								  GError **error);
+								  const gchar *item);
 GPtrArray		*as_pool_get_components_by_kind (AsPool *pool,
-							 AsComponentKind kind,
-							 GError **error);
+							 AsComponentKind kind);
 GPtrArray		*as_pool_get_components_by_categories (AsPool *pool,
 								gchar **categories);
 GPtrArray		*as_pool_search (AsPool *pool,

@@ -55,6 +55,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsBundle, as_bundle, G_TYPE_OBJECT)
 const gchar*
 as_bundle_kind_to_string (AsBundleKind bundle_kind)
 {
+	if (bundle_kind == AS_BUNDLE_KIND_PACKAGE)
+		return "package";
 	if (bundle_kind == AS_BUNDLE_KIND_LIMBA)
 		return "limba";
 	if (bundle_kind == AS_BUNDLE_KIND_FLATPAK)
@@ -73,6 +75,8 @@ as_bundle_kind_to_string (AsBundleKind bundle_kind)
 AsBundleKind
 as_bundle_kind_from_string (const gchar *bundle_kind)
 {
+	if (g_strcmp0 (bundle_kind, "package") == 0)
+		return AS_BUNDLE_KIND_PACKAGE;
 	if (g_strcmp0 (bundle_kind, "limba") == 0)
 		return AS_BUNDLE_KIND_LIMBA;
 	if (g_strcmp0 (bundle_kind, "flatpak") == 0)

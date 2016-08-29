@@ -250,8 +250,7 @@ test_pool_read ()
 	g_assert_cmpint (result->len, ==, 3);
 	g_ptr_array_unref (result);
 
-	result = as_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape", &error);
-	g_assert_no_error (error);
+	result = as_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
 	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));

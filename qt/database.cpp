@@ -328,13 +328,16 @@ QList< Component > Database::componentsByKind(Component::Kind kind) const
     g_autoptr(GPtrArray) array = NULL;
     g_autoptr(GError) error = NULL;
     QList<Component> result;
+    AsComponentKind ckind;
 
-    array = as_pool_get_components_by_kind (d->m_dpool, (AsComponentKind) kind, &error);
-    if (error != NULL) {
-        qCCritical(APPSTREAMQT_DB, "Unable to get components by kind: %s", error->message);
+    ckind = (AsComponentKind) kind;
+
+    if ((ckind > AS_COMPONENT_KIND_LAST) || (ckind > AS_COMPONENT_KIND_UNKNOWN)) {
+        qCCritical(APPSTREAMQT_DB, "Unable to get components by kind: Component kind is invalid.");
         return result;
     }
 
+    array = as_pool_get_components_by_kind (d->m_dpool, ckind);
     result.reserve(array->len);
     for (uint i = 0; i < array->len; i++) {
         auto cpt = AS_COMPONENT (g_ptr_array_index (array, i));

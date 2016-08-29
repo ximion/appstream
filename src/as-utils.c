@@ -54,13 +54,14 @@
 /**
  * as_description_markup_convert_simple:
  * @markup: the text to copy.
+ * @error: A #GError or %NULL.
  *
  * Converts an XML description markup into a simple printable form.
  *
- * Returns: (transfer full): a newly allocated %NULL terminated string
+ * Returns: (transfer full): a newly allocated %NULL terminated string.
  **/
 gchar*
-as_description_markup_convert_simple (const gchar *markup)
+as_markup_convert_simple (const gchar *markup, GError **error)
 {
 	xmlDoc *doc = NULL;
 	xmlNode *root;

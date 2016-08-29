@@ -219,17 +219,10 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 		return 1;
 	}
 
-	result = as_pool_get_components_by_provided_item (dpool, kind, item, &error);
-	if (error != NULL) {
-		/* TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes) */
-		ascli_print_stderr (_("Unable to find component providing '%s::%s': %s"),
-				    kind_str, item, error->message);
-		return 2;
-	}
-
+	result = as_pool_get_components_by_provided_item (dpool, kind, item);
 	if (result->len == 0) {
 		/* TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results */
-		ascli_print_stdout (_("No component providing '%s::%s' found."), kind_str, item);
+		ascli_print_stdout (_("Could not find component providing '%s::%s'."), kind_str, item);
 		return 0;
 	}
 

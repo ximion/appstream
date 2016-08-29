@@ -71,7 +71,7 @@ AsRelease	*as_release_new (void);
 
 const gchar	*as_release_get_version (AsRelease *release);
 void		as_release_set_version (AsRelease *release,
-						const gchar *version);
+					const gchar *version);
 
 gint		as_release_vercmp (AsRelease *rel1,
 				   AsRelease *rel2);

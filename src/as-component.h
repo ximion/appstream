@@ -108,16 +108,16 @@ typedef enum  {
 /**
  * AsValueFlags:
  * @AS_VALUE_FLAG_NONE:				No flags.
- * @AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
  * @AS_VALUE_FLAG_DUPLICATE_CHECK:		Check for duplicates when adding items to list values.
+ * @AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK:	Don't fall back to C when retrieving translated values.
  *
  * Set how values assigned to an #AsComponent should be treated when
  * they are set or retrieved.
  */
 typedef enum {
 	AS_VALUE_FLAG_NONE = 0,
-	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 0,
-	AS_VALUE_FLAG_DUPLICATE_CHECK = 1 << 1
+	AS_VALUE_FLAG_DUPLICATE_CHECK = 1 << 0,
+	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
 } AsValueFlags;
 
 const gchar		*as_merge_kind_to_string (AsMergeKind kind);

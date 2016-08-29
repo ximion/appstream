@@ -60,18 +60,18 @@ typedef enum  {
 	AS_CHECKSUM_KIND_LAST
 } AsChecksumKind;
 
-const gchar	*as_checksum_kind_to_string (AsChecksumKind kind);
-AsChecksumKind	as_checksum_kind_from_string (const gchar *kind_str);
+const gchar		*as_checksum_kind_to_string (AsChecksumKind kind);
+AsChecksumKind		as_checksum_kind_from_string (const gchar *kind_str);
 
-AsChecksum	*as_checksum_new (void);
+AsChecksum		*as_checksum_new (void);
 
-AsChecksumKind	 as_checksum_get_kind (AsChecksum *cs);
-void		as_checksum_set_kind (AsChecksum *cs,
-				      AsChecksumKind kind);
+AsChecksumKind		as_checksum_get_kind (AsChecksum *cs);
+void			as_checksum_set_kind (AsChecksum *cs,
+						AsChecksumKind kind);
 
-const gchar	*as_checksum_get_value (AsChecksum *cs);
-void		 as_checksum_set_value (AsChecksum *cs,
-					const gchar *value);
+const gchar		*as_checksum_get_value (AsChecksum *cs);
+void			as_checksum_set_value (AsChecksum *cs,
+						const gchar *value);
 
 G_END_DECLS
 
