@@ -418,13 +418,13 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 }
 
 /**
- * as_pool_update_extension_info:
+ * as_pool_update_addon_info:
  *
  * Populate the "extensions" property of an #AsComponent, using the
  * "extends" information from other components.
  */
 static void
-as_pool_update_extension_info (AsPool *pool, AsComponent *cpt)
+as_pool_update_addon_info (AsPool *pool, AsComponent *cpt)
 {
 	guint i;
 	GPtrArray *extends;
@@ -444,7 +444,11 @@ as_pool_update_extension_info (AsPool *pool, AsComponent *cpt)
 			return;
 		}
 
-		as_component_add_extension (extended_cpt, as_component_get_data_id (cpt));
+		/* don't act if we already have addons */
+		if (as_component_get_addons (extended_cpt)->len > 0)
+			continue;
+
+		as_component_add_addon (extended_cpt, cpt);
 	}
 }
 
@@ -485,7 +489,7 @@ as_pool_refine_data (AsPool *pool)
 		}
 
 		/* set the "extension" information */
-		as_pool_update_extension_info (pool, cpt);
+		as_pool_update_addon_info (pool, cpt);
 
 		/* add to results table */
 		g_hash_table_insert (refined_cpts,

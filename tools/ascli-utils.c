@@ -287,7 +287,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		GPtrArray *sshot_array;
 		GPtrArray *imgs = NULL;
 		GPtrArray *extends;
-		GPtrArray *extensions;
+		GPtrArray *addons;
 		GPtrArray *categories;
 		GPtrArray *compulsory_desktops;
 		GPtrArray *provided;
@@ -358,10 +358,17 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		}
 
 		/* list of addons extending this component */
-		extensions = as_component_get_extensions (cpt);
-		if (extensions->len > 0) {
-			str = ascli_ptrarray_to_pretty (extensions);
-			ascli_print_key_value (_("Extensions"), str, FALSE);
+		addons = as_component_get_addons (cpt);
+		if (addons->len > 0) {
+			g_autoptr(GPtrArray) addons_str = g_ptr_array_new_with_free_func (g_free);
+			for (i = 0; i < addons->len; i++) {
+				AsComponent *addon = AS_COMPONENT (g_ptr_array_index (addons, i));
+				g_ptr_array_add (addons_str, g_strdup_printf ("%s (%s)",
+										as_component_get_id (addon),
+										as_component_get_name (cpt)));
+			}
+			str = ascli_ptrarray_to_pretty (addons_str);
+			ascli_print_key_value (_("Addons"), str, FALSE);
 			g_free (str);
 		}
 

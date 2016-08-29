@@ -262,10 +262,6 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 		as_variant_builder_add_kv (&cb, "extends",
 					   as_string_ptrarray_to_variant (as_component_get_extends (cpt)));
 
-		/* extensions */
-		as_variant_builder_add_kv (&cb, "extensions",
-					   as_string_ptrarray_to_variant (as_component_get_extensions (cpt)));
-
 		/* URLs */
 		tmp_table_ref = as_component_get_urls_table (cpt);
 		if (g_hash_table_size (tmp_table_ref) > 0) {
@@ -839,11 +835,6 @@ as_cache_file_read (const gchar *fname, GError **error)
 		as_variant_to_string_ptrarray_by_dict (&dict,
 							"extends",
 							as_component_get_extends (cpt));
-
-		/* extensions */
-		as_variant_to_string_ptrarray_by_dict (&dict,
-							"extensions",
-							as_component_get_extensions (cpt));
 
 		/* URLs */
 		var = g_variant_dict_lookup_value (&dict,

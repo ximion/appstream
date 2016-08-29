@@ -219,8 +219,14 @@ Component convertAsComponent(AsComponent *cpt) {
     component.setExtends(extends);
 
     // Extensions
-    const QStringList extensions = value(as_component_get_extensions (cpt));
-    component.setExtensions(extensions);
+    auto addons_array = as_component_get_addons (cpt);
+    QStringList addons;
+    addons.reserve(addons_array->len);
+    for (uint i = 0; i < addons_array->len; i++) {
+        auto addon = AS_COMPONENT (g_ptr_array_index (addons_array, i));
+	addons.append (QString::fromUtf8(as_component_get_id (addon)));
+    }
+    component.setExtensions(addons);
 
     // Screenshots
     QList<Appstream::Screenshot> screenshots;

@@ -240,9 +240,9 @@ GPtrArray		*as_component_get_extends (AsComponent *cpt);
 void			as_component_add_extends (AsComponent *cpt,
 							const gchar *cpt_id);
 
-GPtrArray		*as_component_get_extensions (AsComponent *cpt);
-void			as_component_add_extension (AsComponent *cpt,
-							const gchar *cpt_id);
+GPtrArray		*as_component_get_addons (AsComponent *cpt);
+void			as_component_add_addon (AsComponent *cpt,
+						AsComponent *addon);
 
 GList			*as_component_get_languages (AsComponent *cpt);
 gint			as_component_get_language (AsComponent *cpt,

@@ -70,7 +70,7 @@ typedef struct
 	GPtrArray		*categories; /* of utf8 */
 	GPtrArray		*compulsory_for_desktops; /* of utf8 */
 	GPtrArray		*extends; /* of utf8 */
-	GPtrArray		*extensions; /* of utf8 */
+	GPtrArray		*addons; /* of AsComponent */
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
 	GPtrArray		*releases; /* of AsRelease elements */
 	GPtrArray		*provided; /* of AsProvided */
@@ -352,8 +352,8 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->languages);
 
 
-	if (priv->extensions != NULL)
-		g_ptr_array_unref (priv->extensions);
+	if (priv->addons != NULL)
+		g_ptr_array_unref (priv->addons);
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
 
@@ -599,40 +599,40 @@ as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
   * as_component_get_extensions:
   * @cpt: an #AsComponent instance.
   *
-  * Returns a string list of IDs of components which
+  * Returns a list of #AsComponent objects which
   * are addons extending this component in functionality.
   *
   * This is the reverse of %as_component_get_extends()
   *
-  * Returns: (element-type utf8) (transfer none): A #GPtrArray or %NULL if not set.
+  * Returns: (transfer none) (element-type AsComponent): A #GPtrArray or %NULL if not set.
   *
   * Since: 0.9.2
 **/
 GPtrArray*
-as_component_get_extensions (AsComponent *cpt)
+as_component_get_addons (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	if (priv->extensions == NULL)
-		priv->extensions = g_ptr_array_new_with_free_func (g_free);
-	return priv->extensions;
+	if (priv->addons == NULL)
+		priv->addons = g_ptr_array_new_with_free_func (g_object_unref);
+	return priv->addons;
 }
 
 /**
- * as_component_add_extension:
+ * as_component_add_addon:
  * @cpt: a #AsComponent instance.
- * @cpt_id: The id of a component extending this component.
+ * @addon: The #AsComponent that extends @cpt
  *
- * Add a reference to the extension enhancing this component.
+ * Add a reference to the addon that is enhancing this component.
  *
  * Since: 0.9.2
  **/
 void
-as_component_add_extension (AsComponent* cpt, const gchar* cpt_id)
+as_component_add_addon (AsComponent* cpt, AsComponent *addon)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	if (priv->extensions == NULL)
-		priv->extensions = g_ptr_array_new_with_free_func (g_free);
-	g_ptr_array_add (priv->extensions, g_strdup (cpt_id));
+	if (priv->addons == NULL)
+		priv->addons = g_ptr_array_new_with_free_func (g_object_unref);
+	g_ptr_array_add (priv->addons, g_object_ref (addon));
 }
 
 /**
