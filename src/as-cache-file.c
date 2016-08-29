@@ -88,12 +88,12 @@ as_string_ptrarray_to_variant (GPtrArray *strarray)
 }
 
 /**
- * as_bundle_table_to_variant_cb:
+ * as_bundle_array_to_variant_cb:
  *
  * Helper function to serialize bundle data for storage in the cache.
  */
 static void
-as_bundle_table_to_variant_cb (gpointer bkind_ptr, AsBundle *bundle, GVariantBuilder *builder)
+as_bundle_array_to_variant_cb (AsBundle *bundle, GVariantBuilder *builder)
 {
 	GVariant *bundle_var;
 	bundle_var = g_variant_new_parsed ("({'type', %u},{'id', %s})",
@@ -248,11 +248,11 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 					as_variant_mstring_new (as_component_get_origin (cpt)));
 
 		/* bundles */
-		tmp_table_ref = as_component_get_bundles_table (cpt);
-		if (g_hash_table_size (tmp_table_ref) > 0) {
+		tmp_array_ref = as_component_get_bundles (cpt);
+		if (tmp_array_ref->len > 0) {
 			g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
-			g_hash_table_foreach (tmp_table_ref,
-						(GHFunc) as_bundle_table_to_variant_cb,
+			g_ptr_array_foreach (tmp_array_ref,
+						(GFunc) as_bundle_array_to_variant_cb,
 						&array_b);
 			as_variant_builder_add_kv (&cb, "bundles",
 						   g_variant_builder_end (&array_b));
@@ -438,7 +438,7 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 		}
 
 		/* languages */
-		tmp_table_ref = as_component_get_languages_map (cpt);
+		tmp_table_ref = as_component_get_languages_table (cpt);
 		if (g_hash_table_size (tmp_table_ref) > 0) {
 			GVariantBuilder dict_b;
 			g_variant_builder_init (&dict_b, G_VARIANT_TYPE_DICTIONARY);
@@ -829,6 +829,7 @@ as_cache_file_read (const gchar *fname, GError **error)
 						    as_variant_get_dict_str (&tmp_dict, "id", &var2));
 				g_variant_unref (var2);
 
+				as_component_add_bundle (cpt, bundle);
 				g_variant_unref (child);
 			}
 			g_variant_unref (var);

@@ -334,10 +334,42 @@ as_yamldata_process_keywords (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 }
 
 /**
- * dep11_process_urls:
+ * as_yaml_process_bundles:
+ *
+ * Process a bundles node and add the data to an #AsComponent
  */
 static void
-dep11_process_urls (GNode *node, AsComponent *cpt)
+as_yaml_process_bundles (GNode *node, AsComponent *cpt)
+{
+	GNode *sn;
+
+	for (sn = node->children; sn != NULL; sn = sn->next) {
+		GNode *n;
+		g_autoptr(AsBundle) bundle = as_bundle_new ();
+
+		for (n = sn->children; n != NULL; n = n->next) {
+			const gchar *key = as_yaml_node_get_key (n);
+			const gchar *value = as_yaml_node_get_value (n);
+
+			if (g_strcmp0 (key, "type") == 0) {
+				as_bundle_set_kind (bundle, as_bundle_kind_from_string (value));
+			} else if (g_strcmp0 (key, "id") == 0) {
+				as_bundle_set_id (bundle, value);
+			} else {
+				as_yaml_print_unknown ("bundle", key);
+			}
+		}
+
+		/* add the result */
+		as_component_add_bundle (cpt, bundle);
+	}
+}
+
+/**
+ * as_yaml_process_urls:
+ */
+static void
+as_yaml_process_urls (GNode *node, AsComponent *cpt)
 {
 	GNode *n;
 	AsUrlKind url_kind;
@@ -451,10 +483,10 @@ as_yamldata_process_icons (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 }
 
 /**
- * dep11_process_provides:
+ * as_yaml_process_provides:
  */
 static void
-dep11_process_provides (GNode *node, AsComponent *cpt)
+as_yaml_process_provides (GNode *node, AsComponent *cpt)
 {
 	GNode *n;
 	GNode *sn;
@@ -872,11 +904,13 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 		} else if (g_strcmp0 (key, "Keywords") == 0) {
 			as_yamldata_process_keywords (ydt, node, cpt);
 		} else if (g_strcmp0 (key, "Url") == 0) {
-			dep11_process_urls (node, cpt);
+			as_yaml_process_urls (node, cpt);
 		} else if (g_strcmp0 (key, "Icon") == 0) {
 			as_yamldata_process_icons (ydt, node, cpt);
+		} else if (g_strcmp0 (key, "Bundles") == 0) {
+			as_yaml_process_bundles (node, cpt);
 		} else if (g_strcmp0 (key, "Provides") == 0) {
-			dep11_process_provides (node, cpt);
+			as_yaml_process_provides (node, cpt);
 		} else if (g_strcmp0 (key, "Screenshots") == 0) {
 			as_yamldata_process_screenshots (ydt, node, cpt);
 		} else if (g_strcmp0 (key, "Languages") == 0) {
@@ -1567,7 +1601,7 @@ as_yaml_emit_languages (yaml_emitter_t *emitter, AsComponent *cpt)
 	gpointer key, value;
 	GHashTable *lang_table;
 
-	lang_table = as_component_get_languages_map (cpt);
+	lang_table = as_component_get_languages_table (cpt);
 	if (g_hash_table_size (lang_table) == 0)
 		return;
 
@@ -1680,6 +1714,45 @@ as_yaml_data_emit_releases (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 }
 
 /**
+ * as_yaml_emit_bundles:
+ */
+static void
+as_yaml_emit_bundles (yaml_emitter_t *emitter, AsComponent *cpt)
+{
+	guint i;
+	GPtrArray *bundles;
+
+	bundles = as_component_get_bundles (cpt);
+	if (bundles->len == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Bundles");
+	as_yaml_sequence_start (emitter);
+
+	for (i = 0; i < bundles->len; i++) {
+		AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (bundles, i));
+
+		/* start mapping for this bundle */
+		as_yaml_mapping_start (emitter);
+
+		/* type */
+		as_yaml_emit_entry (emitter,
+				    "type",
+				    as_bundle_kind_to_string (as_bundle_get_kind (bundle)));
+
+		/* ID */
+		as_yaml_emit_entry (emitter,
+				    "id",
+				    as_bundle_get_id (bundle));
+
+		/* end mapping for the bundle */
+		as_yaml_mapping_end (emitter);
+	}
+
+	as_yaml_sequence_end (emitter);
+}
+
+/**
  * as_yaml_data_emit_suggests:
  */
 static void
@@ -1711,7 +1784,7 @@ as_yaml_data_emit_suggests (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 				       "ids",
 					as_suggested_get_ids (sug));
 
-		/* end mapping for the suggestion list */
+		/* end mapping for the suggestion */
 		as_yaml_mapping_end (emitter);
 	}
 
@@ -1761,7 +1834,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	/* AppStream-ID */
 	as_yaml_emit_entry (emitter, "ID", as_component_get_id (cpt));
 
-	/* priority */
+	/* Priority */
 	if (as_component_get_priority (cpt) != 0) {
 		g_autofree gchar *priority_str = g_strdup_printf ("%i", as_component_get_priority (cpt));
 		as_yaml_emit_entry (emitter,
@@ -1858,21 +1931,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	}
 
 	/* Bundles */
-	htable = as_component_get_bundles_table (cpt);
-	if ((htable != NULL) && (g_hash_table_size (htable) > 0)) {
-		as_yaml_emit_scalar (emitter, "Bundles");
-		as_yaml_mapping_start (emitter);
-		for (i = AS_BUNDLE_KIND_UNKNOWN; i < AS_BUNDLE_KIND_LAST; i++) {
-			AsBundle *bundle = AS_BUNDLE (as_component_get_bundle (cpt, i));
-			if (bundle == NULL)
-				continue;
-
-			as_yaml_emit_entry (emitter,
-					    as_bundle_kind_to_string (as_bundle_get_kind (bundle)),
-					    as_bundle_get_id (bundle));
-		}
-		as_yaml_mapping_end (emitter);
-	}
+	as_yaml_emit_bundles (emitter, cpt);
 
 	/* Provides */
 	as_yaml_emit_provides (emitter, cpt);

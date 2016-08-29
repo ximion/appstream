@@ -1673,7 +1673,7 @@ as_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 	GHashTableIter iter;
 	gpointer key, value;
 
-	lang_table = as_component_get_languages_map (cpt);
+	lang_table = as_component_get_languages_table (cpt);
 	if (g_hash_table_size (lang_table) == 0)
 		return;
 
@@ -1755,6 +1755,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	GPtrArray *releases;
 	GPtrArray *screenshots;
 	GPtrArray *icons;
+	GPtrArray *bundles;
 	AsComponentKind kind;
 	AsLocaleWriteHelper helper;
 	guint i;
@@ -1885,11 +1886,10 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	}
 
 	/* bundles */
-	for (i = AS_BUNDLE_KIND_UNKNOWN; i < AS_BUNDLE_KIND_LAST; i++) {
+	bundles = as_component_get_bundles (cpt);
+	for (i = 0; i < bundles->len; i++) {
 		xmlNode *n;
-		AsBundle *bundle = AS_BUNDLE (as_component_get_bundle (cpt, i));
-		if (bundle == NULL)
-			continue;
+		AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (bundles, i));
 
 		n = xmlNewTextChild (cnode, NULL,
 				     (xmlChar*) "bundle",

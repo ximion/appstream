@@ -74,11 +74,11 @@ typedef struct
 	GPtrArray		*screenshots; /* of AsScreenshot elements */
 	GPtrArray		*releases; /* of AsRelease elements */
 	GPtrArray		*provided; /* of AsProvided */
+	GPtrArray		*bundles; /* of AsBundle */
 	GPtrArray		*suggestions; /* of AsSuggested elements */
 
 	GHashTable		*urls; /* of int:utf8 */
 	GHashTable		*languages; /* of utf8:utf8 */
-	GHashTable		*bundles; /* of int:utf8 */
 
 	GPtrArray		*translations; /* of AsTranslation */
 
@@ -298,6 +298,7 @@ as_component_init (AsComponent *cpt)
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->releases = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->provided = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->bundles = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 
@@ -306,7 +307,6 @@ as_component_init (AsComponent *cpt)
 
 	/* others */
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
-	priv->bundles = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_object_unref);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
@@ -345,11 +345,11 @@ as_component_finalize (GObject* object)
 	g_ptr_array_unref (priv->screenshots);
 	g_ptr_array_unref (priv->releases);
 	g_ptr_array_unref (priv->provided);
+	g_ptr_array_unref (priv->bundles);
 	g_ptr_array_unref (priv->extends);
 	g_ptr_array_unref (priv->suggestions);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
-	g_hash_table_unref (priv->bundles);
 
 
 	if (priv->extensions != NULL)
@@ -636,20 +636,34 @@ as_component_add_extension (AsComponent* cpt, const gchar* cpt_id)
 }
 
 /**
- * as_component_get_bundles_table:
+ * as_component_get_bundles:
  * @cpt: a #AsComponent instance.
  *
- * Gets the bundles set for the component.
+ * Get a list of all software bundles associated with this component.
  *
- * Returns: (transfer none) (element-type AsBundleKind AsBundle): Bundle ids
+ * Returns: (transfer none) (element-type AsBundle): A list of #AsBundle.
  *
- * Since: 0.8.0
+ * Since: 0.10
  **/
-GHashTable*
-as_component_get_bundles_table (AsComponent *cpt)
+GPtrArray*
+as_component_get_bundles (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->bundles;
+}
+
+/**
+ * as_component_set_bundles_array:
+ * @cpt: a #AsComponent instance.
+ *
+ * Internal helper.
+ **/
+void
+as_component_set_bundles_array (AsComponent *cpt, GPtrArray *bundles)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_unref (priv->bundles);
+	priv->bundles = g_ptr_array_ref (bundles);
 }
 
 /**
@@ -667,8 +681,15 @@ AsBundle*
 as_component_get_bundle (AsComponent *cpt, AsBundleKind bundle_kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return g_hash_table_lookup (priv->bundles,
-				    GINT_TO_POINTER (bundle_kind));
+	guint i;
+
+	for (i = 0; i < priv->bundles->len; i++) {
+		AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (priv->bundles, i));
+		if (as_bundle_get_kind (bundle) == bundle_kind)
+			return bundle;
+	}
+
+	return NULL;
 }
 
 /**
@@ -684,9 +705,8 @@ void
 as_component_add_bundle (AsComponent *cpt, AsBundle *bundle)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_hash_table_insert (priv->bundles,
-			     GINT_TO_POINTER (as_bundle_get_kind (bundle)),
-			     g_object_ref (bundle));
+	g_ptr_array_add (priv->bundles,
+			 g_object_ref (bundle));
 }
 
 /**
@@ -699,21 +719,7 @@ gboolean
 as_component_has_bundle (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return g_hash_table_size (priv->bundles) > 0;
-}
-
-/**
- * as_component_set_bundles_table:
- * @cpt: a #AsComponent instance.
- *
- * Internal function.
- **/
-void
-as_component_set_bundles_table (AsComponent *cpt, GHashTable *bundles)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	g_hash_table_unref (priv->bundles);
-	priv->bundles = g_hash_table_ref (bundles);
+	return priv->bundles->len > 0;
 }
 
 /**
@@ -1906,7 +1912,7 @@ as_component_get_languages (AsComponent *cpt)
 }
 
 /**
- * as_component_get_languages_map:
+ * as_component_get_languages_table:
  * @cpt: an #AsComponent instance.
  *
  * Get a HashMap mapping languages to their completion percentage
@@ -1916,7 +1922,7 @@ as_component_get_languages (AsComponent *cpt)
  * Since: 0.7.0
  **/
 GHashTable*
-as_component_get_languages_map (AsComponent *cpt)
+as_component_get_languages_table (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->languages;
