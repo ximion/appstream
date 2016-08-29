@@ -15,12 +15,12 @@ using namespace Appstream;
 
 void DatabaseReadTest::testRead01()
 {
-    // first, create a new database
+    // first, create a new temporary cache using ascli
     QProcess *p = new QProcess(this);
     QTemporaryFile cfile;
     QVERIFY(cfile.open());
 
-    const QStringList args = { "refresh-cache", "--force", "--datapath=" AS_SAMPLE_DATA, "--dbpath=" + cfile.fileName()};
+    const QStringList args = { "refresh-cache", "--force", "--datadir=" AS_SAMPLE_DATA, "--cachedir=" + cfile.fileName()};
     p->start(ASCLI_EXECUTABLE, args);
     p->waitForFinished();
 

@@ -2006,7 +2006,7 @@ as_component_add_icon_full (AsComponent *cpt, AsIconKind kind, const gchar *size
  * a component are properly set, by finding the icons in default directories.
  */
 static void
-as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
+as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 {
 	const gchar *extensions[] = { "png",
 				     "svg",
@@ -2073,10 +2073,12 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 
 		/* skip the full cache search if we already have size information */
 		if ((ikind == AS_ICON_KIND_CACHED) && (as_icon_get_width (icon) > 0)) {
-			for (l = 0; icon_paths[l] != NULL; l++) {
+			for (l = 0; l < icon_paths->len; l++) {
 				g_autofree gchar *tmp_icon_path_wh = NULL;
+				const gchar *icon_path = (const gchar*) g_ptr_array_index (icon_paths, l);
+
 				tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i/%s",
-								icon_paths[l],
+								icon_path,
 								priv->origin,
 								as_icon_get_width (icon),
 								as_icon_get_height (icon),
@@ -2096,12 +2098,14 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 		}
 
 		/* search local icon path */
-		for (l = 0; icon_paths[l] != NULL; l++) {
+		for (l = 0; l < icon_paths->len; l++) {
+			const gchar *icon_path = (const gchar*) g_ptr_array_index (icon_paths, l);
+
 			for (j = 0; sizes[j] != NULL; j++) {
 				g_autofree gchar *tmp_icon_path = NULL;
 				/* sometimes, the file already has an extension */
 				tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
-								icon_paths[l],
+								icon_path,
 								priv->origin,
 								sizes[j],
 								icon_fname);
@@ -2127,7 +2131,7 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
 				for (k = 0; extensions[k] != NULL; k++) {
 					g_autofree gchar *tmp_icon_path_ext = NULL;
 					tmp_icon_path_ext = g_strdup_printf ("%s/%s/%s/%s.%s",
-								icon_paths[l],
+								icon_path,
 								priv->origin,
 								sizes[j],
 								icon_fname,
@@ -2158,7 +2162,7 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
  * as_component_complete:
  * @cpt: a #AsComponent instance.
  * @scr_service_url: Base url for screenshot-service, obtain via #AsDistroDetails
- * @icon_paths: Zero-terminated string array of possible (cached) icon locations
+ * @icon_paths: String array of possible (cached) icon locations
  *
  * Private function to complete a AsComponent with
  * additional data found on the system.
@@ -2166,7 +2170,7 @@ as_component_refine_icons (AsComponent *cpt, gchar **icon_paths)
  * INTERNAL
  */
 void
-as_component_complete (AsComponent *cpt, gchar *scr_service_url, gchar **icon_paths)
+as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon_paths)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 

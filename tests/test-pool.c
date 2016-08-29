@@ -129,18 +129,21 @@ test_cache ()
  * Internal helper to get a pool with the sample data locations set.
  */
 static AsPool*
-test_get_sampledata_pool ()
+test_get_sampledata_pool (gboolean use_caches)
 {
 	AsPool *pool;
-	g_auto(GStrv) datadirs = NULL;
+	g_autofree gchar *mdata_dir = NULL;
 
-	/* create DataPool and load sample metadata */
-	datadirs = g_new0 (gchar*, 1 + 1);
-	datadirs[0] = g_build_filename (datadir, "distro", NULL);
+	/* create AsPool and load sample metadata */
+	mdata_dir = g_build_filename (datadir, "collection", NULL);
 
 	pool = as_pool_new ();
-	as_pool_set_metadata_locations (pool, datadirs);
+	as_pool_clear_metadata_locations (pool);
+	as_pool_add_metadata_location (pool, mdata_dir);
 	as_pool_set_locale (pool, "C");
+
+	if (!use_caches)
+		as_pool_set_cache_flags (pool, AS_CACHE_FLAG_NONE);
 
 	return pool;
 }
@@ -158,8 +161,9 @@ test_cache_file ()
 	g_autoptr(GPtrArray) cpts = NULL;
 	GError *error = NULL;
 
-	pool = test_get_sampledata_pool ();
-	as_pool_load_metadata (pool);
+	pool = test_get_sampledata_pool (FALSE);
+	as_pool_load (pool, NULL, &error);
+	g_assert_no_error (error);
 
 	cpts_prev = as_pool_get_components (pool);
 	g_assert_cmpint (cpts_prev->len, ==, 18);
@@ -187,6 +191,7 @@ test_pool_read ()
 	g_autoptr(GPtrArray) all_cpts = NULL;
 	g_autoptr(GPtrArray) result = NULL;
 	g_autoptr(GPtrArray) categories = NULL;
+	gchar **strv;
 	GPtrArray *rels;
 	AsRelease *rel;
 	AsComponent *cpt;
@@ -195,11 +200,10 @@ test_pool_read ()
 	g_autoptr(GError) error = NULL;
 
 	/* load sample data */
-	dpool = test_get_sampledata_pool ();
+	dpool = test_get_sampledata_pool (FALSE);
 
-	/* TODO: as_pool_load (dpool, NULL, &error);
-	g_assert_no_error (error); */
-	as_pool_load_metadata (dpool);
+	as_pool_load (dpool, NULL, &error);
+	g_assert_no_error (error);
 
 	all_cpts = as_pool_get_components (dpool);
 	g_assert_nonnull (all_cpts);
@@ -239,7 +243,9 @@ test_pool_read ()
 	g_assert_cmpint (result->len, ==, 18);
 	g_ptr_array_unref (result);
 
-	result = as_pool_get_components_by_categories (dpool, "Science");
+	strv = g_strsplit ("Science", ";", 0);
+	result = as_pool_get_components_by_categories (dpool, strv);
+	g_strfreev (strv);
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 3);
 	g_ptr_array_unref (result);
@@ -333,21 +339,16 @@ static void
 test_merge_components ()
 {
 	g_autoptr(AsPool) dpool = NULL;
-	g_auto(GStrv) datadirs = NULL;
 	AsComponent *cpt;
 	GPtrArray *suggestions;
 	AsSuggested *suggested;
 	GPtrArray *cpt_ids;
+	GError *error = NULL;
 
 	/* load the data pool with sample data */
-	datadirs = g_new0 (gchar*, 1 + 1);
-	datadirs[0] = g_build_filename (datadir, "distro", NULL);
-
-	dpool = as_pool_new ();
-	as_pool_set_metadata_locations (dpool, datadirs);
-	as_pool_set_locale (dpool, "C");
-
-	as_pool_load_metadata (dpool);
+	dpool = test_get_sampledata_pool (FALSE);
+	as_pool_load (dpool, NULL, &error);
+	g_assert_no_error (error);
 
 	/* test injection of suggests tags */
 	cpt = _as_get_single_component_by_cid (dpool, "links2.desktop");

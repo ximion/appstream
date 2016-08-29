@@ -66,12 +66,13 @@ typedef struct
 	gchar *locale;
 	gchar *current_arch;
 
-	GPtrArray *mdata_dirs;
+	GPtrArray *xml_dirs;
+	GPtrArray *yaml_dirs;
+	GPtrArray *icon_dirs;
 
-	gchar **icon_paths;
 	gchar **term_greylist;
 
-	AsCacheFlags cflags;
+	AsCacheFlags cache_flags;
 	gchar *sys_cache_path;
 	gchar *user_cache_path;
 	time_t cache_ctime;
@@ -121,31 +122,6 @@ as_pool_check_cache_ctime (AsPool *pool)
 }
 
 /**
- * as_get_icon_repository_paths:
- *
- * Returns list of icon-paths for software-center applications to use.
- * Icons of software (even if it is not installed) are stored in these
- * locations.
- *
- * Returns: (transfer full): A NULL-terminated array of paths.
- */
-static gchar**
-as_get_icon_repository_paths ()
-{
-	gchar **paths;
-	guint len;
-	guint i;
-
-	len = G_N_ELEMENTS (AS_APPSTREAM_METADATA_PATHS);
-	paths = g_new0 (gchar *, len + 1);
-	for (i = 0; i < len; i++) {
-		paths[i] = g_build_filename (AS_APPSTREAM_METADATA_PATHS[i], "icons", NULL);
-	}
-
-	return paths;
-}
-
-/**
  * as_pool_init:
  **/
 static void
@@ -162,19 +138,9 @@ as_pool_init (AsPool *pool)
 						g_str_equal,
 						g_free,
 						(GDestroyNotify) g_object_unref);
-
-	distro = as_distro_details_new ();
-	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
-
-	/* set watched default directories for AppStream metadata */
-	priv->mdata_dirs = g_ptr_array_new_with_free_func (g_free);
-	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++) {
-		g_ptr_array_add (priv->mdata_dirs,
-					g_strdup (AS_APPSTREAM_METADATA_PATHS[i]));
-	}
-
-	/* set default icon search locations */
-	priv->icon_paths = as_get_icon_repository_paths ();
+	priv->xml_dirs = g_ptr_array_new_with_free_func (g_free);
+	priv->yaml_dirs = g_ptr_array_new_with_free_func (g_free);
+	priv->icon_dirs = g_ptr_array_new_with_free_func (g_free);
 
 	/* set the current architecture */
 	priv->current_arch = as_get_current_arch ();
@@ -191,6 +157,16 @@ as_pool_init (AsPool *pool)
 
 	/* check the ctime of the cache directory, if it exists at all */
 	as_pool_check_cache_ctime (pool);
+
+	distro = as_distro_details_new ();
+	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
+
+	/* set watched default directories for AppStream metadata */
+	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++)
+		as_pool_add_metadata_location (pool, AS_APPSTREAM_METADATA_PATHS[i]);
+
+	/* set default cache flags */
+	priv->cache_flags = AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER;
 }
 
 /**
@@ -205,8 +181,9 @@ as_pool_finalize (GObject *object)
 	g_free (priv->screenshot_service_url);
 	g_hash_table_unref (priv->cpt_table);
 
-	g_ptr_array_unref (priv->mdata_dirs);
-	g_strfreev (priv->icon_paths);
+	g_ptr_array_unref (priv->xml_dirs);
+	g_ptr_array_unref (priv->yaml_dirs);
+	g_ptr_array_unref (priv->icon_dirs);
 
 	g_free (priv->locale);
 	g_free (priv->current_arch);
@@ -330,7 +307,7 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 
 	/* add additional data to the component, e.g. external screenshots. Also refines
 	 * the component's icon paths */
-	as_component_complete (cpt, priv->screenshot_service_url, priv->icon_paths);
+	as_component_complete (cpt, priv->screenshot_service_url, priv->icon_dirs);
 
 	if (existing_cpt == NULL) {
 		g_hash_table_insert (priv->cpt_table,
@@ -488,7 +465,7 @@ as_pool_refine_data (AsPool *pool)
 			continue;
 		}
 
-		/* set the "extension" information */
+		/* set the "addons" information */
 		as_pool_update_addon_info (pool, cpt);
 
 		/* add to results table */
@@ -509,13 +486,14 @@ as_pool_refine_data (AsPool *pool)
  *
  * Load fresh metadata from AppStream directories.
  */
-gboolean
+static gboolean
 as_pool_load_metadata (AsPool *pool)
 {
 	GPtrArray *cpts;
 	guint i;
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GPtrArray) mdata_files = NULL;
 	GError *error = NULL;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
@@ -524,29 +502,18 @@ as_pool_load_metadata (AsPool *pool)
 	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_COLLECTION);
 	as_metadata_set_locale (metad, priv->locale);
 
-	/* find AppStream XML and YAML metadata */
+	/* find AppStream metadata */
 	ret = TRUE;
-	for (i = 0; i < priv->mdata_dirs->len; i++) {
-		const gchar *root_path;
-		g_autofree gchar *xml_path = NULL;
-		g_autofree gchar *yaml_path = NULL;
-		g_autoptr(GPtrArray) mdata_files = NULL;
-		gboolean subdir_found = FALSE;
+	mdata_files = g_ptr_array_new_with_free_func (g_free);
+
+	/* find XML data */
+	for (i = 0; i < priv->xml_dirs->len; i++) {
+		const gchar *xml_path = (const gchar *) g_ptr_array_index (priv->xml_dirs, i);
 		guint j;
 
-		root_path = (const gchar *) g_ptr_array_index (priv->mdata_dirs, i);
-		if (!g_file_test (root_path, G_FILE_TEST_EXISTS))
-			continue;
-
-		xml_path = g_build_filename (root_path, "xmls", NULL);
-		yaml_path = g_build_filename (root_path, "yaml", NULL);
-		mdata_files = g_ptr_array_new_with_free_func (g_free);
-
-		/* find XML data */
 		if (g_file_test (xml_path, G_FILE_TEST_IS_DIR)) {
 			g_autoptr(GPtrArray) xmls = NULL;
 
-			subdir_found = TRUE;
 			g_debug ("Searching for data in: %s", xml_path);
 			xmls = as_utils_find_files_matching (xml_path, "*.xml*", FALSE, NULL);
 			if (xmls != NULL) {
@@ -558,12 +525,16 @@ as_pool_load_metadata (AsPool *pool)
 				}
 			}
 		}
+	}
 
-		/* find YAML data */
+	/* find YAML metadata */
+	for (i = 0; i < priv->yaml_dirs->len; i++) {
+		const gchar *yaml_path = (const gchar *) g_ptr_array_index (priv->yaml_dirs, i);
+		guint j;
+
 		if (g_file_test (yaml_path, G_FILE_TEST_IS_DIR)) {
 			g_autoptr(GPtrArray) yamls = NULL;
 
-			subdir_found = TRUE;
 			g_debug ("Searching for data in: %s", yaml_path);
 			yamls = as_utils_find_files_matching (yaml_path, "*.yml*", FALSE, NULL);
 			if (yamls != NULL) {
@@ -575,36 +546,31 @@ as_pool_load_metadata (AsPool *pool)
 				}
 			}
 		}
+	}
 
-		if (!subdir_found) {
-			g_debug ("No metadata directories found in '%s'", root_path);
+	/* parse the found data */
+	for (i = 0; i < mdata_files->len; i++) {
+		g_autoptr(GFile) infile = NULL;
+		const gchar *fname;
+
+		fname = (const gchar*) g_ptr_array_index (mdata_files, i);
+		g_debug ("Reading: %s", fname);
+
+		infile = g_file_new_for_path (fname);
+		if (!g_file_query_exists (infile, NULL)) {
+			g_warning ("Metadata file '%s' does not exist.", fname);
 			continue;
 		}
 
-		/* parse the found data */
-		for (j = 0; j < mdata_files->len; j++) {
-			g_autoptr(GFile) infile = NULL;
-			const gchar *fname;
-
-			fname = (const gchar*) g_ptr_array_index (mdata_files, j);
-			g_debug ("Reading: %s", fname);
-
-			infile = g_file_new_for_path (fname);
-			if (!g_file_query_exists (infile, NULL)) {
-				g_warning ("Metadata file '%s' does not exist.", fname);
-				continue;
-			}
-
-			as_metadata_parse_file (metad,
-						infile,
-						AS_DATA_FORMAT_UNKNOWN,
-						&error);
-			if (error != NULL) {
-				g_debug ("WARNING: %s", error->message);
-				g_error_free (error);
-				error = NULL;
-				ret = FALSE;
-			}
+		as_metadata_parse_file (metad,
+					infile,
+					AS_DATA_FORMAT_UNKNOWN,
+					&error);
+		if (error != NULL) {
+			g_debug ("WARNING: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+			ret = FALSE;
 		}
 	}
 
@@ -669,24 +635,17 @@ as_pool_ctime_newer (AsPool *pool, const gchar *dir)
 static gboolean
 as_pool_metadata_changed (AsPool *pool)
 {
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	guint i;
-	GPtrArray *locations;
 
-	locations = as_pool_get_metadata_locations (pool);
-	for (i = 0; i < locations->len; i++) {
-		g_autofree gchar *xml_dir = NULL;
-		g_autofree gchar *yaml_dir = NULL;
-		const gchar *dir_root = (const gchar*) g_ptr_array_index (locations, i);
-
-		if (as_pool_ctime_newer (pool, dir_root))
+	for (i = 0; i < priv->xml_dirs->len; i++) {
+		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
+		if (as_pool_ctime_newer (pool, dir))
 			return TRUE;
-
-		xml_dir = g_build_filename (dir_root, "xmls", NULL);
-		if (as_pool_ctime_newer (pool, xml_dir))
-			return TRUE;
-
-		yaml_dir = g_build_filename (dir_root, "yaml", NULL);
-		if (as_pool_ctime_newer (pool, yaml_dir))
+	}
+	for (i = 0; i < priv->yaml_dirs->len; i++) {
+		const gchar *dir = (const gchar*) g_ptr_array_index (priv->yaml_dirs, i);
+		if (as_pool_ctime_newer (pool, dir))
 			return TRUE;
 	}
 
@@ -725,13 +684,19 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 
 	if (!as_pool_metadata_changed (pool)) {
 		g_autofree gchar *fname = NULL;
-		g_debug ("Caches are up to date, using existing metadata.");
+		g_debug ("Caches are up to date.");
 
-		fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
-		if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
-			return as_pool_load_cache_file (pool, fname, error);
+		if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM)) {
+			g_debug ("Using cached data.");
+
+			fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
+			if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
+				return as_pool_load_cache_file (pool, fname, error);
+			} else {
+				g_debug ("Missing cache for language '%s', attempting to load fresh data.", priv->locale);
+			}
 		} else {
-			g_debug ("Missing cache for language '%s', attempting to load fresh data.", priv->locale);
+			g_debug ("Not using system cache.");
 		}
 	}
 
@@ -768,12 +733,18 @@ as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 
 	/* add cache objects to the pool */
 	for (i = 0; i < cpts->len; i++) {
-		as_pool_add_component (pool, AS_COMPONENT (g_ptr_array_index (cpts, i)), &tmp_error);
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		as_pool_add_component (pool, cpt, &tmp_error);
 		if (tmp_error != NULL) {
 			g_warning ("Cached data ignored: %s", tmp_error->message);
 			g_error_free (tmp_error);
 			tmp_error = NULL;
+			continue;
 		}
+
+		/* find and reference addons */
+		as_pool_update_addon_info (pool, cpt);
 	}
 
 	return TRUE;
@@ -965,29 +936,27 @@ as_pool_get_components_by_kind (AsPool *pool,
 /**
  * as_pool_get_components_by_categories:
  * @pool: An instance of #AsDatabase.
- * @categories: A semicolon-separated list of XDG categories to include.
+ * @categories: An array of XDG categories to include.
  *
  * Return a list of components which are in one of the categories.
  *
  * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
-as_pool_get_components_by_categories (AsPool *pool, const gchar *categories)
+as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GHashTableIter iter;
 	gpointer value;
-	g_auto(GStrv) cats = NULL;
 	guint i;
 	GPtrArray *results;
 
-	cats = g_strsplit (categories, ";", -1);
 	results = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* sanity check */
-	for (i = 0; cats[i] != NULL; i++) {
-		if (!as_utils_is_category_name (cats[i])) {
-			g_warning ("'%s' is not a valid XDG category name, search results might be invalid or empty.", cats[i]);
+	for (i = 0; categories[i] != NULL; i++) {
+		if (!as_utils_is_category_name (categories[i])) {
+			g_warning ("'%s' is not a valid XDG category name, search results might be invalid or empty.", categories[i]);
 		}
 	}
 
@@ -995,8 +964,8 @@ as_pool_get_components_by_categories (AsPool *pool, const gchar *categories)
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
 		AsComponent *cpt = AS_COMPONENT (value);
 
-		for (i = 0; cats[i] != NULL; i++) {
-			if (as_component_has_category (cpt, cats[i]))
+		for (i = 0; categories[i] != NULL; i++) {
+			if (as_component_has_category (cpt, categories[i]))
 				g_ptr_array_add (results, g_object_ref (cpt));
 		}
 	}
@@ -1264,58 +1233,84 @@ as_pool_get_locale (AsPool *pool)
 }
 
 /**
- * as_pool_get_metadata_locations:
+ * as_pool_add_metadata_location:
  * @pool: An instance of #AsPool.
+ * @directory: An existing filesystem location.
  *
- * Return a list of all locations which are searched for metadata.
- *
- * Returns: (transfer none) (element-type utf8): A string-list of watched (absolute) filepaths
- **/
-GPtrArray*
-as_pool_get_metadata_locations (AsPool *pool)
+ * Add a location for the data pool to read data from.
+ * If @directory contains a "xml", "xmls", "yaml" or "icons" subdirectory (or all of them),
+ * those paths will be added to the search paths instead.
+ */
+void
+as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return priv->mdata_dirs;
+	gboolean dir_added = FALSE;
+	gchar *path;
+
+	if (!g_file_test (directory, G_FILE_TEST_IS_DIR))
+		return;
+
+	/* metadata locations */
+	path = g_build_filename (directory, "xml", NULL);
+	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
+		g_ptr_array_add (priv->xml_dirs, path);
+		dir_added = TRUE;
+		g_debug ("Added %s to metadata search path.", path);
+	} else {
+		g_free (path);
+	}
+
+	path = g_build_filename (directory, "xmls", NULL);
+	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
+		g_ptr_array_add (priv->xml_dirs, path);
+		dir_added = TRUE;
+		g_debug ("Added %s to metadata search path.", path);
+	} else {
+		g_free (path);
+	}
+
+	path = g_build_filename (directory, "yaml", NULL);
+	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
+		g_ptr_array_add (priv->yaml_dirs, path);
+		dir_added = TRUE;
+		g_debug ("Added %s to metadata search path.", path);
+	} else {
+		g_free (path);
+	}
+
+	if (!dir_added) {
+		/* we didn't find metadata-specific directories, so let's watch to root path for both YAML and XML */
+		g_ptr_array_add (priv->xml_dirs, g_strdup (directory));
+		g_ptr_array_add (priv->yaml_dirs, g_strdup (directory));
+	}
+
+	/* icons */
+	path = g_build_filename (directory, "icons", NULL);
+	if (g_file_test (path, G_FILE_TEST_IS_DIR))
+		g_ptr_array_add (priv->icon_dirs, path);
+	else
+		g_free (path);
+
 }
 
 /**
- * as_pool_set_metadata_locations:
+ * as_pool_clear_metadata_locations:
  * @pool: An instance of #AsPool.
- * @dirs: (array zero-terminated=1): a zero-terminated array of data input directories.
  *
- * Set locations for the data pool to read it's data from.
- * This is mainly used for testing purposes. Each location should have an
- * "xmls" and/or "yaml" subdirectory with the actual data as (compressed)
- * AppStream XML or DEP-11 YAML in it.
+ * Remove all metadata locations from the list of watched locations.
  */
 void
-as_pool_set_metadata_locations (AsPool *pool, gchar **dirs)
+as_pool_clear_metadata_locations (AsPool *pool)
 {
-	guint i;
-	GPtrArray *icondirs;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
-	/* clear array */
-	g_ptr_array_set_size (priv->mdata_dirs, 0);
+	/* clear arrays */
+	g_ptr_array_set_size (priv->xml_dirs, 0);
+	g_ptr_array_set_size (priv->yaml_dirs, 0);
+	g_ptr_array_set_size (priv->icon_dirs, 0);
 
-	icondirs = g_ptr_array_new_with_free_func (g_free);
-	for (i = 0; priv->icon_paths[i] != NULL; i++) {
-		g_ptr_array_add (icondirs, g_strdup (priv->icon_paths[i]));
-	}
-
-	for (i = 0; dirs[i] != NULL; i++) {
-		g_autofree gchar *path = NULL;
-
-		g_ptr_array_add (priv->mdata_dirs, g_strdup (dirs[i]));
-
-		path = g_build_filename (dirs[i], "icons", NULL);
-		if (g_file_test (path, G_FILE_TEST_EXISTS))
-			g_ptr_array_add (icondirs, g_strdup (path));
-	}
-
-	/* add new icon search locations */
-	g_strfreev (priv->icon_paths);
-	priv->icon_paths = as_ptr_array_to_strv (icondirs);
+	g_debug ("Cleared all metadata search paths.");
 }
 
 /**
@@ -1328,7 +1323,7 @@ AsCacheFlags
 as_pool_get_cache_flags (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return priv->cflags;
+	return priv->cache_flags;
 }
 
 /**
@@ -1342,7 +1337,7 @@ void
 as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	priv->cflags = flags;
+	priv->cache_flags = flags;
 }
 
 /**

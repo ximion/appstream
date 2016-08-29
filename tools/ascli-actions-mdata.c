@@ -40,20 +40,18 @@ ascli_refresh_cache (const gchar *dbpath, const gchar *datapath, gboolean forced
 
 	dpool = as_pool_new ();
 	if (datapath != NULL) {
-		g_auto(GStrv) strv = NULL;
 		/* the user wants data from a different path to be used */
-		strv = g_new0 (gchar*, 2);
-		strv[0] = g_strdup (datapath);
-		as_pool_set_metadata_locations (dpool, strv);
+		as_pool_clear_metadata_locations (dpool);
+		as_pool_add_metadata_location (dpool, datapath);
+
+		/* disable loading data from cache */
+		as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_NONE);
 	}
 
 	if (dbpath == NULL) {
 		ret = as_pool_refresh_cache (dpool, forced, &error);
 	} else {
-		if (forced)
-			as_pool_load_metadata (dpool);
-		else
-			as_pool_load (dpool, NULL, &error);
+		as_pool_load (dpool, NULL, &error);
 		if (error == NULL)
 			as_pool_save_cache_file (dpool, dbpath, &error);
 	}

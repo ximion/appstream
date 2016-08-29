@@ -36,7 +36,7 @@ void			as_component_set_priority (AsComponent *cpt,
 
 void			as_component_complete (AsComponent *cpt,
 						gchar *scr_base_url,
-						gchar **icon_paths);
+						GPtrArray *icon_paths);
 
 GHashTable		*as_component_get_name_table (AsComponent *cpt);
 GHashTable		*as_component_get_summary_table (AsComponent *cpt);

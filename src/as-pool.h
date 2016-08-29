@@ -92,7 +92,6 @@ void			as_pool_set_locale (AsPool *pool,
 gboolean		as_pool_load (AsPool *pool,
 					GCancellable *cancellable,
 					GError **error);
-gboolean		as_pool_load_metadata (AsPool *pool);
 
 gboolean		as_pool_load_cache_file (AsPool *pool,
 						 const gchar *fname,
@@ -117,13 +116,13 @@ GPtrArray		*as_pool_get_components_by_kind (AsPool *pool,
 							 AsComponentKind kind,
 							 GError **error);
 GPtrArray		*as_pool_get_components_by_categories (AsPool *pool,
-								const gchar *categories);
+								gchar **categories);
 GPtrArray		*as_pool_search (AsPool *pool,
 					 const gchar *search);
 
-GPtrArray		*as_pool_get_metadata_locations (AsPool *pool);
-void			as_pool_set_metadata_locations (AsPool *pool,
-							gchar **dirs);
+void			as_pool_clear_metadata_locations (AsPool *pool);
+void			as_pool_add_metadata_location (AsPool *pool,
+						       const gchar *directory);
 
 AsCacheFlags		as_pool_get_cache_flags (AsPool *pool);
 void			as_pool_set_cache_flags (AsPool *pool,
