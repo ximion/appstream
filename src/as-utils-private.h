@@ -22,6 +22,7 @@
 #define __AS_UTILS_PRIVATE_H
 
 #include <glib-object.h>
+#include "as-component.h"
 
 G_BEGIN_DECLS
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
@@ -72,6 +73,8 @@ gboolean		as_arch_compatible (const gchar *arch1,
 					    const gchar *arch2);
 
 gboolean		as_utils_search_token_valid (const gchar *token);
+
+gchar			*as_utils_build_data_id (AsComponent *cpt);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -55,7 +55,7 @@ _as_get_single_component_by_cid (AsPool *pool, const gchar *cid)
 {
 	g_autoptr(GPtrArray) result = NULL;
 
-	result = as_pool_get_component_by_id (pool, cid);
+	result = as_pool_get_components_by_id (pool, cid);
 	if (result->len == 0)
 		return NULL;
 	return g_object_ref (AS_COMPONENT (g_ptr_array_index (result, 0)));

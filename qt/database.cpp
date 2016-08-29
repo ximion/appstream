@@ -314,7 +314,7 @@ Component Database::componentById(const QString& id) const
 {
     g_autoptr(GPtrArray) result = NULL;
 
-    result = as_pool_get_component_by_id (d->m_dpool, qPrintable(id));
+    result = as_pool_get_components_by_id (d->m_dpool, qPrintable(id));
     if (result->len == 0)
         return Component();
 

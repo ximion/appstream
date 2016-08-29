@@ -136,7 +136,7 @@ ascli_get_component (const gchar *cachepath, const gchar *identifier, gboolean d
 		return 1;
 	}
 
-	result = as_pool_get_component_by_id (dpool, identifier);
+	result = as_pool_get_components_by_id (dpool, identifier);
 	if (result->len == 0) {
 		ascli_print_stderr (_("Unable to find component with ID '%s'!"), identifier);
 		return 4;
@@ -265,7 +265,7 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsDataFor
 		return 1;
 	}
 
-	result = as_pool_get_component_by_id (dpool, identifier);
+	result = as_pool_get_components_by_id (dpool, identifier);
 	if (result->len == 0) {
 		ascli_print_stderr (_("Unable to find component with ID '%s'!"), identifier);
 		return 4;

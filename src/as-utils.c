@@ -1046,3 +1046,42 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
 	/* whichever version still has characters left over wins */
 	if (!*one) return -1; else return 1;
 }
+
+/**
+ * as_utils_build_data_id:
+ * @cpt: The component to build the ID for.
+ *
+ * Builds the unique metadata ID for component @cpt.
+ */
+gchar*
+as_utils_build_data_id (AsComponent *cpt)
+{
+	const gchar *scope;
+	const gchar *origin;
+	AsBundleKind bundle_kind;
+	GPtrArray *bundles;
+
+	/* FIXME: We don't really support scopes yet, will come in a future
+	 * release. */
+	scope = "system";
+
+	/* determine bundle - what should we do if there are multiple bundles of different types
+	 * defined for one component? */
+	bundle_kind = AS_BUNDLE_KIND_PACKAGE;
+	bundles = as_component_get_bundles (cpt);
+	if (bundles->len > 0)
+		bundle_kind = as_bundle_get_kind (AS_BUNDLE (g_ptr_array_index (bundles, 0)));
+
+	/* FIXME: packages share one namespace, therefore we edit the origin here for now. */
+	if (bundle_kind == AS_BUNDLE_KIND_PACKAGE)
+		origin = "distribution";
+	else
+		origin = as_component_get_origin (cpt);
+
+	/* build the data-id */
+	return g_strdup_printf ("%s/%s/%s/%s",
+				scope,
+				origin,
+				as_bundle_kind_to_string (bundle_kind),
+				as_component_get_id (cpt));
+}

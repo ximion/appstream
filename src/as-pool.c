@@ -297,11 +297,9 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 gboolean
 as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 {
-	const gchar *cdid;
+	const gchar *cdid = NULL;
 	AsComponent *existing_cpt;
 	gint pool_priority;
-	AsMergeKind merge_kind_new;
-	AsMergeKind merge_kind_pool;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	cdid = as_component_get_data_id (cpt);
@@ -319,21 +317,17 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 	}
 
 	/* perform metadata merges if necessary */
-	merge_kind_new = as_component_get_merge_kind (cpt);
-	merge_kind_pool = as_component_get_merge_kind (existing_cpt);
+	if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
+		g_autoptr(GPtrArray) matches = NULL;
+		guint i;
 
-	if (merge_kind_new != AS_MERGE_KIND_NONE) {
-		as_merge_components (existing_cpt, cpt);
-		return TRUE;
-	} else if (merge_kind_pool != AS_MERGE_KIND_NONE) {
-		/* this means the component in the pool is the merge-component.
-		 * replace it with the actual metadata and merge the two components together */
-		g_object_ref (existing_cpt);
-		g_hash_table_replace (priv->cpt_table,
-				      g_strdup (cdid),
-				      g_object_ref (cpt));
-		as_merge_components (cpt, existing_cpt);
-		g_object_unref (existing_cpt);
+		/* we merge the data into all components with matching IDs at time */
+		matches = as_pool_get_components_by_id (pool,
+							as_component_get_id (cpt));
+		for (i = 0; i < matches->len; i++) {
+			AsComponent *match = AS_COMPONENT (g_ptr_array_index (matches, i));
+			as_merge_components (match, cpt);
+		}
 
 		return TRUE;
 	}
@@ -492,6 +486,7 @@ static gboolean
 as_pool_load_metadata (AsPool *pool)
 {
 	GPtrArray *cpts;
+	g_autoptr(GPtrArray) merge_cpts = NULL;
 	guint i;
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;
@@ -578,12 +573,32 @@ as_pool_load_metadata (AsPool *pool)
 
 	/* add found components to the metadata pool */
 	cpts = as_metadata_get_components (metad);
+	merge_cpts = g_ptr_array_new ();
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		/* deal with merge-components later */
+		if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
+			g_ptr_array_add (merge_cpts, cpt);
+			continue;
+		}
 
 		as_pool_add_component (pool, cpt, &error);
 		if (error != NULL) {
 			g_debug ("Metadata ignored: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+	}
+
+	/* we need to merge the merge-components into the pool last, so the merge process can fetch
+	 * all components with matching IDs from the pool */
+	for (i = 0; i < merge_cpts->len; i++) {
+		AsComponent *mcpt = AS_COMPONENT (g_ptr_array_index (merge_cpts, i));
+
+		as_pool_add_component (pool, mcpt, &error);
+		if (error != NULL) {
+			g_debug ("Merge component ignored: %s", error->message);
 			g_error_free (error);
 			error = NULL;
 		}
@@ -749,6 +764,8 @@ as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 		as_pool_update_addon_info (pool, cpt);
 	}
 
+	/* NOTE: Caches don't have merge components, so we don't need to special-case them here */
+
 	return TRUE;
 }
 
@@ -800,7 +817,7 @@ as_pool_get_components (AsPool *pool)
 }
 
 /**
- * as_pool_get_component_by_id:
+ * as_pool_get_components_by_id:
  * @pool: An instance of #AsPool.
  * @cid: The AppStream-ID to look for.
  *
@@ -811,25 +828,25 @@ as_pool_get_components (AsPool *pool)
  * Returns: (transfer container) (element-type AsComponent): An #AsComponent
  */
 GPtrArray*
-as_pool_get_component_by_id (AsPool *pool, const gchar *cid)
+as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GPtrArray *result;
-	gpointer match;
+	GHashTableIter iter;
+	gpointer value;
 
 	result = g_ptr_array_new_with_free_func (g_object_unref);
-
 	if (cid == NULL)
-		return NULL;
-
-	/* FIXME: The table contains cdids (data-ids, instead of component-ids).
-	 * We need a better lookup mechanism here */
-	match = g_hash_table_lookup (priv->cpt_table, cid);
-	if (match == NULL)
 		return result;
 
-	g_ptr_array_add (result,
-			 g_object_ref (AS_COMPONENT (match)));
+	g_hash_table_iter_init (&iter, priv->cpt_table);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		AsComponent *cpt = AS_COMPONENT (value);
+		if (g_strcmp0 (as_component_get_id (cpt), cid) == 0)
+			g_ptr_array_add (result,
+					 g_object_ref (cpt));
+	}
+
 	return result;
 }
 

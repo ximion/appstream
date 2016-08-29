@@ -365,6 +365,22 @@ as_component_finalize (GObject* object)
 }
 
 /**
+ * as_component_invalidate_data_id:
+ *
+ * Internal method to mark the metadata-ID as outdated, so
+ * it will be regenerated next time.
+ */
+static void
+as_component_invalidate_data_id (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->data_id == NULL)
+		return;
+	g_free (priv->data_id);
+	priv->data_id = NULL;
+}
+
+/**
  * as_component_is_valid:
  * @cpt: a #AsComponent instance.
  *
@@ -413,38 +429,21 @@ gchar*
 as_component_to_string (AsComponent *cpt)
 {
 	gchar* res = NULL;
-	const gchar *name;
-	const gchar *summary;
-	gchar *pkgs;
+	g_autofree gchar *pkgs = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	if (as_component_has_package (cpt))
 		pkgs = g_strjoinv (",", priv->pkgnames);
 	else
-		pkgs = g_strdup ("?");
+		pkgs = g_strdup ("<none>");
 
-	name = as_component_get_name (cpt);
-	summary = as_component_get_summary (cpt);
+	res = g_strdup_printf ("[%s::%s]> name: %s | package: %s | summary: %s",
+				as_component_kind_to_string (priv->kind),
+				as_component_get_data_id (cpt),
+				as_component_get_name (cpt),
+				pkgs,
+				as_component_get_summary (cpt));
 
-	switch (priv->kind) {
-		case AS_COMPONENT_KIND_DESKTOP_APP:
-		{
-			res = g_strdup_printf ("[DesktopApp::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
-			break;
-		}
-		case AS_COMPONENT_KIND_UNKNOWN:
-		{
-			res = g_strdup_printf ("[UNKNOWN::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
-			break;
-		}
-		default:
-		{
-			res = g_strdup_printf ("[Component::%s]> name: %s | package: %s | summary: %s", priv->id, name, pkgs, summary);
-			break;
-		}
-	}
-
-	g_free (pkgs);
 	return res;
 }
 
@@ -659,6 +658,7 @@ as_component_set_bundles_array (AsComponent *cpt, GPtrArray *bundles)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_ptr_array_unref (priv->bundles);
 	priv->bundles = g_ptr_array_ref (bundles);
+	as_component_invalidate_data_id (cpt);
 }
 
 /**
@@ -702,6 +702,7 @@ as_component_add_bundle (AsComponent *cpt, AsBundle *bundle)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_ptr_array_add (priv->bundles,
 			 g_object_ref (bundle));
+	as_component_invalidate_data_id (cpt);
 }
 
 /**
@@ -896,6 +897,7 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
 
 	priv->id = g_strdup (value);
 	g_object_notify ((GObject *) cpt, "id");
+	as_component_invalidate_data_id (cpt);
 }
 
 /**
@@ -908,10 +910,10 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
  * a software component.
  *
  * The format of the unique id usually is:
- * %{scope}/%{origin_type}/%{appstream_id}
+ * %{scope}/%{origin}/%{distribution_system}/%{appstream_id}
  *
  * For example:
- * system/distributor/org.example.FooBar
+ * system/distributor/package/org.example.FooBar
  *
  * Returns: the unique session-specific identifier.
  */
@@ -920,7 +922,7 @@ as_component_get_data_id (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->data_id == NULL)
-		return priv->id;
+		priv->data_id = as_utils_build_data_id (cpt);
 	return priv->data_id;
 }
 
@@ -995,6 +997,7 @@ as_component_set_origin (AsComponent *cpt, const gchar *origin)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_free (priv->origin);
 	priv->origin = g_strdup (origin);
+	as_component_invalidate_data_id (cpt);
 }
 
 /**

@@ -106,7 +106,7 @@ gboolean		as_pool_add_component (AsPool *pool,
 						GError **error);
 
 GPtrArray		*as_pool_get_components (AsPool *pool);
-GPtrArray		*as_pool_get_component_by_id (AsPool *pool,
+GPtrArray		*as_pool_get_components_by_id (AsPool *pool,
 							const gchar *cid);
 GPtrArray		*as_pool_get_components_by_provided_item (AsPool *pool,
 								  AsProvidedKind kind,
