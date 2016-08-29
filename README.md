@@ -33,11 +33,10 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
 
 #### Required
  * cmake
- * glib2 (>= 2.36)
+ * glib2 (>= 2.46)
  * GObject-Introspection
  * libxml2
  * libyaml
- * ProtoBuf
 
 #### Optional
  * Vala Compiler (vapigen) (for Vala VAPI file)
@@ -67,7 +66,7 @@ Possible AppStream-specific flags are:
  -DVAPI=ON            -- Build Vala API to use library with the Vala programming language.  
  -DDOCUMENTATION=ON   -- (Re)generate API documentation.  
  -DMAINTAINER=ON      -- Enable strict compiler options - use this if you write a patch for AppStream.  
- -DSTEMMING           -- Enable support for stemming in fulltext searches.  
+ -DSTEMMING=ON        -- Enable support for stemming in fulltext searches.  
  -DAPT_SUPPORT=ON     -- Enable integration with the APT package manager on Debian.
 
 ### Installation
