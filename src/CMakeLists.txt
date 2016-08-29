@@ -4,7 +4,6 @@ pkg_check_modules(GLIB2 REQUIRED glib-2.0>=2.46)
 pkg_check_modules(GIO2 REQUIRED gio-2.0)
 find_package(GI REQUIRED)
 find_package(LibXml2 REQUIRED)
-find_package(Protobuf REQUIRED)
 find_library(M_LIB m)
 pkg_check_modules(YAML REQUIRED yaml-0.1)
 
@@ -26,18 +25,7 @@ if (NOT INTROSPECTION_COMPILER)
 endif ()
 
 set (srcdir ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "Source dir")
-set(AS_VERSION_BASE "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "LibAppStream combined version number")
-
-if (NOT PROTOBUF_PROTOC_EXECUTABLE)
-	message (FATAL_ERROR "ProtoBuf compiler (protoc) was not found!")
-endif ()
-
-protobuf_generate_cpp(AS_PROTO_SRCS AS_PROTO_HDRS pb/ascache.proto)
-set(ASLIB_CACHE_SOURCES ${AS_PROTO_SRCS} ${AS_PROTO_HDRS}
-		pb/as-cache-internal.h
-		pb/as-cache-internal.cpp
-)
-set_source_files_properties(${ASLIB_CACHE_SOURCES} PROPERTIES COMPILE_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden")
+set(AS_VERSION_BASE "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "AppStream library combined version number")
 
 set(APPSTREAM_LIB_SRC
 		as-utils.c
@@ -103,20 +91,18 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-stemmer.h
 )
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/pb
-		    ${CMAKE_BINARY_DIR}
+include_directories(${CMAKE_BINARY_DIR}
 		    ${CMAKE_BINARY_DIR}/src
 		    ${GLIB2_INCLUDE_DIRS}
 		    ${GIO2_INCLUDE_DIRS}
 		    ${LIBXML2_INCLUDE_DIR}
 		    ${YAML_INCLUDE_DIR}
-		    ${PROTOBUF_INCLUDE_DIRS}
 )
 
 add_definitions("-DAS_COMPILATION")
 
 # ensure that the GI compiler has been found (apparently, the automatic tests fail on some machines)
-if (INTROSPECTION_COMPILER STREQUAL "")
+if (NOT INTROSPECTION_COMPILER)
   message(FATAL_ERROR "GObject-Introspection was not found! Please install it to continue.")
 endif()
 
@@ -157,7 +143,6 @@ set (APPSTREAM_LIB_GRESOURCE ${CMAKE_CURRENT_BINARY_DIR}/as-resources.c
 )
 
 add_library(appstream SHARED
-		${ASLIB_CACHE_SOURCES}
 		${APPSTREAM_LIB_SRC}
 		${APPSTREAM_LIB_PUBLIC_HEADERS}
 		${APPSTREAM_LIB_PRIVATE_HEADERS}
@@ -172,7 +157,6 @@ target_link_libraries(appstream
 		${GIO2_LIBRARIES}
 		${LIBXML2_LIBRARIES}
 		${YAML_LIBRARIES}
-		${PROTOBUF_LIBRARIES}
 		${SNOWBALL_LIB}
 )
 

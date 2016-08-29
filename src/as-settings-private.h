@@ -29,7 +29,7 @@ G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
 #define AS_CONFIG_NAME "/etc/appstream.conf"
-#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info"
+#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info/gv"
 
 /* declared in as-data-pool.c */
 AS_INTERNAL_VISIBLE

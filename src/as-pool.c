@@ -47,9 +47,9 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "pb/as-cache-internal.h"
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-cache-file.h"
 #include "as-component-private.h"
 #include "as-distro-details.h"
 #include "as-settings-private.h"
@@ -113,7 +113,7 @@ as_pool_check_cache_ctime (AsPool *pool)
 	struct stat cache_sbuf;
 	g_autofree gchar *fname = NULL;
 
-	fname = g_strdup_printf ("%s/%s.pb", priv->sys_cache_path, priv->locale);
+	fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
 	if (stat (fname, &cache_sbuf) < 0)
 		priv->cache_ctime = 0;
 	else
@@ -183,7 +183,7 @@ as_pool_init (AsPool *pool)
 	priv->term_greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", -1);
 
 	/* system-wide cache locations */
-	priv->sys_cache_path = g_build_filename (AS_APPSTREAM_CACHE_PATH, "pb", NULL);
+	priv->sys_cache_path = g_strdup (AS_APPSTREAM_CACHE_PATH);
 
 	/* users umask shouldn't interfere with us creating new files when we are root */
 	if (as_utils_is_root ())
@@ -723,7 +723,7 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 		g_autofree gchar *fname = NULL;
 		g_debug ("Caches are up to date, using existing metadata.");
 
-		fname = g_strdup_printf ("%s/%s.pb", priv->sys_cache_path, priv->locale);
+		fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
 		if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
 			return as_pool_load_cache_file (pool, fname, error);
 		} else {
@@ -756,7 +756,7 @@ as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 	GError *tmp_error = NULL;
 
 	/* load list of components in cache */
-	cpts = as_cache_read (fname, &tmp_error);
+	cpts = as_cache_file_read (fname, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		return FALSE;
@@ -790,7 +790,7 @@ as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
 	g_autoptr(GPtrArray) cpts = NULL;
 
 	cpts = as_pool_get_components (pool);
-	as_cache_write (fname, priv->locale, cpts, error);
+	as_cache_file_save (fname, priv->locale, cpts, error);
 	g_ptr_array_unref (cpts);
 
 	return TRUE;
@@ -1174,7 +1174,7 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 #endif
 
 	/* create the filename of our cache */
-	cache_fname = g_strdup_printf ("%s/%s.pb", priv->sys_cache_path, priv->locale);
+	cache_fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
 
 	/* check if we need to refresh the cache
 	 * (which is only necessary if the AppStream data has changed) */
