@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-29 23:16+0200\n"
+"POT-Creation-Date: 2016-08-30 00:59+0200\n"
 "PO-Revision-Date: 2016-08-15 19:46+0000\n"
 "Last-Translator: wsxy162 <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) <https://hosted.weblate.org/projects/"
@@ -72,7 +72,7 @@ msgstr "AppStream 状态："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
-#: ../src/as-pool.c:1201
+#: ../src/as-pool.c:1195
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream 缓存更新失败。"
@@ -86,7 +86,7 @@ msgstr "无需更新 AppStream 缓存。"
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
-#: ../src/as-pool.c:1192
+#: ../src/as-pool.c:1186
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -140,7 +140,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "套件"
 
-#: ../src/as-pool.c:1135
+#: ../src/as-pool.c:1129
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s“不可写"
@@ -150,16 +150,12 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:331
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr "无法复制“%s”：文件没有“.metainfo.xml”或“.appdata.xml”后缀。"
-
-#: ../src/as-pool.c:914 ../src/as-pool.c:922
-msgid "Can not search for unknown component type."
-msgstr "无法搜索未知组件类型。"
 
 #: ../src/as-category.c:134
 msgctxt "Category of Games"
@@ -214,6 +210,12 @@ msgstr "强制项目以供"
 #: ../tools/appstream-cli.c:75
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
+
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:225
+#, fuzzy, c-format
+msgid "Could not find component providing '%s::%s'."
+msgstr "未找到提供“%s;%s”的组件！"
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -501,7 +503,7 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:368
+#: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
@@ -537,12 +539,6 @@ msgstr ""
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "未找到符合“%s”的组件。"
-
-#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: ../tools/ascli-actions-mdata.c:232
-#, fuzzy, c-format
-msgid "No component providing '%s::%s' found."
-msgstr "未找到提供“%s;%s”的组件。"
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -699,7 +695,7 @@ msgid "Text Editors"
 msgstr ""
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: ../tools/ascli-actions-mdata.c:394
+#: ../tools/ascli-actions-mdata.c:387
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -711,13 +707,7 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "未找到符合 %s 的组件！"
 
-#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
-#: ../tools/ascli-actions-mdata.c:225
-#, fuzzy, c-format
-msgid "Unable to find component providing '%s::%s': %s"
-msgstr "未找到提供“%s;%s”的组件！"
-
-#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:270
+#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:263
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, fuzzy, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -728,7 +718,7 @@ msgstr "未找到 id 为“%s”的组件！"
 msgid "Unable to spawn package manager: %s"
 msgstr "无法启动软件包管理器：%s"
 
-#: ../tools/ascli-actions-mdata.c:326
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "无法写入到“%s”，无法安装元信息文件。"
@@ -801,7 +791,7 @@ msgstr "您需要指定一个命令。"
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:258
+#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:251
 #: ../tools/ascli-actions-pkgmgr.c:80
 #, fuzzy
 msgid "You need to specify a component-ID."
@@ -811,7 +801,7 @@ msgstr "您需要指定一个组件 ID。"
 msgid "You need to specify a file to validate!"
 msgstr "您需要指定用来验证的文件！"
 
-#: ../tools/ascli-actions-mdata.c:313
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "你需要指定一个元数据文件。"
 
@@ -823,7 +813,7 @@ msgstr "您需要指定根目录以开始验证！"
 msgid "You need to specify a term to search for."
 msgstr "您需要指定用来搜索的关键字。"
 
-#: ../tools/ascli-actions-mdata.c:361
+#: ../tools/ascli-actions-mdata.c:354
 #, fuzzy
 msgid "You need to specify an input and output file."
 msgstr "你需要指定一个元数据文件。"
@@ -839,6 +829,9 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;应用;应用程序;软件包;程"
 "序;套装;工具"
+
+#~ msgid "Can not search for unknown component type."
+#~ msgstr "无法搜索未知组件类型。"
 
 #, fuzzy
 #~ msgid "Category of Games"
@@ -857,6 +850,10 @@ msgstr ""
 
 #~ msgid "File %s not found or permission denied!"
 #~ msgstr "文件 %s 未找到，或没有操作权限！"
+
+#, fuzzy
+#~ msgid "No component providing '%s::%s' found."
+#~ msgstr "未找到提供“%s;%s”的组件。"
 
 #~ msgid "XDG Menu XML file '%s' is damaged."
 #~ msgstr "XDG 菜单 XML 文件“%s”已损坏。"

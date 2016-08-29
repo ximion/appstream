@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-29 23:16+0200\n"
+"POT-Creation-Date: 2016-08-30 00:59+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/"
@@ -67,7 +67,7 @@ msgstr "AppStream Status:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream cache update completed successfully."
 
-#: ../src/as-pool.c:1201
+#: ../src/as-pool.c:1195
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream cache update failed."
@@ -81,7 +81,7 @@ msgstr "AppStream cache update is not necessary."
 msgid "AppStream command-line interface"
 msgstr "AppStream command-line interface"
 
-#: ../src/as-pool.c:1192
+#: ../src/as-pool.c:1186
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Bundle"
 
-#: ../src/as-pool.c:1135
+#: ../src/as-pool.c:1129
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Cache location '%s' is not writable."
@@ -145,15 +145,11 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:331
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
-msgstr ""
-
-#: ../src/as-pool.c:914 ../src/as-pool.c:922
-msgid "Can not search for unknown component type."
 msgstr ""
 
 #: ../src/as-category.c:134
@@ -209,6 +205,12 @@ msgstr "Compulsory for"
 #: ../tools/appstream-cli.c:75
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
+
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:225
+#, fuzzy, c-format
+msgid "Could not find component providing '%s::%s'."
+msgstr "Unable to find component providing '%s;%s'!"
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -496,7 +498,7 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:368
+#: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
@@ -532,12 +534,6 @@ msgstr ""
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "No component matching '%s' found."
-
-#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: ../tools/ascli-actions-mdata.c:232
-#, fuzzy, c-format
-msgid "No component providing '%s::%s' found."
-msgstr "No component providing '%s;%s' found."
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -694,7 +690,7 @@ msgid "Text Editors"
 msgstr ""
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: ../tools/ascli-actions-mdata.c:394
+#: ../tools/ascli-actions-mdata.c:387
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -706,13 +702,7 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Unable to find component matching %s!"
 
-#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
-#: ../tools/ascli-actions-mdata.c:225
-#, fuzzy, c-format
-msgid "Unable to find component providing '%s::%s': %s"
-msgstr "Unable to find component providing '%s;%s'!"
-
-#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:270
+#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:263
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, fuzzy, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -723,7 +713,7 @@ msgstr "Unable to find component with id '%s'!"
 msgid "Unable to spawn package manager: %s"
 msgstr "Unable to spawn package manager: %s"
 
-#: ../tools/ascli-actions-mdata.c:326
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Unable to write to '%s', can not install metainfo file."
@@ -796,7 +786,7 @@ msgstr "You need to specify a command."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:258
+#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:251
 #: ../tools/ascli-actions-pkgmgr.c:80
 #, fuzzy
 msgid "You need to specify a component-ID."
@@ -806,7 +796,7 @@ msgstr "You need to specify a component-id."
 msgid "You need to specify a file to validate!"
 msgstr "You need to specify a file to validate!"
 
-#: ../tools/ascli-actions-mdata.c:313
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "You need to specify a metadata file."
 
@@ -818,7 +808,7 @@ msgstr "You need to specify a root directory to start validation!"
 msgid "You need to specify a term to search for."
 msgstr "You need to specify a term to search for."
 
-#: ../tools/ascli-actions-mdata.c:361
+#: ../tools/ascli-actions-mdata.c:354
 #, fuzzy
 msgid "You need to specify an input and output file."
 msgstr "You need to specify a metadata file."
@@ -850,6 +840,10 @@ msgstr "app;application;package;program;programme;suite;tool"
 
 #~ msgid "File %s not found or permission denied!"
 #~ msgstr "File %s not found or permission denied!"
+
+#, fuzzy
+#~ msgid "No component providing '%s::%s' found."
+#~ msgstr "No component providing '%s;%s' found."
 
 #~ msgid "XDG Menu XML file '%s' is damaged."
 #~ msgstr "XDG Menu XML file '%s' is damaged."

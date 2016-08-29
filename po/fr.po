@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-29 23:16+0200\n"
+"POT-Creation-Date: 2016-08-30 00:59+0200\n"
 "PO-Revision-Date: 2016-08-15 20:43+0000\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
@@ -67,7 +67,7 @@ msgstr "État AppStream :"
 msgid "AppStream cache update completed successfully."
 msgstr "La mise à jour du cache AppStream a été réalisé avec succès."
 
-#: ../src/as-pool.c:1201
+#: ../src/as-pool.c:1195
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "La mise à jour du cache AppStream a échoué."
@@ -81,7 +81,7 @@ msgstr "La mise à jour du cache AppStream est nécessaire."
 msgid "AppStream command-line interface"
 msgstr "Interface AppStream en ligne de commande"
 
-#: ../src/as-pool.c:1192
+#: ../src/as-pool.c:1186
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -137,7 +137,7 @@ msgstr ""
 msgid "Bundle"
 msgstr ""
 
-#: ../src/as-pool.c:1135
+#: ../src/as-pool.c:1129
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'emplacement de cache « %s » n'est pas accessible en écriture."
@@ -147,7 +147,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:331
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -155,10 +155,6 @@ msgid ""
 msgstr ""
 "Impossible de copier « %s » : le fichier ne possède pas le suffixe « ."
 "metainfo.xml » ou « .appdata.xml »."
-
-#: ../src/as-pool.c:914 ../src/as-pool.c:922
-msgid "Can not search for unknown component type."
-msgstr "Impossible de rechercher un type de composant inconnu."
 
 #: ../src/as-category.c:134
 msgctxt "Category of Games"
@@ -212,6 +208,12 @@ msgstr "Obligatoire pour"
 
 #: ../tools/appstream-cli.c:75
 msgid "Convert collection XML to YAML or vice versa."
+msgstr ""
+
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:225
+#, c-format
+msgid "Could not find component providing '%s::%s'."
 msgstr ""
 
 #: ../src/as-provided.c:156
@@ -500,7 +502,7 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:368
+#: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
@@ -535,12 +537,6 @@ msgstr ""
 #: ../tools/ascli-actions-mdata.c:179
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
-
-#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: ../tools/ascli-actions-mdata.c:232
-#, c-format
-msgid "No component providing '%s::%s' found."
 msgstr ""
 
 #: ../tools/ascli-actions-misc.c:103
@@ -694,7 +690,7 @@ msgid "Text Editors"
 msgstr ""
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: ../tools/ascli-actions-mdata.c:394
+#: ../tools/ascli-actions-mdata.c:387
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -706,13 +702,7 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr ""
 
-#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
-#: ../tools/ascli-actions-mdata.c:225
-#, c-format
-msgid "Unable to find component providing '%s::%s': %s"
-msgstr ""
-
-#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:270
+#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:263
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -723,7 +713,7 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:326
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
@@ -796,7 +786,7 @@ msgstr ""
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:258
+#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:251
 #: ../tools/ascli-actions-pkgmgr.c:80
 #, fuzzy
 msgid "You need to specify a component-ID."
@@ -806,7 +796,7 @@ msgstr "%i composants trouvés."
 msgid "You need to specify a file to validate!"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:313
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr ""
 
@@ -818,7 +808,7 @@ msgstr ""
 msgid "You need to specify a term to search for."
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:361
+#: ../tools/ascli-actions-mdata.c:354
 #, fuzzy
 msgid "You need to specify an input and output file."
 msgstr "%i composants trouvés."
@@ -832,6 +822,9 @@ msgstr "%i composants trouvés."
 #: ../src/as-pool.c:100
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+
+#~ msgid "Can not search for unknown component type."
+#~ msgstr "Impossible de rechercher un type de composant inconnu."
 
 #, fuzzy
 #~ msgid "Category of Games"

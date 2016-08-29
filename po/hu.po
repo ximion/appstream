@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-29 23:16+0200\n"
+"POT-Creation-Date: 2016-08-30 00:59+0200\n"
 "PO-Revision-Date: 2016-08-29 13:42+0000\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -67,7 +67,7 @@ msgstr "AppStream állapot:"
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
 
-#: ../src/as-pool.c:1201
+#: ../src/as-pool.c:1195
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
@@ -81,7 +81,7 @@ msgstr "Az AppStream gyorsítótár frissítése nem szükséges."
 msgid "AppStream command-line interface"
 msgstr "AppStream parancssoros felület"
 
-#: ../src/as-pool.c:1192
+#: ../src/as-pool.c:1186
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -137,7 +137,7 @@ msgstr "Tábla"
 msgid "Bundle"
 msgstr "Csomag"
 
-#: ../src/as-pool.c:1135
+#: ../src/as-pool.c:1129
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "„%s” gyorsítótárhely nem írható."
@@ -147,7 +147,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Naptár"
 
-#: ../tools/ascli-actions-mdata.c:331
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -155,10 +155,6 @@ msgid ""
 msgstr ""
 "A(z) „%s” nem másolható: a fájlnak nincs „.metainfo.xml” vagy „.appdata.xml” "
 "végződése."
-
-#: ../src/as-pool.c:914 ../src/as-pool.c:922
-msgid "Can not search for unknown component type."
-msgstr "Nem lehet rákeresni ismeretlen összetevőtípusra."
 
 #: ../src/as-category.c:134
 msgctxt "Category of Games"
@@ -213,6 +209,12 @@ msgstr "Kötelező ehhez"
 #: ../tools/appstream-cli.c:75
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
+
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:225
+#, fuzzy, c-format
+msgid "Could not find component providing '%s::%s'."
+msgstr "Nem található a következőt biztosító összetevő: „%s::%s”: %s"
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -503,7 +505,7 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematika"
 
-#: ../tools/ascli-actions-mdata.c:368
+#: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
@@ -539,12 +541,6 @@ msgstr "Hírek"
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Nem található erre illeszkedő összetevő: „%s”."
-
-#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: ../tools/ascli-actions-mdata.c:232
-#, c-format
-msgid "No component providing '%s::%s' found."
-msgstr "Nem található „%s::%s” szolgáltatását biztosító összetevő."
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -703,7 +699,7 @@ msgid "Text Editors"
 msgstr "Szövegszerkesztők"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: ../tools/ascli-actions-mdata.c:394
+#: ../tools/ascli-actions-mdata.c:387
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -715,13 +711,7 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Nem található a következőre illeszkedő összetevő: %s!"
 
-#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
-#: ../tools/ascli-actions-mdata.c:225
-#, c-format
-msgid "Unable to find component providing '%s::%s': %s"
-msgstr "Nem található a következőt biztosító összetevő: „%s::%s”: %s"
-
-#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:270
+#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:263
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -732,7 +722,7 @@ msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 msgid "Unable to spawn package manager: %s"
 msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 
-#: ../tools/ascli-actions-mdata.c:326
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
@@ -805,7 +795,7 @@ msgstr "Meg kell adnia egy parancsot."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:258
+#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:251
 #: ../tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "Meg kell adnia egy összetevő-azonosítót."
@@ -814,7 +804,7 @@ msgstr "Meg kell adnia egy összetevő-azonosítót."
 msgid "You need to specify a file to validate!"
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 
-#: ../tools/ascli-actions-mdata.c:313
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "Meg kell adnia egy metaadatfájlt."
 
@@ -826,7 +816,7 @@ msgstr "Meg kell adnia egy gyökérkönyvtárat az ellenőrzés megkezdéséhez!
 msgid "You need to specify a term to search for."
 msgstr "Meg kell adnia egy kifejezést a kereséshez."
 
-#: ../tools/ascli-actions-mdata.c:361
+#: ../tools/ascli-actions-mdata.c:354
 #, fuzzy
 msgid "You need to specify an input and output file."
 msgstr "Meg kell adnia egy metaadatfájlt."
@@ -840,6 +830,9 @@ msgstr "Meg kell adnia egy metaadatfájlt."
 #: ../src/as-pool.c:100
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
+
+#~ msgid "Can not search for unknown component type."
+#~ msgstr "Nem lehet rákeresni ismeretlen összetevőtípusra."
 
 #, fuzzy
 #~ msgid "Category of Games"
@@ -858,6 +851,9 @@ msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
 
 #~ msgid "File %s not found or permission denied!"
 #~ msgstr "A(z) %s fájl nem található vagy a hozzáférés megtagadva!"
+
+#~ msgid "No component providing '%s::%s' found."
+#~ msgstr "Nem található „%s::%s” szolgáltatását biztosító összetevő."
 
 #~ msgid "XDG Menu XML file '%s' is damaged."
 #~ msgstr "A(z) „%s” XDG menü XML fájl sérült."

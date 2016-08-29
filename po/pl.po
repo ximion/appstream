@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-29 23:16+0200\n"
+"POT-Creation-Date: 2016-08-30 00:59+0200\n"
 "PO-Revision-Date: 2016-08-29 15:17+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
@@ -68,7 +68,7 @@ msgstr "Stan AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
 
-#: ../src/as-pool.c:1201
+#: ../src/as-pool.c:1195
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
@@ -82,7 +82,7 @@ msgstr "Aktualizacja pamięci podręcznej AppStream jest niepotrzebna."
 msgid "AppStream command-line interface"
 msgstr "Interfejs wiersza poleceń AppStream"
 
-#: ../src/as-pool.c:1192
+#: ../src/as-pool.c:1186
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -138,7 +138,7 @@ msgstr "Gry planszowe"
 msgid "Bundle"
 msgstr "Paczka"
 
-#: ../src/as-pool.c:1135
+#: ../src/as-pool.c:1129
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Położenie pamięci podręcznej „%s” nie jest zapisywalne."
@@ -148,7 +148,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Kalendarze"
 
-#: ../tools/ascli-actions-mdata.c:331
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -156,10 +156,6 @@ msgid ""
 msgstr ""
 "Nie można skopiować „%s”: plik nie posiada przyrostka „.metainfo.xml” lub „."
 "appdata.xml”."
-
-#: ../src/as-pool.c:914 ../src/as-pool.c:922
-msgid "Can not search for unknown component type."
-msgstr "Nie można szukać nieznanego typu składnika."
 
 #: ../src/as-category.c:134
 msgctxt "Category of Games"
@@ -214,6 +210,12 @@ msgstr "Obowiązkowe dla"
 #: ../tools/appstream-cli.c:75
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
+
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:225
+#, fuzzy, c-format
+msgid "Could not find component providing '%s::%s'."
+msgstr "Nie można odnaleźć składnika dostarczającego „%s::%s”: %s"
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -503,7 +505,7 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematyka"
 
-#: ../tools/ascli-actions-mdata.c:368
+#: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
@@ -539,12 +541,6 @@ msgstr "Aktualności"
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Nie odnaleziono składnika pasującego do „%s”."
-
-#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: ../tools/ascli-actions-mdata.c:232
-#, c-format
-msgid "No component providing '%s::%s' found."
-msgstr "Nie odnaleziono składnika dostarczającego „%s::%s”."
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -703,7 +699,7 @@ msgid "Text Editors"
 msgstr "Edytory tekstu"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: ../tools/ascli-actions-mdata.c:394
+#: ../tools/ascli-actions-mdata.c:387
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -715,13 +711,7 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "Nie można odnaleźć składnika pasującego do %s."
 
-#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
-#: ../tools/ascli-actions-mdata.c:225
-#, c-format
-msgid "Unable to find component providing '%s::%s': %s"
-msgstr "Nie można odnaleźć składnika dostarczającego „%s::%s”: %s"
-
-#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:270
+#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:263
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -732,7 +722,7 @@ msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 msgid "Unable to spawn package manager: %s"
 msgstr "Nie można wywołać menedżera pakietów: %s"
 
-#: ../tools/ascli-actions-mdata.c:326
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nie można zapisać do „%s”, nie można zainstalować pliku metainfo."
@@ -804,7 +794,7 @@ msgstr "Należy podać polecenie."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:258
+#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:251
 #: ../tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "Należy podać identyfikator składnika."
@@ -813,7 +803,7 @@ msgstr "Należy podać identyfikator składnika."
 msgid "You need to specify a file to validate!"
 msgstr "Należy podać plik do sprawdzenia poprawności."
 
-#: ../tools/ascli-actions-mdata.c:313
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "Należy podać plik metadanych."
 
@@ -825,7 +815,7 @@ msgstr "Należy podać główny katalog, aby rozpocząć sprawdzanie poprawnośc
 msgid "You need to specify a term to search for."
 msgstr "Należy podać termin do wyszukania."
 
-#: ../tools/ascli-actions-mdata.c:361
+#: ../tools/ascli-actions-mdata.c:354
 #, fuzzy
 msgid "You need to specify an input and output file."
 msgstr "Należy podać plik metadanych."
@@ -841,6 +831,9 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;"
 "zestaw;suite;narzędzie;tool"
+
+#~ msgid "Can not search for unknown component type."
+#~ msgstr "Nie można szukać nieznanego typu składnika."
 
 #, fuzzy
 #~ msgid "Category of Education"
@@ -863,6 +856,9 @@ msgstr ""
 
 #~ msgid "File %s not found or permission denied!"
 #~ msgstr "Nie odnaleziono pliku %s lub odmówiono uprawnień."
+
+#~ msgid "No component providing '%s::%s' found."
+#~ msgstr "Nie odnaleziono składnika dostarczającego „%s::%s”."
 
 #~ msgid "XDG Menu XML file '%s' is damaged."
 #~ msgstr "Plik menu XDG w formacie XML „%s” jest uszkodzony."

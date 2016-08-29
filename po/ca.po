@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-29 23:16+0200\n"
+"POT-Creation-Date: 2016-08-30 00:59+0200\n"
 "PO-Revision-Date: 2016-08-15 19:46+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -71,7 +71,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
-#: ../src/as-pool.c:1201
+#: ../src/as-pool.c:1195
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Ha fallat l'actualització de la memòria cau d'AppStream."
@@ -85,7 +85,7 @@ msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
-#: ../src/as-pool.c:1192
+#: ../src/as-pool.c:1186
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Agrupació"
 
-#: ../src/as-pool.c:1135
+#: ../src/as-pool.c:1129
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
@@ -151,7 +151,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:331
+#: ../tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -159,10 +159,6 @@ msgid ""
 msgstr ""
 "No es pot copiar «%s»: El fitxer no té un sufix «.metainfo.xml» o «.appdata."
 "xml»."
-
-#: ../src/as-pool.c:914 ../src/as-pool.c:922
-msgid "Can not search for unknown component type."
-msgstr "No es pot cercar un tipus de component desconegut."
 
 #: ../src/as-category.c:134
 msgctxt "Category of Games"
@@ -217,6 +213,12 @@ msgstr "Obligatori per"
 #: ../tools/appstream-cli.c:75
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
+
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
+#: ../tools/ascli-actions-mdata.c:225
+#, fuzzy, c-format
+msgid "Could not find component providing '%s::%s'."
+msgstr "No s'ha pogut trobar el component que proporciona '%s;%s'!"
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -511,7 +513,7 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:368
+#: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
@@ -547,12 +549,6 @@ msgstr ""
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "No s'ha trobat cap component que coincideixi «%s»."
-
-#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: ../tools/ascli-actions-mdata.c:232
-#, fuzzy, c-format
-msgid "No component providing '%s::%s' found."
-msgstr "No s'ha trobat cap component que proporcioni '%s;%s'."
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -711,7 +707,7 @@ msgid "Text Editors"
 msgstr ""
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: ../tools/ascli-actions-mdata.c:394
+#: ../tools/ascli-actions-mdata.c:387
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -723,13 +719,7 @@ msgstr ""
 msgid "Unable to find component matching %s!"
 msgstr "No es pot trobar la coincidència del component %s!"
 
-#. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
-#: ../tools/ascli-actions-mdata.c:225
-#, fuzzy, c-format
-msgid "Unable to find component providing '%s::%s': %s"
-msgstr "No s'ha pogut trobar el component que proporciona '%s;%s'!"
-
-#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:270
+#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:263
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, fuzzy, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -740,7 +730,7 @@ msgstr "No s'ha pogut trobar cap component amb l'id. «%s»!"
 msgid "Unable to spawn package manager: %s"
 msgstr "No s'ha pogut generar el gestor de paquets: %s"
 
-#: ../tools/ascli-actions-mdata.c:326
+#: ../tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "No es pot escriure a «%s», no es pot instal·lar el fitxer metainfo."
@@ -817,7 +807,7 @@ msgstr "Heu d'especificar una ordre."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:258
+#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:251
 #: ../tools/ascli-actions-pkgmgr.c:80
 #, fuzzy
 msgid "You need to specify a component-ID."
@@ -827,7 +817,7 @@ msgstr "Heu d'especificar un «component-id»."
 msgid "You need to specify a file to validate!"
 msgstr "Heu d'especificar un fitxer per validar!"
 
-#: ../tools/ascli-actions-mdata.c:313
+#: ../tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "Heu d'especificar un fitxer de metadades."
 
@@ -839,7 +829,7 @@ msgstr "Heu d'especificar un directori arrel per iniciar la validació!"
 msgid "You need to specify a term to search for."
 msgstr "Heu d'especificar un terme per a la cerca."
 
-#: ../tools/ascli-actions-mdata.c:361
+#: ../tools/ascli-actions-mdata.c:354
 #, fuzzy
 msgid "You need to specify an input and output file."
 msgstr "Heu d'especificar un fitxer de metadades."
@@ -853,6 +843,9 @@ msgstr "Heu d'especificar un fitxer de metadades."
 #: ../src/as-pool.c:100
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+
+#~ msgid "Can not search for unknown component type."
+#~ msgstr "No es pot cercar un tipus de component desconegut."
 
 #, fuzzy
 #~ msgid "Category of Games"
@@ -871,6 +864,10 @@ msgstr ""
 
 #~ msgid "File %s not found or permission denied!"
 #~ msgstr "No es va trobar el fitxer %s o es va denegar el permís!"
+
+#, fuzzy
+#~ msgid "No component providing '%s::%s' found."
+#~ msgstr "No s'ha trobat cap component que proporcioni '%s;%s'."
 
 #~ msgid "XDG Menu XML file '%s' is damaged."
 #~ msgstr "El fitxer XML del menú XDG «%s» està malmès."
