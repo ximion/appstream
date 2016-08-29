@@ -171,7 +171,7 @@ test_yamlwrite_general (void)
 				"Url:\n"
 				"  homepage: https://example.com\n"
 				"---\n"
-				"Type: desktop-app\n"
+				"Type: desktop-application\n"
 				"ID: org.freedesktop.foobar.desktop\n"
 				"Package: foobar-pkg\n"
 				"Name:\n"

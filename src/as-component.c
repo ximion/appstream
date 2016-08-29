@@ -175,7 +175,7 @@ as_component_kind_to_string (AsComponentKind kind)
 	if (kind == AS_COMPONENT_KIND_GENERIC)
 		return "generic";
 	if (kind == AS_COMPONENT_KIND_DESKTOP_APP)
-		return "desktop";
+		return "desktop-application";
 	if (kind == AS_COMPONENT_KIND_CONSOLE_APP)
 		return "console-application";
 	if (kind == AS_COMPONENT_KIND_WEB_APP)

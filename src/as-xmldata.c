@@ -1771,8 +1771,13 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	kind = as_component_get_kind (cpt);
 	cnode = xmlNewNode (NULL, (xmlChar*) "component");
 	if ((kind != AS_COMPONENT_KIND_GENERIC) && (kind != AS_COMPONENT_KIND_UNKNOWN)) {
+		const gchar *kind_str;
+		if ((priv->format_version < AS_FORMAT_VERSION_0_10) && (kind == AS_COMPONENT_KIND_DESKTOP_APP))
+			kind_str = "desktop";
+		else
+			kind_str = as_component_kind_to_string (kind);
 		xmlNewProp (cnode, (xmlChar*) "type",
-					(xmlChar*) as_component_kind_to_string (kind));
+					(xmlChar*) kind_str);
 	}
 
 	if (priv->mode == AS_PARSER_MODE_COLLECTION) {

@@ -190,7 +190,7 @@ test_appstream_write_locale ()
 	GError *error = NULL;
 
 	const gchar *EXPECTED_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				    "<component type=\"desktop\">\n"
+				    "<component type=\"desktop-application\">\n"
 				    "  <id>firefox.desktop</id>\n"
 				    "  <name xml:lang=\"fr_FR\">Firefoux</name>\n"
 				    "  <name>Firefox</name>\n"

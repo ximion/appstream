@@ -1833,10 +1833,8 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 
 	/* write component kind */
 	kind = as_component_get_kind (cpt);
-	if (kind == AS_COMPONENT_KIND_DESKTOP_APP)
+	if ((priv->format_version < AS_FORMAT_VERSION_0_10) && (kind == AS_COMPONENT_KIND_DESKTOP_APP))
 		cstr = "desktop-app";
-	else if (kind == AS_COMPONENT_KIND_GENERIC)
-		cstr = "generic";
 	else
 		cstr = as_component_kind_to_string (kind);
 	as_yaml_emit_entry (emitter, "Type", cstr);

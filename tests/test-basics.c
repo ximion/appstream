@@ -100,7 +100,7 @@ test_component ()
 	g_debug ("%s", str2);
 
 	g_assert_cmpstr (str, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				  "<component type=\"desktop\">\n"
+				  "<component type=\"desktop-application\">\n"
 				  "  <id>org.example.test.desktop</id>\n"
 				  "  <name>Test</name>\n"
 				  "  <summary>It does things</summary>\n"
@@ -108,7 +108,7 @@ test_component ()
 				  "</component>\n");
 	g_assert_cmpstr (str2, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 				   "<components version=\"0.10\">\n"
-				   "  <component type=\"desktop\">\n"
+				   "  <component type=\"desktop-application\">\n"
 				   "    <id>org.example.test.desktop</id>\n"
 				   "    <name>Test</name>\n"
 				   "    <summary>It does things</summary>\n"
