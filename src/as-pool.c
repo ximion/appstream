@@ -1308,7 +1308,6 @@ void
 as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
 {
 	as_pool_add_metadata_location_internal (pool, directory, TRUE);
-
 }
 
 /**

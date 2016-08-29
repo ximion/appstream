@@ -300,6 +300,7 @@ as_component_init (AsComponent *cpt)
 	priv->provided = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->bundles = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
+	priv->addons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
@@ -347,13 +348,11 @@ as_component_finalize (GObject* object)
 	g_ptr_array_unref (priv->provided);
 	g_ptr_array_unref (priv->bundles);
 	g_ptr_array_unref (priv->extends);
+	g_ptr_array_unref (priv->addons);
 	g_ptr_array_unref (priv->suggestions);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
 
-
-	if (priv->addons != NULL)
-		g_ptr_array_unref (priv->addons);
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
 
@@ -612,8 +611,6 @@ GPtrArray*
 as_component_get_addons (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	if (priv->addons == NULL)
-		priv->addons = g_ptr_array_new_with_free_func (g_object_unref);
 	return priv->addons;
 }
 
@@ -630,8 +627,6 @@ void
 as_component_add_addon (AsComponent* cpt, AsComponent *addon)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	if (priv->addons == NULL)
-		priv->addons = g_ptr_array_new_with_free_func (g_object_unref);
 	g_ptr_array_add (priv->addons, g_object_ref (addon));
 }
 
@@ -2383,15 +2378,15 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
 void
 as_component_create_token_cache (AsComponent *cpt)
 {
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	guint i;
+
 	as_component_create_token_cache_target (cpt, cpt);
 
-	/* FIXME: TODO */
-	/*
 	for (i = 0; i < priv->addons->len; i++) {
-		donor = g_ptr_array_index (priv->addons, i);
+		AsComponent *donor = g_ptr_array_index (priv->addons, i);
 		as_component_create_token_cache_target (cpt, donor);
 	}
-	*/
 }
 
 /**
