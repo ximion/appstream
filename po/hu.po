@@ -9,15 +9,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-27 21:27+0200\n"
-"PO-Revision-Date: 2016-08-24 22:14+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
-"Language-Team: Hungarian <openscope at googlegroups dot com>\n"
+"PO-Revision-Date: 2016-08-29 13:42+0000\n"
+"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
+"Language-Team: Hungarian "
+"<https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Weblate 2.8-dev\n"
 
 #: ../src/as-category.c:164
 msgctxt "Category of Graphics"
@@ -230,6 +231,8 @@ msgstr "Hibakeresők"
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
+"A megadott metaadat-formátum alapértelmezése (érvényes értékek: „xml” és "
+"„yaml”)."
 
 #: ../tools/ascli-utils.c:312
 msgid "Description"
@@ -527,9 +530,9 @@ msgstr "Nem található erre illeszkedő összetevő: „%s”."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: ../tools/ascli-actions-mdata.c:234
-#, fuzzy, c-format
+#, c-format
 msgid "No component providing '%s::%s' found."
-msgstr "Nem található „%s;%s” szolgáltatását biztosító összetevő."
+msgstr "Nem található „%s::%s” szolgáltatását biztosító összetevő."
 
 #: ../tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -692,13 +695,13 @@ msgstr "Nem található a következőre illeszkedő összetevő: %s!"
 
 #. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
 #: ../tools/ascli-actions-mdata.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component providing '%s::%s': %s"
-msgstr "Nem található a következőt biztosító összetevő: „%s;%s”!"
+msgstr "Nem található a következőt biztosító összetevő: „%s::%s”: %s"
 
 #: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
 #: ../tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 
@@ -782,7 +785,6 @@ msgstr "Meg kell adnia egy parancsot."
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
 #: ../tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
 msgstr "Meg kell adnia egy összetevő-azonosítót."
 
