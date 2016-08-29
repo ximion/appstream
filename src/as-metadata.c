@@ -46,8 +46,9 @@
 
 typedef struct
 {
-	gchar *locale;
+	AsFormatVersion format_version;
 	AsParserMode mode;
+	gchar *locale;
 	gchar *origin;
 	gchar *media_baseurl;
 	gchar *arch;
@@ -95,7 +96,7 @@ as_data_format_to_string (AsDataFormat format)
  *
  * Since: 0.10
  **/
-AsUrgencyKind
+AsDataFormat
 as_data_format_from_string (const gchar *format_str)
 {
 	if (g_strcmp0 (format_str, "xml") == 0)
@@ -103,6 +104,59 @@ as_data_format_from_string (const gchar *format_str)
 	if (g_strcmp0 (format_str, "yaml") == 0)
 		return AS_DATA_FORMAT_YAML;
 	return AS_DATA_FORMAT_UNKNOWN;
+}
+
+/**
+ * as_format_version_to_string:
+ * @version: the #AsDataFormat.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @version
+ *
+ * Since: 0.10
+ **/
+const gchar*
+as_format_version_to_string (AsFormatVersion version)
+{
+	if (version == AS_FORMAT_VERSION_0_6)
+		return "0.6";
+	if (version == AS_FORMAT_VERSION_0_7)
+		return "0.7";
+	if (version == AS_FORMAT_VERSION_0_8)
+		return "0.8";
+	if (version == AS_FORMAT_VERSION_0_9)
+		return "0.9";
+	if (version == AS_FORMAT_VERSION_0_10)
+		return "0.10";
+	return "?.??";
+}
+
+/**
+ * as_format_version_from_string:
+ * @version_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsFormatVersion. For unknown, the highest version
+ * number is assumed.
+ *
+ * Since: 0.10
+ **/
+AsFormatVersion
+as_format_version_from_string (const gchar *version_str)
+{
+	if (g_strcmp0 (version_str, "0.6") == 0)
+		return AS_FORMAT_VERSION_0_6;
+	if (g_strcmp0 (version_str, "0.7") == 0)
+		return AS_FORMAT_VERSION_0_7;
+	if (g_strcmp0 (version_str, "0.8") == 0)
+		return AS_FORMAT_VERSION_0_8;
+	if (g_strcmp0 (version_str, "0.9") == 0)
+		return AS_FORMAT_VERSION_0_9;
+	if (g_strcmp0 (version_str, "0.10") == 0)
+		return AS_FORMAT_VERSION_0_10;
+	return AS_FORMAT_VERSION_0_10;
 }
 
 /**
@@ -119,6 +173,7 @@ as_metadata_init (AsMetadata *metad)
 	as_metadata_set_locale (metad, str);
 	g_free (str);
 
+	priv->format_version = AS_CURRENT_FORMAT_VERSION;
 	priv->mode = AS_PARSER_MODE_METAINFO;
 	priv->default_priority = 0;
 	priv->write_header = TRUE;
@@ -162,6 +217,7 @@ as_metadata_init_xml (AsMetadata *metad)
 
 	priv->xdt = as_xmldata_new ();
 	as_xmldata_initialize (priv->xdt,
+				priv->format_version,
 				priv->locale,
 				priv->origin,
 				priv->media_baseurl,
@@ -182,6 +238,7 @@ as_metadata_init_yaml (AsMetadata *metad)
 
 	priv->ydt = as_yamldata_new ();
 	as_yamldata_initialize (priv->ydt,
+				priv->format_version,
 				priv->locale,
 				priv->origin,
 				priv->media_baseurl,
@@ -199,6 +256,7 @@ as_metadata_reload_parsers (AsMetadata *metad)
 
 	if (priv->xdt != NULL)
 		as_xmldata_initialize (priv->xdt,
+					priv->format_version,
 					priv->locale,
 					priv->origin,
 					priv->media_baseurl,
@@ -206,6 +264,7 @@ as_metadata_reload_parsers (AsMetadata *metad)
 					priv->default_priority);
 	if (priv->ydt != NULL)
 		as_yamldata_initialize (priv->ydt,
+					priv->format_version,
 					priv->locale,
 					priv->origin,
 					priv->media_baseurl,
@@ -225,7 +284,7 @@ as_metadata_clear_components (AsMetadata *metad)
 }
 
 /**
- * as_metadata_parse_xml:
+ * as_metadata_parse:
  * @metad: An instance of #AsMetadata.
  * @data: Metadata describing one or more software components.
  * @format: The format of the data (XML or YAML).
@@ -721,17 +780,31 @@ as_metadata_get_architecture (AsMetadata *metad)
 }
 
 /**
- * as_metadata_set_parser_mode:
- * @metad: a #AsMetadata instance.
- * @mode: the #AsParserMode.
+ * as_metadata_get_format_version:
+ * @metad: an #AsMetadata instance.
  *
- * Sets the current metadata parsing mode.
+ * Returns: The AppStream metadata format version.
  **/
-void
-as_metadata_set_parser_mode (AsMetadata *metad, AsParserMode mode)
+AsFormatVersion
+as_metadata_get_format_version (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	priv->mode = mode;
+	return priv->format_version;
+}
+
+/**
+ * as_metadata_set_format_version:
+ * @metad: a #AsMetadata instance.
+ * @version: the AppStream metadata format version as #AsFormatVersion.
+ *
+ * Set the current AppStream format version that we should generate data for
+ * or be able to read.
+ **/
+void
+as_metadata_set_format_version (AsMetadata *metad, AsFormatVersion version)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	priv->format_version = version;
 }
 
 /**
@@ -803,15 +876,27 @@ as_metadata_get_write_header (AsMetadata *metad)
  * as_metadata_get_parser_mode:
  * @metad: a #AsMetadata instance.
  *
- * Gets the current parser mode
- *
- * Returns: an #AsParserMode
+ * Get the metadata parsing mode.
  **/
 AsParserMode
 as_metadata_get_parser_mode (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->mode;
+}
+
+/**
+ * as_metadata_set_parser_mode:
+ * @metad: a #AsMetadata instance.
+ * @mode: the #AsParserMode.
+ *
+ * Sets the current metadata parsing mode.
+ **/
+void
+as_metadata_set_parser_mode (AsMetadata *metad, AsParserMode mode)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	priv->mode = mode;
 }
 
 /**

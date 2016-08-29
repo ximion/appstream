@@ -24,7 +24,6 @@
 #include <glib-object.h>
 #include <libxml/tree.h>
 
-#include "as-component.h"
 #include "as-metadata.h"
 
 G_BEGIN_DECLS
@@ -47,6 +46,7 @@ struct _AsXMLDataClass
 AsXMLData		*as_xmldata_new (void);
 
 void			as_xmldata_initialize (AsXMLData *xdt,
+					        AsFormatVersion format_version,
 						const gchar *locale,
 						const gchar *origin,
 						const gchar *media_baseurl,

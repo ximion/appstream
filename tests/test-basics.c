@@ -107,7 +107,7 @@ test_component ()
 				  "  <pkgname>fedex</pkgname>\n"
 				  "</component>\n");
 	g_assert_cmpstr (str2, ==, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				   "<components version=\"0.8\">\n"
+				   "<components version=\"0.10\">\n"
 				   "  <component type=\"desktop\">\n"
 				   "    <id>org.example.test.desktop</id>\n"
 				   "    <name>Test</name>\n"

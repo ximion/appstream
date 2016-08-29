@@ -860,7 +860,12 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 
 	/* load the XML data */
 	xdt = as_xmldata_new ();
-	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
+	as_xmldata_initialize (xdt, AS_CURRENT_FORMAT_VERSION,
+			       "C",
+				NULL,
+				NULL,
+				NULL,
+				0);
 
 	doc = as_validator_open_xml_document (validator, xdt, metadata);
 	if (doc == NULL)
@@ -1115,7 +1120,12 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 
 	/* set up XML parser */
 	xdt = as_xmldata_new ();
-	as_xmldata_initialize (xdt, "C", NULL, NULL, NULL, 0);
+	as_xmldata_initialize (xdt, AS_CURRENT_FORMAT_VERSION,
+			       "C",
+				NULL,
+				NULL,
+				NULL,
+				0);
 	as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_METAINFO);
 
 	/* validate all metainfo files */

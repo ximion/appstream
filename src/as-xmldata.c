@@ -46,6 +46,7 @@
 
 typedef struct
 {
+	gdouble format_version;
 	gchar *locale;
 	gchar *origin;
 	gchar *media_baseurl;
@@ -95,6 +96,7 @@ as_xmldata_init (AsXMLData *xdt)
 {
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
+	priv->format_version = AS_CURRENT_FORMAT_VERSION;
 	priv->default_priority = 0;
 	priv->mode = AS_PARSER_MODE_METAINFO;
 	priv->last_error_msg = NULL;
@@ -144,6 +146,7 @@ as_xmldata_clear_error (AsXMLData *xdt)
  */
 void
 as_xmldata_initialize (AsXMLData *xdt,
+		       AsFormatVersion format_version,
 		       const gchar *locale,
 		       const gchar *origin,
 		       const gchar *media_baseurl,
@@ -151,6 +154,8 @@ as_xmldata_initialize (AsXMLData *xdt,
 		       gint priority)
 {
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
+
+	priv->format_version = format_version;
 
 	g_free (priv->locale);
 	priv->locale = g_strdup (locale);
@@ -2169,7 +2174,9 @@ as_xmldata_serialize_to_collection_with_rootnode (AsXMLData *xdt, GPtrArray *cpt
 	priv->mode = AS_PARSER_MODE_COLLECTION;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
-	xmlNewProp (root, (xmlChar*) "version", (xmlChar*) "0.8");
+	xmlNewProp (root,
+		    (xmlChar*) "version",
+		    (xmlChar*) as_format_version_to_string (priv->format_version));
 	if (priv->origin != NULL)
 		xmlNewProp (root, (xmlChar*) "origin", (xmlChar*) priv->origin);
 	if (priv->arch != NULL)

@@ -24,7 +24,7 @@
 #include <glib.h>
 #include <gio/gio.h>
 
-#include "as-component.h"
+#include "as-metadata.h"
 
 G_BEGIN_DECLS
 
@@ -46,6 +46,7 @@ struct _AsYAMLDataClass
 AsYAMLData		*as_yamldata_new (void);
 
 void			as_yamldata_initialize (AsYAMLData *ydt,
+						AsFormatVersion format_version,
 						const gchar *locale,
 						const gchar *origin,
 						const gchar *media_baseurl,

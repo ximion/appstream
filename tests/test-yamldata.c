@@ -155,7 +155,7 @@ test_yamlwrite_general (void)
 
 	const gchar *expected_yaml = "---\n"
 				"File: DEP-11\n"
-				"Version: 0.8\n"
+				"Version: 0.10\n"
 				"---\n"
 				"Type: firmware\n"
 				"ID: org.example.test.firmware\n"
@@ -324,7 +324,7 @@ test_yaml_write_suggests (void)
 	g_autofree gchar *res = NULL;
 	const gchar *expected_sug_yaml = "---\n"
 					 "File: DEP-11\n"
-					 "Version: 0.8\n"
+					 "Version: 0.10\n"
 					 "---\n"
 					 "Type: generic\n"
 					 "ID: org.example.SuggestsTest\n"

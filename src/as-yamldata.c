@@ -33,6 +33,7 @@
 
 typedef struct
 {
+	AsFormatVersion format_version;
 	gchar *locale;
 	gchar *origin;
 	gchar *media_baseurl;
@@ -65,6 +66,7 @@ as_yamldata_init (AsYAMLData *ydt)
 	str = as_get_current_locale ();
 	as_yamldata_set_locale (ydt, str);
 
+	priv->format_version = AS_CURRENT_FORMAT_VERSION;
 	priv->origin = NULL;
 	priv->media_baseurl = NULL;
 	priv->default_priority = 0;
@@ -98,9 +100,17 @@ as_yamldata_finalize (GObject *object)
  * Initialize the YAML handler.
  */
 void
-as_yamldata_initialize (AsYAMLData *ydt, const gchar *locale, const gchar *origin, const gchar *media_baseurl, const gchar *arch, gint priority)
+as_yamldata_initialize (AsYAMLData *ydt,
+			AsFormatVersion format_version,
+			const gchar *locale,
+			const gchar *origin,
+			const gchar *media_baseurl,
+			const gchar *arch,
+			gint priority)
 {
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
+
+	priv->format_version = format_version;
 
 	g_free (priv->locale);
 	priv->locale = g_strdup (locale);
@@ -1976,7 +1986,7 @@ as_yamldata_write_header (AsYAMLData *ydt, yaml_emitter_t *emitter)
 	as_yaml_mapping_start (emitter);
 
 	as_yaml_emit_entry (emitter, "File", "DEP-11");
-	as_yaml_emit_entry (emitter, "Version", "0.8");
+	as_yaml_emit_entry (emitter, "Version", as_format_version_to_string (priv->format_version));
 	as_yaml_emit_entry (emitter, "Origin", priv->origin);
 	if (priv->media_baseurl != NULL)
 		as_yaml_emit_entry (emitter, "MediaBaseUrl", priv->media_baseurl);

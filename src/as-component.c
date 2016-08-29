@@ -604,7 +604,7 @@ as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
   *
   * This is the reverse of %as_component_get_extends()
   *
-  * Returns: (transfer none) (element-type AsComponent): A #GPtrArray or %NULL if not set.
+  * Returns: (transfer none) (element-type AsComponent): An array of #AsComponent.
   *
   * Since: 0.9.2
 **/

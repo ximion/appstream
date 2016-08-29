@@ -59,6 +59,7 @@ struct _AsMetadataClass
  * Usually you do not want to set this explicitly.
  **/
 typedef enum {
+	AS_PARSER_MODE_UNKNOWN,
 	AS_PARSER_MODE_METAINFO,
 	AS_PARSER_MODE_COLLECTION,
 	/*< private >*/
@@ -82,7 +83,32 @@ typedef enum {
 } AsDataFormat;
 
 const gchar		*as_data_format_to_string (AsDataFormat format);
-AsUrgencyKind		 as_data_format_from_string (const gchar *format_str);
+AsDataFormat		 as_data_format_from_string (const gchar *format_str);
+
+/**
+ * AsFormatVersion:
+ * @AS_FORMAT_VERSION_0_6:	0.6
+ * @AS_FORMAT_VERSION_0_7:	0.7
+ * @AS_FORMAT_VERSION_0_8:	0.8
+ * @AS_FORMAT_VERSION_0_9:	0.9
+ * @AS_FORMAT_VERSION_0_10:	0.10
+ *
+ * Format version / level of the AppStream metadata.
+ **/
+typedef enum {
+	AS_FORMAT_VERSION_0_6,
+	AS_FORMAT_VERSION_0_7,
+	AS_FORMAT_VERSION_0_8,
+	AS_FORMAT_VERSION_0_9,
+	AS_FORMAT_VERSION_0_10,
+	/*< private >*/
+	AS_FORMAT_VERSION_LAST
+} AsFormatVersion;
+
+const gchar		*as_format_version_to_string (AsFormatVersion version);
+AsFormatVersion		 as_format_version_from_string (const gchar *version_str);
+
+#define AS_CURRENT_FORMAT_VERSION AS_FORMAT_VERSION_0_10
 
 /**
  * AsMetadataError:
@@ -140,6 +166,10 @@ void			as_metadata_save_collection (AsMetadata *metad,
 							AsDataFormat format,
 							GError **error);
 
+AsFormatVersion		as_metadata_get_format_version (AsMetadata *metad);
+void			as_metadata_set_format_version (AsMetadata *metad,
+							AsFormatVersion version);
+
 void			as_metadata_set_locale (AsMetadata *metad,
 							const gchar *locale);
 const gchar		*as_metadata_get_locale (AsMetadata *metad);
@@ -156,13 +186,13 @@ gboolean		as_metadata_get_write_header (AsMetadata *metad);
 void			as_metadata_set_write_header (AsMetadata *metad,
 								gboolean wheader);
 
-void			as_metadata_set_parser_mode (AsMetadata *metad,
-							AsParserMode mode);
-AsParserMode		as_metadata_get_parser_mode (AsMetadata *metad);
-
 const gchar		*as_metadata_get_architecture (AsMetadata *metad);
 void			as_metadata_set_architecture (AsMetadata *metad,
 							const gchar *arch);
+
+AsParserMode		as_metadata_get_parser_mode (AsMetadata *metad);
+void			as_metadata_set_parser_mode (AsMetadata *metad,
+							AsParserMode mode);
 
 G_END_DECLS
 
