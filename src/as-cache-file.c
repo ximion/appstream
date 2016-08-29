@@ -903,8 +903,6 @@ as_cache_file_read (const gchar *fname, GError **error)
 				}
 
 				as_component_add_icon (cpt, icon);
-				g_print ("I : %s\n", as_icon_get_filename (icon));
-
 				g_variant_unref (child);
 			}
 			g_variant_unref (var);
