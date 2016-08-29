@@ -52,6 +52,10 @@ int		ascli_dump_component (const gchar *cachepath,
 
 int		ascli_put_metainfo (const gchar *fname);
 
+int		ascli_convert_data (const gchar *in_fname,
+				    const gchar *out_fname,
+				    AsDataFormat format);
+
 
 G_END_DECLS
 

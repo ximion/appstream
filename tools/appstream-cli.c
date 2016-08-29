@@ -70,8 +70,9 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "install COMPONENT-ID", _("Install software matching the component-id."));
 	g_string_append_printf (string, "  %s - %s\n", "remove  COMPONENT-ID", _("Remove software matching the component-id."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "put FILE", _("Install a metadata file into the right location."));
-	g_string_append_printf (string, "  %s - %s\n", "status  ", _("Display status information about available AppStream metadata."));
+	g_string_append_printf (string, "  %s - %s\n", "status           ", _("Display status information about available AppStream metadata."));
+	g_string_append_printf (string, "  %s - %s\n", "put FILE         ", _("Install a metadata file into the right location."));
+	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
 
 	return g_string_free (string, FALSE);
 }
@@ -235,6 +236,8 @@ as_client_run (char **argv, int argc)
 		exit_code = ascli_put_metainfo (value1);
 	} else if (g_strcmp0 (command, "status") == 0) {
 		exit_code = ascli_show_status ();
+	} else if (g_strcmp0 (command, "convert") == 0) {
+		exit_code = ascli_convert_data (value1, value2, dformat);
 	} else {
 		/* TRANSLATORS: ascli has been run with unknown command. */
 		ascli_print_stderr (_("Command '%s' is unknown."), command);

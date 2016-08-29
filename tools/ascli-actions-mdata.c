@@ -344,3 +344,77 @@ ascli_put_metainfo (const gchar *fname)
 
 	return 0;
 }
+
+/**
+ * ascli_convert_data:
+ *
+ * Convert data from YAML to XML and vice versa.
+ */
+int
+ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsDataFormat format)
+{
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GFile) infile = NULL;
+	GError *error = NULL;
+
+	if (in_fname == NULL || out_fname == NULL) {
+		ascli_print_stderr (_("You need to specify an input and output file."));
+		return 3;
+	}
+
+	/* load input file */
+	infile = g_file_new_for_path (in_fname);
+	if (!g_file_query_exists (infile, NULL)) {
+		ascli_print_stderr (_("Metadata file '%s' does not exist."), in_fname);
+		return 4;
+	}
+
+	metad = as_metadata_new ();
+	/* since YAML files are always collection-YAMLs, we will always run in collection mode */
+	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_COLLECTION);
+
+	as_metadata_parse_file (metad,
+				infile,
+				AS_DATA_FORMAT_UNKNOWN,
+				&error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+
+	if (format == AS_DATA_FORMAT_UNKNOWN) {
+		if (g_str_has_suffix (in_fname, ".xml") || g_str_has_suffix (in_fname, ".xml.gz"))
+			format = AS_DATA_FORMAT_YAML;
+		else if (g_str_has_suffix (in_fname, ".yml") || g_str_has_suffix (in_fname, ".yml.gz") ||
+			 g_str_has_suffix (in_fname, ".yaml") || g_str_has_suffix (in_fname, ".yaml.gz"))
+			format = AS_DATA_FORMAT_XML;
+
+		if (format == AS_DATA_FORMAT_UNKNOWN) {
+			/* TRANSLATORS: User is trying to convert a file in ascli */
+			ascli_print_stderr (_("Unable to convert file: Could not determine output format, please set it explicitly using '--format='."));
+			return 3;
+		}
+	}
+
+	if (g_strcmp0 (out_fname, "-") == 0) {
+		g_autofree gchar *data = NULL;
+
+		/* print to stdout */
+		data = as_metadata_components_to_collection (metad, format, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+		g_print ("%s\n", data);
+	} else {
+		/* save to file */
+
+		as_metadata_save_collection (metad, out_fname, format, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+	}
+
+	return 0;
+}
