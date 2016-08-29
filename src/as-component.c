@@ -596,7 +596,7 @@ as_component_add_extends (AsComponent* cpt, const gchar* cpt_id)
 }
 
 /**
-  * as_component_get_extensions:
+  * as_component_get_addons:
   * @cpt: an #AsComponent instance.
   *
   * Returns a list of #AsComponent objects which

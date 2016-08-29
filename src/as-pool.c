@@ -99,6 +99,8 @@ const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
  */
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
+static void as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gboolean add_root);
+
 /**
  * as_pool_check_cache_ctime:
  * @pool: An instance of #AsPool
@@ -163,7 +165,7 @@ as_pool_init (AsPool *pool)
 
 	/* set watched default directories for AppStream metadata */
 	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++)
-		as_pool_add_metadata_location (pool, AS_APPSTREAM_METADATA_PATHS[i]);
+		as_pool_add_metadata_location_internal (pool, AS_APPSTREAM_METADATA_PATHS[i], FALSE);
 
 	/* set default cache flags */
 	priv->cache_flags = AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER;
@@ -1233,16 +1235,15 @@ as_pool_get_locale (AsPool *pool)
 }
 
 /**
- * as_pool_add_metadata_location:
+ * as_pool_add_metadata_location_internal:
  * @pool: An instance of #AsPool.
  * @directory: An existing filesystem location.
+ * @add_root: Whether to add the root directory if necessary.
  *
- * Add a location for the data pool to read data from.
- * If @directory contains a "xml", "xmls", "yaml" or "icons" subdirectory (or all of them),
- * those paths will be added to the search paths instead.
+ * See %as_pool_add_metadata_location()
  */
-void
-as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
+static void
+as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gboolean add_root)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean dir_added = FALSE;
@@ -1279,7 +1280,7 @@ as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
 		g_free (path);
 	}
 
-	if (!dir_added) {
+	if ((add_root) && (!dir_added)) {
 		/* we didn't find metadata-specific directories, so let's watch to root path for both YAML and XML */
 		g_ptr_array_add (priv->xml_dirs, g_strdup (directory));
 		g_ptr_array_add (priv->yaml_dirs, g_strdup (directory));
@@ -1291,6 +1292,22 @@ as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
 		g_ptr_array_add (priv->icon_dirs, path);
 	else
 		g_free (path);
+
+}
+
+/**
+ * as_pool_add_metadata_location:
+ * @pool: An instance of #AsPool.
+ * @directory: An existing filesystem location.
+ *
+ * Add a location for the data pool to read data from.
+ * If @directory contains a "xml", "xmls", "yaml" or "icons" subdirectory (or all of them),
+ * those paths will be added to the search paths instead.
+ */
+void
+as_pool_add_metadata_location (AsPool *pool, const gchar *directory)
+{
+	as_pool_add_metadata_location_internal (pool, directory, TRUE);
 
 }
 
