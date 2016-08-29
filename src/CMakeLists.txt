@@ -9,6 +9,9 @@ pkg_check_modules(YAML REQUIRED yaml-0.1)
 
 if (STEMMING)
 	find_library(SNOWBALL_LIB stemmer)
+	if (NOT SNOWBALL_LIB)
+		message (FATAL_ERROR "Stemming support is enabled, but libstemmer was not found. Please install the Snowball development files.")
+	endif ()
 endif ()
 
 include(GObjectIntrospectionMacros)
