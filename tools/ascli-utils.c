@@ -368,7 +368,8 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 										as_component_get_name (cpt)));
 			}
 			str = ascli_ptrarray_to_pretty (addons_str);
-			ascli_print_key_value (_("Addons"), str, FALSE);
+			/* TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor */
+			ascli_print_key_value (_("Add-ons"), str, FALSE);
 			g_free (str);
 		}
 

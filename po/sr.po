@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-27 21:27+0200\n"
+"POT-Creation-Date: 2016-08-29 23:16+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
@@ -34,7 +34,8 @@ msgid "Action"
 msgstr ""
 
 #. TRANSLATORS: this is the main category for Add-ons
-#: ../src/as-category.c:316
+#. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
+#: ../src/as-category.c:316 ../tools/ascli-utils.c:372
 msgid "Add-ons"
 msgstr ""
 
@@ -44,8 +45,8 @@ msgid "Adventure"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:151
-msgid "Also print pedantic hints when validating"
+#: ../tools/appstream-cli.c:152
+msgid "Also print pedantic hints when validating."
 msgstr ""
 
 #: ../tools/appstream-cli.c:61
@@ -53,7 +54,7 @@ msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:179
+#: ../tools/appstream-cli.c:180
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Издање командне алатке Програмског тока: %s"
@@ -64,16 +65,16 @@ msgid "AppStream Status:"
 msgstr ""
 
 #. TRANSLATORS: Updating the metadata cache succeeded
-#: ../tools/ascli-actions-mdata.c:74
+#: ../tools/ascli-actions-mdata.c:72
 msgid "AppStream cache update completed successfully."
 msgstr "Освежавање оставе Програмског тока је успешно обављено."
 
-#: ../src/as-pool.c:1226
+#: ../src/as-pool.c:1201
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Освежавање оставе Програмског тока није успело."
 
-#: ../tools/ascli-actions-mdata.c:84
+#: ../tools/ascli-actions-mdata.c:82
 msgid "AppStream cache update is not necessary."
 msgstr "Освежавање оставе Програмског тока није потребно."
 
@@ -82,7 +83,7 @@ msgstr "Освежавање оставе Програмског тока ниј
 msgid "AppStream command-line interface"
 msgstr "Наредбено сучеље Програмског тока"
 
-#: ../src/as-pool.c:1217
+#: ../src/as-pool.c:1192
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -136,7 +137,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Пакет"
 
-#: ../src/as-pool.c:1160
+#: ../src/as-pool.c:1135
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Место оставе „%s“ није за уписивање."
@@ -146,14 +147,14 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:333
+#: ../tools/ascli-actions-mdata.c:331
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
 
-#: ../src/as-pool.c:937 ../src/as-pool.c:945
+#: ../src/as-pool.c:914 ../src/as-pool.c:922
 msgid "Can not search for unknown component type."
 msgstr ""
 
@@ -187,7 +188,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:240
+#: ../tools/appstream-cli.c:243
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Наредба „%s“ није позната."
@@ -206,6 +207,10 @@ msgstr "Састојак „%s“ нема кандидата за инстал�
 #: ../tools/ascli-utils.c:356
 msgid "Compulsory for"
 msgstr "Обавезујући за"
+
+#: ../tools/appstream-cli.c:75
+msgid "Convert collection XML to YAML or vice versa."
+msgstr ""
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -226,7 +231,7 @@ msgid "Debuggers"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:146
+#: ../tools/appstream-cli.c:147
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
@@ -246,7 +251,7 @@ msgstr "Програмер"
 msgid "Developer Tools"
 msgstr "Програмер"
 
-#: ../tools/appstream-cli.c:74
+#: ../tools/appstream-cli.c:73
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 
@@ -256,13 +261,15 @@ msgid "Distribution metadata:"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:130
-msgid "Do not use the Xapian cache when performing the request"
+#: ../tools/appstream-cli.c:131
+#, fuzzy
+msgid "Do not use the Xapian cache when performing the request."
 msgstr "Не користи кеш Запијана (Xapian) приликом слања захтева"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:113
-msgid "Don't show colored output"
+#: ../tools/appstream-cli.c:114
+#, fuzzy
+msgid "Don't show colored output."
 msgstr "Не приказује обојени излаз"
 
 #: ../tools/appstream-cli.c:64
@@ -285,8 +292,9 @@ msgid "Emulators"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:118
-msgid "Enforce a cache refresh"
+#: ../tools/appstream-cli.c:119
+#, fuzzy
+msgid "Enforce a cache refresh."
 msgstr "Приморава освежавање оставе"
 
 #: ../tools/ascli-actions-misc.c:157
@@ -297,10 +305,6 @@ msgstr ""
 #: ../tools/ascli-utils.c:306
 msgid "Extends"
 msgstr "Проширује"
-
-#: ../tools/ascli-utils.c:364
-msgid "Extensions"
-msgstr "Проширења"
 
 #: ../src/as-category.c:61
 msgctxt "Category of AudioVideo"
@@ -426,7 +430,7 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr ""
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:74
 msgid "Install a metadata file into the right location."
 msgstr ""
 
@@ -434,7 +438,7 @@ msgstr ""
 msgid "Install software matching the component-id."
 msgstr "Инсталирајте софтвер који одговара иб-у састојка."
 
-#: ../tools/ascli-actions-mdata.c:212
+#: ../tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Изабрана је неисправна врста за достављену ставку. Исправне вредности су:"
@@ -474,15 +478,17 @@ msgid "Logic"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:141
-msgid "Manually set the location of AppStream metadata for cache regeneration"
+#: ../tools/appstream-cli.c:142
+#, fuzzy
+msgid "Manually set the location of AppStream metadata to scan."
 msgstr ""
 "Ручно поставите место метаподатака Програмског тока за поновно стварање "
 "оставе"
 
-#. TRANSLATORS: ascli flag description for: --dbpath
-#: ../tools/appstream-cli.c:136
-msgid "Manually set the location of the AppStream cache"
+#. TRANSLATORS: ascli flag description for: --cachepath
+#: ../tools/appstream-cli.c:137
+#, fuzzy
+msgid "Manually set the location of the AppStream cache."
 msgstr "Ручно поставите место оставе Програмског тока"
 
 #: ../src/as-category.c:107
@@ -493,6 +499,11 @@ msgstr ""
 #: ../src/as-category.c:239
 msgctxt "Category of Science"
 msgid "Math"
+msgstr ""
+
+#: ../tools/ascli-actions-mdata.c:368
+#, c-format
+msgid "Metadata file '%s' does not exist."
 msgstr ""
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
@@ -522,13 +533,13 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr ""
 
-#: ../tools/ascli-actions-mdata.c:181
+#: ../tools/ascli-actions-mdata.c:179
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Нисам нашао састојак који одговара „%s“."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: ../tools/ascli-actions-mdata.c:234
+#: ../tools/ascli-actions-mdata.c:232
 #, fuzzy, c-format
 msgid "No component providing '%s::%s' found."
 msgstr "Нисам нашао састојак који обезбеђује „%s;%s“."
@@ -545,7 +556,7 @@ msgstr ""
 "Нисам нашао одговарајућу конзолу управника пакета. Уверите се да је доступан "
 "нпр. „pkcon“ (део Пакетског комплета)."
 
-#: ../tools/ascli-actions-mdata.c:205
+#: ../tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for defined."
 msgstr "Нема вредности за ставку за тражење за одређене."
 
@@ -564,8 +575,9 @@ msgid "Photography"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:124
-msgid "Print detailed output about found components"
+#: ../tools/appstream-cli.c:125
+#, fuzzy
+msgid "Print detailed output about found components."
 msgstr "Исписује опширни излаз о нађеним састојцима"
 
 #. project group
@@ -573,7 +585,7 @@ msgstr "Исписује опширни излаз о нађеним састо�
 msgid "Project Group"
 msgstr "Група пројекта"
 
-#: ../tools/ascli-utils.c:371
+#: ../tools/ascli-utils.c:379
 msgid "Provided Items"
 msgstr "Обезбеђене ставке"
 
@@ -603,7 +615,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr ""
 
-#: ../tools/appstream-cli.c:171 ../tools/appstream-cli.c:191
+#: ../tools/appstream-cli.c:172 ../tools/appstream-cli.c:192
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -637,13 +649,15 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:108
-msgid "Show extra debugging information"
+#: ../tools/appstream-cli.c:109
+#, fuzzy
+msgid "Show extra debugging information."
 msgstr "Приказује додатне податке прочишћавања"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:102
-msgid "Show the program version"
+#: ../tools/appstream-cli.c:103
+#, fuzzy
+msgid "Show the program version."
 msgstr "Приказује издање програма"
 
 #: ../src/as-category.c:149
@@ -685,19 +699,26 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr ""
 
+#. TRANSLATORS: User is trying to convert a file in ascli
+#: ../tools/ascli-actions-mdata.c:394
+msgid ""
+"Unable to convert file: Could not determine output format, please set it "
+"explicitly using '--format='."
+msgstr ""
+
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
-#: ../tools/ascli-actions-mdata.c:176
+#: ../tools/ascli-actions-mdata.c:174
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Не могу да пронађем састојак који одговара „%s“!"
 
 #. TRANSLATORS: There was an error when trying to search for provided items (e.g. mimetypes)
-#: ../tools/ascli-actions-mdata.c:227
+#: ../tools/ascli-actions-mdata.c:225
 #, fuzzy, c-format
 msgid "Unable to find component providing '%s::%s': %s"
 msgstr "Не могу да нађем састојак који доставља „%s;%s“!"
 
-#: ../tools/ascli-actions-mdata.c:143 ../tools/ascli-actions-mdata.c:272
+#: ../tools/ascli-actions-mdata.c:141 ../tools/ascli-actions-mdata.c:270
 #: ../tools/ascli-actions-pkgmgr.c:93
 #, fuzzy, c-format
 msgid "Unable to find component with ID '%s'!"
@@ -708,7 +729,7 @@ msgstr "Не могу да пронађем састојак са иб-ом „%
 msgid "Unable to spawn package manager: %s"
 msgstr "Не могу да изродим управника пакета: %s"
 
-#: ../tools/ascli-actions-mdata.c:328
+#: ../tools/ascli-actions-mdata.c:326
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
@@ -771,18 +792,18 @@ msgid "Word Processor"
 msgstr ""
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
-#: ../tools/ascli-actions-mdata.c:64
+#: ../tools/ascli-actions-mdata.c:62
 msgid "You might need superuser permissions to perform this action."
 msgstr "Биће вам потребна овлашћења администратора за обављање ове радње."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:190
+#: ../tools/appstream-cli.c:191
 msgid "You need to specify a command."
 msgstr "Морате да наведете наредбу."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: ../tools/ascli-actions-mdata.c:131 ../tools/ascli-actions-mdata.c:260
+#: ../tools/ascli-actions-mdata.c:129 ../tools/ascli-actions-mdata.c:258
 #: ../tools/ascli-actions-pkgmgr.c:80
 #, fuzzy
 msgid "You need to specify a component-ID."
@@ -792,7 +813,7 @@ msgstr "Морате да наведете иб састојка."
 msgid "You need to specify a file to validate!"
 msgstr "Морате да наведете датотеку за потврђивање!"
 
-#: ../tools/ascli-actions-mdata.c:315
+#: ../tools/ascli-actions-mdata.c:313
 msgid "You need to specify a metadata file."
 msgstr ""
 
@@ -800,9 +821,14 @@ msgstr ""
 msgid "You need to specify a root directory to start validation!"
 msgstr "Морате навести фасциклу највишег нивоа за почињање потврђивања!"
 
-#: ../tools/ascli-actions-mdata.c:163
+#: ../tools/ascli-actions-mdata.c:161
 msgid "You need to specify a term to search for."
 msgstr "Морате да наведете појам за тражење."
+
+#: ../tools/ascli-actions-mdata.c:361
+#, fuzzy
+msgid "You need to specify an input and output file."
+msgstr "Морате да наведете наредбу."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -810,7 +836,7 @@ msgstr "Морате да наведете појам за тражење."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: ../src/as-pool.c:99
+#: ../src/as-pool.c:100
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;апп;апликација;пакет;"
@@ -827,6 +853,9 @@ msgstr ""
 #, fuzzy
 #~ msgid "Category of Science"
 #~ msgstr "Категорије"
+
+#~ msgid "Extensions"
+#~ msgstr "Проширења"
 
 #~ msgid "File %s not found or permission denied!"
 #~ msgstr "Нисам пронашао датотеку „%s“ или су овлашћења одбијена!"
