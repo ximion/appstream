@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-30 05:49+0200\n"
-"PO-Revision-Date: 2016-08-28 13:50+0000\n"
+"PO-Revision-Date: 2016-08-30 06:41+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,6 @@ msgstr "Avventura"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: ../tools/appstream-cli.c:153
-#, fuzzy
 msgid "Also print pedantic hints when validating."
 msgstr "Stampa suggerimenti prolissi durante la validazione"
 
@@ -208,13 +207,13 @@ msgstr "Obbligatorio per"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: ../tools/appstream-cli.c:76
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "Converte la collezione XML in YAML o vice versa"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: ../tools/ascli-actions-mdata.c:225
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Impossibile trovare un componente che fornisca \"%s::%s\": %s"
+msgstr "Impossibile trovare un componente che fornisca \"%s::%s\"."
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -268,13 +267,11 @@ msgstr "Metadati della distribuzione:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: ../tools/appstream-cli.c:132
-#, fuzzy
 msgid "Do not use the Xapian cache when performing the request."
 msgstr "Non usa la cache Xapian durante le richieste"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: ../tools/appstream-cli.c:115
-#, fuzzy
 msgid "Don't show colored output."
 msgstr "Non mostra output colorato"
 
@@ -300,7 +297,6 @@ msgstr "Emulatori"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: ../tools/appstream-cli.c:120
-#, fuzzy
 msgid "Enforce a cache refresh."
 msgstr "Forza l'aggiornamento della cache"
 
@@ -484,15 +480,11 @@ msgstr "Logica"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: ../tools/appstream-cli.c:143
-#, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr ""
-"Imposta manualmente la posizione dei metadati AppStream per la rigenerazione "
-"della cache"
+msgstr "Imposta manualmente la posizione dei metadati AppStream da analizzare"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: ../tools/appstream-cli.c:138
-#, fuzzy
 msgid "Manually set the location of the AppStream cache."
 msgstr "Imposta manualmente la posizione della cache AppStream"
 
@@ -509,7 +501,7 @@ msgstr "Matematica"
 #: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "Il file dei metadati \"%s\" non esiste."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: ../tools/ascli-actions-misc.c:114
@@ -575,7 +567,6 @@ msgstr "Fotografia"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: ../tools/appstream-cli.c:126
-#, fuzzy
 msgid "Print detailed output about found components."
 msgstr "Stampa informazioni dettagliate riguardo ai componenti trovati"
 
@@ -649,13 +640,11 @@ msgstr "Sicurezza"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: ../tools/appstream-cli.c:110
-#, fuzzy
 msgid "Show extra debugging information."
 msgstr "Mostra informazioni aggiuntive di debug"
 
 #. TRANSLATORS: ascli flag description for: --version
 #: ../tools/appstream-cli.c:104
-#, fuzzy
 msgid "Show the program version."
 msgstr "Mostra la versione del programma"
 
@@ -704,6 +693,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Impossibile convertire il file: impossibile determinare il formato di "
+"uscita, impostarlo esplicitamente con \"--format=\"."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: ../tools/ascli-actions-mdata.c:174
@@ -823,9 +814,8 @@ msgid "You need to specify a term to search for."
 msgstr "È necessario specificare un termine da cercare."
 
 #: ../tools/ascli-actions-mdata.c:354
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "È necessario specificare un file di metadati."
+msgstr "È necessario specificare un file di ingresso e di uscita."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
