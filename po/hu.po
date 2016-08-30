@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 18:23+0200\n"
+"POT-Creation-Date: 2016-08-30 22:44+0200\n"
 "PO-Revision-Date: 2016-08-29 13:42+0000\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -20,23 +20,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.8-dev\n"
 
-#: ../src/as-category.c:164
+#: ../src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
 msgstr "3D grafika"
 
-#: ../src/as-category.c:119
+#: ../src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
 msgstr "Akció"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: ../src/as-category.c:316 ../tools/ascli-utils.c:372
+#: ../src/as-category.c:320 ../tools/ascli-utils.c:372
 msgid "Add-ons"
 msgstr "Kiegészítők"
 
-#: ../src/as-category.c:122
+#: ../src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
 msgstr "Kaland"
@@ -67,7 +67,7 @@ msgstr "AppStream állapot:"
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
 
-#: ../src/as-pool.c:1195
+#: ../src/as-pool.c:1196
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
@@ -81,7 +81,7 @@ msgstr "Az AppStream gyorsítótár frissítése nem szükséges."
 msgid "AppStream command-line interface"
 msgstr "AppStream parancssoros felület"
 
-#: ../src/as-pool.c:1186
+#: ../src/as-pool.c:1187
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -89,32 +89,32 @@ msgstr ""
 "Az AppStream adattároló be lett töltve, de néhány metaadat mellőzve lett a "
 "hibák miatt."
 
-#: ../src/as-category.c:125
+#: ../src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
 msgstr "Ügyességi"
 
-#: ../src/as-category.c:230
+#: ../src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
 msgstr "Mesterséges intelligencia"
 
-#: ../src/as-category.c:97
+#: ../src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
 msgstr "Csillagászat"
 
-#: ../src/as-category.c:233
+#: ../src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
 msgstr "Csillagászat"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
-#: ../src/as-category.c:298
+#: ../src/as-category.c:302
 msgid "Audio & Video"
 msgstr "Hang/videó"
 
-#: ../src/as-category.c:64
+#: ../src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Zeneszerkesztés"
@@ -123,12 +123,12 @@ msgstr "Zeneszerkesztés"
 msgid "Binaries"
 msgstr "Binárisok"
 
-#: ../src/as-category.c:128
+#: ../src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
 msgstr "Kockák"
 
-#: ../src/as-category.c:131
+#: ../src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
 msgstr "Tábla"
@@ -137,12 +137,12 @@ msgstr "Tábla"
 msgid "Bundle"
 msgstr "Csomag"
 
-#: ../src/as-pool.c:1129
+#: ../src/as-pool.c:1130
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "„%s” gyorsítótárhely nem írható."
 
-#: ../src/as-category.c:187
+#: ../src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Naptár"
@@ -156,7 +156,7 @@ msgstr ""
 "A(z) „%s” nem másolható: a fájlnak nincs „.metainfo.xml” vagy „.appdata.xml” "
 "végződése."
 
-#: ../src/as-category.c:134
+#: ../src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kártya"
@@ -165,22 +165,22 @@ msgstr "Kártya"
 msgid "Categories"
 msgstr "Kategóriák"
 
-#: ../src/as-category.c:255
+#: ../src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "Csevegés"
 
-#: ../src/as-category.c:100
+#: ../src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
 msgstr "Kémia"
 
-#: ../src/as-category.c:236
+#: ../src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
 msgstr "Kémia"
 
-#: ../src/as-category.c:210
+#: ../src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Kodekek"
@@ -192,7 +192,7 @@ msgid "Command '%s' is unknown."
 msgstr "A(z) „%s” parancs ismeretlen."
 
 #. TRANSLATORS: this is the menu spec main category for Communication
-#: ../src/as-category.c:322
+#: ../src/as-category.c:326
 msgid "Communication & News"
 msgstr "Kommunikáció és hírek"
 
@@ -225,12 +225,12 @@ msgstr "D-Bus munkamenet-szolgáltatások"
 msgid "DBus System Services"
 msgstr "D-Bus rendszerszolgáltatások"
 
-#: ../src/as-category.c:191
+#: ../src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
 msgstr "Adatbázis"
 
-#: ../src/as-category.c:82
+#: ../src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Hibakeresők"
@@ -253,7 +253,7 @@ msgid "Developer"
 msgstr "Fejlesztő"
 
 #. TRANSLATORS: this is the menu spec main category for Development
-#: ../src/as-category.c:301
+#: ../src/as-category.c:305
 msgid "Developer Tools"
 msgstr "Fejlesztői eszközök"
 
@@ -283,7 +283,7 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz."
 
 #. TRANSLATORS: this is the menu spec main category for Education
-#: ../src/as-category.c:304
+#: ../src/as-category.c:308
 msgid "Education"
 msgstr "Oktatás"
 
@@ -292,7 +292,7 @@ msgstr "Oktatás"
 msgid "Empty."
 msgstr "Üres."
 
-#: ../src/as-category.c:137
+#: ../src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
 msgstr "Emulátorok"
@@ -312,57 +312,57 @@ msgstr "Hiba a metaadat-tároló betöltésekor: %s"
 msgid "Extends"
 msgstr "Kibővíti"
 
-#: ../src/as-category.c:61
+#: ../src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:252
+#: ../src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:79
+#: ../src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:94
+#: ../src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:116
+#: ../src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:161
+#: ../src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:184
+#: ../src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:227
+#: ../src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:274
+#: ../src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: ../src/as-category.c:283
+#: ../src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
 msgstr "Fájlrendszer"
 
-#: ../src/as-category.c:194
+#: ../src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Pénzügy"
@@ -375,7 +375,7 @@ msgstr "Flashelt firmware"
 msgid "Fonts"
 msgstr "Betűkészletek"
 
-#: ../src/as-category.c:207
+#: ../src/as-category.c:211
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Betűkészletek"
@@ -392,7 +392,7 @@ msgid "Found %i components."
 msgstr "%i komponens található."
 
 #. TRANSLATORS: this is the menu spec main category for Game
-#: ../src/as-category.c:307
+#: ../src/as-category.c:311
 msgid "Games"
 msgstr "Játékok"
 
@@ -405,7 +405,7 @@ msgid "Get information about a component by its ID."
 msgstr "Információk kérése egy összetevőről az azonosítója szerint."
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
-#: ../src/as-category.c:310
+#: ../src/as-category.c:314
 msgid "Graphics & Photography"
 msgstr "Grafika és fényképészet"
 
@@ -413,7 +413,7 @@ msgstr "Grafika és fényképészet"
 msgid "Homepage"
 msgstr "Honlap"
 
-#: ../src/as-category.c:85
+#: ../src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE-k"
@@ -430,7 +430,7 @@ msgstr "Ikonkészletek"
 msgid "Identifier"
 msgstr "Azonosító"
 
-#: ../src/as-category.c:213
+#: ../src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Beviteli források"
@@ -448,17 +448,17 @@ msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Érvénytelen típus a kiválasztott biztosított elemhez. Az érvényes értékek:"
 
-#: ../src/as-category.c:140
+#: ../src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "Gyerekjátékok"
 
-#: ../src/as-category.c:216
+#: ../src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
 msgstr "Nyelvi csomagok"
 
-#: ../src/as-category.c:103
+#: ../src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Nyelvek"
@@ -472,12 +472,12 @@ msgstr "Programkönyvtárak"
 msgid "License"
 msgstr "Licenc"
 
-#: ../src/as-category.c:219
+#: ../src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
 msgstr "Lokalizáció"
 
-#: ../src/as-category.c:143
+#: ../src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logikai"
@@ -496,12 +496,12 @@ msgstr ""
 msgid "Manually set the location of the AppStream cache."
 msgstr "Az AppStream gyorsítótár helyének kézi beállítása"
 
-#: ../src/as-category.c:107
+#: ../src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
 msgstr "Matematika"
 
-#: ../src/as-category.c:239
+#: ../src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematika"
@@ -524,7 +524,7 @@ msgstr "MIME-típusok"
 msgid "Modaliases"
 msgstr "Modaliasok"
 
-#: ../src/as-category.c:70
+#: ../src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Zenelejátszók"
@@ -533,7 +533,7 @@ msgstr "Zenelejátszók"
 msgid "Name"
 msgstr "Név"
 
-#: ../src/as-category.c:262
+#: ../src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
 msgstr "Hírek"
@@ -560,7 +560,7 @@ msgid "No value for the item to search for defined."
 msgstr "Nincs érték az elemhez a meghatározott kereséséhez."
 
 #. TRANSLATORS: this is the menu spec main category for Office
-#: ../src/as-category.c:313
+#: ../src/as-category.c:317
 msgid "Office"
 msgstr "Iroda"
 
@@ -568,7 +568,7 @@ msgstr "Iroda"
 msgid "Package"
 msgstr "Csomag"
 
-#: ../src/as-category.c:167
+#: ../src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
 msgstr "Fényképészet"
@@ -604,12 +604,12 @@ msgstr "Az összetevő-metaadat gyorsítótár újraépítése."
 msgid "Remove software matching the component-id."
 msgstr "A component-id-nek megfelelő szoftver eltávolítása."
 
-#: ../src/as-category.c:244
+#: ../src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
 msgstr "Robotika"
 
-#: ../src/as-category.c:146
+#: ../src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Szerepjátékok"
@@ -629,13 +629,13 @@ msgstr "Futásidejű firmware"
 msgid "Sample Screenshot URL"
 msgstr "Minta képernyőkép URL"
 
-#: ../src/as-category.c:170
+#: ../src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "Képolvasás"
 
 #. TRANSLATORS: this is the menu spec main category for Science
-#: ../src/as-category.c:319
+#: ../src/as-category.c:323
 msgid "Science"
 msgstr "Tudomány"
 
@@ -643,7 +643,7 @@ msgstr "Tudomány"
 msgid "Search the component database."
 msgstr "Keresés az összetevő adatbázisban."
 
-#: ../src/as-category.c:289
+#: ../src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "Biztonság"
@@ -660,12 +660,12 @@ msgstr "További hibakeresési információk megjelenítése"
 msgid "Show the program version."
 msgstr "A programverzió megjelenítése"
 
-#: ../src/as-category.c:149
+#: ../src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
 msgstr "Sport"
 
-#: ../src/as-category.c:153
+#: ../src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "Stratégia"
@@ -684,17 +684,17 @@ msgstr "Összegzés"
 msgid "Summary:"
 msgstr "Összegzés:"
 
-#: ../src/as-category.c:286
+#: ../src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
 msgstr "Rendszerfigyelés"
 
-#: ../src/as-category.c:280
+#: ../src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
 msgstr "Terminálemulátorok"
 
-#: ../src/as-category.c:277
+#: ../src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Szövegszerkesztők"
@@ -729,7 +729,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
-#: ../src/as-category.c:325
+#: ../src/as-category.c:329
 msgid "Utilities"
 msgstr "Segédprogramok"
 
@@ -754,7 +754,7 @@ msgstr "Az ellenőrzés sikeres volt."
 msgid "Value of the item that should be found."
 msgstr "A keresendő elemérték."
 
-#: ../src/as-category.c:173
+#: ../src/as-category.c:177
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "Vektorgrafika"
@@ -764,7 +764,7 @@ msgstr "Vektorgrafika"
 msgid "Version: %s"
 msgstr "Verzió: %s"
 
-#: ../src/as-category.c:176
+#: ../src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Megjelenítők"
@@ -774,12 +774,12 @@ msgstr "Megjelenítők"
 msgid "We have information on %i software components."
 msgstr "%i szoftverkomponensről van információnk."
 
-#: ../src/as-category.c:266
+#: ../src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
 msgstr "Webböngészők"
 
-#: ../src/as-category.c:198
+#: ../src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Szövegszerkesztő"
@@ -828,7 +828,7 @@ msgstr "Meg kell adnia egy metaadatfájlt."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: ../src/as-pool.c:100
+#: ../src/as-pool.c:101
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
 

@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 18:23+0200\n"
+"POT-Creation-Date: 2016-08-30 22:44+0200\n"
 "PO-Revision-Date: 2016-08-30 17:46+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish "
-"<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
+"translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,23 +21,23 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.8-dev\n"
 
-#: ../src/as-category.c:164
+#: ../src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
 msgstr "Grafika 3D"
 
-#: ../src/as-category.c:119
+#: ../src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
 msgstr "Gry akcji"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: ../src/as-category.c:316 ../tools/ascli-utils.c:372
+#: ../src/as-category.c:320 ../tools/ascli-utils.c:372
 msgid "Add-ons"
 msgstr "Dodatki"
 
-#: ../src/as-category.c:122
+#: ../src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
 msgstr "Gry przygodowe"
@@ -67,7 +67,7 @@ msgstr "Stan AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
 
-#: ../src/as-pool.c:1195
+#: ../src/as-pool.c:1196
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
@@ -81,7 +81,7 @@ msgstr "Aktualizacja pamięci podręcznej AppStream jest niepotrzebna."
 msgid "AppStream command-line interface"
 msgstr "Interfejs wiersza poleceń AppStream"
 
-#: ../src/as-pool.c:1186
+#: ../src/as-pool.c:1187
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -89,32 +89,32 @@ msgstr ""
 "Wczytano pulę danych AppStream, ale zignorowano część metadanych z powodu "
 "błędów."
 
-#: ../src/as-category.c:125
+#: ../src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
 msgstr "Gry platformowe"
 
-#: ../src/as-category.c:230
+#: ../src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
 msgstr "Sztuczna inteligencja"
 
-#: ../src/as-category.c:97
+#: ../src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
 msgstr "Astronomia"
 
-#: ../src/as-category.c:233
+#: ../src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
 msgstr "Astronomia"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
-#: ../src/as-category.c:298
+#: ../src/as-category.c:302
 msgid "Audio & Video"
 msgstr "Dźwięk i obraz"
 
-#: ../src/as-category.c:64
+#: ../src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Tworzenie i edycja dźwięku"
@@ -123,12 +123,12 @@ msgstr "Tworzenie i edycja dźwięku"
 msgid "Binaries"
 msgstr "Pliki binarne"
 
-#: ../src/as-category.c:128
+#: ../src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
 msgstr "Gry w klocki"
 
-#: ../src/as-category.c:131
+#: ../src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
 msgstr "Gry planszowe"
@@ -137,12 +137,12 @@ msgstr "Gry planszowe"
 msgid "Bundle"
 msgstr "Paczka"
 
-#: ../src/as-pool.c:1129
+#: ../src/as-pool.c:1130
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Położenie pamięci podręcznej „%s” nie jest zapisywalne."
 
-#: ../src/as-category.c:187
+#: ../src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Kalendarze"
@@ -156,7 +156,7 @@ msgstr ""
 "Nie można skopiować „%s”: plik nie posiada przyrostka „.metainfo.xml” lub „."
 "appdata.xml”."
 
-#: ../src/as-category.c:134
+#: ../src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
 msgstr "Gry karciane"
@@ -165,22 +165,22 @@ msgstr "Gry karciane"
 msgid "Categories"
 msgstr "Kategorie"
 
-#: ../src/as-category.c:255
+#: ../src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "Czaty"
 
-#: ../src/as-category.c:100
+#: ../src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
 msgstr "Chemia"
 
-#: ../src/as-category.c:236
+#: ../src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
 msgstr "Chemia"
 
-#: ../src/as-category.c:210
+#: ../src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Kodeki"
@@ -192,7 +192,7 @@ msgid "Command '%s' is unknown."
 msgstr "Nieznane polecenie „%s”."
 
 #. TRANSLATORS: this is the menu spec main category for Communication
-#: ../src/as-category.c:322
+#: ../src/as-category.c:326
 msgid "Communication & News"
 msgstr "Komunikacja i aktualności"
 
@@ -225,12 +225,12 @@ msgstr "Usługi sesji D-Bus"
 msgid "DBus System Services"
 msgstr "Usługi systemowe D-Bus"
 
-#: ../src/as-category.c:191
+#: ../src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
 msgstr "Bazy danych"
 
-#: ../src/as-category.c:82
+#: ../src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Debugery"
@@ -253,7 +253,7 @@ msgid "Developer"
 msgstr "Programista"
 
 #. TRANSLATORS: this is the menu spec main category for Development
-#: ../src/as-category.c:301
+#: ../src/as-category.c:305
 msgid "Developer Tools"
 msgstr "Narzędzia programistyczne"
 
@@ -281,7 +281,7 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Zrzuca surowe metadane XML dla składnika pasującego do identyfikatora."
 
 #. TRANSLATORS: this is the menu spec main category for Education
-#: ../src/as-category.c:304
+#: ../src/as-category.c:308
 msgid "Education"
 msgstr "Edukacja"
 
@@ -290,7 +290,7 @@ msgstr "Edukacja"
 msgid "Empty."
 msgstr "Puste."
 
-#: ../src/as-category.c:137
+#: ../src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
 msgstr "Emulatory"
@@ -309,57 +309,57 @@ msgstr "Błąd podczas wczytywania puli metadanych: %s"
 msgid "Extends"
 msgstr "Rozszerza"
 
-#: ../src/as-category.c:61
+#: ../src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:252
+#: ../src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:79
+#: ../src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:94
+#: ../src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:116
+#: ../src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:161
+#: ../src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:184
+#: ../src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:227
+#: ../src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:274
+#: ../src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "Polecane"
 
-#: ../src/as-category.c:283
+#: ../src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
 msgstr "Systemy plików"
 
-#: ../src/as-category.c:194
+#: ../src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Finanse"
@@ -372,7 +372,7 @@ msgstr "Wgrane oprogramowanie sprzętowe"
 msgid "Fonts"
 msgstr "Czcionki"
 
-#: ../src/as-category.c:207
+#: ../src/as-category.c:211
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Czcionki"
@@ -389,7 +389,7 @@ msgid "Found %i components."
 msgstr "Odnaleziono składniki: %i."
 
 #. TRANSLATORS: this is the menu spec main category for Game
-#: ../src/as-category.c:307
+#: ../src/as-category.c:311
 msgid "Games"
 msgstr "Gry"
 
@@ -402,7 +402,7 @@ msgid "Get information about a component by its ID."
 msgstr "Pobiera informacje o składniku według jego identyfikatora."
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
-#: ../src/as-category.c:310
+#: ../src/as-category.c:314
 msgid "Graphics & Photography"
 msgstr "Grafika i fotografia"
 
@@ -410,7 +410,7 @@ msgstr "Grafika i fotografia"
 msgid "Homepage"
 msgstr "Strona domowa"
 
-#: ../src/as-category.c:85
+#: ../src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Środowiska programistyczne"
@@ -427,7 +427,7 @@ msgstr "Zestawy ikon"
 msgid "Identifier"
 msgstr "Identyfikator"
 
-#: ../src/as-category.c:213
+#: ../src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Źródła wprowadzania"
@@ -444,17 +444,17 @@ msgstr "Instaluje oprogramowanie pasujące do identyfikatora składnika."
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Wybrano nieprawidłowy typ dla podanego elementu. Prawidłowe wartości:"
 
-#: ../src/as-category.c:140
+#: ../src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "Gry dla dzieci"
 
-#: ../src/as-category.c:216
+#: ../src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
 msgstr "Pakiety językowe"
 
-#: ../src/as-category.c:103
+#: ../src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Języki"
@@ -468,12 +468,12 @@ msgstr "Biblioteki"
 msgid "License"
 msgstr "Licencja"
 
-#: ../src/as-category.c:219
+#: ../src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
 msgstr "Tłumaczenia"
 
-#: ../src/as-category.c:143
+#: ../src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Gry logiczne"
@@ -488,12 +488,12 @@ msgstr "Ręcznie ustawia położenie metadanych AppStream do skanowania."
 msgid "Manually set the location of the AppStream cache."
 msgstr "Ręcznie ustawia położenie pamięci podręcznej AppStream."
 
-#: ../src/as-category.c:107
+#: ../src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
 msgstr "Matematyka"
 
-#: ../src/as-category.c:239
+#: ../src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematyka"
@@ -516,7 +516,7 @@ msgstr "Typy MIME"
 msgid "Modaliases"
 msgstr "Pliki „modalias”"
 
-#: ../src/as-category.c:70
+#: ../src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Odtwarzacze muzyki"
@@ -525,7 +525,7 @@ msgstr "Odtwarzacze muzyki"
 msgid "Name"
 msgstr "Nazwa"
 
-#: ../src/as-category.c:262
+#: ../src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
 msgstr "Aktualności"
@@ -553,7 +553,7 @@ msgid "No value for the item to search for defined."
 msgstr "Nie określono wartości dla wyszukiwanego elementu."
 
 #. TRANSLATORS: this is the menu spec main category for Office
-#: ../src/as-category.c:313
+#: ../src/as-category.c:317
 msgid "Office"
 msgstr "Biuro"
 
@@ -561,7 +561,7 @@ msgstr "Biuro"
 msgid "Package"
 msgstr "Pakiet"
 
-#: ../src/as-category.c:167
+#: ../src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
 msgstr "Fotografia"
@@ -596,12 +596,12 @@ msgstr "Ponownie buduje pamięć podręczną metadanych składników."
 msgid "Remove software matching the component-id."
 msgstr "Usuwa oprogramowanie pasujące do identyfikatora składnika."
 
-#: ../src/as-category.c:244
+#: ../src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
 msgstr "Robotyka"
 
-#: ../src/as-category.c:146
+#: ../src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Gry fabularne"
@@ -620,13 +620,13 @@ msgstr "Oprogramowanie sprzętowe wgrywane podczas uruchamiania systemu"
 msgid "Sample Screenshot URL"
 msgstr "Przykładowy adres URL zrzutu ekranu"
 
-#: ../src/as-category.c:170
+#: ../src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "Skanowanie"
 
 #. TRANSLATORS: this is the menu spec main category for Science
-#: ../src/as-category.c:319
+#: ../src/as-category.c:323
 msgid "Science"
 msgstr "Nauka"
 
@@ -634,7 +634,7 @@ msgstr "Nauka"
 msgid "Search the component database."
 msgstr "Przeszukuje bazę danych składników."
 
-#: ../src/as-category.c:289
+#: ../src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "Bezpieczeństwo"
@@ -649,12 +649,12 @@ msgstr "Wyświetla dodatkowe informacje debugowania."
 msgid "Show the program version."
 msgstr "Wyświetla wersję programu."
 
-#: ../src/as-category.c:149
+#: ../src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
 msgstr "Gry sportowe"
 
-#: ../src/as-category.c:153
+#: ../src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "Gry strategiczne"
@@ -673,17 +673,17 @@ msgstr "Podsumowanie"
 msgid "Summary:"
 msgstr "Podsumowanie:"
 
-#: ../src/as-category.c:286
+#: ../src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
 msgstr "Monitorowanie komputera"
 
-#: ../src/as-category.c:280
+#: ../src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
 msgstr "Emulatory terminala"
 
-#: ../src/as-category.c:277
+#: ../src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Edytory tekstu"
@@ -720,7 +720,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nie można zapisać do „%s”, nie można zainstalować pliku metainfo."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
-#: ../src/as-category.c:325
+#: ../src/as-category.c:329
 msgid "Utilities"
 msgstr "Narzędzia"
 
@@ -744,7 +744,7 @@ msgstr "Pomyślnie sprawdzono poprawność."
 msgid "Value of the item that should be found."
 msgstr "Wartość wyszukiwanego elementu."
 
-#: ../src/as-category.c:173
+#: ../src/as-category.c:177
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "Grafika wektorowa"
@@ -754,7 +754,7 @@ msgstr "Grafika wektorowa"
 msgid "Version: %s"
 msgstr "Wersja: %s"
 
-#: ../src/as-category.c:176
+#: ../src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Przeglądarki"
@@ -764,12 +764,12 @@ msgstr "Przeglądarki"
 msgid "We have information on %i software components."
 msgstr "Informacje o składnikach oprogramowania: %i."
 
-#: ../src/as-category.c:266
+#: ../src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
 msgstr "Przeglądarki WWW"
 
-#: ../src/as-category.c:198
+#: ../src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Procesory tekstu"
@@ -817,7 +817,7 @@ msgstr "Należy podać plik wejściowy i wyjściowy."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: ../src/as-pool.c:100
+#: ../src/as-pool.c:101
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;"

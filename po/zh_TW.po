@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 18:23+0200\n"
+"POT-Creation-Date: 2016-08-30 22:44+0200\n"
 "PO-Revision-Date: 2016-08-30 23:52+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -20,23 +20,23 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: ../src/as-category.c:164
+#: ../src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
 msgstr "3D 圖形"
 
-#: ../src/as-category.c:119
+#: ../src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
 msgstr "動作"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: ../src/as-category.c:316 ../tools/ascli-utils.c:372
+#: ../src/as-category.c:320 ../tools/ascli-utils.c:372
 msgid "Add-ons"
 msgstr "附加元件"
 
-#: ../src/as-category.c:122
+#: ../src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
 msgstr "冒險"
@@ -66,7 +66,7 @@ msgstr "AppStream 狀態："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
 
-#: ../src/as-pool.c:1195
+#: ../src/as-pool.c:1196
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "AppStream 快取更新失敗。"
@@ -80,38 +80,38 @@ msgstr "不必更新 AppStream 快取。"
 msgid "AppStream command-line interface"
 msgstr "AppStream 指令列介面"
 
-#: ../src/as-pool.c:1186
+#: ../src/as-pool.c:1187
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr "已載入 AppStrem 資料集池，但是有些中介資料因錯誤而忽略。"
 
-#: ../src/as-category.c:125
+#: ../src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
 msgstr "機臺"
 
-#: ../src/as-category.c:230
+#: ../src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
 msgstr "人工智慧"
 
-#: ../src/as-category.c:97
+#: ../src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
 msgstr "天文"
 
-#: ../src/as-category.c:233
+#: ../src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
 msgstr "天文"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
-#: ../src/as-category.c:298
+#: ../src/as-category.c:302
 msgid "Audio & Video"
 msgstr "音訊和視訊"
 
-#: ../src/as-category.c:64
+#: ../src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "音訊創作和編輯"
@@ -120,12 +120,12 @@ msgstr "音訊創作和編輯"
 msgid "Binaries"
 msgstr "二進位檔"
 
-#: ../src/as-category.c:128
+#: ../src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
 msgstr "方塊"
 
-#: ../src/as-category.c:131
+#: ../src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
 msgstr "棋盤"
@@ -134,12 +134,12 @@ msgstr "棋盤"
 msgid "Bundle"
 msgstr "套組"
 
-#: ../src/as-pool.c:1129
+#: ../src/as-pool.c:1130
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "無法寫入「%s」快取位置。"
 
-#: ../src/as-category.c:187
+#: ../src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "行事曆"
@@ -151,7 +151,7 @@ msgid ""
 "suffix."
 msgstr "無法複製「%s」：檔案沒有「.metainfo.xml」或「.appdata.xml」後綴字。"
 
-#: ../src/as-category.c:134
+#: ../src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
 msgstr "紙牌"
@@ -160,22 +160,22 @@ msgstr "紙牌"
 msgid "Categories"
 msgstr "類別"
 
-#: ../src/as-category.c:255
+#: ../src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "聊天"
 
-#: ../src/as-category.c:100
+#: ../src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
 msgstr "化學"
 
-#: ../src/as-category.c:236
+#: ../src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
 msgstr "化學"
 
-#: ../src/as-category.c:210
+#: ../src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "編解碼器"
@@ -187,7 +187,7 @@ msgid "Command '%s' is unknown."
 msgstr "指令「%s」未知。"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
-#: ../src/as-category.c:322
+#: ../src/as-category.c:326
 msgid "Communication & News"
 msgstr "溝通和新聞"
 
@@ -220,12 +220,12 @@ msgstr "DBus 作業階段服務"
 msgid "DBus System Services"
 msgstr "DBus 系統服務"
 
-#: ../src/as-category.c:191
+#: ../src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
 msgstr "資料庫"
 
-#: ../src/as-category.c:82
+#: ../src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "除錯器"
@@ -246,7 +246,7 @@ msgid "Developer"
 msgstr "開發者"
 
 #. TRANSLATORS: this is the menu spec main category for Development
-#: ../src/as-category.c:301
+#: ../src/as-category.c:305
 msgid "Developer Tools"
 msgstr "開發者工具"
 
@@ -275,7 +275,7 @@ msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
 #. TRANSLATORS: this is the menu spec main category for Education
-#: ../src/as-category.c:304
+#: ../src/as-category.c:308
 msgid "Education"
 msgstr "教育"
 
@@ -284,7 +284,7 @@ msgstr "教育"
 msgid "Empty."
 msgstr "空的。"
 
-#: ../src/as-category.c:137
+#: ../src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
 msgstr "模擬器"
@@ -303,57 +303,57 @@ msgstr "載入中介資料集池時發生錯誤：%s"
 msgid "Extends"
 msgstr "擴展"
 
-#: ../src/as-category.c:61
+#: ../src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:252
+#: ../src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:79
+#: ../src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:94
+#: ../src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:116
+#: ../src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:161
+#: ../src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:184
+#: ../src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:227
+#: ../src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:274
+#: ../src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "特選"
 
-#: ../src/as-category.c:283
+#: ../src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
 msgstr "檔案系統"
 
-#: ../src/as-category.c:194
+#: ../src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
 msgstr "財經"
@@ -366,7 +366,7 @@ msgstr "快閃記憶韌體"
 msgid "Fonts"
 msgstr "字型"
 
-#: ../src/as-category.c:207
+#: ../src/as-category.c:211
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "字型"
@@ -383,7 +383,7 @@ msgid "Found %i components."
 msgstr "找到 %i 個組件。"
 
 #. TRANSLATORS: this is the menu spec main category for Game
-#: ../src/as-category.c:307
+#: ../src/as-category.c:311
 msgid "Games"
 msgstr "遊戲"
 
@@ -396,7 +396,7 @@ msgid "Get information about a component by its ID."
 msgstr "根據 ID 取得組件的資訊。"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
-#: ../src/as-category.c:310
+#: ../src/as-category.c:314
 msgid "Graphics & Photography"
 msgstr "圖形和攝影"
 
@@ -404,7 +404,7 @@ msgstr "圖形和攝影"
 msgid "Homepage"
 msgstr "首頁"
 
-#: ../src/as-category.c:85
+#: ../src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE"
@@ -421,7 +421,7 @@ msgstr "圖示集"
 msgid "Identifier"
 msgstr "辨識碼"
 
-#: ../src/as-category.c:213
+#: ../src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "輸入來源"
@@ -438,17 +438,17 @@ msgstr "安裝符合組件 ID 的軟體。"
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "選取的供應項目類型無效。有效的值有："
 
-#: ../src/as-category.c:140
+#: ../src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "孩童"
 
-#: ../src/as-category.c:216
+#: ../src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
 msgstr "語言包"
 
-#: ../src/as-category.c:103
+#: ../src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
 msgstr "語言"
@@ -462,12 +462,12 @@ msgstr "函式庫"
 msgid "License"
 msgstr "授權條款"
 
-#: ../src/as-category.c:219
+#: ../src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
 msgstr "在地化"
 
-#: ../src/as-category.c:143
+#: ../src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
 msgstr "邏輯"
@@ -482,12 +482,12 @@ msgstr "手動設定要掃描的 AppStream 中介資料位置。"
 msgid "Manually set the location of the AppStream cache."
 msgstr "手動設定 AppStream 快取的位置。"
 
-#: ../src/as-category.c:107
+#: ../src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
 msgstr "數學"
 
-#: ../src/as-category.c:239
+#: ../src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "數學"
@@ -510,7 +510,7 @@ msgstr "Mimetypes"
 msgid "Modaliases"
 msgstr "Modaliases"
 
-#: ../src/as-category.c:70
+#: ../src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "音樂播放器"
@@ -519,7 +519,7 @@ msgstr "音樂播放器"
 msgid "Name"
 msgstr "名稱"
 
-#: ../src/as-category.c:262
+#: ../src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
 msgstr "新聞"
@@ -546,7 +546,7 @@ msgid "No value for the item to search for defined."
 msgstr "要搜尋的項目未定義該值。"
 
 #. TRANSLATORS: this is the menu spec main category for Office
-#: ../src/as-category.c:313
+#: ../src/as-category.c:317
 msgid "Office"
 msgstr "辦公"
 
@@ -554,7 +554,7 @@ msgstr "辦公"
 msgid "Package"
 msgstr "軟體包"
 
-#: ../src/as-category.c:167
+#: ../src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
 msgstr "攝影"
@@ -589,12 +589,12 @@ msgstr "重建組件的中介資料快取。"
 msgid "Remove software matching the component-id."
 msgstr "移除符合該組件 ID 的軟體。"
 
-#: ../src/as-category.c:244
+#: ../src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
 msgstr "機器人"
 
-#: ../src/as-category.c:146
+#: ../src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "角色扮演"
@@ -612,13 +612,13 @@ msgstr "執行時期韌體"
 msgid "Sample Screenshot URL"
 msgstr "樣本螢幕快照 URL"
 
-#: ../src/as-category.c:170
+#: ../src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "掃描"
 
 #. TRANSLATORS: this is the menu spec main category for Science
-#: ../src/as-category.c:319
+#: ../src/as-category.c:323
 msgid "Science"
 msgstr "科學"
 
@@ -626,7 +626,7 @@ msgstr "科學"
 msgid "Search the component database."
 msgstr "搜尋組件資料庫。"
 
-#: ../src/as-category.c:289
+#: ../src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "安全"
@@ -641,12 +641,12 @@ msgstr "顯示額外除錯資訊。"
 msgid "Show the program version."
 msgstr "顯示程式版本。"
 
-#: ../src/as-category.c:149
+#: ../src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
 msgstr "運動"
 
-#: ../src/as-category.c:153
+#: ../src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "策略"
@@ -665,17 +665,17 @@ msgstr "摘要"
 msgid "Summary:"
 msgstr "摘要："
 
-#: ../src/as-category.c:286
+#: ../src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
 msgstr "系統監控"
 
-#: ../src/as-category.c:280
+#: ../src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
 msgstr "終端機模擬器"
 
-#: ../src/as-category.c:277
+#: ../src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "文字編輯器"
@@ -710,7 +710,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
-#: ../src/as-category.c:325
+#: ../src/as-category.c:329
 msgid "Utilities"
 msgstr "公用程式"
 
@@ -734,7 +734,7 @@ msgstr "驗證成功。"
 msgid "Value of the item that should be found."
 msgstr "應找到的項目值。"
 
-#: ../src/as-category.c:173
+#: ../src/as-category.c:177
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "向量圖形"
@@ -744,7 +744,7 @@ msgstr "向量圖形"
 msgid "Version: %s"
 msgstr "版本：%s"
 
-#: ../src/as-category.c:176
+#: ../src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "檢視器"
@@ -754,12 +754,12 @@ msgstr "檢視器"
 msgid "We have information on %i software components."
 msgstr "我們有 %i 個軟體組件的相關資訊。"
 
-#: ../src/as-category.c:266
+#: ../src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
 msgstr "網頁瀏覽器"
 
-#: ../src/as-category.c:198
+#: ../src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "文書處理器"
@@ -807,7 +807,7 @@ msgstr "您需要指定輸入檔和輸出檔。"
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: ../src/as-pool.c:100
+#: ../src/as-pool.c:101
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套"
