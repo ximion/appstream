@@ -10,3 +10,7 @@ endif (LC_INTLTOOL_MERGE STREQUAL "LC_INTLTOOL_MERGE-NOTFOUND")
 install(FILES appstream.conf
 	DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}
 )
+
+install(FILES org.freedesktop.appstream.cli.metainfo.xml
+	DESTINATION ${CMAKE_INSTALL_METAINFODIR}
+)
