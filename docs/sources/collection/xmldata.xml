@@ -297,10 +297,10 @@
 						Multiple <code><![CDATA[<icon/>]]></code> tags might be combined for one application, for example to define a <literal>stock</literal> icon
 						and a <literal>cached</literal> icon.
 						Software-Centers should always prefer the stock icon, if it is available, and fall back to the other icon types if they can not find it.
-						The <emphasis>libappstream</emphasis> library makes it easy to do that, if you are not accessing the Xapian database manually.
+						The <emphasis>libappstream</emphasis> library makes it easy to do that.
 					</para>
 					<para>
-						The AppStream Xapian database generator will prefer <literal>cached</literal> over <literal>local</literal> over <literal>remote</literal>
+						The AppStream library will prefer <literal>cached</literal> over <literal>local</literal> over <literal>remote</literal>
 						icons when setting the non-stock icon for the application.
 					</para>
 				</listitem>

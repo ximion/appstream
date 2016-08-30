@@ -22,12 +22,10 @@
 			Distributors provide metadata as well, which describes all components available in a software repository. That data is composed of the upstream-metainfo
 			and some other sources.
 			AppStream also provides specifications for things like a screenshot-service, application ratings &amp; reviews etc.
-			All AppStream distro-repository data is stored in a Xapian database, which then contains information about all available components in the distribution's
-			software repositories.
 		</para>
 		<para>
-			All parts of AppStream are distro-agnostic (with exception to some metadata which is used to generate the Xapian application cache), and therefore
-			AppStream makes it possible to build distro-agnostic application management tools.
+			All parts of AppStream are distribution-agnostic, and therefore it is easily possible to build software management tools with it that work
+			on any distribution implementing the AppStream specification.
 		</para>
 
 		<section>

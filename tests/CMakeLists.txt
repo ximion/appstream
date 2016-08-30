@@ -15,7 +15,6 @@ link_libraries(${SANITIZER_LIBS}
 
 include_directories(${CMAKE_BINARY_DIR}
 		${CMAKE_SOURCE_DIR}/src
-		${CMAKE_SOURCE_DIR}/src/xapian
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${GLIB2_INCLUDE_DIRS}
 		${GIO2_INCLUDE_DIRS}

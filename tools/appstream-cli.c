@@ -129,7 +129,7 @@ as_client_run (char **argv, int argc)
 			G_OPTION_ARG_NONE,
 			&optn_no_cache,
 			/* TRANSLATORS: ascli flag description for: --no-cache */
-			_("Do not use the Xapian cache when performing the request."),
+			_("Do not use any caches when performing the request."),
 			NULL },
 		{ "cachepath", 0, 0,
 			G_OPTION_ARG_STRING,
