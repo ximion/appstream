@@ -9,7 +9,7 @@ services:
 
 compiler:
   - gcc
-  - clang
+  #- clang -- Fails to compile GIR: clang: error: unknown argument: '-fdebug-prefix-map=..' (likely needs newer clang)
 
 before_script:
   - docker build -t appstream -f tests/ci/Dockerfile .
