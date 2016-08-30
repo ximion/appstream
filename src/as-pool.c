@@ -561,7 +561,7 @@ as_pool_load_metadata (AsPool *pool)
 
 		as_metadata_parse_file (metad,
 					infile,
-					AS_FORMAT_STYLE_UNKNOWN,
+					AS_FORMAT_KIND_UNKNOWN,
 					&error);
 		if (error != NULL) {
 			g_debug ("WARNING: %s", error->message);

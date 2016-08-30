@@ -43,6 +43,10 @@
  * See also: #AsComponent
  */
 
+#ifdef __clang__
+#pragma clang diagnostic ignored "-Wmissing-field-initializers"
+#endif
+
 typedef struct {
 	const gchar	*id;
 	const gchar	*name;
@@ -50,10 +54,10 @@ typedef struct {
 } AsCategoryMap;
 
 typedef struct {
-	const gchar	*id;
-	AsCategoryMap	*mapping;
-	const gchar	*name;
-	const gchar	*icon;
+	const gchar		*id;
+	const AsCategoryMap	*mapping;
+	const gchar		*name;
+	const gchar		*icon;
 } AsCategoryData;
 
 /* AudioVideo */

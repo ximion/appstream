@@ -93,13 +93,16 @@ void
 as_stemmer_reload (AsStemmer *stemmer, const gchar *lang)
 {
 #ifdef HAVE_STEMMING
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&stemmer->mutex);
+	GMutexLocker *locker = g_mutex_locker_new (&stemmer->mutex);
+
 	sb_stemmer_delete (stemmer->sb);
 	stemmer->sb = sb_stemmer_new (lang, NULL);
 	if (stemmer->sb == NULL)
 		g_debug ("Language %s can not be stemmed.", lang);
 	else
 		g_debug ("Stemming language is: %s", lang);
+
+	g_mutex_locker_free (locker);
 #endif
 }
 
@@ -117,13 +120,17 @@ as_stemmer_stem (AsStemmer *stemmer, const gchar *term)
 {
 #ifdef HAVE_STEMMING
 	gchar *result;
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&stemmer->mutex);
-	if (stemmer->sb == NULL)
+	GMutexLocker *locker = g_mutex_locker_new (&stemmer->mutex);
+	if (stemmer->sb == NULL) {
+		g_mutex_locker_free (locker);
 		return g_strdup (term);
+	}
 
 	result = g_strdup ((gchar*) sb_stemmer_stem (stemmer->sb,
 						     (unsigned char*) term,
 						     strlen (term)));
+
+	g_mutex_locker_free (locker);
 	return result;
 #else
 	return g_strdup (term);

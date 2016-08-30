@@ -1008,7 +1008,6 @@ as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar 
 {
 	yaml_event_t event;
 	gint ret;
-	g_autofree gchar *value_clean = NULL;
 
 	if (value == NULL)
 		return;
