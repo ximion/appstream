@@ -38,6 +38,7 @@
 
 #include "config.h"
 #include "as-pool.h"
+#include "as-pool-private.h"
 
 #include <glib.h>
 #include <glib/gstdio.h>
