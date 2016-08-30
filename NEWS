@@ -1,3 +1,86 @@
+Version 0.10.0
+~~~~~~~~~~~~~~
+Released: 2016-08-30
+
+Notes:
+ * This release breaks API/ABI in order to support multiple metadata sets describing the same
+   component (needed for bundling support), moving away from the database as central data store
+   and general cleanup.
+ * Porting is relatively straightforward, if you were using AsDatabase, you should switch to AsPool
+   now (AsDatabase has been a wrapper around AsPool for a while anyway).
+ * Many methods became private API with this release, file a bug if you miss anything.
+ * The 'categories.xml' file is gone - please account for that if you were reading it directly,
+   and consider using AsCategory instead, which offers the same functionality.
+
+Features:
+ * Remove the AsDatabase class (Matthias Klumpp)
+ * Use cmakedefine for compile-time features (Matthias Klumpp)
+ * Rename AsDataPool -> AsPool (Matthias Klumpp)
+ * Add placeholder enum for web applications (Matthias Klumpp)
+ * qt: Implement Appstream::Release for the Qt interface (Aleix Pol)
+ * Recognize the "Pantheon" desktop for Elementary (Matthias Klumpp)
+ * Get rid of the menu parser and make AsCategory more useful instead (Matthias Klumpp)
+ * Allow AsComponent to automatically check for list-value duplicates (Matthias Klumpp)
+ * Give bundles their own class (Matthias Klumpp)
+ * Stop shipping the categories.xml file (Matthias Klumpp)
+ * Allow multiple metadata sets in the pool to describe a component (Matthias Klumpp)
+ * Name AppStream metadata styles consistently (Matthias Klumpp)
+ * Allow the 'C' description fallback to be turned off (Iain Lane)
+ * Make AsScreenshot return localized images by default (Matthias Klumpp)
+ * Allow to compare AsRelease versions easily (Matthias Klumpp)
+ * Make get_icon_repository_paths private API (Matthias Klumpp)
+ * ascli: Allow dumping metadata as YAML (Matthias Klumpp)
+ * Use GVariant instead of ProtoBuf based cache (Matthias Klumpp)
+ * Enable stemming by default (Matthias Klumpp)
+ * Make components directly reference their addons, avoiding to query twice (Matthias Klumpp)
+ * Refactor data pool metadata loading (Matthias Klumpp)
+ * Allow setting the AppStream format version when (de)serializing data (Matthias Klumpp)
+ * Always write modern metadata, unless a lower format version is requested explicitly (Matthias Klumpp)
+ * Also find components in searches which have the search keyword in an addon (Matthias Klumpp)
+ * ascli: Add function to convert XML to YAML and vice versa (Matthias Klumpp)
+ * Consistent naming for metadata format and style (Matthias Klumpp)
+
+Specification:
+ * spec: Add hint on how the keywords tag should be localized (Matthias Klumpp)
+
+Bugfixes:
+ * Resolve unit test failures on arm and mips (Matthias Klumpp)
+ * gir: Correctly annotate ownership transference of GPtrArrays (Matthias Klumpp)
+ * l10n: Drop languages without translations (Matthias Klumpp)
+ * Don't hide symbols in public headers (Matthias Klumpp)
+ * Properly validate desktop-environment strings (Matthias Klumpp)
+ * validator: Fix name/summary check in validate-tree (Matthias Klumpp)
+ * xml: Properly write localized keywords (Matthias Klumpp)
+ * Avoid watching superfluous directories for metadata (Matthias Klumpp)
+ * Update architecture diagrams and optimize PNGs (Matthias Klumpp)
+ * Get rid of Xapian-isms (Matthias Klumpp)
+
+Translation:
+ * Chinese (Taiwan)
+   - Chang-Chia Tseng
+ * Chinese (China)
+   - Dingzhong Chen
+   - wsxy162
+ * French:
+   - Christophe CHAUVET
+   - Claude Paroz
+ * German:
+   - Mario Blättermann
+ * Czech:
+   - Michal Čihař
+ * Italian:
+   - Milo Casagrande
+ * Russian:
+   - Nataliia
+ * Polish
+   - Piotr Drąg
+ * Catalan:
+   - Robert Antoni Buj Gelonch
+ * Ukrainian:
+   - Yuri Chornoivan
+ * Hungarian:
+   - kelemeng
+
 Version 0.9.8
 ~~~~~~~~~~~~~~
 Released: 2016-08-10
