@@ -128,8 +128,6 @@ gboolean		as_pool_refresh_cache (AsPool *pool,
 						gboolean force,
 						GError **error);
 
-time_t			as_pool_get_cache_age (AsPool *pool);
-
 G_END_DECLS
 
 #endif /* __AS_POOL_H */

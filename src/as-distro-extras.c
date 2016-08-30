@@ -37,6 +37,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-pool-private.h"
 
 #define YAML_SEPARATOR "---"
 /* Compilers will optimise this to a constant */

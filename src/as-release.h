@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -69,6 +69,10 @@ AsSizeKind	as_size_kind_from_string (const gchar *size_kind);
 
 AsRelease	*as_release_new (void);
 
+gchar		*as_release_get_active_locale (AsRelease *release);
+void		as_release_set_active_locale (AsRelease	*release,
+						const gchar *locale);
+
 const gchar	*as_release_get_version (AsRelease *release);
 void		as_release_set_version (AsRelease *release,
 					const gchar *version);
@@ -83,10 +87,6 @@ void		as_release_set_timestamp (AsRelease *release,
 const gchar	*as_release_get_description (AsRelease *release);
 void		as_release_set_description (AsRelease *release,
 						const gchar *description,
-						const gchar *locale);
-
-gchar		*as_release_get_active_locale (AsRelease *release);
-void		as_release_set_active_locale (AsRelease	*release,
 						const gchar *locale);
 
 GPtrArray	*as_release_get_locations (AsRelease *release);

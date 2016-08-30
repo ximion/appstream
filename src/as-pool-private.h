@@ -18,24 +18,17 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_SETTINGS_PRIVATE_H
-#define __AS_SETTINGS_PRIVATE_H
+#ifndef __AS_POOL_PRIVATE_H
+#define __AS_POOL_PRIVATE_H
 
-#include <glib-object.h>
-#include "config.h"
-#include "as-utils-private.h"
+#include "as-pool.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-#define AS_CONFIG_NAME "/etc/appstream.conf"
-#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info/gv"
-
-/* declared in as-data-pool.c */
-AS_INTERNAL_VISIBLE
-extern const gchar *AS_APPSTREAM_METADATA_PATHS[4];
+time_t			as_pool_get_cache_age (AsPool *pool);
 
 #pragma GCC visibility pop
 G_END_DECLS
 
-#endif /* __AS_SETTINGS_PRIVATE_H */
+#endif /* __AS_POOL_PRIVATE_H */
