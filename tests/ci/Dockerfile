@@ -22,8 +22,6 @@ RUN apt-get install -yq --no-install-recommends \
     xmlto \
     publican \
     gobject-introspection \
-    libprotobuf-dev \
-    protobuf-compiler \
     libstemmer-dev \
     valac
 
