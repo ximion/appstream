@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 05:49+0200\n"
+"POT-Creation-Date: 2016-08-30 18:23+0200\n"
 "PO-Revision-Date: 2016-08-30 23:52+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) "
-"<https://hosted.weblate.org/projects/appstream/translations/zh_TW/>\n"
+"Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_TW/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -208,7 +208,7 @@ msgstr "將收藏集 XML 轉換成 YAML，或是相反。"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: ../tools/ascli-actions-mdata.c:225
-#, c-format, c-format
+#, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "找不到提供「%s::%s」的組件。"
 
@@ -261,7 +261,8 @@ msgstr "散佈版中介資料："
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: ../tools/appstream-cli.c:132
-msgid "Do not use the Xapian cache when performing the request."
+#, fuzzy
+msgid "Do not use any caches when performing the request."
 msgstr "執行請求時不要使用 Xapian 快取。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
@@ -536,7 +537,9 @@ msgstr "無圖示。"
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr "找不到適當的軟體包管理程式 CLI。例如請確認「pkcon」是否可以使用（PackageKit 的一部分）。"
+msgstr ""
+"找不到適當的軟體包管理程式 CLI。例如請確認「pkcon」是否可以使用（PackageKit "
+"的一部分）。"
 
 #: ../tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for defined."
@@ -807,8 +810,8 @@ msgstr "您需要指定輸入檔和輸出檔。"
 #: ../src/as-pool.c:100
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
-"app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套件;套裝軟體;工具;公"
-"用程式"
+"app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套"
+"件;套裝軟體;工具;公用程式"
 
 #~ msgid "Can not search for unknown component type."
 #~ msgstr "無法搜尋未知的組件類型。"
