@@ -115,7 +115,9 @@ add_definitions(${MAINTAINER_CFLAGS})
 
 # a few compiler warning flags we always want enabled
 add_definitions("-Werror=implicit-function-declaration" "-Wno-unused-parameter")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-discarded-qualifiers")
+if (NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-discarded-qualifiers")
+endif()
 
 # enable C++11
 set(CMAKE_CXX_STANDARD "11")
