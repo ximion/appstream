@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 00:59+0200\n"
+"POT-Creation-Date: 2016-08-30 05:49+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Danish (http://www.transifex.com/freedesktop/appstream/"
@@ -42,7 +42,7 @@ msgid "Adventure"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:152
+#: ../tools/appstream-cli.c:153
 msgid "Also print pedantic hints when validating."
 msgstr ""
 
@@ -51,7 +51,7 @@ msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:180
+#: ../tools/appstream-cli.c:181
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr ""
@@ -181,7 +181,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:243
+#: ../tools/appstream-cli.c:244
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Kommandoen »%s« er ukendt."
@@ -201,7 +201,8 @@ msgstr ""
 msgid "Compulsory for"
 msgstr "Tvungen for"
 
-#: ../tools/appstream-cli.c:75
+#. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
+#: ../tools/appstream-cli.c:76
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
@@ -230,7 +231,7 @@ msgid "Debuggers"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:147
+#: ../tools/appstream-cli.c:148
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
@@ -260,12 +261,12 @@ msgid "Distribution metadata:"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:131
+#: ../tools/appstream-cli.c:132
 msgid "Do not use the Xapian cache when performing the request."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:114
+#: ../tools/appstream-cli.c:115
 #, fuzzy
 msgid "Don't show colored output."
 msgstr "Vis ikke farvet resultat"
@@ -290,7 +291,7 @@ msgid "Emulators"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:119
+#: ../tools/appstream-cli.c:120
 #, fuzzy
 msgid "Enforce a cache refresh."
 msgstr "Fremtving en opdatering af mellemlageret"
@@ -474,14 +475,14 @@ msgid "Logic"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:142
+#: ../tools/appstream-cli.c:143
 #, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
 msgstr ""
 "Sæt manuelt placeringen af AppStream-metadata for mellemlagerregenerering"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: ../tools/appstream-cli.c:137
+#: ../tools/appstream-cli.c:138
 #, fuzzy
 msgid "Manually set the location of the AppStream cache."
 msgstr "Sæt manuelt placeringen af AppStreams mellemlager"
@@ -562,7 +563,7 @@ msgid "Photography"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:125
+#: ../tools/appstream-cli.c:126
 #, fuzzy
 msgid "Print detailed output about found components."
 msgstr "Udskriv et detaljeret resultat om fundne komponenter"
@@ -602,7 +603,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr ""
 
-#: ../tools/appstream-cli.c:172 ../tools/appstream-cli.c:192
+#: ../tools/appstream-cli.c:173 ../tools/appstream-cli.c:193
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -637,13 +638,13 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:109
+#: ../tools/appstream-cli.c:110
 #, fuzzy
 msgid "Show extra debugging information."
 msgstr "Vis ekstra fejlsøgningsinformation"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:103
+#: ../tools/appstream-cli.c:104
 #, fuzzy
 msgid "Show the program version."
 msgstr "Vis programversionen"
@@ -778,7 +779,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:191
+#: ../tools/appstream-cli.c:192
 msgid "You need to specify a command."
 msgstr "Du skal specificere en kommando."
 

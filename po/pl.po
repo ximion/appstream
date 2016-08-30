@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 00:59+0200\n"
+"POT-Creation-Date: 2016-08-30 05:49+0200\n"
 "PO-Revision-Date: 2016-08-30 01:39+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish "
-"<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
+"translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,7 @@ msgid "Adventure"
 msgstr "Gry przygodowe"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:152
+#: ../tools/appstream-cli.c:153
 msgid "Also print pedantic hints when validating."
 msgstr "Wyświetla także drobiazgowe uwagi podczas sprawdzania poprawności."
 
@@ -52,7 +52,7 @@ msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ elementu (np. lib, bin, python3…)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:180
+#: ../tools/appstream-cli.c:181
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Wersja narzędzia klienta AppStream w wierszu poleceń: %s"
@@ -186,7 +186,7 @@ msgid "Codecs"
 msgstr "Kodeki"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:243
+#: ../tools/appstream-cli.c:244
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Nieznane polecenie „%s”."
@@ -206,7 +206,8 @@ msgstr "Składnik „%s” nie posiada kandydata instalacji."
 msgid "Compulsory for"
 msgstr "Obowiązkowe dla"
 
-#: ../tools/appstream-cli.c:75
+#. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
+#: ../tools/appstream-cli.c:76
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Konwertuje XML kolekcji do YAML lub odwrotnie."
 
@@ -235,7 +236,7 @@ msgid "Debuggers"
 msgstr "Debugery"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:147
+#: ../tools/appstream-cli.c:148
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
@@ -266,12 +267,12 @@ msgid "Distribution metadata:"
 msgstr "Metadane dystrybucji:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:131
+#: ../tools/appstream-cli.c:132
 msgid "Do not use the Xapian cache when performing the request."
 msgstr "Bez używania pamięci podręcznej Xapian podczas wykonywania żądania."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:114
+#: ../tools/appstream-cli.c:115
 msgid "Don't show colored output."
 msgstr "Bez kolorowania wyjścia."
 
@@ -295,7 +296,7 @@ msgid "Emulators"
 msgstr "Emulatory"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:119
+#: ../tools/appstream-cli.c:120
 msgid "Enforce a cache refresh."
 msgstr "Wymusza odświeżenie pamięci podręcznej."
 
@@ -478,12 +479,12 @@ msgid "Logic"
 msgstr "Gry logiczne"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:142
+#: ../tools/appstream-cli.c:143
 msgid "Manually set the location of AppStream metadata to scan."
 msgstr "Ręcznie ustawia położenie metadanych AppStream do skanowania."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: ../tools/appstream-cli.c:137
+#: ../tools/appstream-cli.c:138
 msgid "Manually set the location of the AppStream cache."
 msgstr "Ręcznie ustawia położenie pamięci podręcznej AppStream."
 
@@ -566,7 +567,7 @@ msgid "Photography"
 msgstr "Fotografia"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:125
+#: ../tools/appstream-cli.c:126
 msgid "Print detailed output about found components."
 msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach."
 
@@ -605,7 +606,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Gry fabularne"
 
-#: ../tools/appstream-cli.c:172 ../tools/appstream-cli.c:192
+#: ../tools/appstream-cli.c:173 ../tools/appstream-cli.c:193
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -639,12 +640,12 @@ msgid "Security"
 msgstr "Bezpieczeństwo"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:109
+#: ../tools/appstream-cli.c:110
 msgid "Show extra debugging information."
 msgstr "Wyświetla dodatkowe informacje debugowania."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:103
+#: ../tools/appstream-cli.c:104
 msgid "Show the program version."
 msgstr "Wyświetla wersję programu."
 
@@ -779,7 +780,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr "Wymagane są uprawnienia administratora, aby wykonać to działanie."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:191
+#: ../tools/appstream-cli.c:192
 msgid "You need to specify a command."
 msgstr "Należy podać polecenie."
 

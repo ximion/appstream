@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 00:59+0200\n"
+"POT-Creation-Date: 2016-08-30 05:49+0200\n"
 "PO-Revision-Date: 2016-08-29 13:42+0000\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -42,7 +42,7 @@ msgid "Adventure"
 msgstr "Kaland"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:152
+#: ../tools/appstream-cli.c:153
 #, fuzzy
 msgid "Also print pedantic hints when validating."
 msgstr "Az akadékoskodó tippeket is írja ki ellenőrzéskor"
@@ -52,7 +52,7 @@ msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Egy elemtípus (például lib, bin, python3, …)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:180
+#: ../tools/appstream-cli.c:181
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI eszközverzió: %s"
@@ -186,7 +186,7 @@ msgid "Codecs"
 msgstr "Kodekek"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:243
+#: ../tools/appstream-cli.c:244
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "A(z) „%s” parancs ismeretlen."
@@ -206,7 +206,8 @@ msgstr "A(z) „%s” összetevőnek nincs telepítésre jelölt változata."
 msgid "Compulsory for"
 msgstr "Kötelező ehhez"
 
-#: ../tools/appstream-cli.c:75
+#. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
+#: ../tools/appstream-cli.c:76
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
@@ -235,7 +236,7 @@ msgid "Debuggers"
 msgstr "Hibakeresők"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:147
+#: ../tools/appstream-cli.c:148
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
@@ -266,13 +267,13 @@ msgid "Distribution metadata:"
 msgstr "Disztribúció metaadatok:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:131
+#: ../tools/appstream-cli.c:132
 #, fuzzy
 msgid "Do not use the Xapian cache when performing the request."
 msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:114
+#: ../tools/appstream-cli.c:115
 #, fuzzy
 msgid "Don't show colored output."
 msgstr "Ne jelenítsen meg színes kimenetet"
@@ -297,7 +298,7 @@ msgid "Emulators"
 msgstr "Emulátorok"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:119
+#: ../tools/appstream-cli.c:120
 #, fuzzy
 msgid "Enforce a cache refresh."
 msgstr "Gyorsítótár-frissítés kényszerítése"
@@ -482,7 +483,7 @@ msgid "Logic"
 msgstr "Logikai"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:142
+#: ../tools/appstream-cli.c:143
 #, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
 msgstr ""
@@ -490,7 +491,7 @@ msgstr ""
 "előállításához"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: ../tools/appstream-cli.c:137
+#: ../tools/appstream-cli.c:138
 #, fuzzy
 msgid "Manually set the location of the AppStream cache."
 msgstr "Az AppStream gyorsítótár helyének kézi beállítása"
@@ -573,7 +574,7 @@ msgid "Photography"
 msgstr "Fényképészet"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:125
+#: ../tools/appstream-cli.c:126
 #, fuzzy
 msgid "Print detailed output about found components."
 msgstr "Részletes kimenet kiírása a megtalált összetevőről"
@@ -613,7 +614,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Szerepjátékok"
 
-#: ../tools/appstream-cli.c:172 ../tools/appstream-cli.c:192
+#: ../tools/appstream-cli.c:173 ../tools/appstream-cli.c:193
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -648,13 +649,13 @@ msgid "Security"
 msgstr "Biztonság"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:109
+#: ../tools/appstream-cli.c:110
 #, fuzzy
 msgid "Show extra debugging information."
 msgstr "További hibakeresési információk megjelenítése"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:103
+#: ../tools/appstream-cli.c:104
 #, fuzzy
 msgid "Show the program version."
 msgstr "A programverzió megjelenítése"
@@ -789,7 +790,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr "A művelet végrehajtásához rendszergazdai jogokra lehet szükség."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:191
+#: ../tools/appstream-cli.c:192
 msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."
 

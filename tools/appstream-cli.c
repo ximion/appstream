@@ -72,6 +72,7 @@ as_client_get_summary ()
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "status           ", _("Display status information about available AppStream metadata."));
 	g_string_append_printf (string, "  %s - %s\n", "put FILE         ", _("Install a metadata file into the right location."));
+	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
 	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
 
 	return g_string_free (string, FALSE);

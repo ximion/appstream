@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 00:59+0200\n"
+"POT-Creation-Date: 2016-08-30 05:49+0200\n"
 "PO-Revision-Date: 2016-08-28 03:56+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -42,7 +42,7 @@ msgid "Adventure"
 msgstr "冒險"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:152
+#: ../tools/appstream-cli.c:153
 #, fuzzy
 msgid "Also print pedantic hints when validating."
 msgstr "驗證時也列印繁冗的提示"
@@ -52,7 +52,7 @@ msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "項目類型（例：lib、bin、python3…等）"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:180
+#: ../tools/appstream-cli.c:181
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 工具版本：%s"
@@ -182,7 +182,7 @@ msgid "Codecs"
 msgstr "編解碼器"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:243
+#: ../tools/appstream-cli.c:244
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "指令「%s」未知。"
@@ -202,7 +202,8 @@ msgstr "「%s」組件尚無安裝候選。"
 msgid "Compulsory for"
 msgstr "強制項目為"
 
-#: ../tools/appstream-cli.c:75
+#. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
+#: ../tools/appstream-cli.c:76
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
@@ -231,7 +232,7 @@ msgid "Debuggers"
 msgstr "除錯器"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:147
+#: ../tools/appstream-cli.c:148
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr "給定中介資料格式的預設值 (有效的值為「xml」和「yaml」)。"
@@ -260,13 +261,13 @@ msgid "Distribution metadata:"
 msgstr "散佈版中介資料："
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:131
+#: ../tools/appstream-cli.c:132
 #, fuzzy
 msgid "Do not use the Xapian cache when performing the request."
 msgstr "執行請求時不要使用 Xapian 快取"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:114
+#: ../tools/appstream-cli.c:115
 #, fuzzy
 msgid "Don't show colored output."
 msgstr "不要顯示色彩化的輸出"
@@ -291,7 +292,7 @@ msgid "Emulators"
 msgstr "模擬器"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:119
+#: ../tools/appstream-cli.c:120
 #, fuzzy
 msgid "Enforce a cache refresh."
 msgstr "強制快取重新整理"
@@ -475,13 +476,13 @@ msgid "Logic"
 msgstr "邏輯"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:142
+#: ../tools/appstream-cli.c:143
 #, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
 msgstr "手動設定快取重製用的 AppStream 中介資料位置"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: ../tools/appstream-cli.c:137
+#: ../tools/appstream-cli.c:138
 #, fuzzy
 msgid "Manually set the location of the AppStream cache."
 msgstr "手動設定 AppStream 快取的位置"
@@ -564,7 +565,7 @@ msgid "Photography"
 msgstr "攝影"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:125
+#: ../tools/appstream-cli.c:126
 #, fuzzy
 msgid "Print detailed output about found components."
 msgstr "列印有關找到之組件的詳細輸出"
@@ -604,7 +605,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "角色扮演"
 
-#: ../tools/appstream-cli.c:172 ../tools/appstream-cli.c:192
+#: ../tools/appstream-cli.c:173 ../tools/appstream-cli.c:193
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
@@ -637,13 +638,13 @@ msgid "Security"
 msgstr "安全"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:109
+#: ../tools/appstream-cli.c:110
 #, fuzzy
 msgid "Show extra debugging information."
 msgstr "顯示額外除錯資訊"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:103
+#: ../tools/appstream-cli.c:104
 #, fuzzy
 msgid "Show the program version."
 msgstr "顯示程式版本"
@@ -777,7 +778,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr "您也許需要超級使用者權利才能執行此動作。"
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:191
+#: ../tools/appstream-cli.c:192
 msgid "You need to specify a command."
 msgstr "您需要指定個指令。"
 

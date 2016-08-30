@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 00:59+0200\n"
+"POT-Creation-Date: 2016-08-30 05:49+0200\n"
 "PO-Revision-Date: 2016-08-28 05:50+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
@@ -41,7 +41,7 @@ msgid "Adventure"
 msgstr "Пригоди"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:152
+#: ../tools/appstream-cli.c:153
 #, fuzzy
 msgid "Also print pedantic hints when validating."
 msgstr "Також виводити найдрібніші неточності під час перевірки"
@@ -51,7 +51,7 @@ msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Тип запису (наприклад lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:180
+#: ../tools/appstream-cli.c:181
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Версія інструмента командного рядка AppStream: %s"
@@ -185,7 +185,7 @@ msgid "Codecs"
 msgstr "Кодеки"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:243
+#: ../tools/appstream-cli.c:244
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Невідома команда «%s»."
@@ -205,7 +205,8 @@ msgstr "Для компонента «%s» немає кандидата для 
 msgid "Compulsory for"
 msgstr "Обов’язкове для"
 
-#: ../tools/appstream-cli.c:75
+#. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
+#: ../tools/appstream-cli.c:76
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
@@ -234,7 +235,7 @@ msgid "Debuggers"
 msgstr "Засоби діагностики"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:147
+#: ../tools/appstream-cli.c:148
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Типовий формат метаданих (коректними є значення «xml» і «yaml»)."
@@ -263,13 +264,13 @@ msgid "Distribution metadata:"
 msgstr "Метадані дистрибутива:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:131
+#: ../tools/appstream-cli.c:132
 #, fuzzy
 msgid "Do not use the Xapian cache when performing the request."
 msgstr "Не використовувати кеш Xapian під час виконання запиту"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:114
+#: ../tools/appstream-cli.c:115
 #, fuzzy
 msgid "Don't show colored output."
 msgstr "Не розфарбовувати виведені дані"
@@ -296,7 +297,7 @@ msgid "Emulators"
 msgstr "Імітатори"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:119
+#: ../tools/appstream-cli.c:120
 #, fuzzy
 msgid "Enforce a cache refresh."
 msgstr "Примусове оновлення кешу"
@@ -481,14 +482,14 @@ msgid "Logic"
 msgstr "Логічні ігри"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:142
+#: ../tools/appstream-cli.c:143
 #, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
 msgstr ""
 "Встановити розташування метаданих AppStream для повторного створення кешу"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: ../tools/appstream-cli.c:137
+#: ../tools/appstream-cli.c:138
 #, fuzzy
 msgid "Manually set the location of the AppStream cache."
 msgstr "Встановити розташування кешу AppStream вручну"
@@ -571,7 +572,7 @@ msgid "Photography"
 msgstr "Фотографія"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:125
+#: ../tools/appstream-cli.c:126
 #, fuzzy
 msgid "Print detailed output about found components."
 msgstr "Вивести докладні дані щодо знайдених компонентів"
@@ -611,7 +612,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Рольові ігри"
 
-#: ../tools/appstream-cli.c:172 ../tools/appstream-cli.c:192
+#: ../tools/appstream-cli.c:173 ../tools/appstream-cli.c:193
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -646,13 +647,13 @@ msgid "Security"
 msgstr "Безпека"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:109
+#: ../tools/appstream-cli.c:110
 #, fuzzy
 msgid "Show extra debugging information."
 msgstr "Показати додаткові діагностичні дані"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:103
+#: ../tools/appstream-cli.c:104
 #, fuzzy
 msgid "Show the program version."
 msgstr "Вивести дані щодо версії програми"
@@ -788,7 +789,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr "Для виконання цієї дії потрібні права адміністративного доступу."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:191
+#: ../tools/appstream-cli.c:192
 msgid "You need to specify a command."
 msgstr "Вам слід вказати команду."
 
