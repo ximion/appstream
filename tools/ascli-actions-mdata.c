@@ -238,7 +238,7 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
  * Dump the raw upstream XML for a component.
  */
 int
-ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsDataFormat format, gboolean no_cache)
+ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsFormatKind mformat, gboolean no_cache)
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GPtrArray) result = NULL;
@@ -265,8 +265,8 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsDataFor
 	}
 
 	/* default to XML if we don't know the format */
-	if (format == AS_DATA_FORMAT_UNKNOWN)
-		format = AS_DATA_FORMAT_XML;
+	if (mformat == AS_FORMAT_KIND_UNKNOWN)
+		mformat = AS_FORMAT_KIND_XML;
 
 	/* convert the obtained component to XML */
 	metad = as_metadata_new ();
@@ -276,11 +276,11 @@ ascli_dump_component (const gchar *cachepath, const gchar *identifier, AsDataFor
 
 		as_metadata_clear_components (metad);
 		as_metadata_add_component (metad, cpt);
-		if (format == AS_DATA_FORMAT_YAML) {
+		if (mformat == AS_FORMAT_KIND_YAML) {
 			/* we allow YAML serialization just this once */
-			metadata = as_metadata_components_to_collection (metad, AS_DATA_FORMAT_YAML, NULL);
+			metadata = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_YAML, NULL);
 		} else {
-			metadata = as_metadata_component_to_metainfo (metad, format, NULL);
+			metadata = as_metadata_component_to_metainfo (metad, mformat, NULL);
 		}
 		g_print ("%s\n", metadata);
 	}
@@ -344,7 +344,7 @@ ascli_put_metainfo (const gchar *fname)
  * Convert data from YAML to XML and vice versa.
  */
 int
-ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsDataFormat format)
+ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind mformat)
 {
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GFile) infile = NULL;
@@ -364,25 +364,25 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsDataFormat 
 
 	metad = as_metadata_new ();
 	/* since YAML files are always collection-YAMLs, we will always run in collection mode */
-	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 
 	as_metadata_parse_file (metad,
 				infile,
-				AS_DATA_FORMAT_UNKNOWN,
+				AS_FORMAT_KIND_UNKNOWN,
 				&error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
 	}
 
-	if (format == AS_DATA_FORMAT_UNKNOWN) {
+	if (mformat == AS_FORMAT_KIND_UNKNOWN) {
 		if (g_str_has_suffix (in_fname, ".xml") || g_str_has_suffix (in_fname, ".xml.gz"))
-			format = AS_DATA_FORMAT_YAML;
+			mformat = AS_FORMAT_KIND_YAML;
 		else if (g_str_has_suffix (in_fname, ".yml") || g_str_has_suffix (in_fname, ".yml.gz") ||
 			 g_str_has_suffix (in_fname, ".yaml") || g_str_has_suffix (in_fname, ".yaml.gz"))
-			format = AS_DATA_FORMAT_XML;
+			mformat = AS_FORMAT_KIND_XML;
 
-		if (format == AS_DATA_FORMAT_UNKNOWN) {
+		if (mformat == AS_FORMAT_KIND_UNKNOWN) {
 			/* TRANSLATORS: User is trying to convert a file in ascli */
 			ascli_print_stderr (_("Unable to convert file: Could not determine output format, please set it explicitly using '--format='."));
 			return 3;
@@ -393,7 +393,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsDataFormat 
 		g_autofree gchar *data = NULL;
 
 		/* print to stdout */
-		data = as_metadata_components_to_collection (metad, format, &error);
+		data = as_metadata_components_to_collection (metad, mformat, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;
@@ -402,7 +402,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsDataFormat 
 	} else {
 		/* save to file */
 
-		as_metadata_save_collection (metad, out_fname, format, &error);
+		as_metadata_save_collection (metad, out_fname, mformat, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;

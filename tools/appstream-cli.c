@@ -94,7 +94,7 @@ as_client_run (char **argv, int argc)
 
 	gchar *summary;
 	gchar *options_help = NULL;
-	AsDataFormat dformat;
+	AsFormatKind mformat;
 
 	const GOptionEntry client_options[] = {
 		{ "version", 0, 0,
@@ -197,7 +197,7 @@ as_client_run (char **argv, int argc)
 
 	ascli_set_colored_output (!optn_no_color);
 
-	dformat = as_data_format_from_string (optn_format);
+	mformat = as_format_kind_from_string (optn_format);
 	command = argv[1];
 	if (argc > 2)
 		value1 = argv[2];
@@ -221,7 +221,7 @@ as_client_run (char **argv, int argc)
 	} else if (g_strcmp0 (command, "dump") == 0) {
 		exit_code = ascli_dump_component (optn_cachepath,
 						  value1,
-						  dformat,
+						  mformat,
 						  optn_no_cache);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
 		exit_code = ascli_what_provides (optn_cachepath, value1, value2, optn_details);
@@ -238,7 +238,7 @@ as_client_run (char **argv, int argc)
 	} else if (g_strcmp0 (command, "status") == 0) {
 		exit_code = ascli_show_status ();
 	} else if (g_strcmp0 (command, "convert") == 0) {
-		exit_code = ascli_convert_data (value1, value2, dformat);
+		exit_code = ascli_convert_data (value1, value2, mformat);
 	} else {
 		/* TRANSLATORS: ascli has been run with unknown command. */
 		ascli_print_stderr (_("Command '%s' is unknown."), command);

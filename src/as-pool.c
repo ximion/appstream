@@ -496,7 +496,7 @@ as_pool_load_metadata (AsPool *pool)
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
-	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 	as_metadata_set_locale (metad, priv->locale);
 
 	/* find AppStream metadata */
@@ -561,7 +561,7 @@ as_pool_load_metadata (AsPool *pool)
 
 		as_metadata_parse_file (metad,
 					infile,
-					AS_DATA_FORMAT_UNKNOWN,
+					AS_FORMAT_STYLE_UNKNOWN,
 					&error);
 		if (error != NULL) {
 			g_debug ("WARNING: %s", error->message);

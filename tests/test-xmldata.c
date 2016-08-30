@@ -45,13 +45,13 @@ test_screenshot_handling ()
 	guint i;
 
 	metad = as_metadata_new ();
-	as_metadata_set_parser_mode (metad, AS_PARSER_MODE_COLLECTION);
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 
 	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
 	g_object_unref (file);
 	g_assert_no_error (error);
 
@@ -96,7 +96,7 @@ test_appstream_parser_legacy ()
 	file = g_file_new_for_path (path);
 	g_free (path);
 
-	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_object_unref (file);
 	g_assert_no_error (error);
@@ -137,7 +137,7 @@ test_appstream_parser_locale ()
 
 	/* check german only locale */
 	as_metadata_set_locale (metad, "de_DE");
-	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 	g_assert (cpt != NULL);
@@ -153,7 +153,7 @@ test_appstream_parser_locale ()
 	/* check all locale */
 	as_metadata_clear_components (metad);
 	as_metadata_set_locale (metad, "ALL");
-	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 
@@ -231,14 +231,14 @@ test_appstream_write_locale ()
 	g_free (tmp);
 
 	as_metadata_set_locale (metad, "ALL");
-	as_metadata_parse_file (metad, file, AS_DATA_FORMAT_XML, &error);
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
 	cpt = as_metadata_get_component (metad);
 	g_assert_no_error (error);
 	g_assert (cpt != NULL);
 	g_object_unref (file);
 
 	tmp = as_metadata_component_to_metainfo (metad,
-						 AS_DATA_FORMAT_XML,
+						 AS_FORMAT_KIND_XML,
 						 &error);
 	g_assert_no_error (error);
 
@@ -408,7 +408,7 @@ test_appstream_write_description ()
 
 	as_metadata_add_component (metad, cpt);
 
-	tmp = as_metadata_component_to_metainfo (metad, AS_DATA_FORMAT_XML, NULL);
+	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML));
 	g_free (tmp);
 
@@ -418,11 +418,11 @@ test_appstream_write_description ()
 				"<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three</li></ol><ul><li>First</li><li>Second</li></ul><p>Paragraph2</p>",
 				"de");
 
-	tmp = as_metadata_component_to_metainfo (metad, AS_DATA_FORMAT_XML, NULL);
+	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
-	tmp = as_metadata_components_to_collection (metad, AS_DATA_FORMAT_XML, NULL);
+	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
 	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 }
@@ -433,7 +433,7 @@ test_appstream_write_description ()
  * Helper function for other tests.
  */
 static AsComponent*
-as_xml_test_read_data (const gchar *data, AsParserMode mode)
+as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 {
 	AsComponent *cpt;
 	GError *error = NULL;
@@ -443,7 +443,7 @@ as_xml_test_read_data (const gchar *data, AsParserMode mode)
 	xdt = as_xmldata_new ();
 	as_xmldata_set_check_valid (xdt, FALSE);
 
-	if (mode == AS_PARSER_MODE_METAINFO) {
+	if (mode == AS_FORMAT_STYLE_METAINFO) {
 		cpt = as_xmldata_parse_metainfo_data (xdt, data, &error);
 		g_assert_no_error (error);
 	} else {
@@ -461,7 +461,7 @@ as_xml_test_read_data (const gchar *data, AsParserMode mode)
  * Helper function for other tests.
  */
 static gchar*
-as_xml_test_serialize (AsComponent *cpt, AsParserMode mode)
+as_xml_test_serialize (AsComponent *cpt, AsFormatStyle mode)
 {
 	gchar *data;
 	g_autoptr(AsXMLData) xdt = NULL;
@@ -469,7 +469,7 @@ as_xml_test_serialize (AsComponent *cpt, AsParserMode mode)
 	xdt = as_xmldata_new ();
 	as_xmldata_set_check_valid (xdt, FALSE);
 
-	if (mode == AS_PARSER_MODE_METAINFO) {
+	if (mode == AS_FORMAT_STYLE_METAINFO) {
 		data = as_xmldata_serialize_to_metainfo (xdt, cpt);
 	} else {
 		g_autoptr(GPtrArray) cpts = NULL;
@@ -498,7 +498,7 @@ test_xml_read_languages (void)
 					 "  </languages>\n"
 					 "</component>\n";
 
-	cpt = as_xml_test_read_data (xmldata_languages, AS_PARSER_MODE_METAINFO);
+	cpt = as_xml_test_read_data (xmldata_languages, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.LangTest");
 
 	g_assert_cmpint (as_component_get_language (cpt, "de_DE"), ==, 48);
@@ -530,7 +530,7 @@ test_xml_write_languages (void)
 	as_component_add_language (cpt, "de_DE", 86);
 	as_component_add_language (cpt, "en_GB", 98);
 
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_lang_xml));
 }
 
@@ -568,7 +568,7 @@ test_xml_write_releases (void)
 
 	as_component_add_release (cpt, rel);
 
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_rel_xml));
 }
 
@@ -621,7 +621,7 @@ test_xml_write_provides (void)
 	as_provided_add_item (prov_dbus, "org.example.ProvidesTest.Modify");
 	as_component_add_provided (cpt, prov_dbus);
 
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_prov_xml));
 }
 
@@ -673,11 +673,11 @@ test_xml_write_suggests (void)
 	as_component_add_suggested (cpt, sug_hr);
 
 	/* test metainfo serialization */
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_METAINFO);
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_test_compare_lines (res, expected_sug_xml_mi));
 
 	/* test collection serialization */
-	res = as_xml_test_serialize (cpt, AS_PARSER_MODE_COLLECTION);
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_COLLECTION);
 	g_assert (as_test_compare_lines (res, expected_sug_xml_coll));
 }
 

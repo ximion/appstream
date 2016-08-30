@@ -54,7 +54,7 @@ typedef struct
 	gchar *arch;
 	gint default_priority;
 
-	AsParserMode mode;
+	AsFormatStyle mode;
 	gboolean check_valid;
 
 	gchar *last_error_msg;
@@ -98,7 +98,7 @@ as_xmldata_init (AsXMLData *xdt)
 
 	priv->format_version = AS_CURRENT_FORMAT_VERSION;
 	priv->default_priority = 0;
-	priv->mode = AS_PARSER_MODE_METAINFO;
+	priv->mode = AS_FORMAT_STYLE_METAINFO;
 	priv->last_error_msg = NULL;
 	priv->check_valid = TRUE;
 }
@@ -354,7 +354,7 @@ as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScr
 	}
 
 	/* discard invalid elements */
-	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+	if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 		/* no sizes are okay for upstream XML, but not for distro XML */
 		if ((width == 0) || (height == 0)) {
 			if (ikind != AS_IMAGE_KIND_SOURCE) {
@@ -664,7 +664,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 					}
 					g_free (prop);
 				} else if (g_strcmp0 ((gchar*) iter2->name, "description") == 0) {
-					if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+					if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 						g_autofree gchar *lang;
 
 						/* for collection XML, the "description" tag has a language property, so parsing it is simple */
@@ -905,7 +905,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 
 		if (g_strcmp0 (node_name, "id") == 0) {
 				as_component_set_id (cpt, content);
-				if ((priv->mode == AS_PARSER_MODE_METAINFO) &&
+				if ((priv->mode == AS_FORMAT_STYLE_METAINFO) &&
 					(as_component_get_kind (cpt) == AS_COMPONENT_KIND_GENERIC)) {
 					/* parse legacy component type information */
 					as_component_set_kind_from_node (cpt, iter);
@@ -922,7 +922,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			if (lang != NULL)
 				as_component_set_summary (cpt, content, lang);
 		} else if (g_strcmp0 (node_name, "description") == 0) {
-			if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+			if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
 					gchar *desc;
@@ -1178,7 +1178,7 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 		goto out;
 	}
 
-	if (priv->mode == AS_PARSER_MODE_METAINFO) {
+	if (priv->mode == AS_FORMAT_STYLE_METAINFO) {
 		if (*desc_node == NULL)
 			*desc_node = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
 		dnode = *desc_node;
@@ -1188,7 +1188,7 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 	}
 
 	localized = g_strcmp0 (lang, "C") != 0;
-	if (priv->mode != AS_PARSER_MODE_METAINFO) {
+	if (priv->mode != AS_FORMAT_STYLE_METAINFO) {
 		if (localized) {
 			xmlNewProp (dnode,
 					(xmlChar*) "xml:lang",
@@ -1202,7 +1202,7 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 		if (g_strcmp0 ((const gchar*) iter->name, "p") == 0) {
 			cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
 
-			if ((priv->mode == AS_PARSER_MODE_METAINFO) && (localized)) {
+			if ((priv->mode == AS_FORMAT_STYLE_METAINFO) && (localized)) {
 				xmlNewProp (cn,
 					(xmlChar*) "xml:lang",
 					(xmlChar*) lang);
@@ -1218,7 +1218,7 @@ as_xmldata_xml_add_description (AsXMLData *xdt, xmlNode *root, xmlNode **desc_no
 
 				cn = xmlAddChild (enumNode, xmlCopyNode (iter2, TRUE));
 
-				if ((priv->mode == AS_PARSER_MODE_METAINFO) && (localized)) {
+				if ((priv->mode == AS_FORMAT_STYLE_METAINFO) && (localized)) {
 					xmlNewProp (cn,
 						(xmlChar*) "xml:lang",
 						(xmlChar*) lang);
@@ -1475,7 +1475,7 @@ as_xmldata_add_release_subnodes (AsXMLData *xdt, AsComponent *cpt, xmlNode *root
 		if (unixtime > 0) {
 			g_autofree gchar *time_str = NULL;
 
-			if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+			if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 				time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
 				xmlNewProp (subnode, (xmlChar*) "timestamp",
 						(xmlChar*) time_str);
@@ -1727,7 +1727,7 @@ as_xmldata_serialize_suggests (AsXMLData *xdt, AsComponent *cpt, xmlNode *cptnod
 
 		/* non-upstream tags are not allowed in metainfo files */
 		kind = as_suggested_get_kind (suggested);
-		if ((kind != AS_SUGGESTED_KIND_UPSTREAM) && (priv->mode == AS_PARSER_MODE_METAINFO))
+		if ((kind != AS_SUGGESTED_KIND_UPSTREAM) && (priv->mode == AS_FORMAT_STYLE_METAINFO))
 			continue;
 
 		node = xmlNewChild (cptnode, NULL, (xmlChar*) "suggests", NULL);
@@ -1780,7 +1780,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 					(xmlChar*) kind_str);
 	}
 
-	if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+	if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 		AsMergeKind merge_kind;
 		gint priority;
 
@@ -1910,7 +1910,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	}
 
 	/* translations */
-	if (priv->mode == AS_PARSER_MODE_METAINFO) {
+	if (priv->mode == AS_FORMAT_STYLE_METAINFO) {
 		GPtrArray *translations;
 
 		/* the translations tag is only valid in metainfo files */
@@ -1978,7 +1978,7 @@ as_xmldata_update_cpt_with_metainfo_data (AsXMLData *xdt, const gchar *data, AsC
 	root = xmlDocGetRootElement (doc);
 
 	/* switch to upstream format parsing */
-	priv->mode = AS_PARSER_MODE_METAINFO;
+	priv->mode = AS_FORMAT_STYLE_METAINFO;
 
 	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
@@ -2095,7 +2095,7 @@ as_xmldata_parse_collection_data (AsXMLData *xdt, const gchar *data, GError **er
 		return NULL;
 	root = xmlDocGetRootElement (doc);
 
-	priv->mode = AS_PARSER_MODE_COLLECTION;
+	priv->mode = AS_FORMAT_STYLE_COLLECTION;
 	cpts = g_ptr_array_new_with_free_func (g_object_unref);
 
 	if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
@@ -2144,7 +2144,7 @@ as_xmldata_serialize_to_metainfo (AsXMLData *xdt, AsComponent *cpt)
 	}
 	as_xmldata_clear_error (xdt);
 
-	priv->mode = AS_PARSER_MODE_METAINFO;
+	priv->mode = AS_FORMAT_STYLE_METAINFO;
 	doc = xmlNewDoc ((xmlChar*) NULL);
 
 	/* define component root node */
@@ -2176,7 +2176,7 @@ as_xmldata_serialize_to_collection_with_rootnode (AsXMLData *xdt, GPtrArray *cpt
 
 	/* initialize */
 	as_xmldata_clear_error (xdt);
-	priv->mode = AS_PARSER_MODE_COLLECTION;
+	priv->mode = AS_FORMAT_STYLE_COLLECTION;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
 	xmlNewProp (root,
@@ -2225,7 +2225,7 @@ as_xmldata_serialize_to_collection_without_rootnode (AsXMLData *xdt, GPtrArray *
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 
 	out_data = g_string_new ("");
-	priv->mode = AS_PARSER_MODE_COLLECTION;
+	priv->mode = AS_FORMAT_STYLE_COLLECTION;
 	as_xmldata_clear_error (xdt);
 
 	for (i = 0; i < cpts->len; i++) {
@@ -2278,20 +2278,20 @@ as_xmldata_serialize_to_collection (AsXMLData *xdt, GPtrArray *cpts, gboolean wr
 }
 
 /**
- * as_xmldata_get_parser_mode:
+ * as_xmldata_get_format_style:
  */
-AsParserMode
-as_xmldata_get_parser_mode (AsXMLData *xdt)
+AsFormatStyle
+as_xmldata_get_format_style (AsXMLData *xdt)
 {
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 	return priv->mode;
 }
 
 /**
- * as_xmldata_set_parser_mode:
+ * as_xmldata_set_format_style:
  */
 void
-as_xmldata_set_parser_mode (AsXMLData *xdt, AsParserMode mode)
+as_xmldata_set_format_style (AsXMLData *xdt, AsFormatStyle mode)
 {
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
 	priv->mode = mode;

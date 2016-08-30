@@ -40,7 +40,7 @@ typedef struct
 
 	gchar *arch;
 	gint default_priority;
-	AsParserMode mode;
+	AsFormatStyle mode;
 	gboolean check_valid;
 } AsYAMLDataPrivate;
 
@@ -73,7 +73,7 @@ as_yamldata_init (AsYAMLData *ydt)
 	priv->check_valid = TRUE;
 
 	/* the YAML data is only for collection-metadata at time */
-	priv->mode = AS_PARSER_MODE_COLLECTION;
+	priv->mode = AS_FORMAT_STYLE_COLLECTION;
 }
 
 /**
@@ -1674,7 +1674,7 @@ as_yaml_data_emit_releases (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 		if (unixtime > 0) {
 			g_autofree gchar *time_str = NULL;
 
-			if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+			if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 				time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
 				as_yaml_emit_entry (emitter, "unix-timestamp", time_str);
 			} else {

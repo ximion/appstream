@@ -49,41 +49,41 @@ struct _AsMetadataClass
 };
 
 /**
- * AsParserMode:
- * @AS_PARSER_MODE_METAINFO:	Parse AppStream upstream metadata (metainfo files)
- * @AS_PARSER_MODE_COLLECTION:	Parse AppStream metadata collections (shipped by software distributors)
+ * AsFormatStyle:
+ * @AS_FORMAT_STYLE_METAINFO:	Parse AppStream upstream metadata (metainfo files)
+ * @AS_FORMAT_STYLE_COLLECTION:	Parse AppStream metadata collections (shipped by software distributors)
  *
  * There are a few differences between AppStream's metainfo files (shipped by upstream projects)
  * and the collection metadata (shipped by distributors).
- * The parser mode indicates which style we should process.
+ * The data source kind indicates which style we should process.
  * Usually you do not want to set this explicitly.
  **/
 typedef enum {
-	AS_PARSER_MODE_UNKNOWN,
-	AS_PARSER_MODE_METAINFO,
-	AS_PARSER_MODE_COLLECTION,
+	AS_FORMAT_STYLE_UNKNOWN,
+	AS_FORMAT_STYLE_METAINFO,
+	AS_FORMAT_STYLE_COLLECTION,
 	/*< private >*/
-	AS_PARSER_MODE_LAST
-} AsParserMode;
+	AS_FORMAT_STYLE_LAST
+} AsFormatStyle;
 
 /**
- * AsDataFormat:
- * @AS_DATA_FORMAT_UNKNOWN:	Unknown metadata format.
- * @AS_DATA_FORMAT_XML:		AppStream XML metadata.
- * @AS_DATA_FORMAT_YAML:	AppStream YAML (DEP-11) metadata.
+ * AsFormatKind:
+ * @AS_FORMAT_KIND_UNKNOWN:	Unknown metadata format.
+ * @AS_FORMAT_KIND_XML:		AppStream XML metadata.
+ * @AS_FORMAT_KIND_YAML:	AppStream YAML (DEP-11) metadata.
  *
  * Format of the AppStream metadata.
  **/
 typedef enum {
-	AS_DATA_FORMAT_UNKNOWN,
-	AS_DATA_FORMAT_XML,
-	AS_DATA_FORMAT_YAML,
+	AS_FORMAT_KIND_UNKNOWN,
+	AS_FORMAT_KIND_XML,
+	AS_FORMAT_KIND_YAML,
 	/*< private >*/
-	AS_DATA_FORMAT_LAST
-} AsDataFormat;
+	AS_FORMAT_KIND_LAST
+} AsFormatKind;
 
-const gchar		*as_data_format_to_string (AsDataFormat format);
-AsDataFormat		 as_data_format_from_string (const gchar *format_str);
+const gchar		*as_format_kind_to_string (AsFormatKind kind);
+AsFormatKind		 as_format_kind_from_string (const gchar *kind_str);
 
 /**
  * AsFormatVersion:
@@ -93,7 +93,7 @@ AsDataFormat		 as_data_format_from_string (const gchar *format_str);
  * @AS_FORMAT_VERSION_V0_9:	0.9
  * @AS_FORMAT_VERSION_V0_10:	0.10
  *
- * Format version / level of the AppStream metadata.
+ * Format version / API level of the AppStream metadata.
  **/
 typedef enum {
 	AS_FORMAT_VERSION_V0_6,
@@ -135,12 +135,12 @@ GQuark			as_metadata_error_quark (void);
 
 void			as_metadata_parse_file (AsMetadata *metad,
 						GFile *file,
-						AsDataFormat format,
+						AsFormatKind format,
 						GError **error);
 
 void			as_metadata_parse (AsMetadata *metad,
 						const gchar *data,
-						AsDataFormat format,
+						AsFormatKind format,
 						GError **error);
 
 AsComponent		*as_metadata_get_component (AsMetadata *metad);
@@ -151,24 +151,28 @@ void			as_metadata_add_component (AsMetadata *metad,
 							AsComponent *cpt);
 
 gchar			*as_metadata_component_to_metainfo (AsMetadata *metad,
-								AsDataFormat format,
+								AsFormatKind format,
 								GError **error);
 void			as_metadata_save_metainfo (AsMetadata *metad,
 							const gchar *fname,
-							AsDataFormat format,
+							AsFormatKind format,
 							GError **error);
 
 gchar			*as_metadata_components_to_collection (AsMetadata *metad,
-								AsDataFormat format,
+								AsFormatKind format,
 								GError **error);
 void			as_metadata_save_collection (AsMetadata *metad,
 							const gchar *fname,
-							AsDataFormat format,
+							AsFormatKind format,
 							GError **error);
 
 AsFormatVersion		as_metadata_get_format_version (AsMetadata *metad);
 void			as_metadata_set_format_version (AsMetadata *metad,
 							AsFormatVersion version);
+
+AsFormatStyle		as_metadata_get_format_style (AsMetadata *metad);
+void			as_metadata_set_format_style (AsMetadata *metad,
+							AsFormatStyle mode);
 
 void			as_metadata_set_locale (AsMetadata *metad,
 							const gchar *locale);
@@ -189,10 +193,6 @@ void			as_metadata_set_write_header (AsMetadata *metad,
 const gchar		*as_metadata_get_architecture (AsMetadata *metad);
 void			as_metadata_set_architecture (AsMetadata *metad,
 							const gchar *arch);
-
-AsParserMode		as_metadata_get_parser_mode (AsMetadata *metad);
-void			as_metadata_set_parser_mode (AsMetadata *metad,
-							AsParserMode mode);
 
 G_END_DECLS
 

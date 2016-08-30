@@ -47,14 +47,14 @@ int		ascli_refresh_cache (const gchar *cachepath,
 
 int		ascli_dump_component (const gchar *cachepath,
 					const gchar *identifier,
-					AsDataFormat format,
+					AsFormatKind mformat,
 					gboolean no_cache);
 
 int		ascli_put_metainfo (const gchar *fname);
 
 int		ascli_convert_data (const gchar *in_fname,
 				    const gchar *out_fname,
-				    AsDataFormat format);
+				    AsFormatKind mformat);
 
 
 G_END_DECLS

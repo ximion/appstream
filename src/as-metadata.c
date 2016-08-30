@@ -47,7 +47,7 @@
 typedef struct
 {
 	AsFormatVersion format_version;
-	AsParserMode mode;
+	AsFormatStyle mode;
 	gchar *locale;
 	gchar *origin;
 	gchar *media_baseurl;
@@ -67,48 +67,48 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsMetadata, as_metadata, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_metadata_get_instance_private (o))
 
 /**
- * as_data_format_to_string:
- * @format: the #AsDataFormat.
+ * as_format_kind_to_string:
+ * @kind: the #AsFormatKind.
  *
  * Converts the enumerated value to an text representation.
  *
- * Returns: string version of @format
+ * Returns: string version of @kind
  *
  * Since: 0.10
  **/
 const gchar*
-as_data_format_to_string (AsDataFormat format)
+as_format_kind_to_string (AsFormatKind kind)
 {
-	if (format == AS_DATA_FORMAT_XML)
+	if (kind == AS_FORMAT_KIND_XML)
 		return "xml";
-	if (format == AS_DATA_FORMAT_XML)
+	if (kind == AS_FORMAT_KIND_XML)
 		return "yaml";
 	return "unknown";
 }
 
 /**
- * as_data_format_from_string:
- * @format_str: the string.
+ * as_format_kind_from_string:
+ * @kind_str: the string.
  *
  * Converts the text representation to an enumerated value.
  *
- * Returns: a #AsDataFormat or %AS_DATA_FORMAT_UNKNOWN for unknown
+ * Returns: a #AsFormatKind or %AS_FORMAT_KIND_UNKNOWN for unknown
  *
  * Since: 0.10
  **/
-AsDataFormat
-as_data_format_from_string (const gchar *format_str)
+AsFormatKind
+as_format_kind_from_string (const gchar *kind_str)
 {
-	if (g_strcmp0 (format_str, "xml") == 0)
-		return AS_DATA_FORMAT_XML;
-	if (g_strcmp0 (format_str, "yaml") == 0)
-		return AS_DATA_FORMAT_YAML;
-	return AS_DATA_FORMAT_UNKNOWN;
+	if (g_strcmp0 (kind_str, "xml") == 0)
+		return AS_FORMAT_KIND_XML;
+	if (g_strcmp0 (kind_str, "yaml") == 0)
+		return AS_FORMAT_KIND_YAML;
+	return AS_FORMAT_KIND_UNKNOWN;
 }
 
 /**
  * as_format_version_to_string:
- * @version: the #AsDataFormat.
+ * @version: the #AsFormatKind.
  *
  * Converts the enumerated value to an text representation.
  *
@@ -174,7 +174,7 @@ as_metadata_init (AsMetadata *metad)
 	g_free (str);
 
 	priv->format_version = AS_CURRENT_FORMAT_VERSION;
-	priv->mode = AS_PARSER_MODE_METAINFO;
+	priv->mode = AS_FORMAT_STYLE_METAINFO;
 	priv->default_priority = 0;
 	priv->write_header = TRUE;
 	priv->update_existing = FALSE;
@@ -293,15 +293,15 @@ as_metadata_clear_components (AsMetadata *metad)
  * Parses AppStream metadata.
  **/
 void
-as_metadata_parse (AsMetadata *metad, const gchar *data, AsDataFormat format, GError **error)
+as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	g_return_if_fail (format > AS_DATA_FORMAT_UNKNOWN && format < AS_DATA_FORMAT_LAST);
+	g_return_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST);
 
-	if (format == AS_DATA_FORMAT_XML) {
+	if (format == AS_FORMAT_KIND_XML) {
 		as_metadata_init_xml (metad);
 
-		if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+		if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 			guint i;
 			g_autoptr(GPtrArray) new_cpts = NULL;
 
@@ -334,10 +334,10 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsDataFormat format, GE
 					g_ptr_array_add (priv->cpts, cpt);
 			}
 		}
-	} else if (format == AS_DATA_FORMAT_YAML) {
+	} else if (format == AS_FORMAT_KIND_YAML) {
 		as_metadata_init_yaml (metad);
 
-		if (priv->mode == AS_PARSER_MODE_COLLECTION) {
+		if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
 			guint i;
 			g_autoptr(GPtrArray) new_cpts = NULL;
 
@@ -360,14 +360,14 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsDataFormat format, GE
  * as_metadata_parse_file:
  * @metad: A valid #AsMetadata instance
  * @file: #GFile for the upstream metadata
- * @format: The format the data is in, or %AS_DATA_FORMAT_UNKNOWN if not known.
+ * @format: The format the data is in, or %AS_FORMAT_KIND_UNKNOWN if not known.
  * @error: A #GError or %NULL.
  *
  * Parses an AppStream upstream metadata file.
  *
  **/
 void
-as_metadata_parse_file (AsMetadata *metad, GFile *file, AsDataFormat format, GError **error)
+as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *file_basename = NULL;
 	g_autoptr(GFileInfo) info = NULL;
@@ -387,20 +387,20 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsDataFormat format, GEr
 	if (info != NULL)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
-	if (format == AS_DATA_FORMAT_UNKNOWN) {
+	if (format == AS_FORMAT_KIND_UNKNOWN) {
 		/* we should autodetect the format type. assume XML until we can find evidence that it's YAML */
-		format = AS_DATA_FORMAT_XML;
+		format = AS_FORMAT_KIND_XML;
 
 		/* check if we are dealing with a YAML document, assume XML otherwise */
 		if (g_strcmp0 (content_type, "application/x-yaml") == 0)
-			format = AS_DATA_FORMAT_YAML;
+			format = AS_FORMAT_KIND_YAML;
 
 		file_basename = g_file_get_basename (file);
 		if ((g_str_has_suffix (file_basename, ".yml.gz")) ||
 		    (g_str_has_suffix (file_basename, ".yaml.gz")) ||
 		    (g_str_has_suffix (file_basename, ".yml")) ||
 		    (g_str_has_suffix (file_basename, ".yaml"))) {
-			format = AS_DATA_FORMAT_YAML;
+			format = AS_FORMAT_KIND_YAML;
 		}
 	}
 
@@ -527,7 +527,7 @@ as_metadata_save_data (AsMetadata *metad, const gchar *fname, const gchar *metad
  * An existing file at the same location will be overridden.
  */
 void
-as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsDataFormat format, GError **error)
+as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *xml_data = NULL;
 
@@ -547,7 +547,7 @@ as_metadata_save_metainfo (AsMetadata *metad, const gchar *fname, AsDataFormat f
  * An existing file at the same location will be overridden.
  */
 void
-as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsDataFormat format, GError **error)
+as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsFormatKind format, GError **error)
 {
 	g_autofree gchar *data = NULL;
 
@@ -575,14 +575,14 @@ as_metadata_save_collection (AsMetadata *metad, const gchar *fname, AsDataFormat
  * Returns: (transfer full): A string containing the XML metadata. Free with g_free()
  */
 gchar*
-as_metadata_component_to_metainfo (AsMetadata *metad, AsDataFormat format, GError **error)
+as_metadata_component_to_metainfo (AsMetadata *metad, AsFormatKind format, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	gchar *xmlstr = NULL;
 	AsComponent *cpt;
 
-	g_return_val_if_fail (format > AS_DATA_FORMAT_UNKNOWN && format < AS_DATA_FORMAT_LAST, NULL);
-	if (format == AS_DATA_FORMAT_YAML) {
+	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST, NULL);
+	if (format == AS_FORMAT_KIND_YAML) {
 		g_critical ("Can not serialize to YAML-metainfo, because metainfo files have to be XML data.");
 		return NULL;
 	}
@@ -610,21 +610,21 @@ as_metadata_component_to_metainfo (AsMetadata *metad, AsDataFormat format, GErro
  * Returns: (transfer full): A string containing the YAML or XML data. Free with g_free()
  */
 gchar*
-as_metadata_components_to_collection (AsMetadata *metad, AsDataFormat format, GError **error)
+as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GError **error)
 {
 	gchar *data = NULL;
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	g_return_val_if_fail (format > AS_DATA_FORMAT_UNKNOWN && format < AS_DATA_FORMAT_LAST, NULL);
+	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST, NULL);
 
 	if (priv->cpts->len == 0)
 		return NULL;
 
-	if (format == AS_DATA_FORMAT_XML) {
+	if (format == AS_FORMAT_KIND_XML) {
 		as_metadata_init_xml (metad);
 		data = as_xmldata_serialize_to_collection (priv->xdt,
 							   priv->cpts,
 							   priv->write_header);
-	} else if (format == AS_DATA_FORMAT_YAML) {
+	} else if (format == AS_FORMAT_KIND_YAML) {
 		as_metadata_init_yaml (metad);
 		data = as_yamldata_serialize_to_collection (priv->ydt,
 							    priv->cpts,
@@ -873,27 +873,27 @@ as_metadata_get_write_header (AsMetadata *metad)
 }
 
 /**
- * as_metadata_get_parser_mode:
+ * as_metadata_get_format_style:
  * @metad: a #AsMetadata instance.
  *
  * Get the metadata parsing mode.
  **/
-AsParserMode
-as_metadata_get_parser_mode (AsMetadata *metad)
+AsFormatStyle
+as_metadata_get_format_style (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	return priv->mode;
 }
 
 /**
- * as_metadata_set_parser_mode:
+ * as_metadata_set_format_style:
  * @metad: a #AsMetadata instance.
- * @mode: the #AsParserMode.
+ * @mode: the #AsFormatStyle.
  *
  * Sets the current metadata parsing mode.
  **/
 void
-as_metadata_set_parser_mode (AsMetadata *metad, AsParserMode mode)
+as_metadata_set_format_style (AsMetadata *metad, AsFormatStyle mode)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	priv->mode = mode;

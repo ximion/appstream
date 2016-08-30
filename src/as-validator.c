@@ -301,14 +301,14 @@ as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gch
  * as_validator_check_description_tag:
  **/
 static void
-as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsComponent *cpt, AsParserMode mode)
+as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsComponent *cpt, AsFormatStyle mode)
 {
 	xmlNode *iter;
 	gchar *node_content;
 	gchar *node_name;
 	gboolean first_paragraph = TRUE;
 
-	if (mode == AS_PARSER_MODE_METAINFO) {
+	if (mode == AS_FORMAT_STYLE_METAINFO) {
 		as_validator_check_nolocalized (validator,
 						node,
 						(const gchar*) node->name,
@@ -332,7 +332,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 		}
 
 		if (g_strcmp0 (node_name, "p") == 0) {
-			if (mode == AS_PARSER_MODE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"description/p",
@@ -348,7 +348,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 			}
 			first_paragraph = FALSE;
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
-			if (mode == AS_PARSER_MODE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"description/ul",
@@ -357,7 +357,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 			}
 			as_validator_check_children_quick (validator, iter, "li", cpt);
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
-			if (mode == AS_PARSER_MODE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
 								"description/ol",
@@ -421,11 +421,11 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	g_auto(GStrv) cid_parts = NULL;
 	const gchar *summary;
 	const gchar *cid;
-	AsParserMode mode;
+	AsFormatStyle mode;
 	gboolean has_metadata_license = FALSE;
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	mode = as_xmldata_get_parser_mode (xdt);
+	mode = as_xmldata_get_format_style (xdt);
 
 	/* validate the resulting AsComponent for sanity */
 	cpt = as_component_new ();
@@ -445,14 +445,14 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		}
 	}
 
-	if ((as_component_get_priority (cpt) != 0) && (mode == AS_PARSER_MODE_METAINFO)) {
+	if ((as_component_get_priority (cpt) != 0) && (mode == AS_FORMAT_STYLE_METAINFO)) {
 		as_validator_add_issue (validator, root,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_VALUE_WRONG,
 					"The component has a priority value set. This is not allowed in metainfo files.");
 	}
 
-	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_PARSER_MODE_METAINFO)) {
+	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_FORMAT_STYLE_METAINFO)) {
 		as_validator_add_issue (validator, root,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_VALUE_WRONG,
@@ -538,7 +538,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 
 			/* the license must allow easy mixing of metadata in metainfo files */
-			if (mode == AS_PARSER_MODE_METAINFO) {
+			if (mode == AS_FORMAT_STYLE_METAINFO) {
 				if (!as_license_is_metadata_license (node_content)) {
 					as_validator_add_issue (validator, iter,
 								AS_ISSUE_IMPORTANCE_WARNING,
@@ -613,10 +613,10 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_children_quick (validator, iter, "release", cpt);
-		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_PARSER_MODE_COLLECTION)) {
+		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_FORMAT_STYLE_COLLECTION)) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
-		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_PARSER_MODE_METAINFO)) {
+		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_FORMAT_STYLE_METAINFO)) {
 			g_autofree gchar *prop = NULL;
 			AsTranslationKind trkind;
 			prop = as_validator_check_type_property (validator, cpt, iter);
@@ -638,7 +638,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 							"Unknown type '%s' for <bundle/> tag.", prop);
 			}
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
-			if (mode == AS_PARSER_MODE_COLLECTION) {
+			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_add_issue (validator, iter,
 							AS_ISSUE_IMPORTANCE_WARNING,
 							AS_ISSUE_KIND_TAG_NOT_ALLOWED,
@@ -671,7 +671,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	}
 
 	/* emit an error if we are missing the metadata license in metainfo files */
-	if ((!has_metadata_license) && (mode == AS_PARSER_MODE_METAINFO)) {
+	if ((!has_metadata_license) && (mode == AS_FORMAT_STYLE_METAINFO)) {
 		as_validator_add_issue (validator, NULL,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_TAG_MISSING,
@@ -874,7 +874,7 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 
 	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_METAINFO);
+		as_xmldata_set_format_style (xdt, AS_FORMAT_STYLE_METAINFO);
 		cpt = as_validator_validate_component_node (validator, xdt, root);
 		if (cpt != NULL)
 			g_object_unref (cpt);
@@ -882,7 +882,7 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 		xmlNode *iter;
 		const gchar *node_name;
 
-		as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_COLLECTION);
+		as_xmldata_set_format_style (xdt, AS_FORMAT_STYLE_COLLECTION);
 		for (iter = root->children; iter != NULL; iter = iter->next) {
 			/* discard spaces */
 			if (iter->type != XML_ELEMENT_NODE)
@@ -1126,7 +1126,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 				NULL,
 				NULL,
 				0);
-	as_xmldata_set_parser_mode (xdt, AS_PARSER_MODE_METAINFO);
+	as_xmldata_set_format_style (xdt, AS_FORMAT_STYLE_METAINFO);
 
 	/* validate all metainfo files */
 	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE, NULL);
