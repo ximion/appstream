@@ -119,15 +119,15 @@ as_data_format_from_string (const gchar *format_str)
 const gchar*
 as_format_version_to_string (AsFormatVersion version)
 {
-	if (version == AS_FORMAT_VERSION_0_6)
+	if (version == AS_FORMAT_VERSION_V0_6)
 		return "0.6";
-	if (version == AS_FORMAT_VERSION_0_7)
+	if (version == AS_FORMAT_VERSION_V0_7)
 		return "0.7";
-	if (version == AS_FORMAT_VERSION_0_8)
+	if (version == AS_FORMAT_VERSION_V0_8)
 		return "0.8";
-	if (version == AS_FORMAT_VERSION_0_9)
+	if (version == AS_FORMAT_VERSION_V0_9)
 		return "0.9";
-	if (version == AS_FORMAT_VERSION_0_10)
+	if (version == AS_FORMAT_VERSION_V0_10)
 		return "0.10";
 	return "?.??";
 }
@@ -147,16 +147,16 @@ AsFormatVersion
 as_format_version_from_string (const gchar *version_str)
 {
 	if (g_strcmp0 (version_str, "0.6") == 0)
-		return AS_FORMAT_VERSION_0_6;
+		return AS_FORMAT_VERSION_V0_6;
 	if (g_strcmp0 (version_str, "0.7") == 0)
-		return AS_FORMAT_VERSION_0_7;
+		return AS_FORMAT_VERSION_V0_7;
 	if (g_strcmp0 (version_str, "0.8") == 0)
-		return AS_FORMAT_VERSION_0_8;
+		return AS_FORMAT_VERSION_V0_8;
 	if (g_strcmp0 (version_str, "0.9") == 0)
-		return AS_FORMAT_VERSION_0_9;
+		return AS_FORMAT_VERSION_V0_9;
 	if (g_strcmp0 (version_str, "0.10") == 0)
-		return AS_FORMAT_VERSION_0_10;
-	return AS_FORMAT_VERSION_0_10;
+		return AS_FORMAT_VERSION_V0_10;
+	return AS_FORMAT_VERSION_V0_10;
 }
 
 /**
