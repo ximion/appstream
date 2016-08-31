@@ -22,8 +22,10 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "../src/as-utils-private.h"
 #include "as-cache-file.h"
+#include "as-test-utils.h"
+#include "../src/as-utils-private.h"
+#include "../src/as-component-private.h"
 
 
 static gchar *datadir = NULL;
@@ -149,6 +151,69 @@ test_get_sampledata_pool (gboolean use_caches)
 }
 
 /**
+ * as_sort_components_cb:
+ *
+ * Helper method to sort lists of #AsComponent
+ */
+static gint
+as_sort_components_cb (gconstpointer a, gconstpointer b)
+{
+	AsComponent *cpt1 = *((AsComponent **) a);
+	AsComponent *cpt2 = *((AsComponent **) b);
+
+	return g_strcmp0 (as_component_get_id (cpt1),
+			  as_component_get_id (cpt2));
+}
+
+/**
+ * as_assert_component_lists_equal:
+ *
+ * Check if the components present in the two #GPtrArray are equal.
+ */
+static void
+as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
+{
+	guint i;
+	g_autofree gchar *cpts_a_xml = NULL;
+	g_autofree gchar *cpts_b_xml = NULL;
+	GError *error = NULL;
+	g_autoptr(AsMetadata) metad = as_metadata_new ();
+
+	/* sort */
+	g_ptr_array_sort (cpts_a, as_sort_components_cb);
+	g_ptr_array_sort (cpts_b, as_sort_components_cb);
+
+	for (i = 0; i < cpts_a->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_a, i));
+		/* we ignore keywords for now */
+		as_component_set_keywords (cpt, NULL, "C");
+		/* FIXME: And languages, because their ordering on serialization is random. */
+		g_hash_table_remove_all (as_component_get_languages_table (cpt));
+
+		as_metadata_add_component (metad, cpt);
+	}
+
+	cpts_a_xml = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+
+	as_metadata_clear_components (metad);
+	for (i = 0; i < cpts_b->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_b, i));
+		/* we ignore keywords for now */
+		as_component_set_keywords (cpt, NULL, "C");
+		/* FIXME: And languages, because their ordering on serialization is random. */
+		g_hash_table_remove_all (as_component_get_languages_table (cpt));
+
+		as_metadata_add_component (metad, cpt);
+	}
+
+	cpts_b_xml = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+
+	g_assert (as_test_compare_lines (cpts_a_xml, cpts_b_xml));
+}
+
+/**
  * test_cache_file:
  *
  * Test if cache file (de)serialization works.
@@ -173,10 +238,9 @@ test_cache_file ()
 
 	cpts = as_cache_file_read ("/tmp/as-unittest-dummy.gvz", &error);
 	g_assert_no_error (error);
-
-	/* TODO: Serialize components and check if they are equal to what we attempted to store in the cache */
-
 	g_assert_cmpint (cpts->len, ==, 18);
+
+	as_assert_component_lists_equal (cpts, cpts_prev);
 }
 
 /**

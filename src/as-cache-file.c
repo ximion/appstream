@@ -95,11 +95,13 @@ as_string_ptrarray_to_variant (GPtrArray *strarray)
 static void
 as_bundle_array_to_variant_cb (AsBundle *bundle, GVariantBuilder *builder)
 {
-	GVariant *bundle_var;
-	bundle_var = g_variant_new_parsed ("({'type', %u},{'id', %s})",
-					   as_bundle_get_kind (bundle),
-					   as_bundle_get_id (bundle));
-	g_variant_builder_add_value (builder, bundle_var);
+	GVariantBuilder bundle_b;
+	g_variant_builder_init (&bundle_b, G_VARIANT_TYPE_ARRAY);
+
+	g_variant_builder_add_parsed (&bundle_b, "{'type', <%u>}", as_bundle_get_kind (bundle));
+	g_variant_builder_add_parsed (&bundle_b, "{'id', <%s>}", as_bundle_get_id (bundle));
+
+	g_variant_builder_add_value (builder, g_variant_builder_end (&bundle_b));
 }
 
 /**
@@ -123,15 +125,17 @@ as_url_table_to_variant_cb (gpointer ukind_ptr, const gchar *value, GVariantBuil
 static void
 as_images_array_to_variant_cb (AsImage *img, GVariantBuilder *builder)
 {
-	GVariant *image_var;
+	GVariantBuilder image_b;
 
-	image_var = g_variant_new_parsed ("({'type', %u},{'url', %s},{'width', %i},{'height', %i},{'locale', %v})",
-					   as_image_get_kind (img),
-					   as_image_get_url (img),
-					   as_image_get_width (img),
-					   as_image_get_height (img),
-					   as_variant_mstring_new (as_image_get_locale (img)));
-	g_variant_builder_add_value (builder, image_var);
+	g_variant_builder_init (&image_b, G_VARIANT_TYPE_ARRAY);
+
+	g_variant_builder_add_parsed (&image_b, "{'type', <%u>}", as_image_get_kind (img));
+	g_variant_builder_add_parsed (&image_b, "{'url', <%s>}", as_image_get_url (img));
+	g_variant_builder_add_parsed (&image_b, "{'width', <%i>}", as_image_get_width (img));
+	g_variant_builder_add_parsed (&image_b, "{'height', <%i>}", as_image_get_height (img));
+	g_variant_builder_add_parsed (&image_b, "{'locale', %v}", as_variant_mstring_new (as_image_get_locale (img)));
+
+	g_variant_builder_add_value (builder, g_variant_builder_end (&image_b));
 }
 
 /**
@@ -410,21 +414,23 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 					}
 				}
 
-				locations_var = g_variant_new_maybe (G_VARIANT_TYPE_STRING_ARRAY,
-								     as_string_ptrarray_to_variant (as_release_get_locations (rel)));
-				checksums_var = g_variant_new_maybe ((const GVariantType *) "a{us}",
-								     checksums->len > 0? g_variant_builder_end (&checksum_b) : NULL);
-				sizes_var = g_variant_new_maybe ((const GVariantType *) "a{ut}",
-								     have_sizes? g_variant_builder_end (&sizes_b) : NULL);
-
 				g_variant_builder_init (&rel_b, G_VARIANT_TYPE_ARRAY);
 				g_variant_builder_add_parsed (&rel_b, "{'version', %v}", as_variant_mstring_new (as_release_get_version (rel)));
 				g_variant_builder_add_parsed (&rel_b, "{'timestamp', <%t>}", as_release_get_timestamp (rel));
 				g_variant_builder_add_parsed (&rel_b, "{'urgency', <%u>}", as_release_get_urgency (rel));
-				g_variant_builder_add_parsed (&rel_b, "{'locations', %v}", locations_var);
-				g_variant_builder_add_parsed (&rel_b, "{'checksums', %v}", checksums_var);
-				g_variant_builder_add_parsed (&rel_b, "{'sizes', %v}", sizes_var);
 				g_variant_builder_add_parsed (&rel_b, "{'description', %v}", as_variant_mstring_new (as_release_get_description (rel)));
+
+				locations_var = as_string_ptrarray_to_variant (as_release_get_locations (rel));
+				if (locations_var)
+					g_variant_builder_add_parsed (&rel_b, "{'locations', %v}", locations_var);
+
+				checksums_var = checksums->len > 0? g_variant_builder_end (&checksum_b) : NULL;
+				if (checksums_var)
+					g_variant_builder_add_parsed (&rel_b, "{'checksums', %v}", checksums_var);
+
+				sizes_var = have_sizes? g_variant_builder_end (&sizes_b) : NULL;
+				if (sizes_var)
+					g_variant_builder_add_parsed (&rel_b, "{'sizes', %v}", sizes_var);
 
 				g_variant_builder_add_value (&array_b, g_variant_builder_end (&rel_b));
 			}
@@ -443,6 +449,24 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 						&dict_b);
 			as_variant_builder_add_kv (&cb, "languages",
 						   g_variant_builder_end (&dict_b));
+		}
+
+		/* suggestions */
+		tmp_array_ref = as_component_get_suggested (cpt);
+		if (tmp_array_ref->len > 0) {
+			g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
+			for (i = 0; i < tmp_array_ref->len; i++) {
+				AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (tmp_array_ref, i));
+				GVariant *sug_var;
+
+				sug_var = g_variant_new ("{uv}",
+							  as_suggested_get_kind (suggested),
+							  as_string_ptrarray_to_variant (as_suggested_get_ids (suggested)));
+				g_variant_builder_add_value (&array_b, sug_var);
+			}
+
+			as_variant_builder_add_kv (&cb, "suggestions",
+						   g_variant_builder_end (&array_b));
 		}
 
 		/* search tokens */
@@ -808,7 +832,7 @@ as_cache_file_read (const gchar *fname, GError **error)
 		g_variant_unref (var);
 
 		/* bundles */
-		var = g_variant_dict_lookup_value (&dict, "bundles", G_VARIANT_TYPE_STRING_ARRAY);
+		var = g_variant_dict_lookup_value (&dict, "bundles", G_VARIANT_TYPE_ARRAY);
 		if (var != NULL) {
 			GVariant *child;
 
@@ -985,7 +1009,7 @@ as_cache_file_read (const gchar *fname, GError **error)
 							   locale);
 				g_variant_unref (tmp);
 
-				images_var = g_variant_dict_lookup_value (&idict, "images", G_VARIANT_TYPE_VARIANT);
+				images_var = g_variant_dict_lookup_value (&idict, "images", G_VARIANT_TYPE_ARRAY);
 				if (images_var != NULL) {
 					GVariant *img_child;
 					g_variant_iter_init (&inner_iter, images_var);
@@ -1035,8 +1059,13 @@ as_cache_file_read (const gchar *fname, GError **error)
 							    locale);
 				g_variant_unref (tmp);
 
+				/* locations */
+				as_variant_to_string_ptrarray_by_dict (&dict,
+									"locations",
+									as_release_get_locations (rel));
+
 				/* sizes */
-				tmp = g_variant_dict_lookup_value (&rdict, "sizes", G_VARIANT_TYPE_VARIANT);
+				tmp = g_variant_dict_lookup_value (&rdict, "sizes", G_VARIANT_TYPE_DICTIONARY);
 				if (tmp != NULL) {
 					g_variant_iter_init (&riter, tmp);
 					while ((inner_child = g_variant_iter_next_value (&riter))) {
@@ -1044,7 +1073,7 @@ as_cache_file_read (const gchar *fname, GError **error)
 						guint64 size;
 
 						g_variant_get (inner_child, "{ut}", &kind, &size);
-						as_release_set_size (rel, kind, size);
+						as_release_set_size (rel, size, kind);
 
 						g_variant_unref (inner_child);
 					}
@@ -1052,7 +1081,7 @@ as_cache_file_read (const gchar *fname, GError **error)
 				}
 
 				/* checksums */
-				tmp = g_variant_dict_lookup_value (&rdict, "checksums", G_VARIANT_TYPE_VARIANT);
+				tmp = g_variant_dict_lookup_value (&rdict, "checksums", G_VARIANT_TYPE_DICTIONARY);
 				if (tmp != NULL) {
 					g_variant_iter_init (&riter, var);
 					while ((inner_child = g_variant_iter_next_value (&riter))) {
@@ -1091,6 +1120,37 @@ as_cache_file_read (const gchar *fname, GError **error)
 				g_variant_get (child, "{su}", &lang, &percentage);
 				as_component_add_language (cpt, lang, percentage);
 
+				g_variant_unref (child);
+			}
+			g_variant_unref (var);
+		}
+
+		/* suggestions */
+		var = g_variant_dict_lookup_value (&dict,
+						   "suggestions",
+						   G_VARIANT_TYPE_ARRAY);
+		if (var != NULL) {
+			GVariant *child;
+
+			g_variant_iter_init (&gvi, var);
+			while ((child = g_variant_iter_next_value (&gvi))) {
+				AsSuggestedKind kind;
+				GVariantIter inner_iter;
+				GVariant *id_child;
+				g_autoptr(GVariant) ids_var = NULL;
+				g_autoptr(AsSuggested) suggested = as_suggested_new ();
+
+				g_variant_get (child, "{uv}", &kind, &ids_var);
+				as_suggested_set_kind (suggested, kind);
+
+				g_variant_iter_init (&inner_iter, ids_var);
+				while ((id_child = g_variant_iter_next_value (&inner_iter))) {
+					as_suggested_add_id (suggested,
+							     g_variant_get_string (id_child, NULL));
+					g_variant_unref (id_child);
+				}
+
+				as_component_add_suggested (cpt, suggested);
 				g_variant_unref (child);
 			}
 			g_variant_unref (var);

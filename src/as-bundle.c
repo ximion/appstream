@@ -44,42 +44,42 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsBundle, as_bundle, G_TYPE_OBJECT)
 
 /**
  * as_bundle_kind_to_string:
- * @bundle_kind: the %AsBundleKind.
+ * @kind: the %AsBundleKind.
  *
  * Converts the enumerated value to an text representation.
  *
- * Returns: string version of @bundle_kind
+ * Returns: string version of @kind
  *
  * Since: 0.8.0
  **/
 const gchar*
-as_bundle_kind_to_string (AsBundleKind bundle_kind)
+as_bundle_kind_to_string (AsBundleKind kind)
 {
-	if (bundle_kind == AS_BUNDLE_KIND_PACKAGE)
+	if (kind == AS_BUNDLE_KIND_PACKAGE)
 		return "package";
-	if (bundle_kind == AS_BUNDLE_KIND_LIMBA)
+	if (kind == AS_BUNDLE_KIND_LIMBA)
 		return "limba";
-	if (bundle_kind == AS_BUNDLE_KIND_FLATPAK)
+	if (kind == AS_BUNDLE_KIND_FLATPAK)
 		return "flatpak";
 	return "unknown";
 }
 
 /**
  * as_bundle_kind_from_string:
- * @bundle_kind: the string.
+ * @bundle_str: the string.
  *
  * Converts the text representation to an enumerated value.
  *
  * Returns: a #AsBundleKind or %AS_BUNDLE_KIND_UNKNOWN for unknown
  **/
 AsBundleKind
-as_bundle_kind_from_string (const gchar *bundle_kind)
+as_bundle_kind_from_string (const gchar *bundle_str)
 {
-	if (g_strcmp0 (bundle_kind, "package") == 0)
+	if (g_strcmp0 (bundle_str, "package") == 0)
 		return AS_BUNDLE_KIND_PACKAGE;
-	if (g_strcmp0 (bundle_kind, "limba") == 0)
+	if (g_strcmp0 (bundle_str, "limba") == 0)
 		return AS_BUNDLE_KIND_LIMBA;
-	if (g_strcmp0 (bundle_kind, "flatpak") == 0)
+	if (g_strcmp0 (bundle_str, "flatpak") == 0)
 		return AS_BUNDLE_KIND_FLATPAK;
 	return AS_BUNDLE_KIND_UNKNOWN;
 }
