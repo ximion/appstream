@@ -293,12 +293,16 @@ static gchar*
 as_yamldata_get_localized_value (AsYAMLData *ydt, GNode *node, gchar *locale_override)
 {
 	GNode *tnode;
+	gchar *lvalue;
 
 	tnode = as_yamldata_get_localized_node (ydt, node, locale_override);
 	if (tnode == NULL)
 		return NULL;
 
-	return g_strdup ((gchar*) tnode->children->data);
+	lvalue = g_strdup ((gchar*) tnode->children->data);
+	g_strstrip (lvalue);
+
+	return lvalue;
 }
 
 /**
@@ -876,7 +880,6 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 			as_component_set_source_pkgname (cpt, value);
 		} else if (g_strcmp0 (key, "Name") == 0) {
 			lvalue = as_yamldata_get_localized_value (ydt, node, "C");
-			g_strstrip (lvalue);
 			if (lvalue != NULL) {
 				as_component_set_name (cpt, lvalue, "C"); /* Unlocalized */
 				g_free (lvalue);
@@ -886,17 +889,14 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Summary") == 0) {
 			lvalue = as_yamldata_get_localized_value (ydt, node, NULL);
-			g_strstrip (lvalue);
 			as_component_set_summary (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "Description") == 0) {
 			lvalue = as_yamldata_get_localized_value (ydt, node, NULL);
-			g_strstrip (lvalue);
 			as_component_set_description (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
 			lvalue = as_yamldata_get_localized_value (ydt, node, NULL);
-			g_strstrip (lvalue);
 			as_component_set_developer_name (cpt, lvalue, NULL);
 			g_free (lvalue);
 		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {
