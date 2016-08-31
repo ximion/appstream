@@ -598,13 +598,14 @@ as_yaml_process_provides (GNode *node, AsComponent *cpt)
  * as_yamldata_process_image:
  */
 static void
-as_yamldata_process_image (AsYAMLData *ydt, GNode *node, AsScreenshot *scr)
+as_yamldata_process_image (AsYAMLData *ydt, GNode *node, AsScreenshot *scr, AsImageKind ikind)
 {
 	GNode *n;
 	AsImage *img;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	img = as_image_new ();
+	as_image_set_kind (img, ikind);
 
 	for (n = node->children; n != NULL; n = n->next) {
 		const gchar *key;
@@ -680,11 +681,11 @@ as_yamldata_process_screenshots (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 				as_screenshot_set_caption (scr, lvalue, NULL);
 			} else if (g_strcmp0 (key, "source-image") == 0) {
 				/* there can only be one source image */
-				as_yamldata_process_image (ydt, n, scr);
+				as_yamldata_process_image (ydt, n, scr, AS_IMAGE_KIND_SOURCE);
 			} else if (g_strcmp0 (key, "thumbnails") == 0) {
 				/* the thumbnails are a list of images */
 				for (in = n->children; in != NULL; in = in->next) {
-					as_yamldata_process_image (ydt, in, scr);
+					as_yamldata_process_image (ydt, in, scr, AS_IMAGE_KIND_THUMBNAIL);
 				}
 			} else {
 				as_yaml_print_unknown ("screenshot", key);

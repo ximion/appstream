@@ -329,7 +329,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			for (j = 0; j < imgs->len; j++) {
 				img = (AsImage*) g_ptr_array_index (imgs, j);
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-					ascli_print_key_value (_("Sample Screenshot URL"), as_image_get_url (img), FALSE);
+					ascli_print_key_value (_("Default Screenshot URL"), as_image_get_url (img), FALSE);
 					break;
 				}
 			}
