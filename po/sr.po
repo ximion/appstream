@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
@@ -232,6 +232,11 @@ msgstr ""
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
+
+#: ../tools/ascli-utils.c:332
+#, fuzzy
+msgid "Default Screenshot URL"
+msgstr "Адреса узорка снимка екрана"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -621,10 +626,6 @@ msgstr ""
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Уграђени програм времена покретања"
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
-msgstr "Адреса узорка снимка екрана"
 
 #: ../src/as-category.c:174
 msgctxt "Category of Graphics"

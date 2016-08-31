@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-30 23:52+0800\n"
 "Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -229,6 +229,11 @@ msgstr "資料庫"
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "除錯器"
+
+#: ../tools/ascli-utils.c:332
+#, fuzzy
+msgid "Default Screenshot URL"
+msgstr "樣本螢幕快照 URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -607,10 +612,6 @@ msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "執行時期韌體"
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
-msgstr "樣本螢幕快照 URL"
 
 #: ../src/as-category.c:174
 msgctxt "Category of Graphics"

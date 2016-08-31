@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-15 19:46+0000\n"
 "Last-Translator: wsxy162 <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) <https://hosted.weblate.org/projects/"
@@ -235,6 +235,11 @@ msgstr ""
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
+
+#: ../tools/ascli-utils.c:332
+#, fuzzy
+msgid "Default Screenshot URL"
+msgstr "示例屏幕截图 URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -620,10 +625,6 @@ msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "运行时固件"
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
-msgstr "示例屏幕截图 URL"
 
 #: ../src/as-category.c:174
 msgctxt "Category of Graphics"

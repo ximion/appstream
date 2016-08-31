@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-30 17:46+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
@@ -234,6 +234,11 @@ msgstr "Bazy danych"
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Debugery"
+
+#: ../tools/ascli-utils.c:332
+#, fuzzy
+msgid "Default Screenshot URL"
+msgstr "Przykładowy adres URL zrzutu ekranu"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -615,10 +620,6 @@ msgstr ""
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Oprogramowanie sprzętowe wgrywane podczas uruchamiania systemu"
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
-msgstr "Przykładowy adres URL zrzutu ekranu"
 
 #: ../src/as-category.c:174
 msgctxt "Category of Graphics"

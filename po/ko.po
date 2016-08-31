@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
@@ -236,6 +236,11 @@ msgstr ""
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
+
+#: ../tools/ascli-utils.c:332
+#, fuzzy
+msgid "Default Screenshot URL"
+msgstr "예제 스크린샷 URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -622,10 +627,6 @@ msgstr "'%s --help'를 입력하면 사용 가능한 명령행 옵션을 볼 수
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "런타임 펌웨어"
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
-msgstr "예제 스크린샷 URL"
 
 #: ../src/as-category.c:174
 msgctxt "Category of Graphics"

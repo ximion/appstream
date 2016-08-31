@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-29 13:42+0000\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -234,6 +234,11 @@ msgstr "Adatbázis"
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Hibakeresők"
+
+#: ../tools/ascli-utils.c:332
+#, fuzzy
+msgid "Default Screenshot URL"
+msgstr "Minta képernyőkép URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -624,10 +629,6 @@ msgstr ""
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Futásidejű firmware"
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
-msgstr "Minta képernyőkép URL"
 
 #: ../src/as-category.c:174
 msgctxt "Category of Graphics"

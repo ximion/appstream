@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-20 12:49+0000\n"
 "Last-Translator: Nataliia <sunfly22@bigmir.net>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
@@ -236,6 +236,11 @@ msgstr ""
 msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
+
+#: ../tools/ascli-utils.c:332
+#, fuzzy
+msgid "Default Screenshot URL"
+msgstr "URL-адрес примера снимка экрана"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -630,10 +635,6 @@ msgstr ""
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
 msgstr "Выполняемая микропрограмма"
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
-msgstr "URL-адрес примера снимка экрана"
 
 #: ../src/as-category.c:174
 msgctxt "Category of Graphics"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-30 22:44+0200\n"
+"POT-Creation-Date: 2016-08-31 21:53+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Basque (http://www.transifex.com/freedesktop/appstream/"
@@ -228,6 +228,10 @@ msgstr ""
 #: ../src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
+msgstr ""
+
+#: ../tools/ascli-utils.c:332
+msgid "Default Screenshot URL"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format
@@ -604,10 +608,6 @@ msgstr ""
 
 #: ../src/as-provided.c:158
 msgid "Runtime Firmware"
-msgstr ""
-
-#: ../tools/ascli-utils.c:332
-msgid "Sample Screenshot URL"
 msgstr ""
 
 #: ../src/as-category.c:174
