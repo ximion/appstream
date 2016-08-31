@@ -1033,7 +1033,7 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
 /**
  * as_sort_components_by_score_cb:
  *
- * helper method to sort result arrays by the #AsComponent match score.
+ * Helper method to sort result arrays by the #AsComponent match score.
  */
 static gint
 as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)

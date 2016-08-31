@@ -43,6 +43,7 @@ GHashTable		*as_component_get_summary_table (AsComponent *cpt);
 GHashTable		*as_component_get_description_table (AsComponent *cpt);
 GHashTable		*as_component_get_developer_name_table (AsComponent *cpt);
 GHashTable		*as_component_get_keywords_table (AsComponent *cpt);
+AS_INTERNAL_VISIBLE
 GHashTable		*as_component_get_languages_table (AsComponent *cpt);
 
 void			as_component_set_bundles_array (AsComponent *cpt,

@@ -62,8 +62,8 @@ typedef enum {
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
 
-const gchar	*as_bundle_kind_to_string (AsBundleKind bundle_kind);
-AsBundleKind	as_bundle_kind_from_string (const gchar *bundle_kind);
+const gchar	*as_bundle_kind_to_string (AsBundleKind kind);
+AsBundleKind	as_bundle_kind_from_string (const gchar *bundle_str);
 
 AsBundle	*as_bundle_new		(void);
 

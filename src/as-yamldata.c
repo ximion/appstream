@@ -366,7 +366,7 @@ as_yaml_process_bundles (GNode *node, AsComponent *cpt)
 			} else if (g_strcmp0 (key, "id") == 0) {
 				as_bundle_set_id (bundle, value);
 			} else {
-				as_yaml_print_unknown ("bundle", key);
+				as_yaml_print_unknown ("bundles", key);
 			}
 		}
 

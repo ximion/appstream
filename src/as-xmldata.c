@@ -1906,7 +1906,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 				     (xmlChar*) as_bundle_get_id (bundle));
 		xmlNewProp (n,
 			    (xmlChar*) "type",
-			    (xmlChar*) as_bundle_kind_to_string (i));
+			    (xmlChar*) as_bundle_kind_to_string (as_bundle_get_kind (bundle)));
 	}
 
 	/* translations */
