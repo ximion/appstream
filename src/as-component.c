@@ -922,7 +922,7 @@ as_component_get_data_id (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->data_id == NULL)
-		priv->data_id = as_utils_build_data_id (cpt);
+		priv->data_id = as_utils_build_data_id_for_cpt (cpt);
 	return priv->data_id;
 }
 

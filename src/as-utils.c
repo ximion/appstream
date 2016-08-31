@@ -1052,19 +1052,32 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
  * as_utils_build_data_id:
  * @cpt: The component to build the ID for.
  *
- * Builds the unique metadata ID for component @cpt.
+ * Builds the unique metadata ID using the supplied information.
  */
 gchar*
-as_utils_build_data_id (AsComponent *cpt)
+as_utils_build_data_id (const gchar *scope,
+			const gchar *origin,
+			AsBundleKind bundle_kind,
+			const gchar *cid)
 {
-	const gchar *scope;
-	const gchar *origin;
-	AsBundleKind bundle_kind;
-	GPtrArray *bundles;
+	/* build the data-id */
+	return g_strdup_printf ("%s/%s/%s/%s",
+				scope,
+				origin,
+				as_bundle_kind_to_string (bundle_kind),
+				cid);
+}
 
-	/* FIXME: We don't really support scopes yet, will come in a future
-	 * release. */
-	scope = "system";
+/**
+ * as_utils_get_component_bundle_kind:
+ *
+ * Check which bundling system the component uses.
+ */
+AsBundleKind
+as_utils_get_component_bundle_kind (AsComponent *cpt)
+{
+	GPtrArray *bundles;
+	AsBundleKind bundle_kind;
 
 	/* determine bundle - what should we do if there are multiple bundles of different types
 	 * defined for one component? */
@@ -1073,16 +1086,39 @@ as_utils_build_data_id (AsComponent *cpt)
 	if (bundles->len > 0)
 		bundle_kind = as_bundle_get_kind (AS_BUNDLE (g_ptr_array_index (bundles, 0)));
 
+	return bundle_kind;
+}
+
+/**
+ * as_utils_build_data_id_for_cpt:
+ * @cpt: The component to build the ID for.
+ *
+ * Builds the unique metadata ID for component @cpt.
+ */
+gchar*
+as_utils_build_data_id_for_cpt (AsComponent *cpt)
+{
+	const gchar *scope;
+	const gchar *origin;
+	AsBundleKind bundle_kind;
+
+	/* FIXME: We don't really support scopes yet, will come in a future
+	 * release. */
+	scope = "system";
+
+	/* determine bundle - what should we do if there are multiple bundles of different types
+	 * defined for one component? */
+	bundle_kind = as_utils_get_component_bundle_kind (cpt);
+
 	/* FIXME: packages share one namespace, therefore we edit the origin here for now. */
 	if (bundle_kind == AS_BUNDLE_KIND_PACKAGE)
-		origin = "distribution";
+		origin = "os";
 	else
 		origin = as_component_get_origin (cpt);
 
 	/* build the data-id */
-	return g_strdup_printf ("%s/%s/%s/%s",
-				scope,
-				origin,
-				as_bundle_kind_to_string (bundle_kind),
-				as_component_get_id (cpt));
+	return as_utils_build_data_id (scope,
+					origin,
+					bundle_kind,
+					as_component_get_id (cpt));
 }

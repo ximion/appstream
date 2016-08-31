@@ -76,7 +76,12 @@ gboolean		as_arch_compatible (const gchar *arch1,
 
 gboolean		as_utils_search_token_valid (const gchar *token);
 
-gchar			*as_utils_build_data_id (AsComponent *cpt);
+gchar			*as_utils_build_data_id (const gchar *scope,
+						 const gchar *origin,
+						 AsBundleKind bundle_kind,
+						 const gchar *cid);
+AsBundleKind		as_utils_get_component_bundle_kind (AsComponent *cpt);
+gchar			*as_utils_build_data_id_for_cpt (AsComponent *cpt);
 
 #pragma GCC visibility pop
 G_END_DECLS
