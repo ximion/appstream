@@ -1326,28 +1326,28 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 				break;
 			case AS_PROVIDED_KIND_DBUS_SYSTEM:
 				if (dbus_system == NULL) {
-					dbus_system = g_object_ref (items);
+					dbus_system = g_ptr_array_ref (items);
 				} else {
 					g_critical ("Hit dbus:system twice, this should never happen!");
 				}
 				break;
 			case AS_PROVIDED_KIND_DBUS_USER:
 				if (dbus_user == NULL) {
-					dbus_user = g_object_ref (items);
+					dbus_user = g_ptr_array_ref (items);
 				} else {
 					g_critical ("Hit dbus:user twice, this should never happen!");
 				}
 				break;
 			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
 				if (fw_runtime == NULL) {
-					fw_runtime = g_object_ref (items);
+					fw_runtime = g_ptr_array_ref (items);
 				} else {
 					g_critical ("Hit firmware:runtime twice, this should never happen!");
 				}
 				break;
 			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
 				if (fw_flashed == NULL) {
-					fw_flashed = g_object_ref (items);
+					fw_flashed = g_ptr_array_ref (items);
 				} else {
 					g_critical ("Hit dbus-user twice, this should never happen!");
 				}
