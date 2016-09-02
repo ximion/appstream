@@ -363,9 +363,6 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	}
 
 	metad = as_metadata_new ();
-	/* since YAML files are always collection-YAMLs, we will always run in collection mode */
-	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
-
 	as_metadata_parse_file (metad,
 				infile,
 				AS_FORMAT_KIND_UNKNOWN,
@@ -374,6 +371,9 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 		g_printerr ("%s\n", error->message);
 		return 1;
 	}
+
+	/* since YAML files are always collection-YAMLs, we will always run in collection mode */
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 
 	if (mformat == AS_FORMAT_KIND_UNKNOWN) {
 		if (g_str_has_suffix (in_fname, ".xml") || g_str_has_suffix (in_fname, ".xml.gz"))
