@@ -41,9 +41,7 @@
 typedef struct
 {
 	AsProvidedKind	kind;
-	GHashTable	*items;
-
-	GPtrArray	*items_array;
+	GPtrArray	*items;
 } AsProvidedPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsProvided, as_provided, G_TYPE_OBJECT)
@@ -170,7 +168,7 @@ as_provided_finalize (GObject *object)
 	AsProvided *prov = AS_PROVIDED (object);
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
 
-	g_hash_table_unref (priv->items);
+	g_ptr_array_unref (priv->items);
 
 	G_OBJECT_CLASS (as_provided_parent_class)->finalize (object);
 }
@@ -184,8 +182,7 @@ as_provided_init (AsProvided *prov)
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
 
 	priv->kind = AS_PROVIDED_KIND_UNKNOWN;
-	priv->items = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	priv->items_array = g_ptr_array_new ();
+	priv->items = g_ptr_array_new_with_free_func (g_free);
 }
 
 /**
@@ -241,7 +238,15 @@ gboolean
 as_provided_has_item (AsProvided *prov, const gchar *item)
 {
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
-	return g_hash_table_contains (priv->items, item);
+	guint i;
+
+	for (i = 0; i < priv->items->len; i++) {
+		const gchar *pitem = (const gchar*) g_ptr_array_index (priv->items, i);
+		if (g_strcmp0 (pitem, item) == 0)
+			return TRUE;
+	}
+
+	return FALSE;
 }
 
 /**
@@ -250,23 +255,13 @@ as_provided_has_item (AsProvided *prov, const gchar *item)
  *
  * Get an array of provided data.
  *
- * Returns: (transfer none) (element-type utf8): An utf-8 array of provided items, free with g_free()
+ * Returns: (transfer none) (element-type utf8): An string list of provided items.
  */
 GPtrArray*
 as_provided_get_items (AsProvided *prov)
 {
-	g_autofree gchar **strv = NULL;
-	guint i;
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
-	if (priv->items_array != NULL)
-		return priv->items_array;
-
-	strv = (gchar**) g_hash_table_get_keys_as_array (priv->items, NULL);
-	priv->items_array = g_ptr_array_new ();
-	for (i = 0; strv[i] != NULL; i++) {
-		g_ptr_array_add (priv->items_array, strv[i]);
-	}
-	return priv->items_array;
+	return priv->items;
 }
 
 /**
@@ -279,13 +274,7 @@ void
 as_provided_add_item (AsProvided *prov, const gchar *item)
 {
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
-	g_hash_table_add (priv->items, g_strdup (item));
-
-	/* invalidate list */
-	if (priv->items_array != NULL) {
-		g_ptr_array_unref (priv->items_array);
-		priv->items_array = NULL;
-	}
+	g_ptr_array_add (priv->items, g_strdup (item));
 }
 
 /**
