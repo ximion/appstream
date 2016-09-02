@@ -151,21 +151,6 @@ test_get_sampledata_pool (gboolean use_caches)
 }
 
 /**
- * as_sort_components_cb:
- *
- * Helper method to sort lists of #AsComponent
- */
-static gint
-as_sort_components_cb (gconstpointer a, gconstpointer b)
-{
-	AsComponent *cpt1 = *((AsComponent **) a);
-	AsComponent *cpt2 = *((AsComponent **) b);
-
-	return g_strcmp0 (as_component_get_id (cpt1),
-			  as_component_get_id (cpt2));
-}
-
-/**
  * as_assert_component_lists_equal:
  *
  * Check if the components present in the two #GPtrArray are equal.
@@ -180,8 +165,8 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 	g_autoptr(AsMetadata) metad = as_metadata_new ();
 
 	/* sort */
-	g_ptr_array_sort (cpts_a, as_sort_components_cb);
-	g_ptr_array_sort (cpts_b, as_sort_components_cb);
+	as_sort_components (cpts_a);
+	as_sort_components (cpts_b);
 
 	for (i = 0; i < cpts_a->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts_a, i));

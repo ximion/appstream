@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -213,13 +213,13 @@ test_appstream_write_locale ()
 				    "  <icon type=\"cached\" width=\"64\" height=\"64\">firefox_web-browser.png</icon>\n"
 				    "  <translation type=\"gettext\">firefox</translation>\n"
 				    "  <mimetypes>\n"
-				    "    <mimetype>text/xml</mimetype>\n"
 				    "    <mimetype>application/vnd.mozilla.xul+xml</mimetype>\n"
-				    "    <mimetype>text/html</mimetype>\n"
-				    "    <mimetype>x-scheme-handler/http</mimetype>\n"
-				    "    <mimetype>text/mml</mimetype>\n"
 				    "    <mimetype>application/x-xpinstall</mimetype>\n"
 				    "    <mimetype>application/xhtml+xml</mimetype>\n"
+				    "    <mimetype>text/html</mimetype>\n"
+				    "    <mimetype>text/mml</mimetype>\n"
+				    "    <mimetype>text/xml</mimetype>\n"
+				    "    <mimetype>x-scheme-handler/http</mimetype>\n"
 				    "    <mimetype>x-scheme-handler/https</mimetype>\n"
 				    "  </mimetypes>\n"
 				    "</component>\n";
@@ -236,6 +236,8 @@ test_appstream_write_locale ()
 	g_assert_no_error (error);
 	g_assert (cpt != NULL);
 	g_object_unref (file);
+
+	as_component_sort_values (cpt);
 
 	tmp = as_metadata_component_to_metainfo (metad,
 						 AS_FORMAT_KIND_XML,
@@ -589,9 +591,9 @@ test_xml_write_provides (void)
 					"<component>\n"
 					"  <id>org.example.ProvidesTest</id>\n"
 					"  <mimetypes>\n"
-					"    <mimetype>image/png</mimetype>\n"
 					"    <mimetype>text/plain</mimetype>\n"
 					"    <mimetype>application/xml</mimetype>\n"
+					"    <mimetype>image/png</mimetype>\n"
 					"  </mimetypes>\n"
 					"  <provides>\n"
 					"    <binary>foobar</binary>\n"
