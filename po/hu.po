@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-31 21:53+0200\n"
-"PO-Revision-Date: 2016-08-29 13:42+0000\n"
-"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
-"translations/hu/>\n"
+"PO-Revision-Date: 2016-09-03 10:58+0000\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian "
+"<https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"X-Generator: Weblate 2.8\n"
 
 #: ../src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -43,9 +43,8 @@ msgstr "Kaland"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: ../tools/appstream-cli.c:153
-#, fuzzy
 msgid "Also print pedantic hints when validating."
-msgstr "Az akadékoskodó tippeket is írja ki ellenőrzéskor"
+msgstr "Az akadékoskodó tippeket is írja ki ellenőrzéskor."
 
 #: ../tools/appstream-cli.c:61
 msgid "An item type (e.g. lib, bin, python3, ...)"
@@ -213,9 +212,9 @@ msgstr ""
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: ../tools/ascli-actions-mdata.c:225
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Nem található a következőt biztosító összetevő: „%s::%s”: %s"
+msgstr "Nem található a következőt biztosító összetevő: „%s::%s”."
 
 #: ../src/as-provided.c:156
 msgid "DBus Session Services"
@@ -236,9 +235,8 @@ msgid "Debuggers"
 msgstr "Hibakeresők"
 
 #: ../tools/ascli-utils.c:332
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "Minta képernyőkép URL"
+msgstr "Alapértelmezett képernyőkép URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -273,15 +271,13 @@ msgstr "Disztribúció metaadatok:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: ../tools/appstream-cli.c:132
-#, fuzzy
 msgid "Do not use any caches when performing the request."
-msgstr "Ne használja a Xapian gyorsítótárat a kérés végrehajtásakor"
+msgstr "Ne használjon semmilyen gyorsítótárat a kérés végrehajtásakor."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: ../tools/appstream-cli.c:115
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "Ne jelenítsen meg színes kimenetet"
+msgstr "Ne jelenítsen meg színes kimenetet."
 
 #: ../tools/appstream-cli.c:64
 msgid "Dump raw XML metadata for a component matching the ID."
@@ -304,9 +300,8 @@ msgstr "Emulátorok"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: ../tools/appstream-cli.c:120
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "Gyorsítótár-frissítés kényszerítése"
+msgstr "Gyorsítótár-frissítés kényszerítése."
 
 #: ../tools/ascli-actions-misc.c:157
 #, c-format
@@ -497,9 +492,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: ../tools/appstream-cli.c:138
-#, fuzzy
 msgid "Manually set the location of the AppStream cache."
-msgstr "Az AppStream gyorsítótár helyének kézi beállítása"
+msgstr "Az AppStream gyorsítótár helyének kézi beállítása."
 
 #: ../src/as-category.c:111
 msgctxt "Category of Education"
@@ -514,7 +508,7 @@ msgstr "Matematika"
 #: ../tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "A(z) „%s” metaadatfájl nem létezik."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: ../tools/ascli-actions-misc.c:114
@@ -580,9 +574,8 @@ msgstr "Fényképészet"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: ../tools/appstream-cli.c:126
-#, fuzzy
 msgid "Print detailed output about found components."
-msgstr "Részletes kimenet kiírása a megtalált összetevőről"
+msgstr "Részletes kimenet kiírása a megtalált összetevőkről."
 
 #. project group
 #: ../tools/ascli-utils.c:339
@@ -651,15 +644,13 @@ msgstr "Biztonság"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: ../tools/appstream-cli.c:110
-#, fuzzy
 msgid "Show extra debugging information."
-msgstr "További hibakeresési információk megjelenítése"
+msgstr "További hibakeresési információk megjelenítése."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: ../tools/appstream-cli.c:104
-#, fuzzy
 msgid "Show the program version."
-msgstr "A programverzió megjelenítése"
+msgstr "A programverzió megjelenítése."
 
 #: ../src/as-category.c:153
 msgctxt "Category of Games"
@@ -819,9 +810,8 @@ msgid "You need to specify a term to search for."
 msgstr "Meg kell adnia egy kifejezést a kereséshez."
 
 #: ../tools/ascli-actions-mdata.c:354
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "Meg kell adnia egy metaadatfájlt."
+msgstr "Meg kell adnia egy bemeneti és egy kimeneti fájlt."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
