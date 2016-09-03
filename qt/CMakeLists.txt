@@ -9,7 +9,7 @@ find_package(Qt5 REQUIRED COMPONENTS Core)
 pkg_check_modules(GLIB2 REQUIRED glib-2.0>=2.46)
 include(GNUInstallDirs)
 
-set(APPSTREAMQT_SO_VERSION 1)
+set(APPSTREAMQT_SO_VERSION 2)
 set(APPSTREAMQT_VERSION ${AS_VERSION})
 
 set(CMAKE_AUTOMOC on)
