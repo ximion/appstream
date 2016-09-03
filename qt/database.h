@@ -29,7 +29,7 @@
 #include <QStringList>
 #include "component.h"
 
-namespace Appstream {
+namespace AppStream {
 
 /**
  * Represents a handle to an Appstream database.

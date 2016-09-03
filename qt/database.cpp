@@ -1,5 +1,5 @@
 /*
- * Part of Appstream, a library for accessing AppStream on-disk database
+ * Part of AppStream, a library for accessing AppStream on-disk database
  * Copyright (C) 2014  Sune Vuorela <sune@vuorela.dk>
  * Copyright (C) 2015  Matthias Klumpp <matthias@tenstral.net>
  *
@@ -38,9 +38,9 @@
 
 Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.database")
 
-using namespace Appstream;
+using namespace AppStream;
 
-class Appstream::DatabasePrivate {
+class AppStream::DatabasePrivate {
     public:
         DatabasePrivate(const QString& cachePath)
             : m_cachePath(cachePath)
@@ -237,11 +237,11 @@ Component convertAsComponent(AsComponent *cpt) {
     component.setExtensions(addons);
 
     // Screenshots
-    QList<Appstream::Screenshot> screenshots;
+    QList<AppStream::Screenshot> screenshots;
     auto scrs = as_component_get_screenshots (cpt);
     for (uint i = 0; i < scrs->len; i++) {
         auto cscr = AS_SCREENSHOT (g_ptr_array_index (scrs, i));
-	Appstream::Screenshot scr;
+	AppStream::Screenshot scr;
 
         if (as_screenshot_get_kind (cscr) == AS_SCREENSHOT_KIND_DEFAULT)
             scr.setDefault(true);
@@ -249,21 +249,21 @@ Component convertAsComponent(AsComponent *cpt) {
         if (as_screenshot_get_caption (cscr) != NULL)
             scr.setCaption(QString::fromUtf8(as_screenshot_get_caption (cscr)));
 
-        QList<Appstream::Image> images;
+        QList<AppStream::Image> images;
         auto images_array = as_screenshot_get_images (cscr);
         for (uint j = 0; j < images_array->len; j++) {
             auto cimg = AS_IMAGE (g_ptr_array_index (images_array, j));
 
-            Appstream::Image image;
+            AppStream::Image image;
 
             image.setUrl(QUrl(QString::fromUtf8(as_image_get_url (cimg))));
             image.setWidth(as_image_get_width (cimg));
             image.setHeight(as_image_get_height (cimg));
 
             if (as_image_get_kind (cimg) == AS_IMAGE_KIND_THUMBNAIL)
-                image.setKind(Appstream::Image::Kind::Thumbnail);
+                image.setKind(AppStream::Image::Kind::Thumbnail);
             else
-                image.setKind(Appstream::Image::Kind::Plain);
+                image.setKind(AppStream::Image::Kind::Plain);
             images.append(image);
         }
         scr.setImages(images);

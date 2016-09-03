@@ -24,23 +24,23 @@
 #include <QDebug>
 #include "image.h"
 
-using namespace Appstream;
+using namespace AppStream;
 
-QDebug operator<<(QDebug s, const Appstream::Screenshot& screenshot) {
-    s.nospace() << "Appstream::Screenshot(";
+QDebug operator<<(QDebug s, const AppStream::Screenshot& screenshot) {
+    s.nospace() << "AppStream::Screenshot(";
     if (!screenshot.caption().isEmpty())
         s.nospace() << screenshot.caption() << ":";
     s.nospace() << screenshot.images() << ')';
     return s.space();
 }
 
-class Appstream::ScreenshotData : public QSharedData {
+class AppStream::ScreenshotData : public QSharedData {
     public:
         ScreenshotData() : m_default(false) {
         }
         bool m_default;
         QString m_caption;
-        QList<Appstream::Image> m_images;
+        QList<AppStream::Image> m_images;
         bool operator==(const ScreenshotData& other) {
             if(m_default != other.m_default) {
                 return false;

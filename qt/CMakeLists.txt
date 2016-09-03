@@ -1,4 +1,4 @@
-project(AppstreamQt)
+project(AppStreamQt)
 cmake_minimum_required(VERSION 3.2.0 FATAL_ERROR)
 
 include(CMakePackageConfigHelpers)
@@ -47,43 +47,43 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
                     ${GLIB2_INCLUDE_DIRS}
 )
 
-add_library(AppstreamQt SHARED ${APPSTREAMQT_SRC})
-target_link_libraries(AppstreamQt PUBLIC Qt5::Core
+add_library(AppStreamQt SHARED ${APPSTREAMQT_SRC})
+target_link_libraries(AppStreamQt PUBLIC Qt5::Core
                                   PRIVATE appstream
                                           ${GLIB2_LIBRARIES}
                                           ${SANITIZER_LIBS})
-target_include_directories(AppstreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
-generate_export_header(AppstreamQt)
+target_include_directories(AppStreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
+generate_export_header(AppStreamQt)
 
-set_property(TARGET AppstreamQt PROPERTY VERSION "${APPSTREAMQT_VERSION}")
-set_property(TARGET AppstreamQt PROPERTY SOVERSION "${APPSTREAMQT_SO_VERSION}" )
+set_property(TARGET AppStreamQt PROPERTY VERSION "${APPSTREAMQT_VERSION}")
+set_property(TARGET AppStreamQt PROPERTY SOVERSION "${APPSTREAMQT_SO_VERSION}" )
 
-write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfigVersion.cmake VERSION ${APPSTREAMQT_VERSION} COMPATIBILITY SameMajorVersion )
+write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfigVersion.cmake VERSION ${APPSTREAMQT_VERSION} COMPATIBILITY SameMajorVersion )
 
-export(TARGETS AppstreamQt appstream
-       FILE "${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtTargets.cmake")
+export(TARGETS AppStreamQt appstream
+       FILE "${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtTargets.cmake")
 
-install(TARGETS AppstreamQt EXPORT AppStreamLibsTarget
+install(TARGETS AppStreamQt EXPORT AppStreamLibsTarget
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-install(FILES ${APPSTREAMQT_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/appstreamqt_export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/AppstreamQt")
+install(FILES ${APPSTREAMQT_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/appstreamqt_export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/AppStreamQt")
 
-set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/AppstreamQt)
+set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/AppStreamQt)
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/AppstreamQtConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfig.cmake"
+  "${CMAKE_CURRENT_SOURCE_DIR}/AppStreamQtConfig.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfig.cmake"
   @ONLY
 )
 
 install(EXPORT AppStreamLibsTarget
-    FILE AppstreamQtTargets.cmake
+    FILE AppStreamQtTargets.cmake
     DESTINATION ${ConfigPackageLocation})
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppstreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
 
 add_subdirectory(test)

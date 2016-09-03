@@ -28,7 +28,7 @@
 
 struct _AsRelease;
 
-namespace Appstream {
+namespace AppStream {
 
 class ReleaseData;
 
@@ -92,6 +92,6 @@ class APPSTREAMQT_EXPORT Release {
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Release& release);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Release& release);
 
 #endif // APPSTREAMQT_RELEASE_H

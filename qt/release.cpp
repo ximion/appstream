@@ -25,9 +25,9 @@
 #include <QDebug>
 #include <QUrl>
 
-using namespace Appstream;
+using namespace AppStream;
 
-class Appstream::ReleaseData : public QSharedData {
+class AppStream::ReleaseData : public QSharedData {
 public:
     ReleaseData(AsRelease* rel) : m_release(rel)
     {
@@ -129,8 +129,8 @@ Release::UrgencyKind Release::urgency() const
     return Release::UrgencyKind(as_release_get_urgency(d->m_release));
 }
 
-QDebug operator<<(QDebug s, const Appstream::Release& release)
+QDebug operator<<(QDebug s, const AppStream::Release& release)
 {
-    s.nospace() << "Appstream::Release(" << release.version() << ": " << release.description() << ")";
+    s.nospace() << "AppStream::Release(" << release.version() << ": " << release.description() << ")";
     return s.space();
 }

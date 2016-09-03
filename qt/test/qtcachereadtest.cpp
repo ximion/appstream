@@ -11,7 +11,7 @@ class DatabaseReadTest : public QObject {
         void testRead01();
 };
 
-using namespace Appstream;
+using namespace AppStream;
 
 void DatabaseReadTest::testRead01()
 {

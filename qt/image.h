@@ -27,7 +27,7 @@
 
 class QUrl;
 class QString;
-namespace Appstream {
+namespace AppStream {
 
 class ImageData;
 
@@ -86,6 +86,6 @@ class APPSTREAMQT_EXPORT Image {
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Image& image);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Image& image);
 
 #endif // APPSTREAMQT_IMAGE_H

@@ -29,7 +29,7 @@
 #include "appstreamqt_export.h"
 #include "provides.h"
 
-namespace Appstream {
+namespace AppStream {
 
 class Screenshot;
 class Release;
@@ -157,25 +157,25 @@ class APPSTREAMQT_EXPORT Component {
          * \param kind for provides
          * \return a list of all provides for this \param kind
          */
-        QList<Appstream::Provides> provides(Provides::Kind kind) const;
-        void setProvides(const QList<Appstream::Provides>& provides);
+        QList<AppStream::Provides> provides(Provides::Kind kind) const;
+        void setProvides(const QList<AppStream::Provides>& provides);
         /**
          * \return the full list of provides for all kinds.
          * Note that it might be ordered differently than the list given with
          * \ref setProvides, but it will have the same entries.
          */
-        QList<Appstream::Provides> provides() const;
+        QList<AppStream::Provides> provides() const;
 
-        QList<Appstream::Screenshot> screenshots() const;
-        void setScreenshots(const QList<Appstream::Screenshot>& screenshots);
+        QList<AppStream::Screenshot> screenshots() const;
+        void setScreenshots(const QList<AppStream::Screenshot>& screenshots);
 
 
         void setBundles(const QHash<BundleKind , QString >& bundles);
         QHash<BundleKind, QString> bundles() const;
         QString bundle(BundleKind kind) const;
 
-        void setReleases(const QList<Appstream::Release> &releases);
-        QList<Appstream::Release> releases() const;
+        void setReleases(const QList<AppStream::Release> &releases);
+        QList<AppStream::Release> releases() const;
 
         /**
          * \returns whether the component is fully initialized
@@ -186,10 +186,10 @@ class APPSTREAMQT_EXPORT Component {
         static QString kindToString(Kind kind);
 
         static UrlKind stringToUrlKind(const QString& urlKindString);
-        static QString urlKindToString(Appstream::Component::UrlKind kind);
+        static QString urlKindToString(AppStream::Component::UrlKind kind);
 
         static BundleKind stringToBundleKind(const QString& bundleKindString);
-        static QString bundleKindToString(Appstream::Component::BundleKind kind);
+        static QString bundleKindToString(AppStream::Component::BundleKind kind);
 
     private:
         QSharedDataPointer<ComponentData> d;

@@ -8,7 +8,7 @@ target_link_libraries(qt-cache-read-test
     ${SANITIZER_LIBS}
     Qt5::Core
     Qt5::Test
-    AppstreamQt
+    AppStreamQt
 )
 add_test(qt-cache-read-test qt-cache-read-test)
 

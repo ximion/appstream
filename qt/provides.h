@@ -26,7 +26,7 @@
 #include <QObject>
 #include "appstreamqt_export.h"
 
-namespace Appstream {
+namespace AppStream {
 
 class ProvidesData;
 
@@ -72,6 +72,6 @@ class APPSTREAMQT_EXPORT Provides {
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Provides& provides);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Provides& provides);
 
 #endif // APPSTREAMQT_PROVIDES_H

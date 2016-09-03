@@ -24,9 +24,9 @@
 #include <QDebug>
 #include <QHash>
 
-using namespace Appstream;
+using namespace AppStream;
 
-class Appstream::ProvidesData : public QSharedData {
+class AppStream::ProvidesData : public QSharedData {
     public:
         Provides::Kind m_kind;
         QString m_value;
@@ -154,8 +154,8 @@ Provides::~Provides() {
 
 }
 
-QDebug operator<<(QDebug s, const Appstream::Provides& provides) {
-    s.nospace() << "Appstream::Provides(" << provides.kind() << ',' << provides.value() << "])";
+QDebug operator<<(QDebug s, const AppStream::Provides& provides) {
+    s.nospace() << "AppStream::Provides(" << provides.kind() << ',' << provides.value() << "])";
     return s.space();
 }
 

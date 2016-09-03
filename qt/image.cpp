@@ -23,9 +23,9 @@
 #include <QUrl>
 #include <QDebug>
 
-using namespace Appstream;
+using namespace AppStream;
 
-class Appstream::ImageData : public QSharedData {
+class AppStream::ImageData : public QSharedData {
     public:
         ImageData() : m_height(0), m_width(0), m_kind(Image::Unknown) {
         }
@@ -121,8 +121,8 @@ int Image::width() const {
     return d->m_width;
 }
 
-QDebug operator<<(QDebug s, const Appstream::Image& image) {
-    s.nospace() << "Appstream::Image(" << image.url() << ',' << image.kind() << "[" << image.width() << "x" << image.height() << "])";
+QDebug operator<<(QDebug s, const AppStream::Image& image) {
+    s.nospace() << "AppStream::Image(" << image.url() << ',' << image.kind() << "[" << image.width() << "x" << image.height() << "])";
     return s.space();
 }
 

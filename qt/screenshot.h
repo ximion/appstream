@@ -27,7 +27,7 @@
 
 #include <QString>
 #include <QList>
-namespace Appstream {
+namespace AppStream {
 
 class Image;
 
@@ -53,11 +53,11 @@ public:
     bool isDefault() const;
     void setDefault(bool default_);
 
-    void setImages(const QList<Appstream::Image>& images);
+    void setImages(const QList<AppStream::Image>& images);
     /**
      * \return the images for this screenshot
      */
-    QList<Appstream::Image> images() const;
+    QList<AppStream::Image> images() const;
 
     /**
      * \return caption for this image or a null QString if no caption
@@ -71,6 +71,6 @@ private:
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Screenshot& screenshot);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Screenshot& screenshot);
 
 #endif // APPSTREAMQT_SCREENSHOT_H

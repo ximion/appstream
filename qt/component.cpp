@@ -26,14 +26,14 @@
 #include <QMap>
 #include <QMultiHash>
 
-using namespace Appstream;
+using namespace AppStream;
 
 static bool operator<(QSize a, QSize b)
 {
     return a.width() < b.width() || (a.width() == b.width() && a.height() < b.height());
 }
 
-class Appstream::ComponentData : public QSharedData {
+class AppStream::ComponentData : public QSharedData {
     public:
         QString m_id;
         QStringList m_categories;
@@ -51,7 +51,7 @@ class Appstream::ComponentData : public QSharedData {
         QString m_summary;
         QMap<QSize, QUrl> m_iconUrls;
         QMultiHash<Component::UrlKind, QUrl> m_urls;
-        QList<Appstream::Screenshot> m_screenshots;
+        QList<AppStream::Screenshot> m_screenshots;
         QMultiHash<Provides::Kind, Provides> m_provides;
         QHash<Component::BundleKind, QString> m_bundles;
         QList<Release> m_releases;
@@ -441,27 +441,27 @@ Component::BundleKind Component::stringToBundleKind(const QString& bundleKindStr
     return BundleKindUnknown;
 }
 
-QList< Appstream::Provides > Component::provides() const {
+QList< AppStream::Provides > Component::provides() const {
     return d->m_provides.values();
 }
 
-QList<Appstream::Provides> Component::provides(Provides::Kind kind) const {
+QList<AppStream::Provides> Component::provides(Provides::Kind kind) const {
     return d->m_provides.values(kind);
 }
 
 
-void Component::setProvides(const QList<Appstream::Provides>& provides) {
-    Q_FOREACH(const Appstream::Provides& provide, provides) {
+void Component::setProvides(const QList<AppStream::Provides>& provides) {
+    Q_FOREACH(const AppStream::Provides& provide, provides) {
         d->m_provides.insertMulti(provide.kind(), provide);
     }
 }
 
-QList<Appstream::Release> Appstream::Component::releases() const
+QList<AppStream::Release> AppStream::Component::releases() const
 {
     return d->m_releases;
 }
 
-void Appstream::Component::setReleases(const QList<Appstream::Release>& releases)
+void AppStream::Component::setReleases(const QList<AppStream::Release>& releases)
 {
     d->m_releases = releases;
 }
