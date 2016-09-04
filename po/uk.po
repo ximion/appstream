@@ -7,17 +7,17 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-31 21:53+0200\n"
-"PO-Revision-Date: 2016-08-30 05:49+0000\n"
+"PO-Revision-Date: 2016-09-04 16:58+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian "
+"<https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.8\n"
 
 #: ../src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -235,9 +235,8 @@ msgid "Debuggers"
 msgstr "Засоби діагностики"
 
 #: ../tools/ascli-utils.c:332
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "Адреса простого знімка вікна"
+msgstr "Адреса типового знімка вікна"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: ../tools/appstream-cli.c:148
@@ -270,9 +269,8 @@ msgstr "Метадані дистрибутива:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: ../tools/appstream-cli.c:132
-#, fuzzy
 msgid "Do not use any caches when performing the request."
-msgstr "Не використовувати кеш Xapian під час виконання запиту."
+msgstr "Не використовувати кеш взагалі під час виконання запиту."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: ../tools/appstream-cli.c:115
