@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-31 21:53+0200\n"
-"PO-Revision-Date: 2016-09-03 10:58+0000\n"
+"PO-Revision-Date: 2016-09-04 10:32+0000\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian "
 "<https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
@@ -208,7 +208,7 @@ msgstr "Kötelező ehhez"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: ../tools/appstream-cli.c:76
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "Gyűjtemény átalakítása XML-ről YAML-ra vagy fordítva."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: ../tools/ascli-actions-mdata.c:225
@@ -484,11 +484,8 @@ msgstr "Logikai"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: ../tools/appstream-cli.c:143
-#, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr ""
-"Az AppStream metaadatok helyének kézi beállítása a gyorsítótár újra "
-"előállításához"
+msgstr "Az AppStream metaadatok helyének kézi beállítása a kereséshez."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: ../tools/appstream-cli.c:138
@@ -697,6 +694,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Nem lehet átalakítani a fájlt: nem sikerült meghatározni a kimeneti "
+"formátumot, állítsa be egyértelműen a „--format=” használatával."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: ../tools/ascli-actions-mdata.c:174
