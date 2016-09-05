@@ -61,6 +61,8 @@ as_bundle_kind_to_string (AsBundleKind kind)
 		return "limba";
 	if (kind == AS_BUNDLE_KIND_FLATPAK)
 		return "flatpak";
+	if (kind == AS_BUNDLE_KIND_APPIMAGE)
+		return "appimage";
 	return "unknown";
 }
 
@@ -81,6 +83,8 @@ as_bundle_kind_from_string (const gchar *bundle_str)
 		return AS_BUNDLE_KIND_LIMBA;
 	if (g_strcmp0 (bundle_str, "flatpak") == 0)
 		return AS_BUNDLE_KIND_FLATPAK;
+	if (g_strcmp0 (bundle_str, "appimage") == 0)
+		return AS_BUNDLE_KIND_APPIMAGE;
 	return AS_BUNDLE_KIND_UNKNOWN;
 }
 

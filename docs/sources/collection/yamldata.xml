@@ -705,8 +705,9 @@
 			<listitem>
 				<para>See <xref linkend="tag-ct-bundle"/>.</para>
 				<para>
-					The <literal>Bundle</literal> contains a list of dictionaries with the keys <literal>type</literal>, having the value <code>limba</code>, describing a
-					Limba bundle ID, or <code>flatpak</code> for a Flatpak bundle ID, and <literal>id</literal> for the associated bundle-id.
+					The <literal>Bundle</literal> contains a list of dictionaries with the keys <literal>type</literal>, having the ID for a specific bundling
+					system (e.g. <code>flatpak</code> or <code>limba</code>) as value, and <literal>id</literal> for the associated bundle-id.
+					See the XML tag description for information on all valid bundling systems.
 				</para>
 				<para>
 					Example:
