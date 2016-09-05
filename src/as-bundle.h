@@ -50,6 +50,7 @@ struct _AsBundleClass
  * @AS_BUNDLE_KIND_PACKAGE:	A native package (currently not used)
  * @AS_BUNDLE_KIND_LIMBA:	A Limba bundle
  * @AS_BUNDLE_KIND_FLATPAK:	A Flatpak bundle
+ * @AS_BUNDLE_KIND_APPIMAGE:	An AppImageKit bundle
  *
  * The bundle type.
  **/
@@ -58,6 +59,7 @@ typedef enum {
 	AS_BUNDLE_KIND_PACKAGE,
 	AS_BUNDLE_KIND_LIMBA,
 	AS_BUNDLE_KIND_FLATPAK,
+	AS_BUNDLE_KIND_APPIMAGE,
 	/*< private >*/
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
@@ -65,15 +67,15 @@ typedef enum {
 const gchar	*as_bundle_kind_to_string (AsBundleKind kind);
 AsBundleKind	as_bundle_kind_from_string (const gchar *bundle_str);
 
-AsBundle	*as_bundle_new		(void);
+AsBundle	*as_bundle_new (void);
 
-AsBundleKind	 as_bundle_get_kind	(AsBundle *bundle);
-void		 as_bundle_set_kind	(AsBundle *bundle,
-					 AsBundleKind kind);
+AsBundleKind	 as_bundle_get_kind (AsBundle *bundle);
+void		 as_bundle_set_kind (AsBundle *bundle,
+					AsBundleKind kind);
 
-const gchar	*as_bundle_get_id	(AsBundle *bundle);
-void		 as_bundle_set_id	(AsBundle *bundle,
-					 const gchar *id);
+const gchar	*as_bundle_get_id (AsBundle *bundle);
+void		 as_bundle_set_id (AsBundle *bundle,
+					const gchar *id);
 
 G_END_DECLS
 
