@@ -27,7 +27,7 @@
 			file of <literal>libappstream</literal>, whis is usually located at <filename>/etc/appstream.conf</filename>.
 		</para>
 		<para>
-			The screenshot data will be inserted transparently into <ulink url="http://www.freedesktop.org/software/appstream/docs/api/html/AsScreenshot.html">AsScreenshot</ulink>, if
+			The screenshot data will be inserted transparently into <ulink url="http://www.freedesktop.org/software/appstream/docs/api/AsScreenshot.html">AsScreenshot</ulink>, if
 			the distributor has set the configuration flag.
 			Authors of software-centers don't need to take care of this implementation detail.
 		</para>
