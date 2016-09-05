@@ -65,6 +65,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_CODEC:		A multimedia codec
  * @AS_COMPONENT_KIND_INPUTMETHOD:	An input-method provider
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
+ * @AS_COMPONENT_KIND_DRIVER:		A driver
  *
  * The type of an #AsComponent.
  **/
@@ -79,6 +80,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_CODEC,
 	AS_COMPONENT_KIND_INPUTMETHOD,
 	AS_COMPONENT_KIND_FIRMWARE,
+	AS_COMPONENT_KIND_DRIVER,
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;

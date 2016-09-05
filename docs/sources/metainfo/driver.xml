@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-Driver">
+	<title>Driver</title>
+
+	<section id="spec-driver-introduction">
+		<title>Driver</title>
+		<para>
+			The <literal>driver</literal> component type describes drivers for hardware devices as well as other Linux kernel
+			drivers for e.g. virtualization support.
+			It usually <literal>provides</literal> one or multiple modaliases.
+		</para>
+		<para>
+			Drivers can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
+		</para>
+	</section>
+
+	<section id="spec-driver-example">
+		<title>Example file</title>
+		<para>
+			A driver metainfo file can look like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<component type="driver">
+  <id>com.nvidia.GeForce</id>
+  <name>NVIDIA GeForce</name>
+  <summary>NVIDIA Graphics Driver</summary>
+  <description>
+    <p>
+      The NVIDIA Accelerated Linux Graphics Driver brings accelerated 2D
+      functionality and high-performance OpenGL support to Linux x86 with the
+      use of NVIDIA graphics processing units.
+    </p>
+    ...
+  </description>
+  <url type="homepage">http://www.nvidia.com/Download/index.aspx</url>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LicenseRef-proprietary:NVIDIA</project_license>
+  <developer_name>NVIDIA Corporation</developer_name>
+
+  <provides>
+    <modalias>pci:v000010DEd*sv*sd*bc03sc00i00*</modalias>
+    ...
+  </provides>
+</component>]]></programlisting>
+
+	</section>
+
+	<section id="spec-driver-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root must have the <literal>type</literal> property set to <code>driver</code>.
+			This clearly identifies this metainfo document as describing a driver.
+		</para>
+
+		<variablelist>
+			<varlistentry id="tag-id-driver">
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For drivers, the value of the <code>&lt;id/&gt;</code> tag must follow the reverse-DNS scheme as described for generic components.
+					It is sometimes useful to suffix the ID with <literal>.driver</literal> to make it more unique.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-driver-provides">
+			<term>&lt;provides/&gt; ↪ &lt;modalias/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>provides/modalias</literal> tags contain all the modaliases the described driver supports and allow
+					to automatically offer installation of the described driver on systems where hardware matching the modalias has been
+					detected.
+				</para>
+				<para>
+					Using wildcards for modaliases is permitted.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<provides>
+  <modalias>pci:v000010DEd00001194sv*sd*bc03sc*i*</modalias>
+  <modalias>pci:v000010DEd00001199sv*sd*bc03sc*i*</modalias>
+</provides>]]></programlisting>
+
+			</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<para>
+			For a component of type <literal>driver</literal>, the following tags are required and must be present for a valid document:
+			<xref linkend="tag-id-driver"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>,
+			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-driver-provides"/>.
+		</para>
+
+	</section>
+</section>
