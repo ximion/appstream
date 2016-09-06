@@ -1083,7 +1083,7 @@ as_cache_file_read (const gchar *fname, GError **error)
 				/* checksums */
 				tmp = g_variant_dict_lookup_value (&rdict, "checksums", G_VARIANT_TYPE_DICTIONARY);
 				if (tmp != NULL) {
-					g_variant_iter_init (&riter, var);
+					g_variant_iter_init (&riter, tmp);
 					while ((inner_child = g_variant_iter_next_value (&riter))) {
 						AsChecksumKind kind;
 						g_autofree gchar *value;
