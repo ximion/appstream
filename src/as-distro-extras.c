@@ -276,7 +276,11 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		fbasename = g_path_get_basename (fname);
 		dest_fname = g_build_filename (appstream_yml_target, fbasename, NULL);
 
-		if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
+		if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
+			/* broken symlinks in the dest will have been removed earlier */
+			g_debug ("File %s is a broken symlink, skipping.", fname);
+			continue;
+		} else if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
 			/* file not found, let's symlink */
 			if (symlink (fname, dest_fname) != 0) {
 				g_debug ("Unable to set symlink (%s -> %s): %s",
