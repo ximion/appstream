@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-08-31 21:53+0200\n"
-"PO-Revision-Date: 2016-08-31 20:21+0000\n"
+"PO-Revision-Date: 2016-09-10 17:37+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish "
 "<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
@@ -153,8 +153,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
-"Nie można skopiować „%s”: plik nie posiada przyrostka „.metainfo.xml” lub „."
-"appdata.xml”."
+"Nie można skopiować „%s”: plik nie ma przyrostka „.metainfo.xml” lub "
+"„.appdata.xml”."
 
 #: ../src/as-category.c:138
 msgctxt "Category of Games"
@@ -200,7 +200,7 @@ msgstr "Komunikacja i aktualności"
 #: ../tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr "Składnik „%s” nie posiada kandydata instalacji."
+msgstr "Składnik „%s” nie ma kandydata instalacji."
 
 #: ../tools/ascli-utils.c:356
 msgid "Compulsory for"
@@ -695,7 +695,7 @@ msgid ""
 "explicitly using '--format='."
 msgstr ""
 "Nie można konwertować pliku: nie można ustalić formatu wyjścia, proszę "
-"ustawić go używając „--format=”."
+"ustawić go za pomocą „--format=”."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: ../tools/ascli-actions-mdata.c:174
