@@ -62,12 +62,20 @@ as_get_yml_data_origin (const gchar *fname)
 	g_autoptr(GFile) file = NULL;
 	g_autofree gchar *str = NULL;
 	g_auto(GStrv) strv = NULL;
+	GError *err;
 	guint i;
 	gchar *start, *end;
 	gchar *origin = NULL;
 
 	file = g_file_new_for_path (fname);
-	fistream = g_file_read (file, NULL, NULL);
+	fistream = g_file_read (file, NULL, &err);
+
+	if (!fistream) {
+		g_critical ("Unable to open file '%s' for reading: %s, skipping.", fname, err->message);
+		g_error_free (err);
+		return NULL;
+	}
+
 	mem_os = (GMemoryOutputStream*) g_memory_output_stream_new (NULL, 0, g_realloc, g_free);
 	zdecomp = g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP);
 	conv_stream = g_converter_input_stream_new (G_INPUT_STREAM (fistream), G_CONVERTER (zdecomp));
@@ -276,7 +284,11 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		fbasename = g_path_get_basename (fname);
 		dest_fname = g_build_filename (appstream_yml_target, fbasename, NULL);
 
-		if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
+		if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
+			/* broken symlinks in the dest will have been removed earlier */
+			g_debug ("File %s is a broken symlink, skipping.", fname);
+			continue;
+		} else if (!g_file_test (dest_fname, G_FILE_TEST_EXISTS)) {
 			/* file not found, let's symlink */
 			if (symlink (fname, dest_fname) != 0) {
 				g_debug ("Unable to set symlink (%s -> %s): %s",
