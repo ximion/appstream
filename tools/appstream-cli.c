@@ -23,6 +23,7 @@
 #include <glib-object.h>
 #include <glib/gi18n-lib.h>
 #include <locale.h>
+#include <stdio.h>
 
 #include "ascli-utils.h"
 #include "ascli-actions-mdata.h"
@@ -196,6 +197,10 @@ as_client_run (char **argv, int argc)
 	}
 
 	ascli_set_colored_output (!optn_no_color);
+
+	/* if out terminal is no tty, disable colors automatically */
+	if (!isatty (fileno (stdout)))
+		ascli_set_colored_output (FALSE);
 
 	mformat = as_format_kind_from_string (optn_format);
 	command = argv[1];

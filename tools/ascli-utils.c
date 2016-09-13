@@ -111,7 +111,7 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 	str = g_strdup_printf ("%s: ", key);
 
 	if (_nocolor_output) {
-		g_print ("%s%s\n  ", str, fmtval);
+		g_print ("%s%s\n", str, fmtval);
 	} else {
 		g_print ("%c[%dm%s%c[%dm%s\n", 0x1B, 1, str, 0x1B, 0, fmtval);
 	}
