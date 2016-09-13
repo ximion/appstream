@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-Localization">
+	<title>Localization</title>
+
+	<section id="spec-l10n-introduction">
+		<title>Localization</title>
+		<para>
+			The <literal>localization</literal> component type describes language packs for individual software components or groups
+			of software components. A language pack includes anything necessary to localize a software component for a specific language
+			and/or country. This is usually translations, but may also be translated media content, currency information and other things.
+			A <literal>localization</literal> component <literal>extends</literal> one or multiple other components and defines the
+			languages it provides via its <literal>languages</literal> tag.
+		</para>
+		<para>
+			Language packs can ship one or more metainfo files as <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
+		</para>
+	</section>
+
+	<section id="spec-l10n-example">
+		<title>Example file</title>
+		<para>
+			A localization metainfo file can look like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<component type="localization">
+  <id>org.kde.l10n.de</id>
+  <name>KDE German Language</name>
+  <summary>German localization for the KDE desktop and apps</summary>
+
+  <extends>org.kde.plasmashell</extends>
+  <extends>org.kde.gwenview.desktop</extends>
+  <extends>org.kde.dolphin.desktop</extends>
+  ...
+
+  <url type="homepage">http://i18n.kde.org/team-infos.php?teamcode=de</url>
+  <metadata_license>FSFAP</metadata_license>
+
+  <developer_name>The KDE German L10N team</developer_name>
+
+  <languages>
+    <lang>de_DE</lang>
+    <lang percentage="96">de_AT</lang>
+    <lang percentage="100">de</lang>
+    ...
+  </languages>
+</component>]]></programlisting>
+
+	</section>
+
+	<section id="spec-l10n-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root must have the <literal>type</literal> property set to <code>localization</code>.
+			This clearly identifies this metainfo document as describing a language pack.
+		</para>
+
+		<variablelist>
+			<varlistentry id="tag-id-l10n">
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For localizations, the value of the <code>&lt;id/&gt;</code> tag must follow the reverse-DNS scheme as described for generic components.
+					Ideally, the name of the component this language pack is for should be suffixed with <code>.l10n.%{lang}</code>, where <code>%{lang}</code>
+					is the language code of the language pack.
+				</para>
+				<para>
+					For example, if your applications component-id is <code>org.gimp.gimp</code> the ID of the German language pack
+					for GIMP should be <code>org.gimp.gimp.l10n.de</code>.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-l10n-extends">
+			<term>&lt;extends/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>extends</literal> tags contain all the components this language pack can be used with.
+				</para>
+
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-l10n-languages">
+				<term>&lt;languages/&gt;</term>
+				<listitem>
+					<para>
+						This tag gives information about the locale a localization component provides support for.
+					</para>
+					<para>
+						The tag is allowed to only occur once per component, and contains multiple <code>&lt;lang/&gt;</code> child nodes, which have
+						a <ulink url="https://www.gnu.org/software/gettext/manual/html_node/Language-Codes.html">language code</ulink> as value.
+						Each <code>&lt;lang/&gt;</code> node may have a <literal>percentage</literal> property, which describes the percentage value to which
+						a component has been translated.
+					</para>
+					<para>
+						Tag example:
+					</para>
+					<programlisting language="XML"><![CDATA[<languages>
+  <lang>de_DE</lang>
+  <lang percentage="94">de_AT</lang>
+</languages>
+]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<para>
+			For a component of type <literal>localization</literal>, the following tags are required and must be present for a valid document:
+			<xref linkend="tag-id-l10n"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>,
+			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-l10n-extends"/>, <xref linkend="tag-l10n-languages"/>.
+		</para>
+
+	</section>
+</section>
