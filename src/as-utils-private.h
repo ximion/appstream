@@ -80,6 +80,7 @@ gchar			*as_utils_build_data_id (const gchar *scope,
 						 const gchar *origin,
 						 AsBundleKind bundle_kind,
 						 const gchar *cid);
+gchar			*as_utils_data_id_get_cid (const gchar *data_id);
 AsBundleKind		as_utils_get_component_bundle_kind (AsComponent *cpt);
 gchar			*as_utils_build_data_id_for_cpt (AsComponent *cpt);
 

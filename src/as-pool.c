@@ -765,6 +765,11 @@ as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 			tmp_error = NULL;
 			continue;
 		}
+	}
+
+	/* find addons for the loaded components */
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
 		/* find and reference addons */
 		as_pool_update_addon_info (pool, cpt);

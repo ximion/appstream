@@ -1050,7 +1050,6 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
 
 /**
  * as_utils_build_data_id:
- * @cpt: The component to build the ID for.
  *
  * Builds the unique metadata ID using the supplied information.
  */
@@ -1066,6 +1065,23 @@ as_utils_build_data_id (const gchar *scope,
 				origin,
 				as_bundle_kind_to_string (bundle_kind),
 				cid);
+}
+
+/**
+ * as_utils_data_id_get_cid:
+ * @data_id: The data-id.
+ *
+ * Get the component-id part of the data-id.
+ */
+gchar*
+as_utils_data_id_get_cid (const gchar *data_id)
+{
+	g_auto(GStrv) parts = NULL;
+
+	parts = g_strsplit (data_id, "/", 4);
+	if (g_strv_length (parts) != 4)
+		return NULL;
+	return g_strdup (parts[3]);
 }
 
 /**
