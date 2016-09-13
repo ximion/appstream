@@ -1573,11 +1573,11 @@ as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 					  (xmlChar*) "mimetype",
 					  (xmlChar*) g_ptr_array_index (items, i));
 		}
-	}
 
-	/* check if we only had mimetype provided items, in that case we don't need to continue */
-	if (prov_list->len == 1)
-		return;
+		/* check if we only had mimetype provided items, in that case we don't need to continue */
+		if (prov_list->len == 1)
+			return;
+	}
 
 	node = xmlNewChild (cnode, NULL, (xmlChar*) "provides", NULL);
 	for (i = 0; i < prov_list->len; i++) {
