@@ -141,18 +141,18 @@ as_component_kind_get_type (void)
 	static volatile gsize as_component_kind_type_id__volatile = 0;
 	if (g_once_init_enter (&as_component_kind_type_id__volatile)) {
 		static const GEnumValue values[] = {
-					{AS_COMPONENT_KIND_UNKNOWN,     "AS_COMPONENT_KIND_UNKNOWN",     "unknown"},
-					{AS_COMPONENT_KIND_GENERIC,     "AS_COMPONENT_KIND_GENERIC",     "generic"},
-					{AS_COMPONENT_KIND_DESKTOP_APP, "AS_COMPONENT_KIND_DESKTOP_APP", "desktop-app"},
-					{AS_COMPONENT_KIND_CONSOLE_APP, "AS_COMPONENT_KIND_CONSOLE_APP", "console-app"},
-					{AS_COMPONENT_KIND_WEB_APP,     "AS_COMPONENT_KIND_WEB_APP",     "web-app"},
-					{AS_COMPONENT_KIND_ADDON,       "AS_COMPONENT_KIND_ADDON",       "addon"},
-					{AS_COMPONENT_KIND_FONT,        "AS_COMPONENT_KIND_FONT",        "font"},
-					{AS_COMPONENT_KIND_CODEC,       "AS_COMPONENT_KIND_CODEC",       "codec"},
-					{AS_COMPONENT_KIND_INPUTMETHOD, "AS_COMPONENT_KIND_INPUTMETHOD", "inputmethod"},
-					{AS_COMPONENT_KIND_FIRMWARE,    "AS_COMPONENT_KIND_FIRMWARE",    "firmware"},
-					{AS_COMPONENT_KIND_DRIVER,      "AS_COMPONENT_KIND_DRIVER",      "driver"},
-					{AS_COMPONENT_KIND_LAST,        "AS_COMPONENT_KIND_LAST",        "last"},
+					{AS_COMPONENT_KIND_UNKNOWN,      "AS_COMPONENT_KIND_UNKNOWN",      "unknown"},
+					{AS_COMPONENT_KIND_GENERIC,      "AS_COMPONENT_KIND_GENERIC",      "generic"},
+					{AS_COMPONENT_KIND_DESKTOP_APP,  "AS_COMPONENT_KIND_DESKTOP_APP",  "desktop-app"},
+					{AS_COMPONENT_KIND_CONSOLE_APP,  "AS_COMPONENT_KIND_CONSOLE_APP",  "console-app"},
+					{AS_COMPONENT_KIND_WEB_APP,      "AS_COMPONENT_KIND_WEB_APP",      "web-app"},
+					{AS_COMPONENT_KIND_ADDON,        "AS_COMPONENT_KIND_ADDON",        "addon"},
+					{AS_COMPONENT_KIND_FONT,         "AS_COMPONENT_KIND_FONT",         "font"},
+					{AS_COMPONENT_KIND_CODEC,        "AS_COMPONENT_KIND_CODEC",        "codec"},
+					{AS_COMPONENT_KIND_INPUTMETHOD,  "AS_COMPONENT_KIND_INPUTMETHOD",  "inputmethod"},
+					{AS_COMPONENT_KIND_FIRMWARE,     "AS_COMPONENT_KIND_FIRMWARE",     "firmware"},
+					{AS_COMPONENT_KIND_DRIVER,       "AS_COMPONENT_KIND_DRIVER",       "driver"},
+					{AS_COMPONENT_KIND_LOCALIZATION, "AS_COMPONENT_KIND_LOCALIZATION", "localization"},
 					{0, NULL, NULL}
 		};
 		GType as_component_type_type_id;
@@ -193,6 +193,8 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "firmware";
 	if (kind == AS_COMPONENT_KIND_DRIVER)
 		return "driver";
+	if (kind == AS_COMPONENT_KIND_LOCALIZATION)
+		return "localization";
 	return "unknown";
 }
 
@@ -229,6 +231,8 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_FIRMWARE;
 	if (g_strcmp0 (kind_str, "driver") == 0)
 		return AS_COMPONENT_KIND_DRIVER;
+	if (g_strcmp0 (kind_str, "localization") == 0)
+		return AS_COMPONENT_KIND_LOCALIZATION;
 
 	/* legacy */
 	if (g_strcmp0 (kind_str, "desktop") == 0)

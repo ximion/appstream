@@ -363,9 +363,14 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			g_autoptr(GPtrArray) addons_str = g_ptr_array_new_with_free_func (g_free);
 			for (i = 0; i < addons->len; i++) {
 				AsComponent *addon = AS_COMPONENT (g_ptr_array_index (addons, i));
-				g_ptr_array_add (addons_str, g_strdup_printf ("%s (%s)",
-										as_component_get_id (addon),
-										as_component_get_name (cpt)));
+				if (as_component_get_kind (addon) == AS_COMPONENT_KIND_LOCALIZATION) {
+					g_ptr_array_add (addons_str, g_strdup_printf ("l10n: %s",
+											as_component_get_id (addon)));
+				} else {
+					g_ptr_array_add (addons_str, g_strdup_printf ("%s (%s)",
+											as_component_get_id (addon),
+											as_component_get_name (cpt)));
+				}
 			}
 			str = ascli_ptrarray_to_pretty (addons_str);
 			/* TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor */

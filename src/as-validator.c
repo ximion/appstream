@@ -736,17 +736,32 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 
 	/* validate addon specific stuff */
 	if (as_component_get_extends (cpt)->len > 0) {
-		if (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON)
+		AsComponentKind kind = as_component_get_kind (cpt);
+		if ((kind != AS_COMPONENT_KIND_ADDON) || (kind != AS_COMPONENT_KIND_LOCALIZATION))
 			as_validator_add_issue (validator, NULL,
 						AS_ISSUE_IMPORTANCE_ERROR,
 						AS_ISSUE_KIND_TAG_NOT_ALLOWED,
-						"An 'extends' tag is specified, but the component is not an addon.");
+						"An 'extends' tag is specified, but the component is not of type 'addon' or 'localization'.");
 	} else {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_ADDON)
 			as_validator_add_issue (validator, NULL,
 						AS_ISSUE_IMPORTANCE_ERROR,
 						AS_ISSUE_KIND_TAG_MISSING,
 						"The component is an addon, but no 'extends' tag was specified.");
+	}
+
+	/* validate l10n specific stuff */
+	if (as_component_get_extends (cpt)->len == 0) {
+		as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"This 'localization' component is missing an An 'extends' tag, to specify the components it adds localization to.");
+	}
+	if (g_hash_table_size (as_component_get_languages_table (cpt)) == 0) {
+		as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"This 'localization' component does not define any languages this localization is for.");
 	}
 
 	as_validator_clear_current_cpt (validator);
