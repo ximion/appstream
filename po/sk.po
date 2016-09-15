@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-31 21:53+0200\n"
+"POT-Creation-Date: 2016-09-15 23:22+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/appstream/"
@@ -19,6 +19,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ../tools/appstream-cli.c:136
+#, c-format
+msgid "'%s' command"
+msgstr ""
 
 #: ../src/as-category.c:168
 #, fuzzy
@@ -33,7 +38,7 @@ msgstr ""
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: ../src/as-category.c:320 ../tools/ascli-utils.c:372
+#: ../src/as-category.c:320 ../tools/ascli-utils.c:377
 msgid "Add-ons"
 msgstr ""
 
@@ -43,16 +48,16 @@ msgid "Adventure"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:153
+#: ../tools/appstream-cli.c:114
 msgid "Also print pedantic hints when validating."
 msgstr ""
 
-#: ../tools/appstream-cli.c:61
+#: ../tools/appstream-cli.c:542
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ položky (napr. lib, bin, python3, ...)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:181
+#: ../tools/appstream-cli.c:629
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Verzia nástroja AppStream CLI: %s"
@@ -67,7 +72,7 @@ msgstr ""
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
 
-#: ../src/as-pool.c:1196
+#: ../src/as-pool.c:1208
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
@@ -76,12 +81,13 @@ msgstr "Aktualizácia vyrovnávacej pamäte AppStream zlyhala."
 msgid "AppStream cache update is not necessary."
 msgstr "Aktualizácia vyrovnávacej pamäte nástroja AppStream nie je potrebná."
 
+#. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: ../tools/appstream-cli.c:54
+#: ../tools/appstream-cli.c:133 ../tools/appstream-cli.c:535
 msgid "AppStream command-line interface"
 msgstr "Rozhranie príkazového riadku AppStream"
 
-#: ../src/as-pool.c:1187
+#: ../src/as-pool.c:1199
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -117,7 +123,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: ../src/as-provided.c:142
+#: ../src/as-provided.c:140
 msgid "Binaries"
 msgstr "Binárne súbory"
 
@@ -135,7 +141,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Balík"
 
-#: ../src/as-pool.c:1130
+#: ../src/as-pool.c:1142
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Umiestnenie vyrovnávacej pamäte „%s“ nie je zapisovateľné."
@@ -182,7 +188,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:244
+#: ../tools/appstream-cli.c:671
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Príkaz „%s“ je neznámy."
@@ -203,7 +209,7 @@ msgid "Compulsory for"
 msgstr "Povinné pre"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: ../tools/appstream-cli.c:76
+#: ../tools/appstream-cli.c:557
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
@@ -213,11 +219,11 @@ msgstr ""
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“!"
 
-#: ../src/as-provided.c:156
+#: ../src/as-provided.c:154
 msgid "DBus Session Services"
 msgstr "Služby relácie zbernice DBus"
 
-#: ../src/as-provided.c:154
+#: ../src/as-provided.c:152
 msgid "DBus System Services"
 msgstr "Služby systému zbernice DBus"
 
@@ -237,7 +243,7 @@ msgid "Default Screenshot URL"
 msgstr "Vzorový URL snímky obrazovky"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:148
+#: ../tools/appstream-cli.c:83
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
@@ -257,7 +263,7 @@ msgstr "Vývojár"
 msgid "Developer Tools"
 msgstr "Vývojár"
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:554
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 
@@ -267,18 +273,18 @@ msgid "Distribution metadata:"
 msgstr "Metaúdaje distribúcie:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:132
+#: ../tools/appstream-cli.c:67
 #, fuzzy
 msgid "Do not use any caches when performing the request."
 msgstr "Nepoužije vyrovnávaciu pamäť Xapian pri vykonávaní požiadavky"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:115
+#: ../tools/appstream-cli.c:594
 #, fuzzy
 msgid "Don't show colored output."
 msgstr "Nebude zobrazovať farebný výstup"
 
-#: ../tools/appstream-cli.c:64
+#: ../tools/appstream-cli.c:545
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 
@@ -298,7 +304,7 @@ msgid "Emulators"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:120
+#: ../tools/appstream-cli.c:224
 #, fuzzy
 msgid "Enforce a cache refresh."
 msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
@@ -367,11 +373,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: ../src/as-provided.c:160
+#: ../src/as-provided.c:158
 msgid "Flashed Firmware"
 msgstr "Nainštalovaný firmvér"
 
-#: ../src/as-provided.c:146
+#: ../src/as-provided.c:144
 msgid "Fonts"
 msgstr "Písma"
 
@@ -397,11 +403,11 @@ msgstr ""
 msgid "Games"
 msgstr ""
 
-#: ../tools/appstream-cli.c:60
+#: ../tools/appstream-cli.c:541
 msgid "Get components which provide the given item."
 msgstr "Získa komponenty, ktoré poskytujú zadanú položku."
 
-#: ../tools/appstream-cli.c:59
+#: ../tools/appstream-cli.c:540
 msgid "Get information about a component by its ID."
 msgstr "Získa informácie o komponente podľa jeho ID."
 
@@ -436,11 +442,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr ""
 
-#: ../tools/appstream-cli.c:74
+#: ../tools/appstream-cli.c:555
 msgid "Install a metadata file into the right location."
 msgstr ""
 
-#: ../tools/appstream-cli.c:70
+#: ../tools/appstream-cli.c:551
 msgid "Install software matching the component-id."
 msgstr "Nainštaluje softvér zhodujúci sa s položkou component-id."
 
@@ -463,7 +469,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: ../src/as-provided.c:140
+#: ../src/as-provided.c:138
 msgid "Libraries"
 msgstr "Knižnice"
 
@@ -483,7 +489,7 @@ msgid "Logic"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:143
+#: ../tools/appstream-cli.c:62
 #, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
 msgstr ""
@@ -491,7 +497,7 @@ msgstr ""
 "vyrovnávacej pamäte."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: ../tools/appstream-cli.c:138
+#: ../tools/appstream-cli.c:57
 #, fuzzy
 msgid "Manually set the location of the AppStream cache."
 msgstr "Ručne nastaví umiestnenie vyrovnávacej pamäte AppStream."
@@ -516,11 +522,11 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr ""
 
-#: ../src/as-provided.c:144
+#: ../src/as-provided.c:142
 msgid "Mimetypes"
 msgstr "Typy MIME"
 
-#: ../src/as-provided.c:148
+#: ../src/as-provided.c:146
 msgid "Modaliases"
 msgstr "Modaliasy"
 
@@ -564,6 +570,12 @@ msgstr "Nebola definovaná hodnota položky, ktorá sa má hľadať."
 msgid "Office"
 msgstr ""
 
+#. TRANSLATORS: An unknown option was passed to appstreamcli.
+#: ../tools/appstream-cli.c:171
+#, fuzzy, c-format
+msgid "Option '%s' is unknown."
+msgstr "Príkaz „%s“ je neznámy."
+
 #: ../tools/ascli-utils.c:277
 msgid "Package"
 msgstr "Balík"
@@ -574,7 +586,7 @@ msgid "Photography"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:126
+#: ../tools/appstream-cli.c:98
 #, fuzzy
 msgid "Print detailed output about found components."
 msgstr "Vypíše podrobnosti o nájdených súčastiach"
@@ -584,23 +596,23 @@ msgstr "Vypíše podrobnosti o nájdených súčastiach"
 msgid "Project Group"
 msgstr "Skupina projektu"
 
-#: ../tools/ascli-utils.c:379
+#: ../tools/ascli-utils.c:384
 msgid "Provided Items"
 msgstr "Poskytované položky"
 
-#: ../src/as-provided.c:150
+#: ../src/as-provided.c:148
 msgid "Python (Version 2)"
 msgstr "Python (verzia 2)"
 
-#: ../src/as-provided.c:152
+#: ../src/as-provided.c:150
 msgid "Python 3"
 msgstr "Python 3"
 
-#: ../tools/appstream-cli.c:65
+#: ../tools/appstream-cli.c:546
 msgid "Rebuild the component metadata cache."
 msgstr ""
 
-#: ../tools/appstream-cli.c:71
+#: ../tools/appstream-cli.c:552
 msgid "Remove software matching the component-id."
 msgstr ""
 
@@ -614,14 +626,23 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr ""
 
-#: ../tools/appstream-cli.c:173 ../tools/appstream-cli.c:193
+#: ../tools/appstream-cli.c:175 ../tools/appstream-cli.c:612
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
 "riadka."
 
-#: ../src/as-provided.c:158
+#: ../tools/appstream-cli.c:177
+#, fuzzy, c-format
+msgid ""
+"Run '%s --help' to see a list of available commands and options, and '%s %s "
+"--help' to see a list of options specific for this subcommand."
+msgstr ""
+"Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
+"riadka."
+
+#: ../src/as-provided.c:156
 msgid "Runtime Firmware"
 msgstr "Firmvér rozhrania"
 
@@ -635,7 +656,7 @@ msgstr ""
 msgid "Science"
 msgstr ""
 
-#: ../tools/appstream-cli.c:58
+#: ../tools/appstream-cli.c:539
 msgid "Search the component database."
 msgstr "Vyhľadá databázu komponentov."
 
@@ -645,13 +666,13 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:110
+#: ../tools/appstream-cli.c:589
 #, fuzzy
 msgid "Show extra debugging information."
 msgstr "Zobrazí ladiace informácie naviac"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:104
+#: ../tools/appstream-cli.c:583
 #, fuzzy
 msgid "Show the program version."
 msgstr "Zobrazí verziu programu"
@@ -667,7 +688,7 @@ msgid "Strategy"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: ../tools/appstream-cli.c:56
+#: ../tools/appstream-cli.c:537
 msgid "Subcommands:"
 msgstr "Podpríkazy"
 
@@ -729,11 +750,11 @@ msgstr ""
 msgid "Utilities"
 msgstr ""
 
-#: ../tools/appstream-cli.c:67
+#: ../tools/appstream-cli.c:548
 msgid "Validate AppStream XML files for issues."
 msgstr ""
 
-#: ../tools/appstream-cli.c:68
+#: ../tools/appstream-cli.c:549
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 
@@ -745,7 +766,7 @@ msgstr "Overenie zlyhalo."
 msgid "Validation was successful."
 msgstr "Overenie bolo úspešné."
 
-#: ../tools/appstream-cli.c:62
+#: ../tools/appstream-cli.c:543
 msgid "Value of the item that should be found."
 msgstr "Hodnota položky, ktorá by sa mala nájsť."
 
@@ -780,6 +801,12 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr ""
 
+#: ../tools/appstream-cli.c:560
+msgid ""
+"You can find information about subcommand-specific options by passing \"--"
+"help\" to the subcommand."
+msgstr ""
+
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: ../tools/ascli-actions-mdata.c:62
 msgid "You might need superuser permissions to perform this action."
@@ -787,7 +814,7 @@ msgstr ""
 "Na vykonanie tejto akcie možno budete musieť mať oprávnenia administrátora."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:192
+#: ../tools/appstream-cli.c:611
 msgid "You need to specify a command."
 msgstr "Musíte uviesť príkaz."
 

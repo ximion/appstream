@@ -556,8 +556,8 @@ as_client_get_summary ()
 	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
 	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
 
-	g_string_append (string, "\n\n");
-	g_string_append (string, _("You can find more information about subcommand-specific flags by passing \"--help\" to the specific subcommand."));
+	g_string_append (string, "\n");
+	g_string_append (string, _("You can find information about subcommand-specific options by passing \"--help\" to the subcommand."));
 
 	return g_string_free (string, FALSE);
 }

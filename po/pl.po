@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-08-31 21:53+0200\n"
+"POT-Creation-Date: 2016-09-15 23:22+0200\n"
 "PO-Revision-Date: 2016-09-10 17:37+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish "
-"<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
+"translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,6 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.8\n"
+
+#: ../tools/appstream-cli.c:136
+#, c-format
+msgid "'%s' command"
+msgstr ""
 
 #: ../src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -33,7 +38,7 @@ msgstr "Gry akcji"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: ../src/as-category.c:320 ../tools/ascli-utils.c:372
+#: ../src/as-category.c:320 ../tools/ascli-utils.c:377
 msgid "Add-ons"
 msgstr "Dodatki"
 
@@ -43,16 +48,16 @@ msgid "Adventure"
 msgstr "Gry przygodowe"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
-#: ../tools/appstream-cli.c:153
+#: ../tools/appstream-cli.c:114
 msgid "Also print pedantic hints when validating."
 msgstr "Wyświetla także drobiazgowe uwagi podczas sprawdzania poprawności."
 
-#: ../tools/appstream-cli.c:61
+#: ../tools/appstream-cli.c:542
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ elementu (np. lib, bin, python3…)"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: ../tools/appstream-cli.c:181
+#: ../tools/appstream-cli.c:629
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Wersja narzędzia klienta AppStream w wierszu poleceń: %s"
@@ -67,7 +72,7 @@ msgstr "Stan AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
 
-#: ../src/as-pool.c:1196
+#: ../src/as-pool.c:1208
 #, c-format
 msgid "AppStream cache update failed."
 msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
@@ -76,12 +81,13 @@ msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
 msgid "AppStream cache update is not necessary."
 msgstr "Aktualizacja pamięci podręcznej AppStream jest niepotrzebna."
 
+#. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: ../tools/appstream-cli.c:54
+#: ../tools/appstream-cli.c:133 ../tools/appstream-cli.c:535
 msgid "AppStream command-line interface"
 msgstr "Interfejs wiersza poleceń AppStream"
 
-#: ../src/as-pool.c:1187
+#: ../src/as-pool.c:1199
 #, c-format
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
@@ -119,7 +125,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Tworzenie i edycja dźwięku"
 
-#: ../src/as-provided.c:142
+#: ../src/as-provided.c:140
 msgid "Binaries"
 msgstr "Pliki binarne"
 
@@ -137,7 +143,7 @@ msgstr "Gry planszowe"
 msgid "Bundle"
 msgstr "Paczka"
 
-#: ../src/as-pool.c:1130
+#: ../src/as-pool.c:1142
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Położenie pamięci podręcznej „%s” nie jest zapisywalne."
@@ -153,8 +159,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
-"Nie można skopiować „%s”: plik nie ma przyrostka „.metainfo.xml” lub "
-"„.appdata.xml”."
+"Nie można skopiować „%s”: plik nie ma przyrostka „.metainfo.xml” lub „."
+"appdata.xml”."
 
 #: ../src/as-category.c:138
 msgctxt "Category of Games"
@@ -186,7 +192,7 @@ msgid "Codecs"
 msgstr "Kodeki"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: ../tools/appstream-cli.c:244
+#: ../tools/appstream-cli.c:671
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Nieznane polecenie „%s”."
@@ -207,7 +213,7 @@ msgid "Compulsory for"
 msgstr "Obowiązkowe dla"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: ../tools/appstream-cli.c:76
+#: ../tools/appstream-cli.c:557
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Konwertuje XML kolekcji do YAML lub odwrotnie."
 
@@ -217,11 +223,11 @@ msgstr "Konwertuje XML kolekcji do YAML lub odwrotnie."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nie można odnaleźć składnika dostarczającego „%s::%s”."
 
-#: ../src/as-provided.c:156
+#: ../src/as-provided.c:154
 msgid "DBus Session Services"
 msgstr "Usługi sesji D-Bus"
 
-#: ../src/as-provided.c:154
+#: ../src/as-provided.c:152
 msgid "DBus System Services"
 msgstr "Usługi systemowe D-Bus"
 
@@ -240,7 +246,7 @@ msgid "Default Screenshot URL"
 msgstr "Adres URL domyślnego zrzutu ekranu"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: ../tools/appstream-cli.c:148
+#: ../tools/appstream-cli.c:83
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
@@ -261,7 +267,7 @@ msgstr "Programista"
 msgid "Developer Tools"
 msgstr "Narzędzia programistyczne"
 
-#: ../tools/appstream-cli.c:73
+#: ../tools/appstream-cli.c:554
 msgid "Display status information about available AppStream metadata."
 msgstr "Wyświetla informacje o stanie dostępnych metadanych AppStream."
 
@@ -271,16 +277,16 @@ msgid "Distribution metadata:"
 msgstr "Metadane dystrybucji:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: ../tools/appstream-cli.c:132
+#: ../tools/appstream-cli.c:67
 msgid "Do not use any caches when performing the request."
 msgstr "Bez używania pamięci podręcznych podczas wykonywania żądania."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: ../tools/appstream-cli.c:115
+#: ../tools/appstream-cli.c:594
 msgid "Don't show colored output."
 msgstr "Bez kolorowania wyjścia."
 
-#: ../tools/appstream-cli.c:64
+#: ../tools/appstream-cli.c:545
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Zrzuca surowe metadane XML dla składnika pasującego do identyfikatora."
 
@@ -300,7 +306,7 @@ msgid "Emulators"
 msgstr "Emulatory"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: ../tools/appstream-cli.c:120
+#: ../tools/appstream-cli.c:224
 msgid "Enforce a cache refresh."
 msgstr "Wymusza odświeżenie pamięci podręcznej."
 
@@ -368,11 +374,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Finanse"
 
-#: ../src/as-provided.c:160
+#: ../src/as-provided.c:158
 msgid "Flashed Firmware"
 msgstr "Wgrane oprogramowanie sprzętowe"
 
-#: ../src/as-provided.c:146
+#: ../src/as-provided.c:144
 msgid "Fonts"
 msgstr "Czcionki"
 
@@ -397,11 +403,11 @@ msgstr "Odnaleziono składniki: %i."
 msgid "Games"
 msgstr "Gry"
 
-#: ../tools/appstream-cli.c:60
+#: ../tools/appstream-cli.c:541
 msgid "Get components which provide the given item."
 msgstr "Pobiera składniki dostarczające podany element."
 
-#: ../tools/appstream-cli.c:59
+#: ../tools/appstream-cli.c:540
 msgid "Get information about a component by its ID."
 msgstr "Pobiera informacje o składniku według jego identyfikatora."
 
@@ -436,11 +442,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Źródła wprowadzania"
 
-#: ../tools/appstream-cli.c:74
+#: ../tools/appstream-cli.c:555
 msgid "Install a metadata file into the right location."
 msgstr "Instaluje plik metadanych we właściwym położeniu."
 
-#: ../tools/appstream-cli.c:70
+#: ../tools/appstream-cli.c:551
 msgid "Install software matching the component-id."
 msgstr "Instaluje oprogramowanie pasujące do identyfikatora składnika."
 
@@ -463,7 +469,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Języki"
 
-#: ../src/as-provided.c:140
+#: ../src/as-provided.c:138
 msgid "Libraries"
 msgstr "Biblioteki"
 
@@ -483,12 +489,12 @@ msgid "Logic"
 msgstr "Gry logiczne"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: ../tools/appstream-cli.c:143
+#: ../tools/appstream-cli.c:62
 msgid "Manually set the location of AppStream metadata to scan."
 msgstr "Ręcznie ustawia położenie metadanych AppStream do skanowania."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: ../tools/appstream-cli.c:138
+#: ../tools/appstream-cli.c:57
 msgid "Manually set the location of the AppStream cache."
 msgstr "Ręcznie ustawia położenie pamięci podręcznej AppStream."
 
@@ -512,11 +518,11 @@ msgstr "Plik metadanych „%s” nie istnieje."
 msgid "Metainfo files:"
 msgstr "Pliki Metainfo:"
 
-#: ../src/as-provided.c:144
+#: ../src/as-provided.c:142
 msgid "Mimetypes"
 msgstr "Typy MIME"
 
-#: ../src/as-provided.c:148
+#: ../src/as-provided.c:146
 msgid "Modaliases"
 msgstr "Pliki „modalias”"
 
@@ -561,6 +567,12 @@ msgstr "Nie określono wartości dla wyszukiwanego elementu."
 msgid "Office"
 msgstr "Biuro"
 
+#. TRANSLATORS: An unknown option was passed to appstreamcli.
+#: ../tools/appstream-cli.c:171
+#, fuzzy, c-format
+msgid "Option '%s' is unknown."
+msgstr "Nieznane polecenie „%s”."
+
 #: ../tools/ascli-utils.c:277
 msgid "Package"
 msgstr "Pakiet"
@@ -571,7 +583,7 @@ msgid "Photography"
 msgstr "Fotografia"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: ../tools/appstream-cli.c:126
+#: ../tools/appstream-cli.c:98
 msgid "Print detailed output about found components."
 msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach."
 
@@ -580,23 +592,23 @@ msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach."
 msgid "Project Group"
 msgstr "Grupa projektu"
 
-#: ../tools/ascli-utils.c:379
+#: ../tools/ascli-utils.c:384
 msgid "Provided Items"
 msgstr "Dostarczane elementy"
 
-#: ../src/as-provided.c:150
+#: ../src/as-provided.c:148
 msgid "Python (Version 2)"
 msgstr "Python (wersja 2)"
 
-#: ../src/as-provided.c:152
+#: ../src/as-provided.c:150
 msgid "Python 3"
 msgstr "Python 3"
 
-#: ../tools/appstream-cli.c:65
+#: ../tools/appstream-cli.c:546
 msgid "Rebuild the component metadata cache."
 msgstr "Ponownie buduje pamięć podręczną metadanych składników."
 
-#: ../tools/appstream-cli.c:71
+#: ../tools/appstream-cli.c:552
 msgid "Remove software matching the component-id."
 msgstr "Usuwa oprogramowanie pasujące do identyfikatora składnika."
 
@@ -610,13 +622,21 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Gry fabularne"
 
-#: ../tools/appstream-cli.c:173 ../tools/appstream-cli.c:193
+#: ../tools/appstream-cli.c:175 ../tools/appstream-cli.c:612
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Polecenie „%s --help” wyświetli pełną listę dostępnych opcji wiersza poleceń."
 
-#: ../src/as-provided.c:158
+#: ../tools/appstream-cli.c:177
+#, fuzzy, c-format
+msgid ""
+"Run '%s --help' to see a list of available commands and options, and '%s %s "
+"--help' to see a list of options specific for this subcommand."
+msgstr ""
+"Polecenie „%s --help” wyświetli pełną listę dostępnych opcji wiersza poleceń."
+
+#: ../src/as-provided.c:156
 msgid "Runtime Firmware"
 msgstr "Oprogramowanie sprzętowe wgrywane podczas uruchamiania systemu"
 
@@ -630,7 +650,7 @@ msgstr "Skanowanie"
 msgid "Science"
 msgstr "Nauka"
 
-#: ../tools/appstream-cli.c:58
+#: ../tools/appstream-cli.c:539
 msgid "Search the component database."
 msgstr "Przeszukuje bazę danych składników."
 
@@ -640,12 +660,12 @@ msgid "Security"
 msgstr "Bezpieczeństwo"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: ../tools/appstream-cli.c:110
+#: ../tools/appstream-cli.c:589
 msgid "Show extra debugging information."
 msgstr "Wyświetla dodatkowe informacje debugowania."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: ../tools/appstream-cli.c:104
+#: ../tools/appstream-cli.c:583
 msgid "Show the program version."
 msgstr "Wyświetla wersję programu."
 
@@ -660,7 +680,7 @@ msgid "Strategy"
 msgstr "Gry strategiczne"
 
 #. these are commands we can use with appstreamcli
-#: ../tools/appstream-cli.c:56
+#: ../tools/appstream-cli.c:537
 msgid "Subcommands:"
 msgstr "Podpolecenia:"
 
@@ -724,11 +744,11 @@ msgstr "Nie można zapisać do „%s”, nie można zainstalować pliku metainfo
 msgid "Utilities"
 msgstr "Narzędzia"
 
-#: ../tools/appstream-cli.c:67
+#: ../tools/appstream-cli.c:548
 msgid "Validate AppStream XML files for issues."
 msgstr "Sprawdza poprawność plików XML AppStream."
 
-#: ../tools/appstream-cli.c:68
+#: ../tools/appstream-cli.c:549
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Sprawdza poprawność metadanych zainstalowanego drzewa plików programu."
 
@@ -740,7 +760,7 @@ msgstr "Sprawdzenie poprawności się nie powiodło."
 msgid "Validation was successful."
 msgstr "Pomyślnie sprawdzono poprawność."
 
-#: ../tools/appstream-cli.c:62
+#: ../tools/appstream-cli.c:543
 msgid "Value of the item that should be found."
 msgstr "Wartość wyszukiwanego elementu."
 
@@ -774,13 +794,19 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Procesory tekstu"
 
+#: ../tools/appstream-cli.c:560
+msgid ""
+"You can find information about subcommand-specific options by passing \"--"
+"help\" to the subcommand."
+msgstr ""
+
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: ../tools/ascli-actions-mdata.c:62
 msgid "You might need superuser permissions to perform this action."
 msgstr "Wymagane są uprawnienia administratora, aby wykonać to działanie."
 
 #. TRANSLATORS: ascli has been run without command.
-#: ../tools/appstream-cli.c:192
+#: ../tools/appstream-cli.c:611
 msgid "You need to specify a command."
 msgstr "Należy podać polecenie."
 
