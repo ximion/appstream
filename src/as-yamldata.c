@@ -945,6 +945,22 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 }
 
 /**
+ * as_str_is_numeric:
+ *
+ * Check if string is a number.
+ */
+static gboolean
+as_str_is_numeric (const gchar *s)
+{
+	gchar *p;
+
+	if (s == NULL || *s == '\0' || g_ascii_isspace (*s))
+		return FALSE;
+	strtod (s, &p);
+	return *p == '\0';
+}
+
+/**
  * as_yaml_emit_scalar:
  */
 static void
@@ -952,9 +968,45 @@ as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
 {
 	gint ret;
 	yaml_event_t event;
+	yaml_scalar_style_t style;
 	g_assert (value != NULL);
 
-	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
+	/* we always want the values to be represented as strings, and not have e.g. Python recognize them as ints later */
+	style = YAML_ANY_SCALAR_STYLE;
+	if (as_str_is_numeric (value))
+		style = YAML_SINGLE_QUOTED_SCALAR_STYLE;
+
+	yaml_scalar_event_initialize (&event,
+					NULL,
+					NULL,
+					(yaml_char_t*) value,
+					strlen (value),
+					TRUE,
+					TRUE,
+					style);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+}
+
+/**
+ * as_yaml_emit_scalar_uint:
+ */
+static void
+as_yaml_emit_scalar_uint (yaml_emitter_t *emitter, guint value)
+{
+	gint ret;
+	yaml_event_t event;
+	g_autofree gchar *value_str = NULL;
+
+	value_str = g_strdup_printf("%i", value);
+	yaml_scalar_event_initialize (&event,
+					NULL,
+					NULL,
+					(yaml_char_t*) value_str,
+					strlen (value_str),
+					TRUE,
+					TRUE,
+					YAML_ANY_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -977,7 +1029,14 @@ as_yaml_emit_scalar_key (yaml_emitter_t *emitter, const gchar *key)
 	if (g_strcmp0 (key, "yes") == 0)
 		keystyle = YAML_SINGLE_QUOTED_SCALAR_STYLE;
 
-	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) key, strlen (key), TRUE, TRUE, keystyle);
+	yaml_scalar_event_initialize (&event,
+					NULL,
+					NULL,
+					(yaml_char_t*) key,
+					strlen (key),
+					TRUE,
+					TRUE,
+					keystyle);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }
@@ -988,17 +1047,47 @@ as_yaml_emit_scalar_key (yaml_emitter_t *emitter, const gchar *key)
 static void
 as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
 {
-	yaml_event_t event;
-	gint ret;
-
 	if (value == NULL)
 		return;
 
 	as_yaml_emit_scalar_key (emitter, key);
+	as_yaml_emit_scalar (emitter, value);
+}
 
-	yaml_scalar_event_initialize (&event, NULL, NULL, (yaml_char_t*) value, strlen (value), TRUE, TRUE, YAML_ANY_SCALAR_STYLE);
+/**
+ * as_yaml_emit_entry_uint:
+ */
+static void
+as_yaml_emit_entry_uint (yaml_emitter_t *emitter, const gchar *key, guint value)
+{
+	as_yaml_emit_scalar_key (emitter, key);
+	as_yaml_emit_scalar_uint (emitter, value);
+}
+
+/**
+ * as_yaml_emit_entry_timestamp:
+ */
+static void
+as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter, const gchar *key, guint64 unixtime)
+{
+	g_autofree gchar *time_str = NULL;
+	yaml_event_t event;
+	gint ret;
+
+	as_yaml_emit_scalar_key (emitter, key);
+
+	time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
+	yaml_scalar_event_initialize (&event,
+					NULL,
+					NULL,
+					(yaml_char_t*) time_str,
+					strlen (time_str),
+					TRUE,
+					TRUE,
+					YAML_ANY_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
+
 }
 
 /**
@@ -1434,7 +1523,6 @@ static void
 as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
 {
 	g_autofree gchar *url = NULL;
-	gchar *size;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
 	as_yaml_mapping_start (emitter);
@@ -1447,13 +1535,13 @@ as_yaml_emit_image (AsYAMLData *ydt, yaml_emitter_t *emitter, AsImage *img)
 	as_yaml_emit_entry (emitter, "url", url);
 	if ((as_image_get_width (img) > 0) &&
 		(as_image_get_height (img) > 0)) {
-		size = g_strdup_printf("%i", as_image_get_width (img));
-		as_yaml_emit_entry (emitter, "width", size);
-		g_free (size);
+		as_yaml_emit_entry_uint (emitter,
+					 "width",
+					 as_image_get_width (img));
 
-		size = g_strdup_printf("%i", as_image_get_height (img));
-		as_yaml_emit_entry (emitter, "height", size);
-		g_free (size);
+		as_yaml_emit_entry_uint (emitter,
+					 "height",
+					 as_image_get_height (img));
 	}
 	as_yaml_emit_entry (emitter, "lang", as_image_get_locale (img));
 	as_yaml_mapping_end (emitter);
@@ -1569,7 +1657,6 @@ as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 			as_yaml_sequence_start (emitter);
 
 			for (i = 0; i < ilist->len; i++) {
-				gchar *size;
 				AsIcon *icon = AS_ICON (g_ptr_array_index (ilist, i));
 
 				as_yaml_mapping_start (emitter);
@@ -1582,15 +1669,15 @@ as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 					as_yaml_emit_entry (emitter, "name", as_icon_get_name (icon));
 
 				if (as_icon_get_width (icon) > 0) {
-					size = g_strdup_printf("%i", as_icon_get_width (icon));
-					as_yaml_emit_entry (emitter, "width", size);
-					g_free (size);
+					as_yaml_emit_entry_uint (emitter,
+								 "width",
+								 as_icon_get_width (icon));
 				}
 
 				if (as_icon_get_height (icon) > 0) {
-					size = g_strdup_printf("%i", as_icon_get_height (icon));
-					as_yaml_emit_entry (emitter, "height", size);
-					g_free (size);
+					as_yaml_emit_entry_uint (emitter,
+								 "height",
+								 as_icon_get_height (icon));
 				}
 
 				as_yaml_mapping_end (emitter);
@@ -1622,15 +1709,13 @@ as_yaml_emit_languages (yaml_emitter_t *emitter, AsComponent *cpt)
 	while (g_hash_table_iter_next (&iter, &key, &value)) {
 		guint percentage;
 		const gchar *locale;
-		g_autofree gchar *percentage_str = NULL;
 
 		locale = (const gchar*) key;
 		percentage = GPOINTER_TO_INT (value);
-		percentage_str = g_strdup_printf("%i", percentage);
 
 		as_yaml_mapping_start (emitter);
 		as_yaml_emit_entry (emitter, "locale", locale);
-		as_yaml_emit_entry (emitter, "percentage", percentage_str);
+		as_yaml_emit_entry_uint (emitter, "percentage", percentage);
 		as_yaml_mapping_end (emitter);
 	}
 
@@ -1675,8 +1760,9 @@ as_yaml_data_emit_releases (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 			g_autofree gchar *time_str = NULL;
 
 			if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
-				time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, unixtime);
-				as_yaml_emit_entry (emitter, "unix-timestamp", time_str);
+				as_yaml_emit_entry_timestamp (emitter,
+							      "unix-timestamp",
+							      unixtime);
 			} else {
 				GTimeVal time;
 				time.tv_sec = unixtime;
