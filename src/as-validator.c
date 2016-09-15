@@ -558,8 +558,22 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+			if (g_str_has_suffix (node_content, ".")) {
+				as_validator_add_issue (validator, iter,
+							AS_ISSUE_IMPORTANCE_INFO,
+							AS_ISSUE_KIND_VALUE_ISSUE,
+							"The component name should not end with a \".\" [%s]",
+							node_content);
+			}
+
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+			if (g_str_has_suffix (node_content, "."))
+				as_validator_add_issue (validator, iter,
+							AS_ISSUE_IMPORTANCE_INFO,
+							AS_ISSUE_KIND_VALUE_ISSUE,
+							"The component summary should not end with a \".\" [%s]",
+							node_content);
 		} else if (g_strcmp0 (node_name, "description") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_description_tag (validator, iter, cpt, mode);
