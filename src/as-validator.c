@@ -646,18 +646,22 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			}
-		} else if (g_strcmp0 (node_name, "metadata") == 0) {
+		} else if ((g_strcmp0 (node_name, "metadata") == 0) || (g_strcmp0 (node_name, "kudos") == 0)) {
+			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
+			 * especially if we might standardize at leat the <kudos/> tag one day, but we should still complain about those tags to make
+			 * it obvious that they are not supported by all implementations */
 			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_PEDANTIC,
+						AS_ISSUE_IMPORTANCE_INFO,
 						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found custom metadata in <metadata/> tag. Use of this tag is common, but should be avoided if possible.");
+						"Found invalid tag: '%s'. This tag is a GNOME extensions to AppStream and is not supported by all implementations.",
+						node_name);
 			tag_valid = FALSE;
 		} else if (!g_str_has_prefix (node_name, "x-")) {
 			as_validator_add_issue (validator, iter,
 						AS_ISSUE_IMPORTANCE_WARNING,
 						AS_ISSUE_KIND_TAG_UNKNOWN,
 						"Found invalid tag: '%s'. Non-standard tags must be prefixed with \"x-\".",
-				node_name);
+						node_name);
 			tag_valid = FALSE;
 		}
 
