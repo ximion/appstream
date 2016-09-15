@@ -751,17 +751,19 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	}
 
 	/* validate l10n specific stuff */
-	if (as_component_get_extends (cpt)->len == 0) {
-		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_WARNING,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"This 'localization' component is missing an An 'extends' tag, to specify the components it adds localization to.");
-	}
-	if (g_hash_table_size (as_component_get_languages_table (cpt)) == 0) {
-		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"This 'localization' component does not define any languages this localization is for.");
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_LOCALIZATION) {
+		if (as_component_get_extends (cpt)->len == 0) {
+			as_validator_add_issue (validator, NULL,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_TAG_MISSING,
+						"This 'localization' component is missing an An 'extends' tag, to specify the components it adds localization to.");
+		}
+		if (g_hash_table_size (as_component_get_languages_table (cpt)) == 0) {
+			as_validator_add_issue (validator, NULL,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_TAG_MISSING,
+						"This 'localization' component does not define any languages this localization is for.");
+		}
 	}
 
 	as_validator_clear_current_cpt (validator);
