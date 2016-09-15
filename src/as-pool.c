@@ -306,11 +306,13 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 	cdid = as_component_get_data_id (cpt);
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
 
-	/* add additional data to the component, e.g. external screenshots. Also refines
-	 * the component's icon paths */
-	as_component_complete (cpt, priv->screenshot_service_url, priv->icon_dirs);
-
 	if (existing_cpt == NULL) {
+		/* add additional data to the component, e.g. external screenshots. Also refines
+		* the component's icon paths */
+		as_component_complete (cpt,
+					priv->screenshot_service_url,
+					priv->icon_dirs);
+
 		g_hash_table_insert (priv->cpt_table,
 					g_strdup (cdid),
 					g_object_ref (cpt));

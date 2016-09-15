@@ -416,6 +416,13 @@ test_yaml_read_icons (void)
 					"      height: 128\n"
 					"      name: test_test.png\n"
 					"  stock: test\n";
+	const gchar *yamldata_icons_single = "---\n"
+					"ID: org.example.Test\n"
+					"Icon:\n"
+					"  cached:\n"
+					"    - width: 64\n"
+					"      height: 64\n"
+					"      name: single_test.png\n";
 
 	ydt = as_yamldata_new ();
 
@@ -452,6 +459,15 @@ test_yaml_read_icons (void)
 
 	g_assert_nonnull (as_component_get_icon_by_size (cpt, 64, 64));
 	g_assert_nonnull (as_component_get_icon_by_size (cpt, 128, 128));
+
+	/* check a component with just a single icon */
+	g_object_unref (cpt);
+	cpt = as_yaml_test_read_data (yamldata_icons_single, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
+
+	icons = as_component_get_icons (cpt);
+	g_assert_cmpint (icons->len, ==, 1);
+	g_assert_cmpstr (as_icon_get_filename (AS_ICON (g_ptr_array_index (icons, 0))), ==, "single_test.png");
 }
 
 /**

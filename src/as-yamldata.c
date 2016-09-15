@@ -220,7 +220,7 @@ as_yaml_process_layer (yaml_parser_t *parser, GNode *data, GError **error)
 				/* depth += 1 */
 				last_scalar = last_leaf;
 				if (in_sequence)
-					last_leaf = g_node_append (last_leaf, g_node_new (g_strdup ("-")));
+					last_leaf = g_node_append (last_leaf, g_node_new (NULL));
 
 				as_yaml_process_layer (parser, last_leaf, &tmp_error);
 				if (tmp_error != NULL) {
@@ -472,7 +472,7 @@ as_yamldata_process_icons (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 			as_icon_set_name (icon, value);
 			as_component_add_icon (cpt, icon);
 		} else if (g_strcmp0 (key, "cached") == 0) {
-			if (n->children->next == NULL) {
+			if (value != NULL) {
 				g_autoptr(AsIcon) icon = as_icon_new ();
 				/* we have a legacy YAML file */
 				as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
