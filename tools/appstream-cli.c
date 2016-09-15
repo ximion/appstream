@@ -31,21 +31,501 @@
 #include "ascli-actions-pkgmgr.h"
 #include "ascli-actions-misc.h"
 
+#define ASCLI_BIN_NAME "appstreamcli"
+
+/* global options which affect all commands */
 static gboolean optn_show_version = FALSE;
 static gboolean optn_verbose_mode = FALSE;
 static gboolean optn_no_color = FALSE;
-static gboolean optn_force = FALSE;
-static gboolean optn_details = FALSE;
-static gboolean optn_pedantic = FALSE;
-static gboolean optn_no_cache = FALSE;
+
+/*** COMMAND OPTIONS ***/
+
+/* for data_collection_options */
 static gchar *optn_cachepath = NULL;
 static gchar *optn_datapath = NULL;
+static gboolean optn_no_cache = FALSE;
+
+/**
+ * General options used for any operations on
+ * metadata collections and the cache.
+ */
+const GOptionEntry data_collection_options[] = {
+	{ "cachepath", 0, 0,
+		G_OPTION_ARG_STRING,
+		&optn_cachepath,
+		/* TRANSLATORS: ascli flag description for: --cachepath */
+		N_("Manually set the location of the AppStream cache."), NULL },
+	{ "datapath", 0, 0,
+		G_OPTION_ARG_STRING,
+		&optn_datapath,
+		/* TRANSLATORS: ascli flag description for: --datapath */
+		N_("Manually set the location of AppStream metadata to scan."), NULL },
+	{ "no-cache", 0, 0,
+		G_OPTION_ARG_NONE,
+		&optn_no_cache,
+		/* TRANSLATORS: ascli flag description for: --no-cache */
+		N_("Do not use any caches when performing the request."),
+		NULL },
+	{ NULL }
+};
+
+/* used by format_options */
 static gchar *optn_format = NULL;
+
+/**
+ * The format option.
+ */
+const GOptionEntry format_options[] = {
+	{ "format", 0, 0,
+		G_OPTION_ARG_STRING,
+		&optn_format,
+		/* TRANSLATORS: ascli flag description for: --format */
+		N_("Default to the given metadata format (valid values are 'xml' and 'yaml')."), NULL },
+	{ NULL }
+};
+
+/* used by find_options */
+static gboolean optn_details = FALSE;
+
+/**
+ * General options for finding & displaying data.
+ */
+const GOptionEntry find_options[] = {
+	{ "details", 0, 0,
+		G_OPTION_ARG_NONE,
+		&optn_details,
+		/* TRANSLATORS: ascli flag description for: --details */
+		N_("Print detailed output about found components."),
+		NULL },
+	{ NULL }
+};
+
+/* used by validate_options */
+static gboolean optn_pedantic = FALSE;
+
+/**
+ * General options for validation.
+ */
+const GOptionEntry validate_options[] = {
+	{ "pedantic", (gchar) 0, 0,
+		G_OPTION_ARG_NONE,
+		&optn_pedantic,
+		/* TRANSLATORS: ascli flag description for: --pedantic */
+		N_("Also print pedantic hints when validating."), NULL },
+	{ NULL }
+};
+
+/* only used by the "run" command */
+static gboolean optn_force = FALSE;
+
+/*** HELPER METHODS ***/
+
+/**
+ * as_client_get_summary_for:
+ **/
+static gchar*
+as_client_get_summary_for (const gchar *command)
+{
+	GString *string;
+	string = g_string_new ("");
+
+	/* TRANSLATORS: This is the header to the --help menu for subcommands */
+	g_string_append_printf (string, "%s\n", _("AppStream command-line interface"));
+
+	g_string_append (string, " ");
+	g_string_append_printf (string, _("'%s' command"), command);
+
+	return g_string_free (string, FALSE);
+}
+
+/**
+ * as_client_new_subcommand_option_context:
+ *
+ * Create a new option context for an ascli subcommand.
+ */
+static GOptionContext*
+as_client_new_subcommand_option_context (const gchar *command, const GOptionEntry *entries)
+{
+	GOptionContext *opt_context = NULL;
+	g_autofree gchar *summary = NULL;
+
+	opt_context = g_option_context_new ("- AppStream CLI.");
+	g_option_context_set_help_enabled (opt_context, TRUE);
+	g_option_context_add_main_entries (opt_context, entries, NULL);
+
+	/* set the summary text */
+	summary = as_client_get_summary_for (command);
+	g_option_context_set_summary (opt_context, summary);
+
+	return opt_context;
+}
+
+/**
+ * as_client_print_help_hint:
+ */
+static void
+as_client_print_help_hint (const gchar *subcommand, const gchar *unknown_option)
+{
+	if (unknown_option != NULL) {
+		/* TRANSLATORS: An unknown option was passed to appstreamcli. */
+		ascli_print_stderr (_("Option '%s' is unknown."), unknown_option);
+	}
+
+	if (subcommand == NULL)
+		ascli_print_stderr (_("Run '%s --help' to see a full list of available command line options."), ASCLI_BIN_NAME);
+	else
+		ascli_print_stderr (_("Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."),
+				    ASCLI_BIN_NAME, ASCLI_BIN_NAME, subcommand);
+}
+
+/**
+ * as_client_option_context_parse:
+ *
+ * Parse the options, print errors.
+ */
+static int
+as_client_option_context_parse (GOptionContext *opt_context, const gchar *subcommand, int *argc, char ***argv)
+{
+	g_autoptr(GError) error = NULL;
+
+	g_option_context_parse (opt_context, argc, argv, &error);
+	if (error != NULL) {
+		gchar *msg;
+		msg = g_strconcat (error->message, "\n", NULL);
+		g_print ("%s", msg);
+		g_free (msg);
+
+		as_client_print_help_hint (subcommand, NULL);
+		return 1;
+	}
+
+	return 0;
+}
+
+/*** SUBCOMMANDS ***/
+
+/**
+ * as_client_run_refresh_cache:
+ *
+ * Refresh the AppStream caches.
+ */
+static int
+as_client_run_refresh_cache (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *command = "refresh";
+
+	const GOptionEntry refresh_options[] = {
+		{ "force", (gchar) 0, 0,
+			G_OPTION_ARG_NONE,
+			&optn_force,
+			/* TRANSLATORS: ascli flag description for: --force */
+			_("Enforce a cache refresh."),
+			NULL },
+		{ NULL }
+	};
+
+	opt_context = as_client_new_subcommand_option_context (command, refresh_options);
+	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context,
+					      command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	return ascli_refresh_cache (optn_cachepath,
+					optn_datapath,
+					optn_force);
+}
+
+/**
+ * as_client_run_search:
+ *
+ * Search for AppStream metadata.
+ */
+static int
+as_client_run_search (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *value = NULL;
+	const gchar *command = "search";
+
+	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		value = argv[2];
+
+	return ascli_search_component (optn_cachepath,
+					value,
+					optn_details,
+					optn_no_cache);
+}
+
+/**
+ * as_client_run_get:
+ *
+ * Get components by its ID.
+ */
+static int
+as_client_run_get (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *value = NULL;
+	const gchar *command = "get";
+
+	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		value = argv[2];
+
+	return ascli_get_component (optn_cachepath,
+					value,
+					optn_details,
+					optn_no_cache);
+}
+
+/**
+ * as_client_run_dump:
+ *
+ * Dump the raw component metadata to the console.
+ */
+static int
+as_client_run_dump (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *value = NULL;
+	AsFormatKind mformat;
+	const gchar *command = "dump";
+
+	opt_context = as_client_new_subcommand_option_context (command, data_collection_options);
+	g_option_context_add_main_entries (opt_context, format_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		value = argv[2];
+
+	mformat = as_format_kind_from_string (optn_format);
+	return ascli_dump_component (optn_cachepath,
+					value,
+					mformat,
+					optn_no_cache);
+}
+
+/**
+ * as_client_run_what_provides:
+ *
+ * Find components that provide a certain item.
+ */
+static int
+as_client_run_what_provides (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *vtype = NULL;
+	const gchar *vvalue = NULL;
+	const gchar *command = "what-provides";
+
+	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	g_option_context_add_main_entries (opt_context, data_collection_options, NULL);
+
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		vtype = argv[2];
+	if (argc > 3)
+		vvalue = argv[3];
+
+	return ascli_what_provides (optn_cachepath,
+				    vtype,
+				    vvalue,
+				    optn_details);
+}
+
+/**
+ * as_client_run_validate:
+ *
+ * Validate single metadata files.
+ */
+static int
+as_client_run_validate (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *command = "validate";
+
+	opt_context = as_client_new_subcommand_option_context (command, validate_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	return ascli_validate_files (&argv[2],
+				     argc-2,
+				     optn_no_color,
+				     optn_pedantic);
+}
+
+/**
+ * as_client_run_validate_tree:
+ *
+ * Validate an installed filesystem tree for correct AppStream metadata
+ * and .desktop files.
+ */
+static int
+as_client_run_validate_tree (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *value = NULL;
+	const gchar *command = "validate-tree";
+
+	opt_context = as_client_new_subcommand_option_context (command, validate_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		value = argv[2];
+
+	return ascli_validate_tree (value,
+				    optn_no_color,
+				    optn_pedantic);
+}
+
+/**
+ * as_client_run_put:
+ *
+ * Place a metadata file in the right directory.
+ */
+static int
+as_client_run_put (char **argv, int argc)
+{
+	const gchar *value = NULL;
+	const gchar *command = "put";
+
+	if (argc > 2)
+		value = argv[2];
+	if (argc > 3) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_put_metainfo (value);
+}
+
+/**
+ * as_client_run_install:
+ *
+ * Install a component by its ID.
+ */
+static int
+as_client_run_install (char **argv, int argc)
+{
+	const gchar *value = NULL;
+	const gchar *command = "install";
+
+	if (argc > 2)
+		value = argv[2];
+	if (argc > 3) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_install_component (value);
+}
+
+/**
+ * as_client_run_remove:
+ *
+ * Uninstall a component by its ID.
+ */
+static int
+as_client_run_remove (char **argv, int argc)
+{
+	const gchar *value = NULL;
+	const gchar *command = "remove";
+
+	if (argc > 2)
+		value = argv[2];
+	if (argc > 3) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_remove_component (value);
+}
+
+/**
+ * as_client_run_status:
+ *
+ * Show diagnostic information.
+ */
+static int
+as_client_run_status (char **argv, int argc)
+{
+	const gchar *command = "status";
+
+	if (argc > 2) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_show_status ();
+}
+
+/**
+ * as_client_run_convert:
+ *
+ * Convert metadata.
+ */
+static int
+as_client_run_convert (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *fname1 = NULL;
+	const gchar *fname2 = NULL;
+	AsFormatKind mformat;
+	const gchar *command = "convert";
+
+	opt_context = as_client_new_subcommand_option_context (command, format_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		fname1 = argv[2];
+	if (argc > 3)
+		fname2 = argv[3];
+
+	mformat = as_format_kind_from_string (optn_format);
+	return ascli_convert_data (fname1,
+				   fname2,
+				   mformat);
+}
 
 /**
  * as_client_get_summary:
  **/
-static gchar *
+static gchar*
 as_client_get_summary ()
 {
 	GString *string;
@@ -76,6 +556,9 @@ as_client_get_summary ()
 	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
 	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
 
+	g_string_append (string, "\n\n");
+	g_string_append (string, _("You can find more information about subcommand-specific flags by passing \"--help\" to the specific subcommand."));
+
 	return g_string_free (string, FALSE);
 }
 
@@ -85,17 +568,12 @@ as_client_get_summary ()
 static int
 as_client_run (char **argv, int argc)
 {
-	GOptionContext *opt_context;
-	GError *error = NULL;
-
-	gint exit_code = 0;
-	gchar *command = NULL;
-	gchar *value1 = NULL;
-	gchar *value2 = NULL;
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *command = NULL;
 
 	gchar *summary;
-	gchar *options_help = NULL;
-	AsFormatKind mformat;
+	g_autofree gchar *options_help = NULL;
 
 	const GOptionEntry client_options[] = {
 		{ "version", 0, 0,
@@ -114,86 +592,47 @@ as_client_run (char **argv, int argc)
 			G_OPTION_ARG_NONE, &optn_no_color,
 			/* TRANSLATORS: ascli flag description for: --no-color */
 			_("Don't show colored output."), NULL },
-		{ "force", (gchar) 0, 0,
-			G_OPTION_ARG_NONE,
-			&optn_force,
-			/* TRANSLATORS: ascli flag description for: --force */
-			_("Enforce a cache refresh."),
-			NULL },
-		{ "details", 0, 0,
-			G_OPTION_ARG_NONE,
-			&optn_details,
-			/* TRANSLATORS: ascli flag description for: --details */
-			_("Print detailed output about found components."),
-			NULL },
-		{ "no-cache", 0, 0,
-			G_OPTION_ARG_NONE,
-			&optn_no_cache,
-			/* TRANSLATORS: ascli flag description for: --no-cache */
-			_("Do not use any caches when performing the request."),
-			NULL },
-		{ "cachepath", 0, 0,
-			G_OPTION_ARG_STRING,
-			&optn_cachepath,
-			/* TRANSLATORS: ascli flag description for: --cachepath */
-			_("Manually set the location of the AppStream cache."), NULL },
-		{ "datapath", 0, 0,
-			G_OPTION_ARG_STRING,
-			&optn_datapath,
-			/* TRANSLATORS: ascli flag description for: --datapath */
-			_("Manually set the location of AppStream metadata to scan."), NULL },
-		{ "format", 0, 0,
-			G_OPTION_ARG_STRING,
-			&optn_format,
-			/* TRANSLATORS: ascli flag description for: --format */
-			_("Default to the given metadata format (valid values are 'xml' and 'yaml')."), NULL },
-		{ "pedantic", (gchar) 0, 0,
-			G_OPTION_ARG_NONE,
-			&optn_pedantic,
-			/* TRANSLATORS: ascli flag description for: --pedantic */
-			_("Also print pedantic hints when validating."), NULL },
 		{ NULL }
 	};
 
 	opt_context = g_option_context_new ("- AppStream CLI.");
-	g_option_context_set_help_enabled (opt_context, TRUE);
 	g_option_context_add_main_entries (opt_context, client_options, NULL);
 
 	/* set the summary text */
 	summary = as_client_get_summary ();
 	g_option_context_set_summary (opt_context, summary) ;
-	options_help = g_option_context_get_help (opt_context, TRUE, NULL);
 	g_free (summary);
 
-	g_option_context_parse (opt_context, &argc, &argv, &error);
-	if (error != NULL) {
-		gchar *msg;
-		msg = g_strconcat (error->message, "\n", NULL);
-		g_print ("%s", msg);
-		g_free (msg);
-		ascli_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
-		exit_code = 1;
-		g_error_free (error);
-		goto out;
-	}
-
-	if (optn_show_version) {
-		/* TRANSLATORS: Output if appstreamcli --version is executed. */
-		ascli_print_stdout (_("AppStream CLI tool version: %s"), VERSION);
-		goto out;
-	}
-
-	/* just a hack, we might need proper message handling later */
-	if (optn_verbose_mode) {
-		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
-	}
+	/* we handle the unknown options later in the individual subcommands */
+	g_option_context_set_ignore_unknown_options (opt_context, TRUE);
 
 	if (argc < 2) {
 		/* TRANSLATORS: ascli has been run without command. */
 		g_printerr ("%s\n", _("You need to specify a command."));
 		ascli_print_stderr (_("Run '%s --help' to see a full list of available command line options."), argv[0]);
-		exit_code = 1;
-		goto out;
+		return 1;
+	}
+	command = argv[1];
+
+	/* only attempt to show global help if we don't have a subcommand as first parameter (subcommands are never prefixed with "-") */
+	if (g_str_has_prefix (command, "-"))
+		g_option_context_set_help_enabled (opt_context, TRUE);
+	else
+		g_option_context_set_help_enabled (opt_context, FALSE);
+
+	ret = as_client_option_context_parse (opt_context, NULL, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (optn_show_version) {
+		/* TRANSLATORS: Output if appstreamcli --version is executed. */
+		ascli_print_stdout (_("AppStream CLI tool version: %s"), VERSION);
+		return 0;
+	}
+
+	/* just a hack, we might need proper message handling later */
+	if (optn_verbose_mode) {
+		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	}
 
 	ascli_set_colored_output (!optn_no_color);
@@ -202,61 +641,36 @@ as_client_run (char **argv, int argc)
 	if (!isatty (fileno (stdout)))
 		ascli_set_colored_output (FALSE);
 
-	mformat = as_format_kind_from_string (optn_format);
-	command = argv[1];
-	if (argc > 2)
-		value1 = argv[2];
-	if (argc > 3)
-		value2 = argv[3];
-
+	/* process subcommands */
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
-		exit_code = ascli_search_component (optn_cachepath,
-							value1,
-							optn_details,
-							optn_no_cache);
+		return as_client_run_search (argv, argc);
 	} else if ((g_strcmp0 (command, "refresh-cache") == 0) || (g_strcmp0 (command, "refresh") == 0)) {
-		exit_code = ascli_refresh_cache (optn_cachepath,
-						 optn_datapath,
-						 optn_force);
+		return as_client_run_refresh_cache (argv, argc);
 	} else if (g_strcmp0 (command, "get") == 0) {
-		exit_code = ascli_get_component (optn_cachepath,
-						 value1,
-						 optn_details,
-						 optn_no_cache);
+		return as_client_run_get (argv, argc);
 	} else if (g_strcmp0 (command, "dump") == 0) {
-		exit_code = ascli_dump_component (optn_cachepath,
-						  value1,
-						  mformat,
-						  optn_no_cache);
+		return as_client_run_dump (argv, argc);
 	} else if (g_strcmp0 (command, "what-provides") == 0) {
-		exit_code = ascli_what_provides (optn_cachepath, value1, value2, optn_details);
+		return as_client_run_what_provides (argv, argc);
 	} else if (g_strcmp0 (command, "validate") == 0) {
-		exit_code = ascli_validate_files (&argv[2], argc-2, optn_no_color, optn_pedantic);
+		return as_client_run_validate (argv, argc);
 	} else if (g_strcmp0 (command, "validate-tree") == 0) {
-		exit_code = ascli_validate_tree (value1, optn_no_color, optn_pedantic);
-	} else if (g_strcmp0 (command, "install") == 0) {
-		exit_code = ascli_install_component (value1);
-	} else if (g_strcmp0 (command, "remove") == 0) {
-		exit_code = ascli_remove_component (value1);
+		return as_client_run_validate_tree (argv, argc);
 	} else if (g_strcmp0 (command, "put") == 0) {
-		exit_code = ascli_put_metainfo (value1);
+		return as_client_run_put (argv, argc);
+	} else if (g_strcmp0 (command, "install") == 0) {
+		return as_client_run_install (argv, argc);
+	} else if (g_strcmp0 (command, "remove") == 0) {
+		return as_client_run_remove (argv, argc);
 	} else if (g_strcmp0 (command, "status") == 0) {
-		exit_code = ascli_show_status ();
+		return as_client_run_status (argv, argc);
 	} else if (g_strcmp0 (command, "convert") == 0) {
-		exit_code = ascli_convert_data (value1, value2, mformat);
+		return as_client_run_convert (argv, argc);
 	} else {
 		/* TRANSLATORS: ascli has been run with unknown command. */
 		ascli_print_stderr (_("Command '%s' is unknown."), command);
-		exit_code = 1;
-		goto out;
+		return 1;
 	}
-
-out:
-	g_option_context_free (opt_context);
-	if (options_help != NULL)
-		g_free (options_help);
-
-	return exit_code;
 }
 
 int
