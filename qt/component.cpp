@@ -35,6 +35,7 @@ static bool operator<(QSize a, QSize b)
 
 class Appstream::ComponentData : public QSharedData {
     public:
+        QString m_id;
         QStringList m_categories;
         QStringList m_compulsoryForDesktops;
         QString m_description;
@@ -42,7 +43,6 @@ class Appstream::ComponentData : public QSharedData {
         QStringList m_extends;
         QStringList m_extensions;
         QString m_icon;
-        QString m_id;
         Component::Kind m_kind;
         QString m_name;
         QStringList m_packageNames;
@@ -307,13 +307,17 @@ Component::~Component() = default;
 
 typedef QHash<Component::Kind, QString> KindMap;
 Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
-    { Component::KindAddon, QLatin1String("addon") },
-    { Component::KindCodec, QLatin1String("codec") },
-    { Component::KindDesktop, QLatin1String("desktop") },
-    { Component::KindFont, QLatin1String("font") },
     { Component::KindGeneric, QLatin1String("generic") },
+    { Component::KindDesktop, QLatin1String("desktop-application") },
+    { Component::KindConsoleApp, QLatin1String("console-application") },
+    { Component::KindWebApp, QLatin1String("web-application") },
+    { Component::KindAddon, QLatin1String("addon") },
+    { Component::KindFont, QLatin1String("font") },
+    { Component::KindCodec, QLatin1String("codec") },
     { Component::KindInputmethod, QLatin1String("inputmethod") },
-    { Component::KindAddon, QLatin1String("firmware") },
+    { Component::KindFirmware, QLatin1String("firmware") },
+    { Component::KindDriver, QLatin1String("driver") },
+    { Component::KindLocalization, QLatin1String("localization") },
     { Component::KindUnknown, QLatin1String("unknown") }
     }
 ));
@@ -323,27 +327,42 @@ QString Component::kindToString(Component::Kind kind) {
 }
 
 Component::Kind Component::stringToKind(const QString& kindString) {
-    if(kindString ==  QLatin1String("generic")) {
+    if(kindString ==  QLatin1String("")) {
         return KindGeneric;
     }
-    if (kindString == QLatin1String("desktop")) {
+    if(kindString ==  QLatin1String("generic"))
+        return KindGeneric;
+
+    if (kindString == QLatin1String("desktop-application"))
         return KindDesktop;
-    }
-    if (kindString == QLatin1String("font")) {
-        return KindFont;
-    }
-    if (kindString == QLatin1String("codec")) {
-        return KindCodec;
-    }
-    if (kindString==QLatin1String("inputmethod")) {
-        return KindInputmethod;
-    }
-    if (kindString == QLatin1String("addon")) {
+
+    if (kindString == QLatin1String("console-application"))
+        return KindConsoleApp;
+
+    if (kindString == QLatin1String("web-application"))
+        return KindWebApp;
+
+    if (kindString == QLatin1String("addon"))
         return KindAddon;
-    }
-    if (kindString == QLatin1String("firmware")) {
+
+    if (kindString == QLatin1String("font"))
+        return KindFont;
+
+    if (kindString == QLatin1String("codec"))
+        return KindCodec;
+
+    if (kindString==QLatin1String("inputmethod"))
+        return KindInputmethod;
+
+    if (kindString == QLatin1String("firmware"))
         return KindFirmware;
-    }
+
+    if (kindString == QLatin1String("driver"))
+        return KindDriver;
+
+    if (kindString == QLatin1String("localization"))
+        return KindLocalization;
+
     return KindUnknown;
 
 }

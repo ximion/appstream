@@ -46,11 +46,15 @@ class APPSTREAMQT_EXPORT Component {
             KindUnknown,
             KindGeneric,
             KindDesktop,
+            KindConsoleApp,
+            KindWebApp,
+            KindAddon,
             KindFont,
             KindCodec,
             KindInputmethod,
-            KindAddon,
-            KindFirmware
+            KindFirmware,
+            KindDriver,
+            KindLocalization
         };
         Q_ENUM(Kind)
 
