@@ -7,22 +7,22 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-09-15 23:22+0200\n"
-"PO-Revision-Date: 2016-09-04 16:58+0000\n"
+"PO-Revision-Date: 2016-09-16 04:45+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian "
+"<https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.8\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.9-dev\n"
 
 #: ../tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "Команда «%s»"
 
 #: ../src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -568,9 +568,9 @@ msgstr "Офіс"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: ../tools/appstream-cli.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "Option '%s' is unknown."
-msgstr "Невідома команда «%s»."
+msgstr "Параметр «%s» є невідомим програмі."
 
 #: ../tools/ascli-utils.c:277
 msgid "Package"
@@ -629,13 +629,14 @@ msgstr ""
 "команду «%s --help»."
 
 #: ../tools/appstream-cli.c:177
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
-"Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
-"команду «%s --help»."
+"Щоб переглянути повний список можливих команд і параметрів командного рядка, "
+"віддайте команду «%s --help» або команду «%s %s --help», щоб переглянути "
+"список параметрів, які є специфічними для цієї підкоманди."
 
 #: ../src/as-provided.c:156
 msgid "Runtime Firmware"
@@ -802,6 +803,8 @@ msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Переглянути усі специфічні для підкоманди параметри можна передавши "
+"підкоманді параметр «--help»."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: ../tools/ascli-actions-mdata.c:62
