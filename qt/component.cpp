@@ -153,6 +153,15 @@ QString Component::id() const {
     return d->m_id;
 }
 
+QString Component::desktopId() const {
+    if (d->m_kind != Component::KindDesktop)
+        return QString();
+
+    if (d->m_id.endsWith(".desktop"))
+        return d->m_id;
+    return d->m_id + QStringLiteral(".desktop");
+}
+
 bool Component::isCompulsoryForDesktop(const QString& desktop) const {
     return d->m_compulsoryForDesktops.contains(desktop);
 }
