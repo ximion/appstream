@@ -46,11 +46,15 @@ class APPSTREAMQT_EXPORT Component {
             KindUnknown,
             KindGeneric,
             KindDesktop,
+            KindConsoleApp,
+            KindWebApp,
+            KindAddon,
             KindFont,
             KindCodec,
             KindInputmethod,
-            KindAddon,
-            KindFirmware
+            KindFirmware,
+            KindDriver,
+            KindLocalization
         };
         Q_ENUM(Kind)
 
@@ -118,6 +122,8 @@ class APPSTREAMQT_EXPORT Component {
         QStringList extensions() const;
         void setExtensions(const QStringList& extensions);
 
+	QString desktopId() const;
+
         /**
          * \return generic (stock) icon name
          */
@@ -145,7 +151,6 @@ class APPSTREAMQT_EXPORT Component {
         void setUrls(const QMultiHash<UrlKind , QUrl >& urls);
         QMultiHash<UrlKind, QUrl> urls() const;
         QList<QUrl> urls(UrlKind kind) const;
-
 
         /**
          * \param kind for provides
