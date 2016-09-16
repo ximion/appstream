@@ -1,3 +1,59 @@
+Version 0.10.1
+~~~~~~~~~~~~~~
+Released: 2016-09-16
+
+Features:
+ * Add AppStream button image (Ken Vermette)
+ * Ship a metainfo file (Matthias Klumpp)
+ * Don't use an extra hash table for AsProvided (Matthias Klumpp)
+ * Register bundle type for AppImageKit (Matthias Klumpp)
+ * Implement localization component type (Matthias Klumpp)
+ * validator: Complain less-loudly when encontering GNOME-specific tags (Matthias Klumpp)
+ * validator: Check for superfluous dots (Matthias Klumpp)
+ * validator: Strictly validate ID for KDE and GNOME (Matthias Klumpp)
+ * ascli: Modernize the way we handle subcommands (Matthias Klumpp)
+ * qt: Allow retrieving the desktop-id of a component (Matthias Klumpp)
+
+Specification:
+ * Add new driver component type (Matthias Klumpp)
+ * spec: Describe localization component type (Matthias Klumpp)
+
+Bugfixes:
+ * docs: Add a few missing classes to the API docs (Matthias Klumpp)
+ * Fix cache (de)serialization for screenshots and suggestions (Matthias Klumpp)
+ * yaml: Set screenshot image type correctly (Matthias Klumpp)
+ * cache: Iterate the right dictionary when looking at checksums (#71) (Iain Lane)
+ * apt: Ignore broken symlinks in /var/lib/apt/lists (Iain Lane)
+ * as_get_yml_data_origin: Error out if opening the file fails for any reason (Iain Lane)
+ * Make addons find their target component again (Matthias Klumpp)
+ * yaml: Don't fail if we encounter a translated node without template (Matthias Klumpp)
+ * Don't  use GObject ref on GPtrArray (Matthias Klumpp)
+ * ascli: Read metainfo files correctly when converting files (Matthias Klumpp)
+ * xml: Properly serialize provides tag (Matthias Klumpp)
+ * pool: Correctly update addon info when loading data from a cache object (Matthias Klumpp)
+ * ascli: Auto-disable colors if we are not on a tty (Matthias Klumpp)
+ * yaml: Enforce string/int type on YAML scalars (Matthias Klumpp)
+ * yaml: Fix loading of cached icons in all formats (Matthias Klumpp)
+ * qt: Never lie about a component kind (Matthias Klumpp)
+
+Translation:
+ * Hungarian
+   - Balázs Úr
+ * Chinese (Taiwan)
+   - Chang-Chia Tseng
+ * German
+   - Matthias Klumpp
+ * Italian
+   - Milo Casagrande
+ * Indonesian
+   - Mohamad Hasan Al Banna
+ * Polish
+   - Piotr Drąg
+ * Kurdish Sorani [NEW!]
+   - Rasti K5
+ * Ukrainian
+   - Yuri Chornoivan
+
 Version 0.10.0
 ~~~~~~~~~~~~~~
 Released: 2016-08-30
