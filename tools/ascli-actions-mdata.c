@@ -299,7 +299,7 @@ ascli_put_metainfo (const gchar *fname)
 	g_autofree gchar *tmp = NULL;
 	g_autofree gchar *dest = NULL;
 	g_autoptr(GError) error = NULL;
-	g_autofree gchar *metainfo_target;
+	g_autofree gchar *metainfo_target = NULL;
 	const gchar *root_dir;
 
 	if (fname == NULL) {
