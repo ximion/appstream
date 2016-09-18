@@ -112,7 +112,20 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For applications, the <literal>&lt;id/&gt;</literal> tag value must be the same name as the installed .desktop file for the application.
+					For applications, the <code>&lt;id/&gt;</code> tag value must be the same name as the installed <filename>.desktop</filename> file for the application,
+					the <filename>.desktop</filename> suffix of the filename may be omitted.
+				</para>
+				<para>
+					Usually, modern <filename>.desktop</filename> files follow the reverse-DNS scheme name already. If they do not follow the scheme, it is strongly
+					recommended to change the <filename>.desktop</filename> filename. Refer to
+					<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s02.html">the desktop entry specification</ulink> for more information.
+				</para>
+				<para>
+					Example: If your application's <filename>.desktop</filename> file is named <filename>org.example.FooBar.desktop</filename> the component-id must
+					be <code>org.example.FooBar</code> (or <code>org.example.FooBar.desktop</code>).
+					If your application's <filename>.desktop</filename> file is named <filename>frobnicator.desktop</filename> the component-id must be <code>frobnicator</code>
+					(or <code>frobnicator.desktop</code>) - it is highly recommended to modernize the <filename>.desktop</filename> filename to follow the Desktop Entry specification in these cases
+					though.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -164,9 +177,14 @@
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
-					You can omit this tag if you want the software center to have the same strings as defined in the XDG desktop file.
-					In some cases it might be required to have a different name in the app-store, but most <filename>appdata.xml</filename> files will not need this.
+					While this tag is always requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
+					You can omit this tag if you want the software center to have the same strings as defined in the <literal>Name</literal> field
+					of the <filename>.desktop</filename> file.
+					In some cases it might be required to have a different name in the software center, but most metainfo files will not need this.
+				</para>
+				<para>
+					If no <literal>name</literal> tag and no <literal>Name</literal> field is present, the metadata
+					is considered invalid and might be ignored by the AppStream generator.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -175,9 +193,14 @@
 			<term>&lt;summary/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
-					You can omit this tag if you want the software center to have the same strings as defined in the XDG desktop file.
-					In some cases it might be required to have a different name in the app-store, but most <filename>appdata.xml</filename> files will not need this.
+					While this tag is always requited for a generic component, for a <literal>desktop-application</literal> metainfo file it is only essential
+					if the accompanying <filename>.desktop</filename> file does not have a <literal>Comment=</literal> field.
+					If the metainfo file has a <literal>summary</literal>, it wil override the value found in the <literal>Comment</literal> field of the
+					<filename>.desktop</filename> file.
+				</para>
+				<para>
+					If no <literal>summary</literal> tag and no <literal>Comment</literal> field is present, the metadata
+					is considered invalid and might be ignored by the AppStream generator.
 				</para>
 			</listitem>
 			</varlistentry>

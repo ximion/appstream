@@ -59,7 +59,7 @@
 		</para>
 
 		<variablelist>
-			<varlistentry id="tag-id-application">
+			<varlistentry id="tag-id-desktopapp">
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
@@ -90,29 +90,39 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-dapp-name">
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
-					You can omit this tag if you want the software center to have the same strings as defined in the XDG desktop file.
-					In some cases it might be required to have a different name in the app-store, but most <filename>appdata.xml</filename> files will not need this.
+					While this tag is always requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
+					You can omit this tag if you want the software center to have the same strings as defined in the <literal>Name</literal> field
+					of the <filename>.desktop</filename> file.
+					In some cases it might be required to have a different name in the software center, but most metainfo files will not need this.
+				</para>
+				<para>
+					If no <literal>name</literal> tag and no <literal>Name</literal> field is present, the metadata
+					is considered invalid and might be ignored by the AppStream generator.
 				</para>
 			</listitem>
 			</varlistentry>
 
-			<varlistentry>
+			<varlistentry id="tag-dapp-summary">
 			<term>&lt;summary/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
-					You can omit this tag if you want the software center to have the same strings as defined in the XDG desktop file.
-					In some cases it might be required to have a different name in the app-store, but most <filename>appdata.xml</filename> files will not need this.
+					While this tag is always requited for a generic component, for a <literal>desktop-application</literal> metainfo file it is only essential
+					if the accompanying <filename>.desktop</filename> file does not have a <literal>Comment=</literal> field.
+					If the metainfo file has a <literal>summary</literal>, it wil override the value found in the <literal>Comment</literal> field of the
+					<filename>.desktop</filename> file.
+				</para>
+				<para>
+					If no <literal>summary</literal> tag and no <literal>Comment</literal> field is present, the metadata
+					is considered invalid and might be ignored by the AppStream generator.
 				</para>
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-app-screenshots">
+			<varlistentry id="tag-dapp-screenshots">
 			<term>&lt;screenshots/&gt;</term>
 			<listitem>
 				<para>
@@ -185,8 +195,9 @@
 		</variablelist>
 
 		<para>
-			For a component of type <literal>desktop</literal>, the following tags are required and must always be present: <xref linkend="tag-id-application"/>,
+			For a component of type <literal>desktop-application</literal>, the following tags are required and must always be present: <xref linkend="tag-id-desktopapp"/>,
 			<xref linkend="tag-description"/>, <xref linkend="tag-metadata_license"/>.
+			The following tags are strongly recommended / required conditionally: <xref linkend="tag-dapp-name"/>, <xref linkend="tag-dapp-summary"/>.
 		</para>
 
 	</section>
