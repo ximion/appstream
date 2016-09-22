@@ -1614,6 +1614,11 @@ as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 							"python3",
 							items);
 				break;
+			case AS_PROVIDED_KIND_FONT:
+				as_xml_add_node_list (node, NULL,
+							"font",
+							items);
+				break;
 			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
 				for (j = 0; j < items->len; j++) {
 					xmlNode *n;
@@ -1660,7 +1665,6 @@ as_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 				break;
 
 			default:
-				/* TODO: Serialize fonts tag properly */
 				g_debug ("Couldn't serialize provided-item type '%s'", as_provided_kind_to_string (as_provided_get_kind (prov)));
 				break;
 		}

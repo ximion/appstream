@@ -540,7 +540,7 @@ as_yaml_process_provides (GNode *node, AsComponent *cpt)
 						continue;
 					if (g_strcmp0 (dkey, "type") == 0) {
 						kind = dvalue;
-					} else if ((g_strcmp0 (dkey, "guid") == 0) || (g_strcmp0 (dkey, "fname") == 0)) {
+					} else if ((g_strcmp0 (dkey, "guid") == 0) || (g_strcmp0 (dkey, "file") == 0)) {
 						fwdata = dvalue;
 					}
 				}
@@ -1406,9 +1406,8 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 				for (j = 0; j < items->len; j++) {
 					as_yaml_mapping_start (emitter);
 					as_yaml_emit_entry (emitter,
-							    "name",
+							    "file",
 							    (const gchar*) g_ptr_array_index (items, j));
-					/* FIXME: Also emit "file" entry, but at time we don't seem to store this? */
 					as_yaml_mapping_end (emitter);
 				}
 				as_yaml_sequence_end (emitter);
@@ -1502,7 +1501,7 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 				as_yaml_mapping_start (emitter);
 
 				as_yaml_emit_entry (emitter, "type", "flashed");
-				as_yaml_emit_entry (emitter, "fname", value);
+				as_yaml_emit_entry (emitter, "file", value);
 
 				as_yaml_mapping_end (emitter);
 			}
