@@ -22,15 +22,17 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 set(APPSTREAMQT_SRC
-          component.cpp
-          database.cpp
-          image.cpp
-          provides.cpp
-          screenshot.cpp
-          release.cpp
+    category.cpp
+    component.cpp
+    database.cpp
+    image.cpp
+    provides.cpp
+    screenshot.cpp
+    release.cpp
 )
 
 set(APPSTREAMQT_PUBLIC_HEADERS
+    category.h
     component.h
     database.h
     image.h
