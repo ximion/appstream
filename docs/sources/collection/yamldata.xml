@@ -560,7 +560,7 @@
 								<literal>type</literal> key, which has either <code>runtime</code> or <code>flashed</code> as
 								value.
 								Firmware of type <code>flashed</code> has a <literal>guid</literal> key, containing the GUID of the device
-								the firmware is flashed on, while firmware of type <code>runtime</code> has a <literal>fname</literal> key,
+								the firmware is flashed on, while firmware of type <code>runtime</code> has a <literal>file</literal> key,
 								containing the firmware filename which the kernel is looking for.
 							</para>
 							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
