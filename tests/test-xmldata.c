@@ -484,6 +484,30 @@ as_xml_test_serialize (AsComponent *cpt, AsFormatStyle mode)
 }
 
 /**
+ * test_xml_read_url:
+ *
+ * Test reading the url tag.
+ */
+static void
+test_xml_read_url (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	const gchar *xmldata_languages = "<component>\n"
+					 "  <id>org.example.UrlTest</id>\n"
+					 "  <url type=\"homepage\">https://example.org</url>\n"
+					 "  <url type=\"faq\">https://example.org/faq</url>\n"
+					 "  <url type=\"donation\">https://example.org/donate</url>\n"
+					 "</component>\n";
+
+	cpt = as_xml_test_read_data (xmldata_languages, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.UrlTest");
+
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://example.org");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://example.org/faq");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION), ==, "https://example.org/donate");
+}
+
+/**
  * test_xml_read_languages:
  *
  * Test reading the languages tag.
@@ -712,7 +736,10 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/ParserLocale", test_appstream_parser_locale);
 	g_test_add_func ("/XML/Write/WriterLocale", test_appstream_write_locale);
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
+
+	g_test_add_func ("/XML/Read/Url", test_xml_read_url);
 	g_test_add_func ("/XML/Read/Languages", test_xml_read_languages);
+
 	g_test_add_func ("/XML/Write/Languages", test_xml_write_languages);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 	g_test_add_func ("/XML/Write/Provides", test_xml_write_provides);

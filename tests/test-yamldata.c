@@ -496,6 +496,30 @@ test_yaml_read_languages (void)
 }
 
 /**
+ * test_yaml_read_url:
+ *
+ * Test if reading the Url field works.
+ */
+static void
+test_yaml_read_url (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	const gchar *yamldata_urls = "---\n"
+				     "ID: org.example.Test\n"
+				     "Url:\n"
+				     "  homepage: https://example.org\n"
+				     "  faq: https://example.org/faq\n"
+				     "  donation: https://example.org/donate\n";
+
+	cpt = as_yaml_test_read_data (yamldata_urls, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
+
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://example.org");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://example.org/faq");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION), ==, "https://example.org/donate");
+}
+
+/**
  * test_yaml_read_suggests:
  *
  * Test if reading the Suggests field works.
@@ -587,10 +611,13 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/Basic", test_basic);
 	g_test_add_func ("/YAML/Write/General", test_yamlwrite_general);
+
 	g_test_add_func ("/YAML/Read/CorruptData", test_yaml_corrupt_data);
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
+	g_test_add_func ("/YAML/Read/Url", test_yaml_read_url);
 	g_test_add_func ("/YAML/Read/Languages", test_yaml_read_languages);
 	g_test_add_func ("/YAML/Read/Suggests", test_yaml_read_suggests);
+
 	g_test_add_func ("/YAML/Write/Suggests", test_yaml_write_suggests);
 
 	ret = g_test_run ();
