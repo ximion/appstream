@@ -64,7 +64,8 @@ class APPSTREAMQT_EXPORT Component {
             UrlKindBugtracker,
             UrlKindFaq,
             UrlKindHelp,
-            UrlKindDonation
+            UrlKindDonation,
+            UrlTranslate
         };
         Q_ENUM(UrlKind)
 
