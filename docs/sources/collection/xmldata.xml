@@ -621,38 +621,6 @@
 		</variablelist>
 	</section>
 
-<!--
-	<section id="spec-asxml-tags-font">
-		<title>Valid tags for the font component</title>
-		<para>
-			Additionally to the other components, the <literal>type=font</literal> component knows a few more allowed tags.
-		</para>
-
-		<variablelist>
-			<varlistentry>
-			<term>&lt;font_classifier/&gt;</term>
-			<listitem>
-				<para>
-					Define a description of the font face to caption it when compared against other fonts in the same family.
-				</para>
-				<para>
-					You can find more information about this tag in <xref linkend="spec-fontdata-filespec"/>.
-				</para>
-			</listitem>
-			</varlistentry>
-
-			<varlistentry>
-			<term>&lt;font_parent/&gt;</term>
-			<listitem>
-				<para>
-					The name of the font package this particular font is part of. This is a required tag.
-				</para>
-			</listitem>
-			</varlistentry>
-		</variablelist>
-	</section>
--->
-
 	<section id="spec-asxml-example">
 		<title>Example file</title>
 		<para>
@@ -660,15 +628,15 @@
 		</para>
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0"?>
-<components version="0.6">
-  <component type="application">
-    <id>firefox.desktop</id>
+<components version="0.10">
+  <component type="desktop-application">
+    <id>org.mozilla.Firefox</id>
     <pkgname>firefox-bin</pkgname>
     <name>Firefox</name>
     <name lang="en_GB">Firefoux</name>
     <summary>Web browser</summary>
     <summary lang="fr_FR">Navigateur web</summary>
-    <project_license>MPL-2</project_license>
+    <project_license>MPL-2.0</project_license>
     <keywords>
       <keyword>internet</keyword>
       <keyword>web</keyword>
@@ -703,11 +671,11 @@
     </provides>
   </component>
   <component>
-    <id>pulseaudio</id>
+    <id>org.freedesktop.PulseAudio</id>
     <name>PulseAudio</name>
     <summary>The PulseAudio sound server</summary>
     <url type="homepage">http://www.freedesktop.org/wiki/Software/PulseAudio/</url>
-    <project_license>GPLv2</project_license>
+    <project_license>GPL-2.0+</project_license>
     <provides>
       <library>libpulse-simple.so.0</library>
       <library>libpulse.so.0</library>
@@ -717,11 +685,12 @@
     <release version="2.0"/>
   </component>
   <component type="font">
-    <id>LinLibertine_M.otf</id>
-    <name>Libertine</name>
+    <id>org.linuxlibertine.LinuxLibertine</id>
+    <name>Linux Libertine</name>
     <summary>Linux Libertine Open fonts</summary>
-    <font_classifier>Mono</font_classifier>
-    <font_parent>Libertine</font_parent>
+    <provides>
+      <font>LinLibertine_M.otf</font>
+    </provides>
   </component>
   <!-- more components here! -->
 </components>]]></programlisting>

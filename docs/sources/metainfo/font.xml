@@ -28,16 +28,15 @@
 		<para>
 			A minimal font metainfo file can look like this:
 		</para>
-		<programlisting language="XML">
-<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+		<programlisting language="XML"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="font">
-  <id>LinuxLibertine.font</id>
-  <metadata_license>CC0</metadata_license>
+  <id>org.linuxlibertine.LinuxLibertine</id>
+  <metadata_license>FSFAP</metadata_license>
   <name>Linux Libertine</name>
   <summary>Linux Libertine fonts</summary>
   <provides>
-    <font file="LinLibertine_R.otf">Linux Libertine O</font>
-    <font file="LinLibertine_M.otf">Linux Libertine Mono</font>
+    <font>LinLibertine_R.otf</font>
+    <font>LinLibertine_M.otf</font>
   </provides>
 </component>]]></programlisting>
 	</section>
@@ -91,10 +90,8 @@
 			<term>&lt;description/&gt;</term>
 			<listitem>
 				<para>
-					Add a long description of your font. Some rules apply (will soon be split out to a "description guidelines" section).
-				</para>
-				<para>
-					Do not assume the format is HTML. Only paragraph, ordered list and unordered list are supported at this time.
+					Add a long description of your font. Do not assume the format is HTML. Only paragraph, ordered list
+					and unordered list are supported at this time.
 				</para>
 				<para>
 					See the generic component <xref linkend="tag-description"/> for a detailed description of this tag.
@@ -136,7 +133,7 @@
 					This tag is described in detail for generic components at <xref linkend="tag-provides"/>.
 				</para>
 				<para>
-					You should add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames and names known to the system.
+					You should add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames known.
 					If this tag is not present, the <literal>name</literal> and <literal>id</literal> tag values can be used by the
 					distribution's AppStream-generator to recreate this tag.
 				</para>
@@ -146,7 +143,7 @@
 
 		<para>
 			For a component of type <literal>font</literal>, the following tags are required and must be present: <xref linkend="tag-id-generic"/>, <xref linkend="tag-name"/>,
-			<xref linkend="tag-summary"/>, <xref linkend="tag-metadata_license"/>.
+			<xref linkend="tag-summary"/>, <xref linkend="tag-metadata_license"/>, <xref linkend="tag-font-provides"/>.
 		</para>
 
 	</section>
