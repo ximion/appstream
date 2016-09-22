@@ -736,11 +736,16 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 
 		if ((cpt_kind == AS_COMPONENT_KIND_DESKTOP_APP) ||
 		    (cpt_kind == AS_COMPONENT_KIND_CONSOLE_APP) ||
-		    (cpt_kind == AS_COMPONENT_KIND_FONT)) {
+		    (cpt_kind == AS_COMPONENT_KIND_WEB_APP)) {
 			as_validator_add_issue (validator, NULL,
 					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"The component is missing a long description. Components of this type must have a long description.");
+		} else if (cpt_kind == AS_COMPONENT_KIND_FONT) {
+			as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_PEDANTIC,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"It would be useful for add a long description to this font to present it better to users.");
 		} else if (cpt_kind != AS_COMPONENT_KIND_GENERIC) {
 			as_validator_add_issue (validator, NULL,
 					AS_ISSUE_IMPORTANCE_INFO,
