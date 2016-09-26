@@ -12,6 +12,8 @@ if (STEMMING)
 	if (NOT SNOWBALL_LIB)
 		message (FATAL_ERROR "Stemming support is enabled, but libstemmer was not found. Please install the Snowball development files.")
 	endif ()
+else ()
+	set(SNOWBALL_LIB "")
 endif ()
 
 include(GObjectIntrospectionMacros)
