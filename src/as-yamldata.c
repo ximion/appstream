@@ -1406,7 +1406,7 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 				for (j = 0; j < items->len; j++) {
 					as_yaml_mapping_start (emitter);
 					as_yaml_emit_entry (emitter,
-							    "file",
+							    "name",
 							    (const gchar*) g_ptr_array_index (items, j));
 					as_yaml_mapping_end (emitter);
 				}

@@ -30,13 +30,28 @@
 		</para>
 		<programlisting language="XML"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="font">
-  <id>org.linuxlibertine.LinuxLibertine</id>
+  <id>com.latofonts.Lato</id>
   <metadata_license>FSFAP</metadata_license>
-  <name>Linux Libertine</name>
-  <summary>Linux Libertine fonts</summary>
+  <project_license>OFL-1.1</project_license>
+
+  <name>Lato</name>
+  <summary>A sanserif type­face fam­ily</summary>
+  <description>
+    <p>
+      Lato is a sanserif type­face fam­ily designed in the Sum­mer 2010 by Warsaw-​​based designer
+      Łukasz Dziedzic (“Lato” means “Sum­mer” in Pol­ish). In Decem­ber 2010 the Lato fam­ily
+      was pub­lished under the open-​​source Open Font License by his foundry tyPoland, with
+      sup­port from Google.
+    </p>
+  </description>
+
   <provides>
-    <font>LinLibertine_R.otf</font>
-    <font>LinLibertine_M.otf</font>
+    <font>Lato Regular</font>
+    <font>Lato Italic</font>
+    <font>Lato Bold</font>
+    <font>Lato Light</font>
+    <font>Lato Light Italic</font>
+    ...
   </provides>
 </component>]]></programlisting>
 	</section>
@@ -133,11 +148,75 @@
 					This tag is described in detail for generic components at <xref linkend="tag-provides"/>.
 				</para>
 				<para>
-					You should add one or more children of type <code>&lt;font/&gt;</code> to make the font filenames known.
-					If this tag is not present, the <literal>name</literal> and <literal>id</literal> tag values can be used by the
-					distribution's AppStream-generator to recreate this tag.
+					You should add one or more children of type <code>&lt;font/&gt;</code> to make the font's full-names known.
+					The full-name should follow the same definition given by Adobe for "FullName" in
+					<ulink url="https://partners.adobe.com/public/developer/en/font/5088.FontNames.pdf">this document</ulink>:
+				</para>
+				<para>
+					The full-name entry should show the complete name of a typeface in its
+					“natural” form, including style and character set information (if any), and
+					without abbreviations. This is the name that some systems and applications
+					look at to determine full, unabbreviated font menu names.
+				</para>
+				<para>
+					The full-name must start with the font's <literal>family</literal> name, and is completed by
+					adding style attributes — generally in this sequence: <literal>weight</literal>, <literal>width</literal>, <literal>slope</literal>,
+					<literal>optical size</literal> (an example of optical size might be 10point or Display).
+					In general, the weight name should be included unless it is <literal>Regular</literal>. However, if
+					neither a width nor a slope name exists for a face with weight <literal>Regular</literal>, the
+					weight name should be included. This is suggested because a software
+					program might extract the family name and expect to have a style name
+					remaining to display in a sub-menu. For example, if a font’s family and style
+					is <code>Garamond Condensed Regular</code>, the <literal>Regular</literal> portion may be dropped.
+					However, if the font name is <code>Garamond Regular</code>, the <literal>Regular</literal> should be retained.
+				</para>
+				<para>
+					Examples:
+				</para>
+				<programlisting language="XML"><![CDATA[<provides>
+  <font>ITC Avant Garde Gothic Bold Condensed Oblique</font>
+  <font>Berthold Garamond Medium Condensed Expert</font>
+  <font>Goudy Text MT Dfr</font>
+  <font>Minion Regular Small Caps &amp; Oldstyle Figures</font>
+</provides>]]></programlisting>
+				<para>
+					If no <code>&lt;font/&gt;</code> tags were defined, the AppStream collection data generator should try to extract them from the actual font files found in the
+					software package/bundle.
+				</para>
+				<para>
+					In every case, the names given in the provides tag <emphasis>must</emphasis> match the metadat the fonts contain themselves. If the data of the font files
+					is incomplete, the data can not be extended by the <code>&lt;font/&gt;</code> tag.
+					This is important because the AppStream generator may use the data to pick the right fonts, and because applications expect the exact font they requested
+					via AppStream to be present on the system after the component was installed (and not one which has different metadata).
 				</para>
 			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-font-languages">
+				<term>&lt;languages/&gt;</term>
+				<listitem>
+					<para>
+						This tag gives information about the locale a font supports.
+					</para>
+					<para>
+						This tak allows specifying the main locale (and thereby scripts) the font can be used with.
+						It does not have to contain an extensive list, as the AppStream metadata generator will try get obtain that
+						information from the font files themselves, but it is useful to define to hint the generator in the right direction.
+					</para>
+					<para>
+						If samples of the font are rendered as screenshots by the collection metadata generator, the locale mentioned in the
+						metainfo file will be preferred over automatically (or heuristically) defined ones.
+					</para>
+					<para>
+						Tag example:
+					</para>
+					<programlisting language="XML"><![CDATA[<languages>
+  <lang>de</lang>
+  <lang>en</lang>
+  <lang>cn</lang>
+</languages>
+]]></programlisting>
+				</listitem>
 			</varlistentry>
 		</variablelist>
 
