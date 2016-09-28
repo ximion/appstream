@@ -2,31 +2,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# Moo <hazap@hotmail.com>, 2019.
+# Moo <hazap@hotmail.com>, 2019, 2021.
 # #-#-#-#-#  lt.po (appstream-glib)  #-#-#-#-#
-# Moo <hazap@hotmail.com>, 2018. #zanata
-#, fuzzy
+# Moo <hazap@hotmail.com>, 2018. #zanata, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2018-10-08 07:11+0000\n"
+"PO-Revision-Date: 2021-12-22 15:44+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
-"Language-Team: Lithuanian\n"
+"Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  lt.po (appstream)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
-"19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
-"1 : 2);\n"
-"X-Generator: Weblate 3.8-dev\n"
-"#-#-#-#-#  lt.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2)\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > 19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? 1 : 2);\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2074,9 +2066,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml"
-"\")."
+msgstr "Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml\")."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:101
@@ -2127,19 +2117,14 @@ msgstr "Parametras \"%s\" nėra žinomas."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Vykdykite \"%s --help\", kad pamatytumėte visą prieinamų komandų eilutės "
-"parametrų sąrašą."
+msgstr "Vykdykite \"%s --help\", kad pamatytumėte visą prieinamų komandų eilutės parametrų sąrašą."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Vykdykite \"%s --help\", norėdami pamatyti prieinamų komandų ir parametrų "
-"sąrašą, ir \"%s %s --help\", norėdami pamatyti tam tikro pokomandžio "
-"parametrų sąrašą."
+msgstr "Vykdykite \"%s --help\", norėdami pamatyti prieinamų komandų ir parametrų sąrašą, ir \"%s %s --help\", norėdami pamatyti tam tikro pokomandžio parametrų sąrašą."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2172,9 +2157,7 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Norėdami palyginti, turite kaip parametrus pateikti bent du versijos "
-"numerius."
+msgstr "Norėdami palyginti, turite kaip parametrus pateikti bent du versijos numerius."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2186,26 +2169,20 @@ msgstr "Nežinomas palyginimo santykis \"%s\". Teisingos reikšmės yra:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Per daug parametrų: Reikia dviejų versijos numerių arba versijos numerio ir "
-"palyginimo operatoriaus."
+msgstr "Per daug parametrų: Reikia dviejų versijos numerių arba versijos numerio ir palyginimo operatoriaus."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Naudoti nurodytą .desktop failą tam, kad metainformacijos faile būtų "
-"užpildytos pagrindinės reikšmės."
+msgstr "Naudoti nurodytą .desktop failą tam, kad metainformacijos faile būtų užpildytos pagrindinės reikšmės."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Ši komanda priima nebūtinus TIPO (TYPE) ir FAILO (FILE) argumentus, FAILUI "
-"(FILE) būnant failu į kurį rašoma (arba \"-\" standartinei išvesčiai)."
+msgstr "Ši komanda priima nebūtinus TIPO (TYPE) ir FAILO (FILE) argumentus, FAILUI (FILE) būnant failu į kurį rašoma (arba \"-\" standartinei išvesčiai)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2267,9 +2244,7 @@ msgstr "Pokomandžiai:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Galite rasti informaciją apie tam tikram pakomandžiui specifinius "
-"parametrus, perdavę pakomandžiui \"--help\" parametrą."
+msgstr "Galite rasti informaciją apie tam tikram pakomandžiui specifinius parametrus, perdavę pakomandžiui \"--help\" parametrą."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2373,8 +2348,7 @@ msgstr "Palyginti dviejų versijų numerius."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Sukurti metainformacijos failo šabloną (kurį užpildo pagrindinis projektas)."
+msgstr "Sukurti metainformacijos failo šabloną (kurį užpildo pagrindinis projektas)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2471,8 +2445,7 @@ msgstr "Nebuvo apibrėžta elemento, kurį ieškoti, reikšmė."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Pasirinktas neteisingas pateikto elemento tipas. Teisingos reikšmės yra:"
+msgstr "Pasirinktas neteisingas pateikto elemento tipas. Teisingos reikšmės yra:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2503,9 +2476,7 @@ msgstr "Metaduomenų failo \"%s\" nėra."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Nepavyko konvertuoti failo: Nepavyko nustatyti išvesties formato, prašome "
-"aiškiai jį nustatyti, naudojant \"--format=\"."
+msgstr "Nepavyko konvertuoti failo: Nepavyko nustatyti išvesties formato, prašome aiškiai jį nustatyti, naudojant \"--format=\"."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2521,18 +2492,14 @@ msgstr "Versija: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Norėdami sukurti šabloną, turite pateikti AppStream programinės įrangos "
-"komponento tipą. Galimos reikšmės yra:"
+msgstr "Norėdami sukurti šabloną, turite pateikti AppStream programinės įrangos komponento tipą. Galimos reikšmės yra:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream "
-"specifikacijoje. Galimos reikšmės yra:"
+msgstr "Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream specifikacijoje. Galimos reikšmės yra:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2675,9 +2642,7 @@ msgstr "Jūs turite nurodyti įvesties ir išvesties failą."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Nerasta jokios tinkamos komandų eilutės paketų tvarkytuvės. Įsitikinkite, "
-"kad, pavyzdžiui, \"pkcon\" (PackageKit dalis) yra prieinama."
+msgstr "Nerasta jokios tinkamos komandų eilutės paketų tvarkytuvės. Įsitikinkite, kad, pavyzdžiui, \"pkcon\" (PackageKit dalis) yra prieinama."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
