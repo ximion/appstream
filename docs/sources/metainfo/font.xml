@@ -13,7 +13,7 @@
 			A software center can allow users to install additional fonts using font metadata.
 			Also, applications can use font metadata to find missing fonts (for example, if a special mathematical font is needed)
 			in the distribution's software sources.
-			This meta-info specification describes how metadata for fonts or font collections should be structured.
+			This metainfo specification describes how metadata for fonts or font collections should be structured.
 		</para>
 		<para>
 			Font packages can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
@@ -21,6 +21,15 @@
 		<para>
 			Font metadata files can – just like all other metainfo files – be translated. See the section about translation for more information.
 		</para>
+		<note>
+			<para>
+				A <literal>font</literal> component is usually not describing a single font, but rather a collection of fonts that are grouped together,
+				usually by their art style or font-family.
+			</para>
+			<para>
+				To make the individual fonts known to the system, use the <xref linkend="tag-font-provides"/> tag.
+			</para>
+		</note>
 	</section>
 
 	<section id="spec-fontdata-example">
@@ -31,7 +40,7 @@
 		<programlisting language="XML"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="font">
   <id>com.latofonts.Lato</id>
-  <metadata_license>FSFAP</metadata_license>
+  <metadata_license>MIT</metadata_license>
   <project_license>OFL-1.1</project_license>
 
   <name>Lato</name>
@@ -149,8 +158,10 @@
 				</para>
 				<para>
 					You should add one or more children of type <code>&lt;font/&gt;</code> to make the font's full-names known.
-					The full-name should follow the same definition given by Adobe for "FullName" in
-					<ulink url="https://partners.adobe.com/public/developer/en/font/5088.FontNames.pdf">this document</ulink>:
+					The full-name should be the same as given in the font file for the English language.
+					If no full-name is set, a space-separated combination of the font's <literal>family</literal> and <literal>style</literal>
+					is used instead.
+					The font <emphasis>must</emphasis> have a <literal>family</literal> defined to be included.
 				</para>
 				<para>
 					The full-name entry should show the complete name of a typeface in its
@@ -159,25 +170,18 @@
 					look at to determine full, unabbreviated font menu names.
 				</para>
 				<para>
-					The full-name must start with the font's <literal>family</literal> name, and is completed by
-					adding style attributes — generally in this sequence: <literal>weight</literal>, <literal>width</literal>, <literal>slope</literal>,
-					<literal>optical size</literal> (an example of optical size might be 10point or Display).
-					In general, the weight name should be included unless it is <literal>Regular</literal>. However, if
-					neither a width nor a slope name exists for a face with weight <literal>Regular</literal>, the
-					weight name should be included. This is suggested because a software
-					program might extract the family name and expect to have a style name
-					remaining to display in a sub-menu. For example, if a font’s family and style
-					is <code>Garamond Condensed Regular</code>, the <literal>Regular</literal> portion may be dropped.
-					However, if the font name is <code>Garamond Regular</code>, the <literal>Regular</literal> should be retained.
+					If you want to query the full-name and its <literal>family</literal> and <literal>style</literal> to see what needs to
+					be added to this tag, you can use the <command>fc-query</command> utility of Fonconfig:
 				</para>
+				<screen><command>fc-query</command> --format='FN: %{fullname[0]}\nFS: %{family[0]} %{style[0]}\n' <userinput>FONT-FILENAME</userinput></screen>
 				<para>
 					Examples:
 				</para>
 				<programlisting language="XML"><![CDATA[<provides>
-  <font>ITC Avant Garde Gothic Bold Condensed Oblique</font>
-  <font>Berthold Garamond Medium Condensed Expert</font>
-  <font>Goudy Text MT Dfr</font>
-  <font>Minion Regular Small Caps &amp; Oldstyle Figures</font>
+  <font>Lato Heavy Italic</font>
+  <font>Noto Kufi Arabic Bold</font>
+  <font>Liberation Serif Bold Italic</font>
+  <font>FontAwesome Regular</font>
 </provides>]]></programlisting>
 				<para>
 					If no <code>&lt;font/&gt;</code> tags were defined, the AppStream collection data generator should try to extract them from the actual font files found in the
@@ -207,6 +211,10 @@
 						If samples of the font are rendered as screenshots by the collection metadata generator, the locale mentioned in the
 						metainfo file will be preferred over automatically (or heuristically) defined ones.
 					</para>
+					<para>
+						You can use the following command to determine which languages a font supports:
+					</para>
+					<screen><command>fc-query</command> --format='%{lang}\n' <userinput>FONT-FILENAME</userinput></screen>
 					<para>
 						Tag example:
 					</para>
