@@ -1045,7 +1045,8 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
 /**
  * as_sort_components_by_score_cb:
  *
- * Helper method to sort result arrays by the #AsComponent match score.
+ * Helper method to sort result arrays by the #AsComponent match score
+ * with higher scores appearing higher in the list.
  */
 static gint
 as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
@@ -1056,9 +1057,9 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
 	s1 = as_component_get_sort_score (cpt1);
 	s2 = as_component_get_sort_score (cpt2);
 
-	if (s1 < s2)
-		return -1;
 	if (s1 > s2)
+		return -1;
+	if (s1 < s2)
 		return 1;
 	return 0;
 }
@@ -1069,7 +1070,7 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
  * @search: A search string
  *
  * Search for a list of components matching the search terms.
- * The list will be unordered.
+ * The list will be ordered by match score.
  *
  * Returns: (transfer container) (element-type AsComponent): an array of the found #AsComponent objects.
  *
