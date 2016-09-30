@@ -187,7 +187,7 @@
 					</para>
 					<itemizedlist>
 						<listitem><para><code>generic</code> for <xref linkend="sect-Metadata-GenericComponent"/></para></listitem>
-						<listitem><para><code>desktop-app</code> for <xref linkend="sect-Metadata-Application"/></para></listitem>
+						<listitem><para><code>desktop-application</code> for <xref linkend="sect-Metadata-Application"/></para></listitem>
 						<listitem><para><code>console-application</code> for <xref linkend="sect-Metadata-ConsoleApplication"/></para></listitem>
 						<listitem><para><code>addon</code> for <xref linkend="sect-Metadata-Addon"/></para></listitem>
 						<listitem><para><code>codec</code> for <xref linkend="sect-Metadata-Codec"/></para></listitem>
@@ -772,10 +772,7 @@ Version: '0.8'
 Origin: chromodoris-main
 MediaBaseUrl: http://metadata.tanglu.org/appstream/media/
 ---
-Categories:
-  - GNOME
-  - GTK
-  - System
+Type: desktop-application
 ID: gconf-editor.desktop
 Icon:
   cached: gconf-editor_gconf-editor.png
@@ -789,13 +786,12 @@ Summary:
   C: Directly edit your entire configuration database
   ar: حرّر مباشرة كامل قاعدة بيانات الإعدادات.
   de: Direkten Zugriff auf Ihre gesamte Konfigurationsdatenbank erlangen
-Type: desktop-app
----
 Categories:
-  - Qt
-  - KDE
-  - AudioVideo
-  - Player
+  - GNOME
+  - GTK
+  - System
+---
+Type: desktop-application
 ID: kmplayer.desktop
 Icon:
   cached: kmplayer_kmplayer.png
@@ -809,6 +805,13 @@ Name:
   sr@ijekavian: КМ‑плејер
   sv: Kmplayer
 Package: kmplayer
+Summary:
+  C: KDE interface for MPlayer
+Categories:
+  - Qt
+  - KDE
+  - AudioVideo
+  - Player
 Provides:
   mimetypes:
     - application/ogg
@@ -818,18 +821,19 @@ Provides:
     - application/x-kmplayer
     - video/webm
     - video/x-avi
-Summary:
-  C: KDE interface for MPlayer
-Type: desktop-app
 ---
-Categories:
-  - Office
-  - Publishing
+ID: texstudio.desktop
+Type: desktop-application
+Package: texstudio
+Name:
+  C: TeXstudio
+Summary:
+  C: LaTeX development environment
+  fr: Environnement de développement LaTeX
 Description:
   C: <p>TeXstudio is an integrated writing environment for creating LaTeX documents. It integrates editing,
     building and viewing into a single frontend.</p><p>Our goal is to make writing LaTeX as easy and comfortable
     as possible. This is achieved through a rich feature set including:</p>
-ID: texstudio.desktop
 Icon:
   cached: texstudio_texstudio.png
 Keywords:
@@ -841,10 +845,12 @@ Keywords:
     - lualatex
     - context
     - bibtex
-Name:
-  C: TeXstudio
-Package: texstudio
 ProjectLicense: GPL-2.0
+Url:
+  homepage: http://texstudio.sourceforge.net/
+Categories:
+  - Office
+  - Publishing
 Provides:
   mimetypes:
     - text/x-tex
@@ -863,13 +869,7 @@ Screenshots:
         width: 624
       - height: 63
         url: texstudio_2.8.4+debian-3_amd64/screenshots/112x63/screenshot-1.png
-        width: 112
-Summary:
-  C: LaTeX development environment
-  fr: Environnement de développement LaTeX
-Type: desktop-app
-Url:
-  homepage: http://texstudio.sourceforge.net/]]></programlisting>
+        width: 112]]></programlisting>
 
 	</section>
 </section>
