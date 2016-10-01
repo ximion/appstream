@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-10-01 04:23+0200\n"
-"PO-Revision-Date: 2016-09-15 21:37+0000\n"
+"PO-Revision-Date: 2016-10-01 02:38+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish "
+"<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,13 +59,12 @@ msgstr "Typ elementu (np. lib, bin, python3…)"
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Narzędzie do działania z metadanymi AppStream"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "Stan AppStream:"
+msgstr "Interfejs AppStream dla wiersza poleceń"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:629
@@ -110,6 +109,8 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream to specyfikacja używana przez wiele dystrybucji do dostarczania "
+"metadanych o składnikach oprogramowania."
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -733,6 +734,11 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
+"To narzędzie umożliwia odczytywanie, zapisywanie, sprawdzanie poprawności i "
+"przekształcanie metadanych AppStream w językach XML i YAML. Umożliwia także "
+"dostęp do puli metadanych systemu, aby na przykład wyszukać oprogramowanie "
+"dostarczające podany typ MIME i zainstalować je za pomocą jego "
+"identyfikatora składnika oprogramowania."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:387
