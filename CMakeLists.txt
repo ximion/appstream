@@ -42,7 +42,6 @@ if(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
   set(CMAKE_INSTALL_SYSCONFDIR "/etc" CACHE PATH "read-only single-machine data (etc)")
   set(CMAKE_INSTALL_LOCALSTATEDIR "/var" CACHE PATH "modifiable single-machine data (var)")
 endif(${CMAKE_INSTALL_PREFIX} STREQUAL "/usr")
-set(CMAKE_INSTALL_METAINFODIR "share/metainfo" CACHE PATH "AppStream metainfo directory")
 include(GNUInstallDirs)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/data/cmake/)
 

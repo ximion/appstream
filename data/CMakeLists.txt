@@ -12,5 +12,5 @@ install(FILES appstream.conf
 )
 
 install(FILES org.freedesktop.appstream.cli.metainfo.xml
-	DESTINATION ${CMAKE_INSTALL_METAINFODIR}
+	DESTINATION share/metainfo
 )
