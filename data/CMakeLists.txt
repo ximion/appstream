@@ -1,10 +1,10 @@
 # CMakeLists for AppStream data directory
 
-find_program (MSGFMT msgfmt)
-mark_as_advanced (MSGFMT)
+find_program (ITSTOOL itstool)
+mark_as_advanced (ITSTOOL)
 
-if (NOT MSGFMT)
-	message (FATAL_ERROR "The msgfmt tool was not found. Is Gettext properly installed?")
+if (NOT ITSTOOL)
+	message (FATAL_ERROR "Itstool was not found. Please install it to continue.")
 endif ()
 
 install(FILES appstream.conf
@@ -12,11 +12,12 @@ install(FILES appstream.conf
 )
 
 add_custom_target (merge-l10n ALL
-	${MSGFMT} --xml
-		--template ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.appstream.cli.metainfo.xml
-		-d ${CMAKE_SOURCE_DIR}/po
+	${ITSTOOL}
+		-i ${CMAKE_SOURCE_DIR}/contrib/its/metainfo.its
+		-j ${CMAKE_CURRENT_SOURCE_DIR}/org.freedesktop.appstream.cli.metainfo.xml
 		-o ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.appstream.cli.metainfo.xml
-	DEPENDS org.freedesktop.appstream.cli.metainfo.xml
+		${CMAKE_BINARY_DIR}/po/*.gmo
+	DEPENDS org.freedesktop.appstream.cli.metainfo.xml translations_1
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 )
 
