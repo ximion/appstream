@@ -12,7 +12,8 @@ RUN apt-get install -yq gcc g++ clang
 # install build dependencies
 RUN apt-get install -yq --no-install-recommends \
     cmake \
-    intltool \
+    gettext \
+    itstool \
     libglib2.0-dev \
     libxml2-dev \
     gtk-doc-tools \
