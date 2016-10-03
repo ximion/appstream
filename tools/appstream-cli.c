@@ -543,7 +543,7 @@ as_client_get_summary ()
 	g_string_append_printf (string, "    %s - %s\n", "VALUE", _("Value of the item that should be found."));
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "dump COMPONENT-ID", _("Dump raw XML metadata for a component matching the ID."));
-	g_string_append_printf (string, "  %s - %s\n", "refresh          ", _("Rebuild the component metadata cache."));
+	g_string_append_printf (string, "  %s - %s\n", "refresh-cache    ", _("Rebuild the component metadata cache."));
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "validate FILE          ", _("Validate AppStream XML files for issues."));
 	g_string_append_printf (string, "  %s - %s\n", "validate-tree DIRECTORY", _("Validate an installed file-tree of an application for valid metadata."));
