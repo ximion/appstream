@@ -45,21 +45,21 @@ class Appstream::DatabasePrivate {
         DatabasePrivate(const QString& cachePath)
             : m_cachePath(cachePath)
             , m_errorString()
-            , m_dpool(nullptr)
+            , m_loaded(false)
         {
+            m_dpool = as_pool_new();
         }
 
         QString m_cachePath;
         QString m_errorString;
+        bool m_loaded;
         AsPool *m_dpool;
 
         bool open() {
-            if (m_dpool)
-                return true; // Already open!
+            if (m_loaded)
+                return true; // Already loaded!
 
             g_autoptr(GError) error = NULL;
-
-            m_dpool = as_pool_new ();
 
             if (m_cachePath.isEmpty())
                 as_pool_load (m_dpool, NULL, &error);
@@ -67,17 +67,15 @@ class Appstream::DatabasePrivate {
                 as_pool_load_cache_file (m_dpool, qPrintable(m_cachePath), &error);
             if (error != NULL) {
                 m_errorString = QString::fromUtf8 (error->message);
-                g_object_unref (m_dpool);
-                m_dpool = nullptr;
                 return false;
             }
 
+            m_loaded = true;
             return true;
         }
 
         ~DatabasePrivate() {
-            if (m_dpool)
-                g_object_unref (m_dpool);
+            g_object_unref (m_dpool);
         }
 };
 
