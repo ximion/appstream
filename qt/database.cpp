@@ -42,7 +42,11 @@ using namespace Appstream;
 
 class Appstream::DatabasePrivate {
     public:
-        DatabasePrivate(const QString& cachePath) : m_cachePath(cachePath) {
+        DatabasePrivate(const QString& cachePath)
+            : m_cachePath(cachePath)
+            , m_errorString()
+            , m_dpool(nullptr)
+        {
         }
 
         QString m_cachePath;
@@ -50,6 +54,9 @@ class Appstream::DatabasePrivate {
         AsPool *m_dpool;
 
         bool open() {
+            if (m_dpool)
+                return true; // Already open!
+
             g_autoptr(GError) error = NULL;
 
             m_dpool = as_pool_new ();
@@ -60,6 +67,8 @@ class Appstream::DatabasePrivate {
                 as_pool_load_cache_file (m_dpool, qPrintable(m_cachePath), &error);
             if (error != NULL) {
                 m_errorString = QString::fromUtf8 (error->message);
+                g_object_unref (m_dpool);
+                m_dpool = nullptr;
                 return false;
             }
 
@@ -67,7 +76,8 @@ class Appstream::DatabasePrivate {
         }
 
         ~DatabasePrivate() {
-            g_object_unref (m_dpool);
+            if (m_dpool)
+                g_object_unref (m_dpool);
         }
 };
 
