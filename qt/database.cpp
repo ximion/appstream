@@ -42,7 +42,11 @@ using namespace Appstream;
 
 class Appstream::DatabasePrivate {
     public:
-        DatabasePrivate(const QString& cachePath) : m_cachePath(cachePath) {
+        DatabasePrivate(const QString& cachePath)
+            : m_cachePath(cachePath)
+            , m_errorString()
+            , m_dpool(nullptr)
+        {
         }
 
         QString m_cachePath;
