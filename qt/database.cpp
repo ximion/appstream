@@ -71,7 +71,8 @@ class Appstream::DatabasePrivate {
         }
 
         ~DatabasePrivate() {
-            g_object_unref (m_dpool);
+            if (m_dpool)
+                g_object_unref (m_dpool);
         }
 };
 
