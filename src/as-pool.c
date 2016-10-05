@@ -304,8 +304,15 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	cdid = as_component_get_data_id (cpt);
-	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
+	if (as_component_is_ignored (cpt)) {
+		g_set_error (error,
+				AS_POOL_ERROR,
+				AS_POOL_ERROR_FAILED,
+				"Skipping '%s' from inclusion into the pool: Component is ignored.", cdid);
+		return FALSE;
+	}
 
+	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
 	if (existing_cpt == NULL) {
 		/* add additional data to the component, e.g. external screenshots. Also refines
 		* the component's icon paths */
