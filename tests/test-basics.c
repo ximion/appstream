@@ -274,6 +274,60 @@ test_spdx (void)
 	g_assert (!as_license_is_metadata_license ("GPL-2.0 AND FSFAP"));
 }
 
+/**
+ * test_desktop_entry:
+ *
+ * Test reading a desktop-entry.
+ */
+static void
+test_desktop_entry ()
+{
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autofree gchar *nautilus_de_fname = NULL;
+	g_autofree gchar *ksysguard_de_fname = NULL;
+	g_autoptr(GFile) file = NULL;
+	g_autoptr(GError) error = NULL;
+	AsComponent *cpt;
+
+	nautilus_de_fname = g_build_filename (datadir, "org.gnome.Nautilus.desktop", NULL);
+	ksysguard_de_fname = g_build_filename (datadir, "org.kde.ksysguard.desktop", NULL);
+
+	/* Nautilus */
+	file = g_file_new_for_path (nautilus_de_fname);
+
+	metad = as_metadata_new ();
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_UNKNOWN, &error);
+	g_assert_no_error (error);
+	cpt = as_metadata_get_component (metad);
+
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.gnome.Nautilus");
+	g_assert_cmpint (as_component_get_kind (cpt), ==, AS_COMPONENT_KIND_DESKTOP_APP);
+
+	as_component_set_active_locale (cpt, "C");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Files");
+
+	as_component_set_active_locale (cpt, "lt");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "Failai");
+
+	/* clear */
+	g_object_unref (file);
+	file = NULL;
+	as_metadata_clear_components (metad);
+
+	/* KSysGuard */
+	file = g_file_new_for_path (ksysguard_de_fname);
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_UNKNOWN, &error);
+	g_assert_no_error (error);
+	cpt = as_metadata_get_component (metad);
+
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.kde.ksysguard");
+	g_assert_cmpint (as_component_get_kind (cpt), ==, AS_COMPONENT_KIND_DESKTOP_APP);
+
+	as_component_set_active_locale (cpt, "C");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "KSysGuard");
+
+}
+
 int
 main (int argc, char **argv)
 {
@@ -299,6 +353,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
+	g_test_add_func ("/AppStream/DesktopEntry", test_desktop_entry);
 
 	ret = g_test_run ();
 	g_free (datadir);

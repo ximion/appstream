@@ -68,9 +68,10 @@ typedef enum {
 
 /**
  * AsFormatKind:
- * @AS_FORMAT_KIND_UNKNOWN:	Unknown metadata format.
- * @AS_FORMAT_KIND_XML:		AppStream XML metadata.
- * @AS_FORMAT_KIND_YAML:	AppStream YAML (DEP-11) metadata.
+ * @AS_FORMAT_KIND_UNKNOWN:		Unknown metadata format.
+ * @AS_FORMAT_KIND_XML:			AppStream XML metadata.
+ * @AS_FORMAT_KIND_YAML:		AppStream YAML (DEP-11) metadata.
+ * @AS_FORMAT_KIND_DESKTOP_ENTRY:	XDG Desktop Entry data.
  *
  * Format of the AppStream metadata.
  **/
@@ -78,6 +79,7 @@ typedef enum {
 	AS_FORMAT_KIND_UNKNOWN,
 	AS_FORMAT_KIND_XML,
 	AS_FORMAT_KIND_YAML,
+	AS_FORMAT_KIND_DESKTOP_ENTRY,
 	/*< private >*/
 	AS_FORMAT_KIND_LAST
 } AsFormatKind;
@@ -142,6 +144,11 @@ void			as_metadata_parse (AsMetadata *metad,
 						const gchar *data,
 						AsFormatKind format,
 						GError **error);
+
+void			as_metadata_parse_desktop_data (AsMetadata *metad,
+							const gchar *data,
+							const gchar *cid,
+							GError **error);
 
 AsComponent		*as_metadata_get_component (AsMetadata *metad);
 GPtrArray		*as_metadata_get_components (AsMetadata *metad);

@@ -72,6 +72,9 @@ guint			as_component_get_sort_score (AsComponent *cpt);
 void			as_component_set_sort_score (AsComponent *cpt,
 							guint score);
 
+void			as_component_set_ignored (AsComponent *cpt,
+						  gboolean ignore);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

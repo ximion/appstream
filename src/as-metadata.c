@@ -43,6 +43,7 @@
 #include "as-xmldata.h"
 #include "as-yamldata.h"
 #include "as-distro-details.h"
+#include "as-desktop-entry.h"
 
 typedef struct
 {
@@ -353,7 +354,45 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 		} else {
 			g_warning ("Can not load non-collection AppStream YAML data, since their format is not specified.");
 		}
+	} else if (format == AS_FORMAT_KIND_DESKTOP_ENTRY) {
+		g_critical ("Refusing to load desktop entry without knowing its ID. Use as_metadata_parse_desktop() to parse .desktop files.");
 	}
+}
+
+/**
+ * as_metadata_parse_desktop_data:
+ * @metad: An instance of #AsMetadata.
+ * @data: Metadata describing one or more software components.
+ * @cid: The component-id the new #AsComponent should have.
+ * @error: A #GError or %NULL.
+ *
+ * Parses XDG Desktop Entry metadata and adds it to the pool.
+ **/
+void
+as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gchar *cid, GError **error)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	AsComponent *cpt;
+
+	cpt = as_desktop_entry_parse_data (data,
+					   cid,
+					   priv->format_version,
+					   error);
+	if (cpt == NULL) {
+		if (*error == NULL) {
+			g_set_error_literal (error,
+						AS_METADATA_ERROR,
+						AS_METADATA_ERROR_NO_COMPONENT,
+						"No component found that could be updated.");
+		}
+		return;
+	}
+
+	/* ensure the right active locale is set */
+	as_component_set_active_locale (cpt, priv->locale);
+
+	/* add component to our list */
+	g_ptr_array_add (priv->cpts, cpt);
 }
 
 /**
@@ -391,7 +430,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 		/* we should autodetect the format type. assume XML until we can find evidence that it's YAML */
 		format = AS_FORMAT_KIND_XML;
 
-		/* check if we are dealing with a YAML document, assume XML otherwise */
+		/* check if we are dealing with a YAML document */
 		if (g_strcmp0 (content_type, "application/x-yaml") == 0)
 			format = AS_FORMAT_KIND_YAML;
 
@@ -402,6 +441,10 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 		    (g_str_has_suffix (file_basename, ".yaml"))) {
 			format = AS_FORMAT_KIND_YAML;
 		}
+
+		/* check if we have a .desktop file */
+		if (g_str_has_suffix (file_basename, ".desktop"))
+			format = AS_FORMAT_KIND_DESKTOP_ENTRY;
 	}
 
 	file_stream = G_INPUT_STREAM (g_file_read (file, NULL, error));
@@ -431,7 +474,10 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 		return;
 
 	/* parse metadata */
-	as_metadata_parse (metad, asdata->str, format, error);
+	if (format == AS_FORMAT_KIND_DESKTOP_ENTRY)
+		as_metadata_parse_desktop_data (metad, asdata->str, file_basename, error);
+	else
+		as_metadata_parse (metad, asdata->str, format, error);
 }
 
 /**

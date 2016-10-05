@@ -94,6 +94,8 @@ typedef struct
 	GHashTable		*token_cache; /* of utf8:AsTokenType* */
 
 	AsValueFlags		value_flags;
+
+	gboolean		ignored; /* whether we should ignore this component */
 } AsComponentPrivate;
 
 typedef enum {
@@ -2619,6 +2621,35 @@ as_component_is_member_of_category (AsComponent *cpt, AsCategory *category)
 	}
 
 	return FALSE;
+}
+
+/**
+ * as_component_set_ignored:
+ * @cpt: a #AsComponent instance.
+ * @ignore: %TRUE if the metadata in @cpt should be ignored.
+ *
+ * Since: 0.10.2
+ */
+void
+as_component_set_ignored (AsComponent *cpt, gboolean ignore)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv->ignored = ignore;
+}
+
+/**
+ * as_component_is_ignored:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: Whether this component's metadata should be ignored.
+ *
+ * Since: 0.10.2
+ */
+gboolean
+as_component_is_ignored (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->ignored;
 }
 
 /**

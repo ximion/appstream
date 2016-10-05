@@ -283,6 +283,8 @@ void			as_component_set_merge_kind (AsComponent *cpt,
 gboolean		as_component_is_member_of_category (AsComponent *cpt,
 							    AsCategory *category);
 
+gboolean		as_component_is_ignored (AsComponent *cpt);
+
 gboolean		as_component_is_valid (AsComponent *cpt);
 gchar			*as_component_to_string (AsComponent *cpt);
 
