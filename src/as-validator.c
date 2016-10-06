@@ -462,7 +462,14 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	}
 
 	/* project-group specific constraints on the ID */
-	if (g_strcmp0 (as_component_get_project_group (cpt), "KDE") == 0) {
+	if ((g_strcmp0 (as_component_get_project_group (cpt), "Freedesktop") == 0) ||
+	    (g_strcmp0 (as_component_get_project_group (cpt), "FreeDesktop") == 0)) {
+		if (!g_str_has_prefix (cid, "org.freedesktop."))
+			as_validator_add_issue (validator, idnode,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"The component is part of the Freedesktop project, but its id does not start with fd.o's reverse-DNS name (\"org.freedesktop\").");
+	} else if (g_strcmp0 (as_component_get_project_group (cpt), "KDE") == 0) {
 		if (!g_str_has_prefix (cid, "org.kde."))
 			as_validator_add_issue (validator, idnode,
 						AS_ISSUE_IMPORTANCE_ERROR,
@@ -471,7 +478,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	} else if (g_strcmp0 (as_component_get_project_group (cpt), "GNOME") == 0) {
 		if (!g_str_has_prefix (cid, "org.gnome."))
 			as_validator_add_issue (validator, idnode,
-						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_IMPORTANCE_PEDANTIC,
 						AS_ISSUE_KIND_VALUE_WRONG,
 						"The component is part of the GNOME project, but its id does not start with GNOMEs reverse-DNS name (\"org.gnome\").");
 	}
