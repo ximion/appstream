@@ -26,16 +26,13 @@
 G_BEGIN_DECLS
 
 gboolean		ascli_validate_file (gchar *fname,
-						gboolean pretty,
 						gboolean pedantic);
 
 gint			ascli_validate_files (gchar **argv,
 						gint argc,
-						gboolean no_color,
 						gboolean pedantic);
 
 gint			ascli_validate_tree (const gchar *root_dir,
-						gboolean no_color,
 						gboolean pedantic);
 
 G_END_DECLS

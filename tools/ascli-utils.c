@@ -27,7 +27,7 @@
 /**
  * Set to true if we don't want colored output
  */
-gboolean _nocolor_output = FALSE;
+static gboolean _colored_output = FALSE;
 
 /**
  * ascli_format_long_output:
@@ -110,10 +110,10 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 
 	str = g_strdup_printf ("%s: ", key);
 
-	if (_nocolor_output) {
-		g_print ("%s%s\n", str, fmtval);
-	} else {
+	if (_colored_output) {
 		g_print ("%c[%dm%s%c[%dm%s\n", 0x1B, 1, str, 0x1B, 0, fmtval);
+	} else {
+		g_print ("%s%s\n", str, fmtval);
 	}
 
 	g_free (str);
@@ -126,10 +126,10 @@ ascli_print_key_value (const gchar* key, const gchar* val, gboolean highlight)
 void
 ascli_print_highlight (const gchar* msg)
 {
-	if (_nocolor_output) {
-		g_print ("%s\n", msg);
-	} else {
+	if (_colored_output) {
 		g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, msg, 0x1B, 0);
+	} else {
+		g_print ("%s\n", msg);
 	}
 }
 
@@ -139,10 +139,10 @@ ascli_print_highlight (const gchar* msg)
 void
 ascli_print_separator ()
 {
-	if (_nocolor_output) {
-		g_print ("----\n");
+	if (_colored_output) {
+		g_print ("%c[%dm%s\n%c[%dm", 0x1B, 36, "---", 0x1B, 0);
 	} else {
-		g_print ("%c[%dm%s\n%c[%dm", 0x1B, 36, "----", 0x1B, 0);
+		g_print ("---\n");
 	}
 }
 
@@ -183,12 +183,21 @@ ascli_print_stdout (const gchar *format, ...)
 }
 
 /**
- * ascli_set_colored_output:
+ * ascli_set_output_colored:
  */
 void
-ascli_set_colored_output (gboolean colored)
+ascli_set_output_colored (gboolean colored)
 {
-	_nocolor_output = !colored;
+	_colored_output = colored;
+}
+
+/**
+ * ascli_get_output_colored:
+ */
+gboolean
+ascli_get_output_colored ()
+{
+	return _colored_output;
 }
 
 /**

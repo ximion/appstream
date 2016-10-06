@@ -42,7 +42,8 @@ void		ascli_print_component (AsComponent *cpt,
 void		ascli_print_components (GPtrArray *cpts,
 					gboolean show_detailed);
 
-void		ascli_set_colored_output (gboolean colored);
+void		ascli_set_output_colored (gboolean colored);
+gboolean	ascli_get_output_colored (void);
 
 G_END_DECLS
 

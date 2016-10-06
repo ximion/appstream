@@ -379,7 +379,6 @@ as_client_run_validate (char **argv, int argc)
 
 	return ascli_validate_files (&argv[2],
 				     argc-2,
-				     optn_no_color,
 				     optn_pedantic);
 }
 
@@ -406,7 +405,6 @@ as_client_run_validate_tree (char **argv, int argc)
 		value = argv[2];
 
 	return ascli_validate_tree (value,
-				    optn_no_color,
 				    optn_pedantic);
 }
 
@@ -635,11 +633,11 @@ as_client_run (char **argv, int argc)
 		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	}
 
-	ascli_set_colored_output (!optn_no_color);
+	ascli_set_output_colored (!optn_no_color);
 
 	/* if out terminal is no tty, disable colors automatically */
 	if (!isatty (fileno (stdout)))
-		ascli_set_colored_output (FALSE);
+		ascli_set_output_colored (FALSE);
 
 	/* process subcommands */
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {

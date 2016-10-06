@@ -31,7 +31,7 @@
  * importance_to_print_string:
  **/
 static gchar*
-importance_location_to_print_string (AsIssueImportance importance, const gchar *location, gboolean pretty)
+importance_location_to_print_string (AsIssueImportance importance, const gchar *location)
 {
 	gchar *str;
 
@@ -52,7 +52,7 @@ importance_location_to_print_string (AsIssueImportance importance, const gchar *
 			str = g_strdup_printf ("U - %s", location);
 	}
 
-	if (pretty) {
+	if (ascli_get_output_colored ()) {
 		switch (importance) {
 			case AS_ISSUE_IMPORTANCE_ERROR:
 				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 31, str, 0x1B, 0);
@@ -76,7 +76,7 @@ importance_location_to_print_string (AsIssueImportance importance, const gchar *
  * print_report:
  **/
 static gboolean
-process_report (GList *issues, gboolean pretty, gboolean pedantic)
+process_report (GList *issues, gboolean pedantic)
 {
 	GList *l;
 	AsValidatorIssue *issue;
@@ -100,9 +100,7 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
 			continue;
 
 		location = as_validator_issue_get_location (issue);
-		header = importance_location_to_print_string (importance,
-								location,
-								pretty);
+		header = importance_location_to_print_string (importance, location);
 
 		message = ascli_format_long_output (as_validator_issue_get_message (issue), 4);
 		g_print ("%s\n    %s\n\n",
@@ -117,7 +115,7 @@ process_report (GList *issues, gboolean pretty, gboolean pedantic)
  * ascli_validate_file:
  **/
 gboolean
-ascli_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
+ascli_validate_file (gchar *fname, gboolean pedantic)
 {
 	GFile *file;
 	gboolean ret;
@@ -139,7 +137,7 @@ ascli_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
 		errors_found = TRUE;
 	issues = as_validator_get_issues (validator);
 
-	ret = process_report (issues, pretty, pedantic);
+	ret = process_report (issues, pedantic);
 	if (!ret)
 		errors_found = TRUE;
 
@@ -154,7 +152,7 @@ ascli_validate_file (gchar *fname, gboolean pretty, gboolean pedantic)
  * ascli_validate_files:
  */
 gint
-ascli_validate_files (gchar **argv, gint argc, gboolean no_color, gboolean pedantic)
+ascli_validate_files (gchar **argv, gint argc, gboolean pedantic)
 {
 	gint i;
 	gboolean ret = TRUE;
@@ -166,7 +164,7 @@ ascli_validate_files (gchar **argv, gint argc, gboolean no_color, gboolean pedan
 
 	for (i = 0; i < argc; i++) {
 		gboolean tmp_ret;
-		tmp_ret = ascli_validate_file (argv[i], !no_color, pedantic);
+		tmp_ret = ascli_validate_file (argv[i], pedantic);
 		if (!tmp_ret)
 			ret = FALSE;
 	}
@@ -185,7 +183,7 @@ ascli_validate_files (gchar **argv, gint argc, gboolean no_color, gboolean pedan
  * ascli_validate_tree:
  */
 gint
-ascli_validate_tree (const gchar *root_dir, gboolean no_color, gboolean pedantic)
+ascli_validate_tree (const gchar *root_dir, gboolean pedantic)
 {
 	gboolean no_errors = TRUE;
 	AsValidator *validator;
@@ -200,7 +198,7 @@ ascli_validate_tree (const gchar *root_dir, gboolean no_color, gboolean pedantic
 	as_validator_validate_tree (validator, root_dir);
 	issues = as_validator_get_issues (validator);
 
-	no_errors = process_report (issues, !no_color, pedantic);
+	no_errors = process_report (issues, pedantic);
 
 	g_list_free (issues);
 	g_object_unref (validator);
