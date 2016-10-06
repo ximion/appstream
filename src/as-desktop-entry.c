@@ -261,12 +261,20 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 		} else if (g_str_has_prefix (key, "Keywords")) {
 			g_auto(GStrv) kws = NULL;
 
+			/* drop last ";" to not get an empty entry later */
+			if (g_str_has_suffix (val, ";"))
+				val[strlen (val) -1] = '\0';
+
 			kws = g_strsplit (val, ";", -1);
 			as_component_set_keywords (cpt, kws, locale);
 		} else if (g_strcmp0 (key, "MimeType") == 0) {
 			g_auto(GStrv) mts = NULL;
 			g_autoptr(AsProvided) prov = NULL;
 			guint j;
+
+			/* drop last ";" to not get an empty entry later */
+			if (g_str_has_suffix (val, ";"))
+				val[strlen (val) -1] = '\0';
 
 			mts = g_strsplit (val, ";", -1);
 			if (mts == NULL)

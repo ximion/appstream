@@ -426,6 +426,7 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 	if (info != NULL)
 		content_type = g_file_info_get_attribute_string (info, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 
+	file_basename = g_file_get_basename (file);
 	if (format == AS_FORMAT_KIND_UNKNOWN) {
 		/* we should autodetect the format type. assume XML until we can find evidence that it's YAML */
 		format = AS_FORMAT_KIND_XML;
@@ -434,7 +435,6 @@ as_metadata_parse_file (AsMetadata *metad, GFile *file, AsFormatKind format, GEr
 		if (g_strcmp0 (content_type, "application/x-yaml") == 0)
 			format = AS_FORMAT_KIND_YAML;
 
-		file_basename = g_file_get_basename (file);
 		if ((g_str_has_suffix (file_basename, ".yml.gz")) ||
 		    (g_str_has_suffix (file_basename, ".yaml.gz")) ||
 		    (g_str_has_suffix (file_basename, ".yml")) ||

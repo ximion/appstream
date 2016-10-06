@@ -20,6 +20,9 @@
 
 #include <glib.h>
 #include "appstream.h"
+#include "as-component-private.h"
+
+#include "as-test-utils.h"
 
 static gchar *datadir = NULL;
 
@@ -285,9 +288,13 @@ test_desktop_entry ()
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autofree gchar *nautilus_de_fname = NULL;
 	g_autofree gchar *ksysguard_de_fname = NULL;
+	g_autofree gchar *expected_xml = NULL;
 	g_autoptr(GFile) file = NULL;
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt;
+	GPtrArray *cpts;
+	guint i;
+	gchar *tmp;
 
 	nautilus_de_fname = g_build_filename (datadir, "org.gnome.Nautilus.desktop", NULL);
 	ksysguard_de_fname = g_build_filename (datadir, "org.kde.ksysguard.desktop", NULL);
@@ -326,6 +333,31 @@ test_desktop_entry ()
 	as_component_set_active_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "KSysGuard");
 
+	/* validate everything */
+
+	/* add nautilus again */
+	g_object_unref (file);
+	file = g_file_new_for_path (nautilus_de_fname);
+	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_DESKTOP_ENTRY, &error);
+	g_assert_no_error (error);
+
+	/* adjust the priority */
+	cpts = as_metadata_get_components (metad);
+	for (i = 0; i < cpts->len; i++) {
+		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+		as_component_set_priority (cpt, -1);
+	}
+
+	/* get expected XML */
+	tmp = g_build_filename (datadir, "desktop-converted.xml", NULL);
+	g_file_get_contents (tmp, &expected_xml, NULL, &error);
+	g_assert_no_error (error);
+	g_free (tmp);
+
+	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert (as_test_compare_lines (tmp, expected_xml));
+	g_free (tmp);
 }
 
 int
