@@ -667,7 +667,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_children_quick (validator, iter, "release", cpt);
-		} else if ((g_strcmp0 (node_name, "languages") == 0) && (mode == AS_FORMAT_STYLE_COLLECTION)) {
+		} else if (g_strcmp0 (node_name, "languages") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "lang", cpt);
 		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_FORMAT_STYLE_METAINFO)) {
