@@ -109,6 +109,9 @@ typedef enum  {
 	AS_MERGE_KIND_LAST
 } AsMergeKind;
 
+const gchar		*as_merge_kind_to_string (AsMergeKind kind);
+AsMergeKind		as_merge_kind_from_string (const gchar *kind_str);
+
 /**
  * AsValueFlags:
  * @AS_VALUE_FLAG_NONE:				No flags.
@@ -123,9 +126,6 @@ typedef enum {
 	AS_VALUE_FLAG_DUPLICATE_CHECK = 1 << 0,
 	AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 << 1
 } AsValueFlags;
-
-const gchar		*as_merge_kind_to_string (AsMergeKind kind);
-AsMergeKind		as_merge_kind_from_string (const gchar *kind_str);
 
 AsComponent		*as_component_new (void);
 

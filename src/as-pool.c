@@ -700,6 +700,9 @@ as_pool_load_appstream (AsPool *pool, GError **error)
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
+		/* TODO: We support only system components at time */
+		as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
+
 		/* deal with merge-components later */
 		if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
 			g_ptr_array_add (merge_cpts, cpt);
@@ -787,6 +790,9 @@ as_pool_load_desktop_entries (AsPool *pool)
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
+		/* We only read .desktop files from system directories at time */
+		as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
+
 		as_pool_add_component_internal (pool, cpt, FALSE, &error);
 		if (error != NULL) {
 			g_debug ("Metadata ignored: %s", error->message);
@@ -858,6 +864,9 @@ as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 	/* add cache objects to the pool */
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		/* TODO: Caches are system wide only at time, so we only have system-scope components in there */
+		as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
 
 		as_pool_add_component (pool, cpt, &tmp_error);
 		if (tmp_error != NULL) {

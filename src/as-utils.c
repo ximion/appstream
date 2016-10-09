@@ -41,6 +41,7 @@
 #include "as-resources.h"
 #include "as-category.h"
 #include "as-component.h"
+#include "as-component-private.h"
 
 /**
  * SECTION:as-utils
@@ -1118,9 +1119,8 @@ as_utils_build_data_id_for_cpt (AsComponent *cpt)
 	const gchar *origin;
 	AsBundleKind bundle_kind;
 
-	/* FIXME: We don't really support scopes yet, will come in a future
-	 * release. */
-	scope = "system";
+	/* the scope this component is associated with */
+	scope = as_component_scope_to_string (as_component_get_scope (cpt));
 
 	/* determine bundle - what should we do if there are multiple bundles of different types
 	 * defined for one component? */

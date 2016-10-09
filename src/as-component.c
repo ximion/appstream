@@ -47,7 +47,8 @@
 
 typedef struct
 {
-	AsComponentKind kind;
+	AsComponentKind 	kind;
+	AsComponentScope	scope;
 	gchar			*active_locale;
 
 	gchar			*id;
@@ -283,6 +284,42 @@ as_merge_kind_from_string (const gchar *kind_str)
 		return AS_MERGE_KIND_APPEND;
 
 	return AS_MERGE_KIND_NONE;
+}
+
+/**
+ * as_component_scope_to_string:
+ * @scope: the #AsComponentScope.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @scope
+ **/
+const gchar*
+as_component_scope_to_string (AsComponentScope scope)
+{
+	if (scope == AS_COMPONENT_SCOPE_SYSTEM)
+		return "system";
+	if (scope == AS_COMPONENT_SCOPE_USER)
+		return "user";
+	return "unknown";
+}
+
+/**
+ * as_component_scope_from_string:
+ * @scope_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsComponentScope or %AS_COMPONENT_SCOPE_UNKNOWN for unknown
+ **/
+AsMergeKind
+as_component_scope_from_string (const gchar *scope_str)
+{
+	if (g_strcmp0 (scope_str, "system") == 0)
+		return AS_COMPONENT_SCOPE_SYSTEM;
+	if (g_strcmp0 (scope_str, "user") == 0)
+		return AS_COMPONENT_SCOPE_USER;
+	return AS_COMPONENT_SCOPE_UNKNOWN;
 }
 
 /**
@@ -1977,6 +2014,35 @@ as_component_add_translation (AsComponent *cpt, AsTranslation *tr)
 	if (priv->translations == NULL)
 		priv->translations = g_ptr_array_new_with_free_func (g_object_unref);
 	g_ptr_array_add (priv->translations, g_object_ref (tr));
+}
+
+/**
+ * as_component_get_scope:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: the #AsComponentScope of this component.
+ *
+ * Since: 0.10.2
+ */
+AsComponentScope
+as_component_get_scope (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->scope;
+}
+
+/**
+ * as_component_set_scope:
+ * @cpt: a #AsComponent instance.
+ * @scope: the #AsComponentKind.
+ *
+ * Sets the #AsComponentScope of this component.
+ */
+void
+as_component_set_scope (AsComponent *cpt, AsComponentScope scope)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv->scope = scope;
 }
 
 /**

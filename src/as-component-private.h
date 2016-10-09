@@ -28,6 +28,25 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
+/**
+ * AsComponentScope:
+ * @AS_COMPONENT_SCOPE_UNKNOWN:		Unknown scope
+ * @AS_COMPONENT_SCOPE_USER:		User scope
+ * @AS_COMPONENT_SCOPE_SYSTEM:		System scope
+ *
+ * Scope of the #AsComponent (system-wide or user-scope)
+ **/
+typedef enum {
+	AS_COMPONENT_SCOPE_UNKNOWN,
+	AS_COMPONENT_SCOPE_USER,
+	AS_COMPONENT_SCOPE_SYSTEM,
+	/*< private >*/
+	AS_COMPONENT_SCOPE_LAST
+} AsComponentScope;
+
+const gchar		*as_component_scope_to_string (AsComponentScope scope);
+AsMergeKind		as_component_scope_from_string (const gchar *scope_str);
+
 typedef guint16		AsTokenType; /* big enough for both bitshifts */
 
 AS_INTERNAL_VISIBLE
@@ -76,6 +95,10 @@ void			as_component_set_sort_score (AsComponent *cpt,
 
 void			as_component_set_ignored (AsComponent *cpt,
 						  gboolean ignore);
+
+AsComponentScope	as_component_get_scope (AsComponent *cpt);
+void			as_component_set_scope (AsComponent *cpt,
+						AsComponentScope scope);
 
 #pragma GCC visibility pop
 G_END_DECLS
