@@ -171,14 +171,18 @@ as_distro_details_get_str (AsDistroDetails *distro, const gchar *key)
  * as_distro_details_get_bool:
  */
 gboolean
-as_distro_details_get_bool (AsDistroDetails *distro, const gchar *key)
+as_distro_details_get_bool (AsDistroDetails *distro, const gchar *key, gboolean default_val)
 {
-	gboolean value;
 	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+	gboolean value;
+	g_autoptr(GError) error = NULL;
 
 	g_return_val_if_fail (key != NULL, FALSE);
 
-	value = g_key_file_get_boolean (priv->keyf, priv->distro_id, key, NULL);
+	value = g_key_file_get_boolean (priv->keyf, priv->distro_id, key, &error);
+	if (error != NULL)
+		return default_val;
+
 	return value;
 }
 

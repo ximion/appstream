@@ -53,7 +53,8 @@ const gchar		*as_distro_details_get_version (AsDistroDetails *distro);
 gchar			*as_distro_details_get_str (AsDistroDetails *distro,
 							const gchar *key);
 gboolean		as_distro_details_get_bool (AsDistroDetails *distro,
-							const gchar *key);
+							const gchar *key,
+							gboolean default_val);
 
 G_END_DECLS
 

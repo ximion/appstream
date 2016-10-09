@@ -77,6 +77,8 @@ typedef struct
 	gchar *sys_cache_path;
 	gchar *user_cache_path;
 	time_t cache_ctime;
+
+	gboolean load_de_data;
 } AsPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
@@ -166,6 +168,7 @@ as_pool_init (AsPool *pool)
 
 	distro = as_distro_details_new ();
 	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
+	priv->load_de_data = as_distro_details_get_bool (distro, "ReadDesktopData", TRUE);
 
 	/* set watched default directories for AppStream metadata */
 	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++)
@@ -806,6 +809,7 @@ as_pool_load_desktop_entries (AsPool *pool)
 gboolean
 as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret;
 
 	/* load means to reload, so we get rid of all the old data */
@@ -815,7 +819,8 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	ret = as_pool_load_appstream (pool, error);
 
 	/* read all .desktop file data that we can find */
-	as_pool_load_desktop_entries (pool);
+	if (priv->load_de_data)
+		as_pool_load_desktop_entries (pool);
 
 	/* automatically refine the metadata we have in the pool */
 	ret = as_pool_refine_data (pool) && ret;
