@@ -40,9 +40,17 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean for
 
 	dpool = as_pool_new ();
 	if (datapath != NULL) {
+		AsPoolFlags flags;
+
 		/* the user wants data from a different path to be used */
 		as_pool_clear_metadata_locations (dpool);
 		as_pool_add_metadata_location (dpool, datapath);
+
+		/* we auto-disable loading data from sources that are not in datapath for now */
+		flags = as_pool_get_flags (dpool);
+		as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
+		as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
+		as_pool_set_flags (dpool, flags);
 
 		/* disable loading data from cache */
 		as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_NONE);

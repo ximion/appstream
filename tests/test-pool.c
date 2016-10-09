@@ -134,6 +134,7 @@ static AsPool*
 test_get_sampledata_pool (gboolean use_caches)
 {
 	AsPool *pool;
+	AsPoolFlags flags;
 	g_autofree gchar *mdata_dir = NULL;
 
 	/* create AsPool and load sample metadata */
@@ -143,6 +144,10 @@ test_get_sampledata_pool (gboolean use_caches)
 	as_pool_clear_metadata_locations (pool);
 	as_pool_add_metadata_location (pool, mdata_dir);
 	as_pool_set_locale (pool, "C");
+
+	flags = as_pool_get_flags (pool);
+	as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
+	as_pool_set_flags (pool, flags);
 
 	if (!use_caches)
 		as_pool_set_cache_flags (pool, AS_CACHE_FLAG_NONE);

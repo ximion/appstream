@@ -48,7 +48,7 @@ struct _AsPoolClass
 
 /**
  * AsCacheFlags:
- * @AS_CACHE_FLAG_NONE:		Type invalid or not known
+ * @AS_CACHE_FLAG_NONE:		No flags.
  * @AS_CACHE_FLAG_USE_USER:	Create an user-specific metadata cache.
  * @AS_CACHE_FLAG_USE_SYSTEM:	Use and - if possible - update the global metadata cache.
  *
@@ -59,6 +59,22 @@ typedef enum {
 	AS_CACHE_FLAG_USE_USER   = 1 << 0,
 	AS_CACHE_FLAG_USE_SYSTEM = 1 << 1,
 } AsCacheFlags;
+
+/**
+ * AsPoolFlags:
+ * @AS_POOL_FLAG_NONE:			No flags.
+ * @AS_POOL_FLAG_READ_COLLECTION:	Add AppStream collection metadata to the pool.
+ * @AS_POOL_FLAG_READ_METAINFO:		Add data from AppStream metainfo files to the pool.
+ * @AS_POOL_FLAG_READ_DESKTOP_FILES:	Add metadata from .desktop files to the pool.
+ *
+ * Flags on how caching should be used.
+ **/
+typedef enum {
+	AS_POOL_FLAG_NONE = 0,
+	AS_POOL_FLAG_READ_COLLECTION    = 1 << 0,
+	AS_POOL_FLAG_READ_METAINFO      = 1 << 1,
+	AS_POOL_FLAG_READ_DESKTOP_FILES = 1 << 2,
+} AsPoolFlags;
 
 /**
  * AsPoolError:
@@ -123,6 +139,10 @@ void			as_pool_add_metadata_location (AsPool *pool,
 AsCacheFlags		as_pool_get_cache_flags (AsPool *pool);
 void			as_pool_set_cache_flags (AsPool *pool,
 						      AsCacheFlags flags);
+
+AsPoolFlags		as_pool_get_flags (AsPool *pool);
+void			as_pool_set_flags (AsPool *pool,
+						AsPoolFlags flags);
 
 gboolean		as_pool_refresh_cache (AsPool *pool,
 						gboolean force,

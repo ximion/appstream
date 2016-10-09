@@ -73,12 +73,12 @@ typedef struct
 
 	gchar **term_greylist;
 
+	AsPoolFlags flags;
 	AsCacheFlags cache_flags;
+
 	gchar *sys_cache_path;
 	gchar *user_cache_path;
 	time_t cache_ctime;
-
-	gboolean load_de_data;
 } AsPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
@@ -168,11 +168,15 @@ as_pool_init (AsPool *pool)
 
 	distro = as_distro_details_new ();
 	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
-	priv->load_de_data = as_distro_details_get_bool (distro, "ReadDesktopData", TRUE);
 
 	/* set watched default directories for AppStream metadata */
 	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++)
 		as_pool_add_metadata_location_internal (pool, AS_APPSTREAM_METADATA_PATHS[i], FALSE);
+
+	/* set default pool flags */
+	priv->flags = AS_POOL_FLAG_READ_COLLECTION |
+			AS_POOL_FLAG_READ_METAINFO |
+			AS_POOL_FLAG_READ_DESKTOP_FILES;
 
 	/* set default cache flags */
 	priv->cache_flags = AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER;
@@ -810,16 +814,17 @@ gboolean
 as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	gboolean ret;
+	gboolean ret = TRUE;
 
 	/* load means to reload, so we get rid of all the old data */
 	as_pool_clear (pool);
 
 	/* read all AppStream metadata that we can find */
-	ret = as_pool_load_appstream (pool, error);
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_COLLECTION))
+		ret = as_pool_load_appstream (pool, error);
 
 	/* read all .desktop file data that we can find */
-	if (priv->load_de_data)
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES))
 		as_pool_load_desktop_entries (pool);
 
 	/* automatically refine the metadata we have in the pool */
@@ -1462,6 +1467,33 @@ as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	priv->cache_flags = flags;
+}
+
+/**
+ * as_pool_get_flags:
+ * @pool: An instance of #AsPool.
+ *
+ * Get the #AsPoolFlags for this data pool.
+ */
+AsPoolFlags
+as_pool_get_flags (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	return priv->flags;
+}
+
+/**
+ * as_pool_set_flags:
+ * @pool: An instance of #AsPool.
+ * @flags: The new #AsPoolFlags.
+ *
+ * Set the #AsPoolFlags for this data pool.
+ */
+void
+as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	priv->flags = flags;
 }
 
 /**
