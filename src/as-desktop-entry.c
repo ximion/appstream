@@ -272,10 +272,6 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 			g_autoptr(AsProvided) prov = NULL;
 			guint j;
 
-			/* drop last ";" to not get an empty entry later */
-			if (g_str_has_suffix (val, ";"))
-				val[strlen (val) -1] = '\0';
-
 			mts = g_strsplit (val, ";", -1);
 			if (mts == NULL)
 				continue;
@@ -288,7 +284,7 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 				g_object_ref (prov);
 			}
 
-			for (j = 0; mts[j] == NULL; j++) {
+			for (j = 0; mts[j] != NULL; j++) {
 				if (g_strcmp0 (mts[j], "") == 0)
 					continue;
 				as_provided_add_item (prov, mts[j]);

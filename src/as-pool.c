@@ -100,6 +100,9 @@ const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
  */
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
+/* where .desktop files are installed to by packages to be registered with the system */
+#define APPLICATIONS_DIR "/usr/share/applications"
+
 static void as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gboolean add_root);
 
 /**
@@ -286,17 +289,16 @@ as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
 }
 
 /**
- * as_pool_add_component:
+ * as_pool_add_component_internal:
  * @pool: An instance of #AsPool
  * @cpt: The #AsComponent to add to the pool.
+ * @pedantic_noadd: If %TRUE, always emit an error if component couldn't be added.
  * @error: A #GError or %NULL
  *
- * Register a new component in the AppStream metadata pool.
- *
- * Returns: %TRUE if the new component was successfully added to the pool.
+ * Internal.
  */
-gboolean
-as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
+static gboolean
+as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedantic_noadd, GError **error)
 {
 	const gchar *cdid = NULL;
 	AsComponent *existing_cpt;
@@ -305,10 +307,11 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 
 	cdid = as_component_get_data_id (cpt);
 	if (as_component_is_ignored (cpt)) {
-		g_set_error (error,
-				AS_POOL_ERROR,
-				AS_POOL_ERROR_FAILED,
-				"Skipping '%s' from inclusion into the pool: Component is ignored.", cdid);
+		if (pedantic_noadd)
+			g_set_error (error,
+					AS_POOL_ERROR,
+					AS_POOL_ERROR_FAILED,
+					"Skipping '%s' from inclusion into the pool: Component is ignored.", cdid);
 		return FALSE;
 	}
 
@@ -389,15 +392,32 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 					"Detected colliding ids: %s was already added with the same priority.", cdid);
 			return FALSE;
 		} else {
-			g_set_error (error,
-					AS_POOL_ERROR,
-					AS_POOL_ERROR_COLLISION,
-					"Detected colliding ids: %s was already added with a higher priority.", cdid);
+			if (pedantic_noadd)
+				g_set_error (error,
+						AS_POOL_ERROR,
+						AS_POOL_ERROR_COLLISION,
+						"Detected colliding ids: %s was already added with a higher priority.", cdid);
 			return FALSE;
 		}
 	}
 
 	return TRUE;
+}
+
+/**
+ * as_pool_add_component:
+ * @pool: An instance of #AsPool
+ * @cpt: The #AsComponent to add to the pool.
+ * @error: A #GError or %NULL
+ *
+ * Register a new component in the AppStream metadata pool.
+ *
+ * Returns: %TRUE if the new component was successfully added to the pool.
+ */
+gboolean
+as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
+{
+	return as_pool_add_component_internal (pool, cpt, TRUE, error);
 }
 
 /**
@@ -493,12 +513,74 @@ as_pool_refine_data (AsPool *pool)
 }
 
 /**
- * as_pool_load_metadata:
+ * as_pool_clear:
+ * @pool: An #AsPool.
+ *
+ * Remove all metadat from the pool.
+ */
+void
+as_pool_clear (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	if (g_hash_table_size (priv->cpt_table) > 0) {
+		g_hash_table_unref (priv->cpt_table);
+		priv->cpt_table = g_hash_table_new_full (g_str_hash,
+							 g_str_equal,
+							 g_free,
+							 (GDestroyNotify) g_object_unref);
+	}
+}
+
+/**
+ * as_pool_ctime_newer:
+ *
+ * Returns: %TRUE if ctime of file is newer than the cached time.
+ */
+static gboolean
+as_pool_ctime_newer (AsPool *pool, const gchar *dir)
+{
+	struct stat sb;
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+
+	if (stat (dir, &sb) < 0)
+		return FALSE;
+
+	if (sb.st_ctime > priv->cache_ctime)
+		return TRUE;
+
+	return FALSE;
+}
+
+/**
+ * as_pool_appstream_data_changed:
+ */
+static gboolean
+as_pool_metadata_changed (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	guint i;
+
+	for (i = 0; i < priv->xml_dirs->len; i++) {
+		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
+		if (as_pool_ctime_newer (pool, dir))
+			return TRUE;
+	}
+	for (i = 0; i < priv->yaml_dirs->len; i++) {
+		const gchar *dir = (const gchar*) g_ptr_array_index (priv->yaml_dirs, i);
+		if (as_pool_ctime_newer (pool, dir))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+/**
+ * as_pool_load_appstream:
  *
  * Load fresh metadata from AppStream directories.
  */
 static gboolean
-as_pool_load_metadata (AsPool *pool)
+as_pool_load_appstream (AsPool *pool, GError **error)
 {
 	GPtrArray *cpts;
 	g_autoptr(GPtrArray) merge_cpts = NULL;
@@ -506,8 +588,27 @@ as_pool_load_metadata (AsPool *pool)
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) mdata_files = NULL;
-	GError *error = NULL;
+	GError *tmp_error = NULL;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+
+	/* see if we can use the caches */
+	if (!as_pool_metadata_changed (pool)) {
+		g_autofree gchar *fname = NULL;
+		g_debug ("Caches are up to date.");
+
+		if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM)) {
+			g_debug ("Using cached data.");
+
+			fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
+			if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
+				return as_pool_load_cache_file (pool, fname, error);
+			} else {
+				g_debug ("Missing cache for language '%s', attempting to load fresh data.", priv->locale);
+			}
+		} else {
+			g_debug ("Not using system cache.");
+		}
+	}
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
@@ -577,11 +678,11 @@ as_pool_load_metadata (AsPool *pool)
 		as_metadata_parse_file (metad,
 					infile,
 					AS_FORMAT_KIND_UNKNOWN,
-					&error);
-		if (error != NULL) {
-			g_debug ("WARNING: %s", error->message);
-			g_error_free (error);
-			error = NULL;
+					&tmp_error);
+		if (tmp_error != NULL) {
+			g_debug ("WARNING: %s", tmp_error->message);
+			g_error_free (tmp_error);
+			tmp_error = NULL;
 			ret = FALSE;
 		}
 	}
@@ -598,11 +699,11 @@ as_pool_load_metadata (AsPool *pool)
 			continue;
 		}
 
-		as_pool_add_component (pool, cpt, &error);
-		if (error != NULL) {
-			g_debug ("Metadata ignored: %s", error->message);
-			g_error_free (error);
-			error = NULL;
+		as_pool_add_component (pool, cpt, &tmp_error);
+		if (tmp_error != NULL) {
+			g_debug ("Metadata ignored: %s", tmp_error->message);
+			g_error_free (tmp_error);
+			tmp_error = NULL;
 		}
 	}
 
@@ -611,11 +712,11 @@ as_pool_load_metadata (AsPool *pool)
 	for (i = 0; i < merge_cpts->len; i++) {
 		AsComponent *mcpt = AS_COMPONENT (g_ptr_array_index (merge_cpts, i));
 
-		as_pool_add_component (pool, mcpt, &error);
-		if (error != NULL) {
-			g_debug ("Merge component ignored: %s", error->message);
-			g_error_free (error);
-			error = NULL;
+		as_pool_add_component (pool, mcpt, &tmp_error);
+		if (tmp_error != NULL) {
+			g_debug ("Merge component ignored: %s", tmp_error->message);
+			g_error_free (tmp_error);
+			tmp_error = NULL;
 		}
 	}
 
@@ -623,65 +724,69 @@ as_pool_load_metadata (AsPool *pool)
 }
 
 /**
- * as_pool_clear:
- * @pool: An #AsPool.
+ * as_pool_load_desktop_entries:
  *
- * Remove all metadat from the pool.
+ * Load fresh metadata from .desktop files.
  */
-void
-as_pool_clear (AsPool *pool)
+static void
+as_pool_load_desktop_entries (AsPool *pool)
 {
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	if (g_hash_table_size (priv->cpt_table) > 0) {
-		g_hash_table_unref (priv->cpt_table);
-		priv->cpt_table = g_hash_table_new_full (g_str_hash,
-							 g_str_equal,
-							 g_free,
-							 (GDestroyNotify) g_object_unref);
-	}
-}
-
-/**
- * as_pool_ctime_newer:
- *
- * Returns: %TRUE if ctime of file is newer than the cached time.
- */
-static gboolean
-as_pool_ctime_newer (AsPool *pool, const gchar *dir)
-{
-	struct stat sb;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-
-	if (stat (dir, &sb) < 0)
-		return FALSE;
-
-	if (sb.st_ctime > priv->cache_ctime)
-		return TRUE;
-
-	return FALSE;
-}
-
-/**
- * as_pool_appstream_data_changed:
- */
-static gboolean
-as_pool_metadata_changed (AsPool *pool)
-{
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GPtrArray *cpts;
 	guint i;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GPtrArray) de_files = NULL;
+	GError *error = NULL;
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
-	for (i = 0; i < priv->xml_dirs->len; i++) {
-		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
-		if (as_pool_ctime_newer (pool, dir))
-			return TRUE;
-	}
-	for (i = 0; i < priv->yaml_dirs->len; i++) {
-		const gchar *dir = (const gchar*) g_ptr_array_index (priv->yaml_dirs, i);
-		if (as_pool_ctime_newer (pool, dir))
-			return TRUE;
+	/* prepare metadata parser */
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, priv->locale);
+
+	/* find .desktop files */
+	g_debug ("Searching for data in: %s", APPLICATIONS_DIR);
+	de_files = as_utils_find_files_matching (APPLICATIONS_DIR, "*.desktop", FALSE, NULL);
+	if (de_files == NULL) {
+		g_debug ("Unable find .desktop files.");
+		return;
 	}
 
-	return FALSE;
+	/* parse the found data */
+	for (i = 0; i < de_files->len; i++) {
+		g_autoptr(GFile) infile = NULL;
+		const gchar *fname;
+
+		fname = (const gchar*) g_ptr_array_index (de_files, i);
+		g_debug ("Reading: %s", fname);
+
+		infile = g_file_new_for_path (fname);
+		if (!g_file_query_exists (infile, NULL)) {
+			g_warning ("Metadata file '%s' does not exist.", fname);
+			continue;
+		}
+
+		as_metadata_parse_file (metad,
+					infile,
+					AS_FORMAT_KIND_UNKNOWN,
+					&error);
+		if (error != NULL) {
+			g_debug ("WARNING: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+	}
+
+	/* add found components to the metadata pool */
+	cpts = as_metadata_get_components (metad);
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		as_pool_add_component_internal (pool, cpt, FALSE, &error);
+		if (error != NULL) {
+			g_debug ("Metadata ignored: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+	}
 }
 
 /**
@@ -702,43 +807,20 @@ gboolean
 as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
 	gboolean ret;
-	gboolean ret2;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* load means to reload, so we get rid of all the old data */
-	if (g_hash_table_size (priv->cpt_table) > 0) {
-		g_hash_table_unref (priv->cpt_table);
-		priv->cpt_table = g_hash_table_new_full (g_str_hash,
-							 g_str_equal,
-							 g_free,
-							 (GDestroyNotify) g_object_unref);
-	}
-
-	if (!as_pool_metadata_changed (pool)) {
-		g_autofree gchar *fname = NULL;
-		g_debug ("Caches are up to date.");
-
-		if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM)) {
-			g_debug ("Using cached data.");
-
-			fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
-			if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
-				return as_pool_load_cache_file (pool, fname, error);
-			} else {
-				g_debug ("Missing cache for language '%s', attempting to load fresh data.", priv->locale);
-			}
-		} else {
-			g_debug ("Not using system cache.");
-		}
-	}
+	as_pool_clear (pool);
 
 	/* read all AppStream metadata that we can find */
-	ret = as_pool_load_metadata (pool);
+	ret = as_pool_load_appstream (pool, error);
+
+	/* read all .desktop file data that we can find */
+	as_pool_load_desktop_entries (pool);
 
 	/* automatically refine the metadata we have in the pool */
-	ret2 = as_pool_refine_data (pool);
+	ret = as_pool_refine_data (pool) && ret;
 
-	return ret && ret2;
+	return ret;
 }
 
 /**
@@ -1178,8 +1260,14 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 	}
 	g_debug ("Refreshing AppStream cache");
 
+	/* ensure we start with an empty pool */
+	as_pool_clear (pool);
+
+	/* NOTE: we will only cache AppStream metadata, no .desktop file metadata etc. */
+
 	/* find them wherever they are */
-	ret_poolupdate = as_pool_load (pool, NULL, &tmp_error);
+	ret = as_pool_load_appstream (pool, &tmp_error);
+	ret_poolupdate = as_pool_refine_data (pool) && ret;
 	if (tmp_error != NULL) {
 		/* the exact error is not forwarded here, since we might be able to partially update the cache */
 		g_warning ("Error while updating the in-memory data pool: %s", tmp_error->message);
