@@ -1126,7 +1126,7 @@ as_utils_build_data_id_for_cpt (AsComponent *cpt)
 	 * defined for one component? */
 	bundle_kind = as_utils_get_component_bundle_kind (cpt);
 
-	/* FIXME: packages share one namespace, therefore we edit the origin here for now. */
+	/* NOTE: packages share one namespace, therefore we edit the origin here for now. */
 	if (bundle_kind == AS_BUNDLE_KIND_PACKAGE)
 		origin = "os";
 	else

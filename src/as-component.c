@@ -448,12 +448,12 @@ as_component_to_string (AsComponent *cpt)
 	else
 		pkgs = g_strdup ("<none>");
 
-	res = g_strdup_printf ("[%s::%s]> name: %s | package: %s | summary: %s",
+	res = g_strdup_printf ("[%s::%s]> name: %s | summary: %s | package: %s",
 				as_component_kind_to_string (priv->kind),
 				as_component_get_data_id (cpt),
 				as_component_get_name (cpt),
-				pkgs,
-				as_component_get_summary (cpt));
+				as_component_get_summary (cpt),
+				pkgs);
 
 	return res;
 }
@@ -924,7 +924,7 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
  * %{scope}/%{origin}/%{distribution_system}/%{appstream_id}
  *
  * For example:
- * system/distributor/package/org.example.FooBar
+ * system/os/package/org.example.FooBar
  *
  * Returns: the unique session-specific identifier.
  */

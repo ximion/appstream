@@ -253,7 +253,6 @@ as_yamldata_get_localized_node (AsYAMLData *ydt, GNode *node, gchar *locale_over
 {
 	GNode *n;
 	GNode *tnode = NULL;
-	const gchar *key;
 	const gchar *locale;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
@@ -263,7 +262,7 @@ as_yamldata_get_localized_node (AsYAMLData *ydt, GNode *node, gchar *locale_over
 		locale = locale_override;
 
 	for (n = node->children; n != NULL; n = n->next) {
-		key = as_yaml_node_get_key (n);
+		const gchar *key = as_yaml_node_get_key (n);
 
 		if ((tnode == NULL) && (g_strcmp0 (key, "C") == 0)) {
 			tnode = n;
