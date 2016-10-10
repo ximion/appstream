@@ -1,3 +1,52 @@
+Version 0.10.2
+~~~~~~~~~~~~~~
+Released: 2016-10-10
+
+Features:
+ * test: Add unittests for reading urls (Matthias Klumpp)
+ * qt: Add AppStream::Category class (Matthias Klumpp)
+ * qt: Add missing URL type (Matthias Klumpp)
+ * Handle "font" provided type in XML and YAML (Matthias Klumpp)
+ * Replace Intltool with modern Gettext/Itstool (Matthias Klumpp)
+ * Add logic to parse desktop entries (Matthias Klumpp)
+ * Don't add ignored components to the pool (Matthias Klumpp)
+ * validator: Validate fd.o domain name, make GNOME warning only pedantic (Matthias Klumpp)
+ * validator: Allow languages tag in metainfo files (Matthias Klumpp)
+ * Read information from .desktop files and add it to the pool (Matthias Klumpp)
+ * Give the client app full control on what data sources we load (Matthias Klumpp)
+ * Add private API for component scoping (Matthias Klumpp)
+
+Specification:
+ * docs: Clarify name/summary essentialness for desktop-apps (Matthias Klumpp)
+ * spec: Clarify how fonts provides should be handled (Matthias Klumpp)
+ * spec: Simplify font metainfo, add more examples and clarify requirements (Matthias Klumpp)
+
+Bugfixes:
+ * ascli: Replace refresh-index with refresh-cache in help text (#81) (Larry Price)
+ * qt: nullptr access on unopened databases resulting in a crash (Harald Sitter)
+ * qt: The data pool must always be valid during the Database lifetime (Matthias Klumpp)
+ * If search results are going to be sorted, it makes sense for higher scores to be at the top of the list. Fixes #77. (Larry Price)
+ * validator: Don't enforce long descriptions on fonts (Matthias Klumpp)
+ * Hardcode metainfo directory (Matthias Klumpp)
+ * ascli: Make every module use the global no-color flag properly (Matthias Klumpp)
+ * validator: Don't emit excess warnings on missing type properties (Matthias Klumpp)
+
+Translation:
+ * Hungarian
+   - Balázs Úr
+ * German
+   - James Bond
+ * Italian
+   - Milo Casagrande
+ * Lithuanian (new!)
+   - Moo
+ * Polish
+   - Piotr Drąg
+ * Portuguese (Brazil)
+   - Rafael Capaci Pereira
+ * Ukrainian
+   - Yuri Chornoivan
+
 Version 0.10.1
 ~~~~~~~~~~~~~~
 Released: 2016-09-16
