@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-10-01 04:23+0200\n"
-"PO-Revision-Date: 2016-09-16 08:55+0000\n"
-"Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_TW/>\n"
+"PO-Revision-Date: 2016-10-14 15:19+0000\n"
+"Last-Translator: Mingye Wang <arthur200126@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) "
+"<https://hosted.weblate.org/projects/appstream/translations/zh_TW/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,13 +58,12 @@ msgstr "項目類型（例：lib、bin、python3…等）"
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "用於操作 AppStream 詮釋資料的實用工具"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "AppStream 狀態："
+msgstr "AppStream 命令列介面"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:629
@@ -106,7 +105,7 @@ msgstr "已載入 AppStrem 資料集池，但是有些中介資料因錯誤而�
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
+msgstr "AppStream 為一個跨散佈版的規範，旨在提供軟體組件的中介資料。"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -724,6 +723,8 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
+"本工具可用於讀寫、驗證與變換 AppStream XML 或 YAML 中介資料；此外還可存取系統中介資料庫，進行諸如搜尋提供某種 mime "
+"類型的軟體，並按照其軟體組件辨識碼安裝。"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:387
