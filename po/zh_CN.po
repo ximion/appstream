@@ -1,61 +1,59 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
 # Translators:
 # Boyuan YANG <073plan@gmail.com>, 2015
 # Dz Chen <wsxy162@gmail.com>, 2016
 # Mingcong Bai <jeffbai@aosc.xyz>, 2016
 # Mingye Wang <arthur200126@gmail.com>, 2016
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015-2016
+# zh-TW translators, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-10-01 04:23+0200\n"
-"PO-Revision-Date: 2016-08-15 19:46+0000\n"
-"Last-Translator: wsxy162 <wsxy162@gmail.com>\n"
-"Language-Team: Chinese (China) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_CN/>\n"
+"PO-Revision-Date: 2016-10-14 11:57-0400\n"
+"Last-Translator: Mingye Wang (Arthur2e5) <arthur200126@gmail.com>\n"
+"Language-Team: Chinese (China) "
+"<https://hosted.weblate.org/projects/appstream/translations/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "“%s”命令"
 
 #: src/as-category.c:168
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "类别"
+msgstr "3D 图形"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "动作"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:377
 msgid "Add-ons"
-msgstr ""
+msgstr "附加组件"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "冒险"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
-#, fuzzy
 msgid "Also print pedantic hints when validating."
-msgstr "验证的同时输出教条的提示"
+msgstr "验证的同时输出教条的提示。"
 
 #: tools/appstream-cli.c:542
 msgid "An item type (e.g. lib, bin, python3, ...)"
@@ -64,13 +62,12 @@ msgstr "一个项目类型（如：lib、bin、python3…）"
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "用于操作 AppStream 元数据的实用工具"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "AppStream 状态："
+msgstr "AppStream 命令行界面"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:629
@@ -112,37 +109,37 @@ msgstr "已载入 AppStream 数据池，但忽略了一部分包含错误的元�
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
+msgstr "AppStream 为一个跨散布版的规范，旨在提供软件组件的元数据。"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "机台"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "人工智能"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "天文"
 
 #: src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "天文"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr ""
+msgstr "音频和视频"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "音频创作和编辑"
 
 #: src/as-provided.c:140
 msgid "Binaries"
@@ -151,12 +148,12 @@ msgstr "二进制"
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "方块"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "棋盘"
 
 #: tools/ascli-utils.c:278
 msgid "Bundle"
@@ -165,12 +162,12 @@ msgstr "套件"
 #: src/as-pool.c:1143
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "缓存位置“%s“不可写"
+msgstr "缓存位置“%s”不可写。"
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "日历"
 
 #: tools/ascli-actions-mdata.c:324
 #, c-format
@@ -182,7 +179,7 @@ msgstr "无法复制“%s”：文件没有“.metainfo.xml”或“.appdata.xml
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "纸牌"
 
 #: tools/ascli-utils.c:348
 msgid "Categories"
@@ -191,22 +188,22 @@ msgstr "类别"
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "聊天"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "化学"
 
 #: src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "化学"
 
 #: src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "编解码器"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:671
@@ -217,7 +214,7 @@ msgstr "命令“%s”未知。"
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "沟通和新闻"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -232,13 +229,13 @@ msgstr "强制项目以供"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:557
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "将收藏集 XML 转换成 YAML，或是相反。"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:225
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "未找到提供“%s;%s”的组件！"
+msgstr "未找到提供“%s;%s”的组件。"
 
 #: src/as-provided.c:154
 msgid "DBus Session Services"
@@ -251,23 +248,22 @@ msgstr "DBus 系统服务"
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "数据库"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "除错器"
 
 #: tools/ascli-utils.c:332
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "示例屏幕截图 URL"
+msgstr "默认屏幕截图 URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
 
 #: tools/ascli-utils.c:312
 msgid "Description"
@@ -280,9 +276,8 @@ msgstr "开发者"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
-#, fuzzy
 msgid "Developer Tools"
-msgstr "开发者"
+msgstr "开发者工具"
 
 #: tools/appstream-cli.c:554
 msgid "Display status information about available AppStream metadata."
@@ -295,15 +290,13 @@ msgstr "发行版元数据："
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
-#, fuzzy
 msgid "Do not use any caches when performing the request."
-msgstr "处理请求时不要使用 Xapian 缓存"
+msgstr "处理请求时不要使用任何缓存，"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:594
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "不要显示带色彩的输出"
+msgstr "不要显示彩色输出。"
 
 #: tools/appstream-cli.c:545
 msgid "Dump raw XML metadata for a component matching the ID."
@@ -312,7 +305,7 @@ msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "教育"
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
@@ -322,13 +315,12 @@ msgstr "空。"
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "仿真器"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:224
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "强制刷新缓存"
+msgstr "强制刷新缓存。"
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
@@ -342,57 +334,57 @@ msgstr "扩展"
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "特选"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "文件系统"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "财经"
 
 #: src/as-provided.c:158
 msgid "Flashed Firmware"
@@ -403,7 +395,6 @@ msgid "Fonts"
 msgstr "字体"
 
 #: src/as-category.c:211
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "字体"
@@ -422,7 +413,7 @@ msgstr "找到 %i 个组件。"
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "游戏"
 
 #: tools/appstream-cli.c:541
 msgid "Get components which provide the given item."
@@ -435,7 +426,7 @@ msgstr "根据 ID 获取相应组件的信息。"
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "图形和摄影"
 
 #: tools/ascli-utils.c:279
 msgid "Homepage"
@@ -444,7 +435,7 @@ msgstr "主页"
 #: src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "IDE"
 
 #: tools/ascli-utils.c:280
 msgid "Icon"
@@ -461,7 +452,7 @@ msgstr "识别码"
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "输入来源"
 
 #: tools/appstream-cli.c:555
 msgid "Install a metadata file into the right location."
@@ -478,17 +469,17 @@ msgstr "选取的提供项目类型无效。有效的值为："
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "孩童"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "语言包"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "语言"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -502,39 +493,37 @@ msgstr "授权条款"
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "本地化"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "逻辑"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr "为重新生成缓存而手动设置 AppStream 元数据的位置"
+msgstr "手动设置要扫描的 AppStream 元数据的位置。"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually set the location of the AppStream cache."
-msgstr "手动设置 AppStream 缓存的位置"
+msgstr "手动设置 AppStream 缓存的位置。"
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "数学"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "数学"
 
 #: tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "“%s”元数据文件并不存在。"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -552,7 +541,7 @@ msgstr "模块别名"
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "音乐播放器"
 
 #: tools/ascli-utils.c:275
 msgid "Name"
@@ -561,7 +550,7 @@ msgstr "名称"
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "新闻"
 
 #: tools/ascli-actions-mdata.c:179
 #, c-format
@@ -576,9 +565,7 @@ msgstr "无图标。"
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"未找到可用的软件包管理器 CLI。请确定已安装类似“pkcon”（PackageKit 的一部分）"
-"的程序。"
+msgstr "未找到可用的软件包管理器 CLI。请确定已安装类似“pkcon”（PackageKit 的一部分）的程序。"
 
 #: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for defined."
@@ -587,13 +574,13 @@ msgstr "没有定义要搜索的提供项目值。"
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "办公"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:171
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Option '%s' is unknown."
-msgstr "命令“%s”未知。"
+msgstr "选项“%s”未知。"
 
 #: tools/ascli-utils.c:277
 msgid "Package"
@@ -602,13 +589,12 @@ msgstr "软件包"
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "摄影"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
-#, fuzzy
 msgid "Print detailed output about found components."
-msgstr "打印寻找到的组件的详细输出"
+msgstr "打印关于寻找到的组件的详细输出。"
 
 #. project group
 #: tools/ascli-utils.c:339
@@ -621,7 +607,7 @@ msgstr "提供的项目"
 
 #: src/as-provided.c:148
 msgid "Python (Version 2)"
-msgstr "Python (版本 2)"
+msgstr "Python 2"
 
 #: src/as-provided.c:150
 msgid "Python 3"
@@ -638,12 +624,12 @@ msgstr "卸载匹配 component-id 的软件。"
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "机器人"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "角色扮演"
 
 #: tools/appstream-cli.c:175 tools/appstream-cli.c:612
 #, c-format
@@ -651,11 +637,11 @@ msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 
 #: tools/appstream-cli.c:177
-#, fuzzy, c-format
+#, c-format, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
+msgstr "运行“%s --help”以查看可用命令和选项列表；“%s %s --help”可查看专属于某个子命令的选项列表。"
 
 #: src/as-provided.c:156
 msgid "Runtime Firmware"
@@ -664,12 +650,12 @@ msgstr "运行时固件"
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "扫描"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "科学"
 
 #: tools/appstream-cli.c:539
 msgid "Search the component database."
@@ -678,29 +664,27 @@ msgstr "搜索组件数据库。"
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "安全"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:589
-#, fuzzy
 msgid "Show extra debugging information."
-msgstr "显示额外的调试信息"
+msgstr "显示额外的调试信息。"
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:583
-#, fuzzy
 msgid "Show the program version."
-msgstr "显示程序版本"
+msgstr "显示程序版本."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "运动"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "策略"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:537
@@ -719,17 +703,17 @@ msgstr "概览："
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "系统监控"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "终端机仿真器"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "文本编辑器"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -739,13 +723,15 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
+"本工具可用于读写、验证与变换 AppStream XML 或 YAML 元数据；此外还可访问系统元数据库，进行诸如搜索提供某种 mime "
+"类型的软件，并按照其软件组件辨识码安装。"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:387
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
+msgstr "无法转换文件：无法判定输出格式，请使用“--format=”明确设置。"
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:174
@@ -755,7 +741,7 @@ msgstr "未找到符合 %s 的组件！"
 
 #: tools/ascli-actions-mdata.c:141 tools/ascli-actions-mdata.c:263
 #: tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "未找到 id 为“%s”的组件！"
 
@@ -772,7 +758,7 @@ msgstr "无法写入到“%s”，无法安装元信息文件。"
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "公用程序"
 
 #: tools/appstream-cli.c:548
 msgid "Validate AppStream XML files for issues."
@@ -795,10 +781,9 @@ msgid "Value of the item that should be found."
 msgstr "应该要找到的物品值。"
 
 #: src/as-category.c:177
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "类别"
+msgstr "矢量图形"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
@@ -808,7 +793,7 @@ msgstr "版本：%s"
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "查看器"
 
 #: tools/ascli-actions-misc.c:151
 #, c-format
@@ -818,18 +803,18 @@ msgstr "已获取到 %i 个软件组件的信息。"
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "网页浏览器"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "文字处理器"
 
 #: tools/appstream-cli.c:560
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
+msgstr "您可以借由传递“--help”给子命令来查找子命令专属的选项信息。"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:62
@@ -845,9 +830,8 @@ msgstr "您需要指定一个命令。"
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:129 tools/ascli-actions-mdata.c:251
 #: tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
-msgstr "您需要指定一个组件 ID。"
+msgstr "您需要指定一个组件-ID。"
 
 #: tools/ascli-actions-validate.c:163
 msgid "You need to specify a file to validate!"
@@ -866,9 +850,8 @@ msgid "You need to specify a term to search for."
 msgstr "您需要指定用来搜索的关键字。"
 
 #: tools/ascli-actions-mdata.c:354
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "你需要指定一个元数据文件。"
+msgstr "你需要指定输入和输出文件。"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -879,8 +862,7 @@ msgstr "你需要指定一个元数据文件。"
 #: src/as-pool.c:101
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
-"app;application;package;program;programme;suite;tool;应用;应用程序;软件包;程"
-"序;套装;工具"
+"app;application;package;program;programme;suite;tool;应用;程序;包;程序;套装;工具;套件;软件"
 
 #~ msgid "Can not search for unknown component type."
 #~ msgstr "无法搜索未知组件类型。"
