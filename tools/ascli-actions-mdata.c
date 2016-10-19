@@ -371,6 +371,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 	}
 
 	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
 	as_metadata_parse_file (metad,
 				infile,
 				AS_FORMAT_KIND_UNKNOWN,
