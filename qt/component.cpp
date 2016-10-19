@@ -1,23 +1,25 @@
 /*
- * Part of Appstream, a library for accessing AppStream on-disk database
- * Copyright 2014  Sune Vuorela <sune@vuorela.dk>
+ * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * Licensed under the GNU Lesser General Public License Version 2.1
+ *
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 2.1 of the license, or
+ * (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "appstream.h"
 #include "component.h"
+
 #include "screenshot.h"
 #include "release.h"
 #include <QSharedData>
@@ -32,287 +34,6 @@ static bool operator<(QSize a, QSize b)
 {
     return a.width() < b.width() || (a.width() == b.width() && a.height() < b.height());
 }
-
-class AppStream::ComponentData : public QSharedData {
-    public:
-        QString m_id;
-        QStringList m_categories;
-        QStringList m_compulsoryForDesktops;
-        QString m_description;
-        QString m_developerName;
-        QStringList m_extends;
-        QStringList m_extensions;
-        QString m_icon;
-        Component::Kind m_kind;
-        QString m_name;
-        QStringList m_packageNames;
-        QString m_projectGroup;
-        QString m_projectLicense;
-        QString m_summary;
-        QMap<QSize, QUrl> m_iconUrls;
-        QMultiHash<Component::UrlKind, QUrl> m_urls;
-        QList<AppStream::Screenshot> m_screenshots;
-        QMultiHash<Provides::Kind, Provides> m_provides;
-        QHash<Component::BundleKind, QString> m_bundles;
-        QList<Release> m_releases;
-        bool operator==(const ComponentData& other) const {
-            if(m_categories != other.m_categories) {
-                return false;
-            }
-            if(m_compulsoryForDesktops != other.m_compulsoryForDesktops) {
-                return false;
-            }
-            if(m_description != other.m_description) {
-                return false;
-            }
-            if(m_developerName != other.m_developerName) {
-                return false;
-            }
-            if(m_extends != other.m_extends) {
-                return false;
-            }
-            if(m_icon != other.m_icon) {
-                return false;
-            }
-            if(m_iconUrls != other.m_iconUrls) {
-                return false;
-            }
-            if(m_id != other.m_id) {
-                return false;
-            }
-            if(m_kind != other.m_kind) {
-                return false;
-            }
-            if(m_name != other.m_name) {
-                return false;
-            }
-            if(m_packageNames != other.m_packageNames) {
-                return false;
-            }
-            if(m_projectGroup != other.m_projectGroup) {
-                return false;
-            }
-            if(m_projectLicense != other.m_projectLicense) {
-                return false;
-            }
-            if(m_summary != other.m_summary) {
-                return false;
-            }
-            if(m_urls != other.m_urls) {
-                return false;
-            }
-            if(m_screenshots != other.m_screenshots) {
-                return false;
-            }
-            if(m_provides != other.m_provides) {
-                return false;
-            }
-            if(m_bundles != other.m_bundles) {
-                return false;
-            }
-            if(m_releases != other.m_releases) {
-                return false;
-            }
-
-            // we don't check for m_extensions, since this is auto-generated and not a specific property of a component.
-
-            return true;
-        }
-};
-
-
-QStringList Component::categories() const {
-    return d->m_categories;
-}
-
-QStringList Component::compulsoryForDesktops() const {
-    return d->m_compulsoryForDesktops;
-}
-
-QString Component::description() const {
-    return d->m_description;
-}
-
-QString Component::developerName() const {
-    return d->m_developerName;
-}
-
-bool Component::hasCategory(const QString& category) const {
-    return d->m_categories.contains(category);
-}
-
-QString Component::icon() const {
-    return d->m_icon;
-}
-
-QUrl Component::iconUrl(const QSize& size) const {
-    return d->m_iconUrls.value(size.isValid() ? size : QSize(64, 64));
-}
-
-QString Component::id() const {
-    return d->m_id;
-}
-
-QString Component::desktopId() const {
-    if (d->m_kind != Component::KindDesktop)
-        return QString();
-
-    if (d->m_id.endsWith(".desktop"))
-        return d->m_id;
-    return d->m_id + QStringLiteral(".desktop");
-}
-
-bool Component::isCompulsoryForDesktop(const QString& desktop) const {
-    return d->m_compulsoryForDesktops.contains(desktop);
-}
-
-Component::Kind Component::kind() const {
-    return d->m_kind;
-}
-
-QString Component::name() const {
-    return d->m_name;
-}
-
-QStringList Component::packageNames() const {
-    return d->m_packageNames;
-}
-
-QString Component::projectGroup() const {
-    return d->m_projectGroup;
-}
-
-QString Component::projectLicense() const {
-    return d->m_projectLicense;
-}
-
-void Component::setCategories(const QStringList& categories) {
-    d->m_categories = categories;
-}
-
-void Component::setCompulsoryForDesktops(const QStringList& desktops) {
-    d->m_compulsoryForDesktops = desktops;
-}
-
-void Component::setDescription(const QString& description) {
-    d->m_description = description;
-}
-
-void Component::setDeveloperName(const QString& developerName) {
-    d->m_developerName = developerName;
-}
-
-void Component::setIcon(const QString& icon) {
-    d->m_icon = icon;
-}
-
-void Component::addIconUrl(const QUrl& iconUrl, const QSize& size) {
-    d->m_iconUrls.insert(size, iconUrl);
-}
-
-QMap<QSize, QUrl> Component::iconUrls() const
-{
-    return d->m_iconUrls;
-}
-
-void Component::setId(const QString& id) {
-    d->m_id = id;
-}
-
-void Component::setKind(Component::Kind kind) {
-    d->m_kind = kind;
-}
-
-void Component::setName(const QString& name) {
-    d->m_name = name;
-}
-
-void Component::setPackageNames(const QStringList& packageNames) {
-    d->m_packageNames = packageNames;
-}
-
-void Component::setProjectGroup(const QString& group) {
-    d->m_projectGroup = group;
-}
-
-void Component::setProjectLicense(const QString& license){
-    d->m_projectLicense = license;
-}
-
-void Component::setSummary(const QString& summary){
-    d->m_summary = summary;
-}
-
-QString Component::summary() const {
-    return d->m_summary;
-}
-
-QStringList Component::extends() const {
-    return d->m_extends;
-}
-
-void Component::setExtends(const QStringList& extends) {
-    d->m_extends = extends;
-}
-
-QStringList Component::extensions() const {
-    return d->m_extensions;
-}
-
-void Component::setExtensions(const QStringList& extensions) {
-    d->m_extensions = extensions;
-}
-
-Component::Component(const Component& other) : d(other.d) {
-
-}
-
-Component::Component() : d(new ComponentData) {
-
-}
-
-Component& Component::operator=(const Component& other) {
-    this->d = other.d;
-    return *this;
-}
-
-void Component::setUrls(const QMultiHash< Component::UrlKind, QUrl >& urls) {
-    d->m_urls = urls;
-}
-QList< QUrl > Component::urls(Component::UrlKind kind) const {
-    return d->m_urls.values(kind);
-}
-
-QMultiHash< Component::UrlKind, QUrl > Component::urls() const {
-    return d->m_urls;
-}
-
-void Component::setBundles(const QHash< Component::BundleKind, QString >& bundles) {
-    d->m_bundles = bundles;
-}
-QString Component::bundle(Component::BundleKind kind) const {
-    return d->m_bundles.value(kind);
-}
-
-QHash< Component::BundleKind, QString > Component::bundles() const {
-    return d->m_bundles;
-}
-
-
-
-
-
-bool Component::operator==(const Component& other) {
-    if(this->d == other.d) {
-        return true;
-    }
-    if(this->d && other.d) {
-        return *(this->d) == *other.d;
-    }
-    return false;
-}
-
-Component::~Component() = default;
 
 typedef QHash<Component::Kind, QString> KindMap;
 Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
@@ -376,17 +97,6 @@ Component::Kind Component::stringToKind(const QString& kindString) {
 
 }
 
-void Component::setScreenshots(const QList< Screenshot >& screenshots) {
-    d->m_screenshots = screenshots;
-}
-
-QList< Screenshot > Component::screenshots() const {
-    return d->m_screenshots;
-}
-
-
-
-
 Component::UrlKind Component::stringToUrlKind(const QString& urlKindString) {
     if (urlKindString == QLatin1String("homepage")) {
         return UrlKindHomepage;
@@ -441,34 +151,194 @@ Component::BundleKind Component::stringToBundleKind(const QString& bundleKindStr
     return BundleKindUnknown;
 }
 
-QList< AppStream::Provides > Component::provides() const {
-    return d->m_provides.values();
+QString value(const gchar *cstr)
+{
+    return value(cstr);
 }
 
-QList<AppStream::Provides> Component::provides(Provides::Kind kind) const {
-    return d->m_provides.values(kind);
-}
-
-
-void Component::setProvides(const QList<AppStream::Provides>& provides) {
-    Q_FOREACH(const AppStream::Provides& provide, provides) {
-        d->m_provides.insertMulti(provide.kind(), provide);
+QStringList value(gchar **strv)
+{
+    QStringList res;
+    if (strv == NULL)
+        return res;
+    for (uint i = 0; strv[i] != NULL; i++) {
+        res.append (value(strv[i]));
     }
+    return res;
 }
 
-QList<AppStream::Release> AppStream::Component::releases() const
+QStringList value(GPtrArray *array)
 {
-    return d->m_releases;
+    QStringList res;
+    res.reserve(array->len);
+    for (uint i = 0; i < array->len; i++) {
+        auto strval = (const gchar*) g_ptr_array_index (array, i);
+        res.append (value(strval));
+    }
+    return res;
 }
 
-void AppStream::Component::setReleases(const QList<AppStream::Release>& releases)
+Component::Component(const Component& other)
+    : m_cpt(other.m_cpt)
 {
-    d->m_releases = releases;
+    g_object_ref(m_cpt);
 }
 
-bool Component::isValid() const
+Component::Component()
 {
-    return !d->m_id.isEmpty() &&
-           !d->m_name.isEmpty() &&
-           !d->m_summary.isEmpty();
+    m_cpt = as_component_new();
+}
+
+Component::Component(_AsComponent *cpt)
+    : m_cpt(cpt)
+{
+    g_object_ref(m_cpt);
+}
+
+Component::~Component()
+{
+    g_object_unref(m_cpt);
+}
+
+Component::Kind Component::kind() const
+{
+    return static_cast<Component::Kind>(as_component_get_kind (m_cpt));
+}
+
+void Component::setKind(Component::Kind kind)
+{
+    as_component_set_kind(m_cpt, static_cast<AsComponentKind>(kind));
+}
+
+QString Component::id() const
+{
+    return value(as_component_get_id(m_cpt));
+}
+
+void Component::setId(const QString& id)
+{
+    as_component_set_id(m_cpt, qPrintable(id));
+}
+
+QString Component::dataId() const
+{
+    return value(as_component_get_data_id(m_cpt));
+}
+
+void Component::setDataId(const QString& cdid)
+{
+    as_component_set_data_id(m_cpt, qPrintable(cdid));
+}
+
+QString Component::desktopId() const
+{
+    return value(as_component_get_desktop_id(m_cpt));
+}
+
+QStringList Component::packageNames() const
+{
+    return value(as_component_get_pkgnames(m_cpt));
+}
+
+QString Component::name() const
+{
+    return value(as_component_get_name(m_cpt));
+}
+
+void Component::setName(const QString& name, const QString& lang)
+{
+    as_component_set_name(m_cpt, qPrintable(name), qPrintable(lang));
+}
+
+QString Component::summary() const
+{
+    return value(as_component_get_summary(m_cpt));
+}
+
+void Component::setSummary(const QString& summary, const QString& lang)
+{
+    as_component_set_summary(m_cpt, qPrintable(summary), qPrintable(lang));
+}
+
+QString Component::description() const
+{
+    return value(as_component_get_description(m_cpt));
+}
+
+void Component::setDescription(const QString& description, const QString& lang)
+{
+    as_component_set_description(m_cpt, qPrintable(description), qPrintable(lang));
+}
+
+QString Component::projectLicense() const
+{
+    return value(as_component_get_project_license(m_cpt));
+}
+
+void Component::setProjectLicense(const QString& license)
+{
+    as_component_set_project_license(m_cpt, qPrintable(license));
+}
+
+QString Component::projectGroup() const
+{
+    return value(as_component_get_project_group(m_cpt));
+}
+
+void Component::setProjectGroup(const QString& group)
+{
+    as_component_set_project_group(m_cpt, qPrintable(group));
+}
+
+QString Component::developerName() const
+{
+    return value(as_component_get_developer_name(m_cpt));
+}
+
+void Component::setDeveloperName(const QString& developerName, const QString& lang)
+{
+    as_component_set_developer_name(m_cpt, qPrintable(developerName), qPrintable(lang));
+}
+
+QStringList Component::compulsoryForDesktops() const
+{
+    return value(as_component_get_compulsory_for_desktops(m_cpt));
+}
+
+bool Component::isCompulsoryForDesktop(const QString& desktop) const
+{
+    return as_component_is_compulsory_for_desktop(m_cpt, qPrintable(desktop));
+}
+
+QStringList Component::categories() const
+{
+    return value(as_component_get_categories(m_cpt));
+}
+
+bool Component::hasCategory(const QString& category) const
+{
+    return as_component_has_category(m_cpt, qPrintable(category));
+}
+
+QStringList Component::extends() const
+{
+    return value(as_component_get_extends(m_cpt));
+}
+
+QList<AppStream::Component> Component::addons() const
+{
+    QList<AppStream::Component> res;
+
+    auto addons = as_component_get_addons (m_cpt);
+    res.reserve(addons->len);
+    for (uint i = 0; i < addons->len; i++) {
+        auto cpt = AS_COMPONENT (g_ptr_array_index (addons, i));
+        res.append(Component(cpt));
+    }
+    return res;
+}
+
+QUrl Component::url(Component::UrlKind kind) const
+{
+    return QUrl::fromUserInput(as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind)));
 }

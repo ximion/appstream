@@ -24,7 +24,7 @@ endif(COMMAND cmake_policy)
 set(APPSTREAMQT_SRC
     category.cpp
     component.cpp
-    database.cpp
+    pool.cpp
     image.cpp
     provides.cpp
     screenshot.cpp
@@ -34,7 +34,7 @@ set(APPSTREAMQT_SRC
 set(APPSTREAMQT_PUBLIC_HEADERS
     category.h
     component.h
-    database.h
+    pool.h
     image.h
     provides.h
     screenshot.h
@@ -85,5 +85,3 @@ install(EXPORT AppStreamLibsTarget
     DESTINATION ${ConfigPackageLocation})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
-
-add_subdirectory(test)
