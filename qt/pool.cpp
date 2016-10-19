@@ -54,8 +54,8 @@ static QList<Component> cptArrayToQList(GPtrArray *cpts)
     return res;
 }
 
-Pool::Pool(QObject *parent) : d(new PoolPrivate()),
-    QObject (parent)
+Pool::Pool(QObject *parent) : QObject (parent),
+    d(new PoolPrivate())
 {
 
 }

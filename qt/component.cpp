@@ -30,11 +30,6 @@
 
 using namespace AppStream;
 
-static bool operator<(QSize a, QSize b)
-{
-    return a.width() < b.width() || (a.width() == b.width() && a.height() < b.height());
-}
-
 typedef QHash<Component::Kind, QString> KindMap;
 Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
     { Component::KindGeneric, QLatin1String("generic") },
