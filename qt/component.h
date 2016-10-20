@@ -97,13 +97,13 @@ Q_GADGET
         QStringList packageNames() const;
 
         QString name() const;
-        void setName(const QString& name, const QString& lang = nullptr);
+        void setName(const QString& name, const QString& lang = {});
 
         QString summary() const;
-        void setSummary(const QString& summary, const QString& lang = nullptr);
+        void setSummary(const QString& summary, const QString& lang = {});
 
         QString description() const;
-        void setDescription(const QString& description, const QString& lang = nullptr);
+        void setDescription(const QString& description, const QString& lang = {});
 
         QString projectLicense() const;
         void setProjectLicense(const QString& license);

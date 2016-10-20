@@ -54,7 +54,7 @@ Q_OBJECT
         /**
          * Add a component to the pool.
          */
-        bool addComponent(AppStream::Component cpt);
+        bool addComponent(const AppStream::Component& cpt);
 
         QList<AppStream::Component> components() const;
 

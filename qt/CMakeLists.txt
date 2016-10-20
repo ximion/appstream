@@ -52,7 +52,7 @@ target_link_libraries(AppStreamQt PUBLIC Qt5::Core
                                   PRIVATE appstream
                                           ${GLIB2_LIBRARIES}
                                           ${SANITIZER_LIBS})
-target_include_directories(AppStreamQt PUBLIC "$<INSTALL_INTERFACE:${${CMAKE_INSTALL_INCLUDEDIR}}/>")
+target_include_directories(AppStreamQt PUBLIC "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/>")
 generate_export_header(AppStreamQt)
 
 set_property(TARGET AppStreamQt PROPERTY VERSION "${APPSTREAMQT_VERSION}")

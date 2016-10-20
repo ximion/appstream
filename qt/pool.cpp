@@ -75,7 +75,7 @@ void Pool::clear()
     return as_pool_clear (d->m_pool);
 }
 
-bool Pool::addComponent(AppStream::Component cpt)
+bool Pool::addComponent(const AppStream::Component& cpt)
 {
     // FIXME: We ignore errors for now.
     return as_pool_add_component (d->m_pool, cpt.m_cpt, NULL);

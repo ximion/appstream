@@ -148,7 +148,7 @@ Component::BundleKind Component::stringToBundleKind(const QString& bundleKindStr
 
 QString value(const gchar *cstr)
 {
-    return value(cstr);
+    return QString::fromUtf8(cstr);
 }
 
 QStringList value(gchar **strv)
@@ -335,5 +335,5 @@ QList<AppStream::Component> Component::addons() const
 
 QUrl Component::url(Component::UrlKind kind) const
 {
-    return QUrl::fromUserInput(as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind)));
+    return QUrl(as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind)));
 }
