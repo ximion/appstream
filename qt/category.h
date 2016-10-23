@@ -27,7 +27,7 @@
 
 struct _AsCategory;
 
-namespace Appstream {
+namespace AppStream {
 
 class CategoryData;
 
@@ -54,8 +54,8 @@ class APPSTREAMQT_EXPORT Category {
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const Appstream::Category& category);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Category& category);
 
-QList<Appstream::Category> getDefaultCategories(bool withSpecial);
+QList<AppStream::Category> getDefaultCategories(bool withSpecial);
 
 #endif // APPSTREAMQT_CATEGORY_H

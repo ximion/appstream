@@ -20,6 +20,7 @@
 #include "appstream.h"
 #include "component.h"
 
+#include "chelpers.h"
 #include "screenshot.h"
 #include "release.h"
 #include <QSharedData>
@@ -144,33 +145,6 @@ Component::BundleKind Component::stringToBundleKind(const QString& bundleKindStr
         return BundleKindFlatpak;
     }
     return BundleKindUnknown;
-}
-
-QString value(const gchar *cstr)
-{
-    return QString::fromUtf8(cstr);
-}
-
-QStringList value(gchar **strv)
-{
-    QStringList res;
-    if (strv == NULL)
-        return res;
-    for (uint i = 0; strv[i] != NULL; i++) {
-        res.append (value(strv[i]));
-    }
-    return res;
-}
-
-QStringList value(GPtrArray *array)
-{
-    QStringList res;
-    res.reserve(array->len);
-    for (uint i = 0; i < array->len; i++) {
-        auto strval = (const gchar*) g_ptr_array_index (array, i);
-        res.append (value(strval));
-    }
-    return res;
 }
 
 Component::Component(const Component& other)

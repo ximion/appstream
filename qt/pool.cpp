@@ -24,7 +24,7 @@
 #include <QUrl>
 #include <QLoggingCategory>
 
-Q_LOGGING_CATEGORY(APPSTREAMQT_DB, "appstreamqt.pool")
+Q_LOGGING_CATEGORY(APPSTREAMQT_POOL, "appstreamqt.pool")
 
 using namespace AppStream;
 

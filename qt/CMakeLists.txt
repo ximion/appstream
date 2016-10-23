@@ -22,6 +22,7 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 set(APPSTREAMQT_SRC
+    chelpers.cpp
     category.cpp
     component.cpp
     pool.cpp

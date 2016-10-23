@@ -23,9 +23,9 @@
 
 #include <QDebug>
 
-using namespace Appstream;
+using namespace AppStream;
 
-class Appstream::CategoryData : public QSharedData {
+class AppStream::CategoryData : public QSharedData {
 public:
     CategoryData(AsCategory* cat) : m_category(cat)
     {
@@ -110,7 +110,7 @@ QStringList Category::desktopGroups() const
     return ret;
 }
 
-QDebug operator<<(QDebug s, const Appstream::Category& category)
+QDebug operator<<(QDebug s, const AppStream::Category& category)
 {
     s.nospace() << "AppStream::Category(" << category.id() << ")";
     return s.space();
