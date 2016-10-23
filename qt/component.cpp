@@ -20,12 +20,15 @@
 #include "appstream.h"
 #include "component.h"
 
-#include "chelpers.h"
 #include <QSharedData>
 #include <QStringList>
 #include <QUrl>
 #include <QMap>
 #include <QMultiHash>
+#include "chelpers.h"
+#include "screenshot.h"
+#include "release.h"
+#include "bundle.h"
 
 using namespace AppStream;
 
@@ -122,27 +125,6 @@ Q_GLOBAL_STATIC_WITH_ARGS(UrlKindMap, urlKindMap, ({
 
 QString Component::urlKindToString(Component::UrlKind kind) {
     return urlKindMap->value(kind);
-}
-
-QString Component::bundleKindToString(Component::BundleKind kind) {
-    switch (kind) {
-        case Component::BundleKindLimba:
-            return QStringLiteral("limba");
-        case Component::BundleKindFlatpak:
-            return QStringLiteral("flatpak");
-        default:
-            return QString();
-    }
-}
-
-Component::BundleKind Component::stringToBundleKind(const QString& bundleKindString) {
-    if (bundleKindString == QLatin1String("limba")) {
-        return BundleKindLimba;
-    }
-    if (bundleKindString == QLatin1String("flatpak")) {
-        return BundleKindFlatpak;
-    }
-    return BundleKindUnknown;
 }
 
 Component::Component(const Component& other)
@@ -310,11 +292,11 @@ QUrl Component::url(Component::UrlKind kind) const
     return QUrl(as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind)));
 }
 
-QList<AppStream::Provided> Component::provided() const
+QList<Provided> Component::provided() const
 {
-    QList<AppStream::Provided> res;
+    QList<Provided> res;
 
-    auto provEntries = as_component_get_provided (m_cpt);
+    auto provEntries = as_component_get_provided(m_cpt);
     res.reserve(provEntries->len);
     for (uint i = 0; i < provEntries->len; i++) {
         auto prov = AS_PROVIDED (g_ptr_array_index (provEntries, i));
@@ -326,5 +308,52 @@ QList<AppStream::Provided> Component::provided() const
 AppStream::Provided Component::provided(Provided::Kind kind) const
 {
     auto prov = as_component_get_provided_for_kind(m_cpt, (AsProvidedKind) kind);
-    return AppStream::Provided(prov);
+    return Provided(prov);
+}
+
+QList<Screenshot> Component::screenshots() const
+{
+    QList<Screenshot> res;
+
+    auto screenshots = as_component_get_screenshots(m_cpt);
+    res.reserve(screenshots->len);
+    for (uint i = 0; i < screenshots->len; i++) {
+        auto scr = AS_SCREENSHOT (g_ptr_array_index (screenshots, i));
+        res.append(Screenshot(scr));
+    }
+    return res;
+}
+
+QList<Release> Component::releases() const
+{
+    QList<Release> res;
+
+    auto rels = as_component_get_releases(m_cpt);
+    res.reserve(rels->len);
+    for (uint i = 0; i < rels->len; i++) {
+        auto rel = AS_RELEASE (g_ptr_array_index (rels, i));
+        res.append(Release(rel));
+    }
+    return res;
+}
+
+QList<Bundle> Component::bundles() const
+{
+    QList<Bundle> res;
+
+    auto bdls = as_component_get_bundles(m_cpt);
+    res.reserve(bdls->len);
+    for (uint i = 0; i < bdls->len; i++) {
+        auto bundle = AS_BUNDLE (g_ptr_array_index (bdls, i));
+        res.append(Bundle(bundle));
+    }
+    return res;
+}
+
+Bundle Component::bundle(Bundle::Kind kind) const
+{
+    auto bundle = as_component_get_bundle(m_cpt, (AsBundleKind) kind);
+    if (bundle == NULL)
+        return nullptr;
+    return bundle;
 }

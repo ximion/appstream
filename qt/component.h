@@ -27,9 +27,9 @@
 #include <QSize>
 #include "appstreamqt_export.h"
 #include "provided.h"
+#include "bundle.h"
 
 struct _AsComponent;
-
 namespace AppStream {
 
 class Screenshot;
@@ -71,12 +71,11 @@ Q_GADGET
         };
         Q_ENUM(UrlKind)
 
-        enum BundleKind {
-            BundleKindUnknown,
-            BundleKindLimba,
-            BundleKindFlatpak
-        };
-        Q_ENUM(BundleKind)
+        static Kind stringToKind(const QString& kindString);
+        static QString kindToString(Kind kind);
+
+        static UrlKind stringToUrlKind(const QString& urlKindString);
+        static QString urlKindToString(AppStream::Component::UrlKind kind);
 
         Component(_AsComponent *cpt);
         Component();
@@ -137,27 +136,12 @@ Q_GADGET
          */
         AppStream::Provided provided(Provided::Kind kind) const;
 
-#if 0
         QList<AppStream::Screenshot> screenshots() const;
-        void setScreenshots(const QList<AppStream::Screenshot>& screenshots);
 
-        void setBundles(const QHash<BundleKind , QString >& bundles);
-        QHash<BundleKind, QString> bundles() const;
-        QString bundle(BundleKind kind) const;
-
-        void setReleases(const QList<AppStream::Release> &releases);
         QList<AppStream::Release> releases() const;
 
-#endif
-
-        static Kind stringToKind(const QString& kindString);
-        static QString kindToString(Kind kind);
-
-        static UrlKind stringToUrlKind(const QString& urlKindString);
-        static QString urlKindToString(AppStream::Component::UrlKind kind);
-
-        static BundleKind stringToBundleKind(const QString& bundleKindString);
-        static QString bundleKindToString(AppStream::Component::BundleKind kind);
+        QList<AppStream::Bundle> bundles() const;
+        AppStream::Bundle bundle(Bundle::Kind kind) const;
 
     private:
         _AsComponent *m_cpt;

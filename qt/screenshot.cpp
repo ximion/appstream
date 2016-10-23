@@ -1,30 +1,111 @@
 /*
- * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2014  Sune Vuorela <sune@vuorela.dk>
+ * Copyright (C) 2014 Sune Vuorela <sune@vuorela.dk>
+ * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * Licensed under the GNU Lesser General Public License Version 2.1
+ *
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 2.1 of the license, or
+ * (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "appstream.h"
 #include "screenshot.h"
+
 #include <QSharedData>
 #include <QString>
 #include <QDebug>
+#include "chelpers.h"
 #include "image.h"
 
 using namespace AppStream;
+
+class AppStream::ScreenshotData : public QSharedData {
+public:
+    ScreenshotData()
+    {
+        m_scr = as_screenshot_new();
+    }
+
+    ScreenshotData(AsScreenshot *scr) : m_scr(scr)
+    {
+        g_object_ref(m_scr);
+    }
+
+    ~ScreenshotData()
+    {
+        g_object_unref(m_scr);
+    }
+
+    bool operator==(const ScreenshotData& rd) const
+    {
+        return rd.m_scr == m_scr;
+    }
+
+    AsScreenshot *m_scr;
+};
+
+Screenshot::Screenshot(const Screenshot& other)
+    : d(other.d)
+{
+}
+
+Screenshot::Screenshot()
+    : d(new ScreenshotData)
+{
+}
+
+Screenshot::Screenshot(_AsScreenshot *scr)
+    : d(new ScreenshotData(scr))
+{
+}
+
+Screenshot::~Screenshot()
+{
+}
+
+Screenshot& Screenshot::operator=(const Screenshot& other)
+{
+    d = other.d;
+    return *this;
+}
+
+bool Screenshot::isDefault() const
+{
+    return as_screenshot_get_kind(d->m_scr) == AS_SCREENSHOT_KIND_DEFAULT;
+}
+
+QString Screenshot::caption() const
+{
+    return value(as_screenshot_get_caption(d->m_scr));
+}
+
+void Screenshot::setCaption(const QString& caption, const QString& lang)
+{
+    as_screenshot_set_caption(d->m_scr, qPrintable(caption), qPrintable(lang));
+}
+
+QList<Image> Screenshot::images() const
+{
+    QList<Image> res;
+
+    auto images = as_screenshot_get_images(d->m_scr);
+    res.reserve(images->len);
+    for (uint i = 0; i < images->len; i++) {
+        auto img = AS_IMAGE (g_ptr_array_index (images, i));
+        res.append(Image(img));
+    }
+    return res;
+}
 
 QDebug operator<<(QDebug s, const AppStream::Screenshot& screenshot) {
     s.nospace() << "AppStream::Screenshot(";
@@ -32,76 +113,4 @@ QDebug operator<<(QDebug s, const AppStream::Screenshot& screenshot) {
         s.nospace() << screenshot.caption() << ":";
     s.nospace() << screenshot.images() << ')';
     return s.space();
-}
-
-class AppStream::ScreenshotData : public QSharedData {
-    public:
-        ScreenshotData() : m_default(false) {
-        }
-        bool m_default;
-        QString m_caption;
-        QList<AppStream::Image> m_images;
-        bool operator==(const ScreenshotData& other) {
-            if(m_default != other.m_default) {
-                return false;
-            }
-            if(m_caption != other.m_caption) {
-                return false;
-            }
-            if(m_images != other.m_images) {
-                return false;
-            }
-            return true;
-        }
-};
-
-QString Screenshot::caption() const {
-    return d->m_caption;
-}
-
-QList< Image > Screenshot::images() const {
-    return d->m_images;
-}
-
-bool Screenshot::isDefault() const {
-    return d->m_default;
-}
-
-Screenshot& Screenshot::operator=(const Screenshot& other) {
-    d = other.d;
-    return *this;
-}
-
-bool Screenshot::operator==(const Screenshot& other) {
-    if(d == other.d) {
-        return true;
-    }
-    if(d && other.d) {
-        return *d == *other.d;
-    }
-    return false;
-}
-
-Screenshot::Screenshot(const Screenshot& other) : d(other.d) {
-
-}
-
-Screenshot::Screenshot() : d(new ScreenshotData) {
-
-}
-
-void Screenshot::setCaption(const QString& caption) {
-    d->m_caption = caption;
-}
-
-void Screenshot::setDefault(bool default_) {
-    d->m_default = default_;
-}
-
-void Screenshot::setImages(const QList< Image >& images) {
-    d->m_images = images;
-}
-
-Screenshot::~Screenshot() {
-
 }

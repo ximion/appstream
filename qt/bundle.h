@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2014 Sune Vuorela <sune@vuorela.dk>
  * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -18,59 +17,57 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef APPSTREAMQT_PROVIDED_H
-#define APPSTREAMQT_PROVIDED_H
+#ifndef APPSTREAMQT_BUNDLE_H
+#define APPSTREAMQT_BUNDLE_H
 
 #include <QSharedDataPointer>
 #include <QString>
 #include <QObject>
 #include "appstreamqt_export.h"
 
-struct _AsProvided;
-
+struct _AsBundle;
 namespace AppStream {
 
-class ProvidedData;
-
-class APPSTREAMQT_EXPORT Provided {
+class BundleData;
+class APPSTREAMQT_EXPORT Bundle {
     Q_GADGET
     public:
-        Provided();
-        Provided(_AsProvided *prov);
-        Provided(const Provided& other);
-        ~Provided();
-        Provided& operator=(const Provided& other);
-        bool operator==(const Provided& other) const;
+        Bundle(_AsBundle *bundle);
+        Bundle(const Bundle& bundle);
+        ~Bundle();
+
+        Bundle& operator=(const Bundle& bundle);
+        bool operator==(const Bundle& r) const;
 
         enum Kind {
             KindUnknown,
-            KindLibrary,
-            KindBinary,
-            KindMimetype,
-            KindFont,
-            KindModAlias,
-            KindPython2Module,
-            KindPython3Module,
-            KindDBusSystemService,
-            KindDBusUserService,
-            KindFirmwareRuntime,
-            KindFirmwareFlashed
+            KindPackage,
+            KindLimba,
+            KindFlatpak,
+            KindAppImage
         };
         Q_ENUM(Kind)
 
-        static Kind stringToKind(const QString& kind);
+        static Kind stringToKind(const QString& kindString);
         static QString kindToString(Kind kind);
 
+        /**
+         * \return the bundle kind.
+         */
         Kind kind() const;
+        void setKind(Kind kind);
 
-        QStringList items() const;
-        bool hasItem(const QString &item) const;
+        /**
+         * \return the bundle ID.
+         */
+        QString id() const;
+        void setId(const QString& id);
 
     private:
-        QSharedDataPointer<ProvidedData> d;
+        QSharedDataPointer<BundleData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Provided& provides);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Bundle& bundle);
 
-#endif // APPSTREAMQT_PROVIDED_H
+#endif // APPSTREAMQT_BUNDLE_H

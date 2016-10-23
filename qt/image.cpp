@@ -1,24 +1,26 @@
 /*
- * <one line to give the library's name and an idea of what it does.>
- * Copyright (C) 2014  Sune Vuorela <sune@vuorela.dk>
+ * Copyright (C) 2014 Sune Vuorela <sune@vuorela.dk>
+ * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * Licensed under the GNU Lesser General Public License Version 2.1
+ *
+ * This library is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 2.1 of the license, or
+ * (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "appstream.h"
 #include "image.h"
+
 #include <QSharedData>
 #include <QUrl>
 #include <QDebug>
@@ -26,110 +28,90 @@
 using namespace AppStream;
 
 class AppStream::ImageData : public QSharedData {
-    public:
-        ImageData() : m_height(0), m_width(0), m_kind(Image::Unknown) {
-        }
-        int m_height;
-        int m_width;
-        Image::Kind m_kind;
-        QUrl m_url;
-        bool operator==(const ImageData& other) {
-            if(m_height != other.m_height) {
-                return false;
-            }
-            if(m_width != other.m_width) {
-                return false;
-            }
-            if(m_kind != other.m_kind) {
-                return false;
-            }
-            if(m_url != other.m_url) {
-                return false;
-            }
-            return true;
-        }
+public:
+    ImageData()
+    {
+        m_img = as_image_new();
+    }
+
+    ImageData(AsImage *img) : m_img(img)
+    {
+        g_object_ref(m_img);
+    }
+
+    ~ImageData()
+    {
+        g_object_unref(m_img);
+    }
+
+    bool operator==(const ImageData& rd) const
+    {
+        return rd.m_img == m_img;
+    }
+
+    AsImage *m_img;
 };
 
-int Image::height() const {
-    return d->m_height;
-}
+Image::Image(const Image& other)
+    : d(other.d)
+{}
 
-Image::Image(const Image& other) : d(other.d) {
+Image::Image()
+    : d(new ImageData)
+{}
 
-}
+Image::Image(_AsImage *img)
+    : d(new ImageData(img))
+{}
 
-Image::Image() : d(new ImageData) {
+Image::~Image()
+{}
 
-}
-
-Image::~Image() {
-
-}
-
-Image::Kind Image::kind() const {
-    return d->m_kind;
-}
-
-
-
-Image& Image::operator=(const Image& other) {
+Image& Image::operator=(const Image& other)
+{
     this->d = other.d;
     return *this;
 }
 
-bool Image::operator==(const Image& other) {
-    if(d == other.d) {
-        return true;
-    }
-    if(d && other.d) {
-        return *d == *other.d;
-    }
-    return false;
+Image::Kind Image::kind() const
+{
+    return Image::Kind(as_image_get_kind(d->m_img));
 }
 
-void Image::setHeight(int height) {
-    d->m_height = height;
+void Image::setKind(Image::Kind kind)
+{
+    as_image_set_kind(d->m_img, (AsImageKind) kind);
 }
 
-void Image::setKind(Image::Kind kind) {
-    d->m_kind = kind;
+uint Image::height() const
+{
+    return as_image_get_height(d->m_img);
 }
 
-void Image::setUrl(const QUrl& url) {
-    d->m_url = url;
+void Image::setHeight(uint height) {
+    as_image_set_height(d->m_img, height);
 }
 
-void Image::setWidth(int width) {
-    d->m_width = width;
+uint Image::width() const
+{
+    return as_image_get_width(d->m_img);
 }
 
-Image::Kind Image::stringToKind(const QString& string) {
-    if(string == QLatin1String("thumbnail")) {
-        return Thumbnail;
-    }
-    if(string == QLatin1String("source")) {
-        return Plain;
-    }
-    return Unknown;
+void Image::setWidth(uint width)
+{
+    as_image_set_width(d->m_img, width);
 }
 
-const QUrl& Image::url() const {
-    return d->m_url;
+void Image::setUrl(const QUrl& url)
+{
+    as_image_set_url(d->m_img, qPrintable(url.toString()));
 }
 
-int Image::width() const {
-    return d->m_width;
+const QUrl Image::url() const {
+    return QUrl(as_image_get_url(d->m_img));
 }
 
 QDebug operator<<(QDebug s, const AppStream::Image& image) {
     s.nospace() << "AppStream::Image(" << image.url() << ',' << image.kind() << "[" << image.width() << "x" << image.height() << "])";
     return s.space();
 }
-
-
-
-
-
-
-
-
