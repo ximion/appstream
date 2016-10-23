@@ -21,8 +21,6 @@
 #include "component.h"
 
 #include "chelpers.h"
-#include "screenshot.h"
-#include "release.h"
 #include <QSharedData>
 #include <QStringList>
 #include <QUrl>
@@ -34,7 +32,7 @@ using namespace AppStream;
 typedef QHash<Component::Kind, QString> KindMap;
 Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
     { Component::KindGeneric, QLatin1String("generic") },
-    { Component::KindDesktop, QLatin1String("desktop-application") },
+    { Component::KindDesktopApp, QLatin1String("desktop-application") },
     { Component::KindConsoleApp, QLatin1String("console-application") },
     { Component::KindWebApp, QLatin1String("web-application") },
     { Component::KindAddon, QLatin1String("addon") },
@@ -60,7 +58,7 @@ Component::Kind Component::stringToKind(const QString& kindString) {
         return KindGeneric;
 
     if (kindString == QLatin1String("desktop-application"))
-        return KindDesktop;
+        return KindDesktopApp;
 
     if (kindString == QLatin1String("console-application"))
         return KindConsoleApp;
@@ -310,4 +308,23 @@ QList<AppStream::Component> Component::addons() const
 QUrl Component::url(Component::UrlKind kind) const
 {
     return QUrl(as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind)));
+}
+
+QList<AppStream::Provided> Component::provided() const
+{
+    QList<AppStream::Provided> res;
+
+    auto provEntries = as_component_get_provided (m_cpt);
+    res.reserve(provEntries->len);
+    for (uint i = 0; i < provEntries->len; i++) {
+        auto prov = AS_PROVIDED (g_ptr_array_index (provEntries, i));
+        res.append(Provided(prov));
+    }
+    return res;
+}
+
+AppStream::Provided Component::provided(Provided::Kind kind) const
+{
+    auto prov = as_component_get_provided_for_kind(m_cpt, (AsProvidedKind) kind);
+    return AppStream::Provided(prov);
 }

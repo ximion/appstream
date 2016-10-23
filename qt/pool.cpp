@@ -86,7 +86,7 @@ QList<Component> Pool::components() const
     return cptArrayToQList(as_pool_get_components(d->m_pool));
 }
 
-QList<Component> Pool::componentsByProvided(Provides::Kind kind, const QString& item) const
+QList<Component> Pool::componentsByProvided(Provided::Kind kind, const QString& item) const
 {
     return cptArrayToQList(as_pool_get_components_by_provided_item(d->m_pool,
                                                                    static_cast<AsProvidedKind>(kind),

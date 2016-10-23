@@ -58,7 +58,7 @@ Q_OBJECT
 
         QList<AppStream::Component> components() const;
 
-        QList<AppStream::Component> componentsByProvided(Provides::Kind kind, const QString& item) const;
+        QList<AppStream::Component> componentsByProvided(Provided::Kind kind, const QString& item) const;
 
         QList<AppStream::Component> componentsByKind(Component::Kind kind) const;
 

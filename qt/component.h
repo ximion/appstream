@@ -26,7 +26,7 @@
 #include <QStringList>
 #include <QSize>
 #include "appstreamqt_export.h"
-#include "provides.h"
+#include "provided.h"
 
 struct _AsComponent;
 
@@ -38,7 +38,7 @@ class Release;
 class ComponentData;
 
 /**
- * Describes a Component (package) in appstream
+ * Describes a software component (application, driver, font, ...)
  */
 class APPSTREAMQT_EXPORT Component {
 Q_GADGET
@@ -47,7 +47,7 @@ Q_GADGET
         enum Kind  {
             KindUnknown,
             KindGeneric,
-            KindDesktop,
+            KindDesktopApp,
             KindConsoleApp,
             KindWebApp,
             KindAddon,
@@ -126,24 +126,20 @@ Q_GADGET
 
         QUrl url(UrlKind kind) const;
 
-#if 0
+        /**
+         * \return the full list of provided entries for all kinds.
+         */
+        QList<AppStream::Provided> provided() const;
 
         /**
          * \param kind for provides
-         * \return a list of all provides for this \param kind
+         * \return provided items for this \param kind
          */
-        QList<AppStream::Provides> provides(Provides::Kind kind) const;
+        AppStream::Provided provided(Provided::Kind kind) const;
 
-        /**
-         * \return the full list of provides for all kinds.
-         * Note that it might be ordered differently than the list given with
-         * \ref setProvides, but it will have the same entries.
-         */
-        QList<AppStream::Provides> provides() const;
-
+#if 0
         QList<AppStream::Screenshot> screenshots() const;
         void setScreenshots(const QList<AppStream::Screenshot>& screenshots);
-
 
         void setBundles(const QHash<BundleKind , QString >& bundles);
         QHash<BundleKind, QString> bundles() const;
