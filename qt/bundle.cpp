@@ -90,7 +90,7 @@ void Bundle::setKind(Kind kind)
 
 QString Bundle::id() const
 {
-    return value(as_bundle_get_id(d->m_bundle));
+    return valueWrap(as_bundle_get_id(d->m_bundle));
 }
 
 void Bundle::setId(const QString& id)

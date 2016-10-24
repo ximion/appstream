@@ -54,11 +54,10 @@ static QList<Component> cptArrayToQList(GPtrArray *cpts)
     return res;
 }
 
-Pool::Pool(QObject *parent) : QObject (parent),
-    d(new PoolPrivate())
-{
-
-}
+Pool::Pool(QObject *parent)
+    : QObject (parent),
+      d(new PoolPrivate())
+{}
 
 Pool::~Pool()
 {
@@ -86,6 +85,11 @@ QList<Component> Pool::components() const
     return cptArrayToQList(as_pool_get_components(d->m_pool));
 }
 
+QList<Component> Pool::componentsById(const QString& cid) const
+{
+    return cptArrayToQList(as_pool_get_components_by_id(d->m_pool, qPrintable(cid)));
+}
+
 QList<Component> Pool::componentsByProvided(Provided::Kind kind, const QString& item) const
 {
     return cptArrayToQList(as_pool_get_components_by_provided_item(d->m_pool,
@@ -109,4 +113,39 @@ QList<AppStream::Component> Pool::componentsByCategories(const QStringList categ
 QList<AppStream::Component> Pool::search(const QString& term) const
 {
     return cptArrayToQList(as_pool_search(d->m_pool, qPrintable(term)));
+}
+
+void Pool::clearMetadataLocations()
+{
+    as_pool_clear_metadata_locations(d->m_pool);
+}
+
+void Pool::addMetadataLocation(const QString& directory)
+{
+    as_pool_add_metadata_location (d->m_pool, qPrintable(directory));
+}
+
+void Pool::setLocale(const QString& locale)
+{
+    as_pool_set_locale (d->m_pool, qPrintable(locale));
+}
+
+uint Pool::flags() const
+{
+    return (uint) as_pool_get_flags(d->m_pool);
+}
+
+void Pool::setFlags(uint flags)
+{
+    as_pool_set_flags (d->m_pool, (AsPoolFlags) flags);
+}
+
+uint Pool::cacheFlags() const
+{
+    return (uint) as_pool_get_cache_flags(d->m_pool);
+}
+
+void Pool::setCacheFlags(uint flags)
+{
+    as_pool_set_cache_flags (d->m_pool, (AsCacheFlags) flags);
 }

@@ -86,7 +86,7 @@ bool Screenshot::isDefault() const
 
 QString Screenshot::caption() const
 {
-    return value(as_screenshot_get_caption(d->m_scr));
+    return valueWrap(as_screenshot_get_caption(d->m_scr));
 }
 
 void Screenshot::setCaption(const QString& caption, const QString& lang)

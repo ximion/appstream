@@ -42,6 +42,36 @@ Q_OBJECT
         ~Pool();
 
         /**
+         * Pool::Flags:
+         * FlagNone:             No flags.
+         * FlagReadCollection:   Add AppStream collection metadata to the pool.
+         * FlagReadMetainfo:     Add data from AppStream metainfo files to the pool.
+         * FlagReadDesktopFiles: Add metadata from .desktop files to the pool.
+         *
+         * Flags on how caching should be used.
+         **/
+        enum Flags {
+            FlagNone = 0,
+            FlagReadCollection   = 1 << 0,
+            FlagReadMetainfo     = 1 << 1,
+            FlagReadDesktopFiles = 1 << 2,
+        };
+
+        /**
+         * Pool::CacheFlags:
+         * None:      No flags.
+         * UseUser:   Create an user-specific metadata cache.
+         * UseSystem: Use and - if possible - update the global metadata cache.
+         *
+         * Flags on how caching should be used.
+         **/
+        enum CacheFlags {
+            CacheFlagNone      = 0,
+            CacheFlagUseUser   = 1 << 0,
+            CacheFlagUseSystem = 1 << 1,
+        };
+
+        /**
          * \return true on success. False on failure
          */
         bool load();
@@ -58,6 +88,8 @@ Q_OBJECT
 
         QList<AppStream::Component> components() const;
 
+        QList<AppStream::Component> componentsById(const QString& cid) const;
+
         QList<AppStream::Component> componentsByProvided(Provided::Kind kind, const QString& item) const;
 
         QList<AppStream::Component> componentsByKind(Component::Kind kind) const;
@@ -65,6 +97,17 @@ Q_OBJECT
         QList<AppStream::Component> componentsByCategories(const QStringList categories) const;
 
         QList<AppStream::Component> search(const QString& term) const;
+
+        void clearMetadataLocations();
+        void addMetadataLocation(const QString& directory);
+
+        void setLocale(const QString& locale);
+
+        uint flags() const;
+        void setFlags(uint flags);
+
+        uint cacheFlags() const;
+        void setCacheFlags(uint flags);
 
     private:
         Q_DISABLE_COPY(Pool);

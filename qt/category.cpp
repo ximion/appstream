@@ -18,10 +18,10 @@
  */
 
 #include "appstream.h"
-
 #include "category.h"
 
 #include <QDebug>
+#include "chelpers.h"
 
 using namespace AppStream;
 
@@ -68,22 +68,22 @@ bool Category::operator==(const Category &other) const
 
 QString Category::id() const
 {
-    return QString::fromUtf8(as_category_get_id(d->m_category));
+    return valueWrap(as_category_get_id(d->m_category));
 }
 
 QString Category::name() const
 {
-    return QString::fromUtf8(as_category_get_name(d->m_category));
+    return valueWrap(as_category_get_name(d->m_category));
 }
 
 QString Category::summary() const
 {
-    return QString::fromUtf8(as_category_get_summary(d->m_category));
+    return valueWrap(as_category_get_summary(d->m_category));
 }
 
 QString Category::icon() const
 {
-    return QString::fromUtf8(as_category_get_icon(d->m_category));
+    return valueWrap(as_category_get_icon(d->m_category));
 }
 
 QList<Category> Category::children() const
@@ -105,7 +105,7 @@ QStringList Category::desktopGroups() const
     ret.reserve(dgs->len);
     for(uint i = 0; i < dgs->len; i++) {
         auto dg = (const gchar*) g_ptr_array_index (dgs, i);
-        ret << QString::fromUtf8(dg);
+        ret << valueWrap(dg);
     }
     return ret;
 }

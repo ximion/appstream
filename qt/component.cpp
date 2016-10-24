@@ -161,7 +161,7 @@ void Component::setKind(Component::Kind kind)
 
 QString Component::id() const
 {
-    return value(as_component_get_id(m_cpt));
+    return valueWrap(as_component_get_id(m_cpt));
 }
 
 void Component::setId(const QString& id)
@@ -171,7 +171,7 @@ void Component::setId(const QString& id)
 
 QString Component::dataId() const
 {
-    return value(as_component_get_data_id(m_cpt));
+    return valueWrap(as_component_get_data_id(m_cpt));
 }
 
 void Component::setDataId(const QString& cdid)
@@ -181,17 +181,17 @@ void Component::setDataId(const QString& cdid)
 
 QString Component::desktopId() const
 {
-    return value(as_component_get_desktop_id(m_cpt));
+    return valueWrap(as_component_get_desktop_id(m_cpt));
 }
 
 QStringList Component::packageNames() const
 {
-    return value(as_component_get_pkgnames(m_cpt));
+    return valueWrap(as_component_get_pkgnames(m_cpt));
 }
 
 QString Component::name() const
 {
-    return value(as_component_get_name(m_cpt));
+    return valueWrap(as_component_get_name(m_cpt));
 }
 
 void Component::setName(const QString& name, const QString& lang)
@@ -201,7 +201,7 @@ void Component::setName(const QString& name, const QString& lang)
 
 QString Component::summary() const
 {
-    return value(as_component_get_summary(m_cpt));
+    return valueWrap(as_component_get_summary(m_cpt));
 }
 
 void Component::setSummary(const QString& summary, const QString& lang)
@@ -211,7 +211,7 @@ void Component::setSummary(const QString& summary, const QString& lang)
 
 QString Component::description() const
 {
-    return value(as_component_get_description(m_cpt));
+    return valueWrap(as_component_get_description(m_cpt));
 }
 
 void Component::setDescription(const QString& description, const QString& lang)
@@ -221,7 +221,7 @@ void Component::setDescription(const QString& description, const QString& lang)
 
 QString Component::projectLicense() const
 {
-    return value(as_component_get_project_license(m_cpt));
+    return valueWrap(as_component_get_project_license(m_cpt));
 }
 
 void Component::setProjectLicense(const QString& license)
@@ -231,7 +231,7 @@ void Component::setProjectLicense(const QString& license)
 
 QString Component::projectGroup() const
 {
-    return value(as_component_get_project_group(m_cpt));
+    return valueWrap(as_component_get_project_group(m_cpt));
 }
 
 void Component::setProjectGroup(const QString& group)
@@ -241,7 +241,7 @@ void Component::setProjectGroup(const QString& group)
 
 QString Component::developerName() const
 {
-    return value(as_component_get_developer_name(m_cpt));
+    return valueWrap(as_component_get_developer_name(m_cpt));
 }
 
 void Component::setDeveloperName(const QString& developerName, const QString& lang)
@@ -251,7 +251,7 @@ void Component::setDeveloperName(const QString& developerName, const QString& la
 
 QStringList Component::compulsoryForDesktops() const
 {
-    return value(as_component_get_compulsory_for_desktops(m_cpt));
+    return valueWrap(as_component_get_compulsory_for_desktops(m_cpt));
 }
 
 bool Component::isCompulsoryForDesktop(const QString& desktop) const
@@ -261,7 +261,7 @@ bool Component::isCompulsoryForDesktop(const QString& desktop) const
 
 QStringList Component::categories() const
 {
-    return value(as_component_get_categories(m_cpt));
+    return valueWrap(as_component_get_categories(m_cpt));
 }
 
 bool Component::hasCategory(const QString& category) const
@@ -271,7 +271,7 @@ bool Component::hasCategory(const QString& category) const
 
 QStringList Component::extends() const
 {
-    return value(as_component_get_extends(m_cpt));
+    return valueWrap(as_component_get_extends(m_cpt));
 }
 
 QList<AppStream::Component> Component::addons() const

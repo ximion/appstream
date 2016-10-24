@@ -22,7 +22,6 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 set(APPSTREAMQT_SRC
-    chelpers.cpp
     category.cpp
     component.cpp
     pool.cpp
@@ -88,3 +87,5 @@ install(EXPORT AppStreamLibsTarget
     DESTINATION ${ConfigPackageLocation})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
+
+add_subdirectory(tests)

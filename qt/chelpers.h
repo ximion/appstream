@@ -25,9 +25,32 @@
 
 namespace AppStream {
 
-QString value(const gchar *cstr);
-QStringList value(gchar **strv);
-QStringList value(GPtrArray *array);
+inline QString valueWrap(const gchar *cstr)
+{
+    return QString::fromUtf8(cstr);
+}
+
+inline QStringList valueWrap(gchar **strv)
+{
+    QStringList res;
+    if (strv == NULL)
+        return res;
+    for (uint i = 0; strv[i] != NULL; i++) {
+        res.append (QString::fromUtf8(strv[i]));
+    }
+    return res;
+}
+
+inline QStringList valueWrap(GPtrArray *array)
+{
+    QStringList res;
+    res.reserve(array->len);
+    for (uint i = 0; i < array->len; i++) {
+        auto strval = (const gchar*) g_ptr_array_index (array, i);
+        res.append (QString::fromUtf8(strval));
+    }
+    return res;
+}
 
 }
 

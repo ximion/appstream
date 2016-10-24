@@ -57,7 +57,7 @@ public:
 
 QString Provided::kindToString(Provided::Kind kind)
 {
-    return value(as_provided_kind_to_string((AsProvidedKind) kind));
+    return valueWrap(as_provided_kind_to_string((AsProvidedKind) kind));
 }
 
 Provided::Kind Provided::stringToKind(const QString& kindString)
@@ -105,7 +105,7 @@ Provided::Kind Provided::kind() const
 
 QStringList Provided::items() const
 {
-    return value(as_provided_get_items(d->m_prov));
+    return valueWrap(as_provided_get_items(d->m_prov));
 }
 
 bool Provided::hasItem(const QString& item) const
