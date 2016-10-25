@@ -56,22 +56,18 @@ public:
 
 Screenshot::Screenshot(const Screenshot& other)
     : d(other.d)
-{
-}
+{}
 
 Screenshot::Screenshot()
     : d(new ScreenshotData)
-{
-}
+{}
 
 Screenshot::Screenshot(_AsScreenshot *scr)
     : d(new ScreenshotData(scr))
-{
-}
+{}
 
 Screenshot::~Screenshot()
-{
-}
+{}
 
 Screenshot& Screenshot::operator=(const Screenshot& other)
 {
@@ -91,7 +87,7 @@ QString Screenshot::caption() const
 
 void Screenshot::setCaption(const QString& caption, const QString& lang)
 {
-    as_screenshot_set_caption(d->m_scr, qPrintable(caption), qPrintable(lang));
+    as_screenshot_set_caption(d->m_scr, qPrintable(caption), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
 QList<Image> Screenshot::images() const

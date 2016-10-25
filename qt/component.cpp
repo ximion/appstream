@@ -196,7 +196,7 @@ QString Component::name() const
 
 void Component::setName(const QString& name, const QString& lang)
 {
-    as_component_set_name(m_cpt, qPrintable(name), qPrintable(lang));
+    as_component_set_name(m_cpt, qPrintable(name), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
 QString Component::summary() const
@@ -206,7 +206,7 @@ QString Component::summary() const
 
 void Component::setSummary(const QString& summary, const QString& lang)
 {
-    as_component_set_summary(m_cpt, qPrintable(summary), qPrintable(lang));
+    as_component_set_summary(m_cpt, qPrintable(summary), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
 QString Component::description() const
@@ -216,7 +216,7 @@ QString Component::description() const
 
 void Component::setDescription(const QString& description, const QString& lang)
 {
-    as_component_set_description(m_cpt, qPrintable(description), qPrintable(lang));
+    as_component_set_description(m_cpt, qPrintable(description), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
 QString Component::projectLicense() const
@@ -246,7 +246,7 @@ QString Component::developerName() const
 
 void Component::setDeveloperName(const QString& developerName, const QString& lang)
 {
-    as_component_set_developer_name(m_cpt, qPrintable(developerName), qPrintable(lang));
+    as_component_set_developer_name(m_cpt, qPrintable(developerName), lang.isEmpty()? NULL : qPrintable(lang));
 }
 
 QStringList Component::compulsoryForDesktops() const
