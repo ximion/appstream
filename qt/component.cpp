@@ -54,7 +54,7 @@ QString Component::kindToString(Component::Kind kind) {
 }
 
 Component::Kind Component::stringToKind(const QString& kindString) {
-    if(kindString ==  QLatin1String("")) {
+    if(kindString.isEmpty()) {
         return KindGeneric;
     }
     if(kindString ==  QLatin1String("generic"))

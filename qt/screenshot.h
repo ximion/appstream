@@ -62,7 +62,7 @@ public:
      * \return caption for this image or a null QString if no caption
      */
     QString caption() const;
-    void setCaption(const QString& caption, const QString& lang = nullptr);
+    void setCaption(const QString& caption, const QString& lang = {});
 
 private:
     QSharedDataPointer<ScreenshotData> d;

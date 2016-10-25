@@ -111,7 +111,7 @@ Q_GADGET
         void setProjectGroup(const QString& group);
 
         QString developerName() const;
-        void setDeveloperName(const QString& developerName, const QString& lang = nullptr);
+        void setDeveloperName(const QString& developerName, const QString& lang = {});
 
         QStringList compulsoryForDesktops() const;
         bool isCompulsoryForDesktop(const QString& desktop) const;
