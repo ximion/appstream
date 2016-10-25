@@ -147,6 +147,11 @@ Q_GADGET
         QList<AppStream::Bundle> bundles() const;
         AppStream::Bundle bundle(Bundle::Kind kind) const;
 
+        /**
+         * \returns an icon that represents the component
+         */
+        QIcon icon() const;
+
     private:
         _AsComponent *m_cpt;
 };

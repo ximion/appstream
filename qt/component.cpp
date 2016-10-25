@@ -25,6 +25,8 @@
 #include <QUrl>
 #include <QMap>
 #include <QMultiHash>
+#include <QDebug>
+#include <QIcon>
 #include "chelpers.h"
 #include "icon.h"
 #include "screenshot.h"
@@ -378,4 +380,32 @@ Bundle Component::bundle(Bundle::Kind kind) const
     if (bundle == NULL)
         return Bundle();
     return Bundle(bundle);
+}
+
+QIcon AppStream::Component::icon() const
+{
+    QIcon ret;
+    auto icons = as_component_get_icons(m_cpt);
+    for (int i = 0; i < icons->len; i++) {
+        AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+        const QSize size(as_icon_get_width(icon), as_icon_get_height(icon));
+
+        switch (as_icon_get_kind (icon)) {
+            case AS_ICON_KIND_LOCAL:
+                ret.addFile(as_icon_get_filename(icon), size);
+                break;
+            case AS_ICON_KIND_CACHED:
+                ret.addFile(as_icon_get_filename(icon), size);
+                break;
+            case AS_ICON_KIND_STOCK:
+                if (ret.isNull())
+                    ret = QIcon::fromTheme(as_icon_get_name(icon));
+                break;
+            default:
+            case AS_ICON_KIND_REMOTE:
+                qWarning() << "Unsupported remote icons";
+                break;
+        }
+    }
+    return ret;
 }
