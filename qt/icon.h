@@ -84,6 +84,8 @@ class APPSTREAMQT_EXPORT Icon {
         uint height() const;
         void setHeight(uint height);
 
+        bool isEmpty() const;
+
     private:
         QSharedDataPointer<IconData> d;
 };

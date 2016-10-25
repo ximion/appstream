@@ -23,6 +23,7 @@
 #include <QSharedData>
 #include <QUrl>
 #include <QDebug>
+#include "chelpers.h"
 
 using namespace AppStream;
 
@@ -115,6 +116,21 @@ const QUrl Icon::url() const {
         return QUrl(as_icon_get_url(d->m_icon));
     else
         return QUrl(as_icon_get_filename(d->m_icon));
+}
+
+const QString Icon::name() const
+{
+    return valueWrap(as_icon_get_name(d->m_icon));
+}
+
+void Icon::setName(const QString& name)
+{
+    as_icon_set_name(d->m_icon, qPrintable(name));
+}
+
+bool Icon::isEmpty() const
+{
+    return url().isEmpty() && as_icon_get_name(d->m_icon) == NULL;
 }
 
 QDebug operator<<(QDebug s, const AppStream::Icon& image) {

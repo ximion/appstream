@@ -39,7 +39,13 @@ Bundle::Kind Bundle::stringToKind(const QString& kindString)
 
 class AppStream::BundleData : public QSharedData {
 public:
-    BundleData(AsBundle* rel) : m_bundle(rel)
+    BundleData()
+    {
+        m_bundle = as_bundle_new();
+    }
+
+    BundleData(AsBundle *bundle)
+        : m_bundle(bundle)
     {
         g_object_ref(m_bundle);
     }
@@ -56,6 +62,10 @@ public:
 
     AsBundle* m_bundle;
 };
+
+Bundle::Bundle()
+    : d(new BundleData())
+{}
 
 Bundle::Bundle(_AsBundle* bundle)
     : d(new BundleData(bundle))
@@ -96,6 +106,11 @@ QString Bundle::id() const
 void Bundle::setId(const QString& id)
 {
     as_bundle_set_id(d->m_bundle, qPrintable(id));
+}
+
+bool Bundle::isEmpty() const
+{
+    return as_bundle_get_id(d->m_bundle) == NULL;
 }
 
 QDebug operator<<(QDebug s, const AppStream::Bundle& bundle)

@@ -32,6 +32,7 @@ class BundleData;
 class APPSTREAMQT_EXPORT Bundle {
     Q_GADGET
     public:
+        Bundle();
         Bundle(_AsBundle *bundle);
         Bundle(const Bundle& bundle);
         ~Bundle();
@@ -62,6 +63,8 @@ class APPSTREAMQT_EXPORT Bundle {
          */
         QString id() const;
         void setId(const QString& id);
+
+        bool isEmpty() const;
 
     private:
         QSharedDataPointer<BundleData> d;
