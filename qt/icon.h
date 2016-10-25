@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2014 Sune Vuorela <sune@vuorela.dk>
  * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -18,8 +17,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef APPSTREAMQT_IMAGE_H
-#define APPSTREAMQT_IMAGE_H
+#ifndef APPSTREAMQT_ICON_H
+#define APPSTREAMQT_ICON_H
 
 #include <QSharedDataPointer>
 #include <QObject>
@@ -27,49 +26,51 @@
 
 class QUrl;
 class QString;
-struct _AsImage;
+struct _AsIcon;
 namespace AppStream {
 
-class ImageData;
+class IconData;
 
 /**
- * A reference to a image that can be accessed via a URL
- *
- * This class doesn't contain any image data, but only a reference to
- * a url and the expected size for the image.
- *
- * "expected size" means that the data is read out from the AppStream metadata.
- * Discrepancies between the data and the actual data are very rare, but might happen.
- * image at the end of the url.
+ * A reference to n icon which can be loaded from a locale file
+ * or remote URI.
  */
-class APPSTREAMQT_EXPORT Image {
+class APPSTREAMQT_EXPORT Icon {
     Q_GADGET
     public:
         enum Kind {
             KindUnknown,
-            KindSource,
-            KindThumbnail
+            KindCached,
+            KindStock,
+            KindLocal,
+	    KindRemote
         };
         Q_ENUM(Kind)
 
-        Image();
-        Image(_AsImage *img);
-        Image(const Image& other);
-        ~Image();
+        Icon();
+        Icon(_AsIcon *icon);
+        Icon(const Icon& other);
+        ~Icon();
 
-        Image& operator=(const Image& other);
+        Icon& operator=(const Icon& other);
 
         /**
-         * \return the kind of image
+         * \return the kind of icon
          */
         Kind kind() const;
         void setKind(Kind kind);
 
         /**
-         * \return the url for this image
+         * \return the local or remote url for this image
          */
         const QUrl url() const;
         void setUrl(const QUrl& url);
+
+        /**
+         * \return the icon (stock) name
+         */
+        const QString name() const;
+        void setName(const QString& name);
 
         /**
          * \return the expected width of this image
@@ -84,10 +85,10 @@ class APPSTREAMQT_EXPORT Image {
         void setHeight(uint height);
 
     private:
-        QSharedDataPointer<ImageData> d;
+        QSharedDataPointer<IconData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Image& image);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Icon& image);
 
-#endif // APPSTREAMQT_IMAGE_H
+#endif // APPSTREAMQT_ICON_H

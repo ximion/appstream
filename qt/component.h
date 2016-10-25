@@ -32,6 +32,7 @@
 struct _AsComponent;
 namespace AppStream {
 
+class Icon;
 class Screenshot;
 class Release;
 
@@ -124,6 +125,9 @@ Q_GADGET
         QList<AppStream::Component> addons() const;
 
         QUrl url(UrlKind kind) const;
+
+        QList<AppStream::Icon> icons() const;
+        AppStream::Icon icon(const QSize& size) const;
 
         /**
          * \return the full list of provided entries for all kinds.

@@ -26,8 +26,9 @@ set(APPSTREAMQT_SRC
     component.cpp
     pool.cpp
     image.cpp
-    provided.cpp
     screenshot.cpp
+    icon.cpp
+    provided.cpp
     release.cpp
     bundle.cpp
 )
@@ -37,8 +38,9 @@ set(APPSTREAMQT_PUBLIC_HEADERS
     component.h
     pool.h
     image.h
-    provided.h
     screenshot.h
+    icon.h
+    provided.h
     release.h
     bundle.h
 )

@@ -26,6 +26,7 @@
 #include <QMap>
 #include <QMultiHash>
 #include "chelpers.h"
+#include "icon.h"
 #include "screenshot.h"
 #include "release.h"
 #include "bundle.h"
@@ -292,6 +293,27 @@ QUrl Component::url(Component::UrlKind kind) const
     return QUrl(as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind)));
 }
 
+QList<Icon> Component::icons() const
+{
+    QList<Icon> res;
+
+    auto icons = as_component_get_icons(m_cpt);
+    res.reserve(icons->len);
+    for (uint i = 0; i < icons->len; i++) {
+        auto icon = AS_ICON (g_ptr_array_index (icons, i));
+        res.append(Icon(icon));
+    }
+    return res;
+}
+
+Icon Component::icon(const QSize& size) const
+{
+    auto res = as_component_get_icon_by_size (m_cpt, size.width(), size.height());
+    if (res == NULL)
+        return Icon();
+    return Icon(res);
+}
+
 QList<Provided> Component::provided() const
 {
     QList<Provided> res;
@@ -354,6 +376,6 @@ Bundle Component::bundle(Bundle::Kind kind) const
 {
     auto bundle = as_component_get_bundle(m_cpt, (AsBundleKind) kind);
     if (bundle == NULL)
-        return nullptr;
-    return bundle;
+        return Bundle();
+    return Bundle(bundle);
 }
