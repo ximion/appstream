@@ -5,7 +5,7 @@ include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 add_compiler_export_flags()
 
-find_package(Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt5 REQUIRED COMPONENTS Gui)
 pkg_check_modules(GLIB2 REQUIRED glib-2.0>=2.46)
 include(GNUInstallDirs)
 
@@ -50,7 +50,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 add_library(AppStreamQt SHARED ${APPSTREAMQT_SRC})
-target_link_libraries(AppStreamQt PUBLIC Qt5::Core
+target_link_libraries(AppStreamQt PUBLIC Qt5::Gui
                                   PRIVATE appstream
                                           ${GLIB2_LIBRARIES}
                                           ${SANITIZER_LIBS})
