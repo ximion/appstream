@@ -43,7 +43,7 @@ class APPSTREAMQT_EXPORT Icon {
             KindCached,
             KindStock,
             KindLocal,
-	    KindRemote
+            KindRemote
         };
         Q_ENUM(Kind)
 
