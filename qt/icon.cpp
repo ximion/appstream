@@ -115,7 +115,7 @@ const QUrl Icon::url() const {
     if (as_icon_get_kind(d->m_icon) == AS_ICON_KIND_REMOTE)
         return QUrl(as_icon_get_url(d->m_icon));
     else
-        return QUrl(as_icon_get_filename(d->m_icon));
+        return QUrl::fromLocalFile(as_icon_get_filename(d->m_icon));
 }
 
 const QString Icon::name() const
