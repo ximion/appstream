@@ -83,6 +83,11 @@ class APPSTREAMQT_EXPORT Image {
         uint height() const;
         void setHeight(uint height);
 
+        /**
+         * \returns the expected size of the image
+         */
+        QSize size() const;
+
     private:
         QSharedDataPointer<ImageData> d;
 };

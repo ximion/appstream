@@ -84,6 +84,11 @@ class APPSTREAMQT_EXPORT Icon {
         uint height() const;
         void setHeight(uint height);
 
+        /**
+         * \returns the expected size of the image
+         */
+        QSize size() const;
+
         bool isEmpty() const;
 
     private:

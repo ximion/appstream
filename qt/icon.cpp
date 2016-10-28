@@ -21,6 +21,7 @@
 #include "icon.h"
 
 #include <QSharedData>
+#include <QSize>
 #include <QUrl>
 #include <QDebug>
 #include "chelpers.h"
@@ -131,6 +132,11 @@ void Icon::setName(const QString& name)
 bool Icon::isEmpty() const
 {
     return url().isEmpty() && as_icon_get_name(d->m_icon) == NULL;
+}
+
+QSize AppStream::Icon::size() const
+{
+    return QSize(width(), height());
 }
 
 QDebug operator<<(QDebug s, const AppStream::Icon& image) {

@@ -22,6 +22,7 @@
 #include "image.h"
 
 #include <QSharedData>
+#include <QSize>
 #include <QUrl>
 #include <QDebug>
 
@@ -109,6 +110,11 @@ void Image::setUrl(const QUrl& url)
 
 const QUrl Image::url() const {
     return QUrl(as_image_get_url(d->m_img));
+}
+
+QSize AppStream::Image::size() const
+{
+    return QSize(width(), height());
 }
 
 QDebug operator<<(QDebug s, const AppStream::Image& image) {
