@@ -49,6 +49,7 @@ typedef struct
 {
 	AsComponentKind 	kind;
 	AsComponentScope	scope;
+	AsOriginKind		origin_kind;
 	gchar			*active_locale;
 
 	gchar			*id;
@@ -2043,6 +2044,35 @@ as_component_set_scope (AsComponent *cpt, AsComponentScope scope)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	priv->scope = scope;
+}
+
+/**
+ * as_component_get_origin_kind:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: the #AsOriginKind of this component.
+ *
+ * Since: 0.10.2
+ */
+AsOriginKind
+as_component_get_origin_kind (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->origin_kind;
+}
+
+/**
+ * as_component_set_origin_kind:
+ * @cpt: a #AsComponent instance.
+ * @okind: the #AsOriginKind.
+ *
+ * Sets the #AsOriginKind of this component.
+ */
+void
+as_component_set_origin_kind (AsComponent *cpt, AsOriginKind okind)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	priv->origin_kind = okind;
 }
 
 /**

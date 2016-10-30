@@ -44,6 +44,24 @@ typedef enum {
 	AS_COMPONENT_SCOPE_LAST
 } AsComponentScope;
 
+/**
+ * AsOriginKind:
+ * @AS_ORIGIN_KIND_UNKNOWN:		Unknown origin kind.
+ * @AS_ORIGIN_KIND_METAINFO:		Origin was a metainfo file.
+ * @AS_ORIGIN_KIND_COLLECTION:		Origin was an AppStream collection file.
+ * @AS_ORIGIN_KIND_DESKTOP_ENTRY:	Origin was a .desktop file.
+ *
+ * Scope of the #AsComponent (system-wide or user-scope)
+ **/
+typedef enum {
+	AS_ORIGIN_KIND_UNKNOWN,
+	AS_ORIGIN_KIND_METAINFO,
+	AS_ORIGIN_KIND_COLLECTION,
+	AS_ORIGIN_KIND_DESKTOP_ENTRY,
+	/*< private >*/
+	AS_ORIGIN_KIND_LAST
+} AsOriginKind;
+
 const gchar		*as_component_scope_to_string (AsComponentScope scope);
 AsMergeKind		as_component_scope_from_string (const gchar *scope_str);
 
@@ -99,6 +117,10 @@ void			as_component_set_ignored (AsComponent *cpt,
 AsComponentScope	as_component_get_scope (AsComponent *cpt);
 void			as_component_set_scope (AsComponent *cpt,
 						AsComponentScope scope);
+
+AsOriginKind		as_component_get_origin_kind (AsComponent *cpt);
+void			as_component_set_origin_kind (AsComponent *cpt,
+							AsOriginKind okind);
 
 #pragma GCC visibility pop
 G_END_DECLS

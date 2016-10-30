@@ -218,6 +218,7 @@ as_desktop_entry_parse_data (const gchar *data, const gchar *cid, AsFormatVersio
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
 	as_component_set_id (cpt, cid);
 	as_component_set_ignored (cpt, ignore_cpt);
+	as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_DESKTOP_ENTRY);
 
 	/* strip .desktop suffix if the reverse-domain-name scheme is followed and we build for
          * a recent AppStream version */

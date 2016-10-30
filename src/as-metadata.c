@@ -312,6 +312,8 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 			for (i = 0; i < new_cpts->len; i++) {
 				AsComponent *cpt;
 				cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
+				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
+
 				g_ptr_array_add (priv->cpts,
 						 g_object_ref (cpt));
 			}
@@ -334,6 +336,9 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 				if (cpt != NULL)
 					g_ptr_array_add (priv->cpts, cpt);
 			}
+
+			if (cpt != NULL)
+				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_METAINFO);
 		}
 	} else if (format == AS_FORMAT_KIND_YAML) {
 		as_metadata_init_yaml (metad);
@@ -348,6 +353,8 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 			for (i = 0; i < new_cpts->len; i++) {
 				AsComponent *cpt;
 				cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
+				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
+
 				g_ptr_array_add (priv->cpts,
 						 g_object_ref (cpt));
 			}
