@@ -147,6 +147,8 @@ Q_GADGET
         QList<AppStream::Bundle> bundles() const;
         AppStream::Bundle bundle(Bundle::Kind kind) const;
 
+        bool isValid() const;
+
     private:
         _AsComponent *m_cpt;
 };

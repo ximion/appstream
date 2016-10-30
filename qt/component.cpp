@@ -379,3 +379,8 @@ Bundle Component::bundle(Bundle::Kind kind) const
         return Bundle();
     return Bundle(bundle);
 }
+
+bool Component::isValid() const
+{
+    return as_component_is_valid(m_cpt);
+}
