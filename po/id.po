@@ -9,21 +9,21 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-10-01 04:23+0200\n"
-"PO-Revision-Date: 2016-09-03 00:54+0000\n"
-"Last-Translator: Mohamad Hasan Al Banna <se7entime@protonmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"PO-Revision-Date: 2016-10-30 18:56+0000\n"
+"Last-Translator: Sandy Kurniawan <sandy.13421065@student.ubl.ac.id>\n"
+"Language-Team: Indonesian "
+"<https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.8\n"
+"X-Generator: Weblate 2.9-dev\n"
 
 #: tools/appstream-cli.c:136
-#, c-format
+#, c-format, fuzzy
 msgid "'%s' command"
-msgstr ""
+msgstr "'%s' perintah"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -57,14 +57,15 @@ msgstr "Suatu tipe butir (mis. lib, bin, python3, ...)"
 
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
+#, fuzzy
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Sebuah utilitas untuk bekerja dengan AppStream metadata"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
 #, fuzzy
 msgid "AppStream CLI"
-msgstr "Status AppStream:"
+msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:629
@@ -105,10 +106,13 @@ msgstr ""
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
+#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream adalah lintas-distribusi spesifikasi untuk menyediakan metadata "
+"tentang komponen perangkat lunak."
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -231,7 +235,7 @@ msgstr "Wajib bagi"
 #: tools/appstream-cli.c:557
 #, fuzzy
 msgid "Convert collection XML to YAML or vice versa."
-msgstr "Convert collection XML ke YAML atau sebaliknya."
+msgstr "Mengkonversi koleksi XML ke YAML atau sebaliknya."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:225
