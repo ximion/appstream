@@ -323,6 +323,19 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	}
 
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
+	if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+		g_autofree gchar *tmp_cdid = NULL;
+
+		/* .desktop entries might map to existing metadata data with or without .desktop suffix, we need to check for that.
+		 * (the .desktop suffix is optional for desktop-application metainfo files, and the desktop-entry parser will automatically
+		 * omit it if the desktop-entry-id is following the reverse DNS scheme)
+		 */
+		if (existing_cpt == NULL) {
+			tmp_cdid = g_strdup_printf ("%s.desktop", cdid);
+			existing_cpt = g_hash_table_lookup (priv->cpt_table, tmp_cdid);
+		}
+	}
+
 	if (existing_cpt == NULL) {
 		/* add additional data to the component, e.g. external screenshots. Also refines
 		* the component's icon paths */
