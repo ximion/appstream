@@ -51,6 +51,7 @@ struct _AsBundleClass
  * @AS_BUNDLE_KIND_LIMBA:	A Limba bundle
  * @AS_BUNDLE_KIND_FLATPAK:	A Flatpak bundle
  * @AS_BUNDLE_KIND_APPIMAGE:	An AppImageKit bundle
+ * @AS_BUNDLE_KIND_SNAP:	A Snap/Snappy bundle
  *
  * The bundle type.
  **/
@@ -60,6 +61,7 @@ typedef enum {
 	AS_BUNDLE_KIND_LIMBA,
 	AS_BUNDLE_KIND_FLATPAK,
 	AS_BUNDLE_KIND_APPIMAGE,
+	AS_BUNDLE_KIND_SNAP,
 	/*< private >*/
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
