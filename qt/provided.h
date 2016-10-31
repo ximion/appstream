@@ -48,7 +48,7 @@ class APPSTREAMQT_EXPORT Provided {
             KindBinary,
             KindMimetype,
             KindFont,
-            KindModAlias,
+            KindModalias,
             KindPython2Module,
             KindPython3Module,
             KindDBusSystemService,

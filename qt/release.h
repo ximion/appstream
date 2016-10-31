@@ -34,10 +34,9 @@ class ReleaseData;
 
 struct Checksum {
     enum ChecksumKind {
-        NoneChecksum,
-        Sha256Checksum,
-        Sha1Checksum,
-        LastChecksum
+        KindNone,
+        KindSha256,
+        KindSha1
     };
     const ChecksumKind kind;
     const QByteArray data;
@@ -54,20 +53,18 @@ class APPSTREAMQT_EXPORT Release {
         bool operator==(const Release& r) const;
 
         enum SizeKind {
-            UnknownSize,
-            DownloadSize,
-            InstalledSize,
-            LastSize
+            SizeUnknown,
+            SizeDownload,
+            SizeInstalled
         };
         Q_ENUM(SizeKind)
 
         enum UrgencyKind {
-            UnknownUrgency,
-            LowUrgency,
-            MediumUrgency,
-            HighUrgency,
-            CriticalUrgency,
-            LastUrgency
+            UrgencyUnknown,
+            UrgencyLow,
+            UrgencyMedium,
+            UrgencyHigh,
+            UrgencyCritical
         };
         Q_ENUM(UrgencyKind)
 

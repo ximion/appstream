@@ -105,22 +105,22 @@ Checksum Release::checksum() const
     {
         auto cs = as_release_get_checksum(d->m_release, AS_CHECKSUM_KIND_SHA256);
         if (cs)
-            return Checksum { Checksum::Sha256Checksum, QByteArray(as_checksum_get_value (cs)) };
+            return Checksum { Checksum::KindSha256, QByteArray(as_checksum_get_value (cs)) };
     }
 
     {
         auto cs = as_release_get_checksum(d->m_release, AS_CHECKSUM_KIND_SHA1);
         if (cs)
-            return Checksum { Checksum::Sha1Checksum, QByteArray(as_checksum_get_value (cs)) };
+            return Checksum { Checksum::KindSha1, QByteArray(as_checksum_get_value (cs)) };
     }
-    return Checksum { Checksum::NoneChecksum, "" };
+    return Checksum { Checksum::KindNone, "" };
 }
 
 QHash<Release::SizeKind, quint64> Release::sizes() const
 {
     return {
-        { InstalledSize, as_release_get_size(d->m_release, AS_SIZE_KIND_INSTALLED) },
-        { DownloadSize, as_release_get_size(d->m_release, AS_SIZE_KIND_DOWNLOAD) }
+        { SizeInstalled, as_release_get_size(d->m_release, AS_SIZE_KIND_INSTALLED) },
+        { SizeDownload, as_release_get_size(d->m_release, AS_SIZE_KIND_DOWNLOAD) }
     };
 }
 

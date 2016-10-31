@@ -45,7 +45,8 @@ class APPSTREAMQT_EXPORT Bundle {
             KindPackage,
             KindLimba,
             KindFlatpak,
-            KindAppImage
+            KindAppImage,
+            KindSnap
         };
         Q_ENUM(Kind)
 
