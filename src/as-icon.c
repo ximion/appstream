@@ -198,6 +198,10 @@ const gchar*
 as_icon_get_url (AsIcon *icon)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
+	if (priv->url == NULL && priv->filename != NULL) {
+		priv->url = g_strdup_printf ("file://%s", priv->filename);
+	}
+
 	return priv->url;
 }
 
@@ -244,6 +248,12 @@ as_icon_set_filename (AsIcon *icon, const gchar *filename)
 	AsIconPrivate *priv = GET_PRIVATE (icon);
 	g_free (priv->filename);
 	priv->filename = g_strdup (filename);
+
+	/* invalidate URL */
+	if (priv->url != NULL) {
+		g_free (priv->url);
+		priv->url = NULL;
+	}
 }
 
 /**
