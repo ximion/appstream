@@ -12,11 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-10-01 04:23+0200\n"
+"POT-Creation-Date: 2016-11-01 16:24+0100\n"
 "PO-Revision-Date: 2016-10-14 21:29+0000\n"
 "Last-Translator: Mingye Wang <arthur200126@gmail.com>\n"
-"Language-Team: Chinese (China) "
-"<https://hosted.weblate.org/projects/appstream/translations/zh_CN/>\n"
+"Language-Team: Chinese (China) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr "动作"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:377
+#: src/as-category.c:320 tools/ascli-utils.c:386
 msgid "Add-ons"
 msgstr "附加组件"
 
@@ -55,7 +55,7 @@ msgstr "冒险"
 msgid "Also print pedantic hints when validating."
 msgstr "验证的同时输出教条的提示。"
 
-#: tools/appstream-cli.c:542
+#: tools/appstream-cli.c:540
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "一个项目类型（如：lib、bin、python3…）"
 
@@ -70,7 +70,7 @@ msgid "AppStream CLI"
 msgstr "AppStream 命令行界面"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:629
+#: tools/appstream-cli.c:627
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "AppStream CLI 工具版本： %s"
@@ -81,25 +81,25 @@ msgid "AppStream Status:"
 msgstr "AppStream 状态："
 
 #. TRANSLATORS: Updating the metadata cache succeeded
-#: tools/ascli-actions-mdata.c:72
+#: tools/ascli-actions-mdata.c:80
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
-#: src/as-pool.c:1209
+#: src/as-pool.c:1336
 msgid "AppStream cache update failed."
 msgstr "AppStream 缓存更新失败。"
 
-#: tools/ascli-actions-mdata.c:82
+#: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
 msgstr "无需更新 AppStream 缓存。"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:133 tools/appstream-cli.c:535
+#: tools/appstream-cli.c:133 tools/appstream-cli.c:533
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
-#: src/as-pool.c:1200
+#: src/as-pool.c:1327
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr "已载入 AppStream 数据池，但忽略了一部分包含错误的元数据。"
@@ -155,11 +155,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "棋盘"
 
-#: tools/ascli-utils.c:278
+#: tools/ascli-utils.c:287
 msgid "Bundle"
 msgstr "套件"
 
-#: src/as-pool.c:1143
+#: src/as-pool.c:1264
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s”不可写。"
@@ -169,7 +169,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "日历"
 
-#: tools/ascli-actions-mdata.c:324
+#: tools/ascli-actions-mdata.c:332
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -181,7 +181,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "纸牌"
 
-#: tools/ascli-utils.c:348
+#: tools/ascli-utils.c:357
 msgid "Categories"
 msgstr "类别"
 
@@ -206,7 +206,7 @@ msgid "Codecs"
 msgstr "编解码器"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:671
+#: tools/appstream-cli.c:669
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "命令“%s”未知。"
@@ -222,18 +222,18 @@ msgstr "沟通和新闻"
 msgid "Component '%s' has no installation candidate."
 msgstr "'%s' 组件没有安装候选版本。"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:365
 msgid "Compulsory for"
 msgstr "强制项目以供"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:557
+#: tools/appstream-cli.c:555
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "将收藏集 XML 转换成 YAML，或是相反。"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:225
-#, c-format, c-format
+#: tools/ascli-actions-mdata.c:233
+#, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "未找到提供“%s;%s”的组件。"
 
@@ -255,7 +255,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "除错器"
 
-#: tools/ascli-utils.c:332
+#: tools/ascli-utils.c:341
 msgid "Default Screenshot URL"
 msgstr "默认屏幕截图 URL"
 
@@ -265,12 +265,12 @@ msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
 
-#: tools/ascli-utils.c:312
+#: tools/ascli-utils.c:321
 msgid "Description"
 msgstr "描述"
 
 #. developer name
-#: tools/ascli-utils.c:300
+#: tools/ascli-utils.c:309
 msgid "Developer"
 msgstr "开发者"
 
@@ -279,7 +279,7 @@ msgstr "开发者"
 msgid "Developer Tools"
 msgstr "开发者工具"
 
-#: tools/appstream-cli.c:554
+#: tools/appstream-cli.c:552
 msgid "Display status information about available AppStream metadata."
 msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
@@ -294,11 +294,11 @@ msgid "Do not use any caches when performing the request."
 msgstr "处理请求时不要使用任何缓存。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:594
+#: tools/appstream-cli.c:592
 msgid "Don't show colored output."
 msgstr "不要显示彩色输出。"
 
-#: tools/appstream-cli.c:545
+#: tools/appstream-cli.c:543
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
 
@@ -327,7 +327,7 @@ msgstr "强制刷新缓存。"
 msgid "Error while loading the metadata pool: %s"
 msgstr "载入元数据池时出错：%s"
 
-#: tools/ascli-utils.c:306
+#: tools/ascli-utils.c:315
 msgid "Extends"
 msgstr "扩展"
 
@@ -415,11 +415,11 @@ msgstr "找到 %i 个组件。"
 msgid "Games"
 msgstr "游戏"
 
-#: tools/appstream-cli.c:541
+#: tools/appstream-cli.c:539
 msgid "Get components which provide the given item."
 msgstr "获取可提供指定项目的组件。"
 
-#: tools/appstream-cli.c:540
+#: tools/appstream-cli.c:538
 msgid "Get information about a component by its ID."
 msgstr "根据 ID 获取相应组件的信息。"
 
@@ -428,7 +428,7 @@ msgstr "根据 ID 获取相应组件的信息。"
 msgid "Graphics & Photography"
 msgstr "图形和摄影"
 
-#: tools/ascli-utils.c:279
+#: tools/ascli-utils.c:288
 msgid "Homepage"
 msgstr "主页"
 
@@ -437,7 +437,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE"
 
-#: tools/ascli-utils.c:280
+#: tools/ascli-utils.c:289
 msgid "Icon"
 msgstr "图标"
 
@@ -445,7 +445,7 @@ msgstr "图标"
 msgid "Iconsets"
 msgstr "图标集"
 
-#: tools/ascli-utils.c:274
+#: tools/ascli-utils.c:283
 msgid "Identifier"
 msgstr "识别码"
 
@@ -454,15 +454,15 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "输入来源"
 
-#: tools/appstream-cli.c:555
+#: tools/appstream-cli.c:553
 msgid "Install a metadata file into the right location."
 msgstr "将元数据文件安装到正确的位置。"
 
-#: tools/appstream-cli.c:551
+#: tools/appstream-cli.c:549
 msgid "Install software matching the component-id."
 msgstr "安装匹配组件 ID 的软件。"
 
-#: tools/ascli-actions-mdata.c:210
+#: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "选取的提供项目类型无效。有效的值为："
 
@@ -486,7 +486,7 @@ msgid "Libraries"
 msgstr "库"
 
 #. license
-#: tools/ascli-utils.c:342
+#: tools/ascli-utils.c:351
 msgid "License"
 msgstr "授权条款"
 
@@ -520,7 +520,7 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "数学"
 
-#: tools/ascli-actions-mdata.c:361
+#: tools/ascli-actions-mdata.c:369
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "“%s”元数据文件并不存在。"
@@ -543,7 +543,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "音乐播放器"
 
-#: tools/ascli-utils.c:275
+#: tools/ascli-utils.c:284
 msgid "Name"
 msgstr "名称"
 
@@ -552,7 +552,7 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr "新闻"
 
-#: tools/ascli-actions-mdata.c:179
+#: tools/ascli-actions-mdata.c:187
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "未找到符合“%s”的组件。"
@@ -565,9 +565,11 @@ msgstr "无图标。"
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr "未找到可用的软件包管理器 CLI。请确定已安装类似“pkcon”（PackageKit 的一部分）的程序。"
+msgstr ""
+"未找到可用的软件包管理器 CLI。请确定已安装类似“pkcon”（PackageKit 的一部分）"
+"的程序。"
 
-#: tools/ascli-actions-mdata.c:203
+#: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for defined."
 msgstr "没有定义要搜索的提供项目值。"
 
@@ -578,11 +580,11 @@ msgstr "办公"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:171
-#, c-format, c-format
+#, c-format
 msgid "Option '%s' is unknown."
 msgstr "选项“%s”未知。"
 
-#: tools/ascli-utils.c:277
+#: tools/ascli-utils.c:286
 msgid "Package"
 msgstr "软件包"
 
@@ -597,11 +599,11 @@ msgid "Print detailed output about found components."
 msgstr "打印关于寻找到的组件的详细输出。"
 
 #. project group
-#: tools/ascli-utils.c:339
+#: tools/ascli-utils.c:348
 msgid "Project Group"
 msgstr "项目群组"
 
-#: tools/ascli-utils.c:384
+#: tools/ascli-utils.c:393
 msgid "Provided Items"
 msgstr "提供的项目"
 
@@ -613,11 +615,11 @@ msgstr "Python 2"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:546
+#: tools/appstream-cli.c:544
 msgid "Rebuild the component metadata cache."
 msgstr "重建组件元数据缓存。"
 
-#: tools/appstream-cli.c:552
+#: tools/appstream-cli.c:550
 msgid "Remove software matching the component-id."
 msgstr "卸载匹配 component-id 的软件。"
 
@@ -631,17 +633,19 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "角色扮演"
 
-#: tools/appstream-cli.c:175 tools/appstream-cli.c:612
+#: tools/appstream-cli.c:175 tools/appstream-cli.c:610
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 
 #: tools/appstream-cli.c:177
-#, c-format, c-format
+#, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr "运行“%s --help”以查看可用命令和选项列表；“%s %s --help”可查看专属于某个子命令的选项列表。"
+msgstr ""
+"运行“%s --help”以查看可用命令和选项列表；“%s %s --help”可查看专属于某个子命令"
+"的选项列表。"
 
 #: src/as-provided.c:156
 msgid "Runtime Firmware"
@@ -657,7 +661,7 @@ msgstr "扫描"
 msgid "Science"
 msgstr "科学"
 
-#: tools/appstream-cli.c:539
+#: tools/appstream-cli.c:537
 msgid "Search the component database."
 msgstr "搜索组件数据库。"
 
@@ -667,12 +671,12 @@ msgid "Security"
 msgstr "安全"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:589
+#: tools/appstream-cli.c:587
 msgid "Show extra debugging information."
 msgstr "显示额外的调试信息。"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:583
+#: tools/appstream-cli.c:581
 msgid "Show the program version."
 msgstr "显示程序版本."
 
@@ -687,11 +691,11 @@ msgid "Strategy"
 msgstr "策略"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:537
+#: tools/appstream-cli.c:535
 msgid "Subcommands:"
 msgstr "子命令："
 
-#: tools/ascli-utils.c:276
+#: tools/ascli-utils.c:285
 msgid "Summary"
 msgstr "摘要"
 
@@ -723,25 +727,25 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
-"本工具可用于读写、验证与变换 AppStream XML 或 YAML 元数据；此外还可访问系统元数据库，进行诸如搜索提供某种 mime "
-"类型的软件，并按照其软件组件辨识码安装。"
+"本工具可用于读写、验证与变换 AppStream XML 或 YAML 元数据；此外还可访问系统元"
+"数据库，进行诸如搜索提供某种 mime 类型的软件，并按照其软件组件辨识码安装。"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:387
+#: tools/ascli-actions-mdata.c:396
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr "无法转换文件：无法判定输出格式，请使用“--format=”明确设置。"
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
-#: tools/ascli-actions-mdata.c:174
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "未找到符合 %s 的组件！"
 
-#: tools/ascli-actions-mdata.c:141 tools/ascli-actions-mdata.c:263
+#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
 #: tools/ascli-actions-pkgmgr.c:93
-#, c-format, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "未找到 id 为“%s”的组件！"
 
@@ -750,7 +754,7 @@ msgstr "未找到 id 为“%s”的组件！"
 msgid "Unable to spawn package manager: %s"
 msgstr "无法启动软件包管理器：%s"
 
-#: tools/ascli-actions-mdata.c:319
+#: tools/ascli-actions-mdata.c:327
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "无法写入到“%s”，无法安装元信息文件。"
@@ -760,23 +764,23 @@ msgstr "无法写入到“%s”，无法安装元信息文件。"
 msgid "Utilities"
 msgstr "公用程序"
 
-#: tools/appstream-cli.c:548
+#: tools/appstream-cli.c:546
 msgid "Validate AppStream XML files for issues."
 msgstr "验证 AppStream XML 文件以寻找问题。"
 
-#: tools/appstream-cli.c:549
+#: tools/appstream-cli.c:547
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
-#: tools/ascli-actions-validate.c:177 tools/ascli-actions-validate.c:211
+#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:209
 msgid "Validation failed."
 msgstr "验证失败。"
 
-#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:209
+#: tools/ascli-actions-validate.c:173 tools/ascli-actions-validate.c:207
 msgid "Validation was successful."
 msgstr "验证成功。"
 
-#: tools/appstream-cli.c:543
+#: tools/appstream-cli.c:541
 msgid "Value of the item that should be found."
 msgstr "应该要找到的物品值。"
 
@@ -810,46 +814,46 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "文字处理器"
 
-#: tools/appstream-cli.c:560
+#: tools/appstream-cli.c:558
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr "您可以借由传递“--help”给子命令来查找子命令专属的选项信息。"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
-#: tools/ascli-actions-mdata.c:62
+#: tools/ascli-actions-mdata.c:70
 msgid "You might need superuser permissions to perform this action."
 msgstr "你可能需要超级用户权限以进行此动作。"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:611
+#: tools/appstream-cli.c:609
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:129 tools/ascli-actions-mdata.c:251
+#: tools/ascli-actions-mdata.c:137 tools/ascli-actions-mdata.c:259
 #: tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "您需要指定一个组件-ID。"
 
-#: tools/ascli-actions-validate.c:163
+#: tools/ascli-actions-validate.c:161
 msgid "You need to specify a file to validate!"
 msgstr "您需要指定用来验证的文件！"
 
-#: tools/ascli-actions-mdata.c:306
+#: tools/ascli-actions-mdata.c:314
 msgid "You need to specify a metadata file."
 msgstr "你需要指定一个元数据文件。"
 
-#: tools/ascli-actions-validate.c:195
+#: tools/ascli-actions-validate.c:193
 msgid "You need to specify a root directory to start validation!"
 msgstr "您需要指定根目录以开始验证！"
 
-#: tools/ascli-actions-mdata.c:161
+#: tools/ascli-actions-mdata.c:169
 msgid "You need to specify a term to search for."
 msgstr "您需要指定用来搜索的关键字。"
 
-#: tools/ascli-actions-mdata.c:354
+#: tools/ascli-actions-mdata.c:362
 msgid "You need to specify an input and output file."
 msgstr "你需要指定输入和输出文件。"
 
@@ -859,10 +863,11 @@ msgstr "你需要指定输入和输出文件。"
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:101
+#: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
-"app;application;package;program;programme;suite;tool;应用;程序;包;程序;套装;工具;套件;软件"
+"app;application;package;program;programme;suite;tool;应用;程序;包;程序;套装;"
+"工具;套件;软件"
 
 #~ msgid "Can not search for unknown component type."
 #~ msgstr "无法搜索未知组件类型。"
