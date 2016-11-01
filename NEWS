@@ -1,3 +1,39 @@
+Version 0.10.3
+~~~~~~~~~~~~~~
+Released: 2016-11-01
+
+Notes:
+ * The release breaks the Qt library API. Patches to make KDE Discover use the new API exist
+   in its Git master branch, and will be available with Plasma 5.9.
+   The patches will likely not enter the stable branch, so if you want to upgrade AppStream,
+   you might need to ship patches for Discover downstream to use the new API.
+
+Features:
+ * qt: Update API to reflect more recent AppStream features, be easier to
+   extend and also a bit faster due to removing needless data conversions.
+   (Matthias Klumpp, Aleix Pol)
+ * Make components record their origin kind internally (Matthias Klumpp)
+ * Provide a file:/ URL for icons when we know a file name (Matthias Klumpp)
+ * Add support for Snappy/Snap bundles (Matthias Klumpp)
+
+Specification:
+ * Add new AppStream logo and button (Ken Vermette)
+ * Add new AppStream logo and buttons to the docs (Matthias Klumpp)
+
+Bugfixes:
+ * ascli: When converting, always include all translations (Matthias Klumpp)
+ * Match .desktop files and metainfo data properly if ID is lacking .desktop suffix (Matthias Klumpp)
+
+Translation:
+ * Chinese (Taiwan)
+   - Mingye Wang
+ * Chinese (China)
+   - Mingye Wang
+ * English (United Kingdom)
+   - Sandy Kurniawan
+ * Indonesian
+   - Sandy Kurniawan
+
 Version 0.10.2
 ~~~~~~~~~~~~~~
 Released: 2016-10-10
