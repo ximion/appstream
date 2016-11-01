@@ -511,7 +511,7 @@ as_pool_refine_data (AsPool *pool)
 
 		/* validate the component */
 		if (!as_component_is_valid (cpt)) {
-			g_debug ("WARNING: Skipped component '%s': The component is invalid.", as_component_get_id (cpt));
+			g_debug ("WARNING: Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
 			ret = FALSE;
 			continue;
 		}

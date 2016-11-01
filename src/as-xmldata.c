@@ -758,7 +758,7 @@ as_component_set_kind_from_node (AsComponent *cpt, xmlNode *node)
 		ckind = as_component_kind_from_string (cpttype);
 		as_component_set_kind (cpt, ckind);
 		if (ckind == AS_COMPONENT_KIND_UNKNOWN)
-			g_debug ("An unknown component was found: %s", cpttype);
+			g_debug ("Found unknown component type: %s", cpttype);
 	}
 }
 
