@@ -25,13 +25,41 @@
 		<para>
 			Software-centers handling <literal>appstream://</literal> URLs must provide a handler for the <literal>x-scheme-handler/appstream</literal>
 			mimetype.
-			An AppStream URL follows the schema <code>appstream://%{component-id}</code>.
+			An AppStream URL follows the schema <code>appstream:%{component-id}</code>.
 		</para>
 		<para>
 			Example HTML code:
 		</para>
-		<programlisting language="HTML"><![CDATA[<a href="appstream://org.kde.discover.desktop">Install KDE Discover</a>
-<a href="appstream://org.gnome.Software.desktop">Install GNOME-Software</a>
-<a href="appstream://org.freedesktop.AppStream">Install libappstream</a>]]></programlisting>
+		<programlisting language="HTML"><![CDATA[<a href="appstream:org.kde.discover.desktop">Install KDE Discover</a>
+<a href="appstream:org.gnome.Software.desktop">Install GNOME-Software</a>
+<a href="appstream:org.freedesktop.AppStream">Install libappstream</a>]]></programlisting>
+	</section>
+
+	<section id="spec-asurl-button">
+		<title>AppStream Buttons</title>
+		<para>
+			If you want to allow users to open your software in their local software center from your website, you might want to use
+			one of the easily recognizable AppStream buttons for your <code>appstream:</code> link.
+		</para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="images/appstream-button1.svg" />
+			</imageobject>
+			<caption>
+				<para>
+					<ulink url="https://github.com/ximion/appstream/blob/master/docs/sources/images/appstream-button1.svg">SVG</ulink>
+				</para>
+			</caption>
+		</mediaobject>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="images/appstream-button2.svg" />
+			</imageobject>
+			<caption>
+				<para>
+					<ulink url="https://github.com/ximion/appstream/blob/master/docs/sources/images/appstream-button2.svg">SVG</ulink>
+				</para>
+			</caption>
+		</mediaobject>
 	</section>
 </section>
