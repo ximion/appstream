@@ -48,7 +48,11 @@ class APPSTREAMQT_EXPORT Image {
         enum Kind {
             KindUnknown,
             KindSource,
-            KindThumbnail
+            KindThumbnail,
+
+            //for backwards compatibility
+            Plain = KindSource,
+            Thumbnail = KindThumbnail
         };
         Q_ENUM(Kind)
 
