@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-11-01 16:24+0100\n"
-"PO-Revision-Date: 2016-11-01 18:13+0000\n"
+"PO-Revision-Date: 2016-11-07 18:39+0000\n"
 "Last-Translator: Sandy Kurniawan <sandy.13421065@student.ubl.ac.id>\n"
 "Language-Team: Indonesian "
 "<https://hosted.weblate.org/projects/appstream/translations/id/>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.9-dev\n"
+"X-Generator: Weblate 2.9\n"
 
 #: tools/appstream-cli.c:136
 #, fuzzy, c-format
 msgid "'%s' command"
-msgstr "perintah '%s'"
+msgstr "'%s' perintah"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -59,17 +59,17 @@ msgstr "Suatu tipe butir (mis. lib, bin, python3, ...)"
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
 #, fuzzy
 msgid "An utility to work with AppStream metadata"
-msgstr "Sebuah utilitas untuk bekerja dengan AppStream metadata"
+msgstr "Utilitas untuk bekerja dengan AppStream metadata"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
 #, fuzzy
 msgid "AppStream CLI"
-msgstr "AppStream CLI"
+msgstr "CLI AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:627
-#, c-format
+#, c-format, fuzzy
 msgid "AppStream CLI tool version: %s"
 msgstr "Alat CLI AppStream versi: %s"
 
@@ -111,7 +111,7 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
-"AppStream adalah lintas-distribusi spesifikasi untuk menyediakan metadata "
+"AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata "
 "tentang komponen perangkat lunak."
 
 #: src/as-category.c:129
