@@ -700,6 +700,8 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			}
+		} else if (g_strcmp0 (node_name, "suggests") == 0) {
+			as_validator_check_children_quick (validator, iter, "id", cpt);
 		} else if ((g_strcmp0 (node_name, "metadata") == 0) || (g_strcmp0 (node_name, "kudos") == 0)) {
 			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
 			 * especially if we might standardize at leat the <kudos/> tag one day, but we should still complain about those tags to make
@@ -817,6 +819,24 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 						AS_ISSUE_IMPORTANCE_ERROR,
 						AS_ISSUE_KIND_TAG_MISSING,
 						"This 'localization' component does not define any languages this localization is for.");
+		}
+	}
+
+	/* validate suggestions */
+	if (as_component_get_suggested (cpt)->len > 0) {
+		guint j;
+		GPtrArray *sug_array;
+
+		sug_array = as_component_get_suggested (cpt);
+		for (j = 0; j < sug_array->len; j++) {
+			AsSuggested *prov = AS_SUGGESTED (g_ptr_array_index (sug_array, j));
+			if (mode == AS_FORMAT_STYLE_METAINFO) {
+				if (as_suggested_get_kind (prov) != AS_SUGGESTED_KIND_UPSTREAM)
+					as_validator_add_issue (validator, NULL,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_VALUE_WRONG,
+							"Suggestions of any type other than 'upstream' are not allowed in metainfo files (type was '%s')", as_suggested_kind_to_string (as_suggested_get_kind (prov)));
+			}
 		}
 	}
 
