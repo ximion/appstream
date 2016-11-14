@@ -37,7 +37,8 @@ public:
         m_prov = as_provided_new();
     }
 
-    ProvidedData(AsProvided *prov) : m_prov(prov)
+    ProvidedData(AsProvided *prov)
+        : m_prov(prov)
     {
         g_object_ref(m_prov);
     }
@@ -111,6 +112,14 @@ QStringList Provided::items() const
 bool Provided::hasItem(const QString& item) const
 {
     return as_provided_has_item (d->m_prov, qPrintable(item));
+}
+
+bool Provided::isEmpty() const
+{
+    auto array = as_provided_get_items(d->m_prov);
+    if (!array)
+        return true;
+    return array->len == 0;
 }
 
 QDebug operator<<(QDebug s, const AppStream::Provided& Provided) {

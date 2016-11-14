@@ -66,6 +66,8 @@ class APPSTREAMQT_EXPORT Provided {
         QStringList items() const;
         bool hasItem(const QString &item) const;
 
+        bool isEmpty() const;
+
     private:
         QSharedDataPointer<ProvidedData> d;
 };

@@ -290,7 +290,10 @@ QList<AppStream::Component> Component::addons() const
 
 QUrl Component::url(Component::UrlKind kind) const
 {
-    return QUrl(as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind)));
+    auto url = as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind));
+    if (url == NULL)
+        return QUrl();
+    return QUrl(url);
 }
 
 QList<Icon> Component::icons() const
@@ -330,6 +333,8 @@ QList<Provided> Component::provided() const
 AppStream::Provided Component::provided(Provided::Kind kind) const
 {
     auto prov = as_component_get_provided_for_kind(m_cpt, (AsProvidedKind) kind);
+    if (prov == NULL)
+        return Provided();
     return Provided(prov);
 }
 
