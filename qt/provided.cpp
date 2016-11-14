@@ -66,21 +66,20 @@ Provided::Kind Provided::stringToKind(const QString& kindString)
     return Provided::Kind(as_provided_kind_from_string(qPrintable(kindString)));
 }
 
-Provided::Provided(const Provided& other) : d(other.d) {
+Provided::Provided(const Provided& other)
+    : d(other.d)
+{}
 
-}
+Provided::Provided(_AsProvided *prov)
+    : d(new ProvidedData(prov))
+{}
 
-Provided::Provided(_AsProvided *prov) : d(new ProvidedData(prov)) {
+Provided::Provided()
+    : d(new ProvidedData)
+{}
 
-}
-
-Provided::Provided() : d(new ProvidedData) {
-
-}
-
-Provided::~Provided() {
-
-}
+Provided::~Provided()
+{}
 
 Provided& Provided::operator=(const Provided& other)
 {
