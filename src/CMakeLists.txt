@@ -8,12 +8,14 @@ find_library(M_LIB m)
 pkg_check_modules(YAML REQUIRED yaml-0.1)
 
 if (STEMMING)
+	find_path(SNOWBALL_INCLUDE_DIR libstemmer.h HINTS "/usr/include" "/usr/include/libstemmer")
 	find_library(SNOWBALL_LIB stemmer)
-	if (NOT SNOWBALL_LIB)
+	if (NOT SNOWBALL_LIB OR NOT SNOWBALL_INCLUDE_DIR)
 		message (FATAL_ERROR "Stemming support is enabled, but libstemmer was not found. Please install the Snowball development files.")
 	endif ()
 else ()
 	set(SNOWBALL_LIB "")
+	set(SNOWBALL_INCLUDE_DIR "")
 endif ()
 
 include(GObjectIntrospectionMacros)
@@ -105,6 +107,7 @@ include_directories(${CMAKE_BINARY_DIR}
 		    ${GIO2_INCLUDE_DIRS}
 		    ${LIBXML2_INCLUDE_DIR}
 		    ${YAML_INCLUDE_DIR}
+		    ${SNOWBALL_INCLUDE_DIR}
 )
 
 add_definitions("-DAS_COMPILATION")
