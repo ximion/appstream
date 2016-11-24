@@ -30,6 +30,7 @@
 #include "screenshot.h"
 #include "release.h"
 #include "bundle.h"
+#include "suggested.h"
 
 using namespace AppStream;
 
@@ -383,6 +384,19 @@ Bundle Component::bundle(Bundle::Kind kind) const
     if (bundle == NULL)
         return Bundle();
     return Bundle(bundle);
+}
+
+QList<AppStream::Suggested> AppStream::Component::suggested() const
+{
+    QList<Suggested> res;
+
+    auto suggestions = as_component_get_suggested(m_cpt);
+    res.reserve(suggestions->len);
+    for (uint i = 0; i < suggestions->len; i++) {
+        auto suggestion = AS_SUGGESTED (g_ptr_array_index (suggestions, i));
+        res.append(Suggested(suggestion));
+    }
+    return res;
 }
 
 bool Component::isValid() const
