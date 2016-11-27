@@ -95,7 +95,8 @@ void AppStream::Suggested::addSuggested(const QString& id)
     as_suggested_add_id(d->m_suggested, qPrintable(id));
 }
 
-QDebug operator<<(QDebug s, const AppStream::Suggested& image) {
-    s.nospace() << "AppStream::Suggested(" << image.ids() << ")";
+QDebug operator<<(QDebug s, const AppStream::Suggested& suggested)
+{
+    s.nospace() << "AppStream::Suggested(" << suggested.ids() << ")";
     return s.space();
 }
