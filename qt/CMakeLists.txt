@@ -31,6 +31,7 @@ set(APPSTREAMQT_SRC
     provided.cpp
     release.cpp
     bundle.cpp
+    suggested.cpp
 )
 
 set(APPSTREAMQT_PUBLIC_HEADERS
@@ -43,6 +44,7 @@ set(APPSTREAMQT_PUBLIC_HEADERS
     provided.h
     release.h
     bundle.h
+    suggested.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}

@@ -35,6 +35,7 @@ namespace AppStream {
 class Icon;
 class Screenshot;
 class Release;
+class Suggested;
 
 class ComponentData;
 
@@ -146,6 +147,8 @@ Q_GADGET
 
         QList<AppStream::Bundle> bundles() const;
         AppStream::Bundle bundle(Bundle::Kind kind) const;
+
+        QList<AppStream::Suggested> suggested() const;
 
         bool isValid() const;
 
