@@ -1,3 +1,25 @@
+Version 0.10.4
+~~~~~~~~~~~~~~
+Released: 2016-11-27
+
+Features:
+ * qt: Introduce AppStream::Suggested in the Qt frontend (Aleix Pol)
+
+Bugfixes:
+ * Properly validate suggests tag (Matthias Klumpp)
+ * qt: Add an empty check to Provided and return it if necessary (Matthias Klumpp)
+ * Add path search to find libstemmer headers (#91) (Neal Gompa)
+
+Translation:
+ * Indonesian
+   - John Vandenberg
+   - Prasasto Adi
+   - Sandy Kurniawan
+ * English (United Kingdom)
+   - John Vandenberg
+ * Lithuanian
+   - Moo
+
 Version 0.10.3
 ~~~~~~~~~~~~~~
 Released: 2016-11-01
