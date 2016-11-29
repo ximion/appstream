@@ -80,10 +80,10 @@ install(FILES ${APPSTREAMQT_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/appstrea
 
 set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/AppStreamQt)
 
-configure_file(
+configure_package_config_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/AppStreamQtConfig.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfig.cmake"
-  @ONLY
+  INSTALL_DESTINATION ${ConfigPackageLocation}
 )
 
 install(EXPORT AppStreamLibsTarget

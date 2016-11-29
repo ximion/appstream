@@ -119,6 +119,7 @@ add_definitions("-Werror=implicit-function-declaration" "-Wno-unused-parameter")
 # enable C++11
 set(CMAKE_CXX_STANDARD "11")
 
+include(CMakePackageConfigHelpers)
 find_package(PkgConfig REQUIRED)
 
 add_subdirectory(src)
