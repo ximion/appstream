@@ -10,42 +10,42 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-11-01 16:24+0100\n"
-"PO-Revision-Date: 2016-08-15 18:48+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: Turkish (http://www.transifex.com/freedesktop/appstream/"
-"language/tr/)\n"
+"PO-Revision-Date: 2016-11-29 20:27+0000\n"
+"Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
+"Language-Team: Turkish "
+"<https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 2.10-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "'%s' komutu"
 
 #: src/as-category.c:168
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "Sınıflandırmalar"
+msgstr "3B Grafikler"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Eylem"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:386
 msgid "Add-ons"
-msgstr ""
+msgstr "Eklentiler"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Macera"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
@@ -63,9 +63,8 @@ msgstr ""
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "AppStream Durumu:"
+msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:627
@@ -112,32 +111,32 @@ msgstr ""
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Arcade"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Yapay Zeka"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomi"
 
 #: src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomi"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr ""
+msgstr "Ses ve Video"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Ses Oluşturma ve Düzenleme"
 
 #: src/as-provided.c:140
 msgid "Binaries"
@@ -146,12 +145,12 @@ msgstr "İkili Kodlar"
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Bloklar"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Tahta"
 
 #: tools/ascli-utils.c:287
 msgid "Bundle"
@@ -165,7 +164,7 @@ msgstr "Önbellek konumu '%s', yazılabilir değil."
 #: src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Takvim"
 
 #: tools/ascli-actions-mdata.c:332
 #, c-format
@@ -177,7 +176,7 @@ msgstr ""
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Kart"
 
 #: tools/ascli-utils.c:357
 msgid "Categories"
@@ -186,22 +185,22 @@ msgstr "Sınıflandırmalar"
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Sohbet"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kimya"
 
 #: src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kimya"
 
 #: src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Kodekler"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:669
@@ -212,7 +211,7 @@ msgstr "'%s' komutu bilinmiyor."
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "İletişim ve Haberler"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -231,9 +230,9 @@ msgstr ""
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:233
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "'%s;%s' sağlayan bileşen bulunamadı!"
+msgstr "'%s::%s' sağlayan bileşen bulunamadı."
 
 #: src/as-provided.c:154
 msgid "DBus Session Services"
@@ -246,17 +245,16 @@ msgstr "DBus Sistem Hizmetleri"
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Veritabanı"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Hata Ayıklayıcılar"
 
 #: tools/ascli-utils.c:341
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "Örnek Ekran Görüntüsü Adresi"
+msgstr "Öntanımlı Ekran Görüntüsü Adresi"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
@@ -275,9 +273,8 @@ msgstr "Geliştirici"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Geliştirici"
+msgstr "Geliştirici Araçları"
 
 #: tools/appstream-cli.c:552
 msgid "Display status information about available AppStream metadata."
@@ -291,15 +288,13 @@ msgstr "Dağıtım üst verisi:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
-#, fuzzy
 msgid "Do not use any caches when performing the request."
-msgstr "İstekte bulunurken Xapian belleğini kullanma"
+msgstr "Talebi yerine getirirken herhangi bir önbellek kullanma."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:592
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "Çıktıyı renklendirilmiş gösterme"
+msgstr "Renklendirilmiş çıktı gösterme."
 
 #: tools/appstream-cli.c:543
 msgid "Dump raw XML metadata for a component matching the ID."
@@ -322,9 +317,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:224
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "Ön belleğin yenilenmesini zorla"
+msgstr "Ön belleği yenilenmeye zorla."
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
@@ -399,7 +393,6 @@ msgid "Fonts"
 msgstr "Yazı Tipleri"
 
 #: src/as-category.c:211
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Yazı Tipleri"
@@ -507,17 +500,13 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr ""
-"Ön belleğin yeniden oluşturulması için AppStream meta verisinin konumunu "
-"elle ayarlayın"
+msgstr "Taranacak AppStream üst verisinin konumunu elle ayarlayın."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually set the location of the AppStream cache."
-msgstr "AppStream ön belleğinin konumunu elle ayarlayın"
+msgstr "AppStream önbelleğinin konumunu elle ayarlayın."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -587,9 +576,9 @@ msgstr ""
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "Option '%s' is unknown."
-msgstr "'%s' komutu bilinmiyor."
+msgstr "'%s' seçeneği bilinmiyor."
 
 #: tools/ascli-utils.c:286
 msgid "Package"
@@ -602,9 +591,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
-#, fuzzy
 msgid "Print detailed output about found components."
-msgstr "Bulunan bileşenlerin ayrıntılı çıktılarını yazdır"
+msgstr "Bulunan bileşenler hakkında ayrıntılı çıktı yazdır."
 
 #. project group
 #: tools/ascli-utils.c:348
