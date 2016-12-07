@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-11-01 16:24+0100\n"
-"PO-Revision-Date: 2016-10-08 17:47+0000\n"
-"Last-Translator: Rafael Capaci Pereira <rafaelcp123@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2016-12-07 16:48+0000\n"
+"Last-Translator: dsboger <dsboger@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) "
+"<https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.9-dev\n"
+"X-Generator: Weblate 2.10-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -50,7 +50,7 @@ msgstr "Aventuras"
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
 msgid "Also print pedantic hints when validating."
-msgstr ""
+msgstr "Mostrar também dicas pedantes ao validar."
 
 #: tools/appstream-cli.c:540
 msgid "An item type (e.g. lib, bin, python3, ...)"
@@ -100,6 +100,8 @@ msgstr "Interface de linha de comando do AppStream"
 msgid ""
 "AppStream data pool was loaded, but some metadata was ignored due to errors."
 msgstr ""
+"Pool de dados AppStream foi carregado, mas alguns metadados foram ignorados "
+"por causa de erros."
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
@@ -107,6 +109,8 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream é uma especificação independente de distribuição para provimento "
+"de metadados sobre componentes de software."
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -150,7 +154,7 @@ msgstr "Bloqueados"
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Tabuleiro"
 
 #: tools/ascli-utils.c:287
 msgid "Bundle"
@@ -260,9 +264,12 @@ msgstr "URL padrão para captura de tela"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
+#, fuzzy
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
+"Usar formato indicado como padrão para metadados (valores válidos são 'xml' "
+"e 'yaml')."
 
 #: tools/ascli-utils.c:321
 msgid "Description"
@@ -325,7 +332,7 @@ msgstr "Reforçar uma atualização da cache."
 #: tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "Erro ao carregar pool de metadados: %s"
 
 #: tools/ascli-utils.c:315
 msgid "Extends"
@@ -401,9 +408,9 @@ msgstr "Fontes"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:136
-#, c-format
+#, c-format, fuzzy
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "%i componentes encontrados em diretórios de versões antigas."
 
 #: tools/ascli-actions-misc.c:121
 #, c-format
@@ -426,7 +433,7 @@ msgstr "Obtém informação sobre um componente por seu ID."
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Gráficos & Fotografia"
 
 #: tools/ascli-utils.c:288
 msgid "Homepage"
@@ -452,7 +459,7 @@ msgstr "Identificador"
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Fontes de entrada"
 
 #: tools/appstream-cli.c:553
 msgid "Install a metadata file into the right location."
@@ -620,7 +627,7 @@ msgstr "Python 3"
 
 #: tools/appstream-cli.c:544
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Reconstruir o cache de metadados de componentes."
 
 #: tools/appstream-cli.c:550
 msgid "Remove software matching the component-id."
@@ -634,7 +641,7 @@ msgstr "Robótica"
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "RPGs"
 
 #: tools/appstream-cli.c:175 tools/appstream-cli.c:610
 #, c-format
@@ -659,7 +666,7 @@ msgstr "Firmware de tempo real"
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Digitalização"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
@@ -717,7 +724,7 @@ msgstr "Monitoramento do sistema"
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Emuladores de terminal"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
@@ -726,12 +733,17 @@ msgstr "Editores de texto"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
+#, fuzzy
 msgid ""
 "This tool allows reading, writing, validating and transforming AppStream XML "
 "or YAML metadata. It also allows accessing the system metadata pool to for "
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
+"Esta ferramenta permite ler, escrever, validar e transformar metadados "
+"AppStream em XML ou YAML. Também permite acessar o pool de metadados do "
+"sistema para, por exemplo, buscar por um software que suporta um formato de "
+"arquivo específico e instalar usando seu identificador de componente."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -796,7 +808,7 @@ msgstr "Valor do item que deve ser encontrado."
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr ""
+msgstr "Gráficos vetoriais"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
@@ -821,13 +833,16 @@ msgstr "Navegadores"
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Processadores de texto"
 
 #: tools/appstream-cli.c:558
+#, fuzzy
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Você pode encontrar informações sobre opções específicas de um sub-comando "
+"passando \"--help\" para o sub-comando."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
