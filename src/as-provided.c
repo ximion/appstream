@@ -23,6 +23,7 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <glib.h>
+#include <fnmatch.h>
 
 #include "as-utils.h"
 
@@ -244,6 +245,12 @@ as_provided_has_item (AsProvided *prov, const gchar *item)
 		const gchar *pitem = (const gchar*) g_ptr_array_index (priv->items, i);
 		if (g_strcmp0 (pitem, item) == 0)
 			return TRUE;
+
+		/* modalias entries may provide wildcards, we match them by default */
+		if (priv->kind == AS_PROVIDED_KIND_MODALIAS) {
+			if (fnmatch (pitem, item, FNM_NOESCAPE) == 0)
+				return TRUE;
+		}
 	}
 
 	return FALSE;
