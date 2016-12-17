@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Serge Vylekzhanin <vylekzhanin@mail.ru>, 2014-2016
-# Igor <f2404@yandex.ru>, 2019.
+# Igor <f2404@yandex.ru>, 2019, 2021.
 # A <yoyotax@protonmail.com>, 2020.
 # Yaroslav Malykh <yaroslav.malykh@gmail.com>, 2020, 2021.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
@@ -35,15 +35,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2021-12-21 16:55+0000\n"
-"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
+"PO-Revision-Date: 2021-12-22 15:43+0000\n"
+"Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.10\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2341,8 +2341,7 @@ msgstr "Установить вручную местоположение кэш�
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Установить вручную местоположение метаданных AppStream для сканирования."
+msgstr "Установить вручную местоположение метаданных AppStream для сканирования."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
@@ -2353,8 +2352,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Формат метаданных по умолчанию (допустимые значения: \"xml\" и \"yaml\")."
+msgstr "Формат метаданных по умолчанию (допустимые значения: \"xml\" и \"yaml\")."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:101
@@ -2412,9 +2410,7 @@ msgstr ""
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Запустите \"%s --help\", чтобы увидеть список доступных команд и опций, или "
-"\"%s %s --help\", чтобы увидеть список опций для конкретной команды."
+msgstr "Запустите \"%s --help\", чтобы увидеть список доступных команд и опций, или \"%s %s --help\", чтобы увидеть список опций для конкретной команды."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2451,9 +2447,7 @@ msgstr "Установите файл для текущего пользоват
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Вам необходимо представить как минимум два номера версий для сравнения как "
-"параметры."
+msgstr "Вам необходимо представить как минимум два номера версий для сравнения как параметры."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2465,17 +2459,13 @@ msgstr "Неизвестный оператор сравнения: \"%s\". Пр
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Слишком много параметров: нужно два номера версий или номера версий и "
-"оператор сравнения."
+msgstr "Слишком много параметров: нужно два номера версий или номера версий и оператор сравнения."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Использовать заданный файл .desktop, чтобы заполнить основные поля в файле "
-"метаинформации."
+msgstr "Использовать заданный файл .desktop, чтобы заполнить основные поля в файле метаинформации."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
@@ -2554,9 +2544,7 @@ msgstr "Подкоманды:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Вы можете получить информацию об опциях команды, запустив её с параметром "
-"\"--help\"."
+msgstr "Вы можете получить информацию об опциях команды, запустив её с параметром \"--help\"."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2631,15 +2619,12 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1186
 msgid "Install software matching the component-ID."
-msgstr ""
-"Установить программное обеспечение, соответствующее идентификатору "
-"компоненты."
+msgstr "Установить программное обеспечение, соответствующее идентификатору компоненты."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
 #: tools/appstreamcli.c:1191
 msgid "Remove software matching the component-ID."
-msgstr ""
-"Удалить программное обеспечение, соответствующее идентификатору компоненты."
+msgstr "Удалить программное обеспечение, соответствующее идентификатору компоненты."
 
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1197
@@ -2673,8 +2658,7 @@ msgstr "Сравнить два номера версий."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Создать шаблон для файла метаинформации (будет заполнен апстрим-проектом)."
+msgstr "Создать шаблон для файла метаинформации (будет заполнен апстрим-проектом)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2803,9 +2787,7 @@ msgstr "Файл метаданных \"%s\" не существует."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Невозможно конвертировать файл: не удалось определить выходной формат, "
-"пожалуйста, укажите его явно, используя \"--format=\"."
+msgstr "Невозможно конвертировать файл: не удалось определить выходной формат, пожалуйста, укажите его явно, используя \"--format=\"."
 
 #: tools/ascli-actions-mdata.c:456
 #, c-format
@@ -2820,18 +2802,14 @@ msgstr "Версия"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Вам необходимо указать тип программного компонента AppStream для генерации "
-"шаблона. Возможные значения:"
+msgstr "Вам необходимо указать тип программного компонента AppStream для генерации шаблона. Возможные значения:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Тип программного компонента \"%s\" не является допустимым в AppStream. "
-"Возможные значения:"
+msgstr "Тип программного компонента \"%s\" не является допустимым в AppStream. Возможные значения:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
