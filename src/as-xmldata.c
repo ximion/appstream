@@ -854,6 +854,33 @@ as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
 }
 
 /**
+ * as_xml_process_custom_tag:
+ */
+static void
+as_xml_process_custom_tag (xmlNode *node, AsComponent *cpt)
+{
+	xmlNode *iter;
+	GHashTable *custom;
+
+	custom = as_component_get_custom (cpt);
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		gchar *key_str = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		if (g_strcmp0 ((gchar*) iter->name, "value") != 0)
+			continue;
+
+		key_str = (gchar*) xmlGetProp (iter, (xmlChar*) "key");
+		if (key_str == NULL)
+			continue;
+		g_hash_table_insert (custom,
+				     key_str,
+				     as_xml_get_node_value (iter));
+	}
+}
+
+/**
  * as_xmldata_parse_component_node:
  */
 void
@@ -1059,6 +1086,8 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
 			as_xml_process_suggests_tag (iter, cpt);
+		} else if (g_strcmp0 (node_name, "custom") == 0) {
+			as_xml_process_custom_tag (iter, cpt);
 		}
 	}
 
@@ -1750,6 +1779,36 @@ as_xmldata_serialize_suggests (AsXMLData *xdt, AsComponent *cpt, xmlNode *cptnod
 }
 
 /**
+ * as_xml_serialize_custom:
+ */
+static void
+as_xml_serialize_custom (AsComponent *cpt, xmlNode *cptnode)
+{
+	xmlNode *node;
+	GHashTable *custom;
+	GHashTableIter iter;
+	gpointer key, value;
+
+	custom = as_component_get_custom (cpt);
+	if (g_hash_table_size (custom) == 0)
+		return;
+
+	node = xmlNewChild (cptnode, NULL, (xmlChar*) "custom", NULL);
+	g_hash_table_iter_init (&iter, custom);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		xmlNode *snode;
+
+		snode = xmlNewTextChild (node,
+					  NULL,
+					  (xmlChar*) "value",
+					  (xmlChar*) value);
+		xmlNewProp (snode,
+			    (xmlChar*) "key",
+			    (xmlChar*) key);
+	}
+}
+
+/**
  * as_xmldata_component_to_node:
  * @cpt: a valid #AsComponent
  *
@@ -1950,6 +2009,9 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 
 	/* suggests node */
 	as_xmldata_serialize_suggests (xdt, cpt, cnode);
+
+	/* custom node */
+	as_xml_serialize_custom (cpt, cnode);
 
 	return cnode;
 }

@@ -98,6 +98,8 @@ typedef struct
 	AsValueFlags		value_flags;
 
 	gboolean		ignored; /* whether we should ignore this component */
+
+	GHashTable		*custom; /* free-form user-defined custom data */
 } AsComponentPrivate;
 
 typedef enum {
@@ -358,6 +360,7 @@ as_component_init (AsComponent *cpt)
 	/* others */
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	priv->custom = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
 	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
@@ -401,6 +404,7 @@ as_component_finalize (GObject* object)
 	g_ptr_array_unref (priv->suggestions);
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
+	g_hash_table_unref (priv->custom);
 
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
@@ -2746,6 +2750,62 @@ as_component_is_ignored (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->ignored;
+}
+
+/**
+ * as_component_get_custom:
+ * @cpt: An #AsComponent.
+ *
+ * Returns: (transfer none): Hash table of custom user defined data fields.
+ *
+ * Since: 0.10.5
+ */
+GHashTable*
+as_component_get_custom (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->custom;
+}
+
+/**
+ * as_component_get_custom_value:
+ * @cpt: An #AsComponent.
+ * @key: Field name.
+ *
+ * Retrieve value for a custom data entry with the given key.
+ *
+ * Since: 0.10.5
+ */
+gchar*
+as_component_get_custom_value (AsComponent *cpt, const gchar *key)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (key == NULL)
+		return NULL;
+	return g_hash_table_lookup (priv->custom, key);
+}
+
+/**
+ * as_component_insert_custom_value:
+ * @cpt: An #AsComponent.
+ * @key: Key name.
+ * @value: A string value.
+ *
+ * Add a key and value pair to the custom data table.
+ *
+ * Returns: %TRUE if the key did not exist yet.
+ *
+ * Since: 0.10.5
+ */
+gboolean
+as_component_insert_custom_value (AsComponent *cpt, const gchar *key, const gchar *value)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (key == NULL)
+		return FALSE;
+	return g_hash_table_insert (priv->custom,
+				    g_strdup (key),
+				    g_strdup (value));
 }
 
 /**
