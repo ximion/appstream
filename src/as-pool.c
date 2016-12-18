@@ -704,8 +704,22 @@ as_pool_load_appstream (AsPool *pool, GError **error)
 			g_error_free (tmp_error);
 			tmp_error = NULL;
 			ret = FALSE;
+
+			if (error != NULL) {
+				if (*error == NULL)
+					g_set_error_literal (error,
+							     AS_POOL_ERROR,
+							     AS_POOL_ERROR_FAILED,
+							     fname);
+				else
+					g_prefix_error (error, "%s, ", fname);
+			}
 		}
 	}
+
+	/* finalize error message, if we had errors */
+	if ((error != NULL) && (*error != NULL))
+		g_prefix_error (error, "%s ", _("Metadata files have errors:"));
 
 	/* add found components to the metadata pool */
 	cpts = as_metadata_get_components (metad);
@@ -1253,6 +1267,7 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 	gboolean ret = FALSE;
 	gboolean ret_poolupdate;
 	g_autofree gchar *cache_fname = NULL;
+	g_autoptr(GError) data_load_error = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 
 	/* try to create cache directory, in case it doesn't exist */
@@ -1298,14 +1313,10 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 	/* NOTE: we will only cache AppStream metadata, no .desktop file metadata etc. */
 
 	/* find them wherever they are */
-	ret = as_pool_load_appstream (pool, &tmp_error);
+	ret = as_pool_load_appstream (pool, &data_load_error);
 	ret_poolupdate = as_pool_refine_data (pool) && ret;
-	if (tmp_error != NULL) {
-		/* the exact error is not forwarded here, since we might be able to partially update the cache */
-		g_warning ("Error while updating the in-memory data pool: %s", tmp_error->message);
-		g_error_free (tmp_error);
-		tmp_error = NULL;
-	}
+	if (data_load_error != NULL)
+		g_debug ("Error while updating the in-memory data pool: %s", data_load_error->message);
 
 	/* save the cache object */
 	as_pool_save_cache_file (pool, cache_fname, &tmp_error);
@@ -1321,10 +1332,16 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 
 	if (ret) {
 		if (!ret_poolupdate) {
-			g_set_error (error,
+			g_autofree gchar *error_message = NULL;
+			if (data_load_error == NULL)
+				error_message = g_strdup (_("The AppStream system cache was updated, but some errors were detected, which might lead to missing metadata. Refer to the verbose log for more information."));
+			else
+				error_message = g_strdup_printf (_("AppStream system cache was updated, but problems were found: %s"), data_load_error->message);
+
+			g_set_error_literal (error,
 				AS_POOL_ERROR,
 				AS_POOL_ERROR_INCOMPLETE,
-				_("AppStream data pool was loaded, but some metadata was ignored due to errors."));
+				error_message);
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
 		as_touch_location (cache_fname);
@@ -1333,7 +1350,7 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 		g_set_error (error,
 				AS_POOL_ERROR,
 				AS_POOL_ERROR_FAILED,
-				_("AppStream cache update failed."));
+				_("AppStream cache update failed. Turn on verbose mode to get more detailed issue information."));
 	}
 
 	return TRUE;
