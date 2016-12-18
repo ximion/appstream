@@ -702,6 +702,9 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
 			as_validator_check_children_quick (validator, iter, "id", cpt);
+		} else if (g_strcmp0 (node_name, "custom") == 0) {
+			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+			as_validator_check_children_quick (validator, iter, "value", cpt);
 		} else if ((g_strcmp0 (node_name, "metadata") == 0) || (g_strcmp0 (node_name, "kudos") == 0)) {
 			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
 			 * especially if we might standardize at leat the <kudos/> tag one day, but we should still complain about those tags to make

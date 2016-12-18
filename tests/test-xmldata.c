@@ -707,6 +707,54 @@ test_xml_write_suggests (void)
 	g_assert (as_test_compare_lines (res, expected_sug_xml_coll));
 }
 
+static const gchar *xmldata_custom = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					 "<component>\n"
+					 "  <id>org.example.CustomTest</id>\n"
+					 "  <custom>\n"
+					 "    <value key=\"command\">myapp --go</value>\n"
+					 "    <value key=\"foo\">bar</value>\n"
+					 "  </custom>\n"
+					 "</component>\n";
+/**
+ * test_xml_read_custom:
+ *
+ * Test reading the custom tag.
+ */
+static void
+test_xml_read_custom (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+
+	cpt = as_xml_test_read_data (xmldata_custom, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.CustomTest");
+
+	g_assert_cmpstr (as_component_get_custom_value (cpt, "command"), ==, "myapp --go");
+	g_assert_cmpstr (as_component_get_custom_value (cpt, "foo"), ==, "bar");
+	g_assert_null (as_component_get_custom_value (cpt, NULL));
+}
+
+/**
+ * test_xml_write_custom:
+ *
+ * Test writing the custom tag.
+ */
+static void
+test_xml_write_custom (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.CustomTest");
+	as_component_insert_custom_value (cpt, "command", "myapp");
+	as_component_insert_custom_value (cpt, "command", "myapp --go");
+	as_component_insert_custom_value (cpt, "foo", "bar");
+	as_component_insert_custom_value (cpt, NULL, "dummy");
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_custom));
+}
+
 /**
  * main:
  */
@@ -738,12 +786,16 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 
 	g_test_add_func ("/XML/Read/Url", test_xml_read_url);
-	g_test_add_func ("/XML/Read/Languages", test_xml_read_languages);
 
-	g_test_add_func ("/XML/Write/Languages", test_xml_write_languages);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 	g_test_add_func ("/XML/Write/Provides", test_xml_write_provides);
 	g_test_add_func ("/XML/Write/Suggests", test_xml_write_suggests);
+
+	g_test_add_func ("/XML/Read/Languages", test_xml_read_languages);
+	g_test_add_func ("/XML/Write/Languages", test_xml_write_languages);
+
+	g_test_add_func ("/XML/Read/Custom", test_xml_read_custom);
+	g_test_add_func ("/XML/Write/Custom", test_xml_write_custom);
 
 	ret = g_test_run ();
 	g_free (datadir);

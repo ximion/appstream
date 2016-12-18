@@ -288,6 +288,13 @@ gboolean		as_component_is_ignored (AsComponent *cpt);
 gboolean		as_component_is_valid (AsComponent *cpt);
 gchar			*as_component_to_string (AsComponent *cpt);
 
+GHashTable		*as_component_get_custom (AsComponent *cpt);
+gchar			*as_component_get_custom_value (AsComponent *cpt,
+							const gchar *key);
+gboolean		as_component_insert_custom_value (AsComponent *cpt,
+							  const gchar *key,
+							  const gchar *value);
+
 G_END_DECLS
 
 #endif /* __AS_COMPONENT_H */
