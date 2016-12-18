@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-11-01 16:24+0100\n"
+"POT-Creation-Date: 2016-12-18 23:59+0100\n"
 "PO-Revision-Date: 2016-10-14 15:22+0000\n"
 "Last-Translator: Mingye Wang <arthur200126@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -81,9 +81,11 @@ msgstr "AppStream 狀態："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
 
-#: src/as-pool.c:1336
-msgid "AppStream cache update failed."
-msgstr "AppStream 快取更新失敗。"
+#: src/as-pool.c:1353
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -95,17 +97,17 @@ msgstr "不必更新 AppStream 快取。"
 msgid "AppStream command-line interface"
 msgstr "AppStream 指令列介面"
 
-#: src/as-pool.c:1327
-msgid ""
-"AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr "已載入 AppStrem 資料集池，但是有些中介資料因錯誤而忽略。"
-
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr "AppStream 為一個跨散佈版的規範，旨在提供軟體組件的中介資料。"
+
+#: src/as-pool.c:1339
+#, c-format
+msgid "AppStream system cache was updated, but problems were found: %s"
+msgstr ""
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -137,7 +139,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "音訊創作和編輯"
 
-#: src/as-provided.c:140
+#: src/as-provided.c:141
 msgid "Binaries"
 msgstr "二進位檔"
 
@@ -155,7 +157,7 @@ msgstr "棋盤"
 msgid "Bundle"
 msgstr "套組"
 
-#: src/as-pool.c:1264
+#: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "無法寫入「%s」快取位置。"
@@ -233,11 +235,11 @@ msgstr "將收藏集 XML 轉換成 YAML，或是相反。"
 msgid "Could not find component providing '%s::%s'."
 msgstr "找不到提供「%s::%s」的組件。"
 
-#: src/as-provided.c:154
+#: src/as-provided.c:155
 msgid "DBus Session Services"
 msgstr "DBus 作業階段服務"
 
-#: src/as-provided.c:152
+#: src/as-provided.c:153
 msgid "DBus System Services"
 msgstr "DBus 系統服務"
 
@@ -382,11 +384,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr "財經"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:159
 msgid "Flashed Firmware"
 msgstr "快閃記憶韌體"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:145
 msgid "Fonts"
 msgstr "字型"
 
@@ -477,7 +479,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr "語言"
 
-#: src/as-provided.c:138
+#: src/as-provided.c:139
 msgid "Libraries"
 msgstr "函式庫"
 
@@ -521,16 +523,21 @@ msgstr "數學"
 msgid "Metadata file '%s' does not exist."
 msgstr "「%s」中介資料檔並不存在。"
 
+#: src/as-pool.c:722
+#, fuzzy
+msgid "Metadata files have errors:"
+msgstr "「%s」中介資料檔並不存在。"
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "中介資料檔："
 
-#: src/as-provided.c:142
+#: src/as-provided.c:143
 msgid "Mimetypes"
 msgstr "Mime 類型"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:147
 msgid "Modaliases"
 msgstr "Modalias 檔"
 
@@ -603,11 +610,11 @@ msgstr "專案群組"
 msgid "Provided Items"
 msgstr "提供的項目"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:149
 msgid "Python (Version 2)"
 msgstr "Python (第 2 版)"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:151
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -643,7 +650,7 @@ msgstr ""
 "執行「%s --help」查看可用指令和選項的清單，而「%s %s --help」則可查看此子指令"
 "下專屬的選項清單。"
 
-#: src/as-provided.c:156
+#: src/as-provided.c:157
 msgid "Runtime Firmware"
 msgstr "執行時期韌體"
 
@@ -714,6 +721,13 @@ msgstr "終端機模擬器"
 msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "文字編輯器"
+
+#: src/as-pool.c:1337
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
+msgstr ""
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -865,6 +879,14 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套"
 "件;套裝軟體;工具;公用程式"
+
+#~ msgid "AppStream cache update failed."
+#~ msgstr "AppStream 快取更新失敗。"
+
+#~ msgid ""
+#~ "AppStream data pool was loaded, but some metadata was ignored due to "
+#~ "errors."
+#~ msgstr "已載入 AppStrem 資料集池，但是有些中介資料因錯誤而忽略。"
 
 #~ msgid "Can not search for unknown component type."
 #~ msgstr "無法搜尋未知的組件類型。"

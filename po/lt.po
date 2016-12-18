@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-11-01 16:24+0100\n"
+"POT-Creation-Date: 2016-12-18 23:59+0100\n"
 "PO-Revision-Date: 2016-11-07 19:33+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
-"Language-Team: Lithuanian "
-"<https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
+"Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
+"translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.9\n"
 
 #: tools/appstream-cli.c:136
@@ -81,9 +81,11 @@ msgstr "AppStream būsena:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream podėlio atnaujinimas sėkmingai užbaigtas."
 
-#: src/as-pool.c:1336
-msgid "AppStream cache update failed."
-msgstr "AppStream podėlio atnaujinimas nepavyko."
+#: src/as-pool.c:1353
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -95,16 +97,16 @@ msgstr "AppStream podėlio atnaujinimas nėra būtinas."
 msgid "AppStream command-line interface"
 msgstr "AppStream komandų eilutės sąsaja"
 
-#: src/as-pool.c:1327
-msgid ""
-"AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr ""
-
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
+msgstr ""
+
+#: src/as-pool.c:1339
+#, c-format
+msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
 
 #: src/as-category.c:129
@@ -137,7 +139,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: src/as-provided.c:140
+#: src/as-provided.c:141
 msgid "Binaries"
 msgstr "Dvejetainės"
 
@@ -155,7 +157,7 @@ msgstr "Stalo"
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1264
+#: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Podėlio vieta \"%s\" nėra įrašoma."
@@ -235,11 +237,11 @@ msgstr ""
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nepavyko rasti komponento, pateikiančio \"%s::%s\"."
 
-#: src/as-provided.c:154
+#: src/as-provided.c:155
 msgid "DBus Session Services"
 msgstr ""
 
-#: src/as-provided.c:152
+#: src/as-provided.c:153
 msgid "DBus System Services"
 msgstr ""
 
@@ -384,11 +386,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Finansai"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:159
 msgid "Flashed Firmware"
 msgstr ""
 
-#: src/as-provided.c:144
+#: src/as-provided.c:145
 msgid "Fonts"
 msgstr "Šriftai"
 
@@ -479,7 +481,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Kalbos"
 
-#: src/as-provided.c:138
+#: src/as-provided.c:139
 msgid "Libraries"
 msgstr "Bibliotekos"
 
@@ -523,16 +525,21 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Metaduomenų failo \"%s\" nėra."
 
+#: src/as-pool.c:722
+#, fuzzy
+msgid "Metadata files have errors:"
+msgstr "Metaduomenų failo \"%s\" nėra."
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr ""
 
-#: src/as-provided.c:142
+#: src/as-provided.c:143
 msgid "Mimetypes"
 msgstr "MIME tipai"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:147
 msgid "Modaliases"
 msgstr ""
 
@@ -603,11 +610,11 @@ msgstr ""
 msgid "Provided Items"
 msgstr ""
 
-#: src/as-provided.c:148
+#: src/as-provided.c:149
 msgid "Python (Version 2)"
 msgstr "Python (Versija 2)"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:151
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -643,7 +650,7 @@ msgid ""
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
 
-#: src/as-provided.c:156
+#: src/as-provided.c:157
 msgid "Runtime Firmware"
 msgstr ""
 
@@ -714,6 +721,13 @@ msgstr "Terminalo emuliatoriai"
 msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Tekstų redaktoriai"
+
+#: src/as-pool.c:1337
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
+msgstr ""
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -860,3 +874,6 @@ msgstr "Jūs turite nurodyti įvesties ir išvesties failą."
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "programa;programėlė;aplikacija;paketas;įrankis;komplektas;rinkinys"
+
+#~ msgid "AppStream cache update failed."
+#~ msgstr "AppStream podėlio atnaujinimas nepavyko."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-11-01 16:24+0100\n"
+"POT-Creation-Date: 2016-12-18 23:59+0100\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
@@ -85,9 +85,11 @@ msgstr ""
 msgid "AppStream cache update completed successfully."
 msgstr "Освежавање оставе Програмског тока је успешно обављено."
 
-#: src/as-pool.c:1336
-msgid "AppStream cache update failed."
-msgstr "Освежавање оставе Програмског тока није успело."
+#: src/as-pool.c:1353
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -99,16 +101,16 @@ msgstr "Освежавање оставе Програмског тока ниј
 msgid "AppStream command-line interface"
 msgstr "Наредбено сучеље Програмског тока"
 
-#: src/as-pool.c:1327
-msgid ""
-"AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr ""
-
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
+msgstr ""
+
+#: src/as-pool.c:1339
+#, c-format
+msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
 
 #: src/as-category.c:129
@@ -141,7 +143,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: src/as-provided.c:140
+#: src/as-provided.c:141
 msgid "Binaries"
 msgstr "Извршни"
 
@@ -159,7 +161,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Пакет"
 
-#: src/as-pool.c:1264
+#: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Место оставе „%s“ није за уписивање."
@@ -237,11 +239,11 @@ msgstr ""
 msgid "Could not find component providing '%s::%s'."
 msgstr "Не могу да нађем састојак који доставља „%s;%s“!"
 
-#: src/as-provided.c:154
+#: src/as-provided.c:155
 msgid "DBus Session Services"
 msgstr "Услуге сесије Д-сабирнице"
 
-#: src/as-provided.c:152
+#: src/as-provided.c:153
 msgid "DBus System Services"
 msgstr "Услуге система Д-сабирнице"
 
@@ -391,11 +393,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: src/as-provided.c:158
+#: src/as-provided.c:159
 msgid "Flashed Firmware"
 msgstr "Преточени уграђени програм"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:145
 msgid "Fonts"
 msgstr "Словни ликови"
 
@@ -488,7 +490,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: src/as-provided.c:138
+#: src/as-provided.c:139
 msgid "Libraries"
 msgstr "Библиотеке"
 
@@ -536,16 +538,20 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
+#: src/as-pool.c:722
+msgid "Metadata files have errors:"
+msgstr ""
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr ""
 
-#: src/as-provided.c:142
+#: src/as-provided.c:143
 msgid "Mimetypes"
 msgstr "Миме врсте"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:147
 msgid "Modaliases"
 msgstr "Модалијаси"
 
@@ -619,11 +625,11 @@ msgstr "Група пројекта"
 msgid "Provided Items"
 msgstr "Обезбеђене ставке"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:149
 msgid "Python (Version 2)"
 msgstr "Питон (2. издање)"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:151
 msgid "Python 3"
 msgstr "Питон 3"
 
@@ -659,7 +665,7 @@ msgid ""
 msgstr ""
 "Покрените „%s --help“ да видите читав списак доступних опција линије наредби."
 
-#: src/as-provided.c:156
+#: src/as-provided.c:157
 msgid "Runtime Firmware"
 msgstr "Уграђени програм времена покретања"
 
@@ -731,6 +737,13 @@ msgstr ""
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
+msgstr ""
+
+#: src/as-pool.c:1337
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
 msgstr ""
 
 #. (itstool) path: description/p
@@ -884,6 +897,9 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;апп;апликација;пакет;"
 "програм;комплет;алат;aplikacija;komplet;alat"
+
+#~ msgid "AppStream cache update failed."
+#~ msgstr "Освежавање оставе Програмског тока није успело."
 
 #, fuzzy
 #~ msgid "Category of Games"

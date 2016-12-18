@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-11-01 16:24+0100\n"
+"POT-Creation-Date: 2016-12-18 23:59+0100\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/freedesktop/appstream/"
@@ -82,8 +82,10 @@ msgstr ""
 msgid "AppStream cache update completed successfully."
 msgstr ""
 
-#: src/as-pool.c:1336
-msgid "AppStream cache update failed."
+#: src/as-pool.c:1353
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
@@ -96,16 +98,16 @@ msgstr ""
 msgid "AppStream command-line interface"
 msgstr ""
 
-#: src/as-pool.c:1327
-msgid ""
-"AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr ""
-
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
+msgstr ""
+
+#: src/as-pool.c:1339
+#, c-format
+msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
 
 #: src/as-category.c:129
@@ -138,7 +140,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: src/as-provided.c:140
+#: src/as-provided.c:141
 msgid "Binaries"
 msgstr ""
 
@@ -156,7 +158,7 @@ msgstr ""
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1264
+#: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr ""
@@ -234,11 +236,11 @@ msgstr ""
 msgid "Could not find component providing '%s::%s'."
 msgstr ""
 
-#: src/as-provided.c:154
+#: src/as-provided.c:155
 msgid "DBus Session Services"
 msgstr ""
 
-#: src/as-provided.c:152
+#: src/as-provided.c:153
 msgid "DBus System Services"
 msgstr ""
 
@@ -384,11 +386,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: src/as-provided.c:158
+#: src/as-provided.c:159
 msgid "Flashed Firmware"
 msgstr ""
 
-#: src/as-provided.c:144
+#: src/as-provided.c:145
 msgid "Fonts"
 msgstr ""
 
@@ -479,7 +481,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: src/as-provided.c:138
+#: src/as-provided.c:139
 msgid "Libraries"
 msgstr ""
 
@@ -523,16 +525,20 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
+#: src/as-pool.c:722
+msgid "Metadata files have errors:"
+msgstr ""
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr ""
 
-#: src/as-provided.c:142
+#: src/as-provided.c:143
 msgid "Mimetypes"
 msgstr ""
 
-#: src/as-provided.c:146
+#: src/as-provided.c:147
 msgid "Modaliases"
 msgstr ""
 
@@ -603,11 +609,11 @@ msgstr ""
 msgid "Provided Items"
 msgstr ""
 
-#: src/as-provided.c:148
+#: src/as-provided.c:149
 msgid "Python (Version 2)"
 msgstr "Python (versio 2)"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:151
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -641,7 +647,7 @@ msgid ""
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
 
-#: src/as-provided.c:156
+#: src/as-provided.c:157
 msgid "Runtime Firmware"
 msgstr ""
 
@@ -712,6 +718,13 @@ msgstr ""
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
+msgstr ""
+
+#: src/as-pool.c:1337
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
 msgstr ""
 
 #. (itstool) path: description/p

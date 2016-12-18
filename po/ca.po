@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-11-01 16:24+0100\n"
+"POT-Creation-Date: 2016-12-18 23:59+0100\n"
 "PO-Revision-Date: 2016-08-15 19:46+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -87,9 +87,11 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
-#: src/as-pool.c:1336
-msgid "AppStream cache update failed."
-msgstr "Ha fallat l'actualització de la memòria cau d'AppStream."
+#: src/as-pool.c:1353
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -101,18 +103,16 @@ msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
-#: src/as-pool.c:1327
-msgid ""
-"AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr ""
-"S'han carregat l'agrupació de dades d'AppStream, però s'han ignorat algunes "
-"metadades a causa d'errors."
-
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
+msgstr ""
+
+#: src/as-pool.c:1339
+#, c-format
+msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
 
 #: src/as-category.c:129
@@ -145,7 +145,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: src/as-provided.c:140
+#: src/as-provided.c:141
 msgid "Binaries"
 msgstr "Binaris"
 
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Agrupació"
 
-#: src/as-pool.c:1264
+#: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
@@ -243,11 +243,11 @@ msgstr ""
 msgid "Could not find component providing '%s::%s'."
 msgstr "No s'ha pogut trobar el component que proporciona '%s;%s'!"
 
-#: src/as-provided.c:154
+#: src/as-provided.c:155
 msgid "DBus Session Services"
 msgstr "Serveis de sistema de DBus"
 
-#: src/as-provided.c:152
+#: src/as-provided.c:153
 msgid "DBus System Services"
 msgstr "Serveis de sistema de DBus"
 
@@ -400,11 +400,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: src/as-provided.c:158
+#: src/as-provided.c:159
 msgid "Flashed Firmware"
 msgstr "Microprogramari flaix"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:145
 msgid "Fonts"
 msgstr "Tipus de lletres"
 
@@ -498,7 +498,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: src/as-provided.c:138
+#: src/as-provided.c:139
 msgid "Libraries"
 msgstr "Biblioteques"
 
@@ -546,16 +546,20 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
+#: src/as-pool.c:722
+msgid "Metadata files have errors:"
+msgstr ""
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Fitxers Metainfo:"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:143
 msgid "Mimetypes"
 msgstr "Mini tipus"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:147
 msgid "Modaliases"
 msgstr "Modaliases"
 
@@ -629,11 +633,11 @@ msgstr "Grup del projecte"
 msgid "Provided Items"
 msgstr "Elements proporcionats"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:149
 msgid "Python (Version 2)"
 msgstr "Python (versió 2)"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:151
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -671,7 +675,7 @@ msgstr ""
 "Executeu '%s --help' per veure una llista completa de les opcions "
 "disponibles de la línia d'ordres."
 
-#: src/as-provided.c:156
+#: src/as-provided.c:157
 msgid "Runtime Firmware"
 msgstr "Microprogramari en temps d'execució"
 
@@ -743,6 +747,13 @@ msgstr ""
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
+msgstr ""
+
+#: src/as-pool.c:1337
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
 msgstr ""
 
 #. (itstool) path: description/p
@@ -897,6 +908,16 @@ msgstr "Heu d'especificar un fitxer de metadades."
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
+
+#~ msgid "AppStream cache update failed."
+#~ msgstr "Ha fallat l'actualització de la memòria cau d'AppStream."
+
+#~ msgid ""
+#~ "AppStream data pool was loaded, but some metadata was ignored due to "
+#~ "errors."
+#~ msgstr ""
+#~ "S'han carregat l'agrupació de dades d'AppStream, però s'han ignorat "
+#~ "algunes metadades a causa d'errors."
 
 #~ msgid "Can not search for unknown component type."
 #~ msgstr "No es pot cercar un tipus de component desconegut."

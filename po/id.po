@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-11-01 16:24+0100\n"
+"POT-Creation-Date: 2016-12-18 23:59+0100\n"
 "PO-Revision-Date: 2016-11-09 10:40+0000\n"
 "Last-Translator: Prasasto Adi <prasastoadi@gmail.com>\n"
-"Language-Team: Indonesian "
-"<https://hosted.weblate.org/projects/appstream/translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,7 +68,7 @@ msgstr "CLI AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:627
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Alat CLI AppStream versi: %s"
 
@@ -82,9 +82,11 @@ msgstr "Status AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pemutakhiran singgahan AppStream berakhir dengan sukses."
 
-#: src/as-pool.c:1336
-msgid "AppStream cache update failed."
-msgstr "Pemutakhiran singgahan AppStream gagal."
+#: src/as-pool.c:1353
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -96,13 +98,6 @@ msgstr "Pemutakhiran singgahan AppStream tidak perlu."
 msgid "AppStream command-line interface"
 msgstr "Antarmuka baris perintah AppStream"
 
-#: src/as-pool.c:1327
-msgid ""
-"AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr ""
-"Pool data AppStream dimuat, tapi beberapa metadata diabaikan karena "
-"kesalahan."
-
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
 #, fuzzy
@@ -112,6 +107,11 @@ msgid ""
 msgstr ""
 "AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata "
 "tentang komponen perangkat lunak."
+
+#: src/as-pool.c:1339
+#, c-format
+msgid "AppStream system cache was updated, but problems were found: %s"
+msgstr ""
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -143,7 +143,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Pembuatan & Penyuntingan Audio"
 
-#: src/as-provided.c:140
+#: src/as-provided.c:141
 msgid "Binaries"
 msgstr "Biner"
 
@@ -161,7 +161,7 @@ msgstr "Papan"
 msgid "Bundle"
 msgstr "Bundel"
 
-#: src/as-pool.c:1264
+#: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokasi singgahan '%s' tidak dapat ditulisi."
@@ -242,11 +242,11 @@ msgstr "Mengkonversi koleksi XML ke YAML atau sebaliknya."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Tidak bisa menemukan komponen yang menyediakan '%s::%s'."
 
-#: src/as-provided.c:154
+#: src/as-provided.c:155
 msgid "DBus Session Services"
 msgstr "Layanan Sesi DBus"
 
-#: src/as-provided.c:152
+#: src/as-provided.c:153
 msgid "DBus System Services"
 msgstr "Layanan Sistem DBus"
 
@@ -391,11 +391,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: src/as-provided.c:158
+#: src/as-provided.c:159
 msgid "Flashed Firmware"
 msgstr "Firmware yang di-flash"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:145
 msgid "Fonts"
 msgstr "Fonta"
 
@@ -489,7 +489,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: src/as-provided.c:138
+#: src/as-provided.c:139
 msgid "Libraries"
 msgstr "Pustaka"
 
@@ -536,16 +536,20 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
+#: src/as-pool.c:722
+msgid "Metadata files have errors:"
+msgstr ""
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Berkas metainfo:"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:143
 msgid "Mimetypes"
 msgstr "Mimetype"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:147
 msgid "Modaliases"
 msgstr "Modalias"
 
@@ -619,11 +623,11 @@ msgstr "Grup Proyek"
 msgid "Provided Items"
 msgstr "Butir Yang Disediakan"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:149
 msgid "Python (Version 2)"
 msgstr "Python (Versi 2)"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:151
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -661,7 +665,7 @@ msgstr ""
 "Jalankan '%s --help' untuk melihat daftar lengkap opsi baris perintah yang "
 "tersedia."
 
-#: src/as-provided.c:156
+#: src/as-provided.c:157
 msgid "Runtime Firmware"
 msgstr "Firmware Runtime"
 
@@ -733,6 +737,13 @@ msgstr ""
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
+msgstr ""
+
+#: src/as-pool.c:1337
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
 msgstr ""
 
 #. (itstool) path: description/p
@@ -883,6 +894,16 @@ msgstr "Anda perlu menyatakan suatu berkas metadata."
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool;aplikasi;paket"
+
+#~ msgid "AppStream cache update failed."
+#~ msgstr "Pemutakhiran singgahan AppStream gagal."
+
+#~ msgid ""
+#~ "AppStream data pool was loaded, but some metadata was ignored due to "
+#~ "errors."
+#~ msgstr ""
+#~ "Pool data AppStream dimuat, tapi beberapa metadata diabaikan karena "
+#~ "kesalahan."
 
 #~ msgid "Can not search for unknown component type."
 #~ msgstr "Tidak bisa mencari tipe komponen yang tak dikenal."

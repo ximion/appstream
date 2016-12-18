@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-11-01 16:24+0100\n"
+"POT-Creation-Date: 2016-12-18 23:59+0100\n"
 "PO-Revision-Date: 2016-10-01 02:38+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
@@ -82,9 +82,11 @@ msgstr "Stan AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
 
-#: src/as-pool.c:1336
-msgid "AppStream cache update failed."
-msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
+#: src/as-pool.c:1353
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -96,13 +98,6 @@ msgstr "Aktualizacja pamięci podręcznej AppStream jest niepotrzebna."
 msgid "AppStream command-line interface"
 msgstr "Interfejs wiersza poleceń AppStream"
 
-#: src/as-pool.c:1327
-msgid ""
-"AppStream data pool was loaded, but some metadata was ignored due to errors."
-msgstr ""
-"Wczytano pulę danych AppStream, ale zignorowano część metadanych z powodu "
-"błędów."
-
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -111,6 +106,11 @@ msgid ""
 msgstr ""
 "AppStream to specyfikacja używana przez wiele dystrybucji do dostarczania "
 "metadanych o składnikach oprogramowania."
+
+#: src/as-pool.c:1339
+#, c-format
+msgid "AppStream system cache was updated, but problems were found: %s"
+msgstr ""
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -142,7 +142,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Tworzenie i edycja dźwięku"
 
-#: src/as-provided.c:140
+#: src/as-provided.c:141
 msgid "Binaries"
 msgstr "Pliki binarne"
 
@@ -160,7 +160,7 @@ msgstr "Gry planszowe"
 msgid "Bundle"
 msgstr "Paczka"
 
-#: src/as-pool.c:1264
+#: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Położenie pamięci podręcznej „%s” nie jest zapisywalne."
@@ -240,11 +240,11 @@ msgstr "Konwertuje XML kolekcji do YAML lub odwrotnie."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nie można odnaleźć składnika dostarczającego „%s::%s”."
 
-#: src/as-provided.c:154
+#: src/as-provided.c:155
 msgid "DBus Session Services"
 msgstr "Usługi sesji D-Bus"
 
-#: src/as-provided.c:152
+#: src/as-provided.c:153
 msgid "DBus System Services"
 msgstr "Usługi systemowe D-Bus"
 
@@ -391,11 +391,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Finanse"
 
-#: src/as-provided.c:158
+#: src/as-provided.c:159
 msgid "Flashed Firmware"
 msgstr "Wgrane oprogramowanie sprzętowe"
 
-#: src/as-provided.c:144
+#: src/as-provided.c:145
 msgid "Fonts"
 msgstr "Czcionki"
 
@@ -486,7 +486,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Języki"
 
-#: src/as-provided.c:138
+#: src/as-provided.c:139
 msgid "Libraries"
 msgstr "Biblioteki"
 
@@ -530,16 +530,21 @@ msgstr "Matematyka"
 msgid "Metadata file '%s' does not exist."
 msgstr "Plik metadanych „%s” nie istnieje."
 
+#: src/as-pool.c:722
+#, fuzzy
+msgid "Metadata files have errors:"
+msgstr "Plik metadanych „%s” nie istnieje."
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Pliki Metainfo:"
 
-#: src/as-provided.c:142
+#: src/as-provided.c:143
 msgid "Mimetypes"
 msgstr "Typy MIME"
 
-#: src/as-provided.c:146
+#: src/as-provided.c:147
 msgid "Modaliases"
 msgstr "Pliki „modalias”"
 
@@ -613,11 +618,11 @@ msgstr "Grupa projektu"
 msgid "Provided Items"
 msgstr "Dostarczane elementy"
 
-#: src/as-provided.c:148
+#: src/as-provided.c:149
 msgid "Python (Version 2)"
 msgstr "Python (wersja 2)"
 
-#: src/as-provided.c:150
+#: src/as-provided.c:151
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -654,7 +659,7 @@ msgstr ""
 "Polecenie „%s --help” wyświetli listę dostępnych poleceń i opcji, a „%s %s --"
 "help” wyświetli listę opcji dla danego podpolecenia."
 
-#: src/as-provided.c:156
+#: src/as-provided.c:157
 msgid "Runtime Firmware"
 msgstr "Oprogramowanie sprzętowe wgrywane podczas uruchamiania systemu"
 
@@ -725,6 +730,13 @@ msgstr "Emulatory terminala"
 msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Edytory tekstu"
+
+#: src/as-pool.c:1337
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
+msgstr ""
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -882,6 +894,16 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "aplikacja;apka;app;application;pakiet;paczka;package;program;programme;"
 "zestaw;suite;narzędzie;tool"
+
+#~ msgid "AppStream cache update failed."
+#~ msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
+
+#~ msgid ""
+#~ "AppStream data pool was loaded, but some metadata was ignored due to "
+#~ "errors."
+#~ msgstr ""
+#~ "Wczytano pulę danych AppStream, ale zignorowano część metadanych z powodu "
+#~ "błędów."
 
 #~ msgid "Can not search for unknown component type."
 #~ msgstr "Nie można szukać nieznanego typu składnika."
