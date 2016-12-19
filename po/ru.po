@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-12-18 23:59+0100\n"
-"PO-Revision-Date: 2016-12-17 14:22+0000\n"
+"PO-Revision-Date: 2016-12-19 08:58+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian "
+"<https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.10\n"
 
 #: tools/appstream-cli.c:136
@@ -49,9 +49,8 @@ msgstr "Приключения"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
-#, fuzzy
 msgid "Also print pedantic hints when validating."
-msgstr "Кроме того, выводить во время проверки педантичные подсказки"
+msgstr "Кроме того, выводить педантичные подсказки во время проверки."
 
 #: tools/appstream-cli.c:540
 msgid "An item type (e.g. lib, bin, python3, ...)"
@@ -88,6 +87,8 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
+"Не удалось обновить кэш AppStream. Включите подробный режим для получения "
+"более детальной информации о проблеме."
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -105,11 +106,13 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream — это кросс-платформенная спецификация предоставления метаданных о "
+"программных компонентах."
 
 #: src/as-pool.c:1339
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
-msgstr ""
+msgstr "Системный кэш AppStream обновлён, но найдены проблемы: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -148,7 +151,7 @@ msgstr "Исполняемые файлы"
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Блоки"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
@@ -216,7 +219,7 @@ msgstr "Команда \"%s\" неизвестна."
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "Общение и новости"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -456,7 +459,7 @@ msgstr "Идентификатор"
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Источники"
 
 #: tools/appstream-cli.c:553
 msgid "Install a metadata file into the right location."
@@ -534,9 +537,8 @@ msgid "Metadata file '%s' does not exist."
 msgstr "Файл метаданных \"%s\" не существует."
 
 #: src/as-pool.c:722
-#, fuzzy
 msgid "Metadata files have errors:"
-msgstr "Файл метаданных \"%s\" не существует."
+msgstr "Файлы метаданных содержат ошибки:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -741,6 +743,9 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"Системный кэш AppStream был обновлён, однако обнаружены некоторые ошибки, "
+"которые могут привести к повреждённым метаданным. Обратитесь к подробному "
+"логу для информации."
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -757,6 +762,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Невозможно конвертировать файл: не удалось определить выходной формат, "
+"пожалуйста, укажите его явно, используя \"--format=\"."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:182
@@ -825,7 +832,7 @@ msgstr "Просмотрщики"
 #: tools/ascli-actions-misc.c:151
 #, c-format
 msgid "We have information on %i software components."
-msgstr "У нас есть информация о компонентах программного обеспечения %i."
+msgstr "У нас есть информация о %i компонентах программного обеспечения."
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
@@ -842,6 +849,8 @@ msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Вы можете получить информацию об опциях команды, запустив её с параметром \""
+"--help\"."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
