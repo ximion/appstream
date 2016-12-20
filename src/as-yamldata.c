@@ -1859,7 +1859,7 @@ as_yaml_data_emit_suggests (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 	if (suggestions->len == 0)
 		return;
 
-	as_yaml_emit_scalar (emitter, "Suggested");
+	as_yaml_emit_scalar (emitter, "Suggests");
 	as_yaml_sequence_start (emitter);
 
 	for (i = 0; i < suggestions->len; i++) {

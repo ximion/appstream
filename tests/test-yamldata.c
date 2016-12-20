@@ -328,7 +328,7 @@ test_yaml_write_suggests (void)
 					 "---\n"
 					 "Type: generic\n"
 					 "ID: org.example.SuggestsTest\n"
-					 "Suggested:\n"
+					 "Suggests:\n"
 					 "- type: upstream\n"
 					 "  ids:\n"
 					 "  - org.example.Awesome\n"
