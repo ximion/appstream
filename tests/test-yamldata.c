@@ -311,53 +311,6 @@ test_yamlwrite_general (void)
 }
 
 /**
- * test_yaml_write_suggests:
- *
- * Test writing the Suggests field.
- */
-static void
-test_yaml_write_suggests (void)
-{
-	g_autoptr(AsComponent) cpt = NULL;
-	g_autoptr(AsSuggested) sug_us = NULL;
-	g_autoptr(AsSuggested) sug_hr = NULL;
-	g_autofree gchar *res = NULL;
-	const gchar *expected_sug_yaml = "---\n"
-					 "File: DEP-11\n"
-					 "Version: '0.10'\n"
-					 "---\n"
-					 "Type: generic\n"
-					 "ID: org.example.SuggestsTest\n"
-					 "Suggested:\n"
-					 "- type: upstream\n"
-					 "  ids:\n"
-					 "  - org.example.Awesome\n"
-					 "- type: heuristic\n"
-					 "  ids:\n"
-					 "  - org.example.MachineLearning\n"
-					 "  - org.example.Stuff\n";
-
-	cpt = as_component_new ();
-	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
-	as_component_set_id (cpt, "org.example.SuggestsTest");
-
-	sug_us = as_suggested_new ();
-	as_suggested_set_kind (sug_us, AS_SUGGESTED_KIND_UPSTREAM);
-	as_suggested_add_id (sug_us, "org.example.Awesome");
-	as_component_add_suggested (cpt, sug_us);
-
-	sug_hr = as_suggested_new ();
-	as_suggested_set_kind (sug_hr, AS_SUGGESTED_KIND_HEURISTIC);
-	as_suggested_add_id (sug_hr, "org.example.MachineLearning");
-	as_suggested_add_id (sug_hr, "org.example.Stuff");
-	as_component_add_suggested (cpt, sug_hr);
-
-	/* test collection serialization */
-	res = as_yaml_test_serialize (cpt);
-	g_assert (as_test_compare_lines (res, expected_sug_yaml));
-}
-
-/**
  * as_yaml_test_read_data:
  *
  * Helper function to read a single component from YAML data.
@@ -520,6 +473,73 @@ test_yaml_read_url (void)
 }
 
 /**
+ * test_yaml_corrupt_data:
+ *
+ * Test reading of a broken YAML document.
+ */
+static void
+test_yaml_corrupt_data (void)
+{
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	const gchar *yamldata_corrupt = "---\n"
+					"ID: org.example.Test\n"
+					"\007\n";
+
+	cpt = as_yaml_test_read_data (yamldata_corrupt, &error);
+
+	g_assert_error (error, AS_METADATA_ERROR, AS_METADATA_ERROR_PARSE);
+	g_assert_null (cpt);
+}
+
+/**
+ * test_yaml_write_suggests:
+ *
+ * Test writing the Suggests field.
+ */
+static void
+test_yaml_write_suggests (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsSuggested) sug_us = NULL;
+	g_autoptr(AsSuggested) sug_hr = NULL;
+	g_autofree gchar *res = NULL;
+	const gchar *expected_sug_yaml = "---\n"
+					 "File: DEP-11\n"
+					 "Version: '0.10'\n"
+					 "---\n"
+					 "Type: generic\n"
+					 "ID: org.example.SuggestsTest\n"
+					 "Suggests:\n"
+					 "- type: upstream\n"
+					 "  ids:\n"
+					 "  - org.example.Awesome\n"
+					 "- type: heuristic\n"
+					 "  ids:\n"
+					 "  - org.example.MachineLearning\n"
+					 "  - org.example.Stuff\n";
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.SuggestsTest");
+
+	sug_us = as_suggested_new ();
+	as_suggested_set_kind (sug_us, AS_SUGGESTED_KIND_UPSTREAM);
+	as_suggested_add_id (sug_us, "org.example.Awesome");
+	as_component_add_suggested (cpt, sug_us);
+
+	sug_hr = as_suggested_new ();
+	as_suggested_set_kind (sug_hr, AS_SUGGESTED_KIND_HEURISTIC);
+	as_suggested_add_id (sug_hr, "org.example.MachineLearning");
+	as_suggested_add_id (sug_hr, "org.example.Stuff");
+	as_component_add_suggested (cpt, sug_hr);
+
+	/* test collection serialization */
+	res = as_yaml_test_serialize (cpt);
+	g_assert (as_test_compare_lines (res, expected_sug_yaml));
+}
+
+/**
  * test_yaml_read_suggests:
  *
  * Test if reading the Suggests field works.
@@ -565,24 +585,56 @@ test_yaml_read_suggests (void)
 	g_assert_cmpstr ((const gchar*) g_ptr_array_index (cpt_ids, 0), ==, "org.example.test3");
 }
 
+static const gchar *yamldata_custom_field = "---\n"
+					 "File: DEP-11\n"
+					 "Version: '0.10'\n"
+					 "---\n"
+					 "Type: generic\n"
+					 "ID: org.example.CustomTest\n"
+					 "Custom:\n"
+					 "  executable: myapp --test\n"
+					 "  foo bar: value-with space\n"
+					 "  Oh::Snap::Punctuation!: Awesome!\n";
 /**
- * test_yaml_corrupt_data:
+ * test_yaml_write_custom:
  *
- * Test reading of a broken YAML document.
+ * Test writing the Custom fields.
  */
 static void
-test_yaml_corrupt_data (void)
+test_yaml_write_custom (void)
 {
-	g_autoptr(GError) error = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
-	const gchar *yamldata_corrupt = "---\n"
-					"ID: org.example.Test\n"
-					"\007\n";
+	g_autofree gchar *res = NULL;
 
-	cpt = as_yaml_test_read_data (yamldata_corrupt, &error);
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.CustomTest");
 
-	g_assert_error (error, AS_METADATA_ERROR, AS_METADATA_ERROR_PARSE);
-	g_assert_null (cpt);
+	as_component_insert_custom_value (cpt, "executable", "myapp --test");
+	as_component_insert_custom_value (cpt, "foo bar", "value-with space");
+	as_component_insert_custom_value (cpt, "Oh::Snap::Punctuation!", "Awesome!");
+
+	/* test collection serialization */
+	res = as_yaml_test_serialize (cpt);
+	g_assert (as_test_compare_lines (res, yamldata_custom_field));
+}
+
+/**
+ * test_yaml_read_custom:
+ *
+ * Test if reading the Custom field works.
+ */
+static void
+test_yaml_read_custom (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+
+	cpt = as_yaml_test_read_data (yamldata_custom_field, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.CustomTest");
+
+	g_assert_cmpstr (as_component_get_custom_value (cpt, "executable"), ==, "myapp --test");
+	g_assert_cmpstr (as_component_get_custom_value (cpt, "foo bar"), ==, "value-with space");
+	g_assert_cmpstr (as_component_get_custom_value (cpt, "Oh::Snap::Punctuation!"), ==, "Awesome!");
 }
 
 /**
@@ -616,9 +668,12 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
 	g_test_add_func ("/YAML/Read/Url", test_yaml_read_url);
 	g_test_add_func ("/YAML/Read/Languages", test_yaml_read_languages);
-	g_test_add_func ("/YAML/Read/Suggests", test_yaml_read_suggests);
 
+	g_test_add_func ("/YAML/Read/Suggests", test_yaml_read_suggests);
 	g_test_add_func ("/YAML/Write/Suggests", test_yaml_write_suggests);
+
+	g_test_add_func ("/YAML/Read/Custom", test_yaml_read_custom);
+	g_test_add_func ("/YAML/Write/Custom", test_yaml_write_custom);
 
 	ret = g_test_run ();
 	g_free (datadir);

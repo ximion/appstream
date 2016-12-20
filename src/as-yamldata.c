@@ -755,10 +755,10 @@ as_yamldata_process_releases (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 }
 
 /**
- * as_yamldata_process_languages:
+ * as_yaml_process_languages:
  */
 static void
-as_yamldata_process_languages (GNode *node, AsComponent *cpt)
+as_yaml_process_languages (GNode *node, AsComponent *cpt)
 {
 	GNode *sn;
 
@@ -793,10 +793,10 @@ as_yamldata_process_languages (GNode *node, AsComponent *cpt)
 }
 
 /**
- * as_yamldata_process_suggests:
+ * as_yaml_process_suggests:
  */
 static void
-as_yamldata_process_suggests (GNode *node, AsComponent *cpt)
+as_yaml_process_suggests (GNode *node, AsComponent *cpt)
 {
 	GNode *sn;
 
@@ -825,6 +825,25 @@ as_yamldata_process_suggests (GNode *node, AsComponent *cpt)
 
 		if (as_suggested_is_valid (sug))
 			as_component_add_suggested (cpt, sug);
+	}
+}
+
+/**
+ * as_yaml_process_custom:
+ */
+static void
+as_yaml_process_custom (GNode *node, AsComponent *cpt)
+{
+	GNode *sn;
+
+	for (sn = node->children; sn != NULL; sn = sn->next) {
+		const gchar *key;
+		const gchar *value;
+
+		key = as_yaml_node_get_key (sn);
+		value = as_yaml_node_get_value (sn);
+
+		as_component_insert_custom_value (cpt, key, value);
 	}
 }
 
@@ -924,11 +943,13 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 		} else if (g_strcmp0 (key, "Screenshots") == 0) {
 			as_yamldata_process_screenshots (ydt, node, cpt);
 		} else if (g_strcmp0 (key, "Languages") == 0) {
-			as_yamldata_process_languages (node, cpt);
+			as_yaml_process_languages (node, cpt);
 		} else if (g_strcmp0 (key, "Releases") == 0) {
 			as_yamldata_process_releases (ydt, node, cpt);
 		} else if (g_strcmp0 (key, "Suggests") == 0) {
-			as_yamldata_process_suggests (node, cpt);
+			as_yaml_process_suggests (node, cpt);
+		} else if (g_strcmp0 (key, "Custom") == 0) {
+			as_yaml_process_custom (node, cpt);
 		} else {
 			as_yaml_print_unknown ("root", key);
 		}
@@ -1859,7 +1880,7 @@ as_yaml_data_emit_suggests (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 	if (suggestions->len == 0)
 		return;
 
-	as_yaml_emit_scalar (emitter, "Suggested");
+	as_yaml_emit_scalar (emitter, "Suggests");
 	as_yaml_sequence_start (emitter);
 
 	for (i = 0; i < suggestions->len; i++) {
@@ -1883,6 +1904,33 @@ as_yaml_data_emit_suggests (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponen
 	}
 
 	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_data_emit_custom:
+ */
+static void
+as_yaml_data_emit_custom (AsYAMLData *ydt, yaml_emitter_t *emitter, AsComponent *cpt)
+{
+	GHashTable *custom;
+	GHashTableIter iter;
+	gpointer key, value;
+
+	custom = as_component_get_custom (cpt);
+	if (g_hash_table_size (custom) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Custom");
+	as_yaml_mapping_start (emitter);
+
+	g_hash_table_iter_init (&iter, custom);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		as_yaml_emit_entry (emitter,
+				    (const gchar*) key,
+				    (const gchar*) value);
+	}
+
+	as_yaml_mapping_end (emitter);
 }
 
 /**
@@ -2039,6 +2087,9 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 
 	/* Suggests */
 	as_yaml_data_emit_suggests (ydt, emitter, cpt);
+
+	/* Custom fields */
+	as_yaml_data_emit_custom (ydt, emitter, cpt);
 
 	/* close main mapping */
 	as_yaml_mapping_end (emitter);
