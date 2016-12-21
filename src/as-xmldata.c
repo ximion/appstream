@@ -1062,7 +1062,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 
 				type_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 				bundle_kind = as_bundle_kind_from_string (type_str);
-				if (bundle_kind != AS_BUNDLE_KIND_UNKNOWN)
+				if (bundle_kind == AS_BUNDLE_KIND_UNKNOWN)
 					bundle_kind = AS_BUNDLE_KIND_LIMBA;
 				bundle = as_bundle_new ();
 				as_bundle_set_kind (bundle, bundle_kind);
