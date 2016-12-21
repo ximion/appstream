@@ -147,6 +147,7 @@ test_yamlwrite_general (void)
 	g_autoptr(AsScreenshot) scr = NULL;
 	g_autoptr(AsRelease) rel1 = NULL;
 	g_autoptr(AsRelease) rel2 = NULL;
+	g_autoptr(AsBundle) bdl = NULL;
 	g_autofree gchar *resdata = NULL;
 	AsComponent *cpt = NULL;
 	GError *error = NULL;
@@ -187,6 +188,9 @@ test_yamlwrite_general (void)
 				"    width: 40\n"
 				"    height: 40\n"
 				"  stock: yml-writetest\n"
+				"Bundles:\n"
+				"- type: flatpak\n"
+				"  id: foobar\n"
 				"Screenshots:\n"
 				"- caption:\n"
 				"    fr: Le FooBar mainwindow\n"
@@ -292,6 +296,12 @@ test_yamlwrite_general (void)
 	as_release_set_description (rel2, "<p>The CPU no longer overheats when you hold down spacebar.</p>", "C");
 	as_release_set_urgency (rel2, AS_URGENCY_KIND_MEDIUM);
 	as_component_add_release (cpt, rel2);
+
+	/* bundle */
+	bdl = as_bundle_new ();
+	as_bundle_set_kind (bdl, AS_BUNDLE_KIND_FLATPAK);
+	as_bundle_set_id (bdl, "foobar");
+	as_component_add_bundle (cpt, bdl);
 
 	g_ptr_array_add (cpts, cpt);
 
