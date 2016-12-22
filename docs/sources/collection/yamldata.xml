@@ -701,11 +701,11 @@
 			</varlistentry>
 
 			<varlistentry id="field-dep11-bundles">
-			<term>Bundle</term>
+			<term>Bundles</term>
 			<listitem>
 				<para>See <xref linkend="tag-ct-bundle"/>.</para>
 				<para>
-					The <literal>Bundle</literal> contains a list of dictionaries with the keys <literal>type</literal>, having the ID for a specific bundling
+					The <literal>Bundles</literal> contains a list of dictionaries with the keys <literal>type</literal>, having the ID for a specific bundling
 					system (e.g. <code>flatpak</code> or <code>limba</code>) as value, and <literal>id</literal> for the associated bundle-id.
 					See the XML tag description for information on all valid bundling systems.
 				</para>
