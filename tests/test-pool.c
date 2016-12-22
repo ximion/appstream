@@ -88,6 +88,7 @@ test_cache ()
 	as_component_set_id (cpt2, "org.example.NewFooBar");
 	as_component_set_name (cpt2, "Second FooBar App", NULL);
 	as_component_set_summary (cpt2, "Another unit-test dummy entry", NULL);
+	as_component_insert_custom_value (cpt2, "mykey", "stuff");
 
 	/* add data to the pool */
 	dpool = as_pool_new ();
@@ -123,6 +124,7 @@ test_cache ()
 	g_assert_cmpint (as_component_get_kind (cpt2), ==, AS_COMPONENT_KIND_DESKTOP_APP);
 	g_assert_cmpstr (as_component_get_name (cpt2), ==, "Second FooBar App");
 	g_assert_cmpstr (as_component_get_summary (cpt2), ==, "Another unit-test dummy entry");
+	g_assert_cmpstr (as_component_get_custom_value (cpt2, "mykey"), ==, "stuff");
 }
 
 /**

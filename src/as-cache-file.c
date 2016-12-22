@@ -151,6 +151,21 @@ as_langs_table_to_variant_cb (const gchar *key, gint value, GVariantBuilder *bui
 }
 
 /**
+ * as_custom_table_to_variant_cb:
+ *
+ * Helper function to serialize the custom metadata table for cache storage.
+ */
+static void
+as_custom_table_to_variant_cb (const gchar *key, const gchar *value, GVariantBuilder *builder)
+{
+	if ((key == NULL) || (value == NULL))
+		return;
+
+	g_variant_builder_add (builder, "{ss}",
+				key, value);
+}
+
+/**
  * as_token_table_to_variant_cb:
  *
  * Helper function to serialize search tokens for storage in the cache.
@@ -467,6 +482,18 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 
 			as_variant_builder_add_kv (&cb, "suggestions",
 						   g_variant_builder_end (&array_b));
+		}
+
+		/* custom data */
+		tmp_table_ref = as_component_get_custom (cpt);
+		if (g_hash_table_size (tmp_table_ref) > 0) {
+			GVariantBuilder dict_b;
+			g_variant_builder_init (&dict_b, G_VARIANT_TYPE_DICTIONARY);
+			g_hash_table_foreach (tmp_table_ref,
+						(GHFunc) as_custom_table_to_variant_cb,
+						&dict_b);
+			as_variant_builder_add_kv (&cb, "custom",
+						   g_variant_builder_end (&dict_b));
 		}
 
 		/* search tokens */
@@ -1151,6 +1178,26 @@ as_cache_file_read (const gchar *fname, GError **error)
 				}
 
 				as_component_add_suggested (cpt, suggested);
+				g_variant_unref (child);
+			}
+			g_variant_unref (var);
+		}
+
+		/* custom data */
+		var = g_variant_dict_lookup_value (&dict,
+						   "custom",
+						   G_VARIANT_TYPE_DICTIONARY);
+		if (var != NULL) {
+			GVariant *child;
+
+			g_variant_iter_init (&gvi, var);
+			while ((child = g_variant_iter_next_value (&gvi))) {
+				g_autofree gchar *key = NULL;
+				g_autofree gchar *value = NULL;
+
+				g_variant_get (child, "{ss}", &key, &value);
+				as_component_insert_custom_value (cpt, key, value);
+
 				g_variant_unref (child);
 			}
 			g_variant_unref (var);
