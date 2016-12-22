@@ -103,7 +103,10 @@ const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
 #define AS_SEARCH_GREYLIST_STR _("app;application;package;program;programme;suite;tool")
 
 /* where .desktop files are installed to by packages to be registered with the system */
-#define APPLICATIONS_DIR "/usr/share/applications"
+static gchar *APPLICATIONS_DIR = "/usr/share/applications";
+
+/* where metainfo files can be found */
+static gchar *METAINFO_DIR = "/usr/share/metainfo";
 
 static void as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gboolean add_root);
 
@@ -175,8 +178,9 @@ as_pool_init (AsPool *pool)
 
 	/* set default pool flags */
 	priv->flags = AS_POOL_FLAG_READ_COLLECTION |
-			AS_POOL_FLAG_READ_METAINFO |
 			AS_POOL_FLAG_READ_DESKTOP_FILES;
+	/* FIXME: We don't enable AS_POOL_FLAG_READ_METAINFO by default yet, because this feature is unfinished and needs work,
+	 * mainly in the area of merging data together. */
 
 	/* set default cache flags */
 	priv->cache_flags = AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER;
@@ -595,12 +599,12 @@ as_pool_metadata_changed (AsPool *pool)
 }
 
 /**
- * as_pool_load_appstream:
+ * as_pool_load_collection_data:
  *
- * Load fresh metadata from AppStream directories.
+ * Load fresh metadata from AppStream collection data directories.
  */
 static gboolean
-as_pool_load_appstream (AsPool *pool, GError **error)
+as_pool_load_collection_data (AsPool *pool, GError **error)
 {
 	GPtrArray *cpts;
 	g_autoptr(GPtrArray) merge_cpts = NULL;
@@ -761,6 +765,75 @@ as_pool_load_appstream (AsPool *pool, GError **error)
 }
 
 /**
+ * as_pool_load_metainfo_data:
+ *
+ * Load fresh metadata from metainfo files.
+ */
+static void
+as_pool_load_metainfo_data (AsPool *pool)
+{
+	GPtrArray *cpts;
+	guint i;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GPtrArray) mi_files = NULL;
+	GError *error = NULL;
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+
+	/* prepare metadata parser */
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, priv->locale);
+
+	/* find metainfo files */
+	g_debug ("Searching for data in: %s", METAINFO_DIR);
+	mi_files = as_utils_find_files_matching (METAINFO_DIR, "*.xml", FALSE, NULL);
+	if (mi_files == NULL) {
+		g_debug ("Unable find metainfo files.");
+		return;
+	}
+
+	/* parse the found data */
+	for (i = 0; i < mi_files->len; i++) {
+		g_autoptr(GFile) infile = NULL;
+		const gchar *fname;
+
+		fname = (const gchar*) g_ptr_array_index (mi_files, i);
+		g_debug ("Reading: %s", fname);
+
+		infile = g_file_new_for_path (fname);
+		if (!g_file_query_exists (infile, NULL)) {
+			g_warning ("Metadata file '%s' does not exist.", fname);
+			continue;
+		}
+
+		as_metadata_parse_file (metad,
+					infile,
+					AS_FORMAT_KIND_UNKNOWN,
+					&error);
+		if (error != NULL) {
+			g_debug ("WARNING: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+	}
+
+	/* add found components to the metadata pool */
+	cpts = as_metadata_get_components (metad);
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		/* We only read metainfo files from system directories */
+		as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
+
+		as_pool_add_component_internal (pool, cpt, FALSE, &error);
+		if (error != NULL) {
+			g_debug ("Metadata ignored: %s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+	}
+}
+
+/**
  * as_pool_load_desktop_entries:
  *
  * Load fresh metadata from .desktop files.
@@ -854,7 +927,11 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 
 	/* read all AppStream metadata that we can find */
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_COLLECTION))
-		ret = as_pool_load_appstream (pool, error);
+		ret = as_pool_load_collection_data (pool, error);
+
+	/* read all .desktop file data that we can find */
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO))
+		as_pool_load_metainfo_data (pool);
 
 	/* read all .desktop file data that we can find */
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES))
@@ -1312,8 +1389,8 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 
 	/* NOTE: we will only cache AppStream metadata, no .desktop file metadata etc. */
 
-	/* find them wherever they are */
-	ret = as_pool_load_appstream (pool, &data_load_error);
+	/* load AppStream collection metadata only and refine it */
+	ret = as_pool_load_collection_data (pool, &data_load_error);
 	ret_poolupdate = as_pool_refine_data (pool) && ret;
 	if (data_load_error != NULL)
 		g_debug ("Error while updating the in-memory data pool: %s", data_load_error->message);
