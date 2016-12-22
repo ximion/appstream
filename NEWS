@@ -1,3 +1,35 @@
+Version 0.10.5
+~~~~~~~~~~~~~~
+Released: 2016-12-22
+
+Features:
+ * Match modalias wildcards on regular searches (Matthias Klumpp)
+ * xml: Add methods to get/set custom data in metainfo/collection files (Matthias Klumpp)
+ * Make cache update issue messages slightly more verbose (Matthias Klumpp)
+ * Add preliminary code for reading metainfo files in addition to .desktop files (Matthias Klumpp)
+ * cache: Cache custom fields as well (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Make sure dependencies are fetched when looking for the package (Aleix Pol)
+ * yaml: Consistently read/write the Suggests field (Matthias Klumpp)
+ * Correctly read bundle kind from XML data (Matthias Klumpp)
+
+Translation:
+ * Russian
+   - Igor
+ * German
+   - Lukas Selch
+ * Italian
+   - Milo Casagrande
+ * Turkish
+   - Muhammet Kara
+ * Polish
+   - Piotr Drąg
+ * Ukrainian
+   - Yuri Chornoivan
+ * Portuguese (Brazil)
+   - dsboger
+
 Version 0.10.4
 ~~~~~~~~~~~~~~
 Released: 2016-11-27
