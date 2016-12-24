@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-12-18 23:59+0100\n"
-"PO-Revision-Date: 2016-12-19 08:58+0000\n"
+"PO-Revision-Date: 2016-12-24 13:10+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian "
 "<https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.10\n"
+"X-Generator: Weblate 2.11-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -269,6 +269,8 @@ msgstr "URL-адрес снимка экрана по умолчанию"
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
+"По умолчанию к указанному формату метаданных (допустимые значения: \"xml\" и "
+"\"yaml\")."
 
 #: tools/ascli-utils.c:321
 msgid "Description"
