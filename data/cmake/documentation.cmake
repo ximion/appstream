@@ -50,7 +50,7 @@ macro(add_xml_manpages target manpages translations entities)
 		set(commands ${commands} ${CMAKE_CURRENT_BINARY_DIR}/${manpage_name})
 
 		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${manpage_name}
-				DESTINATION share/man/man${section})
+				DESTINATION ${CMAKE_INSTALL_MANDIR}/man${section})
 
 		# Add the translations for the manpage.
 		foreach(translation ${translations})
@@ -79,7 +79,7 @@ macro(add_xml_manpages target manpages translations entities)
 
 			set(nls-cmd ${nls-cmd} ${transdir}/${manpage})
 			install(FILES ${transdir}/${manpage}
-				    DESTINATION share/man/${translation}/man${section})
+				    DESTINATION ${CMAKE_INSTALL_MANDIR}/${translation}/man${section})
 
 		endforeach(translation ${translations})
 	endforeach(manpage ${manpages})
@@ -96,14 +96,14 @@ macro(add_manpages target manpages translations)
 		string(LENGTH ${man} manpage_length)
 		math(EXPR manpage_length ${manpage_length}-1)
 		string(SUBSTRING ${man} ${manpage_length} 1 section)
-		install(FILES ${man} DESTINATION share/man/man${section})
+		install(FILES ${man} DESTINATION ${CMAKE_INSTALL_MANDIR}/man${section})
 
 		if (USE_NLS)
 			foreach(translation ${translations})
 				set(transdir ${CMAKE_CURRENT_BINARY_DIR}/${translation})
 				add_po4a(man ${man} po/${translation}.po ${transdir}/${man} "")
 				install(FILES ${transdir}/${man}
-						DESTINATION share/man/${translation}/man${section})
+						DESTINATION ${CMAKE_INSTALL_MANDIR}/${translation}/man${section})
 				set(files ${files} ${transdir}/${man})
 			endforeach(translation ${translations})
 		endif(USE_NLS)
