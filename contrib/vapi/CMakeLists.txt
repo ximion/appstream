@@ -22,6 +22,6 @@ add_custom_command (OUTPUT ${APPSTREAM_VAPI_FILE}
 )
 add_custom_target(vapi ALL DEPENDS ${APPSTREAM_VAPI_FILE})
 
-install(FILES ${APPSTREAM_VAPI_FILE} DESTINATION share/vala/vapi)
+install(FILES ${APPSTREAM_VAPI_FILE} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/vala/vapi)
 
 endif()

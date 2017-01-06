@@ -22,5 +22,5 @@ add_custom_target (merge-l10n ALL
 )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.freedesktop.appstream.cli.metainfo.xml
-	DESTINATION share/metainfo
+	DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/metainfo
 )
