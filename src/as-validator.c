@@ -712,7 +712,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			as_validator_add_issue (validator, iter,
 						AS_ISSUE_IMPORTANCE_INFO,
 						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found invalid tag: '%s'. This tag is a GNOME extensions to AppStream and is not supported by all implementations.",
+						"Found invalid tag: '%s'. This tag is a GNOME-specific extension to AppStream and is not supported by all implementations.",
 						node_name);
 			tag_valid = FALSE;
 		} else if (!g_str_has_prefix (node_name, "x-")) {
