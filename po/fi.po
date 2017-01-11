@@ -1,17 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
 # Translators:
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2014
 # Ville Skyttä <ville.skytta@iki.fi>, 2016
+# Juhani Numminen <juhaninumminen0@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2016-12-18 23:59+0100\n"
-"PO-Revision-Date: 2016-12-26 11:03+0000\n"
-"Last-Translator: Lari Oesch <lari@oesch.me>\n"
+"PO-Revision-Date: 2017-01-11 17:56+0000\n"
+"Last-Translator: Juhani Numminen <juhaninumminen0@gmail.com>\n"
 "Language-Team: Finnish "
 "<https://hosted.weblate.org/projects/appstream/translations/fi/>\n"
 "Language: fi\n"
@@ -29,7 +29,7 @@ msgstr "'%s' komento"
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "3D grafiikat"
+msgstr "3D-grafiikka"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -64,23 +64,23 @@ msgstr ""
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr "AppSteam CLI"
+msgstr "AppStream-komentorivityökalu"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:627
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "AppSteam CLI-työkalun versio: %s"
+msgstr "AppStream-komentorivityökalun versio: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
 msgid "AppStream Status:"
-msgstr "AppSteamin tila:"
+msgstr "AppStreamin tila:"
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:80
 msgid "AppStream cache update completed successfully."
-msgstr "AppSteamin välimuisti päivitetty onnistuneesti."
+msgstr "AppStreamin välimuisti päivitetty onnistuneesti."
 
 #: src/as-pool.c:1353
 msgid ""
@@ -90,13 +90,13 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
-msgstr "AppStreadmin välimuistin päivittäminen ei ole tarpeellista."
+msgstr "AppStreamin välimuistin päivittäminen ei ole tarpeellista."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
 #: tools/appstream-cli.c:133 tools/appstream-cli.c:533
 msgid "AppStream command-line interface"
-msgstr "AppStream komentorivikäyttöliittymä"
+msgstr "AppStreamin komentorivikäyttöliittymä"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
@@ -138,7 +138,7 @@ msgstr "Ääni ja video"
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Äänen muokkaus"
 
 #: src/as-provided.c:141
 msgid "Binaries"
@@ -147,12 +147,12 @@ msgstr ""
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Palikat"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Lauta"
 
 #: tools/ascli-utils.c:287
 msgid "Bundle"
@@ -161,7 +161,7 @@ msgstr ""
 #: src/as-pool.c:1279
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Välimuistin sijaintiin ”%s” ei voi kirjoittaa."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -174,11 +174,13 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
+"Ei voida kopioida tiedostoa ”%s”: Tiedostopääte ei ole ”.metainfo.xml” "
+"tai”.appdata.xml”."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Kortit"
 
 #: tools/ascli-utils.c:357
 msgid "Categories"
@@ -202,18 +204,18 @@ msgstr "Kemia"
 #: src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr "Kodekit"
+msgstr "Koodekit"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:669
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr "Komento '%s' on tuntematon."
+msgstr "Komento ”%s” on tuntematon."
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "Viestintä ja uutiset"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -223,7 +225,7 @@ msgstr ""
 
 #: tools/ascli-utils.c:365
 msgid "Compulsory for"
-msgstr ""
+msgstr "Tarvitaan työpöytäympäristössä"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:555
@@ -247,7 +249,7 @@ msgstr ""
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Tietokannat"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
@@ -256,7 +258,7 @@ msgstr ""
 
 #: tools/ascli-utils.c:341
 msgid "Default Screenshot URL"
-msgstr ""
+msgstr "Oletusnäyttökuvan URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
@@ -276,7 +278,7 @@ msgstr "Kehittäjä"
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
 msgid "Developer Tools"
-msgstr "Kehittäjän työkalut"
+msgstr "Kehitystyökalut"
 
 #: tools/appstream-cli.c:552
 msgid "Display status information about available AppStream metadata."
@@ -304,17 +306,17 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "Opetus"
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
 msgid "Empty."
-msgstr ""
+msgstr "Tyhjä."
 
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Emulaattorit"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:224
@@ -328,7 +330,7 @@ msgstr ""
 
 #: tools/ascli-utils.c:315
 msgid "Extends"
-msgstr ""
+msgstr "Laajentaa"
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -378,12 +380,12 @@ msgstr ""
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Tiedostojärjestelmä"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Rahoitus"
 
 #: src/as-provided.c:159
 msgid "Flashed Firmware"
@@ -391,28 +393,28 @@ msgstr ""
 
 #: src/as-provided.c:145
 msgid "Fonts"
-msgstr ""
+msgstr "Fontit"
 
 #: src/as-category.c:211
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr ""
+msgstr "Fontit"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:136
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "Vanhentuneista poluista löydettiin %i komponenttia."
 
 #: tools/ascli-actions-misc.c:121
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Löydettiin %i komponenttia."
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "Pelit"
 
 #: tools/appstream-cli.c:539
 msgid "Get components which provide the given item."
@@ -425,7 +427,7 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Grafiikka ja valokuvaus"
 
 #: tools/ascli-utils.c:288
 msgid "Homepage"
@@ -455,7 +457,7 @@ msgstr ""
 
 #: tools/appstream-cli.c:553
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Asenna metadata-tiedosto oikeaan sijaintiin."
 
 #: tools/appstream-cli.c:549
 msgid "Install software matching the component-id."
@@ -468,21 +470,21 @@ msgstr ""
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Lasten pelit"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Kielipaketit"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Kielet"
 
 #: src/as-provided.c:139
 msgid "Libraries"
-msgstr ""
+msgstr "Kirjastot"
 
 #. license
 #: tools/ascli-utils.c:351
@@ -492,12 +494,12 @@ msgstr "Lisenssi"
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Kotoistus"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Logiikka"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
@@ -512,21 +514,21 @@ msgstr ""
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Matematiikka"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Matematiikka"
 
 #: tools/ascli-actions-mdata.c:369
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "Metadata-tiedostoa ”%s” ei ole olemassa."
 
 #: src/as-pool.c:722
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "Metadata-tiedostoissa on virheitä:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -544,7 +546,7 @@ msgstr ""
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Musiikkitoistimet"
 
 #: tools/ascli-utils.c:284
 msgid "Name"
@@ -553,7 +555,7 @@ msgstr "Nimi"
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Uutiset"
 
 #: tools/ascli-actions-mdata.c:187
 #, c-format
@@ -562,7 +564,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:103
 msgid "No icons."
-msgstr ""
+msgstr "Ei kuvakkeita."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -577,13 +579,13 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "Toimisto"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:171
 #, c-format
 msgid "Option '%s' is unknown."
-msgstr "Vaihtoehto '%s' on tuntematon."
+msgstr "Valitsin ”%s” on tuntematon."
 
 #: tools/ascli-utils.c:286
 msgid "Package"
@@ -592,7 +594,7 @@ msgstr "Paketti"
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Valokuvaus"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
@@ -602,7 +604,7 @@ msgstr ""
 #. project group
 #: tools/ascli-utils.c:348
 msgid "Project Group"
-msgstr ""
+msgstr "Projektiryhmä"
 
 #: tools/ascli-utils.c:393
 msgid "Provided Items"
@@ -627,12 +629,12 @@ msgstr ""
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Robotiikka"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Roolipelit"
 
 #: tools/appstream-cli.c:175 tools/appstream-cli.c:610
 #, c-format
@@ -653,12 +655,12 @@ msgstr ""
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Skannaus"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "Tiede"
 
 #: tools/appstream-cli.c:537
 msgid "Search the component database."
@@ -667,7 +669,7 @@ msgstr ""
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Tietoturva"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:587
@@ -682,12 +684,12 @@ msgstr "Näytä ohjelmaversio."
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Urheilu"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Strategia"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:535
@@ -706,17 +708,17 @@ msgstr "Yhteenveto:"
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Järjestelmänvalvonta"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Pääte-emulaattorit"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Tekstimuokkaimet"
 
 #: src/as-pool.c:1337
 msgid ""
@@ -766,7 +768,7 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "Apuohjelmat"
 
 #: tools/appstream-cli.c:546
 msgid "Validate AppStream XML files for issues."
@@ -791,7 +793,7 @@ msgstr ""
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Vektorigrafiikat"
+msgstr "Vektorigrafiikka"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
@@ -801,7 +803,7 @@ msgstr "Versio: %s"
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Kuvankatselimet"
 
 #: tools/ascli-actions-misc.c:151
 #, c-format
@@ -811,12 +813,12 @@ msgstr ""
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Selaimet"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Tekstinkäsittely"
 
 #: tools/appstream-cli.c:558
 msgid ""
