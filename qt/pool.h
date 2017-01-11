@@ -77,6 +77,13 @@ Q_OBJECT
         bool load();
 
         /**
+         * \return true on success. False on failure
+         *
+         * In case of failure, @p error will be initialized with the error message
+         */
+        bool load(QString* error);
+
+        /**
          * Remove all software component information from the pool.
          */
         void clear();
