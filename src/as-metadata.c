@@ -386,12 +386,8 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 					   priv->format_version,
 					   error);
 	if (cpt == NULL) {
-		if (*error == NULL) {
-			g_set_error_literal (error,
-						AS_METADATA_ERROR,
-						AS_METADATA_ERROR_NO_COMPONENT,
-						"No component found that could be updated.");
-		}
+		if (*error == NULL)
+			g_debug ("No component found in desktop-entry data.");
 		return;
 	}
 

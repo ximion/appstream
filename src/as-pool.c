@@ -338,6 +338,15 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 			tmp_cdid = g_strdup_printf ("%s.desktop", cdid);
 			existing_cpt = g_hash_table_lookup (priv->cpt_table, tmp_cdid);
 		}
+
+		if (existing_cpt != NULL) {
+			if (as_component_get_origin_kind (cpt) != AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+				/* discard tthis component if we have anything better data already in the pool,
+				 * which is basically anything *but* data from a .desktop file */
+				g_debug ("Ignored .desktop metadata for '%s': Better data exists.", cdid);
+				return FALSE;
+			}
+		}
 	}
 
 	if (existing_cpt == NULL) {
@@ -351,6 +360,10 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 					g_strdup (cdid),
 					g_object_ref (cpt));
 		return TRUE;
+	}
+
+	if (as_component_get_origin_kind (existing_cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+		as_component_set_priority (existing_cpt, -G_MAXINT);
 	}
 
 	/* perform metadata merges if necessary */
@@ -515,8 +528,15 @@ as_pool_refine_data (AsPool *pool)
 
 		/* validate the component */
 		if (!as_component_is_valid (cpt)) {
-			g_debug ("WARNING: Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
-			ret = FALSE;
+			/* we still succeed if the components originates from a .desktop file -
+			 * we care less about them and they generally have bad quality, so some issues
+			 * pop up on pretty much every system */
+			if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+				g_debug ("Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
+			} else {
+				g_debug ("WARNING: Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
+				ret = FALSE;
+			}
 			continue;
 		}
 
@@ -929,7 +949,7 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_COLLECTION))
 		ret = as_pool_load_collection_data (pool, error);
 
-	/* read all .desktop file data that we can find */
+	/* read all metainfo files that we can find */
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO))
 		as_pool_load_metainfo_data (pool);
 
