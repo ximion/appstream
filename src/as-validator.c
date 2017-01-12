@@ -532,6 +532,24 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 					"The component has a 'merge' method defined. This is not allowed in metainfo files.");
 	}
 
+	/* the component must have a name */
+	if (as_str_empty (as_component_get_name (cpt))) {
+		/* we don't have a summary */
+		as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_MISSING,
+					"The component is missing a name (<name/> tag).");
+		}
+
+	/* the component must have a summary */
+	if (as_str_empty (as_component_get_summary (cpt))) {
+		/* we don't have a summary */
+		as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_MISSING,
+					"The component is missing a summary (<summary/> tag).");
+	}
+
 	for (iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		g_autofree gchar *node_content = NULL;
@@ -1110,28 +1128,6 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 				tmp_error = NULL;
 			} else {
 				/* we successfully opened the .desktop file, now perform some checks */
-
-				/* name */
-				if (as_str_empty (as_component_get_name (cpt)) &&
-				    (!g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
-								 G_KEY_FILE_DESKTOP_KEY_NAME, NULL))) {
-					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
-					as_validator_add_issue (data->validator, NULL,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_MISSING,
-							"The component is missing a name (none found in its metainfo or .desktop file)");
-				}
-
-				/* summary */
-				if (as_str_empty (as_component_get_summary (cpt)) &&
-				    (!g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
-								 G_KEY_FILE_DESKTOP_KEY_COMMENT, NULL))) {
-					/* we don't have a summary, and there is also none in the .desktop file - this is bad. */
-					as_validator_add_issue (data->validator, NULL,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_MISSING,
-							"The component is missing a summary (none found in its metainfo or .desktop file)");
-				}
 
 				/* categories */
 				if (g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
