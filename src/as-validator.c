@@ -619,6 +619,15 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 								AS_ISSUE_KIND_VALUE_WRONG,
 								"Icons of type 'stock' or 'cached' must not contain a full or relative path to the icon.");
 			}
+
+			if (mode == AS_FORMAT_STYLE_METAINFO) {
+				if ((prop != NULL) && (g_strcmp0 (prop, "stock") != 0)) {
+					as_validator_add_issue (validator, iter,
+								AS_ISSUE_IMPORTANCE_ERROR,
+								AS_ISSUE_KIND_VALUE_WRONG,
+								"Metainfo files may only contain 'stock' icons, icons of kind '%s' are not allowed.", prop);
+				}
+			}
 			g_free (prop);
 		} else if (g_strcmp0 (node_name, "url") == 0) {
 			gchar *prop;
