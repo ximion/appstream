@@ -553,14 +553,6 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 							node_content);
 			}
 			g_free (prop);
-			if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-				if (!g_str_has_suffix (node_content, ".desktop"))
-					as_validator_add_issue (validator, iter,
-								AS_ISSUE_IMPORTANCE_WARNING,
-								AS_ISSUE_KIND_VALUE_WRONG,
-								"Component id belongs to a desktop-application, but does not resemble the .desktop file name: \"%s\"",
-								node_content);
-			}
 
 			/* validate the AppStream ID */
 			as_validator_validate_component_id (validator, iter, cpt);
