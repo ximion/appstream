@@ -47,8 +47,8 @@
 
 		<note>
 			<para>
-				All tags defined in the generic component specification are valid for desktop application components as well. An application is just
-				a specialized component, allowing tools like software centers to filter out the component types they want to display.
+				All tags defined in the <literal>generic</literal> component specification are valid for <literal>desktop application</literal> components as well.
+				An application is just a specialized component, allowing tools like software centers to filter out the component types they want to display.
 			</para>
 		</note>
 
@@ -94,14 +94,7 @@
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is always requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
-					You can omit this tag if you want the software center to have the same strings as defined in the <literal>Name</literal> field
-					of the <filename>.desktop</filename> file.
-					In some cases it might be required to have a different name in the software center, but most metainfo files will not need this.
-				</para>
-				<para>
-					If no <literal>name</literal> tag and no <literal>Name</literal> field is present, the metadata
-					is considered invalid and might be ignored by the AppStream generator.
+					The human-readable name of the application. This is the name you want users to see prior to installing the application.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -110,14 +103,8 @@
 			<term>&lt;summary/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is always requited for a generic component, for a <literal>desktop-application</literal> metainfo file it is only essential
-					if the accompanying <filename>.desktop</filename> file does not have a <literal>Comment=</literal> field.
-					If the metainfo file has a <literal>summary</literal>, it wil override the value found in the <literal>Comment</literal> field of the
-					<filename>.desktop</filename> file.
-				</para>
-				<para>
-					If no <literal>summary</literal> tag and no <literal>Comment</literal> field is present, the metadata
-					is considered invalid and might be ignored by the AppStream generator.
+					A short summary on what this application does, roughly equivalent to the <literal>Comment</literal> field of the
+					accompanying <filename>.desktop</filename> file of the application.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -196,8 +183,7 @@
 
 		<para>
 			For a component of type <literal>desktop-application</literal>, the following tags are required and must always be present: <xref linkend="tag-id-desktopapp"/>,
-			<xref linkend="tag-description"/>, <xref linkend="tag-metadata_license"/>.
-			The following tags are strongly recommended / required conditionally: <xref linkend="tag-dapp-name"/>, <xref linkend="tag-dapp-summary"/>.
+			<xref linkend="tag-dapp-name"/>, <xref linkend="tag-dapp-summary"/>, <xref linkend="tag-description"/>, <xref linkend="tag-metadata_license"/>.
 		</para>
 
 	</section>
