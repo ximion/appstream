@@ -41,14 +41,21 @@
 
 		<para>
 			The basic structure for a generic component as described at <xref linkend="spec-component-filespec"/> applies.
-			Note that the XML root must have the <literal>type</literal> property set to <code>desktop</code>, while in a generic component this
+			Note that the XML root must have the <literal>type</literal> property set to <code>desktop-application</code>, while in a generic component this
 			property can be omitted. This clearly identifies this metainfo document as describing an application.
 		</para>
 
 		<note>
 			<para>
-				All tags defined in the <literal>generic</literal> component specification are valid for <literal>desktop application</literal> components as well.
+				All tags defined in the <literal>generic</literal> component specification are valid for <literal>desktop-application</literal> components as well.
 				An application is just a specialized component, allowing tools like software centers to filter out the component types they want to display.
+			</para>
+		</note>
+		<note>
+			<para>
+				The <code>desktop-application</code> component type is the same as the <code>desktop</code> component type - <code>desktop</code> is the older
+				type identifier for desktop-applications and should not be used for new metainfo files, unless compatibility with very old AppStream tools (pre 2015)
+				is still wanted.
 			</para>
 		</note>
 
