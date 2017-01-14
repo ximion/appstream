@@ -20,6 +20,11 @@
 		elements which can be used.
 		Specialized components might require more information to be complete and valid.
 	</para>
+	<para>
+		The XML in metainfo files does not need any XML namespace, and adding one should generally be avoided.
+		If you want to use a namespace though (maybe in case you want to embed the data in other contexts), the xmlns
+		should be <code>https://specifications.freedesktop.org/metainfo/1.0</code>.
+	</para>
 
 	<xi:include href="component.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
 	<xi:include href="desktopapp.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
