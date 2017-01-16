@@ -2809,6 +2809,152 @@ as_component_insert_custom_value (AsComponent *cpt, const gchar *key, const gcha
 }
 
 /**
+ * as_copy_l10n_hashtable_hfunc:
+ */
+static void
+as_copy_l10n_hashtable_hfunc (gpointer key, gpointer value, gpointer user_data)
+{
+	GHashTable *dest = (GHashTable*) user_data;
+
+	g_hash_table_insert (dest, g_strdup (key), g_strdup (value));
+}
+
+/**
+ * as_replace_hashtable:
+ *
+ * Helper for as_component_merge_with_mode()
+ */
+static void
+as_copy_l10n_hashtable (GHashTable *src, GHashTable *dest)
+{
+	/* don't copy if there is nothing to copy */
+	if (g_hash_table_size (src) <= 0)
+		return;
+
+	/* clear our destination table */
+	g_hash_table_remove_all (dest);
+
+	/* copy */
+	g_hash_table_foreach (src,
+			      &as_copy_l10n_hashtable_hfunc,
+			      dest);
+}
+
+/**
+ * as_component_merge_with_mode:
+ * @cpt: An #AsComponent.
+ * @source: An #AsComponent to merge into @cpt.
+ * @merge_kind: How
+ *
+ * Merge data from component @source into @cpt, respecting the
+ * merge parameter @merge_kind.
+ */
+void
+as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind merge_kind)
+{
+	guint i;
+	AsComponent *dest_cpt = cpt;
+	AsComponent *src_cpt = source;
+	AsComponentPrivate *dest_priv = GET_PRIVATE (dest_cpt);
+	AsComponentPrivate *src_priv = GET_PRIVATE (src_cpt);
+
+	/* FIXME/TODO: We need to merge more attributes */
+
+	/* merge stuff in append mode */
+	if (merge_kind == AS_MERGE_KIND_APPEND) {
+		GPtrArray *suggestions;
+		GPtrArray *cats;
+
+		/* merge categories */
+		cats = as_component_get_categories (src_cpt);
+		if (cats->len > 0) {
+			g_autoptr(GHashTable) cat_table = NULL;
+			GPtrArray *dest_categories;
+
+			cat_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+			for (i = 0; i < cats->len; i++) {
+				const gchar *cat = (const gchar*) g_ptr_array_index (cats, i);
+				g_hash_table_add (cat_table, g_strdup (cat));
+			}
+
+			dest_categories = as_component_get_categories (dest_cpt);
+			if (dest_categories->len > 0) {
+				for (i = 0; i < dest_categories->len; i++) {
+					const gchar *cat = (const gchar*) g_ptr_array_index (dest_categories, i);
+					g_hash_table_add (cat_table, g_strdup (cat));
+				}
+			}
+
+			g_ptr_array_set_size (dest_categories, 0);
+			as_hash_table_string_keys_to_array (cat_table, dest_categories);
+		}
+
+		/* merge suggestions */
+		suggestions = as_component_get_suggested (src_cpt);
+		if (suggestions != NULL) {
+			for (i = 0; i < suggestions->len; i++) {
+				as_component_add_suggested (dest_cpt,
+						    AS_SUGGESTED (g_ptr_array_index (suggestions, i)));
+			}
+		}
+
+		/* merge icons */
+		for (i = 0; i < src_priv->icons->len; i++) {
+			AsIcon *icon = AS_ICON (g_ptr_array_index (src_priv->icons, i));
+
+			/* this function will not replace existing icons */
+			as_component_add_icon (dest_cpt, icon);
+		}
+	}
+
+	/* merge stuff in replace mode */
+	if (merge_kind == AS_MERGE_KIND_REPLACE) {
+		/* names */
+		as_copy_l10n_hashtable (src_priv->name, dest_priv->name);
+
+		/* summary */
+		as_copy_l10n_hashtable (src_priv->summary, dest_priv->summary);
+
+		/* description */
+		as_copy_l10n_hashtable (src_priv->description, dest_priv->description);
+
+		/* merge package names */
+		if ((src_priv->pkgnames != NULL) && (src_priv->pkgnames[0] != '\0'))
+			as_component_set_pkgnames (dest_cpt, src_priv->pkgnames);
+
+		/* merge bundles */
+		if (as_component_has_bundle (src_cpt))
+			as_component_set_bundles_array (dest_cpt, as_component_get_bundles (src_cpt));
+	}
+
+	/* the resulting component gets the origin of the highet value of both */
+	if (as_component_get_origin_kind (src_cpt) > as_component_get_origin_kind (dest_cpt))
+		as_component_set_origin_kind (dest_cpt, as_component_get_origin_kind (src_cpt));
+
+	g_debug ("Merged data for '%s'", as_component_get_data_id (dest_cpt));
+}
+
+/**
+ * as_component_merge:
+ * @cpt: An #AsComponent.
+ * @source: An #AsComponent with a merge type.
+ *
+ * Merge data from component @source into @cpt, respecting the
+ * merge mode of @source.
+ *
+ * Returns: %TRUE if the merge was successful.
+ */
+gboolean
+as_component_merge (AsComponent *cpt, AsComponent *source)
+{
+	AsMergeKind merge_kind = as_component_get_merge_kind (source);
+	g_return_val_if_fail (merge_kind != AS_MERGE_KIND_NONE, FALSE);
+
+	as_component_merge_with_mode (cpt, source, merge_kind);
+	return TRUE;
+}
+
+/**
  * as_component_get_property:
  */
 static void

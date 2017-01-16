@@ -75,6 +75,7 @@ typedef struct
 
 	AsPoolFlags flags;
 	AsCacheFlags cache_flags;
+	gboolean prefer_local_metainfo;
 
 	gchar *sys_cache_path;
 	gchar *user_cache_path;
@@ -172,6 +173,9 @@ as_pool_init (AsPool *pool)
 	distro = as_distro_details_new ();
 	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
 
+	/* check whether we might want to prefer local metainfo files over remote data */
+	priv->prefer_local_metainfo = as_distro_details_get_bool (distro, "PreferLocalMetainfoData", FALSE);
+
 	/* set watched default directories for AppStream metadata */
 	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++)
 		as_pool_add_metadata_location_internal (pool, AS_APPSTREAM_METADATA_PATHS[i], FALSE);
@@ -179,8 +183,11 @@ as_pool_init (AsPool *pool)
 	/* set default pool flags */
 	priv->flags = AS_POOL_FLAG_READ_COLLECTION |
 			AS_POOL_FLAG_READ_DESKTOP_FILES;
-	/* FIXME: We don't enable AS_POOL_FLAG_READ_METAINFO by default yet, because this feature is unfinished and needs work,
-	 * mainly in the area of merging data together. */
+	if (priv->prefer_local_metainfo) {
+		/* FIXME: We don't enable AS_POOL_FLAG_READ_METAINFO by default yet, because this feature is unfinished and needs work,
+		* mainly in the area of merging data together. */
+		priv->flags |= AS_POOL_FLAG_READ_METAINFO;
+	}
 
 	/* set default cache flags */
 	priv->cache_flags = AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER;
@@ -224,82 +231,6 @@ as_pool_class_init (AsPoolClass *klass)
 }
 
 /**
- * as_merge_components:
- *
- * Merge selected data from two components.
- */
-static void
-as_merge_components (AsComponent *dest_cpt, AsComponent *src_cpt)
-{
-	guint i;
-	AsMergeKind merge_kind;
-
-	merge_kind = as_component_get_merge_kind (src_cpt);
-	g_return_if_fail (merge_kind != AS_MERGE_KIND_NONE);
-
-	/* FIXME: We need to merge more attributes */
-
-	/* merge stuff in append mode */
-	if (merge_kind == AS_MERGE_KIND_APPEND) {
-		GPtrArray *suggestions;
-		GPtrArray *cats;
-
-		/* merge categories */
-		cats = as_component_get_categories (src_cpt);
-		if (cats->len > 0) {
-			g_autoptr(GHashTable) cat_table = NULL;
-			GPtrArray *dest_categories;
-
-			cat_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-			for (i = 0; i < cats->len; i++) {
-				const gchar *cat = (const gchar*) g_ptr_array_index (cats, i);
-				g_hash_table_add (cat_table, g_strdup (cat));
-			}
-
-			dest_categories = as_component_get_categories (dest_cpt);
-			if (dest_categories->len > 0) {
-				for (i = 0; i < dest_categories->len; i++) {
-					const gchar *cat = (const gchar*) g_ptr_array_index (dest_categories, i);
-					g_hash_table_add (cat_table, g_strdup (cat));
-				}
-			}
-
-			g_ptr_array_set_size (dest_categories, 0);
-			as_hash_table_string_keys_to_array (cat_table, dest_categories);
-		}
-
-		/* merge suggestions */
-		suggestions = as_component_get_suggested (src_cpt);
-		if (suggestions != NULL) {
-			for (i = 0; i < suggestions->len; i++) {
-				as_component_add_suggested (dest_cpt,
-						    AS_SUGGESTED (g_ptr_array_index (suggestions, i)));
-			}
-		}
-	}
-
-	/* merge stuff in replace mode */
-	if (merge_kind == AS_MERGE_KIND_REPLACE) {
-		gchar **pkgnames;
-
-		/* merge names */
-		if (as_component_get_name (src_cpt) != NULL)
-			as_component_set_name (dest_cpt, as_component_get_name (src_cpt), as_component_get_active_locale (src_cpt));
-
-		/* merge package names */
-		pkgnames = as_component_get_pkgnames (src_cpt);
-		if ((pkgnames != NULL) && (pkgnames[0] != '\0'))
-			as_component_set_pkgnames (dest_cpt, as_component_get_pkgnames (src_cpt));
-
-		/* merge bundles */
-		if (as_component_has_bundle (src_cpt))
-			as_component_set_bundles_array (dest_cpt, as_component_get_bundles (src_cpt));
-	}
-
-	g_debug ("Merged data for '%s'", as_component_get_data_id (dest_cpt));
-}
-
-/**
  * as_pool_add_component_internal:
  * @pool: An instance of #AsPool
  * @cpt: The #AsComponent to add to the pool.
@@ -314,6 +245,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	const gchar *cdid = NULL;
 	AsComponent *existing_cpt;
 	gint pool_priority;
+	AsOriginKind new_cpt_orig_kind;
+	AsOriginKind existing_cpt_orig_kind;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	cdid = as_component_get_data_id (cpt);
@@ -325,6 +258,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 					"Skipping '%s' from inclusion into the pool: Component is ignored.", cdid);
 		return FALSE;
 	}
+
+	new_cpt_orig_kind = as_component_get_origin_kind (cpt);
 
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
 	if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
@@ -362,8 +297,51 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		return TRUE;
 	}
 
-	if (as_component_get_origin_kind (existing_cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
-		as_component_set_priority (existing_cpt, -G_MAXINT);
+	existing_cpt_orig_kind = as_component_get_origin_kind (existing_cpt);
+
+	/* always replace data from .desktop entries */
+	if (existing_cpt_orig_kind == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+		if (new_cpt_orig_kind == AS_ORIGIN_KIND_METAINFO) {
+			/* do an append-merge to ensure the data from an exusting metainfo file has an icon */
+			as_component_merge_with_mode (cpt,
+							existing_cpt,
+							AS_MERGE_KIND_APPEND);
+
+			g_hash_table_replace (priv->cpt_table,
+				g_strdup (cdid),
+				g_object_ref (cpt));
+			g_debug ("Replaced '%s' with data from metainfo and desktop-entry file.", cdid);
+			return TRUE;
+		} else {
+			as_component_set_priority (existing_cpt, -G_MAXINT);
+		}
+	}
+
+	/* merge desktop-entry data in, if we already have existing data from a metainfo file */
+	if (new_cpt_orig_kind == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+		if (existing_cpt_orig_kind == AS_ORIGIN_KIND_METAINFO) {
+			/* do an append-merge to ensure the metainfo file has an icon */
+			as_component_merge_with_mode (existing_cpt,
+						      cpt,
+						      AS_MERGE_KIND_APPEND);
+			g_debug ("Merged desktop-entry data into metainfo data for '%s'.", cdid);
+			return TRUE;
+		}
+	}
+
+	/* check whether we should prefer data from metainfo files over preexisting data */
+	if ((priv->prefer_local_metainfo) &&
+	    (new_cpt_orig_kind == AS_ORIGIN_KIND_METAINFO)) {
+		/* update package info, metainfo files do never have this data.
+		 * (we hope that collection data was loaded first here, so the existing_cpt already contains
+		 *  the information we want - if that's not the case, no harm is done here) */
+		as_component_set_pkgnames (cpt, as_component_get_pkgnames (existing_cpt));
+
+		g_hash_table_replace (priv->cpt_table,
+				g_strdup (cdid),
+				g_object_ref (cpt));
+		g_debug ("Replaced '%s' with data from metainfo file.", cdid);
+		return TRUE;
 	}
 
 	/* perform metadata merges if necessary */
@@ -376,7 +354,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 							as_component_get_id (cpt));
 		for (i = 0; i < matches->len; i++) {
 			AsComponent *match = AS_COMPONENT (g_ptr_array_index (matches, i));
-			as_merge_components (match, cpt);
+			as_component_merge (match, cpt);
 		}
 
 		return TRUE;
@@ -532,7 +510,7 @@ as_pool_refine_data (AsPool *pool)
 			 * we care less about them and they generally have bad quality, so some issues
 			 * pop up on pretty much every system */
 			if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
-				g_debug ("Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
+				g_debug ("Ignored '%s': The component (from a .desktop file) is invalid.", as_component_get_id (cpt));
 			} else {
 				g_debug ("WARNING: Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
 				ret = FALSE;
@@ -792,10 +770,10 @@ as_pool_load_collection_data (AsPool *pool, GError **error)
 static void
 as_pool_load_metainfo_data (AsPool *pool)
 {
-	GPtrArray *cpts;
 	guint i;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) mi_files = NULL;
+	GPtrArray *cpts;
 	GError *error = NULL;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
@@ -861,10 +839,10 @@ as_pool_load_metainfo_data (AsPool *pool)
 static void
 as_pool_load_desktop_entries (AsPool *pool)
 {
-	GPtrArray *cpts;
 	guint i;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) de_files = NULL;
+	GPtrArray *cpts;
 	GError *error = NULL;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
