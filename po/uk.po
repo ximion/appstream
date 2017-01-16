@@ -6,17 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2016-12-18 23:59+0100\n"
+"POT-Creation-Date: 2017-01-17 00:40+0100\n"
 "PO-Revision-Date: 2016-12-19 06:47+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian "
-"<https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.10\n"
 
 #: tools/appstream-cli.c:136
@@ -51,7 +51,7 @@ msgid "Also print pedantic hints when validating."
 msgstr ""
 "Також виводити підказки щодо найдрібніших неточностей під час перевірки."
 
-#: tools/appstream-cli.c:540
+#: tools/appstream-cli.c:580
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Тип запису (наприклад lib, bin, python3, ...)"
 
@@ -66,7 +66,7 @@ msgid "AppStream CLI"
 msgstr "Командний рядок AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:627
+#: tools/appstream-cli.c:668
 #, c-format
 msgid "AppStream CLI tool version: %s"
 msgstr "Версія інструмента командного рядка AppStream: %s"
@@ -81,7 +81,7 @@ msgstr "Стан AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Оновлення кешу AppStream успішно завершено."
 
-#: src/as-pool.c:1353
+#: src/as-pool.c:1428
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -95,7 +95,7 @@ msgstr "Оновлення кешу AppStream непотрібне."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:133 tools/appstream-cli.c:533
+#: tools/appstream-cli.c:133 tools/appstream-cli.c:573
 msgid "AppStream command-line interface"
 msgstr "Інтерфейс командного рядка AppStream"
 
@@ -108,7 +108,7 @@ msgstr ""
 "AppStream — багатоплатформова специфікація надання метаданих щодо "
 "компонентів програмного забезпечення."
 
-#: src/as-pool.c:1339
+#: src/as-pool.c:1414
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "Кеш системи AppStream оновлено, але виявлено проблеми: %s"
@@ -161,7 +161,7 @@ msgstr "Ігри на дошці"
 msgid "Bundle"
 msgstr "Кортеж"
 
-#: src/as-pool.c:1279
+#: src/as-pool.c:1354
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Запис до адреси каталогу кешу, «%s», неможливий."
@@ -210,7 +210,7 @@ msgid "Codecs"
 msgstr "Кодеки"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:669
+#: tools/appstream-cli.c:712
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Невідома команда «%s»."
@@ -231,7 +231,7 @@ msgid "Compulsory for"
 msgstr "Обов’язкове для"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:555
+#: tools/appstream-cli.c:595
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Перетворити XML збірки на YAML або навпаки."
 
@@ -240,6 +240,12 @@ msgstr "Перетворити XML збірки на YAML або навпаки.
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Не вдалося знайти компонент, що містить «%s::%s»."
+
+#: tools/appstream-cli.c:596
+msgid ""
+"Create a template for a metainfo file (to be filed out by the upstream "
+"project)."
+msgstr ""
 
 #: src/as-provided.c:155
 msgid "DBus Session Services"
@@ -283,7 +289,7 @@ msgstr "Розробник"
 msgid "Developer Tools"
 msgstr "Інструменти розробника"
 
-#: tools/appstream-cli.c:552
+#: tools/appstream-cli.c:592
 msgid "Display status information about available AppStream metadata."
 msgstr "Вивести дані щодо стану доступних метаданих AppStream."
 
@@ -298,11 +304,11 @@ msgid "Do not use any caches when performing the request."
 msgstr "Не використовувати кеш взагалі під час виконання запиту."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:592
+#: tools/appstream-cli.c:633
 msgid "Don't show colored output."
 msgstr "Не розфарбовувати виведені дані."
 
-#: tools/appstream-cli.c:543
+#: tools/appstream-cli.c:583
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Створити дамп необроблених метаданих XML для компонента з відповідним "
@@ -421,11 +427,11 @@ msgstr "Знайдено %i компонентів."
 msgid "Games"
 msgstr "Ігри"
 
-#: tools/appstream-cli.c:539
+#: tools/appstream-cli.c:579
 msgid "Get components which provide the given item."
 msgstr "Отримати компоненти, які надають вказаний запис."
 
-#: tools/appstream-cli.c:538
+#: tools/appstream-cli.c:578
 msgid "Get information about a component by its ID."
 msgstr "Отримати інформацію щодо компонента за його ідентифікатором."
 
@@ -460,11 +466,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Вхідні коди"
 
-#: tools/appstream-cli.c:553
+#: tools/appstream-cli.c:593
 msgid "Install a metadata file into the right location."
 msgstr "Встановити файл метаданих у належному місці."
 
-#: tools/appstream-cli.c:549
+#: tools/appstream-cli.c:589
 msgid "Install software matching the component-id."
 msgstr ""
 "Встановити програмне забезпечення, що відповідає ідентифікатору компонента."
@@ -532,7 +538,7 @@ msgstr "Математика"
 msgid "Metadata file '%s' does not exist."
 msgstr "Файла метаданих «%s» не існує."
 
-#: src/as-pool.c:722
+#: src/as-pool.c:724
 msgid "Metadata files have errors:"
 msgstr "Помилки у файлах метаданих:"
 
@@ -626,11 +632,11 @@ msgstr "Python (версія 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:544
+#: tools/appstream-cli.c:584
 msgid "Rebuild the component metadata cache."
 msgstr "Перебудувати кеш метаданих щодо компонентів."
 
-#: tools/appstream-cli.c:550
+#: tools/appstream-cli.c:590
 msgid "Remove software matching the component-id."
 msgstr "Вилучити програмне забезпечення, вказане ідентифікатором компонента."
 
@@ -644,7 +650,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Рольові ігри"
 
-#: tools/appstream-cli.c:175 tools/appstream-cli.c:610
+#: tools/appstream-cli.c:175 tools/appstream-cli.c:651
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -675,7 +681,7 @@ msgstr "Сканування"
 msgid "Science"
 msgstr "Наука"
 
-#: tools/appstream-cli.c:537
+#: tools/appstream-cli.c:577
 msgid "Search the component database."
 msgstr "Шукати у базі даних компонентів."
 
@@ -685,12 +691,12 @@ msgid "Security"
 msgstr "Безпека"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:587
+#: tools/appstream-cli.c:628
 msgid "Show extra debugging information."
 msgstr "Вивести додаткові діагностичні дані."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:581
+#: tools/appstream-cli.c:622
 msgid "Show the program version."
 msgstr "Вивести дані щодо версії програми."
 
@@ -705,7 +711,7 @@ msgid "Strategy"
 msgstr "Стратегії"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:535
+#: tools/appstream-cli.c:575
 msgid "Subcommands:"
 msgstr "Підкоманди:"
 
@@ -733,7 +739,12 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Текстові редактори"
 
-#: src/as-pool.c:1337
+#: tools/ascli-actions-mdata.c:463
+#, fuzzy, c-format
+msgid "The .desktop file '%s' does not exist."
+msgstr "Файла метаданих «%s» не існує."
+
+#: src/as-pool.c:1412
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -742,6 +753,13 @@ msgstr ""
 "Кеш системи AppStream оновлено, але виявлено декілька помилок, які можуть "
 "призвести до втрати метаданих. Зверніться до докладного журналу обробки, щоб "
 "дізнатися про це більше."
+
+#: tools/ascli-actions-mdata.c:445
+#, c-format
+msgid ""
+"The software component type '%s' is not valid in AppStream. Possible values "
+"are:"
+msgstr ""
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -757,6 +775,17 @@ msgstr ""
 "наприклад, для того, щоб визначити програмне забезпечення для обробки даних "
 "певного типу MIME та його встановлення за ідентифікатором компонента "
 "програмного забезпечення."
+
+#: tools/ascli-actions-mdata.c:512
+#, c-format
+msgid "Unable save the template metainfo file: %s"
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:504
+#, fuzzy, c-format
+msgid "Unable to build the template metainfo file: %s"
+msgstr ""
+"Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -779,6 +808,11 @@ msgstr "Не вдалося знайти компонент, що відпові
 msgid "Unable to find component with ID '%s'!"
 msgstr "Не вдалося знайти компонент з ідентифікатором «%s»!"
 
+#: tools/ascli-actions-mdata.c:469
+#, c-format
+msgid "Unable to read the .desktop file: %s"
+msgstr ""
+
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
@@ -790,16 +824,22 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 "Не вдалося виконати запис до «%s», не вдалося встановити файл metainfo."
 
+#. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
+#: tools/appstream-cli.c:543
+msgid ""
+"Use the given .desktop file to fill in basic values in the metainfo file."
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
 msgstr "Інструменти"
 
-#: tools/appstream-cli.c:546
+#: tools/appstream-cli.c:586
 msgid "Validate AppStream XML files for issues."
 msgstr "Перевірити файли XML AppStream на вади."
 
-#: tools/appstream-cli.c:547
+#: tools/appstream-cli.c:587
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Перевіряти на коректність метаданих усю встановлену ієрархію файлів програми."
@@ -812,7 +852,7 @@ msgstr "Спроба перевірки зазнала невдачі."
 msgid "Validation was successful."
 msgstr "Перевірку пройдено."
 
-#: tools/appstream-cli.c:541
+#: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
 msgstr "Значення запису, який має бути знайдено."
 
@@ -846,7 +886,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Текстові процесори"
 
-#: tools/appstream-cli.c:558
+#: tools/appstream-cli.c:599
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -859,8 +899,14 @@ msgstr ""
 msgid "You might need superuser permissions to perform this action."
 msgstr "Для виконання цієї дії потрібні права адміністративного доступу."
 
+#: tools/ascli-actions-mdata.c:443
+msgid ""
+"You need to give an AppStream software component type to generate a "
+"template. Possible values are:"
+msgstr ""
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:609
+#: tools/appstream-cli.c:650
 msgid "You need to specify a command."
 msgstr "Вам слід вказати команду."
 
@@ -897,7 +943,7 @@ msgstr "Вам слід вказати файл вхідних і вихідни
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:103
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "додаток;застосунок;пакет;програма;програма;комплект;інструмент"
 
