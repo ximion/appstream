@@ -2927,8 +2927,9 @@ as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind
 			as_component_set_bundles_array (dest_cpt, as_component_get_bundles (src_cpt));
 	}
 
-	/* the resulting component gets the origin of the source - maybe just set the highest data-quality kind of the two? */
-	as_component_set_origin_kind (dest_cpt, as_component_get_origin_kind (src_cpt));
+	/* the resulting component gets the origin of the highet value of both */
+	if (as_component_get_origin_kind (src_cpt) > as_component_get_origin_kind (dest_cpt))
+		as_component_set_origin_kind (dest_cpt, as_component_get_origin_kind (src_cpt));
 
 	g_debug ("Merged data for '%s'", as_component_get_data_id (dest_cpt));
 }

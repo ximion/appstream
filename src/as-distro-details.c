@@ -179,9 +179,15 @@ as_distro_details_get_bool (AsDistroDetails *distro, const gchar *key, gboolean 
 
 	g_return_val_if_fail (key != NULL, FALSE);
 
-	value = g_key_file_get_boolean (priv->keyf, priv->distro_id, key, &error);
-	if (error != NULL)
-		return default_val;
+	value = g_key_file_get_boolean (priv->keyf, "general", key, &error);
+	if (error != NULL) {
+		g_error_free (error);
+		error = NULL;
+
+		value = g_key_file_get_boolean (priv->keyf, priv->distro_id, key, &error);
+		if (error != NULL)
+			return default_val;
+	}
 
 	return value;
 }
