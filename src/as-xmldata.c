@@ -1880,6 +1880,14 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 				(GHFunc) as_xml_lang_hashtable_to_nodes_cb,
 				&helper);
 
+	/* order license and project group after name/summary */
+	if (priv->mode == AS_FORMAT_STYLE_METAINFO)
+		as_xml_add_text_node (cnode, "metadata_license", as_component_get_metadata_license (cpt));
+
+	as_xml_add_text_node (cnode, "project_license", as_component_get_project_license (cpt));
+	as_xml_add_text_node (cnode, "project_group", as_component_get_project_group (cpt));
+
+	/* continue with long description and developer name */
 	helper.nd = NULL;
 	helper.node_name = "developer_name";
 	g_hash_table_foreach (as_component_get_developer_name_table (cpt),
@@ -1892,8 +1900,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 					(GHFunc) as_xml_desc_lang_hashtable_to_nodes_cb,
 					&helper);
 
-	as_xml_add_text_node (cnode, "project_license", as_component_get_project_license (cpt));
-	as_xml_add_text_node (cnode, "project_group", as_component_get_project_group (cpt));
+
 
 	as_xml_add_node_list_strv (cnode, NULL, "pkgname", as_component_get_pkgnames (cpt));
 

@@ -115,7 +115,7 @@ const GOptionEntry validate_options[] = {
 	{ NULL }
 };
 
-/* only used by the "run" command */
+/* only used by the "refresh --force" command */
 static gboolean optn_force = FALSE;
 
 /*** HELPER METHODS ***/
@@ -521,6 +521,46 @@ as_client_run_convert (char **argv, int argc)
 }
 
 /**
+ * as_client_run_new_template:
+ *
+ * Convert metadata.
+ */
+static int
+as_client_run_new_template (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *command = "new-template";
+	const gchar *out_fname = NULL;
+	const gchar *cpt_kind_str = NULL;
+	const gchar *optn_desktop_file = NULL;
+
+	const GOptionEntry newtemplate_options[] = {
+		{ "from-desktop", 0, 0,
+			G_OPTION_ARG_STRING,
+			&optn_desktop_file,
+			/* TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand) */
+			N_("Use the given .desktop file to fill in basic values in the metainfo file."), NULL },
+		{ NULL }
+	};
+
+	opt_context = as_client_new_subcommand_option_context (command, newtemplate_options);
+	ret = as_client_option_context_parse (opt_context,
+					      command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		cpt_kind_str = argv[2];
+	if (argc > 3)
+		out_fname = argv[3];
+
+	return ascli_create_metainfo_template (out_fname,
+					       cpt_kind_str,
+					       optn_desktop_file);
+}
+
+/**
  * as_client_get_summary:
  **/
 static gchar*
@@ -553,6 +593,7 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "put FILE         ", _("Install a metadata file into the right location."));
 	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
 	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
+	g_string_append_printf (string, "  %s - %s\n", "new-template TYPE FILE", _("Create a template for a metainfo file (to be filed out by the upstream project)."));
 
 	g_string_append (string, "\n");
 	g_string_append (string, _("You can find information about subcommand-specific options by passing \"--help\" to the subcommand."));
@@ -664,6 +705,8 @@ as_client_run (char **argv, int argc)
 		return as_client_run_status (argv, argc);
 	} else if (g_strcmp0 (command, "convert") == 0) {
 		return as_client_run_convert (argv, argc);
+	} else if (g_strcmp0 (command, "new-template") == 0) {
+		return as_client_run_new_template (argv, argc);
 	} else {
 		/* TRANSLATORS: ascli has been run with unknown command. */
 		ascli_print_stderr (_("Command '%s' is unknown."), command);

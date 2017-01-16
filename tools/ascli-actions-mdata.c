@@ -217,7 +217,7 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 		uint i;
 		g_printerr ("%s\n", _("Invalid type for provided item selected. Valid values are:"));
 		for (i = 1; i < AS_PROVIDED_KIND_LAST; i++)
-			fprintf (stdout, " * %s\n", as_provided_kind_to_string (i));
+			g_printerr (" • %s\n", as_provided_kind_to_string (i));
 		return 3;
 	}
 
@@ -414,6 +414,102 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 		as_metadata_save_collection (metad, out_fname, mformat, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+/**
+ * ascli_create_metainfo_template:
+ *
+ * Create a metainfo file template to be filed out by the user.
+ */
+int
+ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_str, const gchar *desktop_file)
+{
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GError) error = NULL;
+	AsComponentKind cpt_kind = AS_COMPONENT_KIND_UNKNOWN;
+	guint i;
+
+	/* check if we have a component-kind set */
+	cpt_kind = as_component_kind_from_string (cpt_kind_str);
+	if (cpt_kind == AS_COMPONENT_KIND_UNKNOWN) {
+		/* TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string */
+		if (cpt_kind_str == NULL)
+			ascli_print_stderr (_("You need to give an AppStream software component type to generate a template. Possible values are:"));
+		else
+			ascli_print_stderr (_("The software component type '%s' is not valid in AppStream. Possible values are:"), cpt_kind_str);
+		for (i = 1; i < AS_COMPONENT_KIND_LAST; i++)
+			ascli_print_stderr (" • %s", as_component_kind_to_string (i));
+		return 3;
+	}
+
+	/* new metadata parser, limited to one locale */
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "C");
+
+	if (desktop_file == NULL) {
+		cpt = as_component_new ();
+		as_metadata_add_component (metad, cpt);
+	} else {
+		g_autoptr(GFile) defile = NULL;
+
+		defile = g_file_new_for_path (desktop_file);
+		if (!g_file_query_exists (defile, NULL)) {
+			ascli_print_stderr (_("The .desktop file '%s' does not exist."), desktop_file);
+			return 4;
+		}
+
+		as_metadata_parse_file (metad, defile, AS_FORMAT_KIND_DESKTOP_ENTRY, &error);
+		if (error != NULL) {
+			ascli_print_stderr (_("Unable to read the .desktop file: %s"), error->message);
+			return 1;
+		}
+
+		cpt = g_object_ref (as_metadata_get_component (metad));
+	}
+	as_component_set_active_locale (cpt, "C");
+
+	as_component_set_kind (cpt, cpt_kind);
+	if (as_component_get_id (cpt) == NULL)
+		as_component_set_id (cpt, "org.example.SoftwareName");
+
+	if (as_component_get_name (cpt) == NULL)
+		as_component_set_name (cpt, "The human-readable name of this software", "C");
+
+	if (as_component_get_summary (cpt) == NULL)
+		as_component_set_summary (cpt, "A short summary describing what this software is about", "C");
+
+	if (as_component_get_description (cpt) == NULL)
+		as_component_set_description (cpt, "<p>Multiple paragraphs of long description, describing this software component.</p>"
+							"<p>You can also use ordered and unordered lists:</p>"
+							"<ul><li>Feature 1</li><li>Feature 2</li></ul>"
+							"<p>Keep in mind to XML-escape characters, and that this is not HTML markup.</p>", "C");
+
+	as_component_set_metadata_license (cpt, "A permissive license for this metadata, e.g. \"FSFAP\"");
+	as_component_set_project_license (cpt, "The license of this software as SPDX string, e.g. \"GPL-3+\"");
+
+	as_component_set_developer_name (cpt, "The software vendor name, e.g. \"ACME Corporation\"", "C");
+
+	/* print to console or save to file */
+	if ((out_fname == NULL) || (g_strcmp0 (out_fname, "-") == 0)) {
+		g_autofree gchar *metainfo_xml = NULL;
+
+		metainfo_xml = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
+		if (error != NULL) {
+			ascli_print_stderr (_("Unable to build the template metainfo file: %s"), error->message);
+			return 1;
+		}
+
+		g_print ("%s\n", metainfo_xml);
+	} else {
+		as_metadata_save_metainfo (metad, out_fname, AS_FORMAT_KIND_XML, &error);
+		if (error != NULL) {
+			ascli_print_stderr (_("Unable save the template metainfo file: %s"), error->message);
 			return 1;
 		}
 	}
