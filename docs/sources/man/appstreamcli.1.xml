@@ -188,6 +188,24 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>new-template <replaceable>TYPE</replaceable> <replaceable>FILE</replaceable></option></term>
+				<listitem>
+					<para>
+						Create a metainfo file template to be used by software projects. The <option>--from-desktop</option> option can be used
+						to use a .desktop file as template for generating the example file.
+					</para>
+					<para>
+						The generated files contain example entries which need to be filed in with the actual desired values by the project author.
+					</para>
+					<para>
+						The first <replaceable>TYPE</replaceable> parameter is the name of an AppStream component type. For a complete list check out
+						<ulink url="https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html">the documentation</ulink> or the help output
+						of <command>&package;</command> for this subcommand.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>--details</option></term>
 				<listitem>
 					<para>Print out more information about a found component.</para>
