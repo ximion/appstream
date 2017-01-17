@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-17 00:40+0100\n"
-"PO-Revision-Date: 2016-12-18 23:11+0000\n"
+"PO-Revision-Date: 2017-01-17 13:47+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish "
+"<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.10\n"
+"X-Generator: Weblate 2.11-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -248,7 +248,7 @@ msgstr "Nie można odnaleźć składnika dostarczającego „%s::%s”."
 msgid ""
 "Create a template for a metainfo file (to be filed out by the upstream "
 "project)."
-msgstr ""
+msgstr "Tworzy szablon pliku Metainfo (do wypełnienia przez projekt)."
 
 #: src/as-provided.c:155
 msgid "DBus Session Services"
@@ -741,9 +741,9 @@ msgid "Text Editors"
 msgstr "Edytory tekstu"
 
 #: tools/ascli-actions-mdata.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "Plik metadanych „%s” nie istnieje."
+msgstr "Plik .desktop „%s” nie istnieje."
 
 #: src/as-pool.c:1412
 msgid ""
@@ -761,6 +761,8 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Typ składnika oprogramowania „%s” nie jest prawidłowy w AppStream. Możliwe "
+"wartości:"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -779,12 +781,12 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:512
 #, c-format
 msgid "Unable save the template metainfo file: %s"
-msgstr ""
+msgstr "Nie można zapisać pliku szablonu Metainfo: %s"
 
 #: tools/ascli-actions-mdata.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "Nie można zapisać do „%s”, nie można zainstalować pliku metainfo."
+msgstr "Nie można zbudować pliku szablonu Metainfo: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -810,7 +812,7 @@ msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 #: tools/ascli-actions-mdata.c:469
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Nie można odczytać pliku .desktop: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -827,6 +829,8 @@ msgstr "Nie można zapisać do „%s”, nie można zainstalować pliku metainfo
 msgid ""
 "Use the given .desktop file to fill in basic values in the metainfo file."
 msgstr ""
+"Używa podanego pliku .desktop do wypełnienia podstawowych wartości w pliku "
+"Metainfo."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -901,6 +905,8 @@ msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Należy podać typ składnika oprogramowania AppStream, aby utworzyć szablon. "
+"Możliwe wartości:"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:650
