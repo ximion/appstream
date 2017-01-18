@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -967,8 +967,7 @@ msgstr ""
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;apka;aplikace;balíček;balík;program;sada;příslušenství;nástroj;pomůcka"
+msgstr "app;apka;aplikace;balíček;balík;program;sada;příslušenství;nástroj;pomůcka"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -2130,18 +2129,14 @@ msgstr "Neznámá předvolba „%s“."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Spuštěním „%s --help“ si zobrazíte úplný seznam možných předvoleb "
-"příkazového řádku."
+msgstr "Spuštěním „%s --help“ si zobrazíte úplný seznam možných předvoleb příkazového řádku."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Spuštěním „%s --help“ si zobrazíte úplný seznam možných předvoleb "
-"příkazového řádku a „%s %s --help“ těch pro konkrétní dílčí příkaz."
+msgstr "Spuštěním „%s --help“ si zobrazíte úplný seznam možných předvoleb příkazového řádku a „%s %s --help“ těch pro konkrétní dílčí příkaz."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2174,8 +2169,7 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Jako parametry je třeba zadat přinejmenším dvě čísla verzí pro porovnání."
+msgstr "Jako parametry je třeba zadat přinejmenším dvě čísla verzí pro porovnání."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2187,26 +2181,20 @@ msgstr "Neznámá deklarace porovnání „%s“. Platné hodnoty jsou:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Příliš mnoho parametrů: potřebuje dvě čísla verzí nebo čísla verzí a "
-"porovnávací operátor."
+msgstr "Příliš mnoho parametrů: potřebuje dvě čísla verzí nebo čísla verzí a porovnávací operátor."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Použít daný .desktop soubor pro vyplnění základních hodnot do souboru s "
-"metainformacemi."
+msgstr "Použít daný .desktop soubor pro vyplnění základních hodnot do souboru s metainformacemi."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Tento příkaz přijímá volitelné poziční parametry TYPE (typ) a FILE (soubor), "
-"kde FILE je soubor do kterého zapsat (nebo „-“ pro standardní výstup)."
+msgstr "Tento příkaz přijímá volitelné poziční parametry TYPE (typ) a FILE (soubor), kde FILE je soubor do kterého zapsat (nebo „-“ pro standardní výstup)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2268,9 +2256,7 @@ msgstr "Dílčí příkazy:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Informace o přepínačích pro konkrétní dílčí příkazy obdržíte připojením „--"
-"help“ (nápověda) k dílčímu příkazu."
+msgstr "Informace o přepínačích pro konkrétní dílčí příkazy obdržíte připojením „--help“ (nápověda) k dílčímu příkazu."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2324,8 +2310,7 @@ msgstr "Ověřit zda XML AppStream soubor neobsahuje chyby."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Ověřit zda nainstalovaný strom souborů aplikace obsahuje platná metadata."
+msgstr "Ověřit zda nainstalovaný strom souborů aplikace obsahuje platná metadata."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2373,8 +2358,7 @@ msgstr "Porovnat dvě čísla verzí."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Vytvořit šablonu pro metainfo soubor (pro vyplnění v upstream projektu)."
+msgstr "Vytvořit šablonu pro metainfo soubor (pro vyplnění v upstream projektu)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2422,8 +2406,7 @@ msgstr "Soubor s metadaty „%s“ neexistuje."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"K provedení této činnosti možná budete potřebovat oprávnění správce systému."
+msgstr "K provedení této činnosti možná budete potřebovat oprávnění správce systému."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2503,9 +2486,7 @@ msgstr "Soubor s metadaty „%s“ neexistuje."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Nedaří se převést soubor: Nepodařilo se zjistit výstupní formát, nastavte ho "
-"výslovně pomocí přepínače „--format“."
+msgstr "Nedaří se převést soubor: Nepodařilo se zjistit výstupní formát, nastavte ho výslovně pomocí přepínače „--format“."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2521,17 +2502,14 @@ msgstr "Verze: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Aby bylo možné vytvořit šablonu, je třeba zadat typ softwarové součásti "
-"AppStream. Možné hodnoty jsou:"
+msgstr "Aby bylo možné vytvořit šablonu, je třeba zadat typ softwarové součásti AppStream. Možné hodnoty jsou:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Typ „%s“ softwarové součásti není platný pro AppStream. Možné hodnoty jsou:"
+msgstr "Typ „%s“ softwarové součásti není platný pro AppStream. Možné hodnoty jsou:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2674,9 +2652,7 @@ msgstr "Je třeba zadat vstupní a výstupní soubor."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Nebyl nalezen žádný použitelný správné balíčků pro příkazový řádek. "
-"Zajistěte, aby byl k dispozici například „pkcon“ (součást PackageKit)."
+msgstr "Nebyl nalezen žádný použitelný správné balíčků pro příkazový řádek. Zajistěte, aby byl k dispozici například „pkcon“ (součást PackageKit)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
