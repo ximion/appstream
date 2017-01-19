@@ -21,6 +21,7 @@ Acquire::IndexTargets {
 
         KeepCompressed "true";
         KeepCompressedAs "gz";
+        DefaultEnabled "false";
     };
 
     # Icons suitable for HiDPI displays, for GUI components described in
