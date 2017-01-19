@@ -64,9 +64,19 @@ Pool::~Pool()
     // empty. needed for the scoped pointer for the private pointer
 }
 
-bool Pool::load()
+bool AppStream::Pool::load()
 {
-    return as_pool_load (d->m_pool, NULL, NULL);
+    return load(nullptr);
+}
+
+bool Pool::load(QString* strerror)
+{
+    g_autoptr(GError) error = nullptr;
+    bool ret = as_pool_load (d->m_pool, NULL, &error);
+    if (!ret && error) {
+        *strerror = QString::fromUtf8(error->message);
+    }
+    return ret;
 }
 
 void Pool::clear()
