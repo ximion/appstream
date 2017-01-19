@@ -10,89 +10,89 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-17 00:40+0100\n"
-"PO-Revision-Date: 2016-08-15 18:48+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: Czech (http://www.transifex.com/freedesktop/appstream/"
+"PO-Revision-Date: 2017-01-19 17:34+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech "
+"<https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
 "Language: cs\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"X-Generator: Weblate 2.11-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "„%s“ příkaz"
 
 #: src/as-category.c:168
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "Kategorie"
+msgstr "3D grafika"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Akce"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:386
 msgid "Add-ons"
-msgstr ""
+msgstr "Doplňky"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Dobrodružství"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
 msgid "Also print pedantic hints when validating."
-msgstr ""
+msgstr "Při ověřování vypisovat i nalezené drobnosti."
 
 #: tools/appstream-cli.c:580
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Typ položky (např. lib, bin, python3, atp.)"
 
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Nástroj pro práci s AppStream metadaty"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "Stav AppStreamu:"
+msgstr "Textové uživatelské rozhraní pro AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:668
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "Verze nástroje AppStream CLI: %s"
+msgstr "Verze nástroje AppStream pro textové uživatelské rozhraní: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
 msgid "AppStream Status:"
-msgstr "Stav AppStreamu:"
+msgstr "Stav nástroje AppStream:"
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:80
 msgid "AppStream cache update completed successfully."
-msgstr "Aktualizace mezipaměti AppStreamu byla úspěšně dokončena."
+msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
 #: src/as-pool.c:1428
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
+"Aktualizace mezipaměti AppStream se nezdařila. Zapněte výřečnější režim, ze "
+"kterého obdržíte podrobnější informace."
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
-msgstr "Aktualizace mezipaměti AppStreamu není zapotřebí."
+msgstr "Aktualizace mezipaměti AppStream není v tuto chvíli zapotřebí."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -106,41 +106,45 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream je standard pro poskytování metadat o programovém vybavení, "
+"používaný napříč linuxovými distribucemi."
 
 #: src/as-pool.c:1414
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
+"Systémová mezipaměť AppStream byla aktualizována, ale byly zjištěny problémy:"
+" %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Arkády"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Umělá inteligence"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomie"
 
 #: src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomie"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr ""
+msgstr "Zvuk a video"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Vytváření a úprava zvuku"
 
 #: src/as-provided.c:141
 msgid "Binaries"
@@ -149,12 +153,12 @@ msgstr "Spustitelné soubory"
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Bloky"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Deska"
 
 #: tools/ascli-utils.c:287
 msgid "Bundle"
@@ -163,12 +167,12 @@ msgstr "Zabaleno pomocí"
 #: src/as-pool.c:1354
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Do umístění mezipaměti „%s“ nelze zapisovat."
+msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Kalendář"
 
 #: tools/ascli-actions-mdata.c:332
 #, c-format
@@ -176,11 +180,13 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
+"Nedaří se zkopírovat „%s“: Soubor nemá příponu „.metainfo.xml“ nebo "
+"„.appdata.xml“."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Karetní"
 
 #: tools/ascli-utils.c:357
 msgid "Categories"
@@ -189,22 +195,22 @@ msgstr "Kategorie"
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Okamžitá komunikace"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Chemie"
 
 #: src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Chemie"
 
 #: src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Kodeky"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:712
@@ -215,7 +221,7 @@ msgstr "Příkaz „%s“ není znám."
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "Komunikace a novinky"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -230,48 +236,49 @@ msgstr "Povinné pro"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:595
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "Převádí z XML na YAML formát a obráceně."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:233
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Nelze najít komponentu poskytující „%s;%s“!"
+msgstr "Nepodařilo se najít komponentu poskytující „%s::%s“."
 
 #: tools/appstream-cli.c:596
 msgid ""
 "Create a template for a metainfo file (to be filed out by the upstream "
 "project)."
 msgstr ""
+"Vytvořit šablonu pro metainfo soubor (pro vyplnění autory zdrojového "
+"projektu)."
 
 #: src/as-provided.c:155
 msgid "DBus Session Services"
-msgstr "Služba sezení pro D-Bus"
+msgstr "Služby relace D-Bus"
 
 #: src/as-provided.c:153
 msgid "DBus System Services"
-msgstr "Systémová služba pro D-Bus"
+msgstr "Systémové služby D-Bus"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Databáze"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Ladící nástroje"
 
 #: tools/ascli-utils.c:341
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "URL snímku obrazovky s ukázkou"
+msgstr "URL výchozího ukázkového snímku obrazovky"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "Výchozí pro daný formát metadat (platné hodnoty jsou „xml“ a „yaml“)."
 
 #: tools/ascli-utils.c:321
 msgid "Description"
@@ -280,17 +287,17 @@ msgstr "Popis"
 #. developer name
 #: tools/ascli-utils.c:309
 msgid "Developer"
-msgstr "Vývojář"
+msgstr "Vývojáři"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Vývojář"
+msgstr "Nástroje pro vývoj"
 
 #: tools/appstream-cli.c:592
 msgid "Display status information about available AppStream metadata."
 msgstr ""
+"Zobrazit stavové informace o AppStream metadatech, které jsou k dispozici."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:50
@@ -299,24 +306,22 @@ msgstr "Metadata distribuce:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
-#, fuzzy
 msgid "Do not use any caches when performing the request."
-msgstr "Nepoužívat mezipaměť Xapian, když se provádí požadavek"
+msgstr "Při dotazování nepoužívat žádné mezipaměti."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:633
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "Nezobrazovat výstup obarvený"
+msgstr "Neobarvovat výstup."
 
 #: tools/appstream-cli.c:583
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "Vypsat surová metadata XML pro komponentu s odpovídajícím ID."
+msgstr "Vypsat surová XML metadata komponenty s tímto identifikátorem."
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "Výuka"
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
@@ -326,18 +331,17 @@ msgstr "Prázdné."
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Emulátory"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:224
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "Vynutit aktualizaci mezipaměti"
+msgstr "Vynutit aktualizaci mezipaměti."
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "Chyba při načítání fondu metadat: %s"
 
 #: tools/ascli-utils.c:315
 msgid "Extends"
@@ -346,57 +350,57 @@ msgstr "Rozšiřuje"
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Zajímavé"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Souborový systém"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Finance"
 
 #: src/as-provided.c:159
 msgid "Flashed Firmware"
@@ -404,29 +408,28 @@ msgstr "Trvalý firmware"
 
 #: src/as-provided.c:145
 msgid "Fonts"
-msgstr "Fonty"
+msgstr "Písma"
 
 #: src/as-category.c:211
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr "Fonty"
+msgstr "Písma"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:136
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "Nalezeno %i součástí v umístěních, jak se už nepoužívají."
 
 #: tools/ascli-actions-misc.c:121
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Nalezeno %i součástí."
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "Hry"
 
 #: tools/appstream-cli.c:579
 msgid "Get components which provide the given item."
@@ -434,12 +437,12 @@ msgstr "Získat komponenty, které poskytují danou položku."
 
 #: tools/appstream-cli.c:578
 msgid "Get information about a component by its ID."
-msgstr "Získat informace o komponentě podle jejího ID."
+msgstr "Získat informace o součásti podle jejího identifikátoru."
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Grafika a fotografie"
 
 #: tools/ascli-utils.c:288
 msgid "Homepage"
@@ -448,11 +451,11 @@ msgstr "Domovská stránka"
 #: src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "Integrovaná vývojová prostředí"
 
 #: tools/ascli-utils.c:289
 msgid "Icon"
-msgstr "Ikonka"
+msgstr "Ikona"
 
 #: tools/ascli-actions-misc.c:92
 msgid "Iconsets"
@@ -460,12 +463,12 @@ msgstr "Sady ikon"
 
 #: tools/ascli-utils.c:283
 msgid "Identifier"
-msgstr "ID"
+msgstr "Identifikátor"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Vstupní zdroje"
 
 #: tools/appstream-cli.c:593
 msgid "Install a metadata file into the right location."
@@ -473,7 +476,7 @@ msgstr "Nainstalovat soubor s metadaty na správné místo."
 
 #: tools/appstream-cli.c:589
 msgid "Install software matching the component-id."
-msgstr "Nainstalovat software odpovídající ID komponenty."
+msgstr "Nainstalovat software odpovídající identifikátoru součásti."
 
 #: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -482,17 +485,17 @@ msgstr "Vybrán neplatný typ pro poskytovanou položku. Platné hodnoty jsou:"
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Dětské"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Jazyková data"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Jazyky"
 
 #: src/as-provided.c:139
 msgid "Libraries"
@@ -506,61 +509,59 @@ msgstr "Licence"
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Překlady"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Logické"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr "Ručně nastavit umístění metadat AppStream pro obnovení mezipaměti"
+msgstr "Ručně nastavit umístění, ve kterém hledat metadat AppStream."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually set the location of the AppStream cache."
-msgstr "Ručně nastavit umístění mezipaměti AppStream"
+msgstr "Ručně nastavit umístění mezipaměti AppStream."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Matematika"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Matematika"
 
 #: tools/ascli-actions-mdata.c:369
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "Soubor s metadaty „%s“ neexistuje."
 
 #: src/as-pool.c:724
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "Soubory s metadaty obsahují chyby:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Soubory s metainformacemi:"
 
 #: src/as-provided.c:143
 msgid "Mimetypes"
-msgstr "Typ MIME"
+msgstr "Typy MIME"
 
 #: src/as-provided.c:147
 msgid "Modaliases"
-msgstr "Modul"
+msgstr "Alternativní názvy modulů"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Přehrávače hudby"
 
 #: tools/ascli-utils.c:284
 msgid "Name"
@@ -569,7 +570,7 @@ msgstr "Název"
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Novinky"
 
 #: tools/ascli-actions-mdata.c:187
 #, c-format
@@ -590,18 +591,18 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for defined."
-msgstr "Není určena žádná hodnota pro položku, která se má najít."
+msgstr "Nezadali jste co se má hledat."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "Kancelář"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "Option '%s' is unknown."
-msgstr "Příkaz „%s“ není znám."
+msgstr "Neznámá předvolba „%s“."
 
 #: tools/ascli-utils.c:286
 msgid "Package"
@@ -610,7 +611,7 @@ msgstr "Balíček"
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Fotografie"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
@@ -646,7 +647,7 @@ msgstr "Odebrat software odpovídající komponentě s ID."
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Robotika"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
@@ -676,12 +677,12 @@ msgstr "Nahrávaný firmware"
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Skenování"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "Věda"
 
 #: tools/appstream-cli.c:577
 msgid "Search the component database."
@@ -690,7 +691,7 @@ msgstr "Prohledat databázi komponent."
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Zabezpečení"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:628
@@ -700,19 +701,18 @@ msgstr "Zobrazovat doplňující informace pro ladění"
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:622
-#, fuzzy
 msgid "Show the program version."
-msgstr "Zobrazit verzi programu"
+msgstr "Zobrazit verzi programu."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Sporty"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Strategie"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:575
@@ -731,17 +731,17 @@ msgstr "Shrnutí:"
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Dohledování systému"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Emulátory terminálu"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Textové editory"
 
 #: tools/ascli-actions-mdata.c:463
 #, c-format
@@ -826,7 +826,7 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "Nástroje"
 
 #: tools/appstream-cli.c:586
 msgid "Validate AppStream XML files for issues."
@@ -850,10 +850,9 @@ msgid "Value of the item that should be found."
 msgstr ""
 
 #: src/as-category.c:177
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Kategorie"
+msgstr "Vektorová grafika"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
@@ -863,7 +862,7 @@ msgstr "Verze: %s"
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Prohlížeče"
 
 #: tools/ascli-actions-misc.c:151
 #, c-format
@@ -873,12 +872,12 @@ msgstr ""
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Webové prohlížeče"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Textový procesor"
 
 #: tools/appstream-cli.c:599
 msgid ""
@@ -928,9 +927,8 @@ msgid "You need to specify a term to search for."
 msgstr "Musíte zadat výraz, který se má hledat."
 
 #: tools/ascli-actions-mdata.c:362
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "Musíte uvést soubor s metadaty."
+msgstr "Je třeba zadat vstupní a výstupní soubor."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
