@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-17 00:40+0100\n"
-"PO-Revision-Date: 2017-01-19 17:34+0000\n"
+"PO-Revision-Date: 2017-01-19 17:59+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech "
 "<https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
@@ -615,9 +615,8 @@ msgstr "Fotografie"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
-#, fuzzy
 msgid "Print detailed output about found components."
-msgstr "O nalezené komponentě vypsat podrobnosti"
+msgstr "Vypsat podrobnosti o nalezené součásti."
 
 #. project group
 #: tools/ascli-utils.c:348
@@ -638,11 +637,11 @@ msgstr "Python 3"
 
 #: tools/appstream-cli.c:584
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Znovu vytvořit mezipaměť metadat součásti."
 
 #: tools/appstream-cli.c:590
 msgid "Remove software matching the component-id."
-msgstr "Odebrat software odpovídající komponentě s ID."
+msgstr "Odebrat software odpovídající komponentě s identifikátorem."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -652,7 +651,7 @@ msgstr "Robotika"
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "RPG"
 
 #: tools/appstream-cli.c:175 tools/appstream-cli.c:651
 #, c-format
@@ -662,17 +661,17 @@ msgstr ""
 "příkazového řádku."
 
 #: tools/appstream-cli.c:177
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
 "Spuštěním „%s --help“ si zobrazíte úplný seznam možných přepínačů "
-"příkazového řádku."
+"příkazového řádku a „%s %s --help“ těch pro konkrétní dílčí příkaz."
 
 #: src/as-provided.c:157
 msgid "Runtime Firmware"
-msgstr "Nahrávaný firmware"
+msgstr "Dočasně nahrávaný firmware"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
@@ -686,7 +685,7 @@ msgstr "Věda"
 
 #: tools/appstream-cli.c:577
 msgid "Search the component database."
-msgstr "Prohledat databázi komponent."
+msgstr "Prohledat databázi součástí."
 
 #: src/as-category.c:293
 msgctxt "Category of Utility"
@@ -695,9 +694,8 @@ msgstr "Zabezpečení"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:628
-#, fuzzy
 msgid "Show extra debugging information."
-msgstr "Zobrazovat doplňující informace pro ladění"
+msgstr "Zobrazovat doplňující informace pro ladění."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:622
@@ -746,7 +744,7 @@ msgstr "Textové editory"
 #: tools/ascli-actions-mdata.c:463
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr "Soubor .desktop pro „%s“ neexistuje."
 
 #: src/as-pool.c:1412
 msgid ""
@@ -754,6 +752,9 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"Mezipaměť systému AppStream byla aktualizována, ale byly zjištěny některé "
+"chyby, což může vést k chybějícím metadatům. Podrobnější informace naleznete "
+"ve výřečněji nastaveném záznamu událostí."
 
 #: tools/ascli-actions-mdata.c:445
 #, c-format
@@ -761,6 +762,7 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Typ „%s“ softwarové součásti není platný pro AppStream. Možné hodnoty jsou:"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -770,17 +772,20 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
+"Tento nástroj umožňuje čtení, zápis, ověřování a přeměnu AppStream XML nebo "
+"YAML metadat. Také zpřístupňuje systémový fond metadat pro například "
+"dotazování se na software, poskytující konkrétní MIME typ a jeho instalaci "
+"na základě identifikátoru softwarové součásti."
 
 #: tools/ascli-actions-mdata.c:512
 #, c-format
 msgid "Unable save the template metainfo file: %s"
-msgstr ""
+msgstr "Nedaří se uložit soubor se šablonou metainformací: %s"
 
 #: tools/ascli-actions-mdata.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
-"Nelze zapisovat do „%s“, proto nelze nainstalovat soubor s metainformacemi."
+msgstr "Nepodařilo se vytvořit soubor s šablonou metainformací: „%s“"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -788,6 +793,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Nedaří se přeměnit soubor: Nepodařilo se zjistit výstupní formát, nastavte "
+"ho výslovně pomocí přepínače „--format“."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:182
@@ -797,14 +804,14 @@ msgstr "Nelze najít komponentu odpovídající %s!"
 
 #: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
 #: tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr "Nelze najít komponentu s ID „%s“!"
+msgstr "Nedaří se najít součást s identifikátorem „%s“!"
 
 #: tools/ascli-actions-mdata.c:469
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Nedaří se načíst .desktop soubor: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
