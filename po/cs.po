@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-17 00:40+0100\n"
-"PO-Revision-Date: 2017-01-19 17:59+0000\n"
+"PO-Revision-Date: 2017-01-19 19:45+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech "
 "<https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
@@ -816,19 +816,22 @@ msgstr "Nedaří se načíst .desktop soubor: %s"
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Nelze spustit správce balíčků: %s"
+msgstr "Nepodařilo se spustit správce balíčků: %s"
 
 #: tools/ascli-actions-mdata.c:327
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
-"Nelze zapisovat do „%s“, proto nelze nainstalovat soubor s metainformacemi."
+"Nedaří se zapisovat do „%s“, proto nelze nainstalovat soubor s "
+"metainformacemi."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:543
 msgid ""
 "Use the given .desktop file to fill in basic values in the metainfo file."
 msgstr ""
+"Použít daný .desktop soubor pro vyplnění základních hodnot do souboru s "
+"metainformacemi."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -837,16 +840,16 @@ msgstr "Nástroje"
 
 #: tools/appstream-cli.c:586
 msgid "Validate AppStream XML files for issues."
-msgstr "Ověřit, jestli soubor XML ve formátu AppStream neobsahuje chyby."
+msgstr "Ověřit zda XML AppStream soubor neobsahuje chyby."
 
 #: tools/appstream-cli.c:587
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
-"Ověřit nainstalovaný strom souborů aplikace, jestli obsahuje platná metadata."
+"Ověřit zda nainstalovaný strom souborů aplikace obsahuje platná metadata."
 
 #: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:209
 msgid "Validation failed."
-msgstr "Ověření selhalo."
+msgstr "Ověření se nezdařilo."
 
 #: tools/ascli-actions-validate.c:173 tools/ascli-actions-validate.c:207
 msgid "Validation was successful."
@@ -854,7 +857,7 @@ msgstr "Ověření bylo úspěšné."
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Hodnota položky která by měla být nalezena."
 
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
@@ -874,7 +877,7 @@ msgstr "Prohlížeče"
 #: tools/ascli-actions-misc.c:151
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Je k dispozici informace o %i softwarové součásti."
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
@@ -891,31 +894,34 @@ msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Informace o přepínačích pro konkrétní dílčí příkazy obdržíte připojením "
+"„--help“ (nápověda) k dílčímu příkazu."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
-"K provedení této činnosti možná budete potřebovat oprávnění superuživatele."
+"K provedení této činnosti možná budete potřebovat oprávnění správce systému."
 
 #: tools/ascli-actions-mdata.c:443
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Aby bylo možné vytvořit šablonu, je třeba zadat typ softwarové součásti "
+"AppStream. Možné hodnoty jsou:"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:650
 msgid "You need to specify a command."
-msgstr "Musíte zadat příkaz."
+msgstr "Je třeba zadat příkaz."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:137 tools/ascli-actions-mdata.c:259
 #: tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
-msgstr "Musíte určit ID komponenty."
+msgstr "Je třeba zadat identifikátor součásti."
 
 #: tools/ascli-actions-validate.c:161
 msgid "You need to specify a file to validate!"
