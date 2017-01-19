@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-17 00:40+0100\n"
-"PO-Revision-Date: 2017-01-15 20:09+0000\n"
+"PO-Revision-Date: 2017-01-19 10:08+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian "
+"<https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
 #: tools/appstream-cli.c:136
@@ -746,9 +746,9 @@ msgid "Text Editors"
 msgstr "Текстовые редакторы"
 
 #: tools/ascli-actions-mdata.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "Файл метаданных \"%s\" не существует."
+msgstr "Файл .desktop \"%s\" не существует."
 
 #: src/as-pool.c:1412
 msgid ""
@@ -766,6 +766,8 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Тип программного компонента \"%s\" не является допустимым в AppStream. "
+"Возможные значения:"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -784,12 +786,12 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:512
 #, c-format
 msgid "Unable save the template metainfo file: %s"
-msgstr ""
+msgstr "Не удаётся сохранить файл шаблона метаданных: %s"
 
 #: tools/ascli-actions-mdata.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "Не удаётся записать в '%s', невозможно установить файл метаинформации."
+msgstr "Не удаётся создать файл шаблона метаданных: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -815,7 +817,7 @@ msgstr "Не удаётся найти компоненту с идентифи�
 #: tools/ascli-actions-mdata.c:469
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Не удаётся прочитать файл .desktop: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
