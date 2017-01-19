@@ -154,10 +154,10 @@
 				<term>&lt;name/&gt;</term>
 				<listitem>
 					<para>
-						A human-readable name for this component.
+						A human-readable name for this software.
 					</para>
 					<para>
-						In case of a component of type <literal>desktop</literal>, the application name as defined in the application's
+						In case of a component of type <literal>desktop-application</literal>, the application name as defined in the application's
 						<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink> is used.
 					</para>
 				</listitem>
@@ -266,7 +266,7 @@
 				<term>&lt;icon/&gt;</term>
 				<listitem>
 					<para>
-						The <code>&lt;icon/&gt;</code> tag describes the component icon. It is mostly used for GUI applications (component-type <literal>desktop</literal>).
+						The <code>&lt;icon/&gt;</code> tag describes the component icon. It is mostly used for GUI applications (component-type <literal>desktop-application</literal>).
 						It can be of the type <literal>stock</literal>, <literal>cached</literal>, <literal>local</literal>,
 						or <literal>url</literal>.
 					</para>
@@ -326,15 +326,14 @@
 				<term>&lt;categories/&gt;</term>
 				<listitem>
 					<para>
-						This tag can contain one or more <code><![CDATA[<category>]]></code> tags, describing the categories this application
-						is located in. This tag is usually applied to components of type <literal>desktop</literal>, although it might be used by others later.
+						This tag can contain one or more <code><![CDATA[<category>]]></code> tags, describing the categories this component
+						is located in. This tag is usually applied to components of type <literal>desktop-application</literal>, although it might be used by others later.
 						This data is usually taken from Desktop files, a list of categories can be found in the
 						<ulink url="http://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<categories>
-    <category>GNOME</category>
-    <category>GTK</category>
+    <category>Science</category>
     <category>Network</category>
     <category>Telephony</category>
 </categories>]]></programlisting>

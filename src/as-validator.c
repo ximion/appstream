@@ -862,6 +862,24 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 		}
 	}
 
+	/* validate categories */
+	if (as_component_get_categories (cpt)->len > 0) {
+		guint j;
+		GPtrArray *cat_array;
+
+		cat_array = as_component_get_categories (cpt);
+		for (j = 0; j < cat_array->len; j++) {
+			const gchar *category_name = (const gchar*) g_ptr_array_index (cat_array, j);
+
+			if (!as_utils_is_category_name (category_name)) {
+				as_validator_add_issue (validator, NULL,
+							AS_ISSUE_IMPORTANCE_WARNING,
+							AS_ISSUE_KIND_VALUE_WRONG,
+							"The category '%s' defined is not valid. Refer to the Freedesktop menu specificaton for a list of valid categories.", category_name);
+			}
+		}
+	}
+
 	as_validator_clear_current_cpt (validator);
 	return cpt;
 }
@@ -1144,7 +1162,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 							continue;
 						if (!as_utils_is_category_name (cats[i])) {
 							as_validator_add_issue (data->validator, NULL,
-										AS_ISSUE_IMPORTANCE_ERROR,
+										AS_ISSUE_IMPORTANCE_WARNING,
 										AS_ISSUE_KIND_VALUE_WRONG,
 										"The category '%s' defined in the .desktop file does not exist.", cats[i]);
 						}
