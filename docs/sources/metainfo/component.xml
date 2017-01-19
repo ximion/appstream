@@ -158,6 +158,24 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-categories">
+				<term>&lt;categories/&gt;</term>
+				<listitem>
+					<para>
+						This tag can contain one or more <code>&lt;category&gt;></code> entries, describing the categories this software component
+						is associated with.
+						This tag is usually applied to components of type <literal>desktop-application</literal>, but can be used with any component.
+						A list of valid category names can be found in the
+						<ulink url="http://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
+						Example:
+					</para>
+					<programlisting language="XML"><![CDATA[<categories>
+    <category>Game</category>
+    <category>ArcadeGame</category>
+</categories>]]></programlisting>
+				</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-url">
 		<term>&lt;url/&gt;</term>
 		<listitem>
