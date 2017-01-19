@@ -43,6 +43,42 @@
 /* Compilers will optimise this to a constant */
 #define YAML_SEPARATOR_LEN strlen(YAML_SEPARATOR)
 
+static const gchar *apt_lists_dir = "/var/lib/apt/lists/";
+static const gchar *appstream_yml_target = "/var/lib/app-info/yaml";
+static const gchar *appstream_icons_target = "/var/lib/app-info/icons";
+
+static const gchar* const default_icon_sizes[] = { "64x64", "128x128", NULL };
+
+
+/**
+ * directory_is_empty:
+ *
+ * Quickly check if a directory is empty.
+ */
+static gboolean
+directory_is_empty (const gchar *dirname)
+{
+	gint n = 0;
+	struct dirent *d;
+	DIR *dir = opendir (dirname);
+
+	if (dir == NULL)
+		return TRUE;
+
+	while ((d = readdir (dir)) != NULL) {
+		if (++n > 2)
+			break;
+	}
+
+	closedir (dir);
+
+	/* empty directory contains . and .. */
+	if (n <= 2)
+		return TRUE;
+	else
+		return 0;
+}
+
 /**
  * as_get_yml_data_origin:
  *
@@ -167,6 +203,28 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 }
 
 /**
+ * as_pool_check_file_newer_than_cache:
+ */
+static gboolean
+as_pool_check_file_newer_than_cache (AsPool *pool, GPtrArray *file_list)
+{
+	guint i;
+
+	for (i = 0; i < file_list->len; i++) {
+		struct stat sb;
+		const gchar *fname = (const gchar*) g_ptr_array_index (file_list, i);
+		if (stat (fname, &sb) < 0)
+			continue;
+		if (sb.st_ctime > as_pool_get_cache_age (pool)) {
+			/* we need to update the cache */
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+/**
  * as_pool_scan_apt:
  *
  * Scan for additional metadata in 3rd-party directories and move it to the right place.
@@ -174,12 +232,10 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 void
 as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 {
-	const gchar *apt_lists_dir = "/var/lib/apt/lists/";
-	const gchar *appstream_yml_target = "/var/lib/app-info/yaml";
-	const gchar *appstream_icons_target = "/var/lib/app-info/icons";
 	g_autoptr(GPtrArray) yml_files = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	gboolean data_changed = FALSE;
+	gboolean icons_available = FALSE;
 	guint i;
 
 	/* skip this step if the APT lists directory doesn't exist */
@@ -219,7 +275,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 
 	/* no data found? skip scan step */
 	if (yml_files->len <= 0) {
-		g_debug ("Couldn't find DEP-11 data in APT directories.");
+		g_debug ("Could not find DEP-11 data in APT directories.");
 		return;
 	}
 
@@ -227,6 +283,8 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 	 * This is needed because APT is putting files with the *server* ctime/mtime into it's lists directory,
 	 * and that time might be lower than the time the metadata cache was last updated, which may result
 	 * in no cache update being triggered at all.
+	 *
+	 * We also check for available icons, to install icons again if they were disabled (and removed) previously.
 	 */
 	for (i = 0; i < yml_files->len; i++) {
 		g_autofree gchar *fbasename = NULL;
@@ -240,20 +298,35 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 			g_debug ("File '%s' missing, cache update is needed.", dest_fname);
 			break;
 		}
+
+		if (!icons_available) {
+			g_autofree gchar *apt_basename = NULL;
+			guint j;
+
+			/* get base prefix for this file in the APT download cache */
+			apt_basename = g_strndup (fbasename, strlen (fbasename) - strlen (g_strrstr (fbasename, "_") + 1));
+
+			for (j = 0; default_icon_sizes[j] != NULL; j++) {
+				g_autofree gchar *icons_tarball = NULL;
+
+				icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.gz", apt_lists_dir, apt_basename, default_icon_sizes[j]);
+				if (g_file_test (icons_tarball, G_FILE_TEST_EXISTS)) {
+					icons_available = TRUE;
+					break;
+				}
+			}
+		}
 	}
 
 	/* get the last time we touched the database */
 	if (!data_changed) {
-		for (i = 0; i < yml_files->len; i++) {
-			struct stat sb;
-			const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
-			if (stat (fname, &sb) < 0)
-				continue;
-			if (sb.st_ctime > as_pool_get_cache_age (pool)) {
-				/* we need to update the cache */
-				data_changed = TRUE;
-				break;
-			}
+		/* check if a data file was updated */
+		data_changed = as_pool_check_file_newer_than_cache (pool, yml_files);
+
+		/* check if we have no icons, but should have some */
+		if (icons_available) {
+			if (directory_is_empty (appstream_icons_target))
+				data_changed = TRUE; /* we need to update, icons are missing */
 		}
 	}
 
@@ -279,6 +352,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		g_autofree gchar *dest_fname = NULL;
 		g_autofree gchar *origin = NULL;
 		g_autofree gchar *file_baseprefix = NULL;
+		guint j;
 		const gchar *fname = (const gchar*) g_ptr_array_index (yml_files, i);
 
 		fbasename = g_path_get_basename (fname);
@@ -315,16 +389,13 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 		file_baseprefix = g_strndup (fbasename, strlen (fbasename) - strlen (g_strrstr (fbasename, "_") + 1));
 
 		/* extract icons to their destination (if they exist at all */
-		as_extract_icon_cache_tarball (appstream_icons_target,
-						origin,
-						file_baseprefix,
-						apt_lists_dir,
-						"64x64");
-		as_extract_icon_cache_tarball (appstream_icons_target,
-						origin,
-						file_baseprefix,
-						apt_lists_dir,
-						"128x128");
+		for (j = 0; default_icon_sizes[j] != NULL; j++) {
+			as_extract_icon_cache_tarball (appstream_icons_target,
+							origin,
+							file_baseprefix,
+							apt_lists_dir,
+							default_icon_sizes[j]);
+		}
 	}
 
 	/* ensure the cache-rebuild process notices these changes */
