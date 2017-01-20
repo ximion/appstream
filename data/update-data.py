@@ -52,7 +52,7 @@ def get_spdx_id_list(fname, git_url, with_deprecated=True):
     print("Updating list of SPDX license IDs...")
     tdir = TemporaryDirectory(prefix="spdx_master-")
 
-    subprocess.check_call(['git', 'clone', '--depth=2', git_url, tdir.name])
+    subprocess.check_call(['git', 'clone', git_url, tdir.name])
     last_tag_name = subprocess.check_output(['git', 'describe', '--abbrev=0',  '--tags'], cwd=tdir.name)
     last_tag_name = str(last_tag_name.strip(), 'utf-8')
 
