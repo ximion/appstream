@@ -76,7 +76,7 @@ importance_location_to_print_string (AsIssueImportance importance, const gchar *
  * print_report:
  **/
 static gboolean
-process_report (GList *issues, gboolean pedantic)
+process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
 {
 	GList *l;
 	AsValidatorIssue *issue;
@@ -92,8 +92,23 @@ process_report (GList *issues, gboolean pedantic)
 		importance = as_validator_issue_get_importance (issue);
 
 		/* if there are errors or warnings, we consider the validation to be failed */
-		if ((importance == AS_ISSUE_IMPORTANCE_ERROR) || (importance == AS_ISSUE_IMPORTANCE_WARNING))
-			no_errors = FALSE;
+		switch (importance) {
+			case AS_ISSUE_IMPORTANCE_ERROR:
+				(*error_count)++;
+				no_errors = FALSE;
+				break;
+			case AS_ISSUE_IMPORTANCE_WARNING:
+				(*warning_count)++;
+				no_errors = FALSE;
+				break;
+			case AS_ISSUE_IMPORTANCE_INFO:
+				(*info_count)++;
+				break;
+			case AS_ISSUE_IMPORTANCE_PEDANTIC:
+				(*pedantic_count)++;
+				break;
+			default: break;
+		}
 
 		/* skip pedantic issues if we should not show them */
 		if ((!pedantic) && (importance == AS_ISSUE_IMPORTANCE_PEDANTIC))
@@ -114,8 +129,8 @@ process_report (GList *issues, gboolean pedantic)
 /**
  * ascli_validate_file:
  **/
-gboolean
-ascli_validate_file (gchar *fname, gboolean pedantic)
+static gboolean
+ascli_validate_file (gchar *fname, gboolean pedantic, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
 {
 	GFile *file;
 	gboolean ret;
@@ -137,7 +152,12 @@ ascli_validate_file (gchar *fname, gboolean pedantic)
 		errors_found = TRUE;
 	issues = as_validator_get_issues (validator);
 
-	ret = process_report (issues, pedantic);
+	ret = process_report (issues,
+			      pedantic,
+			      error_count,
+			      warning_count,
+			      info_count,
+			      pedantic_count);
 	if (!ret)
 		errors_found = TRUE;
 
@@ -149,6 +169,44 @@ ascli_validate_file (gchar *fname, gboolean pedantic)
 }
 
 /**
+ * ascli_validate_print_stats:
+ *
+ * Print issue statistic to stdout.
+ */
+static void
+ascli_validate_print_stats (gulong error_count, gulong warning_count, gulong info_count, gulong pedantic_count)
+{
+	gboolean add_spacer = FALSE;
+
+	if (error_count > 0) {
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		g_print (_("errors: %lu"), error_count);
+		add_spacer = TRUE;
+	}
+	if (warning_count > 0) {
+		if (add_spacer)
+			g_print (", ");
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		g_print (_("warnings: %lu"), warning_count);
+		add_spacer = TRUE;
+	}
+	if (info_count > 0) {
+		if (add_spacer)
+			g_print (", ");
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		g_print (_("infos: %lu"), info_count);
+		add_spacer = TRUE;
+	}
+	if (pedantic_count > 0) {
+		if (add_spacer)
+			g_print (", ");
+		/* TRANSLATORS: Used for small issue-statistics in appstreamcli-validate */
+		g_print (_("pedantic: %lu"), pedantic_count);
+		add_spacer = TRUE;
+	}
+}
+
+/**
  * ascli_validate_files:
  */
 gint
@@ -156,6 +214,10 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic)
 {
 	gint i;
 	gboolean ret = TRUE;
+	gulong error_count = 0;
+	gulong warning_count = 0;
+	gulong info_count = 0;
+	gulong pedantic_count = 0;
 
 	if (argc < 1) {
 		g_print ("%s\n", _("You need to specify a file to validate!"));
@@ -164,19 +226,40 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic)
 
 	for (i = 0; i < argc; i++) {
 		gboolean tmp_ret;
-		tmp_ret = ascli_validate_file (argv[i], pedantic);
+		tmp_ret = ascli_validate_file (argv[i],
+						pedantic,
+						&error_count,
+						&warning_count,
+						&info_count,
+						&pedantic_count);
 		if (!tmp_ret)
 			ret = FALSE;
 	}
 
 	if (ret) {
-		g_print ("%s\n", _("Validation was successful."));
+		if ((error_count == 0) && (warning_count == 0) &&
+		    (info_count == 0) && (pedantic_count == 0)) {
+			g_print ("%s\n", _("Validation was successful."));
+		} else {
+			g_print (_("Validation was successful: %s"), "");
+			ascli_validate_print_stats (error_count,
+						    warning_count,
+						    info_count,
+						    pedantic_count);
+			g_print ("\n");
+		}
+
+		return 0;
 	} else {
-		g_print ("%s\n", _("Validation failed."));
+		g_print (_("Validation failed: %s"), "");
+		ascli_validate_print_stats (error_count,
+					    warning_count,
+					    info_count,
+					    pedantic_count);
+		g_print ("\n");
+
 		return 3;
 	}
-
-	return 0;
 }
 
 /**
@@ -188,6 +271,10 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic)
 	gboolean no_errors = TRUE;
 	AsValidator *validator;
 	GList *issues;
+	gulong error_count = 0;
+	gulong warning_count = 0;
+	gulong info_count = 0;
+	gulong pedantic_count = 0;
 
 	if (root_dir == NULL) {
 		g_print ("%s\n", _("You need to specify a root directory to start validation!"));
@@ -198,15 +285,38 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic)
 	as_validator_validate_tree (validator, root_dir);
 	issues = as_validator_get_issues (validator);
 
-	no_errors = process_report (issues, pedantic);
+	no_errors = process_report (issues,
+				    pedantic,
+				    &error_count,
+				    &warning_count,
+				    &info_count,
+				    &pedantic_count);
 
 	g_list_free (issues);
 	g_object_unref (validator);
 
 	if (no_errors) {
-		g_print ("%s\n", _("Validation was successful."));
+		if ((error_count == 0) && (warning_count == 0) &&
+		    (info_count == 0) && (pedantic_count == 0)) {
+			g_print ("%s\n", _("Validation was successful."));
+		} else {
+			g_print (_("Validation was successful: %s"), "");
+			ascli_validate_print_stats (error_count,
+						    warning_count,
+						    info_count,
+						    pedantic_count);
+			g_print ("\n");
+		}
+
+		return 0;
 	} else {
-		g_print ("%s\n", _("Validation failed."));
+		g_print (_("Validation failed: %s"), "");
+		ascli_validate_print_stats (error_count,
+					    warning_count,
+					    info_count,
+					    pedantic_count);
+		g_print ("\n");
+
 		return 3;
 	}
 

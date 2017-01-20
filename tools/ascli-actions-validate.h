@@ -25,9 +25,6 @@
 
 G_BEGIN_DECLS
 
-gboolean		ascli_validate_file (gchar *fname,
-						gboolean pedantic);
-
 gint			ascli_validate_files (gchar **argv,
 						gint argc,
 						gboolean pedantic);
