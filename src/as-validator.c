@@ -244,6 +244,44 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 }
 
 /**
+ * as_validate_has_hyperlink:
+ *
+ * Check if @text contains a hyperlink.
+ */
+static gboolean
+as_validate_has_hyperlink (const gchar *text)
+{
+	if (text == NULL)
+		return FALSE;
+	if (g_strstr_len (text, -1, "http://") != NULL)
+		return TRUE;
+	if (g_strstr_len (text, -1, "https://") != NULL)
+		return TRUE;
+	if (g_strstr_len (text, -1, "ftp://") != NULL)
+		return TRUE;
+	return FALSE;
+}
+
+/**
+ * as_validate_is_url:
+ *
+ * Check if @str is an URL.
+ */
+static gboolean
+as_validate_is_url (const gchar *str)
+{
+	if (str == NULL)
+		return FALSE;
+	if (g_str_has_prefix (str, "http://"))
+		return TRUE;
+	if (g_str_has_prefix (str, "https://"))
+		return TRUE;
+	if (g_str_has_prefix (str, "ftp://"))
+		return TRUE;
+	return FALSE;
+}
+
+/**
  * as_validator_check_children_quick:
  **/
 static void
@@ -304,8 +342,6 @@ static void
 as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsComponent *cpt, AsFormatStyle mode)
 {
 	xmlNode *iter;
-	gchar *node_content;
-	gchar *node_name;
 	gboolean first_paragraph = TRUE;
 
 	if (mode == AS_FORMAT_STYLE_METAINFO) {
@@ -317,11 +353,12 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 	}
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name = (gchar*) iter->name;
+		g_autofree gchar *node_content = (gchar*) xmlNodeGetContent (iter);
+
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		node_name = (gchar*) iter->name;
-		node_content = (gchar*) xmlNodeGetContent (iter);
 
 		if ((g_strcmp0 (node_name, "ul") != 0) && (g_strcmp0 (node_name, "ol") != 0)) {
 			as_validator_check_content_empty (validator,
@@ -373,7 +410,13 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 						node_name);
 		}
 
-		g_free (node_content);
+		if (as_validate_has_hyperlink (node_content)) {
+			as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"The description contains an URL. This is not allowed, please use the <url/> tag to share links.",
+						node_name);
+		}
 	}
 }
 
@@ -523,6 +566,27 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 }
 
 /**
+ * as_validator_validate_update_contact:
+ */
+static void
+as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
+{
+	g_autofree gchar *text = (gchar*) xmlNodeGetContent (uc_node);
+
+	if ((g_strstr_len (text, -1, "@") == NULL) &&
+	    (g_strstr_len (text, -1, "_at_") == NULL) &&
+	    (g_strstr_len (text, -1, "_AT_") == NULL)) {
+		if (g_strstr_len (text, -1, ".") == NULL) {
+			as_validator_add_issue (validator, uc_node,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"The update-contact '%s' does not appear to be a valid email address.",
+						text);
+		}
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
@@ -662,6 +726,15 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 							AS_ISSUE_KIND_VALUE_WRONG,
 							"The summary tag must not contain tabs or linebreaks.");
 			}
+
+			if (as_validate_has_hyperlink (summary)) {
+				as_validator_add_issue (validator, iter,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_VALUE_WRONG,
+							"The summary must not contain any URL.",
+							node_name);
+			}
+
 		} else if (g_strcmp0 (node_name, "description") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_description_tag (validator, iter, cpt, mode);
@@ -669,11 +742,19 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			gchar *prop;
 			prop = as_validator_check_type_property (validator, cpt, iter);
 			if ((g_strcmp0 (prop, "cached") == 0) || (g_strcmp0 (prop, "stock") == 0)) {
-				if (g_strrstr (node_content, "/") != NULL)
+				if ((g_strrstr (node_content, "/") != NULL) || (as_validate_is_url (node_content)))
 					as_validator_add_issue (validator, iter,
 								AS_ISSUE_IMPORTANCE_ERROR,
 								AS_ISSUE_KIND_VALUE_WRONG,
-								"Icons of type 'stock' or 'cached' must not contain a full or relative path to the icon.");
+								"Icons of type 'stock' or 'cached' must not contain an URL or a full or relative path to the icon.");
+			}
+
+			if (g_strcmp0 (prop, "remote") == 0) {
+				if (!as_validate_is_url (node_content))
+					as_validator_add_issue (validator, iter,
+								AS_ISSUE_IMPORTANCE_ERROR,
+								AS_ISSUE_KIND_VALUE_WRONG,
+								"Icons of type 'remote' must contain an URL to the referenced icon.");
 			}
 
 			if (mode == AS_FORMAT_STYLE_METAINFO) {
@@ -716,6 +797,13 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+
+			if (as_validate_has_hyperlink (node_content)) {
+				as_validator_add_issue (validator, iter,
+							AS_ISSUE_IMPORTANCE_WARNING,
+							AS_ISSUE_KIND_VALUE_ISSUE,
+							"The <developer_name/> can not contain a hyperlink.");
+			}
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (!as_utils_is_desktop_environment (node_content)) {
 				as_validator_add_issue (validator, iter,
@@ -757,6 +845,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 							"The 'update_contact' tag should not be included in collection AppStream XML.");
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, cpt);
+				as_validator_validate_update_contact (validator, iter);
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
 			as_validator_check_children_quick (validator, iter, "id", cpt);
@@ -915,6 +1004,33 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 							AS_ISSUE_IMPORTANCE_WARNING,
 							AS_ISSUE_KIND_VALUE_WRONG,
 							"The category '%s' defined is not valid. Refer to the Freedesktop menu specificaton for a list of valid categories.", category_name);
+			}
+		}
+	}
+
+	/* validate screenshots */
+	if (as_component_get_screenshots (cpt)->len > 0) {
+		guint j;
+		GPtrArray *scr_array;
+
+		scr_array = as_component_get_screenshots (cpt);
+		for (j = 0; j < scr_array->len; j++) {
+			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (scr_array, j));
+			const gchar *scr_caption = as_screenshot_get_caption (scr);
+
+			if ((scr_caption != NULL) && (strlen (scr_caption) > 80)) {
+				as_validator_add_issue (validator, NULL,
+							AS_ISSUE_IMPORTANCE_PEDANTIC,
+							AS_ISSUE_KIND_VALUE_ISSUE,
+							"The screenshot caption '%s' is too long (should be <= 80 characters)",
+							scr_caption);
+			}
+
+			if (as_screenshot_get_images (scr)->len <= 0) {
+				as_validator_add_issue (validator, NULL,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_TAG_MISSING,
+							"The component contains a screenshot without any images.");
 			}
 		}
 	}
