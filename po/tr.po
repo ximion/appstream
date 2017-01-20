@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-17 00:40+0100\n"
+"POT-Creation-Date: 2017-01-20 19:01+0100\n"
 "PO-Revision-Date: 2016-11-29 20:27+0000\n"
 "Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
@@ -757,12 +757,12 @@ msgid ""
 "by its software component identifier."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:512
+#: tools/ascli-actions-mdata.c:548
 #, c-format
 msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:540
 #, fuzzy, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "'%s'e yazılamadı, üst bilgi dosyası kurulamıyor."
@@ -820,12 +820,18 @@ msgstr "AppStream XML dosyalarını sorunlar için doğrula."
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 
-#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:209
-msgid "Validation failed."
+#: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
+#, fuzzy, c-format
+msgid "Validation failed: %s"
 msgstr "Doğrulama başarısız."
 
-#: tools/ascli-actions-validate.c:173 tools/ascli-actions-validate.c:207
+#: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
+msgstr "Doğrulama işlemi tamamlandı."
+
+#: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
+#, fuzzy, c-format
+msgid "Validation was successful: %s"
 msgstr "Doğrulama işlemi tamamlandı."
 
 #: tools/appstream-cli.c:581
@@ -895,7 +901,7 @@ msgstr "Bir komut belirtmelisiniz."
 msgid "You need to specify a component-ID."
 msgstr "Bir bileşen kimliği belirtmelisiniz."
 
-#: tools/ascli-actions-validate.c:161
+#: tools/ascli-actions-validate.c:223
 msgid "You need to specify a file to validate!"
 msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
 
@@ -903,7 +909,7 @@ msgstr "Doğrulamak için bir dosya belirtmelisiniz!"
 msgid "You need to specify a metadata file."
 msgstr "Bir üst veri dosyası belirtmeniz gerekiyor."
 
-#: tools/ascli-actions-validate.c:193
+#: tools/ascli-actions-validate.c:280
 msgid "You need to specify a root directory to start validation!"
 msgstr "Doğrulamayı başlatmak için bir kök dizini belirtmelisiniz!"
 
@@ -925,6 +931,30 @@ msgstr "Bir üst veri dosyası belirtmeniz gerekiyor."
 #: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;uygulama;paket;program;program;takım;araç"
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:183
+#, c-format
+msgid "errors: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:197
+#, c-format
+msgid "infos: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:204
+#, c-format
+msgid "pedantic: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:190
+#, c-format
+msgid "warnings: %lu"
+msgstr ""
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "AppStream ön bellek güncellemesi başarısız oldu."

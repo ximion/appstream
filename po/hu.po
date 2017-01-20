@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-17 00:40+0100\n"
+"POT-Creation-Date: 2017-01-20 19:01+0100\n"
 "PO-Revision-Date: 2016-09-16 22:05+0000\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -765,12 +765,12 @@ msgid ""
 "by its software component identifier."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:512
+#: tools/ascli-actions-mdata.c:548
 #, c-format
 msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:540
 #, fuzzy, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
@@ -831,12 +831,18 @@ msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Egy alkalmazás telepített fájlfájának összevetése az érvényes metaadatokkal."
 
-#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:209
-msgid "Validation failed."
+#: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
+#, fuzzy, c-format
+msgid "Validation failed: %s"
 msgstr "Az ellenőrzés nem sikerült."
 
-#: tools/ascli-actions-validate.c:173 tools/ascli-actions-validate.c:207
+#: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
+msgstr "Az ellenőrzés sikeres volt."
+
+#: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
+#, fuzzy, c-format
+msgid "Validation was successful: %s"
 msgstr "Az ellenőrzés sikeres volt."
 
 #: tools/appstream-cli.c:581
@@ -904,7 +910,7 @@ msgstr "Meg kell adnia egy parancsot."
 msgid "You need to specify a component-ID."
 msgstr "Meg kell adnia egy összetevő-azonosítót."
 
-#: tools/ascli-actions-validate.c:161
+#: tools/ascli-actions-validate.c:223
 msgid "You need to specify a file to validate!"
 msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 
@@ -912,7 +918,7 @@ msgstr "Meg kell adnia egy fájlt az ellenőrzéshez!"
 msgid "You need to specify a metadata file."
 msgstr "Meg kell adnia egy metaadatfájlt."
 
-#: tools/ascli-actions-validate.c:193
+#: tools/ascli-actions-validate.c:280
 msgid "You need to specify a root directory to start validation!"
 msgstr "Meg kell adnia egy gyökérkönyvtárat az ellenőrzés megkezdéséhez!"
 
@@ -933,6 +939,30 @@ msgstr "Meg kell adnia egy bemeneti és egy kimeneti fájlt."
 #: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:183
+#, c-format
+msgid "errors: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:197
+#, c-format
+msgid "infos: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:204
+#, c-format
+msgid "pedantic: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:190
+#, c-format
+msgid "warnings: %lu"
+msgstr ""
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."

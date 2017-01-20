@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-17 00:40+0100\n"
+"POT-Creation-Date: 2017-01-20 19:01+0100\n"
 "PO-Revision-Date: 2017-01-16 01:24+0000\n"
 "Last-Translator: Manuela Silva <manuela.silva@sky.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
@@ -760,12 +760,12 @@ msgid ""
 "by its software component identifier."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:512
+#: tools/ascli-actions-mdata.c:548
 #, c-format
 msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:540
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr ""
@@ -823,12 +823,18 @@ msgstr ""
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 
-#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:209
-msgid "Validation failed."
+#: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
+#, fuzzy, c-format
+msgid "Validation failed: %s"
 msgstr "A validação falhou."
 
-#: tools/ascli-actions-validate.c:173 tools/ascli-actions-validate.c:207
+#: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
+msgstr "A validação foi bem sucedida."
+
+#: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
+#, fuzzy, c-format
+msgid "Validation was successful: %s"
 msgstr "A validação foi bem sucedida."
 
 #: tools/appstream-cli.c:581
@@ -894,7 +900,7 @@ msgstr "Tem de especificar um comando."
 msgid "You need to specify a component-ID."
 msgstr "Tem de especificar uma identificação de componente."
 
-#: tools/ascli-actions-validate.c:161
+#: tools/ascli-actions-validate.c:223
 msgid "You need to specify a file to validate!"
 msgstr "Tem de especificar um ficheiro para validar!"
 
@@ -902,7 +908,7 @@ msgstr "Tem de especificar um ficheiro para validar!"
 msgid "You need to specify a metadata file."
 msgstr "Tem de especificar um ficheiro de metadados."
 
-#: tools/ascli-actions-validate.c:193
+#: tools/ascli-actions-validate.c:280
 msgid "You need to specify a root directory to start validation!"
 msgstr "Tem de especificar uma pasta raiz para começar a validação!"
 
@@ -923,6 +929,30 @@ msgstr "Tem de especificar um ficheiro de entrada e saída."
 #: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicação;pacote;programa;programar;conjunto;ferramenta"
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:183
+#, c-format
+msgid "errors: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:197
+#, c-format
+msgid "infos: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:204
+#, c-format
+msgid "pedantic: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:190
+#, c-format
+msgid "warnings: %lu"
+msgstr ""
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "Atualização da cache da AppStream falhou."

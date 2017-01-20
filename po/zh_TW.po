@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-17 00:40+0100\n"
+"POT-Creation-Date: 2017-01-20 19:01+0100\n"
 "PO-Revision-Date: 2016-12-24 17:09+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -760,12 +760,12 @@ msgstr ""
 "中介資料庫，進行諸如搜尋提供某種 mime 類型的軟體，並按照其軟體組件辨識碼安"
 "裝。"
 
-#: tools/ascli-actions-mdata.c:512
+#: tools/ascli-actions-mdata.c:548
 #, c-format
 msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:540
 #, fuzzy, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
@@ -823,12 +823,18 @@ msgstr "驗證 AppStream XML 檔是否有問題。"
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "驗證已安裝應用程式的檔案樹是否存在有效的中介資料。"
 
-#: tools/ascli-actions-validate.c:175 tools/ascli-actions-validate.c:209
-msgid "Validation failed."
+#: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
+#, fuzzy, c-format
+msgid "Validation failed: %s"
 msgstr "驗證失敗。"
 
-#: tools/ascli-actions-validate.c:173 tools/ascli-actions-validate.c:207
+#: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
+msgstr "驗證成功。"
+
+#: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
+#, fuzzy, c-format
+msgid "Validation was successful: %s"
 msgstr "驗證成功。"
 
 #: tools/appstream-cli.c:581
@@ -894,7 +900,7 @@ msgstr "您需要指定個指令。"
 msgid "You need to specify a component-ID."
 msgstr "您需要指定組件 ID。"
 
-#: tools/ascli-actions-validate.c:161
+#: tools/ascli-actions-validate.c:223
 msgid "You need to specify a file to validate!"
 msgstr "您需要指定個檔案來驗證！"
 
@@ -902,7 +908,7 @@ msgstr "您需要指定個檔案來驗證！"
 msgid "You need to specify a metadata file."
 msgstr "您需要指定中介資料檔。"
 
-#: tools/ascli-actions-validate.c:193
+#: tools/ascli-actions-validate.c:280
 msgid "You need to specify a root directory to start validation!"
 msgstr "您需要指定根基目錄才能開始驗證！"
 
@@ -925,6 +931,30 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;程式;應用程式;軟體包;套"
 "件;套裝軟體;工具;公用程式"
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:183
+#, c-format
+msgid "errors: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:197
+#, c-format
+msgid "infos: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:204
+#, c-format
+msgid "pedantic: %lu"
+msgstr ""
+
+#. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
+#: tools/ascli-actions-validate.c:190
+#, c-format
+msgid "warnings: %lu"
+msgstr ""
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "AppStream 快取更新失敗。"
