@@ -27,7 +27,7 @@
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
   <id>org.gnome.gedit-code-assistance</id>
-  <extends>gedit.desktop</extends>
+  <extends>org.gnome.gedit.desktop</extends>
   <name>Code Assistance</name>
   <summary>Code assistance for C, C++ and Objective-C</summary>
   <url type="homepage">http://projects.gnome.org/gedit</url>
@@ -62,7 +62,7 @@
 				<para>
 					For example, if there is a plugin "kipi" which extens the application "Gwenview", it needs to be referred to as:
 				</para>
-				<programlisting language="XML"><![CDATA[<extends>gwenview.desktop</extends>]]></programlisting>
+				<programlisting language="XML"><![CDATA[<extends>org.kde.Gwenview</extends>]]></programlisting>
 				<para>
 					The <code>&lt;extends/&gt;</code> tag may be specified multiple times.
 				</para>

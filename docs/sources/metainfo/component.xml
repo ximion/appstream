@@ -70,7 +70,7 @@
 			not allowed.
 		</para>
 		<para>
-			A general pattern for a valid ID tag is to use a reverse-DNS scheme, consisting of <literal>{tld}.{vendor}.{product}</literal>, for example <code>org.kde.gwenview</code>
+			The ID must follow a reverse-DNS scheme, consisting of <literal>{tld}.{vendor}.{product}</literal>, for example <code>org.kde.Gwenview</code>
 			or <code>com.hugski.ColorHug2</code>. Ownership of <literal>{vendor}.{tld}</literal> in the domain name system guarantees uniqueness of IDs.
 		</para>
 		<para>
