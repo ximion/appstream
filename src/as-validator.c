@@ -380,7 +380,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 				as_validator_add_issue (validator, iter,
 							AS_ISSUE_IMPORTANCE_INFO,
 							AS_ISSUE_KIND_VALUE_ISSUE,
-							"First 'description/p' paragraph might be too short.",
+							"First 'description/p' paragraph might be too short (< 100 characters).",
 							node_content);
 			}
 			first_paragraph = FALSE;
@@ -905,9 +905,14 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 					AS_ISSUE_IMPORTANCE_PEDANTIC,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"It would be useful for add a long description to this font to present it better to users.");
-		} else if (cpt_kind != AS_COMPONENT_KIND_GENERIC) {
+		} else if ((cpt_kind == AS_COMPONENT_KIND_DRIVER) || (cpt_kind == AS_COMPONENT_KIND_FIRMWARE)) {
 			as_validator_add_issue (validator, NULL,
 					AS_ISSUE_IMPORTANCE_INFO,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"It is recommended to add a long description to this component to present it better to users.");
+		} else if (cpt_kind != AS_COMPONENT_KIND_GENERIC) {
+			as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_PEDANTIC,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"The component is missing a long description. It is recommended to add one.");
 		}
