@@ -2820,7 +2820,7 @@ as_copy_l10n_hashtable_hfunc (gpointer key, gpointer value, gpointer user_data)
 }
 
 /**
- * as_replace_hashtable:
+ * as_copy_l10n_hashtable:
  *
  * Helper for as_component_merge_with_mode()
  */
@@ -2838,6 +2838,33 @@ as_copy_l10n_hashtable (GHashTable *src, GHashTable *dest)
 	g_hash_table_foreach (src,
 			      &as_copy_l10n_hashtable_hfunc,
 			      dest);
+}
+
+/**
+ * as_copy_gobject_array:
+ *
+ * Helper for as_component_merge_with_mode()
+ *
+ * NOTE: Only the object references are copied.
+ */
+static void
+as_copy_gobject_array (GPtrArray *src, GPtrArray *dest)
+{
+	guint i;
+
+	/* don't copy if there is nothing to copy */
+	if (src->len <= 0)
+		return;
+
+	/* clear our destination table */
+	g_ptr_array_remove_range (dest, 0, dest->len);
+
+	/* copy */
+	for (i = 0; i < src->len; i++) {
+		GObject *obj = G_OBJECT (g_ptr_array_index (src, i));
+		g_ptr_array_add (dest,
+				 g_object_ref (obj));
+	}
 }
 
 /**
@@ -2925,6 +2952,12 @@ as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind
 		/* merge bundles */
 		if (as_component_has_bundle (src_cpt))
 			as_component_set_bundles_array (dest_cpt, as_component_get_bundles (src_cpt));
+
+		/* merge icons */
+		as_copy_gobject_array (src_priv->icons, src_priv->icons);
+
+		/* merge provided items */
+		as_copy_gobject_array (src_priv->provided, src_priv->provided);
 	}
 
 	/* the resulting component gets the origin of the highet value of both */
