@@ -455,6 +455,8 @@ as_validate_is_content_license_id (const gchar *license_id)
 		return TRUE;
 	if (g_strcmp0 (license_id, "@FTL") == 0)
 		return TRUE;
+	if (g_strcmp0 (license_id, "@FSFUL") == 0)
+		return TRUE;
 	if (g_strcmp0 (license_id, "&") == 0)
 		return TRUE;
 	if (g_strcmp0 (license_id, "|") == 0)
