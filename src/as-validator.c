@@ -485,6 +485,44 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 }
 
 /**
+ * as_validator_validate_project_license:
+ */
+static void
+as_validator_validate_project_license (AsValidator *validator, xmlNode *license_node)
+{
+	guint i;
+	g_auto(GStrv) licenses = NULL;
+	g_autofree gchar *license_id = (gchar*) xmlNodeGetContent (license_node);
+
+	licenses = as_spdx_license_tokenize (license_id);
+	if (licenses == NULL) {
+		as_validator_add_issue (validator, license_node,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"SPDX license expression '%s' could not be parsed.",
+					license_id);
+		return;
+	}
+	for (i = 0; licenses[i] != NULL; i++) {
+		if (g_strcmp0 (licenses[i], "&") == 0 ||
+		    g_strcmp0 (licenses[i], "|") == 0 ||
+		    g_strcmp0 (licenses[i], "+") == 0 ||
+		    g_strcmp0 (licenses[i], "(") == 0 ||
+		    g_strcmp0 (licenses[i], ")") == 0)
+			continue;
+		if (licenses[i][0] != '@' ||
+		    !as_is_spdx_license_id (licenses[i] + 1)) {
+			as_validator_add_issue (validator, license_node,
+					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"SPDX license ID '%s' is unknown.",
+					licenses[i]);
+			return;
+		}
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
@@ -673,6 +711,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			as_validator_check_children_quick (validator, iter, "screenshot", cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
+			as_validator_validate_project_license (validator, iter);
 		} else if (g_strcmp0 (node_name, "project_group") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
