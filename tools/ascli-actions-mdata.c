@@ -475,8 +475,14 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 	as_component_set_active_locale (cpt, "C");
 
 	as_component_set_kind (cpt, cpt_kind);
-	if (as_component_get_id (cpt) == NULL)
-		as_component_set_id (cpt, "org.example.SoftwareName");
+	if (cpt_kind == AS_COMPONENT_KIND_FONT) {
+		as_component_set_id (cpt, "org.example.FontPackageName");
+	} else if (cpt_kind == AS_COMPONENT_KIND_ADDON) {
+		as_component_set_id (cpt, "org.example.FooBar.my-addon");
+	} else {
+		if (as_component_get_id (cpt) == NULL)
+			as_component_set_id (cpt, "org.example.SoftwareName");
+	}
 
 	if (as_component_get_name (cpt) == NULL)
 		as_component_set_name (cpt, "The human-readable name of this software", "C");
@@ -494,6 +500,36 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 	as_component_set_project_license (cpt, "The license of this software as SPDX string, e.g. \"GPL-3+\"");
 
 	as_component_set_developer_name (cpt, "The software vendor name, e.g. \"ACME Corporation\"", "C");
+
+	/* console-app specific */
+	if (cpt_kind == AS_COMPONENT_KIND_CONSOLE_APP) {
+		g_autoptr(AsProvided) prov = as_provided_new ();
+		as_provided_set_kind (prov, AS_PROVIDED_KIND_BINARY);
+		as_provided_add_item (prov, "The binary name of this software in PATH");
+		as_component_add_provided (cpt, prov);
+	}
+
+	/* addon specific */
+	if (cpt_kind == AS_COMPONENT_KIND_ADDON)
+		as_component_add_extends (cpt, "The component-id of the software that is extended by this addon, e.g. \"org.example.FooBar\"");
+
+	/* font specific */
+	if (cpt_kind == AS_COMPONENT_KIND_FONT) {
+		g_autoptr(AsProvided) prov = as_provided_new ();
+
+		as_provided_set_kind (prov, AS_PROVIDED_KIND_FONT);
+		as_provided_add_item (prov, "A full font name, consisting of the fonts family and style, e.g. \"Lato Heavy Italic\"");
+		as_provided_add_item (prov, "Liberation Serif Bold Italic");
+		as_component_add_provided (cpt, prov);
+	}
+
+	/* driver specific */
+	if (cpt_kind == AS_COMPONENT_KIND_DRIVER) {
+		g_autoptr(AsProvided) prov = as_provided_new ();
+		as_provided_set_kind (prov, AS_PROVIDED_KIND_MODALIAS);
+		as_provided_add_item (prov, "Modalias of the hardware this software handles");
+		as_component_add_provided (cpt, prov);
+	}
 
 	/* print to console or save to file */
 	if ((out_fname == NULL) || (g_strcmp0 (out_fname, "-") == 0)) {
