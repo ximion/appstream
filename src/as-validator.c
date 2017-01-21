@@ -931,7 +931,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT) {
 		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_FONT) == NULL)
 			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_WARNING,
+					AS_ISSUE_IMPORTANCE_ERROR,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"Type 'font' component, but no font information was provided via a provides/font tag.");
 	}
@@ -940,7 +940,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DRIVER) {
 		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MODALIAS) == NULL)
 			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_INFO,
+					AS_ISSUE_IMPORTANCE_WARNING,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"Type 'driver' component, but no modalias information was provided via a provides/modalias tag.");
 	}
