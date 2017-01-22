@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-22 18:52+0100\n"
-"PO-Revision-Date: 2016-12-08 14:48+0000\n"
-"Last-Translator: Lukas Selch <lksselch@outlook.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2017-01-22 18:00+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
+"Language-Team: German "
+"<https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.10-dev\n"
+"X-Generator: Weblate 2.11-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -58,15 +58,13 @@ msgstr "Ein Eintragstyp (z.B. lib, bin, python3, ...)"
 
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
-#, fuzzy
 msgid "An utility to work with AppStream metadata"
-msgstr "Eine Anwendung für AppStream Metadaten"
+msgstr "Ein Werkzeug für AppStream Metadaten"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "AppStream-Status:"
+msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:668
@@ -89,6 +87,8 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
+"AppStream Cache-Update ist fehlgeschlagen. Schalten Sie den \"verbose\" "
+"Modus ein, um detailliertere Informationen zu erhalten."
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -106,6 +106,8 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream ist eine distributionsunabhängige Spezifikation um Metadaten zu "
+"Softwarekomponenten bereitzustellen."
 
 #: src/as-pool.c:1476
 #, c-format
@@ -538,9 +540,8 @@ msgid "Metadata file '%s' does not exist."
 msgstr "Metadaten-Datei »%s« existiert nicht."
 
 #: src/as-pool.c:744
-#, fuzzy
 msgid "Metadata files have errors:"
-msgstr "Metadaten-Datei »%s« existiert nicht."
+msgstr "Metadaten-Dateien haben Fehler:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -741,9 +742,9 @@ msgid "Text Editors"
 msgstr "Textbearbeitung"
 
 #: tools/ascli-actions-mdata.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "Metadaten-Datei »%s« existiert nicht."
+msgstr "Die .desktop Datei »%s« ist nicht vorhanden."
 
 #: src/as-pool.c:1474
 msgid ""
@@ -774,10 +775,9 @@ msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:540
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
-"'%s' kann nicht geschrieben werden, kann metainfo-Datei nicht installieren."
+msgstr "Nicht in der Lage, die Metainfo Vorlagendatei zu erstellen: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -838,18 +838,18 @@ msgstr ""
 "validieren."
 
 #: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "Validierung fehlgeschlagen."
+msgstr "Validierung fehlgeschlagen: %s"
 
 #: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
 msgstr "Validierung war erfolgreich."
 
 #: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "Validierung war erfolgreich."
+msgstr "Validierung war erfolgreich: %s"
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
