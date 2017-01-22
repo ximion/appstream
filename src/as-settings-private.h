@@ -23,10 +23,11 @@
 
 #include <glib-object.h>
 #include "config.h"
-#include "as-utils-private.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
+
+#define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 
 #define AS_CONFIG_NAME "/etc/appstream.conf"
 #define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info/gv"

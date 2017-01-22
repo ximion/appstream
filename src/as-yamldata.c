@@ -738,6 +738,8 @@ as_yamldata_process_releases (AsYAMLData *ydt, GNode *node, AsComponent *cpt)
 				}
 			} else if (g_strcmp0 (key, "version") == 0) {
 				as_release_set_version (rel, value);
+			} else if (g_strcmp0 (key, "urgency") == 0) {
+				as_release_set_urgency (rel, as_urgency_kind_from_string (value));
 			} else if (g_strcmp0 (key, "description") == 0) {
 				gchar *lvalue;
 				lvalue = as_yamldata_get_localized_value (ydt, node, NULL);
