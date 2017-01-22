@@ -1,3 +1,65 @@
+Version 0.10.6
+~~~~~~~~~~~~~~
+Released: 2017-01-22
+
+Features:
+ * validator: Be more strict about the <icon> tag types in metainfo files (Matthias Klumpp)
+ * validator: Unconditionally check for name and summary (Matthias Klumpp)
+ * Move all merge logic to AsComponent (Matthias Klumpp)
+ * Allow making AppStream consume data from metainfo instead of collection files (Matthias Klumpp)
+ * apt: Do not enable any icon downloads by default (Matthias Klumpp)
+ * validator: Check categories in XML as well (Matthias Klumpp)
+ * cli: Make templates for different component-types a bit more useful (Matthias Klumpp)
+ * Allow a few more permissive licenses for metadata_license (Matthias Klumpp)
+ * Add support for "+" operator at the end of SPDX license identifiers (Kalev Lember, Matthias Klumpp)
+ * cli: Print tiny summary after validation (very useful for validate-tree) (Matthias Klumpp)
+ * validator: Validate for hyperlinks in description / summary / developer-name (Matthias Klumpp)
+ * validator: Make missing long description a pedantic issue in more cases (Matthias Klumpp)
+ * Also recognize "FSFUL" license as pemissive (Matthias Klumpp)
+ * validator: Adjust priorities of missing modalias/font tags in driver/font components (Matthias Klumpp)
+ * Skip loading desktop-entries if we know their component already (Matthias Klumpp)
+ * Be lazier, only parse what is necessary in the data pool (Matthias Klumpp)
+
+Specification:
+ * spec: Clarify that name/summary are now always required for metainfo files (Matthias Klumpp)
+ * spec: Clarify desktop vs. desktop-application (Matthias Klumpp)
+ * spec: Add a small paragraph about whether and what xmlns to use (Matthias Klumpp)
+ * spec: Make it clear <categories/> can be used in metainfo files too (Matthias Klumpp)
+ * spec: Make clear that update_contact's value is case-insensitive (Matthias Klumpp)
+ * docs: Make sure all examples follow the reverse-DNS scheme (Matthias Klumpp)
+
+Bugfixes:
+ * Don't hardcode share dir but use CMAKE_INSTALL.. (Heiko Becker)
+ * validator: Don't enforce .desktop suffix on desktop-app component IDs (Matthias Klumpp)
+ * qt: Allow catching error strings returned by Pool::load (Aleix Pol)
+ * Always drop data from desktop-entry files if we have better metadata (Matthias Klumpp)
+ * apt: Install icons back if they went completely missing (Matthias Klumpp)
+ * Update SPDX and TLD data (Matthias Klumpp)
+ * yaml: Read release/urgency key (Matthias Klumpp)
+
+Translation:
+ * Chinese (Taiwan)
+   - Chang-Chia Tseng
+ * Dutch (new!)
+   - Heimen Stoffels
+ * Russian
+   - Igor
+ * Finnish
+   - Juhani Numminen
+   - Lari Oesch
+ * Portuguese
+   - Manuela Silva
+ * Italian
+   - Milo Casagrande
+ * Czech
+   - Pavel Borecki
+ * Polish
+   - Piotr Drąg
+ * Ukrainian
+   - Yuri Chornoivan
+ * French
+   - Yvan Masson
+
 Version 0.10.5
 ~~~~~~~~~~~~~~
 Released: 2016-12-22
