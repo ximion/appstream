@@ -1008,7 +1008,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 				as_validator_add_issue (validator, NULL,
 							AS_ISSUE_IMPORTANCE_WARNING,
 							AS_ISSUE_KIND_VALUE_WRONG,
-							"The category '%s' defined is not valid. Refer to the Freedesktop menu specificaton for a list of valid categories.", category_name);
+							"The category '%s' defined is not valid. Refer to the Freedesktop menu specification for a list of valid categories.", category_name);
 			}
 		}
 	}
