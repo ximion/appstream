@@ -1055,14 +1055,14 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
  * Builds the unique metadata ID using the supplied information.
  */
 gchar*
-as_utils_build_data_id (const gchar *scope,
+as_utils_build_data_id (AsComponentScope scope,
 			const gchar *origin,
 			AsBundleKind bundle_kind,
 			const gchar *cid)
 {
 	/* build the data-id */
 	return g_strdup_printf ("%s/%s/%s/%s",
-				scope,
+				as_component_scope_to_string (scope),
 				origin,
 				as_bundle_kind_to_string (bundle_kind),
 				cid);
@@ -1115,12 +1115,8 @@ as_utils_get_component_bundle_kind (AsComponent *cpt)
 gchar*
 as_utils_build_data_id_for_cpt (AsComponent *cpt)
 {
-	const gchar *scope;
 	const gchar *origin;
 	AsBundleKind bundle_kind;
-
-	/* the scope this component is associated with */
-	scope = as_component_scope_to_string (as_component_get_scope (cpt));
 
 	/* determine bundle - what should we do if there are multiple bundles of different types
 	 * defined for one component? */
@@ -1133,7 +1129,7 @@ as_utils_build_data_id_for_cpt (AsComponent *cpt)
 		origin = as_component_get_origin (cpt);
 
 	/* build the data-id */
-	return as_utils_build_data_id (scope,
+	return as_utils_build_data_id (as_component_get_scope (cpt),
 					origin,
 					bundle_kind,
 					as_component_get_id (cpt));

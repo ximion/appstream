@@ -22,10 +22,11 @@
 #define __AS_UTILS_PRIVATE_H
 
 #include <glib-object.h>
+#include "as-settings-private.h"
 #include "as-component.h"
+#include "as-component-private.h"
 
 G_BEGIN_DECLS
-#define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 #pragma GCC visibility push(hidden)
 
 gchar			*as_get_current_locale (void);
@@ -76,7 +77,7 @@ gboolean		as_arch_compatible (const gchar *arch1,
 
 gboolean		as_utils_search_token_valid (const gchar *token);
 
-gchar			*as_utils_build_data_id (const gchar *scope,
+gchar			*as_utils_build_data_id (AsComponentScope scope,
 						 const gchar *origin,
 						 AsBundleKind bundle_kind,
 						 const gchar *cid);

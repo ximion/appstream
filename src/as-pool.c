@@ -457,7 +457,7 @@ as_pool_update_addon_info (AsPool *pool, AsComponent *cpt)
 		g_autofree gchar *extended_cdid = NULL;
 		const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
 
-		extended_cdid = as_utils_build_data_id ("system", "os",
+		extended_cdid = as_utils_build_data_id (AS_COMPONENT_SCOPE_SYSTEM, "os",
 							as_utils_get_component_bundle_kind (cpt),
 							extended_cid);
 
@@ -861,9 +861,24 @@ as_pool_load_desktop_entries (AsPool *pool)
 	/* parse the found data */
 	for (i = 0; i < de_files->len; i++) {
 		g_autoptr(GFile) infile = NULL;
-		const gchar *fname;
+		g_autofree gchar *desktop_basename = NULL;
+		g_autofree gchar *desktop_cdid = NULL;
+		const gchar *fname = (const gchar*) g_ptr_array_index (de_files, i);
 
-		fname = (const gchar*) g_ptr_array_index (de_files, i);
+		desktop_basename = g_path_get_basename (fname);
+
+		/* quickly check if we know the component already */
+		/* FIXME: What if the .desktop file wasn't from a package? */
+		desktop_cdid = as_utils_build_data_id (AS_COMPONENT_SCOPE_SYSTEM,
+							"os",
+							AS_BUNDLE_KIND_PACKAGE,
+							desktop_basename);
+		if (g_hash_table_lookup (priv->cpt_table, desktop_cdid) != NULL) {
+			g_debug ("Skipped: %s (already known)", fname);
+			continue;
+		}
+
+
 		g_debug ("Reading: %s", fname);
 
 		infile = g_file_new_for_path (fname);

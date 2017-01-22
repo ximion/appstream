@@ -23,7 +23,7 @@
 
 #include <glib-object.h>
 #include "as-component.h"
-#include "as-utils-private.h"
+#include "as-settings-private.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
