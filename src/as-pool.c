@@ -63,6 +63,7 @@
 typedef struct
 {
 	GHashTable *cpt_table;
+	GHashTable *known_cids;
 	gchar *screenshot_service_url;
 	gchar *locale;
 	gchar *current_arch;
@@ -146,10 +147,18 @@ as_pool_init (AsPool *pool)
 	/* set active locale */
 	priv->locale = as_get_current_locale ();
 
+	/* stores known components */
 	priv->cpt_table = g_hash_table_new_full (g_str_hash,
 						g_str_equal,
 						g_free,
 						(GDestroyNotify) g_object_unref);
+
+	/* set which stores whether we have seen a component-ID already */
+	priv->known_cids = g_hash_table_new_full (g_str_hash,
+						  g_str_equal,
+						  g_free,
+						  NULL);
+
 	priv->xml_dirs = g_ptr_array_new_with_free_func (g_free);
 	priv->yaml_dirs = g_ptr_array_new_with_free_func (g_free);
 	priv->icon_dirs = g_ptr_array_new_with_free_func (g_free);
@@ -204,6 +213,7 @@ as_pool_finalize (GObject *object)
 
 	g_free (priv->screenshot_service_url);
 	g_hash_table_unref (priv->cpt_table);
+	g_hash_table_unref (priv->known_cids);
 
 	g_ptr_array_unref (priv->xml_dirs);
 	g_ptr_array_unref (priv->yaml_dirs);
@@ -294,6 +304,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		g_hash_table_insert (priv->cpt_table,
 					g_strdup (cdid),
 					g_object_ref (cpt));
+		g_hash_table_add (priv->known_cids,
+				  g_strdup (as_component_get_id (cpt)));
 		return TRUE;
 	}
 
@@ -545,11 +557,19 @@ as_pool_clear (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	if (g_hash_table_size (priv->cpt_table) > 0) {
+		/* contents */
 		g_hash_table_unref (priv->cpt_table);
 		priv->cpt_table = g_hash_table_new_full (g_str_hash,
 							 g_str_equal,
 							 g_free,
 							 (GDestroyNotify) g_object_unref);
+
+		/* cid info set */
+		g_hash_table_unref (priv->known_cids);
+		priv->known_cids = g_hash_table_new_full (g_str_hash,
+						  g_str_equal,
+						  g_free,
+						  NULL);
 	}
 }
 
@@ -792,11 +812,34 @@ as_pool_load_metainfo_data (AsPool *pool)
 	/* parse the found data */
 	for (i = 0; i < mi_files->len; i++) {
 		g_autoptr(GFile) infile = NULL;
-		const gchar *fname;
+		const gchar *fname = (const gchar*) g_ptr_array_index (mi_files, i);
 
-		fname = (const gchar*) g_ptr_array_index (mi_files, i);
+		if (!priv->prefer_local_metainfo) {
+			g_autofree gchar *mi_cid = NULL;
+
+			mi_cid = g_path_get_basename (fname);
+			if (g_str_has_suffix (mi_cid, ".metainfo.xml"))
+				mi_cid[strlen (mi_cid) - 13] = '\0';
+			if (g_str_has_suffix (mi_cid, ".appdata.xml")) {
+				g_autofree gchar *mi_cid_desktop = NULL;
+				mi_cid[strlen (mi_cid) - 12] = '\0';
+
+				mi_cid_desktop = g_strdup_printf ("%s.desktop", mi_cid);
+				/* check with .desktop suffix too */
+				if (!g_hash_table_contains (priv->known_cids, mi_cid_desktop)) {
+					g_debug ("Skipped: %s (already known)", fname);
+					continue;
+				}
+			}
+
+			/* quickly check if we know the component already */
+			if (!g_hash_table_contains (priv->known_cids, mi_cid)) {
+				g_debug ("Skipped: %s (already known)", fname);
+				continue;
+			}
+		}
+
 		g_debug ("Reading: %s", fname);
-
 		infile = g_file_new_for_path (fname);
 		if (!g_file_query_exists (infile, NULL)) {
 			g_warning ("Metadata file '%s' does not exist.", fname);
@@ -861,26 +904,30 @@ as_pool_load_desktop_entries (AsPool *pool)
 	/* parse the found data */
 	for (i = 0; i < de_files->len; i++) {
 		g_autoptr(GFile) infile = NULL;
-		g_autofree gchar *desktop_basename = NULL;
-		g_autofree gchar *desktop_cdid = NULL;
 		const gchar *fname = (const gchar*) g_ptr_array_index (de_files, i);
 
-		desktop_basename = g_path_get_basename (fname);
+		/* quickly check if we know the component already
+		 * We do not do this when reading metainfo files, since in that case we might
+		 * need to extend their data with .desktop file data. */
+		if (!as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO)) {
+			g_autofree gchar *de_cid = g_path_get_basename (fname);
 
-		/* quickly check if we know the component already */
-		/* FIXME: What if the .desktop file wasn't from a package? */
-		desktop_cdid = as_utils_build_data_id (AS_COMPONENT_SCOPE_SYSTEM,
-							"os",
-							AS_BUNDLE_KIND_PACKAGE,
-							desktop_basename);
-		if (g_hash_table_lookup (priv->cpt_table, desktop_cdid) != NULL) {
-			g_debug ("Skipped: %s (already known)", fname);
-			continue;
+			if (!g_hash_table_contains (priv->known_cids, de_cid)) {
+				g_debug ("Skipped: %s (already known)", fname);
+				continue;
+			}
+
+			/* check without .desktop suffix too */
+			if (g_str_has_suffix (de_cid, ".desktop")) {
+				de_cid[strlen (de_cid) - 8] = '\0';
+				if (!g_hash_table_contains (priv->known_cids, de_cid)) {
+					g_debug ("Skipped: %s (already known)", fname);
+					continue;
+				}
+			}
 		}
 
-
 		g_debug ("Reading: %s", fname);
-
 		infile = g_file_new_for_path (fname);
 		if (!g_file_query_exists (infile, NULL)) {
 			g_warning ("Metadata file '%s' does not exist.", fname);
