@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-20 19:01+0100\n"
+"POT-Creation-Date: 2017-01-22 18:52+0100\n"
 "PO-Revision-Date: 2016-12-08 14:48+0000\n"
 "Last-Translator: Lukas Selch <lksselch@outlook.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/"
@@ -84,7 +84,7 @@ msgstr "AppStream-Status:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
 
-#: src/as-pool.c:1428
+#: src/as-pool.c:1490
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -107,7 +107,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1414
+#: src/as-pool.c:1476
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr "Brettspiele"
 msgid "Bundle"
 msgstr "Bündel"
 
-#: src/as-pool.c:1354
+#: src/as-pool.c:1416
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Zwischenspeicheradresse '%s' ist nicht schreibbar."
@@ -537,7 +537,7 @@ msgstr "Mathematik"
 msgid "Metadata file '%s' does not exist."
 msgstr "Metadaten-Datei »%s« existiert nicht."
 
-#: src/as-pool.c:724
+#: src/as-pool.c:744
 #, fuzzy
 msgid "Metadata files have errors:"
 msgstr "Metadaten-Datei »%s« existiert nicht."
@@ -745,7 +745,7 @@ msgstr "Textbearbeitung"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Metadaten-Datei »%s« existiert nicht."
 
-#: src/as-pool.c:1412
+#: src/as-pool.c:1474
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -944,7 +944,7 @@ msgstr "Sie müssen eine Eingabe- und Ausgabedatei angeben."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:104
+#: src/as-pool.c:105
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;anwendung;paket;programm;programme;suite;werkzeug"
 

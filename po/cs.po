@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-20 19:01+0100\n"
+"POT-Creation-Date: 2017-01-22 18:52+0100\n"
 "PO-Revision-Date: 2017-01-21 09:40+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
-"Language-Team: Czech "
-"<https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
+"translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,7 +82,7 @@ msgstr "Stav nástroje AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
-#: src/as-pool.c:1428
+#: src/as-pool.c:1490
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -109,7 +109,7 @@ msgstr ""
 "AppStream je standard pro poskytování metadat o programovém vybavení, "
 "používaný napříč linuxovými distribucemi."
 
-#: src/as-pool.c:1414
+#: src/as-pool.c:1476
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -164,7 +164,7 @@ msgstr "Deskové"
 msgid "Bundle"
 msgstr "Zabaleno s"
 
-#: src/as-pool.c:1354
+#: src/as-pool.c:1416
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
@@ -542,7 +542,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Soubor s metadaty „%s“ neexistuje."
 
-#: src/as-pool.c:724
+#: src/as-pool.c:744
 msgid "Metadata files have errors:"
 msgstr "Soubory s metadaty obsahují chyby:"
 
@@ -747,7 +747,7 @@ msgstr "Textové editory"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Soubor .desktop pro „%s“ neexistuje."
 
-#: src/as-pool.c:1412
+#: src/as-pool.c:1474
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -956,7 +956,7 @@ msgstr "Je třeba zadat vstupní a výstupní soubor."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:104
+#: src/as-pool.c:105
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;apka;aplikace;balíček;balík;program;sada;příslušenství;nástroj;pomůcka"

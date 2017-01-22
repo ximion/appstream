@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-20 19:01+0100\n"
+"POT-Creation-Date: 2017-01-22 18:52+0100\n"
 "PO-Revision-Date: 2017-01-18 13:12+0000\n"
 "Last-Translator: Yvan Masson <yvan.masson@openmailbox.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
@@ -81,7 +81,7 @@ msgstr "État AppStream :"
 msgid "AppStream cache update completed successfully."
 msgstr "La mise à jour du cache AppStream a été réalisé avec succès."
 
-#: src/as-pool.c:1428
+#: src/as-pool.c:1490
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -108,7 +108,7 @@ msgstr ""
 "Appstream est une spécification multi-distribution qui fournit des "
 "métadonnées concernant les composants logiciels."
 
-#: src/as-pool.c:1414
+#: src/as-pool.c:1476
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -164,7 +164,7 @@ msgstr "Plateau"
 msgid "Bundle"
 msgstr "Groupe"
 
-#: src/as-pool.c:1354
+#: src/as-pool.c:1416
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'emplacement de cache « %s » n'est pas accessible en écriture."
@@ -551,7 +551,7 @@ msgstr "Mathématiques"
 msgid "Metadata file '%s' does not exist."
 msgstr "Le fichier de métadonnées « %s » n'existe pas."
 
-#: src/as-pool.c:724
+#: src/as-pool.c:744
 msgid "Metadata files have errors:"
 msgstr "Les fichiers de métadonnées comportent des erreurs :"
 
@@ -766,7 +766,7 @@ msgstr "Éditeurs de texte"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Le fichier .desktop « %s » n'existe pas."
 
-#: src/as-pool.c:1412
+#: src/as-pool.c:1474
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -982,7 +982,7 @@ msgstr "Vous devez spécifier un fichier d'entrée et de sortie."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:104
+#: src/as-pool.c:105
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;logiciel;paquet;programme;suite;outil;software"
 

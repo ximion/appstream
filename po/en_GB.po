@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-20 19:01+0100\n"
+"POT-Creation-Date: 2017-01-22 18:52+0100\n"
 "PO-Revision-Date: 2016-11-08 04:33+0000\n"
 "Last-Translator: John Vandenberg <jayvdb@gmail.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
@@ -83,7 +83,7 @@ msgstr "AppStream Status:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream cache update completed successfully."
 
-#: src/as-pool.c:1428
+#: src/as-pool.c:1490
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -106,7 +106,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1414
+#: src/as-pool.c:1476
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -159,7 +159,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Bundle"
 
-#: src/as-pool.c:1354
+#: src/as-pool.c:1416
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Cache location '%s' is not writable."
@@ -538,7 +538,7 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:724
+#: src/as-pool.c:744
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -742,7 +742,7 @@ msgstr ""
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1412
+#: src/as-pool.c:1474
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -934,7 +934,7 @@ msgstr "You need to specify a metadata file."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:104
+#: src/as-pool.c:105
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool"
 

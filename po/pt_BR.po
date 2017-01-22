@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-20 19:01+0100\n"
+"POT-Creation-Date: 2017-01-22 18:52+0100\n"
 "PO-Revision-Date: 2016-12-07 16:48+0000\n"
 "Last-Translator: dsboger <dsboger@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -82,7 +82,7 @@ msgstr "Status do AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Atualização do cache do AppStream concluído com sucesso."
 
-#: src/as-pool.c:1428
+#: src/as-pool.c:1490
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -107,7 +107,7 @@ msgstr ""
 "AppStream é uma especificação independente de distribuição para provimento "
 "de metadados sobre componentes de software."
 
-#: src/as-pool.c:1414
+#: src/as-pool.c:1476
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr "Tabuleiro"
 msgid "Bundle"
 msgstr "Pacote"
 
-#: src/as-pool.c:1354
+#: src/as-pool.c:1416
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "A localização de cache \"%s\" não é gravável."
@@ -541,7 +541,7 @@ msgstr "Matemática"
 msgid "Metadata file '%s' does not exist."
 msgstr "Arquivo de metadados '%s' não existe."
 
-#: src/as-pool.c:724
+#: src/as-pool.c:744
 #, fuzzy
 msgid "Metadata files have errors:"
 msgstr "Arquivo de metadados '%s' não existe."
@@ -747,7 +747,7 @@ msgstr "Editores de texto"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Arquivo de metadados '%s' não existe."
 
-#: src/as-pool.c:1412
+#: src/as-pool.c:1474
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -954,7 +954,7 @@ msgstr "Você precisa especificar um arquivo de entrada e um de saída."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:104
+#: src/as-pool.c:105
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicativo;pacote;programa;suíte;ferramenta"
 
