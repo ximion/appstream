@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-22 18:52+0100\n"
-"PO-Revision-Date: 2016-11-07 19:33+0000\n"
+"PO-Revision-Date: 2017-01-23 18:08+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
-"Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
-"translations/lt/>\n"
+"Language-Team: Lithuanian "
+"<https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.9\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.11-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -86,6 +86,8 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
+"AppStream podėlio atnaujinimas nepavyko. Įjunkite išsamią veikseną, kad "
+"gautumėte išsamesnę informaciją apie problemą."
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -108,6 +110,7 @@ msgstr ""
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
+"AppStream sistemos podėlis buvo atnaujintas, tačiau buvo rastos problemos: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -155,7 +158,7 @@ msgstr "Stalo"
 
 #: tools/ascli-utils.c:287
 msgid "Bundle"
-msgstr ""
+msgstr "Rinkinys"
 
 #: src/as-pool.c:1416
 #, c-format
@@ -259,11 +262,11 @@ msgstr "Duomenų bazė"
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Derinimo programos"
 
 #: tools/ascli-utils.c:341
 msgid "Default Screenshot URL"
-msgstr ""
+msgstr "Numatytosios ekrano kopijos URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
@@ -287,12 +290,12 @@ msgstr ""
 
 #: tools/appstream-cli.c:592
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Rodyti būsenos informaciją apie prieinamus AppStream metaduomenis."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
-msgstr ""
+msgstr "Distribucijos metaduomenys:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
@@ -331,7 +334,7 @@ msgstr "Priverstinai atlikti podėlio įkėlimą iš naujo."
 #: tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "Klaida, įkeliant metaduomenų telkinį: %s"
 
 #: tools/ascli-utils.c:315
 msgid "Extends"
@@ -423,11 +426,11 @@ msgstr "Žaidimai"
 
 #: tools/appstream-cli.c:579
 msgid "Get components which provide the given item."
-msgstr ""
+msgstr "Gauti komponentus, kurie pateikia nurodytą elementą."
 
 #: tools/appstream-cli.c:578
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Gauti informaciją apie komponentą pagal jo ID."
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
@@ -509,7 +512,7 @@ msgstr "Logika"
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr ""
+msgstr "Rankiniu būdu nustatyti peržiūrimą AppStream metaduomenų vietą."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
@@ -532,14 +535,13 @@ msgid "Metadata file '%s' does not exist."
 msgstr "Metaduomenų failo \"%s\" nėra."
 
 #: src/as-pool.c:744
-#, fuzzy
 msgid "Metadata files have errors:"
-msgstr "Metaduomenų failo \"%s\" nėra."
+msgstr "Metaduomenų failuose yra klaidų:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
-msgstr ""
+msgstr "Metainformacijos failai:"
 
 #: src/as-provided.c:143
 msgid "Mimetypes"
@@ -577,6 +579,8 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Nerasta jokios tinkamos komandų eilutės paketų tvarkytuvės. Įsitikinkite, "
+"kad, pavyzdžiui, \"pkcon\" (PackageKit dalis) yra prieinama."
 
 #: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for defined."
@@ -655,6 +659,9 @@ msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
+"Vykdykite \"%s --help\", norėdami pamatyti prieinamų komandų ir parametrų "
+"sąrašą, ir \"%s %s --help\", norėdami pamatyti tam tikro pokomandžio "
+"parametrų sąrašą."
 
 #: src/as-provided.c:157
 msgid "Runtime Firmware"
@@ -702,7 +709,7 @@ msgstr "Strategija"
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:575
 msgid "Subcommands:"
-msgstr ""
+msgstr "Pokomandžiai:"
 
 #: tools/ascli-utils.c:285
 msgid "Summary"
@@ -739,6 +746,9 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"AppStream sistemos podėlis buvo atnaujintas, tačiau buvo aptiktos kai kurios "
+"klaidos, kurios gali privesti prie metaduomenų trūkumo. Išsamesnei "
+"informacijai kreipkitės į išsamų žurnalą."
 
 #: tools/ascli-actions-mdata.c:445
 #, c-format
@@ -759,12 +769,12 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:548
 #, c-format
 msgid "Unable save the template metainfo file: %s"
-msgstr ""
+msgstr "Nepavyko įrašyti šablono metainformacijos failo: %s"
 
 #: tools/ascli-actions-mdata.c:540
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
+msgstr "Nepavyko sukurti šablono metainformacijos failo: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -772,6 +782,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Nepavyko konvertuoti failo: Nepavyko nustatyti išvesties formato, prašome "
+"aiškiai jį nustatyti, naudojant \"--format=\"."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:182
@@ -798,7 +810,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:327
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "Nepavyko įrašyti į \"%s\", nepavyksta įdiegti metainformacijos failo."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:543
@@ -835,7 +847,7 @@ msgstr ""
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "Elemento, kuris turėtų būti rastas, reikšmė."
 
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
