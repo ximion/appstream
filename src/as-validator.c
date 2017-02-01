@@ -376,11 +376,11 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 								cpt,
 								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
-			if ((first_paragraph) && (strlen (node_content) < 100)) {
+			if ((first_paragraph) && (strlen (node_content) < 80)) {
 				as_validator_add_issue (validator, iter,
 							AS_ISSUE_IMPORTANCE_INFO,
 							AS_ISSUE_KIND_VALUE_ISSUE,
-							"First 'description/p' paragraph might be too short (< 100 characters).",
+							"First 'description/p' paragraph might be too short (< 80 characters).",
 							node_content);
 			}
 			first_paragraph = FALSE;
