@@ -13,16 +13,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-22 18:52+0100\n"
-"PO-Revision-Date: 2016-10-14 21:29+0000\n"
-"Last-Translator: Mingye Wang <arthur200126@gmail.com>\n"
-"Language-Team: Chinese (China) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_CN/>\n"
+"PO-Revision-Date: 2017-02-07 15:26+0000\n"
+"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
+"Language-Team: Chinese (China) "
+"<https://hosted.weblate.org/projects/appstream/translations/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.9-dev\n"
+"X-Generator: Weblate 2.12-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -86,10 +86,11 @@ msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
 #: src/as-pool.c:1490
+#, fuzzy
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
-msgstr ""
+msgstr "AppStream 缓存更新失败了。请打开详情模式以获取更多详细的问题信息。"
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -111,7 +112,7 @@ msgstr "AppStream 为一个跨散布版的规范，旨在提供软件组件的�
 #: src/as-pool.c:1476
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
-msgstr ""
+msgstr "AppStream 系统缓存已更新，但发现了一些问题：%s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -534,9 +535,8 @@ msgid "Metadata file '%s' does not exist."
 msgstr "“%s”元数据文件并不存在。"
 
 #: src/as-pool.c:744
-#, fuzzy
 msgid "Metadata files have errors:"
-msgstr "“%s”元数据文件并不存在。"
+msgstr "元数据文件有错误："
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -733,9 +733,9 @@ msgid "Text Editors"
 msgstr "文本编辑器"
 
 #: tools/ascli-actions-mdata.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "“%s”元数据文件并不存在。"
+msgstr ".desktop 文件“%s”并不存在。"
 
 #: src/as-pool.c:1474
 msgid ""
