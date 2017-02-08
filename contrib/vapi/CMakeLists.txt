@@ -4,6 +4,7 @@ if(NOT (MAINTAINER AND SANITIZERS))
 # compiling GIR doesn't work well with asan, needs to be investigated.
 
 set(APPSTREAM_VAPI_FILE "${CMAKE_CURRENT_BINARY_DIR}/appstream.vapi")
+set(APPSTREAM_DEPS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/appstream.deps")
 
 find_program (VAPIGEN vapigen)
 mark_as_advanced (VAPIGEN)
@@ -23,5 +24,6 @@ add_custom_command (OUTPUT ${APPSTREAM_VAPI_FILE}
 add_custom_target(vapi ALL DEPENDS ${APPSTREAM_VAPI_FILE})
 
 install(FILES ${APPSTREAM_VAPI_FILE} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/vala/vapi)
+install(FILES ${APPSTREAM_DEPS_FILE} DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/vala/vapi)
 
 endif()
