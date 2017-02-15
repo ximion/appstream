@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-22 18:52+0100\n"
-"PO-Revision-Date: 2017-02-07 15:26+0000\n"
+"PO-Revision-Date: 2017-02-15 09:40+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) "
 "<https://hosted.weblate.org/projects/appstream/translations/zh_CN/>\n"
@@ -241,10 +241,11 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "未找到提供“%s;%s”的组件。"
 
 #: tools/appstream-cli.c:596
+#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filed out by the upstream "
 "project)."
-msgstr ""
+msgstr "为元信息文件创建模板（由上游项目所填写）。"
 
 #: src/as-provided.c:155
 msgid "DBus Session Services"
@@ -742,14 +743,14 @@ msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
-msgstr ""
+msgstr "AppStream 系统缓存已更新，但是检测到了一些错误可能导致元数据丢失。 请参阅详细日志获取更多信息。"
 
 #: tools/ascli-actions-mdata.c:445
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
+msgstr "软件组件类型“%s”在 AppStream 中无效。可用的值有："
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -763,14 +764,14 @@ msgstr ""
 "数据库，进行诸如搜索提供某种 mime 类型的软件，并按照其软件组件辨识码安装。"
 
 #: tools/ascli-actions-mdata.c:548
-#, c-format
+#, c-format, fuzzy
 msgid "Unable save the template metainfo file: %s"
-msgstr ""
+msgstr "无法保存模板源信息文件：%s"
 
 #: tools/ascli-actions-mdata.c:540
 #, fuzzy, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "无法写入到“%s”，无法安装元信息文件。"
+msgstr "无法生成模板元信息文件：%s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -794,7 +795,7 @@ msgstr "未找到 id 为“%s”的组件！"
 #: tools/ascli-actions-mdata.c:469
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "无法读取 .desktop 文件：%s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -810,7 +811,7 @@ msgstr "无法写入到“%s”，无法安装元信息文件。"
 #: tools/appstream-cli.c:543
 msgid ""
 "Use the given .desktop file to fill in basic values in the metainfo file."
-msgstr ""
+msgstr "使用给定的 .desktop 文件来填充元信息文件里的基本值。"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -826,18 +827,18 @@ msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
 #: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "验证失败。"
+msgstr "验证失败：%s"
 
 #: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
 msgstr "验证成功。"
 
 #: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "验证成功。"
+msgstr "验证成功：%s"
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
@@ -888,7 +889,7 @@ msgstr "你可能需要超级用户权限以进行此动作。"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
+msgstr "您需要给定 AppStream 软件组件类型以生成模板。可用的值有："
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:650
@@ -938,13 +939,13 @@ msgstr ""
 #: tools/ascli-actions-validate.c:183
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "错误：%lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "信息：%lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
@@ -956,7 +957,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:190
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "警告：%lu"
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "AppStream 缓存更新失败。"
