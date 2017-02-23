@@ -1475,7 +1475,7 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 
 		if (dbus_system != NULL) {
 			for (i = 0; i < dbus_system->len; i++) {
-				const gchar *value = g_ptr_array_index (dbus_system, i);
+				const gchar *value = (const gchar*) g_ptr_array_index (dbus_system, i);
 				as_yaml_mapping_start (emitter);
 
 				as_yaml_emit_entry (emitter, "type", "system");
@@ -1486,8 +1486,9 @@ as_yaml_emit_provides (yaml_emitter_t *emitter, AsComponent *cpt)
 		}
 
 		if (dbus_user != NULL) {
-			for (i = 0; dbus_user->len; i++) {
-				const gchar *value = g_ptr_array_index (dbus_user, i);
+			for (i = 0; i < dbus_user->len; i++) {
+				const gchar *value = (const gchar*) g_ptr_array_index (dbus_user, i);
+
 				as_yaml_mapping_start (emitter);
 
 				as_yaml_emit_entry (emitter, "type", "user");
