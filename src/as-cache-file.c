@@ -200,6 +200,7 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 	g_autoptr(GFileOutputStream) file_out = NULL;
 	g_autoptr(GOutputStream) zout = NULL;
 	g_autoptr(GZlibCompressor) compressor = NULL;
+	gboolean serializable_components_found = FALSE;
 	GError *tmp_error = NULL;
 	guint cindex;
 
@@ -232,6 +233,8 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 				 as_component_get_id (cpt));
 			continue;
 		}
+
+		serializable_components_found = TRUE;
 
 		/* start serializing our component */
 		g_variant_builder_init (&cb, G_VARIANT_TYPE_VARDICT);
@@ -513,6 +516,11 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 		g_variant_builder_add_value (builder, g_variant_builder_end (&cb));
 	}
 
+	/* check if we actually have some valid components serialized to a GVariant */
+	if (!serializable_components_found) {
+		g_debug ("Skipped writing cache file: No valid components found for serialization.");
+		return;
+	}
 
 	/* write basic information and add components */
 	g_variant_builder_add (main_builder, "{sv}",
