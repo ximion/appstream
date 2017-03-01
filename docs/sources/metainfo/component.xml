@@ -89,12 +89,13 @@
 		<listitem>
 		<para>
 			The <code>&lt;metadata_license/&gt;</code> tag indicates the content license that you are releasing the one
-			Metainfo XML file under. This is typically not the same as the project license. Omitting the license value can result
+			metainfo XML file under. This is typically not the same as the project license. Omitting the license value can result
 			in your data not being incorporated into the distribution metadata (so this is a required tag).
 		</para>
 		<para>
-			A permissive license ensures your data can be combined with arbitrary other data in one file.
-			Permissive license names include:
+			A <ulink url="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</ulink> license ensures your data can
+			be combined with arbitrary other data in one file (this means copyleft licenses like the GPL are not suitable as metadata license).
+			Valid permissive licenses include:
 		</para>
 		<itemizedlist>
 			<listitem>

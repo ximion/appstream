@@ -135,11 +135,19 @@
 			<listitem>
 				<para>
 					The <code>&lt;metadata_license/&gt;</code> tag is indicating the content license that you are releasing the one
-					metadata file as. This is not typically the same as the project license. By ommitting the license value would
-					probably mean your data would not be incorporated into the distribution metadata.
-					Permissible license codes include:
+					metainfo file under. This is not typically the same as the project license. Omitting the license value can result
+					in your data not being incorporated into the distribution metadata (so this is a required tag).
+				</para>
+				<para>
+					A <ulink url="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</ulink> license ensures your data can
+					be combined with arbitrary other data in one file, without license conflics (this means copyleft licenses like the GPL are
+					not suitable as metadata license).
+					Possible license identifiers include:
 				</para>
 				<itemizedlist>
+					<listitem>
+						<para>FSFAP</para>
+					</listitem>
 					<listitem>
 						<para>CC0-1.0</para>
 					</listitem>
