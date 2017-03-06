@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-22 18:52+0100\n"
-"PO-Revision-Date: 2017-01-18 13:12+0000\n"
-"Last-Translator: Yvan Masson <yvan.masson@openmailbox.org>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2017-03-06 12:17+0000\n"
+"Last-Translator: Jean-Baptiste <jean-baptiste@holcroft.fr>\n"
+"Language-Team: French "
+"<https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 2.12\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -37,7 +37,6 @@ msgstr "Action"
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:386
-#, fuzzy
 msgid "Add-ons"
 msgstr "Extensions"
 
@@ -160,7 +159,6 @@ msgid "Board"
 msgstr "Plateau"
 
 #: tools/ascli-utils.c:287
-#, fuzzy
 msgid "Bundle"
 msgstr "Groupe"
 
@@ -193,7 +191,6 @@ msgid "Categories"
 msgstr "Catégories"
 
 #: src/as-category.c:259
-#, fuzzy
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "Messagerie instantanée"
@@ -221,9 +218,8 @@ msgstr "La commande « %s » est inconnue."
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
-#, fuzzy
 msgid "Communication & News"
-msgstr "Communications & Actualités"
+msgstr "Communications & actualités"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -247,13 +243,12 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Impossible de trouver des composants qui fournissent « %s::%s »."
 
 #: tools/appstream-cli.c:596
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filed out by the upstream "
 "project)."
 msgstr ""
-"Créer un modèle pour un fichier de méta-info (à compléter par le projet "
-"« upstream »)."
+"Créer un modèle pour un fichier metainfo (à compléter par le projet « "
+"upstream »)."
 
 #: src/as-provided.c:155
 msgid "DBus Session Services"
@@ -472,10 +467,9 @@ msgid "Identifier"
 msgstr "Identifiant"
 
 #: src/as-category.c:217
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr "Sources d'entrée"
+msgstr "Sources de saisie"
 
 #: tools/appstream-cli.c:593
 msgid "Install a metadata file into the right location."
@@ -486,7 +480,6 @@ msgid "Install software matching the component-id."
 msgstr "Installer un logiciel correspondant à l'ID du composant."
 
 #: tools/ascli-actions-mdata.c:218
-#, fuzzy
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Type invalide pour l'objet fourni sélectionné. Les valeurs valides sont :"
@@ -565,7 +558,6 @@ msgid "Mimetypes"
 msgstr "Types MIME"
 
 #: src/as-provided.c:147
-#, fuzzy
 msgid "Modaliases"
 msgstr "Modalias"
 
@@ -593,7 +585,6 @@ msgid "No icons."
 msgstr "Aucune icône."
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
@@ -603,7 +594,6 @@ msgstr ""
 "est disponible."
 
 #: tools/ascli-actions-mdata.c:211
-#, fuzzy
 msgid "No value for the item to search for defined."
 msgstr "Pas de valeur définie pour l'objet recherché."
 
@@ -634,7 +624,6 @@ msgstr "Afficher des informations détaillées au sujet des composants trouvés.
 
 #. project group
 #: tools/ascli-utils.c:348
-#, fuzzy
 msgid "Project Group"
 msgstr "Groupe de projet"
 
@@ -651,14 +640,12 @@ msgid "Python 3"
 msgstr "Python 3"
 
 #: tools/appstream-cli.c:584
-#, fuzzy
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstruire le cache des métadonnées du composant."
 
 #: tools/appstream-cli.c:590
-#, fuzzy
 msgid "Remove software matching the component-id."
-msgstr "Désinstaller le logiciel correspondant à l'ID du composant."
+msgstr "Désinstaller le logiciel correspondant à l'identifiant du composant."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -692,7 +679,6 @@ msgid "Runtime Firmware"
 msgstr "Micrologiciel à l’exécution"
 
 #: src/as-category.c:174
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "Numérisation"
@@ -746,10 +732,9 @@ msgid "Summary:"
 msgstr "Résumé :"
 
 #: src/as-category.c:290
-#, fuzzy
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr "Surveillance système"
+msgstr "Surveillance du système"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -865,25 +850,24 @@ msgid "Validate AppStream XML files for issues."
 msgstr "Valider les fichiers XML AppStream."
 
 #: tools/appstream-cli.c:587
-#, fuzzy
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Valider les métadonnées d'une arborescence de fichiers installée d'une "
 "application."
 
 #: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "Validation échouée."
+msgstr "Validation échouée : %s"
 
 #: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
 msgstr "La validation a réussi."
 
 #: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "La validation a réussi."
+msgstr "La validation a réussi : %s"
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
@@ -900,7 +884,6 @@ msgid "Version: %s"
 msgstr "Version : %s"
 
 #: src/as-category.c:180
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Visionneuses"
@@ -990,25 +973,25 @@ msgstr "app;application;logiciel;paquet;programme;suite;outil;software"
 #: tools/ascli-actions-validate.c:183
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "erreurs : %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "informations : %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
 #, c-format
 msgid "pedantic: %lu"
-msgstr ""
+msgstr "tatillon : %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:190
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "alertes : %lu"
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "La mise à jour du cache AppStream a échoué."
