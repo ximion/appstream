@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-03-16 02:39+0100\n"
-"PO-Revision-Date: 2017-03-06 12:17+0000\n"
-"Last-Translator: Jean-Baptiste <jean-baptiste@holcroft.fr>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2017-06-24 08:51+0000\n"
+"Last-Translator: William Oprandi <william.oprandi@gmail.com>\n"
+"Language-Team: French "
+"<https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 2.15-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -816,7 +816,7 @@ msgid "Unable to read the .desktop file: %s"
 msgstr "Impossible de lire le fichier .desktop : %s"
 
 #: tools/ascli-actions-mdata.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Impossible d'enregistrer le modèle de fichier de méta-info : %s"
 
