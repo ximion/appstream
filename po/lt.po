@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-22 18:52+0100\n"
-"PO-Revision-Date: 2017-01-23 18:08+0000\n"
+"PO-Revision-Date: 2017-03-07 22:00+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian "
 "<https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 2.12\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -105,6 +105,8 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream yra daugiadistribucinė specifikacija, skirta pateikti metaduomenis "
+"apie programinės įrangos komponentus."
 
 #: src/as-pool.c:1476
 #, c-format
@@ -273,6 +275,8 @@ msgstr "Numatytosios ekrano kopijos URL"
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
+"Numatytasis nurodytam metaduomenų formatui (teisingos reikšmės yra \"xml\" "
+"ir \"yaml\")."
 
 #: tools/ascli-utils.c:321
 msgid "Description"
@@ -338,7 +342,7 @@ msgstr "Klaida, įkeliant metaduomenų telkinį: %s"
 
 #: tools/ascli-utils.c:315
 msgid "Extends"
-msgstr ""
+msgstr "Išplečia"
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -609,7 +613,7 @@ msgstr "Fotografija"
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
 msgid "Print detailed output about found components."
-msgstr ""
+msgstr "Rodyti išsamią išvestį apie rastus komponentus."
 
 #. project group
 #: tools/ascli-utils.c:348
@@ -736,9 +740,9 @@ msgid "Text Editors"
 msgstr "Tekstų redaktoriai"
 
 #: tools/ascli-actions-mdata.c:463
-#, fuzzy, c-format
+#, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "Metaduomenų failo \"%s\" nėra."
+msgstr ".desktop failo \"%s\" nėra."
 
 #: src/as-pool.c:1474
 msgid ""
@@ -756,6 +760,8 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream "
+"specifikacijoje. Galimos reikšmės yra:"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -800,12 +806,12 @@ msgstr "Nepavyko rasti komponentą, kurio ID \"%s\"!"
 #: tools/ascli-actions-mdata.c:469
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Nepavyko perskaityti .desktop failo: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Nepavyko paleisti paketų tvarkytuvės: %s"
 
 #: tools/ascli-actions-mdata.c:327
 #, c-format
