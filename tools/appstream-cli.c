@@ -680,6 +680,9 @@ as_client_run (char **argv, int argc)
 	if (!isatty (fileno (stdout)))
 		ascli_set_output_colored (FALSE);
 
+	/* don't let gvfsd start it's own session bus: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=852696 */
+	g_setenv ("GIO_USE_VFS", "local", TRUE);
+
 	/* process subcommands */
 	if ((g_strcmp0 (command, "search") == 0) || (g_strcmp0 (command, "s") == 0)) {
 		return as_client_run_search (argv, argc);
