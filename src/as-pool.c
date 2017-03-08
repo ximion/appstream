@@ -172,9 +172,13 @@ as_pool_init (AsPool *pool)
 	/* system-wide cache locations */
 	priv->sys_cache_path = g_strdup (AS_APPSTREAM_CACHE_PATH);
 
-	/* users umask shouldn't interfere with us creating new files when we are root */
-	if (as_utils_is_root ())
+	if (as_utils_is_root ()) {
+		/* users umask shouldn't interfere with us creating new files when we are root */
 		as_reset_umask ();
+
+		/* ensure we never start gvfsd as root: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=852696 */
+		g_setenv ("GIO_USE_VFS", "local", TRUE);
+	}
 
 	/* check the ctime of the cache directory, if it exists at all */
 	as_pool_check_cache_ctime (pool);
