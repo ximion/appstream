@@ -11,7 +11,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Josef Andersson <josef.andersson@fripost.org>, 2015
+# Josef Andersson <josef.andersson@fripost.org>, 2015, 2021.
 # sebras <sebras@gmail.com>, 2015-2016
 # Göran Uddeborg <goeran@uddeborg.se>, 2016. #zanata
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Josef <josef.andersson@fripost.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -2376,10 +2376,7 @@ msgstr "Kör ”%s --help” för att se en fullständig lista över tillgängli
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Kör ”%s --help” för att se en fullständig lista över tillgängliga "
-"kommandoradsflaggor, och ”%s %s --help” för att se en lista över flaggor "
-"specifika för detta underkommando."
+msgstr "Kör ”%s --help” för att se en fullständig lista över tillgängliga kommandoradsflaggor, och ”%s %s --help” för att se en lista över flaggor specifika för detta underkommando."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2513,9 +2510,7 @@ msgstr "Underkommandon:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Du kan hitta information om specifika underordnade kommandon genom att "
-"skicka in ”--help” till underkommandot."
+msgstr "Du kan hitta information om specifika underordnade kommandon genom att skicka in ”--help” till underkommandot."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2776,8 +2771,7 @@ msgstr ""
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Programvarukomponenttypen ”%s” är inte giltig i AppStream. Möjliga värden är:"
+msgstr "Programvarukomponenttypen ”%s” är inte giltig i AppStream. Möjliga värden är:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
