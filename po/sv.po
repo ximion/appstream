@@ -1,72 +1,69 @@
-# SOME DESCRIPTIVE TITLE.
+# Swedish translation of AppStream.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
 # Translators:
-# Josef Andersson <josef.andersson@fripost.org>, 2015
-# sebras <sebras@gmail.com>, 2015-2016
+# sebras <sebras@gmail.com>, 2015-2016.
+# Josef Andersson <l10nl18nsweja@gmail.com>, 2015, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-01-22 18:52+0100\n"
-"PO-Revision-Date: 2016-08-15 18:48+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: Swedish (http://www.transifex.com/freedesktop/appstream/"
-"language/sv/)\n"
+"PO-Revision-Date: 2017-03-12 23:21+0000\n"
+"Last-Translator: Josef <josef.andersson@fripost.org>\n"
+"Language-Team: Swedish "
+"<https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.12\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "”%s“-kommando"
 
 #: src/as-category.c:168
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "Kategorier"
+msgstr "3D-grafik"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:386
 msgid "Add-ons"
-msgstr ""
+msgstr "Tillägg"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Äventyr"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
-#, fuzzy
 msgid "Also print pedantic hints when validating."
-msgstr "Skriv också ut pedantiska tips vid validering"
+msgstr "Skriv också ut pedantiska tips vid validering."
 
 #: tools/appstream-cli.c:580
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr "Ett objekts typ (t.ex. lib, bin, python3, …)."
+msgstr "Ett objekts typ (t.ex. lib, bin, python3, …)"
 
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Ett verktyg för att jobba med AppStream-metadata"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "AppStream-status:"
+msgstr "AppStream-CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:668
@@ -89,6 +86,8 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
+"Misslyckades med uppdatering av AppStream-cache. Slå på utförligt läge för "
+"att se detaljerad felinformation."
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
@@ -106,41 +105,43 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream är en multiplattform-specifikation för att tillhandahålla metadata "
+"om programkomponenter."
 
 #: src/as-pool.c:1476
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
-msgstr ""
+msgstr "AppStream-cache uppdaterades, men det fanns problem: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Arkad"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Artificiell intelligens"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomi"
 
 #: src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomi"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr ""
+msgstr "Ljud och video"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Ljudskapande och redigering"
 
 #: src/as-provided.c:141
 msgid "Binaries"
@@ -149,12 +150,12 @@ msgstr "Binärer"
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Block"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Brädspel"
 
 #: tools/ascli-utils.c:287
 msgid "Bundle"
@@ -168,7 +169,7 @@ msgstr "Cacheplats ”%s” är inte skrivbar."
 #: src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Kalender"
 
 #: tools/ascli-actions-mdata.c:332
 #, c-format
@@ -176,11 +177,13 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
+"Kan inte kopiera ”%s”: Filen har inte ett ”.metainfo.xml” eller "
+"”.appdata.xml”-suffix."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Kort"
 
 #: tools/ascli-utils.c:357
 msgid "Categories"
@@ -189,22 +192,22 @@ msgstr "Kategorier"
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Chatt"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kemi"
 
 #: src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kemi"
 
 #: src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Kodekar"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:712
@@ -215,7 +218,7 @@ msgstr "Kommando ”%s” är okänt."
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "Kommunikation och nyheter"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -230,19 +233,19 @@ msgstr "Obligatorisk för"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:595
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "Konvertera Collection XML till YAML eller tvärtom."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:233
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Kunde inte hitta komponent som tillhandahåller ”%s;%s”!"
+msgstr "Kunde inte hitta komponent som tillhandahåller ”%s;%s”."
 
 #: tools/appstream-cli.c:596
 msgid ""
 "Create a template for a metainfo file (to be filed out by the upstream "
 "project)."
-msgstr ""
+msgstr "Skapa en mall för en metainfofil (att fyllas i av projektet uppströms)."
 
 #: src/as-provided.c:155
 msgid "DBus Session Services"
@@ -255,23 +258,24 @@ msgstr "DBus-systemtjänster"
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Databas"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Felsökare"
 
 #: tools/ascli-utils.c:341
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "URL för samplingsskärmbild"
+msgstr "URL för exempelbild"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
+"Använd det givna metadataformatet som standard (giltiga värden är ”xml” och "
+"”yaml”)."
 
 #: tools/ascli-utils.c:321
 msgid "Description"
@@ -284,9 +288,8 @@ msgstr "Utvecklare"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Utvecklare"
+msgstr "Utvecklarverktyg"
 
 #: tools/appstream-cli.c:592
 msgid "Display status information about available AppStream metadata."
@@ -299,15 +302,13 @@ msgstr "Distributionsmetadata:"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
-#, fuzzy
 msgid "Do not use any caches when performing the request."
-msgstr "Använd inte Xapian-cachen när begäran hanteras"
+msgstr "Använd inte cachar när begäran hanteras."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:633
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "Visa inte färgad utdata"
+msgstr "Visa inte färgad utdata."
 
 #: tools/appstream-cli.c:583
 msgid "Dump raw XML metadata for a component matching the ID."
@@ -316,7 +317,7 @@ msgstr "Dumpa rå XML-metadata för en komponent som matchar ID:t."
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "Utbildning"
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
@@ -326,18 +327,17 @@ msgstr "Tom."
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Emulatorer"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:224
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "Tvinga en cache-uppdatering"
+msgstr "Tvinga en cache-uppdatering."
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "Fel vid inläsning av poolen för metadata: %s"
 
 #: tools/ascli-utils.c:315
 msgid "Extends"
@@ -346,68 +346,67 @@ msgstr "Utökar"
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "I blickfånget"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Filsystem"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Finans"
 
 #: src/as-provided.c:159
 msgid "Flashed Firmware"
-msgstr "Programmerad fastmjukvara"
+msgstr "Programmerad fast programvara"
 
 #: src/as-provided.c:145
 msgid "Fonts"
 msgstr "Typsnitt"
 
 #: src/as-category.c:211
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Typsnitt"
@@ -426,7 +425,7 @@ msgstr "Hittade %i komponenter."
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "Spel"
 
 #: tools/appstream-cli.c:579
 msgid "Get components which provide the given item."
@@ -439,7 +438,7 @@ msgstr "Hämta information om en komponent givet dess ID."
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Grafik och bilder"
 
 #: tools/ascli-utils.c:288
 msgid "Homepage"
@@ -448,7 +447,7 @@ msgstr "Webbplats"
 #: src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "Utvecklingsmiljöer"
 
 #: tools/ascli-utils.c:289
 msgid "Icon"
@@ -465,7 +464,7 @@ msgstr "Identifierare"
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Indatakällor"
 
 #: tools/appstream-cli.c:593
 msgid "Install a metadata file into the right location."
@@ -482,17 +481,17 @@ msgstr "Ogiltig typ vald för tillhandahållet objekt. Giltiga värden är:"
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Barn"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Språkpaket"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Språk"
 
 #: src/as-provided.c:139
 msgid "Libraries"
@@ -506,43 +505,41 @@ msgstr "Licens"
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Lokalisering"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Logik"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr "Ange manuellt platsen för AppStream-metadata för cache-ombyggnad"
+msgstr "Ange manuellt platsen för AppStream-metadata att söka av."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually set the location of the AppStream cache."
-msgstr "Ange manuellt platsen för AppStream-cachen"
+msgstr "Ange manuellt platsen för AppStream-cachen."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Matematik"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Matematik"
 
 #: tools/ascli-actions-mdata.c:369
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "Metadatafilen ”%s” existerar inte."
 
 #: src/as-pool.c:744
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "Metadatafilen har fel:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -560,7 +557,7 @@ msgstr "Mod-alias"
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Musikspelare"
 
 #: tools/ascli-utils.c:284
 msgid "Name"
@@ -569,7 +566,7 @@ msgstr "Namn"
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Nyheter"
 
 #: tools/ascli-actions-mdata.c:187
 #, c-format
@@ -595,13 +592,13 @@ msgstr "Inget värdet för objektet att leta efter finns definierat."
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "Kontor"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "Option '%s' is unknown."
-msgstr "Kommando ”%s” är okänt."
+msgstr "Flaggan ”%s” är okänd."
 
 #: tools/ascli-utils.c:286
 msgid "Package"
@@ -610,13 +607,12 @@ msgstr "Paket"
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Fotografi"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
-#, fuzzy
 msgid "Print detailed output about found components."
-msgstr "Skriv ut detaljerad utdata om hittade komponenter"
+msgstr "Skriv ut detaljerad utdata om identifierade komponenter."
 
 #. project group
 #: tools/ascli-utils.c:348
@@ -646,12 +642,12 @@ msgstr "Ta bort programvara som matchar komponent-ID:t."
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Robotar"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Rollspel"
 
 #: tools/appstream-cli.c:175 tools/appstream-cli.c:651
 #, c-format
@@ -661,27 +657,28 @@ msgstr ""
 "kommandoradsflaggor."
 
 #: tools/appstream-cli.c:177
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
 "Kör ”%s --help” för att se en fullständig lista över tillgängliga "
-"kommandoradsflaggor."
+"kommandoradsflaggor, och ”%s %s --help” för att se en lista över flaggor "
+"specifika för detta underkommando."
 
 #: src/as-provided.c:157
 msgid "Runtime Firmware"
-msgstr "Fasmjukvara för körtid"
+msgstr "Fast progmvara för körtid"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Skanning"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "Vetenskap"
 
 #: tools/appstream-cli.c:577
 msgid "Search the component database."
@@ -690,29 +687,27 @@ msgstr "Sök i komponentdatabasen."
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Säkerhet"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:628
-#, fuzzy
 msgid "Show extra debugging information."
-msgstr "Visa extra felsökningsinformation"
+msgstr "Visa extra felsökningsinformation."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:622
-#, fuzzy
 msgid "Show the program version."
-msgstr "Visa programversionen"
+msgstr "Visa programversion."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Sport"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Strategi"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:575
@@ -731,22 +726,22 @@ msgstr "Sammanfattning:"
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Systemövervakning"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Terminaler"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Textredigerare"
 
 #: tools/ascli-actions-mdata.c:463
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr ".desktop-filen ”%s” existerar inte."
 
 #: src/as-pool.c:1474
 msgid ""
@@ -754,6 +749,8 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"Appstreams systemcache uppdaterades, men en del fel identifierades och kan "
+"leda till saknad metadata. Se den utförliga loggen för mer information."
 
 #: tools/ascli-actions-mdata.c:445
 #, c-format
@@ -761,6 +758,7 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Programvarukomponenttypen ”%s” är inte giltig i AppStream. Möjliga värden är:"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -770,16 +768,21 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
+"Det här verktyget möjliggör läsning, skrivning, validering och "
+"transformering av AppStream XML- eller YAML-metadata. Det ger också åtkomst "
+"till systemmetadatapoolen för att till exempel söka efter program som "
+"innehåller en specifik mimetyp och installera den med med dess "
+"programidentifierare."
 
 #: tools/ascli-actions-mdata.c:548
 #, c-format
 msgid "Unable save the template metainfo file: %s"
-msgstr ""
+msgstr "Kunde inte spara mallmetainfo-filen: %s"
 
 #: tools/ascli-actions-mdata.c:540
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "Kunde inte skriva till ”%s”, kan inte installera metainfo-fil."
+msgstr "Kunde inte bygga mallmetainfo-filen: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:396
@@ -787,6 +790,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Kunde inte konvertera filen: Det går inte att bestämma utmatningsformatet, "
+"sätt det explict med ”--format=”."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:182
@@ -796,14 +801,14 @@ msgstr "Kunde inte hitta komponenten matchandes %s!"
 
 #: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
 #: tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr "Kunde inte hitta komponenten med id ”%s”!"
+msgstr "Kunde inte identifiera komponenten med id ”%s”!"
 
 #: tools/ascli-actions-mdata.c:469
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Kunde inte läsa .desktop-filen: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -820,11 +825,13 @@ msgstr "Kunde inte skriva till ”%s”, kan inte installera metainfo-fil."
 msgid ""
 "Use the given .desktop file to fill in basic values in the metainfo file."
 msgstr ""
+"Använd den givna .desktop-filen för att fylla i grundläggande värden i "
+"metainfofilen."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "Verktyg"
 
 #: tools/appstream-cli.c:586
 msgid "Validate AppStream XML files for issues."
@@ -836,28 +843,27 @@ msgstr ""
 "Genomsök ett installerat filträd för ett program efter giltig metadata."
 
 #: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "Validering misslyckades."
+msgstr "Misslyckades med validering: %s"
 
 #: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
-msgstr "Valideringen var framgångsrik"
+msgstr "Valideringen var framgångsrik."
 
 #: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "Valideringen var framgångsrik"
+msgstr "Valideringen var framgångsrik: %s"
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
 msgstr "Värdet för objektet som borde hittas."
 
 #: src/as-category.c:177
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Kategorier"
+msgstr "Vektorgrafik"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
@@ -867,7 +873,7 @@ msgstr "Version: %s"
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Visare"
 
 #: tools/ascli-actions-misc.c:151
 #, c-format
@@ -877,18 +883,20 @@ msgstr "Vi har inte information om %i programvarukomponenter."
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Webbläsare"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Ordbehandlare"
 
 #: tools/appstream-cli.c:599
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Du kan hitta information om specifika underordnade kommandon genom att "
+"skicka in ”--help” till underkommandot."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
@@ -900,6 +908,8 @@ msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Du behöver ange en AppStream-programkomponenttyp för att generera en mall. "
+"Möljiga värden är:"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:650
@@ -910,7 +920,6 @@ msgstr "Du måste specificera ett kommando."
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:137 tools/ascli-actions-mdata.c:259
 #: tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
 msgstr "Du måste specificera ett komponent-id."
 
@@ -931,9 +940,8 @@ msgid "You need to specify a term to search for."
 msgstr "Du måste specificera en term att söka efter."
 
 #: tools/ascli-actions-mdata.c:362
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "Du måste ange en metadata-fil."
+msgstr "Du måste ange en in- och utdatafil."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -949,25 +957,25 @@ msgstr "app;program;paket;svit;verktyg"
 #: tools/ascli-actions-validate.c:183
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "fel: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "Infos: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
 #, c-format
 msgid "pedantic: %lu"
-msgstr ""
+msgstr "pedantiska: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:190
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "varningar: %lu"
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "Uppdatering av AppStreams cache misslyckades."
