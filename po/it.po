@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-03-16 02:39+0100\n"
-"PO-Revision-Date: 2017-03-16 08:04+0000\n"
+"PO-Revision-Date: 2017-03-16 08:11+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian "
 "<https://hosted.weblate.org/projects/appstream/translations/it/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr "Comando \"%s\""
+msgstr "Comando «%s»"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -52,7 +52,7 @@ msgstr "Stampa suggerimenti prolissi durante la validazione"
 
 #: tools/appstream-cli.c:580
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr "Un tipo di elemento (lib, bin, python3, ...)"
+msgstr "Un tipo di elemento (lib, bin, python3, …)"
 
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
@@ -68,7 +68,7 @@ msgstr "CLI AppStream"
 #: tools/appstream-cli.c:668
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "Version strumento CLI AppStream: %s"
+msgstr "Versione strumento CLI AppStream: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -165,7 +165,7 @@ msgstr "Bundle"
 #: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Non è possibile scrivere sulla posizione cache \"%s\"."
+msgstr "Non è possibile scrivere sulla posizione cache «%s»."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -178,8 +178,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
-"Impossibile copiare \"%s\": il file non ha un'estensione \".metainfo.xml\" o "
-"\".appdata.xml\"."
+"Impossibile copiare «%s»: il file non ha un'estensione «.metainfo.xml» o "
+"«.appdata.xml»."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -214,7 +214,7 @@ msgstr "Codec"
 #: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr "Comando \"%s\" sconosciuto."
+msgstr "Comando «%s» sconosciuto."
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
@@ -225,7 +225,7 @@ msgstr "Comunicazione e notizie"
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr "Il componente \"%s\" non ha alcun candidato per l'installazione."
+msgstr "Il componente «%s» non ha alcun candidato per l'installazione."
 
 #: tools/ascli-utils.c:365
 msgid "Compulsory for"
@@ -240,7 +240,7 @@ msgstr "Converte la collezione XML in YAML o vice versa"
 #: tools/ascli-actions-mdata.c:233
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Impossibile trovare un componente che fornisca \"%s::%s\"."
+msgstr "Impossibile trovare un componente che fornisca «%s::%s»."
 
 #: tools/appstream-cli.c:596
 msgid ""
@@ -277,8 +277,8 @@ msgstr "URL predefinito della schermata"
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
-"Valore predefinito del formato dei metadati (valori validi sono \"xml\" e "
-"\"yaml\")"
+"Valore predefinito del formato dei metadati (valori validi sono «xml» e "
+"«yaml»)"
 
 #: tools/ascli-utils.c:321
 msgid "Description"
@@ -540,7 +540,7 @@ msgstr "Matematica"
 #: tools/ascli-actions-mdata.c:369
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr "Il file dei metadati \"%s\" non esiste."
+msgstr "Il file dei metadati «%s» non esiste."
 
 #: src/as-pool.c:748
 msgid "Metadata files have errors:"
@@ -576,7 +576,7 @@ msgstr "Notizie"
 #: tools/ascli-actions-mdata.c:187
 #, c-format
 msgid "No component matching '%s' found."
-msgstr "Non è stato trovato alcun componente che corrisponde a \"%s\"."
+msgstr "Non è stato trovato alcun componente che corrisponde a «%s»."
 
 #: tools/ascli-actions-misc.c:103
 msgid "No icons."
@@ -587,7 +587,7 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
-"Nessun gestore di pacchetti CLI trovato. Assicurarsi che \"pkcon\" (parte di "
+"Nessun gestore di pacchetti CLI trovato. Assicurarsi che «pkcon» (parte di "
 "PackageKit) sia disponibile."
 
 #: tools/ascli-actions-mdata.c:211
@@ -603,7 +603,7 @@ msgstr "Ufficio"
 #: tools/appstream-cli.c:171
 #, c-format
 msgid "Option '%s' is unknown."
-msgstr "Opzione \"%s\" sconosciuta."
+msgstr "Opzione «%s» sconosciuta."
 
 #: tools/ascli-utils.c:286
 msgid "Package"
