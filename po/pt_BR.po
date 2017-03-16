@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2016-12-07 16:48+0000\n"
 "Last-Translator: dsboger <dsboger@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -82,7 +82,7 @@ msgstr "Status do AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Atualização do cache do AppStream concluído com sucesso."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -107,7 +107,7 @@ msgstr ""
 "AppStream é uma especificação independente de distribuição para provimento "
 "de metadados sobre componentes de software."
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr "Tabuleiro"
 msgid "Bundle"
 msgstr "Pacote"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "A localização de cache \"%s\" não é gravável."
@@ -209,7 +209,7 @@ msgid "Codecs"
 msgstr "Codecs"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Comando \"%s\" é desconhecido."
@@ -541,7 +541,7 @@ msgstr "Matemática"
 msgid "Metadata file '%s' does not exist."
 msgstr "Arquivo de metadados '%s' não existe."
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 #, fuzzy
 msgid "Metadata files have errors:"
 msgstr "Arquivo de metadados '%s' não existe."
@@ -747,7 +747,7 @@ msgstr "Editores de texto"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Arquivo de metadados '%s' não existe."
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -774,11 +774,6 @@ msgstr ""
 "AppStream em XML ou YAML. Também permite acessar o pool de metadados do "
 "sistema para, por exemplo, buscar por um software que suporta um formato de "
 "arquivo específico e instalar usando seu identificador de componente."
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
-msgstr ""
 
 #: tools/ascli-actions-mdata.c:540
 #, fuzzy, c-format
@@ -812,6 +807,13 @@ msgstr "Não foi possível encontrar um componente com ID \"%s\"!"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr ""
+"Não foi possível escrever em \"%s\", não foi possível instalar arquivo de "
+"metainfo."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

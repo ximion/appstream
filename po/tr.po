@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2016-11-29 20:27+0000\n"
 "Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
@@ -82,7 +82,7 @@ msgstr "AppStream Durumu:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream bellek güncellemesi başarıyla tamamlandı."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -105,7 +105,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -158,7 +158,7 @@ msgstr "Tahta"
 msgid "Bundle"
 msgstr "Takım"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Önbellek konumu '%s', yazılabilir değil."
@@ -205,7 +205,7 @@ msgid "Codecs"
 msgstr "Kodekler"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "'%s' komutu bilinmiyor."
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -734,7 +734,7 @@ msgstr ""
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -755,11 +755,6 @@ msgid ""
 "or YAML metadata. It also allows accessing the system metadata pool to for "
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
-msgstr ""
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:540
@@ -790,6 +785,11 @@ msgstr "'%s' kimliğine sahip bileşen bulunamadı!"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "'%s'e yazılamadı, üst bilgi dosyası kurulamıyor."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

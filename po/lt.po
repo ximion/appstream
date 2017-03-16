@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2017-03-07 22:00+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
-"Language-Team: Lithuanian "
-"<https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
+"Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
+"translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"(n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.12\n"
 
 #: tools/appstream-cli.c:136
@@ -81,7 +81,7 @@ msgstr "AppStream būsena:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream podėlio atnaujinimas sėkmingai užbaigtas."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -108,7 +108,7 @@ msgstr ""
 "AppStream yra daugiadistribucinė specifikacija, skirta pateikti metaduomenis "
 "apie programinės įrangos komponentus."
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -162,7 +162,7 @@ msgstr "Stalo"
 msgid "Bundle"
 msgstr "Rinkinys"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Podėlio vieta \"%s\" nėra įrašoma."
@@ -211,7 +211,7 @@ msgid "Codecs"
 msgstr "Kodekai"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Komanda \"%s\" yra nežinoma."
@@ -538,7 +538,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Metaduomenų failo \"%s\" nėra."
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr "Metaduomenų failuose yra klaidų:"
 
@@ -744,7 +744,7 @@ msgstr "Tekstų redaktoriai"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop failo \"%s\" nėra."
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -771,11 +771,6 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
-msgstr "Nepavyko įrašyti šablono metainformacijos failo: %s"
 
 #: tools/ascli-actions-mdata.c:540
 #, c-format
@@ -807,6 +802,11 @@ msgstr "Nepavyko rasti komponentą, kurio ID \"%s\"!"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nepavyko perskaityti .desktop failo: %s"
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "Nepavyko įrašyti šablono metainformacijos failo: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2016-08-15 19:46+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -87,7 +87,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -110,7 +110,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -163,7 +163,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Agrupació"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
@@ -212,7 +212,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Es desconeix l'ordre «%s»."
@@ -552,7 +552,7 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -760,7 +760,7 @@ msgstr ""
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -781,11 +781,6 @@ msgid ""
 "or YAML metadata. It also allows accessing the system metadata pool to for "
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
-msgstr ""
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:540
@@ -816,6 +811,11 @@ msgstr "No s'ha pogut trobar cap component amb l'id. «%s»!"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "No es pot escriure a «%s», no es pot instal·lar el fitxer metainfo."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

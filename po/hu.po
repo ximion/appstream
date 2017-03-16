@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2016-09-16 22:05+0000\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -82,7 +82,7 @@ msgstr "AppStream állapot:"
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -105,7 +105,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -158,7 +158,7 @@ msgstr "Tábla"
 msgid "Bundle"
 msgstr "Csomag"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "„%s” gyorsítótárhely nem írható."
@@ -207,7 +207,7 @@ msgid "Codecs"
 msgstr "Kodekek"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "A(z) „%s” parancs ismeretlen."
@@ -535,7 +535,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "A(z) „%s” metaadatfájl nem létezik."
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 #, fuzzy
 msgid "Metadata files have errors:"
 msgstr "A(z) „%s” metaadatfájl nem létezik."
@@ -742,7 +742,7 @@ msgstr "Szövegszerkesztők"
 msgid "The .desktop file '%s' does not exist."
 msgstr "A(z) „%s” metaadatfájl nem létezik."
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -763,11 +763,6 @@ msgid ""
 "or YAML metadata. It also allows accessing the system metadata pool to for "
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
-msgstr ""
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:540
@@ -800,6 +795,11 @@ msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2017-01-20 18:26+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
@@ -81,7 +81,7 @@ msgstr "Стан AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Оновлення кешу AppStream успішно завершено."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -108,7 +108,7 @@ msgstr ""
 "AppStream — багатоплатформова специфікація надання метаданих щодо "
 "компонентів програмного забезпечення."
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "Кеш системи AppStream оновлено, але виявлено проблеми: %s"
@@ -161,7 +161,7 @@ msgstr "Ігри на дошці"
 msgid "Bundle"
 msgstr "Кортеж"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Запис до адреси каталогу кешу, «%s», неможливий."
@@ -210,7 +210,7 @@ msgid "Codecs"
 msgstr "Кодеки"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Невідома команда «%s»."
@@ -539,7 +539,7 @@ msgstr "Математика"
 msgid "Metadata file '%s' does not exist."
 msgstr "Файла метаданих «%s» не існує."
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr "Помилки у файлах метаданих:"
 
@@ -745,7 +745,7 @@ msgstr "Текстові редактори"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Файла .desktop «%s» не існує."
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -779,11 +779,6 @@ msgstr ""
 "певного типу MIME та його встановлення за ідентифікатором компонента "
 "програмного забезпечення."
 
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
-msgstr "Не вдалося зберегти файл шаблона метаінформації: %s"
-
 #: tools/ascli-actions-mdata.c:540
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
@@ -814,6 +809,11 @@ msgstr "Не вдалося знайти компонент з ідентифі�
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Не вдалося прочитати файл .desktop: %s"
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "Не вдалося зберегти файл шаблона метаінформації: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

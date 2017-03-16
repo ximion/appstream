@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2017-01-21 09:40+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -82,7 +82,7 @@ msgstr "Stav nástroje AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -109,7 +109,7 @@ msgstr ""
 "AppStream je standard pro poskytování metadat o programovém vybavení, "
 "používaný napříč linuxovými distribucemi."
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -164,7 +164,7 @@ msgstr "Deskové"
 msgid "Bundle"
 msgstr "Zabaleno s"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
@@ -213,7 +213,7 @@ msgid "Codecs"
 msgstr "Kodeky"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Neznámý příkaz „%s“."
@@ -542,7 +542,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Soubor s metadaty „%s“ neexistuje."
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr "Soubory s metadaty obsahují chyby:"
 
@@ -747,7 +747,7 @@ msgstr "Textové editory"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Soubor .desktop pro „%s“ neexistuje."
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -777,11 +777,6 @@ msgstr ""
 "YAML metadat. Také zpřístupňuje systémový fond metadat pro například "
 "dotazování se na software, poskytující konkrétní MIME typ a jeho instalaci "
 "na základě identifikátoru softwarové součásti."
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
-msgstr "Nedaří se uložit soubor se šablonou metainformací: %s"
 
 #: tools/ascli-actions-mdata.c:540
 #, c-format
@@ -813,6 +808,11 @@ msgstr "Nepodařilo se nalézt součást s identifikátorem „%s“!"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nedaří se načíst .desktop soubor: %s"
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "Nedaří se uložit soubor se šablonou metainformací: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

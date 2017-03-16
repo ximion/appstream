@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2017-01-22 15:58+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <https://hosted.weblate.org/projects/"
@@ -81,7 +81,7 @@ msgstr "AppStream 狀態："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -104,7 +104,7 @@ msgid ""
 "software components."
 msgstr "AppStream 為一個跨散佈版的規範，旨在提供軟體組件的中介資料。"
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 系統快取已更新，但發現一些問題：%s"
@@ -157,7 +157,7 @@ msgstr "棋盤"
 msgid "Bundle"
 msgstr "套組"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "無法寫入「%s」快取位置。"
@@ -204,7 +204,7 @@ msgid "Codecs"
 msgstr "編解碼器"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "指令「%s」未知。"
@@ -529,7 +529,7 @@ msgstr "數學"
 msgid "Metadata file '%s' does not exist."
 msgstr "「%s」中介資料檔並不存在。"
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr "中介資料檔中有誤："
 
@@ -732,7 +732,7 @@ msgstr "文字編輯器"
 msgid "The .desktop file '%s' does not exist."
 msgstr "「%s」.desktop 檔並不存在。"
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -759,11 +759,6 @@ msgstr ""
 "本工具可用於讀寫、驗證與變換 AppStream XML 或 YAML 中介資料；此外還可存取系統"
 "中介資料庫，進行諸如搜尋提供某種 mime 類型的軟體，並按照其軟體組件辨識碼安"
 "裝。"
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
-msgstr "無法儲存中介資訊檔：%s"
 
 #: tools/ascli-actions-mdata.c:540
 #, c-format
@@ -793,6 +788,11 @@ msgstr "找不到 ID 為「%s」的組件！"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "無法讀取 .desktop 檔：%s"
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "無法儲存中介資訊檔：%s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

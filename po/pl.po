@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2017-01-20 18:29+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
@@ -82,7 +82,7 @@ msgstr "Stan AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pomyślnie ukończono aktualizację pamięci podręcznej AppStream."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -109,7 +109,7 @@ msgstr ""
 "AppStream to specyfikacja używana przez wiele dystrybucji do dostarczania "
 "metadanych o składnikach oprogramowania."
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -164,7 +164,7 @@ msgstr "Gry planszowe"
 msgid "Bundle"
 msgstr "Paczka"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Położenie pamięci podręcznej „%s” nie jest zapisywalne."
@@ -213,7 +213,7 @@ msgid "Codecs"
 msgstr "Kodeki"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Nieznane polecenie „%s”."
@@ -540,7 +540,7 @@ msgstr "Matematyka"
 msgid "Metadata file '%s' does not exist."
 msgstr "Plik metadanych „%s” nie istnieje."
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr "Pliki metadanych mają błędy:"
 
@@ -745,7 +745,7 @@ msgstr "Edytory tekstu"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Plik .desktop „%s” nie istnieje."
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -778,11 +778,6 @@ msgstr ""
 "oprogramowanie dostarczające podany typ MIME i zainstalować je za pomocą "
 "jego identyfikatora składnika oprogramowania."
 
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
-msgstr "Nie można zapisać pliku szablonu Metainfo: %s"
-
 #: tools/ascli-actions-mdata.c:540
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
@@ -813,6 +808,11 @@ msgstr "Nie można odnaleźć składnika o identyfikatorze „%s”."
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nie można odczytać pliku .desktop: %s"
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "Nie można zapisać pliku szablonu Metainfo: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format

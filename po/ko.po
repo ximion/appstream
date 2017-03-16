@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-01-22 18:52+0100\n"
+"POT-Creation-Date: 2017-03-16 02:39+0100\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/freedesktop/appstream/"
@@ -85,7 +85,7 @@ msgstr "AppStream 상태:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시를 업데이트하였습니다."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1494
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -108,7 +108,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1476
+#: src/as-pool.c:1480
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -161,7 +161,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "번들"
 
-#: src/as-pool.c:1416
+#: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
@@ -210,7 +210,7 @@ msgid "Codecs"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "명령 '%s'이(가) 올바르지 않습니다."
@@ -544,7 +544,7 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:744
+#: src/as-pool.c:748
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -748,7 +748,7 @@ msgstr ""
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1474
+#: src/as-pool.c:1478
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -769,11 +769,6 @@ msgid ""
 "or YAML metadata. It also allows accessing the system metadata pool to for "
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
-msgstr ""
-
-#: tools/ascli-actions-mdata.c:548
-#, c-format
-msgid "Unable save the template metainfo file: %s"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:540
@@ -804,6 +799,11 @@ msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
+
+#: tools/ascli-actions-mdata.c:548
+#, fuzzy, c-format
+msgid "Unable to save the template metainfo file: %s"
+msgstr "'%s'에 기록할 수 없어 메터 정보 파일을 설치할 수 없습니다."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
