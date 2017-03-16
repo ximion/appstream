@@ -545,7 +545,7 @@ ascli_create_metainfo_template (const gchar *out_fname, const gchar *cpt_kind_st
 	} else {
 		as_metadata_save_metainfo (metad, out_fname, AS_FORMAT_KIND_XML, &error);
 		if (error != NULL) {
-			ascli_print_stderr (_("Unable save the template metainfo file: %s"), error->message);
+			ascli_print_stderr (_("Unable to save the template metainfo file: %s"), error->message);
 			return 1;
 		}
 	}
