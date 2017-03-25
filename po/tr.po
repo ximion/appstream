@@ -18,6 +18,7 @@
 # Emin Tufan Çetin <etcetin@gmail.com>, 2018. #zanata
 # Muhammet Kara <muhammet.k@gmail.com>, 2018. #zanata
 # Deleted User <noreply+16368@weblate.org>, 2021.
+# Muhammet Kara <muhammet.kara@metu.edu.tr>, 2021.
 #
 # Translators:
 msgid ""
@@ -26,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -2124,10 +2125,7 @@ msgstr "Tüm komut satırı işlemlerini görmek için '%s --help' komutunu çal
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Kullanılabilir komutların ve seçeneklerin listesini görmek için '%s --"
-"help'i, bu alt komuta özel seçeneklerin listesini görmek için '%s %s --"
-"help'i çalıştırın."
+msgstr "Kullanılabilir komutların ve seçeneklerin listesini görmek için '%s --help'i, bu alt komuta özel seçeneklerin listesini görmek için '%s %s --help'i çalıştırın."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2251,9 +2249,7 @@ msgstr "Alt komutlar:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Alt komuta \"--help\" vererek alt komuta özel seçenekler hakkında bilgi "
-"bulabilirsiniz."
+msgstr "Alt komuta \"--help\" vererek alt komuta özel seçenekler hakkında bilgi bulabilirsiniz."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2642,9 +2638,7 @@ msgstr "Çıktıyı yazdırmak için bir NEWS biçimi belirtmeniz gerekmektedir.
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Uygun paket yöneticisi komut satırı arayüzü bulunamadı. Lütfen örneğin "
-"\"pkcon\"un (PackageKit'in parçası) kullanılabilir olduğuna emin olun."
+msgstr "Uygun paket yöneticisi komut satırı arayüzü bulunamadı. Lütfen örneğin \"pkcon\"un (PackageKit'in parçası) kullanılabilir olduğuna emin olun."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
