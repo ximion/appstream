@@ -345,14 +345,8 @@
 				<term>&lt;font/&gt;</term>
 				<listitem>
 				<para>
-					Filename of a font provided by this component. For example <userinput>Dustismo_Roman.ttf</userinput>.
+					Full name of a font provided by this component. See <xref linkend="sect-Metadata-Fonts"/> for more information.
 				</para>
-				<para>
-					Example:
-				</para>
-				<programlisting language="XML"><![CDATA[<provides>
-  <font>LinLibertine_R.otf</font>
-</provides>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
