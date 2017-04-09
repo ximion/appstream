@@ -2398,6 +2398,36 @@ as_component_add_token (AsComponent *cpt,
 }
 
 /**
+ * as_component_value_tokenize:
+ *
+ * Split a component value string into tokens.
+ */
+static gboolean
+as_component_value_tokenize (AsComponent *cpt, const gchar *value, gchar ***tokens_utf8, gchar ***tokens_ascii)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* tokenize with UTF-8 fallbacks */
+	if (g_strstr_len (value, -1, "+") == NULL &&
+	    g_strstr_len (value, -1, "-") == NULL) {
+		(*tokens_utf8) = g_str_tokenize_and_fold (value, priv->active_locale, tokens_ascii);
+	}
+
+	/* we might still be able to extract tokens if g_str_tokenize_and_fold() can't do it or +/- were found */
+	if ((*tokens_utf8) == NULL) {
+		g_autofree gchar *delim = NULL;
+		delim = g_utf8_strdown (value, -1);
+		g_strdelimit (delim, "/,.;:", ' ');
+		(*tokens_utf8) = g_strsplit (delim, " ", -1);
+	}
+
+	if (tokens_ascii == NULL)
+		return (*tokens_utf8) != NULL;
+	else
+		return ((*tokens_utf8) != NULL) || ((*tokens_ascii) != NULL);
+}
+
+/**
  * as_component_add_tokens:
  */
 static void
@@ -2409,7 +2439,6 @@ as_component_add_tokens (AsComponent *cpt,
 	guint i;
 	g_auto(GStrv) values_utf8 = NULL;
 	g_auto(GStrv) values_ascii = NULL;
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	/* sanity check */
 	if (value == NULL) {
@@ -2418,11 +2447,9 @@ as_component_add_tokens (AsComponent *cpt,
 		return;
 	}
 
-	/* tokenize with UTF-8 fallbacks */
-	if (g_strstr_len (value, -1, "+") == NULL &&
-	    g_strstr_len (value, -1, "-") == NULL) {
-		values_utf8 = g_str_tokenize_and_fold (value, priv->active_locale, &values_ascii);
-	}
+	/* create a set of tokens from the value string */
+	if (!as_component_value_tokenize (cpt, value, &values_utf8, &values_ascii))
+		return;
 
 	/* add each token */
 	for (i = 0; values_utf8 != NULL && values_utf8[i] != NULL; i++)
