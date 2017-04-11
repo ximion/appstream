@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -24,6 +24,7 @@
 #include "as-utils-private.h"
 #include "as-component-private.h"
 #include "as-pool.h"
+#include "as-content-rating-private.h"
 
 /**
  * SECTION:as-cache-file
@@ -178,6 +179,46 @@ as_token_table_to_variant_cb (const gchar *term, AsTokenType *match_pval, GVaria
 
 	g_variant_builder_add (builder, "{su}",
 				      term, *match_pval);
+}
+
+/**
+ * as_cache_serialize_content_rating:
+ */
+static void
+as_cache_serialize_content_rating (GVariantBuilder *cpt_builder, AsComponent *cpt)
+{
+	GPtrArray *content_ratings;
+	GVariantBuilder array_b;
+	guint i;
+
+	content_ratings = as_component_get_content_ratings (cpt);
+	if (content_ratings->len <= 0)
+		return;
+
+	g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
+	for (i = 0; i < content_ratings->len; i++) {
+		GPtrArray *values;
+		GVariantBuilder values_b;
+		GVariantBuilder rating_b;
+		guint j;
+		AsContentRating *content_rating = AS_CONTENT_RATING (g_ptr_array_index (content_ratings, i));
+
+		g_variant_builder_init (&values_b, G_VARIANT_TYPE_ARRAY);
+		values = as_content_rating_get_value_array (content_rating);
+		for (j = 0; j < values->len; j++) {
+			AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (values, j);
+			g_variant_builder_add (&values_b, "{su}", key->id, key->value);
+		}
+
+		g_variant_builder_init (&rating_b, G_VARIANT_TYPE_ARRAY);
+		g_variant_builder_add_parsed (&rating_b, "{'type', %v}", as_variant_mstring_new (as_content_rating_get_kind (content_rating)));
+		g_variant_builder_add_parsed (&rating_b, "{'values', %v}", g_variant_builder_end (&values_b));
+
+		g_variant_builder_add_value (&array_b, g_variant_builder_end (&rating_b));
+	}
+
+	as_variant_builder_add_kv (cpt_builder, "content_ratings",
+				   g_variant_builder_end (&array_b));
 }
 
 /**
@@ -487,6 +528,9 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 						   g_variant_builder_end (&array_b));
 		}
 
+		/* content ratings */
+		as_cache_serialize_content_rating (&cb, cpt);
+
 		/* custom data */
 		tmp_table_ref = as_component_get_custom (cpt);
 		if (g_hash_table_size (tmp_table_ref) > 0) {
@@ -732,6 +776,60 @@ as_variant_to_image (GVariant *variant)
 
 	g_variant_unref (variant);
 	return img;
+}
+
+
+/**
+ * as_cache_read_content_ratings:
+ */
+static void
+as_cache_read_content_ratings (GVariantDict *cpt_dict, AsComponent *cpt)
+{
+	g_autoptr(GVariant) var = NULL;
+	GVariant *child = NULL;
+	GVariantIter gvi;
+
+	var = g_variant_dict_lookup_value (cpt_dict,
+					   "content_ratings",
+					   G_VARIANT_TYPE_ARRAY);
+	if (var == NULL)
+		return;
+
+	g_variant_iter_init (&gvi, var);
+	while ((child = g_variant_iter_next_value (&gvi))) {
+		GVariantIter inner_iter;
+		GVariantDict idict;
+		GVariant *tmp;
+		GVariant *v_child;
+		g_autoptr(GVariant) values_var = NULL;
+		g_autoptr(AsContentRating) rating = as_content_rating_new ();
+
+		g_variant_dict_init (&idict, child);
+
+		as_content_rating_set_kind (rating, as_variant_get_dict_mstr (&idict, "type", &tmp));
+		g_variant_unref (tmp);
+
+		values_var = g_variant_dict_lookup_value (&idict, "values", G_VARIANT_TYPE_ARRAY);
+		if (values_var == NULL) {
+			g_variant_unref (child);
+			continue;
+		}
+
+		g_variant_iter_init (&inner_iter, values_var);
+
+		while ((v_child = g_variant_iter_next_value (&inner_iter))) {
+			AsContentRatingValue val;
+			g_autofree gchar *id_str = NULL;
+
+			g_variant_get (v_child, "{su}", &id_str, &val);
+			as_content_rating_set_value (rating, id_str, val);
+
+			g_variant_unref (v_child);
+		}
+
+		as_component_add_content_rating (cpt, rating);
+		g_variant_unref (child);
+	}
 }
 
 /**
@@ -1190,6 +1288,9 @@ as_cache_file_read (const gchar *fname, GError **error)
 			}
 			g_variant_unref (var);
 		}
+
+		/* content ratings */
+		as_cache_read_content_ratings (&dict, cpt);
 
 		/* custom data */
 		var = g_variant_dict_lookup_value (&dict,

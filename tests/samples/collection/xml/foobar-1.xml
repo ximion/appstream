@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <components version="0.8" origin="jessie">
-  <component type="desktop">
+  <component type="desktop-application">
     <id>0ad.desktop</id>
     <pkgname>0ad</pkgname>
     <name>0 A.D.</name>
@@ -12,7 +12,21 @@
       <category>StrategyGame</category>
     </categories>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
+    <id>org.foobar.AsSampleGame</id>
+    <pkgname>game-package</pkgname>
+    <name>A Game</name>
+    <summary>A real game with content rating</summary>
+    <icon type="cached">game.png</icon>
+    <categories>
+      <category>Game</category>
+    </categories>
+    <content_rating type="oars-1.0">
+      <content_attribute id="drugs-alcohol">moderate</content_attribute>
+      <content_attribute id="language-humor">mild</content_attribute>
+    </content_rating>
+  </component>
+  <component type="desktop-application">
     <id>0install.desktop</id>
     <pkgname>0install-core</pkgname>
     <name>0install</name>
@@ -42,25 +56,7 @@
       <lang percentage="100">sv</lang>
     </languages>
   </component>
-  <component type="desktop">
-    <id>3dchess.desktop</id>
-    <pkgname>3dchess</pkgname>
-    <name>3D Chess</name>
-    <summary>3D chess for X11</summary>
-    <summary xml:lang="de">3D-Schach für X11</summary>
-    <icon type="cached">3dchess.png</icon>
-    <categories>
-      <category>BoardGame</category>
-      <category>Game</category>
-    </categories>
-    <keywords>
-      <keyword>3D</keyword>
-      <keyword>X11</keyword>
-      <keyword>board</keyword>
-      <keyword>chess</keyword>
-    </keywords>
-  </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>4digits.desktop</id>
     <pkgname>4digits</pkgname>
     <name>4digits</name>
@@ -94,7 +90,7 @@
       <lang percentage="100">zh_TW</lang>
     </languages>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>kig.desktop</id>
     <pkgname>kig</pkgname>
     <name>Kig</name>
@@ -176,7 +172,7 @@
       <mimetype>application/x-kig</mimetype>
     </mimetypes>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>kiki.desktop</id>
     <pkgname>kiki</pkgname>
     <name>Kiki</name>
@@ -186,7 +182,7 @@
       <category>Development</category>
     </categories>
   </component>
-<component type="desktop">
+<component type="desktop-application">
     <id>links2.desktop</id>
     <pkgname>links2</pkgname>
     <name>Links 2</name>
@@ -198,7 +194,7 @@
       <category>WebBrowser</category>
     </categories>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>linpsk.desktop</id>
     <pkgname>linpsk</pkgname>
     <name>Linpsk</name>
@@ -209,7 +205,7 @@
       <category>Network</category>
     </categories>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>linuxdcpp.desktop</id>
     <pkgname>linuxdcpp</pkgname>
     <name>LinuxDC++</name>
@@ -231,7 +227,7 @@
       <lang percentage="99">sv</lang>
     </languages>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>liquidwar.desktop</id>
     <pkgname>liquidwar</pkgname>
     <name>Liquid War</name>
@@ -242,7 +238,7 @@
       <category>Game</category>
     </categories>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>literki.desktop</id>
     <pkgname>literki</pkgname>
     <name>Literki</name>
@@ -256,7 +252,7 @@
       <mimetype>text/x-vcard</mimetype>
     </mimetypes>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>logisim.desktop</id>
     <pkgname>logisim</pkgname>
     <name>Logisim</name>
@@ -269,7 +265,7 @@
       <category>Science</category>
     </categories>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>maitreya7.desktop</id>
     <pkgname>maitreya</pkgname>
     <name>Maitreya7</name>
@@ -298,7 +294,7 @@
       <lang percentage="46">te</lang>
     </languages>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>massxpert.desktop</id>
     <pkgname>massxpert</pkgname>
     <name>massXpert</name>
@@ -316,7 +312,7 @@
       <keyword>Biochemistry</keyword>
     </keywords>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>qsapecng.desktop</id>
     <pkgname>qsapecng</pkgname>
     <name>QSapecNG</name>
@@ -328,7 +324,7 @@
       <category>Electronics</category>
     </categories>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>xye.desktop</id>
     <pkgname>xye</pkgname>
     <name>Xye</name>
@@ -348,7 +344,7 @@
       <mimetype>application/xye-xml</mimetype>
     </mimetypes>
   </component>
-  <component type="desktop">
+  <component type="desktop-application">
     <id>inkscape.desktop</id>
     <pkgname>inkscape</pkgname>
     <name>Inkscape</name>
