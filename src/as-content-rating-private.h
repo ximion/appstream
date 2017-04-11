@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,40 +18,24 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __APPSTREAM_H
-#define __APPSTREAM_H
+#ifndef __AS_CONTENT_RATING_PRIVATE_H
+#define __AS_CONTENT_RATING_PRIVATE_H
 
-#define __APPSTREAM_H_INSIDE__
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <glib-object.h>
+#include "as-component.h"
+#include "as-settings-private.h"
 
-#include <as-component.h>
-#include <as-enums.h>
-#include <as-provided.h>
-#include <as-metadata.h>
-#include <as-pool.h>
-#include <as-category.h>
-#include <as-distro-details.h>
-#include <as-icon.h>
-#include <as-screenshot.h>
-#include <as-image.h>
-#include <as-bundle.h>
-#include <as-release.h>
-#include <as-checksum.h>
-#include <as-translation.h>
-#include <as-suggested.h>
-#include <as-content-rating.h>
+G_BEGIN_DECLS
+#pragma GCC visibility push(hidden)
 
-#include <as-validator.h>
-#include <as-validator-issue.h>
+typedef struct {
+	gchar			*id;
+	AsContentRatingValue	 value;
+} AsContentRatingKey;
 
-#include <as-utils.h>
-#include <as-spdx.h>
+GPtrArray	*as_content_rating_get_value_array (AsContentRating *content_rating);
 
-#ifdef __cplusplus
-};
-#endif
-#undef __APPSTREAM_H_INSIDE__
+#pragma GCC visibility pop
+G_END_DECLS
 
-#endif /* __APPSTREAM_H */
+#endif /* __AS_CONTENT_RATING_PRIVATE_H */

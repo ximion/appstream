@@ -43,6 +43,7 @@
 #include "as-metadata.h"
 #include "as-component-private.h"
 #include "as-release-private.h"
+#include "as-content-rating-private.h"
 
 typedef struct
 {
@@ -687,10 +688,10 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 }
 
 /**
- * as_xml_process_provides_tag:
+ * as_xml_parse_provides_tag:
  */
 static void
-as_xml_process_provides_tag (xmlNode *node, AsComponent *cpt)
+as_xml_parse_provides_tag (xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
 	gchar *node_name;
@@ -793,10 +794,10 @@ as_xmldata_process_languages_tag (AsXMLData *xdt, xmlNode* node, AsComponent* cp
 }
 
 /**
- * as_xml_process_suggests_tag:
+ * as_xml_parse_suggests_tag:
  */
 static void
-as_xml_process_suggests_tag (xmlNode *node, AsComponent *cpt)
+as_xml_parse_suggests_tag (xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
 	g_autoptr(AsSuggested) suggested = NULL;
@@ -854,10 +855,10 @@ as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
 }
 
 /**
- * as_xml_process_custom_tag:
+ * as_xml_parse_custom_tag:
  */
 static void
-as_xml_process_custom_tag (xmlNode *node, AsComponent *cpt)
+as_xml_parse_custom_tag (xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
 	GHashTable *custom;
@@ -878,6 +879,42 @@ as_xml_process_custom_tag (xmlNode *node, AsComponent *cpt)
 				     key_str,
 				     as_xml_get_node_value (iter));
 	}
+}
+
+/**
+ * as_xml_parse_content_rating_tag:
+ */
+static void
+as_xml_parse_content_rating_tag (xmlNode *node, AsComponent *cpt)
+{
+	xmlNode *iter;
+	g_autoptr(AsContentRating) rating = NULL;
+
+	/* new content rating of the selected type (usually oars-1.0) */
+	rating = as_content_rating_new ();
+	as_content_rating_set_kind (rating, (gchar*) xmlGetProp (node, (xmlChar*) "type"));
+
+	/* read attributes */
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		gchar *attr_id;
+		AsContentRatingValue attr_value;
+		g_autofree gchar *str_value = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		if (g_strcmp0 ((gchar*) iter->name, "content_attribute") != 0)
+			continue;
+
+		attr_id = (gchar*) xmlGetProp (node, (xmlChar*) "id");
+		str_value = as_xml_get_node_value (iter);
+		attr_value = as_content_rating_value_from_string (str_value);
+		if ((attr_value == AS_CONTENT_RATING_VALUE_UNKNOWN) || (attr_id == NULL))
+			continue; /* this rating attribute is invalid */
+
+		as_content_rating_set_value (rating, attr_id, attr_value);
+	}
+
+	as_component_add_content_rating (cpt, rating);
 }
 
 /**
@@ -1033,7 +1070,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, mime_array[i]);
 			}
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
-			as_xml_process_provides_tag (iter, cpt);
+			as_xml_parse_provides_tag (iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_xmldata_process_screenshots_tag (xdt, iter, cpt);
 		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
@@ -1085,9 +1122,11 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				}
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
-			as_xml_process_suggests_tag (iter, cpt);
+			as_xml_parse_suggests_tag (iter, cpt);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
-			as_xml_process_custom_tag (iter, cpt);
+			as_xml_parse_custom_tag (iter, cpt);
+		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
+			as_xml_parse_content_rating_tag (iter, cpt);
 		}
 	}
 
@@ -1809,6 +1848,46 @@ as_xml_serialize_custom (AsComponent *cpt, xmlNode *cptnode)
 }
 
 /**
+ * as_xml_serialize_content_rating:
+ */
+static void
+as_xml_serialize_content_rating (AsComponent *cpt, xmlNode *cptnode)
+{
+	GPtrArray *content_ratings;
+	guint i;
+
+	content_ratings = as_component_get_content_ratings (cpt);
+	if (content_ratings->len <= 0)
+		return;
+
+	for (i = 0; i < content_ratings->len; i++) {
+		GPtrArray *values;
+		guint j;
+		xmlNode *rnode;
+		AsContentRating *content_rating = AS_CONTENT_RATING (g_ptr_array_index (content_ratings, i));
+
+		rnode = xmlNewChild (cptnode, NULL, (xmlChar*) "content_rating", NULL);
+		xmlNewProp (rnode,
+			    (xmlChar*) "type",
+			    (xmlChar*) as_content_rating_get_kind (content_rating));
+
+		values = as_content_rating_get_value_array (content_rating);
+		for (j = 0; j < values->len; j++) {
+			xmlNode *anode;
+			AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (values, j);
+
+			anode = xmlNewTextChild (rnode,
+						 NULL,
+						 (xmlChar*) "content_attribute",
+						 (xmlChar*) as_content_rating_value_to_string (key->value));
+			xmlNewProp (anode,
+				    (xmlChar*) "id",
+				    (xmlChar*) key->id);
+		}
+	}
+}
+
+/**
  * as_xmldata_component_to_node:
  * @cpt: a valid #AsComponent
  *
@@ -2016,6 +2095,9 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 
 	/* suggests node */
 	as_xmldata_serialize_suggests (xdt, cpt, cnode);
+
+	/* content_rating nodes */
+	as_xml_serialize_content_rating (cpt, cnode);
 
 	/* custom node */
 	as_xml_serialize_custom (cpt, cnode);

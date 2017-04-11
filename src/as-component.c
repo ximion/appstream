@@ -78,6 +78,7 @@ typedef struct
 	GPtrArray		*provided; /* of AsProvided */
 	GPtrArray		*bundles; /* of AsBundle */
 	GPtrArray		*suggestions; /* of AsSuggested elements */
+	GPtrArray		*content_ratings; /* of AsContentRating */
 
 	GHashTable		*urls; /* of int:utf8 */
 	GHashTable		*languages; /* of utf8:utf8 */
@@ -361,6 +362,7 @@ as_component_init (AsComponent *cpt)
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	priv->custom = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->content_ratings = g_ptr_array_new_with_free_func (g_object_unref);
 
 	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
@@ -405,6 +407,7 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->urls);
 	g_hash_table_unref (priv->languages);
 	g_hash_table_unref (priv->custom);
+	g_ptr_array_unref (priv->content_ratings);
 
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
@@ -2833,6 +2836,66 @@ as_component_insert_custom_value (AsComponent *cpt, const gchar *key, const gcha
 	return g_hash_table_insert (priv->custom,
 				    g_strdup (key),
 				    g_strdup (value));
+}
+
+/**
+ * as_component_get_content_ratings:
+ * @cpt: a #AsComponent instance.
+ *
+ * Gets all content ratings defined for this software.
+ *
+ * Returns: (element-type AsContentRating) (transfer none): an array
+ *
+ * Since: 0.11.0
+ **/
+GPtrArray*
+as_component_get_content_ratings (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->content_ratings;
+}
+
+/**
+ * as_component_get_content_rating:
+ * @cpt: a #AsComponent instance.
+ * @kind: a ratings kind, e.g. "oars-1.0"
+ *
+ * Gets a content ratings of a specific type that are defined for this component.
+ *
+ * Returns: (transfer none): a #AsContentRating or %NULL if not found
+ *
+ * Since: 0.11.0
+ **/
+AsContentRating*
+as_component_get_content_rating (AsComponent *cpt, const gchar *kind)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	guint i;
+
+	for (i = 0; i < priv->content_ratings->len; i++) {
+		AsContentRating *content_rating;
+		content_rating = g_ptr_array_index (priv->content_ratings, i);
+		if (g_strcmp0 (as_content_rating_get_kind (content_rating), kind) == 0)
+			return content_rating;
+	}
+	return NULL;
+}
+
+/**
+ * as_component_add_content_rating:
+ * @cpt: a #AsComponent instance.
+ * @content_rating: a #AsContentRating instance.
+ *
+ * Adds a content rating to this component.
+ *
+ * Since: 0.11.0
+ **/
+void
+as_component_add_content_rating (AsComponent *cpt, AsContentRating *content_rating)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_add (priv->content_ratings,
+			 g_object_ref (content_rating));
 }
 
 /**

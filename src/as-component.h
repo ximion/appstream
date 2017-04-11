@@ -35,6 +35,7 @@
 #include "as-suggested.h"
 #include "as-category.h"
 #include "as-bundle.h"
+#include "as-content-rating.h"
 
 G_BEGIN_DECLS
 
@@ -294,6 +295,12 @@ gchar			*as_component_get_custom_value (AsComponent *cpt,
 gboolean		as_component_insert_custom_value (AsComponent *cpt,
 							  const gchar *key,
 							  const gchar *value);
+
+GPtrArray		*as_component_get_content_ratings (AsComponent *cpt);
+AsContentRating		*as_component_get_content_rating (AsComponent *cpt,
+							  const gchar *kind);
+void			as_component_add_content_rating (AsComponent *cpt,
+							 AsContentRating *content_rating);
 
 G_END_DECLS
 
