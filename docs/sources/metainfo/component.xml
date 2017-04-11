@@ -622,6 +622,42 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-content_rating">
+		<term>&lt;content_rating/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;content_rating/&gt;</code> tag is an optional tag which can be added to specify age ratings for the respective software components.
+			These maybe be used for parental control or to display their information in software centers.
+		</para>
+		<para>
+			The tag must have a <literal>type</literal> property, indicating the type of the rating system that is used. At the moment, the
+			<ulink url="https://odrs.gnome.org/oars">Open Age Ratings Service</ulink> (value <code>oars-1.0</code>) is supported natively, but more services might be
+			added in future.
+		</para>
+		<para>
+			The <code>&lt;content_rating/&gt;</code> must have <code>&lt;content_attribute/&gt;</code> children which each have an <literal>id</literal> property indicating
+			the specific section that is rated. Their value indicates the intensity of the rated section and can be one of:
+		</para>
+		<itemizedlist>
+			<listitem><para><literal>none</literal> - no rating given</para></listitem>
+			<listitem><para><literal>mild</literal></para></listitem>
+			<listitem><para><literal>moderate</literal></para></listitem>
+			<listitem><para><literal>intense</literal></para></listitem>
+		</itemizedlist>
+		<para>
+			The website of the Open Age Ratings Service provides <ulink url="https://odrs.gnome.org/oars">an online form</ulink> which will automatically generate AppStream compatible
+			markup based on a set of questions answered about the content.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<content_rating type="oars-1.0">
+  <content_attribute id=drugs-alcohol>moderate</content_attribute>
+  <content_attribute id=language-humor>mild</content_attribute>
+</content_rating>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 	</variablelist>
 
 	<para>

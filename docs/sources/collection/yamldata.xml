@@ -743,7 +743,7 @@
 					<para>
 						Example:
 					</para>
-					<programlisting><![CDATA[Provides:
+					<programlisting><![CDATA[Suggests:
   - type: upstream
     ids:
       - org.example.Awesome
@@ -752,6 +752,26 @@
       - org.example.Test1
       - org.example.Test2]]></programlisting>
 					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-content_rating">
+				<term>Suggests</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-content_rating"/>.</para>
+					<para>
+						A dictionary containing the rating system as key, and a dictionary of rating-values as value.
+						The value-dictionary itself has the content rating IDs as keys and the intensity values as values.
+						The intensity values as well as IDs and rating system names match the values from the XML exactly.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting><![CDATA[ContentRating:
+  oars-1.0:
+    drugs-alcohol: moderate
+    language-humor: mild]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict(dict)</emphasis></literallayout>
 				</listitem>
 			</varlistentry>
 
