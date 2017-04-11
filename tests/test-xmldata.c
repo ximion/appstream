@@ -755,6 +755,63 @@ test_xml_write_custom (void)
 	g_assert (as_test_compare_lines (res, xmldata_custom));
 }
 
+static const gchar *xmldata_content_rating = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+						"<component>\n"
+						"  <id>org.example.ContentRatingTest</id>\n"
+						"  <content_rating type=\"oars-1.0\">\n"
+						"    <content_attribute id=\"drugs-alcohol\">moderate</content_attribute>\n"
+						"    <content_attribute id=\"language-humor\">mild</content_attribute>\n"
+						"  </content_rating>\n"
+						"</component>\n";
+/**
+ * test_xml_read_content_rating:
+ *
+ * Test reading the content_rating tag.
+ */
+static void
+test_xml_read_content_rating (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsContentRating *rating;
+
+	cpt = as_xml_test_read_data (xmldata_content_rating, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ContentRatingTest");
+
+	rating = as_component_get_content_rating (cpt, "oars-1.0");
+	g_assert_nonnull (rating);
+
+	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"), ==, AS_CONTENT_RATING_VALUE_MODERATE);
+	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"), ==, AS_CONTENT_RATING_VALUE_MILD);
+	g_assert_cmpint (as_content_rating_get_minimum_age (rating), ==, 13);
+}
+
+/**
+ * test_xml_write_content_rating:
+ *
+ * Test writing the content_rating tag.
+ */
+static void
+test_xml_write_content_rating (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsContentRating) rating = NULL;
+	g_autofree gchar *res = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.ContentRatingTest");
+
+	rating = as_content_rating_new ();
+	as_content_rating_set_kind (rating, "oars-1.0");
+
+	as_content_rating_set_value (rating, "drugs-alcohol", AS_CONTENT_RATING_VALUE_MODERATE);
+	as_content_rating_set_value (rating, "language-humor", AS_CONTENT_RATING_VALUE_MILD);
+
+	as_component_add_content_rating (cpt, rating);
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_content_rating));
+}
+
 /**
  * main:
  */
@@ -796,6 +853,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/Custom", test_xml_read_custom);
 	g_test_add_func ("/XML/Write/Custom", test_xml_write_custom);
+
+	g_test_add_func ("/XML/Read/ContentRating", test_xml_read_content_rating);
+	g_test_add_func ("/XML/Write/ContentRating", test_xml_write_content_rating);
 
 	ret = g_test_run ();
 	g_free (datadir);

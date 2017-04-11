@@ -905,7 +905,7 @@ as_xml_parse_content_rating_tag (xmlNode *node, AsComponent *cpt)
 		if (g_strcmp0 ((gchar*) iter->name, "content_attribute") != 0)
 			continue;
 
-		attr_id = (gchar*) xmlGetProp (node, (xmlChar*) "id");
+		attr_id = (gchar*) xmlGetProp (iter, (xmlChar*) "id");
 		str_value = as_xml_get_node_value (iter);
 		attr_value = as_content_rating_value_from_string (str_value);
 		if ((attr_value == AS_CONTENT_RATING_VALUE_UNKNOWN) || (attr_id == NULL))
