@@ -647,6 +647,66 @@ test_yaml_read_custom (void)
 	g_assert_cmpstr (as_component_get_custom_value (cpt, "Oh::Snap::Punctuation!"), ==, "Awesome!");
 }
 
+static const gchar *yamldata_content_rating_field = "---\n"
+						"File: DEP-11\n"
+						"Version: '0.10'\n"
+						"---\n"
+						"Type: generic\n"
+						"ID: org.example.ContentRatingTest\n"
+						"ContentRating:\n"
+						"  oars-1.0:\n"
+						"    drugs-alcohol: moderate\n"
+						"    language-humor: mild\n";
+
+/**
+ * test_yaml_write_content_rating:
+ *
+ * Test writing the ContentRating field.
+ */
+static void
+test_yaml_write_content_rating (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsContentRating) rating = NULL;
+	g_autofree gchar *res = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.ContentRatingTest");
+
+	rating = as_content_rating_new ();
+	as_content_rating_set_kind (rating, "oars-1.0");
+
+	as_content_rating_set_value (rating, "drugs-alcohol", AS_CONTENT_RATING_VALUE_MODERATE);
+	as_content_rating_set_value (rating, "language-humor", AS_CONTENT_RATING_VALUE_MILD);
+
+	as_component_add_content_rating (cpt, rating);
+
+	/* test collection serialization */
+	res = as_yaml_test_serialize (cpt);
+	g_assert (as_test_compare_lines (res, yamldata_content_rating_field));
+}
+
+/**
+ * test_yaml_read_content_rating:
+ *
+ * Test if reading the ContentRating field works.
+ */
+static void
+test_yaml_read_content_rating (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsContentRating *rating;
+
+	cpt = as_yaml_test_read_data (yamldata_content_rating_field, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ContentRatingTest");
+
+	rating = as_component_get_content_rating (cpt, "oars-1.0");
+	g_assert_nonnull (rating);
+	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"), ==, AS_CONTENT_RATING_VALUE_MODERATE);
+	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"), ==, AS_CONTENT_RATING_VALUE_MILD);
+}
+
 /**
  * main:
  */
@@ -684,6 +744,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/Read/Custom", test_yaml_read_custom);
 	g_test_add_func ("/YAML/Write/Custom", test_yaml_write_custom);
+
+	g_test_add_func ("/YAML/Read/ContentRating", test_yaml_read_content_rating);
+	g_test_add_func ("/YAML/Write/ContentRating", test_yaml_write_content_rating);
 
 	ret = g_test_run ();
 	g_free (datadir);
