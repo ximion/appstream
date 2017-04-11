@@ -2,9 +2,9 @@
 
 find_program (XMLTO xmlto)
 mark_as_advanced (XMLTO)
-if (XMLTO STREQUAL "XMLTO-NOTFOUND")
+if (NOT XMLTO)
 	message (FATAL_ERROR "Xmlto was not found! Please install it to continue!")
-endif (XMLTO STREQUAL "XMLTO-NOTFOUND")
+endif ()
 
 include (${CMAKE_SOURCE_DIR}/data/cmake/documentation.cmake)
 
