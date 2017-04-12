@@ -249,6 +249,28 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-launch">
+		<term>&lt;launch/&gt;</term>
+		<listitem>
+		<para>
+			This optional tag indicates a possible method to launch the software described in this component. At time, it only supports launching software by their desktop-id.
+		</para>
+		<para>
+			The <code>&lt;launch/&gt;</code> tag has a essential <literal>type</literal> property indicating the system that is used to launch the application. At time, only
+			<code>desktop-id</code> is allowed as value, indicating that an application can be launched via a desktop file. The value of the tag is a
+			<ulink url="https://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#desktop-file-id">desktop-file id</ulink> in that case.
+		</para>
+		<para>
+			The <code>&lt;launch/&gt;</code> tag is allowed to appear multiple times in the metainfo data. In case a software component has multiple launchable entries,
+			the software center might display a dialog to choose which entry to launch. If possible though, it should be avoided to add multiple launch tags.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<launch type="desktop-id">org.gnome.Sysprof2.desktop</launch>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-releases">
 		<term>&lt;releases/&gt;</term>
 		<listitem>

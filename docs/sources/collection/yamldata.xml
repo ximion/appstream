@@ -595,6 +595,23 @@
 			</listitem>
 			</varlistentry>
 
+			<varlistentry id="field-dep11-launch">
+				<term>Launch</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-launch"/>.</para>
+					<para>
+						A dictionary containing the launch-type as key, and a list of IDs used for launching the application as value.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting><![CDATA[Launch:
+  desktop-id:
+    - org.gnome.Sysprof2.desktop]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict(list)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
 			<varlistentry id="field-dep11-releases">
 			<term>Releases</term>
 			<listitem>

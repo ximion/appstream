@@ -14,7 +14,7 @@
 			For most users it allows them to answer the question <quote>Do I want to install this application?</quote>.
 			Traditionally in Linux distributions, we have none of this data for the vast majority of our desktop user-installable applications.
 			The packages-descriptions are describing all contents of a package, and not just a single application. They are also often written in a technical
-			language and refer to other packages, which makes it hard for beginners to understand what the application they want to install really does.
+<!-- 			language and refer to other packages, which makes it hard for beginners to understand what the application they want to install really does. -->
 			Additionally, if you are not using Debian or Ubuntu, the package descriptions are often untranslated.
 			Also, packages do not provide some metadata users might be interested in before installing an application.
 		</para>
@@ -49,7 +49,7 @@
 <!-- Copyright 2013 First Lastname <your@email.com> -->
 <component type="desktop-application">
   <id>org.gnome.gnome-power-statistics</id>
-  <metadata_license>CC0</metadata_license>
+  <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Power Statistics</name>
   <summary>Observe power management</summary>
@@ -70,6 +70,8 @@
       significant amounts of power.
     </p>
   </description>
+
+  <launch type="desktop-id">org.gnome.gnome-power-statistics.desktop</launch>
 
   <screenshots>
     <screenshot type="default">
@@ -112,20 +114,12 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For applications, the <code>&lt;id/&gt;</code> tag value must be the same name as the installed <filename>.desktop</filename> file for the application,
-					the <filename>.desktop</filename> suffix of the filename may be omitted.
+					The <code>&lt;id/&gt;</code> tag value contains the unique identifier for this application. It is usually modeled after the .desktop filename
+					and follows a reverse-DNS scheme. For the full naming guidelines see <xref linkend="tag-id-generic"/>.
 				</para>
 				<para>
-					Usually, modern <filename>.desktop</filename> files follow the reverse-DNS scheme name already. If they do not follow the scheme, it is strongly
-					recommended to change the <filename>.desktop</filename> filename. Refer to
-					<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s02.html">the desktop entry specification</ulink> for more information.
-				</para>
-				<para>
-					Example: If your application's <filename>.desktop</filename> file is named <filename>org.example.FooBar.desktop</filename> the component-id must
-					be <code>org.example.FooBar</code> (or <code>org.example.FooBar.desktop</code>).
-					If your application's <filename>.desktop</filename> file is named <filename>frobnicator.desktop</filename> the component-id must be <code>frobnicator</code>
-					(or <code>frobnicator.desktop</code>) - it is highly recommended to modernize the <filename>.desktop</filename> filename to follow the Desktop Entry specification in these cases
-					though.
+					Example: If your application's <filename>.desktop</filename> file is named <filename>org.example.FooBar.desktop</filename>, a good component-id would be
+					<code>org.example.FooBar</code>.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -187,8 +181,7 @@
 				<para>
 					While this tag is always requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
 					You can omit this tag if you want the software center to have the same strings as defined in the <literal>Name</literal> field
-					of the <filename>.desktop</filename> file.
-					In some cases it might be required to have a different name in the software center, but most metainfo files will not need this.
+					of the <filename>.desktop</filename> file. In that case, one <xref linkend="qsr-app-launch-info"/> tag must be present.
 				</para>
 				<para>
 					If no <literal>name</literal> tag and no <literal>Name</literal> field is present, the metadata
@@ -202,7 +195,8 @@
 			<listitem>
 				<para>
 					While this tag is always requited for a generic component, for a <literal>desktop-application</literal> metainfo file it is only essential
-					if the accompanying <filename>.desktop</filename> file does not have a <literal>Comment=</literal> field.
+					if the accompanying <filename>.desktop</filename> file does not have a <literal>Comment=</literal> field. Data from a .desktop file is only
+					taken into consideration if one <xref linkend="qsr-app-launch-info"/> tag is present.
 					If the metainfo file has a <literal>summary</literal>, it wil override the value found in the <literal>Comment</literal> field of the
 					<filename>.desktop</filename> file.
 				</para>
@@ -264,6 +258,24 @@
 					In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
 					has a language property.
 				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="qsr-app-launch-info">
+			<term>&lt;launch/&gt;</term>
+			<listitem>
+			<para>
+				This tag indicates a possible method to launch the software. Usually you want the application to be launchable by its .desktop file ID.
+			</para>
+			<para>
+				The tag makes it possible for software centers to offer launching an application immediately after installation. It also connects the metainfo file
+				with a .desktop file, so AppStream metadata generators and the distribution can absorb its metadata into the final AppStream output.
+			</para>
+			<para>
+				See <xref linkend="tag-launch"/> for a detailed description of the tag.
+				Example:
+			</para>
+				<programlisting language="XML"><![CDATA[<launch type="desktop-id">org.gnome.Sysprof2.desktop</launch>]]></programlisting>
 			</listitem>
 			</varlistentry>
 

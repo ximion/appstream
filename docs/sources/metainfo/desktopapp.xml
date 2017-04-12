@@ -15,7 +15,7 @@
 		</para>
 		<para>
 			AppStream generators may pull data from the preexisting <filename>.desktop</filename> files to represent an application in the AppStream metadata pool. Upstream projects should
-			ship a small XML file containing additional metadata to describe their application though, to enhance the available metadata.
+			ship a metainfo file containing additional metadata to describe their application though, to enhance the available metadata.
 			This data includes things like screenshots, long descriptions, icon information and various other things needed
 			to present the application properly to the user.
 			For some distributions, the presence of this metadata is a prerequisite for the application showing up in the metadata pool and being presented in software centers.
@@ -27,6 +27,10 @@
 			The metainfo files override any values which are automatically fetched from other sources by the AppStream data generator, which means that its data will always take precedence over
 			data which has already been defined in a <filename>.desktop</filename> file.
 			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
+		</para>
+		<para>
+			Data will only be fetched from a desktop file if one <xref linkend="tag-dapp-launch"/> tag is present to define a .desktop file ID. If multiple <literal>launch</literal> tags are
+			defined, no data will be merged in from .desktop files.
 		</para>
 		<note>
 			<para>
@@ -70,21 +74,16 @@
 			<term>&lt;id/&gt;</term>
 			<listitem>
 				<para>
-					For applications, the <code>&lt;id/&gt;</code> tag value must be the same name as the installed <filename>.desktop</filename> file for the application,
-					the <filename>.desktop</filename> suffix of the filename may be omitted.
+					For desktop applications, the <code>&lt;id/&gt;</code> tag value must follow the reverse-DNS scheme as described in <xref linkend="tag-id-generic"/>.
 				</para>
-				<para>
-					Usually, modern <filename>.desktop</filename> files follow the reverse-DNS scheme name already. If they do not follow the scheme, it is strongly
-					recommended to change the <filename>.desktop</filename> filename. Refer to
-					<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s02.html">the desktop entry specification</ulink> for more information.
-				</para>
-				<para>
-					Example: If your application's <filename>.desktop</filename> file is named <filename>org.example.FooBar.desktop</filename> the component-id must
-					be <code>org.example.FooBar</code> (or <code>org.example.FooBar.desktop</code>).
-					If your application's <filename>.desktop</filename> file is named <filename>frobnicator.desktop</filename> the component-id must be <code>frobnicator</code>
-					(or <code>frobnicator.desktop</code>) - it is highly recommended to modernize the .desktop filename to follow the Desktop Entry specification in these cases
-					though.
-				</para>
+				<note>
+					<para>
+						In previous AppStream releases, the <code>&lt;id/&gt;</code> was used to associate metainfo files with their .desktop files to merge in
+						data from .desktop files into the AppStream generator's final output. In modern metainfo files, the component-ID for <literal>desktop-application</literal>
+						components can be an arbitrary string (matching the naming rules applying to all AppStream metadata), while the <xref linkend="tag-dapp-launch"/> tag is used
+						to associate .desktop files with their metainfo files.
+					</para>
+				</note>
 			</listitem>
 			</varlistentry>
 
@@ -112,6 +111,24 @@
 				<para>
 					A short summary on what this application does, roughly equivalent to the <literal>Comment</literal> field of the
 					accompanying <filename>.desktop</filename> file of the application.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-dapp-launch">
+			<term>&lt;launch/&gt;</term>
+			<listitem>
+				<para>
+					It is recommended that a <code>&lt;launch/&gt;</code> tag is present in <literal>desktop-application</literal> metainfo files.
+					The tag is described in detail at <xref linkend="tag-launch"/>.
+				</para>
+				<para>
+					If only one <literal>launch</literal> entry of type <literal>desktop-id</literal> is present, AppStream metadata generators might decide to
+					merge metadata from .desktop files referenced by the tag into their final output.
+				</para>
+				<para>
+					The <literal>launch</literal> tag is optional, but if omitted software centers will not be able to launch the application directly after
+					it was installed.
 				</para>
 			</listitem>
 			</varlistentry>
