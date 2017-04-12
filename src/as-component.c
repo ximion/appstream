@@ -2873,8 +2873,7 @@ as_component_get_content_rating (AsComponent *cpt, const gchar *kind)
 	guint i;
 
 	for (i = 0; i < priv->content_ratings->len; i++) {
-		AsContentRating *content_rating;
-		content_rating = g_ptr_array_index (priv->content_ratings, i);
+		AsContentRating *content_rating = AS_CONTENT_RATING (g_ptr_array_index (priv->content_ratings, i));
 		if (g_strcmp0 (as_content_rating_get_kind (content_rating), kind) == 0)
 			return content_rating;
 	}
