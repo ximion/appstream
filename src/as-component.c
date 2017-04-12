@@ -69,6 +69,7 @@ typedef struct
 	gchar			*project_license;
 	gchar			*project_group;
 
+	GPtrArray		*launchables; /* of #AsLaunch */
 	GPtrArray		*categories; /* of utf8 */
 	GPtrArray		*compulsory_for_desktops; /* of utf8 */
 	GPtrArray		*extends; /* of utf8 */
@@ -345,6 +346,7 @@ as_component_init (AsComponent *cpt)
 	priv->keywords = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) g_strfreev);
 
 	/* lists */
+	priv->launchables = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->categories = g_ptr_array_new_with_free_func (g_free);
 	priv->compulsory_for_desktops = g_ptr_array_new_with_free_func (g_free);
 	priv->screenshots = g_ptr_array_new_with_free_func (g_object_unref);
@@ -394,6 +396,7 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->developer_name);
 	g_hash_table_unref (priv->keywords);
 
+	g_ptr_array_unref (priv->launchables);
 	g_ptr_array_unref (priv->categories);
 	g_ptr_array_unref (priv->compulsory_for_desktops);
 
@@ -2895,6 +2898,49 @@ as_component_add_content_rating (AsComponent *cpt, AsContentRating *content_rati
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_ptr_array_add (priv->content_ratings,
 			 g_object_ref (content_rating));
+}
+
+/**
+ * as_component_get_launch:
+ * @cpt: a #AsComponent instance.
+ * @kind: a launch kind, e.g. %AS_LAUNCH_KIND_DESKTOP_ID
+ *
+ * Gets a #AsLaunch of a specific type that contains launchable entries for
+ * this component.
+ *
+ * Returns: (transfer none): a #AsLaunch or %NULL if not found
+ *
+ * Since: 0.11.0
+ **/
+AsLaunch*
+as_component_get_launch (AsComponent *cpt, AsLaunchKind kind)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	guint i;
+
+	for (i = 0; i < priv->launchables->len; i++) {
+		AsLaunch *launch = AS_LAUNCH (g_ptr_array_index (priv->launchables, i));
+		if (as_launch_get_kind (launch) == kind)
+			return launch;
+	}
+	return NULL;
+}
+
+/**
+ * as_component_add_launch:
+ * @cpt: a #AsComponent instance.
+ * @launch: a #AsLaunch instance.
+ *
+ * Adds a #AsLaunch containing launchables entries for this component.
+ *
+ * Since: 0.11.0
+ **/
+void
+as_component_add_launch (AsComponent *cpt, AsLaunch *launch)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_add (priv->launchables,
+			 g_object_ref (launch));
 }
 
 /**

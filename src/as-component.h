@@ -36,6 +36,7 @@
 #include "as-category.h"
 #include "as-bundle.h"
 #include "as-content-rating.h"
+#include "as-launch.h"
 
 G_BEGIN_DECLS
 
@@ -179,6 +180,11 @@ const gchar		*as_component_get_description (AsComponent *cpt);
 void			as_component_set_description (AsComponent *cpt,
 							const gchar *value,
 							const gchar *locale);
+
+AsLaunch		*as_component_get_launch (AsComponent *cpt,
+							AsLaunchKind kind);
+void			as_component_add_launch (AsComponent *cpt,
+							 AsLaunch *launch);
 
 const gchar		*as_component_get_metadata_license (AsComponent *cpt);
 void			as_component_set_metadata_license (AsComponent *cpt,
