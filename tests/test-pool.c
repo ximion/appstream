@@ -318,7 +318,7 @@ test_pool_read ()
 	g_ptr_array_unref (result);
 
 	/* test a component in a different file, with no package but a bundle instead */
-	cpt = _as_get_single_component_by_cid (dpool, "neverball.desktop");
+	cpt = _as_get_single_component_by_cid (dpool, "org.neverball.Neverball");
 	g_assert_nonnull (cpt);
 
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Neverball");
@@ -380,7 +380,7 @@ test_pool_read ()
 
 		if (g_strcmp0 (cat_id, "graphics") == 0) {
 			cpt = g_ptr_array_index (as_category_get_components (cat), 0);
-			g_assert_cmpstr (as_component_get_id (cpt), ==, "inkscape.desktop");
+			g_assert_cmpstr (as_component_get_id (cpt), ==, "org.inkscape.Inkscape");
 		}
 	}
 }

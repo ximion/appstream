@@ -222,6 +222,35 @@ as_cache_serialize_content_rating (GVariantBuilder *cpt_builder, AsComponent *cp
 }
 
 /**
+ * as_cache_serialize_launch:
+ */
+static void
+as_cache_serialize_launch (GVariantBuilder *cpt_builder, AsComponent *cpt)
+{
+	GPtrArray *launchables;
+	GVariantBuilder array_b;
+	guint i;
+
+	launchables = as_component_get_launchables (cpt);
+	if (launchables->len <= 0)
+		return;
+
+	g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
+
+	for (i = 0; i < launchables->len; i++) {
+		AsLaunch *launch = AS_LAUNCH (g_ptr_array_index (launchables, i));
+
+		GVariant *var = g_variant_new ("{uv}",
+						as_launch_get_kind (launch),
+						as_string_ptrarray_to_variant (as_launch_get_entries (launch)));
+		g_variant_builder_add_value (&array_b, var);
+	}
+
+	as_variant_builder_add_kv (cpt_builder, "launch",
+				   g_variant_builder_end (&array_b));
+}
+
+/**
  * as_cache_file_save:
  * @fname: The file to save the data to.
  * @locale: The locale this cache file is for.
@@ -320,6 +349,9 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 			as_variant_builder_add_kv (&cb, "bundles",
 						   g_variant_builder_end (&array_b));
 		}
+
+		/* launch */
+		as_cache_serialize_launch (&cb, cpt);
 
 		/* extends */
 		as_variant_builder_add_kv (&cb, "extends",
@@ -833,6 +865,46 @@ as_cache_read_content_ratings (GVariantDict *cpt_dict, AsComponent *cpt)
 }
 
 /**
+ * as_cache_read_launch:
+ */
+static void
+as_cache_read_launch (GVariantDict *cpt_dict, AsComponent *cpt)
+{
+	g_autoptr(GVariant) var = NULL;
+	GVariant *child = NULL;
+	GVariantIter gvi;
+
+	var = g_variant_dict_lookup_value (cpt_dict,
+					   "launch",
+					   G_VARIANT_TYPE_ARRAY);
+	if (var == NULL)
+		return;
+
+
+
+	g_variant_iter_init (&gvi, var);
+	while ((child = g_variant_iter_next_value (&gvi))) {
+		AsLaunchKind kind;
+		GVariantIter inner_iter;
+		GVariant *entry_child;
+		g_autoptr(GVariant) entries_var = NULL;
+		g_autoptr(AsLaunch) launch = as_launch_new ();
+
+		g_variant_get (child, "{uv}", &kind, &entries_var);
+		as_launch_set_kind (launch, kind);
+
+		g_variant_iter_init (&inner_iter, entries_var);
+		while ((entry_child = g_variant_iter_next_value (&inner_iter))) {
+			as_launch_add_entry (launch, g_variant_get_string (entry_child, NULL));
+			g_variant_unref (entry_child);
+		}
+
+		as_component_add_launch (cpt, launch);
+		g_variant_unref (child);
+	}
+}
+
+/**
  * as_cache_read:
  * @fname: The file to save the data to.
  * @locale: The locale this cache file is for.
@@ -987,6 +1059,9 @@ as_cache_file_read (const gchar *fname, GError **error)
 			}
 			g_variant_unref (var);
 		}
+
+		/* launch */
+		as_cache_read_launch (&dict, cpt);
 
 		/* extends */
 		as_variant_to_string_ptrarray_by_dict (&dict,

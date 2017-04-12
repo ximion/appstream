@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <components version="0.8" origin="6375db4bb7186c39a4860544884575f7">
   <component type="desktop">
-    <id>neverball.desktop</id>
+    <id>org.neverball.Neverball</id>
     <name>Neverball</name>
     <summary>A 3D arcade game with a ball.</summary>
     <description>
@@ -15,9 +15,13 @@
         The current version includes 141 Neverball levels and 134 Neverputt holes.
       </p>
     </description>
+
+    <launch type="desktop-id">neverball.desktop</launch>
+
     <url type="homepage">http://neverball.org/</url>
     <icon type="cached">neverball-1.6.0.png</icon>
     <bundle type="limba">neverball-1.6.0</bundle>
+
     <releases>
       <release version="1.6.1" timestamp="123465888" urgency="low">
         <size type="download">112358</size>

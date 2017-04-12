@@ -18,6 +18,7 @@
     <name>A Game</name>
     <summary>A real game with content rating</summary>
     <icon type="cached">game.png</icon>
+    <launch type="desktop-id">org.foobar.AsSampleGame.desktop</launch>
     <categories>
       <category>Game</category>
     </categories>
@@ -345,7 +346,7 @@
     </mimetypes>
   </component>
   <component type="desktop-application">
-    <id>inkscape.desktop</id>
+    <id>org.inkscape.Inkscape</id>
     <pkgname>inkscape</pkgname>
     <name>Inkscape</name>
     <name xml:lang="he">אינקסקייפ</name>
@@ -405,6 +406,7 @@
     <icon type="cached">inkscape.png</icon>
     <url type="homepage">https://inkscape.org/</url>
     <url type="faq">https://inkscape.org/learn/faq/</url>
+    <launch type="desktop-id">inkscape.desktop</launch>
     <categories>
       <category>Graphics</category>
       <category>VectorGraphics</category>

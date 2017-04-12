@@ -54,7 +54,7 @@ void PoolReadTest::testRead01()
     auto cpts = pool->components();
     QCOMPARE(cpts.size(), 18);
 
-    cpts = pool->componentsById("neverball.desktop");
+    cpts = pool->componentsById("org.neverball.Neverball");
     QCOMPARE(cpts.size(), 1);
 
     auto cpt = cpts[0];

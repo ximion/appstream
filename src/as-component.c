@@ -57,7 +57,6 @@ typedef struct
 	gchar			*origin;
 	gchar			**pkgnames;
 	gchar			*source_pkgname;
-	gchar			*desktop_file_id;
 
 	GHashTable		*name; /* localized entry */
 	GHashTable		*summary; /* localized entry */
@@ -388,7 +387,6 @@ as_component_finalize (GObject* object)
 	g_free (priv->project_group);
 	g_free (priv->active_locale);
 	g_free (priv->arch);
-	g_free (priv->desktop_file_id);
 
 	g_hash_table_unref (priv->name);
 	g_hash_table_unref (priv->summary);
@@ -951,9 +949,6 @@ as_component_set_id (AsComponent *cpt, const gchar* value)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	g_free (priv->id);
-	g_free (priv->desktop_file_id);
-	priv->desktop_file_id = NULL;
-
 	priv->id = g_strdup (value);
 	g_object_notify ((GObject *) cpt, "id");
 	as_component_invalidate_data_id (cpt);
@@ -1002,36 +997,6 @@ as_component_set_data_id (AsComponent *cpt, const gchar* value)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_free (priv->data_id);
 	priv->data_id = g_strdup (value);
-}
-
-/**
- * as_component_get_desktop_id:
- * @cpt: a #AsComponent instance.
- *
- * Get the Desktop Entry ID for this component, if it is
- * of type "desktop-application".
- * For most desktop-application components, this is the name
- * of the .desktop file.
- *
- * Refer to https://specifications.freedesktop.org/desktop-entry-spec/latest/ape.html for more
- * information.
- *
- * Returns: The desktop file id.
- *
- * Since: 0.9.8
- */
-const gchar*
-as_component_get_desktop_id (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
-	if (priv->desktop_file_id == NULL) {
-		if (g_str_has_suffix (priv->id, ".desktop"))
-			priv->desktop_file_id = g_strdup (priv->id);
-		else
-			priv->desktop_file_id = g_strdup_printf ("%s.desktop", priv->id);
-	}
-	return priv->desktop_file_id;
 }
 
 /**
@@ -2927,6 +2892,21 @@ as_component_get_launch (AsComponent *cpt, AsLaunchKind kind)
 }
 
 /**
+ * as_component_get_launchables:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: (transfer none) (element-type #AsLaunch): an array
+ *
+ * Since: 0.11.0
+ **/
+GPtrArray*
+as_component_get_launchables (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->launchables;
+}
+
+/**
  * as_component_add_launch:
  * @cpt: a #AsComponent instance.
  * @launch: a #AsLaunch instance.
@@ -3120,6 +3100,40 @@ as_component_merge (AsComponent *cpt, AsComponent *source)
 
 	as_component_merge_with_mode (cpt, source, merge_kind);
 	return TRUE;
+}
+
+/**
+ * as_component_get_desktop_id:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get the Desktop Entry ID for this component, if it is
+ * of type "desktop-application".
+ * For most desktop-application components, this is the name
+ * of the .desktop file.
+ *
+ * Refer to https://specifications.freedesktop.org/desktop-entry-spec/latest/ape.html for more
+ * information.
+ *
+ * Returns: The desktop file id.
+ *
+ * Since: 0.9.8
+ * Deprecated: 0.11.0: Replaced by #AsLaunch and %as_component_get_launch
+ */
+const gchar*
+as_component_get_desktop_id (AsComponent *cpt)
+{
+	AsLaunch *launch;
+	GPtrArray *entries;
+
+	launch = as_component_get_launch (cpt, AS_LAUNCH_KIND_DESKTOP_ID);
+	if (launch == NULL)
+		return NULL;
+
+	entries = as_launch_get_entries (launch);
+	if (entries->len <= 0)
+		return 0;
+
+	return (const gchar*) g_ptr_array_index (entries, 0);
 }
 
 /**

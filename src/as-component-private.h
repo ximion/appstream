@@ -128,6 +128,8 @@ void			as_component_merge_with_mode (AsComponent *cpt,
 							AsComponent *source,
 							AsMergeKind merge_kind);
 
+GPtrArray		*as_component_get_launchables (AsComponent *cpt);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

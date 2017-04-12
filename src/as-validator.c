@@ -827,6 +827,7 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 							AS_ISSUE_KIND_VALUE_WRONG,
 							"Unknown type '%s' for <translation/> tag.", prop);
 			}
+		} else if (g_strcmp0 (node_name, "launch") == 0) {
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
 			g_autofree gchar *prop = NULL;
@@ -849,6 +850,8 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
 			as_validator_check_children_quick (validator, iter, "id", cpt);
+		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
+			as_validator_check_children_quick (validator, iter, "content_attribute", cpt);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "value", cpt);
@@ -1288,53 +1291,58 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 
 	/* check if the referenced .desktop file exists */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-		if (g_hash_table_contains (data->desktop_fnames, as_component_get_desktop_id (cpt))) {
-			g_autofree gchar *desktop_fname_full = NULL;
-			g_autoptr(GKeyFile) dfile = NULL;
-			GError *tmp_error = NULL;
+		AsLaunch *de_launch = as_component_get_launch (cpt, AS_LAUNCH_KIND_DESKTOP_ID);
+		if ((de_launch != NULL) && (as_launch_get_entries (de_launch)->len > 0)) {
+			const gchar *desktop_id = g_ptr_array_index (as_launch_get_entries (de_launch), 0);
 
-			desktop_fname_full = g_build_filename (data->apps_dir, as_component_get_desktop_id (cpt), NULL);
-			dfile = g_key_file_new ();
+			if (g_hash_table_contains (data->desktop_fnames, desktop_id)) {
+				g_autofree gchar *desktop_fname_full = NULL;
+				g_autoptr(GKeyFile) dfile = NULL;
+				GError *tmp_error = NULL;
 
-			g_key_file_load_from_file (dfile, desktop_fname_full, G_KEY_FILE_NONE, &tmp_error);
-			if (tmp_error != NULL) {
-				as_validator_add_issue (data->validator, NULL,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_READ_ERROR,
-						"Unable to read associated .desktop file: %s", tmp_error->message);
-				g_error_free (tmp_error);
-				tmp_error = NULL;
-			} else {
-				/* we successfully opened the .desktop file, now perform some checks */
+				desktop_fname_full = g_build_filename (data->apps_dir, desktop_id, NULL);
+				dfile = g_key_file_new ();
 
-				/* categories */
-				if (g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
-								G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL)) {
-					g_autofree gchar *cats_str = NULL;
-					g_auto(GStrv) cats = NULL;
-					guint i;
+				g_key_file_load_from_file (dfile, desktop_fname_full, G_KEY_FILE_NONE, &tmp_error);
+				if (tmp_error != NULL) {
+					as_validator_add_issue (data->validator, NULL,
+							AS_ISSUE_IMPORTANCE_WARNING,
+							AS_ISSUE_KIND_READ_ERROR,
+							"Unable to read associated .desktop file: %s", tmp_error->message);
+					g_error_free (tmp_error);
+					tmp_error = NULL;
+				} else {
+					/* we successfully opened the .desktop file, now perform some checks */
 
-					cats_str = g_key_file_get_string (dfile, G_KEY_FILE_DESKTOP_GROUP,
-										 G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL);
-					cats = g_strsplit (cats_str, ";", -1);
-					for (i = 0; cats[i] != NULL; i++) {
-						if (as_str_empty (cats[i]))
-							continue;
-						if (!as_utils_is_category_name (cats[i])) {
-							as_validator_add_issue (data->validator, NULL,
-										AS_ISSUE_IMPORTANCE_WARNING,
-										AS_ISSUE_KIND_VALUE_WRONG,
-										"The category '%s' defined in the .desktop file does not exist.", cats[i]);
+					/* categories */
+					if (g_key_file_has_key (dfile, G_KEY_FILE_DESKTOP_GROUP,
+									G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL)) {
+						g_autofree gchar *cats_str = NULL;
+						g_auto(GStrv) cats = NULL;
+						guint i;
+
+						cats_str = g_key_file_get_string (dfile, G_KEY_FILE_DESKTOP_GROUP,
+											G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL);
+						cats = g_strsplit (cats_str, ";", -1);
+						for (i = 0; cats[i] != NULL; i++) {
+							if (as_str_empty (cats[i]))
+								continue;
+							if (!as_utils_is_category_name (cats[i])) {
+								as_validator_add_issue (data->validator, NULL,
+											AS_ISSUE_IMPORTANCE_WARNING,
+											AS_ISSUE_KIND_VALUE_WRONG,
+											"The category '%s' defined in the .desktop file does not exist.", cats[i]);
+							}
 						}
 					}
-				}
 
+				}
+			} else {
+				as_validator_add_issue (data->validator, NULL,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_FILE_MISSING,
+						"Component metadata refers to a non-existing .desktop file.");
 			}
-		} else {
-			as_validator_add_issue (data->validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_FILE_MISSING,
-					"Component metadata refers to a non-existing .desktop file.");
 		}
 	}
 

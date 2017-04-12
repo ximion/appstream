@@ -181,11 +181,6 @@ void Component::setDataId(const QString& cdid)
     as_component_set_data_id(m_cpt, qPrintable(cdid));
 }
 
-QString Component::desktopId() const
-{
-    return valueWrap(as_component_get_desktop_id(m_cpt));
-}
-
 QStringList Component::packageNames() const
 {
     return valueWrap(as_component_get_pkgnames(m_cpt));
@@ -402,4 +397,18 @@ QList<AppStream::Suggested> AppStream::Component::suggested() const
 bool Component::isValid() const
 {
     return as_component_is_valid(m_cpt);
+}
+
+QString Component::desktopId() const
+{
+    auto de_launch = as_component_get_launch (m_cpt, AS_LAUNCH_KIND_DESKTOP_ID);
+    if (de_launch == NULL)
+        return QString();
+
+    auto entries = as_launch_get_entries (de_launch);
+    if (entries->len <= 0)
+        return QString();
+
+    auto desktop_id = (const gchar*) g_ptr_array_index (entries, 0);
+    return QString::fromUtf8(desktop_id);
 }

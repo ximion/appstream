@@ -93,8 +93,6 @@ Q_GADGET
         QString dataId() const;
         void setDataId(const QString& cdid);
 
-        QString desktopId() const;
-
         QStringList packageNames() const;
 
         QString name() const;
@@ -151,6 +149,9 @@ Q_GADGET
         QList<AppStream::Suggested> suggested() const;
 
         bool isValid() const;
+
+	// DEPRECATED
+	Q_DECL_DEPRECATED QString desktopId() const;
 
     private:
         _AsComponent *m_cpt;

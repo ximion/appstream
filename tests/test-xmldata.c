@@ -812,6 +812,61 @@ test_xml_write_content_rating (void)
 	g_assert (as_test_compare_lines (res, xmldata_content_rating));
 }
 
+static const gchar *xmldata_launch = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.LaunchTest</id>\n"
+					"  <launch type=\"desktop-id\">org.example.Test.desktop</launch>\n"
+					"  <launch type=\"desktop-id\">kde4-kool.desktop</launch>\n"
+					"</component>\n";
+/**
+ * test_xml_read_launch:
+ *
+ * Test reading the launch tag.
+ */
+static void
+test_xml_read_launch (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsLaunch *launch;
+
+	cpt = as_xml_test_read_data (xmldata_launch, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.LaunchTest");
+
+	launch = as_component_get_launch (cpt, AS_LAUNCH_KIND_DESKTOP_ID);
+	g_assert_nonnull (launch);
+
+	g_assert_cmpint (as_launch_get_entries (launch)->len, ==, 2);
+	g_assert_cmpstr (g_ptr_array_index (as_launch_get_entries (launch), 0), ==, "org.example.Test.desktop");
+	g_assert_cmpstr (g_ptr_array_index (as_launch_get_entries (launch), 1), ==, "kde4-kool.desktop");
+}
+
+/**
+ * test_xml_write_launch:
+ *
+ * Test writing the launch tag.
+ */
+static void
+test_xml_write_launch (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsLaunch) launch = NULL;
+	g_autofree gchar *res = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.LaunchTest");
+
+	launch = as_launch_new ();
+	as_launch_set_kind (launch, AS_LAUNCH_KIND_DESKTOP_ID);
+
+	as_launch_add_entry (launch, "org.example.Test.desktop");
+	as_launch_add_entry (launch, "kde4-kool.desktop");
+
+	as_component_add_launch (cpt, launch);
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_launch));
+}
+
 /**
  * main:
  */
@@ -856,6 +911,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/ContentRating", test_xml_read_content_rating);
 	g_test_add_func ("/XML/Write/ContentRating", test_xml_write_content_rating);
+
+	g_test_add_func ("/XML/Read/Launch", test_xml_read_launch);
+	g_test_add_func ("/XML/Write/Launch", test_xml_write_launch);
 
 	ret = g_test_run ();
 	g_free (datadir);

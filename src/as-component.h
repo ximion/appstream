@@ -151,8 +151,6 @@ AsComponentKind		as_component_get_kind (AsComponent *cpt);
 void			as_component_set_kind (AsComponent *cpt,
 						AsComponentKind value);
 
-const gchar		*as_component_get_desktop_id (AsComponent *cpt);
-
 const gchar		*as_component_get_origin (AsComponent *cpt);
 void			as_component_set_origin (AsComponent *cpt,
 							const gchar *origin);
@@ -307,6 +305,12 @@ AsContentRating		*as_component_get_content_rating (AsComponent *cpt,
 							  const gchar *kind);
 void			as_component_add_content_rating (AsComponent *cpt,
 							 AsContentRating *content_rating);
+
+
+/* DEPRECATED */
+
+G_GNUC_DEPRECATED
+const gchar		*as_component_get_desktop_id (AsComponent *cpt);
 
 G_END_DECLS
 
