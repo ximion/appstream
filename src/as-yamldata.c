@@ -409,6 +409,7 @@ as_yamldata_process_icon (AsYAMLData *ydt, GNode *node, AsComponent *cpt, AsIcon
 {
 	GNode *n;
 	guint64 size;
+	guint scale;
 	g_autoptr(AsIcon) icon = NULL;
 	AsYAMLDataPrivate *priv = GET_PRIVATE (ydt);
 
@@ -423,11 +424,14 @@ as_yamldata_process_icon (AsYAMLData *ydt, GNode *node, AsComponent *cpt, AsIcon
 		value = as_yaml_node_get_value (n);
 
 		if (g_strcmp0 (key, "width") == 0) {
-			size = g_ascii_strtoll (value, NULL, 10);
+			size = g_ascii_strtoull (value, NULL, 10);
 			as_icon_set_width (icon, size);
 		} else if (g_strcmp0 (key, "height") == 0) {
-			size = g_ascii_strtoll (value, NULL, 10);
+			size = g_ascii_strtoull (value, NULL, 10);
 			as_icon_set_height (icon, size);
+		} else if (g_strcmp0 (key, "scale") == 0) {
+			scale = g_ascii_strtoull (value, NULL, 10);
+			as_icon_set_scale (icon, scale);
 		} else {
 			if (kind == AS_ICON_KIND_REMOTE) {
 				if (g_strcmp0 (key, "url") == 0) {
@@ -1757,6 +1761,12 @@ as_yaml_emit_icons (yaml_emitter_t *emitter, GPtrArray *icons)
 					as_yaml_emit_entry_uint (emitter,
 								 "height",
 								 as_icon_get_height (icon));
+				}
+
+				if (as_icon_get_scale (icon) > 1) {
+					as_yaml_emit_entry_uint (emitter,
+								 "scale",
+								 as_icon_get_scale (icon));
 				}
 
 				as_yaml_mapping_end (emitter);

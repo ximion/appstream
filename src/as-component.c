@@ -86,7 +86,6 @@ typedef struct
 	GPtrArray		*translations; /* of AsTranslation */
 
 	GPtrArray		*icons; /* of AsIcon elements */
-	GHashTable		*icons_sizetab; /* of utf8:object (object owned by priv->icons array) */
 
 	gchar			*arch; /* the architecture this data was generated from */
 	gint			priority; /* used internally */
@@ -355,9 +354,7 @@ as_component_init (AsComponent *cpt)
 	priv->extends = g_ptr_array_new_with_free_func (g_free);
 	priv->addons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
-
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
-	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	/* others */
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
@@ -409,12 +406,10 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->languages);
 	g_hash_table_unref (priv->custom);
 	g_ptr_array_unref (priv->content_ratings);
+	g_ptr_array_unref (priv->icons);
 
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
-
-	g_ptr_array_unref (priv->icons);
-	g_hash_table_unref (priv->icons_sizetab);
 
 	g_hash_table_unref (priv->token_cache);
 
@@ -1348,21 +1343,30 @@ as_component_get_icons (AsComponent *cpt)
  * The icons are not filtered by type, and the first icon
  * which matches the size is returned.
  * If you want more control over which icons you use for displaying,
- * use the as_component_get_icons() function to get a list of all icons.
+ * use the %as_component_get_icons() function to get a list of all icons.
+ *
+ * Note that this function is not HiDPI aware! It will never return an icon with
+ * a scaling factor > 1.
  *
  * Returns: (transfer none): An icon matching the given width/height, or %NULL if not found.
  */
 AsIcon*
 as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height)
 {
-	g_autofree gchar *size = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	guint i;
 
-	if ((width == 0) && (height == 0))
-		return NULL;
+	for (i = 0; i < priv->icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (priv->icons, i));
+		/* ignore scaled icons */
+		if (as_icon_get_scale (icon) > 1)
+			continue;
 
-	size = g_strdup_printf ("%ix%i", width, height);
-	return g_hash_table_lookup (priv->icons_sizetab, size);
+		if ((as_icon_get_width (icon) == width) && (as_icon_get_height (icon) == height))
+			return icon;
+	}
+
+	return NULL;
 }
 
 /**
@@ -1375,14 +1379,8 @@ as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height)
 void
 as_component_add_icon (AsComponent *cpt, AsIcon *icon)
 {
-	gchar *size = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	g_ptr_array_add (priv->icons, g_object_ref (icon));
-	size = g_strdup_printf ("%ix%i",
-				as_icon_get_width (icon),
-				as_icon_get_height (icon));
-	g_hash_table_insert (priv->icons_sizetab, size, icon);
 }
 
 /**
@@ -2089,27 +2087,24 @@ static void
 as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 {
 	const gchar *extensions[] = { "png",
-				     "svg",
-				     "svgz",
-				     "gif",
-				     "ico",
-				     "xcf",
-				     NULL };
+				      "svg",
+				      "svgz",
+				      "gif",
+				      "ico",
+				      "xcf",
+				      NULL };
 	const gchar *sizes[] = { "", "64x64", "128x128", NULL };
 	const gchar *icon_fname = NULL;
 	guint i, j, k, l;
 	g_autoptr(GPtrArray) icons = NULL;
-	g_autoptr(GHashTable) icons_sizetab = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	if (priv->icons->len == 0)
 		return;
 
-	/* take control of the old icon list and hashtable and rewrite it */
+	/* take control of the old icon list and rewrite it */
 	icons = priv->icons;
-	icons_sizetab = priv->icons_sizetab;
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
-	priv->icons_sizetab = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
 	/* Process the icons we have and extract sizes */
 	for (i = 0; i < icons->len; i++) {
@@ -2157,12 +2152,22 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 				g_autofree gchar *tmp_icon_path_wh = NULL;
 				const gchar *icon_path = (const gchar*) g_ptr_array_index (icon_paths, l);
 
-				tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i/%s",
-								icon_path,
-								priv->origin,
-								as_icon_get_width (icon),
-								as_icon_get_height (icon),
-								icon_fname);
+				if (as_icon_get_scale (icon) <= 1) {
+					tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i/%s",
+										icon_path,
+										priv->origin,
+										as_icon_get_width (icon),
+										as_icon_get_height (icon),
+										icon_fname);
+				} else {
+					tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i@%i/%s",
+										icon_path,
+										priv->origin,
+										as_icon_get_width (icon),
+										as_icon_get_height (icon),
+										as_icon_get_scale (icon),
+										icon_fname);
+				}
 
 				if (g_file_test (tmp_icon_path_wh, G_FILE_TEST_EXISTS)) {
 					as_icon_set_filename (icon, tmp_icon_path_wh);

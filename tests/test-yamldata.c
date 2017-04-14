@@ -375,6 +375,10 @@ test_yaml_read_icons (void)
 					"    - width: 64\n"
 					"      height: 64\n"
 					"      name: test_test.png\n"
+					"    - width: 64\n"
+					"      height: 64\n"
+					"      name: test_test.png\n"
+					"      scale: 2\n"
 					"    - width: 128\n"
 					"      height: 128\n"
 					"      name: test_test.png\n"
@@ -410,7 +414,7 @@ test_yaml_read_icons (void)
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
 
 	icons = as_component_get_icons (cpt);
-	g_assert_cmpint (icons->len, ==, 3);
+	g_assert_cmpint (icons->len, ==, 4);
 	for (i = 0; i < icons->len; i++) {
 		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
 

@@ -93,6 +93,10 @@ guint		 as_icon_get_height (AsIcon *icon);
 void		 as_icon_set_height (AsIcon *icon,
 					guint height);
 
+guint		as_icon_get_scale (AsIcon *icon);
+void		as_icon_set_scale (AsIcon *icon,
+				   guint scale);
+
 G_END_DECLS
 
 #endif /* __AS_ICON_H */

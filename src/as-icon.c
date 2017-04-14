@@ -36,6 +36,7 @@ typedef struct
 	gchar		*filename;
 	guint		width;
 	guint		height;
+	guint		scale;
 } AsIconPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsIcon, as_icon, G_TYPE_OBJECT)
@@ -107,6 +108,8 @@ as_icon_finalize (GObject *object)
 static void
 as_icon_init (AsIcon *icon)
 {
+	AsIconPrivate *priv = GET_PRIVATE (icon);
+	priv->scale = 1;
 }
 
 /**
@@ -308,6 +311,37 @@ as_icon_set_height (AsIcon *icon, guint height)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
 	priv->height = height;
+}
+
+/**
+ * as_icon_get_scale:
+ * @icon: a #AsIcon instance.
+ *
+ * Returns: The icon scaling factor.
+ *
+ * Since: 0.11.0
+ **/
+guint
+as_icon_get_scale (AsIcon *icon)
+{
+	AsIconPrivate *priv = GET_PRIVATE (icon);
+	return priv->scale;
+}
+
+/**
+ * as_icon_set_scale:
+ * @icon: a #AsIcon instance.
+ * @scale: the icon scaling factor.
+ *
+ * Sets the icon scaling factor used for HiDPI displays.
+ *
+ * Since: 0.11.0
+ **/
+void
+as_icon_set_scale (AsIcon *icon, guint scale)
+{
+	AsIconPrivate *priv = GET_PRIVATE (icon);
+	priv->scale = scale;
 }
 
 /**

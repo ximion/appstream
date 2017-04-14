@@ -852,6 +852,11 @@ as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
 		as_icon_set_height (icon, g_ascii_strtoll (val, NULL, 10));
 		g_free (val);
 	}
+	val = (gchar*) xmlGetProp (node, (xmlChar*) "scale");
+	if (val != NULL) {
+		as_icon_set_scale (icon, g_ascii_strtoll (val, NULL, 10));
+		g_free (val);
+	}
 }
 
 /**
@@ -2106,6 +2111,12 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 				g_autofree gchar *size = NULL;
 				size = g_strdup_printf ("%i", as_icon_get_height (icon));
 				xmlNewProp (n, (xmlChar*) "height", (xmlChar*) size);
+			}
+
+			if (as_icon_get_scale (icon) > 1) {
+				g_autofree gchar *scale = NULL;
+				scale = g_strdup_printf ("%i", as_icon_get_scale (icon));
+				xmlNewProp (n, (xmlChar*) "scale", (xmlChar*) scale);
 			}
 		}
 	}

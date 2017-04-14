@@ -382,6 +382,7 @@ as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GE
 				g_variant_builder_add_parsed (&icon_b, "{'type', <%u>}", as_icon_get_kind (icon));
 				g_variant_builder_add_parsed (&icon_b, "{'width', <%i>}", as_icon_get_width (icon));
 				g_variant_builder_add_parsed (&icon_b, "{'height', <%i>}", as_icon_get_height (icon));
+				g_variant_builder_add_parsed (&icon_b, "{'scale', <%i>}", as_icon_get_scale (icon));
 
 				if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
 					g_variant_builder_add_parsed (&icon_b, "{'name', <%s>}", as_icon_get_name (icon));
@@ -1111,6 +1112,8 @@ as_cache_file_read (const gchar *fname, GError **error)
 						   as_variant_get_dict_int32 (&idict, "width"));
 				as_icon_set_height (icon,
 						   as_variant_get_dict_int32 (&idict, "height"));
+				as_icon_set_scale (icon,
+						   as_variant_get_dict_int32 (&idict, "scale"));
 
 				if (kind == AS_ICON_KIND_STOCK) {
 					as_icon_set_name (icon,
