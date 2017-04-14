@@ -29,7 +29,7 @@
 			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
 		<para>
-			Data will only be fetched from a desktop file if one <xref linkend="tag-dapp-launch"/> tag is present to define a .desktop file ID. If multiple <literal>launch</literal> tags are
+			Data will only be fetched from a desktop file if one <xref linkend="tag-dapp-launchable"/> tag is present to define a .desktop file ID. If multiple <literal>launch</literal> tags are
 			defined, no data will be merged in from .desktop files.
 		</para>
 		<note>
@@ -80,7 +80,7 @@
 					<para>
 						In previous AppStream releases, the <code>&lt;id/&gt;</code> was used to associate metainfo files with their .desktop files to merge in
 						data from .desktop files into the AppStream generator's final output. In modern metainfo files, the component-ID for <literal>desktop-application</literal>
-						components can be an arbitrary string (matching the naming rules applying to all AppStream metadata), while the <xref linkend="tag-dapp-launch"/> tag is used
+						components can be an arbitrary string (matching the naming rules applying to all AppStream metadata), while the <xref linkend="tag-dapp-launchable"/> tag is used
 						to associate .desktop files with their metainfo files.
 					</para>
 				</note>
