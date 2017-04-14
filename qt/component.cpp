@@ -401,11 +401,11 @@ bool Component::isValid() const
 
 QString Component::desktopId() const
 {
-    auto de_launch = as_component_get_launch (m_cpt, AS_LAUNCH_KIND_DESKTOP_ID);
-    if (de_launch == NULL)
+    auto de_launchable = as_component_get_launchable (m_cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+    if (de_launchable == NULL)
         return QString();
 
-    auto entries = as_launch_get_entries (de_launch);
+    auto entries = as_launchable_get_entries (de_launchable);
     if (entries->len <= 0)
         return QString();
 

@@ -63,7 +63,7 @@ set(APPSTREAM_LIB_SRC
 		as-translation.c
 		as-suggested.c
 		as-content-rating.c
-		as-launch.c
+		as-launchable.c
 )
 
 set(APPSTREAM_LIB_PUBLIC_HEADERS
@@ -88,7 +88,7 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 		as-translation.h
 		as-suggested.h
 		as-content-rating.h
-		as-launch.h
+		as-launchable.h
 )
 
 set(APPSTREAM_LIB_PRIVATE_HEADERS

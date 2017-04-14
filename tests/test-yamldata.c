@@ -713,7 +713,7 @@ static const gchar *yamldata_launch_field = "---\n"
 						"---\n"
 						"Type: generic\n"
 						"ID: org.example.LaunchTest\n"
-						"Launch:\n"
+						"Launchable:\n"
 						"  desktop-id:\n"
 						"  - org.example.Test.desktop\n"
 						"  - kde4-kool.desktop\n";
@@ -727,20 +727,20 @@ static void
 test_yaml_write_launch (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
-	g_autoptr(AsLaunch) launch = NULL;
+	g_autoptr(AsLaunchable) launch = NULL;
 	g_autofree gchar *res = NULL;
 
 	cpt = as_component_new ();
 	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
 	as_component_set_id (cpt, "org.example.LaunchTest");
 
-	launch = as_launch_new ();
-	as_launch_set_kind (launch, AS_LAUNCH_KIND_DESKTOP_ID);
+	launch = as_launchable_new ();
+	as_launchable_set_kind (launch, AS_LAUNCHABLE_KIND_DESKTOP_ID);
 
-	as_launch_add_entry (launch, "org.example.Test.desktop");
-	as_launch_add_entry (launch, "kde4-kool.desktop");
+	as_launchable_add_entry (launch, "org.example.Test.desktop");
+	as_launchable_add_entry (launch, "kde4-kool.desktop");
 
-	as_component_add_launch (cpt, launch);
+	as_component_add_launchable (cpt, launch);
 
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
@@ -756,17 +756,17 @@ static void
 test_yaml_read_launch (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
-	AsLaunch *launch;
+	AsLaunchable *launch;
 
 	cpt = as_yaml_test_read_data (yamldata_launch_field, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.LaunchTest");
 
-	launch = as_component_get_launch (cpt, AS_LAUNCH_KIND_DESKTOP_ID);
+	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
 	g_assert_nonnull (launch);
 
-	g_assert_cmpint (as_launch_get_entries (launch)->len, ==, 2);
-	g_assert_cmpstr (g_ptr_array_index (as_launch_get_entries (launch), 0), ==, "org.example.Test.desktop");
-	g_assert_cmpstr (g_ptr_array_index (as_launch_get_entries (launch), 1), ==, "kde4-kool.desktop");
+	g_assert_cmpint (as_launchable_get_entries (launch)->len, ==, 2);
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 0), ==, "org.example.Test.desktop");
+	g_assert_cmpstr (g_ptr_array_index (as_launchable_get_entries (launch), 1), ==, "kde4-kool.desktop");
 }
 
 /**
@@ -810,8 +810,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Read/ContentRating", test_yaml_read_content_rating);
 	g_test_add_func ("/YAML/Write/ContentRating", test_yaml_write_content_rating);
 
-	g_test_add_func ("/YAML/Read/Launch", test_yaml_read_launch);
-	g_test_add_func ("/YAML/Write/Launch", test_yaml_write_launch);
+	g_test_add_func ("/YAML/Read/Launchable", test_yaml_read_launch);
+	g_test_add_func ("/YAML/Write/Launchable", test_yaml_write_launch);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -595,12 +595,12 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="field-dep11-launch">
-				<term>Launch</term>
+			<varlistentry id="field-dep11-launchable">
+				<term>Launchable</term>
 				<listitem>
-					<para>See <xref linkend="tag-ct-launch"/>.</para>
+					<para>See <xref linkend="tag-ct-launchable"/>.</para>
 					<para>
-						A dictionary containing the launch-type as key, and a list of IDs used for launching the application as value.
+						A dictionary containing the launchable-type as key, and a list of IDs used for launching the application as value.
 					</para>
 					<para>
 						Example:

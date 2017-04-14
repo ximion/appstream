@@ -115,19 +115,19 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="tag-dapp-launch">
-			<term>&lt;launch/&gt;</term>
+			<varlistentry id="tag-dapp-launchable">
+			<term>&lt;launchable/&gt;</term>
 			<listitem>
 				<para>
-					It is recommended that a <code>&lt;launch/&gt;</code> tag is present in <literal>desktop-application</literal> metainfo files.
-					The tag is described in detail at <xref linkend="tag-launch"/>.
+					It is recommended that a <code>&lt;launchable/&gt;</code> tag is present in <literal>desktop-application</literal> metainfo files.
+					The tag is described in detail at <xref linkend="tag-launchable"/>.
 				</para>
 				<para>
-					If only one <literal>launch</literal> entry of type <literal>desktop-id</literal> is present, AppStream metadata generators might decide to
+					If only one <literal>launchable</literal> entry of type <literal>desktop-id</literal> is present, AppStream metadata generators might decide to
 					merge metadata from .desktop files referenced by the tag into their final output.
 				</para>
 				<para>
-					The <literal>launch</literal> tag is optional, but if omitted software centers will not be able to launch the application directly after
+					The <literal>launchable</literal> tag is optional, but if omitted software centers will not be able to launch the application directly after
 					it was installed.
 				</para>
 			</listitem>

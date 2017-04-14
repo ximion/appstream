@@ -71,7 +71,7 @@
     </p>
   </description>
 
-  <launch type="desktop-id">org.gnome.gnome-power-statistics.desktop</launch>
+  <launchable type="desktop-id">org.gnome.gnome-power-statistics.desktop</launchable>
 
   <screenshots>
     <screenshot type="default">
@@ -181,7 +181,7 @@
 				<para>
 					While this tag is always requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
 					You can omit this tag if you want the software center to have the same strings as defined in the <literal>Name</literal> field
-					of the <filename>.desktop</filename> file. In that case, one <xref linkend="qsr-app-launch-info"/> tag must be present.
+					of the <filename>.desktop</filename> file. In that case, one <xref linkend="qsr-app-launchable-info"/> tag must be present.
 				</para>
 				<para>
 					If no <literal>name</literal> tag and no <literal>Name</literal> field is present, the metadata
@@ -196,7 +196,7 @@
 				<para>
 					While this tag is always requited for a generic component, for a <literal>desktop-application</literal> metainfo file it is only essential
 					if the accompanying <filename>.desktop</filename> file does not have a <literal>Comment=</literal> field. Data from a .desktop file is only
-					taken into consideration if one <xref linkend="qsr-app-launch-info"/> tag is present.
+					taken into consideration if one <xref linkend="qsr-app-launchable-info"/> tag is present.
 					If the metainfo file has a <literal>summary</literal>, it wil override the value found in the <literal>Comment</literal> field of the
 					<filename>.desktop</filename> file.
 				</para>
@@ -261,8 +261,8 @@
 			</listitem>
 			</varlistentry>
 
-			<varlistentry id="qsr-app-launch-info">
-			<term>&lt;launch/&gt;</term>
+			<varlistentry id="qsr-app-launchable-info">
+			<term>&lt;launchable/&gt;</term>
 			<listitem>
 			<para>
 				This tag indicates a possible method to launch the software. Usually you want the application to be launchable by its .desktop file ID.
@@ -272,10 +272,10 @@
 				with a .desktop file, so AppStream metadata generators and the distribution can absorb its metadata into the final AppStream output.
 			</para>
 			<para>
-				See <xref linkend="tag-launch"/> for a detailed description of the tag.
+				See <xref linkend="tag-launchable"/> for a detailed description of the tag.
 				Example:
 			</para>
-				<programlisting language="XML"><![CDATA[<launch type="desktop-id">org.gnome.Sysprof2.desktop</launch>]]></programlisting>
+				<programlisting language="XML"><![CDATA[<launchable type="desktop-id">org.gnome.Sysprof2.desktop</launchable>]]></programlisting>
 			</listitem>
 			</varlistentry>
 

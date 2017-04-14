@@ -918,31 +918,31 @@ as_xml_parse_content_rating_tag (xmlNode *node, AsComponent *cpt)
 }
 
 /**
- * as_xml_parse_launch_tag:
+ * as_xml_parse_launchable_tag:
  */
 static void
-as_xml_parse_launch_tag (xmlNode *node, AsComponent *cpt)
+as_xml_parse_launchable_tag (xmlNode *node, AsComponent *cpt)
 {
-	AsLaunchKind kind;
-	AsLaunch *launch;
+	AsLaunchableKind kind;
+	AsLaunchable *launch;
 	g_autofree gchar *value = NULL;
 
-	kind = as_launch_kind_from_string ((gchar*) xmlGetProp (node, (xmlChar*) "type"));
-	if (kind == AS_LAUNCH_KIND_UNKNOWN)
+	kind = as_launchable_kind_from_string ((gchar*) xmlGetProp (node, (xmlChar*) "type"));
+	if (kind == AS_LAUNCHABLE_KIND_UNKNOWN)
 		return;
 
-	launch = as_component_get_launch (cpt, kind);
+	launch = as_component_get_launchable (cpt, kind);
 	if (launch == NULL) {
-		launch = as_launch_new ();
-		as_launch_set_kind (launch, kind);
-		as_component_add_launch (cpt, launch);
+		launch = as_launchable_new ();
+		as_launchable_set_kind (launch, kind);
+		as_component_add_launchable (cpt, launch);
 		g_object_unref (launch);
 	}
 
 	value = as_xml_get_node_value (node);
 	if (value == NULL)
 		return;
-	as_launch_add_entry (launch, value);
+	as_launchable_add_entry (launch, value);
 }
 
 /**
@@ -1119,8 +1119,8 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 			as_component_add_extends (cpt, content);
 		} else if (g_strcmp0 (node_name, "languages") == 0) {
 			as_xmldata_process_languages_tag (xdt, iter, cpt);
-		} else if (g_strcmp0 (node_name, "launch") == 0) {
-			as_xml_parse_launch_tag (iter, cpt);
+		} else if (g_strcmp0 (node_name, "launchable") == 0) {
+			as_xml_parse_launchable_tag (iter, cpt);
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
 			if (content != NULL) {
 				g_autofree gchar *type_str = NULL;
@@ -1918,10 +1918,10 @@ as_xml_serialize_content_rating (AsComponent *cpt, xmlNode *cptnode)
 }
 
 /**
- * as_xml_serialize_launch:
+ * as_xml_serialize_launchable:
  */
 static void
-as_xml_serialize_launch (AsComponent *cpt, xmlNode *cptnode)
+as_xml_serialize_launchable (AsComponent *cpt, xmlNode *cptnode)
 {
 	GPtrArray *launchables;
 	guint i;
@@ -1933,9 +1933,9 @@ as_xml_serialize_launch (AsComponent *cpt, xmlNode *cptnode)
 	for (i = 0; i < launchables->len; i++) {
 		guint j;
 		GPtrArray *entries;
-		AsLaunch *launch = AS_LAUNCH (g_ptr_array_index (launchables, i));
+		AsLaunchable *launch = AS_LAUNCH (g_ptr_array_index (launchables, i));
 
-		entries = as_launch_get_entries (launch);
+		entries = as_launchable_get_entries (launch);
 		for (j = 0; j < entries->len; j++) {
 			xmlNode *n;
 			const gchar *entry = g_ptr_array_index (entries, j);
@@ -1944,11 +1944,11 @@ as_xml_serialize_launch (AsComponent *cpt, xmlNode *cptnode)
 
 			n = xmlNewTextChild (cptnode,
 						 NULL,
-						 (xmlChar*) "launch",
+						 (xmlChar*) "launchable",
 						 (xmlChar*) entry);
 			xmlNewProp (n,
 				    (xmlChar*) "type",
-				    (xmlChar*) as_launch_kind_to_string (as_launch_get_kind (launch)));
+				    (xmlChar*) as_launchable_kind_to_string (as_launchable_get_kind (launch)));
 		}
 	}
 }
@@ -2125,7 +2125,7 @@ as_xmldata_component_to_node (AsXMLData *xdt, AsComponent *cpt)
 	}
 
 	/* launch */
-	as_xml_serialize_launch (cpt, cnode);
+	as_xml_serialize_launchable (cpt, cnode);
 
 	/* translations */
 	if (priv->mode == AS_FORMAT_STYLE_METAINFO) {

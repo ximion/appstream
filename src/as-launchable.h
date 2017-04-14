@@ -22,17 +22,17 @@
 #error "Only <appstream.h> can be included directly."
 #endif
 
-#ifndef __AS_LAUNCH_H
-#define __AS_LAUNCH_H
+#ifndef __AS_LAUNCHABLE_H
+#define __AS_LAUNCHABLE_H
 
 #include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define AS_TYPE_LAUNCH (as_launch_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AsLaunch, as_launch, AS, LAUNCH, GObject)
+#define AS_TYPE_LAUNCH (as_launchable_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsLaunchable, as_launchable, AS, LAUNCH, GObject)
 
-struct _AsLaunchClass
+struct _AsLaunchableClass
 {
 	GObjectClass		parent_class;
 	/*< private >*/
@@ -45,32 +45,32 @@ struct _AsLaunchClass
 };
 
 /**
- * AsLaunchKind:
- * @AS_LAUNCH_KIND_UNKNOWN:		Unknown kind
- * @AS_LAUNCH_KIND_DESKTOP_ID:		Launch by desktop-id
+ * AsLaunchableKind:
+ * @AS_LAUNCHABLE_KIND_UNKNOWN:		Unknown kind
+ * @AS_LAUNCHABLE_KIND_DESKTOP_ID:	Launch by desktop-id
  *
  * Type of launch system the entries belong to.
  **/
 typedef enum  {
-	AS_LAUNCH_KIND_UNKNOWN,
-	AS_LAUNCH_KIND_DESKTOP_ID,
+	AS_LAUNCHABLE_KIND_UNKNOWN,
+	AS_LAUNCHABLE_KIND_DESKTOP_ID,
 	/*< private >*/
-	AS_LAUNCH_KIND_LAST
-} AsLaunchKind;
+	AS_LAUNCHABLE_KIND_LAST
+} AsLaunchableKind;
 
-const gchar		*as_launch_kind_to_string (AsLaunchKind kind);
-AsLaunchKind		as_launch_kind_from_string (const gchar *kind_str);
+const gchar		*as_launchable_kind_to_string (AsLaunchableKind kind);
+AsLaunchableKind	as_launchable_kind_from_string (const gchar *kind_str);
 
-AsLaunch		*as_launch_new (void);
+AsLaunchable		*as_launchable_new (void);
 
-AsLaunchKind		as_launch_get_kind (AsLaunch *launch);
-void			as_launch_set_kind (AsLaunch *launch,
-						AsLaunchKind kind);
+AsLaunchableKind	as_launchable_get_kind (AsLaunchable *launch);
+void			as_launchable_set_kind (AsLaunchable *launch,
+						AsLaunchableKind kind);
 
-GPtrArray		*as_launch_get_entries (AsLaunch *launch);
-void			as_launch_add_entry (AsLaunch *launch,
+GPtrArray		*as_launchable_get_entries (AsLaunchable *launch);
+void			as_launchable_add_entry (AsLaunchable *launch,
 						const gchar *entry);
 
 G_END_DECLS
 
-#endif /* __AS_LAUNCH_H */
+#endif /* __AS_LAUNCHABLE_H */

@@ -1291,9 +1291,9 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 
 	/* check if the referenced .desktop file exists */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
-		AsLaunch *de_launch = as_component_get_launch (cpt, AS_LAUNCH_KIND_DESKTOP_ID);
-		if ((de_launch != NULL) && (as_launch_get_entries (de_launch)->len > 0)) {
-			const gchar *desktop_id = g_ptr_array_index (as_launch_get_entries (de_launch), 0);
+		AsLaunchable *de_launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+		if ((de_launchable != NULL) && (as_launchable_get_entries (de_launchable)->len > 0)) {
+			const gchar *desktop_id = g_ptr_array_index (as_launchable_get_entries (de_launchable), 0);
 
 			if (g_hash_table_contains (data->desktop_fnames, desktop_id)) {
 				g_autofree gchar *desktop_fname_full = NULL;

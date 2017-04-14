@@ -878,27 +878,27 @@ as_yaml_parse_content_rating (GNode *node, AsComponent *cpt)
 }
 
 /**
- * as_yaml_parse_launch:
+ * as_yaml_parse_launchable:
  */
 static void
-as_yaml_parse_launch (GNode *node, AsComponent *cpt)
+as_yaml_parse_launchable (GNode *node, AsComponent *cpt)
 {
 	GNode *sn;
 
 	for (sn = node->children; sn != NULL; sn = sn->next) {
 		GNode *en;
-		g_autoptr(AsLaunch) launch = as_launch_new ();
+		g_autoptr(AsLaunchable) launch = as_launchable_new ();
 
-		as_launch_set_kind (launch, as_launch_kind_from_string (as_yaml_node_get_key (sn)));
+		as_launchable_set_kind (launch, as_launchable_kind_from_string (as_yaml_node_get_key (sn)));
 
 		for (en = sn->children; en != NULL; en = en->next) {
 			const gchar *entry = as_yaml_node_get_key (en);
 			if (entry == NULL)
 				continue;
-			as_launch_add_entry (launch, entry);
+			as_launchable_add_entry (launch, entry);
 		}
 
-		as_component_add_launch (cpt, launch);
+		as_component_add_launchable (cpt, launch);
 	}
 }
 
@@ -993,8 +993,8 @@ as_yamldata_process_component_node (AsYAMLData *ydt, GNode *root)
 			as_yamldata_process_icons (ydt, node, cpt);
 		} else if (g_strcmp0 (key, "Bundles") == 0) {
 			as_yaml_parse_bundles (node, cpt);
-		} else if (g_strcmp0 (key, "Launch") == 0) {
-			as_yaml_parse_launch (node, cpt);
+		} else if (g_strcmp0 (key, "Launchable") == 0) {
+			as_yaml_parse_launchable (node, cpt);
 		} else if (g_strcmp0 (key, "Provides") == 0) {
 			as_yaml_parse_provides (node, cpt);
 		} else if (g_strcmp0 (key, "Screenshots") == 0) {
@@ -2037,10 +2037,10 @@ as_yaml_data_emit_content_rating (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCo
 }
 
 /**
- * as_yaml_emit_launch:
+ * as_yaml_emit_launchable:
  */
 static void
-as_yaml_emit_launch (yaml_emitter_t *emitter, AsComponent *cpt)
+as_yaml_emit_launchable (yaml_emitter_t *emitter, AsComponent *cpt)
 {
 	GPtrArray *launchables;
 	guint i;
@@ -2049,15 +2049,15 @@ as_yaml_emit_launch (yaml_emitter_t *emitter, AsComponent *cpt)
 	if (launchables->len <= 0)
 		return;
 
-	as_yaml_emit_scalar (emitter, "Launch");
+	as_yaml_emit_scalar (emitter, "Launchable");
 	as_yaml_mapping_start (emitter);
 
 	for (i = 0; i < launchables->len; i++) {
-		AsLaunch *launch = AS_LAUNCH (g_ptr_array_index (launchables, i));
+		AsLaunchable *launch = AS_LAUNCH (g_ptr_array_index (launchables, i));
 
 		as_yaml_emit_sequence (emitter,
-				       as_launch_kind_to_string (as_launch_get_kind (launch)),
-				       as_launch_get_entries (launch));
+				       as_launchable_kind_to_string (as_launchable_get_kind (launch)),
+				       as_launchable_get_entries (launch));
 	}
 
 	as_yaml_mapping_end (emitter);
@@ -2203,8 +2203,8 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 	/* Bundles */
 	as_yaml_emit_bundles (emitter, cpt);
 
-	/* Launch */
-	as_yaml_emit_launch (emitter, cpt);
+	/* Launchable */
+	as_yaml_emit_launchable (emitter, cpt);
 
 	/* Provides */
 	as_yaml_emit_provides (emitter, cpt);

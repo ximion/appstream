@@ -68,7 +68,7 @@ typedef struct
 	gchar			*project_license;
 	gchar			*project_group;
 
-	GPtrArray		*launchables; /* of #AsLaunch */
+	GPtrArray		*launchables; /* of #AsLaunchable */
 	GPtrArray		*categories; /* of utf8 */
 	GPtrArray		*compulsory_for_desktops; /* of utf8 */
 	GPtrArray		*extends; /* of utf8 */
@@ -2866,26 +2866,26 @@ as_component_add_content_rating (AsComponent *cpt, AsContentRating *content_rati
 }
 
 /**
- * as_component_get_launch:
+ * as_component_get_launchable:
  * @cpt: a #AsComponent instance.
- * @kind: a launch kind, e.g. %AS_LAUNCH_KIND_DESKTOP_ID
+ * @kind: a launch kind, e.g. %AS_LAUNCHABLE_KIND_DESKTOP_ID
  *
- * Gets a #AsLaunch of a specific type that contains launchable entries for
+ * Gets a #AsLaunchable of a specific type that contains launchable entries for
  * this component.
  *
- * Returns: (transfer none): a #AsLaunch or %NULL if not found
+ * Returns: (transfer none): a #AsLaunchable or %NULL if not found
  *
  * Since: 0.11.0
  **/
-AsLaunch*
-as_component_get_launch (AsComponent *cpt, AsLaunchKind kind)
+AsLaunchable*
+as_component_get_launchable (AsComponent *cpt, AsLaunchableKind kind)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	guint i;
 
 	for (i = 0; i < priv->launchables->len; i++) {
-		AsLaunch *launch = AS_LAUNCH (g_ptr_array_index (priv->launchables, i));
-		if (as_launch_get_kind (launch) == kind)
+		AsLaunchable *launch = AS_LAUNCH (g_ptr_array_index (priv->launchables, i));
+		if (as_launchable_get_kind (launch) == kind)
 			return launch;
 	}
 	return NULL;
@@ -2895,7 +2895,7 @@ as_component_get_launch (AsComponent *cpt, AsLaunchKind kind)
  * as_component_get_launchables:
  * @cpt: a #AsComponent instance.
  *
- * Returns: (transfer none) (element-type #AsLaunch): an array
+ * Returns: (transfer none) (element-type #AsLaunchable): an array
  *
  * Since: 0.11.0
  **/
@@ -2907,20 +2907,20 @@ as_component_get_launchables (AsComponent *cpt)
 }
 
 /**
- * as_component_add_launch:
+ * as_component_add_launchable:
  * @cpt: a #AsComponent instance.
- * @launch: a #AsLaunch instance.
+ * @launchable: a #AsLaunchable instance.
  *
- * Adds a #AsLaunch containing launchables entries for this component.
+ * Adds a #AsLaunchable containing launchables entries for this component.
  *
  * Since: 0.11.0
  **/
 void
-as_component_add_launch (AsComponent *cpt, AsLaunch *launch)
+as_component_add_launchable (AsComponent *cpt, AsLaunchable *launchable)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_ptr_array_add (priv->launchables,
-			 g_object_ref (launch));
+			 g_object_ref (launchable));
 }
 
 /**
@@ -3117,19 +3117,19 @@ as_component_merge (AsComponent *cpt, AsComponent *source)
  * Returns: The desktop file id.
  *
  * Since: 0.9.8
- * Deprecated: 0.11.0: Replaced by #AsLaunch and %as_component_get_launch
+ * Deprecated: 0.11.0: Replaced by #AsLaunchable and %as_component_get_launchable
  */
 const gchar*
 as_component_get_desktop_id (AsComponent *cpt)
 {
-	AsLaunch *launch;
+	AsLaunchable *launch;
 	GPtrArray *entries;
 
-	launch = as_component_get_launch (cpt, AS_LAUNCH_KIND_DESKTOP_ID);
+	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
 	if (launch == NULL)
 		return NULL;
 
-	entries = as_launch_get_entries (launch);
+	entries = as_launchable_get_entries (launch);
 	if (entries->len <= 0)
 		return 0;
 

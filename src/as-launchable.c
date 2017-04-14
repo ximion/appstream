@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "as-launch.h"
+#include "as-launchable.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
@@ -37,17 +37,17 @@
 
 typedef struct
 {
-	AsLaunchKind	kind;
-	GPtrArray	*entries;
-} AsLaunchPrivate;
+	AsLaunchableKind	kind;
+	GPtrArray		*entries;
+} AsLaunchablePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (AsLaunch, as_launch, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (AsLaunchable, as_launchable, G_TYPE_OBJECT)
 
-#define GET_PRIVATE(o) (as_launch_get_instance_private (o))
+#define GET_PRIVATE(o) (as_launchable_get_instance_private (o))
 
 /**
- * as_launch_kind_to_string:
- * @kind: the #AsLaunchKind.
+ * as_launchable_kind_to_string:
+ * @kind: the #AsLaunchableKind.
  *
  * Converts the enumerated value to a text representation.
  *
@@ -56,105 +56,105 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsLaunch, as_launch, G_TYPE_OBJECT)
  * Since: 0.11.0
  **/
 const gchar*
-as_launch_kind_to_string (AsLaunchKind kind)
+as_launchable_kind_to_string (AsLaunchableKind kind)
 {
-	if (kind == AS_LAUNCH_KIND_DESKTOP_ID)
+	if (kind == AS_LAUNCHABLE_KIND_DESKTOP_ID)
 		return "desktop-id";
 	return "unknown";
 }
 
 /**
- * as_launch_kind_from_string:
+ * as_launchable_kind_from_string:
  * @kind_str: the string.
  *
  * Converts the text representation to an enumerated value.
  *
- * Returns: a #AsLaunchKind or %AS_LAUNCH_KIND_UNKNOWN for unknown
+ * Returns: a #AsLaunchableKind or %AS_LAUNCHABLE_KIND_UNKNOWN for unknown
  *
  * Since: 0.11.0
  **/
-AsLaunchKind
-as_launch_kind_from_string (const gchar *kind_str)
+AsLaunchableKind
+as_launchable_kind_from_string (const gchar *kind_str)
 {
 	if (g_strcmp0 (kind_str, "desktop-id") == 0)
-		return AS_LAUNCH_KIND_DESKTOP_ID;
-	return AS_LAUNCH_KIND_UNKNOWN;
+		return AS_LAUNCHABLE_KIND_DESKTOP_ID;
+	return AS_LAUNCHABLE_KIND_UNKNOWN;
 }
 
 /**
- * as_launch_finalize:
+ * as_launchable_finalize:
  **/
 static void
-as_launch_finalize (GObject *object)
+as_launchable_finalize (GObject *object)
 {
-	AsLaunch *launch = AS_LAUNCH (object);
-	AsLaunchPrivate *priv = GET_PRIVATE (launch);
+	AsLaunchable *launch = AS_LAUNCH (object);
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 
 	g_ptr_array_unref (priv->entries);
 
-	G_OBJECT_CLASS (as_launch_parent_class)->finalize (object);
+	G_OBJECT_CLASS (as_launchable_parent_class)->finalize (object);
 }
 
 /**
- * as_launch_init:
+ * as_launchable_init:
  **/
 static void
-as_launch_init (AsLaunch *launch)
+as_launchable_init (AsLaunchable *launch)
 {
-	AsLaunchPrivate *priv = GET_PRIVATE (launch);
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 
-	priv->kind = AS_LAUNCH_KIND_UNKNOWN;
+	priv->kind = AS_LAUNCHABLE_KIND_UNKNOWN;
 	priv->entries = g_ptr_array_new_with_free_func (g_free);
 }
 
 /**
- * as_launch_class_init:
+ * as_launchable_class_init:
  **/
 static void
-as_launch_class_init (AsLaunchClass *klass)
+as_launchable_class_init (AsLaunchableClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-	object_class->finalize = as_launch_finalize;
+	object_class->finalize = as_launchable_finalize;
 }
 
 /**
- * as_launch_get_kind:
- * @launch: a #AsLaunch instance.
+ * as_launchable_get_kind:
+ * @launch: a #AsLaunchable instance.
  *
- * The launch system for the entries this #AsLaunch
+ * The launch system for the entries this #AsLaunchable
  * object stores.
  *
- * Returns: an enum of type #AsLaunchKind
+ * Returns: an enum of type #AsLaunchableKind
  *
  * Since: 0.11.0
  */
-AsLaunchKind
-as_launch_get_kind (AsLaunch *launch)
+AsLaunchableKind
+as_launchable_get_kind (AsLaunchable *launch)
 {
-	AsLaunchPrivate *priv = GET_PRIVATE (launch);
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 	return priv->kind;
 }
 
 /**
- * as_launch_set_kind:
- * @launch: a #AsLaunch instance.
- * @kind: the new #AsLaunchKind
+ * as_launchable_set_kind:
+ * @launch: a #AsLaunchable instance.
+ * @kind: the new #AsLaunchableKind
  *
- * Set the launch system for the entries this #AsLaunch
+ * Set the launch system for the entries this #AsLaunchable
  * object stores.
  *
  * Since: 0.11.0
  */
 void
-as_launch_set_kind (AsLaunch *launch, AsLaunchKind kind)
+as_launchable_set_kind (AsLaunchable *launch, AsLaunchableKind kind)
 {
-	AsLaunchPrivate *priv = GET_PRIVATE (launch);
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 	priv->kind = kind;
 }
 
 /**
- * as_launch_get_entries:
- * @launch: a #AsLaunch instance.
+ * as_launchable_get_entries:
+ * @launch: a #AsLaunchable instance.
  *
  * Get an array of launchable entries.
  *
@@ -163,40 +163,40 @@ as_launch_set_kind (AsLaunch *launch, AsLaunchKind kind)
  * Since: 0.11.0
  */
 GPtrArray*
-as_launch_get_entries (AsLaunch *launch)
+as_launchable_get_entries (AsLaunchable *launch)
 {
-	AsLaunchPrivate *priv = GET_PRIVATE (launch);
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 	return priv->entries;
 }
 
 /**
- * as_launch_add_entry:
- * @launch: a #AsLaunch instance.
+ * as_launchable_add_entry:
+ * @launch: a #AsLaunchable instance.
  *
  * Add a new launchable entry.
  *
  * Since: 0.11.0
  */
 void
-as_launch_add_entry (AsLaunch *launch, const gchar *entry)
+as_launchable_add_entry (AsLaunchable *launch, const gchar *entry)
 {
-	AsLaunchPrivate *priv = GET_PRIVATE (launch);
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 	g_ptr_array_add (priv->entries, g_strdup (entry));
 }
 
 /**
- * as_launch_new:
+ * as_launchable_new:
  *
- * Creates a new #AsLaunch.
+ * Creates a new #AsLaunchable.
  *
- * Returns: (transfer full): a #AsLaunch
+ * Returns: (transfer full): a #AsLaunchable
  *
  * Since: 0.11.0
  **/
-AsLaunch*
-as_launch_new (void)
+AsLaunchable*
+as_launchable_new (void)
 {
-	AsLaunch *launch;
+	AsLaunchable *launch;
 	launch = g_object_new (AS_TYPE_LAUNCH, NULL);
 	return AS_LAUNCH (launch);
 }
