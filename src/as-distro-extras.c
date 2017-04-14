@@ -47,7 +47,7 @@ static const gchar *apt_lists_dir = "/var/lib/apt/lists/";
 static const gchar *appstream_yml_target = "/var/lib/app-info/yaml";
 static const gchar *appstream_icons_target = "/var/lib/app-info/icons";
 
-static const gchar* const default_icon_sizes[] = { "64x64", "128x128", NULL };
+static const gchar* const default_icon_sizes[] = { "64x64", "64x64@2", "128x128", NULL };
 
 
 /**

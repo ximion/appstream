@@ -27,6 +27,17 @@ Acquire::IndexTargets {
     # Icons suitable for HiDPI displays, for GUI components described in
     # the DEP-11 YAML metadata.
     deb::DEP-11-icons-hidpi  {
+        MetaKey "$(COMPONENT)/dep11/icons-64x64@2.tar";
+        ShortDescription "icons-64x64@2";
+        Description "$(RELEASE)/$(COMPONENT) DEP-11 64x64@2 Icons";
+
+        KeepCompressed "true";
+        KeepCompressedAs "gz";
+        DefaultEnabled "false";
+    };
+
+    # Larger icons that are often used on HiDPI displays as fallback.
+    deb::DEP-11-icons-large  {
         MetaKey "$(COMPONENT)/dep11/icons-128x128.tar";
         ShortDescription "icons-128x128";
         Description "$(RELEASE)/$(COMPONENT) DEP-11 128x128 Icons";
