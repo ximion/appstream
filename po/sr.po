@@ -11,52 +11,52 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-03-16 02:39+0100\n"
-"PO-Revision-Date: 2016-08-15 18:48+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: Serbian (http://www.transifex.com/freedesktop/appstream/"
-"language/sr/)\n"
+"PO-Revision-Date: 2017-04-29 20:03+0000\n"
+"Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
+"Language-Team: Serbian "
+"<https://hosted.weblate.org/projects/appstream/translations/sr/>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.14-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "„%s“ наредба"
 
 #: src/as-category.c:168
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "Категорије"
+msgstr "3Д графика"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Радња"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:386
 msgid "Add-ons"
-msgstr ""
+msgstr "Додатак"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Авантура"
 
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
 msgid "Also print pedantic hints when validating."
-msgstr ""
+msgstr "Избацује педантне савете при провери."
 
 #: tools/appstream-cli.c:580
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr ""
+msgstr "Тип ставке (нпр. lib, bin, python3, ...)"
 
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
@@ -65,25 +65,24 @@ msgstr ""
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
-#, fuzzy
 msgid "AppStream CLI"
-msgstr "Издање командне алатке Програмског тока: %s"
+msgstr "ЦЛИ за Програмски ток"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:668
 #, c-format
 msgid "AppStream CLI tool version: %s"
-msgstr "Издање командне алатке Програмског тока: %s"
+msgstr "Издање ЦЛИ за Програмски ток: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
 msgid "AppStream Status:"
-msgstr ""
+msgstr "Стање Програмског тока:"
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:80
 msgid "AppStream cache update completed successfully."
-msgstr "Освежавање оставе Програмског тока је успешно обављено."
+msgstr "Освежавање кеша Програмског тока је успешно обављено."
 
 #: src/as-pool.c:1494
 msgid ""
@@ -93,13 +92,13 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:90
 msgid "AppStream cache update is not necessary."
-msgstr "Освежавање оставе Програмског тока није потребно."
+msgstr "Освежавање кеша Програмског тока није потребно."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
 #: tools/appstream-cli.c:133 tools/appstream-cli.c:573
 msgid "AppStream command-line interface"
-msgstr "Наредбено сучеље Програмског тока"
+msgstr "Сучеље командне линије за Програмски ток"
 
 #. (itstool) path: description/p
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
@@ -116,32 +115,32 @@ msgstr ""
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Аркадне"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Вештачка интелигенција"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономија"
 
 #: src/as-category.c:237
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Астрономија"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr ""
+msgstr "Аудио и видео"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Креирање и уређивање звука"
 
 #: src/as-provided.c:141
 msgid "Binaries"
@@ -150,26 +149,26 @@ msgstr "Извршни"
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Блокови"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "На табли"
 
 #: tools/ascli-utils.c:287
 msgid "Bundle"
-msgstr "Пакет"
+msgstr "Комплет"
 
 #: src/as-pool.c:1420
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Место оставе „%s“ није за уписивање."
+msgstr "Локација кеша „%s“ није уписива."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Календар"
 
 #: tools/ascli-actions-mdata.c:332
 #, c-format
@@ -181,7 +180,7 @@ msgstr ""
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Карте"
 
 #: tools/ascli-utils.c:357
 msgid "Categories"
@@ -190,22 +189,22 @@ msgstr "Категорије"
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Ћаскање"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Хемија"
 
 #: src/as-category.c:240
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Хемија"
 
 #: src/as-category.c:214
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Кодеци"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:715
@@ -216,28 +215,28 @@ msgstr "Наредба „%s“ није позната."
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "Комуникације и вести"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr "Састојак „%s“ нема кандидата за инсталацију."
+msgstr "Компонента „%s“ нема кандидата за инсталацију."
 
 #: tools/ascli-utils.c:365
 msgid "Compulsory for"
-msgstr "Обавезујући за"
+msgstr "Неопходан за"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:595
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "Претвара збирку XML у YAML или обрнуто."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:233
-#, fuzzy, c-format
+#, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Не могу да нађем састојак који доставља „%s;%s“!"
+msgstr "Не могу да нађем компоненту која омогућава „%s::%s“."
 
 #: tools/appstream-cli.c:596
 msgid ""
@@ -247,26 +246,25 @@ msgstr ""
 
 #: src/as-provided.c:155
 msgid "DBus Session Services"
-msgstr "Услуге сесије Д-сабирнице"
+msgstr "Д-Бус сервиси сесије"
 
 #: src/as-provided.c:153
 msgid "DBus System Services"
-msgstr "Услуге система Д-сабирнице"
+msgstr "Д-Бус системски сервиси"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Базе података"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Отклањање грешака"
 
 #: tools/ascli-utils.c:341
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "Адреса узорка снимка екрана"
+msgstr "УРЛ подразумеваног снимка екрана"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
@@ -285,9 +283,8 @@ msgstr "Програмер"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
-#, fuzzy
 msgid "Developer Tools"
-msgstr "Програмер"
+msgstr "Програмерске алатке"
 
 #: tools/appstream-cli.c:592
 msgid "Display status information about available AppStream metadata."
@@ -300,40 +297,37 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
-#, fuzzy
 msgid "Do not use any caches when performing the request."
-msgstr "Не користи кеш Запијана (Xapian) приликом слања захтева"
+msgstr "Не користи кеш при обради захтева."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:633
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "Не приказује обојени излаз"
+msgstr "Не приказуј обојени излаз."
 
 #: tools/appstream-cli.c:583
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "Избацује сирове ИксМЛ метаподатке за састојак који одговара ИБ-у."
+msgstr "Избацује сирове ИксМЛ метаподатке за компоненту одговарајућег ИД-а."
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "Образовање"
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
 msgid "Empty."
-msgstr ""
+msgstr "Празно."
 
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Емулатори"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:224
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "Приморава освежавање оставе"
+msgstr "Приморава освежавање кеша."
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
@@ -347,71 +341,70 @@ msgstr "Проширује"
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Издвојено"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Фајл систем"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Финансије"
 
 #: src/as-provided.c:159
 msgid "Flashed Firmware"
-msgstr "Преточени уграђени програм"
+msgstr "Флешовани фирмвер"
 
 #: src/as-provided.c:145
 msgid "Fonts"
-msgstr "Словни ликови"
+msgstr "Фонтови"
 
 #: src/as-category.c:211
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr "Словни ликови"
+msgstr "Фонтови"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:136
@@ -422,25 +415,25 @@ msgstr ""
 #: tools/ascli-actions-misc.c:121
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "Нађено компоненти: %i."
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "Игре"
 
 #: tools/appstream-cli.c:579
 msgid "Get components which provide the given item."
-msgstr "Добавите састојке који достављају дату ставку."
+msgstr "Добавља компоненте који омогућавају дату ставку."
 
 #: tools/appstream-cli.c:578
 msgid "Get information about a component by its ID."
-msgstr "Добавите податке о састојку према његовом ИБ-у."
+msgstr "Добавља податке о компоненти према ИД-у."
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Графика и фотографија"
 
 #: tools/ascli-utils.c:288
 msgid "Homepage"
@@ -449,24 +442,24 @@ msgstr "Матична страница"
 #: src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "Развојна окружења"
 
 #: tools/ascli-utils.c:289
 msgid "Icon"
-msgstr "Иконица"
+msgstr "Икона"
 
 #: tools/ascli-actions-misc.c:92
 msgid "Iconsets"
-msgstr ""
+msgstr "Комплети икона"
 
 #: tools/ascli-utils.c:283
 msgid "Identifier"
-msgstr "Одредник"
+msgstr "Идентификатор"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Улазни извори"
 
 #: tools/appstream-cli.c:593
 msgid "Install a metadata file into the right location."
@@ -474,27 +467,26 @@ msgstr ""
 
 #: tools/appstream-cli.c:589
 msgid "Install software matching the component-id."
-msgstr "Инсталирајте софтвер који одговара иб-у састојка."
+msgstr "Инсталира софтвер који одговара ИД-у компоненте."
 
 #: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Изабрана је неисправна врста за достављену ставку. Исправне вредности су:"
+msgstr "Изабран је неисправан тип за достављену ставку. Исправне вредности су:"
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Дечије"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Језички пакети"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Језици"
 
 #: src/as-provided.c:139
 msgid "Libraries"
@@ -503,41 +495,37 @@ msgstr "Библиотеке"
 #. license
 #: tools/ascli-utils.c:351
 msgid "License"
-msgstr "Дозвола"
+msgstr "Лиценца"
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Локализације"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Логичке"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually set the location of AppStream metadata to scan."
-msgstr ""
-"Ручно поставите место метаподатака Програмског тока за поновно стварање "
-"оставе"
+msgstr "Ручно поставља локацију метаподатака Програмског тока за обраду."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually set the location of the AppStream cache."
-msgstr "Ручно поставите место оставе Програмског тока"
+msgstr "Ручно поставља место кеша Програмског тока."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Математика"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Математика"
 
 #: tools/ascli-actions-mdata.c:369
 #, c-format
@@ -555,7 +543,7 @@ msgstr ""
 
 #: src/as-provided.c:143
 msgid "Mimetypes"
-msgstr "Миме врсте"
+msgstr "Миме-типови"
 
 #: src/as-provided.c:147
 msgid "Modaliases"
@@ -564,7 +552,7 @@ msgstr "Модалијаси"
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Музички плејери"
 
 #: tools/ascli-utils.c:284
 msgid "Name"
@@ -573,39 +561,39 @@ msgstr "Назив"
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Вести"
 
 #: tools/ascli-actions-mdata.c:187
 #, c-format
 msgid "No component matching '%s' found."
-msgstr "Нисам нашао састојак који одговара „%s“."
+msgstr "Нисам нашао компоненту која се поклапа са „%s“."
 
 #: tools/ascli-actions-misc.c:103
 msgid "No icons."
-msgstr ""
+msgstr "Нема икона."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
-"Нисам нашао одговарајућу конзолу управника пакета. Уверите се да је доступан "
-"нпр. „pkcon“ (део Пакетског комплета)."
+"Нема одговарајућег менаџера пакета из командне линије. Проверите да је нпр. "
+"„pkcon“ доступан (део „PackageKit“)."
 
 #: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for defined."
-msgstr "Нема вредности за ставку за тражење за одређене."
+msgstr "Нема вредности ставке за тражење дефинисаног."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "Канцеларија"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "Option '%s' is unknown."
-msgstr "Наредба „%s“ није позната."
+msgstr "Опција „%s“ није позната."
 
 #: tools/ascli-utils.c:286
 msgid "Package"
@@ -614,13 +602,12 @@ msgstr "Пакет"
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Фотографија"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
-#, fuzzy
 msgid "Print detailed output about found components."
-msgstr "Исписује опширни излаз о нађеним састојцима"
+msgstr "Исписује опширни излаз о нађеним компонентама."
 
 #. project group
 #: tools/ascli-utils.c:348
@@ -629,11 +616,11 @@ msgstr "Група пројекта"
 
 #: tools/ascli-utils.c:393
 msgid "Provided Items"
-msgstr "Обезбеђене ставке"
+msgstr "Омогућене ставке"
 
 #: src/as-provided.c:149
 msgid "Python (Version 2)"
-msgstr "Питон (2. издање)"
+msgstr "Питон (вер. 2)"
 
 #: src/as-provided.c:151
 msgid "Python 3"
@@ -650,71 +637,70 @@ msgstr ""
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Роботика"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Играње улоге"
 
 #: tools/appstream-cli.c:175 tools/appstream-cli.c:651
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
-"Покрените „%s --help“ да видите читав списак доступних опција линије наредби."
+"Покрените „%s --help“ да видите списак доступних опција командне линије."
 
 #: tools/appstream-cli.c:177
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
-"Покрените „%s --help“ да видите читав списак доступних опција линије наредби."
+"Покрените „%s --help“ да видите списак доступних наредби и опција и „%s%s "
+"--help“ да видите списак опција за ту под-наредбу."
 
 #: src/as-provided.c:157
 msgid "Runtime Firmware"
-msgstr "Уграђени програм времена покретања"
+msgstr "Рантајм фирмвер"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Скенирање"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "Наука"
 
 #: tools/appstream-cli.c:577
 msgid "Search the component database."
-msgstr "Претражите базу података састојака."
+msgstr "Претражује базу података компоненти."
 
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Безбедност"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:628
-#, fuzzy
 msgid "Show extra debugging information."
-msgstr "Приказује додатне податке прочишћавања"
+msgstr "Приказује додатне податке за откањање грешака."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:622
-#, fuzzy
 msgid "Show the program version."
-msgstr "Приказује издање програма"
+msgstr "Приказује издање програма."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Спорт"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Стратегија"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:575
@@ -728,27 +714,27 @@ msgstr "Сажетак"
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:143
 msgid "Summary:"
-msgstr ""
+msgstr "Сажетак:"
 
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Надгледање система"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Емулатори терминала"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Уређивачи текста"
 
 #: tools/ascli-actions-mdata.c:463
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr ".desktop фајл „%s“ не постоји."
 
 #: src/as-pool.c:1478
 msgid ""
@@ -789,13 +775,13 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr "Не могу да пронађем састојак који одговара „%s“!"
+msgstr "Не могу да пронађем компоненту која се поклапа са „%s“!"
 
 #: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
 #: tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr "Не могу да пронађем састојак са иб-ом „%s“!"
+msgstr "Не могу да пронађем компоненту са ИД „%s“!"
 
 #: tools/ascli-actions-mdata.c:469
 #, c-format
@@ -803,14 +789,14 @@ msgid "Unable to read the .desktop file: %s"
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:548
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "Не могу да изродим управника пакета: %s"
+msgstr "Не могу да сачувам фајл мета-инфо шаблона: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Не могу да изродим управника пакета: %s"
+msgstr "Не могу да подигнем менаџер пакета: %s"
 
 #: tools/ascli-actions-mdata.c:327
 #, c-format
@@ -826,50 +812,49 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "Помоћне алатке"
 
 #: tools/appstream-cli.c:586
 msgid "Validate AppStream XML files for issues."
-msgstr "Потврдите ИксМЛ датотеке Програмског тока за проблемима."
+msgstr "Потврдите ИксМЛ фајлове Програмског тока за проблемиме."
 
 #: tools/appstream-cli.c:587
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
-"Потврдите инсталирано стабло датотека програма за исправним метаподацима."
+"Потврдите инсталирано стабло фајлова програма за исправним метаподацима."
 
 #: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "Потврђивање није успело."
+msgstr "Оверавање није успело: %s"
 
 #: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
 msgstr "Потврђивање је успело."
 
 #: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "Потврђивање је успело."
+msgstr "Потврђивање је успело: %s"
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
 msgstr ""
 
 #: src/as-category.c:177
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Категорије"
+msgstr "Векторска графика"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Верзија: %s"
 
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Прегледачи"
 
 #: tools/ascli-actions-misc.c:151
 #, c-format
@@ -879,12 +864,12 @@ msgstr ""
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Веб прегледачи"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Обрада текста"
 
 #: tools/appstream-cli.c:599
 msgid ""
@@ -895,7 +880,7 @@ msgstr ""
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
 msgid "You might need superuser permissions to perform this action."
-msgstr "Биће вам потребна овлашћења администратора за обављање ове радње."
+msgstr "Биће вам потребна администраторска овлашћења за обављање ове радње."
 
 #: tools/ascli-actions-mdata.c:443
 msgid ""
@@ -912,13 +897,12 @@ msgstr "Морате да наведете наредбу."
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:137 tools/ascli-actions-mdata.c:259
 #: tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
-msgstr "Морате да наведете иб састојка."
+msgstr "Морате да наведете ИД компоненте."
 
 #: tools/ascli-actions-validate.c:223
 msgid "You need to specify a file to validate!"
-msgstr "Морате да наведете датотеку за потврђивање!"
+msgstr "Морате да наведете фајл за потврђивање!"
 
 #: tools/ascli-actions-mdata.c:314
 msgid "You need to specify a metadata file."
@@ -926,16 +910,15 @@ msgstr ""
 
 #: tools/ascli-actions-validate.c:280
 msgid "You need to specify a root directory to start validation!"
-msgstr "Морате навести фасциклу највишег нивоа за почињање потврђивања!"
+msgstr "Морате навести корену фасциклу за почињање потврђивања!"
 
 #: tools/ascli-actions-mdata.c:169
 msgid "You need to specify a term to search for."
 msgstr "Морате да наведете појам за тражење."
 
 #: tools/ascli-actions-mdata.c:362
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "Морате да наведете наредбу."
+msgstr "Морате да наведете улазни и излазни фајл."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -946,8 +929,8 @@ msgstr "Морате да наведете наредбу."
 #: src/as-pool.c:105
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
-"app;application;package;program;programme;suite;tool;апп;апликација;пакет;"
-"програм;комплет;алат;aplikacija;komplet;alat"
+"app;application;package;program;programme;suite;tool;апп;апликација;пакет;про"
+"грам;комплет;алат;aplikacija;komplet;alat;paket"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:183
