@@ -31,15 +31,15 @@ G_BEGIN_DECLS
 /**
  * AsComponentScope:
  * @AS_COMPONENT_SCOPE_UNKNOWN:		Unknown scope
- * @AS_COMPONENT_SCOPE_USER:		User scope
  * @AS_COMPONENT_SCOPE_SYSTEM:		System scope
+ * @AS_COMPONENT_SCOPE_USER:		User scope
  *
  * Scope of the #AsComponent (system-wide or user-scope)
  **/
 typedef enum {
 	AS_COMPONENT_SCOPE_UNKNOWN,
-	AS_COMPONENT_SCOPE_USER,
 	AS_COMPONENT_SCOPE_SYSTEM,
+	AS_COMPONENT_SCOPE_USER,
 	/*< private >*/
 	AS_COMPONENT_SCOPE_LAST
 } AsComponentScope;
