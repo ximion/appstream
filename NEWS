@@ -1,3 +1,65 @@
+Version 0.11.0
+~~~~~~~~~~~~~~
+Released: 2017-05-03
+
+Features:
+ * Implement read/write support for content ratings (Matthias Klumpp)
+ * tests: Test the content_rating tag XML read/write (Matthias Klumpp)
+ * yaml: Read/write ContentRating (Matthias Klumpp)
+ * cache: Handle the content-rating property (Matthias Klumpp)
+ * Add new AsLaunch type (Matthias Klumpp)
+ * Fully implement the launchable tag (Matthias Klumpp)
+ * Recognize scaling factor for HiDPI icons (Matthias Klumpp)
+ * apt: Allow fetching HiDPI icons (Matthias Klumpp)
+
+Specification:
+ * spec: Don't give wrong information about the <font/> tag (Matthias Klumpp)
+ * spec: Specify content_rating tag for content age ratings (Matthias Klumpp)
+ * spec: Specify the new launchable tag and apply its effects (Matthias Klumpp)
+ * spec: Add note on where to place icons with a scaling factor (Matthias Klumpp)
+
+Bugfixes:
+ * Add missing word in string (Anders Jonsson)
+ * yaml: Fix crash when serializing component with a dbus:user provided item (Matthias Klumpp)
+ * cache: Don't write cache if there are no valid components (Matthias Klumpp)
+ * docs: Clarify "permissive" for metadata_license and make the paragraph more explicit (Matthias Klumpp)
+ * Ensure GVFS never starts in root user slice (Matthias Klumpp)
+ * Correctly tokenize values with dash or plus (Matthias Klumpp)
+ * vapi: Add appstream.deps file (Rico Tzschichholz)
+
+Translation:
+ * Swedish
+   - Anders Jonsson
+   - Josef
+ * Indonesian
+   - Andika Triwidada
+ * Chinese (Traditional)
+   - Chang-Chia Tseng
+ * Chinese (China)
+   - Dingzhong Chen
+   - 陈鼎中
+ * Gaelic
+   - GunChleoc
+ * Dutch
+   - Heimen Stoffels
+ * Russian
+   - Igor
+   - Maxim Taranov
+ * French
+   - Jean-Baptiste
+ * Italian
+   - Milo Casagrande
+ * Lithuanian
+   - Moo
+ * Turkish
+   - Muhammet Kara
+ * Polish
+   - Piotr Drąg
+ * Ukrainian
+   - Yuri Chornoivan
+ * Serbian
+   - Slobodan Simić
+
 Version 0.10.6
 ~~~~~~~~~~~~~~
 Released: 2017-01-22
