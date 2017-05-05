@@ -11,19 +11,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Марко М. Костић (Marko M. Kostić) <marko.m.kostic@gmail.com>, 2015
 # Miloš Popović <gpopac@gmail.com>, 2015
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2014
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
+# Слободан Симић(Slobodan Simić) <slsimic@gmail.com>, 2021.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
 "Language-Team: Serbian (latin) <https://hosted.weblate.org/projects/appstream/translations/sr_Latn/>\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -1007,9 +1008,7 @@ msgstr ""
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;application;package;program;programme;suite;tool;app;апликација;пакет;"
-"program;комплет;алат;aplikacija;komplet;alat;paket"
+msgstr "app;application;package;program;programme;suite;tool;app;апликација;пакет;program;комплет;алат;aplikacija;komplet;alat;paket"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -2169,17 +2168,14 @@ msgstr "Opcija „%s“ nije poznata."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Pokrenite „%s --help“ da vidite spisak dostupnih opcija komandne linije."
+msgstr "Pokrenite „%s --help“ da vidite spisak dostupnih opcija komandne linije."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Pokrenite „%s --help“ da vidite spisak dostupnih naredbi i opcija i „%s%s --"
-"help“ da vidite spisak opcija za tu pod-naredbu."
+msgstr "Pokrenite „%s --help“ da vidite spisak dostupnih naredbi i opcija i „%s%s --help“ da vidite spisak opcija za tu pod-naredbu."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2353,8 +2349,7 @@ msgstr "Potvrdite XML fajlove Programskog toka za problemima."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Potvrdite instalirano stablo fajlova programa za ispravnim metapodacima."
+msgstr "Potvrdite instalirano stablo fajlova programa za ispravnim metapodacima."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2452,8 +2447,7 @@ msgstr ""
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Biće vam potrebna administratorska ovlašćenja za obavljanje ove radnje."
+msgstr "Biće vam potrebna administratorska ovlašćenja za obavljanje ove radnje."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2503,8 +2497,7 @@ msgstr "Nema vrednosti stavke za traženje definisanog."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Izabran je neispravan tip za dostavljenu stavku. Ispravne vrednosti su:"
+msgstr "Izabran je neispravan tip za dostavljenu stavku. Ispravne vrednosti su:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2701,9 +2694,7 @@ msgstr "Morate da navedete ulazni i izlazni fajl."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Nema odgovarajućeg menadžera paketa iz komandne linije. Proverite da je npr. "
-"„pkcon“ dostupan (deo „PackageKit“)."
+msgstr "Nema odgovarajućeg menadžera paketa iz komandne linije. Proverite da je npr. „pkcon“ dostupan (deo „PackageKit“)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
