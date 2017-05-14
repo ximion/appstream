@@ -56,7 +56,7 @@
 
 	<para>
 		The XML for a generic component definition starts with a <code>&lt;component&gt;</code> tag as the root element.
-		The <code>&lt;component&gt;</code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>releases</literal> tag; and
+		The <code>&lt;component&gt;</code> element must at least have an <literal>id</literal>, <literal>name</literal> and <literal>summary</literal> tag; and
 		a <literal>provides</literal> tag with appropriate children is highly recommended.
 		All possible tags in the generic set are:
 	</para>
