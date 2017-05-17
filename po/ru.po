@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-03-16 02:39+0100\n"
-"PO-Revision-Date: 2017-03-16 14:04+0000\n"
+"PO-Revision-Date: 2017-05-17 00:52+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian "
 "<https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 2.14-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -178,8 +178,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
-"Не удается скопировать '%s': у файла нет '.metainfo.xml' или '.appdata.xml' "
-"окончания."
+"Не удается скопировать \"%s\": у файла нет '.metainfo.xml' или "
+"'.appdata.xml' окончания."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -749,7 +749,7 @@ msgstr "Текстовые редакторы"
 #: tools/ascli-actions-mdata.c:463
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "Файл .desktop \"%s\" не существует."
+msgstr ".desktop файл \"%s\" не существует."
 
 #: src/as-pool.c:1478
 msgid ""
@@ -828,7 +828,8 @@ msgstr "Не удаётся запустить процесс менеджера
 #: tools/ascli-actions-mdata.c:327
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr "Не удаётся записать в '%s', невозможно установить файл метаинформации."
+msgstr ""
+"Не удаётся записать в \"%s\", невозможно установить файл метаинформации."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:543
