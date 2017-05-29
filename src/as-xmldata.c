@@ -551,15 +551,22 @@ as_xmldata_process_metainfo_description_tag (AsXMLData *xdt, xmlNode *node, GHFu
 				if (lang == NULL)
 					continue;
 
-				/* we can not allow adding new languages starting with a enum tag, so we skip the entry if the locale is unknown */
+				/* if the language is new, we start it with an enum */
 				str = g_hash_table_lookup (desc, lang);
-				if (str == NULL)
-					continue;
+				if (str == NULL) {
+					str = g_string_new ("");
+					g_string_append_printf (str, "<%s>\n", node_name);
+					g_hash_table_insert (desc, g_strdup (lang), str);
+				}
 
 				tmp = as_xml_get_node_value (iter2);
 				content = g_markup_escape_text (tmp, -1);
 				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
+
+			/* we might have updated the list by adding new locales, so fetch it again */
+			g_list_free (vlist);
+			vlist = g_hash_table_get_values (desc);
 
 			/* close listing tags */
 			for (l = vlist; l != NULL; l = l->next) {
