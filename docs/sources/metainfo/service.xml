@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-Service">
+	<title>Services</title>
+
+	<section id="spec-service-introduction">
+		<title>Introduction</title>
+		<para>
+                        A service component is any software that is started and supervised by
+                        the Operating Systems "init" facility, such as systemd.
+		</para>
+		<para>
+			The metadata described in this document is built upon the generic component metadata with fields specific for services (see <xref linkend="sect-Metadata-GenericComponent"/>).
+			All tags valid for a generic component are valid for a <literal>service</literal> component as well.
+		</para>
+		<para>
+			In order to enhance the available metadata about their services, projects shipping a service can ship one or more metainfo files
+			in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
+		</para>
+
+	</section>
+
+	<section id="spec-service-filespec">
+		<title>File specification</title>
+
+		<para>
+			The basic structure for a generic component as described at <xref linkend="spec-component-filespec"/> applies.
+			Note that the XML root must have the <literal>type</literal> property set to <code>service</code>, while in a generic component this
+			property can be omitted. This clearly identified this metainfo document as describing a service.
+		</para>
+
+		<para>
+			The following list describes tags for <literal>service</literal> upstream metadata and provides some additional information about the values
+			the tags are expected to have.
+			If no information is given about a tag, refer to the respective tag in <xref linkend="sect-Metadata-GenericComponent"/>.
+		</para>
+
+		<variablelist>
+			<varlistentry id="tag-id-service-app">
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For services, the <code>&lt;id/&gt;</code> tag value must follow the AppStream ID naming conventions (it should be a reverse-DNS name).
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;metadata_license/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_license/&gt;</code> tag as described in <xref linkend="tag-metadata_license"/> must be present.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;name/&gt;</term>
+			<listitem>
+				<para>
+					A <literal>name</literal> must be present for services. See <xref linkend="tag-name"/> for a detailed description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;summary/&gt;</term>
+			<listitem>
+				<para>
+					A <literal>summary</literal> must be present for services. See <xref linkend="tag-summary"/> for a detailed description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-service-provides">
+			<term>&lt;provides/&gt; ↪ &lt;service/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described in detail for generic components at <xref linkend="tag-provides"/>.
+				</para>
+			</listitem>
+			</varlistentry>
+
+                        <varlistentry id="tag-service-launchable">
+			<term>&lt;launchable/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described in detail for generic components at <xref linkend="tag-launchable"/>.
+				</para>
+                                <para>
+                                        At least one launchable element with type "service" must be present.
+                                        The value is a name that can be used with the OS init facility to
+                                        start/stop and monitor the service.
+                                </para>
+			</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<para>
+			For a component of type <literal>service</literal>, the following tags are required and must always be present: <xref linkend="tag-id-service-app"/>,
+			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>, <xref linkend="tag-service-provides"/>.
+		</para>
+
+	</section>
+</section>

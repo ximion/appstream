@@ -253,17 +253,55 @@
 		<term>&lt;launchable/&gt;</term>
 		<listitem>
 		<para>
-			This optional tag indicates a possible method to launch the software described in this component. At time, it only supports launching software by their desktop-id.
+		         This optional tag indicates possible methods to launch the software described in this component.
+                         It is allowed to appear multiple times in the metainfo data.
 		</para>
+
 		<para>
-			The <code>&lt;launchable/&gt;</code> tag has a essential <literal>type</literal> property indicating the system that is used to launch the application. At time, only
-			<code>desktop-id</code> is allowed as value, indicating that an application can be launched via a desktop file. The value of the tag is a
-			<ulink url="https://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#desktop-file-id">desktop-file id</ulink> in that case.
-		</para>
-		<para>
-			The <code>&lt;launchable/&gt;</code> tag is allowed to appear multiple times in the metainfo data. In case a software component has multiple launchable entries,
-			the software center might display a dialog to choose which entry to launch. If possible though, it should be avoided to add multiple <literal>launchable</literal> tags.
-		</para>
+		  The <code>&lt;launchable/&gt;</code> tag has a essential <literal>type</literal> property indicating the system that is used to launch the component.  The following types are allowed:
+                </para>
+                <variablelist>
+                  <varlistentry>
+                    <term>desktop-id</term>
+                    <listitem>
+                      <para>
+                        The application can be launched via a desktop file. The value of the tag is a
+			<ulink url="https://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#desktop-file-id">desktop-file id</ulink>.
+                      </para>
+                      <para>
+                        In case a software component has multiple launchable entries,
+			the software center might display a dialog to choose which entry to launch.
+                        If possible though, it should be avoided to add multiple <literal>launchable</literal> tags of type <literal>desktop-id</literal>.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>service</term>
+                    <listitem>
+                      <para>
+                        The software can be started, stopped, and monitored by the OS "init"
+                        facility, such as systemd. The value of the tag is a name that can be
+                        used with that facility, such as a systemd unit name.
+                      </para>
+                      <para>
+                        Multiple <literal>launchable</literal> tags of type <literal>service</literal> are not
+                        alternatives to start the same service, but the
+                        component does contain multiple services that might all need to be
+                        started.
+                      </para>
+                      <para>
+                        Only those services should be listed as launchables that the user is
+                        actually expected to start and stop manually.  Services that are
+                        started/stopped indirectly via dependencies of other services should
+                        not be listed.
+                      </para>
+                      <para>
+                        For systemd units, the services listed as launchables are expected to
+                        support enabling and disabling.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                </variablelist>
 		<para>
 			Example:
 		</para>
