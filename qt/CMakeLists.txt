@@ -78,6 +78,9 @@ install(TARGETS AppStreamQt EXPORT AppStreamLibsTarget
 
 install(FILES ${APPSTREAMQT_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/appstreamqt_export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/AppStreamQt")
 
+#deprecated
+install(FILES ${APPSTREAMQT_PUBLIC_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/appstreamqt_export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/AppstreamQt")
+
 set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/AppStreamQt)
 
 configure_package_config_file(
@@ -86,10 +89,12 @@ configure_package_config_file(
   INSTALL_DESTINATION ${ConfigPackageLocation}
 )
 
-install(EXPORT AppStreamLibsTarget
-    FILE AppStreamQtTargets.cmake
-    DESTINATION ${ConfigPackageLocation})
-
+install(EXPORT AppStreamLibsTarget FILE AppStreamQtTargets.cmake DESTINATION ${ConfigPackageLocation})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfigVersion.cmake ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfig.cmake DESTINATION ${ConfigPackageLocation})
+
+#deprecated
+install(EXPORT AppStreamLibsTarget FILE AppStreamQtTargets.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/AppstreamQt)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfigVersion.cmake RENAME AppstreamQtConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/AppstreamQt)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/AppStreamQtConfig.cmake RENAME AppstreamQtConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/AppstreamQt)
 
 add_subdirectory(tests)
