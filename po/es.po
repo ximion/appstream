@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-03-16 02:39+0100\n"
-"PO-Revision-Date: 2017-06-04 18:34+0000\n"
+"PO-Revision-Date: 2017-06-07 14:01+0000\n"
 "Last-Translator: Adolfo Jayme-Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish "
 "<https://hosted.weblate.org/projects/appstream/translations/es/>\n"
@@ -59,7 +59,7 @@ msgstr "Un tipo de elemento (p. ej., lib, bin, python3…)"
 #. (itstool) path: component/summary
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr "Herramienta para trabajar con metadatos de AppStream"
+msgstr "Utilidad para trabajar con metadatos de AppStream"
 
 #. (itstool) path: component/name
 #: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
@@ -417,7 +417,6 @@ msgid "Fonts"
 msgstr "Tipos de letra"
 
 #: src/as-category.c:211
-#, fuzzy
 msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Tipos de letra"
@@ -567,7 +566,7 @@ msgstr "Tipos MIME"
 
 #: src/as-provided.c:147
 msgid "Modaliases"
-msgstr ""
+msgstr "Modalias"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -862,59 +861,60 @@ msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 
 #: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "Falló la validación."
+msgstr "Falló la validación: %s"
 
 #: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 msgid "Validation was successful."
 msgstr "Se realizó la validación correctamente."
 
 #: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
-#, fuzzy, c-format
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "Se realizó la validación correctamente."
+msgstr "Se realizó la validación correctamente: %s"
 
 #: tools/appstream-cli.c:581
 msgid "Value of the item that should be found."
-msgstr ""
+msgstr "El valor del elemento que se debe encontrar."
 
 #: src/as-category.c:177
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Categorías"
+msgstr "Gráficos vectorizados"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Versión: %s"
 
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Visores"
 
 #: tools/ascli-actions-misc.c:151
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Se ha encontrado información sobre %i componentes de «software»."
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Navegadores web"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Procesador de textos"
 
 #: tools/appstream-cli.c:599
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Obtendrá información sobre opciones específicas de las subórdenes si añade "
+"«--help» a la suborden."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
@@ -928,6 +928,8 @@ msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Debe proporcionar un tipo de componente de «software» a AppStream para "
+"generar una plantilla. Los valores posibles son:"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:650
@@ -938,9 +940,8 @@ msgstr "Debe especificar una orden."
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:137 tools/ascli-actions-mdata.c:259
 #: tools/ascli-actions-pkgmgr.c:80
-#, fuzzy
 msgid "You need to specify a component-ID."
-msgstr "Debe especificar un id. de componente."
+msgstr "Debe especificar un identificador de componente."
 
 #: tools/ascli-actions-validate.c:223
 msgid "You need to specify a file to validate!"
@@ -948,7 +949,7 @@ msgstr "Debe especificar el archivo que se validará."
 
 #: tools/ascli-actions-mdata.c:314
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Debe especificar un archivo de metadatos."
 
 #: tools/ascli-actions-validate.c:280
 msgid "You need to specify a root directory to start validation!"
@@ -959,9 +960,8 @@ msgid "You need to specify a term to search for."
 msgstr "Debe especificar un término de búsqueda."
 
 #: tools/ascli-actions-mdata.c:362
-#, fuzzy
 msgid "You need to specify an input and output file."
-msgstr "Debe especificar una orden."
+msgstr "Debe especificar un archivo de entrada y uno de salida."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -977,13 +977,13 @@ msgstr "app;aplicación;paquete;programa;suite;conjunto;herramienta"
 #: tools/ascli-actions-validate.c:183
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "errores: %l"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "información: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
@@ -995,7 +995,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:190
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "alertas: %lu"
 
 #, fuzzy
 #~ msgid "Category of Games"
