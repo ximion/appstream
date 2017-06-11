@@ -37,6 +37,7 @@ set(AS_VERSION_BASE "${AS_VERSION_MAJOR}.${AS_VERSION_MINOR}" CACHE INTERNAL "Ap
 set(APPSTREAM_LIB_SRC
 		as-utils.c
 		# internal
+		as-context.c
 		as-xmldata.c
 		as-yamldata.c
 		as-desktop-entry.c
@@ -93,6 +94,7 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 
 set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-utils-private.h
+		as-context.h
 		as-xmldata.h
 		as-yamldata.h
 		as-desktop-entry.h
