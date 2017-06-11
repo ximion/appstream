@@ -34,11 +34,14 @@
 typedef struct
 {
 	AsFormatVersion		format_version;
+	AsFormatStyle		style;
 	gchar 			*locale;
 	gchar 			*origin;
 	gchar 			*media_baseurl;
 	gchar 			*arch;
 	gint 			priority;
+
+	gboolean		all_locale;
 } AsContextPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsContext, as_context, G_TYPE_OBJECT)
@@ -51,7 +54,10 @@ as_context_finalize (GObject *object)
 	AsContext *ctx = AS_CONTEXT (object);
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 
+	g_free (priv->locale);
 	g_free (priv->origin);
+	g_free (priv->media_baseurl);
+	g_free (priv->arch);
 
 	G_OBJECT_CLASS (as_context_parent_class)->finalize (object);
 }
@@ -62,6 +68,7 @@ as_context_init (AsContext *ctx)
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 
 	priv->format_version = AS_CURRENT_FORMAT_VERSION;
+	priv->style = AS_FORMAT_STYLE_UNKNOWN;
 }
 
 static void
@@ -96,6 +103,33 @@ as_context_set_format_version (AsContext *ctx, AsFormatVersion ver)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	priv->format_version = ver;
+}
+
+/**
+ * as_context_get_style:
+ * @ctx: a #AsContext instance.
+ *
+ * Returns: The document style.
+ **/
+AsFormatStyle
+as_context_get_style (AsContext *ctx)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	return priv->style;
+}
+
+/**
+ * as_context_set_style:
+ * @ctx: a #AsContext instance.
+ * @style: the new document style.
+ *
+ * Sets the AppStream document style.
+ **/
+void
+as_context_set_style (AsContext *ctx, AsFormatStyle style)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	priv->style = style;
 }
 
 /**
@@ -179,6 +213,36 @@ as_context_set_locale (AsContext *ctx, const gchar *value)
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	g_free (priv->locale);
 	priv->locale = g_strdup (value);
+
+	priv->all_locale = FALSE;
+	if (g_strcmp0 (priv->locale, "ALL") == 0)
+		priv->all_locale = TRUE;
+}
+
+/**
+ * as_context_get_all_locale_enabled:
+ * @ctx: a #AsContext instance.
+ *
+ * Returns: %TRUE if all locale should be parsed.
+ **/
+gboolean
+as_context_get_all_locale_enabled (AsContext *ctx)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	return priv->all_locale;
+}
+
+/**
+ * as_context_has_media_baseurl:
+ * @ctx: a #AsContext instance.
+ *
+ * Returns: %TRUE if a media base URL is set.
+ **/
+gboolean
+as_context_has_media_baseurl (AsContext *ctx)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	return priv->media_baseurl != NULL;
 }
 
 /**

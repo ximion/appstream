@@ -51,6 +51,10 @@ AsFormatVersion		as_context_get_format_version (AsContext *ctx);
 void			as_context_set_format_version (AsContext *ctx,
 						       AsFormatVersion ver);
 
+AsFormatStyle		as_context_get_style (AsContext *ctx);
+void			as_context_set_style (AsContext *ctx,
+						AsFormatStyle style);
+
 gint			as_context_get_priority (AsContext *ctx);
 void			as_context_set_priority (AsContext *ctx,
 						 gint priority);
@@ -63,6 +67,7 @@ const gchar		*as_context_get_locale (AsContext *ctx);
 void			as_context_set_locale (AsContext *ctx,
 					       const gchar *value);
 
+gboolean		as_context_has_media_baseurl (AsContext *ctx);
 const gchar		*as_context_get_media_baseurl (AsContext *ctx);
 void			as_context_set_media_baseurl (AsContext *ctx,
 						      const gchar *value);
@@ -70,6 +75,8 @@ void			as_context_set_media_baseurl (AsContext *ctx,
 const gchar		*as_context_get_architecture (AsContext *ctx);
 void			as_context_set_architecture (AsContext *ctx,
 						     const gchar *value);
+
+gboolean		as_context_get_all_locale_enabled (AsContext *ctx);
 
 G_END_DECLS
 

@@ -120,6 +120,7 @@ AsFormatVersion		 as_format_version_from_string (const gchar *version_str);
  * @AS_METADATA_ERROR_PARSE:			Unable to parse the metadata file.
  * @AS_METADATA_ERROR_FORMAT_UNEXPECTED:	Expected collection metadata but got metainfo metadata, or vice versa.
  * @AS_METADATA_ERROR_NO_COMPONENT:		We expected a component in the pool, but couldn't find one.
+ * @AS_METADATA_ERROR_VALUE_MISSING:		A essential value is missing in the source document.
  *
  * A metadata processing error.
  **/
@@ -128,6 +129,7 @@ typedef enum {
 	AS_METADATA_ERROR_PARSE,
 	AS_METADATA_ERROR_FORMAT_UNEXPECTED,
 	AS_METADATA_ERROR_NO_COMPONENT,
+	AS_METADATA_ERROR_VALUE_MISSING,
 	/*< private >*/
 	AS_METADATA_ERROR_LAST
 } AsMetadataError;

@@ -38,6 +38,8 @@ set(APPSTREAM_LIB_SRC
 		as-utils.c
 		# internal
 		as-context.c
+		as-xml.c
+		as-yaml.c
 		as-xmldata.c
 		as-yamldata.c
 		as-desktop-entry.c
@@ -95,11 +97,14 @@ set(APPSTREAM_LIB_PUBLIC_HEADERS
 set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-utils-private.h
 		as-context.h
+		as-xml.h
+		as-yaml.h
 		as-xmldata.h
 		as-yamldata.h
 		as-desktop-entry.h
 		as-cache-file.h
 		as-pool-private.h
+		as-image-private.h
 		as-component-private.h
 		as-screenshot-private.h
 		as-release-private.h
