@@ -39,6 +39,7 @@ typedef struct
 	gchar 			*origin;
 	gchar 			*media_baseurl;
 	gchar 			*arch;
+	gchar			*fname;
 	gint 			priority;
 
 	gboolean		all_locale;
@@ -58,6 +59,7 @@ as_context_finalize (GObject *object)
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
+	g_free (priv->fname);
 
 	G_OBJECT_CLASS (as_context_parent_class)->finalize (object);
 }
@@ -69,6 +71,7 @@ as_context_init (AsContext *ctx)
 
 	priv->format_version = AS_CURRENT_FORMAT_VERSION;
 	priv->style = AS_FORMAT_STYLE_UNKNOWN;
+	priv->fname = g_strdup (":memory:");
 }
 
 static void
@@ -299,6 +302,34 @@ as_context_set_architecture (AsContext *ctx, const gchar *value)
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	g_free (priv->arch);
 	priv->arch = g_strdup (value);
+}
+
+/**
+ * as_context_get_fname:
+ * @ctx: a #AsContext instance.
+ *
+ * Returns: The name of the file the data originates from.
+ **/
+const gchar*
+as_context_get_fname (AsContext *ctx)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	return priv->fname;
+}
+
+/**
+ * as_context_set_fname:
+ * @ctx: a #AsContext instance.
+ * @fname: the new file name.
+ *
+ * Sets the file name we are loading data from.
+ **/
+void
+as_context_set_fname (AsContext *ctx, const gchar *fname)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	g_free (priv->fname);
+	priv->fname = g_strdup (fname);
 }
 
 /**

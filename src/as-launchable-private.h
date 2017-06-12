@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,28 +18,26 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_RELEASE_PRIVATE_H
-#define __AS_RELEASE_PRIVATE_H
+#ifndef __AS_LAUNCHABLE_PRIVATE_H
+#define __AS_LAUNCHABLE_PRIVATE_H
 
-#include "as-release.h"
+#include "as-launchable.h"
 #include "as-xml.h"
 #include "as-yaml.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-GHashTable	*as_release_get_description_table (AsRelease *release);
+gboolean	as_launchable_load_from_xml (AsLaunchable *launchable,
+						AsContext *ctx,
+						xmlNode *node,
+						GError **error);
 
-gboolean	as_release_load_from_xml (AsRelease *release,
-					   AsContext *ctx,
-					   xmlNode *node,
-					   GError **error);
-
-void		as_release_to_xml_node (AsRelease *release,
-					 AsContext *ctx,
-					 xmlNode *root);
+void		as_launchable_to_xml_node (AsLaunchable *launchable,
+					AsContext *ctx,
+					xmlNode *root);
 
 #pragma GCC visibility pop
 G_END_DECLS
 
-#endif /* __AS_RELEASE_PRIVATE_H */
+#endif /* __AS_LAUNCHABLE_PRIVATE_H */

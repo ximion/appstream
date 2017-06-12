@@ -34,8 +34,21 @@ G_BEGIN_DECLS
 gchar		*as_xml_get_node_value (xmlNode *node);
 gchar		*as_xmldata_get_node_locale (AsContext *ctx,
 					     xmlNode *node);
+void		as_xml_add_children_values_to_array (xmlNode *node,
+						     const gchar *element_name,
+						     GPtrArray *array);
+GPtrArray	*as_xml_get_children_as_string_list (xmlNode *node,
+					       const gchar *element_name);
+void		as_xml_parse_metainfo_description_node (AsContext *ctx,
+							xmlNode *node,
+							GHFunc func,
+							gpointer entity);
 
 gchar		*as_xml_dump_node_children (xmlNode *node);
+
+void		as_xml_add_description_node (AsContext *ctx,
+					     xmlNode *root,
+					     GHashTable *desc_table);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -26,7 +26,7 @@
 
 #include "config.h"
 
-#include "as-icon.h"
+#include "as-icon-private.h"
 
 typedef struct
 {
@@ -342,6 +342,131 @@ as_icon_set_scale (AsIcon *icon, guint scale)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
 	priv->scale = scale;
+}
+
+/**
+ * as_xml_icon_set_size_from_node:
+ */
+static void
+as_xml_icon_set_size_from_node (xmlNode *node, AsIcon *icon)
+{
+	gchar *val;
+
+	val = (gchar*) xmlGetProp (node, (xmlChar*) "width");
+	if (val != NULL) {
+		as_icon_set_width (icon, g_ascii_strtoll (val, NULL, 10));
+		g_free (val);
+	}
+	val = (gchar*) xmlGetProp (node, (xmlChar*) "height");
+	if (val != NULL) {
+		as_icon_set_height (icon, g_ascii_strtoll (val, NULL, 10));
+		g_free (val);
+	}
+	val = (gchar*) xmlGetProp (node, (xmlChar*) "scale");
+	if (val != NULL) {
+		as_icon_set_scale (icon, g_ascii_strtoll (val, NULL, 10));
+		g_free (val);
+	}
+}
+
+/**
+ * as_icon_load_from_xml:
+ * @icon: an #AsIcon
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_icon_load_from_xml (AsIcon *icon, AsContext *ctx, xmlNode *node, GError **error)
+{
+	AsIconPrivate *priv = GET_PRIVATE (icon);
+	g_autofree gchar *type_str = NULL;
+	g_autofree gchar *content = NULL;
+
+	content = as_xml_get_node_value (node);
+	if (content == NULL)
+		return FALSE;
+
+	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	icon = as_icon_new ();
+
+	if (g_strcmp0 (type_str, "stock") == 0) {
+		priv->kind = AS_ICON_KIND_STOCK;
+		as_icon_set_name (icon, content);
+	} else if (g_strcmp0 (type_str, "cached") == 0) {
+		priv->kind = AS_ICON_KIND_CACHED;
+		as_icon_set_filename (icon, content);
+		as_xml_icon_set_size_from_node (node, icon);
+	} else if (g_strcmp0 (type_str, "local") == 0) {
+		priv->kind = AS_ICON_KIND_LOCAL;
+		as_icon_set_filename (icon, content);
+		as_xml_icon_set_size_from_node (node, icon);
+	} else if (g_strcmp0 (type_str, "remote") == 0) {
+		priv->kind = AS_ICON_KIND_REMOTE;
+		if (!as_context_has_media_baseurl (ctx)) {
+			/* no baseurl, we can just set the value as URL */
+			as_icon_set_url (icon, content);
+		} else {
+			/* handle the media baseurl */
+			g_free (priv->url);
+			priv->url = g_build_filename (as_context_get_media_baseurl (ctx), content, NULL);
+		}
+		as_xml_icon_set_size_from_node (node, icon);
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_icon_to_xml_node:
+ * @icon: an #AsIcon
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root)
+{
+	AsIconPrivate *priv = GET_PRIVATE (icon);
+	xmlNode *n;
+	const gchar *value;
+
+	if (priv->kind == AS_ICON_KIND_LOCAL)
+		value = as_icon_get_filename (icon);
+	else if (priv->kind == AS_ICON_KIND_REMOTE)
+		value = as_icon_get_url (icon);
+	else
+		value = as_icon_get_name (icon);
+
+	if (value == NULL)
+		return;
+
+	n = xmlNewTextChild (root, NULL, (xmlChar*) "icon", (xmlChar*) value);
+	xmlNewProp (n, (xmlChar*) "type",
+			(xmlChar*) as_icon_kind_to_string (priv->kind));
+
+	if (priv->kind != AS_ICON_KIND_STOCK) {
+		if (priv->width > 0) {
+			g_autofree gchar *size = NULL;
+			size = g_strdup_printf ("%i", as_icon_get_width (icon));
+			xmlNewProp (n, (xmlChar*) "width", (xmlChar*) size);
+		}
+
+		if (priv->height > 0) {
+			g_autofree gchar *size = NULL;
+			size = g_strdup_printf ("%i", as_icon_get_height (icon));
+			xmlNewProp (n, (xmlChar*) "height", (xmlChar*) size);
+		}
+
+		if (priv->scale > 1) {
+			g_autofree gchar *scale = NULL;
+			scale = g_strdup_printf ("%i", as_icon_get_scale (icon));
+			xmlNewProp (n, (xmlChar*) "scale", (xmlChar*) scale);
+		}
+	}
 }
 
 /**

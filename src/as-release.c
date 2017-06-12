@@ -34,10 +34,11 @@
  * See also: #AsComponent
  */
 
-#include "as-release.h"
 #include "as-release-private.h"
 
 #include "as-utils.h"
+#include "as-utils-private.h"
+#include "as-checksum-private.h"
 
 typedef struct
 {
@@ -464,6 +465,193 @@ as_release_add_checksum (AsRelease *release, AsChecksum *cs)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_ptr_array_add (priv->checksums, g_object_ref (cs));
+}
+
+/**
+ * as_release_parse_xml_metainfo_description_cb:
+ *
+ * Helper function for GHashTable
+ */
+static void
+as_release_parse_xml_metainfo_description_cb (gchar *key, GString *value, AsRelease *rel)
+{
+	g_assert (AS_IS_RELEASE (rel));
+
+	as_release_set_description (rel, value->str, key);
+	g_string_free (value, TRUE);
+}
+
+/**
+ * as_release_load_from_xml:
+ * @release: an #AsRelease
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GError **error)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	xmlNode *iter;
+	gchar *prop;
+
+	/* propagate locale */
+	as_release_set_active_locale (release, as_context_get_locale (ctx));
+
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "version");
+	as_release_set_version (release, prop);
+	g_free (prop);
+
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "date");
+	if (prop != NULL) {
+		g_autoptr(GDateTime) time;
+		time = as_iso8601_to_datetime (prop);
+		if (time != NULL) {
+			priv->timestamp = g_date_time_to_unix (time);
+		} else {
+			g_debug ("Invalid ISO-8601 date in releases at %s line %li", as_context_get_fname (ctx), xmlGetLineNo (node));
+		}
+		g_free (prop);
+	}
+
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "timestamp");
+	if (prop != NULL) {
+		priv->timestamp = atol (prop);
+		g_free (prop);
+	}
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "urgency");
+	if (prop != NULL) {
+		priv->urgency = as_urgency_kind_from_string (prop);
+		g_free (prop);
+	}
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *content = NULL;
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "location") == 0) {
+			content = as_xml_get_node_value (iter);
+			as_release_add_location (release, content);
+		} else if (g_strcmp0 ((gchar*) iter->name, "checksum") == 0) {
+			g_autoptr(AsChecksum) cs = NULL;
+
+			cs = as_checksum_new ();
+			if (as_checksum_load_from_xml (cs, ctx, iter, NULL))
+				as_release_add_checksum (release, cs);
+		} else if (g_strcmp0 ((gchar*) iter->name, "size") == 0) {
+			AsSizeKind s_kind;
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+
+			s_kind = as_size_kind_from_string (prop);
+			if (s_kind != AS_SIZE_KIND_UNKNOWN) {
+				guint64 size;
+
+				content = as_xml_get_node_value (iter);
+				size = g_ascii_strtoull (content, NULL, 10);
+				if (size > 0)
+					as_release_set_size (release, size, s_kind);
+			}
+			g_free (prop);
+		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
+			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+				g_autofree gchar *lang;
+
+				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
+				content = as_xml_dump_node_children (iter);
+				lang = as_xmldata_get_node_locale (ctx, iter);
+				if (lang != NULL)
+					as_release_set_description (release, content, lang);
+			} else {
+				as_xml_parse_metainfo_description_node (ctx,
+									iter,
+									(GHFunc) as_release_parse_xml_metainfo_description_cb,
+									release);
+			}
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_release_to_xml_node:
+ * @release: an #AsRelease
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	xmlNode *subnode;
+	guint j;
+
+	/* set release version */
+	subnode = xmlNewChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
+	xmlNewProp (subnode, (xmlChar*) "version", (xmlChar*) priv->version);
+
+	/* set release timestamp / date */
+	if (priv->timestamp > 0) {
+		g_autofree gchar *time_str = NULL;
+
+		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+			time_str = g_strdup_printf ("%" G_GUINT64_FORMAT, priv->timestamp);
+			xmlNewProp (subnode, (xmlChar*) "timestamp",
+					(xmlChar*) time_str);
+		} else {
+			GTimeVal time;
+			time.tv_sec = priv->timestamp;
+			time.tv_usec = 0;
+			time_str = g_time_val_to_iso8601 (&time);
+			xmlNewProp (subnode, (xmlChar*) "date",
+					(xmlChar*) time_str);
+		}
+	}
+
+	/* set release urgency, if we have one */
+	if (priv->urgency != AS_URGENCY_KIND_UNKNOWN) {
+		const gchar *urgency_str;
+		urgency_str = as_urgency_kind_to_string (priv->urgency);
+		xmlNewProp (subnode, (xmlChar*) "urgency",
+				(xmlChar*) urgency_str);
+	}
+
+	/* add location urls */
+	for (j = 0; j < priv->locations->len; j++) {
+		const gchar *lurl = (const gchar*) g_ptr_array_index (priv->locations, j);
+		xmlNewTextChild (subnode, NULL, (xmlChar*) "location", (xmlChar*) lurl);
+	}
+
+	/* add checksum node */
+	for (j = 0; j < priv->checksums->len; j++) {
+		AsChecksum *cs = AS_CHECKSUM (g_ptr_array_index (priv->checksums, j));
+		as_checksum_to_xml_node (cs, ctx, subnode);
+	}
+
+	/* add size node */
+	for (j = 0; j < AS_SIZE_KIND_LAST; j++) {
+		if (as_release_get_size (release, j) > 0) {
+			xmlNode *s_node;
+			g_autofree gchar *size_str;
+
+			size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, as_release_get_size (release, j));
+			s_node = xmlNewTextChild (subnode,
+							NULL,
+							(xmlChar*) "size",
+							(xmlChar*) size_str);
+			xmlNewProp (s_node,
+					(xmlChar*) "type",
+					(xmlChar*) as_size_kind_to_string (j));
+		}
+	}
+
+	/* add description */
+	as_xml_add_description_node (ctx, subnode, priv->description);
 }
 
 /**

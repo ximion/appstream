@@ -18,7 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "as-launchable.h"
+#include "as-launchable-private.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
@@ -182,6 +182,61 @@ as_launchable_add_entry (AsLaunchable *launch, const gchar *entry)
 {
 	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 	g_ptr_array_add (priv->entries, g_strdup (entry));
+}
+
+/**
+ * as_launchable_load_from_xml:
+ * @launchable: an #AsLaunchable
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_launchable_load_from_xml (AsLaunchable *launchable, AsContext *ctx, xmlNode *node, GError **error)
+{
+	AsLaunchablePrivate *priv = GET_PRIVATE (launchable);
+	g_autofree gchar *value = NULL;
+
+	priv->kind = as_launchable_kind_from_string ((gchar*) xmlGetProp (node, (xmlChar*) "type"));
+	if (priv->kind == AS_LAUNCHABLE_KIND_UNKNOWN)
+		return FALSE;
+
+	value = as_xml_get_node_value (node);
+	if (value == NULL)
+		return FALSE;
+	as_launchable_add_entry (launchable, value);
+
+	return TRUE;
+}
+
+/**
+ * as_launchable_to_xml_node:
+ * @launchable: an #AsLaunchable
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_launchable_to_xml_node (AsLaunchable *launchable, AsContext *ctx, xmlNode *root)
+{
+	AsLaunchablePrivate *priv = GET_PRIVATE (launchable);
+	guint i;
+
+	for (i = 0; i < priv->entries->len; i++) {
+		xmlNode *n;
+		const gchar *entry = g_ptr_array_index (priv->entries, i);
+		if (entry == NULL)
+			continue;
+
+		n = xmlNewTextChild (root, NULL,
+				     (xmlChar*) "launchable",
+				     (xmlChar*) entry);
+		xmlNewProp (n, (xmlChar*) "type",
+			    (xmlChar*) as_launchable_kind_to_string (priv->kind));
+	}
 }
 
 /**

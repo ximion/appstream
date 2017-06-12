@@ -78,6 +78,10 @@ void			as_context_set_architecture (AsContext *ctx,
 
 gboolean		as_context_get_all_locale_enabled (AsContext *ctx);
 
+const gchar		*as_context_get_fname (AsContext *ctx);
+void			as_context_set_fname (AsContext *ctx,
+					       const gchar *fname);
+
 G_END_DECLS
 
 #endif /* __AS_CONTEXT_H */

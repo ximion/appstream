@@ -113,6 +113,8 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-content-rating-private.h
 		as-bundle-private.h
 		as-checksum-private.h
+		as-icon-private.h
+		as-launchable-private.h
 )
 
 include_directories(${CMAKE_BINARY_DIR}

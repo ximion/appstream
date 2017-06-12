@@ -216,10 +216,10 @@ out:
 }
 
 /**
- * as_xml_add_children_values_to_array:
+ * as_xml_add_children_values_to_array_old:
  */
 static void
-as_xml_add_children_values_to_array (xmlNode *node, const gchar *element_name, GPtrArray *array)
+as_xml_add_children_values_to_array_old (xmlNode *node, const gchar *element_name, GPtrArray *array)
 {
 	xmlNode *iter;
 
@@ -247,7 +247,7 @@ as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name)
 	gchar **res;
 
 	list = g_ptr_array_new_with_free_func (g_free);
-	as_xml_add_children_values_to_array (node,
+	as_xml_add_children_values_to_array_old (node,
 					     element_name,
 					     list);
 
@@ -1048,7 +1048,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 				g_free (urltype_str);
 			}
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
-			as_xml_add_children_values_to_array (iter,
+			as_xml_add_children_values_to_array_old (iter,
 							     "category",
 							     as_component_get_categories (cpt));
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {

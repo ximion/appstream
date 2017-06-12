@@ -371,13 +371,15 @@ gboolean
 as_content_rating_load_from_xml (AsContentRating *content_rating, AsContext *ctx, xmlNode *node, GError **error)
 {
 	xmlNode *iter;
+	g_autofree gchar *type_str = NULL;
 
 	/* set selected content-rating type (usually oars-1.0) */
-	as_content_rating_set_kind (content_rating, (gchar*) xmlGetProp (node, (xmlChar*) "type"));
+	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	as_content_rating_set_kind (content_rating, (gchar*) type_str);
 
 	/* read attributes */
 	for (iter = node->children; iter != NULL; iter = iter->next) {
-		gchar *attr_id;
+		g_autofree gchar *attr_id = NULL;
 		AsContentRatingValue attr_value;
 		g_autofree gchar *str_value = NULL;
 

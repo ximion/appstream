@@ -178,7 +178,7 @@ gboolean
 as_checksum_load_from_xml (AsChecksum *cs, AsContext *ctx, xmlNode *node, GError **error)
 {
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
-	gchar *prop;
+	g_autofree gchar *prop = NULL;
 	g_autofree gchar *content = NULL;
 
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");

@@ -19,7 +19,10 @@
  */
 
 #include "as-xml.h"
+
+#include <string.h>
 #include "as-utils.h"
+#include "as-utils-private.h"
 
 /**
  * SECTION:as-xml
@@ -105,4 +108,250 @@ as_xml_dump_node_children (xmlNode *node)
 	}
 
 	return g_string_free (str, FALSE);
+}
+
+/**
+ * as_xml_add_children_values_to_array:
+ */
+void
+as_xml_add_children_values_to_array (xmlNode *node, const gchar *element_name, GPtrArray *array)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE) {
+			continue;
+		}
+		if (g_strcmp0 ((const gchar*) iter->name, element_name) == 0) {
+			gchar *content = as_xml_get_node_value (iter);
+			/* transfer ownership of content to array */
+			if (content != NULL)
+				g_ptr_array_add (array, content);
+		}
+	}
+}
+
+/**
+ * as_xml_get_children_as_string_list:
+ */
+GPtrArray*
+as_xml_get_children_as_string_list (xmlNode *node, const gchar *element_name)
+{
+	GPtrArray *list;
+
+	list = g_ptr_array_new_with_free_func (g_free);
+	as_xml_add_children_values_to_array (node,
+					     element_name,
+					     list);
+	return list;
+}
+
+/**
+ * as_xml_parse_metainfo_description_node:
+ */
+void
+as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc func, gpointer entity)
+{
+	xmlNode *iter;
+	gchar *node_name;
+	GHashTable *desc;
+
+	desc = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		GString *str;
+
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		node_name = (gchar*) iter->name;
+		if (g_strcmp0 (node_name, "p") == 0) {
+			g_autofree gchar *lang = NULL;
+			g_autofree gchar *content = NULL;
+			g_autofree gchar *tmp = NULL;
+
+			lang = as_xmldata_get_node_locale (ctx, iter);
+			if (lang == NULL)
+				/* this locale is not for us */
+				continue;
+
+			str = g_hash_table_lookup (desc, lang);
+			if (str == NULL) {
+				str = g_string_new ("");
+				g_hash_table_insert (desc, g_strdup (lang), str);
+			}
+
+			tmp = as_xml_get_node_value (iter);
+			content = g_markup_escape_text (tmp, -1);
+			g_string_append_printf (str, "<%s>%s</%s>\n", node_name, content, node_name);
+
+		} else if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
+			GList *l;
+			g_autoptr(GList) vlist = NULL;
+			xmlNode *iter2;
+
+			/* append listing node tag to every locale string */
+			vlist = g_hash_table_get_values (desc);
+			for (l = vlist; l != NULL; l = l->next) {
+				g_string_append_printf (l->data, "<%s>\n", node_name);
+			}
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				g_autofree gchar *lang = NULL;
+				g_autofree gchar *content = NULL;
+				g_autofree gchar *tmp = NULL;
+
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) iter2->name, "li") != 0)
+					continue;
+
+				lang = as_xmldata_get_node_locale (ctx, iter2);
+				if (lang == NULL)
+					continue;
+
+				/* if the language is new, we start it with an enum */
+				str = g_hash_table_lookup (desc, lang);
+				if (str == NULL) {
+					str = g_string_new ("");
+					g_string_append_printf (str, "<%s>\n", node_name);
+					g_hash_table_insert (desc, g_strdup (lang), str);
+				}
+
+				tmp = as_xml_get_node_value (iter2);
+				content = g_markup_escape_text (tmp, -1);
+				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
+			}
+
+			/* we might have updated the list by adding new locales, so fetch it again */
+			g_list_free (vlist);
+			vlist = g_hash_table_get_values (desc);
+
+			/* close listing tags */
+			for (l = vlist; l != NULL; l = l->next) {
+				g_string_append_printf (l->data, "</%s>\n", node_name);
+			}
+		}
+	}
+
+	g_hash_table_foreach (desc, func, entity);
+	g_hash_table_unref (desc);
+}
+
+/**
+ * as_xml_add_description_node_helper:
+ *
+ * Add the description markup to the XML tree
+ */
+static gboolean
+as_xml_add_description_node_helper (AsContext *ctx, xmlNode *root, xmlNode **desc_node, const gchar *description_markup, const gchar *lang)
+{
+	g_autofree gchar *xmldata = NULL;
+	xmlDoc *doc;
+	xmlNode *droot;
+	xmlNode *dnode;
+	xmlNode *iter;
+	gboolean ret = TRUE;
+	gboolean localized;
+
+	if (as_str_empty (description_markup))
+		return FALSE;
+
+	/* skip cruft */
+	if (as_is_cruft_locale (lang))
+		return FALSE;
+
+	xmldata = g_strdup_printf ("<root>%s</root>", description_markup);
+	doc = xmlReadMemory (xmldata, strlen (xmldata),
+			     NULL,
+			     "utf-8",
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+	if (doc == NULL) {
+		ret = FALSE;
+		goto out;
+	}
+
+	droot = xmlDocGetRootElement (doc);
+	if (droot == NULL) {
+		ret = FALSE;
+		goto out;
+	}
+
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
+		if (*desc_node == NULL)
+			*desc_node = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+		dnode = *desc_node;
+	} else {
+		/* in collection-data parser mode, we might have multiple <description/> tags */
+		dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+	}
+
+	localized = g_strcmp0 (lang, "C") != 0;
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
+		if (localized) {
+			xmlNewProp (dnode,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) lang);
+		}
+	}
+
+	for (iter = droot->children; iter != NULL; iter = iter->next) {
+		xmlNode *cn;
+
+		if (g_strcmp0 ((const gchar*) iter->name, "p") == 0) {
+			cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
+
+			if ((as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) && (localized)) {
+				xmlNewProp (cn,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) lang);
+			}
+		} else if ((g_strcmp0 ((const gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((const gchar*) iter->name, "ol") == 0)) {
+			xmlNode *iter2;
+			xmlNode *enumNode;
+
+			enumNode = xmlNewChild (dnode, NULL, iter->name, NULL);
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (g_strcmp0 ((const gchar*) iter2->name, "li") != 0)
+					continue;
+
+				cn = xmlAddChild (enumNode, xmlCopyNode (iter2, TRUE));
+
+				if ((as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) && (localized)) {
+					xmlNewProp (cn,
+						(xmlChar*) "xml:lang",
+						(xmlChar*) lang);
+				}
+			}
+
+			continue;
+		}
+	}
+
+out:
+	if (doc != NULL)
+		xmlFreeDoc (doc);
+	return ret;
+}
+
+/**
+ * as_xml_add_description_node:
+ *
+ * Add a description node to the XML document tree.
+ */
+void
+as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_table)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+	xmlNode *desc_node = NULL;
+
+	g_hash_table_iter_init (&iter, desc_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		const gchar *locale = (const gchar*) key;
+		const gchar *desc_markup = (const gchar*) value;
+
+		as_xml_add_description_node_helper (ctx, root, &desc_node, desc_markup, locale);
+	}
 }
