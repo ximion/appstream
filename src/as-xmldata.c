@@ -38,6 +38,7 @@
 #include <libxml/xmlsave.h>
 #include <string.h>
 
+#include "as-xml.h"
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-metadata.h"
@@ -176,56 +177,14 @@ as_xmldata_initialize (AsXMLData *xdt,
 }
 
 /**
- * as_xml_get_node_value:
- */
-static gchar*
-as_xml_get_node_value (xmlNode *node)
-{
-	gchar *content;
-	content = (gchar*) xmlNodeGetContent (node);
-	if (content != NULL)
-		g_strstrip (content);
-
-	return content;
-}
-
-/**
- * as_xml_dump_node_children:
- */
-static gchar*
-as_xml_dump_node_children (xmlNode *node)
-{
-	GString *str = NULL;
-	xmlNode *iter;
-	xmlBufferPtr nodeBuf;
-
-	str = g_string_new ("");
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE) {
-					continue;
-		}
-
-		nodeBuf = xmlBufferCreate();
-		xmlNodeDump (nodeBuf, NULL, iter, 0, 1);
-		if (str->len > 0)
-			g_string_append (str, "\n");
-		g_string_append_printf (str, "%s", (const gchar*) nodeBuf->content);
-		xmlBufferFree (nodeBuf);
-	}
-
-	return g_string_free (str, FALSE);
-}
-
-/**
- * as_xmldata_get_node_locale:
+ * as_xmldata_get_node_locale_old:
  * @node: A XML node
  *
  * Returns: The locale of a node, if the node should be considered for inclusion.
  * %NULL if the node should be ignored due to a not-matching locale.
  */
 static gchar*
-as_xmldata_get_node_locale (AsXMLData *xdt, xmlNode *node)
+as_xmldata_get_node_locale_old (AsXMLData *xdt, xmlNode *node)
 {
 	gchar *lang;
 	AsXMLDataPrivate *priv = GET_PRIVATE (xdt);
@@ -320,7 +279,7 @@ as_xmldata_process_image (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, AsScr
 		return;
 
 	img = as_image_new ();
-	lang = as_xmldata_get_node_locale (xdt, node);
+	lang = as_xmldata_get_node_locale_old (xdt, node);
 
 	/* check if this image is for us */
 	if (lang == NULL)
@@ -408,7 +367,7 @@ as_xmldata_process_screenshot (AsXMLData *xdt, AsComponent *cpt, xmlNode *node, 
 			if (content == NULL)
 				continue;
 
-			lang = as_xmldata_get_node_locale (xdt, iter);
+			lang = as_xmldata_get_node_locale_old (xdt, iter);
 			if (lang != NULL)
 				as_screenshot_set_caption (scr, content, lang);
 		}
@@ -511,7 +470,7 @@ as_xmldata_process_metainfo_description_tag (AsXMLData *xdt, xmlNode *node, GHFu
 			g_autofree gchar *content = NULL;
 			g_autofree gchar *tmp = NULL;
 
-			lang = as_xmldata_get_node_locale (xdt, iter);
+			lang = as_xmldata_get_node_locale_old (xdt, iter);
 			if (lang == NULL)
 				/* this locale is not for us */
 				continue;
@@ -547,7 +506,7 @@ as_xmldata_process_metainfo_description_tag (AsXMLData *xdt, xmlNode *node, GHFu
 				if (g_strcmp0 ((const gchar*) iter2->name, "li") != 0)
 					continue;
 
-				lang = as_xmldata_get_node_locale (xdt, iter2);
+				lang = as_xmldata_get_node_locale_old (xdt, iter2);
 				if (lang == NULL)
 					continue;
 
@@ -677,7 +636,7 @@ as_xmldata_process_releases_tag (AsXMLData *xdt, xmlNode *node, AsComponent *cpt
 
 						/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 						content = as_xml_dump_node_children (iter2);
-						lang = as_xmldata_get_node_locale (xdt, iter2);
+						lang = as_xmldata_get_node_locale_old (xdt, iter2);
 						if (lang != NULL)
 							as_release_set_description (release, content, lang);
 					} else {
@@ -1005,7 +964,7 @@ as_xmldata_parse_component_node (AsXMLData *xdt, xmlNode* node, AsComponent *cpt
 
 		node_name = (const gchar*) iter->name;
 		content = as_xml_get_node_value (iter);
-		lang = as_xmldata_get_node_locale (xdt, iter);
+		lang = as_xmldata_get_node_locale_old (xdt, iter);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
 				as_component_set_id (cpt, content);

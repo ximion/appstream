@@ -28,10 +28,14 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-void		as_image_load_from_xml (AsImage *image,
+gboolean	as_image_load_from_xml (AsImage *image,
 					AsContext *ctx,
 					xmlNode *node,
 					GError **error);
+
+void		as_image_to_xml_node (AsImage *image,
+				       AsContext *ctx,
+				       xmlNode *root);
 
 #pragma GCC visibility pop
 G_END_DECLS

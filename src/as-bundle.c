@@ -31,7 +31,7 @@
  */
 
 #include "config.h"
-#include "as-bundle.h"
+#include "as-bundle-private.h"
 
 typedef struct
 {
@@ -180,6 +180,61 @@ as_bundle_set_kind (AsBundle *bundle, AsBundleKind kind)
 {
 	AsBundlePrivate *priv = GET_PRIVATE (bundle);
 	priv->kind = kind;
+}
+
+/**
+ * as_bundle_load_from_xml:
+ * @bundle: a #AsBundle instance.
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_bundle_load_from_xml (AsBundle *bundle, AsContext *ctx, xmlNode *node, GError **error)
+{
+	AsBundlePrivate *priv = GET_PRIVATE (bundle);
+	g_autofree gchar *content = NULL;
+	g_autofree gchar *type_str = NULL;
+
+	content = as_xml_get_node_value (node);
+	if (content == NULL)
+		return FALSE;
+
+	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	priv->kind = as_bundle_kind_from_string (type_str);
+	if (priv->kind == AS_BUNDLE_KIND_UNKNOWN)
+		priv->kind = AS_BUNDLE_KIND_LIMBA;
+
+	as_bundle_set_id (bundle, content);
+
+	return TRUE;
+}
+
+/**
+ * as_bundle_to_xml_node:
+ * @bundle: a #AsBundle instance.
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_bundle_to_xml_node (AsBundle *bundle, AsContext *ctx, xmlNode *root)
+{
+	AsBundlePrivate *priv = GET_PRIVATE (bundle);
+	xmlNode *n;
+
+	if (priv->id == NULL)
+		return;
+
+	n = xmlNewTextChild (root, NULL,
+			     (xmlChar*) "bundle",
+			     (xmlChar*) priv->id);
+	xmlNewProp (n,
+		    (xmlChar*) "type",
+		    (xmlChar*) as_bundle_kind_to_string (priv->kind));
 }
 
 /**

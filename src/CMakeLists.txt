@@ -111,6 +111,8 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-distro-extras.h
 		as-stemmer.h
 		as-content-rating-private.h
+		as-bundle-private.h
+		as-checksum-private.h
 )
 
 include_directories(${CMAKE_BINARY_DIR}

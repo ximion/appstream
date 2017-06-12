@@ -275,7 +275,7 @@ as_image_set_locale (AsImage *image, const gchar *locale)
  *
  * Loads image data from an XML node.
  **/
-void
+gboolean
 as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **error)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
@@ -286,13 +286,13 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 
 	content = as_xml_get_node_value (node);
 	if (content == NULL)
-		return;
+		return FALSE;
 
 	lang = as_xmldata_get_node_locale (ctx, node);
 
 	/* check if this image is for us */
 	if (lang == NULL)
-		return;
+		return FALSE;
 	as_image_set_locale (image, lang);
 
 	str = (gchar*) xmlGetProp (node, (xmlChar*) "width");
@@ -327,7 +327,7 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 						     AS_METADATA_ERROR,
 						     AS_METADATA_ERROR_VALUE_MISSING,
 						     "Ignored screenshot thumbnail image without size information.");
-				return;
+				return FALSE;
 			}
 		}
 	}
@@ -340,6 +340,50 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 		g_free (priv->url);
 		priv->url = g_build_filename (as_context_get_media_baseurl (ctx), content, NULL);
 	}
+
+	return TRUE;
+}
+
+/**
+ * as_image_to_xml_node:
+ * @image: a #AsImage instance.
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
+{
+	AsImagePrivate *priv = GET_PRIVATE (image);
+	xmlNode* n_image = NULL;
+
+	n_image = xmlNewTextChild (root, NULL,
+				   (xmlChar*) "image",
+				   (xmlChar*) priv->url);
+
+	if (priv->kind == AS_IMAGE_KIND_THUMBNAIL)
+		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "thumbnail");
+	else
+		xmlNewProp (n_image, (xmlChar*) "type", (xmlChar*) "source");
+
+	if ((priv->width > 0) && (priv->height > 0)) {
+		gchar *size;
+
+		size = g_strdup_printf("%i", priv->width);
+		xmlNewProp (n_image, (xmlChar*) "width", (xmlChar*) size);
+		g_free (size);
+
+		size = g_strdup_printf("%i", priv->height);
+		xmlNewProp (n_image, (xmlChar*) "height", (xmlChar*) size);
+		g_free (size);
+	}
+
+	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0)) {
+		xmlNewProp (n_image, (xmlChar*) "xml:lang", (xmlChar*) priv->locale);
+	}
+
+	xmlAddChild (root, n_image);
 }
 
 /**

@@ -326,7 +326,7 @@ as_content_rating_get_minimum_age (AsContentRating *content_rating)
 
 /**
  * as_content_rating_get_kind:
- * @content_rating: a #AsContentRating instance.
+ * @content_rating: a #AsContentRating
  *
  * Gets the content_rating kind.
  *
@@ -343,7 +343,7 @@ as_content_rating_get_kind (AsContentRating *content_rating)
 
 /**
  * as_content_rating_set_kind:
- * @content_rating: a #AsContentRating instance.
+ * @content_rating: a #AsContentRating
  * @kind: the rating kind, e.g. "oars-1.0"
  *
  * Sets the content rating kind.
@@ -356,6 +356,83 @@ as_content_rating_set_kind (AsContentRating *content_rating, const gchar *kind)
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
 	g_free (priv->kind);
 	priv->kind = g_strdup (kind);
+}
+
+/**
+ * as_content_rating_load_from_xml:
+ * @content_rating: a #AsContentRating
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_content_rating_load_from_xml (AsContentRating *content_rating, AsContext *ctx, xmlNode *node, GError **error)
+{
+	xmlNode *iter;
+
+	/* set selected content-rating type (usually oars-1.0) */
+	as_content_rating_set_kind (content_rating, (gchar*) xmlGetProp (node, (xmlChar*) "type"));
+
+	/* read attributes */
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		gchar *attr_id;
+		AsContentRatingValue attr_value;
+		g_autofree gchar *str_value = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		if (g_strcmp0 ((gchar*) iter->name, "content_attribute") != 0)
+			continue;
+
+		attr_id = (gchar*) xmlGetProp (iter, (xmlChar*) "id");
+		str_value = as_xml_get_node_value (iter);
+		attr_value = as_content_rating_value_from_string (str_value);
+		if ((attr_value == AS_CONTENT_RATING_VALUE_UNKNOWN) || (attr_id == NULL))
+			continue; /* this rating attribute is invalid */
+
+		as_content_rating_set_value (content_rating, attr_id, attr_value);
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_content_rating_to_xml_node:
+ * @content_rating: a #AsContentRating
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, xmlNode *root)
+{
+	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+
+	GPtrArray *values;
+	guint i;
+	xmlNode *rnode;
+
+	rnode = xmlNewChild (root, NULL, (xmlChar*) "content_rating", NULL);
+	xmlNewProp (rnode,
+		    (xmlChar*) "type",
+		    (xmlChar*) priv->kind);
+
+	values = as_content_rating_get_value_array (content_rating);
+	for (i = 0; i < values->len; i++) {
+		xmlNode *anode;
+		AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (values, i);
+
+		anode = xmlNewTextChild (rnode,
+					 NULL,
+					 (xmlChar*) "content_attribute",
+					 (xmlChar*) as_content_rating_value_to_string (key->value));
+		xmlNewProp (anode,
+			    (xmlChar*) "id",
+			    (xmlChar*) key->id);
+	}
 }
 
 /**
