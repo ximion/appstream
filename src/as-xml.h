@@ -50,6 +50,10 @@ void		as_xml_add_description_node (AsContext *ctx,
 					     xmlNode *root,
 					     GHashTable *desc_table);
 
+void		as_xml_add_localized_text_node (xmlNode *root,
+						const gchar *node_name,
+						GHashTable *value_table);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -19,6 +19,7 @@
  */
 
 #include "as-translation.h"
+#include "as-translation-private.h"
 
 #include <config.h>
 #include <glib.h>
@@ -164,6 +165,56 @@ as_translation_set_id (AsTranslation *tr, const gchar *id)
 	AsTranslationPrivate *priv = GET_PRIVATE (tr);
 	g_free (priv->id);
 	priv->id = g_strdup (id);
+}
+
+/**
+ * as_translation_load_from_xml:
+ * @tr: a #AsTranslation instance.
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_translation_load_from_xml (AsTranslation *tr, AsContext *ctx, xmlNode *node, GError **error)
+{
+	AsTranslationPrivate *priv = GET_PRIVATE (tr);
+	g_autofree gchar *prop = NULL;
+	g_autofree gchar *content = NULL;
+
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	priv->kind = as_translation_kind_from_string (prop);
+	if (priv->kind == AS_TRANSLATION_KIND_UNKNOWN)
+		return FALSE;
+
+	content = as_xml_get_node_value (node);
+	as_translation_set_id (tr, content);
+
+	return TRUE;
+}
+
+/**
+ * as_translation_to_xml_node:
+ * @tr: a #AsTranslation instance.
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_translation_to_xml_node (AsTranslation *tr, AsContext *ctx, xmlNode *root)
+{
+	AsTranslationPrivate *priv = GET_PRIVATE (tr);
+	xmlNode *n;
+
+	/* the translations tag is only valid in metainfo files */
+	if (as_context_get_style (ctx) != AS_FORMAT_STYLE_METAINFO)
+		return;
+
+	n = xmlNewTextChild (root, NULL, (xmlChar*) "translation", (xmlChar*) priv->id);
+	xmlNewProp (n, (xmlChar*) "type",
+			(xmlChar*) as_translation_kind_to_string (priv->kind));
 }
 
 /**

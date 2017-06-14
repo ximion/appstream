@@ -355,3 +355,37 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 		as_xml_add_description_node_helper (ctx, root, &desc_node, desc_markup, locale);
 	}
 }
+
+
+/**
+ * as_xml_add_localized_text_node:
+ *
+ * Add set of localized XML nodes based on a localization table.
+ */
+void
+as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTable *value_table)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+
+	g_hash_table_iter_init (&iter, value_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		xmlNode *cnode;
+		const gchar *locale = (const gchar*) key;
+		const gchar *str = (const gchar*) value;
+
+		if (as_str_empty (str))
+			return;
+
+		/* skip cruft */
+		if (as_is_cruft_locale (locale))
+			return;
+
+		cnode = xmlNewTextChild (root, NULL, (xmlChar*) node_name, (xmlChar*) str);
+		if (g_strcmp0 (locale, "C") != 0) {
+			xmlNewProp (cnode,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) locale);
+		}
+	}
+}
