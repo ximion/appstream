@@ -40,10 +40,13 @@
 #include "as-utils-private.h"
 #include "as-component.h"
 #include "as-component-private.h"
-#include "as-xmldata.h"
 #include "as-yamldata.h"
 #include "as-distro-details.h"
 #include "as-desktop-entry.h"
+#include "as-context.h"
+
+#include "as-xml.h"
+#include "as-yaml.h"
 
 typedef struct
 {
@@ -58,7 +61,7 @@ typedef struct
 	gboolean update_existing;
 	gboolean write_header;
 
-	AsXMLData *xdt;
+	AsContext *context;
 	AsYAMLData *ydt;
 
 	GPtrArray *cpts;
@@ -201,8 +204,8 @@ as_metadata_finalize (GObject *object)
 	g_free (priv->origin);
 	g_free (priv->media_baseurl);
 	g_free (priv->arch);
-	if (priv->xdt != NULL)
-		g_object_unref (priv->xdt);
+	if (priv->context != NULL)
+		g_object_unref (priv->context);
 	if (priv->ydt != NULL)
 		g_object_unref (priv->ydt);
 
@@ -210,24 +213,23 @@ as_metadata_finalize (GObject *object)
 }
 
 /**
- * as_metadata_init_xml:
+ * as_metadata_init_context:
  **/
 static void
-as_metadata_init_xml (AsMetadata *metad)
+as_metadata_init_context (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	if (priv->xdt != NULL)
-		return;
+	if (priv->context != NULL)
+		g_object_unref (priv->context);
+	priv->context = as_context_new ();
 
-	priv->xdt = as_xmldata_new ();
-	as_xmldata_initialize (priv->xdt,
-				priv->format_version,
-				priv->locale,
-				priv->origin,
-				priv->media_baseurl,
-				priv->arch,
-				priv->default_priority);
+	as_context_set_format_version (priv->context, priv->format_version);
+	as_context_set_locale (priv->context, priv->locale);
+	as_context_set_origin (priv->context, priv->origin);
+	as_context_set_media_baseurl (priv->context, priv->media_baseurl);
+	as_context_set_architecture (priv->context, priv->arch);
+	as_context_set_priority (priv->context, priv->default_priority);
 }
 
 /**
@@ -259,14 +261,9 @@ as_metadata_reload_parsers (AsMetadata *metad)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
-	if (priv->xdt != NULL)
-		as_xmldata_initialize (priv->xdt,
-					priv->format_version,
-					priv->locale,
-					priv->origin,
-					priv->media_baseurl,
-					priv->arch,
-					priv->default_priority);
+	if (priv->context != NULL)
+		as_metadata_init_context (metad);
+
 	if (priv->ydt != NULL)
 		as_yamldata_initialize (priv->ydt,
 					priv->format_version,
@@ -289,6 +286,57 @@ as_metadata_clear_components (AsMetadata *metad)
 }
 
 /**
+ * as_metadata_xml_parse_components_node:
+ */
+static void
+as_metadata_xml_parse_components_node (AsMetadata *metad, xmlNode* node, GError **error)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	xmlNode* iter;
+	GError *tmp_error = NULL;
+	gchar *priority_str;
+
+	/* set origin of this metadata */
+	g_free (priv->origin);
+	priv->origin = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
+
+	/* set baseurl for the media files */
+	g_free (priv->media_baseurl);
+	priv->media_baseurl =  (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
+
+	/* set architecture for the components */
+	g_free (priv->arch);
+	priv->arch =  (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
+
+	/* collection metadata allows setting a priority for components */
+	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+	if (priority_str != NULL) {
+		priv->default_priority = g_ascii_strtoll (priority_str, NULL, 10);
+	}
+	g_free (priority_str);
+
+	as_metadata_init_context (metad);
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
+			g_autoptr(AsComponent) cpt = as_component_new ();
+
+			if (as_component_load_from_xml (cpt, priv->context, iter, &tmp_error)) {
+				g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+			} else {
+				if (tmp_error != NULL) {
+					g_propagate_error (error, tmp_error);
+					return;
+				}
+			}
+		}
+	}
+}
+
+/**
  * as_metadata_parse:
  * @metad: An instance of #AsMetadata.
  * @data: Metadata describing one or more software components.
@@ -303,26 +351,39 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	g_return_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST);
 
+	as_metadata_init_context (metad);
 	if (format == AS_FORMAT_KIND_XML) {
-		as_metadata_init_xml (metad);
+		xmlDoc *doc;
+		xmlNode *root;
+
+		doc = as_xml_parse_document (data, error);
+		if (doc == NULL)
+			return;
+		root = xmlDocGetRootElement (doc);
 
 		if (priv->mode == AS_FORMAT_STYLE_COLLECTION) {
-			guint i;
-			g_autoptr(GPtrArray) new_cpts = NULL;
+			/* prepare context */
+			as_context_set_style (priv->context, AS_FORMAT_STYLE_COLLECTION);
 
-			new_cpts = as_xmldata_parse_collection_data (priv->xdt, data, error);
-			if (new_cpts == NULL)
-				return;
-			for (i = 0; i < new_cpts->len; i++) {
-				AsComponent *cpt;
-				cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
-				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
-
-				g_ptr_array_add (priv->cpts,
-						 g_object_ref (cpt));
+			if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
+				as_metadata_xml_parse_components_node (metad, root, error);
+			} else if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
+				g_autoptr(AsComponent) cpt = as_component_new ();
+				/* we explicitly allow parsing single component entries in distro-XML mode, since this is a scenario
+				* which might very well happen, e.g. in AppStream metadata generators */
+				if (as_component_load_from_xml (cpt, priv->context, root, error))
+					g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+			} else {
+				g_set_error_literal (error,
+							AS_METADATA_ERROR,
+							AS_METADATA_ERROR_FAILED,
+							"XML file does not contain valid AppStream data!");
 			}
 		} else {
-			AsComponent *cpt;
+			AsComponent *cpt = as_component_new ();
+
+			/* prepare context */
+			as_context_set_style (priv->context, AS_FORMAT_STYLE_METAINFO);
 
 			if (priv->update_existing) {
 				/* we should update the existing component with new metadata */
@@ -332,18 +393,22 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 								AS_METADATA_ERROR,
 								AS_METADATA_ERROR_NO_COMPONENT,
 								"No component found that could be updated.");
+					xmlFreeDoc (doc);
 					return;
 				}
-				as_xmldata_update_cpt_with_metainfo_data (priv->xdt, data, cpt, error);
+				as_component_load_from_xml (cpt, priv->context, root, error);
 			} else {
-				cpt = as_xmldata_parse_metainfo_data (priv->xdt, data, error);
-				if (cpt != NULL)
-					g_ptr_array_add (priv->cpts, cpt);
+				if (as_component_load_from_xml (cpt, priv->context, root, error))
+					g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 			}
 
 			if (cpt != NULL)
 				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_METAINFO);
 		}
+
+		/* free the XML document */
+		xmlFreeDoc (doc);
+
 	} else if (format == AS_FORMAT_KIND_YAML) {
 		as_metadata_init_yaml (metad);
 
@@ -631,7 +696,8 @@ gchar*
 as_metadata_component_to_metainfo (AsMetadata *metad, AsFormatKind format, GError **error)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	gchar *xmlstr = NULL;
+	xmlNode *node;
+	gchar *xmlstr;
 	AsComponent *cpt;
 
 	g_return_val_if_fail (format > AS_FORMAT_KIND_UNKNOWN && format < AS_FORMAT_KIND_LAST, NULL);
@@ -640,14 +706,104 @@ as_metadata_component_to_metainfo (AsMetadata *metad, AsFormatKind format, GErro
 		return NULL;
 	}
 
-	as_metadata_init_xml (metad);
+	as_metadata_init_context (metad);
+	as_context_set_style (priv->context, AS_FORMAT_STYLE_METAINFO);
 	cpt = as_metadata_get_component (metad);
 	if (cpt == NULL)
 		return NULL;
 
+	node = as_component_to_xml_node (cpt, priv->context, NULL);
+	xmlstr = as_xml_node_to_str (node);
 
-	xmlstr = as_xmldata_serialize_to_metainfo (priv->xdt, cpt);
 	return xmlstr;
+}
+
+/**
+ * as_metadata_xml_serialize_to_collection_with_rootnode:
+ *
+ * Returns: Valid collection XML metadata.
+ */
+static gchar*
+as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, GPtrArray *cpts)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	xmlDoc *doc;
+	xmlNode *root;
+	gchar *xmlstr = NULL;
+	guint i;
+
+	/* initialize */
+	as_context_set_style (priv->context, AS_FORMAT_STYLE_COLLECTION);
+
+	root = xmlNewNode (NULL, (xmlChar*) "components");
+	xmlNewProp (root,
+		    (xmlChar*) "version",
+		    (xmlChar*) as_format_version_to_string (priv->format_version));
+	if (priv->origin != NULL)
+		xmlNewProp (root, (xmlChar*) "origin", (xmlChar*) priv->origin);
+	if (priv->arch != NULL)
+		xmlNewProp (root, (xmlChar*) "architecture", (xmlChar*) priv->arch);
+
+	for (i = 0; i < cpts->len; i++) {
+		xmlNode *node;
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		node = as_component_to_xml_node (cpt, priv->context, NULL);
+		if (node == NULL)
+			continue;
+		xmlAddChild (root, node);
+	}
+
+	doc = xmlNewDoc ((xmlChar*) NULL);
+	xmlDocSetRootElement (doc, root);
+
+	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
+	xmlFreeDoc (doc);
+
+	return xmlstr;
+}
+
+/**
+ * as_metadata_xml_serialize_to_collection_without_rootnode:
+ *
+ * Returns: Collection XML metadata slices without rootnode.
+ */
+static gchar*
+as_metadata_xml_serialize_to_collection_without_rootnode (AsMetadata *metad, GPtrArray *cpts)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	guint i;
+	GString *out_data;
+
+	out_data = g_string_new ("");
+	as_context_set_style (priv->context, AS_FORMAT_STYLE_COLLECTION);
+
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt;
+		xmlDoc *doc;
+		xmlNode *node;
+		xmlBufferPtr buf;
+		xmlSaveCtxtPtr sctx;
+		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		node = as_component_to_xml_node (cpt, priv->context, NULL);
+		if (node == NULL)
+			continue;
+
+		doc = xmlNewDoc ((xmlChar*) NULL);
+		xmlDocSetRootElement (doc, node);
+
+		buf = xmlBufferCreate ();
+		sctx = xmlSaveToBuffer (buf, "utf-8", XML_SAVE_FORMAT | XML_SAVE_NO_DECL);
+		xmlSaveDoc (sctx, doc);
+		xmlSaveClose (sctx);
+
+		g_string_append (out_data, (const gchar*) xmlBufferContent (buf));
+		xmlBufferFree (buf);
+		xmlFreeDoc (doc);
+	}
+
+	return g_string_free (out_data, FALSE);
 }
 
 /**
@@ -673,10 +829,12 @@ as_metadata_components_to_collection (AsMetadata *metad, AsFormatKind format, GE
 		return NULL;
 
 	if (format == AS_FORMAT_KIND_XML) {
-		as_metadata_init_xml (metad);
-		data = as_xmldata_serialize_to_collection (priv->xdt,
-							   priv->cpts,
-							   priv->write_header);
+		as_metadata_init_context (metad);
+
+		if (priv->write_header)
+			return as_metadata_xml_serialize_to_collection_with_rootnode (metad, priv->cpts);
+		else
+			return as_metadata_xml_serialize_to_collection_without_rootnode (metad, priv->cpts);
 	} else if (format == AS_FORMAT_KIND_YAML) {
 		as_metadata_init_yaml (metad);
 		data = as_yamldata_serialize_to_collection (priv->ydt,

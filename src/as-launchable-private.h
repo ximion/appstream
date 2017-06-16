@@ -28,10 +28,7 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-gboolean	as_launchable_load_from_xml (AsLaunchable *launchable,
-						AsContext *ctx,
-						xmlNode *node,
-						GError **error);
+/* NOTE: The AsComponent load the AsLaunchable from XML, because it needs to aggregate multiple tags in one object. */
 
 void		as_launchable_to_xml_node (AsLaunchable *launchable,
 					AsContext *ctx,

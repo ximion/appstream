@@ -185,33 +185,6 @@ as_launchable_add_entry (AsLaunchable *launch, const gchar *entry)
 }
 
 /**
- * as_launchable_load_from_xml:
- * @launchable: an #AsLaunchable
- * @ctx: the AppStream document context.
- * @node: the XML node.
- * @error: a #GError.
- *
- * Loads data from an XML node.
- **/
-gboolean
-as_launchable_load_from_xml (AsLaunchable *launchable, AsContext *ctx, xmlNode *node, GError **error)
-{
-	AsLaunchablePrivate *priv = GET_PRIVATE (launchable);
-	g_autofree gchar *value = NULL;
-
-	priv->kind = as_launchable_kind_from_string ((gchar*) xmlGetProp (node, (xmlChar*) "type"));
-	if (priv->kind == AS_LAUNCHABLE_KIND_UNKNOWN)
-		return FALSE;
-
-	value = as_xml_get_node_value (node);
-	if (value == NULL)
-		return FALSE;
-	as_launchable_add_entry (launchable, value);
-
-	return TRUE;
-}
-
-/**
  * as_launchable_to_xml_node:
  * @launchable: an #AsLaunchable
  * @ctx: the AppStream document context.

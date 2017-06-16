@@ -22,7 +22,7 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "as-xmldata.h"
+#include "as-xml.h"
 #include "as-component-private.h"
 #include "as-test-utils.h"
 
@@ -437,22 +437,20 @@ test_appstream_write_description ()
 static AsComponent*
 as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 {
-	AsComponent *cpt;
-	GError *error = NULL;
-	g_autoptr(GPtrArray) cpts = NULL;
-	g_autoptr(AsXMLData) xdt = NULL;
+	AsComponent *cpt = NULL;
+	GPtrArray *cpts;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
 
-	xdt = as_xmldata_new ();
-	as_xmldata_set_check_valid (xdt, FALSE);
+	metad = as_metadata_new ();
+	as_metadata_parse (metad, data, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
 
-	if (mode == AS_FORMAT_STYLE_METAINFO) {
-		cpt = as_xmldata_parse_metainfo_data (xdt, data, &error);
-		g_assert_no_error (error);
-	} else {
-		cpts = as_xmldata_parse_collection_data (xdt, data, &error);
-		g_assert_no_error (error);
-		cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
-	}
+	cpts = as_metadata_get_components (metad);
+	g_assert_cmpint (cpts->len, >, 0);
+	if (mode == AS_FORMAT_STYLE_METAINFO)
+		g_assert_cmpint (cpts->len, ==, 1);
+	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
 
 	return g_object_ref (cpt);
 }
@@ -466,18 +464,18 @@ static gchar*
 as_xml_test_serialize (AsComponent *cpt, AsFormatStyle mode)
 {
 	gchar *data;
-	g_autoptr(AsXMLData) xdt = NULL;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
 
-	xdt = as_xmldata_new ();
-	as_xmldata_set_check_valid (xdt, FALSE);
+	metad = as_metadata_new ();
+	as_metadata_add_component (metad, cpt);
 
 	if (mode == AS_FORMAT_STYLE_METAINFO) {
-		data = as_xmldata_serialize_to_metainfo (xdt, cpt);
+		data = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
 	} else {
-		g_autoptr(GPtrArray) cpts = NULL;
-		cpts = g_ptr_array_new ();
-		g_ptr_array_add (cpts, cpt);
-		data = as_xmldata_serialize_to_collection (xdt, cpts, TRUE);
+		data = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
 	}
 
 	return data;

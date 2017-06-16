@@ -115,6 +115,22 @@ const gchar		*as_merge_kind_to_string (AsMergeKind kind);
 AsMergeKind		as_merge_kind_from_string (const gchar *kind_str);
 
 /**
+ * AsComponentScope:
+ * @AS_COMPONENT_SCOPE_UNKNOWN:		Unknown scope
+ * @AS_COMPONENT_SCOPE_SYSTEM:		System scope
+ * @AS_COMPONENT_SCOPE_USER:		User scope
+ *
+ * Scope of the #AsComponent (system-wide or user-scope)
+ **/
+typedef enum {
+	AS_COMPONENT_SCOPE_UNKNOWN,
+	AS_COMPONENT_SCOPE_SYSTEM,
+	AS_COMPONENT_SCOPE_USER,
+	/*< private >*/
+	AS_COMPONENT_SCOPE_LAST
+} AsComponentScope;
+
+/**
  * AsValueFlags:
  * @AS_VALUE_FLAG_NONE:				No flags.
  * @AS_VALUE_FLAG_DUPLICATE_CHECK:		Check for duplicates when adding items to list values.

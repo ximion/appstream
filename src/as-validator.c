@@ -42,7 +42,6 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-spdx.h"
-#include "as-xmldata.h"
 #include "as-component.h"
 #include "as-component-private.h"
 
@@ -590,7 +589,7 @@ as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
  * as_validator_validate_component_node:
  **/
 static AsComponent*
-as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xmlNode *root)
+as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xmlNode *root)
 {
 	xmlNode *iter;
 	AsComponent *cpt;
@@ -601,11 +600,11 @@ as_validator_validate_component_node (AsValidator *validator, AsXMLData *xdt, xm
 	gboolean has_metadata_license = FALSE;
 
 	found_tags = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-	mode = as_xmldata_get_format_style (xdt);
+	mode = as_context_get_style (ctx);
 
 	/* validate the resulting AsComponent for sanity */
 	cpt = as_component_new ();
-	as_xmldata_parse_component_node (xdt, root, cpt, NULL);
+	as_component_load_from_xml (cpt, ctx, root, NULL);
 	as_validator_set_current_cpt (validator, cpt);
 
 	/* check if component type is valid */
@@ -1125,12 +1124,12 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
  * as_validator_open_xml_document:
  */
 static xmlDoc*
-as_validator_open_xml_document (AsValidator *validator, AsXMLData *xdt, const gchar *xmldata)
+as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata)
 {
 	xmlDoc *doc;
 	g_autoptr(GError) error = NULL;
 
-	doc = as_xmldata_parse_document (xdt, xmldata, &error);
+	doc = as_xml_parse_document (xmldata, &error);
 	if (doc == NULL) {
 		if (error != NULL) {
 			as_validator_add_issue (validator, NULL,
@@ -1158,41 +1157,36 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 	gboolean ret;
 	xmlNode* root;
 	xmlDoc *doc;
-	g_autoptr(AsXMLData) xdt = NULL;
+	g_autoptr(AsContext) ctx = NULL;
 	AsComponent *cpt;
 
 	/* load the XML data */
-	xdt = as_xmldata_new ();
-	as_xmldata_initialize (xdt, AS_CURRENT_FORMAT_VERSION,
-			       "C",
-				NULL,
-				NULL,
-				NULL,
-				0);
+	ctx = as_context_new ();
+	as_context_set_locale (ctx, "C");
 
-	doc = as_validator_open_xml_document (validator, xdt, metadata);
+	doc = as_validator_open_xml_document (validator, metadata);
 	if (doc == NULL)
 		return FALSE;
 	root = xmlDocGetRootElement (doc);
 
 	ret = TRUE;
 	if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
-		as_xmldata_set_format_style (xdt, AS_FORMAT_STYLE_METAINFO);
-		cpt = as_validator_validate_component_node (validator, xdt, root);
+		as_context_set_style (ctx, AS_FORMAT_STYLE_METAINFO);
+		cpt = as_validator_validate_component_node (validator, ctx, root);
 		if (cpt != NULL)
 			g_object_unref (cpt);
 	} else if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 		xmlNode *iter;
 		const gchar *node_name;
 
-		as_xmldata_set_format_style (xdt, AS_FORMAT_STYLE_COLLECTION);
+		as_context_set_style (ctx, AS_FORMAT_STYLE_COLLECTION);
 		for (iter = root->children; iter != NULL; iter = iter->next) {
 			/* discard spaces */
 			if (iter->type != XML_ELEMENT_NODE)
 				continue;
 			node_name = (const gchar*) iter->name;
 			if (g_strcmp0 (node_name, "component") == 0) {
-				cpt = as_validator_validate_component_node (validator, xdt, iter);
+				cpt = as_validator_validate_component_node (validator, ctx, iter);
 				if (cpt != NULL)
 					g_object_unref (cpt);
 			} else {
@@ -1370,7 +1364,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	GHashTable *validated_cpts = NULL;
 	guint i;
 	gboolean ret = TRUE;
-	g_autoptr(AsXMLData) xdt = NULL;
+	g_autoptr(AsContext) ctx = NULL;
 	struct MInfoCheckData ht_helper;
 
 	/* cleanup */
@@ -1405,14 +1399,9 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 						g_object_unref);
 
 	/* set up XML parser */
-	xdt = as_xmldata_new ();
-	as_xmldata_initialize (xdt, AS_CURRENT_FORMAT_VERSION,
-			       "C",
-				NULL,
-				NULL,
-				NULL,
-				0);
-	as_xmldata_set_format_style (xdt, AS_FORMAT_STYLE_METAINFO);
+	ctx = as_context_new ();
+	as_context_set_locale (ctx, "C");
+	as_context_set_style (ctx, AS_FORMAT_STYLE_METAINFO);
 
 	/* validate all metainfo files */
 	mfiles = as_utils_find_files_matching (metainfo_dir, "*.xml", FALSE, NULL);
@@ -1490,7 +1479,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		}
 
 		/* now read the XML */
-		doc = as_validator_open_xml_document (validator, xdt, asdata->str);
+		doc = as_validator_open_xml_document (validator, asdata->str);
 		if (doc == NULL) {
 			as_validator_clear_current_fname (validator);
 			continue;
@@ -1500,7 +1489,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		if (g_strcmp0 ((gchar*) root->name, "component") == 0) {
 			AsComponent *cpt;
 			cpt = as_validator_validate_component_node (validator,
-								    xdt,
+								    ctx,
 								    root);
 			if (cpt != NULL)
 				g_hash_table_insert (validated_cpts,

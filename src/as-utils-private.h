@@ -24,7 +24,6 @@
 #include <glib-object.h>
 #include "as-settings-private.h"
 #include "as-component.h"
-#include "as-component-private.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)

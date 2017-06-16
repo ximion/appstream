@@ -21,28 +21,13 @@
 #ifndef __AS_COMPONENT_PRIVATE_H
 #define __AS_COMPONENT_PRIVATE_H
 
-#include <glib-object.h>
 #include "as-component.h"
 #include "as-settings-private.h"
+#include "as-xml.h"
+#include "as-yaml.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
-
-/**
- * AsComponentScope:
- * @AS_COMPONENT_SCOPE_UNKNOWN:		Unknown scope
- * @AS_COMPONENT_SCOPE_SYSTEM:		System scope
- * @AS_COMPONENT_SCOPE_USER:		User scope
- *
- * Scope of the #AsComponent (system-wide or user-scope)
- **/
-typedef enum {
-	AS_COMPONENT_SCOPE_UNKNOWN,
-	AS_COMPONENT_SCOPE_SYSTEM,
-	AS_COMPONENT_SCOPE_USER,
-	/*< private >*/
-	AS_COMPONENT_SCOPE_LAST
-} AsComponentScope;
 
 /**
  * AsOriginKind:
@@ -129,6 +114,16 @@ void			as_component_merge_with_mode (AsComponent *cpt,
 							AsMergeKind merge_kind);
 
 GPtrArray		*as_component_get_launchables (AsComponent *cpt);
+
+
+gboolean		as_component_load_from_xml (AsComponent *cpt,
+							AsContext *ctx,
+							xmlNode *node,
+							GError **error);
+
+xmlNode			*as_component_to_xml_node (AsComponent *cpt,
+							AsContext *ctx,
+							xmlNode *root);
 
 #pragma GCC visibility pop
 G_END_DECLS
