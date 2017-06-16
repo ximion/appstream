@@ -3422,7 +3422,6 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
-
 				if (g_strcmp0 ((const gchar*) iter2->name, "screenshot") == 0) {
 					g_autoptr(AsScreenshot) screenshot = as_screenshot_new ();
 					if (as_screenshot_load_from_xml (screenshot, ctx, iter2, NULL))
@@ -3442,9 +3441,17 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (content != NULL)
 				as_component_set_compulsory_for_desktop (cpt, content);
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
-			g_autoptr(AsRelease) release = as_release_new ();
-			if (as_release_load_from_xml (release, ctx, iter, NULL))
-				as_component_add_release (cpt, release);
+			xmlNode *iter2;
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) iter2->name, "release") == 0) {
+					g_autoptr(AsRelease) release = as_release_new ();
+					if (as_release_load_from_xml (release, ctx, iter2, NULL))
+						as_component_add_release (cpt, release);
+				}
+			}
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
 			as_component_add_extends (cpt, content);
 		} else if (g_strcmp0 (node_name, "languages") == 0) {
