@@ -31,6 +31,9 @@
 #include "release.h"
 #include "bundle.h"
 #include "suggested.h"
+#include "contentrating.h"
+#include "launchable.h"
+#include "translation.h"
 
 using namespace AppStream;
 
@@ -151,6 +154,31 @@ Component::~Component()
     g_object_unref(m_cpt);
 }
 
+_AsComponent * AppStream::Component::asComponent() const
+{
+    return m_cpt;
+}
+
+uint AppStream::Component::valueFlags() const
+{
+    return (uint) as_component_get_value_flags(m_cpt);
+}
+
+void AppStream::Component::setValueFlags(uint flags)
+{
+    as_component_set_value_flags(m_cpt, (AsValueFlags) flags);
+}
+
+QString AppStream::Component::activeLocale() const
+{
+    return valueWrap(as_component_get_active_locale(m_cpt));
+}
+
+void AppStream::Component::setActiveLocale(const QString& locale)
+{
+    as_component_set_active_locale(m_cpt, qPrintable(locale));
+}
+
 Component::Kind Component::kind() const
 {
     return static_cast<Component::Kind>(as_component_get_kind (m_cpt));
@@ -159,6 +187,16 @@ Component::Kind Component::kind() const
 void Component::setKind(Component::Kind kind)
 {
     as_component_set_kind(m_cpt, static_cast<AsComponentKind>(kind));
+}
+
+QString AppStream::Component::origin() const
+{
+    return valueWrap(as_component_get_origin(m_cpt));
+}
+
+void AppStream::Component::setOrigin(const QString& origin)
+{
+    as_component_set_origin(m_cpt, qPrintable(origin));
 }
 
 QString Component::id() const
@@ -184,6 +222,23 @@ void Component::setDataId(const QString& cdid)
 QStringList Component::packageNames() const
 {
     return valueWrap(as_component_get_pkgnames(m_cpt));
+}
+
+void AppStream::Component::setPackageNames(const QStringList& list)
+{
+    char **packageList = stringListToCharArray(list);
+    as_component_set_pkgnames(m_cpt, packageList);
+    g_strfreev(packageList);
+}
+
+QString AppStream::Component::sourcePackageName() const
+{
+    return valueWrap(as_component_get_source_pkgname(m_cpt));
+}
+
+void AppStream::Component::setSourcePackageName(const QString& sourcePkg)
+{
+    as_component_set_source_pkgname(m_cpt, qPrintable(sourcePkg));
 }
 
 QString Component::name() const
@@ -214,6 +269,29 @@ QString Component::description() const
 void Component::setDescription(const QString& description, const QString& lang)
 {
     as_component_set_description(m_cpt, qPrintable(description), lang.isEmpty()? NULL : qPrintable(lang));
+}
+
+AppStream::Launchable AppStream::Component::launchable(AppStream::Launchable::Kind kind) const
+{
+    auto launch = as_component_get_launchable(m_cpt, (AsLaunchableKind) kind);
+    if (launch == NULL)
+        return Launchable();
+    return Launchable(launch);
+}
+
+void AppStream::Component::addLaunchable(const AppStream::Launchable& launchable)
+{
+    as_component_add_launchable(m_cpt, launchable.asLaunchable());
+}
+
+QString AppStream::Component::metadataLicense() const
+{
+    return valueWrap(as_component_get_metadata_license(m_cpt));
+}
+
+void AppStream::Component::setMetadataLicense(const QString& license)
+{
+    as_component_set_metadata_license(m_cpt, qPrintable(license));
 }
 
 QString Component::projectLicense() const
@@ -251,6 +329,11 @@ QStringList Component::compulsoryForDesktops() const
     return valueWrap(as_component_get_compulsory_for_desktops(m_cpt));
 }
 
+void AppStream::Component::setCompulsoryForDesktop(const QString& desktop)
+{
+    as_component_set_compulsory_for_desktop(m_cpt, qPrintable(desktop));
+}
+
 bool Component::isCompulsoryForDesktop(const QString& desktop) const
 {
     return as_component_is_compulsory_for_desktop(m_cpt, qPrintable(desktop));
@@ -261,6 +344,11 @@ QStringList Component::categories() const
     return valueWrap(as_component_get_categories(m_cpt));
 }
 
+void AppStream::Component::addCategory(const QString& category)
+{
+    as_component_add_category(m_cpt, qPrintable(category));
+}
+
 bool Component::hasCategory(const QString& category) const
 {
     return as_component_has_category(m_cpt, qPrintable(category));
@@ -269,6 +357,11 @@ bool Component::hasCategory(const QString& category) const
 QStringList Component::extends() const
 {
     return valueWrap(as_component_get_extends(m_cpt));
+}
+
+void AppStream::Component::addExtends(const QString& extend)
+{
+    as_component_add_extends(m_cpt, qPrintable(extend));
 }
 
 QList<AppStream::Component> Component::addons() const
@@ -284,12 +377,55 @@ QList<AppStream::Component> Component::addons() const
     return res;
 }
 
+void AppStream::Component::addAddon(const AppStream::Component& addon)
+{
+    as_component_add_addon(m_cpt, addon.asComponent());
+}
+
+QStringList AppStream::Component::languages() const
+{
+    return valueWrap(as_component_get_languages(m_cpt));
+}
+
+int AppStream::Component::language(const QString& locale) const
+{
+    return as_component_get_language(m_cpt, qPrintable(locale));
+}
+
+void AppStream::Component::addLanguage(const QString& locale, int percentage)
+{
+    as_component_add_language(m_cpt, qPrintable(locale), percentage);
+}
+
+QList<AppStream::Translation> AppStream::Component::translations() const
+{
+    QList<Translation> res;
+
+    auto translations = as_component_get_translations(m_cpt);
+    res.reserve(translations->len);
+    for (uint i = 0; i < translations->len; i++) {
+        auto translation = AS_TRANSLATION (g_ptr_array_index (translations, i));
+        res.append(Translation(translation));
+    }
+    return res;
+}
+
+void AppStream::Component::addTranslation(const AppStream::Translation& translation)
+{
+    as_component_add_translation(m_cpt, translation.asTranslation());
+}
+
 QUrl Component::url(Component::UrlKind kind) const
 {
     auto url = as_component_get_url(m_cpt, static_cast<AsUrlKind>(kind));
     if (url == NULL)
         return QUrl();
     return QUrl(url);
+}
+
+void AppStream::Component::addUrl(AppStream::Component::UrlKind kind, const QString& url)
+{
+    as_component_add_url(m_cpt, (AsUrlKind) kind, qPrintable(url));
 }
 
 QList<Icon> Component::icons() const
@@ -313,6 +449,11 @@ Icon Component::icon(const QSize& size) const
     return Icon(res);
 }
 
+void AppStream::Component::addIcon(const AppStream::Icon& icon)
+{
+    as_component_add_icon(m_cpt, icon.asIcon());
+}
+
 QList<Provided> Component::provided() const
 {
     QList<Provided> res;
@@ -334,6 +475,11 @@ AppStream::Provided Component::provided(Provided::Kind kind) const
     return Provided(prov);
 }
 
+void AppStream::Component::addProvided(const AppStream::Provided& provided)
+{
+    as_component_add_provided(m_cpt, provided.asProvided());
+}
+
 QList<Screenshot> Component::screenshots() const
 {
     QList<Screenshot> res;
@@ -347,6 +493,11 @@ QList<Screenshot> Component::screenshots() const
     return res;
 }
 
+void AppStream::Component::addScreenshot(const AppStream::Screenshot& screenshot)
+{
+    as_component_add_screenshot(m_cpt, screenshot.asScreenshot());
+}
+
 QList<Release> Component::releases() const
 {
     QList<Release> res;
@@ -358,6 +509,16 @@ QList<Release> Component::releases() const
         res.append(Release(rel));
     }
     return res;
+}
+
+void AppStream::Component::addRelease(const AppStream::Release& release)
+{
+    as_component_add_release(m_cpt, release.asRelease());
+}
+
+bool AppStream::Component::hasBundle() const
+{
+    return as_component_has_bundle(m_cpt);
 }
 
 QList<Bundle> Component::bundles() const
@@ -381,6 +542,11 @@ Bundle Component::bundle(Bundle::Kind kind) const
     return Bundle(bundle);
 }
 
+void AppStream::Component::addBundle(const AppStream::Bundle& bundle) const
+{
+    as_component_add_bundle(m_cpt, bundle.asBundle());
+}
+
 QList<AppStream::Suggested> AppStream::Component::suggested() const
 {
     QList<Suggested> res;
@@ -394,9 +560,107 @@ QList<AppStream::Suggested> AppStream::Component::suggested() const
     return res;
 }
 
+void AppStream::Component::addSuggested(const AppStream::Suggested& suggested)
+{
+    as_component_add_suggested(m_cpt, suggested.suggested());
+}
+
+QStringList AppStream::Component::searchTokens() const
+{
+    return valueWrap(as_component_get_search_tokens(m_cpt));
+}
+
+uint AppStream::Component::searchMatches(const QString& term) const
+{
+    return as_component_search_matches(m_cpt, qPrintable(term));
+}
+
+uint AppStream::Component::searchMatchesAll(const QStringList& terms) const
+{
+    char **termList = stringListToCharArray(terms);
+    const uint searchMatches = as_component_search_matches_all(m_cpt, termList);
+    g_strfreev(termList);
+    return searchMatches;
+}
+
+AppStream::Component::MergeKind AppStream::Component::mergeKind() const
+{
+    return static_cast<Component::MergeKind>(as_component_get_merge_kind(m_cpt));
+}
+
+void AppStream::Component::setMergeKind(AppStream::Component::MergeKind kind)
+{
+    as_component_set_merge_kind(m_cpt, (AsMergeKind) kind);
+}
+
+QHash<QString, QString> AppStream::Component::custom() const
+{
+    QHash<QString, QString> result;
+    GHashTableIter iter;
+    gpointer key, value;
+
+    auto custom = as_component_get_custom(m_cpt);
+    g_hash_table_iter_init(&iter, custom);
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        result.insert(valueWrap(static_cast<char*>(key)), valueWrap(static_cast<char*>(value)));
+    }
+    return result;
+}
+
+QString AppStream::Component::customValue(const QString& key)
+{
+    return valueWrap(as_component_get_custom_value(m_cpt, qPrintable(key)));
+}
+
+bool AppStream::Component::insertCustomValue(const QString& key, const QString& value)
+{
+    return as_component_insert_custom_value(m_cpt, qPrintable(key), qPrintable(value));
+}
+
+QList<AppStream::ContentRating> AppStream::Component::contentRatings() const
+{
+    QList<ContentRating> res;
+
+    auto ratings = as_component_get_content_ratings(m_cpt);
+    res.reserve(ratings->len);
+    for (uint i = 0; i < ratings->len; i++) {
+        auto rating = AS_CONTENT_RATING (g_ptr_array_index (ratings, i));
+        res.append(ContentRating(rating));
+    }
+    return res;
+}
+
+AppStream::ContentRating AppStream::Component::contentRating(const QString& kind) const
+{
+    auto rating = as_component_get_content_rating(m_cpt, qPrintable(kind));
+    if (rating == NULL)
+        return ContentRating();
+    return ContentRating(rating);
+}
+
+void AppStream::Component::addContentRating(const AppStream::ContentRating& contentRating)
+{
+    as_component_add_content_rating(m_cpt, contentRating.asContentRating());
+}
+
+bool AppStream::Component::isMemberOfCategory(const AppStream::Category& category) const
+{
+    return as_component_is_member_of_category(m_cpt, category.asCategory());
+}
+
+bool AppStream::Component::isIgnored() const
+{
+    return as_component_is_ignored(m_cpt);
+}
+
 bool Component::isValid() const
 {
     return as_component_is_valid(m_cpt);
+}
+
+QString AppStream::Component::toString() const
+{
+    return valueWrap(as_component_to_string(m_cpt));
 }
 
 QString Component::desktopId() const

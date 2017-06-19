@@ -60,6 +60,11 @@ class APPSTREAMQT_EXPORT Image {
         Image& operator=(const Image& other);
 
         /**
+         * \returns the internally stored AsImage
+         */
+        _AsImage *asImage() const;
+
+        /**
          * \return the kind of image
          */
         Kind kind() const;

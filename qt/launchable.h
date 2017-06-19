@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2017 Jan Grulich <jgrulich@redhat.com>
  * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -17,66 +18,57 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef APPSTREAMQT_BUNDLE_H
-#define APPSTREAMQT_BUNDLE_H
+#ifndef APPSTREAMQT_LAUNCHABLE_H
+#define APPSTREAMQT_LAUNCHABLE_H
 
 #include <QSharedDataPointer>
 #include <QString>
 #include <QObject>
 #include "appstreamqt_export.h"
 
-struct _AsBundle;
+struct _AsLaunchable;
+
 namespace AppStream {
 
-class BundleData;
-class APPSTREAMQT_EXPORT Bundle {
+class LaunchableData;
+
+class APPSTREAMQT_EXPORT Launchable {
     Q_GADGET
     public:
-        Bundle();
-        Bundle(_AsBundle *bundle);
-        Bundle(const Bundle& bundle);
-        ~Bundle();
-
-        Bundle& operator=(const Bundle& bundle);
-        bool operator==(const Bundle& r) const;
-
-        /**
-         * \returns the internally stored AsBundle
-         */
-        _AsBundle *asBundle() const;
-
         enum Kind {
             KindUnknown,
-            KindPackage,
-            KindLimba,
-            KindFlatpak,
-            KindAppImage,
-            KindSnap
+            KindDesktopId
         };
         Q_ENUM(Kind)
+
+        Launchable();
+        Launchable(_AsLaunchable* category);
+        Launchable(const Launchable& category);
+        ~Launchable();
 
         static Kind stringToKind(const QString& kindString);
         static QString kindToString(Kind kind);
 
+        Launchable& operator=(const Launchable& category);
+        bool operator==(const Launchable& r) const;
+
         /**
-         * \return the bundle kind.
+         * \returns the internally stored AsLaunchable
          */
+        _AsLaunchable *asLaunchable() const;
+
         Kind kind() const;
         void setKind(Kind kind);
 
-        /**
-         * \return the bundle ID.
-         */
-        QString id() const;
-        void setId(const QString& id);
-
-        bool isEmpty() const;
+        QStringList entries() const;
+        void addEntry(const QString& entry);
 
     private:
-        QSharedDataPointer<BundleData> d;
+        QSharedDataPointer<LaunchableData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Bundle& bundle);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Launchable& category);
 
-#endif // APPSTREAMQT_BUNDLE_H
+#endif // APPSTREAMQT_LAUNCHABLE_H
+

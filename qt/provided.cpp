@@ -53,6 +53,11 @@ public:
         return rd.m_prov == m_prov;
     }
 
+    AsProvided *provided() const
+    {
+        return m_prov;
+    }
+
     AsProvided *m_prov;
 };
 
@@ -96,6 +101,11 @@ bool Provided::operator==(const Provided& other) const
         return *d == *other.d;
     }
     return false;
+}
+
+_AsProvided * AppStream::Provided::asProvided() const
+{
+    return d->provided();
 }
 
 Provided::Kind Provided::kind() const

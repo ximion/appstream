@@ -54,6 +54,11 @@ class APPSTREAMQT_EXPORT Suggested {
         Suggested& operator=(const Suggested& other);
 
         /**
+         * \returns the internally stored AsSuggested
+         */
+        _AsSuggested *suggested() const;
+
+        /**
          * \return the kind of suggestion
          */
         Kind kind() const;

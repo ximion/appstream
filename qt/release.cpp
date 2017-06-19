@@ -44,6 +44,11 @@ public:
         return rd.m_release == m_release;
     }
 
+    AsRelease *release() const
+    {
+        return m_release;
+    }
+
     AsRelease* m_release;
 };
 
@@ -66,6 +71,11 @@ bool Release::operator==(const Release &other) const
         return *(this->d) == *other.d;
     }
     return false;
+}
+
+_AsRelease * AppStream::Release::asRelease() const
+{
+    return d->release();
 }
 
 QString Release::version() const

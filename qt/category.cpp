@@ -42,6 +42,11 @@ public:
         return rd.m_category == m_category;
     }
 
+    AsCategory *category() const
+    {
+        return m_category;
+    }
+
     AsCategory* m_category;
 };
 
@@ -64,6 +69,11 @@ bool Category::operator==(const Category &other) const
         return *(this->d) == *other.d;
     }
     return false;
+}
+
+_AsCategory * AppStream::Category::asCategory() const
+{
+    return d->category();
 }
 
 QString Category::id() const

@@ -51,6 +51,10 @@ public:
         return rd.m_icon == m_icon;
     }
 
+    AsIcon *icon() const {
+        return m_icon;
+    }
+
     AsIcon *m_icon;
 };
 
@@ -73,6 +77,11 @@ Icon& Icon::operator=(const Icon& other)
 {
     this->d = other.d;
     return *this;
+}
+
+AsIcon * AppStream::Icon::asIcon() const
+{
+    return d->icon();
 }
 
 Icon::Kind Icon::kind() const
