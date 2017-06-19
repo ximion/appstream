@@ -52,6 +52,11 @@ class APPSTREAMQT_EXPORT Release {
         Release& operator=(const Release& release);
         bool operator==(const Release& r) const;
 
+        /**
+         * \returns the internally stored AsRelease
+         */
+        _AsRelease *asRelease() const;
+
         enum SizeKind {
             SizeUnknown,
             SizeDownload,

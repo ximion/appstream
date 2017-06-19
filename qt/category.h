@@ -41,6 +41,11 @@ class APPSTREAMQT_EXPORT Category {
         Category& operator=(const Category& category);
         bool operator==(const Category& r) const;
 
+        /**
+         * \returns the internally stored AsCategory
+         */
+        _AsCategory *asCategory() const;
+
         QString id() const;
         QString name() const;
         QString summary() const;

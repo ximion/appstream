@@ -51,6 +51,11 @@ public:
         return rd.m_scr == m_scr;
     }
 
+    AsScreenshot *screenshot() const
+    {
+        return m_scr;
+    }
+
     AsScreenshot *m_scr;
 };
 
@@ -73,6 +78,11 @@ Screenshot& Screenshot::operator=(const Screenshot& other)
 {
     d = other.d;
     return *this;
+}
+
+_AsScreenshot * AppStream::Screenshot::asScreenshot() const
+{
+    return d->screenshot();
 }
 
 bool Screenshot::isDefault() const

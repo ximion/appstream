@@ -50,6 +50,11 @@ public:
         return rd.m_img == m_img;
     }
 
+    AsImage *image() const
+    {
+        return m_img;
+    }
+
     AsImage *m_img;
 };
 
@@ -72,6 +77,11 @@ Image& Image::operator=(const Image& other)
 {
     this->d = other.d;
     return *this;
+}
+
+_AsImage * AppStream::Image::asImage() const
+{
+    return d->image();
 }
 
 Image::Kind Image::kind() const

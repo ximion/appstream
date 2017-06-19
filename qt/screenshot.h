@@ -48,6 +48,11 @@ public:
     Screenshot& operator=(const Screenshot& other);
 
     /**
+     * \returns the internally stored AsScreenshot
+     */
+    _AsScreenshot *asScreenshot() const;
+
+    /**
      * \return true if it is the default screenshot
      * A \ref Component should in general only have one default
      */
