@@ -148,6 +148,20 @@ as_xml_get_children_as_string_list (xmlNode *node, const gchar *element_name)
 }
 
 /**
+ * as_xml_get_children_as_strv:
+ */
+gchar**
+as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name)
+{
+	g_autoptr(GPtrArray) list = NULL;
+	gchar **res;
+
+	list = as_xml_get_children_as_string_list (node, element_name);
+	res = as_ptr_array_to_strv (list);
+	return res;
+}
+
+/**
  * as_xml_parse_metainfo_description_node:
  */
 void
@@ -288,7 +302,7 @@ as_xml_add_description_node_helper (AsContext *ctx, xmlNode *root, xmlNode **des
 	}
 
 	localized = g_strcmp0 (lang, "C") != 0;
-	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 		if (localized) {
 			xmlNewProp (dnode,
 					(xmlChar*) "xml:lang",
@@ -352,6 +366,245 @@ as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_tab
 		const gchar *locale = (const gchar*) key;
 		const gchar *desc_markup = (const gchar*) value;
 
+		if (as_is_cruft_locale (locale))
+			continue;
+
 		as_xml_add_description_node_helper (ctx, root, &desc_node, desc_markup, locale);
 	}
+}
+
+/**
+ * as_xml_add_localized_text_node:
+ *
+ * Add set of localized XML nodes based on a localization table.
+ */
+void
+as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTable *value_table)
+{
+	GHashTableIter iter;
+	gpointer key, value;
+
+	g_hash_table_iter_init (&iter, value_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		xmlNode *cnode;
+		const gchar *locale = (const gchar*) key;
+		const gchar *str = (const gchar*) value;
+
+		if (as_str_empty (str))
+			return;
+
+		/* skip cruft */
+		if (as_is_cruft_locale (locale))
+			return;
+
+		cnode = xmlNewTextChild (root, NULL, (xmlChar*) node_name, (xmlChar*) str);
+		if (g_strcmp0 (locale, "C") != 0) {
+			xmlNewProp (cnode,
+					(xmlChar*) "xml:lang",
+					(xmlChar*) locale);
+		}
+	}
+}
+
+/**
+ * as_xml_add_node_list_strv:
+ *
+ * Add node with a list of children containing the strv contents.
+ */
+xmlNode*
+as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_name, gchar **strv)
+{
+	xmlNode *node;
+	guint i;
+
+	/* don't add the node if we have no values */
+	if (strv == NULL)
+		return NULL;
+	if (strv[0] == '\0')
+		return NULL;
+
+	if (name == NULL)
+		node = root;
+	else
+		node = xmlNewChild (root,
+				    NULL,
+				    (xmlChar*) name,
+				    NULL);
+	for (i = 0; strv[i] != NULL; i++) {
+		xmlNewTextChild (node,
+				 NULL,
+				 (xmlChar*) child_name,
+				 (xmlChar*) strv[i]);
+	}
+
+	return node;
+}
+
+/**
+ * as_xml_add_node_list:
+ *
+ * Add node with a list of children containing the string array contents.
+ */
+void
+as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name, GPtrArray *array)
+{
+	xmlNode *node;
+	guint i;
+
+	/* don't add the node if we have no values */
+	if (array == NULL)
+		return;
+	if (array->len == 0)
+		return;
+
+	if (name == NULL)
+		node = root;
+	else
+		node = xmlNewChild (root,
+				    NULL,
+				    (xmlChar*) name,
+				    NULL);
+
+	for (i = 0; i < array->len; i++) {
+		const xmlChar *value = (const xmlChar*) g_ptr_array_index (array, i);
+		xmlNewTextChild (node,
+				 NULL,
+				 (xmlChar*) child_name,
+				 value);
+	}
+}
+
+/**
+ * as_xml_add_text_node:
+ *
+ * Add node if value is not empty
+ */
+xmlNode*
+as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
+{
+	if (as_str_empty (value))
+		return NULL;
+
+	return xmlNewTextChild (root, NULL, (xmlChar*) name, (xmlChar*) value);
+}
+
+/**
+ * libxml_generic_error:
+ *
+ * Catch out-of-context errors emitted by libxml2.
+ */
+static void
+libxml_generic_error (gchar **error_str_ptr, const char *format, ...)
+{
+	GString *str;
+	va_list arg_ptr;
+	gchar *error_str;
+	static GMutex mutex;
+	g_assert (error_str_ptr != NULL);
+
+	error_str = (*error_str_ptr);
+
+	g_mutex_lock (&mutex);
+	str = g_string_new (error_str? error_str : "");
+
+	va_start (arg_ptr, format);
+	g_string_append_vprintf (str, format, arg_ptr);
+	va_end (arg_ptr);
+
+	g_free (error_str);
+	error_str = g_string_free (str, FALSE);
+	g_mutex_unlock (&mutex);
+}
+
+/**
+ * as_xml_set_out_of_context_error:
+ */
+static void
+as_xml_set_out_of_context_error (gchar **error_msg_str)
+{
+	static GMutex mutex;
+
+	g_mutex_lock (&mutex);
+	if (error_msg_str == NULL) {
+		xmlSetGenericErrorFunc (NULL, NULL);
+	} else {
+		g_free (*error_msg_str);
+		(*error_msg_str) = NULL;
+		xmlSetGenericErrorFunc (error_msg_str, (xmlGenericErrorFunc) libxml_generic_error);
+	}
+	g_mutex_unlock (&mutex);
+}
+
+/**
+ * as_xmldata_parse_document:
+ */
+xmlDoc*
+as_xml_parse_document (const gchar *data, GError **error)
+{
+	xmlDoc *doc;
+	xmlNode *root;
+	g_autofree gchar *error_msg_str = NULL;
+
+	if (data == NULL) {
+		/* empty document means no components */
+		return NULL;
+	}
+
+	as_xml_set_out_of_context_error (&error_msg_str);
+	doc = xmlReadMemory (data, strlen (data),
+			     NULL,
+			     "utf-8",
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+	if (doc == NULL) {
+		if (error_msg_str == NULL) {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_FAILED,
+					"Could not parse XML data.");
+		} else {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_FAILED,
+					"Could not parse XML data: %s", error_msg_str);
+		}
+		as_xml_set_out_of_context_error (NULL);
+		return NULL;
+	}
+
+	root = xmlDocGetRootElement (doc);
+	if (root == NULL) {
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_FAILED,
+				     "The XML document is empty.");
+		xmlFreeDoc (doc);
+		return NULL;
+	}
+
+	return doc;
+}
+
+/**
+ * as_xml_node_to_str:
+ *
+ * Converts an XML node into its textural representation.
+ *
+ * Returns: XML metadata.
+ */
+gchar*
+as_xml_node_to_str (xmlNode *root)
+{
+	xmlDoc *doc;
+	gchar *xmlstr = NULL;
+
+	doc = xmlNewDoc ((xmlChar*) NULL);
+	if (root == NULL)
+		goto out;
+	xmlDocSetRootElement (doc, root);
+
+out:
+	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
+	xmlFreeDoc (doc);
+
+	return xmlstr;
 }

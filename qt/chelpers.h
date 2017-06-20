@@ -52,6 +52,29 @@ inline QStringList valueWrap(GPtrArray *array)
     return res;
 }
 
+inline QStringList valueWrap(GList *list)
+{
+    GList *l;
+    QStringList res;
+    res.reserve(g_list_length(list));
+    for (l = list; l != NULL; l = l->next) {
+        auto strval = (const gchar*) l->data;
+        res.append (QString::fromUtf8(strval));
+    }
+    return res;
+}
+
+inline char ** stringListToCharArray(const QStringList& list)
+{
+    char **array = (char**) g_malloc(sizeof(char*) * list.size());
+    for (int i = 0; i < list.size(); ++i) {
+        const QByteArray string = list[i].toLocal8Bit();
+        array[i] = (char*) g_malloc(sizeof(char) * (string.size() + 1));
+        strcpy(array[i], string.constData());
+    }
+    return array;
+}
+
 }
 
 #endif // APPSTREAMQT_CHELPERS_H

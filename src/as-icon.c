@@ -390,7 +390,6 @@ as_icon_load_from_xml (AsIcon *icon, AsContext *ctx, xmlNode *node, GError **err
 		return FALSE;
 
 	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
-	icon = as_icon_new ();
 
 	if (g_strcmp0 (type_str, "stock") == 0) {
 		priv->kind = AS_ICON_KIND_STOCK;

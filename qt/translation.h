@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2017 Jan Grulich <jgrulich@redhat.com>
  * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -17,66 +18,59 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef APPSTREAMQT_BUNDLE_H
-#define APPSTREAMQT_BUNDLE_H
+#ifndef APPSTREAMQT_TRANSLATION_H
+#define APPSTREAMQT_TRANSLATION_H
 
 #include <QSharedDataPointer>
 #include <QString>
 #include <QObject>
 #include "appstreamqt_export.h"
 
-struct _AsBundle;
+struct _AsTranslation;
+
 namespace AppStream {
 
-class BundleData;
-class APPSTREAMQT_EXPORT Bundle {
+class TranslationData;
+
+class APPSTREAMQT_EXPORT Translation {
     Q_GADGET
     public:
-        Bundle();
-        Bundle(_AsBundle *bundle);
-        Bundle(const Bundle& bundle);
-        ~Bundle();
-
-        Bundle& operator=(const Bundle& bundle);
-        bool operator==(const Bundle& r) const;
-
-        /**
-         * \returns the internally stored AsBundle
-         */
-        _AsBundle *asBundle() const;
-
         enum Kind {
             KindUnknown,
-            KindPackage,
-            KindLimba,
-            KindFlatpak,
-            KindAppImage,
-            KindSnap
+            KindGettext,
+            KindQt
         };
         Q_ENUM(Kind)
+
+        Translation();
+        Translation(_AsTranslation* category);
+        Translation(const Translation& category);
+        ~Translation();
 
         static Kind stringToKind(const QString& kindString);
         static QString kindToString(Kind kind);
 
+        Translation& operator=(const Translation& category);
+        bool operator==(const Translation& r) const;
+
         /**
-         * \return the bundle kind.
+         * \returns the internally stored AsTranslation
          */
+        _AsTranslation *asTranslation() const;
+
         Kind kind() const;
         void setKind(Kind kind);
 
-        /**
-         * \return the bundle ID.
-         */
         QString id() const;
         void setId(const QString& id);
 
-        bool isEmpty() const;
-
     private:
-        QSharedDataPointer<BundleData> d;
+        QSharedDataPointer<TranslationData> d;
 };
 }
 
-APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Bundle& bundle);
+APPSTREAMQT_EXPORT QDebug operator<<(QDebug s, const AppStream::Translation& category);
 
-#endif // APPSTREAMQT_BUNDLE_H
+#endif // APPSTREAMQT_TRANSLATION_H
+
+

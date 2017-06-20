@@ -28,6 +28,10 @@
 #include "appstreamqt_export.h"
 #include "provided.h"
 #include "bundle.h"
+#include "category.h"
+#include "contentrating.h"
+#include "launchable.h"
+#include "translation.h"
 
 struct _AsComponent;
 namespace AppStream {
@@ -62,6 +66,13 @@ Q_GADGET
         };
         Q_ENUM(Kind)
 
+        enum MergeKind {
+            MergeKindNone,
+            MergeKindReplace,
+            MergeKindAppend
+        };
+        Q_ENUM(MergeKind)
+
         enum UrlKind {
             UrlKindUnknown,
             UrlKindHomepage,
@@ -72,6 +83,13 @@ Q_GADGET
             UrlTranslate
         };
         Q_ENUM(UrlKind)
+
+        enum ValueFlags {
+            FlagNone = 0,
+            FlagDuplicateCheck = 1 << 0,
+            FlagNoTranslationFallback = 1 << 1
+        };
+        Q_ENUM(ValueFlags)
 
         static Kind stringToKind(const QString& kindString);
         static QString kindToString(Kind kind);
@@ -84,8 +102,19 @@ Q_GADGET
         Component(const Component& other);
         ~Component();
 
+        _AsComponent *asComponent() const;
+
+        uint valueFlags() const;
+        void setValueFlags(uint flags);
+
+        QString activeLocale() const;
+        void setActiveLocale(const QString& locale);
+
         Kind kind () const;
         void setKind (Component::Kind kind);
+
+        QString origin() const;
+        void setOrigin(const QString& origin);
 
         QString id() const;
         void setId(const QString& id);
@@ -94,6 +123,10 @@ Q_GADGET
         void setDataId(const QString& cdid);
 
         QStringList packageNames() const;
+        void setPackageNames(const QStringList& list);
+
+        QString sourcePackageName() const;
+        void setSourcePackageName(const QString& sourcePkg);
 
         QString name() const;
         void setName(const QString& name, const QString& lang = {});
@@ -103,6 +136,12 @@ Q_GADGET
 
         QString description() const;
         void setDescription(const QString& description, const QString& lang = {});
+
+        AppStream::Launchable launchable(AppStream::Launchable::Kind kind) const;
+        void addLaunchable(const AppStream::Launchable& launchable);
+
+        QString metadataLicense() const;
+        void setMetadataLicense(const QString& license);
 
         QString projectLicense() const;
         void setProjectLicense(const QString& license);
@@ -114,19 +153,33 @@ Q_GADGET
         void setDeveloperName(const QString& developerName, const QString& lang = {});
 
         QStringList compulsoryForDesktops() const;
+        void setCompulsoryForDesktop(const QString& desktop);
         bool isCompulsoryForDesktop(const QString& desktop) const;
 
         QStringList categories() const;
+        void addCategory(const QString& category);
         bool hasCategory(const QString& category) const;
 
         QStringList extends() const;
         void setExtends(const QStringList& extends);
+        void addExtends(const QString& extend);
+
         QList<AppStream::Component> addons() const;
+        void addAddon(const AppStream::Component& addon);
+
+        QStringList languages() const;
+        int language(const QString& locale) const;
+        void addLanguage(const QString& locale, int percentage);
+
+        QList<AppStream::Translation> translations() const;
+        void addTranslation(const AppStream::Translation& translation);
 
         QUrl url(UrlKind kind) const;
+        void addUrl(UrlKind kind, const QString& url);
 
         QList<AppStream::Icon> icons() const;
         AppStream::Icon icon(const QSize& size) const;
+        void addIcon(const AppStream::Icon& icon);
 
         /**
          * \return the full list of provided entries for all kinds.
@@ -138,20 +191,46 @@ Q_GADGET
          * \return provided items for this \param kind
          */
         AppStream::Provided provided(Provided::Kind kind) const;
+        void addProvided(const AppStream::Provided& provided);
 
         QList<AppStream::Screenshot> screenshots() const;
+        void addScreenshot(const AppStream::Screenshot& screenshot);
 
         QList<AppStream::Release> releases() const;
+        void addRelease(const AppStream::Release& release);
 
+        bool hasBundle() const;
         QList<AppStream::Bundle> bundles() const;
         AppStream::Bundle bundle(Bundle::Kind kind) const;
+        void addBundle(const AppStream::Bundle& bundle) const;
 
         QList<AppStream::Suggested> suggested() const;
+        void addSuggested(const AppStream::Suggested& suggested);
 
+        QStringList searchTokens() const;
+        uint searchMatches(const QString& term) const;
+        uint searchMatchesAll(const QStringList& terms) const;
+
+        MergeKind mergeKind() const;
+        void setMergeKind(MergeKind kind);
+
+        QHash<QString,QString> custom() const;
+        QString customValue(const QString& key);
+        bool insertCustomValue(const QString& key, const QString& value);
+
+        QList<AppStream::ContentRating> contentRatings() const;
+        AppStream::ContentRating contentRating(const QString& kind) const;
+        void addContentRating(const AppStream::ContentRating& contentRating);
+
+        bool isMemberOfCategory(const AppStream::Category& category) const;
+
+        bool isIgnored() const;
         bool isValid() const;
 
-	// DEPRECATED
-	Q_DECL_DEPRECATED QString desktopId() const;
+        QString toString() const;
+
+    // DEPRECATED
+    Q_DECL_DEPRECATED QString desktopId() const;
 
     private:
         _AsComponent *m_cpt;

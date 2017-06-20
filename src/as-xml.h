@@ -26,6 +26,8 @@
 #define __AS_XML_H
 
 #include <libxml/tree.h>
+#include <libxml/parser.h>
+#include <libxml/xmlsave.h>
 #include "as-context.h"
 
 G_BEGIN_DECLS
@@ -34,11 +36,16 @@ G_BEGIN_DECLS
 gchar		*as_xml_get_node_value (xmlNode *node);
 gchar		*as_xmldata_get_node_locale (AsContext *ctx,
 					     xmlNode *node);
+
 void		as_xml_add_children_values_to_array (xmlNode *node,
 						     const gchar *element_name,
 						     GPtrArray *array);
+
 GPtrArray	*as_xml_get_children_as_string_list (xmlNode *node,
 					       const gchar *element_name);
+gchar		**as_xml_get_children_as_strv (xmlNode *node,
+					       const gchar *element_name);
+
 void		as_xml_parse_metainfo_description_node (AsContext *ctx,
 							xmlNode *node,
 							GHFunc func,
@@ -49,6 +56,29 @@ gchar		*as_xml_dump_node_children (xmlNode *node);
 void		as_xml_add_description_node (AsContext *ctx,
 					     xmlNode *root,
 					     GHashTable *desc_table);
+
+void		as_xml_add_localized_text_node (xmlNode *root,
+						const gchar *node_name,
+						GHashTable *value_table);
+
+xmlNode		*as_xml_add_node_list_strv (xmlNode *root,
+						const gchar *name,
+						const gchar *child_name,
+						gchar **strv);
+
+void		as_xml_add_node_list (xmlNode *root,
+					const gchar *name,
+					const gchar *child_name,
+					GPtrArray *array);
+
+xmlNode		*as_xml_add_text_node (xmlNode *root,
+				       const gchar *name,
+					const gchar *value);
+
+xmlDoc		*as_xml_parse_document (const gchar *data,
+					GError **error);
+
+gchar		*as_xml_node_to_str (xmlNode *root);
 
 #pragma GCC visibility pop
 G_END_DECLS

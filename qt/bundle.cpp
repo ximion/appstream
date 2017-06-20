@@ -60,6 +60,11 @@ public:
         return rd.m_bundle == m_bundle;
     }
 
+    AsBundle *bundle() const
+    {
+        return m_bundle;
+    }
+
     AsBundle* m_bundle;
 };
 
@@ -86,6 +91,11 @@ bool Bundle::operator==(const Bundle &other) const
         return *(this->d) == *other.d;
     }
     return false;
+}
+
+_AsBundle * AppStream::Bundle::asBundle() const
+{
+    return d->bundle();
 }
 
 Bundle::Kind Bundle::kind() const

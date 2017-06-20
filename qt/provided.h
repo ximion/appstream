@@ -42,6 +42,11 @@ class APPSTREAMQT_EXPORT Provided {
         Provided& operator=(const Provided& other);
         bool operator==(const Provided& other) const;
 
+        /**
+         * \returns the internally stored AsProvided
+         */
+        _AsProvided *asProvided() const;
+
         enum Kind {
             KindUnknown,
             KindLibrary,

@@ -55,6 +55,11 @@ class APPSTREAMQT_EXPORT Icon {
         Icon& operator=(const Icon& other);
 
         /**
+         * \returns the internally stored AsIcon
+         */
+        _AsIcon *asIcon() const;
+
+        /**
          * \return the kind of icon
          */
         Kind kind() const;

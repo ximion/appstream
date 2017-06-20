@@ -28,6 +28,16 @@
 #include "as-utils-private.h"
 #include "as-stemmer.h"
 
+#include "as-icon-private.h"
+#include "as-screenshot-private.h"
+#include "as-bundle-private.h"
+#include "as-release-private.h"
+#include "as-translation-private.h"
+#include "as-suggested-private.h"
+#include "as-content-rating-private.h"
+#include "as-launchable-private.h"
+
+
 /**
  * SECTION:as-component
  * @short_description: Object representing a software component
@@ -3105,6 +3115,757 @@ as_component_merge (AsComponent *cpt, AsComponent *source)
 
 	as_component_merge_with_mode (cpt, source, merge_kind);
 	return TRUE;
+}
+
+/**
+ * as_component_set_kind_from_node:
+ */
+static void
+as_component_set_kind_from_node (AsComponent *cpt, xmlNode *node)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_autofree gchar *cpttype = NULL;
+
+	/* find out which kind of component we are dealing with */
+	cpttype = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	if ((cpttype == NULL) || (g_strcmp0 (cpttype, "generic") == 0)) {
+		priv->kind = AS_COMPONENT_KIND_GENERIC;
+	} else {
+		priv->kind = as_component_kind_from_string (cpttype);
+		if (priv->kind == AS_COMPONENT_KIND_UNKNOWN)
+			g_debug ("Found unknown component type: %s", cpttype);
+	}
+}
+
+/**
+ * as_xml_metainfo_description_to_cpt:
+ *
+ * Helper function for GHashTable
+ */
+static void
+as_xml_metainfo_description_to_cpt (gchar *key, GString *value, AsComponent *cpt)
+{
+	g_assert (AS_IS_COMPONENT (cpt));
+
+	as_component_set_description (cpt, value->str, key);
+	g_string_free (value, TRUE);
+}
+
+/**
+ * as_component_load_provides_from_xml:
+ */
+static void
+as_component_load_provides_from_xml (AsComponent *cpt, xmlNode *node)
+{
+	xmlNode *iter;
+	gchar *node_name;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *content = NULL;
+
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		node_name = (gchar*) iter->name;
+		content = as_xml_get_node_value (iter);
+		if (content == NULL)
+			continue;
+
+		if (g_strcmp0 (node_name, "library") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_LIBRARY, content);
+		} else if (g_strcmp0 (node_name, "binary") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_BINARY, content);
+		} else if (g_strcmp0 (node_name, "font") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FONT, content);
+		} else if (g_strcmp0 (node_name, "modalias") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MODALIAS, content);
+		} else if (g_strcmp0 (node_name, "firmware") == 0) {
+			g_autofree gchar *fwtype = NULL;
+			fwtype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			if (fwtype != NULL) {
+				if (g_strcmp0 (fwtype, "runtime") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_RUNTIME, content);
+				else if (g_strcmp0 (fwtype, "flashed") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_FLASHED, content);
+			}
+		} else if (g_strcmp0 (node_name, "python2") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON_2, content);
+		} else if (g_strcmp0 (node_name, "python3") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, content);
+		} else if (g_strcmp0 (node_name, "dbus") == 0) {
+			g_autofree gchar *dbustype = NULL;
+			dbustype = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+
+			if (g_strcmp0 (dbustype, "system") == 0)
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_SYSTEM, content);
+			else if ((g_strcmp0 (dbustype, "user") == 0) || (g_strcmp0 (dbustype, "session") == 0))
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_USER, content);
+		}
+	}
+}
+
+/**
+ * as_component_xml_parse_languages_node:
+ */
+static void
+as_component_xml_parse_languages_node (AsComponent* cpt, xmlNode* node)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "lang") == 0) {
+			guint64 percentage = 0;
+			g_autofree gchar *locale = NULL;
+			g_autofree gchar *prop = NULL;
+
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "percentage");
+			if (prop != NULL)
+				percentage = g_ascii_strtoll (prop, NULL, 10);
+
+			locale = as_xml_get_node_value (iter);
+			as_component_add_language (cpt, locale, percentage);
+		}
+	}
+}
+
+/**
+ * as_component_load_launchable_from_xml:
+ *
+ * Loads <launchable/> data from an XML node.
+ **/
+static void
+as_component_load_launchable_from_xml (AsComponent *cpt, xmlNode *node)
+{
+	AsLaunchableKind lkind;
+	AsLaunchable *launchable;
+	g_autofree gchar *value = NULL;
+
+	lkind = as_launchable_kind_from_string ((gchar*) xmlGetProp (node, (xmlChar*) "type"));
+	if (lkind == AS_LAUNCHABLE_KIND_UNKNOWN)
+		return;
+
+	launchable = as_component_get_launchable (cpt, lkind);
+	if (launchable == NULL) {
+		launchable = as_launchable_new ();
+		as_launchable_set_kind (launchable, lkind);
+		as_component_add_launchable (cpt, launchable);
+		g_object_unref (launchable);
+	}
+
+	value = as_xml_get_node_value (node);
+	if (value == NULL)
+		return;
+	as_launchable_add_entry (launchable, value);
+}
+
+/**
+ * as_component_xml_parse_custom_node:
+ */
+static void
+as_component_xml_parse_custom_node (AsComponent *cpt, xmlNode *node)
+{
+	xmlNode *iter;
+	GHashTable *custom;
+
+	custom = as_component_get_custom (cpt);
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		gchar *key_str = NULL;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		if (g_strcmp0 ((gchar*) iter->name, "value") != 0)
+			continue;
+
+		key_str = (gchar*) xmlGetProp (iter, (xmlChar*) "key");
+		if (key_str == NULL)
+			continue;
+		g_hash_table_insert (custom,
+				     key_str,
+				     as_xml_get_node_value (iter));
+	}
+}
+
+/**
+ * as_component_load_from_xml:
+ * @cpt: An #AsComponent.
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GError **error)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	xmlNode *iter;
+	const gchar *node_name;
+	g_autoptr(GPtrArray) pkgnames = NULL;
+	g_autofree gchar *priority_str;
+	g_autofree gchar *merge_str;
+
+	pkgnames = g_ptr_array_new_with_free_func (g_free);
+
+	/* set component kind */
+	as_component_set_kind_from_node (cpt, node);
+
+	/* set the priority for this component */
+	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
+	if (priority_str == NULL) {
+		priv->priority = as_context_get_priority (ctx);
+	} else {
+		priv->priority = g_ascii_strtoll (priority_str, NULL, 10);
+	}
+
+	/* set the merge method for this component */
+	merge_str = (gchar*) xmlGetProp (node, (xmlChar*) "merge");
+	if (merge_str != NULL) {
+		priv->merge_kind = as_merge_kind_from_string (merge_str);
+	}
+
+	/* set active locale for this component */
+	as_component_set_active_locale (cpt, as_context_get_locale (ctx));
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		g_autofree gchar *content = NULL;
+		g_autofree gchar *lang = NULL;
+
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		node_name = (const gchar*) iter->name;
+		content = as_xml_get_node_value (iter);
+		lang = as_xmldata_get_node_locale (ctx, iter);
+
+		if (g_strcmp0 (node_name, "id") == 0) {
+			as_component_set_id (cpt, content);
+			if ((as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) && (priv->kind == AS_COMPONENT_KIND_GENERIC)) {
+				/* parse legacy component type information */
+				as_component_set_kind_from_node (cpt, iter);
+			}
+		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
+			if (content != NULL)
+				g_ptr_array_add (pkgnames, g_strdup (content));
+		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
+			as_component_set_source_pkgname (cpt, content);
+		} else if (g_strcmp0 (node_name, "name") == 0) {
+			if (lang != NULL)
+				as_component_set_name (cpt, content, lang);
+		} else if (g_strcmp0 (node_name, "summary") == 0) {
+			if (lang != NULL)
+				as_component_set_summary (cpt, content, lang);
+		} else if (g_strcmp0 (node_name, "description") == 0) {
+			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
+				if (lang != NULL) {
+					gchar *desc;
+					desc = as_xml_dump_node_children (iter);
+					as_component_set_description (cpt, desc, lang);
+					g_free (desc);
+				}
+			} else {
+				as_xml_parse_metainfo_description_node (ctx,
+									iter,
+									(GHFunc) as_xml_metainfo_description_to_cpt,
+									cpt);
+			}
+		} else if (g_strcmp0 (node_name, "icon") == 0) {
+			g_autoptr(AsIcon) icon = NULL;
+			if (content == NULL)
+				continue;
+			icon = as_icon_new ();
+			if (as_icon_load_from_xml (icon, ctx, iter, NULL))
+				as_component_add_icon (cpt, icon);
+		} else if (g_strcmp0 (node_name, "url") == 0) {
+			if (content != NULL) {
+				g_autofree gchar *urltype_str = NULL;
+				AsUrlKind url_kind;
+				urltype_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+				url_kind = as_url_kind_from_string (urltype_str);
+				if (url_kind != AS_URL_KIND_UNKNOWN)
+					as_component_add_url (cpt, url_kind, content);
+			}
+		} else if (g_strcmp0 (node_name, "categories") == 0) {
+			as_xml_add_children_values_to_array (iter,
+							     "category",
+							     priv->categories);
+		} else if (g_strcmp0 (node_name, "keywords") == 0) {
+			if (lang != NULL) {
+				g_auto(GStrv) kw_array = NULL;
+				kw_array = as_xml_get_children_as_strv (iter, "keyword");
+				as_component_set_keywords (cpt, kw_array, lang);
+			}
+		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
+			g_autoptr(GPtrArray) mime_list = NULL;
+			guint i;
+
+			/* Mimetypes are essentially provided interfaces, that's why they belong into AsProvided.
+			 * However, due to historic reasons, the spec has an own toplevel tag for them, so we need
+			 * to parse them here. */
+			mime_list = as_xml_get_children_as_string_list (iter, "mimetype");
+			for (i = 0; i < mime_list->len; i++) {
+				as_component_add_provided_item (cpt,
+								AS_PROVIDED_KIND_MIMETYPE,
+								(const gchar*) g_ptr_array_index (mime_list, i));
+			}
+		} else if (g_strcmp0 (node_name, "provides") == 0) {
+			as_component_load_provides_from_xml (cpt, iter);
+		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
+			xmlNode *iter2;
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) iter2->name, "screenshot") == 0) {
+					g_autoptr(AsScreenshot) screenshot = as_screenshot_new ();
+					if (as_screenshot_load_from_xml (screenshot, ctx, iter2, NULL))
+						as_component_add_screenshot (cpt, screenshot);
+				}
+			}
+		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
+			as_component_set_metadata_license (cpt, content);
+		} else if (g_strcmp0 (node_name, "project_license") == 0) {
+			as_component_set_project_license (cpt, content);
+		} else if (g_strcmp0 (node_name, "project_group") == 0) {
+			as_component_set_project_group (cpt, content);
+		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+			if (lang != NULL)
+				as_component_set_developer_name (cpt, content, lang);
+		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
+			if (content != NULL)
+				as_component_set_compulsory_for_desktop (cpt, content);
+		} else if (g_strcmp0 (node_name, "releases") == 0) {
+			xmlNode *iter2;
+
+			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				if (g_strcmp0 ((const gchar*) iter2->name, "release") == 0) {
+					g_autoptr(AsRelease) release = as_release_new ();
+					if (as_release_load_from_xml (release, ctx, iter2, NULL))
+						as_component_add_release (cpt, release);
+				}
+			}
+		} else if (g_strcmp0 (node_name, "extends") == 0) {
+			as_component_add_extends (cpt, content);
+		} else if (g_strcmp0 (node_name, "languages") == 0) {
+			as_component_xml_parse_languages_node (cpt, iter);
+		} else if (g_strcmp0 (node_name, "launchable") == 0) {
+			as_component_load_launchable_from_xml (cpt, iter);
+		} else if (g_strcmp0 (node_name, "bundle") == 0) {
+			g_autoptr(AsBundle) bundle = as_bundle_new ();
+			if (as_bundle_load_from_xml (bundle, ctx, iter, NULL))
+				as_component_add_bundle (cpt, bundle);
+		} else if (g_strcmp0 (node_name, "translation") == 0) {
+			if (content != NULL) {
+				g_autoptr(AsTranslation) tr = as_translation_new ();
+				if (as_translation_load_from_xml (tr, ctx, iter, NULL))
+					as_component_add_translation (cpt, tr);
+			}
+		} else if (g_strcmp0 (node_name, "suggests") == 0) {
+			g_autoptr(AsSuggested) suggested = as_suggested_new ();
+			if (as_suggested_load_from_xml (suggested, ctx, iter, NULL))
+				as_component_add_suggested (cpt, suggested);
+		} else if (g_strcmp0 (node_name, "custom") == 0) {
+			as_component_xml_parse_custom_node (cpt, iter);
+		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
+			g_autoptr(AsContentRating) ctrating = as_content_rating_new ();
+			if (as_content_rating_load_from_xml (ctrating, ctx, iter, NULL))
+				as_component_add_content_rating (cpt, ctrating);
+		}
+	}
+
+	/* set the origin of this component */
+	as_component_set_origin (cpt, as_context_get_origin (ctx));
+
+	/* set the architecture of this component */
+	as_component_set_architecture (cpt, as_context_get_architecture (ctx));
+
+	/* add package name information to component */
+	{
+		g_auto(GStrv) strv = as_ptr_array_to_strv (pkgnames);
+		as_component_set_pkgnames (cpt, strv);
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_component_xml_keywords_to_node:
+ */
+static void
+as_component_xml_keywords_to_node (AsComponent *cpt, xmlNode *root)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	GHashTableIter iter;
+	gpointer key, value;
+
+	g_hash_table_iter_init (&iter, priv->keywords);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		xmlNode *node;
+		const gchar *locale = (const gchar*) key;
+		gchar **kws = (gchar**) value;
+
+		/* skip cruft */
+		if (as_is_cruft_locale (locale))
+			continue;
+
+		node = as_xml_add_node_list_strv (root, "keywords", "keyword", kws);
+		if (node == NULL)
+			continue;
+		if (g_strcmp0 (locale, "C") != 0) {
+			xmlNewProp (node,
+				(xmlChar*) "xml:lang",
+				(xmlChar*) locale);
+		}
+	}
+}
+
+/**
+ * as_component_xml_serialize_provides:
+ */
+static void
+as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	xmlNode *node;
+	GPtrArray *items;
+	guint i;
+	AsProvided *prov_mime;
+
+	if (priv->provided->len == 0)
+		return;
+
+	prov_mime = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MIMETYPE);
+	if (prov_mime != NULL) {
+		/* mimetypes get special treatment in XML for historical reasons */
+		node = xmlNewChild (cnode, NULL, (xmlChar*) "mimetypes", NULL);
+		items = as_provided_get_items (prov_mime);
+
+		for (i = 0; i < items->len; i++) {
+			xmlNewTextChild (node,
+					  NULL,
+					  (xmlChar*) "mimetype",
+					  (xmlChar*) g_ptr_array_index (items, i));
+		}
+
+		/* check if we only had mimetype provided items, in that case we don't need to continue */
+		if (priv->provided->len == 1)
+			return;
+	}
+
+	node = xmlNewChild (cnode, NULL, (xmlChar*) "provides", NULL);
+	for (i = 0; i < priv->provided->len; i++) {
+		guint j;
+		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
+
+		items = as_provided_get_items (prov);
+		switch (as_provided_get_kind (prov)) {
+			case AS_PROVIDED_KIND_MIMETYPE:
+				/* we already handled those */
+				break;
+			case AS_PROVIDED_KIND_LIBRARY:
+				as_xml_add_node_list (node, NULL,
+							"library",
+							items);
+				break;
+			case AS_PROVIDED_KIND_BINARY:
+				as_xml_add_node_list (node, NULL,
+							"binary",
+							items);
+				break;
+			case AS_PROVIDED_KIND_MODALIAS:
+				as_xml_add_node_list (node, NULL,
+							"modalias",
+							items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON_2:
+				as_xml_add_node_list (node, NULL,
+							"python2",
+							items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON:
+				as_xml_add_node_list (node, NULL,
+							"python3",
+							items);
+				break;
+			case AS_PROVIDED_KIND_FONT:
+				as_xml_add_node_list (node, NULL,
+							"font",
+							items);
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
+				for (j = 0; j < items->len; j++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL,
+							     (xmlChar*) "firmware",
+							     (xmlChar*) g_ptr_array_index (items, j));
+					xmlNewProp (n,
+						    (xmlChar*) "type",
+						    (xmlChar*) "runtime");
+				}
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
+				for (j = 0; j < items->len; j++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL,
+							     (xmlChar*) "firmware",
+							     (xmlChar*) g_ptr_array_index (items, j));
+					xmlNewProp (n,
+						    (xmlChar*) "type",
+						    (xmlChar*) "runtime");
+				}
+				break;
+			case AS_PROVIDED_KIND_DBUS_SYSTEM:
+				for (j = 0; j < items->len; j++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL,
+							     (xmlChar*) "dbus",
+							     (xmlChar*) g_ptr_array_index (items, j));
+					xmlNewProp (n,
+						    (xmlChar*) "type",
+						    (xmlChar*) "system");
+				}
+				break;
+			case AS_PROVIDED_KIND_DBUS_USER:
+				for (j = 0; j < items->len; j++) {
+					xmlNode *n;
+					n = xmlNewTextChild (node, NULL,
+							     (xmlChar*) "dbus",
+							     (xmlChar*) g_ptr_array_index (items, j));
+					xmlNewProp (n,
+						    (xmlChar*) "type",
+						    (xmlChar*) "user");
+				}
+				break;
+
+			default:
+				g_debug ("Couldn't serialize provided-item type '%s'", as_provided_kind_to_string (as_provided_get_kind (prov)));
+				break;
+		}
+	}
+}
+
+/**
+ * as_component_xml_serialize_languages:
+ */
+static void
+as_component_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	xmlNode *node;
+	GHashTableIter iter;
+	gpointer key, value;
+
+	if (g_hash_table_size (priv->languages) == 0)
+		return;
+
+	node = xmlNewChild (cptnode, NULL, (xmlChar*) "languages", NULL);
+	g_hash_table_iter_init (&iter, priv->languages);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		guint percentage;
+		const gchar *locale;
+		xmlNode *l_node;
+		g_autofree gchar *percentage_str = NULL;
+
+		locale = (const gchar*) key;
+		percentage = GPOINTER_TO_INT (value);
+		percentage_str = g_strdup_printf("%i", percentage);
+
+		l_node = xmlNewTextChild (node,
+					  NULL,
+					  (xmlChar*) "lang",
+					  (xmlChar*) locale);
+		xmlNewProp (l_node,
+			    (xmlChar*) "percentage",
+			    (xmlChar*) percentage_str);
+	}
+}
+
+/**
+ * as_component_xml_serialize_custom:
+ */
+static void
+as_component_xml_serialize_custom (AsComponent *cpt, xmlNode *cptnode)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	xmlNode *node;
+	GHashTableIter iter;
+	gpointer key, value;
+
+	if (g_hash_table_size (priv->custom) == 0)
+		return;
+
+	node = xmlNewChild (cptnode, NULL, (xmlChar*) "custom", NULL);
+	g_hash_table_iter_init (&iter, priv->custom);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		xmlNode *snode;
+
+		snode = xmlNewTextChild (node,
+					  NULL,
+					  (xmlChar*) "value",
+					  (xmlChar*) value);
+		xmlNewProp (snode,
+			    (xmlChar*) "key",
+			    (xmlChar*) key);
+	}
+}
+
+/**
+ * as_component_to_xml_node:
+ * @cpt: An #AsComponent.
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+xmlNode*
+as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	xmlNode *cnode;
+	guint i;
+
+	/* define component root node properties */
+	if (root == NULL)
+		cnode = xmlNewNode (NULL, (xmlChar*) "component");
+	else
+		cnode = xmlNewChild (root, NULL, (xmlChar*) "component", NULL);
+
+	if ((priv->kind != AS_COMPONENT_KIND_GENERIC) && (priv->kind != AS_COMPONENT_KIND_UNKNOWN)) {
+		const gchar *kind_str;
+		if ((as_context_get_format_version (ctx) < AS_FORMAT_VERSION_V0_10) && (priv->kind == AS_COMPONENT_KIND_DESKTOP_APP))
+			kind_str = "desktop";
+		else
+			kind_str = as_component_kind_to_string (priv->kind);
+		xmlNewProp (cnode, (xmlChar*) "type",
+					(xmlChar*) kind_str);
+	}
+
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+		/* write some propties which only exist in collection XML */
+		if (priv->merge_kind != AS_MERGE_KIND_NONE) {
+			xmlNewProp (cnode, (xmlChar*) "merge",
+						(xmlChar*) as_merge_kind_to_string (priv->merge_kind));
+		}
+
+		if (priv->priority != 0) {
+			g_autofree gchar *priority_str = g_strdup_printf ("%i", priv->priority);
+			xmlNewProp (cnode, (xmlChar*) "priority", (xmlChar*) priority_str);
+		}
+	}
+
+	/* component tags */
+	as_xml_add_text_node (cnode, "id", as_component_get_id (cpt));
+
+	as_xml_add_localized_text_node (cnode, "name", priv->name);
+	as_xml_add_localized_text_node (cnode, "summary", priv->summary);
+
+	/* order license and project group after name/summary */
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO)
+		as_xml_add_text_node (cnode, "metadata_license", priv->metadata_license);
+
+	as_xml_add_text_node (cnode, "project_license", priv->project_license);
+	as_xml_add_text_node (cnode, "project_group", priv->project_group);
+
+	/* developer name */
+	as_xml_add_localized_text_node (cnode, "developer_name", priv->developer_name);
+
+	/* long description */
+	as_xml_add_description_node (ctx, cnode, priv->description);
+
+	as_xml_add_node_list_strv (cnode, NULL, "pkgname", priv->pkgnames);
+
+	as_xml_add_node_list (cnode, NULL, "extends", priv->extends);
+	as_xml_add_node_list (cnode, NULL, "compulsory_for_desktop", priv->compulsory_for_desktops);
+	as_xml_add_node_list (cnode, "categories", "category", priv->categories);
+
+	/* keywords */
+	as_component_xml_keywords_to_node (cpt, cnode);
+
+	/* urls */
+	for (i = AS_URL_KIND_UNKNOWN; i < AS_URL_KIND_LAST; i++) {
+		xmlNode *n;
+		const gchar *value;
+		value = as_component_get_url (cpt, i);
+		if (value == NULL)
+			continue;
+
+		n = xmlNewTextChild (cnode, NULL, (xmlChar*) "url", (xmlChar*) value);
+		xmlNewProp (n, (xmlChar*) "type",
+					(xmlChar*) as_url_kind_to_string (i));
+	}
+
+	/* icons */
+	for (i = 0; i < priv->icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (priv->icons, i));
+		as_icon_to_xml_node (icon, ctx, cnode);
+	}
+
+	/* bundles */
+	for (i = 0; i < priv->bundles->len; i++) {
+		AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (priv->bundles, i));
+		as_bundle_to_xml_node (bundle, ctx, cnode);
+	}
+
+	/* launchables */
+	for (i = 0; i < priv->launchables->len; i++) {
+		AsLaunchable *launchable = AS_LAUNCH (g_ptr_array_index (priv->launchables, i));
+		as_launchable_to_xml_node (launchable, ctx, cnode);
+	}
+
+	/* translations */
+	if (priv->translations != NULL) {
+		for (i = 0; i < priv->translations->len; i++) {
+			AsTranslation *tr = AS_TRANSLATION (g_ptr_array_index (priv->translations, i));
+			as_translation_to_xml_node (tr, ctx, cnode);
+		}
+	}
+
+	/* screenshots */
+	for (i = 0; i < priv->screenshots->len; i++) {
+		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
+		as_screenshot_to_xml_node (scr, ctx, cnode);
+	}
+
+	/* releases */
+	if (priv->releases->len > 0) {
+		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "releases", NULL);
+
+		for (i = 0; i < priv->releases->len; i++) {
+			AsRelease *rel = AS_RELEASE (g_ptr_array_index (priv->releases, i));
+			as_release_to_xml_node (rel, ctx, rnode);
+		}
+	}
+
+	/* provides & mimetypes node */
+	as_component_xml_serialize_provides (cpt, cnode);
+
+	/* languages node */
+	as_component_xml_serialize_languages (cpt, cnode);
+
+	/* suggests nodes */
+	for (i = 0; i < priv->suggestions->len; i++) {
+		AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
+		as_suggested_to_xml_node (suggested, ctx, cnode);
+	}
+
+	/* content_rating nodes */
+	for (i = 0; i < priv->content_ratings->len; i++) {
+		AsContentRating *ctrating = AS_CONTENT_RATING (g_ptr_array_index (priv->content_ratings, i));
+		as_content_rating_to_xml_node (ctrating, ctx, cnode);
+	}
+
+	/* custom node */
+	as_component_xml_serialize_custom (cpt, cnode);
+
+	return cnode;
 }
 
 /**

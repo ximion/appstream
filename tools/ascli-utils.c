@@ -22,7 +22,6 @@
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
-#include "as-utils-private.h"
 
 /**
  * Set to true if we don't want colored output

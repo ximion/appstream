@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
  * Copyright (C) 2016 Lucas Moura <lucas.moura128@gmail.com>
+ * Copyright (C) 2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -31,6 +32,7 @@
 #include "config.h"
 
 #include "as-suggested.h"
+#include "as-suggested-private.h"
 
 typedef struct
 {
@@ -187,6 +189,77 @@ as_suggested_is_valid (AsSuggested *suggested)
 		return FALSE;
 
 	return TRUE;
+}
+
+/**
+ * as_suggested_load_from_xml:
+ * @suggested: a #AsSuggested instance.
+ * @ctx: the AppStream document context.
+ * @node: the XML node.
+ * @error: a #GError.
+ *
+ * Loads data from an XML node.
+ **/
+gboolean
+as_suggested_load_from_xml (AsSuggested *suggested, AsContext *ctx, xmlNode *node, GError **error)
+{
+	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
+	xmlNode *iter;
+	g_autofree gchar *type_str = NULL;
+
+	type_str = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	priv->kind = as_suggested_kind_from_string (type_str);
+	if (priv->kind == AS_SUGGESTED_KIND_UNKNOWN) {
+		g_debug ("Found suggests tag of unknown type '%s' at %s:%li. Ignoring it.",
+			 type_str, as_context_get_fname (ctx), xmlGetLineNo (node));
+		return FALSE;
+	}
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (g_strcmp0 ((gchar*) iter->name, "id") == 0) {
+			g_autofree gchar *content = NULL;
+			content = as_xml_get_node_value (iter);
+
+			if (content != NULL)
+				as_suggested_add_id (suggested, content);
+		}
+	}
+
+	return priv->cpt_ids->len > 0;
+}
+
+/**
+ * as_suggested_to_xml_node:
+ * @suggested: a #AsSuggested instance.
+ * @ctx: the AppStream document context.
+ * @root: XML node to attach the new nodes to.
+ *
+ * Serializes the data to an XML node.
+ **/
+void
+as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root)
+{
+	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
+	guint j;
+	xmlNode *node;
+
+	/* non-upstream tags are not allowed in metainfo files */
+	if ((priv->kind != AS_SUGGESTED_KIND_UPSTREAM) && (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO))
+		return;
+
+	node = xmlNewChild (root, NULL, (xmlChar*) "suggests", NULL);
+	xmlNewProp (node, (xmlChar*) "type",
+		    (xmlChar*) as_suggested_kind_to_string (priv->kind));
+
+	for (j = 0; j < priv->cpt_ids->len; j++) {
+		const gchar *cid = (const gchar*) g_ptr_array_index (priv->cpt_ids, j);
+		xmlNewTextChild (node, NULL,
+					(xmlChar*) "id",
+					(xmlChar*) cid);
+	}
 }
 
 /**

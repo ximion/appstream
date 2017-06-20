@@ -51,6 +51,11 @@ public:
         return rd.m_suggested == m_suggested;
     }
 
+    AsSuggested *suggested() const
+    {
+        return m_suggested;
+    }
+
     AsSuggested *m_suggested;
 };
 
@@ -73,6 +78,11 @@ Suggested& Suggested::operator=(const Suggested& other)
 {
     this->d = other.d;
     return *this;
+}
+
+_AsSuggested * AppStream::Suggested::suggested() const
+{
+    return d->suggested();
 }
 
 Suggested::Kind Suggested::kind() const

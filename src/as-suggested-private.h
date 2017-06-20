@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2015-2017 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,28 +18,26 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_SCREENSHOT_PRIVATE_H
-#define __AS_SCREENSHOT_PRIVATE_H
+#ifndef __AS_SUGGESTED_PRIVATE_H
+#define __AS_SUGGESTED_PRIVATE_H
 
-#include "as-screenshot.h"
+#include "as-suggested.h"
 #include "as-xml.h"
 #include "as-yaml.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-GHashTable		*as_screenshot_get_caption_table (AsScreenshot *screenshot);
+gboolean	as_suggested_load_from_xml (AsSuggested *suggested,
+						 AsContext *ctx,
+						 xmlNode *node,
+						 GError **error);
 
-gboolean		as_screenshot_load_from_xml (AsScreenshot *screenshot,
-							AsContext *ctx,
-							xmlNode *node,
-							GError **error);
-
-void			as_screenshot_to_xml_node (AsScreenshot *screenshot,
-							AsContext *ctx,
-							xmlNode *root);
+void		as_suggested_to_xml_node (AsSuggested *suggested,
+						AsContext *ctx,
+						xmlNode *root);
 
 #pragma GCC visibility pop
 G_END_DECLS
 
-#endif /* __AS_SCREENSHOT_PRIVATE_H */
+#endif /* __AS_SUGGESTED_PRIVATE_H */
