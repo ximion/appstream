@@ -112,6 +112,7 @@ QString AppStream::Metadata::formatVersionToString(AppStream::Metadata::FormatVe
     if (value.isEmpty()) {
         return QLatin1String("?.??");
     }
+    return value;
 }
 
 Metadata::Metadata()
@@ -214,7 +215,7 @@ void AppStream::Metadata::addComponent(const AppStream::Component& component)
 
 QString AppStream::Metadata::componentToMetainfo(AppStream::Metadata::FormatKind format) const
 {
-    valueWrap(as_metadata_component_to_metainfo(d->m_metadata, (AsFormatKind) format, nullptr));
+    return valueWrap(as_metadata_component_to_metainfo(d->m_metadata, (AsFormatKind) format, nullptr));
 }
 
 AppStream::Metadata::MetadataError AppStream::Metadata::saveMetainfo(const QString& fname, AppStream::Metadata::FormatKind format)
@@ -231,7 +232,7 @@ AppStream::Metadata::MetadataError AppStream::Metadata::saveMetainfo(const QStri
 
 QString AppStream::Metadata::componentsToCollection(AppStream::Metadata::FormatKind format) const
 {
-    valueWrap(as_metadata_components_to_collection(d->m_metadata, (AsFormatKind) format, nullptr));
+    return valueWrap(as_metadata_components_to_collection(d->m_metadata, (AsFormatKind) format, nullptr));
 }
 
 AppStream::Metadata::MetadataError AppStream::Metadata::saveCollection(const QString& collection, AppStream::Metadata::FormatKind format)
@@ -268,7 +269,7 @@ void AppStream::Metadata::setFormatStyle(AppStream::Metadata::FormatStyle format
 
 QString AppStream::Metadata::locale() const
 {
-    valueWrap(as_metadata_get_locale(d->m_metadata));
+    return valueWrap(as_metadata_get_locale(d->m_metadata));
 }
 
 void AppStream::Metadata::setLocale(const QString& locale)
@@ -278,7 +279,7 @@ void AppStream::Metadata::setLocale(const QString& locale)
 
 QString AppStream::Metadata::origin() const
 {
-    valueWrap(as_metadata_get_origin(d->m_metadata));
+    return valueWrap(as_metadata_get_origin(d->m_metadata));
 }
 
 void AppStream::Metadata::setOrigin(const QString& origin)
@@ -308,7 +309,7 @@ void AppStream::Metadata::setWriteHeader(bool writeHeader)
 
 QString AppStream::Metadata::architecture() const
 {
-    valueWrap(as_metadata_get_architecture(d->m_metadata));
+    return valueWrap(as_metadata_get_architecture(d->m_metadata));
 }
 
 void AppStream::Metadata::setArchitecture(const QString& architecture)
