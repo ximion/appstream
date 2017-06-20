@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Quickstart-Distros">
+	<title>For distributors packaging Appstream metadata</title>
+
+	<section id="qsr-distro-introduction">
+		<title>Guidelines for distributors</title>
+		<para>
+			Distributors of projects with AppStream metadata perform an important role
+			by making the software available to more people. There are a few guidelines
+			distributors should follow in order for software centers to present
+			the correct information to users.
+		</para>
+	</section>
+
+	<section id="qsr-distro-guidelines">
+		<title>Guidelines for distributors</title>
+		<para>
+			A binary package that contains AppStream desktop metadata  (<xref linkend="sect-Metadata-Application"/>)
+			must also contain both the .desktop file for the application and the application itself.
+		</para>
+		<para>
+			A binary package must not contain more than one AppStream metadata file. The one exception is
+			that it is permissable for a binary package that is extended by addons to include those addons
+			(<xref linkend="sect-Metadata-Addon"/>) and their AppStream metadata files. Note that users
+			will be unable to remove those addons separately.
+		</para>
+		<para>
+			Except for the extended package, no other package may contain more than one Appstream addon metadata file.
+		</para>
+
+	</section>
+
+</section>
