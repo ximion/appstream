@@ -80,7 +80,7 @@ class APPSTREAMQT_EXPORT Metadata {
         static QString formatVersionToString(FormatVersion version);
 
         Metadata();
-        Metadata(_AsMetadata *metadata);
+        explicit Metadata(_AsMetadata *metadata);
         Metadata(const Metadata& metadata);
         ~Metadata();
 

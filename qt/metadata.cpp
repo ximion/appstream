@@ -90,20 +90,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(VersionMap, versionMap, ( {
 
 AppStream::Metadata::FormatVersion AppStream::Metadata::stringToFormatVersion(const QString& formatVersionString)
 {
-    if (formatVersionString == QLatin1String("0.11")) {
-        return Metadata::FormatVersionV011;
-    } else if (formatVersionString == QLatin1String("0.10")) {
-        return Metadata::FormatVersionV010;
-    } else if (formatVersionString == QLatin1String("0.9")) {
-        return Metadata::FormatVersionV09;
-    } else if (formatVersionString == QLatin1String("0.8")) {
-        return Metadata::FormatVersionV08;
-    } else if (formatVersionString == QLatin1String("0.7")) {
-        return Metadata::FormatVersionV07;
-    } else if (formatVersionString == QLatin1String("0.6")) {
-        return Metadata::FormatVersionV06;
-    }
-    return Metadata::FormatVersionV010;
+    return versionMap->key(formatVersionString, AppStream::Metadata::FormatVersionV010);
 }
 
 QString AppStream::Metadata::formatVersionToString(AppStream::Metadata::FormatVersion version)
