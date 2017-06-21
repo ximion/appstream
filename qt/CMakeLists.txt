@@ -32,6 +32,7 @@ set(APPSTREAMQT_SRC
     release.cpp
     bundle.cpp
     suggested.cpp
+    metadata.cpp
     contentrating.cpp
     launchable.cpp
     translation.cpp
@@ -48,6 +49,7 @@ set(APPSTREAMQT_PUBLIC_HEADERS
     release.h
     bundle.h
     suggested.h
+    metadata.h
     contentrating.h
     launchable.h
     translation.h
