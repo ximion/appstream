@@ -35,6 +35,7 @@ set(APPSTREAMQT_SRC
     contentrating.cpp
     launchable.cpp
     translation.cpp
+    metadata.cpp
 )
 
 set(APPSTREAMQT_PUBLIC_HEADERS
@@ -51,6 +52,7 @@ set(APPSTREAMQT_PUBLIC_HEADERS
     contentrating.h
     launchable.h
     translation.h
+    metadata.h
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
