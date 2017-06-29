@@ -213,6 +213,50 @@ as_launchable_to_xml_node (AsLaunchable *launchable, AsContext *ctx, xmlNode *ro
 }
 
 /**
+ * as_launchable_load_from_yaml:
+ * @launchable: an #AsLaunchable
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_launchable_load_from_yaml (AsLaunchable *launch, AsContext *ctx, GNode *node, GError **error)
+{
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
+	GNode *n;
+
+	priv->kind = as_launchable_kind_from_string (as_yaml_node_get_key (node));
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *entry = as_yaml_node_get_key (n);
+		if (entry == NULL)
+			continue;
+		as_launchable_add_entry (launch, entry);
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_launchable_emit_yaml:
+ * @launchable: an #AsLaunchable
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
+
+	as_yaml_emit_sequence (emitter,
+			       as_launchable_kind_to_string (priv->kind),
+			       priv->entries);
+}
+
+/**
  * as_launchable_new:
  *
  * Creates a new #AsLaunchable.

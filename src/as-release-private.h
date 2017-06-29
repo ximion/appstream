@@ -34,10 +34,17 @@ gboolean	as_release_load_from_xml (AsRelease *release,
 					   AsContext *ctx,
 					   xmlNode *node,
 					   GError **error);
-
 void		as_release_to_xml_node (AsRelease *release,
 					 AsContext *ctx,
 					 xmlNode *root);
+
+gboolean	as_release_load_from_yaml (AsRelease *release,
+					   AsContext *ctx,
+					   GNode *node,
+					   GError **error);
+void		as_release_emit_yaml (AsRelease *release,
+					AsContext *ctx,
+					yaml_emitter_t *emitter);
 
 #pragma GCC visibility pop
 G_END_DECLS

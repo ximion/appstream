@@ -61,6 +61,26 @@ void		as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter,
 void		as_yaml_emit_long_entry (yaml_emitter_t *emitter,
 					 const gchar *key,
 					 const gchar *value);
+void		as_yaml_emit_sequence (yaml_emitter_t *emitter,
+					const gchar *key,
+					GPtrArray *list);
+
+GNode		*as_yaml_get_localized_node (AsContext *ctx,
+					     GNode *node,
+					     gchar *locale_override);
+gchar		*as_yaml_get_localized_value (AsContext *ctx,
+					      GNode *node,
+					      gchar *locale_override);
+
+void		as_yaml_emit_localized_entry (yaml_emitter_t *emitter,
+						const gchar *key,
+						GHashTable *ltab);
+void		as_yaml_emit_long_localized_entry (yaml_emitter_t *emitter,
+						   const gchar *key,
+						   GHashTable *ltab);
+
+void		as_yaml_list_to_str_array (GNode *node,
+					   GPtrArray *array);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -19,6 +19,8 @@
  */
 
 #include "as-yaml.h"
+#include "as-utils.h"
+#include "as-utils-private.h"
 
 /**
  * SECTION:as-yaml
@@ -277,4 +279,181 @@ as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar 
 					YAML_FOLDED_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
+}
+
+/**
+ * as_yaml_emit_sequence:
+ */
+void
+as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *list)
+{
+	guint i;
+
+	if (list == NULL)
+		return;
+	if (list->len == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	as_yaml_sequence_start (emitter);
+	for (i = 0; i < list->len; i++) {
+		const gchar *value = (const gchar *) g_ptr_array_index (list, i);
+		as_yaml_emit_scalar (emitter, value);
+	}
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_get_localized_node:
+ */
+GNode*
+as_yaml_get_localized_node (AsContext *ctx, GNode *node, gchar *locale_override)
+{
+	GNode *n;
+	GNode *tnode = NULL;
+	const gchar *locale;
+
+	if (locale_override == NULL)
+		locale = as_context_get_locale (ctx);
+	else
+		locale = locale_override;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+
+		if ((tnode == NULL) && (g_strcmp0 (key, "C") == 0)) {
+			tnode = n;
+			if (g_strcmp0 (locale, "C") == 0)
+				goto out;
+		}
+
+		if (g_strcmp0 (locale, key) == 0) {
+			tnode = n;
+			goto out;
+		}
+
+		if (as_utils_locale_is_compatible (locale, key))
+			tnode = n;
+	}
+
+out:
+	return tnode;
+}
+
+/**
+ * as_yaml_get_localized_value:
+ *
+ * Get localized string from a translated DEP-11 key
+ */
+gchar*
+as_yaml_get_localized_value (AsContext *ctx, GNode *node, gchar *locale_override)
+{
+	GNode *tnode;
+	gchar *lvalue;
+
+	tnode = as_yaml_get_localized_node (ctx, node, locale_override);
+	if (tnode == NULL)
+		return NULL;
+
+	lvalue = g_strdup ((gchar*) tnode->children->data);
+	g_strstrip (lvalue);
+
+	return lvalue;
+}
+
+/**
+ * as_yaml_emit_localized_entry_with_func:
+ */
+static void
+as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab, GHFunc tfunc)
+{
+	if (ltab == NULL)
+		return;
+	if (g_hash_table_size (ltab) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	/* start mapping for localized entry */
+	as_yaml_mapping_start (emitter);
+	/* emit entries */
+	g_hash_table_foreach (ltab,
+				tfunc,
+				emitter);
+	/* finalize */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_yaml_emit_lang_hashtable_entries:
+ */
+static void
+as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *emitter)
+{
+	if (as_str_empty (value))
+		return;
+
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
+	g_strstrip (value);
+	as_yaml_emit_entry (emitter, key, value);
+}
+
+/**
+ * as_yaml_emit_localized_entry:
+ */
+void
+as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	as_yaml_emit_localized_entry_with_func (emitter,
+						key,
+						ltab,
+						(GHFunc) as_yaml_emit_lang_hashtable_entries);
+}
+
+/**
+ * as_yaml_emit_lang_hashtable_entries_long:
+ */
+static void
+as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, yaml_emitter_t *emitter)
+{
+	if (as_str_empty (value))
+		return;
+
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
+	g_strstrip (value);
+	as_yaml_emit_long_entry (emitter, key, value);
+}
+
+/**
+ * as_yaml_emit_long_localized_entry:
+ */
+void
+as_yaml_emit_long_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	as_yaml_emit_localized_entry_with_func (emitter,
+						key,
+						ltab,
+						(GHFunc) as_yaml_emit_lang_hashtable_entries_long);
+}
+
+/**
+ * as_yaml_list_to_str_array:
+ */
+void
+as_yaml_list_to_str_array (GNode *node, GPtrArray *array)
+{
+	GNode *n;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *val = as_yaml_node_get_key (n);
+		if (val != NULL)
+			g_ptr_array_add (array, g_strdup (val));
+	}
 }

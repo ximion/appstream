@@ -263,6 +263,63 @@ as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root)
 }
 
 /**
+ * as_suggested_load_from_yaml:
+ * @suggested: a #AsSuggested instance.
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_suggested_load_from_yaml (AsSuggested *suggested, AsContext *ctx, GNode *node, GError **error)
+{
+	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
+	GNode *n;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
+
+		if (g_strcmp0 (key, "type") == 0) {
+			priv->kind = as_suggested_kind_from_string (value);
+		} else if (g_strcmp0 (key, "ids") == 0) {
+			as_yaml_list_to_str_array (n, priv->cpt_ids);
+		} else {
+			as_yaml_print_unknown ("Suggests", key);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_suggested_emit_yaml:
+ * @suggested: a #AsSuggested instance.
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_suggested_emit_yaml (AsSuggested *suggested, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
+
+	/* start mapping for this suggestion */
+	as_yaml_mapping_start (emitter);
+
+	/* type */
+	as_yaml_emit_entry (emitter, "type", as_suggested_kind_to_string (priv->kind));
+
+	/* component-ids */
+	as_yaml_emit_sequence (emitter, "ids", priv->cpt_ids);
+
+	/* end mapping for the suggestion */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_suggested_new:
  *
  * Creates a new #AsSuggested.

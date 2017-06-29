@@ -34,6 +34,14 @@ void		as_launchable_to_xml_node (AsLaunchable *launchable,
 					AsContext *ctx,
 					xmlNode *root);
 
+gboolean	as_launchable_load_from_yaml (AsLaunchable *launch,
+						AsContext *ctx,
+						GNode *node,
+						GError **error);
+void		as_launchable_emit_yaml (AsLaunchable *launch,
+					 AsContext *ctx,
+					 yaml_emitter_t *emitter);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

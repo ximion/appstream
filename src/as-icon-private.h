@@ -32,10 +32,11 @@ gboolean	as_icon_load_from_xml (AsIcon *icon,
 					AsContext *ctx,
 					xmlNode *node,
 					GError **error);
-
 void		as_icon_to_xml_node (AsIcon *icon,
 				     AsContext *ctx,
 				     xmlNode *root);
+
+/* NOTE: Icons are loaded in AsComponent, because the YAML layout doesn't allow anything else */
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -655,6 +655,123 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 }
 
 /**
+ * as_release_load_from_yaml:
+ * @release: an #AsRelease
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GError **error)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	GNode *n;
+
+	/* propagate locale */
+	as_release_set_active_locale (release, as_context_get_locale (ctx));
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
+
+		if (g_strcmp0 (key, "unix-timestamp") == 0) {
+			priv->timestamp = atol (value);
+		} else if (g_strcmp0 (key, "date") == 0) {
+			g_autoptr(GDateTime) time;
+			time = as_iso8601_to_datetime (value);
+			if (time != NULL) {
+				priv->timestamp = g_date_time_to_unix (time);
+			} else {
+				g_debug ("Invalid ISO-8601 date in %s", as_context_get_fname (ctx)); // FIXME: Better error, maybe with line number?
+			}
+		} else if (g_strcmp0 (key, "version") == 0) {
+			as_release_set_version (release, value);
+		} else if (g_strcmp0 (key, "urgency") == 0) {
+			priv->urgency = as_urgency_kind_from_string (value);
+		} else if (g_strcmp0 (key, "description") == 0) {
+			g_autofree gchar *tmp = as_yaml_get_localized_value (ctx, n, NULL);
+			as_release_set_description (release, tmp, NULL);
+		} else {
+			as_yaml_print_unknown ("release", key);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_release_emit_yaml:
+ * @release: an #AsRelease
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	guint j;
+	GPtrArray *locations;
+
+	/* start mapping for this release */
+	as_yaml_mapping_start (emitter);
+
+	/* version */
+	as_yaml_emit_entry (emitter, "version", priv->version);
+
+	/* timestamp & date */
+	if (priv->timestamp > 0) {
+		g_autofree gchar *time_str = NULL;
+
+		if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
+			as_yaml_emit_entry_timestamp (emitter,
+						      "unix-timestamp",
+						      priv->timestamp);
+		} else {
+			GTimeVal time;
+			time.tv_sec = priv->timestamp;
+			time.tv_usec = 0;
+			time_str = g_time_val_to_iso8601 (&time);
+			as_yaml_emit_entry (emitter, "date", time_str);
+		}
+	}
+
+	/* urgency */
+	if (priv->urgency != AS_URGENCY_KIND_UNKNOWN) {
+		as_yaml_emit_entry (emitter,
+				    "urgency",
+				    as_urgency_kind_to_string (priv->urgency));
+	}
+
+	/* description */
+	as_yaml_emit_long_localized_entry (emitter,
+					   "description",
+					   priv->description);
+
+	/* location URLs */
+	if (priv->locations->len > 0) {
+		as_yaml_emit_scalar (emitter, "locations");
+		as_yaml_sequence_start (emitter);
+		for (j = 0; j < priv->locations->len; j++) {
+			const gchar *lurl;
+			lurl = (const gchar*) g_ptr_array_index (locations, j);
+			as_yaml_emit_scalar (emitter, lurl);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* TODO: Checksum and size are missing, because they are not specified yet for DEP-11.
+	 * Will need to be added when/if we need it. */
+
+	/* end mapping for the release */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_release_new:
  *
  * Creates a new #AsRelease.

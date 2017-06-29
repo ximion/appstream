@@ -401,6 +401,104 @@ as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *ro
 }
 
 /**
+ * as_screenshot_load_from_yaml:
+ * @screenshot: an #AsScreenshot instance.
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *node, GError **error)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	GNode *n;
+
+	/* propagate locale */
+	as_screenshot_set_active_locale (screenshot, as_context_get_locale (ctx));
+
+	for (n = node->children; n != NULL; n = n->next) {
+		GNode *in;
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
+
+		if (g_strcmp0 (key, "default") == 0) {
+			if (g_strcmp0 (value, "yes") == 0)
+				priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
+			else
+				priv->kind = AS_SCREENSHOT_KIND_EXTRA;
+		} else if (g_strcmp0 (key, "caption") == 0) {
+			gchar *lvalue;
+			/* the caption is a localized element */
+			lvalue = as_yaml_get_localized_value (ctx, n, NULL);
+			as_screenshot_set_caption (screenshot, lvalue, NULL);
+		} else if (g_strcmp0 (key, "source-image") == 0) {
+			/* there can only be one source image */
+			g_autoptr(AsImage) image = as_image_new ();
+			if (as_image_load_from_yaml (image, ctx, n, AS_IMAGE_KIND_SOURCE, NULL))
+				as_screenshot_add_image (screenshot, image);
+		} else if (g_strcmp0 (key, "thumbnails") == 0) {
+			/* the thumbnails are a list of images */
+			for (in = n->children; in != NULL; in = in->next) {
+				g_autoptr(AsImage) image = as_image_new ();
+				if (as_image_load_from_yaml (image, ctx, in, AS_IMAGE_KIND_THUMBNAIL, NULL))
+					as_screenshot_add_image (screenshot, image);
+			}
+		} else {
+			as_yaml_print_unknown ("screenshot", key);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_screenshot_emit_yaml:
+ * @screenshot: an #AsScreenshot instance.
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	guint i;
+	AsImage *source_img;
+
+	as_yaml_mapping_start (emitter);
+
+	if (priv->kind == AS_SCREENSHOT_KIND_DEFAULT)
+		as_yaml_emit_entry (emitter, "default", "true");
+
+	as_yaml_emit_localized_entry (emitter, "caption", priv->caption);
+
+	as_yaml_emit_scalar (emitter, "thumbnails");
+	as_yaml_sequence_start (emitter);
+	for (i = 0; i < priv->images->len; i++) {
+		AsImage *img = AS_IMAGE (g_ptr_array_index (priv->images, i));
+
+		if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
+			source_img = img;
+			continue;
+		}
+
+		as_image_emit_yaml (img, ctx, emitter);
+	}
+	as_yaml_sequence_end (emitter);
+
+	/* we *must* have a source-image by now if the data follows the spec, but better be safe... */
+	if (source_img != NULL) {
+		as_yaml_emit_scalar (emitter, "source-image");
+		as_image_emit_yaml (source_img, ctx, emitter);
+	}
+
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_screenshot_new:
  *
  * Creates a new #AsScreenshot.

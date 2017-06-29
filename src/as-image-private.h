@@ -32,10 +32,18 @@ gboolean	as_image_load_from_xml (AsImage *image,
 					AsContext *ctx,
 					xmlNode *node,
 					GError **error);
-
 void		as_image_to_xml_node (AsImage *image,
 				       AsContext *ctx,
 				       xmlNode *root);
+
+gboolean	as_image_load_from_yaml (AsImage *image,
+					  AsContext *ctx,
+					  GNode *node,
+					  AsImageKind kind,
+					  GError **error);
+void		as_image_emit_yaml (AsImage *image,
+					AsContext *ctx,
+					yaml_emitter_t *emitter);
 
 #pragma GCC visibility pop
 G_END_DECLS
