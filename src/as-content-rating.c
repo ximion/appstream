@@ -412,8 +412,6 @@ void
 as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, xmlNode *root)
 {
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
-
-	GPtrArray *values;
 	guint i;
 	xmlNode *rnode;
 
@@ -422,10 +420,9 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
 		    (xmlChar*) "type",
 		    (xmlChar*) priv->kind);
 
-	values = as_content_rating_get_value_array (content_rating);
-	for (i = 0; i < values->len; i++) {
+	for (i = 0; i < priv->keys->len; i++) {
 		xmlNode *anode;
-		AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (values, i);
+		AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (priv->keys, i);
 
 		anode = xmlNewTextChild (rnode,
 					 NULL,
@@ -438,15 +435,75 @@ as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, 
 }
 
 /**
+ * as_content_rating_load_from_yaml:
+ * @content_rating: a #AsContentRating
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_content_rating_load_from_yaml (AsContentRating *content_rating, AsContext *ctx, GNode *node, GError **error)
+{
+	GNode *n;
+
+	as_content_rating_set_kind (content_rating,
+				    as_yaml_node_get_key (node));
+	for (n = node->children; n != NULL; n = n->next) {
+		AsContentRatingValue attr_value;
+
+		attr_value = as_content_rating_value_from_string (as_yaml_node_get_value (n));
+		if (attr_value == AS_CONTENT_RATING_VALUE_UNKNOWN)
+			continue;
+
+		as_content_rating_set_value (content_rating,
+					     as_yaml_node_get_key (n),
+					     attr_value);
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_content_rating_emit_yaml:
+ * @content_rating: a #AsContentRating
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_content_rating_emit_yaml (AsContentRating *content_rating, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+	guint j;
+
+	if (priv->kind == NULL)
+		return; /* we need to check for null to not mess up the YAML sequence */
+	as_yaml_emit_scalar (emitter, priv->kind);
+
+	as_yaml_mapping_start (emitter);
+	for (j = 0; j < priv->keys->len; j++) {
+		AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (priv->keys, j);
+
+		as_yaml_emit_entry (emitter,
+				    key->id,
+				    as_content_rating_value_to_string (key->value));
+	}
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_content_rating_new:
  *
  * Creates a new #AsContentRating.
  *
  * Returns: (transfer full): a #AsContentRating
  *
- * Since: 0.5.12
+ * Since: 0.11.0
  **/
-AsContentRating *
+AsContentRating*
 as_content_rating_new (void)
 {
 	AsContentRating *content_rating;

@@ -238,6 +238,67 @@ as_bundle_to_xml_node (AsBundle *bundle, AsContext *ctx, xmlNode *root)
 }
 
 /**
+ * as_bundle_load_from_yaml:
+ * @bundle: a #AsBundle instance.
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, GNode *node, GError **error)
+{
+	AsBundlePrivate *priv = GET_PRIVATE (bundle);
+	GNode *n;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
+
+		if (g_strcmp0 (key, "type") == 0) {
+			priv->kind = as_bundle_kind_from_string (value);
+		} else if (g_strcmp0 (key, "id") == 0) {
+			as_bundle_set_id (bundle, value);
+		} else {
+			as_yaml_print_unknown ("bundles", key);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_bundle_emit_yaml:
+ * @bundle: a #AsBundle instance.
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_bundle_emit_yaml (AsBundle *bundle, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsBundlePrivate *priv = GET_PRIVATE (bundle);
+
+	/* start mapping for this bundle */
+	as_yaml_mapping_start (emitter);
+
+	/* type */
+	as_yaml_emit_entry (emitter,
+			    "type",
+			    as_bundle_kind_to_string (priv->kind));
+
+	/* ID */
+	as_yaml_emit_entry (emitter,
+			    "id",
+			    priv->id);
+
+	/* end mapping for the bundle */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_bundle_new:
  *
  * Creates a new #AsBundle.

@@ -218,6 +218,49 @@ as_checksum_to_xml_node (AsChecksum *cs, AsContext *ctx, xmlNode *root)
 }
 
 /**
+ * as_checksum_load_from_yaml:
+ * @cs: a #AsChecksum instance.
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_checksum_load_from_yaml (AsChecksum *cs, AsContext *ctx, GNode *node, GError **error)
+{
+	AsChecksumPrivate *priv = GET_PRIVATE (cs);
+	const gchar *key = as_yaml_node_get_key (node);
+	const gchar *value = as_yaml_node_get_value (node);
+
+	priv->kind = as_checksum_kind_from_string (key);
+	if (priv->kind == AS_CHECKSUM_KIND_NONE)
+		return FALSE;
+
+	as_checksum_set_value (cs, value);
+
+	return TRUE;
+}
+
+/**
+ * as_checksum_emit_yaml:
+ * @cs: a #AsChecksum instance.
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsChecksumPrivate *priv = GET_PRIVATE (cs);
+	if (priv->kind == AS_CHECKSUM_KIND_NONE)
+		return;
+
+	as_yaml_emit_entry (emitter, as_checksum_kind_to_string (priv->kind), priv->value);
+}
+
+/**
  * as_checksum_new:
  *
  * Creates a new #AsChecksum.
