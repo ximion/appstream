@@ -465,6 +465,19 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry>
+				<term>&lt;id/&gt;</term>
+				<listitem>
+				<para>
+					Contains the component-ID of another software component. The presence of this tag indicates that the software component containing it is able to
+					provide all functionality of the one referenced in the <code>&lt;provides/&gt; ↪ &lt;id/&gt;</code> tag.
+				</para>
+				<para>
+					This is useful in case a component-id had to be renamed in the past, e.g. because its domain-name changed.
+				</para>
+				</listitem>
+			</varlistentry>
+
 			</variablelist>
 		</listitem>
 

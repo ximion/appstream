@@ -58,6 +58,7 @@ struct _AsProvidedClass
  * @AS_PROVIDED_KIND_DBUS_USER:		A DBus service name on the user/session bus.
  * @AS_PROVIDED_KIND_FIRMWARE_RUNTIME:	Firmware flashed at runtime.
  * @AS_PROVIDED_KIND_FIRMWARE_FLASHED:	Firmware flashed permanently to the device.
+ * @AS_PROVIDED_KIND_ID:		An AppStream component
  *
  * Type of the public interface components can provide.
  **/
@@ -74,6 +75,7 @@ typedef enum  {
 	AS_PROVIDED_KIND_DBUS_USER,
 	AS_PROVIDED_KIND_FIRMWARE_RUNTIME,
 	AS_PROVIDED_KIND_FIRMWARE_FLASHED,
+	AS_PROVIDED_KIND_ID,
 	/*< private >*/
 	AS_PROVIDED_KIND_LAST
 } AsProvidedKind;

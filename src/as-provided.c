@@ -82,6 +82,8 @@ as_provided_kind_to_string (AsProvidedKind kind)
 		return "firmware:runtime";
 	if (kind == AS_PROVIDED_KIND_FIRMWARE_FLASHED)
 		return "firmware:flashed";
+	if (kind == AS_PROVIDED_KIND_ID)
+		return "id";
 	return "unknown";
 }
 
@@ -118,6 +120,8 @@ as_provided_kind_from_string (const gchar *kind_str)
 		return AS_PROVIDED_KIND_FIRMWARE_RUNTIME;
 	if (g_strcmp0 (kind_str, "firmware:flashed") == 0)
 		return AS_PROVIDED_KIND_FIRMWARE_FLASHED;
+	if (g_strcmp0 (kind_str, "id") == 0)
+		return AS_PROVIDED_KIND_ID;
 	return AS_PROVIDED_KIND_UNKNOWN;
 }
 
@@ -157,6 +161,8 @@ as_provided_kind_to_l10n_string (AsProvidedKind kind)
 		return _("Runtime Firmware");
 	if (kind == AS_PROVIDED_KIND_FIRMWARE_FLASHED)
 		return _("Flashed Firmware");
+	if (kind == AS_PROVIDED_KIND_ID)
+		return _("Component");
 	return as_provided_kind_to_string (kind);
 }
 
