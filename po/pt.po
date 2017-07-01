@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-03-16 02:39+0100\n"
+"POT-Creation-Date: 2017-07-02 00:49+0200\n"
 "PO-Revision-Date: 2017-01-16 01:24+0000\n"
 "Last-Translator: Manuela Silva <manuela.silva@sky.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
@@ -37,7 +37,7 @@ msgstr "Ação"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:386
+#: src/as-category.c:320 tools/ascli-utils.c:385
 msgid "Add-ons"
 msgstr "Add-ons"
 
@@ -77,18 +77,20 @@ msgstr "Versão da ferramenta de cliente AppStream: %s"
 msgid "AppStream Status:"
 msgstr "Estado de AppStream:"
 
+#. we performed a cache refresh
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:80
 msgid "AppStream cache update completed successfully."
 msgstr "Atualização da cache do AppStream terminada com sucesso."
 
-#: src/as-pool.c:1494
+#: src/as-pool.c:1504
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:90
+#. cache wasn't updated, so the update wasn't necessary
+#: tools/ascli-actions-mdata.c:86
 msgid "AppStream cache update is not necessary."
 msgstr ""
 
@@ -105,7 +107,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1480
+#: src/as-pool.c:1490
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -140,7 +142,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Criação e Edição de Áudio"
 
-#: src/as-provided.c:141
+#: src/as-provided.c:145
 msgid "Binaries"
 msgstr "Binários"
 
@@ -154,11 +156,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr ""
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:286
 msgid "Bundle"
 msgstr "Pacote"
 
-#: src/as-pool.c:1420
+#: src/as-pool.c:1430
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr ""
@@ -168,7 +170,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Calendário"
 
-#: tools/ascli-actions-mdata.c:332
+#: tools/ascli-actions-mdata.c:324
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -180,7 +182,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr ""
 
-#: tools/ascli-utils.c:357
+#: tools/ascli-utils.c:356
 msgid "Categories"
 msgstr "Categorias"
 
@@ -215,13 +217,17 @@ msgstr "Comando \"%s\" desconhecido."
 msgid "Communication & News"
 msgstr "Comunicação e Notícias"
 
+#: src/as-provided.c:165
+msgid "Component"
+msgstr ""
+
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr ""
 
-#: tools/ascli-utils.c:365
+#: tools/ascli-utils.c:364
 msgid "Compulsory for"
 msgstr "Obrigatório para"
 
@@ -231,7 +237,7 @@ msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:233
+#: tools/ascli-actions-mdata.c:225
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Não foi possível encontrar o componente com a id.'%s::%s'."
@@ -242,11 +248,11 @@ msgid ""
 "project)."
 msgstr ""
 
-#: src/as-provided.c:155
+#: src/as-provided.c:159
 msgid "DBus Session Services"
 msgstr "Serviços de Sessão DBus"
 
-#: src/as-provided.c:153
+#: src/as-provided.c:157
 msgid "DBus System Services"
 msgstr "Serviços de Sistema DBus"
 
@@ -260,7 +266,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Depuradores"
 
-#: tools/ascli-utils.c:341
+#: tools/ascli-utils.c:340
 msgid "Default Screenshot URL"
 msgstr "URL da captura de ecrã predefinida"
 
@@ -270,12 +276,12 @@ msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 
-#: tools/ascli-utils.c:321
+#: tools/ascli-utils.c:320
 msgid "Description"
 msgstr "Descrição"
 
 #. developer name
-#: tools/ascli-utils.c:309
+#: tools/ascli-utils.c:308
 msgid "Developer"
 msgstr "Programador"
 
@@ -332,7 +338,7 @@ msgstr "Forçar a atualização da cache."
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
 
-#: tools/ascli-utils.c:315
+#: tools/ascli-utils.c:314
 msgid "Extends"
 msgstr ""
 
@@ -391,11 +397,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Finanças"
 
-#: src/as-provided.c:159
+#: src/as-provided.c:163
 msgid "Flashed Firmware"
 msgstr ""
 
-#: src/as-provided.c:145
+#: src/as-provided.c:149
 msgid "Fonts"
 msgstr ""
 
@@ -433,7 +439,7 @@ msgstr ""
 msgid "Graphics & Photography"
 msgstr "Gráficos e Fotografia"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:287
 msgid "Homepage"
 msgstr "Página Inicial"
 
@@ -442,7 +448,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDEs"
 
-#: tools/ascli-utils.c:289
+#: tools/ascli-utils.c:288
 msgid "Icon"
 msgstr "Ícone"
 
@@ -450,7 +456,7 @@ msgstr "Ícone"
 msgid "Iconsets"
 msgstr ""
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:282
 msgid "Identifier"
 msgstr "Identificador"
 
@@ -467,7 +473,7 @@ msgstr ""
 msgid "Install software matching the component-id."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:218
+#: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 
@@ -486,12 +492,12 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Idiomas"
 
-#: src/as-provided.c:139
+#: src/as-provided.c:143
 msgid "Libraries"
 msgstr "Bibliotecas"
 
 #. license
-#: tools/ascli-utils.c:351
+#: tools/ascli-utils.c:350
 msgid "License"
 msgstr "Licença"
 
@@ -526,12 +532,12 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matemática"
 
-#: tools/ascli-actions-mdata.c:369
+#: tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:748
+#: src/as-pool.c:758
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -540,11 +546,11 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr ""
 
-#: src/as-provided.c:143
+#: src/as-provided.c:147
 msgid "Mimetypes"
 msgstr ""
 
-#: src/as-provided.c:147
+#: src/as-provided.c:151
 msgid "Modaliases"
 msgstr ""
 
@@ -553,7 +559,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Reprodutores de Música"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:283
 msgid "Name"
 msgstr "Nome"
 
@@ -562,7 +568,7 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr "Notícias"
 
-#: tools/ascli-actions-mdata.c:187
+#: tools/ascli-actions-mdata.c:179
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Sem correspondência para \"%s\"."
@@ -577,7 +583,7 @@ msgid ""
 "\" (part of PackageKit) is available."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:211
+#: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for defined."
 msgstr ""
 
@@ -592,7 +598,7 @@ msgstr "Escritório"
 msgid "Option '%s' is unknown."
 msgstr "A opção \"%s\" é desconhecida."
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:285
 msgid "Package"
 msgstr "Pacote"
 
@@ -607,19 +613,19 @@ msgid "Print detailed output about found components."
 msgstr "Imprimir saída detalhada sobre os componentes encontrados."
 
 #. project group
-#: tools/ascli-utils.c:348
+#: tools/ascli-utils.c:347
 msgid "Project Group"
 msgstr "Grupo do Projeto"
 
-#: tools/ascli-utils.c:393
+#: tools/ascli-utils.c:392
 msgid "Provided Items"
 msgstr "Itens fornecidos"
 
-#: src/as-provided.c:149
+#: src/as-provided.c:153
 msgid "Python (Version 2)"
 msgstr "Python (Versão 2)"
 
-#: src/as-provided.c:151
+#: src/as-provided.c:155
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -658,7 +664,7 @@ msgstr ""
 "disponíveis, e '%s %s --help' para ver uma lista de opções específica para "
 "este subcomando."
 
-#: src/as-provided.c:157
+#: src/as-provided.c:161
 msgid "Runtime Firmware"
 msgstr ""
 
@@ -708,7 +714,7 @@ msgstr "Estratégia"
 msgid "Subcommands:"
 msgstr "Subcomandos:"
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:284
 msgid "Summary"
 msgstr "Resumo"
 
@@ -732,19 +738,19 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Editores de Texto"
 
-#: tools/ascli-actions-mdata.c:463
+#: tools/ascli-actions-mdata.c:455
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1478
+#: src/as-pool.c:1488
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:445
+#: tools/ascli-actions-mdata.c:437
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -760,36 +766,36 @@ msgid ""
 "by its software component identifier."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:540
+#: tools/ascli-actions-mdata.c:532
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr ""
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:396
+#: tools/ascli-actions-mdata.c:388
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
-#: tools/ascli-actions-mdata.c:182
+#: tools/ascli-actions-mdata.c:174
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Não é possível encontrar o componente correspondente com %s!"
 
-#: tools/ascli-actions-mdata.c:149 tools/ascli-actions-mdata.c:271
+#: tools/ascli-actions-mdata.c:141 tools/ascli-actions-mdata.c:263
 #: tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Não é possível encontrar o componente com a identificação \"%s\"!"
 
-#: tools/ascli-actions-mdata.c:469
+#: tools/ascli-actions-mdata.c:461
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:548
+#: tools/ascli-actions-mdata.c:540
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr ""
@@ -799,7 +805,7 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:327
+#: tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
@@ -823,16 +829,16 @@ msgstr ""
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 
-#: tools/ascli-actions-validate.c:254 tools/ascli-actions-validate.c:313
+#: tools/ascli-actions-validate.c:252 tools/ascli-actions-validate.c:311
 #, fuzzy, c-format
 msgid "Validation failed: %s"
 msgstr "A validação falhou."
 
-#: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
+#: tools/ascli-actions-validate.c:240 tools/ascli-actions-validate.c:299
 msgid "Validation was successful."
 msgstr "A validação foi bem sucedida."
 
-#: tools/ascli-actions-validate.c:244 tools/ascli-actions-validate.c:303
+#: tools/ascli-actions-validate.c:242 tools/ascli-actions-validate.c:301
 #, fuzzy, c-format
 msgid "Validation was successful: %s"
 msgstr "A validação foi bem sucedida."
@@ -882,7 +888,7 @@ msgstr ""
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:443
+#: tools/ascli-actions-mdata.c:435
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -895,28 +901,28 @@ msgstr "Tem de especificar um comando."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:137 tools/ascli-actions-mdata.c:259
+#: tools/ascli-actions-mdata.c:129 tools/ascli-actions-mdata.c:251
 #: tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "Tem de especificar uma identificação de componente."
 
-#: tools/ascli-actions-validate.c:223
+#: tools/ascli-actions-validate.c:221
 msgid "You need to specify a file to validate!"
 msgstr "Tem de especificar um ficheiro para validar!"
 
-#: tools/ascli-actions-mdata.c:314
+#: tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
 msgstr "Tem de especificar um ficheiro de metadados."
 
-#: tools/ascli-actions-validate.c:280
+#: tools/ascli-actions-validate.c:278
 msgid "You need to specify a root directory to start validation!"
 msgstr "Tem de especificar uma pasta raiz para começar a validação!"
 
-#: tools/ascli-actions-mdata.c:169
+#: tools/ascli-actions-mdata.c:161
 msgid "You need to specify a term to search for."
 msgstr "Tem de especificar um termo a procurar."
 
-#: tools/ascli-actions-mdata.c:362
+#: tools/ascli-actions-mdata.c:354
 msgid "You need to specify an input and output file."
 msgstr "Tem de especificar um ficheiro de entrada e saída."
 
@@ -926,30 +932,30 @@ msgstr "Tem de especificar um ficheiro de entrada e saída."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:105
+#: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicação;pacote;programa;programar;conjunto;ferramenta"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:183
+#: tools/ascli-actions-validate.c:181
 #, c-format
 msgid "errors: %lu"
 msgstr ""
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:197
+#: tools/ascli-actions-validate.c:195
 #, c-format
 msgid "infos: %lu"
 msgstr ""
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:204
+#: tools/ascli-actions-validate.c:202
 #, c-format
 msgid "pedantic: %lu"
 msgstr ""
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:190
+#: tools/ascli-actions-validate.c:188
 #, c-format
 msgid "warnings: %lu"
 msgstr ""
