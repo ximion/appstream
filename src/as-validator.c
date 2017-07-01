@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -977,6 +977,16 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 						AS_ISSUE_KIND_TAG_MISSING,
 						"This 'localization' component does not define any languages this localization is for.");
 		}
+	}
+
+	/* validate service specific stuff */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_SERVICE) {
+		AsLaunchable *launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_SERVICE);
+		if (launch == NULL || as_launchable_get_entries (launch)->len == 0)
+			as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"This 'service' component is missing a 'launchable' tag of type 'service'.");
 	}
 
 	/* validate suggestions */
