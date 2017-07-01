@@ -298,17 +298,20 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	}
 
 	if (existing_cpt == NULL) {
-		/* add additional data to the component, e.g. external screenshots. Also refines
-		* the component's icon paths */
-		as_component_complete (cpt,
-					priv->screenshot_service_url,
-					priv->icon_dirs);
-
 		g_hash_table_insert (priv->cpt_table,
 					g_strdup (cdid),
 					g_object_ref (cpt));
 		g_hash_table_add (priv->known_cids,
 				  g_strdup (as_component_get_id (cpt)));
+		return TRUE;
+	}
+
+	/* safety check so we don't ignore a good component we cause we added a bad one first */
+	if (!as_component_is_valid (existing_cpt)) {
+		g_debug ("Replacing invalid component '%s' with new one.", cdid);
+		g_hash_table_replace (priv->cpt_table,
+				      g_strdup (cdid),
+				      g_object_ref (cpt));
 		return TRUE;
 	}
 
@@ -532,6 +535,12 @@ as_pool_refine_data (AsPool *pool)
 			}
 			continue;
 		}
+
+		/* add additional data to the component, e.g. external screenshots. Also refines
+		* the component's icon paths */
+		as_component_complete (cpt,
+					priv->screenshot_service_url,
+					priv->icon_dirs);
 
 		/* set the "addons" information */
 		as_pool_update_addon_info (pool, cpt);
