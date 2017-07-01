@@ -306,7 +306,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		return TRUE;
 	}
 
-	/* safety check so we don't ignore a good component we cause we added a bad one first */
+	/* safety check so we don't ignore a good component because we added a bad one first */
 	if (!as_component_is_valid (existing_cpt)) {
 		g_debug ("Replacing invalid component '%s' with new one.", cdid);
 		g_hash_table_replace (priv->cpt_table,
