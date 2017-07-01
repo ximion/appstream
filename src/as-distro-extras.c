@@ -127,7 +127,7 @@ as_get_yml_data_origin (const gchar *fname)
 		return NULL;
 	/* start points to the start of the document, i.e. "File:" normally */
 	start = g_strstr_len (data, 400, YAML_SEPARATOR) + YAML_SEPARATOR_LEN;
-	if (start == NULL)
+	if (start[0] == '\0')
 		return NULL;
 	/* Find the end of the first document - can be NULL if there is only one,
 	 * for example if we're given YAML for an empty archive */
@@ -258,11 +258,14 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 			g_warning ("Could not scan for broken symlinks in DEP-11 target: %s", tmp_error->message);
 			return;
 		}
-		for (i = 0; i < ytfiles->len; i++) {
-			const gchar *fname = (const gchar*) g_ptr_array_index (ytfiles, i);
-			if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
-				g_remove (fname);
-				data_changed = TRUE;
+
+		if (ytfiles != NULL) {
+			for (i = 0; i < ytfiles->len; i++) {
+				const gchar *fname = (const gchar*) g_ptr_array_index (ytfiles, i);
+				if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
+					g_remove (fname);
+					data_changed = TRUE;
+				}
 			}
 		}
 	}

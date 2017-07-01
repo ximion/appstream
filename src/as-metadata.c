@@ -998,7 +998,8 @@ as_metadata_yaml_serialize_to_collection (AsMetadata *metad, AsContext *context,
 
 	/* emit end event */
 	yaml_stream_end_event_initialize (&event);
-	yaml_emitter_emit (&emitter, &event);
+	res = yaml_emitter_emit (&emitter, &event);
+	g_assert (res);
 
 	res = TRUE;
 	goto out;
