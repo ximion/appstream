@@ -169,7 +169,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 {
 	xmlNode *iter;
 	gchar *node_name;
-	GHashTable *desc;
+	g_autoptr(GHashTable) desc = NULL;
 
 	desc = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	for (iter = node->children; iter != NULL; iter = iter->next) {
@@ -201,14 +201,15 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 			g_string_append_printf (str, "<%s>%s</%s>\n", node_name, content, node_name);
 
 		} else if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
-			GList *l;
-			g_autoptr(GList) vlist = NULL;
+			GHashTableIter htiter;
+			gpointer hvalue;
 			xmlNode *iter2;
 
 			/* append listing node tag to every locale string */
-			vlist = g_hash_table_get_values (desc);
-			for (l = vlist; l != NULL; l = l->next) {
-				g_string_append_printf (l->data, "<%s>\n", node_name);
+			g_hash_table_iter_init (&htiter, desc);
+			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
+				GString *hstr = (GString*) hvalue;
+				g_string_append_printf (hstr, "<%s>\n", node_name);
 			}
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
@@ -238,19 +239,16 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
 
-			/* we might have updated the list by adding new locales, so fetch it again */
-			g_list_free (vlist);
-			vlist = g_hash_table_get_values (desc);
-
 			/* close listing tags */
-			for (l = vlist; l != NULL; l = l->next) {
-				g_string_append_printf (l->data, "</%s>\n", node_name);
+			g_hash_table_iter_init (&htiter, desc);
+			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
+				GString *hstr = (GString*) hvalue;
+				g_string_append_printf (hstr, "</%s>\n", node_name);
 			}
 		}
 	}
 
 	g_hash_table_foreach (desc, func, entity);
-	g_hash_table_unref (desc);
 }
 
 /**

@@ -3150,8 +3150,6 @@ as_component_set_kind_from_node (AsComponent *cpt, xmlNode *node)
 static void
 as_xml_metainfo_description_to_cpt (gchar *key, GString *value, AsComponent *cpt)
 {
-	g_assert (AS_IS_COMPONENT (cpt));
-
 	as_component_set_description (cpt, value->str, key);
 	g_string_free (value, TRUE);
 }
