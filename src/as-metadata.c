@@ -268,20 +268,19 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 	g_free (priority_str);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
+		g_autoptr(AsComponent) cpt = NULL;
+
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "component") == 0) {
-			g_autoptr(AsComponent) cpt = as_component_new ();
-
-			if (as_component_load_from_xml (cpt, context, iter, &tmp_error)) {
-				g_ptr_array_add (priv->cpts, g_object_ref (cpt));
-			} else {
-				if (tmp_error != NULL) {
-					g_propagate_error (error, tmp_error);
-					return;
-				}
+		cpt = as_component_new ();
+		if (as_component_load_from_xml (cpt, context, iter, &tmp_error)) {
+			g_ptr_array_add (priv->cpts, g_object_ref (cpt));
+		} else {
+			if (tmp_error != NULL) {
+				g_propagate_error (error, tmp_error);
+				return;
 			}
 		}
 	}

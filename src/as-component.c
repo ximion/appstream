@@ -3309,8 +3309,17 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 	xmlNode *iter;
 	const gchar *node_name;
 	g_autoptr(GPtrArray) pkgnames = NULL;
-	g_autofree gchar *priority_str;
-	g_autofree gchar *merge_str;
+	g_autofree gchar *priority_str = NULL;
+	g_autofree gchar *merge_str = NULL;
+
+	/* sanity check */
+	if ((g_strcmp0 ((gchar*) node->name, "component") != 0) && (g_strcmp0 ((gchar*) node->name, "application") != 0)) {
+		g_set_error (error,
+				AS_METADATA_ERROR,
+				AS_METADATA_ERROR_FAILED,
+				"Expected 'component' tag, but got '%s' instead.", (gchar*) node->name);
+		return FALSE;
+	}
 
 	pkgnames = g_ptr_array_new_with_free_func (g_free);
 
