@@ -28,6 +28,12 @@
  * @include: appstream.h
  */
 
+enum YamlNodeKind {
+	YAML_VAR,
+	YAML_VAL,
+	YAML_SEQ
+};
+
 /**
  * as_str_is_numeric:
  *
@@ -42,6 +48,90 @@ as_str_is_numeric (const gchar *s)
 		return FALSE;
 	strtod (s, &p);
 	return *p == '\0';
+}
+
+/**
+ * as_yaml_parse_layer:
+ *
+ * Create GNode tree from DEP-11 YAML document
+ */
+void
+as_yaml_parse_layer (yaml_parser_t *parser, GNode *data, GError **error)
+{
+	GNode *last_leaf = data;
+	GNode *last_scalar;
+	yaml_event_t event;
+	gboolean parse = TRUE;
+	gboolean in_sequence = FALSE;
+	GError *tmp_error = NULL;
+	int storage = YAML_VAR; /* the first element must always be of type VAR */
+
+	while (parse) {
+		if (!yaml_parser_parse (parser, &event)) {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_PARSE,
+					"Invalid DEP-11 file found. Could not parse YAML: %s", parser->problem);
+			break;
+		}
+
+		/* Parse value either as a new leaf in the mapping
+		 * or as a leaf value (one of them, in case it's a sequence) */
+		switch (event.type) {
+			case YAML_SCALAR_EVENT:
+				if (storage)
+					g_node_append_data (last_leaf, g_strdup ((gchar*) event.data.scalar.value));
+				else
+					last_leaf = g_node_append (data, g_node_new (g_strdup ((gchar*) event.data.scalar.value)));
+				storage ^= YAML_VAL;
+				break;
+			case YAML_SEQUENCE_START_EVENT:
+				storage = YAML_SEQ;
+				in_sequence = TRUE;
+				break;
+			case YAML_SEQUENCE_END_EVENT:
+				storage = YAML_VAR;
+				in_sequence = FALSE;
+				break;
+			case YAML_MAPPING_START_EVENT:
+				/* depth += 1 */
+				last_scalar = last_leaf;
+				if (in_sequence)
+					last_leaf = g_node_append (last_leaf, g_node_new (NULL));
+
+				as_yaml_parse_layer (parser, last_leaf, &tmp_error);
+				if (tmp_error != NULL) {
+					g_propagate_error (error, tmp_error);
+					parse = FALSE;
+				}
+
+				last_leaf = last_scalar;
+				storage ^= YAML_VAL; /* Flip VAR/VAL, without touching SEQ */
+				break;
+			case YAML_MAPPING_END_EVENT:
+			case YAML_STREAM_END_EVENT:
+			case YAML_DOCUMENT_END_EVENT:
+				/* depth -= 1 */
+				parse = FALSE;
+				break;
+			default:
+				break;
+		}
+
+		yaml_event_delete (&event);
+	}
+}
+
+/**
+ * as_yaml_free_node:
+ */
+gboolean
+as_yaml_free_node (GNode *node, gpointer data)
+{
+	if (node->data != NULL)
+		g_free (node->data);
+
+	return FALSE;
 }
 
 /**

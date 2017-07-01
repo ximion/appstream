@@ -31,6 +31,13 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
+void		as_yaml_parse_layer (yaml_parser_t *parser,
+				     GNode *data,
+				     GError **error);
+
+gboolean	as_yaml_free_node (GNode *node,
+				   gpointer data);
+
 const gchar	*as_yaml_node_get_key (GNode *n);
 const gchar	*as_yaml_node_get_value (GNode *n);
 

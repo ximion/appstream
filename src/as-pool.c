@@ -58,7 +58,6 @@
 #include "as-stemmer.h"
 
 #include "as-metadata.h"
-#include "as-yamldata.h"
 
 typedef struct
 {

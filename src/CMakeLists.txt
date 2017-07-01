@@ -40,7 +40,6 @@ set(APPSTREAM_LIB_SRC
 		as-context.c
 		as-xml.c
 		as-yaml.c
-		as-yamldata.c
 		as-desktop-entry.c
 		as-cache-file.c
 		as-distro-extras.c
@@ -98,7 +97,6 @@ set(APPSTREAM_LIB_PRIVATE_HEADERS
 		as-context.h
 		as-xml.h
 		as-yaml.h
-		as-yamldata.h
 		as-desktop-entry.h
 		as-cache-file.h
 		as-pool-private.h

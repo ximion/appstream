@@ -4725,14 +4725,14 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 	as_yaml_emit_localized_strv (emitter, "Keywords", priv->keywords);
 
 	/* Urls */
-	if ((priv->urls != NULL) && (g_hash_table_size (priv->urls) > 0)) {
+	if (g_hash_table_size (priv->urls) > 0) {
 		GHashTableIter iter;
 		gpointer key, value;
 
 		as_yaml_emit_scalar (emitter, "Url");
 		as_yaml_mapping_start (emitter);
 
-		g_hash_table_iter_init (&iter, priv->keywords);
+		g_hash_table_iter_init (&iter, priv->urls);
 		while (g_hash_table_iter_next (&iter, &key, &value)) {
 			as_yaml_emit_entry (emitter, as_url_kind_to_string (GPOINTER_TO_INT (key)), (const gchar*) value);
 		}

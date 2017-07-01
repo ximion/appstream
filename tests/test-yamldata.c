@@ -22,7 +22,7 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "as-yamldata.h"
+#include "as-metadata.h"
 #include "as-test-utils.h"
 
 static gchar *datadir = NULL;
@@ -118,16 +118,14 @@ static gchar*
 as_yaml_test_serialize (AsComponent *cpt)
 {
 	gchar *data;
-	g_autoptr(GPtrArray) cpts = NULL;
-	g_autoptr(AsYAMLData) ydt = NULL;
+	g_autoptr(AsMetadata) metad = NULL;
 	GError *error = NULL;
 
-	ydt = as_yamldata_new ();
-	as_yamldata_set_check_valid (ydt, FALSE);
+	metad = as_metadata_new ();
+	as_metadata_add_component (metad, cpt);
+	as_metadata_set_write_header (metad, TRUE);
 
-	cpts = g_ptr_array_new ();
-	g_ptr_array_add (cpts, cpt);
-	data = as_yamldata_serialize_to_collection (ydt, cpts, TRUE, FALSE, &error);
+	data = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_YAML, &error);
 	g_assert_no_error (error);
 
 	return data;
@@ -142,8 +140,7 @@ static void
 test_yamlwrite_general (void)
 {
 	guint i;
-	g_autoptr(AsYAMLData) ydata = NULL;
-	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(AsScreenshot) scr = NULL;
 	g_autoptr(AsRelease) rel1 = NULL;
 	g_autoptr(AsRelease) rel2 = NULL;
@@ -236,8 +233,7 @@ test_yamlwrite_general (void)
 				"Name:\n"
 				"  C: ReplaceThis!\n";
 
-	ydata = as_yamldata_new ();
-	cpts = g_ptr_array_new_with_free_func (g_object_unref);
+	metad = as_metadata_new ();
 
 	/* firmware component */
 	cpt = as_component_new ();
@@ -250,7 +246,8 @@ test_yamlwrite_general (void)
 	as_component_add_extends (cpt, "org.example.alpha");
 	as_component_add_extends (cpt, "org.example.beta");
 	as_component_add_url (cpt, AS_URL_KIND_HOMEPAGE, "https://example.com");
-	g_ptr_array_add (cpts, cpt);
+	as_metadata_add_component (metad, cpt);
+	g_object_unref (cpt);
 
 	/* component with icons, screenshots and release descriptions */
 	cpt = as_component_new ();
@@ -303,7 +300,8 @@ test_yamlwrite_general (void)
 	as_bundle_set_id (bdl, "foobar");
 	as_component_add_bundle (cpt, bdl);
 
-	g_ptr_array_add (cpts, cpt);
+	as_metadata_add_component (metad, cpt);
+	g_object_unref (cpt);
 
 	/* merge component */
 	cpt = as_component_new ();
@@ -311,10 +309,11 @@ test_yamlwrite_general (void)
 	as_component_set_merge_kind (cpt, AS_MERGE_KIND_REPLACE);
 	as_component_set_id (cpt, "org.example.ATargetComponent");
 	as_component_set_name (cpt, "ReplaceThis!", "C");
-	g_ptr_array_add (cpts, cpt);
+	as_metadata_add_component (metad, cpt);
+	g_object_unref (cpt);
 
 	/* serialize and validate */
-	resdata = as_yamldata_serialize_to_collection (ydata, cpts, TRUE, FALSE, &error);
+	resdata = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_YAML, &error);
 	g_assert_no_error (error);
 
 	g_assert (as_test_compare_lines (resdata, expected_yaml));
@@ -329,25 +328,30 @@ static AsComponent*
 as_yaml_test_read_data (const gchar *data, GError **error)
 {
 	AsComponent *cpt;
-	g_autoptr(GPtrArray) cpts = NULL;
-	g_autoptr(AsYAMLData) ydt = NULL;
+	g_autoptr(AsMetadata) metad = NULL;
 
-	ydt = as_yamldata_new ();
+	metad = as_metadata_new ();
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 
 	if (error == NULL) {
 		g_autoptr(GError) local_error = NULL;
-
-		cpts = as_yamldata_parse_collection_data (ydt, data, &local_error);
+		as_metadata_parse (metad, data, AS_FORMAT_KIND_YAML, &local_error);
 		g_assert_no_error (local_error);
-		g_assert_nonnull (cpts);
-	} else {
-		cpts = as_yamldata_parse_collection_data (ydt, data, error);
-		if (cpts == NULL)
-			return NULL;
-	}
 
-	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
-	return g_object_ref (cpt);
+		g_assert_cmpint (as_metadata_get_components (metad)->len, >, 0);
+		cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (metad), 0));
+
+		return g_object_ref (cpt);
+	} else {
+		as_metadata_parse (metad, data, AS_FORMAT_KIND_YAML, error);
+
+		if (as_metadata_get_components (metad)->len > 0) {
+			cpt = AS_COMPONENT (g_ptr_array_index (as_metadata_get_components (metad), 0));
+			return g_object_ref (cpt);
+		} else {
+			return NULL;
+		}
+	}
 }
 
 /**
@@ -362,7 +366,6 @@ test_yaml_read_icons (void)
 	GPtrArray *icons;
 	g_autoptr(AsComponent) cpt = NULL;
 
-	g_autoptr(AsYAMLData) ydt = NULL;
 	const gchar *yamldata_icons_legacy = "---\n"
 					"ID: org.example.Test\n"
 					"Icon:\n"
@@ -390,8 +393,6 @@ test_yaml_read_icons (void)
 					"    - width: 64\n"
 					"      height: 64\n"
 					"      name: single_test.png\n";
-
-	ydt = as_yamldata_new ();
 
 	/* check the legacy icons */
 	cpt = as_yaml_test_read_data (yamldata_icons_legacy, NULL);
