@@ -25,7 +25,7 @@
 #include <glib.h>
 
 /**
- * SECTION:as-launch
+ * SECTION:as-launchable
  * @short_description: Description of launchable entries for a software component
  * @include: appstream.h
  *
