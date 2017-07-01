@@ -36,7 +36,7 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean for
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(GError) error = NULL;
-	gboolean ret;
+	gboolean ret = FALSE;
 
 	dpool = as_pool_new ();
 	if (datapath != NULL) {
@@ -61,7 +61,7 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean for
 	} else {
 		as_pool_load (dpool, NULL, &error);
 		if (error == NULL)
-			as_pool_save_cache_file (dpool, cachepath, &error);
+			ret = as_pool_save_cache_file (dpool, cachepath, &error);
 	}
 
 	if (error != NULL) {
@@ -74,25 +74,17 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean for
 	}
 
 	if (ret) {
-		/* we performed a cache refresh, check if we had errors */
-		if (error == NULL) {
-			/* TRANSLATORS: Updating the metadata cache succeeded */
-			g_print ("%s\n", _("AppStream cache update completed successfully."));
-		} else {
-			g_printerr ("%s\n", error->message);
-		}
+		/* we performed a cache refresh */
+
+		/* TRANSLATORS: Updating the metadata cache succeeded */
+		g_print ("%s\n", _("AppStream cache update completed successfully."));
 
 		/* no > 0 error code, since we updated something */
 		return 0;
 	} else {
-		/* cache wasn't updated, so the update wasn't necessary, or we have a fatal error */
-		if (error == NULL) {
-			g_print ("%s\n", _("AppStream cache update is not necessary."));
-			return 0;
-		} else {
-			g_printerr ("%s\n", error->message);
-			return 6;
-		}
+		/* cache wasn't updated, so the update wasn't necessary */
+		g_print ("%s\n", _("AppStream cache update is not necessary."));
+		return 0;
 	}
 }
 

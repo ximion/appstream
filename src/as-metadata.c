@@ -81,7 +81,7 @@ as_format_kind_to_string (AsFormatKind kind)
 {
 	if (kind == AS_FORMAT_KIND_XML)
 		return "xml";
-	if (kind == AS_FORMAT_KIND_XML)
+	if (kind == AS_FORMAT_KIND_YAML)
 		return "yaml";
 	return "unknown";
 }
@@ -998,7 +998,6 @@ as_metadata_yaml_serialize_to_collection (AsMetadata *metad, AsContext *context,
 
 	/* emit end event */
 	yaml_stream_end_event_initialize (&event);
-	yaml_emitter_emit (&emitter, &event);
 	yaml_emitter_emit (&emitter, &event);
 
 	res = TRUE;

@@ -714,7 +714,6 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	guint j;
-	GPtrArray *locations;
 
 	/* start mapping for this release */
 	as_yaml_mapping_start (emitter);
@@ -756,8 +755,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_emit_scalar (emitter, "locations");
 		as_yaml_sequence_start (emitter);
 		for (j = 0; j < priv->locations->len; j++) {
-			const gchar *lurl;
-			lurl = (const gchar*) g_ptr_array_index (locations, j);
+			const gchar *lurl = (const gchar*) g_ptr_array_index (priv->locations, j);
 			as_yaml_emit_scalar (emitter, lurl);
 		}
 

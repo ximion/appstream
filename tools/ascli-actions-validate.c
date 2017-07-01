@@ -68,8 +68,6 @@ importance_location_to_print_string (AsIssueImportance importance, const gchar *
 	} else {
 		return str;
 	}
-
-	g_free (str);
 }
 
 /**

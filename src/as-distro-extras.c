@@ -274,7 +274,7 @@ as_pool_scan_apt (AsPool *pool, gboolean force, GError **error)
 	}
 
 	/* no data found? skip scan step */
-	if (yml_files->len <= 0) {
+	if (yml_files == NULL || yml_files->len <= 0) {
 		g_debug ("Could not find DEP-11 data in APT directories.");
 		return;
 	}

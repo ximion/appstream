@@ -466,7 +466,7 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	guint i;
-	AsImage *source_img;
+	AsImage *source_img = NULL;
 
 	as_yaml_mapping_start (emitter);
 

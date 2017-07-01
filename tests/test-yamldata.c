@@ -40,7 +40,7 @@ test_basic (void)
 	GFile *file;
 	GPtrArray *cpts;
 	guint i;
-	AsComponent *cpt_tomatoes;
+	AsComponent *cpt_tomatoes = NULL;
 	GError *error = NULL;
 
 	mdata = as_metadata_new ();
@@ -67,7 +67,7 @@ test_basic (void)
 	}
 
 	/* just check one of the components... */
-	g_assert (cpt_tomatoes != NULL);
+	g_assert_nonnull (cpt_tomatoes);
 	g_assert_cmpstr (as_component_get_summary (cpt_tomatoes), ==, "How many tomatoes can you smash in ten short minutes?");
 	g_assert_cmpstr (as_component_get_pkgnames (cpt_tomatoes)[0], ==, "tomatoes");
 }
