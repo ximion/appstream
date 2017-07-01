@@ -457,3 +457,72 @@ as_yaml_list_to_str_array (GNode *node, GPtrArray *array)
 			g_ptr_array_add (array, g_strdup (val));
 	}
 }
+
+/**
+ * as_yaml_emit_sequence_from_str_array:
+ */
+void
+as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter, const gchar *key, GPtrArray *array)
+{
+	guint i;
+
+	if (array == NULL)
+		return;
+	if (array->len == 0)
+		return;
+
+	as_yaml_emit_scalar_key (emitter, key);
+	as_yaml_sequence_start (emitter);
+
+	for (i = 0; i < array->len; i++) {
+		const gchar *val = (const gchar*) g_ptr_array_index (array, i);
+		as_yaml_emit_scalar (emitter, val);
+	}
+
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_localized_list_helper:
+ */
+static void
+as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter)
+{
+	guint i;
+	if (strv == NULL)
+		return;
+
+	/* skip cruft */
+	if (as_is_cruft_locale (key))
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+	as_yaml_sequence_start (emitter);
+	for (i = 0; strv[i] != NULL; i++) {
+		as_yaml_emit_scalar (emitter, strv[i]);
+	}
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_yaml_emit_localized_strv:
+ */
+void
+as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+{
+	if (ltab == NULL)
+		return;
+	if (g_hash_table_size (ltab) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, key);
+
+	/* start mapping for localized entry */
+	as_yaml_mapping_start (emitter);
+	/* emit entries */
+	g_hash_table_foreach (ltab,
+				(GHFunc) as_yaml_localized_list_helper,
+				emitter);
+	/* finalize */
+	as_yaml_mapping_end (emitter);
+}

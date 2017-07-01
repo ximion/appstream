@@ -29,8 +29,8 @@
 
 G_BEGIN_DECLS
 
-#define AS_TYPE_LAUNCH (as_launchable_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AsLaunchable, as_launchable, AS, LAUNCH, GObject)
+#define AS_TYPE_LAUNCHABLE (as_launchable_get_type ())
+G_DECLARE_DERIVABLE_TYPE (AsLaunchable, as_launchable, AS, LAUNCHABLE, GObject)
 
 struct _AsLaunchableClass
 {

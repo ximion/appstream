@@ -2899,7 +2899,7 @@ as_component_get_launchable (AsComponent *cpt, AsLaunchableKind kind)
 	guint i;
 
 	for (i = 0; i < priv->launchables->len; i++) {
-		AsLaunchable *launch = AS_LAUNCH (g_ptr_array_index (priv->launchables, i));
+		AsLaunchable *launch = AS_LAUNCHABLE (g_ptr_array_index (priv->launchables, i));
 		if (as_launchable_get_kind (launch) == kind)
 			return launch;
 	}
@@ -3719,7 +3719,7 @@ as_component_xml_serialize_custom (AsComponent *cpt, xmlNode *cptnode)
 
 /**
  * as_component_to_xml_node:
- * @cpt: An #AsComponent.
+ * @cpt: an #AsComponent.
  * @ctx: the AppStream document context.
  * @root: XML node to attach the new nodes to.
  *
@@ -3816,7 +3816,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* launchables */
 	for (i = 0; i < priv->launchables->len; i++) {
-		AsLaunchable *launchable = AS_LAUNCH (g_ptr_array_index (priv->launchables, i));
+		AsLaunchable *launchable = AS_LAUNCHABLE (g_ptr_array_index (priv->launchables, i));
 		as_launchable_to_xml_node (launchable, ctx, cnode);
 	}
 
@@ -3866,6 +3866,981 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	as_component_xml_serialize_custom (cpt, cnode);
 
 	return cnode;
+}
+
+/**
+ * as_component_yaml_parse_keywords:
+ *
+ * Process a keywords node and add the data to an #AsComponent
+ */
+static void
+as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, GNode *node)
+{
+	GNode *tnode;
+	g_autoptr(GPtrArray) keywords = NULL;
+	g_auto(GStrv) strv = NULL;
+
+	keywords = g_ptr_array_new_with_free_func (g_free);
+
+	tnode = as_yaml_get_localized_node (ctx, node, NULL);
+	/* no node found? */
+	if (tnode == NULL)
+		return;
+
+	as_yaml_list_to_str_array (tnode, keywords);
+
+	strv = as_ptr_array_to_strv (keywords);
+	as_component_set_keywords (cpt, strv, NULL);
+}
+
+/**
+ * as_component_yaml_parse_urls:
+ */
+static void
+as_component_yaml_parse_urls (AsComponent *cpt, GNode *node)
+{
+	GNode *n;
+	AsUrlKind url_kind;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
+
+		url_kind = as_url_kind_from_string (key);
+		if ((url_kind != AS_URL_KIND_UNKNOWN) && (value != NULL))
+			as_component_add_url (cpt, url_kind, value);
+	}
+}
+
+/**
+ * as_component_yaml_parse_icon:
+ */
+static void
+as_component_yaml_parse_icon (AsComponent *cpt, AsContext *ctx, GNode *node, AsIconKind kind)
+{
+	GNode *n;
+	guint64 size;
+	guint scale;
+	g_autoptr(AsIcon) icon = NULL;
+
+	icon = as_icon_new ();
+	as_icon_set_kind (icon, kind);
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
+
+		if (g_strcmp0 (key, "width") == 0) {
+			size = g_ascii_strtoull (value, NULL, 10);
+			as_icon_set_width (icon, size);
+		} else if (g_strcmp0 (key, "height") == 0) {
+			size = g_ascii_strtoull (value, NULL, 10);
+			as_icon_set_height (icon, size);
+		} else if (g_strcmp0 (key, "scale") == 0) {
+			scale = g_ascii_strtoull (value, NULL, 10);
+			as_icon_set_scale (icon, scale);
+		} else {
+			if (kind == AS_ICON_KIND_REMOTE) {
+				if (g_strcmp0 (key, "url") == 0) {
+					if (as_context_has_media_baseurl (ctx)) {
+						/* handle the media baseurl */
+						g_autofree gchar *url = NULL;
+						url = g_build_filename (as_context_get_media_baseurl (ctx), value, NULL);
+						as_icon_set_url (icon, url);
+					} else {
+						/* no baseurl, we can just set the value as URL */
+						as_icon_set_url (icon, value);
+					}
+				}
+			} else {
+				if (g_strcmp0 (key, "name") == 0) {
+					as_icon_set_filename (icon, value);
+				}
+			}
+		}
+	}
+
+	as_component_add_icon (cpt, icon);
+}
+
+/**
+ * as_component_yaml_parse_icons:
+ */
+static void
+as_component_yaml_parse_icons (AsComponent *cpt, AsContext *ctx, GNode *node)
+{
+	GNode *n;
+	const gchar *key;
+	const gchar *value;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		key = (const gchar*) n->data;
+		value = (const gchar*) n->children->data;
+
+		if (g_strcmp0 (key, "stock") == 0) {
+			g_autoptr(AsIcon) icon = as_icon_new ();
+			as_icon_set_kind (icon, AS_ICON_KIND_STOCK);
+			as_icon_set_name (icon, value);
+			as_component_add_icon (cpt, icon);
+		} else if (g_strcmp0 (key, "cached") == 0) {
+			if (value != NULL) {
+				g_autoptr(AsIcon) icon = as_icon_new ();
+				/* we have a legacy YAML file */
+				as_icon_set_kind (icon, AS_ICON_KIND_CACHED);
+				as_icon_set_filename (icon, value);
+				as_component_add_icon (cpt, icon);
+			} else {
+				GNode *sn;
+				/* we have a recent YAML file */
+				for (sn = n->children; sn != NULL; sn = sn->next)
+					as_component_yaml_parse_icon (cpt, ctx, sn, AS_ICON_KIND_CACHED);
+			}
+		} else if (g_strcmp0 (key, "local") == 0) {
+			GNode *sn;
+			for (sn = n->children; sn != NULL; sn = sn->next)
+				as_component_yaml_parse_icon (cpt, ctx, sn, AS_ICON_KIND_LOCAL);
+		} else if (g_strcmp0 (key, "remote") == 0) {
+			GNode *sn;
+			for (sn = n->children; sn != NULL; sn = sn->next)
+				as_component_yaml_parse_icon (cpt, ctx, sn, AS_ICON_KIND_REMOTE);
+		}
+	}
+}
+
+/**
+ * as_component_yaml_parse_provides:
+ */
+static void
+as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
+{
+	GNode *n;
+	GNode *sn;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+
+		if (g_strcmp0 (key, "libraries") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_LIBRARY, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "binaries") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_BINARY, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "fonts") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FONT, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "modaliases") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MODALIAS, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "firmware") == 0) {
+			GNode *dn;
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				gchar *kind = NULL;
+				gchar *fwdata = NULL;
+				for (dn = sn->children; dn != NULL; dn = dn->next) {
+					gchar *dkey;
+					gchar *dvalue;
+
+					dkey = (gchar*) dn->data;
+					if (dn->children)
+						dvalue = (gchar*) dn->children->data;
+					else
+						continue;
+					if (g_strcmp0 (dkey, "type") == 0) {
+						kind = dvalue;
+					} else if ((g_strcmp0 (dkey, "guid") == 0) || (g_strcmp0 (dkey, "file") == 0)) {
+						fwdata = dvalue;
+					}
+				}
+				/* we don't add malformed provides types */
+				if ((kind == NULL) || (fwdata == NULL))
+					continue;
+
+				if (g_strcmp0 (kind, "runtime") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_RUNTIME, fwdata);
+				else if (g_strcmp0 (kind, "flashed") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FIRMWARE_FLASHED, fwdata);
+			}
+		} else if (g_strcmp0 (key, "python2") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON_2, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "python3") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "mimetypes") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "dbus") == 0) {
+			GNode *dn;
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				gchar *kind = NULL;
+				gchar *service = NULL;
+				for (dn = sn->children; dn != NULL; dn = dn->next) {
+					gchar *dkey;
+					gchar *dvalue;
+
+					dkey = (gchar*) dn->data;
+					if (dn->children)
+						dvalue = (gchar*) dn->children->data;
+					else
+						dvalue = NULL;
+					if (g_strcmp0 (dkey, "type") == 0) {
+						kind = dvalue;
+					} else if (g_strcmp0 (dkey, "service") == 0) {
+						service = dvalue;
+					}
+				}
+				/* we don't add malformed provides types */
+				if ((kind == NULL) || (service == NULL))
+					continue;
+
+				if (g_strcmp0 (kind, "system") == 0)
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_SYSTEM, service);
+				else if ((g_strcmp0 (kind, "user") == 0) || (g_strcmp0 (kind, "session") == 0))
+					as_component_add_provided_item (cpt, AS_PROVIDED_KIND_DBUS_USER, service);
+			}
+		}
+	}
+}
+
+/**
+ * as_component_yaml_parse_languages:
+ */
+static void
+as_component_yaml_parse_languages (AsComponent *cpt, GNode *node)
+{
+	GNode *sn;
+
+	for (sn = node->children; sn != NULL; sn = sn->next) {
+		GNode *n;
+		g_autofree gchar *locale = NULL;
+		g_autofree gchar *percentage_str = NULL;
+
+		for (n = sn->children; n != NULL; n = n->next) {
+			const gchar *key = as_yaml_node_get_key (n);
+			const gchar *value = as_yaml_node_get_value (n);
+
+			if (g_strcmp0 (key, "locale") == 0) {
+				if (locale == NULL)
+					locale = g_strdup (value);
+			} else if (g_strcmp0 (key, "percentage") == 0) {
+				if (percentage_str == NULL)
+					percentage_str = g_strdup (value);
+			} else {
+				as_yaml_print_unknown ("Languages", key);
+			}
+		}
+
+		if ((locale != NULL) && (percentage_str != NULL))
+			as_component_add_language (cpt,
+						   locale,
+						   g_ascii_strtoll (percentage_str, NULL, 10));
+	}
+}
+
+/**
+ * as_component_yaml_parse_custom:
+ */
+static void
+as_component_yaml_parse_custom (AsComponent *cpt, GNode *node)
+{
+	GNode *sn;
+
+	for (sn = node->children; sn != NULL; sn = sn->next) {
+		const gchar *key = as_yaml_node_get_key (sn);
+		const gchar *value = as_yaml_node_get_value (sn);
+
+		as_component_insert_custom_value (cpt, key, value);
+	}
+}
+
+/**
+ * as_component_load_from_yaml:
+ * @cpt: an #AsComponent.
+ * @ctx: the AppStream document context.
+ * @root: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GError **error)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	GNode *node;
+
+	/* set active locale for this component */
+	as_component_set_active_locale (cpt, as_context_get_locale (ctx));
+
+	/* set component default priority */
+	priv->priority = as_context_get_priority (ctx);
+
+	/* set component origin */
+	as_component_set_origin (cpt, as_context_get_origin (ctx));
+
+	/* set component architecture */
+	as_component_set_architecture (cpt, as_context_get_architecture (ctx));
+
+	for (node = root->children; node != NULL; node = node->next) {
+		const gchar *key;
+		const gchar *value;
+		gchar *lvalue;
+
+		if (node->children == NULL)
+			continue;
+
+		key = as_yaml_node_get_key (node);
+		value = as_yaml_node_get_value (node);
+
+		if (g_strcmp0 (key, "Type") == 0) {
+			if (g_strcmp0 (value, "generic") == 0)
+				priv->kind = AS_COMPONENT_KIND_GENERIC;
+			else
+				priv->kind = as_component_kind_from_string (value);
+		} else if (g_strcmp0 (key, "ID") == 0) {
+			as_component_set_id (cpt, value);
+		} else if (g_strcmp0 (key, "Priority") == 0) {
+			priv->priority = g_ascii_strtoll (value, NULL, 10);
+		} else if (g_strcmp0 (key, "Merge") == 0) {
+			priv->merge_kind = as_merge_kind_from_string (value);
+		} else if (g_strcmp0 (key, "Package") == 0) {
+			g_auto(GStrv) strv = NULL;
+			strv = g_new0 (gchar*, 1 + 1);
+			strv[0] = g_strdup (value);
+			strv[1] = NULL;
+
+			as_component_set_pkgnames (cpt, strv);
+		} else if (g_strcmp0 (key, "SourcePackage") == 0) {
+			as_component_set_source_pkgname (cpt, value);
+		} else if (g_strcmp0 (key, "Name") == 0) {
+			lvalue = as_yaml_get_localized_value (ctx, node, "C");
+			if (lvalue != NULL) {
+				as_component_set_name (cpt, lvalue, "C"); /* Unlocalized */
+				g_free (lvalue);
+			}
+			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
+			as_component_set_name (cpt, lvalue, NULL);
+			g_free (lvalue);
+		} else if (g_strcmp0 (key, "Summary") == 0) {
+			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
+			as_component_set_summary (cpt, lvalue, NULL);
+			g_free (lvalue);
+		} else if (g_strcmp0 (key, "Description") == 0) {
+			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
+			as_component_set_description (cpt, lvalue, NULL);
+			g_free (lvalue);
+		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
+			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
+			as_component_set_developer_name (cpt, lvalue, NULL);
+			g_free (lvalue);
+		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {
+			as_component_set_project_license (cpt, value);
+		} else if (g_strcmp0 (key, "ProjectGroup") == 0) {
+			as_component_set_project_group (cpt, value);
+		} else if (g_strcmp0 (key, "Categories") == 0) {
+			as_yaml_list_to_str_array (node, priv->categories);
+		} else if (g_strcmp0 (key, "CompulsoryForDesktops") == 0) {
+			as_yaml_list_to_str_array (node, priv->compulsory_for_desktops);
+		} else if (g_strcmp0 (key, "Extends") == 0) {
+			as_yaml_list_to_str_array (node, priv->extends);
+		} else if (g_strcmp0 (key, "Keywords") == 0) {
+			as_component_yaml_parse_keywords (cpt, ctx, node);
+		} else if (g_strcmp0 (key, "Url") == 0) {
+			as_component_yaml_parse_urls (cpt, node);
+		} else if (g_strcmp0 (key, "Icon") == 0) {
+			as_component_yaml_parse_icons (cpt, ctx, node);
+		} else if (g_strcmp0 (key, "Bundles") == 0) {
+			GNode *n;
+			for (n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsBundle) bundle = as_bundle_new ();
+				if (as_bundle_load_from_yaml (bundle, ctx, n, NULL))
+					as_component_add_bundle (cpt, bundle);
+			}
+		} else if (g_strcmp0 (key, "Launchable") == 0) {
+			GNode *n;
+			for (n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsLaunchable) launch = as_launchable_new ();
+				if (as_launchable_load_from_yaml (launch, ctx, n, NULL))
+					as_component_add_launchable (cpt, launch);
+			}
+		} else if (g_strcmp0 (key, "Provides") == 0) {
+			as_component_yaml_parse_provides (cpt, node);
+		} else if (g_strcmp0 (key, "Screenshots") == 0) {
+			GNode *n;
+			for (n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsScreenshot) scr = as_screenshot_new ();
+				if (as_screenshot_load_from_yaml (scr, ctx, n, NULL))
+					as_component_add_screenshot (cpt, scr);
+			}
+		} else if (g_strcmp0 (key, "Languages") == 0) {
+			as_component_yaml_parse_languages (cpt, node);
+		} else if (g_strcmp0 (key, "Releases") == 0) {
+			GNode *n;
+			for (n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsRelease) release = as_release_new ();
+				if (as_release_load_from_yaml (release, ctx, n, NULL))
+					as_component_add_release (cpt, release);
+			}
+		} else if (g_strcmp0 (key, "Suggests") == 0) {
+			GNode *n;
+			for (n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsSuggested) suggested = as_suggested_new ();
+				if (as_suggested_load_from_yaml (suggested, ctx, n, NULL))
+					as_component_add_suggested (cpt, suggested);
+			}
+		} else if (g_strcmp0 (key, "ContentRating") == 0) {
+			GNode *n;
+			for (n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsContentRating) rating = as_content_rating_new ();
+				if (as_content_rating_load_from_yaml (rating, ctx, n, NULL))
+					as_component_add_content_rating (cpt, rating);
+			}
+		} else if (g_strcmp0 (key, "Custom") == 0) {
+			as_component_yaml_parse_custom (cpt, node);
+		} else {
+			as_yaml_print_unknown ("root", key);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_component_yaml_emit_icons:
+ */
+static void
+as_component_yaml_emit_icons (AsComponent* cpt, yaml_emitter_t *emitter, GPtrArray *icons)
+{
+	guint i;
+	GHashTableIter iter;
+	gpointer key, value;
+	gboolean stock_icon_added = FALSE;
+	g_autoptr(GHashTable) icons_table = NULL;
+
+	/* we need to emit the icons in order, so we first need to sort them properly */
+	icons_table = g_hash_table_new_full (g_direct_hash,
+					     g_direct_equal,
+					     NULL,
+					     (GDestroyNotify) g_ptr_array_unref);
+	for (i = 0; i < icons->len; i++) {
+		GPtrArray *ilist;
+		AsIconKind ikind;
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+
+		ikind = as_icon_get_kind (icon);
+		ilist = g_hash_table_lookup (icons_table, GINT_TO_POINTER (ikind));
+		if (ilist == NULL) {
+			ilist = g_ptr_array_new ();
+			g_hash_table_insert (icons_table, GINT_TO_POINTER (ikind), ilist);
+		}
+
+		g_ptr_array_add (ilist, icon);
+	}
+
+	g_hash_table_iter_init (&iter, icons_table);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		GPtrArray *ilist;
+		AsIconKind ikind;
+
+		ikind = (AsIconKind) GPOINTER_TO_INT (key);
+		ilist = (GPtrArray*) value;
+
+		if (ikind == AS_ICON_KIND_STOCK) {
+			/* there can always be only one stock icon, so this is easy */
+			if (!stock_icon_added)
+				as_yaml_emit_entry (emitter,
+						    as_icon_kind_to_string (ikind),
+						    as_icon_get_name (AS_ICON (g_ptr_array_index (ilist, 0))));
+			stock_icon_added = TRUE;
+		} else {
+			as_yaml_emit_scalar (emitter, as_icon_kind_to_string (ikind));
+			as_yaml_sequence_start (emitter);
+
+			for (i = 0; i < ilist->len; i++) {
+				AsIcon *icon = AS_ICON (g_ptr_array_index (ilist, i));
+
+				as_yaml_mapping_start (emitter);
+
+				if (ikind == AS_ICON_KIND_REMOTE)
+					as_yaml_emit_entry (emitter, "url", as_icon_get_url (icon));
+				else if (ikind == AS_ICON_KIND_LOCAL)
+					as_yaml_emit_entry (emitter, "name", as_icon_get_filename (icon));
+				else
+					as_yaml_emit_entry (emitter, "name", as_icon_get_name (icon));
+
+				if (as_icon_get_width (icon) > 0) {
+					as_yaml_emit_entry_uint (emitter,
+								 "width",
+								 as_icon_get_width (icon));
+				}
+
+				if (as_icon_get_height (icon) > 0) {
+					as_yaml_emit_entry_uint (emitter,
+								 "height",
+								 as_icon_get_height (icon));
+				}
+
+				if (as_icon_get_scale (icon) > 1) {
+					as_yaml_emit_entry_uint (emitter,
+								 "scale",
+								 as_icon_get_scale (icon));
+				}
+
+				as_yaml_mapping_end (emitter);
+			}
+
+			as_yaml_sequence_end (emitter);
+		}
+	}
+}
+
+/**
+ * as_component_yaml_emit_provides:
+ */
+static void
+as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	guint i;
+
+	g_autoptr(GPtrArray) dbus_system = NULL;
+	g_autoptr(GPtrArray) dbus_user = NULL;
+
+	g_autoptr(GPtrArray) fw_runtime = NULL;
+	g_autoptr(GPtrArray) fw_flashed = NULL;
+
+	if (priv->provided->len == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Provides");
+	as_yaml_mapping_start (emitter);
+	for (i = 0; i < priv->provided->len; i++) {
+		AsProvidedKind kind;
+		GPtrArray *items;
+		guint j;
+		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (priv->provided, i));
+
+		items = as_provided_get_items (prov);
+		if (items->len == 0)
+			continue;
+
+		kind = as_provided_get_kind (prov);
+		switch (kind) {
+			case AS_PROVIDED_KIND_LIBRARY:
+				as_yaml_emit_sequence (emitter,
+							"libraries",
+							items);
+				break;
+			case AS_PROVIDED_KIND_BINARY:
+				as_yaml_emit_sequence (emitter,
+							"binaries",
+							items);
+				break;
+			case AS_PROVIDED_KIND_MIMETYPE:
+				as_yaml_emit_sequence (emitter,
+							"mimetypes",
+							items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON_2:
+				as_yaml_emit_sequence (emitter,
+							"python2",
+							items);
+				break;
+			case AS_PROVIDED_KIND_PYTHON:
+				as_yaml_emit_sequence (emitter,
+							"python3",
+							items);
+				break;
+			case AS_PROVIDED_KIND_MODALIAS:
+				as_yaml_emit_sequence (emitter,
+							"modaliases",
+							items);
+				break;
+			case AS_PROVIDED_KIND_FONT:
+				as_yaml_emit_scalar (emitter, "fonts");
+
+				as_yaml_sequence_start (emitter);
+				for (j = 0; j < items->len; j++) {
+					as_yaml_mapping_start (emitter);
+					as_yaml_emit_entry (emitter,
+							    "name",
+							    (const gchar*) g_ptr_array_index (items, j));
+					as_yaml_mapping_end (emitter);
+				}
+				as_yaml_sequence_end (emitter);
+				break;
+			case AS_PROVIDED_KIND_DBUS_SYSTEM:
+				if (dbus_system == NULL) {
+					dbus_system = g_ptr_array_ref (items);
+				} else {
+					g_critical ("Hit dbus:system twice, this should never happen!");
+				}
+				break;
+			case AS_PROVIDED_KIND_DBUS_USER:
+				if (dbus_user == NULL) {
+					dbus_user = g_ptr_array_ref (items);
+				} else {
+					g_critical ("Hit dbus:user twice, this should never happen!");
+				}
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_RUNTIME:
+				if (fw_runtime == NULL) {
+					fw_runtime = g_ptr_array_ref (items);
+				} else {
+					g_critical ("Hit firmware:runtime twice, this should never happen!");
+				}
+				break;
+			case AS_PROVIDED_KIND_FIRMWARE_FLASHED:
+				if (fw_flashed == NULL) {
+					fw_flashed = g_ptr_array_ref (items);
+				} else {
+					g_critical ("Hit dbus-user twice, this should never happen!");
+				}
+				break;
+			default:
+				g_warning ("Ignoring unknown type of provided items: %s", as_provided_kind_to_string (kind));
+				break;
+		}
+	}
+
+	/* dbus subsection */
+	if ((dbus_system != NULL) || (dbus_user != NULL)) {
+		as_yaml_emit_scalar (emitter, "dbus");
+		as_yaml_sequence_start (emitter);
+
+		if (dbus_system != NULL) {
+			for (i = 0; i < dbus_system->len; i++) {
+				const gchar *value = (const gchar*) g_ptr_array_index (dbus_system, i);
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_entry (emitter, "type", "system");
+				as_yaml_emit_entry (emitter, "service", value);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		if (dbus_user != NULL) {
+			for (i = 0; i < dbus_user->len; i++) {
+				const gchar *value = (const gchar*) g_ptr_array_index (dbus_user, i);
+
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_entry (emitter, "type", "user");
+				as_yaml_emit_entry (emitter, "service", value);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* firmware subsection */
+	if ((fw_runtime != NULL) || (fw_flashed != NULL)) {
+		as_yaml_emit_scalar (emitter, "firmware");
+		as_yaml_sequence_start (emitter);
+
+		if (fw_runtime != NULL) {
+			for (i = 0; i < fw_runtime->len; i++) {
+				const gchar *value = g_ptr_array_index (fw_runtime, i);
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_entry (emitter, "type", "runtime");
+				as_yaml_emit_entry (emitter, "guid", value);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		if (fw_flashed != NULL) {
+			for (i = 0; i < fw_flashed->len; i++) {
+				const gchar *value = g_ptr_array_index (fw_flashed, i);
+				as_yaml_mapping_start (emitter);
+
+				as_yaml_emit_entry (emitter, "type", "flashed");
+				as_yaml_emit_entry (emitter, "file", value);
+
+				as_yaml_mapping_end (emitter);
+			}
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_component_yaml_emit_languages:
+ */
+static void
+as_component_yaml_emit_languages (AsComponent *cpt, yaml_emitter_t *emitter)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	GHashTableIter iter;
+	gpointer key, value;
+
+	if (g_hash_table_size (priv->languages) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Languages");
+	as_yaml_sequence_start (emitter);
+
+	g_hash_table_iter_init (&iter, priv->languages);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		guint percentage;
+		const gchar *locale;
+
+		locale = (const gchar*) key;
+		percentage = GPOINTER_TO_INT (value);
+
+		as_yaml_mapping_start (emitter);
+		as_yaml_emit_entry (emitter, "locale", locale);
+		as_yaml_emit_entry_uint (emitter, "percentage", percentage);
+		as_yaml_mapping_end (emitter);
+	}
+
+	as_yaml_sequence_end (emitter);
+}
+
+/**
+ * as_component_yaml_emit_custom:
+ */
+static void
+as_component_yaml_emit_custom (AsComponent *cpt, yaml_emitter_t *emitter)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	GHashTableIter iter;
+	gpointer key, value;
+
+	if (g_hash_table_size (priv->custom) == 0)
+		return;
+
+	as_yaml_emit_scalar (emitter, "Custom");
+	as_yaml_mapping_start (emitter);
+
+	g_hash_table_iter_init (&iter, priv->custom);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		as_yaml_emit_entry (emitter,
+				    (const gchar*) key,
+				    (const gchar*) value);
+	}
+
+	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_component_emit_yaml:
+ * @cpt: an #AsComponent.
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	guint i;
+	gint res;
+	const gchar *cstr;
+	yaml_event_t event;
+
+	/* new document for this component */
+	yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
+	res = yaml_emitter_emit (emitter, &event);
+	g_assert (res);
+
+	/* open main mapping */
+	as_yaml_mapping_start (emitter);
+
+	/* write component kind */
+	if ((as_context_get_format_version (ctx) < AS_FORMAT_VERSION_V0_10) && (priv->kind == AS_COMPONENT_KIND_DESKTOP_APP))
+		cstr = "desktop-app";
+	else
+		cstr = as_component_kind_to_string (priv->kind);
+	as_yaml_emit_entry (emitter, "Type", cstr);
+
+	/* AppStream-ID */
+	as_yaml_emit_entry (emitter, "ID", priv->id);
+
+	/* Priority */
+	if (priv->priority != 0) {
+		g_autofree gchar *priority_str = g_strdup_printf ("%i", priv->priority);
+		as_yaml_emit_entry (emitter,
+				    "Priority",
+				    priority_str);
+	}
+
+	/* merge strategy */
+	if (priv->merge_kind != AS_MERGE_KIND_NONE) {
+		as_yaml_emit_entry (emitter,
+				    "Merge",
+				    as_merge_kind_to_string (priv->merge_kind));
+	}
+
+	/* SourcePackage */
+	as_yaml_emit_entry (emitter, "SourcePackage", priv->source_pkgname);
+
+	/* Package */
+	/* NOTE: a DEP-11 components do *not* support multiple packages per component */
+	if ((priv->pkgnames != NULL) && (priv->pkgnames[0] != '\0'))
+		as_yaml_emit_entry (emitter, "Package", priv->pkgnames[0]);
+
+	/* Extends */
+	as_yaml_emit_sequence (emitter, "Extends", priv->extends);
+
+	/* Name */
+	as_yaml_emit_localized_entry (emitter, "Name", priv->name);
+
+	/* Summary */
+	as_yaml_emit_localized_entry (emitter, "Summary", priv->summary);
+
+	/* Description */
+	as_yaml_emit_long_localized_entry (emitter, "Description", priv->description);
+
+	/* DeveloperName */
+	as_yaml_emit_localized_entry (emitter, "DeveloperName", priv->developer_name);
+
+	/* ProjectGroup */
+	as_yaml_emit_entry (emitter, "ProjectGroup", priv->project_group);
+
+	/* ProjectLicense */
+	as_yaml_emit_entry (emitter, "ProjectLicense", priv->project_license);
+
+	/* CompulsoryForDesktops */
+	as_yaml_emit_sequence_from_str_array (emitter, "CompulsoryForDesktops", priv->compulsory_for_desktops);
+
+	/* Categories */
+	as_yaml_emit_sequence_from_str_array (emitter, "Categories", priv->categories);
+
+	/* Keywords */
+	as_yaml_emit_localized_strv (emitter, "Keywords", priv->keywords);
+
+	/* Urls */
+	if ((priv->urls != NULL) && (g_hash_table_size (priv->urls) > 0)) {
+		GHashTableIter iter;
+		gpointer key, value;
+
+		as_yaml_emit_scalar (emitter, "Url");
+		as_yaml_mapping_start (emitter);
+
+		g_hash_table_iter_init (&iter, priv->keywords);
+		while (g_hash_table_iter_next (&iter, &key, &value)) {
+			as_yaml_emit_entry (emitter, as_url_kind_to_string (GPOINTER_TO_INT (key)), (const gchar*) value);
+		}
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* Icons */
+	if (priv->icons->len > 0) {
+		as_yaml_emit_scalar (emitter, "Icon");
+		as_yaml_mapping_start (emitter);
+		as_component_yaml_emit_icons (cpt, emitter, priv->icons);
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* Bundles */
+	if (priv->bundles->len > 0) {
+		as_yaml_emit_scalar (emitter, "Bundles");
+		as_yaml_sequence_start (emitter);
+
+		for (i = 0; i < priv->bundles->len; i++) {
+			AsBundle *bundle = AS_BUNDLE (g_ptr_array_index (priv->bundles, i));
+			as_bundle_emit_yaml (bundle, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Launchable */
+	if (priv->launchables->len > 0) {
+		as_yaml_emit_scalar (emitter, "Launchable");
+		as_yaml_mapping_start (emitter);
+
+		for (i = 0; i < priv->launchables->len; i++) {
+			AsLaunchable *launch = AS_LAUNCHABLE (g_ptr_array_index (priv->launchables, i));
+			as_launchable_emit_yaml (launch, ctx, emitter);
+		}
+
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* Provides */
+	as_component_yaml_emit_provides (cpt, emitter);
+
+	/* Screenshots */
+	if (priv->screenshots->len > 0) {
+		as_yaml_emit_scalar (emitter, "Screenshots");
+		as_yaml_sequence_start (emitter);
+
+		for (i = 0; i < priv->screenshots->len; i++) {
+			AsScreenshot *screenshot = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
+			as_screenshot_emit_yaml (screenshot, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Translation details */
+	as_component_yaml_emit_languages (cpt, emitter);
+
+	/* Releases */
+	if (priv->releases->len > 0) {
+		as_yaml_emit_scalar (emitter, "Releases");
+		as_yaml_sequence_start (emitter);
+
+		for (i = 0; i < priv->releases->len; i++) {
+			AsRelease *release = AS_RELEASE (g_ptr_array_index (priv->releases, i));
+			as_release_emit_yaml (release, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Suggests */
+	if (priv->suggestions->len > 0) {
+		as_yaml_emit_scalar (emitter, "Suggests");
+		as_yaml_sequence_start (emitter);
+
+		for (i = 0; i < priv->suggestions->len; i++) {
+			AsSuggested *suggested = AS_SUGGESTED (g_ptr_array_index (priv->suggestions, i));
+			as_suggested_emit_yaml (suggested, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* ContentRating */
+	if (priv->content_ratings->len > 0) {
+		as_yaml_emit_scalar (emitter, "ContentRating");
+		as_yaml_mapping_start (emitter);
+
+		for (i = 0; i < priv->content_ratings->len; i++) {
+			AsContentRating *content_rating = AS_CONTENT_RATING (g_ptr_array_index (priv->content_ratings, i));
+			as_content_rating_emit_yaml (content_rating, ctx, emitter);
+		}
+
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* Custom fields */
+	as_component_yaml_emit_custom (cpt, emitter);
+
+	/* close main mapping */
+	as_yaml_mapping_end (emitter);
+
+	/* finalize the document */
+	yaml_document_end_event_initialize (&event, 1);
+	res = yaml_emitter_emit (emitter, &event);
+	g_assert (res);
 }
 
 /**

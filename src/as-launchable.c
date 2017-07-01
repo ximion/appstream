@@ -87,7 +87,7 @@ as_launchable_kind_from_string (const gchar *kind_str)
 static void
 as_launchable_finalize (GObject *object)
 {
-	AsLaunchable *launch = AS_LAUNCH (object);
+	AsLaunchable *launch = AS_LAUNCHABLE (object);
 	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
 
 	g_ptr_array_unref (priv->entries);
@@ -269,6 +269,6 @@ AsLaunchable*
 as_launchable_new (void)
 {
 	AsLaunchable *launch;
-	launch = g_object_new (AS_TYPE_LAUNCH, NULL);
-	return AS_LAUNCH (launch);
+	launch = g_object_new (AS_TYPE_LAUNCHABLE, NULL);
+	return AS_LAUNCHABLE (launch);
 }

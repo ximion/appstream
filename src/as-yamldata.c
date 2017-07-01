@@ -1396,10 +1396,10 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 }
 
 /**
- * as_yaml_emit_localized_strv:
+ * _as_yaml_emit_localized_strv:
  */
 static void
-as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
+_as_yaml_emit_localized_strv (yaml_emitter_t *emitter, const gchar *key, GHashTable *ltab)
 {
 	if (ltab == NULL)
 		return;
@@ -2062,7 +2062,7 @@ as_yaml_emit_launchable (yaml_emitter_t *emitter, AsComponent *cpt)
 	_as_yaml_mapping_start (emitter);
 
 	for (i = 0; i < launchables->len; i++) {
-		AsLaunchable *launch = AS_LAUNCH (g_ptr_array_index (launchables, i));
+		AsLaunchable *launch = AS_LAUNCHABLE (g_ptr_array_index (launchables, i));
 
 		_as_yaml_emit_sequence (emitter,
 				       as_launchable_kind_to_string (as_launchable_get_kind (launch)),
@@ -2179,7 +2179,7 @@ as_yaml_serialize_component (AsYAMLData *ydt, yaml_emitter_t *emitter, AsCompone
 						as_component_get_categories (cpt));
 
 	/* Keywords */
-	as_yaml_emit_localized_strv (emitter,
+	_as_yaml_emit_localized_strv (emitter,
 					"Keywords",
 					as_component_get_keywords_table (cpt));
 

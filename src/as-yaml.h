@@ -64,6 +64,12 @@ void		as_yaml_emit_long_entry (yaml_emitter_t *emitter,
 void		as_yaml_emit_sequence (yaml_emitter_t *emitter,
 					const gchar *key,
 					GPtrArray *list);
+void		as_yaml_emit_sequence_from_str_array (yaml_emitter_t *emitter,
+							const gchar *key,
+							GPtrArray *array);
+void		as_yaml_emit_localized_strv (yaml_emitter_t *emitter,
+						const gchar *key,
+						GHashTable *ltab);
 
 GNode		*as_yaml_get_localized_node (AsContext *ctx,
 					     GNode *node,

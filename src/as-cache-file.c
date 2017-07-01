@@ -238,7 +238,7 @@ as_cache_serialize_launchables (GVariantBuilder *cpt_builder, AsComponent *cpt)
 	g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
 
 	for (i = 0; i < launchables->len; i++) {
-		AsLaunchable *launch = AS_LAUNCH (g_ptr_array_index (launchables, i));
+		AsLaunchable *launch = AS_LAUNCHABLE (g_ptr_array_index (launchables, i));
 
 		GVariant *var = g_variant_new ("{uv}",
 						as_launchable_get_kind (launch),
