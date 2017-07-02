@@ -490,8 +490,8 @@ static void
 test_appstream_read_description (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
-	const gchar *xmldata_desc_mi = "<component>\n"
-					"  <id>org.example.DescTestMI</id>\n"
+	const gchar *xmldata_desc_mi1 = "<component>\n"
+					"  <id>org.example.DescTestMI-1</id>\n"
 					"  <description>\n"
 					"    <p>Agenda is a simple, slick, speedy and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
 					"    <ul>\n"
@@ -503,8 +503,20 @@ test_appstream_read_description (void)
 					"  </description>\n"
 					"</component>\n";
 
-	cpt = as_xml_test_read_data (xmldata_desc_mi, AS_FORMAT_STYLE_METAINFO);
-	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescTestMI");
+	const gchar *xmldata_desc_mi2 = "<component>\n"
+					"  <id>org.example.DescTestMI-2</id>\n"
+					"  <description>\n"
+					"    <ul>\n"
+					"      <li>I start with bullet points</li>\n"
+					"      <li>Yes, this is allowed now</li>\n"
+					"      <li>...</li>\n"
+					"    </ul>\n"
+					"    <p>Paragraph</p>\n"
+					"  </description>\n"
+					"</component>\n";
+
+	cpt = as_xml_test_read_data (xmldata_desc_mi1, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescTestMI-1");
 
 	g_assert_cmpstr (as_component_get_description (cpt), ==, "<p>Agenda is a simple, slick, speedy and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
 								 "<ul>\n"
@@ -513,6 +525,17 @@ test_appstream_read_description (void)
 								 "  <li>...</li>\n"
 								 "</ul>\n"
 								 "<p>I dare you to find an easier, faster, more beautiful task manager for elementary OS.</p>\n");
+
+	g_object_unref (cpt);
+	cpt = as_xml_test_read_data (xmldata_desc_mi2, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescTestMI-2");
+
+	g_assert_cmpstr (as_component_get_description (cpt), ==, "<ul>\n"
+								 "  <li>I start with bullet points</li>\n"
+								 "  <li>Yes, this is allowed now</li>\n"
+								 "  <li>...</li>\n"
+								 "</ul>\n"
+								 "<p>Paragraph</p>\n");
 }
 
 /**
