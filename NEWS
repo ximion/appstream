@@ -1,3 +1,57 @@
+Version 0.11.1
+~~~~~~~~~~~~~~
+Released: 2017-07-02
+
+Notes:
+ * This release contains refactoring of the XML/YAML parsers and some other changes that are more invasive
+   than usual.
+
+Features:
+ * qt: Add new getters/setters and classes to be on par with the GObject library (Jan Grulich)
+ * qt: Add AS::Metadata class used for parsing desktop and appstream metadata files (Jan Grulich)
+ * Refactor the XML parser and serialization code (Matthias Klumpp)
+ * Refactor the YAML parser and emitter code (Matthias Klumpp)
+ * Implement 'service' component type (Matthias Klumpp)
+ * Improve speed of metainfo description parsing slightly (Matthias Klumpp)
+ * test: Add additional testcase for reading metainfo description tags (Matthias Klumpp)
+ * test: Test metainfo descriptions starting with enumerations (Matthias Klumpp)
+
+Specification:
+ * doc: Add Distro Packaging page (Jeremy Bicha)
+ * doc: Add "service" components and their launchables (Marius Vollmer)
+ * Allow components to provide other components (provides -> id) (Matthias Klumpp)
+
+Bugfixes:
+ * doc: Uncomment line in middle of paragraph (Jeremy Bicha)
+ * doc: A releases tag is not essential for components, but summary is (Matthias Klumpp)
+ * Allow descriptions to start with an enumeration (Matthias Klumpp)
+ * Ensure we always update with fresh data when refreshing the cache (Matthias Klumpp)
+ * Replace invalid components in the pool with new ones of the same name (Matthias Klumpp)
+ * Resolve a few potential bugs (found by static checks) (Matthias Klumpp)
+ * xml: Check if we are trying to parse a real component (Matthias Klumpp)
+
+Translation:
+ * Spanish
+   - Adolfo Jayme-Barrientos
+ * Hungarian
+   - Balázs Úr
+ * Dutch
+   - Heimen Stoffels
+ * Russian
+   - Igor
+ * French
+   - Jean-Baptiste
+ * Lithuanian
+   - Moo
+ * Czech
+   - Pavel Borecki
+ * Polish
+   - Piotr Drąg
+ * Ukrainian
+   - Yuri Chornoivan
+ * Serbian (latin)
+   - Слободан Симић(Slobodan Simić)
+
 Version 0.11.0
 ~~~~~~~~~~~~~~
 Released: 2017-05-03
