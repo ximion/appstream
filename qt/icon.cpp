@@ -149,6 +149,11 @@ QSize AppStream::Icon::size() const
 }
 
 QDebug operator<<(QDebug s, const AppStream::Icon& image) {
-    s.nospace() << "AppStream::Icon(" << image.url() << ',' << image.kind() << "[" << image.width() << "x" << image.height() << "])";
-    return s.space();
+    s.nospace() << "AppStream::Icon(" << image.kind();
+    if (!image.url().isEmpty())
+        s.nospace() << ',' << image.url();
+    if (!image.name().isEmpty())
+        s.nospace() << ',' << image.name();
+    s.nospace() << "[" << image.width() << "x" << image.height() << "])";
+    return s;
 }
