@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-07-02 00:49+0200\n"
-"PO-Revision-Date: 2017-05-21 20:42+0000\n"
+"PO-Revision-Date: 2017-07-10 19:23+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
-"Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
-"translations/lt/>\n"
+"Language-Team: Lithuanian "
+"<https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.14.1-dev\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 0 : n%10>=2 && (n%100<10 || "
+"n%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3;\n"
+"X-Generator: Weblate 2.16-dev\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -225,7 +225,7 @@ msgstr ""
 
 #: src/as-provided.c:165
 msgid "Component"
-msgstr ""
+msgstr "Komponentas"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -475,11 +475,11 @@ msgstr "Įvesties šaltiniai"
 
 #: tools/appstream-cli.c:593
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Įdiegti metaduomenų failą į tinkamą vietą."
 
 #: tools/appstream-cli.c:589
 msgid "Install software matching the component-id."
-msgstr ""
+msgstr "Įdiegti komponento id atitinkančią programinę įrangą."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -594,7 +594,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for defined."
-msgstr ""
+msgstr "Nėra apibrėžta elemento, kurį ieškoti, reikšmė."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -624,7 +624,7 @@ msgstr "Rodyti išsamią išvestį apie rastus komponentus."
 #. project group
 #: tools/ascli-utils.c:347
 msgid "Project Group"
-msgstr ""
+msgstr "Projekto grupė"
 
 #: tools/ascli-utils.c:392
 msgid "Provided Items"
@@ -640,11 +640,11 @@ msgstr "Python 3"
 
 #: tools/appstream-cli.c:584
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Iš naujo sukurti komponentų metaduomenų podėlį."
 
 #: tools/appstream-cli.c:590
 msgid "Remove software matching the component-id."
-msgstr ""
+msgstr "Šalinti komponento id atitinkančią programinę įrangą."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -689,7 +689,7 @@ msgstr "Mokslas"
 
 #: tools/appstream-cli.c:577
 msgid "Search the component database."
-msgstr ""
+msgstr "Ieškoti komponentų duomenų bazėje."
 
 #: src/as-category.c:293
 msgctxt "Category of Utility"
@@ -733,7 +733,7 @@ msgstr ""
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Sistemos stebėsena"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -829,6 +829,8 @@ msgstr "Nepavyko įrašyti į \"%s\", nepavyksta įdiegti metainformacijos failo
 msgid ""
 "Use the given .desktop file to fill in basic values in the metainfo file."
 msgstr ""
+"Naudoti nurodytą .desktop failą tam, kad metaduomenų faile būtų užpildytos "
+"pagrindinės reikšmės."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -900,7 +902,7 @@ msgstr ""
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "Norint atlikti šį veiksmą, jums gali prireikti supernaudotojo teisių."
 
 #: tools/ascli-actions-mdata.c:435
 msgid ""
@@ -918,7 +920,7 @@ msgstr "Jūs turite nurodyti komandą."
 #: tools/ascli-actions-mdata.c:129 tools/ascli-actions-mdata.c:251
 #: tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
-msgstr ""
+msgstr "Jūs turite nurodyti komponento ID."
 
 #: tools/ascli-actions-validate.c:221
 msgid "You need to specify a file to validate!"
@@ -954,13 +956,13 @@ msgstr "programa;programėlė;aplikacija;paketas;įrankis;komplektas;rinkinys"
 #: tools/ascli-actions-validate.c:181
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "klaidos: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:195
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "informacijos: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:202
@@ -972,7 +974,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:188
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "įspėjimai: %lu"
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "AppStream podėlio atnaujinimas nepavyko."
