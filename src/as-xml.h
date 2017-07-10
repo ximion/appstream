@@ -78,7 +78,7 @@ xmlNode		*as_xml_add_text_node (xmlNode *root,
 xmlDoc		*as_xml_parse_document (const gchar *data,
 					GError **error);
 
-gchar		*as_xml_node_to_str (xmlNode *root);
+gchar		*as_xml_node_to_str (xmlNode *root, GError **error);
 
 #pragma GCC visibility pop
 G_END_DECLS

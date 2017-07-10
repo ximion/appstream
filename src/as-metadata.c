@@ -817,7 +817,7 @@ as_metadata_component_to_metainfo (AsMetadata *metad, AsFormatKind format, GErro
 		return NULL;
 
 	node = as_component_to_xml_node (cpt, context, NULL);
-	xmlstr = as_xml_node_to_str (node);
+	xmlstr = as_xml_node_to_str (node, error);
 
 	return xmlstr;
 }
@@ -831,9 +831,7 @@ static gchar*
 as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsContext *context, GPtrArray *cpts)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
-	xmlDoc *doc;
 	xmlNode *root;
-	gchar *xmlstr = NULL;
 	guint i;
 
 	root = xmlNewNode (NULL, (xmlChar*) "components");
@@ -855,13 +853,7 @@ as_metadata_xml_serialize_to_collection_with_rootnode (AsMetadata *metad, AsCont
 		xmlAddChild (root, node);
 	}
 
-	doc = xmlNewDoc ((xmlChar*) NULL);
-	xmlDocSetRootElement (doc, root);
-
-	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
-	xmlFreeDoc (doc);
-
-	return xmlstr;
+	return as_xml_node_to_str (root, NULL);
 }
 
 /**

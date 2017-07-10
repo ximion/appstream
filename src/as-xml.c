@@ -568,6 +568,7 @@ as_xml_parse_document (const gchar *data, GError **error)
 		as_xml_set_out_of_context_error (NULL);
 		return NULL;
 	}
+	as_xml_set_out_of_context_error (NULL);
 
 	root = xmlDocGetRootElement (doc);
 	if (root == NULL) {
@@ -590,19 +591,35 @@ as_xml_parse_document (const gchar *data, GError **error)
  * Returns: XML metadata.
  */
 gchar*
-as_xml_node_to_str (xmlNode *root)
+as_xml_node_to_str (xmlNode *root, GError **error)
 {
 	xmlDoc *doc;
 	gchar *xmlstr = NULL;
+	g_autofree gchar *error_msg_str = NULL;
 
+	as_xml_set_out_of_context_error (&error_msg_str);
 	doc = xmlNewDoc ((xmlChar*) NULL);
 	if (root == NULL)
 		goto out;
+
 	xmlDocSetRootElement (doc, root);
+	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
+
+	if (error_msg_str != NULL) {
+		if (error == NULL) {
+			g_warning ("Could not serialize XML document: %s", error_msg_str);
+			goto out;
+		} else {
+			g_set_error (error,
+					AS_METADATA_ERROR,
+					AS_METADATA_ERROR_FAILED,
+					"Could not serialize XML document: %s", error_msg_str);
+			goto out;
+		}
+	}
 
 out:
-	xmlDocDumpFormatMemoryEnc (doc, (xmlChar**) (&xmlstr), NULL, "utf-8", TRUE);
+	as_xml_set_out_of_context_error (NULL);
 	xmlFreeDoc (doc);
-
 	return xmlstr;
 }
