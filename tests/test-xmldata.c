@@ -923,6 +923,121 @@ test_xml_write_launch (void)
 }
 
 /**
+ * test_appstream_write_metainfo_to_collection:
+ */
+static void
+test_appstream_write_metainfo_to_collection (void)
+{
+	gchar *tmp;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
+
+	const gchar *METAINFO_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.Test</id>\n"
+					"  <name>Test</name>\n"
+					"  <name xml:lang=\"eo\">Testo</name>\n"
+					"  <name xml:lang=\"x-test\">I am a cruft entry</name>\n"
+					"  <name xml:lang=\"de\">Test</name>\n"
+					"  <summary>Just a unittest.</summary>\n"
+					"  <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
+					"  <description>\n"
+					"    <p>First paragraph</p>\n"
+					"    <ol>\n"
+					"      <li>One</li>\n"
+					"      <li>Two</li>\n"
+					"      <li>Three is &gt; 2 &amp; 1</li>\n"
+					"    </ol>\n"
+					"    <p>Paragraph2</p>\n"
+					"    <ul>\n"
+					"      <li>First</li>\n"
+					"      <li>Second</li>\n"
+					"    </ul>\n"
+					"    <p>Paragraph3 &amp; the last one</p>\n"
+					"    <p xml:lang=\"de\">Erster Absatz</p>\n"
+					"    <ol>\n"
+					"      <li>One</li>\n"
+					"      <li xml:lang=\"de\">Eins</li>\n"
+					"      <li xml:lang=\"de\">Zwei</li>\n"
+					"      <li xml:lang=\"de\">Drei</li>\n"
+					"    </ol>\n"
+					"    <ul>\n"
+					"      <li xml:lang=\"de\">Erster</li>\n"
+					"      <li xml:lang=\"de\">Zweiter</li>\n"
+					"    </ul>\n"
+					"    <p xml:lang=\"de\">Absatz2</p>\n"
+					"  </description>\n"
+					"  <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+					"  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+					"  <icon type=\"stock\">xml-writetest</icon>\n"
+					"  <releases>\n"
+					"    <release version=\"1.0\" date=\"2016-04-11T22:00:00+00:00\"/>\n"
+					"  </releases>\n"
+					"</component>\n";
+
+	const gchar *EXPECTED_XML_COLL = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					   "<components version=\"0.11\">\n"
+					   "  <component>\n"
+					   "    <id>org.example.Test</id>\n"
+					   "    <name xml:lang=\"de\">Test</name>\n"
+					   "    <name>Test</name>\n"
+					   "    <name xml:lang=\"eo\">Testo</name>\n"
+					   "    <summary>Just a unittest.</summary>\n"
+					   "    <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
+					   "    <description>\n"
+					   "      <p>First paragraph</p>\n"
+					   "      <ol>\n"
+					   "        <li>One</li>\n"
+					   "        <li>Two</li>\n"
+					   "        <li>Three is &gt; 2 &amp; 1</li>\n"
+					   "      </ol>\n"
+					   "      <p>Paragraph2</p>\n"
+					   "      <ul>\n"
+					   "        <li>First</li>\n"
+					   "        <li>Second</li>\n"
+					   "      </ul>\n"
+					   "      <p>Paragraph3 &amp; the last one</p>\n"
+					   "      <ol>\n"
+					   "        <li>One</li>\n"
+					   "      </ol>\n"
+					   "      <ul/>\n"
+					   "    </description>\n"
+					   "    <description xml:lang=\"de\">\n"
+					   "      <p>Erster Absatz</p>\n"
+					   "      <ol>\n"
+					   "        <li>Eins</li>\n"
+					   "        <li>Zwei</li>\n"
+					   "        <li>Drei</li>\n"
+					   "      </ol>\n"
+					   "      <ul>\n"
+					   "        <li>Erster</li>\n"
+					   "        <li>Zweiter</li>\n"
+					   "      </ul>\n"
+					   "      <p>Absatz2</p>\n"
+					   "    </description>\n"
+					   "    <icon type=\"cached\" width=\"20\" height=\"20\">test_writetest.png</icon>\n"
+					   "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
+					   "    <icon type=\"stock\">xml-writetest</icon>\n"
+					   "    <releases>\n"
+					   "      <release version=\"1.0\" timestamp=\"1460332800\"/>\n"
+					   "    </releases>\n"
+					   "  </component>\n"
+					   "</components>\n";
+
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
+
+	as_metadata_parse (metad, METAINFO_XML, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+
+	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
+	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_COLL));
+	g_free (tmp);
+}
+
+/**
  * main:
  */
 int
@@ -971,6 +1086,8 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/Launchable", test_xml_read_launch);
 	g_test_add_func ("/XML/Write/Launchable", test_xml_write_launch);
+
+	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
 
 	ret = g_test_run ();
 	g_free (datadir);
