@@ -389,11 +389,11 @@ as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTabl
 		const gchar *str = (const gchar*) value;
 
 		if (as_str_empty (str))
-			return;
+			continue;
 
 		/* skip cruft */
 		if (as_is_cruft_locale (locale))
-			return;
+			continue;
 
 		cnode = xmlNewTextChild (root, NULL, (xmlChar*) node_name, (xmlChar*) str);
 		if (g_strcmp0 (locale, "C") != 0) {
