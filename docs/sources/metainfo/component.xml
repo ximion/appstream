@@ -521,11 +521,11 @@
 		<listitem>
 			<para>
 			The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
-			It should be a string in SPDX format. Licenses may be combined using <emphasis>and</emphasis> and <emphasis>or</emphasis> logic.
+			It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>.
 			Possible values include:
 			<itemizedlist>
 				<listitem><para><literal>GPL-2.0</literal></para></listitem>
-				<listitem><para><literal>LGPL-3.0+ and GPL-3.0+</literal></para></listitem>
+				<listitem><para><literal>LGPL-3.0+ AND GPL-3.0+</literal></para></listitem>
 				<listitem><para><literal>MIT</literal></para></listitem>
 				<listitem><para><literal>CC-BY-SA-2.0</literal></para></listitem>
 			</itemizedlist>
