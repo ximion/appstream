@@ -35,6 +35,8 @@
 #include "as-content-rating.h"
 #include "as-content-rating-private.h"
 
+#include "as-variant-cache.h"
+
 typedef struct
 {
 	gchar		*kind;
@@ -492,6 +494,76 @@ as_content_rating_emit_yaml (AsContentRating *content_rating, AsContext *ctx, ya
 				    as_content_rating_value_to_string (key->value));
 	}
 	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_content_rating_to_variant:
+ * @content_rating: a #AsContentRating
+ * @builder: A #GVariantBuilder
+ *
+ * Serialize the current active state of this object to a GVariant
+ * for use in the on-disk binary cache.
+ */
+void
+as_content_rating_to_variant (AsContentRating *content_rating, GVariantBuilder *builder)
+{
+	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+	GVariantBuilder values_b;
+	GVariantBuilder rating_b;
+	guint j;
+
+	g_variant_builder_init (&values_b, G_VARIANT_TYPE_ARRAY);
+	for (j = 0; j < priv->keys->len; j++) {
+		AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (priv->keys, j);
+		g_variant_builder_add (&values_b, "{su}", key->id, key->value);
+	}
+
+	g_variant_builder_init (&rating_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_add_parsed (&rating_b, "{'type', %v}", as_variant_mstring_new (priv->kind));
+	g_variant_builder_add_parsed (&rating_b, "{'values', %v}", g_variant_builder_end (&values_b));
+
+	g_variant_builder_add_value (builder, g_variant_builder_end (&rating_b));
+}
+
+/**
+ * as_content_rating_set_from_variant:
+ * @content_rating: a #AsContentRating
+ * @variant: The #GVariant to read from.
+ *
+ * Read the active state of this object from a #GVariant serialization.
+ * This is used by the on-disk binary cache.
+ */
+gboolean
+as_content_rating_set_from_variant (AsContentRating *content_rating, GVariant *variant)
+{
+	GVariantIter inner_iter;
+	GVariantDict idict;
+	GVariant *tmp;
+	GVariant *v_child;
+	g_autoptr(GVariant) values_var = NULL;
+
+	g_variant_dict_init (&idict, variant);
+
+	as_content_rating_set_kind (content_rating, as_variant_get_dict_mstr (&idict, "type", &tmp));
+	g_variant_unref (tmp);
+
+	values_var = g_variant_dict_lookup_value (&idict, "values", G_VARIANT_TYPE_ARRAY);
+	if (values_var == NULL)
+		return FALSE;
+
+	g_variant_iter_init (&inner_iter, values_var);
+
+	while ((v_child = g_variant_iter_next_value (&inner_iter))) {
+		AsContentRatingValue val;
+		g_autofree gchar *id_str = NULL;
+
+		g_variant_get (v_child, "{su}", &id_str, &val);
+		as_content_rating_set_value (content_rating, id_str, val);
+
+		g_variant_unref (v_child);
+	}
+
+	return TRUE;
 }
 
 /**

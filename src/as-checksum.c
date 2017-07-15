@@ -261,6 +261,42 @@ as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, yaml_emitter_t *emitter)
 }
 
 /**
+ * as_checksum_to_variant:
+ * @cs: a #AsChecksum instance.
+ * @builder: A #GVariantBuilder
+ *
+ * Serialize the current active state of this object to a GVariant
+ * for use in the on-disk binary cache.
+ */
+void
+as_checksum_to_variant (AsChecksum *cs, GVariantBuilder *builder)
+{
+	AsChecksumPrivate *priv = GET_PRIVATE (cs);
+
+	g_variant_builder_add (builder, "{us}", priv->kind, priv->value);
+}
+
+/**
+ * as_checksum_set_from_variant:
+ * @cs: a #AsChecksum instance.
+ * @variant: The #GVariant to read from.
+ *
+ * Read the active state of this object from a #GVariant serialization.
+ * This is used by the on-disk binary cache.
+ */
+gboolean
+as_checksum_set_from_variant (AsChecksum *cs, GVariant *variant)
+{
+	AsChecksumPrivate *priv = GET_PRIVATE (cs);
+
+	g_free (priv->value);
+	priv->value = NULL;
+	g_variant_get (variant, "{us}", &priv->kind, &priv->value);
+
+	return TRUE;
+}
+
+/**
  * as_checksum_new:
  *
  * Creates a new #AsChecksum.

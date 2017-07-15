@@ -45,6 +45,11 @@ void		as_image_emit_yaml (AsImage *image,
 					AsContext *ctx,
 					yaml_emitter_t *emitter);
 
+void		as_image_to_variant (AsImage *image,
+				     GVariantBuilder *builder);
+gboolean	as_image_set_from_variant (AsImage *image,
+					   GVariant *variant);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

@@ -27,6 +27,7 @@
 #include "config.h"
 
 #include "as-icon-private.h"
+#include "as-variant-cache.h"
 
 typedef struct
 {
@@ -466,6 +467,75 @@ as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root)
 			xmlNewProp (n, (xmlChar*) "scale", (xmlChar*) scale);
 		}
 	}
+}
+
+/**
+ * as_icon_to_variant:
+ * @icon: an #AsIcon
+ * @builder: A #GVariantBuilder
+ *
+ * Serialize the current active state of this object to a GVariant
+ * for use in the on-disk binary cache.
+ */
+void
+as_icon_to_variant (AsIcon *icon, GVariantBuilder *builder)
+{
+	AsIconPrivate *priv = GET_PRIVATE (icon);
+	GVariantBuilder icon_b;
+
+	g_variant_builder_init (&icon_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_add_parsed (&icon_b, "{'type', <%u>}", priv->kind);
+	g_variant_builder_add_parsed (&icon_b, "{'width', <%i>}", priv->width);
+	g_variant_builder_add_parsed (&icon_b, "{'height', <%i>}", priv->height);
+	g_variant_builder_add_parsed (&icon_b, "{'scale', <%i>}", priv->scale);
+
+	if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+		g_variant_builder_add_parsed (&icon_b, "{'name', <%s>}", priv->name);
+	} else if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE) {
+		g_variant_builder_add_parsed (&icon_b, "{'url', <%s>}", priv->url);
+	} else {
+		/* cached or local icon */
+		g_variant_builder_add_parsed (&icon_b, "{'filename', <%s>}", priv->filename);
+	}
+	g_variant_builder_add_value (builder, g_variant_builder_end (&icon_b));
+}
+
+/**
+ * as_icon_set_from_variant:
+ * @icon: an #AsIcon
+ * @variant: The #GVariant to read from.
+ *
+ * Read the active state of this object from a #GVariant serialization.
+ * This is used by the on-disk binary cache.
+ */
+gboolean
+as_icon_set_from_variant (AsIcon *icon, GVariant *variant)
+{
+	AsIconPrivate *priv = GET_PRIVATE (icon);
+	GVariantDict idict;
+	g_autoptr(GVariant) ival_var = NULL;
+
+	g_variant_dict_init (&idict, variant);
+
+	priv->kind = as_variant_get_dict_uint32 (&idict, "type");
+
+	priv->width = as_variant_get_dict_int32 (&idict, "width");
+	priv->height = as_variant_get_dict_int32 (&idict, "height");
+	priv->scale = as_variant_get_dict_int32 (&idict, "scale");
+
+	if (priv->kind == AS_ICON_KIND_STOCK) {
+		as_icon_set_name (icon,
+				  as_variant_get_dict_str (&idict, "name", &ival_var));
+	} else if (priv->kind == AS_ICON_KIND_REMOTE) {
+		as_icon_set_url (icon,
+				  as_variant_get_dict_str (&idict, "url", &ival_var));
+	} else {
+		/* cached or local icon */
+		as_icon_set_filename (icon,
+					as_variant_get_dict_str (&idict, "filename", &ival_var));
+	}
+
+	return TRUE;
 }
 
 /**
