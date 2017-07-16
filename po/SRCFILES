@@ -3,7 +3,6 @@
 # library sources
 src/as-bundle.c
 src/as-category.c
-src/as-cache-file.c
 src/as-checksum.c
 src/as-component.c
 src/as-desktop-entry.c
@@ -23,6 +22,7 @@ src/as-validator.c
 src/as-validator-issue.c
 src/as-xml.c
 src/as-yaml.c
+src/as-variant-cache.c
 # tools sources
 tools/appstream-cli.c
 tools/ascli-utils.c
