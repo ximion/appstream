@@ -152,7 +152,7 @@ AsValueFlags		as_component_get_value_flags (AsComponent *cpt);
 void			as_component_set_value_flags (AsComponent *cpt,
 						      AsValueFlags flags);
 
-gchar			*as_component_get_active_locale (AsComponent *cpt);
+const gchar		*as_component_get_active_locale (AsComponent *cpt);
 void			as_component_set_active_locale (AsComponent *cpt,
 							const gchar *locale);
 

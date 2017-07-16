@@ -115,6 +115,9 @@ void			as_component_merge_with_mode (AsComponent *cpt,
 
 GPtrArray		*as_component_get_launchables (AsComponent *cpt);
 
+AsContext		*as_component_get_context (AsComponent *cpt);
+void			as_component_set_context (AsComponent *cpt,
+						  AsContext *context);
 
 gboolean		as_component_load_from_xml (AsComponent *cpt,
 							AsContext *ctx,

@@ -46,7 +46,9 @@ typedef struct
 	gchar		*version;
 	GHashTable	*description;
 	guint64		timestamp;
-	gchar		*active_locale;
+
+	AsContext	*context;
+	gchar		*active_locale_override;
 
 	GPtrArray	*locations;
 	GPtrArray	*checksums;
@@ -107,7 +109,6 @@ as_release_init (AsRelease *release)
 	guint i;
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
-	priv->active_locale = g_strdup ("C");
 	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->locations = g_ptr_array_new_with_free_func (g_free);
 
@@ -128,10 +129,12 @@ as_release_finalize (GObject *object)
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
 	g_free (priv->version);
-	g_free (priv->active_locale);
+	g_free (priv->active_locale_override);
 	g_hash_table_unref (priv->description);
 	g_ptr_array_unref (priv->locations);
 	g_ptr_array_unref (priv->checksums);
+	if (priv->context != NULL)
+		g_object_unref (priv->context);
 
 	G_OBJECT_CLASS (as_release_parent_class)->finalize (object);
 }
@@ -308,7 +311,7 @@ as_release_get_description (AsRelease *release)
 	const gchar *desc;
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
-	desc = g_hash_table_lookup (priv->description, priv->active_locale);
+	desc = g_hash_table_lookup (priv->description, as_release_get_active_locale (release));
 	if (desc == NULL) {
 		/* fall back to untranslated / default */
 		desc = g_hash_table_lookup (priv->description, "C");
@@ -330,7 +333,7 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
 	if (locale == NULL)
-		locale = priv->active_locale;
+		locale = as_release_get_active_locale (release);
 
 	g_hash_table_insert (priv->description,
 				g_strdup (locale),
@@ -357,11 +360,23 @@ as_release_get_description_table (AsRelease *release)
  * Get the current active locale, which
  * is used to get localized messages.
  */
-gchar*
+const gchar*
 as_release_get_active_locale (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	return priv->active_locale;
+	const gchar *locale;
+
+	/* return context locale, if the locale isn't explicitly overridden for this component */
+	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
+		locale = as_context_get_locale (priv->context);
+	} else {
+		locale = priv->active_locale_override;
+	}
+
+	if (locale == NULL)
+		return "C";
+	else
+		return locale;
 }
 
 /**
@@ -378,8 +393,8 @@ as_release_set_active_locale (AsRelease *release, const gchar *locale)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
-	g_free (priv->active_locale);
-	priv->active_locale = g_strdup (locale);
+	g_free (priv->active_locale_override);
+	priv->active_locale_override = g_strdup (locale);
 }
 
 /**
@@ -469,6 +484,45 @@ as_release_add_checksum (AsRelease *release, AsChecksum *cs)
 }
 
 /**
+ * as_release_get_context:
+ * @release: An instance of #AsRelease.
+ *
+ * Returns: the #AsContext associated with this release.
+ * This function may return %NULL if no context is set.
+ *
+ * Since: 0.11.2
+ */
+AsContext*
+as_release_get_context (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->context;
+}
+
+/**
+ * as_release_set_context:
+ * @release: An instance of #AsRelease.
+ * @context: the #AsContext.
+ *
+ * Sets the document context this release is associated
+ * with.
+ *
+ * Since: 0.11.2
+ */
+void
+as_release_set_context (AsRelease *release, AsContext *context)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	if (priv->context != NULL)
+		g_object_unref (priv->context);
+	priv->context = g_object_ref (context);
+
+	/* reset individual properties, so the new context overrides them */
+	g_free (priv->active_locale_override);
+	priv->active_locale_override = NULL;
+}
+
+/**
  * as_release_parse_xml_metainfo_description_cb:
  *
  * Helper function for GHashTable
@@ -498,8 +552,8 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 	xmlNode *iter;
 	gchar *prop;
 
-	/* propagate locale */
-	as_release_set_active_locale (release, as_context_get_locale (ctx));
+	/* propagate context */
+	as_release_set_context (release, ctx);
 
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "version");
 	as_release_set_version (release, prop);
@@ -671,7 +725,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 	GNode *n;
 
 	/* propagate locale */
-	as_release_set_active_locale (release, as_context_get_locale (ctx));
+	as_release_set_context (release, ctx);
 
 	for (n = node->children; n != NULL; n = n->next) {
 		const gchar *key = as_yaml_node_get_key (n);

@@ -30,6 +30,10 @@ G_BEGIN_DECLS
 
 GHashTable		*as_release_get_description_table (AsRelease *release);
 
+AsContext		*as_release_get_context (AsRelease *release);
+void			as_release_set_context (AsRelease *release,
+						AsContext *context);
+
 gboolean		as_release_load_from_xml (AsRelease *release,
 						  AsContext *ctx,
 						  xmlNode *node,

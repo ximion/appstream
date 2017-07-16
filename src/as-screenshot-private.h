@@ -30,6 +30,10 @@ G_BEGIN_DECLS
 
 GHashTable		*as_screenshot_get_caption_table (AsScreenshot *screenshot);
 
+AsContext		*as_screenshot_get_context (AsScreenshot *screenshot);
+void			as_screenshot_set_context (AsScreenshot *screenshot,
+						   AsContext *context);
+
 gboolean		as_screenshot_load_from_xml (AsScreenshot *screenshot,
 							AsContext *ctx,
 							xmlNode *node,

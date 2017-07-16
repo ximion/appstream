@@ -69,7 +69,7 @@ AsSizeKind	as_size_kind_from_string (const gchar *size_kind);
 
 AsRelease	*as_release_new (void);
 
-gchar		*as_release_get_active_locale (AsRelease *release);
+const gchar	*as_release_get_active_locale (AsRelease *release);
 void		as_release_set_active_locale (AsRelease	*release,
 						const gchar *locale);
 

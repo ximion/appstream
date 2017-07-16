@@ -62,7 +62,8 @@ typedef struct
 	AsComponentKind 	kind;
 	AsComponentScope	scope;
 	AsOriginKind		origin_kind;
-	gchar			*active_locale;
+	AsContext		*context; /* the document context associated with this component */
+	gchar			*active_locale_override;
 
 	gchar			*id;
 	gchar			*data_id;
@@ -350,9 +351,6 @@ as_component_init (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	/* our default locale is "unlocalized" */
-	priv->active_locale = g_strdup ("C");
-
 	/* translatable entities */
 	priv->name = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->summary = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
@@ -399,7 +397,7 @@ as_component_finalize (GObject* object)
 	g_free (priv->metadata_license);
 	g_free (priv->project_license);
 	g_free (priv->project_group);
-	g_free (priv->active_locale);
+	g_free (priv->active_locale_override);
 	g_free (priv->arch);
 
 	g_hash_table_unref (priv->name);
@@ -429,6 +427,9 @@ as_component_finalize (GObject* object)
 		g_ptr_array_unref (priv->translations);
 
 	g_hash_table_unref (priv->token_cache);
+
+	if (priv->context != NULL)
+		g_object_unref (priv->context);
 
 	G_OBJECT_CLASS (as_component_parent_class)->finalize (object);
 }
@@ -1019,6 +1020,8 @@ const gchar*
 as_component_get_origin (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if ((priv->context != NULL) && (priv->origin == NULL))
+		return as_context_get_origin (priv->context);
 	return priv->origin;
 }
 
@@ -1046,6 +1049,8 @@ const gchar*
 as_component_get_architecture (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if ((priv->context != NULL) && (priv->arch == NULL))
+		return as_context_get_architecture (priv->context);
 	return priv->arch;
 }
 
@@ -1071,11 +1076,23 @@ as_component_set_architecture (AsComponent *cpt, const gchar *arch)
  *
  * Returns: the current active locale.
  */
-gchar*
+const gchar*
 as_component_get_active_locale (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->active_locale;
+	const gchar *locale;
+
+	/* return context locale, if the locale isn't explicitly overridden for this component */
+	if ((priv->context != NULL) && (priv->active_locale_override == NULL)) {
+		locale = as_context_get_locale (priv->context);
+	} else {
+		locale = priv->active_locale_override;
+	}
+
+	if (locale == NULL)
+		return "C";
+	else
+		return locale;
 }
 
 /**
@@ -1093,8 +1110,8 @@ as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	g_free (priv->active_locale);
-	priv->active_locale = g_strdup (locale);
+	g_free (priv->active_locale_override);
+	priv->active_locale_override = g_strdup (locale);
 }
 
 /**
@@ -1111,7 +1128,7 @@ as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 	gchar *msg;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	msg = g_hash_table_lookup (lht, priv->active_locale);
+	msg = g_hash_table_lookup (lht, as_component_get_active_locale (cpt));
 	if ((msg == NULL) && (!as_flags_contains (priv->value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
 		/* fall back to untranslated / default */
 		msg = g_hash_table_lookup (lht, "C");
@@ -1132,12 +1149,10 @@ as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 static void
 as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* value, const gchar *locale)
 {
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	/* if no locale was specified, we assume the default locale */
 	/* CAVE: %NULL does NOT mean lang=C! */
 	if (locale == NULL)
-		locale = priv->active_locale;
+		locale = as_component_get_active_locale (cpt);
 
 	g_hash_table_insert (lht,
 				as_locale_strip_encoding (g_strdup (locale)),
@@ -1291,7 +1306,7 @@ as_component_get_keywords (AsComponent *cpt)
 	gchar **strv;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	strv = g_hash_table_lookup (priv->keywords, priv->active_locale);
+	strv = g_hash_table_lookup (priv->keywords, as_component_get_active_locale (cpt));
 	if (strv == NULL) {
 		/* fall back to untranslated */
 		strv = g_hash_table_lookup (priv->keywords, "C");
@@ -1315,7 +1330,7 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 
 	/* if no locale was specified, we assume the default locale */
 	if (locale == NULL)
-		locale = priv->active_locale;
+		locale = as_component_get_active_locale (cpt);
 
 	g_hash_table_insert (priv->keywords,
 				g_strdup (locale),
@@ -2305,7 +2320,7 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
 		sshot = as_screenshot_new ();
 
 		/* propagate locale */
-		as_screenshot_set_active_locale (sshot, priv->active_locale);
+		as_screenshot_set_active_locale (sshot, as_component_get_active_locale (cpt));
 
 		as_screenshot_add_image (sshot, img);
 		as_screenshot_set_kind (sshot, AS_SCREENSHOT_KIND_DEFAULT);
@@ -2398,12 +2413,12 @@ as_component_add_token (AsComponent *cpt,
 static gboolean
 as_component_value_tokenize (AsComponent *cpt, const gchar *value, gchar ***tokens_utf8, gchar ***tokens_ascii)
 {
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-
 	/* tokenize with UTF-8 fallbacks */
 	if (g_strstr_len (value, -1, "+") == NULL &&
 	    g_strstr_len (value, -1, "-") == NULL) {
-		(*tokens_utf8) = g_str_tokenize_and_fold (value, priv->active_locale, tokens_ascii);
+		(*tokens_utf8) = g_str_tokenize_and_fold (value,
+							  as_component_get_active_locale (cpt),
+							  tokens_ascii);
 	}
 
 	/* we might still be able to extract tokens if g_str_tokenize_and_fold() can't do it or +/- were found */
@@ -2946,6 +2961,51 @@ as_component_add_launchable (AsComponent *cpt, AsLaunchable *launchable)
 }
 
 /**
+ * as_component_get_context:
+ * @cpt: a #AsComponent instance.
+ *
+ * Returns: the #AsContext associated with this component.
+ * This function may return %NULL if no context is set.
+ *
+ * Since: 0.11.2
+ */
+AsContext*
+as_component_get_context (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->context;
+}
+
+/**
+ * as_component_set_context:
+ * @cpt: a #AsComponent instance.
+ * @context: the #AsContext.
+ *
+ * Sets the document context this component is associated
+ * with.
+ *
+ * Since: 0.11.2
+ */
+void
+as_component_set_context (AsComponent *cpt, AsContext *context)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->context != NULL)
+		g_object_unref (priv->context);
+	priv->context = g_object_ref (context);
+
+	/* reset individual properties, so the new context overrides them */
+	g_free (priv->active_locale_override);
+	priv->active_locale_override = NULL;
+
+	g_free (priv->origin);
+	priv->origin = NULL;
+
+	g_free (priv->arch);
+	priv->arch = NULL;
+}
+
+/**
  * as_copy_l10n_hashtable_hfunc:
  */
 static void
@@ -3342,8 +3402,8 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 		priv->merge_kind = as_merge_kind_from_string (merge_str);
 	}
 
-	/* set active locale for this component */
-	as_component_set_active_locale (cpt, as_context_get_locale (ctx));
+	/* set context for this component */
+	as_component_set_context (cpt, ctx);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		g_autofree gchar *content = NULL;
@@ -3494,12 +3554,6 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				as_component_add_content_rating (cpt, ctrating);
 		}
 	}
-
-	/* set the origin of this component */
-	as_component_set_origin (cpt, as_context_get_origin (ctx));
-
-	/* set the architecture of this component */
-	as_component_set_architecture (cpt, as_context_get_architecture (ctx));
 
 	/* add package name information to component */
 	{
@@ -4189,17 +4243,11 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	GNode *node;
 
-	/* set active locale for this component */
-	as_component_set_active_locale (cpt, as_context_get_locale (ctx));
+	/* set context for this component */
+	as_component_set_context (cpt, ctx);
 
 	/* set component default priority */
 	priv->priority = as_context_get_priority (ctx);
-
-	/* set component origin */
-	as_component_set_origin (cpt, as_context_get_origin (ctx));
-
-	/* set component architecture */
-	as_component_set_architecture (cpt, as_context_get_architecture (ctx));
 
 	for (node = root->children; node != NULL; node = node->next) {
 		const gchar *key;
