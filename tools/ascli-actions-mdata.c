@@ -364,6 +364,15 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
+
+	if ((g_str_has_suffix (in_fname, ".yml.gz")) ||
+	    (g_str_has_suffix (in_fname, ".yaml.gz")) ||
+	    (g_str_has_suffix (in_fname, ".yml")) ||
+	    (g_str_has_suffix (in_fname, ".yaml"))) {
+		/* if we have YAML, we also automatically assume a collection style */
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	}
+
 	as_metadata_parse_file (metad,
 				infile,
 				AS_FORMAT_KIND_UNKNOWN,
