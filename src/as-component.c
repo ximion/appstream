@@ -3879,7 +3879,9 @@ as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, GNode *node)
 	as_yaml_list_to_str_array (tnode, keywords);
 
 	strv = as_ptr_array_to_strv (keywords);
-	as_component_set_keywords (cpt, strv, NULL);
+	as_component_set_keywords (cpt,
+				   strv,
+				   as_yaml_node_get_key (tnode));
 }
 
 /**

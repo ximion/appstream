@@ -31,6 +31,8 @@
 #include "config.h"
 #include "as-context.h"
 
+#include "as-utils-private.h"
+
 typedef struct
 {
 	AsFormatVersion		format_version;
@@ -216,11 +218,14 @@ as_context_set_locale (AsContext *ctx, const gchar *value)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	g_free (priv->locale);
-	priv->locale = g_strdup (value);
 
 	priv->all_locale = FALSE;
-	if (g_strcmp0 (priv->locale, "ALL") == 0)
+	if (g_strcmp0 (value, "ALL") == 0) {
 		priv->all_locale = TRUE;
+		priv->locale = as_get_current_locale ();
+	} else {
+		priv->locale = g_strdup (value);
+	}
 }
 
 /**
