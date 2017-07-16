@@ -2127,6 +2127,7 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 				      NULL };
 	const gchar *sizes[] = { "", "64x64", "128x128", NULL };
 	const gchar *icon_fname = NULL;
+	const gchar *origin;
 	guint i, j, k, l;
 	g_autoptr(GPtrArray) icons = NULL;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
@@ -2137,6 +2138,8 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 	/* take control of the old icon list and rewrite it */
 	icons = priv->icons;
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
+
+	origin = as_component_get_origin (cpt);
 
 	/* Process the icons we have and extract sizes */
 	for (i = 0; i < icons->len; i++) {
@@ -2187,14 +2190,14 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 				if (as_icon_get_scale (icon) <= 1) {
 					tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i/%s",
 										icon_path,
-										priv->origin,
+										origin,
 										as_icon_get_width (icon),
 										as_icon_get_height (icon),
 										icon_fname);
 				} else {
 					tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i@%i/%s",
 										icon_path,
-										priv->origin,
+										origin,
 										as_icon_get_width (icon),
 										as_icon_get_height (icon),
 										as_icon_get_scale (icon),
@@ -2223,7 +2226,7 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 				/* sometimes, the file already has an extension */
 				tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
 								icon_path,
-								priv->origin,
+								origin,
 								sizes[j],
 								icon_fname);
 
@@ -2249,7 +2252,7 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 					g_autofree gchar *tmp_icon_path_ext = NULL;
 					tmp_icon_path_ext = g_strdup_printf ("%s/%s/%s/%s.%s",
 								icon_path,
-								priv->origin,
+								origin,
 								sizes[j],
 								icon_fname,
 								extensions[k]);
@@ -4038,12 +4041,9 @@ static void
 as_component_yaml_parse_icons (AsComponent *cpt, AsContext *ctx, GNode *node)
 {
 	GNode *n;
-	const gchar *key;
-	const gchar *value;
-
 	for (n = node->children; n != NULL; n = n->next) {
-		key = (const gchar*) n->data;
-		value = (const gchar*) n->children->data;
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
 
 		if (g_strcmp0 (key, "stock") == 0) {
 			g_autoptr(AsIcon) icon = as_icon_new ();
@@ -4950,7 +4950,7 @@ as_component_to_variant (AsComponent *cpt, GVariantBuilder *builder)
 
 	/* origin */
 	as_variant_builder_add_kv (&cb, "origin",
-				as_variant_mstring_new (priv->origin));
+				as_variant_mstring_new (as_component_get_origin (cpt)));
 
 	/* bundles */
 	if (priv->bundles->len > 0) {

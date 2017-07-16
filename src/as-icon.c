@@ -489,14 +489,15 @@ as_icon_to_variant (AsIcon *icon, GVariantBuilder *builder)
 	g_variant_builder_add_parsed (&icon_b, "{'height', <%i>}", priv->height);
 	g_variant_builder_add_parsed (&icon_b, "{'scale', <%i>}", priv->scale);
 
-	if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+	if (priv->kind == AS_ICON_KIND_STOCK) {
 		g_variant_builder_add_parsed (&icon_b, "{'name', <%s>}", priv->name);
-	} else if (as_icon_get_kind (icon) == AS_ICON_KIND_REMOTE) {
+	} else if (priv->kind == AS_ICON_KIND_REMOTE) {
 		g_variant_builder_add_parsed (&icon_b, "{'url', <%s>}", priv->url);
 	} else {
 		/* cached or local icon */
 		g_variant_builder_add_parsed (&icon_b, "{'filename', <%s>}", priv->filename);
 	}
+
 	g_variant_builder_add_value (builder, g_variant_builder_end (&icon_b));
 }
 
