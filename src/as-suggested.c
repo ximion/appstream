@@ -212,7 +212,7 @@ as_suggested_load_from_xml (AsSuggested *suggested, AsContext *ctx, xmlNode *nod
 	priv->kind = as_suggested_kind_from_string (type_str);
 	if (priv->kind == AS_SUGGESTED_KIND_UNKNOWN) {
 		g_debug ("Found suggests tag of unknown type '%s' at %s:%li. Ignoring it.",
-			 type_str, as_context_get_fname (ctx), xmlGetLineNo (node));
+			 type_str, as_context_get_filename (ctx), xmlGetLineNo (node));
 		return FALSE;
 	}
 

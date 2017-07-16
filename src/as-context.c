@@ -306,27 +306,27 @@ as_context_set_architecture (AsContext *ctx, const gchar *value)
 }
 
 /**
- * as_context_get_fname:
+ * as_context_get_filename:
  * @ctx: a #AsContext instance.
  *
  * Returns: The name of the file the data originates from.
  **/
 const gchar*
-as_context_get_fname (AsContext *ctx)
+as_context_get_filename (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	return priv->fname;
 }
 
 /**
- * as_context_set_fname:
+ * as_context_set_filename:
  * @ctx: a #AsContext instance.
  * @fname: the new file name.
  *
  * Sets the file name we are loading data from.
  **/
 void
-as_context_set_fname (AsContext *ctx, const gchar *fname)
+as_context_set_filename (AsContext *ctx, const gchar *fname)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	g_free (priv->fname);

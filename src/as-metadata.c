@@ -221,7 +221,7 @@ as_metadata_new_context (AsMetadata *metad, AsFormatStyle style, const gchar *fn
 	as_context_set_priority (context, priv->default_priority);
 
 	as_context_set_style (context, style);
-	as_context_set_fname (context, fname);
+	as_context_set_filename (context, fname);
 
 	return context;
 }
