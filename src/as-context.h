@@ -29,7 +29,6 @@
 #include "as-metadata.h"
 
 G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
 
 #define AS_TYPE_CONTEXT (as_context_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AsContext, as_context, AS, CONTEXT, GObject)
@@ -83,7 +82,6 @@ const gchar		*as_context_get_filename (AsContext *ctx);
 void			as_context_set_filename (AsContext *ctx,
 					       const gchar *fname);
 
-#pragma GCC visibility pop
 G_END_DECLS
 
 #endif /* __AS_CONTEXT_H */
