@@ -28,8 +28,6 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-GHashTable		*as_screenshot_get_caption_table (AsScreenshot *screenshot);
-
 AsContext		*as_screenshot_get_context (AsScreenshot *screenshot);
 void			as_screenshot_set_context (AsScreenshot *screenshot,
 						   AsContext *context);

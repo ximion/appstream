@@ -566,23 +566,6 @@ as_component_add_release (AsComponent *cpt, AsRelease* release)
 }
 
 /**
- * as_component_get_urls_table:
- * @cpt: a #AsComponent instance.
- *
- * Gets the URLs set for the component.
- *
- * Returns: (transfer none) (element-type AsUrlKind utf8): URLs
- *
- * Since: 0.6.2
- **/
-GHashTable*
-as_component_get_urls_table (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->urls;
-}
-
-/**
  * as_component_get_url:
  * @cpt: a #AsComponent instance.
  * @url_kind: the URL kind, e.g. %AS_URL_KIND_HOMEPAGE.
@@ -1192,19 +1175,6 @@ as_component_set_name (AsComponent *cpt, const gchar* value, const gchar *locale
 }
 
 /**
- * as_component_get_name_table:
- * @cpt: a #AsComponent instance.
- *
- * Internal method.
- */
-GHashTable*
-as_component_get_name_table (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->name;
-}
-
-/**
  * as_component_get_summary:
  * @cpt: a #AsComponent instance.
  *
@@ -1237,19 +1207,6 @@ as_component_set_summary (AsComponent *cpt, const gchar* value, const gchar *loc
 }
 
 /**
- * as_component_get_summary_table:
- * @cpt: a #AsComponent instance.
- *
- * Internal method.
- */
-GHashTable*
-as_component_get_summary_table (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->summary;
-}
-
-/**
  * as_component_get_description:
  * @cpt: a #AsComponent instance.
  *
@@ -1279,19 +1236,6 @@ as_component_set_description (AsComponent *cpt, const gchar* value, const gchar 
 
 	as_component_localized_set (cpt, priv->description, value, locale);
 	g_object_notify ((GObject *) cpt, "description");
-}
-
-/**
- * as_component_get_description_table:
- * @cpt: a #AsComponent instance.
- *
- * Internal method.
- */
-GHashTable*
-as_component_get_description_table (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->description;
 }
 
 /**
@@ -1337,19 +1281,6 @@ as_component_set_keywords (AsComponent *cpt, gchar **value, const gchar *locale)
 				g_strdupv (value));
 
 	g_object_notify ((GObject *) cpt, "keywords");
-}
-
-/**
- * as_component_get_keywords_table:
- * @cpt: a #AsComponent instance.
- *
- * Internal method.
- */
-GHashTable*
-as_component_get_keywords_table (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->keywords;
 }
 
 /**
@@ -1586,19 +1517,6 @@ as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gch
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	as_component_localized_set (cpt, priv->developer_name, value, locale);
-}
-
-/**
- * as_component_get_developer_name_table:
- * @cpt: a #AsComponent instance.
- *
- * Internal method.
- */
-GHashTable*
-as_component_get_developer_name_table (AsComponent *cpt)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return priv->developer_name;
 }
 
 /**
@@ -5538,6 +5456,8 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 {
 	AsComponent *cpt;
 	cpt = G_TYPE_CHECK_INSTANCE_CAST (object, AS_TYPE_COMPONENT, AsComponent);
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
 	switch (property_id) {
 		case AS_COMPONENT_KIND:
 			g_value_set_enum (value, as_component_get_kind (cpt));
@@ -5564,7 +5484,7 @@ as_component_get_property (GObject * object, guint property_id, GValue * value, 
 			g_value_set_pointer (value, as_component_get_icons (cpt));
 			break;
 		case AS_COMPONENT_URLS:
-			g_value_set_boxed (value, as_component_get_urls_table (cpt));
+			g_value_set_boxed (value, priv->urls);
 			break;
 		case AS_COMPONENT_CATEGORIES:
 			g_value_set_boxed (value, as_component_get_categories (cpt));

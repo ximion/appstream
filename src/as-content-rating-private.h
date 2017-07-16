@@ -34,8 +34,6 @@ typedef struct {
 	AsContentRatingValue	 value;
 } AsContentRatingKey;
 
-GPtrArray	*as_content_rating_get_value_array (AsContentRating *content_rating);
-
 gboolean	as_content_rating_load_from_xml (AsContentRating *content_rating,
 						 AsContext *ctx,
 						 xmlNode *node,

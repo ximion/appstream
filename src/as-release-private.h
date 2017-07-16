@@ -28,8 +28,6 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-GHashTable		*as_release_get_description_table (AsRelease *release);
-
 AsContext		*as_release_get_context (AsRelease *release);
 void			as_release_set_context (AsRelease *release,
 						AsContext *context);

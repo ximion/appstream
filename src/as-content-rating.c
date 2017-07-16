@@ -129,19 +129,6 @@ as_content_rating_set_value (AsContentRating *content_rating, const gchar *id, A
 }
 
 /**
- * as_content_rating_get_value_array:
- * @content_rating: a #AsContentRating
- *
- * Internal helper function to read the value array.
- **/
-GPtrArray*
-as_content_rating_get_value_array (AsContentRating *content_rating)
-{
-	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
-	return priv->keys;
-}
-
-/**
  * as_content_rating_value_to_string:
  * @value: the #AsContentRatingValue.
  *

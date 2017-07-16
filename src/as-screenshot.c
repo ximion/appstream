@@ -341,18 +341,6 @@ as_screenshot_get_images_all (AsScreenshot *screenshot)
 }
 
 /**
- * as_screenshot_get_caption_table:
- *
- * Internal function.
- */
-GHashTable*
-as_screenshot_get_caption_table (AsScreenshot *screenshot)
-{
-	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	return priv->caption;
-}
-
-/**
  * as_screenshot_get_context:
  * @screenshot: an #AsScreenshot instance.
  *

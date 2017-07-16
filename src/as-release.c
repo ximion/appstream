@@ -341,20 +341,6 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
 }
 
 /**
- * as_release_get_description_table:
- *
- * Internal helper.
- *
- * Since: 0.9.5
- **/
-GHashTable*
-as_release_get_description_table (AsRelease *release)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	return priv->description;
-}
-
-/**
  * as_release_get_active_locale:
  *
  * Get the current active locale, which
