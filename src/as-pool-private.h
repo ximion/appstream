@@ -22,11 +22,22 @@
 #define __AS_POOL_PRIVATE_H
 
 #include "as-pool.h"
+#include "as-settings-private.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
 time_t			as_pool_get_cache_age (AsPool *pool);
+
+AS_INTERNAL_VISIBLE
+void			as_cache_file_save (const gchar *fname,
+						const gchar *locale,
+						GPtrArray *cpts,
+						GError **error);
+
+AS_INTERNAL_VISIBLE
+GPtrArray		*as_cache_file_read (const gchar *fname,
+						GError **error);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -39,6 +39,7 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-checksum-private.h"
+#include "as-variant-cache.h"
 
 typedef struct
 {
@@ -767,6 +768,139 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* end mapping for the release */
 	as_yaml_mapping_end (emitter);
+}
+
+/**
+ * as_release_to_variant:
+ * @release: an #AsRelease
+ * @builder: A #GVariantBuilder
+ *
+ * Serialize the current active state of this object to a GVariant
+ * for use in the on-disk binary cache.
+ */
+void
+as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	guint j;
+	GVariantBuilder checksum_b;
+	GVariantBuilder sizes_b;
+	GVariantBuilder rel_b;
+
+	GVariant *locations_var;
+	GVariant *checksums_var;
+	GVariant *sizes_var;
+	gboolean have_sizes = FALSE;
+
+	/* build checksum info */
+	g_variant_builder_init (&checksum_b, G_VARIANT_TYPE_DICTIONARY);
+	for (j = 0; j < priv->checksums->len; j++) {
+		AsChecksum *cs = AS_CHECKSUM (g_ptr_array_index (priv->checksums, j));
+		as_checksum_to_variant (cs, &checksum_b);
+	}
+
+	/* build size info */
+	g_variant_builder_init (&sizes_b, G_VARIANT_TYPE_DICTIONARY);
+	for (j = 0; j < AS_SIZE_KIND_LAST; j++) {
+		if (as_release_get_size (release, (AsSizeKind) j) > 0) {
+			g_variant_builder_add (&sizes_b, "{ut}",
+						(AsSizeKind) j,
+						as_release_get_size (release, (AsSizeKind) j));
+			have_sizes = TRUE;
+		}
+	}
+
+	g_variant_builder_init (&rel_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_add_parsed (&rel_b, "{'version', %v}", as_variant_mstring_new (priv->version));
+	g_variant_builder_add_parsed (&rel_b, "{'timestamp', <%t>}", priv->timestamp);
+	g_variant_builder_add_parsed (&rel_b, "{'urgency', <%u>}", priv->urgency);
+	g_variant_builder_add_parsed (&rel_b, "{'description', %v}", as_variant_mstring_new (as_release_get_description (release)));
+
+	locations_var = as_variant_from_string_ptrarray (priv->locations);
+	if (locations_var)
+		g_variant_builder_add_parsed (&rel_b, "{'locations', %v}", locations_var);
+
+	checksums_var = priv->checksums->len > 0? g_variant_builder_end (&checksum_b) : NULL;
+	if (checksums_var)
+		g_variant_builder_add_parsed (&rel_b, "{'checksums', %v}", checksums_var);
+
+	sizes_var = have_sizes? g_variant_builder_end (&sizes_b) : NULL;
+	if (sizes_var)
+		g_variant_builder_add_parsed (&rel_b, "{'sizes', %v}", sizes_var);
+
+	g_variant_builder_add_value (builder, g_variant_builder_end (&rel_b));
+}
+
+/**
+ * as_release_set_from_variant:
+ * @release: an #AsRelease
+ * @variant: The #GVariant to read from.
+ *
+ * Read the active state of this object from a #GVariant serialization.
+ * This is used by the on-disk binary cache.
+ */
+gboolean
+as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar *locale)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	GVariant *tmp;
+	GVariantDict rdict;
+	GVariantIter riter;
+	GVariant *inner_child;;
+
+	as_release_set_active_locale (release, locale);
+	g_variant_dict_init (&rdict, variant);
+
+	as_release_set_version (release, as_variant_get_dict_mstr (&rdict, "version", &tmp));
+	g_variant_unref (tmp);
+
+	tmp = g_variant_dict_lookup_value (&rdict, "timestamp", G_VARIANT_TYPE_UINT64);
+	priv->timestamp = g_variant_get_uint64 (tmp);
+	g_variant_unref (tmp);
+
+	priv->urgency = as_variant_get_dict_uint32 (&rdict, "urgency");
+
+	as_release_set_description (release,
+					as_variant_get_dict_mstr (&rdict, "description", &tmp),
+					locale);
+	g_variant_unref (tmp);
+
+	/* locations */
+	as_variant_to_string_ptrarray_by_dict (&rdict,
+						"locations",
+						priv->locations);
+
+	/* sizes */
+	tmp = g_variant_dict_lookup_value (&rdict, "sizes", G_VARIANT_TYPE_DICTIONARY);
+	if (tmp != NULL) {
+		g_variant_iter_init (&riter, tmp);
+		while ((inner_child = g_variant_iter_next_value (&riter))) {
+			AsSizeKind kind;
+			guint64 size;
+
+			g_variant_get (inner_child, "{ut}", &kind, &size);
+			as_release_set_size (release, size, kind);
+
+			g_variant_unref (inner_child);
+		}
+		g_variant_unref (tmp);
+	}
+
+	/* checksums */
+	tmp = g_variant_dict_lookup_value (&rdict, "checksums", G_VARIANT_TYPE_DICTIONARY);
+	if (tmp != NULL) {
+		g_variant_iter_init (&riter, tmp);
+		while ((inner_child = g_variant_iter_next_value (&riter))) {
+			g_autoptr(AsChecksum) cs = as_checksum_new ();
+			if (as_checksum_set_from_variant (cs, inner_child))
+				as_release_add_checksum (release, cs);
+
+			g_variant_unref (inner_child);
+		}
+		g_variant_unref (tmp);
+	}
+
+	return TRUE;
 }
 
 /**

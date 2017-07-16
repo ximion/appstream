@@ -53,6 +53,16 @@ gint			as_variant_get_dict_int32 (GVariantDict *dict,
 
 GVariant		*as_variant_from_string_ptrarray (GPtrArray *strarray);
 
+void			as_variant_to_string_ptrarray (GVariant *var,
+						       GPtrArray *dest);
+void			as_variant_to_string_ptrarray_by_dict (GVariantDict *dict,
+							        const gchar *key,
+								GPtrArray *dest);
+
+void			as_variant_builder_add_kv (GVariantBuilder *builder,
+						   const gchar *key,
+						   GVariant *value);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

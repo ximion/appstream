@@ -132,6 +132,12 @@ void			as_component_emit_yaml (AsComponent *cpt,
 						AsContext *ctx,
 						yaml_emitter_t *emitter);
 
+void			as_component_to_variant (AsComponent *cpt,
+						 GVariantBuilder *builder);
+gboolean		as_component_set_from_variant (AsComponent *cpt,
+							GVariant *variant,
+							const gchar *locale);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

@@ -50,12 +50,12 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
-#include "as-cache-file.h"
 #include "as-component-private.h"
 #include "as-distro-details.h"
 #include "as-settings-private.h"
 #include "as-distro-extras.h"
 #include "as-stemmer.h"
+#include "as-variant-cache.h"
 
 #include "as-metadata.h"
 
@@ -1505,6 +1505,212 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 	}
 
 	return TRUE;
+}
+
+/**
+ * as_cache_file_save:
+ * @fname: The file to save the data to.
+ * @locale: The locale this cache file is for.
+ * @cpts: (element-type AsComponent): The components to serialize.
+ * @error: A #GError
+ *
+ * Serialize components to a cache file and store it on disk.
+ */
+void
+as_cache_file_save (const gchar *fname, const gchar *locale, GPtrArray *cpts, GError **error)
+{
+	g_autoptr(GVariant) main_gv = NULL;
+	g_autoptr(GVariantBuilder) main_builder = NULL;
+	g_autoptr(GVariantBuilder) builder = NULL;
+
+	g_autoptr(GFile) ofile = NULL;
+	g_autoptr(GFileOutputStream) file_out = NULL;
+	g_autoptr(GOutputStream) zout = NULL;
+	g_autoptr(GZlibCompressor) compressor = NULL;
+	gboolean serializable_components_found = FALSE;
+	GError *tmp_error = NULL;
+	guint cindex;
+
+	if (cpts->len == 0) {
+		g_debug ("Skipped writing cache file: No components to serialize.");
+		return;
+	}
+
+	main_builder = g_variant_builder_new (G_VARIANT_TYPE_VARDICT);
+	builder = g_variant_builder_new (G_VARIANT_TYPE_ARRAY);
+
+	for (cindex = 0; cindex < cpts->len; cindex++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, cindex));
+
+		/* sanity checks */
+		if (!as_component_is_valid (cpt)) {
+			/* we should *never* get here, all invalid stuff should be filtered out at this point */
+			g_critical ("Skipped component '%s' from inclusion into the cache: The component is invalid.",
+					   as_component_get_id (cpt));
+			continue;
+		}
+
+		if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
+			g_debug ("Skipping '%s' from cache inclusion, it is a merge component.",
+				 as_component_get_id (cpt));
+			continue;
+		}
+		serializable_components_found = TRUE;
+
+		as_component_to_variant (cpt, builder);
+	}
+
+	/* check if we actually have some valid components serialized to a GVariant */
+	if (!serializable_components_found) {
+		g_debug ("Skipped writing cache file: No valid components found for serialization.");
+		return;
+	}
+
+	/* write basic information and add components */
+	g_variant_builder_add (main_builder, "{sv}",
+				"format_version",
+				g_variant_new_uint32 (CACHE_FORMAT_VERSION));
+	g_variant_builder_add (main_builder, "{sv}",
+				"locale",
+				as_variant_mstring_new (locale));
+
+	g_variant_builder_add (main_builder, "{sv}",
+				"components",
+				g_variant_builder_end (builder));
+	main_gv = g_variant_builder_end (main_builder);
+
+	ofile = g_file_new_for_path (fname);
+	compressor = g_zlib_compressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP, -1);
+	file_out = g_file_replace (ofile,
+				   NULL, /* entity-tag */
+				   FALSE, /* make backup */
+				   G_FILE_CREATE_REPLACE_DESTINATION,
+				   NULL, /* cancellable */
+				   error);
+	if ((error != NULL) && (*error != NULL))
+		return;
+
+	zout = g_converter_output_stream_new (G_OUTPUT_STREAM (file_out), G_CONVERTER (compressor));
+	if (!g_output_stream_write_all (zout,
+					g_variant_get_data (main_gv),
+					g_variant_get_size (main_gv),
+					NULL, NULL, &tmp_error)) {
+		g_set_error (error,
+			     AS_POOL_ERROR,
+			     AS_POOL_ERROR_FAILED,
+			     "Failed to write stream: %s",
+			     tmp_error->message);
+		g_error_free (tmp_error);
+		return;
+	}
+	if (!g_output_stream_close (zout, NULL, &tmp_error)) {
+		g_set_error (error,
+			     AS_POOL_ERROR,
+			     AS_POOL_ERROR_FAILED,
+			     "Failed to close stream: %s",
+			     tmp_error->message);
+		g_error_free (tmp_error);
+		return;
+	}
+}
+
+/**
+ * as_cache_read:
+ * @fname: The file to save the data to.
+ * @locale: The locale this cache file is for.
+ * @cpts: (element-type AsComponent): The components to serialize.
+ * @error: A #GError
+ *
+ * Serialize components to a cache file and store it on disk.
+ */
+GPtrArray*
+as_cache_file_read (const gchar *fname, GError **error)
+{
+	GPtrArray *cpts = NULL;
+	g_autoptr(GFile) ifile = NULL;
+	g_autoptr(GInputStream) file_stream = NULL;
+	g_autoptr(GInputStream) stream_data = NULL;
+	g_autoptr(GConverter) conv = NULL;
+
+	GByteArray *byte_array;
+	g_autoptr(GBytes) bytes = NULL;
+	gssize len;
+	const gsize buffer_size = 1024 * 32;
+	g_autofree guint8 *buffer = NULL;
+
+	g_autoptr(GVariant) main_gv = NULL;
+	g_autoptr(GVariant) cptsv_array = NULL;
+	g_autoptr(GVariant) cptv = NULL;
+	g_autoptr(GVariant) gmvar = NULL;
+	const gchar *locale = NULL;
+	GVariantIter main_iter;
+
+	ifile = g_file_new_for_path (fname);
+
+	file_stream = G_INPUT_STREAM (g_file_read (ifile, NULL, error));
+	if (file_stream == NULL)
+		return NULL;
+
+	/* decompress the GZip stream */
+	conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+	stream_data = g_converter_input_stream_new (file_stream, conv);
+
+	buffer = g_malloc (buffer_size);
+	byte_array = g_byte_array_new ();
+	while ((len = g_input_stream_read (stream_data, buffer, buffer_size, NULL, error)) > 0) {
+		g_byte_array_append (byte_array, buffer, len);
+	}
+	bytes = g_byte_array_free_to_bytes (byte_array);
+
+	/* check if there was an error */
+	if (len < 0)
+		return NULL;
+	if ((error != NULL) && (*error != NULL))
+		return NULL;
+
+	main_gv = g_variant_new_from_bytes (G_VARIANT_TYPE_VARDICT, bytes, TRUE);
+	cpts = g_ptr_array_new_with_free_func (g_object_unref);
+
+	gmvar = g_variant_lookup_value (main_gv,
+					"format_version",
+					G_VARIANT_TYPE_UINT32);
+	if ((gmvar == NULL) || (g_variant_get_uint32 (gmvar) != CACHE_FORMAT_VERSION)) {
+		/* don't try to load incompatible cache versions */
+		if (gmvar == NULL)
+			g_warning ("Skipped loading of broken cache file '%s'.", fname);
+		else
+			g_warning ("Skipped loading of incompatible or broken cache file '%s': Format is %i (expected %i)",
+					fname, g_variant_get_uint32 (gmvar), CACHE_FORMAT_VERSION);
+
+		/* TODO: Maybe emit a proper GError? */
+		return NULL;
+	}
+
+	g_variant_unref (gmvar);
+	gmvar = g_variant_lookup_value (main_gv,
+					"locale",
+					G_VARIANT_TYPE_MAYBE);
+	locale = as_variant_get_mstring (&gmvar);
+
+	cptsv_array = g_variant_lookup_value (main_gv,
+					      "components",
+					      G_VARIANT_TYPE_ARRAY);
+
+	g_variant_iter_init (&main_iter, cptsv_array);
+	while ((cptv = g_variant_iter_next_value (&main_iter))) {
+		g_autoptr(AsComponent) cpt = as_component_new ();
+		if (as_component_set_from_variant (cpt, cptv, locale)) {
+			/* add to result list */
+			if (as_component_is_valid (cpt)) {
+				g_ptr_array_add (cpts, g_object_ref (cpt));
+			} else {
+				g_autofree gchar *str = as_component_to_string (cpt);
+				g_warning ("Ignored serialized component: %s", str);
+			}
+		}
+	}
+
+	return cpts;
 }
 
 /**

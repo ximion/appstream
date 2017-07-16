@@ -28,21 +28,26 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-gboolean	as_suggested_load_from_xml (AsSuggested *suggested,
-						 AsContext *ctx,
-						 xmlNode *node,
-						 GError **error);
-void		as_suggested_to_xml_node (AsSuggested *suggested,
-						AsContext *ctx,
-						xmlNode *root);
+gboolean		as_suggested_load_from_xml (AsSuggested *suggested,
+							AsContext *ctx,
+							xmlNode *node,
+							GError **error);
+void			as_suggested_to_xml_node (AsSuggested *suggested,
+							AsContext *ctx,
+							xmlNode *root);
 
-gboolean	as_suggested_load_from_yaml (AsSuggested *suggested,
+gboolean		as_suggested_load_from_yaml (AsSuggested *suggested,
+							AsContext *ctx,
+							GNode *node,
+							GError **error);
+void			as_suggested_emit_yaml (AsSuggested *suggested,
 						AsContext *ctx,
-						GNode *node,
-						GError **error);
-void		as_suggested_emit_yaml (AsSuggested *suggested,
-					 AsContext *ctx,
-					 yaml_emitter_t *emitter);
+						yaml_emitter_t *emitter);
+
+void			as_suggested_to_variant (AsSuggested *suggested,
+						 GVariantBuilder *builder);
+gboolean		as_suggested_set_from_variant (AsSuggested *suggested,
+						       GVariant *variant);
 
 #pragma GCC visibility pop
 G_END_DECLS

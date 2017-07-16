@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -19,6 +19,7 @@
  */
 
 #include "as-provided.h"
+#include "as-provided-private.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>
@@ -26,6 +27,7 @@
 #include <fnmatch.h>
 
 #include "as-utils.h"
+#include "as-variant-cache.h"
 
 /**
  * SECTION:as-provided
@@ -288,6 +290,53 @@ as_provided_add_item (AsProvided *prov, const gchar *item)
 {
 	AsProvidedPrivate *priv = GET_PRIVATE (prov);
 	g_ptr_array_add (priv->items, g_strdup (item));
+}
+
+/**
+ * as_provided_to_variant:
+ * @prov: a #AsProvided instance.
+ * @builder: A #GVariantBuilder
+ *
+ * Serialize the current active state of this object to a GVariant
+ * for use in the on-disk binary cache.
+ */
+void
+as_provided_to_variant (AsProvided *prov, GVariantBuilder *builder)
+{
+	AsProvidedPrivate *priv = GET_PRIVATE (prov);
+	GVariant *prov_var;
+
+	prov_var = g_variant_new ("{uv}",
+				  priv->kind,
+				  as_variant_from_string_ptrarray (priv->items));
+	g_variant_builder_add_value (builder, prov_var);
+}
+
+/**
+ * as_provided_set_from_variant:
+ * @prov: a #AsProvided instance.
+ * @variant: The #GVariant to read from.
+ *
+ * Read the active state of this object from a #GVariant serialization.
+ * This is used by the on-disk binary cache.
+ */
+gboolean
+as_provided_set_from_variant (AsProvided *prov, GVariant *variant)
+{
+	AsProvidedPrivate *priv = GET_PRIVATE (prov);
+	GVariantIter inner_iter;
+	GVariant *item_child;
+	g_autoptr(GVariant) items_var = NULL;
+
+	g_variant_get (variant, "{uv}", &priv->kind, &items_var);
+
+	g_variant_iter_init (&inner_iter, items_var);
+	while ((item_child = g_variant_iter_next_value (&inner_iter))) {
+		as_provided_add_item (prov, g_variant_get_string (item_child, NULL));
+		g_variant_unref (item_child);
+	}
+
+	return TRUE;
 }
 
 /**

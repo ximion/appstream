@@ -22,7 +22,7 @@
 #include <glib/gprintf.h>
 
 #include "appstream.h"
-#include "as-cache-file.h"
+#include "as-pool-private.h"
 #include "as-test-utils.h"
 #include "../src/as-utils-private.h"
 #include "../src/as-component-private.h"

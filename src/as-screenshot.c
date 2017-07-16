@@ -35,6 +35,7 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-image-private.h"
+#include "as-variant-cache.h"
 
 typedef struct
 {
@@ -499,13 +500,83 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_
 }
 
 /**
+ * as_screenshot_to_variant:
+ * @screenshot: an #AsScreenshot instance.
+ * @builder: A #GVariantBuilder
+ *
+ * Serialize the current active state of this object to a GVariant
+ * for use in the on-disk binary cache.
+ */
+void
+as_screenshot_to_variant (AsScreenshot *screenshot, GVariantBuilder *builder)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	guint i;
+	GVariantBuilder images_b;
+	GVariantBuilder scr_b;
+
+	g_variant_builder_init (&images_b, G_VARIANT_TYPE_ARRAY);
+	for (i = 0; i < priv->images->len; i++)
+		as_image_to_variant (AS_IMAGE (g_ptr_array_index (priv->images, i)), &images_b);
+
+	g_variant_builder_init (&scr_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_add_parsed (&scr_b, "{'type', <%u>}", priv->kind);
+	g_variant_builder_add_parsed (&scr_b, "{'caption', %v}", as_variant_mstring_new (as_screenshot_get_caption (screenshot)));
+	g_variant_builder_add_parsed (&scr_b, "{'images', %v}", g_variant_builder_end (&images_b));
+
+	g_variant_builder_add_value (builder, g_variant_builder_end (&scr_b));
+
+}
+
+/**
+ * as_screenshot_set_from_variant:
+ * @screenshot: an #AsScreenshot instance.
+ * @variant: The #GVariant to read from.
+ *
+ * Read the active state of this object from a #GVariant serialization.
+ * This is used by the on-disk binary cache.
+ */
+gboolean
+as_screenshot_set_from_variant (AsScreenshot *screenshot, GVariant *variant, const gchar *locale)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	GVariantIter inner_iter;
+	GVariantDict idict;
+	GVariant *tmp;
+	g_autoptr(GVariant) images_var = NULL;
+
+	as_screenshot_set_active_locale (screenshot, locale);
+	g_variant_dict_init (&idict, variant);
+
+	priv->kind = as_variant_get_dict_uint32 (&idict, "type");
+	as_screenshot_set_caption (screenshot,
+				   as_variant_get_dict_mstr (&idict, "caption", &tmp),
+				   locale);
+	g_variant_unref (tmp);
+
+	images_var = g_variant_dict_lookup_value (&idict, "images", G_VARIANT_TYPE_ARRAY);
+	if (images_var != NULL) {
+		GVariant *img_child;
+		g_variant_iter_init (&inner_iter, images_var);
+
+		while ((img_child = g_variant_iter_next_value (&inner_iter))) {
+			g_autoptr(AsImage) img = as_image_new ();
+			if (as_image_set_from_variant (img, img_child))
+				as_screenshot_add_image (screenshot, img);
+		}
+	}
+
+	return priv->images->len != 0;
+}
+
+/**
  * as_screenshot_new:
  *
  * Creates a new #AsScreenshot.
  *
  * Returns: (transfer full): a #AsScreenshot
  **/
-AsScreenshot *
+AsScreenshot*
 as_screenshot_new (void)
 {
 	AsScreenshot *screenshot;

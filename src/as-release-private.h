@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -28,23 +28,29 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-GHashTable	*as_release_get_description_table (AsRelease *release);
+GHashTable		*as_release_get_description_table (AsRelease *release);
 
-gboolean	as_release_load_from_xml (AsRelease *release,
-					   AsContext *ctx,
-					   xmlNode *node,
-					   GError **error);
-void		as_release_to_xml_node (AsRelease *release,
-					 AsContext *ctx,
-					 xmlNode *root);
+gboolean		as_release_load_from_xml (AsRelease *release,
+						  AsContext *ctx,
+						  xmlNode *node,
+						  GError **error);
+void			as_release_to_xml_node (AsRelease *release,
+						AsContext *ctx,
+						xmlNode *root);
 
-gboolean	as_release_load_from_yaml (AsRelease *release,
-					   AsContext *ctx,
-					   GNode *node,
-					   GError **error);
-void		as_release_emit_yaml (AsRelease *release,
-					AsContext *ctx,
-					yaml_emitter_t *emitter);
+gboolean		as_release_load_from_yaml (AsRelease *release,
+						   AsContext *ctx,
+						   GNode *node,
+						   GError **error);
+void			as_release_emit_yaml (AsRelease *release,
+						AsContext *ctx,
+						yaml_emitter_t *emitter);
+
+void			as_release_to_variant (AsRelease *release,
+						GVariantBuilder *builder);
+gboolean		as_release_set_from_variant (AsRelease *release,
+						     GVariant *variant,
+						     const gchar *locale);
 
 #pragma GCC visibility pop
 G_END_DECLS

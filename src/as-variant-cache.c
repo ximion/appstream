@@ -168,3 +168,50 @@ as_variant_from_string_ptrarray (GPtrArray *strarray)
 
 	return g_variant_builder_end (&ab);
 }
+
+/**
+ * as_variant_to_string_ptrarray:
+ *
+ * Add contents of array-type variant to string list.
+ */
+void
+as_variant_to_string_ptrarray (GVariant *var, GPtrArray *dest)
+{
+	GVariant *child;
+	GVariantIter iter;
+
+	g_variant_iter_init (&iter, var);
+	while ((child = g_variant_iter_next_value (&iter))) {
+		g_ptr_array_add (dest, g_variant_dup_string (child, NULL));
+		g_variant_unref (child);
+	}
+}
+
+/**
+ * as_variant_to_string_ptrarray_by_dict:
+ *
+ * Add contents of array-type variant to string list using a dictionary key
+ * to get the source variant.
+ */
+void
+as_variant_to_string_ptrarray_by_dict (GVariantDict *dict, const gchar *key, GPtrArray *dest)
+{
+	g_autoptr(GVariant) var = NULL;
+
+	var = g_variant_dict_lookup_value (dict, key, G_VARIANT_TYPE_STRING_ARRAY);
+	if (var != NULL)
+		as_variant_to_string_ptrarray (var, dest);
+}
+
+/**
+ * as_variant_builder_add_kv:
+ *
+ * Add key/value pair with a string key and variant value.
+ */
+void
+as_variant_builder_add_kv (GVariantBuilder *builder, const gchar *key, GVariant *value)
+{
+	if (value == NULL)
+		return;
+	g_variant_builder_add (builder, "{sv}", key, value);
+}

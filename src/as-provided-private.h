@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2017 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,25 +18,22 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_H) && !defined (AS_COMPILATION)
-#error "Only <appstream.h> can be included directly."
-#endif
+#ifndef __AS_PROVIDED_PRIVATE_H
+#define __AS_PROVIDED_PRIVATE_H
 
-#ifndef __AS_CACHE_FILE_H
-#define __AS_CACHE_FILE_H
-
-#include <glib-object.h>
+#include "as-provided.h"
 
 G_BEGIN_DECLS
+#pragma GCC visibility push(hidden)
 
-void		as_cache_file_save (const gchar *fname,
-					const gchar *locale,
-					GPtrArray *cpts,
-					GError **error);
+/* NOTE: XML and YAML parsing is done in AsComponent, since we can not do it efficiently here */
 
-GPtrArray	*as_cache_file_read (const gchar *fname,
-					GError **error);
+void			as_provided_to_variant (AsProvided *prov,
+						GVariantBuilder *builder);
+gboolean		as_provided_set_from_variant (AsProvided *prov,
+						      GVariant *variant);
 
+#pragma GCC visibility pop
 G_END_DECLS
 
-#endif /* __AS_CACHE_FILE_H */
+#endif /* __AS_PROVIDED_PRIVATE_H */
