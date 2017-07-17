@@ -702,9 +702,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			if (g_str_has_suffix (node_content, ".")) {
 				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_INFO,
+							AS_ISSUE_IMPORTANCE_PEDANTIC,
 							AS_ISSUE_KIND_VALUE_ISSUE,
-							"The component name should not end with a \".\" [%s]",
+							"The component name should (likely) not end with a \".\" [%s]",
 							node_content);
 			}
 
