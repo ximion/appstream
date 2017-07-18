@@ -1,3 +1,36 @@
+Version 0.11.2
+~~~~~~~~~~~~~~
+Released: 2017-07-18
+
+Features:
+ * cache: Refactor cache functions (Matthias Klumpp)
+ * Deduplicate origin/locale/arch with AsContext (Matthias Klumpp)
+ * Get rid of a couple of internal helper methods (Matthias Klumpp)
+ * cli: When using convert, always assume collection style for YAML (Matthias Klumpp)
+
+Specification:
+ * Adjust docs to clearly state that licenses are SPDX expressions (Harald Sitter)
+
+Bugfixes:
+ * qt: Improve Icon QDebug information (Aleix Pol)
+ * Resolve crash when serializing lots of XML documents (Matthias Klumpp)
+ * xml: Don't truncate translated entries after encounting a wrong locale (Matthias Klumpp)
+ * Set a real locale if locale is set to "ALL" (Matthias Klumpp)
+ * validator: Make ending dot in component name only a pedantic issue (Matthias Klumpp)
+
+
+Translation:
+ * Arabic
+   - Heba ahmed
+ * Russian
+   - Igor
+ * Italian
+   - Milo Casagrande
+ * Lithuanian
+   - Moo
+ * Spanish
+   - Piotr Drąg
+
 Version 0.11.1
 ~~~~~~~~~~~~~~
 Released: 2017-07-02
