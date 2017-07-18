@@ -17,6 +17,7 @@
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017. #zanata
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018. #zanata
 # phlostically <phlostically@mailinator.com>, 2021.
+# Robert Antoni Buj Gelonch <robert.buj@gmail.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -25,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -2083,8 +2084,7 @@ msgstr "Ubicació seleccionada manualment de la memòria cau d'AppStream."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Ubicació seleccionada manualment de les metadades d'AppStream a explorar."
+msgstr "Ubicació seleccionada manualment de les metadades d'AppStream a explorar."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
@@ -2094,8 +2094,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Format predeterminat de les metadades (els valors vàlids són 'xml' i 'yaml')."
+msgstr "Format predeterminat de les metadades (els valors vàlids són 'xml' i 'yaml')."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:101
@@ -2143,19 +2142,14 @@ msgstr "Es desconeix l'opció «%s»."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Executeu «%s --help» per veure una llista completa de les opcions "
-"disponibles de la línia d'ordres."
+msgstr "Executeu «%s --help» per veure una llista completa de les opcions disponibles de la línia d'ordres."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Executeu «%s --help» per veure una llista completa de les ordres i opcions "
-"disponibles, i «%s %s --help» per veure les opcions específiques per a "
-"aquesta subordre."
+msgstr "Executeu «%s --help» per veure una llista completa de les ordres i opcions disponibles, i «%s %s --help» per veure les opcions específiques per a aquesta subordre."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2188,9 +2182,7 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Heu de proporcionar almenys dos números de versió per comparar-los com a "
-"paràmetres."
+msgstr "Heu de proporcionar almenys dos números de versió per comparar-los com a paràmetres."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2202,26 +2194,20 @@ msgstr "Relació de comparació desconeguda «%s». Els valors vàlids són:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Massa paràmetres: necessiteu dos números de versió o números de versió i un "
-"operador de comparació."
+msgstr "Massa paràmetres: necessiteu dos números de versió o números de versió i un operador de comparació."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Utilitza el fitxer .desktop que s'indica com a base per omplir els valors "
-"del fitxer metainfo."
+msgstr "Utilitza el fitxer .desktop que s'indica com a base per omplir els valors del fitxer metainfo."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Aquesta ordre pren els arguments posicionals i opcionals TIPUS i FITXER, "
-"FITXER és un fitxer on s'hi escriu (o \"-\" per a la sortida estàndard)."
+msgstr "Aquesta ordre pren els arguments posicionals i opcionals TIPUS i FITXER, FITXER és un fitxer on s'hi escriu (o \"-\" per a la sortida estàndard)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2285,9 +2271,7 @@ msgstr "Subordres:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Podeu trobar informació sobre les opcions específiques de la subordre en "
-"passar \"--help\" a la subordre."
+msgstr "Podeu trobar informació sobre les opcions específiques de la subordre en passar \"--help\" a la subordre."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2389,9 +2373,7 @@ msgstr "Compara dos números de versió."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Crea una plantilla per a un fitxer metainfo (per ser omplert pel projecte de "
-"desenvolupament)."
+msgstr "Crea una plantilla per a un fitxer metainfo (per ser omplert pel projecte de desenvolupament)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2522,9 +2504,7 @@ msgstr "No existeix el fitxer de metadades «%s»."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"No es pot convertir el fitxer: No s'ha pogut determinar el format de "
-"sortida, establiu-ho de forma explícita amb '--format='."
+msgstr "No es pot convertir el fitxer: No s'ha pogut determinar el format de sortida, establiu-ho de forma explícita amb '--format='."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2539,18 +2519,14 @@ msgstr "Versió"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Heu d'indicar un tipus de component de programari d'AppStream per generar "
-"una plantilla. Els valors possibles són:"
+msgstr "Heu d'indicar un tipus de component de programari d'AppStream per generar una plantilla. Els valors possibles són:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"El tipus de component de programari «%s» no és vàlid a AppStream. Els valors "
-"possibles són:"
+msgstr "El tipus de component de programari «%s» no és vàlid a AppStream. Els valors possibles són:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
