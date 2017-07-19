@@ -247,23 +247,29 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 	xmlNode* iter;
 	GError *tmp_error = NULL;
 	gchar *priority_str;
+	gchar *tmp;
 
 	/* set origin of this metadata */
-	g_free (priv->origin);
-	priv->origin = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
+	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "origin");
+	as_context_set_origin (context, tmp);
+	g_free (tmp);
 
 	/* set baseurl for the media files */
-	g_free (priv->media_baseurl);
-	priv->media_baseurl =  (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
+	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
+	as_context_set_media_baseurl (context, tmp);
+	g_free (tmp);
 
 	/* set architecture for the components */
-	g_free (priv->arch);
-	priv->arch =  (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
+	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
+	as_context_set_architecture (context, tmp);
+	g_free (tmp);
 
 	/* collection metadata allows setting a priority for components */
 	priority_str = (gchar*) xmlGetProp (node, (xmlChar*) "priority");
 	if (priority_str != NULL) {
-		priv->default_priority = g_ascii_strtoll (priority_str, NULL, 10);
+		gint default_priority;
+		default_priority = g_ascii_strtoll (priority_str, NULL, 10);
+		as_context_set_priority (context, default_priority);
 	}
 	g_free (priority_str);
 
