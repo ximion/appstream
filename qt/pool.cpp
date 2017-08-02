@@ -73,7 +73,7 @@ bool Pool::load(QString* strerror)
 {
     g_autoptr(GError) error = nullptr;
     bool ret = as_pool_load (d->m_pool, NULL, &error);
-    if (!ret && error) {
+    if (!ret && error && strerror) {
         *strerror = QString::fromUtf8(error->message);
     }
     return ret;
