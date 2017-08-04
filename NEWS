@@ -1,3 +1,20 @@
+Version 0.11.3
+~~~~~~~~~~~~~~
+Released: 2017-08-04
+
+Bugfixes:
+ * qt: Don't crash when an error is found and no error string is passed (Aleix Pol)
+ * Propagate document context to the context object for XML files (Matthias Klumpp)
+ * validator: Correctly recognize "launchable" as valid tag (Matthias Klumpp)
+
+Translation:
+ * Swedish
+   - Anders Jonsson
+ * Czech
+   - Pavel Borecki
+ * Catalan
+   - Robert Antoni Buj Gelonch
+
 Version 0.11.2
 ~~~~~~~~~~~~~~
 Released: 2017-07-18
