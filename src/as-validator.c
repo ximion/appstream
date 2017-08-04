@@ -826,7 +826,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							AS_ISSUE_KIND_VALUE_WRONG,
 							"Unknown type '%s' for <translation/> tag.", prop);
 			}
-		} else if (g_strcmp0 (node_name, "launch") == 0) {
+		} else if (g_strcmp0 (node_name, "launchable") == 0) {
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
 			g_autofree gchar *prop = NULL;
