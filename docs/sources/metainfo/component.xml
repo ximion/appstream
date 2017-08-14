@@ -301,6 +301,18 @@
                       </para>
                     </listitem>
                   </varlistentry>
+                  <varlistentry>
+                    <term>cockpit-manifest</term>
+                    <listitem>
+                      <para>
+                        The software can be launched from the menus of
+                        the <ulink url="http://cockpit-project.org">Cockpit</ulink> admin interface.
+                        The value of the tag is the name of a <ulink
+                        url="http://cockpit-project.org/guide/latest/packages.html">Cockpit
+                        package</ulink>.
+                      </para>
+                    </listitem>
+                  </varlistentry>
                 </variablelist>
 		<para>
 			Example:
