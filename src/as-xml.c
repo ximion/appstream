@@ -418,7 +418,7 @@ as_xml_add_node_list_strv (xmlNode *root, const gchar *name, const gchar *child_
 	/* don't add the node if we have no values */
 	if (strv == NULL)
 		return NULL;
-	if (strv[0] == '\0')
+	if (strv[0] == NULL)
 		return NULL;
 
 	if (name == NULL)
