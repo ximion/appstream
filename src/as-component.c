@@ -862,7 +862,7 @@ gchar*
 as_component_get_pkgname (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	if ((priv->pkgnames == NULL) || (priv->pkgnames[0] == '\0'))
+	if ((priv->pkgnames == NULL) || (priv->pkgnames[0] == NULL))
 		return NULL;
 	return priv->pkgnames[0];
 }
@@ -3064,7 +3064,7 @@ as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind
 		as_copy_l10n_hashtable (src_priv->description, dest_priv->description);
 
 		/* merge package names */
-		if ((src_priv->pkgnames != NULL) && (src_priv->pkgnames[0] != '\0'))
+		if ((src_priv->pkgnames != NULL) && (src_priv->pkgnames[0] != NULL))
 			as_component_set_pkgnames (dest_cpt, src_priv->pkgnames);
 
 		/* merge bundles */
@@ -4673,7 +4673,7 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* Package */
 	/* NOTE: a DEP-11 components do *not* support multiple packages per component */
-	if ((priv->pkgnames != NULL) && (priv->pkgnames[0] != '\0'))
+	if ((priv->pkgnames != NULL) && (priv->pkgnames[0] != NULL))
 		as_yaml_emit_entry (emitter, "Package", priv->pkgnames[0]);
 
 	/* Extends */
