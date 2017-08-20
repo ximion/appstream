@@ -1,0 +1,44 @@
+option('l18n',
+       type : 'boolean',
+       value : true,
+       description : 'Enable localization'
+)
+option('stemming',
+       type : 'boolean',
+       value : true,
+       description : 'Use stemming while searching. Requires Snowball (libstemmer)'
+)
+option('vapi',
+       type : 'boolean',
+       value : false,
+       description : 'Create and install a Vala API file'
+)
+option('qt',
+       type : 'boolean',
+       value : false,
+       description : 'Build libappstream-qt'
+)
+option('documentation',
+       type : 'boolean',
+       value : false,
+       description : 'Enable target to build documentation'
+)
+option('apt-support',
+       type : 'boolean',
+       value : false,
+       description : 'Enable integration with APT on Debian'
+)
+
+#
+# For development
+#
+option('maintainer',
+       type : 'boolean',
+       value : false,
+       description : 'Enable maintainer mode (use strict compiler flags, e.g. -Werror)'
+)
+option('sanitizers',
+       type : 'boolean',
+       value : false,
+       description : 'Compile with sanitizers (address / thread sanitizer) enabled. Requires maintainer mode to be ON as well'
+)
