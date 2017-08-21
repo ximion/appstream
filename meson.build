@@ -26,7 +26,7 @@ if get_option('stemming')
     conf.set('HAVE_STEMMING', 1)
 endif
 
-configure_file(output : 'config.h', configuration : conf)
+configure_file(output: 'config.h', configuration: conf)
 
 #
 # Custom C flags
@@ -69,6 +69,7 @@ add_global_arguments('-DAS_COMPILATION', language : 'c')
 #
 glib_dep = dependency('glib-2.0', version : '>=2.46')
 gobject_dep = dependency('gobject-2.0', version : '>=2.46')
+gio_dep = dependency('gio-2.0', version : '>=2.46')
 gio_unix_dep = dependency('gio-unix-2.0', version : '>=2.46')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
@@ -95,13 +96,13 @@ pkgc = import('pkgconfig')
 #
 # Directories
 #
-subdir('src')
-#subdir(tools)
-#subdir(data)
-#subdir(contrib)
-#subdir(po)
+subdir('src/')
+subdir('tools/')
+subdir('data/')
+subdir('contrib/')
+subdir('po/')
 #subdir(docs)
-#subdir(tests)
+subdir('tests/')
 if get_option('qt')
-    subdir(qt)
+    subdir('qt/')
 endif
