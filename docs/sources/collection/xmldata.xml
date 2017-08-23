@@ -543,6 +543,48 @@
 				</listitem>
 			</varlistentry>
 
+                        <varlistentry id="tag-ct-variants">
+                          <term>&lt;variants/&gt;</term>
+                          <listitem>
+                            <para>
+                              This tag lists variants of this
+                              component.  For example, the Modularity
+                              effort of Fedora will provide multiple
+                              'streams' for a given component, where
+                              each stream tracks a different major
+                              version of an upstream project.
+                            </para>
+                            <para>
+                              Variants conflict with each other: At
+                              most one variant can be installed at any
+                              one time.
+                            </para>
+                            <para>
+                              This tag includes one or more
+                              &lt;variant/&gt; tags.  Each of these
+                              children can have the same tags as the
+                              &lt;component/&gt; tag, and provide a
+                              replacement value.  For example, if a
+                              &lt;variant/&gt; has a
+                              &lt;description&gt; tag, this should be
+                              shown instead of the &lt;description&gt;
+                              tag of the component.
+                            </para>
+                            <para>
+                              A &lt;variant/&gt; must include a
+                              &lt;variantsummary&gt;.  This is a short
+                              text that can be displayed in a menu
+                              that allows selection of a variant.
+                            </para>
+                            <para>
+                              If the &lt;variants/&gt tag is present,
+                              it should list all variants, including
+                              the main variant described by the
+                              &lt;component/&gt; tag.
+                            </para>
+                          </listitem>
+                        </varlistentry>
+
 			<varlistentry id="tag-ct-languages">
 				<term>&lt;languages/&gt;</term>
 				<listitem>
