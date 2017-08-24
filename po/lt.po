@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-07-16 20:57+0200\n"
+"POT-Creation-Date: 2017-08-21 03:21+0200\n"
 "PO-Revision-Date: 2017-07-10 19:23+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
@@ -55,13 +55,11 @@ msgstr ""
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Elemento tipas (pvz., lib, bin, python3, ...)"
 
-#. (itstool) path: component/summary
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
+#: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
 msgstr "Paslaugų programa, skirta darbui su AppStream metaduomenimis"
 
-#. (itstool) path: component/name
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
+#: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
 msgstr "AppStream komandų eilutė"
 
@@ -83,6 +81,7 @@ msgid "AppStream cache update completed successfully."
 msgstr "AppStream podėlio atnaujinimas sėkmingai užbaigtas."
 
 #: src/as-pool.c:1504
+#, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -101,8 +100,7 @@ msgstr "AppStream podėlio atnaujinimas nėra būtinas."
 msgid "AppStream command-line interface"
 msgstr "AppStream komandų eilutės sąsaja"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
+#: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
@@ -745,7 +743,7 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Tekstų redaktoriai"
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:464
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop failo \"%s\" nėra."
@@ -760,7 +758,7 @@ msgstr ""
 "klaidos, kurios gali privesti prie metaduomenų trūkumo. Išsamesnei "
 "informacijai kreipkitės į išsamų žurnalą."
 
-#: tools/ascli-actions-mdata.c:437
+#: tools/ascli-actions-mdata.c:446
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -769,8 +767,7 @@ msgstr ""
 "Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream "
 "specifikacijoje. Galimos reikšmės yra:"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
+#: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
 "This tool allows reading, writing, validating and transforming AppStream XML "
 "or YAML metadata. It also allows accessing the system metadata pool to for "
@@ -778,13 +775,13 @@ msgid ""
 "by its software component identifier."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:532
+#: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Nepavyko sukurti šablono metainformacijos failo: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:388
+#: tools/ascli-actions-mdata.c:397
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -804,12 +801,12 @@ msgstr "Nepavyko rasti komponento, atitinkančio %s!"
 msgid "Unable to find component with ID '%s'!"
 msgstr "Nepavyko rasti komponentą, kurio ID \"%s\"!"
 
-#: tools/ascli-actions-mdata.c:461
+#: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nepavyko perskaityti .desktop failo: %s"
 
-#: tools/ascli-actions-mdata.c:540
+#: tools/ascli-actions-mdata.c:549
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Nepavyko įrašyti šablono metainformacijos failo: %s"
@@ -904,7 +901,7 @@ msgstr ""
 msgid "You might need superuser permissions to perform this action."
 msgstr "Norint atlikti šį veiksmą, jums gali prireikti supernaudotojo teisių."
 
-#: tools/ascli-actions-mdata.c:435
+#: tools/ascli-actions-mdata.c:444
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"

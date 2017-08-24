@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-07-16 20:57+0200\n"
+"POT-Creation-Date: 2017-08-21 03:21+0200\n"
 "PO-Revision-Date: 2017-03-10 22:24+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
@@ -54,13 +54,11 @@ msgstr "Seall oidheaman beadaganach cuideachd leis an dearbhadh."
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Seòrsa de nì (can lib, bin, python3, …)"
 
-#. (itstool) path: component/summary
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
+#: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
 msgstr "Goireas gus obair le meata-dàta AppStream"
 
-#. (itstool) path: component/name
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
+#: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
 msgstr "AppStream CLI"
 
@@ -82,6 +80,7 @@ msgid "AppStream cache update completed successfully."
 msgstr "Chaidh an tasgadan aig AppStream ùrachadh."
 
 #: src/as-pool.c:1504
+#, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -100,8 +99,7 @@ msgstr "Chan eil feum air ùrachadh an tasgadain aig AppStream."
 msgid "AppStream command-line interface"
 msgstr "Eadar-aghaidh loidhne-àithne AppStream"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
+#: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
@@ -748,7 +746,7 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Deasaichean teacsa"
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:464
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Chan eil am faidhle .desktop “%s” ann."
@@ -763,7 +761,7 @@ msgstr ""
 "mhearachd no dhà a dh’adhbharaicheas gum bi meata-dàta a dhìth ma "
 "dh’fhaoidte. Thoir sùil air an loga bhriathrach airson barrachd fiosrachaidh."
 
-#: tools/ascli-actions-mdata.c:437
+#: tools/ascli-actions-mdata.c:446
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -772,8 +770,7 @@ msgstr ""
 "Chan eil seòrsa “%s” a’ cho-phàirt bathair-bhog dligheach an an AppStream. "
 "Seo na luachan dligheach:"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
+#: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
 "This tool allows reading, writing, validating and transforming AppStream XML "
 "or YAML metadata. It also allows accessing the system metadata pool to for "
@@ -786,13 +783,13 @@ msgstr ""
 "bog a bheir seòrsa MIME sònraichte dhut agus a stàladh a-rèir an aithnichear "
 "co-phàirt bathair-bhog aige."
 
-#: tools/ascli-actions-mdata.c:532
+#: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a thogail: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:388
+#: tools/ascli-actions-mdata.c:397
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -812,12 +809,12 @@ msgstr "Cha do lorg sinn co-phàirt a fhreagras ri %s!"
 msgid "Unable to find component with ID '%s'!"
 msgstr "Cha do lorg sinn co-phàirt leis an aithnichear %s!"
 
-#: tools/ascli-actions-mdata.c:461
+#: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Cha deach leinn am faidhle .desktop a leughadh: %s"
 
-#: tools/ascli-actions-mdata.c:540
+#: tools/ascli-actions-mdata.c:549
 #, fuzzy, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr ""
@@ -919,7 +916,7 @@ msgstr ""
 msgid "You might need superuser permissions to perform this action."
 msgstr "Feumaidh tu ceadan superuser gus an gnìomh seo a dhèanamh."
 
-#: tools/ascli-actions-mdata.c:435
+#: tools/ascli-actions-mdata.c:444
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
