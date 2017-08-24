@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-07-16 20:57+0200\n"
+"POT-Creation-Date: 2017-08-21 03:21+0200\n"
 "PO-Revision-Date: 2017-07-02 09:02+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
@@ -54,13 +54,11 @@ msgstr "Ook pedante tips weergeven tijdens het valideren."
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Een item-type (bijv. lib, bin, python3, ...)"
 
-#. (itstool) path: component/summary
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
+#: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
 msgstr "Een hulpmiddel om te werken met AppStream-metagegevens"
 
-#. (itstool) path: component/name
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
+#: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
 msgstr "AppStream-CLI"
 
@@ -82,6 +80,7 @@ msgid "AppStream cache update completed successfully."
 msgstr "De AppStream-cache is succesvol bijgewerkt."
 
 #: src/as-pool.c:1504
+#, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -100,8 +99,7 @@ msgstr "Het bijwerken van de AppStream-cache is niet nodig."
 msgid "AppStream command-line interface"
 msgstr "AppStream opdrachtregel-interface"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
+#: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
@@ -750,7 +748,7 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Tekstbewerkers"
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:464
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Het .desktop-bestand, '%s', bestaat niet."
@@ -765,7 +763,7 @@ msgstr ""
 "mogelijk kunnen leiden tot ontbrekende metagegevens. Bekijk het uitgebreide "
 "log om meer informatie te verkrijgen."
 
-#: tools/ascli-actions-mdata.c:437
+#: tools/ascli-actions-mdata.c:446
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -774,8 +772,7 @@ msgstr ""
 "Het software-onderdeel van het type '%s' is ongeldig in AppStream. Geldige "
 "waarden zijn:"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
+#: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
 "This tool allows reading, writing, validating and transforming AppStream XML "
 "or YAML metadata. It also allows accessing the system metadata pool to for "
@@ -788,13 +785,13 @@ msgstr ""
 "naar software die een bepaald mimetype aanbiedt en deze installeren middels "
 "de ID."
 
-#: tools/ascli-actions-mdata.c:532
+#: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Het bouwen van het sjabloon-metainformatiebestand is mislukt: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:388
+#: tools/ascli-actions-mdata.c:397
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -814,12 +811,12 @@ msgstr "Het vinden van een onderdeel dat overeenkomt met %s is mislukt!"
 msgid "Unable to find component with ID '%s'!"
 msgstr "Het vinden van een onderdeel met ID %s is mislukt!"
 
-#: tools/ascli-actions-mdata.c:461
+#: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Het lezen van het .desktop-bestand is mislukt: %s"
 
-#: tools/ascli-actions-mdata.c:540
+#: tools/ascli-actions-mdata.c:549
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Het opslaan van het sjabloon-metainformatiebestand is mislukt: %s"
@@ -922,7 +919,7 @@ msgstr ""
 "U heeft mogelijk administrator-rechten (su) nodig om deze actie uit te "
 "kunnen voeren."
 
-#: tools/ascli-actions-mdata.c:435
+#: tools/ascli-actions-mdata.c:444
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"

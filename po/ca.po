@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-07-16 20:57+0200\n"
+"POT-Creation-Date: 2017-08-21 03:21+0200\n"
 "PO-Revision-Date: 2017-07-18 16:32+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
-"Language-Team: Catalan "
-"<https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
+"translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,13 +56,11 @@ msgstr "Imprimeix també els consells redundants que es valida."
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Un tipus d'element (p. ex. lib, bin, python3, ...)"
 
-#. (itstool) path: component/summary
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
+#: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
 msgstr "Una utilitat per treballar amb les metadades AppStream"
 
-#. (itstool) path: component/name
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
+#: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
@@ -85,6 +83,7 @@ msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
 #: src/as-pool.c:1504
+#, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -103,8 +102,7 @@ msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
+#: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
@@ -756,7 +754,7 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Editors de text"
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:464
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "No existeix el fitxer .desktop «%s»."
@@ -771,7 +769,7 @@ msgstr ""
 "alguns errors, aquests errors poden provocar la pèrdua de metadades. "
 "Consulteu el registre per obtenir informació més detallada."
 
-#: tools/ascli-actions-mdata.c:437
+#: tools/ascli-actions-mdata.c:446
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -780,8 +778,7 @@ msgstr ""
 "El tipus de component de programari «%s» no és vàlid a AppStream. Els valors "
 "possibles són:"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
+#: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
 "This tool allows reading, writing, validating and transforming AppStream XML "
 "or YAML metadata. It also allows accessing the system metadata pool to for "
@@ -793,13 +790,13 @@ msgstr ""
 "sistema, per exemple consultar quin programari proporciona un tipus mime "
 "específic i instal·lar-lo pel seu identificador de component de programari."
 
-#: tools/ascli-actions-mdata.c:532
+#: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "No es pot construir el fitxer metainfo de la plantilla: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:388
+#: tools/ascli-actions-mdata.c:397
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -819,12 +816,12 @@ msgstr "No es pot trobar la coincidència del component %s!"
 msgid "Unable to find component with ID '%s'!"
 msgstr "No s'ha pogut trobar el component amb l'id. «%s»!"
 
-#: tools/ascli-actions-mdata.c:461
+#: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "No es pot llegir el fitxer .desktop: %s"
 
-#: tools/ascli-actions-mdata.c:540
+#: tools/ascli-actions-mdata.c:549
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "No es pot desar el fitxer metainfo de plantilla: %s"
@@ -925,7 +922,7 @@ msgstr ""
 "És probable que es necessitin els permisos de superusuari per realitzar "
 "aquesta acció."
 
-#: tools/ascli-actions-mdata.c:435
+#: tools/ascli-actions-mdata.c:444
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"

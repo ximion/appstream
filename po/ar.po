@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-07-16 20:57+0200\n"
+"POT-Creation-Date: 2017-08-21 03:21+0200\n"
 "PO-Revision-Date: 2017-07-17 19:28+0000\n"
 "Last-Translator: Heba ahmed <ferdiferdo1199@163.com>\n"
-"Language-Team: Arabic "
-"<https://hosted.weblate.org/projects/appstream/translations/ar/>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/"
+"translations/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,13 +55,11 @@ msgstr ""
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr ""
 
-#. (itstool) path: component/summary
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
+#: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
 msgstr ""
 
-#. (itstool) path: component/name
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
+#: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
 msgstr ""
 
@@ -83,7 +81,10 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 
 #: src/as-pool.c:1504
-msgid "AppStream cache update failed. Turn on verbose mode to get more detailed issue information."
+#, c-format
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
 msgstr ""
 
 #. cache wasn't updated, so the update wasn't necessary
@@ -97,9 +98,10 @@ msgstr ""
 msgid "AppStream command-line interface"
 msgstr ""
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
-msgid "AppStream is a cross-distribution specification to provide metadata about software components."
+#: data/org.freedesktop.appstream.cli.metainfo.xml:12
+msgid ""
+"AppStream is a cross-distribution specification to provide metadata about "
+"software components."
 msgstr ""
 
 #: src/as-pool.c:1490
@@ -167,7 +169,9 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:324
 #, c-format
-msgid "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' suffix."
+msgid ""
+"Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
+"suffix."
 msgstr ""
 
 #: src/as-category.c:138
@@ -236,7 +240,9 @@ msgid "Could not find component providing '%s::%s'."
 msgstr ""
 
 #: tools/appstream-cli.c:596
-msgid "Create a template for a metainfo file (to be filed out by the upstream project)."
+msgid ""
+"Create a template for a metainfo file (to be filed out by the upstream "
+"project)."
 msgstr ""
 
 #: src/as-provided.c:161
@@ -263,7 +269,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-msgid "Default to the given metadata format (valid values are 'xml' and 'yaml')."
+msgid ""
+"Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 
 #: tools/ascli-utils.c:320
@@ -567,7 +574,9 @@ msgid "No icons."
 msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:53
-msgid "No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" (part of PackageKit) is available."
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:203
@@ -641,7 +650,9 @@ msgstr ""
 
 #: tools/appstream-cli.c:177
 #, c-format
-msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
+msgid ""
+"Run '%s --help' to see a list of available commands and options, and '%s %s "
+"--help' to see a list of options specific for this subcommand."
 msgstr ""
 
 #: src/as-provided.c:163
@@ -716,33 +727,43 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:464
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
 #: src/as-pool.c:1488
-msgid "The AppStream system cache was updated, but some errors were detected, which might lead to missing metadata. Refer to the verbose log for more information."
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:437
+#: tools/ascli-actions-mdata.c:446
 #, c-format
-msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
+msgid ""
+"The software component type '%s' is not valid in AppStream. Possible values "
+"are:"
 msgstr ""
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
-msgid "This tool allows reading, writing, validating and transforming AppStream XML or YAML metadata. It also allows accessing the system metadata pool to for example query for software providing a specific mimetype and installing it by its software component identifier."
+#: data/org.freedesktop.appstream.cli.metainfo.xml:15
+msgid ""
+"This tool allows reading, writing, validating and transforming AppStream XML "
+"or YAML metadata. It also allows accessing the system metadata pool to for "
+"example query for software providing a specific mimetype and installing it "
+"by its software component identifier."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:532
+#: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr ""
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:388
-msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
+#: tools/ascli-actions-mdata.c:397
+msgid ""
+"Unable to convert file: Could not determine output format, please set it "
+"explicitly using '--format='."
 msgstr ""
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
@@ -757,12 +778,12 @@ msgstr ""
 msgid "Unable to find component with ID '%s'!"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:461
+#: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:540
+#: tools/ascli-actions-mdata.c:549
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr ""
@@ -779,7 +800,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:543
-msgid "Use the given .desktop file to fill in basic values in the metainfo file."
+msgid ""
+"Use the given .desktop file to fill in basic values in the metainfo file."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
@@ -844,7 +866,9 @@ msgid "Word Processor"
 msgstr ""
 
 #: tools/appstream-cli.c:599
-msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
+msgid ""
+"You can find information about subcommand-specific options by passing \"--"
+"help\" to the subcommand."
 msgstr ""
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
@@ -852,8 +876,10 @@ msgstr ""
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:435
-msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
+#: tools/ascli-actions-mdata.c:444
+msgid ""
+"You need to give an AppStream software component type to generate a "
+"template. Possible values are:"
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.

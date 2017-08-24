@@ -9,11 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-07-16 20:57+0200\n"
+"POT-Creation-Date: 2017-08-21 03:21+0200\n"
 "PO-Revision-Date: 2017-07-22 19:13+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
-"Language-Team: Czech "
-"<https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
+"translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,13 +56,11 @@ msgstr "Při ověřování vypisovat i nalezené drobnosti."
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Typ položky (např. lib, bin, python3, atp.)"
 
-#. (itstool) path: component/summary
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:9
+#: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
 msgstr "Nástroj pro práci s AppStream metadaty"
 
-#. (itstool) path: component/name
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:8
+#: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
 msgstr "Textové uživatelské rozhraní pro AppStream"
 
@@ -84,6 +82,7 @@ msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
 #: src/as-pool.c:1504
+#, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
@@ -102,8 +101,7 @@ msgstr "Aktualizace mezipaměti AppStream není v tuto chvíli zapotřebí."
 msgid "AppStream command-line interface"
 msgstr "Rozhraní příkazového řádku pro AppStream"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:12
+#: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
@@ -748,7 +746,7 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Textové editory"
 
-#: tools/ascli-actions-mdata.c:455
+#: tools/ascli-actions-mdata.c:464
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Soubor .desktop pro „%s“ neexistuje."
@@ -763,7 +761,7 @@ msgstr ""
 "chyby, což může vést k chybějícím metadatům. Podrobnější informace naleznete "
 "ve výřečněji nastaveném záznamu událostí."
 
-#: tools/ascli-actions-mdata.c:437
+#: tools/ascli-actions-mdata.c:446
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -771,8 +769,7 @@ msgid ""
 msgstr ""
 "Typ „%s“ softwarové součásti není platný pro AppStream. Možné hodnoty jsou:"
 
-#. (itstool) path: description/p
-#: ../data/org.freedesktop.appstream.cli.metainfo.xml:15
+#: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
 "This tool allows reading, writing, validating and transforming AppStream XML "
 "or YAML metadata. It also allows accessing the system metadata pool to for "
@@ -784,13 +781,13 @@ msgstr ""
 "dotazování se na software, poskytující konkrétní MIME typ a jeho instalaci "
 "na základě identifikátoru softwarové součásti."
 
-#: tools/ascli-actions-mdata.c:532
+#: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Nepodařilo se vytvořit soubor s šablonou metainformací: „%s“"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:388
+#: tools/ascli-actions-mdata.c:397
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -810,12 +807,12 @@ msgstr "Nepodařilo se nalézt součást odpovídající %s!"
 msgid "Unable to find component with ID '%s'!"
 msgstr "Nepodařilo se nalézt součást s identifikátorem „%s“!"
 
-#: tools/ascli-actions-mdata.c:461
+#: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nedaří se načíst .desktop soubor: %s"
 
-#: tools/ascli-actions-mdata.c:540
+#: tools/ascli-actions-mdata.c:549
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Nedaří se uložit soubor s metainformacemi šablony: %s"
@@ -916,7 +913,7 @@ msgid "You might need superuser permissions to perform this action."
 msgstr ""
 "K provedení této činnosti možná budete potřebovat oprávnění správce systému."
 
-#: tools/ascli-actions-mdata.c:435
+#: tools/ascli-actions-mdata.c:444
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
