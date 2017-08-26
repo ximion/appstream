@@ -1,5 +1,5 @@
 project('AppStream', 'c',
-  meson_version : '>=0.40',
+  meson_version : '>=0.41',
   license : 'LGPL-2.1+ and GPL-2.0+',
   version : '0.11.4',
 )
