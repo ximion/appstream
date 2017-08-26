@@ -1,10 +1,9 @@
 #
 # Docker file for AppStream CI tests
 #
-FROM debian:stretch
+FROM debian:sid
 
 # prepare
-RUN echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list
 RUN apt-get update -qq
 
 # install build essentials
@@ -27,7 +26,6 @@ RUN apt-get install -yq --no-install-recommends \
     gobject-introspection \
     libstemmer-dev \
     valac
-RUN apt-get install -t stretch-backports meson
 
 # finish
 RUN mkdir /build
