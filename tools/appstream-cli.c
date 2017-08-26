@@ -665,7 +665,7 @@ as_client_run (char **argv, int argc)
 
 	if (optn_show_version) {
 		/* TRANSLATORS: Output if appstreamcli --version is executed. */
-		ascli_print_stdout (_("AppStream CLI tool version: %s"), VERSION);
+		ascli_print_stdout (_("AppStream CLI tool version: %s"), PACKAGE_VERSION);
 		return 0;
 	}
 

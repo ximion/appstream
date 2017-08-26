@@ -47,7 +47,7 @@ asqt_priv_headers = [
 
 asqt_moc = qt.preprocess (
     moc_headers: asqt_pub_headers + asqt_priv_headers,
-    moc_sources: asqt_src
+    #moc_sources: asqt_src
 )
 
 appstreamqt_lib = library ('AppStreamQt',
@@ -69,3 +69,27 @@ appstreamqt_lib = library ('AppStreamQt',
 install_headers(asqt_pub_headers, subdir: 'appstream-qt')
 
 subdir('tests/')
+
+#
+# CMake support
+#
+
+cmake_data = configuration_data()
+cmake_data.set('LIBDIR_FULL', join_paths(get_option('prefix'), get_option('libdir')))
+cmake_data.set('PREFIX', get_option('prefix'))
+cmake_data.set('VERSION', as_version)
+
+configure_file (input: 'cmake/AppStreamQtConfig.cmake.in',
+                output: 'AppStreamQtConfig.cmake',
+                configuration: cmake_data
+)
+configure_file (input: 'cmake/AppStreamQtConfigVersion.cmake.in',
+                output: 'AppStreamQtConfigVersion.cmake',
+                configuration: cmake_data
+)
+
+install_data (
+    join_paths(meson.current_build_dir(), 'AppStreamQtConfig.cmake'),
+    join_paths(meson.current_build_dir(), 'AppStreamQtConfigVersion.cmake'),
+    install_dir: join_paths(get_option('libdir'), 'cmake', 'AppStreamQt')
+)

@@ -43,7 +43,7 @@ ascli_show_status (void)
 
 	/* TRANSLATORS: In the status report of ascli: Header */
 	ascli_print_highlight (_("AppStream Status:"));
-	ascli_print_stdout (_("Version: %s"), VERSION);
+	ascli_print_stdout (_("Version: %s"), PACKAGE_VERSION);
 	g_print ("\n");
 
 	/* TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions */

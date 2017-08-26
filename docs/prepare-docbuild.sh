@@ -1,6 +1,5 @@
 #!/bin/bash
 # (c) 2013 Matthias Klumpp, written for the Listaller Project
-# GPLv2+ licensed
 
 for arg; do
   case $arg in
@@ -17,6 +16,8 @@ if [ -z "$builddir" ]; then
    echo "ERR: No build directory set."
    exit 1;
 fi
+
+mkdir -p $builddir
 
 # cleanup
 rm -rf $builddir/en-US

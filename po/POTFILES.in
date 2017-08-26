@@ -1,5 +1,7 @@
 # List of source files containing translatable strings.
 #
+# data
+data/org.freedesktop.appstream.cli.metainfo.xml
 # library sources
 src/as-bundle.c
 src/as-category.c
@@ -23,7 +25,7 @@ src/as-validator-issue.c
 src/as-xml.c
 src/as-yaml.c
 src/as-variant-cache.c
-# tools sources
+# tool sources
 tools/appstream-cli.c
 tools/ascli-utils.c
 tools/ascli-actions-mdata.c

@@ -45,10 +45,12 @@
     <xi:include href="xml/as-distro-details.xml"/>
   </chapter>
 
+  <!--
   <chapter id="object-tree">
     <title>Object Hierarchy</title>
      <xi:include href="xml/tree_index.sgml"/>
   </chapter>
+  -->
 
   <index id="api-index-full">
     <title>API Index</title>
@@ -65,7 +67,7 @@
   <chapter id="manpages">
     <title>AppStream Manual Pages</title>
 
-    <xi:include href="../sources/man/appstreamcli.1.xml"/>
+    <!-- <xi:include href="../sources/man/appstreamcli.1.xml"/> -->
   </chapter>
 
 </book>
