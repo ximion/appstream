@@ -11,7 +11,8 @@ RUN apt-get install -yq gcc g++ clang
 
 # install build dependencies
 RUN apt-get install -yq --no-install-recommends \
-    cmake \
+    meson \
+    ninja-build \
     gettext \
     itstool \
     libglib2.0-dev \

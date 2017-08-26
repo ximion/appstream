@@ -14,14 +14,28 @@ $CC --version
 
 # configure AppStream build with all flags enabled
 mkdir build && cd build
-cmake -DMAINTAINER=ON -DDOCUMENTATION=ON -DQT=ON -DAPT_SUPPORT=ON -DVAPI=ON ..
+meson -Dmaintainer=true \
+	-Ddocumentation=true \
+	-Dqt=true \
+	-Dapt-support=true \
+	-Dvapi=true \
+	..
 
 # Build, Test & Install
-make all documentation
-make test ARGS=-V
-make install DESTDIR=./install_root/
+# (the number of Ninja jobs needs to be limited, so Travis doesn't kill us)
+ninja -j4
+ninja documentation
+ninja test -v
+DESTDIR=./install_root/ ninja install
 
 # Rebuild everything with Sanitizers enabled
 # FIXME: Doesn't work properly with Clang at time, so we only run this test with GCC.
-make clean && cmake -DMAINTAINER=ON -DDOCUMENTATION=ON -DQT=ON -DAPT_SUPPORT=ON -DVAPI=ON -DSANITIZERS=ON ..
-if [ "$CC" != "clang" ]; then make && make test ARGS=-V; fi
+cd .. && rm -rf build && mkdir build && cd build
+meson -Dmaintainer=true \
+	-Ddocumentation=true \
+	-Dqt=true \
+	-Dapt-support=true \
+	-Dvapi=true \
+	-Dsanitizers=true \
+	..
+if [ "$CC" != "clang" ]; then ninja -j4 && ninja test -v; fi
