@@ -2,11 +2,6 @@
 
 qt5_test_dep = dependency('qt5', modules: ['Core', 'Test'])
 
-as_test_env = []
-if get_option('sanitizers')
-    as_test_env = ['ASAN_OPTIONS=detect_leaks=0']
-endif
-
 testpaths_h = configuration_data()
 testpaths_h.set_quoted('AS_SAMPLE_DATA_PATH', join_paths(source_root, 'tests', 'samples', 'collection'))
 configure_file (output: 'testpaths.h', configuration: testpaths_h)

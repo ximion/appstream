@@ -1,5 +1,5 @@
 project('AppStream', 'c',
-  meson_version : '>=0.41',
+  meson_version : '>=0.42',
   license : 'LGPL-2.1+ and GPL-2.0+',
   version : '0.11.4',
 )
@@ -50,18 +50,19 @@ if get_option('maintainer')
 
     if get_option('sanitizers')
         sanitizer_libs = ['asan', 'ubsan']
-        add_global_arguments(['-fsanitize=address', '-fsanitize=undefined'], language : 'c')
+        add_global_arguments(['-fsanitize=address', '-fsanitize=undefined'], language: 'c')
+        add_global_link_arguments(['-lasan', '-lubsan'], language: 'c')
 
         if ccompiler.get_id() == 'clang'
-            add_global_arguments(['-fno-sanitize-recover=undefined,integer'], language : 'c')
+            add_global_arguments(['-fno-sanitize-recover=undefined,integer'], language: 'c')
         else
-            add_global_arguments(['-fno-sanitize-recover'], language : 'c')
+            add_global_arguments(['-fno-sanitize-recover'], language: 'c')
         endif
     endif
 endif
 
 # a few compiler warning flags we always want enabled
-add_global_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language : 'c')
+add_global_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
 add_global_arguments('-DAS_COMPILATION', language : 'c')
 
 #
