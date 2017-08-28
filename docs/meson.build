@@ -60,7 +60,6 @@ as_doc_src = [
     'sources/metainfo/service.xml',
     'sources/Project_Desc.xml',
     'sources/quickstart/addons.xml',
-    'sources/quickstart/buildsystems.xml',
     'sources/quickstart/desktop-apps.xml',
     'sources/quickstart/packaging.xml',
     'sources/quickstart/Quickstart.xml',
