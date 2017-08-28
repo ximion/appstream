@@ -7,7 +7,7 @@ i18n.merge_file (
     input:  'org.freedesktop.appstream.cli.metainfo.xml',
     output: 'org.freedesktop.appstream.cli.metainfo.xml',
     type: 'xml',
-    data_dirs: ['its'],
+    data_dirs: [meson.current_source_dir()],
     po_dir: join_paths (source_root, 'po'),
     install: true,
     install_dir: join_paths (get_option ('datadir'), 'metainfo')
