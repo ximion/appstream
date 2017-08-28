@@ -37,8 +37,3 @@ option('maintainer',
        value : false,
        description : 'Enable maintainer mode (use strict compiler flags, e.g. -Werror)'
 )
-option('sanitizers',
-       type : 'boolean',
-       value : false,
-       description : 'Compile with sanitizers (address / thread sanitizer) enabled. Requires maintainer mode to be ON as well'
-)

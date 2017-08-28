@@ -72,57 +72,29 @@ as_doc_src = [
 
 if get_option('documentation')
     publican_exe = find_program('publican')
+    python_exe = find_program('python3')
 
-    # we need to assemble our documentation build-directory before we can built it
-    doc_assemble_target = custom_target('doc-assemble',
+    make_docs_target = custom_target('make-docs',
         input: ['publican.cfg',
                 as_doc_src],
-        output: 'publican_ws_invalid',
+        output: ['html'],
         command: [
-            join_paths(meson.current_source_dir(), 'prepare-docbuild.sh'),
-            'source_dir=' + meson.current_source_dir(),
-            'build_dir='  + join_paths(meson.current_build_dir(), 'publican_ws')
+            python_exe,
+            join_paths(meson.current_source_dir(), 'doc-build-helper.py'),
+            '--src=' + meson.current_source_dir(),
+            '--ws='  + meson.current_build_dir(),
+            '--out=' + meson.current_source_dir(),
+            'AppStream',
+            as_doc_version
         ]
     )
 
-    publican_target = custom_target('publican-publish',
-        output: 'doc_pub_invalid',
-        input: [as_doc_src],
-        depends: [doc_assemble_target],
-        command: [
-            publican_exe,
-            'build',
-            '--src_dir=' + join_paths(meson.current_build_dir(), 'publican_ws'),
-            '--pub_dir=../doc_pub',
-            '--langs=en-US',
-            '--publish',
-            '--formats=html'
-        ]
-    )
-
-    clear_docs_target = custom_target('clear-docs',
-        input: [as_doc_src],
-        output: 'doc_clear',
-        depends: [publican_target],
-        command: [
-            'rm',
-            '-rf',
-            join_paths(meson.current_source_dir(), 'html')
-        ]
-    )
-
-    move_docs_target = custom_target('move-docs',
-        input: [as_doc_src],
-        output: 'html',
-        depends: [publican_target, clear_docs_target],
-        command: [
-            'mv',
-            join_paths(meson.current_build_dir(), 'doc_pub', 'en-US', 'AppStream', as_doc_version, 'html', 'AppStream'),
-            join_paths(meson.current_source_dir(), 'html')
-        ]
-    )
-
-    run_target('documentation', depends: move_docs_target, command: 'true')
+    run_target('documentation', depends: make_docs_target, command: 'true')
 
     install_subdir('html', install_dir: as_doc_target_dir)
+else
+    if run_command('[', '-d', join_paths(meson.current_source_dir(), 'html'), ']').returncode() == 0
+        # install documentation, if it exists
+        install_subdir('html', install_dir: as_doc_target_dir)
+    endif
 endif
