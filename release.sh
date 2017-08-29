@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Create LibAppStream release tarball from version control system
+# Create AppStream release tarball from version control system
 #
 set -e
 OPTION_SPEC="version:,git-tag:,sign"
@@ -35,10 +35,29 @@ if [ "$GIT_TAG" = "" ]; then
  exit 1
 fi
 
+BUILD_DIR=$(pwd)/build/release/
+INSTALL_DIR=$(pwd)/build/release_install
+
 rm -rf ./release-tar-tmp
+rm -rf $BUILD_DIR
+rm -rf $INSTALL_DIR
+
+mkdir -p $BUILD_DIR
+cd $BUILD_DIR
+meson -Dmaintainer=true \
+	-Ddocumentation=true \
+	-Dqt=true \
+	-Dapt-support=true \
+	-Dvapi=true \
+	../..
+cd ../..
 
 # check if we can build AppStream
-make -C build clean all documentation
+ninja -C $BUILD_DIR
+ninja -C $BUILD_DIR documentation
+
+# fake install
+DESTDIR=$INSTALL_DIR ninja -C $BUILD_DIR install
 
 mkdir -p ./release-tar-tmp
 git archive --prefix="AppStream-$APPSTREAM_VERSION/" "$GIT_TAG^{tree}" | tar -x -C ./release-tar-tmp
@@ -46,8 +65,8 @@ git archive --prefix="AppStream-$APPSTREAM_VERSION/" "$GIT_TAG^{tree}" | tar -x 
 R_ROOT="./release-tar-tmp/AppStream-$APPSTREAM_VERSION"
 
 # add precompiled documentation to the release tarball
-rm -r $R_ROOT/docs
-cp -dpr ./docs $R_ROOT/docs
+rm -rf $R_ROOT/docs/html/
+cp -dpr ./docs/html/ $R_ROOT/docs
 
 # cleanup files which should not go to the release tarball
 find ./release-tar-tmp -name .gitignore -type f -delete
@@ -65,6 +84,10 @@ cd ..
 
 # cleanup
 rm -r ./release-tar-tmp
+rm -r $BUILD_DIR
+
+# NOTE: we do not remove INSTALL_DIR here, because we want to upload the documentation that was generated
+# during the install process from this directory, as part of the release process.
 
 # sign release, if flag is set
 if [ "$SIGN_RELEASE" = "1" ]; then
