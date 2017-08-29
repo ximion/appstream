@@ -35,7 +35,6 @@ cd .. && rm -rf build && mkdir build && cd build
 # FIXME: we can only use the address sanitizer at the moment, because Meson/g-ir-scanner is buggy
 # Add -Db_sanitize=address,undefined to try the full thing.
 meson -Dmaintainer=true \
-	-Ddocumentation=true \
 	-Dqt=true \
 	-Dapt-support=true \
 	-Dvapi=true \
