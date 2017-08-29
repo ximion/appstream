@@ -47,18 +47,6 @@ if get_option('maintainer')
                           '-Winline'],
                           language : 'c'
     )
-
-    if get_option('sanitizers')
-        sanitizer_libs = ['asan', 'ubsan']
-        add_global_arguments(['-fsanitize=address', '-fsanitize=undefined'], language: 'c')
-        add_global_link_arguments(['-lasan', '-lubsan'], language: 'c')
-
-        if ccompiler.get_id() == 'clang'
-            add_global_arguments(['-fno-sanitize-recover=undefined,integer'], language: 'c')
-        else
-            add_global_arguments(['-fno-sanitize-recover'], language: 'c')
-        endif
-    endif
 endif
 
 # a few compiler warning flags we always want enabled
