@@ -46,9 +46,10 @@ struct _AsLaunchableClass
 
 /**
  * AsLaunchableKind:
- * @AS_LAUNCHABLE_KIND_UNKNOWN:		Unknown kind
- * @AS_LAUNCHABLE_KIND_DESKTOP_ID:	Launch by desktop-id
- * @AS_LAUNCHABLE_KIND_SERVICE:		A systemd/SysV-init service name
+ * @AS_LAUNCHABLE_KIND_UNKNOWN:			Unknown kind
+ * @AS_LAUNCHABLE_KIND_DESKTOP_ID:		Launch by desktop-id
+ * @AS_LAUNCHABLE_KIND_SERVICE:			A systemd/SysV-init service name
+ * @AS_LAUNCHABLE_KIND_COCKPIT_MANIFEST:	A Cockpit manifest / package name
  *
  * Type of launch system the entries belong to.
  **/
@@ -56,6 +57,7 @@ typedef enum  {
 	AS_LAUNCHABLE_KIND_UNKNOWN,
 	AS_LAUNCHABLE_KIND_DESKTOP_ID,
 	AS_LAUNCHABLE_KIND_SERVICE,
+	AS_LAUNCHABLE_KIND_COCKPIT_MANIFEST,
 	/*< private >*/
 	AS_LAUNCHABLE_KIND_LAST
 } AsLaunchableKind;
