@@ -74,11 +74,7 @@ if get_option('documentation')
     publican_exe = find_program('publican')
     python_exe = find_program('python3')
 
-    make_docs_target = custom_target('make-docs',
-        input: ['publican.cfg',
-                as_doc_src],
-        output: ['html'],
-        command: [
+    build_docs_cmd = [
             python_exe,
             join_paths(meson.current_source_dir(), 'doc-build-helper.py'),
             '--src=' + meson.current_source_dir(),
@@ -87,9 +83,17 @@ if get_option('documentation')
             'AppStream',
             as_doc_version
         ]
+
+    make_docs_target = custom_target('make-docs',
+        input: ['publican.cfg',
+                as_doc_src],
+        output: ['docs_built.stamp'],
+        build_by_default: true,
+        command: build_docs_cmd
     )
 
-    run_target('documentation', depends: make_docs_target, command: 'true')
+    # helper if you only and always want to rebuild the docs
+    run_target('documentation', command: build_docs_cmd)
 
     install_subdir('html', install_dir: as_doc_target_dir)
 else

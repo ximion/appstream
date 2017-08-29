@@ -26,6 +26,7 @@ import os
 import argparse
 import subprocess
 import shutil
+from pathlib import Path
 
 
 parser = argparse.ArgumentParser()
@@ -69,6 +70,9 @@ def copy_result(project, version, ws_dir, out_dir):
 def main(args):
     options = parser.parse_args(args)
 
+    # some control over where Publican puts its tmp dir
+    os.chdir(options.ws)
+
     if not options.ws:
         print('You need to define a temporary workspace directory!')
         return 1
@@ -91,6 +95,9 @@ def main(args):
 
     # copy to output folder, overrding its contents
     copy_result(options.project, options.version, ws_dir, os.path.join(options.out, 'html'))
+
+    # make a dummy file so Meson can rebuild documentation on demand
+    Path(os.path.join(options.ws, 'docs_built.stamp')).touch()
 
     print('Documentation built.')
     return 0
