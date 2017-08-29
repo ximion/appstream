@@ -32,7 +32,7 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
 ### Dependencies
 
 #### Required
- * cmake
+ * Meson (>= 0.42)
  * glib2 (>= 2.46)
  * GObject-Introspection
  * libxml2
@@ -53,26 +53,26 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
 To compile AppStream, make sure that you have all required libraries (development files!) installed.
 Then continue (the build system will complain about missing dependencies).
 
-Use CMake to configure AppStream and build it with make:
+Use Meson to configure AppStream and build it with ninja:
 ```bash
 mkdir build
 cd build
-cmake <flags> ..
-make
-make test
+meson <flags> ..
+ninja
+ninja test
 ```
 Possible AppStream-specific flags are:  
- -DQT=ON              -- Build the Qt5 interface library.  
- -DVAPI=ON            -- Build Vala API to use library with the Vala programming language.  
- -DDOCUMENTATION=ON   -- (Re)generate API documentation.  
- -DMAINTAINER=ON      -- Enable strict compiler options - use this if you write a patch for AppStream.  
- -DSTEMMING=ON        -- Enable support for stemming in fulltext searches.  
- -DAPT_SUPPORT=ON     -- Enable integration with the APT package manager on Debian.
+ -Dqt=true              -- Build the Qt5 interface library (default: false)  
+ -Dvapi=true            -- Build Vala API to use library with the Vala programming language (default: false)  
+ -Ddocumentation=true   -- Build spec and API documentation, requires Publican (default: false)  
+ -Dmaintainer=true      -- Enable strict compiler options - use this if you write a patch for AppStream (default: false)  
+ -Dstemming=true        -- Enable support for stemming in fulltext searches (default: true)  
+ -Dapt-support=true     -- Enable integration with the APT package manager on Debian (default: false)
 
 ### Installation
 
 To install the compiled binaries and required data, execute
-`make install` with superuser permission.
+`ninja install` with superuser permission.
 
 ## Translators
 You can help translating AppStream via Weblate.
