@@ -1,3 +1,34 @@
+Version 0.11.4
+~~~~~~~~~~~~~~
+Released: 2017-08-30
+
+Notes:
+ * This release switches the build system from CMake to Meson. You will need
+   Meson (>= 0.42) in order to build AppStream. Please test for any regressions.
+
+Features:
+ * Implement Meson support (Matthias Klumpp)
+ * meson: Make build with sanitizers (partially) work again (Matthias Klumpp)
+ * meson: Add helper script for building documentation (Matthias Klumpp)
+ * docs: Always rebuild documentation on-demand (Matthias Klumpp)
+ * Update README for Meson (Matthias Klumpp)
+ * Implement cockpit-manifest launchable type (Matthias Klumpp)
+ * validator: Actually validate the type property of "launchable" tags (Matthias Klumpp)
+ * Allow to search the pool for components that provide a launchable (Matthias Klumpp)
+ * qt: Add new function to search components by launchable (Matthias Klumpp)
+
+Specification:
+ * spec: New "cockpit-manifest" launchable type (Marius Vollmer)
+
+Bugfixes:
+ * validator: Complain if a component has no ID (Matthias Klumpp)
+
+Translation:
+ * Chinese (Traditional)
+   - Chang-Chia Tseng
+ * Polish
+   - Piotr Drąg
+
 Version 0.11.3
 ~~~~~~~~~~~~~~
 Released: 2017-08-04
