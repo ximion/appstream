@@ -103,6 +103,8 @@ Q_OBJECT
 
         QList<AppStream::Component> componentsByCategories(const QStringList categories) const;
 
+        QList<AppStream::Component> componentsByLaunchable(Launchable::Kind kind, const QString& value) const;
+
         QList<AppStream::Component> search(const QString& term) const;
 
         void clearMetadataLocations();

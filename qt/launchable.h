@@ -37,7 +37,9 @@ class APPSTREAMQT_EXPORT Launchable {
     public:
         enum Kind {
             KindUnknown,
-            KindDesktopId
+            KindDesktopId,
+            KindService,
+            KindCockpitManifest
         };
         Q_ENUM(Kind)
 
