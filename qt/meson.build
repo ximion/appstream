@@ -66,7 +66,7 @@ appstreamqt_lib = library ('AppStreamQt',
     install: true
 )
 
-install_headers(asqt_pub_headers, subdir: 'appstream-qt')
+install_headers(asqt_pub_headers, subdir: 'AppStreamQt')
 
 subdir('tests/')
 
