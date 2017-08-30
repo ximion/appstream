@@ -27,8 +27,6 @@ custom_target('man-appstreamcli',
     ]
 )
 
-subdir('api/')
-
 #
 # Documentation
 #
@@ -71,8 +69,11 @@ as_doc_src = [
 ]
 
 if get_option('documentation')
+    find_program('gtkdoc-scan')
     publican_exe = find_program('publican')
     python_exe = find_program('python3')
+
+    subdir('api/')
 
     build_docs_cmd = [
             python_exe,
