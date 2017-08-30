@@ -2,10 +2,10 @@ AppStream Release Notes
 
 1. Write NEWS entries for AppStream in the same format as usual.
 
-git shortlog APPSTREAM_0_11_3.. | grep -i -v trivial | grep -v Merge > NEWS.new
+git shortlog APPSTREAM_0_11_4.. | grep -i -v trivial | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
-Version 0.11.4
+Version 0.11.5
 ~~~~~~~~~~~~~~
 Released: 2017-xx-xx
 
@@ -20,23 +20,23 @@ Bugfixes:
 Translation:
 --------------------------------------------------------------------------------
 
-2. Update library version if new ABI or API in CMakeLists.txt
+2. Update library version if new ABI or API in meson.build
 
 3. Commit changes in AppStream git:
 
-git commit -a -m "Release version 0.11.4"
-git tag -s -f -m "Release 0.11.4" APPSTREAM_0_11_4 <gpg password>
+git commit -a -m "Release version 0.11.5"
+git tag -s -f -m "Release 0.11.5" APPSTREAM_0_11_5 <gpg password>
 git push --tags
 git push
 
-4. run './release.sh --version=0.11.4 --git-tag=APPSTREAM_0_11_4 --sign'
+4. run './release.sh --version=0.11.5 --git-tag=APPSTREAM_0_11_5 --sign'
 
 5. Upload tarball: scp -r *.tar.xz* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases
 
-6. Make documentation and upload it:
-   make -C build documentation && scp -r docs/html/* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/docs
+6. Upload documentation:
+   scp -r build/release_install/usr/local/share/doc/appstream/html/* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/docs
 
-7. Do post release version bump in CMakeLists.txt, RELEASE
+7. Do post release version bump in meson.build, RELEASE
 
 8. Commit trivial changes:
 
@@ -46,7 +46,7 @@ git push
 9. Send an email to appstream@lists.freedesktop.org
 
 =================================================
-AppStream 0.11.4 released!
+AppStream 0.11.5 released!
 
 Tarballs available here: http://www.freedesktop.org/software/appstream/releases
 
