@@ -1155,7 +1155,7 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
  * @kind: An #AsProvidesKind
  * @item: The value of the provided item.
  *
- * Find components in the AppStream data pool whcih provide a certain item.
+ * Find components in the AppStream data pool which provide a certain item.
  *
  * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
@@ -1262,6 +1262,62 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 		for (i = 0; categories[i] != NULL; i++) {
 			if (as_component_has_category (cpt, categories[i]))
 				g_ptr_array_add (results, g_object_ref (cpt));
+		}
+	}
+
+	return results;
+}
+
+/**
+ * as_pool_get_components_by_launchable:
+ * @pool: An instance of #AsPool.
+ * @kind: An #AsLaunchableKind
+ * @id: The ID of the launchable.
+ *
+ * Find components in the AppStream data pool which provide a specific launchable.
+ * See #AsLaunchable for details on launchables, or refer to the AppStream specification.
+ *
+ * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ *
+ * Since: 0.11.4
+ */
+GPtrArray*
+as_pool_get_components_by_launchable (AsPool *pool,
+					      AsLaunchableKind kind,
+					      const gchar *id)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GHashTableIter iter;
+	gpointer value;
+	GPtrArray *results;
+
+	/* sanity check */
+	g_return_val_if_fail (id != NULL, NULL);
+
+	results = g_ptr_array_new_with_free_func (g_object_unref);
+	g_hash_table_iter_init (&iter, priv->cpt_table);
+	while (g_hash_table_iter_next (&iter, NULL, &value)) {
+		GPtrArray *launchables = NULL;
+		guint i;
+		AsComponent *cpt = AS_COMPONENT (value);
+
+		launchables = as_component_get_launchables (cpt);
+		for (i = 0; i < launchables->len; i++) {
+			guint j;
+			GPtrArray *entries;
+			AsLaunchable *launch = AS_LAUNCHABLE (g_ptr_array_index (launchables, i));
+
+			if (kind != AS_LAUNCHABLE_KIND_UNKNOWN) {
+				/* check if the kind matches. an unknown kind matches all provides types */
+				if (as_launchable_get_kind (launch) != kind)
+					continue;
+			}
+
+			entries = as_launchable_get_entries (launch);
+			for (j = 0; j < entries->len; j++) {
+				if (g_strcmp0 ((const gchar*) g_ptr_array_index (entries, j), id) == 0)
+					g_ptr_array_add (results, g_object_ref (cpt));
+			}
 		}
 	}
 

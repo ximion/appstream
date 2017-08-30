@@ -2215,6 +2215,16 @@ as_component_complete (AsComponent *cpt, gchar *scr_service_url, GPtrArray *icon
 	/* improve icon paths */
 	as_component_refine_icons (cpt, icon_paths);
 
+	/* "fake" a launchable entry for desktop-apps that failed to include one. This is used for legacy compatibility */
+	if ((priv->kind == AS_COMPONENT_KIND_DESKTOP_APP) && (priv->launchables->len <= 0)) {
+		if (g_str_has_suffix (priv->id, ".desktop")) {
+			g_autoptr(AsLaunchable) launchable = as_launchable_new ();
+			as_launchable_set_kind (launchable, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+			as_launchable_add_entry (launchable, priv->id);
+			as_component_add_launchable (cpt, launchable);
+		}
+	}
+
 	/* if there is no screenshot service URL, there is nothing left to do for us */
 	if (scr_service_url == NULL)
 		return;

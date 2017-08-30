@@ -383,6 +383,17 @@ test_pool_read ()
 			g_assert_cmpstr (as_component_get_id (cpt), ==, "org.inkscape.Inkscape");
 		}
 	}
+
+	/* test fetching components by launchable */
+	result = as_pool_get_components_by_launchable (dpool, AS_LAUNCHABLE_KIND_DESKTOP_ID, "linuxdcpp.desktop");
+	g_assert_cmpint (result->len, ==, 1);
+	g_ptr_array_unref (result);
+
+	result = as_pool_get_components_by_launchable (dpool, AS_LAUNCHABLE_KIND_DESKTOP_ID, "inkscape.desktop");
+	g_assert_cmpint (result->len, ==, 1);
+	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.inkscape.Inkscape");
+	g_ptr_array_unref (result);
 }
 
 /**

@@ -129,6 +129,9 @@ GPtrArray		*as_pool_get_components_by_kind (AsPool *pool,
 							 AsComponentKind kind);
 GPtrArray		*as_pool_get_components_by_categories (AsPool *pool,
 								gchar **categories);
+GPtrArray		*as_pool_get_components_by_launchable (AsPool *pool,
+							       AsLaunchableKind kind,
+							       const gchar *id);
 GPtrArray		*as_pool_search (AsPool *pool,
 					 const gchar *search);
 
