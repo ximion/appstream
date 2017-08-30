@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-08-21 03:21+0200\n"
+"POT-Creation-Date: 2017-08-30 19:46+0200\n"
 "PO-Revision-Date: 2017-02-15 09:40+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (China) <https://hosted.weblate.org/projects/"
@@ -84,7 +84,7 @@ msgstr "AppStream 状态："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
-#: src/as-pool.c:1504
+#: src/as-pool.c:1560
 #, fuzzy, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -108,7 +108,7 @@ msgid ""
 "software components."
 msgstr "AppStream 为一个跨散布版的规范，旨在提供软件组件的元数据。"
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1546
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 系统缓存已更新，但发现了一些问题：%s"
@@ -161,7 +161,7 @@ msgstr "棋盘"
 msgid "Bundle"
 msgstr "套件"
 
-#: src/as-pool.c:1430
+#: src/as-pool.c:1486
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s”不可写。"
@@ -741,7 +741,7 @@ msgstr "文本编辑器"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop 文件“%s”并不存在。"
 
-#: src/as-pool.c:1488
+#: src/as-pool.c:1544
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-08-21 03:21+0200\n"
+"POT-Creation-Date: 2017-08-30 19:46+0200\n"
 "PO-Revision-Date: 2017-07-03 19:10+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
@@ -81,7 +81,7 @@ msgstr "Статус AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
 
-#: src/as-pool.c:1504
+#: src/as-pool.c:1560
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -109,7 +109,7 @@ msgstr ""
 "AppStream — это кросс-платформенная спецификация предоставления метаданных о "
 "программных компонентах."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1546
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "Системный кэш AppStream обновлён, но найдены проблемы: %s"
@@ -162,7 +162,7 @@ msgstr "Настольные"
 msgid "Bundle"
 msgstr "Пакет"
 
-#: src/as-pool.c:1430
+#: src/as-pool.c:1486
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Кэш, расположенный в '%s', недоступен для записи."
@@ -755,7 +755,7 @@ msgstr "Текстовые редакторы"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop файл \"%s\" не существует."
 
-#: src/as-pool.c:1488
+#: src/as-pool.c:1544
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

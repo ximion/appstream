@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-08-21 03:21+0200\n"
+"POT-Creation-Date: 2017-08-30 19:46+0200\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Basque (http://www.transifex.com/freedesktop/appstream/"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "AppStream cache update completed successfully."
 msgstr ""
 
-#: src/as-pool.c:1504
+#: src/as-pool.c:1560
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -104,7 +104,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1546
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -157,7 +157,7 @@ msgstr ""
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1430
+#: src/as-pool.c:1486
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr ""
@@ -733,7 +733,7 @@ msgstr ""
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1488
+#: src/as-pool.c:1544
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

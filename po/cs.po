@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-08-21 03:21+0200\n"
+"POT-Creation-Date: 2017-08-30 19:46+0200\n"
 "PO-Revision-Date: 2017-07-22 19:13+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -81,7 +81,7 @@ msgstr "Stav nástroje AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
-#: src/as-pool.c:1504
+#: src/as-pool.c:1560
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -109,7 +109,7 @@ msgstr ""
 "AppStream je standard pro poskytování metadat o programovém vybavení, "
 "používaný napříč linuxovými distribucemi."
 
-#: src/as-pool.c:1490
+#: src/as-pool.c:1546
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -164,7 +164,7 @@ msgstr "Deskové"
 msgid "Bundle"
 msgstr "Zabaleno s"
 
-#: src/as-pool.c:1430
+#: src/as-pool.c:1486
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
@@ -751,7 +751,7 @@ msgstr "Textové editory"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Soubor .desktop pro „%s“ neexistuje."
 
-#: src/as-pool.c:1488
+#: src/as-pool.c:1544
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
