@@ -27,7 +27,9 @@ custom_target('man-appstreamcli',
     ]
 )
 
-subdir('api/')
+if get_option('enable-docs') or get_option('enable-apidocs')
+    subdir('api/')
+endif
 
 #
 # Documentation
