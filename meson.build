@@ -19,10 +19,10 @@ conf.set_quoted('GETTEXT_PACKAGE', 'appstream')
 conf.set_quoted('LOCALEDIR', get_option('localedir'))
 conf.set_quoted('LOCALSTATEDIR', get_option('localstatedir'))
 
-if get_option('apt-support')
+if get_option('enable-apt-support')
     conf.set('HAVE_APT_SUPPORT', 1)
 endif
-if get_option('stemming')
+if get_option('enable-stemming')
     conf.set('HAVE_STEMMING', 1)
 endif
 
@@ -32,7 +32,7 @@ configure_file(output: 'config.h', configuration: conf)
 # Custom C flags
 #
 sanitizer_libs = []
-if get_option('maintainer')
+if get_option('enable-maintainer')
     add_global_arguments(['-Werror',
                           '-Wall',
                           '-Wextra',
@@ -64,7 +64,7 @@ xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
 
 stemmer_inc_dirs = include_directories(['/usr/include'])
-if get_option('stemming')
+if get_option('enable-stemming')
     stemmer_lib = ccompiler.find_library('stemmer', required: true)
     if not ccompiler.has_header('libstemmer.h')
         if ccompiler.has_header('libstemmer/libstemmer.h')
@@ -92,6 +92,6 @@ subdir('contrib/')
 subdir('po/')
 subdir('docs/')
 subdir('tests/')
-if get_option('qt')
+if get_option('enable-qt')
     subdir('qt/')
 endif

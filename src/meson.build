@@ -88,7 +88,7 @@ aslib_res = glib.compile_resources (
 )
 
 aslib_deps = [glib_dep, xml2_dep, yaml_dep, gobject_dep, gio_unix_dep]
-if get_option ('stemming')
+if get_option ('enable-stemming')
     aslib_deps += [stemmer_lib]
 endif
 

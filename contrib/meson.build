@@ -1,8 +1,8 @@
 # Meson definition for AppStream contrib
 
-if get_option('vapi')
+if get_option('enable-vapi')
     subdir('vapi/')
 endif
-if get_option('apt-support')
+if get_option('enable-apt-support')
     subdir('apt-conf/')
 endif
