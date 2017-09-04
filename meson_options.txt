@@ -21,7 +21,7 @@ option('enable-docs',
 option('enable-apidocs',
        type : 'boolean',
        value : true,
-       description : 'Build API documentation (automatically enabled when --enable-docs is passed)'
+       description : 'Build API documentation (automatically enabled when "enable-docs" is passed)'
 )
 option('enable-apt-support',
        type : 'boolean',
