@@ -1,7 +1,7 @@
 project('AppStream', 'c',
   meson_version : '>=0.42',
   license : 'LGPL-2.1+ and GPL-2.0+',
-  version : '0.11.5',
+  version : '0.11.6',
 )
 
 ccompiler = meson.get_compiler('c')
