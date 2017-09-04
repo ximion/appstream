@@ -62,12 +62,12 @@ ninja
 ninja test
 ```
 Possible AppStream-specific flags are:  
- -Dqt=true              -- Build the Qt5 interface library (default: false)  
- -Dvapi=true            -- Build Vala API to use library with the Vala programming language (default: false)  
- -Ddocumentation=true   -- Build spec and API documentation, requires Publican (default: false)  
- -Dmaintainer=true      -- Enable strict compiler options - use this if you write a patch for AppStream (default: false)  
- -Dstemming=true        -- Enable support for stemming in fulltext searches (default: true)  
- -Dapt-support=true     -- Enable integration with the APT package manager on Debian (default: false)
+ -Denable-qt=true          -- Build the Qt interface library (default: false)  
+ -Denable-vapi=true        -- Build Vala API to use the library with the Vala programming language (default: false)  
+ -Denable-docs=true        -- Build specification and other documentation, requires Publican (default: false)  
+ -Denable-maintainer=true  -- Enable strict compiler options - use this if you write a patch for AppStream (default: false)  
+ -Denable-stemming=true    -- Enable support for stemming in fulltext searches (default: true)  
+ -Denable-apt-support=true -- Enable integration with the APT package manager on Debian (default: false)
 
 ### Installation
 
