@@ -27,7 +27,7 @@ custom_target('man-appstreamcli',
     ]
 )
 
-if get_option('enable-docs') or get_option('enable-apidocs')
+if get_option('docs') or get_option('apidocs')
     subdir('api/')
 endif
 
@@ -72,7 +72,7 @@ as_doc_src = [
     'sources/services/urlhandler.xml'
 ]
 
-if get_option('enable-docs')
+if get_option('docs')
     publican_exe = find_program('publican')
     python_exe = find_program('python3')
 

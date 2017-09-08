@@ -44,11 +44,11 @@ rm -rf $INSTALL_DIR
 
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
-meson -Denable-maintainer=true \
-      -Denable-docs=true \
-      -Denable-qt=true \
-      -Denable-apt-support=true \
-      -Denable-vapi=true \
+meson -Dmaintainer=true \
+      -Ddocs=true \
+      -Dqt=true \
+      -Dapt-support=true \
+      -Dvapi=true \
       ../..
 cd ../..
 

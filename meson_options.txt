@@ -1,29 +1,29 @@
-option('enable-stemming',
+option('stemming',
        type : 'boolean',
        value : true,
        description : 'Use stemming while searching. Requires Snowball (libstemmer)'
 )
-option('enable-vapi',
+option('vapi',
        type : 'boolean',
        value : false,
        description : 'Create and install a Vala API file'
 )
-option('enable-qt',
+option('qt',
        type : 'boolean',
        value : false,
        description : 'Build libappstream-qt'
 )
-option('enable-docs',
+option('docs',
        type : 'boolean',
        value : false,
        description : 'Build documentation for API and specification'
 )
-option('enable-apidocs',
+option('apidocs',
        type : 'boolean',
        value : true,
-       description : 'Build API documentation (automatically enabled when "enable-docs" is passed)'
+       description : 'Build API documentation (automatically enabled when "-Ddocs=true" is passed)'
 )
-option('enable-apt-support',
+option('apt-support',
        type : 'boolean',
        value : false,
        description : 'Enable integration with APT on Debian'
@@ -32,7 +32,7 @@ option('enable-apt-support',
 #
 # For development
 #
-option('enable-maintainer',
+option('maintainer',
        type : 'boolean',
        value : false,
        description : 'Enable maintainer mode (use strict compiler flags, e.g. -Werror)'
