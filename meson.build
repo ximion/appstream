@@ -33,24 +33,26 @@ configure_file(output: 'config.h', configuration: conf)
 #
 sanitizer_libs = []
 if get_option('maintainer')
-    add_global_arguments(['-Werror',
-                          '-Wall',
-                          '-Wextra',
-                          '-Wcast-align',
-                          '-Wno-uninitialized',
-                          '-Wempty-body',
-                          '-Wformat-security',
-                          '-Winit-self',
-                          '-Wnull-dereference',
-                          '-Wfloat-equal',
-                          #'-Wformat-signedness',
-                          '-Winline'],
-                          language : 'c'
-    )
+    maintainer_c_args = ['-Werror',
+                         '-Wall',
+                         '-Wextra',
+                         '-Wcast-align',
+                         '-Wno-uninitialized',
+                         '-Wempty-body',
+                         '-Wformat-security',
+                         '-Winit-self',
+                         '-Wnull-dereference',
+                         '-Wfloat-equal',
+                         #'-Wformat-signedness',
+                         '-Winline'
+    ]
+    add_global_arguments(maintainer_c_args, language: 'c')
+    add_global_arguments(maintainer_c_args, language: 'cpp')
 endif
 
 # a few compiler warning flags we always want enabled
 add_global_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
+add_global_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'cpp')
 add_global_arguments('-DAS_COMPILATION', language : 'c')
 
 #
