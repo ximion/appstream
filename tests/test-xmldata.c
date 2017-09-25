@@ -217,6 +217,7 @@ as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
 	g_autoptr(GError) error = NULL;
 
 	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
 	as_metadata_parse (metad, data, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
