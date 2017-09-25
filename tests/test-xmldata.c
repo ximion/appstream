@@ -29,53 +29,6 @@
 static gchar *datadir = NULL;
 
 /**
- * test_screenshot_handling:
- *
- * Test reading screenshot tags.
- */
-static void
-test_screenshot_handling ()
-{
-	AsMetadata *metad;
-	GError *error = NULL;
-	AsComponent *cpt;
-	GFile *file;
-	gchar *path;
-	GPtrArray *screenshots;
-	guint i;
-
-	metad = as_metadata_new ();
-	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
-
-	path = g_build_filename (datadir, "appstream-dxml.xml", NULL);
-	file = g_file_new_for_path (path);
-	g_free (path);
-
-	as_metadata_parse_file (metad, file, AS_FORMAT_KIND_XML, &error);
-	g_object_unref (file);
-	g_assert_no_error (error);
-
-	cpt = as_metadata_get_component (metad);
-	g_assert (cpt != NULL);
-
-	// dirty...
-	g_debug ("%s", as_component_to_string (cpt));
-	screenshots = as_component_get_screenshots (cpt);
-	g_assert_cmpint (screenshots->len, >, 0);
-
-	for (i = 0; i < screenshots->len; i++) {
-		GPtrArray *imgs;
-		AsScreenshot *sshot = (AsScreenshot*) g_ptr_array_index (screenshots, i);
-
-		imgs = as_screenshot_get_images (sshot);
-		g_assert_cmpint (imgs->len, ==, 2);
-		g_debug ("%s", as_screenshot_get_caption (sshot));
-	}
-
-	g_object_unref (metad);
-}
-
-/**
  * test_appstream_parser_legacy:
  *
  * Test parsing legacy metainfo files.
@@ -867,24 +820,24 @@ test_xml_write_content_rating (void)
 	g_assert (as_test_compare_lines (res, xmldata_content_rating));
 }
 
-static const gchar *xmldata_launch = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+static const gchar *xmldata_launchable = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 					"<component>\n"
 					"  <id>org.example.LaunchTest</id>\n"
 					"  <launchable type=\"desktop-id\">org.example.Test.desktop</launchable>\n"
 					"  <launchable type=\"desktop-id\">kde4-kool.desktop</launchable>\n"
 					"</component>\n";
 /**
- * test_xml_read_launch:
+ * test_xml_read_launchable:
  *
- * Test reading the launch tag.
+ * Test reading the "launchable" tag.
  */
 static void
-test_xml_read_launch (void)
+test_xml_read_launchable (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	AsLaunchable *launch;
 
-	cpt = as_xml_test_read_data (xmldata_launch, AS_FORMAT_STYLE_METAINFO);
+	cpt = as_xml_test_read_data (xmldata_launchable, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.LaunchTest");
 
 	launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
@@ -896,12 +849,12 @@ test_xml_read_launch (void)
 }
 
 /**
- * test_xml_write_launch:
+ * test_xml_write_launchable:
  *
- * Test writing the launch tag.
+ * Test writing the "launchable" tag.
  */
 static void
-test_xml_write_launch (void)
+test_xml_write_launchable (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(AsLaunchable) launch = NULL;
@@ -919,7 +872,7 @@ test_xml_write_launch (void)
 	as_component_add_launchable (cpt, launch);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_launch));
+	g_assert (as_test_compare_lines (res, xmldata_launchable));
 }
 
 /**
@@ -1037,6 +990,166 @@ test_appstream_write_metainfo_to_collection (void)
 	g_free (tmp);
 }
 
+
+static const gchar *xmldata_screenshots = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.ScreenshotTest</id>\n"
+					"  <screenshots>\n"
+					"    <screenshot type=\"default\">\n"
+					"      <caption xml:lang=\"de_DE\">Das Hauptfenster, welches irgendwas zeigt</caption>\n"
+					"      <caption>The main window displaying a thing</caption>\n"
+					"      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/alpha.png</image>\n"
+					"      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/alpha_small.png</image>\n"
+					"    </screenshot>\n"
+					"    <screenshot>\n"
+					"      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/beta.png</image>\n"
+					"      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/beta_small.png</image>\n"
+					"      <image type=\"source\" xml:lang=\"de_DE\">https://example.org/localized_de.png</image>\n"
+					"    </screenshot>\n"
+					"  </screenshots>\n"
+					"</component>\n";
+
+/**
+ * test_xml_read_screenshots:
+ *
+ * Test reading the "screenshots" tag.
+ */
+static void
+test_xml_read_screenshots (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	GPtrArray *screenshots;
+	AsScreenshot *scr1;
+	AsScreenshot *scr2;
+	GPtrArray *images;
+	AsImage *img;
+
+	cpt = as_xml_test_read_data (xmldata_screenshots, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotTest");
+
+	screenshots = as_component_get_screenshots (cpt);
+	g_assert_cmpint (screenshots->len, ==, 2);
+
+	scr1 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 0));
+	scr2 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 1));
+
+	/* screenshot 1 */
+	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
+	as_screenshot_set_active_locale (scr1, "C");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "The main window displaying a thing");
+	as_screenshot_set_active_locale (scr1, "de_DE");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "Das Hauptfenster, welches irgendwas zeigt");
+
+	images = as_screenshot_get_images_all (scr1);
+	g_assert_cmpint (images->len, ==, 2);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 1916);
+	g_assert_cmpint (as_image_get_height (img), ==, 1056);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 1));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_THUMBNAIL);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_small.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 800);
+	g_assert_cmpint (as_image_get_height (img), ==, 600);
+
+	/* screenshot 2 */
+	g_assert_cmpint (as_screenshot_get_kind (scr2), ==, AS_SCREENSHOT_KIND_EXTRA);
+	as_screenshot_set_active_locale (scr2, "C");
+	images = as_screenshot_get_images (scr2);
+	g_assert_cmpint (images->len, ==, 2);
+	as_screenshot_set_active_locale (scr2, "de_DE");
+	images = as_screenshot_get_images (scr2);
+	g_assert_cmpint (images->len, ==, 1);
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/localized_de.png");
+
+	images = as_screenshot_get_images_all (scr2);
+	g_assert_cmpint (images->len, ==, 3);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/beta.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 1916);
+	g_assert_cmpint (as_image_get_height (img), ==, 1056);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 1));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_THUMBNAIL);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/beta_small.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 800);
+	g_assert_cmpint (as_image_get_height (img), ==, 600);
+}
+
+/**
+ * test_xml_write_screenshots:
+ *
+ * Test writing the "screenshots" tag.
+ */
+static void
+test_xml_write_screenshots (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	g_autoptr(AsScreenshot) scr1 = NULL;
+	g_autoptr(AsScreenshot) scr2 = NULL;
+	AsImage *img;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.ScreenshotTest");
+
+	scr1 = as_screenshot_new ();
+	as_screenshot_set_kind (scr1, AS_SCREENSHOT_KIND_DEFAULT);
+	as_screenshot_set_caption (scr1, "The main window displaying a thing", "C");
+	as_screenshot_set_caption (scr1, "Das Hauptfenster, welches irgendwas zeigt", "de_DE");
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_width (img, 1916);
+	as_image_set_height (img, 1056);
+	as_image_set_url (img, "https://example.org/alpha.png");
+	as_screenshot_add_image (scr1, img);
+	g_object_unref (img);
+
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+	as_image_set_width (img, 800);
+	as_image_set_height (img, 600);
+	as_image_set_url (img, "https://example.org/alpha_small.png");
+	as_screenshot_add_image (scr1, img);
+	g_object_unref (img);
+
+	scr2 = as_screenshot_new ();
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_width (img, 1916);
+	as_image_set_height (img, 1056);
+	as_image_set_url (img, "https://example.org/beta.png");
+	as_screenshot_add_image (scr2, img);
+	g_object_unref (img);
+
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+	as_image_set_width (img, 800);
+	as_image_set_height (img, 600);
+	as_image_set_url (img, "https://example.org/beta_small.png");
+	as_screenshot_add_image (scr2, img);
+	g_object_unref (img);
+
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_locale (img, "de_DE");
+	as_image_set_url (img, "https://example.org/localized_de.png");
+	as_screenshot_add_image (scr2, img);
+	g_object_unref (img);
+
+	as_component_add_screenshot (cpt, scr1);
+	as_component_add_screenshot (cpt, scr2);
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_screenshots));
+}
+
 /**
  * main:
  */
@@ -1061,7 +1174,6 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
-	g_test_add_func ("/XML/Screenshots", test_screenshot_handling);
 	g_test_add_func ("/XML/LegacyData", test_appstream_parser_legacy);
 	g_test_add_func ("/XML/Read/ParserLocale", test_appstream_parser_locale);
 	g_test_add_func ("/XML/Write/WriterLocale", test_appstream_write_locale);
@@ -1084,8 +1196,11 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/ContentRating", test_xml_read_content_rating);
 	g_test_add_func ("/XML/Write/ContentRating", test_xml_write_content_rating);
 
-	g_test_add_func ("/XML/Read/Launchable", test_xml_read_launch);
-	g_test_add_func ("/XML/Write/Launchable", test_xml_write_launch);
+	g_test_add_func ("/XML/Read/Launchable", test_xml_read_launchable);
+	g_test_add_func ("/XML/Write/Launchable", test_xml_write_launchable);
+
+	g_test_add_func ("/XML/Read/Screenshots", test_xml_read_screenshots);
+	g_test_add_func ("/XML/Write/Screenshots", test_xml_write_screenshots);
 
 	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
 

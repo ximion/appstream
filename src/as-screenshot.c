@@ -109,6 +109,8 @@ as_screenshot_kind_from_string (const gchar *kind)
 		return AS_SCREENSHOT_KIND_DEFAULT;
 	if (g_strcmp0 (kind, "extra") == 0)
 		return AS_SCREENSHOT_KIND_EXTRA;
+	if ((g_strcmp0 (kind, "") == 0) || (kind == NULL))
+		return AS_SCREENSHOT_KIND_EXTRA;
 	return AS_SCREENSHOT_KIND_UNKNOWN;
 }
 

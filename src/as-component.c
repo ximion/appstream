@@ -3828,9 +3828,13 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	}
 
 	/* screenshots */
-	for (i = 0; i < priv->screenshots->len; i++) {
-		AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
-		as_screenshot_to_xml_node (scr, ctx, cnode);
+	if (priv->screenshots->len > 0) {
+		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "screenshots", NULL);
+
+		for (i = 0; i < priv->screenshots->len; i++) {
+			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
+			as_screenshot_to_xml_node (scr, ctx, rnode);
+		}
 	}
 
 	/* releases */
