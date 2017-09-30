@@ -577,6 +577,10 @@ as_screenshot_to_variant (AsScreenshot *screenshot, GVariantBuilder *builder)
 	GVariantBuilder images_b;
 	GVariantBuilder scr_b;
 
+	/* do not add screenshot without images to the cache */
+	if (priv->images->len == 0)
+		return;
+
 	g_variant_builder_init (&images_b, G_VARIANT_TYPE_ARRAY);
 	for (i = 0; i < priv->images->len; i++)
 		as_image_to_variant (AS_IMAGE (g_ptr_array_index (priv->images, i)), &images_b);
