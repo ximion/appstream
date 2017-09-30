@@ -32,12 +32,12 @@ DESTDIR=./install_root/ ninja install
 # FIXME: Doesn't work properly with Clang at time, so we only run this test with GCC.
 cd .. && rm -rf build && mkdir build && cd build
 
-# FIXME: we can only use the address sanitizer at the moment, because Meson/g-ir-scanner is buggy
+# FIXME: we can not build with sanitizers at the moment, because Meson/g-ir-scanner is buggy
 # Add -Db_sanitize=address,undefined to try the full thing.
-meson -Dmaintainer=true \
-      -Dqt=true \
-      -Dapt-support=true \
-      -Dvapi=true \
-      -Db_sanitize=address \
-	..
-if [ "$CC" != "clang" ]; then ninja -j4 && ninja test -v; fi
+#meson -Dmaintainer=true \
+#      -Dqt=true \
+#      -Dapt-support=true \
+#      -Dvapi=true \
+#      -Db_sanitize=address \
+#	..
+#if [ "$CC" != "clang" ]; then ninja -j4 && ninja test -v; fi
