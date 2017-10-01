@@ -117,20 +117,22 @@ pkgc.generate (
 
 install_headers(aslib_pub_headers, subdir: 'appstream')
 
-as_gir_typelib = glib.generate_gir (
-    appstream_lib,
-    sources: aslib_src + aslib_pub_headers,
-    nsversion: '1.0',
-    namespace: 'AppStream',
-    symbol_prefix: 'as',
-    identifier_prefix: 'As',
-    export_packages: 'appstream',
-    includes: [
-        'GObject-2.0',
-        'Gio-2.0'
-    ],
-    install: true
-)
+if get_option ('gir')
+    as_gir_typelib = glib.generate_gir (
+        appstream_lib,
+        sources: aslib_src + aslib_pub_headers,
+        nsversion: '1.0',
+        namespace: 'AppStream',
+        symbol_prefix: 'as',
+        identifier_prefix: 'As',
+        export_packages: 'appstream',
+        includes: [
+            'GObject-2.0',
+            'Gio-2.0'
+        ],
+        install: true
+    )
 
-as_gir = as_gir_typelib[0]
-as_typelib = as_gir_typelib[1]
+    as_gir = as_gir_typelib[0]
+    as_typelib = as_gir_typelib[1]
+endif

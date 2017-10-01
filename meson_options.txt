@@ -6,7 +6,7 @@ option('stemming',
 option('vapi',
        type : 'boolean',
        value : false,
-       description : 'Create and install a Vala API file'
+       description : 'Create and install a Vala API file. Requires "gir" to be enabled as well'
 )
 option('qt',
        type : 'boolean',
@@ -27,6 +27,11 @@ option('apt-support',
        type : 'boolean',
        value : false,
        description : 'Enable integration with APT on Debian'
+)
+option('gir',
+       type : 'boolean',
+       value : true,
+       description : 'Build introspection data'
 )
 
 #
