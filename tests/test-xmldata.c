@@ -1025,6 +1025,14 @@ test_xml_read_screenshots (void)
 	GPtrArray *images;
 	AsImage *img;
 
+	const gchar *xmldata_screenshot_legacy = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.ScreenshotAncient</id>\n"
+					"  <screenshots>\n"
+					"    <screenshot type=\"default\">https://example.org/alpha.png</screenshot>\n"
+					"  </screenshots>\n"
+					"</component>\n";
+
 	cpt = as_xml_test_read_data (xmldata_screenshots, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotTest");
 
@@ -1081,6 +1089,23 @@ test_xml_read_screenshots (void)
 	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/beta_small.png");
 	g_assert_cmpint (as_image_get_width (img), ==, 800);
 	g_assert_cmpint (as_image_get_height (img), ==, 600);
+
+	/* test a legacy screenshot entry that we briefly supported in an older AppStream release */
+	g_object_unref (cpt);
+	cpt = as_xml_test_read_data (xmldata_screenshot_legacy, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotAncient");
+
+	screenshots = as_component_get_screenshots (cpt);
+	g_assert_cmpint (screenshots->len, ==, 1);
+
+	scr1 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 0));
+	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
+	images = as_screenshot_get_images_all (scr1);
+	g_assert_cmpint (images->len, ==, 1);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha.png");
 }
 
 /**

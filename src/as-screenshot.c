@@ -398,6 +398,7 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot, AsContext *ctx, xmlNode *
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	xmlNode *iter;
 	g_autofree gchar *prop = NULL;
+	gboolean children_found = FALSE;
 
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
 	if (g_strcmp0 (prop, "default") == 0)
@@ -411,6 +412,7 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot, AsContext *ctx, xmlNode *
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 		node_name = (const gchar*) iter->name;
+		children_found = TRUE;
 
 		if (g_strcmp0 (node_name, "image") == 0) {
 			g_autoptr(AsImage) image = as_image_new ();
@@ -428,6 +430,19 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot, AsContext *ctx, xmlNode *
 			if (lang != NULL)
 				as_screenshot_set_caption (screenshot, content, lang);
 		}
+	}
+
+	if (!children_found) {
+		/* we are likely dealing with a legacy screenshot node, which does not have <image/> children,
+		 * but instead contains the screenshot URL as text. This was briefly supported in an older AppStream
+		 * version for metainfo files, but it should no longer be used.
+		 * We support it here only for legacy compatibility. */
+		g_autoptr(AsImage) image = as_image_new ();
+
+		if (as_image_load_from_xml (image, ctx, node, NULL))
+			as_screenshot_add_image (screenshot, image);
+		else
+			return FALSE; /* this screenshot is invalid */
 	}
 
 	/* propagate context - we do this last so the image list for the selected locale is rebuilt properly */
