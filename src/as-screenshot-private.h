@@ -48,7 +48,7 @@ void			as_screenshot_emit_yaml (AsScreenshot *screenshot,
 						 AsContext *ctx,
 						 yaml_emitter_t *emitter);
 
-void			as_screenshot_to_variant (AsScreenshot *screenshot,
+gboolean		as_screenshot_to_variant (AsScreenshot *screenshot,
 						  GVariantBuilder *builder);
 gboolean		as_screenshot_set_from_variant (AsScreenshot *screenshot,
 							GVariant *variant,

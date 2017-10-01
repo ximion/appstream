@@ -568,8 +568,10 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_
  *
  * Serialize the current active state of this object to a GVariant
  * for use in the on-disk binary cache.
+ *
+ * Returns: %TRUE if a screenhot was added to the @builder
  */
-void
+gboolean
 as_screenshot_to_variant (AsScreenshot *screenshot, GVariantBuilder *builder)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
@@ -579,7 +581,7 @@ as_screenshot_to_variant (AsScreenshot *screenshot, GVariantBuilder *builder)
 
 	/* do not add screenshot without images to the cache */
 	if (priv->images->len == 0)
-		return;
+		return FALSE;
 
 	g_variant_builder_init (&images_b, G_VARIANT_TYPE_ARRAY);
 	for (i = 0; i < priv->images->len; i++)
@@ -592,6 +594,7 @@ as_screenshot_to_variant (AsScreenshot *screenshot, GVariantBuilder *builder)
 
 	g_variant_builder_add_value (builder, g_variant_builder_end (&scr_b));
 
+	return TRUE;
 }
 
 /**

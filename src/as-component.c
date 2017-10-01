@@ -4987,14 +4987,17 @@ as_component_to_variant (AsComponent *cpt, GVariantBuilder *builder)
 	/* screenshots */
 	if (priv->screenshots->len > 0) {
 		GVariantBuilder array_b;
+		gboolean screenshot_added = FALSE;
 		g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
 		for (i = 0; i < priv->screenshots->len; i++) {
 			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
-			as_screenshot_to_variant (scr, &array_b);
+			if (as_screenshot_to_variant (scr, &array_b))
+				screenshot_added = TRUE;
 		}
 
-		as_variant_builder_add_kv (&cb, "screenshots",
-						g_variant_builder_end (&array_b));
+		if (screenshot_added)
+			as_variant_builder_add_kv (&cb, "screenshots",
+							g_variant_builder_end (&array_b));
 	}
 
 	/* releases */
