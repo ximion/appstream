@@ -586,6 +586,60 @@ as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
 }
 
 /**
+ * as_validator_check_screenshots:
+ *
+ * Validate a <screenshots/> tag.
+ **/
+static void
+as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsComponent *cpt)
+{
+	xmlNode *iter;
+	as_validator_check_children_quick (validator, node, "screenshot", cpt);
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		xmlNode *iter2;
+		gboolean image_found = FALSE;
+		gboolean caption_found = FALSE;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		for (iter2 = iter->children; iter2 != NULL; iter2 = iter->next) {
+			const gchar *node_name = (const gchar*) iter2->name;
+
+			if (iter2->type != XML_ELEMENT_NODE)
+				continue;
+
+			if (g_strcmp0 (node_name, "image") == 0)
+				image_found = TRUE;
+			else if (g_strcmp0 (node_name, "caption") == 0)
+				caption_found = TRUE;
+			else {
+				as_validator_add_issue (validator, iter2,
+							AS_ISSUE_IMPORTANCE_WARNING,
+							AS_ISSUE_KIND_TAG_UNKNOWN,
+							"Found tag '%s' in a screenshot. Only <cpation/> and <image/> tags are allowed.",
+							(const gchar*) iter2->name);
+			}
+		}
+
+		if (!image_found) {
+			as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_TAG_MISSING,
+						"The screenshot does not contain any images.");
+		}
+
+		if (!caption_found) {
+			as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_PEDANTIC,
+						AS_ISSUE_KIND_TAG_MISSING,
+						"The screenshot does not have a caption text.");
+		}
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
@@ -797,7 +851,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
-			as_validator_check_children_quick (validator, iter, "screenshot", cpt);
+			as_validator_check_screenshots (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_validate_project_license (validator, iter);
@@ -1058,13 +1112,6 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							AS_ISSUE_KIND_VALUE_ISSUE,
 							"The screenshot caption '%s' is too long (should be <= 80 characters)",
 							scr_caption);
-			}
-
-			if (as_screenshot_get_images (scr)->len <= 0) {
-				as_validator_add_issue (validator, NULL,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_TAG_MISSING,
-							"The component contains a screenshot without any images.");
 			}
 		}
 	}
