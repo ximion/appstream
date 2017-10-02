@@ -1,3 +1,27 @@
+Version 0.11.6
+~~~~~~~~~~~~~~
+Released: 2017-10-02
+
+Features:
+ * Improve screenshot validation (Matthias Klumpp)
+ * Allow to disable introspection (Matthias Klumpp)
+
+Bugfixes:
+ * Revert back to the old build option names (Matthias Klumpp)
+ * Apply maintainer flags equally to C++ and C (Matthias Klumpp)
+ * Explicitly set C/C++ standard versions (Matthias Klumpp)
+ * vapi: Include the right header (Matthias Klumpp)
+ * xml: Correctly write screenshots tag again (Matthias Klumpp)
+ * Do not cache a screenshot that doesn't have images (Matthias Klumpp)
+ * xml: Support legacy screenshot tags again (Matthias Klumpp)
+
+Translation:
+ * Swedish
+   - Anders Jonsson
+ * Portuguese (Brazil)
+   - Davi da Silva Böger
+   - Rafael Fontenelle
+
 Version 0.11.5
 ~~~~~~~~~~~~~~
 Released: 2017-09-04
