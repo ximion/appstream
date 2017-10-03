@@ -604,7 +604,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		for (iter2 = iter->children; iter2 != NULL; iter2 = iter->next) {
+		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 			const gchar *node_name = (const gchar*) iter2->name;
 
 			if (iter2->type != XML_ELEMENT_NODE)
