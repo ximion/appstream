@@ -130,6 +130,7 @@ if get_option ('gir')
             'GObject-2.0',
             'Gio-2.0'
         ],
+        extra_args: ['--c-include=appstream.h'],
         install: true
     )
 
