@@ -1814,15 +1814,17 @@ as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gb
 	gboolean dir_added = FALSE;
 	gchar *path;
 
-	if (!g_file_test (directory, G_FILE_TEST_IS_DIR))
+	if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
+		g_debug ("Not adding metadata location '%s': Is no directory", directory);
 		return;
+	}
 
 	/* metadata locations */
 	path = g_build_filename (directory, "xml", NULL);
 	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
 		g_ptr_array_add (priv->xml_dirs, path);
 		dir_added = TRUE;
-		g_debug ("Added %s to metadata search path.", path);
+		g_debug ("Added %s to XML metadata search path.", path);
 	} else {
 		g_free (path);
 	}
@@ -1831,7 +1833,7 @@ as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gb
 	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
 		g_ptr_array_add (priv->xml_dirs, path);
 		dir_added = TRUE;
-		g_debug ("Added %s to metadata search path.", path);
+		g_debug ("Added %s to XML metadata search path.", path);
 	} else {
 		g_free (path);
 	}
@@ -1840,7 +1842,7 @@ as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gb
 	if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
 		g_ptr_array_add (priv->yaml_dirs, path);
 		dir_added = TRUE;
-		g_debug ("Added %s to metadata search path.", path);
+		g_debug ("Added %s to YAML metadata search path.", path);
 	} else {
 		g_free (path);
 	}
@@ -1849,6 +1851,7 @@ as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gb
 		/* we didn't find metadata-specific directories, so let's watch to root path for both YAML and XML */
 		g_ptr_array_add (priv->xml_dirs, g_strdup (directory));
 		g_ptr_array_add (priv->yaml_dirs, g_strdup (directory));
+		g_debug ("Added %s to all metadata search paths.", directory);
 	}
 
 	/* icons */
