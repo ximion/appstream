@@ -46,6 +46,17 @@ Acquire::IndexTargets {
         KeepCompressedAs "gz";
         DefaultEnabled "false";
     };
+
+    # Even larger icons that are used on HiDPI displays.
+    deb::DEP-11-icons-large-hidpi {
+        MetaKey "$(COMPONENT)/dep11/icons-128x128@2.tar";
+        ShortDescription "icons-128x128@2";
+        Description "$(RELEASE)/$(COMPONENT) DEP-11 128x128@2 Icons";
+
+        KeepCompressed "true";
+        KeepCompressedAs "gz";
+        DefaultEnabled "false";
+    };
 };
 
 # Refresh AppStream cache when APT's cache is updated (i.e. apt update)
