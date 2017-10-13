@@ -283,8 +283,8 @@
 						This icon type may have <literal>width</literal> and <literal>height</literal> properties.
 					</para>
 					<para>
-						<literal>remote</literal> icons loaded from a remote URL. Currently, at least HTTP urls must be supported.
-						This icon type may have <literal>width</literal> and <literal>height</literal> properties.
+						<literal>remote</literal> icons loaded from a remote URL. Currently, only HTTP urls are supported.
+						This icon type should have <literal>width</literal> and <literal>height</literal> properties.
 					</para>
 					<para>
 						Examples of the different methods to specify an icon:
