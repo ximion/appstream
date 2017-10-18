@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-02 22:41+0200\n"
-"PO-Revision-Date: 2017-10-18 16:55+0000\n"
+"PO-Revision-Date: 2017-10-19 17:46+0000\n"
 "Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/appstream/translations/de/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: tools/appstream-cli.c:136
 #, c-format
 msgid "'%s' command"
-msgstr "Befehl »%s«"
+msgstr "Befehl „%s”"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -50,15 +50,15 @@ msgstr "Abenteuer"
 #. TRANSLATORS: ascli flag description for: --pedantic
 #: tools/appstream-cli.c:114
 msgid "Also print pedantic hints when validating."
-msgstr "Auch pedantische Hinweise bei der Validierung ausgeben."
+msgstr "Bei der Überprüfung auch pedantische Hinweise ausgeben."
 
 #: tools/appstream-cli.c:580
 msgid "An item type (e.g. lib, bin, python3, ...)"
-msgstr "Ein Eintragstyp (z.B. lib, bin, python3, ...)"
+msgstr "Ein Elementtyp (z.B. lib, bin, python3, ...)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr "Ein Werkzeug für AppStream Metadaten"
+msgstr "Ein Dienstprogramm zum Arbeiten mit AppStream-Metadaten"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -87,13 +87,15 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
-"AppStream Cache-Update ist fehlgeschlagen. Schalten Sie den \"verbose\" "
-"Modus ein, um detailliertere Informationen zu erhalten."
+"AppStream-Zwischenspeicheraktualisierung fehlgeschlagen. Aktivieren Sie den "
+"Ausführungsmodus, um detailliertere Fehlerinformationen zu erhalten."
 
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
 msgid "AppStream cache update is not necessary."
-msgstr "Aktualisierung des AppStream-Zwischenspeichers ist nicht nötig."
+msgstr ""
+"Zwischenspeicher wurde nicht aktualisiert, so dass das Aktualisierung nicht "
+"notwendig war."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -106,8 +108,8 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
-"AppStream ist eine distributionsunabhängige Spezifikation um Metadaten zu "
-"Softwarekomponenten bereitzustellen."
+"AppStream ist eine Distributionsübergreifende Spezifikation zur "
+"Bereitstellung von Metadaten über Softwarekomponenten."
 
 #: src/as-pool.c:1546
 #, c-format
@@ -167,7 +169,7 @@ msgstr "Bündel"
 #: src/as-pool.c:1486
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Zwischenspeicheradresse '%s' ist nicht schreibbar."
+msgstr "Zwischenspeicheradresse „%s” ist nicht beschreibbar."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -180,8 +182,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
-"Kann '%s' nicht kopieren: Datei hat keine '.metainfo.xml'- oder '.appdata."
-"xml''-Erweiterung."
+"„%1” konnte nicht kopiert werden: Datei besitzt keine „. metainfo.xml”- oder "
+"„.appdata.xml”-Dateiendung."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -216,7 +218,7 @@ msgstr "Codecs"
 #: tools/appstream-cli.c:715
 #, c-format
 msgid "Command '%s' is unknown."
-msgstr "Kommando '%s' ist unbekannt."
+msgstr "Unbekanntes Kommando „%s”"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
@@ -231,22 +233,22 @@ msgstr "Komponente"
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr "Komponente »%s« hat keinen Installationskandidaten."
+msgstr "Die Komponente „%s” besitzt keinen Installationskandidaten."
 
 #: tools/ascli-utils.c:364
 msgid "Compulsory for"
-msgstr "Obligatorisch für"
+msgstr "Verpflichtend für"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:595
 msgid "Convert collection XML to YAML or vice versa."
-msgstr "Sammlung-XML in YAML umwandeln oder umgekehrt."
+msgstr "Konvertiert XML-Sammlungen nach YAML und umgekehrt"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:225
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Es konnte keine Komponente gefunden werden, die »%s;%s« bereitstellt."
+msgstr "Es konnte keine Komponente gefunden werden, die „%s;%s” bereitstellt."
 
 #: tools/appstream-cli.c:596
 msgid ""
@@ -276,15 +278,15 @@ msgstr "Fehlerdiagnose"
 
 #: tools/ascli-utils.c:340
 msgid "Default Screenshot URL"
-msgstr "Adresse des Standard-Bildschirmfotos"
+msgstr "Standardadresse für Bildschirmfotos"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid ""
 "Default to the given metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
-"Das angegebene Metadaten-Format als Vorgabe verwenden (gültig sind »xml« und "
-"»yaml«)."
+"Vorgabe des angegebenen Metadatenformats (gültige Werte sind „xml” und "
+"„yaml”)."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -312,7 +314,7 @@ msgstr "Distributions-Metadaten:"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Do not use any caches when performing the request."
-msgstr "Beim Ausführen der Anfrage keine Zwischenspeicher verwenden."
+msgstr "Keinen Zwischenspeicher beim Ausführen des Anfrage verwenden."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:633
