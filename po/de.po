@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-02 22:41+0200\n"
-"PO-Revision-Date: 2017-01-22 18:00+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2017-10-18 16:55+0000\n"
+"Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
+"Language-Team: German "
+"<https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 2.17\n"
 
 #: tools/appstream-cli.c:136
 #, c-format
@@ -113,6 +113,8 @@ msgstr ""
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
+"AppStream-Systemzwischenspeicher wurde aktualisiert, aber es wurden Probleme "
+"gefunden: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -223,7 +225,7 @@ msgstr "Kommunikation und Nachrichten"
 
 #: src/as-provided.c:167
 msgid "Component"
-msgstr ""
+msgstr "Komponente"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -251,6 +253,8 @@ msgid ""
 "Create a template for a metainfo file (to be filed out by the upstream "
 "project)."
 msgstr ""
+"Erstellen Sie eine Vorlage für eine Metainfo-Datei (die vom vorgelagerten "
+"Projekt auszufüllen ist)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
@@ -756,6 +760,9 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"Der AppStream-Systemzwischenspeicher wurde aktualisiert, aber es wurden "
+"einige Fehler entdeckt, die zu fehlenden Metadaten führen könnten. Weitere "
+"Informationen finden Sie im ausführlichen Protokoll."
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -763,6 +770,8 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Der Software-Komponententyp „%s” ist in AppStream nicht gültig. Mögliche "
+"Werte sind:"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -771,6 +780,10 @@ msgid ""
 "example query for software providing a specific mimetype and installing it "
 "by its software component identifier."
 msgstr ""
+"Dieses Tool ermöglicht das Lesen, Schreiben, Überprüfen und Umwandeln von "
+"AppStream XML- oder YAML-Metadaten. Es erlaubt auch den Zugriff auf den "
+"System-Metadaten-Pool, z. B. Abfrage nach Software, die einen bestimmten "
+"Mimetyp liefert und Installation anhand der Softwarekomponentenkennung."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -801,12 +814,12 @@ msgstr "Komponente mit Kennung »%s« kann nicht gefunden werden!"
 #: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Die .desktop-Datei konnte nicht gelesen werden: %s"
 
 #: tools/ascli-actions-mdata.c:549
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "Nicht in der Lage, die Metainfo Vorlagendatei zu erstellen: %s"
+msgstr "Die Metainfo-Datei der Vorlage kann nicht gespeichert werden: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -824,6 +837,8 @@ msgstr ""
 msgid ""
 "Use the given .desktop file to fill in basic values in the metainfo file."
 msgstr ""
+"Verwenden Sie die angegebene .desktop-Datei, um Grundwerte in die Metainfo-"
+"Datei einzutragen."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -907,6 +922,8 @@ msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Um eine Vorlage zu erstellen, müssen Sie einen Softwarekomponententyp "
+"AppStream angeben. Mögliche Werte sind:"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:650
@@ -955,25 +972,25 @@ msgstr "app;anwendung;paket;programm;programme;suite;werkzeug"
 #: tools/ascli-actions-validate.c:181
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "Fehler: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:195
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "Informationen: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:202
 #, c-format
 msgid "pedantic: %lu"
-msgstr ""
+msgstr "Genau: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:188
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "Warnhinweise: %lu"
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "Aktualisierung des AppStream-Zwischenspeichers ist fehlgeschlagen."
