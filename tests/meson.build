@@ -88,3 +88,21 @@ test ('as-test_pool',
     args: as_test_args,
     env: as_test_env
 )
+
+# Validator
+as_test_validate_exe = executable ('as-test_validate',
+    ['test-validate.c',
+     as_test_common_src],
+    include_directories: [appstream_lib_inc,
+                          include_directories('..')],
+    dependencies: [glib_dep,
+                   gobject_dep,
+                   gio_dep,
+                   xml2_dep],
+    link_with: [appstream_lib],
+)
+test ('as-test_validate',
+    as_test_validate_exe,
+    args: as_test_args,
+    env: as_test_env
+)
