@@ -148,11 +148,11 @@
 		<listitem>
 			<para>
 				The <code>&lt;icon/&gt;</code> tag describes the component icon. It is mostly used for GUI applications (component-type <literal>desktop-application</literal>).
-				It can be of the type <literal>stock</literal>, <literal>local</literal>,
-				or <literal>url</literal>.
+				It can be of type <literal>stock</literal>, <literal>local</literal> or <literal>remote</literal>.
 			</para>
 			<para>
-				<literal>stock</literal> icons are loaded from stock. The icon name should never include any file-extension or path.
+				<literal>stock</literal> icons are loaded from the icon stock (the current or hicolor/locolor fallback themes).
+				The icon name must not include any file-extension or path.
 			</para>
 			<para>
 				<literal>local</literal> icons are loaded from a file in the filesystem.
@@ -161,7 +161,7 @@
                                 properties.
 			</para>
 			<para>
-				<literal>remote</literal> icons loaded from a remote URL. Currently, only HTTP urls are supported.
+				<literal>remote</literal> icons loaded from a remote URL. Currently, only HTTP/HTTPS urls are supported.
 				This icon type should have <literal>width</literal> and <literal>height</literal> properties.
 			</para>
 		</listitem>
