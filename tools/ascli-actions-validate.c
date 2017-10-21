@@ -128,7 +128,7 @@ process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *w
  * ascli_validate_file:
  **/
 static gboolean
-ascli_validate_file (gchar *fname, gboolean pedantic, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
+ascli_validate_file (gchar *fname, gboolean pedantic, gboolean use_net, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
 {
 	GFile *file;
 	gboolean ret;
@@ -145,6 +145,8 @@ ascli_validate_file (gchar *fname, gboolean pedantic, gulong *error_count, gulon
 	}
 
 	validator = as_validator_new ();
+	as_validator_set_check_urls (validator, use_net);
+
 	ret = as_validator_validate_file (validator, file);
 	if (!ret)
 		errors_found = TRUE;
@@ -208,7 +210,7 @@ ascli_validate_print_stats (gulong error_count, gulong warning_count, gulong inf
  * ascli_validate_files:
  */
 gint
-ascli_validate_files (gchar **argv, gint argc, gboolean pedantic)
+ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean use_net)
 {
 	gint i;
 	gboolean ret = TRUE;
@@ -226,6 +228,7 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic)
 		gboolean tmp_ret;
 		tmp_ret = ascli_validate_file (argv[i],
 						pedantic,
+						use_net,
 						&error_count,
 						&warning_count,
 						&info_count,
@@ -264,7 +267,7 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic)
  * ascli_validate_tree:
  */
 gint
-ascli_validate_tree (const gchar *root_dir, gboolean pedantic)
+ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean use_net)
 {
 	gboolean no_errors = TRUE;
 	AsValidator *validator;
@@ -280,6 +283,8 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic)
 	}
 
 	validator = as_validator_new ();
+	as_validator_set_check_urls (validator, use_net);
+
 	as_validator_validate_tree (validator, root_dir);
 	issues = as_validator_get_issues (validator);
 

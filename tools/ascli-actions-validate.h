@@ -27,10 +27,12 @@ G_BEGIN_DECLS
 
 gint			ascli_validate_files (gchar **argv,
 						gint argc,
-						gboolean pedantic);
+						gboolean pedantic,
+						gboolean use_net);
 
 gint			ascli_validate_tree (const gchar *root_dir,
-						gboolean pedantic);
+						gboolean pedantic,
+						gboolean use_net);
 
 G_END_DECLS
 

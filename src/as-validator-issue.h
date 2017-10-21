@@ -80,6 +80,7 @@ typedef enum {
  * @AS_ISSUE_KIND_FILE_MISSING:		A required file or other metadata was missing
  * @AS_ISSUE_KIND_WRONG_NAME:		The naming of an entity is wrong
  * @AS_ISSUE_KIND_READ_ERROR:		Reading of data failed
+ * @AS_ISSUE_KIND_REMOTE_ERROR:		Getting additional content from a remote location failed
  *
  * The issue type.
  **/
@@ -99,6 +100,7 @@ typedef enum {
 	AS_ISSUE_KIND_FILE_MISSING,
 	AS_ISSUE_KIND_WRONG_NAME,
 	AS_ISSUE_KIND_READ_ERROR,
+	AS_ISSUE_KIND_REMOTE_ERROR,
 	/*< private >*/
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;

@@ -56,6 +56,10 @@ gboolean	as_validator_validate_tree (AsValidator *validator,
 
 GList		*as_validator_get_issues (AsValidator *validator);
 
+gboolean	as_validator_get_check_urls (AsValidator *validator);
+void		as_validator_set_check_urls (AsValidator *validator,
+						gboolean value);
+
 G_END_DECLS
 
 #endif /* __AS_VALIDATOR_H */
