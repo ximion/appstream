@@ -560,7 +560,7 @@ as_client_run_new_template (char **argv, int argc)
 	/* TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows */
 	g_string_append_printf (desc_str, _("The TYPE must be a valid component-type, such as: %s"), "\n");
 	for (i = 1; i < AS_COMPONENT_KIND_LAST; i++)
-		g_string_append_printf (desc_str, _(" • %s\n"), as_component_kind_to_string (i));
+		g_string_append_printf (desc_str, " • %s\n", as_component_kind_to_string (i));
 
 	opt_context = as_client_new_subcommand_option_context (command, newtemplate_options);
 	g_option_context_set_description (opt_context, desc_str->str);

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-10-22 03:37+0200\n"
+"POT-Creation-Date: 2017-10-22 16:39+0200\n"
 "PO-Revision-Date: 2017-03-10 22:24+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
@@ -51,7 +51,7 @@ msgstr "Dàna-thuras"
 msgid "Also show pedantic hints."
 msgstr "Seall oidheaman beadaganach cuideachd leis an dearbhadh."
 
-#: tools/appstream-cli.c:588
+#: tools/appstream-cli.c:600
 msgid "An item type (e.g. lib, bin, python3, ...)"
 msgstr "Seòrsa de nì (can lib, bin, python3, …)"
 
@@ -64,7 +64,7 @@ msgid "AppStream CLI"
 msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:680
+#: tools/appstream-cli.c:692
 #, fuzzy, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -98,7 +98,7 @@ msgstr "Chan eil feum air ùrachadh an tasgadain aig AppStream."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:139 tools/appstream-cli.c:581
+#: tools/appstream-cli.c:139 tools/appstream-cli.c:593
 msgid "AppStream command-line interface"
 msgstr "Eadar-aghaidh loidhne-àithne AppStream"
 
@@ -118,7 +118,7 @@ msgstr ""
 "leis: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:677
+#: tools/appstream-cli.c:689
 #, fuzzy, c-format
 msgid "AppStream version: %s"
 msgstr "Tionndadh an inneil AppStream CLI: %s"
@@ -220,7 +220,7 @@ msgid "Codecs"
 msgstr "Codecs"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:728
+#: tools/appstream-cli.c:740
 #, c-format
 msgid "Command '%s' is unknown."
 msgstr "Chan aithne dhuinn an àithne “%s”."
@@ -245,7 +245,7 @@ msgid "Compulsory for"
 msgstr "Riatanach airson"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:603
+#: tools/appstream-cli.c:615
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Iompaich XML cruinneachaidh gu YAML no an caochladh."
 
@@ -255,7 +255,7 @@ msgstr "Iompaich XML cruinneachaidh gu YAML no an caochladh."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Cha do lorg sinn co-phàirt a sholaireas “%s::%s”."
 
-#: tools/appstream-cli.c:604
+#: tools/appstream-cli.c:616
 msgid ""
 "Create a template for a metainfo file (to be filed out by the upstream "
 "project)."
@@ -305,7 +305,7 @@ msgstr "Luchd-leasachaidh"
 msgid "Developer Tools"
 msgstr "Innealan luchd-leasachaidh"
 
-#: tools/appstream-cli.c:600
+#: tools/appstream-cli.c:612
 msgid "Display status information about available AppStream metadata."
 msgstr "Seall fiosrachadh staide mun mheata-dàta AppStream a tha ri fhaighinn."
 
@@ -325,11 +325,11 @@ msgid "Do not use network access."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:641
+#: tools/appstream-cli.c:653
 msgid "Don't show colored output."
 msgstr "Na seall às-chur dathte."
 
-#: tools/appstream-cli.c:591
+#: tools/appstream-cli.c:603
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Seall am meata-dàta XML amh airson co-phàirt a fhreagras ris an aithnichear."
@@ -447,11 +447,11 @@ msgstr "Chaidh %i co-phàirt(ean) a lorg."
 msgid "Games"
 msgstr "Geamannan"
 
-#: tools/appstream-cli.c:587
+#: tools/appstream-cli.c:599
 msgid "Get components which provide the given item."
 msgstr "Fhaigh na co-phàirtean a bheir an nì sònraichte dhut."
 
-#: tools/appstream-cli.c:586
+#: tools/appstream-cli.c:598
 msgid "Get information about a component by its ID."
 msgstr "Faigh fiosrachadh mu cho-phàirt a-rèir aithnicheir."
 
@@ -486,11 +486,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Tùsan ion-chuir"
 
-#: tools/appstream-cli.c:601
+#: tools/appstream-cli.c:613
 msgid "Install a metadata file into the right location."
 msgstr "Stàlaich faidhle meata-dàta gun ionad cheart."
 
-#: tools/appstream-cli.c:597
+#: tools/appstream-cli.c:609
 msgid "Install software matching the component-id."
 msgstr "Stàlaich bathar-bog a fhreagras ris an aithnichear co-phàirt."
 
@@ -653,11 +653,11 @@ msgstr "Python (Tionndadh 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:592
+#: tools/appstream-cli.c:604
 msgid "Rebuild the component metadata cache."
 msgstr "Ath-thog tasgadan meata-dàta nan co-phàirtean."
 
-#: tools/appstream-cli.c:598
+#: tools/appstream-cli.c:610
 msgid "Remove software matching the component-id."
 msgstr "Thoir air falbh bathar-bog a fhreagras ris an aithnichear co-phàirt."
 
@@ -671,7 +671,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Cluich mas-fhìor"
 
-#: tools/appstream-cli.c:181 tools/appstream-cli.c:659
+#: tools/appstream-cli.c:181 tools/appstream-cli.c:671
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -702,7 +702,7 @@ msgstr "Sganadh"
 msgid "Science"
 msgstr "Saidheans"
 
-#: tools/appstream-cli.c:585
+#: tools/appstream-cli.c:597
 msgid "Search the component database."
 msgstr "Lorg ann an stòr-dàta nan co-phàirtean."
 
@@ -712,12 +712,12 @@ msgid "Security"
 msgstr "Tèarainteachd"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:636
+#: tools/appstream-cli.c:648
 msgid "Show extra debugging information."
 msgstr "Seall fiosrachadh dì-bhugachaidh a bharrachd."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:630
+#: tools/appstream-cli.c:642
 msgid "Show the program version."
 msgstr "Seall an tionndadh dhen phrògram."
 
@@ -732,7 +732,7 @@ msgid "Strategy"
 msgstr "Ro-innleachd"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:583
+#: tools/appstream-cli.c:595
 msgid "Subcommands:"
 msgstr "Fo-àitheantan:"
 
@@ -775,6 +775,12 @@ msgstr ""
 "mhearachd no dhà a dh’adhbharaicheas gum bi meata-dàta a dhìth ma "
 "dh’fhaoidte. Thoir sùil air an loga bhriathrach airson barrachd fiosrachaidh."
 
+#. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
+#: tools/appstream-cli.c:561
+#, c-format
+msgid "The TYPE must be a valid component-type, such as: %s"
+msgstr ""
+
 #: tools/ascli-actions-mdata.c:446
 #, c-format
 msgid ""
@@ -783,6 +789,13 @@ msgid ""
 msgstr ""
 "Chan eil seòrsa “%s” a’ cho-phàirt bathair-bhog dligheach an an AppStream. "
 "Seo na luachan dligheach:"
+
+#. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
+#: tools/appstream-cli.c:558
+msgid ""
+"This command takes optional TYPE and FILE positional arguments, FILE being a "
+"file to write to (or \"-\" for standard output)."
+msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -847,7 +860,7 @@ msgstr ""
 "fhiosrachaidh a stàladh."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:551
+#: tools/appstream-cli.c:553
 msgid ""
 "Use the given .desktop file to fill in basic values in the metainfo file."
 msgstr ""
@@ -859,11 +872,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Goireasan"
 
-#: tools/appstream-cli.c:594
+#: tools/appstream-cli.c:606
 msgid "Validate AppStream XML files for issues."
 msgstr "Dearbhaich faidhlichean XML AppStream feuch a bheil duilgheadasan ann."
 
-#: tools/appstream-cli.c:595
+#: tools/appstream-cli.c:607
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Dearbhaich craobh fhaidhlichean aig aplacaid a chaidh a stàladh feuch a "
@@ -883,7 +896,7 @@ msgstr "Chaidh leis an dearbhadh."
 msgid "Validation was successful: %s"
 msgstr "Chaidh leis an dearbhadh: %s"
 
-#: tools/appstream-cli.c:589
+#: tools/appstream-cli.c:601
 msgid "Value of the item that should be found."
 msgstr "Luach an nì a bu choir lorg."
 
@@ -917,7 +930,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Pròiseasadh fhaclan"
 
-#: tools/appstream-cli.c:607
+#: tools/appstream-cli.c:619
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -939,7 +952,7 @@ msgstr ""
 "teamplaid a ghintinn. Seo na luachan dligheach:"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:658
+#: tools/appstream-cli.c:670
 msgid "You need to specify a command."
 msgstr "Feumaidh tu àithne a shònrachadh."
 
