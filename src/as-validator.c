@@ -950,11 +950,11 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			}
 
 			if (mode == AS_FORMAT_STYLE_METAINFO) {
-				if ((prop != NULL) && (g_strcmp0 (prop, "stock") != 0)) {
+				if ((prop != NULL) && (g_strcmp0 (prop, "stock") != 0) && (g_strcmp0 (prop, "remote") != 0)) {
 					as_validator_add_issue (validator, iter,
 								AS_ISSUE_IMPORTANCE_ERROR,
 								AS_ISSUE_KIND_VALUE_WRONG,
-								"Metainfo files may only contain 'stock' icons, icons of kind '%s' are not allowed.", prop);
+								"Metainfo files may only contain 'stock' or 'remote' icons, icons of kind '%s' are not allowed.", prop);
 				}
 			}
 			g_free (prop);
@@ -1136,6 +1136,31 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 					AS_ISSUE_IMPORTANCE_WARNING,
 					AS_ISSUE_KIND_TAG_MISSING,
 					"Type 'console-application' component, but no information about binaries in $PATH was provided via a provides/binary tag.");
+	}
+
+	/* validate webapp specific stuff */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_WEB_APP) {
+		AsLaunchable *launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_URL);
+		if (launch == NULL || as_launchable_get_entries (launch)->len == 0) {
+			as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"This 'web-application' component is missing a 'launchable' tag of type 'url'.");
+		}
+
+		if (as_component_get_icons (cpt)->len <= 0) {
+			as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"This 'web-application' component is missing a 'icon' tag to specify a valid icon.");
+		}
+
+		if (as_component_get_categories (cpt)->len <= 0) {
+			as_validator_add_issue (validator, NULL,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_TAG_MISSING,
+					"This 'web-application' component is missing categorizations. A 'categories' block is likely missing.");
+		}
 	}
 
 	/* validate font specific stuff */
