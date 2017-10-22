@@ -1,3 +1,52 @@
+Version 0.11.7
+~~~~~~~~~~~~~~
+Released: 2017-10-22
+
+Notes:
+ * The appstreamcli validation commands now use curl if it is available to check all
+   URLs in the metadata for existence.
+   If you don't want this behavior, pass "--nonet" to appstreamcli. There might also
+   be false positives (one is known with the KDE bugtracker) that need to be investigated,
+   so feedback on this new feature is welcome.
+
+Features:
+ * validator: Check all urls for validity (Matthias Klumpp)
+ * validator: Check web-application components for missing tags (Matthias Klumpp)
+ * Add API to retrieve the AppStream library version (Matthias Klumpp)
+ * apt: Allow fetching 128x128@2 HiDPI icons (Rico Tzschichholz)
+
+Specification:
+ * Add the "url" launchable type (Dimitrios Christidis)
+ * spec: Clarify some icon details in the collection data (Marius Vollmer)
+ * spec: Allow <icon> tags in generic components (Marius Vollmer)
+ * spec: Specify the web-application component type (Matthias Klumpp)
+
+Bugfixes:
+ * Fix endless loop when validating screenshots (Matthias Klumpp)
+ * ascli: Show a list of component-types when --help is passed to new-template (Matthias Klumpp)
+ * validator: Drop the wget fallback, making missing curl only an info (Matthias Klumpp)
+ * meson: Properly define header-file in gir (Rico Tzschichholz)
+
+Translation:
+ * Norwegian Bokmål [new!]
+   - Allan Nordhøy
+ * Swedish
+   - Anders Jonsson
+ * German
+   - Andreas Kleinert
+ * Chinese (Traditional)
+   - Chang-Chia Tseng
+ * Dutch
+   - Heimen Stoffels
+ * Italian
+   - Milo Casagrande
+ * Czech
+   - Pavel Borecki
+ * Polish
+   - Piotr Drąg
+ * Ukrainian
+   - Yuri Chornoivan
+
 Version 0.11.6
 ~~~~~~~~~~~~~~
 Released: 2017-10-02
