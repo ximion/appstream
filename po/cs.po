@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-22 16:39+0200\n"
-"PO-Revision-Date: 2017-07-22 19:13+0000\n"
+"PO-Revision-Date: 2017-10-22 16:42+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
-"translations/cs/>\n"
+"Language-Team: Czech "
+"<https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.16-dev\n"
+"X-Generator: Weblate 2.17\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -49,7 +49,6 @@ msgstr "Dobrodružství"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
-#, fuzzy
 msgid "Also show pedantic hints."
 msgstr "Při ověřování vypisovat i nalezené drobnosti."
 
@@ -67,11 +66,13 @@ msgstr "Textové uživatelské rozhraní pro AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:692
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
-msgstr "Verze nástroje AppStream pro textové uživatelské rozhraní: %s"
+msgstr ""
+"Verze nástroje AppStream pro textové uživatelské rozhraní: %s\n"
+"Verze knihovny AppStream: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -121,9 +122,9 @@ msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:689
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream version: %s"
-msgstr "Verze nástroje AppStream pro textové uživatelské rozhraní: %s"
+msgstr "Verze nástroje AppStream: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -326,7 +327,7 @@ msgstr "Při dotazování nepoužívat žádné mezipaměti."
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "Nepoužívat síť."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:653
@@ -779,7 +780,7 @@ msgstr ""
 #: tools/appstream-cli.c:561
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "Je třeba, aby TYPE (typ) byl platný typ komponenty, jako např.: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -795,6 +796,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Tento příkaz přijímá volitelné poziční parametry TYPE (typ) a FILE (soubor), "
+"kde FILE je soubor do kterého zapsat (nebo „-“ pro standardní výstup)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
