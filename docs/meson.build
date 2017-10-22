@@ -60,6 +60,7 @@ as_doc_src = [
     'sources/metainfo/localization.xml',
     'sources/metainfo/MetaInfo.xml',
     'sources/metainfo/service.xml',
+    'sources/metainfo/webapp.xml',
     'sources/Project_Desc.xml',
     'sources/quickstart/addons.xml',
     'sources/quickstart/desktop-apps.xml',
