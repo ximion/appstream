@@ -41,6 +41,8 @@ void		as_utils_sort_components_into_categories (GPtrArray *cpts,
 gint		as_utils_compare_versions (const gchar* a,
 					   const gchar *b);
 
+const gchar	*as_get_appstream_version (void);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_H */

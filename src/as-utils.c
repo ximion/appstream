@@ -52,6 +52,21 @@
  * as well.
  */
 
+
+/**
+ * as_get_appstream_version:
+ *
+ * Get the version of the AppStream library that is currently used
+ * as a string.
+ *
+ * Returns: The AppStream version.
+ */
+const gchar*
+as_get_appstream_version (void)
+{
+	return PACKAGE_VERSION;
+}
+
 /**
  * as_description_markup_convert_simple:
  * @markup: the text to copy.

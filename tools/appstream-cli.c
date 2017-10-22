@@ -672,8 +672,13 @@ as_client_run (char **argv, int argc)
 		return ret;
 
 	if (optn_show_version) {
-		/* TRANSLATORS: Output if appstreamcli --version is executed. */
-		ascli_print_stdout (_("AppStream CLI tool version: %s"), PACKAGE_VERSION);
+		if (g_strcmp0 (as_get_appstream_version (), PACKAGE_VERSION) == 0) {
+			/* TRANSLATORS: Output if appstreamcli --version is executed. */
+			ascli_print_stdout (_("AppStream version: %s"), PACKAGE_VERSION);
+		} else {
+			/* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
+			ascli_print_stdout (_("AppStream CLI tool version: %s\nAppStream library version: %s"), PACKAGE_VERSION, as_get_appstream_version ());
+		}
 		return 0;
 	}
 
