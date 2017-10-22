@@ -200,18 +200,18 @@ as_validator_clear_issues (AsValidator *validator)
 /**
  * as_validator_can_check_urls:
  *
- * Check whether we can validate URLs using wget ur curl.
+ * Check whether we can validate URLs using curl.
  */
 static gboolean
 as_validator_can_check_urls (AsValidator *validator)
 {
-	return g_file_test ("/usr/bin/wget", G_FILE_TEST_EXISTS) || g_file_test ("/usr/bin/curl", G_FILE_TEST_EXISTS);
+	return g_file_test ("/usr/bin/curl", G_FILE_TEST_EXISTS);
 }
 
 /**
  * as_validator_web_url_exists:
  *
- * Check if an URL exists using curl or wget.
+ * Check if an URL exists using curl.
  */
 static gboolean
 as_validator_web_url_exists (AsValidator *validator, const gchar *url)
@@ -219,7 +219,6 @@ as_validator_web_url_exists (AsValidator *validator, const gchar *url)
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	/* we use absolute paths here to avoid someone injecting malicious curl/wget into our environment */
 	const gchar *curl_bin = "/usr/bin/curl";
-	const gchar *wget_bin = "/usr/bin/wget";
 	gint exit_status = 0;
 
 	/* do nothing and assume the URL exists if we shouldn't check URLs */
@@ -236,23 +235,6 @@ as_validator_web_url_exists (AsValidator *validator, const gchar *url)
 		argv[5] = "--fail";
 		argv[6] = url;
 		argv[7] = NULL;
-		g_spawn_sync (NULL, /* wdir */
-				(gchar**) argv,
-				NULL, /* env */
-				G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL,
-				NULL, /* setup function */
-				NULL, /* user data */
-				NULL, /* stdin */
-				NULL, /* stderr */
-				&exit_status,
-				NULL);
-		return exit_status == 0;
-	} else if (g_file_test (wget_bin, G_FILE_TEST_EXISTS)) {
-		const gchar *argv[4];
-		argv[0] = wget_bin;
-		argv[1] = "--spider";
-		argv[2] = url;
-		argv[3] = NULL;
 		g_spawn_sync (NULL, /* wdir */
 				(gchar**) argv,
 				NULL, /* env */
@@ -1403,9 +1385,9 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 		/* cheap way to notify the user if we can't validate URLs */
 		if (!as_validator_can_check_urls (validator)) {
 			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_IMPORTANCE_INFO,
 						AS_ISSUE_KIND_UNKNOWN,
-						"Unable to find the wget or curl binary. remote URLs can not be checked for validity!");
+						"Unable to find the curl binary. remote URLs can not be checked for validity!");
 		}
 	}
 
@@ -1603,6 +1585,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 gboolean
 as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 {
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_autofree gchar *metainfo_dir = NULL;
 	g_autofree gchar *legacy_metainfo_dir = NULL;
 	g_autofree gchar *apps_dir = NULL;
@@ -1639,6 +1622,17 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 					AS_ISSUE_IMPORTANCE_PEDANTIC, /* pedantic because not everything which has metadata is an application */
 					AS_ISSUE_KIND_FILE_MISSING,
 					"No XDG applications directory found.");
+	}
+
+	/* if we validate URLs, check if curl or wget are installed */
+	if (priv->check_urls) {
+		/* cheap way to notify the user if we can't validate URLs */
+		if (!as_validator_can_check_urls (validator)) {
+			as_validator_add_issue (validator, NULL,
+						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_KIND_UNKNOWN,
+						"Unable to find the curl binary. remote URLs can not be checked for validity!");
+		}
 	}
 
 	/* holds a filename -> component mapping */
