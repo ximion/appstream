@@ -537,6 +537,8 @@ static int
 as_client_run_new_template (char **argv, int argc)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
+	g_autoptr(GString) desc_str = NULL;
+	guint i;
 	gint ret;
 	const gchar *command = "new-template";
 	const gchar *out_fname = NULL;
@@ -552,7 +554,17 @@ as_client_run_new_template (char **argv, int argc)
 		{ NULL }
 	};
 
+	/* TRANSLATORS: Additional help text for the 'new-template' ascli subcommand */
+	desc_str = g_string_new (_("This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."));
+	g_string_append (desc_str, "\n");
+	/* TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows */
+	g_string_append_printf (desc_str, _("The TYPE must be a valid component-type, such as: %s"), "\n");
+	for (i = 1; i < AS_COMPONENT_KIND_LAST; i++)
+		g_string_append_printf (desc_str, _(" • %s\n"), as_component_kind_to_string (i));
+
 	opt_context = as_client_new_subcommand_option_context (command, newtemplate_options);
+	g_option_context_set_description (opt_context, desc_str->str);
+
 	ret = as_client_option_context_parse (opt_context,
 					      command, &argc, &argv);
 	if (ret != 0)
