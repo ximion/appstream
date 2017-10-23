@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-22 16:39+0200\n"
-"PO-Revision-Date: 2017-10-22 17:19+0000\n"
+"PO-Revision-Date: 2017-10-23 00:02+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish "
 "<https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
@@ -323,7 +323,7 @@ msgstr "Använd inte cachar när begäran hanteras."
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "Använd inte nätverksåtkomst."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:653
@@ -776,7 +776,7 @@ msgstr ""
 #: tools/appstream-cli.c:561
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "TYP måste vara en giltig komponenttyp, så som: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -792,6 +792,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Detta kommando tar valfria positionsargument TYP och FIL, där FIL är en fil "
+"att skriva till (eller \"-\" för standard in)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
