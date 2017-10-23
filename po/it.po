@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-22 16:39+0200\n"
-"PO-Revision-Date: 2017-10-22 14:33+0000\n"
+"PO-Revision-Date: 2017-10-24 08:47+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -779,7 +779,7 @@ msgstr ""
 #: tools/appstream-cli.c:561
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "TIPO deve essere un tipo di componente valido, come %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -796,6 +796,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Questo comando accetta gli argomento opzionali TIPO e FILE, con FILE il file "
+"su cui scrivere (oppure \"-\" per lo standard output)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
