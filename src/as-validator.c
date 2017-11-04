@@ -226,15 +226,21 @@ as_validator_web_url_exists (AsValidator *validator, const gchar *url)
 		return TRUE;
 
 	if (g_file_test (curl_bin, G_FILE_TEST_EXISTS)) {
-		const gchar *argv[8];
+		/* Normally we would use the --head option of curl here to only fetch the server headers.
+		 * However, there is quite a bunch of unfriendly/misconfigured servers out there that simply
+		 * refuse to answer HEAD requests.
+		 * So, to be compatible with more stuff, we tell curl to attempt to fetch the first byte of the
+		 * document and report failure. We intentionally do not follow redirects. */
+		const gchar *argv[9];
 		argv[0] = curl_bin;
 		argv[1] = "--output";
 		argv[2] = "/dev/null";
 		argv[3] = "--silent";
-		argv[4] = "--head";
-		argv[5] = "--fail";
-		argv[6] = url;
-		argv[7] = NULL;
+		argv[4] = "--fail";
+		argv[5] = "-r";
+		argv[6] = "0-0";
+		argv[7] = url;
+		argv[8] = NULL;
 		g_spawn_sync (NULL, /* wdir */
 				(gchar**) argv,
 				NULL, /* env */
