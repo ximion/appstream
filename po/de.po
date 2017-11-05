@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-22 16:39+0200\n"
-"PO-Revision-Date: 2017-11-05 20:03+0000\n"
+"PO-Revision-Date: 2017-11-05 21:47+0000\n"
 "Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/appstream/translations/de/>\n"
@@ -29,7 +29,7 @@ msgstr "Befehl „%s”"
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "3D Grafik"
+msgstr "3D-Grafik"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -72,7 +72,7 @@ msgid ""
 "AppStream library version: %s"
 msgstr ""
 "AppStream-CLI-Werkzeugversion: %s\n"
-"AppStream Bibliothekenversion: %s"
+"AppStream-Bibliothekenversion: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -119,8 +119,8 @@ msgstr ""
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
-"AppStream-Systemzwischenspeicher wurde aktualisiert, aber es wurden Probleme "
-"gefunden: %s"
+"AppStream-Systemzwischenspeicher wurde aktualisiert, aber es wurden folgende "
+"Probleme gefunden: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:689
