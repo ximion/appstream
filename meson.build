@@ -67,6 +67,12 @@ gio_unix_dep = dependency('gio-unix-2.0', version : '>=2.46')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
 
+if get_option ('gir')
+    # ensure we have a version of GIR that isn't broken with Meson
+    # (prior versions failed when any non-GObject library was linked)
+    dependency('gobject-introspection-1.0', version: '>=1.54')
+endif
+
 stemmer_inc_dirs = include_directories(['/usr/include'])
 if get_option('stemming')
     stemmer_lib = ccompiler.find_library('stemmer', required: true)
