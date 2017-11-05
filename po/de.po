@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-22 16:39+0200\n"
-"PO-Revision-Date: 2017-11-04 00:26+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"PO-Revision-Date: 2017-11-05 20:03+0000\n"
+"Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
@@ -49,9 +49,8 @@ msgstr "Abenteuer"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
-#, fuzzy
 msgid "Also show pedantic hints."
-msgstr "Bei der Überprüfung auch pedantische Hinweise ausgeben."
+msgstr "Auch kleinste Hinweise anzeigen."
 
 #: tools/appstream-cli.c:600
 msgid "An item type (e.g. lib, bin, python3, ...)"
@@ -67,11 +66,13 @@ msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:692
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
-msgstr "AppStream-CLI-Werkzeugversion: %s"
+msgstr ""
+"AppStream-CLI-Werkzeugversion: %s\n"
+"AppStream Bibliothekenversion: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -123,9 +124,9 @@ msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:689
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream version: %s"
-msgstr "AppStream-CLI-Werkzeugversion: %s"
+msgstr "AppStream-Version: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -328,7 +329,7 @@ msgstr "Keinen Zwischenspeicher beim Ausführen des Anfrage verwenden."
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "Keinen Netzwerkzugriff verwenden."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:653
@@ -784,7 +785,7 @@ msgstr ""
 #: tools/appstream-cli.c:561
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "Der TYPE muss ein gültiger Komponententyp sein, Beispielsweise: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -801,6 +802,9 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Dieser Befehl verwendet optionale TYPE- und FILE-Positionsargumente, wobei "
+"FILE eine Datei ist, in die geschrieben werden muss (oder „-” für die "
+"Standardausgabe)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
