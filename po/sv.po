@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-22 16:39+0200\n"
-"PO-Revision-Date: 2017-10-23 00:02+0000\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
+"PO-Revision-Date: 2017-11-23 17:30+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Swedish "
 "<https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17\n"
+"X-Generator: Weblate 2.18-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -788,12 +788,13 @@ msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:558
+#, fuzzy
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
 "Detta kommando tar valfria positionsargument TYP och FIL, där FIL är en fil "
-"att skriva till (eller \"-\" för standard in)."
+"att skriva till (eller \"-\" för standard ur)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -805,7 +806,7 @@ msgstr ""
 "Det här verktyget möjliggör läsning, skrivning, validering och "
 "transformering av AppStream XML- eller YAML-metadata. Det ger också åtkomst "
 "till systemmetadatapoolen för att till exempel söka efter program som "
-"innehåller en specifik mimetyp och installera den med med dess "
+"innehåller en specifik MIME-typ och installera den med med dess "
 "programidentifierare."
 
 #: tools/ascli-actions-mdata.c:541
