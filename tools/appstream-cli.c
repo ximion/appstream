@@ -54,17 +54,17 @@ const GOptionEntry data_collection_options[] = {
 		G_OPTION_ARG_STRING,
 		&optn_cachepath,
 		/* TRANSLATORS: ascli flag description for: --cachepath */
-		N_("Manually set the location of the AppStream cache."), NULL },
+		N_("Manually selected location of AppStream cache."), NULL },
 	{ "datapath", 0, 0,
 		G_OPTION_ARG_STRING,
 		&optn_datapath,
 		/* TRANSLATORS: ascli flag description for: --datapath */
-		N_("Manually set the location of AppStream metadata to scan."), NULL },
+		N_("Manually selected location of AppStream metadata to scan."), NULL },
 	{ "no-cache", 0, 0,
 		G_OPTION_ARG_NONE,
 		&optn_no_cache,
 		/* TRANSLATORS: ascli flag description for: --no-cache */
-		N_("Do not use any caches when performing the request."),
+		N_("Make request without any caching."),
 		NULL },
 	{ NULL }
 };
@@ -80,7 +80,7 @@ const GOptionEntry format_options[] = {
 		G_OPTION_ARG_STRING,
 		&optn_format,
 		/* TRANSLATORS: ascli flag description for: --format */
-		N_("Default to the given metadata format (valid values are 'xml' and 'yaml')."), NULL },
+		N_("Default metadata format (valid values are 'xml' and 'yaml')."), NULL },
 	{ NULL }
 };
 
@@ -550,7 +550,7 @@ as_client_run_new_template (char **argv, int argc)
 			G_OPTION_ARG_STRING,
 			&optn_desktop_file,
 			/* TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand) */
-			N_("Use the given .desktop file to fill in basic values in the metainfo file."), NULL },
+			N_("Use the given .desktop file to fill in the basic values of the metainfo file."), NULL },
 		{ NULL }
 	};
 
@@ -597,7 +597,7 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "search TERM     ", _("Search the component database."));
 	g_string_append_printf (string, "  %s - %s\n", "get COMPONENT-ID", _("Get information about a component by its ID."));
 	g_string_append_printf (string, "  %s - %s\n", "what-provides TYPE VALUE", _("Get components which provide the given item."));
-	g_string_append_printf (string, "    %s - %s\n", "TYPE ", _("An item type (e.g. lib, bin, python3, ...)"));
+	g_string_append_printf (string, "    %s - %s\n", "TYPE ", _("An item type (e.g. lib, bin, python3, …)"));
 	g_string_append_printf (string, "    %s - %s\n", "VALUE", _("Value of the item that should be found."));
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "dump COMPONENT-ID", _("Dump raw XML metadata for a component matching the ID."));
@@ -606,14 +606,14 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "validate FILE          ", _("Validate AppStream XML files for issues."));
 	g_string_append_printf (string, "  %s - %s\n", "validate-tree DIRECTORY", _("Validate an installed file-tree of an application for valid metadata."));
 	g_string_append (string, "\n");
-	g_string_append_printf (string, "  %s - %s\n", "install COMPONENT-ID", _("Install software matching the component-id."));
-	g_string_append_printf (string, "  %s - %s\n", "remove  COMPONENT-ID", _("Remove software matching the component-id."));
+	g_string_append_printf (string, "  %s - %s\n", "install COMPONENT-ID", _("Install software matching the component-ID."));
+	g_string_append_printf (string, "  %s - %s\n", "remove  COMPONENT-ID", _("Remove software matching the component-ID."));
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "status           ", _("Display status information about available AppStream metadata."));
 	g_string_append_printf (string, "  %s - %s\n", "put FILE         ", _("Install a metadata file into the right location."));
 	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
 	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
-	g_string_append_printf (string, "  %s - %s\n", "new-template TYPE FILE", _("Create a template for a metainfo file (to be filed out by the upstream project)."));
+	g_string_append_printf (string, "  %s - %s\n", "new-template TYPE FILE", _("Create a template for a metainfo file (to be filled out by the upstream project)."));
 
 	g_string_append (string, "\n");
 	g_string_append (string, _("You can find information about subcommand-specific options by passing \"--help\" to the subcommand."));
@@ -650,7 +650,7 @@ as_client_run (char **argv, int argc)
 		{ "no-color", (gchar) 0, 0,
 			G_OPTION_ARG_NONE, &optn_no_color,
 			/* TRANSLATORS: ascli flag description for: --no-color */
-			_("Don't show colored output."), NULL },
+			_("Don\'t show colored output."), NULL },
 		{ NULL }
 	};
 
@@ -737,7 +737,7 @@ as_client_run (char **argv, int argc)
 		return as_client_run_new_template (argv, argc);
 	} else {
 		/* TRANSLATORS: ascli has been run with unknown command. */
-		ascli_print_stderr (_("Command '%s' is unknown."), command);
+		ascli_print_stderr (_("Unknown command '%s'."), command);
 		return 1;
 	}
 }
