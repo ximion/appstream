@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2017-10-22 16:39+0200\n"
-"PO-Revision-Date: 2017-11-24 05:48+0000\n"
+"PO-Revision-Date: 2017-12-18 00:49+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål "
 "<https://hosted.weblate.org/projects/appstream/translations/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 2.18\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -84,12 +84,12 @@ msgid "AppStream cache update completed successfully."
 msgstr "Metadata i AppStream-hurtiglager oppdatert."
 
 #: src/as-pool.c:1560
-#, c-format, fuzzy
+#, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
-"Oppdatering av AppStream-hurtiglager mislytes. Skru på ordrikt modus for å "
+"Oppdatering av AppStream-hurtiglager mislyktes. Skru på ordrikt modus for å "
 "få mer detaljert feilinformasjon."
 
 #. cache wasn't updated, so the update wasn't necessary
