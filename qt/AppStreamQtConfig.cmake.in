@@ -1,5 +1,0 @@
-@PACKAGE_INIT@
-
-check_required_components(Qt5Core)
-
-include("${CMAKE_CURRENT_LIST_DIR}/AppStreamQtTargets.cmake")
