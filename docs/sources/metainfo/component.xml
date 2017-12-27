@@ -368,7 +368,7 @@
 				The <literal>date</literal> property can have any time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> format as its value and
 				should be present for every release.
 				The <literal>timestamp</literal> tag contains the release time in the form of a UNIX epoch. This tag should not be used in metainfo files in newly
-				written metadata, but will still be parsed in case it is present. The the <literal>timestamp</literal> property is mainly used in generated distro-metadata.
+				written metadata, but will still be parsed in case it is present. The <literal>timestamp</literal> property is mainly used in generated distro-metadata.
 				In case both release-time tags are present, the <literal>timestamp</literal> tag will take precedence over <literal>date</literal>.
 			</para>
 			<para>
