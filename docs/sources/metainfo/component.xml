@@ -387,6 +387,22 @@
 				The urgency defines how the update will be presented to the user, and sometimes if it will be installed automatically and immediately, or delayed.
 			</para>
 			<para>
+				Finally a <literal>release</literal> tag may have a <literal>type</literal> property
+				to classify releases with one of the following values:
+			</para>
+			<itemizedlist>
+				<listitem><para><literal>stable</literal></para></listitem>
+				<listitem><para><literal>development</literal></para></listitem>
+				<listitem><para><literal>RC</literal></para></listitem>
+			</itemizedlist>
+			<para>
+				By default, if no release type is defined, <code>stable</code> is assumed.
+				A software displaying a listing of releases should only show stable releases and
+				discard any development or release candidate releases if the current version is
+				itself stable. It can show all versions when development or release candidates are
+				also distributed.
+			</para>
+			<para>
 				Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
 				The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>.
 			</para>
@@ -405,6 +421,7 @@
     <size type="download">12345678</size>
     <size type="installed">42424242</size>
   </release>
+  <release version="1.1" type="development" date="2013-10-20" />
   <release version="1.0" date="2012-08-26" />
 </releases>]]></programlisting>
 		</listitem>
