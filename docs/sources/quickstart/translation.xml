@@ -31,12 +31,34 @@
 		</para>
 		<para>
 			Each translatable element in the <filename>.xml.in</filename> file needs to be prefixed with an underscore (<code>_</code>) to be marked as translatable.
-			Apart from that, the same specifications apply to this file as for any other AppStream metadata.
+			This should include the <code>name</code>,  <code>summary</code>, and <code>caption</code> tags, as well as each paragraph in the
+			<code>description</code>. Apart from that, the same specifications apply to this file as for any other AppStream metadata.
 		</para>
 
 		<para>
-			TODO: Fill in some generic examples how Intltool can be used.
+			To translate the appstream data, first add the <filename>.xml.in</filename> file to <filename>po/POTFILES.in</filename>, along with any other
+			translatable files. Then create the translation template file <filename>&lt;package name&gt;.pot</filename>.
 		</para>
+
+		<programlisting language="Bash"><![CDATA[cd po; intltool-update --pot --gettext-package=<package name>]]></programlisting>
+
+		<para>
+			For each supported language, copy the template file to <filename>po/&lt;language&gt;-[&lt;COUNTRY&gt;].po</filename>, where
+			<filename>po/&lt;language&gt;</filename> and the optional <filename>po/&lt;COUNTRY&gt;</filename> are standard two-letter codes.
+			Edit the file to add translated strings.
+		</para>
+
+		<para>
+			As the translatable content is updated, recreate the template file, and update the <filename>.po</filename> files.
+		</para>
+
+		<programlisting language="Bash"><![CDATA[cd po; intltool-update --dist --gettext-package=<package name> <language>]]></programlisting>
+
+		<para>
+			Create the translated <filename>.xml</filename> with the following command.
+		</para>
+
+		<programlisting language="Bash"><![CDATA[intltool-merge -u -c ./po/.intltool-merge-cache ./po -x <file>.xml.in <file>.xml]]></programlisting>
 
 		<section id="qsr-l10n-intltool-autotools">
 			<title>Integrating with Autotools (the AppStream way)</title>
