@@ -393,14 +393,12 @@
 			<itemizedlist>
 				<listitem><para><literal>stable</literal></para></listitem>
 				<listitem><para><literal>development</literal></para></listitem>
-				<listitem><para><literal>RC</literal></para></listitem>
 			</itemizedlist>
 			<para>
 				By default, if no release type is defined, <code>stable</code> is assumed.
 				A software displaying a listing of releases should only show stable releases and
-				discard any development or release candidate releases if the current version is
-				itself stable. It can show all versions when development or release candidates are
-				also distributed.
+				discard any development release if the current version is itself stable. It can
+				show all versions when development versions of the software are also distributed.
 			</para>
 			<para>
 				Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
