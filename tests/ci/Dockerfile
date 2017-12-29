@@ -1,7 +1,7 @@
 #
 # Docker file for AppStream CI tests
 #
-FROM debian:sid
+FROM debian:testing
 
 # prepare
 RUN apt-get update -qq
