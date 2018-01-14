@@ -70,9 +70,9 @@ static void as_distro_details_set_version (AsDistroDetails *distro, const gchar 
 static void
 as_distro_details_init (AsDistroDetails *distro)
 {
-	GFile* f = NULL;
+	g_autoptr(GFile) f = NULL;
+	g_autoptr(GError) error = NULL;
 	gchar *line;
-	GError *error = NULL;
 	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
 
 	as_distro_details_set_id (distro, "unknown");
@@ -86,26 +86,23 @@ as_distro_details_init (AsDistroDetails *distro)
 	/* get details about the distribution we are running on */
 	f = g_file_new_for_path ("/etc/os-release");
 	if (g_file_query_exists (f, NULL)) {
-		GDataInputStream *dis;
-		GFileInputStream *fis;
+		g_autoptr(GDataInputStream) dis = NULL;
+		g_autoptr(GFileInputStream) fis = NULL;
 
 		fis = g_file_read (f, NULL, &error);
 		if (error != NULL)
-			goto out;
+			return;
 		dis = g_data_input_stream_new ((GInputStream*) fis);
-		g_object_unref (fis);
 
 		while ((line = g_data_input_stream_read_line (dis, NULL, NULL, &error)) != NULL) {
-			gchar **data;
+			g_auto(GStrv) data = NULL;
 			gchar *dvalue;
 			if (error != NULL) {
-				g_object_unref (dis);
-				goto out;
+				return;
 			}
 
 			data = g_strsplit (line, "=", 2);
 			if (g_strv_length (data) != 2) {
-				g_strfreev (data);
 				g_free (line);
 				continue;
 			}
@@ -128,11 +125,6 @@ as_distro_details_init (AsDistroDetails *distro)
 			g_free (line);
 		}
 	}
-
-out:
-	if (error != NULL)
-		g_error_free (error);
-	g_object_unref (f);
 }
 
 /**
