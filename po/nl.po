@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:20+0100\n"
-"PO-Revision-Date: 2017-10-22 15:53+0000\n"
+"PO-Revision-Date: 2018-01-14 10:43+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
-"translations/nl/>\n"
+"Language-Team: Dutch "
+"<https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -51,7 +51,6 @@ msgid "Also show pedantic hints."
 msgstr "Ook pedante tips weergeven."
 
 #: tools/appstream-cli.c:600
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Een item-type (bijv. lib, bin, python3, ...)"
 
@@ -251,7 +250,6 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Het onderdeel dat '%s::%s' bevat kan niet worden gevonden."
 
 #: tools/appstream-cli.c:616
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -283,7 +281,6 @@ msgstr "Standaard schermafbeelding-URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en "
@@ -486,7 +483,6 @@ msgid "Install a metadata file into the right location."
 msgstr "Installeer een metagegevensbestand in de juiste locatie."
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "Installeer software die overeen komt met de onderdeel-id."
 
@@ -532,17 +528,15 @@ msgstr "Logisch"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Verzoek doen zonder te cachen."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
 msgstr "Handmatig de locatie instellen van de AppStream-cache."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Handmatig de locatie instellen van te scannen AppStream-metagegevens."
 
@@ -610,7 +604,6 @@ msgstr ""
 "\" (onderdeel van PackageKit) beschikbaar is."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
 msgstr "Geen waarde voor het te zoeken item opgegeven."
 
@@ -661,7 +654,6 @@ msgid "Rebuild the component metadata cache."
 msgstr "Herbouw de onderdeelmetagegevens-cache."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Verwijder software die overeenkomt met de onderdeel-id."
 
@@ -804,7 +796,6 @@ msgstr ""
 "bestand waarnaar moet worden weggeschreven (of \"-\" voor standaard uitvoer)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
@@ -869,11 +860,10 @@ msgstr ""
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Onbekende opdracht '%s'."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
