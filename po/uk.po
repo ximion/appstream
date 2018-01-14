@@ -7,17 +7,17 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:20+0100\n"
-"PO-Revision-Date: 2017-10-22 15:22+0000\n"
+"PO-Revision-Date: 2018-01-14 09:47+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian "
+"<https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.17\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -51,7 +51,6 @@ msgid "Also show pedantic hints."
 msgstr "Також виводити підказки щодо найдрібніших неточностей."
 
 #: tools/appstream-cli.c:600
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Тип запису (наприклад lib, bin, python3, ...)"
 
@@ -250,7 +249,6 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Не вдалося знайти компонент, що містить «%s::%s»."
 
 #: tools/appstream-cli.c:616
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -281,7 +279,6 @@ msgstr "Адреса типового знімка вікна"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Типовий формат метаданих (коректними є значення «xml» і «yaml»)."
 
@@ -481,7 +478,6 @@ msgid "Install a metadata file into the right location."
 msgstr "Встановити файл метаданих у належному місці."
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
 msgstr ""
 "Встановити програмне забезпечення, що відповідає ідентифікатору компонента."
@@ -527,17 +523,15 @@ msgstr "Логічні ігри"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Виконати запит без будь-якого кешування."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
 msgstr "Встановити вручну розташування кешу AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Встановити вручну розташування метаданих AppStream для сканування."
 
@@ -605,7 +599,6 @@ msgstr ""
 "ласка, встановіть, наприклад, «pkcon» (частину PackageKit)."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
 msgstr "Не визначено значення запису, яке слід знайти."
 
@@ -656,7 +649,6 @@ msgid "Rebuild the component metadata cache."
 msgstr "Перебудувати кеш метаданих щодо компонентів."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Вилучити програмне забезпечення, вказане ідентифікатором компонента."
 
@@ -800,7 +792,6 @@ msgstr ""
 "вивести до стандартного виведення)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
@@ -865,16 +856,15 @@ msgstr ""
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Невідома команда «%s»."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
-"Використовувати вказаний файл .desktop для заповнення основних пунктів у "
-"файлі метаінформації."
+"Використати вказаний файл .desktop для заповнення основних пунктів у файлі "
+"метаінформації."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
