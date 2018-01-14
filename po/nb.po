@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-14 04:01+0100\n"
+"POT-Creation-Date: 2018-01-14 04:20+0100\n"
 "PO-Revision-Date: 2018-01-14 03:08+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: Norwegian Bokmål "
-"<https://hosted.weblate.org/projects/appstream/translations/nb/>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
+"appstream/translations/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +64,8 @@ msgstr "Kommandolinjegrensesnitt for AppStream"
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:692
 #, c-format
-msgid "AppStream CLI tool version: %s\n"
+msgid ""
+"AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
 "Versjon av kommandolinjegrensesnitt for AppStream: %s\n"
@@ -83,7 +84,9 @@ msgstr "Metadata i AppStream-hurtiglager oppdatert."
 
 #: src/as-pool.c:1560
 #, c-format
-msgid "AppStream cache update failed. Turn on verbose mode to get more detailed issue information."
+msgid ""
+"AppStream cache update failed. Turn on verbose mode to get more detailed "
+"issue information."
 msgstr ""
 "Oppdatering av AppStream-hurtiglager mislyktes. Skru på ordrikt modus for å "
 "få mer detaljert feilinformasjon."
@@ -100,7 +103,9 @@ msgid "AppStream command-line interface"
 msgstr "Kommandolinjegrensesnitt for AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-msgid "AppStream is a cross-distribution specification to provide metadata about software components."
+msgid ""
+"AppStream is a cross-distribution specification to provide metadata about "
+"software components."
 msgstr ""
 "AppStream er spesifikasjon for flere distribusjoner som tilbyr metadata om "
 "programvarekomponenter."
@@ -176,10 +181,12 @@ msgstr "Kalender"
 
 #: tools/ascli-actions-mdata.c:324
 #, c-format
-msgid "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' suffix."
+msgid ""
+"Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
+"suffix."
 msgstr ""
-"Kan ikke kopiere \"%s\": Fila har ikke en \".metainfo.xml\"- eller \""
-".appdata.xml\"-endelse."
+"Kan ikke kopiere \"%s\": Fila har ikke en \".metainfo.xml\"- eller \"."
+"appdata.xml\"-endelse."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -241,7 +248,9 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Kunne ikke finne komponenten som tilbyr \"%s::%s\"."
 
 #: tools/appstream-cli.c:616
-msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
+msgid ""
+"Create a template for a metainfo file (to be filled out by the upstream "
+"project)."
 msgstr ""
 
 #: src/as-provided.c:161
@@ -577,7 +586,9 @@ msgid "No icons."
 msgstr "Ingen ikoner."
 
 #: tools/ascli-actions-pkgmgr.c:53
-msgid "No suitable package manager CLI found. Please make sure that e.g. \"pkcon\" (part of PackageKit) is available."
+msgid ""
+"No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
+"\" (part of PackageKit) is available."
 msgstr ""
 "Fant inget formålstjenlig kommandolinjegrensesnitt for pakkebehandler. Sørg "
 "for at \"pkcon\" (som er en del av PackageKit) er installert."
@@ -655,7 +666,9 @@ msgstr ""
 
 #: tools/appstream-cli.c:183
 #, c-format
-msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
+msgid ""
+"Run '%s --help' to see a list of available commands and options, and '%s %s "
+"--help' to see a list of options specific for this subcommand."
 msgstr ""
 "Kjør \"%s --help\" for å se en liste over tilgjengelige kommandoer og valg, "
 "og \"%s %s --help\" for å se en liste over spesifikke valg for denne "
@@ -739,7 +752,10 @@ msgid "The .desktop file '%s' does not exist."
 msgstr ".dekstop-filen \"%s\" finnes ikke."
 
 #: src/as-pool.c:1544
-msgid "The AppStream system cache was updated, but some errors were detected, which might lead to missing metadata. Refer to the verbose log for more information."
+msgid ""
+"The AppStream system cache was updated, but some errors were detected, which "
+"might lead to missing metadata. Refer to the verbose log for more "
+"information."
 msgstr ""
 "AppStreams systemhurtiglager ble oppdatert, dog ble noen problemer oppdaget, "
 "som kan føre til manglende metadata. Henvend deg til den sirlige loggen for "
@@ -753,20 +769,28 @@ msgstr "TYPE må være en gyldig komponenttype, som %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
-msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
+msgid ""
+"The software component type '%s' is not valid in AppStream. Possible values "
+"are:"
 msgstr ""
 "Programvarekomponentens type \"%s\" er ikke gyldig i AppStream. Mulige "
 "verdier er:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:558
-msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
+msgid ""
+"This command takes optional TYPE and FILE positional arguments, FILE being a "
+"file to write to (or \"-\" for standard output)."
 msgstr ""
 "Denne kommandoen tar valgfrie posisjonsargument for TYPE og FILE, der FILE "
 "er en fil å skrive til (eller \"-\" for forvalgt utdata)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-msgid "This tool allows for reading, writing, validating and transformation of AppStream XML or YAML metadata. It also gives access to the system metadata pool, for example to query for software that provides a specific MIME-type, and installing it by its software component identifier."
+msgid ""
+"This tool allows for reading, writing, validating and transformation of "
+"AppStream XML or YAML metadata. It also gives access to the system metadata "
+"pool, for example to query for software that provides a specific MIME-type, "
+"and installing it by its software component identifier."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:541
@@ -776,7 +800,9 @@ msgstr "Kunne ikke bygge malfil for metainfo: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:397
-msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
+msgid ""
+"Unable to convert file: Could not determine output format, please set it "
+"explicitly using '--format='."
 msgstr ""
 "Kunne ikke konvertere fil: Problem med å bestemme utdataformat, sett det "
 "eksplisitt ved bruk av \"--format=\"."
@@ -821,7 +847,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
+msgid ""
+"Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
@@ -888,7 +915,9 @@ msgid "Word Processor"
 msgstr "Tekstbehandler"
 
 #: tools/appstream-cli.c:619
-msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
+msgid ""
+"You can find information about subcommand-specific options by passing \"--"
+"help\" to the subcommand."
 msgstr ""
 "Du kan finne informasjon om underordnede kommandoer ved å sende \"--help\" "
 "til underkommandoen."
@@ -901,7 +930,9 @@ msgstr ""
 "handlingen."
 
 #: tools/ascli-actions-mdata.c:444
-msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
+msgid ""
+"You need to give an AppStream software component type to generate a "
+"template. Possible values are:"
 msgstr ""
 "Du må angi en AppStream-programvarekomponenttype for å opprette en mal. "
 "Mulige verdier er:"
