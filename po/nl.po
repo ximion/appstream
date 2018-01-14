@@ -4,13 +4,14 @@
 # Heimen Stoffels <vistausss@outlook.com>, 2019.
 # Wouter Wijsman <wwijsman@live.nl>, 2019.
 # Benjamin Goodger <ben@goodger.nl>, 2020.
+# Heimen Stoffels <vistausss@fastmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -951,9 +952,7 @@ msgstr ""
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;applicatie;pakket;programma;toepassing;hulpmiddel;hulpprogramma;"
-"ontwikkeling"
+msgstr "app;applicatie;pakket;programma;toepassing;hulpmiddel;hulpprogramma;ontwikkeling"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -2080,9 +2079,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en "
-"'yaml')."
+msgstr "Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en 'yaml')."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:101
@@ -2131,19 +2128,14 @@ msgstr "De optie '%s' is onbekend."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Voer '%s --help' uit om een volledige lijst van beschikbare "
-"opdrachtregelopties te weergeven."
+msgstr "Voer '%s --help' uit om een volledige lijst van beschikbare opdrachtregelopties te weergeven."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Voer '%s --help' uit om een volledige lijst van beschikbare opdrachten en "
-"opties te weergeven en '%s %s --help' om een lijst van opties te zien voor "
-"dit subcommando."
+msgstr "Voer '%s --help' uit om een volledige lijst van beschikbare opdrachten en opties te weergeven en '%s %s --help' om een lijst van opties te zien voor dit subcommando."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2176,9 +2168,7 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Je moet minimaal twee versienummers opgeven om parameters te kunnen "
-"vergelijken."
+msgstr "Je moet minimaal twee versienummers opgeven om parameters te kunnen vergelijken."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2190,26 +2180,20 @@ msgstr "Onbekende vergelijkrelatie '%s'. Geldige waarden zijn:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Teveel parameters: twee versienummers of versienummer en vergelijkoperator "
-"nodig."
+msgstr "Teveel parameters: twee versienummers of versienummer en vergelijkoperator nodig."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Gebruik het opgegeven .desktop-bestand om basiswaarden in te vullen in het "
-"metainformatie-bestand."
+msgstr "Gebruik het opgegeven .desktop-bestand om basiswaarden in te vullen in het metainformatie-bestand."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Deze opdracht ontvangt optioneel TYPE- en BESTANDsargumenten; BESTAND is het "
-"bestand waarnaar moet worden weggeschreven (of \"-\" voor standaard uitvoer)."
+msgstr "Deze opdracht ontvangt optioneel TYPE- en BESTANDsargumenten; BESTAND is het bestand waarnaar moet worden weggeschreven (of \"-\" voor standaard uitvoer)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2272,9 +2256,7 @@ msgstr "Subcommando's:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"U kunt informatie vinden over subopdracht-opties door \"--help\" toe te "
-"voegen aan de subopdracht."
+msgstr "U kunt informatie vinden over subopdracht-opties door \"--help\" toe te voegen aan de subopdracht."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2313,9 +2295,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Onbewerkte XML-metagegevens dumpen voor een onderdeel dat overeenkomt met "
-"het ID."
+msgstr "Onbewerkte XML-metagegevens dumpen voor een onderdeel dat overeenkomt met het ID."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2330,9 +2310,7 @@ msgstr "Valideer de AppStream XML-bestanden op problemen."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Valideert een geïnstalleerde bestandsstructuur van een applicatie op geldige "
-"metagegevens."
+msgstr "Valideert een geïnstalleerde bestandsstructuur van een applicatie op geldige metagegevens."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2380,9 +2358,7 @@ msgstr "Vergelijk twee versienummers."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Creëer een sjabloon voor een metainformatie-bestand (kan worden ingevuld "
-"door een upstream-project)."
+msgstr "Creëer een sjabloon voor een metainformatie-bestand (kan worden ingevuld door een upstream-project)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2431,9 +2407,7 @@ msgstr "Het metagegevens-bestand '%s' bestaat niet."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"U heeft mogelijk administrator-rechten (su) nodig om deze actie uit te "
-"kunnen voeren."
+msgstr "U heeft mogelijk administrator-rechten (su) nodig om deze actie uit te kunnen voeren."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2482,8 +2456,7 @@ msgstr "Geen waarde voor het te zoeken item opgegeven."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Ongeldig type geselecteerd voor het beschikbare item. Geldige waarden zijn:"
+msgstr "Ongeldig type geselecteerd voor het beschikbare item. Geldige waarden zijn:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2514,9 +2487,7 @@ msgstr "Het metagegevens-bestand '%s' bestaat niet."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Het converteren is mislukt: de uitvoersoort kon niet worden bepaald. Stel "
-"deze handmatig in d.m.v. '--format='."
+msgstr "Het converteren is mislukt: de uitvoersoort kon niet worden bepaald. Stel deze handmatig in d.m.v. '--format='."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2532,18 +2503,14 @@ msgstr "Versie: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"U moet een type AppStream-software-onderdeel opgeven om een sjabloon te "
-"kunnen genereren. Geldige waarden zijn:"
+msgstr "U moet een type AppStream-software-onderdeel opgeven om een sjabloon te kunnen genereren. Geldige waarden zijn:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Het software-onderdeel van het type '%s' is ongeldig in AppStream. Geldige "
-"waarden zijn:"
+msgstr "Het software-onderdeel van het type '%s' is ongeldig in AppStream. Geldige waarden zijn:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2608,8 +2575,7 @@ msgstr "We hebben informatie over %i software-onderdelen."
 #: tools/ascli-actions-misc.c:88
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
-"Er is een fout opgetreden tijdens het laden van de metagegevens-pool: %s"
+msgstr "Er is een fout opgetreden tijdens het laden van de metagegevens-pool: %s"
 
 #: tools/ascli-actions-misc.c:114 tools/ascli-actions-misc.c:438
 #, fuzzy
@@ -2687,9 +2653,7 @@ msgstr "U moet een invoer- en uitvoerbestand opgeven."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Er is geen geschikt CLI-pakketbeheer gevonden. Zorg ervoor dat bijv. \"pkcon"
-"\" (onderdeel van PackageKit) beschikbaar is."
+msgstr "Er is geen geschikt CLI-pakketbeheer gevonden. Zorg ervoor dat bijv. \"pkcon\" (onderdeel van PackageKit) beschikbaar is."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
