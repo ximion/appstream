@@ -4,13 +4,14 @@
 # Allan Nordhøy <epost@anotheragency.no>, 2019, 2020, 2021.
 # Petter Reinholdtsen <pere-weblate@hungry.com>, 2020, 2021.
 # Jenni Hollis <jennihollis@outlook.com>, 2021.
+# Matthias Klumpp <matthias@tenstral.net>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/appstream/translations/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -2106,19 +2107,14 @@ msgstr "Valget \"%s\" er ukjent."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Kjør \"%s --help\" for å se en full liste over tilgjengelige "
-"kommandolinjevalg."
+msgstr "Kjør \"%s --help\" for å se en full liste over tilgjengelige kommandolinjevalg."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Kjør \"%s --help\" for å se en liste over tilgjengelige kommandoer og valg, "
-"og \"%s %s --help\" for å se en liste over spesifikke valg for denne "
-"underkommandoen."
+msgstr "Kjør \"%s --help\" for å se en liste over tilgjengelige kommandoer og valg, og \"%s %s --help\" for å se en liste over spesifikke valg for denne underkommandoen."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2176,9 +2172,7 @@ msgstr "Bruk gitt .desktop-fil for å fylle inn grunnleggende verdier i metainfo
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Denne kommandoen tar valgfrie posisjonsargument for TYPE og FILE, der FILE "
-"er en fil å skrive til (eller \"-\" for forvalgt utdata)."
+msgstr "Denne kommandoen tar valgfrie posisjonsargument for TYPE og FILE, der FILE er en fil å skrive til (eller \"-\" for forvalgt utdata)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2240,9 +2234,7 @@ msgstr "Underkommandoer:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Du kan finne informasjon om underordnede kommandoer ved å sende \"--help\" "
-"til underkommandoen."
+msgstr "Du kan finne informasjon om underordnede kommandoer ved å sende \"--help\" til underkommandoen."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2296,9 +2288,7 @@ msgstr "Se gjennom AppStream-XML-filer for feil."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Se gjennom et filtre tilhørende et installert program for gyldigheten av "
-"metadata."
+msgstr "Se gjennom et filtre tilhørende et installert program for gyldigheten av metadata."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2395,9 +2385,7 @@ msgstr "Metadatafilkildegruppen med navn «%s» finnes ikke!"
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Det kan hende du trenger superbruker-rettigheter for å utføre denne "
-"handlingen."
+msgstr "Det kan hende du trenger superbruker-rettigheter for å utføre denne handlingen."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2477,9 +2465,7 @@ msgstr "Metadatafilen \"%s\" finnes ikke."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Kunne ikke konvertere fil: Problem med å bestemme utdataformat, sett det "
-"eksplisitt ved bruk av \"--format=\"."
+msgstr "Kunne ikke konvertere fil: Problem med å bestemme utdataformat, sett det eksplisitt ved bruk av \"--format=\"."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2495,18 +2481,14 @@ msgstr "Versjon: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Du må angi en AppStream-programvarekomponenttype for å opprette en mal. "
-"Mulige verdier er:"
+msgstr "Du må angi en AppStream-programvarekomponenttype for å opprette en mal. Mulige verdier er:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Programvarekomponentens type \"%s\" er ikke gyldig i AppStream. Mulige "
-"verdier er:"
+msgstr "Programvarekomponentens type \"%s\" er ikke gyldig i AppStream. Mulige verdier er:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2648,9 +2630,7 @@ msgstr "Du må angi ei inn- og ut-datafil."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Fant inget formålstjenlig kommandolinjegrensesnitt for pakkebehandler. Sørg "
-"for at \"pkcon\" (som er en del av PackageKit) er installert."
+msgstr "Fant inget formålstjenlig kommandolinjegrensesnitt for pakkebehandler. Sørg for at \"pkcon\" (som er en del av PackageKit) er installert."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
