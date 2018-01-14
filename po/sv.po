@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:20+0100\n"
-"PO-Revision-Date: 2017-11-24 17:51+0000\n"
+"PO-Revision-Date: 2018-01-14 22:25+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
-"translations/sv/>\n"
+"Language-Team: Swedish "
+"<https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -52,7 +52,6 @@ msgid "Also show pedantic hints."
 msgstr "Visa också pedantiska tips."
 
 #: tools/appstream-cli.c:600
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Ett objekts typ (t.ex. lib, bin, python3, …)"
 
@@ -251,12 +250,10 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Kunde inte hitta komponent som tillhandahåller ”%s;%s”."
 
 #: tools/appstream-cli.c:616
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Skapa en mall för en metainfofil (att fyllas i av projektet uppströms)."
+msgstr "Skapa en mall för en metainfofil (att fyllas i av projektet uppströms)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
@@ -282,11 +279,8 @@ msgstr "URL för exempelbild"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Använd det givna metadataformatet som standard (giltiga värden är ”xml” och "
-"”yaml”)."
+msgstr "Standardmetadataformat (giltiga värden är ”xml” och ”yaml”)."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -482,7 +476,6 @@ msgid "Install a metadata file into the right location."
 msgstr "Installera en metadatafil på rätt plats."
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "Installera programvara som matchar komponent-ID:t."
 
@@ -527,19 +520,17 @@ msgstr "Logik"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Gör förfrågan utan någon cachning."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "Ange manuellt platsen för AppStream-cachen."
+msgstr "Manuellt angiven plats för AppStream-cache."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "Ange manuellt platsen för AppStream-metadata att söka av."
+msgstr "Manuellt angiven plats för AppStream-metadata att söka av."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -605,9 +596,8 @@ msgstr ""
 "”pkcon” (en del av PackageKit) finns tillgänglig."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
-msgstr "Inget värdet för objektet att leta efter finns definierat."
+msgstr "Inget värde för objektet att leta efter finns definierat."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -656,7 +646,6 @@ msgid "Rebuild the component metadata cache."
 msgstr "Bygg om cachen för komponentmetadata."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Ta bort programvara som matchar komponent-ID:t."
 
@@ -797,7 +786,6 @@ msgstr ""
 "att skriva till (eller \"-\" för standard ut)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
@@ -860,11 +848,10 @@ msgstr "Kunde inte skriva till ”%s”, kan inte installera metainfo-fil."
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Okänt kommando ”%s”."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
