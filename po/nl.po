@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-12-29 14:13+0100\n"
+"POT-Creation-Date: 2018-01-14 03:51+0100\n"
 "PO-Revision-Date: 2017-10-22 15:53+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
@@ -51,7 +51,8 @@ msgid "Also show pedantic hints."
 msgstr "Ook pedante tips weergeven."
 
 #: tools/appstream-cli.c:600
-msgid "An item type (e.g. lib, bin, python3, ...)"
+#, fuzzy
+msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Een item-type (bijv. lib, bin, python3, ...)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
@@ -219,12 +220,6 @@ msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Codecs"
 
-#. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
-#, c-format
-msgid "Command '%s' is unknown."
-msgstr "De opdracht '%s' is onbekend."
-
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
@@ -256,8 +251,9 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Het onderdeel dat '%s::%s' bevat kan niet worden gevonden."
 
 #: tools/appstream-cli.c:616
+#, fuzzy
 msgid ""
-"Create a template for a metainfo file (to be filed out by the upstream "
+"Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Creëer een sjabloon voor een metainformatie-bestand (kan worden ingevuld "
@@ -287,8 +283,8 @@ msgstr "Standaard schermafbeelding-URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-msgid ""
-"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+#, fuzzy
+msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en "
 "'yaml')."
@@ -315,11 +311,6 @@ msgstr "Statusinformatie weergeven over beschikbare AppStream-metagegevens."
 #: tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
 msgstr "Distributie-metagegevens:"
-
-#. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstream-cli.c:67
-msgid "Do not use any caches when performing the request."
-msgstr "Geen caches gebruiken tijdens het uitvoeren van de opdracht."
 
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
@@ -495,7 +486,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Installeer een metagegevensbestand in de juiste locatie."
 
 #: tools/appstream-cli.c:609
-msgid "Install software matching the component-id."
+#, fuzzy
+msgid "Install software matching the component-ID."
 msgstr "Installeer software die overeen komt met de onderdeel-id."
 
 #: tools/ascli-actions-mdata.c:210
@@ -537,15 +529,22 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logisch"
 
-#. TRANSLATORS: ascli flag description for: --datapath
-#: tools/appstream-cli.c:62
-msgid "Manually set the location of AppStream metadata to scan."
-msgstr "Handmatig de locatie instellen van te scannen AppStream-metagegevens."
+#. TRANSLATORS: ascli flag description for: --no-cache
+#: tools/appstream-cli.c:67
+msgid "Make request without any caching."
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-msgid "Manually set the location of the AppStream cache."
+#, fuzzy
+msgid "Manually selected location of AppStream cache."
 msgstr "Handmatig de locatie instellen van de AppStream-cache."
+
+#. TRANSLATORS: ascli flag description for: --datapath
+#: tools/appstream-cli.c:62
+#, fuzzy
+msgid "Manually selected location of AppStream metadata to scan."
+msgstr "Handmatig de locatie instellen van te scannen AppStream-metagegevens."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -611,7 +610,8 @@ msgstr ""
 "\" (onderdeel van PackageKit) beschikbaar is."
 
 #: tools/ascli-actions-mdata.c:203
-msgid "No value for the item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for was defined."
 msgstr "Geen waarde voor het te zoeken item opgegeven."
 
 #. TRANSLATORS: this is the menu spec main category for Office
@@ -661,7 +661,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Herbouw de onderdeelmetagegevens-cache."
 
 #: tools/appstream-cli.c:610
-msgid "Remove software matching the component-id."
+#, fuzzy
+msgid "Remove software matching the component-ID."
 msgstr "Verwijder software die overeenkomt met de onderdeel-id."
 
 #: src/as-category.c:248
@@ -803,11 +804,12 @@ msgstr ""
 "bestand waarnaar moet worden weggeschreven (of \"-\" voor standaard uitvoer)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
+#, fuzzy
 msgid ""
-"This tool allows reading, writing, validating and transforming AppStream XML "
-"or YAML metadata. It also allows accessing the system metadata pool to for "
-"example query for software providing a specific mimetype and installing it "
-"by its software component identifier."
+"This tool allows for reading, writing, validating and transformation of "
+"AppStream XML or YAML metadata. It also gives access to the system metadata "
+"pool, for example to query for software that provides a specific MIME-type, "
+"and installing it by its software component identifier."
 msgstr ""
 "Dit hulpprogramma stelt u in staat AppStream XML of YAML-metagegevens te "
 "lezen, schrijven, valideren en wijzigen. Het stelt u tevens in staat om "
@@ -863,10 +865,17 @@ msgstr ""
 "Het schrijven naar '%s' is mislukt: meta-informatiebestanden kunnen niet "
 "worden geïnstalleerd."
 
+#. TRANSLATORS: ascli has been run with unknown command.
+#: tools/appstream-cli.c:740
+#, c-format
+msgid "Unknown command '%s'."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
+#, fuzzy
 msgid ""
-"Use the given .desktop file to fill in basic values in the metainfo file."
+"Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
 "Gebruik het opgegeven .desktop-bestand om basiswaarden in te vullen in het "
 "metainformatie-bestand."
@@ -1024,3 +1033,9 @@ msgstr "pedant: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "waarschuwingen: %lu"
+
+#~ msgid "Command '%s' is unknown."
+#~ msgstr "De opdracht '%s' is onbekend."
+
+#~ msgid "Do not use any caches when performing the request."
+#~ msgstr "Geen caches gebruiken tijdens het uitvoeren van de opdracht."

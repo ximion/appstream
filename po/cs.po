@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-12-29 14:13+0100\n"
+"POT-Creation-Date: 2018-01-14 03:51+0100\n"
 "PO-Revision-Date: 2017-10-22 16:42+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -53,7 +53,8 @@ msgid "Also show pedantic hints."
 msgstr "Při ověřování vypisovat i nalezené drobnosti."
 
 #: tools/appstream-cli.c:600
-msgid "An item type (e.g. lib, bin, python3, ...)"
+#, fuzzy
+msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Typ položky (např. lib, bin, python3, atp.)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
@@ -222,12 +223,6 @@ msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Kodeky"
 
-#. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
-#, c-format
-msgid "Command '%s' is unknown."
-msgstr "Neznámý příkaz „%s“."
-
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
@@ -259,8 +254,9 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Nepodařilo se najít součást poskytující „%s::%s“."
 
 #: tools/appstream-cli.c:616
+#, fuzzy
 msgid ""
-"Create a template for a metainfo file (to be filed out by the upstream "
+"Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Vytvořit šablonu pro metainfo soubor (pro vyplnění autory zdrojového "
@@ -290,8 +286,8 @@ msgstr "URL výchozího ukázkového snímku obrazovky"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-msgid ""
-"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+#, fuzzy
+msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Používat daný formát metadat jako výchozí (platné hodnoty jsou „xml“ a "
 "„yaml“)."
@@ -318,11 +314,6 @@ msgstr "Zobrazit stavové informace o dostupných AppStream metadatech."
 #: tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
 msgstr "Metadata distribuce:"
-
-#. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstream-cli.c:67
-msgid "Do not use any caches when performing the request."
-msgstr "Při dotazování nepoužívat žádné mezipaměti."
 
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
@@ -495,7 +486,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Nainstalovat soubor s metadaty na správné místo."
 
 #: tools/appstream-cli.c:609
-msgid "Install software matching the component-id."
+#, fuzzy
+msgid "Install software matching the component-ID."
 msgstr "Nainstalovat software odpovídající identifikátoru součásti."
 
 #: tools/ascli-actions-mdata.c:210
@@ -536,15 +528,22 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logické"
 
-#. TRANSLATORS: ascli flag description for: --datapath
-#: tools/appstream-cli.c:62
-msgid "Manually set the location of AppStream metadata to scan."
-msgstr "Ručně nastavit umístění, ve kterém hledat metadata AppStream."
+#. TRANSLATORS: ascli flag description for: --no-cache
+#: tools/appstream-cli.c:67
+msgid "Make request without any caching."
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-msgid "Manually set the location of the AppStream cache."
+#, fuzzy
+msgid "Manually selected location of AppStream cache."
 msgstr "Ručně nastavit umístění mezipaměti AppStream."
+
+#. TRANSLATORS: ascli flag description for: --datapath
+#: tools/appstream-cli.c:62
+#, fuzzy
+msgid "Manually selected location of AppStream metadata to scan."
+msgstr "Ručně nastavit umístění, ve kterém hledat metadata AppStream."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -610,7 +609,8 @@ msgstr ""
 "Zajistěte, aby byl k dispozici například „pkcon“ (součást PackageKit)."
 
 #: tools/ascli-actions-mdata.c:203
-msgid "No value for the item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for was defined."
 msgstr "Nezadali jste co se má hledat."
 
 #. TRANSLATORS: this is the menu spec main category for Office
@@ -660,7 +660,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Znovu vytvořit mezipaměť metadat součástí."
 
 #: tools/appstream-cli.c:610
-msgid "Remove software matching the component-id."
+#, fuzzy
+msgid "Remove software matching the component-ID."
 msgstr "Odebrat software odpovídající součásti s identifikátorem."
 
 #: src/as-category.c:248
@@ -800,11 +801,12 @@ msgstr ""
 "kde FILE je soubor do kterého zapsat (nebo „-“ pro standardní výstup)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
+#, fuzzy
 msgid ""
-"This tool allows reading, writing, validating and transforming AppStream XML "
-"or YAML metadata. It also allows accessing the system metadata pool to for "
-"example query for software providing a specific mimetype and installing it "
-"by its software component identifier."
+"This tool allows for reading, writing, validating and transformation of "
+"AppStream XML or YAML metadata. It also gives access to the system metadata "
+"pool, for example to query for software that provides a specific MIME-type, "
+"and installing it by its software component identifier."
 msgstr ""
 "Tento nástroj umožňuje čtení, zápis, ověřování a přeměnu AppStream XML nebo "
 "YAML metadat. Také zpřístupňuje systémový fond metadat pro například "
@@ -859,10 +861,17 @@ msgstr ""
 "Nedaří se zapisovat do „%s“, proto nelze nainstalovat soubor s "
 "metainformacemi."
 
+#. TRANSLATORS: ascli has been run with unknown command.
+#: tools/appstream-cli.c:740
+#, c-format
+msgid "Unknown command '%s'."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
+#, fuzzy
 msgid ""
-"Use the given .desktop file to fill in basic values in the metainfo file."
+"Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
 "Použít daný .desktop soubor pro vyplnění základních hodnot do souboru s "
 "metainformacemi."
@@ -1017,6 +1026,12 @@ msgstr "drobnosti: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "varování: %lu"
+
+#~ msgid "Command '%s' is unknown."
+#~ msgstr "Neznámý příkaz „%s“."
+
+#~ msgid "Do not use any caches when performing the request."
+#~ msgstr "Při dotazování nepoužívat žádné mezipaměti."
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "Aktualizace mezipaměti AppStreamu selhala."
