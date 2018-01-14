@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:01+0100\n"
-"PO-Revision-Date: 2018-01-14 03:19+0000\n"
+"PO-Revision-Date: 2018-01-14 03:21+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish "
 "<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
@@ -282,11 +282,8 @@ msgstr "Adres URL domyślnego zrzutu ekranu"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Domyślnie używa podanego formatu metadanych (prawidłowe wartości to „xml” "
-"i „yaml”)."
+msgstr "Domyślny format metadanych (prawidłowe wartości to „xml” i „yaml”)."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -482,7 +479,6 @@ msgid "Install a metadata file into the right location."
 msgstr "Instaluje plik metadanych we właściwym położeniu."
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "Instaluje oprogramowanie pasujące do identyfikatora składnika."
 
@@ -527,19 +523,17 @@ msgstr "Gry logiczne"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Tworzy żądanie bez pamięci podręcznej."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "Ręcznie ustawia położenie pamięci podręcznej AppStream."
+msgstr "Ręcznie wybrane położenie pamięci podręcznej AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "Ręcznie ustawia położenie metadanych AppStream do skanowania."
+msgstr "Ręcznie wybrane położenie metadanych AppStream do skanowania."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
