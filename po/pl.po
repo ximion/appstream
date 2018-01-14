@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:20+0100\n"
-"PO-Revision-Date: 2018-01-14 03:21+0000\n"
+"PO-Revision-Date: 2018-01-14 03:23+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish "
+"<https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -600,7 +600,6 @@ msgstr ""
 "PackageKit)."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
 msgstr "Nie określono wartości dla wyszukiwanego elementu."
 
@@ -651,7 +650,6 @@ msgid "Rebuild the component metadata cache."
 msgstr "Ponownie buduje pamięć podręczną metadanych składników."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Usuwa oprogramowanie pasujące do identyfikatora składnika."
 
@@ -792,18 +790,17 @@ msgstr ""
 "to plik, do którego zapisać (lub „-”, co oznacza standardowe wyjście)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
-"To narzędzie umożliwia odczytywanie, zapisywanie, sprawdzanie poprawności "
-"i przekształcanie metadanych AppStream w językach XML i YAML. Umożliwia "
-"także dostęp do puli metadanych systemu, aby na przykład wyszukać "
-"oprogramowanie dostarczające podany typ MIME i zainstalować je za pomocą "
-"jego identyfikatora składnika oprogramowania."
+"To narzędzie umożliwia odczytywanie, zapisywanie, sprawdzanie poprawności i "
+"przekształcanie metadanych AppStream w językach XML i YAML. Umożliwia także "
+"dostęp do puli metadanych systemu, aby na przykład wyszukać oprogramowanie "
+"dostarczające podany typ MIME i zainstalować je według jego identyfikatora "
+"składnika oprogramowania."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -855,15 +852,14 @@ msgstr "Nie można zapisać do „%s”, nie można zainstalować pliku metainfo
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Nieznane polecenie „%s”."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
-"Używa podanego pliku .desktop do wypełnienia podstawowych wartości w pliku "
+"Używa podanego pliku .desktop do wypełnienia podstawowych wartości pliku "
 "Metainfo."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
