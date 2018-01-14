@@ -96,7 +96,7 @@ as_distro_details_init (AsDistroDetails *distro)
 
 		while ((line = g_data_input_stream_read_line (dis, NULL, NULL, &error)) != NULL) {
 			g_auto(GStrv) data = NULL;
-			gchar *dvalue;
+			g_autofree gchar *dvalue = NULL;
 			if (error != NULL) {
 				return;
 			}
@@ -107,12 +107,12 @@ as_distro_details_init (AsDistroDetails *distro)
 				continue;
 			}
 
-			dvalue = data[1];
+			dvalue = g_strdup (data[1]);
 			if (g_str_has_prefix (dvalue, "\"")) {
-				gchar *tmpstr;
-				tmpstr = g_strndup (dvalue + 1, strlen(dvalue) - 2);
+				gchar *tmp;
+				tmp = g_strndup (dvalue + 1, strlen(dvalue) - 2);
 				g_free (dvalue);
-				dvalue = tmpstr;
+				dvalue = tmp;
 			}
 
 			if (g_strcmp0 (data[0], "ID") == 0)
