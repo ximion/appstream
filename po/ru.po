@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-12-29 14:13+0100\n"
+"POT-Creation-Date: 2018-01-14 03:51+0100\n"
 "PO-Revision-Date: 2017-11-21 16:36+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
@@ -53,7 +53,8 @@ msgid "Also show pedantic hints."
 msgstr "Кроме того, выводить педантичные подсказки."
 
 #: tools/appstream-cli.c:600
-msgid "An item type (e.g. lib, bin, python3, ...)"
+#, fuzzy
+msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Тип элемента (например lib, bin, python3, ...)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
@@ -220,12 +221,6 @@ msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Кодеки"
 
-#. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
-#, c-format
-msgid "Command '%s' is unknown."
-msgstr "Команда \"%s\" неизвестна."
-
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
@@ -257,8 +252,9 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Не удалось найти компоненту, предоставляющую \"%s::%s\"."
 
 #: tools/appstream-cli.c:616
+#, fuzzy
 msgid ""
-"Create a template for a metainfo file (to be filed out by the upstream "
+"Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Создать шаблон для файла метаинформации (будет заполнен апстрим-проектом)."
@@ -287,8 +283,8 @@ msgstr "URL-адрес снимка экрана по умолчанию"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-msgid ""
-"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+#, fuzzy
+msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "По умолчанию к указанному формату метаданных (допустимые значения: \"xml\" и "
 "\"yaml\")."
@@ -315,11 +311,6 @@ msgstr "Показать информацию о состоянии доступ
 #: tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
 msgstr "Метаданные дистрибуции:"
-
-#. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstream-cli.c:67
-msgid "Do not use any caches when performing the request."
-msgstr "Не использовать кэши при выполнении запроса."
 
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
@@ -494,7 +485,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Установить файл метаданных в нужное место."
 
 #: tools/appstream-cli.c:609
-msgid "Install software matching the component-id."
+#, fuzzy
+msgid "Install software matching the component-ID."
 msgstr ""
 "Установить программное обеспечение, соответствующее идентификатору "
 "компоненты."
@@ -538,16 +530,23 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Логические"
 
-#. TRANSLATORS: ascli flag description for: --datapath
-#: tools/appstream-cli.c:62
-msgid "Manually set the location of AppStream metadata to scan."
+#. TRANSLATORS: ascli flag description for: --no-cache
+#: tools/appstream-cli.c:67
+msgid "Make request without any caching."
 msgstr ""
-"Установить вручную местоположение метаданных AppStream для сканирования."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-msgid "Manually set the location of the AppStream cache."
+#, fuzzy
+msgid "Manually selected location of AppStream cache."
 msgstr "Установить вручную местоположение кэша AppStream."
+
+#. TRANSLATORS: ascli flag description for: --datapath
+#: tools/appstream-cli.c:62
+#, fuzzy
+msgid "Manually selected location of AppStream metadata to scan."
+msgstr ""
+"Установить вручную местоположение метаданных AppStream для сканирования."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -613,7 +612,8 @@ msgstr ""
 "например, «pkcon» (часть PackageKit) доступен."
 
 #: tools/ascli-actions-mdata.c:203
-msgid "No value for the item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for was defined."
 msgstr "Не определено значение для элемента поиска."
 
 #. TRANSLATORS: this is the menu spec main category for Office
@@ -663,7 +663,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Перестроить кэш метаданных компонентах."
 
 #: tools/appstream-cli.c:610
-msgid "Remove software matching the component-id."
+#, fuzzy
+msgid "Remove software matching the component-ID."
 msgstr ""
 "Удалить программное обеспечение, соответствующее идентификатору компоненты."
 
@@ -805,11 +806,12 @@ msgstr ""
 "файлом для вывода (или \"-\" для стандартного потока вывода)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
+#, fuzzy
 msgid ""
-"This tool allows reading, writing, validating and transforming AppStream XML "
-"or YAML metadata. It also allows accessing the system metadata pool to for "
-"example query for software providing a specific mimetype and installing it "
-"by its software component identifier."
+"This tool allows for reading, writing, validating and transformation of "
+"AppStream XML or YAML metadata. It also gives access to the system metadata "
+"pool, for example to query for software that provides a specific MIME-type, "
+"and installing it by its software component identifier."
 msgstr ""
 "Эта утилита позволяет читать, записывать, проверять и преобразовывать "
 "метаданные AppStream в формате XML или YAML. Она также позволяет доступ к "
@@ -864,10 +866,17 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 "Не удаётся записать в \"%s\", невозможно установить файл метаинформации."
 
+#. TRANSLATORS: ascli has been run with unknown command.
+#: tools/appstream-cli.c:740
+#, c-format
+msgid "Unknown command '%s'."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
+#, fuzzy
 msgid ""
-"Use the given .desktop file to fill in basic values in the metainfo file."
+"Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
 "Использовать заданный файл .desktop, чтобы заполнить основные поля в файле "
 "метаинформации."
@@ -1022,6 +1031,12 @@ msgstr "строгие: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "предупреждения: %lu"
+
+#~ msgid "Command '%s' is unknown."
+#~ msgstr "Команда \"%s\" неизвестна."
+
+#~ msgid "Do not use any caches when performing the request."
+#~ msgstr "Не использовать кэши при выполнении запроса."
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "Обновление кэша AppStream прошло неудачно."

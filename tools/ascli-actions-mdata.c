@@ -200,7 +200,7 @@ ascli_what_provides (const gchar *cachepath, const gchar *kind_str, const gchar 
 	g_autoptr(GError) error = NULL;
 
 	if (item == NULL) {
-		g_printerr ("%s\n", _("No item value to search for was defined."));
+		g_printerr ("%s\n", _("No value for the item to search for was defined."));
 		return 1;
 	}
 

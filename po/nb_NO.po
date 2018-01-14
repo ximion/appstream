@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-12-29 14:13+0100\n"
+"POT-Creation-Date: 2018-01-14 03:51+0100\n"
 "PO-Revision-Date: 2018-01-14 02:52+0000\n"
 "Last-Translator: Petter Reinholdtsen <pere-weblate@hungry.com>\n"
-"Language-Team: Norwegian Bokmål "
-"<https://hosted.weblate.org/projects/appstream/translations/nb_NO/>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
+"appstream/translations/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +51,8 @@ msgid "Also show pedantic hints."
 msgstr "Vis også pedantiske tips."
 
 #: tools/appstream-cli.c:600
-msgid "An item type (e.g. lib, bin, python3, ...)"
+#, fuzzy
+msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Et objekts type (f.eks. lib, bin, python3, …)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
@@ -218,12 +219,6 @@ msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "Kodek"
 
-#. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
-#, c-format
-msgid "Command '%s' is unknown."
-msgstr "Kommandoen \"%s\" er ukjent."
-
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
@@ -255,8 +250,9 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Kunne ikke finne komponenten som tilbyr \"%s::%s\"."
 
 #: tools/appstream-cli.c:616
+#, fuzzy
 msgid ""
-"Create a template for a metainfo file (to be filed out by the upstream "
+"Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Opprett en mal for metainfo-fil (til utfylling av oppstrømsprosjektet)."
@@ -285,8 +281,8 @@ msgstr "Forvalgt nettadresse for skjermavbildning"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-msgid ""
-"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+#, fuzzy
+msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Forvalg for gitt metadataformat (gyldige verdier er 'xml' og 'yaml')."
 
 #: tools/ascli-utils.c:320
@@ -311,11 +307,6 @@ msgstr "Statusinformasjon om tilgjengelig AppStream-metadata."
 #: tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
 msgstr "Distribusjons-metadata:"
-
-#. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstream-cli.c:67
-msgid "Do not use any caches when performing the request."
-msgstr "Ikke bruk noen hurtiglagre når forespørselen utføres."
 
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
@@ -488,7 +479,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Installer ei metadatafil på rett plass."
 
 #: tools/appstream-cli.c:609
-msgid "Install software matching the component-id."
+#, fuzzy
+msgid "Install software matching the component-ID."
 msgstr "Installer programvare som stemmer med komponent-ID-en."
 
 #: tools/ascli-actions-mdata.c:210
@@ -529,16 +521,23 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logikk"
 
-#. TRANSLATORS: ascli flag description for: --datapath
-#: tools/appstream-cli.c:62
-msgid "Manually set the location of AppStream metadata to scan."
+#. TRANSLATORS: ascli flag description for: --no-cache
+#: tools/appstream-cli.c:67
+msgid "Make request without any caching."
 msgstr ""
-"Sett plasseringen som skal gjennomsøkes for AppStream-metadata manuelt."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-msgid "Manually set the location of the AppStream cache."
+#, fuzzy
+msgid "Manually selected location of AppStream cache."
 msgstr "Sett plasseringen for AppStrea-hurtiglager manuelt."
+
+#. TRANSLATORS: ascli flag description for: --datapath
+#: tools/appstream-cli.c:62
+#, fuzzy
+msgid "Manually selected location of AppStream metadata to scan."
+msgstr ""
+"Sett plasseringen som skal gjennomsøkes for AppStream-metadata manuelt."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -604,7 +603,8 @@ msgstr ""
 "for at \"pkcon\" (som er en del av PackageKit) er installert."
 
 #: tools/ascli-actions-mdata.c:203
-msgid "No value for the item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for was defined."
 msgstr "Det ble ikke angitt noen elementsverdi å søke etter."
 
 #. TRANSLATORS: this is the menu spec main category for Office
@@ -654,7 +654,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Bygg opp igjen komponent- og metadata -hurtiglager."
 
 #: tools/appstream-cli.c:610
-msgid "Remove software matching the component-id."
+#, fuzzy
+msgid "Remove software matching the component-ID."
 msgstr "Fjern programvare som samsvarer med komponentens ID."
 
 #: src/as-category.c:248
@@ -796,11 +797,12 @@ msgstr ""
 "er en fil å skrive til (eller \"-\" for forvalgt utdata)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
+#, fuzzy
 msgid ""
-"This tool allows reading, writing, validating and transforming AppStream XML "
-"or YAML metadata. It also allows accessing the system metadata pool to for "
-"example query for software providing a specific mimetype and installing it "
-"by its software component identifier."
+"This tool allows for reading, writing, validating and transformation of "
+"AppStream XML or YAML metadata. It also gives access to the system metadata "
+"pool, for example to query for software that provides a specific MIME-type, "
+"and installing it by its software component identifier."
 msgstr ""
 "Dette verktøyet muliggjør lesing, skriving, bekreftelse og overføring av "
 "AppStream-XML- eller -YAML-metadata. Det tillater også tilgang til systemets "
@@ -854,10 +856,17 @@ msgstr "Klarte ikke å starte pakkebehandler: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Klarte ikke å skrive til \"%s\", kan ikke installere metainfo-fil."
 
+#. TRANSLATORS: ascli has been run with unknown command.
+#: tools/appstream-cli.c:740
+#, c-format
+msgid "Unknown command '%s'."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
+#, fuzzy
 msgid ""
-"Use the given .desktop file to fill in basic values in the metainfo file."
+"Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
 "Bruk gitt .desktop-fil til å fylle inn grunnleggende verdier i metainfofila."
 
@@ -1012,3 +1021,9 @@ msgstr "pedantisk: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "advarsler: %lu"
+
+#~ msgid "Command '%s' is unknown."
+#~ msgstr "Kommandoen \"%s\" er ukjent."
+
+#~ msgid "Do not use any caches when performing the request."
+#~ msgstr "Ikke bruk noen hurtiglagre når forespørselen utføres."

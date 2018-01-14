@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2017-12-29 14:13+0100\n"
+"POT-Creation-Date: 2018-01-14 03:51+0100\n"
 "PO-Revision-Date: 2017-12-02 15:44+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -57,7 +57,8 @@ msgid "Also show pedantic hints."
 msgstr "验证的同时输出教条的提示。"
 
 #: tools/appstream-cli.c:600
-msgid "An item type (e.g. lib, bin, python3, ...)"
+#, fuzzy
+msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "一个项目类型（如：lib、bin、python3…）"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
@@ -218,12 +219,6 @@ msgctxt "Category of Addons"
 msgid "Codecs"
 msgstr "编解码器"
 
-#. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
-#, c-format
-msgid "Command '%s' is unknown."
-msgstr "命令“%s”未知。"
-
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
@@ -258,7 +253,7 @@ msgstr "未找到提供“%s;%s”的组件。"
 #: tools/appstream-cli.c:616
 #, fuzzy
 msgid ""
-"Create a template for a metainfo file (to be filed out by the upstream "
+"Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "为元信息文件创建模板（由上游项目所填写）。"
 
@@ -286,8 +281,8 @@ msgstr "默认屏幕截图 URL"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-msgid ""
-"Default to the given metadata format (valid values are 'xml' and 'yaml')."
+#, fuzzy
+msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
 
 #: tools/ascli-utils.c:320
@@ -312,11 +307,6 @@ msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 #: tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
 msgstr "发行版元数据："
-
-#. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstream-cli.c:67
-msgid "Do not use any caches when performing the request."
-msgstr "处理请求时不要使用任何缓存。"
 
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
@@ -490,7 +480,8 @@ msgid "Install a metadata file into the right location."
 msgstr "将元数据文件安装到正确的位置。"
 
 #: tools/appstream-cli.c:609
-msgid "Install software matching the component-id."
+#, fuzzy
+msgid "Install software matching the component-ID."
 msgstr "安装匹配组件 ID 的软件。"
 
 #: tools/ascli-actions-mdata.c:210
@@ -531,15 +522,22 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "逻辑"
 
-#. TRANSLATORS: ascli flag description for: --datapath
-#: tools/appstream-cli.c:62
-msgid "Manually set the location of AppStream metadata to scan."
-msgstr "手动设置要扫描的 AppStream 元数据的位置。"
+#. TRANSLATORS: ascli flag description for: --no-cache
+#: tools/appstream-cli.c:67
+msgid "Make request without any caching."
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-msgid "Manually set the location of the AppStream cache."
+#, fuzzy
+msgid "Manually selected location of AppStream cache."
 msgstr "手动设置 AppStream 缓存的位置。"
+
+#. TRANSLATORS: ascli flag description for: --datapath
+#: tools/appstream-cli.c:62
+#, fuzzy
+msgid "Manually selected location of AppStream metadata to scan."
+msgstr "手动设置要扫描的 AppStream 元数据的位置。"
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -605,7 +603,8 @@ msgstr ""
 "的程序。"
 
 #: tools/ascli-actions-mdata.c:203
-msgid "No value for the item to search for defined."
+#, fuzzy
+msgid "No value for the item to search for was defined."
 msgstr "没有定义要搜索的提供项目值。"
 
 #. TRANSLATORS: this is the menu spec main category for Office
@@ -655,7 +654,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "重建组件元数据缓存。"
 
 #: tools/appstream-cli.c:610
-msgid "Remove software matching the component-id."
+#, fuzzy
+msgid "Remove software matching the component-ID."
 msgstr "卸载匹配 component-id 的软件。"
 
 #: src/as-category.c:248
@@ -792,11 +792,12 @@ msgstr ""
 "输出）。"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
+#, fuzzy
 msgid ""
-"This tool allows reading, writing, validating and transforming AppStream XML "
-"or YAML metadata. It also allows accessing the system metadata pool to for "
-"example query for software providing a specific mimetype and installing it "
-"by its software component identifier."
+"This tool allows for reading, writing, validating and transformation of "
+"AppStream XML or YAML metadata. It also gives access to the system metadata "
+"pool, for example to query for software that provides a specific MIME-type, "
+"and installing it by its software component identifier."
 msgstr ""
 "本工具可用于读写、验证与变换 AppStream XML 或 YAML 元数据；此外还可访问系统元"
 "数据库，进行诸如搜索提供某种 mime 类型的软件，并按照其软件组件辨识码安装。"
@@ -845,10 +846,17 @@ msgstr "无法启动软件包管理器：%s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "无法写入到“%s”，无法安装元信息文件。"
 
+#. TRANSLATORS: ascli has been run with unknown command.
+#: tools/appstream-cli.c:740
+#, c-format
+msgid "Unknown command '%s'."
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
+#, fuzzy
 msgid ""
-"Use the given .desktop file to fill in basic values in the metainfo file."
+"Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "使用给定的 .desktop 文件来填充元信息文件里的基本值。"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
@@ -996,6 +1004,12 @@ msgstr ""
 #, c-format
 msgid "warnings: %lu"
 msgstr "警告：%lu"
+
+#~ msgid "Command '%s' is unknown."
+#~ msgstr "命令“%s”未知。"
+
+#~ msgid "Do not use any caches when performing the request."
+#~ msgstr "处理请求时不要使用任何缓存。"
 
 #~ msgid "AppStream cache update failed."
 #~ msgstr "AppStream 缓存更新失败。"
