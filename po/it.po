@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:20+0100\n"
-"PO-Revision-Date: 2017-10-24 08:47+0000\n"
+"PO-Revision-Date: 2018-01-24 12:14+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"Language-Team: Italian "
+"<https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -51,9 +51,8 @@ msgid "Also show pedantic hints."
 msgstr "Stampa suggerimenti prolissi"
 
 #: tools/appstream-cli.c:600
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Un tipo di elemento (lib, bin, python3, …)"
+msgstr "Un tipo di elemento (per esempio lib, bin, python3, …)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -252,7 +251,6 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Impossibile trovare un componente che fornisca «%s::%s»."
 
 #: tools/appstream-cli.c:616
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -284,7 +282,6 @@ msgstr "URL predefinito della schermata"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Valore predefinito del formato dei metadati (valori validi sono «xml» e "
@@ -486,7 +483,6 @@ msgid "Install a metadata file into the right location."
 msgstr "Installa un file metadati nella corretta posizione"
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "Installa software che corrisponde all'ID del componente"
 
@@ -531,17 +527,15 @@ msgstr "Logica"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Esegue la richiesta senza cache"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
 msgstr "Imposta manualmente la posizione della cache AppStream"
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Imposta manualmente la posizione dei metadati AppStream da analizzare"
 
@@ -609,9 +603,8 @@ msgstr ""
 "PackageKit) sia disponibile."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
-msgstr "Nessun valore per l'elemento da cercare definito."
+msgstr "Nessun valore definito per l'elemento da cercare."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -660,7 +653,6 @@ msgid "Rebuild the component metadata cache."
 msgstr "Rigenera la cache dei metadati del componente."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Rimuove software tramite l'ID del componente"
 
@@ -797,11 +789,10 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
-"Questo comando accetta gli argomento opzionali TIPO e FILE, con FILE il file "
+"Questo comando accetta gli argomenti opzionali TIPO e FILE, con FILE il file "
 "su cui scrivere (oppure \"-\" per lo standard output)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
@@ -865,11 +856,10 @@ msgstr ""
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Comando \"%s\" sconosciuto."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
