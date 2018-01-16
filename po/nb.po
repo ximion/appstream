@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:20+0100\n"
-"PO-Revision-Date: 2018-01-14 03:08+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
-"appstream/translations/nb/>\n"
+"PO-Revision-Date: 2018-01-24 12:14+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Norwegian Bokmål "
+"<https://hosted.weblate.org/projects/appstream/translations/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,7 +51,7 @@ msgstr "Vis også pedantiske tips."
 
 #: tools/appstream-cli.c:600
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr ""
+msgstr "En elementtype (f.eks. lib, bin, python3, …)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -252,6 +252,8 @@ msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
+"Opprett en map for ei metainfofil (for senere utfylling av prosjektet "
+"oppstrøms)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
@@ -278,7 +280,7 @@ msgstr "Forvalgt nettadresse for skjermavbildning"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "Forvalgt metadataformat (gyldige verdier er \"xml\" og \"yaml\")."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -475,7 +477,7 @@ msgstr "Installer ei metadatafil på rett plass."
 
 #: tools/appstream-cli.c:609
 msgid "Install software matching the component-ID."
-msgstr ""
+msgstr "Installer programvare som samsvarer med komponent-ID-en."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -518,17 +520,17 @@ msgstr "Logikk"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Utfør forespørsel uten hurtiglagring."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
 msgid "Manually selected location of AppStream cache."
-msgstr ""
+msgstr "Manuelt valgt plassering for AppStream-hurtiglager."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
+msgstr "Manuelt valgt plassering for AppStream-metadata å skanne."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -556,11 +558,11 @@ msgstr "Metainfofiler:"
 
 #: src/as-provided.c:149
 msgid "Mimetypes"
-msgstr "Mimetypes"
+msgstr "MIME-typer"
 
 #: src/as-provided.c:153
 msgid "Modaliases"
-msgstr "Modaliases"
+msgstr "Modalias"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -595,7 +597,7 @@ msgstr ""
 
 #: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for was defined."
-msgstr ""
+msgstr "Ingen verdi for elementet å søke ble definert."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -645,7 +647,7 @@ msgstr "Bygg opp igjen komponent- og metadata -hurtiglager."
 
 #: tools/appstream-cli.c:610
 msgid "Remove software matching the component-ID."
-msgstr ""
+msgstr "Fjern programvare som samsvarer med komponent-ID-en."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -792,6 +794,11 @@ msgid ""
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
+"Dette verktøyet tillater lesing, skriving og godkjenning av transformering "
+"av AppStream -XML eller -YAML-metadata. Det gir også tilgang til systemets "
+"metadatagrunnlag, for eksempel for spørringer til programvare som tilbyr en "
+"spesifikk MIME-type, og installasjon av dens "
+"programvarekomponentidentifikator."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -843,13 +850,14 @@ msgstr "Klarte ikke å skrive til \"%s\", kan ikke installere metainfo-fil."
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Ukjent kommando \"%s\"."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
+"Bruk gitt .desktop-fil for å fylle inn grunnleggende verdier i metainfofila."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
