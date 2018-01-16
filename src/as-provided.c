@@ -64,7 +64,7 @@ as_provided_kind_to_string (AsProvidedKind kind)
 	if (kind == AS_PROVIDED_KIND_BINARY)
 		return "bin";
 	if (kind == AS_PROVIDED_KIND_MIMETYPE)
-		return "mimetype";
+		return "MIME type";
 	if (kind == AS_PROVIDED_KIND_FONT)
 		return "font";
 	if (kind == AS_PROVIDED_KIND_MODALIAS)
@@ -99,7 +99,7 @@ as_provided_kind_from_string (const gchar *kind_str)
 		return AS_PROVIDED_KIND_LIBRARY;
 	if (g_strcmp0 (kind_str, "bin") == 0)
 		return AS_PROVIDED_KIND_BINARY;
-	if (g_strcmp0 (kind_str, "mimetype") == 0)
+	if (g_strcmp0 (kind_str, "MIME type") == 0)
 		return AS_PROVIDED_KIND_MIMETYPE;
 	if (g_strcmp0 (kind_str, "font") == 0)
 		return AS_PROVIDED_KIND_FONT;
@@ -139,7 +139,7 @@ as_provided_kind_to_l10n_string (AsProvidedKind kind)
 	if (kind == AS_PROVIDED_KIND_BINARY)
 		return _("Binaries");
 	if (kind == AS_PROVIDED_KIND_MIMETYPE)
-		return _("Mimetypes");
+		return _("MIME types");
 	if (kind == AS_PROVIDED_KIND_FONT)
 		return _("Fonts");
 	if (kind == AS_PROVIDED_KIND_MODALIAS)
