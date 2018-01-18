@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-14 04:20+0100\n"
-"PO-Revision-Date: 2017-11-05 21:47+0000\n"
+"PO-Revision-Date: 2018-01-24 12:14+0000\n"
 "Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"Language-Team: German "
+"<https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 2.19-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -53,9 +53,8 @@ msgid "Also show pedantic hints."
 msgstr "Auch kleinste Hinweise anzeigen."
 
 #: tools/appstream-cli.c:600
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Ein Elementtyp (z.B. lib, bin, python3, ...)"
+msgstr "Ein Elementtyp (z.B. lib, bin, python3, …)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -288,11 +287,8 @@ msgstr "Standardadresse für Bildschirmfotos"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Vorgabe des angegebenen Metadatenformats (gültige Werte sind „xml” und "
-"„yaml”)."
+msgstr "Standard-Metadatenformat (gültige Werte sind „XML” und „YAML”)."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -488,9 +484,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Metadaten im richtigen Ort installieren."
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
-msgstr "Software mit passender Komponentenkennung installieren."
+msgstr "Anwendung mit passender Komponentenkennung installieren."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -534,17 +529,15 @@ msgstr "Logik"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Stellen Sie eine Anfrage ohne Zwischenspeicherung."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
 msgstr "Ort des AppStream-Zwischenspeichers manuell angeben."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ort der AppStream-Metadaten manuell angeben."
 
@@ -613,7 +606,6 @@ msgstr ""
 "verfügbar ist."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
 msgstr "Kein Wert für das zu suchende Objekt angegeben."
 
@@ -664,9 +656,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Metadaten-Zwischenspeicher der Komponente neu erstellen."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
-msgstr "Software mit passender Komponentenkennung entfernen."
+msgstr "Anwendung mit passender Komponentenkennung entfernen."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -808,17 +799,16 @@ msgstr ""
 "Standardausgabe)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
-"Dieses Tool ermöglicht das Lesen, Schreiben, Überprüfen und Umwandeln von "
-"AppStream XML- oder YAML-Metadaten. Es erlaubt auch den Zugriff auf den "
-"System-Metadaten-Pool, z. B. Abfrage nach Software, die einen bestimmten "
-"Mimetyp liefert und Installation anhand der Softwarekomponentenkennung."
+"Dieses Werkzeug ermöglicht das Lesen, Schreiben, Überprüfen und Umwandeln "
+"von AppStream XML- oder YAML-Metadaten. Es erlaubt auch den Zugriff auf den "
+"System-Metadaten-Pool, z. B. Abfrage nach Anwendungen, die einen bestimmten "
+"MIME-Typ liefert und Installation anhand der Softwarekomponentenkennung."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -871,11 +861,10 @@ msgstr ""
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Unbekannter Befehl „%s”"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
