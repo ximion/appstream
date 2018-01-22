@@ -610,7 +610,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			as_validator_add_issue (validator, idnode,
 						AS_ISSUE_IMPORTANCE_INFO,
 						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component ID [%s] contains a segement starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, "
+						"The component ID [%s] contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, "
 						"to keep interoperability with other tools such as D-Bus. "
 						"Ideally, prefix these sections with an underscore (%s → _%s)", cid, cid_parts[i], cid_parts[i]);
 			break;
