@@ -550,10 +550,11 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 {
 	guint i;
 	g_auto(GStrv) cid_parts = NULL;
+	gboolean hyphen_found = FALSE;
 	g_autofree gchar *cid = (gchar*) xmlNodeGetContent (idnode);
 
-	cid_parts = g_strsplit (cid, ".", 3);
-	if (g_strv_length (cid_parts) != 3) {
+	cid_parts = g_strsplit (cid, ".", -1);
+	if (g_strv_length (cid_parts) < 3) {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
 			/* since the ID and .desktop-file-id are tied together, we can't make this an error for desktop apps */
 			as_validator_add_issue (validator, idnode,
@@ -592,6 +593,33 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 					AS_ISSUE_KIND_VALUE_WRONG,
 					"The component ID [%s] contains an invalid character: '%s'", cid, c);
 		}
+
+		if (!hyphen_found && cid[i] == '-') {
+			hyphen_found = TRUE;
+			as_validator_add_issue (validator, idnode,
+						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"The component ID [%s] contains a hyphen/minus. Using a hyphen is strongly discouraged, to keep interoperability with other tools such as D-Bus. "
+						"Ideally, replace any hyphens with an underscore ('_')", cid);
+		}
+	}
+
+	/* check if any segment starts with a number */
+	for (i = 0; cid_parts[i] != NULL; i++) {
+		if (g_ascii_isdigit (cid_parts[i][0])) {
+			as_validator_add_issue (validator, idnode,
+						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"The component ID [%s] contains a segement starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, "
+						"to keep interoperability with other tools such as D-Bus. "
+						"Ideally, prefix these sections with an underscore (%s → _%s)", cid, cid_parts[i], cid_parts[i]);
+			break;
+		}
+	}
+
+
+	/* a hyphen in the ID is bad news, because we can't use the ID on DBus and it also clashes with other naming schemes */
+	if (g_strstr_len (cid, -1, "-") != NULL) {
 	}
 
 	/* project-group specific constraints on the ID */
