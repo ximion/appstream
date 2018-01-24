@@ -210,6 +210,7 @@ test_yamlwrite_general (void)
 				"  percentage: 100\n"
 				"Releases:\n"
 				"- version: '1.0'\n"
+				"  type: development\n"
 				"  unix-timestamp: 1460463132\n"
 				"  description:\n"
 				"    de_DE: >-\n"
@@ -221,6 +222,7 @@ test_yamlwrite_general (void)
 				"\n"
 				"      <p>Second paragraph.</p>\n"
 				"- version: '1.2'\n"
+				"  type: stable\n"
 				"  unix-timestamp: 1462288512\n"
 				"  urgency: medium\n"
 				"  description:\n"
@@ -282,6 +284,7 @@ test_yamlwrite_general (void)
 
 	rel1 = as_release_new ();
 	as_release_set_version (rel1, "1.0");
+	as_release_set_kind (rel1, AS_RELEASE_KIND_DEVELOPMENT);
 	as_release_set_timestamp (rel1, 1460463132);
 	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
 	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de_DE");

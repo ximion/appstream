@@ -47,6 +47,27 @@ struct _AsReleaseClass
 };
 
 /**
+ * AsReleaseKind:
+ * @AS_RELEASE_KIND_UNKNOWN:		Unknown release type
+ * @AS_RELEASE_KIND_STABLE:		A stable release for end-users
+ * @AS_RELEASE_KIND_DEVELOPMENT:	A development release or pre-release for testing
+ *
+ * The release size kind.
+ *
+ * Since: 0.12.0
+ **/
+typedef enum {
+	AS_RELEASE_KIND_UNKNOWN,
+	AS_RELEASE_KIND_STABLE,
+	AS_RELEASE_KIND_DEVELOPMENT,
+	/*< private >*/
+	AS_RELEASE_KIND_LAST
+} AsReleaseKind;
+
+const gchar	*as_release_kind_to_string (AsReleaseKind kind);
+AsReleaseKind	as_release_kind_from_string (const gchar *kind_str);
+
+/**
  * AsSizeKind:
  * @AS_SIZE_KIND_UNKNOWN:	Unknown size
  * @AS_SIZE_KIND_DOWNLOAD:	Size of download of component
@@ -68,6 +89,10 @@ const gchar	*as_size_kind_to_string (AsSizeKind size_kind);
 AsSizeKind	as_size_kind_from_string (const gchar *size_kind);
 
 AsRelease	*as_release_new (void);
+
+AsReleaseKind	as_release_get_kind (AsRelease *release);
+void		as_release_set_kind (AsRelease *release,
+				     AsReleaseKind kind);
 
 const gchar	*as_release_get_active_locale (AsRelease *release);
 void		as_release_set_active_locale (AsRelease	*release,

@@ -43,6 +43,7 @@
 
 typedef struct
 {
+	AsReleaseKind	kind;
 	gchar		*version;
 	GHashTable	*description;
 	guint64		timestamp;
@@ -59,6 +60,46 @@ typedef struct
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelease, as_release, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_release_get_instance_private (o))
+
+/**
+ * as_release_kind_to_string:
+ * @kind: the #AsReleaseKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 0.12.0
+ **/
+const gchar*
+as_release_kind_to_string (AsReleaseKind kind)
+{
+	if (kind == AS_RELEASE_KIND_STABLE)
+		return "stable";
+	if (kind == AS_RELEASE_KIND_DEVELOPMENT)
+		return "development";
+	return "unknown";
+}
+
+/**
+ * as_release_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: an #AsReleaseKind or %AS_RELEASE_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.12.0
+ **/
+AsReleaseKind
+as_release_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "stable") == 0)
+		return AS_RELEASE_KIND_STABLE;
+	if (g_strcmp0 (kind_str, "development") == 0)
+		return AS_RELEASE_KIND_DEVELOPMENT;
+	return AS_RELEASE_KIND_UNKNOWN;
+}
 
 /**
  * as_size_kind_to_string:
@@ -109,6 +150,9 @@ as_release_init (AsRelease *release)
 	guint i;
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
+	/* we assume a stable release by default */
+	priv->kind = AS_RELEASE_KIND_STABLE;
+
 	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 	priv->locations = g_ptr_array_new_with_free_func (g_free);
 
@@ -150,6 +194,39 @@ as_release_class_init (AsReleaseClass *klass)
 }
 
 /**
+ * as_release_get_kind:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the type of the release.
+ * (development or stable release)
+ *
+ * Since: 0.12.0
+ **/
+AsReleaseKind
+as_release_get_kind (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->kind;
+}
+
+/**
+ * as_release_set_kind:
+ * @release: a #AsRelease instance.
+ * @kind: the #AsReleaseKind
+ *
+ * Sets the release kind to distinguish between end-user ready
+ * stable releases and development prereleases..
+ *
+ * Since: 0.12.0
+ **/
+void
+as_release_set_kind (AsRelease *release, AsReleaseKind kind)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	priv->kind = kind;
+}
+
+/**
  * as_release_get_version:
  * @release: a #AsRelease instance.
  *
@@ -157,7 +234,7 @@ as_release_class_init (AsReleaseClass *klass)
  *
  * Returns: string, or %NULL for not set or invalid
  **/
-const gchar *
+const gchar*
 as_release_get_version (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
@@ -541,6 +618,12 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 	/* propagate context */
 	as_release_set_context (release, ctx);
 
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
+	if (prop != NULL) {
+		priv->kind = as_release_kind_from_string (prop);
+		g_free (prop);
+	}
+
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "version");
 	as_release_set_version (release, prop);
 	g_free (prop);
@@ -634,6 +717,8 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 	/* set release version */
 	subnode = xmlNewChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
+	xmlNewProp (subnode, (xmlChar*) "type",
+		    (xmlChar*) as_release_kind_to_string (priv->kind));
 	xmlNewProp (subnode, (xmlChar*) "version", (xmlChar*) priv->version);
 
 	/* set release timestamp / date */
@@ -727,6 +812,8 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 			} else {
 				g_debug ("Invalid ISO-8601 date in %s", as_context_get_filename (ctx)); // FIXME: Better error, maybe with line number?
 			}
+		} else if (g_strcmp0 (key, "type") == 0) {
+			priv->kind = as_release_kind_from_string (value);
 		} else if (g_strcmp0 (key, "version") == 0) {
 			as_release_set_version (release, value);
 		} else if (g_strcmp0 (key, "urgency") == 0) {
@@ -761,6 +848,9 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* version */
 	as_yaml_emit_entry (emitter, "version", priv->version);
+
+	/* type */
+	as_yaml_emit_entry (emitter, "type", as_release_kind_to_string (priv->kind));
 
 	/* timestamp & date */
 	if (priv->timestamp > 0) {

@@ -293,7 +293,7 @@ test_appstream_write_description ()
 				    "  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
 				    "  <icon type=\"stock\">xml-writetest</icon>\n"
 				    "  <releases>\n"
-				    "    <release version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
+				    "    <release type=\"stable\" version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
 				    "  </releases>\n"
 				    "</component>\n";
 
@@ -332,7 +332,7 @@ test_appstream_write_description ()
 						"  <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
 						"  <icon type=\"stock\">xml-writetest</icon>\n"
 						"  <releases>\n"
-						"    <release version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
+						"    <release type=\"stable\" version=\"1.0\" date=\"2016-04-11T22:00:00Z\"/>\n"
 						"  </releases>\n"
 						"</component>\n";
 
@@ -374,7 +374,7 @@ test_appstream_write_description ()
 					   "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
 					   "    <icon type=\"stock\">xml-writetest</icon>\n"
 					   "    <releases>\n"
-					   "      <release version=\"1.0\" timestamp=\"1460412000\"/>\n"
+					   "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460412000\"/>\n"
 					   "    </releases>\n"
 					   "  </component>\n"
 					   "</components>\n";
@@ -584,7 +584,7 @@ test_xml_write_releases (void)
 					"<component>\n"
 					"  <id>org.example.ReleaseTest</id>\n"
 					"  <releases>\n"
-					"    <release version=\"1.2\">\n"
+					"    <release type=\"stable\" version=\"1.2\">\n"
 					"      <description>\n"
 					"        <p>A release description.</p>\n"
 					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
@@ -973,7 +973,7 @@ test_appstream_write_metainfo_to_collection (void)
 					   "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
 					   "    <icon type=\"stock\">xml-writetest</icon>\n"
 					   "    <releases>\n"
-					   "      <release version=\"1.0\" timestamp=\"1460332800\"/>\n"
+					   "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460332800\"/>\n"
 					   "    </releases>\n"
 					   "  </component>\n"
 					   "</components>\n";
