@@ -629,19 +629,19 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			as_validator_add_issue (validator, idnode,
 						AS_ISSUE_IMPORTANCE_ERROR,
 						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component is part of the Freedesktop project, but its id does not start with fd.o's reverse-DNS name (\"org.freedesktop\").");
+						"The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\").");
 	} else if (g_strcmp0 (as_component_get_project_group (cpt), "KDE") == 0) {
 		if (!g_str_has_prefix (cid, "org.kde."))
 			as_validator_add_issue (validator, idnode,
 						AS_ISSUE_IMPORTANCE_ERROR,
 						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component is part of the KDE project, but its id does not start with KDEs reverse-DNS name (\"org.kde\").");
+						"The component is part of the KDE project, but its ID does not start with KDEs reverse-DNS name (\"org.kde\").");
 	} else if (g_strcmp0 (as_component_get_project_group (cpt), "GNOME") == 0) {
 		if (!g_str_has_prefix (cid, "org.gnome."))
 			as_validator_add_issue (validator, idnode,
 						AS_ISSUE_IMPORTANCE_PEDANTIC,
 						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component is part of the GNOME project, but its id does not start with GNOMEs reverse-DNS name (\"org.gnome\").");
+						"The component is part of the GNOME project, but its ID does not start with GNOMEs reverse-DNS name (\"org.gnome\").");
 	}
 }
 
@@ -1539,7 +1539,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 		cid_base = g_strdup (as_component_get_id (cpt));
 	}
 	if (!as_matches_metainfo (fname, cid_base)) {
-		/* the name-without-type didn't match - check for the full id in the component name */
+		/* the name-without-type didn't match - check for the full ID in the component name */
 		if (!as_matches_metainfo (fname, as_component_get_id (cpt))) {
 			as_validator_add_issue (data->validator, NULL,
 					AS_ISSUE_IMPORTANCE_WARNING,
