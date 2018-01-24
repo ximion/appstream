@@ -32,8 +32,8 @@ add_library(AppStreamQt SHARED IMPORTED)
 set_target_properties(AppStreamQt PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${PACKAGE_PREFIX_DIR}/include/"
   INTERFACE_LINK_LIBRARIES "Qt5::Core"
-  IMPORTED_LOCATION_DEBUG "@LIBDIR_FULL@/libAppStreamQt.so.${AppStreamQt_VERSION}"
-  IMPORTED_SONAME_DEBUG "libAppStreamQt.${AppStreamQt_VERSION_MAJOR}"
+  IMPORTED_LOCATION "@LIBDIR_FULL@/libAppStreamQt.so.${AppStreamQt_VERSION}"
+  IMPORTED_SONAME "libAppStreamQt.${AppStreamQt_VERSION_MAJOR}"
 )
 
 ####################################################################################
