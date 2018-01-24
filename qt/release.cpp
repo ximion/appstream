@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 Aleix Pol Gonzalez <aleixpol@kde.org>
+ * Copyright (C) 2018 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -76,6 +77,11 @@ bool Release::operator==(const Release &other) const
 _AsRelease * AppStream::Release::asRelease() const
 {
     return d->release();
+}
+
+Release::Kind Release::kind() const
+{
+    return Release::Kind(as_release_get_kind(d->m_release));
 }
 
 QString Release::version() const

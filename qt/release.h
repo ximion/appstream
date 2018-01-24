@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 Aleix Pol Gonzalez <aleixpol@kde.org>
+ * Copyright (C) 2018 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -57,6 +58,13 @@ class APPSTREAMQT_EXPORT Release {
          */
         _AsRelease *asRelease() const;
 
+        enum Kind  {
+            KindUnknown,
+            KindStable,
+            KindDevelopment
+        };
+        Q_ENUM(Kind)
+
         enum SizeKind {
             SizeUnknown,
             SizeDownload,
@@ -72,6 +80,8 @@ class APPSTREAMQT_EXPORT Release {
             UrgencyCritical
         };
         Q_ENUM(UrgencyKind)
+
+        Kind kind() const;
 
         QString version() const;
 
