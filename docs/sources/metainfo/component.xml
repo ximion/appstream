@@ -67,7 +67,8 @@
 		<listitem>
 		<para>
 			The <code language="XML"><![CDATA[<id>]]></code> tag is a unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers. Spaces are
-			not allowed.
+			not allowed. While hyphens are allowed for legacy compatibility, their usage is strongly discouraged to ensure interoperability of the AppStream ID with other tools such
+			as D-Bus (and thereby making the ID more generic and useful). It is also strongly discouraged to start any segment of the ID with a digit.
 		</para>
 		<para>
 			The ID must follow a reverse-DNS scheme, consisting of <literal>{tld}.{vendor}.{product}</literal>, for example <code>org.kde.Gwenview</code>
@@ -81,6 +82,16 @@
 			Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions and software deployment platforms.
 			In case it is not unique, distributors are expected to reject the conflicting components from inclusion into their metadata and notify the upstream projects about this issue.
 		</para>
+
+		<important>
+		<title>Escaping characters in the component ID</title>
+		<para>
+			To ensures the greatest possible compatibility of an AppStream ID, it is recommended to replace any hyphens in the ID with underscores, and prefix every leading digit of
+			a section with an underscore as well. Since the underscore is not a valid character in domain names, the uniqueness of the ID is kept.
+			For example, the ID <code>org.7-zip.7Zip</code> could become <code>org._7_zip._7Zip</code>.
+		</para>
+		</important>
+
 		</listitem>
 		</varlistentry>
 

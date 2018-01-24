@@ -1,3 +1,54 @@
+Version 0.11.8
+~~~~~~~~~~~~~~
+Released: 2018-01-22
+
+Features:
+ * validator: Emit a hint in case a discouraged AppStream ID style is used (Matthias Klumpp)
+ * l10n: Renamed Norwegian Bokmål language file (Matthias Klumpp)
+
+Specification:
+ * docs: Add quickstart instructions for intltool (David Steele)
+ * spec: Discourage use of hyphens and digit-started segments for IDs (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Export the AppStreamQt target (Aleix Pol)
+ * Various string improvements (Allan Nordhøy)
+ * validator: Don't make HEAD requests for URL checks, fetch first byte instead (Matthias Klumpp)
+ * Enforce a non-broken version of gobject-introspection (Matthias Klumpp)
+ * Ensure LINGUAS update is only run explicitly (Matthias Klumpp)
+ * Fix a minor memory and fd leak (Matthias Klumpp)
+
+Translation:
+ * Norwegian Bokmål
+   - Allan Nordhøy
+   - Petter Reinholdtsen
+ * Swedish
+   - Anders Jonsson
+   - Allan Nordhøy
+ * German
+   - Andreas Kleinert
+ * Chinese (Traditional)
+   - Chang-Chia Tseng
+ * Chinese (Simplified)
+   - Dingzhong Chen
+ * French
+   - Emmanuel Gil Peyrot
+   - Yvan Masson
+ * Dutch
+   - Heimen Stoffels
+ * Russian
+   - Igor
+ * Slovak
+   - Martina Tatranská
+ * Italian
+   - Milo Casagrande
+ * Czech
+   - Pavel Borecki
+ * Polish
+   - Piotr Drąg
+ * Ukrainian
+   - Yuri Chornoivan
+
 Version 0.11.7
 ~~~~~~~~~~~~~~
 Released: 2017-10-22
