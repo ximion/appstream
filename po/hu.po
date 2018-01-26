@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-23 00:02+0100\n"
-"PO-Revision-Date: 2018-01-24 12:14+0000\n"
-"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"PO-Revision-Date: 2018-01-26 14:18+0000\n"
+"Last-Translator: Balázs Meskó <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian "
 "<https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
@@ -48,9 +48,8 @@ msgstr "Kaland"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
-#, fuzzy
 msgid "Also show pedantic hints."
-msgstr "Az akadékoskodó tippeket is írja ki ellenőrzéskor."
+msgstr "Az akadékoskodó tippeket is írja ki."
 
 #: tools/appstream-cli.c:600
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -110,6 +109,8 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"Az AppStream egy disztribúciók közötti specifikáció, amely metaadatokat "
+"biztosít a szoftverkomponensekről."
 
 #: src/as-pool.c:1546
 #, c-format
@@ -523,7 +524,7 @@ msgstr "Logikai"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Kérés küldése gyorsítótárazás nélkül."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
@@ -762,12 +763,15 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"Az AppStream rendszergyorsítótár frissítve lett, de néhány hiba lett "
+"észlelve, amely hiányzó metaadatokhoz vezethet. További információkért nézze "
+"meg a részletes naplót."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:561
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "A TÍPUS értéke érvényes komponenstípus kell legyen, mint például: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -775,6 +779,8 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"A(z) „%s” szoftverkomponens-típus nem érvényes az AppStreamben. A lehetséges "
+"értékek:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:558
@@ -782,6 +788,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Ez a parancs a nem kötelező TÍPUS és FÁJL argumentumokat fogadja, ahol a "
+"FÁJL a kimeneti fájl (vagy szabványos kimenet esetén „-”)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -790,6 +798,11 @@ msgid ""
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
+"Ezzel az eszközzel AppStream XML vagy YAML metaadatokat olvashat, írhat, "
+"érvényesíthet és transzformálhat. Hozzáférést is biztosít a rendszer "
+"metaadataihoz, például le tudja kérdezni a szoftvereket, amelyek bizonyos "
+"MIME-típusokat biztosítanak, és telepíteni tudja a szoftverkomponens-"
+"azonosítója alapján."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -820,7 +833,7 @@ msgstr "Nem található összetevő a következő azonosítóval: „%s”!"
 #: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "A .desktop fájl nem olvasható: %s"
 
 #: tools/ascli-actions-mdata.c:549
 #, c-format
@@ -841,13 +854,15 @@ msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthet
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Ismeretlen parancs: „%s”."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
+"A megadott .desktop fájl használata a metainfo fájl alapvető értékeinek "
+"kitöltésére."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -929,6 +944,8 @@ msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Meg kell adnia egy AppStream szoftverkomponens-típust a sablon "
+"előállításához. A lehetséges értékek:"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:670
@@ -976,25 +993,25 @@ msgstr "app;alkalmazás;csomag;program;alkalmazáscsomag;eszköz"
 #: tools/ascli-actions-validate.c:183
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "hibák: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "információk: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
 #, c-format
 msgid "pedantic: %lu"
-msgstr ""
+msgstr "kötekedő: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:190
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "figyelmeztetés: %lu"
 
 #~ msgid "Command '%s' is unknown."
 #~ msgstr "A(z) „%s” parancs ismeretlen."
