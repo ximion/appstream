@@ -23,6 +23,11 @@ option('apidocs',
        value : true,
        description : 'Build API documentation (automatically enabled when "-Ddocs=true" is passed)'
 )
+option('install-docs',
+       type : 'boolean',
+       value : true,
+       description : 'Install documentation for API and specification'
+)
 option('apt-support',
        type : 'boolean',
        value : false,
