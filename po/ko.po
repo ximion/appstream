@@ -13,19 +13,20 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Shinjo Park <kde@peremen.name>, 2015
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2015-2016
 # Shinjo Park <kde@peremen.name>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
+# Jung-Kyu Park <bagjunggyu@gmail.com>, 2021.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Jung-Kyu Park <bagjunggyu@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -2124,17 +2125,14 @@ msgstr "'%s'는(은) 알 수 없는 옵션입니다."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
+msgstr "'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"'%s --help' 를 실행하면 사용 가능한 명령문과 옵션 목록을 볼 수 있습니다, 그리"
-"고 '%s %s --help' 를 실행해서 사용 가능한 하위 명령어 옵션 목록을 봅니다."
+msgstr "'%s --help' 를 실행하면 사용 가능한 명령문과 옵션 목록을 볼 수 있습니다, 그리고 '%s %s --help' 를 실행해서 사용 가능한 하위 명령어 옵션 목록을 봅니다."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2194,9 +2192,7 @@ msgstr "주어진 .desktop 파일을 사용하여 metainfo 파일의 기본 값�
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"이 명령은 선택적인 TYPE 및 FILE 위치 인수를 사용하며, FILE은 기록할 파일 (또"
-"는 표준 출력의 경우 \"-\")입니다."
+msgstr "이 명령은 선택적인 TYPE 및 FILE 위치 인수를 사용하며, FILE은 기록할 파일 (또는 표준 출력의 경우 \"-\")입니다."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2258,9 +2254,7 @@ msgstr "하위 명령어:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"하위 명령어에 \"--help\"를 보내 하위 명령어에 관한 옵션 정보를 찾을 수 있습니"
-"다."
+msgstr "하위 명령어에 \"--help\"를 보내 하위 명령어에 관한 옵션 정보를 찾을 수 있습니다."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2490,9 +2484,7 @@ msgstr "메타데이터 파일 '%s' 없습니다."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"파일을 변환할 수 없습니다: 출력 형식을 결정할 수 없습니다, '--format ='을 사"
-"용하여 명확하게 설정하세요."
+msgstr "파일을 변환할 수 없습니다: 출력 형식을 결정할 수 없습니다, '--format ='을 사용하여 명확하게 설정하세요."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2508,18 +2500,14 @@ msgstr "버전: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"템플릿을 생성하려면 AppStream 소프트웨어 구성 요소 유형을 제공해야 합니다. 가"
-"능한 값은 다음과 같습니다:"
+msgstr "템플릿을 생성하려면 AppStream 소프트웨어 구성 요소 유형을 제공해야 합니다. 가능한 값은 다음과 같습니다:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값"
-"은 다음과 같습니다:"
+msgstr "소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값은 다음과 같습니다:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2662,9 +2650,7 @@ msgstr "입출력 파일을 지정해야 합니다."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"적당한 패키지 매니저 CLI가 없습니다. \"pkcon\"(PackageKit 일부)과 같은 프로그"
-"램이 있는지 확인하십시오."
+msgstr "적당한 패키지 매니저 CLI가 없습니다. \"pkcon\"(PackageKit 일부)과 같은 프로그램이 있는지 확인하십시오."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
