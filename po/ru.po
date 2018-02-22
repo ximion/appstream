@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-01-23 00:02+0100\n"
-"PO-Revision-Date: 2017-11-21 16:36+0000\n"
+"PO-Revision-Date: 2018-02-22 14:53+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"Language-Team: Russian "
+"<https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 2.20-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -53,7 +53,6 @@ msgid "Also show pedantic hints."
 msgstr "Кроме того, выводить педантичные подсказки."
 
 #: tools/appstream-cli.c:600
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Тип элемента (например lib, bin, python3, ...)"
 
@@ -252,7 +251,6 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Не удалось найти компоненту, предоставляющую \"%s::%s\"."
 
 #: tools/appstream-cli.c:616
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -283,11 +281,9 @@ msgstr "URL-адрес снимка экрана по умолчанию"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
-"По умолчанию к указанному формату метаданных (допустимые значения: \"xml\" и "
-"\"yaml\")."
+"Формат метаданных по умолчанию (допустимые значения: \"xml\" и \"yaml\")."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -485,7 +481,6 @@ msgid "Install a metadata file into the right location."
 msgstr "Установить файл метаданных в нужное место."
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
 msgstr ""
 "Установить программное обеспечение, соответствующее идентификатору "
@@ -533,17 +528,15 @@ msgstr "Логические"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Сделать запрос без кэширования."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
 msgstr "Установить вручную местоположение кэша AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 "Установить вручную местоположение метаданных AppStream для сканирования."
@@ -612,9 +605,8 @@ msgstr ""
 "например, «pkcon» (часть PackageKit) доступен."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
-msgstr "Не определено значение для элемента поиска."
+msgstr "Не определено значение элемента для поиска."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -663,7 +655,6 @@ msgid "Rebuild the component metadata cache."
 msgstr "Перестроить кэш метаданных компонентах."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr ""
 "Удалить программное обеспечение, соответствующее идентификатору компоненты."
@@ -806,7 +797,6 @@ msgstr ""
 "файлом для вывода (или \"-\" для стандартного потока вывода)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
@@ -814,7 +804,7 @@ msgid ""
 "and installing it by its software component identifier."
 msgstr ""
 "Эта утилита позволяет читать, записывать, проверять и преобразовывать "
-"метаданные AppStream в формате XML или YAML. Она также позволяет доступ к "
+"метаданные AppStream в формате XML или YAML. Она также даёт доступ к "
 "системному пулу метаданных, например, для запроса ПО, работающего с "
 "определённым типом файлов, и его установки по идентификатору программного "
 "компонента."
@@ -870,11 +860,10 @@ msgstr ""
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Неизвестная команда \"%s\"."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
