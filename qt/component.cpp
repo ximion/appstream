@@ -154,6 +154,21 @@ Component::~Component()
     g_object_unref(m_cpt);
 }
 
+Component& Component::operator=(const Component& other)
+{
+    if (&other != this) {
+        g_object_unref(m_cpt);
+        m_cpt = other.m_cpt;
+        g_object_ref(m_cpt);
+    }
+    return *this;
+}
+
+Component::Component(Component&& other)
+    : m_cpt(other.m_cpt)
+{
+}
+
 _AsComponent * AppStream::Component::asComponent() const
 {
     return m_cpt;
