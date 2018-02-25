@@ -168,6 +168,7 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 			       const gchar *apt_lists_dir,
 			       const gchar *icons_size)
 {
+	g_autofree gchar *escaped_size = NULL;
 	g_autofree gchar *icons_tarball = NULL;
 	g_autofree gchar *target_dir = NULL;
 	g_autofree gchar *cmd = NULL;
@@ -175,7 +176,8 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 	gint res;
 	g_autoptr(GError) tmp_error = NULL;
 
-	icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.gz", apt_lists_dir, apt_basename, icons_size);
+	escaped_size = g_uri_escape_string (icons_size, NULL, FALSE);
+	icons_tarball = g_strdup_printf ("%s/%sicons-%s.tar.gz", apt_lists_dir, apt_basename, escaped_size);
 	if (!g_file_test (icons_tarball, G_FILE_TEST_EXISTS)) {
 		/* no icons found, stop here */
 		return;
