@@ -100,7 +100,10 @@ Q_GADGET
         Component(_AsComponent *cpt);
         Component();
         Component(const Component& other);
+        Component(Component&& other);
         ~Component();
+
+        Component& operator=(const Component& c);
 
         _AsComponent *asComponent() const;
 
