@@ -288,8 +288,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		}
 
 		if (existing_cpt != NULL) {
-			if (as_component_get_origin_kind (cpt) != AS_ORIGIN_KIND_DESKTOP_ENTRY) {
-				/* discard tthis component if we have anything better data already in the pool,
+			if (as_component_get_origin_kind (existing_cpt) != AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+				/* discard this component if we have better data already in the pool,
 				 * which is basically anything *but* data from a .desktop file */
 				g_debug ("Ignored .desktop metadata for '%s': Better data exists.", cdid);
 				return FALSE;
