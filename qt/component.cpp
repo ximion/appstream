@@ -158,8 +158,7 @@ Component& Component::operator=(const Component& other)
 {
     if (&other != this) {
         g_object_unref(m_cpt);
-        m_cpt = other.m_cpt;
-        g_object_ref(m_cpt);
+        m_cpt = AS_COMPONENT(g_object_ref(other.m_cpt));
     }
     return *this;
 }
