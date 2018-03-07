@@ -56,9 +56,11 @@ def get_spdx_id_list(fname, git_url, with_deprecated=True):
     last_tag_name = subprocess.check_output(['git', 'describe', '--abbrev=0',  '--tags'], cwd=tdir.name)
     last_tag_name = str(last_tag_name.strip(), 'utf-8')
 
+    licenses_text_dir = os.path.join(tdir.name, 'text')
+
     id_list = list()
     # get SPDX license-IDs from filenames
-    for spdx_fname in os.listdir(tdir.name):
+    for spdx_fname in os.listdir(licenses_text_dir):
         if not spdx_fname.endswith('.txt'):
             continue
         raw_id = os.path.splitext(spdx_fname)[0]
@@ -82,7 +84,7 @@ def get_spdx_id_list(fname, git_url, with_deprecated=True):
 
 def main():
     get_tld_list     ("iana-filtered-tld-list.txt", "https://data.iana.org/TLD/tlds-alpha-by-domain.txt")
-    get_spdx_id_list ("spdx-license-ids.txt", "http://git.spdx.org/license-list.git")
+    get_spdx_id_list ("spdx-license-ids.txt", "https://github.com/spdx/license-list-data.git")
 
     print("All done.")
 
