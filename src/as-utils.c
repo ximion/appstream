@@ -456,7 +456,7 @@ as_str_replace (const gchar *str, const gchar *old, const gchar *new)
 	size_t count, retlen, newlen = strlen(new);
 
 	if (oldlen != newlen) {
-		for (count = 0, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen)
+		for (count = 0, p = str; (oldlen != 0) && (q = strstr(p, old)) != NULL; p = q + oldlen)
 			count++;
 		/* this is undefined if p - str > PTRDIFF_MAX */
 		retlen = p - str + strlen(p) + count * (newlen - oldlen);
@@ -466,7 +466,7 @@ as_str_replace (const gchar *str, const gchar *old, const gchar *new)
 	if ((ret = malloc(retlen + 1)) == NULL)
 		return NULL;
 
-	for (r = ret, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen) {
+	for (r = ret, p = str; (oldlen != 0) && (q = strstr(p, old)) != NULL; p = q + oldlen) {
 		/* this is undefined if q - p > PTRDIFF_MAX */
 		ptrdiff_t l = q - p;
 		memcpy(r, p, l);
