@@ -445,38 +445,86 @@ as_ptr_array_to_strv (GPtrArray *array)
 }
 
 /**
+ * as_gstring_replace:
+ * @string: The #GString to operate on
+ * @search: The text to search for
+ * @replace: The text to use for substitutions
+ *
+ * Performs multiple search and replace operations on the given string.
+ *
+ * Returns: the number of replacements done, or 0 if @search is not found.
+ **/
+guint
+as_gstring_replace (GString *string, const gchar *search, const gchar *replace)
+{
+	gchar *tmp;
+	guint count = 0;
+	gsize search_idx = 0;
+	gsize replace_len;
+	gsize search_len;
+
+	g_return_val_if_fail (string != NULL, 0);
+	g_return_val_if_fail (search != NULL, 0);
+	g_return_val_if_fail (replace != NULL, 0);
+
+	/* nothing to do */
+	if (string->len == 0)
+		return 0;
+
+	search_len = strlen (search);
+	replace_len = strlen (replace);
+
+	do {
+		tmp = g_strstr_len (string->str + search_idx, -1, search);
+		if (tmp == NULL)
+			break;
+
+		/* advance the counter in case @replace contains @search */
+		search_idx = (gsize) (tmp - string->str);
+
+		/* reallocate the string if required */
+		if (search_len > replace_len) {
+			g_string_erase (string,
+					(gssize) search_idx,
+					(gssize) (search_len - replace_len));
+			memcpy (tmp, replace, replace_len);
+		} else if (search_len < replace_len) {
+			g_string_insert_len (string,
+					     (gssize) search_idx,
+					     replace,
+					     (gssize) (replace_len - search_len));
+			/* we have to treat this specially as it could have
+			 * been reallocated when the insertion happened */
+			memcpy (string->str + search_idx, replace, replace_len);
+		} else {
+			/* just memcmp in the new string */
+			memcpy (tmp, replace, replace_len);
+		}
+		search_idx += replace_len;
+		count++;
+	} while (TRUE);
+
+	return count;
+}
+
+/**
  * as_str_replace:
+ * @str: The string to operate on
+ * @old_str: The old value to replace.
+ * @new_str: The new value to replace @old_str with.
+ *
+ * Performs search & replace on the given string.
+ *
+ * Returns: A new string with the characters replaced.
  */
 gchar*
-as_str_replace (const gchar *str, const gchar *old, const gchar *new)
+as_str_replace (const gchar *str, const gchar *old_str, const gchar *new_str)
 {
-	gchar *ret, *r;
-	const gchar *p, *q;
-	size_t oldlen = strlen(old);
-	size_t count, retlen, newlen = strlen(new);
+	GString *gstr;
 
-	if (oldlen != newlen) {
-		for (count = 0, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen)
-			count++;
-		/* this is undefined if p - str > PTRDIFF_MAX */
-		retlen = p - str + strlen(p) + count * (newlen - oldlen);
-	} else
-		retlen = strlen(str);
-
-	if ((ret = malloc(retlen + 1)) == NULL)
-		return NULL;
-
-	for (r = ret, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen) {
-		/* this is undefined if q - p > PTRDIFF_MAX */
-		ptrdiff_t l = q - p;
-		memcpy(r, p, l);
-		r += l;
-		memcpy(r, new, newlen);
-		r += newlen;
-	}
-	strcpy(r, p);
-
-	return ret;
+	gstr = g_string_new (str);
+	as_gstring_replace (gstr, old_str, new_str);
+	return g_string_free (gstr, FALSE);
 }
 
 /**

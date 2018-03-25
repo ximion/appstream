@@ -50,6 +50,9 @@ gboolean		as_utils_is_root (void);
 AS_INTERNAL_VISIBLE
 gboolean		as_utils_is_writable (const gchar *path);
 
+guint			as_gstring_replace (GString *string,
+					    const gchar *search,
+					    const gchar *replace);
 gchar			*as_str_replace (const gchar *str,
 					 const gchar *old_str,
 					 const gchar *new_str);
