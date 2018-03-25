@@ -200,6 +200,13 @@ test_spdx (void)
 	g_strfreev (tok);
 	g_free (tmp);
 
+	/* multiple licences, using the new style */
+	tok = as_spdx_license_tokenize ("LGPL-2.0-or-later AND GPL-2.0-only");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@LGPL-2.0+  &  @GPL-2.0");
+	g_strfreev (tok);
+	g_free (tmp);
+
 	/* multiple licences, deprectated 'and' & 'or' */
 	tok = as_spdx_license_tokenize ("LGPL-2.0+ and GPL-2.0 or LGPL-3.0");
 	tmp = g_strjoinv ("  ", tok);
