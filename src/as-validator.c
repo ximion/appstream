@@ -684,6 +684,76 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 }
 
 /**
+ * as_validator_validate_metadata_license:
+ */
+static void
+as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license_node)
+{
+	gboolean requires_all_tokens = TRUE;
+	guint license_bad_cnt = 0;
+	guint license_good_cnt = 0;
+	g_auto(GStrv) tokens = NULL;
+	g_autofree gchar *license_expression = (gchar*) xmlNodeGetContent (license_node);
+
+	tokens = as_spdx_license_tokenize (license_expression);
+	if (tokens == NULL) {
+		as_validator_add_issue (validator, license_node,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_VALUE_WRONG,
+					"SPDX license expression '%s' could not be parsed.",
+					license_expression);
+		return;
+	}
+
+	/* this is too complicated to process */
+	for (guint i = 0; tokens[i] != NULL; i++) {
+		if (g_strcmp0 (tokens[i], "(") == 0 ||
+		    g_strcmp0 (tokens[i], ")") == 0) {
+			as_validator_add_issue (validator, license_node,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_VALUE_WRONG,
+						"The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, CC-0-1.0 or MIT "
+						"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
+			return;
+		}
+	}
+
+	/* this is a simple expression parser and can be easily tricked */
+	for (guint i = 0; tokens[i] != NULL; i++) {
+		if (g_strcmp0 (tokens[i], "+") == 0)
+			continue;
+		if (g_strcmp0 (tokens[i], "|") == 0) {
+			requires_all_tokens = FALSE;
+			continue;
+		}
+		if (g_strcmp0 (tokens[i], "&") == 0) {
+			requires_all_tokens = TRUE;
+			continue;
+		}
+		if (as_license_is_metadata_license (tokens[i])) {
+			license_good_cnt++;
+		} else {
+			license_bad_cnt++;
+		}
+	}
+
+	/* any valid token makes this valid */
+	if (!requires_all_tokens && license_good_cnt > 0)
+		return;
+
+	/* all tokens are required to be valid */
+	if (requires_all_tokens && license_bad_cnt == 0)
+		return;
+
+	/* looks like the license was bad */
+	as_validator_add_issue (validator, license_node,
+				AS_ISSUE_IMPORTANCE_WARNING,
+				AS_ISSUE_KIND_VALUE_WRONG,
+				"The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC-0-1.0 or MIT "
+				"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
+}
+
+/**
  * as_validator_validate_update_contact:
  */
 static void
@@ -880,15 +950,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 
 			/* the license must allow easy mixing of metadata in metainfo files */
-			if (mode == AS_FORMAT_STYLE_METAINFO) {
-				if (!as_license_is_metadata_license (node_content)) {
-					as_validator_add_issue (validator, iter,
-								AS_ISSUE_IMPORTANCE_WARNING,
-								AS_ISSUE_KIND_VALUE_WRONG,
-								"The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC-0-1.0 or MIT "
-								"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
-				}
-			}
+			if (mode == AS_FORMAT_STYLE_METAINFO)
+				as_validator_validate_metadata_license (validator, iter);
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (g_hash_table_contains (found_tags, node_name)) {
 				as_validator_add_issue (validator, iter,
