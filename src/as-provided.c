@@ -146,7 +146,7 @@ as_provided_kind_to_l10n_string (AsProvidedKind kind)
 	if (kind == AS_PROVIDED_KIND_BINARY)
 		return _("Binaries");
 	if (kind == AS_PROVIDED_KIND_MIMETYPE)
-		return _("Mimetypes");
+		return _("MIME types");
 	if (kind == AS_PROVIDED_KIND_FONT)
 		return _("Fonts");
 	if (kind == AS_PROVIDED_KIND_MODALIAS)
