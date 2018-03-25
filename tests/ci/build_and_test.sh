@@ -26,7 +26,7 @@ meson -Dmaintainer=true \
 ninja -j4
 ninja documentation
 ninja test -v
-DESTDIR=./install_root/ ninja install
+DESTDIR=/tmp/install_root/ ninja install
 
 # Rebuild everything with Sanitizers enabled
 # FIXME: Doesn't work properly with Clang at time, so we only run this test with GCC.
