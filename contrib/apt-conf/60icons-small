@@ -1,0 +1,13 @@
+## This file enables the download of small-size 64x64px
+## icons for use in software centers like GNOME Software
+## and Plasma Discover.
+##
+## The icons are required for software centers to function
+## correctly. Applications without an icon will not be
+## displayed at all.
+
+Acquire::IndexTargets {
+    deb::DEP-11-icons  {
+        DefaultEnabled "true";
+    };
+};
