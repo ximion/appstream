@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2017-12-29 00:03+0000\n"
 "Last-Translator: Yvan Masson <yvan@masson-informatique.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
@@ -529,6 +529,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logique"
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "Types MIME"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -570,10 +575,6 @@ msgstr "Les fichiers de métadonnées comportent des erreurs :"
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Fichiers de méta-info :"
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "Types MIME"
 
 #: src/as-provided.c:153
 msgid "Modaliases"

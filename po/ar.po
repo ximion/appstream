@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2018-02-05 15:34+0000\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Arabic "
-"<https://hosted.weblate.org/projects/appstream/translations/ar/>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/"
+"translations/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,8 +88,8 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
-"فشل تحديث ذاكرة تخزين آب-ستريم المؤقتة. فعّل وضع التفصيل (verbose) للحصول "
-"على معلومات أكثر تفصيلاً عن المشكلة."
+"فشل تحديث ذاكرة تخزين آب-ستريم المؤقتة. فعّل وضع التفصيل (verbose) للحصول على "
+"معلومات أكثر تفصيلاً عن المشكلة."
 
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
@@ -186,8 +186,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
-"لم نتمكن من نسخ ’%s‘: لا يحتوي الملف على تذييل '.metainfo.xml' ولا "
-"'.appdata.xml'."
+"لم نتمكن من نسخ ’%s‘: لا يحتوي الملف على تذييل '.metainfo.xml' ولا '.appdata."
+"xml'."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -516,6 +516,10 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr ""
 
+#: src/as-provided.c:149
+msgid "MIME types"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -553,10 +557,6 @@ msgstr ""
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
-msgstr ""
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
 msgstr ""
 
 #: src/as-provided.c:153

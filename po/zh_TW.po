@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2018-01-14 15:57+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -511,6 +511,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "邏輯"
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "Mime 類型"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -549,10 +554,6 @@ msgstr "中介資料檔中有誤："
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "中介資料檔："
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "Mime 類型"
 
 #: src/as-provided.c:153
 msgid "Modaliases"

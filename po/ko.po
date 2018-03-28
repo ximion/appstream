@@ -10,11 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2018-02-05 04:37+0000\n"
 "Last-Translator: Jung-Kyu Park <bagjunggyu@gmail.com>\n"
-"Language-Team: Korean "
-"<https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
+"translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,7 +91,9 @@ msgstr "AppStream 캐시 업데이트를 성공적으로 마쳤습니다."
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
-msgstr "AppStream 캐시 업데이트에 실패했습니다. 상세 정보를 얻으려면 자세한 정보 보기 모드를 켜주세요."
+msgstr ""
+"AppStream 캐시 업데이트에 실패했습니다. 상세 정보를 얻으려면 자세한 정보 보"
+"기 모드를 켜주세요."
 
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
@@ -108,7 +110,9 @@ msgstr "AppStream 명령문 인터페이스"
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr "AppStream은 소프트웨어 구성 요소에 대한 메타 데이터를 제공하는 교차 배포 사양입니다."
+msgstr ""
+"AppStream은 소프트웨어 구성 요소에 대한 메타 데이터를 제공하는 교차 배포 사양"
+"입니다."
 
 #: src/as-pool.c:1546
 #, c-format
@@ -516,6 +520,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "로직"
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "MIME 형식"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -555,10 +564,6 @@ msgstr "메타데이터 파일에 오류가 있습니다:"
 msgid "Metainfo files:"
 msgstr "Metainfo 파일:"
 
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "MIME 형식"
-
 #: src/as-provided.c:153
 msgid "Modaliases"
 msgstr "모듈 별칭"
@@ -590,7 +595,9 @@ msgstr "아이콘 없음."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr "적당한 패키지 매니저 CLI가 없습니다. \"pkcon\"(PackageKit 일부)과 같은 프로그램이 있는지 확인하십시오."
+msgstr ""
+"적당한 패키지 매니저 CLI가 없습니다. \"pkcon\"(PackageKit 일부)과 같은 프로그"
+"램이 있는지 확인하십시오."
 
 #: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for was defined."
@@ -659,7 +666,8 @@ msgstr "롤 플레잉"
 #: tools/appstream-cli.c:181 tools/appstream-cli.c:671
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
+msgstr ""
+"'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
 
 #: tools/appstream-cli.c:183
 #, c-format
@@ -667,8 +675,8 @@ msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
 msgstr ""
-"'%s --help' 를 실행하면 사용 가능한 명령문과 옵션 목록을 볼 수 있습니다, 그리고 '%s %s --help' 를 실행해서 사용 "
-"가능한 하위 명령어 옵션 목록을 봅니다."
+"'%s --help' 를 실행하면 사용 가능한 명령문과 옵션 목록을 볼 수 있습니다, 그리"
+"고 '%s %s --help' 를 실행해서 사용 가능한 하위 명령어 옵션 목록을 봅니다."
 
 #: src/as-provided.c:163
 msgid "Runtime Firmware"
@@ -753,7 +761,8 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
-"AppStream 시스템 캐시는 업데이트했지만 메타데이터를 유실할 수 있는 일부 오류가 발견되었습니다. 자세한 정보는 로그를 참고하세요."
+"AppStream 시스템 캐시는 업데이트했지만 메타데이터를 유실할 수 있는 일부 오류"
+"가 발견되었습니다. 자세한 정보는 로그를 참고하세요."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:561
@@ -766,7 +775,9 @@ msgstr "TYPE은 유효한 구성 요소 유형이어야 합니다, 예: %s"
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr "소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값은 다음과 같습니다:"
+msgstr ""
+"소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값"
+"은 다음과 같습니다:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:558
@@ -774,7 +785,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
-"이 명령은 선택적인 TYPE 및 FILE 위치 인수를 사용하며, FILE은 기록할 파일 (또는 표준 출력의 경우 \"-\")입니다."
+"이 명령은 선택적인 TYPE 및 FILE 위치 인수를 사용하며, FILE은 기록할 파일 (또"
+"는 표준 출력의 경우 \"-\")입니다."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -783,9 +795,10 @@ msgid ""
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
-"이 도구는 AppStream XML 또는 YAML 메타 데이터의 읽기, 쓰기, 유효성 검사 및 변환을 허용합니다. 또한 시스템 메타 "
-"데이터 풀에 대한 액세스를 제공합니다, 예를 들면 특정 MIME 유형을 제공하는 소프트웨어를 쿼리 하며 소프트웨어 구성 요소 식별자로 "
-"설치합니다."
+"이 도구는 AppStream XML 또는 YAML 메타 데이터의 읽기, 쓰기, 유효성 검사 및 변"
+"환을 허용합니다. 또한 시스템 메타 데이터 풀에 대한 액세스를 제공합니다, 예를 "
+"들면 특정 MIME 유형을 제공하는 소프트웨어를 쿼리 하며 소프트웨어 구성 요소 식"
+"별자로 설치합니다."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -797,7 +810,9 @@ msgstr "metainfo 파일을 빌드할 수 없습니다: %s"
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr "파일을 변환할 수 없습니다: 출력 형식을 결정할 수 없습니다, '--format ='을 사용하여 명확하게 설정하세요."
+msgstr ""
+"파일을 변환할 수 없습니다: 출력 형식을 결정할 수 없습니다, '--format ='을 사"
+"용하여 명확하게 설정하세요."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:174
@@ -909,7 +924,9 @@ msgstr "워드 프로세서"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr "하위 명령어에 \"--help\"를 보내 하위 명령어에 관한 옵션 정보를 찾을 수 있습니다."
+msgstr ""
+"하위 명령어에 \"--help\"를 보내 하위 명령어에 관한 옵션 정보를 찾을 수 있습니"
+"다."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
@@ -920,7 +937,9 @@ msgstr "이 동작을 수행하려면 superuser 권한이 필요합니다."
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr "템플릿을 생성하려면 AppStream 소프트웨어 구성 요소 유형을 제공해야 합니다. 가능한 값은 다음과 같습니다:"
+msgstr ""
+"템플릿을 생성하려면 AppStream 소프트웨어 구성 요소 유형을 제공해야 합니다. 가"
+"능한 값은 다음과 같습니다:"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:670

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2017-03-25 16:36+0000\n"
 "Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
@@ -525,6 +525,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Mantık"
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "Mime Türleri"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -565,10 +570,6 @@ msgstr "Üst veri dosyalarında hata var:"
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Üst veri dosyaları:"
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "Mime Türleri"
 
 #: src/as-provided.c:153
 msgid "Modaliases"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2017-05-05 11:18+0000\n"
 "Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
 "Language-Team: Serbian (latin) <https://hosted.weblate.org/projects/"
@@ -515,6 +515,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logičke"
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "Mime-tipovi"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -555,10 +560,6 @@ msgstr ""
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr ""
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "Mime-tipovi"
 
 #: src/as-provided.c:153
 msgid "Modaliases"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2018-03-28 20:39+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
@@ -283,8 +283,8 @@ msgstr "Numatytosios ekrano kopijos URL"
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
-"Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml\""
-")."
+"Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml"
+"\")."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -522,6 +522,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logika"
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "MIME tipai"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -560,10 +565,6 @@ msgstr "Metaduomenų failuose yra klaidų:"
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Metainformacijos failai:"
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "MIME tipai"
 
 #: src/as-provided.c:153
 msgid "Modaliases"

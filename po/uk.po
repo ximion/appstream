@@ -6,17 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2018-03-11 08:41+0000\n"
 "Last-Translator: AB <ao7nro+6ltrjuwxelfo4@sharklasers.com>\n"
-"Language-Team: Ukrainian "
-"<https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.20-dev\n"
 
 #: tools/appstream-cli.c:142
@@ -520,6 +520,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Логічні ігри"
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "Типи MIME"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -558,10 +563,6 @@ msgstr "Помилки у файлах метаданих:"
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Файли metainfo:"
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "Типи MIME"
 
 #: src/as-provided.c:153
 msgid "Modaliases"

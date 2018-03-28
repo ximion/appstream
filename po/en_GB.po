@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-01-23 00:02+0100\n"
+"POT-Creation-Date: 2018-03-29 01:28+0200\n"
 "PO-Revision-Date: 2016-11-08 04:33+0000\n"
 "Last-Translator: John Vandenberg <jayvdb@gmail.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
@@ -517,6 +517,11 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr ""
 
+#: src/as-provided.c:149
+#, fuzzy
+msgid "MIME types"
+msgstr "Mimetypes"
+
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -557,10 +562,6 @@ msgstr ""
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
 msgstr "Metainfo files:"
-
-#: src/as-provided.c:149
-msgid "Mimetypes"
-msgstr "Mimetypes"
 
 #: src/as-provided.c:153
 msgid "Modaliases"
