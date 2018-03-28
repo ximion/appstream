@@ -554,6 +554,104 @@
 
 		</varlistentry>
 
+		<varlistentry id="tag-requires-recommends">
+		<term>&lt;requires/&gt; and &lt;recommends/&gt;</term>
+		<listitem>
+			<para>
+				The <literal>requires</literal> tag denotes an <emphasis>absolute</emphasis> requirement on a different system component.
+				A component can require a certain hardware to be present, or kernel, or other component to be installed first. If a requirement
+				is not met, AppStream clients should prevent the installation of the particular software component.
+			</para>
+			<para>
+				If it is not essential that a certain requirement is met by the system, but just recommended to be available, a
+				<literal>recommends</literal> tag should be used. In this case, AppStream clients should allow the installation of the software
+				component, but may display a warning before allowing it.
+			</para>
+			<para>
+				A <literal>requires</literal> or <literal>recommends</literal> tag contains children describing the type, value and version relation
+				of the required item.
+				Each child can have a <literal>version</literal> and a <literal>compare</literal> property, to allow depending on a certain minimal
+				version of the respective item.
+				The <literal>version</literal> property contains the version to be compared against, while the <literal>compare</literal> property contains
+				a two-letter code denoting how to compare the version of a present item with the version listed in the property.
+				If no <literal>compare</literal> property is given, but a <literal>version</literal> property is found, AppStream implementations should
+				implicitly assume a value of <code>ge</code> for comparison of the versions. The installed version is on the left side of the required version
+				when comparing them.
+				Possible two-letter codes for version comparisons are:
+			</para>
+			<itemizedlist>
+				<listitem><para><code>eq</code> - Equal to</para></listitem>
+				<listitem><para><code>ne</code> - Not equal to</para></listitem>
+				<listitem><para><code>lt</code> - Lesser than</para></listitem>
+				<listitem><para><code>gt</code> - Greater than</para></listitem>
+				<listitem><para><code>le</code> - Lesser than or equal to</para></listitem>
+				<listitem><para><code>ge</code> - Greater than or equal to</para></listitem>
+			</itemizedlist>
+			<para>
+				Possible item types to declare a requirement on or a recommendation for are:
+			</para>
+
+			<variablelist>
+			<varlistentry>
+				<term>&lt;id/&gt;</term>
+				<listitem>
+				<para>
+					A relation to another software component. The value should be another component-ID. Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<requires>
+  <id version="1.0" compare="ge">org.example.MySoftware</id>
+</requires>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;modalias/&gt;</term>
+				<listitem>
+				<para>
+					Check for a specific hardware to be present via its modalias. The modalias may contain a wildcard expression.
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<recommends>
+  <modalias>usb:v1130p0202d*</modalias>
+</recommends>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;kernel/&gt;</term>
+				<listitem>
+				<para>
+					Check for a specific kernel to be running on the system. The kernel name is the output of <command>uname -s</command>.
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<requires>
+  <kernel version="4.14" compare="ge">Linux</kernel>
+</requires>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;memory/&gt;</term>
+				<listitem>
+				<para>
+					Set a relation to the amount of physical memory (RAM) the system should have to run the software component.
+					The unit size is in MB. You usually only want to use this with the <literal>recommends</literal> tag,
+					because users might want to install the software on systems even if they have a lesser amount of memory
+					compared to what would be ideal.
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<recommends>
+  <memory>2000</memory> <!-- recommend at least 2GB of memory -->
+</recommends>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+
+			</variablelist>
+		</listitem>
+
+		</varlistentry>
+
 		<varlistentry id="tag-mimetypes">
 		<term>&lt;mimetypes/&gt;</term>
 		<listitem>
