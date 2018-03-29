@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-02-12 01:39+0000\n"
-"Last-Translator: Rafael Henrique Mendes de Oliv <rafaelfifa1988@gmail.com>\n"
+"PO-Revision-Date: 2018-03-29 02:12+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 2.20-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
@@ -284,10 +284,8 @@ msgstr "URL padrão para captura de tela"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Padrão para o formato de metadados dado (valores válidos são “xml” e “yaml”)."
+msgstr "Formato de metadados padrão (valores válidos são “xml” e “yaml”)."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -315,7 +313,7 @@ msgstr "Metadados de distribuição:"
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "Não usa acesso de rede."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:653
@@ -484,9 +482,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Instala um arquivo de metadados na localização certa."
 
 #: tools/appstream-cli.c:609
-#, fuzzy
 msgid "Install software matching the component-ID."
-msgstr "Instala software correspondente ao component-id."
+msgstr "Instala software correspondente ao component-ID."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -527,27 +524,24 @@ msgid "Logic"
 msgstr "Lógica"
 
 #: src/as-provided.c:149
-#, fuzzy
 msgid "MIME types"
 msgstr "Tipos MIME"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Faz uma requisição sem qualquer cache."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "Definir manualmente a localização da cache do AppStream."
+msgstr "Localização manualmente selecionada do cache do AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
-"Definir manualmente a localização dos metadados do AppStream para varrer."
+"Localização manualmente selecionada dos metadados do AppStream para varrer."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -609,9 +603,8 @@ msgstr ""
 "se de que, ex.: “pkcon” (parte de PackageKit), está disponível."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
-msgstr "Nenhum valor definido para o item pesquisar por."
+msgstr "Nenhum valor para o item a ser pesquisado foi definido."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -660,9 +653,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Reconstruir o cache de metadados de componentes."
 
 #: tools/appstream-cli.c:610
-#, fuzzy
 msgid "Remove software matching the component-ID."
-msgstr "Remove software correspondendo ao component-id."
+msgstr "Remove software correspondendo ao component-ID."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -781,7 +773,7 @@ msgstr ""
 #: tools/appstream-cli.c:561
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "O TIPO deve ser um component-type válido, como: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -798,6 +790,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Esse comando leva os argumentos posicionais e opcionais TIPO e ARQUIVO, "
+"ARQUIVO sendo um arquivo para escrever para (ou “-” para a saída padrão)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 #, fuzzy
