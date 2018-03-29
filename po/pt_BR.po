@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-03-29 02:12+0000\n"
+"PO-Revision-Date: 2018-03-29 02:14+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "appstream/translations/pt_BR/>\n"
@@ -791,10 +791,9 @@ msgid ""
 "file to write to (or \"-\" for standard output)."
 msgstr ""
 "Esse comando leva os argumentos posicionais e opcionais TIPO e ARQUIVO, "
-"ARQUIVO sendo um arquivo para escrever para (ou “-” para a saída padrão)"
+"ARQUIVO sendo um arquivo para escrever para (ou “-” para a saída padrão)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
@@ -858,11 +857,10 @@ msgstr ""
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Comando desconhecido “%s”."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
