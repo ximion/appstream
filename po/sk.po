@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-03-31 09:58+0000\n"
+"PO-Revision-Date: 2018-03-31 10:00+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
 "translations/sk/>\n"
@@ -298,11 +298,11 @@ msgstr "Vývojár"
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
 msgid "Developer Tools"
-msgstr "Nástroje pre vývojarov"
+msgstr "Nástroje pre vývojárov"
 
 #: tools/appstream-cli.c:612
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Zobraziť stavové informácie o dostupných AppStream metadátach."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:50
@@ -312,13 +312,12 @@ msgstr "Metaúdaje distribúcie:"
 #. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "Nepoužívať sieť."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:653
-#, fuzzy
 msgid "Don't show colored output."
-msgstr "Nebude zobrazovať farebný výstup"
+msgstr "Nezobrazovať farebný výstup"
 
 #: tools/appstream-cli.c:603
 msgid "Dump raw XML metadata for a component matching the ID."
