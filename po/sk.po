@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-03-31 10:31+0000\n"
+"PO-Revision-Date: 2018-03-31 10:41+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
 "translations/sk/>\n"
@@ -857,26 +857,30 @@ msgstr ""
 #: tools/appstream-cli.c:740
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Neznámi príkaz „%s“."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:553
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
+"Použiť daný .desktop súbor pre vyplnenie základných hodnôt do súboru s "
+"metainformáciami."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
-msgstr ""
+msgstr "Nástroje"
 
 #: tools/appstream-cli.c:606
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "Overiť či XML AppStream súbor neobsahuje chyby."
 
 #: tools/appstream-cli.c:607
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
+"Skontrolovať či nainštalovaný strom súborov programu obsahuje platné "
+"metaúdaje."
 
 #: tools/ascli-actions-validate.c:255 tools/ascli-actions-validate.c:316
 #, fuzzy, c-format
