@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-03-31 09:55+0000\n"
+"PO-Revision-Date: 2018-03-31 09:58+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
 "translations/sk/>\n"
@@ -250,41 +250,41 @@ msgstr "Prevádza z XML na YAML formát a obrátene."
 #: tools/ascli-actions-mdata.c:225
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“!"
+msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“."
 
 #: tools/appstream-cli.c:616
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
+"Vytvoriť šablónu pre metainfo súbor (pre vyplnenie v upstream projektu)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
-msgstr "Služby relácie zbernice DBus"
+msgstr "Služby relácie DBus"
 
 #: src/as-provided.c:159
 msgid "DBus System Services"
-msgstr "Služby systému zbernice DBus"
+msgstr "Služby relácie systému DBus"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Databáza"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Ladiace nástroje"
 
 #: tools/ascli-utils.c:340
-#, fuzzy
 msgid "Default Screenshot URL"
-msgstr "Vzorový URL snímky obrazovky"
+msgstr "URL predvolenej snímky obrazovky"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "Predvolený metadata formát (platné hodnoty sú „xml“ a „yaml“).)"
 
 #: tools/ascli-utils.c:320
 msgid "Description"
