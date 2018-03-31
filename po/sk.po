@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-03-31 10:00+0000\n"
+"PO-Revision-Date: 2018-03-31 10:02+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
 "translations/sk/>\n"
@@ -317,16 +317,16 @@ msgstr "Nepoužívať sieť."
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:653
 msgid "Don't show colored output."
-msgstr "Nezobrazovať farebný výstup"
+msgstr "Nezobrazovať farebný výstup."
 
 #: tools/appstream-cli.c:603
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "Vypísať surové XML metaúdaje súčasti s týmto identifikátorom."
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "Výuka"
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
@@ -336,13 +336,12 @@ msgstr "Prázdne."
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Emulátory"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:230
-#, fuzzy
 msgid "Enforce a cache refresh."
-msgstr "Vynúti aktualizáciu vyrovnávacej pamäte"
+msgstr "Vynútiť aktualizáciu vyrovnávacej pamäte"
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
