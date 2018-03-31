@@ -879,22 +879,21 @@ msgstr "Overiť či XML AppStream súbor neobsahuje chyby."
 #: tools/appstream-cli.c:607
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
-"Skontrolovať či nainštalovaný strom súborov programu obsahuje platné "
-"metaúdaje."
+"Overiť či nainštalovaný strom súborov programu obsahuje platné metaúdaje."
 
 #: tools/ascli-actions-validate.c:255 tools/ascli-actions-validate.c:316
-#, fuzzy, c-format
+#, c-format
 msgid "Validation failed: %s"
-msgstr "Overenie zlyhalo."
+msgstr "Overenie zlyhalo: %s"
 
 #: tools/ascli-actions-validate.c:243 tools/ascli-actions-validate.c:304
 msgid "Validation was successful."
 msgstr "Overenie bolo úspešné."
 
 #: tools/ascli-actions-validate.c:245 tools/ascli-actions-validate.c:306
-#, fuzzy, c-format
+#, c-format
 msgid "Validation was successful: %s"
-msgstr "Overenie bolo úspešné."
+msgstr "Overenie bolo úspešné:%s"
 
 #: tools/appstream-cli.c:601
 msgid "Value of the item that should be found."
