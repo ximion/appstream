@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-03-31 10:21+0000\n"
+"PO-Revision-Date: 2018-03-31 10:22+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
 "translations/sk/>\n"
@@ -702,19 +702,17 @@ msgstr "Prehľadať databázu komponentov."
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr "Zabezpečeni"
+msgstr "Zabezpečenie"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:648
-#, fuzzy
 msgid "Show extra debugging information."
-msgstr "Zobrazí ladiace informácie naviac"
+msgstr "Zobrazovať doplňujúce informácie pre ladenie."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:642
-#, fuzzy
 msgid "Show the program version."
-msgstr "Zobrazí verziu programu"
+msgstr "Zobrazíť verziu programu"
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
