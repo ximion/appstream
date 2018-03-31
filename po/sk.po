@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2018-03-31 10:22+0000\n"
+"PO-Revision-Date: 2018-03-31 10:31+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
 "translations/sk/>\n"
@@ -712,22 +712,22 @@ msgstr "Zobrazovať doplňujúce informácie pre ladenie."
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:642
 msgid "Show the program version."
-msgstr "Zobrazíť verziu programu."
+msgstr "Zobraziť verziu programu."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Športy"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Stratégie"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:595
 msgid "Subcommands:"
-msgstr "Podpríkazy"
+msgstr "Čiastkové príkazy:"
 
 #: tools/ascli-utils.c:284
 msgid "Summary"
@@ -741,22 +741,22 @@ msgstr "Zhrnutie:"
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Monitorovanie systému"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Emulátory terminálu"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Textové editory"
 
 #: tools/ascli-actions-mdata.c:464
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr "Súbor .desktop pre „%s“ neexistuje."
 
 #: src/as-pool.c:1544
 msgid ""
@@ -764,12 +764,16 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"Vyrovnávacia pamäť systému AppStream bola aktualizovaná, ale boli zistené "
+"niektoré chyby, čo môže viesť k chýbajúcim metaúdajom. Podrobnejšie "
+"informácie nájdete v podrobnejšom zázname udalostí."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:561
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr ""
+"Je potrebné, aby TYPE (typ) bol platný typ komponentu, ako napríklad: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -777,6 +781,7 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Typ „%s“ softvérovej súčasti nie je platný pre AppStream. Možné hodnoty sú:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:558
@@ -784,6 +789,9 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Tento príkaz prijíma voliteľné pozičné parametre TYPE (typ) a FILE (súbor), "
+"kde FILE je súbor do ktorého je potrebné zapísať (alebo '-' pre štandardný "
+"výstup)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -792,11 +800,15 @@ msgid ""
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
+"Tento nástroj umožňuje čítanie, zápis, overovanie a premenu AppStream XML "
+"alebo Yamli metaúdajov. Tiež sprístupňuje systémový fond metaúdajov "
+"napríklad pre dotazovanie sa na softvér, poskytujúci konkrétny MIME typ a "
+"jeho inštaláciu na základe identifikátora softvérovej súčasti."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
+msgstr "Nepodarilo sa vytvoriť súbor so šablónou metainfomacií: „%s“"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:397
@@ -804,38 +816,42 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Nedarí sa previesť súbor: Nepodarilo sa zistiť výstupný formát, nastavte ho "
+"výslovne pomocou prepínača '--format'."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:174
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr "Nie je možné nájsť súčasť zodpovedajúcu %s!"
+msgstr "Nepodarilo sa nájsť súčasť zodpovedajúcu %s!"
 
 #: tools/ascli-actions-mdata.c:141 tools/ascli-actions-mdata.c:263
 #: tools/ascli-actions-pkgmgr.c:93
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr "Nie je možné nájsť súčasť s ID „%s“!"
+msgstr "Nepodarilo sa nájsť súčasť s identifikátorom „%s“!"
 
 #: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Nepodarilo sa načítať .desktop súbor: %s"
 
 #: tools/ascli-actions-mdata.c:549
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "Nie je možné spustiť správcu balíkov: %s"
+msgstr "Nepodarilo sa uložiť súbor s metainfomáciami šablóny: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "Nie je možné spustiť správcu balíkov: %s"
+msgstr "Nepodarilo sa spustiť správcu balíkov: %s"
 
 #: tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
+"Nedarí sa zapisovať do „% s“, preto nie je možné nainštalovať súbor s "
+"metainformáciami."
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:740
