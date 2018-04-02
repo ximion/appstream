@@ -1176,6 +1176,122 @@ test_xml_write_screenshots (void)
 	g_assert (as_test_compare_lines (res, xmldata_screenshots));
 }
 
+
+static const gchar *xmldata_recommends_requires = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+						"<component>\n"
+						"  <id>org.example.RelationsTest</id>\n"
+						"  <recommends>\n"
+						"    <memory>2500</memory>\n"
+						"    <modalias>usb:v1130p0202d*</modalias>\n"
+						"  </recommends>\n"
+						"  <requires>\n"
+						"    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
+						"    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
+						"  </requires>\n"
+						"</component>\n";
+/**
+ * test_xml_read_recommends_requires:
+ *
+ * Test reading the recommends/requires tags.
+ */
+static void
+test_xml_read_recommends_requires (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	GPtrArray *recommends;
+	GPtrArray *requires;
+	AsRelation *relation;
+
+	cpt = as_xml_test_read_data (xmldata_recommends_requires, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.RelationsTest");
+
+	recommends = as_component_get_recommends (cpt);
+	requires = as_component_get_requires (cpt);
+
+	g_assert_cmpint (recommends->len, ==, 2);
+	g_assert_cmpint (requires->len, ==, 2);
+
+	/* memory relation */
+	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDATION);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_MEMORY);
+	g_assert_cmpint (as_relation_get_value_int (relation), ==, 2500);
+
+	/* modalias relation */
+	relation = AS_RELATION (g_ptr_array_index (recommends, 1));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDATION);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_MODALIAS);
+	g_assert_cmpstr (as_relation_get_value (relation), ==, "usb:v1130p0202d*");
+
+	/* kernel relation */
+	relation = AS_RELATION (g_ptr_array_index (requires, 0));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIREMENT);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_KERNEL);
+	g_assert_cmpstr (as_relation_get_value (relation), ==, "Linux");
+	g_assert_cmpstr (as_relation_get_version (relation), ==, "4.15");
+	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
+
+	/* ID relation */
+	relation = AS_RELATION (g_ptr_array_index (requires, 1));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIREMENT);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_ID);
+	g_assert_cmpstr (as_relation_get_value (relation), ==, "org.example.TestDependency");
+	g_assert_cmpstr (as_relation_get_version (relation), ==, "1.2");
+	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_EQ);
+}
+
+/**
+ * test_xml_write_recommends_requires:
+ *
+ * Test writing the recommends/requires tags.
+ */
+static void
+test_xml_write_recommends_requires (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	g_autoptr(AsRelation) mem_relation = NULL;
+	g_autoptr(AsRelation) moda_relation = NULL;
+	g_autoptr(AsRelation) kernel_relation = NULL;
+	g_autoptr(AsRelation) id_relation = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.RelationsTest");
+
+	mem_relation = as_relation_new ();
+	moda_relation = as_relation_new ();
+	kernel_relation = as_relation_new ();
+	id_relation = as_relation_new ();
+
+	as_relation_set_kind (mem_relation, AS_RELATION_KIND_RECOMMENDATION);
+	as_relation_set_kind (moda_relation, AS_RELATION_KIND_RECOMMENDATION);
+	as_relation_set_kind (kernel_relation, AS_RELATION_KIND_REQUIREMENT);
+	as_relation_set_kind (id_relation, AS_RELATION_KIND_REQUIREMENT);
+
+	as_relation_set_item_kind (mem_relation, AS_RELATION_ITEM_KIND_MEMORY);
+	as_relation_set_value (mem_relation, "2500");
+	as_relation_set_item_kind (moda_relation, AS_RELATION_ITEM_KIND_MODALIAS);
+	as_relation_set_value (moda_relation, "usb:v1130p0202d*");
+
+	as_relation_set_item_kind (kernel_relation, AS_RELATION_ITEM_KIND_KERNEL);
+	as_relation_set_value (kernel_relation, "Linux");
+	as_relation_set_version (kernel_relation, "4.15");
+	as_relation_set_compare (kernel_relation, AS_RELATION_COMPARE_GE);
+
+	as_relation_set_item_kind (id_relation, AS_RELATION_ITEM_KIND_ID);
+	as_relation_set_value (id_relation, "org.example.TestDependency");
+	as_relation_set_version (id_relation, "1.2");
+	as_relation_set_compare (id_relation, AS_RELATION_COMPARE_EQ);
+
+	as_component_add_relation (cpt, mem_relation);
+	as_component_add_relation (cpt, moda_relation);
+	as_component_add_relation (cpt, kernel_relation);
+	as_component_add_relation (cpt, id_relation);
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_recommends_requires));
+}
+
 /**
  * main:
  */
@@ -1227,6 +1343,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/Screenshots", test_xml_read_screenshots);
 	g_test_add_func ("/XML/Write/Screenshots", test_xml_write_screenshots);
+
+	g_test_add_func ("/XML/Read/RecommendsRequires", test_xml_read_recommends_requires);
+	g_test_add_func ("/XML/Write/RecommendsRequires", test_xml_write_recommends_requires);
 
 	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
 

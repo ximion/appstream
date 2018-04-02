@@ -32,7 +32,8 @@ aslib_src = [
     'as-translation.c',
     'as-suggested.c',
     'as-content-rating.c',
-    'as-launchable.c'
+    'as-launchable.c',
+    'as-relation.c'
 ]
 
 aslib_pub_headers = [
@@ -57,7 +58,8 @@ aslib_pub_headers = [
     'as-translation.h',
     'as-suggested.h',
     'as-content-rating.h',
-    'as-launchable.h'
+    'as-launchable.h',
+    'as-relation.h'
 ]
 
 aslib_priv_headers = [
@@ -78,7 +80,8 @@ aslib_priv_headers = [
     'as-bundle-private.h',
     'as-checksum-private.h',
     'as-icon-private.h',
-    'as-launchable-private.h'
+    'as-launchable-private.h',
+    'as-relation-private.h'
 ]
 
 aslib_res = glib.compile_resources (

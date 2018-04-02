@@ -38,6 +38,7 @@
 #include "as-content-rating-private.h"
 #include "as-launchable-private.h"
 #include "as-provided-private.h"
+#include "as-relation-private.h"
 
 
 /**
@@ -92,6 +93,8 @@ typedef struct
 	GPtrArray		*bundles; /* of AsBundle */
 	GPtrArray		*suggestions; /* of AsSuggested elements */
 	GPtrArray		*content_ratings; /* of AsContentRating */
+	GPtrArray		*recommends; /* of AsRelation */
+	GPtrArray		*requires; /* of AsRelation */
 
 	GHashTable		*urls; /* of int:utf8 */
 	GHashTable		*languages; /* of utf8:utf8 */
@@ -370,12 +373,14 @@ as_component_init (AsComponent *cpt)
 	priv->addons = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->suggestions = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->icons = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->content_ratings = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->recommends = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->requires = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* others */
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
 	priv->languages = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	priv->custom = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->content_ratings = g_ptr_array_new_with_free_func (g_object_unref);
 
 	priv->token_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
@@ -422,6 +427,9 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->custom);
 	g_ptr_array_unref (priv->content_ratings);
 	g_ptr_array_unref (priv->icons);
+
+	g_ptr_array_unref (priv->recommends);
+	g_ptr_array_unref (priv->requires);
 
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
@@ -2863,7 +2871,7 @@ as_component_get_launchable (AsComponent *cpt, AsLaunchableKind kind)
  * as_component_get_launchables:
  * @cpt: a #AsComponent instance.
  *
- * Returns: (transfer none) (element-type #AsLaunchable): an array
+ * Returns: (transfer none) (element-type AsLaunchable): an array
  *
  * Since: 0.11.0
  **/
@@ -2889,6 +2897,67 @@ as_component_add_launchable (AsComponent *cpt, AsLaunchable *launchable)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_ptr_array_add (priv->launchables,
 			 g_object_ref (launchable));
+}
+
+/**
+ * as_component_get_recommends:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get an array of items that are recommended by this component.
+ *
+ * Returns: (transfer none) (element-type AsRelation): an array
+ *
+ * Since: 0.12.0
+ **/
+GPtrArray*
+as_component_get_recommends (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->recommends;
+}
+
+/**
+ * as_component_get_requires:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get an array of items that are required by this component.
+ *
+ * Returns: (transfer none) (element-type AsRelation): an array
+ *
+ * Since: 0.12.0
+ **/
+GPtrArray*
+as_component_get_requires (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->requires;
+}
+
+/**
+ * as_component_add_relation:
+ * @cpt: a #AsComponent instance.
+ * @relation: a #AsRelation instance.
+ *
+ * Adds a #AsRelation to set a recommends or requires relation of
+ * component @cpt on the item mentioned in the #AsRelation.
+ *
+ * Since: 0.12.0
+ **/
+void
+as_component_add_relation (AsComponent *cpt, AsRelation *relation)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	AsRelationKind kind = as_relation_get_kind (relation);
+
+	if (kind == AS_RELATION_KIND_RECOMMENDATION) {
+		g_ptr_array_add (priv->recommends,
+				g_object_ref (relation));
+	} else if (kind == AS_RELATION_KIND_REQUIREMENT) {
+		g_ptr_array_add (priv->requires,
+				g_object_ref (relation));
+	} else {
+		g_warning ("Tried to add relation of unknown kind to component %s", priv->data_id);
+	}
 }
 
 /**
@@ -3287,6 +3356,30 @@ as_component_xml_parse_custom_node (AsComponent *cpt, xmlNode *node)
 }
 
 /**
+ * as_component_load_relations_from_xml:
+ */
+static void
+as_component_load_relations_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, AsRelationKind kind)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		g_autoptr(AsRelation) relation = NULL;
+		g_autofree gchar *content = NULL;
+
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		relation = as_relation_new ();
+		as_relation_set_kind (relation, kind);
+
+		if (as_relation_load_from_xml (relation, ctx, iter, NULL))
+			as_component_add_relation (cpt, relation);
+	}
+}
+
+/**
  * as_component_load_from_xml:
  * @cpt: An #AsComponent.
  * @ctx: the AppStream document context.
@@ -3483,6 +3576,10 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			g_autoptr(AsContentRating) ctrating = as_content_rating_new ();
 			if (as_content_rating_load_from_xml (ctrating, ctx, iter, NULL))
 				as_component_add_content_rating (cpt, ctrating);
+		} else if (g_strcmp0 (node_name, "recommends") == 0) {
+			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_RECOMMENDATION);
+		} else if (g_strcmp0 (node_name, "requires") == 0) {
+			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_REQUIREMENT);
 		}
 	}
 
@@ -3865,6 +3962,26 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 		as_content_rating_to_xml_node (ctrating, ctx, cnode);
 	}
 
+	/* recommends */
+	if (priv->recommends->len > 0) {
+		xmlNode *rcnode = xmlNewChild (cnode, NULL, (xmlChar*) "recommends", NULL);
+
+		for (i = 0; i < priv->recommends->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
+			as_relation_to_xml_node (relation, ctx, rcnode);
+		}
+	}
+
+	/* requires */
+	if (priv->requires->len > 0) {
+		xmlNode *rqnode = xmlNewChild (cnode, NULL, (xmlChar*) "requires", NULL);
+
+		for (i = 0; i < priv->requires->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
+			as_relation_to_xml_node (relation, ctx, rqnode);
+		}
+	}
+
 	/* custom node */
 	as_component_xml_serialize_custom (cpt, cnode);
 
@@ -4147,6 +4264,23 @@ as_component_yaml_parse_languages (AsComponent *cpt, GNode *node)
 }
 
 /**
+ * as_component_yaml_parse_relations:
+ */
+static void
+as_component_yaml_parse_relations (AsComponent *cpt, AsContext *ctx, GNode *node, AsRelationKind kind)
+{
+	GNode *n;
+
+	for (n = node->children; n != NULL; n = n->next) {
+		g_autoptr(AsRelation) relation = as_relation_new ();
+
+		as_relation_set_kind (relation, kind);
+		if (as_relation_load_from_yaml (relation, ctx, n, NULL))
+			as_component_add_relation (cpt, relation);
+	}
+}
+
+/**
  * as_component_yaml_parse_custom:
  */
 static void
@@ -4297,6 +4431,10 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				if (as_content_rating_load_from_yaml (rating, ctx, n, NULL))
 					as_component_add_content_rating (cpt, rating);
 			}
+		} else if (g_strcmp0 (key, "Recommends") == 0) {
+			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_RECOMMENDATION);
+		} else if (g_strcmp0 (key, "Requires") == 0) {
+			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIREMENT);
 		} else if (g_strcmp0 (key, "Custom") == 0) {
 			as_component_yaml_parse_custom (cpt, node);
 		} else {
@@ -4825,6 +4963,32 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 		}
 
 		as_yaml_mapping_end (emitter);
+	}
+
+	/* Recommends */
+	if (priv->recommends->len > 0) {
+		as_yaml_emit_scalar (emitter, "Recommends");
+		as_yaml_sequence_start (emitter);
+
+		for (i = 0; i < priv->recommends->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
+			as_relation_emit_yaml (relation, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
+
+	/* Requires */
+	if (priv->requires->len > 0) {
+		as_yaml_emit_scalar (emitter, "Requires");
+		as_yaml_sequence_start (emitter);
+
+		for (i = 0; i < priv->requires->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
+			as_relation_emit_yaml (relation, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
 	}
 
 	/* Custom fields */

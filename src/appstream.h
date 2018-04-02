@@ -43,6 +43,7 @@ extern "C" {
 #include <as-suggested.h>
 #include <as-content-rating.h>
 #include <as-launchable.h>
+#include <as-relation.h>
 
 #include <as-validator.h>
 #include <as-validator-issue.h>
