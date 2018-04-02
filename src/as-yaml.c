@@ -64,6 +64,7 @@ as_yaml_parse_layer (yaml_parser_t *parser, GNode *data, GError **error)
 	gboolean parse = TRUE;
 	gboolean in_sequence = FALSE;
 	GError *tmp_error = NULL;
+	gchar *string_scalar;
 	int storage = YAML_VAR; /* the first element must always be of type VAR */
 
 	while (parse) {
@@ -79,10 +80,12 @@ as_yaml_parse_layer (yaml_parser_t *parser, GNode *data, GError **error)
 		 * or as a leaf value (one of them, in case it's a sequence) */
 		switch (event.type) {
 			case YAML_SCALAR_EVENT:
+				string_scalar = g_strdup ((gchar*) event.data.scalar.value);
+				g_strstrip (string_scalar);
 				if (storage)
-					g_node_append_data (last_leaf, g_strdup ((gchar*) event.data.scalar.value));
+					g_node_append_data (last_leaf, string_scalar);
 				else
-					last_leaf = g_node_append (data, g_node_new (g_strdup ((gchar*) event.data.scalar.value)));
+					last_leaf = g_node_append (data, g_node_new (string_scalar));
 				storage ^= YAML_VAL;
 				break;
 			case YAML_SEQUENCE_START_EVENT:
