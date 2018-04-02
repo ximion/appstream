@@ -105,8 +105,6 @@ void			as_component_merge_with_mode (AsComponent *cpt,
 							AsComponent *source,
 							AsMergeKind merge_kind);
 
-GPtrArray		*as_component_get_launchables (AsComponent *cpt);
-
 AsContext		*as_component_get_context (AsComponent *cpt);
 void			as_component_set_context (AsComponent *cpt,
 						  AsContext *context);

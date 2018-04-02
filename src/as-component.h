@@ -196,6 +196,7 @@ void			as_component_set_description (AsComponent *cpt,
 							const gchar *value,
 							const gchar *locale);
 
+GPtrArray		*as_component_get_launchables (AsComponent *cpt);
 AsLaunchable		*as_component_get_launchable (AsComponent *cpt,
 							AsLaunchableKind kind);
 void			as_component_add_launchable (AsComponent *cpt,
