@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-03-29 01:28+0200\n"
-"PO-Revision-Date: 2017-01-11 17:56+0000\n"
+"PO-Revision-Date: 2018-04-02 07:12+0000\n"
 "Last-Translator: Juhani Numminen <juhaninumminen0@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/"
 "translations/fi/>\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 2.20-dev\n"
 
 #: tools/appstream-cli.c:142
 #, c-format
 msgid "'%s' command"
-msgstr "'%s' komento"
+msgstr "”%s”-komento"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -50,7 +50,7 @@ msgstr "Seikkailu"
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
 msgid "Also show pedantic hints."
-msgstr ""
+msgstr "Näytä myös pedanttiset ohjeet."
 
 #: tools/appstream-cli.c:600
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -66,11 +66,13 @@ msgstr "AppStream-komentorivityökalu"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:692
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
-msgstr "AppStream-komentorivityökalun versio: %s"
+msgstr ""
+"AppStream-komentorivityökalun versio: %s\n"
+"AppStream-kirjaston versio: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -111,12 +113,13 @@ msgstr ""
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
+"AppStreamin järjestelmävälimuisti päivitettiin, mutta havaittiin ongelmia: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:689
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream version: %s"
-msgstr "AppStream-komentorivityökalun versio: %s"
+msgstr "AppStream-versio: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -150,7 +153,7 @@ msgstr "Äänen muokkaus"
 
 #: src/as-provided.c:147
 msgid "Binaries"
-msgstr ""
+msgstr "Binääritiedostoja"
 
 #: src/as-category.c:132
 msgctxt "Category of Games"
@@ -236,7 +239,7 @@ msgstr "Tarvitaan työpöytäympäristössä"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:615
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "Muuta keräilty XML YAML-muotoon tai toisin päin"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:225
@@ -956,13 +959,13 @@ msgstr ""
 #: tools/ascli-actions-validate.c:183
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "virheitä: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "ilmoituksia: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
@@ -974,7 +977,7 @@ msgstr ""
 #: tools/ascli-actions-validate.c:190
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "varoituksia: %lu"
 
 #~ msgid "Command '%s' is unknown."
 #~ msgstr "Komento ”%s” on tuntematon."
