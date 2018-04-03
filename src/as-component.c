@@ -1116,15 +1116,16 @@ as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
 static const gchar*
 as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 {
-	gchar *msg;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	const gchar *locale;
+	gchar *msg;
 
-	const gchar *comp_locale = as_component_get_active_locale (cpt);
-	const gchar *comp_lang = as_utils_locale_to_language (comp_locale);
-	msg = g_hash_table_lookup (lht, comp_locale);
+	locale = as_component_get_active_locale (cpt);
+	msg = g_hash_table_lookup (lht, locale);
 	if ((msg == NULL) && (!as_flags_contains (priv->value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
+		g_autofree gchar *lang = as_utils_locale_to_language (locale);
 		/* fall back to language string */
-		msg = g_hash_table_lookup (lht, comp_lang);
+		msg = g_hash_table_lookup (lht, lang);
 		if (msg == NULL) {
 			/* fall back to untranslated / default */
 			msg = g_hash_table_lookup (lht, "C");
