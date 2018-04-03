@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2017-12-02 15:44+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -308,7 +308,7 @@ msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 msgid "Distribution metadata:"
 msgstr "发行版元数据："
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 #, fuzzy
 msgid "Do not use network access."
@@ -848,7 +848,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "无法写入到“%s”，无法安装元信息文件。"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr ""

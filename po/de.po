@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2018-01-24 12:14+0000\n"
 "Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/"
@@ -313,7 +313,7 @@ msgstr "Statusinformationen über verfügbare AppStream-Metadaten anzeigen."
 msgid "Distribution metadata:"
 msgstr "Distributions-Metadaten:"
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
 msgstr "Keinen Netzwerkzugriff verwenden."
@@ -859,7 +859,7 @@ msgstr ""
 "'%s' kann nicht geschrieben werden, kann metainfo-Datei nicht installieren."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Unbekannter Befehl „%s”"

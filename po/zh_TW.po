@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2018-04-02 04:02+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -299,7 +299,7 @@ msgstr "顯示可用的 AppStream 中介資料相關狀態資訊。"
 msgid "Distribution metadata:"
 msgstr "散佈版中介資料："
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
 msgstr "不使用網路存取。"
@@ -831,7 +831,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "未知指令「%s」。"

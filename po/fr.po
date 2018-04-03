@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2017-12-29 00:03+0000\n"
 "Last-Translator: Yvan Masson <yvan@masson-informatique.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
@@ -314,7 +314,7 @@ msgstr ""
 msgid "Distribution metadata:"
 msgstr "Métadonnées de la distribution :"
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
 msgstr "Ne pas utiliser l’accès au réseau."
@@ -869,7 +869,7 @@ msgstr ""
 "installé."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr ""

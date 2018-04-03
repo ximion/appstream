@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2017-03-10 22:24+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
@@ -309,7 +309,7 @@ msgstr "Seall fiosrachadh staide mun mheata-dàta AppStream a tha ri fhaighinn."
 msgid "Distribution metadata:"
 msgstr "Meata-dàta an sgaoilidh:"
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
 msgstr ""
@@ -862,7 +862,7 @@ msgstr ""
 "fhiosrachaidh a stàladh."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr ""

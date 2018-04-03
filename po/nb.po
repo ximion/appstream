@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2018-03-29 06:03+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
@@ -305,7 +305,7 @@ msgstr "Statusinformasjon om tilgjengelig AppStream-metadata."
 msgid "Distribution metadata:"
 msgstr "Distribusjons-metadata:"
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
 msgstr "Ikke bruk nettverkstilgang."
@@ -847,7 +847,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Klarte ikke å skrive til \"%s\", kan ikke installere metainfo-fil."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Ukjent kommando \"%s\"."

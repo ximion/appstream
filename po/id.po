@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2018-03-31 06:24+0000\n"
 "Last-Translator: se7entime <se7entime@protonmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -306,7 +306,7 @@ msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 msgid "Distribution metadata:"
 msgstr "Metadata distribusi:"
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
 msgstr "Jangan pakai akses jaringan."
@@ -849,7 +849,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Tidak bisa menulis ke '%s', tidak bisa memasang berkas metainfo."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Perintah tak dikenal '%s'."

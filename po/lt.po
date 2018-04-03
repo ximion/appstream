@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-03-29 01:28+0200\n"
+"POT-Creation-Date: 2018-04-03 04:36+0200\n"
 "PO-Revision-Date: 2018-03-28 20:39+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
@@ -309,7 +309,7 @@ msgstr "Rodyti būsenos informaciją apie prieinamus AppStream metaduomenis."
 msgid "Distribution metadata:"
 msgstr "Distribucijos metaduomenys:"
 
-#. TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command)
+#. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
 msgstr "Nenaudoti tinklo prieigą."
@@ -846,7 +846,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nepavyko įrašyti į \"%s\", nepavyksta įdiegti metainformacijos failo."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:740
+#: tools/appstream-cli.c:746
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Nežinoma komanda \"%s\"."
