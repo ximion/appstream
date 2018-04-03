@@ -1,0 +1,12 @@
+## This file enables the download of large 128x128px
+## icons for use in software centers like GNOME Software
+## and Plasma Discover.
+##
+## The icons speed up usage of the software centers,
+## and would otherwise be downloaded on-deman for each user.
+
+Acquire::IndexTargets {
+    deb::DEP-11-icons-large  {
+        DefaultEnabled "true";
+    };
+};

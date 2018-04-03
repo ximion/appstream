@@ -7,6 +7,9 @@
 ## displayed at all.
 
 Acquire::IndexTargets {
+    deb::DEP-11-icons-small  {
+        DefaultEnabled "true";
+    };
     deb::DEP-11-icons  {
         DefaultEnabled "true";
     };

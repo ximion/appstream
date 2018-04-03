@@ -12,6 +12,18 @@ Acquire::IndexTargets {
         KeepCompressedAs "gz";
     };
 
+    # Small icons for GUI components described in the DEP-11
+    # YAML metadata.
+    deb::DEP-11-icons-small  {
+        MetaKey "$(COMPONENT)/dep11/icons-48x48.tar";
+        ShortDescription "icons-48x48";
+        Description "$(RELEASE)/$(COMPONENT) DEP-11 48x48 Icons";
+
+        KeepCompressed "true";
+        KeepCompressedAs "gz";
+        DefaultEnabled "false";
+    };
+
     # Normal-sized icons for GUI components described in the DEP-11
     # YAML metadata.
     deb::DEP-11-icons  {
