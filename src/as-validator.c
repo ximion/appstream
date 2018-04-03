@@ -231,16 +231,18 @@ as_validator_web_url_exists (AsValidator *validator, const gchar *url)
 		 * refuse to answer HEAD requests.
 		 * So, to be compatible with more stuff, we tell curl to attempt to fetch the first byte of the
 		 * document and report failure. We intentionally do not follow redirects. */
-		const gchar *argv[9];
+		const gchar *argv[11];
 		argv[0] = curl_bin;
 		argv[1] = "--output";
 		argv[2] = "/dev/null";
 		argv[3] = "--silent";
 		argv[4] = "--fail";
-		argv[5] = "-r";
-		argv[6] = "0-0";
-		argv[7] = url;
-		argv[8] = NULL;
+		argv[5] = "--max-time";
+		argv[6] = "20"; /* timeout of 20s, so this times out before a buildsystem (like Meson) times out after 30s */
+		argv[7] = "-r";
+		argv[8] = "0-0";
+		argv[9] = url;
+		argv[10] = NULL;
 		g_spawn_sync (NULL, /* wdir */
 				(gchar**) argv,
 				NULL, /* env */
