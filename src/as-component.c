@@ -1119,10 +1119,16 @@ as_component_localized_get (AsComponent *cpt, GHashTable *lht)
 	gchar *msg;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	msg = g_hash_table_lookup (lht, as_component_get_active_locale (cpt));
+	const gchar *comp_locale = as_component_get_active_locale (cpt);
+	const gchar *comp_lang = as_utils_locale_to_language (comp_locale);
+	msg = g_hash_table_lookup (lht, comp_locale);
 	if ((msg == NULL) && (!as_flags_contains (priv->value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
-		/* fall back to untranslated / default */
-		msg = g_hash_table_lookup (lht, "C");
+		/* fall back to language string */
+		msg = g_hash_table_lookup (lht, comp_lang);
+		if (msg == NULL) {
+			/* fall back to untranslated / default */
+			msg = g_hash_table_lookup (lht, "C");
+		}
 	}
 
 	return msg;
