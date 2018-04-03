@@ -129,13 +129,17 @@ void			as_relation_set_compare (AsRelation *relation,
 						 AsRelationCompare compare);
 
 const gchar		*as_relation_get_version (AsRelation *relation);
-void			 as_relation_set_version (AsRelation *relation,
+void			as_relation_set_version (AsRelation *relation,
 						  const gchar *version);
 
 const gchar		*as_relation_get_value (AsRelation *relation);
-gint			 as_relation_get_value_int (AsRelation *relation);
-void			 as_relation_set_value (AsRelation *relation,
+gint			as_relation_get_value_int (AsRelation *relation);
+void			as_relation_set_value (AsRelation *relation,
 					        const gchar *value);
+
+gboolean		as_relation_version_compare (AsRelation *relation,
+						     const gchar *version,
+						     GError **error);
 
 G_END_DECLS
 

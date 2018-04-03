@@ -23,6 +23,7 @@
 #include <config.h>
 #include <glib.h>
 
+#include "as-utils.h"
 #include "as-variant-cache.h"
 
 /**
@@ -456,6 +457,55 @@ as_relation_set_value (AsRelation *relation, const gchar *value)
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 	g_free (priv->value);
 	priv->value = g_strdup (value);
+}
+
+
+/**
+ * as_relation_version_compare:
+ * @relation: an #AsRelation instance.
+ * @version: a version number, e.g. `1.2.0`
+ * @error: A #GError or %NULL
+ *
+ * Tests whether the version number of this #AsRelation is fulfilled by
+ * @version. Whether the given version is sufficient to fulfill the version
+ * requirement of this #AsRelation is determined by its comparison resraint.
+ *
+ * Returns: %TRUE if the version from the parameter is sufficient.
+ *
+ * Since: 0.12.0
+ **/
+gboolean
+as_relation_version_compare (AsRelation *relation, const gchar *version, GError **error)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	gint rc;
+
+	/* if we have no version set, any version checked against is satisfactory */
+	if (priv->version == NULL)
+		return TRUE;
+
+	switch (priv->compare) {
+	case AS_RELATION_COMPARE_EQ:
+		rc = as_utils_compare_versions (priv->version, version);
+		return rc == 0;
+	case AS_RELATION_COMPARE_NE:
+		rc = as_utils_compare_versions (priv->version, version);
+		return rc != 0;
+	case AS_RELATION_COMPARE_LT:
+		rc = as_utils_compare_versions (priv->version, version);
+		return rc > 0;
+	case AS_RELATION_COMPARE_GT:
+		rc = as_utils_compare_versions (priv->version, version);
+		return rc < 0;
+	case AS_RELATION_COMPARE_LE:
+		rc = as_utils_compare_versions (priv->version, version);
+		return rc >= 0;
+	case AS_RELATION_COMPARE_GE:
+		rc = as_utils_compare_versions (priv->version, version);
+		return rc <= 0;
+	default:
+		return FALSE;
+	}
 }
 
 /**
