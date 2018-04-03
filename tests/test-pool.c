@@ -356,7 +356,7 @@ test_pool_read ()
 		if (g_strcmp0 (cat_id, "communication") == 0)
 			g_assert_cmpint (cpt_count, ==, 3);
 		else if (g_strcmp0 (cat_id, "utilities") == 0)
-			g_assert_cmpint (cpt_count, ==, 2);
+			g_assert_cmpint (cpt_count, ==, 3);
 		else if (g_strcmp0 (cat_id, "audio-video") == 0)
 			g_assert_cmpint (cpt_count, ==, 0);
 		else if (g_strcmp0 (cat_id, "developer-tools") == 0)
@@ -364,7 +364,7 @@ test_pool_read ()
 		else if (g_strcmp0 (cat_id, "education") == 0)
 			g_assert_cmpint (cpt_count, ==, 4);
 		else if (g_strcmp0 (cat_id, "games") == 0)
-			g_assert_cmpint (cpt_count, ==, 5);
+			g_assert_cmpint (cpt_count, ==, 4);
 		else if (g_strcmp0 (cat_id, "graphics") == 0)
 			g_assert_cmpint (cpt_count, ==, 1);
 		else if (g_strcmp0 (cat_id, "office") == 0)

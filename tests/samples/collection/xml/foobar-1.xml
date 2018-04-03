@@ -229,15 +229,21 @@
     </languages>
   </component>
   <component type="desktop-application">
-    <id>liquidwar.desktop</id>
-    <pkgname>liquidwar</pkgname>
-    <name>Liquid War</name>
-    <summary>A unique multiplayer wargame</summary>
-    <icon type="cached">liquidwar.png</icon>
+    <id>org.example.TestApp</id>
+    <pkgname>test-app</pkgname>
+    <name>Unittest Dummy App</name>
+    <summary>A dummy component used in AppStream unittests.</summary>
+    <icon type="cached">org.example.TestApp.png</icon>
     <categories>
-      <category>ArcadeGame</category>
-      <category>Game</category>
+      <category>Application</category>
+      <category>Utility</category>
     </categories>
+    <requires>
+      <id version="1.2" compare="eq">org.example.DummyDep</id>
+    </requires>
+    <recommends>
+      <kernel version="4.15" compare="ge">Linux</kernel>
+    </recommends>
   </component>
   <component type="desktop-application">
     <id>literki.desktop</id>

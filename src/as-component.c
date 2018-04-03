@@ -5223,6 +5223,25 @@ as_component_to_variant (AsComponent *cpt, GVariantBuilder *builder)
 					   g_variant_builder_end (&array_b));
 	}
 
+	/* requires / recommends */
+	if (priv->requires->len > 0 || priv->recommends->len > 0) {
+		GVariantBuilder array_b;
+		g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
+
+		for (i = 0; i < priv->requires->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->requires, i));
+			as_relation_to_variant (relation, &array_b);
+		}
+		for (i = 0; i < priv->recommends->len; i++) {
+			AsRelation *relation = AS_RELATION (g_ptr_array_index (priv->recommends, i));
+			as_relation_to_variant (relation, &array_b);
+		}
+
+		as_variant_builder_add_kv (&cb,
+					   "relations",
+					   g_variant_builder_end (&array_b));
+	}
+
 	/* custom data */
 	if (g_hash_table_size (priv->custom) > 0) {
 		GHashTableIter iter;
@@ -5534,6 +5553,24 @@ as_component_set_from_variant (AsComponent *cpt, GVariant *variant, const gchar 
 			g_autoptr(AsContentRating) rating = as_content_rating_new ();
 			if (as_content_rating_set_from_variant (rating, child))
 				as_component_add_content_rating (cpt, rating);
+
+			g_variant_unref (child);
+		}
+		g_variant_unref (var);
+	}
+
+	/* requires / recommends */
+	var = g_variant_dict_lookup_value (&dict,
+					   "relations",
+					   G_VARIANT_TYPE_ARRAY);
+	if (var != NULL) {
+		GVariant *child;
+
+		g_variant_iter_init (&gvi, var);
+		while ((child = g_variant_iter_next_value (&gvi))) {
+			g_autoptr(AsRelation) relation = as_relation_new ();
+			if (as_relation_set_from_variant (relation, child))
+				as_component_add_relation (cpt, relation);
 
 			g_variant_unref (child);
 		}

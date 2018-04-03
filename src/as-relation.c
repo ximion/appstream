@@ -612,12 +612,24 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 void
 as_relation_to_variant (AsRelation *relation, GVariantBuilder *builder)
 {
-#if 0
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	GVariantBuilder rel_dict;
 
-	GVariant *var = g_variant_new ("{uv}", priv->kind, as_variant_from_string_ptrarray (priv->entries));
-	g_variant_builder_add_value (builder, var);
-#endif
+	g_variant_builder_init (&rel_dict, G_VARIANT_TYPE_VARDICT);
+
+	as_variant_builder_add_kv (&rel_dict, "kind",
+				g_variant_new_uint32 (priv->kind));
+	as_variant_builder_add_kv (&rel_dict, "item_kind",
+				g_variant_new_uint32 (priv->item_kind));
+	as_variant_builder_add_kv (&rel_dict, "compare",
+				g_variant_new_uint32 (priv->compare));
+
+	as_variant_builder_add_kv (&rel_dict, "version",
+				as_variant_mstring_new (priv->version));
+	as_variant_builder_add_kv (&rel_dict, "value",
+				as_variant_mstring_new (priv->value));
+
+	g_variant_builder_add_value (builder, g_variant_builder_end (&rel_dict));
 }
 
 /**
@@ -631,20 +643,23 @@ as_relation_to_variant (AsRelation *relation, GVariantBuilder *builder)
 gboolean
 as_relation_set_from_variant (AsRelation *relation, GVariant *variant)
 {
-#if 0
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	GVariantIter inner_iter;
-	GVariant *entry_child;
-	g_autoptr(GVariant) entries_var = NULL;
+	GVariantDict dict;
+	GVariant *var;
 
-	g_variant_get (variant, "{uv}", &priv->kind, &entries_var);
+	g_variant_dict_init (&dict, variant);
 
-	g_variant_iter_init (&inner_iter, entries_var);
-	while ((entry_child = g_variant_iter_next_value (&inner_iter))) {
-		as_relation_add_entry (relation, g_variant_get_string (entry_child, NULL));
-		g_variant_unref (entry_child);
-	}
-#endif
+	priv->kind = as_variant_get_dict_uint32 (&dict, "kind");
+	priv->item_kind = as_variant_get_dict_uint32 (&dict, "item_kind");
+	priv->compare = as_variant_get_dict_uint32 (&dict, "compare");
+
+	as_relation_set_version (relation,
+				as_variant_get_dict_mstr (&dict, "version", &var));
+	g_variant_unref (var);
+
+	as_relation_set_value (relation,
+				as_variant_get_dict_mstr (&dict, "value", &var));
+	g_variant_unref (var);
 
 	return TRUE;
 }
