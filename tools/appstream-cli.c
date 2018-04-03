@@ -118,6 +118,10 @@ const GOptionEntry validate_options[] = {
 		&optn_nonet,
 		/* TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command) */
 		N_("Do not use network access."), NULL },
+	{ "nonet", (gchar) 0, G_OPTION_FLAG_HIDDEN,
+		G_OPTION_ARG_NONE,
+		&optn_nonet,
+		NULL, NULL },
 	{ NULL }
 };
 
