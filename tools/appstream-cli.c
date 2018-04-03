@@ -699,6 +699,12 @@ as_client_run (char **argv, int argc)
 		g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	}
 
+	/* allow disabling network access via an environment variable */
+	if (g_getenv ("AS_VALIDATE_NONET") != NULL) {
+		g_debug ("Disabling network usage: Environment variable AS_VALIDATE_NONET is set.");
+		optn_nonet = TRUE;
+	}
+
 	ascli_set_output_colored (!optn_no_color);
 
 	/* if out terminal is no tty, disable colors automatically */

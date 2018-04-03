@@ -223,6 +223,10 @@
 				<term><option>--no-net</option></term>
 				<listitem>
 					<para>Do not access the network when validating metadata.</para>
+					<para>
+						The same effect can be achieved by setting the <envar>AS_VALIDATE_NONET</envar> environment variable
+						before running <command>&package;</command>.
+					</para>
 				</listitem>
 			</varlistentry>
 
