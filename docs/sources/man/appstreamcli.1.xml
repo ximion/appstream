@@ -220,6 +220,13 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>--no-net</option></term>
+				<listitem>
+					<para>Do not access the network when validating metadata.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>--version</option></term>
 				<listitem>
 					<para>Display the version number of &package;</para>

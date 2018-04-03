@@ -113,10 +113,10 @@ const GOptionEntry validate_options[] = {
 		&optn_pedantic,
 		/* TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command) */
 		N_("Also show pedantic hints."), NULL },
-	{ "nonet", (gchar) 0, 0,
+	{ "no-net", (gchar) 0, 0,
 		G_OPTION_ARG_NONE,
 		&optn_nonet,
-		/* TRANSLATORS: ascli flag description for: --nonet (used by the "validate" command) */
+		/* TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command) */
 		N_("Do not use network access."), NULL },
 	{ NULL }
 };
