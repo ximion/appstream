@@ -784,17 +784,13 @@ static const gchar *yamldata_requires_recommends_field = "---\n"
 						"Type: generic\n"
 						"ID: org.example.RelationsTest\n"
 						"Recommends:\n"
-						"- memory:\n"
-						"    value: '2500'\n"
-						"- modalias:\n"
-						"    value: usb:v1130p0202d*\n"
+						"- memory: '2500'\n"
+						"- modalias: usb:v1130p0202d*\n"
 						"Requires:\n"
-						"- kernel:\n"
-						"    version: '>= 4.15'\n"
-						"    value: Linux\n"
-						"- id:\n"
-						"    version: == 1.2\n"
-						"    value: org.example.TestDependency\n";
+						"- kernel: Linux\n"
+						"  version: '>= 4.15'\n"
+						"- id: org.example.TestDependency\n"
+						"  version: == 1.2\n";
 
 /**
  * test_yaml_write_requires_recommends:

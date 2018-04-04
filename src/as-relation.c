@@ -587,11 +587,10 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 	AsRelationPrivate *priv = GET_PRIVATE (relation);
 	GNode *n;
 
-	if ((node->children == NULL) || (node->children->children == NULL))
+	if (node->children == NULL)
 		return FALSE;
 
-	priv->item_kind = as_relation_item_kind_from_string (as_yaml_node_get_value (node));
-	for (n = node->children->children; n != NULL; n = n->next) {
+	for (n = node->children; n != NULL; n = n->next) {
 		const gchar *entry = as_yaml_node_get_key (n);
 		if (entry == NULL)
 			continue;
@@ -606,11 +605,15 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			g_free (priv->version);
 			priv->version = g_strdup (ver_str + 2);
 			g_strstrip (priv->version);
-		} else if (g_strcmp0 (entry, "value") == 0) {
-			g_free (priv->value);
-			priv->value = g_strdup (as_yaml_node_get_value (n));
 		} else {
-			g_debug ("UNKNOWN: %s", as_yaml_node_get_value (n));
+			AsRelationItemKind kind = as_relation_item_kind_from_string (entry);
+			if (kind != AS_RELATION_ITEM_KIND_UNKNOWN) {
+				priv->item_kind = kind;
+				g_free (priv->value);
+				priv->value = g_strdup (as_yaml_node_get_value (n));
+			} else {
+				g_debug ("Unknown Requires/Recommends YAML field: %s", entry);
+			}
 		}
 	}
 
@@ -635,8 +638,9 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 
 	as_yaml_mapping_start (emitter);
 
-	as_yaml_emit_scalar (emitter, as_relation_item_kind_to_string (priv->item_kind));
-	as_yaml_mapping_start (emitter);
+	as_yaml_emit_entry (emitter,
+			    as_relation_item_kind_to_string (priv->item_kind),
+			    priv->value);
 
 	if (priv->version != NULL) {
 		g_autofree gchar *ver_str = g_strdup_printf ("%s %s",
@@ -645,9 +649,6 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 		as_yaml_emit_entry (emitter, "version", ver_str);
 	}
 
-	as_yaml_emit_entry (emitter, "value", priv->value);
-
-	as_yaml_mapping_end (emitter);
 	as_yaml_mapping_end (emitter);
 }
 
