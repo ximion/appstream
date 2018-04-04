@@ -1213,19 +1213,19 @@ test_xml_read_recommends_requires (void)
 
 	/* memory relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
-	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDATION);
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_MEMORY);
 	g_assert_cmpint (as_relation_get_value_int (relation), ==, 2500);
 
 	/* modalias relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 1));
-	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDATION);
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_MODALIAS);
 	g_assert_cmpstr (as_relation_get_value (relation), ==, "usb:v1130p0202d*");
 
 	/* kernel relation */
 	relation = AS_RELATION (g_ptr_array_index (requires, 0));
-	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIREMENT);
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_KERNEL);
 	g_assert_cmpstr (as_relation_get_value (relation), ==, "Linux");
 	g_assert_cmpstr (as_relation_get_version (relation), ==, "4.15");
@@ -1233,7 +1233,7 @@ test_xml_read_recommends_requires (void)
 
 	/* ID relation */
 	relation = AS_RELATION (g_ptr_array_index (requires, 1));
-	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIREMENT);
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_ID);
 	g_assert_cmpstr (as_relation_get_value (relation), ==, "org.example.TestDependency");
 	g_assert_cmpstr (as_relation_get_version (relation), ==, "1.2");
@@ -1263,10 +1263,10 @@ test_xml_write_recommends_requires (void)
 	kernel_relation = as_relation_new ();
 	id_relation = as_relation_new ();
 
-	as_relation_set_kind (mem_relation, AS_RELATION_KIND_RECOMMENDATION);
-	as_relation_set_kind (moda_relation, AS_RELATION_KIND_RECOMMENDATION);
-	as_relation_set_kind (kernel_relation, AS_RELATION_KIND_REQUIREMENT);
-	as_relation_set_kind (id_relation, AS_RELATION_KIND_REQUIREMENT);
+	as_relation_set_kind (mem_relation, AS_RELATION_KIND_RECOMMENDS);
+	as_relation_set_kind (moda_relation, AS_RELATION_KIND_RECOMMENDS);
+	as_relation_set_kind (kernel_relation, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_kind (id_relation, AS_RELATION_KIND_REQUIRES);
 
 	as_relation_set_item_kind (mem_relation, AS_RELATION_ITEM_KIND_MEMORY);
 	as_relation_set_value (mem_relation, "2500");

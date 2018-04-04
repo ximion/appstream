@@ -928,7 +928,7 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 			}
 		}
 
-		if ((kind == AS_RELATION_KIND_REQUIREMENT) && (item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
+		if ((kind == AS_RELATION_KIND_REQUIRES) && (item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
 			as_validator_add_issue (validator, iter,
 						AS_ISSUE_IMPORTANCE_INFO,
 						AS_ISSUE_KIND_UNUSUAL,
@@ -1232,9 +1232,9 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
 			as_validator_check_children_quick (validator, iter, "content_attribute", cpt);
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
-			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_REQUIREMENT);
+			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_REQUIRES);
 		} else if (g_strcmp0 (node_name, "recommends") == 0) {
-			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_RECOMMENDATION);
+			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "value", cpt);

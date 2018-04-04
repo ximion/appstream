@@ -65,9 +65,9 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsRelation, as_relation, G_TYPE_OBJECT)
 const gchar*
 as_relation_kind_to_string (AsRelationKind kind)
 {
-	if (kind == AS_RELATION_KIND_REQUIREMENT)
+	if (kind == AS_RELATION_KIND_REQUIRES)
 		return "requires";
-	if (kind == AS_RELATION_KIND_RECOMMENDATION)
+	if (kind == AS_RELATION_KIND_RECOMMENDS)
 		return "recommends";
 	return "unknown";
 }
@@ -86,9 +86,9 @@ AsRelationKind
 as_relation_kind_from_string (const gchar *kind_str)
 {
 	if (g_strcmp0 (kind_str, "requires") == 0)
-		return AS_RELATION_KIND_REQUIREMENT;
+		return AS_RELATION_KIND_REQUIRES;
 	if (g_strcmp0 (kind_str, "recommends") == 0)
-		return AS_RELATION_KIND_RECOMMENDATION;
+		return AS_RELATION_KIND_RECOMMENDS;
 	return AS_RELATION_KIND_UNKNOWN;
 }
 

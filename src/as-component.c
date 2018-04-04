@@ -2956,10 +2956,10 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	AsRelationKind kind = as_relation_get_kind (relation);
 
-	if (kind == AS_RELATION_KIND_RECOMMENDATION) {
+	if (kind == AS_RELATION_KIND_RECOMMENDS) {
 		g_ptr_array_add (priv->recommends,
 				g_object_ref (relation));
-	} else if (kind == AS_RELATION_KIND_REQUIREMENT) {
+	} else if (kind == AS_RELATION_KIND_REQUIRES) {
 		g_ptr_array_add (priv->requires,
 				g_object_ref (relation));
 	} else {
@@ -3584,9 +3584,9 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			if (as_content_rating_load_from_xml (ctrating, ctx, iter, NULL))
 				as_component_add_content_rating (cpt, ctrating);
 		} else if (g_strcmp0 (node_name, "recommends") == 0) {
-			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_RECOMMENDATION);
+			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
-			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_REQUIREMENT);
+			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_REQUIRES);
 		}
 	}
 
@@ -4439,9 +4439,9 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 					as_component_add_content_rating (cpt, rating);
 			}
 		} else if (g_strcmp0 (key, "Recommends") == 0) {
-			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_RECOMMENDATION);
+			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (key, "Requires") == 0) {
-			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIREMENT);
+			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIRES);
 		} else if (g_strcmp0 (key, "Custom") == 0) {
 			as_component_yaml_parse_custom (cpt, node);
 		} else {
