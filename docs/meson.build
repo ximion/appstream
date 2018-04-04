@@ -34,7 +34,7 @@ endif
 #
 # Documentation
 #
-as_doc_version = '0.11'
+as_doc_version = '0.12'
 
 as_doc_src = [
     'sources/APIDoc.xml',
