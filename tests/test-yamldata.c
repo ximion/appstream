@@ -153,7 +153,7 @@ test_yamlwrite_general (void)
 
 	const gchar *expected_yaml = "---\n"
 				"File: DEP-11\n"
-				"Version: '0.11'\n"
+				"Version: '0.12'\n"
 				"---\n"
 				"Type: firmware\n"
 				"ID: org.example.test.firmware\n"
@@ -524,7 +524,7 @@ test_yaml_write_suggests (void)
 	g_autofree gchar *res = NULL;
 	const gchar *expected_sug_yaml = "---\n"
 					 "File: DEP-11\n"
-					 "Version: '0.11'\n"
+					 "Version: '0.12'\n"
 					 "---\n"
 					 "Type: generic\n"
 					 "ID: org.example.SuggestsTest\n"
@@ -605,7 +605,7 @@ test_yaml_read_suggests (void)
 
 static const gchar *yamldata_custom_field = "---\n"
 					 "File: DEP-11\n"
-					 "Version: '0.11'\n"
+					 "Version: '0.12'\n"
 					 "---\n"
 					 "Type: generic\n"
 					 "ID: org.example.CustomTest\n"
@@ -657,7 +657,7 @@ test_yaml_read_custom (void)
 
 static const gchar *yamldata_content_rating_field = "---\n"
 						"File: DEP-11\n"
-						"Version: '0.11'\n"
+						"Version: '0.12'\n"
 						"---\n"
 						"Type: generic\n"
 						"ID: org.example.ContentRatingTest\n"
@@ -717,7 +717,7 @@ test_yaml_read_content_rating (void)
 
 static const gchar *yamldata_launchable_field = "---\n"
 						"File: DEP-11\n"
-						"Version: '0.11'\n"
+						"Version: '0.12'\n"
 						"---\n"
 						"Type: generic\n"
 						"ID: org.example.LaunchTest\n"
@@ -779,7 +779,7 @@ test_yaml_read_launchable (void)
 
 static const gchar *yamldata_requires_recommends_field = "---\n"
 						"File: DEP-11\n"
-						"Version: '0.11'\n"
+						"Version: '0.12'\n"
 						"---\n"
 						"Type: generic\n"
 						"ID: org.example.RelationsTest\n"

@@ -95,6 +95,7 @@ AsFormatKind		 as_format_kind_from_string (const gchar *kind_str);
  * @AS_FORMAT_VERSION_V0_9:	0.9
  * @AS_FORMAT_VERSION_V0_10:	0.10
  * @AS_FORMAT_VERSION_V0_11:	0.11
+ * @AS_FORMAT_VERSION_V0_12:	0.12
  *
  * Format version / API level of the AppStream metadata.
  **/
@@ -105,6 +106,7 @@ typedef enum {
 	AS_FORMAT_VERSION_V0_9,
 	AS_FORMAT_VERSION_V0_10,
 	AS_FORMAT_VERSION_V0_11,
+	AS_FORMAT_VERSION_V0_12,
 	/*< private >*/
 	AS_FORMAT_VERSION_LAST
 } AsFormatVersion;
@@ -112,7 +114,7 @@ typedef enum {
 const gchar		*as_format_version_to_string (AsFormatVersion version);
 AsFormatVersion		 as_format_version_from_string (const gchar *version_str);
 
-#define AS_CURRENT_FORMAT_VERSION AS_FORMAT_VERSION_V0_11
+#define AS_CURRENT_FORMAT_VERSION AS_FORMAT_VERSION_V0_12
 
 /**
  * AsMetadataError:

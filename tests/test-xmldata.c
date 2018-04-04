@@ -337,7 +337,7 @@ test_appstream_write_description ()
 						"</component>\n";
 
 	const gchar *EXPECTED_XML_DISTRO = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					   "<components version=\"0.11\">\n"
+					   "<components version=\"0.12\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
@@ -680,7 +680,7 @@ test_xml_write_suggests (void)
 					"  </suggests>\n"
 					"</component>\n";
 	const gchar *expected_sug_xml_coll = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<components version=\"0.11\">\n"
+					"<components version=\"0.12\">\n"
 					"  <component>\n"
 					"    <id>org.example.SuggestsTest</id>\n"
 					"    <suggests type=\"upstream\">\n"
@@ -930,7 +930,7 @@ test_appstream_write_metainfo_to_collection (void)
 					"</component>\n";
 
 	const gchar *EXPECTED_XML_COLL = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					   "<components version=\"0.11\">\n"
+					   "<components version=\"0.12\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name xml:lang=\"de\">Test</name>\n"
