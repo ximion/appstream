@@ -773,7 +773,7 @@
 			</varlistentry>
 
 			<varlistentry id="field-dep11-content_rating">
-				<term>Suggests</term>
+				<term>ContentRating</term>
 				<listitem>
 					<para>See <xref linkend="tag-ct-content_rating"/>.</para>
 					<para>
@@ -789,6 +789,41 @@
     drugs-alcohol: moderate
     language-humor: mild]]></programlisting>
 					<literallayout>Field info: <property>value-type</property>:<emphasis>dict(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-requires-recommends">
+				<term>Requires &amp; Recommends</term>
+				<listitem>
+					<para>See <xref linkend="tag-requires-recommends"/>.</para>
+					<para>
+						A list of dictionaries containing the referenced items. The dictionaries in the list must have one key denoting the item type, which has the
+						respective item value as value. Refer to the XML description for a list of possible types.
+					</para>
+					<para>
+						Each dictionary may have a <literal>version</literal> field with contains a version comparison string. The first two characters denote the version
+						comparison operation, and are followed by the version number to be compared with. The comparison operation may be one of:
+					</para>
+					<itemizedlist>
+						<listitem><para><code>==</code> - Equal to</para></listitem>
+						<listitem><para><code>!=</code> - Not equal to</para></listitem>
+						<listitem><para><code>&lt;&lt;</code> - Lesser than</para></listitem>
+						<listitem><para><code>&gt;&gt;</code> - Greater than</para></listitem>
+						<listitem><para><code>&lt;=</code> - Lesser than or equal to</para></listitem>
+						<listitem><para><code>&gt;=</code> - Greater than or equal to</para></listitem>
+					</itemizedlist>
+					<para>
+						Example:
+					</para>
+					<programlisting><![CDATA[Recommends:
+- memory: '2500'
+- modalias: usb:v1130p0202d*
+Requires:
+- kernel: Linux
+  version: '>= 4.15'
+- id: org.example.TestDependency
+  version: == 1.2]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
 				</listitem>
 			</varlistentry>
 
