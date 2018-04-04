@@ -635,13 +635,13 @@
 				<listitem>
 				<para>
 					Set a relation to the amount of physical memory (RAM) the system should have to run the software component.
-					The unit size is in MB. You usually only want to use this with the <literal>recommends</literal> tag,
+					The memory size is set in MiB. You usually only want to use this with the <literal>recommends</literal> tag,
 					because users might want to install the software on systems even if they have a lesser amount of memory
 					compared to what would be ideal.
 					Example:
 				</para>
 				<programlisting language="XML"><![CDATA[<recommends>
-  <memory>2000</memory> <!-- recommend at least 2GB of memory -->
+  <memory>2048</memory> <!-- recommend at least 2GiB of memory -->
 </recommends>]]></programlisting>
 				</listitem>
 			</varlistentry>
