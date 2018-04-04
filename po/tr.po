@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-04-03 04:36+0200\n"
+"POT-Creation-Date: 2018-04-04 17:28+0200\n"
 "PO-Revision-Date: 2017-03-25 16:36+0000\n"
 "Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 2.12\n"
 
-#: tools/appstream-cli.c:142
+#: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
 msgstr "'%s' komutu"
@@ -53,7 +53,7 @@ msgstr "Macera"
 msgid "Also show pedantic hints."
 msgstr "Doğrularken detaylı ipuçlarını da yaz."
 
-#: tools/appstream-cli.c:600
+#: tools/appstream-cli.c:604
 #, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Bir öge türü (ör. lib, bin, python3, ...)"
@@ -67,7 +67,7 @@ msgid "AppStream CLI"
 msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:692
+#: tools/appstream-cli.c:696
 #, fuzzy, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -101,7 +101,7 @@ msgstr "AppStream önbellek güncellemesi gerekli değil."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:139 tools/appstream-cli.c:593
+#: tools/appstream-cli.c:143 tools/appstream-cli.c:597
 msgid "AppStream command-line interface"
 msgstr "AppStream komut satırı arayüzü"
 
@@ -119,7 +119,7 @@ msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream sistem önbelleği güncellendi, ama sorunlar bulundu: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:689
+#: tools/appstream-cli.c:693
 #, fuzzy, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream CLI araç sürümü: %s"
@@ -240,7 +240,7 @@ msgid "Compulsory for"
 msgstr "Zorunlu"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:615
+#: tools/appstream-cli.c:619
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Koleksiyon XML'ini YAML'e veya ters yönde dönüştür."
 
@@ -250,7 +250,7 @@ msgstr "Koleksiyon XML'ini YAML'e veya ters yönde dönüştür."
 msgid "Could not find component providing '%s::%s'."
 msgstr "'%s::%s' sağlayan bileşen bulunamadı."
 
-#: tools/appstream-cli.c:616
+#: tools/appstream-cli.c:620
 #, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
@@ -302,7 +302,7 @@ msgstr "Geliştirici"
 msgid "Developer Tools"
 msgstr "Geliştirici Araçları"
 
-#: tools/appstream-cli.c:612
+#: tools/appstream-cli.c:616
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 "Kullanılabilir AppStream üst verileri hakkındaki durum bilgilerini göster."
@@ -318,11 +318,11 @@ msgid "Do not use network access."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:653
+#: tools/appstream-cli.c:657
 msgid "Don't show colored output."
 msgstr "Renklendirilmiş çıktı gösterme."
 
-#: tools/appstream-cli.c:603
+#: tools/appstream-cli.c:607
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Kimlik ile eşleşen bileşen için ham XML üst verisini dök."
 
@@ -342,7 +342,7 @@ msgid "Emulators"
 msgstr "Emülatörler"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:230
+#: tools/appstream-cli.c:234
 msgid "Enforce a cache refresh."
 msgstr "Ön belleği yenilenmeye zorla."
 
@@ -439,11 +439,11 @@ msgstr "%i bileşen bulundu."
 msgid "Games"
 msgstr "Oyunlar"
 
-#: tools/appstream-cli.c:599
+#: tools/appstream-cli.c:603
 msgid "Get components which provide the given item."
 msgstr "Verilen ögeyi sağlayan bileşenleri edinin."
 
-#: tools/appstream-cli.c:598
+#: tools/appstream-cli.c:602
 msgid "Get information about a component by its ID."
 msgstr "Kimliğiyle bir bileşen hakkında bilgi edin."
 
@@ -478,11 +478,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Girdi Kaynakları"
 
-#: tools/appstream-cli.c:613
+#: tools/appstream-cli.c:617
 msgid "Install a metadata file into the right location."
 msgstr "Bir üst veri dosyasını doğru konuma yükle."
 
-#: tools/appstream-cli.c:609
+#: tools/appstream-cli.c:613
 #, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "Bileşen kimliğiyle eşleşen yazılım yükle."
@@ -617,7 +617,7 @@ msgid "Office"
 msgstr "Ofis"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:177
+#: tools/appstream-cli.c:181
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "'%s' seçeneği bilinmiyor."
@@ -653,11 +653,11 @@ msgstr "Python (Sürüm 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:604
+#: tools/appstream-cli.c:608
 msgid "Rebuild the component metadata cache."
 msgstr "Bileşen üst veri önbelleğini yeniden inşa et."
 
-#: tools/appstream-cli.c:610
+#: tools/appstream-cli.c:614
 #, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Bileşen kimliğiyle eşleşen yazılım kaldır."
@@ -672,13 +672,13 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Rol Yapma"
 
-#: tools/appstream-cli.c:181 tools/appstream-cli.c:671
+#: tools/appstream-cli.c:185 tools/appstream-cli.c:675
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Tüm komut satırı işlemlerini görmek için '%s --help' komutunu çalıştırın."
 
-#: tools/appstream-cli.c:183
+#: tools/appstream-cli.c:187
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -702,7 +702,7 @@ msgstr "Tarama"
 msgid "Science"
 msgstr "Bilim"
 
-#: tools/appstream-cli.c:597
+#: tools/appstream-cli.c:601
 msgid "Search the component database."
 msgstr "Bileşen veri tabanında arama yapın."
 
@@ -712,12 +712,12 @@ msgid "Security"
 msgstr "Güvenlik"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:648
+#: tools/appstream-cli.c:652
 msgid "Show extra debugging information."
 msgstr "Ek hata ayıklama bilgisi göster."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:642
+#: tools/appstream-cli.c:646
 msgid "Show the program version."
 msgstr "Program sürümünü göster."
 
@@ -732,7 +732,7 @@ msgid "Strategy"
 msgstr "Strateji"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:595
+#: tools/appstream-cli.c:599
 msgid "Subcommands:"
 msgstr "Alt komutlar:"
 
@@ -775,7 +775,7 @@ msgstr ""
 "bazı hatalar tespit edildi. Daha fazla bilgi için ayrıntılı günlüğe başvurun."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:561
+#: tools/appstream-cli.c:565
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr ""
@@ -788,7 +788,7 @@ msgid ""
 msgstr "Yazılım bileşen tipi '%s' AppStream'de geçerli değil. Olası değerler:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:558
+#: tools/appstream-cli.c:562
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -854,13 +854,13 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "'%s'e yazılamadı, üst bilgi dosyası kurulamıyor."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:746
+#: tools/appstream-cli.c:750
 #, c-format
 msgid "Unknown command '%s'."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:553
+#: tools/appstream-cli.c:557
 #, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
@@ -873,11 +873,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Araçlar"
 
-#: tools/appstream-cli.c:606
+#: tools/appstream-cli.c:610
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML dosyalarını sorunlar için doğrula."
 
-#: tools/appstream-cli.c:607
+#: tools/appstream-cli.c:611
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Bir uygulamanın yüklenmiş dosya ağacını geçerli üst veri için doğrulayın."
@@ -896,7 +896,7 @@ msgstr "Doğrulama işlemi tamamlandı."
 msgid "Validation was successful: %s"
 msgstr "Doğrulama işlemi tamamlandı: %s"
 
-#: tools/appstream-cli.c:601
+#: tools/appstream-cli.c:605
 msgid "Value of the item that should be found."
 msgstr "Bulunması gereken ögenin değeri."
 
@@ -930,7 +930,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Kelime İşlemci"
 
-#: tools/appstream-cli.c:619
+#: tools/appstream-cli.c:623
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -954,7 +954,7 @@ msgstr ""
 "sağlamalısınız. Olası değerler:"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:670
+#: tools/appstream-cli.c:674
 msgid "You need to specify a command."
 msgstr "Bir komut belirtmelisiniz."
 

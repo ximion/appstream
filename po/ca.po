@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-04-03 04:36+0200\n"
+"POT-Creation-Date: 2018-04-04 17:28+0200\n"
 "PO-Revision-Date: 2018-03-30 18:58+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.20-dev\n"
 
-#: tools/appstream-cli.c:142
+#: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
 msgstr "Ordre «%s»"
@@ -52,7 +52,7 @@ msgstr "Aventura"
 msgid "Also show pedantic hints."
 msgstr "Mostra també els consells redundants."
 
-#: tools/appstream-cli.c:600
+#: tools/appstream-cli.c:604
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Un tipus d'element (p. ex. lib, bin, python3, ...)"
 
@@ -65,7 +65,7 @@ msgid "AppStream CLI"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:692
+#: tools/appstream-cli.c:696
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -102,7 +102,7 @@ msgstr "L'actualització de memòria cau d'AppStream no és necessària."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:139 tools/appstream-cli.c:593
+#: tools/appstream-cli.c:143 tools/appstream-cli.c:597
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
@@ -122,7 +122,7 @@ msgstr ""
 "problemes: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:689
+#: tools/appstream-cli.c:693
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versió d'AppStream: %s"
@@ -243,7 +243,7 @@ msgid "Compulsory for"
 msgstr "Obligatori per"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:615
+#: tools/appstream-cli.c:619
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Converteix la col·lecció XML a YAML o viceversa."
 
@@ -253,7 +253,7 @@ msgstr "Converteix la col·lecció XML a YAML o viceversa."
 msgid "Could not find component providing '%s::%s'."
 msgstr "No s'ha pogut trobar el component que proporciona «%s::%s»."
 
-#: tools/appstream-cli.c:616
+#: tools/appstream-cli.c:620
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -303,7 +303,7 @@ msgstr "Desenvolupador"
 msgid "Developer Tools"
 msgstr "Eines de desenvolupador"
 
-#: tools/appstream-cli.c:612
+#: tools/appstream-cli.c:616
 msgid "Display status information about available AppStream metadata."
 msgstr ""
 "Mostra informació de l'estat sobre les metadades disponibles d'AppStream."
@@ -319,11 +319,11 @@ msgid "Do not use network access."
 msgstr "No utilitzis l'accés a la xarxa."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:653
+#: tools/appstream-cli.c:657
 msgid "Don't show colored output."
 msgstr "No mostris la sortida amb colors."
 
-#: tools/appstream-cli.c:603
+#: tools/appstream-cli.c:607
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Bolca les metadades XML en pla per a un component que coincideixi amb l'id."
@@ -344,7 +344,7 @@ msgid "Emulators"
 msgstr "Emuladors"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:230
+#: tools/appstream-cli.c:234
 msgid "Enforce a cache refresh."
 msgstr "Força una actualització de la memòria cau."
 
@@ -442,11 +442,11 @@ msgstr "S'han trobat %i components."
 msgid "Games"
 msgstr "Jocs"
 
-#: tools/appstream-cli.c:599
+#: tools/appstream-cli.c:603
 msgid "Get components which provide the given item."
 msgstr "Obté els components que proporcionen un element indicat."
 
-#: tools/appstream-cli.c:598
+#: tools/appstream-cli.c:602
 msgid "Get information about a component by its ID."
 msgstr "Obté la informació sobre un component amb el seu id."
 
@@ -481,11 +481,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Orígens d'entrada"
 
-#: tools/appstream-cli.c:613
+#: tools/appstream-cli.c:617
 msgid "Install a metadata file into the right location."
 msgstr "Instal·la un fitxer de metadades al lloc correcte."
 
-#: tools/appstream-cli.c:609
+#: tools/appstream-cli.c:613
 msgid "Install software matching the component-ID."
 msgstr "Instal·la el programari que coincideixi amb «component-ID»."
 
@@ -618,7 +618,7 @@ msgid "Office"
 msgstr "Ofimàtica"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:177
+#: tools/appstream-cli.c:181
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Es desconeix l'opció «%s»."
@@ -654,11 +654,11 @@ msgstr "Python (versió 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:604
+#: tools/appstream-cli.c:608
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstrueix la memòria cau de les metadades del component."
 
-#: tools/appstream-cli.c:610
+#: tools/appstream-cli.c:614
 msgid "Remove software matching the component-ID."
 msgstr "Suprimeix el programari que coincideixi amb «component-ID»."
 
@@ -672,14 +672,14 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Jocs de rol"
 
-#: tools/appstream-cli.c:181 tools/appstream-cli.c:671
+#: tools/appstream-cli.c:185 tools/appstream-cli.c:675
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Executeu «%s --help» per veure una llista completa de les opcions "
 "disponibles de la línia d'ordres."
 
-#: tools/appstream-cli.c:183
+#: tools/appstream-cli.c:187
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -703,7 +703,7 @@ msgstr "Escaneig"
 msgid "Science"
 msgstr "Ciència"
 
-#: tools/appstream-cli.c:597
+#: tools/appstream-cli.c:601
 msgid "Search the component database."
 msgstr "Cerca a la base de dades de components."
 
@@ -713,12 +713,12 @@ msgid "Security"
 msgstr "Seguretat"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:648
+#: tools/appstream-cli.c:652
 msgid "Show extra debugging information."
 msgstr "Mostra informació extra de depuració."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:642
+#: tools/appstream-cli.c:646
 msgid "Show the program version."
 msgstr "Mostra la versió de l'aplicació."
 
@@ -733,7 +733,7 @@ msgid "Strategy"
 msgstr "Estratègia"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:595
+#: tools/appstream-cli.c:599
 msgid "Subcommands:"
 msgstr "Subordres:"
 
@@ -777,7 +777,7 @@ msgstr ""
 "Consulteu el registre per obtenir informació més detallada."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:561
+#: tools/appstream-cli.c:565
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "El TIPUS ha de ser un tipus de component vàlid, com ara: %s"
@@ -792,7 +792,7 @@ msgstr ""
 "possibles són:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:558
+#: tools/appstream-cli.c:562
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -859,13 +859,13 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "No es pot escriure a «%s», no es pot instal·lar el fitxer metainfo."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:746
+#: tools/appstream-cli.c:750
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Ordre desconeguda «%s»."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:553
+#: tools/appstream-cli.c:557
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -877,11 +877,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Utilitats"
 
-#: tools/appstream-cli.c:606
+#: tools/appstream-cli.c:610
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida els fitxers XML d'AppStream per incidències."
 
-#: tools/appstream-cli.c:607
+#: tools/appstream-cli.c:611
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Valida un arbre de fitxers instal·lats d'una aplicació per validar-ne les "
@@ -901,7 +901,7 @@ msgstr "S'ha validat correctament."
 msgid "Validation was successful: %s"
 msgstr "S'ha validat correctament: %s"
 
-#: tools/appstream-cli.c:601
+#: tools/appstream-cli.c:605
 msgid "Value of the item that should be found."
 msgstr "El valor de l'element que s'ha de trobar."
 
@@ -935,7 +935,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Processadors de text"
 
-#: tools/appstream-cli.c:619
+#: tools/appstream-cli.c:623
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -959,7 +959,7 @@ msgstr ""
 "una plantilla. Els valors possibles són:"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:670
+#: tools/appstream-cli.c:674
 msgid "You need to specify a command."
 msgstr "Heu d'especificar una ordre."
 

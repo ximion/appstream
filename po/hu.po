@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-04-03 04:36+0200\n"
+"POT-Creation-Date: 2018-04-04 17:28+0200\n"
 "PO-Revision-Date: 2018-01-27 14:37+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.19-dev\n"
 
-#: tools/appstream-cli.c:142
+#: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
 msgstr "„%s” parancs"
@@ -51,7 +51,7 @@ msgstr "Kaland"
 msgid "Also show pedantic hints."
 msgstr "Az akadékoskodó tippeket is írja ki."
 
-#: tools/appstream-cli.c:600
+#: tools/appstream-cli.c:604
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Egy elemtípus (például lib, bin, python3, …)"
 
@@ -64,7 +64,7 @@ msgid "AppStream CLI"
 msgstr "AppStream parancssori felület"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:692
+#: tools/appstream-cli.c:696
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -100,7 +100,7 @@ msgstr "Az AppStream gyorsítótár frissítése nem szükséges."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:139 tools/appstream-cli.c:593
+#: tools/appstream-cli.c:143 tools/appstream-cli.c:597
 msgid "AppStream command-line interface"
 msgstr "AppStream parancssoros felület"
 
@@ -119,7 +119,7 @@ msgstr ""
 "Az AppStream rendszergyorsítótár frissítve lett, de problémák találhatók: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:689
+#: tools/appstream-cli.c:693
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream verzió: %s"
@@ -240,7 +240,7 @@ msgid "Compulsory for"
 msgstr "Kötelező ehhez"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:615
+#: tools/appstream-cli.c:619
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Gyűjtemény átalakítása XML-ről YAML-ra vagy fordítva."
 
@@ -250,7 +250,7 @@ msgstr "Gyűjtemény átalakítása XML-ről YAML-ra vagy fordítva."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nem található a következőt biztosító összetevő: „%s::%s”."
 
-#: tools/appstream-cli.c:616
+#: tools/appstream-cli.c:620
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -299,7 +299,7 @@ msgstr "Fejlesztő"
 msgid "Developer Tools"
 msgstr "Fejlesztői eszközök"
 
-#: tools/appstream-cli.c:612
+#: tools/appstream-cli.c:616
 msgid "Display status information about available AppStream metadata."
 msgstr "Állapotinformációk megjelenítése az elérhető AppStream metaadatokról."
 
@@ -314,11 +314,11 @@ msgid "Do not use network access."
 msgstr "Ne használjon hálózati hozzáférést."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:653
+#: tools/appstream-cli.c:657
 msgid "Don't show colored output."
 msgstr "Ne jelenítsen meg színes kimenetet."
 
-#: tools/appstream-cli.c:603
+#: tools/appstream-cli.c:607
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz."
 
@@ -338,7 +338,7 @@ msgid "Emulators"
 msgstr "Emulátorok"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:230
+#: tools/appstream-cli.c:234
 msgid "Enforce a cache refresh."
 msgstr "Gyorsítótár-frissítés kényszerítése."
 
@@ -435,11 +435,11 @@ msgstr "%i komponens található."
 msgid "Games"
 msgstr "Játékok"
 
-#: tools/appstream-cli.c:599
+#: tools/appstream-cli.c:603
 msgid "Get components which provide the given item."
 msgstr "Összetevők lekérése, amelyek a megadott elemet biztosítják."
 
-#: tools/appstream-cli.c:598
+#: tools/appstream-cli.c:602
 msgid "Get information about a component by its ID."
 msgstr "Információk kérése egy összetevőről az azonosítója szerint."
 
@@ -474,11 +474,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Beviteli források"
 
-#: tools/appstream-cli.c:613
+#: tools/appstream-cli.c:617
 msgid "Install a metadata file into the right location."
 msgstr "Metaadatfájl telepítése a megfelelő helyre."
 
-#: tools/appstream-cli.c:609
+#: tools/appstream-cli.c:613
 msgid "Install software matching the component-ID."
 msgstr "Az összetevő-azonosítónak megfelelő szoftver telepítése."
 
@@ -610,7 +610,7 @@ msgid "Office"
 msgstr "Iroda"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:177
+#: tools/appstream-cli.c:181
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "A(z) „%s” kapcsoló ismeretlen."
@@ -646,11 +646,11 @@ msgstr "Python (2-es verzió)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:604
+#: tools/appstream-cli.c:608
 msgid "Rebuild the component metadata cache."
 msgstr "Az összetevő-metaadat gyorsítótár újraépítése."
 
-#: tools/appstream-cli.c:610
+#: tools/appstream-cli.c:614
 msgid "Remove software matching the component-ID."
 msgstr "Az összetevő-azonosítónak megfelelő szoftver eltávolítása."
 
@@ -664,14 +664,14 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Szerepjátékok"
 
-#: tools/appstream-cli.c:181 tools/appstream-cli.c:671
+#: tools/appstream-cli.c:185 tools/appstream-cli.c:675
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Futtassa a(z) „%s --help” parancsot az elérhető parancssori kapcsolók teljes "
 "listájáért."
 
-#: tools/appstream-cli.c:183
+#: tools/appstream-cli.c:187
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -695,7 +695,7 @@ msgstr "Képolvasás"
 msgid "Science"
 msgstr "Tudomány"
 
-#: tools/appstream-cli.c:597
+#: tools/appstream-cli.c:601
 msgid "Search the component database."
 msgstr "Keresés az összetevő adatbázisban."
 
@@ -705,12 +705,12 @@ msgid "Security"
 msgstr "Biztonság"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:648
+#: tools/appstream-cli.c:652
 msgid "Show extra debugging information."
 msgstr "További hibakeresési információk megjelenítése."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:642
+#: tools/appstream-cli.c:646
 msgid "Show the program version."
 msgstr "A programverzió megjelenítése."
 
@@ -725,7 +725,7 @@ msgid "Strategy"
 msgstr "Stratégia"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:595
+#: tools/appstream-cli.c:599
 msgid "Subcommands:"
 msgstr "Alparancsok:"
 
@@ -769,7 +769,7 @@ msgstr ""
 "meg a részletes naplót."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:561
+#: tools/appstream-cli.c:565
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "A TÍPUS értéke érvényes komponenstípus kell legyen, mint például: %s"
@@ -784,7 +784,7 @@ msgstr ""
 "értékek:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:558
+#: tools/appstream-cli.c:562
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -852,13 +852,13 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:746
+#: tools/appstream-cli.c:750
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Ismeretlen parancs: „%s”."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:553
+#: tools/appstream-cli.c:557
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -870,11 +870,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Segédprogramok"
 
-#: tools/appstream-cli.c:606
+#: tools/appstream-cli.c:610
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML-fájlok ellenőrzése a kiadásoknál."
 
-#: tools/appstream-cli.c:607
+#: tools/appstream-cli.c:611
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Egy alkalmazás telepített fájlfájának összevetése az érvényes metaadatokkal."
@@ -893,7 +893,7 @@ msgstr "Az ellenőrzés sikeres volt."
 msgid "Validation was successful: %s"
 msgstr "Az ellenőrzés sikeres volt: %s"
 
-#: tools/appstream-cli.c:601
+#: tools/appstream-cli.c:605
 msgid "Value of the item that should be found."
 msgstr "A keresendő elemérték."
 
@@ -927,7 +927,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Szövegszerkesztő"
 
-#: tools/appstream-cli.c:619
+#: tools/appstream-cli.c:623
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -949,7 +949,7 @@ msgstr ""
 "előállításához. A lehetséges értékek:"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:670
+#: tools/appstream-cli.c:674
 msgid "You need to specify a command."
 msgstr "Meg kell adnia egy parancsot."
 

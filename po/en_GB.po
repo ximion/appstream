@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-04-03 04:36+0200\n"
+"POT-Creation-Date: 2018-04-04 17:28+0200\n"
 "PO-Revision-Date: 2016-11-08 04:33+0000\n"
 "Last-Translator: John Vandenberg <jayvdb@gmail.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.9\n"
 
-#: tools/appstream-cli.c:142
+#: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
 msgstr ""
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Also show pedantic hints."
 msgstr "Also print pedantic hints when validating."
 
-#: tools/appstream-cli.c:600
+#: tools/appstream-cli.c:604
 #, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "An item type (e.g. lib, bin, python3, ...)"
@@ -67,7 +67,7 @@ msgid "AppStream CLI"
 msgstr "AppStream Status:"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:692
+#: tools/appstream-cli.c:696
 #, fuzzy, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -99,7 +99,7 @@ msgstr "AppStream cache update is not necessary."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:139 tools/appstream-cli.c:593
+#: tools/appstream-cli.c:143 tools/appstream-cli.c:597
 msgid "AppStream command-line interface"
 msgstr "AppStream command-line interface"
 
@@ -115,7 +115,7 @@ msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:689
+#: tools/appstream-cli.c:693
 #, fuzzy, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream CLI tool version: %s"
@@ -234,7 +234,7 @@ msgid "Compulsory for"
 msgstr "Compulsory for"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:615
+#: tools/appstream-cli.c:619
 msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Could not find component providing '%s::%s'."
 msgstr "Unable to find component providing '%s;%s'!"
 
-#: tools/appstream-cli.c:616
+#: tools/appstream-cli.c:620
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -293,7 +293,7 @@ msgstr "Developer"
 msgid "Developer Tools"
 msgstr "Developer"
 
-#: tools/appstream-cli.c:612
+#: tools/appstream-cli.c:616
 msgid "Display status information about available AppStream metadata."
 msgstr "Display status information about available AppStream metadata."
 
@@ -308,12 +308,12 @@ msgid "Do not use network access."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:653
+#: tools/appstream-cli.c:657
 #, fuzzy
 msgid "Don't show colored output."
 msgstr "Don't show coloured output"
 
-#: tools/appstream-cli.c:603
+#: tools/appstream-cli.c:607
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Dump raw XML metadata for a component matching the ID."
 
@@ -333,7 +333,7 @@ msgid "Emulators"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:230
+#: tools/appstream-cli.c:234
 #, fuzzy
 msgid "Enforce a cache refresh."
 msgstr "Enforce a cache refresh"
@@ -431,11 +431,11 @@ msgstr "Found %i components."
 msgid "Games"
 msgstr ""
 
-#: tools/appstream-cli.c:599
+#: tools/appstream-cli.c:603
 msgid "Get components which provide the given item."
 msgstr "Get components which provide the given item."
 
-#: tools/appstream-cli.c:598
+#: tools/appstream-cli.c:602
 msgid "Get information about a component by its ID."
 msgstr "Get information about a component by its ID."
 
@@ -470,11 +470,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr ""
 
-#: tools/appstream-cli.c:613
+#: tools/appstream-cli.c:617
 msgid "Install a metadata file into the right location."
 msgstr "Install a metadata file into the right location."
 
-#: tools/appstream-cli.c:609
+#: tools/appstream-cli.c:613
 #, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "Install software matching the component-id."
@@ -609,7 +609,7 @@ msgid "Office"
 msgstr ""
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:177
+#: tools/appstream-cli.c:181
 #, fuzzy, c-format
 msgid "Option '%s' is unknown."
 msgstr "Command '%s' is unknown."
@@ -646,11 +646,11 @@ msgstr "Python (Version 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:604
+#: tools/appstream-cli.c:608
 msgid "Rebuild the component metadata cache."
 msgstr "Rebuild the component metadata cache."
 
-#: tools/appstream-cli.c:610
+#: tools/appstream-cli.c:614
 #, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Remove software matching the component-id."
@@ -665,12 +665,12 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr ""
 
-#: tools/appstream-cli.c:181 tools/appstream-cli.c:671
+#: tools/appstream-cli.c:185 tools/appstream-cli.c:675
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Run '%s --help' to see a full list of available command line options."
 
-#: tools/appstream-cli.c:183
+#: tools/appstream-cli.c:187
 #, fuzzy, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -691,7 +691,7 @@ msgstr ""
 msgid "Science"
 msgstr ""
 
-#: tools/appstream-cli.c:597
+#: tools/appstream-cli.c:601
 msgid "Search the component database."
 msgstr "Search the component database."
 
@@ -701,13 +701,13 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:648
+#: tools/appstream-cli.c:652
 #, fuzzy
 msgid "Show extra debugging information."
 msgstr "Show extra debugging information"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:642
+#: tools/appstream-cli.c:646
 #, fuzzy
 msgid "Show the program version."
 msgstr "Show the program version"
@@ -723,7 +723,7 @@ msgid "Strategy"
 msgstr ""
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:595
+#: tools/appstream-cli.c:599
 msgid "Subcommands:"
 msgstr "Subcommands:"
 
@@ -764,7 +764,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:561
+#: tools/appstream-cli.c:565
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr ""
@@ -777,7 +777,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:558
+#: tools/appstream-cli.c:562
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -836,13 +836,13 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Unable to write to '%s', can not install metainfo file."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:746
+#: tools/appstream-cli.c:750
 #, c-format
 msgid "Unknown command '%s'."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:553
+#: tools/appstream-cli.c:557
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -852,11 +852,11 @@ msgstr ""
 msgid "Utilities"
 msgstr ""
 
-#: tools/appstream-cli.c:606
+#: tools/appstream-cli.c:610
 msgid "Validate AppStream XML files for issues."
 msgstr "Validate AppStream XML files for issues."
 
-#: tools/appstream-cli.c:607
+#: tools/appstream-cli.c:611
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Validate an installed file-tree of an application for valid metadata."
 
@@ -874,7 +874,7 @@ msgstr "Validation was successful."
 msgid "Validation was successful: %s"
 msgstr "Validation was successful."
 
-#: tools/appstream-cli.c:601
+#: tools/appstream-cli.c:605
 msgid "Value of the item that should be found."
 msgstr "Value of the item that should be found."
 
@@ -909,7 +909,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr ""
 
-#: tools/appstream-cli.c:619
+#: tools/appstream-cli.c:623
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -927,7 +927,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:670
+#: tools/appstream-cli.c:674
 msgid "You need to specify a command."
 msgstr "You need to specify a command."
 
