@@ -1,3 +1,86 @@
+Version 0.12.0
+~~~~~~~~~~~~~~
+Released: 2018-04-04
+
+Features:
+ * Implement release types (Matthias Klumpp)
+ * qt: Support release types (Matthias Klumpp)
+ * Update static data lists (Matthias Klumpp)
+ * Make as_str_replace use as_gstring_replace internally (Matthias Klumpp)
+ * spdx: Add some compatibility workarounds for SPDX 3.0 (Matthias Klumpp)
+ * validator: Validate SPDX license expressions for metadata_license (Matthias Klumpp)
+ * apt: Add config snippets to enable icon downloads (Matthias Klumpp)
+ * yaml: Ensure all string values have whitespaces stripped (Matthias Klumpp)
+ * Make as_component_get_launchables public API (Matthias Klumpp)
+ * Implement support for requires/recommends (Matthias Klumpp)
+ * Add recommends/requires data to the cache (Matthias Klumpp)
+ * Add a quick way to check if a version satisfies an AsRelation requirement (Matthias Klumpp)
+ * ascli: Properly document the --no-net flag (Matthias Klumpp)
+ * ascli: Allow to disable network acces via an environment variable (Matthias Klumpp)
+ * apt: Support 48x48px icons (Matthias Klumpp)
+ * yaml: Make Requires/Recommends data more compact and easier to emit (Matthias Klumpp)
+ * validator: Validate requires/recommends tags (Matthias Klumpp)
+ * Default to format version 0.12 (Matthias Klumpp)
+
+Specification:
+ * spec: Add a "type" property to <release/> tag. (Jehan)
+ * spec: Initial draft for requires/recommends (Matthias Klumpp)
+ * spec: Document the YAML Rquires/Recommends fields (Matthias Klumpp)
+ * spec: Clarify that the memory requirement uses MiB as unit (Matthias Klumpp)
+
+Bugfixes:
+ * qt: Implement missing constructors (Aleix Pol)
+ * apt: escape the icon scale factor as it is using the arobase character (Corentin Noël)
+ * Check plain language string in as_component_localized_get as well (Antonio Rojas)
+ * qt: Define location and soname for all configurations, not just Debug (Gabriel Souza Franco)
+ * Never override high-quality data with incomplete .desktop data (Matthias Klumpp)
+ * Make data update script work with recent SPDX (Matthias Klumpp)
+ * Add a timeout to URL validity checks (Matthias Klumpp)
+
+Translation:
+ * Ukrainian
+   - AB
+   - Yuri Chornoivan
+ * Norwegian Bokmål
+   - Allan Nordhøy
+ * Swedish
+   - Anders Jonsson
+ * Indonesian
+   - Andika Triwidada
+   - se7entime
+ * German
+   - Andreas Kleinert
+ * Hungarian
+   - Balázs Meskó
+   - Balázs Úr
+ * Chinese (Traditional)
+   - Chang-Chia Tseng
+ * Russian
+   - Igor
+ * Finnish
+   - Juhani Numminen
+ * Korean
+   - Jung-Kyu Park
+ * Portuguese (Brazil)
+   - Luiz Fernando Ranghetti
+   - Rafael Fontenelle
+   - Rafael Henrique Mendes de Oliv
+ * Slovak
+   - Matúš Baňas
+ * Arabic
+   - Michal Čihař
+   - Mutaz Tayyeb AbuSaad
+ * Italian
+   - Milo Casagrande
+ * Lithuanian
+   - Moo
+ * Czech
+   - Pavel Borecki
+ * Polish
+   - Piotr Drąg
+ * Catalan
+   - Robert Antoni Buj Gelonch
+
 Version 0.11.8
 ~~~~~~~~~~~~~~
 Released: 2018-01-22
