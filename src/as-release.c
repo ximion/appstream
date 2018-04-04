@@ -941,6 +941,7 @@ as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
 	}
 
 	g_variant_builder_init (&rel_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_add_parsed (&rel_b, "{'kind', <%u>}", priv->kind);
 	g_variant_builder_add_parsed (&rel_b, "{'version', %v}", as_variant_mstring_new (priv->version));
 	g_variant_builder_add_parsed (&rel_b, "{'timestamp', <%t>}", priv->timestamp);
 	g_variant_builder_add_parsed (&rel_b, "{'urgency', <%u>}", priv->urgency);
@@ -980,6 +981,8 @@ as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar 
 
 	as_release_set_active_locale (release, locale);
 	g_variant_dict_init (&rdict, variant);
+
+	priv->kind = as_variant_get_dict_uint32 (&rdict, "kind");
 
 	as_release_set_version (release, as_variant_get_dict_mstr (&rdict, "version", &tmp));
 	g_variant_unref (tmp);
