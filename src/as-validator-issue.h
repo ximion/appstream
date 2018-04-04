@@ -81,6 +81,7 @@ typedef enum {
  * @AS_ISSUE_KIND_WRONG_NAME:		The naming of an entity is wrong
  * @AS_ISSUE_KIND_READ_ERROR:		Reading of data failed
  * @AS_ISSUE_KIND_REMOTE_ERROR:		Getting additional content from a remote location failed
+ * @AS_ISSUE_KIND_UNUSUAL:		Unusual combination of values and likely not intended
  *
  * The issue type.
  **/
@@ -101,6 +102,7 @@ typedef enum {
 	AS_ISSUE_KIND_WRONG_NAME,
 	AS_ISSUE_KIND_READ_ERROR,
 	AS_ISSUE_KIND_REMOTE_ERROR,
+	AS_ISSUE_KIND_UNUSUAL,
 	/*< private >*/
 	AS_ISSUE_KIND_LAST
 } AsIssueKind;

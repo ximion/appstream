@@ -849,6 +849,96 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 }
 
 /**
+ * as_validator_check_requires_recommends:
+ **/
+static void
+as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, AsComponent *cpt, AsRelationKind kind)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		g_autofree gchar *content = NULL;
+		g_autofree gchar *version = NULL;
+		gboolean can_have_version;
+		AsRelationItemKind item_kind;
+
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+		content = as_xml_get_node_value (iter);
+
+		item_kind = as_relation_item_kind_from_string (node_name);
+		if (item_kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
+			as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_TAG_UNKNOWN,
+						"Found tag '%s' in a requires/recommends group. A relation of this type is unknown.",
+						node_name);
+			continue;
+		}
+
+		if (g_strcmp0 (content, "") == 0) {
+			as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_ERROR,
+						AS_ISSUE_KIND_VALUE_MISSING,
+						"Missing value for requires/recommends item.");
+			continue;
+		}
+
+		switch (item_kind) {
+		case AS_RELATION_ITEM_KIND_MEMORY:
+		case AS_RELATION_ITEM_KIND_MODALIAS:
+			can_have_version = FALSE;
+			break;
+		default:
+			can_have_version = TRUE;
+		}
+
+		version = (gchar*) xmlGetProp (iter, (xmlChar*) "version");
+		if (version != NULL) {
+			AsRelationCompare compare;
+			g_autofree gchar *compare_str = (gchar*) xmlGetProp (iter, (xmlChar*) "compare");
+
+			if (!can_have_version) {
+				as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_PROPERTY_INVALID,
+						"Found version property on required/recommended item of type '%s'. Items of this type should not have a version.",
+						as_relation_item_kind_to_string (item_kind));
+				continue;
+			}
+
+			if (compare_str == NULL) {
+				as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_KIND_PROPERTY_MISSING,
+						"Found version property on required/recommended item, but not 'compare' property. It is recommended to explicitly define a comparison operation.");
+				continue;
+			}
+
+			compare = as_relation_compare_from_string (compare_str);
+			if (compare == AS_RELATION_COMPARE_UNKNOWN) {
+				as_validator_add_issue (validator, iter,
+							AS_ISSUE_IMPORTANCE_ERROR,
+							AS_ISSUE_KIND_VALUE_WRONG,
+							"Invalid version comparison operation '%s' on item.",
+							compare_str);
+			}
+		}
+
+		if ((kind == AS_RELATION_KIND_REQUIREMENT) && (item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
+			as_validator_add_issue (validator, iter,
+						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_KIND_UNUSUAL,
+						"Found a memory size dependency in a 'requires' tag. This means users will not be able to even install the component without having enough RAM." " "
+					        "This is usually not intended and you want to use 'memory' in the 'recommends' tag instead.");
+		}
+	}
+}
+
+/**
  * as_validator_validate_component_node:
  **/
 static AsComponent*
@@ -1141,6 +1231,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_children_quick (validator, iter, "id", cpt);
 		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
 			as_validator_check_children_quick (validator, iter, "content_attribute", cpt);
+		} else if (g_strcmp0 (node_name, "requires") == 0) {
+			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_REQUIREMENT);
+		} else if (g_strcmp0 (node_name, "recommends") == 0) {
+			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_RECOMMENDATION);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "value", cpt);

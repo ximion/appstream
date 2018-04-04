@@ -179,6 +179,11 @@ as_relation_compare_from_string (const gchar *compare_str)
 		return AS_RELATION_COMPARE_GE;
 	if (g_strcmp0 (compare_str, "<=") == 0)
 		return AS_RELATION_COMPARE_LE;
+
+	/* default value */
+	if (compare_str == NULL)
+		return AS_RELATION_COMPARE_GE;
+
 	return AS_RELATION_COMPARE_UNKNOWN;
 }
 
