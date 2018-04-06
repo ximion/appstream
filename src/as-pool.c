@@ -840,14 +840,14 @@ as_pool_load_metainfo_data (AsPool *pool)
 
 				mi_cid_desktop = g_strdup_printf ("%s.desktop", mi_cid);
 				/* check with .desktop suffix too */
-				if (!g_hash_table_contains (priv->known_cids, mi_cid_desktop)) {
+				if (g_hash_table_contains (priv->known_cids, mi_cid_desktop)) {
 					g_debug ("Skipped: %s (already known)", fname);
 					continue;
 				}
 			}
 
 			/* quickly check if we know the component already */
-			if (!g_hash_table_contains (priv->known_cids, mi_cid)) {
+			if (g_hash_table_contains (priv->known_cids, mi_cid)) {
 				g_debug ("Skipped: %s (already known)", fname);
 				continue;
 			}
@@ -926,7 +926,7 @@ as_pool_load_desktop_entries (AsPool *pool)
 		if (!as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO)) {
 			g_autofree gchar *de_cid = g_path_get_basename (fname);
 
-			if (!g_hash_table_contains (priv->known_cids, de_cid)) {
+			if (g_hash_table_contains (priv->known_cids, de_cid)) {
 				g_debug ("Skipped: %s (already known)", fname);
 				continue;
 			}
@@ -934,7 +934,7 @@ as_pool_load_desktop_entries (AsPool *pool)
 			/* check without .desktop suffix too */
 			if (g_str_has_suffix (de_cid, ".desktop")) {
 				de_cid[strlen (de_cid) - 8] = '\0';
-				if (!g_hash_table_contains (priv->known_cids, de_cid)) {
+				if (g_hash_table_contains (priv->known_cids, de_cid)) {
 					g_debug ("Skipped: %s (already known)", fname);
 					continue;
 				}
