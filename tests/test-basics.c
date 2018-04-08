@@ -379,6 +379,36 @@ test_desktop_entry ()
 	g_free (tmp);
 }
 
+/**
+ * test_version_compare:
+ *
+ * Test version comparisons.
+ */
+static void
+test_version_compare ()
+{
+	g_assert_cmpint (as_utils_compare_versions ("6", "8"), <, 0);
+	g_assert_cmpint (as_utils_compare_versions ("0.6.12b-d", "0.6.12a"), >, 0);
+	g_assert_cmpint (as_utils_compare_versions ("7.4", "7.4"), ==, 0);
+	g_assert_cmpint (as_utils_compare_versions ("ab.d", "ab.f"), <, 0);
+
+	g_assert_cmpint (as_utils_compare_versions ("0.6.16", "0.6.14"), >, 0);
+
+	g_assert_cmpint (as_utils_compare_versions ("5.9.1+dfsg-5pureos1", "5.9.1+dfsg-5"), >, 0);
+	g_assert_cmpint (as_utils_compare_versions ("2.79", "2.79a"), <, 0);
+
+	/**
+	 * FIXME: RPM version comparison vs Debian differences (Debian vercmp yields inverted results):
+	 * g_assert_cmpint (as_utils_compare_versions ("3.0.rc2", "3.0.0"), >, 0);
+	 * g_assert_cmpint (as_utils_compare_versions ("3.0.0~rc2", "3.0.0"), <, 0);
+	 *
+	 * g_assert_cmpint (as_utils_compare_versions ("4:5.6-2", "8.0-6"), >, 0);
+	 * g_assert_cmpint (as_utils_compare_versions ("1:1.0-4", "3:0.8-2"), <, 0);
+	 *
+	 * TODO: Augment version comparison to cover at least common Debian cases (epoch, "~")
+	 */
+}
+
 int
 main (int argc, char **argv)
 {
@@ -405,6 +435,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
 	g_test_add_func ("/AppStream/DesktopEntry", test_desktop_entry);
+	g_test_add_func ("/AppStream/VersionCompare", test_version_compare);
 
 	ret = g_test_run ();
 	g_free (datadir);
