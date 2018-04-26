@@ -397,16 +397,12 @@ test_version_compare ()
 	g_assert_cmpint (as_utils_compare_versions ("5.9.1+dfsg-5pureos1", "5.9.1+dfsg-5"), >, 0);
 	g_assert_cmpint (as_utils_compare_versions ("2.79", "2.79a"), <, 0);
 
-	/**
-	 * FIXME: RPM version comparison vs Debian differences (Debian vercmp yields inverted results):
-	 * g_assert_cmpint (as_utils_compare_versions ("3.0.rc2", "3.0.0"), >, 0);
-	 * g_assert_cmpint (as_utils_compare_versions ("3.0.0~rc2", "3.0.0"), <, 0);
-	 *
-	 * g_assert_cmpint (as_utils_compare_versions ("4:5.6-2", "8.0-6"), >, 0);
-	 * g_assert_cmpint (as_utils_compare_versions ("1:1.0-4", "3:0.8-2"), <, 0);
-	 *
-	 * TODO: Augment version comparison to cover at least common Debian cases (epoch, "~")
-	 */
+	g_assert_cmpint (as_utils_compare_versions ("3.0.rc2", "3.0.0"), <, 0);
+	g_assert_cmpint (as_utils_compare_versions ("3.0.0~rc2", "3.0.0"), <, 0);
+
+	/* TODO: Handle epochs as well? */
+	/* g_assert_cmpint (as_utils_compare_versions ("4:5.6-2", "8.0-6"), >, 0); */
+	/* g_assert_cmpint (as_utils_compare_versions ("1:1.0-4", "3:0.8-2"), <, 0); */
 }
 
 int

@@ -13,9 +13,9 @@
 
 <refentry>
 	<refentryinfo>
-	<title>appstream-cli</title>
+	<title>appstreamcli</title>
 	<copyright>
-		<year>2012-2016</year>
+		<year>2012-2018</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
@@ -184,6 +184,30 @@
 					<para>
 						Install a metadata file into the right directory on the current machine.
 					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>compare-versions <replaceable>VER1</replaceable> <replaceable>[CMP]</replaceable> <replaceable>VER2</replaceable></option></term>
+				<listitem>
+					<para>
+						Compare two version numbers. If two version numbers are given as parameters, the versions will be compared and the
+						comparison result will be printed to stdout.
+					</para>
+					<para>
+						If a version number, a comparison operator and another version number are passed in as parameter, the result of the comparison
+						operation will be printed to stdout, and <command>&package;</command> will exit with a non-zero exit status in case the comparison
+						failed.
+						The comparison operator can be one of the following:
+					</para>
+					<itemizedlist>
+						<listitem><para><code>eq</code> - Equal to</para></listitem>
+						<listitem><para><code>ne</code> - Not equal to</para></listitem>
+						<listitem><para><code>lt</code> - Lesser than</para></listitem>
+						<listitem><para><code>gt</code> - Greater than</para></listitem>
+						<listitem><para><code>le</code> - Lesser than or equal to</para></listitem>
+						<listitem><para><code>ge</code> - Greater than or equal to</para></listitem>
+					</itemizedlist>
 				</listitem>
 			</varlistentry>
 

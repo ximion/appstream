@@ -533,6 +533,98 @@ as_client_run_convert (char **argv, int argc)
 }
 
 /**
+ * as_client_run_compare_versions:
+ *
+ * Compare versions using AppStream's version comparison algorithm.
+ */
+static int
+as_client_run_compare_versions (char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+	const gchar *command = "compare-versions";
+
+	opt_context = as_client_new_subcommand_option_context (command, format_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc < 4) {
+		ascli_print_stderr (_("You need to provide at least two version numbers to compare as parameters."));
+		return 2;
+	}
+
+	if (argc == 4) {
+		const gchar *ver1 = argv[2];
+		const gchar *ver2 = argv[3];
+		gint comp_res = as_utils_compare_versions (ver1, ver2);
+
+		if (comp_res == 0)
+			g_print ("%s == %s\n", ver1, ver2);
+		else if (comp_res > 0)
+			g_print ("%s >> %s\n", ver1, ver2);
+		else if (comp_res < 0)
+			g_print ("%s << %s\n", ver1, ver2);
+
+		return 0;
+	} else if (argc == 5) {
+		AsRelationCompare compare;
+		gint rc;
+		gboolean res;
+		const gchar *ver1 = argv[2];
+		const gchar *comp_str = argv[3];
+		const gchar *ver2 = argv[4];
+
+		compare = as_relation_compare_from_string (comp_str);
+		if (compare == AS_RELATION_COMPARE_UNKNOWN) {
+			guint i;
+			/** TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid. */
+			ascli_print_stderr (_("Unknown compare relation '%s'. Valid values are:"), comp_str);
+			for (i = 1; i < AS_RELATION_COMPARE_LAST; i++)
+				g_printerr (" • %s\n", as_relation_compare_to_string (i));
+			return 2;
+		}
+
+		rc = as_utils_compare_versions (ver1, ver2);
+		switch (compare) {
+		case AS_RELATION_COMPARE_EQ:
+			res = rc == 0;
+			break;
+		case AS_RELATION_COMPARE_NE:
+			res = rc != 0;
+			break;
+		case AS_RELATION_COMPARE_LT:
+			res = rc < 0;
+			break;
+		case AS_RELATION_COMPARE_GT:
+			res = rc > 0;
+			break;
+		case AS_RELATION_COMPARE_LE:
+			res = rc <= 0;
+			break;
+		case AS_RELATION_COMPARE_GE:
+			res = rc >= 0;
+			break;
+		default:
+			res = FALSE;
+		}
+
+		g_print ("%s: ", res? "true" : "false");
+		if (rc == 0)
+			g_print ("%s == %s\n", ver1, ver2);
+		else if (rc > 0)
+			g_print ("%s >> %s\n", ver1, ver2);
+		else if (rc < 0)
+			g_print ("%s << %s\n", ver1, ver2);
+
+		return res? 0 : 1;
+	} else {
+		ascli_print_stderr (_("Too many parameters: Need two version numbers or version numbers and a comparison operator."));
+		return 2;
+	}
+}
+
+/**
  * as_client_run_new_template:
  *
  * Convert metadata.
@@ -617,6 +709,7 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "put FILE         ", _("Install a metadata file into the right location."));
 	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
 	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
+	g_string_append_printf (string, "  %s - %s\n", "compare-versions VER1 [COMP] VER2", _("Compare two version numbers."));
 	g_string_append_printf (string, "  %s - %s\n", "new-template TYPE FILE", _("Create a template for a metainfo file (to be filled out by the upstream project)."));
 
 	g_string_append (string, "\n");
@@ -743,6 +836,8 @@ as_client_run (char **argv, int argc)
 		return as_client_run_status (argv, argc);
 	} else if (g_strcmp0 (command, "convert") == 0) {
 		return as_client_run_convert (argv, argc);
+	} else if (g_strcmp0 (command, "compare-versions") == 0) {
+		return as_client_run_compare_versions (argv, argc);
 	} else if (g_strcmp0 (command, "new-template") == 0) {
 		return as_client_run_new_template (argv, argc);
 	} else {

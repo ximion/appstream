@@ -1017,8 +1017,8 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
 	int rc;
 	gboolean isnum;
 
-	strcpy(str1, a);
-	strcpy(str2, b);
+	strcpy (str1, a);
+	strcpy (str2, b);
 
 	one = str1;
 	two = str2;
