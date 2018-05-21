@@ -398,61 +398,49 @@ as_yaml_emit_sequence (yaml_emitter_t *emitter, const gchar *key, GPtrArray *lis
 }
 
 /**
- * as_yaml_get_localized_node:
+ * as_yaml_get_node_locale:
+ * @node: A YAML node
+ *
+ * Returns: The locale of a node, if the node should be considered for inclusion.
+ * %NULL if the node should be ignored due to a not-matching locale.
  */
-GNode*
-as_yaml_get_localized_node (AsContext *ctx, GNode *node, gchar *locale_override)
+const gchar*
+as_yaml_get_node_locale (AsContext *ctx, GNode *node)
 {
-	GNode *n;
-	GNode *tnode = NULL;
-	const gchar *locale;
+	const gchar *key = as_yaml_node_get_key (node);
 
-	if (locale_override == NULL)
-		locale = as_context_get_locale (ctx);
-	else
-		locale = locale_override;
-
-	for (n = node->children; n != NULL; n = n->next) {
-		const gchar *key = as_yaml_node_get_key (n);
-
-		if ((tnode == NULL) && (g_strcmp0 (key, "C") == 0)) {
-			tnode = n;
-			if (g_strcmp0 (locale, "C") == 0)
-				goto out;
-		}
-
-		if (g_strcmp0 (locale, key) == 0) {
-			tnode = n;
-			goto out;
-		}
-
-		if (as_utils_locale_is_compatible (locale, key))
-			tnode = n;
+	if (as_context_get_all_locale_enabled (ctx)) {
+		/* we should read all languages */
+		return key;
 	}
 
-out:
-	return tnode;
+	if (as_utils_locale_is_compatible (as_context_get_locale (ctx), key)) {
+		return key;
+	} else {
+		/* If we are here, we haven't found a matching locale.
+		 * In that case, we return %NULL to indicate that this element should not be added.
+		 */
+		return NULL;
+	}
 }
 
 /**
- * as_yaml_get_localized_value:
+ * as_yaml_set_localized_table:
  *
- * Get localized string from a translated DEP-11 key
- */
-gchar*
-as_yaml_get_localized_value (AsContext *ctx, GNode *node, gchar *locale_override)
+ * Apply node values to a hash table holding the l10n data.
+ * */
+void
+as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table)
 {
-	GNode *tnode;
-	gchar *lvalue;
+	GNode *n;
 
-	tnode = as_yaml_get_localized_node (ctx, node, locale_override);
-	if (tnode == NULL)
-		return NULL;
-
-	lvalue = g_strdup ((gchar*) tnode->children->data);
-	g_strstrip (lvalue);
-
-	return lvalue;
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *locale = as_yaml_get_node_locale (ctx, n);
+		if (locale != NULL)
+			g_hash_table_insert (l10n_table,
+						as_locale_strip_encoding (g_strdup (locale)),
+						g_strdup (as_yaml_node_get_value (n)));
+	}
 }
 
 /**

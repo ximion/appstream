@@ -4004,22 +4004,22 @@ static void
 as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, GNode *node)
 {
 	GNode *tnode;
-	g_autoptr(GPtrArray) keywords = NULL;
-	g_auto(GStrv) strv = NULL;
 
-	keywords = g_ptr_array_new_with_free_func (g_free);
+	for (tnode = node->children; tnode != NULL; tnode = tnode->next) {
+		const gchar *locale = as_yaml_get_node_locale (ctx, tnode);
+		if (locale != NULL) {
+			g_autoptr(GPtrArray) keywords = NULL;
+			g_auto(GStrv) strv = NULL;
 
-	tnode = as_yaml_get_localized_node (ctx, node, NULL);
-	/* no node found? */
-	if (tnode == NULL)
-		return;
+			keywords = g_ptr_array_new_with_free_func (g_free);
+			as_yaml_list_to_str_array (tnode, keywords);
 
-	as_yaml_list_to_str_array (tnode, keywords);
-
-	strv = as_ptr_array_to_strv (keywords);
-	as_component_set_keywords (cpt,
-				   strv,
-				   as_yaml_node_get_key (tnode));
+			strv = as_ptr_array_to_strv (keywords);
+			as_component_set_keywords (cpt,
+						   strv,
+						   locale);
+		}
+	}
 }
 
 /**
@@ -4327,7 +4327,6 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 	for (node = root->children; node != NULL; node = node->next) {
 		const gchar *key;
 		const gchar *value;
-		gchar *lvalue;
 
 		if (node->children == NULL)
 			continue;
@@ -4356,26 +4355,16 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		} else if (g_strcmp0 (key, "SourcePackage") == 0) {
 			as_component_set_source_pkgname (cpt, value);
 		} else if (g_strcmp0 (key, "Name") == 0) {
-			lvalue = as_yaml_get_localized_value (ctx, node, "C");
-			if (lvalue != NULL) {
-				as_component_set_name (cpt, lvalue, "C"); /* Unlocalized */
-				g_free (lvalue);
-			}
-			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
-			as_component_set_name (cpt, lvalue, NULL);
-			g_free (lvalue);
+			as_yaml_set_localized_table (ctx, node, priv->name);
+			g_object_notify ((GObject *) cpt, "name");
 		} else if (g_strcmp0 (key, "Summary") == 0) {
-			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
-			as_component_set_summary (cpt, lvalue, NULL);
-			g_free (lvalue);
+			as_yaml_set_localized_table (ctx, node, priv->summary);
+			g_object_notify ((GObject *) cpt, "summary");
 		} else if (g_strcmp0 (key, "Description") == 0) {
-			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
-			as_component_set_description (cpt, lvalue, NULL);
-			g_free (lvalue);
+			as_yaml_set_localized_table (ctx, node, priv->description);
+			g_object_notify ((GObject *) cpt, "description");
 		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
-			lvalue = as_yaml_get_localized_value (ctx, node, NULL);
-			as_component_set_developer_name (cpt, lvalue, NULL);
-			g_free (lvalue);
+			as_yaml_set_localized_table (ctx, node, priv->developer_name);
 		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {
 			as_component_set_project_license (cpt, value);
 		} else if (g_strcmp0 (key, "ProjectGroup") == 0) {

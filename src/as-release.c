@@ -819,8 +819,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 		} else if (g_strcmp0 (key, "urgency") == 0) {
 			priv->urgency = as_urgency_kind_from_string (value);
 		} else if (g_strcmp0 (key, "description") == 0) {
-			g_autofree gchar *tmp = as_yaml_get_localized_value (ctx, n, NULL);
-			as_release_set_description (release, tmp, NULL);
+			as_yaml_set_localized_table (ctx, n, priv->description);
 		} else {
 			as_yaml_print_unknown ("release", key);
 		}

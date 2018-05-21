@@ -81,9 +81,11 @@ void		as_yaml_emit_localized_strv (yaml_emitter_t *emitter,
 GNode		*as_yaml_get_localized_node (AsContext *ctx,
 					     GNode *node,
 					     gchar *locale_override);
-gchar		*as_yaml_get_localized_value (AsContext *ctx,
-					      GNode *node,
-					      gchar *locale_override);
+const gchar	*as_yaml_get_node_locale (AsContext *ctx,
+					  GNode *node);
+void		as_yaml_set_localized_table (AsContext *ctx,
+					     GNode *node,
+					     GHashTable *l10n_table);
 
 void		as_yaml_emit_localized_entry (yaml_emitter_t *emitter,
 						const gchar *key,

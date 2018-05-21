@@ -504,10 +504,8 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *n
 			else
 				priv->kind = AS_SCREENSHOT_KIND_EXTRA;
 		} else if (g_strcmp0 (key, "caption") == 0) {
-			gchar *lvalue;
 			/* the caption is a localized element */
-			lvalue = as_yaml_get_localized_value (ctx, n, NULL);
-			as_screenshot_set_caption (screenshot, lvalue, NULL);
+			as_yaml_set_localized_table (ctx, n, priv->caption);
 		} else if (g_strcmp0 (key, "source-image") == 0) {
 			/* there can only be one source image */
 			g_autoptr(AsImage) image = as_image_new ();
