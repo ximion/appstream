@@ -465,3 +465,198 @@ Summary:
 Type: desktop-app
 Url:
   homepage: http://www.gnu.org/software/pspp/
+---
+Type: desktop-application
+ID: kid3.desktop
+Package: kid3
+Name:
+  C: Kid3
+  sr: Кид3
+  sr@ijekavian: Кид3
+Summary:
+  de: Metadaten von Audio-Dateien bearbeiten
+  pl: Modyfikowanie metadanych plików dźwiękowych
+  fi: Muokkaa ja konvertoi äänitiedostojen tageja
+  C: Edit audio file metadata
+  cs: Upravit metadata zvukového souboru
+  ru: Редактировать метаданные аудиофайла
+  tr: Ses dosyası üstveri düzenle
+  sr: Уређујте метаподатке звучних датотека
+  es: Editar los metadatos de archivos de sonido
+  fr: Modifier les métadonnées de fichiers son
+  it: Modificare i metadati di file sono
+  sr@latin: Uređujte metapodatke zvučnih datoteka
+Description:
+  ru: >-
+    <p>С помощью Kid3, редактора ID3-тегов для KDE, вы можете:  * Редактировать ID3v1.1 теги в MP3 файлах  * Редактировать
+    все ID3v2.3 и ID3v2.4 фреймы в MP3 файлах  * Конвертировать теги между форматами ID3v1.1, ID3v2.3 и ID3v2.4  * Редактировать
+    теги в файлах MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE,    MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV и AIFF
+    * Редактировать теги сразу в нескольких файлах, такие как артист,    альбом, год и жанр всех файлов в альбоме, обычно
+    имеющих одинаковые    значения  * Генерировать теги из названий файлов  * Генерировать поля тегов на основе других полей
+    * Генерировать названия файлов из тегов  * Генерировать файлы списка проигрывания  * Автоматически преобразовывать регистр
+    и переводить строки  * Импортировать и экспортировать данные альбома  * Импортировать из gnudb.org, TrackType.org, MusicBrainz,
+    Discogs, Amazon</p>
+
+    <p>Этот пакет использует библиотеки KDE. Если вы не используете KDE, установите пакет kid3-qt вместо этого.</p>
+  fr: >-
+    <p>Kid3 est un éditeur de balises ID3 pour KDE offrant les fonctionnalités suivantes⋅:  —⋅éditer les balises ID3v1.1 des
+    fichiers MP3⋅;  —⋅éditer tous les champs ID3v2.3 et ID3v2.4 des fichiers MP3⋅;  —⋅convertir entre les balises ID3v1.1,
+    ID3v2.3 et ID3v2.4⋅;  —⋅éditer les balises des fichiers MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC,    APE, MP4/AAC, MP2, Speex,
+    TrueAudio, WavPack, WMA, WAV, AIFF et des    modules de tracker ;  —⋅éditer les balises de plusieurs fichiers en même
+    temps. Par exemple les    champs artiste, album, année et genre de tous les fichiers d&apos;un même    album ont généralement
+    les mêmes valeurs et peuvent être définies en    même temps⋅;  —⋅générer les balises depuis les noms de fichiers⋅;  —⋅générer
+    les balises depuis le contenu des champs de balise⋅;  —⋅générer les noms de fichiers depuis les balises⋅;  —⋅générer des
+    listes de lecture⋅;  —⋅gérer de façon automatique la casse et les conversions de chaînes de    caractères⋅;  —⋅importer
+    et exporter les données d&apos;un album⋅;  —⋅importer les balises depuis gnudb.org, TrackType.org, MusicBrainz,    Discogs,
+    Amazon.</p>
+
+    <p>Ce paquet utilise des bibliothèques de KDE. Pour une utilisation hors KDE, voir le paquet kid3-qt.</p>
+  sk: >-
+    <p>Pomocou Kid3, editora zvukových značiek ID3 pre KDE môžete:  * upravovať značky ID3v1.1 vo vašich MP3  * upravovať
+    všetky rámce ID3v2.3 a ID3v2.4 vo vašich MP3  * konvertovať značky medzi formátmi ID3v1.1, ID3v2.3 a ID3v2.4  * upravovať
+    značky v súboroch MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE,    MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF
+    a mod.  * upravovať značky viacerých súborov naraz, napr. interpret, album, rok a    žáner všetkých súborov v albume máva
+    zvyčajne rovnaké hodnoty a je možné    ich nastaviť naraz  * tvorba značiek z názvov súboru  * tvorba značiek z obsahu
+    polí značiek  * tvorba názvov súboru zo značiek  * tvorba súborov so zoznamom stôp  * automatická konverzia veľkosti písmen
+    a preklad reťazcov  * import a export dát albumov  * import z gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon</p>
+
+    <p>Tento balík používa knižnice KDE. Ak nepoužívate KDE, mali by ste použiť kid3-qt.</p>
+  it: >-
+    <p>Con Kid3, un editor di tag ID3 per KDE, è possibile:  * modificare i tag ID3v1.1 nei file MP3;  * modificare tutti
+    i frame ID3v2.3 e ID3v2.4 nei file MP3;  * convertire fra loro i tag ID3v1.1, ID3v2.3 e ID3v2.4;  * modificare i tag in
+    file MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE,    MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e moduli di
+    tracker;  * modificare i tag su più file, per esempio l&apos;artista, l&apos;album, l&apos;anno    e il genere di tutti
+    i file di un album hanno gli stessi valori e    quindi possono essere impostati tutti insieme;  * creare i tag dai nomi
+    dei file;  * creare tag dal contenuto dei campi dei tag;  * creare i nomi dei file dai tag;  * creare dei file di scaletta;
+    * cambiare minuscole/maiuscole e tradurre stringhe automaticamente;  * importare ed esportare i dati di un album;  * importare
+    da gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon.</p>
+
+    <p>Questo pacchetto utilizza le librerie di KDE; se non si vuole usare KDE si dovrebbe usare kid3-qt.</p>
+  da: >-
+    <p>Med Kid3, et ID3-mærkeredigeringsprogram for KDE, kan du:  * Redigere ID3v1.1-mærker i dine MP3-filer  * Redigere alle
+    ID3v2.3- og ID3v2.4-rammer i dine MP3-filer  * Konvertere mellem ID3v1.1-, ID3v2.3- og ID3v2.4-mærker  * Redigere mærker
+    i MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE,    MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF-filer    og tracker-moduler
+    * Redigere mærker for flere filer, f.eks. kunstner, album, år og genre    så at alle filer for et album har de samme værdier
+    og kan samles  * Oprette mærker fra filnavne  * Oprette mærker fra indholdet af mærkefelter  * Oprette filnavne fra mærker
+    * Oprette afspilningslister  * Automatisk store/små bogstaver og strengoversættelse  * Importere og eksportere albumdata
+    * Importere fra gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon</p>
+
+    <p>Denne pakke bruger KDE-biblioteker, hvis du ikke bruger KDE, så bør du bruge kid3-qt.</p>
+  en: >-
+    <p>With Kid3, an ID3 tag editor for KDE you can:  * Edit ID3v1.1 tags in your MP3 files  * Edit all ID3v2.3 and ID3v2.4
+    frames in your MP3 files  * Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags  * Edit tags in MP3, Ogg/Vorbis, Opus, DSF,
+    FLAC, MPC, APE, MP4/AAC, MP2,    Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules.  * Edit tags of
+    multiple files, e.g. the artist, album, year and genre    of all files of an album typically have the same values and
+    can be    set together  * Generate tags from filenames  * Generate tags from the contents of tag fields  * Generate filenames
+    from tags  * Generate playlist files  * Automatic case conversion and string translation  * Import and export album data
+    * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon</p>
+
+    <p>This package uses KDE libraries, if you do not use KDE you should use kid3-qt.</p>
+  C: >-
+    <p>With Kid3, an ID3 tag editor for KDE you can:  * Edit ID3v1.1 tags in your MP3 files  * Edit all ID3v2.3 and ID3v2.4
+    frames in your MP3 files  * Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags  * Edit tags in MP3, Ogg/Vorbis, Opus, DSF,
+    FLAC, MPC, APE, MP4/AAC, MP2,    Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules.  * Edit tags of
+    multiple files, e.g. the artist, album, year and genre    of all files of an album typically have the same values and
+    can be    set together  * Generate tags from filenames  * Generate tags from the contents of tag fields  * Generate filenames
+    from tags  * Generate playlist files  * Automatic case conversion and string translation  * Import and export album data
+    * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon</p>
+
+    <p>This package uses KDE libraries, if you do not use KDE you should use kid3-qt.</p>
+Categories:
+- AudioVideo
+- Audio
+- AudioVideoEditing
+Keywords:
+  C:
+  - audio
+  - id3
+  - tag
+  - editor
+  - id3v1
+  - id3v2
+  - mp3
+Icon:
+  cached:
+  - name: kid3_kid3.png
+    width: 48
+    height: 48
+  - name: kid3_kid3.png
+    width: 64
+    height: 64
+  - name: kid3_kid3.png
+    width: 128
+    height: 128
+  remote:
+  - url: k/ki/kid3.desktop/A1B9730EBD2950C6D38637DE04AD8ED6/icons/128x128/kid3_kid3.png
+    width: 128
+    height: 128
+Launchable:
+  desktop-id:
+  - kid3.desktop
+Provides:
+  mimetypes:
+  - audio/mpeg
+  - audio/ogg
+  - application/ogg
+  - audio/x-flac
+  - audio/x-flac+ogg
+  - audio/x-vorbis+ogg
+  - audio/x-speex+ogg
+  - audio/x-oggflac
+  - audio/x-musepack
+  - audio/aac
+  - audio/mp4
+  - audio/x-speex
+  - audio/x-tta
+  - audio/x-wavpack
+  - audio/x-aiff
+  - audio/x-it
+  - audio/x-mod
+  - audio/x-s3m
+  - audio/x-ms-wma
+  - audio/x-wav
+  - audio/x-xm
+  - audio/opus
+  - audio/x-opus+ogg
+  - audio/x-dsf
+  - inode/directory
+---
+Type: generic
+ID: firmware-ath9k-htc
+Package: firmware-ath9k-htc
+Name:
+  C: firmware-ath9k-htc
+Summary:
+  C: Opensource version of QCA ath9k-htc firmware
+Description:
+  C: >-
+    <p>Opensource version of QCA ath9k-htc firmware.
+          Supported chips are: ar9271 and ar7010.</p>
+Provides:
+  modaliases:
+  - usb:v0CF3p9271d*
+  - usb:v0CF3p1006d*
+  - usb:v0846p9030d*
+  - usb:v07D1p3A10d*
+  - usb:v13D3p3327d*
+  - usb:v13D3p3328d*
+  - usb:v13D3p3346d*
+  - usb:v13D3p3348d*
+  - usb:v13D3p3349d*
+  - usb:v13D3p3350d*
+  - usb:v04CAp4605d*
+  - usb:v040Dp3801d*
+  - usb:v0CF3pB003d*
+  - usb:v0CF3pB002d*
+  - usb:v057Cp8403d*
+  - usb:v0471p209Ed*
+  - usb:v0CF3p7015d*
+  - usb:v1668p1200d*
+  - usb:v0CF3p7010d*
+  - usb:v0846p9018d*
+  - usb:v083ApA704d*
+  - usb:v0411p017Fd*
+  - usb:v0411p0197d*
+  - usb:v04DAp3904d*
+  - usb:v0930p0A08d*
+  - usb:v0CF3p20FFd*

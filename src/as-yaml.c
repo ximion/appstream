@@ -414,6 +414,11 @@ as_yaml_get_node_locale (AsContext *ctx, GNode *node)
 		return key;
 	}
 
+	/* we always include the untranslated strings */
+	if (g_strcmp0 (key, "C") == 0) {
+		return key;
+	}
+
 	if (as_utils_locale_is_compatible (as_context_get_locale (ctx), key)) {
 		return key;
 	} else {

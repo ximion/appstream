@@ -56,11 +56,11 @@ test_basic (void)
 	g_assert_no_error (error);
 
 	cpts = as_metadata_get_components (mdata);
-	g_assert_cmpint (cpts->len, ==, 6);
+	g_assert_cmpint (cpts->len, ==, 8);
 
 	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt;
-		cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+		g_assert (as_component_is_valid (cpt));
 
 		if (g_strcmp0 (as_component_get_name (cpt), "I Have No Tomatoes") == 0)
 			cpt_tomatoes = cpt;
