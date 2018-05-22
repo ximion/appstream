@@ -59,6 +59,7 @@ typedef struct
 
 	gboolean update_existing;
 	gboolean write_header;
+	AsParseFlags parse_flags;
 
 	GPtrArray *cpts;
 } AsMetadataPrivate;
@@ -186,6 +187,7 @@ as_metadata_init (AsMetadata *metad)
 	priv->default_priority = 0;
 	priv->write_header = TRUE;
 	priv->update_existing = FALSE;
+	priv->parse_flags = AS_PARSE_FLAG_NONE;
 
 	priv->cpts = g_ptr_array_new_with_free_func (g_object_unref);
 }
@@ -220,9 +222,11 @@ as_metadata_new_context (AsMetadata *metad, AsFormatStyle style, const gchar *fn
 	as_context_set_format_version (context, priv->format_version);
 	as_context_set_locale (context, priv->locale);
 	as_context_set_origin (context, priv->origin);
-	as_context_set_media_baseurl (context, priv->media_baseurl);
 	as_context_set_architecture (context, priv->arch);
 	as_context_set_priority (context, priv->default_priority);
+
+	if (!as_flags_contains (priv->parse_flags, AS_PARSE_FLAG_IGNORE_MEDIABASEURL))
+		as_context_set_media_baseurl (context, priv->media_baseurl);
 
 	as_context_set_style (context, style);
 	as_context_set_filename (context, fname);
@@ -259,9 +263,11 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 	g_free (tmp);
 
 	/* set baseurl for the media files */
-	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
-	as_context_set_media_baseurl (context, tmp);
-	g_free (tmp);
+	if (!as_flags_contains (priv->parse_flags, AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
+		tmp = (gchar*) xmlGetProp (node, (xmlChar*) "media_baseurl");
+		as_context_set_media_baseurl (context, tmp);
+		g_free (tmp);
+	}
 
 	/* set architecture for the components */
 	tmp = (gchar*) xmlGetProp (node, (xmlChar*) "architecture");
@@ -310,6 +316,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 static GPtrArray*
 as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, const gchar *data, GError **error)
 {
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	yaml_parser_t parser;
 	yaml_event_t event;
 	gboolean header = TRUE;
@@ -404,8 +411,9 @@ as_metadata_yaml_parse_collection_doc (AsMetadata *metad, AsContext *context, co
 							as_context_set_priority (context, g_ascii_strtoll (value, NULL, 10));
 						}
 					} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
-						if (value != NULL) {
-							as_context_set_media_baseurl (context, value);
+						if (value != NULL &&
+						    !as_flags_contains (priv->parse_flags, AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
+								as_context_set_media_baseurl (context, value);
 						}
 					} else if (g_strcmp0 (key, "Architecture") == 0) {
 						if (value != NULL) {
@@ -1324,6 +1332,33 @@ as_metadata_set_format_style (AsMetadata *metad, AsFormatStyle mode)
 {
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 	priv->mode = mode;
+}
+
+/**
+ * as_metadata_get_parse_flags:
+ * @metad: a #AsMetadata instance.
+ *
+ * Get the metadata parse flags.
+ **/
+AsParseFlags
+as_metadata_get_parse_flags (AsMetadata *metad)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	return priv->parse_flags;
+}
+
+/**
+ * as_metadata_set_parse_flags:
+ * @metad: a #AsMetadata instance.
+ * @flags: the #AsParseFlags.
+ *
+ * Sets the current metadata parse flags.
+ **/
+void
+as_metadata_set_parse_flags (AsMetadata *metad, AsParseFlags flags)
+{
+	AsMetadataPrivate *priv = GET_PRIVATE (metad);
+	priv->parse_flags = flags;
 }
 
 /**

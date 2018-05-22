@@ -117,6 +117,18 @@ AsFormatVersion		 as_format_version_from_string (const gchar *version_str);
 #define AS_CURRENT_FORMAT_VERSION AS_FORMAT_VERSION_V0_12
 
 /**
+ * AsParseFlags:
+ * @AS_PARSE_FLAG_NONE:				No flags.
+ * @AS_PARSE_FLAG_IGNORE_MEDIABASEURL:		Do not process the media_baseurl document property.
+ *
+ * Influence certain aspects of how AppStream metadata is parsed.
+ */
+typedef enum {
+	AS_PARSE_FLAG_NONE = 0,
+	AS_PARSE_FLAG_IGNORE_MEDIABASEURL = 1 << 0
+} AsParseFlags;
+
+/**
  * AsMetadataError:
  * @AS_METADATA_ERROR_FAILED:			Generic failure.
  * @AS_METADATA_ERROR_PARSE:			Unable to parse the metadata file.
@@ -206,6 +218,10 @@ void			as_metadata_set_write_header (AsMetadata *metad,
 const gchar		*as_metadata_get_architecture (AsMetadata *metad);
 void			as_metadata_set_architecture (AsMetadata *metad,
 							const gchar *arch);
+
+AsParseFlags		as_metadata_get_parse_flags (AsMetadata *metad);
+void			as_metadata_set_parse_flags (AsMetadata *metad,
+						     AsParseFlags flags);
 
 G_END_DECLS
 
