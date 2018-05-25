@@ -714,7 +714,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 			as_validator_add_issue (validator, license_node,
 						AS_ISSUE_IMPORTANCE_WARNING,
 						AS_ISSUE_KIND_VALUE_WRONG,
-						"The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, CC-0-1.0 or MIT "
+						"The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 "
 						"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
 			return;
 		}
