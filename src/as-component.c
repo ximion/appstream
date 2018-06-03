@@ -5241,6 +5241,18 @@ as_component_to_variant (AsComponent *cpt, GVariantBuilder *builder)
 							g_variant_builder_end (&array_b));
 	}
 
+	/* agreements */
+	if (priv->agreements->len > 0) {
+		GVariantBuilder array_b;
+		g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
+
+		for (i = 0; i < priv->agreements->len; i++) {
+			as_agreement_to_variant (AS_AGREEMENT (g_ptr_array_index (priv->agreements, i)), &array_b);
+		}
+
+		as_variant_builder_add_kv (&cb, "agreements", g_variant_builder_end (&array_b));
+	}
+
 	/* releases */
 	if (priv->releases->len > 0) {
 		GVariantBuilder array_b;
@@ -5556,6 +5568,24 @@ as_component_set_from_variant (AsComponent *cpt, GVariant *variant, const gchar 
 			g_autoptr(AsScreenshot) scr = as_screenshot_new ();
 			if (as_screenshot_set_from_variant (scr, child, locale))
 				as_component_add_screenshot (cpt, scr);
+
+			g_variant_unref (child);
+		}
+		g_variant_unref (var);
+	}
+
+	/* agreements */
+	var = g_variant_dict_lookup_value (&dict,
+						"agreements",
+						G_VARIANT_TYPE_ARRAY);
+	if (var != NULL) {
+		GVariant *child;
+
+		g_variant_iter_init (&gvi, var);
+		while ((child = g_variant_iter_next_value (&gvi))) {
+			g_autoptr(AsAgreement) agreement = as_agreement_new ();
+			if (as_agreement_set_from_variant (agreement, child, locale))
+				as_component_add_agreement (cpt, agreement);
 
 			g_variant_unref (child);
 		}
