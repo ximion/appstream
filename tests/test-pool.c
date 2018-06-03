@@ -64,16 +64,17 @@ _as_get_single_component_by_cid (AsPool *pool, const gchar *cid)
 }
 
 /**
- * test_cache:
+ * test_cache_simple:
  *
- * Test reading data from cache files.
+ * Test reading simple data from cache files.
  */
 static void
-test_cache ()
+test_cache_simple ()
 {
 	g_autoptr(AsPool) dpool = NULL;
 	g_autoptr(AsComponent) cpt1 = NULL;
 	g_autoptr(AsComponent) cpt2 = NULL;
+	g_autoptr(AsMetadata) mdata = NULL;
 	g_autoptr(GError) error = NULL;
 
 	/* prepare our components */
@@ -99,7 +100,7 @@ test_cache ()
 	g_assert_no_error (error);
 
 	/* export cache file and destroy old data pool */
-	as_pool_save_cache_file (dpool, "/tmp/as-unittest-cache.gvz", &error);
+	as_pool_save_cache_file (dpool, "/tmp/as-unittest-dummy.gvz", &error);
 	g_assert_no_error (error);
 	g_object_unref (dpool);
 	g_object_unref (cpt1);
@@ -107,7 +108,7 @@ test_cache ()
 
 	/* load cache file */
 	dpool = as_pool_new ();
-	as_pool_load_cache_file (dpool, "/tmp/as-unittest-cache.gvz", &error);
+	as_pool_load_cache_file (dpool, "/tmp/as-unittest-dummy.gvz", &error);
 	g_assert_no_error (error);
 
 	/* validate */
@@ -206,33 +207,75 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 }
 
 /**
- * test_cache_file:
+ * test_cache_complex:
  *
  * Test if cache file (de)serialization works.
  */
 static void
-test_cache_file ()
+test_cache_complex ()
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(GPtrArray) cpts_prev = NULL;
-	g_autoptr(GPtrArray) cpts = NULL;
-	GError *error = NULL;
+	g_autoptr(GPtrArray) cpts_post = NULL;
+	g_autoptr(AsMetadata) mdata = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *xmldata_precache = NULL;
+	g_autofree gchar *xmldata_postcache = NULL;
+	GPtrArray *cpts;
+	guint i;
 
 	pool = test_get_sampledata_pool (FALSE);
 	as_pool_load (pool, NULL, &error);
 	g_assert_no_error (error);
 
 	cpts_prev = as_pool_get_components (pool);
-	g_assert_cmpint (cpts_prev->len, ==, 18);
+	g_assert_cmpint (cpts_prev->len, ==, 19);
 
-	as_cache_file_save ("/tmp/as-unittest-dummy.gvz", "C", cpts_prev, &error);
+	/* get XML representation of the data currently in the pool */
+	mdata = as_metadata_new ();
+	cpts = as_pool_get_components (pool);
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+
+		/* keywords are not cached explicitly, they are stored in the search terms list instead. Therefore, we don't
+		 * serialize them here */
+		as_component_set_keywords (cpt, NULL, NULL);
+
+		/* FIXME: language lists are not deterministic yet, so we ignore them for now */
+		g_hash_table_remove_all (as_component_get_languages_table (cpt));
+
+		as_metadata_add_component (mdata, cpt);
+	}
+
+	xmldata_precache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 
-	cpts = as_cache_file_read ("/tmp/as-unittest-dummy.gvz", &error);
+	/* save cache file explicitly */
+	as_cache_file_save ("/tmp/as-unittest-cache.gvz", "C", cpts_prev, &error);
 	g_assert_no_error (error);
-	g_assert_cmpint (cpts->len, ==, 18);
 
-	as_assert_component_lists_equal (cpts, cpts_prev);
+	/* test deserialization */
+	cpts_post = as_cache_file_read ("/tmp/as-unittest-cache.gvz", &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (cpts_post->len, ==, 19);
+	as_assert_component_lists_equal (cpts_post, cpts_prev);
+
+	/* ensure we get the same result back that we cached before */
+	g_object_unref (pool);
+	pool = as_pool_new ();
+	as_pool_load_cache_file (pool, "/tmp/as-unittest-cache.gvz", &error);
+	g_assert_no_error (error);
+
+	as_metadata_clear_components (mdata);
+	cpts = as_pool_get_components (pool);
+	for (i = 0; i < cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+		as_metadata_add_component (mdata, cpt);
+	}
+
+	xmldata_postcache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert (as_test_compare_lines (xmldata_precache, xmldata_postcache));
 }
 
 /**
@@ -263,7 +306,7 @@ test_pool_read ()
 
 	all_cpts = as_pool_get_components (dpool);
 	g_assert_nonnull (all_cpts);
-	g_assert_cmpint (all_cpts->len, ==, 18);
+	g_assert_cmpint (all_cpts->len, ==, 19);
 
 	result = as_pool_search (dpool, "kig");
 	print_cptarray (result);
@@ -296,7 +339,7 @@ test_pool_read ()
 
 	/* we return all components if the search string is too short */
 	result = as_pool_search (dpool, "sh");
-	g_assert_cmpint (result->len, ==, 18);
+	g_assert_cmpint (result->len, ==, 19);
 	g_ptr_array_unref (result);
 
 	strv = g_strsplit ("Science", ";", 0);
@@ -473,8 +516,8 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
-	g_test_add_func ("/AppStream/CacheFile", test_cache_file);
-	g_test_add_func ("/AppStream/Cache", test_cache);
+	g_test_add_func ("/AppStream/Cache/Basic", test_cache_simple);
+	g_test_add_func ("/AppStream/Cache/Complex", test_cache_complex);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
 
 	ret = g_test_run ();
