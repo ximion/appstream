@@ -827,6 +827,32 @@ Requires:
 				</listitem>
 			</varlistentry>
 
+
+			<varlistentry id="field-dep11-agreements">
+				<term>Agreements</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-agreement"/>.</para>
+					<para>
+						A list containing the agreements as dictionaries, with a <literal>sections</literal> key containing a list of sections.
+						All dict values are the same as the respective XML tag values / properties.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting><![CDATA[Agreements:
+- type: eula
+  version_id: 1.2.3a
+  sections:
+  - type: intro
+    name:
+      C: Intro\n"
+    description:
+      C: >-
+        <p>If it breaks, you get to keep both pieces.</p>]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 
 	</section>

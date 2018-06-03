@@ -96,6 +96,20 @@
 			</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-agreement-repo">
+			<term>&lt;agreement/&gt;</term>
+			<listitem>
+				<para>
+					It is recommended to add a <ulink url="https://www.eugdpr.org/">GDPR</ulink> compliant privacy statement to <literal>repository</literal>
+					components, in case any personal data is acquired when the repository is accessed.
+				</para>
+				<para>
+					The <literal>agreement</literal> tag allows to add a privacy statement and other agreements easily. Refer to the <xref linkend="tag-agreement"/> tag
+					as described for generic components for information on how to use agreements in AppStream.
+				</para>
+			</listitem>
+			</varlistentry>
+
 		</variablelist>
 
 		<para>

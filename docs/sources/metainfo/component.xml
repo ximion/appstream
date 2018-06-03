@@ -900,6 +900,63 @@
 		</listitem>
 		</varlistentry>
 
+		<varlistentry id="tag-agreement">
+		<term>&lt;agreement/&gt;</term>
+		<listitem>
+		<para>
+			The <code>&lt;agreement/&gt;</code> tag is an optional tag which can be added to specify agreements the user has to accept or acknowledge before using the software.
+			This tag can appear multiple times, if multiple agreements are required for a software component.
+		</para>
+		<para>
+			The tag should have a <literal>type</literal> property, indicating the type of the agreement. If the <literal>type</literal> property is missing,
+			an agreement of type <code>generic</code> is assumed.
+			Currently recognized agreement types are:
+		</para>
+		<itemizedlist>
+			<listitem><para><literal>eula</literal> - an  end-user license agreement the user has to accept before installing the software.</para></listitem>
+			<listitem><para><literal>privacy</literal> - a privacy statement for the software, usually a <ulink url="https://www.eugdpr.org/">GDPR</ulink> compliant statement</para></listitem>
+		</itemizedlist>
+		<para>
+			The <code>&lt;agreement/&gt;</code> tag must have a <literal>version_id</literal> property, containing a version identifier for the license. It may be used by client applications to
+			determine whether an agreement needs to be shown again after it has been accepted already by the user.
+		</para>
+		<para>
+			Every <code>&lt;agreement/&gt;</code> must have <code>&lt;agreement_section/&gt;</code> children which each have an <literal>id</literal> property indicating
+			the specific section that they describe (e.g. <code>introduction</code>). These values may be used to automatically jump to a specific section.
+			Each <code>&lt;agreement_section/&gt;</code> has a translatable <literal>name</literal> child denoting the name or title of the respective section, and a <literal>description</literal>
+			child that is translated according to the same translation rules that apply to the <xref linkend="tag-description"/> tag.
+			The <literal>description</literal> contains the content of the respective agreement section.
+		</para>
+		<para>
+			Example:
+		</para>
+		<programlisting language="XML"><![CDATA[<agreement type="privacy" version_id="1.0">
+    <agreement_section type="introduction">
+      <name>Introduction</name>
+      <description>
+        <p>
+          We hold personal data about vendors, administrators, clients and other
+          individuals for a variety of purposes.
+          [...]
+        </p>
+      </description>
+    </agreement_section>
+
+    <agreement_section type="scope">
+      <name>Scope</name>
+      <description>
+        <p>
+          This policy applies to all users who have access to any of the personally
+          identifiable data.
+        </p>
+      </description>
+    </agreement_section>
+
+    [...]
+</agreement>]]></programlisting>
+		</listitem>
+		</varlistentry>
+
 		<varlistentry id="tag-custom">
 		<term>&lt;custom/&gt;</term>
 		<listitem>

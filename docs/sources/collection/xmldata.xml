@@ -636,6 +636,17 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-ct-agreement">
+				<term>&lt;agreement/&gt;</term>
+				<listitem>
+					<para>
+						This optional tag follows the same schema as described for metainfo files in <xref linkend="tag-agreement"/>, with the exception
+						of <literal>description</literal> tags in its <literal>agreement_section</literal> child tags now following the same translation
+						rules as the toplevel <xref linkend="tag-ct-description"/> tag in collection metadata.
+					</para>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 	</section>
 

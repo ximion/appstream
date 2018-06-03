@@ -111,6 +111,8 @@ as_agreement_kind_to_string (AsAgreementKind value)
 AsAgreementKind
 as_agreement_kind_from_string (const gchar *value)
 {
+	if (value == NULL || g_strcmp0 (value, "") == 0)
+		return AS_AGREEMENT_KIND_GENERIC;
 	if (g_strcmp0 (value, "generic") == 0)
 		return AS_AGREEMENT_KIND_GENERIC;
 	if (g_strcmp0 (value, "eula") == 0)
