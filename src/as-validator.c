@@ -1361,11 +1361,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	/* validate addon specific stuff */
 	if (as_component_get_extends (cpt)->len > 0) {
 		AsComponentKind kind = as_component_get_kind (cpt);
-		if ((kind != AS_COMPONENT_KIND_ADDON) && (kind != AS_COMPONENT_KIND_LOCALIZATION))
+		if ((kind != AS_COMPONENT_KIND_ADDON) &&
+		    (kind != AS_COMPONENT_KIND_LOCALIZATION) &&
+		    (kind != AS_COMPONENT_KIND_REPOSITORY))
 			as_validator_add_issue (validator, NULL,
 						AS_ISSUE_IMPORTANCE_ERROR,
 						AS_ISSUE_KIND_TAG_NOT_ALLOWED,
-						"An 'extends' tag is specified, but the component is not of type 'addon' or 'localization'.");
+						"An 'extends' tag is specified, but the component is not of type 'addon', 'localization' or 'repository'.");
 	} else {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_ADDON)
 			as_validator_add_issue (validator, NULL,

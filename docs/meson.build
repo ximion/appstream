@@ -59,6 +59,7 @@ as_doc_src = [
     'sources/metainfo/inputmethod.xml',
     'sources/metainfo/localization.xml',
     'sources/metainfo/MetaInfo.xml',
+    'sources/metainfo/repository.xml',
     'sources/metainfo/service.xml',
     'sources/metainfo/webapp.xml',
     'sources/Project_Desc.xml',

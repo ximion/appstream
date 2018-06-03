@@ -71,6 +71,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  * @AS_COMPONENT_KIND_DRIVER:		A driver
  * @AS_COMPONENT_KIND_LOCALIZATION:	Software localization (usually l10n resources)
+ * @AS_COMPONENT_KIND_REPOSITORY:	A remote software or data source
  *
  * The type of an #AsComponent.
  **/
@@ -88,6 +89,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_DRIVER,
 	AS_COMPONENT_KIND_LOCALIZATION,
 	AS_COMPONENT_KIND_SERVICE,
+	AS_COMPONENT_KIND_REPOSITORY,
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;

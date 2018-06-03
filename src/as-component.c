@@ -178,6 +178,7 @@ as_component_kind_get_type (void)
 					{AS_COMPONENT_KIND_DRIVER,       "AS_COMPONENT_KIND_DRIVER",       "driver"},
 					{AS_COMPONENT_KIND_LOCALIZATION, "AS_COMPONENT_KIND_LOCALIZATION", "localization"},
 					{AS_COMPONENT_KIND_SERVICE,      "AS_COMPONENT_KIND_SERVICE",      "service"},
+					{AS_COMPONENT_KIND_REPOSITORY,   "AS_COMPONENT_KIND_REPOSITORY",   "repository"},
 					{0, NULL, NULL}
 		};
 		GType as_component_type_type_id;
@@ -222,6 +223,8 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "localization";
 	if (kind == AS_COMPONENT_KIND_SERVICE)
 		return "service";
+	if (kind == AS_COMPONENT_KIND_REPOSITORY)
+		return "repository";
 	return "unknown";
 }
 
@@ -262,6 +265,8 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_LOCALIZATION;
 	if (g_strcmp0 (kind_str, "service") == 0)
 		return AS_COMPONENT_KIND_SERVICE;
+	if (g_strcmp0 (kind_str, "repository") == 0)
+		return AS_COMPONENT_KIND_REPOSITORY;
 
 	/* legacy */
 	if (g_strcmp0 (kind_str, "desktop") == 0)
