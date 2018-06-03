@@ -45,6 +45,14 @@ gboolean		as_agreement_load_from_xml (AsAgreement *agreement,
 						    xmlNode *node,
 						    GError **error);
 
+gboolean		as_agreement_load_from_yaml (AsAgreement *agreement,
+						     AsContext *ctx,
+						     GNode *node,
+						     GError **error);
+void			as_agreement_emit_yaml (AsAgreement *agreement,
+						AsContext *ctx,
+						yaml_emitter_t *emitter);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

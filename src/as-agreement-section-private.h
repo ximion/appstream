@@ -43,6 +43,14 @@ void			as_agreement_section_to_xml_node (AsAgreementSection *agreement_section,
 							  AsContext *ctx,
 							  xmlNode *root);
 
+gboolean		as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section,
+							     AsContext *ctx,
+							     GNode *node,
+							     GError **error);
+void			as_agreement_section_emit_yaml (AsAgreementSection *agreement_section,
+							AsContext *ctx,
+							yaml_emitter_t *emitter);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

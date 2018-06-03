@@ -365,6 +365,74 @@ as_agreement_section_to_xml_node (AsAgreementSection *agreement_section, AsConte
 }
 
 /**
+ * as_agreement_section_load_from_yaml:
+ * @agreement_section: an #AsAgreementSection
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section, AsContext *ctx, GNode *node, GError **error)
+{
+	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
+	GNode *n;
+
+	/* propagate context */
+	as_agreement_section_set_context (agreement_section, ctx);
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+
+		if (g_strcmp0 (key, "type") == 0) {
+			as_agreement_section_set_kind (agreement_section, as_yaml_node_get_value (n));
+		} else if (g_strcmp0 (key, "name") == 0) {
+			as_yaml_set_localized_table (ctx, n, priv->name);
+		} else if (g_strcmp0 (key, "description") == 0) {
+			as_yaml_set_localized_table (ctx, n, priv->description);
+		} else {
+			as_yaml_print_unknown ("agreement_section", key);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_agreement_section_emit_yaml:
+ * @agreement_section: an #AsAgreementSection
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_agreement_section_emit_yaml (AsAgreementSection *agreement_section, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
+
+	/* start mapping for this agreement */
+	as_yaml_mapping_start (emitter);
+
+	/* type */
+	as_yaml_emit_entry (emitter, "type", priv->kind);
+
+	/* name */
+	as_yaml_emit_localized_entry (emitter,
+				      "name",
+				      priv->name);
+
+	/* description */
+	as_yaml_emit_long_localized_entry (emitter,
+					   "description",
+					   priv->description);
+
+	/* end mapping for the agreement */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_agreement_section_new:
  *
  * Creates a new #AsAgreementSection.

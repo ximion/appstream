@@ -4492,6 +4492,13 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (key, "Requires") == 0) {
 			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIRES);
+		} else if (g_strcmp0 (key, "Agreements") == 0) {
+			GNode *n;
+			for (n = node->children; n != NULL; n = n->next) {
+				g_autoptr(AsAgreement) agreement = as_agreement_new ();
+				if (as_agreement_load_from_yaml (agreement, ctx, n, NULL))
+					as_component_add_agreement (cpt, agreement);
+			}
 		} else if (g_strcmp0 (key, "Custom") == 0) {
 			as_component_yaml_parse_custom (cpt, node);
 		} else {
@@ -4982,6 +4989,19 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* Translation details */
 	as_component_yaml_emit_languages (cpt, emitter);
+
+	/* Agreements */
+	if (priv->agreements->len > 0) {
+		as_yaml_emit_scalar (emitter, "Agreements");
+		as_yaml_sequence_start (emitter);
+
+		for (i = 0; i < priv->agreements->len; i++) {
+			AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (priv->agreements, i));
+			as_agreement_emit_yaml (agreement, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
 
 	/* Releases */
 	if (priv->releases->len > 0) {

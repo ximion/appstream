@@ -350,6 +350,86 @@ as_agreement_to_xml_node (AsAgreement *agreement, AsContext *ctx, xmlNode *root)
 }
 
 /**
+ * as_agreement_load_from_yaml:
+ * @agreement: an #AsAgreement
+ * @ctx: the AppStream document context.
+ * @node: the YAML node.
+ * @error: a #GError.
+ *
+ * Loads data from a YAML field.
+ **/
+gboolean
+as_agreement_load_from_yaml (AsAgreement *agreement, AsContext *ctx, GNode *node, GError **error)
+{
+	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
+	GNode *n;
+
+	/* propagate context */
+	as_agreement_set_context (agreement, ctx);
+
+	for (n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+		const gchar *value = as_yaml_node_get_value (n);
+
+		if (g_strcmp0 (key, "type") == 0) {
+			priv->kind = as_agreement_kind_from_string (value);
+		} else if (g_strcmp0 (key, "version_id") == 0) {
+			as_agreement_set_version_id (agreement, value);
+		} else if (g_strcmp0 (key, "sections") == 0) {
+			GNode *sn;
+
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				g_autoptr(AsAgreementSection) asec = as_agreement_section_new ();
+
+				if (!as_agreement_section_load_from_yaml (asec, ctx, sn, error))
+					return FALSE;
+				as_agreement_add_section (agreement, asec);
+			}
+		} else {
+			as_yaml_print_unknown ("agreement", key);
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_agreement_emit_yaml:
+ * @agreement: an #AsAgreement
+ * @ctx: the AppStream document context.
+ * @emitter: The YAML emitter to emit data on.
+ *
+ * Emit YAML data for this object.
+ **/
+void
+as_agreement_emit_yaml (AsAgreement *agreement, AsContext *ctx, yaml_emitter_t *emitter)
+{
+	AsAgreementPrivate *priv = GET_PRIVATE (agreement);
+
+	/* start mapping for this agreement */
+	as_yaml_mapping_start (emitter);
+
+	/* type */
+	as_yaml_emit_entry (emitter, "type", as_agreement_kind_to_string (priv->kind));
+
+	/* version */
+	as_yaml_emit_entry (emitter, "version_id", priv->version_id);
+
+
+
+	as_yaml_emit_scalar (emitter, "sections");
+	as_yaml_sequence_start (emitter);
+	for (guint i = 0; i < priv->sections->len; i++) {
+		AsAgreementSection *asec = AS_AGREEMENT_SECTION (g_ptr_array_index (priv->sections, i));
+		as_agreement_section_emit_yaml (asec, ctx, emitter);
+	}
+	as_yaml_sequence_end (emitter);
+
+	/* end mapping for the agreement */
+	as_yaml_mapping_end (emitter);
+}
+
+/**
  * as_agreement_new:
  *
  * Creates a new #AsAgreement.
