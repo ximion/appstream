@@ -433,7 +433,7 @@ as_yaml_get_node_locale (AsContext *ctx, GNode *node)
  * as_yaml_set_localized_table:
  *
  * Apply node values to a hash table holding the l10n data.
- * */
+ */
 void
 as_yaml_set_localized_table (AsContext *ctx, GNode *node, GHashTable *l10n_table)
 {

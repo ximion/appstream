@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2018 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -39,6 +39,7 @@
 #include "as-launchable-private.h"
 #include "as-provided-private.h"
 #include "as-relation-private.h"
+#include "as-agreement-private.h"
 
 
 /**
@@ -95,6 +96,7 @@ typedef struct
 	GPtrArray		*content_ratings; /* of AsContentRating */
 	GPtrArray		*recommends; /* of AsRelation */
 	GPtrArray		*requires; /* of AsRelation */
+	GPtrArray		*agreements; /* of AsAgreement */
 
 	GHashTable		*urls; /* of int:utf8 */
 	GHashTable		*languages; /* of utf8:utf8 */
@@ -376,6 +378,7 @@ as_component_init (AsComponent *cpt)
 	priv->content_ratings = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->recommends = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->requires = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->agreements = g_ptr_array_new_with_free_func (g_object_unref);
 
 	/* others */
 	priv->urls = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, g_free);
@@ -430,6 +433,8 @@ as_component_finalize (GObject* object)
 
 	g_ptr_array_unref (priv->recommends);
 	g_ptr_array_unref (priv->requires);
+
+	g_ptr_array_unref (priv->agreements);
 
 	if (priv->translations != NULL)
 		g_ptr_array_unref (priv->translations);
@@ -2968,6 +2973,47 @@ as_component_add_relation (AsComponent *cpt, AsRelation *relation)
 }
 
 /**
+ * as_component_add_agreement:
+ * @cpt: a #AsComponent instance.
+ * @agreement: an #AsAgreement instance.
+ *
+ * Adds an agreement to the software component.
+ *
+ * Since: 0.12.1
+ **/
+void
+as_component_add_agreement (AsComponent *cpt, AsAgreement *agreement)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_add (priv->agreements, g_object_ref (agreement));
+}
+
+/**
+ * as_component_get_agreement_by_kind:
+ * @cpt: a #AsComponent instance.
+ * @kind: an agreement kind, e.g. %AS_AGREEMENT_KIND_EULA
+ *
+ * Gets an agreement the component has specified for the particular kind.
+ *
+ * Returns: (transfer none): a #AsAgreement or %NULL for not found
+ *
+ * Since: 0.12.1
+ **/
+AsAgreement*
+as_component_get_agreement_by_kind (AsComponent *cpt, AsAgreementKind kind)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	guint i;
+
+	for (i = 0; i < priv->agreements->len; i++) {
+		AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (priv->agreements, i));
+		if (as_agreement_get_kind (agreement) == kind)
+			return agreement;
+	}
+	return NULL;
+}
+
+/**
  * as_component_get_context:
  * @cpt: a #AsComponent instance.
  *
@@ -3587,6 +3633,10 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
 			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_REQUIRES);
+		} else if (g_strcmp0 (node_name, "agreement") == 0) {
+			g_autoptr(AsAgreement) agreement = as_agreement_new ();
+			if (as_agreement_load_from_xml (agreement, ctx, iter, NULL))
+				as_component_add_agreement (cpt, agreement);
 		}
 	}
 
@@ -3939,6 +3989,12 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (priv->screenshots, i));
 			as_screenshot_to_xml_node (scr, ctx, rnode);
 		}
+	}
+
+	/* agreements */
+	for (i = 0; i < priv->agreements->len; i++) {
+		AsAgreement *agreement = AS_AGREEMENT (g_ptr_array_index (priv->agreements, i));
+		as_agreement_to_xml_node (agreement, ctx, cnode);
 	}
 
 	/* releases */

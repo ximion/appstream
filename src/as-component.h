@@ -38,6 +38,7 @@
 #include "as-content-rating.h"
 #include "as-launchable.h"
 #include "as-relation.h"
+#include "as-agreement.h"
 
 G_BEGIN_DECLS
 
@@ -328,7 +329,12 @@ void			as_component_add_content_rating (AsComponent *cpt,
 GPtrArray		*as_component_get_recommends (AsComponent *cpt);
 GPtrArray		*as_component_get_requires (AsComponent *cpt);
 void			as_component_add_relation (AsComponent *cpt,
-							AsRelation *relation);
+						   AsRelation *relation);
+
+void			as_component_add_agreement (AsComponent *cpt,
+						    AsAgreement *agreement);
+AsAgreement		*as_component_get_agreement_by_kind (AsComponent *cpt,
+							     AsAgreementKind kind);
 
 
 /* DEPRECATED */

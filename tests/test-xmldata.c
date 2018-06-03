@@ -1292,6 +1292,88 @@ test_xml_write_recommends_requires (void)
 	g_assert (as_test_compare_lines (res, xmldata_recommends_requires));
 }
 
+
+static const gchar *xmldata_agreements = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+						"<component>\n"
+						"  <id>org.example.AgreementsTest</id>\n"
+						"  <agreement type=\"eula\" version_id=\"1.2.3a\">\n"
+						"    <agreement_section type=\"intro\">\n"
+						"      <name xml:lang=\"de_DE\">Einführung</name>\n"
+						"      <name>Intro</name>\n"
+						"      <description>\n"
+						"        <p>Mighty Fine</p>\n"
+						"      </description>\n"
+						"    </agreement_section>\n"
+						"  </agreement>\n"
+						"</component>\n";
+/**
+ * test_xml_read_agreements:
+ *
+ * Test reading the agreement tag and related elements.
+ */
+static void
+test_xml_read_agreements (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsAgreement *agreement;
+	AsAgreementSection *sect;
+
+	cpt = as_xml_test_read_data (xmldata_agreements, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.AgreementsTest");
+
+
+	agreement = as_component_get_agreement_by_kind (cpt, AS_AGREEMENT_KIND_EULA);
+	g_assert_nonnull (agreement);
+
+	g_assert_cmpint (as_agreement_get_kind (agreement), ==, AS_AGREEMENT_KIND_EULA);
+	g_assert_cmpstr (as_agreement_get_version_id (agreement), ==, "1.2.3a");
+	sect = as_agreement_get_section_default (agreement);
+	g_assert_nonnull (sect);
+
+	as_agreement_section_set_active_locale (sect, "C");
+	g_assert_cmpstr (as_agreement_section_get_kind (sect), ==, "intro");
+	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Intro");
+	g_assert_cmpstr (as_agreement_section_get_description (sect), ==, "<p>Mighty Fine</p>");
+
+	as_agreement_section_set_active_locale (sect, "de_DE");
+	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Einführung");
+}
+
+/**
+ * test_xml_write_agreements:
+ *
+ * Test writing the agreement tag.
+ */
+static void
+test_xml_write_agreements (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	g_autoptr(AsAgreement) agreement = NULL;
+	g_autoptr(AsAgreementSection) sect = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.AgreementsTest");
+
+	agreement = as_agreement_new ();
+	sect = as_agreement_section_new ();
+
+	as_agreement_set_kind (agreement, AS_AGREEMENT_KIND_EULA);
+	as_agreement_set_version_id (agreement, "1.2.3a");
+
+	as_agreement_section_set_kind (sect, "intro");
+	as_agreement_section_set_name (sect, "Intro", "C");
+	as_agreement_section_set_name (sect, "Einführung", "de_DE");
+
+	as_agreement_section_set_description (sect, "<p>Mighty Fine</p>", "C");
+
+	as_agreement_add_section (agreement, sect);
+	as_component_add_agreement (cpt, agreement);
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_agreements));
+}
+
 /**
  * main:
  */
@@ -1346,6 +1428,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/RecommendsRequires", test_xml_read_recommends_requires);
 	g_test_add_func ("/XML/Write/RecommendsRequires", test_xml_write_recommends_requires);
+
+	g_test_add_func ("/XML/Read/Agreements", test_xml_read_agreements);
+	g_test_add_func ("/XML/Write/Agreements", test_xml_write_agreements);
 
 	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
 
