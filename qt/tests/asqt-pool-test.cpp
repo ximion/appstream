@@ -52,7 +52,7 @@ void PoolReadTest::testRead01()
     QVERIFY(pool->load());
 
     auto cpts = pool->components();
-    QCOMPARE(cpts.size(), 18);
+    QCOMPARE(cpts.size(), 19);
 
     cpts = pool->componentsById("org.neverball.Neverball");
     QCOMPARE(cpts.size(), 1);
