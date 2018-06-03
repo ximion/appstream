@@ -122,6 +122,7 @@ as_yaml_test_serialize (AsComponent *cpt)
 	GError *error = NULL;
 
 	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
 	as_metadata_add_component (metad, cpt);
 	as_metadata_set_write_header (metad, TRUE);
 
@@ -334,6 +335,7 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 	g_autoptr(AsMetadata) metad = NULL;
 
 	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 
 	if (error == NULL) {
@@ -910,8 +912,8 @@ static const gchar *yamldata_agreements = "---\n"
 						"  sections:\n"
 						"  - type: intro\n"
 						"    name:\n"
-						"      de_DE: Einführung\n"
 						"      C: Intro\n"
+						"      xde_DE: Einführung\n"
 						"    description:\n"
 						"      C: >-\n"
 						"        <p>Mighty Fine</p>\n";
@@ -942,7 +944,7 @@ test_yaml_write_agreements (void)
 
 	as_agreement_section_set_kind (sect, "intro");
 	as_agreement_section_set_name (sect, "Intro", "C");
-	as_agreement_section_set_name (sect, "Einführung", "de_DE");
+	as_agreement_section_set_name (sect, "Einführung", "xde_DE");
 
 	as_agreement_section_set_description (sect, "<p>Mighty Fine</p>", "C");
 
@@ -982,7 +984,7 @@ test_yaml_read_agreements (void)
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Intro");
 	g_assert_cmpstr (as_agreement_section_get_description (sect), ==, "<p>Mighty Fine</p>");
 
-	as_agreement_section_set_active_locale (sect, "de_DE");
+	as_agreement_section_set_active_locale (sect, "xde_DE");
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Einführung");
 }
 
