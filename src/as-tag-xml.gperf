@@ -1,0 +1,33 @@
+%language=ANSI-C
+%enum
+%define hash-function-name _as_xml_tag_hash
+%define lookup-function-name _as_xml_tag_from_gperf
+%define string-pool-name xml_tag_stringpool
+%readonly-tables
+%includes
+%pic
+%struct-type
+struct xml_tag_data { int name; unsigned int etag; };
+%%
+components, AS_TAG_COMPONENTS
+component, AS_TAG_COMPONENT
+id, AS_TAG_ID
+pkgname, AS_TAG_PKGNAME
+name, AS_TAG_NAME
+summary, AS_TAG_SUMMARY
+description, AS_TAG_DESCRIPTION
+url, AS_TAG_URL
+icon, AS_TAG_ICON
+categories, AS_TAG_CATEGORIES
+category, AS_TAG_CATEGORY
+keywords, AS_TAG_KEYWORDS
+keyword, AS_TAG_KEYWORD
+mimetypes, AS_TAG_MIMETYPES
+mimetype, AS_TAG_MIMETYPE
+project_group, AS_TAG_PROJECT_GROUP
+project_license, AS_TAG_PROJECT_LICENSE
+screenshot, AS_TAG_SCREENSHOT
+screenshots, AS_TAG_SCREENSHOTS
+update_contact, AS_TAG_UPDATE_CONTACT
+image, AS_TAG_IMAGE
+compulsory_for_desktop, AS_TAG_COMPULSORY_FOR_DESKTOP

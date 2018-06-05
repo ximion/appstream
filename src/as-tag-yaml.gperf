@@ -1,0 +1,20 @@
+%language=ANSI-C
+%enum
+%define hash-function-name _as_yaml_tag_hash
+%define lookup-function-name _as_yaml_tag_from_gperf
+%define string-pool-name yaml_tag_stringpool
+%readonly-tables
+%includes
+%pic
+%struct-type
+struct yaml_tag_data { int name; unsigned int etag; };
+%%
+ID, AS_TAG_ID
+Package, AS_TAG_PKGNAME
+Name, AS_TAG_NAME
+Summary, AS_TAG_SUMMARY
+Description, AS_TAG_DESCRIPTION
+Urls, AS_TAG_URL
+Icons, AS_TAG_ICON
+Categories, AS_TAG_CATEGORIES
+Keywords, AS_TAG_KEYWORDS

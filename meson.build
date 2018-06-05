@@ -85,6 +85,9 @@ if get_option('stemming')
     endif
 endif
 
+# use gperf for faster string -> enum matching
+gperf = find_program('gperf')
+
 #
 # Modules
 #

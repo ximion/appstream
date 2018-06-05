@@ -25,6 +25,7 @@ RUN apt-get install -yq --no-install-recommends \
     publican \
     gobject-introspection \
     libstemmer-dev \
+    gperf \
     valac
 
 # finish
