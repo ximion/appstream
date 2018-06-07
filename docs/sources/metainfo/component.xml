@@ -569,6 +569,11 @@
 				component, but may display a warning before allowing it.
 			</para>
 			<para>
+				To specify that a device is being used, a component can use the <literal>supports</literal> tag. This means that the software component
+				supports a certain configuration or other item. This is useful in case the client wants to offer components that support a certain feature
+				exclusively.
+			</para>
+			<para>
 				A <literal>requires</literal> or <literal>recommends</literal> tag contains children describing the type, value and version relation
 				of the required item.
 				Each child can have a <literal>version</literal> and a <literal>compare</literal> property, to allow depending on a certain minimal
@@ -644,6 +649,34 @@
 				<programlisting language="XML"><![CDATA[<recommends>
   <memory>2048</memory> <!-- recommend at least 2GiB of memory -->
 </recommends>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;input/&gt;</term>
+				<listitem>
+				<para>
+					Specifies that a input capability type is supported by the hardware present in the device.
+					Options here are: keyboard, pointer, touch, tablet-tool, tablet-pad, gesture, switch
+					<!-- As listed here https://wayland.freedesktop.org/libinput/doc/latest/group__device.html#ga3110cdddce94a1df0b8a3306909c8f15 -->
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<recommends>
+  <input>touch</input> <!-- recommends touch input capability -->
+</recommends>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>&lt;screen/&gt;</term>
+				<listitem>
+				<para>
+					Specifies a display diagonal size. Should specify the value and the unit (cm or in for centimeters or inches respectively).
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<requires>
+  <screen compare="ge">7in</screen> <!-- requires a 7 inch display at least-->
+</requires>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
