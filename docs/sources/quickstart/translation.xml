@@ -66,7 +66,7 @@
 				The generic way to add translation to your AppStream metadata in case you use Autotools is by using
 				the following code snippet:
 			</para>
-<programlisting language="Makefile"><![CDATA[appstreamdir = $(datadir)/appdata/
+<programlisting language="Makefile"><![CDATA[appstreamdir = $(datadir)/metainfo/
 appstream_in_files = gedit.appdata.xml.in
 appstream_DATA = $(appstream_in_files:.xml.in=.xml)
 @INTLTOOL_XML_RULE@

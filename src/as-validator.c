@@ -1862,7 +1862,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 			as_validator_set_current_fname (validator, fname_basename);
 
 			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_INFO,
+						AS_ISSUE_IMPORTANCE_WARNING,
 						AS_ISSUE_KIND_LEGACY,
 						"The metainfo file is stored in a legacy path. Please place it in '/usr/share/metainfo'.");
 

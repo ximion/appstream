@@ -43,9 +43,10 @@
 	<important>
 		<title>Legacy Path</title>
 		<para>
-			The <filename>/usr/share/appdata/</filename> path must be scanned by AppStream tools as well, to support legacy applications installing
-			metadata there.
-			For new software components, it is advised not to use this directory.
+			AppStream tools scan the <filename>/usr/share/appdata/</filename> path for legacy compatibility as well. It should not be used
+			anymore by new software though, even on older Linux distributions (like RHEL 7 and Ubuntu 16.04 LTS) the metainfo path is well
+			supported.
+			Support for the legacy path might be dropped completely in future.
 		</para>
 	</important>
 

@@ -21,20 +21,20 @@
 		<para>
 			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
 			<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink> or GSetting schemas.
-			The AppData specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-XML"/>) and extends
+			The application metainfo ("appdata") specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-XML"/>) and extends
 			the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
 		</para>
 		<para>
-			The AppData files override any values which are automatically fetched by the AppStream data generator.
+			The application-metainfo files override any values which are automatically fetched by the AppStream data generator.
 			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
 		</para>
 		<para>
-			AppData files can - just like all other metainfo files - be translated. See the section about translation for more information about that.
+			Application metainfo files can - just like all other metainfo files - be translated. See the section about translation for more information about that.
 		</para>
 		<note>
 			<para>
-				All tags defined in the generic component specification are valid in AppData as well, an application is just
-				defined as a specialized component, which has the additional benefit of being displayed in a software-center application.
+				All tags defined in the generic component specification are valid for components of type <literal>desktop-application</literal> as well,
+				an application is just defined as a specialized component, which has the additional benefit of being displayed in a software-center application.
 			</para>
 		</note>
 	</section>
