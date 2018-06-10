@@ -50,6 +50,11 @@ asqt_moc = qt.preprocess (
     #moc_sources: asqt_src
 )
 
+asqt_cpp_args = []
+if get_option('maintainer')
+    asqt_cpp_args = ['-Wno-inline']
+endif
+
 appstreamqt_lib = library ('AppStreamQt',
     [asqt_src,
      asqt_pub_headers,
@@ -63,6 +68,7 @@ appstreamqt_lib = library ('AppStreamQt',
                    gio_dep],
     link_with: [appstream_lib],
     include_directories: [appstream_lib_inc],
+    cpp_args: asqt_cpp_args,
     install: true
 )
 

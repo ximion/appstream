@@ -18,6 +18,7 @@ as_test_qt_exe = executable ('as-test_qt',
     dependencies: [qt5_test_dep],
     include_directories: [include_directories('..')],
     link_with: [appstreamqt_lib],
+    cpp_args: asqt_cpp_args
 )
 test ('as-test_qt',
     as_test_qt_exe,
