@@ -1,3 +1,48 @@
+Version 0.12.1
+~~~~~~~~~~~~~~
+Released: 2018-06-10
+
+Features:
+ * ascli: Add command to compare version numbers (Matthias Klumpp)
+ * yaml: Allow reading multiple localized strings from YAML data (Matthias Klumpp)
+ * yaml: Always include the untranslated strings (Matthias Klumpp)
+ * Allow to ignore media_baseurl when parsing metadata (Matthias Klumpp)
+ * xml: Add implementation of the agreement tag (Matthias Klumpp)
+ * Add new "repository" component type (Matthias Klumpp)
+ * yaml: Implement Agreements field (Matthias Klumpp)
+ * cache: Implement support for agreements (Matthias Klumpp)
+ * tests: Improve cache data tests, add agreement tag test (Matthias Klumpp)
+ * Use gperf for perfect hash generation for some tags (Matthias Klumpp)
+ * tests: Add rundimentary performance test (Matthias Klumpp)
+ * its: Mark agreement sections as translatable (Matthias Klumpp)
+ * qt: Add support for service/repository component types (Matthias Klumpp)
+
+Specification:
+ * docs: Describe the custom tag (Matthias Klumpp)
+ * spec: Describe the new agreement tag (Matthias Klumpp)
+ * docs: Clarify that the /usr/share/appdata/ path is legacy and should
+   not be used (Matthias Klumpp)
+
+Bugfixes:
+ * its: Allow translation of release descriptions (Marc J)
+ * Load data from desktop files properly again (Matthias Klumpp)
+ * Update desktop-environment list (Matthias Klumpp)
+ * qt: Don't warn about inlining in maintainer mode (Matthias Klumpp)
+
+Translation:
+ * Spanish
+   - Adolfo Jayme Barrientos
+ * Русский
+   - Igor
+ * French
+   - Jean-François Michaud
+ * Dutch
+   - Jeff Huijsmans
+ * Polish
+   - Piotr Drąg
+ * Ukrainian
+   - Yuri Chornoivan
+
 Version 0.12.0
 ~~~~~~~~~~~~~~
 Released: 2018-04-04
