@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-04-04 17:28+0200\n"
+"POT-Creation-Date: 2018-06-10 15:36+0200\n"
 "PO-Revision-Date: 2018-04-02 04:02+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -51,7 +51,7 @@ msgstr "冒險"
 msgid "Also show pedantic hints."
 msgstr "也列印詳盡的提示。"
 
-#: tools/appstream-cli.c:604
+#: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "項目類型（例：lib、bin、python3…等）"
 
@@ -64,7 +64,7 @@ msgid "AppStream CLI"
 msgstr "AppStream 命令列介面"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:696
+#: tools/appstream-cli.c:789
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -98,7 +98,7 @@ msgstr "不必更新 AppStream 快取。"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:143 tools/appstream-cli.c:597
+#: tools/appstream-cli.c:143 tools/appstream-cli.c:689
 msgid "AppStream command-line interface"
 msgstr "AppStream 指令列介面"
 
@@ -114,7 +114,7 @@ msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 系統快取已更新，但發現一些問題：%s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:693
+#: tools/appstream-cli.c:786
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
@@ -218,6 +218,10 @@ msgstr "編解碼器"
 msgid "Communication & News"
 msgstr "溝通和新聞"
 
+#: tools/appstream-cli.c:712
+msgid "Compare two version numbers."
+msgstr ""
+
 #: src/as-provided.c:167
 msgid "Component"
 msgstr "組件"
@@ -233,7 +237,7 @@ msgid "Compulsory for"
 msgstr "強制項目為"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:619
+#: tools/appstream-cli.c:711
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "將收藏集 XML 轉換成 YAML，或是相反。"
 
@@ -243,7 +247,7 @@ msgstr "將收藏集 XML 轉換成 YAML，或是相反。"
 msgid "Could not find component providing '%s::%s'."
 msgstr "找不到提供「%s::%s」的組件。"
 
-#: tools/appstream-cli.c:620
+#: tools/appstream-cli.c:713
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -290,7 +294,7 @@ msgstr "開發者"
 msgid "Developer Tools"
 msgstr "開發者工具"
 
-#: tools/appstream-cli.c:616
+#: tools/appstream-cli.c:708
 msgid "Display status information about available AppStream metadata."
 msgstr "顯示可用的 AppStream 中介資料相關狀態資訊。"
 
@@ -305,11 +309,11 @@ msgid "Do not use network access."
 msgstr "不使用網路存取。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:657
+#: tools/appstream-cli.c:750
 msgid "Don't show colored output."
 msgstr "不要顯示色彩化的輸出。"
 
-#: tools/appstream-cli.c:607
+#: tools/appstream-cli.c:699
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
 
@@ -426,11 +430,11 @@ msgstr "找到 %i 個組件。"
 msgid "Games"
 msgstr "遊戲"
 
-#: tools/appstream-cli.c:603
+#: tools/appstream-cli.c:695
 msgid "Get components which provide the given item."
 msgstr "取得提供指定項目的組件。"
 
-#: tools/appstream-cli.c:602
+#: tools/appstream-cli.c:694
 msgid "Get information about a component by its ID."
 msgstr "根據 ID 取得組件的資訊。"
 
@@ -465,11 +469,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "輸入來源"
 
-#: tools/appstream-cli.c:617
+#: tools/appstream-cli.c:709
 msgid "Install a metadata file into the right location."
 msgstr "安裝中介資料檔到適當位置。"
 
-#: tools/appstream-cli.c:613
+#: tools/appstream-cli.c:705
 msgid "Install software matching the component-ID."
 msgstr "安裝符合組件 ID 的軟體。"
 
@@ -635,11 +639,11 @@ msgstr "Python (第 2 版)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:608
+#: tools/appstream-cli.c:700
 msgid "Rebuild the component metadata cache."
 msgstr "重建組件的中介資料快取。"
 
-#: tools/appstream-cli.c:614
+#: tools/appstream-cli.c:706
 msgid "Remove software matching the component-ID."
 msgstr "移除符合該組件 ID 的軟體。"
 
@@ -653,7 +657,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "角色扮演"
 
-#: tools/appstream-cli.c:185 tools/appstream-cli.c:675
+#: tools/appstream-cli.c:185 tools/appstream-cli.c:768
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "執行「%s --help」查看可用指令列選項的完整清單。"
@@ -681,7 +685,7 @@ msgstr "掃描"
 msgid "Science"
 msgstr "科學"
 
-#: tools/appstream-cli.c:601
+#: tools/appstream-cli.c:693
 msgid "Search the component database."
 msgstr "搜尋組件資料庫。"
 
@@ -691,12 +695,12 @@ msgid "Security"
 msgstr "安全"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:652
+#: tools/appstream-cli.c:745
 msgid "Show extra debugging information."
 msgstr "顯示額外除錯資訊。"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:646
+#: tools/appstream-cli.c:739
 msgid "Show the program version."
 msgstr "顯示程式版本。"
 
@@ -711,7 +715,7 @@ msgid "Strategy"
 msgstr "策略"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:599
+#: tools/appstream-cli.c:691
 msgid "Subcommands:"
 msgstr "子指令："
 
@@ -754,7 +758,7 @@ msgstr ""
 "式記錄瞭解更多資訊。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:565
+#: tools/appstream-cli.c:657
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE 必須是有效組件類型，例如：%s"
@@ -767,7 +771,7 @@ msgid ""
 msgstr "「%s」軟體組件類型在 AppStream 中無效。可用的值有："
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:562
+#: tools/appstream-cli.c:654
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -785,6 +789,12 @@ msgstr ""
 "本工具可以讀寫、驗證與變換 AppStream XML 或 YAML 中介資料；此外還能存取系統中"
 "介資料池，搜尋諸如提供某特定 MIME 類型使用的軟體，並按照其軟體組件辨識碼安裝"
 "等。"
+
+#: tools/appstream-cli.c:622
+msgid ""
+"Too many parameters: Need two version numbers or version numbers and a "
+"comparison operator."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -831,13 +841,19 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:750
+#: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "未知指令「%s」。"
 
+#. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
+#: tools/appstream-cli.c:582
+#, c-format
+msgid "Unknown compare relation '%s'. Valid values are:"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:557
+#: tools/appstream-cli.c:649
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "使用給定的 .deskotp 檔以在中介資訊檔中填入基礎值。"
@@ -847,11 +863,11 @@ msgstr "使用給定的 .deskotp 檔以在中介資訊檔中填入基礎值。"
 msgid "Utilities"
 msgstr "公用程式"
 
-#: tools/appstream-cli.c:610
+#: tools/appstream-cli.c:702
 msgid "Validate AppStream XML files for issues."
 msgstr "驗證 AppStream XML 檔是否有問題。"
 
-#: tools/appstream-cli.c:611
+#: tools/appstream-cli.c:703
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "驗證已安裝應用程式的檔案樹是否存在有效的中介資料。"
 
@@ -869,7 +885,7 @@ msgstr "驗證成功。"
 msgid "Validation was successful: %s"
 msgstr "驗證成功：%s"
 
-#: tools/appstream-cli.c:605
+#: tools/appstream-cli.c:697
 msgid "Value of the item that should be found."
 msgstr "應找到的項目值。"
 
@@ -903,7 +919,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "文書處理器"
 
-#: tools/appstream-cli.c:623
+#: tools/appstream-cli.c:716
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -920,8 +936,13 @@ msgid ""
 "template. Possible values are:"
 msgstr "您需要給予 AppStream 軟體組件類型以生成範本。可用的值有："
 
+#: tools/appstream-cli.c:553
+msgid ""
+"You need to provide at least two version numbers to compare as parameters."
+msgstr ""
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:674
+#: tools/appstream-cli.c:767
 msgid "You need to specify a command."
 msgstr "您需要指定個指令。"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-04-04 17:28+0200\n"
+"POT-Creation-Date: 2018-06-10 15:36+0200\n"
 "PO-Revision-Date: 2018-03-29 04:30+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -52,7 +52,7 @@ msgstr "Dobrodružství"
 msgid "Also show pedantic hints."
 msgstr "Při ověřování vypisovat i nalezené drobnosti."
 
-#: tools/appstream-cli.c:604
+#: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Typ položky (např. lib, bin, python3, …)"
 
@@ -65,7 +65,7 @@ msgid "AppStream CLI"
 msgstr "Textové uživatelské rozhraní pro AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:696
+#: tools/appstream-cli.c:789
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -101,7 +101,7 @@ msgstr "Aktualizace mezipaměti AppStream není v tuto chvíli zapotřebí."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:143 tools/appstream-cli.c:597
+#: tools/appstream-cli.c:143 tools/appstream-cli.c:689
 msgid "AppStream command-line interface"
 msgstr "Rozhraní příkazového řádku pro AppStream"
 
@@ -121,7 +121,7 @@ msgstr ""
 "problémy: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:693
+#: tools/appstream-cli.c:786
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Verze nástroje AppStream: %s"
@@ -227,6 +227,10 @@ msgstr "Kodeky"
 msgid "Communication & News"
 msgstr "Komunikace a novinky"
 
+#: tools/appstream-cli.c:712
+msgid "Compare two version numbers."
+msgstr ""
+
 #: src/as-provided.c:167
 msgid "Component"
 msgstr "Součást"
@@ -242,7 +246,7 @@ msgid "Compulsory for"
 msgstr "Povinné pro"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:619
+#: tools/appstream-cli.c:711
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Převádí z XML na YAML formát a obráceně."
 
@@ -252,7 +256,7 @@ msgstr "Převádí z XML na YAML formát a obráceně."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nepodařilo se najít součást poskytující „%s::%s“."
 
-#: tools/appstream-cli.c:620
+#: tools/appstream-cli.c:713
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -300,7 +304,7 @@ msgstr "Vývojáři"
 msgid "Developer Tools"
 msgstr "Nástroje pro vývoj"
 
-#: tools/appstream-cli.c:616
+#: tools/appstream-cli.c:708
 msgid "Display status information about available AppStream metadata."
 msgstr "Zobrazit stavové informace o dostupných AppStream metadatech."
 
@@ -315,11 +319,11 @@ msgid "Do not use network access."
 msgstr "Nepoužívat síť."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:657
+#: tools/appstream-cli.c:750
 msgid "Don't show colored output."
 msgstr "Neobarvovat výstup."
 
-#: tools/appstream-cli.c:607
+#: tools/appstream-cli.c:699
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Vypsat surová XML metadata součásti s tímto identifikátorem."
 
@@ -436,11 +440,11 @@ msgstr "Nalezeno %i součástí."
 msgid "Games"
 msgstr "Hry"
 
-#: tools/appstream-cli.c:603
+#: tools/appstream-cli.c:695
 msgid "Get components which provide the given item."
 msgstr "Získat součásti, které poskytují danou položku."
 
-#: tools/appstream-cli.c:602
+#: tools/appstream-cli.c:694
 msgid "Get information about a component by its ID."
 msgstr "Získat informace o součásti podle jejího identifikátoru."
 
@@ -475,11 +479,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Vstupní zdroje"
 
-#: tools/appstream-cli.c:617
+#: tools/appstream-cli.c:709
 msgid "Install a metadata file into the right location."
 msgstr "Nainstalovat soubor s metadaty na správné místo."
 
-#: tools/appstream-cli.c:613
+#: tools/appstream-cli.c:705
 msgid "Install software matching the component-ID."
 msgstr "Nainstalovat software odpovídající identifikátoru součásti."
 
@@ -645,11 +649,11 @@ msgstr "Python (veze 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:608
+#: tools/appstream-cli.c:700
 msgid "Rebuild the component metadata cache."
 msgstr "Znovu vytvořit mezipaměť metadat součástí."
 
-#: tools/appstream-cli.c:614
+#: tools/appstream-cli.c:706
 msgid "Remove software matching the component-ID."
 msgstr "Odebrat software odpovídající identifikátoru součásti."
 
@@ -663,7 +667,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "RPG"
 
-#: tools/appstream-cli.c:185 tools/appstream-cli.c:675
+#: tools/appstream-cli.c:185 tools/appstream-cli.c:768
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -693,7 +697,7 @@ msgstr "Skenování"
 msgid "Science"
 msgstr "Věda"
 
-#: tools/appstream-cli.c:601
+#: tools/appstream-cli.c:693
 msgid "Search the component database."
 msgstr "Prohledat databázi součástí."
 
@@ -703,12 +707,12 @@ msgid "Security"
 msgstr "Zabezpečení"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:652
+#: tools/appstream-cli.c:745
 msgid "Show extra debugging information."
 msgstr "Zobrazovat doplňující informace pro ladění."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:646
+#: tools/appstream-cli.c:739
 msgid "Show the program version."
 msgstr "Zobrazit verzi programu."
 
@@ -723,7 +727,7 @@ msgid "Strategy"
 msgstr "Strategie"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:599
+#: tools/appstream-cli.c:691
 msgid "Subcommands:"
 msgstr "Dílčí příkazy:"
 
@@ -767,7 +771,7 @@ msgstr ""
 "ve výřečněji nastaveném záznamu událostí."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:565
+#: tools/appstream-cli.c:657
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "Je třeba, aby TYPE (typ) byl platný typ komponenty, jako např.: %s"
@@ -781,7 +785,7 @@ msgstr ""
 "Typ „%s“ softwarové součásti není platný pro AppStream. Možné hodnoty jsou:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:562
+#: tools/appstream-cli.c:654
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
@@ -800,6 +804,12 @@ msgstr ""
 "YAML metadat. Také zpřístupňuje systémový fond metadat například pro "
 "dotazování se na software, poskytující konkrétní MIME typ a jeho instalaci "
 "na základě identifikátoru softwarové součásti."
+
+#: tools/appstream-cli.c:622
+msgid ""
+"Too many parameters: Need two version numbers or version numbers and a "
+"comparison operator."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -850,13 +860,19 @@ msgstr ""
 "metainformacemi."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:750
+#: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Neznámý příkaz „%s“."
 
+#. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
+#: tools/appstream-cli.c:582
+#, c-format
+msgid "Unknown compare relation '%s'. Valid values are:"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:557
+#: tools/appstream-cli.c:649
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -868,11 +884,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Nástroje"
 
-#: tools/appstream-cli.c:610
+#: tools/appstream-cli.c:702
 msgid "Validate AppStream XML files for issues."
 msgstr "Ověřit zda XML AppStream soubor neobsahuje chyby."
 
-#: tools/appstream-cli.c:611
+#: tools/appstream-cli.c:703
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Ověřit zda nainstalovaný strom souborů aplikace obsahuje platná metadata."
@@ -891,7 +907,7 @@ msgstr "Ověření bylo úspěšné."
 msgid "Validation was successful: %s"
 msgstr "Ověření bylo úspěšné: %s"
 
-#: tools/appstream-cli.c:605
+#: tools/appstream-cli.c:697
 msgid "Value of the item that should be found."
 msgstr "Hodnota položky která má být nalezena."
 
@@ -925,7 +941,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Textový procesor"
 
-#: tools/appstream-cli.c:623
+#: tools/appstream-cli.c:716
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -947,8 +963,13 @@ msgstr ""
 "Aby bylo možné vytvořit šablonu, je třeba zadat typ softwarové součásti "
 "AppStream. Možné hodnoty jsou:"
 
+#: tools/appstream-cli.c:553
+msgid ""
+"You need to provide at least two version numbers to compare as parameters."
+msgstr ""
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:674
+#: tools/appstream-cli.c:767
 msgid "You need to specify a command."
 msgstr "Je třeba zadat příkaz."
 

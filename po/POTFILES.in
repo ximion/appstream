@@ -3,6 +3,8 @@
 # data
 data/org.freedesktop.appstream.cli.metainfo.xml
 # library sources
+src/as-agreement.c
+src/as-agreement-section.c
 src/as-bundle.c
 src/as-category.c
 src/as-checksum.c
@@ -19,6 +21,7 @@ src/as-relation.c
 src/as-release.c
 src/as-screenshot.c
 src/as-suggested.c
+src/as-tag.c
 src/as-translation.c
 src/as-utils.c
 src/as-validator.c
