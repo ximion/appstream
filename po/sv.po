@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-06-10 17:06+0000\n"
+"PO-Revision-Date: 2018-06-10 19:04+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
 "translations/sv/>\n"
@@ -808,6 +808,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"För många parametrar: Behöver två versionsnummer eller versionsnummer och en "
+"jämförelseoperator."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -865,7 +867,7 @@ msgstr "Okänt kommando ”%s”."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Okänd jämförelserelation ”%s”. Giltiga värden är:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
