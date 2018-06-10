@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-03-28 23:34+0000\n"
+"PO-Revision-Date: 2018-06-10 17:06+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
 "translations/sv/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.0\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -226,7 +226,7 @@ msgstr "Kommunikation och nyheter"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Jämför två versionsnummer."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -962,6 +962,7 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Du måste tillhandahålla minst två versionsnummer att jämföra som parametrar."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
