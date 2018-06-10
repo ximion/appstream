@@ -50,6 +50,8 @@ Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
     { Component::KindFirmware, QLatin1String("firmware") },
     { Component::KindDriver, QLatin1String("driver") },
     { Component::KindLocalization, QLatin1String("localization") },
+    { Component::KindService, QLatin1String("service") },
+    { Component::KindRepository, QLatin1String("repository") },
     { Component::KindUnknown, QLatin1String("unknown") }
     }
 ));
@@ -94,6 +96,12 @@ Component::Kind Component::stringToKind(const QString& kindString) {
 
     if (kindString == QLatin1String("localization"))
         return KindLocalization;
+
+    if (kindString == QLatin1String("service"))
+        return KindService;
+
+    if (kindString == QLatin1String("repository"))
+        return KindRepository;
 
     return KindUnknown;
 

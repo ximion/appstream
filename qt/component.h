@@ -62,7 +62,9 @@ Q_GADGET
             KindInputmethod,
             KindFirmware,
             KindDriver,
-            KindLocalization
+            KindLocalization,
+            KindService,
+            KindRepository
         };
         Q_ENUM(Kind)
 
