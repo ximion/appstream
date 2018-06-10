@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-03-29 06:03+0000\n"
+"PO-Revision-Date: 2018-06-10 17:06+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
 "appstream/translations/nb/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.0\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -224,7 +224,7 @@ msgstr "Kommunikasjon og nyheter"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Sammenlign to versjonsnummer."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -805,10 +805,13 @@ msgstr ""
 "programvarekomponentidentifikator."
 
 #: tools/appstream-cli.c:622
+#, fuzzy
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"For mange parametere: Trenger to versjonsnummer eller versjonsnummer og "
+"sammenligningsoperatør."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -866,7 +869,7 @@ msgstr "Ukjent kommando \"%s\"."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Ukjent sammenligningsrelasjon \"%s\". Gyldige verdier er:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -964,7 +967,7 @@ msgstr ""
 #: tools/appstream-cli.c:553
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
+msgstr "Du må oppgi minst to versjonsnummer å sammenligne som parameter."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
