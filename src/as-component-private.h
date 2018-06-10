@@ -23,6 +23,7 @@
 
 #include "as-component.h"
 #include "as-settings-private.h"
+#include "as-tag.h"
 #include "as-xml.h"
 #include "as-yaml.h"
 

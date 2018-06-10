@@ -33,62 +33,85 @@ G_BEGIN_DECLS
 /**
  * AsTag:
  * @AS_TAG_UNKNOWN:			Type invalid or not known
- * @AS_TAG_COMPONENTS:			`components`
- * @AS_TAG_COMPONENT:			`component`
- * @AS_TAG_ID:				`id`
- * @AS_TAG_PKGNAME:			`pkgname`
- * @AS_TAG_NAME:			`name`
- * @AS_TAG_SUMMARY:			`summary`
- * @AS_TAG_DESCRIPTION:			`description`
- * @AS_TAG_URL:				`url`
- * @AS_TAG_ICON:			`icon`
- * @AS_TAG_CATEGORIES:			`categories`
- * @AS_TAG_CATEGORY:			`category`
- * @AS_TAG_KEYWORDS:			`keywords`
- * @AS_TAG_KEYWORD:			`keyword`
- * @AS_TAG_MIMETYPES:			`mimetypes`
- * @AS_TAG_MIMETYPE:			`mimetype`
- * @AS_TAG_PROJECT_GROUP:		`project_group`
- * @AS_TAG_PROJECT_LICENSE:		`project_license`
- * @AS_TAG_SCREENSHOT:			`screenshot`
- * @AS_TAG_SCREENSHOTS:			`screenshots`
- * @AS_TAG_UPDATE_CONTACT:		`update_contact`
- * @AS_TAG_IMAGE:			`image`
- * @AS_TAG_COMPULSORY_FOR_DESKTOP:	`compulsory_for_desktop`
+ * @AS_TAG_TYPE:			- / `Type`
+ * @AS_TAG_PRIORITY:			- / `Priority`
+ * @AS_TAG_MERGE:			- / `Merge`
+ * @AS_TAG_ID:				`id` / `ID`
+ * @AS_TAG_PKGNAME:			`pkgname` / `Package`
+ * @AS_TAG_SOURCE_PKGNAME:		`source_pkgname` / `SourcePackage`
+ * @AS_TAG_NAME:			`name` / `Name`
+ * @AS_TAG_SUMMARY:			`summary` / `Summary`
+ * @AS_TAG_DESCRIPTION:			`description` / `Description`
+ * @AS_TAG_ICON:			`icon` / `Icon`
+ * @AS_TAG_URL:				`url` / `Url`
+ * @AS_TAG_CATEGORIES:			`categories` / `Categories`
+ * @AS_TAG_KEYWORDS:			`keywords` / `Keywords`
+ * @AS_TAG_MIMETYPES:			``mimetypes` / -
+ * @AS_TAG_PROVIDES:			`provides` / `Provides`
+ * @AS_TAG_SCREENSHOTS:			`screenshots` / `Screenshots`
+ * @AS_TAG_METADATA_LICENSE:		`metadata_license` / `MetadataLicense`
+ * @AS_TAG_PROJECT_LICENSE:		`project_license` / `ProjectLicense`
+ * @AS_TAG_PROJECT_GROUP:		`project_group` / `ProjectGroup`
+ * @AS_TAG_DEVELOPER_NAME:		`developer_name` / `DeveloperName`
+ * @AS_TAG_COMPULSORY_FOR_DESKTOP:	`compulsory_for_desktop` / `CompulsoryForDesktops`
+ * @AS_TAG_RELEASES:			`releases` / `Releases`
+ * @AS_TAG_EXTENDS:			`extends` / `Extends`
+ * @AS_TAG_LANGUAGES:			`languages` / `Languages`
+ * @AS_TAG_LAUNCHABLE:			`launchable` / `Launchables`
+ * @AS_TAG_BUNDLE:			`bundle` / `Bundles`
+ * @AS_TAG_TRANSLATION:			`translation` / -
+ * @AS_TAG_SUGGESTS:			`suggests` / `Suggests`
+ * @AS_TAG_CUSTOM:			`custom` / `Custom`
+ * @AS_TAG_CONTENT_RATING:		`content_rating` / `ContentRating`
+ * @AS_TAG_RECOMMENDS:			`recommends` / `Recommends`
+ * @AS_TAG_REQUIRES:			`requires` / `Requires`
+ * @AS_TAG_AGREEMENT:			`agreement` / `Àgreement`
  *
  * The tag type.
  **/
 typedef enum {
 	AS_TAG_UNKNOWN,
-	AS_TAG_COMPONENTS,
-	AS_TAG_COMPONENT,
+	AS_TAG_TYPE,
+	AS_TAG_PRIORITY,
+	AS_TAG_MERGE,
 	AS_TAG_ID,
 	AS_TAG_PKGNAME,
+	AS_TAG_SOURCE_PKGNAME,
 	AS_TAG_NAME,
 	AS_TAG_SUMMARY,
 	AS_TAG_DESCRIPTION,
-	AS_TAG_URL,
 	AS_TAG_ICON,
+	AS_TAG_URL,
 	AS_TAG_CATEGORIES,
-	AS_TAG_CATEGORY,
 	AS_TAG_KEYWORDS,
-	AS_TAG_KEYWORD,
 	AS_TAG_MIMETYPES,
-	AS_TAG_MIMETYPE,
-	AS_TAG_PROJECT_GROUP,
-	AS_TAG_PROJECT_LICENSE,
-	AS_TAG_SCREENSHOT,
+	AS_TAG_PROVIDES,
 	AS_TAG_SCREENSHOTS,
-	AS_TAG_UPDATE_CONTACT,
-	AS_TAG_IMAGE,
+	AS_TAG_METADATA_LICENSE,
+	AS_TAG_PROJECT_LICENSE,
+	AS_TAG_PROJECT_GROUP,
+	AS_TAG_DEVELOPER_NAME,
 	AS_TAG_COMPULSORY_FOR_DESKTOP,
+	AS_TAG_RELEASES,
+	AS_TAG_EXTENDS,
+	AS_TAG_LANGUAGES,
+	AS_TAG_LAUNCHABLE,
+	AS_TAG_BUNDLE,
+	AS_TAG_TRANSLATION,
+	AS_TAG_SUGGESTS,
+	AS_TAG_CUSTOM,
+	AS_TAG_CONTENT_RATING,
+	AS_TAG_RECOMMENDS,
+	AS_TAG_REQUIRES,
+	AS_TAG_AGREEMENT,
 
 	/*< private >*/
 	AS_TAG_LAST
 } AsTag;
 
 AsTag			as_xml_tag_from_string (const gchar *tag);
-const gchar		*as_xml_tag_to_string (AsTag tag);
+
+AsTag			as_yaml_tag_from_string (const gchar *tag);
 
 #pragma GCC visibility pop
 G_END_DECLS

@@ -50,7 +50,7 @@
  * as_xml_tag_from_string:
  * @tag: the string.
  *
- * Converts the text representation to an enumerated value.
+ * Converts the XML text representation to an enumerated value.
  *
  * Returns: a %AsTag, or %AS_TAG_UNKNOWN if not known.
  *
@@ -75,44 +75,29 @@ as_xml_tag_from_string (const gchar *tag)
 }
 
 /**
- * as_xml_tag_to_string:
- * @tag: the %AsTag value.
+ * as_yaml_tag_from_string:
+ * @tag: the string.
  *
- * Converts the enumerated value to an text representation.
+ * Converts the YAML text representation to an enumerated value.
  *
- * Returns: string version of @tag
+ * Returns: a %AsTag, or %AS_TAG_UNKNOWN if not known.
  *
  * Since: 0.12.1
  **/
-const gchar *
-as_xml_tag_to_string (AsTag tag)
+AsTag
+as_yaml_tag_from_string (const gchar *tag)
 {
-	const gchar *str[] = {
-		"unknown",
-		"components",
-		"component",
-		"id",
-		"pkgname",
-		"name",
-		"summary",
-		"description",
-		"url",
-		"icon",
-		"categories",
-		"category",
-		"keywords",
-		"keyword",
-		"mimetypes",
-		"mimetype",
-		"project_group",
-		"project_license",
-		"screenshot",
-		"screenshots",
-		"update_contact",
-		"image",
-		"compulsory_for_desktop",
-		NULL };
-	if (tag > AS_TAG_LAST)
-		tag = AS_TAG_LAST;
-	return str[tag];
+	const struct yaml_tag_data *ky;
+	AsTag etag = AS_TAG_UNKNOWN;
+
+	/* invalid */
+	if (tag == NULL)
+		return AS_TAG_UNKNOWN;
+
+	/* use a perfect hash */
+	ky = _as_yaml_tag_from_gperf (tag, strlen (tag));
+	if (ky != NULL)
+		etag = ky->etag;
+
+	return etag;
 }

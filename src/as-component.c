@@ -3490,6 +3490,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		g_autofree gchar *content = NULL;
 		g_autofree gchar *lang = NULL;
+		AsTag tag_id;
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
@@ -3499,24 +3500,26 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 		content = as_xml_get_node_value (iter);
 		lang = as_xmldata_get_node_locale (ctx, iter);
 
-		if (g_strcmp0 (node_name, "id") == 0) {
+		tag_id = as_xml_tag_from_string (node_name);
+
+		if (tag_id == AS_TAG_ID) {
 			as_component_set_id (cpt, content);
 			if ((as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) && (priv->kind == AS_COMPONENT_KIND_GENERIC)) {
 				/* parse legacy component type information */
 				as_component_set_kind_from_node (cpt, iter);
 			}
-		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
+		} else if (tag_id == AS_TAG_PKGNAME) {
 			if (content != NULL)
 				g_ptr_array_add (pkgnames, g_strdup (content));
-		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
+		} else if (tag_id == AS_TAG_SOURCE_PKGNAME) {
 			as_component_set_source_pkgname (cpt, content);
-		} else if (g_strcmp0 (node_name, "name") == 0) {
+		} else if (tag_id == AS_TAG_NAME) {
 			if (lang != NULL)
 				as_component_set_name (cpt, content, lang);
-		} else if (g_strcmp0 (node_name, "summary") == 0) {
+		} else if (tag_id == AS_TAG_SUMMARY) {
 			if (lang != NULL)
 				as_component_set_summary (cpt, content, lang);
-		} else if (g_strcmp0 (node_name, "description") == 0) {
+		} else if (tag_id == AS_TAG_DESCRIPTION) {
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 				/* for collection XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
@@ -3531,14 +3534,14 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 									(GHFunc) as_xml_metainfo_description_to_cpt,
 									cpt);
 			}
-		} else if (g_strcmp0 (node_name, "icon") == 0) {
+		} else if (tag_id == AS_TAG_ICON) {
 			g_autoptr(AsIcon) icon = NULL;
 			if (content == NULL)
 				continue;
 			icon = as_icon_new ();
 			if (as_icon_load_from_xml (icon, ctx, iter, NULL))
 				as_component_add_icon (cpt, icon);
-		} else if (g_strcmp0 (node_name, "url") == 0) {
+		} else if (tag_id == AS_TAG_URL) {
 			if (content != NULL) {
 				g_autofree gchar *urltype_str = NULL;
 				AsUrlKind url_kind;
@@ -3547,17 +3550,17 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				if (url_kind != AS_URL_KIND_UNKNOWN)
 					as_component_add_url (cpt, url_kind, content);
 			}
-		} else if (g_strcmp0 (node_name, "categories") == 0) {
+		} else if (tag_id == AS_TAG_CATEGORIES) {
 			as_xml_add_children_values_to_array (iter,
 							     "category",
 							     priv->categories);
-		} else if (g_strcmp0 (node_name, "keywords") == 0) {
+		} else if (tag_id == AS_TAG_KEYWORDS) {
 			if (lang != NULL) {
 				g_auto(GStrv) kw_array = NULL;
 				kw_array = as_xml_get_children_as_strv (iter, "keyword");
 				as_component_set_keywords (cpt, kw_array, lang);
 			}
-		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
+		} else if (tag_id == AS_TAG_MIMETYPES) {
 			g_autoptr(GPtrArray) mime_list = NULL;
 			guint i;
 
@@ -3570,9 +3573,9 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 								AS_PROVIDED_KIND_MIMETYPE,
 								(const gchar*) g_ptr_array_index (mime_list, i));
 			}
-		} else if (g_strcmp0 (node_name, "provides") == 0) {
+		} else if (tag_id == AS_TAG_PROVIDES) {
 			as_component_load_provides_from_xml (cpt, iter);
-		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
+		} else if (tag_id == AS_TAG_SCREENSHOTS) {
 			xmlNode *iter2;
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
@@ -3584,19 +3587,19 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 						as_component_add_screenshot (cpt, screenshot);
 				}
 			}
-		} else if (g_strcmp0 (node_name, "metadata_license") == 0) {
+		} else if (tag_id == AS_TAG_METADATA_LICENSE) {
 			as_component_set_metadata_license (cpt, content);
-		} else if (g_strcmp0 (node_name, "project_license") == 0) {
+		} else if (tag_id == AS_TAG_PROJECT_LICENSE) {
 			as_component_set_project_license (cpt, content);
-		} else if (g_strcmp0 (node_name, "project_group") == 0) {
+		} else if (tag_id == AS_TAG_PROJECT_GROUP) {
 			as_component_set_project_group (cpt, content);
-		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
+		} else if (tag_id == AS_TAG_DEVELOPER_NAME) {
 			if (lang != NULL)
 				as_component_set_developer_name (cpt, content, lang);
-		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
+		} else if (tag_id == AS_TAG_COMPULSORY_FOR_DESKTOP) {
 			if (content != NULL)
 				as_component_set_compulsory_for_desktop (cpt, content);
-		} else if (g_strcmp0 (node_name, "releases") == 0) {
+		} else if (tag_id == AS_TAG_RELEASES) {
 			xmlNode *iter2;
 
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
@@ -3608,37 +3611,37 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 						as_component_add_release (cpt, release);
 				}
 			}
-		} else if (g_strcmp0 (node_name, "extends") == 0) {
+		} else if (tag_id == AS_TAG_EXTENDS) {
 			as_component_add_extends (cpt, content);
-		} else if (g_strcmp0 (node_name, "languages") == 0) {
+		} else if (tag_id == AS_TAG_LANGUAGES) {
 			as_component_xml_parse_languages_node (cpt, iter);
-		} else if (g_strcmp0 (node_name, "launchable") == 0) {
+		} else if (tag_id == AS_TAG_LAUNCHABLE) {
 			as_component_load_launchable_from_xml (cpt, iter);
-		} else if (g_strcmp0 (node_name, "bundle") == 0) {
+		} else if (tag_id == AS_TAG_BUNDLE) {
 			g_autoptr(AsBundle) bundle = as_bundle_new ();
 			if (as_bundle_load_from_xml (bundle, ctx, iter, NULL))
 				as_component_add_bundle (cpt, bundle);
-		} else if (g_strcmp0 (node_name, "translation") == 0) {
+		} else if (tag_id == AS_TAG_TRANSLATION) {
 			if (content != NULL) {
 				g_autoptr(AsTranslation) tr = as_translation_new ();
 				if (as_translation_load_from_xml (tr, ctx, iter, NULL))
 					as_component_add_translation (cpt, tr);
 			}
-		} else if (g_strcmp0 (node_name, "suggests") == 0) {
+		} else if (tag_id == AS_TAG_SUGGESTS) {
 			g_autoptr(AsSuggested) suggested = as_suggested_new ();
 			if (as_suggested_load_from_xml (suggested, ctx, iter, NULL))
 				as_component_add_suggested (cpt, suggested);
-		} else if (g_strcmp0 (node_name, "custom") == 0) {
+		} else if (tag_id == AS_TAG_CUSTOM) {
 			as_component_xml_parse_custom_node (cpt, iter);
-		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
+		} else if (tag_id == AS_TAG_CONTENT_RATING) {
 			g_autoptr(AsContentRating) ctrating = as_content_rating_new ();
 			if (as_content_rating_load_from_xml (ctrating, ctx, iter, NULL))
 				as_component_add_content_rating (cpt, ctrating);
-		} else if (g_strcmp0 (node_name, "recommends") == 0) {
+		} else if (tag_id == AS_TAG_RECOMMENDS) {
 			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_RECOMMENDS);
-		} else if (g_strcmp0 (node_name, "requires") == 0) {
+		} else if (tag_id == AS_TAG_REQUIRES) {
 			as_component_load_relations_from_xml (cpt, ctx, iter, AS_RELATION_KIND_REQUIRES);
-		} else if (g_strcmp0 (node_name, "agreement") == 0) {
+		} else if (tag_id == AS_TAG_AGREEMENT) {
 			g_autoptr(AsAgreement) agreement = as_agreement_new ();
 			if (as_agreement_load_from_xml (agreement, ctx, iter, NULL))
 				as_component_add_agreement (cpt, agreement);
@@ -4388,118 +4391,120 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 	for (node = root->children; node != NULL; node = node->next) {
 		const gchar *key;
 		const gchar *value;
+		AsTag field_id;
 
 		if (node->children == NULL)
 			continue;
 
 		key = as_yaml_node_get_key (node);
 		value = as_yaml_node_get_value (node);
+		field_id = as_yaml_tag_from_string (key);
 
-		if (g_strcmp0 (key, "Type") == 0) {
+		if (field_id == AS_TAG_TYPE) {
 			if (g_strcmp0 (value, "generic") == 0)
 				priv->kind = AS_COMPONENT_KIND_GENERIC;
 			else
 				priv->kind = as_component_kind_from_string (value);
-		} else if (g_strcmp0 (key, "ID") == 0) {
+		} else if (field_id == AS_TAG_ID) {
 			as_component_set_id (cpt, value);
-		} else if (g_strcmp0 (key, "Priority") == 0) {
+		} else if (field_id == AS_TAG_PRIORITY) {
 			priv->priority = g_ascii_strtoll (value, NULL, 10);
-		} else if (g_strcmp0 (key, "Merge") == 0) {
+		} else if (field_id == AS_TAG_MERGE) {
 			priv->merge_kind = as_merge_kind_from_string (value);
-		} else if (g_strcmp0 (key, "Package") == 0) {
-			g_auto(GStrv) strv = NULL;
-			strv = g_new0 (gchar*, 1 + 1);
-			strv[0] = g_strdup (value);
-			strv[1] = NULL;
+		} else if (field_id == AS_TAG_PKGNAME) {
+			g_strfreev (priv->pkgnames);
 
-			as_component_set_pkgnames (cpt, strv);
-		} else if (g_strcmp0 (key, "SourcePackage") == 0) {
+			priv->pkgnames = g_new0 (gchar*, 1 + 1);
+			priv->pkgnames[0] = g_strdup (value);
+			priv->pkgnames[1] = NULL;
+			g_object_notify ((GObject *) cpt, "pkgnames");
+		} else if (field_id == AS_TAG_SOURCE_PKGNAME) {
 			as_component_set_source_pkgname (cpt, value);
-		} else if (g_strcmp0 (key, "Name") == 0) {
+		} else if (field_id == AS_TAG_NAME) {
 			as_yaml_set_localized_table (ctx, node, priv->name);
 			g_object_notify ((GObject *) cpt, "name");
-		} else if (g_strcmp0 (key, "Summary") == 0) {
+		} else if (field_id == AS_TAG_SUMMARY) {
 			as_yaml_set_localized_table (ctx, node, priv->summary);
 			g_object_notify ((GObject *) cpt, "summary");
-		} else if (g_strcmp0 (key, "Description") == 0) {
+		} else if (field_id == AS_TAG_DESCRIPTION) {
 			as_yaml_set_localized_table (ctx, node, priv->description);
 			g_object_notify ((GObject *) cpt, "description");
-		} else if (g_strcmp0 (key, "DeveloperName") == 0) {
+		} else if (field_id == AS_TAG_DEVELOPER_NAME) {
 			as_yaml_set_localized_table (ctx, node, priv->developer_name);
-		} else if (g_strcmp0 (key, "ProjectLicense") == 0) {
+		} else if (field_id == AS_TAG_PROJECT_LICENSE) {
 			as_component_set_project_license (cpt, value);
-		} else if (g_strcmp0 (key, "ProjectGroup") == 0) {
+		} else if (field_id == AS_TAG_PROJECT_GROUP) {
 			as_component_set_project_group (cpt, value);
-		} else if (g_strcmp0 (key, "Categories") == 0) {
+		} else if (field_id == AS_TAG_CATEGORIES) {
 			as_yaml_list_to_str_array (node, priv->categories);
-		} else if (g_strcmp0 (key, "CompulsoryForDesktops") == 0) {
+		} else if (field_id == AS_TAG_COMPULSORY_FOR_DESKTOP) {
 			as_yaml_list_to_str_array (node, priv->compulsory_for_desktops);
-		} else if (g_strcmp0 (key, "Extends") == 0) {
+		} else if (field_id == AS_TAG_EXTENDS) {
 			as_yaml_list_to_str_array (node, priv->extends);
-		} else if (g_strcmp0 (key, "Keywords") == 0) {
+		} else if (field_id == AS_TAG_KEYWORDS) {
 			as_component_yaml_parse_keywords (cpt, ctx, node);
-		} else if (g_strcmp0 (key, "Url") == 0) {
+		} else if (field_id == AS_TAG_URL) {
 			as_component_yaml_parse_urls (cpt, node);
-		} else if (g_strcmp0 (key, "Icon") == 0) {
+		} else if (field_id == AS_TAG_ICON) {
 			as_component_yaml_parse_icons (cpt, ctx, node);
-		} else if (g_strcmp0 (key, "Bundles") == 0) {
+		} else if (field_id == AS_TAG_BUNDLE) {
 			GNode *n;
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsBundle) bundle = as_bundle_new ();
 				if (as_bundle_load_from_yaml (bundle, ctx, n, NULL))
 					as_component_add_bundle (cpt, bundle);
 			}
-		} else if (g_strcmp0 (key, "Launchable") == 0) {
+		} else if (field_id == AS_TAG_LAUNCHABLE) {
 			GNode *n;
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsLaunchable) launch = as_launchable_new ();
 				if (as_launchable_load_from_yaml (launch, ctx, n, NULL))
 					as_component_add_launchable (cpt, launch);
 			}
-		} else if (g_strcmp0 (key, "Provides") == 0) {
+		} else if (field_id == AS_TAG_PROVIDES) {
 			as_component_yaml_parse_provides (cpt, node);
-		} else if (g_strcmp0 (key, "Screenshots") == 0) {
+		} else if (field_id == AS_TAG_SCREENSHOTS) {
 			GNode *n;
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsScreenshot) scr = as_screenshot_new ();
 				if (as_screenshot_load_from_yaml (scr, ctx, n, NULL))
 					as_component_add_screenshot (cpt, scr);
 			}
-		} else if (g_strcmp0 (key, "Languages") == 0) {
+		} else if (field_id == AS_TAG_LANGUAGES) {
 			as_component_yaml_parse_languages (cpt, node);
-		} else if (g_strcmp0 (key, "Releases") == 0) {
+		} else if (field_id == AS_TAG_RELEASES) {
 			GNode *n;
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsRelease) release = as_release_new ();
 				if (as_release_load_from_yaml (release, ctx, n, NULL))
 					as_component_add_release (cpt, release);
 			}
-		} else if (g_strcmp0 (key, "Suggests") == 0) {
+		} else if (field_id == AS_TAG_SUGGESTS) {
 			GNode *n;
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsSuggested) suggested = as_suggested_new ();
 				if (as_suggested_load_from_yaml (suggested, ctx, n, NULL))
 					as_component_add_suggested (cpt, suggested);
 			}
-		} else if (g_strcmp0 (key, "ContentRating") == 0) {
+		} else if (field_id == AS_TAG_CONTENT_RATING) {
 			GNode *n;
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsContentRating) rating = as_content_rating_new ();
 				if (as_content_rating_load_from_yaml (rating, ctx, n, NULL))
 					as_component_add_content_rating (cpt, rating);
 			}
-		} else if (g_strcmp0 (key, "Recommends") == 0) {
+		} else if (field_id == AS_TAG_RECOMMENDS) {
 			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_RECOMMENDS);
-		} else if (g_strcmp0 (key, "Requires") == 0) {
+		} else if (field_id == AS_TAG_REQUIRES) {
 			as_component_yaml_parse_relations (cpt, ctx, node, AS_RELATION_KIND_REQUIRES);
-		} else if (g_strcmp0 (key, "Agreements") == 0) {
+		} else if (field_id == AS_TAG_AGREEMENT) {
 			GNode *n;
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsAgreement) agreement = as_agreement_new ();
 				if (as_agreement_load_from_yaml (agreement, ctx, n, NULL))
 					as_component_add_agreement (cpt, agreement);
 			}
-		} else if (g_strcmp0 (key, "Custom") == 0) {
+		} else if (field_id == AS_TAG_CUSTOM) {
 			as_component_yaml_parse_custom (cpt, node);
 		} else {
 			as_yaml_print_unknown ("root", key);
