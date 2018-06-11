@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-03-29 06:53+0000\n"
+"PO-Revision-Date: 2018-06-11 06:33+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
 "translations/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.0.1\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -227,7 +227,7 @@ msgstr "Comunicazione e notizie"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Confronta due numeri di versione"
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -814,6 +814,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Troppi parametri: necessari due numeri di versione o un numero di versione e "
+"un operatore di confronto."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -872,7 +874,7 @@ msgstr "Comando \"%s\" sconosciuto."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Operazione di comparazione \"%s\" non riconosciuta. Valori validi sono:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -971,6 +973,8 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"È necessario fornire almeno due numeri di versione da comparare come "
+"argomenti."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
