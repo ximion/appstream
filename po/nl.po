@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-05-16 16:23+0000\n"
-"Last-Translator: Jeff Huijsmans <jeffhuys@gmail.com>\n"
+"PO-Revision-Date: 2018-06-11 11:20+0000\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
 "translations/nl/>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.0.1\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -226,7 +226,7 @@ msgstr "Communicatie & Nieuws"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Vergelijk twee versienummers."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -817,6 +817,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Teveel parameters: twee versienummers of versienummer en vergelijkoperator "
+"nodig."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -876,7 +878,7 @@ msgstr "Onbekende opdracht '%s'."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Onbekende vergelijkrelatie '%s'. Geldige waarden zijn:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -976,6 +978,8 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Je moet minimaal twee versienummers opgeven om parameters te kunnen "
+"vergelijken."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
