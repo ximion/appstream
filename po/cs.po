@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-03-29 04:30+0000\n"
+"PO-Revision-Date: 2018-06-11 06:58+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
 "translations/cs/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.0.1\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -229,7 +229,7 @@ msgstr "Komunikace a novinky"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Porovnat dvě čísla verzí."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -810,6 +810,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Příliš mnoho parametrů: potřebuje dvě čísla verzí nebo čísla verzí a "
+"porovnávací operátor."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -869,7 +871,7 @@ msgstr "Neznámý příkaz „%s“."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Neznámá deklarace porovnání „%s“. Platné hodnoty jsou:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -967,6 +969,7 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Jako parametry je třeba zadat přinejmenším dvě čísla verzí pro porovnání."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
