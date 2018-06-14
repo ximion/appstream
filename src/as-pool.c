@@ -1764,6 +1764,7 @@ as_cache_file_read (const gchar *fname, GError **error)
 				g_warning ("Ignored serialized component: %s", str);
 			}
 		}
+		g_variant_unref (cptv);
 	}
 
 	return cpts;
