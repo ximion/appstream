@@ -645,6 +645,7 @@ as_screenshot_set_from_variant (AsScreenshot *screenshot, GVariant *variant, con
 			g_autoptr(AsImage) img = as_image_new ();
 			if (as_image_set_from_variant (img, img_child))
 				as_screenshot_add_image (screenshot, img);
+			g_variant_unref (img_child);
 		}
 	}
 
