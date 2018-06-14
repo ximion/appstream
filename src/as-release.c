@@ -1032,6 +1032,8 @@ as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar 
 		g_variant_unref (tmp);
 	}
 
+	g_variant_dict_clear (&rdict);
+
 	return TRUE;
 }
 

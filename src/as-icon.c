@@ -536,6 +536,8 @@ as_icon_set_from_variant (AsIcon *icon, GVariant *variant)
 					as_variant_get_dict_str (&idict, "filename", &ival_var));
 	}
 
+	g_variant_dict_clear (&idict);
+
 	return TRUE;
 }
 

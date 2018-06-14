@@ -5743,6 +5743,8 @@ as_component_set_from_variant (AsComponent *cpt, GVariant *variant, const gchar 
 		g_variant_unref (var);
 	}
 
+	g_variant_dict_clear (&dict);
+
 	return TRUE;
 }
 
