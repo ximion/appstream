@@ -648,6 +648,8 @@ as_screenshot_set_from_variant (AsScreenshot *screenshot, GVariant *variant, con
 		}
 	}
 
+	g_variant_dict_clear (&idict);
+
 	return priv->images->len != 0;
 }
 
