@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-06-17 13:00+0000\n"
+"PO-Revision-Date: 2018-06-17 13:06+0000\n"
 "Last-Translator: James Bond <christian.kirbach@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/"
 "translations/de/>\n"
@@ -231,7 +231,7 @@ msgstr "Kommunikation und Nachrichten"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Zwei Versionsnummern vergleichen."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -818,6 +818,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Zu viele Parameter: Es werden zwei Versionsnummern oder Versionsnummern und "
+"ein Vergleichsoperator benötigt."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -876,7 +878,7 @@ msgstr "Unbekannter Befehl „%s”"
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Unbekannte Vergleichsbeziehung »%s«. Gültige Werte sind:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -975,6 +977,8 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Sie müssen mindestens zwei Versionsnummern zum Vergleichen als Parameter "
+"angeben."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
