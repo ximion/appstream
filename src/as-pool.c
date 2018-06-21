@@ -568,21 +568,22 @@ void
 as_pool_clear (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	if (g_hash_table_size (priv->cpt_table) > 0) {
-		/* contents */
-		g_hash_table_unref (priv->cpt_table);
-		priv->cpt_table = g_hash_table_new_full (g_str_hash,
-							 g_str_equal,
-							 g_free,
-							 (GDestroyNotify) g_object_unref);
+	if (g_hash_table_size (priv->cpt_table) == 0)
+		return;
 
-		/* cid info set */
-		g_hash_table_unref (priv->known_cids);
-		priv->known_cids = g_hash_table_new_full (g_str_hash,
+	/* contents */
+	g_hash_table_unref (priv->cpt_table);
+	priv->cpt_table = g_hash_table_new_full (g_str_hash,
+						 g_str_equal,
+						 g_free,
+						 (GDestroyNotify) g_object_unref);
+
+	/* cid info set */
+	g_hash_table_unref (priv->known_cids);
+	priv->known_cids = g_hash_table_new_full (g_str_hash,
 						  g_str_equal,
 						  g_free,
 						  NULL);
-	}
 }
 
 /**
