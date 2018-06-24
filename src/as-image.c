@@ -509,7 +509,7 @@ gboolean
 as_image_set_from_variant (AsImage *image, GVariant *variant)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
-	GVariantDict dict;
+	g_auto(GVariantDict) dict;
 	GVariant *tmp;
 
 	g_variant_dict_init (&dict, variant);
@@ -528,8 +528,6 @@ as_image_set_from_variant (AsImage *image, GVariant *variant)
 	/* sizes */
 	priv->width = as_variant_get_dict_int32 (&dict, "width");
 	priv->height = as_variant_get_dict_int32 (&dict, "height");
-
-	g_variant_dict_clear (&dict);
 
 	return TRUE;
 }

@@ -524,7 +524,7 @@ gboolean
 as_content_rating_set_from_variant (AsContentRating *content_rating, GVariant *variant)
 {
 	GVariantIter inner_iter;
-	GVariantDict idict;
+	g_auto(GVariantDict) idict;
 	GVariant *tmp;
 	GVariant *v_child;
 	g_autoptr(GVariant) values_var = NULL;
@@ -549,8 +549,6 @@ as_content_rating_set_from_variant (AsContentRating *content_rating, GVariant *v
 
 		g_variant_unref (v_child);
 	}
-
-	g_variant_dict_clear (&idict);
 
 	return TRUE;
 }

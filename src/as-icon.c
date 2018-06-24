@@ -513,7 +513,7 @@ gboolean
 as_icon_set_from_variant (AsIcon *icon, GVariant *variant)
 {
 	AsIconPrivate *priv = GET_PRIVATE (icon);
-	GVariantDict idict;
+	g_auto(GVariantDict) idict;
 	g_autoptr(GVariant) ival_var = NULL;
 
 	g_variant_dict_init (&idict, variant);
@@ -535,8 +535,6 @@ as_icon_set_from_variant (AsIcon *icon, GVariant *variant)
 		as_icon_set_filename (icon,
 					as_variant_get_dict_str (&idict, "filename", &ival_var));
 	}
-
-	g_variant_dict_clear (&idict);
 
 	return TRUE;
 }

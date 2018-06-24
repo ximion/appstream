@@ -5394,7 +5394,7 @@ gboolean
 as_component_set_from_variant (AsComponent *cpt, GVariant *variant, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	GVariantDict dict;
+	g_auto(GVariantDict) dict;
 	const gchar **strv;
 	GVariant *var;
 	GVariantIter gvi;
@@ -5742,8 +5742,6 @@ as_component_set_from_variant (AsComponent *cpt, GVariant *variant, const gchar 
 
 		g_variant_unref (var);
 	}
-
-	g_variant_dict_clear (&dict);
 
 	return TRUE;
 }

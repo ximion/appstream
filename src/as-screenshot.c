@@ -623,7 +623,7 @@ as_screenshot_set_from_variant (AsScreenshot *screenshot, GVariant *variant, con
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	GVariantIter inner_iter;
-	GVariantDict idict;
+	g_auto(GVariantDict) idict;
 	GVariant *tmp;
 	g_autoptr(GVariant) images_var = NULL;
 
@@ -648,8 +648,6 @@ as_screenshot_set_from_variant (AsScreenshot *screenshot, GVariant *variant, con
 			g_variant_unref (img_child);
 		}
 	}
-
-	g_variant_dict_clear (&idict);
 
 	return priv->images->len != 0;
 }
