@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-03-28 20:39+0000\n"
+"PO-Revision-Date: 2018-06-26 21:29+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
 "translations/lt/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
 "19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
 "1 : 2);\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.1-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -153,7 +153,7 @@ msgstr "Garsas ir vaizdas"
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Garso kūrimas ir redagavimas"
 
 #: src/as-provided.c:147
 msgid "Binaries"
@@ -224,11 +224,11 @@ msgstr "Kodekai"
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:326
 msgid "Communication & News"
-msgstr ""
+msgstr "Komunikacija ir naujienos"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Palyginti dviejų versijų numerius."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -242,7 +242,7 @@ msgstr "Komponentas \"%s\" neturi įdiegimo kandidatų."
 
 #: tools/ascli-utils.c:364
 msgid "Compulsory for"
-msgstr ""
+msgstr "Privaloma šiems"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:711
@@ -260,6 +260,7 @@ msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
+"Sukurti metainformacijos failo šabloną (kurį užpildo pagrindinis projektas)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
@@ -302,7 +303,7 @@ msgstr "Kūrėjas"
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
 msgid "Developer Tools"
-msgstr ""
+msgstr "Kūrėjo įrankiai"
 
 #: tools/appstream-cli.c:708
 msgid "Display status information about available AppStream metadata."
@@ -325,7 +326,7 @@ msgstr "Nerodyti spalvotos išvesties."
 
 #: tools/appstream-cli.c:699
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "Iškloti neapdorotus XML metaduomenis komponentui su atitinkamu ID."
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -413,7 +414,7 @@ msgstr "Finansai"
 
 #: src/as-provided.c:165
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Įrašyta programinė aparatinė įranga"
 
 #: src/as-provided.c:151
 msgid "Fonts"
@@ -428,7 +429,7 @@ msgstr "Šriftai"
 #: tools/ascli-actions-misc.c:136
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "Rasta %i komponentų liekamuosiuose keliuose."
 
 #: tools/ascli-actions-misc.c:121
 #, c-format
@@ -460,7 +461,7 @@ msgstr "Internetinė svetainė"
 #: src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "Integruotos kūrimo aplinkos (IDE)"
 
 #: tools/ascli-utils.c:288
 msgid "Icon"
@@ -527,7 +528,6 @@ msgid "Logic"
 msgstr "Logika"
 
 #: src/as-provided.c:149
-#, fuzzy
 msgid "MIME types"
 msgstr "MIME tipai"
 
@@ -572,7 +572,7 @@ msgstr "Metainformacijos failai:"
 
 #: src/as-provided.c:153
 msgid "Modaliases"
-msgstr ""
+msgstr "Modulių alternatyvieji pavadinimai (Modalias)"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -688,7 +688,7 @@ msgstr ""
 
 #: src/as-provided.c:163
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Vykdymo programinė aparatinė įranga"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
@@ -777,7 +777,7 @@ msgstr ""
 #: tools/appstream-cli.c:657
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "Tipas (TYPE) privalo būti teisingas komponento tipas, toks kaip: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -794,6 +794,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Ši komanda priima nebūtinus TIPO (TYPE) ir FAILO (FILE) argumentus, FAILUI "
+"(FILE) būnant failu į kurį rašoma (arba \"-\" standartinei išvesčiai)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -802,12 +804,19 @@ msgid ""
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
+"Šis įrankis leidžia skaityti, rašyti, patikrinti ir transformuoti AppStream "
+"XML ar YAML metaduomenis. Jis taip pat suteikia prieigą prie metaduomenų "
+"telkinio, pavyzdžiui, tam, kad užklausti programinę įrangą, kurį teikia tam "
+"tikrą MIME tipą, ir leidžia įdiegti ją pagal jos programinės įrangos "
+"komponento identifikatorių."
 
 #: tools/appstream-cli.c:622
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Per daug parametrų: Reikia dviejų versijos numerių arba versijos numerio ir "
+"palyginimo operatoriaus."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -865,7 +874,7 @@ msgstr "Nežinoma komanda \"%s\"."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Nežinomas palyginimo santykis \"%s\". Teisingos reikšmės yra:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -886,7 +895,7 @@ msgstr "Patikrinti ar AppStream XML failuose nėra problemų."
 
 #: tools/appstream-cli.c:703
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
+msgstr "Patikrinti įdiegto programos failų medžio metaduomenų teisingumą."
 
 #: tools/ascli-actions-validate.c:255 tools/ascli-actions-validate.c:316
 #, c-format
@@ -941,6 +950,8 @@ msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Galite rasti informaciją apie tam tikram pakomandžiui specifinius "
+"parametrus, perdavę pakomandžiui \"--help\" parametrą."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
@@ -952,11 +963,15 @@ msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Norėdami sukurti šabloną, turite pateikti AppStream programinės įrangos "
+"komponento tipą. Galimos reikšmės yra:"
 
 #: tools/appstream-cli.c:553
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Norėdami palyginti, turite kaip parametrus pateikti bent du versijos "
+"numerius."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
