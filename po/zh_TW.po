@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-04-02 04:02+0000\n"
+"PO-Revision-Date: 2018-07-19 16:20+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "appstream/translations/zh_Hant/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.1-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -220,7 +220,7 @@ msgstr "溝通和新聞"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "比較兩個版本號。"
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -794,7 +794,7 @@ msgstr ""
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
+msgstr "過多參數：需要的只有兩個版本號，或是版號加比較操作符。"
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -850,7 +850,7 @@ msgstr "未知指令「%s」。"
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "未知比較關係「%s」。有效的值有："
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -939,7 +939,7 @@ msgstr "您需要給予 AppStream 軟體組件類型以生成範本。可用的�
 #: tools/appstream-cli.c:553
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
+msgstr "您需要提供至少兩個版本號作為參數比較。"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
