@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-03-30 18:58+0000\n"
+"PO-Revision-Date: 2018-07-19 17:53+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
 "translations/ca/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.1-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -230,7 +230,7 @@ msgstr "Comunicació i notícies"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Compara dos números de versió."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -821,6 +821,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Massa paràmetres: necessiteu dos números de versió o números de versió i un "
+"operador de comparació."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -878,7 +880,7 @@ msgstr "Ordre desconeguda «%s»."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Relació de comparació desconeguda «%s». Els valors vàlids són:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -978,6 +980,8 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Heu de proporcionar almenys dos números de versió per comparar-los com a "
+"paràmetres."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
