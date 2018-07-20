@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-04-25 06:37+0000\n"
-"Last-Translator: Jean-François Michaud <jfmichaud31@gmail.com>\n"
+"PO-Revision-Date: 2018-07-21 10:37+0000\n"
+"Last-Translator: Hugo Locurcio <hugo.locurcio@hugo.pro>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.1-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -228,7 +228,7 @@ msgstr "Communications & actualités"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Comparer deux numéros de version."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -828,6 +828,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Trop de paramètres : Il faut deux numéros de version ou deux numéros de "
+"version et un opérateur de comparaison."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -881,13 +883,13 @@ msgstr ""
 #: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Commande inconnue « %s »."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Relation de comparaison « %s » inconnue. Les valeurs valables sont :"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -988,6 +990,7 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Vous devez fournir en paramètre au moins deux numéros de version à comparer."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
