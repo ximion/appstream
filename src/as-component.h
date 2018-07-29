@@ -316,7 +316,7 @@ gboolean		as_component_is_valid (AsComponent *cpt);
 gchar			*as_component_to_string (AsComponent *cpt);
 
 GHashTable		*as_component_get_custom (AsComponent *cpt);
-gchar			*as_component_get_custom_value (AsComponent *cpt,
+const gchar		*as_component_get_custom_value (AsComponent *cpt,
 							const gchar *key);
 gboolean		as_component_insert_custom_value (AsComponent *cpt,
 							  const gchar *key,
