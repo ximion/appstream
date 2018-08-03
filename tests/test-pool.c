@@ -313,41 +313,41 @@ test_pool_read ()
 	g_assert_cmpint (result->len, ==, 1);
 	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
 	g_assert_cmpstr (as_component_get_pkgnames (cpt)[0], ==, "kig");
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	result = as_pool_search (dpool, "web");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	result = as_pool_search (dpool, "logic");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 2);
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* search for mixed-case strings */
 	result = as_pool_search (dpool, "bIoChemistrY");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* test searching for multiple words */
 	result = as_pool_search (dpool, "scalable graphics");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* we return all components if the search string is too short */
 	result = as_pool_search (dpool, "sh");
 	g_assert_cmpint (result->len, ==, 19);
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	strv = g_strsplit ("Science", ";", 0);
 	result = as_pool_get_components_by_categories (dpool, strv);
 	g_strfreev (strv);
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 3);
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	result = as_pool_get_components_by_provided_item (dpool, AS_PROVIDED_KIND_BINARY, "inkscape");
 	print_cptarray (result);
@@ -358,7 +358,7 @@ test_pool_read ()
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://inkscape.org/");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://inkscape.org/learn/faq/");
 
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* test a component in a different file, with no package but a bundle instead */
 	cpt = _as_get_single_component_by_cid (dpool, "org.neverball.Neverball");
@@ -430,13 +430,13 @@ test_pool_read ()
 	/* test fetching components by launchable */
 	result = as_pool_get_components_by_launchable (dpool, AS_LAUNCHABLE_KIND_DESKTOP_ID, "linuxdcpp.desktop");
 	g_assert_cmpint (result->len, ==, 1);
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 
 	result = as_pool_get_components_by_launchable (dpool, AS_LAUNCHABLE_KIND_DESKTOP_ID, "inkscape.desktop");
 	g_assert_cmpint (result->len, ==, 1);
 	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.inkscape.Inkscape");
-	g_ptr_array_unref (result);
+	g_clear_pointer (&result, g_ptr_array_unref);
 }
 
 /**

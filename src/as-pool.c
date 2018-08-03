@@ -1085,7 +1085,6 @@ as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
 
 	cpts = as_pool_get_components (pool);
 	as_cache_file_save (fname, priv->locale, cpts, error);
-	g_ptr_array_unref (cpts);
 
 	return TRUE;
 }
