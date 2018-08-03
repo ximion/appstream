@@ -149,8 +149,19 @@ pkgc.generate (
     description: 'Library to work with AppStream metadata.',
     filebase: 'appstream',
     subdirs: 'appstream',
-    requires: ['glib-2.0', 'gio-2.0']
+    requires: ['glib-2.0', 'gio-2.0', 'gobject-2.0']
 )
+
+# Meson adds (in our case) bogus Requires.private lines which break
+# builds using libappstream. Fix this issue by post-processing the file.
+sed_prog = find_program('sed')
+pc_fixup = run_command(sed_prog,
+                       '-i',
+                       '/^Requires.private\|^Libs.private/ d',
+                       join_paths(meson.build_root(), 'meson-private', 'appstream.pc'))
+if pc_fixup.returncode() != 0
+    error('Unable to fix up the .pc file:\n' + pc_fixup.stderr())
+endif
 
 install_headers(aslib_pub_headers, subdir: 'appstream')
 
