@@ -1,3 +1,45 @@
+Version 0.12.2
+~~~~~~~~~~~~~~
+Released: 2018-08-04
+
+Bugfixes:
+ * Fix a couple of incorrect g_ptr_array_unrefs (Iain Lane)
+ * Use autofree functions instead of freeing resources
+   explicitly (Matthias Klumpp)
+ * Add missing const (Matthias Klumpp)
+ * Ensure we don't produce a .pc file with unnecessary
+   Requires.private lines (Matthias Klumpp)
+ * Stop leaking local GVariantDict instance contents (Phil Miller)
+ * Drop leaked references to container items (Phil Miller)
+
+Translation:
+ * Norwegian Bokmål
+   - Allan Nordhøy
+ * Swedish
+   - Anders Jonsson
+ * Indonesian
+   - Andika Triwidada
+ * Chinese (Traditional)
+   - Chang-Chia Tseng
+ * Dutch
+   - Heimen Stoffels
+ * French
+   - Hugo Locurcio
+ * Deutsch
+   - James Bond
+ * Italian
+   - Milo Casagrande
+ * Lithuanian
+   - Moo
+ * Čeština
+   - Pavel Borecki
+ * Português (Brasil)
+   - Rafael Fontenelle
+ * Catalan
+   - Robert Antoni Buj Gelonch
+ * Arabic
+   - alaazghoul
+
 Version 0.12.1
 ~~~~~~~~~~~~~~
 Released: 2018-06-10
