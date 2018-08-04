@@ -751,7 +751,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 	as_validator_add_issue (validator, license_node,
 				AS_ISSUE_IMPORTANCE_WARNING,
 				AS_ISSUE_KIND_VALUE_WRONG,
-				"The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC-0-1.0 or MIT "
+				"The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD "
 				"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
 }
 
