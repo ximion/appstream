@@ -499,7 +499,7 @@ as_content_rating_to_variant (AsContentRating *content_rating, GVariantBuilder *
 	GVariantBuilder rating_b;
 	guint j;
 
-	g_variant_builder_init (&values_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_init (&values_b, (const GVariantType *) "a{su}");
 	for (j = 0; j < priv->keys->len; j++) {
 		AsContentRatingKey *key = (AsContentRatingKey*) g_ptr_array_index (priv->keys, j);
 		g_variant_builder_add (&values_b, "{su}", key->id, key->value);

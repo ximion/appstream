@@ -450,7 +450,7 @@ as_agreement_to_variant (AsAgreement *agreement, GVariantBuilder *builder)
 	g_variant_builder_add_parsed (&agreement_b, "{'kind', <%u>}", priv->kind);
 	g_variant_builder_add_parsed (&agreement_b, "{'version_id', %v}", as_variant_mstring_new (priv->version_id));
 
-	g_variant_builder_init (&sections_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_init (&sections_b, (const GVariantType *) "aa{sv}");
 	for (guint i = 0; i < priv->sections->len; i++) {
 		as_agreement_section_to_variant (AS_AGREEMENT_SECTION (g_ptr_array_index (priv->sections, i)), &sections_b);
 	}

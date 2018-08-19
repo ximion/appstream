@@ -922,14 +922,14 @@ as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
 	gboolean have_sizes = FALSE;
 
 	/* build checksum info */
-	g_variant_builder_init (&checksum_b, G_VARIANT_TYPE_DICTIONARY);
+	g_variant_builder_init (&checksum_b, (const GVariantType *) "a{us}");
 	for (j = 0; j < priv->checksums->len; j++) {
 		AsChecksum *cs = AS_CHECKSUM (g_ptr_array_index (priv->checksums, j));
 		as_checksum_to_variant (cs, &checksum_b);
 	}
 
 	/* build size info */
-	g_variant_builder_init (&sizes_b, G_VARIANT_TYPE_DICTIONARY);
+	g_variant_builder_init (&sizes_b, (const GVariantType *) "a{ut}");
 	for (j = 0; j < AS_SIZE_KIND_LAST; j++) {
 		if (as_release_get_size (release, (AsSizeKind) j) > 0) {
 			g_variant_builder_add (&sizes_b, "{ut}",

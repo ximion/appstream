@@ -596,7 +596,7 @@ as_screenshot_to_variant (AsScreenshot *screenshot, GVariantBuilder *builder)
 	if (priv->images->len == 0)
 		return FALSE;
 
-	g_variant_builder_init (&images_b, G_VARIANT_TYPE_ARRAY);
+	g_variant_builder_init (&images_b, (const GVariantType *) "aa{sv}");
 	for (i = 0; i < priv->images->len; i++)
 		as_image_to_variant (AS_IMAGE (g_ptr_array_index (priv->images, i)), &images_b);
 
