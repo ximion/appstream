@@ -874,11 +874,11 @@
 		</para>
 		<para>
 			The tag must have a <literal>type</literal> property, indicating the type of the rating system that is used. At the moment, the
-			<ulink url="https://odrs.gnome.org/oars">Open Age Ratings Service</ulink> (value <code>oars-1.0</code>) is supported natively, but more services might be
+			<ulink url="https://hughsie.github.io/oars/">Open Age Ratings Service</ulink> (value <code>oars-1.0</code>) is supported natively, but more services might be
 			added in future.
 		</para>
 		<para>
-			The <code>&lt;content_rating/&gt;</code> must have <code>&lt;content_attribute/&gt;</code> children which each have an <literal>id</literal> property indicating
+			The <code>&lt;content_rating/&gt;</code> tag may have <code>&lt;content_attribute/&gt;</code> children which each must have an <literal>id</literal> property indicating
 			the specific section that is rated. Their value indicates the intensity of the rated section and can be one of:
 		</para>
 		<itemizedlist>
@@ -888,8 +888,12 @@
 			<listitem><para><literal>intense</literal></para></listitem>
 		</itemizedlist>
 		<para>
-			The website of the Open Age Ratings Service provides <ulink url="https://odrs.gnome.org/oars">an online form</ulink> which will automatically generate AppStream compatible
-			markup based on a set of questions answered about the content.
+			In case the <code>&lt;content_rating/&gt;</code> tag is empty (no <code>&lt;content_attribute/&gt;</code> is present), it is assumed that the component was checked
+			for age ratings and no age restrictions apply.
+		</para>
+		<para>
+			The website of the Open Age Ratings Service provides <ulink url="https://hughsie.github.io/oars/generate.html">an online form</ulink> which will automatically generate AppStream
+			compatible metadata based on a set of questions answered about the content.
 		</para>
 		<para>
 			Example:
