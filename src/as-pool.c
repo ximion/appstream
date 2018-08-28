@@ -1015,11 +1015,17 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	/* automatically refine the metadata we have in the pool */
 	ret = as_pool_refine_data (pool) && ret;
 	
-	/* report errors if there were errors from as_pool_refine_data */
-	if (!ret && error && !*error)
-		*error = g_new_error_literal(AS_POOL_ERROR,
+	/* report errors if refining has failed */
+	if ((!ret) && (error != NULL)) {
+		if (*error == NULL) {
+			g_set_error_literal (error,
+					     AS_POOL_ERROR,
 					     AS_POOL_ERROR_INCOMPLETE,
 					     "Some components are invalid. See debug output for details");
+		} else {
+			g_prefix_error (error, "Some components have been ignored: ");
+		}
+	}
 
 	return ret;
 }
