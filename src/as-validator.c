@@ -377,7 +377,8 @@ as_validate_is_url (const gchar *str)
  * as_validator_check_children_quick:
  **/
 static void
-as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const gchar *allowed_tagname, AsComponent *cpt)
+as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const gchar *allowed_tagname,
+				   AsComponent *cpt, gboolean allow_empty)
 {
 	xmlNode *iter;
 
@@ -391,11 +392,12 @@ as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const 
 		if (g_strcmp0 (node_name, allowed_tagname) == 0) {
 			g_autofree gchar *tag_path = NULL;
 			tag_path = g_strdup_printf ("%s/%s", (const gchar*) node->name, node_name);
-			as_validator_check_content_empty (validator,
-								iter,
-								tag_path,
-								AS_ISSUE_IMPORTANCE_WARNING,
-								cpt);
+			if (!allow_empty)
+				as_validator_check_content_empty (validator,
+								  iter,
+								  tag_path,
+								  AS_ISSUE_IMPORTANCE_WARNING,
+								  cpt);
 		} else {
 			as_validator_add_issue (validator, node,
 						AS_ISSUE_IMPORTANCE_WARNING,
@@ -484,7 +486,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 								cpt,
 								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
-			as_validator_check_children_quick (validator, iter, "li", cpt);
+			as_validator_check_children_quick (validator, iter, "li", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
@@ -493,7 +495,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 								cpt,
 								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
-			as_validator_check_children_quick (validator, iter, "li", cpt);
+			as_validator_check_children_quick (validator, iter, "li", cpt, FALSE);
 		} else {
 			as_validator_add_issue (validator, iter,
 						AS_ISSUE_IMPORTANCE_WARNING,
@@ -785,7 +787,7 @@ static void
 as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
-	as_validator_check_children_quick (validator, node, "screenshot", cpt);
+	as_validator_check_children_quick (validator, node, "screenshot", cpt, FALSE);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		xmlNode *iter2;
@@ -1150,13 +1152,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			}
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
-			as_validator_check_children_quick (validator, iter, "category", cpt);
+			as_validator_check_children_quick (validator, iter, "category", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "keywords") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
-			as_validator_check_children_quick (validator, iter, "keyword", cpt);
+			as_validator_check_children_quick (validator, iter, "keyword", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "mimetypes") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
-			as_validator_check_children_quick (validator, iter, "mimetype", cpt);
+			as_validator_check_children_quick (validator, iter, "mimetype", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
@@ -1183,10 +1185,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"Unknown desktop-id '%s'.", node_content);
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
-			as_validator_check_children_quick (validator, iter, "release", cpt);
+			as_validator_check_children_quick (validator, iter, "release", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "languages") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
-			as_validator_check_children_quick (validator, iter, "lang", cpt);
+			as_validator_check_children_quick (validator, iter, "lang", cpt, FALSE);
 		} else if ((g_strcmp0 (node_name, "translation") == 0) && (mode == AS_FORMAT_STYLE_METAINFO)) {
 			g_autofree gchar *prop = NULL;
 			AsTranslationKind trkind;
@@ -1228,18 +1230,18 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_validate_update_contact (validator, iter);
 			}
 		} else if (g_strcmp0 (node_name, "suggests") == 0) {
-			as_validator_check_children_quick (validator, iter, "id", cpt);
+			as_validator_check_children_quick (validator, iter, "id", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
-			as_validator_check_children_quick (validator, iter, "content_attribute", cpt);
+			as_validator_check_children_quick (validator, iter, "content_attribute", cpt, TRUE);
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
 			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_REQUIRES);
 		} else if (g_strcmp0 (node_name, "recommends") == 0) {
 			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_RECOMMENDS);
 		} else if (g_strcmp0 (node_name, "agreement") == 0) {
-			as_validator_check_children_quick (validator, iter, "agreement_section", cpt);
+			as_validator_check_children_quick (validator, iter, "agreement_section", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "custom") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
-			as_validator_check_children_quick (validator, iter, "value", cpt);
+			as_validator_check_children_quick (validator, iter, "value", cpt, FALSE);
 		} else if ((g_strcmp0 (node_name, "metadata") == 0) || (g_strcmp0 (node_name, "kudos") == 0)) {
 			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
 			 * especially if we might standardize at leat the <kudos/> tag one day, but we should still complain about those tags to make
