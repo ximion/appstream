@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-05-03 18:40+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2018-09-22 10:35+0000\n"
+"Last-Translator: Tatiana Canales <tcanales@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
 "translations/es/>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.2-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -232,11 +232,11 @@ msgstr "Comunicación y noticias"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Compare dos números de versión."
 
 #: src/as-provided.c:167
 msgid "Component"
-msgstr ""
+msgstr "Componente"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -265,7 +265,7 @@ msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
-"Crear una plantilla de archivo «metainfo» (que rellenará el proyecto "
+"Crear una plantilla de archivo metainfo (que se rellenará por el proyecto "
 "original)."
 
 #: src/as-provided.c:161
@@ -292,11 +292,10 @@ msgstr "URL predeterminado de captura de pantalla"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Utilizar de manera predeterminada el formato de metadatos dado (valores "
-"válidos: «xml» y «yaml»)."
+"válidos en «xml» y «yaml»)."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -325,7 +324,7 @@ msgstr "Metadatos de la distribución:"
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "No use acceso de red."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:750
@@ -814,6 +813,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Este comando toma argumentos de posición TYPE y FILE, siendo FILE un archivo "
+"a ser escrito (o \"-\" para una salida estandarizada)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 #, fuzzy
@@ -833,6 +834,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Demasiados parámetros: Necesita dos números de versión o números de versión "
+"y un operador de comparación."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -888,22 +891,21 @@ msgstr ""
 #: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Comando desconocido %s."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Relación de comparación desconocida %s. Los valores válidos son:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
-"Utilizar el archivo .desktop proporcionado para rellenar valores básicos en "
-"el archivo de metainformación."
+"Utilice el archivo dado .desktop para rellenar valores básicos en el archivo "
+"de metainformación."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -993,6 +995,8 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Necesita proveer al menos dos números de versión para comparar sus "
+"parámetros."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
