@@ -486,7 +486,7 @@ as_pool_update_addon_info (AsPool *pool, AsComponent *cpt)
 		}
 
 		/* don't act if we already have addons */
-		if (as_component_get_addons (extended_cpt)->len > 0)
+		if (g_ptr_array_find (as_component_get_addons (extended_cpt), cpt, NULL))
 			continue;
 
 		as_component_add_addon (extended_cpt, cpt);
