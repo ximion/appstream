@@ -485,7 +485,7 @@ as_pool_update_addon_info (AsPool *pool, AsComponent *cpt)
 			return;
 		}
 
-		/* don't act if we already have addons */
+		/* don't add the same addon more than once */
 		if (g_ptr_array_find (as_component_get_addons (extended_cpt), cpt, NULL))
 			continue;
 
