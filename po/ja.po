@@ -9,50 +9,51 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2016-08-15 18:48+0000\n"
-"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
-"Language-Team: Japanese (http://www.transifex.com/freedesktop/appstream/"
-"language/ja/)\n"
+"PO-Revision-Date: 2018-10-09 13:29+0000\n"
+"Last-Translator: rikanotank1 <rikanotank1@gmail.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
+"translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.2.1\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "'%s1' コマンド"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr ""
+msgstr "三次元グラフィックス"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "アクション"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:385
 msgid "Add-ons"
-msgstr ""
+msgstr "アドオン"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "アドベンチャー"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
 msgid "Also show pedantic hints."
-msgstr ""
+msgstr "細部にこだわるヒントを常時示す"
 
 #: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr ""
+msgstr "アイテム類別（例え lib, bin, python3など）"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -60,7 +61,7 @@ msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr ""
+msgstr "アプリケーションストリーミングのキャラクタユーザインタフェース"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:789
@@ -73,7 +74,7 @@ msgstr ""
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
 msgid "AppStream Status:"
-msgstr ""
+msgstr "アプリケーションストリーミングステータス:"
 
 #. we performed a cache refresh
 #. TRANSLATORS: Updating the metadata cache succeeded
