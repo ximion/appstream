@@ -232,7 +232,7 @@ as_release_set_kind (AsRelease *release, AsReleaseKind kind)
  *
  * Gets the release version.
  *
- * Returns: string, or %NULL for not set or invalid
+ * Returns: (nullable): string, or %NULL for not set or invalid
  **/
 const gchar*
 as_release_get_version (AsRelease *release)
@@ -380,7 +380,7 @@ as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
  *
  * Gets the release description markup for a given locale.
  *
- * Returns: markup, or %NULL for not set or invalid
+ * Returns: (nullable): markup, or %NULL for not set or invalid
  **/
 const gchar*
 as_release_get_description (AsRelease *release)
@@ -512,7 +512,7 @@ as_release_get_checksums (AsRelease *release)
  *
  * Gets the release checksum
  *
- * Returns: (transfer none): an #AsChecksum, or %NULL for not set or invalid
+ * Returns: (transfer none) (nullable): an #AsChecksum, or %NULL for not set or invalid
  *
  * Since: 0.8.2
  **/

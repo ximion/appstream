@@ -247,7 +247,7 @@ as_utils_spdx_license_3to2 (const gchar *license3)
  * with "|". Brackets are added as indervidual tokens and other strings are
  * appended into single tokens where possible.
  *
- * Returns: (transfer full): array of strings, or %NULL for invalid
+ * Returns: (transfer full) (nullable): array of strings, or %NULL for invalid
  *
  * Since: 0.9.8
  **/
@@ -302,7 +302,7 @@ as_spdx_license_tokenize (const gchar *license)
  *
  * De-tokenizes the SPDX licenses into a string.
  *
- * Returns: (transfer full): string, or %NULL for invalid
+ * Returns: (transfer full) (nullable): string, or %NULL for invalid
  *
  * Since: 0.9.8
  **/
