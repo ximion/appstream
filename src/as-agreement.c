@@ -213,7 +213,7 @@ as_agreement_get_sections (AsAgreement *agreement)
  *
  * Gets the first section in the agreement.
  *
- * Returns: (transfer none): agreement section, or %NULL
+ * Returns: (transfer none) (nullable): agreement section, or %NULL
  *
  * Since: 0.12.1
  **/

@@ -726,7 +726,7 @@ as_utils_locale_to_language (const gchar *locale)
  *
  * Finds a string in a pointer array.
  *
- * Returns: the const string, or %NULL if not found
+ * Returns: (nullable): the const string, or %NULL if not found
  **/
 const gchar*
 as_ptr_array_find_string (GPtrArray *array, const gchar *value)
