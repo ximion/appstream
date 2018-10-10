@@ -630,7 +630,7 @@ as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url)
   *
   * See %as_component_get_extends() for the reverse.
   *
-  * Returns: (element-type utf8) (transfer none): A #GPtrArray or %NULL if not set.
+  * Returns: (element-type utf8) (transfer none) (nullable): A #GPtrArray or %NULL if not set.
   *
   * Since: 0.7.0
 **/
@@ -739,7 +739,7 @@ as_component_set_bundles_array (AsComponent *cpt, GPtrArray *bundles)
  *
  * Gets a bundle identifier string.
  *
- * Returns: (transfer none): An #AsBundle, or %NULL if not set.
+ * Returns: (transfer none) (nullable): An #AsBundle, or %NULL if not set.
  *
  * Since: 0.8.0
  **/
@@ -1336,7 +1336,7 @@ as_component_get_icons (AsComponent *cpt)
  * Note that this function is not HiDPI aware! It will never return an icon with
  * a scaling factor > 1.
  *
- * Returns: (transfer none): An icon matching the given width/height, or %NULL if not found.
+ * Returns: (transfer none) (nullable): An icon matching the given width/height, or %NULL if not found.
  */
 AsIcon*
 as_component_get_icon_by_size (AsComponent *cpt, guint width, guint height)
@@ -1619,7 +1619,7 @@ as_component_is_compulsory_for_desktop (AsComponent *cpt, const gchar *desktop)
  * containing information about the public interfaces (mimetypes, firmware, DBus services, ...)
  * this component provides.
  *
- * Returns: (transfer none): #AsProvided containing the items this component provides, or %NULL.
+ * Returns: (transfer none) (nullable): #AsProvided containing the items this component provides, or %NULL.
  **/
 AsProvided*
 as_component_get_provided_for_kind (AsComponent *cpt, AsProvidedKind kind)
@@ -2823,7 +2823,7 @@ as_component_get_content_ratings (AsComponent *cpt)
  *
  * Gets a content ratings of a specific type that are defined for this component.
  *
- * Returns: (transfer none): a #AsContentRating or %NULL if not found
+ * Returns: (transfer none) (nullable): a #AsContentRating or %NULL if not found
  *
  * Since: 0.11.0
  **/
@@ -2866,7 +2866,7 @@ as_component_add_content_rating (AsComponent *cpt, AsContentRating *content_rati
  * Gets a #AsLaunchable of a specific type that contains launchable entries for
  * this component.
  *
- * Returns: (transfer none): a #AsLaunchable or %NULL if not found
+ * Returns: (transfer none) (nullable): a #AsLaunchable or %NULL if not found
  *
  * Since: 0.11.0
  **/
@@ -3000,7 +3000,7 @@ as_component_add_agreement (AsComponent *cpt, AsAgreement *agreement)
  *
  * Gets an agreement the component has specified for the particular kind.
  *
- * Returns: (transfer none): a #AsAgreement or %NULL for not found
+ * Returns: (transfer none) (nullable): a #AsAgreement or %NULL for not found
  *
  * Since: 0.12.1
  **/
