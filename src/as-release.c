@@ -268,8 +268,20 @@ as_release_set_version (AsRelease *release, const gchar *version)
 gint
 as_release_vercmp (AsRelease *rel1, AsRelease *rel2)
 {
-	return as_utils_compare_versions (as_release_get_version (rel1),
-					  as_release_get_version (rel2));
+	const gchar* ver1 = as_release_get_version (rel1);
+	const gchar* ver2 = as_release_get_version (rel2);
+
+	if (ver1 == NULL || ver2 == NULL) {
+		if (ver1 != NULL) {
+			return 1;
+		} else if (ver2 != NULL) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
+
+	return as_utils_compare_versions (ver1, ver2);
 }
 
 /**
