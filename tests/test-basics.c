@@ -400,6 +400,10 @@ test_version_compare ()
 	g_assert_cmpint (as_utils_compare_versions ("3.0.rc2", "3.0.0"), <, 0);
 	g_assert_cmpint (as_utils_compare_versions ("3.0.0~rc2", "3.0.0"), <, 0);
 
+	g_assert_cmpint (as_utils_compare_versions (NULL, NULL), ==, 0);
+	g_assert_cmpint (as_utils_compare_versions (NULL, "4.0"), <, 0);
+	g_assert_cmpint (as_utils_compare_versions ("4.0", NULL), >, 0);
+
 	/* TODO: Handle epochs as well? */
 	/* g_assert_cmpint (as_utils_compare_versions ("4:5.6-2", "8.0-6"), >, 0); */
 	/* g_assert_cmpint (as_utils_compare_versions ("1:1.0-4", "3:0.8-2"), <, 0); */

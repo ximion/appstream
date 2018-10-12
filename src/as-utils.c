@@ -1017,6 +1017,11 @@ as_utils_compare_versions (const gchar* a, const gchar *b)
 	if (g_strcmp0 (a, b) == 0)
 		return 0;
 
+	if (a == NULL)
+		return -1;
+	if (b == NULL)
+		return 1;
+
 	gchar oldch1, oldch2;
 	gchar abuf[strlen(a)+1], bbuf[strlen(b)+1];
 	gchar *str1 = abuf, *str2 = bbuf;
