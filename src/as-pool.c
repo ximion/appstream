@@ -193,13 +193,7 @@ as_pool_init (AsPool *pool)
 		as_pool_add_metadata_location_internal (pool, AS_APPSTREAM_METADATA_PATHS[i], FALSE);
 
 	/* set default pool flags */
-	priv->flags = AS_POOL_FLAG_READ_COLLECTION |
-			AS_POOL_FLAG_READ_DESKTOP_FILES;
-	if (priv->prefer_local_metainfo) {
-		/* FIXME: We don't enable AS_POOL_FLAG_READ_METAINFO by default yet, because this feature is unfinished and needs work,
-		* mainly in the area of merging data together. */
-		priv->flags |= AS_POOL_FLAG_READ_METAINFO;
-	}
+	priv->flags = AS_POOL_FLAG_READ_COLLECTION | AS_POOL_FLAG_READ_METAINFO;
 
 	/* set default cache flags */
 	priv->cache_flags = AS_CACHE_FLAG_USE_SYSTEM | AS_CACHE_FLAG_USE_USER;
@@ -320,7 +314,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	/* always replace data from .desktop entries */
 	if (existing_cpt_orig_kind == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
 		if (new_cpt_orig_kind == AS_ORIGIN_KIND_METAINFO) {
-			/* do an append-merge to ensure the data from an exusting metainfo file has an icon */
+			/* do an append-merge to ensure the data from an existing metainfo file has an icon */
 			as_component_merge_with_mode (cpt,
 							existing_cpt,
 							AS_MERGE_KIND_APPEND);
@@ -798,17 +792,89 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 }
 
 /**
+ * as_pool_get_desktop_entries_table:
+ *
+ * Load fresh metadata from .desktop files.
+ *
+ * Returns: (transfer full): a hash map of #AsComponent instances.
+ */
+static GHashTable*
+as_pool_get_desktop_entries_table (AsPool *pool)
+{
+	guint i;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GPtrArray) de_files = NULL;
+	GHashTable *de_cpt_table = NULL;
+	GError *error = NULL;
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+
+	/* prepare metadata parser */
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, priv->locale);
+
+	de_cpt_table = g_hash_table_new_full (g_str_hash,
+					      g_str_equal,
+					      g_free,
+					      (GDestroyNotify) g_object_unref);
+
+	/* find .desktop files */
+	g_debug ("Searching for data in: %s", APPLICATIONS_DIR);
+	de_files = as_utils_find_files_matching (APPLICATIONS_DIR, "*.desktop", FALSE, NULL);
+	if (de_files == NULL) {
+		g_debug ("Unable find .desktop files.");
+		return de_cpt_table;
+	}
+
+	/* parse the found data */
+	for (i = 0; i < de_files->len; i++) {
+		g_autoptr(GFile) infile = NULL;
+		AsComponent *cpt;
+		const gchar *fname = (const gchar*) g_ptr_array_index (de_files, i);
+
+		g_debug ("Reading: %s", fname);
+		infile = g_file_new_for_path (fname);
+		if (!g_file_query_exists (infile, NULL)) {
+			g_warning ("Metadata file '%s' does not exist.", fname);
+			continue;
+		}
+
+		as_metadata_clear_components (metad);
+		as_metadata_parse_file (metad,
+					infile,
+					AS_FORMAT_KIND_DESKTOP_ENTRY,
+					&error);
+		if (error != NULL) {
+			g_debug ("Error reading .desktop file '%s': %s", fname, error->message);
+			g_error_free (error);
+			error = NULL;
+			continue;
+		}
+
+		cpt = as_metadata_get_component (metad);
+		if (cpt != NULL) {
+			/* we only read metainfo files from system directories */
+			as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
+
+			g_hash_table_insert (de_cpt_table,
+					     g_path_get_basename (fname),
+					     g_object_ref (cpt));
+		}
+	}
+
+	return de_cpt_table;
+}
+
+/**
  * as_pool_load_metainfo_data:
  *
  * Load fresh metadata from metainfo files.
  */
 static void
-as_pool_load_metainfo_data (AsPool *pool)
+as_pool_load_metainfo_data (AsPool *pool, GHashTable *desktop_entry_cpts)
 {
 	guint i;
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) mi_files = NULL;
-	GPtrArray *cpts;
 	GError *error = NULL;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
@@ -826,7 +892,10 @@ as_pool_load_metainfo_data (AsPool *pool)
 
 	/* parse the found data */
 	for (i = 0; i < mi_files->len; i++) {
+		AsComponent *cpt;
+		AsLaunchable *launchable;
 		g_autoptr(GFile) infile = NULL;
+		g_autofree gchar *desktop_id = NULL;
 		const gchar *fname = (const gchar*) g_ptr_array_index (mi_files, i);
 
 		if (!priv->prefer_local_metainfo) {
@@ -861,24 +930,47 @@ as_pool_load_metainfo_data (AsPool *pool)
 			continue;
 		}
 
+		as_metadata_clear_components (metad);
 		as_metadata_parse_file (metad,
 					infile,
 					AS_FORMAT_KIND_UNKNOWN,
 					&error);
 		if (error != NULL) {
-			g_debug ("WARNING: %s", error->message);
+			g_debug ("Errors in '%s': %s", fname, error->message);
 			g_error_free (error);
 			error = NULL;
 		}
-	}
 
-	/* add found components to the metadata pool */
-	cpts = as_metadata_get_components (metad);
-	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+		cpt = as_metadata_get_component (metad);
+		if (cpt == NULL)
+			continue;
 
-		/* We only read metainfo files from system directories */
+		/* we only read metainfo files from system directories */
 		as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
+
+		launchable = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+		if ((launchable != NULL) && (as_launchable_get_entries (launchable)->len > 0)) {
+			/* find matching .desktop component to merge with via launchable */
+			desktop_id = g_strdup (g_ptr_array_index (as_launchable_get_entries (launchable), 0));
+		} else {
+			/* try to guess the matching .desktop ID from the component-id */
+			if (g_str_has_suffix (as_component_get_id (cpt), ".desktop"))
+				desktop_id = g_strdup (as_component_get_id (cpt));
+			else
+				desktop_id = g_strdup_printf ("%s.desktop", as_component_get_id (cpt));
+		}
+
+		/* merge .desktop data into component if possible */
+		if (desktop_id != NULL) {
+			AsComponent *de_cpt;
+			de_cpt = g_hash_table_lookup (desktop_entry_cpts, desktop_id);
+			if (de_cpt != NULL) {
+				as_component_merge_with_mode (cpt,
+								de_cpt,
+								AS_MERGE_KIND_APPEND);
+				g_hash_table_remove (desktop_entry_cpts, desktop_id);
+			}
+		}
 
 		as_pool_add_component_internal (pool, cpt, FALSE, &error);
 		if (error != NULL) {
@@ -890,89 +982,45 @@ as_pool_load_metainfo_data (AsPool *pool)
 }
 
 /**
- * as_pool_load_desktop_entries:
+ * as_pool_load_metainfo_desktop_data:
  *
- * Load fresh metadata from .desktop files.
+ * Load metadata from metainfo files and .desktop files that
+ * where made available by locally installed applications.
  */
 static void
-as_pool_load_desktop_entries (AsPool *pool)
+as_pool_load_metainfo_desktop_data (AsPool *pool)
 {
-	guint i;
-	g_autoptr(AsMetadata) metad = NULL;
-	g_autoptr(GPtrArray) de_files = NULL;
-	GPtrArray *cpts;
-	GError *error = NULL;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GHashTable) de_cpts = NULL;
 
-	/* prepare metadata parser */
-	metad = as_metadata_new ();
-	as_metadata_set_locale (metad, priv->locale);
-
-	/* find .desktop files */
-	g_debug ("Searching for data in: %s", APPLICATIONS_DIR);
-	de_files = as_utils_find_files_matching (APPLICATIONS_DIR, "*.desktop", FALSE, NULL);
-	if (de_files == NULL) {
-		g_debug ("Unable find .desktop files.");
+	/* check if we actually need to load anything */
+	if (!as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES) && !as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO))
 		return;
+
+	/* get a hashmap of desktop-entry components */
+	de_cpts = as_pool_get_desktop_entries_table (pool);
+
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO)) {
+		/* load metainfo components, absorb desktop-entry components into them */
+		as_pool_load_metainfo_data (pool, de_cpts);
 	}
 
-	/* parse the found data */
-	for (i = 0; i < de_files->len; i++) {
-		g_autoptr(GFile) infile = NULL;
-		const gchar *fname = (const gchar*) g_ptr_array_index (de_files, i);
+	/* read all remaining .desktop file components, if needed */
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES)) {
+		GHashTableIter iter;
+		gpointer value;
+		GError *error = NULL;
 
-		/* quickly check if we know the component already
-		 * We do not do this when reading metainfo files, since in that case we might
-		 * need to extend their data with .desktop file data. */
-		if (!as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO)) {
-			g_autofree gchar *de_cid = g_path_get_basename (fname);
+		g_hash_table_iter_init (&iter, priv->cpt_table);
+		while (g_hash_table_iter_next (&iter, NULL, &value)) {
+			AsComponent *cpt = AS_COMPONENT (value);
 
-			if (g_hash_table_contains (priv->known_cids, de_cid)) {
-				g_debug ("Skipped: %s (already known)", fname);
-				continue;
+			as_pool_add_component_internal (pool, cpt, FALSE, &error);
+			if (error != NULL) {
+				g_debug ("Component '%s' ignored: %s", as_component_get_data_id (cpt), error->message);
+				g_error_free (error);
+				error = NULL;
 			}
-
-			/* check without .desktop suffix too */
-			if (g_str_has_suffix (de_cid, ".desktop")) {
-				de_cid[strlen (de_cid) - 8] = '\0';
-				if (g_hash_table_contains (priv->known_cids, de_cid)) {
-					g_debug ("Skipped: %s (already known)", fname);
-					continue;
-				}
-			}
-		}
-
-		g_debug ("Reading: %s", fname);
-		infile = g_file_new_for_path (fname);
-		if (!g_file_query_exists (infile, NULL)) {
-			g_warning ("Metadata file '%s' does not exist.", fname);
-			continue;
-		}
-
-		as_metadata_parse_file (metad,
-					infile,
-					AS_FORMAT_KIND_UNKNOWN,
-					&error);
-		if (error != NULL) {
-			g_debug ("WARNING: %s", error->message);
-			g_error_free (error);
-			error = NULL;
-		}
-	}
-
-	/* add found components to the metadata pool */
-	cpts = as_metadata_get_components (metad);
-	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
-
-		/* We only read .desktop files from system directories at time */
-		as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
-
-		as_pool_add_component_internal (pool, cpt, FALSE, &error);
-		if (error != NULL) {
-			g_debug ("Metadata ignored: %s", error->message);
-			g_error_free (error);
-			error = NULL;
 		}
 	}
 }
@@ -1004,13 +1052,8 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_COLLECTION))
 		ret = as_pool_load_collection_data (pool, FALSE, error);
 
-	/* read all metainfo files that we can find */
-	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO))
-		as_pool_load_metainfo_data (pool);
-
-	/* read all .desktop file data that we can find */
-	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES))
-		as_pool_load_desktop_entries (pool);
+	/* read all metainfo and desktop files and add them to the pool */
+	as_pool_load_metainfo_desktop_data (pool);
 
 	/* automatically refine the metadata we have in the pool */
 	ret = as_pool_refine_data (pool) && ret;
@@ -1068,15 +1111,8 @@ as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 		}
 	}
 
-	/* find addons for the loaded components */
-	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
-
-		/* find and reference addons */
-		as_pool_update_addon_info (pool, cpt);
-	}
-
 	/* NOTE: Caches don't have merge components, so we don't need to special-case them here */
+	/* NOTE: To have addons connected properly, as_pool_update_addon_info() has to be called, which busually happens anyway in the final _refine() run */
 
 	return TRUE;
 }

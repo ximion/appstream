@@ -3187,6 +3187,18 @@ as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind
 			/* this function will not replace existing icons */
 			as_component_add_icon (dest_cpt, icon);
 		}
+
+		/* names */
+		if (g_hash_table_size (dest_priv->name) <= 0)
+			as_copy_l10n_hashtable (src_priv->name, dest_priv->name);
+
+		/* summary */
+		if (g_hash_table_size (dest_priv->summary) <= 0)
+			as_copy_l10n_hashtable (src_priv->summary, dest_priv->summary);
+
+		/* description */
+		if (g_hash_table_size (dest_priv->description) <= 0)
+			as_copy_l10n_hashtable (src_priv->description, dest_priv->description);
 	}
 
 	/* merge stuff in replace mode */
@@ -3215,11 +3227,9 @@ as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind
 		as_copy_gobject_array (src_priv->provided, src_priv->provided);
 	}
 
-	/* the resulting component gets the origin of the highet value of both */
-	if (as_component_get_origin_kind (src_cpt) > as_component_get_origin_kind (dest_cpt))
-		as_component_set_origin_kind (dest_cpt, as_component_get_origin_kind (src_cpt));
-
-	g_debug ("Merged data for '%s'", as_component_get_data_id (dest_cpt));
+	g_debug ("Merged data for '[%i] %s' <<- '[%i] %s'",
+		 as_component_get_origin_kind (dest_cpt), as_component_get_data_id (dest_cpt),
+		 as_component_get_origin_kind (src_cpt),  as_component_get_data_id (src_cpt));
 }
 
 /**

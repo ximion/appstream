@@ -518,17 +518,17 @@ libxml_generic_error (gchar **error_str_ptr, const char *format, ...)
  * as_xml_set_out_of_context_error:
  */
 static void
-as_xml_set_out_of_context_error (gchar **error_msg_str)
+as_xml_set_out_of_context_error (gchar **error_msg_ptr)
 {
 	static GMutex mutex;
 
 	g_mutex_lock (&mutex);
-	if (error_msg_str == NULL) {
+	if (error_msg_ptr == NULL) {
 		xmlSetGenericErrorFunc (NULL, NULL);
 	} else {
-		g_free (*error_msg_str);
-		(*error_msg_str) = NULL;
-		xmlSetGenericErrorFunc (error_msg_str, (xmlGenericErrorFunc) libxml_generic_error);
+		g_free (*error_msg_ptr);
+		(*error_msg_ptr) = NULL;
+		xmlSetGenericErrorFunc (error_msg_ptr, (xmlGenericErrorFunc) libxml_generic_error);
 	}
 	g_mutex_unlock (&mutex);
 }
@@ -558,7 +558,7 @@ as_xml_parse_document (const gchar *data, GError **error)
 			g_set_error (error,
 					AS_METADATA_ERROR,
 					AS_METADATA_ERROR_FAILED,
-					"Could not parse XML data.");
+					"Could not parse XML data (no details received)");
 		} else {
 			g_set_error (error,
 					AS_METADATA_ERROR,

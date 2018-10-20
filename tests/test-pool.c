@@ -150,6 +150,7 @@ test_get_sampledata_pool (gboolean use_caches)
 
 	flags = as_pool_get_flags (pool);
 	as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
+	as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
 	as_pool_set_flags (pool, flags);
 
 	if (!use_caches)

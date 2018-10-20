@@ -43,6 +43,7 @@ void PoolReadTest::testRead01()
     // don't load system metainfo/desktop files
     auto flags = pool->flags();
     flags &= ~Pool::FlagReadDesktopFiles;
+    flags &= ~Pool::FlagReadMetainfo;
     pool->setFlags(flags);
 
     // don't use caches

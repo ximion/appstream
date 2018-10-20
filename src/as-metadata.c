@@ -292,6 +292,7 @@ as_metadata_xml_parse_components_node (AsMetadata *metad, AsContext *context, xm
 
 		cpt = as_component_new ();
 		if (as_component_load_from_xml (cpt, context, iter, &tmp_error)) {
+			as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
 			g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 		} else {
 			if (tmp_error != NULL) {
@@ -578,8 +579,12 @@ as_metadata_parse_desktop_data (AsMetadata *metad, const gchar *data, const gcha
 					   priv->format_version,
 					   error);
 	if (cpt == NULL) {
-		if (*error == NULL)
-			g_debug ("No component found in desktop-entry data.");
+		if (*error == NULL) {
+			if (cid == NULL)
+				g_debug ("No component found in desktop-entry data.");
+			else
+				g_debug ("No component found in desktop-entry file: %s", cid);
+		}
 		return;
 	}
 
