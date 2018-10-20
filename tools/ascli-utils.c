@@ -278,6 +278,16 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 	bundles_str = as_get_bundle_str (cpt);
 
 	icon = as_component_get_icon_by_size (cpt, 64, 64);
+	if (icon == NULL) {
+		GPtrArray *icons = as_component_get_icons (cpt);
+		for (j = 0; j < icons->len; j++) {
+			AsIcon *tmp_icon = AS_ICON (g_ptr_array_index (icons, j));
+			if (as_icon_get_kind (tmp_icon) == AS_ICON_KIND_STOCK) {
+				icon = tmp_icon;
+				break;
+			}
+		}
+	}
 
 	ascli_print_key_value (_("Identifier"), short_idline, FALSE);
 	ascli_print_key_value (_("Name"), as_component_get_name (cpt), FALSE);
@@ -326,7 +336,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 		/* find default screenshot, if possible */
 		sshot = NULL;
 		for (j = 0; j < sshot_array->len; j++) {
-			sshot = (AsScreenshot*) g_ptr_array_index (sshot_array, j);
+			sshot = AS_SCREENSHOT (g_ptr_array_index (sshot_array, j));
 			if (as_screenshot_get_kind (sshot) == AS_SCREENSHOT_KIND_DEFAULT)
 				break;
 		}
@@ -335,7 +345,7 @@ ascli_print_component (AsComponent *cpt, gboolean show_detailed)
 			/* get the first source image and display it's url */
 			imgs = as_screenshot_get_images (sshot);
 			for (j = 0; j < imgs->len; j++) {
-				img = (AsImage*) g_ptr_array_index (imgs, j);
+				img = AS_IMAGE (g_ptr_array_index (imgs, j));
 				if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
 					ascli_print_key_value (_("Default Screenshot URL"), as_image_get_url (img), FALSE);
 					break;
