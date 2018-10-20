@@ -32,6 +32,8 @@
 
 #include "as-tag.h"
 
+#include <string.h>
+
 #ifdef __clang__
 #pragma clang diagnostic ignored "-Wmissing-field-initializers"
 #endif
