@@ -266,8 +266,6 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		return FALSE;
 	}
 
-	new_cpt_orig_kind = as_component_get_origin_kind (cpt);
-
 	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
 	if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
 		g_autofree gchar *tmp_cdid = NULL;
@@ -285,7 +283,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 			if (as_component_get_origin_kind (existing_cpt) != AS_ORIGIN_KIND_DESKTOP_ENTRY) {
 				/* discard this component if we have better data already in the pool,
 				 * which is basically anything *but* data from a .desktop file */
-				g_debug ("Ignored .desktop metadata for '%s': Better data exists.", cdid);
+				g_debug ("Ignored .desktop metadata for '%s': We already have better data.", cdid);
 				return FALSE;
 			}
 		}
@@ -309,6 +307,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		return TRUE;
 	}
 
+	new_cpt_orig_kind = as_component_get_origin_kind (cpt);
 	existing_cpt_orig_kind = as_component_get_origin_kind (existing_cpt);
 
 	/* always replace data from .desktop entries */
@@ -338,6 +337,10 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 						      AS_MERGE_KIND_APPEND);
 			g_debug ("Merged desktop-entry data into metainfo data for '%s'.", cdid);
 			return TRUE;
+		}
+		if (existing_cpt_orig_kind == AS_ORIGIN_KIND_COLLECTION) {
+			g_debug ("Ignored desktop-entry component '%s': We already have better data.", cdid);
+			return FALSE;
 		}
 	}
 
@@ -416,14 +419,14 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 			g_set_error (error,
 					AS_POOL_ERROR,
 					AS_POOL_ERROR_COLLISION,
-					"Detected colliding ids: %s was already added with the same priority.", cdid);
+					"Detected colliding IDs: %s was already added with the same priority.", cdid);
 			return FALSE;
 		} else {
 			if (pedantic_noadd)
 				g_set_error (error,
 						AS_POOL_ERROR,
 						AS_POOL_ERROR_COLLISION,
-						"Detected colliding ids: %s was already added with a higher priority.", cdid);
+						"Detected colliding IDs: %s was already added with a higher priority.", cdid);
 			return FALSE;
 		}
 	}
@@ -974,7 +977,7 @@ as_pool_load_metainfo_data (AsPool *pool, GHashTable *desktop_entry_cpts)
 
 		as_pool_add_component_internal (pool, cpt, FALSE, &error);
 		if (error != NULL) {
-			g_debug ("Metadata ignored: %s", error->message);
+			g_debug ("Component '%s' ignored: %s", as_component_get_data_id (cpt), error->message);
 			g_error_free (error);
 			error = NULL;
 		}
@@ -1011,7 +1014,8 @@ as_pool_load_metainfo_desktop_data (AsPool *pool)
 		gpointer value;
 		GError *error = NULL;
 
-		g_hash_table_iter_init (&iter, priv->cpt_table);
+		g_debug ("Including components from .desktop files in the pool.");
+		g_hash_table_iter_init (&iter, de_cpts);
 		while (g_hash_table_iter_next (&iter, NULL, &value)) {
 			AsComponent *cpt = AS_COMPONENT (value);
 
