@@ -29,13 +29,13 @@
 		</para>
 		<programlisting language="XML"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>org.gnome.gedit.gedit-bookmarks</id>
+  <id>org.gnome.gedit.gedit_bookmarks</id>
   <extends>org.gnome.gedit</extends>
   <name>Bookmarks</name>
   <summary>Easy document navigation with bookmarks</summary>
   <url type="homepage">https://wiki.gnome.org/Apps/Gedit/ShippedPlugins</url>
   <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=gedit&amp;component=Plugins</url>
-  <metadata_license>CC0-1.0</metadata_license>
+  <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-2.0+</project_license>
 </component>]]></programlisting>
 	</section>

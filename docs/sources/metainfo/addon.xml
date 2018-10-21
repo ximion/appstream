@@ -27,12 +27,12 @@
 		<programlisting language="XML">
 <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>org.gnome.gedit-code-assistance</id>
-  <extends>org.gnome.gedit.desktop</extends>
+  <id>org.gnome.gedit_code_assistance</id>
+  <extends>org.gnome.gedit</extends>
   <name>Code Assistance</name>
   <summary>Code assistance for C, C++ and Objective-C</summary>
   <url type="homepage">http://projects.gnome.org/gedit</url>
-  <metadata_license>CC0-1.0</metadata_license>
+  <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0+</project_license>
 </component>]]></programlisting>
 	</section>
