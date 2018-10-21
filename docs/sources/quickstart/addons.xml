@@ -10,7 +10,15 @@
 	<section id="qsr-addon-introduction">
 		<title>Introduction</title>
 		<para>
-			TODO: write short intro
+			Some software installed on the system is extensible via addons. To allow the user to install addons for
+			software that is already available on the system, AppStream defines an <literal>addon</literal> component type.
+			Software centers will usually group these components together with their host component and display them for installation.
+
+			Extensible software may also access the AppStream data pool provided by the distribution or other software source directly,
+			to offer installing missing addons from within the application.
+		</para>
+		<para>
+			Software which provides addons can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 	</section>
 
@@ -21,8 +29,8 @@
 		</para>
 		<programlisting language="XML"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>gedit-bookmarks</id>
-  <extends>gedit.desktop</extends>
+  <id>org.gnome.gedit.gedit-bookmarks</id>
+  <extends>org.gnome.gedit</extends>
   <name>Bookmarks</name>
   <summary>Easy document navigation with bookmarks</summary>
   <url type="homepage">https://wiki.gnome.org/Apps/Gedit/ShippedPlugins</url>
