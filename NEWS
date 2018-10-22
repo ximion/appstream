@@ -1,3 +1,48 @@
+Version 0.12.3
+~~~~~~~~~~~~~~
+Released: 2018-10-22
+
+Notes:
+ * Beginning with this release, data from local .desktop files will not be loaded into
+   the pool automatically, unless a metainfo file also exists.
+   This should ensure less duplicated components in general higher-quality data to be
+   displayed. It also provides another incentive to add/fix metainfo files.
+   If you prefer the previous behavior, set the AS_POOL_FLAG_READ_DESKTOP_FILES flag
+   on your AsPool instance.
+
+Features:
+ * apt: Ignore errors post-update (Matthias Klumpp)
+ * validator: Allow content_rating to be empty (Matthias Klumpp)
+ * ascli: Display stock icon name if no suitable icon was found for details view (Matthias Klumpp)
+ * Refactor loading of local metainfo files (Matthias Klumpp)
+
+Specification:
+ * spec: Clarify the requirement for content_attribute tags in content_rating (Matthias Klumpp)
+ * docs: Write intro for addon quickstart (Matthias Klumpp)
+ * docs: Replace hyphens in component-IDs of XML examples (Matthias Klumpp)
+
+Bugfixes:
+ * Ensure all addons are linked to a component (David Hewitt)
+ * Annotate nullable return types (David Hewitt)
+ * cache: Set explicit variant types for cases where they can not be inferred (Matthias Klumpp)
+ * utils: Handle NULL strings when comparing versions (Matthias Klumpp)
+ * Explicitly include string.h in as-tag.c (Matthias Klumpp)
+ * Properly ignore desktop-entry components if we have better data (Matthias Klumpp)
+ * Remove AppStream XSD schema (Matthias Klumpp)
+ * Update static data (Matthias Klumpp)
+ * Set error variable if there were some errors during refinement (Stefan Bruens)
+
+Translation:
+ * Norwegian Bokmål
+   - Allan Nordhøy
+   - Petter Reinholdtsen
+ * German
+   - Chris
+ * Spanish
+   - Tatiana Canales
+ * Japanese
+   - rikanotank1
+
 Version 0.12.2
 ~~~~~~~~~~~~~~
 Released: 2018-08-04
