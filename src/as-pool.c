@@ -1147,7 +1147,7 @@ as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
  *
  * Get a list of found components.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent instances.
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent instances.
  */
 GPtrArray*
 as_pool_get_components (AsPool *pool)
