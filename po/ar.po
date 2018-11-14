@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-07-14 19:34+0000\n"
+"PO-Revision-Date: 2018-11-15 08:06+0000\n"
 "Last-Translator: alaazghoul <a.z9@live.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/"
 "translations/ar/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 3.1-dev\n"
+"X-Generator: Weblate 3.3-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -28,9 +28,10 @@ msgstr "أمر ’%s’"
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "الرسومات ثلاثية الأبعاد"
+msgstr "رسومات ثلاثية الأبعاد"
 
 #: src/as-category.c:123
+#, fuzzy
 msgctxt "Category of Games"
 msgid "Action"
 msgstr "عمل"
