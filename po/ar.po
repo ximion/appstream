@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-11-15 08:06+0000\n"
-"Last-Translator: alaazghoul <a.z9@live.com>\n"
+"PO-Revision-Date: 2018-11-24 10:08+0000\n"
+"Last-Translator: mohammadA <mohammadAbdulhadi1@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/"
 "translations/ar/>\n"
 "Language: ar\n"
@@ -40,7 +40,7 @@ msgstr "عمل"
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:385
 msgid "Add-ons"
-msgstr "الوسائل الإضافية"
+msgstr "الإضافات"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -95,7 +95,7 @@ msgstr ""
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
 msgid "AppStream cache update is not necessary."
-msgstr "تحديث محتويات ذاكرة تخزين آب-ستريم المؤقتة ليس ضروري."
+msgstr "تحديث محتويات ذاكرة تخزين آب-ستريم المؤقتة ليس ضروريًّا."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -114,19 +114,18 @@ msgstr ""
 #: src/as-pool.c:1546
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
-msgstr ""
-"تم تحديث محتويات ذاكرة تخزين أب-ستريم المؤقتة، لكن تم العثور على مشكلة: %s"
+msgstr "حُدِّثت محتويات ذاكرة تخزين آب-ستريم المؤقتة، لكن وجدت مشكلة: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:786
 #, c-format
 msgid "AppStream version: %s"
-msgstr ""
+msgstr "إصدار آب-ستريم: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "آركيد"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
@@ -146,12 +145,12 @@ msgstr "علم الفلك"
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:302
 msgid "Audio & Video"
-msgstr "الصوت و الصورة"
+msgstr "الصوت والصورة"
 
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr "إنشاء وتعديل الصوتيات"
+msgstr "إنشاء الصوتيات وتعديلها"
 
 #: src/as-provided.c:147
 msgid "Binaries"
@@ -251,7 +250,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:225
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr ""
+msgstr "تعذر إيجاد مكون يوفر '%s::%s'."
 
 #: tools/appstream-cli.c:713
 msgid ""
@@ -261,21 +260,21 @@ msgstr ""
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
-msgstr ""
+msgstr "خدمات جلسة DBus"
 
 #: src/as-provided.c:159
 msgid "DBus System Services"
-msgstr ""
+msgstr "خدمات نظام DBus"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "قواعد البيانات"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "المنقحات"
 
 #: tools/ascli-utils.c:340
 msgid "Default Screenshot URL"
@@ -288,17 +287,17 @@ msgstr ""
 
 #: tools/ascli-utils.c:320
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #. developer name
 #: tools/ascli-utils.c:308
 msgid "Developer"
-msgstr ""
+msgstr "المطور"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:305
 msgid "Developer Tools"
-msgstr ""
+msgstr "أدوات المطور"
 
 #: tools/appstream-cli.c:708
 msgid "Display status information about available AppStream metadata."
@@ -312,12 +311,12 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "لا تستعمل النفاذ إلى الشبكة."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:750
 msgid "Don't show colored output."
-msgstr ""
+msgstr "لا تُظهر خرجًا ملونا."
 
 #: tools/appstream-cli.c:699
 msgid "Dump raw XML metadata for a component matching the ID."
@@ -326,17 +325,17 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
 msgid "Education"
-msgstr ""
+msgstr "تعليم"
 
 #. TRANSLATORS: No metainfo files have been found
 #: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
 msgid "Empty."
-msgstr ""
+msgstr "فارغ."
 
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "محاكيات"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:234
@@ -355,57 +354,57 @@ msgstr ""
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:256
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:83
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:98
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:120
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:165
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:188
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:231
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:278
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "مميزة"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "نظام الملفات"
 
 #: src/as-category.c:198
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "اقتصاد"
 
 #: src/as-provided.c:165
 msgid "Flashed Firmware"
@@ -413,32 +412,32 @@ msgstr ""
 
 #: src/as-provided.c:151
 msgid "Fonts"
-msgstr ""
+msgstr "خطوط"
 
 #: src/as-category.c:211
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr ""
+msgstr "خطوط"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:136
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "وُجِد %i من المكونات في مسارات مهجورة."
 
 #: tools/ascli-actions-misc.c:121
 #, c-format
 msgid "Found %i components."
-msgstr ""
+msgstr "وُجِد %i من المكونات."
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
-msgstr ""
+msgstr "ألعاب"
 
 #: tools/appstream-cli.c:695
 msgid "Get components which provide the given item."
-msgstr ""
+msgstr "هاتِ المكونات التي توفر العنصر المُعطى."
 
 #: tools/appstream-cli.c:694
 msgid "Get information about a component by its ID."
@@ -447,7 +446,7 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "تصور ورسوميات"
 
 #: tools/ascli-utils.c:287
 msgid "Homepage"
@@ -456,7 +455,7 @@ msgstr ""
 #: src/as-category.c:89
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "بيئات التطوير"
 
 #: tools/ascli-utils.c:288
 msgid "Icon"
@@ -473,11 +472,11 @@ msgstr ""
 #: src/as-category.c:217
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "مصادر دخل"
 
 #: tools/appstream-cli.c:709
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "ثبِّت ملف بيانات وصفية في الموقع الصحيح."
 
 #: tools/appstream-cli.c:705
 msgid "Install software matching the component-ID."
@@ -490,36 +489,36 @@ msgstr ""
 #: src/as-category.c:144
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "أطفال"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "حزم اللغات"
 
 #: src/as-category.c:107
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "لغات"
 
 #: src/as-provided.c:145
 msgid "Libraries"
-msgstr ""
+msgstr "مكتبات"
 
 #. license
 #: tools/ascli-utils.c:350
 msgid "License"
-msgstr ""
+msgstr "الرخصة"
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "توطين"
 
 #: src/as-category.c:147
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "منطق"
 
 #: src/as-provided.c:149
 msgid "MIME types"
@@ -543,21 +542,21 @@ msgstr ""
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "رياضيات"
 
 #: src/as-category.c:243
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "رياضيات"
 
 #: tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "ملف البيانات الوصفية '%s' غير موجود."
 
 #: src/as-pool.c:758
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "ملفات البيانات الوصفية تحوي أخطاءً:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -575,21 +574,21 @@ msgstr ""
 
 #: tools/ascli-utils.c:283
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "الأخبار"
 
 #: tools/ascli-actions-mdata.c:179
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "لم أجد مكونا يطابق '%s'."
 
 #: tools/ascli-actions-misc.c:103
 msgid "No icons."
-msgstr ""
+msgstr "لا أيقونات."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -604,44 +603,44 @@ msgstr ""
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
-msgstr ""
+msgstr "المكتب"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstream-cli.c:181
 #, c-format
 msgid "Option '%s' is unknown."
-msgstr ""
+msgstr "الخيار '%s' غير معروف."
 
 #: tools/ascli-utils.c:285
 msgid "Package"
-msgstr ""
+msgstr "الحزمة"
 
 #: src/as-category.c:171
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "صور فوتوغرافية"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
 msgid "Print detailed output about found components."
-msgstr ""
+msgstr "اطبع خرجًا مفصلا عن المكون المعثور عليه."
 
 #. project group
 #: tools/ascli-utils.c:347
 msgid "Project Group"
-msgstr ""
+msgstr "مجموعة المشروع"
 
 #: tools/ascli-utils.c:392
 msgid "Provided Items"
-msgstr ""
+msgstr "العناصر الموفَّرة"
 
 #: src/as-provided.c:155
 msgid "Python (Version 2)"
-msgstr ""
+msgstr "بايثون (نسخة ٢)"
 
 #: src/as-provided.c:157
 msgid "Python 3"
-msgstr ""
+msgstr "بايثون ٣"
 
 #: tools/appstream-cli.c:700
 msgid "Rebuild the component metadata cache."
@@ -654,7 +653,7 @@ msgstr ""
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "الروبوتات"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
@@ -664,7 +663,7 @@ msgstr ""
 #: tools/appstream-cli.c:185 tools/appstream-cli.c:768
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
+msgstr "شغِّل '%s --help' لرؤية قائمة كاملة بالخيارات المتاحة لسطر الأوامر."
 
 #: tools/appstream-cli.c:187
 #, c-format
@@ -680,12 +679,12 @@ msgstr ""
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "المسح"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
-msgstr ""
+msgstr "العلوم"
 
 #: tools/appstream-cli.c:693
 msgid "Search the component database."
@@ -694,22 +693,22 @@ msgstr ""
 #: src/as-category.c:293
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "الأمن"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:745
 msgid "Show extra debugging information."
-msgstr ""
+msgstr "أظهر بيانات التنقيح الإضافية."
 
 #. TRANSLATORS: ascli flag description for: --version
 #: tools/appstream-cli.c:739
 msgid "Show the program version."
-msgstr ""
+msgstr "أظهر إصدار البرنامج."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "الرياضية"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
@@ -719,11 +718,11 @@ msgstr ""
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:691
 msgid "Subcommands:"
-msgstr ""
+msgstr "الأوامر الفرعية:"
 
 #: tools/ascli-utils.c:284
 msgid "Summary"
-msgstr ""
+msgstr "ملخص"
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:143
@@ -733,17 +732,17 @@ msgstr ""
 #: src/as-category.c:290
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "مراقبة النظام"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "محاكيات الطرفية"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "محررات النصوص"
 
 #: tools/ascli-actions-mdata.c:464
 #, c-format
@@ -756,6 +755,8 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"حُدثت خبيئة آب-ستريم لكنه اكتشف بعض الأخطاء سببها بيانات وصفية مفقودة. ارجع "
+"إلى السجل المفصَّل لمعلومات أكثر."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:657
@@ -802,6 +803,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"تعذر تحويل الملف: تعذرت معرفة نسق الخرج، عيِّنه رجاءً تصريحًا باستعمال '--"
+"format='."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:174
