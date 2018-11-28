@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2017-03-25 16:36+0000\n"
-"Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
+"PO-Revision-Date: 2018-11-29 12:07+0000\n"
+"Last-Translator: Mesut Akcan <makcan@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 3.3-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -49,12 +49,10 @@ msgstr "Macera"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
-#, fuzzy
 msgid "Also show pedantic hints."
-msgstr "Doğrularken detaylı ipuçlarını da yaz."
+msgstr "Ayrıca detaylı ipuçları göster."
 
 #: tools/appstream-cli.c:696
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Bir öge türü (ör. lib, bin, python3, ...)"
 
@@ -68,11 +66,13 @@ msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:789
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
-msgstr "AppStream CLI araç sürümü: %s"
+msgstr ""
+"AppStream CLI araç sürümü: %s\n"
+"AppStream kütüphane sürümü: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -120,9 +120,9 @@ msgstr "AppStream sistem önbelleği güncellendi, ama sorunlar bulundu: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:786
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream version: %s"
-msgstr "AppStream CLI araç sürümü: %s"
+msgstr "AppStream sürümü: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -227,11 +227,11 @@ msgstr "İletişim ve Haberler"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "İki versiyon numarasını karşılaştır."
 
 #: src/as-provided.c:167
 msgid "Component"
-msgstr ""
+msgstr "Bileşen"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -255,13 +255,12 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "'%s::%s' sağlayan bileşen bulunamadı."
 
 #: tools/appstream-cli.c:713
-#, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
-"(Üst akım proje tarafından dosyalanmak üzere) bir üst veri dosyası için bir "
-"şablon oluştur."
+"Bir metainfo dosyası için bir şablon oluştur (yukarı akış projesi tarafından "
+"doldurulacak)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
@@ -287,10 +286,8 @@ msgstr "Öntanımlı Ekran Görüntüsü Adresi"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Belirli üst veri formatına öntanımla (geçerli seçenekler 'xml' ve 'yaml'dir)."
+msgstr "Varsayılan metadata biçimi (geçerli değerler 'xml' ve 'yaml')."
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -319,7 +316,7 @@ msgstr "Dağıtım üst verisi:"
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "Ağ erişimini kullanmayın."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:750
@@ -487,7 +484,6 @@ msgid "Install a metadata file into the right location."
 msgstr "Bir üst veri dosyasını doğru konuma yükle."
 
 #: tools/appstream-cli.c:705
-#, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "Bileşen kimliğiyle eşleşen yazılım yükle."
 
@@ -530,26 +526,23 @@ msgid "Logic"
 msgstr "Mantık"
 
 #: src/as-provided.c:149
-#, fuzzy
 msgid "MIME types"
 msgstr "Mime Türleri"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Önbelleğe alma olmadan istekte bulunun."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "AppStream önbelleğinin konumunu elle ayarlayın."
+msgstr "AppStream önbelleğinin manuel olarak seçilen konumu."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "Taranacak AppStream üst verisinin konumunu elle ayarlayın."
+msgstr "Taranacak AppStream meta verilerinin manuel olarak seçilen yeri."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -611,7 +604,6 @@ msgstr ""
 "\"pkcon\"un (PackageKit'in parçası) kullanılabilir olduğuna emin olun."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
 msgstr "Aranacak öge için değer tanımlanmadı."
 
@@ -662,9 +654,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Bileşen üst veri önbelleğini yeniden inşa et."
 
 #: tools/appstream-cli.c:706
-#, fuzzy
 msgid "Remove software matching the component-ID."
-msgstr "Bileşen kimliğiyle eşleşen yazılım kaldır."
+msgstr "Bileşen kimliğiyle eşleşen yazılımı kaldır."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -782,7 +773,7 @@ msgstr ""
 #: tools/appstream-cli.c:657
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "TYPE, şunun gibi geçerli bir bileşen türü olmalıdır: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -797,25 +788,28 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Bu komut isteğe bağlı TYPE ve FILE konumsal argümanlarını alır, FILE "
+"yazılacak bir dosyadır (veya standart çıktı için \"-\")."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
-"Bu araç AppStream XML veya YAML üst verisi okumaya, yazmaya, doğrulamaya ve "
-"dönüştürmeye izin verir. Aynı zamanda sistem üst veri havuzuna, örneğin "
-"belirli bir mimetype'ı sağlayan yazılım aramak ve yazılım bileşen kimliğini "
-"kullanarak yüklemek üzere, erişim sağlar."
+"Bu araç, AppStream XML veya YAML meta verilerinin okunmasına, yazılmasına, "
+"onaylanmasına ve dönüştürülmesine izin verir. Ayrıca sistem meta veri "
+"havuzuna erişim sağlar, örneğin belirli bir MIME türü sağlayan yazılımın "
+"sorgulanması ve yazılım bileşen tanımlayıcısı ile kurulması."
 
 #: tools/appstream-cli.c:622
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Çok fazla parametre: İki sürüm numarasına veya sürüm numarasına ve bir "
+"karşılaştırma operatörüne ihtiyacınız var."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -867,22 +861,21 @@ msgstr "'%s'e yazılamadı, üst bilgi dosyası kurulamıyor."
 #: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Bilinmeyen komut '%s'."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Bilinmeyen karşılaştırma ilişkisi '%s'. Geçerli değerler:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
-"Metainfo dosyasındaki basit değerleri doldurmak için belirli .desktop "
-"dosyasını kullan."
+"Metainfo dosyasının temel değerlerini doldurmak için verilen .desktop "
+"dosyasını kullanın."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -973,6 +966,8 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Parametre olarak karşılaştırmak için en az iki sürüm numarası sağlamanız "
+"gerekir."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
