@@ -6,7 +6,7 @@
 # Muhammet Kara <muhammetk@gmail.com>, 2015-2016
 # Necdet Yücel <necdetyucel@gmail.com>, 2014-2015
 # Çağatay Yiğit Şahin <cyigitsahin@outlook.com>, 2017.
-# Mesut Akcan <makcan@gmail.com>, 2019.
+# Mesut Akcan <makcan@gmail.com>, 2019, 2021.
 # Oğuz Ersen <oguzersen@protonmail.com>, 2019, 2020, 2021.
 # #-#-#-#-#  tr.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Muhammet Kara <muhammet.kara@metu.edu.tr>\n"
+"Last-Translator: Mesut Akcan <makcan@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -2176,18 +2176,14 @@ msgstr "Çok fazla parametre: İki sürüm numarasına veya sürüm numaraları 
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Metainfo dosyasının temel değerlerini doldurmak için verilen .desktop "
-"dosyasını kullanın."
+msgstr "Metainfo dosyasının temel değerlerini doldurmak için verilen .desktop dosyasını kullanın."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Bu komut isteğe bağlı TYPE ve FILE konumsal argümanlarını alır, FILE "
-"yazılacak bir dosyadır (veya standart çıktı için \"-\")."
+msgstr "Bu komut isteğe bağlı TYPE ve FILE konumsal argümanlarını alır, FILE yazılacak bir dosyadır (veya standart çıktı için \"-\")."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2351,9 +2347,7 @@ msgstr "İki sürüm numarasını karşılaştır."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Bir metainfo dosyası için bir şablon oluştur (yukarı akış projesi tarafından "
-"doldurulacak)."
+msgstr "Bir metainfo dosyası için bir şablon oluştur (yukarı akış projesi tarafından doldurulacak)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
