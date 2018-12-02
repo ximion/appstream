@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-06-10 15:36+0200\n"
-"PO-Revision-Date: 2018-11-17 03:06+0000\n"
+"PO-Revision-Date: 2018-12-03 02:53+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
 "translations/ja/>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.3\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
-msgstr "'%s1' コマンド"
+msgstr "'%s' コマンド"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -53,7 +53,7 @@ msgstr "詳細なヒントも表示します。"
 
 #: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "アイテムの種類（例：lib、bin、python3 など）"
+msgstr "アイテムの種類（例: lib、bin、python3 など）"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -70,13 +70,13 @@ msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
-"AppStream CLI ツール バージョン：%s\n"
-"AppStream ライブラリ バージョン：%s"
+"AppStream CLI ツール バージョン: %s\n"
+"AppStream ライブラリ バージョン: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
 msgid "AppStream Status:"
-msgstr "AppStream の状態："
+msgstr "AppStream の状態:"
 
 #. we performed a cache refresh
 #. TRANSLATORS: Updating the metadata cache succeeded
@@ -111,13 +111,13 @@ msgstr ""
 #: src/as-pool.c:1546
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
-msgstr "AppStream システムキャッシュはアップデートされましたが、問題が見つかりました：%s"
+msgstr "AppStream システムキャッシュはアップデートされましたが、問題が見つかりました: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:786
 #, c-format
 msgid "AppStream version: %s"
-msgstr "AppStream バージョン：%s"
+msgstr "AppStream バージョン: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -278,7 +278,7 @@ msgstr "デフォルトのスクリーンショット URL"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "デフォルトのメタデータファイル形式（有効な値は 'xml' と 'yaml'）。"
 
 #: tools/ascli-utils.c:320
 msgid "Description"
@@ -301,7 +301,7 @@ msgstr "利用可能な AppStream メタデータの状態情報を表示しま�
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:50
 msgid "Distribution metadata:"
-msgstr "ディストリビューションメタデータ："
+msgstr "ディストリビューションメタデータ:"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
@@ -340,7 +340,7 @@ msgstr "強制的にキャッシュを更新します。"
 #: tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr "メタデータプールの読み込み中にエラーが発生しました：%s"
+msgstr "メタデータプールの読み込み中にエラーが発生しました: %s"
 
 #: tools/ascli-utils.c:314
 msgid "Extends"
@@ -551,7 +551,7 @@ msgstr "メタデータファイル '%s' は存在しません。"
 
 #: src/as-pool.c:758
 msgid "Metadata files have errors:"
-msgstr "メタデータファイルにエラーがあります："
+msgstr "メタデータファイルにエラーがあります:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
@@ -583,7 +583,7 @@ msgstr "'%s' に一致するコンポーネントは見つかりませんでし�
 
 #: tools/ascli-actions-misc.c:103
 msgid "No icons."
-msgstr "アイコンがありません。"
+msgstr "アイコンはありません。"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -658,7 +658,7 @@ msgstr "ロールプレイング"
 #: tools/appstream-cli.c:185 tools/appstream-cli.c:768
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "利用可能なコマンドラインオプションの完全なリストを見るには'%s --help'を実行してください。"
+msgstr "利用可能なコマンドラインオプションの完全なリストを見るには '%s --help' を実行してください。"
 
 #: tools/appstream-cli.c:187
 #, c-format
@@ -713,7 +713,7 @@ msgstr "戦略"
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:691
 msgid "Subcommands:"
-msgstr "サブコマンド："
+msgstr "サブコマンド:"
 
 #: tools/ascli-utils.c:284
 msgid "Summary"
@@ -722,7 +722,7 @@ msgstr "要約"
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:143
 msgid "Summary:"
-msgstr "要約："
+msgstr "要約:"
 
 #: src/as-category.c:290
 msgctxt "Category of Utility"
@@ -788,7 +788,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "メタ情報テンプレート ファイルを構築できません：%s"
+msgstr "メタ情報テンプレート ファイルを構築できません: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:397
@@ -801,33 +801,33 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:174
 #, c-format
 msgid "Unable to find component matching %s!"
-msgstr "%s に一致するコンポーネントが見つかりませんでした！"
+msgstr "%s に一致するコンポーネントが見つかりません！"
 
 #: tools/ascli-actions-mdata.c:141 tools/ascli-actions-mdata.c:263
 #: tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr "ID が '%s' のコンポーネントは見つかりませんでした！"
+msgstr "ID が '%s' のコンポーネントは見つかりません！"
 
 #: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ".desktop ファイルを読み込めませんでした：%s"
+msgstr ".desktop ファイルを読み込めません: %s"
 
 #: tools/ascli-actions-mdata.c:549
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr "メタ情報テンプレート ファイルを保存できません：%s"
+msgstr "メタ情報テンプレートファイルを保存できません: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr "パッケージ マネージャーを起動できません：%s"
+msgstr "パッケージマネージャーを起動できません: %s"
 
 #: tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr "'%s' に書き込めませんでした。メタ情報ファイルをインストールできません。"
+msgstr "'%s' に書き込めません。メタ情報ファイルをインストールできません。"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:845
@@ -886,7 +886,7 @@ msgstr "ベクターグラフィックス"
 #: tools/ascli-actions-misc.c:46
 #, c-format
 msgid "Version: %s"
-msgstr "バージョン：%s"
+msgstr "バージョン: %s"
 
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
@@ -978,22 +978,22 @@ msgstr ""
 #: tools/ascli-actions-validate.c:183
 #, c-format
 msgid "errors: %lu"
-msgstr "エラー：%lu"
+msgstr "エラー: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr "情報：%lu"
+msgstr "情報: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
 #, c-format
 msgid "pedantic: %lu"
-msgstr "詳細：%lu"
+msgstr "詳細: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:190
 #, c-format
 msgid "warnings: %lu"
-msgstr "警告：%lu"
+msgstr "警告: %lu"
