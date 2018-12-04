@@ -49,6 +49,8 @@ as_url_kind_to_string (AsUrlKind url_kind)
 		return "donation";
 	if (url_kind == AS_URL_KIND_TRANSLATE)
 		return "translate";
+	if (url_kind == AS_URL_KIND_CONTACT)
+		return "contact";
 	return "unknown";
 }
 
@@ -75,6 +77,8 @@ as_url_kind_from_string (const gchar *url_kind)
 		return AS_URL_KIND_DONATION;
 	if (g_strcmp0 (url_kind, "translate") == 0)
 		return AS_URL_KIND_TRANSLATE;
+	if (g_strcmp0 (url_kind, "contact") == 0)
+		return AS_URL_KIND_CONTACT;
 	return AS_URL_KIND_UNKNOWN;
 }
 

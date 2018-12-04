@@ -506,6 +506,7 @@ test_xml_read_url (void)
 					 "  <url type=\"homepage\">https://example.org</url>\n"
 					 "  <url type=\"faq\">https://example.org/faq</url>\n"
 					 "  <url type=\"donation\">https://example.org/donate</url>\n"
+					 "  <url type=\"contact\">https://example.org/contact</url>\n"
 					 "</component>\n";
 
 	cpt = as_xml_test_read_data (xmldata_languages, AS_FORMAT_STYLE_METAINFO);
@@ -514,6 +515,7 @@ test_xml_read_url (void)
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_HOMEPAGE), ==, "https://example.org");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_FAQ), ==, "https://example.org/faq");
 	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_DONATION), ==, "https://example.org/donate");
+	g_assert_cmpstr (as_component_get_url (cpt, AS_URL_KIND_CONTACT), ==, "https://example.org/contact");
 }
 
 /**
