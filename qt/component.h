@@ -79,6 +79,7 @@ Q_GADGET
             UrlKindUnknown,
             UrlKindHomepage,
             UrlKindBugtracker,
+            UrlKindConact,
             UrlKindFaq,
             UrlKindHelp,
             UrlKindDonation,

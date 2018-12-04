@@ -123,12 +123,16 @@ Component::UrlKind Component::stringToUrlKind(const QString& urlKindString) {
     if (urlKindString == QLatin1String("donation")) {
         return UrlKindDonation;
     }
+    if (urlKindString == QLatin1String("contact")) {
+        return UrlKindContact;
+    }
     return UrlKindUnknown;
 }
 
 typedef QHash<Component::UrlKind, QString> UrlKindMap;
 Q_GLOBAL_STATIC_WITH_ARGS(UrlKindMap, urlKindMap, ({
         { Component::UrlKindBugtracker, QLatin1String("bugtracker") },
+        { Component::UrlKindContact, QLatin1String("contact") },
         { Component::UrlKindDonation, QLatin1String("donation") },
         { Component::UrlKindFaq, QLatin1String("faq") },
         { Component::UrlKindHelp, QLatin1String("help") },
