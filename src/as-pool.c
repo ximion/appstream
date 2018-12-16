@@ -1048,6 +1048,9 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = TRUE;
+	gboolean refine_ret;
+	guint pre_refine_cpt_n;
+	gdouble valid_percentage;
 
 	/* load means to reload, so we get rid of all the old data */
 	as_pool_clear (pool);
@@ -1060,15 +1063,25 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	as_pool_load_metainfo_desktop_data (pool);
 
 	/* automatically refine the metadata we have in the pool */
-	ret = as_pool_refine_data (pool) && ret;
+	pre_refine_cpt_n = g_hash_table_size (priv->cpt_table);
+	refine_ret = as_pool_refine_data (pool);
+
+	valid_percentage = (100 / (gdouble) pre_refine_cpt_n) * (gdouble) g_hash_table_size (priv->cpt_table);
+	g_debug ("Percentage of valid components: %0.3f", valid_percentage);
+
+	/* we only return a non-TRUE value if a significant amount (10%) of components has been declared invalid. */
+	if (!refine_ret && (valid_percentage <= 90))
+		ret = FALSE;
+	if (pre_refine_cpt_n == 0)
+		ret = FALSE;
 	
 	/* report errors if refining has failed */
-	if ((!ret) && (error != NULL)) {
+	if (!ret && (error != NULL)) {
 		if (*error == NULL) {
 			g_set_error_literal (error,
 					     AS_POOL_ERROR,
 					     AS_POOL_ERROR_INCOMPLETE,
-					     "Some components are invalid. See debug output for details");
+					     _("Many components have been recognized as invalid. See debug output for details."));
 		} else {
 			g_prefix_error (error, "Some components have been ignored: ");
 		}
