@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2017-04-29 20:03+0000\n"
 "Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/appstream/"
@@ -40,7 +40,7 @@ msgstr "Радња"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Додатак"
 
@@ -87,7 +87,7 @@ msgstr "Стање Програмског тока:"
 msgid "AppStream cache update completed successfully."
 msgstr "Освежавање кеша Програмског тока је успешно обављено."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -166,11 +166,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "На табли"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Комплет"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Локација кеша „%s“ није уписива."
@@ -192,7 +192,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Карте"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Категорије"
 
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Component '%s' has no installation candidate."
 msgstr "Компонента „%s“ нема кандидата за инсталацију."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Неопходан за"
 
@@ -274,7 +274,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Отклањање грешака"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "УРЛ подразумеваног снимка екрана"
 
@@ -283,12 +283,12 @@ msgstr "УРЛ подразумеваног снимка екрана"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Опис"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Програмер"
 
@@ -345,7 +345,7 @@ msgstr "Приморава освежавање кеша."
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Проширује"
 
@@ -446,7 +446,7 @@ msgstr "Добавља податке о компоненти према ИД-у
 msgid "Graphics & Photography"
 msgstr "Графика и фотографија"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Матична страница"
 
@@ -455,7 +455,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Развојна окружења"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Икона"
 
@@ -463,7 +463,7 @@ msgstr "Икона"
 msgid "Iconsets"
 msgstr "Комплети икона"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Идентификатор"
 
@@ -505,7 +505,7 @@ msgid "Libraries"
 msgstr "Библиотеке"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Лиценца"
 
@@ -541,6 +541,12 @@ msgstr "Ручно поставља место кеша Програмског �
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ручно поставља локацију метаподатака Програмског тока за обраду."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -556,7 +562,7 @@ msgstr "Математика"
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -574,7 +580,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Музички плејери"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Назив"
 
@@ -616,7 +622,7 @@ msgstr "Канцеларија"
 msgid "Option '%s' is unknown."
 msgstr "Опција „%s“ није позната."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Пакет"
 
@@ -631,11 +637,11 @@ msgid "Print detailed output about found components."
 msgstr "Исписује опширни излаз о нађеним компонентама."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Група пројекта"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Омогућене ставке"
 
@@ -729,7 +735,7 @@ msgstr "Стратегија"
 msgid "Subcommands:"
 msgstr "Поднаредбе:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Сажетак"
 
@@ -758,7 +764,7 @@ msgstr "Уређивачи текста"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop фајл „%s“ не постоји."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

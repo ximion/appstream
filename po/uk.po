@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-06-10 13:58+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.0\n"
 
 #: tools/appstream-cli.c:146
@@ -36,7 +36,7 @@ msgstr "Бойові ігри"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Додатки"
 
@@ -83,7 +83,7 @@ msgstr "Стан AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Оновлення кешу AppStream успішно завершено."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "AppStream — багатоплатформова специфікація надання метаданих щодо "
 "компонентів програмного забезпечення."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "Кеш системи AppStream оновлено, але виявлено проблеми: %s"
@@ -166,11 +166,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Ігри на дошці"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Кортеж"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Запис до адреси каталогу кешу, «%s», неможливий."
@@ -194,7 +194,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Карткові ігри"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Категорії"
 
@@ -237,7 +237,7 @@ msgstr "Компонент"
 msgid "Component '%s' has no installation candidate."
 msgstr "Для компонента «%s» немає кандидата для встановлення."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Обов’язкове для"
 
@@ -277,7 +277,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Засоби діагностики"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "Адреса типового знімка вікна"
 
@@ -286,12 +286,12 @@ msgstr "Адреса типового знімка вікна"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Типовий формат метаданих (коректними є значення «xml» і «yaml»)."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Опис"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Розробник"
 
@@ -350,7 +350,7 @@ msgstr "Примусове оновлення кешу."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Помилка під час спроби завантаження сховища метаданих: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Розширення"
 
@@ -451,7 +451,7 @@ msgstr "Отримати інформацію щодо компонента за
 msgid "Graphics & Photography"
 msgstr "Графіка і фотомистецтво"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Домашня сторінка"
 
@@ -460,7 +460,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Інтегровані середовища розробки (IDE)"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Піктограма"
 
@@ -468,7 +468,7 @@ msgstr "Піктограма"
 msgid "Iconsets"
 msgstr "Набори піктограм"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Ідентифікатор"
 
@@ -510,7 +510,7 @@ msgid "Libraries"
 msgstr "Бібліотеки"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Ліцензія"
 
@@ -543,6 +543,12 @@ msgstr "Встановити вручну розташування кешу AppS
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Встановити вручну розташування метаданих AppStream для сканування."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -558,7 +564,7 @@ msgstr "Математика"
 msgid "Metadata file '%s' does not exist."
 msgstr "Файла метаданих «%s» не існує."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Помилки у файлах метаданих:"
 
@@ -576,7 +582,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Музичні програвачі"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Назва"
 
@@ -617,7 +623,7 @@ msgstr "Офіс"
 msgid "Option '%s' is unknown."
 msgstr "Параметр «%s» є невідомим програмі."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Пакунок"
 
@@ -632,11 +638,11 @@ msgid "Print detailed output about found components."
 msgstr "Вивести докладні дані щодо знайдених компонентів."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Група проектів"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Надані записи"
 
@@ -731,7 +737,7 @@ msgstr "Стратегії"
 msgid "Subcommands:"
 msgstr "Підкоманди:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Резюме"
 
@@ -760,7 +766,7 @@ msgstr "Текстові редактори"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Файла .desktop «%s» не існує."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -874,7 +880,8 @@ msgstr "Невідома команда «%s»."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr "Невідоме співвідношення порівняння, «%s». Коректними значеннями є такі:"
+msgstr ""
+"Невідоме співвідношення порівняння, «%s». Коректними значеннями є такі:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649

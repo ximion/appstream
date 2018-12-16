@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-09-22 10:35+0000\n"
 "Last-Translator: Tatiana Canales <tcanales@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "Acción"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Complementos"
 
@@ -87,7 +87,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "Ha finalizado la actualización de la antememoria de AppStream correctamente."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -116,7 +116,7 @@ msgstr ""
 "distribución cuyo fin es proporcionar metadatos sobre componentes de "
 "«software»."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -173,11 +173,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "De mesa"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Agrupación"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "La zona de almacenamiento temporal «%s» no es de escritura."
@@ -201,7 +201,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Tarjeta"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Categorías"
 
@@ -244,7 +244,7 @@ msgstr "Componente"
 msgid "Component '%s' has no installation candidate."
 msgstr "El componente «%s» no posee ningún candidato de instalación."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Obligatorio para"
 
@@ -286,7 +286,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Depuradores"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "URL predeterminado de captura de pantalla"
 
@@ -297,12 +297,12 @@ msgstr ""
 "Utilizar de manera predeterminada el formato de metadatos dado (valores "
 "válidos en «xml» y «yaml»)."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Descripción"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Programador"
 
@@ -362,7 +362,7 @@ msgstr "Ejecutar una actualización de antememoria."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Se produjo un error al cargar el grupo de metadatos: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Amplía"
 
@@ -463,7 +463,7 @@ msgstr "Obtener información sobre un componente mediante su identificador."
 msgid "Graphics & Photography"
 msgstr "Imágenes y fotografía"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Sitio web"
 
@@ -472,7 +472,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "EID"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Icono"
 
@@ -480,7 +480,7 @@ msgstr "Icono"
 msgid "Iconsets"
 msgstr "Conjuntos de iconos"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identificador"
 
@@ -524,7 +524,7 @@ msgid "Libraries"
 msgstr "Bibliotecas"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Licencia"
 
@@ -562,6 +562,12 @@ msgstr ""
 "Establezca manualmente la ubicación de los metadatos de AppStream que se "
 "analizarán."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -577,7 +583,7 @@ msgstr "Matemáticas"
 msgid "Metadata file '%s' does not exist."
 msgstr "El archivo de metadatos «%s» no existe."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Los archivos de metadatos tienen errores:"
 
@@ -595,7 +601,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Reproductores de música"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Nombre"
 
@@ -638,7 +644,7 @@ msgstr "Oficina"
 msgid "Option '%s' is unknown."
 msgstr "Se desconoce la opción «%s»."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paquete"
 
@@ -653,11 +659,11 @@ msgid "Print detailed output about found components."
 msgstr "Mostrar información detallada sobre los componentes encontrados."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Grupo de proyecto"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Elementos proporcionados"
 
@@ -753,7 +759,7 @@ msgstr "Estrategia"
 msgid "Subcommands:"
 msgstr "Subórdenes:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Resumen"
 
@@ -782,7 +788,7 @@ msgstr "Editores de texto"
 msgid "The .desktop file '%s' does not exist."
 msgstr "El archivo .desktop «%s» no existe."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

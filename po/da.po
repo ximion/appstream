@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2016-08-15 18:48+0000\n"
 "Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Danish (http://www.transifex.com/freedesktop/appstream/"
@@ -37,7 +37,7 @@ msgstr ""
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "AppStream cache update completed successfully."
 msgstr "AppStreams opdatering af mellemlageret er færdig."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -106,7 +106,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -161,11 +161,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr ""
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr ""
@@ -187,7 +187,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr ""
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -230,7 +230,7 @@ msgstr ""
 msgid "Component '%s' has no installation candidate."
 msgstr ""
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Tvungen for"
 
@@ -269,7 +269,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 #, fuzzy
 msgid "Default Screenshot URL"
 msgstr "Prøv på skærmbilledeadresse"
@@ -279,12 +279,12 @@ msgstr "Prøv på skærmbilledeadresse"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Beskrivelse"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Udvikler"
 
@@ -344,7 +344,7 @@ msgstr "Fremtving en opdatering af mellemlageret"
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr ""
 
@@ -445,7 +445,7 @@ msgstr ""
 msgid "Graphics & Photography"
 msgstr ""
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Hjemmeside"
 
@@ -454,7 +454,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr ""
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Ikon"
 
@@ -462,7 +462,7 @@ msgstr "Ikon"
 msgid "Iconsets"
 msgstr ""
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identifikator"
 
@@ -503,7 +503,7 @@ msgid "Libraries"
 msgstr ""
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Licens"
 
@@ -539,6 +539,12 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 "Sæt manuelt placeringen af AppStream-metadata for mellemlagerregenerering"
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -554,7 +560,7 @@ msgstr ""
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -572,7 +578,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr ""
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Navn"
 
@@ -611,7 +617,7 @@ msgstr ""
 msgid "Option '%s' is unknown."
 msgstr "Kommandoen »%s« er ukendt."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Pakke"
 
@@ -627,11 +633,11 @@ msgid "Print detailed output about found components."
 msgstr "Udskriv et detaljeret resultat om fundne komponenter"
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Projektgruppe"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Tilbudte elementer"
 
@@ -727,7 +733,7 @@ msgstr ""
 msgid "Subcommands:"
 msgstr "Underkommandoer:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Resume"
 
@@ -756,7 +762,7 @@ msgstr ""
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

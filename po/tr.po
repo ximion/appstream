@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-11-29 12:07+0000\n"
 "Last-Translator: Mesut Akcan <makcan@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "Eylem"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Eklentiler"
 
@@ -85,7 +85,7 @@ msgstr "AppStream Durumu:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream önbellek güncellemesi başarıyla tamamlandı."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -113,7 +113,7 @@ msgstr ""
 "AppStream yazılım bileşenleri hakkında üst veri sağlayan dağıtımlararası bir "
 "spesifikasyondur."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream sistem önbelleği güncellendi, ama sorunlar bulundu: %s"
@@ -168,11 +168,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Tahta"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Takım"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Önbellek konumu '%s', yazılabilir değil."
@@ -196,7 +196,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kart"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Sınıflandırmalar"
 
@@ -239,7 +239,7 @@ msgstr "Bileşen"
 msgid "Component '%s' has no installation candidate."
 msgstr "'%s' bileşeninin hiçbir kurulum adayı yok."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Zorunlu"
 
@@ -280,7 +280,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Hata Ayıklayıcılar"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "Öntanımlı Ekran Görüntüsü Adresi"
 
@@ -289,12 +289,12 @@ msgstr "Öntanımlı Ekran Görüntüsü Adresi"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Varsayılan metadata biçimi (geçerli değerler 'xml' ve 'yaml')."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Tanımlama"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Geliştirici"
 
@@ -352,7 +352,7 @@ msgstr "Ön belleği yenilenmeye zorla."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Üst veri havuzunu yüklerken hata: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Genişletir"
 
@@ -453,7 +453,7 @@ msgstr "Kimliğiyle bir bileşen hakkında bilgi edin."
 msgid "Graphics & Photography"
 msgstr "Grafik ve Fotoğrafçılık"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Web Sitesi"
 
@@ -462,7 +462,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Bütünleşik Geliştirme Ortamları"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Simge"
 
@@ -470,7 +470,7 @@ msgstr "Simge"
 msgid "Iconsets"
 msgstr "Simge Kümeleri"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Tanımlayıcı"
 
@@ -511,7 +511,7 @@ msgid "Libraries"
 msgstr "Kütüphaneler"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Lisans"
 
@@ -544,6 +544,12 @@ msgstr "AppStream önbelleğinin manuel olarak seçilen konumu."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Taranacak AppStream meta verilerinin manuel olarak seçilen yeri."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -559,7 +565,7 @@ msgstr "Matematik"
 msgid "Metadata file '%s' does not exist."
 msgstr "Üst veri dosyası '%s' bulunmuyor."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Üst veri dosyalarında hata var:"
 
@@ -577,7 +583,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Müzik Oynatıcılar"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "İsim"
 
@@ -618,7 +624,7 @@ msgstr "Ofis"
 msgid "Option '%s' is unknown."
 msgstr "'%s' seçeneği bilinmiyor."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paket"
 
@@ -633,11 +639,11 @@ msgid "Print detailed output about found components."
 msgstr "Bulunan bileşenler hakkında ayrıntılı çıktı yazdır."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Proje Grubu"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Sağlanan Ögeler"
 
@@ -731,7 +737,7 @@ msgstr "Strateji"
 msgid "Subcommands:"
 msgstr "Alt komutlar:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Özet"
 
@@ -760,7 +766,7 @@ msgstr "Metin Düzenleyiciler"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop dosyası '%s' bulunmuyor."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

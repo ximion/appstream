@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2017-12-02 15:44+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -41,7 +41,7 @@ msgstr "动作"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "附加组件"
 
@@ -90,7 +90,7 @@ msgstr "AppStream 状态："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, fuzzy, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -114,7 +114,7 @@ msgid ""
 "software components."
 msgstr "AppStream 为一个跨散布版的规范，旨在提供软件组件的元数据。"
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 系统缓存已更新，但发现了一些问题：%s"
@@ -169,11 +169,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "棋盘"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "套件"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s”不可写。"
@@ -195,7 +195,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "纸牌"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "类别"
 
@@ -239,7 +239,7 @@ msgstr "组件"
 msgid "Component '%s' has no installation candidate."
 msgstr "'%s' 组件没有安装候选版本。"
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "强制项目以供"
 
@@ -279,7 +279,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "除错器"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "默认屏幕截图 URL"
 
@@ -289,12 +289,12 @@ msgstr "默认屏幕截图 URL"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "描述"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "开发者"
 
@@ -352,7 +352,7 @@ msgstr "强制刷新缓存。"
 msgid "Error while loading the metadata pool: %s"
 msgstr "载入元数据池时出错：%s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "扩展"
 
@@ -453,7 +453,7 @@ msgstr "根据 ID 获取相应组件的信息。"
 msgid "Graphics & Photography"
 msgstr "图形和摄影"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "主页"
 
@@ -462,7 +462,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "图标"
 
@@ -470,7 +470,7 @@ msgstr "图标"
 msgid "Iconsets"
 msgstr "图标集"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "识别码"
 
@@ -512,7 +512,7 @@ msgid "Libraries"
 msgstr "库"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "授权条款"
 
@@ -548,6 +548,12 @@ msgstr "手动设置 AppStream 缓存的位置。"
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "手动设置要扫描的 AppStream 元数据的位置。"
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -563,7 +569,7 @@ msgstr "数学"
 msgid "Metadata file '%s' does not exist."
 msgstr "“%s”元数据文件并不存在。"
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "元数据文件有错误："
 
@@ -581,7 +587,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "音乐播放器"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "名称"
 
@@ -623,7 +629,7 @@ msgstr "办公"
 msgid "Option '%s' is unknown."
 msgstr "选项“%s”未知。"
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "软件包"
 
@@ -638,11 +644,11 @@ msgid "Print detailed output about found components."
 msgstr "打印关于寻找到的组件的详细输出。"
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "项目群组"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "提供的项目"
 
@@ -735,7 +741,7 @@ msgstr "策略"
 msgid "Subcommands:"
 msgstr "子命令："
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "摘要"
 
@@ -764,7 +770,7 @@ msgstr "文本编辑器"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop 文件“%s”并不存在。"
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

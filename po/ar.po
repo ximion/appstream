@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-11-24 10:08+0000\n"
 "Last-Translator: mohammadA <mohammadAbdulhadi1@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "عمل"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "الإضافات"
 
@@ -83,7 +83,7 @@ msgstr "حالة آب-ستريم:"
 msgid "AppStream cache update completed successfully."
 msgstr ""
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "آب-ستريم هو جزء من المواصفات المشتركة لجميع الإصدارات والذي يوفّر البيانات "
 "الوصفية للمكوّنات البرمجية."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "حُدِّثت محتويات ذاكرة تخزين آب-ستريم المؤقتة، لكن وجدت مشكلة: %s"
@@ -166,11 +166,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr ""
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "حزمة"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "لا يمكن الكتابة في هذا الموقع من ذاكرة التخزين المؤقت '%s'."
@@ -194,7 +194,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "البطاقة"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "الفئات"
 
@@ -237,7 +237,7 @@ msgstr "مكون"
 msgid "Component '%s' has no installation candidate."
 msgstr "المكوّن '%s' ليس لديه أي وسيلة مرشًحة للتثبيت."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "أساسي لـ"
 
@@ -276,7 +276,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "المنقحات"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr ""
 
@@ -285,12 +285,12 @@ msgstr ""
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "الوصف"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "المطور"
 
@@ -347,7 +347,7 @@ msgstr ""
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr ""
 msgid "Graphics & Photography"
 msgstr "تصور ورسوميات"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "بيئات التطوير"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Iconsets"
 msgstr ""
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr ""
 
@@ -506,7 +506,7 @@ msgid "Libraries"
 msgstr "مكتبات"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "الرخصة"
 
@@ -539,6 +539,12 @@ msgstr ""
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -554,7 +560,7 @@ msgstr "رياضيات"
 msgid "Metadata file '%s' does not exist."
 msgstr "ملف البيانات الوصفية '%s' غير موجود."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "ملفات البيانات الوصفية تحوي أخطاءً:"
 
@@ -572,7 +578,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr ""
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "الاسم"
 
@@ -611,7 +617,7 @@ msgstr "المكتب"
 msgid "Option '%s' is unknown."
 msgstr "الخيار '%s' غير معروف."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "الحزمة"
 
@@ -626,11 +632,11 @@ msgid "Print detailed output about found components."
 msgstr "اطبع خرجًا مفصلا عن المكون المعثور عليه."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "مجموعة المشروع"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "العناصر الموفَّرة"
 
@@ -720,7 +726,7 @@ msgstr ""
 msgid "Subcommands:"
 msgstr "الأوامر الفرعية:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "ملخص"
 
@@ -749,7 +755,7 @@ msgstr "محررات النصوص"
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

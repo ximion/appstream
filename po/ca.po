@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-07-19 17:53+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "Acció"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Complements"
 
@@ -86,7 +86,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -114,7 +114,7 @@ msgstr ""
 "AppStream és una especificació independent de la distribució que proporciona "
 "metadades quant als components de programari."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -171,11 +171,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Placa"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Agrupació"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
@@ -199,7 +199,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Targeta"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Categories"
 
@@ -242,7 +242,7 @@ msgstr "Component"
 msgid "Component '%s' has no installation candidate."
 msgstr "El component «%s» no té cap candidat d'instal·lació."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Obligatori per"
 
@@ -283,7 +283,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Depuradors"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "URL de la captura de pantalla predeterminada"
 
@@ -293,12 +293,12 @@ msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Format predeterminat de les metadades (els valors vàlids són 'xml' i 'yaml')."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Descripció"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Desenvolupador"
 
@@ -358,7 +358,7 @@ msgid "Error while loading the metadata pool: %s"
 msgstr ""
 "S'ha produït un error mentre es carregava l'agrupació de les metadades: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Estén"
 
@@ -459,7 +459,7 @@ msgstr "Obté la informació sobre un component amb el seu id."
 msgid "Graphics & Photography"
 msgstr "Gràfics i fotografia"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Pàgina inicial"
 
@@ -468,7 +468,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Entorns de desenvolupament integrat"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Icona"
 
@@ -476,7 +476,7 @@ msgstr "Icona"
 msgid "Iconsets"
 msgstr "Conjunts d'icones"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identificador"
 
@@ -519,7 +519,7 @@ msgid "Libraries"
 msgstr "Biblioteques"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Llicència"
 
@@ -553,6 +553,12 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 "Ubicació seleccionada manualment de les metadades d'AppStream a explorar."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -568,7 +574,7 @@ msgstr "Matemàtiques"
 msgid "Metadata file '%s' does not exist."
 msgstr "No existeix el fitxer de metadades «%s»."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Els fitxers de metadades tenen errors:"
 
@@ -586,7 +592,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Reproductors de música"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Nom"
 
@@ -627,7 +633,7 @@ msgstr "Ofimàtica"
 msgid "Option '%s' is unknown."
 msgstr "Es desconeix l'opció «%s»."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paquet"
 
@@ -642,11 +648,11 @@ msgid "Print detailed output about found components."
 msgstr "Imprimeix la sortida detallada quant als components trobats."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Grup del projecte"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Elements proporcionats"
 
@@ -741,7 +747,7 @@ msgstr "Estratègia"
 msgid "Subcommands:"
 msgstr "Subordres:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Resum"
 
@@ -770,7 +776,7 @@ msgstr "Editors de text"
 msgid "The .desktop file '%s' does not exist."
 msgstr "No existeix el fitxer .desktop «%s»."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

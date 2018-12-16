@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-06-11 19:43+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/"
@@ -37,7 +37,7 @@ msgstr "Action"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Tillägg"
 
@@ -84,7 +84,7 @@ msgstr "AppStream-status:"
 msgid "AppStream cache update completed successfully."
 msgstr "Uppdatering av AppStreams cache färdig."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -112,7 +112,7 @@ msgstr ""
 "AppStream är en multiplattform-specifikation för att tillhandahålla metadata "
 "om programkomponenter."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream-cache uppdaterades, men det fanns problem: %s"
@@ -167,11 +167,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Brädspel"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Bunt"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Cacheplats ”%s” är inte skrivbar."
@@ -195,7 +195,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kort"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -238,7 +238,7 @@ msgstr "Komponent"
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponenten ”%s” har ingen installationskandidat."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Obligatorisk för"
 
@@ -278,7 +278,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Felsökare"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "URL för exempelbild"
 
@@ -287,12 +287,12 @@ msgstr "URL för exempelbild"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Standardmetadataformat (giltiga värden är ”xml” och ”yaml”)."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Beskrivning"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Utvecklare"
 
@@ -349,7 +349,7 @@ msgstr "Tvinga en cache-uppdatering."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Fel vid inläsning av poolen för metadata: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Utökar"
 
@@ -450,7 +450,7 @@ msgstr "Hämta information om en komponent givet dess ID."
 msgid "Graphics & Photography"
 msgstr "Grafik och bilder"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Webbplats"
 
@@ -459,7 +459,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Utvecklingsmiljöer"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Ikon"
 
@@ -467,7 +467,7 @@ msgstr "Ikon"
 msgid "Iconsets"
 msgstr "Ikonuppsättningar"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identifierare"
 
@@ -508,7 +508,7 @@ msgid "Libraries"
 msgstr "Bibliotek"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Licens"
 
@@ -541,6 +541,12 @@ msgstr "Manuellt angiven plats för AppStream-cache."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Manuellt angiven plats för AppStream-metadata att söka av."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -556,7 +562,7 @@ msgstr "Matematik"
 msgid "Metadata file '%s' does not exist."
 msgstr "Metadatafilen ”%s” existerar inte."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Metadatafilen har fel:"
 
@@ -574,7 +580,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Musikspelare"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Namn"
 
@@ -615,7 +621,7 @@ msgstr "Kontor"
 msgid "Option '%s' is unknown."
 msgstr "Flaggan ”%s” är okänd."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paket"
 
@@ -630,11 +636,11 @@ msgid "Print detailed output about found components."
 msgstr "Skriv ut detaljerad utdata om identifierade komponenter."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Projektgrupp"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Tillhandahållna objekt"
 
@@ -729,7 +735,7 @@ msgstr "Strategi"
 msgid "Subcommands:"
 msgstr "Subkommandon:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Summering"
 
@@ -758,7 +764,7 @@ msgstr "Textredigerare"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop-filen ”%s” existerar inte."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-06-11 11:20+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/"
@@ -36,7 +36,7 @@ msgstr "Actie"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Extensies"
 
@@ -83,7 +83,7 @@ msgstr "AppStream-status:"
 msgid "AppStream cache update completed successfully."
 msgstr "De AppStream-cache is succesvol bijgewerkt."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "AppStream is een distributie-onafhankelijke specificatie die metagegevens "
 "beschikbaar stelt over software-onderdelen."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -167,11 +167,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Bord"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Bundel"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "De cache-locatie '%s' is niet beschrijfbaar."
@@ -195,7 +195,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kaart"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Categorieën"
 
@@ -238,7 +238,7 @@ msgstr "Onderdeel"
 msgid "Component '%s' has no installation candidate."
 msgstr "Het onderdeel '%s' bevat geen installatie-kandidaat."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Verplicht voor"
 
@@ -279,7 +279,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Foutopsporingshulpmiddelen"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "Standaard schermafbeelding-URL"
 
@@ -290,12 +290,12 @@ msgstr ""
 "Standaard opgegeven metagegevens-soort (geldige waarden zijn 'xml' en "
 "'yaml')."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Omschrijving"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Ontwikkelaar"
 
@@ -355,7 +355,7 @@ msgid "Error while loading the metadata pool: %s"
 msgstr ""
 "Er is een fout opgetreden tijdens het laden van de metagegevens-pool: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Breidt uit"
 
@@ -456,7 +456,7 @@ msgstr "Informatie verkrijgen over een onderdeel door de ID."
 msgid "Graphics & Photography"
 msgstr "Grafisch & Fotografie"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Website"
 
@@ -465,7 +465,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE's"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Pictogram"
 
@@ -473,7 +473,7 @@ msgstr "Pictogram"
 msgid "Iconsets"
 msgstr "Pictogrammensets"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identificeerder"
 
@@ -515,7 +515,7 @@ msgid "Libraries"
 msgstr "Bibliotheken"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Licentie"
 
@@ -548,6 +548,12 @@ msgstr "Handmatig de locatie instellen van de AppStream-cache."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Handmatig de locatie instellen van te scannen AppStream-metagegevens."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -563,7 +569,7 @@ msgstr "Wiskunde"
 msgid "Metadata file '%s' does not exist."
 msgstr "Het metagegevens-bestand '%s' bestaat niet."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Metagegevens-bestanden bevatten fouten:"
 
@@ -581,7 +587,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Muziekspelers"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Naam"
 
@@ -622,7 +628,7 @@ msgstr "Kantoor"
 msgid "Option '%s' is unknown."
 msgstr "De optie '%s' is onbekend."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Pakket"
 
@@ -637,11 +643,11 @@ msgid "Print detailed output about found components."
 msgstr "Gedetailleerde uitvoer weergeven over gevonden onderdelen."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Projectgroep"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Geboden items"
 
@@ -736,7 +742,7 @@ msgstr "Strategie"
 msgid "Subcommands:"
 msgstr "Subcommando's:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Samenvatting"
 
@@ -765,7 +771,7 @@ msgstr "Tekstbewerkers"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Het .desktop-bestand, '%s', bestaat niet."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

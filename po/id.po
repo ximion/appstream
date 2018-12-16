@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-06-16 08:10+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -37,7 +37,7 @@ msgstr "Aksi"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Pengaya"
 
@@ -84,7 +84,7 @@ msgstr "Status AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pemutakhiran singgahan AppStream berakhir dengan sukses."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -112,7 +112,7 @@ msgstr ""
 "AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata "
 "tentang komponen perangkat lunak."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "Singgahan sistem AppStream dimutakhirkan, tapi ditemukan masalah: %s"
@@ -167,11 +167,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Papan"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Bundel"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokasi singgahan '%s' tidak dapat ditulisi."
@@ -195,7 +195,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kartu"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Kategori"
 
@@ -238,7 +238,7 @@ msgstr "Komponen"
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponen '%s' tidak punya kandidat instalasi."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Wajib bagi"
 
@@ -278,7 +278,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Debugger"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "Cuplikan Layar URL bawaan"
 
@@ -287,12 +287,12 @@ msgstr "Cuplikan Layar URL bawaan"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Format metadata baku (nilai yang valid adalah 'xml' dan 'yaml')."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Deskripsi"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Pengembang"
 
@@ -349,7 +349,7 @@ msgstr "Paksakan penyegaran tembolok."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Kesalahan ketika memuat pool metadata: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Memperluas"
 
@@ -450,7 +450,7 @@ msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 msgid "Graphics & Photography"
 msgstr "Grafis & Fotografi"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Beranda"
 
@@ -459,7 +459,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Ikon"
 
@@ -467,7 +467,7 @@ msgstr "Ikon"
 msgid "Iconsets"
 msgstr "Set ikon"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identifier"
 
@@ -510,7 +510,7 @@ msgid "Libraries"
 msgstr "Pustaka"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Lisensi"
 
@@ -543,6 +543,12 @@ msgstr "Lokasi singgahan AppStream yang dipilih secara manual."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Lokasi metadata AppStream yang dipilih secara manual untuk dipindai."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -558,7 +564,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Berkas metadata '%s' tidak ada."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Berkas metadata punya kesalahan:"
 
@@ -576,7 +582,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Pemutar Musik"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Nama"
 
@@ -617,7 +623,7 @@ msgstr "Perkantoran"
 msgid "Option '%s' is unknown."
 msgstr "Opsi '%s' tak dikenal."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paket"
 
@@ -632,11 +638,11 @@ msgid "Print detailed output about found components."
 msgstr "Cetak keluaran terrinci tentang komponen yang ditemukan."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Grup Proyek"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Butir Yang Disediakan"
 
@@ -731,7 +737,7 @@ msgstr "Strategi"
 msgid "Subcommands:"
 msgstr "Subperintah:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Ringkasan"
 
@@ -760,7 +766,7 @@ msgstr "Penyunting Teks"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Berkas .desktop '%s' tidak ada."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-06-11 06:58+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "Akce"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Doplňky"
 
@@ -85,7 +85,7 @@ msgstr "Stav nástroje AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -113,7 +113,7 @@ msgstr ""
 "AppStream je standard pro poskytování metadat o programovém vybavení, "
 "používaný napříč linuxovými distribucemi."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -170,11 +170,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Deskové"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Zabaleno s"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
@@ -198,7 +198,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Karetní"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Kategorie"
 
@@ -241,7 +241,7 @@ msgstr "Součást"
 msgid "Component '%s' has no installation candidate."
 msgstr "Součást „%s“ nemá kandidáta na instalaci."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Povinné pro"
 
@@ -281,7 +281,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Ladící nástroje"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "URL výchozího ukázkového snímku obrazovky"
 
@@ -290,12 +290,12 @@ msgstr "URL výchozího ukázkového snímku obrazovky"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Výchozí formát metadat (platné hodnoty jsou „xml“ a „yaml“)."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Popis"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Vývojáři"
 
@@ -352,7 +352,7 @@ msgstr "Vynutit aktualizaci mezipaměti."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Chyba při načítání fondu metadat: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Rozšiřuje"
 
@@ -453,7 +453,7 @@ msgstr "Získat informace o součásti podle jejího identifikátoru."
 msgid "Graphics & Photography"
 msgstr "Grafika a fotografie"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Domovská stránka"
 
@@ -462,7 +462,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Integrovaná vývojová prostředí"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Ikona"
 
@@ -470,7 +470,7 @@ msgstr "Ikona"
 msgid "Iconsets"
 msgstr "Sady ikon"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identifikátor"
 
@@ -511,7 +511,7 @@ msgid "Libraries"
 msgstr "Knihovny"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Licence"
 
@@ -544,6 +544,12 @@ msgstr "Ručně nastavené umístění mezipaměti AppStream."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ručně nastavené umístění, ve kterém hledat metadata AppStream."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -559,7 +565,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Soubor s metadaty „%s“ neexistuje."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Soubory s metadaty obsahují chyby:"
 
@@ -577,7 +583,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Přehrávače hudby"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Název"
 
@@ -618,7 +624,7 @@ msgstr "Kancelář"
 msgid "Option '%s' is unknown."
 msgstr "Neznámá předvolba „%s“."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Balíček"
 
@@ -633,11 +639,11 @@ msgid "Print detailed output about found components."
 msgstr "Vypsat podrobnosti o nalezené součásti."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Skupina projektu"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Poskytované položky"
 
@@ -731,7 +737,7 @@ msgstr "Strategie"
 msgid "Subcommands:"
 msgstr "Dílčí příkazy:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Shrnutí"
 
@@ -760,7 +766,7 @@ msgstr "Textové editory"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Soubor .desktop pro „%s“ neexistuje."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

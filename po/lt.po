@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-06-26 21:29+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "Veiksmas"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Papildiniai"
 
@@ -85,7 +85,7 @@ msgstr "AppStream būsena:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream podėlio atnaujinimas sėkmingai užbaigtas."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -113,7 +113,7 @@ msgstr ""
 "AppStream yra daugiadistribucinė specifikacija, skirta pateikti metaduomenis "
 "apie programinės įrangos komponentus."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -169,11 +169,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Stalo"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Rinkinys"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Podėlio vieta \"%s\" nėra įrašoma."
@@ -197,7 +197,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kortų"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Kategorijos"
 
@@ -240,7 +240,7 @@ msgstr "Komponentas"
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponentas \"%s\" neturi įdiegimo kandidatų."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Privaloma šiems"
 
@@ -280,7 +280,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Derinimo programos"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "Numatytosios ekrano kopijos URL"
 
@@ -291,12 +291,12 @@ msgstr ""
 "Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml"
 "\")."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Aprašas"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Kūrėjas"
 
@@ -353,7 +353,7 @@ msgstr "Priverstinai atlikti podėlio įkėlimą iš naujo."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Klaida, įkeliant metaduomenų telkinį: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Išplečia"
 
@@ -454,7 +454,7 @@ msgstr "Gauti informaciją apie komponentą pagal jo ID."
 msgid "Graphics & Photography"
 msgstr "Grafika ir fotografija"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Internetinė svetainė"
 
@@ -463,7 +463,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Integruotos kūrimo aplinkos (IDE)"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Piktograma"
 
@@ -471,7 +471,7 @@ msgstr "Piktograma"
 msgid "Iconsets"
 msgstr "Piktogramų rinkiniai"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identifikatorius"
 
@@ -513,7 +513,7 @@ msgid "Libraries"
 msgstr "Bibliotekos"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Licencija"
 
@@ -546,6 +546,12 @@ msgstr "Rankiniu būdu pasirinkta AppStream podėlio vieta."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Rankiniu būdu pasirinkta peržiūrima AppStream metaduomenų vieta."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -561,7 +567,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Metaduomenų failo \"%s\" nėra."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Metaduomenų failuose yra klaidų:"
 
@@ -579,7 +585,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Muzikos grotuvai"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Pavadinimas"
 
@@ -620,7 +626,7 @@ msgstr "Raštinė"
 msgid "Option '%s' is unknown."
 msgstr "Parametras \"%s\" nėra žinomas."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paketas"
 
@@ -635,11 +641,11 @@ msgid "Print detailed output about found components."
 msgstr "Rodyti išsamią išvestį apie rastus komponentus."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Projekto grupė"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Pateikti elementai"
 
@@ -734,7 +740,7 @@ msgstr "Strategija"
 msgid "Subcommands:"
 msgstr "Pokomandžiai:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Santrauka"
 
@@ -763,7 +769,7 @@ msgstr "Tekstų redaktoriai"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop failo \"%s\" nėra."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

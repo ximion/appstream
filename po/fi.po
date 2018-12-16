@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-04-02 19:15+0000\n"
 "Last-Translator: Juhani Numminen <juhaninumminen0@gmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "Toiminta"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Lisäosat"
 
@@ -85,7 +85,7 @@ msgstr "AppStreamin tila:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStreamin välimuisti päivitetty onnistuneesti."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -109,7 +109,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -165,11 +165,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Lauta"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Välimuistin sijaintiin ”%s” ei voi kirjoittaa."
@@ -193,7 +193,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kortit"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Luokat"
 
@@ -236,7 +236,7 @@ msgstr ""
 msgid "Component '%s' has no installation candidate."
 msgstr ""
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Tarvitaan työpöytäympäristössä"
 
@@ -275,7 +275,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr ""
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "Oletusnäyttökuvan URL"
 
@@ -284,12 +284,12 @@ msgstr "Oletusnäyttökuvan URL"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Metadatan oletusmuoto (vaihtoehdot: ”xml” tai ”yaml”)."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Kuvaus"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Kehittäjä"
 
@@ -346,7 +346,7 @@ msgstr "Pakota välimuistin päivitys."
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Laajentaa"
 
@@ -447,7 +447,7 @@ msgstr "Hae tiedot komponentista sen ID:n perusteella."
 msgid "Graphics & Photography"
 msgstr "Grafiikka ja valokuvaus"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Verkkosivusto"
 
@@ -456,7 +456,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Kehitysympäristöt"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Kuvake"
 
@@ -464,7 +464,7 @@ msgstr "Kuvake"
 msgid "Iconsets"
 msgstr ""
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Tunniste"
 
@@ -505,7 +505,7 @@ msgid "Libraries"
 msgstr "Kirjastot"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Lisenssi"
 
@@ -538,6 +538,12 @@ msgstr ""
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -553,7 +559,7 @@ msgstr "Matematiikka"
 msgid "Metadata file '%s' does not exist."
 msgstr "Metadata-tiedostoa ”%s” ei ole olemassa."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Metadata-tiedostoissa on virheitä:"
 
@@ -571,7 +577,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Musiikkitoistimet"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Nimi"
 
@@ -610,7 +616,7 @@ msgstr "Toimisto"
 msgid "Option '%s' is unknown."
 msgstr "Valitsin ”%s” on tuntematon."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paketti"
 
@@ -625,11 +631,11 @@ msgid "Print detailed output about found components."
 msgstr ""
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Projektiryhmä"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr ""
 
@@ -719,7 +725,7 @@ msgstr "Strategia"
 msgid "Subcommands:"
 msgstr "Alikomennot:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Yhteenveto"
 
@@ -748,7 +754,7 @@ msgstr "Tekstimuokkaimet"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop-tiedostoa ”%s” ei ole olemassa."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

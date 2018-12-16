@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-12-03 02:53+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
@@ -37,7 +37,7 @@ msgstr "アクション"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "アドオン"
 
@@ -84,12 +84,14 @@ msgstr "AppStream の状態:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream キャッシュのアップデートは正しく完了しました。"
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
-msgstr "AppStream キャッシュのアップデートが失敗しました。より詳細な問題の情報を入手するには、詳細モードをオンにしてください。"
+msgstr ""
+"AppStream キャッシュのアップデートが失敗しました。より詳細な問題の情報を入手"
+"するには、詳細モードをオンにしてください。"
 
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
@@ -108,10 +110,12 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
-msgstr "AppStream システムキャッシュはアップデートされましたが、問題が見つかりました: %s"
+msgstr ""
+"AppStream システムキャッシュはアップデートされましたが、問題が見つかりまし"
+"た: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:786
@@ -163,11 +167,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "ボード"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "キャッシュの場所 '%s' が書き込み可能ではありません。"
@@ -182,14 +186,16 @@ msgstr "カレンダー"
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
-msgstr "'%s' をコピーできません。ファイルの拡張子が '.metainfo.xml' または '.appdata.xml' ではありません。"
+msgstr ""
+"'%s' をコピーできません。ファイルの拡張子が '.metainfo.xml' または '.appdata."
+"xml' ではありません。"
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
 msgid "Card"
 msgstr "カード"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "カテゴリー"
 
@@ -232,7 +238,7 @@ msgstr "コンポーネント"
 msgid "Component '%s' has no installation candidate."
 msgstr "コンポーネント '%s' にはインストール候補がありません。"
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr ""
 
@@ -271,7 +277,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "デバッガ"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "デフォルトのスクリーンショット URL"
 
@@ -280,12 +286,12 @@ msgstr "デフォルトのスクリーンショット URL"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "デフォルトのメタデータファイル形式（有効な値は 'xml' と 'yaml'）。"
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "説明"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "開発者"
 
@@ -342,7 +348,7 @@ msgstr "強制的にキャッシュを更新します。"
 msgid "Error while loading the metadata pool: %s"
 msgstr "メタデータプールの読み込み中にエラーが発生しました: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "拡張"
 
@@ -443,7 +449,7 @@ msgstr ""
 msgid "Graphics & Photography"
 msgstr "グラフィックスと写真"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "ホームページ"
 
@@ -452,7 +458,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "統合開発環境"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "アイコン"
 
@@ -460,7 +466,7 @@ msgstr "アイコン"
 msgid "Iconsets"
 msgstr "アイコンセット"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "識別子"
 
@@ -501,7 +507,7 @@ msgid "Libraries"
 msgstr "ライブラリ"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "ライセンス"
 
@@ -534,6 +540,12 @@ msgstr ""
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -549,7 +561,7 @@ msgstr "数学"
 msgid "Metadata file '%s' does not exist."
 msgstr "メタデータファイル '%s' は存在しません。"
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "メタデータファイルにエラーがあります:"
 
@@ -567,7 +579,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "音楽プレーヤー"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "名前"
 
@@ -606,7 +618,7 @@ msgstr "Office"
 msgid "Option '%s' is unknown."
 msgstr "オプション '%s' は不明です。"
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "パッケージ"
 
@@ -621,11 +633,11 @@ msgid "Print detailed output about found components."
 msgstr "見つかったコンポーネントの詳細な出力を表示します。"
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "プロジェクトグループ"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "指定されたアイテム"
 
@@ -658,7 +670,9 @@ msgstr "ロールプレイング"
 #: tools/appstream-cli.c:185 tools/appstream-cli.c:768
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "利用可能なコマンドラインオプションの完全なリストを見るには '%s --help' を実行してください。"
+msgstr ""
+"利用可能なコマンドラインオプションの完全なリストを見るには '%s --help' を実行"
+"してください。"
 
 #: tools/appstream-cli.c:187
 #, c-format
@@ -715,7 +729,7 @@ msgstr "戦略"
 msgid "Subcommands:"
 msgstr "サブコマンド:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "要約"
 
@@ -744,7 +758,7 @@ msgstr "テキストエディター"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop ファイル '%s' は存在しません。"
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -917,7 +931,8 @@ msgstr ""
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
 msgid "You might need superuser permissions to perform this action."
-msgstr "この操作を実行するにはスーパーユーザー権限が必要である可能性があります。"
+msgstr ""
+"この操作を実行するにはスーパーユーザー権限が必要である可能性があります。"
 
 #: tools/ascli-actions-mdata.c:444
 msgid ""
@@ -971,8 +986,8 @@ msgstr "入力ファイルと出力ファイルの指定が必要です。"
 #: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
-"app;application;package;program;programme;suite;tool;アプリ;アプリケーション;パッケージ;プログラム"
-";スイート;ツール"
+"app;application;package;program;programme;suite;tool;アプリ;アプリケーション;"
+"パッケージ;プログラム;スイート;ツール"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:183

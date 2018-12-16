@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-06-11 06:33+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
@@ -36,7 +36,7 @@ msgstr "Azione"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Componenti aggiuntivi"
 
@@ -83,7 +83,7 @@ msgstr "Stato AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aggiornamento cache AppStream completato con successo."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "AppStream è una specifica multi-distribuzione che fornisce metadati riguardo "
 "ai componenti software."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -168,11 +168,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Tavolo"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Bundle"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Non è possibile scrivere sulla posizione cache «%s»."
@@ -196,7 +196,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Carta"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Categorie"
 
@@ -239,7 +239,7 @@ msgstr "Componente"
 msgid "Component '%s' has no installation candidate."
 msgstr "Il componente «%s» non ha alcun candidato per l'installazione."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Obbligatorio per"
 
@@ -280,7 +280,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Strumenti di debug"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "URL predefinito della schermata"
 
@@ -291,12 +291,12 @@ msgstr ""
 "Valore predefinito del formato dei metadati (valori validi sono «xml» e "
 "«yaml»)"
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Descrizione"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Sviluppatore"
 
@@ -355,7 +355,7 @@ msgstr "Forza l'aggiornamento della cache"
 msgid "Error while loading the metadata pool: %s"
 msgstr "Errore nel caricare l'insieme dei metadati: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Estende"
 
@@ -456,7 +456,7 @@ msgstr "Ottiene informazioni su un componente tramite il suo ID"
 msgid "Graphics & Photography"
 msgstr "Grafica e fotografia"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Sito web"
 
@@ -465,7 +465,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "IDE"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Icona"
 
@@ -473,7 +473,7 @@ msgstr "Icona"
 msgid "Iconsets"
 msgstr "Insieme di icone"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Identificatore"
 
@@ -514,7 +514,7 @@ msgid "Libraries"
 msgstr "Librerie"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Licenza"
 
@@ -547,6 +547,12 @@ msgstr "Imposta manualmente la posizione della cache AppStream"
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Imposta manualmente la posizione dei metadati AppStream da analizzare"
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -562,7 +568,7 @@ msgstr "Matematica"
 msgid "Metadata file '%s' does not exist."
 msgstr "Il file dei metadati «%s» non esiste."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "I file dei metadati presentano degli errori:"
 
@@ -580,7 +586,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Riproduttori musicali"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Nome"
 
@@ -621,7 +627,7 @@ msgstr "Ufficio"
 msgid "Option '%s' is unknown."
 msgstr "Opzione «%s» sconosciuta."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Pacchetto"
 
@@ -636,11 +642,11 @@ msgid "Print detailed output about found components."
 msgstr "Stampa informazioni dettagliate riguardo ai componenti trovati"
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Gruppo progetto"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Elementi forniti"
 
@@ -733,7 +739,7 @@ msgstr "Strategia"
 msgid "Subcommands:"
 msgstr "Sotto-comandi:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Riepilogo"
 
@@ -762,7 +768,7 @@ msgstr "Editor di testi"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Il file .desktop \"%s\" non esiste."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -874,7 +880,8 @@ msgstr "Comando \"%s\" sconosciuto."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr "Operazione di comparazione \"%s\" non riconosciuta. Valori validi sono:"
+msgstr ""
+"Operazione di comparazione \"%s\" non riconosciuta. Valori validi sono:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-06-10 15:36+0200\n"
+"POT-Creation-Date: 2018-12-16 22:43+0100\n"
 "PO-Revision-Date: 2018-09-02 13:16+0000\n"
 "Last-Translator: Chris <bftchje@icloud.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/"
@@ -38,7 +38,7 @@ msgstr "Aktion"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:385
+#: src/as-category.c:320 tools/ascli-utils.c:395
 msgid "Add-ons"
 msgstr "Erweiterungen"
 
@@ -85,7 +85,7 @@ msgstr "AppStream-Status:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1625
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -115,7 +115,7 @@ msgstr ""
 "AppStream ist eine Distributionsübergreifende Spezifikation zur "
 "Bereitstellung von Metadaten über Softwarekomponenten."
 
-#: src/as-pool.c:1546
+#: src/as-pool.c:1611
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -172,11 +172,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Brettspiele"
 
-#: tools/ascli-utils.c:286
+#: tools/ascli-utils.c:296
 msgid "Bundle"
 msgstr "Bündel"
 
-#: src/as-pool.c:1486
+#: src/as-pool.c:1551
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Zwischenspeicheradresse „%s” ist nicht beschreibbar."
@@ -200,7 +200,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kartenspiele"
 
-#: tools/ascli-utils.c:356
+#: tools/ascli-utils.c:366
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -243,7 +243,7 @@ msgstr "Komponente"
 msgid "Component '%s' has no installation candidate."
 msgstr "Die Komponente „%s” besitzt keinen Installationskandidaten."
 
-#: tools/ascli-utils.c:364
+#: tools/ascli-utils.c:374
 msgid "Compulsory for"
 msgstr "Verpflichtend für"
 
@@ -284,7 +284,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Fehlerdiagnose"
 
-#: tools/ascli-utils.c:340
+#: tools/ascli-utils.c:350
 msgid "Default Screenshot URL"
 msgstr "Standardadresse für Bildschirmfotos"
 
@@ -293,12 +293,12 @@ msgstr "Standardadresse für Bildschirmfotos"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Standard-Metadatenformat (gültige Werte sind „XML” und „YAML”)."
 
-#: tools/ascli-utils.c:320
+#: tools/ascli-utils.c:330
 msgid "Description"
 msgstr "Beschreibung"
 
 #. developer name
-#: tools/ascli-utils.c:308
+#: tools/ascli-utils.c:318
 msgid "Developer"
 msgstr "Entwickler"
 
@@ -355,7 +355,7 @@ msgstr "Aktualisierung des Zwischenspeichers erzwingen."
 msgid "Error while loading the metadata pool: %s"
 msgstr "Fehler beim Laden das Metadatenpools: %s"
 
-#: tools/ascli-utils.c:314
+#: tools/ascli-utils.c:324
 msgid "Extends"
 msgstr "Erweitert"
 
@@ -456,7 +456,7 @@ msgstr "Informationen zu einer Komponente anhand deren ID ermitteln."
 msgid "Graphics & Photography"
 msgstr "Grafik und Fotografie"
 
-#: tools/ascli-utils.c:287
+#: tools/ascli-utils.c:297
 msgid "Homepage"
 msgstr "Homepage"
 
@@ -465,7 +465,7 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Entwicklungsumgebungen"
 
-#: tools/ascli-utils.c:288
+#: tools/ascli-utils.c:298
 msgid "Icon"
 msgstr "Symbol"
 
@@ -473,7 +473,7 @@ msgstr "Symbol"
 msgid "Iconsets"
 msgstr "Symbolsätze"
 
-#: tools/ascli-utils.c:282
+#: tools/ascli-utils.c:292
 msgid "Identifier"
 msgstr "Bezeichner"
 
@@ -515,7 +515,7 @@ msgid "Libraries"
 msgstr "Bibliotheken"
 
 #. license
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:360
 msgid "License"
 msgstr "Lizenz"
 
@@ -548,6 +548,12 @@ msgstr "Ort des AppStream-Zwischenspeichers manuell angeben."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ort der AppStream-Metadaten manuell angeben."
 
+#: src/as-pool.c:1084
+msgid ""
+"Many components have been recognized as invalid. See debug output for "
+"details."
+msgstr ""
+
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Math"
@@ -563,7 +569,7 @@ msgstr "Mathematik"
 msgid "Metadata file '%s' does not exist."
 msgstr "Metadaten-Datei »%s« existiert nicht."
 
-#: src/as-pool.c:758
+#: src/as-pool.c:756
 msgid "Metadata files have errors:"
 msgstr "Metadaten-Dateien haben Fehler:"
 
@@ -581,7 +587,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Musikwiedergabe"
 
-#: tools/ascli-utils.c:283
+#: tools/ascli-utils.c:293
 msgid "Name"
 msgstr "Name"
 
@@ -623,7 +629,7 @@ msgstr "Büro"
 msgid "Option '%s' is unknown."
 msgstr "Option '%s' ist unbekannt."
 
-#: tools/ascli-utils.c:285
+#: tools/ascli-utils.c:295
 msgid "Package"
 msgstr "Paket"
 
@@ -638,11 +644,11 @@ msgid "Print detailed output about found components."
 msgstr "Detaillierte Ausgabe über gefundene Komponenten ausgeben."
 
 #. project group
-#: tools/ascli-utils.c:347
+#: tools/ascli-utils.c:357
 msgid "Project Group"
 msgstr "Projektgruppe"
 
-#: tools/ascli-utils.c:392
+#: tools/ascli-utils.c:402
 msgid "Provided Items"
 msgstr "Bereitgestellte Objekte"
 
@@ -737,7 +743,7 @@ msgstr "Strategie"
 msgid "Subcommands:"
 msgstr "Unterbefehle:"
 
-#: tools/ascli-utils.c:284
+#: tools/ascli-utils.c:294
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -766,7 +772,7 @@ msgstr "Textbearbeitung"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Die .desktop Datei »%s« ist nicht vorhanden."
 
-#: src/as-pool.c:1544
+#: src/as-pool.c:1609
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
