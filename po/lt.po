@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-12-16 22:43+0100\n"
-"PO-Revision-Date: 2018-06-26 21:29+0000\n"
+"PO-Revision-Date: 2018-12-20 12:08+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
 "translations/lt/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
 "19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
 "1 : 2);\n"
-"X-Generator: Weblate 3.1-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -551,6 +551,8 @@ msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
 msgstr ""
+"Dauguma komponentų buvo pripažinti neteisingais. Išsamesnei informacijai, "
+"žiūrėkite derinimo išvestį."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
