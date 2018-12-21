@@ -79,11 +79,11 @@ Q_GADGET
             UrlKindUnknown,
             UrlKindHomepage,
             UrlKindBugtracker,
-            UrlKindConact,
             UrlKindFaq,
             UrlKindHelp,
             UrlKindDonation,
-            UrlTranslate
+            UrlTranslate,
+            UrlKindContact
         };
         Q_ENUM(UrlKind)
 
