@@ -294,6 +294,8 @@ as_merge_kind_to_string (AsMergeKind kind)
 		return "replace";
 	if (kind == AS_MERGE_KIND_APPEND)
 		return "append";
+	if (kind == AS_MERGE_KIND_REMOVE_COMPONENT)
+		return "remove-component";
 
 	return "unknown";
 }
@@ -313,6 +315,8 @@ as_merge_kind_from_string (const gchar *kind_str)
 		return AS_MERGE_KIND_REPLACE;
 	if (g_strcmp0 (kind_str, "append") == 0)
 		return AS_MERGE_KIND_APPEND;
+	if (g_strcmp0 (kind_str, "remove-component") == 0)
+		return AS_MERGE_KIND_REMOVE_COMPONENT;
 
 	return AS_MERGE_KIND_NONE;
 }
@@ -3139,6 +3143,11 @@ as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind
 	AsComponent *src_cpt = source;
 	AsComponentPrivate *dest_priv = GET_PRIVATE (dest_cpt);
 	AsComponentPrivate *src_priv = GET_PRIVATE (src_cpt);
+
+	if (merge_kind == AS_MERGE_KIND_REMOVE_COMPONENT) {
+		/* we can't remove ourselves from the pool, so this merge action is handled separately */
+		return;
+	}
 
 	/* FIXME/TODO: We need to merge more attributes */
 

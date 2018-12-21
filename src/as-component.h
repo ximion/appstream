@@ -104,6 +104,7 @@ AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
  * @AS_MERGE_KIND_NONE:		No merge is happening.
  * @AS_MERGE_KIND_REPLACE:	Merge replacing data of target.
  * @AS_MERGE_KIND_APPEND:	Merge appending data to target.
+ * @AS_MERGE_KIND_REMOVE_COMPONENT: Remove the entire component if it matches.
  *
  * Defines how #AsComponent data should be merged if the component is
  * set for merge.
@@ -112,6 +113,7 @@ typedef enum  {
 	AS_MERGE_KIND_NONE,
 	AS_MERGE_KIND_REPLACE,
 	AS_MERGE_KIND_APPEND,
+	AS_MERGE_KIND_REMOVE_COMPONENT,
 	/*< private >*/
 	AS_MERGE_KIND_LAST
 } AsMergeKind;
