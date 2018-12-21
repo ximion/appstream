@@ -204,7 +204,7 @@
 				<listitem>
 					<para>
 						The optional <literal>Merge</literal> field describes the merge strategy that should be applied when merging data of this component into
-						its base. It may assume the values <code>append</code> or <code>replace</code>.
+						its base. It may assume the values <code>append</code>, <code>replace</code> or <code>remove-component</code>.
 					</para>
 					<para>See <xref linkend="spec-asxml-tags"/> for a description on how merging works.</para>
 					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>

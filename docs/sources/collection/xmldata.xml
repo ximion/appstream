@@ -99,11 +99,12 @@
 		</para>
 		<para>
 			In order to <emphasis>merge</emphasis> metadata, each component in collection data may also have a <literal>merge</literal> property, assuming the
-			values <code>append</code> or <code>replace</code>. If the value is <code>append</code>, all data this component describes will be appended
+			values <code>append</code>, <code>replace</code> or <code>remove-component</code>. If the value is <code>append</code>, all data this component describes will be appended
 			to data of the component with the same ID. If the value is <code>replace</code> the fields of the target component will be replaced with the
-			ones present in the merge component.
-			Merge components with a higher priority take precedence. If a component has a <literal>merge</literal> property, the only tag that must at least
-			be present for it is the <code>&lt;id/&gt;</code> tag.
+			ones present in the merge component. If the merge type is <code>remove-component</code>, the entore component matching the ID of the merge-component should
+			be removed from the metadata pool.
+			Merge-components with a higher priority take precedence. If a component has a <literal>merge</literal> property, the only tag that must
+			be present for it is the <code>&lt;id/&gt;</code> tag, any other metadata is optional.
 		</para>
 
 		<variablelist>
