@@ -508,13 +508,13 @@ as_pool_update_addon_info (AsPool *pool, AsComponent *cpt)
  *
  * Returns: %TRUE if all metadata was used, %FALSE if we skipped some stuff.
  */
-static gboolean
+static guint
 as_pool_refine_data (AsPool *pool)
 {
 	GHashTableIter iter;
 	gpointer key, value;
 	GHashTable *refined_cpts;
-	gboolean ret = TRUE;
+	guint invalid_cpts = 0;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* since we might remove stuff from the pool, we need a new table to store the result */
@@ -539,7 +539,7 @@ as_pool_refine_data (AsPool *pool)
 				g_debug ("Ignored '%s': The component (from a .desktop file) is invalid.", as_component_get_id (cpt));
 			} else {
 				g_debug ("WARNING: Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
-				ret = FALSE;
+				invalid_cpts++;
 			}
 			continue;
 		}
@@ -563,7 +563,7 @@ as_pool_refine_data (AsPool *pool)
 	g_hash_table_unref (priv->cpt_table);
 	priv->cpt_table = refined_cpts;
 
-	return ret;
+	return invalid_cpts;
 }
 
 /**
@@ -1059,8 +1059,8 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = TRUE;
-	gboolean refine_ret;
-	guint pre_refine_cpt_n;
+	guint invalid_cpts_n;
+	guint all_cpts_n;
 	gdouble valid_percentage;
 
 	/* load means to reload, so we get rid of all the old data */
@@ -1074,16 +1074,14 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	as_pool_load_metainfo_desktop_data (pool);
 
 	/* automatically refine the metadata we have in the pool */
-	pre_refine_cpt_n = g_hash_table_size (priv->cpt_table);
-	refine_ret = as_pool_refine_data (pool);
+	all_cpts_n = g_hash_table_size (priv->cpt_table);
+	invalid_cpts_n = as_pool_refine_data (pool);
 
-	valid_percentage = (100 / (gdouble) pre_refine_cpt_n) * (gdouble) g_hash_table_size (priv->cpt_table);
+	valid_percentage = (100 / (gdouble) all_cpts_n) * (gdouble) (all_cpts_n - invalid_cpts_n);
 	g_debug ("Percentage of valid components: %0.3f", valid_percentage);
 
 	/* we only return a non-TRUE value if a significant amount (10%) of components has been declared invalid. */
-	if (!refine_ret && (valid_percentage <= 90))
-		ret = FALSE;
-	if (pre_refine_cpt_n == 0)
+	if ((invalid_cpts_n != 0) && (valid_percentage <= 90))
 		ret = FALSE;
 	
 	/* report errors if refining has failed */
