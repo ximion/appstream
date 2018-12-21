@@ -305,10 +305,17 @@ test_pool_read ()
 	as_pool_load (dpool, NULL, &error);
 	g_assert_no_error (error);
 
+	/* enusre DeleteMe component was removed via its remove-component merge request */
+	result = as_pool_get_components_by_id (dpool, "org.example.DeleteMe");
+	g_assert_cmpint (result->len, ==, 0);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+	/* check total pool component count */
 	all_cpts = as_pool_get_components (dpool);
 	g_assert_nonnull (all_cpts);
 	g_assert_cmpint (all_cpts->len, ==, 19);
 
+	/* generic tests */
 	result = as_pool_search (dpool, "kig");
 	print_cptarray (result);
 	g_assert_cmpint (result->len, ==, 1);

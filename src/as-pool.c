@@ -254,6 +254,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	gint pool_priority;
 	AsOriginKind new_cpt_orig_kind;
 	AsOriginKind existing_cpt_orig_kind;
+	AsMergeKind new_cpt_merge_kind;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	cdid = as_component_get_data_id (cpt);
@@ -287,6 +288,32 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 				return FALSE;
 			}
 		}
+	}
+
+	/* perform metadata merges if necessary */
+	new_cpt_merge_kind = as_component_get_merge_kind (cpt);
+	if (new_cpt_merge_kind != AS_MERGE_KIND_NONE) {
+		g_autoptr(GPtrArray) matches = NULL;
+		guint i;
+
+		/* we merge the data into all components with matching IDs at time */
+		matches = as_pool_get_components_by_id (pool,
+							as_component_get_id (cpt));
+		for (i = 0; i < matches->len; i++) {
+			AsComponent *match = AS_COMPONENT (g_ptr_array_index (matches, i));
+			if (new_cpt_merge_kind == AS_MERGE_KIND_REMOVE_COMPONENT) {
+				/* remove matching component from pool if its priority is lower */
+				if (as_component_get_priority (match) < as_component_get_priority (cpt)) {
+					const gchar *match_cdid = as_component_get_data_id (match);
+					g_hash_table_remove (priv->cpt_table, match_cdid);
+					g_debug ("Removed via merge component: %s", match_cdid);
+				}
+			} else {
+				as_component_merge (match, cpt);
+			}
+		}
+
+		return TRUE;
 	}
 
 	if (existing_cpt == NULL) {
@@ -356,22 +383,6 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 				g_strdup (cdid),
 				g_object_ref (cpt));
 		g_debug ("Replaced '%s' with data from metainfo file.", cdid);
-		return TRUE;
-	}
-
-	/* perform metadata merges if necessary */
-	if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
-		g_autoptr(GPtrArray) matches = NULL;
-		guint i;
-
-		/* we merge the data into all components with matching IDs at time */
-		matches = as_pool_get_components_by_id (pool,
-							as_component_get_id (cpt));
-		for (i = 0; i < matches->len; i++) {
-			AsComponent *match = AS_COMPONENT (g_ptr_array_index (matches, i));
-			as_component_merge (match, cpt);
-		}
-
 		return TRUE;
 	}
 

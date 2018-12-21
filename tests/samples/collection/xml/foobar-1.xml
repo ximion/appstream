@@ -476,4 +476,15 @@
         <binary>inkscape</binary>
     </provides>
   </component>
+  <component type="desktop-application">
+    <id>org.example.DeleteMe</id>
+    <pkgname>delete-me</pkgname>
+    <name>DeleteMe!</name>
+    <summary>A component that should be removed via a merge-component.</summary>
+    <icon type="cached">deleteme.png</icon>
+    <launchable type="desktop-id">org.example.DeleteMe.desktop</launchable>
+    <categories>
+      <category>Game</category>
+    </categories>
+  </component>
 </components>
