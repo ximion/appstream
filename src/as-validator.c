@@ -430,6 +430,65 @@ as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gch
 }
 
 /**
+ * as_validator_check_description_paragraph:
+ **/
+static void
+as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+
+		as_validator_add_issue (validator, iter,
+					AS_ISSUE_IMPORTANCE_ERROR,
+					AS_ISSUE_KIND_MARKUP_INVALID,
+					"The description value is invalid: The '%s' paragraph contains an invalid '%s' XML tag.",
+					(const gchar*) node->name,
+					node_name);
+	}
+}
+
+/**
+ * as_validator_check_description_enumeration:
+ **/
+static void
+as_validator_check_description_enumeration (AsValidator *validator, xmlNode *node, AsComponent *cpt)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+
+		if (g_strcmp0 (node_name, "li") == 0) {
+			g_autofree gchar *tag_path = NULL;
+			tag_path = g_strdup_printf ("%s/%s", (const gchar*) node->name, node_name);
+			as_validator_check_content_empty (validator,
+							  iter,
+							  tag_path,
+							  AS_ISSUE_IMPORTANCE_WARNING,
+							  cpt);
+			as_validator_check_description_paragraph (validator, iter);
+		} else {
+			as_validator_add_issue (validator, node,
+						AS_ISSUE_IMPORTANCE_WARNING,
+						AS_ISSUE_KIND_TAG_UNKNOWN,
+						"Found tag '%s' in section '%s'. Only 'li' tags are allowed.",
+						node_name,
+						(const gchar*) node->name);
+		}
+	}
+}
+
+/**
  * as_validator_check_description_tag:
  **/
 static void
@@ -456,7 +515,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 
 		if ((g_strcmp0 (node_name, "ul") != 0) && (g_strcmp0 (node_name, "ol") != 0)) {
 			as_validator_check_content_empty (validator,
-							  node,
+							  iter,
 							  node_name,
 							  AS_ISSUE_IMPORTANCE_WARNING,
 							  cpt);
@@ -478,6 +537,8 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 							node_content);
 			}
 			first_paragraph = FALSE;
+
+			as_validator_check_description_paragraph (validator, iter);
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
@@ -486,7 +547,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 								cpt,
 								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
-			as_validator_check_children_quick (validator, iter, "li", cpt, FALSE);
+			as_validator_check_description_enumeration (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
@@ -495,7 +556,7 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 								cpt,
 								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
 			}
-			as_validator_check_children_quick (validator, iter, "li", cpt, FALSE);
+			as_validator_check_description_enumeration (validator, iter, cpt);
 		} else {
 			as_validator_add_issue (validator, iter,
 						AS_ISSUE_IMPORTANCE_WARNING,
