@@ -506,7 +506,7 @@ as_pool_update_addon_info (AsPool *pool, AsComponent *cpt)
  *
  * Automatically refine the data we have about software components in the pool.
  *
- * Returns: %TRUE if all metadata was used, %FALSE if we skipped some stuff.
+ * Returns: Amount of invalid components.
  */
 static guint
 as_pool_refine_data (AsPool *pool)
@@ -1595,7 +1595,7 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 
 	/* load AppStream collection metadata only and refine it */
 	ret = as_pool_load_collection_data (pool, TRUE, &data_load_error);
-	ret_poolupdate = as_pool_refine_data (pool) && ret;
+	ret_poolupdate = (as_pool_refine_data (pool) == 0) && ret;
 	if (data_load_error != NULL)
 		g_debug ("Error while updating the in-memory data pool: %s", data_load_error->message);
 
