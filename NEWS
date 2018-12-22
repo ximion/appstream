@@ -1,3 +1,56 @@
+Version 0.12.4
+~~~~~~~~~~~~~~
+Released: 2018-12-22
+
+Features:
+ * pool: Be a lot more forgiving when encountering invalid components (Matthias Klumpp)
+ * Implement component removal via remove-component merges (Matthias Klumpp)
+ * validator: Warn about insecure URLs, handle mailto: URLs (Matthias Klumpp)
+ * Add a contact URL type (Robert Ancell)
+
+Specification:
+ * Document new remove-component merge type (Matthias Klumpp)
+
+Bugfixes:
+ * as-pool: fix GObject annotation for GPtrArray owning the elements (Corentin Noël)
+ * Make invalid components ratio check more accurate (Matthias Klumpp)
+ * Ensure description paragraphs contain no invalid XML tags (Matthias Klumpp)
+
+Translation:
+ * Norwegian Bokmål
+   - Allan Nordhøy
+ * Swedish
+   - Anders Jonsson
+ * Chinese (Traditional)
+   - Chang-Chia Tseng
+   - Jeff Huang
+ * Dutch
+   - Heimen Stoffels
+ * Russian
+   - Igor
+ * Galician
+   - Iván
+ * Japanese
+   - Ryo Nakano
+   - Kyotaro Iijima
+ * Turkish
+   - Mesut Akcan
+ * Italian
+   - Milo Casagrande
+ * Lithuanian
+   - Moo
+ * Polish
+   - Piotr Drąg
+ * Portuguese (Brazil)
+   - Rafael Fontenelle
+ * Portuguese
+   - ssantos
+ * Ukrainian
+   - Yuri Chornoivan
+ * Arabic
+   - alaazghoul
+   - mohammadA
+
 Version 0.12.3
 ~~~~~~~~~~~~~~
 Released: 2018-10-22
