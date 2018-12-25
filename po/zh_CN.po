@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-12-16 22:43+0100\n"
-"PO-Revision-Date: 2017-12-02 15:44+0000\n"
+"PO-Revision-Date: 2018-12-26 06:08+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "appstream/translations/zh_Hans/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.18-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -52,14 +52,12 @@ msgstr "冒险"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
-#, fuzzy
 msgid "Also show pedantic hints."
-msgstr "验证的同时输出教条的提示。"
+msgstr "同时显示详细提示。"
 
 #: tools/appstream-cli.c:696
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "一个项目类型（如：lib、bin、python3…）"
+msgstr "项目类型（如：lib、bin、python3……）"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
