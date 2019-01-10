@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-OS">
+	<title>Operating System</title>
+
+	<section id="spec-os-introduction">
+		<title>Introduction</title>
+		<para>
+			The <literal>operating-system</literal> component type describes a whole operating system such as GNU/Linux distributions
+			like Debian, Fedora, RHEL, etc. or Windows and macOS.
+		</para>
+		<para>
+			Operating systems can ship metainfo files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
+		</para>
+	</section>
+
+	<section id="spec-os-example">
+		<title>Example file</title>
+		<para>
+			An <literal>operating-system</literal> metainfo file can look like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<component type="operating-system">
+  <id>org.debian.debian</id>
+  <name>Debian GNU/Linux</name>
+  <summary>The universal operating system</summary>
+  <description>
+    <p>
+      Debian is a free operating system (OS) for your computer.
+      An operating system is the set of basic programs and utilities that make your computer run.
+    </p>
+    ...
+  </description>
+  <url type="homepage">https://www.debian.org/</url>
+  <metadata_license>FSFAP</metadata_license>
+  <developer_name>The Debian Project</developer_name>
+  ...
+
+  <releases>
+    <release version="10.0" type="development">
+      <description>
+        <p>The next release of Debian.</p>
+      </description>
+    </release>
+
+    <release version="9.0" date="2017-07-17" supported_until="2020-07-17">
+      <description>
+        <p>Now contains the Linux kernel 4.9, GNOME 3.22, KDE Plasma 5, LibreOffice 5.2 and Qt 5.7. LXQt has been added.</p>
+      </description>
+    </release>
+    ...
+  </releases>
+</component>]]></programlisting>
+
+	</section>
+
+	<section id="spec-os-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root must have the <literal>type</literal> property set to <code>operating-system</code>.
+			This clearly identifies this metainfo document as describing an operating system.
+		</para>
+
+		<variablelist>
+			<varlistentry id="tag-id-os">
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For operating systems, the value of the <code>&lt;id/&gt;</code> tag must follow the reverse-DNS scheme as described for generic components.
+					In order for AppStream consumers to determine which component is describing the operating system they are currently running on,
+					on Linux distributions the component ID must follow the data provided in the operating system's <filename>/etc/os-release</filename> file.
+					This means the reversed-DNS <code>HOME_URL</code> value from <filename>/etc/os-release</filename> (without any https/www parts) combined
+					with the <code>ID</code> of the operating system will produce the operating system's component id.
+				</para>
+				<para>
+					E.g. if <code>HOME_URL</code> is <code>https://www.debian.org/</code> and <code>ID</code> is <code>debian</code>, the resulting AppStream
+					component-ID will be <code>org.debian.debian</code>.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-os-releases">
+			<term>&lt;releases/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;releases/&gt;</code> tag as described in <xref linkend="tag-releases"/> must be present and contain the individual
+					releases of the operating system.
+					It is also recommended to set the <literal>supported_until</literal> property on individual releases, to allow software to determine
+					whether the current operating system release is still supported.
+				</para>
+			</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<para>
+			For a component of type <literal>operating-system</literal>, the following tags are required and must be present for a valid document:
+			<xref linkend="tag-id-os"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>,
+			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-os-releases"/>.
+		</para>
+
+	</section>
+</section>
