@@ -1198,7 +1198,7 @@ as_pool_get_components (AsPool *pool)
  * This function may contain multiple results if we have
  * data describing this component from multiple scopes/origin types.
  *
- * Returns: (transfer container) (element-type AsComponent): An #AsComponent
+ * Returns: (transfer full) (element-type AsComponent): An #AsComponent
  */
 GPtrArray*
 as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
@@ -1231,7 +1231,7 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
  *
  * Find components in the AppStream data pool which provide a certain item.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
 as_pool_get_components_by_provided_item (AsPool *pool,
@@ -1277,7 +1277,7 @@ as_pool_get_components_by_provided_item (AsPool *pool,
  *
  * Return a list of all components in the pool which are of a certain kind.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
 as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
@@ -1309,7 +1309,7 @@ as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
  *
  * Return a list of components which are in one of the categories.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
  */
 GPtrArray*
 as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
@@ -1351,7 +1351,7 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
  * Find components in the AppStream data pool which provide a specific launchable.
  * See #AsLaunchable for details on launchables, or refer to the AppStream specification.
  *
- * Returns: (transfer container) (element-type AsComponent): an array of #AsComponent objects which have been found.
+ * Returns: (transfer full) (element-type AsComponent): an array of #AsComponent objects which have been found.
  *
  * Since: 0.11.4
  */
