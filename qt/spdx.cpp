@@ -18,8 +18,9 @@
  */
 
 #include "spdx.h"
+
+#include "appstream.h"
 #include "chelpers.h"
-#include "as-spdx.h"
 
 bool AppStream::SPDX::isLicenseId(const QString &license_id)
 {

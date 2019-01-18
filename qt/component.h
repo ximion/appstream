@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -64,7 +64,8 @@ Q_GADGET
             KindDriver,
             KindLocalization,
             KindService,
-            KindRepository
+            KindRepository,
+            KindOperatingSystem
         };
         Q_ENUM(Kind)
 

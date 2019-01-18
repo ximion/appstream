@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -52,6 +52,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
     { Component::KindLocalization, QLatin1String("localization") },
     { Component::KindService, QLatin1String("service") },
     { Component::KindRepository, QLatin1String("repository") },
+    { Component::KindOperatingSystem, QLatin1String("operating-system") },
     { Component::KindUnknown, QLatin1String("unknown") }
     }
 ));
@@ -102,6 +103,9 @@ Component::Kind Component::stringToKind(const QString& kindString) {
 
     if (kindString == QLatin1String("repository"))
         return KindRepository;
+
+    if (kindString == QLatin1String("operating-system"))
+        return KindOperatingSystem;
 
     return KindUnknown;
 

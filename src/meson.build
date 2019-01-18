@@ -78,6 +78,7 @@ aslib_priv_headers = [
     'as-pool-private.h',
     'as-image-private.h',
     'as-component-private.h',
+    'as-distro-details-private.h',
     'as-screenshot-private.h',
     'as-release-private.h',
     'as-distro-extras.h',

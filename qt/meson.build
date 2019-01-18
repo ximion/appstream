@@ -22,7 +22,8 @@ asqt_src = [
     'launchable.cpp',
     'translation.cpp',
     'metadata.cpp',
-    'spdx.cpp'
+    'spdx.cpp',
+    'utils.cpp'
 ]
 
 asqt_pub_headers = [
@@ -41,7 +42,8 @@ asqt_pub_headers = [
     'launchable.h',
     'translation.h',
     'metadata.h',
-    'spdx.h'
+    'spdx.h',
+    'utils.h'
 ]
 
 asqt_priv_headers = [
