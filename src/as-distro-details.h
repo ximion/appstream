@@ -47,14 +47,18 @@ struct _AsDistroDetailsClass
 AsDistroDetails		*as_distro_details_new (void);
 
 const gchar		*as_distro_details_get_id (AsDistroDetails *distro);
+const gchar		*as_distro_details_get_cid (AsDistroDetails *distro);
 const gchar		*as_distro_details_get_name (AsDistroDetails *distro);
 const gchar		*as_distro_details_get_version (AsDistroDetails *distro);
+const gchar		*as_distro_details_get_homepage (AsDistroDetails *distro);
 
 gchar			*as_distro_details_get_str (AsDistroDetails *distro,
 							const gchar *key);
 gboolean		as_distro_details_get_bool (AsDistroDetails *distro,
 							const gchar *key,
 							gboolean default_val);
+
+gchar 			*as_get_current_distro_component_id (void);
 
 G_END_DECLS
 

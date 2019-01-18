@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2014 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -21,6 +21,7 @@
 #include <glib.h>
 #include "appstream.h"
 #include "as-component-private.h"
+#include "as-distro-details-private.h"
 
 #include "as-test-utils.h"
 
@@ -409,6 +410,29 @@ test_version_compare ()
 	/* g_assert_cmpint (as_utils_compare_versions ("1:1.0-4", "3:0.8-2"), <, 0); */
 }
 
+/**
+ * test_distro_details:
+ *
+ * Test fetching distro details.
+ */
+static void
+test_distro_details ()
+{
+	g_autofree gchar *osrelease_fname = NULL;
+	g_autoptr(AsDistroDetails) distro = as_distro_details_new ();
+
+	osrelease_fname = g_build_filename (datadir, "os-release-1", NULL);
+
+	as_distro_details_load_data (distro, osrelease_fname, NULL);
+
+	g_assert_cmpstr (as_distro_details_get_name (distro), ==, "Debian GNU/Linux");
+	g_assert_cmpstr (as_distro_details_get_version (distro), ==, "10.0");
+	g_assert_cmpstr (as_distro_details_get_homepage (distro), ==, "https://www.debian.org/");
+
+	g_assert_cmpstr (as_distro_details_get_id (distro), ==, "debian");
+	g_assert_cmpstr (as_distro_details_get_cid (distro), ==, "org.debian.debian");
+}
+
 int
 main (int argc, char **argv)
 {
@@ -436,6 +460,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);
 	g_test_add_func ("/AppStream/DesktopEntry", test_desktop_entry);
 	g_test_add_func ("/AppStream/VersionCompare", test_version_compare);
+	g_test_add_func ("/AppStream/DistroDetails", test_distro_details);
 
 	ret = g_test_run ();
 	g_free (datadir);

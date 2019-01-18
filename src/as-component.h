@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -72,6 +72,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_DRIVER:		A driver
  * @AS_COMPONENT_KIND_LOCALIZATION:	Software localization (usually l10n resources)
  * @AS_COMPONENT_KIND_REPOSITORY:	A remote software or data source
+ * @AS_COMPONENT_KIND_OPERATING_SYSTEM: A computer operating system
  *
  * The type of an #AsComponent.
  **/
@@ -90,6 +91,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_LOCALIZATION,
 	AS_COMPONENT_KIND_SERVICE,
 	AS_COMPONENT_KIND_REPOSITORY,
+	AS_COMPONENT_KIND_OPERATING_SYSTEM,
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
