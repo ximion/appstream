@@ -48,7 +48,7 @@
       </description>
     </release>
 
-    <release version="9.0" date="2017-07-17" supported_until="2020-07-17">
+    <release version="9.0" date="2017-07-17" date_eol="2020-07-17">
       <description>
         <p>Now contains the Linux kernel 4.9, GNOME 3.22, KDE Plasma 5, LibreOffice 5.2 and Qt 5.7. LXQt has been added.</p>
       </description>
@@ -90,7 +90,7 @@
 				<para>
 					The <code>&lt;releases/&gt;</code> tag as described in <xref linkend="tag-releases"/> must be present and contain the individual
 					releases of the operating system.
-					It is also recommended to set the <literal>supported_until</literal> property on individual releases, to allow software to determine
+					It is also recommended to set the <literal>date_eol</literal> property on individual releases, to allow software to determine
 					whether the current operating system release is still supported.
 				</para>
 			</listitem>

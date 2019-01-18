@@ -397,8 +397,8 @@
 				In case both release-time tags are present, the <literal>timestamp</literal> tag will take precedence over <literal>date</literal>.
 			</para>
 			<para>
-				A <literal>release</literal> tag may also have a <literal>supported_until</literal> property that denotes the date when the release stops to receive
-				support from the software developers. Its value can be any time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink>.
+				A <literal>release</literal> tag may also have a <literal>date_eol</literal> property that denotes the date when the release stops to receive
+				support from the software developers (end-of-life). Its value can be any time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink>.
 			</para>
 			<para>
 				Optionally, the <code>&lt;release/&gt;</code> tag may also have an <literal>urgency</literal> property, having one of the following values:
