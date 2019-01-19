@@ -441,10 +441,18 @@
 				The size itself is set as the value and must be given in bytes.
 			</para>
 			<para>
+				Finally a <literal>release</literal> tag may have one or multiple <literal>url</literal>
+				tags as children. These <literal>url</literal> tags must be links specific to a release.
+				For instance a release news on the project web page for this specific version or a release
+				note should be listed as a <literal>url</literal> with type "homepage".
+				The <literal>url</literal> tag is structured as described in <xref linkend="tag-url"/>.
+			</para>
+			<para>
 			Examples for a valid releases tag:
 			</para>
 			<programlisting language="XML"><![CDATA[<releases>
   <release version="1.2" date="2014-04-12" urgency="high">
+    <url type="homepage">https://example.org/news/version-1.2-release</url>
     <size type="download">12345678</size>
     <size type="installed">42424242</size>
   </release>
