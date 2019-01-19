@@ -267,7 +267,7 @@ as_release_set_version (AsRelease *release, const gchar *version)
  *
  * Compare the version numbers of two releases.
  *
- * Returns: 1 if @rel1 version is higher than @rel2, 0 if versions are equal, -1 if @rel1 version is higher than @rel2.
+ * Returns: 1 if @rel1 version is higher than @rel2, 0 if versions are equal, -1 if @rel2 version is higher than @rel1.
  */
 gint
 as_release_vercmp (AsRelease *rel1, AsRelease *rel2)
