@@ -416,7 +416,7 @@
 				The urgency defines how the update will be presented to the user, and sometimes if it will be installed automatically and immediately, or delayed.
 			</para>
 			<para>
-				Finally a <literal>release</literal> tag may have a <literal>type</literal> property
+				A <literal>release</literal> tag may have a <literal>type</literal> property
 				to classify releases with one of the following values:
 			</para>
 			<itemizedlist>
@@ -441,20 +441,19 @@
 				The size itself is set as the value and must be given in bytes.
 			</para>
 			<para>
-				Finally a <literal>release</literal> tag may have one or multiple <literal>url</literal>
-				tags as children. These <literal>url</literal> tags must be links specific to a release.
-				For instance a release news on the project web page for this specific version or a release
-				note should be listed as a <literal>url</literal> with type "homepage".
-				The <literal>url</literal> tag is structured as described in <xref linkend="tag-url"/>.
+				A release may also have an <literal>url</literal> tag as child.
+				The release url should point to detailed release notes that explain the changes made in this particular release.
+				The <literal>url</literal> tag may have a <literal>type</literal> property with <code>details</code> as the only currently
+				allowed value. If the <literal>type</literal> is missing, an URL type of <code>details</code> is implicitly assumed.
 			</para>
 			<para>
 			Examples for a valid releases tag:
 			</para>
 			<programlisting language="XML"><![CDATA[<releases>
   <release version="1.2" date="2014-04-12" urgency="high">
-    <url type="homepage">https://example.org/news/version-1.2-release</url>
     <size type="download">12345678</size>
     <size type="installed">42424242</size>
+    <url>https://example.org/releases/version-1.2.html</url>
   </release>
   <release version="1.1" type="development" date="2013-10-20" />
   <release version="1.0" date="2012-08-26" />
