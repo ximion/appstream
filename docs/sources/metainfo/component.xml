@@ -186,7 +186,7 @@
 			A long description of this component. Some markup can be used.
 		</para>
 		<para>
-			Do not assume the format is HTML. Only paragraph (<literal>p</literal>), ordered list (<literal>ol</literal>) and unordered list (<literal>ul</literal>) are supported at this time.
+			Do not assume the format is HTML. Only paragraph (<literal>p</literal>), ordered list (<literal>ol</literal>) and unordered list (<literal>ul</literal>) with their list items (<literal>li</literal>) are currently supported.
 		</para>
 		<para>
 			In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
