@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2019 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C)      2014 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -47,6 +47,7 @@ typedef struct
 	gchar		*version;
 	GHashTable	*description;
 	guint64		timestamp;
+	gchar		*date;
 
 	AsContext	*context;
 	gchar		*active_locale_override;
@@ -174,6 +175,7 @@ as_release_finalize (GObject *object)
 
 	g_free (priv->version);
 	g_free (priv->active_locale_override);
+	g_free (priv->date);
 	g_hash_table_unref (priv->description);
 	g_ptr_array_unref (priv->locations);
 	g_ptr_array_unref (priv->checksums);
@@ -298,7 +300,58 @@ void
 as_release_set_timestamp (AsRelease *release, guint64 timestamp)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
+	GTimeVal time;
+
 	priv->timestamp = timestamp;
+	time.tv_sec = priv->timestamp;
+	time.tv_usec = 0;
+
+	g_free (priv->date);
+	priv->date = g_time_val_to_iso8601 (&time);
+}
+
+/**
+ * as_release_get_date:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the release date.
+ *
+ * Returns: The date in ISO8601 format.
+ *
+ * Since: 0.12.5
+ **/
+const gchar*
+as_release_get_date (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->date;
+}
+
+/**
+ * as_release_set_date:
+ * @release: a #AsRelease instance.
+ * @date: the date in ISO8601 format.
+ *
+ * Sets the release date.
+ *
+ * Since: 0.12.5
+ **/
+void
+as_release_set_date (AsRelease *release, const gchar *date)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_autoptr(GDateTime) time;
+
+	time = as_iso8601_to_datetime (date);
+	if (time != NULL) {
+		priv->timestamp = g_date_time_to_unix (time);
+	} else {
+		g_warning ("Tried to set invalid release date: %s", date);
+		return;
+	}
+
+	g_free (priv->date);
+	priv->date = g_strdup (date);
 }
 
 /**
@@ -634,10 +687,12 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		time = as_iso8601_to_datetime (prop);
 		if (time != NULL) {
 			priv->timestamp = g_date_time_to_unix (time);
+			g_free (priv->date);
+			priv->date = prop;
 		} else {
 			g_debug ("Invalid ISO-8601 date in releases at %s line %li", as_context_get_filename (ctx), xmlGetLineNo (node));
+			g_free (prop);
 		}
-		g_free (prop);
 	}
 
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "timestamp");

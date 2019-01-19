@@ -109,6 +109,10 @@ guint64		as_release_get_timestamp (AsRelease *release);
 void		as_release_set_timestamp (AsRelease *release,
 						guint64 timestamp);
 
+const gchar	*as_release_get_date (AsRelease *release);
+void		as_release_set_date (AsRelease *release,
+				     const gchar *date);
+
 const gchar	*as_release_get_description (AsRelease *release);
 void		as_release_set_description (AsRelease *release,
 						const gchar *description,
