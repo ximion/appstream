@@ -86,6 +86,7 @@ class APPSTREAMQT_EXPORT Release {
         QString version() const;
 
         QDateTime timestamp() const;
+        QDateTime timestampEol() const;
 
         QString description() const;
 

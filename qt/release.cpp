@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 Aleix Pol Gonzalez <aleixpol@kde.org>
- * Copyright (C) 2018 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -92,6 +92,11 @@ QString Release::version() const
 QDateTime Release::timestamp() const
 {
     return QDateTime::fromTime_t(as_release_get_timestamp(d->m_release));
+}
+
+QDateTime Release::timestampEol() const
+{
+    return QDateTime::fromTime_t(as_release_get_timestamp_eol(d->m_release));
 }
 
 QString Release::description() const
