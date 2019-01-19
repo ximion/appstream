@@ -48,6 +48,7 @@ typedef struct
 	GHashTable	*description;
 	guint64		timestamp;
 	gchar		*date;
+	gchar		*date_eol;
 
 	AsContext	*context;
 	gchar		*active_locale_override;
@@ -176,6 +177,7 @@ as_release_finalize (GObject *object)
 	g_free (priv->version);
 	g_free (priv->active_locale_override);
 	g_free (priv->date);
+	g_free (priv->date_eol);
 	g_hash_table_unref (priv->description);
 	g_ptr_array_unref (priv->locations);
 	g_ptr_array_unref (priv->checksums);
@@ -352,6 +354,40 @@ as_release_set_date (AsRelease *release, const gchar *date)
 
 	g_free (priv->date);
 	priv->date = g_strdup (date);
+}
+
+/**
+ * as_release_get_date_eol:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the end-of-life date for this release.
+ *
+ * Returns: The EOL date in ISO8601 format.
+ *
+ * Since: 0.12.5
+ **/
+const gchar*
+as_release_get_date_eol (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->date_eol;
+}
+
+/**
+ * as_release_set_date_eol:
+ * @release: a #AsRelease instance.
+ * @date: the EOL date in ISO8601 format.
+ *
+ * Sets the end-of-life date for this release.
+ *
+ * Since: 0.12.5
+ **/
+void
+as_release_set_date_eol (AsRelease *release, const gchar *date)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_free (priv->date_eol);
+	priv->date_eol = g_strdup (date);
 }
 
 /**
@@ -695,6 +731,12 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		}
 	}
 
+	prop = (gchar*) xmlGetProp (node, (xmlChar*) "date_eol");
+	if (prop != NULL) {
+		g_free (priv->date_eol);
+		priv->date_eol = prop;
+	}
+
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "timestamp");
 	if (prop != NULL) {
 		priv->timestamp = atol (prop);
@@ -794,6 +836,12 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 		}
 	}
 
+	/* set end-of-life date */
+	if (priv->date_eol != NULL) {
+		xmlNewProp (subnode, (xmlChar*) "date_eol",
+				(xmlChar*) priv->date_eol);
+	}
+
 	/* set release urgency, if we have one */
 	if (priv->urgency != AS_URGENCY_KIND_UNKNOWN) {
 		const gchar *urgency_str;
@@ -867,6 +915,8 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 			} else {
 				g_debug ("Invalid ISO-8601 date in %s", as_context_get_filename (ctx)); // FIXME: Better error, maybe with line number?
 			}
+		} else if (g_strcmp0 (key, "date-eol") == 0) {
+			as_release_set_date_eol (release, value);
 		} else if (g_strcmp0 (key, "type") == 0) {
 			priv->kind = as_release_kind_from_string (value);
 		} else if (g_strcmp0 (key, "version") == 0) {
@@ -922,6 +972,9 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 			as_yaml_emit_entry (emitter, "date", time_str);
 		}
 	}
+
+	/* EOL date */
+	as_yaml_emit_entry (emitter, "date-eol", priv->date_eol);
 
 	/* urgency */
 	if (priv->urgency != AS_URGENCY_KIND_UNKNOWN) {
@@ -1000,6 +1053,7 @@ as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
 	g_variant_builder_add_parsed (&rel_b, "{'timestamp', <%t>}", priv->timestamp);
 	g_variant_builder_add_parsed (&rel_b, "{'urgency', <%u>}", priv->urgency);
 	g_variant_builder_add_parsed (&rel_b, "{'description', %v}", as_variant_mstring_new (as_release_get_description (release)));
+	g_variant_builder_add_parsed (&rel_b, "{'date_eol', %v}", as_variant_mstring_new (priv->date_eol));
 
 	locations_var = as_variant_from_string_ptrarray (priv->locations);
 	if (locations_var)
@@ -1039,6 +1093,9 @@ as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar 
 	priv->kind = as_variant_get_dict_uint32 (&rdict, "kind");
 
 	as_release_set_version (release, as_variant_get_dict_mstr (&rdict, "version", &tmp));
+	g_variant_unref (tmp);
+
+	as_release_set_date_eol (release, as_variant_get_dict_mstr (&rdict, "date_eol", &tmp));
 	g_variant_unref (tmp);
 
 	tmp = g_variant_dict_lookup_value (&rdict, "timestamp", G_VARIANT_TYPE_UINT64);
