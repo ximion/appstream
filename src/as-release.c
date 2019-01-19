@@ -57,6 +57,8 @@ typedef struct
 	GPtrArray	*checksums;
 	guint64		size[AS_SIZE_KIND_LAST];
 
+	gchar		*url_details;
+
 	AsUrgencyKind	urgency;
 } AsReleasePrivate;
 
@@ -101,6 +103,44 @@ as_release_kind_from_string (const gchar *kind_str)
 	if (g_strcmp0 (kind_str, "development") == 0)
 		return AS_RELEASE_KIND_DEVELOPMENT;
 	return AS_RELEASE_KIND_UNKNOWN;
+}
+
+/**
+ * as_release_url_kind_to_string:
+ * @kind: the #AsReleaseUrlKind.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 0.12.5
+ **/
+const gchar*
+as_release_url_kind_to_string (AsReleaseUrlKind kind)
+{
+	if (kind == AS_RELEASE_URL_KIND_DETAILS)
+		return "details";
+	return "unknown";
+}
+
+/**
+ * as_release_url_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: an #AsReleaseUrlKind or %AS_RELEASE_URL_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.12.5
+ **/
+AsReleaseUrlKind
+as_release_url_kind_from_string (const gchar *kind_str)
+{
+	if (kind_str == NULL)
+		return AS_RELEASE_URL_KIND_DETAILS;
+	if (g_strcmp0 (kind_str, "details") == 0)
+		return AS_RELEASE_URL_KIND_DETAILS;
+	return AS_RELEASE_URL_KIND_UNKNOWN;
 }
 
 /**
@@ -178,6 +218,7 @@ as_release_finalize (GObject *object)
 	g_free (priv->active_locale_override);
 	g_free (priv->date);
 	g_free (priv->date_eol);
+	g_free (priv->url_details);
 	g_hash_table_unref (priv->description);
 	g_ptr_array_unref (priv->locations);
 	g_ptr_array_unref (priv->checksums);
@@ -652,6 +693,7 @@ as_release_get_checksums (AsRelease *release)
 
 /**
  * as_release_get_checksum:
+ * @release: a #AsRelease instance.
  *
  * Gets the release checksum
  *
@@ -687,6 +729,48 @@ as_release_add_checksum (AsRelease *release, AsChecksum *cs)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_ptr_array_add (priv->checksums, g_object_ref (cs));
+}
+
+/**
+ * as_release_get_url:
+ * @release: a #AsRelease instance.
+ * @url_kind: the URL kind, e.g. %AS_RELEASE_URL_KIND_DETAILS.
+ *
+ * Gets an URL.
+ *
+ * Returns: (nullable): string, or %NULL if unset
+ *
+ * Since: 0.12.5
+ **/
+const gchar*
+as_release_get_url (AsRelease *release, AsReleaseUrlKind url_kind)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	if (url_kind == AS_RELEASE_URL_KIND_DETAILS)
+		return priv->url_details;
+	return NULL;
+}
+
+/**
+ * as_release_set_url:
+ * @release: a #AsRelease instance.
+ * @url_kind: the URL kind, e.g. %AS_RELEASE_URL_KIND_DETAILS
+ * @url: the full URL.
+ *
+ * Sets an URL for this release.
+ *
+ * Since: 0.12.5
+ **/
+void
+as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *url)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+
+	if (url_kind == AS_RELEASE_URL_KIND_DETAILS) {
+		g_free (priv->url_details);
+		priv->url_details = g_strdup (url);
+	}
 }
 
 /**
@@ -845,6 +929,10 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 									(GHFunc) as_release_parse_xml_metainfo_description_cb,
 									release);
 			}
+		} else if (g_strcmp0 ((gchar*) iter->name, "url") == 0) {
+			/* NOTE: Currently, every url in releases is a "details" URL */
+			content = as_xml_get_node_value (iter);
+			as_release_set_url (release, AS_RELEASE_URL_KIND_DETAILS, content);
 		}
 	}
 
@@ -935,6 +1023,10 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 
 	/* add description */
 	as_xml_add_description_node (ctx, subnode, priv->description);
+
+	/* add details URL */
+	if (priv->url_details != NULL)
+		xmlNewTextChild (subnode, NULL, (xmlChar*) "url", (xmlChar*) priv->url_details);
 }
 
 /**
@@ -979,6 +1071,18 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 			priv->urgency = as_urgency_kind_from_string (value);
 		} else if (g_strcmp0 (key, "description") == 0) {
 			as_yaml_set_localized_table (ctx, n, priv->description);
+		} else if (g_strcmp0 (key, "url") == 0) {
+			GNode *urls_n;
+			AsReleaseUrlKind url_kind;
+
+			for (urls_n = n->children; urls_n != NULL; urls_n = urls_n->next) {
+				const gchar *key = as_yaml_node_get_key (urls_n);
+				const gchar *value = as_yaml_node_get_value (urls_n);
+
+				url_kind = as_release_url_kind_from_string (key);
+				if ((url_kind != AS_RELEASE_URL_KIND_UNKNOWN) && (value != NULL))
+					as_release_set_url (release, url_kind, value);
+			}
 		} else {
 			as_yaml_print_unknown ("release", key);
 		}
@@ -1054,6 +1158,18 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_sequence_end (emitter);
 	}
 
+	/* Urls */
+	if (priv->url_details != NULL) {
+		as_yaml_emit_scalar (emitter, "url");
+		as_yaml_mapping_start (emitter);
+
+		as_yaml_emit_entry (emitter,
+				    as_release_url_kind_to_string (AS_RELEASE_URL_KIND_DETAILS),
+				    (const gchar*) priv->url_details);
+
+		as_yaml_mapping_end (emitter);
+	}
+
 	/* TODO: Checksum and size are missing, because they are not specified yet for DEP-11.
 	 * Will need to be added when/if we need it. */
 
@@ -1120,6 +1236,20 @@ as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
 	sizes_var = have_sizes? g_variant_builder_end (&sizes_b) : NULL;
 	if (sizes_var)
 		g_variant_builder_add_parsed (&rel_b, "{'sizes', %v}", sizes_var);
+
+	/* URLs */
+	if (priv->url_details != NULL) {
+		GVariantBuilder dict_b;
+
+		g_variant_builder_init (&dict_b, G_VARIANT_TYPE_DICTIONARY);
+		g_variant_builder_add (&dict_b,
+					"{uv}",
+					(AsReleaseUrlKind) GPOINTER_TO_INT (AS_RELEASE_URL_KIND_DETAILS),
+					g_variant_new_string ((const gchar*) priv->url_details));
+
+		as_variant_builder_add_kv (&rel_b, "urls",
+					   g_variant_builder_end (&dict_b));
+	}
 
 	g_variant_builder_add_value (builder, g_variant_builder_end (&rel_b));
 }
@@ -1194,6 +1324,26 @@ as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar 
 				as_release_add_checksum (release, cs);
 
 			g_variant_unref (inner_child);
+		}
+		g_variant_unref (tmp);
+	}
+
+	/* URLs */
+	tmp = g_variant_dict_lookup_value (&rdict, "urls", G_VARIANT_TYPE_DICTIONARY);
+	if (tmp != NULL) {
+		GVariant *child;
+
+		g_variant_iter_init (&riter, tmp);
+		while ((child = g_variant_iter_next_value (&riter))) {
+			AsReleaseUrlKind kind;
+			g_autoptr(GVariant) url_var = NULL;
+
+			g_variant_get (child, "{uv}", &kind, &url_var);
+			as_release_set_url (release,
+					    kind,
+					    g_variant_get_string (url_var, NULL));
+
+			g_variant_unref (child);
 		}
 		g_variant_unref (tmp);
 	}

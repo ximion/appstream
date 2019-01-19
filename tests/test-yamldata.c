@@ -222,6 +222,8 @@ test_yamlwrite_general (void)
 				"      <p>Awesome initial release.</p>\n"
 				"\n"
 				"      <p>Second paragraph.</p>\n"
+				"  url:\n"
+				"    details: https://example.org/releases/1.0.html\n"
 				"- version: '1.2'\n"
 				"  type: stable\n"
 				"  unix-timestamp: 1462288512\n"
@@ -289,6 +291,7 @@ test_yamlwrite_general (void)
 	as_release_set_timestamp (rel1, 1460463132);
 	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
 	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de_DE");
+	as_release_set_url (rel1, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.0.html");
 	as_component_add_release (cpt, rel1);
 
 	rel2 = as_release_new ();

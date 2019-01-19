@@ -591,6 +591,7 @@ test_xml_write_releases (void)
 					"        <p>A release description.</p>\n"
 					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
 					"      </description>\n"
+					"      <url>https://example.org/releases/1.2.html</url>\n"
 					"    </release>\n"
 					"  </releases>\n"
 					"</component>\n";
@@ -602,6 +603,7 @@ test_xml_write_releases (void)
 	as_release_set_version (rel, "1.2");
 	as_release_set_description (rel, "<p>A release description.</p>", "C");
 	as_release_set_description (rel, "<p>Eine Beschreibung der Veröffentlichung.</p>", "de");
+	as_release_set_url (rel, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.2.html");
 
 	as_component_add_release (cpt, rel);
 

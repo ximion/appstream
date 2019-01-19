@@ -68,6 +68,25 @@ const gchar	*as_release_kind_to_string (AsReleaseKind kind);
 AsReleaseKind	as_release_kind_from_string (const gchar *kind_str);
 
 /**
+ * AsReleaseUrlKind:
+ * @AS_RELEASE_URL_KIND_UNKNOWN		Unknown release web URL type
+ * @AS_RELEASE_URL_KIND_DETAILS:	Weblink to detailed release notes.
+ *
+ * The release URL kinds.
+ *
+ * Since: 0.12.5
+ **/
+typedef enum {
+	AS_RELEASE_URL_KIND_UNKNOWN,
+	AS_RELEASE_URL_KIND_DETAILS,
+	/*< private >*/
+	AS_RELEASE_URL_KIND_LAST
+} AsReleaseUrlKind;
+
+const gchar	*as_release_url_kind_to_string (AsReleaseUrlKind kind);
+AsReleaseUrlKind	as_release_url_kind_from_string (const gchar *kind_str);
+
+/**
  * AsSizeKind:
  * @AS_SIZE_KIND_UNKNOWN:	Unknown size
  * @AS_SIZE_KIND_DOWNLOAD:	Size of download of component
@@ -143,6 +162,12 @@ guint64		as_release_get_size (AsRelease *release,
 void		as_release_set_size (AsRelease *release,
 					guint64 size,
 					AsSizeKind kind);
+
+const gchar	*as_release_get_url (AsRelease *release,
+				     AsReleaseUrlKind url_kind);
+void		as_release_set_url (AsRelease *release,
+				    AsReleaseUrlKind url_kind,
+				    const gchar *url);
 
 G_END_DECLS
 
