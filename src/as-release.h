@@ -105,17 +105,19 @@ void		as_release_set_version (AsRelease *release,
 gint		as_release_vercmp (AsRelease *rel1,
 				   AsRelease *rel2);
 
+const gchar	*as_release_get_date (AsRelease *release);
+void		as_release_set_date (AsRelease *release,
+				     const gchar *date);
 guint64		as_release_get_timestamp (AsRelease *release);
 void		as_release_set_timestamp (AsRelease *release,
 						guint64 timestamp);
 
-const gchar	*as_release_get_date (AsRelease *release);
-void		as_release_set_date (AsRelease *release,
-				     const gchar *date);
-
 const gchar	*as_release_get_date_eol (AsRelease *release);
 void		as_release_set_date_eol (AsRelease *release,
 					 const gchar *date);
+guint64		as_release_get_timestamp_eol (AsRelease *release);
+void		as_release_set_timestamp_eol (AsRelease *release,
+						guint64 timestamp);
 
 const gchar	*as_release_get_description (AsRelease *release);
 void		as_release_set_description (AsRelease *release,

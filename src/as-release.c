@@ -391,6 +391,60 @@ as_release_set_date_eol (AsRelease *release, const gchar *date)
 }
 
 /**
+ * as_release_get_timestamp_eol:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the UNIX timestamp for the date when this
+ * release is out of support (end-of-life).
+ *
+ * Returns: UNIX timestamp, or 0 for unset or invalid.
+ *
+ * Since: 0.12.5
+ **/
+guint64
+as_release_get_timestamp_eol (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_autoptr(GDateTime) time;
+
+	if (priv->date_eol == NULL)
+		return 0;
+
+	time = as_iso8601_to_datetime (priv->date_eol);
+	if (time != NULL) {
+		return g_date_time_to_unix (time);
+	} else {
+		g_warning ("Unable to retrieve EOL timestamp from EOL date: %s", priv->date_eol);
+		return 0;
+	}
+}
+
+/**
+ * as_release_set_timestamp_eol:
+ * @release: a #AsRelease instance.
+ * @timestamp: the timestamp value.
+ *
+ * Sets the UNIX timestamp for the date when this
+ * release is out of support (end-of-life).
+ *
+ * Since: 0.12.5
+ **/
+void
+as_release_set_timestamp_eol (AsRelease *release, guint64 timestamp)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	GTimeVal time;
+
+	if (timestamp == 0)
+		return;
+
+	time.tv_sec = timestamp;
+	time.tv_usec = 0;
+	g_free (priv->date_eol);
+	priv->date_eol = g_time_val_to_iso8601 (&time);
+}
+
+/**
  * as_release_get_urgency:
  * @release: a #AsRelease instance.
  *
