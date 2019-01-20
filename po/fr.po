@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2018-12-16 22:43+0100\n"
-"PO-Revision-Date: 2018-07-21 10:37+0000\n"
-"Last-Translator: Hugo Locurcio <hugo.locurcio@hugo.pro>\n"
+"PO-Revision-Date: 2019-01-21 21:19+0000\n"
+"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.1-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -51,7 +51,6 @@ msgid "Also show pedantic hints."
 msgstr "Afficher également des conseils détaillés."
 
 #: tools/appstream-cli.c:696
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Un type d'élément (ex : lib, bin, python3…)"
 
@@ -287,11 +286,10 @@ msgstr "URL de la capture d'écran par défaut"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
-"Correspond par défaut au format de métadonnées fourni (les valeurs valides "
-"sont « xml » et « yaml »)."
+"Format de métadonnées par défaut (les valeurs valides sont « xml » et « yaml "
+"»)."
 
 #: tools/ascli-utils.c:330
 msgid "Description"
@@ -489,9 +487,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Installer un fichier de métadonnées au bon emplacement."
 
 #: tools/appstream-cli.c:705
-#, fuzzy
 msgid "Install software matching the component-ID."
-msgstr "Installer un logiciel correspondant à l'ID du composant."
+msgstr "Installez le logiciel correspondant à l'identifiant du composant."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -533,7 +530,6 @@ msgid "Logic"
 msgstr "Logique"
 
 #: src/as-provided.c:149
-#, fuzzy
 msgid "MIME types"
 msgstr "Types MIME"
 
@@ -544,22 +540,22 @@ msgstr "Effectuer une requête sans mise en cache."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "Défini manuellement l'emplacement du cache AppStream."
+msgstr "Définit manuellement l'emplacement du cache AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
-"Défini manuellement l'emplacement des métadonnées AppStream à utiliser."
+"Définit manuellement l'emplacement des métadonnées AppStream à analyser."
 
 #: src/as-pool.c:1084
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
 msgstr ""
+"De nombreux composants ont été reconnus comme non valides. Voir la sortie de "
+"débogage pour plus de détails."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -622,9 +618,8 @@ msgstr ""
 "est disponible."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
-msgstr "Pas de valeur définie pour l'objet recherché."
+msgstr "Aucune valeur n'a été définie pour l'élément à rechercher."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -673,7 +668,6 @@ msgid "Rebuild the component metadata cache."
 msgstr "Reconstruire le cache des métadonnées du composant."
 
 #: tools/appstream-cli.c:706
-#, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "Désinstaller le logiciel correspondant à l'identifiant du composant."
 
@@ -816,7 +810,6 @@ msgstr ""
 "étant un fichier dans lequel écrire (ou « - » pour la sortie standard)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
@@ -899,11 +892,10 @@ msgstr "Relation de comparaison « %s » inconnue. Les valeurs valables sont
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
-"Utiliser le fichier .desktop donné pour compléter les valeurs de base du "
+"Utilisez le fichier .desktop donné pour compléter les valeurs de base du "
 "fichier de méta-info."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
