@@ -87,6 +87,10 @@ gchar			*as_utils_data_id_get_cid (const gchar *data_id);
 AsBundleKind		as_utils_get_component_bundle_kind (AsComponent *cpt);
 gchar			*as_utils_build_data_id_for_cpt (AsComponent *cpt);
 
+AS_INTERNAL_VISIBLE
+gchar			*as_utils_dns_to_rdns (const gchar *url,
+					       const gchar *suffix);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

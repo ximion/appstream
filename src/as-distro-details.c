@@ -230,10 +230,6 @@ const gchar*
 as_distro_details_get_cid (AsDistroDetails *distro)
 {
 	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
-	g_autofree gchar *tmp = NULL;
-	GString *new_cid = NULL;
-	g_auto(GStrv) parts = NULL;
-	guint i;
 
 	if (priv->cid != NULL)
 		return priv->cid;
@@ -242,27 +238,9 @@ as_distro_details_get_cid (AsDistroDetails *distro)
 		return priv->cid;
 	}
 
-	tmp = g_strstr_len (priv->homepage, -1, "://");
-	if (tmp == NULL)
-		tmp = g_strdup (priv->homepage);
-	else
-		tmp = g_strdup (tmp + 3);
-
-	parts = g_strsplit (tmp, ".", -1);
-	if (parts == NULL)
+	priv->cid = as_utils_dns_to_rdns (priv->homepage, priv->id);
+	if (priv->cid == NULL)
 		return priv->id;
-
-	new_cid = g_string_new (priv->id);
-	for (i = 0; parts[i] != NULL; i++) {
-		if (g_strcmp0 (parts[i], "www") != 0) {
-			g_string_prepend_c (new_cid, '.');
-			g_string_prepend (new_cid, parts[i]);
-		}
-	}
-
-	as_gstring_replace (new_cid, "/", "");
-	priv->cid = g_string_free (new_cid, FALSE);
-
 	return priv->cid;
 }
 

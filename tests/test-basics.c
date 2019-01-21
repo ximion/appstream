@@ -22,6 +22,7 @@
 #include "appstream.h"
 #include "as-component-private.h"
 #include "as-distro-details-private.h"
+#include "as-utils-private.h"
 
 #include "as-test-utils.h"
 
@@ -433,6 +434,38 @@ test_distro_details ()
 	g_assert_cmpstr (as_distro_details_get_cid (distro), ==, "org.debian.debian");
 }
 
+/**
+ * test_rdns_convert:
+ *
+ * Test URL to component-ID conversion.
+ */
+static void
+test_rdns_convert ()
+{
+	gchar *tmp;
+
+	tmp = as_utils_dns_to_rdns ("https://example.com", NULL);
+	g_assert_cmpstr (tmp, ==, "com.example");
+	g_free (tmp);
+
+	tmp = as_utils_dns_to_rdns ("http://www.example.org/", NULL);
+	g_assert_cmpstr (tmp, ==, "org.example");
+	g_free (tmp);
+
+	tmp = as_utils_dns_to_rdns ("example.org/blah/blub", NULL);
+	g_assert_cmpstr (tmp, ==, "org.example");
+	g_free (tmp);
+
+	tmp = as_utils_dns_to_rdns ("www.example..org/u//n", NULL);
+	g_assert_cmpstr (tmp, ==, "org..example");
+	g_free (tmp);
+
+	tmp = as_utils_dns_to_rdns ("https://example.com", "MyApp");
+	g_assert_cmpstr (tmp, ==, "com.example.MyApp");
+	g_free (tmp);
+}
+
+
 int
 main (int argc, char **argv)
 {
@@ -461,6 +494,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/DesktopEntry", test_desktop_entry);
 	g_test_add_func ("/AppStream/VersionCompare", test_version_compare);
 	g_test_add_func ("/AppStream/DistroDetails", test_distro_details);
+	g_test_add_func ("/AppStream/rDNSConvert", test_rdns_convert);
 
 	ret = g_test_run ();
 	g_free (datadir);

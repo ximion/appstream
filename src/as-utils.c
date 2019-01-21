@@ -1209,3 +1209,45 @@ as_utils_build_data_id_for_cpt (AsComponent *cpt)
 					bundle_kind,
 					as_component_get_id (cpt));
 }
+
+/**
+ * as_utils_dns_to_rdns:
+ *
+ * Create a reverse-DNS ID based on a preexisting URL.
+ */
+gchar*
+as_utils_dns_to_rdns (const gchar *url, const gchar *suffix)
+{
+	g_autofree gchar *tmp = NULL;
+	gchar *pos = NULL;
+	GString *new_cid = NULL;
+	g_auto(GStrv) parts = NULL;
+	guint i;
+
+	tmp = g_strstr_len (url, -1, "://");
+	if (tmp == NULL)
+		tmp = g_strdup (url);
+	else
+		tmp = g_strdup (tmp + 3);
+
+	pos = g_strstr_len (tmp, -1, "/");
+	if (pos != NULL)
+		pos[0] = '\0';
+
+	parts = g_strsplit (tmp, ".", -1);
+	if (parts == NULL)
+		return NULL;
+
+	new_cid = g_string_new (suffix);
+	for (i = 0; parts[i] != NULL; i++) {
+		if (g_strcmp0 (parts[i], "www") != 0) {
+			g_string_prepend_c (new_cid, '.');
+			g_string_prepend (new_cid, parts[i]);
+		}
+	}
+
+	if (suffix == NULL)
+		g_string_truncate (new_cid, new_cid->len - 1);
+
+	return g_string_free (new_cid, FALSE);
+}
