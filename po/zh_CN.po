@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2018-12-26 06:08+0000\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -88,7 +88,7 @@ msgstr "AppStream 状态："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 缓存更新成功完成。"
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, fuzzy, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -112,7 +112,7 @@ msgid ""
 "software components."
 msgstr "AppStream 为一个跨散布版的规范，旨在提供软件组件的元数据。"
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 系统缓存已更新，但发现了一些问题：%s"
@@ -171,7 +171,7 @@ msgstr "棋盘"
 msgid "Bundle"
 msgstr "套件"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s”不可写。"
@@ -546,7 +546,7 @@ msgstr "手动设置 AppStream 缓存的位置。"
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "手动设置要扫描的 AppStream 元数据的位置。"
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -567,7 +567,7 @@ msgstr "数学"
 msgid "Metadata file '%s' does not exist."
 msgstr "“%s”元数据文件并不存在。"
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "元数据文件有错误："
 
@@ -768,7 +768,7 @@ msgstr "文本编辑器"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop 文件“%s”并不存在。"
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

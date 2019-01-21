@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2018-02-05 04:37+0000\n"
 "Last-Translator: Jung-Kyu Park <bagjunggyu@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
@@ -86,7 +86,7 @@ msgstr "AppStream 상태:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시 업데이트를 성공적으로 마쳤습니다."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -114,7 +114,7 @@ msgstr ""
 "AppStream은 소프트웨어 구성 요소에 대한 메타 데이터를 제공하는 교차 배포 사양"
 "입니다."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 시스템 캐시는 업데이트했지만 문제를 발견했습니다: %s"
@@ -173,7 +173,7 @@ msgstr "보드"
 msgid "Bundle"
 msgstr "번들"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
@@ -544,7 +544,7 @@ msgstr "직접 지정한 AppStream 캐시 위치."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "직접 지정한 AppStream 메타데이터 스캔 위치."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -565,7 +565,7 @@ msgstr "수학"
 msgid "Metadata file '%s' does not exist."
 msgstr "메타데이터 파일 '%s' 없습니다."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "메타데이터 파일에 오류가 있습니다:"
 
@@ -765,7 +765,7 @@ msgstr "텍스트 에디터"
 msgid "The .desktop file '%s' does not exist."
 msgstr "해당 .desktop 파일 '%s'이 없습니다."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

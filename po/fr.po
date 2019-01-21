@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2019-01-21 21:19+0000\n"
 "Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/"
@@ -83,7 +83,7 @@ msgstr "État AppStream :"
 msgid "AppStream cache update completed successfully."
 msgstr "La mise à jour du cache AppStream a été réalisé avec succès."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "AppStream est une spécification multi-distribution qui fournit des méta-"
 "données concernant les composants logiciels."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -172,7 +172,7 @@ msgstr "Plateau"
 msgid "Bundle"
 msgstr "Groupe"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'emplacement de cache « %s » n'est pas accessible en écriture."
@@ -288,8 +288,8 @@ msgstr "URL de la capture d'écran par défaut"
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
-"Format de métadonnées par défaut (les valeurs valides sont « xml » et « yaml "
-"»)."
+"Format de métadonnées par défaut (les valeurs valides sont « xml » et "
+"« yaml »)."
 
 #: tools/ascli-utils.c:330
 msgid "Description"
@@ -549,7 +549,7 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 "Définit manuellement l'emplacement des métadonnées AppStream à analyser."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -572,7 +572,7 @@ msgstr "Mathématiques"
 msgid "Metadata file '%s' does not exist."
 msgstr "Le fichier de métadonnées « %s » n'existe pas."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "Les fichiers de métadonnées comportent des erreurs :"
 
@@ -775,7 +775,7 @@ msgstr "Éditeurs de texte"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Le fichier .desktop « %s » n'existe pas."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

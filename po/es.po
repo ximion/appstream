@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2018-09-22 10:35+0000\n"
 "Last-Translator: Tatiana Canales <tcanales@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
@@ -87,7 +87,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "Ha finalizado la actualización de la antememoria de AppStream correctamente."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -116,7 +116,7 @@ msgstr ""
 "distribución cuyo fin es proporcionar metadatos sobre componentes de "
 "«software»."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -177,7 +177,7 @@ msgstr "De mesa"
 msgid "Bundle"
 msgstr "Agrupación"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "La zona de almacenamiento temporal «%s» no es de escritura."
@@ -562,7 +562,7 @@ msgstr ""
 "Establezca manualmente la ubicación de los metadatos de AppStream que se "
 "analizarán."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -583,7 +583,7 @@ msgstr "Matemáticas"
 msgid "Metadata file '%s' does not exist."
 msgstr "El archivo de metadatos «%s» no existe."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "Los archivos de metadatos tienen errores:"
 
@@ -788,7 +788,7 @@ msgstr "Editores de texto"
 msgid "The .desktop file '%s' does not exist."
 msgstr "El archivo .desktop «%s» no existe."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2018-06-16 08:10+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -84,7 +84,7 @@ msgstr "Status AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Pemutakhiran singgahan AppStream berakhir dengan sukses."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -112,7 +112,7 @@ msgstr ""
 "AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata "
 "tentang komponen perangkat lunak."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "Singgahan sistem AppStream dimutakhirkan, tapi ditemukan masalah: %s"
@@ -171,7 +171,7 @@ msgstr "Papan"
 msgid "Bundle"
 msgstr "Bundel"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokasi singgahan '%s' tidak dapat ditulisi."
@@ -543,7 +543,7 @@ msgstr "Lokasi singgahan AppStream yang dipilih secara manual."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Lokasi metadata AppStream yang dipilih secara manual untuk dipindai."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -564,7 +564,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Berkas metadata '%s' tidak ada."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "Berkas metadata punya kesalahan:"
 
@@ -766,7 +766,7 @@ msgstr "Penyunting Teks"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Berkas .desktop '%s' tidak ada."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

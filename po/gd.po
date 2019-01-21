@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2017-03-10 22:24+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
@@ -83,7 +83,7 @@ msgstr "Staid AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Chaidh an tasgadan aig AppStream ùrachadh."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "’S e sònrachadh thar-sgaoilidh a th’ ann an AppStream gus meata-dàta mu cho-"
 "phàirtean bathair-bhog a sholar."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -172,7 +172,7 @@ msgstr "Bòrd"
 msgid "Bundle"
 msgstr "Trusgan"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Cha ghabh sgrìobhadh ann an ionad “%s” an tasgadain."
@@ -551,7 +551,7 @@ msgstr "Suidhich ionad an tasgadain aig AppStream a làimh."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Suidhich ionad a’ mheata-dàta AppStream a làimh."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -572,7 +572,7 @@ msgstr "Matamataig"
 msgid "Metadata file '%s' does not exist."
 msgstr "Chan eil am faidhle meata-dàta “%s” ann."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "Tha mearachd sna faidhlichean meata-dàta:"
 
@@ -776,7 +776,7 @@ msgstr "Deasaichean teacsa"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Chan eil am faidhle .desktop “%s” ann."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

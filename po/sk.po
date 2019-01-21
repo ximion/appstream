@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2018-04-01 11:41+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
@@ -85,7 +85,7 @@ msgstr "Stav nástroja AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -113,7 +113,7 @@ msgstr ""
 "AppStream je štandard pre poskytovanie metaúdajov o programovom vybavení, "
 "používaný cez linuxové distribúcie."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -174,7 +174,7 @@ msgstr "Stolové"
 msgid "Bundle"
 msgstr "Balík"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Umiestnenie vyrovnávacej pamäte „%s“ nie je zapisovateľné."
@@ -546,7 +546,7 @@ msgstr ""
 "Ručne nastavené umiestnenie metaúdajov AppStream na znovu vytvorenie "
 "vyrovnávacej pamäte."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -567,7 +567,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "Súbor s metaúdajmi „%s“ neexistuje."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "Súbory s metaúdajmi obsahujú chyby:"
 
@@ -768,7 +768,7 @@ msgstr "Textové editory"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Súbor .desktop pre „%s“ neexistuje."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

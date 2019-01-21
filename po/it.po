@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2018-12-18 16:08+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
@@ -83,7 +83,7 @@ msgstr "Stato AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aggiornamento cache AppStream completato con successo."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "AppStream è una specifica multi-distribuzione che fornisce metadati riguardo "
 "ai componenti software."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -172,7 +172,7 @@ msgstr "Tavolo"
 msgid "Bundle"
 msgstr "Bundle"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Non è possibile scrivere sulla posizione cache «%s»."
@@ -547,7 +547,7 @@ msgstr "Imposta manualmente la posizione della cache AppStream"
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Imposta manualmente la posizione dei metadati AppStream da analizzare"
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -570,7 +570,7 @@ msgstr "Matematica"
 msgid "Metadata file '%s' does not exist."
 msgstr "Il file dei metadati «%s» non esiste."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "I file dei metadati presentano degli errori:"
 
@@ -770,7 +770,7 @@ msgstr "Editor di testi"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Il file .desktop \"%s\" non esiste."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

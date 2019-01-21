@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2017-05-05 11:18+0000\n"
 "Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
 "Language-Team: Serbian (latin) <https://hosted.weblate.org/projects/"
@@ -86,7 +86,7 @@ msgstr "Stanje Programskog toka:"
 msgid "AppStream cache update completed successfully."
 msgstr "Osvežavanje keša Programskog toka je uspešno obavljeno."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -110,7 +110,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -169,7 +169,7 @@ msgstr "Na tabli"
 msgid "Bundle"
 msgstr "Komplet"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokacija keša „%s“ nije upisiva."
@@ -541,7 +541,7 @@ msgstr "Ručno postavlja mesto keša Programskog toka."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ručno postavlja lokaciju metapodataka Programskog toka za obradu."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -562,7 +562,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -764,7 +764,7 @@ msgstr "Uređivači teksta"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop fajl „%s“ ne postoji."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

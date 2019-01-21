@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2018-01-27 14:37+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
@@ -84,7 +84,7 @@ msgstr "AppStream állapot:"
 msgid "AppStream cache update completed successfully."
 msgstr "Az AppStream gyorsítótár-frissítés sikeresen befejeződött."
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -112,7 +112,7 @@ msgstr ""
 "Az AppStream egy disztribúciók közötti specifikáció, amely metaadatokat "
 "biztosít a szoftverkomponensekről."
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -172,7 +172,7 @@ msgstr "Tábla"
 msgid "Bundle"
 msgstr "Csomag"
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "„%s” gyorsítótárhely nem írható."
@@ -545,7 +545,7 @@ msgstr "Az AppStream gyorsítótár kézileg kiválasztott helye."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Az AppStream metaadatok kézileg kiválasztott helye a kereséshez."
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -566,7 +566,7 @@ msgstr "Matematika"
 msgid "Metadata file '%s' does not exist."
 msgstr "A(z) „%s” metaadatfájl nem létezik."
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr "A metaadat fájlok hibákat tartalmaznak:"
 
@@ -768,7 +768,7 @@ msgstr "Szövegszerkesztők"
 msgid "The .desktop file '%s' does not exist."
 msgstr "A(z) „%s” .desktop fájl nem létezik."
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2018-12-16 22:43+0100\n"
+"POT-Creation-Date: 2019-01-21 22:28+0100\n"
 "PO-Revision-Date: 2016-09-06 13:56+0000\n"
 "Last-Translator: Rasti K5 <rasti.khdhr@gmail.com>\n"
 "Language-Team: Kurdish Sorani <https://hosted.weblate.org/projects/appstream/"
@@ -82,7 +82,7 @@ msgstr "دۆخی AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr ""
 
-#: src/as-pool.c:1625
+#: src/as-pool.c:1634
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -106,7 +106,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1611
+#: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -165,7 +165,7 @@ msgstr "تەختە"
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1551
+#: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr ""
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
 
-#: src/as-pool.c:1084
+#: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -554,7 +554,7 @@ msgstr "بیرکاری"
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:756
+#: src/as-pool.c:767
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -749,7 +749,7 @@ msgstr "دەستکاریکەری دەق"
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1609
+#: src/as-pool.c:1618
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
