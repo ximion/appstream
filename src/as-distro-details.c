@@ -93,7 +93,7 @@ as_distro_details_finalize (GObject *object)
 }
 
 /**
- * as_distro_details_get_bool:
+ * as_distro_details_load_data:
  */
 void
 as_distro_details_load_data (AsDistroDetails *distro, const gchar *os_release_fname, const gchar *as_config_fname)
