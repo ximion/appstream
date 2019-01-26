@@ -71,6 +71,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_FIRMWARE:		Firmware
  * @AS_COMPONENT_KIND_DRIVER:		A driver
  * @AS_COMPONENT_KIND_LOCALIZATION:	Software localization (usually l10n resources)
+ * @AS_COMPONENT_KIND_SERVICE:		A system service launched by the init system
  * @AS_COMPONENT_KIND_REPOSITORY:	A remote software or data source
  * @AS_COMPONENT_KIND_OPERATING_SYSTEM: A computer operating system
  *
