@@ -1,3 +1,45 @@
+Version 0.12.5
+~~~~~~~~~~~~~~
+Released: 2019-01-26
+
+Features:
+ * qt: expose the spdx parser to Qt users (Aleix Pol)
+ * Implement operating-system component and add convenience functions (Matthias Klumpp)
+ * qt: Add operating-system component type and a few utility functions (Matthias Klumpp)
+ * Allow fetching the ISO8601 date directly alongside the timestamp in AsRelease (Matthias Klumpp)
+ * Implement date_eol for AsRelease (Matthias Klumpp)
+ * Add convenience methods for retrieving date_eol as UNIX timestamp (Matthias Klumpp)
+ * qt: Allow retrieving the EOL timestamp for releases (Matthias Klumpp)
+ * Implement new release details URL (Matthias Klumpp)
+ * Make rDNS conversion function more generic and add more extensive tests (Matthias Klumpp)
+
+Specification:
+ * docs: <release> tag can have details url (Jehan)
+ * spec: Specify the operating-system component (Matthias Klumpp)
+ * spec: Specify date_eol for releases (Matthias Klumpp)
+ * docs: Explicitly state list items are allowed in ol/ul lists (Matthias Klumpp)
+
+Bugfixes:
+ * Don't warn about issues in a cache refresh if there weren't any (Matthias Klumpp)
+ * Ensure releases are always sorted in descending order (Matthias Klumpp)
+ * pool: Fix g-i for get_components_*() while GPtrArray owns its elements (Rico Tzschichholz)
+
+Translation:
+ * Chinese (Simplified)
+   - Dingzhong Chen
+ * German
+   - Johannes Keyser
+ * Turkish
+   - Mesut Akcan
+ * French
+   - Nathan
+ * Czech
+   - Pavel Borecki
+ * Catalan
+   - Robert Antoni Buj Gelonch
+ * Portuguese:
+   - ssantos
+
 Version 0.12.4
 ~~~~~~~~~~~~~~
 Released: 2018-12-22
