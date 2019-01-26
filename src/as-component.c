@@ -3462,6 +3462,49 @@ as_component_load_relations_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode 
 }
 
 /**
+ * as_component_releases_sort_cb:
+ *
+ * Callback for releases #GPtrArray sorting.
+ *
+ * NOTE: We sort in descending order here, so the most recent
+ * release ends up at the top of the list.
+ */
+static gint
+as_component_releases_sort_cb (gconstpointer a, gconstpointer b)
+{
+	AsRelease **rel1 = (AsRelease **) a;
+	AsRelease **rel2 = (AsRelease **) b;
+	guint64 ts1 = as_release_get_timestamp (*rel1);
+	guint64 ts2 = as_release_get_timestamp (*rel2);
+	gint ret;
+
+	/* if we can sort by date, we avoid the more expensive version comparison */
+	if (ts1 > 0 && ts2 > 0) {
+		if (ts1 == ts2)
+			return 0;
+		return (ts1 > ts2)? -1 : 1;
+	}
+
+	/* compare version strings */
+	ret = as_release_vercmp (*rel1, *rel2);
+	if (ret == 0)
+		return 0;
+	return (ret >= 1)? -1 : 1;
+}
+
+/**
+ * as_component_sort_releases:
+ *
+ * Sort releases by their release date, starting with the most recent release.
+ */
+static void
+as_component_sort_releases (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_sort (priv->releases, as_component_releases_sort_cb);
+}
+
+/**
  * as_component_load_from_xml:
  * @cpt: An #AsComponent.
  * @ctx: the AppStream document context.
@@ -3671,6 +3714,9 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				as_component_add_agreement (cpt, agreement);
 		}
 	}
+
+	/* ensure releases are sorted after loading XML */
+	as_component_sort_releases (cpt);
 
 	/* add package name information to component */
 	{
@@ -4033,6 +4079,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (priv->releases->len > 0) {
 		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "releases", NULL);
 
+		as_component_sort_releases (cpt);
 		for (i = 0; i < priv->releases->len; i++) {
 			AsRelease *rel = AS_RELEASE (g_ptr_array_index (priv->releases, i));
 			as_release_to_xml_node (rel, ctx, rnode);
@@ -4535,6 +4582,9 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 		}
 	}
 
+	/* ensure releases are sorted after loading YAML */
+	as_component_sort_releases (cpt);
+
 	return TRUE;
 }
 
@@ -5034,6 +5084,9 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* Releases */
 	if (priv->releases->len > 0) {
+		/* ensure releases are sorted */
+		as_component_sort_releases (cpt);
+
 		as_yaml_emit_scalar (emitter, "Releases");
 		as_yaml_sequence_start (emitter);
 
