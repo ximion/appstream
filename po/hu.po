@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2018-01-27 14:37+0000\n"
-"Last-Translator: Balázs Meskó <meskobalazs@gmail.com>\n"
+"PO-Revision-Date: 2019-02-01 07:08+0000\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
 "translations/hu/>\n"
 "Language: hu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -227,7 +227,7 @@ msgstr "Kommunikáció és hírek"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Két verziószám összehasonlítása."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -526,7 +526,6 @@ msgid "Logic"
 msgstr "Logikai"
 
 #: src/as-provided.c:149
-#, fuzzy
 msgid "MIME types"
 msgstr "MIME-típusok"
 
@@ -550,6 +549,8 @@ msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
 msgstr ""
+"Több összetevő is érvénytelenként lett felismerve. Nézze meg a hibakeresési "
+"kimenetet a részletekért."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -820,6 +821,8 @@ msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Túl sok paraméter: két verziószám vagy egy verziószám és egy összehasonlító "
+"operátor szükséges."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -877,7 +880,7 @@ msgstr "Ismeretlen parancs: „%s”."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Ismeretlen „%s” összehasonlító-kapcsolat. Az érvényes értékek:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -974,6 +977,7 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Meg kell adnia legalább két összehasonlítandó verziószámot paraméterként."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
