@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-02-13 05:09+0000\n"
+"PO-Revision-Date: 2019-02-13 08:45+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
 "translations/da/>\n"
@@ -109,6 +109,8 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
+"AppStream er en specifikation på tværs af distributioner, som leverer "
+"metadata om softwarekomponenter."
 
 #: src/as-pool.c:1620
 #, c-format
@@ -603,6 +605,8 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
+"Fandt ikke nogen egnet pakkehåndterings-CLI. Sørg venligst for at f.eks. \""
+"pkcon\" (del af PackageKit) er tilgængelig."
 
 #: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for was defined."
@@ -768,6 +772,9 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
+"AppStreams systemmellemlager blev opdateret, men der blev registreret nogen "
+"fejl, som kan føre til manglende metadata. Referer til den uddybende log for "
+"mere information."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:657
@@ -781,6 +788,7 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
+"Softwarekomponenttypen '%s' er ikke gyldig i AppStream. Mulige værdier er:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:654
@@ -788,6 +796,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Kommandoen tager de valgfrie TYPE- og FILE-positionelle argumenter, FILE er "
+"en fil som der skal skrives til (eller \"-\" for standardoutput)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -796,17 +806,23 @@ msgid ""
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
+"Værktøjet gør det muligt at læse, skrive, validere og transformere AppStream "
+"XML- eller YAML-metadata. Det giver også adgang til systemets samling af "
+"metadata, f.eks. til at forespørge software med en bestemt MIME-type og "
+"installere den med dens softwarekomponent-identifikator."
 
 #: tools/appstream-cli.c:622
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"For mange parametre: Der er brug for to versionsnumre eller versionsnumre og "
+"en sammenligninsoperator."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
+msgstr "Kan ikke bygge skabelonens metainfofil: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:397
@@ -814,6 +830,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
+"Kan ikke konvertere fil: Kunne ikke bestemme outputformat, sæt den venligst "
+"eksplicit med '--format='."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:174
@@ -835,7 +853,7 @@ msgstr "Kan ikke læse .desktop-filen: %s"
 #: tools/ascli-actions-mdata.c:549
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr ""
+msgstr "Kan ikke gemme skabelonens metainfofil: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -857,13 +875,15 @@ msgstr "Ukendt kommando '%s'."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Ukendt sammenligningsrelation '%s'. Gyldige værdier er:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
+"Brug den givne .desktop-fil til at udfylde de grundlæggende værdier i "
+"metainfofilen."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -876,7 +896,7 @@ msgstr "Valider AppStream XML-filer for problemer."
 
 #: tools/appstream-cli.c:703
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
+msgstr "Valider et programs installeret filtræ for gyldig metadata."
 
 #: tools/ascli-actions-validate.c:255 tools/ascli-actions-validate.c:316
 #, c-format
@@ -931,22 +951,28 @@ msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
+"Du kan finde information om tilvalg som er specifikke for underkommandoen "
+"ved at videregive \"--help\" til underkommandoen."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
+"Du har muligvis brug for superbruger-rettigheder for at udføre handlingen."
 
 #: tools/ascli-actions-mdata.c:444
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
+"Du skal angive en AppStream-softwarekomponenttype for at generere en "
+"skabelon. Mulige værdier er:"
 
 #: tools/appstream-cli.c:553
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Du skal angive mindst to versionsnumre for at sammenligne som parametre."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
