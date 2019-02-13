@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-02-13 04:09+0000\n"
+"PO-Revision-Date: 2019-02-13 05:09+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
 "translations/da/>\n"
@@ -96,7 +96,7 @@ msgstr ""
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
 msgid "AppStream cache update is not necessary."
-msgstr ""
+msgstr "Det er ikke nødvendigt at opdatere AppStream-mellemlageret."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -113,7 +113,7 @@ msgstr ""
 #: src/as-pool.c:1620
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
-msgstr ""
+msgstr "AppStreams systemmellemlager blev opdateret, men der var problemer: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:786
@@ -149,11 +149,11 @@ msgstr "Lyd og video"
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Lydskabelse og -redigering"
 
 #: src/as-provided.c:147
 msgid "Binaries"
-msgstr ""
+msgstr "Binærer"
 
 #: src/as-category.c:132
 msgctxt "Category of Games"
@@ -167,12 +167,12 @@ msgstr "Bræt"
 
 #: tools/ascli-utils.c:296
 msgid "Bundle"
-msgstr ""
+msgstr "Bundt"
 
 #: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Mellemlagerplaceringen '%s' er skrivebeskyttet."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -185,6 +185,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
+"Kan ikke kopiere '%s': filen har ikke et '.metainfo.xml'- eller "
+"'.appdata.xml'-suffiks."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -232,7 +234,7 @@ msgstr "Komponent"
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Komponenten '%s' har ikke nogen installationskanditat."
 
 #: tools/ascli-utils.c:374
 msgid "Compulsory for"
@@ -241,7 +243,7 @@ msgstr "Obligatorisk for"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:711
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "Konvertér samling-XML til YAML eller omvendt."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:225
@@ -253,15 +255,15 @@ msgstr "Kan ikke finde komponent som leverer '%s::%s'."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
+msgstr "Opret en skabelon til en metainfofil (udfyldes af opstrømsprojektet)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
-msgstr ""
+msgstr "Tjenester for DBus-session"
 
 #: src/as-provided.c:159
 msgid "DBus System Services"
-msgstr ""
+msgstr "Tjenester for DBus-system"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
@@ -280,7 +282,7 @@ msgstr "URL for standardskærmbillede"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "Standardmetadataformat (gyldige værdier er 'xml' og 'yaml')."
 
 #: tools/ascli-utils.c:330
 msgid "Description"
@@ -405,7 +407,7 @@ msgstr "Finans"
 
 #: src/as-provided.c:165
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Flashet firmware"
 
 #: src/as-provided.c:151
 msgid "Fonts"
@@ -420,7 +422,7 @@ msgstr "Skrifttyper"
 #: tools/ascli-actions-misc.c:136
 #, c-format
 msgid "Found %i components in legacy paths."
-msgstr ""
+msgstr "Fandt %i komponenter i udgåede stier."
 
 #: tools/ascli-actions-misc.c:121
 #, c-format
@@ -524,7 +526,7 @@ msgstr "MIME-typer"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Foretag anmodninger uden at bruge mellemlager."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
@@ -542,6 +544,8 @@ msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
 msgstr ""
+"Mange komponenter er blevet genkendte som ugyldige. Se fejlretningsoutput "
+"for detaljer."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -556,20 +560,20 @@ msgstr "Matematik"
 #: tools/ascli-actions-mdata.c:361
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr "Metadata-filen '%s' findes ikke."
+msgstr "Metadatafilen '%s' findes ikke."
 
 #: src/as-pool.c:767
 msgid "Metadata files have errors:"
-msgstr "Metadata-filen har fejl:"
+msgstr "Metadatafilen har fejl:"
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
-msgstr "Metainfo-filer:"
+msgstr "Metainfofiler:"
 
 #: src/as-provided.c:153
 msgid "Modaliases"
-msgstr ""
+msgstr "Modaliaser"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -649,7 +653,7 @@ msgstr "Python 3"
 
 #: tools/appstream-cli.c:700
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Genbyg komponentens metadata-mellemlager."
 
 #: tools/appstream-cli.c:706
 msgid "Remove software matching the component-ID."
@@ -658,7 +662,7 @@ msgstr "Fjern software som matcher komponent-id'et."
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Robotteknologi"
 
 #: src/as-category.c:150
 msgctxt "Category of Games"
@@ -683,7 +687,7 @@ msgstr ""
 
 #: src/as-provided.c:163
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Runtime-firmware"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
@@ -826,7 +830,7 @@ msgstr "Kan ikke finde komponent med id'et '%s'!"
 #: tools/ascli-actions-mdata.c:470
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Kan ikke læse .desktop-filen: %s"
 
 #: tools/ascli-actions-mdata.c:549
 #, c-format
@@ -836,12 +840,12 @@ msgstr ""
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Kan ikke starte pakkehåndtering: %s"
 
 #: tools/ascli-actions-mdata.c:319
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
+msgstr "Kan ikke skrive til '%s', kan ikke installere metainfofil."
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:845
@@ -868,7 +872,7 @@ msgstr "Redskaber"
 
 #: tools/appstream-cli.c:702
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "Valider AppStream XML-filer for problemer."
 
 #: tools/appstream-cli.c:703
 msgid "Validate an installed file-tree of an application for valid metadata."
@@ -881,12 +885,12 @@ msgstr "Validering mislykkedes: %s"
 
 #: tools/ascli-actions-validate.c:243 tools/ascli-actions-validate.c:304
 msgid "Validation was successful."
-msgstr ""
+msgstr "Validering lykkedes."
 
 #: tools/ascli-actions-validate.c:245 tools/ascli-actions-validate.c:306
 #, c-format
 msgid "Validation was successful: %s"
-msgstr ""
+msgstr "Validering lykkedes: %s"
 
 #: tools/appstream-cli.c:697
 msgid "Value of the item that should be found."
@@ -905,12 +909,12 @@ msgstr "Version: %s"
 #: src/as-category.c:180
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Fremvisere"
 
 #: tools/ascli-actions-misc.c:151
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Vi har information om %i softwarekomponenter."
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
@@ -962,7 +966,7 @@ msgstr "Du skal angive en fil som skal valideres!"
 
 #: tools/ascli-actions-mdata.c:306
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Du skal angive en metadatafil."
 
 #: tools/ascli-actions-validate.c:281
 msgid "You need to specify a root directory to start validation!"
