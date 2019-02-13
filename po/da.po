@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-02-13 09:09+0000\n"
+"PO-Revision-Date: 2019-02-13 09:40+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
 "translations/da/>\n"
@@ -302,7 +302,7 @@ msgstr "Udviklerværktøjer"
 
 #: tools/appstream-cli.c:708
 msgid "Display status information about available AppStream metadata."
-msgstr "Vis statusinformation om tilgængelig AppStream-metadata."
+msgstr "Vis statusinformation om tilgængelige AppStream-metadata."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:50
@@ -336,7 +336,7 @@ msgstr "Tom."
 #: src/as-category.c:141
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr "Emulatorer"
+msgstr "Emulatore"
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:234
@@ -346,7 +346,7 @@ msgstr "Gennemtving en opdatering af mellemlageret."
 #: tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr "Fejl ved indlæsning af metadata-pool'en: %s"
+msgstr "Fejl ved indlæsning af metadatasamingen: %s"
 
 #: tools/ascli-utils.c:324
 msgid "Extends"
@@ -438,7 +438,7 @@ msgstr "Spil"
 
 #: tools/appstream-cli.c:695
 msgid "Get components which provide the given item."
-msgstr "Henter komponenter som leverer det givne element."
+msgstr "Hent komponenter som leverer det givne element."
 
 #: tools/appstream-cli.c:694
 msgid "Get information about a component by its ID."
@@ -485,7 +485,7 @@ msgstr "Installer software som matcher komponent-id'et."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Ugyldig type valgt for leveret element. Gyldige værdier er:"
+msgstr "Ugyldig type valgt for angivne element. Gyldige værdier er:"
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
@@ -528,7 +528,7 @@ msgstr "MIME-typer"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr "Foretag anmodninger uden at bruge mellemlager."
+msgstr "Foretag anmodning uden at bruge mellemlager."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
@@ -546,8 +546,8 @@ msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
 msgstr ""
-"Mange komponenter er blevet genkendte som ugyldige. Se fejlretningsoutput "
-"for detaljer."
+"Mange komponenter blev genkendte som ugyldige. Se fejlretningsoutput for "
+"detaljer."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -605,13 +605,12 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
-"Fandt ikke nogen egnet pakkehåndterings-CLI. Sørg venligst for at f.eks. \""
-"pkcon\" (del af PackageKit) er tilgængelig."
+"Fandt ikke noget egnet CLI til pakkehåndtering. Sørg venligst for at f.eks. "
+"\"pkcon\" (del af PackageKit) er tilgængelig."
 
 #: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for was defined."
-msgstr ""
-"Der blev ikke defineret nogen værdi af elementet som der skal søges efter."
+msgstr "Der blev ikke defineret nogen værdi af elementet til at søge efter."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -645,7 +644,7 @@ msgstr "Projektgruppe"
 
 #: tools/ascli-utils.c:402
 msgid "Provided Items"
-msgstr "Leverede elementer"
+msgstr "Angivne elementer"
 
 #: src/as-provided.c:155
 msgid "Python (Version 2)"
@@ -705,7 +704,7 @@ msgstr "Videnskab"
 
 #: tools/appstream-cli.c:693
 msgid "Search the component database."
-msgstr "Søg komponentdatabasen."
+msgstr "Søg i komponentdatabasen."
 
 #: src/as-category.c:293
 msgctxt "Category of Utility"
@@ -754,7 +753,7 @@ msgstr "Systemovervågning"
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr "Terminalemulatorer"
+msgstr "Terminalemulatore"
 
 #: src/as-category.c:281
 msgctxt "Category of Utility"
@@ -772,15 +771,14 @@ msgid ""
 "might lead to missing metadata. Refer to the verbose log for more "
 "information."
 msgstr ""
-"AppStreams systemmellemlager blev opdateret, men der blev registreret nogen "
-"fejl, som kan føre til manglende metadata. Referer til den uddybende log for "
-"mere information."
+"AppStreams systemmellemlager blev opdateret, men der var fejl, som kan føre "
+"til manglende metadata. Referer til den uddybende log for mere information."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:657
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr "TYPEN skal være en gyldig komponenttype, såsom: %s"
+msgstr "TYPE skal være en gyldig komponenttype, såsom: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -807,9 +805,9 @@ msgid ""
 "and installing it by its software component identifier."
 msgstr ""
 "Værktøjet gør det muligt at læse, skrive, validere og transformere AppStream "
-"XML- eller YAML-metadata. Det giver også adgang til systemets samling af "
-"metadata, f.eks. til at forespørge software med en bestemt MIME-type og "
-"installere den med dens softwarekomponent-identifikator."
+"XML- eller YAML-metadata. Det giver også adgang til systemets "
+"metadatasamling, f.eks. til at forespørge software der bruger en bestemt "
+"MIME-type og installere den med dens softwarekomponent-identifikator."
 
 #: tools/appstream-cli.c:622
 msgid ""
@@ -830,8 +828,8 @@ msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
-"Kan ikke konvertere fil: Kunne ikke bestemme outputformat, sæt den venligst "
-"eksplicit med '--format='."
+"Kan ikke konvertere fil: Kunne ikke bestemme outputformat, indstil den "
+"venligst eksplicit med '--format='."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:174
@@ -914,7 +912,7 @@ msgstr "Validering lykkedes: %s"
 
 #: tools/appstream-cli.c:697
 msgid "Value of the item that should be found."
-msgstr "Værdi af elementet som skal findes."
+msgstr "Værdien af elementet som skal findes."
 
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
@@ -944,21 +942,20 @@ msgstr "Webbrowsere"
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr "Tegnbehandler"
+msgstr "Tekstbehandler"
 
 #: tools/appstream-cli.c:716
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
 msgstr ""
-"Du kan finde information om tilvalg som er specifikke for underkommandoen "
-"ved at videregive \"--help\" til underkommandoen."
+"Du kan finde information om tilvalg som gælder til en bestemt "
+"underkommandoen ved at videregive \"--help\" til underkommandoen."
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:70
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Du har muligvis brug for superbruger-rettigheder for at udføre handlingen."
+msgstr "Du skal muligvis have superbruger-tilladelser for at udføre handlingen."
 
 #: tools/ascli-actions-mdata.c:444
 msgid ""
@@ -1014,7 +1011,7 @@ msgstr "Du skal angive en input- og outputfil."
 #.
 #: src/as-pool.c:104
 msgid "app;application;package;program;programme;suite;tool"
-msgstr "pakke;program;programpakke;værktøj;redskab"
+msgstr "app;applikation;pakke;program;programpakke;værktøj;redskab"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:183
@@ -1026,7 +1023,7 @@ msgstr "fejl: %lu"
 #: tools/ascli-actions-validate.c:197
 #, c-format
 msgid "infos: %lu"
-msgstr "infos: %lu"
+msgstr "infoer: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:204
