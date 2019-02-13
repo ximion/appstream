@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-02-13 08:45+0000\n"
+"PO-Revision-Date: 2019-02-13 09:09+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
 "translations/da/>\n"
@@ -82,7 +82,7 @@ msgstr "AppStream-status:"
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:80
 msgid "AppStream cache update completed successfully."
-msgstr "Opdatering af AppStream-mellemlager er gennemført."
+msgstr "Opdatering af AppStreams mellemlager blev gennemført."
 
 #: src/as-pool.c:1634
 #, c-format
@@ -90,13 +90,13 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
-"Opdatering af AppStream-mellemlager mislykkedes. Slå uddybende tilstand til "
+"Opdatering af AppStreams mellemlager mislykkedes. Slå uddybende tilstand til "
 "for at få flere detaljer om problemet."
 
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
 msgid "AppStream cache update is not necessary."
-msgstr "Det er ikke nødvendigt at opdatere AppStream-mellemlageret."
+msgstr "Det er ikke nødvendigt at opdatere AppStreams mellemlager."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -151,11 +151,11 @@ msgstr "Lyd og video"
 #: src/as-category.c:68
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr "Lydskabelse og -redigering"
+msgstr "Oprettelse og redigering af lyd"
 
 #: src/as-provided.c:147
 msgid "Binaries"
-msgstr "Binærer"
+msgstr "Binære"
 
 #: src/as-category.c:132
 msgctxt "Category of Games"
@@ -169,12 +169,12 @@ msgstr "Bræt"
 
 #: tools/ascli-utils.c:296
 msgid "Bundle"
-msgstr "Bundt"
+msgstr "Samling"
 
 #: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Mellemlagerplaceringen '%s' er skrivebeskyttet."
+msgstr "Mellemlagerets placering '%s' er skrivebeskyttet."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -236,7 +236,7 @@ msgstr "Komponent"
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr "Komponenten '%s' har ikke nogen installationskanditat."
+msgstr "Komponenten '%s' har ikke nogen installationskandidaten."
 
 #: tools/ascli-utils.c:374
 msgid "Compulsory for"
@@ -245,7 +245,7 @@ msgstr "Obligatorisk for"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:711
 msgid "Convert collection XML to YAML or vice versa."
-msgstr "Konvertér samling-XML til YAML eller omvendt."
+msgstr "Konvertér samlings-XML til -YAML eller omvendt."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:225
@@ -350,7 +350,7 @@ msgstr "Fejl ved indlæsning af metadata-pool'en: %s"
 
 #: tools/ascli-utils.c:324
 msgid "Extends"
-msgstr "Udvidder"
+msgstr "Udvider"
 
 #: src/as-category.c:65
 msgctxt "Category of AudioVideo"
@@ -533,13 +533,13 @@ msgstr "Foretag anmodninger uden at bruge mellemlager."
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
 msgid "Manually selected location of AppStream cache."
-msgstr "Placeringen af AppStream-mellemlager som er valgt manuelt."
+msgstr "Placeringen af AppStreams mellemlager som blev valgt manuelt."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
-"Placeringen af AppStream-metedata som skal skannes som er valgt manuelt."
+"Placeringen af AppStream-metadata som skal skannes som blev valgt manuelt."
 
 #: src/as-pool.c:1093
 msgid ""
@@ -649,7 +649,7 @@ msgstr "Leverede elementer"
 
 #: src/as-provided.c:155
 msgid "Python (Version 2)"
-msgstr "Python (Version 2)"
+msgstr "Python (version 2)"
 
 #: src/as-provided.c:157
 msgid "Python 3"
@@ -817,7 +817,7 @@ msgid ""
 "comparison operator."
 msgstr ""
 "For mange parametre: Der er brug for to versionsnumre eller versionsnumre og "
-"en sammenligninsoperator."
+"en sammenligningsoperator."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
