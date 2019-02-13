@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-02-12 23:09+0000\n"
+"PO-Revision-Date: 2019-02-13 04:09+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
 "translations/da/>\n"
@@ -61,7 +61,7 @@ msgstr "Et redskab til at arbejde med AppStream-metadata"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr ""
+msgstr "AppStream CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:789
@@ -70,6 +70,8 @@ msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
+"Version for AppStream CLI-værktøj: %s\n"
+"Version for AppStream-bibliotek: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -88,6 +90,8 @@ msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
 "issue information."
 msgstr ""
+"Opdatering af AppStream-mellemlager mislykkedes. Slå uddybende tilstand til "
+"for at få flere detaljer om problemet."
 
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
