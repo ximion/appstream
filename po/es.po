@@ -5,7 +5,7 @@
 # Translators:
 # Adolfo Jayme-Barrientos, 2014
 # Adolfo Jayme-Barrientos, 2016
-# advocatux <advocatux@airpost.net>, 2019.
+# advocatux <advocatux@airpost.net>, 2019, 2021.
 # Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019, 2020, 2021.
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019.
 # Robert Schneider <robertschneider1999.rs@gmail.com>, 2019.
@@ -34,7 +34,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Last-Translator: advocatux <advocatux@airpost.net>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -2327,9 +2327,7 @@ msgstr "Validar archivos XML de AppStream en busca de errores."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Validar un árbol de archivos instalado de una aplicación para obtener meta-"
-"datos válidos."
+msgstr "Validar un árbol de archivos instalado de una aplicación para obtener meta-datos válidos."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2339,16 +2337,12 @@ msgstr "Comprueba la validez de la cadena de licencia e imprime los detalles de 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1186
 msgid "Install software matching the component-ID."
-msgstr ""
-"Instalar software que coincida con el «component-ID» (identificador de "
-"componente)."
+msgstr "Instalar software que coincida con el «component-ID» (identificador de componente)."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
 #: tools/appstreamcli.c:1191
 msgid "Remove software matching the component-ID."
-msgstr ""
-"Eliminar software que coincida con el «component-ID» (identificador de "
-"componente)."
+msgstr "Eliminar software que coincida con el «component-ID» (identificador de componente)."
 
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1197
