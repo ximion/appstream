@@ -46,7 +46,11 @@
   </provides>
   <releases>
     <release version="3.0.2" date="2015-02-16">
-      <location>http://www.hughski.com/downloads/colorhug-als/firmware/colorhug-als-3.0.2.cab</location>
+      <artifacts>
+        <artifact type="binary">
+          <location>http://www.hughski.com/downloads/colorhug-als/firmware/colorhug-als-3.0.2.cab</location>
+        </artifact>
+      </artifacts>
       <description>
         <p>This stable release fixes the following bugs:</p>
         <ul>
@@ -88,12 +92,12 @@
 			<term>&lt;releases/&gt;</term>
 			<listitem>
 				<para>
-					This tag is almost identical to the generic <xref linkend="tag-releases"/> tag.
-					Additional to the generic tag, for each <code>&lt;release/&gt;</code> child a <code>&lt;location/&gt;</code> tag is allowed, in case the component describes
+					This tag is identical to the generic <xref linkend="tag-releases"/> tag.
+					Additional to the generic tag, for each <code>&lt;release/&gt;</code> child at least one <code>&lt;artifact/&gt;</code> tag is required in case the component describes
 					flashed firmware.
 				</para>
-				<para id="tag-firmware-location" xreflabel="&lt;location/&gt;">
-					The <code>&lt;location/&gt;</code> tag specifies a remote location where the firmware <literal>.cab</literal> can be downloaded from.
+				<para>
+					The <code>&lt;location/&gt;</code> tag of the binary artifact specifies a remote location where the firmware <literal>.cab</literal> can be downloaded from.
 					The download location needs to be accessible via HTTP, HTTPS or FTP.
 				</para>
 				<para>
@@ -101,15 +105,16 @@
 				</para>
 				<programlisting language="XML"><![CDATA[<releases>
   <release version="3.0.2" date="2015-02-16">
-    <location>http://www.hughski.com/downloads/colorhug-als/firmware/colorhug-als-3.0.2.cab</location>
+    <artifacts>
+      <artifact type="binary">
+        <location>http://www.hughski.com/downloads/colorhug-als/firmware/colorhug-als-3.0.2.cab</location>
+      </artifact>
+    </artifacts>
     <description>
       <p>This stable release fixes bugs.</p>
     </description>
   </release>
 </releases>]]></programlisting>
-				<para>
-					The <code>&lt;location/&gt;</code> tag is currently only allowed to be specified once.
-				</para>
 			</listitem>
 			</varlistentry>
 

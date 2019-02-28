@@ -434,26 +434,86 @@
 				The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>.
 			</para>
 			<para>
-				A <literal>release</literal> tag may also have one or multiple <literal>size</literal> tags as children, which define the installed and download size
-				of this component release. This is useful in case the component does not have a corresponding native package in a distribution, for example if it is a Limba
-				bundle or LVFS firmware.
-				The size type is defined via a <literal>type</literal> property on the <literal>size</literal> tag, and may assume the value <code>download</code> or <code>installed</code>.
-				The size itself is set as the value and must be given in bytes.
-			</para>
-			<para>
 				A release may also have an <literal>url</literal> tag as child.
 				The release url should point to detailed release notes that explain the changes made in this particular release.
 				The <literal>url</literal> tag may have a <literal>type</literal> property with <code>details</code> as the only currently
 				allowed value. If the <literal>type</literal> is missing, an URL type of <code>details</code> is implicitly assumed.
 			</para>
 			<para>
-			Examples for a valid releases tag:
+				To denote release artifacts, the <literal>artifacts</literal> child tag can be used. It itself contains the artifacts as <literal>artifact</literal> children.
+				Each artifact tag must have a <literal>type</literal> property with the value of either <code>binary</code> or <code>source</code> to indicate whether the
+				artifact is the releases' source-code or a binary distribution. In case of a <code>binary</code> type, an optional <literal>platform</literal> property may
+				also be set, containing a target triplet (also known as normalized GNU triplet), such as <code>x86_64-linux-gnu</code>. Refer to
+				<ulink url="https://wiki.debian.org/Multiarch/Tuples#Used_solution">Debian multiarch tuples</ulink> for a list of possible triplets to use and more information
+				on their purpose. For the Windows platform, a platform identifier string such as <code>win32</code> is also permitted as platform identifier.
+				Binary artifacts may also have a <literal>bundle</literal> property to indicate the bundling system the binary distribution is made for. Refer to
+				the bundle types in <xref linkend="tag-ct-bundle"/> for a list of possible values.
+				Each <literal>artifact</literal> can have a number of children:
+			</para>
+
+				<variablelist>
+					<varlistentry>
+						<term>location</term>
+						<listitem>
+						<para>
+							Each artifact must have a <literal>location</literal> child, denoting the web location (HTTP or HTTPS) where it can be downloaded from.
+							Multiple location tags are allowed to make it possible to have mirror options to download the same artifact from.
+						</para>
+						</listitem>
+					</varlistentry>
+
+					<varlistentry>
+						<term>checksum</term>
+						<listitem>
+						<para>
+							At least one <literal>checksum</literal> child must be present to contain the checksum of the released artifact.
+							The <code>&lt;checksum/&gt;</code> tag has a <code>type</code> attribute, describing the checksumming-algorithm that was used to create it. Currently, only <literal>SHA1</literal>
+							and <literal>SHA256</literal> are supported as values.
+						</para>
+						</listitem>
+					</varlistentry>
+
+					<varlistentry>
+						<term>size</term>
+						<listitem>
+						<para>
+							One or multiple <literal>size</literal> tags may also be present, which define the installed and download size
+							of this component release artifact.
+							The size type is defined via a <literal>type</literal> property on the <literal>size</literal> tag, and may assume the value <code>download</code> or <code>installed</code>.
+                            The size itself is set as the value and must be given in bytes.
+						</para>
+						</listitem>
+					</varlistentry>
+
+				</variablelist>
+
+			<para>
+			Examples for a valid releases tag with artifacts:
 			</para>
 			<programlisting language="XML"><![CDATA[<releases>
   <release version="1.2" date="2014-04-12" urgency="high">
-    <size type="download">12345678</size>
-    <size type="installed">42424242</size>
-    <url>https://example.org/releases/version-1.2.html</url>
+    <artifacts>
+      <artifact type="binary" platform="x86_64-linux-gnu">
+        <location>https://example.com/mytarball.bin.tar.xz</location>
+        <checksum type="sha256">....</checksum>
+        <checksum type="blake2">....</checksum>
+        <size type="download">12345678</size>
+        <size type="installed">42424242</size>
+      </artifact>
+      <artifact type="binary" platform="win32">
+        <location>https://example.com/mytarball.bin.exe</location>
+      </artifact>
+      <artifact type="source">
+        <location>https://example.com/mytarball.tar.xz</location>
+        <checksum type="sha256">....</checksum>
+      </artifact>
+    </artifacts>
+
+    <description>
+      <p>This stable release fixes bugs.</p>
+    </description>
+
+	<url>https://example.org/releases/version-1.2.html</url>
   </release>
   <release version="1.1" type="development" date="2013-10-20" />
   <release version="1.0" date="2012-08-26" />

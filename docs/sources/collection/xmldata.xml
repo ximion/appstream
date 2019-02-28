@@ -521,26 +521,6 @@
 						In case a <code>&lt;release/&gt;</code> tag has a <code>&lt;description/&gt;</code> tag as parameter, describing the new release briefly, distributors are encouraged to provide 2-4
 						<code>&lt;release/&gt;</code> release tags for every component. If no description is provided, one tag is enough.
 					</para>
-					<para>
-						Components of type <literal>firmware</literal> (<xref linkend="sect-Metadata-Firmware"/>) may also have a <xref linkend="tag-firmware-location"/> tag as child of one of the
-						<code>&lt;release/&gt;</code> tags. In case a <code>&lt;location/&gt;</code> tag is present, it must be accompanied by a <code>&lt;checksum/&gt;</code> tag, containing
-						a checksum of the downloaded file. This is done to ensure the integrity of the downloaded firmware, and that the user gets the firmware which was tested by the distributor.
-						The <code>&lt;location/&gt;</code> tag is often used in case the distributor is not allowed to legally redistribute the firmware in a native package.
-					</para>
-					<para>
-						The <code>&lt;checksum/&gt;</code> tag has a <code>type</code> attribute, describing the checksumming-algorithm that was used to create it. Currently, only <literal>SHA1</literal>
-						is supported.
-					</para>
-					<para>
-						Example for a <code>&lt;release/&gt;</code> tag of a firmware component which makes use of <code>&lt;location/&gt;</code>:
-					</para>
-					<programlisting language="XML"><![CDATA[<release version="2.0.3" timestamp="1429362707">
-  <location>http://www.hughski.com/downloads/colorhug2/firmware/colorhug2-2.0.3.cab</location>
-  <checksum type="sha1">40b59e37cb918f3241f65bc5ac2b90ab47b34e8c</checksum>
-  <description>
-    <p>This stable release fixes problems.</p>
-  </description>
-</release>]]></programlisting>
 				</listitem>
 			</varlistentry>
 
@@ -594,6 +574,7 @@
 							<listitem><para><ulink url="http://flatpak.org/">Flatpak</ulink> bundles, using the value <code>flatpak</code>.</para></listitem>
 							<listitem><para><ulink url="http://appimage.org/">AppImageKit</ulink> bundles, using the value <code>appimage</code>.</para></listitem>
 							<listitem><para><ulink url="http://snapcraft.io/">Snappy</ulink> snap bundles, using the value <code>snap</code>.</para></listitem>
+							<listitem><para>Plain and possibly compressed tarballs, using the value <code>tarball</code>.</para></listitem>
 						</itemizedlist>
 					</para>
 					<para>
