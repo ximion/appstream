@@ -38,6 +38,7 @@ extern "C" {
 #include <as-image.h>
 #include <as-bundle.h>
 #include <as-release.h>
+#include <as-artifact.h>
 #include <as-checksum.h>
 #include <as-translation.h>
 #include <as-suggested.h>

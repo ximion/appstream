@@ -572,46 +572,6 @@ test_xml_write_languages (void)
 }
 
 /**
- * test_xml_write_releases:
- *
- * Test writing the releases tag.
- */
-static void
-test_xml_write_releases (void)
-{
-	g_autoptr(AsComponent) cpt = NULL;
-	g_autoptr(AsRelease) rel = NULL;
-	g_autofree gchar *res = NULL;
-	const gchar *expected_rel_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
-					"  <id>org.example.ReleaseTest</id>\n"
-					"  <releases>\n"
-					"    <release type=\"stable\" version=\"1.2\">\n"
-					"      <description>\n"
-					"        <p>A release description.</p>\n"
-					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
-					"      </description>\n"
-					"      <url>https://example.org/releases/1.2.html</url>\n"
-					"    </release>\n"
-					"  </releases>\n"
-					"</component>\n";
-
-	cpt = as_component_new ();
-	as_component_set_id (cpt, "org.example.ReleaseTest");
-
-	rel = as_release_new ();
-	as_release_set_version (rel, "1.2");
-	as_release_set_description (rel, "<p>A release description.</p>", "C");
-	as_release_set_description (rel, "<p>Eine Beschreibung der Veröffentlichung.</p>", "de");
-	as_release_set_url (rel, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.2.html");
-
-	as_component_add_release (cpt, rel);
-
-	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, expected_rel_xml));
-}
-
-/**
  * test_xml_write_provides:
  *
  * Test writing the provides tag.
@@ -1378,6 +1338,199 @@ test_xml_write_agreements (void)
 	g_assert (as_test_compare_lines (res, xmldata_agreements));
 }
 
+static const gchar *xmldata_releases = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.ReleaseTest</id>\n"
+					"  <releases>\n"
+					"    <release type=\"stable\" version=\"1.2\">\n"
+					"      <description>\n"
+					"        <p>A release description.</p>\n"
+					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
+					"      </description>\n"
+					"      <url>https://example.org/releases/1.2.html</url>\n"
+					"      <artifacts>\n"
+					"        <artifact type=\"binary\" platform=\"x86_64-linux-gnu\" bundle=\"tarball\">\n"
+					"          <location>https://example.com/mytarball.bin.tar.xz</location>\n"
+					"          <checksum type=\"sha256\">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>\n"
+					"          <size type=\"download\">112358</size>\n"
+					"          <size type=\"installed\">42424242</size>\n"
+					"        </artifact>\n"
+					"        <artifact type=\"source\">\n"
+					"          <location>https://example.com/mytarball.tar.xz</location>\n"
+					"          <checksum type=\"sha256\">95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1</checksum>\n"
+					"        </artifact>\n"
+					"      </artifacts>\n"
+					"    </release>\n"
+					"  </releases>\n"
+					"</component>\n";
+/**
+ * test_xml_read_releases:
+ *
+ * Test reading the releases tag.
+ */
+static void
+test_xml_read_releases (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsRelease *rel;
+	GPtrArray *artifacts;
+
+	cpt = as_xml_test_read_data (xmldata_releases, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleaseTest");
+
+	g_assert_cmpint (as_component_get_releases (cpt)->len, ==, 1);
+
+	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
+	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
+	g_assert_cmpstr (as_release_get_version (rel), ==,  "1.2");
+
+	as_release_set_active_locale (rel, "de");
+	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>Eine Beschreibung der Veröffentlichung.</p>\n");
+
+	as_release_set_active_locale (rel, "C");
+	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>A release description.</p>\n");
+
+	g_assert_cmpstr (as_release_get_url (rel, AS_RELEASE_URL_KIND_DETAILS), ==, "https://example.org/releases/1.2.html");
+
+	artifacts = as_release_get_artifacts (rel);
+	g_assert_cmpint (artifacts->len, ==, 2);
+	for (guint i = 0; i < artifacts->len; i++) {
+		AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (artifacts, i));
+		AsChecksum *cs;
+
+		if (as_artifact_get_kind (artifact) == AS_ARTIFACT_KIND_BINARY) {
+			g_assert_cmpstr (as_artifact_get_platform (artifact), ==, "x86_64-linux-gnu");
+			g_assert_cmpint (as_artifact_get_bundle_kind (artifact), ==, AS_BUNDLE_KIND_TARBALL);
+
+			g_assert_cmpint (as_artifact_get_locations (artifact)->len, ==, 1);
+			g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (artifact), 0), ==, "https://example.com/mytarball.bin.tar.xz");
+
+			cs = as_artifact_get_checksum (artifact, AS_CHECKSUM_KIND_SHA256);
+			g_assert_cmpstr (as_checksum_get_value (cs), ==, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
+
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED), ==, 42424242);
+		} else if (as_artifact_get_kind (artifact) == AS_ARTIFACT_KIND_SOURCE) {
+			g_assert_cmpint (as_artifact_get_locations (artifact)->len, ==, 1);
+			g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (artifact), 0), ==, "https://example.com/mytarball.tar.xz");
+
+			cs = as_artifact_get_checksum (artifact, AS_CHECKSUM_KIND_SHA256);
+			g_assert_cmpstr (as_checksum_get_value (cs), ==, "95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1");
+		} else {
+			g_assert_not_reached ();
+		}
+	}
+}
+
+/**
+ * test_xml_write_releases:
+ *
+ * Test writing the releases tag.
+ */
+static void
+test_xml_write_releases (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsRelease) rel = NULL;
+	g_autofree gchar *res = NULL;
+	AsArtifact *artifact;
+	AsChecksum *cs;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.ReleaseTest");
+
+	rel = as_release_new ();
+	as_release_set_version (rel, "1.2");
+	as_release_set_description (rel, "<p>A release description.</p>", "C");
+	as_release_set_description (rel, "<p>Eine Beschreibung der Veröffentlichung.</p>", "de");
+	as_release_set_url (rel, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.2.html");
+
+	/* artifacts */
+	artifact = as_artifact_new ();
+	as_artifact_set_kind (artifact, AS_ARTIFACT_KIND_BINARY);
+	as_artifact_set_platform (artifact, "x86_64-linux-gnu");
+	as_artifact_set_bundle_kind (artifact, AS_BUNDLE_KIND_TARBALL);
+	as_artifact_add_location (artifact, "https://example.com/mytarball.bin.tar.xz");
+	cs = as_checksum_new ();
+	as_checksum_set_kind (cs, AS_CHECKSUM_KIND_SHA256);
+	as_checksum_set_value (cs, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
+	as_artifact_add_checksum (artifact, cs);
+	g_object_unref (cs);
+	as_artifact_set_size (artifact, 112358, AS_SIZE_KIND_DOWNLOAD);
+	as_artifact_set_size (artifact, 42424242, AS_SIZE_KIND_INSTALLED);
+	as_release_add_artifact (rel, artifact);
+	g_object_unref (artifact);
+
+	artifact = as_artifact_new ();
+	as_artifact_set_kind (artifact, AS_ARTIFACT_KIND_SOURCE);
+	as_artifact_add_location (artifact, "https://example.com/mytarball.tar.xz");
+	cs = as_checksum_new ();
+	as_checksum_set_kind (cs, AS_CHECKSUM_KIND_SHA256);
+	as_checksum_set_value (cs, "95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1");
+	as_artifact_add_checksum (artifact, cs);
+	g_object_unref (cs);
+	as_release_add_artifact (rel, artifact);
+	g_object_unref (artifact);
+
+	as_component_add_release (cpt, rel);
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_releases));
+}
+
+/**
+ * test_xml_read_releases_legacy:
+ *
+ * Test reading the releases tag with legacy artifacts.
+ */
+static void
+test_xml_read_releases_legacy (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsRelease *rel;
+	GPtrArray *artifacts;
+	AsArtifact *artifact;
+	AsChecksum *cs;
+
+	static const gchar *xmldata_releases_legacy = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.ReleaseTestLegacy</id>\n"
+					"  <releases>\n"
+					"    <release type=\"stable\" version=\"1.2\">\n"
+					"      <description>\n"
+					"        <p>A release description.</p>\n"
+					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
+					"      </description>\n"
+					"      <url>https://example.org/releases/1.2.html</url>\n"
+					"      <location>https://example.com/mytarball.bin.tar.xz</location>\n"
+					"      <checksum type=\"sha256\">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>\n"
+					"      <size type=\"download\">112358</size>\n"
+					"      <size type=\"installed\">42424242</size>\n"
+					"    </release>\n"
+					"  </releases>\n"
+					"</component>\n";
+
+	cpt = as_xml_test_read_data (xmldata_releases_legacy, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleaseTestLegacy");
+
+	g_assert_cmpint (as_component_get_releases (cpt)->len, ==, 1);
+
+	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
+
+	artifacts = as_release_get_artifacts (rel);
+	g_assert_cmpint (artifacts->len, ==, 1);
+	artifact = AS_ARTIFACT (g_ptr_array_index (artifacts, 0));
+
+	g_assert_cmpint (as_artifact_get_locations (artifact)->len, ==, 1);
+	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (artifact), 0), ==, "https://example.com/mytarball.bin.tar.xz");
+
+	cs = as_artifact_get_checksum (artifact, AS_CHECKSUM_KIND_SHA256);
+	g_assert_cmpstr (as_checksum_get_value (cs), ==, "f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8");
+
+	g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
+	g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED), ==, 42424242);
+}
+
 /**
  * main:
  */
@@ -1409,9 +1562,10 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/Description", test_appstream_read_description);
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 
+	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
+
 	g_test_add_func ("/XML/Read/Url", test_xml_read_url);
 
-	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 	g_test_add_func ("/XML/Write/Provides", test_xml_write_provides);
 	g_test_add_func ("/XML/Write/Suggests", test_xml_write_suggests);
 
@@ -1436,7 +1590,9 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/Agreements", test_xml_read_agreements);
 	g_test_add_func ("/XML/Write/Agreements", test_xml_write_agreements);
 
-	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
+	g_test_add_func ("/XML/Read/Releases", test_xml_read_releases);
+	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
+	g_test_add_func ("/XML/Read/ReleasesLegacy", test_xml_read_releases_legacy);
 
 	ret = g_test_run ();
 	g_free (datadir);

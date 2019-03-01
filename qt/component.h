@@ -236,8 +236,8 @@ Q_GADGET
 
         QString toString() const;
 
-    // DEPRECATED
-    Q_DECL_DEPRECATED QString desktopId() const;
+        // DEPRECATED
+        Q_DECL_DEPRECATED QString desktopId() const;
 
     private:
         _AsComponent *m_cpt;

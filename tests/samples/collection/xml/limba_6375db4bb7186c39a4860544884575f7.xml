@@ -24,10 +24,20 @@
 
     <releases>
       <release version="1.6.1" timestamp="123465888" urgency="low" date_eol="2024-10-12">
-        <size type="download">112358</size>
-        <size type="installed">42424242</size>
-
         <url>https://example.com/releasenotes-1.6.1.html</url>
+
+        <artifacts>
+          <artifact type="binary" platform="x86_64-linux-gnu" bundle="limba">
+            <location>https://example.com/mytarball.bin.lpk</location>
+            <checksum type="sha256">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>
+            <size type="download">112358</size>
+            <size type="installed">42424242</size>
+          </artifact>
+          <artifact type="source">
+            <location>https://example.com/mytarball.tar.xz</location>
+            <checksum type="sha256">95c0a7733b2ec76cf52ba2fa8db31cf3ad6ede7140d675e218c86720e97d9ac1</checksum>
+          </artifact>
+        </artifacts>
       </release>
       <release version="1.6.0" timestamp="123456789"></release>
     </releases>

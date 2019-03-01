@@ -109,8 +109,20 @@ QString Release::activeLocale() const
     return QString::fromUtf8(as_release_get_active_locale(d->m_release));
 }
 
+Release::UrgencyKind Release::urgency() const
+{
+    return Release::UrgencyKind(as_release_get_urgency(d->m_release));
+}
+
+QDebug operator<<(QDebug s, const AppStream::Release& release)
+{
+    s.nospace() << "AppStream::Release(" << release.version() << ": " << release.description() << ")";
+    return s.space();
+}
+
 QList<QUrl> Release::locations() const
 {
+    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     auto urls = as_release_get_locations(d->m_release);
     QList<QUrl> ret;
     ret.reserve(urls->len);
@@ -118,11 +130,14 @@ QList<QUrl> Release::locations() const
         auto strval = (const gchar*) g_ptr_array_index (urls, i);
         ret << QUrl(QString::fromUtf8(strval));
     }
+
+    #pragma GCC diagnostic pop
     return ret;
 }
 
 Checksum Release::checksum() const
 {
+    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     {
         auto cs = as_release_get_checksum(d->m_release, AS_CHECKSUM_KIND_SHA256);
         if (cs)
@@ -134,24 +149,17 @@ Checksum Release::checksum() const
         if (cs)
             return Checksum { Checksum::KindSha1, QByteArray(as_checksum_get_value (cs)) };
     }
+    #pragma GCC diagnostic pop
+
     return Checksum { Checksum::KindNone, "" };
 }
 
 QHash<Release::SizeKind, quint64> Release::sizes() const
 {
+    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     return {
         { SizeInstalled, as_release_get_size(d->m_release, AS_SIZE_KIND_INSTALLED) },
         { SizeDownload, as_release_get_size(d->m_release, AS_SIZE_KIND_DOWNLOAD) }
     };
-}
-
-Release::UrgencyKind Release::urgency() const
-{
-    return Release::UrgencyKind(as_release_get_urgency(d->m_release));
-}
-
-QDebug operator<<(QDebug s, const AppStream::Release& release)
-{
-    s.nospace() << "AppStream::Release(" << release.version() << ": " << release.description() << ")";
-    return s.space();
+    #pragma GCC diagnostic pop
 }

@@ -38,8 +38,9 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
-#include "as-checksum-private.h"
+#include "as-artifact-private.h"
 #include "as-variant-cache.h"
+#include "as-checksum-private.h"
 
 typedef struct
 {
@@ -53,9 +54,7 @@ typedef struct
 	AsContext	*context;
 	gchar		*active_locale_override;
 
-	GPtrArray	*locations;
-	GPtrArray	*checksums;
-	guint64		size[AS_SIZE_KIND_LAST];
+	GPtrArray	*artifacts;
 
 	gchar		*url_details;
 
@@ -144,65 +143,19 @@ as_release_url_kind_from_string (const gchar *kind_str)
 }
 
 /**
- * as_size_kind_to_string:
- * @size_kind: the #AsSizeKind.
- *
- * Converts the enumerated value to an text representation.
- *
- * Returns: string version of @size_kind
- *
- * Since: 0.8.6
- **/
-const gchar*
-as_size_kind_to_string (AsSizeKind size_kind)
-{
-	if (size_kind == AS_SIZE_KIND_INSTALLED)
-		return "installed";
-	if (size_kind == AS_SIZE_KIND_DOWNLOAD)
-		return "download";
-	return "unknown";
-}
-
-/**
- * as_size_kind_from_string:
- * @size_kind: the string.
- *
- * Converts the text representation to an enumerated value.
- *
- * Returns: an #AsSizeKind or %AS_SIZE_KIND_UNKNOWN for unknown
- *
- * Since: 0.8.6
- **/
-AsSizeKind
-as_size_kind_from_string (const gchar *size_kind)
-{
-	if (g_strcmp0 (size_kind, "download") == 0)
-		return AS_SIZE_KIND_DOWNLOAD;
-	if (g_strcmp0 (size_kind, "installed") == 0)
-		return AS_SIZE_KIND_INSTALLED;
-	return AS_SIZE_KIND_UNKNOWN;
-}
-
-/**
  * as_release_init:
  **/
 static void
 as_release_init (AsRelease *release)
 {
-	guint i;
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 
 	/* we assume a stable release by default */
 	priv->kind = AS_RELEASE_KIND_STABLE;
 
 	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->locations = g_ptr_array_new_with_free_func (g_free);
-
-	priv->checksums = g_ptr_array_new_with_free_func (g_object_unref);
+	priv->artifacts = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
-
-	for (i = 0; i < AS_SIZE_KIND_LAST; i++)
-		priv->size[i] = 0;
 }
 
 /**
@@ -220,8 +173,7 @@ as_release_finalize (GObject *object)
 	g_free (priv->date_eol);
 	g_free (priv->url_details);
 	g_hash_table_unref (priv->description);
-	g_ptr_array_unref (priv->locations);
-	g_ptr_array_unref (priv->checksums);
+	g_ptr_array_unref (priv->artifacts);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
@@ -520,45 +472,6 @@ as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency)
 }
 
 /**
- * as_release_get_size:
- * @release: a #AsRelease instance
- * @kind: a #AsSizeKind
- *
- * Gets the release size.
- *
- * Returns: The size of the given kind of this release.
- *
- * Since: 0.8.6
- **/
-guint64
-as_release_get_size (AsRelease *release, AsSizeKind kind)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_return_val_if_fail (kind < AS_SIZE_KIND_LAST, 0);
-	return priv->size[kind];
-}
-
-/**
- * as_release_set_size:
- * @release: a #AsRelease instance
- * @size: a size in bytes, or 0 for unknown
- * @kind: a #AsSizeKind
- *
- * Sets the release size for the given kind.
- *
- * Since: 0.8.6
- **/
-void
-as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_return_if_fail (kind < AS_SIZE_KIND_LAST);
-	g_return_if_fail (kind != 0);
-
-	priv->size[kind] = size;
-}
-
-/**
  * as_release_get_description:
  * @release: a #AsRelease instance.
  *
@@ -645,90 +558,36 @@ as_release_set_active_locale (AsRelease *release, const gchar *locale)
 }
 
 /**
- * as_release_get_locations:
+ * as_release_get_artifacts:
  *
- * Gets the release locations, typically URLs.
+ * Get a list of all downloadable artifacts that are associated with
+ * this release.
  *
- * Returns: (transfer none) (element-type utf8): list of locations
+ * Returns: (transfer none) (element-type AsArtifact): an array of #AsArtifact objects.
  *
- * Since: 0.8.1
+ * Since: 0.12.6
  **/
 GPtrArray*
-as_release_get_locations (AsRelease *release)
+as_release_get_artifacts (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	return priv->locations;
+	return priv->artifacts;
 }
 
 /**
- * as_release_add_location:
- * @location: An URL of the download location
- *
- * Adds a release location.
- *
- * Since: 0.8.1
- **/
-void
-as_release_add_location (AsRelease *release, const gchar *location)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_ptr_array_add (priv->locations, g_strdup (location));
-}
-
-/**
- * as_release_get_checksums:
- *
- * Get a list of all checksums we have for this release.
- *
- * Returns: (transfer none) (element-type AsChecksum): an array of #AsChecksum objects.
- *
- * Since: 0.10
- **/
-GPtrArray*
-as_release_get_checksums (AsRelease *release)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	return priv->checksums;
-}
-
-/**
- * as_release_get_checksum:
- * @release: a #AsRelease instance.
- *
- * Gets the release checksum
- *
- * Returns: (transfer none) (nullable): an #AsChecksum, or %NULL for not set or invalid
- *
- * Since: 0.8.2
- **/
-AsChecksum*
-as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
-{
-	AsReleasePrivate *priv = GET_PRIVATE (release);
-	guint i;
-
-	for (i = 0; i < priv->checksums->len; i++) {
-		AsChecksum *cs = AS_CHECKSUM (g_ptr_array_index (priv->checksums, i));
-		if (as_checksum_get_kind (cs) == kind)
-			return cs;
-	}
-	return NULL;
-}
-
-/**
- * as_release_add_checksum:
+ * as_release_add_artifact:
  * @release: An instance of #AsRelease.
- * @cs: The #AsChecksum.
+ * @artifact: The #AsArtifact.
  *
- * Add a checksum for the file associated with this release.
+ * Add an artifact (binary / source download) for this release.
  *
- * Since: 0.8.2
+ * Since: 0.12.6
  */
 void
-as_release_add_checksum (AsRelease *release, AsChecksum *cs)
+as_release_add_artifact (AsRelease *release, AsArtifact *artifact)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_ptr_array_add (priv->checksums, g_object_ref (cs));
+	g_ptr_array_add (priv->artifacts, g_object_ref (artifact));
 }
 
 /**
@@ -813,6 +672,145 @@ as_release_set_context (AsRelease *release, AsContext *context)
 }
 
 /**
+ * as_release_legacy_get_default_artifact:
+ *
+ * Helper function to preserve legacy compatibility.
+ *
+ **/
+static AsArtifact*
+as_release_legacy_get_default_artifact (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_autoptr(AsArtifact) artifact = NULL;
+
+	if (priv->artifacts->len > 0)
+		return AS_ARTIFACT (g_ptr_array_index (priv->artifacts, 0));
+
+	/* create dummy artifact to hold information if the library user called legacy functions */
+	artifact = as_artifact_new ();
+	as_artifact_set_kind (artifact, AS_ARTIFACT_KIND_BINARY);
+	as_release_add_artifact (release, artifact);
+
+	return artifact;
+}
+
+/**
+ * as_release_get_size:
+ * @release: a #AsRelease instance
+ * @kind: a #AsSizeKind
+ *
+ * Gets the release size.
+ *
+ * Returns: The size of the given kind of this release.
+ *
+ * Since: 0.8.6
+ * Deprecated: Use the #AsArtifact directly to obtain this information.
+ **/
+guint64
+as_release_get_size (AsRelease *release, AsSizeKind kind)
+{
+	return as_artifact_get_size (as_release_legacy_get_default_artifact (release), kind);
+}
+
+/**
+ * as_release_set_size:
+ * @release: a #AsRelease instance
+ * @size: a size in bytes, or 0 for unknown
+ * @kind: a #AsSizeKind
+ *
+ * Sets the release size for the given kind.
+ *
+ * Since: 0.8.6
+ * Deprecated: Use the #AsArtifact directly to obtain this information.
+ **/
+void
+as_release_set_size (AsRelease *release, guint64 size, AsSizeKind kind)
+{
+	return as_artifact_set_size (as_release_legacy_get_default_artifact (release), size, kind);
+}
+
+/**
+ * as_release_get_locations:
+ *
+ * Gets the release locations, typically URLs.
+ *
+ * Returns: (transfer none) (element-type utf8): list of locations
+ *
+ * Since: 0.8.1
+ * Deprecated: Use the #AsArtifact directly to obtain this information.
+ **/
+GPtrArray*
+as_release_get_locations (AsRelease *release)
+{
+	return as_artifact_get_locations (as_release_legacy_get_default_artifact (release));
+}
+
+/**
+ * as_release_add_location:
+ * @location: An URL of the download location
+ *
+ * Adds a release location.
+ *
+ * Since: 0.8.1
+ * Deprecated: Use the #AsArtifact directly to obtain this information.
+ **/
+void
+as_release_add_location (AsRelease *release, const gchar *location)
+{
+    AsArtifact *artifact = as_release_legacy_get_default_artifact (release);
+    as_artifact_add_location (artifact, location);
+}
+
+/**
+ * as_release_get_checksums:
+ *
+ * Get a list of all checksums we have for this release.
+ *
+ * Returns: (transfer none) (element-type AsChecksum): an array of #AsChecksum objects.
+ *
+ * Since: 0.10
+ * Deprecated: Use the #AsArtifact directly to obtain this information.
+ **/
+GPtrArray*
+as_release_get_checksums (AsRelease *release)
+{
+	return as_artifact_get_checksums (as_release_legacy_get_default_artifact (release));
+}
+
+/**
+ * as_release_get_checksum:
+ * @release: a #AsRelease instance.
+ *
+ * Gets the release checksum
+ *
+ * Returns: (transfer none) (nullable): an #AsChecksum, or %NULL for not set or invalid
+ *
+ * Since: 0.8.2
+ * Deprecated: Use the #AsArtifact directly to obtain this information.
+ **/
+AsChecksum*
+as_release_get_checksum (AsRelease *release, AsChecksumKind kind)
+{
+	return as_artifact_get_checksum (as_release_legacy_get_default_artifact (release), kind);
+}
+
+/**
+ * as_release_add_checksum:
+ * @release: An instance of #AsRelease.
+ * @cs: The #AsChecksum.
+ *
+ * Add a checksum for the file associated with this release.
+ *
+ * Since: 0.8.2
+ * Deprecated: Use the #AsArtifact directly to obtain this information.
+ */
+void
+as_release_add_checksum (AsRelease *release, AsChecksum *cs)
+{
+	as_artifact_add_checksum (as_release_legacy_get_default_artifact (release), cs);
+}
+
+/**
  * as_release_parse_xml_metainfo_description_cb:
  *
  * Helper function for GHashTable
@@ -891,29 +889,17 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar*) iter->name, "location") == 0) {
-			content = as_xml_get_node_value (iter);
-			as_release_add_location (release, content);
-		} else if (g_strcmp0 ((gchar*) iter->name, "checksum") == 0) {
-			g_autoptr(AsChecksum) cs = NULL;
+		if (g_strcmp0 ((gchar*) iter->name, "artifacts") == 0) {
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				g_autoptr(AsArtifact) artifact = NULL;
 
-			cs = as_checksum_new ();
-			if (as_checksum_load_from_xml (cs, ctx, iter, NULL))
-				as_release_add_checksum (release, cs);
-		} else if (g_strcmp0 ((gchar*) iter->name, "size") == 0) {
-			AsSizeKind s_kind;
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
 
-			s_kind = as_size_kind_from_string (prop);
-			if (s_kind != AS_SIZE_KIND_UNKNOWN) {
-				guint64 size;
-
-				content = as_xml_get_node_value (iter);
-				size = g_ascii_strtoull (content, NULL, 10);
-				if (size > 0)
-					as_release_set_size (release, size, s_kind);
+				artifact = as_artifact_new ();
+				if (as_artifact_load_from_xml (artifact, ctx, iter2, NULL))
+					as_release_add_artifact (release, artifact);
 			}
-			g_free (prop);
 		} else if (g_strcmp0 ((gchar*) iter->name, "description") == 0) {
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
 				g_autofree gchar *lang;
@@ -933,6 +919,38 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 			/* NOTE: Currently, every url in releases is a "details" URL */
 			content = as_xml_get_node_value (iter);
 			as_release_set_url (release, AS_RELEASE_URL_KIND_DETAILS, content);
+		} else if (g_strcmp0 ((gchar*) iter->name, "location") == 0) {
+			/* DEPRECATED */
+			#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+			content = as_xml_get_node_value (iter);
+			as_release_add_location (release, content);
+			#pragma GCC diagnostic pop
+		} else if (g_strcmp0 ((gchar*) iter->name, "checksum") == 0) {
+			/* DEPRECATED */
+			#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+			g_autoptr(AsChecksum) cs = NULL;
+
+			cs = as_checksum_new ();
+			if (as_checksum_load_from_xml (cs, ctx, iter, NULL))
+				as_release_add_checksum (release, cs);
+			#pragma GCC diagnostic pop
+		} else if (g_strcmp0 ((gchar*) iter->name, "size") == 0) {
+			/* DEPRECATED */
+			#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+			AsSizeKind s_kind;
+			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+
+			s_kind = as_size_kind_from_string (prop);
+			if (s_kind != AS_SIZE_KIND_UNKNOWN) {
+				guint64 size;
+
+				content = as_xml_get_node_value (iter);
+				size = g_ascii_strtoull (content, NULL, 10);
+				if (size > 0)
+					as_release_set_size (release, size, s_kind);
+			}
+			g_free (prop);
+			#pragma GCC diagnostic pop
 		}
 	}
 
@@ -952,7 +970,6 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	xmlNode *subnode;
-	guint j;
 
 	/* set release version */
 	subnode = xmlNewChild (root, NULL, (xmlChar*) "release", (xmlChar*) "");
@@ -992,41 +1009,21 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 				(xmlChar*) urgency_str);
 	}
 
-	/* add location urls */
-	for (j = 0; j < priv->locations->len; j++) {
-		const gchar *lurl = (const gchar*) g_ptr_array_index (priv->locations, j);
-		xmlNewTextChild (subnode, NULL, (xmlChar*) "location", (xmlChar*) lurl);
-	}
-
-	/* add checksum node */
-	for (j = 0; j < priv->checksums->len; j++) {
-		AsChecksum *cs = AS_CHECKSUM (g_ptr_array_index (priv->checksums, j));
-		as_checksum_to_xml_node (cs, ctx, subnode);
-	}
-
-	/* add size node */
-	for (j = 0; j < AS_SIZE_KIND_LAST; j++) {
-		if (as_release_get_size (release, j) > 0) {
-			xmlNode *s_node;
-			g_autofree gchar *size_str;
-
-			size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, as_release_get_size (release, j));
-			s_node = xmlNewTextChild (subnode,
-							NULL,
-							(xmlChar*) "size",
-							(xmlChar*) size_str);
-			xmlNewProp (s_node,
-					(xmlChar*) "type",
-					(xmlChar*) as_size_kind_to_string (j));
-		}
-	}
-
 	/* add description */
 	as_xml_add_description_node (ctx, subnode, priv->description);
 
 	/* add details URL */
 	if (priv->url_details != NULL)
 		xmlNewTextChild (subnode, NULL, (xmlChar*) "url", (xmlChar*) priv->url_details);
+
+	/* artifacts */
+	if (priv->artifacts->len > 0) {
+		xmlNode *n_artifacts = xmlNewChild (subnode, NULL, (xmlChar*) "artifacts", (xmlChar*) "");
+		for (guint i = 0; i < priv->artifacts->len; i++) {
+			AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (priv->artifacts, i));
+			as_artifact_to_xml_node (artifact, ctx, n_artifacts);
+		}
+	}
 }
 
 /**
@@ -1103,7 +1100,6 @@ void
 as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitter)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	guint j;
 
 	/* start mapping for this release */
 	as_yaml_mapping_start (emitter);
@@ -1146,18 +1142,6 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 					   "description",
 					   priv->description);
 
-	/* location URLs */
-	if (priv->locations->len > 0) {
-		as_yaml_emit_scalar (emitter, "locations");
-		as_yaml_sequence_start (emitter);
-		for (j = 0; j < priv->locations->len; j++) {
-			const gchar *lurl = (const gchar*) g_ptr_array_index (priv->locations, j);
-			as_yaml_emit_scalar (emitter, lurl);
-		}
-
-		as_yaml_sequence_end (emitter);
-	}
-
 	/* Urls */
 	if (priv->url_details != NULL) {
 		as_yaml_emit_scalar (emitter, "url");
@@ -1170,8 +1154,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_mapping_end (emitter);
 	}
 
-	/* TODO: Checksum and size are missing, because they are not specified yet for DEP-11.
-	 * Will need to be added when/if we need it. */
+	/* TODO: Artifacts are missing, because they are not specified yet for DEP-11. */
 
 	/* end mapping for the release */
 	as_yaml_mapping_end (emitter);
@@ -1189,33 +1172,7 @@ void
 as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	guint j;
-	GVariantBuilder checksum_b;
-	GVariantBuilder sizes_b;
 	GVariantBuilder rel_b;
-
-	GVariant *locations_var;
-	GVariant *checksums_var;
-	GVariant *sizes_var;
-	gboolean have_sizes = FALSE;
-
-	/* build checksum info */
-	g_variant_builder_init (&checksum_b, (const GVariantType *) "a{us}");
-	for (j = 0; j < priv->checksums->len; j++) {
-		AsChecksum *cs = AS_CHECKSUM (g_ptr_array_index (priv->checksums, j));
-		as_checksum_to_variant (cs, &checksum_b);
-	}
-
-	/* build size info */
-	g_variant_builder_init (&sizes_b, (const GVariantType *) "a{ut}");
-	for (j = 0; j < AS_SIZE_KIND_LAST; j++) {
-		if (as_release_get_size (release, (AsSizeKind) j) > 0) {
-			g_variant_builder_add (&sizes_b, "{ut}",
-						(AsSizeKind) j,
-						as_release_get_size (release, (AsSizeKind) j));
-			have_sizes = TRUE;
-		}
-	}
 
 	g_variant_builder_init (&rel_b, G_VARIANT_TYPE_ARRAY);
 	g_variant_builder_add_parsed (&rel_b, "{'kind', <%u>}", priv->kind);
@@ -1224,18 +1181,6 @@ as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
 	g_variant_builder_add_parsed (&rel_b, "{'urgency', <%u>}", priv->urgency);
 	g_variant_builder_add_parsed (&rel_b, "{'description', %v}", as_variant_mstring_new (as_release_get_description (release)));
 	g_variant_builder_add_parsed (&rel_b, "{'date_eol', %v}", as_variant_mstring_new (priv->date_eol));
-
-	locations_var = as_variant_from_string_ptrarray (priv->locations);
-	if (locations_var)
-		g_variant_builder_add_parsed (&rel_b, "{'locations', %v}", locations_var);
-
-	checksums_var = priv->checksums->len > 0? g_variant_builder_end (&checksum_b) : NULL;
-	if (checksums_var)
-		g_variant_builder_add_parsed (&rel_b, "{'checksums', %v}", checksums_var);
-
-	sizes_var = have_sizes? g_variant_builder_end (&sizes_b) : NULL;
-	if (sizes_var)
-		g_variant_builder_add_parsed (&rel_b, "{'sizes', %v}", sizes_var);
 
 	/* URLs */
 	if (priv->url_details != NULL) {
@@ -1249,6 +1194,19 @@ as_release_to_variant (AsRelease *release, GVariantBuilder *builder)
 
 		as_variant_builder_add_kv (&rel_b, "urls",
 					   g_variant_builder_end (&dict_b));
+	}
+
+	/* artifacts */
+	if (priv->artifacts->len > 0) {
+		GVariantBuilder array_b;
+		g_variant_builder_init (&array_b, G_VARIANT_TYPE_ARRAY);
+		for (guint i = 0; i < priv->artifacts->len; i++) {
+			AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (priv->artifacts, i));
+			as_artifact_to_variant (artifact, &array_b);
+		}
+
+		as_variant_builder_add_kv (&rel_b, "artifacts",
+						g_variant_builder_end (&array_b));
 	}
 
 	g_variant_builder_add_value (builder, g_variant_builder_end (&rel_b));
@@ -1268,8 +1226,6 @@ as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar 
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	GVariant *tmp;
 	g_auto(GVariantDict) rdict;
-	GVariantIter riter;
-	GVariant *inner_child;;
 
 	as_release_set_active_locale (release, locale);
 	g_variant_dict_init (&rdict, variant);
@@ -1293,45 +1249,11 @@ as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar 
 					locale);
 	g_variant_unref (tmp);
 
-	/* locations */
-	as_variant_to_string_ptrarray_by_dict (&rdict,
-						"locations",
-						priv->locations);
-
-	/* sizes */
-	tmp = g_variant_dict_lookup_value (&rdict, "sizes", G_VARIANT_TYPE_DICTIONARY);
-	if (tmp != NULL) {
-		g_variant_iter_init (&riter, tmp);
-		while ((inner_child = g_variant_iter_next_value (&riter))) {
-			AsSizeKind kind;
-			guint64 size;
-
-			g_variant_get (inner_child, "{ut}", &kind, &size);
-			as_release_set_size (release, size, kind);
-
-			g_variant_unref (inner_child);
-		}
-		g_variant_unref (tmp);
-	}
-
-	/* checksums */
-	tmp = g_variant_dict_lookup_value (&rdict, "checksums", G_VARIANT_TYPE_DICTIONARY);
-	if (tmp != NULL) {
-		g_variant_iter_init (&riter, tmp);
-		while ((inner_child = g_variant_iter_next_value (&riter))) {
-			g_autoptr(AsChecksum) cs = as_checksum_new ();
-			if (as_checksum_set_from_variant (cs, inner_child))
-				as_release_add_checksum (release, cs);
-
-			g_variant_unref (inner_child);
-		}
-		g_variant_unref (tmp);
-	}
-
 	/* URLs */
 	tmp = g_variant_dict_lookup_value (&rdict, "urls", G_VARIANT_TYPE_DICTIONARY);
 	if (tmp != NULL) {
 		GVariant *child;
+		GVariantIter riter;
 
 		g_variant_iter_init (&riter, tmp);
 		while ((child = g_variant_iter_next_value (&riter))) {
@@ -1342,6 +1264,23 @@ as_release_set_from_variant (AsRelease *release, GVariant *variant, const gchar 
 			as_release_set_url (release,
 					    kind,
 					    g_variant_get_string (url_var, NULL));
+
+			g_variant_unref (child);
+		}
+		g_variant_unref (tmp);
+	}
+
+	/* artifacts */
+	tmp = g_variant_dict_lookup_value (&rdict, "artifacts", G_VARIANT_TYPE_ARRAY);
+	if (tmp != NULL) {
+		GVariant *child;
+		GVariantIter riter;
+
+		g_variant_iter_init (&riter, tmp);
+		while ((child = g_variant_iter_next_value (&riter))) {
+			g_autoptr(AsArtifact) artifact = as_artifact_new ();
+			if (as_artifact_set_from_variant (artifact, child))
+				as_release_add_artifact (release, artifact);
 
 			g_variant_unref (child);
 		}

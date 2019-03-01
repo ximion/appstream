@@ -36,7 +36,8 @@ aslib_src = [
     'as-launchable.c',
     'as-relation.c',
     'as-agreement.c',
-    'as-agreement-section.c'
+    'as-agreement-section.c',
+    'as-artifact.c'
 ]
 
 aslib_pub_headers = [
@@ -64,7 +65,8 @@ aslib_pub_headers = [
     'as-launchable.h',
     'as-relation.h',
     'as-agreement.h',
-    'as-agreement-section.h'
+    'as-agreement-section.h',
+    'as-artifact.h'
 ]
 
 aslib_priv_headers = [

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -27,7 +27,7 @@
 
 #include <glib-object.h>
 #include "as-enums.h"
-#include "as-checksum.h"
+#include "as-artifact.h"
 
 G_BEGIN_DECLS
 
@@ -86,27 +86,6 @@ typedef enum {
 const gchar	*as_release_url_kind_to_string (AsReleaseUrlKind kind);
 AsReleaseUrlKind	as_release_url_kind_from_string (const gchar *kind_str);
 
-/**
- * AsSizeKind:
- * @AS_SIZE_KIND_UNKNOWN:	Unknown size
- * @AS_SIZE_KIND_DOWNLOAD:	Size of download of component
- * @AS_SIZE_KIND_INSTALLED:	Size of installed component
- *
- * The release size kind.
- *
- * Since: 0.8.6
- **/
-typedef enum {
-	AS_SIZE_KIND_UNKNOWN,
-	AS_SIZE_KIND_DOWNLOAD,
-	AS_SIZE_KIND_INSTALLED,
-	/*< private >*/
-	AS_SIZE_KIND_LAST
-} AsSizeKind;
-
-const gchar	*as_size_kind_to_string (AsSizeKind size_kind);
-AsSizeKind	as_size_kind_from_string (const gchar *size_kind);
-
 AsRelease	*as_release_new (void);
 
 AsReleaseKind	as_release_get_kind (AsRelease *release);
@@ -143,31 +122,44 @@ void		as_release_set_description (AsRelease *release,
 						const gchar *description,
 						const gchar *locale);
 
-GPtrArray	*as_release_get_locations (AsRelease *release);
-void		as_release_add_location (AsRelease *release,
-						const gchar *location);
-
-GPtrArray	*as_release_get_checksums (AsRelease *release);
-AsChecksum	*as_release_get_checksum (AsRelease *release,
-						AsChecksumKind kind);
-void		as_release_add_checksum (AsRelease *release,
-					 AsChecksum *cs);
-
 AsUrgencyKind	as_release_get_urgency (AsRelease *release);
 void		as_release_set_urgency (AsRelease *release,
 						AsUrgencyKind urgency);
 
-guint64		as_release_get_size (AsRelease *release,
-					AsSizeKind kind);
-void		as_release_set_size (AsRelease *release,
-					guint64 size,
-					AsSizeKind kind);
+GPtrArray	*as_release_get_artifacts (AsRelease *release);
+void		as_release_add_artifact (AsRelease *release,
+					 AsArtifact *artifact);
 
 const gchar	*as_release_get_url (AsRelease *release,
 				     AsReleaseUrlKind url_kind);
 void		as_release_set_url (AsRelease *release,
 				    AsReleaseUrlKind url_kind,
 				    const gchar *url);
+
+/* DEPRECATED */
+
+G_GNUC_DEPRECATED
+guint64		as_release_get_size (AsRelease *release,
+					AsSizeKind kind);
+G_GNUC_DEPRECATED
+void		as_release_set_size (AsRelease *release,
+					guint64 size,
+					AsSizeKind kind);
+
+G_GNUC_DEPRECATED
+GPtrArray	*as_release_get_locations (AsRelease *release);
+G_GNUC_DEPRECATED
+void		as_release_add_location (AsRelease *release,
+						const gchar *location);
+
+G_GNUC_DEPRECATED
+GPtrArray	*as_release_get_checksums (AsRelease *release);
+G_GNUC_DEPRECATED
+AsChecksum	*as_release_get_checksum (AsRelease *release,
+						AsChecksumKind kind);
+G_GNUC_DEPRECATED
+void		as_release_add_checksum (AsRelease *release,
+					 AsChecksum *cs);
 
 G_END_DECLS
 

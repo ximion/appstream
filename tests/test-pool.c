@@ -27,7 +27,6 @@
 #include "../src/as-utils-private.h"
 #include "../src/as-component-private.h"
 
-
 static gchar *datadir = NULL;
 
 static void
@@ -294,9 +293,9 @@ test_pool_read ()
 	gchar **strv;
 	GPtrArray *rels;
 	AsRelease *rel;
+	GPtrArray *artifacts;
 	AsComponent *cpt;
 	AsBundle *bundle;
-	guint i;
 	g_autoptr(GError) error = NULL;
 
 	/* load sample data */
@@ -385,18 +384,25 @@ test_pool_read ()
 	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.1");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123465888);
 	g_assert (as_release_get_urgency (rel) == AS_URGENCY_KIND_LOW);
-	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
-	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_INSTALLED), ==, 42424242);
+
+	artifacts = as_release_get_artifacts (rel);
+	g_assert_cmpint (artifacts->len, ==, 2);
+	for (guint i = 0; i < artifacts->len; i++) {
+		AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (artifacts, i));
+		if (as_artifact_get_kind (artifact) == AS_ARTIFACT_KIND_BINARY) {
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_DOWNLOAD), ==, 112358);
+			g_assert_cmpuint (as_artifact_get_size (artifact, AS_SIZE_KIND_INSTALLED), ==, 42424242);
+		}
+	}
 
 	rel = AS_RELEASE (g_ptr_array_index (rels, 1));
 	g_assert_cmpstr  (as_release_get_version (rel), ==, "1.6.0");
 	g_assert_cmpuint (as_release_get_timestamp (rel), ==, 123456789);
-	g_assert_cmpuint (as_release_get_size (rel, AS_SIZE_KIND_DOWNLOAD), ==, 0);
 
 	/* check categorization */
 	categories = as_get_default_categories (TRUE);
 	as_utils_sort_components_into_categories (all_cpts, categories, FALSE);
-	for (i = 0; i < categories->len; i++) {
+	for (guint i = 0; i < categories->len; i++) {
 		const gchar *cat_id;
 		gint cpt_count;
 		AsCategory *cat = AS_CATEGORY (g_ptr_array_index (categories, i));

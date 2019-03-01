@@ -52,6 +52,7 @@ struct _AsBundleClass
  * @AS_BUNDLE_KIND_FLATPAK:	A Flatpak bundle
  * @AS_BUNDLE_KIND_APPIMAGE:	An AppImageKit bundle
  * @AS_BUNDLE_KIND_SNAP:	A Snap/Snappy bundle
+ * @AS_BUNDLE_KIND_TARBALL:	A (maybe compressed) tarball.
  *
  * The bundle type.
  **/
@@ -62,6 +63,7 @@ typedef enum {
 	AS_BUNDLE_KIND_FLATPAK,
 	AS_BUNDLE_KIND_APPIMAGE,
 	AS_BUNDLE_KIND_SNAP,
+    AS_BUNDLE_KIND_TARBALL,
 	/*< private >*/
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
