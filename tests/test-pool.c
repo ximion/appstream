@@ -24,6 +24,7 @@
 #include "appstream.h"
 #include "as-pool-private.h"
 #include "as-test-utils.h"
+#include "as-stemmer.h"
 #include "../src/as-utils-private.h"
 #include "../src/as-component-private.h"
 
@@ -506,6 +507,27 @@ test_merge_components ()
 }
 
 /**
+ * test_search_stemming:
+ *
+ * Test if stemming works as expected.
+ */
+static void
+test_search_stemming ()
+{
+	gchar *tmp;
+	AsStemmer *stemmer = as_stemmer_get ();
+	as_stemmer_reload (stemmer, "en");
+
+	tmp = as_stemmer_stem (stemmer, "calculator");
+	g_assert_cmpstr (tmp, ==, "calcul");
+	g_free (tmp);
+
+	tmp = as_stemmer_stem (stemmer, "gimping");
+	g_assert_cmpstr (tmp, ==, "gimp");
+	g_free (tmp);
+}
+
+/**
  * main:
  */
 int
@@ -533,6 +555,10 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Cache/Basic", test_cache_simple);
 	g_test_add_func ("/AppStream/Cache/Complex", test_cache_complex);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
+
+#ifdef HAVE_STEMMING
+	g_test_add_func ("/AppStream/Stemming", test_search_stemming);
+#endif
 
 	ret = g_test_run ();
 	g_free (datadir);

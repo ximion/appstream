@@ -1428,18 +1428,22 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
 	}
 
 	/* restore query if it was just greylist words */
+	g_strstrip (tmp_str);
 	if (g_strcmp0 (tmp_str, "") == 0) {
 		g_debug ("grey-list replaced all terms, restoring");
 		g_free (tmp_str);
 		tmp_str = g_utf8_casefold (search, -1);
 	}
 
-	/* we have to strip the leading and trailing whitespaces to avoid having
-	 * different results for e.g. 'font ' and 'font' (LP: #506419)
-	 */
-	g_strstrip (tmp_str);
+	strv = g_str_tokenize_and_fold (tmp_str, priv->locale, NULL);
+	/* we might still be able to extract tokens if g_str_tokenize_and_fold() can't do it or +/- were found */
+	if (strv == NULL) {
+		g_autofree gchar *delim = NULL;
+		delim = g_utf8_strdown (tmp_str, -1);
+		g_strdelimit (delim, "/,.;:", ' ');
+		strv = g_strsplit (delim, " ", -1);
+	}
 
-	strv = g_strsplit (tmp_str, " ", -1);
 	terms = g_new0 (gchar *, g_strv_length (strv) + 1);
 	idx = 0;
 	stemmer = g_object_ref (as_stemmer_get ());
@@ -1451,7 +1455,7 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
 	}
 	/* if we have no valid terms, return NULL */
 	if (idx == 0) {
-		g_free (terms);
+		g_strfreev (terms);
 		return NULL;
 	}
 
