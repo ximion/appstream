@@ -492,6 +492,12 @@
 			</para>
 			<programlisting language="XML"><![CDATA[<releases>
   <release version="1.2" date="2014-04-12" urgency="high">
+    <description>
+      <p>This stable release fixes bugs.</p>
+    </description>
+
+    <url>https://example.org/releases/version-1.2.html</url>
+
     <artifacts>
       <artifact type="binary" platform="x86_64-linux-gnu">
         <location>https://example.com/mytarball.bin.tar.xz</location>
@@ -508,12 +514,6 @@
         <checksum type="sha256">....</checksum>
       </artifact>
     </artifacts>
-
-    <description>
-      <p>This stable release fixes bugs.</p>
-    </description>
-
-	<url>https://example.org/releases/version-1.2.html</url>
   </release>
   <release version="1.1" type="development" date="2013-10-20" />
   <release version="1.0" date="2012-08-26" />
