@@ -20,6 +20,8 @@
 
 #include "as-test-utils.h"
 
+#include <glib/gstdio.h>
+
 /**
  * as_test_compare_lines:
  **/
@@ -28,22 +30,34 @@ as_test_compare_lines (const gchar *txt1, const gchar *txt2)
 {
 	g_autoptr(GError) error = NULL;
 	g_autofree gchar *output = NULL;
+	g_autofree gchar *tmp_fname1 = NULL;
+	g_autofree gchar *tmp_fname2 = NULL;
+	g_autofree gchar *diff_cmd = NULL;
 
-	/* exactly the same */
+	/* check if data is identical */
 	if (g_strcmp0 (txt1, txt2) == 0)
 		return TRUE;
 
+	/* data is different, print diff and exit with FALSE */
+
+	tmp_fname1 = g_strdup_printf ("/tmp/as-diff-%i_a", g_random_int ());
+	tmp_fname2 = g_strdup_printf ("/tmp/as-diff-%i_b", g_random_int ());
+	diff_cmd = g_strdup_printf ("diff -urNp %s %s", tmp_fname2, tmp_fname1);
+
 	/* save temp files and diff them */
-	if (!g_file_set_contents ("/tmp/as-utest_a", txt1, -1, &error))
-		return FALSE;
-	if (!g_file_set_contents ("/tmp/as-utest_b", txt2, -1, &error))
-		return FALSE;
-	if (!g_spawn_command_line_sync ("diff -urNp /tmp/as-utest_b /tmp/as-utest_a",
-					&output, NULL, NULL, &error))
-		return FALSE;
+	if (!g_file_set_contents (tmp_fname1, txt1, -1, &error))
+		goto out;
+	if (!g_file_set_contents (tmp_fname2, txt2, -1, &error))
+		goto out;
+	if (!g_spawn_command_line_sync (diff_cmd, &output, NULL, NULL, &error))
+		goto out;
 
 	g_assert_no_error (error);
 	g_print ("%s\n", output);
+
+out:
+	g_remove (tmp_fname1);
+	g_remove (tmp_fname2);
 	return FALSE;
 }
 
