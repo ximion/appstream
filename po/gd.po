@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2017-03-10 22:24+0000\n"
+"PO-Revision-Date: 2019-03-06 11:06+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
 "translations/gd/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 3.5.1-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -47,14 +47,12 @@ msgstr "Dàna-thuras"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
-#, fuzzy
 msgid "Also show pedantic hints."
-msgstr "Seall oidheaman beadaganach cuideachd leis an dearbhadh."
+msgstr "Seall oidheaman beadaganach cuideachd."
 
 #: tools/appstream-cli.c:696
-#, fuzzy
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Seòrsa de nì (can lib, bin, python3, …)"
+msgstr "An seòrsa an nì (can lib, bin, python3, …)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -62,15 +60,17 @@ msgstr "Goireas gus obair le meata-dàta AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr "AppStream CLI"
+msgstr "Eadar-aghaidh loidhne-àithne AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:789
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
-msgstr "Tionndadh an inneil AppStream CLI: %s"
+msgstr ""
+"Tionndadh dhen inneal eadar-aghaidh loidhne-àithne AppStream: %s\n"
+"Tionndadh dhen leabhar-lann AppStream: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
@@ -120,9 +120,9 @@ msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:786
-#, fuzzy, c-format
+#, c-format
 msgid "AppStream version: %s"
-msgstr "Tionndadh an inneil AppStream CLI: %s"
+msgstr "Tionndadh dhe dh’AppStream: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -227,11 +227,11 @@ msgstr "Conaltradh ⁊ naidheachdan"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Dèan coimeas eadar dà àireamh tionndaidh."
 
 #: src/as-provided.c:167
 msgid "Component"
-msgstr ""
+msgstr "Co-phàirt"
 
 #. TRANSLATORS: We found no distribution package or bundle to install to make this software available
 #: tools/ascli-actions-pkgmgr.c:106
@@ -259,6 +259,8 @@ msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
+"Cruthaich teamplaid airson faidhle meata-fhiosrachaidh (a thèid lìonadh le "
+"pròiseact upstream)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
@@ -284,11 +286,8 @@ msgstr "URL a’ ghlacaidh-sgrìn thùsail"
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
-#, fuzzy
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Cleachd am fòrmat meata-dàta sònraichte mar a’ bhun-roghainn (’s e “xml” "
-"agus “yaml” a tha sna roghainnean dligheach)."
+msgstr "Fòrmat tùsail a’ mheata-dàta (is “xml” ’s “yaml” na luachan dligheach)."
 
 #: tools/ascli-utils.c:330
 msgid "Description"
@@ -316,7 +315,7 @@ msgstr "Meata-dàta an sgaoilidh:"
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr ""
+msgstr "Na cleachd inntrigeadh dhan lìonra."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:750
@@ -485,9 +484,8 @@ msgid "Install a metadata file into the right location."
 msgstr "Stàlaich faidhle meata-dàta gun ionad cheart."
 
 #: tools/appstream-cli.c:705
-#, fuzzy
 msgid "Install software matching the component-ID."
-msgstr "Stàlaich bathar-bog a fhreagras ris an aithnichear co-phàirt."
+msgstr "Stàlaich bathar-bog a fhreagras ris a’ component-ID."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -530,32 +528,32 @@ msgid "Logic"
 msgstr "Loidig"
 
 #: src/as-provided.c:149
-#, fuzzy
 msgid "MIME types"
-msgstr "Seòrsaichean MIME"
+msgstr "Seòrsachan MIME"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr ""
+msgstr "Cuir iarrtas às aonais tasgadain."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
-#, fuzzy
 msgid "Manually selected location of AppStream cache."
-msgstr "Suidhich ionad an tasgadain aig AppStream a làimh."
+msgstr "Ionad tasgadan AppStream air a thaghadh à làimh."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
-#, fuzzy
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "Suidhich ionad a’ mheata-dàta AppStream a làimh."
+msgstr ""
+"Ionad tasgadan meata-dàta AppStream ri sganadh ’s air a thaghadh à làimh."
 
 #: src/as-pool.c:1093
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
 msgstr ""
+"Mhothaich sinn do dh’iomadh co-phàirt mhì-dhligheach. Faic às-chur an dì-"
+"bhugachaidh airson barrachd fiosrachaidh."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -613,13 +611,13 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
-"Cha deach manaidsear phacaidean CLI iomchaidh a lorg. Dèan cinnteach gu "
-"bheil “pkcon” (pàirt dhe PackageKit) ri fhaighinn, mar eisimpleir."
+"Cha deach eadar-aghaidh loidhne-àithne manaidsear phacaidean iomchaidh a "
+"lorg. Dèan cinnteach gu bheil “pkcon” (pàirt dhe PackageKit) ri fhaighinn, "
+"mar eisimpleir."
 
 #: tools/ascli-actions-mdata.c:203
-#, fuzzy
 msgid "No value for the item to search for was defined."
-msgstr "Cha deach luach an nì ri lorg a shònrachadh."
+msgstr "Cha deach luach a mhìneachadh airson lorg an nì."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
@@ -668,9 +666,8 @@ msgid "Rebuild the component metadata cache."
 msgstr "Ath-thog tasgadan meata-dàta nan co-phàirtean."
 
 #: tools/appstream-cli.c:706
-#, fuzzy
 msgid "Remove software matching the component-ID."
-msgstr "Thoir air falbh bathar-bog a fhreagras ris an aithnichear co-phàirt."
+msgstr "Thoir air falbh bathar-bog a fhreagras ris a’ component-ID."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -790,7 +787,7 @@ msgstr ""
 #: tools/appstream-cli.c:657
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "Feumaidh TYPE a bhith ’na component-type dligheach, can: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -807,26 +804,30 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
+"Gabhaidh an àithne seo ri argamaidean suidheachail TYPE is FILE ma thogras "
+"tu agus FILE ’na fhaidhle ris an dèid sgrìobhadh (no “-” airson an às-chuir "
+"stannardaich)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
-#, fuzzy
 msgid ""
 "This tool allows for reading, writing, validating and transformation of "
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
-"Leigidh an t-inneal seo leat meata-dàta XML AppStream no YAML a leughadh, a "
+"Leigidh an t-inneal seo leat meata-dàta XML no YAML AppStream a leughadh, a "
 "sgrìobhadh, a dhearbhadh agus cruth-atharrachadh. Leigidh e leat cuideachd "
-"amar meata-dàta an t-siostaim inntrigeadh airson ceist-shampaill air bathar-"
-"bog a bheir seòrsa MIME sònraichte dhut agus a stàladh a-rèir an aithnichear "
-"co-phàirt bathair-bhog aige."
+"amar meata-dàta an t-siostaim inntrigeadh, can airson ceasnachadh air bathar-"
+"bog a bheir seòrsa MIME sònraichte dhut agus airson a stàladh a-rèir an "
+"aithnichear co-phàirt bathair-bhog aige."
 
 #: tools/appstream-cli.c:622
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
+"Cus paramadairean: Tha feum air dà àireamh tionndaidh no àireamhan "
+"tionndaidh is gnìomharaiche coimeis."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -860,10 +861,9 @@ msgid "Unable to read the .desktop file: %s"
 msgstr "Cha deach leinn am faidhle .desktop a leughadh: %s"
 
 #: tools/ascli-actions-mdata.c:549
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr ""
-"Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a shàbhaladh: %s"
+msgstr "Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a shàbhaladh: %s"
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -881,17 +881,16 @@ msgstr ""
 #: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
-msgstr ""
+msgstr "Àithne “%s” nach aithne dhuinn."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Coimeas “’%s” nach aithne dhuinn. Seo na luachan dligheach:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
-#, fuzzy
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -986,6 +985,8 @@ msgstr ""
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
+"Feumaidh tu co-dhiù dà àireamh tionndaidh a chur seachad mar pharamadairean "
+"a’ choimeis."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
