@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/translations/gd/>\n"
 "Language: gd\n"
 "MIME-Version: 1.0\n"
@@ -949,9 +949,7 @@ msgstr ""
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;application;package;program;programme;suite;tool;aplacaid;paca;pacaid;"
-"pacadh;pasgan;prògram;inneal"
+msgstr "app;application;package;program;programme;suite;tool;aplacaid;paca;pacaid;pacadh;pasgan;prògram;inneal"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -1061,9 +1059,7 @@ msgstr ""
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
-"Tha markup mì-dhligheach ann am paragraf an tuairisgeil. Chan eil taic ach "
-"ri <em/> agus <code/> aig an à seo."
+msgstr "Tha markup mì-dhligheach ann am paragraf an tuairisgeil. Chan eil taic ach ri <em/> agus <code/> aig an à seo."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1171,10 +1167,7 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"Cha deach ID a’ cheadachais a lorg ann an stòr-dàta SPDX. Dèan cinnteach gun "
-"ceach ID a’ cheadachais a sgrìobhadh air dòigh a ghèilleas ri SPDX agus gur "
-"e ceadachas bathair-bhog shaoir dligheach a th’ ann."
+msgstr "Cha deach ID a’ cheadachais a lorg ann an stòr-dàta SPDX. Dèan cinnteach gun ceach ID a’ cheadachais a sgrìobhadh air dòigh a ghèilleas ri SPDX agus gur e ceadachas bathair-bhog shaoir dligheach a th’ ann."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
@@ -1375,9 +1368,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Chan eil seòrsa a’ cho-phàirt a chaidh a shuidheachadh ’na seòrsa co-phàirt "
-"AppStream dligheach a dh’aithnicheadh sinn."
+msgstr "Chan eil seòrsa a’ cho-phàirt a chaidh a shuidheachadh ’na seòrsa co-phàirt AppStream dligheach a dh’aithnicheadh sinn."
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -1688,9 +1679,7 @@ msgstr "Thoir air falbh bathar-bog a fhreagras ris a’ component-ID."
 
 #: src/as-validator-issue-tag.h:623
 msgid "Unable to read the .desktop file associated with this component."
-msgstr ""
-"Cha deach leinn am faidhle .desktop a leughadh a tha co-cheangailte ris a’ "
-"cho-phàirt seo."
+msgstr "Cha deach leinn am faidhle .desktop a leughadh a tha co-cheangailte ris a’ cho-phàirt seo."
 
 #: src/as-validator-issue-tag.h:628
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -2059,8 +2048,7 @@ msgstr "Ionad tasgadan AppStream air a thaghadh à làimh."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Ionad tasgadan meata-dàta AppStream ri sganadh ’s air a thaghadh à làimh."
+msgstr "Ionad tasgadan meata-dàta AppStream ri sganadh ’s air a thaghadh à làimh."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
@@ -2070,8 +2058,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Fòrmat bunaiteach a’ mheata-dàta (is “xml” ’s “yaml” na luachan dligheach)."
+msgstr "Fòrmat bunaiteach a’ mheata-dàta (is “xml” ’s “yaml” na luachan dligheach)."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:101
@@ -2097,9 +2084,7 @@ msgstr "Na cleachd inntrigeadh dhan lìonra."
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:134
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
-"Fòrmat na h-aithisge a thèid a ghintinn (’s e “text” is “yaml” a tha sna "
-"luachan dligheach)."
+msgstr "Fòrmat na h-aithisge a thèid a ghintinn (’s e “text” is “yaml” a tha sna luachan dligheach)."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
@@ -2121,19 +2106,14 @@ msgstr "Chan aithne dhuinn an roghainn “%s”."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Ruith “%s --help” gus liosta shlàn dhe roghainnean na loidhne-àithne a tha "
-"ri fhaighinn a shealltainn."
+msgstr "Ruith “%s --help” gus liosta shlàn dhe roghainnean na loidhne-àithne a tha ri fhaighinn a shealltainn."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Ruith “%s --help” gus liosta shlàn dhe dh’àitheantan ’s roghainnean na "
-"loidhne-àithne a tha ri fhaighinn a shealltainn agus “%s %s --help” airson "
-"liosta dhe na roghainnean a tha sònraichte dhan fho-àithne seo."
+msgstr "Ruith “%s --help” gus liosta shlàn dhe dh’àitheantan ’s roghainnean na loidhne-àithne a tha ri fhaighinn a shealltainn agus “%s %s --help” airson liosta dhe na roghainnean a tha sònraichte dhan fho-àithne seo."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2166,9 +2146,7 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Feumaidh tu co-dhiù dà àireamh tionndaidh a chur seachad mar pharamadairean "
-"a’ choimeis."
+msgstr "Feumaidh tu co-dhiù dà àireamh tionndaidh a chur seachad mar pharamadairean a’ choimeis."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2180,27 +2158,20 @@ msgstr "Coimeas “’%s” nach aithne dhuinn. Seo na luachan dligheach:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Cus paramadairean: Tha feum air dà àireamh tionndaidh no àireamhan "
-"tionndaidh is gnìomharaiche coimeis."
+msgstr "Cus paramadairean: Tha feum air dà àireamh tionndaidh no àireamhan tionndaidh is gnìomharaiche coimeis."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Cleachd am faidhle .desktop sònraiche gus luachan bunaiteach a lìonadh ann "
-"am faidhle a’ mheata-fhiosrachaidh."
+msgstr "Cleachd am faidhle .desktop sònraiche gus luachan bunaiteach a lìonadh ann am faidhle a’ mheata-fhiosrachaidh."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Gabhaidh an àithne seo ri argamaidean suidheachail TYPE is FILE ma thogras "
-"tu agus FILE ’na fhaidhle ris an dèid sgrìobhadh (no “-” airson an às-chuir "
-"stannardaich)."
+msgstr "Gabhaidh an àithne seo ri argamaidean suidheachail TYPE is FILE ma thogras tu agus FILE ’na fhaidhle ris an dèid sgrìobhadh (no “-” airson an às-chuir stannardaich)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2262,9 +2233,7 @@ msgstr "Fo-àitheantan:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Cuir “--help” ri fo-àithne gus fiosrachadh fhaighinn mu na roghainnean a tha "
-"sònraichte dhan fho-àithne sin."
+msgstr "Cuir “--help” ri fo-àithne gus fiosrachadh fhaighinn mu na roghainnean a tha sònraichte dhan fho-àithne sin."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2303,8 +2272,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Seall am meata-dàta XML amh airson co-phàirt a fhreagras ris an aithnichear."
+msgstr "Seall am meata-dàta XML amh airson co-phàirt a fhreagras ris an aithnichear."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2319,9 +2287,7 @@ msgstr "Dearbhaich faidhlichean XML AppStream feuch a bheil duilgheadasan ann."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Dearbhaich craobh fhaidhlichean aig aplacaid a chaidh a stàladh feuch a "
-"bheil am meata-dàta a tha ann dligheach."
+msgstr "Dearbhaich craobh fhaidhlichean aig aplacaid a chaidh a stàladh feuch a bheil am meata-dàta a tha ann dligheach."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2369,9 +2335,7 @@ msgstr "Dèan coimeas eadar dà àireamh tionndaidh."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Cruthaich teamplaid airson faidhle meata-fhiosrachaidh (a thèid lìonadh le "
-"pròiseact upstream)."
+msgstr "Cruthaich teamplaid airson faidhle meata-fhiosrachaidh (a thèid lìonadh le pròiseact upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2468,9 +2432,7 @@ msgstr "Cha deach luach a mhìneachadh airson lorg an nì."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Chan eil an seòrsa a thagh thu dhan nì a chaidh a sholar dligheach. Seo na "
-"luachan dligheach:"
+msgstr "Chan eil an seòrsa a thagh thu dhan nì a chaidh a sholar dligheach. Seo na luachan dligheach:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2501,9 +2463,7 @@ msgstr "Chan eil am faidhle meata-dàta “%s” ann."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Cha b’ urrainn dhuinn am faidhle iompachadh: Cha deach leinn mothachadh dha "
-"dh’fhòrmat an às-chuir, suidhich a làimh e le “--format=”."
+msgstr "Cha b’ urrainn dhuinn am faidhle iompachadh: Cha deach leinn mothachadh dha dh’fhòrmat an às-chuir, suidhich a làimh e le “--format=”."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2519,18 +2479,14 @@ msgstr "Tionndadh: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Feumaidh tu seòrsa a’ cho-phàirt bathair-bhog AppStream a thoirt seachad gus "
-"teamplaid a ghintinn. Seo na luachan dligheach:"
+msgstr "Feumaidh tu seòrsa a’ cho-phàirt bathair-bhog AppStream a thoirt seachad gus teamplaid a ghintinn. Seo na luachan dligheach:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Chan eil seòrsa “%s” a’ cho-phàirt bathair-bhog dligheach an an AppStream. "
-"Seo na luachan dligheach:"
+msgstr "Chan eil seòrsa “%s” a’ cho-phàirt bathair-bhog dligheach an an AppStream. Seo na luachan dligheach:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2550,8 +2506,7 @@ msgstr "Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a thogail: %
 #: tools/ascli-actions-mdata.c:590
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr ""
-"Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a shàbhaladh: %s"
+msgstr "Cha b’ urrainn dhuinn faidhle teamplaid a’ mheata-dàta a shàbhaladh: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -2606,9 +2561,7 @@ msgstr "Feumaidh tu ainm faidhle meata-dàta a shònrachadh."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"Feumaidh tu faidhle desktop-entry a shònrachadh ’na às-chur a thèid a "
-"chruthachadh no a chur ris."
+msgstr "Feumaidh tu faidhle desktop-entry a shònrachadh ’na às-chur a thèid a chruthachadh no a chur ris."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
@@ -2675,10 +2628,7 @@ msgstr "Feumaidh tu na faidhlichean ion-chur is às-chur a shònrachadh."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Cha deach eadar-aghaidh loidhne-àithne manaidsear phacaidean iomchaidh a "
-"lorg. Dèan cinnteach gu bheil “pkcon” (pàirt dhe PackageKit) ri fhaighinn, "
-"mar eisimpleir."
+msgstr "Cha deach eadar-aghaidh loidhne-àithne manaidsear phacaidean iomchaidh a lorg. Dèan cinnteach gu bheil “pkcon” (pàirt dhe PackageKit) ri fhaighinn, mar eisimpleir."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -2748,8 +2698,7 @@ msgstr ""
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
-"Feumaidh tu pasgan freumha a shònrachadh gus tòiseachadh air an dearbhadh!"
+msgstr "Feumaidh tu pasgan freumha a shònrachadh gus tòiseachadh air an dearbhadh!"
 
 #. TRANSLATORS: A plain license ID
 #: tools/ascli-actions-validate.c:528
