@@ -6,7 +6,7 @@
 # Adolfo Jayme-Barrientos, 2014
 # Adolfo Jayme-Barrientos, 2016
 # advocatux <advocatux@airpost.net>, 2019.
-# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019, 2020.
+# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019, 2020, 2021.
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019.
 # Robert Schneider <robertschneider1999.rs@gmail.com>, 2019.
 # J <joaquinfc@protonmail.com>, 2019.
@@ -34,7 +34,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1058,10 +1058,7 @@ msgstr "Las etiquetas de este nombre no están permitidas en esta sección."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"No debe regionalizarse la etiqueta <description/> en los archivos de "
-"metainformación (metadatos originales). En lugar de ello, regionalice los "
-"párrafos individuales."
+msgstr "No debe regionalizarse la etiqueta <description/> en los archivos de metainformación (metadatos originales). En lugar de ello, regionalice los párrafos individuales."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1078,11 +1075,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"Las descripciones de AppStream admiten solo un juego limitado de etiquetas "
-"de formato de texto: párrafos (<p/>) y listas (<ul/>, <ol/>). Esta "
-"descripción contiene una etiqueta XML no válida que no se representará "
-"correctamente en aplicaciones compatibles con la especificación metainfo."
+msgstr "Las descripciones de AppStream admiten solo un juego limitado de etiquetas de formato de texto: párrafos (<p/>) y listas (<ul/>, <ol/>). Esta descripción contiene una etiqueta XML no válida que no se representará correctamente en aplicaciones compatibles con la especificación metainfo."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1239,28 +1232,21 @@ msgstr "No se puede acceder al vídeo de captura de pantalla en su ubicación re
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Considere utilizar un URL seguro (HTTPS) para hacer referencia a esta imagen "
-"o vídeo de captura de pantalla."
+msgstr "Considere utilizar un URL seguro (HTTPS) para hacer referencia a esta imagen o vídeo de captura de pantalla."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Una captura de pantalla debe contener por lo menos una imagen o vídeo para "
-"ser útil. Añádale un <image/>."
+msgstr "Una captura de pantalla debe contener por lo menos una imagen o vídeo para ser útil. Añádale un <image/>."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Una captura de pantalla debe contener o imágenes o vídeos, mas no ambos a la "
-"vez. Utilice esta captura exclusivamente para imágenes estáticas o para "
-"vídeos."
+msgstr "Una captura de pantalla debe contener o imágenes o vídeos, mas no ambos a la vez. Utilice esta captura exclusivamente para imágenes estáticas o para vídeos."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1302,10 +1288,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"En el caso de los vídeos, por ahora solo se admiten los formatos "
-"contenedores WebM y Matroska (.mkv). La extensión de archivo del vídeo al "
-"que se hace referencia no corresponde a ninguno de esos formatos."
+msgstr "En el caso de los vídeos, por ahora solo se admiten los formatos contenedores WebM y Matroska (.mkv). La extensión de archivo del vídeo al que se hace referencia no corresponde a ninguno de esos formatos."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -1318,10 +1301,7 @@ msgstr "La captura de pantalla por defecto de un componente de software no debe 
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Se encontró una etiqueta desconocida en un grupo «requires»/«recommends». "
-"Puede tratarse de un error, puesto que se desconoce cualquier relación de "
-"componentes de este tipo."
+msgstr "Se encontró una etiqueta desconocida en un grupo «requires»/«recommends». Puede tratarse de un error, puesto que se desconoce cualquier relación de componentes de este tipo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
@@ -1500,8 +1480,7 @@ msgstr "No se puede acceder al icono remoto en la ubicación web dada - ¿existe
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Considere utilizar un URL seguro (HTTPS) para el enlace del icono remoto."
+msgstr "Considere utilizar un URL seguro (HTTPS) para el enlace del icono remoto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
@@ -1588,33 +1567,25 @@ msgstr "Falta la etiqueta esencial `metadata_license`. Siempre hay que definir u
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
-"Al componente le falta una descripción detallada. Los componentes de este "
-"tipo deben tener una descripción detallada."
+msgstr "Al componente le falta una descripción detallada. Los componentes de este tipo deben tener una descripción detallada."
 
 #: src/as-validator-issue-tag.h:494
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
-"Sería útil añadir una descripción detallada a este tipo de letra para "
-"presentarlo mejor a los usuarios."
+msgstr "Sería útil añadir una descripción detallada a este tipo de letra para presentarlo mejor a los usuarios."
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
-"Se recomienda añadir una descripción detallada a este componente para "
-"presentarlo mejor a los usuarios."
+msgstr "Se recomienda añadir una descripción detallada a este componente para presentarlo mejor a los usuarios."
 
 #: src/as-validator-issue-tag.h:504
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
-"A este componente genérico le falta una descripción detallada. Podría ser "
-"útil añadir una."
+msgstr "A este componente genérico le falta una descripción detallada. Podría ser útil añadir una."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:510
@@ -1748,9 +1719,7 @@ msgstr "No se ha podido leer el archivo .desktop asociado a este componente."
 
 #: src/as-validator-issue-tag.h:628
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
-"Los metadatos de este componente hacen referencia a un archivo .desktop que "
-"no existe."
+msgstr "Los metadatos de este componente hacen referencia a un archivo .desktop que no existe."
 
 #: src/as-validator-issue-tag.h:633
 msgid ""
@@ -1760,9 +1729,7 @@ msgstr "La categoría definida en el archivo .desktop no es válida. Consulte la
 
 #: src/as-validator-issue-tag.h:638
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
-"No se encontraron metadatos de AppStream en este directorio o árbol de "
-"directorios."
+msgstr "No se encontraron metadatos de AppStream en este directorio o árbol de directorios."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:643
@@ -2120,9 +2087,7 @@ msgstr "Ubicación seleccionada manualmente de la caché de AppStream."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Ubicación seleccionada manualmente de los metadatos de AppStream para "
-"analizar."
+msgstr "Ubicación seleccionada manualmente de los metadatos de AppStream para analizar."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
@@ -2132,8 +2097,7 @@ msgstr "Ignora la antigüedad de la caché y construye una caché nueva antes de
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Formato de metadatos predeterminado (los valores válidos son «xml» y «yaml»)."
+msgstr "Formato de metadatos predeterminado (los valores válidos son «xml» y «yaml»)."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:101
@@ -2187,10 +2151,7 @@ msgstr "Ejecute «%s --help» para ver una lista competa de las opciones de cons
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Ejecute «%s --help» para ver una lista competa de las opciones de consola "
-"disponibles, o bien «%s %s --help» para ver una lista de opciones "
-"específicas de esta suborden."
+msgstr "Ejecute «%s --help» para ver una lista competa de las opciones de consola disponibles, o bien «%s %s --help» para ver una lista de opciones específicas de esta suborden."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2237,26 +2198,20 @@ msgstr "Se desconoce la relación de comparación «%s». Los valores válidos s
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Demasiados parámetros: necesita dos números de versión, o números de versión "
-"y un operador de comparación."
+msgstr "Demasiados parámetros: necesita dos números de versión, o números de versión y un operador de comparación."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Utilice el archivo .desktop dado para rellenar valores básicos en el archivo "
-"de metainformación."
+msgstr "Utilice el archivo .desktop dado para rellenar valores básicos en el archivo de metainformación."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Esta orden toma los argumentos posicionales y opcionales TIPO y ARCHIVO; "
-"este último es un archivo donde escribir (o «-» para emitir salida estándar)."
+msgstr "Esta orden toma los argumentos posicionales y opcionales TIPO y ARCHIVO; este último es un archivo donde escribir (o «-» para emitir salida estándar)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2272,9 +2227,7 @@ msgstr "Utilice la línea especificada para la clave 'Exec=' del archivo de entr
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
-"Asumir que el archivo de entrada está en el formato seleccionado («yaml» o "
-"«text»)."
+msgstr "Asumir que el archivo de entrada está en el formato seleccionado («yaml» o «text»)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
@@ -2320,9 +2273,7 @@ msgstr "Subórdenes:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Obtendrá información sobre opciones específicas de las subórdenes si añade "
-"«--help» a la suborden."
+msgstr "Obtendrá información sobre opciones específicas de las subórdenes si añade «--help» a la suborden."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2361,9 +2312,7 @@ msgstr "Obtiene los componentes que proporcionan el elemento dado. Necesita un t
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Volcar los metadatos XML en bruto para un componente que coincida con el "
-"identificador."
+msgstr "Volcar los metadatos XML en bruto para un componente que coincida con el identificador."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2404,8 +2353,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1197
 msgid "Display status information about available AppStream metadata."
-msgstr ""
-"Mostrar información de estado sobre los metadatos disponibles de AppStream."
+msgstr "Mostrar información de estado sobre los metadatos disponibles de AppStream."
 
 #. TRANSLATORS: `appstreamcli os-info` command description.
 #: tools/appstreamcli.c:1202
@@ -2433,9 +2381,7 @@ msgstr "Comparar dos números de versión."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Crear una plantilla para un archivo de metainformación (que cumplimentará el "
-"proyecto original)."
+msgstr "Crear una plantilla para un archivo de metainformación (que cumplimentará el proyecto original)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2530,9 +2476,7 @@ msgstr "No se definió el valor para el elemento a buscar."
 
 #: tools/ascli-actions-mdata.c:230
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
-"Se ha seleccionado un tipo no válido para el elemento proporcionado. Los "
-"valores válidos son:"
+msgstr "Se ha seleccionado un tipo no válido para el elemento proporcionado. Los valores válidos son:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:245
@@ -2563,9 +2507,7 @@ msgstr "No existe el archivo de metadatos «%s»."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"No se ha podido convertir el archivo: no se pudo determinar el formato de "
-"salida; establézcalo explícitamente mediante «--format=»."
+msgstr "No se ha podido convertir el archivo: no se pudo determinar el formato de salida; establézcalo explícitamente mediante «--format=»."
 
 #: tools/ascli-actions-mdata.c:456
 #, c-format
@@ -2580,18 +2522,14 @@ msgstr "Versión"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Debe proporcionar un tipo de componente de «software» a AppStream para "
-"generar una plantilla. Los valores posibles son:"
+msgstr "Debe proporcionar un tipo de componente de «software» a AppStream para generar una plantilla. Los valores posibles son:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"El tipo de componente de programa «%s» no es válido en AppStream. Los "
-"valores posibles son:"
+msgstr "El tipo de componente de programa «%s» no es válido en AppStream. Los valores posibles son:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2606,14 +2544,12 @@ msgstr "No se ha podido leer el archivo .desktop: %s"
 #: tools/ascli-actions-mdata.c:582
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
-"No se ha podido crear el archivo de metainformación de la plantilla: %s"
+msgstr "No se ha podido crear el archivo de metainformación de la plantilla: %s"
 
 #: tools/ascli-actions-mdata.c:590
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr ""
-"No se ha podido guardar el archivo de metainformación de la plantilla: %s"
+msgstr "No se ha podido guardar el archivo de metainformación de la plantilla: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:48
@@ -2700,10 +2636,7 @@ msgstr ""
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"No se brindó ningún binario en el archivo de metadatos y tampoco se "
-"especificó ninguna orden de ejecución mediante «--exec». No puede crearse la "
-"clave «Exec=»."
+msgstr "No se brindó ningún binario en el archivo de metadatos y tampoco se especificó ninguna orden de ejecución mediante «--exec». No puede crearse la clave «Exec=»."
 
 #: tools/ascli-actions-misc.c:300
 #, c-format
@@ -2721,9 +2654,7 @@ msgstr "Es necesario especificar un archivo metainfo para aumentar, o '-' para i
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
-"No se especificó ningún nombre de archivo de salida; se modifica "
-"directamente el archivo metafile."
+msgstr "No se especificó ningún nombre de archivo de salida; se modifica directamente el archivo metafile."
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
@@ -2737,10 +2668,7 @@ msgstr "Es necesario especificar un formato de NEWS para escribir la salida."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"No se ha encontrado ninguna interfaz de consola de gestor de paquetes "
-"adecuada. Asegúrese de que, p. ej., «pkcon» (parte de PackageKit) esté "
-"disponible."
+msgstr "No se ha encontrado ninguna interfaz de consola de gestor de paquetes adecuada. Asegúrese de que, p. ej., «pkcon» (parte de PackageKit) esté disponible."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
