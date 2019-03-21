@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-02-16 18:14+0000\n"
-"Last-Translator: advocatux <advocatux@airpost.net>\n"
+"PO-Revision-Date: 2019-03-22 16:03+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
 "translations/es/>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 3.6-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -50,15 +50,15 @@ msgstr "Aventura"
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
 msgid "Also show pedantic hints."
-msgstr "Mostrar también pistas verbosas."
+msgstr "Mostrar también consejos redundantes."
 
 #: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Un tipo de elemento (p. ej. lib, bin, python3, …)"
+msgstr "Un tipo de elemento (p. ej., lib, bin, python3…)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr "Utilidad para trabajar con meta-datos de AppStream"
+msgstr "Utilidad para trabajar con metadatos de AppStream"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -126,7 +126,7 @@ msgstr ""
 #: tools/appstream-cli.c:786
 #, c-format
 msgid "AppStream version: %s"
-msgstr "AppStream versión: %s"
+msgstr "Versión de AppStream: %s"
 
 #: src/as-category.c:129
 msgctxt "Category of Games"
@@ -231,7 +231,7 @@ msgstr "Comunicación y noticias"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr "Compare dos números de versión."
+msgstr "Comparar dos números de versión."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -263,8 +263,8 @@ msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
-"Crear una plantilla para un archivo de meta-información (que cumplimentará "
-"el proyecto original)."
+"Crear una plantilla para un archivo de metainformación (que cumplimentará el "
+"proyecto original)."
 
 #: src/as-provided.c:161
 msgid "DBus Session Services"
@@ -322,7 +322,7 @@ msgstr "Metadatos de la distribución:"
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:120
 msgid "Do not use network access."
-msgstr "No use acceso de red."
+msgstr "No utilizar el acceso de red."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #: tools/appstream-cli.c:750
@@ -353,7 +353,7 @@ msgstr "Emuladores"
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstream-cli.c:234
 msgid "Enforce a cache refresh."
-msgstr "Ejecutar una actualización de antememoria."
+msgstr "Forzar una actualización de antememoria."
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
@@ -544,19 +544,19 @@ msgstr "Tipos MIME"
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
-msgstr "Realizar solicitud sin almacenar en la caché."
+msgstr "Realizar solicitud sin almacenar en la antememoria."
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstream-cli.c:57
 msgid "Manually selected location of AppStream cache."
-msgstr "Ubicación seleccionada manualmente de la caché de AppStream."
+msgstr "Ubicación seleccionada manualmente de la antememoria de AppStream."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr ""
-"Ubicación seleccionada manualmente de los meta-datos de AppStream para "
-"escanear."
+"Ubicación seleccionada manualmente de los metadatos de AppStream para "
+"analizar."
 
 #: src/as-pool.c:1093
 msgid ""
@@ -564,7 +564,7 @@ msgid ""
 "details."
 msgstr ""
 "Se han reconocido muchos componentes como no válidos. Vea la salida de "
-"depuración para más detalle."
+"depuración para más detalles."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -716,7 +716,7 @@ msgstr "Microprograma en tiempo de ejecución"
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr "Escaneo"
+msgstr "Digitalización"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
@@ -817,8 +817,8 @@ msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
-"Este comando toma argumentos de posición TYPE y FILE, siendo FILE un archivo "
-"a ser escrito (o \"-\" para una salida estandarizada)."
+"Esta orden toma los argumentos posicionales y opcionales TIPO y ARCHIVO; "
+"este último es un archivo donde escribir (o «-» para emitir salida estándar)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -827,17 +827,17 @@ msgid ""
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
 msgstr ""
-"Esta herramienta permite leer, escribir, validar y transformar meta-datos de "
-"AppStream en XML o YAML. Además permite acceder a los meta-datos del sistema "
-"para, por ejemplo, buscar software que proporcione un tipo de MIME "
-"específico e instalarlo por su identificador de componente de software."
+"Esta herramienta permite leer, escribir, validar y transformar metadatos de "
+"AppStream en XML o YAML. Además permite acceder a los metadatos del sistema "
+"para, por ejemplo, buscar programas que proporcionen un tipo MIME concreto e "
+"instalarlo por su identificador de componente de software."
 
 #: tools/appstream-cli.c:622
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
-"Demasiados parámetros: Necesita dos números de versión o números de versión "
+"Demasiados parámetros: necesita dos números de versión, o números de versión "
 "y un operador de comparación."
 
 #: tools/ascli-actions-mdata.c:541
@@ -894,20 +894,20 @@ msgstr ""
 #: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
-msgstr "Comando desconocido %s."
+msgstr "Se desconoce la orden «%s»."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr "Relación de comparación desconocida %s. Los valores válidos son:"
+msgstr "Se desconoce la relación de comparación «%s». Los valores válidos son:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
-"Utilice el archivo dado .desktop para rellenar valores básicos en el archivo "
+"Utilice el archivo .desktop dado para rellenar valores básicos en el archivo "
 "de metainformación."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
@@ -1061,7 +1061,7 @@ msgstr "información: %lu"
 #: tools/ascli-actions-validate.c:204
 #, c-format
 msgid "pedantic: %lu"
-msgstr "verboso: %lu"
+msgstr "redundante: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
 #: tools/ascli-actions-validate.c:190
