@@ -13,21 +13,6 @@
     </categories>
   </component>
   <component type="desktop-application">
-    <id>org.foobar.AsSampleGame</id>
-    <pkgname>game-package</pkgname>
-    <name>A Game</name>
-    <summary>A real game with content rating</summary>
-    <icon type="cached">game.png</icon>
-    <launchable type="desktop-id">org.foobar.AsSampleGame.desktop</launchable>
-    <categories>
-      <category>Game</category>
-    </categories>
-    <content_rating type="oars-1.0">
-      <content_attribute id="drugs-alcohol">moderate</content_attribute>
-      <content_attribute id="language-humor">mild</content_attribute>
-    </content_rating>
-  </component>
-  <component type="desktop-application">
     <id>0install.desktop</id>
     <pkgname>0install-core</pkgname>
     <name>0install</name>
@@ -90,6 +75,157 @@
       <lang percentage="100">zh_CN</lang>
       <lang percentage="100">zh_TW</lang>
     </languages>
+  </component>
+  <component type="desktop-application">
+    <id>org.inkscape.Inkscape</id>
+    <pkgname>inkscape</pkgname>
+    <name>Inkscape</name>
+    <name xml:lang="he">אינקסקייפ</name>
+    <name xml:lang="te_IN">ఇంక్‌స్కేప్</name>
+    <summary>Create and edit Scalable Vector Graphics images</summary>
+    <summary xml:lang="ar">إنشاء و تحرير الرسومات الشعاعية</summary>
+    <summary xml:lang="be">Стварэньне й зьмяненьне відарысаў вэктарнай ґрафікі (SVG)</summary>
+    <summary xml:lang="bg">Създаване и редакция на изображения Scalable Vector Graphics</summary>
+    <summary xml:lang="bn">স্কেলেবল ভেক্টর গ্রাফিক্স ছবি তৈরী ও সম্পাদনা করুন</summary>
+    <summary xml:lang="br">Krouiñ hag embann skeudennoù mod SVG (Scalable Vector Graphics)</summary>
+    <summary xml:lang="ca">Creeu i editeu imatges de gràfics de vectors escalables</summary>
+    <summary xml:lang="ca@valencia">Creeu i editeu imatges de gràfics de vectors escalables</summary>
+    <summary xml:lang="cs">Vytvářejte a upravujte vektorovou grafiku (SVG)</summary>
+    <summary xml:lang="da">Opret og redigér SVG-billeder</summary>
+    <summary xml:lang="de">Skalierbare Vektorgrafiken (SVG) erzeugen und bearbeiten</summary>
+    <summary xml:lang="dz">ཆ་ཚད་འཇལ་བཏུབ་པའི་མཉམ་ཐིག་ཚད་རིས་ཀྱི་གཟུགས་བརྙན་ཚུ་གསར་བསྐྲུན་དང་ཞུན་དག་འབད།</summary>
+    <summary xml:lang="el">Δημιουργήστε και τροποποιήστε διανυσματικές εικόνες τύπου Scalable Vector Graphics</summary>
+    <summary xml:lang="en_US@piglatin">Eatecray andway editway Alablescay Ectorvay Aphicsgray imagesway</summary>
+    <summary xml:lang="eo">Kreu kaj redaktu bildoj en formato SVG (Scalable Vector Graphics)</summary>
+    <summary xml:lang="es">Cree y edite Gráficos Vectoriales Escalables (SVG)</summary>
+    <summary xml:lang="et">SVG-vektorgraafikas piltide joonistamine ja muutmine</summary>
+    <summary xml:lang="eu">Sortu eta editatu Grafiko Bektorial Eskalakor (SVG) irudiak</summary>
+    <summary xml:lang="fi">Luo ja muokkaa Scalable Vector Graphics -piirroksia</summary>
+    <summary xml:lang="fr">Créer et éditer des images Scalable Vector Graphics</summary>
+    <summary xml:lang="gl">Cree e edite imaxes Scalable Vector Graphics</summary>
+    <summary xml:lang="he">יצירה ועריכה של תמונות בגרפיקת וקטורים נמתחת</summary>
+    <summary xml:lang="hr">Stvaranje i uređivanje vektorskih crteža</summary>
+    <summary xml:lang="hu">Scalable Vector Graphics (méretezhető vektorgrafika, SVG)-képek létrehozása és szerkesztése</summary>
+    <summary xml:lang="id">Membuat dan mengedit gambar Scalable Vector Graphics</summary>
+    <summary xml:lang="it">Crea e modifica immagini Scalable Vector Graphics</summary>
+    <summary xml:lang="ja">Scalable Vector Graphics (SVG) イメージの作成と編集を行います</summary>
+    <summary xml:lang="km">បង្កើត និង​កែសម្រួល​​​រូបភាព​ក្រាហ្វិក​វ៉ិចទ័រ​ដែល​អាច​ធ្វើ​មាត្រដ្ឋាន​បាន​​</summary>
+    <summary xml:lang="ko">SVG 이미지  생성 및 편집</summary>
+    <summary xml:lang="lt">Kurti ir redaguoti vektorinius grafinius piešinius</summary>
+    <summary xml:lang="nb">Lag og rediger Skalerbar VektorGrafikk-bilder</summary>
+    <summary xml:lang="ne">स्केलेबुल भेक्टर ग्राफिक्स छविहरू सिर्जना गर्नुहोस् र सम्पादन गर्नुहोस्</summary>
+    <summary xml:lang="nl">SVG-tekeningen (Scalable Vector Graphics) maken en bewerken</summary>
+    <summary xml:lang="nn">Lag og rediger skalerbare vektorbilete (SVG)</summary>
+    <summary xml:lang="pa">ਸਕੇਲੇਬਲ ਵੈਕਟਰ ਗਰਾਫਿਕਸ ਚਿੱਤਰ ਬਣਾਓ ਅਤੇ ਸੋਧੋ</summary>
+    <summary xml:lang="pl">Tworzenie i edycja grafiki wektorowej SVG</summary>
+    <summary xml:lang="pt">Crie e edite imagens Gráficas Vectoriais Escalaveis</summary>
+    <summary xml:lang="pt_BR">Crie e edite desenhos vetoriais escaláveis (SVG)</summary>
+    <summary xml:lang="ro">Creează și editează imagini în format Scalable Vector Graphics</summary>
+    <summary xml:lang="ru">Создание и редактирование масштабируемой векторной графики в формате SVG</summary>
+    <summary xml:lang="sk">Tvorba a úprava obrázkov Scalable Vector Graphics</summary>
+    <summary xml:lang="sl">Ustvarjajte in urejajte vektorske slike SVG</summary>
+    <summary xml:lang="sr">Прављење и уређивање SVG векторских слика</summary>
+    <summary xml:lang="sr@latin">Pravljenje i uređivanje SVG vektorskih slika</summary>
+    <summary xml:lang="sv">Skapa och redigera SVG-bilder</summary>
+    <summary xml:lang="te_IN">సదిశ రేఖాచిత్రాలని సృష్టించండి మరియు దిద్దుబాటు చేయండి</summary>
+    <summary xml:lang="th">สร้างและแก้ไขภาพ Scalable Vector Graphics</summary>
+    <summary xml:lang="tr">Ölçeklenebilir Vektör İmgeleri oluşturur ve düzenler</summary>
+    <summary xml:lang="uk">Створення та редагування зображень у форматі SVG</summary>
+    <summary xml:lang="vi">Tạo và sửa ảnh véc-tơ co giãn được</summary>
+    <summary xml:lang="zh_CN">创建并编辑可缩放矢量图形图像</summary>
+    <summary xml:lang="zh_TW">建立和編輯可縮放向量繪圖圖形</summary>
+    <icon type="cached" width="64" height="64">inkscape.png</icon>
+    <icon type="cached" width="64" height="64" scale="2">inkscape.png</icon>
+    <url type="homepage">https://inkscape.org/</url>
+    <url type="faq">https://inkscape.org/learn/faq/</url>
+    <launchable type="desktop-id">inkscape.desktop</launchable>
+    <categories>
+      <category>Graphics</category>
+      <category>VectorGraphics</category>
+    </categories>
+    <mimetypes>
+      <mimetype>application/illustrator</mimetype>
+      <mimetype>application/vnd.corel-draw</mimetype>
+      <mimetype>image/svg+xml</mimetype>
+      <mimetype>image/svg+xml-compressed</mimetype>
+      <mimetype>image/x-eps</mimetype>
+    </mimetypes>
+    <languages>
+      <lang percentage="44">ar</lang>
+      <lang percentage="97">be</lang>
+      <lang percentage="46">bg</lang>
+      <lang percentage="97">br</lang>
+      <lang percentage="97">ca</lang>
+      <lang percentage="97">ca@valencia</lang>
+      <lang percentage="37">cs</lang>
+      <lang percentage="30">da</lang>
+      <lang percentage="97">de</lang>
+      <lang percentage="35">dz</lang>
+      <lang percentage="97">en_GB</lang>
+      <lang percentage="84">en_US@piglatin</lang>
+      <lang percentage="58">eo</lang>
+      <lang percentage="97">es</lang>
+      <lang percentage="61">et</lang>
+      <lang percentage="100">eu</lang>
+      <lang percentage="74">fi</lang>
+      <lang percentage="97">fr</lang>
+      <lang percentage="68">gl</lang>
+      <lang percentage="92">he</lang>
+      <lang percentage="46">hr</lang>
+      <lang percentage="91">hu</lang>
+      <lang percentage="59">id</lang>
+      <lang percentage="84">it</lang>
+      <lang percentage="99">ja</lang>
+      <lang percentage="84">km</lang>
+      <lang percentage="95">ko</lang>
+      <lang percentage="37">lt</lang>
+      <lang percentage="50">nb</lang>
+      <lang percentage="28">ne</lang>
+      <lang percentage="97">nl</lang>
+      <lang percentage="97">pl</lang>
+      <lang percentage="45">pt</lang>
+      <lang percentage="70">pt_BR</lang>
+      <lang percentage="50">ro</lang>
+      <lang percentage="96">ru</lang>
+      <lang percentage="93">sk</lang>
+      <lang percentage="97">sl</lang>
+      <lang percentage="72">sr</lang>
+      <lang percentage="72">sr@latin</lang>
+      <lang percentage="50">sv</lang>
+      <lang percentage="100">uk</lang>
+      <lang percentage="82">vi</lang>
+      <lang percentage="89">zh_CN</lang>
+      <lang percentage="97">zh_TW</lang>
+    </languages>
+    <provides>
+        <binary>inkscape</binary>
+    </provides>
+  </component>
+  <component type="desktop-application">
+    <id>org.example.DeleteMe</id>
+    <pkgname>delete-me</pkgname>
+    <name>DeleteMe!</name>
+    <summary>A component that should be removed via a merge-component.</summary>
+    <icon type="cached">deleteme.png</icon>
+    <launchable type="desktop-id">org.example.DeleteMe.desktop</launchable>
+    <categories>
+      <category>Game</category>
+    </categories>
+  </component>
+  <component type="desktop-application">
+    <id>org.foobar.AsSampleGame</id>
+    <pkgname>game-package</pkgname>
+    <name>A Game</name>
+    <summary>A real game with content rating</summary>
+    <icon type="cached">game.png</icon>
+    <launchable type="desktop-id">org.foobar.AsSampleGame.desktop</launchable>
+    <categories>
+      <category>Game</category>
+    </categories>
+    <content_rating type="oars-1.0">
+      <content_attribute id="drugs-alcohol">moderate</content_attribute>
+      <content_attribute id="language-humor">mild</content_attribute>
+    </content_rating>
   </component>
   <component type="desktop-application">
     <id>kig.desktop</id>
@@ -350,141 +486,5 @@
     <mimetypes>
       <mimetype>application/xye-xml</mimetype>
     </mimetypes>
-  </component>
-  <component type="desktop-application">
-    <id>org.inkscape.Inkscape</id>
-    <pkgname>inkscape</pkgname>
-    <name>Inkscape</name>
-    <name xml:lang="he">אינקסקייפ</name>
-    <name xml:lang="te_IN">ఇంక్‌స్కేప్</name>
-    <summary>Create and edit Scalable Vector Graphics images</summary>
-    <summary xml:lang="ar">إنشاء و تحرير الرسومات الشعاعية</summary>
-    <summary xml:lang="be">Стварэньне й зьмяненьне відарысаў вэктарнай ґрафікі (SVG)</summary>
-    <summary xml:lang="bg">Създаване и редакция на изображения Scalable Vector Graphics</summary>
-    <summary xml:lang="bn">স্কেলেবল ভেক্টর গ্রাফিক্স ছবি তৈরী ও সম্পাদনা করুন</summary>
-    <summary xml:lang="br">Krouiñ hag embann skeudennoù mod SVG (Scalable Vector Graphics)</summary>
-    <summary xml:lang="ca">Creeu i editeu imatges de gràfics de vectors escalables</summary>
-    <summary xml:lang="ca@valencia">Creeu i editeu imatges de gràfics de vectors escalables</summary>
-    <summary xml:lang="cs">Vytvářejte a upravujte vektorovou grafiku (SVG)</summary>
-    <summary xml:lang="da">Opret og redigér SVG-billeder</summary>
-    <summary xml:lang="de">Skalierbare Vektorgrafiken (SVG) erzeugen und bearbeiten</summary>
-    <summary xml:lang="dz">ཆ་ཚད་འཇལ་བཏུབ་པའི་མཉམ་ཐིག་ཚད་རིས་ཀྱི་གཟུགས་བརྙན་ཚུ་གསར་བསྐྲུན་དང་ཞུན་དག་འབད།</summary>
-    <summary xml:lang="el">Δημιουργήστε και τροποποιήστε διανυσματικές εικόνες τύπου Scalable Vector Graphics</summary>
-    <summary xml:lang="en_US@piglatin">Eatecray andway editway Alablescay Ectorvay Aphicsgray imagesway</summary>
-    <summary xml:lang="eo">Kreu kaj redaktu bildoj en formato SVG (Scalable Vector Graphics)</summary>
-    <summary xml:lang="es">Cree y edite Gráficos Vectoriales Escalables (SVG)</summary>
-    <summary xml:lang="et">SVG-vektorgraafikas piltide joonistamine ja muutmine</summary>
-    <summary xml:lang="eu">Sortu eta editatu Grafiko Bektorial Eskalakor (SVG) irudiak</summary>
-    <summary xml:lang="fi">Luo ja muokkaa Scalable Vector Graphics -piirroksia</summary>
-    <summary xml:lang="fr">Créer et éditer des images Scalable Vector Graphics</summary>
-    <summary xml:lang="gl">Cree e edite imaxes Scalable Vector Graphics</summary>
-    <summary xml:lang="he">יצירה ועריכה של תמונות בגרפיקת וקטורים נמתחת</summary>
-    <summary xml:lang="hr">Stvaranje i uređivanje vektorskih crteža</summary>
-    <summary xml:lang="hu">Scalable Vector Graphics (méretezhető vektorgrafika, SVG)-képek létrehozása és szerkesztése</summary>
-    <summary xml:lang="id">Membuat dan mengedit gambar Scalable Vector Graphics</summary>
-    <summary xml:lang="it">Crea e modifica immagini Scalable Vector Graphics</summary>
-    <summary xml:lang="ja">Scalable Vector Graphics (SVG) イメージの作成と編集を行います</summary>
-    <summary xml:lang="km">បង្កើត និង​កែសម្រួល​​​រូបភាព​ក្រាហ្វិក​វ៉ិចទ័រ​ដែល​អាច​ធ្វើ​មាត្រដ្ឋាន​បាន​​</summary>
-    <summary xml:lang="ko">SVG 이미지  생성 및 편집</summary>
-    <summary xml:lang="lt">Kurti ir redaguoti vektorinius grafinius piešinius</summary>
-    <summary xml:lang="nb">Lag og rediger Skalerbar VektorGrafikk-bilder</summary>
-    <summary xml:lang="ne">स्केलेबुल भेक्टर ग्राफिक्स छविहरू सिर्जना गर्नुहोस् र सम्पादन गर्नुहोस्</summary>
-    <summary xml:lang="nl">SVG-tekeningen (Scalable Vector Graphics) maken en bewerken</summary>
-    <summary xml:lang="nn">Lag og rediger skalerbare vektorbilete (SVG)</summary>
-    <summary xml:lang="pa">ਸਕੇਲੇਬਲ ਵੈਕਟਰ ਗਰਾਫਿਕਸ ਚਿੱਤਰ ਬਣਾਓ ਅਤੇ ਸੋਧੋ</summary>
-    <summary xml:lang="pl">Tworzenie i edycja grafiki wektorowej SVG</summary>
-    <summary xml:lang="pt">Crie e edite imagens Gráficas Vectoriais Escalaveis</summary>
-    <summary xml:lang="pt_BR">Crie e edite desenhos vetoriais escaláveis (SVG)</summary>
-    <summary xml:lang="ro">Creează și editează imagini în format Scalable Vector Graphics</summary>
-    <summary xml:lang="ru">Создание и редактирование масштабируемой векторной графики в формате SVG</summary>
-    <summary xml:lang="sk">Tvorba a úprava obrázkov Scalable Vector Graphics</summary>
-    <summary xml:lang="sl">Ustvarjajte in urejajte vektorske slike SVG</summary>
-    <summary xml:lang="sr">Прављење и уређивање SVG векторских слика</summary>
-    <summary xml:lang="sr@latin">Pravljenje i uređivanje SVG vektorskih slika</summary>
-    <summary xml:lang="sv">Skapa och redigera SVG-bilder</summary>
-    <summary xml:lang="te_IN">సదిశ రేఖాచిత్రాలని సృష్టించండి మరియు దిద్దుబాటు చేయండి</summary>
-    <summary xml:lang="th">สร้างและแก้ไขภาพ Scalable Vector Graphics</summary>
-    <summary xml:lang="tr">Ölçeklenebilir Vektör İmgeleri oluşturur ve düzenler</summary>
-    <summary xml:lang="uk">Створення та редагування зображень у форматі SVG</summary>
-    <summary xml:lang="vi">Tạo và sửa ảnh véc-tơ co giãn được</summary>
-    <summary xml:lang="zh_CN">创建并编辑可缩放矢量图形图像</summary>
-    <summary xml:lang="zh_TW">建立和編輯可縮放向量繪圖圖形</summary>
-    <icon type="cached" width="64" height="64">inkscape.png</icon>
-    <icon type="cached" width="64" height="64" scale="2">inkscape.png</icon>
-    <url type="homepage">https://inkscape.org/</url>
-    <url type="faq">https://inkscape.org/learn/faq/</url>
-    <launchable type="desktop-id">inkscape.desktop</launchable>
-    <categories>
-      <category>Graphics</category>
-      <category>VectorGraphics</category>
-    </categories>
-    <mimetypes>
-      <mimetype>application/illustrator</mimetype>
-      <mimetype>application/vnd.corel-draw</mimetype>
-      <mimetype>image/svg+xml</mimetype>
-      <mimetype>image/svg+xml-compressed</mimetype>
-      <mimetype>image/x-eps</mimetype>
-    </mimetypes>
-    <languages>
-      <lang percentage="44">ar</lang>
-      <lang percentage="97">be</lang>
-      <lang percentage="46">bg</lang>
-      <lang percentage="97">br</lang>
-      <lang percentage="97">ca</lang>
-      <lang percentage="97">ca@valencia</lang>
-      <lang percentage="37">cs</lang>
-      <lang percentage="30">da</lang>
-      <lang percentage="97">de</lang>
-      <lang percentage="35">dz</lang>
-      <lang percentage="97">en_GB</lang>
-      <lang percentage="84">en_US@piglatin</lang>
-      <lang percentage="58">eo</lang>
-      <lang percentage="97">es</lang>
-      <lang percentage="61">et</lang>
-      <lang percentage="100">eu</lang>
-      <lang percentage="74">fi</lang>
-      <lang percentage="97">fr</lang>
-      <lang percentage="68">gl</lang>
-      <lang percentage="92">he</lang>
-      <lang percentage="46">hr</lang>
-      <lang percentage="91">hu</lang>
-      <lang percentage="59">id</lang>
-      <lang percentage="84">it</lang>
-      <lang percentage="99">ja</lang>
-      <lang percentage="84">km</lang>
-      <lang percentage="95">ko</lang>
-      <lang percentage="37">lt</lang>
-      <lang percentage="50">nb</lang>
-      <lang percentage="28">ne</lang>
-      <lang percentage="97">nl</lang>
-      <lang percentage="97">pl</lang>
-      <lang percentage="45">pt</lang>
-      <lang percentage="70">pt_BR</lang>
-      <lang percentage="50">ro</lang>
-      <lang percentage="96">ru</lang>
-      <lang percentage="93">sk</lang>
-      <lang percentage="97">sl</lang>
-      <lang percentage="72">sr</lang>
-      <lang percentage="72">sr@latin</lang>
-      <lang percentage="50">sv</lang>
-      <lang percentage="100">uk</lang>
-      <lang percentage="82">vi</lang>
-      <lang percentage="89">zh_CN</lang>
-      <lang percentage="97">zh_TW</lang>
-    </languages>
-    <provides>
-        <binary>inkscape</binary>
-    </provides>
-  </component>
-  <component type="desktop-application">
-    <id>org.example.DeleteMe</id>
-    <pkgname>delete-me</pkgname>
-    <name>DeleteMe!</name>
-    <summary>A component that should be removed via a merge-component.</summary>
-    <icon type="cached">deleteme.png</icon>
-    <launchable type="desktop-id">org.example.DeleteMe.desktop</launchable>
-    <categories>
-      <category>Game</category>
-    </categories>
   </component>
 </components>
