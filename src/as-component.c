@@ -3734,14 +3734,15 @@ static void
 as_component_xml_keywords_to_node (AsComponent *cpt, xmlNode *root)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	GHashTableIter iter;
-	gpointer key, value;
+	g_autoptr(GList) keys = NULL;
+	GList *link;
 
-	g_hash_table_iter_init (&iter, priv->keywords);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
+	keys = g_hash_table_get_keys (priv->keywords);
+	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	for (link = keys; link != NULL; link = link->next) {
 		xmlNode *node;
-		const gchar *locale = (const gchar*) key;
-		gchar **kws = (gchar**) value;
+		const gchar *locale = (const gchar*) link->data;
+		gchar **kws = (gchar**) g_hash_table_lookup (priv->keywords, locale);
 
 		/* skip cruft */
 		if (as_is_cruft_locale (locale))
@@ -3891,22 +3892,23 @@ as_component_xml_serialize_languages (AsComponent *cpt, xmlNode *cptnode)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	xmlNode *node;
-	GHashTableIter iter;
-	gpointer key, value;
+	g_autoptr(GList) keys = NULL;
+	GList *link;
 
 	if (g_hash_table_size (priv->languages) == 0)
 		return;
 
 	node = xmlNewChild (cptnode, NULL, (xmlChar*) "languages", NULL);
-	g_hash_table_iter_init (&iter, priv->languages);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
+	keys = g_hash_table_get_keys (priv->languages);
+	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	for (link = keys; link != NULL; link = link->next) {
 		guint percentage;
 		const gchar *locale;
 		xmlNode *l_node;
 		g_autofree gchar *percentage_str = NULL;
 
-		locale = (const gchar*) key;
-		percentage = GPOINTER_TO_INT (value);
+		locale = (const gchar*) link->data;
+		percentage = GPOINTER_TO_INT (g_hash_table_lookup (priv->languages, locale));
 		percentage_str = g_strdup_printf("%i", percentage);
 
 		l_node = xmlNewTextChild (node,
@@ -3927,21 +3929,23 @@ as_component_xml_serialize_custom (AsComponent *cpt, xmlNode *cptnode)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	xmlNode *node;
-	GHashTableIter iter;
-	gpointer key, value;
+	g_autoptr(GList) keys = NULL;
+	GList *link;
 
 	if (g_hash_table_size (priv->custom) == 0)
 		return;
 
 	node = xmlNewChild (cptnode, NULL, (xmlChar*) "custom", NULL);
-	g_hash_table_iter_init (&iter, priv->custom);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
+	keys = g_hash_table_get_keys (priv->custom);
+	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	for (link = keys; link != NULL; link = link->next) {
+		const gchar *key = (const gchar*) link->data;
 		xmlNode *snode;
 
 		snode = xmlNewTextChild (node,
 					  NULL,
 					  (xmlChar*) "value",
-					  (xmlChar*) value);
+					  (xmlChar*) g_hash_table_lookup (priv->custom, key));
 		xmlNewProp (snode,
 			    (xmlChar*) "key",
 			    (xmlChar*) key);
@@ -4861,8 +4865,8 @@ static void
 as_component_yaml_emit_languages (AsComponent *cpt, yaml_emitter_t *emitter)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	GHashTableIter iter;
-	gpointer key, value;
+	g_autoptr(GList) keys = NULL;
+	GList *link;
 
 	if (g_hash_table_size (priv->languages) == 0)
 		return;
@@ -4870,13 +4874,14 @@ as_component_yaml_emit_languages (AsComponent *cpt, yaml_emitter_t *emitter)
 	as_yaml_emit_scalar (emitter, "Languages");
 	as_yaml_sequence_start (emitter);
 
-	g_hash_table_iter_init (&iter, priv->languages);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
+	keys = g_hash_table_get_keys (priv->languages);
+	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	for (link = keys; link != NULL; link = link->next) {
 		guint percentage;
 		const gchar *locale;
 
-		locale = (const gchar*) key;
-		percentage = GPOINTER_TO_INT (value);
+		locale = (const gchar*) link->data;
+		percentage = GPOINTER_TO_INT (g_hash_table_lookup (priv->languages, locale));
 
 		as_yaml_mapping_start (emitter);
 		as_yaml_emit_entry (emitter, "locale", locale);
@@ -4894,8 +4899,8 @@ static void
 as_component_yaml_emit_custom (AsComponent *cpt, yaml_emitter_t *emitter)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	GHashTableIter iter;
-	gpointer key, value;
+	g_autoptr(GList) keys = NULL;
+	GList *link;
 
 	if (g_hash_table_size (priv->custom) == 0)
 		return;
@@ -4903,11 +4908,12 @@ as_component_yaml_emit_custom (AsComponent *cpt, yaml_emitter_t *emitter)
 	as_yaml_emit_scalar (emitter, "Custom");
 	as_yaml_mapping_start (emitter);
 
-	g_hash_table_iter_init (&iter, priv->custom);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
+	keys = g_hash_table_get_keys (priv->custom);
+	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
+	for (link = keys; link != NULL; link = link->next) {
 		as_yaml_emit_entry (emitter,
-				    (const gchar*) key,
-				    (const gchar*) value);
+				    (const gchar*) link->data,
+				    (const gchar*) g_hash_table_lookup (priv->custom, link->data));
 	}
 
 	as_yaml_mapping_end (emitter);
