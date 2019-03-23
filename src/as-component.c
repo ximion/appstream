@@ -2139,21 +2139,39 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 				g_autofree gchar *tmp_icon_path_wh = NULL;
 				const gchar *icon_path = (const gchar*) g_ptr_array_index (icon_paths, l);
 
-				if (as_icon_get_scale (icon) <= 1) {
-					tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i/%s",
-										icon_path,
-										origin,
-										as_icon_get_width (icon),
-										as_icon_get_height (icon),
-										icon_fname);
+				// Flatpak repos don't place their icons on an "origin" subdirectory
+				if (g_strcmp0 (origin, "flatpak") == 0) {
+					if (as_icon_get_scale (icon) <= 1) {
+						tmp_icon_path_wh = g_strdup_printf ("%s/%ix%i/%s",
+											icon_path,
+											as_icon_get_width (icon),
+											as_icon_get_height (icon),
+											icon_fname);
+					} else {
+						tmp_icon_path_wh = g_strdup_printf ("%s/%ix%i@%i/%s",
+											icon_path,
+											as_icon_get_width (icon),
+											as_icon_get_height (icon),
+											as_icon_get_scale (icon),
+											icon_fname);
+					}
 				} else {
-					tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i@%i/%s",
-										icon_path,
-										origin,
-										as_icon_get_width (icon),
-										as_icon_get_height (icon),
-										as_icon_get_scale (icon),
-										icon_fname);
+					if (as_icon_get_scale (icon) <= 1) {
+						tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i/%s",
+											icon_path,
+											origin,
+											as_icon_get_width (icon),
+											as_icon_get_height (icon),
+											icon_fname);
+					} else {
+						tmp_icon_path_wh = g_strdup_printf ("%s/%s/%ix%i@%i/%s",
+											icon_path,
+											origin,
+											as_icon_get_width (icon),
+											as_icon_get_height (icon),
+											as_icon_get_scale (icon),
+											icon_fname);
+					}
 				}
 
 				if (g_file_test (tmp_icon_path_wh, G_FILE_TEST_EXISTS)) {
@@ -2176,11 +2194,18 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 			for (j = 0; sizes[j] != NULL; j++) {
 				g_autofree gchar *tmp_icon_path = NULL;
 				/* sometimes, the file already has an extension */
-				tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
-								icon_path,
-								origin,
-								sizes[j],
-								icon_fname);
+				if (g_strcmp0 (origin, "flatpak") == 0) {
+					tmp_icon_path = g_strdup_printf ("%s/%s/%s",
+									icon_path,
+									sizes[j],
+									icon_fname);
+				} else {
+					tmp_icon_path = g_strdup_printf ("%s/%s/%s/%s",
+									icon_path,
+									origin,
+									sizes[j],
+									icon_fname);
+				}
 
 				if (g_file_test (tmp_icon_path, G_FILE_TEST_EXISTS)) {
 					/* we have an icon! */
@@ -2202,12 +2227,20 @@ as_component_refine_icons (AsComponent *cpt, GPtrArray *icon_paths)
 				/* file not found, try extensions (we will not do this forever, better fix AppStream data!) */
 				for (k = 0; extensions[k] != NULL; k++) {
 					g_autofree gchar *tmp_icon_path_ext = NULL;
-					tmp_icon_path_ext = g_strdup_printf ("%s/%s/%s/%s.%s",
-								icon_path,
-								origin,
-								sizes[j],
-								icon_fname,
-								extensions[k]);
+					if (g_strcmp0 (origin, "flatpak") == 0) {
+						tmp_icon_path_ext = g_strdup_printf ("%s/%s/%s/%s.%s",
+									icon_path,
+									origin,
+									sizes[j],
+									icon_fname,
+									extensions[k]);
+					} else {
+						tmp_icon_path_ext = g_strdup_printf ("%s/%s/%s.%s",
+									icon_path,
+									sizes[j],
+									icon_fname,
+									extensions[k]);
+					}
 
 					if (g_file_test (tmp_icon_path_ext, G_FILE_TEST_EXISTS)) {
 						/* we have an icon! */
