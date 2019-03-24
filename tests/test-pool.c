@@ -207,14 +207,6 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 	g_assert (as_test_compare_lines (cpts_a_xml, cpts_b_xml));
 }
 
-static gint
-compare_component (gconstpointer a, gconstpointer b)
-{
-	AsComponent *ca = *((AsComponent**) a);
-	AsComponent *cb = *((AsComponent**) b);
-	return g_ascii_strcasecmp (as_component_get_id (ca), as_component_get_id (cb));
-}
-
 /**
  * test_cache_complex:
  *
@@ -243,7 +235,7 @@ test_cache_complex ()
 	/* get XML representation of the data currently in the pool */
 	mdata = as_metadata_new ();
 	cpts = as_pool_get_components (pool);
-	g_ptr_array_sort (cpts, compare_component);
+	as_sort_components (cpts);
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 
@@ -278,7 +270,7 @@ test_cache_complex ()
 
 	as_metadata_clear_components (mdata);
 	cpts = as_pool_get_components (pool);
-	g_ptr_array_sort (cpts, compare_component);
+	as_sort_components (cpts);
 	for (i = 0; i < cpts->len; i++) {
 		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
 		as_metadata_add_component (mdata, cpt);
