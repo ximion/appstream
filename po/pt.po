@@ -21,6 +21,7 @@
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Juliano de Souza Camargo <julianosc@protonmail.com>, 2020.
 # Marvin SIlc <marvinsilc@protonmail.ch>, 2020, 2021.
+# Rui Mendes <xz9@protonmail.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -29,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"Last-Translator: Rui Mendes <xz9@protonmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -2149,10 +2150,7 @@ msgstr ""
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Execute \"%s --help\" para ver uma lista das opções e de comandos "
-"disponíveis, e '%s %s --help' para ver uma lista de opções específica para "
-"este sub-comando."
+msgstr "Execute \"%s --help\" para ver uma lista das opções e de comandos disponíveis, e '%s %s --help' para ver uma lista de opções específica para este sub-comando."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2185,9 +2183,7 @@ msgstr "Instala o ficheiro para o utilizador atual, em vez de globalmente."
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Tem de fornecer pelo menos dois números de versão para comparar como "
-"parâmetros."
+msgstr "Tem de fornecer pelo menos dois números de versão para comparar como parâmetros."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2199,9 +2195,7 @@ msgstr "Relação de comparação desconhecida \"%s\". Os valores válidos são:
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Demasiados parâmetros: são necessários dois números de versão, ou números de "
-"versão e um operador de comparação."
+msgstr "Demasiados parâmetros: são necessários dois números de versão, ou números de versão e um operador de comparação."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
@@ -2279,9 +2273,7 @@ msgstr "Sub-comandos:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Pode encontrar informações sobre opções de um sub-comando específico "
-"passando “--help” para o sub-comando."
+msgstr "Pode encontrar informações sobre opções de um sub-comando específico passando “--help” para o sub-comando."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2320,9 +2312,7 @@ msgstr "Obtém componentes que forneçam o item dado. Precisa de um tipo de item
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Despejar metadados XML não tratados para um componente coincidindo com o "
-"identificador (ID)."
+msgstr "Despejar metadados XML não tratados para um componente coincidindo com o identificador (ID)."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2337,9 +2327,7 @@ msgstr "Valida os ficheiros XML de AppStream por problemas."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Valida uma árvore de ficheiros instalada de uma aplicação para metadados "
-"válidos."
+msgstr "Valida uma árvore de ficheiros instalada de uma aplicação para metadados válidos."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2349,9 +2337,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1186
 msgid "Install software matching the component-ID."
-msgstr ""
-"Instala software correspondente ao component-ID (identificador de "
-"componente)."
+msgstr "Instala software correspondente ao component-ID (identificador de componente)."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
 #: tools/appstreamcli.c:1191
@@ -2437,8 +2423,7 @@ msgstr "Ficheiro de metadados “%s” não existe."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Pode precisar de permissões de super-utilizador para realizar esta ação."
+msgstr "Pode precisar de permissões de super-utilizador para realizar esta ação."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2463,8 +2448,7 @@ msgstr "Tem de especificar um identificador de componente."
 #: tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr ""
-"Não foi possível encontrar o componente com o identificador (ID) \"%s\"!"
+msgstr "Não foi possível encontrar o componente com o identificador (ID) \"%s\"!"
 
 #: tools/ascli-actions-mdata.c:181
 msgid "You need to specify a term to search for."
@@ -2519,9 +2503,7 @@ msgstr "Ficheiro de metadados “%s” não existe."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Erro ao converter ficheiro: não foi possível determinar o formato de saída, "
-"por favor, defina o formato explicitamente, utilizando “--format=”."
+msgstr "Erro ao converter ficheiro: não foi possível determinar o formato de saída, por favor, defina o formato explicitamente, utilizando “--format=”."
 
 #: tools/ascli-actions-mdata.c:456
 #, c-format
@@ -2536,18 +2518,14 @@ msgstr "Versão"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Tem de fornecer um tipo de componente de software de AppStream para gerar um "
-"modelo. Os valores possíveis são:"
+msgstr "Tem de fornecer um tipo de componente de software de AppStream para gerar um modelo. Os valores possíveis são:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"O tipo de componente de software “%s” não é válido no AppStream. Os valores "
-"possíveis são:"
+msgstr "O tipo de componente de software “%s” não é válido no AppStream. Os valores possíveis são:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2685,9 +2663,7 @@ msgstr "Tem de especificar um ficheiro de NOTÍCIAS para gravar a saída."
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Não foi encontrado nenhum gestor de pacotes CLI adequado. Por favor, "
-"certifique-se que está disponível por exemplo “pkcon” (parte de PackageKit)."
+msgstr "Não foi encontrado nenhum gestor de pacotes CLI adequado. Por favor, certifique-se que está disponível por exemplo “pkcon” (parte de PackageKit)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
