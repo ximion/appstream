@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-01-26 15:44+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2019-04-03 18:03+0000\n"
+"Last-Translator: Rui Mendes <xz9@protonmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
 "translations/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 3.6-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -49,11 +49,11 @@ msgstr "Aventura"
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstream-cli.c:115
 msgid "Also show pedantic hints."
-msgstr "Também mostre dicas pedestrais."
+msgstr "Mostrar também dicas pedantic."
 
 #: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Um tipo de item (ex.: lib, bin, python3, …)"
+msgstr "Um tipo de item (por ex.: lib, bin, python3…)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -76,7 +76,7 @@ msgstr ""
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:45
 msgid "AppStream Status:"
-msgstr "Estado de AppStream:"
+msgstr "Estado do AppStream:"
 
 #. we performed a cache refresh
 #. TRANSLATORS: Updating the metadata cache succeeded
@@ -116,8 +116,8 @@ msgstr ""
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
-"Cache de sistema do AppStream foi atualizado, mas problemas foram "
-"encontrados: %s"
+"Cache de sistema do AppStream foi atualizado, mas foram encontrados "
+"problemas: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:786
@@ -162,7 +162,7 @@ msgstr "Binários"
 #: src/as-category.c:132
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr "Bloqueados"
+msgstr "Blocos"
 
 #: src/as-category.c:135
 msgctxt "Category of Games"
@@ -176,7 +176,7 @@ msgstr "Pacote"
 #: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "A localização de cache “%s” não é gravável."
+msgstr "A localização da cache “%s” não é gravável."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -238,7 +238,7 @@ msgstr "Componente"
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr "O componente “%s” não possui candidato a instalação."
+msgstr "O componente “%s” não tem nenhum candidato a instalação."
 
 #: tools/ascli-utils.c:374
 msgid "Compulsory for"
@@ -306,7 +306,7 @@ msgstr "Ferramentas de Programador"
 
 #: tools/appstream-cli.c:708
 msgid "Display status information about available AppStream metadata."
-msgstr "Exibir informações sobre metadados disponíveis do AppStream."
+msgstr "Mostrar informações sobre metadados disponíveis do AppStream."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:50
@@ -490,7 +490,7 @@ msgstr "Instala software correspondente ao component-ID."
 
 #: tools/ascli-actions-mdata.c:210
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Tipo inválido para o item fornecido selecionado. Valores válidos são:"
+msgstr "Foi selecionado um item de tipo inválido. Os valores válidos são:"
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
@@ -610,12 +610,12 @@ msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
 msgstr ""
-"Nenhum gerenciado de pacotes CLI adequado encontrado. Por favor, certifique-"
-"se de que, ex.: “pkcon” (parte de PackageKit), está disponível."
+"Não foi encontrado nenhum gestor de pacotes CLI adequado. Por favor, "
+"certifique-se que está disponível por exemplo “pkcon” (parte de PackageKit)."
 
 #: tools/ascli-actions-mdata.c:203
 msgid "No value for the item to search for was defined."
-msgstr "Nenhum valor para o item a ser pesquisado foi definido."
+msgstr "Não foi definido nenhum valor para o item a ser pesquisado."
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
