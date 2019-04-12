@@ -83,6 +83,13 @@
 						components can be an arbitrary string (matching the naming rules applying to all AppStream metadata), while the <xref linkend="tag-dapp-launchable"/> tag is used
 						to associate .desktop files with their metainfo files.
 					</para>
+					<para>
+						Note that even though the component-ID can now be arbitrary, when updating existing applications, do not change their
+						<code>&lt;id/&gt;</code> to drop the .desktop suffix. The rules are relaxed when picking a new component-ID for new
+						applications, but when updating older applications they still need to keep their original <code>&lt;id/&gt;</code> (when
+						it's otherwise compliant) as it is a unique way of identifying applications across distributions and releases and should
+						always remain stable.
+					</para>
 				</note>
 			</listitem>
 			</varlistentry>
