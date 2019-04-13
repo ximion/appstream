@@ -1108,6 +1108,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		const gchar *node_name;
 		g_autofree gchar *node_content = NULL;
 		gboolean tag_valid = TRUE;
+		gboolean can_be_empty = FALSE;
+
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
@@ -1336,6 +1338,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_children_quick (validator, iter, "id", cpt, FALSE);
 		} else if (g_strcmp0 (node_name, "content_rating") == 0) {
 			as_validator_check_children_quick (validator, iter, "content_attribute", cpt, TRUE);
+			can_be_empty = TRUE;
 		} else if (g_strcmp0 (node_name, "requires") == 0) {
 			as_validator_check_requires_recommends (validator, iter, cpt, AS_RELATION_KIND_REQUIRES);
 		} else if (g_strcmp0 (node_name, "recommends") == 0) {
@@ -1364,7 +1367,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			tag_valid = FALSE;
 		}
 
-		if (tag_valid) {
+		if (tag_valid && !can_be_empty) {
 			as_validator_check_content_empty (validator,
 							  iter,
 							  node_name,
