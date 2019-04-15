@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2019-01-06 11:05+0000\n"
-"Last-Translator: Johannes Keyser <johanneskeyser@posteo.de>\n"
+"PO-Revision-Date: 2019-04-16 07:03+0000\n"
+"Last-Translator: CurlingTongs <o11577482@nwytg.net>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/"
 "translations/de/>\n"
 "Language: de\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.6-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
-msgstr "Befehl „%s”"
+msgstr "Befehl »%s«"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -54,7 +54,7 @@ msgstr "Auch kleinste Hinweise anzeigen."
 
 #: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "Ein Elementtyp (z.B. lib, bin, python3, …)"
+msgstr "Ein Elementtyp (z. B. lib, bin, python3, …)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -62,7 +62,7 @@ msgstr "Ein Dienstprogramm zum Arbeiten mit AppStream-Metadaten"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr "AppStream CLI"
+msgstr "AppStream-CLI"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:789
@@ -98,7 +98,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:86
 msgid "AppStream cache update is not necessary."
 msgstr ""
-"Zwischenspeicher wurde nicht aktualisiert, so dass das Aktualisierung nicht "
+"Zwischenspeicher wurde nicht aktualisiert, so dass die Aktualisierung nicht "
 "notwendig war."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
@@ -112,7 +112,7 @@ msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 msgstr ""
-"AppStream ist eine Distributionsübergreifende Spezifikation zur "
+"AppStream ist eine distributionsübergreifende Spezifikation zur "
 "Bereitstellung von Metadaten über Softwarekomponenten."
 
 #: src/as-pool.c:1620
@@ -179,7 +179,7 @@ msgstr "Bündel"
 #: src/as-pool.c:1560
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Zwischenspeicheradresse „%s” ist nicht beschreibbar."
+msgstr "Zwischenspeicheradresse »%s« ist nicht beschreibbar."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -192,8 +192,8 @@ msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
 msgstr ""
-"„%s” konnte nicht kopiert werden: Datei besitzt keine „. metainfo.xml”- oder "
-"„.appdata.xml”-Dateiendung."
+"»%s« konnte nicht kopiert werden: Datei besitzt keine keine Dateiendung "
+"».metainfo.xml«- oder ».appdata.xml«."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -231,7 +231,7 @@ msgstr "Kommunikation und Nachrichten"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr "Vergleiche zwei Versionsnummern."
+msgstr "Zwei Versionsnummern vergleichen."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -241,7 +241,7 @@ msgstr "Komponente"
 #: tools/ascli-actions-pkgmgr.c:106
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr "Die Komponente „%s” besitzt keinen Installationskandidaten."
+msgstr "Die Komponente »%s« besitzt keinen Installationskandidaten."
 
 #: tools/ascli-utils.c:374
 msgid "Compulsory for"
@@ -250,13 +250,13 @@ msgstr "Verpflichtend für"
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:711
 msgid "Convert collection XML to YAML or vice versa."
-msgstr "Konvertiert XML-Sammlungen nach YAML und umgekehrt"
+msgstr "Konvertiert XML-Sammlungen nach YAML und umgekehrt."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:225
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr "Es konnte keine Komponente gefunden werden, die „%s;%s” bereitstellt."
+msgstr "Es konnte keine Komponente gefunden werden, die »%s;%s« bereitstellt."
 
 #: tools/appstream-cli.c:713
 msgid ""
@@ -291,7 +291,7 @@ msgstr "Standardadresse für Bildschirmfotos"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr "Standard-Metadatenformat (gültige Werte sind „XML” und „YAML”)."
+msgstr "Standard-Metadatenformat (gültige Werte sind »XML« und »YAML«)."
 
 #: tools/ascli-utils.c:330
 msgid "Description"
@@ -582,7 +582,7 @@ msgstr "Metainfo-Dateien:"
 
 #: src/as-provided.c:153
 msgid "Modaliases"
-msgstr "Modaliase"
+msgstr "Modalias"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -788,7 +788,7 @@ msgstr ""
 #: tools/appstream-cli.c:657
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr "Der TYPE muss ein gültiger Komponententyp sein, Beispielsweise: %s"
+msgstr "Der TYPE muss ein gültiger Komponententyp sein, beispielsweise: %s"
 
 #: tools/ascli-actions-mdata.c:446
 #, c-format
@@ -796,7 +796,7 @@ msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
 msgstr ""
-"Der Software-Komponententyp „%s” ist in AppStream nicht gültig. Mögliche "
+"Der Software-Komponententyp »%s« ist in AppStream nicht gültig. Mögliche "
 "Werte sind:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
@@ -806,7 +806,7 @@ msgid ""
 "file to write to (or \"-\" for standard output)."
 msgstr ""
 "Dieser Befehl verwendet optionale TYPE- und FILE-Positionsargumente, wobei "
-"FILE eine Datei ist, in die geschrieben werden muss (oder „-” für die "
+"FILE eine Datei ist, in die geschrieben werden muss (oder »-« für die "
 "Standardausgabe)."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
@@ -832,7 +832,7 @@ msgstr ""
 #: tools/ascli-actions-mdata.c:541
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr "Nicht in der Lage, die Metainfo Vorlagendatei zu erstellen: %s"
+msgstr "Die Metainfo-Vorlagendatei konnte nicht erstellt werden: %s"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:397
@@ -874,13 +874,13 @@ msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
-"'%s' kann nicht geschrieben werden, kann metainfo-Datei nicht installieren."
+"»%s« kann nicht geschrieben werden, kann metainfo-Datei nicht installieren."
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
-msgstr "Unbekannter Befehl „%s”"
+msgstr "Unbekannter Befehl »%s«"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstream-cli.c:582
@@ -932,7 +932,7 @@ msgstr "Wert des Objekts, das gefunden werden soll."
 #: src/as-category.c:177
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr "Vectorgrafik"
+msgstr "Vektorgrafik"
 
 #: tools/ascli-actions-misc.c:46
 #, c-format
@@ -978,8 +978,8 @@ msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
 msgstr ""
-"Um eine Vorlage zu erstellen, müssen Sie einen Softwarekomponententyp "
-"AppStream angeben. Mögliche Werte sind:"
+"Um eine Vorlage zu erstellen, müssen Sie einen AppStream-"
+"Softwarekomponententyp angeben. Mögliche Werte sind:"
 
 #: tools/appstream-cli.c:553
 msgid ""
