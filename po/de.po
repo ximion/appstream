@@ -35,6 +35,7 @@
 # Coruna <airwing77@gmx.de>, 2020.
 # Johannes Keyser <johanneskeyser@posteo.de>, 2020, 2021.
 # J. Lavoie <j.lavoie@net-c.ca>, 2020.
+# CurlingTongs <jobiwaff@googlemail.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -43,7 +44,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Christian K <kirbach.christian@t-online.de>\n"
+"Last-Translator: CurlingTongs <jobiwaff@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -2344,10 +2345,7 @@ msgstr "Verwenden Sie die angegebene .desktop-Datei, um Grundwerte in die Metain
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Dieser Befehl verwendet optionale TYPE- und FILE-Positionsargumente, wobei "
-"FILE eine Datei ist, in die geschrieben werden muss (oder »-« für die "
-"Standardausgabe)."
+msgstr "Dieser Befehl verwendet optionale TYPE- und FILE-Positionsargumente, wobei FILE eine Datei ist, in die geschrieben werden muss (oder »-« für die Standardausgabe)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2661,9 +2659,7 @@ msgstr "Version: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Um eine Vorlage zu erstellen, müssen Sie einen AppStream-"
-"Softwarekomponententyp angeben. Mögliche Werte sind:"
+msgstr "Um eine Vorlage zu erstellen, müssen Sie einen AppStream-Softwarekomponententyp angeben. Mögliche Werte sind:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
