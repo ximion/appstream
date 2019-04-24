@@ -11,4 +11,8 @@
                                /component/agreement/agreement_section/name |
                                /component/agreement/agreement_section/description"
                      translate="yes"/>
+  <its:translateRule selector="/component/name[@translatable = 'no']"
+                     translate="no"/>
+  <its:translateRule selector="/component/developer_name[@translatable = 'no']"
+                     translate="no"/>
 </its:rules>
