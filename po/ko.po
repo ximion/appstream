@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-01-26 17:14+0100\n"
-"PO-Revision-Date: 2018-02-05 04:37+0000\n"
-"Last-Translator: Jung-Kyu Park <bagjunggyu@gmail.com>\n"
+"PO-Revision-Date: 2019-05-05 04:47+0000\n"
+"Last-Translator: Jun Hyung Shin <shmishmi79@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
 "translations/ko/>\n"
 "Language: ko\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.19-dev\n"
+"X-Generator: Weblate 3.7-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -63,7 +63,7 @@ msgstr "AppStream 메타 데이터 작업용 유틸리티"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr "AppStream CLI"
+msgstr "AppStream CLI(Command Line Interface)"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:789
@@ -228,7 +228,7 @@ msgstr "커뮤니케이션 & 뉴스"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "두 버전 비교하기."
 
 #: src/as-provided.c:167
 msgid "Component"
@@ -525,7 +525,6 @@ msgid "Logic"
 msgstr "로직"
 
 #: src/as-provided.c:149
-#, fuzzy
 msgid "MIME types"
 msgstr "MIME 형식"
 
@@ -548,7 +547,7 @@ msgstr "직접 지정한 AppStream 메타데이터 스캔 위치."
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
-msgstr ""
+msgstr "많은 구성품(코드)들이 허가되지 않은 상태로 인식될 수 있습니다. 자세한 사항은 디버깅을 통해서 살펴보세요."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -814,7 +813,7 @@ msgstr ""
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
+msgstr "변수가 너무 많습니다: 2개의 버전 숫자나 하나의 버전 숫자와 비교 연산자가 필요합니다."
 
 #: tools/ascli-actions-mdata.c:541
 #, c-format
@@ -872,7 +871,7 @@ msgstr "알 수 없는 명령어 '%s'."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "알 수 없는 비교 연산자'%s'. 사용할 수 있는 것들은 :"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -966,7 +965,7 @@ msgstr ""
 #: tools/appstream-cli.c:553
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
+msgstr "변수로써 비교하기 위해 최소 2개의 버전 숫자가 필요합니다."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
