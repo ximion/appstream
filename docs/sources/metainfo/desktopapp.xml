@@ -80,15 +80,15 @@
 					<para>
 						In previous AppStream releases, the <code>&lt;id/&gt;</code> was used to associate metainfo files with their .desktop files to merge in
 						data from .desktop files into the AppStream generator's final output. In modern metainfo files, the component-ID for <literal>desktop-application</literal>
-						components can be an arbitrary string (matching the naming rules applying to all AppStream metadata), while the <xref linkend="tag-dapp-launchable"/> tag is used
+						components can be an arbitrary reverse-DNS string (matching the naming rules applying to all AppStream metadata), while the <xref linkend="tag-dapp-launchable"/> tag is used
 						to associate .desktop files with their metainfo files.
 					</para>
 					<para>
-						Note that even though the component-ID can now be arbitrary, when updating existing applications, do not change their
+						Note that even though the component-ID can now be any rDNS name, when updating existing applications, do not change their
 						<code>&lt;id/&gt;</code> to drop the .desktop suffix. The rules are relaxed when picking a new component-ID for new
 						applications, but when updating older applications they still need to keep their original <code>&lt;id/&gt;</code> (when
-						it's otherwise compliant) as it is a unique way of identifying applications across distributions and releases and should
-						always remain stable.
+						it's otherwise compliant). The ID is used to uniquely identify applications across distributions and releases and should
+						always remain the same for the same application.
 					</para>
 				</note>
 			</listitem>
