@@ -905,7 +905,7 @@
 		<listitem>
 		<para>
 			The <code>&lt;translation/&gt;</code> tag is an optional tag which can be added to specify the translation domain used for this software component.
-			It may be used by the AppStream distro metadata generator to determine the translation status of the respective software.
+			It may be used by the AppStream distro metadata generator to determine the translation status of the respective software (e.g. which languages the software is translated into and how complete the translations are).
 		</para>
 		<para>
 			The tag must have a <literal>type</literal> property, assuming the value of the translation system which is used. Right now, allowed translation systems and
