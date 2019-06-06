@@ -4,14 +4,14 @@
 %BOOK_ENTITIES;
 ]>
 
-<section id="sect-AppStream-Services-UrlHandler">
-	<title>Url handler</title>
+<section id="sect-AppStream-Services-URIHandler">
+	<title>URI Handler</title>
 
-	<section id="spec-asurl-introduction">
+	<section id="spec-asuri-introduction">
 		<title>Introduction</title>
 		<para>
 			In order to allow installation of AppStream components from websites, software-centers implementing AppStream
-			may choose to also support the <literal>appstream://</literal> urls.
+			may choose to also support the <literal>appstream:</literal> URIs.
 		</para>
 		<para>
 			This allows upstream projects to trigger an installation of their application from their homepage on any supporting
@@ -20,12 +20,12 @@
 		</para>
 	</section>
 
-	<section id="spec-asurl-schema">
-		<title>URL schema</title>
+	<section id="spec-asuri-schema">
+		<title>URI schema</title>
 		<para>
-			Software-centers handling <literal>appstream://</literal> URLs must provide a handler for the <literal>x-scheme-handler/appstream</literal>
+			Software-centers handling <literal>appstream:</literal> URIs must provide a handler for the <literal>x-scheme-handler/appstream</literal>
 			mimetype.
-			An AppStream URL follows the schema <code>appstream:%{component-id}</code>.
+			An AppStream URI follows the schema <code>appstream:%{component-id}</code>.
 		</para>
 		<para>
 			Example HTML code:
@@ -35,7 +35,7 @@
 <a href="appstream:org.freedesktop.AppStream">Install libappstream</a>]]></programlisting>
 	</section>
 
-	<section id="spec-asurl-button">
+	<section id="spec-asuri-button">
 		<title>AppStream Buttons</title>
 		<para>
 			If you want to allow users to open your software in their local software center from your website, you might want to use

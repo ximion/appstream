@@ -71,7 +71,7 @@ as_doc_src = [
     'sources/Revision_History.xml',
     'sources/services/screenshots.xml',
     'sources/services/Services.xml',
-    'sources/services/urlhandler.xml'
+    'sources/services/urihandler.xml'
 ]
 
 if get_option('docs')
