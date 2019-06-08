@@ -20,10 +20,12 @@
 
 #include <glib.h>
 #include <glib/gprintf.h>
+#include <glib/gstdio.h>
 
 #include "appstream.h"
 #include "as-metadata.h"
 #include "as-test-utils.h"
+#include "as-pool-private.h"
 
 static gchar *datadir = NULL;
 
@@ -50,6 +52,7 @@ test_get_sampledata_pool (gboolean use_caches)
 
 	flags = as_pool_get_flags (pool);
 	as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
+	as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
 	as_pool_set_flags (pool, flags);
 
 	if (!use_caches)
@@ -63,16 +66,16 @@ test_get_sampledata_pool (gboolean use_caches)
  * Test performance of loading a metadata pool from XML.
  */
 static void
-test_pool_read_perf (void)
+test_pool_xml_read_perf (void)
 {
 	GError *error = NULL;
 	guint i;
-	guint loops = 10;
+	guint loops = 1000;
 	g_autoptr(GTimer) timer = NULL;
 
 	timer = g_timer_new ();
 	for (i = 0; i < loops; i++) {
-		GPtrArray *cpts;
+		g_autoptr(GPtrArray) cpts = NULL;
 		g_autoptr(AsPool) pool = test_get_sampledata_pool (FALSE);
 
 		as_pool_load (pool, NULL, &error);
@@ -86,12 +89,64 @@ test_pool_read_perf (void)
 }
 
 /**
+ * Test performance of loading a metadata pool from cache.
+ */
+static void
+test_pool_cache_read_perf (void)
+{
+	GError *error = NULL;
+	guint i;
+	guint loops = 1000;
+	g_autoptr(GTimer) timer = NULL;
+	g_autoptr(AsPool) prep_pool = NULL;
+	g_autoptr(GPtrArray) prep_cpts = NULL;
+
+	prep_pool = test_get_sampledata_pool (FALSE);
+	as_pool_load (prep_pool, NULL, &error);
+	g_assert_no_error (error);
+
+	prep_cpts = as_pool_get_components (prep_pool);
+	g_assert_cmpint (prep_cpts->len, ==, 19);
+
+	as_cache_file_save ("/tmp/as-unittest-perfcache.gvz", "C", prep_cpts, &error);
+	g_assert_no_error (error);
+
+	g_object_unref (prep_pool);
+	prep_pool = NULL;
+
+	timer = g_timer_new ();
+	for (i = 0; i < loops; i++) {
+		g_autoptr(GPtrArray) cpts = NULL;
+		AsPoolFlags flags;
+		g_autoptr(AsPool) pool = as_pool_new ();
+
+		as_pool_clear_metadata_locations (pool);
+		as_pool_set_locale (pool, "C");
+		flags = as_pool_get_flags (pool);
+		as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
+		as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
+		as_pool_set_flags (pool, flags);
+
+		as_pool_load_cache_file (pool, "/tmp/as-unittest-perfcache.gvz", &error);
+		g_assert_no_error (error);
+
+		cpts = as_pool_get_components (pool);
+		g_assert_cmpint (cpts->len, ==, 19);
+
+	}
+	g_print ("%.0f ms: ", g_timer_elapsed (timer, NULL) * 1000 / loops);
+	g_remove("/tmp/as-unittest-perfcache.gvz");
+}
+
+/**
  * main:
  */
 int
 main (int argc, char **argv)
 {
 	int ret;
+
+	g_test_init (&argc, &argv, NULL);
 
 	if (argc == 0) {
 		g_error ("No test directory specified!");
@@ -103,9 +158,6 @@ main (int argc, char **argv)
 	datadir = g_build_filename (datadir, "samples", NULL);
 	g_assert (g_file_test (datadir, G_FILE_TEST_EXISTS) != FALSE);
 
-	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
-	g_test_init (&argc, &argv, NULL);
-
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
@@ -115,8 +167,8 @@ main (int argc, char **argv)
 		return 0;
 
 
-	g_test_add_func ("/Perf/Pool/Read", test_pool_read_perf);
-
+	g_test_add_func ("/Perf/Pool/ReadXML", test_pool_xml_read_perf);
+	g_test_add_func ("/Perf/Pool/ReadCache", test_pool_cache_read_perf);
 
 	ret = g_test_run ();
 	g_free (datadir);
