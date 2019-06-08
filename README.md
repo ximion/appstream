@@ -37,6 +37,7 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
  * GObject-Introspection
  * libxml2
  * libyaml
+ * LMDB
 
 #### Optional
  * Vala Compiler (vapigen) (for Vala VAPI file)

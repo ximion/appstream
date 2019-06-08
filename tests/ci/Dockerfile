@@ -17,10 +17,11 @@ RUN apt-get install -yq --no-install-recommends \
     itstool \
     libglib2.0-dev \
     libxml2-dev \
+    libyaml-dev \
+    liblmdb-dev \
     gtk-doc-tools \
     libgirepository1.0-dev \
     qt5-default \
-    libyaml-dev \
     xmlto \
     publican \
     gobject-introspection \

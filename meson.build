@@ -66,6 +66,7 @@ gio_dep = dependency('gio-2.0', version : '>=2.54')
 gio_unix_dep = dependency('gio-unix-2.0', version : '>=2.54')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
+lmdb_dep = dependency('lmdb')
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson
