@@ -73,7 +73,7 @@ as_context_init (AsContext *ctx)
 
 	priv->format_version = AS_CURRENT_FORMAT_VERSION;
 	priv->style = AS_FORMAT_STYLE_UNKNOWN;
-	priv->fname = g_strdup (":memory:");
+	priv->fname = g_strdup (":memory");
 	priv->priority = 0;
 }
 

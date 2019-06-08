@@ -2326,6 +2326,10 @@ as_component_add_token_helper (AsComponent *cpt,
 	/* invalid */
 	if (!as_utils_search_token_valid (value))
 		return;
+	/* small tokens are invalid unless they are in the summary / name of the component */
+	if (match_flag < AS_TOKEN_MATCH_SUMMARY)
+		if (strlen (value) < 3)
+			return;
 
 	/* create a stemmed version of our token */
 	token_stemmed = as_stemmer_stem (stemmer, value);
@@ -2495,6 +2499,9 @@ as_component_create_token_cache (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	guint i;
 
+	if (priv->token_cache_valid)
+		return;
+
 	as_component_create_token_cache_target (cpt, cpt);
 
 	for (i = 0; i < priv->addons->len; i++) {
@@ -2520,7 +2527,7 @@ as_component_search_matches (AsComponent *cpt, const gchar *term)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	AsTokenType *match_pval;
 	GList *l;
-	AsTokenMatch result = 0;
+	guint result = 0;
 	g_autoptr(GList) keys = NULL;
 
 	/* nothing to do */
