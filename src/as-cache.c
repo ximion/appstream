@@ -60,6 +60,7 @@ typedef struct
 	MDB_dbi db_launchables;
 	MDB_dbi db_provides;
 	gchar *volatile_db_fname;
+	gsize max_keysize;
 	gboolean opened;
 
 	AsContext *context;
@@ -78,6 +79,7 @@ as_cache_init (AsCache *cache)
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 
 	priv->opened = FALSE;
+	priv->max_keysize = 511;
 	priv->locale = as_get_current_locale ();
 
 	priv->context = as_context_new ();
@@ -189,10 +191,13 @@ lmdb_transaction_abort (MDB_txn *txn)
  * Get MDB_val for string.
  */
 inline static MDB_val
-lmdb_str_to_dbval (const gchar *data)
+lmdb_str_to_dbval (const gchar *data, gssize len)
 {
 	MDB_val val;
-	val.mv_size = sizeof(gchar) * strlen (data);
+	if (len < 0)
+		len = sizeof(gchar) * strlen (data);
+
+	val.mv_size = len;
 	val.mv_data = (void*) data;
 	return val;
 }
@@ -218,11 +223,22 @@ lmdb_val_strdup (MDB_val val)
 inline static gboolean
 as_cache_txn_put_kv (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key, MDB_val dval, GError **error)
 {
-	MDB_val dbkey;
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_val dkey;
 	gint rc;
+	gsize key_len;
+	g_autofree gchar *key_hash = NULL;
 
-        dbkey = lmdb_str_to_dbval (key);
-        rc = mdb_put (txn, dbi, &dbkey, &dval, 0);
+	/* if key is too long, hash it */
+	key_len = sizeof(gchar) * strlen (key);
+	if (key_len > priv->max_keysize) {
+		key_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, key, key_len);
+		dkey = lmdb_str_to_dbval (key_hash, -1);
+	} else {
+		dkey = lmdb_str_to_dbval (key, key_len);
+	}
+
+        rc = mdb_put (txn, dbi, &dkey, &dval, 0);
 	if (rc != MDB_SUCCESS) {
 		g_set_error (error,
 			     AS_CACHE_ERROR,
@@ -242,10 +258,10 @@ as_cache_txn_put_kv (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key
 inline static gboolean
 as_cache_txn_put_kv_str (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key, const gchar *value, GError **error)
 {
-	MDB_val dbvalue;
-        dbvalue = lmdb_str_to_dbval (value);
+	MDB_val dvalue;
+        dvalue = lmdb_str_to_dbval (value, -1);
 
-	return as_cache_txn_put_kv (cache, txn, dbi, key, dbvalue, error);
+	return as_cache_txn_put_kv (cache, txn, dbi, key, dvalue, error);
 }
 
 /**
@@ -274,15 +290,26 @@ as_cache_put_kv (AsCache *cache, MDB_dbi dbi, const gchar *key, const gchar *val
 inline static MDB_val
 as_cache_txn_get_value (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key, GError **error)
 {
+	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_cursor *cur;
 	MDB_val dkey, dval;
+	gsize key_len;
+	g_autofree gchar *key_hash = NULL;
 	gint rc;
 
 	dval.mv_size = 0;
 	if ((key == NULL) || (key[0] == '\0'))
 		return dval;
 
-        dkey = lmdb_str_to_dbval (key);
+        /* if key is too long, we added it as hash. So look for the hash instead. */
+	key_len = sizeof(gchar) * strlen (key);
+	if (key_len > priv->max_keysize) {
+		key_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, key, key_len);
+		dkey = lmdb_str_to_dbval (key_hash, -1);
+	} else {
+		dkey = lmdb_str_to_dbval (key, key_len);
+	}
+
 	rc = mdb_cursor_open (txn, dbi, &cur);
         if (rc != MDB_SUCCESS) {
 		g_set_error (error,
@@ -482,6 +509,9 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	if (priv->volatile_db_fname != NULL)
 		g_unlink (priv->volatile_db_fname);
 
+	/* retrieve the maximum keysize allowed for this database */
+	priv->max_keysize = mdb_env_get_maxkeysize (priv->db_env);
+
 	txn = as_cache_transaction_new (cache, 0, &tmp_error);
 	if (txn == NULL) {
 		g_propagate_error (error, tmp_error);
@@ -675,12 +705,20 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 		g_autoptr(GVariant) var = NULL;
 		g_autoptr(GVariant) nvar = NULL;
 		g_autofree gpointer entry_data = NULL;
+		const gchar *token_str;
 		GVariantDict dict;
 		AsTokenType *match_pval;
 		MDB_val dval;
 
+		/* we ignore tokens which are too long to be database keys */
+		token_str = (const gchar*) tc_key;
+		if ((sizeof(gchar) * strlen (token_str)) > priv->max_keysize) {
+			g_warning ("Ignored search token '%s': Too long to be stored in the cache.", token_str);
+			continue;
+		}
+
 		match_pval = (AsTokenType *) tc_value;
-		dval = as_cache_txn_get_value (cache, txn, priv->db_fts, (gchar*) tc_key, &tmp_error);
+		dval = as_cache_txn_get_value (cache, txn, priv->db_fts, token_str, &tmp_error);
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);
 			goto fail;
@@ -711,7 +749,7 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 		if (!as_cache_txn_put_kv (cache,
 					  txn,
 					  priv->db_fts,
-					  (const gchar*) tc_key,
+					  token_str,
 					  ndval,
 					  error)) {
 			goto fail;
@@ -785,19 +823,16 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 
 		entries = as_launchable_get_entries (launchable);
 		for (uint j = 0; j < entries->len; j++) {
-			g_autofree gchar *tmp = NULL;
-			g_autofree gchar *entry_checksum = NULL;
+			g_autofree gchar *entry_key = NULL;
 			g_autofree gchar *ecpt_str = NULL;
 			g_autofree gchar *new_list = NULL;
 			const gchar *entry = (const gchar*) g_ptr_array_index (entries, j);
 
-			tmp = g_strconcat (as_launchable_kind_to_string (as_launchable_get_kind (launchable)), entry, NULL);
-			entry_checksum = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, -1);
-
+			entry_key = g_strconcat (as_launchable_kind_to_string (as_launchable_get_kind (launchable)), entry, NULL);
 			ecpt_str = lmdb_val_strdup (as_cache_txn_get_value (cache,
 									txn,
 									priv->db_launchables,
-									entry_checksum,
+									entry_key,
 									&tmp_error));
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
@@ -810,7 +845,7 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 				if (!as_cache_txn_put_kv_str (cache,
 								txn,
 								priv->db_launchables,
-								entry_checksum,
+								entry_key,
 								new_list,
 								error)) {
 					goto fail;
@@ -827,19 +862,16 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 
 		items = as_provided_get_items (prov);
 		for (uint j = 0; j < items->len; j++) {
-			g_autofree gchar *tmp = NULL;
-			g_autofree gchar *item_checksum = NULL;
+			g_autofree gchar *item_key = NULL;
 			g_autofree gchar *ecpt_str = NULL;
 			g_autofree gchar *new_list = NULL;
 			const gchar *item = (const gchar*) g_ptr_array_index (items, j);
 
-			tmp = g_strconcat (as_provided_kind_to_string (as_provided_get_kind (prov)), item, NULL);
-			item_checksum = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, -1);
-
+			item_key = g_strconcat (as_provided_kind_to_string (as_provided_get_kind (prov)), item, NULL);
 			ecpt_str = lmdb_val_strdup (as_cache_txn_get_value (cache,
 									txn,
 									priv->db_provides,
-									item_checksum,
+									item_key,
 									&tmp_error));
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
@@ -852,7 +884,7 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 				if (!as_cache_txn_put_kv_str (cache,
 								txn,
 								priv->db_provides,
-								item_checksum,
+								item_key,
 								new_list,
 								error)) {
 					goto fail;
@@ -907,6 +939,41 @@ as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash,
 }
 
 /**
+ * as_cache_components_by_hash_list:
+ *
+ * Retrieve components using an internal hash list.
+ */
+static GPtrArray*
+as_cache_components_by_hash_list (AsCache *cache, MDB_txn *txn, const gchar *hash_list_str, GError **error)
+{
+	g_autoptr(GPtrArray) result = NULL;
+	g_auto(GStrv) strv = NULL;
+	GError *tmp_error = NULL;
+
+	result = g_ptr_array_new_with_free_func (g_object_unref);
+	if (hash_list_str == NULL)
+		goto out;
+
+	strv = g_strsplit (hash_list_str, "\n", -1);
+	for (uint i = 0; strv[i] != NULL; i++) {
+		AsComponent *cpt;
+		if (strv[i][0] == '\0')
+			continue;
+
+		cpt = as_cache_component_by_hash (cache, txn, strv[i], &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
+			return NULL;
+		}
+		if (cpt != NULL)
+			g_ptr_array_add (result, cpt);
+	}
+
+out:
+	return g_steal_pointer (&result);
+}
+
+/**
  * as_cache_get_component_by_cid:
  * @id: The component ID to search for.
  * @error: A #GError or %NULL.
@@ -922,8 +989,7 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 	MDB_txn *txn;
 	GError *tmp_error = NULL;
 	g_autofree gchar *data = NULL;
-	g_auto(GStrv) strv = NULL;
-	g_autoptr(GPtrArray) result = NULL;
+	GPtrArray *result = NULL;
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -936,28 +1002,14 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 		return NULL;
 	}
 
-	result = g_ptr_array_new_with_free_func (g_object_unref);
-	if (data == NULL)
-		goto out;
-
-	strv = g_strsplit (data, "\n", -1);
-	for (uint i = 0; strv[i] != NULL; i++) {
-		AsComponent *cpt;
-		if (strv[i][0] == '\0')
-			continue;
-
-		cpt = as_cache_component_by_hash (cache, txn, strv[i], &tmp_error);
-		if (tmp_error != NULL) {
-			g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
-			lmdb_transaction_abort (txn);
-			return NULL;
-		}
-		if (cpt != NULL)
-			g_ptr_array_add (result, cpt);
+	result = as_cache_components_by_hash_list (cache, txn, data, error);
+	if (result == NULL) {
+		lmdb_transaction_abort (txn);
+		return NULL;
+	} else {
+		lmdb_transaction_commit (txn, NULL);
+		return result;
 	}
-out:
-	lmdb_transaction_commit (txn, NULL);
-	return g_steal_pointer (&result);
 }
 
 /**
