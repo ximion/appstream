@@ -80,6 +80,25 @@ gboolean	as_cache_insert (AsCache *cache,
 GPtrArray	*as_cache_get_components_by_id (AsCache *cache,
 						const gchar *id,
 						GError **error);
+GPtrArray	*as_cache_get_components_by_kind (AsCache *cache,
+						  AsComponentKind kind,
+						  GError **error);
+
+GPtrArray	*as_cache_get_components_by_provided_item (AsCache *cache,
+							  AsProvidedKind kind,
+							  const gchar *item,
+							  GError **error);
+GPtrArray	*as_cache_get_components_by_categories (AsCache *cache,
+							gchar **categories,
+							GError **error);
+GPtrArray	*as_cache_get_components_by_launchable (AsCache *cache,
+						       AsLaunchableKind kind,
+						       const gchar *id,
+						       GError **error);
+
+GPtrArray	*as_cache_search (AsCache *cache,
+				  gchar **terms,
+				  GError **error);
 
 G_END_DECLS
 

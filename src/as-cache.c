@@ -59,6 +59,7 @@ typedef struct
 	MDB_dbi db_cats;
 	MDB_dbi db_launchables;
 	MDB_dbi db_provides;
+	MDB_dbi db_kinds;
 	gchar *volatile_db_fname;
 	gsize max_keysize;
 	gboolean opened;
@@ -292,12 +293,12 @@ as_cache_txn_get_value (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_cursor *cur;
-	MDB_val dkey, dval;
+	MDB_val dkey;
+	MDB_val dval = {0, NULL};
 	gsize key_len;
 	g_autofree gchar *key_hash = NULL;
 	gint rc;
 
-	dval.mv_size = 0;
 	if ((key == NULL) || (key[0] == '\0'))
 		return dval;
 
@@ -345,8 +346,7 @@ as_cache_get_value (AsCache *cache, MDB_dbi dbi, const gchar *key, GError **erro
 {
 	MDB_txn *txn;
 	GError *tmp_error = NULL;
-	MDB_val data;
-	data.mv_size = 0;
+	MDB_val data = {0, NULL};
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -556,6 +556,12 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 
 	/* provides */
 	if (!as_cache_open_subdb (txn, "provides", &priv->db_provides, &tmp_error)) {
+		g_propagate_error (error, tmp_error);
+		goto fail;
+	}
+
+	/* kinds */
+	if (!as_cache_open_subdb (txn, "kinds", &priv->db_kinds, &tmp_error)) {
 		g_propagate_error (error, tmp_error);
 		goto fail;
 	}
@@ -786,7 +792,7 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 
 	/* add category mapping */
 	categories = as_component_get_categories (cpt);
-	for (uint i = 0; i < categories->len; i++) {
+	for (guint i = 0; i < categories->len; i++) {
 		g_autofree gchar *ecpt_str = NULL;
 		g_autofree gchar *new_list = NULL;
 		const gchar *category = (const gchar*) g_ptr_array_index (categories, i);
@@ -817,12 +823,12 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 
 	/* add launchables mapping */
 	launchables = as_component_get_launchables (cpt);
-	for (uint i = 0; i < launchables->len; i++) {
+	for (guint i = 0; i < launchables->len; i++) {
 		GPtrArray *entries;
 		AsLaunchable *launchable = AS_LAUNCHABLE (g_ptr_array_index (launchables, i));
 
 		entries = as_launchable_get_entries (launchable);
-		for (uint j = 0; j < entries->len; j++) {
+		for (guint j = 0; j < entries->len; j++) {
 			g_autofree gchar *entry_key = NULL;
 			g_autofree gchar *ecpt_str = NULL;
 			g_autofree gchar *new_list = NULL;
@@ -856,12 +862,12 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 
 	/* add provides mapping */
 	provides = as_component_get_provided (cpt);
-	for (uint i = 0; i < provides->len; i++) {
+	for (guint i = 0; i < provides->len; i++) {
 		GPtrArray *items;
 		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provides, i));
 
 		items = as_provided_get_items (prov);
-		for (uint j = 0; j < items->len; j++) {
+		for (guint j = 0; j < items->len; j++) {
 			g_autofree gchar *item_key = NULL;
 			g_autofree gchar *ecpt_str = NULL;
 			g_autofree gchar *new_list = NULL;
@@ -889,6 +895,36 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 								error)) {
 					goto fail;
 				}
+			}
+		}
+	}
+
+	/* add kinds mapping */
+	{
+		const gchar *kind_str = as_component_kind_to_string (as_component_get_kind (cpt));
+		g_autofree gchar *ecpt_list_str = NULL;
+		g_autofree gchar *new_list = NULL;
+
+		ecpt_list_str = lmdb_val_strdup (as_cache_txn_get_value (cache,
+									 txn,
+									 priv->db_kinds,
+									 kind_str,
+									 &tmp_error));
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			goto fail;
+		}
+
+		new_list = as_str_check_append (ecpt_list_str, cpt_checksum_nl);
+		if (new_list != NULL) {
+			/* add component checksum to component-kind mapping */
+			if (!as_cache_txn_put_kv_str (cache,
+							txn,
+							priv->db_kinds,
+							kind_str,
+							new_list,
+							error)) {
+				goto fail;
 			}
 		}
 	}
@@ -955,7 +991,7 @@ as_cache_components_by_hash_list (AsCache *cache, MDB_txn *txn, const gchar *has
 		goto out;
 
 	strv = g_strsplit (hash_list_str, "\n", -1);
-	for (uint i = 0; strv[i] != NULL; i++) {
+	for (guint i = 0; strv[i] != NULL; i++) {
 		AsComponent *cpt;
 		if (strv[i][0] == '\0')
 			continue;
@@ -975,10 +1011,11 @@ out:
 
 /**
  * as_cache_get_component_by_cid:
+ * @cache: An instance of #AsCache.
  * @id: The component ID to search for.
  * @error: A #GError or %NULL.
  *
- * Retrieve component with the selected ID.
+ * Retrieve components with the selected ID.
  *
  * Returns: (transfer full): An array of #AsComponent
  */
@@ -1009,6 +1046,399 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 	} else {
 		lmdb_transaction_commit (txn, NULL);
 		return result;
+	}
+}
+
+/**
+ * as_cache_get_component_by_cid:
+ * @cache: An instance of #AsCache.
+ * @kind: The #AsComponentKind to retrieve.
+ * @error: A #GError or %NULL.
+ *
+ * Retrieve components of a specific kind.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+GPtrArray*
+as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	GError *tmp_error = NULL;
+	g_autofree gchar *data = NULL;
+	GPtrArray *result = NULL;
+	const gchar *kind_str = as_component_kind_to_string (kind);
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	data = lmdb_val_strdup (as_cache_txn_get_value (cache, txn, priv->db_kinds, kind_str, &tmp_error));
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+
+	result = as_cache_components_by_hash_list (cache, txn, data, error);
+	if (result == NULL) {
+		lmdb_transaction_abort (txn);
+		return NULL;
+	} else {
+		lmdb_transaction_commit (txn, NULL);
+		return result;
+	}
+}
+
+/**
+ * as_cache_get_components_by_provided_item:
+ * @cache: An instance of #AsCache.
+ * @kind: Kind of the provided item.
+ * @item: Name of the item.
+ * @error: A #GError or %NULL.
+ *
+ * Retrieve a list of components that provide a certain item.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+GPtrArray*
+as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, const gchar *item, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	GError *tmp_error = NULL;
+	g_autofree gchar *data = NULL;
+	g_autofree gchar *item_key = NULL;
+	GPtrArray *result = NULL;
+
+	item_key = g_strconcat (as_provided_kind_to_string (kind), item, NULL);
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	data = lmdb_val_strdup (as_cache_txn_get_value (cache, txn, priv->db_provides, item_key, &tmp_error));
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+
+	result = as_cache_components_by_hash_list (cache, txn, data, error);
+	if (result == NULL) {
+		lmdb_transaction_abort (txn);
+		return NULL;
+	} else {
+		lmdb_transaction_commit (txn, NULL);
+		return result;
+	}
+}
+
+/**
+ * as_cache_get_components_by_categories:
+ * @cache: An instance of #AsCache.
+ * @categories: List of category names.
+ * @error: A #GError or %NULL.
+ *
+ * get a list of components in the selected categories.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+GPtrArray*
+as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	GError *tmp_error = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	result = g_ptr_array_new_with_free_func (g_object_unref);
+	for (guint i = 0; categories[i] != NULL; i++) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		g_autofree gchar *data = NULL;
+
+		data = lmdb_val_strdup (as_cache_txn_get_value (cache, txn, priv->db_cats, categories[i], &tmp_error));
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			lmdb_transaction_abort (txn);
+			return NULL;
+		}
+		if (data == NULL)
+			continue;
+
+		tmp_res = as_cache_components_by_hash_list (cache, txn, data, error);
+		if (tmp_res == NULL) {
+			lmdb_transaction_abort (txn);
+			return NULL;
+		}
+		for (guint j = 0; j < tmp_res->len; j++)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+	}
+
+	if (result == NULL) {
+		lmdb_transaction_abort (txn);
+		return NULL;
+	} else {
+		lmdb_transaction_commit (txn, NULL);
+		return g_steal_pointer (&result);
+	}
+}
+
+/**
+ * as_cache_get_components_by_launchable:
+ * @cache: An instance of #AsCache.
+ * @kind: Type of the launchable.
+ * @id: ID of the launchable.
+ * @error: A #GError or %NULL.
+ *
+ * Get components which provide a certain launchable.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+GPtrArray*
+as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, const gchar *id, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	GError *tmp_error = NULL;
+	g_autofree gchar *data = NULL;
+	g_autofree gchar *entry_key = NULL;
+	GPtrArray *result = NULL;
+
+	entry_key = g_strconcat (as_launchable_kind_to_string (kind), id, NULL);
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	data = lmdb_val_strdup (as_cache_txn_get_value (cache, txn, priv->db_provides, entry_key, &tmp_error));
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+
+	result = as_cache_components_by_hash_list (cache, txn, data, error);
+	if (result == NULL) {
+		lmdb_transaction_abort (txn);
+		return NULL;
+	} else {
+		lmdb_transaction_commit (txn, NULL);
+		return result;
+	}
+}
+
+/**
+ * as_cache_update_results_with_fts_variant:
+ *
+ * Update results table using the full-text search scoring data from a GVariant dict
+ */
+static gboolean
+as_cache_update_results_with_fts_variant (AsCache *cache, MDB_txn *txn, MDB_val var_dbval, GHashTable *results_ht, gboolean exact_match, GError **error)
+{
+	GError *tmp_error = NULL;
+	g_autofree void *entry_data = NULL;
+	g_autoptr(GVariant) var = NULL;
+	GVariantIter iter;
+	GVariant *v_entry;
+
+	/* GVariant doesn't like the mmap alignment, so we need to copy the data here. GLib >= 2.60 resolves this */
+	entry_data = g_memdup (var_dbval.mv_data, var_dbval.mv_size);
+	var = g_variant_new_from_data (G_VARIANT_TYPE_VARDICT,
+					entry_data,
+					var_dbval.mv_size,
+					TRUE, /* trusted */
+					NULL,
+					NULL);
+
+	g_variant_iter_init (&iter, var);
+	while ((v_entry = g_variant_iter_next_value (&iter))) {
+		AsTokenType match_pval;
+		guint sort_score;
+		g_autoptr(GVariant) v_pval = NULL;
+		g_autofree gchar *cpt_hash = NULL;
+		AsComponent *cpt;
+
+		/* unpack variant */
+		g_variant_get (v_entry, "{sv}", &cpt_hash, &v_pval);
+		match_pval = g_variant_get_uint16 (v_pval);
+
+		/* retrieve component woth this hash */
+		cpt = g_hash_table_lookup (results_ht, cpt_hash);
+		if (cpt == NULL) {
+			cpt = as_cache_component_by_hash (cache, txn, cpt_hash, &tmp_error);
+			if (tmp_error != NULL) {
+				g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
+				return FALSE;
+			}
+			if (cpt != NULL) {
+				sort_score = 0;
+				if (exact_match)
+					sort_score |= match_pval << 2;
+				else
+					sort_score |= match_pval;
+				as_component_set_sort_score (cpt, sort_score);
+
+				g_hash_table_insert (results_ht,
+						     g_strdup (cpt_hash),
+						     cpt);
+			}
+		} else {
+			sort_score = as_component_get_sort_score (cpt);
+			if (exact_match)
+				sort_score |= match_pval << 2;
+			else
+				sort_score |= match_pval;
+			as_component_set_sort_score (cpt, sort_score);
+		}
+
+		g_variant_unref (v_entry);
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_sort_components_by_score_cb:
+ *
+ * Helper method to sort result arrays by the #AsComponent match score
+ * with higher scores appearing higher in the list.
+ */
+static gint
+as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
+{
+	guint s1, s2;
+	AsComponent *cpt1 = *((AsComponent **) a);
+	AsComponent *cpt2 = *((AsComponent **) b);
+	s1 = as_component_get_sort_score (cpt1);
+	s2 = as_component_get_sort_score (cpt2);
+
+	if (s1 > s2)
+		return -1;
+	if (s1 < s2)
+		return 1;
+	return 0;
+}
+
+/**
+ * as_cache_search:
+ * @cache: An instance of #AsCache.
+ * @terms: List of search terms
+ * @error: A #GError or %NULL.
+ *
+ * Perform a search for the given terms.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+GPtrArray*
+as_cache_search (AsCache *cache, gchar **terms, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	GError *tmp_error = NULL;
+	g_autoptr(GPtrArray) results = NULL;
+	g_autoptr(GHashTable) results_ht = NULL;
+	GHashTableIter ht_iter;
+	gpointer ht_value;
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	results = g_ptr_array_new_with_free_func (g_object_unref);
+	results_ht = g_hash_table_new_full (g_str_hash,
+					    g_str_equal,
+					    g_free,
+					    (GDestroyNotify) g_object_unref);
+
+	/* search by using exact matches first */
+	for (guint i = 0; terms[i] != NULL; i++) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		MDB_val dval;
+
+		dval = as_cache_txn_get_value (cache, txn, priv->db_fts, terms[i], &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			lmdb_transaction_abort (txn);
+			return NULL;
+		}
+		if (dval.mv_size <= 0)
+			continue;
+
+		if (!as_cache_update_results_with_fts_variant (cache, txn, dval, results_ht, TRUE, error)) {
+			lmdb_transaction_abort (txn);
+			return NULL;
+		}
+	}
+
+	/* if we got no results by exact matches, try partial matches (which is slower) */
+	if (g_hash_table_size (results_ht) <= 0) {
+		MDB_cursor *cur;
+		gint rc;
+		MDB_val dkey;
+		MDB_val dval;
+
+		rc = mdb_cursor_open (txn, priv->db_fts, &cur);
+		if (rc != MDB_SUCCESS) {
+			g_set_error (error,
+				     AS_CACHE_ERROR,
+				     AS_CACHE_ERROR_FAILED,
+				     "Unable to iterate cache (no cursor): %s", mdb_strerror (rc));
+			lmdb_transaction_abort (txn);
+			return NULL;
+		}
+
+		rc = mdb_cursor_get (cur, &dkey, &dval, MDB_SET_RANGE);
+		while (rc == 0) {
+			gboolean match = FALSE;
+
+			for (guint i = 0; terms[i] != NULL; i++) {
+				gsize term_len = strlen (terms[i]);
+				/* if term length is bigger than the key, it will never match.
+				 * if it is equal, we already matches it and shouldn't be here */
+				if (term_len >= dkey.mv_size)
+					continue;
+				if (strncmp (dkey.mv_data, terms[i], term_len) == 0) {
+					/* prefix match was successful */
+					match = TRUE;
+					break;
+				}
+			}
+			if (!match) {
+				rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
+				continue;
+			}
+
+			/* we got a prefix match, so add the components to our search result */
+			if (dval.mv_size <= 0)
+				continue;
+			if (!as_cache_update_results_with_fts_variant (cache, txn, dval, results_ht, FALSE, error)) {
+				mdb_cursor_close (cur);
+				lmdb_transaction_abort (txn);
+				return NULL;
+			}
+
+			rc = mdb_cursor_get(cur, &dkey, &dval, MDB_NEXT);
+		}
+		mdb_cursor_close (cur);
+	}
+
+	/* compile our result */
+	g_hash_table_iter_init (&ht_iter, results_ht);
+	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
+		g_ptr_array_add (results, g_object_ref (AS_COMPONENT (ht_value)));
+
+	/* sort the results by their priority */
+	g_ptr_array_sort (results, as_sort_components_by_score_cb);
+
+	if (results == NULL) {
+		lmdb_transaction_abort (txn);
+		return NULL;
+	} else {
+		lmdb_transaction_commit (txn, NULL);
+		return g_steal_pointer (&results);
 	}
 }
 
