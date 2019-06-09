@@ -539,7 +539,7 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
  * as_xmldata_parse_document:
  */
 xmlDoc*
-as_xml_parse_document (const gchar *data, GError **error)
+as_xml_parse_document (const gchar *data, gssize len, GError **error)
 {
 	xmlDoc *doc;
 	xmlNode *root;
@@ -550,8 +550,11 @@ as_xml_parse_document (const gchar *data, GError **error)
 		return NULL;
 	}
 
+	if (len < 0)
+		len = strlen (data);
+
 	as_xml_set_out_of_context_error (&error_msg_str);
-	doc = xmlReadMemory (data, strlen (data),
+	doc = xmlReadMemory (data, len,
 			     NULL,
 			     "utf-8",
 			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);

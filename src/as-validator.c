@@ -1653,7 +1653,7 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata)
 	xmlDoc *doc;
 	g_autoptr(GError) error = NULL;
 
-	doc = as_xml_parse_document (xmldata, &error);
+	doc = as_xml_parse_document (xmldata, -1, &error);
 	if (doc == NULL) {
 		if (error != NULL) {
 			as_validator_add_issue (validator, NULL,

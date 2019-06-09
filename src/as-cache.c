@@ -39,6 +39,7 @@
 #include "as-utils-private.h"
 #include "as-context.h"
 #include "as-component-private.h"
+#include "as-launchable.h"
 
 /*
  * The maximum size of the cache file (512MiB).
@@ -191,7 +192,7 @@ inline static MDB_val
 lmdb_str_to_dbval (const gchar *data)
 {
 	MDB_val val;
-	val.mv_size = sizeof(gchar*) * strlen (data);
+	val.mv_size = sizeof(gchar) * strlen (data);
 	val.mv_data = (void*) data;
 	return val;
 }
@@ -278,6 +279,9 @@ as_cache_txn_get_value (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *
 	gint rc;
 
 	dval.mv_size = 0;
+	if ((key == NULL) || (key[0] == '\0'))
+		return dval;
+
         dkey = lmdb_str_to_dbval (key);
 	rc = mdb_cursor_open (txn, dbi, &cur);
         if (rc != MDB_SUCCESS) {
@@ -324,6 +328,7 @@ as_cache_get_value (AsCache *cache, MDB_dbi dbi, const gchar *key, GError **erro
 	data = as_cache_txn_get_value (cache, txn, dbi, key, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
 		return data;
 	}
 
@@ -590,6 +595,26 @@ as_cache_close (AsCache *cache)
 }
 
 /**
+ * as_str_check_append:
+ *
+ * Helper function for as_cache_insert()
+ */
+static gchar*
+as_str_check_append (const gchar *setstr, const gchar *value)
+{
+	g_autofree gchar *new_list = NULL;
+
+	/* if the given value is already contained, don't do anything */
+	if ((setstr != NULL) && (g_strstr_len (setstr, -1, value) != NULL))
+		return NULL;
+
+	if (setstr == NULL)
+		return g_strdup (value);
+	else
+		return g_strconcat (setstr, value, NULL);
+}
+
+/**
  * as_cache_insert:
  * @cache: An instance of #AsCache.
  * @cpt: The #AsComponent to insert.
@@ -607,11 +632,16 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 	MDB_txn *txn = NULL;
 	g_autofree gchar *xml_data = NULL;
 	g_autofree gchar *cpt_checksum = NULL;
+	g_autofree gchar *cpt_checksum_nl = NULL;
 	GError *tmp_error = NULL;
 
 	GHashTable *token_cache;
 	GHashTableIter tc_iter;
 	gpointer tc_key, tc_value;
+
+	GPtrArray *categories;
+	GPtrArray *launchables;
+	GPtrArray *provides;
 
 	if (!as_cache_check_opened (cache, error))
 		return FALSE;
@@ -625,6 +655,8 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 	cpt_checksum = g_compute_checksum_for_string (G_CHECKSUM_MD5,
 						      as_component_get_data_id (cpt),
 						      -1);
+	cpt_checksum_nl = g_strconcat (cpt_checksum, "\n", NULL);
+
 	if (!as_cache_txn_put_kv_str (cache,
 				  txn,
 				  priv->db_cpts,
@@ -686,10 +718,246 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 		}
 	}
 
+	/* register this component with the CID mapping */
+	{
+		g_autofree gchar *existing_db_cids = NULL;
+		g_autofree gchar *new_list = NULL;
+		existing_db_cids = lmdb_val_strdup (as_cache_txn_get_value (cache,
+									txn,
+									priv->db_cids,
+									as_component_get_id (cpt),
+									&tmp_error));
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			goto fail;
+		}
+
+		new_list = as_str_check_append (existing_db_cids, cpt_checksum_nl);
+		if (new_list != NULL) {
+			/* our checksum was not in the list yet, so add it */
+			if (!as_cache_txn_put_kv_str (cache,
+							txn,
+							priv->db_cids,
+							as_component_get_id (cpt),
+							new_list,
+							error)) {
+				goto fail;
+			}
+		}
+	}
+
+	/* add category mapping */
+	categories = as_component_get_categories (cpt);
+	for (uint i = 0; i < categories->len; i++) {
+		g_autofree gchar *ecpt_str = NULL;
+		g_autofree gchar *new_list = NULL;
+		const gchar *category = (const gchar*) g_ptr_array_index (categories, i);
+
+		ecpt_str = lmdb_val_strdup (as_cache_txn_get_value (cache,
+								    txn,
+								    priv->db_cats,
+								    category,
+								    &tmp_error));
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			goto fail;
+		}
+
+		new_list = as_str_check_append (ecpt_str, cpt_checksum_nl);
+		if (new_list != NULL) {
+			/* this component was not yet registered with the category */
+			if (!as_cache_txn_put_kv_str (cache,
+							txn,
+							priv->db_cats,
+							category,
+							new_list,
+							error)) {
+				goto fail;
+			}
+		}
+	}
+
+	/* add launchables mapping */
+	launchables = as_component_get_launchables (cpt);
+	for (uint i = 0; i < launchables->len; i++) {
+		GPtrArray *entries;
+		AsLaunchable *launchable = AS_LAUNCHABLE (g_ptr_array_index (launchables, i));
+
+		entries = as_launchable_get_entries (launchable);
+		for (uint j = 0; j < entries->len; j++) {
+			g_autofree gchar *tmp = NULL;
+			g_autofree gchar *entry_checksum = NULL;
+			g_autofree gchar *ecpt_str = NULL;
+			g_autofree gchar *new_list = NULL;
+			const gchar *entry = (const gchar*) g_ptr_array_index (entries, j);
+
+			tmp = g_strconcat (as_launchable_kind_to_string (as_launchable_get_kind (launchable)), entry, NULL);
+			entry_checksum = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, -1);
+
+			ecpt_str = lmdb_val_strdup (as_cache_txn_get_value (cache,
+									txn,
+									priv->db_launchables,
+									entry_checksum,
+									&tmp_error));
+			if (tmp_error != NULL) {
+				g_propagate_error (error, tmp_error);
+				goto fail;
+			}
+
+			new_list = as_str_check_append (ecpt_str, cpt_checksum_nl);
+			if (new_list != NULL) {
+				/* add component checksum to launchable list */
+				if (!as_cache_txn_put_kv_str (cache,
+								txn,
+								priv->db_launchables,
+								entry_checksum,
+								new_list,
+								error)) {
+					goto fail;
+				}
+			}
+		}
+	}
+
+	/* add provides mapping */
+	provides = as_component_get_provided (cpt);
+	for (uint i = 0; i < provides->len; i++) {
+		GPtrArray *items;
+		AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provides, i));
+
+		items = as_provided_get_items (prov);
+		for (uint j = 0; j < items->len; j++) {
+			g_autofree gchar *tmp = NULL;
+			g_autofree gchar *item_checksum = NULL;
+			g_autofree gchar *ecpt_str = NULL;
+			g_autofree gchar *new_list = NULL;
+			const gchar *item = (const gchar*) g_ptr_array_index (items, j);
+
+			tmp = g_strconcat (as_provided_kind_to_string (as_provided_get_kind (prov)), item, NULL);
+			item_checksum = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, -1);
+
+			ecpt_str = lmdb_val_strdup (as_cache_txn_get_value (cache,
+									txn,
+									priv->db_provides,
+									item_checksum,
+									&tmp_error));
+			if (tmp_error != NULL) {
+				g_propagate_error (error, tmp_error);
+				goto fail;
+			}
+
+			new_list = as_str_check_append (ecpt_str, cpt_checksum_nl);
+			if (new_list != NULL) {
+				/* add component checksum to launchable list */
+				if (!as_cache_txn_put_kv_str (cache,
+								txn,
+								priv->db_provides,
+								item_checksum,
+								new_list,
+								error)) {
+					goto fail;
+				}
+			}
+		}
+	}
+
 	return lmdb_transaction_commit (txn, error);
 fail:
 	lmdb_transaction_abort (txn);
 	return FALSE;
+}
+
+/**
+ * as_cache_component_by_hash:
+ *
+ * Retrieve a component using its internal hash.
+ */
+static AsComponent*
+as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_val dval;
+	g_autoptr(AsComponent) cpt = NULL;
+	GError *tmp_error = NULL;
+	xmlDoc *doc;
+	xmlNode *root;
+
+	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return NULL;
+	}
+
+	if (dval.mv_size <= 0)
+		return NULL;
+
+	doc = as_xml_parse_document (dval.mv_data, dval.mv_size, error);
+	if (doc == NULL)
+		return NULL;
+	root = xmlDocGetRootElement (doc);
+
+	cpt = as_component_new ();
+	if (!as_component_load_from_xml (cpt, priv->context, root, error)) {
+		xmlFreeDoc (doc);
+		return NULL;
+	}
+
+	xmlFreeDoc (doc);
+	return g_steal_pointer (&cpt);
+}
+
+/**
+ * as_cache_get_component_by_cid:
+ * @id: The component ID to search for.
+ * @error: A #GError or %NULL.
+ *
+ * Retrieve component with the selected ID.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+GPtrArray*
+as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	GError *tmp_error = NULL;
+	g_autofree gchar *data = NULL;
+	g_auto(GStrv) strv = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	data = lmdb_val_strdup (as_cache_txn_get_value (cache, txn, priv->db_cids, id, &tmp_error));
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+
+	result = g_ptr_array_new_with_free_func (g_object_unref);
+	if (data == NULL)
+		goto out;
+
+	strv = g_strsplit (data, "\n", -1);
+	for (uint i = 0; strv[i] != NULL; i++) {
+		AsComponent *cpt;
+		if (strv[i][0] == '\0')
+			continue;
+
+		cpt = as_cache_component_by_hash (cache, txn, strv[i], &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
+			lmdb_transaction_abort (txn);
+			return NULL;
+		}
+		if (cpt != NULL)
+			g_ptr_array_add (result, cpt);
+	}
+out:
+	lmdb_transaction_commit (txn, NULL);
+	return g_steal_pointer (&result);
 }
 
 /**

@@ -482,7 +482,7 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 		xmlDoc *doc;
 		xmlNode *root;
 
-		doc = as_xml_parse_document (data, error);
+		doc = as_xml_parse_document (data, -1, error);
 		if (doc == NULL)
 			return;
 		root = xmlDocGetRootElement (doc);

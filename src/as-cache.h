@@ -77,6 +77,10 @@ gboolean	as_cache_insert (AsCache *cache,
 				 gboolean replace,
 				 GError **error);
 
+GPtrArray	*as_cache_get_components_by_id (AsCache *cache,
+						const gchar *id,
+						GError **error);
+
 G_END_DECLS
 
 #endif /* __AS_CACHE_H */

@@ -77,6 +77,7 @@ xmlNode		*as_xml_add_text_node (xmlNode *root,
 					const gchar *value);
 
 xmlDoc		*as_xml_parse_document (const gchar *data,
+					gssize len,
 					GError **error);
 
 gchar		*as_xml_node_to_str (xmlNode *root, GError **error);
