@@ -105,6 +105,9 @@ typedef enum {
 	AS_TAG_REQUIRES,
 	AS_TAG_AGREEMENT,
 
+	AS_TAG_INTERNAL_SCOPE,
+	AS_TAG_INTERNAL_ORIGIN,
+
 	/*< private >*/
 	AS_TAG_LAST
 } AsTag;

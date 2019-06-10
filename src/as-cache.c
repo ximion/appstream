@@ -78,6 +78,11 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_cache_get_instance_private (o))
 
+static gboolean as_cache_register_addons_for_component (AsCache *cache,
+							MDB_txn *txn,
+							AsComponent *cpt,
+							GError **error);
+
 /**
  * as_cache_init:
  **/
@@ -93,6 +98,7 @@ as_cache_init (AsCache *cache)
 	priv->context = as_context_new ();
 	as_context_set_locale (priv->context, priv->locale);
 	as_context_set_style (priv->context, AS_FORMAT_STYLE_COLLECTION);
+	as_context_set_internal_mode (priv->context, TRUE); /* we need to write some special tags only used in the cache */
 
 	priv->floating = FALSE;
 
@@ -280,7 +286,7 @@ as_cache_txn_put_kv (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key
  *
  * Add key/value pair to the database
  */
-inline static gboolean
+static gboolean
 as_cache_txn_put_kv_str (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key, const gchar *value, GError **error)
 {
 	MDB_val dvalue;
@@ -336,7 +342,7 @@ as_cache_put_kv (AsCache *cache, MDB_dbi dbi, const gchar *key, const gchar *val
 /**
  * as_cache_txn_get_value:
  */
-inline static MDB_val
+static MDB_val
 as_cache_txn_get_value (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
@@ -755,6 +761,26 @@ as_str_check_append (const gchar *setstr, const gchar *value)
 }
 
 /**
+ * as_match_val_check_append:
+ *
+ * Helper function for as_cache_insert() FTS
+ */
+static gchar*
+as_match_val_check_append (const gchar *setstr, const gchar *value, guint8 pval)
+{
+	g_autofree gchar *new_list = NULL;
+
+	/* if the given component hash is already contained, don't do anything */
+	if ((setstr != NULL) && (g_strstr_len (setstr, -1, value) != NULL))
+		return NULL;
+
+	if (setstr == NULL)
+		return g_strdup_printf ("%u\n%s", pval, value);
+	else
+		return g_strdup_printf ("%s%u\n%s", setstr, pval, value);
+}
+
+/**
  * as_cache_insert:
  * @cache: An instance of #AsCache.
  * @cpt: The #AsComponent to insert.
@@ -781,6 +807,7 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 	GPtrArray *categories;
 	GPtrArray *launchables;
 	GPtrArray *provides;
+	GPtrArray *extends;
 
 	static GMutex mutex;
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&mutex);
@@ -827,9 +854,10 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 		g_autoptr(GPtrArray) entries = NULL;
 		g_autoptr(GVariant) nvar = NULL;
 		g_autofree gpointer entry_data = NULL;
+		g_autofree gchar *match_list = NULL;
+		g_autofree gchar *match_list_new = NULL;
 		const gchar *token_str;
 		AsTokenType *match_pval;
-		MDB_val dval;
 
 		/* we ignore tokens which are too long to be database keys */
 		token_str = (const gchar*) tc_key;
@@ -839,53 +867,27 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 		}
 
 		match_pval = (AsTokenType *) tc_value;
-		dval = as_cache_txn_get_value (cache, txn, priv->db_fts, token_str, &tmp_error);
+		match_list = lmdb_val_strdup (as_cache_txn_get_value (cache,
+									txn,
+									priv->db_fts,
+									token_str,
+									&tmp_error));
 		if (tmp_error != NULL) {
 			g_propagate_error (error, tmp_error);
 			goto fail;
 		}
 
-		entries = g_ptr_array_new_with_free_func ((GDestroyNotify) g_variant_unref);
-		if (dval.mv_size > 0) {
-			g_autoptr(GVariant) var = NULL;
-			GVariantIter iter;
-			GVariant *v_entry;
-
-			/* GVariant doesn't like the mmap, so we need to copy the data here. This should be fixed in GLib >= 2.60 */
-			entry_data = g_memdup (dval.mv_data, dval.mv_size);
-			var = g_variant_new_from_data (G_VARIANT_TYPE ("a{sq}"),
-							entry_data,
-							dval.mv_size,
-							TRUE, /* trusted */
-							NULL,
-							NULL);
-
-			g_variant_iter_init (&iter, var);
-			while ((v_entry = g_variant_iter_next_value (&iter)))
-				/* the array takes ownership of the value here */
-				g_ptr_array_add (entries, v_entry);
-		}
-
-		/* create new value and have the array take ownership */
-		g_ptr_array_add (entries,
-				 g_variant_ref_sink (g_variant_new_dict_entry (g_variant_new_string (cpt_checksum),
-										g_variant_new_uint16 (*match_pval))));
-
-		nvar = g_variant_new_array (G_VARIANT_TYPE ("{sq}"),
-					    (GVariant *const *)entries->pdata,
-					    entries->len);
-
-		MDB_val ndval;
-		ndval.mv_size = g_variant_get_size (nvar);
-		ndval.mv_data = (void*) g_variant_get_data (nvar);
-
-		if (!as_cache_txn_put_kv (cache,
-					  txn,
-					  priv->db_fts,
-					  token_str,
-					  ndval,
-					  error)) {
-			goto fail;
+		match_list_new = as_match_val_check_append (match_list, cpt_checksum_nl, *match_pval);
+		if (match_list_new != NULL) {
+			/* our checksum was not in the list yet, so add it */
+			if (!as_cache_txn_put_kv_str (cache,
+							txn,
+							priv->db_fts,
+							token_str,
+							match_list_new,
+							error)) {
+				goto fail;
+			}
 		}
 	}
 
@@ -1056,6 +1058,45 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 		}
 	}
 
+	/* add addon/extension mapping */
+	extends = as_component_get_extends (cpt);
+	if ((extends != NULL) && (extends->len > 0)) {
+		for (guint i = 0; i < extends->len; i++) {
+			g_autofree gchar *extended_cdid = NULL;
+			g_autofree gchar *db_cids = NULL;
+			g_autofree gchar *hash_list_new = NULL;
+			const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
+
+			extended_cdid = as_utils_build_data_id (as_component_get_scope (cpt),
+								as_component_get_origin (cpt),
+								as_utils_get_component_bundle_kind (cpt),
+								extended_cid);
+
+			db_cids = lmdb_val_strdup (as_cache_txn_get_value (cache,
+									   txn,
+									   priv->db_addons,
+									   extended_cdid,
+									   &tmp_error));
+			if (tmp_error != NULL) {
+				g_propagate_error (error, tmp_error);
+				goto fail;
+			}
+
+			hash_list_new = as_str_check_append (db_cids, cpt_checksum_nl);
+			if (hash_list_new != NULL) {
+				/* our checksum was not in the addon list yet, so add it */
+				if (!as_cache_txn_put_kv_str (cache,
+								txn,
+								priv->db_addons,
+								extended_cdid,
+								hash_list_new,
+								error)) {
+					goto fail;
+				}
+			}
+		}
+	}
+
 	return lmdb_transaction_commit (txn, error);
 fail:
 	lmdb_transaction_abort (txn);
@@ -1127,7 +1168,7 @@ fail:
  * Get component from database entry.
  */
 static inline AsComponent*
-as_cache_component_from_dval (AsCache *cache, MDB_val dval, GError **error)
+as_cache_component_from_dval (AsCache *cache, MDB_txn *txn, MDB_val dval, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autoptr(AsComponent) cpt = NULL;
@@ -1148,8 +1189,109 @@ as_cache_component_from_dval (AsCache *cache, MDB_val dval, GError **error)
 		return NULL;
 	}
 
+	/* find addons (if there are any) */
+	if (!as_cache_register_addons_for_component (cache, txn, cpt, error)) {
+		xmlFreeDoc (doc);
+		return NULL;
+	}
+
 	xmlFreeDoc (doc);
 	return g_steal_pointer (&cpt);
+}
+
+/**
+ * as_cache_component_by_hash:
+ *
+ * Retrieve a component using its internal hash.
+ */
+static AsComponent*
+as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_val dval;
+	g_autoptr(AsComponent) cpt = NULL;
+	GError *tmp_error = NULL;
+
+	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return NULL;
+	}
+	if (dval.mv_size <= 0)
+		return NULL;
+
+	cpt = as_cache_component_from_dval (cache, txn, dval, error);
+	if (cpt == NULL)
+		return NULL; /* error */
+
+	return g_steal_pointer (&cpt);
+}
+
+/**
+ * as_cache_components_by_hash_list:
+ *
+ * Retrieve components using an internal hash list.
+ */
+static GPtrArray*
+as_cache_components_by_hash_list (AsCache *cache, MDB_txn *txn, const gchar *hash_list_str, GError **error)
+{
+	g_autoptr(GPtrArray) result = NULL;
+	g_auto(GStrv) strv = NULL;
+	GError *tmp_error = NULL;
+
+	result = g_ptr_array_new_with_free_func (g_object_unref);
+	if (hash_list_str == NULL)
+		goto out;
+
+	strv = g_strsplit (hash_list_str, "\n", -1);
+	for (guint i = 0; strv[i] != NULL; i++) {
+		AsComponent *cpt;
+		if (strv[i][0] == '\0')
+			continue;
+
+		cpt = as_cache_component_by_hash (cache, txn, strv[i], &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
+			return NULL;
+		}
+		if (cpt != NULL)
+			g_ptr_array_add (result, cpt);
+	}
+
+out:
+	return g_steal_pointer (&result);
+}
+
+/**
+ * as_cache_register_addons_for_component:
+ *
+ * Associate available addons with this component.
+ */
+static gboolean
+as_cache_register_addons_for_component (AsCache *cache, MDB_txn *txn, AsComponent *cpt, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autofree gchar *hash_list_str = NULL;
+	g_autoptr(GPtrArray) addons = NULL;
+	GError *tmp_error = NULL;
+
+	hash_list_str = lmdb_val_strdup (as_cache_txn_get_value (cache,
+								 txn,
+								 priv->db_addons,
+								 as_component_get_data_id (cpt),
+								 &tmp_error));
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+	if (hash_list_str == NULL)
+		return TRUE;
+
+	addons = as_cache_components_by_hash_list (cache, txn, hash_list_str, &tmp_error);
+	for (guint i = 0; i < addons->len; i++)
+		as_component_add_addon (cpt, AS_COMPONENT (g_ptr_array_index (addons, i)));
+
+	return TRUE;
 }
 
 /**
@@ -1197,7 +1339,7 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 		if (dval.mv_size <= 0)
 			continue;
 
-		cpt = as_cache_component_from_dval (cache, dval, error);
+		cpt = as_cache_component_from_dval (cache, txn, dval, error);
 		if (cpt == NULL)
 			return NULL; /* error */
 		g_ptr_array_add (results, cpt);
@@ -1208,69 +1350,6 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 
 	lmdb_transaction_commit (txn, NULL);
 	return g_steal_pointer (&results);
-}
-
-/**
- * as_cache_component_by_hash:
- *
- * Retrieve a component using its internal hash.
- */
-static AsComponent*
-as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash, GError **error)
-{
-	AsCachePrivate *priv = GET_PRIVATE (cache);
-	MDB_val dval;
-	g_autoptr(AsComponent) cpt = NULL;
-	GError *tmp_error = NULL;
-
-	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
-	if (tmp_error != NULL) {
-		g_propagate_error (error, tmp_error);
-		return NULL;
-	}
-	if (dval.mv_size <= 0)
-		return NULL;
-
-	cpt = as_cache_component_from_dval (cache, dval, error);
-	if (cpt == NULL)
-		return NULL; /* error */
-
-	return g_steal_pointer (&cpt);
-}
-
-/**
- * as_cache_components_by_hash_list:
- *
- * Retrieve components using an internal hash list.
- */
-static GPtrArray*
-as_cache_components_by_hash_list (AsCache *cache, MDB_txn *txn, const gchar *hash_list_str, GError **error)
-{
-	g_autoptr(GPtrArray) result = NULL;
-	g_auto(GStrv) strv = NULL;
-	GError *tmp_error = NULL;
-
-	result = g_ptr_array_new_with_free_func (g_object_unref);
-	if (hash_list_str == NULL)
-		goto out;
-
-	strv = g_strsplit (hash_list_str, "\n", -1);
-	for (guint i = 0; strv[i] != NULL; i++) {
-		AsComponent *cpt;
-		if (strv[i][0] == '\0')
-			continue;
-
-		cpt = as_cache_component_by_hash (cache, txn, strv[i], &tmp_error);
-		if (tmp_error != NULL) {
-			g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve component data: ");
-			return NULL;
-		}
-		if (cpt != NULL)
-			g_ptr_array_add (result, cpt);
-	}
-
-out:
-	return g_steal_pointer (&result);
 }
 
 /**
@@ -1352,6 +1431,7 @@ as_cache_get_component_by_data_id (AsCache *cache, const gchar *cdid, GError **e
 	MDB_txn *txn;
 	MDB_val dval;
 	GError *tmp_error = NULL;
+	g_autofree gchar *cpt_hash = NULL;
 	AsComponent *cpt;
 
 	if (!as_cache_check_opened (cache, TRUE, error))
@@ -1367,13 +1447,14 @@ as_cache_get_component_by_data_id (AsCache *cache, const gchar *cdid, GError **e
 	if (txn == NULL)
 		return NULL;
 
-	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cdid, &tmp_error);
+	cpt_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, cdid, -1);
+	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		lmdb_transaction_abort (txn);
 		return NULL;
 	}
-	cpt = as_cache_component_from_dval (cache, dval, error);
+	cpt = as_cache_component_from_dval (cache, txn, dval, error);
 	if (cpt == NULL)
 		return NULL; /* error */
 
@@ -1575,39 +1656,50 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 }
 
 /**
- * as_cache_update_results_with_fts_variant:
+ * as_str_to_uint16:
+ *
+ * Helper for as_cache_update_results_with_fts_value()
+ */
+static inline guint16
+as_str_to_uint16 (const gchar *str)
+{
+	guint64 val = g_ascii_strtoull (str, NULL, 10);
+	if (val > UINT16_MAX)
+		return 0;
+	return (guint16) val;
+}
+
+/**
+ * as_cache_update_results_with_fts_value:
  *
  * Update results table using the full-text search scoring data from a GVariant dict
  */
 static gboolean
-as_cache_update_results_with_fts_variant (AsCache *cache, MDB_txn *txn, MDB_val var_dbval, GHashTable *results_ht, gboolean exact_match, GError **error)
+as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dval, GHashTable *results_ht, gboolean exact_match, GError **error)
 {
 	GError *tmp_error = NULL;
-	g_autofree void *entry_data = NULL;
-	g_autoptr(GVariant) var = NULL;
-	GVariantIter iter;
-	GVariant *v_entry;
+	g_autofree gchar *entry_data = NULL;
+	g_auto(GStrv) entries = NULL;
 
-	/* GVariant doesn't like the mmap alignment, so we need to copy the data here. GLib >= 2.60 resolves this */
-	entry_data = g_memdup (var_dbval.mv_data, var_dbval.mv_size);
-	var = g_variant_new_from_data (G_VARIANT_TYPE_VARDICT,
-					entry_data,
-					var_dbval.mv_size,
-					TRUE, /* trusted */
-					NULL,
-					NULL);
+	entry_data = lmdb_val_strdup (dval);
+	if (entry_data == NULL)
+		return TRUE;
 
-	g_variant_iter_init (&iter, var);
-	while ((v_entry = g_variant_iter_next_value (&iter))) {
-		AsTokenType match_pval;
+	entries = g_strsplit (entry_data, "\n", -1);
+
+	for (guint i = 0; entries[i] != NULL; i++) {
 		guint sort_score;
-		g_autofree gchar *cpt_hash = NULL;
 		AsComponent *cpt;
+		const gchar *cpt_hash;
+		AsTokenType match_pval;
 
-		/* unpack variant */
-		g_variant_get (v_entry, "{sq}", &cpt_hash, &match_pval);
+		if ((i % 2) == 0)
+			continue;
 
-		/* retrieve component woth this hash */
+		cpt_hash = entries[i];
+		match_pval = as_str_to_uint16 (entries[i - 1]);
+
+		/* retrieve component with this hash */
 		cpt = g_hash_table_lookup (results_ht, cpt_hash);
 		if (cpt == NULL) {
 			cpt = as_cache_component_by_hash (cache, txn, cpt_hash, &tmp_error);
@@ -1635,8 +1727,6 @@ as_cache_update_results_with_fts_variant (AsCache *cache, MDB_txn *txn, MDB_val 
 				sort_score |= match_pval;
 			as_component_set_sort_score (cpt, sort_score);
 		}
-
-		g_variant_unref (v_entry);
 	}
 
 	return TRUE;
@@ -1713,7 +1803,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		if (dval.mv_size <= 0)
 			continue;
 
-		if (!as_cache_update_results_with_fts_variant (cache, txn, dval, results_ht, TRUE, error)) {
+		if (!as_cache_update_results_with_fts_value (cache, txn, dval, results_ht, TRUE, error)) {
 			lmdb_transaction_abort (txn);
 			return NULL;
 		}
@@ -1760,7 +1850,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 			/* we got a prefix match, so add the components to our search result */
 			if (dval.mv_size <= 0)
 				continue;
-			if (!as_cache_update_results_with_fts_variant (cache, txn, dval, results_ht, FALSE, error)) {
+			if (!as_cache_update_results_with_fts_value (cache, txn, dval, results_ht, FALSE, error)) {
 				mdb_cursor_close (cur);
 				lmdb_transaction_abort (txn);
 				return NULL;
@@ -1908,19 +1998,6 @@ as_cache_is_open (AsCache *cache)
 	return priv->opened;
 }
 
-static void
-as_cache_thread_pool_insert_cpt_cb (gpointer data, gpointer user_data)
-{
-	AsCache *cache = AS_CACHE (user_data);
-	AsComponent *cpt = AS_COMPONENT (data);
-	GError *tmp_error = NULL;
-
-	if (!as_cache_insert (cache, cpt, &tmp_error)) {
-		g_warning ("Unable to add component to cache: %s", tmp_error->message);
-		g_error_free (tmp_error);
-	}
-}
-
 /**
  * as_cache_set_floating:
  * @cache: An instance of #AsCache.
@@ -1934,9 +2011,6 @@ as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	GHashTableIter iter;
 	gpointer ht_value;
-
-	GThreadPool *tpool;
-	GError *tmp_error = NULL;
 
 	if (!priv->floating && !floating)
 		return TRUE;
@@ -1956,30 +2030,11 @@ as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
 
 	priv->floating = floating;
 
-	tpool = g_thread_pool_new (as_cache_thread_pool_insert_cpt_cb,
-				   cache,
-				   4, /* limit number of threads to 4 for now */
-				   FALSE,
-				   &tmp_error);
-	if (tmp_error != NULL) {
-		g_propagate_error (error, tmp_error);
-		g_thread_pool_free (tpool, TRUE, FALSE);
-		return FALSE;
-	}
-
 	g_hash_table_iter_init (&iter, priv->cpt_map);
 	while (g_hash_table_iter_next (&iter, NULL, &ht_value)) {
-		if (!as_cache_insert (cache, AS_COMPONENT (ht_value), error)) {
-			g_thread_pool_free (tpool, TRUE, FALSE);
+		if (!as_cache_insert (cache, AS_COMPONENT (ht_value), error))
 			return FALSE;
-		}
-		/* FIXME:
-		 * if (!g_thread_pool_push (tpool, AS_COMPONENT (ht_value), error))
-			return FALSE;
-			*/
 	}
-
-	g_thread_pool_free (tpool, FALSE, TRUE);
 
 	g_hash_table_remove_all (priv->cid_set);
 	g_hash_table_remove_all (priv->cpt_map);

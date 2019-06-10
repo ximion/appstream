@@ -44,6 +44,7 @@ typedef struct
 	gchar			*fname;
 	gint 			priority;
 
+	gboolean		internal_mode;
 	gboolean		all_locale;
 } AsContextPrivate;
 
@@ -75,6 +76,7 @@ as_context_init (AsContext *ctx)
 	priv->style = AS_FORMAT_STYLE_UNKNOWN;
 	priv->fname = g_strdup (":memory");
 	priv->priority = 0;
+	priv->internal_mode = FALSE;
 }
 
 static void
@@ -336,6 +338,35 @@ as_context_set_filename (AsContext *ctx, const gchar *fname)
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	g_free (priv->fname);
 	priv->fname = g_strdup (fname);
+}
+
+/**
+ * as_context_get_internal_mode:
+ * @ctx: a #AsContext instance.
+ *
+ * Returns: %TRUE if internal-mode XML is generated.
+ **/
+gboolean
+as_context_get_internal_mode (AsContext *ctx)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	return priv->internal_mode;
+}
+
+/**
+ * as_context_set_format_version:
+ * @ctx: a #AsContext instance.
+ * @enabled: %TRUE if enabled.
+ *
+ * In internal mode, serializers will generate
+ * a bit of additional XML used internally by AppStream
+ * (e.g. for database serialization).
+ **/
+void
+as_context_set_internal_mode (AsContext *ctx, gboolean enabled)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	priv->internal_mode = enabled;
 }
 
 /**

@@ -82,6 +82,10 @@ const gchar		*as_context_get_filename (AsContext *ctx);
 void			as_context_set_filename (AsContext *ctx,
 					       const gchar *fname);
 
+gboolean		as_context_get_internal_mode (AsContext *ctx);
+void			as_context_set_internal_mode (AsContext *ctx,
+						      gboolean enabled);
+
 G_END_DECLS
 
 #endif /* __AS_CONTEXT_H */

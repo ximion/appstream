@@ -3719,6 +3719,14 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			g_autoptr(AsAgreement) agreement = as_agreement_new ();
 			if (as_agreement_load_from_xml (agreement, ctx, iter, NULL))
 				as_component_add_agreement (cpt, agreement);
+		} else if (as_context_get_internal_mode (ctx)) {
+			/* internal information */
+
+			if (tag_id == AS_TAG_INTERNAL_SCOPE) {
+				priv->scope = as_component_scope_from_string (content);
+			} else if (tag_id == AS_TAG_INTERNAL_ORIGIN) {
+				as_component_set_origin (cpt, content);
+			}
 		}
 	}
 
@@ -4137,6 +4145,14 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* custom node */
 	as_component_xml_serialize_custom (cpt, cnode);
+
+	/* internal information */
+	if (as_context_get_internal_mode (ctx)) {
+		if (priv->scope != AS_COMPONENT_SCOPE_UNKNOWN)
+			as_xml_add_text_node (cnode, "__asi_scope", as_component_scope_to_string (priv->scope));
+		if (priv->origin != NULL)
+			as_xml_add_text_node (cnode, "__asi_origin", priv->origin);
+	}
 
 	return cnode;
 }
