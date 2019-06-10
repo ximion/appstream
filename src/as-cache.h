@@ -50,6 +50,8 @@ struct _AsCacheClass
  * @AS_CACHE_ERROR_FAILED:		Generic failure
  * @AS_CACHE_ERROR_NOT_OPEN:		Cache was not open.
  * @AS_CACHE_ERROR_WRONG_FORMAT:	Cache has an unsupported format version.
+ * @AS_CACHE_ERROR_LOCALE_MISMATCH:	Cache locale was different from the expected one.
+ * @AS_CACHE_ERROR_FLOATING:		The given action can not be performed on a floating cache.
  *
  * A metadata pool error.
  **/
@@ -57,6 +59,8 @@ typedef enum {
 	AS_CACHE_ERROR_FAILED,
 	AS_CACHE_ERROR_NOT_OPEN,
 	AS_CACHE_ERROR_WRONG_FORMAT,
+	AS_CACHE_ERROR_LOCALE_MISMATCH,
+	AS_CACHE_ERROR_FLOATING,
 	/*< private >*/
 	AS_CACHE_ERROR_LAST
 } AsCacheError;
@@ -74,16 +78,24 @@ gboolean	as_cache_close (AsCache *cache);
 
 gboolean	as_cache_insert (AsCache *cache,
 				 AsComponent *cpt,
-				 gboolean replace,
 				 GError **error);
 
+gboolean	as_cache_remove_by_data_id (AsCache *cache,
+					    const gchar *cdid,
+					    GError **error);
+
+GPtrArray	*as_cache_get_components_all (AsCache *cache,
+						GError **error);
 GPtrArray	*as_cache_get_components_by_id (AsCache *cache,
 						const gchar *id,
 						GError **error);
+AsComponent	*as_cache_get_component_by_data_id (AsCache *cache,
+						    const gchar *cdid,
+						    GError **error);
+
 GPtrArray	*as_cache_get_components_by_kind (AsCache *cache,
 						  AsComponentKind kind,
 						  GError **error);
-
 GPtrArray	*as_cache_get_components_by_provided_item (AsCache *cache,
 							  AsProvidedKind kind,
 							  const gchar *item,
@@ -98,7 +110,21 @@ GPtrArray	*as_cache_get_components_by_launchable (AsCache *cache,
 
 GPtrArray	*as_cache_search (AsCache *cache,
 				  gchar **terms,
+				  gboolean sort,
 				  GError **error);
+
+gboolean	as_cache_has_component_id (AsCache *cache,
+						const gchar *id,
+						GError **error);
+gsize		as_cache_count_components (AsCache *cache,
+						GError **error);
+
+time_t		as_cache_get_ctime (AsCache *cache);
+gboolean	as_cache_is_open (AsCache *cache);
+
+gboolean	as_cache_set_floating (AsCache *cache,
+					gboolean floating,
+					GError **error);
 
 G_END_DECLS
 

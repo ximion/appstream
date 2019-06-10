@@ -60,12 +60,17 @@ typedef struct
 	MDB_dbi db_launchables;
 	MDB_dbi db_provides;
 	MDB_dbi db_kinds;
+	gchar *fname;
 	gchar *volatile_db_fname;
 	gsize max_keysize;
 	gboolean opened;
 
 	AsContext *context;
 	gchar *locale;
+
+	gboolean floating;
+	GHashTable *cpt_map;
+	GHashTable *cid_set;
 } AsCachePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
@@ -86,6 +91,20 @@ as_cache_init (AsCache *cache)
 	priv->context = as_context_new ();
 	as_context_set_locale (priv->context, priv->locale);
 	as_context_set_style (priv->context, AS_FORMAT_STYLE_COLLECTION);
+
+	priv->floating = FALSE;
+
+	/* stores known components in-memory for faster access */
+	priv->cpt_map = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
+						g_free,
+						(GDestroyNotify) g_object_unref);
+
+	/* set which stores whether we have seen a component-ID already */
+	priv->cid_set = g_hash_table_new_full (g_str_hash,
+						g_str_equal,
+						g_free,
+						NULL);
 }
 
 /**
@@ -100,6 +119,9 @@ as_cache_finalize (GObject *object)
 	g_object_unref (priv->context);
 	as_cache_close (cache);
 	g_free (priv->locale);
+
+	g_hash_table_unref (priv->cpt_map);
+	g_hash_table_unref (priv->cid_set);
 
 	G_OBJECT_CLASS (as_cache_parent_class)->finalize (object);
 }
@@ -266,11 +288,35 @@ as_cache_txn_put_kv_str (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar 
 }
 
 /**
+ * as_cache_txn_delete:
+ *
+ * Remove key from the database.
+ */
+inline static gboolean
+lmdb_txn_delete (MDB_txn *txn, MDB_dbi dbi, const gchar *key, GError **error)
+{
+	MDB_val dkey;
+	gint rc;
+        dkey = lmdb_str_to_dbval (key, -1);
+
+	rc = mdb_del (txn, dbi, &dkey, NULL);
+        if ((rc != MDB_NOTFOUND) && (rc != MDB_SUCCESS)) {
+		g_set_error (error,
+			     AS_CACHE_ERROR,
+			     AS_CACHE_ERROR_FAILED,
+			     "Unable to remove data: %s", mdb_strerror (rc));
+		return FALSE;
+	}
+
+	return rc != MDB_NOTFOUND;
+}
+
+/**
  * as_cache_put_kv:
  *
  * Add key/value pair to the database
  */
-inline static gboolean
+static gboolean
 as_cache_put_kv (AsCache *cache, MDB_dbi dbi, const gchar *key, const gchar *value, GError **error)
 {
 	MDB_txn *txn = as_cache_transaction_new (cache, 0, error);
@@ -366,10 +412,19 @@ as_cache_get_value (AsCache *cache, MDB_dbi dbi, const gchar *key, GError **erro
 /**
  * as_cache_check_opened:
  */
-static gboolean
-as_cache_check_opened (AsCache *cache, GError **error)
+inline static gboolean
+as_cache_check_opened (AsCache *cache, gboolean allow_floating, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+
+	if (!allow_floating && priv->floating) {
+		g_set_error (error,
+		     AS_CACHE_ERROR,
+		     AS_CACHE_ERROR_FLOATING,
+		     "Can not perform this action on a floating cache.");
+		return FALSE;
+	}
+
 	if (priv->opened)
 		return TRUE;
 
@@ -429,7 +484,6 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	GError *tmp_error = NULL;
 	gint rc;
-	g_autofree gchar *db_location = NULL;
 	const gchar *volatile_dir = NULL;
 	MDB_txn *txn = NULL;
 	MDB_dbi db_config;
@@ -472,11 +526,12 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		volatile_dir = g_get_user_runtime_dir ();
 	}
 
+	g_free (priv->fname);
 	if (volatile_dir != NULL) {
 		gint fd;
 
-		db_location = g_build_filename (volatile_dir, "appstream-cache-XXXXXX.mdb", NULL);
-		fd = g_mkstemp (db_location);
+		priv->fname = g_build_filename (volatile_dir, "appstream-cache-XXXXXX.mdb", NULL);
+		fd = g_mkstemp (priv->fname);
 		if (fd < 0) {
 			g_set_error (error,
 				AS_CACHE_ERROR,
@@ -487,14 +542,14 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 			close (fd);
 		}
 
-		priv->volatile_db_fname = g_strdup (db_location);
+		priv->volatile_db_fname = g_strdup (priv->fname);
 	} else {
-		db_location = g_strdup (fname);
+		priv->fname = g_strdup (fname);
 	}
 
-	g_debug ("Opening cache file: %s", db_location);
+	g_debug ("Opening cache file: %s", priv->fname);
 	rc = mdb_env_open (priv->db_env,
-			   db_location,
+			   priv->fname,
 			   MDB_NOSUBDIR | MDB_NOMETASYNC | MDB_NOLOCK,
 			   0755);
 	if (rc != MDB_SUCCESS) {
@@ -589,6 +644,29 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		goto fail;
 	}
 
+	g_free (priv->locale);
+	priv->locale = lmdb_val_strdup (as_cache_get_value (cache, db_config, "locale", &tmp_error));
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		goto fail;
+	}
+	if (priv->locale == NULL) {
+		/* the value was empty, we most likely have a new cache file - so set a locale for it */
+		if (!as_cache_put_kv (cache, db_config, "locale", locale, error))
+			goto fail;
+		priv->locale = g_strdup (locale);
+	} else if (g_strcmp0 (priv->locale, locale) != 0) {
+		/* we expected a different locale than this cache has - throw an error, just to be safe */
+		g_set_error (error,
+			     AS_CACHE_ERROR,
+			     AS_CACHE_ERROR_LOCALE_MISMATCH,
+			     "We expected locale '%s', but the cache was build for '%s'.", locale, priv->locale);
+		goto fail;
+	}
+
+	/* set locale for XML serialization */
+	as_context_set_locale (priv->context, priv->locale);
+
 	priv->opened = TRUE;
 	return TRUE;
 fail:
@@ -625,6 +703,8 @@ as_cache_close (AsCache *cache)
 		g_free (priv->volatile_db_fname);
 		priv->volatile_db_fname = NULL;
 	}
+	g_free (priv->fname);
+	priv->fname = NULL;
 
 	priv->opened = FALSE;
 	return TRUE;
@@ -654,7 +734,6 @@ as_str_check_append (const gchar *setstr, const gchar *value)
  * as_cache_insert:
  * @cache: An instance of #AsCache.
  * @cpt: The #AsComponent to insert.
- * @replace: Whether to replace any existing component.
  * @error: A #GError or %NULL.
  *
  * Insert a new component into the cache.
@@ -662,7 +741,7 @@ as_str_check_append (const gchar *setstr, const gchar *value)
  * Returns: %TRUE if there was no error.
  **/
 gboolean
-as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **error)
+as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_txn *txn = NULL;
@@ -679,8 +758,18 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 	GPtrArray *launchables;
 	GPtrArray *provides;
 
-	if (!as_cache_check_opened (cache, error))
+	if (!as_cache_check_opened (cache, TRUE, error))
 		return FALSE;
+
+	if (priv->floating) {
+		/* floating cache, don't really add this component yet but stage it in the internal map */
+		g_hash_table_insert (priv->cpt_map,
+				     g_strdup (as_component_get_data_id (cpt)),
+				     g_object_ref (cpt));
+		g_hash_table_add (priv->cid_set,
+				  g_strdup (as_component_get_id (cpt)));
+		return TRUE;
+	}
 
 	txn = as_cache_transaction_new (cache, 0, error);
 	if (txn == NULL)
@@ -708,11 +797,10 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 
 	g_hash_table_iter_init (&tc_iter, token_cache);
 	while (g_hash_table_iter_next (&tc_iter, &tc_key, &tc_value)) {
-		g_autoptr(GVariant) var = NULL;
+		g_autoptr(GPtrArray) entries = NULL;
 		g_autoptr(GVariant) nvar = NULL;
 		g_autofree gpointer entry_data = NULL;
 		const gchar *token_str;
-		GVariantDict dict;
 		AsTokenType *match_pval;
 		MDB_val dval;
 
@@ -730,23 +818,35 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, gboolean replace, GError **er
 			goto fail;
 		}
 
+		entries = g_ptr_array_new_with_free_func ((GDestroyNotify) g_variant_unref);
 		if (dval.mv_size > 0) {
+			g_autoptr(GVariant) var = NULL;
+			GVariantIter iter;
+			GVariant *v_entry;
+
 			/* GVariant doesn't like the mmap, so we need to copy the data here. This should be fixed in GLib >= 2.60 */
 			entry_data = g_memdup (dval.mv_data, dval.mv_size);
-			var = g_variant_new_from_data (G_VARIANT_TYPE_VARDICT,
+			var = g_variant_new_from_data (G_VARIANT_TYPE ("a{sq}"),
 							entry_data,
 							dval.mv_size,
 							TRUE, /* trusted */
 							NULL,
 							NULL);
-			g_variant_dict_init (&dict, var);
-		} else {
-			g_variant_dict_init (&dict, NULL);
+
+			g_variant_iter_init (&iter, var);
+			while ((v_entry = g_variant_iter_next_value (&iter)))
+				/* the array takes ownership of the value here */
+				g_ptr_array_add (entries, v_entry);
 		}
 
-		g_variant_dict_insert (&dict, cpt_checksum, "q", *match_pval);
+		/* create new value and have the array take ownership */
+		g_ptr_array_add (entries,
+				 g_variant_ref_sink (g_variant_new_dict_entry (g_variant_new_string (cpt_checksum),
+										g_variant_new_uint16 (*match_pval))));
 
-		nvar = g_variant_ref_sink (g_variant_dict_end (&dict));
+		nvar = g_variant_new_array (G_VARIANT_TYPE ("{sq}"),
+					    (GVariant *const *)entries->pdata,
+					    entries->len);
 
 		MDB_val ndval;
 		ndval.mv_size = g_variant_get_size (nvar);
@@ -936,25 +1036,76 @@ fail:
 }
 
 /**
- * as_cache_component_by_hash:
+ * as_cache_remove_by_data_id:
+ * @cache: An instance of #AsCache.
+ * @cdid: Component data ID.
+ * @error: A #GError or %NULL.
  *
- * Retrieve a component using its internal hash.
- */
-static AsComponent*
-as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash, GError **error)
+ * Remove a component from the cache.
+ *
+ * Returns: %TRUE if component was removed.
+ **/
+gboolean
+as_cache_remove_by_data_id (AsCache *cache, const gchar *cdid, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
-	MDB_val dval;
-	g_autoptr(AsComponent) cpt = NULL;
+	MDB_txn *txn = NULL;
+	g_autofree gchar *cpt_checksum = NULL;
 	GError *tmp_error = NULL;
-	xmlDoc *doc;
-	xmlNode *root;
+	gboolean ret;
 
-	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
+	if (!as_cache_check_opened (cache, TRUE, error))
+		return FALSE;
+
+	if (priv->floating) {
+		/* floating cache, remove only from the internal map */
+		return g_hash_table_remove (priv->cpt_map, cdid);
+	}
+
+	txn = as_cache_transaction_new (cache, 0, error);
+	if (txn == NULL)
+		return FALSE;
+
+	/* remove component itself from the cache */
+	cpt_checksum = g_compute_checksum_for_string (G_CHECKSUM_MD5,
+						      cdid,
+						      -1);
+
+	ret = lmdb_txn_delete (txn, priv->db_cpts, cpt_checksum, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
-		return NULL;
+		goto fail;
 	}
+
+	if (ret) {
+		/* TODO: We could remove all references to the removed component from the cache here.
+		 * Currently those are not an issue though, so we may keep them (as removing references is expensive) */
+	}
+
+	lmdb_transaction_commit (txn, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		goto fail;
+	}
+
+	return ret;
+fail:
+	lmdb_transaction_abort (txn);
+	return FALSE;
+}
+
+/**
+ * as_cache_component_from_dval:
+ *
+ * Get component from database entry.
+ */
+static inline AsComponent*
+as_cache_component_from_dval (AsCache *cache, MDB_val dval, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(AsComponent) cpt = NULL;
+	xmlDoc *doc;
+	xmlNode *root;
 
 	if (dval.mv_size <= 0)
 		return NULL;
@@ -971,6 +1122,92 @@ as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash,
 	}
 
 	xmlFreeDoc (doc);
+	return g_steal_pointer (&cpt);
+}
+
+/**
+ * as_cache_get_components_all:
+ * @cache: An instance of #AsCache.
+ * @error: A #GError or %NULL.
+ *
+ * Retrieve all components this cache contains.
+ *
+ * Returns: (transfer full): An array of #AsComponent
+ */
+GPtrArray*
+as_cache_get_components_all (AsCache *cache, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	MDB_cursor *cur;
+	gint rc;
+	MDB_val dval;
+	g_autoptr(GPtrArray) results = NULL;
+
+	if (!as_cache_check_opened (cache, FALSE, error))
+		return NULL;
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	results = g_ptr_array_new_with_free_func (g_object_unref);
+
+	rc = mdb_cursor_open (txn, priv->db_cpts, &cur);
+	if (rc != MDB_SUCCESS) {
+		g_set_error (error,
+				AS_CACHE_ERROR,
+				AS_CACHE_ERROR_FAILED,
+				"Unable to iterate cache (no cursor): %s", mdb_strerror (rc));
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+
+	rc = mdb_cursor_get (cur, NULL, &dval, MDB_SET_RANGE);
+	while (rc == 0) {
+		AsComponent *cpt;
+
+		if (dval.mv_size <= 0)
+			continue;
+
+		cpt = as_cache_component_from_dval (cache, dval, error);
+		if (cpt == NULL)
+			return NULL; /* error */
+		g_ptr_array_add (results, cpt);
+
+		rc = mdb_cursor_get(cur, NULL, &dval, MDB_NEXT);
+	}
+	mdb_cursor_close (cur);
+
+	lmdb_transaction_commit (txn, NULL);
+	return g_steal_pointer (&results);
+}
+
+/**
+ * as_cache_component_by_hash:
+ *
+ * Retrieve a component using its internal hash.
+ */
+static AsComponent*
+as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_val dval;
+	g_autoptr(AsComponent) cpt = NULL;
+	GError *tmp_error = NULL;
+
+	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return NULL;
+	}
+	if (dval.mv_size <= 0)
+		return NULL;
+
+	cpt = as_cache_component_from_dval (cache, dval, error);
+	if (cpt == NULL)
+		return NULL; /* error */
+
 	return g_steal_pointer (&cpt);
 }
 
@@ -1028,6 +1265,28 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 	g_autofree gchar *data = NULL;
 	GPtrArray *result = NULL;
 
+	if (!as_cache_check_opened (cache, TRUE, error))
+		return NULL;
+
+	if (priv->floating) {
+		/* floating cache, check only the internal map */
+
+		GHashTableIter iter;
+		gpointer value;
+
+		result = g_ptr_array_new_with_free_func (g_object_unref);
+		if (id == NULL)
+			return result;
+
+		g_hash_table_iter_init (&iter, priv->cpt_map);
+		while (g_hash_table_iter_next (&iter, NULL, &value)) {
+			AsComponent *cpt = AS_COMPONENT (value);
+			if (g_strcmp0 (as_component_get_id (cpt), id) == 0)
+				g_ptr_array_add (result, g_object_ref (cpt));
+		}
+		return result;
+	}
+
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
 		return NULL;
@@ -1050,7 +1309,53 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 }
 
 /**
- * as_cache_get_component_by_cid:
+ * as_cache_get_component_by_data_id:
+ * @cache: An instance of #AsCache.
+ * @cdid: The component data ID.
+ * @error: A #GError or %NULL.
+ *
+ * Retrieve component with the given data ID.
+ *
+ * Returns: (transfer full): An #AsComponent
+ */
+AsComponent*
+as_cache_get_component_by_data_id (AsCache *cache, const gchar *cdid, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	MDB_val dval;
+	GError *tmp_error = NULL;
+	AsComponent *cpt;
+
+	if (!as_cache_check_opened (cache, TRUE, error))
+		return NULL;
+
+	if (priv->floating) {
+		/* floating cache, check only the internal map */
+		cpt = g_hash_table_lookup (priv->cpt_map, cdid);
+		return cpt? g_object_ref (cpt) : NULL;
+	}
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return NULL;
+
+	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cdid, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
+		return NULL;
+	}
+	cpt = as_cache_component_from_dval (cache, dval, error);
+	if (cpt == NULL)
+		return NULL; /* error */
+
+	lmdb_transaction_commit (txn, NULL);
+	return cpt;
+}
+
+/**
+ * as_cache_get_components_by_kind:
  * @cache: An instance of #AsCache.
  * @kind: The #AsComponentKind to retrieve.
  * @error: A #GError or %NULL.
@@ -1068,6 +1373,9 @@ as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **
 	g_autofree gchar *data = NULL;
 	GPtrArray *result = NULL;
 	const gchar *kind_str = as_component_kind_to_string (kind);
+
+	if (!as_cache_check_opened (cache, FALSE, error))
+		return NULL;
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1111,6 +1419,9 @@ as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, c
 	g_autofree gchar *item_key = NULL;
 	GPtrArray *result = NULL;
 
+	if (!as_cache_check_opened (cache, FALSE, error))
+		return NULL;
+
 	item_key = g_strconcat (as_provided_kind_to_string (kind), item, NULL);
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1150,6 +1461,9 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 	MDB_txn *txn;
 	GError *tmp_error = NULL;
 	g_autoptr(GPtrArray) result = NULL;
+
+	if (!as_cache_check_opened (cache, FALSE, error))
+		return NULL;
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1208,6 +1522,9 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 	g_autofree gchar *entry_key = NULL;
 	GPtrArray *result = NULL;
 
+	if (!as_cache_check_opened (cache, FALSE, error))
+		return NULL;
+
 	entry_key = g_strconcat (as_launchable_kind_to_string (kind), id, NULL);
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1257,13 +1574,11 @@ as_cache_update_results_with_fts_variant (AsCache *cache, MDB_txn *txn, MDB_val 
 	while ((v_entry = g_variant_iter_next_value (&iter))) {
 		AsTokenType match_pval;
 		guint sort_score;
-		g_autoptr(GVariant) v_pval = NULL;
 		g_autofree gchar *cpt_hash = NULL;
 		AsComponent *cpt;
 
 		/* unpack variant */
-		g_variant_get (v_entry, "{sv}", &cpt_hash, &v_pval);
-		match_pval = g_variant_get_uint16 (v_pval);
+		g_variant_get (v_entry, "{sq}", &cpt_hash, &match_pval);
 
 		/* retrieve component woth this hash */
 		cpt = g_hash_table_lookup (results_ht, cpt_hash);
@@ -1326,6 +1641,7 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
  * as_cache_search:
  * @cache: An instance of #AsCache.
  * @terms: List of search terms
+ * @sort: %TRUE if results should be sorted by score.
  * @error: A #GError or %NULL.
  *
  * Perform a search for the given terms.
@@ -1333,7 +1649,7 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
  * Returns: (transfer full): An array of #AsComponent
  */
 GPtrArray*
-as_cache_search (AsCache *cache, gchar **terms, GError **error)
+as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_txn *txn;
@@ -1342,6 +1658,9 @@ as_cache_search (AsCache *cache, gchar **terms, GError **error)
 	g_autoptr(GHashTable) results_ht = NULL;
 	GHashTableIter ht_iter;
 	gpointer ht_value;
+
+	if (!as_cache_check_opened (cache, FALSE, error))
+		return NULL;
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1431,7 +1750,8 @@ as_cache_search (AsCache *cache, gchar **terms, GError **error)
 		g_ptr_array_add (results, g_object_ref (AS_COMPONENT (ht_value)));
 
 	/* sort the results by their priority */
-	g_ptr_array_sort (results, as_sort_components_by_score_cb);
+	if (sort)
+		g_ptr_array_sort (results, as_sort_components_by_score_cb);
 
 	if (results == NULL) {
 		lmdb_transaction_abort (txn);
@@ -1440,6 +1760,171 @@ as_cache_search (AsCache *cache, gchar **terms, GError **error)
 		lmdb_transaction_commit (txn, NULL);
 		return g_steal_pointer (&results);
 	}
+}
+
+/**
+ * as_cache_has_component_id:
+ * @cache: An instance of #AsCache.
+ * @id: The component ID to search for.
+ * @error: A #GError or %NULL.
+ *
+ * Check if there is any component(s) with the given ID in the cache.
+ *
+ * Returns: %TRUE if the ID is known.
+ */
+gboolean
+as_cache_has_component_id (AsCache *cache, const gchar *id, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	GError *tmp_error = NULL;
+	MDB_val dval;
+	gboolean found;
+
+	if (!as_cache_check_opened (cache, TRUE, error))
+		return FALSE;
+
+	if (priv->floating) {
+		/* floating cache, check only the internal map */
+		return g_hash_table_contains (priv->cid_set, id);
+	}
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return FALSE;
+
+	dval = as_cache_txn_get_value (cache, txn, priv->db_cids, id, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		lmdb_transaction_abort (txn);
+		return FALSE;
+	}
+
+	found = dval.mv_size > 0;
+
+	lmdb_transaction_commit (txn, NULL);
+	return found;
+}
+
+/**
+ * as_cache_count_components:
+ * @cache: An instance of #AsCache.
+ * @error: A #GError or %NULL.
+ *
+ * Get the amount of components the cache holds.
+ *
+ * Returns: Components count in the database.
+ */
+gsize
+as_cache_count_components (AsCache *cache, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	MDB_txn *txn;
+	MDB_stat stats;
+	gint rc;
+	gsize count;
+
+	if (!as_cache_check_opened (cache, FALSE, error))
+		return 0;
+
+	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
+	if (txn == NULL)
+		return 0;
+
+	rc = mdb_stat(txn, priv->db_cpts, &stats);
+	if (rc == MDB_SUCCESS) {
+		count = stats.ms_entries;
+	} else {
+		g_set_error (error,
+				AS_CACHE_ERROR,
+				AS_CACHE_ERROR_FAILED,
+				"Unable to retrieve cache statistics: %s", mdb_strerror (rc));
+	}
+
+	lmdb_transaction_commit (txn, NULL);
+	return count;
+}
+
+
+
+/**
+ * as_cache_get_ctime:
+ * @cache: An instance of #AsCache.
+ *
+ * Returns: ctime of the cache database.
+ */
+time_t
+as_cache_get_ctime (AsCache *cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	struct stat cache_sbuf;
+
+	if (priv->fname == NULL)
+		return 0;
+
+	if (stat (priv->fname, &cache_sbuf) < 0)
+		return 0;
+	else
+		return cache_sbuf.st_ctime;
+}
+
+/**
+ * as_cache_get_ctime:
+ * @cache: An instance of #AsCache.
+ *
+ * Returns: %TRUE if the cache is open.
+ */
+gboolean
+as_cache_is_open (AsCache *cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	return priv->opened;
+}
+
+/**
+ * as_cache_set_floating:
+ * @cache: An instance of #AsCache.
+ *
+ * Make cache "floating": Only some actions are permitted and nothing
+ * is written to disk until the floating state is changed.
+ */
+gboolean
+as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	GHashTableIter iter;
+	gpointer ht_value;
+
+	if (!priv->floating && !floating)
+		return TRUE;
+	if (priv->floating && floating)
+		return TRUE;
+	if (!priv->floating && floating) {
+		priv->floating = floating;
+		g_hash_table_remove_all (priv->cpt_map);
+		g_hash_table_remove_all (priv->cid_set);
+		g_debug ("Cache set to floating mode.");
+		return TRUE;
+	}
+	g_assert (priv->floating && !floating);
+
+	/* if we are here, we switch from a floating cache to a non-floating one,
+	 * so we need to persist all changes */
+
+	priv->floating = floating;
+
+	g_hash_table_iter_init (&iter, priv->cpt_map);
+	while (g_hash_table_iter_next (&iter, NULL, &ht_value)) {
+		if (!as_cache_insert (cache, AS_COMPONENT (ht_value), error))
+			return FALSE;
+	}
+
+	g_hash_table_remove_all (priv->cid_set);
+	g_hash_table_remove_all (priv->cpt_map);
+
+	g_debug ("Cache returned from floating mode (all changes are now persistent)");
+
+	return TRUE;
 }
 
 /**
