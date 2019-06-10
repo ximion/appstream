@@ -1364,6 +1364,8 @@ as_user_search_term_valid (const gchar *term)
 		    term[i] == ')')
 			return FALSE;
 	}
+	if (i == 1)
+		return FALSE;
 	return TRUE;
 }
 

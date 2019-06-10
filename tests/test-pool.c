@@ -280,7 +280,7 @@ test_pool_read ()
 	g_clear_pointer (&result, g_ptr_array_unref);
 
 	/* we return all components if the search string is too short */
-	result = as_pool_search (dpool, "sh");
+	result = as_pool_search (dpool, "s");
 	g_assert_cmpint (result->len, ==, 19);
 	g_clear_pointer (&result, g_ptr_array_unref);
 
