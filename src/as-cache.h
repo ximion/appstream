@@ -126,6 +126,10 @@ gboolean	as_cache_set_floating (AsCache *cache,
 					gboolean floating,
 					GError **error);
 
+gboolean	as_cache_get_nosync (AsCache *cache);
+void		as_cache_set_nosync (AsCache *cache,
+				     gboolean nosync);
+
 G_END_DECLS
 
 #endif /* __AS_CACHE_H */

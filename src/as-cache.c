@@ -60,10 +60,12 @@ typedef struct
 	MDB_dbi db_launchables;
 	MDB_dbi db_provides;
 	MDB_dbi db_kinds;
+	MDB_dbi db_addons;
 	gchar *fname;
 	gchar *volatile_db_fname;
 	gsize max_keysize;
 	gboolean opened;
+	gboolean nosync;
 
 	AsContext *context;
 	gchar *locale;
@@ -488,6 +490,8 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	MDB_txn *txn = NULL;
 	MDB_dbi db_config;
 	g_autofree gchar *cache_format;
+	mdb_mode_t db_mode;
+	gboolean nosync;
 
 	rc = mdb_env_create (&priv->db_env);
 	if (rc != MDB_SUCCESS) {
@@ -498,7 +502,8 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		goto fail;
 	}
 
-	rc = mdb_env_set_maxdbs (priv->db_env, 8);
+	/* we currently have 9 DBs */
+	rc = mdb_env_set_maxdbs (priv->db_env, 9);
 	if (rc != MDB_SUCCESS) {
 		g_set_error (error,
 			     AS_CACHE_ERROR,
@@ -516,15 +521,28 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		goto fail;
 	}
 
+	/* determine database mode */
+	db_mode = MDB_NOSUBDIR | MDB_NOMETASYNC | MDB_NOLOCK;
+	nosync = priv->nosync;
+
 	/* determine where to put a volatile database */
 	if (g_strcmp0 (fname, ":temporary") == 0) {
 		if (as_utils_is_root ())
 			volatile_dir = g_get_tmp_dir ();
 		else
 			volatile_dir = g_get_user_cache_dir ();
+
+		/* we can skip syncs in temporary mode - in case of a crash, the data is lost anyway */
+		nosync = TRUE;
+
 	} else if (g_strcmp0 (fname, ":memory") == 0) {
 		volatile_dir = g_get_user_runtime_dir ();
+		/* we can skip syncs in in-memory mode - they don't mean anything anyway*/
+		nosync = TRUE;
 	}
+
+	if (nosync)
+		db_mode |= MDB_NOSYNC;
 
 	g_free (priv->fname);
 	if (volatile_dir != NULL) {
@@ -550,7 +568,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	g_debug ("Opening cache file: %s", priv->fname);
 	rc = mdb_env_open (priv->db_env,
 			   priv->fname,
-			   MDB_NOSUBDIR | MDB_NOMETASYNC | MDB_NOLOCK,
+			   db_mode,
 			   0755);
 	if (rc != MDB_SUCCESS) {
 		g_set_error (error,
@@ -617,6 +635,12 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 
 	/* kinds */
 	if (!as_cache_open_subdb (txn, "kinds", &priv->db_kinds, &tmp_error)) {
+		g_propagate_error (error, tmp_error);
+		goto fail;
+	}
+
+	/* addons */
+	if (!as_cache_open_subdb (txn, "addons", &priv->db_addons, &tmp_error)) {
 		g_propagate_error (error, tmp_error);
 		goto fail;
 	}
@@ -757,6 +781,9 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 	GPtrArray *categories;
 	GPtrArray *launchables;
 	GPtrArray *provides;
+
+	static GMutex mutex;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&mutex);
 
 	if (!as_cache_check_opened (cache, TRUE, error))
 		return FALSE;
@@ -1881,6 +1908,19 @@ as_cache_is_open (AsCache *cache)
 	return priv->opened;
 }
 
+static void
+as_cache_thread_pool_insert_cpt_cb (gpointer data, gpointer user_data)
+{
+	AsCache *cache = AS_CACHE (user_data);
+	AsComponent *cpt = AS_COMPONENT (data);
+	GError *tmp_error = NULL;
+
+	if (!as_cache_insert (cache, cpt, &tmp_error)) {
+		g_warning ("Unable to add component to cache: %s", tmp_error->message);
+		g_error_free (tmp_error);
+	}
+}
+
 /**
  * as_cache_set_floating:
  * @cache: An instance of #AsCache.
@@ -1894,6 +1934,9 @@ as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	GHashTableIter iter;
 	gpointer ht_value;
+
+	GThreadPool *tpool;
+	GError *tmp_error = NULL;
 
 	if (!priv->floating && !floating)
 		return TRUE;
@@ -1913,11 +1956,30 @@ as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
 
 	priv->floating = floating;
 
+	tpool = g_thread_pool_new (as_cache_thread_pool_insert_cpt_cb,
+				   cache,
+				   4, /* limit number of threads to 4 for now */
+				   FALSE,
+				   &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		g_thread_pool_free (tpool, TRUE, FALSE);
+		return FALSE;
+	}
+
 	g_hash_table_iter_init (&iter, priv->cpt_map);
 	while (g_hash_table_iter_next (&iter, NULL, &ht_value)) {
-		if (!as_cache_insert (cache, AS_COMPONENT (ht_value), error))
+		if (!as_cache_insert (cache, AS_COMPONENT (ht_value), error)) {
+			g_thread_pool_free (tpool, TRUE, FALSE);
 			return FALSE;
+		}
+		/* FIXME:
+		 * if (!g_thread_pool_push (tpool, AS_COMPONENT (ht_value), error))
+			return FALSE;
+			*/
 	}
+
+	g_thread_pool_free (tpool, FALSE, TRUE);
 
 	g_hash_table_remove_all (priv->cid_set);
 	g_hash_table_remove_all (priv->cpt_map);
@@ -1925,6 +1987,34 @@ as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
 	g_debug ("Cache returned from floating mode (all changes are now persistent)");
 
 	return TRUE;
+}
+
+/**
+ * as_cache_get_nosync:
+ * @cache: An instance of #AsCache.
+ *
+ * Returns: %TRUE if we don't sync explicitly.
+ */
+gboolean
+as_cache_get_nosync (AsCache *cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	return priv->nosync;
+}
+
+/**
+ * as_cache_set_nosync:
+ * @cache: An instance of #AsCache.
+ *
+ * Set whether the cache should sync to disk explicitly or not.
+ * This setting may be ignored if the cache is in temporary
+ * or in-memory mode.
+ */
+void
+as_cache_set_nosync (AsCache *cache, gboolean nosync)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	priv->nosync = nosync;
 }
 
 /**
