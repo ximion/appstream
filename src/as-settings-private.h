@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 #define AS_INTERNAL_VISIBLE __attribute__((visibility("default")))
 
 #define AS_CONFIG_NAME "/etc/appstream.conf"
-#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info/gv"
+#define AS_APPSTREAM_CACHE_PATH "/var/cache/app-info/cache"
 
 /* declared in as-data-pool.c */
 AS_INTERNAL_VISIBLE

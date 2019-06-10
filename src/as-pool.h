@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -51,6 +51,7 @@ struct _AsPoolClass
  * @AS_CACHE_FLAG_NONE:		No flags.
  * @AS_CACHE_FLAG_USE_USER:	Create an user-specific metadata cache.
  * @AS_CACHE_FLAG_USE_SYSTEM:	Use and - if possible - update the global metadata cache.
+ * @AS_CACHE_FLAG_NO_CLEAR:	Don't clear the cache when opening it.
  *
  * Flags on how caching should be used.
  **/
@@ -58,6 +59,7 @@ typedef enum {
 	AS_CACHE_FLAG_NONE = 0,
 	AS_CACHE_FLAG_USE_USER   = 1 << 0,
 	AS_CACHE_FLAG_USE_SYSTEM = 1 << 1,
+	AS_CACHE_FLAG_NO_CLEAR   = 1 << 2,
 } AsCacheFlags;
 
 /**
@@ -82,6 +84,7 @@ typedef enum {
  * @AS_POOL_ERROR_TARGET_NOT_WRITABLE:	We do not have write-access to the cache target location.
  * @AS_POOL_ERROR_INCOMPLETE:		The pool was loaded, but we had to ignore some metadata.
  * @AS_POOL_ERROR_COLLISION:		An AppStream-ID collision occured (a component with that ID already existed in the pool)
+ * @AS_POOL_ERROR_OLD_CACHE:		Some issue with an old on-disk cache occured.
  *
  * A metadata pool error.
  **/
@@ -90,6 +93,7 @@ typedef enum {
 	AS_POOL_ERROR_TARGET_NOT_WRITABLE,
 	AS_POOL_ERROR_INCOMPLETE,
 	AS_POOL_ERROR_COLLISION,
+	AS_POOL_ERROR_OLD_CACHE,
 	/*< private >*/
 	AS_POOL_ERROR_LAST
 } AsPoolError;
@@ -107,14 +111,8 @@ gboolean		as_pool_load (AsPool *pool,
 					GCancellable *cancellable,
 					GError **error);
 
-gboolean		as_pool_load_cache_file (AsPool *pool,
-						 const gchar *fname,
-						 GError **error);
-gboolean		as_pool_save_cache_file (AsPool *pool,
-						 const gchar *fname,
-						 GError **error);
-
-void			as_pool_clear (AsPool *pool);
+gboolean		as_pool_clear2 (AsPool *pool,
+					GError **error);
 gboolean		as_pool_add_component (AsPool *pool,
 						AsComponent *cpt,
 						GError **error);
@@ -147,9 +145,26 @@ AsPoolFlags		as_pool_get_flags (AsPool *pool);
 void			as_pool_set_flags (AsPool *pool,
 						AsPoolFlags flags);
 
+const gchar 		*as_pool_get_cache_location (AsPool *pool);
+void			as_pool_set_cache_location (AsPool *pool,
+						const gchar *fname);
+
+/* DEPRECATED */
+
+G_GNUC_DEPRECATED
+gboolean		as_pool_load_cache_file (AsPool *pool,
+						 const gchar *fname,
+						 GError **error);
+G_GNUC_DEPRECATED
+gboolean		as_pool_save_cache_file (AsPool *pool,
+						 const gchar *fname,
+						 GError **error);
+G_GNUC_DEPRECATED
 gboolean		as_pool_refresh_cache (AsPool *pool,
 						gboolean force,
 						GError **error);
+G_GNUC_DEPRECATED
+void			as_pool_clear (AsPool *pool);
 
 G_END_DECLS
 

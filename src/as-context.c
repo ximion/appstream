@@ -354,7 +354,7 @@ as_context_get_internal_mode (AsContext *ctx)
 }
 
 /**
- * as_context_set_format_version:
+ * as_context_set_internal_mode:
  * @ctx: a #AsContext instance.
  * @enabled: %TRUE if enabled.
  *

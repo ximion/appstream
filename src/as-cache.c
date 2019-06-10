@@ -61,11 +61,13 @@ typedef struct
 	MDB_dbi db_provides;
 	MDB_dbi db_kinds;
 	MDB_dbi db_addons;
+
 	gchar *fname;
 	gchar *volatile_db_fname;
 	gsize max_keysize;
 	gboolean opened;
 	gboolean nosync;
+	gboolean readonly;
 
 	AsContext *context;
 	gchar *locale;
@@ -101,6 +103,7 @@ as_cache_init (AsCache *cache)
 	as_context_set_internal_mode (priv->context, TRUE); /* we need to write some special tags only used in the cache */
 
 	priv->floating = FALSE;
+	priv->readonly = FALSE;
 
 	/* stores known components in-memory for faster access */
 	priv->cpt_map = g_hash_table_new_full (g_str_hash,
@@ -127,6 +130,8 @@ as_cache_finalize (GObject *object)
 	g_object_unref (priv->context);
 	as_cache_close (cache);
 	g_free (priv->locale);
+
+	g_free (priv->fname);
 
 	g_hash_table_unref (priv->cpt_map);
 	g_hash_table_unref (priv->cid_set);
@@ -498,6 +503,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	g_autofree gchar *cache_format;
 	mdb_mode_t db_mode;
 	gboolean nosync;
+	gboolean readonly;
 
 	rc = mdb_env_create (&priv->db_env);
 	if (rc != MDB_SUCCESS) {
@@ -530,6 +536,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	/* determine database mode */
 	db_mode = MDB_NOSUBDIR | MDB_NOMETASYNC | MDB_NOLOCK;
 	nosync = priv->nosync;
+	readonly = priv->readonly;
 
 	/* determine where to put a volatile database */
 	if (g_strcmp0 (fname, ":temporary") == 0) {
@@ -541,12 +548,20 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		/* we can skip syncs in temporary mode - in case of a crash, the data is lost anyway */
 		nosync = TRUE;
 
+		/* readonly mode makes no sense if we have a temporary cache */
+		readonly = FALSE;
+
 	} else if (g_strcmp0 (fname, ":memory") == 0) {
 		volatile_dir = g_get_user_runtime_dir ();
 		/* we can skip syncs in in-memory mode - they don't mean anything anyway*/
 		nosync = TRUE;
+
+		/* readonly mode makes no sense if we have an in-memory cache */
+		readonly = FALSE;
 	}
 
+	if (readonly)
+		db_mode |= MDB_RDONLY;
 	if (nosync)
 		db_mode |= MDB_NOSYNC;
 
@@ -571,7 +586,10 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		priv->fname = g_strdup (fname);
 	}
 
-	g_debug ("Opening cache file: %s", priv->fname);
+	if (readonly)
+		g_debug ("Opening cache file for reading only: %s", priv->fname);
+	else
+		g_debug ("Opening cache file: %s", priv->fname);
 	rc = mdb_env_open (priv->db_env,
 			   priv->fname,
 			   db_mode,
@@ -591,7 +609,9 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	/* retrieve the maximum keysize allowed for this database */
 	priv->max_keysize = mdb_env_get_maxkeysize (priv->db_env);
 
-	txn = as_cache_transaction_new (cache, 0, &tmp_error);
+	txn = as_cache_transaction_new (cache,
+					readonly? MDB_RDONLY : 0,
+					&tmp_error);
 	if (txn == NULL) {
 		g_propagate_error (error, tmp_error);
 		goto fail;
@@ -663,8 +683,16 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	}
 	if (cache_format == NULL) {
 		/* the value was empty, we most likely have a new cache file */
-		if (!as_cache_put_kv (cache, db_config, "format", CACHE_FORMAT_VERSION, error))
+		if (readonly) {
+			g_set_error (error,
+					AS_CACHE_ERROR,
+					AS_CACHE_ERROR_WRONG_FORMAT,
+					"Cache format missing on read-only cache.");
 			goto fail;
+		} else {
+			if (!as_cache_put_kv (cache, db_config, "format", CACHE_FORMAT_VERSION, error))
+				goto fail;
+		}
 	} else if (g_strcmp0 (cache_format, CACHE_FORMAT_VERSION) != 0) {
 		/* we try to load an incompatible cache version - emit an error, so it can be recreated */
 		g_set_error (error,
@@ -681,9 +709,17 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 		goto fail;
 	}
 	if (priv->locale == NULL) {
-		/* the value was empty, we most likely have a new cache file - so set a locale for it */
-		if (!as_cache_put_kv (cache, db_config, "locale", locale, error))
+		/* the value was empty, we most likely have a new cache file - so set a locale for it if we can */
+		if (readonly) {
+			g_set_error (error,
+					AS_CACHE_ERROR,
+					AS_CACHE_ERROR_LOCALE_MISMATCH,
+					"Locale value missing on read-only cache.");
 			goto fail;
+		} else {
+			if (!as_cache_put_kv (cache, db_config, "locale", locale, error))
+				goto fail;
+		}
 		priv->locale = g_strdup (locale);
 	} else if (g_strcmp0 (priv->locale, locale) != 0) {
 		/* we expected a different locale than this cache has - throw an error, just to be safe */
@@ -704,6 +740,39 @@ fail:
 	if (priv->db_env != NULL)
 		mdb_env_close (priv->db_env);
 	return  FALSE;
+}
+
+/**
+ * as_cache_open2:
+ * @cache: An instance of #AsCache.
+ * @locale: The locale with which the cache should be created, if a new cache was created.
+ * @error: A #GError or %NULL.
+ *
+ * Open/create an AppStream cache file based on the previously set filename.
+ * (This is equivalent to reopening the previous database - to create a new temporary cache
+ * and discard the old one, use open())
+ *
+ * Returns: %TRUE if cache was opened successfully.
+ **/
+gboolean
+as_cache_open2 (AsCache *cache, const gchar *locale, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autofree gchar *fname = NULL;
+
+	if (priv->fname == NULL) {
+		g_set_error (error,
+			     AS_CACHE_ERROR,
+			     AS_CACHE_ERROR_NO_FILENAME,
+			     "No location was set for this cache.");
+		return FALSE;
+	}
+
+	/* we need to duplicate this here, as open() frees priv->fname in case
+	 * it contains a placeholder like :temporary */
+	fname = g_strdup (priv->fname);
+
+	return as_cache_open (cache, fname, locale, error);
 }
 
 /**
@@ -733,8 +802,6 @@ as_cache_close (AsCache *cache)
 		g_free (priv->volatile_db_fname);
 		priv->volatile_db_fname = NULL;
 	}
-	g_free (priv->fname);
-	priv->fname = NULL;
 
 	priv->opened = FALSE;
 	return TRUE;
@@ -1332,10 +1399,9 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 		return NULL;
 	}
 
-	rc = mdb_cursor_get (cur, NULL, &dval, MDB_SET_RANGE);
+	rc = mdb_cursor_get (cur, NULL, &dval, MDB_FIRST);
 	while (rc == 0) {
 		AsComponent *cpt;
-
 		if (dval.mv_size <= 0)
 			continue;
 
@@ -1596,7 +1662,8 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 			lmdb_transaction_abort (txn);
 			return NULL;
 		}
-		for (guint j = 0; j < tmp_res->len; j++)
+
+		while (tmp_res->len != 0)
 			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
 	}
 
@@ -1638,7 +1705,7 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 	if (txn == NULL)
 		return NULL;
 
-	data = lmdb_val_strdup (as_cache_txn_get_value (cache, txn, priv->db_provides, entry_key, &tmp_error));
+	data = lmdb_val_strdup (as_cache_txn_get_value (cache, txn, priv->db_launchables, entry_key, &tmp_error));
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		lmdb_transaction_abort (txn);
@@ -1733,28 +1800,6 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 }
 
 /**
- * as_sort_components_by_score_cb:
- *
- * Helper method to sort result arrays by the #AsComponent match score
- * with higher scores appearing higher in the list.
- */
-static gint
-as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
-{
-	guint s1, s2;
-	AsComponent *cpt1 = *((AsComponent **) a);
-	AsComponent *cpt2 = *((AsComponent **) b);
-	s1 = as_component_get_sort_score (cpt1);
-	s2 = as_component_get_sort_score (cpt2);
-
-	if (s1 > s2)
-		return -1;
-	if (s1 < s2)
-		return 1;
-	return 0;
-}
-
-/**
  * as_cache_search:
  * @cache: An instance of #AsCache.
  * @terms: List of search terms
@@ -1778,6 +1823,11 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
+
+	if (terms == NULL) {
+		/* if we have no search terms, just return all components we have */
+		return as_cache_get_components_all (cache, error);
+	}
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1826,7 +1876,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 			return NULL;
 		}
 
-		rc = mdb_cursor_get (cur, &dkey, &dval, MDB_SET_RANGE);
+		rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
 		while (rc == 0) {
 			gboolean match = FALSE;
 
@@ -1868,15 +1918,10 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 
 	/* sort the results by their priority */
 	if (sort)
-		g_ptr_array_sort (results, as_sort_components_by_score_cb);
+		as_utils_sort_components_by_score (results);
 
-	if (results == NULL) {
-		lmdb_transaction_abort (txn);
-		return NULL;
-	} else {
-		lmdb_transaction_commit (txn, NULL);
-		return g_steal_pointer (&results);
-	}
+	lmdb_transaction_commit (txn, NULL);
+	return g_steal_pointer (&results);
 }
 
 /**
@@ -1986,7 +2031,7 @@ as_cache_get_ctime (AsCache *cache)
 }
 
 /**
- * as_cache_get_ctime:
+ * as_cache_is_open:
  * @cache: An instance of #AsCache.
  *
  * Returns: %TRUE if the cache is open.
@@ -1999,41 +2044,66 @@ as_cache_is_open (AsCache *cache)
 }
 
 /**
- * as_cache_set_floating:
+ * as_cache_make_floating:
  * @cache: An instance of #AsCache.
  *
  * Make cache "floating": Only some actions are permitted and nothing
  * is written to disk until the floating state is changed.
  */
-gboolean
-as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
+void
+as_cache_make_floating (AsCache *cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+
+	if (priv->floating)
+		return;
+	priv->floating = TRUE;
+
+	g_hash_table_remove_all (priv->cpt_map);
+	g_hash_table_remove_all (priv->cid_set);
+	g_debug ("Cache set to floating mode.");
+}
+
+/**
+ * as_cache_unfloat:
+ * @cache: An instance of #AsCache.
+ * @func: Function to be called on the components before they are persisted.
+ *
+ * Persist all changes from a floating cache.
+ * Return the number of invalid components.
+ */
+guint
+as_cache_unfloat (AsCache *cache, GFunc func, gpointer user_data, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	GHashTableIter iter;
 	gpointer ht_value;
+	guint invalid_cpts = 0;
 
-	if (!priv->floating && !floating)
-		return TRUE;
-	if (priv->floating && floating)
-		return TRUE;
-	if (!priv->floating && floating) {
-		priv->floating = floating;
-		g_hash_table_remove_all (priv->cpt_map);
-		g_hash_table_remove_all (priv->cid_set);
-		g_debug ("Cache set to floating mode.");
-		return TRUE;
-	}
-	g_assert (priv->floating && !floating);
-
-	/* if we are here, we switch from a floating cache to a non-floating one,
-	 * so we need to persist all changes */
-
-	priv->floating = floating;
+	priv->floating = FALSE;
 
 	g_hash_table_iter_init (&iter, priv->cpt_map);
 	while (g_hash_table_iter_next (&iter, NULL, &ht_value)) {
-		if (!as_cache_insert (cache, AS_COMPONENT (ht_value), error))
-			return FALSE;
+		AsComponent *cpt = AS_COMPONENT (ht_value);
+
+		/* validate the component */
+		if (!as_component_is_valid (cpt)) {
+			/* we still succeed if the components originates from a .desktop file -
+			 * we care less about them and they generally have bad quality, so some issues
+			 * pop up on pretty much every system */
+			if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
+				g_debug ("Ignored '%s': The component (from a .desktop file) is invalid.", as_component_get_id (cpt));
+			} else {
+				g_debug ("WARNING: Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
+				invalid_cpts++;
+			}
+			continue;
+		}
+
+		(*func) (cpt, user_data);
+
+		if (!as_cache_insert (cache, cpt, error))
+			return 0;
 	}
 
 	g_hash_table_remove_all (priv->cid_set);
@@ -2041,7 +2111,34 @@ as_cache_set_floating (AsCache *cache, gboolean floating, GError **error)
 
 	g_debug ("Cache returned from floating mode (all changes are now persistent)");
 
-	return TRUE;
+	return invalid_cpts;
+}
+
+/**
+ * as_cache_get_location:
+ * @cache: An instance of #AsCache.
+ *
+ * Returns: Location string for this cache.
+ */
+const gchar*
+as_cache_get_location (AsCache *cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	return priv->fname;
+}
+
+/**
+ * as_cache_set_location:
+ * @cache: An instance of #AsCache.
+ *
+ * Set location string for this database.
+ */
+void
+as_cache_set_location (AsCache *cache, const gchar *location)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_free (priv->fname);
+	priv->fname = g_strdup (location);
 }
 
 /**
@@ -2070,6 +2167,32 @@ as_cache_set_nosync (AsCache *cache, gboolean nosync)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	priv->nosync = nosync;
+}
+
+/**
+ * as_cache_get_readonly:
+ * @cache: An instance of #AsCache.
+ *
+ * Returns: %TRUE if the cache is read-only.
+ */
+gboolean
+as_cache_get_readonly (AsCache *cache)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	return priv->readonly;
+}
+
+/**
+ * as_cache_set_readonly:
+ * @cache: An instance of #AsCache.
+ *
+ * Set whether the cache should be read-only.
+ */
+void
+as_cache_set_readonly (AsCache *cache, gboolean ro)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	priv->readonly = ro;
 }
 
 /**

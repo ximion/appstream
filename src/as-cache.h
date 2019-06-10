@@ -52,6 +52,7 @@ struct _AsCacheClass
  * @AS_CACHE_ERROR_WRONG_FORMAT:	Cache has an unsupported format version.
  * @AS_CACHE_ERROR_LOCALE_MISMATCH:	Cache locale was different from the expected one.
  * @AS_CACHE_ERROR_FLOATING:		The given action can not be performed on a floating cache.
+ * @AS_CACHE_ERROR_NO_FILENAME:		No filename was set to open the database.
  *
  * A metadata pool error.
  **/
@@ -61,6 +62,7 @@ typedef enum {
 	AS_CACHE_ERROR_WRONG_FORMAT,
 	AS_CACHE_ERROR_LOCALE_MISMATCH,
 	AS_CACHE_ERROR_FLOATING,
+	AS_CACHE_ERROR_NO_FILENAME,
 	/*< private >*/
 	AS_CACHE_ERROR_LAST
 } AsCacheError;
@@ -72,6 +74,9 @@ AsCache		*as_cache_new (void);
 
 gboolean	as_cache_open (AsCache *cache,
 			       const gchar *fname,
+			       const gchar *locale,
+			       GError **error);
+gboolean	as_cache_open2 (AsCache *cache,
 			       const gchar *locale,
 			       GError **error);
 gboolean	as_cache_close (AsCache *cache);
@@ -122,13 +127,23 @@ gsize		as_cache_count_components (AsCache *cache,
 time_t		as_cache_get_ctime (AsCache *cache);
 gboolean	as_cache_is_open (AsCache *cache);
 
-gboolean	as_cache_set_floating (AsCache *cache,
-					gboolean floating,
-					GError **error);
+void		as_cache_make_floating (AsCache *cache);
+guint		as_cache_unfloat (AsCache *cache,
+				  GFunc func,
+				  gpointer user_data,
+				  GError **error);
+
+const gchar	*as_cache_get_location (AsCache *cache);
+void		as_cache_set_location (AsCache *cache,
+					const gchar *location);
 
 gboolean	as_cache_get_nosync (AsCache *cache);
 void		as_cache_set_nosync (AsCache *cache,
 				     gboolean nosync);
+
+gboolean	as_cache_get_readonly (AsCache *cache);
+void		as_cache_set_readonly (AsCache *cache,
+					gboolean ro);
 
 G_END_DECLS
 

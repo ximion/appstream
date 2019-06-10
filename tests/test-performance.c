@@ -26,6 +26,7 @@
 #include "as-metadata.h"
 #include "as-test-utils.h"
 #include "as-pool-private.h"
+#include "as-cache.h"
 
 static gchar *datadir = NULL;
 
@@ -94,49 +95,25 @@ test_pool_xml_read_perf (void)
 static void
 test_pool_cache_read_perf (void)
 {
-	GError *error = NULL;
-	guint i;
-	guint loops = 1000;
-	g_autoptr(GTimer) timer = NULL;
-	g_autoptr(AsPool) prep_pool = NULL;
-	g_autoptr(GPtrArray) prep_cpts = NULL;
 
-	prep_pool = test_get_sampledata_pool (FALSE);
-	as_pool_load (prep_pool, NULL, &error);
-	g_assert_no_error (error);
-
-	prep_cpts = as_pool_get_components (prep_pool);
-	g_assert_cmpint (prep_cpts->len, ==, 19);
-
-	as_cache_file_save ("/tmp/as-unittest-perfcache.gvz", "C", prep_cpts, &error);
-	g_assert_no_error (error);
-
-	g_object_unref (prep_pool);
-	prep_pool = NULL;
-
-	timer = g_timer_new ();
-	for (i = 0; i < loops; i++) {
-		g_autoptr(GPtrArray) cpts = NULL;
-		AsPoolFlags flags;
-		g_autoptr(AsPool) pool = as_pool_new ();
-
-		as_pool_clear_metadata_locations (pool);
-		as_pool_set_locale (pool, "C");
-		flags = as_pool_get_flags (pool);
-		as_flags_remove (flags, AS_POOL_FLAG_READ_DESKTOP_FILES);
-		as_flags_remove (flags, AS_POOL_FLAG_READ_METAINFO);
-		as_pool_set_flags (pool, flags);
-
-		as_pool_load_cache_file (pool, "/tmp/as-unittest-perfcache.gvz", &error);
-		g_assert_no_error (error);
-
-		cpts = as_pool_get_components (pool);
-		g_assert_cmpint (cpts->len, ==, 19);
-
-	}
-	g_print ("%.0f ms: ", g_timer_elapsed (timer, NULL) * 1000 / loops);
-	g_remove("/tmp/as-unittest-perfcache.gvz");
 }
+
+#if 0
+inline static guint8*
+as_generate_checksum (const gchar *value, gssize value_len, gsize *result_len)
+{
+	guint8 *buf;
+	g_autoptr(GChecksum) cs = g_checksum_new (G_CHECKSUM_MD5);
+
+	*result_len = 16; /* MD5 digest length */
+	buf = g_malloc (sizeof(guint8) * (*result_len));
+
+	g_checksum_update (cs, (const guchar *) value, value_len);
+	g_checksum_get_digest (cs, buf, result_len);
+
+	return buf;
+}
+#endif
 
 /**
  * main:

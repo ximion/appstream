@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -90,6 +90,8 @@ gchar			*as_utils_build_data_id_for_cpt (AsComponent *cpt);
 AS_INTERNAL_VISIBLE
 gchar			*as_utils_dns_to_rdns (const gchar *url,
 					       const gchar *suffix);
+
+void			as_utils_sort_components_by_score (GPtrArray *cpts);
 
 #pragma GCC visibility pop
 G_END_DECLS

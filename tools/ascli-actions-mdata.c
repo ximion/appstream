@@ -27,6 +27,7 @@
 
 #include "ascli-utils.h"
 #include "as-utils-private.h"
+#include "as-pool-private.h"
 
 /**
  * ascli_refresh_cache:
@@ -57,11 +58,10 @@ ascli_refresh_cache (const gchar *cachepath, const gchar *datapath, gboolean for
 	}
 
 	if (cachepath == NULL) {
-		ret = as_pool_refresh_cache (dpool, forced, &error);
+		ret = as_pool_refresh_system_cache (dpool, forced, &error);
 	} else {
+		as_pool_set_cache_location (dpool, cachepath);
 		as_pool_load (dpool, NULL, &error);
-		if (error == NULL)
-			ret = as_pool_save_cache_file (dpool, cachepath, &error);
 	}
 
 	if (error != NULL) {
@@ -98,15 +98,18 @@ ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError 
 
 	dpool = as_pool_new ();
 	if (cachepath == NULL) {
-		/* no cache object to load, we can use a normal pool - unless caching
+		/* no cache object to load, we can use a normal pool - unless (system) caching
 		 * is generally disallowed. */
-		if (no_cache)
-			as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_NONE);
+		if (no_cache) {
+			as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_USE_USER);
+		}
 
 		as_pool_load (dpool, NULL, error);
 	} else {
 		/* use an exported cache object */
-		as_pool_load_cache_file (dpool, cachepath, error);
+		as_pool_set_cache_flags (dpool, AS_CACHE_FLAG_USE_USER);
+		as_pool_set_cache_location (dpool, cachepath);
+		as_pool_load (dpool, NULL, error);
 	}
 
 	return dpool;

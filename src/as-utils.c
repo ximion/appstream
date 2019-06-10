@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C)      2016 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -1227,4 +1227,37 @@ as_utils_dns_to_rdns (const gchar *url, const gchar *suffix)
 		g_string_truncate (new_cid, new_cid->len - 1);
 
 	return g_string_free (new_cid, FALSE);
+}
+
+/**
+ * as_sort_components_by_score_cb:
+ *
+ * Helper method to sort result arrays by the #AsComponent match score
+ * with higher scores appearing higher in the list.
+ */
+static gint
+as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
+{
+	guint s1, s2;
+	AsComponent *cpt1 = *((AsComponent **) a);
+	AsComponent *cpt2 = *((AsComponent **) b);
+	s1 = as_component_get_sort_score (cpt1);
+	s2 = as_component_get_sort_score (cpt2);
+
+	if (s1 > s2)
+		return -1;
+	if (s1 < s2)
+		return 1;
+	return 0;
+}
+
+/**
+ * as_utils_sort_components_by_score:
+ *
+ * Sort components by their (search) match score.
+ */
+void
+as_utils_sort_components_by_score (GPtrArray *cpts)
+{
+	g_ptr_array_sort (cpts, as_sort_components_by_score_cb);
 }

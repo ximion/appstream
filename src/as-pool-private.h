@@ -39,6 +39,11 @@ AS_INTERNAL_VISIBLE
 GPtrArray		*as_cache_file_read (const gchar *fname,
 						GError **error);
 
+AS_INTERNAL_VISIBLE
+gboolean		as_pool_refresh_system_cache (AsPool *pool,
+							gboolean force,
+							GError **error);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

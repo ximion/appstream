@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -56,13 +56,12 @@
 #include "as-distro-extras.h"
 #include "as-stemmer.h"
 #include "as-variant-cache.h"
+#include "as-cache.h"
 
 #include "as-metadata.h"
 
 typedef struct
 {
-	GHashTable *cpt_table;
-	GHashTable *known_cids;
 	gchar *screenshot_service_url;
 	gchar *locale;
 	gchar *current_arch;
@@ -70,6 +69,11 @@ typedef struct
 	GPtrArray *xml_dirs;
 	GPtrArray *yaml_dirs;
 	GPtrArray *icon_dirs;
+
+	AsCache *system_cache;
+	AsCache *cache;
+	gchar *cache_fname;
+	gchar *system_cache_fname;
 
 	gchar **term_greylist;
 
@@ -79,7 +83,6 @@ typedef struct
 
 	gchar *sys_cache_path;
 	gchar *user_cache_path;
-	time_t cache_ctime;
 } AsPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
@@ -112,51 +115,18 @@ static gchar *METAINFO_DIR = "/usr/share/metainfo";
 static void as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gboolean add_root);
 
 /**
- * as_pool_check_cache_ctime:
- * @pool: An instance of #AsPool
- *
- * Update the cached cache-ctime. We need to cache it prior to potentially
- * creating a new database, so we will always rebuild the database in case
- * none existed previously.
- */
-static void
-as_pool_check_cache_ctime (AsPool *pool)
-{
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	struct stat cache_sbuf;
-	g_autofree gchar *fname = NULL;
-
-	fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
-	if (stat (fname, &cache_sbuf) < 0)
-		priv->cache_ctime = 0;
-	else
-		priv->cache_ctime = cache_sbuf.st_ctime;
-}
-
-/**
  * as_pool_init:
  **/
 static void
 as_pool_init (AsPool *pool)
 {
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GError *tmp_error = NULL;
 	guint i;
 	g_autoptr(AsDistroDetails) distro = NULL;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* set active locale */
 	priv->locale = as_get_current_locale ();
-
-	/* stores known components */
-	priv->cpt_table = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						(GDestroyNotify) g_object_unref);
-
-	/* set which stores whether we have seen a component-ID already */
-	priv->known_cids = g_hash_table_new_full (g_str_hash,
-						  g_str_equal,
-						  g_free,
-						  NULL);
 
 	priv->xml_dirs = g_ptr_array_new_with_free_func (g_free);
 	priv->yaml_dirs = g_ptr_array_new_with_free_func (g_free);
@@ -179,8 +149,20 @@ as_pool_init (AsPool *pool)
 		g_setenv ("GIO_USE_VFS", "local", TRUE);
 	}
 
-	/* check the ctime of the cache directory, if it exists at all */
-	as_pool_check_cache_ctime (pool);
+	/* create caches */
+	priv->system_cache = as_cache_new ();
+	priv->cache = as_cache_new ();
+
+	/* system cache is always read-only */
+	as_cache_set_readonly (priv->system_cache, TRUE);
+
+	/* open our session cache in temporary mode by default */
+	priv->cache_fname = g_strdup (":temporary");
+	if (!as_cache_open (priv->cache, priv->cache_fname, priv->locale, &tmp_error)) {
+		g_critical ("Unable to open temporary cache: %s", tmp_error->message);
+		g_error_free (tmp_error);
+		tmp_error = NULL;
+	}
 
 	distro = as_distro_details_new ();
 	priv->screenshot_service_url = as_distro_details_get_str (distro, "ScreenshotUrl");
@@ -209,12 +191,14 @@ as_pool_finalize (GObject *object)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	g_free (priv->screenshot_service_url);
-	g_hash_table_unref (priv->cpt_table);
-	g_hash_table_unref (priv->known_cids);
 
 	g_ptr_array_unref (priv->xml_dirs);
 	g_ptr_array_unref (priv->yaml_dirs);
 	g_ptr_array_unref (priv->icon_dirs);
+
+	g_object_unref (priv->cache);
+	g_object_unref (priv->system_cache);
+	g_free (priv->cache_fname);
 
 	g_free (priv->locale);
 	g_free (priv->current_arch);
@@ -238,6 +222,20 @@ as_pool_class_init (AsPoolClass *klass)
 }
 
 /**
+ * as_pool_can_query_system_cache:
+ *
+ * Check whether the system cache can be used for reading data.
+ */
+static gboolean
+as_pool_can_query_system_cache (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM))
+		return as_cache_is_open (priv->system_cache);
+	return FALSE;
+}
+
+/**
  * as_pool_add_component_internal:
  * @pool: An instance of #AsPool
  * @cpt: The #AsComponent to add to the pool.
@@ -249,13 +247,15 @@ as_pool_class_init (AsPoolClass *klass)
 static gboolean
 as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedantic_noadd, GError **error)
 {
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	const gchar *cdid = NULL;
-	AsComponent *existing_cpt;
+	g_autoptr(AsComponent) existing_cpt = NULL;
 	gint pool_priority;
 	AsOriginKind new_cpt_orig_kind;
 	AsOriginKind existing_cpt_orig_kind;
 	AsMergeKind new_cpt_merge_kind;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GError *tmp_error = NULL;
+
 
 	cdid = as_component_get_data_id (cpt);
 	if (as_component_is_ignored (cpt)) {
@@ -267,7 +267,12 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		return FALSE;
 	}
 
-	existing_cpt = g_hash_table_lookup (priv->cpt_table, cdid);
+	existing_cpt = as_cache_get_component_by_data_id (priv->cache, cdid, NULL);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+
 	if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
 		g_autofree gchar *tmp_cdid = NULL;
 
@@ -277,7 +282,12 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		 */
 		if (existing_cpt == NULL) {
 			tmp_cdid = g_strdup_printf ("%s.desktop", cdid);
-			existing_cpt = g_hash_table_lookup (priv->cpt_table, tmp_cdid);
+
+			existing_cpt = as_cache_get_component_by_data_id (priv->cache, tmp_cdid, NULL);
+			if (tmp_error != NULL) {
+				g_propagate_error (error, tmp_error);
+				return FALSE;
+			}
 		}
 
 		if (existing_cpt != NULL) {
@@ -305,7 +315,11 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 				/* remove matching component from pool if its priority is lower */
 				if (as_component_get_priority (match) < as_component_get_priority (cpt)) {
 					const gchar *match_cdid = as_component_get_data_id (match);
-					g_hash_table_remove (priv->cpt_table, match_cdid);
+					as_cache_remove_by_data_id (priv->cache, match_cdid, &tmp_error);
+					if (tmp_error != NULL) {
+						g_propagate_error (error, tmp_error);
+						return FALSE;
+					}
 					g_debug ("Removed via merge component: %s", match_cdid);
 				}
 			} else {
@@ -317,20 +331,16 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	}
 
 	if (existing_cpt == NULL) {
-		g_hash_table_insert (priv->cpt_table,
-					g_strdup (cdid),
-					g_object_ref (cpt));
-		g_hash_table_add (priv->known_cids,
-				  g_strdup (as_component_get_id (cpt)));
+		if (!as_cache_insert (priv->cache, cpt, error))
+			return FALSE;
 		return TRUE;
 	}
 
 	/* safety check so we don't ignore a good component because we added a bad one first */
 	if (!as_component_is_valid (existing_cpt)) {
 		g_debug ("Replacing invalid component '%s' with new one.", cdid);
-		g_hash_table_replace (priv->cpt_table,
-				      g_strdup (cdid),
-				      g_object_ref (cpt));
+		if (!as_cache_insert (priv->cache, cpt, error))
+			return FALSE;
 		return TRUE;
 	}
 
@@ -345,9 +355,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 							existing_cpt,
 							AS_MERGE_KIND_APPEND);
 
-			g_hash_table_replace (priv->cpt_table,
-				g_strdup (cdid),
-				g_object_ref (cpt));
+			if (!as_cache_insert (priv->cache, cpt, error))
+				return FALSE;
 			g_debug ("Replaced '%s' with data from metainfo and desktop-entry file.", cdid);
 			return TRUE;
 		} else {
@@ -379,9 +388,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		 *  the information we want - if that's not the case, no harm is done here) */
 		as_component_set_pkgnames (cpt, as_component_get_pkgnames (existing_cpt));
 
-		g_hash_table_replace (priv->cpt_table,
-				g_strdup (cdid),
-				g_object_ref (cpt));
+		if (!as_cache_insert (priv->cache, cpt, error))
+			return FALSE;
 		g_debug ("Replaced '%s' with data from metainfo file.", cdid);
 		return TRUE;
 	}
@@ -390,9 +398,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	 * with data of higher priority, or if we have an actual error in the metadata */
 	pool_priority = as_component_get_priority (existing_cpt);
 	if (pool_priority < as_component_get_priority (cpt)) {
-		g_hash_table_replace (priv->cpt_table,
-					g_strdup (cdid),
-					g_object_ref (cpt));
+		if (!as_cache_insert (priv->cache, cpt, error))
+			return FALSE;
 		g_debug ("Replaced '%s' with data of higher priority.", cdid);
 	} else {
 		/* bundles are treated specially here */
@@ -413,9 +420,8 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 				earch = as_component_get_architecture (existing_cpt);
 				if (earch != NULL) {
 					if (as_arch_compatible (earch, priv->current_arch)) {
-						g_hash_table_replace (priv->cpt_table,
-									g_strdup (cdid),
-									g_object_ref (cpt));
+						if (!as_cache_insert (priv->cache, cpt, error))
+							return FALSE;
 						g_debug ("Preferred component for native architecture for %s (was %s)", cdid, earch);
 						return TRUE;
 					} else {
@@ -462,108 +468,33 @@ as_pool_add_component (AsPool *pool, AsComponent *cpt, GError **error)
 }
 
 /**
- * as_pool_update_addon_info:
+ * as_pool_clear2:
+ * @pool: An #AsPool.
  *
- * Populate the "extensions" property of an #AsComponent, using the
- * "extends" information from other components.
+ * Remove all metadata from the pool and clear caches.
  */
-static void
-as_pool_update_addon_info (AsPool *pool, AsComponent *cpt)
+gboolean
+as_pool_clear2 (AsPool *pool, GError **error)
 {
-	guint i;
-	GPtrArray *extends;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
-	extends = as_component_get_extends (cpt);
-	if ((extends == NULL) || (extends->len == 0))
-		return;
-
-	for (i = 0; i < extends->len; i++) {
-		AsComponent *extended_cpt;
-		g_autofree gchar *extended_cdid = NULL;
-		const gchar *extended_cid = (const gchar*) g_ptr_array_index (extends, i);
-
-		extended_cdid = as_utils_build_data_id (AS_COMPONENT_SCOPE_SYSTEM, "os",
-							as_utils_get_component_bundle_kind (cpt),
-							extended_cid);
-
-		extended_cpt = g_hash_table_lookup (priv->cpt_table, extended_cdid);
-		if (extended_cpt == NULL) {
-			g_debug ("%s extends %s, but %s was not found.", as_component_get_data_id (cpt), extended_cdid, extended_cdid);
-			return;
+	/* close & delete session cache */
+	as_cache_close (priv->cache);
+	if (g_file_test (priv->cache_fname, G_FILE_TEST_EXISTS)) {
+		if (g_remove (priv->cache_fname) != 0) {
+			g_set_error_literal (error,
+						AS_POOL_ERROR,
+						AS_POOL_ERROR_OLD_CACHE,
+						_("Unable to remove old cache."));
+			return FALSE;
 		}
-
-		/* don't add the same addon more than once */
-		if (g_ptr_array_find (as_component_get_addons (extended_cpt), cpt, NULL))
-			continue;
-
-		as_component_add_addon (extended_cpt, cpt);
-	}
-}
-
-/**
- * as_pool_refine_data:
- *
- * Automatically refine the data we have about software components in the pool.
- *
- * Returns: Amount of invalid components.
- */
-static guint
-as_pool_refine_data (AsPool *pool)
-{
-	GHashTableIter iter;
-	gpointer key, value;
-	GHashTable *refined_cpts;
-	guint invalid_cpts = 0;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-
-	/* since we might remove stuff from the pool, we need a new table to store the result */
-	refined_cpts = g_hash_table_new_full (g_str_hash,
-						g_str_equal,
-						g_free,
-						(GDestroyNotify) g_object_unref);
-
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, &key, &value)) {
-		AsComponent *cpt;
-		const gchar *cdid;
-		cpt = AS_COMPONENT (value);
-		cdid = (const gchar*) key;
-
-		/* validate the component */
-		if (!as_component_is_valid (cpt)) {
-			/* we still succeed if the components originates from a .desktop file -
-			 * we care less about them and they generally have bad quality, so some issues
-			 * pop up on pretty much every system */
-			if (as_component_get_origin_kind (cpt) == AS_ORIGIN_KIND_DESKTOP_ENTRY) {
-				g_debug ("Ignored '%s': The component (from a .desktop file) is invalid.", as_component_get_id (cpt));
-			} else {
-				g_debug ("WARNING: Ignored component '%s': The component is invalid.", as_component_get_id (cpt));
-				invalid_cpts++;
-			}
-			continue;
-		}
-
-		/* add additional data to the component, e.g. external screenshots. Also refines
-		* the component's icon paths */
-		as_component_complete (cpt,
-					priv->screenshot_service_url,
-					priv->icon_dirs);
-
-		/* set the "addons" information */
-		as_pool_update_addon_info (pool, cpt);
-
-		/* add to results table */
-		g_hash_table_insert (refined_cpts,
-					g_strdup (cdid),
-					g_object_ref (cpt));
 	}
 
-	/* set refined components as new pool content */
-	g_hash_table_unref (priv->cpt_table);
-	priv->cpt_table = refined_cpts;
+	/* close system cache so it won't be used anymore */
+	as_cache_close (priv->system_cache);
 
-	return invalid_cpts;
+	/* reopen the session cache as a new, pristine one */
+	return as_cache_open (priv->cache, priv->cache_fname, priv->locale, error);
 }
 
 /**
@@ -575,23 +506,14 @@ as_pool_refine_data (AsPool *pool)
 void
 as_pool_clear (AsPool *pool)
 {
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	if (g_hash_table_size (priv->cpt_table) == 0)
-		return;
+	GError *tmp_error = NULL;
 
-	/* contents */
-	g_hash_table_unref (priv->cpt_table);
-	priv->cpt_table = g_hash_table_new_full (g_str_hash,
-						 g_str_equal,
-						 g_free,
-						 (GDestroyNotify) g_object_unref);
-
-	/* cid info set */
-	g_hash_table_unref (priv->known_cids);
-	priv->known_cids = g_hash_table_new_full (g_str_hash,
-						  g_str_equal,
-						  g_free,
-						  NULL);
+	/* reopen the new cache */
+	if (!as_pool_clear2 (pool, &tmp_error)) {
+		g_critical ("Unable to reopen cache: %s", tmp_error->message);
+		g_error_free (tmp_error);
+		tmp_error = NULL;
+	}
 }
 
 /**
@@ -600,15 +522,16 @@ as_pool_clear (AsPool *pool)
  * Returns: %TRUE if ctime of file is newer than the cached time.
  */
 static gboolean
-as_pool_ctime_newer (AsPool *pool, const gchar *dir)
+as_pool_ctime_newer (AsPool *pool, const gchar *dir, AsCache *cache)
 {
 	struct stat sb;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	time_t cache_ctime;
 
 	if (stat (dir, &sb) < 0)
 		return FALSE;
 
-	if (sb.st_ctime > priv->cache_ctime)
+	cache_ctime = as_cache_get_ctime (cache);
+	if (sb.st_ctime > cache_ctime)
 		return TRUE;
 
 	return FALSE;
@@ -618,19 +541,19 @@ as_pool_ctime_newer (AsPool *pool, const gchar *dir)
  * as_pool_appstream_data_changed:
  */
 static gboolean
-as_pool_metadata_changed (AsPool *pool)
+as_pool_metadata_changed (AsPool *pool, AsCache *cache)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	guint i;
 
 	for (i = 0; i < priv->xml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
-		if (as_pool_ctime_newer (pool, dir))
+		if (as_pool_ctime_newer (pool, dir, cache))
 			return TRUE;
 	}
 	for (i = 0; i < priv->yaml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->yaml_dirs, i);
-		if (as_pool_ctime_newer (pool, dir))
+		if (as_pool_ctime_newer (pool, dir, cache))
 			return TRUE;
 	}
 
@@ -654,23 +577,35 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 	GError *tmp_error = NULL;
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
-	/* see if we can use the caches */
+	/* see if we can use the system caches */
 	if (!refresh) {
-		if (!as_pool_metadata_changed (pool)) {
-			g_autofree gchar *fname = NULL;
-			g_debug ("Caches are up to date.");
+		g_autofree gchar *fname = NULL;
+		fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
+		as_cache_set_location (priv->system_cache, fname);
+
+		if (!as_pool_metadata_changed (pool, priv->system_cache)) {
+			g_debug ("System metadata cache seems up to date.");
 
 			if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM)) {
-				g_debug ("Using cached data.");
-
-				fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
+				g_debug ("Using system cache data.");
 				if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
-					return as_pool_load_cache_file (pool, fname, error);
+					as_cache_close (priv->system_cache);
+
+					if (as_cache_open2 (priv->system_cache, priv->locale, &tmp_error)) {
+						return TRUE;
+					} else {
+						/* if we can't open the system cache for whatever reason, we complain but
+						 * silently fall back to reading all data again */
+						g_warning ("Unable to load system cache: %s", tmp_error->message);
+						g_error_free (tmp_error);
+						tmp_error = NULL;
+					}
 				} else {
 					g_debug ("Missing cache for language '%s', attempting to load fresh data.", priv->locale);
 				}
 			} else {
 				g_debug ("Not using system cache.");
+				as_cache_close (priv->system_cache);
 			}
 		}
 	}
@@ -924,14 +859,14 @@ as_pool_load_metainfo_data (AsPool *pool, GHashTable *desktop_entry_cpts)
 
 				mi_cid_desktop = g_strdup_printf ("%s.desktop", mi_cid);
 				/* check with .desktop suffix too */
-				if (g_hash_table_contains (priv->known_cids, mi_cid_desktop)) {
+				if (as_cache_has_component_id (priv->cache, mi_cid_desktop, NULL)) {
 					g_debug ("Skipped: %s (already known)", fname);
 					continue;
 				}
 			}
 
 			/* quickly check if we know the component already */
-			if (g_hash_table_contains (priv->known_cids, mi_cid)) {
+			if (as_cache_has_component_id (priv->cache, mi_cid, NULL)) {
 				g_debug ("Skipped: %s (already known)", fname);
 				continue;
 			}
@@ -1041,6 +976,26 @@ as_pool_load_metainfo_desktop_data (AsPool *pool)
 }
 
 /**
+ * as_pool_cache_persist_component_cb:
+ *
+ * Callback function run on components before they are
+ * persisted into a floating cache.
+ */
+void
+as_pool_cache_persist_component_cb (gpointer data, gpointer user_data)
+{
+	AsPool *pool = AS_POOL (user_data);
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	AsComponent *cpt = AS_COMPONENT (data);
+
+	/* add additional data to the component, e.g. external screenshots. Also refines
+	* the component's icon paths */
+	as_component_complete (cpt,
+				priv->screenshot_service_url,
+				priv->icon_dirs);
+}
+
+/**
  * as_pool_load:
  * @pool: An instance of #AsPool.
  * @error: A #GError or %NULL.
@@ -1062,9 +1017,19 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	guint invalid_cpts_n;
 	guint all_cpts_n;
 	gdouble valid_percentage;
+	GError *tmp_error = NULL;
 
-	/* load means to reload, so we get rid of all the old data */
-	as_pool_clear (pool);
+	if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_NO_CLEAR)) {
+		/* we are supposed not to clear the cache before laoding its data */
+		if (!as_cache_open (priv->cache, priv->cache_fname, priv->locale, error))
+			return FALSE;
+	} else {
+		/* load (usually) means to reload, so we clear potential old data */
+		if (!as_pool_clear2 (pool, error))
+			return FALSE;
+	}
+
+	as_cache_make_floating (priv->cache);
 
 	/* read all AppStream metadata that we can find */
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_COLLECTION))
@@ -1074,8 +1039,15 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	as_pool_load_metainfo_desktop_data (pool);
 
 	/* automatically refine the metadata we have in the pool */
-	all_cpts_n = g_hash_table_size (priv->cpt_table);
-	invalid_cpts_n = as_pool_refine_data (pool);
+	invalid_cpts_n = as_cache_unfloat (priv->cache,
+					   as_pool_cache_persist_component_cb,
+					   pool,
+					   &tmp_error);
+	all_cpts_n = as_cache_count_components (priv->cache, NULL);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
 
 	valid_percentage = (100 / (gdouble) all_cpts_n) * (gdouble) (all_cpts_n - invalid_cpts_n);
 	g_debug ("Percentage of valid components: %0.3f", valid_percentage);
@@ -1110,35 +1082,11 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 gboolean
 as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 {
-	g_autoptr(GPtrArray) cpts = NULL;
-	guint i;
-	GError *tmp_error = NULL;
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
-	/* load list of components in cache */
-	cpts = as_cache_file_read (fname, &tmp_error);
-	if (tmp_error != NULL) {
-		g_propagate_error (error, tmp_error);
+	as_cache_close (priv->system_cache);
+	if (!as_cache_open (priv->cache, fname, priv->locale, error))
 		return FALSE;
-	}
-
-	/* add cache objects to the pool */
-	for (i = 0; i < cpts->len; i++) {
-		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
-
-		/* TODO: Caches are system wide only at time, so we only have system-scope components in there */
-		as_component_set_scope (cpt, AS_COMPONENT_SCOPE_SYSTEM);
-
-		as_pool_add_component (pool, cpt, &tmp_error);
-		if (tmp_error != NULL) {
-			g_warning ("Cached data ignored: %s", tmp_error->message);
-			g_error_free (tmp_error);
-			tmp_error = NULL;
-			continue;
-		}
-	}
-
-	/* NOTE: Caches don't have merge components, so we don't need to special-case them here */
-	/* NOTE: To have addons connected properly, as_pool_update_addon_info() has to be called, which busually happens anyway in the final _refine() run */
 
 	return TRUE;
 }
@@ -1175,18 +1123,27 @@ GPtrArray*
 as_pool_get_components (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GHashTableIter iter;
-	gpointer value;
-	GPtrArray *cpts;
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
 
-	cpts = g_ptr_array_new_with_free_func (g_object_unref);
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		AsComponent *cpt = AS_COMPONENT (value);
-		g_ptr_array_add (cpts, g_object_ref (cpt));
+	result = as_cache_get_components_all (priv->cache, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable to retrieve all components from session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
-	return cpts;
+	if (as_pool_can_query_system_cache (pool)) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		tmp_res = as_cache_get_components_all (priv->system_cache, &tmp_error);
+		if (tmp_res == NULL) {
+			g_warning ("Unable to retrieve all components from system cache: %s", tmp_error->message);
+			return result;
+		}
+		while (tmp_res->len != 0)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+	}
+
+	return result;
 }
 
 /**
@@ -1204,20 +1161,24 @@ GPtrArray*
 as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GPtrArray *result;
-	GHashTableIter iter;
-	gpointer value;
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
 
-	result = g_ptr_array_new_with_free_func (g_object_unref);
-	if (cid == NULL)
-		return result;
+	result = as_cache_get_components_by_id (priv->cache, cid, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable find components by ID in session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
+	}
 
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		AsComponent *cpt = AS_COMPONENT (value);
-		if (g_strcmp0 (as_component_get_id (cpt), cid) == 0)
-			g_ptr_array_add (result,
-					 g_object_ref (cpt));
+	if (as_pool_can_query_system_cache (pool)) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		tmp_res = as_cache_get_components_by_id (priv->system_cache, cid, &tmp_error);
+		if (tmp_res == NULL) {
+			g_warning ("Unable find components by ID in system cache: %s", tmp_error->message);
+			return result;
+		}
+		while (tmp_res->len != 0)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
 	}
 
 	return result;
@@ -1239,35 +1200,27 @@ as_pool_get_components_by_provided_item (AsPool *pool,
 					      const gchar *item)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GHashTableIter iter;
-	gpointer value;
-	GPtrArray *results;
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
 
-	/* sanity check */
-	g_return_val_if_fail (item != NULL, NULL);
-
-	results = g_ptr_array_new_with_free_func (g_object_unref);
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		GPtrArray *provided = NULL;
-		guint i;
-		AsComponent *cpt = AS_COMPONENT (value);
-
-		provided = as_component_get_provided (cpt);
-		for (i = 0; i < provided->len; i++) {
-			AsProvided *prov = AS_PROVIDED (g_ptr_array_index (provided, i));
-			if (kind != AS_PROVIDED_KIND_UNKNOWN) {
-				/* check if the kind matches. an unknown kind matches all provides types */
-				if (as_provided_get_kind (prov) != kind)
-					continue;
-			}
-
-			if (as_provided_has_item (prov, item))
-				g_ptr_array_add (results, g_object_ref (cpt));
-		}
+	result = as_cache_get_components_by_provided_item (priv->cache, kind, item, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable find components by provided item in session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
-	return results;
+	if (as_pool_can_query_system_cache (pool)) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		tmp_res = as_cache_get_components_by_provided_item (priv->system_cache, kind, item, &tmp_error);
+		if (tmp_res == NULL) {
+			g_warning ("Unable find components by provided item in system cache: %s", tmp_error->message);
+			return result;
+		}
+		while (tmp_res->len != 0)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+	}
+
+	return result;
 }
 
 /**
@@ -1283,23 +1236,27 @@ GPtrArray*
 as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GHashTableIter iter;
-	gpointer value;
-	GPtrArray *results;
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
 
-	/* sanity check */
-	g_return_val_if_fail ((kind < AS_COMPONENT_KIND_LAST) && (kind > AS_COMPONENT_KIND_UNKNOWN), NULL);
-
-	results = g_ptr_array_new_with_free_func (g_object_unref);
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		AsComponent *cpt = AS_COMPONENT (value);
-
-		if (as_component_get_kind (cpt) == kind)
-				g_ptr_array_add (results, g_object_ref (cpt));
+	result = as_cache_get_components_by_kind (priv->cache, kind, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable find components by kind in session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
-	return results;
+	if (as_pool_can_query_system_cache (pool)) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		tmp_res = as_cache_get_components_by_kind (priv->system_cache, kind, &tmp_error);
+		if (tmp_res == NULL) {
+			g_warning ("Unable find components by kind in system cache: %s", tmp_error->message);
+			return result;
+		}
+		while (tmp_res->len != 0)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+	}
+
+	return result;
 }
 
 /**
@@ -1315,31 +1272,34 @@ GPtrArray*
 as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GHashTableIter iter;
-	gpointer value;
-	guint i;
-	GPtrArray *results;
-
-	results = g_ptr_array_new_with_free_func (g_object_unref);
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
 
 	/* sanity check */
-	for (i = 0; categories[i] != NULL; i++) {
+	for (guint i = 0; categories[i] != NULL; i++) {
 		if (!as_utils_is_category_name (categories[i])) {
 			g_warning ("'%s' is not a valid XDG category name, search results might be invalid or empty.", categories[i]);
 		}
 	}
 
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		AsComponent *cpt = AS_COMPONENT (value);
-
-		for (i = 0; categories[i] != NULL; i++) {
-			if (as_component_has_category (cpt, categories[i]))
-				g_ptr_array_add (results, g_object_ref (cpt));
-		}
+	result = as_cache_get_components_by_categories (priv->cache, categories, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable find components by categories in session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
-	return results;
+	if (as_pool_can_query_system_cache (pool)) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		tmp_res = as_cache_get_components_by_categories (priv->system_cache, categories, &tmp_error);
+		if (tmp_res == NULL) {
+			g_warning ("Unable find components by categories in system cache: %s", tmp_error->message);
+			return result;
+		}
+		while (tmp_res->len != 0)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+	}
+
+	return result;
 }
 
 /**
@@ -1357,45 +1317,31 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
  */
 GPtrArray*
 as_pool_get_components_by_launchable (AsPool *pool,
-					      AsLaunchableKind kind,
-					      const gchar *id)
+					AsLaunchableKind kind,
+					const gchar *id)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	GHashTableIter iter;
-	gpointer value;
-	GPtrArray *results;
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
 
-	/* sanity check */
-	g_return_val_if_fail (id != NULL, NULL);
-
-	results = g_ptr_array_new_with_free_func (g_object_unref);
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		GPtrArray *launchables = NULL;
-		guint i;
-		AsComponent *cpt = AS_COMPONENT (value);
-
-		launchables = as_component_get_launchables (cpt);
-		for (i = 0; i < launchables->len; i++) {
-			guint j;
-			GPtrArray *entries;
-			AsLaunchable *launch = AS_LAUNCHABLE (g_ptr_array_index (launchables, i));
-
-			if (kind != AS_LAUNCHABLE_KIND_UNKNOWN) {
-				/* check if the kind matches. an unknown kind matches all provides types */
-				if (as_launchable_get_kind (launch) != kind)
-					continue;
-			}
-
-			entries = as_launchable_get_entries (launch);
-			for (j = 0; j < entries->len; j++) {
-				if (g_strcmp0 ((const gchar*) g_ptr_array_index (entries, j), id) == 0)
-					g_ptr_array_add (results, g_object_ref (cpt));
-			}
-		}
+	result = as_cache_get_components_by_launchable (priv->cache, kind, id, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Unable find components by launchable in session cache: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
-	return results;
+	if (as_pool_can_query_system_cache (pool)) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		tmp_res = as_cache_get_components_by_launchable (priv->system_cache, kind, id, &tmp_error);
+		if (tmp_res == NULL) {
+			g_warning ("Unable find components by launchable in system cache: %s", tmp_error->message);
+			return result;
+		}
+		while (tmp_res->len != 0)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+	}
+
+	return result;
 }
 
 /**
@@ -1463,28 +1409,6 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
 }
 
 /**
- * as_sort_components_by_score_cb:
- *
- * Helper method to sort result arrays by the #AsComponent match score
- * with higher scores appearing higher in the list.
- */
-static gint
-as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
-{
-	guint s1, s2;
-	AsComponent *cpt1 = *((AsComponent **) a);
-	AsComponent *cpt2 = *((AsComponent **) b);
-	s1 = as_component_get_sort_score (cpt1);
-	s2 = as_component_get_sort_score (cpt2);
-
-	if (s1 > s2)
-		return -1;
-	if (s1 < s2)
-		return 1;
-	return 0;
-}
-
-/**
  * as_pool_search:
  * @pool: An instance of #AsPool
  * @search: A search string
@@ -1500,14 +1424,13 @@ GPtrArray*
 as_pool_search (AsPool *pool, const gchar *search)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GError) tmp_error = NULL;
+	GPtrArray *result = NULL;
 	g_auto(GStrv) terms = NULL;
-	GPtrArray *results;
-	GHashTableIter iter;
-	gpointer value;
 
 	/* sanitize user's search term */
 	terms = as_pool_build_search_terms (pool, search);
-	results = g_ptr_array_new_with_free_func (g_object_unref);
+	result = g_ptr_array_new_with_free_func (g_object_unref);
 
 	if (terms == NULL) {
 		g_debug ("Search term invalid. Matching everything.");
@@ -1517,22 +1440,28 @@ as_pool_search (AsPool *pool, const gchar *search)
 		g_debug ("Searching for: %s", tmp_str);
 	}
 
-	g_hash_table_iter_init (&iter, priv->cpt_table);
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		guint score;
-		AsComponent *cpt = AS_COMPONENT (value);
-
-		score = as_component_search_matches_all (cpt, terms);
-		if (score == 0)
-			continue;
-
-		g_ptr_array_add (results, g_object_ref (cpt));
+	result = as_cache_search (priv->cache, terms, FALSE, &tmp_error);
+	if (result == NULL) {
+		g_warning ("Search in session cache failed: %s", tmp_error->message);
+		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
-	/* sort the results by their priority */
-	g_ptr_array_sort (results, as_sort_components_by_score_cb);
+	if (as_pool_can_query_system_cache (pool)) {
+		g_autoptr(GPtrArray) tmp_res = NULL;
+		tmp_res = as_cache_search (priv->system_cache, terms, FALSE, &tmp_error);
+		if (tmp_res == NULL) {
+			g_warning ("Search in system cache failed: %s", tmp_error->message);
+			return result;
+		}
+		while (tmp_res->len != 0)
+			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+	}
 
-	return results;
+	/* sort the results by their priority (this was explicitly disabled for the caches before,
+	 * so we could sort the combines result list) */
+	as_utils_sort_components_by_score (result);
+
+	return result;
 }
 
 /**
@@ -1548,12 +1477,30 @@ as_pool_search (AsPool *pool, const gchar *search)
 gboolean
 as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 {
+	return as_pool_refresh_system_cache (pool, force, error);
+}
+
+/**
+ * as_pool_refresh_system_cache:
+ * @pool: An instance of #AsPool.
+ * @force: Enforce refresh, even if source data has not changed.
+ *
+ * Update the AppStream cache. There is normally no need to call this function manually, because cache updates are handled
+ * transparently in the background.
+ *
+ * Returns: %TRUE if the cache was updated, %FALSE on error or if the cache update was not necessary and has been skipped.
+ */
+gboolean
+as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
+{
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = FALSE;
 	gboolean ret_poolupdate;
 	g_autofree gchar *cache_fname = NULL;
 	g_autoptr(GError) data_load_error = NULL;
 	g_autoptr(GError) tmp_error = NULL;
+	AsCacheFlags prev_cache_flags;
+	guint invalid_cpts_n;
 
 	/* try to create cache directory, in case it doesn't exist */
 	g_mkdir_with_parents (priv->sys_cache_path, 0755);
@@ -1578,11 +1525,12 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 #endif
 
 	/* create the filename of our cache */
-	cache_fname = g_strdup_printf ("%s/%s.gvz", priv->sys_cache_path, priv->locale);
+	cache_fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
+	as_cache_set_location (priv->system_cache, cache_fname);
 
 	/* check if we need to refresh the cache
 	 * (which is only necessary if the AppStream data has changed) */
-	if (!as_pool_metadata_changed (pool)) {
+	if (!as_pool_metadata_changed (pool, priv->system_cache)) {
 		g_debug ("Data did not change, no cache refresh needed.");
 		if (force) {
 			g_debug ("Forcing refresh anyway.");
@@ -1593,18 +1541,57 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 	g_debug ("Refreshing AppStream cache");
 
 	/* ensure we start with an empty pool */
-	as_pool_clear (pool);
+	as_cache_close (priv->system_cache);
+	as_cache_close (priv->cache);
+
+	/* don't call sync explicitly for a dramatic improvement in speed */
+	as_cache_set_nosync (priv->cache, TRUE);
+
+	/* open system cache as user cache temporarily, so we can modify it */
+	g_remove (cache_fname);
+	if (!as_cache_open (priv->cache, cache_fname, priv->locale, error))
+		return FALSE;
 
 	/* NOTE: we will only cache AppStream metadata, no .desktop file metadata etc. */
 
+	/* since the session cache is the system cache now (in order to update it), temporarily modify
+	 * the cache flags */
+	prev_cache_flags = priv->cache_flags;
+	priv->cache_flags = AS_CACHE_FLAG_USE_USER;
+
+	/* set cache to floating mode to increase performance by holding all data
+	 *in memory in a serialized form */
+	as_cache_make_floating (priv->cache);
+
 	/* load AppStream collection metadata only and refine it */
 	ret = as_pool_load_collection_data (pool, TRUE, &data_load_error);
-	ret_poolupdate = (as_pool_refine_data (pool) == 0) && ret;
+
+	/* un-float the cache, persisting all data */
+	invalid_cpts_n = as_cache_unfloat (priv->cache,
+					   as_pool_cache_persist_component_cb,
+					   pool,
+					   &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+
+	ret_poolupdate = (invalid_cpts_n == 0) && ret;
 	if (data_load_error != NULL)
 		g_debug ("Error while updating the in-memory data pool: %s", data_load_error->message);
 
 	/* save the cache object */
-	as_pool_save_cache_file (pool, cache_fname, &tmp_error);
+	as_cache_close (priv->cache);
+
+	/* restore cache flags */
+	priv->cache_flags = prev_cache_flags;
+
+	/* switch back to default sync mode */
+	as_cache_set_nosync (priv->cache, FALSE);
+
+	/* reset (so the proper session cache is opened again) */
+	as_pool_clear2 (pool, NULL);
+
 	if (tmp_error != NULL) {
 		/* the exact error is not forwarded here, since we might be able to partially update the cache */
 		g_warning ("Error while updating the cache: %s", tmp_error->message);
@@ -1630,7 +1617,6 @@ as_pool_refresh_cache (AsPool *pool, gboolean force, GError **error)
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
 		as_touch_location (cache_fname);
-		as_pool_check_cache_ctime (pool);
 	} else {
 		g_set_error (error,
 				AS_POOL_ERROR,
@@ -2040,7 +2026,41 @@ time_t
 as_pool_get_cache_age (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return priv->cache_ctime;
+	return as_cache_get_ctime (priv->cache);
+}
+
+/**
+ * as_pool_set_cache_location:
+ * @pool: An instance of #AsPool.
+ * @fname: Filename of the cache file, or special identifier.
+ *
+ * Sets the name of the cache file. If @fname is ":memory", the cache will be
+ * kept in memory, if it is set to ":temporary", the cache will be stored in
+ * a temporary directory. In any other case, the given filename is used.
+ *
+ * Since: 0.12.7
+ **/
+void
+as_pool_set_cache_location (AsPool *pool, const gchar *fname)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_free (priv->cache_fname);
+	priv->cache_fname = g_strdup (fname);
+}
+
+/**
+ * as_pool_get_cache_location:
+ * @pool: An instance of #AsPool.
+ *
+ * Gets the location of the session cache.
+ *
+ * Returns: Location of the cache.
+ **/
+const gchar*
+as_pool_get_cache_location (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	return priv->cache_fname;
 }
 
 /**
