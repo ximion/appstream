@@ -75,6 +75,9 @@ typedef struct
 	gboolean floating;
 	GHashTable *cpt_map;
 	GHashTable *cid_set;
+
+	GFunc cpt_refine_func;
+	gpointer cpt_refine_func_udata;
 } AsCachePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
@@ -1262,6 +1265,8 @@ as_cache_component_from_dval (AsCache *cache, MDB_txn *txn, MDB_val dval, GError
 		return NULL;
 	}
 
+	(*priv->cpt_refine_func) (cpt, priv->cpt_refine_func_udata);
+
 	xmlFreeDoc (doc);
 	return g_steal_pointer (&cpt);
 }
@@ -2067,13 +2072,12 @@ as_cache_make_floating (AsCache *cache)
 /**
  * as_cache_unfloat:
  * @cache: An instance of #AsCache.
- * @func: Function to be called on the components before they are persisted.
  *
  * Persist all changes from a floating cache.
  * Return the number of invalid components.
  */
 guint
-as_cache_unfloat (AsCache *cache, GFunc func, gpointer user_data, GError **error)
+as_cache_unfloat (AsCache *cache, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	GHashTableIter iter;
@@ -2100,7 +2104,7 @@ as_cache_unfloat (AsCache *cache, GFunc func, gpointer user_data, GError **error
 			continue;
 		}
 
-		(*func) (cpt, user_data);
+		(*priv->cpt_refine_func) (cpt, priv->cpt_refine_func_udata);
 
 		if (!as_cache_insert (cache, cpt, error))
 			return 0;
@@ -2193,6 +2197,20 @@ as_cache_set_readonly (AsCache *cache, gboolean ro)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	priv->readonly = ro;
+}
+
+/**
+ * as_cache_set_refine_func:
+ * @cache: An instance of #AsCache.
+ *
+ * Set function to be called on a component after it was (de)serialized.
+ */
+void
+as_cache_set_refine_func (AsCache *cache, GFunc func, gpointer user_data)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	priv->cpt_refine_func = func;
+	priv->cpt_refine_func_udata = user_data;
 }
 
 /**

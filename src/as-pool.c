@@ -113,6 +113,7 @@ static gchar *APPLICATIONS_DIR = "/usr/share/applications";
 static gchar *METAINFO_DIR = "/usr/share/metainfo";
 
 static void as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gboolean add_root);
+static void as_pool_cache_refine_component_cb (gpointer data, gpointer user_data);
 
 /**
  * as_pool_init:
@@ -155,6 +156,10 @@ as_pool_init (AsPool *pool)
 
 	/* system cache is always read-only */
 	as_cache_set_readonly (priv->system_cache, TRUE);
+
+	/* set callback to refine components after deserialization */
+	as_cache_set_refine_func (priv->cache, as_pool_cache_refine_component_cb, pool);
+	as_cache_set_refine_func (priv->system_cache, as_pool_cache_refine_component_cb, pool);
 
 	/* open our session cache in temporary mode by default */
 	priv->cache_fname = g_strdup (":temporary");
@@ -976,13 +981,13 @@ as_pool_load_metainfo_desktop_data (AsPool *pool)
 }
 
 /**
- * as_pool_cache_persist_component_cb:
+ * as_pool_cache_refine_component_cb:
  *
  * Callback function run on components before they are
- * persisted into a floating cache.
+ * (de)serialized.
  */
-void
-as_pool_cache_persist_component_cb (gpointer data, gpointer user_data)
+static void
+as_pool_cache_refine_component_cb (gpointer data, gpointer user_data)
 {
 	AsPool *pool = AS_POOL (user_data);
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
@@ -1039,10 +1044,7 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	as_pool_load_metainfo_desktop_data (pool);
 
 	/* automatically refine the metadata we have in the pool */
-	invalid_cpts_n = as_cache_unfloat (priv->cache,
-					   as_pool_cache_persist_component_cb,
-					   pool,
-					   &tmp_error);
+	invalid_cpts_n = as_cache_unfloat (priv->cache, &tmp_error);
 	all_cpts_n = as_cache_count_components (priv->cache, NULL);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
@@ -1567,10 +1569,7 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 	ret = as_pool_load_collection_data (pool, TRUE, &data_load_error);
 
 	/* un-float the cache, persisting all data */
-	invalid_cpts_n = as_cache_unfloat (priv->cache,
-					   as_pool_cache_persist_component_cb,
-					   pool,
-					   &tmp_error);
+	invalid_cpts_n = as_cache_unfloat (priv->cache, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		return FALSE;

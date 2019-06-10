@@ -129,13 +129,15 @@ gboolean	as_cache_is_open (AsCache *cache);
 
 void		as_cache_make_floating (AsCache *cache);
 guint		as_cache_unfloat (AsCache *cache,
-				  GFunc func,
-				  gpointer user_data,
 				  GError **error);
 
 const gchar	*as_cache_get_location (AsCache *cache);
 void		as_cache_set_location (AsCache *cache,
 					const gchar *location);
+
+void		as_cache_set_refine_func (AsCache *cache,
+					  GFunc func,
+					  gpointer user_data);
 
 gboolean	as_cache_get_nosync (AsCache *cache);
 void		as_cache_set_nosync (AsCache *cache,

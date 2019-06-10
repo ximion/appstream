@@ -4148,10 +4148,11 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	/* internal information */
 	if (as_context_get_internal_mode (ctx)) {
+		const gchar *origin = as_component_get_origin (cpt);
 		if (priv->scope != AS_COMPONENT_SCOPE_UNKNOWN)
 			as_xml_add_text_node (cnode, "__asi_scope", as_component_scope_to_string (priv->scope));
-		if (priv->origin != NULL)
-			as_xml_add_text_node (cnode, "__asi_origin", priv->origin);
+		if (origin != NULL)
+			as_xml_add_text_node (cnode, "__asi_origin", origin);
 	}
 
 	return cnode;
