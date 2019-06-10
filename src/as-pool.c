@@ -1347,6 +1347,27 @@ as_pool_get_components_by_launchable (AsPool *pool,
 }
 
 /**
+ * as_user_search_term_valid:
+ *
+ * Test for search term validity (filter out any markup).
+ *
+ * Returns: %TRUE is the search term was valid.
+ **/
+static gboolean
+as_user_search_term_valid (const gchar *term)
+{
+	guint i;
+	for (i = 0; term[i] != '\0'; i++) {
+		if (term[i] == '<' ||
+		    term[i] == '>' ||
+		    term[i] == '(' ||
+		    term[i] == ')')
+			return FALSE;
+	}
+	return TRUE;
+}
+
+/**
  * as_pool_build_search_terms:
  *
  * Build an array of search terms from a search string and improve the search terms
@@ -1396,7 +1417,7 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
 	idx = 0;
 	stemmer = g_object_ref (as_stemmer_get ());
 	for (i = 0; strv[i] != NULL; i++) {
-		if (!as_utils_search_token_valid (strv[i]))
+		if (!as_user_search_term_valid (strv[i]))
 			continue;
 		/* stem the string and add it to terms */
 		terms[idx++] = as_stemmer_stem (stemmer, strv[i]);
