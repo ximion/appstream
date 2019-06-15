@@ -131,6 +131,7 @@ aslib_deps = [glib_dep,
               gobject_dep,
               gio_unix_dep,
               lmdb_dep,
+              lz4_dep,
               xml2_dep,
               yaml_dep]
 if get_option ('stemming')

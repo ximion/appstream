@@ -33,6 +33,7 @@
 #include "as-cache.h"
 
 #include <lmdb.h>
+#include <lz4.h>
 #include <errno.h>
 #include <glib/gstdio.h>
 
@@ -396,21 +397,21 @@ as_cache_txn_put_kv_bytes (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gcha
 }
 
 /**
- * as_txn_put_hash_kv_str:
+ * as_txn_put_hash_kv_bytes:
  *
- * Add checksum key / string value pair to the database
+ * Add checksum key / bytes value pair to the database
  */
 static gboolean
-as_txn_put_hash_kv_str (MDB_txn *txn, MDB_dbi dbi, const guint8 *hash, const gchar *value, GError **error)
+as_txn_put_hash_kv_bytes (MDB_txn *txn, MDB_dbi dbi, const guint8 *hash, const guint8 *value, gsize value_len, GError **error)
 {
 	MDB_val dkey;
 	MDB_val dval;
 	gint rc;
-	g_autofree gchar *key_hash = NULL;
 
 	dkey.mv_size = AS_CACHE_CHECKSUM_LEN;
 	dkey.mv_data = (guint8*) hash;
-	dval = lmdb_str_to_dbval (value, -1);
+	dval.mv_size = value_len;
+	dval.mv_data = (void*) value;
 
 	rc = mdb_put (txn, dbi, &dkey, &dval, 0);
 	if (rc != MDB_SUCCESS) {
@@ -643,17 +644,20 @@ as_cache_check_opened (AsCache *cache, gboolean allow_floating, GError **error)
 }
 
 /**
- * as_cache_component_to_xml:
+ * as_cache_component_to_data:
  */
-static gchar*
-as_cache_component_to_xml (AsCache *cache, AsComponent *cpt)
+static guint8*
+as_cache_component_to_data (AsCache *cache, AsComponent *cpt, gsize *res_len)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	xmlDoc *doc;
 	xmlNode *node;
 	xmlBufferPtr buf;
 	xmlSaveCtxtPtr sctx;
-	gchar *res;
+	g_autofree guint8 *res = NULL;
+	gsize max_res_size;
+	gssize compressed_size;
+	gulong xml_size;
 
 	node = as_component_to_xml_node (cpt, priv->context, NULL);
 	if (node == NULL)
@@ -667,11 +671,28 @@ as_cache_component_to_xml (AsCache *cache, AsComponent *cpt)
 	xmlSaveDoc (sctx, doc);
 	xmlSaveClose (sctx);
 
-	res = g_strdup ((const gchar*) xmlBufferContent (buf));
+	/* the compressed data has the size of the uncompressed data prefixed as ulong */
+	xml_size = xmlBufferLength (buf);
+	max_res_size = LZ4_compressBound (xml_size) + sizeof(gulong);
+	res = g_malloc (max_res_size);
+
+	compressed_size = LZ4_compress_default ((const gchar*) xmlBufferContent (buf),
+							 (void*) (res + sizeof(gulong)),
+							 xml_size,
+							 max_res_size - sizeof(gulong));
+	if (compressed_size <= 0) {
+		g_critical ("Unable to compress XML for use in cache. Component '%s' dropped.", as_component_get_data_id (cpt));
+		return NULL;
+	}
+
+	*res_len = compressed_size + sizeof(gulong);
+	res = g_realloc (res, *res_len);
+	memcpy (res, &xml_size, sizeof(gulong));
+
 	xmlBufferFree (buf);
 	xmlFreeDoc (doc);
 
-	return res;
+	return g_steal_pointer (&res);
 }
 
 /**
@@ -1040,7 +1061,7 @@ as_cache_hash_match_dict_insert (guint8 **dict, gsize *dict_len, const guint8 *h
 	/* check if the list already contains the hash that should be added */
 	for (gsize i = 0; i < *dict_len; i += ENTRY_LEN) {
 		if (memcmp ((*dict) + i, hash, AS_CACHE_CHECKSUM_LEN) == 0) {
-			if (((AsTokenType) *(*dict + i + AS_CACHE_CHECKSUM_LEN)) == match_val)
+			if (((AsTokenType) *((AsTokenType*) (*dict + i + AS_CACHE_CHECKSUM_LEN))) == match_val)
 				return FALSE; /* the entry is already known, we will add nothing to the dict */
 			insert_idx = i; /* change index so we override the existing entry */
 			break;
@@ -1075,7 +1096,8 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_txn *txn = NULL;
-	g_autofree gchar *xml_data = NULL;
+	g_autofree guint8 *cpt_data = NULL;
+	gsize cpt_data_len;
 	g_autofree guint8 *cpt_checksum = NULL;
 	GError *tmp_error = NULL;
 
@@ -1109,17 +1131,18 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 		return FALSE;
 
 	/* add the component data itself to the cache */
-	xml_data = as_cache_component_to_xml (cache, cpt);
+	cpt_data = as_cache_component_to_data (cache, cpt, &cpt_data_len);
 	as_generate_cache_checksum (as_component_get_data_id (cpt),
 				    -1,
 				    &cpt_checksum,
 				    NULL);
 
-	if (!as_txn_put_hash_kv_str (txn,
-				     priv->db_cpts,
-				     cpt_checksum,
-				     xml_data,
-				     error)) {
+	if (!as_txn_put_hash_kv_bytes (txn,
+					priv->db_cpts,
+					cpt_checksum,
+					cpt_data,
+					cpt_data_len,
+					error)) {
 		goto fail;
 	}
 
@@ -1454,13 +1477,37 @@ as_cache_component_from_dval (AsCache *cache, MDB_txn *txn, MDB_val dval, GError
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *xml_data = NULL;
+	gulong xml_data_len;
+	gssize decompressed_size;
+	gssize compressed_size;
 	xmlDoc *doc;
 	xmlNode *root;
 
-	if (dval.mv_size <= 0)
+	compressed_size = dval.mv_size - sizeof(gulong);
+	if (compressed_size <= 0)
 		return NULL;
 
-	doc = as_xml_parse_document (dval.mv_data, dval.mv_size, error);
+	g_print ("SIZE: %li\n", compressed_size);
+	xml_data_len = (gulong) *((gulong*) dval.mv_data);
+	xml_data = g_malloc_n (xml_data_len, sizeof(gchar));
+
+	decompressed_size = LZ4_decompress_safe (dval.mv_data + sizeof(gulong), xml_data, compressed_size, xml_data_len);
+	if (decompressed_size < 0) {
+		g_set_error (error,
+			     AS_CACHE_ERROR,
+			     AS_CACHE_ERROR_WRONG_VALUE,
+			     "Failed to unpack XML data for cached component.");
+		return NULL;
+	} else if (decompressed_size != (gssize) xml_data_len) {
+		g_set_error (error,
+			     AS_CACHE_ERROR,
+			     AS_CACHE_ERROR_WRONG_VALUE,
+			     "Unpacked XML data for cached component has the wrong size.");
+		return NULL;
+	}
+
+	doc = as_xml_parse_document (xml_data, xml_data_len, error);
 	if (doc == NULL)
 		return NULL;
 	root = xmlDocGetRootElement (doc);
@@ -1982,7 +2029,7 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 		AsTokenType match_pval;
 
 		cpt_hash = data + i;
-		match_pval = (AsTokenType) *(data + AS_CACHE_CHECKSUM_LEN);
+		match_pval = (AsTokenType) *((AsTokenType*) (data + AS_CACHE_CHECKSUM_LEN));
 
 		/* retrieve component with this hash */
 		cpt = g_hash_table_lookup (results_ht, cpt_hash);
