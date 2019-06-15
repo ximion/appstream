@@ -24,8 +24,6 @@
 #include <glib/gi18n-lib.h>
 #include <glib.h>
 
-#include "as-variant-cache.h"
-
 /**
  * SECTION:as-launchable
  * @short_description: Description of launchable entries for a software component
@@ -268,50 +266,6 @@ as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, yaml_emitter_t *e
 	as_yaml_emit_sequence (emitter,
 			       as_launchable_kind_to_string (priv->kind),
 			       priv->entries);
-}
-
-/**
- * as_launchable_to_variant:
- * @launchable: an #AsLaunchable
- * @builder: A #GVariantBuilder
- *
- * Serialize the current active state of this object to a GVariant
- * for use in the on-disk binary cache.
- */
-void
-as_launchable_to_variant (AsLaunchable *launch, GVariantBuilder *builder)
-{
-	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
-
-	GVariant *var = g_variant_new ("{uv}", priv->kind, as_variant_from_string_ptrarray (priv->entries));
-	g_variant_builder_add_value (builder, var);
-}
-
-/**
- * as_launchable_set_from_variant:
- * @launchable: an #AsLaunchable
- * @variant: The #GVariant to read from.
- *
- * Read the active state of this object from a #GVariant serialization.
- * This is used by the on-disk binary cache.
- */
-gboolean
-as_launchable_set_from_variant (AsLaunchable *launch, GVariant *variant)
-{
-	AsLaunchablePrivate *priv = GET_PRIVATE (launch);
-	GVariantIter inner_iter;
-	GVariant *entry_child;
-	g_autoptr(GVariant) entries_var = NULL;
-
-	g_variant_get (variant, "{uv}", &priv->kind, &entries_var);
-
-	g_variant_iter_init (&inner_iter, entries_var);
-	while ((entry_child = g_variant_iter_next_value (&inner_iter))) {
-		as_launchable_add_entry (launch, g_variant_get_string (entry_child, NULL));
-		g_variant_unref (entry_child);
-	}
-
-	return TRUE;
 }
 
 /**

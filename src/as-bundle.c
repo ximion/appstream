@@ -32,7 +32,6 @@
 
 #include "config.h"
 #include "as-bundle-private.h"
-#include "as-variant-cache.h"
 
 typedef struct
 {
@@ -301,52 +300,6 @@ as_bundle_emit_yaml (AsBundle *bundle, AsContext *ctx, yaml_emitter_t *emitter)
 
 	/* end mapping for the bundle */
 	as_yaml_mapping_end (emitter);
-}
-
-/**
- * as_bundle_to_variant:
- * @bundle: a #AsBundle instance.
- * @builder: A #GVariantBuilder
- *
- * Serialize the current active state of this object to a GVariant
- * for use in the on-disk binary cache.
- */
-void
-as_bundle_to_variant (AsBundle *bundle, GVariantBuilder *builder)
-{
-	AsBundlePrivate *priv = GET_PRIVATE (bundle);
-	GVariantBuilder bundle_b;
-
-	g_variant_builder_init (&bundle_b, G_VARIANT_TYPE_ARRAY);
-
-	g_variant_builder_add_parsed (&bundle_b, "{'type', <%u>}", priv->kind);
-	g_variant_builder_add_parsed (&bundle_b, "{'id', <%s>}", priv->id);
-
-	g_variant_builder_add_value (builder, g_variant_builder_end (&bundle_b));
-}
-
-/**
- * as_bundle_set_from_variant:
- * @bundle: a #AsBundle instance.
- * @variant: The #GVariant to read from.
- *
- * Read the active state of this object from a #GVariant serialization.
- * This is used by the on-disk binary cache.
- */
-gboolean
-as_bundle_set_from_variant (AsBundle *bundle, GVariant *variant)
-{
-	AsBundlePrivate *priv = GET_PRIVATE (bundle);
-	GVariantDict tmp_dict;
-	GVariant *var2;
-
-	g_variant_dict_init (&tmp_dict, variant);
-	priv->kind = as_variant_get_dict_uint32 (&tmp_dict, "type");
-	as_bundle_set_id (bundle,
-			    as_variant_get_dict_str (&tmp_dict, "id", &var2));
-	g_variant_unref (var2);
-
-	return TRUE;
 }
 
 /**

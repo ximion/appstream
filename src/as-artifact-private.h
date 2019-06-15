@@ -44,11 +44,6 @@ void		as_artifact_emit_yaml (AsArtifact *artifact,
 					AsContext *ctx,
 					yaml_emitter_t *emitter);
 
-void		as_artifact_to_variant (AsArtifact *artifact,
-				      GVariantBuilder *builder);
-gboolean	as_artifact_set_from_variant (AsArtifact *artifact,
-					    GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

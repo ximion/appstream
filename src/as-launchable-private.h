@@ -42,11 +42,6 @@ void		as_launchable_emit_yaml (AsLaunchable *launch,
 					 AsContext *ctx,
 					 yaml_emitter_t *emitter);
 
-void		as_launchable_to_variant (AsLaunchable *launch,
-					  GVariantBuilder *builder);
-gboolean	as_launchable_set_from_variant (AsLaunchable *launch,
-						GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

@@ -431,57 +431,6 @@ as_agreement_section_emit_yaml (AsAgreementSection *agreement_section, AsContext
 }
 
 /**
- * as_agreement_section_to_variant:
- * @agreement_section: an #AsAgreementSection
- * @builder: A #GVariantBuilder
- *
- * Serialize the current active state of this object to a GVariant
- * for use in the on-disk binary cache.
- */
-void
-as_agreement_section_to_variant (AsAgreementSection *agreement_section, GVariantBuilder *builder)
-{
-	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	GVariantBuilder asec_b;
-
-	g_variant_builder_init (&asec_b, G_VARIANT_TYPE_ARRAY);
-	g_variant_builder_add_parsed (&asec_b, "{'kind', %v}", as_variant_mstring_new (priv->kind));
-	g_variant_builder_add_parsed (&asec_b, "{'name', %v}", as_variant_mstring_new (as_agreement_section_get_name (agreement_section)));
-	g_variant_builder_add_parsed (&asec_b, "{'description', %v}", as_variant_mstring_new (as_agreement_section_get_description (agreement_section)));
-
-	g_variant_builder_add_value (builder, g_variant_builder_end (&asec_b));
-}
-
-/**
- * as_agreement_section_set_from_variant:
- * @agreement_section: an #AsAgreementSection
- * @variant: The #GVariant to read from.
- *
- * Read the active state of this object from a #GVariant serialization.
- * This is used by the on-disk binary cache.
- */
-gboolean
-as_agreement_section_set_from_variant (AsAgreementSection *agreement_section, GVariant *variant, const gchar *locale)
-{
-	GVariant *tmp;
-	GVariantDict adict;
-
-	as_agreement_section_set_active_locale (agreement_section, locale);
-	g_variant_dict_init (&adict, variant);
-
-	as_agreement_section_set_kind (agreement_section, as_variant_get_dict_mstr (&adict, "kind", &tmp));
-	g_variant_unref (tmp);
-
-	as_agreement_section_set_name (agreement_section, as_variant_get_dict_mstr (&adict, "name", &tmp), locale);
-	g_variant_unref (tmp);
-
-	as_agreement_section_set_description (agreement_section, as_variant_get_dict_mstr (&adict, "description", &tmp), locale);
-	g_variant_unref (tmp);
-
-	return TRUE;
-}
-
-/**
  * as_agreement_section_new:
  *
  * Creates a new #AsAgreementSection.

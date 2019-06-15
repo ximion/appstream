@@ -28,11 +28,6 @@ G_BEGIN_DECLS
 
 /* NOTE: XML and YAML parsing is done in AsComponent, since we can not do it efficiently here */
 
-void			as_provided_to_variant (AsProvided *prov,
-						GVariantBuilder *builder);
-gboolean		as_provided_set_from_variant (AsProvided *prov,
-						      GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

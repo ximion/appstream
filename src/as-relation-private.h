@@ -47,11 +47,6 @@ void		as_relation_emit_yaml (AsRelation *relation,
 					 AsContext *ctx,
 					 yaml_emitter_t *emitter);
 
-void		as_relation_to_variant (AsRelation *relation,
-					  GVariantBuilder *builder);
-gboolean	as_relation_set_from_variant (AsRelation *relation,
-						GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

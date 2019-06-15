@@ -33,7 +33,6 @@
 
 #include "as-suggested.h"
 #include "as-suggested-private.h"
-#include "as-variant-cache.h"
 
 typedef struct
 {
@@ -318,52 +317,6 @@ as_suggested_emit_yaml (AsSuggested *suggested, AsContext *ctx, yaml_emitter_t *
 
 	/* end mapping for the suggestion */
 	as_yaml_mapping_end (emitter);
-}
-
-/**
- * as_suggested_to_variant:
- * @suggested: a #AsSuggested instance.
- * @builder: A #GVariantBuilder
- *
- * Serialize the current active state of this object to a GVariant
- * for use in the on-disk binary cache.
- */
-void
-as_suggested_to_variant (AsSuggested *suggested, GVariantBuilder *builder)
-{
-	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
-	GVariant *sug_var;
-
-	sug_var = g_variant_new ("{uv}", priv->kind, as_variant_from_string_ptrarray (priv->cpt_ids));
-	g_variant_builder_add_value (builder, sug_var);
-}
-
-/**
- * as_suggested_set_from_variant:
- * @suggested: a #AsSuggested instance.
- * @variant: The #GVariant to read from.
- *
- * Read the active state of this object from a #GVariant serialization.
- * This is used by the on-disk binary cache.
- */
-gboolean
-as_suggested_set_from_variant (AsSuggested *suggested, GVariant *variant)
-{
-	AsSuggestedPrivate *priv = GET_PRIVATE (suggested);
-	GVariantIter inner_iter;
-	GVariant *id_child;
-	g_autoptr(GVariant) ids_var = NULL;
-
-	g_variant_get (variant, "{uv}", &priv->kind, &ids_var);
-
-	g_variant_iter_init (&inner_iter, ids_var);
-	while ((id_child = g_variant_iter_next_value (&inner_iter))) {
-		as_suggested_add_id (suggested,
-					g_variant_get_string (id_child, NULL));
-		g_variant_unref (id_child);
-	}
-
-	return TRUE;
 }
 
 /**

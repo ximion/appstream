@@ -38,11 +38,6 @@ void			as_icon_to_xml_node (AsIcon *icon,
 
 /* NOTE: For YAML, icons are loaded in AsComponent, because the YAML makes this the better option. */
 
-void			as_icon_to_variant (AsIcon *icon,
-						GVariantBuilder *builder);
-gboolean		as_icon_set_from_variant (AsIcon *icon,
-						  GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

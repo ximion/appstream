@@ -44,11 +44,6 @@ void			as_suggested_emit_yaml (AsSuggested *suggested,
 						AsContext *ctx,
 						yaml_emitter_t *emitter);
 
-void			as_suggested_to_variant (AsSuggested *suggested,
-						 GVariantBuilder *builder);
-gboolean		as_suggested_set_from_variant (AsSuggested *suggested,
-						       GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

@@ -24,7 +24,6 @@
 #include <glib.h>
 
 #include "as-utils.h"
-#include "as-variant-cache.h"
 
 /**
  * SECTION:as-relation
@@ -655,69 +654,6 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 	}
 
 	as_yaml_mapping_end (emitter);
-}
-
-/**
- * as_relation_to_variant:
- * @relation: an #AsRelation
- * @builder: A #GVariantBuilder
- *
- * Serialize the current active state of this object to a GVariant
- * for use in the on-disk binary cache.
- */
-void
-as_relation_to_variant (AsRelation *relation, GVariantBuilder *builder)
-{
-	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	GVariantBuilder rel_dict;
-
-	g_variant_builder_init (&rel_dict, G_VARIANT_TYPE_VARDICT);
-
-	as_variant_builder_add_kv (&rel_dict, "kind",
-				g_variant_new_uint32 (priv->kind));
-	as_variant_builder_add_kv (&rel_dict, "item_kind",
-				g_variant_new_uint32 (priv->item_kind));
-	as_variant_builder_add_kv (&rel_dict, "compare",
-				g_variant_new_uint32 (priv->compare));
-
-	as_variant_builder_add_kv (&rel_dict, "version",
-				as_variant_mstring_new (priv->version));
-	as_variant_builder_add_kv (&rel_dict, "value",
-				as_variant_mstring_new (priv->value));
-
-	g_variant_builder_add_value (builder, g_variant_builder_end (&rel_dict));
-}
-
-/**
- * as_relation_set_from_variant:
- * @relation: an #AsRelation
- * @variant: The #GVariant to read from.
- *
- * Read the active state of this object from a #GVariant serialization.
- * This is used by the on-disk binary cache.
- */
-gboolean
-as_relation_set_from_variant (AsRelation *relation, GVariant *variant)
-{
-	AsRelationPrivate *priv = GET_PRIVATE (relation);
-	GVariantDict dict;
-	GVariant *var;
-
-	g_variant_dict_init (&dict, variant);
-
-	priv->kind = as_variant_get_dict_uint32 (&dict, "kind");
-	priv->item_kind = as_variant_get_dict_uint32 (&dict, "item_kind");
-	priv->compare = as_variant_get_dict_uint32 (&dict, "compare");
-
-	as_relation_set_version (relation,
-				as_variant_get_dict_mstr (&dict, "version", &var));
-	g_variant_unref (var);
-
-	as_relation_set_value (relation,
-				as_variant_get_dict_mstr (&dict, "value", &var));
-	g_variant_unref (var);
-
-	return TRUE;
 }
 
 /**

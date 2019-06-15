@@ -27,7 +27,6 @@
 #include "as-agreement-section.h"
 #include "as-xml.h"
 #include "as-yaml.h"
-#include "as-variant-cache.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
@@ -51,12 +50,6 @@ gboolean		as_agreement_section_load_from_yaml (AsAgreementSection *agreement_sec
 void			as_agreement_section_emit_yaml (AsAgreementSection *agreement_section,
 							AsContext *ctx,
 							yaml_emitter_t *emitter);
-
-void			as_agreement_section_to_variant (AsAgreementSection *agreement_section,
-							 GVariantBuilder *builder);
-gboolean		as_agreement_section_set_from_variant (AsAgreementSection *agreement_section,
-							       GVariant *variant,
-								const gchar *locale);
 
 #pragma GCC visibility pop
 G_END_DECLS

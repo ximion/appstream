@@ -28,7 +28,6 @@
 #include "as-agreement.h"
 #include "as-xml.h"
 #include "as-yaml.h"
-#include "as-variant-cache.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
@@ -53,12 +52,6 @@ gboolean		as_agreement_load_from_yaml (AsAgreement *agreement,
 void			as_agreement_emit_yaml (AsAgreement *agreement,
 						AsContext *ctx,
 						yaml_emitter_t *emitter);
-
-void			as_agreement_to_variant (AsAgreement *agreement,
-						 GVariantBuilder *builder);
-gboolean		as_agreement_set_from_variant (AsAgreement *agreement,
-						       GVariant *variant,
-							const gchar *locale);
 
 #pragma GCC visibility pop
 G_END_DECLS

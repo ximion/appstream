@@ -44,11 +44,6 @@ void		as_bundle_emit_yaml (AsBundle *bundle,
 					AsContext *ctx,
 					yaml_emitter_t *emitter);
 
-void		as_bundle_to_variant (AsBundle *bundle,
-				      GVariantBuilder *builder);
-gboolean	as_bundle_set_from_variant (AsBundle *bundle,
-					    GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

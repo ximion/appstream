@@ -33,7 +33,6 @@
 #include "config.h"
 #include "as-image.h"
 #include "as-image-private.h"
-#include "as-variant-cache.h"
 
 typedef struct
 {
@@ -470,66 +469,6 @@ as_image_emit_yaml (AsImage *image, AsContext *ctx, yaml_emitter_t *emitter)
 	}
 	as_yaml_emit_entry (emitter, "lang", priv->locale);
 	as_yaml_mapping_end (emitter);
-}
-
-/**
- * as_image_to_variant:
- * @image: An #AsImage instance.
- * @builder: A #GVariantBuilder
- *
- * Serialize the current active state of this object to a GVariant
- * for use in the on-disk binary cache.
- */
-void
-as_image_to_variant (AsImage *image, GVariantBuilder *builder)
-{
-	AsImagePrivate *priv = GET_PRIVATE (image);
-	GVariantBuilder image_b;
-
-	g_variant_builder_init (&image_b, G_VARIANT_TYPE_ARRAY);
-
-	g_variant_builder_add_parsed (&image_b, "{'type', <%u>}", priv->kind);
-	g_variant_builder_add_parsed (&image_b, "{'url', <%s>}", priv->url);
-	g_variant_builder_add_parsed (&image_b, "{'width', <%i>}", priv->width);
-	g_variant_builder_add_parsed (&image_b, "{'height', <%i>}", priv->height);
-	g_variant_builder_add_parsed (&image_b, "{'locale', %v}", as_variant_mstring_new (priv->locale));
-
-	g_variant_builder_add_value (builder, g_variant_builder_end (&image_b));
-}
-
-/**
- * as_image_set_from_variant:
- * @image: An #AsImage instance.
- * @variant: The #GVariant to read from.
- *
- * Read the active state of this object from a #GVariant serialization.
- * This is used by the on-disk binary cache.
- */
-gboolean
-as_image_set_from_variant (AsImage *image, GVariant *variant)
-{
-	AsImagePrivate *priv = GET_PRIVATE (image);
-	g_auto(GVariantDict) dict;
-	GVariant *tmp;
-
-	g_variant_dict_init (&dict, variant);
-
-	/* kind */
-	priv->kind = as_variant_get_dict_uint32 (&dict, "type");
-
-	/* locale */
-	as_image_set_locale (image, as_variant_get_dict_mstr (&dict, "locale", &tmp));
-	g_variant_unref (tmp);
-
-	/* url */
-	as_image_set_url (image, as_variant_get_dict_str (&dict, "url", &tmp));
-	g_variant_unref (tmp);
-
-	/* sizes */
-	priv->width = as_variant_get_dict_int32 (&dict, "width");
-	priv->height = as_variant_get_dict_int32 (&dict, "height");
-
-	return TRUE;
 }
 
 /**

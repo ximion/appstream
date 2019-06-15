@@ -44,11 +44,6 @@ void		as_checksum_emit_yaml (AsChecksum *cs,
 					AsContext *ctx,
 					yaml_emitter_t *emitter);
 
-void		as_checksum_to_variant (AsChecksum *cs,
-					GVariantBuilder *builder);
-gboolean	as_checksum_set_from_variant (AsChecksum *cs,
-					      GVariant *variant);
-
 #pragma GCC visibility pop
 G_END_DECLS
 

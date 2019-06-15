@@ -48,12 +48,6 @@ void			as_release_emit_yaml (AsRelease *release,
 						AsContext *ctx,
 						yaml_emitter_t *emitter);
 
-void			as_release_to_variant (AsRelease *release,
-						GVariantBuilder *builder);
-gboolean		as_release_set_from_variant (AsRelease *release,
-						     GVariant *variant,
-						     const gchar *locale);
-
 #pragma GCC visibility pop
 G_END_DECLS
 
