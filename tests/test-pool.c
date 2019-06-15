@@ -25,6 +25,7 @@
 #include "as-pool-private.h"
 #include "as-test-utils.h"
 #include "as-stemmer.h"
+#include "as-cache.h"
 #include "../src/as-utils-private.h"
 #include "../src/as-component-private.h"
 
@@ -154,12 +155,16 @@ test_cache ()
 	g_autoptr(GPtrArray) cpts_prev = NULL;
 	g_autoptr(GPtrArray) cpts_post = NULL;
 	g_autoptr(AsMetadata) mdata = NULL;
+	g_autoptr(AsCache) cache = NULL;
+	g_autoptr(AsComponent) ccpt = NULL;
 	g_autoptr(GError) error = NULL;
 	g_autofree gchar *xmldata_precache = NULL;
 	g_autofree gchar *xmldata_postcache = NULL;
+	gboolean ret;
+	static const gchar *cache_testpath = "/tmp/as-unittest-cache.cache";
 
 	pool = test_get_sampledata_pool (FALSE);
-	as_pool_set_cache_location (pool, "/tmp/as-unittest-cache.cache");
+	as_pool_set_cache_location (pool, cache_testpath);
 
 	as_pool_load (pool, NULL, &error);
 	g_assert_no_error (error);
@@ -193,7 +198,7 @@ test_cache ()
 	as_pool_clear_metadata_locations (pool);
 	as_pool_set_cache_flags (pool, as_pool_get_cache_flags (pool) | AS_CACHE_FLAG_NO_CLEAR);
 
-	as_pool_set_cache_location (pool, "/tmp/as-unittest-cache.cache");
+	as_pool_set_cache_location (pool, cache_testpath);
 	as_pool_load (pool, NULL, &error);
 	g_assert_no_error (error);
 
@@ -211,6 +216,27 @@ test_cache ()
 	xmldata_postcache = as_metadata_components_to_collection (mdata, AS_FORMAT_KIND_XML, &error);
 	g_assert_no_error (error);
 	g_assert (as_test_compare_lines (xmldata_precache, xmldata_postcache));
+
+	/* load an "modify" read-only cache */
+	cache = as_cache_new ();
+	as_cache_set_readonly (cache, TRUE);
+	as_cache_open (cache, cache_testpath, "C", &error);
+	g_assert_no_error (error);
+
+	ccpt = as_cache_get_component_by_data_id (cache, "system/os/package/org.inkscape.Inkscape", &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (ccpt);
+
+	g_assert_cmpstr (as_component_get_name (ccpt), ==, "Inkscape");
+	g_object_unref (ccpt);
+
+	ret = as_cache_remove_by_data_id (cache, "system/os/package/org.inkscape.Inkscape", &error);
+	g_assert_no_error (error);
+	g_assert (ret);
+
+	ccpt = as_cache_get_component_by_data_id (cache, "system/os/package/org.inkscape.Inkscape", &error);
+	g_assert_no_error (error);
+	g_assert_null (ccpt);
 }
 
 /**

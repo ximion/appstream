@@ -75,6 +75,7 @@ typedef struct
 	gboolean floating;
 	GHashTable *cpt_map;
 	GHashTable *cid_set;
+	GHashTable *ro_removed_set;
 
 	GFunc cpt_refine_func;
 	gpointer cpt_refine_func_udata;
@@ -98,6 +99,7 @@ as_cache_init (AsCache *cache)
 
 	priv->opened = FALSE;
 	priv->max_keysize = 511;
+	priv->cpt_refine_func = NULL;
 	priv->locale = as_get_current_locale ();
 
 	priv->context = as_context_new ();
@@ -119,6 +121,12 @@ as_cache_init (AsCache *cache)
 						g_str_equal,
 						g_free,
 						NULL);
+
+	/* set of removed component hashes in a read-only cache */
+	priv->ro_removed_set = g_hash_table_new_full (g_str_hash,
+						      g_str_equal,
+						      g_free,
+						      NULL);
 }
 
 /**
@@ -138,6 +146,7 @@ as_cache_finalize (GObject *object)
 
 	g_hash_table_unref (priv->cpt_map);
 	g_hash_table_unref (priv->cid_set);
+	g_hash_table_unref (priv->ro_removed_set);
 
 	G_OBJECT_CLASS (as_cache_parent_class)->finalize (object);
 }
@@ -1200,6 +1209,15 @@ as_cache_remove_by_data_id (AsCache *cache, const gchar *cdid, GError **error)
 		return g_hash_table_remove (priv->cpt_map, cdid);
 	}
 
+	if (priv->readonly) {
+		cpt_checksum = g_compute_checksum_for_string (G_CHECKSUM_MD5,
+								cdid,
+								-1);
+		g_hash_table_add (priv->ro_removed_set,
+				  g_steal_pointer (&cpt_checksum));
+		return TRUE;
+	}
+
 	txn = as_cache_transaction_new (cache, 0, error);
 	if (txn == NULL)
 		return FALSE;
@@ -1265,7 +1283,8 @@ as_cache_component_from_dval (AsCache *cache, MDB_txn *txn, MDB_val dval, GError
 		return NULL;
 	}
 
-	(*priv->cpt_refine_func) (cpt, priv->cpt_refine_func_udata);
+	if (priv->cpt_refine_func != NULL)
+		(*priv->cpt_refine_func) (cpt, priv->cpt_refine_func_udata);
 
 	xmlFreeDoc (doc);
 	return g_steal_pointer (&cpt);
@@ -1283,6 +1302,10 @@ as_cache_component_by_hash (AsCache *cache, MDB_txn *txn, const gchar *cpt_hash,
 	MDB_val dval;
 	g_autoptr(AsComponent) cpt = NULL;
 	GError *tmp_error = NULL;
+
+	/* in case we "removed" the component on a readonly cache */
+	if (g_hash_table_contains (priv->ro_removed_set, cpt_hash))
+		return NULL;
 
 	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
 	if (tmp_error != NULL) {
@@ -1383,6 +1406,7 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 	MDB_cursor *cur;
 	gint rc;
 	MDB_val dval;
+	MDB_val dkey;
 	g_autoptr(GPtrArray) results = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
@@ -1404,11 +1428,18 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 		return NULL;
 	}
 
-	rc = mdb_cursor_get (cur, NULL, &dval, MDB_FIRST);
+	rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
 	while (rc == 0) {
 		AsComponent *cpt;
 		if (dval.mv_size <= 0)
 			continue;
+
+		/* in case we "removed" the component on a readonly cache */
+		if (priv->readonly) {
+			g_autofree gchar *cpt_hash = g_strndup (dkey.mv_data, dkey.mv_size);
+			if (g_hash_table_contains (priv->ro_removed_set, cpt_hash))
+				return NULL;
+		}
 
 		cpt = as_cache_component_from_dval (cache, txn, dval, error);
 		if (cpt == NULL)
@@ -1514,11 +1545,15 @@ as_cache_get_component_by_data_id (AsCache *cache, const gchar *cdid, GError **e
 		return cpt? g_object_ref (cpt) : NULL;
 	}
 
+	/* in case we "removed" the component on a readonly cache */
+	cpt_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, cdid, -1);
+	if (g_hash_table_contains (priv->ro_removed_set, cpt_hash))
+		return NULL;
+
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
 		return NULL;
 
-	cpt_hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, cdid, -1);
 	dval = as_cache_txn_get_value (cache, txn, priv->db_cpts, cpt_hash, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);

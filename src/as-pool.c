@@ -231,13 +231,105 @@ as_pool_class_init (AsPoolClass *klass)
  *
  * Check whether the system cache can be used for reading data.
  */
-static gboolean
+static inline gboolean
 as_pool_can_query_system_cache (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM))
 		return as_cache_is_open (priv->system_cache);
 	return FALSE;
+}
+
+/**
+ * as_pool_get_component_by_data_id:
+ */
+static AsComponent*
+as_pool_get_component_by_data_id (AsPool *pool, const gchar *cdid, GError **error)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GError *tmp_error = NULL;
+	AsComponent *cpt;
+
+	cpt = as_cache_get_component_by_data_id (priv->cache, cdid, &tmp_error);
+	if (cpt != NULL)
+		return cpt;
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return NULL;
+	}
+
+	/* check system cache last */
+	if (as_pool_can_query_system_cache (pool))
+		return as_cache_get_component_by_data_id (priv->system_cache, cdid, &tmp_error);
+	else
+		return NULL;
+}
+
+/**
+ * as_pool_remove_by_data_id:
+ */
+static gboolean
+as_pool_remove_by_data_id (AsPool *pool, const gchar *cdid, GError **error)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GError *tmp_error = NULL;
+
+	if (as_pool_can_query_system_cache (pool)) {
+		as_cache_remove_by_data_id (priv->system_cache, cdid, &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			return FALSE;
+		}
+	}
+	return as_cache_remove_by_data_id (priv->cache, cdid, error);
+}
+
+/**
+ * as_pool_insert:
+ */
+static gboolean
+as_pool_insert (AsPool *pool, AsComponent *cpt, GError **error)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GError *tmp_error = NULL;
+
+	/* if we have a system cache, ensure the component is "removed" (masked) there,
+	 * and re-added then to the current session cache */
+	if (as_pool_can_query_system_cache (pool)) {
+		as_cache_remove_by_data_id (priv->system_cache,
+					    as_component_get_data_id (cpt),
+					    &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_error (error, tmp_error);
+			return FALSE;
+		}
+	}
+	return as_cache_insert (priv->cache, cpt, error);
+}
+
+/**
+ * as_pool_has_component_id:
+ */
+static gboolean
+as_pool_has_component_id (AsPool *pool, const gchar *cid, GError **error)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	GError *tmp_error = NULL;
+	gboolean ret;
+
+	ret = as_cache_has_component_id (priv->cache, cid, &tmp_error);
+	if (tmp_error != NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+	if (ret)
+		return ret;
+
+	/* check system cache last */
+	if (as_pool_can_query_system_cache (pool))
+		return as_cache_has_component_id (priv->system_cache, cid, &tmp_error);
+	else
+		return FALSE;
 }
 
 /**
@@ -261,7 +353,6 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	AsMergeKind new_cpt_merge_kind;
 	GError *tmp_error = NULL;
 
-
 	cdid = as_component_get_data_id (cpt);
 	if (as_component_is_ignored (cpt)) {
 		if (pedantic_noadd)
@@ -272,7 +363,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		return FALSE;
 	}
 
-	existing_cpt = as_cache_get_component_by_data_id (priv->cache, cdid, NULL);
+	existing_cpt = as_pool_get_component_by_data_id (pool, cdid, NULL);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		return FALSE;
@@ -288,7 +379,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		if (existing_cpt == NULL) {
 			tmp_cdid = g_strdup_printf ("%s.desktop", cdid);
 
-			existing_cpt = as_cache_get_component_by_data_id (priv->cache, tmp_cdid, NULL);
+			existing_cpt = as_pool_get_component_by_data_id (pool, tmp_cdid, NULL);
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
 				return FALSE;
@@ -320,7 +411,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 				/* remove matching component from pool if its priority is lower */
 				if (as_component_get_priority (match) < as_component_get_priority (cpt)) {
 					const gchar *match_cdid = as_component_get_data_id (match);
-					as_cache_remove_by_data_id (priv->cache, match_cdid, &tmp_error);
+					as_pool_remove_by_data_id (pool, match_cdid, &tmp_error);
 					if (tmp_error != NULL) {
 						g_propagate_error (error, tmp_error);
 						return FALSE;
@@ -336,7 +427,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	}
 
 	if (existing_cpt == NULL) {
-		if (!as_cache_insert (priv->cache, cpt, error))
+		if (!as_pool_insert (pool, cpt, error))
 			return FALSE;
 		return TRUE;
 	}
@@ -344,7 +435,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	/* safety check so we don't ignore a good component because we added a bad one first */
 	if (!as_component_is_valid (existing_cpt)) {
 		g_debug ("Replacing invalid component '%s' with new one.", cdid);
-		if (!as_cache_insert (priv->cache, cpt, error))
+		if (!as_pool_insert (pool, cpt, error))
 			return FALSE;
 		return TRUE;
 	}
@@ -360,7 +451,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 							existing_cpt,
 							AS_MERGE_KIND_APPEND);
 
-			if (!as_cache_insert (priv->cache, cpt, error))
+			if (!as_pool_insert (pool, cpt, error))
 				return FALSE;
 			g_debug ("Replaced '%s' with data from metainfo and desktop-entry file.", cdid);
 			return TRUE;
@@ -393,7 +484,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		 *  the information we want - if that's not the case, no harm is done here) */
 		as_component_set_pkgnames (cpt, as_component_get_pkgnames (existing_cpt));
 
-		if (!as_cache_insert (priv->cache, cpt, error))
+		if (!as_pool_insert (pool, cpt, error))
 			return FALSE;
 		g_debug ("Replaced '%s' with data from metainfo file.", cdid);
 		return TRUE;
@@ -403,7 +494,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 	 * with data of higher priority, or if we have an actual error in the metadata */
 	pool_priority = as_component_get_priority (existing_cpt);
 	if (pool_priority < as_component_get_priority (cpt)) {
-		if (!as_cache_insert (priv->cache, cpt, error))
+		if (!as_pool_insert (pool, cpt, error))
 			return FALSE;
 		g_debug ("Replaced '%s' with data of higher priority.", cdid);
 	} else {
@@ -425,7 +516,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 				earch = as_component_get_architecture (existing_cpt);
 				if (earch != NULL) {
 					if (as_arch_compatible (earch, priv->current_arch)) {
-						if (!as_cache_insert (priv->cache, cpt, error))
+						if (!as_pool_insert (pool, cpt, error))
 							return FALSE;
 						g_debug ("Preferred component for native architecture for %s (was %s)", cdid, earch);
 						return TRUE;
@@ -864,14 +955,14 @@ as_pool_load_metainfo_data (AsPool *pool, GHashTable *desktop_entry_cpts)
 
 				mi_cid_desktop = g_strdup_printf ("%s.desktop", mi_cid);
 				/* check with .desktop suffix too */
-				if (as_cache_has_component_id (priv->cache, mi_cid_desktop, NULL)) {
+				if (as_pool_has_component_id (pool, mi_cid_desktop, NULL)) {
 					g_debug ("Skipped: %s (already known)", fname);
 					continue;
 				}
 			}
 
 			/* quickly check if we know the component already */
-			if (as_cache_has_component_id (priv->cache, mi_cid, NULL)) {
+			if (as_pool_has_component_id (pool, mi_cid, NULL)) {
 				g_debug ("Skipped: %s (already known)", fname);
 				continue;
 			}
