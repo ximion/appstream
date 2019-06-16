@@ -2317,8 +2317,6 @@ as_cache_unfloat (AsCache *cache, GError **error)
 			continue;
 		}
 
-		(*priv->cpt_refine_func) (cpt, priv->cpt_refine_func_udata);
-
 		if (!as_cache_insert (cache, cpt, error))
 			return 0;
 	}
@@ -2416,7 +2414,7 @@ as_cache_set_readonly (AsCache *cache, gboolean ro)
  * as_cache_set_refine_func:
  * @cache: An instance of #AsCache.
  *
- * Set function to be called on a component after it was (de)serialized.
+ * Set function to be called on a component after it was deserialized.
  */
 void
 as_cache_set_refine_func (AsCache *cache, GFunc func, gpointer user_data)

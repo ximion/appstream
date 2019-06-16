@@ -1084,7 +1084,7 @@ as_pool_cache_refine_component_cb (gpointer data, gpointer user_data)
 	AsComponent *cpt = AS_COMPONENT (data);
 
 	/* add additional data to the component, e.g. external screenshots. Also refines
-	* the component's icon paths */
+	 * the component's icon paths */
 	as_component_complete (cpt,
 				priv->screenshot_service_url,
 				priv->icon_dirs);
