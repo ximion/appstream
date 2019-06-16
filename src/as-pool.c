@@ -636,18 +636,22 @@ as_pool_ctime_newer (AsPool *pool, const gchar *dir, AsCache *cache)
  * as_pool_appstream_data_changed:
  */
 static gboolean
-as_pool_metadata_changed (AsPool *pool, AsCache *cache)
+as_pool_metadata_changed (AsPool *pool, AsCache *cache, gboolean system_only)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	guint i;
 
 	for (i = 0; i < priv->xml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
+		if (system_only && (g_str_has_prefix (dir, "/home") || g_str_has_prefix (dir, "/tmp") || g_str_has_prefix (dir, "/run")))
+			continue;
 		if (as_pool_ctime_newer (pool, dir, cache))
 			return TRUE;
 	}
 	for (i = 0; i < priv->yaml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->yaml_dirs, i);
+		if (system_only && (g_str_has_prefix (dir, "/home") || g_str_has_prefix (dir, "/tmp") || g_str_has_prefix (dir, "/run")))
+			continue;
 		if (as_pool_ctime_newer (pool, dir, cache))
 			return TRUE;
 	}
@@ -678,7 +682,7 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 		fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
 		as_cache_set_location (priv->system_cache, fname);
 
-		if (!as_pool_metadata_changed (pool, priv->system_cache)) {
+		if (!as_pool_metadata_changed (pool, priv->system_cache, TRUE)) {
 			g_debug ("System metadata cache seems up to date.");
 
 			if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM)) {
@@ -702,6 +706,8 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 				g_debug ("Not using system cache.");
 				as_cache_close (priv->system_cache);
 			}
+		} else {
+			g_debug ("System cache is stale, ignoring it.");
 		}
 	}
 
@@ -1644,6 +1650,12 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 		return FALSE;
 	}
 
+	/* create the filename of our cache and set the location of the system cache.
+	 * This has to happen before we check for new metadata, so the system cache can
+	 * determine its age (so we know whether a refresh is needed at all). */
+	cache_fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
+	as_cache_set_location (priv->system_cache, cache_fname);
+
 	/* collect metadata */
 #ifdef HAVE_APT_SUPPORT
 	/* currently, we only do something here if we are running with explicit APT support compiled in */
@@ -1656,13 +1668,9 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 	}
 #endif
 
-	/* create the filename of our cache */
-	cache_fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
-	as_cache_set_location (priv->system_cache, cache_fname);
-
 	/* check if we need to refresh the cache
 	 * (which is only necessary if the AppStream data has changed) */
-	if (!as_pool_metadata_changed (pool, priv->system_cache)) {
+	if (!as_pool_metadata_changed (pool, priv->system_cache, TRUE)) {
 		g_debug ("Data did not change, no cache refresh needed.");
 		if (force) {
 			g_debug ("Forcing refresh anyway.");
@@ -1939,16 +1947,16 @@ as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
 }
 
 /**
- * as_pool_get_cache_age:
+ * as_pool_get_system_cache_age:
  * @pool: An instance of #AsPool.
  *
- * Get the age of our internal cache.
+ * Get the age of the system cache.
  */
 time_t
-as_pool_get_cache_age (AsPool *pool)
+as_pool_get_system_cache_age (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
-	return as_cache_get_ctime (priv->cache);
+	return as_cache_get_ctime (priv->system_cache);
 }
 
 /**

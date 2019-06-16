@@ -27,7 +27,7 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-time_t			as_pool_get_cache_age (AsPool *pool);
+time_t			as_pool_get_system_cache_age (AsPool *pool);
 
 AS_INTERNAL_VISIBLE
 void			as_cache_file_save (const gchar *fname,
