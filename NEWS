@@ -1,3 +1,53 @@
+Version 0.12.7
+~~~~~~~~~~~~~~
+Released: 2019-06-16
+
+Notes:
+ * This release changes the way AsPool caches components and will also
+   permanently keep components in an LMDB-based cache.
+   Additionally, the GVariant AsComponent serialization was removed.
+
+Features:
+ * Depend on LMDB (Matthias Klumpp)
+ * tests: Test pool cache and XML read performance separately (Matthias Klumpp)
+ * Improvements to data caching and fulltext search (Matthias Klumpp)
+ * Add new LMDB based component cache (Matthias Klumpp)
+ * cache: Implicitly hash keys if they are too long for the database (Matthias Klumpp)
+ * cache: Implement all supported search modes (Matthias Klumpp)
+ * cache: Implement various performance optimizations and helpers (Matthias Klumpp)
+ * cache: Allow switch to nosync mode, make insertions threadsafe (Matthias Klumpp)
+ * Refactor component pool to make use of the mmap'ed caches by default (Matthias Klumpp)
+ * Don't limit term length in user search queries (Matthias Klumpp)
+ * Ignore one-letter search terms (Matthias Klumpp)
+ * pool: Mask removed components in readonly caches so they can not be queried (Matthias Klumpp)
+ * Remove component GVariant serialization (Matthias Klumpp)
+ * cache: Use binary representations for cache values (Matthias Klumpp)
+ * cache: Always refine launchable entries, to make them searchable (Matthias Klumpp)
+ * Make component scope API public (Matthias Klumpp)
+ * Handle LicenseRef URLs explicitly when extracing a license URL (Matthias Klumpp)
+ * Update static data (Matthias Klumpp)
+ * tests: Update perf test with test for the new cache implementation (Matthias Klumpp)
+ * its: Add "translatable" option in metainfo.its (fujiwarat)
+
+Specification:
+ * Add a note about not dropping .desktop suffix from existing IDs (Kalev Lember)
+ * spec: clarify <translation/> purpose (Kamil Páral)
+ * docs: Explicitly rule out nested lists (Marius Vollmer)
+ * docs: Add link to project page to specification abstract (Matthias Klumpp)
+ * spec: Clarify format of the appstream: URI (Matthias Klumpp)
+ * spec: Clarify how to denote proprietary licenses (Matthias Klumpp)
+
+Bugfixes:
+ * tests: Fix potential wrong output when two tests fail in parallel (Matthias Klumpp)
+ * validator: Allow some top-level tags to be empty (Matthias Klumpp)
+ * Only match all things for broad queries, for invalid ones return nothing (Matthias Klumpp)
+ * Determine system cache age correctly and don't needlessly refresh it (Matthias Klumpp)
+ * Never attempt to load the system cache when it is not needed (Matthias Klumpp)
+ * Assume "unknown" distribution ID by default (if /etc/os-release is missing) (Matthias Klumpp)
+ * cache: Ensure previous cache is closed before opening a new one (Matthias Klumpp)
+ * Put test data in alphabetical order (Robert Ancell)
+ * Generate XML and YAML in alphabetical order (Robert Ancell)
+
 Version 0.12.6
 ~~~~~~~~~~~~~~
 Released: 2019-03-02
