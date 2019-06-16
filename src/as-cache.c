@@ -694,10 +694,13 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	const gchar *volatile_dir = NULL;
 	MDB_txn *txn = NULL;
 	MDB_dbi db_config;
-	g_autofree gchar *cache_format;
+	g_autofree gchar *cache_format = NULL;
 	mdb_mode_t db_mode;
 	gboolean nosync;
 	gboolean readonly;
+
+	/* close cache in case it was open */
+	as_cache_close (cache);
 
 	rc = mdb_env_create (&priv->db_env);
 	if (rc != MDB_SUCCESS) {
