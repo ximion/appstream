@@ -34,7 +34,7 @@ G_BEGIN_DECLS
 
 /* declared in as-data-pool.c */
 AS_INTERNAL_VISIBLE
-extern const gchar *AS_APPSTREAM_METADATA_PATHS[4];
+extern const gchar *AS_SYSTEM_COLLECTION_METADATA_PATHS[4];
 
 #pragma GCC visibility pop
 G_END_DECLS

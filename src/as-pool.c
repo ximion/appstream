@@ -88,14 +88,14 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_pool_get_instance_private (o))
 
 /**
- * AS_APPSTREAM_METADATA_PATHS:
+ * AS_SYSTEM_COLLECTION_METADATA_PATHS:
  *
- * Locations where system AppStream metadata can be stored.
+ * Locations where system-wide AppStream collection metadata may be stored.
  */
-const gchar *AS_APPSTREAM_METADATA_PATHS[4] = { "/usr/share/app-info",
-						"/var/lib/app-info",
-						"/var/cache/app-info",
-						NULL};
+const gchar *AS_SYSTEM_COLLECTION_METADATA_PATHS[4] = { "/usr/share/app-info",
+							"/var/lib/app-info",
+							"/var/cache/app-info",
+							NULL};
 
 /* TRANSLATORS: List of "grey-listed" words sperated with ";"
  * Do not translate this list directly. Instead,
@@ -175,8 +175,8 @@ as_pool_init (AsPool *pool)
 	priv->prefer_local_metainfo = as_distro_details_get_bool (distro, "PreferLocalMetainfoData", FALSE);
 
 	/* set watched default directories for AppStream metadata */
-	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++)
-		as_pool_add_metadata_location_internal (pool, AS_APPSTREAM_METADATA_PATHS[i], FALSE);
+	for (i = 0; AS_SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++)
+		as_pool_add_metadata_location_internal (pool, AS_SYSTEM_COLLECTION_METADATA_PATHS[i], FALSE);
 
 	/* set default pool flags */
 	priv->flags = AS_POOL_FLAG_READ_COLLECTION | AS_POOL_FLAG_READ_METAINFO;
@@ -633,6 +633,41 @@ as_pool_ctime_newer (AsPool *pool, const gchar *dir, AsCache *cache)
 }
 
 /**
+ * as_path_is_system_metadata_location:
+ */
+static gboolean
+as_path_is_system_metadata_location (const gchar *dir)
+{
+	for (gint i = 0; AS_SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++)
+		if (g_str_has_prefix (dir, AS_SYSTEM_COLLECTION_METADATA_PATHS[i]))
+			return TRUE;
+	return FALSE;
+}
+
+/**
+ * as_pool_has_system_metadata_paths:
+ */
+static gboolean
+as_pool_has_system_metadata_paths (AsPool *pool)
+{
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	guint i;
+
+	for (i = 0; i < priv->xml_dirs->len; i++) {
+		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
+		if (as_path_is_system_metadata_location (dir))
+			return TRUE;
+	}
+	for (i = 0; i < priv->yaml_dirs->len; i++) {
+		const gchar *dir = (const gchar*) g_ptr_array_index (priv->yaml_dirs, i);
+		if (as_path_is_system_metadata_location (dir))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+/**
  * as_pool_appstream_data_changed:
  */
 static gboolean
@@ -643,14 +678,14 @@ as_pool_metadata_changed (AsPool *pool, AsCache *cache, gboolean system_only)
 
 	for (i = 0; i < priv->xml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
-		if (system_only && (g_str_has_prefix (dir, "/home") || g_str_has_prefix (dir, "/tmp") || g_str_has_prefix (dir, "/run")))
+		if (system_only && !as_path_is_system_metadata_location (dir))
 			continue;
 		if (as_pool_ctime_newer (pool, dir, cache))
 			return TRUE;
 	}
 	for (i = 0; i < priv->yaml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->yaml_dirs, i);
-		if (system_only && (g_str_has_prefix (dir, "/home") || g_str_has_prefix (dir, "/tmp") || g_str_has_prefix (dir, "/run")))
+		if (system_only && !as_path_is_system_metadata_location (dir))
 			continue;
 		if (as_pool_ctime_newer (pool, dir, cache))
 			return TRUE;
@@ -677,7 +712,7 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
 	/* see if we can use the system caches */
-	if (!refresh) {
+	if (!refresh && as_pool_has_system_metadata_paths (pool)) {
 		g_autofree gchar *fname = NULL;
 		fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
 		as_cache_set_location (priv->system_cache, fname);
@@ -709,6 +744,9 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 		} else {
 			g_debug ("System cache is stale, ignoring it.");
 		}
+	} else {
+		if (!refresh)
+			g_debug ("No system collection metadata paths selected, can not use system cache.");
 	}
 
 	/* prepare metadata parser */

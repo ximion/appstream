@@ -48,17 +48,17 @@ ascli_show_status (void)
 
 	/* TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions */
 	ascli_print_highlight (_("Distribution metadata:"));
-	for (i = 0; AS_APPSTREAM_METADATA_PATHS[i] != NULL; i++) {
+	for (i = 0; AS_SYSTEM_COLLECTION_METADATA_PATHS[i] != NULL; i++) {
 		g_autofree gchar *xml_path = NULL;
 		g_autofree gchar *yaml_path = NULL;
 		g_autofree gchar *icons_path = NULL;
 		gboolean found = FALSE;
 
-		xml_path = g_build_filename (AS_APPSTREAM_METADATA_PATHS[i], "xmls", NULL);
-		yaml_path = g_build_filename (AS_APPSTREAM_METADATA_PATHS[i], "yaml", NULL);
-		icons_path = g_build_filename (AS_APPSTREAM_METADATA_PATHS[i], "icons", NULL);
+		xml_path = g_build_filename (AS_SYSTEM_COLLECTION_METADATA_PATHS[i], "xmls", NULL);
+		yaml_path = g_build_filename (AS_SYSTEM_COLLECTION_METADATA_PATHS[i], "yaml", NULL);
+		icons_path = g_build_filename (AS_SYSTEM_COLLECTION_METADATA_PATHS[i], "icons", NULL);
 
-		g_print (" %s\n", AS_APPSTREAM_METADATA_PATHS[i]);
+		g_print (" %s\n", AS_SYSTEM_COLLECTION_METADATA_PATHS[i]);
 
 		/* display XML data count */
 		if (g_file_test (xml_path, G_FILE_TEST_IS_DIR)) {
