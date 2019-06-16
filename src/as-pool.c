@@ -1553,10 +1553,19 @@ as_pool_search (AsPool *pool, const gchar *search)
 
 	/* sanitize user's search term */
 	terms = as_pool_build_search_terms (pool, search);
-	result = g_ptr_array_new_with_free_func (g_object_unref);
 
 	if (terms == NULL) {
-		g_debug ("Search term invalid. Matching everything.");
+		/* the query was invalid */
+		g_autofree gchar *tmp = g_strdup (search);
+		g_strstrip (tmp);
+		if (strlen (tmp) <= 1) {
+			/* we have a one-letter search query - we cheat here and just return everything */
+			g_debug ("Search query too broad. Matching everything.");
+			return as_pool_get_components (pool);
+		} else {
+			g_debug ("No valid search terms. Can not find any results.");
+			return g_ptr_array_new_with_free_func (g_object_unref);
+		}
 	} else {
 		g_autofree gchar *tmp_str = NULL;
 		tmp_str = g_strjoinv (" ", terms);
