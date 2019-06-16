@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-01-26 17:14+0100\n"
+"POT-Creation-Date: 2019-06-16 03:57+0200\n"
 "PO-Revision-Date: 2018-10-23 21:29+0000\n"
 "Last-Translator: Iván <ivanrsm1997@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/appstream/"
@@ -84,7 +84,7 @@ msgstr ""
 msgid "AppStream cache update completed successfully."
 msgstr "Actualización de caché de AppStream completada con éxito."
 
-#: src/as-pool.c:1634
+#: src/as-pool.c:1799
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -108,7 +108,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1620
+#: src/as-pool.c:1786
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -149,7 +149,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr ""
 
-#: src/as-provided.c:147
+#: src/as-provided.c:146
 msgid "Binaries"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "Paquete"
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1687
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr ""
@@ -177,7 +177,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:324
+#: tools/ascli-actions-mdata.c:327
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -222,7 +222,7 @@ msgstr ""
 msgid "Compare two version numbers."
 msgstr ""
 
-#: src/as-provided.c:167
+#: src/as-provided.c:166
 msgid "Component"
 msgstr ""
 
@@ -242,7 +242,7 @@ msgid "Convert collection XML to YAML or vice versa."
 msgstr ""
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:225
+#: tools/ascli-actions-mdata.c:228
 #, fuzzy, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Non foi posíbel atopar compoñentes co id «%s»!"
@@ -253,11 +253,11 @@ msgid ""
 "project)."
 msgstr ""
 
-#: src/as-provided.c:161
+#: src/as-provided.c:160
 msgid "DBus Session Services"
 msgstr ""
 
-#: src/as-provided.c:159
+#: src/as-provided.c:158
 msgid "DBus System Services"
 msgstr ""
 
@@ -405,11 +405,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr ""
 
-#: src/as-provided.c:165
+#: src/as-provided.c:164
 msgid "Flashed Firmware"
 msgstr ""
 
-#: src/as-provided.c:151
+#: src/as-provided.c:150
 msgid "Fonts"
 msgstr ""
 
@@ -481,7 +481,7 @@ msgstr ""
 msgid "Install software matching the component-ID."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:210
+#: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 
@@ -500,7 +500,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr ""
 
-#: src/as-provided.c:145
+#: src/as-provided.c:144
 msgid "Libraries"
 msgstr ""
 
@@ -519,7 +519,7 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr ""
 
-#: src/as-provided.c:149
+#: src/as-provided.c:148
 msgid "MIME types"
 msgstr ""
 
@@ -542,7 +542,7 @@ msgstr ""
 "Estabelecer manualmente a localización do metadato de AppStream para a "
 "rexeneración da caché"
 
-#: src/as-pool.c:1093
+#: src/as-pool.c:1201
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -558,12 +558,12 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:361
+#: tools/ascli-actions-mdata.c:364
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:767
+#: src/as-pool.c:841
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -572,7 +572,7 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr ""
 
-#: src/as-provided.c:153
+#: src/as-provided.c:152
 msgid "Modaliases"
 msgstr ""
 
@@ -590,7 +590,7 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:179
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Non hai ningún compoñente que coincida con «%s»."
@@ -605,7 +605,7 @@ msgid ""
 "\" (part of PackageKit) is available."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:203
+#: tools/ascli-actions-mdata.c:206
 msgid "No value for the item to search for was defined."
 msgstr ""
 
@@ -644,11 +644,11 @@ msgstr "Grupo do proxecto"
 msgid "Provided Items"
 msgstr "Elementos fornecidos"
 
-#: src/as-provided.c:155
+#: src/as-provided.c:154
 msgid "Python (Version 2)"
 msgstr ""
 
-#: src/as-provided.c:157
+#: src/as-provided.c:156
 msgid "Python 3"
 msgstr ""
 
@@ -686,7 +686,7 @@ msgstr ""
 "Execute «%s --help» para ver a lista completa de opcións de liña de ordes "
 "dispoñíbeis."
 
-#: src/as-provided.c:163
+#: src/as-provided.c:162
 msgid "Runtime Firmware"
 msgstr ""
 
@@ -760,12 +760,12 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:464
+#: tools/ascli-actions-mdata.c:467
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1618
+#: src/as-pool.c:1784
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -778,7 +778,7 @@ msgstr ""
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:446
+#: tools/ascli-actions-mdata.c:449
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -806,36 +806,40 @@ msgid ""
 "comparison operator."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:541
+#: tools/ascli-actions-mdata.c:544
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr ""
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:397
+#: tools/ascli-actions-mdata.c:400
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
 msgstr ""
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
-#: tools/ascli-actions-mdata.c:174
+#: tools/ascli-actions-mdata.c:177
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Non foi posíbel atopar os compoñentes que coinciden con %s!"
 
-#: tools/ascli-actions-mdata.c:141 tools/ascli-actions-mdata.c:263
+#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:266
 #: tools/ascli-actions-pkgmgr.c:93
 #, fuzzy, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Non foi posíbel atopar compoñentes co id «%s»!"
 
-#: tools/ascli-actions-mdata.c:470
+#: tools/ascli-actions-mdata.c:473
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:549
+#: src/as-pool.c:583
+msgid "Unable to remove old cache."
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:552
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr ""
@@ -845,7 +849,7 @@ msgstr ""
 msgid "Unable to spawn package manager: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:319
+#: tools/ascli-actions-mdata.c:322
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
@@ -941,7 +945,7 @@ msgstr ""
 msgid "You might need superuser permissions to perform this action."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:444
+#: tools/ascli-actions-mdata.c:447
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -959,7 +963,7 @@ msgstr "Debe especificar unha orde."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:129 tools/ascli-actions-mdata.c:251
+#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:254
 #: tools/ascli-actions-pkgmgr.c:80
 #, fuzzy
 msgid "You need to specify a component-ID."
@@ -969,7 +973,7 @@ msgstr "Debe especificar un id de compoñente."
 msgid "You need to specify a file to validate!"
 msgstr "Debe especificar un ficheiro a validar!"
 
-#: tools/ascli-actions-mdata.c:306
+#: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr ""
 
@@ -977,11 +981,11 @@ msgstr ""
 msgid "You need to specify a root directory to start validation!"
 msgstr "Debe especificar un directorio raíz para comezar a validación!"
 
-#: tools/ascli-actions-mdata.c:161
+#: tools/ascli-actions-mdata.c:164
 msgid "You need to specify a term to search for."
 msgstr "Debe especifica-lo termo a procurar."
 
-#: tools/ascli-actions-mdata.c:354
+#: tools/ascli-actions-mdata.c:357
 #, fuzzy
 msgid "You need to specify an input and output file."
 msgstr "Debe especificar unha orde."
@@ -992,7 +996,7 @@ msgstr "Debe especificar unha orde."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:104
+#: src/as-pool.c:106
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplicativo;aplicación;paquete;programa;suite;ferramenta"
 

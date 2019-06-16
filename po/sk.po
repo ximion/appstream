@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-01-26 17:14+0100\n"
+"POT-Creation-Date: 2019-06-16 03:57+0200\n"
 "PO-Revision-Date: 2018-04-01 11:41+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
@@ -85,7 +85,7 @@ msgstr "Stav nástroja AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizácia vyrovnávacej pamäti AppStream bola úspešne dokončená."
 
-#: src/as-pool.c:1634
+#: src/as-pool.c:1799
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -113,7 +113,7 @@ msgstr ""
 "AppStream je štandard pre poskytovanie metaúdajov o programovom vybavení, "
 "používaný cez linuxové distribúcie."
 
-#: src/as-pool.c:1620
+#: src/as-pool.c:1786
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -156,7 +156,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Vytváranie a úprava zvuku"
 
-#: src/as-provided.c:147
+#: src/as-provided.c:146
 msgid "Binaries"
 msgstr "Spustiteľné súbory"
 
@@ -174,7 +174,7 @@ msgstr "Stolové"
 msgid "Bundle"
 msgstr "Balík"
 
-#: src/as-pool.c:1560
+#: src/as-pool.c:1687
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Umiestnenie vyrovnávacej pamäte „%s“ nie je zapisovateľné."
@@ -184,7 +184,7 @@ msgctxt "Category of Office"
 msgid "Calendar"
 msgstr "Kalendár"
 
-#: tools/ascli-actions-mdata.c:324
+#: tools/ascli-actions-mdata.c:327
 #, c-format
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
@@ -231,7 +231,7 @@ msgstr "Komunikácia a novinky"
 msgid "Compare two version numbers."
 msgstr ""
 
-#: src/as-provided.c:167
+#: src/as-provided.c:166
 msgid "Component"
 msgstr "Súčasť"
 
@@ -251,7 +251,7 @@ msgid "Convert collection XML to YAML or vice versa."
 msgstr "Prevádza z XML na YAML formát a obrátene."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:225
+#: tools/ascli-actions-mdata.c:228
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“."
@@ -263,11 +263,11 @@ msgid ""
 msgstr ""
 "Vytvoriť šablónu pre metainfo súbor (pre vyplnenie v upstream projektu)."
 
-#: src/as-provided.c:161
+#: src/as-provided.c:160
 msgid "DBus Session Services"
 msgstr "Služby relácie DBus"
 
-#: src/as-provided.c:159
+#: src/as-provided.c:158
 msgid "DBus System Services"
 msgstr "Služby relácie systému DBus"
 
@@ -411,11 +411,11 @@ msgctxt "Category of Office"
 msgid "Finance"
 msgstr "Financie"
 
-#: src/as-provided.c:165
+#: src/as-provided.c:164
 msgid "Flashed Firmware"
 msgstr "Nainštalovaný firmvér"
 
-#: src/as-provided.c:151
+#: src/as-provided.c:150
 msgid "Fonts"
 msgstr "Písma"
 
@@ -487,7 +487,7 @@ msgstr "Nainštalovať súbor s metaúdajmi na správne miesto."
 msgid "Install software matching the component-ID."
 msgstr "Nainštalovať softvér zodpovedajúci identifikátoru súčasti."
 
-#: tools/ascli-actions-mdata.c:210
+#: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Vybratý neplatný typ pre poskytnutú položku. Platné hodnoty sú:"
 
@@ -506,7 +506,7 @@ msgctxt "Category of Education"
 msgid "Languages"
 msgstr "Jazyky"
 
-#: src/as-provided.c:145
+#: src/as-provided.c:144
 msgid "Libraries"
 msgstr "Knižnice"
 
@@ -525,7 +525,7 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logické"
 
-#: src/as-provided.c:149
+#: src/as-provided.c:148
 msgid "MIME types"
 msgstr "MIME typy"
 
@@ -546,7 +546,7 @@ msgstr ""
 "Ručne nastavené umiestnenie metaúdajov AppStream na znovu vytvorenie "
 "vyrovnávacej pamäte."
 
-#: src/as-pool.c:1093
+#: src/as-pool.c:1201
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -562,12 +562,12 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematika"
 
-#: tools/ascli-actions-mdata.c:361
+#: tools/ascli-actions-mdata.c:364
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "Súbor s metaúdajmi „%s“ neexistuje."
 
-#: src/as-pool.c:767
+#: src/as-pool.c:841
 msgid "Metadata files have errors:"
 msgstr "Súbory s metaúdajmi obsahujú chyby:"
 
@@ -576,7 +576,7 @@ msgstr "Súbory s metaúdajmi obsahujú chyby:"
 msgid "Metainfo files:"
 msgstr "Súbory s metainfomáciami:"
 
-#: src/as-provided.c:153
+#: src/as-provided.c:152
 msgid "Modaliases"
 msgstr "Alternatívne názvy modulov"
 
@@ -594,7 +594,7 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr "Novinky"
 
-#: tools/ascli-actions-mdata.c:179
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Nebola nájdená súčasť zodpovedajúca „%s“."
@@ -611,7 +611,7 @@ msgstr ""
 "Nenašiel sa vhodný CLI správca balíkov. Prosím, uistite sa, že máte "
 "dostupného napr. klienta „pkcon“ (je súčasťou nástroja PackageKit)."
 
-#: tools/ascli-actions-mdata.c:203
+#: tools/ascli-actions-mdata.c:206
 msgid "No value for the item to search for was defined."
 msgstr "Nebola definovaná hodnota položky, ktorá sa má hľadať."
 
@@ -649,11 +649,11 @@ msgstr "Skupina projektu"
 msgid "Provided Items"
 msgstr "Poskytované položky"
 
-#: src/as-provided.c:155
+#: src/as-provided.c:154
 msgid "Python (Version 2)"
 msgstr "Python (verzia 2)"
 
-#: src/as-provided.c:157
+#: src/as-provided.c:156
 msgid "Python 3"
 msgstr "Python 3"
 
@@ -691,7 +691,7 @@ msgstr ""
 "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
 "riadka a možností, a „%s %s --help“ tých pre konkrétny rozdieloví príkaz."
 
-#: src/as-provided.c:163
+#: src/as-provided.c:162
 msgid "Runtime Firmware"
 msgstr "Dočasne nahrávaný firmware"
 
@@ -763,12 +763,12 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Textové editory"
 
-#: tools/ascli-actions-mdata.c:464
+#: tools/ascli-actions-mdata.c:467
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Súbor .desktop pre „%s“ neexistuje."
 
-#: src/as-pool.c:1618
+#: src/as-pool.c:1784
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -785,7 +785,7 @@ msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr ""
 "Je potrebné, aby TYPE (typ) bol platný typ komponentu, ako napríklad: %s"
 
-#: tools/ascli-actions-mdata.c:446
+#: tools/ascli-actions-mdata.c:449
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
@@ -821,13 +821,13 @@ msgid ""
 "comparison operator."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:541
+#: tools/ascli-actions-mdata.c:544
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Nepodarilo sa vytvoriť súbor so šablónou metainfomacií: „%s“"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:397
+#: tools/ascli-actions-mdata.c:400
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
@@ -836,23 +836,27 @@ msgstr ""
 "výslovne pomocou prepínača '--format'."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
-#: tools/ascli-actions-mdata.c:174
+#: tools/ascli-actions-mdata.c:177
 #, c-format
 msgid "Unable to find component matching %s!"
 msgstr "Nepodarilo sa nájsť súčasť zodpovedajúcu %s!"
 
-#: tools/ascli-actions-mdata.c:141 tools/ascli-actions-mdata.c:263
+#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:266
 #: tools/ascli-actions-pkgmgr.c:93
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Nepodarilo sa nájsť súčasť s identifikátorom „%s“!"
 
-#: tools/ascli-actions-mdata.c:470
+#: tools/ascli-actions-mdata.c:473
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nepodarilo sa načítať .desktop súbor: %s"
 
-#: tools/ascli-actions-mdata.c:549
+#: src/as-pool.c:583
+msgid "Unable to remove old cache."
+msgstr ""
+
+#: tools/ascli-actions-mdata.c:552
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Nepodarilo sa uložiť súbor s metainfomáciami šablóny: %s"
@@ -862,7 +866,7 @@ msgstr "Nepodarilo sa uložiť súbor s metainfomáciami šablóny: %s"
 msgid "Unable to spawn package manager: %s"
 msgstr "Nepodarilo sa spustiť správcu balíkov: %s"
 
-#: tools/ascli-actions-mdata.c:319
+#: tools/ascli-actions-mdata.c:322
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
@@ -966,7 +970,7 @@ msgstr ""
 "Na vykonanie tejto akcie možno budete potrebovať oprávnenia administrátora "
 "systému."
 
-#: tools/ascli-actions-mdata.c:444
+#: tools/ascli-actions-mdata.c:447
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
@@ -986,7 +990,7 @@ msgstr "Musíte uviesť príkaz."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:129 tools/ascli-actions-mdata.c:251
+#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:254
 #: tools/ascli-actions-pkgmgr.c:80
 msgid "You need to specify a component-ID."
 msgstr "Musíte uviesť identifikátor súčasti."
@@ -995,7 +999,7 @@ msgstr "Musíte uviesť identifikátor súčasti."
 msgid "You need to specify a file to validate!"
 msgstr "Musíte uviesť súbor, ktorý chcete overiť!"
 
-#: tools/ascli-actions-mdata.c:306
+#: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "Musíte určiť súbor metaúdajov."
 
@@ -1003,11 +1007,11 @@ msgstr "Musíte určiť súbor metaúdajov."
 msgid "You need to specify a root directory to start validation!"
 msgstr "Na zahájenie overovania musíte určiť koreňový adresár!"
 
-#: tools/ascli-actions-mdata.c:161
+#: tools/ascli-actions-mdata.c:164
 msgid "You need to specify a term to search for."
 msgstr "Musíte uviesť, čo chcete hľadať."
 
-#: tools/ascli-actions-mdata.c:354
+#: tools/ascli-actions-mdata.c:357
 msgid "You need to specify an input and output file."
 msgstr "Musíte určiť súbor metaúdajov."
 
@@ -1017,7 +1021,7 @@ msgstr "Musíte určiť súbor metaúdajov."
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:104
+#: src/as-pool.c:106
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplikácia;balík;program;balík;nástroj"
 
