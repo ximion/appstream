@@ -737,10 +737,13 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 
 	/* determine where to put a volatile database */
 	if (g_strcmp0 (fname, ":temporary") == 0) {
-		if (as_utils_is_root ())
+		if (as_utils_is_root ()) {
 			volatile_dir = g_get_tmp_dir ();
-		else
+		} else {
 			volatile_dir = g_get_user_cache_dir ();
+			if ((volatile_dir == NULL) || (!g_file_test (volatile_dir, G_FILE_TEST_IS_DIR)))
+				volatile_dir = g_get_tmp_dir ();
+		}
 
 		/* we can skip syncs in temporary mode - in case of a crash, the data is lost anyway */
 		nosync = TRUE;
