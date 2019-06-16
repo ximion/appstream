@@ -107,6 +107,7 @@
 		<para>
 			A <ulink url="https://en.wikipedia.org/wiki/Permissive_software_licence">permissive</ulink> license ensures your data can
 			be combined with arbitrary other data in one file (this means copyleft licenses like the GPL are not suitable as metadata license).
+			Currently, only a restricted set of permissive licenses is supported by AppStream implementations.
 			Valid permissive licenses include:
 		</para>
 		<itemizedlist>
@@ -774,21 +775,34 @@
 		<term>&lt;project_license/&gt;</term>
 		<listitem>
 			<para>
-			The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
-			It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>.
-			Possible values include:
-			<itemizedlist>
-				<listitem><para><literal>GPL-2.0</literal></para></listitem>
-				<listitem><para><literal>LGPL-3.0+ AND GPL-3.0+</literal></para></listitem>
-				<listitem><para><literal>MIT</literal></para></listitem>
-				<listitem><para><literal>CC-BY-SA-2.0</literal></para></listitem>
-			</itemizedlist>
-			A full list of recognized licenses and their identifiers can be found at the
-			<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+				The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component (application/library/addon/font/etc.) described in the metadata document.
+				It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>.
+				Possible values include:
+				<itemizedlist>
+					<listitem><para><literal>GPL-2.0</literal></para></listitem>
+					<listitem><para><literal>LGPL-3.0+ AND GPL-3.0+</literal></para></listitem>
+					<listitem><para><literal>MIT</literal></para></listitem>
+					<listitem><para><literal>CC-BY-SA-2.0</literal></para></listitem>
+					<listitem><para><literal>LicenseRef-Proprietary=https://example.com/mylicense.html</literal></para></listitem>
+				</itemizedlist>
+				A full list of recognized licenses and their identifiers can be found at the
+				<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 			</para>
 			<para>
-			Although the <literal>project_license</literal> tag is not mandatory, it is recommended to include it.
+				Custom licenses which are not in the SPDX registry, like proprietary licenses, can be denoted using the <code>LicenseRef</code> notation.
+				<code>LicenseRef-Proprietary</code> can be used to denote a proprietary license, with an optional URL to the license text following after
+				a <code>=</code> sign.
 			</para>
+			<para>
+				Although the <literal>project_license</literal> tag is not mandatory, it is highly recommended to include it.
+			</para>
+			<para>
+				Examples:
+			</para>
+			<programlisting language="XML"><![CDATA[<project_license>LGPL-3.0+ OR MPL-2.0</project_license>
+<project_license>LGPL-3.0+ OR MPL-2.0</project_license>
+<project_license>GPL-3.0-or-later</project_license>
+<ptoject_license>LicenseRef-proprietary=https://code.visualstudio.com/license</project_license>]]></programlisting>
 		</listitem>
 		</varlistentry>
 

@@ -170,16 +170,11 @@
 					<para>
 						The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component.
 						It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>.
-						Possible values include:
-						<itemizedlist>
-							<listitem><para>GPL-2.0</para></listitem>
-							<listitem><para>LGPL-3.0+ AND GPL-3.0+</para></listitem>
-							<listitem><para>MIT</para></listitem>
-							<listitem><para>CC-BY-SA-2.0</para></listitem>
-							<listitem><para>...</para></listitem>
-						</itemizedlist>
 						A full list of recognized licenses and their identifiers can be found at the
 						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+					</para>
+					<para>
+						You can find more information about this tag at the metainfo description for <xref linkend="tag-project_license"/>.
 					</para>
 				</listitem>
 			</varlistentry>
