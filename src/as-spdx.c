@@ -226,7 +226,9 @@ as_is_spdx_license_expression (const gchar *license)
  * as_utils_spdx_license_3to2:
  *
  * SPDX decided to rename some of the really common license IDs in v3
- * which broke a lot of tools that we cannot really fix now
+ * which broke a lot of tools that we cannot really fix now.
+ * So we will just convert licenses back to the previous notation where
+ * necessary.
  */
 static GString*
 as_utils_spdx_license_3to2 (const gchar *license3)
@@ -235,6 +237,22 @@ as_utils_spdx_license_3to2 (const gchar *license3)
 	as_gstring_replace (license2, "-only", "");
 	as_gstring_replace (license2, "-or-later", "+");
 	return license2;
+}
+
+/**
+ * as_utils_spdx_license_2to3:
+ *
+ * SPDX decided to rename some of the really common license IDs in v3
+ * which broke a lot of tools that we cannot really fix now.
+ * So we will convert between notations where necessary.
+ */
+static GString*
+as_utils_spdx_license_2to3 (const gchar *license2)
+{
+	GString *license3 = g_string_new (license2);
+	as_gstring_replace (license3, ".0+", ".0-or-later");
+	as_gstring_replace (license3, ".1+", ".1-or-later");
+	return license3;
 }
 
 /**
@@ -406,10 +424,12 @@ as_license_to_spdx_id (const gchar *license)
 		{ "Python",			"Python-2.0" },
 		{ "QPL",			"QPL-1.0" },
 		{ "SPL",			"SPL-1.0" },
+		{ "UPL",			"UPL-1.0" },
 		{ "zlib",			"Zlib" },
 		{ "ZPLv2.0",			"ZPL-2.0" },
 		{ "Unlicense",			"CC0-1.0" },
 		{ "Public Domain",		"LicenseRef-public-domain" },
+		{ "SUSE-Public-Domain",		"LicenseRef-public-domain" },
 		{ "Copyright only",		"LicenseRef-public-domain" },
 		{ "Proprietary",		"LicenseRef-proprietary" },
 		{ "Commercial",			"LicenseRef-proprietary" },
@@ -498,7 +518,7 @@ as_validate_is_content_license_id (const gchar *license_id)
  * This method checks against a hardcoded list of permissive licenses
  * commonly used to license metadata under.
  *
- * Retrurns: %TRUE if the license contains only permissive licenses suitable
+ * Returns: %TRUE if the license contains only permissive licenses suitable
  * as metadata license.
  */
 gboolean
@@ -517,4 +537,45 @@ as_license_is_metadata_license (const gchar *license)
 	}
 
 	return TRUE;
+}
+
+/**
+ * as_get_license_url:
+ * @license: The SPDX license ID.
+ *
+ * Get a web URL to the license text and more license information for an SPDX
+ * license identifier.
+ *
+ * Returns: (transfer full): The license URL.
+ *
+ * Since: 0.12.7
+ */
+gchar*
+as_get_license_url (const gchar *license)
+{
+	g_autoptr(GString) license_id = NULL;
+	g_autofree gchar *tmp_spdx = NULL;
+
+	license_id = as_utils_spdx_license_2to3 (license);
+	if (g_str_has_prefix (license_id->str, "@"))
+		g_string_erase (license_id, 0, 1);
+	tmp_spdx = as_license_to_spdx_id (license_id->str);
+	g_string_truncate (license_id, 0);
+	g_string_append (license_id, tmp_spdx);
+
+	if (!as_is_spdx_license_id (license_id->str))
+		return NULL;
+	if (g_str_has_prefix (license_id->str, "LicenseRef")) {
+		gchar *l;
+		/* a license ref may include an URL on its own */
+		l = g_strstr_len (license_id->str, -1, "=");
+		if (l == NULL)
+			return NULL;
+		l = l + 1;
+		if (l[0] == '\0')
+			return NULL;
+		return g_strdup (l);
+	}
+
+	return g_strdup_printf ("https://spdx.org/licenses/%s.html#page", license_id->str);
 }

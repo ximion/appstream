@@ -35,6 +35,8 @@ APPSTREAMQT_EXPORT QString detokenizeLicense(const QStringList &license_tokens);
 
 APPSTREAMQT_EXPORT QString asSpdxId(const QString &license);
 
+APPSTREAMQT_EXPORT QString licenseUrl(const QString &license);
+
 }
 
 }

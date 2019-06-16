@@ -39,6 +39,8 @@ gchar		*as_license_to_spdx_id (const gchar *license);
 
 gboolean	as_license_is_metadata_license (const gchar *license);
 
+gchar		*as_get_license_url (const gchar *license);
+
 G_END_DECLS
 
 #endif /* __AS_SPDX_H */

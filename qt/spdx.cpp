@@ -39,16 +39,28 @@ bool AppStream::SPDX::isMetadataLicense(const QString &license)
 
 QStringList AppStream::SPDX::tokenizeLicense(const QString &license)
 {
-    return AppStream::valueWrap(as_spdx_license_tokenize(qPrintable(license)));
+    g_auto(GStrv) strv = as_spdx_license_tokenize(qPrintable(license));
+    return AppStream::valueWrap(strv);
 }
 
 QString AppStream::SPDX::detokenizeLicense(const QStringList &license_tokens)
 {
-    gchar** tokens = AppStream::stringListToCharArray(license_tokens);
-    return QString::fromUtf8(as_spdx_license_detokenize(tokens));
+    g_autofree gchar *res = NULL;
+    g_auto(GStrv) tokens = NULL;
+
+    tokens = AppStream::stringListToCharArray(license_tokens);
+    res = as_spdx_license_detokenize(tokens);
+    return QString::fromUtf8(res);
 }
 
 QString AppStream::SPDX::asSpdxId(const QString &license)
 {
-    return QString::fromUtf8(as_license_to_spdx_id(qPrintable(license)));
+    g_autofree gchar *res = as_license_to_spdx_id(qPrintable(license));
+    return QString::fromUtf8(res);
+}
+
+QString AppStream::SPDX::licenseUrl(const QString &license)
+{
+    g_autofree gchar *res = as_get_license_url(qPrintable(license));
+    return QString::fromUtf8(res);
 }
