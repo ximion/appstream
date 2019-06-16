@@ -140,6 +140,9 @@ typedef enum {
 	AS_COMPONENT_SCOPE_LAST
 } AsComponentScope;
 
+const gchar		*as_component_scope_to_string (AsComponentScope scope);
+AsMergeKind		as_component_scope_from_string (const gchar *scope_str);
+
 /**
  * AsValueFlags:
  * @AS_VALUE_FLAG_NONE:				No flags.
@@ -180,6 +183,10 @@ void			as_component_set_kind (AsComponent *cpt,
 const gchar		*as_component_get_origin (AsComponent *cpt);
 void			as_component_set_origin (AsComponent *cpt,
 							const gchar *origin);
+
+AsComponentScope	as_component_get_scope (AsComponent *cpt);
+void			as_component_set_scope (AsComponent *cpt,
+						AsComponentScope scope);
 
 gchar			*as_component_get_pkgname (AsComponent *cpt);
 gchar			**as_component_get_pkgnames (AsComponent *cpt);

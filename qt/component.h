@@ -88,6 +88,13 @@ Q_GADGET
         };
         Q_ENUM(UrlKind)
 
+        enum Scope {
+            ScopeUnknown,
+            ScopeSystem,
+            ScopeUser
+        };
+        Q_ENUM(Scope)
+
         enum ValueFlags {
             FlagNone = 0,
             FlagDuplicateCheck = 1 << 0,
@@ -100,6 +107,9 @@ Q_GADGET
 
         static UrlKind stringToUrlKind(const QString& urlKindString);
         static QString urlKindToString(AppStream::Component::UrlKind kind);
+
+        static Scope stringToScope(const QString& scopeString);
+        static QString scopeToString(AppStream::Component::Scope scope);
 
         Component(_AsComponent *cpt);
         Component();
@@ -128,6 +138,9 @@ Q_GADGET
 
         QString dataId() const;
         void setDataId(const QString& cdid);
+
+        Scope scope () const;
+        void setScope (Component::Scope scope);
 
         QStringList packageNames() const;
         void setPackageNames(const QStringList& list);

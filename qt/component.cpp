@@ -148,6 +148,16 @@ QString Component::urlKindToString(Component::UrlKind kind) {
     return urlKindMap->value(kind);
 }
 
+QString Component::scopeToString(Component::Scope scope)
+{
+    return QString::fromUtf8(as_component_scope_to_string(static_cast<AsComponentScope>(scope)));
+}
+
+Component::Scope Component::stringToScope(const QString& scopeString)
+{
+    return static_cast<Component::Scope>(as_component_scope_from_string(qPrintable(scopeString)));
+}
+
 Component::Component(const Component& other)
     : m_cpt(other.m_cpt)
 {
@@ -247,6 +257,16 @@ QString Component::dataId() const
 void Component::setDataId(const QString& cdid)
 {
     as_component_set_data_id(m_cpt, qPrintable(cdid));
+}
+
+Component::Scope Component::scope() const
+{
+    return static_cast<Component::Scope>(as_component_get_scope (m_cpt));
+}
+
+void Component::setScope(Component::Scope scope)
+{
+    as_component_set_scope(m_cpt, static_cast<AsComponentScope>(scope));
 }
 
 QStringList Component::packageNames() const

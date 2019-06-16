@@ -48,9 +48,6 @@ typedef enum {
 	AS_ORIGIN_KIND_LAST
 } AsOriginKind;
 
-const gchar		*as_component_scope_to_string (AsComponentScope scope);
-AsMergeKind		as_component_scope_from_string (const gchar *scope_str);
-
 typedef guint16		AsTokenType; /* big enough for both bitshifts */
 
 AS_INTERNAL_VISIBLE
@@ -91,10 +88,6 @@ void			as_component_set_sort_score (AsComponent *cpt,
 
 void			as_component_set_ignored (AsComponent *cpt,
 						  gboolean ignore);
-
-AsComponentScope	as_component_get_scope (AsComponent *cpt);
-void			as_component_set_scope (AsComponent *cpt,
-						AsComponentScope scope);
 
 AsOriginKind		as_component_get_origin_kind (AsComponent *cpt);
 void			as_component_set_origin_kind (AsComponent *cpt,
