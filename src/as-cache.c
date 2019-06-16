@@ -1108,6 +1108,18 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 	if (txn == NULL)
 		return FALSE;
 
+	/* add a "fake" launchable entry for desktop-apps that failed to include one.
+	 * This is used for legacy compatibility */
+	if ((as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) &&
+		(as_component_get_launchables (cpt)->len <= 0)) {
+		if (g_str_has_suffix (as_component_get_id (cpt), ".desktop")) {
+			g_autoptr(AsLaunchable) launchable = as_launchable_new ();
+			as_launchable_set_kind (launchable, AS_LAUNCHABLE_KIND_DESKTOP_ID);
+			as_launchable_add_entry (launchable, as_component_get_id (cpt));
+			as_component_add_launchable (cpt, launchable);
+		}
+	}
+
 	/* add the component data itself to the cache */
 	xml_data = as_cache_component_to_xml (cache, cpt);
 	as_generate_cache_checksum (as_component_get_data_id (cpt),
