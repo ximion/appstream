@@ -71,6 +71,9 @@ enum  {
 static void
 as_distro_details_init (AsDistroDetails *distro)
 {
+	AsDistroDetailsPrivate *priv = GET_PRIVATE (distro);
+
+	priv->id = g_strdup ("unknown");
 	as_distro_details_load_data (distro, "/etc/os-release", AS_CONFIG_NAME);
 }
 
