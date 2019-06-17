@@ -1252,12 +1252,12 @@ as_sort_components_by_score_cb (gconstpointer a, gconstpointer b)
 }
 
 /**
- * as_utils_sort_components_by_score:
+ * as_sort_components_by_score:
  *
  * Sort components by their (search) match score.
  */
 void
-as_utils_sort_components_by_score (GPtrArray *cpts)
+as_sort_components_by_score (GPtrArray *cpts)
 {
 	g_ptr_array_sort (cpts, as_sort_components_by_score_cb);
 }

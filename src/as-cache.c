@@ -2154,7 +2154,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 
 	/* sort the results by their priority */
 	if (sort)
-		as_utils_sort_components_by_score (results);
+		as_sort_components_by_score (results);
 
 	lmdb_transaction_commit (txn, NULL);
 	return g_steal_pointer (&results);

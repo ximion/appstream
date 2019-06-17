@@ -1635,7 +1635,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 
 	/* sort the results by their priority (this was explicitly disabled for the caches before,
 	 * so we could sort the combines result list) */
-	as_utils_sort_components_by_score (result);
+	as_sort_components_by_score (result);
 
 	return result;
 }
