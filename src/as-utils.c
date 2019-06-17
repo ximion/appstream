@@ -1261,3 +1261,28 @@ as_sort_components_by_score (GPtrArray *cpts)
 {
 	g_ptr_array_sort (cpts, as_sort_components_by_score_cb);
 }
+
+/**
+ * as_object_ptr_array_absorb:
+ *
+ * Append contents from source array of GObjects to destination array,
+ * transferring ownership to the destination and removing values
+ * from the source (effectively moving the data).
+ * The source array will be empty afterwards.
+ *
+ * This function assumes that a GDestroyNotify function is set on the
+ * GPtrArray if GLib < 2.58.
+ */
+void
+as_object_ptr_array_absorb (GPtrArray *dest, GPtrArray *src)
+{
+#if GLIB_CHECK_VERSION(2,58,0)
+	while (src->len != 0)
+		g_ptr_array_add (dest, g_ptr_array_steal_index_fast (src, 0));
+#else
+	while (src->len != 0) {
+		g_ptr_array_add (dest, g_object_ref (g_ptr_array_index (src, 0)));
+		g_ptr_array_remove_index_fast (src, 0);
+	}
+#endif
+}

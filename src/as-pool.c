@@ -1283,8 +1283,7 @@ as_pool_get_components (AsPool *pool)
 			g_warning ("Unable to retrieve all components from system cache: %s", tmp_error->message);
 			return result;
 		}
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	return result;
@@ -1321,8 +1320,7 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
 			g_warning ("Unable find components by ID in system cache: %s", tmp_error->message);
 			return result;
 		}
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	return result;
@@ -1360,8 +1358,7 @@ as_pool_get_components_by_provided_item (AsPool *pool,
 			g_warning ("Unable find components by provided item in system cache: %s", tmp_error->message);
 			return result;
 		}
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	return result;
@@ -1396,8 +1393,7 @@ as_pool_get_components_by_kind (AsPool *pool, AsComponentKind kind)
 			g_warning ("Unable find components by kind in system cache: %s", tmp_error->message);
 			return result;
 		}
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	return result;
@@ -1439,8 +1435,7 @@ as_pool_get_components_by_categories (AsPool *pool, gchar **categories)
 			g_warning ("Unable find components by categories in system cache: %s", tmp_error->message);
 			return result;
 		}
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	return result;
@@ -1481,8 +1476,7 @@ as_pool_get_components_by_launchable (AsPool *pool,
 			g_warning ("Unable find components by launchable in system cache: %s", tmp_error->message);
 			return result;
 		}
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	return result;
@@ -1629,8 +1623,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 			g_warning ("Search in system cache failed: %s", tmp_error->message);
 			return result;
 		}
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	/* sort the results by their priority (this was explicitly disabled for the caches before,

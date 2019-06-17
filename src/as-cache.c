@@ -1912,8 +1912,7 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 			return NULL;
 		}
 
-		while (tmp_res->len != 0)
-			g_ptr_array_add (result, g_ptr_array_steal_index_fast (tmp_res, 0));
+		as_object_ptr_array_absorb (result, tmp_res);
 	}
 
 	if (result == NULL) {

@@ -93,6 +93,9 @@ gchar			*as_utils_dns_to_rdns (const gchar *url,
 
 void			as_sort_components_by_score (GPtrArray *cpts);
 
+void			as_object_ptr_array_absorb (GPtrArray *dest,
+						    GPtrArray *src);
+
 #pragma GCC visibility pop
 G_END_DECLS
 
