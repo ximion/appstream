@@ -1,12 +1,12 @@
 project('AppStream', 'c',
-  meson_version: '>=0.42',
+  meson_version: '>=0.48',
   default_options: ['c_std=gnu11', 'cpp_std=gnu++14'],
 
   license: 'LGPL-2.1+ and GPL-2.0+',
   version: '0.12.8',
 )
 
-ccompiler = meson.get_compiler('c')
+cc = meson.get_compiler('c')
 source_root = meson.source_root()
 
 as_version = meson.project_version()
@@ -66,7 +66,14 @@ gio_dep = dependency('gio-2.0', version : '>=2.54')
 gio_unix_dep = dependency('gio-unix-2.0', version : '>=2.54')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
-lmdb_dep = dependency('lmdb')
+lmdb_dep = dependency('lmdb', required: false)
+
+if not lmdb_dep.found()
+    lmdb_lib = cc.find_library('lmdb', required: true)
+    if not cc.has_header('lmdb.h')
+        error('Headers for dependency "lmdb" not found')
+    endif
+endif
 
 if get_option ('gir')
     # ensure we have a version of GIR that isn't broken with Meson
@@ -76,9 +83,9 @@ endif
 
 stemmer_inc_dirs = include_directories(['/usr/include'])
 if get_option('stemming')
-    stemmer_lib = ccompiler.find_library('stemmer', required: true)
-    if not ccompiler.has_header('libstemmer.h')
-        if ccompiler.has_header('libstemmer/libstemmer.h')
+    stemmer_lib = cc.find_library('stemmer', required: true)
+    if not cc.has_header('libstemmer.h')
+        if cc.has_header('libstemmer/libstemmer.h')
             stemmer_inc_dirs = include_directories('/usr/include/libstemmer')
         else
             error('Unable to find Snowball header "libstemmer.h". Please ensure libstemmer/Snowball is installed properly in order to continue.')

@@ -133,6 +133,9 @@ aslib_deps = [glib_dep,
               lmdb_dep,
               xml2_dep,
               yaml_dep]
+if not lmdb_dep.found()
+    aslib_deps += [lmdb_lib]
+endif
 if get_option ('stemming')
     aslib_deps += [stemmer_lib]
 endif
