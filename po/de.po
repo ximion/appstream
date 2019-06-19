@@ -5,26 +5,26 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2014-2016
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016
 # Matthias Klumpp <matthias@tenstral.net>, 2014
+# Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-06-16 18:42+0200\n"
-"PO-Revision-Date: 2019-04-16 07:03+0000\n"
-"Last-Translator: CurlingTongs <o11577482@nwytg.net>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2019-06-19 08:00+0000\n"
+"Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.6-dev\n"
+"X-Generator: Weblate 3.7\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
 msgid "'%s' command"
-msgstr "Befehl »%s«"
+msgstr "Befehl „%s”"
 
 #: src/as-category.c:168
 msgctxt "Category of Graphics"
@@ -174,12 +174,12 @@ msgstr "Brettspiele"
 
 #: tools/ascli-utils.c:296
 msgid "Bundle"
-msgstr "Bündel"
+msgstr "Paket"
 
 #: src/as-pool.c:1687
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr "Zwischenspeicheradresse »%s« ist nicht beschreibbar."
+msgstr "Zwischenspeicheradresse „%s” ist schreibgeschützt."
 
 #: src/as-category.c:191
 msgctxt "Category of Office"
@@ -291,7 +291,7 @@ msgstr "Standardadresse für Bildschirmfotos"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr "Standard-Metadatenformat (gültige Werte sind »XML« und »YAML«)."
+msgstr "Standard-Metadatenformat (gültige Werte sind „XML” und „YAML”)."
 
 #: tools/ascli-utils.c:330
 msgid "Description"
@@ -582,7 +582,7 @@ msgstr "Metainfo-Dateien:"
 
 #: src/as-provided.c:152
 msgid "Modaliases"
-msgstr "Modalias"
+msgstr "Mod-Aliasse"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -795,9 +795,7 @@ msgstr "Der TYPE muss ein gültiger Komponententyp sein, beispielsweise: %s"
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Der Software-Komponententyp »%s« ist in AppStream nicht gültig. Mögliche "
-"Werte sind:"
+msgstr "Der Software-Komponententyp „%s” ist in AppStream nicht gültig. Mögliche Werte sind:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:654
@@ -862,7 +860,7 @@ msgstr "Die .desktop-Datei konnte nicht gelesen werden: %s"
 
 #: src/as-pool.c:583
 msgid "Unable to remove old cache."
-msgstr ""
+msgstr "Leeren des Zwischenspeichers fehlgeschlagen."
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -877,14 +875,13 @@ msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
 #: tools/ascli-actions-mdata.c:322
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr ""
-"»%s« kann nicht geschrieben werden, kann metainfo-Datei nicht installieren."
+msgstr "„%s” konnte nicht geschrieben werden. Metainfo-Datei konnte nicht installiert werden."
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:845
 #, c-format
 msgid "Unknown command '%s'."
-msgstr "Unbekannter Befehl »%s«"
+msgstr "Unbekannter Befehl „%s”"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstream-cli.c:582
