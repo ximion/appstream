@@ -99,8 +99,10 @@ if get_option('docs')
     # helper if you only and always want to rebuild the docs
     run_target('documentation', command: build_docs_cmd)
 
-    install_subdir('html', install_dir: as_doc_target_dir)
-else
+    if get_option('install-docs')
+        install_subdir('html', install_dir: as_doc_target_dir)
+    endif
+elif get_option('install-docs')
     if run_command('[', '-d', join_paths(meson.current_source_dir(), 'html'), ']').returncode() == 0
         # install documentation, if it exists
         install_subdir('html', install_dir: as_doc_target_dir)
