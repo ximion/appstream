@@ -62,14 +62,14 @@ meson <flags> ..
 ninja
 ninja test
 ```
-Possible AppStream-specific flags are:
- -Dqt=true           -- Build the Qt interface library (default: false)
- -Dvapi=true         -- Build Vala API to use the library with the Vala programming language (default: false)
- -Ddocs=true         -- Build specification and other documentation, requires Publican (default: false)
- -Dinstall-docs=true -- Install documentation (default: true)
- -Dmaintainer=true   -- Enable strict compiler options - use this if you write a patch for AppStream (default: false)
- -Dstemming=true     -- Enable support for stemming in fulltext searches (default: true)
- -Dapt-support=true  -- Enable integration with the APT package manager on Debian (default: false)
+Possible AppStream-specific flags are:  
+ -Dqt=true          -- Build the Qt interface library (default: false)  
+ -Dvapi=true        -- Build Vala API to use the library with the Vala programming language (default: false)  
+ -Ddocs=true        -- Build specification and other documentation, requires Publican (default: false)  
+ -Dinstall-docs=true -- Install documentation (default: true)  
+ -Dmaintainer=true  -- Enable strict compiler options - use this if you write a patch for AppStream (default: false)  
+ -Dstemming=true    -- Enable support for stemming in fulltext searches (default: true)  
+ -Dapt-support=true -- Enable integration with the APT package manager on Debian (default: false)
 
 ### Installation
 
