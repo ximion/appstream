@@ -145,7 +145,7 @@ as_provided_kind_to_l10n_string (AsProvidedKind kind)
 	if (kind == AS_PROVIDED_KIND_BINARY)
 		return _("Binaries");
 	if (kind == AS_PROVIDED_KIND_MIMETYPE)
-		return _("MIME types");
+		return _("Media types");
 	if (kind == AS_PROVIDED_KIND_FONT)
 		return _("Fonts");
 	if (kind == AS_PROVIDED_KIND_MODALIAS)
@@ -155,9 +155,9 @@ as_provided_kind_to_l10n_string (AsProvidedKind kind)
 	if (kind == AS_PROVIDED_KIND_PYTHON)
 		return _("Python 3");
 	if (kind == AS_PROVIDED_KIND_DBUS_SYSTEM)
-		return _("DBus System Services");
+		return _("D-Bus System Services");
 	if (kind == AS_PROVIDED_KIND_DBUS_USER)
-		return _("DBus Session Services");
+		return _("D-Bus Session Services");
 	if (kind == AS_PROVIDED_KIND_FIRMWARE_RUNTIME)
 		return _("Runtime Firmware");
 	if (kind == AS_PROVIDED_KIND_FIRMWARE_FLASHED)
