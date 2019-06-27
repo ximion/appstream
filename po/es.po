@@ -1,25 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
 # Translators:
 # Adolfo Jayme-Barrientos, 2014
 # Adolfo Jayme-Barrientos, 2016
+# advocatux <advocatux@airpost.net>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-06-16 18:42+0200\n"
-"PO-Revision-Date: 2019-03-22 16:03+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"PO-Revision-Date: 2019-06-27 20:01+0000\n"
+"Last-Translator: advocatux <advocatux@airpost.net>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.6-dev\n"
+"X-Generator: Weblate 3.7.1-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -874,7 +873,7 @@ msgstr "No se ha podido leer el archivo .desktop: %s"
 
 #: src/as-pool.c:583
 msgid "Unable to remove old cache."
-msgstr ""
+msgstr "No se pudo eliminar la caché antigua."
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
