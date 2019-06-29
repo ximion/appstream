@@ -33,7 +33,7 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
 
 #### Required
  * Meson (>= 0.42)
- * glib2 (>= 2.46)
+ * glib2 (>= 2.54)
  * GObject-Introspection
  * libxml2
  * libyaml
