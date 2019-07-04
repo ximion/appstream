@@ -8,15 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-07-03 07:01+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
+"translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.8-dev\n"
 
 #: tools/appstream-cli.c:146
@@ -83,7 +85,7 @@ msgstr "Статус AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Обновление кэша AppStream завершено успешно."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +113,7 @@ msgstr ""
 "AppStream — это кросс-платформенная спецификация предоставления метаданных о "
 "программных компонентах."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "Системный кэш AppStream обновлён, но найдены проблемы: %s"
@@ -170,7 +172,7 @@ msgstr "Настольные"
 msgid "Bundle"
 msgstr "Пакет"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Кэш, расположенный в '%s', недоступен для записи."
@@ -260,11 +262,13 @@ msgstr ""
 "Создать шаблон для файла метаинформации (будет заполнен апстрим-проектом)."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "Сессионные DBus службы"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "Системные DBus службы"
 
 #: src/as-category.c:195
@@ -527,10 +531,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Логические"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME-типы"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -564,6 +564,11 @@ msgstr "Математика"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Математика"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME-типы"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -772,7 +777,7 @@ msgstr "Текстовые редакторы"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop файл \"%s\" не существует."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

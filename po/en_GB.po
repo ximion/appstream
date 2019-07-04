@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-03-22 16:03+0000\n"
 "Last-Translator: Tristan Heaven <tristan@tristanheaven.net>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
@@ -86,7 +86,7 @@ msgstr "AppStream Status:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream cache update completed successfully."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -114,7 +114,7 @@ msgstr ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream system cache was updated, but problems were found: %s"
@@ -173,7 +173,7 @@ msgstr "Board"
 msgid "Bundle"
 msgstr "Bundle"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Cache location '%s' is not writable."
@@ -264,11 +264,13 @@ msgstr ""
 "project)."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "DBus Session Services"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "DBus System Services"
 
 #: src/as-category.c:195
@@ -525,10 +527,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logic"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME types"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -561,6 +559,11 @@ msgstr ""
 msgctxt "Category of Science"
 msgid "Math"
 msgstr ""
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME types"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -766,7 +769,7 @@ msgstr "Text Editors"
 msgid "The .desktop file '%s' does not exist."
 msgstr "The .desktop file '%s' does not exist."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

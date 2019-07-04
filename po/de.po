@@ -10,10 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-06-19 08:00+0000\n"
 "Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
+"translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +86,7 @@ msgstr "AppStream-Status:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream-Zwischenspeicher wurde erfolgreich vervollständigt."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -115,7 +116,7 @@ msgstr ""
 "AppStream ist eine distributionsübergreifende Spezifikation zur "
 "Bereitstellung von Metadaten über Softwarekomponenten."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -176,7 +177,7 @@ msgstr "Brettspiele"
 msgid "Bundle"
 msgstr "Paket"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Zwischenspeicheradresse „%s” ist schreibgeschützt."
@@ -267,11 +268,13 @@ msgstr ""
 "Projekt auszufüllen ist)."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "DBus-Sitzungsdienste"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "DBus-Systemdienste"
 
 #: src/as-category.c:195
@@ -529,10 +532,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logik"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME-Typen"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -565,6 +564,11 @@ msgstr "Mathematik"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Mathematik"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME-Typen"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -774,7 +778,7 @@ msgstr "Textbearbeitung"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Die .desktop Datei »%s« ist nicht vorhanden."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
@@ -795,7 +799,9 @@ msgstr "Der TYPE muss ein gültiger Komponententyp sein, beispielsweise: %s"
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr "Der Software-Komponententyp „%s” ist in AppStream nicht gültig. Mögliche Werte sind:"
+msgstr ""
+"Der Software-Komponententyp „%s” ist in AppStream nicht gültig. Mögliche "
+"Werte sind:"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:654
@@ -875,7 +881,9 @@ msgstr "Paketverwaltung konnte nicht aufgerufen werden: %s"
 #: tools/ascli-actions-mdata.c:322
 #, c-format
 msgid "Unable to write to '%s', can not install metainfo file."
-msgstr "„%s” konnte nicht geschrieben werden. Metainfo-Datei konnte nicht installiert werden."
+msgstr ""
+"„%s” konnte nicht geschrieben werden. Metainfo-Datei konnte nicht "
+"installiert werden."
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:845

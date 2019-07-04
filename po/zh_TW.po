@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-06-19 08:01+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +85,7 @@ msgstr "AppStream 狀態："
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 快取更新成功完成。"
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -108,7 +109,7 @@ msgid ""
 "software components."
 msgstr "AppStream 為一個跨散佈版的規範，旨在提供軟體組件的中介資料。"
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 系統快取已更新，但發現一些問題：%s"
@@ -167,7 +168,7 @@ msgstr "棋盤"
 msgid "Bundle"
 msgstr "套組"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "無法寫入「%s」快取位置。"
@@ -254,11 +255,13 @@ msgid ""
 msgstr "製作中介資訊檔的範本（由上游專案填寫）。"
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "DBus 作業階段服務"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "DBus 系統服務"
 
 #: src/as-category.c:195
@@ -515,10 +518,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "邏輯"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME 類型"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -549,6 +548,11 @@ msgstr "數學"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "數學"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME 類型"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -754,7 +758,7 @@ msgstr "文字編輯器"
 msgid "The .desktop file '%s' does not exist."
 msgstr "「%s」.desktop 檔並不存在。"
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

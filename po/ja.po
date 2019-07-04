@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2018-12-03 02:53+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
@@ -84,7 +84,7 @@ msgstr "AppStream の状態:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream キャッシュのアップデートは正しく完了しました。"
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -110,7 +110,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -171,7 +171,7 @@ msgstr "ボード"
 msgid "Bundle"
 msgstr ""
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "キャッシュの場所 '%s' が書き込み可能ではありません。"
@@ -260,11 +260,13 @@ msgid ""
 msgstr ""
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "DBus セッションサービス"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "DBus システムサービス"
 
 #: src/as-category.c:195
@@ -521,10 +523,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "論理"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME タイプ"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -555,6 +553,11 @@ msgstr "数学"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "数学"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME タイプ"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -758,7 +761,7 @@ msgstr "テキストエディター"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop ファイル '%s' は存在しません。"
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

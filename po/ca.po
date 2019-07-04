@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-01-26 15:44+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -86,7 +86,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "S'ha completat correctament l'actualització de la memòria cau d'AppStream."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -114,7 +114,7 @@ msgstr ""
 "AppStream és una especificació independent de la distribució que proporciona "
 "metadades quant als components de programari."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -175,7 +175,7 @@ msgstr "Placa"
 msgid "Bundle"
 msgstr "Agrupació"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
@@ -266,11 +266,13 @@ msgstr ""
 "desenvolupament)."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "Serveis de sistema de DBus"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "Serveis de sistema de DBus"
 
 #: src/as-category.c:195
@@ -533,10 +535,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Lògica"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "Tipus MIME"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -570,6 +568,11 @@ msgstr "Matemàtiques"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matemàtiques"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "Tipus MIME"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -778,7 +781,7 @@ msgstr "Editors de text"
 msgid "The .desktop file '%s' does not exist."
 msgstr "No existeix el fitxer .desktop «%s»."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

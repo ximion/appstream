@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-06-27 20:01+0000\n"
 "Last-Translator: advocatux <advocatux@airpost.net>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
+"translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +86,7 @@ msgid "AppStream cache update completed successfully."
 msgstr ""
 "Ha finalizado la actualización de la antememoria de AppStream correctamente."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -114,7 +115,7 @@ msgstr ""
 "distribución cuyo fin es proporcionar metadatos sobre componentes de "
 "«software»."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -175,7 +176,7 @@ msgstr "De mesa"
 msgid "Bundle"
 msgstr "Agrupación"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "La zona de almacenamiento temporal «%s» no es de escritura."
@@ -266,11 +267,13 @@ msgstr ""
 "proyecto original)."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "Servicios de sesión de DBus"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "Servicios de sistema de DBus"
 
 #: src/as-category.c:195
@@ -536,10 +539,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Lógica"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "Tipos MIME"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -574,6 +573,11 @@ msgstr "Matemáticas"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matemáticas"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "Tipos MIME"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -785,7 +789,7 @@ msgstr "Editores de texto"
 msgid "The .desktop file '%s' does not exist."
 msgstr "El archivo .desktop «%s» no existe."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

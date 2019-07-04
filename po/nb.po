@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-06-17 16:22+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/appstream/translations/nb_NO/>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
+"appstream/translations/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +82,7 @@ msgstr "AppStream-status:"
 msgid "AppStream cache update completed successfully."
 msgstr "Metadata i AppStream-hurtiglager oppdatert."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -109,7 +110,7 @@ msgstr ""
 "AppStream er spesifikasjon for flere distribusjoner som tilbyr metadata om "
 "programvarekomponenter."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream-systemhurtiglager oppdatert, dog ikke uten problemer: %s"
@@ -168,7 +169,7 @@ msgstr "Brett"
 msgid "Bundle"
 msgstr "Programvarepakke"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Hurtiglagerplasseringen \"%s\" er ikke skrivbar."
@@ -259,11 +260,13 @@ msgstr ""
 "oppstrøms)."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "DBus-økttjenester"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "DBus-systemtjenester"
 
 #: src/as-category.c:195
@@ -520,10 +523,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logikk"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME-typer"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -556,6 +555,11 @@ msgstr "Matte"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matte"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME-typer"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -764,7 +768,7 @@ msgstr "Tekstbehandlere"
 msgid "The .desktop file '%s' does not exist."
 msgstr ".dekstop-filen \"%s\" finnes ikke."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

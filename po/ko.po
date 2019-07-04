@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2019-05-05 04:47+0000\n"
 "Last-Translator: Jun Hyung Shin <shmishmi79@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
@@ -86,7 +86,7 @@ msgstr "AppStream 상태:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream 캐시 업데이트를 성공적으로 마쳤습니다."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -114,7 +114,7 @@ msgstr ""
 "AppStream은 소프트웨어 구성 요소에 대한 메타 데이터를 제공하는 교차 배포 사양"
 "입니다."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "AppStream 시스템 캐시는 업데이트했지만 문제를 발견했습니다: %s"
@@ -173,7 +173,7 @@ msgstr "보드"
 msgid "Bundle"
 msgstr "번들"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
@@ -262,11 +262,13 @@ msgid ""
 msgstr "업스트림 프로젝트로 채울 metainfo 파일의 템플릿을 만듭니다."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "DBus 세션 서비스"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "DBus 시스템 서비스"
 
 #: src/as-category.c:195
@@ -524,10 +526,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "로직"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME 형식"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -560,6 +558,11 @@ msgstr "수학"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "수학"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME 형식"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -766,7 +769,7 @@ msgstr "텍스트 에디터"
 msgid "The .desktop file '%s' does not exist."
 msgstr "해당 .desktop 파일 '%s'이 없습니다."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

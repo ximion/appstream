@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2018-11-24 10:08+0000\n"
 "Last-Translator: mohammadA <mohammadAbdulhadi1@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/"
@@ -83,7 +83,7 @@ msgstr "حالة آب-ستريم:"
 msgid "AppStream cache update completed successfully."
 msgstr ""
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -111,7 +111,7 @@ msgstr ""
 "آب-ستريم هو جزء من المواصفات المشتركة لجميع الإصدارات والذي يوفّر البيانات "
 "الوصفية للمكوّنات البرمجية."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr "حُدِّثت محتويات ذاكرة تخزين آب-ستريم المؤقتة، لكن وجدت مشكلة: %s"
@@ -170,7 +170,7 @@ msgstr ""
 msgid "Bundle"
 msgstr "حزمة"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "لا يمكن الكتابة في هذا الموقع من ذاكرة التخزين المؤقت '%s'."
@@ -259,11 +259,13 @@ msgid ""
 msgstr ""
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "خدمات جلسة DBus"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "خدمات نظام DBus"
 
 #: src/as-category.c:195
@@ -520,10 +522,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "منطق"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr ""
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -554,6 +552,10 @@ msgstr "رياضيات"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "رياضيات"
+
+#: src/as-provided.c:148
+msgid "Media types"
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -755,7 +757,7 @@ msgstr "محررات النصوص"
 msgid "The .desktop file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "

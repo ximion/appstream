@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-07-04 19:43+0200\n"
 "PO-Revision-Date: 2018-12-28 10:08+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -85,7 +85,7 @@ msgstr "Stav nástroje AppStream:"
 msgid "AppStream cache update completed successfully."
 msgstr "Aktualizace mezipaměti AppStream byla úspěšně dokončena."
 
-#: src/as-pool.c:1799
+#: src/as-pool.c:1792
 #, c-format
 msgid ""
 "AppStream cache update failed. Turn on verbose mode to get more detailed "
@@ -113,7 +113,7 @@ msgstr ""
 "AppStream je standard pro poskytování metadat o programovém vybavení, "
 "používaný napříč linuxovými distribucemi."
 
-#: src/as-pool.c:1786
+#: src/as-pool.c:1779
 #, c-format
 msgid "AppStream system cache was updated, but problems were found: %s"
 msgstr ""
@@ -174,7 +174,7 @@ msgstr "Deskové"
 msgid "Bundle"
 msgstr "Zabaleno s"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1680
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
@@ -264,11 +264,13 @@ msgstr ""
 "Vytvořit šablonu pro metainfo soubor (pro vyplnění v upstream projektu)."
 
 #: src/as-provided.c:160
-msgid "DBus Session Services"
+#, fuzzy
+msgid "D-Bus Session Services"
 msgstr "Služby relace D-Bus"
 
 #: src/as-provided.c:158
-msgid "DBus System Services"
+#, fuzzy
+msgid "D-Bus System Services"
 msgstr "Systémové služby D-Bus"
 
 #: src/as-category.c:195
@@ -525,10 +527,6 @@ msgctxt "Category of Games"
 msgid "Logic"
 msgstr "Logické"
 
-#: src/as-provided.c:148
-msgid "MIME types"
-msgstr "MIME typy"
-
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstream-cli.c:67
 msgid "Make request without any caching."
@@ -560,6 +558,11 @@ msgstr "Matematika"
 msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematika"
+
+#: src/as-provided.c:148
+#, fuzzy
+msgid "Media types"
+msgstr "MIME typy"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -767,7 +770,7 @@ msgstr "Textové editory"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Soubor .desktop pro „%s“ neexistuje."
 
-#: src/as-pool.c:1784
+#: src/as-pool.c:1777
 msgid ""
 "The AppStream system cache was updated, but some errors were detected, which "
 "might lead to missing metadata. Refer to the verbose log for more "
