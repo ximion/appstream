@@ -334,7 +334,7 @@ void
 as_release_set_date (AsRelease *release, const gchar *date)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_autoptr(GDateTime) time;
+	g_autoptr(GDateTime) time = NULL;
 
 	time = as_iso8601_to_datetime (date);
 	if (time != NULL) {
@@ -397,7 +397,7 @@ guint64
 as_release_get_timestamp_eol (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	g_autoptr(GDateTime) time;
+	g_autoptr(GDateTime) time = NULL;
 
 	if (priv->date_eol == NULL)
 		return 0;
@@ -854,8 +854,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "date");
 	if (prop != NULL) {
-		g_autoptr(GDateTime) time;
-		time = as_iso8601_to_datetime (prop);
+		g_autoptr(GDateTime) time = as_iso8601_to_datetime (prop);
 		if (time != NULL) {
 			priv->timestamp = g_date_time_to_unix (time);
 			g_free (priv->date);
@@ -1050,8 +1049,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 		if (g_strcmp0 (key, "unix-timestamp") == 0) {
 			priv->timestamp = atol (value);
 		} else if (g_strcmp0 (key, "date") == 0) {
-			g_autoptr(GDateTime) time;
-			time = as_iso8601_to_datetime (value);
+			g_autoptr(GDateTime) time = as_iso8601_to_datetime (value);
 			if (time != NULL) {
 				priv->timestamp = g_date_time_to_unix (time);
 			} else {
