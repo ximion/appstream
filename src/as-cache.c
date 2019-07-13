@@ -1592,6 +1592,11 @@ as_cache_register_addons_for_component (AsCache *cache, MDB_txn *txn, AsComponen
 		return TRUE;
 
 	addons = as_cache_components_by_hash_list (cache, txn, dval.mv_data, dval.mv_size, &tmp_error);
+	if (addons == NULL) {
+		g_propagate_error (error, tmp_error);
+		return FALSE;
+	}
+
 	for (guint i = 0; i < addons->len; i++)
 		as_component_add_addon (cpt, AS_COMPONENT (g_ptr_array_index (addons, i)));
 
