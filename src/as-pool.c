@@ -1664,7 +1664,6 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = FALSE;
-	gboolean ret_poolupdate;
 	g_autofree gchar *cache_fname = NULL;
 	g_autoptr(GError) data_load_error = NULL;
 	g_autoptr(GError) tmp_error = NULL;
@@ -1736,6 +1735,8 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 
 	/* load AppStream collection metadata only and refine it */
 	ret = as_pool_load_collection_data (pool, TRUE, &data_load_error);
+	if (data_load_error != NULL)
+		g_debug ("Error while updating the in-memory data pool: %s", data_load_error->message);
 
 	/* un-float the cache, persisting all data */
 	invalid_cpts_n = as_cache_unfloat (priv->cache, &tmp_error);
@@ -1743,10 +1744,6 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 		g_propagate_error (error, tmp_error);
 		return FALSE;
 	}
-
-	ret_poolupdate = (invalid_cpts_n == 0) && ret;
-	if (data_load_error != NULL)
-		g_debug ("Error while updating the in-memory data pool: %s", data_load_error->message);
 
 	/* save the cache object */
 	as_cache_close (priv->cache);
@@ -1760,36 +1757,26 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 	/* reset (so the proper session cache is opened again) */
 	as_pool_clear2 (pool, NULL);
 
-	if (tmp_error != NULL) {
-		/* the exact error is not forwarded here, since we might be able to partially update the cache */
-		g_warning ("Error while updating the cache: %s", tmp_error->message);
-		g_error_free (tmp_error);
-		tmp_error = NULL;
-		ret = FALSE;
-	} else {
-		ret = TRUE;
-	}
-
 	if (ret) {
-		if (!ret_poolupdate) {
+		if (invalid_cpts_n != 0) {
 			g_autofree gchar *error_message = NULL;
 			if (data_load_error == NULL)
-				error_message = g_strdup (_("The AppStream system cache was updated, but some errors were detected, which might lead to missing metadata. Refer to the verbose log for more information."));
+				error_message = g_strdup (_("The AppStream system cache was updated, but some components were ignored. Refer to the verbose log for more information."));
 			else
-				error_message = g_strdup_printf (_("AppStream system cache was updated, but problems were found: %s"), data_load_error->message);
+				error_message = g_strdup_printf (_("The AppStream system cache was updated, but problems were found which resulted in metadata being ignored: %s"), data_load_error->message);
 
 			g_set_error_literal (error,
-				AS_POOL_ERROR,
-				AS_POOL_ERROR_INCOMPLETE,
-				error_message);
+					     AS_POOL_ERROR,
+					     AS_POOL_ERROR_INCOMPLETE,
+					     error_message);
 		}
 		/* update the cache mtime, to not needlessly rebuild it again */
 		as_touch_location (cache_fname);
 	} else {
 		g_set_error (error,
-				AS_POOL_ERROR,
-				AS_POOL_ERROR_FAILED,
-				_("AppStream cache update failed. Turn on verbose mode to get more detailed issue information."));
+			     AS_POOL_ERROR,
+			     AS_POOL_ERROR_FAILED,
+			     _("AppStream system cache refresh failed. Turn on verbose mode to get detailed issue information."));
 	}
 
 	return TRUE;
