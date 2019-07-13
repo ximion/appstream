@@ -2217,16 +2217,16 @@ as_cache_has_component_id (AsCache *cache, const gchar *id, GError **error)
  *
  * Get the amount of components the cache holds.
  *
- * Returns: Components count in the database.
+ * Returns: Components count in the database, or -1 on error.
  */
-gsize
+gssize
 as_cache_count_components (AsCache *cache, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_txn *txn;
 	MDB_stat stats;
 	gint rc;
-	gsize count;
+	gssize count = -1;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return 0;

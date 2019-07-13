@@ -1154,7 +1154,7 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean ret = TRUE;
 	guint invalid_cpts_n;
-	guint all_cpts_n;
+	gssize all_cpts_n;
 	gdouble valid_percentage;
 	GError *tmp_error = NULL;
 
@@ -1179,10 +1179,18 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 
 	/* automatically refine the metadata we have in the pool */
 	invalid_cpts_n = as_cache_unfloat (priv->cache, &tmp_error);
-	all_cpts_n = as_cache_count_components (priv->cache, NULL);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		return FALSE;
+	}
+	all_cpts_n = as_cache_count_components (priv->cache, &tmp_error);
+	if (all_cpts_n < 0) {
+		if (tmp_error != NULL) {
+			g_warning ("Unable to retrieve component count from cache: %s", tmp_error->message);
+			g_error_free (tmp_error);
+			tmp_error = NULL;
+		}
+		all_cpts_n = 0;
 	}
 
 	valid_percentage = (all_cpts_n == 0)? 100 : (100 / (gdouble) all_cpts_n) * (gdouble) (all_cpts_n - invalid_cpts_n);

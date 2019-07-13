@@ -121,8 +121,8 @@ GPtrArray	*as_cache_search (AsCache *cache,
 gboolean	as_cache_has_component_id (AsCache *cache,
 						const gchar *id,
 						GError **error);
-gsize		as_cache_count_components (AsCache *cache,
-						GError **error);
+gssize		as_cache_count_components (AsCache *cache,
+					   GError **error);
 
 time_t		as_cache_get_ctime (AsCache *cache);
 gboolean	as_cache_is_open (AsCache *cache);
