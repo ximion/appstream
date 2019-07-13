@@ -1640,8 +1640,10 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 	rc = mdb_cursor_get (cur, &dkey, &dval, MDB_FIRST);
 	while (rc == 0) {
 		AsComponent *cpt;
-		if (dval.mv_size <= 0)
+		if (dval.mv_size <= 0) {
+			rc = mdb_cursor_get (cur, NULL, &dval, MDB_NEXT);
 			continue;
+		}
 
 		/* in case we "removed" the component on a readonly cache */
 		if (priv->readonly) {
@@ -1655,7 +1657,7 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 			return NULL; /* error */
 		g_ptr_array_add (results, cpt);
 
-		rc = mdb_cursor_get(cur, NULL, &dval, MDB_NEXT);
+		rc = mdb_cursor_get (cur, NULL, &dval, MDB_NEXT);
 	}
 	mdb_cursor_close (cur);
 
