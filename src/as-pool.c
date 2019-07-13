@@ -362,7 +362,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		return FALSE;
 	}
 
-	existing_cpt = as_pool_get_component_by_data_id (pool, cdid, NULL);
+	existing_cpt = as_pool_get_component_by_data_id (pool, cdid, &tmp_error);
 	if (tmp_error != NULL) {
 		g_propagate_error (error, tmp_error);
 		return FALSE;
@@ -378,7 +378,7 @@ as_pool_add_component_internal (AsPool *pool, AsComponent *cpt, gboolean pedanti
 		if (existing_cpt == NULL) {
 			tmp_cdid = g_strdup_printf ("%s.desktop", cdid);
 
-			existing_cpt = as_pool_get_component_by_data_id (pool, tmp_cdid, NULL);
+			existing_cpt = as_pool_get_component_by_data_id (pool, tmp_cdid, &tmp_error);
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
 				return FALSE;
