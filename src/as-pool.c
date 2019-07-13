@@ -1185,7 +1185,7 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 		return FALSE;
 	}
 
-	valid_percentage = (100 / (gdouble) all_cpts_n) * (gdouble) (all_cpts_n - invalid_cpts_n);
+	valid_percentage = (all_cpts_n == 0)? 100 : (100 / (gdouble) all_cpts_n) * (gdouble) (all_cpts_n - invalid_cpts_n);
 	g_debug ("Percentage of valid components: %0.3f", valid_percentage);
 
 	/* we only return a non-TRUE value if a significant amount (10%) of components has been declared invalid. */
