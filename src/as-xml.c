@@ -94,13 +94,20 @@ as_xml_dump_node_children (xmlNode *node)
 
 	str = g_string_new ("");
 	for (iter = node->children; iter != NULL; iter = iter->next) {
+		gint r;
+
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE) {
-					continue;
+			continue;
 		}
 
-		nodeBuf = xmlBufferCreate();
-		xmlNodeDump (nodeBuf, NULL, iter, 0, 1);
+		nodeBuf = xmlBufferCreate ();
+		r = xmlNodeDump (nodeBuf, NULL, iter, 0, 1);
+		if (r < 0) {
+			xmlBufferFree (nodeBuf);
+			g_warning ("xmlNodeDump failed (%i) while serializing node children.", r);
+			continue;
+		}
 		if (str->len > 0)
 			g_string_append (str, "\n");
 		g_string_append_printf (str, "%s", (const gchar*) nodeBuf->content);
