@@ -1576,7 +1576,7 @@ as_cache_register_addons_for_component (AsCache *cache, MDB_txn *txn, AsComponen
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	MDB_val dval;
-	g_autoptr(GPtrArray) addons = NULL;
+	g_autofree guint8 *cpt_checksum = NULL;
 	GError *tmp_error = NULL;
 
 	dval = as_cache_txn_get_value (cache,
@@ -1591,14 +1591,29 @@ as_cache_register_addons_for_component (AsCache *cache, MDB_txn *txn, AsComponen
 	if (dval.mv_size == 0)
 		return TRUE;
 
-	addons = as_cache_components_by_hash_list (cache, txn, dval.mv_data, dval.mv_size, &tmp_error);
-	if (addons == NULL) {
-		g_propagate_error (error, tmp_error);
-		return FALSE;
-	}
+	/* retrieve cache checksum of this component */
+	as_generate_cache_checksum (as_component_get_data_id (cpt),
+				    -1,
+				    &cpt_checksum,
+				    NULL);
 
-	for (guint i = 0; i < addons->len; i++)
-		as_component_add_addon (cpt, AS_COMPONENT (g_ptr_array_index (addons, i)));
+	g_assert_cmpint (dval.mv_size % AS_CACHE_CHECKSUM_LEN, ==, 0);
+	for (gsize i = 0; i < dval.mv_size; i += AS_CACHE_CHECKSUM_LEN) {
+		const guint8 *chash = dval.mv_data + i;
+		AsComponent *addon;
+
+		/* ignore addon that extends itself to prevent infinite recursion */
+		if (memcmp (chash, cpt_checksum, AS_CACHE_CHECKSUM_LEN) == 0)
+			continue;
+
+		addon = as_cache_component_by_hash (cache, txn, chash, &tmp_error);
+		if (tmp_error != NULL) {
+			g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve addon component data: ");
+			return FALSE;
+		}
+		if (addon != NULL)
+			as_component_add_addon (cpt, addon);
+	}
 
 	return TRUE;
 }
