@@ -353,7 +353,7 @@ AsAgreement		*as_component_get_agreement_by_kind (AsComponent *cpt,
 
 /* DEPRECATED */
 
-G_GNUC_DEPRECATED
+G_DEPRECATED
 const gchar		*as_component_get_desktop_id (AsComponent *cpt);
 
 G_END_DECLS

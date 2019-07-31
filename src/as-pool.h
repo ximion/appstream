@@ -151,19 +151,19 @@ void			as_pool_set_cache_location (AsPool *pool,
 
 /* DEPRECATED */
 
-G_GNUC_DEPRECATED
+G_DEPRECATED
 gboolean		as_pool_load_cache_file (AsPool *pool,
 						 const gchar *fname,
 						 GError **error);
-G_GNUC_DEPRECATED
+G_DEPRECATED
 gboolean		as_pool_save_cache_file (AsPool *pool,
 						 const gchar *fname,
 						 GError **error);
-G_GNUC_DEPRECATED
+G_DEPRECATED
 gboolean		as_pool_refresh_cache (AsPool *pool,
 						gboolean force,
 						GError **error);
-G_GNUC_DEPRECATED
+G_DEPRECATED
 void			as_pool_clear (AsPool *pool);
 
 G_END_DECLS
