@@ -45,23 +45,31 @@ struct _AsValidatorIssueClass
 };
 
 /**
- * AsIssueImportance:
- * @AS_ISSUE_IMPORTANCE_ERROR:		There is a serious error in your metadata
- * @AS_ISSUE_IMPORTANCE_WARNING:	Something which should be fixed, but is not fatal
- * @AS_ISSUE_IMPORTANCE_INFO:		Non-essential information on how to improve your metadata
- * @AS_ISSUE_IMPORTANCE_PEDANTIC:	Pedantic information
+ * AsIssueSeverity:
+ * @AS_ISSUE_SEVERITY_ERROR:	There is a serious error in your metadata
+ * @AS_ISSUE_SEVERITY_WARNING:	Something which should be fixed, but is not fatal
+ * @AS_ISSUE_SEVERITY_INFO:	Non-essential information on how to improve your metadata
+ * @AS_ISSUE_SEVERITY_PEDANTIC:	Pedantic information
  *
- * The importance of an issue found by #AsValidator
+ * The severity of an issue found by #AsValidator
  **/
 typedef enum {
-	AS_ISSUE_IMPORTANCE_UNKNOWN,
-	AS_ISSUE_IMPORTANCE_ERROR,
-	AS_ISSUE_IMPORTANCE_WARNING,
-	AS_ISSUE_IMPORTANCE_INFO,
-	AS_ISSUE_IMPORTANCE_PEDANTIC,
+	AS_ISSUE_SEVERITY_UNKNOWN,
+	AS_ISSUE_SEVERITY_ERROR,
+	AS_ISSUE_SEVERITY_WARNING,
+	AS_ISSUE_SEVERITY_INFO,
+	AS_ISSUE_SEVERITY_PEDANTIC,
 	/*< private >*/
-	AS_ISSUE_IMPORTANCE_LAST
-} AsIssueImportance;
+	AS_ISSUE_SEVERITY_LAST
+} AsIssueSeverity;
+
+/* DEPRECATED */
+#define AsIssueImportance G_DEPRECATED AsIssueSeverity
+#define AS_ISSUE_IMPORTANCE_UNKNOWN AS_ISSUE_SEVERITY_UNKNOWN
+#define AS_ISSUE_IMPORTANCE_ERROR AS_ISSUE_SEVERITY_ERROR
+#define AS_ISSUE_IMPORTANCE_WARNING AS_ISSUE_SEVERITY_WARNING
+#define AS_ISSUE_IMPORTANCE_INFO AS_ISSUE_SEVERITY_INFO
+#define AS_ISSUE_IMPORTANCE_PEDANTIC AS_ISSUE_SEVERITY_PEDANTIC
 
 /**
  * AsIssueKind:
@@ -113,9 +121,9 @@ AsIssueKind		as_validator_issue_get_kind (AsValidatorIssue *issue);
 void			as_validator_issue_set_kind (AsValidatorIssue *issue,
 							AsIssueKind kind);
 
-AsIssueImportance	as_validator_issue_get_importance (AsValidatorIssue *issue);
-void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
-								AsIssueImportance importance);
+AsIssueSeverity		as_validator_issue_get_severity (AsValidatorIssue *issue);
+void 			as_validator_issue_set_severity (AsValidatorIssue *issue,
+								AsIssueSeverity severity);
 
 const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);
 void			as_validator_issue_set_message (AsValidatorIssue *issue,
@@ -135,6 +143,11 @@ void			as_validator_issue_set_line (AsValidatorIssue *issue,
 
 gchar			*as_validator_issue_get_location (AsValidatorIssue *issue);
 
+/* DEPRECATED */
+
+AsIssueSeverity		as_validator_issue_get_importance (AsValidatorIssue *issue);
+void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
+								AsIssueSeverity importance);
 
 G_END_DECLS
 

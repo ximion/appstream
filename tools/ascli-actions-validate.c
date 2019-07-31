@@ -28,24 +28,24 @@
 #include "ascli-utils.h"
 
 /**
- * importance_to_print_string:
+ * severity_location_to_print_string:
  **/
 static gchar*
-importance_location_to_print_string (AsIssueImportance importance, const gchar *location)
+severity_location_to_print_string (AsIssueSeverity severity, const gchar *location)
 {
 	gchar *str;
 
-	switch (importance) {
-		case AS_ISSUE_IMPORTANCE_ERROR:
+	switch (severity) {
+		case AS_ISSUE_SEVERITY_ERROR:
 			str = g_strdup_printf ("E - %s", location);
 			break;
-		case AS_ISSUE_IMPORTANCE_WARNING:
+		case AS_ISSUE_SEVERITY_WARNING:
 			str = g_strdup_printf ("W - %s", location);
 			break;
-		case AS_ISSUE_IMPORTANCE_INFO:
+		case AS_ISSUE_SEVERITY_INFO:
 			str = g_strdup_printf ("I - %s", location);
 			break;
-		case AS_ISSUE_IMPORTANCE_PEDANTIC:
+		case AS_ISSUE_SEVERITY_PEDANTIC:
 			str = g_strdup_printf ("P - %s", location);
 			break;
 		default:
@@ -53,14 +53,14 @@ importance_location_to_print_string (AsIssueImportance importance, const gchar *
 	}
 
 	if (ascli_get_output_colored ()) {
-		switch (importance) {
-			case AS_ISSUE_IMPORTANCE_ERROR:
+		switch (severity) {
+			case AS_ISSUE_SEVERITY_ERROR:
 				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 31, str, 0x1B, 0);
-			case AS_ISSUE_IMPORTANCE_WARNING:
+			case AS_ISSUE_SEVERITY_WARNING:
 				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 33, str, 0x1B, 0);
-			case AS_ISSUE_IMPORTANCE_INFO:
+			case AS_ISSUE_SEVERITY_INFO:
 				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 32, str, 0x1B, 0);
-			case AS_ISSUE_IMPORTANCE_PEDANTIC:
+			case AS_ISSUE_SEVERITY_PEDANTIC:
 				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 37, str, 0x1B, 0);
 			default:
 				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 35, str, 0x1B, 0);
@@ -78,7 +78,7 @@ process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *w
 {
 	GList *l;
 	AsValidatorIssue *issue;
-	AsIssueImportance importance;
+	AsIssueSeverity severity;
 	gboolean no_errors = TRUE;
 
 	for (l = issues; l != NULL; l = l->next) {
@@ -87,33 +87,33 @@ process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *w
 		g_autofree gchar *message = NULL;
 
 		issue = AS_VALIDATOR_ISSUE (l->data);
-		importance = as_validator_issue_get_importance (issue);
+		severity = as_validator_issue_get_severity (issue);
 
 		/* if there are errors or warnings, we consider the validation to be failed */
-		switch (importance) {
-			case AS_ISSUE_IMPORTANCE_ERROR:
+		switch (severity) {
+			case AS_ISSUE_SEVERITY_ERROR:
 				(*error_count)++;
 				no_errors = FALSE;
 				break;
-			case AS_ISSUE_IMPORTANCE_WARNING:
+			case AS_ISSUE_SEVERITY_WARNING:
 				(*warning_count)++;
 				no_errors = FALSE;
 				break;
-			case AS_ISSUE_IMPORTANCE_INFO:
+			case AS_ISSUE_SEVERITY_INFO:
 				(*info_count)++;
 				break;
-			case AS_ISSUE_IMPORTANCE_PEDANTIC:
+			case AS_ISSUE_SEVERITY_PEDANTIC:
 				(*pedantic_count)++;
 				break;
 			default: break;
 		}
 
 		/* skip pedantic issues if we should not show them */
-		if ((!pedantic) && (importance == AS_ISSUE_IMPORTANCE_PEDANTIC))
+		if ((!pedantic) && (severity == AS_ISSUE_SEVERITY_PEDANTIC))
 			continue;
 
 		location = as_validator_issue_get_location (issue);
-		header = importance_location_to_print_string (importance, location);
+		header = severity_location_to_print_string (severity, location);
 
 		message = ascli_format_long_output (as_validator_issue_get_message (issue), 4);
 		g_print ("%s\n    %s\n\n",

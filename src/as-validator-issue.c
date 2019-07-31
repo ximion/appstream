@@ -33,7 +33,7 @@
 typedef struct
 {
 	AsIssueKind		kind;
-	AsIssueImportance	importance;
+	AsIssueSeverity		severity;
 	gchar			*message;
 
 	gchar			*fname;
@@ -68,7 +68,7 @@ as_validator_issue_init (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
 	priv->kind = AS_ISSUE_KIND_UNKNOWN;
-	priv->importance = AS_ISSUE_IMPORTANCE_UNKNOWN;
+	priv->severity = AS_ISSUE_IMPORTANCE_UNKNOWN;
 	priv->line = -1;
 }
 
@@ -112,32 +112,59 @@ as_validator_issue_set_kind (AsValidatorIssue *issue, AsIssueKind kind)
 }
 
 /**
+ * as_validator_issue_get_severity:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * Gets the severity of this issue.
+ *
+ * Returns: a #AsIssueSeverity
+ **/
+AsIssueSeverity
+as_validator_issue_get_severity (AsValidatorIssue *issue)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	return priv->severity;
+}
+
+/**
+ * as_validator_issue_set_severity:
+ * @issue: a #AsValidatorIssue instance.
+ * @severity: the #AsIssueSeverity.
+ *
+ * Sets the severity for this issue.
+ **/
+void
+as_validator_issue_set_severity (AsValidatorIssue *issue, AsIssueSeverity severity)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	priv->severity = severity;
+}
+
+/**
  * as_validator_issue_get_importance:
  * @issue: a #AsValidatorIssue instance.
  *
- * Gets the importance of this issue.
+ * This function is deprecated and should not be used in new code.
  *
- * Returns: a #AsIssueImportance
+ * Returns: a #AsIssueSeverity
  **/
-AsIssueImportance
+AsIssueSeverity
 as_validator_issue_get_importance (AsValidatorIssue *issue)
 {
-	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	return priv->importance;
+	return as_validator_issue_get_severity (issue);
 }
 
 /**
  * as_validator_issue_set_importance:
  * @issue: a #AsValidatorIssue instance.
- * @importance: the #AsIssueImportance.
+ * @importance: the #AsIssueSeverity.
  *
- * Sets the importance for this issue.
+ * This function is deprecated and should not be used in new code.
  **/
 void
-as_validator_issue_set_importance (AsValidatorIssue *issue, AsIssueImportance importance)
+as_validator_issue_set_importance (AsValidatorIssue *issue, AsIssueSeverity importance)
 {
-	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	priv->importance = importance;
+	as_validator_issue_set_severity (issue, importance);
 }
 
 /**
@@ -220,7 +247,7 @@ as_validator_issue_get_line (AsValidatorIssue *issue)
  * @issue: a #AsValidatorIssue instance.
  * @line: the line number.
  *
- * Sets the importance for this issue.
+ * Sets the line number where this issue was found.
  **/
 void
 as_validator_issue_set_line (AsValidatorIssue *issue, gint line)

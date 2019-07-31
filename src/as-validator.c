@@ -93,7 +93,7 @@ as_validator_init (AsValidator *validator)
  * as_validator_add_issue:
  **/
 static void
-as_validator_add_issue (AsValidator *validator, xmlNode *node, AsIssueImportance importance, AsIssueKind kind, const gchar *format, ...)
+as_validator_add_issue (AsValidator *validator, xmlNode *node, AsIssueSeverity importance, AsIssueKind kind, const gchar *format, ...)
 {
 	va_list args;
 	gchar *buffer;
@@ -319,7 +319,7 @@ as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlN
  * as_validator_check_content:
  **/
 static void
-as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const gchar *tag_path, AsIssueImportance importance, AsComponent *cpt)
+as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const gchar *tag_path, AsIssueSeverity importance, AsComponent *cpt)
 {
 	g_autofree gchar *node_content = NULL;
 
