@@ -42,6 +42,9 @@ ascli_format_long_output (const gchar *str, guint indent_level)
 	g_autofree gchar *spacing = NULL;
 	g_autofree gchar *break_indent = NULL;
 
+	if (str == NULL)
+		return NULL;
+
 	spacing = g_strnfill (indent_level, ' ');
 	break_indent = g_strdup_printf ("\n%s", spacing);
 

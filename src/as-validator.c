@@ -38,6 +38,7 @@
 
 #include "as-validator.h"
 #include "as-validator-issue.h"
+#include "as-validator-issue-tag.h"
 
 #include "as-utils.h"
 #include "as-utils-private.h"
@@ -49,6 +50,8 @@ typedef struct
 {
 	GHashTable *issues; /* of utf8:AsValidatorIssue */
 
+	GHashTable *issue_tags; /* of utf8:AsValidatorIssueTag */
+
 	AsComponent *current_cpt;
 	gchar *current_fname;
 	gboolean check_urls;
@@ -56,6 +59,42 @@ typedef struct
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_get_instance_private (o))
+
+
+#if 0
+static void
+as_validator_tag_data_free (AsValidatorTagData *data)
+{
+	if (data->details_template != NULL)
+		g_free (data->details_template);
+	g_slice_free (AsValidatorTagData, data);
+}
+#endif
+
+/**
+ * as_validator_init:
+ **/
+static void
+as_validator_init (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+
+	priv->issue_tags = g_hash_table_new_full (g_str_hash,
+						  g_str_equal,
+						  g_free,
+						  NULL);
+	for (guint i = 0; as_validator_issue_tag_list[i].tag != NULL; i++) {
+		g_hash_table_insert (priv->issue_tags,
+				     g_strdup (as_validator_issue_tag_list[i].tag),
+				     &as_validator_issue_tag_list[i].tag);
+	}
+
+	priv->issues = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+
+	priv->current_fname = NULL;
+	priv->current_cpt = NULL;
+	priv->check_urls = FALSE;
+}
 
 /**
  * as_validator_finalize:
@@ -75,42 +114,44 @@ as_validator_finalize (GObject *object)
 }
 
 /**
- * as_validator_init:
- **/
-static void
-as_validator_init (AsValidator *validator)
-{
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-
-	priv->issues = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
-
-	priv->current_fname = NULL;
-	priv->current_cpt = NULL;
-	priv->check_urls = FALSE;
-}
-
-/**
  * as_validator_add_issue:
  **/
 static void
-as_validator_add_issue (AsValidator *validator, xmlNode *node, AsIssueSeverity importance, AsIssueKind kind, const gchar *format, ...)
+as_validator_add_issue (AsValidator *validator, xmlNode *node, const gchar *tag, const gchar *format, ...)
 {
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	va_list args;
-	gchar *buffer;
-	gchar *id_str;
+	g_autofree gchar *buffer = NULL;
+	g_autofree gchar *tag_final = NULL;
+	const gchar *explanation;
+	AsIssueSeverity severity;
 	g_autofree gchar *location = NULL;
 	AsValidatorIssue *issue;
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	gchar *id_str;
+	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
+
+	if (tag_data == NULL) {
+		/* we requested data about an invalid tag */
+		g_warning ("Validator invoked invalid issue tag: %s", tag);
+		severity = AS_ISSUE_SEVERITY_ERROR;
+		explanation =_("The emitted issue tag is unknown in the tag registry of AppStream. "
+				"This is a bug in the validator itself, please report this issue in our bugtracker.");
+		tag_final = g_strdup_printf ("__error__%s", tag);
+	} else {
+		tag_final = g_strdup (tag);
+		severity = tag_data->severity;
+		explanation = tag_data->explanation;
+	}
 
 	va_start (args, format);
 	buffer = g_strdup_vprintf (format, args);
 	va_end (args);
 
 	issue = as_validator_issue_new ();
-	as_validator_issue_set_kind (issue, kind);
-	as_validator_issue_set_importance (issue, importance);
-	as_validator_issue_set_message (issue, buffer);
-	g_free (buffer);
+	as_validator_issue_set_tag (issue, tag_final);
+	as_validator_issue_set_severity (issue, severity);
+	as_validator_issue_set_hint (issue, buffer);
+	as_validator_issue_set_explanation (issue, explanation);
 
 	/* update location information */
 	if (priv->current_fname != NULL)
@@ -125,7 +166,7 @@ as_validator_add_issue (AsValidator *validator, xmlNode *node, AsIssueSeverity i
 	location = as_validator_issue_get_location (issue);
 	id_str = g_strdup_printf ("%s - %s",
 					location,
-					as_validator_issue_get_message (issue));
+					as_validator_issue_get_hint (issue));
 	/* str ownership is transferred to the hashtable */
 	g_hash_table_insert (priv->issues, id_str, issue);
 }
@@ -304,9 +345,8 @@ as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlN
 	content = (gchar*) xmlNodeGetContent (node);
 	if (prop == NULL) {
 		as_validator_add_issue (validator, node,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_PROPERTY_MISSING,
-					"'%s' tag has no 'type' property: %s",
+					"type-property-required",
+					"%s (%s)",
 					(const gchar*) node->name,
 					content);
 	}
@@ -319,7 +359,7 @@ as_validator_check_type_property (AsValidator *validator, AsComponent *cpt, xmlN
  * as_validator_check_content:
  **/
 static void
-as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const gchar *tag_path, AsIssueSeverity importance, AsComponent *cpt)
+as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const gchar *tag_path, AsComponent *cpt)
 {
 	g_autofree gchar *node_content = NULL;
 
@@ -333,9 +373,7 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 		return;
 
 	as_validator_add_issue (validator, node,
-				importance,
-				AS_ISSUE_KIND_VALUE_WRONG,
-				"Found empty '%s' tag.",
+				"tag-empty",
 				tag_path);
 }
 
@@ -416,14 +454,12 @@ as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const 
 				as_validator_check_content_empty (validator,
 								  iter,
 								  tag_path,
-								  AS_ISSUE_IMPORTANCE_WARNING,
 								  cpt);
 		} else {
 			as_validator_add_issue (validator, node,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found tag '%s' in section '%s'. Only '%s' tags are allowed.",
-						node_name,
+						"invalid-child-tag-name",
+						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+						_("Found: %s - Allowed: %s"),
 						(const gchar*) node->name,
 						allowed_tagname);
 		}
@@ -434,19 +470,17 @@ as_validator_check_children_quick (AsValidator *validator, xmlNode *node, const 
  * as_validator_check_nolocalized:
  **/
 static void
-as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gchar *node_path, AsComponent *cpt, const gchar *format)
+as_validator_check_nolocalized (AsValidator *validator, xmlNode* node, const gchar *tag, AsComponent *cpt, const gchar *format)
 {
-	gchar *lang;
+	g_autofree gchar *lang = NULL;
 
 	lang = (gchar*) xmlGetProp (node, (xmlChar*) "lang");
 	if (lang != NULL) {
-		as_validator_add_issue (validator, node,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_PROPERTY_INVALID,
-					format,
-					node_path);
+		as_validator_add_issue (validator,
+					node,
+					tag,
+					format);
 	}
-	g_free (lang);
 }
 
 /**
@@ -464,11 +498,9 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 			continue;
 		node_name = (const gchar*) iter->name;
 
-		as_validator_add_issue (validator, iter,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_MARKUP_INVALID,
-					"The description value is invalid: The '%s' paragraph contains an invalid '%s' XML tag.",
-					(const gchar*) node->name,
+		as_validator_add_issue (validator,
+					iter,
+					"description-para-markup-invalid",
 					node_name);
 	}
 }
@@ -494,16 +526,12 @@ as_validator_check_description_enumeration (AsValidator *validator, xmlNode *nod
 			as_validator_check_content_empty (validator,
 							  iter,
 							  tag_path,
-							  AS_ISSUE_IMPORTANCE_WARNING,
 							  cpt);
 			as_validator_check_description_paragraph (validator, iter);
 		} else {
 			as_validator_add_issue (validator, node,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found tag '%s' in section '%s'. Only 'li' tags are allowed.",
-						node_name,
-						(const gchar*) node->name);
+						"description-enum-item-invalid",
+						node_name);
 		}
 	}
 }
@@ -520,9 +548,9 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 	if (mode == AS_FORMAT_STYLE_METAINFO) {
 		as_validator_check_nolocalized (validator,
 						node,
-						(const gchar*) node->name,
+						"metainfo-localized-description-tag",
 						cpt,
-						"The '%s' tag should not be localized in upstream metadata. Localize the individual paragraphs instead.");
+						(const gchar*) node->name);
 	}
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
@@ -537,7 +565,6 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 			as_validator_check_content_empty (validator,
 							  iter,
 							  node_name,
-							  AS_ISSUE_IMPORTANCE_WARNING,
 							  cpt);
 		}
 
@@ -545,15 +572,13 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
-								"description/p",
+								"collection-localized-description-section",
 								cpt,
-								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
+								"description/p");
 			}
 			if ((first_paragraph) && (strlen (node_content) < 80)) {
 				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_INFO,
-							AS_ISSUE_KIND_VALUE_ISSUE,
-							"First 'description/p' paragraph might be too short (< 80 characters).",
+							"description-first-para-too-short",
 							node_content);
 			}
 			first_paragraph = FALSE;
@@ -563,33 +588,29 @@ as_validator_check_description_tag (AsValidator *validator, xmlNode* node, AsCom
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
-								"description/ul",
+								"collection-localized-description-section",
 								cpt,
-								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
+								"description/ul");
 			}
 			as_validator_check_description_enumeration (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "ol") == 0) {
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
 				as_validator_check_nolocalized (validator,
 								iter,
-								"description/ol",
+								"collection-localized-description-section",
 								cpt,
-								"The '%s' tag should not be localized in collection metadata. Localize the whole 'description' tag instead.");
+								"description/ol");
 			}
 			as_validator_check_description_enumeration (validator, iter, cpt);
 		} else {
 			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found tag '%s' in 'description' section. Only 'p', 'ul' and 'ol' are allowed.",
+						"description-markup-invalid",
 						node_name);
 		}
 
 		if (as_validate_has_hyperlink (node_content)) {
 			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The description contains an URL. This is not allowed, please use the <url/> tag to share links.",
+						"description-has-plaintext-url",
 						node_name);
 		}
 	}
@@ -615,9 +636,7 @@ as_validator_check_appear_once (AsValidator *validator, xmlNode *node, GHashTabl
 
 	if (g_hash_table_contains (known_tags, tag_id)) {
 		as_validator_add_issue (validator, node,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_DUPLICATED,
-					"The tag '%s' appears multiple times, while it should only be defined once per component.",
+					"tag-duplicated",
 					tag_id);
 	}
 
@@ -642,25 +661,17 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	if (g_strv_length (cid_parts) < 3) {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DESKTOP_APP) {
 			/* since the ID and .desktop-file-id are tied together, we can't make this an error for desktop apps */
-			as_validator_add_issue (validator, idnode,
-					AS_ISSUE_IMPORTANCE_WARNING,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"The component ID is not a reverse domain-name. Please update the ID and that of the accompanying .desktop file to follow the latest version of the Desktop-Entry and AppStream specifications and avoid future issues.");
+			as_validator_add_issue (validator, idnode, "cid-desktopapp-is-not-rdns", cid);
+
 		} else {
 			/* anything which isn't a .desktop app must follow the schema though */
-			as_validator_add_issue (validator, idnode,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"The component ID is no reverse domain-name.");
+			as_validator_add_issue (validator, idnode, "cid-is-not-rdns", cid);
 		}
 	} else {
 		/* some people just add random dots to their ID - check if we have an actual known TLD as first part, to be more certain that this is a reverse domain name
 		 * (this issue happens quite often with old .desktop files) */
 		if (!as_utils_is_tld (cid_parts[0])) {
-			as_validator_add_issue (validator, idnode,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component ID might not follow the reverse domain-name schema (we do not know about the TLD '%s').", cid_parts[0]);
+			as_validator_add_issue (validator, idnode, "cid-maybe-not-rdns", cid);
 		}
 	}
 
@@ -674,18 +685,13 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			g_autofree gchar *c = NULL;
 			c = g_utf8_substring (cid, i, i + 1);
 			as_validator_add_issue (validator, idnode,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"The component ID [%s] contains an invalid character: '%s'", cid, c);
+						"cid-invalid-character",
+						"%s: '%c'", cid, c);
 		}
 
 		if (!hyphen_found && cid[i] == '-') {
 			hyphen_found = TRUE;
-			as_validator_add_issue (validator, idnode,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component ID [%s] contains a hyphen/minus. Using a hyphen is strongly discouraged, to keep interoperability with other tools such as D-Bus. "
-						"Ideally, replace any hyphens with an underscore ('_')", cid);
+			as_validator_add_issue (validator, idnode, "cid-contains-hyphen", cid);
 		}
 	}
 
@@ -693,11 +699,8 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	for (i = 0; cid_parts[i] != NULL; i++) {
 		if (g_ascii_isdigit (cid_parts[i][0])) {
 			as_validator_add_issue (validator, idnode,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component ID [%s] contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, "
-						"to keep interoperability with other tools such as D-Bus. "
-						"Ideally, prefix these sections with an underscore (%s → _%s)", cid, cid_parts[i], cid_parts[i]);
+						"cid-number-prefix",
+						"%s: %s → _%s", cid, cid_parts[i], cid_parts[i]);
 			break;
 		}
 	}
@@ -712,21 +715,15 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	    (g_strcmp0 (as_component_get_project_group (cpt), "FreeDesktop") == 0)) {
 		if (!g_str_has_prefix (cid, "org.freedesktop."))
 			as_validator_add_issue (validator, idnode,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\").");
+						"cid-missing-affiliation-freedesktop", cid);
 	} else if (g_strcmp0 (as_component_get_project_group (cpt), "KDE") == 0) {
 		if (!g_str_has_prefix (cid, "org.kde."))
 			as_validator_add_issue (validator, idnode,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component is part of the KDE project, but its ID does not start with KDEs reverse-DNS name (\"org.kde\").");
+						"cid-missing-affiliation-kde", cid);
 	} else if (g_strcmp0 (as_component_get_project_group (cpt), "GNOME") == 0) {
 		if (!g_str_has_prefix (cid, "org.gnome."))
 			as_validator_add_issue (validator, idnode,
-						AS_ISSUE_IMPORTANCE_PEDANTIC,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The component is part of the GNOME project, but its ID does not start with GNOMEs reverse-DNS name (\"org.gnome\").");
+						"cid-missing-affiliation-gnome", cid);
 	}
 }
 
@@ -743,9 +740,7 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 	licenses = as_spdx_license_tokenize (license_id);
 	if (licenses == NULL) {
 		as_validator_add_issue (validator, license_node,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"SPDX license expression '%s' could not be parsed.",
+					"spdx-expression-invalid",
 					license_id);
 		return;
 	}
@@ -759,9 +754,7 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 		if (licenses[i][0] != '@' ||
 		    !as_is_spdx_license_id (licenses[i] + 1)) {
 			as_validator_add_issue (validator, license_node,
-					AS_ISSUE_IMPORTANCE_WARNING,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"SPDX license ID '%s' is unknown.",
+					"spdx-license-unknown",
 					licenses[i]);
 			return;
 		}
@@ -783,9 +776,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 	tokens = as_spdx_license_tokenize (license_expression);
 	if (tokens == NULL) {
 		as_validator_add_issue (validator, license_node,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"SPDX license expression '%s' could not be parsed.",
+					"spdx-expression-invalid",
 					license_expression);
 		return;
 	}
@@ -795,10 +786,8 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 		if (g_strcmp0 (tokens[i], "(") == 0 ||
 		    g_strcmp0 (tokens[i], ")") == 0) {
 			as_validator_add_issue (validator, license_node,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 "
-						"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
+						"metadata-license-too-complex",
+						NULL);
 			return;
 		}
 	}
@@ -832,10 +821,8 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 
 	/* looks like the license was bad */
 	as_validator_add_issue (validator, license_node,
-				AS_ISSUE_IMPORTANCE_WARNING,
-				AS_ISSUE_KIND_VALUE_WRONG,
-				"The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD "
-				"to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses.");
+				"metadata-license-invalid",
+				NULL);
 }
 
 /**
@@ -851,9 +838,7 @@ as_validator_validate_update_contact (AsValidator *validator, xmlNode *uc_node)
 	    (g_strstr_len (text, -1, "_AT_") == NULL)) {
 		if (g_strstr_len (text, -1, ".") == NULL) {
 			as_validator_add_issue (validator, uc_node,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"The update-contact '%s' does not appear to be a valid email address.",
+						"update-contact-no-mail",
 						text);
 		}
 	}
@@ -880,10 +865,11 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 		if (g_strcmp0 ((const gchar*) iter->name, "screenshot") != 0) {
 			as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_TAG_UNKNOWN,
-							"Found tag '%s' in a screenshots group. Only <screenshot/> tags are allowed.",
-							(const gchar*) iter->name);
+						"invalid-child-tag-name",
+						/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+						_("Found: %s - Allowed: %s"),
+						(const gchar*) iter->name),
+						"screenshot";
 		}
 
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
@@ -899,43 +885,33 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 				if (!as_validator_web_url_exists (validator, image_url)) {
 					as_validator_add_issue (validator, iter2,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_REMOTE_ERROR,
-							"Unable to reach screenshot image on remote location '%s' - does the image exist?",
+							"screenshot-image-not-found",
 							image_url);
 				}
 
 				if (!as_validate_is_secure_url (image_url)) {
 					as_validator_add_issue (validator, iter2,
-								AS_ISSUE_IMPORTANCE_INFO,
-								AS_ISSUE_KIND_VALUE_ISSUE,
-								"Consider using a secure (HTTPS) URL for '%s'", image_url);
+								"screenshot-image-url-insecure",
+								image_url);
 				}
 
 			} else if (g_strcmp0 (node_name, "caption") == 0) {
 				caption_found = TRUE;
 			} else {
 				as_validator_add_issue (validator, iter2,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_TAG_UNKNOWN,
-							"Found tag '%s' in a screenshot. Only <caption/> and <image/> tags are allowed.",
-							(const gchar*) iter2->name);
+							"invalid-child-tag-name",
+							/* TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name. */
+							_("Found: %s - Allowed: %s"),
+							(const gchar*) iter2->name),
+							"caption; image; video";
 			}
 		}
 
-		if (!image_found) {
-			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_TAG_MISSING,
-						"The screenshot does not contain any images.");
-		}
+		if (!image_found)
+			as_validator_add_issue (validator, iter, "screenshot-no-images", NULL);
 
-		if (!caption_found) {
-			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_PEDANTIC,
-						AS_ISSUE_KIND_TAG_MISSING,
-						"The screenshot does not have a caption text.");
-		}
+		if (!caption_found)
+			as_validator_add_issue (validator, iter, "screenshot-no-caption", NULL);
 	}
 }
 
@@ -963,18 +939,15 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 		item_kind = as_relation_item_kind_from_string (node_name);
 		if (item_kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
 			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found tag '%s' in a requires/recommends group. A relation of this type is unknown.",
+						"relation-invalid-tag",
 						node_name);
 			continue;
 		}
 
 		if (g_strcmp0 (content, "") == 0) {
 			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_VALUE_MISSING,
-						"Missing value for requires/recommends item.");
+						"relation-item-no-value",
+						NULL);
 			continue;
 		}
 
@@ -994,38 +967,26 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 
 			if (!can_have_version) {
 				as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_PROPERTY_INVALID,
-						"Found version property on required/recommended item of type '%s'. Items of this type should not have a version.",
+						"relation-item-has-version",
 						as_relation_item_kind_to_string (item_kind));
 				continue;
 			}
 
 			if (compare_str == NULL) {
-				as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_PROPERTY_MISSING,
-						"Found version property on required/recommended item, but not 'compare' property. It is recommended to explicitly define a comparison operation.");
+				as_validator_add_issue (validator, iter, "relation-item-missing-compare", NULL);
 				continue;
 			}
 
 			compare = as_relation_compare_from_string (compare_str);
 			if (compare == AS_RELATION_COMPARE_UNKNOWN) {
 				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"Invalid version comparison operation '%s' on item.",
+							"relation-item-invalid-vercmp",
 							compare_str);
 			}
 		}
 
-		if ((kind == AS_RELATION_KIND_REQUIRES) && (item_kind == AS_RELATION_ITEM_KIND_MEMORY)) {
-			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_UNUSUAL,
-						"Found a memory size dependency in a 'requires' tag. This means users will not be able to even install the component without having enough RAM." " "
-					        "This is usually not intended and you want to use 'memory' in the 'recommends' tag instead.");
-		}
+		if ((kind == AS_RELATION_KIND_REQUIRES) && (item_kind == AS_RELATION_ITEM_KIND_MEMORY))
+			as_validator_add_issue (validator, iter, "relation-memory-in-requires", NULL);
 	}
 }
 
@@ -1056,52 +1017,33 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	if (cpttype != NULL) {
 		if (as_component_kind_from_string (cpttype) == AS_COMPONENT_KIND_UNKNOWN) {
 			as_validator_add_issue (validator, root,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_VALUE_WRONG,
-						"Invalid component type found: %s",
+						"component-type-invalid",
 						cpttype);
 		}
 	}
 
-	if ((as_component_get_priority (cpt) != 0) && (mode == AS_FORMAT_STYLE_METAINFO)) {
-		as_validator_add_issue (validator, root,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"The component has a priority value set. This is not allowed in metainfo files.");
-	}
+	if ((as_component_get_priority (cpt) != 0) && (mode == AS_FORMAT_STYLE_METAINFO))
+		as_validator_add_issue (validator, root, "component-priority-in-metainfo", NULL);
 
-	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_FORMAT_STYLE_METAINFO)) {
-		as_validator_add_issue (validator, root,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_WRONG,
-					"The component has a 'merge' method defined. This is not allowed in metainfo files.");
-	}
+	if ((as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) && (mode == AS_FORMAT_STYLE_METAINFO))
+		as_validator_add_issue (validator, root, "component-merge-in-metainfo", NULL);
 
 	/* the component must have an id */
 	if (as_str_empty (as_component_get_id (cpt))) {
 		/* we don't have an id */
-		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_MISSING,
-					"The component is missing an ID (<id/> tag).");
+		as_validator_add_issue (validator, NULL, "component-id-missing", NULL);
 	}
 
 	/* the component must have a name */
 	if (as_str_empty (as_component_get_name (cpt))) {
 		/* we don't have a name */
-		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_MISSING,
-					"The component is missing a name (<name/> tag).");
+		as_validator_add_issue (validator, NULL, "component-name-missing", NULL);
 	}
 
 	/* the component must have a summary */
 	if (as_str_empty (as_component_get_summary (cpt))) {
 		/* we don't have a summary */
-		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_VALUE_MISSING,
-					"The component is missing a summary (<summary/> tag).");
+		as_validator_add_issue (validator, NULL, "component-summary-missing", NULL);
 	}
 
 	for (iter = root->children; iter != NULL; iter = iter->next) {
@@ -1117,16 +1059,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		node_content = (gchar*) xmlNodeGetContent (iter);
 
 		if (g_strcmp0 (node_name, "id") == 0) {
-			gchar *prop;
-			prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+			g_autofree gchar *prop = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
 			if (prop != NULL) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_INFO,
-							AS_ISSUE_KIND_PROPERTY_INVALID,
-							"The id tag for \"%s\" still contains a 'type' property, probably from an old conversion.",
-							node_content);
+				as_validator_add_issue (validator, iter, "id-tag-has-type", node_content);
 			}
-			g_free (prop);
 
 			/* validate the AppStream ID */
 			as_validator_validate_component_id (validator, iter, cpt);
@@ -1138,23 +1074,14 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			if (mode == AS_FORMAT_STYLE_METAINFO)
 				as_validator_validate_metadata_license (validator, iter);
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
-			if (g_hash_table_contains (found_tags, node_name)) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_PEDANTIC,
-							AS_ISSUE_KIND_TAG_DUPLICATED,
-							"The tag 'pkgname' appears multiple times. You should evaluate creating a metapackage containing the data in order to avoid defining multiple package names per component.");
-			}
+			if (g_hash_table_contains (found_tags, node_name))
+				as_validator_add_issue (validator, iter, "multiple-pkgname", NULL);
 		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
-			if (g_str_has_suffix (node_content, ".")) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_PEDANTIC,
-							AS_ISSUE_KIND_VALUE_ISSUE,
-							"The component name should (likely) not end with a \".\" [%s]",
-							node_content);
-			}
+			if (g_str_has_suffix (node_content, "."))
+				as_validator_add_issue (validator, iter, "name-dot-suffix", node_content);
 
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			const gchar *summary = node_content;
@@ -1162,23 +1089,16 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			if (g_str_has_suffix (summary, "."))
 				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_INFO,
-							AS_ISSUE_KIND_VALUE_ISSUE,
-							"The component summary should not end with a \".\" [%s]",
+							"summary-dot-suffix",
 							summary);
 
 			if ((summary != NULL) && ((strstr (summary, "\n") != NULL) || (strstr (summary, "\t") != NULL))) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"The summary tag must not contain tabs or linebreaks.");
+				as_validator_add_issue (validator, iter, "summary-has-tabs-or-linebreaks", NULL);
 			}
 
 			if (as_validate_has_hyperlink (summary)) {
 				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"The summary must not contain any URL.",
+							"summary-has-url",
 							node_name);
 			}
 
@@ -1186,75 +1106,41 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_description_tag (validator, iter, cpt, mode);
 		} else if (g_strcmp0 (node_name, "icon") == 0) {
-			gchar *prop;
-			prop = as_validator_check_type_property (validator, cpt, iter);
+			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
 			if ((g_strcmp0 (prop, "cached") == 0) || (g_strcmp0 (prop, "stock") == 0)) {
 				if ((g_strrstr (node_content, "/") != NULL) || (as_validate_is_url (node_content)))
-					as_validator_add_issue (validator, iter,
-								AS_ISSUE_IMPORTANCE_ERROR,
-								AS_ISSUE_KIND_VALUE_WRONG,
-								"Icons of type 'stock' or 'cached' must not contain an URL or a full or relative path to the icon.");
+					as_validator_add_issue (validator, iter, "icon-stock-cached-has-url", NULL);
 			}
 
 			if (g_strcmp0 (prop, "remote") == 0) {
 				if (!as_validate_is_url (node_content)) {
-					as_validator_add_issue (validator, iter,
-								AS_ISSUE_IMPORTANCE_ERROR,
-								AS_ISSUE_KIND_VALUE_WRONG,
-								"Icons of type 'remote' must contain an URL to the referenced icon.");
+					as_validator_add_issue (validator, iter, "icon-remote-no-url", NULL);
 				} else {
 					if (!as_validator_web_url_exists (validator, node_content)) {
-						as_validator_add_issue (validator, iter,
-									AS_ISSUE_IMPORTANCE_WARNING,
-									AS_ISSUE_KIND_REMOTE_ERROR,
-									"Unable to reach remote icon at '%s' - does it exist?",
-									node_content);
+						as_validator_add_issue (validator, iter, "icon-remote-not-found", node_content);
 					}
 
-					if (!as_validate_is_secure_url (node_content)) {
-						as_validator_add_issue (validator, iter,
-									AS_ISSUE_IMPORTANCE_INFO,
-									AS_ISSUE_KIND_VALUE_ISSUE,
-									"Consider using a secure (HTTPS) URL for '%s'", node_content);
-					}
+					if (!as_validate_is_secure_url (node_content))
+						as_validator_add_issue (validator, iter, "icon-remote-not-secure", node_content);
 				}
 			}
 
 			if (mode == AS_FORMAT_STYLE_METAINFO) {
-				if ((prop != NULL) && (g_strcmp0 (prop, "stock") != 0) && (g_strcmp0 (prop, "remote") != 0)) {
-					as_validator_add_issue (validator, iter,
-								AS_ISSUE_IMPORTANCE_ERROR,
-								AS_ISSUE_KIND_VALUE_WRONG,
-								"Metainfo files may only contain 'stock' or 'remote' icons, icons of kind '%s' are not allowed.", prop);
-				}
+				if ((prop != NULL) && (g_strcmp0 (prop, "stock") != 0) && (g_strcmp0 (prop, "remote") != 0))
+					as_validator_add_issue (validator, iter, "metainfo-invalid-icon-type", prop);
 			}
-			g_free (prop);
+
 		} else if (g_strcmp0 (node_name, "url") == 0) {
-			gchar *prop;
-			prop = as_validator_check_type_property (validator, cpt, iter);
-			if (as_url_kind_from_string (prop) == AS_URL_KIND_UNKNOWN) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_PROPERTY_INVALID,
-							"Invalid property for 'url' tag: \"%s\"",
-							prop);
-			}
-			g_free (prop);
+			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
+			if (as_url_kind_from_string (prop) == AS_URL_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "url-invalid-type", prop);
 
-			if (!as_validator_web_url_exists (validator, node_content)) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_REMOTE_ERROR,
-							"Unable to reach remote location '%s' - does it exist?",
-							node_content);
-			}
+			if (!as_validator_web_url_exists (validator, node_content))
+				as_validator_add_issue (validator, iter, "url-not-found", node_content);
 
-			if (!as_validate_is_secure_url (node_content)) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_INFO,
-							AS_ISSUE_KIND_VALUE_ISSUE,
-							"Consider using a secure (HTTPS) URL for '%s'", node_content);
-			}
+			if (!as_validate_is_secure_url (node_content))
+				as_validator_add_issue (validator, iter, "url-not-secure", node_content);
+
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			as_validator_check_children_quick (validator, iter, "category", cpt, FALSE);
@@ -1276,18 +1162,14 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "developer_name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 
-			if (as_validate_has_hyperlink (node_content)) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_VALUE_ISSUE,
-							"The <developer_name/> can not contain a hyperlink.");
-			}
+			if (as_validate_has_hyperlink (node_content))
+				as_validator_add_issue (validator, iter, "developer-name-has-url", NULL);
+
 		} else if (g_strcmp0 (node_name, "compulsory_for_desktop") == 0) {
 			if (!as_utils_is_desktop_environment (node_content)) {
 				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"Unknown desktop-id '%s'.", node_content);
+							"unknown-desktop-id",
+							node_content);
 			}
 		} else if (g_strcmp0 (node_name, "releases") == 0) {
 			as_validator_check_children_quick (validator, iter, "release", cpt, FALSE);
@@ -1299,37 +1181,23 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			AsTranslationKind trkind;
 			prop = as_validator_check_type_property (validator, cpt, iter);
 			trkind = as_translation_kind_from_string (prop);
-			if (prop != NULL && trkind == AS_TRANSLATION_KIND_UNKNOWN) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"Unknown type '%s' for <translation/> tag.", prop);
-			}
+			if (prop != NULL && trkind == AS_TRANSLATION_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "unknown-desktop-id", prop);
+
 		} else if (g_strcmp0 (node_name, "launchable") == 0) {
-			g_autofree gchar *prop = NULL;
-			prop = as_validator_check_type_property (validator, cpt, iter);
-			if (as_launchable_kind_from_string (prop) == AS_LAUNCHABLE_KIND_UNKNOWN) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"Unknown type '%s' for <launchable/> tag.", prop);
-			}
+			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
+			if (as_launchable_kind_from_string (prop) == AS_LAUNCHABLE_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "launchable-unknown-type", prop);
+
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
-			g_autofree gchar *prop = NULL;
-			prop = as_validator_check_type_property (validator, cpt, iter);
-			if (prop != NULL && as_bundle_kind_from_string (prop) == AS_BUNDLE_KIND_UNKNOWN) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"Unknown type '%s' for <bundle/> tag.", prop);
-			}
+			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
+			if (prop != NULL && as_bundle_kind_from_string (prop) == AS_BUNDLE_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "bundle-unknown-type", prop);
+
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
 			if (mode == AS_FORMAT_STYLE_COLLECTION) {
-				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_TAG_NOT_ALLOWED,
-							"The 'update_contact' tag should not be included in collection AppStream XML.");
+				as_validator_add_issue (validator, iter, "update-contact-in-collection-data", NULL);
 			} else {
 				as_validator_check_appear_once (validator, iter, found_tags, cpt);
 				as_validator_validate_update_contact (validator, iter);
@@ -1352,18 +1220,10 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			/* these tags are GNOME / Fedora specific extensions and are therefore quite common. They shouldn't make the validation fail,
 			 * especially if we might standardize at leat the <kudos/> tag one day, but we should still complain about those tags to make
 			 * it obvious that they are not supported by all implementations */
-			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found invalid tag: '%s'. This tag is a GNOME-specific extension to AppStream and is not supported by all implementations.",
-						node_name);
+			as_validator_add_issue (validator, iter, "nonstandard-gnome-extension", node_name);
 			tag_valid = FALSE;
 		} else if (!g_str_has_prefix (node_name, "x-")) {
-			as_validator_add_issue (validator, iter,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_TAG_UNKNOWN,
-						"Found invalid tag: '%s'. Non-standard tags must be prefixed with \"x-\".",
-						node_name);
+			as_validator_add_issue (validator, iter, "unknown-tag", node_name);
 			tag_valid = FALSE;
 		}
 
@@ -1371,18 +1231,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_content_empty (validator,
 							  iter,
 							  node_name,
-							  AS_ISSUE_IMPORTANCE_WARNING,
 							  cpt);
 		}
 	}
 
 	/* emit an error if we are missing the metadata license in metainfo files */
-	if ((!has_metadata_license) && (mode == AS_FORMAT_STYLE_METAINFO)) {
-		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"The essential tag 'metadata_license' is missing.");
-	}
+	if ((!has_metadata_license) && (mode == AS_FORMAT_STYLE_METAINFO))
+		as_validator_add_issue (validator, NULL, "metadata-license-missing", NULL);
 
 	/* check if we have a description */
 	if (as_str_empty (as_component_get_description (cpt))) {
@@ -1392,78 +1247,46 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		if ((cpt_kind == AS_COMPONENT_KIND_DESKTOP_APP) ||
 		    (cpt_kind == AS_COMPONENT_KIND_CONSOLE_APP) ||
 		    (cpt_kind == AS_COMPONENT_KIND_WEB_APP)) {
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"The component is missing a long description. Components of this type must have a long description.");
+			as_validator_add_issue (validator, NULL, "app-description-required", NULL);
 		} else if (cpt_kind == AS_COMPONENT_KIND_FONT) {
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_PEDANTIC,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"It would be useful for add a long description to this font to present it better to users.");
+			as_validator_add_issue (validator, NULL, "font-description-missing", NULL);
 		} else if ((cpt_kind == AS_COMPONENT_KIND_DRIVER) || (cpt_kind == AS_COMPONENT_KIND_FIRMWARE)) {
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_INFO,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"It is recommended to add a long description to this component to present it better to users.");
+			as_validator_add_issue (validator, NULL, "driver-firmware-description-missing", NULL);
 		} else if (cpt_kind != AS_COMPONENT_KIND_GENERIC) {
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_PEDANTIC,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"The component is missing a long description. It is recommended to add one.");
+			as_validator_add_issue (validator, NULL, "generic-description-missing", NULL);
 		}
 	}
 
 	/* validate console-app specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_CONSOLE_APP) {
 		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_BINARY) == NULL)
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_WARNING,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"Type 'console-application' component, but no information about binaries in $PATH was provided via a provides/binary tag.");
+			as_validator_add_issue (validator, NULL, "console-app-no-binary", NULL);
 	}
 
 	/* validate webapp specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_WEB_APP) {
 		AsLaunchable *launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_URL);
-		if (launch == NULL || as_launchable_get_entries (launch)->len == 0) {
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"This 'web-application' component is missing a 'launchable' tag of type 'url'.");
-		}
+		if (launch == NULL || as_launchable_get_entries (launch)->len == 0)
+			as_validator_add_issue (validator, NULL, "web-app-no-url-launchable", NULL);
 
-		if (as_component_get_icons (cpt)->len <= 0) {
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"This 'web-application' component is missing a 'icon' tag to specify a valid icon.");
-		}
+		if (as_component_get_icons (cpt)->len <= 0)
+			as_validator_add_issue (validator, NULL, "web-app-no-icon", NULL);
 
 		if (as_component_get_categories (cpt)->len <= 0) {
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"This 'web-application' component is missing categorizations. A 'categories' block is likely missing.");
+			as_validator_add_issue (validator, NULL, "web-app-no-category", NULL);
 		}
 	}
 
 	/* validate font specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT) {
 		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_FONT) == NULL)
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"Type 'font' component, but no font information was provided via a provides/font tag.");
+			as_validator_add_issue (validator, NULL, "font-no-font-data", NULL);
 	}
 
 	/* validate driver specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_DRIVER) {
 		if (as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MODALIAS) == NULL)
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_WARNING,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"Type 'driver' component, but no modalias information was provided via a provides/modalias tag.");
+			as_validator_add_issue (validator, NULL, "driver-no-modalias", NULL);
 	}
 
 	/* validate addon specific stuff */
@@ -1472,31 +1295,19 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		if ((kind != AS_COMPONENT_KIND_ADDON) &&
 		    (kind != AS_COMPONENT_KIND_LOCALIZATION) &&
 		    (kind != AS_COMPONENT_KIND_REPOSITORY))
-			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_TAG_NOT_ALLOWED,
-						"An 'extends' tag is specified, but the component is not of type 'addon', 'localization' or 'repository'.");
+			as_validator_add_issue (validator, NULL, "extends-not-allowed", NULL);
 	} else {
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_ADDON)
-			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_TAG_MISSING,
-						"The component is an addon, but no 'extends' tag was specified.");
+			as_validator_add_issue (validator, NULL, "addon-extends-missing", NULL);
 	}
 
 	/* validate l10n specific stuff */
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_LOCALIZATION) {
 		if (as_component_get_extends (cpt)->len == 0) {
-			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_TAG_MISSING,
-						"This 'localization' component is missing an An 'extends' tag, to specify the components it adds localization to.");
+			as_validator_add_issue (validator, NULL, "localization-extends-missing", NULL);
 		}
 		if (g_hash_table_size (as_component_get_languages_table (cpt)) == 0) {
-			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_TAG_MISSING,
-						"This 'localization' component does not define any languages this localization is for.");
+			as_validator_add_issue (validator, NULL, "localization-no-languages", NULL);
 		}
 	}
 
@@ -1504,10 +1315,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_SERVICE) {
 		AsLaunchable *launch = as_component_get_launchable (cpt, AS_LAUNCHABLE_KIND_SERVICE);
 		if (launch == NULL || as_launchable_get_entries (launch)->len == 0)
-			as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_MISSING,
-					"This 'service' component is missing a 'launchable' tag of type 'service'.");
+			as_validator_add_issue (validator, NULL, "service-no-service-launchable", NULL);
 	}
 
 	/* validate suggestions */
@@ -1521,9 +1329,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			if (mode == AS_FORMAT_STYLE_METAINFO) {
 				if (as_suggested_get_kind (prov) != AS_SUGGESTED_KIND_UPSTREAM)
 					as_validator_add_issue (validator, NULL,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"Suggestions of any type other than 'upstream' are not allowed in metainfo files (type was '%s')", as_suggested_kind_to_string (as_suggested_get_kind (prov)));
+								"metainfo-suggestion-type-invalid",
+								as_suggested_kind_to_string (as_suggested_get_kind (prov)));
 			}
 		}
 	}
@@ -1539,9 +1346,8 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 			if (!as_utils_is_category_name (category_name)) {
 				as_validator_add_issue (validator, NULL,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_VALUE_WRONG,
-							"The category '%s' defined is not valid. Refer to the Freedesktop menu specification for a list of valid categories.", category_name);
+							"category-invalid",
+							category_name);
 			}
 		}
 	}
@@ -1558,9 +1364,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 
 			if ((scr_caption != NULL) && (strlen (scr_caption) > 80)) {
 				as_validator_add_issue (validator, NULL,
-							AS_ISSUE_IMPORTANCE_PEDANTIC,
-							AS_ISSUE_KIND_VALUE_ISSUE,
-							"The screenshot caption '%s' is too long (should be <= 80 characters)",
+							"screenshot-caption-too-long",
 							scr_caption);
 			}
 		}
@@ -1606,9 +1410,8 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	file_stream = G_INPUT_STREAM (g_file_read (metadata_file, NULL, &tmp_error));
 	if (tmp_error != NULL) {
 		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_READ_ERROR,
-					"Unable to read file: %s", tmp_error->message);
+					"file-read-failed",
+					tmp_error->message);
 		return FALSE;
 	}
 	if (file_stream == NULL)
@@ -1629,9 +1432,8 @@ as_validator_validate_file (AsValidator *validator, GFile *metadata_file)
 	}
 	if (tmp_error != NULL) {
 		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_READ_ERROR,
-					"Unable to read file: %s", tmp_error->message);
+					"file-read-failed",
+					tmp_error->message);
 		return FALSE;
 	}
 	/* check if there was an error */
@@ -1657,8 +1459,7 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata)
 	if (doc == NULL) {
 		if (error != NULL) {
 			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_MARKUP_INVALID,
+						"xml-markup-invalid",
 						error->message);
 		}
 
@@ -1688,12 +1489,8 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 	/* if we validate URLs, check if curl or wget are installed */
 	if (priv->check_urls) {
 		/* cheap way to notify the user if we can't validate URLs */
-		if (!as_validator_can_check_urls (validator)) {
-			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_UNKNOWN,
-						"Unable to find the curl binary. remote URLs can not be checked for validity!");
-		}
+		if (!as_validator_can_check_urls (validator))
+			as_validator_add_issue (validator, NULL, "curl-not-found", NULL);
 	}
 
 	/* load the XML data */
@@ -1727,24 +1524,19 @@ as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 					g_object_unref (cpt);
 			} else {
 				as_validator_add_issue (validator, iter,
-							AS_ISSUE_IMPORTANCE_ERROR,
-							AS_ISSUE_KIND_TAG_UNKNOWN,
-							"Unknown tag found: %s",
+							"component-collection-tag-invalid",
 							node_name);
 				ret = FALSE;
 			}
 		}
 	} else if (g_str_has_prefix ((gchar*) root->name, "application")) {
 		as_validator_add_issue (validator, root,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_LEGACY,
-					"The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher).");
+					"metainfo-ancient",
+					NULL);
 		ret = FALSE;
 	} else {
 		as_validator_add_issue (validator, root,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_UNKNOWN,
-					"Unknown root tag found: '%s' - maybe not a metainfo document?",
+					"root-tag-unknown",
 					(gchar*) root->name);
 		ret = FALSE;
 	}
@@ -1813,9 +1605,8 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 		/* the name-without-type didn't match - check for the full ID in the component name */
 		if (!as_matches_metainfo (fname, as_component_get_id (cpt))) {
 			as_validator_add_issue (data->validator, NULL,
-					AS_ISSUE_IMPORTANCE_WARNING,
-					AS_ISSUE_KIND_WRONG_NAME,
-					"The metainfo filename does not match the component ID.");
+						"metainfo-filename-cid-mismatch",
+						NULL);
 		}
 	}
 
@@ -1836,9 +1627,8 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 				g_key_file_load_from_file (dfile, desktop_fname_full, G_KEY_FILE_NONE, &tmp_error);
 				if (tmp_error != NULL) {
 					as_validator_add_issue (data->validator, NULL,
-							AS_ISSUE_IMPORTANCE_WARNING,
-							AS_ISSUE_KIND_READ_ERROR,
-							"Unable to read associated .desktop file: %s", tmp_error->message);
+								"desktop-file-read-failed",
+								tmp_error->message);
 					g_error_free (tmp_error);
 					tmp_error = NULL;
 				} else {
@@ -1859,19 +1649,15 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 								continue;
 							if (!as_utils_is_category_name (cats[i])) {
 								as_validator_add_issue (data->validator, NULL,
-											AS_ISSUE_IMPORTANCE_WARNING,
-											AS_ISSUE_KIND_VALUE_WRONG,
-											"The category '%s' defined in the .desktop file does not exist.", cats[i]);
+											"desktop-file-category-invalid",
+											cats[i]);
 							}
 						}
 					}
 
 				}
 			} else {
-				as_validator_add_issue (data->validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_FILE_MISSING,
-						"Component metadata refers to a non-existing .desktop file.");
+				as_validator_add_issue (data->validator, NULL, "desktop-file-not-found", NULL);
 			}
 		}
 	}
@@ -1915,18 +1701,16 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 	if ((!g_file_test (metainfo_dir, G_FILE_TEST_IS_DIR)) &&
 	    (!g_file_test (legacy_metainfo_dir, G_FILE_TEST_IS_DIR))) {
 		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_INFO,
-					AS_ISSUE_KIND_FILE_MISSING,
-					"No AppStream metadata was found.");
+					"dir-no-metadata.found",
+					NULL);
 		goto out;
 	}
 
 	/* check if we actually have a directory which could hold application information */
 	if (!g_file_test (apps_dir, G_FILE_TEST_IS_DIR)) {
 		as_validator_add_issue (validator, NULL,
-					AS_ISSUE_IMPORTANCE_PEDANTIC, /* pedantic because not everything which has metadata is an application */
-					AS_ISSUE_KIND_FILE_MISSING,
-					"No XDG applications directory found.");
+					"dir-applications-not.found",
+					NULL);
 	}
 
 	/* if we validate URLs, check if curl or wget are installed */
@@ -1934,9 +1718,8 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		/* cheap way to notify the user if we can't validate URLs */
 		if (!as_validator_can_check_urls (validator)) {
 			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_INFO,
-						AS_ISSUE_KIND_UNKNOWN,
-						"Unable to find the curl binary. remote URLs can not be checked for validity!");
+						"curl-not-found",
+						NULL);
 		}
 	}
 
@@ -1969,10 +1752,7 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 			fname_basename = g_path_get_basename (fname);
 			as_validator_set_current_fname (validator, fname_basename);
 
-			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_WARNING,
-						AS_ISSUE_KIND_LEGACY,
-						"The metainfo file is stored in a legacy path. Please place it in '/usr/share/metainfo'.");
+			as_validator_add_issue (validator, NULL, "metainfo-legacy-path", NULL);
 
 			g_ptr_array_add (mfiles, g_strdup (fname));
 		}
@@ -2006,9 +1786,8 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		file_stream = G_INPUT_STREAM (g_file_read (file, NULL, &tmp_error));
 		if (tmp_error != NULL) {
 			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_READ_ERROR,
-						"Unable to read file: %s", tmp_error->message);
+						"file-read-failed",
+						tmp_error->message);
 			continue;
 		}
 
@@ -2020,9 +1799,8 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 		/* check if there was an error */
 		if (tmp_error != NULL) {
 			as_validator_add_issue (validator, NULL,
-						AS_ISSUE_IMPORTANCE_ERROR,
-						AS_ISSUE_KIND_READ_ERROR,
-						"Unable to read file: %s", tmp_error->message);
+						"file-read-failed",
+						tmp_error->message);
 			continue;
 		}
 
@@ -2045,15 +1823,11 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 							cpt);
 		} else if (g_strcmp0 ((gchar*) root->name, "components") == 0) {
 			as_validator_add_issue (validator, root,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_TAG_NOT_ALLOWED,
-					"The metainfo file specifies multiple components. This is not allowed.");
+						"metainfo-multiple-components",
+						NULL);
 			ret = FALSE;
 		} else if (g_str_has_prefix ((gchar*) root->name, "application")) {
-			as_validator_add_issue (validator, root,
-					AS_ISSUE_IMPORTANCE_ERROR,
-					AS_ISSUE_KIND_LEGACY,
-					"The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher).");
+			as_validator_add_issue (validator, root, "metainfo-ancient", NULL);
 			ret = FALSE;
 		}
 

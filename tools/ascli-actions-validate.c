@@ -115,7 +115,7 @@ process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *w
 		location = as_validator_issue_get_location (issue);
 		header = severity_location_to_print_string (severity, location);
 
-		message = ascli_format_long_output (as_validator_issue_get_message (issue), 4);
+		message = ascli_format_long_output (as_validator_issue_get_hint (issue), 4);
 		g_print ("%s\n    %s\n\n",
 				header,
 				message);

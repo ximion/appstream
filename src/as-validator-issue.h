@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2017 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -93,6 +93,7 @@ typedef enum {
  *
  * The issue type.
  **/
+G_DEPRECATED
 typedef enum {
 	AS_ISSUE_KIND_UNKNOWN,
 	AS_ISSUE_KIND_MARKUP_INVALID,
@@ -117,17 +118,21 @@ typedef enum {
 
 AsValidatorIssue	*as_validator_issue_new (void);
 
-AsIssueKind		as_validator_issue_get_kind (AsValidatorIssue *issue);
-void			as_validator_issue_set_kind (AsValidatorIssue *issue,
-							AsIssueKind kind);
+const gchar		*as_validator_issue_get_tag (AsValidatorIssue *issue);
+void			as_validator_issue_set_tag (AsValidatorIssue *issue,
+							const gchar *tag);
 
 AsIssueSeverity		as_validator_issue_get_severity (AsValidatorIssue *issue);
 void 			as_validator_issue_set_severity (AsValidatorIssue *issue,
 								AsIssueSeverity severity);
 
-const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);
-void			as_validator_issue_set_message (AsValidatorIssue *issue,
-							const gchar *message);
+const gchar		*as_validator_issue_get_hint (AsValidatorIssue *issue);
+void			as_validator_issue_set_hint (AsValidatorIssue *issue,
+							const gchar *hint);
+
+const gchar		*as_validator_issue_get_explanation (AsValidatorIssue *issue);
+void			as_validator_issue_set_explanation (AsValidatorIssue *issue,
+								const gchar *explanation);
 
 const gchar		*as_validator_issue_get_cid (AsValidatorIssue *issue);
 void			as_validator_issue_set_cid (AsValidatorIssue *issue,
@@ -145,9 +150,25 @@ gchar			*as_validator_issue_get_location (AsValidatorIssue *issue);
 
 /* DEPRECATED */
 
+G_DEPRECATED
 AsIssueSeverity		as_validator_issue_get_importance (AsValidatorIssue *issue);
+G_DEPRECATED
 void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
 								AsIssueSeverity importance);
+
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+G_DEPRECATED
+AsIssueKind		as_validator_issue_get_kind (AsValidatorIssue *issue);
+G_DEPRECATED
+void			as_validator_issue_set_kind (AsValidatorIssue *issue,
+							AsIssueKind kind);
+G_GNUC_END_IGNORE_DEPRECATIONS
+
+G_DEPRECATED
+const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);
+G_DEPRECATED
+void			as_validator_issue_set_message (AsValidatorIssue *issue,
+							const gchar *message);
 
 G_END_DECLS
 

@@ -92,7 +92,8 @@ aslib_priv_headers = [
     'as-launchable-private.h',
     'as-relation-private.h',
     'as-agreement-private.h',
-    'as-agreement-section-private.h'
+    'as-agreement-section-private.h',
+    'as-validator-issue-tag.h'
 ]
 
 aslib_res = glib.compile_resources (

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -30,16 +30,22 @@
 
 #include "as-validator-issue.h"
 
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 typedef struct
 {
-	AsIssueKind		kind;
-	AsIssueSeverity		severity;
-	gchar			*message;
+	gchar		*tag;
+	AsIssueSeverity	severity;
 
-	gchar			*fname;
-	gchar			*cid;
-	gint			line;
+	gchar		*hint;
+	gchar		*explanation;
+
+	gchar		*fname;
+	gchar		*cid;
+	gint		line;
+
+	AsIssueKind	kind; /* deprecated */
 } AsValidatorIssuePrivate;
+G_GNUC_END_IGNORE_DEPRECATIONS
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_issue_get_instance_private (o))
@@ -53,7 +59,10 @@ as_validator_issue_finalize (GObject *object)
 	AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (object);
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
 
-	g_free (priv->message);
+	g_free (priv->tag);
+	g_free (priv->hint);
+	g_free (priv->explanation);
+
 	g_free (priv->fname);
 	g_free (priv->cid);
 
@@ -67,8 +76,7 @@ static void
 as_validator_issue_init (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	priv->kind = AS_ISSUE_KIND_UNKNOWN;
-	priv->severity = AS_ISSUE_IMPORTANCE_UNKNOWN;
+	priv->severity = AS_ISSUE_SEVERITY_UNKNOWN;
 	priv->line = -1;
 }
 
@@ -83,32 +91,37 @@ as_validator_issue_class_init (AsValidatorIssueClass *klass)
 }
 
 /**
- * as_validator_issue_get_kind:
+ * as_validator_issue_get_tag:
  * @issue: a #AsValidatorIssue instance.
  *
- * Gets the issue kind enum, if available.
+ * Gets the issue tag string for this issue.
  *
- * Returns: a #AsIssueKind
+ * Returns: the tag
+ *
+ * Since: 0.12.8
  **/
-AsIssueKind
-as_validator_issue_get_kind (AsValidatorIssue *issue)
+const gchar*
+as_validator_issue_get_tag (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	return priv->kind;
+	return priv->tag;
 }
 
 /**
- * as_validator_issue_set_kind:
+ * as_validator_issue_set_tag:
  * @issue: a #AsValidatorIssue instance.
- * @kind: the #AsIssueKind.
+ * @tag: the tag.
  *
- * Sets the kind enum for this issue, if known.
+ * Sets the issue tag.
+ *
+ * Since: 0.12.8
  **/
 void
-as_validator_issue_set_kind (AsValidatorIssue *issue, AsIssueKind kind)
+as_validator_issue_set_tag (AsValidatorIssue *issue, const gchar *tag)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	priv->kind = kind;
+	g_free (priv->tag);
+	priv->tag = g_strdup (tag);
 }
 
 /**
@@ -141,60 +154,72 @@ as_validator_issue_set_severity (AsValidatorIssue *issue, AsIssueSeverity severi
 }
 
 /**
- * as_validator_issue_get_importance:
+ * as_validator_issue_get_hint:
  * @issue: a #AsValidatorIssue instance.
  *
- * This function is deprecated and should not be used in new code.
+ * Get a short context hint for this issue.
  *
- * Returns: a #AsIssueSeverity
- **/
-AsIssueSeverity
-as_validator_issue_get_importance (AsValidatorIssue *issue)
-{
-	return as_validator_issue_get_severity (issue);
-}
-
-/**
- * as_validator_issue_set_importance:
- * @issue: a #AsValidatorIssue instance.
- * @importance: the #AsIssueSeverity.
+ * Returns: the hint
  *
- * This function is deprecated and should not be used in new code.
- **/
-void
-as_validator_issue_set_importance (AsValidatorIssue *issue, AsIssueSeverity importance)
-{
-	as_validator_issue_set_severity (issue, importance);
-}
-
-/**
- * as_validator_issue_get_message:
- * @issue: a #AsValidatorIssue instance.
- *
- * Gets the message for the issue.
- *
- * Returns: the message
+ * Since: 0.12.8
  **/
 const gchar*
-as_validator_issue_get_message (AsValidatorIssue *issue)
+as_validator_issue_get_hint (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	return priv->message;
+	return priv->hint;
 }
 
 /**
- * as_validator_issue_set_message:
+ * as_validator_issue_set_hint:
  * @issue: a #AsValidatorIssue instance.
- * @message: the message text.
+ * @hint: the hint.
  *
- * Sets a message on the issue.
+ * Sets short issue hint.
+ *
+ * Since: 0.12.8
  **/
 void
-as_validator_issue_set_message (AsValidatorIssue *issue, const gchar *message)
+as_validator_issue_set_hint (AsValidatorIssue *issue, const gchar *hint)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	g_free (priv->message);
-	priv->message = g_strdup (message);
+	g_free (priv->hint);
+	priv->hint = g_strdup (hint);
+}
+
+/**
+ * as_validator_issue_get_explanation:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * Get an extended explanation on this issue, or return %NULL
+ * if none is available.
+ *
+ * Returns: the explanation
+ *
+ * Since: 0.12.8
+ **/
+const gchar*
+as_validator_issue_get_explanation (AsValidatorIssue *issue)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	return priv->explanation;
+}
+
+/**
+ * as_validator_issue_set_explanation:
+ * @issue: a #AsValidatorIssue instance.
+ * @explanation: the explanation.
+ *
+ * Set explanatory text for this issue.
+ *
+ * Since: 0.12.8
+ **/
+void
+as_validator_issue_set_explanation (AsValidatorIssue *issue, const gchar *explanation)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	g_free (priv->explanation);
+	priv->explanation = g_strdup (explanation);
 }
 
 /**
@@ -318,6 +343,93 @@ as_validator_issue_get_location (AsValidatorIssue *issue)
 	}
 
 	return g_string_free (location, FALSE);
+}
+
+/**
+ * as_validator_issue_get_kind:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * This function is deprecated.
+ *
+ * Returns: a #AsIssueKind
+ **/
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+AsIssueKind
+as_validator_issue_get_kind (AsValidatorIssue *issue)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	return priv->kind;
+}
+G_GNUC_END_IGNORE_DEPRECATIONS
+
+/**
+ * as_validator_issue_set_kind:
+ * @issue: a #AsValidatorIssue instance.
+ * @kind: the #AsIssueKind.
+ *
+ * This function is deprecated.
+ **/
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+void
+as_validator_issue_set_kind (AsValidatorIssue *issue, AsIssueKind kind)
+{
+	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
+	priv->kind = kind;
+}
+G_GNUC_END_IGNORE_DEPRECATIONS
+
+/**
+ * as_validator_issue_get_importance:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * This function is deprecated and should not be used in new code.
+ *
+ * Returns: a #AsIssueSeverity
+ **/
+AsIssueSeverity
+as_validator_issue_get_importance (AsValidatorIssue *issue)
+{
+	return as_validator_issue_get_severity (issue);
+}
+
+/**
+ * as_validator_issue_set_importance:
+ * @issue: a #AsValidatorIssue instance.
+ * @importance: the #AsIssueSeverity.
+ *
+ * This function is deprecated and should not be used in new code.
+ **/
+void
+as_validator_issue_set_importance (AsValidatorIssue *issue, AsIssueSeverity importance)
+{
+	as_validator_issue_set_severity (issue, importance);
+}
+
+/**
+ * as_validator_issue_get_message:
+ * @issue: a #AsValidatorIssue instance.
+ *
+ * This function is deprecated.
+ *
+ * Returns: the message
+ **/
+const gchar*
+as_validator_issue_get_message (AsValidatorIssue *issue)
+{
+	return as_validator_issue_get_hint (issue);
+}
+
+/**
+ * as_validator_issue_set_message:
+ * @issue: a #AsValidatorIssue instance.
+ * @message: the message text.
+ *
+ * This function is deprecated.
+ **/
+void
+as_validator_issue_set_message (AsValidatorIssue *issue, const gchar *message)
+{
+	as_validator_issue_set_hint (issue, message);
 }
 
 /**
