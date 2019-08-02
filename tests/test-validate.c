@@ -26,6 +26,19 @@
 
 static gchar *datadir = NULL;
 
+/**
+ * test_validator_create:
+ *
+ * Placeholder test function that just creates a validator and removes it again
+ * for now.
+ */
+static void
+test_validator_create ()
+{
+	AsValidator *validator = as_validator_new ();
+	g_object_unref (validator);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -45,6 +58,8 @@ main (int argc, char **argv)
 
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
+
+	g_test_add_func ("/AppStream/Validate/Create", test_validator_create);
 
 	ret = g_test_run ();
 	g_free (datadir);

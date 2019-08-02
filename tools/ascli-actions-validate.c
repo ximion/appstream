@@ -31,25 +31,25 @@
  * severity_location_to_print_string:
  **/
 static gchar*
-severity_location_to_print_string (AsIssueSeverity severity, const gchar *location)
+severity_location_to_print_string (AsIssueSeverity severity, const gchar *tag, const gchar *location)
 {
 	gchar *str;
 
 	switch (severity) {
 		case AS_ISSUE_SEVERITY_ERROR:
-			str = g_strdup_printf ("E - %s", location);
+			str = g_strdup_printf ("E - %s %s", tag, location);
 			break;
 		case AS_ISSUE_SEVERITY_WARNING:
-			str = g_strdup_printf ("W - %s", location);
+			str = g_strdup_printf ("W - %s %s", tag, location);
 			break;
 		case AS_ISSUE_SEVERITY_INFO:
-			str = g_strdup_printf ("I - %s", location);
+			str = g_strdup_printf ("I - %s %s", tag, location);
 			break;
 		case AS_ISSUE_SEVERITY_PEDANTIC:
-			str = g_strdup_printf ("P - %s", location);
+			str = g_strdup_printf ("P - %s %s", tag, location);
 			break;
 		default:
-			str = g_strdup_printf ("U - %s", location);
+			str = g_strdup_printf ("U - %s %s", tag, location);
 	}
 
 	if (ascli_get_output_colored ()) {
@@ -113,11 +113,14 @@ process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *w
 			continue;
 
 		location = as_validator_issue_get_location (issue);
-		header = severity_location_to_print_string (severity, location);
+		header = severity_location_to_print_string (severity,
+							    as_validator_issue_get_tag (issue),
+							    location);
 
-		message = ascli_format_long_output (as_validator_issue_get_hint (issue), 4);
-		g_print ("%s\n    %s\n\n",
+		message = ascli_format_long_output (as_validator_issue_get_explanation (issue), 4);
+		g_print ("%s %s\n    %s\n\n",
 				header,
+				as_validator_issue_get_hint (issue),
 				message);
 	}
 

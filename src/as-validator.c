@@ -61,16 +61,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_get_instance_private (o))
 
 
-#if 0
-static void
-as_validator_tag_data_free (AsValidatorTagData *data)
-{
-	if (data->details_template != NULL)
-		g_free (data->details_template);
-	g_slice_free (AsValidatorTagData, data);
-}
-#endif
-
 /**
  * as_validator_init:
  **/
@@ -84,9 +74,11 @@ as_validator_init (AsValidator *validator)
 						  g_free,
 						  NULL);
 	for (guint i = 0; as_validator_issue_tag_list[i].tag != NULL; i++) {
-		g_hash_table_insert (priv->issue_tags,
-				     g_strdup (as_validator_issue_tag_list[i].tag),
-				     &as_validator_issue_tag_list[i].tag);
+		gboolean r = g_hash_table_insert (priv->issue_tags,
+						  g_strdup (as_validator_issue_tag_list[i].tag),
+						  &as_validator_issue_tag_list[i]);
+		if (G_UNLIKELY (!r))
+			g_critical ("Duplicate issue-tag '%s' found in tag list. This is a bug in the validator.", as_validator_issue_tag_list[i].tag);
 	}
 
 	priv->issues = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
@@ -105,6 +97,7 @@ as_validator_finalize (GObject *object)
 	AsValidator *validator = AS_VALIDATOR (object);
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
+	g_hash_table_unref (priv->issue_tags);
 	g_hash_table_unref (priv->issues);
 	g_free (priv->current_fname);
 	if (priv->current_cpt != NULL)
@@ -699,7 +692,7 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	for (i = 0; cid_parts[i] != NULL; i++) {
 		if (g_ascii_isdigit (cid_parts[i][0])) {
 			as_validator_add_issue (validator, idnode,
-						"cid-number-prefix",
+						"cid-has-number-prefix",
 						"%s: %s → _%s", cid, cid_parts[i], cid_parts[i]);
 			break;
 		}
@@ -1081,7 +1074,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "name") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			if (g_str_has_suffix (node_content, "."))
-				as_validator_add_issue (validator, iter, "name-dot-suffix", node_content);
+				as_validator_add_issue (validator, iter, "name-has-dot-suffix", node_content);
 
 		} else if (g_strcmp0 (node_name, "summary") == 0) {
 			const gchar *summary = node_content;
@@ -1089,7 +1082,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_appear_once (validator, iter, found_tags, cpt);
 			if (g_str_has_suffix (summary, "."))
 				as_validator_add_issue (validator, iter,
-							"summary-dot-suffix",
+							"summary-has-dot-suffix",
 							summary);
 
 			if ((summary != NULL) && ((strstr (summary, "\n") != NULL) || (strstr (summary, "\t") != NULL))) {

@@ -125,7 +125,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "A good option is to replace any hyphens with underscores ('_').")
 	},
 
-	{ "cid-number-prefix",
+	{ "cid-has-number-prefix",
 	  AS_ISSUE_IMPORTANCE_INFO,
 	  N_("The component ID contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, "
              "to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore.")
@@ -268,12 +268,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The 'pkgname' tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component.")
 	},
 
-	{ "name-dot-suffix",
+	{ "name-has-dot-suffix",
 	  AS_ISSUE_IMPORTANCE_PEDANTIC,
 	  N_("The component name should (likely) not end with a dot ('.').")
 	},
 
-	{ "summary-dot-suffix",
+	{ "summary-has-dot-suffix",
 	  AS_ISSUE_IMPORTANCE_INFO,
 	  N_("The component summary should not end with a dot ('.').")
 	},
