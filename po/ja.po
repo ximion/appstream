@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-07-04 19:43+0200\n"
-"PO-Revision-Date: 2019-08-01 06:44+0000\n"
+"PO-Revision-Date: 2019-08-02 08:11+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
@@ -52,7 +52,7 @@ msgstr "詳細なヒントも表示します。"
 
 #: tools/appstream-cli.c:696
 msgid "An item type (e.g. lib, bin, python3, …)"
-msgstr "アイテムの種類（例: lib、bin、python3 など）"
+msgstr "アイテムの種類 (例: lib、bin、python3 など)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
@@ -107,7 +107,7 @@ msgstr "AppStream コマンドラインインターフェース"
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
+msgstr "AppStream は、ソフトウェアコンポーネントに関するメタデータを提供するための、ディストリビューション間で共通の仕様です。"
 
 #: src/as-pool.c:1779
 #, c-format
@@ -283,7 +283,7 @@ msgstr "デフォルトのスクリーンショット URL"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr "デフォルトのメタデータファイル形式（有効な値は 'xml' と 'yaml'）。"
+msgstr "デフォルトのメタデータファイル形式 (有効な値は 'xml' と 'yaml')。"
 
 #: tools/ascli-utils.c:330
 msgid "Description"
