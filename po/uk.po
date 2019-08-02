@@ -7,17 +7,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-07-04 19:43+0200\n"
-"PO-Revision-Date: 2019-06-17 16:22+0000\n"
+"PO-Revision-Date: 2019-08-02 08:11+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
-"translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.7-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.8-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -260,14 +258,12 @@ msgstr ""
 "Створити шаблон файла метаінформації (для заповнення у основному проекті)."
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
-msgstr "Служби сеансів DBus"
+msgstr "Служби сеансів D-Bus"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
-msgstr "Служби системи DBus"
+msgstr "Служби системи D-Bus"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
@@ -560,9 +556,8 @@ msgid "Math"
 msgstr "Математика"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "Типи MIME"
+msgstr "Типи носіїв"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
