@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -27,10 +27,12 @@ G_BEGIN_DECLS
 
 gint			ascli_validate_files (gchar **argv,
 						gint argc,
+						gboolean explain,
 						gboolean pedantic,
 						gboolean use_net);
 
 gint			ascli_validate_tree (const gchar *root_dir,
+						gboolean explain,
 						gboolean pedantic,
 						gboolean use_net);
 

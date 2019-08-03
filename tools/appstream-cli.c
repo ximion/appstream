@@ -102,6 +102,7 @@ const GOptionEntry find_options[] = {
 
 /* used by validate_options */
 static gboolean optn_pedantic = FALSE;
+static gboolean optn_explain = FALSE;
 static gboolean optn_nonet = FALSE;
 
 /**
@@ -113,6 +114,11 @@ const GOptionEntry validate_options[] = {
 		&optn_pedantic,
 		/* TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command) */
 		N_("Also show pedantic hints."), NULL },
+	{ "explain", (gchar) 0, 0,
+		G_OPTION_ARG_NONE,
+		&optn_explain,
+		/* TRANSLATORS: ascli flag description for: --explain (used by the "validate" command) */
+		N_("Print detailed explanation for found issues."), NULL },
 	{ "no-net", (gchar) 0, 0,
 		G_OPTION_ARG_NONE,
 		&optn_nonet,
@@ -390,6 +396,7 @@ as_client_run_validate (char **argv, int argc)
 	return ascli_validate_files (&argv[2],
 				     argc-2,
 				     optn_pedantic,
+				     optn_explain,
 				     !optn_nonet);
 }
 
@@ -417,6 +424,7 @@ as_client_run_validate_tree (char **argv, int argc)
 
 	return ascli_validate_tree (value,
 				    optn_pedantic,
+				    optn_explain,
 				    !optn_nonet);
 }
 

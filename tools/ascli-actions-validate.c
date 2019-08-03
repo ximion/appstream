@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -28,101 +28,127 @@
 #include "ascli-utils.h"
 
 /**
- * severity_location_to_print_string:
+ * create_issue_info_print_string:
  **/
 static gchar*
-severity_location_to_print_string (AsIssueSeverity severity, const gchar *tag, const gchar *location)
+create_issue_info_print_string (AsValidatorIssue *issue)
 {
-	gchar *str;
+	GString *str;
+	g_autofree gchar *location = NULL;
+	const AsIssueSeverity severity = as_validator_issue_get_severity (issue);
+	const gchar *tag = as_validator_issue_get_tag (issue);
+	const gchar *cid = as_validator_issue_get_cid (issue);
+	const gchar line = as_validator_issue_get_line (issue);
+	const gchar *hint = as_validator_issue_get_hint (issue);
 
+	if (cid == NULL) {
+		if (line >= 0)
+			location = g_strdup_printf ("~:%i", line);
+		else
+			location = g_strdup ("~:~");
+	} else {
+		if (line >= 0)
+			location = g_strdup_printf ("%s:%i", cid, line);
+		else
+			location = g_strdup_printf ("%s:~", cid);
+	}
+
+	str = g_string_new ("");
 	switch (severity) {
 		case AS_ISSUE_SEVERITY_ERROR:
-			str = g_strdup_printf ("E - %s %s", tag, location);
+			g_string_append_printf (str, "E: %s: ", location);
 			break;
 		case AS_ISSUE_SEVERITY_WARNING:
-			str = g_strdup_printf ("W - %s %s", tag, location);
+			g_string_append_printf (str, "W: %s: ", location);
 			break;
 		case AS_ISSUE_SEVERITY_INFO:
-			str = g_strdup_printf ("I - %s %s", tag, location);
+			g_string_append_printf (str, "I: %s: ", location);
 			break;
 		case AS_ISSUE_SEVERITY_PEDANTIC:
-			str = g_strdup_printf ("P - %s %s", tag, location);
+			g_string_append_printf (str, "P: %s: ", location);
 			break;
 		default:
-			str = g_strdup_printf ("U - %s %s", tag, location);
+			g_string_append_printf (str, "U: %s: ", location);
 	}
 
 	if (ascli_get_output_colored ()) {
 		switch (severity) {
 			case AS_ISSUE_SEVERITY_ERROR:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 31, str, 0x1B, 0);
+				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 31, tag, 0x1B, 0);
+				break;
 			case AS_ISSUE_SEVERITY_WARNING:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 33, str, 0x1B, 0);
+				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 33, tag, 0x1B, 0);
+				break;
 			case AS_ISSUE_SEVERITY_INFO:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 32, str, 0x1B, 0);
+				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 32, tag, 0x1B, 0);
+				break;
 			case AS_ISSUE_SEVERITY_PEDANTIC:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 37, str, 0x1B, 0);
+				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 37, tag, 0x1B, 0);
+				break;
 			default:
-				return g_strdup_printf ("%c[%d;1m%s%c[%dm", 0x1B, 35, str, 0x1B, 0);
+				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 35, tag, 0x1B, 0);
 		}
 	} else {
-		return str;
+		g_string_append (str, tag);
 	}
+
+	if (hint != NULL)
+		g_string_append_printf (str, " %s", hint);
+
+	return g_string_free (str, FALSE);
 }
 
 /**
- * print_report:
+ * print_single_issue:
  **/
 static gboolean
-process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
+print_single_issue (AsValidatorIssue *issue, gboolean pedantic, gboolean explained, gint indent, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
 {
-	GList *l;
-	AsValidatorIssue *issue;
 	AsIssueSeverity severity;
 	gboolean no_errors = TRUE;
+	g_autofree gchar *title = NULL;
 
-	for (l = issues; l != NULL; l = l->next) {
-		g_autofree gchar *location = NULL;
-		g_autofree gchar *header = NULL;
-		g_autofree gchar *message = NULL;
-
-		issue = AS_VALIDATOR_ISSUE (l->data);
-		severity = as_validator_issue_get_severity (issue);
-
-		/* if there are errors or warnings, we consider the validation to be failed */
-		switch (severity) {
-			case AS_ISSUE_SEVERITY_ERROR:
-				(*error_count)++;
-				no_errors = FALSE;
-				break;
-			case AS_ISSUE_SEVERITY_WARNING:
-				(*warning_count)++;
-				no_errors = FALSE;
-				break;
-			case AS_ISSUE_SEVERITY_INFO:
-				(*info_count)++;
-				break;
-			case AS_ISSUE_SEVERITY_PEDANTIC:
-				(*pedantic_count)++;
-				break;
-			default: break;
-		}
-
-		/* skip pedantic issues if we should not show them */
-		if ((!pedantic) && (severity == AS_ISSUE_SEVERITY_PEDANTIC))
-			continue;
-
-		location = as_validator_issue_get_location (issue);
-		header = severity_location_to_print_string (severity,
-							    as_validator_issue_get_tag (issue),
-							    location);
-
-		message = ascli_format_long_output (as_validator_issue_get_explanation (issue), 4);
-		g_print ("%s %s\n    %s\n\n",
-				header,
-				as_validator_issue_get_hint (issue),
-				message);
+	/* if there are errors or warnings, we consider the validation to be failed */
+	severity = as_validator_issue_get_severity (issue);
+	switch (severity) {
+		case AS_ISSUE_SEVERITY_ERROR:
+			(*error_count)++;
+			no_errors = FALSE;
+			break;
+		case AS_ISSUE_SEVERITY_WARNING:
+			(*warning_count)++;
+			no_errors = FALSE;
+			break;
+		case AS_ISSUE_SEVERITY_INFO:
+			(*info_count)++;
+			break;
+		case AS_ISSUE_SEVERITY_PEDANTIC:
+			(*pedantic_count)++;
+			break;
+		default: break;
 	}
+
+	/* skip pedantic issues if we should not show them */
+	if ((!pedantic) && (severity == AS_ISSUE_SEVERITY_PEDANTIC))
+		return no_errors;
+
+	title = create_issue_info_print_string (issue);
+	if (explained) {
+		g_autofree gchar *explanation = ascli_format_long_output (as_validator_issue_get_explanation (issue),  indent + 4);
+		g_print ("%*s%s\n%*s%s\n\n",
+			 indent,
+			 "",
+			 title,
+			 indent + 4,
+			 "",
+			 explanation);
+	} else {
+		g_print ("%*s%s\n",
+			 indent,
+			 "",
+			 title);
+	}
+
 
 	return no_errors;
 }
@@ -131,13 +157,14 @@ process_report (GList *issues, gboolean pedantic, gulong *error_count, gulong *w
  * ascli_validate_file:
  **/
 static gboolean
-ascli_validate_file (gchar *fname, gboolean pedantic, gboolean use_net, gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
+ascli_validate_file (gchar *fname, gboolean print_filename, gboolean pedantic, gboolean explain, gboolean use_net,
+		     gulong *error_count, gulong *warning_count, gulong *info_count, gulong *pedantic_count)
 {
 	GFile *file;
-	gboolean ret;
 	gboolean errors_found = FALSE;
 	AsValidator *validator;
 	GList *issues;
+	GList *l;
 
 	file = g_file_new_for_path (fname);
 	if (!g_file_query_exists (file, NULL)) {
@@ -150,19 +177,29 @@ ascli_validate_file (gchar *fname, gboolean pedantic, gboolean use_net, gulong *
 	validator = as_validator_new ();
 	as_validator_set_check_urls (validator, use_net);
 
-	ret = as_validator_validate_file (validator, file);
-	if (!ret)
+	if (!as_validator_validate_file (validator, file))
 		errors_found = TRUE;
 	issues = as_validator_get_issues (validator);
 
-	ret = process_report (issues,
-			      pedantic,
-			      error_count,
-			      warning_count,
-			      info_count,
-			      pedantic_count);
-	if (!ret)
-		errors_found = TRUE;
+	if (print_filename) {
+		if (ascli_get_output_colored ())
+			g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, fname, 0x1B, 0);
+		else
+			g_print ("%s\n", fname);
+	}
+
+	for (l = issues; l != NULL; l = l->next) {
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (l->data);
+		if (!print_single_issue (issue,
+					 pedantic,
+					 explain,
+					 print_filename? 2 : 0,
+					 error_count,
+					 warning_count,
+					 info_count,
+					 pedantic_count))
+			errors_found = TRUE;
+	}
 
 	g_list_free (issues);
 	g_object_unref (file);
@@ -213,7 +250,7 @@ ascli_validate_print_stats (gulong error_count, gulong warning_count, gulong inf
  * ascli_validate_files:
  */
 gint
-ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean use_net)
+ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean explain, gboolean use_net)
 {
 	gint i;
 	gboolean ret = TRUE;
@@ -230,7 +267,9 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean use_n
 	for (i = 0; i < argc; i++) {
 		gboolean tmp_ret;
 		tmp_ret = ascli_validate_file (argv[i],
+						argc >= 2, /* print filenames if we validate multiple files */
 						pedantic,
+						explain,
 						use_net,
 						&error_count,
 						&warning_count,
@@ -238,6 +277,10 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean use_n
 						&pedantic_count);
 		if (!tmp_ret)
 			ret = FALSE;
+
+		/* space out contents from different files a bit more if we only show tags */
+		if (!explain)
+			g_print("\n");
 	}
 
 	if (ret) {
@@ -270,11 +313,13 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean use_n
  * ascli_validate_tree:
  */
 gint
-ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean use_net)
+ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean explain, gboolean use_net)
 {
 	gboolean no_errors = TRUE;
 	AsValidator *validator;
-	GList *issues;
+	GHashTable *issues_files;
+	GHashTableIter hiter;
+	gpointer hkey, hvalue;
 	gulong error_count = 0;
 	gulong warning_count = 0;
 	gulong info_count = 0;
@@ -289,16 +334,38 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean use_net)
 	as_validator_set_check_urls (validator, use_net);
 
 	as_validator_validate_tree (validator, root_dir);
-	issues = as_validator_get_issues (validator);
+	issues_files = as_validator_get_issues_per_file (validator);
 
-	no_errors = process_report (issues,
-				    pedantic,
-				    &error_count,
-				    &warning_count,
-				    &info_count,
-				    &pedantic_count);
+	g_hash_table_iter_init (&hiter, issues_files);
+	while (g_hash_table_iter_next (&hiter, &hkey, &hvalue)) {
+		const gchar *filename = (const gchar*) hkey;
+		const GPtrArray *issues = (const GPtrArray*) hvalue;
 
-	g_list_free (issues);
+		if (filename != NULL) {
+			if (ascli_get_output_colored ())
+				g_print ("%c[%dm%s%c[%dm\n", 0x1B, 1, filename, 0x1B, 0);
+			else
+				g_print ("%s\n", filename);
+		}
+
+		for (guint i = 0; i < issues->len; i++) {
+			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
+
+			if (!print_single_issue (issue,
+						 pedantic,
+						 explain,
+						 2,
+						 &error_count,
+						 &warning_count,
+						 &info_count,
+						 &pedantic_count))
+			no_errors = FALSE;
+		}
+
+		/* space out contents from different files a bit more if we only show tags */
+		if (!explain)
+			g_print("\n");
+	}
 	g_object_unref (validator);
 
 	if (no_errors) {

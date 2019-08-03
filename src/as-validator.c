@@ -48,9 +48,10 @@
 
 typedef struct
 {
-	GHashTable *issues; /* of utf8:AsValidatorIssue */
-
 	GHashTable *issue_tags; /* of utf8:AsValidatorIssueTag */
+
+	GHashTable *issues; /* of utf8:AsValidatorIssue */
+	GHashTable *issues_per_file; /* of utf8:GPtrArray<AsValidatorIssue> */
 
 	AsComponent *current_cpt;
 	gchar *current_fname;
@@ -81,7 +82,16 @@ as_validator_init (AsValidator *validator)
 			g_critical ("Duplicate issue-tag '%s' found in tag list. This is a bug in the validator.", as_validator_issue_tag_list[i].tag);
 	}
 
-	priv->issues = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+	/* set of issues */
+	priv->issues = g_hash_table_new_full (g_str_hash,
+					      g_str_equal,
+					      g_free,
+				              g_object_unref);
+	/* filename -> issue list mapping */
+	priv->issues_per_file = g_hash_table_new_full (g_str_hash,
+							g_str_equal,
+							g_free,
+							(GDestroyNotify) g_ptr_array_unref);
 
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
@@ -98,7 +108,10 @@ as_validator_finalize (GObject *object)
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 
 	g_hash_table_unref (priv->issue_tags);
+
+	g_hash_table_unref (priv->issues_per_file);
 	g_hash_table_unref (priv->issues);
+
 	g_free (priv->current_fname);
 	if (priv->current_cpt != NULL)
 		g_object_unref (priv->current_cpt);
@@ -157,11 +170,20 @@ as_validator_add_issue (AsValidator *validator, xmlNode *node, const gchar *tag,
 		as_validator_issue_set_line (issue, node->line);
 
 	location = as_validator_issue_get_location (issue);
-	id_str = g_strdup_printf ("%s - %s",
-					location,
-					as_validator_issue_get_hint (issue));
+	id_str = g_strdup_printf ("%s/%s/%s",
+				  location,
+				  tag_final,
+				  buffer);
 	/* str ownership is transferred to the hashtable */
-	g_hash_table_insert (priv->issues, id_str, issue);
+	if (g_hash_table_insert (priv->issues, id_str, issue)) {
+		/* the issue is new, we can add it to our by-file listing */
+		GPtrArray *ilist = g_hash_table_lookup (priv->issues_per_file, priv->current_fname);
+		if (ilist == NULL) {
+			ilist = g_ptr_array_new_with_free_func (g_object_unref);
+			g_hash_table_insert (priv->issues_per_file, g_strdup (priv->current_fname), ilist);
+		}
+		g_ptr_array_add (ilist, g_object_ref (issue));
+	}
 }
 
 /**
@@ -228,6 +250,7 @@ void
 as_validator_clear_issues (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	g_hash_table_remove_all (priv->issues_per_file);
 	g_hash_table_remove_all (priv->issues);
 }
 
@@ -1873,6 +1896,25 @@ as_validator_get_issues (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	return g_hash_table_get_values (priv->issues);
+}
+
+/**
+ * as_validator_get_issues_per_file:
+ * @validator: An instance of #AsValidator.
+ *
+ * Get a hash table of filenames mapped to lists of issues.
+ * This is useful if validation was requested for multiple files and
+ * a list of issues per-file is desired without prior explicit sorting.
+ *
+ * Returns: (element-type utf8 GPtrArray(AsValidatorIssue)) (transfer none): a file to issue list mapping
+ *
+ * Since: 0.12.8
+ */
+GHashTable*
+as_validator_get_issues_per_file (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	return priv->issues_per_file;
 }
 
 /**
