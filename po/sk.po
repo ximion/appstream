@@ -5,25 +5,25 @@
 # Translators:
 # Dušan Kazik <prescott66@gmail.com>, 2015-2016
 # helix84 <helix84@centrum.sk>, 2015
-# Matúš Baňas <banas.mato@gmail.com>, 2019.
+# Matúš Baňas <banas.mato@gmail.com>, 2019, 2021.
 # Peter Marenčík <megawega@protonmail.com>, 2020.
 # Katarína Kasalová <katka.kasalova@gmail.com>, 2020.
 # #-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Dušan Kazik <prescott66@gmail.com>, 2015-2016
 # helix84 <helix84@centrum.sk>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/translations/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -2107,9 +2107,7 @@ msgstr "Ručne nastavené umiestnenie vyrovnávacej pamäte AppStream."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Ručne nastavené umiestnenie metaúdajov AppStream na znovu vytvorenie "
-"vyrovnávacej pamäte."
+msgstr "Ručne nastavené umiestnenie metaúdajov AppStream na znovu vytvorenie vyrovnávacej pamäte."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
@@ -2175,9 +2173,7 @@ msgstr "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb 
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového "
-"riadka a možností, a „%s %s --help“ tých pre konkrétny rozdieloví príkaz."
+msgstr "Spustením „%s --help“ zobrazíte úplný zoznam dostupných volieb príkazového riadka a možností, a „%s %s --help“ tých pre konkrétny rozdieloví príkaz."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2222,34 +2218,26 @@ msgstr "Neznámy vzťah porovnania „%s“ Platné hodnoty sú:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Príliš veľa parametrov: potrebujete dve čísla verzií alebo čísla verzií a "
-"operátor porovnania."
+msgstr "Príliš veľa parametrov: potrebujete dve čísla verzií alebo čísla verzií a operátor porovnania."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Použiť daný .desktop súbor pre vyplnenie základných hodnôt do súboru s "
-"metainformáciami."
+msgstr "Použiť daný .desktop súbor pre vyplnenie základných hodnôt do súboru s metainformáciami."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Tento príkaz prijíma voliteľné pozičné parametre TYPE (typ) a FILE (súbor), "
-"kde FILE je súbor do ktorého je potrebné zapísať (alebo '-' pre štandardný "
-"výstup)."
+msgstr "Tento príkaz prijíma voliteľné pozičné parametre TYPE (typ) a FILE (súbor), kde FILE je súbor do ktorého je potrebné zapísať (alebo '-' pre štandardný výstup)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
-"Je potrebné, aby TYPE (typ) bol platný typ komponentu, ako napríklad: %s"
+msgstr "Je potrebné, aby TYPE (typ) bol platný typ komponentu, ako napríklad: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:801
@@ -2307,9 +2295,7 @@ msgstr "Čiastkové príkazy:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Informácie o prepínačoch pre konkrétne čiastkové príkazy obdržíte pripojením "
-"'--help' (nápoveda) k čiastkovému príkazu."
+msgstr "Informácie o prepínačoch pre konkrétne čiastkové príkazy obdržíte pripojením '--help' (nápoveda) k čiastkovému príkazu."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2363,8 +2349,7 @@ msgstr "Overiť či XML AppStream súbor neobsahuje chyby."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Overiť či nainštalovaný strom súborov programu obsahuje platné metaúdaje."
+msgstr "Overiť či nainštalovaný strom súborov programu obsahuje platné metaúdaje."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2412,8 +2397,7 @@ msgstr "Porovnať dve čísla verzií."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Vytvoriť šablónu pre metainfo súbor (pre vyplnenie v upstream projektu)."
+msgstr "Vytvoriť šablónu pre metainfo súbor (pre vyplnenie v upstream projektu)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2461,9 +2445,7 @@ msgstr "Súbor s metaúdajmi „%s“ neexistuje."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"Na vykonanie tejto akcie možno budete potrebovať oprávnenia administrátora "
-"systému."
+msgstr "Na vykonanie tejto akcie možno budete potrebovať oprávnenia administrátora systému."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2543,9 +2525,7 @@ msgstr "Súbor s metaúdajmi „%s“ neexistuje."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Nedarí sa previesť súbor: Nepodarilo sa zistiť výstupný formát, nastavte ho "
-"výslovne pomocou prepínača '--format'."
+msgstr "Nedarí sa previesť súbor: Nepodarilo sa zistiť výstupný formát, nastavte ho výslovne pomocou prepínača '--format'."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2561,17 +2541,14 @@ msgstr "Verzia: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Aby bolo možné vytvoriť šablónu, je potrebné zadať typ softvérovej súčasti "
-"AppStream. Možné hodnoty sú:"
+msgstr "Aby bolo možné vytvoriť šablónu, je potrebné zadať typ softvérovej súčasti AppStream. Možné hodnoty sú:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Typ „%s“ softvérovej súčasti nie je platný pre AppStream. Možné hodnoty sú:"
+msgstr "Typ „%s“ softvérovej súčasti nie je platný pre AppStream. Možné hodnoty sú:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
