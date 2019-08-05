@@ -1,25 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
 # Translators:
 # Dušan Kazik <prescott66@gmail.com>, 2015-2016
 # helix84 <helix84@centrum.sk>, 2015
+# Matúš Baňas <banas.mato@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-07-04 19:43+0200\n"
-"PO-Revision-Date: 2018-04-01 11:41+0000\n"
+"PO-Revision-Date: 2019-08-05 00:22+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
-"Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
-"translations/sk/>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/translations/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 2.20-dev\n"
+"X-Generator: Weblate 3.8-dev\n"
 
 #: tools/appstream-cli.c:146
 #, c-format
@@ -229,7 +228,7 @@ msgstr "Komunikácia a novinky"
 
 #: tools/appstream-cli.c:712
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Porovnať dve čísla verzií."
 
 #: src/as-provided.c:166
 msgid "Component"
@@ -264,12 +263,10 @@ msgstr ""
 "Vytvoriť šablónu pre metainfo súbor (pre vyplnenie v upstream projektu)."
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
 msgstr "Služby relácie DBus"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
 msgstr "Služby relácie systému DBus"
 
@@ -548,7 +545,7 @@ msgstr ""
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
-msgstr ""
+msgstr "Mnohé súčasti boli uznané ako neplatné. Pozri debug výstup pre detaily."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -561,9 +558,8 @@ msgid "Math"
 msgstr "Matematika"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "MIME typy"
+msgstr "Typy médií"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -822,7 +818,7 @@ msgstr ""
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
+msgstr "Príliš veľa parametrov: potrebujete dve čísla verzií alebo čísla verzií a operátor porovnania."
 
 #: tools/ascli-actions-mdata.c:544
 #, c-format
@@ -857,7 +853,7 @@ msgstr "Nepodarilo sa načítať .desktop súbor: %s"
 
 #: src/as-pool.c:583
 msgid "Unable to remove old cache."
-msgstr ""
+msgstr "Nie je možné odstrániť starú vyrovnávaciu pamäť."
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -886,7 +882,7 @@ msgstr "Neznámi príkaz „%s“."
 #: tools/appstream-cli.c:582
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Neznámy vzťah porovnania „%s“ Platné hodnoty sú:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:649
@@ -984,7 +980,7 @@ msgstr ""
 #: tools/appstream-cli.c:553
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
+msgstr "Ak chcete porovnať parametre, musíte poskytnúť aspoň dve čísla verzií."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:767
