@@ -1386,6 +1386,28 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		}
 	}
 
+	/* validate releases */
+	if (as_component_get_releases (cpt)->len > 0) {
+		GPtrArray *releases = as_component_get_releases (cpt);
+		AsRelease *release_prev = g_ptr_array_index (releases, 0);
+
+		for (guint i = 1; i < releases->len; i++) {
+			AsRelease *release = g_ptr_array_index (releases, i);
+			const gchar *version = as_release_get_version (release);
+			const gchar *version_prev = as_release_get_version (release_prev);
+			if (version == NULL || version_prev == NULL)
+				continue;
+			if (as_utils_compare_versions (version_prev, version) < 0) {
+				as_validator_add_issue (validator, NULL,
+							"releases-not-in-order",
+							"%s << %s",
+							version_prev,
+							version);
+			}
+			release_prev = release;
+		}
+	}
+
 	as_validator_clear_current_cpt (validator);
 	return cpt;
 }

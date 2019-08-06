@@ -585,10 +585,8 @@ as_component_get_releases (AsComponent *cpt)
 void
 as_component_add_release (AsComponent *cpt, AsRelease* release)
 {
-	GPtrArray* releases;
-
-	releases = as_component_get_releases (cpt);
-	g_ptr_array_add (releases, g_object_ref (release));
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_ptr_array_add (priv->releases, g_object_ref (release));
 }
 
 /**
@@ -3480,16 +3478,7 @@ as_component_releases_sort_cb (gconstpointer a, gconstpointer b)
 {
 	AsRelease **rel1 = (AsRelease **) a;
 	AsRelease **rel2 = (AsRelease **) b;
-	guint64 ts1 = as_release_get_timestamp (*rel1);
-	guint64 ts2 = as_release_get_timestamp (*rel2);
 	gint ret;
-
-	/* if we can sort by date, we avoid the more expensive version comparison */
-	if (ts1 > 0 && ts2 > 0) {
-		if (ts1 == ts2)
-			return 0;
-		return (ts1 > ts2)? -1 : 1;
-	}
 
 	/* compare version strings */
 	ret = as_release_vercmp (*rel1, *rel2);
@@ -3681,7 +3670,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				if (g_strcmp0 ((const gchar*) iter2->name, "release") == 0) {
 					g_autoptr(AsRelease) release = as_release_new ();
 					if (as_release_load_from_xml (release, ctx, iter2, NULL))
-						as_component_add_release (cpt, release);
+						g_ptr_array_add (priv->releases, g_steal_pointer (&release));
 				}
 			}
 		} else if (tag_id == AS_TAG_EXTENDS) {
@@ -3728,9 +3717,6 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			}
 		}
 	}
-
-	/* ensure releases are sorted after loading XML */
-	as_component_sort_releases (cpt);
 
 	/* add package name information to component */
 	{
@@ -4097,6 +4083,7 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 	if (priv->releases->len > 0) {
 		xmlNode *rnode = xmlNewChild (cnode, NULL, (xmlChar*) "releases", NULL);
 
+		/* ensure releases are sorted, then emit XML nodes */
 		as_component_sort_releases (cpt);
 		for (i = 0; i < priv->releases->len; i++) {
 			AsRelease *rel = AS_RELEASE (g_ptr_array_index (priv->releases, i));
@@ -4575,7 +4562,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 			for (n = node->children; n != NULL; n = n->next) {
 				g_autoptr(AsRelease) release = as_release_new ();
 				if (as_release_load_from_yaml (release, ctx, n, NULL))
-					as_component_add_release (cpt, release);
+					g_ptr_array_add (priv->releases, g_steal_pointer (&release));
 			}
 		} else if (field_id == AS_TAG_SUGGESTS) {
 			GNode *n;
@@ -4608,9 +4595,6 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 			as_yaml_print_unknown ("root", key);
 		}
 	}
-
-	/* ensure releases are sorted after loading YAML */
-	as_component_sort_releases (cpt);
 
 	return TRUE;
 }

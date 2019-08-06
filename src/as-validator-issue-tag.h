@@ -554,10 +554,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The metainfo file specifies multiple components. This is not allowed."),
 	},
 
-
-
-
-
+	{ "releases-not-in-order",
+	  AS_ISSUE_IMPORTANCE_WARNING,
+	  N_("The releases are not sorted in a latest to oldest version order. "
+	     "This is required as some tools will assume that the latest version is always at the top. "
+	     "Sorting releases also increases overall readability of the metainfo file."),
+	},
 
 	{ NULL, AS_ISSUE_IMPORTANCE_UNKNOWN, NULL }
 };
