@@ -386,8 +386,10 @@
 			<para>
 				The <code><![CDATA[<releases>]]></code> tag contains <code>&lt;release/&gt;</code> child tags which
 				describe some metainformation about the current release of the described software.
-				The <code>&lt;release/&gt;</code> tag may be present multiple times (for older releases), but a tag for
-				the current version must always be present.
+				Each release of the software component should have a <code>&lt;release/&gt;</code> tag describing it,
+				but at least one <literal>release</literal> child must be present for the current release of the software.
+				The <literal>release</literal> children should be sorted in a latest-to-oldest order to simplify reading
+				the metadata file.
 			</para>
 			<para>
 				A <literal>release</literal> tag can have the properties <literal>version</literal>, <literal>date</literal> and <literal>timestamp</literal>.

@@ -484,7 +484,8 @@
 				<term>&lt;releases/&gt;</term>
 				<listitem>
 					<para>
-						The <literal>releases</literal> tag and its <literal>release</literal> children are structured as described in <xref linkend="tag-releases"/>.
+						The <literal>releases</literal> tag and its <literal>release</literal> children are structured as described in <xref linkend="tag-releases"/>, with the
+						additional requirement that releases must be sorted in a latest-to-oldest order.
 					</para>
 					<para>
 						Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
