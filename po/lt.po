@@ -6,18 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-06-16 18:42+0200\n"
+"POT-Creation-Date: 2019-08-08 03:32+0200\n"
 "PO-Revision-Date: 2019-07-06 22:01+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
-"Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/translations/lt/>\n"
+"Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
+"translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > 19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
+"19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
+"1 : 2);\n"
 "X-Generator: Weblate 3.8-dev\n"
 
-#: tools/appstream-cli.c:146
+#: tools/appstream-cli.c:157
 #, c-format
 msgid "'%s' command"
 msgstr "\"%s\" komanda"
@@ -27,6 +30,22 @@ msgctxt "Category of Graphics"
 msgid "3D Graphics"
 msgstr "Trimatė (3D) grafika"
 
+#: src/as-validator-issue-tag.h:51
+msgid ""
+"A <description/> tag must not be localized in metainfo files (upstream "
+"metadata). Localize the individual paragraphs instead."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:204
+msgid "A requires/recommends item requires a value to denote a valid relation."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:189
+msgid ""
+"A screenshot must contain at least one image in order to be useful. Please "
+"add an <image/> to it."
+msgstr ""
+
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
@@ -34,7 +53,7 @@ msgstr "Veiksmas"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
-#: src/as-category.c:320 tools/ascli-utils.c:395
+#: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
 msgstr "Papildiniai"
 
@@ -44,11 +63,18 @@ msgid "Adventure"
 msgstr "Nuotykiai"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstream-cli.c:115
+#: tools/appstream-cli.c:116
 msgid "Also show pedantic hints."
 msgstr "Taip pat rodyti pedantiškus patarimus."
 
-#: tools/appstream-cli.c:696
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:442
+msgid ""
+"An 'extends' tag is specified, but the component is not of type 'addon', "
+"'localization' or 'repository'."
+msgstr ""
+
+#: tools/appstream-cli.c:722
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Elemento tipas (pvz., lib, bin, python3, …)"
 
@@ -61,7 +87,7 @@ msgid "AppStream CLI"
 msgstr "AppStream komandų eilutė"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:789
+#: tools/appstream-cli.c:815
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -81,15 +107,6 @@ msgstr "AppStream būsena:"
 msgid "AppStream cache update completed successfully."
 msgstr "AppStream podėlio atnaujinimas sėkmingai užbaigtas."
 
-#: src/as-pool.c:1792
-#, c-format
-msgid ""
-"AppStream cache update failed. Turn on verbose mode to get more detailed "
-"issue information."
-msgstr ""
-"AppStream podėlio atnaujinimas nepavyko. Įjunkite išsamią veikseną, kad "
-"gautumėte išsamesnę informaciją apie problemą."
-
 #. cache wasn't updated, so the update wasn't necessary
 #: tools/ascli-actions-mdata.c:86
 msgid "AppStream cache update is not necessary."
@@ -97,9 +114,17 @@ msgstr "AppStream podėlio atnaujinimas nėra būtinas."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:143 tools/appstream-cli.c:689
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:715
 msgid "AppStream command-line interface"
 msgstr "AppStream komandų eilutės sąsaja"
+
+#: src/as-validator-issue-tag.h:63
+msgid ""
+"AppStream descriptions support only a limited set of tags to format text: "
+"Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
+"an invalid XML tag that would not be rendered correctly in applications "
+"supporting the metainfo specification."
+msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -109,14 +134,17 @@ msgstr ""
 "AppStream yra daugiadistribucinė specifikacija, skirta pateikti metaduomenis "
 "apie programinės įrangos komponentus."
 
-#: src/as-pool.c:1779
-#, c-format
-msgid "AppStream system cache was updated, but problems were found: %s"
+#: src/as-pool.c:1787
+#, fuzzy, c-format
+msgid ""
+"AppStream system cache refresh failed. Turn on verbose mode to get detailed "
+"issue information."
 msgstr ""
-"AppStream sistemos podėlis buvo atnaujintas, tačiau buvo rastos problemos: %s"
+"AppStream podėlio atnaujinimas nepavyko. Įjunkite išsamią veikseną, kad "
+"gautumėte išsamesnę informaciją apie problemą."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:786
+#: tools/appstream-cli.c:812
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream versija: %s"
@@ -130,6 +158,12 @@ msgstr "Arkada"
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
 msgstr "Dirbtinis intelektas"
+
+#: src/as-validator-issue-tag.h:91
+msgid ""
+"As per AppStream specification, the mentioned tag must only appear once in "
+"this context. Having multiple tags of this kind is not valid."
+msgstr ""
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -165,11 +199,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Stalo"
 
-#: tools/ascli-utils.c:296
+#: tools/ascli-utils.c:299
 msgid "Bundle"
 msgstr "Rinkinys"
 
-#: src/as-pool.c:1680
+#: src/as-pool.c:1687
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Podėlio vieta \"%s\" nėra įrašoma."
@@ -193,7 +227,7 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kortų"
 
-#: tools/ascli-utils.c:366
+#: tools/ascli-utils.c:369
 msgid "Categories"
 msgstr "Kategorijos"
 
@@ -222,7 +256,7 @@ msgstr "Kodekai"
 msgid "Communication & News"
 msgstr "Komunikacija ir naujienos"
 
-#: tools/appstream-cli.c:712
+#: tools/appstream-cli.c:738
 msgid "Compare two version numbers."
 msgstr "Palyginti dviejų versijų numerius."
 
@@ -236,12 +270,24 @@ msgstr "Komponentas"
 msgid "Component '%s' has no installation candidate."
 msgstr "Komponentas \"%s\" neturi įdiegimo kandidatų."
 
-#: tools/ascli-utils.c:374
+#: tools/ascli-utils.c:377
 msgid "Compulsory for"
 msgstr "Privaloma šiems"
 
+#: src/as-validator-issue-tag.h:311
+msgid "Consider using a secure (HTTPS) URL for the remote icon link."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:333
+msgid "Consider using a secure (HTTPS) URL for this web link."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:184
+msgid "Consider using a secure (HTTPS) URL to reference this screenshot image."
+msgstr ""
+
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:711
+#: tools/appstream-cli.c:737
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Konvertuoti kolekciją iš XML į YAML arba atvirkščiai."
 
@@ -251,7 +297,7 @@ msgstr "Konvertuoti kolekciją iš XML į YAML arba atvirkščiai."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nepavyko rasti komponento, pateikiančio \"%s::%s\"."
 
-#: tools/appstream-cli.c:713
+#: tools/appstream-cli.c:739
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
@@ -278,7 +324,7 @@ msgctxt "Category of Development"
 msgid "Debuggers"
 msgstr "Derinimo programos"
 
-#: tools/ascli-utils.c:350
+#: tools/ascli-utils.c:353
 msgid "Default Screenshot URL"
 msgstr "Numatytosios ekrano kopijos URL"
 
@@ -289,12 +335,12 @@ msgstr ""
 "Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml"
 "\")."
 
-#: tools/ascli-utils.c:330
+#: tools/ascli-utils.c:333
 msgid "Description"
 msgstr "Aprašas"
 
 #. developer name
-#: tools/ascli-utils.c:318
+#: tools/ascli-utils.c:321
 msgid "Developer"
 msgstr "Kūrėjas"
 
@@ -303,7 +349,7 @@ msgstr "Kūrėjas"
 msgid "Developer Tools"
 msgstr "Kūrėjo įrankiai"
 
-#: tools/appstream-cli.c:708
+#: tools/appstream-cli.c:734
 msgid "Display status information about available AppStream metadata."
 msgstr "Rodyti būsenos informaciją apie prieinamus AppStream metaduomenis."
 
@@ -313,16 +359,16 @@ msgid "Distribution metadata:"
 msgstr "Distribucijos metaduomenys:"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstream-cli.c:120
+#: tools/appstream-cli.c:126
 msgid "Do not use network access."
 msgstr "Nenaudoti tinklo prieigą."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:750
+#: tools/appstream-cli.c:776
 msgid "Don't show colored output."
 msgstr "Nerodyti spalvotos išvesties."
 
-#: tools/appstream-cli.c:699
+#: tools/appstream-cli.c:725
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Iškloti neapdorotus XML metaduomenis komponentui su atitinkamu ID."
 
@@ -342,16 +388,20 @@ msgid "Emulators"
 msgstr "Emuliatoriai"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstream-cli.c:234
+#: tools/appstream-cli.c:245
 msgid "Enforce a cache refresh."
 msgstr "Priverstinai atlikti podėlio įkėlimą iš naujo."
+
+#: src/as-validator-issue-tag.h:74
+msgid "Enumerations must only have list items (<li/>) as children."
+msgstr ""
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Klaida, įkeliant metaduomenų telkinį: %s"
 
-#: tools/ascli-utils.c:324
+#: tools/ascli-utils.c:327
 msgid "Extends"
 msgstr "Išplečia"
 
@@ -400,6 +450,11 @@ msgctxt "Category of Utility"
 msgid "Featured"
 msgstr "Pasižymėjusios"
 
+#: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
+#, fuzzy, c-format
+msgid "File '%s' does not exist."
+msgstr "Metaduomenų failo \"%s\" nėra."
+
 #: src/as-category.c:287
 msgctxt "Category of Utility"
 msgid "File System"
@@ -423,6 +478,14 @@ msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Šriftai"
 
+#. TRANSLATORS: ascli flag description for: --format  when validating XML files
+#: tools/appstream-cli.c:131
+#, fuzzy
+msgid "Format of the generated report (valid values are 'text' and 'yaml')."
+msgstr ""
+"Numatytasis metaduomenų formatas (teisingos reikšmės yra \"xml\" ir \"yaml"
+"\")."
+
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:136
 #, c-format
@@ -434,16 +497,61 @@ msgstr "Rasta %i komponentų liekamuosiuose keliuose."
 msgid "Found %i components."
 msgstr "Rasta %i komponentų."
 
+#. TRANSLATORS: 'version' is an AppStream XML property. Please do not translate it.
+#: src/as-validator-issue-tag.h:210
+msgid ""
+"Found 'version' property on required/recommended item of a type that should "
+"not have or require a version."
+msgstr ""
+
+#. TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them.
+#: src/as-validator-issue-tag.h:216
+msgid ""
+"Found 'version' property on this required/recommended item, but not "
+"'compare' property. It is recommended to explicitly define a comparison "
+"operation."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:227
+msgid ""
+"Found a memory size dependency in a 'requires' tag. This means users will "
+"not be able to even install the component without having enough RAM. This is "
+"usually not intended and you want to use 'memory' in the 'recommends' tag "
+"instead."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:199
+msgid ""
+"Found an unknown tag in a requires/recommends group. This is likely an "
+"error, because a component relation of this type is unknown."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:372
+msgid ""
+"Found invalid tag. Non-standard tags should be prefixed with 'x-'. AppStream "
+"also provides the <custom/> tag to add arbitrary custom data to metainfo "
+"files. This tag is read by AppStream libraries and may be useful instead of "
+"defining new custom toplevel or 'x-'-prefixed tags if you just want to add "
+"custom data to a metainfo file."
+msgstr ""
+
+#. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
+#: src/as-validator.c:479 src/as-validator.c:887 src/as-validator.c:921
+#, c-format
+msgid "Found: %s - Allowed: %s"
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
 msgstr "Žaidimai"
 
-#: tools/appstream-cli.c:695
+#: tools/appstream-cli.c:721
 msgid "Get components which provide the given item."
 msgstr "Gauti komponentus, kurie pateikia nurodytą elementą."
 
-#: tools/appstream-cli.c:694
+#: tools/appstream-cli.c:720
 msgid "Get information about a component by its ID."
 msgstr "Gauti informaciją apie komponentą pagal jo ID."
 
@@ -452,7 +560,7 @@ msgstr "Gauti informaciją apie komponentą pagal jo ID."
 msgid "Graphics & Photography"
 msgstr "Grafika ir fotografija"
 
-#: tools/ascli-utils.c:297
+#: tools/ascli-utils.c:300
 msgid "Homepage"
 msgstr "Internetinė svetainė"
 
@@ -461,15 +569,27 @@ msgctxt "Category of Development"
 msgid "IDEs"
 msgstr "Integruotos kūrimo aplinkos (IDE)"
 
-#: tools/ascli-utils.c:298
+#: tools/ascli-utils.c:301
 msgid "Icon"
 msgstr "Piktograma"
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:301
+msgid "Icons of type 'remote' must contain an URL to the referenced icon."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:294
+msgid ""
+"Icons of type 'stock' or 'cached' must not contain an URL, a full or an "
+"relative path to the icon. Only file basenames or stock names are allowed."
+msgstr ""
 
 #: tools/ascli-actions-misc.c:92
 msgid "Iconsets"
 msgstr "Piktogramų rinkiniai"
 
-#: tools/ascli-utils.c:292
+#: tools/ascli-utils.c:295
 msgid "Identifier"
 msgstr "Identifikatorius"
 
@@ -478,18 +598,50 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Įvesties šaltiniai"
 
-#: tools/appstream-cli.c:709
+#: tools/appstream-cli.c:735
 msgid "Install a metadata file into the right location."
 msgstr "Įdiegti metaduomenų failą į tinkamą vietą."
 
-#: tools/appstream-cli.c:705
+#: tools/appstream-cli.c:731
 msgid "Install software matching the component-ID."
 msgstr "Įdiegti komponento ID atitinkančią programinę įrangą."
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:323
+msgid ""
+"Invalid 'type' property for this 'url' tag. URLs of this type are not known "
+"in the AppStream specification."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:503
+msgid ""
+"Invalid tag found in collection metadata. Only 'component' tags are "
+"permitted."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr ""
 "Pasirinktas neteisingas pateikto elemento tipas. Teisingos reikšmės yra:"
+
+#: src/as-validator-issue-tag.h:221
+msgid ""
+"Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/"
+"ge are permitted."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:395
+msgid ""
+"It is recommended to add a long description to this component to present it "
+"better to users."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:390
+msgid ""
+"It would be useful to add a long description to this font to present it "
+"better to users."
+msgstr ""
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
@@ -511,7 +663,7 @@ msgid "Libraries"
 msgstr "Bibliotekos"
 
 #. license
-#: tools/ascli-utils.c:360
+#: tools/ascli-utils.c:363
 msgid "License"
 msgstr "Licencija"
 
@@ -540,7 +692,7 @@ msgstr "Rankiniu būdu pasirinkta AppStream podėlio vieta."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Rankiniu būdu pasirinkta peržiūrima AppStream metaduomenų vieta."
 
-#: src/as-pool.c:1201
+#: src/as-pool.c:1209
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -572,6 +724,13 @@ msgstr "Metaduomenų failo \"%s\" nėra."
 msgid "Metadata files have errors:"
 msgstr "Metaduomenų failuose yra klaidų:"
 
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:317
+msgid ""
+"Metainfo files may only contain icons of type 'stock' or 'remote', the set "
+"type is not allowed."
+msgstr ""
+
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:114
 msgid "Metainfo files:"
@@ -586,7 +745,7 @@ msgctxt "Category of AudioVideo"
 msgid "Music Players"
 msgstr "Muzikos grotuvai"
 
-#: tools/ascli-utils.c:293
+#: tools/ascli-utils.c:296
 msgid "Name"
 msgstr "Pavadinimas"
 
@@ -594,6 +753,15 @@ msgstr "Pavadinimas"
 msgctxt "Category of Communication"
 msgid "News"
 msgstr "Naujienos"
+
+#: src/as-validator-issue-tag.h:539
+msgid "No AppStream metadata was found in this directory or directory tree."
+msgstr ""
+
+#. pedantic because not everything which has metadata is an application
+#: src/as-validator-issue-tag.h:544
+msgid "No XDG applications directory found."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:182
 #, c-format
@@ -622,12 +790,12 @@ msgid "Office"
 msgstr "Raštinė"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstream-cli.c:181
+#: tools/appstream-cli.c:192
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Parametras \"%s\" nėra žinomas."
 
-#: tools/ascli-utils.c:295
+#: tools/ascli-utils.c:298
 msgid "Package"
 msgstr "Paketas"
 
@@ -636,17 +804,23 @@ msgctxt "Category of Graphics"
 msgid "Photography"
 msgstr "Fotografija"
 
+#. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
+#: tools/appstream-cli.c:121
+#, fuzzy
+msgid "Print detailed explanation for found issues."
+msgstr "Rodyti išsamią išvestį apie rastus komponentus."
+
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
 msgid "Print detailed output about found components."
 msgstr "Rodyti išsamią išvestį apie rastus komponentus."
 
 #. project group
-#: tools/ascli-utils.c:357
+#: tools/ascli-utils.c:360
 msgid "Project Group"
 msgstr "Projekto grupė"
 
-#: tools/ascli-utils.c:402
+#: tools/ascli-utils.c:405
 msgid "Provided Items"
 msgstr "Pateikti elementai"
 
@@ -658,11 +832,11 @@ msgstr "Python (Versija 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:700
+#: tools/appstream-cli.c:726
 msgid "Rebuild the component metadata cache."
 msgstr "Iš naujo sukurti komponentų metaduomenų podėlį."
 
-#: tools/appstream-cli.c:706
+#: tools/appstream-cli.c:732
 msgid "Remove software matching the component-ID."
 msgstr "Šalinti komponento ID atitinkančią programinę įrangą."
 
@@ -676,14 +850,14 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Vaidmenimis"
 
-#: tools/appstream-cli.c:185 tools/appstream-cli.c:768
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:794
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Vykdykite \"%s --help\", kad pamatytumėte visą prieinamų komandų eilutės "
 "parametrų sąrašą."
 
-#: tools/appstream-cli.c:187
+#: tools/appstream-cli.c:198
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
@@ -707,7 +881,7 @@ msgstr "Skenavimas"
 msgid "Science"
 msgstr "Mokslas"
 
-#: tools/appstream-cli.c:693
+#: tools/appstream-cli.c:719
 msgid "Search the component database."
 msgstr "Ieškoti komponentų duomenų bazėje."
 
@@ -717,12 +891,12 @@ msgid "Security"
 msgstr "Saugumas"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:745
+#: tools/appstream-cli.c:771
 msgid "Show extra debugging information."
 msgstr "Rodyti papildomą derinimo informaciją."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:739
+#: tools/appstream-cli.c:765
 msgid "Show the program version."
 msgstr "Rodyti programos versiją."
 
@@ -737,11 +911,18 @@ msgid "Strategy"
 msgstr "Strategija"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:691
+#: tools/appstream-cli.c:717
 msgid "Subcommands:"
 msgstr "Pokomandžiai:"
 
-#: tools/ascli-utils.c:294
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:472
+msgid ""
+"Suggestions of any type other than 'upstream' are not allowed in metainfo "
+"files."
+msgstr ""
+
+#: tools/ascli-utils.c:297
 msgid "Summary"
 msgstr "Santrauka"
 
@@ -755,6 +936,10 @@ msgctxt "Category of Utility"
 msgid "System Monitoring"
 msgstr "Sistemos stebėsena"
 
+#: src/as-validator-issue-tag.h:46
+msgid "Tags of this name are not permitted in this section."
+msgstr ""
+
 #: src/as-category.c:284
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
@@ -765,26 +950,296 @@ msgctxt "Category of Utility"
 msgid "Text Editors"
 msgstr "Tekstų redaktoriai"
 
+#: src/as-validator-issue-tag.h:268
+msgid ""
+"The 'pkgname' tag appears multiple times. You should evaluate creating a "
+"metapackage containing the metainfo and .desktop files in order to avoid "
+"defining multiple package names per component."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:361
+msgid ""
+"The 'update_contact' tag should not be included in collection AppStream XML."
+msgstr ""
+
 #: tools/ascli-actions-mdata.c:467
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop failo \"%s\" nėra."
 
-#: src/as-pool.c:1777
+#: src/as-validator-issue-tag.h:338
+msgid "The <developer_name/> can not contain a hyperlink."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:263
 msgid ""
-"The AppStream system cache was updated, but some errors were detected, which "
-"might lead to missing metadata. Refer to the verbose log for more "
-"information."
+"The <id/> tag still contains a 'type' property, probably from an old "
+"conversion to the recent metainfo format."
+msgstr ""
+
+#: src/as-pool.c:1774
+#, fuzzy, c-format
+msgid ""
+"The AppStream system cache was updated, but problems were found which "
+"resulted in metadata being ignored: %s"
+msgstr ""
+"AppStream sistemos podėlis buvo atnaujintas, tačiau buvo rastos problemos: %s"
+
+#: src/as-pool.c:1772
+#, fuzzy
+msgid ""
+"The AppStream system cache was updated, but some components were ignored. "
+"Refer to the verbose log for more information."
 msgstr ""
 "AppStream sistemos podėlis buvo atnaujintas, tačiau buvo aptiktos kai kurios "
 "klaidos, kurios gali privesti prie metaduomenų trūkumo. Išsamesnei "
 "informacijai kreipkitės į išsamų žurnalą."
 
+#: src/as-validator-issue-tag.h:151
+msgid "The SPDX license expression is invalid and could not be parsed."
+msgstr ""
+
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstream-cli.c:657
+#: tools/appstream-cli.c:683
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "Tipas (TYPE) privalo būti teisingas komponento tipas, toks kaip: %s"
+
+#: src/as-validator-issue-tag.h:492
+msgid "The XML of this file is malformed."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:534
+msgid ""
+"The category defined in the .desktop file is not valid. Refer to the XDG "
+"Manu Specification for a list of valid categories."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:477
+msgid ""
+"The category name is not valid. Refer to the XDG Menu Specification for a "
+"list of valid category names."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:124
+msgid ""
+"The component ID contains a hyphen/minus. Using a hyphen is strongly "
+"discouraged, to improve interoperability with other tools such as D-Bus. A "
+"good option is to replace any hyphens with underscores ('_')."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:130
+msgid ""
+"The component ID contains a segment starting with a number. Starting a "
+"segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
+"interoperability with other tools such as D-Bus. Ideally, prefix these "
+"segments with an underscore."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:119
+msgid ""
+"The component ID contains an invalid character. Only ASCII characters, dots "
+"and numbers are permitted."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:106
+msgid ""
+"The component ID is not a reverse domain-name. Please update the ID to avoid "
+"future issues and be compatible with all AppStream implementations.\n"
+"You may also consider to update the name of the accompanying .desktop file "
+"to follow the latest version of the Desktop-Entry specification and use a "
+"rDNS name for it as well. In any case, do not forget to mention the new "
+"desktop-entry in a <launchable/> tag for this component to keep the "
+"application launchable from software centers and the .desktop file data "
+"associated with the metainfo data."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:101
+msgid ""
+"The component ID is required to follow a reverse domain-name scheme for its "
+"name. See the AppStream specification for details."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:114
+msgid ""
+"The component ID might not follow the reverse domain-name schema (the TLD "
+"used by it is not known to the validator)."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:243
+msgid ""
+"The component has a 'merge' method defined. This is not allowed in metainfo "
+"files."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:238
+msgid ""
+"The component has a priority value set. This is not allowed in metainfo "
+"files."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:448
+msgid "The component is an addon, but no 'extends' tag was specified."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:385
+msgid ""
+"The component is missing a long description. Components of this type must "
+"have a long description."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:253
+msgid "The component is missing a name (<name/> tag)."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:258
+msgid "The component is missing a summary (<summary/> tag)."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:248
+msgid "The component is missing an ID (<id/> tag)."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:136
+msgid ""
+"The component is part of the Freedesktop project, but its ID does not start "
+"with fd.o's reverse-DNS name (\"org.freedesktop\")."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:146
+msgid ""
+"The component is part of the GNOME project, but its ID does not start with "
+"GNOMEs reverse-DNS name (\"org.gnome\")."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:141
+msgid ""
+"The component is part of the KDE project, but its ID does not start with "
+"KDEs reverse-DNS name (\"org.kde\")."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:273
+msgid "The component name should (likely) not end with a dot ('.')."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:283
+msgid "The component summary must not contain tabs or linebreaks."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:278
+msgid "The component summary should not end with a dot ('.')."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:86
+msgid ""
+"The description contains a web URL in plain text. This is not allowed, "
+"please use the <url/> tag instead to share links."
+msgstr ""
+
+#: src/as-validator.c:144
+msgid ""
+"The emitted issue tag is unknown in the tag registry of AppStream. This is a "
+"bug in the validator itself, please report this issue in our bugtracker."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:380
+msgid ""
+"The essential tag 'metadata_license' is missing. A license for the metadata "
+"itself always has to be defined."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:79
+msgid ""
+"The first 'description/p' paragraph of this component might be too short (< "
+"80 characters). Please consider starting with a longer paragraph to improve "
+"how the description looks like in software centers and to provide more "
+"detailed information on this component immediately in the first paragraph."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:343
+msgid ""
+"The given values in not an identifier for a desktop environment as "
+"registered with Freedesktop.org."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:156
+msgid ""
+"The license ID is not found in the SPDX database. Please check that the "
+"license ID is written in an SPDX-conformant way and is a valid free software "
+"license."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:96
+msgid ""
+"The mentioned tag is empty, which is highly likely not intended as it should "
+"have content."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:168
+msgid ""
+"The metadata itself does not seem to be licensed under a permissive license. "
+"Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
+"0BSD to allow distributors to include it in mixed data collections without "
+"the risk of license violations due to mutually incompatible licenses."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:162
+msgid ""
+"The metadata itself seems to be licensed under a complex collection of "
+"licenses. Please license the data under a simple permissive license, like "
+"FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
+"collections without the risk of license violations due to mutually "
+"incompatible licenses."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:549
+msgid ""
+"The metainfo file is stored in a legacy path. Please place it in '/usr/share/"
+"metainfo'."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:554
+msgid "The metainfo file specifies multiple components. This is not allowed."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:509
+msgid ""
+"The metainfo file uses an ancient version of the AppStream specification, "
+"which can not be validated. Please migrate it to version 0.6 (or higher)."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:519
+#, fuzzy
+msgid "The metainfo filename does not match the component ID."
+msgstr "Šalinti komponento ID atitinkančią programinę įrangą."
+
+#: src/as-validator-issue-tag.h:559
+msgid ""
+"The releases are not sorted in a latest to oldest version order. This is "
+"required as some tools will assume that the latest version is always at the "
+"top. Sorting releases also increases overall readability of the metainfo "
+"file."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:482
+msgid "The screenshot caption is too long (should be <= 80 characters)"
+msgstr ""
+
+#: src/as-validator-issue-tag.h:194
+msgid "The screenshot does not have a caption text. Consider adding one."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:233
+#, fuzzy
+msgid ""
+"The set component type is not a recognized, valid AppStream component type."
+msgstr ""
+"Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream "
+"specifikacijoje. Galimos reikšmės yra:"
 
 #: tools/ascli-actions-mdata.c:449
 #, c-format
@@ -795,14 +1250,123 @@ msgstr ""
 "Programinės įrangos komponento tipas \"%s\" nėra teisingas AppStream "
 "specifikacijoje. Galimos reikšmės yra:"
 
+#: src/as-validator-issue-tag.h:288
+msgid "The summary must not contain any URL. Use the <url/> tags for links."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:174
+msgid ""
+"The update-contact does not appear to be a valid email address (escaping of "
+"'@' is only allowed as '_at_' or '_AT_')."
+msgstr ""
+
+#: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
+#, c-format
+msgid ""
+"The validator can not create reports in the '%s' format. You may select "
+"'yaml' or 'text' instead."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:355
+msgid "This 'bundle' tag has an unknown type and can not be used."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:349
+msgid "This 'launchable' tag has an unknown type and can not be used."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:460
+msgid ""
+"This 'localization' component does not define any languages this "
+"localization is for."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:454
+msgid ""
+"This 'localization' component is missing an 'extends' tag, to specify the "
+"components it adds localization to."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:466
+msgid ""
+"This 'service' component is missing a 'launchable' tag of type 'service'."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:418
+msgid ""
+"This 'web-application' component is missing a 'icon' tag to specify a valid "
+"icon."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:412
+msgid ""
+"This 'web-application' component is missing a 'launchable' tag of type 'url'."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:424
+msgid ""
+"This 'web-application' component is missing categorizations. A 'categories' "
+"block is likely missing."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:514
+msgid ""
+"This XML document has an Unknown root tag, Maybe this file is not a metainfo "
+"document?"
+msgstr ""
+
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstream-cli.c:654
+#: tools/appstream-cli.c:680
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
 msgstr ""
 "Ši komanda priima nebūtinus TIPO (TYPE) ir FAILO (FILE) argumentus, FAILUI "
 "(FILE) būnant failu į kurį rašoma (arba \"-\" standartinei išvesčiai)."
+
+#: src/as-validator-issue-tag.h:529
+msgid "This component metadata refers to a non-existing .desktop file."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:69
+msgid ""
+"This description paragraph contains invalid markup. Currently, only <em/> "
+"and <code/> are permitted."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:57
+msgid ""
+"This element (paragraph, list, etc.) of a <description/> tag must not be "
+"localized individually in collection metadata. Localize the whole "
+"<description/> tag instead. The AppStream collection metadata generator (e."
+"g. `appstream-generator`) will already do the right thing when compiling the "
+"data."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:400
+msgid ""
+"This generic component is missing a long description. It may be useful to "
+"add one."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:366
+msgid ""
+"This tag is a GNOME-specific extension to AppStream and not part of the "
+"official specification. Do not expect it to work in all implementations and "
+"in all software centers."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:41
+msgid "This tag requires a type property."
+msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:15
 msgid ""
@@ -817,13 +1381,34 @@ msgstr ""
 "tikrą MIME tipą, ir leidžia įdiegti ją pagal jos programinės įrangos "
 "komponento identifikatorių."
 
-#: tools/appstream-cli.c:622
+#: tools/appstream-cli.c:648
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
 msgstr ""
 "Per daug parametrų: Reikia dviejų versijos numerių arba versijos numerio ir "
 "palyginimo operatoriaus."
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:406
+msgid ""
+"Type 'console-application' component, but no information about binaries in "
+"$PATH was provided via a 'provides/binary' tag."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:436
+msgid ""
+"Type 'driver' component, but no modalias information was provided via a "
+"provides/modalias tag."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:430
+msgid ""
+"Type 'font' component, but no font information was provided via a 'provides/"
+"font' tag."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:544
 #, c-format
@@ -851,6 +1436,36 @@ msgstr "Nepavyko rasti komponento, atitinkančio %s!"
 msgid "Unable to find component with ID '%s'!"
 msgstr "Nepavyko rasti komponentą, kurio ID \"%s\"!"
 
+#: src/as-validator-issue-tag.h:497
+msgid ""
+"Unable to find the curl binary. remote URLs can not be checked for validity!"
+msgstr ""
+
+#: src/as-validator-issue-tag.h:306
+msgid "Unable to reach remote icon at the given web location - does it exist?"
+msgstr ""
+
+#: src/as-validator-issue-tag.h:328
+msgid ""
+"Unable to reach remote location that this URL references - does it exist?"
+msgstr ""
+
+#: src/as-validator-issue-tag.h:179
+msgid ""
+"Unable to reach the screenshot image on its remote location - does the image "
+"exist?"
+msgstr ""
+
+#: src/as-validator-issue-tag.h:487
+#, fuzzy
+msgid "Unable to read file."
+msgstr "Nepavyko pašalinti senojo podėlio."
+
+#: src/as-validator-issue-tag.h:524
+#, fuzzy
+msgid "Unable to read the .desktop file associated with this component."
+msgstr "Nepavyko perskaityti .desktop failo: %s"
+
 #: tools/ascli-actions-mdata.c:473
 #, c-format
 msgid "Unable to read the .desktop file: %s"
@@ -876,19 +1491,19 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nepavyko įrašyti į \"%s\", nepavyksta įdiegti metainformacijos failo."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:845
+#: tools/appstream-cli.c:871
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Nežinoma komanda \"%s\"."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstream-cli.c:582
+#: tools/appstream-cli.c:608
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Nežinomas palyginimo santykis \"%s\". Teisingos reikšmės yra:"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstream-cli.c:649
+#: tools/appstream-cli.c:675
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr ""
@@ -900,29 +1515,29 @@ msgstr ""
 msgid "Utilities"
 msgstr "Paslaugų programos"
 
-#: tools/appstream-cli.c:702
+#: tools/appstream-cli.c:728
 msgid "Validate AppStream XML files for issues."
 msgstr "Patikrinti ar AppStream XML failuose nėra problemų."
 
-#: tools/appstream-cli.c:703
+#: tools/appstream-cli.c:729
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Patikrinti įdiegto programos failų medžio metaduomenų teisingumą."
 
-#: tools/ascli-actions-validate.c:255 tools/ascli-actions-validate.c:316
+#: tools/ascli-actions-validate.c:301 tools/ascli-actions-validate.c:442
 #, c-format
 msgid "Validation failed: %s"
 msgstr "Patikrinimas nepavyko: %s"
 
-#: tools/ascli-actions-validate.c:243 tools/ascli-actions-validate.c:304
+#: tools/ascli-actions-validate.c:289 tools/ascli-actions-validate.c:430
 msgid "Validation was successful."
 msgstr "Patikrinimas buvo sėkmingas."
 
-#: tools/ascli-actions-validate.c:245 tools/ascli-actions-validate.c:306
+#: tools/ascli-actions-validate.c:291 tools/ascli-actions-validate.c:432
 #, c-format
 msgid "Validation was successful: %s"
 msgstr "Patikrinimas buvo sėkmingas: %s"
 
-#: tools/appstream-cli.c:697
+#: tools/appstream-cli.c:723
 msgid "Value of the item that should be found."
 msgstr "Elemento, kuris turėtų būti rastas, reikšmė."
 
@@ -956,7 +1571,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Tekstų rengyklė"
 
-#: tools/appstream-cli.c:716
+#: tools/appstream-cli.c:742
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -977,7 +1592,7 @@ msgstr ""
 "Norėdami sukurti šabloną, turite pateikti AppStream programinės įrangos "
 "komponento tipą. Galimos reikšmės yra:"
 
-#: tools/appstream-cli.c:553
+#: tools/appstream-cli.c:579
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr ""
@@ -985,7 +1600,7 @@ msgstr ""
 "numerius."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:767
+#: tools/appstream-cli.c:793
 msgid "You need to specify a command."
 msgstr "Jūs turite nurodyti komandą."
 
@@ -996,15 +1611,11 @@ msgstr "Jūs turite nurodyti komandą."
 msgid "You need to specify a component-ID."
 msgstr "Jūs turite nurodyti komponento ID."
 
-#: tools/ascli-actions-validate.c:223
-msgid "You need to specify a file to validate!"
-msgstr "Turite nurodyti failą, kurį tikrinti!"
-
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "Jūs turite nurodyti metaduomenų failą."
 
-#: tools/ascli-actions-validate.c:281
+#: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"
 msgstr "Norėdami pradėti tikrinimą, turite nurodyti šakninį katalogą!"
 
@@ -1015,6 +1626,11 @@ msgstr "Jūs turite nurodyti paieškos žodžius, kurių ieškoti."
 #: tools/ascli-actions-mdata.c:357
 msgid "You need to specify an input and output file."
 msgstr "Jūs turite nurodyti įvesties ir išvesties failą."
+
+#: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
+#, fuzzy
+msgid "You need to specify at least one file to validate!"
+msgstr "Turite nurodyti failą, kurį tikrinti!"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
@@ -1027,25 +1643,25 @@ msgid "app;application;package;program;programme;suite;tool"
 msgstr "programa;programėlė;aplikacija;paketas;įrankis;komplektas;rinkinys"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:183
+#: tools/ascli-actions-validate.c:223
 #, c-format
 msgid "errors: %lu"
 msgstr "klaidos: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:197
+#: tools/ascli-actions-validate.c:237
 #, c-format
 msgid "infos: %lu"
 msgstr "informacijos: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:204
+#: tools/ascli-actions-validate.c:244
 #, c-format
 msgid "pedantic: %lu"
 msgstr "pedantiški: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate
-#: tools/ascli-actions-validate.c:190
+#: tools/ascli-actions-validate.c:230
 #, c-format
 msgid "warnings: %lu"
 msgstr "įspėjimai: %lu"
