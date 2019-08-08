@@ -1979,7 +1979,7 @@ as_validator_get_report_yaml (AsValidator *validator)
 	yaml_emitter_initialize (&emitter);
 	yaml_emitter_set_indent (&emitter, 2);
 	yaml_emitter_set_unicode (&emitter, TRUE);
-	yaml_emitter_set_width (&emitter, 120);
+	yaml_emitter_set_width (&emitter, 100);
 	yaml_emitter_set_output (&emitter, as_validator_yaml_write_handler_cb, yaml_result);
 
 	/* emit start event */
@@ -2006,7 +2006,7 @@ as_validator_get_report_yaml (AsValidator *validator)
 		as_yaml_mapping_start (&emitter);
 
 		as_yaml_emit_entry (&emitter, "File", filename);
-		as_yaml_emit_entry (&emitter, "ASVersion", PACKAGE_VERSION);
+		as_yaml_emit_entry (&emitter, "Validator", PACKAGE_VERSION);
 
 		as_yaml_emit_scalar (&emitter, "Issues");
 		as_yaml_sequence_start (&emitter);
@@ -2015,12 +2015,19 @@ as_validator_get_report_yaml (AsValidator *validator)
 			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
 			gint line = as_validator_issue_get_line (issue);
 			const gchar *hint = as_validator_issue_get_hint (issue);
+			const gchar *cid = as_validator_issue_get_cid (issue);
 			AsIssueSeverity severity = as_validator_issue_get_severity (issue);
 			as_yaml_mapping_start (&emitter);
 
 			as_yaml_emit_entry (&emitter,
 					    "tag",
 					    as_validator_issue_get_tag (issue));
+			as_yaml_emit_entry (&emitter,
+					    "severity",
+					    as_issue_severity_to_string (severity));
+
+			if (cid != NULL)
+				as_yaml_emit_entry (&emitter, "component", cid);
 			if (line > 0)
 				as_yaml_emit_entry_uint (&emitter, "line", (guint) line);
 			if (hint != NULL)

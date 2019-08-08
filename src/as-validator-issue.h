@@ -71,6 +71,9 @@ typedef enum {
 #define AS_ISSUE_IMPORTANCE_INFO AS_ISSUE_SEVERITY_INFO
 #define AS_ISSUE_IMPORTANCE_PEDANTIC AS_ISSUE_SEVERITY_PEDANTIC
 
+AsIssueSeverity	 as_issue_severity_from_string (const gchar *str);
+const gchar	*as_issue_severity_to_string (AsIssueSeverity severity);
+
 /**
  * AsIssueKind:
  * @AS_ISSUE_KIND_UNKNOWN:		Type invalid or not known

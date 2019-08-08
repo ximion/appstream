@@ -39,6 +39,9 @@ gint			ascli_validate_tree (const gchar *root_dir,
 						gboolean explain,
 						gboolean pedantic,
 						gboolean use_net);
+gint			ascli_validate_tree_format (const gchar *root_dir,
+						    const gchar *format,
+						    gboolean use_net);
 
 G_END_DECLS
 

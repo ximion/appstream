@@ -434,10 +434,16 @@ as_client_run_validate_tree (char **argv, int argc)
 	if (argc > 2)
 		value = argv[2];
 
-	return ascli_validate_tree (value,
-				    optn_pedantic,
-				    optn_explain,
-				    !optn_nonet);
+	if (optn_format == NULL) {
+		return ascli_validate_tree (value,
+					    optn_pedantic,
+					    optn_explain,
+					    !optn_nonet);
+	} else {
+		return ascli_validate_tree_format (value,
+						   optn_format,
+						   !optn_nonet);
+	}
 }
 
 /**

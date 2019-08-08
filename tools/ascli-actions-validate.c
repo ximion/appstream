@@ -356,7 +356,7 @@ ascli_validate_files_format (gchar **argv, gint argc, const gchar *format, gbool
 		}
 
 		yaml_result = as_validator_get_report_yaml (validator);
-		g_print ("%s\n", yaml_result);
+		g_print ("%s", yaml_result);
 		return validation_passed? 0 : 3;
 	}
 
@@ -450,4 +450,46 @@ ascli_validate_tree (const gchar *root_dir, gboolean pedantic, gboolean explain,
 	}
 
 	return 0;
+}
+
+/**
+ * ascli_validate_tree_format:
+ *
+ * Validate directory tree and return result in a machine-readable format.
+ */
+gint
+ascli_validate_tree_format (const gchar *root_dir, const gchar *format, gboolean use_net)
+{
+	if (g_strcmp0 (format, "text") == 0) {
+		/* "text" is pretty much the default output,
+		 * only without colors, with explanations enabled and in pedantic mode */
+		ascli_set_output_colored (FALSE);
+		return ascli_validate_tree (root_dir,
+					    TRUE, /* pedantic */
+					    TRUE, /* explain */
+					    use_net);
+	}
+
+	if (g_strcmp0 (format, "yaml") == 0) {
+		gboolean validation_passed = TRUE;
+		g_autoptr(AsValidator) validator = NULL;
+		g_autofree gchar *yaml_result = NULL;
+
+		if (root_dir == NULL) {
+			g_print ("%s\n", _("You need to specify a root directory to start validation!"));
+			return 1;
+		}
+
+		validator = as_validator_new ();
+		as_validator_set_check_urls (validator, use_net);
+		as_validator_validate_tree (validator, root_dir);
+
+		yaml_result = as_validator_get_report_yaml (validator);
+		g_print ("%s", yaml_result);
+		return validation_passed? 0 : 3;
+	}
+
+	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."), format);
+	g_print ("\n");
+	return 1;
 }

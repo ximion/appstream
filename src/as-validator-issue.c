@@ -51,6 +51,52 @@ G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_issue_get_instance_private (o))
 
 /**
+ * as_issue_severity_from_string:
+ * @str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsIssueSeverity, or %AS_ISSUE_SEVERITY_UNKNOWN for unknown.
+ *
+ **/
+AsIssueSeverity
+as_issue_severity_from_string (const gchar *str)
+{
+	if (g_strcmp0 (str, "error") == 0)
+		return AS_ISSUE_SEVERITY_ERROR;
+	if (g_strcmp0 (str, "warning") == 0)
+		return AS_ISSUE_SEVERITY_WARNING;
+	if (g_strcmp0 (str, "info") == 0)
+		return AS_ISSUE_SEVERITY_INFO;
+	if (g_strcmp0 (str, "pedantic") == 0)
+		return AS_ISSUE_SEVERITY_PEDANTIC;
+	return AS_ISSUE_SEVERITY_UNKNOWN;
+}
+
+/**
+ * as_issue_severity_to_string:
+ * @severity: the #AsIssueSeverity.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @severity
+ *
+ **/
+const gchar*
+as_issue_severity_to_string (AsIssueSeverity severity)
+{
+	if (severity == AS_ISSUE_SEVERITY_ERROR)
+		return "error";
+	if (severity == AS_ISSUE_SEVERITY_WARNING)
+		return "warning";
+	if (severity == AS_ISSUE_SEVERITY_INFO)
+		return "info";
+	if (severity == AS_ISSUE_SEVERITY_PEDANTIC)
+		return "pedantic";
+	return NULL;
+}
+
+/**
  * as_validator_issue_finalize:
  **/
 static void
