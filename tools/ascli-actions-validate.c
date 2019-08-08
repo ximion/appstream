@@ -168,7 +168,7 @@ ascli_validate_file (gchar *fname, gboolean print_filename, gboolean pedantic, g
 
 	file = g_file_new_for_path (fname);
 	if (!g_file_query_exists (file, NULL)) {
-		g_print ("File '%s' does not exist.", fname);
+		g_print (_("File '%s' does not exist."), fname);
 		g_print ("\n");
 		g_object_unref (file);
 		return FALSE;
@@ -260,7 +260,7 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean expla
 	gulong pedantic_count = 0;
 
 	if (argc < 1) {
-		g_print ("%s\n", _("You need to specify a file to validate!"));
+		g_print ("%s\n", _("You need to specify at least one file to validate!"));
 		return 1;
 	}
 
@@ -307,6 +307,62 @@ ascli_validate_files (gchar **argv, gint argc, gboolean pedantic, gboolean expla
 
 		return 3;
 	}
+}
+
+/**
+ * ascli_validate_files_format:
+ *
+ * Validate files and return result in a machine-readable format.
+ */
+gint
+ascli_validate_files_format (gchar **argv, gint argc, const gchar *format, gboolean use_net)
+{
+	if (g_strcmp0 (format, "text") == 0) {
+		/* "text" is pretty much the default output,
+		 * only without colors, with explanations enabled and in pedantic mode */
+		ascli_set_output_colored (FALSE);
+		return ascli_validate_files (argv,
+					     argc,
+					     TRUE, /* pedantic */
+					     TRUE, /* explain */
+					     use_net);
+	}
+
+	if (g_strcmp0 (format, "yaml") == 0) {
+		gboolean validation_passed = TRUE;
+		g_autoptr(AsValidator) validator = NULL;
+		g_autofree gchar *yaml_result = NULL;
+
+		if (argc < 1) {
+			g_print ("%s\n", _("You need to specify at least one file to validate!"));
+			return 1;
+		}
+
+		validator = as_validator_new ();
+		as_validator_set_check_urls (validator, use_net);
+
+		for (gint i = 0; i < argc; i++) {
+			g_autoptr(GFile) file = NULL;
+
+			file = g_file_new_for_path (argv[i]);
+			if (!g_file_query_exists (file, NULL)) {
+				g_print (_("File '%s' does not exist."), argv[i]);
+				g_print ("\n");
+				return FALSE;
+			}
+
+			if (!as_validator_validate_file (validator, file))
+				validation_passed = FALSE;
+		}
+
+		yaml_result = as_validator_get_report_yaml (validator);
+		g_print ("%s\n", yaml_result);
+		return validation_passed? 0 : 3;
+	}
+
+	g_print (_("The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."), format);
+	g_print ("\n");
+	return 1;
 }
 
 /**

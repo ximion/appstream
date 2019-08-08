@@ -45,6 +45,7 @@
 #include "as-spdx.h"
 #include "as-component.h"
 #include "as-component-private.h"
+#include "as-yaml.h"
 
 typedef struct
 {
@@ -1937,6 +1938,124 @@ as_validator_get_issues_per_file (AsValidator *validator)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	return priv->issues_per_file;
+}
+
+/**
+ * as_validator_yaml_write_handler_cb:
+ *
+ * Helper function to store the emitted YAML document.
+ */
+static int
+as_validator_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t size)
+{
+	GString *str;
+	str = (GString*) ptr;
+	g_string_append_len (str, (const gchar*) buffer, size);
+
+	return 1;
+}
+
+/**
+ * as_validator_get_issues_as_yaml:
+ * @validator: An instance of #AsValidator.
+ *
+ * Get an issue report as a YAML document.
+ *
+ * Returns: (transfer full): a YAML document
+ *
+ * Since: 0.12.8
+ */
+gchar*
+as_validator_get_report_yaml (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	GHashTableIter ht_iter;
+	gpointer ht_key, ht_value;
+	yaml_emitter_t emitter;
+	yaml_event_t event;
+	gboolean res = FALSE;
+	GString *yaml_result = g_string_new ("");
+
+	yaml_emitter_initialize (&emitter);
+	yaml_emitter_set_indent (&emitter, 2);
+	yaml_emitter_set_unicode (&emitter, TRUE);
+	yaml_emitter_set_width (&emitter, 120);
+	yaml_emitter_set_output (&emitter, as_validator_yaml_write_handler_cb, yaml_result);
+
+	/* emit start event */
+	yaml_stream_start_event_initialize (&event, YAML_UTF8_ENCODING);
+	if (!yaml_emitter_emit (&emitter, &event)) {
+		g_critical ("Failed to initialize YAML emitter.");
+		g_string_free (yaml_result, TRUE);
+		yaml_emitter_delete (&emitter);
+		return NULL;
+	}
+
+	g_hash_table_iter_init (&ht_iter, priv->issues_per_file);
+	while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
+		const gchar *filename = (const gchar*) ht_key;
+		GPtrArray *issues = (GPtrArray*) ht_value;
+		gboolean validation_passed = TRUE;
+
+		/* new document for this file */
+		yaml_document_start_event_initialize (&event, NULL, NULL, NULL, FALSE);
+		res = yaml_emitter_emit (&emitter, &event);
+		g_assert (res);
+
+		/* main dict start */
+		as_yaml_mapping_start (&emitter);
+
+		as_yaml_emit_entry (&emitter, "File", filename);
+		as_yaml_emit_entry (&emitter, "ASVersion", PACKAGE_VERSION);
+
+		as_yaml_emit_scalar (&emitter, "Issues");
+		as_yaml_sequence_start (&emitter);
+
+		for (guint i = 0; i < issues->len; i++) {
+			AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (g_ptr_array_index (issues, i));
+			gint line = as_validator_issue_get_line (issue);
+			const gchar *hint = as_validator_issue_get_hint (issue);
+			AsIssueSeverity severity = as_validator_issue_get_severity (issue);
+			as_yaml_mapping_start (&emitter);
+
+			as_yaml_emit_entry (&emitter,
+					    "tag",
+					    as_validator_issue_get_tag (issue));
+			if (line > 0)
+				as_yaml_emit_entry_uint (&emitter, "line", (guint) line);
+			if (hint != NULL)
+				as_yaml_emit_entry (&emitter, "hint", hint);
+			as_yaml_emit_long_entry (&emitter,
+						 "explanation",
+						 as_validator_issue_get_explanation (issue));
+
+			if ((severity == AS_ISSUE_SEVERITY_WARNING) || (severity == AS_ISSUE_SEVERITY_ERROR))
+				validation_passed = FALSE;
+
+			as_yaml_mapping_end (&emitter);
+		}
+
+		/* end "Issues" sequence */
+		as_yaml_sequence_end (&emitter);
+
+		as_yaml_emit_entry (&emitter, "Passed", validation_passed? "yes" : "no");
+
+		/* main dict end */
+		as_yaml_mapping_end (&emitter);
+		/* finalize the document */
+		yaml_document_end_event_initialize (&event, 1);
+		res = yaml_emitter_emit (&emitter, &event);
+		g_assert (res);
+	}
+
+	/* end stream */
+	yaml_stream_end_event_initialize (&event);
+	res = yaml_emitter_emit (&emitter, &event);
+	g_assert (res);
+
+	yaml_emitter_flush (&emitter);
+	yaml_emitter_delete (&emitter);
+	return g_string_free (yaml_result, FALSE);
 }
 
 /**
