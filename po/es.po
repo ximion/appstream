@@ -5,21 +5,21 @@
 # Adolfo Jayme-Barrientos, 2014
 # Adolfo Jayme-Barrientos, 2016
 # advocatux <advocatux@airpost.net>, 2019.
+# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-08 03:32+0200\n"
-"PO-Revision-Date: 2019-06-27 20:01+0000\n"
-"Last-Translator: advocatux <advocatux@airpost.net>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"PO-Revision-Date: 2019-08-10 11:23+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7.1-dev\n"
+"X-Generator: Weblate 3.8-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -309,12 +309,10 @@ msgstr ""
 "proyecto original)."
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
 msgstr "Servicios de sesión de DBus"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
 msgstr "Servicios de sistema de DBus"
 
@@ -335,9 +333,7 @@ msgstr "URL predeterminado de captura de pantalla"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
-"Utilizar de manera predeterminada el formato de metadatos dado (valores "
-"válidos en «xml» y «yaml»)."
+msgstr "Formato de metadatos predeterminado (los valores válidos son «xml» y «yaml»)."
 
 #: tools/ascli-utils.c:333
 msgid "Description"
@@ -723,9 +719,8 @@ msgid "Math"
 msgstr "Matemáticas"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "Tipos MIME"
+msgstr "Tipos de medios"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -1020,7 +1015,7 @@ msgstr ""
 #: tools/appstream-cli.c:683
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr "El TIPO debe de ser un tipo-de-componente válido, como: %s"
+msgstr "El TIPO debe ser un tipo de componente válido, como: %s"
 
 #: src/as-validator-issue-tag.h:492
 msgid "The XML of this file is malformed."
@@ -1491,7 +1486,7 @@ msgstr "No se ha podido leer el archivo .desktop: %s"
 
 #: src/as-pool.c:583
 msgid "Unable to remove old cache."
-msgstr "No se pudo eliminar la caché antigua."
+msgstr "No se ha podido eliminar la antememoria antigua."
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
