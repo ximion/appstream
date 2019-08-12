@@ -52,6 +52,7 @@ void		as_xml_parse_metainfo_description_node (AsContext *ctx,
 							GHFunc func,
 							gpointer entity);
 
+gchar		*as_xml_dump_node_content (xmlNode *node);
 gchar		*as_xml_dump_node_children (xmlNode *node);
 
 void		as_xml_add_description_node (AsContext *ctx,

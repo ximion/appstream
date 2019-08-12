@@ -447,10 +447,12 @@ test_appstream_read_description (void)
 	const gchar *xmldata_desc_mi1 = "<component>\n"
 					"  <id>org.example.DescTestMI-1</id>\n"
 					"  <description>\n"
-					"    <p>Agenda is a simple, slick, speedy and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
+					"    <p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
+					"    <p>This paragraph makes use of <code>code markup</code>.</p>\n"
 					"    <ul>\n"
-					"      <li>Blazingly fast and light</li>\n"
+					"      <li>Blazingly <em>fast</em> and light</li>\n"
 					"      <li>Remembers your list until you clear completed tasks</li>\n"
+					"      <li>Some <code>code</code> item</li>\n"
 					"      <li>...</li>\n"
 					"    </ul>\n"
 					"    <p>I dare you to find an easier, faster, more beautiful task manager for elementary OS.</p>\n"
@@ -472,13 +474,16 @@ test_appstream_read_description (void)
 	cpt = as_xml_test_read_data (xmldata_desc_mi1, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescTestMI-1");
 
-	g_assert_cmpstr (as_component_get_description (cpt), ==, "<p>Agenda is a simple, slick, speedy and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
-								 "<ul>\n"
-								 "  <li>Blazingly fast and light</li>\n"
-								 "  <li>Remembers your list until you clear completed tasks</li>\n"
-								 "  <li>...</li>\n"
-								 "</ul>\n"
-								 "<p>I dare you to find an easier, faster, more beautiful task manager for elementary OS.</p>\n");
+	g_assert (as_test_compare_lines (as_component_get_description (cpt),
+					 "<p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use it to keep track of the tasks that matter most.</p>\n"
+					 "<p>This paragraph makes use of <code>code markup</code>.</p>\n"
+					 "<ul>\n"
+					 "  <li>Blazingly <em>fast</em> and light</li>\n"
+					 "  <li>Remembers your list until you clear completed tasks</li>\n"
+					 "  <li>Some <code>code</code> item</li>\n"
+					 "  <li>...</li>\n"
+					 "</ul>\n"
+					 "<p>I dare you to find an easier, faster, more beautiful task manager for elementary OS.</p>\n"));
 
 	g_object_unref (cpt);
 	cpt = as_xml_test_read_data (xmldata_desc_mi2, AS_FORMAT_STYLE_METAINFO);

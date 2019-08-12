@@ -83,6 +83,43 @@ out:
 }
 
 /**
+ * as_xml_dump_node_content:
+ */
+gchar*
+as_xml_dump_node_content (xmlNode *node)
+{
+	gchar *content = NULL;
+	gchar *tmp;
+	xmlBufferPtr nodeBuf;
+	gint r;
+
+	/* discard spaces */
+	if (node->type != XML_ELEMENT_NODE)
+		return NULL;
+
+	nodeBuf = xmlBufferCreate ();
+	r = xmlNodeDump (nodeBuf, NULL, node, 0, 1);
+	if (G_UNLIKELY (r < 0)) {
+		g_critical ("xmlNodeDump failed (%i) while serializing node", r);
+		goto out;
+	}
+
+	/* remove the encosing root node from the string */
+	tmp = g_strstr_len ((const gchar*) nodeBuf->content, -1, ">");
+	if (tmp == NULL)
+		goto out;
+
+	content = g_strdup (tmp + 1);
+	tmp = g_strrstr_len (content, -1, "<");
+	if ((tmp != NULL) && (tmp[0] != '\0'))
+		tmp[0] = '\0';
+
+out:
+	xmlBufferFree (nodeBuf);
+	return content;
+}
+
+/**
  * as_xml_dump_node_children:
  */
 gchar*
@@ -103,9 +140,9 @@ as_xml_dump_node_children (xmlNode *node)
 
 		nodeBuf = xmlBufferCreate ();
 		r = xmlNodeDump (nodeBuf, NULL, iter, 0, 1);
-		if (r < 0) {
+		if (G_UNLIKELY (r < 0)) {
 			xmlBufferFree (nodeBuf);
-			g_warning ("xmlNodeDump failed (%i) while serializing node children.", r);
+			g_critical ("xmlNodeDump failed (%i) while serializing node children.", r);
 			continue;
 		}
 		if (str->len > 0)
@@ -190,7 +227,6 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 		if (g_strcmp0 (node_name, "p") == 0) {
 			g_autofree gchar *lang = NULL;
 			g_autofree gchar *content = NULL;
-			g_autofree gchar *tmp = NULL;
 
 			lang = as_xmldata_get_node_locale (ctx, iter);
 			if (lang == NULL)
@@ -203,9 +239,8 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				g_hash_table_insert (desc, g_strdup (lang), str);
 			}
 
-			tmp = as_xml_get_node_value (iter);
-			content = g_markup_escape_text (tmp, -1);
-			g_string_append_printf (str, "<%s>%s</%s>\n", node_name, content, node_name);
+			content = as_xml_dump_node_content (iter);
+			g_string_append_printf (str, "<p>%s</p>\n", content);
 
 		} else if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
 			GHashTableIter htiter;
@@ -222,7 +257,6 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autofree gchar *lang = NULL;
 				g_autofree gchar *content = NULL;
-				g_autofree gchar *tmp = NULL;
 
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
@@ -233,7 +267,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				if (lang == NULL)
 					continue;
 
-				/* if the language is new, we start it with an enum */
+				/* if the language is new, we add a listing tag first */
 				str = g_hash_table_lookup (desc, lang);
 				if (str == NULL) {
 					str = g_string_new ("");
@@ -241,8 +275,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 					g_hash_table_insert (desc, g_strdup (lang), str);
 				}
 
-				tmp = as_xml_get_node_value (iter2);
-				content = g_markup_escape_text (tmp, -1);
+				content = as_xml_dump_node_content (iter2);
 				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
 

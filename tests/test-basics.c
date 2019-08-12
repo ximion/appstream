@@ -55,8 +55,24 @@ test_simplemarkup ()
 
 	str = as_markup_convert_simple ("<p>Test!</p><p>Blah.</p><ul><li>A</li><li>B</li></ul><p>End.</p>", &error);
 	g_assert_no_error (error);
-
 	g_assert (g_strcmp0 (str, "Test!\n\nBlah.\n • A\n • B\n\nEnd.") == 0);
+	g_free (str);
+
+	str = as_markup_convert_simple ("<p>Paragraph using all allowed markup, "
+					"like an <em>emphasis</em> or <code>some code</code>.</p>"
+					"<p>Second paragraph.</p>"
+					"<ul>"
+					"<li>List item, <em>emphasized</em></li>"
+					"<li>Item with <code>a bit of code</code></li>"
+					"</ul>"
+					"<p>Last paragraph.</p>", &error);
+	g_assert_no_error (error);
+	g_print ("!!! %s\n", str);
+	g_assert (g_strcmp0 (str, "Paragraph using all allowed markup, like an emphasis or some code.\n\n"
+				  "Second paragraph.\n"
+				  " • List item, emphasized\n"
+				  " • Item with a bit of code\n\n"
+				  "Last paragraph.") == 0);
 }
 
 /**
