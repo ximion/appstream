@@ -515,6 +515,9 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 			continue;
 		node_name = (const gchar*) iter->name;
 
+		if ((g_strcmp0 (node_name, "em") == 0) || (g_strcmp0 (node_name, "code") == 0))
+			continue;
+
 		as_validator_add_issue (validator,
 					iter,
 					"description-para-markup-invalid",
