@@ -187,8 +187,28 @@
 			A long description of this component. Some markup can be used.
 		</para>
 		<para>
-			Do not assume the format is HTML. Only paragraph (<literal>p</literal>), ordered list (<literal>ol</literal>) and unordered list (<literal>ul</literal>) with their list items (<literal>li</literal>) are currently supported. Nested lists are not supported.
+			Do not assume the format is HTML. This list contains all currently supported formatting options:
 		</para>
+		<itemizedlist>
+			<listitem>
+			<para>Paragraph (<literal>p</literal>)</para>
+			</listitem>
+			<listitem>
+			<para>Ordered list (<literal>ol</literal>), with list items (<literal>li</literal>)</para>
+			</listitem>
+			<listitem>
+			<para>Unordered list (<literal>ul</literal>), with list items (<literal>li</literal>)</para>
+			</listitem>
+			<listitem>
+			<para>
+				Within paragraphs and list items, emphasis (<literal>em</literal>) and inline code (<literal>code</literal>) text styles are supported.
+				The emphasis is commonly rendered in italic, while inline code is shown in a monospaced font.
+			</para>
+			</listitem>
+			<listitem>
+			<para>Nested lists are not supported</para>
+			</listitem>
+		</itemizedlist>
 		<para>
 			In metainfo files, this tag should be translated by-paragraph, meaning that in a translated file, each translated <literal>&lt;p/&gt;</literal> child
 			has a language property.
