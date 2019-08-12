@@ -179,13 +179,17 @@
 			<term>&lt;name/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is always requited for a generic component, for an application metainfo file it is not necessary, but only recommended.
-					You can omit this tag if you want the software center to have the same strings as defined in the <literal>Name</literal> field
-					of the <filename>.desktop</filename> file. In that case, one <xref linkend="qsr-app-launchable-info"/> tag must be present.
+					It is highly recommended to have this tag present and contain a name of your application as value.
 				</para>
 				<para>
-					If no <literal>name</literal> tag and no <literal>Name</literal> field is present, the metadata
-					is considered invalid and might be ignored by the AppStream generator.
+					In theory you can omit this tag and have the AppStream generator of a Linux distribution automatically use the <literal>Name</literal> field
+					of the associated <filename>.desktop</filename> file (In which case one <xref linkend="qsr-app-launchable-info"/> tag must be present).
+					However, a large amount of tools expect the metainfo file to be complete and self-sufficient now, which is why omitting this tag will render it
+					invalid for tools like Flatpak and others use cases which do not involve a metadata preprocessing step.
+				</para>
+				<para>
+					If no <literal>name</literal> tag (and no <literal>Name</literal> desktop-entry field) is present, the metadata
+					is considered invalid and will be ignored by the AppStream generator.
 				</para>
 			</listitem>
 			</varlistentry>
@@ -194,15 +198,17 @@
 			<term>&lt;summary/&gt;</term>
 			<listitem>
 				<para>
-					While this tag is always requited for a generic component, for a <literal>desktop-application</literal> metainfo file it is only essential
-					if the accompanying <filename>.desktop</filename> file does not have a <literal>Comment=</literal> field. Data from a .desktop file is only
-					taken into consideration if one <xref linkend="qsr-app-launchable-info"/> tag is present.
-					If the metainfo file has a <literal>summary</literal>, it wil override the value found in the <literal>Comment</literal> field of the
-					<filename>.desktop</filename> file.
+					It is highly recommended to have this tag present and contain a brief summary of what your application is about.
 				</para>
 				<para>
-					If no <literal>summary</literal> tag and no <literal>Comment</literal> field is present, the metadata
-					is considered invalid and might be ignored by the AppStream generator.
+					In theory you can omit this tag and have the AppStream generator of a Linux distribution automatically use the <literal>Comment</literal> field
+					of the associated <filename>.desktop</filename> file (In which case one <xref linkend="qsr-app-launchable-info"/> tag must be present).
+					However, a large amount of tools expect the metainfo file to be complete and self-sufficient now, which is why omitting this tag will render it
+					invalid for tools like Flatpak and others use cases which do not involve a metadata preprocessing step.
+				</para>
+				<para>
+					If no <literal>summary</literal> tag (and no <literal>Comment</literal> desktop-entry field) is present, the metadata
+					is considered invalid and will be ignored by the AppStream generator.
 				</para>
 			</listitem>
 			</varlistentry>
