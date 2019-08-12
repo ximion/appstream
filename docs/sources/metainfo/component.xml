@@ -35,9 +35,9 @@
 	</para>
 	<note>
 		<para>
-			Applications are a special case here, because they are usually treated differently by software centers (and also for historical reasons).
-			If your metainfo file contains an application, as described in <xref linkend="sect-Metadata-Application"/>, you may want to install it as
-			<filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
+			Component metadata of type <literal>desktop-application</literal> as described in <xref linkend="sect-Metadata-Application"/> can be installed as
+			<filename>/usr/share/metainfo/%{id}.appdata.xml</filename> (with an <filename>.appdata.xml</filename>) as well for historical reasons.
+			AppStream implementations will read the XML files as long as they end up in the right location on the filesystem.
 		</para>
 	</note>
 	<important>
@@ -46,7 +46,7 @@
 			AppStream tools scan the <filename>/usr/share/appdata/</filename> path for legacy compatibility as well. It should not be used
 			anymore by new software though, even on older Linux distributions (like RHEL 7 and Ubuntu 16.04 LTS) the metainfo path is well
 			supported.
-			Support for the legacy path might be dropped completely in future.
+			Support for the legacy path will likely be dropped completely with a future AppStream 1.0 release.
 		</para>
 	</important>
 

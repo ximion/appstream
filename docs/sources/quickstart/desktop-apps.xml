@@ -21,12 +21,12 @@
 		<para>
 			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
 			<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink> or GSetting schemas.
-			The application metainfo ("appdata") specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-XML"/>) and extends
+			The application metainfo specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-XML"/>) and extends
 			the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
 		</para>
 		<para>
 			The application-metainfo files override any values which are automatically fetched by the AppStream data generator.
-			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
+			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
 			Application metainfo files can - just like all other metainfo files - be translated. See the section about translation for more information about that.

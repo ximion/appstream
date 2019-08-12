@@ -26,7 +26,7 @@
 		<para>
 			The metainfo files override any values which are automatically fetched from other sources by the AppStream data generator, which means that its data will always take precedence over
 			data which has already been defined in a <filename>.desktop</filename> file.
-			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.appdata.xml</filename>.
+			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
 			Data will only be fetched from a desktop file if one <xref linkend="tag-dapp-launchable"/> tag is present to define a .desktop file ID. If multiple <literal>launch</literal> tags are
@@ -36,6 +36,13 @@
 			<para>
 				If you are looking for some quickstart guide to just get your application to ship AppStream metadata quickly, this document might not be for you.
 				You might want to take a look at <xref linkend="sect-Quickstart-DesktopApps"/> instead.
+			</para>
+		</note>
+		<note>
+			<para>
+				While <literal>desktop-application</literal> metadata is commonly stored in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename> (with a <filename>.metainfo.xml</filename> extension),
+				using a <filename>.appdata.xml</filename> extension is also permitted for this component type for legacy compatibility.
+				AppStream implementations will recognize either file type, as long as it ends up in the right location on the filesystem.
 			</para>
 		</note>
 	</section>

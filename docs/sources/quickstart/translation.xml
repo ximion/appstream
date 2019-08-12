@@ -18,7 +18,7 @@
 			<title>For KDE developers</title>
 			<para>
 				If you are a KDE developer and using the KDE infrastructure with it's localization support, you need to do nothing
-				to get translated metadata. Just place your <filename>*.appdata.xml*</filename> or <filename>*.metainfo.xml*</filename> file
+				to get translated metadata. Just place your <filename>*.metainfo.xml*</filename> (or <filename>*.appdata.xml*</filename> file)
 				at a sane place, and the l10n-script will translate the file in-place automatically.
 			</para>
 		</note>
@@ -67,10 +67,10 @@
 				the following code snippet:
 			</para>
 <programlisting language="Makefile"><![CDATA[appstreamdir = $(datadir)/metainfo/
-appstream_in_files = gedit.appdata.xml.in
+appstream_in_files = gedit.metainfo.xml.in
 appstream_DATA = $(appstream_in_files:.xml.in=.xml)
 @INTLTOOL_XML_RULE@
-EXTRA_DIST = $(appdata_in_files)
+EXTRA_DIST = $(metainfo_in_files)
 CLEANFILES = $(appstream_DATA)]]></programlisting>
 			<para>
 				The code assumes you are using the Intltool Automake code.
@@ -84,10 +84,10 @@ CLEANFILES = $(appstream_DATA)]]></programlisting>
 				In case you want to use the macro provided by the AppStream-GLib library, you can use this code snippet:
 			</para>
 <programlisting language="Makefile"><![CDATA[@APPSTREAM_XML_RULES@
-appstream_in_files = gedit.appdata.xml.in
+appstream_in_files = gedit.metainfo.xml.in
 appstream_XML = $(appstream_in_files:.xml.in=.xml)
 @INTLTOOL_XML_RULE@
-EXTRA_DIST = $(appdata_in_files)
+EXTRA_DIST = $(metainfo_in_files)
 CLEANFILES = $(appstream_XML)]]></programlisting>
 			<para>
 				Make sure you have the additional AppStream macro installed.
@@ -120,14 +120,14 @@ CLEANFILES = $(appstream_XML)]]></programlisting>
 			To extract a GNU Gettext <filename>.pot</filename> file from your XML file, run itstool with the follwing arguments (replacing "foo" with
 			your project name):
 		</para>
-		<programlisting language="Bash"><![CDATA[itstool -i as-metainfo.its -o $podir/foo_metadata.pot data/foo.appdata.xml]]></programlisting>
+		<programlisting language="Bash"><![CDATA[itstool -i as-metainfo.its -o $podir/foo_metadata.pot data/foo.metainfo.xml]]></programlisting>
 
 		<para>
 			You can then translate the <filename>.pot</filename> file using the standard methods for translating files like these. You obtain
 			<filename>.po</filename> files, which you can convert into <filename>.mo</filename> files (using msgfmt) like you would do with any
 			other localization. Then, you need to call <command>itstool</command> again, to create a translated version of the original XML file:
 		</para>
-		<programlisting language="Bash"><![CDATA[itstool -i as-metainfo.its -j data/foo.appdata.xml -o output/foo.appdata.xml $modir/*.mo]]></programlisting>
+		<programlisting language="Bash"><![CDATA[itstool -i as-metainfo.its -j data/foo.metainfo.xml -o output/foo.metainfo.xml $modir/*.mo]]></programlisting>
 
 		<para>
 			Please ensure that the <filename>.mo</filename> files in <filename>$modir</filename> are named with their language codes.
