@@ -35,8 +35,8 @@
 	</para>
 	<note>
 		<para>
-			Component metadata of type <literal>desktop-application</literal> as described in <xref linkend="sect-Metadata-Application"/> can be installed as
-			<filename>/usr/share/metainfo/%{id}.appdata.xml</filename> (with an <filename>.appdata.xml</filename>) as well for historical reasons.
+			Component metadata of type <literal>desktop-application</literal> as described in <xref linkend="sect-Metadata-Application"/> can be installed
+			with an <filename>.appdata.xml</filename> extension as well for historical reasons.
 			AppStream implementations will read the XML files as long as they end up in the right location on the filesystem.
 		</para>
 	</note>
