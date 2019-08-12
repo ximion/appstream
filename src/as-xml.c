@@ -83,40 +83,63 @@ out:
 }
 
 /**
+ * as_xml_dump_node:
+ */
+static gboolean
+as_xml_dump_node (xmlNode *node, gchar **content, gssize *len)
+{
+	xmlOutputBufferPtr obuf;
+
+	obuf = xmlAllocOutputBuffer (NULL);
+	g_assert (obuf != NULL);
+
+	xmlNodeDumpOutput (obuf, node->doc, node, 0, 0, "utf-8");
+	xmlOutputBufferFlush (obuf);
+
+	if (xmlOutputBufferGetSize (obuf) > 0) {
+		gssize l = xmlOutputBufferGetSize (obuf);
+		if (len)
+			*len = l;
+
+		*content = g_strndup ((const gchar*) xmlOutputBufferGetContent (obuf), l);
+
+		xmlOutputBufferClose (obuf);
+		return TRUE;
+	} else {
+		xmlOutputBufferClose (obuf);
+		return FALSE;
+	}
+}
+
+/**
  * as_xml_dump_node_content:
  */
 gchar*
 as_xml_dump_node_content (xmlNode *node)
 {
-	gchar *content = NULL;
+	g_autofree gchar *content = NULL;
 	gchar *tmp;
-	xmlBufferPtr nodeBuf;
-	gint r;
+	gssize len;
 
 	/* discard spaces */
 	if (node->type != XML_ELEMENT_NODE)
 		return NULL;
 
-	nodeBuf = xmlBufferCreate ();
-	r = xmlNodeDump (nodeBuf, NULL, node, 0, 1);
-	if (G_UNLIKELY (r < 0)) {
-		g_critical ("xmlNodeDump failed (%i) while serializing node", r);
-		goto out;
-	}
+	if (!as_xml_dump_node (node, &content, &len))
+		return NULL;
 
 	/* remove the encosing root node from the string */
-	tmp = g_strstr_len ((const gchar*) nodeBuf->content, -1, ">");
-	if (tmp == NULL)
-		goto out;
-
-	content = g_strdup (tmp + 1);
-	tmp = g_strrstr_len (content, -1, "<");
-	if ((tmp != NULL) && (tmp[0] != '\0'))
+	tmp = g_strrstr_len (content, len, "<");
+	if (tmp != NULL)
 		tmp[0] = '\0';
 
-out:
-	xmlBufferFree (nodeBuf);
-	return content;
+	tmp = g_strstr_len (content, -1, ">");
+	if (tmp == NULL) {
+		g_free (content);
+		return NULL;
+	}
+
+	return g_strdup (tmp + 1);
 }
 
 /**
@@ -127,28 +150,22 @@ as_xml_dump_node_children (xmlNode *node)
 {
 	GString *str = NULL;
 	xmlNode *iter;
-	xmlBufferPtr nodeBuf;
 
 	str = g_string_new ("");
 	for (iter = node->children; iter != NULL; iter = iter->next) {
-		gint r;
+		g_autofree gchar *content = NULL;
+		gssize len;
 
 		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE) {
+		if (iter->type != XML_ELEMENT_NODE)
 			continue;
-		}
 
-		nodeBuf = xmlBufferCreate ();
-		r = xmlNodeDump (nodeBuf, NULL, iter, 0, 1);
-		if (G_UNLIKELY (r < 0)) {
-			xmlBufferFree (nodeBuf);
-			g_critical ("xmlNodeDump failed (%i) while serializing node children.", r);
+		if (!as_xml_dump_node (iter, &content, &len))
 			continue;
-		}
+
 		if (str->len > 0)
 			g_string_append (str, "\n");
-		g_string_append_printf (str, "%s", (const gchar*) nodeBuf->content);
-		xmlBufferFree (nodeBuf);
+		g_string_append_len (str, content, len);
 	}
 
 	return g_string_free (str, FALSE);
@@ -240,7 +257,8 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 			}
 
 			content = as_xml_dump_node_content (iter);
-			g_string_append_printf (str, "<p>%s</p>\n", content);
+			if (content != NULL)
+				g_string_append_printf (str, "<p>%s</p>\n", content);
 
 		} else if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
 			GHashTableIter htiter;
@@ -276,7 +294,8 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				}
 
 				content = as_xml_dump_node_content (iter2);
-				g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
+				if (content != NULL)
+					g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
 
 			/* close listing tags */
