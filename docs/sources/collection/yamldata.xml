@@ -279,9 +279,9 @@
 						Example:
 					</para>
 					<programlisting><![CDATA[Url:
-  homepage: http://example.org
-  faq: http://example.org/faq
-  bugtracker: http://bugs.example.org/report-issue]]></programlisting>
+  homepage: https://example.org
+  faq: https://example.org/faq
+  bugtracker: https://bugs.example.org/report-issue]]></programlisting>
 
 					<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
 				</listitem>
@@ -427,7 +427,8 @@
 						<term>source-image</term>
 						<listitem>
 							<para>
-								Describes the source image for this screenshot. It has the following keys:
+								Describes the source image for this screenshot. If this field is present, <literal>source-video</literal> must not be present as well.
+								The field valus is a dictionary with the following keys:
 							</para>
 							<itemizedlist>
 								<listitem>
@@ -453,7 +454,7 @@
 									</para>
 								</listitem>
 							</itemizedlist>
-							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 
@@ -463,8 +464,52 @@
 							<para>
 								A list of an arbitrary number of screenshots. All screenshots are of type <emphasis>dict</emphasis> and must contain the same keys as described for
 								<literal>source-image</literal>.
+								This key must not be present if <literal>source-video</literal> is present.
 							</para>
 							<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>source-video</term>
+						<listitem>
+							<para>
+								Describes the video for this screenshot. If this field is present, <literal>source-image</literal> must not be present as well.
+								The field valus is a dictionary with the following keys:
+							</para>
+							<itemizedlist>
+								<listitem>
+									<para><literal>container</literal></para>
+									<para>The video container format (string, as described in the XML specification)</para>
+								</listitem>
+								<listitem>
+									<para><literal>codec</literal></para>
+									<para>The video codec format (string, as described in the XML specification)</para>
+								</listitem>
+								<listitem>
+									<para><literal>height</literal></para>
+									<para>The video height (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>width</literal></para>
+									<para>The video width (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>url</literal></para>
+									<para>
+										The full video url, or the url component added to <literal>MediaBaseUrl</literal>,
+										if defined (<property>value-type</property>:<emphasis>str</emphasis>).
+									</para>
+								</listitem>
+								<listitem>
+									<para><literal>lang</literal></para>
+									<para>
+										The language this screenshot video is translated in. The value is a locale string.
+										(<property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis>)
+									</para>
+								</listitem>
+							</itemizedlist>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 
@@ -489,15 +534,21 @@
       si: Foobar shoeewing kischän-sünk funzionality
     source-image:
       height: 800
-      url: http://www.example.org/en_US/main.png
+      url: https://www.example.org/en_US/main.png
       width: 600
     thumbnails:
       - height: 423
         width: 752
-        url: http://www.example.org/en_US/main-large.png
+        url: https://www.example.org/en_US/main-large.png
       - height: 63
         width: 112
-        url: http://www.example.org/en_US/main-small.png]]></programlisting>
+        url: https://www.example.org/en_US/main-small.png
+  - source-video:
+      container: mkv
+      codec: av1
+      height: 900
+      url: https://www.example.org/en_US/screencast.mkv
+      width: 1600]]></programlisting>
 
 					<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
 				</listitem>
@@ -868,7 +919,7 @@ Requires:
 File: DEP-11
 Version: '0.8'
 Origin: chromodoris-main
-MediaBaseUrl: http://metadata.tanglu.org/appstream/media/
+MediaBaseUrl: https://metadata.tanglu.org/appstream/media/
 ---
 Type: desktop-application
 ID: gconf-editor.desktop
@@ -945,7 +996,7 @@ Keywords:
     - bibtex
 ProjectLicense: GPL-2.0
 Url:
-  homepage: http://texstudio.sourceforge.net/
+  homepage: https://texstudio.sourceforge.net/
 Categories:
   - Office
   - Publishing

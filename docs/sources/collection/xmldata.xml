@@ -41,7 +41,7 @@
 			<code>&lt;component&gt;</code> tags of different <literal>type</literal>s as children.
 		</para>
 		<para>
-			Data to fill the different component elements is usually taken from their <ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
+			Data to fill the different component elements is usually taken from their <ulink url="https://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink>
 			and package data. However, if an upstream project ships metainfo files (see <xref linkend="chap-Metadata"/>),
 			values defined there should override data from any other source.
 		</para>
@@ -159,7 +159,7 @@
 					</para>
 					<para>
 						In case of a component of type <literal>desktop-application</literal>, the application name as defined in the application's
-						<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink> is used.
+						<ulink url="https://standards.freedesktop.org/desktop-entry-spec/latest/">desktop file</ulink> is used.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -171,7 +171,7 @@
 						The <code>&lt;project_license/&gt;</code> tag is indicating the license of the component.
 						It should be a <ulink url="https://spdx.org/specifications">SPDX license expression</ulink>.
 						A full list of recognized licenses and their identifiers can be found at the
-						<ulink url="http://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
+						<ulink url="https://spdx.org/licenses/">SPDX OpenSource License Registry</ulink>.
 					</para>
 					<para>
 						You can find more information about this tag at the metainfo description for <xref linkend="tag-project_license"/>.
@@ -287,7 +287,7 @@
 					</para>
 					<programlisting language="XML"><![CDATA[<icon type="stock">gimp</icon>
 <icon type="cached">firefox.png</icon>
-<icon type="remote" width="64" height="64">http://example.com/icons/foobar.png</icon>
+<icon type="remote" width="64" height="64">https://example.com/icons/foobar.png</icon>
 <icon type="local" width="64" height="64">/usr/share/pixmaps/foobar.png</icon>]]></programlisting>
 					<para>
 						Multiple <code><![CDATA[<icon/>]]></code> tags might be combined for one application, for example to define a <literal>stock</literal> icon
@@ -325,7 +325,7 @@
 						This tag can contain one or more <code><![CDATA[<category>]]></code> tags, describing the categories this component
 						is located in. This tag is usually applied to components of type <literal>desktop-application</literal>, although it might be used by others later.
 						This data is usually taken from Desktop files, a list of categories can be found in the
-						<ulink url="http://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
+						<ulink url="https://standards.freedesktop.org/menu-spec/latest/apa.html">Freedesktop menu spec</ulink>.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<categories>
@@ -378,10 +378,10 @@
 					<para>
 						The <literal>screenshots</literal> tag is described for metainfo files in <xref linkend="tag-screenshots"/>. In collection metadata, the tag
 						has the exact same format as in metainfo files.
-						The metadata generator may add an arbitrary number of resized thumbnails though.
+						The metadata generator may add an arbitrary number of resized thumbnails for <literal>image</literal> type screenshots though.
 					</para>
 					<para>
-						Every <code><![CDATA[<screenshot>]]></code> is defined by several images of different sizes.
+						Every static-image <code><![CDATA[<screenshot>]]></code> is defined by several images of different sizes.
 						All images should have their width and hight set as arguments. Also, one of the images should be marked as <code>type="source"</code>,
 						indicating that it is the unscaled version of the screenshot.
 						Images of <code>type="thumbnail"</code> define thumbnails of the screenshot.
@@ -408,16 +408,24 @@
 						on the image shown. The tag is translatable.
 					</para>
 					<para>
-						Every image should have a full remote url set, usually pointing to a cache of images maintained by the repository vendor.
+						For <code><![CDATA[<screenshot>]]></code> tags that contain <literal>video</literal> elements, a collection metadata generator may impose any restrictions to them,
+						including completely removing them from the output, imposing filesize limits, etc.
+						Upstream metainfo files should not rely on the videos being present and must always have a static screenhot for the software component as well.
+					</para>
+					<para>
+						Every image or video should have a full remote url set, usually pointing to a cache of images maintained by the repository vendor.
 						Example:
 					</para>
 					<programlisting language="XML"><![CDATA[<screenshots>
   <screenshot type="default">
     <caption>FooBar showing kitchen-sink functionality.</caption>
     <caption xml:lang="de">FooBar beim Ausführen der Spühlbecken-Funktion.</caption>
-    <image type="source" width="800" height="600">http://www.example.org/en_US/main.png</image>
-    <image type="thumbnail" width="752" height="423">http://www.example.org/en_US/main-large.png</image>
-    <image type="thumbnail" width="112" height="63">http://www.example.org/en_US/main-small.png</image>
+    <image type="source" width="800" height="600">https://www.example.org/en_US/main.png</image>
+    <image type="thumbnail" width="752" height="423">https://www.example.org/en_US/main-large.png</image>
+    <image type="thumbnail" width="112" height="63">https://www.example.org/en_US/main-small.png</image>
+  </screenshot>
+  <screenshot>
+    <video container="mkv" codec="av1" width="800" height="600">https://www.example.org/en_US/screencast.mkv</video>
   </screenshot>
   <screenshot>
      ....
@@ -443,7 +451,7 @@
 						The distributor decides which components should be made compulsory, however it is generally a good idea to follow upstream's recommendations on that matter.
 					</para>
 					<para>
-						A list of all allowed values for this tag is defined in the <ulink url="http://standards.freedesktop.org/menu-spec/latest/apb.html">XDG Menu Specification</ulink>.
+						A list of all allowed values for this tag is defined in the <ulink url="https://standards.freedesktop.org/menu-spec/latest/apb.html">XDG Menu Specification</ulink>.
 						Software center applications will only recognize these values.
 					</para>
 				</listitem>
@@ -566,10 +574,10 @@
 						The <literal>type</literal> property of this tag indicates which 3rd-party software installation solution the bundle belongs to.
 						Currently supported solutions are:
 						<itemizedlist>
-							<listitem><para>The <ulink url="http://people.freedesktop.org/~mak/limba/">Limba Project</ulink>, using the value <code>limba</code>.</para></listitem>
-							<listitem><para><ulink url="http://flatpak.org/">Flatpak</ulink> bundles, using the value <code>flatpak</code>.</para></listitem>
-							<listitem><para><ulink url="http://appimage.org/">AppImageKit</ulink> bundles, using the value <code>appimage</code>.</para></listitem>
-							<listitem><para><ulink url="http://snapcraft.io/">Snappy</ulink> snap bundles, using the value <code>snap</code>.</para></listitem>
+							<listitem><para>The <ulink url="https://people.freedesktop.org/~mak/limba/">Limba Project</ulink>, using the value <code>limba</code>.</para></listitem>
+							<listitem><para><ulink url="https://flatpak.org/">Flatpak</ulink> bundles, using the value <code>flatpak</code>.</para></listitem>
+							<listitem><para><ulink url="https://appimage.org/">AppImageKit</ulink> bundles, using the value <code>appimage</code>.</para></listitem>
+							<listitem><para><ulink url="https://snapcraft.io/">Snappy</ulink> snap bundles, using the value <code>snap</code>.</para></listitem>
 							<listitem><para>Plain and possibly compressed tarballs, using the value <code>tarball</code>.</para></listitem>
 						</itemizedlist>
 					</para>
@@ -666,11 +674,11 @@
       <mimetype>x-scheme-handler/http</mimetype>
       <mimetype>x-scheme-handler/https</mimetype>
     </mimetypes>
-    <url type="homepage">http://www.mozilla.com</url>
+    <url type="homepage">https://www.mozilla.com</url>
     <screenshots>
       <screenshot type="default">
-        <image type="source" width="800" height="600">http://www.awesomedistro.example.org/en_US/firefox.desktop/main.png</image>
-        <image type="thumbnail" width="200" height="150">http://www.awesomedistro.example.org/en_US/firefox.desktop/main-small.png</image>
+        <image type="source" width="800" height="600">https://www.awesomedistro.example.org/en_US/firefox.desktop/main.png</image>
+        <image type="thumbnail" width="200" height="150">https://www.awesomedistro.example.org/en_US/firefox.desktop/main-small.png</image>
       </screenshot>
     </screenshots>
     <provides>
@@ -681,7 +689,7 @@
     <id>org.freedesktop.PulseAudio</id>
     <name>PulseAudio</name>
     <summary>The PulseAudio sound server</summary>
-    <url type="homepage">http://www.freedesktop.org/wiki/Software/PulseAudio/</url>
+    <url type="homepage">https://www.freedesktop.org/wiki/Software/PulseAudio/</url>
     <project_license>GPL-2.0+</project_license>
     <provides>
       <library>libpulse-simple.so.0</library>

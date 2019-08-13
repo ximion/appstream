@@ -849,14 +849,20 @@
 		<listitem>
 		<para>
 			Visual components (like fonts or graphical applications) may choose to add one or multiple screenshots to their metadata.
+			Screenshots can be either a video or a static image.
 		</para>
 		<para>
 			The <code>&lt;screenshots/&gt;</code> tag contains multiple <code>&lt;screenshot/&gt;</code> children, where at least one of them must have the property
 			<code>type="default"</code> to indicate the primary screenshot of the software. Every <code>&lt;screenshot/&gt;</code> tag must have at least
-			one <code>&lt;image/&gt;</code> child.
+			one <code>&lt;image/&gt;</code> or <code>&lt;video/&gt;</code> child, but never an <literal>image</literal> and <literal>video</literal> at the same time.
+			Also, screenshots containing videos must not be the default screenshot.
 		</para>
 		<para>
-			The value of the <code>&lt;image/&gt;</code> tag is a direct HTTP/HTTPS/FTP URL to a screenshot uploaded to a public location on the web.
+			The value of the <code>&lt;image/&gt;</code> tag is a direct HTTP/HTTPS URL to a screenshot uploaded to a public location on the web.
+			Images should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
+			images where a lossy format like JPEG may compress better.
+		</para>
+		<para>
 			The <code>&lt;image/&gt;</code> tag may have the following properties:
 			<itemizedlist>
 				<listitem>
@@ -888,13 +894,56 @@
 			</itemizedlist>
 		</para>
 		<para>
+			The value of the <code>&lt;video/&gt;</code> tag is a direct HTTP/HTTPS URL to a video uploaded to a public location on the web. The video must be in a
+			<ulink url="https://www.matroska.org/">Matroska (.mkv)</ulink> or <ulink url="https://www.webmproject.org/">WebM</ulink> container and use either the
+			<ulink url="https://www.webmproject.org/vp9/">VP9</ulink> or <ulink url="http://aomedia.org/av1-features/">AV1</ulink> codec.
+			The video should ideally work without any audio, but if audio is needed, the <ulink url="https://opus-codec.org/">Opus</ulink> codec should be used.
+			Software centers may still play the video without any sound though. Additionally, AppStream metadata repositories (like in distributions such as Fedora and Debian)
+			may impose size limitations to video files delivered by their CDN, so it is recommended to keep the video file size below 10MiB.
+			There is also a chance that software centers do not display any video at all, so a video must never be in a default screenshot.
+		</para>
+		<para>
+			The <code>&lt;video/&gt;</code> tag may have the following properties:
+			<itemizedlist>
+				<listitem>
+					<para><code>container</code></para>
+					<para>
+						The video container used, can be <code>webm</code> or <code>mkv</code>.
+					</para>
+				</listitem>
+				<listitem>
+					<para><code>codec</code></para>
+					<para>
+						The video codec used, can be <code>av1</code> or <code>vp9</code>.
+					</para>
+				</listitem>
+				<listitem>
+					<para><code>width</code></para>
+					<para>
+						The width of the video in pixels.
+					</para>
+				</listitem>
+				<listitem>
+					<para><code>height</code></para>
+					<para>
+						The height of the video in pixels.
+					</para>
+				</listitem>
+				<listitem>
+					<para><code>xml:lang</code></para>
+					<para>
+						The language this video is translated in. This property should only be present if there are multiple videos with
+						different locales present.
+					</para>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para>
 			Optionally, a <code>&lt;screenshot/&gt;</code> tag may have a translatable <code>&lt;caption/&gt;</code> child, defining a short (ideally not more than 256 characters)
 			description of what the user can see on the referenced screenshot.
 		</para>
 		<para>
-			Ideally, all screenshots should have a 16:9 aspect ratio, and should have a width that is no smaller than 620 pixels.
-			They should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
-			images where a lossy format like JPEG may compress better.
+			Ideally, all image screenshots as well as videos should have a 16:9 aspect ratio, and should have a width that is no smaller than 620 pixels.
 		</para>
 		<para>
 			Example:
@@ -907,6 +956,9 @@
   <screenshot>
     <caption>Foobar showing the frobnicate functionality.</caption>
     <image type="source" width="1600" height="900">https://example.com/foobar/screenshot-2.png</image>
+  </screenshot>
+  <screenshot>
+    <video codec="av1" width="1600" height="900">https://example.com/foobar/screencast.mkv</video>
   </screenshot>
  </screenshots>]]></programlisting>
 
