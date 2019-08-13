@@ -38,17 +38,17 @@ create_issue_info_print_string (AsValidatorIssue *issue)
 	const AsIssueSeverity severity = as_validator_issue_get_severity (issue);
 	const gchar *tag = as_validator_issue_get_tag (issue);
 	const gchar *cid = as_validator_issue_get_cid (issue);
-	const gchar line = as_validator_issue_get_line (issue);
 	const gchar *hint = as_validator_issue_get_hint (issue);
+	glong line = as_validator_issue_get_line (issue);
 
 	if (cid == NULL) {
 		if (line >= 0)
-			location = g_strdup_printf ("~:%i", line);
+			location = g_strdup_printf ("~:%li", line);
 		else
 			location = g_strdup ("~:~");
 	} else {
 		if (line >= 0)
-			location = g_strdup_printf ("%s:%i", cid, line);
+			location = g_strdup_printf ("%s:%li", cid, line);
 		else
 			location = g_strdup_printf ("%s:~", cid);
 	}

@@ -337,7 +337,7 @@ as_xml_add_description_node_helper (AsContext *ctx, xmlNode *root, xmlNode **des
 	doc = xmlReadMemory (xmldata, strlen (xmldata),
 			     NULL,
 			     "utf-8",
-			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET | XML_PARSE_BIG_LINES);
 	if (doc == NULL) {
 		ret = FALSE;
 		goto out;

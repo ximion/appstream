@@ -168,7 +168,7 @@ as_validator_add_issue (AsValidator *validator, xmlNode *node, const gchar *tag,
 		as_validator_issue_set_cid (issue, as_component_get_id (priv->current_cpt));
 
 	if (node != NULL)
-		as_validator_issue_set_line (issue, node->line);
+		as_validator_issue_set_line (issue, xmlGetLineNo (node));
 
 	location = as_validator_issue_get_location (issue);
 	id_str = g_strdup_printf ("%s/%s/%s",

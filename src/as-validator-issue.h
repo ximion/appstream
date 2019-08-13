@@ -145,9 +145,9 @@ const gchar		*as_validator_issue_get_filename (AsValidatorIssue *issue);
 void			as_validator_issue_set_filename (AsValidatorIssue *issue,
 							 const gchar *fname);
 
-gint			as_validator_issue_get_line (AsValidatorIssue *issue);
+glong			as_validator_issue_get_line (AsValidatorIssue *issue);
 void			as_validator_issue_set_line (AsValidatorIssue *issue,
-						     gint line);
+						     glong line);
 
 gchar			*as_validator_issue_get_location (AsValidatorIssue *issue);
 

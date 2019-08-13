@@ -41,7 +41,7 @@ typedef struct
 
 	gchar		*fname;
 	gchar		*cid;
-	gint		line;
+	glong		line;
 
 	AsIssueKind	kind; /* deprecated */
 } AsValidatorIssuePrivate;
@@ -306,7 +306,7 @@ as_validator_issue_set_cid (AsValidatorIssue *issue, const gchar *cid)
  *
  * Returns: the line number where this issue occured, or -1 if unknown.
  **/
-gint
+glong
 as_validator_issue_get_line (AsValidatorIssue *issue)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
@@ -321,7 +321,7 @@ as_validator_issue_get_line (AsValidatorIssue *issue)
  * Sets the line number where this issue was found.
  **/
 void
-as_validator_issue_set_line (AsValidatorIssue *issue, gint line)
+as_validator_issue_set_line (AsValidatorIssue *issue, glong line)
 {
 	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
 	priv->line = line;
@@ -385,7 +385,7 @@ as_validator_issue_get_location (AsValidatorIssue *issue)
 		g_string_append_printf (location, ":%s", priv->cid);
 
 	if (priv->line >= 0) {
-		g_string_append_printf (location, ":%i", priv->line);
+		g_string_append_printf (location, ":%li", priv->line);
 	}
 
 	return g_string_free (location, FALSE);
