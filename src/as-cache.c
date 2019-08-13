@@ -1353,9 +1353,11 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 		}
 	}
 
-	/* add addon/extension mapping */
+	/* add addon/extension mapping for quick lookup of addons */
 	extends = as_component_get_extends (cpt);
-	if ((extends != NULL) && (extends->len > 0)) {
+	if ((as_component_get_kind (cpt) == AS_COMPONENT_KIND_ADDON) &&
+	    (extends != NULL) &&
+	    (extends->len > 0)) {
 		for (guint i = 0; i < extends->len; i++) {
 			g_autofree gchar *extended_cdid = NULL;
 			g_autofree guint8 *hash_list = NULL;
@@ -1368,10 +1370,10 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 								extended_cid);
 
 			hash_list = lmdb_val_memdup (as_cache_txn_get_value (cache,
-									   txn,
-									   priv->db_addons,
-									   extended_cdid,
-									   &tmp_error), &hash_list_len);
+									     txn,
+									     priv->db_addons,
+									     extended_cdid,
+									     &tmp_error), &hash_list_len);
 			if (tmp_error != NULL) {
 				g_propagate_error (error, tmp_error);
 				goto fail;
@@ -1489,8 +1491,9 @@ as_cache_component_from_dval (AsCache *cache, MDB_txn *txn, MDB_val dval, GError
 		return NULL;
 	}
 
-	/* find addons (if there are any) */
-	if (!as_cache_register_addons_for_component (cache, txn, cpt, error)) {
+	/* find addons (if there are any) - ensure addons don't have addons themselves */
+	if ((as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON) &&
+	    !as_cache_register_addons_for_component (cache, txn, cpt, error)) {
 		xmlFreeDoc (doc);
 		return NULL;
 	}
@@ -1600,7 +1603,7 @@ as_cache_register_addons_for_component (AsCache *cache, MDB_txn *txn, AsComponen
 	g_assert_cmpint (dval.mv_size % AS_CACHE_CHECKSUM_LEN, ==, 0);
 	for (gsize i = 0; i < dval.mv_size; i += AS_CACHE_CHECKSUM_LEN) {
 		const guint8 *chash = dval.mv_data + i;
-		AsComponent *addon;
+		g_autoptr(AsComponent) addon = NULL;
 
 		/* ignore addon that extends itself to prevent infinite recursion */
 		if (memcmp (chash, cpt_checksum, AS_CACHE_CHECKSUM_LEN) == 0)
@@ -1611,7 +1614,11 @@ as_cache_register_addons_for_component (AsCache *cache, MDB_txn *txn, AsComponen
 			g_propagate_prefixed_error (error, tmp_error, "Failed to retrieve addon component data: ");
 			return FALSE;
 		}
-		if (addon != NULL)
+
+		/* ensure we only link addons to the component directly, to prevent loops in refcounting and annoying
+		 * dependency graph issues.
+		 * Frontends can get their non-addon extensions via the "extends" property of #AsComponent and a pool query instead */
+		if ((addon != NULL) && (as_component_get_kind (addon) == AS_COMPONENT_KIND_ADDON))
 			as_component_add_addon (cpt, addon);
 	}
 
