@@ -49,7 +49,7 @@ struct _AsProvidedClass
  * @AS_PROVIDED_KIND_UNKNOWN:		Unknown kind
  * @AS_PROVIDED_KIND_LIBRARY:		A shared library
  * @AS_PROVIDED_KIND_BINARY:		A binary installed into a directory in PATH
- * @AS_PROVIDED_KIND_MIMETYPE:		Provides a handler for a mimetype
+ * @AS_PROVIDED_KIND_MEDIATYPE:		Provides a handler for a mimetype
  * @AS_PROVIDED_KIND_FONT:		A font
  * @AS_PROVIDED_KIND_MODALIAS:		A modalias
  * @AS_PROVIDED_KIND_PYTHON_2:		A Python2 module
@@ -66,7 +66,7 @@ typedef enum  {
 	AS_PROVIDED_KIND_UNKNOWN,
 	AS_PROVIDED_KIND_LIBRARY,
 	AS_PROVIDED_KIND_BINARY,
-	AS_PROVIDED_KIND_MIMETYPE,
+	AS_PROVIDED_KIND_MEDIATYPE,
 	AS_PROVIDED_KIND_FONT,
 	AS_PROVIDED_KIND_MODALIAS,
 	AS_PROVIDED_KIND_PYTHON_2,
@@ -79,6 +79,8 @@ typedef enum  {
 	/*< private >*/
 	AS_PROVIDED_KIND_LAST
 } AsProvidedKind;
+
+#define AS_PROVIDED_KIND_MIMETYPE AS_PROVIDED_KIND_MEDIATYPE
 
 const gchar		*as_provided_kind_to_string (AsProvidedKind kind);
 AsProvidedKind		as_provided_kind_from_string (const gchar *kind_str);

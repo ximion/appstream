@@ -3323,7 +3323,11 @@ as_component_load_provides_from_xml (AsComponent *cpt, xmlNode *node)
 		if (content == NULL)
 			continue;
 
-		if (g_strcmp0 (node_name, "library") == 0) {
+		if (g_strcmp0 (node_name, "id") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_ID, content);
+		} else if (g_strcmp0 (node_name, "mediatype") == 0) {
+			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MEDIATYPE, content);
+		} else if (g_strcmp0 (node_name, "library") == 0) {
 			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_LIBRARY, content);
 		} else if (g_strcmp0 (node_name, "binary") == 0) {
 			as_component_add_provided_item (cpt, AS_PROVIDED_KIND_BINARY, content);
@@ -3801,6 +3805,11 @@ as_component_xml_serialize_provides (AsComponent *cpt, xmlNode *cnode)
 		switch (as_provided_get_kind (prov)) {
 			case AS_PROVIDED_KIND_MIMETYPE:
 				/* we already handled those */
+				break;
+			case AS_PROVIDED_KIND_ID:
+				as_xml_add_node_list (node, NULL,
+							"id",
+							items);
 				break;
 			case AS_PROVIDED_KIND_LIBRARY:
 				as_xml_add_node_list (node, NULL,
@@ -4294,7 +4303,11 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 	for (n = node->children; n != NULL; n = n->next) {
 		const gchar *key = as_yaml_node_get_key (n);
 
-		if (g_strcmp0 (key, "libraries") == 0) {
+		if (g_strcmp0 (key, "ids") == 0) {
+			for (sn = n->children; sn != NULL; sn = sn->next) {
+				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_ID, (gchar*) sn->data);
+			}
+		} else if (g_strcmp0 (key, "libraries") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_LIBRARY, (gchar*) sn->data);
 			}
@@ -4347,7 +4360,7 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 			for (sn = n->children; sn != NULL; sn = sn->next) {
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_PYTHON, (gchar*) sn->data);
 			}
-		} else if (g_strcmp0 (key, "mimetypes") == 0) {
+		} else if ((g_strcmp0 (key, "mimetypes") == 0) || (g_strcmp0 (key, "mediatypes") == 0)) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_MIMETYPE, (gchar*) sn->data);
 			}
@@ -4720,6 +4733,11 @@ as_component_yaml_emit_provides (AsComponent *cpt, yaml_emitter_t *emitter)
 
 		kind = as_provided_get_kind (prov);
 		switch (kind) {
+			case AS_PROVIDED_KIND_ID:
+				as_yaml_emit_sequence (emitter,
+							"ids",
+							items);
+				break;
 			case AS_PROVIDED_KIND_LIBRARY:
 				as_yaml_emit_sequence (emitter,
 							"libraries",
