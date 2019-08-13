@@ -949,6 +949,7 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 			continue;
 		node_name = (const gchar*) iter->name;
 		content = as_xml_get_node_value (iter);
+		g_strstrip (content);
 
 		item_kind = as_relation_item_kind_from_string (node_name);
 		if (item_kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
@@ -963,6 +964,13 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 						"relation-item-no-value",
 						NULL);
 			continue;
+		}
+
+		/* check for circular relation */
+		if (g_strcmp0 (content, as_component_get_id (cpt)) == 0) {
+			as_validator_add_issue (validator, iter,
+						"circular-component-relation",
+						NULL);
 		}
 
 		switch (item_kind) {
@@ -1001,6 +1009,52 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 
 		if ((kind == AS_RELATION_KIND_REQUIRES) && (item_kind == AS_RELATION_ITEM_KIND_MEMORY))
 			as_validator_add_issue (validator, iter, "relation-memory-in-requires", NULL);
+	}
+}
+
+/**
+ * as_validator_check_provides:
+ **/
+static void
+as_validator_check_provides (AsValidator *validator, xmlNode *node, AsComponent *cpt)
+{
+	xmlNode *iter;
+
+	for (iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+		g_autofree gchar *node_content = NULL;
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		node_name = (const gchar*) iter->name;
+		node_content = as_xml_get_node_value (iter);
+		g_strstrip (node_content);
+		if (as_str_empty (node_content)) {
+			as_validator_add_issue (validator, iter,
+						"tag-empty",
+						"%s", node_name);
+		}
+
+		if (g_strcmp0 (node_name, "library") == 0) {
+		} else if (g_strcmp0 (node_name, "binary") == 0) {
+		} else if (g_strcmp0 (node_name, "font") == 0) {
+		} else if (g_strcmp0 (node_name, "modalias") == 0) {
+		} else if (g_strcmp0 (node_name, "firmware") == 0) {
+		} else if (g_strcmp0 (node_name, "python2") == 0) {
+		} else if (g_strcmp0 (node_name, "python3") == 0) {
+		} else if (g_strcmp0 (node_name, "dbus") == 0) {
+		} else if (g_strcmp0 (node_name, "mediatype") == 0) {
+		} else if (g_strcmp0 (node_name, "id") == 0) {
+			/* check for circular relation */
+			if (g_strcmp0 (node_content, as_component_get_id (cpt)) == 0) {
+				as_validator_add_issue (validator, iter,
+							"circular-component-relation",
+							NULL);
+			}
+		} else {
+			as_validator_add_issue (validator, iter,
+						"unknown-provides-item-type",
+						"%s", node_name);
+		}
 	}
 }
 
@@ -1242,6 +1296,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_check_children_quick (validator, iter, "mimetype", FALSE);
 		} else if (g_strcmp0 (node_name, "provides") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
+			as_validator_check_provides (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "screenshots") == 0) {
 			as_validator_check_screenshots (validator, iter, cpt);
 		} else if (g_strcmp0 (node_name, "project_license") == 0) {
@@ -1280,6 +1335,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				as_validator_add_issue (validator, iter, "launchable-unknown-type", prop);
 
 		} else if (g_strcmp0 (node_name, "extends") == 0) {
+			/* check for circular extends */
+			if (g_strcmp0 (node_content, as_component_get_id (cpt)) == 0) {
+				as_validator_add_issue (validator, iter,
+							"circular-component-relation",
+							NULL);
+			}
+
 		} else if (g_strcmp0 (node_name, "bundle") == 0) {
 			g_autofree gchar *prop = as_validator_check_type_property (validator, cpt, iter);
 			if (prop != NULL && as_bundle_kind_from_string (prop) == AS_BUNDLE_KIND_UNKNOWN)

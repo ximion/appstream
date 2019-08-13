@@ -201,7 +201,8 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "relation-item-no-value",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("A requires/recommends item requires a value to denote a valid relation.")
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("A 'requires' or 'recommends' item requires a value to denote a valid relation.")
 	},
 
 	{ "relation-item-has-version",
@@ -565,6 +566,17 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. "
 	     "Please ensure the date string is valid."),
+	},
+
+	{ "circular-component-relation",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing "
+	     "with this metadata."),
+	},
+
+	{ "unknown-provides-item-type",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("The type of the item that the component provides is not known to AppStream."),
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
