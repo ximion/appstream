@@ -561,6 +561,12 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "Sorting releases also increases overall readability of the metainfo file."),
 	},
 
+	{ "invalid-iso8601-date",
+	  AS_ISSUE_IMPORTANCE_WARNING,
+	  N_("The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. "
+	     "Please ensure the date string is valid."),
+	},
+
 	{ NULL, AS_ISSUE_IMPORTANCE_UNKNOWN, NULL }
 };
 
