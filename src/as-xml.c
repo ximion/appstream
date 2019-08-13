@@ -337,7 +337,7 @@ as_xml_add_description_node_helper (AsContext *ctx, xmlNode *root, xmlNode **des
 	doc = xmlReadMemory (xmldata, strlen (xmldata),
 			     NULL,
 			     "utf-8",
-			     XML_PARSE_NOBLANKS | XML_PARSE_NONET | XML_PARSE_BIG_LINES);
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
 	if (doc == NULL) {
 		ret = FALSE;
 		goto out;
@@ -571,7 +571,7 @@ libxml_generic_error (gchar **error_str_ptr, const char *format, ...)
 	va_end (arg_ptr);
 
 	g_free (error_str);
-	error_str = g_string_free (str, FALSE);
+	*error_str_ptr = g_string_free (str, FALSE);
 	g_mutex_unlock (&mutex);
 }
 
@@ -616,7 +616,7 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 	doc = xmlReadMemory (data, len,
 			     NULL,
 			     "utf-8",
-			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+			     XML_PARSE_NOBLANKS | XML_PARSE_NONET | XML_PARSE_BIG_LINES);
 	if (doc == NULL) {
 		if (error_msg_str == NULL) {
 			g_set_error (error,
