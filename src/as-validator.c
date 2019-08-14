@@ -867,11 +867,10 @@ static void
 as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsComponent *cpt)
 {
 	xmlNode *iter;
-	as_validator_check_children_quick (validator, node, "screenshot", FALSE);
-
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		xmlNode *iter2;
 		gboolean image_found = FALSE;
+		gboolean video_found = FALSE;
 		gboolean caption_found = FALSE;
 
 		if (iter->type != XML_ELEMENT_NODE)
@@ -905,8 +904,56 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 				if (!as_validate_is_secure_url (image_url)) {
 					as_validator_add_issue (validator, iter2,
-								"screenshot-image-url-insecure",
+								"screenshot-media-url-insecure",
 								image_url);
+				}
+
+			} else if (g_strcmp0 (node_name, "video") == 0) {
+				g_autofree gchar *codec_str = NULL;
+				g_autofree gchar *container_str = NULL;
+				g_autofree gchar *video_url_basename = NULL;
+				g_autofree gchar *video_url_base_lower = NULL;
+				g_autofree gchar *video_url = (gchar*) xmlNodeGetContent (iter2);
+
+				video_found = TRUE;
+
+				if (!as_validator_web_url_exists (validator, video_url)) {
+					as_validator_add_issue (validator, iter2,
+							"screenshot-video-not-found",
+							video_url);
+				}
+
+				if (!as_validate_is_secure_url (video_url)) {
+					as_validator_add_issue (validator, iter2,
+								"screenshot-media-url-insecure",
+								video_url);
+				}
+
+				codec_str = (gchar*) xmlGetProp (iter2, (xmlChar*) "codec");
+				if (codec_str == NULL) {
+					as_validator_add_issue (validator, iter2, "screenshot-video-codec-missing", NULL);
+				} else {
+					AsVideoCodec codec = as_video_codec_from_string (codec_str);
+					if (codec == AS_VIDEO_CODEC_UNKNOWN)
+						as_validator_add_issue (validator, iter2, "screenshot-video-codec-invalid", codec_str);
+				}
+
+				container_str = (gchar*) xmlGetProp (iter2, (xmlChar*) "container");
+				if (container_str == NULL) {
+					as_validator_add_issue (validator, iter2, "screenshot-video-container-missing", NULL);
+				} else {
+					AsVideoContainer container = as_video_container_from_string (container_str);
+					if (container == AS_VIDEO_CONTAINER_UNKNOWN)
+						as_validator_add_issue (validator, iter2, "screenshot-video-container-invalid", container_str);
+				}
+
+				video_url_basename = g_path_get_basename (video_url);
+				video_url_base_lower = g_utf8_strdown (video_url_basename, -1);
+				if (g_strstr_len (video_url_base_lower, -1, ".") != NULL) {
+					if (!g_str_has_suffix (video_url_base_lower, ".mkv") &&
+					    !g_str_has_suffix (video_url_base_lower, ".webm")) {
+						as_validator_add_issue (validator, iter2, "screenshot-video-file-wrong-container", video_url_basename);
+					}
 				}
 
 			} else if (g_strcmp0 (node_name, "caption") == 0) {
@@ -921,8 +968,10 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 			}
 		}
 
-		if (!image_found)
-			as_validator_add_issue (validator, iter, "screenshot-no-images", NULL);
+		if (!image_found && !video_found)
+			as_validator_add_issue (validator, iter, "screenshot-no-media", NULL);
+		else if (image_found && video_found)
+			as_validator_add_issue (validator, iter, "screenshot-mixed-images-videos", NULL);
 
 		if (!caption_found)
 			as_validator_add_issue (validator, iter, "screenshot-no-caption", NULL);

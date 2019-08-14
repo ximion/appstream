@@ -179,19 +179,63 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("Unable to reach the screenshot image on its remote location - does the image exist?")
 	},
 
-	{ "screenshot-image-url-insecure",
-	  AS_ISSUE_SEVERITY_INFO,
-	  N_("Consider using a secure (HTTPS) URL to reference this screenshot image.")
+	{ "screenshot-video-not-found",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("Unable to reach the screenshot video on its remote location - does the video file exist?")
 	},
 
-	{ "screenshot-no-images",
+	{ "screenshot-media-url-insecure",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("Consider using a secure (HTTPS) URL to reference this screenshot image or video.")
+	},
+
+	{ "screenshot-no-media",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("A screenshot must contain at least one image in order to be useful. Please add an <image/> to it.")
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it.")
+	},
+
+	{ "screenshot-mixed-images-videos",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively "
+	     "for either static images or for videos.")
 	},
 
 	{ "screenshot-no-caption",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
 	  N_("The screenshot does not have a caption text. Consider adding one.")
+	},
+
+	{ "screenshot-video-codec-missing",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("The screenshot video does not specify which video codec was used in a 'codec' property.")
+	},
+
+	{ "screenshot-video-container-missing",
+	  AS_ISSUE_SEVERITY_PEDANTIC,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("The screenshot video does not specify which container format was used in a 'container' property.")
+	},
+
+	{ "screenshot-video-codec-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("The selected video codec is not supported by AppStream and software centers may not be able to play the video. "
+	     "Only the AV1 and VP9 codecs are currently supported, using 'av1' and 'vp9' as values for the 'codec' property.")
+	},
+
+	{ "screenshot-video-container-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("The selected video container format is not supported by AppStream and software centers may not be able to play the video. "
+	     "Only the WebM and Matroska video containers are currently supported, using 'webm' and 'mkv' as values for the 'container' property.")
+	},
+
+	{ "screenshot-video-file-wrong-container",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced "
+	     "video does not belong to either of these formats.")
 	},
 
 	{ "relation-invalid-tag",
