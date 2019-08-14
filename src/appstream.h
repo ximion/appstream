@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -36,6 +36,7 @@ extern "C" {
 #include <as-icon.h>
 #include <as-screenshot.h>
 #include <as-image.h>
+#include <as-video.h>
 #include <as-bundle.h>
 #include <as-release.h>
 #include <as-artifact.h>
