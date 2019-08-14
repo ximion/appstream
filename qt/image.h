@@ -33,10 +33,10 @@ namespace AppStream {
 class ImageData;
 
 /**
- * A reference to a image that can be accessed via a URL
+ * A reference to an image that can be accessed via a URL
  *
  * This class doesn't contain any image data, but only a reference to
- * a url and the expected size for the image.
+ * an url and the expected size for the image.
  *
  * "expected size" means that the data is read out from the AppStream metadata.
  * Discrepancies between the data and the actual data are very rare, but might happen.

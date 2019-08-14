@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014 Sune Vuorela <sune@vuorela.dk>
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -26,6 +26,7 @@
 #include <QDebug>
 #include "chelpers.h"
 #include "image.h"
+#include "video.h"
 
 using namespace AppStream;
 
@@ -90,6 +91,11 @@ bool Screenshot::isDefault() const
     return as_screenshot_get_kind(d->m_scr) == AS_SCREENSHOT_KIND_DEFAULT;
 }
 
+Screenshot::MediaKind Screenshot::mediaKind() const
+{
+    return Screenshot::MediaKind(as_screenshot_get_media_kind(d->screenshot()));
+}
+
 QString Screenshot::caption() const
 {
     return valueWrap(as_screenshot_get_caption(d->m_scr));
@@ -109,6 +115,19 @@ QList<Image> Screenshot::images() const
     for (uint i = 0; i < images->len; i++) {
         auto img = AS_IMAGE (g_ptr_array_index (images, i));
         res.append(Image(img));
+    }
+    return res;
+}
+
+QList<Video> Screenshot::videos() const
+{
+    QList<Video> res;
+
+    auto videos = as_screenshot_get_videos(d->m_scr);
+    res.reserve(videos->len);
+    for (uint i = 0; i < videos->len; i++) {
+        auto vid = AS_VIDEO (g_ptr_array_index (videos, i));
+        res.append(Video(vid));
     }
     return res;
 }

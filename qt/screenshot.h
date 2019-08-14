@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2014 Sune Vuorela <sune@vuorela.dk>
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -21,6 +21,7 @@
 #ifndef APPSTREAMQT_SCREENSHOT_H
 #define APPSTREAMQT_SCREENSHOT_H
 
+#include <QObject>
 #include <QSharedDataPointer>
 #include "appstreamqt_export.h"
 
@@ -32,6 +33,7 @@ struct _AsScreenshot;
 namespace AppStream {
 
 class Image;
+class Video;
 class ScreenshotData;
 
 /**
@@ -40,7 +42,15 @@ class ScreenshotData;
  */
 
 class APPSTREAMQT_EXPORT Screenshot {
+Q_GADGET
 public:
+    enum MediaKind {
+        MediaKindUnknown,
+        MediaKindImage,
+        MediaKindVideo
+    };
+    Q_ENUM(MediaKind)
+
     Screenshot();
     Screenshot(_AsScreenshot *scr);
     Screenshot(const Screenshot& other);
@@ -59,9 +69,19 @@ public:
     bool isDefault() const;
 
     /**
+     * \return the kind of media (image or video) that this screenshot consists of
+     */
+    MediaKind mediaKind() const;
+
+    /**
      * \return the images for this screenshot
      */
     QList<AppStream::Image> images() const;
+
+    /**
+     * \return the videos for this screenshot
+     */
+    QList<AppStream::Video> videos() const;
 
     /**
      * \return caption for this image or a null QString if no caption
