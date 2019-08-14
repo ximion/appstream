@@ -427,7 +427,7 @@
 						<term>source-image</term>
 						<listitem>
 							<para>
-								Describes the source image for this screenshot. If this field is present, <literal>source-video</literal> must not be present as well.
+								Describes the source image for this screenshot. If this field is present, <literal>videos</literal> must not be present as well.
 								The field valus is a dictionary with the following keys:
 							</para>
 							<itemizedlist>
@@ -464,17 +464,17 @@
 							<para>
 								A list of an arbitrary number of screenshots. All screenshots are of type <emphasis>dict</emphasis> and must contain the same keys as described for
 								<literal>source-image</literal>.
-								This key must not be present if <literal>source-video</literal> is present.
+								This key must not be present if <literal>videos</literal> is present.
 							</para>
 							<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 
 						<varlistentry>
-						<term>source-video</term>
+						<term>videos</term>
 						<listitem>
 							<para>
-								Describes the video for this screenshot. If this field is present, <literal>source-image</literal> must not be present as well.
+								Contains a list of video dicts for this screenshot. If this field is present, <literal>source-image</literal> must not be present as well.
 								The field valus is a dictionary with the following keys:
 							</para>
 							<itemizedlist>
@@ -509,7 +509,7 @@
 									</para>
 								</listitem>
 							</itemizedlist>
-							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 

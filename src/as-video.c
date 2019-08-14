@@ -452,6 +452,7 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, GNode *node, GError **e
 	AsVideoPrivate *priv = GET_PRIVATE (video);
 	GNode *n;
 
+	as_video_set_locale (video, "C");
 	for (n = node->children; n != NULL; n = n->next) {
 		const gchar *key = as_yaml_node_get_key (n);
 		const gchar *value = as_yaml_node_get_value (n);

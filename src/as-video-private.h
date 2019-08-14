@@ -18,8 +18,8 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AS_IMAGE_PRIVATE_H
-#define __AS_IMAGE_PRIVATE_H
+#ifndef __AS_VIDEO_PRIVATE_H
+#define __AS_VIDEO_PRIVATE_H
 
 #include "as-video.h"
 #include "as-xml.h"
@@ -47,4 +47,4 @@ void		as_video_emit_yaml (AsVideo *video,
 #pragma GCC visibility pop
 G_END_DECLS
 
-#endif /* __AS_IMAGE_PRIVATE_H */
+#endif /* __AS_VIDEO_PRIVATE_H */

@@ -993,6 +993,191 @@ test_yaml_read_agreements (void)
 	g_assert_cmpstr (as_agreement_section_get_name (sect), ==, "Einführung");
 }
 
+static const gchar *yamldata_screenshots = "---\n"
+						"File: DEP-11\n"
+						"Version: '0.12'\n"
+						"---\n"
+						"Type: generic\n"
+						"ID: org.example.ScreenshotsTest\n"
+						"Screenshots:\n"
+						"- default: true\n"
+						"  caption:\n"
+						"    de_DE: Das Hauptfenster, welches irgendwas zeigt\n"
+						"    C: The main window displaying a thing\n"
+						"  thumbnails:\n"
+						"  - url: https://example.org/alpha_small.png\n"
+						"    width: 800\n"
+						"    height: 600\n"
+						"  source-image:\n"
+						"    url: https://example.org/alpha.png\n"
+						"    width: 1916\n"
+						"    height: 1056\n"
+						"- caption:\n"
+						"    C: A screencast of this app\n"
+						"  videos:\n"
+						"  - codec: av1\n"
+						"    container: mkv\n"
+						"    url: https://example.org/screencast.mkv\n"
+						"    width: 1916\n"
+						"    height: 1056\n"
+						"  - codec: av1\n"
+						"    container: mkv\n"
+						"    url: https://example.org/screencast_de.mkv\n"
+						"    width: 1916\n"
+						"    height: 1056\n"
+						"    lang: de_DE\n";
+
+/**
+ * test_yaml_write_screenshots:
+ *
+ * Test writing the Screenshots field.
+ */
+static void
+test_yaml_write_screenshots (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	g_autoptr(AsScreenshot) scr1 = NULL;
+	g_autoptr(AsScreenshot) scr2 = NULL;
+	AsImage *img;
+	AsVideo *vid;
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.ScreenshotsTest");
+
+	scr1 = as_screenshot_new ();
+	as_screenshot_set_kind (scr1, AS_SCREENSHOT_KIND_DEFAULT);
+	as_screenshot_set_caption (scr1, "The main window displaying a thing", "C");
+	as_screenshot_set_caption (scr1, "Das Hauptfenster, welches irgendwas zeigt", "de_DE");
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_SOURCE);
+	as_image_set_width (img, 1916);
+	as_image_set_height (img, 1056);
+	as_image_set_url (img, "https://example.org/alpha.png");
+	as_screenshot_add_image (scr1, img);
+	g_object_unref (img);
+
+	img = as_image_new ();
+	as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
+	as_image_set_width (img, 800);
+	as_image_set_height (img, 600);
+	as_image_set_url (img, "https://example.org/alpha_small.png");
+	as_screenshot_add_image (scr1, img);
+	g_object_unref (img);
+
+	scr2 = as_screenshot_new ();
+	as_screenshot_set_caption (scr2, "A screencast of this app", "C");
+	vid = as_video_new ();
+	as_video_set_codec (vid, AS_VIDEO_CODEC_AV1);
+	as_video_set_container (vid, AS_VIDEO_CONTAINER_MKV);
+	as_video_set_width (vid, 1916);
+	as_video_set_height (vid, 1056);
+	as_video_set_url (vid, "https://example.org/screencast.mkv");
+	as_screenshot_add_video (scr2, vid);
+	g_object_unref (vid);
+
+	vid = as_video_new ();
+	as_video_set_codec (vid, AS_VIDEO_CODEC_AV1);
+	as_video_set_container (vid, AS_VIDEO_CONTAINER_MKV);
+	as_video_set_locale (vid, "de_DE");
+	as_video_set_width (vid, 1916);
+	as_video_set_height (vid, 1056);
+	as_video_set_url (vid, "https://example.org/screencast_de.mkv");
+	as_screenshot_add_video (scr2, vid);
+	g_object_unref (vid);
+
+	as_component_add_screenshot (cpt, scr1);
+	as_component_add_screenshot (cpt, scr2);
+
+	/* test collection serialization */
+	res = as_yaml_test_serialize (cpt);
+	g_assert (as_test_compare_lines (res, yamldata_screenshots));
+}
+
+/**
+ * test_yaml_read_screenshots:
+ *
+ * Test if reading the Screenshots field works.
+ */
+static void
+test_yaml_read_screenshots (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	GPtrArray *screenshots;
+	AsScreenshot *scr1;
+	AsScreenshot *scr2;
+	GPtrArray *images;
+	GPtrArray *videos;
+	AsImage *img;
+	AsVideo *vid;
+
+	cpt = as_yaml_test_read_data (yamldata_screenshots, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotsTest");
+
+	screenshots = as_component_get_screenshots (cpt);
+	g_assert_cmpint (screenshots->len, ==, 2);
+
+	scr1 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 0));
+	scr2 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 1));
+
+	/* screenshot 1 */
+	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
+	g_assert_cmpint (as_screenshot_get_media_kind (scr1), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
+	as_screenshot_set_active_locale (scr1, "C");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "The main window displaying a thing");
+	as_screenshot_set_active_locale (scr1, "de_DE");
+	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "Das Hauptfenster, welches irgendwas zeigt");
+
+	images = as_screenshot_get_images_all (scr1);
+	g_assert_cmpint (images->len, ==, 2);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 1));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 1916);
+	g_assert_cmpint (as_image_get_height (img), ==, 1056);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_THUMBNAIL);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_small.png");
+	g_assert_cmpint (as_image_get_width (img), ==, 800);
+	g_assert_cmpint (as_image_get_height (img), ==, 600);
+
+	/* screenshot 2 */
+	as_screenshot_set_active_locale (scr2, "C");
+	g_assert_cmpint (as_screenshot_get_kind (scr2), ==, AS_SCREENSHOT_KIND_EXTRA);
+	g_assert_cmpint (as_screenshot_get_media_kind (scr2), ==, AS_SCREENSHOT_MEDIA_KIND_VIDEO);
+	g_assert_cmpstr (as_screenshot_get_caption (scr2), ==, "A screencast of this app");
+	as_screenshot_set_active_locale (scr2, "C");
+	g_assert_cmpint (as_screenshot_get_images (scr2)->len, ==, 0);
+	videos = as_screenshot_get_videos (scr2);
+	g_assert_cmpint (videos->len, ==, 1);
+	as_screenshot_set_active_locale (scr2, "de_DE");
+	videos = as_screenshot_get_videos (scr2);
+	g_assert_cmpint (videos->len, ==, 1);
+	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
+
+	as_screenshot_set_active_locale (scr2, "ALL");
+	videos = as_screenshot_get_videos (scr2);
+	g_assert_cmpint (videos->len, ==, 2);
+
+	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
+	g_assert_cmpint (as_video_get_codec (vid), ==, AS_VIDEO_CODEC_AV1);
+	g_assert_cmpint (as_video_get_container (vid), ==, AS_VIDEO_CONTAINER_MKV);
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast.mkv");
+	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
+	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
+
+	vid = AS_VIDEO (g_ptr_array_index (videos, 1));
+	g_assert_cmpint (as_video_get_codec (vid), ==, AS_VIDEO_CODEC_AV1);
+	g_assert_cmpint (as_video_get_container (vid), ==, AS_VIDEO_CONTAINER_MKV);
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
+	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
+	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
+}
+
 /**
  * main:
  */
@@ -1042,6 +1227,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/Read/Agreements", test_yaml_read_agreements);
 	g_test_add_func ("/YAML/Write/Agreements", test_yaml_write_agreements);
+
+	g_test_add_func ("/YAML/Read/Screenshots", test_yaml_read_screenshots);
+	g_test_add_func ("/YAML/Write/Screenshots", test_yaml_write_screenshots);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -402,6 +402,7 @@ as_image_load_from_yaml (AsImage *image, AsContext *ctx, GNode *node, AsImageKin
 	GNode *n;
 
 	priv->kind = kind;
+	as_image_set_locale (image, "C");
 	for (n = node->children; n != NULL; n = n->next) {
 		const gchar *key = as_yaml_node_get_key (n);
 		const gchar *value = as_yaml_node_get_value (n);

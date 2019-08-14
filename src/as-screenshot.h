@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2017 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -29,6 +29,7 @@
 #include <glib-object.h>
 
 #include "as-image.h"
+#include "as-video.h"
 
 G_BEGIN_DECLS
 
@@ -63,6 +64,22 @@ typedef enum {
 	AS_SCREENSHOT_KIND_LAST
 } AsScreenshotKind;
 
+/**
+ * AsScreenshotMediaKind:
+ * @AS_SCREENSHOT_MEDIA_KIND_UNKNOWN:		Media kind is unknown
+ * @AS_SCREENSHOT_MEDIA_KIND_IMAGE:		The screenshot contains images
+ * @AS_SCREENSHOT_MEDIA_KIND_VIDEO:		The screenshot contains videos
+ *
+ * The media kind contained in this screenshot.
+ **/
+typedef enum {
+	AS_SCREENSHOT_MEDIA_KIND_UNKNOWN,
+	AS_SCREENSHOT_MEDIA_KIND_IMAGE,
+	AS_SCREENSHOT_MEDIA_KIND_VIDEO,
+	/*< private >*/
+	AS_SCREENSHOT_MEDIA_KIND_LAST
+} AsScreenshotMediaKind;
+
 AsScreenshotKind		as_screenshot_kind_from_string (const gchar *kind);
 const gchar			*as_screenshot_kind_to_string (AsScreenshotKind kind);
 gboolean			as_screenshot_is_valid (AsScreenshot *screenshot);
@@ -73,6 +90,8 @@ AsScreenshotKind		as_screenshot_get_kind (AsScreenshot *screenshot);
 void		 		as_screenshot_set_kind (AsScreenshot *screenshot,
 							AsScreenshotKind kind);
 
+AsScreenshotMediaKind		as_screenshot_get_media_kind (AsScreenshot *screenshot);
+
 const gchar			*as_screenshot_get_caption (AsScreenshot *screenshot);
 void				as_screenshot_set_caption (AsScreenshot *screenshot,
 								const gchar *caption,
@@ -82,6 +101,10 @@ GPtrArray			*as_screenshot_get_images_all (AsScreenshot *screenshot);
 GPtrArray			*as_screenshot_get_images (AsScreenshot *screenshot);
 void				as_screenshot_add_image (AsScreenshot *screenshot,
 								AsImage *image);
+
+GPtrArray			*as_screenshot_get_videos (AsScreenshot *screenshot);
+void				as_screenshot_add_video (AsScreenshot *screenshot,
+							 AsVideo *video);
 
 const gchar			*as_screenshot_get_active_locale (AsScreenshot *screenshot);
 void				as_screenshot_set_active_locale (AsScreenshot *screenshot,

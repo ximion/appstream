@@ -976,6 +976,10 @@ static const gchar *xmldata_screenshots = "<?xml version=\"1.0\" encoding=\"utf-
 					"      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/beta_small.png</image>\n"
 					"      <image type=\"source\" xml:lang=\"de_DE\">https://example.org/localized_de.png</image>\n"
 					"    </screenshot>\n"
+					"    <screenshot>\n"
+					"      <video codec=\"av1\" container=\"mkv\" width=\"1916\" height=\"1056\">https://example.org/screencast.mkv</video>\n"
+					"      <video codec=\"av1\" container=\"mkv\" width=\"1916\" height=\"1056\" xml:lang=\"de_DE\">https://example.org/screencast_de.mkv</video>\n"
+					"    </screenshot>\n"
 					"  </screenshots>\n"
 					"</component>\n";
 
@@ -991,8 +995,11 @@ test_xml_read_screenshots (void)
 	GPtrArray *screenshots;
 	AsScreenshot *scr1;
 	AsScreenshot *scr2;
+	AsScreenshot *scr3;
 	GPtrArray *images;
+	GPtrArray *videos;
 	AsImage *img;
+	AsVideo *vid;
 
 	const gchar *xmldata_screenshot_legacy = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 					"<component>\n"
@@ -1006,13 +1013,15 @@ test_xml_read_screenshots (void)
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotTest");
 
 	screenshots = as_component_get_screenshots (cpt);
-	g_assert_cmpint (screenshots->len, ==, 2);
+	g_assert_cmpint (screenshots->len, ==, 3);
 
 	scr1 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 0));
 	scr2 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 1));
+	scr3 = AS_SCREENSHOT (g_ptr_array_index (screenshots, 2));
 
 	/* screenshot 1 */
 	g_assert_cmpint (as_screenshot_get_kind (scr1), ==, AS_SCREENSHOT_KIND_DEFAULT);
+	g_assert_cmpint (as_screenshot_get_media_kind (scr1), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
 	as_screenshot_set_active_locale (scr1, "C");
 	g_assert_cmpstr (as_screenshot_get_caption (scr1), ==, "The main window displaying a thing");
 	as_screenshot_set_active_locale (scr1, "de_DE");
@@ -1035,6 +1044,7 @@ test_xml_read_screenshots (void)
 
 	/* screenshot 2 */
 	g_assert_cmpint (as_screenshot_get_kind (scr2), ==, AS_SCREENSHOT_KIND_EXTRA);
+	g_assert_cmpint (as_screenshot_get_media_kind (scr2), ==, AS_SCREENSHOT_MEDIA_KIND_IMAGE);
 	as_screenshot_set_active_locale (scr2, "C");
 	images = as_screenshot_get_images (scr2);
 	g_assert_cmpint (images->len, ==, 2);
@@ -1058,6 +1068,37 @@ test_xml_read_screenshots (void)
 	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/beta_small.png");
 	g_assert_cmpint (as_image_get_width (img), ==, 800);
 	g_assert_cmpint (as_image_get_height (img), ==, 600);
+
+	/* screenshot 3 */
+	g_assert_cmpint (as_screenshot_get_kind (scr3), ==, AS_SCREENSHOT_KIND_EXTRA);
+	g_assert_cmpint (as_screenshot_get_media_kind (scr3), ==, AS_SCREENSHOT_MEDIA_KIND_VIDEO);
+	as_screenshot_set_active_locale (scr3, "C");
+	g_assert_cmpint (as_screenshot_get_images (scr3)->len, ==, 0);
+	videos = as_screenshot_get_videos (scr3);
+	g_assert_cmpint (videos->len, ==, 1);
+	as_screenshot_set_active_locale (scr3, "de_DE");
+	videos = as_screenshot_get_videos (scr3);
+	g_assert_cmpint (videos->len, ==, 1);
+	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
+
+	as_screenshot_set_active_locale (scr3, "ALL");
+	videos = as_screenshot_get_videos (scr3);
+	g_assert_cmpint (videos->len, ==, 2);
+
+	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
+	g_assert_cmpint (as_video_get_codec (vid), ==, AS_VIDEO_CODEC_AV1);
+	g_assert_cmpint (as_video_get_container (vid), ==, AS_VIDEO_CONTAINER_MKV);
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast.mkv");
+	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
+	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
+
+	vid = AS_VIDEO (g_ptr_array_index (videos, 1));
+	g_assert_cmpint (as_video_get_codec (vid), ==, AS_VIDEO_CODEC_AV1);
+	g_assert_cmpint (as_video_get_container (vid), ==, AS_VIDEO_CONTAINER_MKV);
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
+	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
+	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
 
 	/* test a legacy screenshot entry that we briefly supported in an older AppStream release */
 	g_object_unref (cpt);
@@ -1089,7 +1130,9 @@ test_xml_write_screenshots (void)
 	g_autofree gchar *res = NULL;
 	g_autoptr(AsScreenshot) scr1 = NULL;
 	g_autoptr(AsScreenshot) scr2 = NULL;
+	g_autoptr(AsScreenshot) scr3 = NULL;
 	AsImage *img;
+	AsVideo *vid;
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.ScreenshotTest");
@@ -1138,8 +1181,29 @@ test_xml_write_screenshots (void)
 	as_screenshot_add_image (scr2, img);
 	g_object_unref (img);
 
+	scr3 = as_screenshot_new ();
+	vid = as_video_new ();
+	as_video_set_codec (vid, AS_VIDEO_CODEC_AV1);
+	as_video_set_container (vid, AS_VIDEO_CONTAINER_MKV);
+	as_video_set_width (vid, 1916);
+	as_video_set_height (vid, 1056);
+	as_video_set_url (vid, "https://example.org/screencast.mkv");
+	as_screenshot_add_video (scr3, vid);
+	g_object_unref (vid);
+
+	vid = as_video_new ();
+	as_video_set_codec (vid, AS_VIDEO_CODEC_AV1);
+	as_video_set_container (vid, AS_VIDEO_CONTAINER_MKV);
+	as_video_set_locale (vid, "de_DE");
+	as_video_set_width (vid, 1916);
+	as_video_set_height (vid, 1056);
+	as_video_set_url (vid, "https://example.org/screencast_de.mkv");
+	as_screenshot_add_video (scr3, vid);
+	g_object_unref (vid);
+
 	as_component_add_screenshot (cpt, scr1);
 	as_component_add_screenshot (cpt, scr2);
+	as_component_add_screenshot (cpt, scr3);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_test_compare_lines (res, xmldata_screenshots));

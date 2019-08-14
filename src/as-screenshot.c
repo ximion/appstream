@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2017 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2014 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -23,10 +23,10 @@
  * SECTION:as-screenshot
  * @short_description: Object representing a single screenshot
  *
- * Screenshots have a localized caption and also contain a number of images
- * of different resolution.
+ * Screenshots have a localized caption and contain either a set of images
+ * of different resolution or a video screencast showcasing the software.
  *
- * See also: #AsImage
+ * See also: #AsImage, #AsVideo
  */
 
 #include "as-screenshot.h"
@@ -35,13 +35,18 @@
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-image-private.h"
+#include "as-video-private.h"
 
 typedef struct
 {
 	AsScreenshotKind kind;
+	AsScreenshotMediaKind media_kind;
 	GHashTable *caption;
+
 	GPtrArray *images;
 	GPtrArray *images_lang;
+	GPtrArray *videos;
+	GPtrArray *videos_lang;
 
 	AsContext *context;
 	gchar *active_locale_override;
@@ -49,6 +54,23 @@ typedef struct
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsScreenshot, as_screenshot, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_screenshot_get_instance_private (o))
+
+/**
+ * as_screenshot_init:
+ **/
+static void
+as_screenshot_init (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+
+	priv->kind = AS_SCREENSHOT_KIND_EXTRA;
+	priv->media_kind = AS_SCREENSHOT_MEDIA_KIND_IMAGE;
+	priv->caption = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->images = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+	priv->images_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+	priv->videos = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+	priv->videos_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+}
 
 /**
  * as_screenshot_finalize:
@@ -62,25 +84,13 @@ as_screenshot_finalize (GObject *object)
 	g_free (priv->active_locale_override);
 	g_ptr_array_unref (priv->images);
 	g_ptr_array_unref (priv->images_lang);
+	g_ptr_array_unref (priv->videos);
+	g_ptr_array_unref (priv->videos_lang);
 	g_hash_table_unref (priv->caption);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
 
 	G_OBJECT_CLASS (as_screenshot_parent_class)->finalize (object);
-}
-
-/**
- * as_screenshot_init:
- **/
-static void
-as_screenshot_init (AsScreenshot *screenshot)
-{
-	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-
-	priv->kind = AS_SCREENSHOT_KIND_EXTRA;
-	priv->caption = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	priv->images = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
-	priv->images_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
 }
 
 /**
@@ -161,6 +171,21 @@ as_screenshot_set_kind (AsScreenshot *screenshot, AsScreenshotKind kind)
 }
 
 /**
+ * as_screenshot_get_media_kind:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Gets the screenshot media kind.
+ *
+ * Returns: a #AsScreenshotMediaKind
+ **/
+AsScreenshotMediaKind
+as_screenshot_get_media_kind (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	return priv->media_kind;
+}
+
+/**
  * as_screenshot_get_images:
  * @screenshot: a #AsScreenshot instance.
  *
@@ -193,6 +218,42 @@ as_screenshot_add_image (AsScreenshot *screenshot, AsImage *image)
 
 	if (as_utils_locale_is_compatible (as_image_get_locale (image), as_screenshot_get_active_locale (screenshot)))
 		g_ptr_array_add (priv->images_lang, g_object_ref (image));
+}
+
+/**
+ * as_screenshot_get_videos:
+ * @screenshot: a #AsScreenshot instance.
+ *
+ * Gets the videos for this screenshots. Only videos valid for the current
+ * language selection are returned. We return all sizes.
+ *
+ * Returns: (transfer none) (element-type AsVideo): an array
+ **/
+GPtrArray*
+as_screenshot_get_videos (AsScreenshot *screenshot)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	if (priv->videos_lang->len == 0)
+		return priv->videos;
+	return priv->videos_lang;
+}
+
+/**
+ * as_screenshot_add_video:
+ * @screenshot: a #AsScreenshot instance.
+ * @video: a #AsVideo instance.
+ *
+ * Adds a video to the screenshot.
+ **/
+void
+as_screenshot_add_video (AsScreenshot *screenshot, AsVideo *video)
+{
+	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
+	priv->media_kind = AS_SCREENSHOT_MEDIA_KIND_VIDEO;
+	g_ptr_array_add (priv->videos, g_object_ref (video));
+
+	if (as_utils_locale_is_compatible (as_video_get_locale (video), as_screenshot_get_active_locale (screenshot)))
+		g_ptr_array_add (priv->videos_lang, g_object_ref (video));
 }
 
 /**
@@ -255,25 +316,36 @@ as_screenshot_is_valid (AsScreenshot *screenshot)
 }
 
 /**
- * as_screenshot_rebuild_suitable_images_list:
+ * as_screenshot_rebuild_suitable_media_list:
  * @screenshot: a #AsScreenshot instance.
  *
- * Rebuild list of images suitable for the selected locale.
+ * Rebuild list of images or videos suitable for the selected locale.
  */
 static void
-as_screenshot_rebuild_suitable_images_list (AsScreenshot *screenshot)
+as_screenshot_rebuild_suitable_media_list (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	guint i;
 
 	/* rebuild our list of images suitable for the current locale */
 	g_ptr_array_unref (priv->images_lang);
 	priv->images_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
-	for (i = 0; i < priv->images->len; i++) {
+	for (guint i = 0; i < priv->images->len; i++) {
 		AsImage *img = AS_IMAGE (g_ptr_array_index (priv->images, i));
 		if (!as_utils_locale_is_compatible (as_image_get_locale (img), as_screenshot_get_active_locale (screenshot)))
 			continue;
 		g_ptr_array_add (priv->images_lang, g_object_ref (img));
+	}
+
+	/* rebuild our list of videos suitable for the current locale */
+	g_ptr_array_unref (priv->videos_lang);
+	priv->videos_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+	for (guint i = 0; i < priv->videos->len; i++) {
+		AsVideo *vid = AS_VIDEO (g_ptr_array_index (priv->videos, i));
+		g_print ("Check: %s vs %s\n", as_video_get_locale (vid), as_screenshot_get_active_locale (screenshot));
+		if (!as_utils_locale_is_compatible (as_video_get_locale (vid), as_screenshot_get_active_locale (screenshot)))
+			continue;
+		g_print ("PASS\n");
+		g_ptr_array_add (priv->videos_lang, g_object_ref (vid));
 	}
 }
 
@@ -320,7 +392,7 @@ as_screenshot_set_active_locale (AsScreenshot *screenshot, const gchar *locale)
 	priv->active_locale_override = g_strdup (locale);
 
 	/* rebuild our list of images suitable for the current locale */
-	as_screenshot_rebuild_suitable_images_list (screenshot);
+	as_screenshot_rebuild_suitable_media_list (screenshot);
 }
 
 /**
@@ -379,7 +451,7 @@ as_screenshot_set_context (AsScreenshot *screenshot, AsContext *context)
 	g_free (priv->active_locale_override);
 	priv->active_locale_override = NULL;
 
-	as_screenshot_rebuild_suitable_images_list (screenshot);
+	as_screenshot_rebuild_suitable_media_list (screenshot);
 }
 
 /**
@@ -417,6 +489,10 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot, AsContext *ctx, xmlNode *
 			g_autoptr(AsImage) image = as_image_new ();
 			if (as_image_load_from_xml (image, ctx, iter, NULL))
 				as_screenshot_add_image (screenshot, image);
+		} else if (g_strcmp0 (node_name, "video") == 0) {
+			g_autoptr(AsVideo) video = as_video_new ();
+			if (as_video_load_from_xml (video, ctx, iter, NULL))
+				as_screenshot_add_video (screenshot, video);
 		} else if (g_strcmp0 (node_name, "caption") == 0) {
 			g_autofree gchar *content = NULL;
 			g_autofree gchar *lang = NULL;
@@ -463,7 +539,6 @@ as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *ro
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
 	xmlNode *subnode;
-	guint i;
 
 	subnode = xmlNewChild (root, NULL, (xmlChar*) "screenshot", NULL);
 	if (priv->kind == AS_SCREENSHOT_KIND_DEFAULT)
@@ -471,9 +546,16 @@ as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *ro
 
 	as_xml_add_localized_text_node (subnode, "caption", priv->caption);
 
-	for (i = 0; i < priv->images->len; i++) {
-		AsImage *image = AS_IMAGE (g_ptr_array_index (priv->images, i));
-		as_image_to_xml_node (image, ctx, subnode);
+	if (priv->media_kind == AS_SCREENSHOT_MEDIA_KIND_IMAGE) {
+		for (guint i = 0; i < priv->images->len; i++) {
+			AsImage *image = AS_IMAGE (g_ptr_array_index (priv->images, i));
+			as_image_to_xml_node (image, ctx, subnode);
+		}
+	} else if (priv->media_kind == AS_SCREENSHOT_MEDIA_KIND_VIDEO) {
+		for (guint i = 0; i < priv->videos->len; i++) {
+			AsVideo *video = AS_VIDEO (g_ptr_array_index (priv->videos, i));
+			as_video_to_xml_node (video, ctx, subnode);
+		}
 	}
 }
 
@@ -498,7 +580,7 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *n
 		const gchar *value = as_yaml_node_get_value (n);
 
 		if (g_strcmp0 (key, "default") == 0) {
-			if (g_strcmp0 (value, "yes") == 0)
+			if ((g_strcmp0 (value, "true") == 0) || (g_strcmp0 (value, "yes") == 0))
 				priv->kind = AS_SCREENSHOT_KIND_DEFAULT;
 			else
 				priv->kind = AS_SCREENSHOT_KIND_EXTRA;
@@ -516,6 +598,12 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot, AsContext *ctx, GNode *n
 				g_autoptr(AsImage) image = as_image_new ();
 				if (as_image_load_from_yaml (image, ctx, in, AS_IMAGE_KIND_THUMBNAIL, NULL))
 					as_screenshot_add_image (screenshot, image);
+			}
+		} else if (g_strcmp0 (key, "videos") == 0) {
+			for (in = n->children; in != NULL; in = in->next) {
+				g_autoptr(AsVideo) video = as_video_new ();
+				if (as_video_load_from_yaml (video, ctx, in, NULL))
+					as_screenshot_add_video (screenshot, video);
 			}
 		} else {
 			as_yaml_print_unknown ("screenshot", key);
@@ -540,7 +628,6 @@ void
 as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_t *emitter)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	guint i;
 	AsImage *source_img = NULL;
 
 	as_yaml_mapping_start (emitter);
@@ -550,24 +637,34 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, yaml_emitter_
 
 	as_yaml_emit_localized_entry (emitter, "caption", priv->caption);
 
-	as_yaml_emit_scalar (emitter, "thumbnails");
-	as_yaml_sequence_start (emitter);
-	for (i = 0; i < priv->images->len; i++) {
-		AsImage *img = AS_IMAGE (g_ptr_array_index (priv->images, i));
+	if (priv->media_kind == AS_SCREENSHOT_MEDIA_KIND_IMAGE) {
+		as_yaml_emit_scalar (emitter, "thumbnails");
+		as_yaml_sequence_start (emitter);
+		for (guint i = 0; i < priv->images->len; i++) {
+			AsImage *img = AS_IMAGE (g_ptr_array_index (priv->images, i));
 
-		if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-			source_img = img;
-			continue;
+			if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
+				source_img = img;
+				continue;
+			}
+
+			as_image_emit_yaml (img, ctx, emitter);
 		}
+		as_yaml_sequence_end (emitter);
 
-		as_image_emit_yaml (img, ctx, emitter);
-	}
-	as_yaml_sequence_end (emitter);
-
-	/* we *must* have a source-image by now if the data follows the spec, but better be safe... */
-	if (source_img != NULL) {
-		as_yaml_emit_scalar (emitter, "source-image");
-		as_image_emit_yaml (source_img, ctx, emitter);
+		/* we *must* have a source-image by now if the data follows the spec, but better be safe... */
+		if (source_img != NULL) {
+			as_yaml_emit_scalar (emitter, "source-image");
+			as_image_emit_yaml (source_img, ctx, emitter);
+		}
+	} else if (priv->media_kind == AS_SCREENSHOT_MEDIA_KIND_VIDEO) {
+		as_yaml_emit_scalar (emitter, "videos");
+		as_yaml_sequence_start (emitter);
+		for (guint i = 0; i < priv->videos->len; i++) {
+			AsVideo *video = AS_VIDEO (g_ptr_array_index (priv->videos, i));
+			as_video_emit_yaml (video, ctx, emitter);
+		}
+		as_yaml_sequence_end (emitter);
 	}
 
 	as_yaml_mapping_end (emitter);
