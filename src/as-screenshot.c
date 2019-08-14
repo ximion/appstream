@@ -341,10 +341,8 @@ as_screenshot_rebuild_suitable_media_list (AsScreenshot *screenshot)
 	priv->videos_lang = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
 	for (guint i = 0; i < priv->videos->len; i++) {
 		AsVideo *vid = AS_VIDEO (g_ptr_array_index (priv->videos, i));
-		g_print ("Check: %s vs %s\n", as_video_get_locale (vid), as_screenshot_get_active_locale (screenshot));
 		if (!as_utils_locale_is_compatible (as_video_get_locale (vid), as_screenshot_get_active_locale (screenshot)))
 			continue;
-		g_print ("PASS\n");
 		g_ptr_array_add (priv->videos_lang, g_object_ref (vid));
 	}
 }
