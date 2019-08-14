@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-14 01:35+0200\n"
-"PO-Revision-Date: 2019-08-02 08:11+0000\n"
+"PO-Revision-Date: 2019-08-14 22:42+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
-"translations/ja/>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -130,22 +129,17 @@ msgid ""
 msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
-"AppStream は、ソフトウェアコンポーネントに関するメタデータを提供するための、"
-"ディストリビューション間で共通の仕様です。"
+msgstr "AppStream は、ソフトウェアコンポーネントに関するメタデータを提供するための、ディストリビューション間で共通の仕様です。"
 
 #: src/as-pool.c:1787
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr ""
-"AppStream キャッシュのアップデートが失敗しました。より詳細な問題の情報を入手"
-"するには、詳細モードをオンにしてください。"
+msgstr "AppStream システムキャッシュの更新が失敗しました。問題のより詳細な情報を入手するには、詳細モードをオンにしてください。"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:812
@@ -450,9 +444,9 @@ msgid "Featured"
 msgstr "おすすめ"
 
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "メタデータファイル '%s' は存在しません。"
+msgstr "ファイル '%s' は存在しません。"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
@@ -798,9 +792,8 @@ msgstr "写真"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstream-cli.c:121
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "見つかったコンポーネントの詳細な出力を表示します。"
+msgstr "見つかった問題の詳細な説明を表示します。"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
@@ -975,13 +968,11 @@ msgid ""
 msgstr ""
 
 #: src/as-pool.c:1774
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
-msgstr ""
-"AppStream システムキャッシュはアップデートされましたが、問題が見つかりまし"
-"た: %s"
+msgstr "AppStream システムキャッシュをアップデートしましたが、問題が見つかったため、メタデータ内の結果を無視しました: %s"
 
 #: src/as-pool.c:1772
 msgid ""
@@ -1206,9 +1197,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:520
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "コンポーネント ID に一致するソフトウェアを削除します。"
+msgstr "メタ情報ファイル名がコンポーネント ID に一致しません。"
 
 #: src/as-validator-issue-tag.h:560
 msgid ""
@@ -1446,14 +1436,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:488
-#, fuzzy
 msgid "Unable to read file."
-msgstr ".desktop ファイルを読み込めません: %s"
+msgstr "ファイルを読み込めません。"
 
 #: src/as-validator-issue-tag.h:525
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr ".desktop ファイルを読み込めません: %s"
+msgstr "コンポーネントに関連付けられた .desktop ファイルを読み込めません。"
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
@@ -1610,9 +1598,8 @@ msgid "You need to specify an input and output file."
 msgstr "入力ファイルと出力ファイルの指定が必要です。"
 
 #: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "検証するファイルの指定が必要です！"
+msgstr "検証するファイルの指定が少なくとも一つは必要です！"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
