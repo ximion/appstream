@@ -8,10 +8,9 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-14 01:35+0200\n"
-"PO-Revision-Date: 2019-08-02 08:11+0000\n"
+"PO-Revision-Date: 2019-08-14 22:42+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,19 +33,19 @@ msgstr "Grafica 3D"
 msgid ""
 "A 'requires' or 'recommends' item requires a value to denote a valid "
 "relation."
-msgstr ""
+msgstr "Un elemento «requires» o «recommends» richiede un valore per indicare una relazione valida."
 
 #: src/as-validator-issue-tag.h:51
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "Un tag <description/> non deve essere tradotto nei file metainfo (metadati upstream). Tradurre i singoli paragrafi."
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "A screenshot must contain at least one image in order to be useful. Please "
 "add an <image/> to it."
-msgstr ""
+msgstr "Una schermata deve contenere almeno un'immagine affinché sia utile. Aggiungere un tag <image/>."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -74,7 +73,7 @@ msgstr "Stampa suggerimenti prolissi"
 msgid ""
 "An 'extends' tag is specified, but the component is not of type 'addon', "
 "'localization' or 'repository'."
-msgstr ""
+msgstr "È stato specificato un tag «extends», ma il componente non è di tipo «addon», «localization» o «repository»."
 
 #: tools/appstream-cli.c:722
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -126,7 +125,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "Le descrizioni AppStream supportano un insieme limitato di tag per la formattazione del testo: paragrafi (<p/>) ed elenchi (<ul/>, <ol/>). Il testo di questa descrizione contiene un tag XML non valido che non verrà visualizzato correttamente dalle applicazioni che supportano la specifica metainfo."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 #, fuzzy
@@ -166,7 +165,7 @@ msgstr "Intelligenza artificiale"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
+msgstr "Come da specifica AppStream, il tag indicato deve comparire una sola volta in questo contesti. Più tag di questo tipo non sono consentiti."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -279,15 +278,15 @@ msgstr "Obbligatorio per"
 
 #: src/as-validator-issue-tag.h:312
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
+msgstr "Considerare l'uso di URL sicuri (HTTPS) per i collegamenti remoti all'icona."
 
 #: src/as-validator-issue-tag.h:334
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "Considerare l'uso di un URL sicuro (HTTPS) per questo collegamento web."
 
 #: src/as-validator-issue-tag.h:184
 msgid "Consider using a secure (HTTPS) URL to reference this screenshot image."
-msgstr ""
+msgstr "Considerare l'uso di un URL sicuro (HTTPS) per fare riferimento a questa immagine."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:737
@@ -398,7 +397,7 @@ msgstr "Forza l'aggiornamento della cache"
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "Gli elenchi devono avare solamente elementi consentiti (<li/>) come figli."
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
