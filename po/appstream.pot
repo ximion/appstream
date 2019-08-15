@@ -7,7 +7,7 @@
 msgid   ""
 msgstr  "Project-Id-Version: appstream\n"
         "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-        "POT-Creation-Date: 2019-08-14 01:35+0200\n"
+        "POT-Creation-Date: 2019-08-15 02:46+0200\n"
         "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
         "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
         "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgid   "3D Graphics"
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:205
+#: src/as-validator-issue-tag.h:254
 msgid   "A 'requires' or 'recommends' item requires a value to denote a valid relation."
 msgstr  ""
 
@@ -35,8 +35,13 @@ msgstr  ""
 msgid   "A <description/> tag must not be localized in metainfo files (upstream metadata). Localize the individual paragraphs instead."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:189
-msgid   "A screenshot must contain at least one image in order to be useful. Please add an <image/> to it."
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:195
+msgid   "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
+msgstr  ""
+
+#: src/as-validator-issue-tag.h:200
+msgid   "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
 msgstr  ""
 
 #: src/as-category.c:123
@@ -61,7 +66,7 @@ msgid   "Also show pedantic hints."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:443
+#: src/as-validator-issue-tag.h:492
 msgid   "An 'extends' tag is specified, but the component is not of type 'addon', 'localization' or 'repository'."
 msgstr  ""
 
@@ -244,16 +249,16 @@ msgstr  ""
 msgid   "Compulsory for"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:312
+#: src/as-validator-issue-tag.h:361
 msgid   "Consider using a secure (HTTPS) URL for the remote icon link."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:334
+#: src/as-validator-issue-tag.h:383
 msgid   "Consider using a secure (HTTPS) URL for this web link."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:184
-msgid   "Consider using a secure (HTTPS) URL to reference this screenshot image."
+#: src/as-validator-issue-tag.h:189
+msgid   "Consider using a secure (HTTPS) URL to reference this screenshot image or video."
 msgstr  ""
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
@@ -441,6 +446,10 @@ msgctxt "Category of Addons"
 msgid   "Fonts"
 msgstr  ""
 
+#: src/as-validator-issue-tag.h:237
+msgid   "For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced video does not belong to either of these formats."
+msgstr  ""
+
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
 msgid   "Format of the generated report (valid values are 'text' and 'yaml')."
@@ -458,31 +467,31 @@ msgid   "Found %i components."
 msgstr  ""
 
 #. TRANSLATORS: 'version' is an AppStream XML property. Please do not translate it.
-#: src/as-validator-issue-tag.h:211
+#: src/as-validator-issue-tag.h:260
 msgid   "Found 'version' property on required/recommended item of a type that should not have or require a version."
 msgstr  ""
 
 #. TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them.
-#: src/as-validator-issue-tag.h:217
+#: src/as-validator-issue-tag.h:266
 msgid   "Found 'version' property on this required/recommended item, but not 'compare' property. It is recommended to explicitly define a comparison operation."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:228
+#: src/as-validator-issue-tag.h:277
 msgid   "Found a memory size dependency in a 'requires' tag. This means users will not be able to even install the component without having enough RAM. This is usually not intended and you want to use 'memory' in the 'recommends' tag instead."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:199
+#: src/as-validator-issue-tag.h:248
 msgid   "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:373
+#: src/as-validator-issue-tag.h:422
 msgid   "Found invalid tag. Non-standard tags should be prefixed with 'x-'. AppStream also provides the <custom/> tag to add arbitrary custom data to metainfo files. This tag is read by AppStream libraries and may be useful instead of defining new custom toplevel or 'x-'-prefixed tags if you just want to add custom data to a metainfo file."
 msgstr  ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:477 src/as-validator.c:884 src/as-validator.c:918
-#: src/as-validator.c:1126
+#: src/as-validator.c:477 src/as-validator.c:889 src/as-validator.c:974
+#: src/as-validator.c:1184
 #, c-format
 msgid   "Found: %s - Allowed: %s"
 msgstr  ""
@@ -519,12 +528,12 @@ msgid   "Icon"
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:302
+#: src/as-validator-issue-tag.h:351
 msgid   "Icons of type 'remote' must contain an URL to the referenced icon."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:295
+#: src/as-validator-issue-tag.h:344
 msgid   "Icons of type 'stock' or 'cached' must not contain an URL, a full or an relative path to the icon. Only file basenames or stock names are allowed."
 msgstr  ""
 
@@ -550,12 +559,12 @@ msgid   "Install software matching the component-ID."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:324
+#: src/as-validator-issue-tag.h:373
 msgid   "Invalid 'type' property for this 'url' tag. URLs of this type are not known in the AppStream specification."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:504
+#: src/as-validator-issue-tag.h:553
 msgid   "Invalid tag found in collection metadata. Only 'component' tags are permitted."
 msgstr  ""
 
@@ -563,15 +572,15 @@ msgstr  ""
 msgid   "Invalid type for provided item selected. Valid values are:"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:222
+#: src/as-validator-issue-tag.h:271
 msgid   "Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/ge are permitted."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:396
+#: src/as-validator-issue-tag.h:445
 msgid   "It is recommended to add a long description to this component to present it better to users."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:391
+#: src/as-validator-issue-tag.h:440
 msgid   "It would be useful to add a long description to this font to present it better to users."
 msgstr  ""
 
@@ -652,7 +661,7 @@ msgid   "Metadata files have errors:"
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:318
+#: src/as-validator-issue-tag.h:367
 msgid   "Metainfo files may only contain icons of type 'stock' or 'remote', the set type is not allowed."
 msgstr  ""
 
@@ -679,12 +688,12 @@ msgctxt "Category of Communication"
 msgid   "News"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:540
+#: src/as-validator-issue-tag.h:589
 msgid   "No AppStream metadata was found in this directory or directory tree."
 msgstr  ""
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:545
+#: src/as-validator-issue-tag.h:594
 msgid   "No XDG applications directory found."
 msgstr  ""
 
@@ -829,7 +838,7 @@ msgid   "Subcommands:"
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:473
+#: src/as-validator-issue-tag.h:522
 msgid   "Suggestions of any type other than 'upstream' are not allowed in metainfo files."
 msgstr  ""
 
@@ -861,12 +870,12 @@ msgctxt "Category of Utility"
 msgid   "Text Editors"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:269
+#: src/as-validator-issue-tag.h:318
 msgid   "The 'pkgname' tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:362
+#: src/as-validator-issue-tag.h:411
 msgid   "The 'update_contact' tag should not be included in collection AppStream XML."
 msgstr  ""
 
@@ -875,15 +884,15 @@ msgstr  ""
 msgid   "The .desktop file '%s' does not exist."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:339
+#: src/as-validator-issue-tag.h:388
 msgid   "The <developer_name/> can not contain a hyperlink."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:264
+#: src/as-validator-issue-tag.h:313
 msgid   "The <id/> tag still contains a 'type' property, probably from an old conversion to the recent metainfo format."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:567
+#: src/as-validator-issue-tag.h:616
 msgid   "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 msgstr  ""
 
@@ -906,15 +915,15 @@ msgstr  ""
 msgid   "The TYPE must be a valid component-type, such as: %s"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:493
+#: src/as-validator-issue-tag.h:542
 msgid   "The XML of this file is malformed."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:535
+#: src/as-validator-issue-tag.h:584
 msgid   "The category defined in the .desktop file is not valid. Refer to the XDG Manu Specification for a list of valid categories."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:478
+#: src/as-validator-issue-tag.h:527
 msgid   "The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."
 msgstr  ""
 
@@ -943,32 +952,32 @@ msgstr  ""
 msgid   "The component ID might not follow the reverse domain-name schema (the TLD used by it is not known to the validator)."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:244
+#: src/as-validator-issue-tag.h:293
 msgid   "The component has a 'merge' method defined. This is not allowed in metainfo files."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:239
+#: src/as-validator-issue-tag.h:288
 msgid   "The component has a priority value set. This is not allowed in metainfo files."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:449
+#: src/as-validator-issue-tag.h:498
 msgid   "The component is an addon, but no 'extends' tag was specified."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:386
+#: src/as-validator-issue-tag.h:435
 msgid   "The component is missing a long description. Components of this type must have a long description."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:254
+#: src/as-validator-issue-tag.h:303
 msgid   "The component is missing a name (<name/> tag)."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:259
+#: src/as-validator-issue-tag.h:308
 msgid   "The component is missing a summary (<summary/> tag)."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:249
+#: src/as-validator-issue-tag.h:298
 msgid   "The component is missing an ID (<id/> tag)."
 msgstr  ""
 
@@ -984,16 +993,20 @@ msgstr  ""
 msgid   "The component is part of the KDE project, but its ID does not start with KDEs reverse-DNS name (\"org.kde\")."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:274
+#: src/as-validator-issue-tag.h:323
 msgid   "The component name should (likely) not end with a dot ('.')."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:284
+#: src/as-validator-issue-tag.h:333
 msgid   "The component summary must not contain tabs or linebreaks."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:279
+#: src/as-validator-issue-tag.h:328
 msgid   "The component summary should not end with a dot ('.')."
+msgstr  ""
+
+#: src/as-validator-issue-tag.h:243
+msgid   "The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot."
 msgstr  ""
 
 #: src/as-validator-issue-tag.h:86
@@ -1005,7 +1018,7 @@ msgid   "The emitted issue tag is unknown in the tag registry of AppStream. This
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:381
+#: src/as-validator-issue-tag.h:430
 msgid   "The essential tag 'metadata_license' is missing. A license for the metadata itself always has to be defined."
 msgstr  ""
 
@@ -1013,7 +1026,7 @@ msgstr  ""
 msgid   "The first 'description/p' paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:344
+#: src/as-validator-issue-tag.h:393
 msgid   "The given values in not an identifier for a desktop environment as registered with Freedesktop.org."
 msgstr  ""
 
@@ -1033,36 +1046,56 @@ msgstr  ""
 msgid   "The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:550
+#: src/as-validator-issue-tag.h:599
 msgid   "The metainfo file is stored in a legacy path. Please place it in '/usr/share/metainfo'."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:555
+#: src/as-validator-issue-tag.h:604
 msgid   "The metainfo file specifies multiple components. This is not allowed."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:510
+#: src/as-validator-issue-tag.h:559
 msgid   "The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher)."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:520
+#: src/as-validator-issue-tag.h:569
 msgid   "The metainfo filename does not match the component ID."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:560
+#: src/as-validator-issue-tag.h:609
 msgid   "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:483
+#: src/as-validator-issue-tag.h:532
 msgid   "The screenshot caption is too long (should be <= 80 characters)"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:194
+#: src/as-validator-issue-tag.h:206
 msgid   "The screenshot does not have a caption text. Consider adding one."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:234
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:218
+msgid   "The screenshot video does not specify which container format was used in a 'container' property."
+msgstr  ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:212
+msgid   "The screenshot video does not specify which video codec was used in a 'codec' property."
+msgstr  ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:224
+msgid   "The selected video codec is not supported by AppStream and software centers may not be able to play the video. Only the AV1 and VP9 codecs are currently supported, using 'av1' and 'vp9' as values for the 'codec' property."
+msgstr  ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:231
+msgid   "The selected video container format is not supported by AppStream and software centers may not be able to play the video. Only the WebM and Matroska video containers are currently supported, using 'webm' and 'mkv' as values for the 'container' property."
+msgstr  ""
+
+#: src/as-validator-issue-tag.h:283
 msgid   "The set component type is not a recognized, valid AppStream component type."
 msgstr  ""
 
@@ -1071,11 +1104,11 @@ msgstr  ""
 msgid   "The software component type '%s' is not valid in AppStream. Possible values are:"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:289
+#: src/as-validator-issue-tag.h:338
 msgid   "The summary must not contain any URL. Use the <url/> tags for links."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:579
+#: src/as-validator-issue-tag.h:628
 msgid   "The type of the item that the component provides is not known to AppStream."
 msgstr  ""
 
@@ -1089,46 +1122,46 @@ msgid   "The validator can not create reports in the '%s' format. You may select
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:356
+#: src/as-validator-issue-tag.h:405
 msgid   "This 'bundle' tag has an unknown type and can not be used."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:350
+#: src/as-validator-issue-tag.h:399
 msgid   "This 'launchable' tag has an unknown type and can not be used."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:461
+#: src/as-validator-issue-tag.h:510
 msgid   "This 'localization' component does not define any languages this localization is for."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:455
+#: src/as-validator-issue-tag.h:504
 msgid   "This 'localization' component is missing an 'extends' tag, to specify the components it adds localization to."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:467
+#: src/as-validator-issue-tag.h:516
 msgid   "This 'service' component is missing a 'launchable' tag of type 'service'."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:419
+#: src/as-validator-issue-tag.h:468
 msgid   "This 'web-application' component is missing a 'icon' tag to specify a valid icon."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:413
+#: src/as-validator-issue-tag.h:462
 msgid   "This 'web-application' component is missing a 'launchable' tag of type 'url'."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:425
+#: src/as-validator-issue-tag.h:474
 msgid   "This 'web-application' component is missing categorizations. A 'categories' block is likely missing."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:515
+#: src/as-validator-issue-tag.h:564
 msgid   "This XML document has an Unknown root tag, Maybe this file is not a metainfo document?"
 msgstr  ""
 
@@ -1137,11 +1170,11 @@ msgstr  ""
 msgid   "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:573
+#: src/as-validator-issue-tag.h:622
 msgid   "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:530
+#: src/as-validator-issue-tag.h:579
 msgid   "This component metadata refers to a non-existing .desktop file."
 msgstr  ""
 
@@ -1153,11 +1186,11 @@ msgstr  ""
 msgid   "This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in collection metadata. Localize the whole <description/> tag instead. The AppStream collection metadata generator (e.g. `appstream-generator`) will already do the right thing when compiling the data."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:401
+#: src/as-validator-issue-tag.h:450
 msgid   "This generic component is missing a long description. It may be useful to add one."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:367
+#: src/as-validator-issue-tag.h:416
 msgid   "This tag is a GNOME-specific extension to AppStream and not part of the official specification. Do not expect it to work in all implementations and in all software centers."
 msgstr  ""
 
@@ -1174,17 +1207,17 @@ msgid   "Too many parameters: Need two version numbers or version numbers and a 
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:407
+#: src/as-validator-issue-tag.h:456
 msgid   "Type 'console-application' component, but no information about binaries in $PATH was provided via a 'provides/binary' tag."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:437
+#: src/as-validator-issue-tag.h:486
 msgid   "Type 'driver' component, but no modalias information was provided via a provides/modalias tag."
 msgstr  ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:431
+#: src/as-validator-issue-tag.h:480
 msgid   "Type 'font' component, but no font information was provided via a 'provides/font' tag."
 msgstr  ""
 
@@ -1210,15 +1243,15 @@ msgstr  ""
 msgid   "Unable to find component with ID '%s'!"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:498
+#: src/as-validator-issue-tag.h:547
 msgid   "Unable to find the curl binary. remote URLs can not be checked for validity!"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:307
+#: src/as-validator-issue-tag.h:356
 msgid   "Unable to reach remote icon at the given web location - does it exist?"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:329
+#: src/as-validator-issue-tag.h:378
 msgid   "Unable to reach remote location that this URL references - does it exist?"
 msgstr  ""
 
@@ -1226,11 +1259,15 @@ msgstr  ""
 msgid   "Unable to reach the screenshot image on its remote location - does the image exist?"
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:488
+#: src/as-validator-issue-tag.h:184
+msgid   "Unable to reach the screenshot video on its remote location - does the video file exist?"
+msgstr  ""
+
+#: src/as-validator-issue-tag.h:537
 msgid   "Unable to read file."
 msgstr  ""
 
-#: src/as-validator-issue-tag.h:525
+#: src/as-validator-issue-tag.h:574
 msgid   "Unable to read the .desktop file associated with this component."
 msgstr  ""
 
