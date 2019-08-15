@@ -34,8 +34,8 @@
 
 typedef struct
 {
-	AsVideoCodec	codec;
-	AsVideoContainer container;
+	AsVideoCodecKind	codec;
+	AsVideoContainerKind 	container;
 
 	gchar		*url;
 	guint		width;
@@ -70,27 +70,27 @@ as_video_init (AsVideo *video)
 }
 
 /**
- * as_video_codec_from_string:
- * @codec: the string.
+ * as_video_codec_kind_from_string:
+ * @str: the string.
  *
  * Converts the text representation to an enumerated value.
  *
- * Returns: (transfer full): a #AsVideoCodec, or %AS_VIDEO_CODEC_UNKNOWN for unknown.
+ * Returns: (transfer full): a #AsVideoCodecKind, or %AS_VIDEO_CODEC_KIND_UNKNOWN for unknown.
  *
  **/
-AsVideoCodec
-as_video_codec_from_string (const gchar *codec)
+AsVideoCodecKind
+as_video_codec_kind_from_string (const gchar *str)
 {
-	if (g_strcmp0 (codec, "av1") == 0)
-		return AS_VIDEO_CODEC_AV1;
-	if (g_strcmp0 (codec, "vp9") == 0)
-		return AS_VIDEO_CODEC_VP9;
-	return AS_VIDEO_CODEC_UNKNOWN;
+	if (g_strcmp0 (str, "av1") == 0)
+		return AS_VIDEO_CODEC_KIND_AV1;
+	if (g_strcmp0 (str, "vp9") == 0)
+		return AS_VIDEO_CODEC_KIND_VP9;
+	return AS_VIDEO_CODEC_KIND_UNKNOWN;
 }
 
 /**
- * as_video_codec_to_string:
- * @codec: the #AsVideoCodec.
+ * as_video_codec_kind_to_string:
+ * @kind: the #AsVideoCodecKind.
  *
  * Converts the enumerated value to an text representation.
  *
@@ -98,37 +98,37 @@ as_video_codec_from_string (const gchar *codec)
  *
  **/
 const gchar*
-as_video_codec_to_string (AsVideoCodec codec)
+as_video_codec_kind_to_string (AsVideoCodecKind kind)
 {
-	if (codec == AS_VIDEO_CODEC_AV1)
+	if (kind == AS_VIDEO_CODEC_KIND_AV1)
 		return "av1";
-	if (codec == AS_VIDEO_CODEC_VP9)
+	if (kind == AS_VIDEO_CODEC_KIND_VP9)
 		return "vp9";
 	return NULL;
 }
 
 /**
- * as_video_container_from_string:
- * @container: the string.
+ * as_video_container_kind_from_string:
+ * @str: the string.
  *
  * Converts the text representation to an enumerated value.
  *
- * Returns: (transfer full): a #AsVideoContainer, or %AS_VIDEO_CONTAINER_UNKNOWN for unknown.
+ * Returns: (transfer full): a #AsVideoContainerKind, or %AS_VIDEO_CONTAINER_KIND_UNKNOWN for unknown.
  *
  **/
-AsVideoContainer
-as_video_container_from_string (const gchar *container)
+AsVideoContainerKind
+as_video_container_kind_from_string (const gchar *str)
 {
-	if (g_strcmp0 (container, "mkv") == 0)
-		return AS_VIDEO_CONTAINER_MKV;
-	if (g_strcmp0 (container, "webm") == 0)
-		return AS_VIDEO_CONTAINER_WEBM;
-	return AS_VIDEO_CONTAINER_UNKNOWN;
+	if (g_strcmp0 (str, "mkv") == 0)
+		return AS_VIDEO_CONTAINER_KIND_MKV;
+	if (g_strcmp0 (str, "webm") == 0)
+		return AS_VIDEO_CONTAINER_KIND_WEBM;
+	return AS_VIDEO_CONTAINER_KIND_UNKNOWN;
 }
 
 /**
- * as_video_container_to_string:
- * @container: the #AsVideoContainer.
+ * as_video_container_kind_to_string:
+ * @kind: the #AsVideoContainerKind.
  *
  * Converts the enumerated value to an text representation.
  *
@@ -136,72 +136,72 @@ as_video_container_from_string (const gchar *container)
  *
  **/
 const gchar*
-as_video_container_to_string (AsVideoContainer container)
+as_video_container_kind_to_string (AsVideoContainerKind kind)
 {
-	if (container == AS_VIDEO_CONTAINER_MKV)
+	if (kind == AS_VIDEO_CONTAINER_KIND_MKV)
 		return "mkv";
-	if (container == AS_VIDEO_CONTAINER_WEBM)
+	if (kind == AS_VIDEO_CONTAINER_KIND_WEBM)
 		return "webm";
 	return NULL;
 }
 
 /**
- * as_video_set_codec:
+ * as_video_set_codec_kind:
  * @video: a #AsVideo instance.
- * @codec: the #AsVideoCodec, e.g. %AS_VIDEO_CODEC_AV1.
+ * @kind: the #AsVideoCodecKind, e.g. %AS_VIDEO_CODEC_KIND_AV1.
  *
  * Sets the video codec.
  *
  **/
 void
-as_video_set_codec (AsVideo *video, AsVideoCodec codec)
+as_video_set_codec_kind (AsVideo *video, AsVideoCodecKind kind)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
-	priv->codec = codec;
+	priv->codec = kind;
 }
 
 /**
- * as_video_get_codec:
+ * as_video_get_codec_kind:
  * @video: a #AsVideo instance.
  *
  * Gets the video codec, if known.
  *
- * Returns: the #AsVideoCodec
+ * Returns: the #AsVideoCodecKind
  *
  **/
-AsVideoCodec
-as_video_get_codec (AsVideo *video)
+AsVideoCodecKind
+as_video_get_codec_kind (AsVideo *video)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
 	return priv->codec;
 }
 
 /**
- * as_video_set_container:
+ * as_video_set_container_kind:
  * @video: a #AsVideo instance.
- * @container: the #AsVideoContainer, e.g. %AS_VIDEO_CONTAINER_MKV.
+ * @kind: the #AsVideoContainerKind, e.g. %AS_VIDEO_CONTAINER_KIND_MKV.
  *
  * Sets the video container.
  *
  **/
 void
-as_video_set_container (AsVideo *video, AsVideoContainer container)
+as_video_set_container_kind (AsVideo *video, AsVideoContainerKind kind)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
-	priv->container = container;
+	priv->container = kind;
 }
 
 /**
- * as_video_get_container:
+ * as_video_get_container_kind:
  * @video: a #AsVideo instance.
  *
  * Gets the video container format, if known.
  *
- * Returns: the #AsVideoContainer
+ * Returns: the #AsVideoContainerKind
  *
  **/
-AsVideoContainer
-as_video_get_container (AsVideo *video)
+AsVideoContainerKind
+as_video_get_container_kind (AsVideo *video)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
 	return priv->container;
@@ -378,10 +378,10 @@ as_video_load_from_xml (AsVideo *video, AsContext *ctx, xmlNode *node, GError **
 	}
 
 	codec_kind = (gchar*) xmlGetProp (node, (xmlChar*) "codec");
-	priv->codec = as_video_codec_from_string (codec_kind);
+	priv->codec = as_video_codec_kind_from_string (codec_kind);
 
 	container_kind = (gchar*) xmlGetProp (node, (xmlChar*) "container");
-	priv->container = as_video_container_from_string (container_kind);
+	priv->container = as_video_container_kind_from_string (container_kind);
 
 	if (!as_context_has_media_baseurl (ctx)) {
 		/* no baseurl, we can just set the value as URL */
@@ -413,10 +413,10 @@ as_video_to_xml_node (AsVideo *video, AsContext *ctx, xmlNode *root)
 				   (xmlChar*) "video",
 				   (xmlChar*) priv->url);
 
-	if (priv->codec != AS_VIDEO_CODEC_UNKNOWN)
-		xmlNewProp (n_video, (xmlChar*) "codec", (xmlChar*) as_video_codec_to_string (priv->codec));
-	if (priv->container != AS_VIDEO_CONTAINER_UNKNOWN)
-		xmlNewProp (n_video, (xmlChar*) "container", (xmlChar*) as_video_container_to_string (priv->container));
+	if (priv->codec != AS_VIDEO_CODEC_KIND_UNKNOWN)
+		xmlNewProp (n_video, (xmlChar*) "codec", (xmlChar*) as_video_codec_kind_to_string (priv->codec));
+	if (priv->container != AS_VIDEO_CONTAINER_KIND_UNKNOWN)
+		xmlNewProp (n_video, (xmlChar*) "container", (xmlChar*) as_video_container_kind_to_string (priv->container));
 
 	if ((priv->width > 0) && (priv->height > 0)) {
 		gchar *size;
@@ -467,10 +467,10 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, GNode *node, GError **e
 			priv->height = g_ascii_strtoll (value, NULL, 10);
 
 		} else if (g_strcmp0 (key, "codec") == 0) {
-			priv->codec = as_video_codec_from_string (value);
+			priv->codec = as_video_codec_kind_from_string (value);
 
 		} else if (g_strcmp0 (key, "container") == 0) {
-			priv->container = as_video_container_from_string (value);
+			priv->container = as_video_container_kind_from_string (value);
 
 		} else if (g_strcmp0 (key, "url") == 0) {
 			if (as_context_has_media_baseurl (ctx)) {
@@ -516,8 +516,8 @@ as_video_emit_yaml (AsVideo *video, AsContext *ctx, yaml_emitter_t *emitter)
 	}
 	g_strstrip (url);
 
-	as_yaml_emit_entry (emitter, "codec", as_video_codec_to_string (priv->codec));
-	as_yaml_emit_entry (emitter, "container", as_video_container_to_string (priv->container));
+	as_yaml_emit_entry (emitter, "codec", as_video_codec_kind_to_string (priv->codec));
+	as_yaml_emit_entry (emitter, "container", as_video_container_kind_to_string (priv->container));
 
 	as_yaml_emit_entry (emitter, "url", url);
 	if ((priv->width > 0) && (priv->height > 0)) {

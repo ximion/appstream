@@ -942,8 +942,8 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				if (codec_str == NULL) {
 					as_validator_add_issue (validator, iter2, "screenshot-video-codec-missing", NULL);
 				} else {
-					AsVideoCodec codec = as_video_codec_from_string (codec_str);
-					if (codec == AS_VIDEO_CODEC_UNKNOWN)
+					AsVideoCodecKind codec = as_video_codec_kind_from_string (codec_str);
+					if (codec == AS_VIDEO_CODEC_KIND_UNKNOWN)
 						as_validator_add_issue (validator, iter2, "screenshot-video-codec-invalid", codec_str);
 				}
 
@@ -951,8 +951,8 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				if (container_str == NULL) {
 					as_validator_add_issue (validator, iter2, "screenshot-video-container-missing", NULL);
 				} else {
-					AsVideoContainer container = as_video_container_from_string (container_str);
-					if (container == AS_VIDEO_CONTAINER_UNKNOWN)
+					AsVideoContainerKind container = as_video_container_kind_from_string (container_str);
+					if (container == AS_VIDEO_CONTAINER_KIND_UNKNOWN)
 						as_validator_add_issue (validator, iter2, "screenshot-video-container-invalid", container_str);
 				}
 

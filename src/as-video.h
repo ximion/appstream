@@ -45,52 +45,52 @@ struct _AsVideoClass
 };
 
 /**
- * AsVideoCodec:
- * @AS_VIDEO_CODEC_UNKNOWN:	Unknown video codec
- * @AS_VIDEO_CODEC_VP9:		The VP9 video codec
- * @AS_VIDEO_CODEC_AV1:		The AV1 video codec
+ * AsVideoCodecKind:
+ * @AS_VIDEO_CODEC_KIND_UNKNOWN:	Unknown video codec
+ * @AS_VIDEO_CODEC_KIND_VP9:		The VP9 video codec
+ * @AS_VIDEO_CODEC_KIND_AV1:		The AV1 video codec
  *
  * Supported video codecs.
  **/
 typedef enum {
-	AS_VIDEO_CODEC_UNKNOWN,
-	AS_VIDEO_CODEC_VP9,
-	AS_VIDEO_CODEC_AV1,
+	AS_VIDEO_CODEC_KIND_UNKNOWN,
+	AS_VIDEO_CODEC_KIND_VP9,
+	AS_VIDEO_CODEC_KIND_AV1,
 	/*< private >*/
-	AS_VIDEO_CODEC_LAST
-} AsVideoCodec;
+	AS_VIDEO_CODEC_KIND_LAST
+} AsVideoCodecKind;
 
 /**
- * AsVideoContainer:
- * @AS_VIDEO_CONTAINER_UNKNOWN:		Unknown video container
- * @AS_VIDEO_CONTAINER_MKV:		The Matroska video (MKV) container
- * @AS_VIDEO_CONTAINER_WEBM:		The WebM video container
+ * AsVideoContainerKind:
+ * @AS_VIDEO_CONTAINER_KIND_UNKNOWN:		Unknown video container
+ * @AS_VIDEO_CONTAINER_KIND_MKV:		The Matroska video (MKV) container
+ * @AS_VIDEO_CONTAINER_KIND_WEBM:		The WebM video container
  *
  * Supported video codecs.
  **/
 typedef enum {
-	AS_VIDEO_CONTAINER_UNKNOWN,
-	AS_VIDEO_CONTAINER_MKV,
-	AS_VIDEO_CONTAINER_WEBM,
+	AS_VIDEO_CONTAINER_KIND_UNKNOWN,
+	AS_VIDEO_CONTAINER_KIND_MKV,
+	AS_VIDEO_CONTAINER_KIND_WEBM,
 	/*< private >*/
-	AS_VIDEO_CONTAINER_LAST
-} AsVideoContainer;
+	AS_VIDEO_CONTAINER_KIND_LAST
+} AsVideoContainerKind;
 
-AsVideoCodec		as_video_codec_from_string (const gchar *codec);
-const gchar		*as_video_codec_to_string (AsVideoCodec codec);
+AsVideoCodecKind	as_video_codec_kind_from_string (const gchar *str);
+const gchar		*as_video_codec_kind_to_string (AsVideoCodecKind kind);
 
-AsVideoContainer	as_video_container_from_string (const gchar *container);
-const gchar		*as_video_container_to_string (AsVideoContainer container);
+AsVideoContainerKind	as_video_container_kind_from_string (const gchar *str);
+const gchar		*as_video_container_kind_to_string (AsVideoContainerKind kind);
 
 AsVideo			*as_video_new (void);
 
-AsVideoCodec		as_video_get_codec (AsVideo *video);
-void			as_video_set_codec (AsVideo *video,
-					    AsVideoCodec codec);
+AsVideoCodecKind	as_video_get_codec_kind (AsVideo *video);
+void			as_video_set_codec_kind (AsVideo *video,
+						 AsVideoCodecKind kind);
 
-AsVideoContainer	as_video_get_container (AsVideo *video);
-void			as_video_set_container (AsVideo *video,
-						AsVideoContainer container);
+AsVideoContainerKind	as_video_get_container_kind (AsVideo *video);
+void			as_video_set_container_kind (AsVideo *video,
+						     AsVideoContainerKind kind);
 
 const gchar		*as_video_get_url (AsVideo *video);
 void			 as_video_set_url (AsVideo *video,

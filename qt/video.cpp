@@ -85,22 +85,22 @@ _AsVideo * AppStream::Video::asVideo() const
 
 Video::CodecKind Video::codec() const
 {
-    return Video::CodecKind(as_video_get_codec(d->m_vid));
+    return Video::CodecKind(as_video_get_codec_kind(d->m_vid));
 }
 
 void Video::setCodec(Video::CodecKind codec)
 {
-    as_video_set_codec(d->m_vid, (AsVideoCodec) codec);
+    as_video_set_codec_kind(d->m_vid, (AsVideoCodecKind) codec);
 }
 
 Video::ContainerKind Video::container() const
 {
-    return Video::ContainerKind(as_video_get_container(d->m_vid));
+    return Video::ContainerKind(as_video_get_container_kind(d->m_vid));
 }
 
 void Video::setContainer(Video::ContainerKind container)
 {
-    as_video_set_container(d->m_vid, (AsVideoContainer) container);
+    as_video_set_container_kind(d->m_vid, (AsVideoContainerKind) container);
 }
 
 uint Video::height() const

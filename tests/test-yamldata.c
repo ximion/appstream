@@ -1069,8 +1069,8 @@ test_yaml_write_screenshots (void)
 	scr2 = as_screenshot_new ();
 	as_screenshot_set_caption (scr2, "A screencast of this app", "C");
 	vid = as_video_new ();
-	as_video_set_codec (vid, AS_VIDEO_CODEC_AV1);
-	as_video_set_container (vid, AS_VIDEO_CONTAINER_MKV);
+	as_video_set_codec_kind (vid, AS_VIDEO_CODEC_KIND_AV1);
+	as_video_set_container_kind (vid, AS_VIDEO_CONTAINER_KIND_MKV);
 	as_video_set_width (vid, 1916);
 	as_video_set_height (vid, 1056);
 	as_video_set_url (vid, "https://example.org/screencast.mkv");
@@ -1078,8 +1078,8 @@ test_yaml_write_screenshots (void)
 	g_object_unref (vid);
 
 	vid = as_video_new ();
-	as_video_set_codec (vid, AS_VIDEO_CODEC_AV1);
-	as_video_set_container (vid, AS_VIDEO_CONTAINER_MKV);
+	as_video_set_codec_kind (vid, AS_VIDEO_CODEC_KIND_AV1);
+	as_video_set_container_kind (vid, AS_VIDEO_CONTAINER_KIND_MKV);
 	as_video_set_locale (vid, "de_DE");
 	as_video_set_width (vid, 1916);
 	as_video_set_height (vid, 1056);
@@ -1164,15 +1164,15 @@ test_yaml_read_screenshots (void)
 	g_assert_cmpint (videos->len, ==, 2);
 
 	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
-	g_assert_cmpint (as_video_get_codec (vid), ==, AS_VIDEO_CODEC_AV1);
-	g_assert_cmpint (as_video_get_container (vid), ==, AS_VIDEO_CONTAINER_MKV);
+	g_assert_cmpint (as_video_get_codec_kind (vid), ==, AS_VIDEO_CODEC_KIND_AV1);
+	g_assert_cmpint (as_video_get_container_kind (vid), ==, AS_VIDEO_CONTAINER_KIND_MKV);
 	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast.mkv");
 	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
 	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
 
 	vid = AS_VIDEO (g_ptr_array_index (videos, 1));
-	g_assert_cmpint (as_video_get_codec (vid), ==, AS_VIDEO_CODEC_AV1);
-	g_assert_cmpint (as_video_get_container (vid), ==, AS_VIDEO_CONTAINER_MKV);
+	g_assert_cmpint (as_video_get_codec_kind (vid), ==, AS_VIDEO_CODEC_KIND_AV1);
+	g_assert_cmpint (as_video_get_container_kind (vid), ==, AS_VIDEO_CONTAINER_KIND_MKV);
 	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
 	g_assert_cmpint (as_video_get_width (vid), ==, 1916);
 	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
