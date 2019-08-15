@@ -53,6 +53,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
     { Component::KindService, QLatin1String("service") },
     { Component::KindRepository, QLatin1String("repository") },
     { Component::KindOperatingSystem, QLatin1String("operating-system") },
+    { Component::KindIconTheme, QLatin1String("icon-theme") },
     { Component::KindUnknown, QLatin1String("unknown") }
     }
 ));
@@ -106,6 +107,9 @@ Component::Kind Component::stringToKind(const QString& kindString) {
 
     if (kindString == QLatin1String("operating-system"))
         return KindOperatingSystem;
+
+    if (kindString == QLatin1String("icon-theme"))
+        return KindIconTheme;
 
     return KindUnknown;
 

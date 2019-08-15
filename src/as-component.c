@@ -179,6 +179,7 @@ as_component_kind_get_type (void)
 					{AS_COMPONENT_KIND_SERVICE,      "AS_COMPONENT_KIND_SERVICE",      "service"},
 					{AS_COMPONENT_KIND_REPOSITORY,   "AS_COMPONENT_KIND_REPOSITORY",   "repository"},
 					{AS_COMPONENT_KIND_OPERATING_SYSTEM, "AS_COMPONENT_KIND_OPERATING_SYSTEM", "operating-system"},
+					{AS_COMPONENT_KIND_ICON_THEME,   "AS_COMPONENT_KIND_ICON_THEME",   "icon-theme"},
 					{0, NULL, NULL}
 		};
 		GType as_component_type_type_id;
@@ -227,6 +228,8 @@ as_component_kind_to_string (AsComponentKind kind)
 		return "repository";
 	if (kind == AS_COMPONENT_KIND_OPERATING_SYSTEM)
 		return "operating-system";
+	if (kind == AS_COMPONENT_KIND_ICON_THEME)
+		return "icon-theme";
 	return "unknown";
 }
 
@@ -271,6 +274,8 @@ as_component_kind_from_string (const gchar *kind_str)
 		return AS_COMPONENT_KIND_REPOSITORY;
 	if (g_strcmp0 (kind_str, "operating-system") == 0)
 		return AS_COMPONENT_KIND_OPERATING_SYSTEM;
+	if (g_strcmp0 (kind_str, "icon-theme") == 0)
+		return AS_COMPONENT_KIND_ICON_THEME;
 
 	/* legacy */
 	if (g_strcmp0 (kind_str, "desktop") == 0)

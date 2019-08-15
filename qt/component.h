@@ -65,7 +65,8 @@ Q_GADGET
             KindLocalization,
             KindService,
             KindRepository,
-            KindOperatingSystem
+            KindOperatingSystem,
+            KindIconTheme
         };
         Q_ENUM(Kind)
 
