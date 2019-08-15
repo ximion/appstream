@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-IconTheme">
+	<title>Icon Themes</title>
+
+	<section id="spec-iconthemedata-introduction">
+		<title>Introduction</title>
+		<para>
+			Icon themes as defined in the <ulink url="https://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html"> Freedesktop Icon Theme Specification</ulink>
+			can contain <literal>icon-theme</literal> metainfo files to be installed by software centers.
+			This metainfo specification describes how metadata for icon themes should be structured.
+		</para>
+		<para>
+			Icon theme packages can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
+		</para>
+		<para>
+			Icon theme metadata files can – just like all other metainfo files – be translated. See the section about translation for more information.
+		</para>
+	</section>
+
+	<section id="spec-iconthemedata-example">
+		<title>Example file</title>
+		<para>
+			A minimal icon theme metainfo file can look like this:
+		</para>
+		<programlisting language="XML"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<component type="icon-theme">
+  <id>io.git.PapirusIconTheme</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0</project_license>
+
+  <name>Papirus</name>
+  <summary>A free and open source icon theme for Linux, based on the Paper Icon Set</summary>
+  <description>
+    <p>
+      Papirus is a free and open source SVG icon theme for Linux, based on Paper Icon Set
+      with a lot of new icons and a few extras, like Hardcode-Tray support, KDE colorscheme
+      support, Folder Color support, and others.
+      It is available in four variants:
+    </p>
+    <ul>
+      <li>Papirus</li>
+      <li>Papirus Dark</li>
+      <li>Papirus Light</li>
+      <li>ePapirus (for elementary OS and Pantheon Desktop)</li>
+    </ul>
+  </description>
+
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/preview.png</image>
+    </screenshot>
+  </screenshots>
+</component>]]></programlisting>
+	</section>
+
+	<section id="spec-iconthemedata-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root must have the <literal>type</literal> property set to <code>icon-theme</code>.
+			This clearly identifies this metainfo document as describing an icon theme following the Freedesktop specification.
+		</para>
+		<para>
+			A new metainfo file is required for each variant of the icon theme (one for each <filename>index.theme</filename>) to describe
+			the individual icon themes and allow them to be installed individually.
+			That is, unless all the different theme variants are designed to be installed together (due to symbolic links between themes or
+			<code>Inherits</code> fields in the theme description), in which case only one <literal>icon-theme</literal> component is required
+			to describe the whole icon theme set.
+		</para>
+
+		<variablelist>
+			<varlistentry>
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For fonts, the <literal>%{id}</literal> must follow the reverse-DNS scheme as described for generic components.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;metadata_license/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;metadata_license/&gt;</code> tag is required. See <xref linkend="tag-metadata_license"/> for a description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;name/&gt;</term>
+			<listitem>
+				<para>
+					Set a name for the icon theme or set of icon themes intended to be shipped in one bundle.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;summary/&gt;</term>
+			<listitem>
+				<para>
+					A short description of the icon theme.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;description/&gt;</term>
+			<listitem>
+				<para>
+					Add a long description of your icon theme.
+				</para>
+				<para>
+					See the generic component <xref linkend="tag-description"/> for a detailed description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;screenshots/&gt;</term>
+			<listitem>
+				<para>
+					A screenshot to show off the icon theme.
+				</para>
+				<para>
+					A good example on how that may look like is
+					<ulink url="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/blob/master/preview.png">the preview image of the Papirus icon theme</ulink>.
+				</para>
+				<para>
+					See the generic component <xref linkend="tag-screenshots"/> for a detailed description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>&lt;url/&gt;</term>
+			<listitem>
+				<para>
+					This is a recommended tag for links of type <code>homepage</code>.
+					Links of type <code>homepage</code> should be a link to the upstream homepage for the icon theme.
+					See the generic component <xref linkend="tag-url"/> for a description of this tag.
+				</para>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+
+		<para>
+			For a component of type <literal>icon-theme</literal>, the following tags are required and must be present: <xref linkend="tag-id-generic"/>, <xref linkend="tag-name"/>,
+			<xref linkend="tag-summary"/>, <xref linkend="tag-metadata_license"/>.
+		</para>
+
+	</section>
+</section>

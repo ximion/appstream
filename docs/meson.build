@@ -56,6 +56,7 @@ as_doc_src = [
     'sources/metainfo/driver.xml',
     'sources/metainfo/firmware.xml',
     'sources/metainfo/font.xml',
+    'sources/metainfo/icontheme.xml',
     'sources/metainfo/inputmethod.xml',
     'sources/metainfo/localization.xml',
     'sources/metainfo/MetaInfo.xml',
