@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2017 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -872,9 +872,15 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 		gboolean image_found = FALSE;
 		gboolean video_found = FALSE;
 		gboolean caption_found = FALSE;
+		gboolean default_screenshot = FALSE;
+		g_autofree gchar *scr_kind_str = NULL;
 
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
+
+		scr_kind_str = (gchar*) xmlGetProp (iter, (xmlChar*) "type");
+		if (g_strcmp0 (scr_kind_str, "default") == 0)
+			default_screenshot = TRUE;
 
 		if (g_strcmp0 ((const gchar*) iter->name, "screenshot") != 0) {
 			as_validator_add_issue (validator, iter,
@@ -887,7 +893,6 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 		for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 			const gchar *node_name = (const gchar*) iter2->name;
-
 			if (iter2->type != XML_ELEMENT_NODE)
 				continue;
 
@@ -916,6 +921,10 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				g_autofree gchar *video_url = (gchar*) xmlNodeGetContent (iter2);
 
 				video_found = TRUE;
+
+				/* the default screenshot must not be a video */
+				if (default_screenshot)
+					as_validator_add_issue (validator, iter, "screenshot-default-contains-video", NULL);
 
 				if (!as_validator_web_url_exists (validator, video_url)) {
 					as_validator_add_issue (validator, iter2,

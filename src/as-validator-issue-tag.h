@@ -238,6 +238,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "video does not belong to either of these formats.")
 	},
 
+	{ "screenshot-default-contains-video",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot.")
+	},
+
 	{ "relation-invalid-tag",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown.")
