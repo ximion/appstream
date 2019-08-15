@@ -50,6 +50,7 @@ struct _AsLaunchableClass
  * @AS_LAUNCHABLE_KIND_DESKTOP_ID:		Launch by desktop-id
  * @AS_LAUNCHABLE_KIND_SERVICE:			A systemd/SysV-init service name
  * @AS_LAUNCHABLE_KIND_COCKPIT_MANIFEST:	A Cockpit manifest / package name
+ * @AS_LAUNCHABLE_KIND_URL:			A web HTTPS URL to launch a web application from
  *
  * Type of launch system the entries belong to.
  **/
