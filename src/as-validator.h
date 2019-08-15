@@ -26,6 +26,7 @@
 #define __AS_VALIDATOR_H
 
 #include <glib-object.h>
+#include "as-validator-issue.h"
 
 G_BEGIN_DECLS
 
@@ -61,6 +62,11 @@ gchar		*as_validator_get_report_yaml (AsValidator *validator);
 gboolean	as_validator_get_check_urls (AsValidator *validator);
 void		as_validator_set_check_urls (AsValidator *validator,
 						gboolean value);
+
+const gchar	*as_validator_get_tag_explanation (AsValidator *validator,
+						   const gchar *tag);
+AsIssueSeverity	as_validator_get_tag_severity (AsValidator *validator,
+					       const gchar *tag);
 
 G_END_DECLS
 

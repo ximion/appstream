@@ -2258,6 +2258,42 @@ as_validator_get_report_yaml (AsValidator *validator)
 }
 
 /**
+ * as_validator_get_tag_explanation:
+ * @validator: An instance of #AsValidator.
+ *
+ * Get the explanatory text for a given issue tag.
+ *
+ * Returns: Explanation text.
+ */
+const gchar*
+as_validator_get_tag_explanation (AsValidator *validator, const gchar *tag)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
+	if (tag_data == NULL)
+		return NULL;
+	return tag_data->explanation;
+}
+
+/**
+ * as_validator_get_tag_severity:
+ * @validator: An instance of #AsValidator.
+ *
+ * Get the severity for a given issue tag.
+ *
+ * Returns: The #AsIssueSeverity
+ */
+AsIssueSeverity
+as_validator_get_tag_severity (AsValidator *validator, const gchar *tag)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	const AsValidatorIssueTag *tag_data = g_hash_table_lookup (priv->issue_tags, tag);
+	if (tag_data == NULL)
+		return AS_ISSUE_SEVERITY_UNKNOWN;
+	return tag_data->severity;
+}
+
+/**
  * as_validator_class_init:
  **/
 static void
