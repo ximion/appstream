@@ -2150,15 +2150,16 @@ as_validator_yaml_write_handler_cb (void *ptr, unsigned char *buffer, size_t siz
 /**
  * as_validator_get_issues_as_yaml:
  * @validator: An instance of #AsValidator.
+ * @yaml_report: (out): The generated YAML report
  *
  * Get an issue report as a YAML document.
  *
- * Returns: (transfer full): a YAML document
+ * Returns: %TRUE if validation was successful. A YAML report is generated in any case.
  *
  * Since: 0.12.8
  */
-gchar*
-as_validator_get_report_yaml (AsValidator *validator)
+gboolean
+as_validator_get_report_yaml (AsValidator *validator, gchar **yaml_report)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	GHashTableIter ht_iter;
@@ -2166,7 +2167,12 @@ as_validator_get_report_yaml (AsValidator *validator)
 	yaml_emitter_t emitter;
 	yaml_event_t event;
 	gboolean res = FALSE;
+	gboolean report_validation_passed = TRUE;
 	GString *yaml_result = g_string_new ("");
+
+	if (yaml_report == NULL)
+		return FALSE;
+	*yaml_report = NULL;
 
 	yaml_emitter_initialize (&emitter);
 	yaml_emitter_set_indent (&emitter, 2);
@@ -2180,7 +2186,7 @@ as_validator_get_report_yaml (AsValidator *validator)
 		g_critical ("Failed to initialize YAML emitter.");
 		g_string_free (yaml_result, TRUE);
 		yaml_emitter_delete (&emitter);
-		return NULL;
+		return FALSE;
 	}
 
 	g_hash_table_iter_init (&ht_iter, priv->issues_per_file);
@@ -2238,6 +2244,8 @@ as_validator_get_report_yaml (AsValidator *validator)
 		as_yaml_sequence_end (&emitter);
 
 		as_yaml_emit_entry (&emitter, "Passed", validation_passed? "yes" : "no");
+		if (!validation_passed)
+			report_validation_passed = FALSE;
 
 		/* main dict end */
 		as_yaml_mapping_end (&emitter);
@@ -2254,7 +2262,8 @@ as_validator_get_report_yaml (AsValidator *validator)
 
 	yaml_emitter_flush (&emitter);
 	yaml_emitter_delete (&emitter);
-	return g_string_free (yaml_result, FALSE);
+	*yaml_report = g_string_free (yaml_result, FALSE);
+	return report_validation_passed;
 }
 
 /**

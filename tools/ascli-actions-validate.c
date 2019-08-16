@@ -355,7 +355,7 @@ ascli_validate_files_format (gchar **argv, gint argc, const gchar *format, gbool
 				validation_passed = FALSE;
 		}
 
-		yaml_result = as_validator_get_report_yaml (validator);
+		validation_passed = as_validator_get_report_yaml (validator, &yaml_result);
 		g_print ("%s", yaml_result);
 		return validation_passed? 0 : 3;
 	}
@@ -471,7 +471,7 @@ ascli_validate_tree_format (const gchar *root_dir, const gchar *format, gboolean
 	}
 
 	if (g_strcmp0 (format, "yaml") == 0) {
-		gboolean validation_passed = TRUE;
+		gboolean validation_passed;
 		g_autoptr(AsValidator) validator = NULL;
 		g_autofree gchar *yaml_result = NULL;
 
@@ -484,7 +484,7 @@ ascli_validate_tree_format (const gchar *root_dir, const gchar *format, gboolean
 		as_validator_set_check_urls (validator, use_net);
 		as_validator_validate_tree (validator, root_dir);
 
-		yaml_result = as_validator_get_report_yaml (validator);
+		validation_passed = as_validator_get_report_yaml (validator, &yaml_result);
 		g_print ("%s", yaml_result);
 		return validation_passed? 0 : 3;
 	}

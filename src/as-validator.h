@@ -57,7 +57,8 @@ gboolean	as_validator_validate_tree (AsValidator *validator,
 
 GList		*as_validator_get_issues (AsValidator *validator);
 GHashTable	*as_validator_get_issues_per_file (AsValidator *validator);
-gchar		*as_validator_get_report_yaml (AsValidator *validator);
+gboolean	as_validator_get_report_yaml (AsValidator *validator,
+					      gchar **yaml_report);
 
 gboolean	as_validator_get_check_urls (AsValidator *validator);
 void		as_validator_set_check_urls (AsValidator *validator,
