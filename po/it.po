@@ -4,7 +4,7 @@
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Milo Casagrande <milo@ubuntu.com>, 2019, 2021.
-# Sergio Brighenti <sergio@brighenti.me>, 2019.
+# Sergio Brighenti <sergio@brighenti.me>, 2019, 2021.
 # davide rinaudo <davide.rinaudo.scuola@gmail.com>, 2019.
 # Antenore Gatta <antenore@simbiosi.org>, 2019, 2021.
 # Ivan Fossati <vania1366@gmail.com>, 2020.
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Giovanni Battaglia <iamgiovanni.gb@gmail.com>\n"
+"Last-Translator: Sergio Brighenti <sergio@brighenti.me>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -1242,10 +1242,7 @@ msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Uno screenshot deve contenere immagini o video, ma non entrambi "
-"contemporaneamente. Si prega di utilizzare questa schermata esclusivamente "
-"per immagini statiche o per video."
+msgstr "Uno screenshot deve contenere immagini o video, ma non entrambi contemporaneamente. Si prega di utilizzare questa schermata esclusivamente per immagini statiche o per video."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1287,10 +1284,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"Per i video, sono attualmente supportati solo i formati contenitore WebM e "
-"Matroska (.mkv). L'estensione del file del video di riferimento non "
-"appartiene a nessuno di questi due formati."
+msgstr "Per i video, sono attualmente supportati solo i formati contenitore WebM e Matroska (.mkv). L'estensione del file del video di riferimento non appartiene a nessuno di questi due formati."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -1303,10 +1297,7 @@ msgstr "Lo screenshot predefinito di un componente software non deve essere un v
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Trovato un tag sconosciuto in un gruppo di richieste/raccomandazioni. Questo "
-"è probabilmente un errore, perché una relazione componente di questo tipo è "
-"sconosciuta."
+msgstr "Trovato un tag sconosciuto in un gruppo di richieste/raccomandazioni. Questo è probabilmente un errore, perché una relazione componente di questo tipo è sconosciuta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
