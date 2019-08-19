@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-15 02:46+0200\n"
-"PO-Revision-Date: 2019-08-16 03:11+0000\n"
+"PO-Revision-Date: 2019-08-19 15:53+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -979,43 +979,37 @@ msgstr "O arquivo .desktop “%s” não existe."
 
 #: src/as-validator-issue-tag.h:388
 msgid "The <developer_name/> can not contain a hyperlink."
-msgstr ""
+msgstr "O <developer_name/> não contém um hiperlink."
 
 #: src/as-validator-issue-tag.h:313
 msgid ""
 "The <id/> tag still contains a 'type' property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
+msgstr "A tag <id/> ainda contém uma propriedade \"type\", provavelmente de uma conversão antiga para o formato recente de metainfo."
 
 #: src/as-validator-issue-tag.h:616
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
+msgstr "A especificação AppStream requer uma string de data ISO 8601 completa com pelo menos granularidade em dias para denotar datas. Certifique-se de que a string de data é válida."
 
 #: src/as-pool.c:1774
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
-msgstr ""
-"Cache de sistema do AppStream foi atualizado, mas problemas foram "
-"encontrados: %s"
+msgstr "O cache de sistema do AppStream foi atualizado, mas problemas foram encontrados que resultaram nos metadados serem ignorados: %s"
 
 #: src/as-pool.c:1772
-#, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr ""
-"O cache de sistema do AppStream foi atualizado, mas alguns erros foram "
-"detectados, o que pode levar a metadados em falta. Veja o log verboso para "
-"mais informações."
+msgstr "O cache de sistema do AppStream foi atualizado, mas alguns componentes foram ignorados. Veja o log detalhado para mais informações."
 
 #: src/as-validator-issue-tag.h:151
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "A expressão de licença SPDX é inválida e não pôde ser analisada."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:683
@@ -1025,26 +1019,26 @@ msgstr "O TIPO deve ser um component-type válido, como: %s"
 
 #: src/as-validator-issue-tag.h:542
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "O XML neste arquivo está malformado."
 
 #: src/as-validator-issue-tag.h:584
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Manu Specification for a list of valid categories."
-msgstr ""
+msgstr "A categoria definida no arquivo .desktop não é válida. Consulte XDG Menu Specification para obter uma lista de categorias válidas."
 
 #: src/as-validator-issue-tag.h:527
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr ""
+msgstr "O nome da categoria não é válida. Consulte XDG Menu Specification para uma lista de nomes de categorias válidas."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores ('_')."
-msgstr ""
+msgstr "A ID do componente contém um hífen/menos. O uso de um hífen é altamente desencorajado, para melhorar a interoperabilidade com outras ferramentas, como D-Bus. Uma boa opção é substituir quaisquer hífenes por sublinhados (\"_\")."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1052,13 +1046,13 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
+msgstr "A ID do componente contém um segmento que começa com um número. Iniciar um segmento do ID de DNS reverso com um número é fortemente desencorajado, para manter a interoperabilidade com outras ferramentas, como D-Bus. Idealmente, prefixe esses segmentos com um sublinhado."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
+msgstr "A ID do componente contém um caractere inválido. Somente caracteres ASCII, pontos e números são permitidos."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1071,35 +1065,37 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
+"A ID do componente não é um nome de domínio reverso. Atualize o ID para evitar problemas futuros e para ser compatível com todas as implementações do AppStream.\n"
+"Você também pode considerar para atualizar o nome do arquivo .desktop que acompanha para seguir a versão mais recente da especificação de entrada de área de trabalho e usar um nome rDNS para ele também. Em qualquer caso, não se esqueça de mencionar a nova entra de .desktop em uma tag <launchable/> para este componente para manter o aplicativo inicializável a partir de centros de software e os dados de arquivo .desktop associados com os dados metainfo."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
+msgstr "O ID do componente é necessário para seguir um esquema de nome de domínio reverso para seu nome. Consulte a especificação do AppStream para obter detalhes."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
+msgstr "O ID do componente pode não seguir o esquema de nome de domínio reverso (o TLD usado por ele não é conhecido para o validador)."
 
 #: src/as-validator-issue-tag.h:293
 msgid ""
 "The component has a 'merge' method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "O componente tem um método \"merge\" definido. Isso não é permitido em arquivos metainfo."
 
 #: src/as-validator-issue-tag.h:288
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "O componente tem um valor de prioridade definido. Isso não é permitido em arquivos metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:498
 msgid "The component is an addon, but no 'extends' tag was specified."
-msgstr ""
+msgstr "O componente é um extensão, mas nenhuma tag \"extends\" foi especificada."
 
 #: src/as-validator-issue-tag.h:435
 msgid ""
