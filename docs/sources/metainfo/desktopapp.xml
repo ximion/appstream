@@ -29,7 +29,7 @@
 			Applications can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
 		<para>
-			Data will only be fetched from a desktop file if one <xref linkend="tag-dapp-launchable"/> tag is present to define a .desktop file ID. If multiple <literal>launch</literal> tags are
+			Data will only be fetched from a desktop file if one <xref linkend="tag-dapp-launchable"/> tag is present to define a .desktop file ID. If multiple <literal>launchable</literal> tags are
 			defined, no data will be merged in from .desktop files.
 		</para>
 		<note>
