@@ -45,6 +45,14 @@
 				AppStream implementations will recognize either file type, as long as it ends up in the right location on the filesystem.
 			</para>
 		</note>
+		<note>
+			<para>
+				If you want to hide a desktop-entry file from AppStream metadata generators which synthesize components from desktop-entry data, you may
+				want to add <code>X-AppStream-Ignore=True</code> to the <code>Desktop Entry</code> section of the .desktop file.
+				Keep in mind that if your .desktop file already has a <code>NoDisplay=True</code> key or is not of <code>Type=Application</code>, it will
+				always be ignored, unless metainfo file exists that references it (in which case its data may be merged with the metainfo data).
+			</para>
+		</note>
 	</section>
 
 	<section id="spec-appdata-filespec">
