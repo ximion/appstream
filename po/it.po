@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Milo Casagrande <milo@ubuntu.com>, 2019.
+# Sergio Brighenti <sergio@brighenti.me>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-16 00:08+0200\n"
-"PO-Revision-Date: 2019-08-14 22:42+0000\n"
-"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"PO-Revision-Date: 2019-08-20 10:23+0000\n"
+"Last-Translator: Sergio Brighenti <sergio@brighenti.me>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.8-dev\n"
+"X-Generator: Weblate 3.8\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -61,7 +61,7 @@ msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "Uno screenshot deve contenere immagini o video, ma non entrambi contemporaneamente. Si prega di utilizzare questa schermata esclusivamente per immagini statiche o per video."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -519,7 +519,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
+msgstr "Per i video, sono attualmente supportati solo i formati contenitore WebM e Matroska (.mkv). L'estensione del file del video di riferimento non appartiene a nessuno di questi due formati."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
@@ -545,7 +545,7 @@ msgstr "Trovati %i componenti."
 msgid ""
 "Found 'version' property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
+msgstr "È stata trovata la proprietà 'version' sull'elemento richiesto / consigliato di un tipo che non dovrebbe avere o richiedere una versione."
 
 #. TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
@@ -553,7 +553,7 @@ msgid ""
 "Found 'version' property on this required/recommended item, but not "
 "'compare' property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
+msgstr "È stata trovata la proprietà 'version' su questo elemento richiesto / raccomandato, ma non la proprietà 'compare'. Si consiglia di definire esplicitamente un'operazione di confronto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:277
@@ -562,13 +562,13 @@ msgid ""
 "not be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use 'memory' in the 'recommends' tag "
 "instead."
-msgstr ""
+msgstr "È stata rilevata una dipendenza dalla dimensione della memoria in un tag 'requires'. Ciò significa che gli utenti non saranno nemmeno in grado di installare il componente senza avere abbastanza RAM. Questo di solito non è previsto e si desidera utilizzare invece 'memory' nel tag 'recommends'."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
+msgstr "Trovato un tag sconosciuto in un gruppo di richieste/raccomandazioni. Questo è probabilmente un errore, perché una relazione componente di questo tipo è sconosciuta."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
