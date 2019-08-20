@@ -439,20 +439,10 @@
 				<listitem>
 					<para>
 						The <code><![CDATA[<compulsory_for_desktop>]]></code> tag indicates that the component which the metadata belongs to is essential for the
-						functionality of the defined desktop environment. Examples for compulsory components are the <literal>GNOME-Shell</literal> by the GNOME-Project,
-						or the <literal>Plasma-Desktop</literal> by KDE, as well as things like <literal>iBus</literal> or the desktop login manager.
+						functionality of the defined desktop environment.
 					</para>
 					<para>
-						Software centers are expected to detect the running desktop environment and disable uninstallation for compulsory components of that desktop,
-						so users will not be able to damage their currently running, primary desktop environment.
-					</para>
-					<para>
-						Multiple occurrences of the <code><![CDATA[<compulsory_for_desktop>]]></code> tag are allowed, so a project can be essential for many desktops.
-						The distributor decides which components should be made compulsory, however it is generally a good idea to follow upstream's recommendations on that matter.
-					</para>
-					<para>
-						A list of all allowed values for this tag is defined in the <ulink url="https://standards.freedesktop.org/menu-spec/latest/apb.html">XDG Menu Specification</ulink>.
-						Software center applications will only recognize these values.
+						This tag is described in detail at <xref linkend="tag-compulsory_for_desktop"/>.
 					</para>
 				</listitem>
 			</varlistentry>
