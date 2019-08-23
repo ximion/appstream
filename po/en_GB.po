@@ -19,6 +19,7 @@
 # phlostically <phlostically@mailinator.com>, 2021.
 # Deleted User <noreply+20432@weblate.org>, 2021.
 # Tristan Heaven <tristan@tristanheaven.net>, 2021.
+# Deleted User <noreply+16022@weblate.org>, 2021.
 #
 # Translators:
 msgid ""
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Tristan Heaven <tristan@tristanheaven.net>\n"
+"Last-Translator: Deleted User <noreply+16022@weblate.org>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/appstream/translations/en_GB/>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
@@ -1051,9 +1052,7 @@ msgstr "Tags of this name are not permitted in this section."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"A <description/> tag must not be localised in metainfo files (upstream "
-"metadata). Localise the individual paragraphs instead."
+msgstr "A <description/> tag must not be localised in metainfo files (upstream metadata). Localise the individual paragraphs instead."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1070,11 +1069,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"AppStream descriptions support only a limited set of tags to format text: "
-"Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description mark-up "
-"contains an invalid XML tag that would not be rendered correctly in "
-"applications supporting the metainfo specification."
+msgstr "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description mark-up contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1104,9 +1099,7 @@ msgstr "The description contains a web URL in plain text. This is not allowed, p
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"As per AppStream specification, the mentioned tag must only appear once in "
-"this context. Having multiple tags of this kind is not valid."
+msgstr "As per AppStream specification, the mentioned tag must only appear once in this context. Having multiple tags of this kind is not valid."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
@@ -1118,9 +1111,7 @@ msgstr "The mentioned tag is empty, which is highly likely not intended as it sh
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
-"The component ID is required to follow a reverse domain-name scheme for its "
-"name. See the AppStream specification for details."
+msgstr "The component ID is required to follow a reverse domain-name scheme for its name. See the AppStream specification for details."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1133,14 +1124,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"The component ID is not a reverse domain-name. Please update the ID to avoid "
-"future issues and be compatible with all AppStream implementations.\n"
-"You may also consider to update the name of the accompanying .desktop file "
-"to follow the latest version of the Desktop-Entry specification and use a "
-"rDNS name for it as well. In any case, do not forget to mention the new "
-"desktop-entry in a <launchable/> tag for this component to keep the "
-"application launchable from software centers and the .desktop file data "
-"associated with the metainfo data."
+"The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
+"You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
@@ -1152,9 +1137,7 @@ msgstr "The component ID might not follow the reverse domain-name schema (the TL
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
-"The component ID contains an invalid character. Only ASCII characters, dots "
-"and numbers are permitted."
+msgstr "The component ID contains an invalid character. Only ASCII characters, dots and numbers are permitted."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
@@ -1169,11 +1152,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"The component ID contains a segment starting with a number. Starting a "
-"segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
-"interoperability with other tools such as D-Bus. Ideally, prefix these "
-"segments with an underscore."
+msgstr "The component ID contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
@@ -1247,28 +1226,21 @@ msgstr "Unable to reach the screenshot video on its remote location - does the v
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Consider using a secure (HTTPS) URL to reference this screenshot image or "
-"video."
+msgstr "Consider using a secure (HTTPS) URL to reference this screenshot image or video."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"A screenshot must contain at least one image or video in order to be useful. "
-"Please add an <image/> to it."
+msgstr "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"A screenshot must contain either images or videos, but not both at the same "
-"time. Please use this screenshot exclusively for either static images or for "
-"videos."
+msgstr "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1310,10 +1282,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"For videos, only the WebM and Matroska (.mkv) container formats are "
-"currently supported. The file extension of the referenced video does not "
-"belong to either of these formats."
+msgstr "For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced video does not belong to either of these formats."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -1326,9 +1295,7 @@ msgstr "The default screenshot of a software component must not be a video. Use 
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Found an unknown tag in a requires/recommends group. This is likely an "
-"error, because a component relation of this type is unknown."
+msgstr "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
@@ -1585,17 +1552,13 @@ msgstr "The component is missing a long description. Components of this type mus
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
-"It would be useful to add a long description to this font to present it "
-"better to users."
+msgstr "It would be useful to add a long description to this font to present it better to users."
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
-"It is recommended to add a long description to this component to present it "
-"better to users."
+msgstr "It is recommended to add a long description to this component to present it better to users."
 
 #: src/as-validator-issue-tag.h:504
 msgid ""
@@ -1687,9 +1650,7 @@ msgstr "Suggestions of any type other than `upstream` are not allowed in metainf
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr ""
-"The category name is not valid. Refer to the XDG Menu Specification for a "
-"list of valid category names."
+msgstr "The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."
 
 #: src/as-validator-issue-tag.h:586
 #, fuzzy
@@ -1832,10 +1793,7 @@ msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"The AppStream specification requires a complete, ISO 8601 date string with "
-"at least day-granularity to denote dates. Please ensure the date string is "
-"valid."
+msgstr "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 
 #: src/as-validator-issue-tag.h:731
 msgid ""
