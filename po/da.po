@@ -9,16 +9,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-16 00:08+0200\n"
-"PO-Revision-Date: 2019-06-16 16:44+0000\n"
+"PO-Revision-Date: 2019-08-27 02:23+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
-"translations/da/>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.7-dev\n"
+"X-Generator: Weblate 3.9-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -318,14 +317,12 @@ msgid ""
 msgstr "Opret en skabelon til en metainfofil (udfyldes af opstrømsprojektet)."
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
-msgstr "Tjenester for DBus-session"
+msgstr "Tjenester for D-Bus-session"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
-msgstr "Tjenester for DBus-system"
+msgstr "Tjenester for D-Bus-system"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
@@ -462,9 +459,9 @@ msgid "Featured"
 msgstr "Udvalgte"
 
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "Metadatafilen '%s' findes ikke."
+msgstr "Filen '%s' findes ikke."
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
