@@ -581,7 +581,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "desktop-file-category-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The category defined in the .desktop file is not valid. Refer to the XDG Manu Specification for a list of valid categories."),
+	  N_("The category defined in the .desktop file is not valid. Refer to the XDG Menu Specification for a list of valid categories."),
 	},
 
 	{ "dir-no-metadata.found",
