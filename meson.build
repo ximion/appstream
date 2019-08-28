@@ -54,7 +54,7 @@ endif
 
 # a few compiler warning flags we always want enabled
 add_global_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'c')
-add_global_arguments('-Werror=implicit-function-declaration', '-Wno-unused-parameter', language: 'cpp')
+add_global_arguments('-Wno-unused-parameter', language: 'cpp')
 add_global_arguments('-DAS_COMPILATION', language : 'c')
 
 #
