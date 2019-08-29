@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-16 00:08+0200\n"
 "PO-Revision-Date: 2019-08-29 06:24+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Last-Translator: Katerina Katapodi <katerinakatapodi@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -558,7 +558,7 @@ msgstr "Se encontró una etiqueta no válida. Las etiquetas no estándares deben
 #: src/as-validator.c:1184
 #, c-format
 msgid "Found: %s - Allowed: %s"
-msgstr ""
+msgstr "Encontrado: %s - Permitido: %s"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
@@ -594,14 +594,14 @@ msgstr "Icono"
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:351
 msgid "Icons of type 'remote' must contain an URL to the referenced icon."
-msgstr ""
+msgstr "Las iconas de tipo 'isolado' deben contenir un URL a l'icona referida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:344
 msgid ""
 "Icons of type 'stock' or 'cached' must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
+msgstr "Las icones de tipo 'reservado' o 'ocultado' no deben contenir ningun URL, un modo completo a relativo a l'icona . Solo los nombres de bases de ficheros o nombres reservados son permisos."
 
 #: tools/ascli-actions-misc.c:92
 msgid "Iconsets"
@@ -631,14 +631,14 @@ msgstr ""
 msgid ""
 "Invalid 'type' property for this 'url' tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
+msgstr "Propiedad invalida para ese titulo del 'url'. Los URLs de este tipo no son conocidos  en l'AppStream especificado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:553
 msgid ""
 "Invalid tag found in collection metadata. Only 'component' tags are "
 "permitted."
-msgstr ""
+msgstr "Titulo invalido encontrado en la coleccion metadatos. Solo 'componentes' son permitidos."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -650,13 +650,13 @@ msgstr ""
 msgid ""
 "Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/"
 "ge are permitted."
-msgstr ""
+msgstr "Version invalida del uso comparando al objeto  relativo. Solo los  eq/ne/lt/gt/le/ge son permitidos."
 
 #: src/as-validator-issue-tag.h:445
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
+msgstr "Es recomendado de anadir una larga descripcion a este componente para presentarlo mejor a usuarios."
 
 #: src/as-validator-issue-tag.h:440
 msgid ""
