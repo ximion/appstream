@@ -8,13 +8,14 @@
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019.
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019.
 # angryBird120 <tk120@protonmail.com>, 2019.
+# abehrens <andre.behrens@codehub.org>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-16 00:08+0200\n"
 "PO-Revision-Date: 2019-08-29 06:24+0000\n"
-"Last-Translator: angryBird120 <tk120@protonmail.com>\n"
+"Last-Translator: abehrens <andre.behrens@codehub.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -607,7 +608,7 @@ msgstr "Isolierte Bilder muessen  ein URL dem Bild von Referenz enthalten."
 msgid ""
 "Icons of type 'stock' or 'cached' must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
+msgstr "Symbole vom Typ 'stock' oder 'cached' dürfen keine URL, keinen vollständigen oder relativen Pfad zum Symbol enthalten. Es sind nur Datei-Basis- oder Bestandsnamen zulässig."
 
 #: tools/ascli-actions-misc.c:92
 msgid "Iconsets"
