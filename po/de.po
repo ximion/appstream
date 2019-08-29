@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-16 00:08+0200\n"
-"PO-Revision-Date: 2019-08-27 02:23+0000\n"
+"PO-Revision-Date: 2019-08-29 06:24+0000\n"
 "Last-Translator: Katerina Katapodi <katerinakatapodi@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
@@ -556,14 +556,14 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or 'x-'-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
+msgstr "Ungueltiges Tag gefunden. Die nicht feste Tags muessen das Prefix 'x' haben. Appstream vorhandet auch das Tag <custom/> um freie Daten von Personalisierung  den Dateien MetaIfo vorzuhanden.  Dies Tag wird in den Bibliotheken AppSteam gelesen und nutzt auch wenn kein personalisiertes Hochnivot oder 'x' Tags mit Prefix bestimmt sind. Falls Sie personalisierte Daten einem File MetaInfo fuegen wollen."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:477 src/as-validator.c:889 src/as-validator.c:974
 #: src/as-validator.c:1184
 #, c-format
 msgid "Found: %s - Allowed: %s"
-msgstr ""
+msgstr "Gefunden: %s - Erlaubt: %s"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
@@ -599,7 +599,7 @@ msgstr "Symbol"
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:351
 msgid "Icons of type 'remote' must contain an URL to the referenced icon."
-msgstr ""
+msgstr "Isolierte Bilder muessen  ein URL dem Bild von Referenz enthalten."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:344
@@ -634,7 +634,7 @@ msgstr "Anwendung mit passender Komponentenkennung installieren."
 msgid ""
 "Invalid 'type' property for this 'url' tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
+msgstr "Ungueltiger 'Typ' Eingenschaft fuer dies Tag ''url' . Die URLs dieser Kategorie sind unbekannt in der Spezifikation von AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:553
