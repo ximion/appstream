@@ -42,10 +42,15 @@
 #include "as-launchable.h"
 
 /*
- * The maximum size of the cache file (512MiB).
+ * The maximum size of the cache file (128MiB on x86,
+ * 256MiB everywhere else).
  * The file is mmap(2)'d into memory.
  */
-static const size_t LMDB_DB_SIZE = 1024 * 1024 * 512;
+#ifdef __i386__
+static const size_t LMDB_DB_SIZE = 1024 * 1024 * 128;
+#else
+static const size_t LMDB_DB_SIZE = 1024 * 1024 * 256;
+#endif
 
 /* format version of the currently supported cache */
 static const gchar *CACHE_FORMAT_VERSION = "1";
