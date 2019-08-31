@@ -13,10 +13,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-08-16 00:08+0200\n"
+"POT-Creation-Date: 2019-08-31 19:47+0200\n"
 "PO-Revision-Date: 2019-08-29 06:24+0000\n"
 "Last-Translator: abehrens <andre.behrens@codehub.org>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
+"translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,27 +40,36 @@ msgstr "3D-Grafik"
 msgid ""
 "A 'requires' or 'recommends' item requires a value to denote a valid "
 "relation."
-msgstr "A 'erfordert oder 'empfehlt'das Thema benoetige eine Wert um ein gueltiges Verhaeltnis zu denotieren"
+msgstr ""
+"A 'erfordert oder 'empfehlt'das Thema benoetige eine Wert um ein gueltiges "
+"Verhaeltnis zu denotieren"
 
 #: src/as-validator-issue-tag.h:51
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "Das Titel A  <Beschreibung' muss  in keinen Metadaten lokalisiert werden (Metadaten Upstream). Die persoenliche Parafrafen jedoch lokalisieren."
+msgstr ""
+"Das Titel A  <Beschreibung' muss  in keinen Metadaten lokalisiert werden "
+"(Metadaten Upstream). Die persoenliche Parafrafen jedoch lokalisieren."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:195
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr "Das Screenshot A soll wenigstens ein Bild oder Video enthalten,um nutzvoll zu sein. Bitte ein <Bild>dazu fuegen."
+msgstr ""
+"Das Screenshot A soll wenigstens ein Bild oder Video enthalten,um nutzvoll "
+"zu sein. Bitte ein <Bild>dazu fuegen."
 
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr "Das Screenshot A muss entweder Bilder oder Videos enthalten, aber nicht beide in der selbe Zeit.Bitte das Screenshot ausschliesslich fuer beide unbewegliche Bilder oder Videos dazu benutzen."
+msgstr ""
+"Das Screenshot A muss entweder Bilder oder Videos enthalten, aber nicht "
+"beide in der selbe Zeit.Bitte das Screenshot ausschliesslich fuer beide "
+"unbewegliche Bilder oder Videos dazu benutzen."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -87,7 +97,9 @@ msgstr "Auch kleinste Hinweise anzeigen."
 msgid ""
 "An 'extends' tag is specified, but the component is not of type 'addon', "
 "'localization' or 'repository'."
-msgstr "Ein Tag 'verbreitet' wird bestimmt, aber das Komponent davon kein Teil von 'Addon', 'Lokalisierung' oder 'Repository' Typ ist."
+msgstr ""
+"Ein Tag 'verbreitet' wird bestimmt, aber das Komponent davon kein Teil von "
+"'Addon', 'Lokalisierung' oder 'Repository' Typ ist."
 
 #: tools/appstream-cli.c:722
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -141,7 +153,11 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr "Die Beschreibungen von AppStream unterstutzen nur ein begrenztes Set vonTags des  Textformats: Die Paragrafen <p/> und Listen <ul/>, <ol/>. Diese Note von Beschreibung  enthaelt ein ungueltiges XML Tag , das in keinen Anwendungen, von Bestimmungen von MetaInfo erwaehnt sein soll."
+msgstr ""
+"Die Beschreibungen von AppStream unterstutzen nur ein begrenztes Set vonTags "
+"des  Textformats: Die Paragrafen <p/> und Listen <ul/>, <ol/>. Diese Note "
+"von Beschreibung  enthaelt ein ungueltiges XML Tag , das in keinen "
+"Anwendungen, von Bestimmungen von MetaInfo erwaehnt sein soll."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 #, fuzzy
@@ -181,7 +197,9 @@ msgstr "Künstliche Intelligenz"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr "Nach Bestimmung von AppStream, das erwaehnte Tag muss nur einmal in diesem Text erscheinen. Man muss nicht viele Tags von diesem Typ haben."
+msgstr ""
+"Nach Bestimmung von AppStream, das erwaehnte Tag muss nur einmal in diesem "
+"Text erscheinen. Man muss nicht viele Tags von diesem Typ haben."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -294,7 +312,9 @@ msgstr "Verpflichtend für"
 
 #: src/as-validator-issue-tag.h:361
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr "Denken Sie, dass Sie ein sicheres (HTTPS) URL fuer ein verweitertes Link von Bildern dazu haben."
+msgstr ""
+"Denken Sie, dass Sie ein sicheres (HTTPS) URL fuer ein verweitertes Link von "
+"Bildern dazu haben."
 
 #: src/as-validator-issue-tag.h:383
 msgid "Consider using a secure (HTTPS) URL for this web link."
@@ -304,7 +324,9 @@ msgstr "Denken Sie dass Sie ein sicheres (HTTPS) URL fuer dies Weblink haben."
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr "Denken Sie das Sie ein sicheres (HTTPS)URL zur Referenz dieses Screenshot Bildes oder Video  gebrauchen."
+msgstr ""
+"Denken Sie das Sie ein sicheres (HTTPS)URL zur Referenz dieses Screenshot "
+"Bildes oder Video  gebrauchen."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:737
@@ -413,7 +435,9 @@ msgstr "Aktualisierung des Zwischenspeichers erzwingen."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr "Die Bestimmung von Nummern muessen nur Themen von List {<li/>) wie Kinder haben."
+msgstr ""
+"Die Bestimmung von Nummern muessen nur Themen von List {<li/>) wie Kinder "
+"haben."
 
 #: tools/ascli-actions-misc.c:157
 #, c-format
@@ -502,7 +526,10 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr "Fuer Video,nur  WebM und Matroska (.mkv) Formaten von Container sind jetzt gebraucht. Die Ausstreckung von Datein des referierten Video gehoert keinem Format dieser beide."
+msgstr ""
+"Fuer Video,nur  WebM und Matroska (.mkv) Formaten von Container sind jetzt "
+"gebraucht. Die Ausstreckung von Datein des referierten Video gehoert keinem "
+"Format dieser beide."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
@@ -526,7 +553,9 @@ msgstr "%i Komponenten gefunden."
 msgid ""
 "Found 'version' property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr "'Version'Eigenschaft im erforderten/empfohlenen Thema einer Sortegefunden, die keine solche Version haben oder benoetigen sollte.."
+msgstr ""
+"'Version'Eigenschaft im erforderten/empfohlenen Thema einer Sortegefunden, "
+"die keine solche Version haben oder benoetigen sollte.."
 
 #. TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
@@ -534,7 +563,10 @@ msgid ""
 "Found 'version' property on this required/recommended item, but not "
 "'compare' property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr "Eine 'Version' Eigenschaft in diesem erforderten/empfohlenen Thema gefunden , aber keine solche Eigenschaft von Vergleich . Es ist empfohlen einen Vergleich  dazu klar zu  bestimmen"
+msgstr ""
+"Eine 'Version' Eigenschaft in diesem erforderten/empfohlenen Thema "
+"gefunden , aber keine solche Eigenschaft von Vergleich . Es ist empfohlen "
+"einen Vergleich  dazu klar zu  bestimmen"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:277
@@ -543,13 +575,19 @@ msgid ""
 "not be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use 'memory' in the 'recommends' tag "
 "instead."
-msgstr "Eine abhaengige Datei von Speicherung in einem Tag 'erfordert' gefunden ist. Das bedeutet dass die Benutzer kein Komponent dazu installieren werden koennen, ohne genug RAM zu haben. Man will dies nicht im allgemeinen und man will die 'Speicherung'  eigentlichim Tag 'empfehlt' trotzdem gebrauchen."
+msgstr ""
+"Eine abhaengige Datei von Speicherung in einem Tag 'erfordert' gefunden ist. "
+"Das bedeutet dass die Benutzer kein Komponent dazu installieren werden "
+"koennen, ohne genug RAM zu haben. Man will dies nicht im allgemeinen und man "
+"will die 'Speicherung'  eigentlichim Tag 'empfehlt' trotzdem gebrauchen."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr "Ein unbekanntes Tag in einer Gruppe erfordert/empfehlt  gefunden. Das ist wohl ein Fehler, weil die Beziehung von solchem Komponent unbekannt ist."
+msgstr ""
+"Ein unbekanntes Tag in einer Gruppe erfordert/empfehlt  gefunden. Das ist "
+"wohl ein Fehler, weil die Beziehung von solchem Komponent unbekannt ist."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -558,7 +596,13 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or 'x-'-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr "Ungueltiges Tag gefunden. Die nicht feste Tags muessen das Prefix 'x' haben. Appstream vorhandet auch das Tag <custom/> um freie Daten von Personalisierung  den Dateien MetaIfo vorzuhanden.  Dies Tag wird in den Bibliotheken AppSteam gelesen und nutzt auch wenn kein personalisiertes Hochnivot oder 'x' Tags mit Prefix bestimmt sind. Falls Sie personalisierte Daten einem File MetaInfo fuegen wollen."
+msgstr ""
+"Ungueltiges Tag gefunden. Die nicht feste Tags muessen das Prefix 'x' haben. "
+"Appstream vorhandet auch das Tag <custom/> um freie Daten von "
+"Personalisierung  den Dateien MetaIfo vorzuhanden.  Dies Tag wird in den "
+"Bibliotheken AppSteam gelesen und nutzt auch wenn kein personalisiertes "
+"Hochnivot oder 'x' Tags mit Prefix bestimmt sind. Falls Sie personalisierte "
+"Daten einem File MetaInfo fuegen wollen."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:477 src/as-validator.c:889 src/as-validator.c:974
@@ -608,7 +652,10 @@ msgstr "Isolierte Bilder muessen  ein URL dem Bild von Referenz enthalten."
 msgid ""
 "Icons of type 'stock' or 'cached' must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "Symbole vom Typ 'stock' oder 'cached' dürfen keine URL, keinen vollständigen oder relativen Pfad zum Symbol enthalten. Es sind nur Datei-Basis- oder Bestandsnamen zulässig."
+msgstr ""
+"Symbole vom Typ 'stock' oder 'cached' dürfen keine URL, keinen vollständigen "
+"oder relativen Pfad zum Symbol enthalten. Es sind nur Datei-Basis- oder "
+"Bestandsnamen zulässig."
 
 #: tools/ascli-actions-misc.c:92
 msgid "Iconsets"
@@ -636,14 +683,18 @@ msgstr "Anwendung mit passender Komponentenkennung installieren."
 msgid ""
 "Invalid 'type' property for this 'url' tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr "Ungueltiger 'Typ' Eingenschaft fuer dies Tag ''url' . Die URLs dieser Kategorie sind unbekannt in der Spezifikation von AppStream."
+msgstr ""
+"Ungueltiger 'Typ' Eingenschaft fuer dies Tag ''url' . Die URLs dieser "
+"Kategorie sind unbekannt in der Spezifikation von AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:553
 msgid ""
 "Invalid tag found in collection metadata. Only 'component' tags are "
 "permitted."
-msgstr "Ungültiges Tag wurde in der Sammlung Metadaten gefunden. Nur 'component' Tags sind zugelassen."
+msgstr ""
+"Ungültiges Tag wurde in der Sammlung Metadaten gefunden. Nur 'component' "
+"Tags sind zugelassen."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -1047,7 +1098,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:584
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
-"Manu Specification for a list of valid categories."
+"Menu Specification for a list of valid categories."
 msgstr ""
 
 #: src/as-validator-issue-tag.h:527

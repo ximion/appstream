@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-08-15 02:46+0200\n"
+"POT-Creation-Date: 2019-08-31 19:47+0200\n"
 "PO-Revision-Date: 2019-08-16 03:11+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.8\n"
 
 #: tools/appstream-cli.c:157
@@ -49,14 +51,19 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr "Запис screenshot, щоб бути корисним, має містити принаймні одне зображення. Будь ласка, додайте всередині запис <image/>."
+msgstr ""
+"Запис screenshot, щоб бути корисним, має містити принаймні одне зображення. "
+"Будь ласка, додайте всередині запис <image/>."
 
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr "Запис screenshot має містити або зображення, або відео, але не обидва різновиди даних одночасно. Будь ласка, скористайтеся цим записом screenshot або для статичних зображень, або для відео."
+msgstr ""
+"Запис screenshot має містити або зображення, або відео, але не обидва "
+"різновиди даних одночасно. Будь ласка, скористайтеся цим записом screenshot "
+"або для статичних зображень, або для відео."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -308,7 +315,9 @@ msgstr "Для посилання у мережі варто використо�
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr "Для посилання на зображення або відео для screenshot варто використовувати захищену адресу (HTTPS)."
+msgstr ""
+"Для посилання на зображення або відео для screenshot варто використовувати "
+"захищену адресу (HTTPS)."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:737
@@ -506,7 +515,10 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr "У поточній версії для відео передбачено підтримку лише форматів контейнерів WebM та Matroska (.mkv). Суфікс назви вказаного вами відео не відповідає жодному з цих форматів."
+msgstr ""
+"У поточній версії для відео передбачено підтримку лише форматів контейнерів "
+"WebM та Matroska (.mkv). Суфікс назви вказаного вами відео не відповідає "
+"жодному з цих форматів."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
@@ -1091,9 +1103,10 @@ msgid "The XML of this file is malformed."
 msgstr "Форматування XML у цьому файлі є помилковим."
 
 #: src/as-validator-issue-tag.h:584
+#, fuzzy
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
-"Manu Specification for a list of valid categories."
+"Menu Specification for a list of valid categories."
 msgstr ""
 "Категорія, яку визначено у файлі .desktop є некоректною. Зверніться до "
 "специфікації меню XDG, щоб ознайомитися зі списком коректних категорій."
@@ -1258,7 +1271,10 @@ msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr "Типовим знімком вікна компонента програмного забезпечення не може бути відео. Скористайтеся статичним зображенням як типовим знімком вікна, а відео зробіть другорядним записом screenshot."
+msgstr ""
+"Типовим знімком вікна компонента програмного забезпечення не може бути "
+"відео. Скористайтеся статичним зображенням як типовим знімком вікна, а відео "
+"зробіть другорядним записом screenshot."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1404,14 +1420,18 @@ msgstr "У знімка екрана немає підпису. Вам варт�
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "'container' property."
-msgstr "Для відео у записі screenshot не визначено формату контейнера за допомогою властивості «container»."
+msgstr ""
+"Для відео у записі screenshot не визначено формату контейнера за допомогою "
+"властивості «container»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:212
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "'codec' property."
-msgstr "Для відео у записі screenshot не визначено кодека за допомогою властивості «codec»."
+msgstr ""
+"Для відео у записі screenshot не визначено кодека за допомогою властивості "
+"«codec»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:224
@@ -1419,7 +1439,11 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using 'av1' and 'vp9' as values for the 'codec' property."
-msgstr "Підтримки вибраного відеокодека у AppStream не передбачено, отже програми-центри програмного забезпечення не зможуть його відтворити. У поточній версії передбачено підтримку лише кодеків AV1 та VP9. Вказати ці кодеки можна за допомогою значень «av1» та «vp9» властивості «codec»."
+msgstr ""
+"Підтримки вибраного відеокодека у AppStream не передбачено, отже програми-"
+"центри програмного забезпечення не зможуть його відтворити. У поточній "
+"версії передбачено підтримку лише кодеків AV1 та VP9. Вказати ці кодеки "
+"можна за допомогою значень «av1» та «vp9» властивості «codec»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:231
@@ -1428,7 +1452,12 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using 'webm' and 'mkv' as "
 "values for the 'container' property."
-msgstr "Підтримки вибраного формату контейнера відео у AppStream не передбачено, отже програми-центри програмного забезпечення не зможуть його відтворити. У поточній версії передбачено підтримку лише контейнерів відео WebM та MAtroska. Вказати ці кодеки можна за допомогою значень «webm» та «mkv» властивості «container»."
+msgstr ""
+"Підтримки вибраного формату контейнера відео у AppStream не передбачено, "
+"отже програми-центри програмного забезпечення не зможуть його відтворити. У "
+"поточній версії передбачено підтримку лише контейнерів відео WebM та "
+"MAtroska. Вказати ці кодеки можна за допомогою значень «webm» та «mkv» "
+"властивості «container»."
 
 #: src/as-validator-issue-tag.h:283
 msgid ""
@@ -1720,7 +1749,9 @@ msgstr ""
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr "Не вдалося отримати відео для запису screenshot за вказаною адресою. Чи існує це відео?"
+msgstr ""
+"Не вдалося отримати відео для запису screenshot за вказаною адресою. Чи "
+"існує це відео?"
 
 #: src/as-validator-issue-tag.h:537
 msgid "Unable to read file."
