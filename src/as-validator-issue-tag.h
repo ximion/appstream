@@ -390,7 +390,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "unknown-desktop-id",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("The given values in not an identifier for a desktop environment as registered with Freedesktop.org."),
+	  N_("The given values is not an identifier for a desktop environment as registered with Freedesktop.org."),
 	},
 
 	{ "launchable-unknown-type",
