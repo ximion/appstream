@@ -561,7 +561,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "root-tag-unknown",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("This XML document has an Unknown root tag, Maybe this file is not a metainfo document?"),
+	  N_("This XML document has an unknown root tag. Maybe this file is not a metainfo document?"),
 	},
 
 	{ "metainfo-filename-cid-mismatch",
