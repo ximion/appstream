@@ -178,10 +178,11 @@ as_validator_add_issue (AsValidator *validator, xmlNode *node, const gchar *tag,
 	/* str ownership is transferred to the hashtable */
 	if (g_hash_table_insert (priv->issues, id_str, issue)) {
 		/* the issue is new, we can add it to our by-file listing */
-		GPtrArray *ilist = g_hash_table_lookup (priv->issues_per_file, priv->current_fname);
+		const gchar *fname_key = priv->current_fname? priv->current_fname : "";
+		GPtrArray *ilist = g_hash_table_lookup (priv->issues_per_file, fname_key);
 		if (ilist == NULL) {
 			ilist = g_ptr_array_new_with_free_func (g_object_unref);
-			g_hash_table_insert (priv->issues_per_file, g_strdup (priv->current_fname), ilist);
+			g_hash_table_insert (priv->issues_per_file, g_strdup (fname_key), ilist);
 		}
 		g_ptr_array_add (ilist, g_object_ref (issue));
 	}
