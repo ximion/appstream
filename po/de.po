@@ -10,7 +10,7 @@
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019.
 # angryBird120 <tk120@protonmail.com>, 2019.
 # abehrens <andre.behrens@codehub.org>, 2019.
-# James Bond <christian.kirbach@gmail.com>, 2019.
+# James Bond <christian.kirbach@gmail.com>, 2019, 2021.
 # SapuSeven <sapuseven@gmail.com>, 2019.
 # Brayan Aguilar <brayanaguilar842@gmail.com>, 2019.
 # Florian Kothmeier <floriankothmeier@web.de>, 2019, 2020.
@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: James Bond <christian.kirbach@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1323,9 +1323,7 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Erwägen Sie eine sichere (HTTPS)-Adresse zu verwenden, um auf dieses "
-"Bildschirmfoto zu verweisen."
+msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse zu verwenden, um auf dieses Bildschirmfoto zu verweisen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
@@ -1638,9 +1636,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Erwägen Sie eine sichere (HTTPS)-Adresse für diese Verknüpfung zu einem "
-"entlegenen Symbol."
+msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse für diese Verknüpfung zu einem entlegenen Symbol."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
@@ -1669,9 +1665,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:427
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
-"Erwägen Sie eine sichere (HTTPS)-Adresse für diese Internet-Verknüpfung zu "
-"verwenden."
+msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse für diese Internet-Verknüpfung zu verwenden."
 
 #: src/as-validator-issue-tag.h:432
 msgid "A web URL was expected for this value."
@@ -1761,17 +1755,13 @@ msgstr ""
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
-"Es wäre nützlich eine lange Beschreibung zu dieser Schrift hinzuzufügen, um "
-"sie ihren Benutzern besser zu erläutern."
+msgstr "Es wäre nützlich eine lange Beschreibung zu dieser Schrift hinzuzufügen, um sie ihren Benutzern besser zu erläutern."
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
-"Es wird empfohlen eine lange Beschreibung für diese Komponente hinzuzufügen, "
-"um sie ihren Benutzern besser zu erläutern."
+msgstr "Es wird empfohlen eine lange Beschreibung für diese Komponente hinzuzufügen, um sie ihren Benutzern besser zu erläutern."
 
 #: src/as-validator-issue-tag.h:504
 msgid ""
@@ -2447,9 +2437,7 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Sie müssen mindestens zwei Versionsnummern zum Vergleichen als Parameter "
-"angeben."
+msgstr "Sie müssen mindestens zwei Versionsnummern zum Vergleichen als Parameter angeben."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2461,9 +2449,7 @@ msgstr "Unbekannte Vergleichsbeziehung »%s«. Gültige Werte sind:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Zu viele Parameter: Es werden zwei Versionsnummern oder Versionsnummern und "
-"ein Vergleichsoperator benötigt."
+msgstr "Zu viele Parameter: Es werden zwei Versionsnummern oder Versionsnummern und ein Vergleichsoperator benötigt."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
