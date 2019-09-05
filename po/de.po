@@ -9,15 +9,15 @@
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019.
 # angryBird120 <tk120@protonmail.com>, 2019.
 # abehrens <andre.behrens@codehub.org>, 2019.
+# James Bond <christian.kirbach@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-08-31 19:47+0200\n"
-"PO-Revision-Date: 2019-08-29 06:24+0000\n"
-"Last-Translator: abehrens <andre.behrens@codehub.org>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/appstream/"
-"translations/de/>\n"
+"PO-Revision-Date: 2019-09-05 08:24+0000\n"
+"Last-Translator: James Bond <christian.kirbach@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,13 +160,10 @@ msgstr ""
 "Anwendungen, von Bestimmungen von MetaInfo erwaehnt sein soll."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
-"AppStream ist eine distributionsübergreifende Spezifikation zur "
-"Bereitstellung von Metadaten über Softwarekomponenten."
+msgstr "AppStream ist eine distributionsübergreifende Spezifikation zur Bereitstellung von Metadaten über Softwarekomponenten."
 
 #: src/as-pool.c:1787
 #, fuzzy, c-format
@@ -312,21 +309,17 @@ msgstr "Verpflichtend für"
 
 #: src/as-validator-issue-tag.h:361
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Denken Sie, dass Sie ein sicheres (HTTPS) URL fuer ein verweitertes Link von "
-"Bildern dazu haben."
+msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse für diese Verknüpfung zu einem entlegenen Symbol."
 
 #: src/as-validator-issue-tag.h:383
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr "Denken Sie dass Sie ein sicheres (HTTPS) URL fuer dies Weblink haben."
+msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse für diese Internet-Verknüpfung zu verwenden."
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Denken Sie das Sie ein sicheres (HTTPS)URL zur Referenz dieses Screenshot "
-"Bildes oder Video  gebrauchen."
+msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse zu verwenden, um auf dieses Bildschirmfoto zu verweisen."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:737
@@ -348,12 +341,10 @@ msgstr ""
 "Projekt auszufüllen ist)."
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
 msgstr "DBus-Sitzungsdienste"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
 msgstr "DBus-Systemdienste"
 
@@ -496,7 +487,7 @@ msgstr "Vorgestellt"
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
 #, c-format
 msgid "File '%s' does not exist."
-msgstr "Metadaten-Datei »%s« existiert nicht."
+msgstr "Datei »%s« existiert nicht."
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
@@ -609,7 +600,7 @@ msgstr ""
 #: src/as-validator.c:1184
 #, c-format
 msgid "Found: %s - Allowed: %s"
-msgstr "Gefunden: %s - Erlaubt: %s"
+msgstr "Gefunden: %s - Zugelassen: %s"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
@@ -645,7 +636,7 @@ msgstr "Symbol"
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:351
 msgid "Icons of type 'remote' must contain an URL to the referenced icon."
-msgstr "Isolierte Bilder muessen  ein URL dem Bild von Referenz enthalten."
+msgstr "Symbole vom Typ »remote« müssen eine Adresse zum referenzierten Symbol beinhalten."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:344
@@ -711,13 +702,13 @@ msgstr ""
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
+msgstr "Es wird empfohlen eine lange Beschreibung für diese Komponente hinzuzufügen, um sie ihren Benutzern besser zu erläutern."
 
 #: src/as-validator-issue-tag.h:440
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
+msgstr "Es wäre nützlich eine lange Beschreibung zu dieser Schrift hinzuzufügen, um sie ihren Benutzern besser zu erläutern."
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
@@ -787,7 +778,6 @@ msgid "Math"
 msgstr "Mathematik"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
 msgstr "MIME-Typen"
 
@@ -837,7 +827,7 @@ msgstr ""
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:594
 msgid "No XDG applications directory found."
-msgstr ""
+msgstr "Kein XDG-Anwendungsordner gefunden."
 
 #: tools/ascli-actions-mdata.c:182
 #, c-format
@@ -1015,7 +1005,7 @@ msgstr "Systemüberwachung"
 
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
-msgstr ""
+msgstr "Schlagwörter mit diesem Namen sind in diesem Bereich nicht zugelassen."
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -1093,7 +1083,7 @@ msgstr "Der TYPE muss ein gültiger Komponententyp sein, beispielsweise: %s"
 
 #: src/as-validator-issue-tag.h:542
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "Das XML in dieser Datei ist fehlerhaft."
 
 #: src/as-validator-issue-tag.h:584
 msgid ""
