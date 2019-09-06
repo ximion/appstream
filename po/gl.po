@@ -4,23 +4,23 @@
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Fran Diéguez <frandieguez@ubuntu.com>, 2014-2015
-# Fran Diéguez <fran.dieguez@mabishu.com>, 2019.
+# Fran Diéguez <fran.dieguez@mabishu.com>, 2019, 2021.
 # #-#-#-#-#  gl.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Fran Diéguez <frandieguez@ubuntu.com>, 2014-2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Marcos Lans <marcoslansgarza@gmail.com>, 2018.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Fran Diéguez <fran.dieguez@mabishu.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/appstream/translations/gl/>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -1043,9 +1043,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"A etiqueta <description/> non debe ser localizada na metainformación dos "
-"ficheiros (metadatos de upstream). Localice un parárafo individual no lugar."
+msgstr "A etiqueta <description/> non debe ser localizada na metainformación dos ficheiros (metadatos de upstream). Localice un parárafo individual no lugar."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1224,19 +1222,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Unha captura de pantalla debe conter cando menos unha imaxe ou un vídeo para "
-"ser útil. Engádalle unha <image/>."
+msgstr "Unha captura de pantalla debe conter cando menos unha imaxe ou un vídeo para ser útil. Engádalle unha <image/>."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Unha captura de pantalla debe conter unha imaxe ou un vídeo, pero non os "
-"dous á vez. Empregue esta captura exclusivamente para imaxes estáticas ou "
-"para os vídeos."
+msgstr "Unha captura de pantalla debe conter unha imaxe ou un vídeo, pero non os dous á vez. Empregue esta captura exclusivamente para imaxes estáticas ou para os vídeos."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -2056,9 +2049,7 @@ msgstr "Estabelecer manualmente a localización da caché de AppStream."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:65
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
-"Estabelecer manualmente a localización do metadato de AppStream para "
-"analizar."
+msgstr "Estabelecer manualmente a localización do metadato de AppStream para analizar."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
