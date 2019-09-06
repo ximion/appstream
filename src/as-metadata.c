@@ -507,7 +507,7 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 			}
 		} else {
 			g_autoptr(AsContext) context = NULL;
-			AsComponent *cpt = as_component_new ();
+			g_autoptr(AsComponent) cpt = NULL;
 
 			context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
 			if (priv->update_existing) {
@@ -520,9 +520,12 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 								"No component found that could be updated.");
 					xmlFreeDoc (doc);
 					return;
+				} else {
+					cpt = g_object_ref (cpt);
+					as_component_load_from_xml (cpt, context, root, error);
 				}
-				as_component_load_from_xml (cpt, context, root, error);
 			} else {
+				cpt = as_component_new ();
 				if (as_component_load_from_xml (cpt, context, root, error))
 					g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 			}
@@ -548,8 +551,7 @@ as_metadata_parse (AsMetadata *metad, const gchar *data, AsFormatKind format, GE
 				AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (new_cpts, i));
 				as_component_set_origin_kind (cpt, AS_ORIGIN_KIND_COLLECTION);
 
-				g_ptr_array_add (priv->cpts,
-						 g_object_ref (cpt));
+				g_ptr_array_add (priv->cpts, g_object_ref (cpt));
 			}
 		} else {
 			g_warning ("Can not load non-collection AppStream YAML data, because their format is not specified.");
