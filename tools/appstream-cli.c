@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2015 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -703,6 +703,45 @@ as_client_run_new_template (char **argv, int argc)
 }
 
 /**
+ * as_client_run_make_desktop_file:
+ *
+ * Create desktop-entry file from metainfo file.
+ */
+static int
+as_client_run_make_desktop_file (char **argv, int argc)
+{
+	const gchar *command = "make-desktop-file";
+	g_autoptr(GOptionContext) opt_context = NULL;
+	const gchar *optn_exec_command = NULL;
+	const gchar *mi_fname = NULL;
+	const gchar *de_fname = NULL;
+	gint ret;
+
+	const GOptionEntry make_desktop_file_options[] = {
+		{ "exec", 0, 0,
+			G_OPTION_ARG_STRING,
+			&optn_exec_command,
+			/* TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand) */
+			N_("Use the specified line for the 'Exec=' key of the desktop-entry file."), NULL },
+		{ NULL }
+	};
+
+	opt_context = as_client_new_subcommand_option_context (command, make_desktop_file_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		mi_fname = argv[2];
+	if (argc > 3)
+		de_fname = argv[3];
+
+	return ascli_make_desktop_entry_file (mi_fname,
+					      de_fname,
+					      optn_exec_command);
+}
+
+/**
  * as_client_get_summary:
  **/
 static gchar*
@@ -736,7 +775,9 @@ as_client_get_summary ()
 	/* TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data. */
 	g_string_append_printf (string, "  %s - %s\n", "convert FILE FILE", _("Convert collection XML to YAML or vice versa."));
 	g_string_append_printf (string, "  %s - %s\n", "compare-versions VER1 [COMP] VER2", _("Compare two version numbers."));
+	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "new-template TYPE FILE", _("Create a template for a metainfo file (to be filled out by the upstream project)."));
+	g_string_append_printf (string, "  %s - %s\n", "make-desktop-file METAINFO_FILE DESKTOP_FILE", _("Create an XDG desktop-entry file from a metainfo file."));
 
 	g_string_append (string, "\n");
 	g_string_append (string, _("You can find information about subcommand-specific options by passing \"--help\" to the subcommand."));
@@ -866,6 +907,8 @@ as_client_run (char **argv, int argc)
 		return as_client_run_compare_versions (argv, argc);
 	} else if (g_strcmp0 (command, "new-template") == 0) {
 		return as_client_run_new_template (argv, argc);
+	} else if (g_strcmp0 (command, "make-desktop-file") == 0) {
+		return as_client_run_make_desktop_file (argv, argc);
 	} else {
 		/* TRANSLATORS: ascli has been run with unknown command. */
 		ascli_print_stderr (_("Unknown command '%s'."), command);

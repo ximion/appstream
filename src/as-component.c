@@ -1283,8 +1283,8 @@ as_component_set_description (AsComponent *cpt, const gchar* value, const gchar 
 gchar**
 as_component_get_keywords (AsComponent *cpt)
 {
-	gchar **strv;
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	gchar **strv;
 
 	strv = g_hash_table_lookup (priv->keywords, as_component_get_active_locale (cpt));
 	if (strv == NULL) {
@@ -1293,6 +1293,22 @@ as_component_get_keywords (AsComponent *cpt)
 	}
 
 	return strv;
+}
+
+/**
+ * as_component_get_keywords_table:
+ * @cpt: a #AsComponent instance.
+ *
+ * Retrieve the internal hash table mapping languages to
+ * keword arrays.
+ *
+ * Returns: (transfer none): Hash table locale->keyword arrays
+ */
+GHashTable*
+as_component_get_keywords_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->keywords;
 }
 
 /**
@@ -1932,6 +1948,38 @@ as_component_get_languages_table (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	return priv->languages;
+}
+
+/**
+ * as_component_get_name_table:
+ * @cpt: an #AsComponent instance.
+ *
+ * Get the internal locale to component name
+ * mapping table.
+ *
+ * Returns: (transfer none): locale->names map
+ **/
+GHashTable*
+as_component_get_name_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->name;
+}
+
+/**
+ * as_component_get_summary_table:
+ * @cpt: an #AsComponent instance.
+ *
+ * Get the internal locale to component summary
+ * mapping table.
+ *
+ * Returns: (transfer none): locale->summary map
+ **/
+GHashTable*
+as_component_get_summary_table (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	return priv->summary;
 }
 
 /**

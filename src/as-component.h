@@ -352,6 +352,10 @@ void			as_component_add_agreement (AsComponent *cpt,
 AsAgreement		*as_component_get_agreement_by_kind (AsComponent *cpt,
 							     AsAgreementKind kind);
 
+GHashTable		*as_component_get_name_table (AsComponent *cpt);
+GHashTable		*as_component_get_summary_table (AsComponent *cpt);
+GHashTable		*as_component_get_keywords_table (AsComponent *cpt);
+
 
 /* DEPRECATED */
 

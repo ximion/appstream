@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -351,7 +351,7 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 {
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GFile) infile = NULL;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 
 	if (in_fname == NULL || out_fname == NULL) {
 		ascli_print_stderr (_("You need to specify an input and output file."));

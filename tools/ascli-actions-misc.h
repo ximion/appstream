@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -27,6 +27,10 @@
 G_BEGIN_DECLS
 
 int		ascli_show_status (void);
+
+int		ascli_make_desktop_entry_file (const gchar *mi_fname,
+					       const gchar *de_fname,
+					       const gchar *exec_line);
 
 G_END_DECLS
 

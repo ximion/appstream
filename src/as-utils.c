@@ -1286,3 +1286,29 @@ as_object_ptr_array_absorb (GPtrArray *dest, GPtrArray *src)
 	}
 #endif
 }
+
+/**
+ * as_ptr_array_to_str:
+ *
+ * Convert a string GPtrArray to a single string with
+ * the array values separated by a separator.
+ */
+gchar*
+as_ptr_array_to_str (GPtrArray *array, const gchar *separator)
+{
+	GString *str;
+	if ((array == NULL) || (array->len == 0))
+		return NULL;
+
+	str = g_string_new ("");
+	for (guint i = 0; i < array->len; i++) {
+		g_string_append_printf (str,
+					"%s%s",
+					(const gchar*) g_ptr_array_index (array, i),
+					separator);
+	}
+	if (str->len >= 1)
+		g_string_truncate (str, str->len -1);
+
+	return g_string_free (str, FALSE);
+}

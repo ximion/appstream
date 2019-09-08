@@ -96,6 +96,10 @@ void			as_sort_components_by_score (GPtrArray *cpts);
 void			as_object_ptr_array_absorb (GPtrArray *dest,
 						    GPtrArray *src);
 
+AS_INTERNAL_VISIBLE
+gchar			*as_ptr_array_to_str (GPtrArray *array,
+						const gchar *separator);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

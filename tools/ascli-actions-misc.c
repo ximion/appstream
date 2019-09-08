@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU General Public License Version 2
  *
@@ -26,6 +26,7 @@
 #include "as-utils-private.h"
 #include "as-settings-private.h"
 #include "ascli-utils.h"
+#include "as-component.h"
 
 /**
  * ascli_show_status:
@@ -155,6 +156,218 @@ ascli_show_status (void)
 		 */
 	} else {
 		ascli_print_stderr (_("Error while loading the metadata pool: %s"), error->message);
+	}
+
+	return 0;
+}
+
+/**
+ * ascli_make_desktop_entry_file:
+ *
+ * Create a .desktop file from a metainfo file.
+ */
+int
+ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, const gchar *exec_line)
+{
+	g_autoptr(AsMetadata) mdata = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(GFile) mi_file = NULL;
+	g_autoptr(GKeyFile) de_file = NULL;
+	g_autofree gchar *de_fname_basename = NULL;
+	g_autofree gchar *mi_fname_basename = NULL;
+	AsComponent *cpt;
+	GHashTableIter ht_iter;
+	gpointer ht_key, ht_value;
+
+	if (mi_fname == NULL) {
+		ascli_print_stderr (_("You need to specify a metainfo file as input."));
+		return 3;
+	}
+	if (de_fname == NULL) {
+		ascli_print_stderr (_("You need to specify a desktop-entry file to create or augment as output."));
+		return 3;
+	}
+
+	de_fname_basename = g_path_get_basename (de_fname);
+	mi_fname_basename = g_path_get_basename (mi_fname);
+
+	/* load metainfo file */
+	mi_file = g_file_new_for_path (mi_fname);
+	if (!g_file_query_exists (mi_file, NULL)) {
+		ascli_print_stderr (_("Metainfo file '%s' does not exist."), mi_fname);
+		return 4;
+	}
+
+	mdata = as_metadata_new ();
+	as_metadata_set_locale (mdata, "ALL");
+
+	as_metadata_parse_file (mdata,
+				mi_file,
+				AS_FORMAT_KIND_XML,
+				&error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+
+	cpt = as_metadata_get_component (mdata);
+	de_file = g_key_file_new ();
+
+	/* load desktop-entry file to augment, if it exists */
+	if (g_file_test (de_fname, G_FILE_TEST_EXISTS)) {
+		ascli_print_stdout (_("Augmenting existing desktop-entry file '%s' with data from '%s'."), de_fname_basename, mi_fname_basename);
+		if (!g_key_file_load_from_file (de_file,
+						de_fname,
+						G_KEY_FILE_KEEP_COMMENTS | G_KEY_FILE_KEEP_TRANSLATIONS,
+						&error)) {
+			ascli_print_stderr (_("Unable to load existing desktop-entry file template: %s"), error->message);
+			return 1;
+		}
+	} else {
+		ascli_print_stdout (_("Creating new desktop-entry file '%s' using data from '%s'"), de_fname_basename, mi_fname_basename);
+	}
+
+	g_key_file_set_string (de_file,
+				G_KEY_FILE_DESKTOP_GROUP,
+				G_KEY_FILE_DESKTOP_KEY_TYPE,
+				G_KEY_FILE_DESKTOP_TYPE_APPLICATION);
+
+	as_component_set_active_locale (cpt, "C");
+
+	/* Name */
+	g_key_file_set_string (de_file,
+				G_KEY_FILE_DESKTOP_GROUP,
+				G_KEY_FILE_DESKTOP_KEY_NAME,
+				as_component_get_name (cpt));
+
+	g_hash_table_iter_init (&ht_iter, as_component_get_name_table (cpt));
+	while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
+		if (g_strcmp0 ((const gchar*) ht_key, "C") != 0) {
+			g_autofree gchar *name_key = g_strdup_printf ("Name[%s]", (const gchar*) ht_key);
+			g_key_file_set_string (de_file,
+						G_KEY_FILE_DESKTOP_GROUP,
+						name_key,
+						(const gchar*) ht_value);
+		}
+	}
+
+	/* Comment */
+	g_key_file_set_string (de_file,
+				G_KEY_FILE_DESKTOP_GROUP,
+				G_KEY_FILE_DESKTOP_KEY_COMMENT,
+				as_component_get_summary (cpt));
+
+	g_hash_table_iter_init (&ht_iter, as_component_get_summary_table (cpt));
+	while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
+		if (g_strcmp0 ((const gchar*) ht_key, "C") != 0) {
+			g_autofree gchar *comment_key = g_strdup_printf ("Comment[%s]", (const gchar*) ht_key);
+			g_key_file_set_string (de_file,
+						G_KEY_FILE_DESKTOP_GROUP,
+						comment_key,
+						(const gchar*) ht_value);
+		}
+	}
+
+	/* Icon */
+	{
+		AsIcon *stock_icon = NULL;
+		GPtrArray *icons = as_component_get_icons (cpt);
+		for (guint i = 0; i < icons->len; i++) {
+			AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+			if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
+				stock_icon = icon;
+				break;
+			}
+		}
+		if (stock_icon == NULL) {
+			ascli_print_stderr (_("No stock icon name was provided in the metainfo file. Can not continue."));
+			return 4;
+		}
+		g_key_file_set_string (de_file,
+					G_KEY_FILE_DESKTOP_GROUP,
+					G_KEY_FILE_DESKTOP_KEY_ICON,
+					as_icon_get_name (stock_icon));
+	}
+
+	/* Exec */
+	if (exec_line == NULL) {
+		GPtrArray *bin_items = NULL;
+		AsProvided *prov = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_BINARY);
+		if (prov != NULL) {
+			bin_items = as_provided_get_items (prov);
+			if (bin_items != NULL) {
+				if (bin_items->len < 1)
+					bin_items = NULL;
+			}
+		}
+
+		if (bin_items == NULL) {
+			ascli_print_stderr (_("No provided binary specified in metainfo file, and no exec command specified via '--exec'. Can not create 'Exec=' key."));
+			return 4;
+		}
+
+		exec_line = g_ptr_array_index (bin_items, 0);
+	}
+	g_key_file_set_string (de_file,
+				G_KEY_FILE_DESKTOP_GROUP,
+				G_KEY_FILE_DESKTOP_KEY_EXEC,
+				exec_line);
+
+	/* OnlyShowIn */
+	{
+		g_autofree gchar *only_show_in = as_ptr_array_to_str (as_component_get_compulsory_for_desktops (cpt), ";");
+		if (only_show_in != NULL)
+			g_key_file_set_string (de_file,
+						G_KEY_FILE_DESKTOP_GROUP,
+						G_KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN,
+						only_show_in);
+	}
+
+	/* MimeType */
+	{
+		AsProvided *prov = as_component_get_provided_for_kind (cpt, AS_PROVIDED_KIND_MEDIATYPE);
+		if (prov != NULL) {
+			g_autofree gchar *mimetypes = as_ptr_array_to_str (as_provided_get_items (prov), ";");
+			if (mimetypes != NULL)
+				g_key_file_set_string (de_file,
+							G_KEY_FILE_DESKTOP_GROUP,
+							G_KEY_FILE_DESKTOP_KEY_MIME_TYPE,
+							mimetypes);
+		}
+	}
+
+	/* Categories */
+	{
+		g_autofree gchar *categories = as_ptr_array_to_str (as_component_get_categories (cpt), ";");
+		if (categories != NULL)
+			g_key_file_set_string (de_file,
+						G_KEY_FILE_DESKTOP_GROUP,
+						G_KEY_FILE_DESKTOP_KEY_CATEGORIES,
+						categories);
+	}
+
+	/* Keywords */
+	g_hash_table_iter_init (&ht_iter, as_component_get_keywords_table (cpt));
+	while (g_hash_table_iter_next (&ht_iter, &ht_key, &ht_value)) {
+		g_autofree gchar *keywords_str = g_strjoinv (";", (gchar**) ht_value);
+		if (g_strcmp0 ((const gchar*) ht_key, "C") == 0) {
+			g_key_file_set_string (de_file,
+						G_KEY_FILE_DESKTOP_GROUP,
+						"Keywords",
+						keywords_str);
+		} else {
+			g_autofree gchar *keywords_key = g_strdup_printf ("Keywords[%s]", (const gchar*) ht_key);
+			g_key_file_set_string (de_file,
+						G_KEY_FILE_DESKTOP_GROUP,
+						keywords_key,
+						keywords_str);
+		}
+	}
+
+	/* save the resulting desktop-entry file */
+	if (!g_key_file_save_to_file (de_file, de_fname, &error)) {
+		ascli_print_stderr (_("Unable to save desktop entry file: %s"), error->message);
+		return 1;
 	}
 
 	return 0;
