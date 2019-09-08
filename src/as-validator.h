@@ -68,6 +68,7 @@ const gchar	*as_validator_get_tag_explanation (AsValidator *validator,
 						   const gchar *tag);
 AsIssueSeverity	as_validator_get_tag_severity (AsValidator *validator,
 					       const gchar *tag);
+gchar		**as_validator_get_tags (AsValidator *validator);
 
 G_END_DECLS
 

@@ -2304,6 +2304,32 @@ as_validator_get_tag_severity (AsValidator *validator, const gchar *tag)
 }
 
 /**
+ * as_validator_get_tags:
+ * @validator: An instance of #AsValidator.
+ *
+ * Get an array of all tags known to the validator.
+ *
+ * Returns: (transfer full): A string array of tags
+ */
+gchar**
+as_validator_get_tags (AsValidator *validator)
+{
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+	GHashTableIter iter;
+	gpointer ht_key;
+	guint i = 0;
+	gchar **result;
+
+	result = g_new0 (gchar*, g_hash_table_size (priv->issue_tags) + 1);
+	g_hash_table_iter_init (&iter, priv->issue_tags);
+	while (g_hash_table_iter_next (&iter, &ht_key, NULL)) {
+		result[i++] = g_strdup ((const gchar*) ht_key);
+	}
+
+	return result;
+}
+
+/**
  * as_validator_class_init:
  **/
 static void
