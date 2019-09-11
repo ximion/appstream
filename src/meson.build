@@ -38,7 +38,8 @@ aslib_src = [
     'as-relation.c',
     'as-agreement.c',
     'as-agreement-section.c',
-    'as-artifact.c'
+    'as-artifact.c',
+    'as-news-convert.c'
 ]
 
 aslib_pub_headers = [
@@ -95,7 +96,8 @@ aslib_priv_headers = [
     'as-relation-private.h',
     'as-agreement-private.h',
     'as-agreement-section-private.h',
-    'as-validator-issue-tag.h'
+    'as-validator-issue-tag.h',
+    'as-news-convert.h'
 ]
 
 aslib_res = glib.compile_resources (
