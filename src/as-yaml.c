@@ -248,6 +248,28 @@ as_yaml_emit_scalar (yaml_emitter_t *emitter, const gchar *value)
 }
 
 /**
+ * as_yaml_emit_scalar_raw:
+ */
+void
+as_yaml_emit_scalar_raw (yaml_emitter_t *emitter, const gchar *value)
+{
+	gint ret;
+	yaml_event_t event;
+	g_assert (value != NULL);
+
+	yaml_scalar_event_initialize (&event,
+					NULL,
+					NULL,
+					(yaml_char_t*) value,
+					strlen (value),
+					TRUE,
+					TRUE,
+					YAML_ANY_SCALAR_STYLE);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+}
+
+/**
  * as_yaml_emit_scalar_uint:
  */
 void
@@ -370,6 +392,31 @@ as_yaml_emit_long_entry (yaml_emitter_t *emitter, const gchar *key, const gchar 
 					TRUE,
 					TRUE,
 					YAML_FOLDED_SCALAR_STYLE);
+	ret = yaml_emitter_emit (emitter, &event);
+	g_assert (ret);
+}
+
+/**
+ * as_yaml_emit_long_entry_literal:
+ */
+void
+as_yaml_emit_long_entry_literal (yaml_emitter_t *emitter, const gchar *key, const gchar *value)
+{
+	yaml_event_t event;
+	gint ret;
+
+	if (value == NULL)
+		return;
+
+	as_yaml_emit_scalar_key (emitter, key);
+	yaml_scalar_event_initialize (&event,
+					NULL,
+					NULL,
+					(yaml_char_t*) value,
+					strlen (value),
+					TRUE,
+					TRUE,
+					YAML_LITERAL_SCALAR_STYLE);
 	ret = yaml_emitter_emit (emitter, &event);
 	g_assert (ret);
 }

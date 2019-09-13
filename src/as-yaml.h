@@ -51,6 +51,11 @@ void		as_yaml_mapping_end (yaml_emitter_t *emitter);
 void		as_yaml_sequence_start (yaml_emitter_t *emitter);
 void		as_yaml_sequence_end (yaml_emitter_t *emitter);
 
+void		as_yaml_emit_long_entry_literal (yaml_emitter_t *emitter,
+						 const gchar *key,
+						 const gchar *value);
+void		as_yaml_emit_scalar_raw (yaml_emitter_t *emitter,
+					 const gchar *value);
 void		as_yaml_emit_scalar (yaml_emitter_t *emitter,
 				     const gchar *value);
 void		as_yaml_emit_scalar_uint (yaml_emitter_t *emitter,

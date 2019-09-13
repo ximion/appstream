@@ -34,13 +34,42 @@ static gchar *datadir = NULL;
 static void
 test_readwrite_yaml_news ()
 {
-	/*static const gchar *yaml_news_data = "---\n"
+	static const gchar *yaml_news_data = "---\n"
 		"Version: 1.2\n"
 		"Date: 2019-04-18\n"
+		"Type: development\n"
 		"Description:\n"
-		"  - Improved A\n"
-		"  - Fixed B\n"
-		"---\n";*/
+		"- Improved A\n"
+		"- Fixed B\n"
+		"---\n"
+		"Version: 1.1\n"
+		"Date: 2019-04-12\n"
+		"Description: |-\n"
+		"  A freeform description text.\n"
+		"\n"
+		"  Second paragraph.\n"
+		"---\n"
+		"Version: 1.0\n"
+		"Date: 2019-02-24\n"
+		"Description:\n"
+		"- Introduced feature A\n"
+		"- Introduced feature B\n"
+		"- Fixed X, Y and Z\n";
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	gchar *tmp;
+	gboolean ret;
+
+	/* read */
+	releases = as_news_yaml_to_releases (yaml_news_data, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull(releases);
+
+	/* write */
+	ret = as_news_releases_to_yaml (releases, &tmp);
+	g_assert (ret);
+	g_assert (as_test_compare_lines (tmp, yaml_news_data));
+	g_free (tmp);
 }
 
 int
