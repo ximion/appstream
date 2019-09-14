@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 02:51+0200\n"
+"POT-Creation-Date: 2019-09-14 23:45+0200\n"
 "PO-Revision-Date: 2019-07-06 22:01+0000\n"
 "Last-Translator: Moo <hazap@hotmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/appstream/"
@@ -85,7 +85,7 @@ msgid ""
 "'localization' or 'repository'."
 msgstr ""
 
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Elemento tipas (pvz., lib, bin, python3, …)"
 
@@ -98,7 +98,7 @@ msgid "AppStream CLI"
 msgstr "AppStream komandų eilutė"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:856
+#: tools/appstream-cli.c:947
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -108,7 +108,7 @@ msgstr ""
 "AppStream bibliotekos versija: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
-#: tools/ascli-actions-misc.c:46
+#: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
 msgstr "AppStream būsena:"
 
@@ -125,7 +125,7 @@ msgstr "AppStream podėlio atnaujinimas nėra būtinas."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:754
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:843
 msgid "AppStream command-line interface"
 msgstr "AppStream komandų eilutės sąsaja"
 
@@ -156,7 +156,7 @@ msgstr ""
 "gautumėte išsamesnę informaciją apie problemą."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:853
+#: tools/appstream-cli.c:944
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream versija: %s"
@@ -175,6 +175,11 @@ msgstr "Dirbtinis intelektas"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
+#: tools/appstream-cli.c:766
+msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #: src/as-category.c:101
@@ -197,7 +202,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Garso kūrimas ir redagavimas"
 
-#: tools/ascli-actions-misc.c:218
+#: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr ""
@@ -273,7 +278,7 @@ msgstr "Kodekai"
 msgid "Communication & News"
 msgstr "Komunikacija ir naujienos"
 
-#: tools/appstream-cli.c:777
+#: tools/appstream-cli.c:866
 msgid "Compare two version numbers."
 msgstr "Palyginti dviejų versijų numerius."
 
@@ -305,8 +310,12 @@ msgid ""
 "video."
 msgstr ""
 
+#: tools/appstream-cli.c:870
+msgid "Convert a YAML or text NEWS file into metainfo releases."
+msgstr ""
+
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:776
+#: tools/appstream-cli.c:865
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Konvertuoti kolekciją iš XML į YAML arba atvirkščiai."
 
@@ -316,18 +325,18 @@ msgstr "Konvertuoti kolekciją iš XML į YAML arba atvirkščiai."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nepavyko rasti komponento, pateikiančio \"%s::%s\"."
 
-#: tools/appstream-cli.c:779
+#: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Sukurti metainformacijos failo šabloną (kurį užpildo pagrindinis projektas)."
 
-#: tools/appstream-cli.c:780
+#: tools/appstream-cli.c:869
 msgid "Create an XDG desktop-entry file from a metainfo file."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:227
+#: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr ""
@@ -377,12 +386,12 @@ msgstr "Kūrėjas"
 msgid "Developer Tools"
 msgstr "Kūrėjo įrankiai"
 
-#: tools/appstream-cli.c:773
+#: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
 msgstr "Rodyti būsenos informaciją apie prieinamus AppStream metaduomenis."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
-#: tools/ascli-actions-misc.c:51
+#: tools/ascli-actions-misc.c:52
 msgid "Distribution metadata:"
 msgstr "Distribucijos metaduomenys:"
 
@@ -392,11 +401,11 @@ msgid "Do not use network access."
 msgstr "Nenaudoti tinklo prieigą."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:817
+#: tools/appstream-cli.c:908
 msgid "Don't show colored output."
 msgstr "Nerodyti spalvotos išvesties."
 
-#: tools/appstream-cli.c:764
+#: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Iškloti neapdorotus XML metaduomenis komponentui su atitinkamu ID."
 
@@ -406,7 +415,7 @@ msgid "Education"
 msgstr "Švietimas"
 
 #. TRANSLATORS: No metainfo files have been found
-#: tools/ascli-actions-misc.c:108 tools/ascli-actions-misc.c:128
+#: tools/ascli-actions-misc.c:109 tools/ascli-actions-misc.c:129
 msgid "Empty."
 msgstr "Tuščia."
 
@@ -424,7 +433,7 @@ msgstr "Priverstinai atlikti podėlio įkėlimą iš naujo."
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:158
+#: tools/ascli-actions-misc.c:159
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Klaida, įkeliant metaduomenų telkinį: %s"
@@ -522,12 +531,12 @@ msgstr ""
 "\")."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
-#: tools/ascli-actions-misc.c:137
+#: tools/ascli-actions-misc.c:138
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "Rasta %i komponentų liekamuosiuose keliuose."
 
-#: tools/ascli-actions-misc.c:122
+#: tools/ascli-actions-misc.c:123
 #, c-format
 msgid "Found %i components."
 msgstr "Rasta %i komponentų."
@@ -583,11 +592,16 @@ msgstr ""
 msgid "Games"
 msgstr "Žaidimai"
 
-#: tools/appstream-cli.c:760
+#. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
+#: tools/appstream-cli.c:814
+msgid "Generate the output in the selected format ('yaml' or 'text')."
+msgstr ""
+
+#: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
 msgstr "Gauti komponentus, kurie pateikia nurodytą elementą."
 
-#: tools/appstream-cli.c:759
+#: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "Gauti informaciją apie komponentą pagal jo ID."
 
@@ -621,7 +635,7 @@ msgid ""
 "relative path to the icon. Only file basenames or stock names are allowed."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:93
+#: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
 msgstr "Piktogramų rinkiniai"
 
@@ -634,11 +648,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Įvesties šaltiniai"
 
-#: tools/appstream-cli.c:774
+#: tools/appstream-cli.c:863
 msgid "Install a metadata file into the right location."
 msgstr "Įdiegti metaduomenų failą į tinkamą vietą."
 
-#: tools/appstream-cli.c:770
+#: tools/appstream-cli.c:859
 msgid "Install software matching the component-ID."
 msgstr "Įdiegti komponento ID atitinkančią programinę įrangą."
 
@@ -703,6 +717,13 @@ msgstr "Bibliotekos"
 msgid "License"
 msgstr "Licencija"
 
+#. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
+#: tools/appstream-cli.c:771
+msgid ""
+"Limit the number of release entries that end up in the metainfo file (0 for "
+"unlimited)."
+msgstr ""
+
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
@@ -760,7 +781,8 @@ msgstr "Metaduomenų failo \"%s\" nėra."
 msgid "Metadata files have errors:"
 msgstr "Metaduomenų failuose yra klaidų:"
 
-#: tools/ascli-actions-misc.c:197
+#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
+#: tools/ascli-actions-misc.c:515
 #, fuzzy, c-format
 msgid "Metainfo file '%s' does not exist."
 msgstr "Metaduomenų failo \"%s\" nėra."
@@ -773,7 +795,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
-#: tools/ascli-actions-misc.c:115
+#: tools/ascli-actions-misc.c:116
 msgid "Metainfo files:"
 msgstr "Metainformacijos failai:"
 
@@ -809,17 +831,21 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "Nerasta komponento, atitinkančio \"%s\"."
 
-#: tools/ascli-actions-misc.c:104
+#: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "Nėra piktogramų."
 
-#: tools/ascli-actions-misc.c:305
+#: tools/ascli-actions-misc.c:402
+msgid "No output filename specified, modifying metainfo file directly."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:283
+#: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
 msgstr ""
 
@@ -883,11 +909,11 @@ msgstr "Python (Versija 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:765
+#: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "Iš naujo sukurti komponentų metaduomenų podėlį."
 
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "Šalinti komponento ID atitinkančią programinę įrangą."
 
@@ -901,7 +927,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Vaidmenimis"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:835
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:926
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -932,7 +958,7 @@ msgstr "Skenavimas"
 msgid "Science"
 msgstr "Mokslas"
 
-#: tools/appstream-cli.c:758
+#: tools/appstream-cli.c:847
 msgid "Search the component database."
 msgstr "Ieškoti komponentų duomenų bazėje."
 
@@ -942,12 +968,12 @@ msgid "Security"
 msgstr "Saugumas"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:812
+#: tools/appstream-cli.c:903
 msgid "Show extra debugging information."
 msgstr "Rodyti papildomą derinimo informaciją."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:897
 msgid "Show the program version."
 msgstr "Rodyti programos versiją."
 
@@ -962,7 +988,7 @@ msgid "Strategy"
 msgstr "Strategija"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:756
+#: tools/appstream-cli.c:845
 msgid "Subcommands:"
 msgstr "Pokomandžiai:"
 
@@ -978,7 +1004,7 @@ msgid "Summary"
 msgstr "Santrauka"
 
 #. TRANSLATORS: Status summary in ascli
-#: tools/ascli-actions-misc.c:144
+#: tools/ascli-actions-misc.c:145
 msgid "Summary:"
 msgstr "Santrauka:"
 
@@ -1549,7 +1575,7 @@ msgid ""
 "Unable to find the curl binary. remote URLs can not be checked for validity!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:223
+#: tools/ascli-actions-misc.c:224
 #, fuzzy, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
 msgstr "Nepavyko perskaityti .desktop failo: %s"
@@ -1594,7 +1620,7 @@ msgstr "Nepavyko perskaityti .desktop failo: %s"
 msgid "Unable to remove old cache."
 msgstr "Nepavyko pašalinti senojo podėlio."
 
-#: tools/ascli-actions-misc.c:369
+#: tools/ascli-actions-misc.c:370
 #, fuzzy, c-format
 msgid "Unable to save desktop entry file: %s"
 msgstr "Nepavyko perskaityti .desktop failo: %s"
@@ -1615,7 +1641,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nepavyko įrašyti į \"%s\", nepavyksta įdiegti metainformacijos failo."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:914
+#: tools/appstream-cli.c:1009
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Nežinoma komanda \"%s\"."
@@ -1644,11 +1670,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Paslaugų programos"
 
-#: tools/appstream-cli.c:767
+#: tools/appstream-cli.c:856
 msgid "Validate AppStream XML files for issues."
 msgstr "Patikrinti ar AppStream XML failuose nėra problemų."
 
-#: tools/appstream-cli.c:768
+#: tools/appstream-cli.c:857
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Patikrinti įdiegto programos failų medžio metaduomenų teisingumą."
 
@@ -1666,7 +1692,7 @@ msgstr "Patikrinimas buvo sėkmingas."
 msgid "Validation was successful: %s"
 msgstr "Patikrinimas buvo sėkmingas: %s"
 
-#: tools/appstream-cli.c:762
+#: tools/appstream-cli.c:851
 msgid "Value of the item that should be found."
 msgstr "Elemento, kuris turėtų būti rastas, reikšmė."
 
@@ -1675,7 +1701,7 @@ msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "Vektorinė grafika"
 
-#: tools/ascli-actions-misc.c:47
+#: tools/ascli-actions-misc.c:48
 #, c-format
 msgid "Version: %s"
 msgstr "Versija: %s"
@@ -1685,7 +1711,7 @@ msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Žiūryklės"
 
-#: tools/ascli-actions-misc.c:152
+#: tools/ascli-actions-misc.c:153
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Turime informaciją apie %i programinės įrangos komponentų(-us)."
@@ -1700,7 +1726,11 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Tekstų rengyklė"
 
-#: tools/appstream-cli.c:783
+#: tools/appstream-cli.c:871
+msgid "Write NEWS text or YAML file with information from a metainfo file."
+msgstr ""
+
+#: tools/appstream-cli.c:874
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -1728,8 +1758,23 @@ msgstr ""
 "Norėdami palyginti, turite kaip parametrus pateikti bent du versijos "
 "numerius."
 
+#: tools/ascli-actions-misc.c:393
+#, fuzzy
+msgid "You need to specify a NEWS file as input."
+msgstr "Jūs turite nurodyti metaduomenų failą."
+
+#: tools/ascli-actions-misc.c:509
+#, fuzzy
+msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
+msgstr "Jūs turite nurodyti metaduomenų failą."
+
+#: tools/ascli-actions-misc.c:540
+#, fuzzy
+msgid "You need to specify a NEWS format to write the output in."
+msgstr "Jūs turite nurodyti įvesties ir išvesties failą."
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:834
+#: tools/appstream-cli.c:925
 msgid "You need to specify a command."
 msgstr "Jūs turite nurodyti komandą."
 
@@ -1740,7 +1785,7 @@ msgstr "Jūs turite nurodyti komandą."
 msgid "You need to specify a component-ID."
 msgstr "Jūs turite nurodyti komponento ID."
 
-#: tools/ascli-actions-misc.c:187
+#: tools/ascli-actions-misc.c:188
 #, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
@@ -1750,9 +1795,15 @@ msgstr "Turite nurodyti failą, kurį tikrinti!"
 msgid "You need to specify a metadata file."
 msgstr "Jūs turite nurodyti metaduomenų failą."
 
-#: tools/ascli-actions-misc.c:183
+#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
 #, fuzzy
 msgid "You need to specify a metainfo file as input."
+msgstr "Jūs turite nurodyti metaduomenų failą."
+
+#: tools/ascli-actions-misc.c:397
+#, fuzzy
+msgid ""
+"You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "Jūs turite nurodyti metaduomenų failą."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479

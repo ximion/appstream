@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 02:51+0200\n"
+"POT-Creation-Date: 2019-09-14 23:45+0200\n"
 "PO-Revision-Date: 2018-06-16 08:10+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
@@ -85,7 +85,7 @@ msgid ""
 "'localization' or 'repository'."
 msgstr ""
 
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Suatu tipe butir (mis. lib, bin, python3, ...)"
 
@@ -98,7 +98,7 @@ msgid "AppStream CLI"
 msgstr "CLI AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:856
+#: tools/appstream-cli.c:947
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -108,7 +108,7 @@ msgstr ""
 "Pustaka AppStream versi: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
-#: tools/ascli-actions-misc.c:46
+#: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
 msgstr "Status AppStream:"
 
@@ -125,7 +125,7 @@ msgstr "Pemutakhiran singgahan AppStream tidak perlu."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:754
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:843
 msgid "AppStream command-line interface"
 msgstr "Antarmuka baris perintah AppStream"
 
@@ -156,7 +156,7 @@ msgstr ""
 "informasi masalah lebih terrinci."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:853
+#: tools/appstream-cli.c:944
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream versi: %s"
@@ -175,6 +175,11 @@ msgstr "Kecerdasan Buatan"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
+#: tools/appstream-cli.c:766
+msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #: src/as-category.c:101
@@ -197,7 +202,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Pembuatan & Penyuntingan Audio"
 
-#: tools/ascli-actions-misc.c:218
+#: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr ""
@@ -273,7 +278,7 @@ msgstr "Kodek"
 msgid "Communication & News"
 msgstr "Komunikasi & Berita"
 
-#: tools/appstream-cli.c:777
+#: tools/appstream-cli.c:866
 msgid "Compare two version numbers."
 msgstr "Bandingkan dua nomor versi."
 
@@ -305,8 +310,12 @@ msgid ""
 "video."
 msgstr ""
 
+#: tools/appstream-cli.c:870
+msgid "Convert a YAML or text NEWS file into metainfo releases."
+msgstr ""
+
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:776
+#: tools/appstream-cli.c:865
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Mengonversi koleksi XML ke YAML atau sebaliknya."
 
@@ -316,18 +325,18 @@ msgstr "Mengonversi koleksi XML ke YAML atau sebaliknya."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Tidak bisa menemukan komponen yang menyediakan '%s::%s'."
 
-#: tools/appstream-cli.c:779
+#: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Buat suatu templat bagi berkas metainfo (untuk diisi oleh projek upstream)."
 
-#: tools/appstream-cli.c:780
+#: tools/appstream-cli.c:869
 msgid "Create an XDG desktop-entry file from a metainfo file."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:227
+#: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr ""
@@ -375,12 +384,12 @@ msgstr "Pengembang"
 msgid "Developer Tools"
 msgstr "Alat Pengembang"
 
-#: tools/appstream-cli.c:773
+#: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
 msgstr "Tampilkan informasi status tentang metadata AppStream yang tersedia."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
-#: tools/ascli-actions-misc.c:51
+#: tools/ascli-actions-misc.c:52
 msgid "Distribution metadata:"
 msgstr "Metadata distribusi:"
 
@@ -390,11 +399,11 @@ msgid "Do not use network access."
 msgstr "Jangan pakai akses jaringan."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:817
+#: tools/appstream-cli.c:908
 msgid "Don't show colored output."
 msgstr "Jangan tampilkan keluaran berwarna."
 
-#: tools/appstream-cli.c:764
+#: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Curahkan metadata XML mentah bagi suatu komponen yang cocok ID-nya."
 
@@ -404,7 +413,7 @@ msgid "Education"
 msgstr "Edukasi"
 
 #. TRANSLATORS: No metainfo files have been found
-#: tools/ascli-actions-misc.c:108 tools/ascli-actions-misc.c:128
+#: tools/ascli-actions-misc.c:109 tools/ascli-actions-misc.c:129
 msgid "Empty."
 msgstr "Kosong."
 
@@ -422,7 +431,7 @@ msgstr "Paksakan penyegaran tembolok."
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:158
+#: tools/ascli-actions-misc.c:159
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Kesalahan ketika memuat pool metadata: %s"
@@ -518,12 +527,12 @@ msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "Format metadata baku (nilai yang valid adalah 'xml' dan 'yaml')."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
-#: tools/ascli-actions-misc.c:137
+#: tools/ascli-actions-misc.c:138
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "Ditemukan %i komponan dalam path legasi."
 
-#: tools/ascli-actions-misc.c:122
+#: tools/ascli-actions-misc.c:123
 #, c-format
 msgid "Found %i components."
 msgstr "Ditemukan %i komponen."
@@ -579,11 +588,16 @@ msgstr ""
 msgid "Games"
 msgstr "Permainan"
 
-#: tools/appstream-cli.c:760
+#. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
+#: tools/appstream-cli.c:814
+msgid "Generate the output in the selected format ('yaml' or 'text')."
+msgstr ""
+
+#: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
 msgstr "Dapatkan komponen yang menyediakan butir yang diberikan."
 
-#: tools/appstream-cli.c:759
+#: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "Dapatkan informasi tentang suatu komponen berdasarkan ID-nya."
 
@@ -617,7 +631,7 @@ msgid ""
 "relative path to the icon. Only file basenames or stock names are allowed."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:93
+#: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
 msgstr "Set ikon"
 
@@ -630,11 +644,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Sumber Masukan"
 
-#: tools/appstream-cli.c:774
+#: tools/appstream-cli.c:863
 msgid "Install a metadata file into the right location."
 msgstr "Pasang suatu berkas metadata ke lokasi yang benar."
 
-#: tools/appstream-cli.c:770
+#: tools/appstream-cli.c:859
 msgid "Install software matching the component-ID."
 msgstr "Pasang perangkat lunak dengan component-ID yang cocok."
 
@@ -700,6 +714,13 @@ msgstr "Pustaka"
 msgid "License"
 msgstr "Lisensi"
 
+#. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
+#: tools/appstream-cli.c:771
+msgid ""
+"Limit the number of release entries that end up in the metainfo file (0 for "
+"unlimited)."
+msgstr ""
+
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
@@ -755,7 +776,8 @@ msgstr "Berkas metadata '%s' tidak ada."
 msgid "Metadata files have errors:"
 msgstr "Berkas metadata punya kesalahan:"
 
-#: tools/ascli-actions-misc.c:197
+#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
+#: tools/ascli-actions-misc.c:515
 #, fuzzy, c-format
 msgid "Metainfo file '%s' does not exist."
 msgstr "Berkas metadata '%s' tidak ada."
@@ -768,7 +790,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
-#: tools/ascli-actions-misc.c:115
+#: tools/ascli-actions-misc.c:116
 msgid "Metainfo files:"
 msgstr "Berkas metainfo:"
 
@@ -804,17 +826,21 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "Tidak ditemukan komponen yang cocok '%s'."
 
-#: tools/ascli-actions-misc.c:104
+#: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "Tak ada ikon."
 
-#: tools/ascli-actions-misc.c:305
+#: tools/ascli-actions-misc.c:402
+msgid "No output filename specified, modifying metainfo file directly."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:283
+#: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
 msgstr ""
 
@@ -878,11 +904,11 @@ msgstr "Python (Versi 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:765
+#: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "Bangun ulang singgahan metadata komponen."
 
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "Buang perangkat lunak dengan component-ID yang cocok."
 
@@ -896,7 +922,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Bermain Peran"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:835
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:926
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -927,7 +953,7 @@ msgstr "Pemindaian"
 msgid "Science"
 msgstr "Sains"
 
-#: tools/appstream-cli.c:758
+#: tools/appstream-cli.c:847
 msgid "Search the component database."
 msgstr "Cari basis data komponen."
 
@@ -937,12 +963,12 @@ msgid "Security"
 msgstr "Keamanan"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:812
+#: tools/appstream-cli.c:903
 msgid "Show extra debugging information."
 msgstr "Tampilkan informasi debug ekstra."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:897
 msgid "Show the program version."
 msgstr "Tampilkan versi program."
 
@@ -957,7 +983,7 @@ msgid "Strategy"
 msgstr "Strategi"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:756
+#: tools/appstream-cli.c:845
 msgid "Subcommands:"
 msgstr "Subperintah:"
 
@@ -973,7 +999,7 @@ msgid "Summary"
 msgstr "Ringkasan"
 
 #. TRANSLATORS: Status summary in ascli
-#: tools/ascli-actions-misc.c:144
+#: tools/ascli-actions-misc.c:145
 msgid "Summary:"
 msgstr "Ringkasan:"
 
@@ -1542,7 +1568,7 @@ msgid ""
 "Unable to find the curl binary. remote URLs can not be checked for validity!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:223
+#: tools/ascli-actions-misc.c:224
 #, fuzzy, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
 msgstr "Tidak bisa membaca berkas .desktop: %s"
@@ -1587,7 +1613,7 @@ msgstr "Tidak bisa membaca berkas .desktop: %s"
 msgid "Unable to remove old cache."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:369
+#: tools/ascli-actions-misc.c:370
 #, fuzzy, c-format
 msgid "Unable to save desktop entry file: %s"
 msgstr "Tidak bisa membaca berkas .desktop: %s"
@@ -1608,7 +1634,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Tidak bisa menulis ke '%s', tidak bisa memasang berkas metainfo."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:914
+#: tools/appstream-cli.c:1009
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Perintah tak dikenal '%s'."
@@ -1638,11 +1664,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Utilitas"
 
-#: tools/appstream-cli.c:767
+#: tools/appstream-cli.c:856
 msgid "Validate AppStream XML files for issues."
 msgstr "Validasikan berkas XML AppStream apakah bermasalah."
 
-#: tools/appstream-cli.c:768
+#: tools/appstream-cli.c:857
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Validasikan metadata pohon berkas terpasang dari suatu aplikasi."
 
@@ -1660,7 +1686,7 @@ msgstr "Validasi sukses."
 msgid "Validation was successful: %s"
 msgstr "Validasi sukses: %s"
 
-#: tools/appstream-cli.c:762
+#: tools/appstream-cli.c:851
 msgid "Value of the item that should be found."
 msgstr "Nilai dari butir yang mesti ditemukan."
 
@@ -1669,7 +1695,7 @@ msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "Grafik Vektor"
 
-#: tools/ascli-actions-misc.c:47
+#: tools/ascli-actions-misc.c:48
 #, c-format
 msgid "Version: %s"
 msgstr "Versi: %s"
@@ -1679,7 +1705,7 @@ msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Penampil"
 
-#: tools/ascli-actions-misc.c:152
+#: tools/ascli-actions-misc.c:153
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Kami punya informasi atas %i komponen perangkat lunak."
@@ -1694,7 +1720,11 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Pengolah Kata"
 
-#: tools/appstream-cli.c:783
+#: tools/appstream-cli.c:871
+msgid "Write NEWS text or YAML file with information from a metainfo file."
+msgstr ""
+
+#: tools/appstream-cli.c:874
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -1722,8 +1752,23 @@ msgstr ""
 "Anda harus memberikan setidaknya dua nomor versi untuk dibandingkan sebagai "
 "parameter."
 
+#: tools/ascli-actions-misc.c:393
+#, fuzzy
+msgid "You need to specify a NEWS file as input."
+msgstr "Anda perlu menyatakan suatu berkas metadata."
+
+#: tools/ascli-actions-misc.c:509
+#, fuzzy
+msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
+msgstr "Anda perlu menyatakan suatu berkas metadata."
+
+#: tools/ascli-actions-misc.c:540
+#, fuzzy
+msgid "You need to specify a NEWS format to write the output in."
+msgstr "Anda perlu menyatakan berkas masukan dan keluaran."
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:834
+#: tools/appstream-cli.c:925
 msgid "You need to specify a command."
 msgstr "Anda perlu menyatakan suatu perintah."
 
@@ -1734,7 +1779,7 @@ msgstr "Anda perlu menyatakan suatu perintah."
 msgid "You need to specify a component-ID."
 msgstr "Anda perlu menyatakan sebuah ID komponen."
 
-#: tools/ascli-actions-misc.c:187
+#: tools/ascli-actions-misc.c:188
 #, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
@@ -1744,9 +1789,15 @@ msgstr "Anda perlu menyatakan sebuah berkas yang akan divalidasi!"
 msgid "You need to specify a metadata file."
 msgstr "Anda perlu menyatakan suatu berkas metadata."
 
-#: tools/ascli-actions-misc.c:183
+#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
 #, fuzzy
 msgid "You need to specify a metainfo file as input."
+msgstr "Anda perlu menyatakan suatu berkas metadata."
+
+#: tools/ascli-actions-misc.c:397
+#, fuzzy
+msgid ""
+"You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "Anda perlu menyatakan suatu berkas metadata."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479

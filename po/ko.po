@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 02:51+0200\n"
+"POT-Creation-Date: 2019-09-14 23:45+0200\n"
 "PO-Revision-Date: 2019-05-05 04:47+0000\n"
 "Last-Translator: Jun Hyung Shin <shmishmi79@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
@@ -87,7 +87,7 @@ msgid ""
 "'localization' or 'repository'."
 msgstr ""
 
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "항목 형식 (예: lib, bin, python3, ...)"
 
@@ -100,7 +100,7 @@ msgid "AppStream CLI"
 msgstr "AppStream CLI(Command Line Interface)"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:856
+#: tools/appstream-cli.c:947
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -110,7 +110,7 @@ msgstr ""
 "AppStream 라이브러리 버전: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
-#: tools/ascli-actions-misc.c:46
+#: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
 msgstr "AppStream 상태:"
 
@@ -127,7 +127,7 @@ msgstr "AppStream 캐시 업데이트가 필요하지 않습니다."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:754
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:843
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령문 인터페이스"
 
@@ -158,7 +158,7 @@ msgstr ""
 "기 모드를 켜주세요."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:853
+#: tools/appstream-cli.c:944
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 버전: %s"
@@ -177,6 +177,11 @@ msgstr "인공 지능"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
+#: tools/appstream-cli.c:766
+msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #: src/as-category.c:101
@@ -199,7 +204,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "오디오 생성 & 편집"
 
-#: tools/ascli-actions-misc.c:218
+#: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr ""
@@ -275,7 +280,7 @@ msgstr "코덱"
 msgid "Communication & News"
 msgstr "커뮤니케이션 & 뉴스"
 
-#: tools/appstream-cli.c:777
+#: tools/appstream-cli.c:866
 msgid "Compare two version numbers."
 msgstr "두 버전 비교하기."
 
@@ -307,8 +312,12 @@ msgid ""
 "video."
 msgstr ""
 
+#: tools/appstream-cli.c:870
+msgid "Convert a YAML or text NEWS file into metainfo releases."
+msgstr ""
+
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:776
+#: tools/appstream-cli.c:865
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "컬렉션 XML을 YAML로 변환하시거나 그 반대로 하세요."
 
@@ -318,17 +327,17 @@ msgstr "컬렉션 XML을 YAML로 변환하시거나 그 반대로 하세요."
 msgid "Could not find component providing '%s::%s'."
 msgstr "'%s::%s' 을(를) 제공하는 구성요소를 찾을 수 없습니다."
 
-#: tools/appstream-cli.c:779
+#: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "업스트림 프로젝트로 채울 metainfo 파일의 템플릿을 만듭니다."
 
-#: tools/appstream-cli.c:780
+#: tools/appstream-cli.c:869
 msgid "Create an XDG desktop-entry file from a metainfo file."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:227
+#: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr ""
@@ -376,12 +385,12 @@ msgstr "개발자"
 msgid "Developer Tools"
 msgstr "개발자 도구"
 
-#: tools/appstream-cli.c:773
+#: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
 msgstr "설치한 AppStream 메타데이터의 상태 정보를 나타냅니다."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
-#: tools/ascli-actions-misc.c:51
+#: tools/ascli-actions-misc.c:52
 msgid "Distribution metadata:"
 msgstr "배포판 메타데이터:"
 
@@ -391,11 +400,11 @@ msgid "Do not use network access."
 msgstr "네트워크 액세스를 사용하지 마십시오."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:817
+#: tools/appstream-cli.c:908
 msgid "Don't show colored output."
 msgstr "출력에 색깔을 사용하지 마세요."
 
-#: tools/appstream-cli.c:764
+#: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
 
@@ -405,7 +414,7 @@ msgid "Education"
 msgstr "교육"
 
 #. TRANSLATORS: No metainfo files have been found
-#: tools/ascli-actions-misc.c:108 tools/ascli-actions-misc.c:128
+#: tools/ascli-actions-misc.c:109 tools/ascli-actions-misc.c:129
 msgid "Empty."
 msgstr "비어 있음."
 
@@ -423,7 +432,7 @@ msgstr "캐시를 강제로 새로 고칩니다."
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:158
+#: tools/ascli-actions-misc.c:159
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "메타데이터 풀을 불러오는 동안 생긴 오류: %s"
@@ -519,12 +528,12 @@ msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "기본 메타데이터 포맷 (유효한 값은 'xml'과 'yaml'입니다)."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
-#: tools/ascli-actions-misc.c:137
+#: tools/ascli-actions-misc.c:138
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "기존 경로에서 구성 요소 %i개를 찾았습니다."
 
-#: tools/ascli-actions-misc.c:122
+#: tools/ascli-actions-misc.c:123
 #, c-format
 msgid "Found %i components."
 msgstr "구성 요소 %i개를 찾았습니다."
@@ -580,11 +589,16 @@ msgstr ""
 msgid "Games"
 msgstr "게임"
 
-#: tools/appstream-cli.c:760
+#. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
+#: tools/appstream-cli.c:814
+msgid "Generate the output in the selected format ('yaml' or 'text')."
+msgstr ""
+
+#: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
 msgstr "주어진 항목을 제공하는 구성요소를 가져옵니다."
 
-#: tools/appstream-cli.c:759
+#: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "ID와 일치하는 구성요소 정보를 가져옵니다."
 
@@ -618,7 +632,7 @@ msgid ""
 "relative path to the icon. Only file basenames or stock names are allowed."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:93
+#: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
 msgstr "아이콘셋"
 
@@ -631,11 +645,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "입력 소스"
 
-#: tools/appstream-cli.c:774
+#: tools/appstream-cli.c:863
 msgid "Install a metadata file into the right location."
 msgstr "올바른 위치에 메타데이터 파일을 설치하십시오."
 
-#: tools/appstream-cli.c:770
+#: tools/appstream-cli.c:859
 msgid "Install software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 설치합니다."
 
@@ -700,6 +714,13 @@ msgstr "라이브러리"
 msgid "License"
 msgstr "라이선스"
 
+#. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
+#: tools/appstream-cli.c:771
+msgid ""
+"Limit the number of release entries that end up in the metainfo file (0 for "
+"unlimited)."
+msgstr ""
+
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
@@ -757,7 +778,8 @@ msgstr "메타데이터 파일 '%s' 없습니다."
 msgid "Metadata files have errors:"
 msgstr "메타데이터 파일에 오류가 있습니다:"
 
-#: tools/ascli-actions-misc.c:197
+#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
+#: tools/ascli-actions-misc.c:515
 #, fuzzy, c-format
 msgid "Metainfo file '%s' does not exist."
 msgstr "메타데이터 파일 '%s' 없습니다."
@@ -770,7 +792,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
-#: tools/ascli-actions-misc.c:115
+#: tools/ascli-actions-misc.c:116
 msgid "Metainfo files:"
 msgstr "Metainfo 파일:"
 
@@ -806,17 +828,21 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "'%s'에 일치하는 구성 요소를 찾을 수 없습니다."
 
-#: tools/ascli-actions-misc.c:104
+#: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "아이콘 없음."
 
-#: tools/ascli-actions-misc.c:305
+#: tools/ascli-actions-misc.c:402
+msgid "No output filename specified, modifying metainfo file directly."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:283
+#: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
 msgstr ""
 
@@ -880,11 +906,11 @@ msgstr "파이썬(버전 2)"
 msgid "Python 3"
 msgstr "파이썬 3"
 
-#: tools/appstream-cli.c:765
+#: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "구성요소 메타데이터 캐시를 다시 만듭니다."
 
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 제거하세요."
 
@@ -898,7 +924,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "롤 플레잉"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:835
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:926
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -927,7 +953,7 @@ msgstr "스캐닝"
 msgid "Science"
 msgstr "과학"
 
-#: tools/appstream-cli.c:758
+#: tools/appstream-cli.c:847
 msgid "Search the component database."
 msgstr "구성요소 데이터베이스를 검색합니다."
 
@@ -937,12 +963,12 @@ msgid "Security"
 msgstr "보안"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:812
+#: tools/appstream-cli.c:903
 msgid "Show extra debugging information."
 msgstr "추가 디버깅 정보 보이기."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:897
 msgid "Show the program version."
 msgstr "프로그램 버전 보기."
 
@@ -957,7 +983,7 @@ msgid "Strategy"
 msgstr "전략"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:756
+#: tools/appstream-cli.c:845
 msgid "Subcommands:"
 msgstr "하위 명령어:"
 
@@ -973,7 +999,7 @@ msgid "Summary"
 msgstr "요약"
 
 #. TRANSLATORS: Status summary in ascli
-#: tools/ascli-actions-misc.c:144
+#: tools/ascli-actions-misc.c:145
 msgid "Summary:"
 msgstr "요약:"
 
@@ -1541,7 +1567,7 @@ msgid ""
 "Unable to find the curl binary. remote URLs can not be checked for validity!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:223
+#: tools/ascli-actions-misc.c:224
 #, fuzzy, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
 msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
@@ -1586,7 +1612,7 @@ msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
 msgid "Unable to remove old cache."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:369
+#: tools/ascli-actions-misc.c:370
 #, fuzzy, c-format
 msgid "Unable to save desktop entry file: %s"
 msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
@@ -1607,7 +1633,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "'%s'에 쓸 수 없습니다, metainfo 파일을 설치할 수 없습니다."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:914
+#: tools/appstream-cli.c:1009
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "알 수 없는 명령어 '%s'."
@@ -1634,11 +1660,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "유틸리티"
 
-#: tools/appstream-cli.c:767
+#: tools/appstream-cli.c:856
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML 파일의 문제를 검증합니다."
 
-#: tools/appstream-cli.c:768
+#: tools/appstream-cli.c:857
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "올바른 메타데이터를 가지고 있는지 프로그램의 설치 파일 트리를 검증합니다."
@@ -1657,7 +1683,7 @@ msgstr "유효성 검사에 성공했습니다."
 msgid "Validation was successful: %s"
 msgstr "유효성 검사에 성공했습니다: %s"
 
-#: tools/appstream-cli.c:762
+#: tools/appstream-cli.c:851
 msgid "Value of the item that should be found."
 msgstr "찾아야 할 항목의 값입니다."
 
@@ -1666,7 +1692,7 @@ msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "벡터 그래픽"
 
-#: tools/ascli-actions-misc.c:47
+#: tools/ascli-actions-misc.c:48
 #, c-format
 msgid "Version: %s"
 msgstr "버전: %s"
@@ -1676,7 +1702,7 @@ msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "뷰어"
 
-#: tools/ascli-actions-misc.c:152
+#: tools/ascli-actions-misc.c:153
 #, c-format
 msgid "We have information on %i software components."
 msgstr "소프트웨어 구성 요소에 관한 %i개의 정보가 있습니다."
@@ -1691,7 +1717,11 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "워드 프로세서"
 
-#: tools/appstream-cli.c:783
+#: tools/appstream-cli.c:871
+msgid "Write NEWS text or YAML file with information from a metainfo file."
+msgstr ""
+
+#: tools/appstream-cli.c:874
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -1717,8 +1747,23 @@ msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "변수로써 비교하기 위해 최소 2개의 버전 숫자가 필요합니다."
 
+#: tools/ascli-actions-misc.c:393
+#, fuzzy
+msgid "You need to specify a NEWS file as input."
+msgstr "메타데이터 파일을 지정해야합니다."
+
+#: tools/ascli-actions-misc.c:509
+#, fuzzy
+msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
+msgstr "메타데이터 파일을 지정해야합니다."
+
+#: tools/ascli-actions-misc.c:540
+#, fuzzy
+msgid "You need to specify a NEWS format to write the output in."
+msgstr "입출력 파일을 지정해야 합니다."
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:834
+#: tools/appstream-cli.c:925
 msgid "You need to specify a command."
 msgstr "명령을 지정해야 합니다."
 
@@ -1729,7 +1774,7 @@ msgstr "명령을 지정해야 합니다."
 msgid "You need to specify a component-ID."
 msgstr "component-ID를 지정해야 합니다."
 
-#: tools/ascli-actions-misc.c:187
+#: tools/ascli-actions-misc.c:188
 #, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
@@ -1739,9 +1784,15 @@ msgstr "검증할 파일을 지정해야 합니다!"
 msgid "You need to specify a metadata file."
 msgstr "메타데이터 파일을 지정해야합니다."
 
-#: tools/ascli-actions-misc.c:183
+#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
 #, fuzzy
 msgid "You need to specify a metainfo file as input."
+msgstr "메타데이터 파일을 지정해야합니다."
+
+#: tools/ascli-actions-misc.c:397
+#, fuzzy
+msgid ""
+"You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "메타데이터 파일을 지정해야합니다."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479

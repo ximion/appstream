@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 02:51+0200\n"
+"POT-Creation-Date: 2019-09-14 23:45+0200\n"
 "PO-Revision-Date: 2019-08-05 00:22+0000\n"
 "Last-Translator: Matúš Baňas <banas.mato@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
@@ -86,7 +86,7 @@ msgid ""
 "'localization' or 'repository'."
 msgstr ""
 
-#: tools/appstream-cli.c:761
+#: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Typ položky (napr. lib, bin, python3, ...)"
 
@@ -99,7 +99,7 @@ msgid "AppStream CLI"
 msgstr "Textové používateľské rozhranie pre AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:856
+#: tools/appstream-cli.c:947
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -109,7 +109,7 @@ msgstr ""
 "Verzia knižnice AppStream: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
-#: tools/ascli-actions-misc.c:46
+#: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
 msgstr "Stav nástroja AppStream:"
 
@@ -126,7 +126,7 @@ msgstr "Aktualizácia vyrovnávacej pamäte nástroja AppStream nie je potrebná
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:754
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:843
 msgid "AppStream command-line interface"
 msgstr "Rozhranie príkazového riadku AppStream"
 
@@ -157,7 +157,7 @@ msgstr ""
 "režim, z ktorého dostanete podrobnejšie informácie."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:853
+#: tools/appstream-cli.c:944
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Verzia nástroja AppStream CLI: %s"
@@ -176,6 +176,11 @@ msgstr "Umelá inteligencia"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
+msgstr ""
+
+#. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
+#: tools/appstream-cli.c:766
+msgid "Assume the input file is in the selected format ('yaml' or 'text')."
 msgstr ""
 
 #: src/as-category.c:101
@@ -198,7 +203,7 @@ msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Vytváranie a úprava zvuku"
 
-#: tools/ascli-actions-misc.c:218
+#: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr ""
@@ -274,7 +279,7 @@ msgstr "Kodeky"
 msgid "Communication & News"
 msgstr "Komunikácia a novinky"
 
-#: tools/appstream-cli.c:777
+#: tools/appstream-cli.c:866
 msgid "Compare two version numbers."
 msgstr "Porovnať dve čísla verzií."
 
@@ -306,8 +311,12 @@ msgid ""
 "video."
 msgstr ""
 
+#: tools/appstream-cli.c:870
+msgid "Convert a YAML or text NEWS file into metainfo releases."
+msgstr ""
+
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:776
+#: tools/appstream-cli.c:865
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Prevádza z XML na YAML formát a obrátene."
 
@@ -317,18 +326,18 @@ msgstr "Prevádza z XML na YAML formát a obrátene."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Nie je možné nájsť komponent poskytujúci „%s;%s“."
 
-#: tools/appstream-cli.c:779
+#: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Vytvoriť šablónu pre metainfo súbor (pre vyplnenie v upstream projektu)."
 
-#: tools/appstream-cli.c:780
+#: tools/appstream-cli.c:869
 msgid "Create an XDG desktop-entry file from a metainfo file."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:227
+#: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr ""
@@ -374,12 +383,12 @@ msgstr "Vývojár"
 msgid "Developer Tools"
 msgstr "Nástroje pre vývojárov"
 
-#: tools/appstream-cli.c:773
+#: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
 msgstr "Zobraziť stavové informácie o dostupných AppStream metaúdajoch."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
-#: tools/ascli-actions-misc.c:51
+#: tools/ascli-actions-misc.c:52
 msgid "Distribution metadata:"
 msgstr "Metaúdaje distribúcie:"
 
@@ -389,11 +398,11 @@ msgid "Do not use network access."
 msgstr "Nepoužívať sieť."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:817
+#: tools/appstream-cli.c:908
 msgid "Don't show colored output."
 msgstr "Nezobrazovať farebný výstup."
 
-#: tools/appstream-cli.c:764
+#: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Vypísať surové XML metaúdaje súčasti s týmto identifikátorom."
 
@@ -403,7 +412,7 @@ msgid "Education"
 msgstr "Výuka"
 
 #. TRANSLATORS: No metainfo files have been found
-#: tools/ascli-actions-misc.c:108 tools/ascli-actions-misc.c:128
+#: tools/ascli-actions-misc.c:109 tools/ascli-actions-misc.c:129
 msgid "Empty."
 msgstr "Prázdne."
 
@@ -421,7 +430,7 @@ msgstr "Vynútiť aktualizáciu vyrovnávacej pamäte."
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:158
+#: tools/ascli-actions-misc.c:159
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Chyba pri načítaní fondu metaúdajov: %s"
@@ -517,12 +526,12 @@ msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "Predvolený metaúdajoví formát (platné hodnoty sú „xml“ a „yaml“)."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
-#: tools/ascli-actions-misc.c:137
+#: tools/ascli-actions-misc.c:138
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "Nájdené %i súčasti v umiestneniach, ako sa už nové nepoužívajú."
 
-#: tools/ascli-actions-misc.c:122
+#: tools/ascli-actions-misc.c:123
 #, c-format
 msgid "Found %i components."
 msgstr "Nájdené %i súčastí."
@@ -578,11 +587,16 @@ msgstr ""
 msgid "Games"
 msgstr "Hry"
 
-#: tools/appstream-cli.c:760
+#. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
+#: tools/appstream-cli.c:814
+msgid "Generate the output in the selected format ('yaml' or 'text')."
+msgstr ""
+
+#: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
 msgstr "Získať komponenty, ktoré poskytujú zadanú položku."
 
-#: tools/appstream-cli.c:759
+#: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "Získať informácie o komponente podľa jeho identifikátora."
 
@@ -616,7 +630,7 @@ msgid ""
 "relative path to the icon. Only file basenames or stock names are allowed."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:93
+#: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
 msgstr "Sady ikôn"
 
@@ -629,11 +643,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Vstupné zdroje"
 
-#: tools/appstream-cli.c:774
+#: tools/appstream-cli.c:863
 msgid "Install a metadata file into the right location."
 msgstr "Nainštalovať súbor s metaúdajmi na správne miesto."
 
-#: tools/appstream-cli.c:770
+#: tools/appstream-cli.c:859
 msgid "Install software matching the component-ID."
 msgstr "Nainštalovať softvér zodpovedajúci identifikátoru súčasti."
 
@@ -697,6 +711,13 @@ msgstr "Knižnice"
 msgid "License"
 msgstr "Licencia"
 
+#. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
+#: tools/appstream-cli.c:771
+msgid ""
+"Limit the number of release entries that end up in the metainfo file (0 for "
+"unlimited)."
+msgstr ""
+
 #: src/as-category.c:223
 msgctxt "Category of Addons"
 msgid "Localization"
@@ -754,7 +775,8 @@ msgstr "Súbor s metaúdajmi „%s“ neexistuje."
 msgid "Metadata files have errors:"
 msgstr "Súbory s metaúdajmi obsahujú chyby:"
 
-#: tools/ascli-actions-misc.c:197
+#: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
+#: tools/ascli-actions-misc.c:515
 #, fuzzy, c-format
 msgid "Metainfo file '%s' does not exist."
 msgstr "Súbor s metaúdajmi „%s“ neexistuje."
@@ -767,7 +789,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
-#: tools/ascli-actions-misc.c:115
+#: tools/ascli-actions-misc.c:116
 msgid "Metainfo files:"
 msgstr "Súbory s metainfomáciami:"
 
@@ -803,17 +825,21 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "Nebola nájdená súčasť zodpovedajúca „%s“."
 
-#: tools/ascli-actions-misc.c:104
+#: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "Žiadne ikony."
 
-#: tools/ascli-actions-misc.c:305
+#: tools/ascli-actions-misc.c:402
+msgid "No output filename specified, modifying metainfo file directly."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:283
+#: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
 msgstr ""
 
@@ -877,11 +903,11 @@ msgstr "Python (verzia 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:765
+#: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "Znovu vytvoriť súčasť vyrovnávacej pamäti metaúdajov."
 
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "Odobrať softvér zodpovedajúci identifikátora súčasti."
 
@@ -895,7 +921,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "RPG"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:835
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:926
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -925,7 +951,7 @@ msgstr "Skenovanie"
 msgid "Science"
 msgstr "Veda"
 
-#: tools/appstream-cli.c:758
+#: tools/appstream-cli.c:847
 msgid "Search the component database."
 msgstr "Prehľadať databázu komponentov."
 
@@ -935,12 +961,12 @@ msgid "Security"
 msgstr "Zabezpečenie"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:812
+#: tools/appstream-cli.c:903
 msgid "Show extra debugging information."
 msgstr "Zobrazovať doplňujúce informácie pre ladenie."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:806
+#: tools/appstream-cli.c:897
 msgid "Show the program version."
 msgstr "Zobraziť verziu programu."
 
@@ -955,7 +981,7 @@ msgid "Strategy"
 msgstr "Stratégie"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:756
+#: tools/appstream-cli.c:845
 msgid "Subcommands:"
 msgstr "Čiastkové príkazy:"
 
@@ -971,7 +997,7 @@ msgid "Summary"
 msgstr "Zhrnutie"
 
 #. TRANSLATORS: Status summary in ascli
-#: tools/ascli-actions-misc.c:144
+#: tools/ascli-actions-misc.c:145
 msgid "Summary:"
 msgstr "Zhrnutie:"
 
@@ -1542,7 +1568,7 @@ msgid ""
 "Unable to find the curl binary. remote URLs can not be checked for validity!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:223
+#: tools/ascli-actions-misc.c:224
 #, fuzzy, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
 msgstr "Nepodarilo sa načítať .desktop súbor: %s"
@@ -1587,7 +1613,7 @@ msgstr "Nepodarilo sa načítať .desktop súbor: %s"
 msgid "Unable to remove old cache."
 msgstr "Nie je možné odstrániť starú vyrovnávaciu pamäť."
 
-#: tools/ascli-actions-misc.c:369
+#: tools/ascli-actions-misc.c:370
 #, fuzzy, c-format
 msgid "Unable to save desktop entry file: %s"
 msgstr "Nepodarilo sa načítať .desktop súbor: %s"
@@ -1610,7 +1636,7 @@ msgstr ""
 "metainformáciami."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:914
+#: tools/appstream-cli.c:1009
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Neznámi príkaz „%s“."
@@ -1639,11 +1665,11 @@ msgstr ""
 msgid "Utilities"
 msgstr "Nástroje"
 
-#: tools/appstream-cli.c:767
+#: tools/appstream-cli.c:856
 msgid "Validate AppStream XML files for issues."
 msgstr "Overiť či XML AppStream súbor neobsahuje chyby."
 
-#: tools/appstream-cli.c:768
+#: tools/appstream-cli.c:857
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Overiť či nainštalovaný strom súborov programu obsahuje platné metaúdaje."
@@ -1662,7 +1688,7 @@ msgstr "Overenie bolo úspešné."
 msgid "Validation was successful: %s"
 msgstr "Overenie bolo úspešné: %s"
 
-#: tools/appstream-cli.c:762
+#: tools/appstream-cli.c:851
 msgid "Value of the item that should be found."
 msgstr "Hodnota položky, ktorá by sa mala nájsť."
 
@@ -1671,7 +1697,7 @@ msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "Vektorová grafika"
 
-#: tools/ascli-actions-misc.c:47
+#: tools/ascli-actions-misc.c:48
 #, c-format
 msgid "Version: %s"
 msgstr "Verzia: %s"
@@ -1681,7 +1707,7 @@ msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Diváci"
 
-#: tools/ascli-actions-misc.c:152
+#: tools/ascli-actions-misc.c:153
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Je k dispozícii informácie o %i softvérovej súčasti."
@@ -1696,7 +1722,11 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Textový procesor"
 
-#: tools/appstream-cli.c:783
+#: tools/appstream-cli.c:871
+msgid "Write NEWS text or YAML file with information from a metainfo file."
+msgstr ""
+
+#: tools/appstream-cli.c:874
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -1724,8 +1754,23 @@ msgid ""
 "You need to provide at least two version numbers to compare as parameters."
 msgstr "Ak chcete porovnať parametre, musíte poskytnúť aspoň dve čísla verzií."
 
+#: tools/ascli-actions-misc.c:393
+#, fuzzy
+msgid "You need to specify a NEWS file as input."
+msgstr "Musíte určiť súbor metaúdajov."
+
+#: tools/ascli-actions-misc.c:509
+#, fuzzy
+msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
+msgstr "Musíte určiť súbor metaúdajov."
+
+#: tools/ascli-actions-misc.c:540
+#, fuzzy
+msgid "You need to specify a NEWS format to write the output in."
+msgstr "Musíte určiť súbor metaúdajov."
+
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:834
+#: tools/appstream-cli.c:925
 msgid "You need to specify a command."
 msgstr "Musíte uviesť príkaz."
 
@@ -1736,7 +1781,7 @@ msgstr "Musíte uviesť príkaz."
 msgid "You need to specify a component-ID."
 msgstr "Musíte uviesť identifikátor súčasti."
 
-#: tools/ascli-actions-misc.c:187
+#: tools/ascli-actions-misc.c:188
 #, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
@@ -1746,9 +1791,15 @@ msgstr "Musíte uviesť súbor, ktorý chcete overiť!"
 msgid "You need to specify a metadata file."
 msgstr "Musíte určiť súbor metaúdajov."
 
-#: tools/ascli-actions-misc.c:183
+#: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
 #, fuzzy
 msgid "You need to specify a metainfo file as input."
+msgstr "Musíte určiť súbor metaúdajov."
+
+#: tools/ascli-actions-misc.c:397
+#, fuzzy
+msgid ""
+"You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "Musíte určiť súbor metaúdajov."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
