@@ -27,6 +27,7 @@
 #include "as-settings-private.h"
 #include "ascli-utils.h"
 #include "as-component.h"
+#include "as-news-convert.h"
 
 /**
  * ascli_show_status:
@@ -369,6 +370,140 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
 		ascli_print_stderr (_("Unable to save desktop entry file: %s"), error->message);
 		return 1;
 	}
+
+	return 0;
+}
+
+/**
+ * ascli_news_to_metainfo:
+ *
+ * Convert NEWS data to a metainfo file.
+ */
+int
+ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gchar *out_fname, guint limit, const gchar *format_str)
+{
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GFile) infile = NULL;
+	AsComponent *cpt = NULL;
+	GPtrArray *cpt_releases = NULL;
+
+	if (news_fname == NULL) {
+		ascli_print_stderr (_("You need to specify a NEWS file as input."));
+		return 3;
+	}
+	if (mi_fname == NULL) {
+		ascli_print_stderr (_("You need to specify a metainfo file to augment, or '-' to print to stdout."));
+		return 3;
+	}
+	if (out_fname == NULL) {
+		if (g_strcmp0 (mi_fname, "-") != 0) {
+			ascli_print_stdout (_("No output filename specified, modifying metainfo file directly."));
+			out_fname = mi_fname;
+		}
+	}
+
+	releases = as_news_to_releases_from_file (news_fname,
+						  as_news_format_kind_from_string (format_str),
+						  &error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+	if (releases == NULL) {
+		g_printerr ("No releases retrieved and no error was emitted.\n");
+		return 1;
+	}
+
+	if (g_strcmp0 (mi_fname, "-") == 0) {
+		g_autofree gchar *tmp = NULL;
+
+		if ((limit > 0) && (limit < releases->len))
+			g_ptr_array_remove_range (releases, limit, releases->len - limit);
+		tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+		g_print ("%s\n", tmp);
+
+		return 0;
+	}
+
+	infile = g_file_new_for_path (mi_fname);
+	if (!g_file_query_exists (infile, NULL)) {
+		ascli_print_stderr (_("Metainfo file '%s' does not exist."), mi_fname);
+		return 4;
+	}
+
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
+
+	as_metadata_parse_file (metad,
+				infile,
+				AS_FORMAT_KIND_XML,
+				&error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+
+	cpt = as_metadata_get_component (metad);
+	cpt_releases = as_component_get_releases (cpt);
+
+	/* remove all existing releases, we only include data from the specofied file */
+	g_ptr_array_remove_range (cpt_releases, 0, cpt_releases->len);
+
+	for (guint i = 0; i < releases->len; ++i) {
+		AsRelease *release = AS_RELEASE (g_ptr_array_index (releases, i));
+		if ((limit > 0) && (i >= limit))
+			break;
+		g_ptr_array_add (cpt_releases, g_object_ref (release));
+	}
+
+	if (g_strcmp0 (out_fname, "-") == 0) {
+		g_autofree gchar *tmp = as_metadata_component_to_metainfo (metad,
+									   AS_FORMAT_KIND_XML,
+									   &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+
+		g_print ("%s\n", tmp);
+		return 0;
+	} else {
+		as_metadata_save_metainfo (metad,
+					   out_fname,
+					   AS_FORMAT_KIND_XML,
+					   &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+
+		return 0;
+	}
+}
+
+/**
+ * ascli_metainfo_to_news:
+ *
+ * Convert metainfo file to NEWS textfile.
+ */
+int
+ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gchar *format_str)
+{
+	if (mi_fname == NULL) {
+		ascli_print_stderr (_("You need to specify a metainfo file to augment."));
+		return 3;
+	}
+	if (news_fname == NULL) {
+		ascli_print_stderr (_("You need to specify a NEWS file as input."));
+		return 3;
+	}
+
 
 	return 0;
 }

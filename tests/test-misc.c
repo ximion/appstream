@@ -34,12 +34,13 @@ static gchar *datadir = NULL;
 static void
 test_readwrite_yaml_news ()
 {
-	static const gchar *yaml_news_data = "---\n"
+	static const gchar *yaml_news_data =
+		"---\n"
 		"Version: 1.2\n"
 		"Date: 2019-04-18\n"
 		"Type: development\n"
 		"Description:\n"
-		"- Improved A\n"
+		"- Improved A & X\n"
 		"- Fixed B\n"
 		"---\n"
 		"Version: 1.1\n"
@@ -47,7 +48,7 @@ test_readwrite_yaml_news ()
 		"Description: |-\n"
 		"  A freeform description text.\n"
 		"\n"
-		"  Second paragraph.\n"
+		"  Second paragraph. XML <> YAML\n"
 		"---\n"
 		"Version: 1.0\n"
 		"Date: 2019-02-24\n"
@@ -63,12 +64,73 @@ test_readwrite_yaml_news ()
 	/* read */
 	releases = as_news_yaml_to_releases (yaml_news_data, &error);
 	g_assert_no_error (error);
-	g_assert_nonnull(releases);
+	g_assert_nonnull (releases);
 
 	/* write */
 	ret = as_news_releases_to_yaml (releases, &tmp);
 	g_assert (ret);
 	g_assert (as_test_compare_lines (tmp, yaml_news_data));
+	g_free (tmp);
+}
+
+/**
+ * test_readwrite_text_news:
+ *
+ * Read & write text NEWS file.
+ */
+static void
+test_readwrite_text_news ()
+{
+	static const gchar *text_news_data =
+			"Version 0.12.8\n"
+			"~~~~~~~~~~~~~~\n"
+			"Released: 2019-08-16\n"
+			"\n"
+			"Notes:\n"
+			" * This release changes the output of appstreamcli\n"
+			"\n"
+			"Features:\n"
+			" * Alpha\n"
+			" * Beta\n"
+			"\n"
+			"Bugfixes:\n"
+			" * Restore compatibility with GLib < 2.58\n"
+			" * Gamma\n"
+			" * Delta\n";
+	static const gchar *expected_xml_releases_data =
+			"  <releases>\n"
+			"    <release type=\"stable\" version=\"0.12.8\" date=\"2019-08-16T00:00:00Z\">\n"
+			"      <description>\n"
+			"        <p>This release changes the output of appstreamcli</p>\n"
+			"        <p>This release adds the following features:</p>\n"
+			"        <ul>\n"
+			"          <li>Alpha</li>\n"
+			"          <li>Beta</li>\n"
+			"        </ul>\n"
+			"        <p>This release fixes the following bugs:</p>\n"
+			"        <ul>\n"
+			"          <li>Restore compatibility with GLib &lt; 2.58</li>\n"
+			"          <li>Gamma</li>\n"
+			"          <li>Delta</li>\n"
+			"        </ul>\n"
+			"      </description>\n"
+			"    </release>\n"
+			"  </releases>";
+
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	gchar *tmp;
+
+	/* read */
+	releases = as_news_text_to_releases (text_news_data, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases);
+
+	/* write */
+	tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (tmp);
+	g_assert (as_test_compare_lines (tmp, expected_xml_releases_data));
 	g_free (tmp);
 }
 
@@ -93,6 +155,7 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/Misc/YAMLNews", test_readwrite_yaml_news);
+	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
 
 	ret = g_test_run ();
 	g_free (datadir);
