@@ -405,6 +405,7 @@ typedef enum {
 	AS_NEWS_SECTION_KIND_FEATURES,
 	AS_NEWS_SECTION_KIND_NOTES,
 	AS_NEWS_SECTION_KIND_TRANSLATION,
+	AS_NEWS_SECTION_KIND_DOCUMENTATION,
 	AS_NEWS_SECTION_KIND_LAST
 } AsNewsSectionKind;
 
@@ -424,9 +425,9 @@ as_news_text_guess_section (const gchar *lines)
 	if (g_strstr_len (lines, -1, "Removed features:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_FEATURES;
 	if (g_strstr_len (lines, -1, "Specification:\n") != NULL)
-		return AS_NEWS_SECTION_KIND_FEATURES;
+		return AS_NEWS_SECTION_KIND_DOCUMENTATION;
 	if (g_strstr_len (lines, -1, "Documentation:\n") != NULL)
-		return AS_NEWS_SECTION_KIND_FEATURES;
+		return AS_NEWS_SECTION_KIND_DOCUMENTATION;
 	if (g_strstr_len (lines, -1, "Notes:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_NOTES;
 	if (g_strstr_len (lines, -1, "Note:\n") != NULL)
@@ -650,6 +651,13 @@ as_news_text_to_releases (const gchar *data, GError **error)
 				as_news_text_add_markup (desc, "p",
 							 "This release adds the following features:");
 			}
+			if (!as_news_text_to_list_markup (desc, lines + 1, error))
+				return FALSE;
+			break;
+		case AS_NEWS_SECTION_KIND_DOCUMENTATION:
+			lines = g_strsplit (split[i], "\n", -1);
+			as_news_text_add_markup (desc, "p",
+						 "This release updates documentation:");
 			if (!as_news_text_to_list_markup (desc, lines + 1, error))
 				return FALSE;
 			break;
