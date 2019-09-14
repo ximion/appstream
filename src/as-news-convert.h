@@ -49,17 +49,23 @@ typedef enum {
 const gchar		*as_news_format_kind_to_string (AsNewsFormatKind kind);
 AsNewsFormatKind	as_news_format_kind_from_string (const gchar *kind_str);
 
+GPtrArray		*as_news_to_releases_from_data (const gchar *data,
+							AsNewsFormatKind kind,
+							GError **error);
 GPtrArray		*as_news_to_releases_from_file (const gchar *fname,
 							AsNewsFormatKind kind,
 							GError **error);
 
 gchar			*as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error);
 
-GPtrArray		*as_news_yaml_to_releases (const gchar *yaml_data, GError **error);
-gboolean		as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data);
-
-GPtrArray		*as_news_text_to_releases (const gchar *data,
-						   GError **error);
+gboolean		as_releases_to_news_data (GPtrArray *releases,
+						  AsNewsFormatKind kind,
+						  gchar **news_data,
+						  GError **error);
+gboolean		as_releases_to_news_file (GPtrArray *releases,
+						  const gchar *fname,
+						  AsNewsFormatKind kind,
+						  GError **error);
 
 G_END_DECLS
 

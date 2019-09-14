@@ -56,18 +56,54 @@ test_readwrite_yaml_news ()
 		"- Introduced feature A\n"
 		"- Introduced feature B\n"
 		"- Fixed X, Y and Z\n";
+
+	static const gchar *expected_xml_releases_data =
+		"  <releases>\n"
+		"    <release type=\"development\" version=\"1.2\" date=\"2019-04-18T00:00:00Z\">\n"
+		"      <description>\n"
+		"        <ul>\n"
+		"          <li>Improved A &amp; X</li>\n"
+		"          <li>Fixed B</li>\n"
+		"        </ul>\n"
+		"      </description>\n"
+		"    </release>\n"
+		"    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
+		"      <description>\n"
+		"        <p>A freeform description text.</p>\n"
+		"        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+		"      </description>\n"
+		"    </release>\n"
+		"    <release type=\"stable\" version=\"1.0\" date=\"2019-02-24T00:00:00Z\">\n"
+		"      <description>\n"
+		"        <ul>\n"
+		"          <li>Introduced feature A</li>\n"
+		"          <li>Introduced feature B</li>\n"
+		"          <li>Fixed X, Y and Z</li>\n"
+		"        </ul>\n"
+		"      </description>\n"
+		"    </release>\n"
+		"  </releases>";
+
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
 	gchar *tmp;
 	gboolean ret;
 
 	/* read */
-	releases = as_news_yaml_to_releases (yaml_news_data, &error);
+	releases = as_news_to_releases_from_data (yaml_news_data, AS_NEWS_FORMAT_KIND_YAML, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (releases);
 
+	/* verify */
+	tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (tmp);
+	g_assert (as_test_compare_lines (tmp, expected_xml_releases_data));
+	g_free (tmp);
+
 	/* write */
-	ret = as_news_releases_to_yaml (releases, &tmp);
+	ret = as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_YAML, &tmp, &error);
+	g_assert_no_error (error);
 	g_assert (ret);
 	g_assert (as_test_compare_lines (tmp, yaml_news_data));
 	g_free (tmp);
@@ -117,20 +153,42 @@ test_readwrite_text_news ()
 			"    </release>\n"
 			"  </releases>";
 
+	static const gchar *expected_generated_news_txt =
+			"Version 0.12.8\n"
+			"~~~~~~~~~~~~~~\n"
+			"Released: 2019-08-16\n"
+			"\n"
+			"This release changes the output of appstreamcli\n"
+			"\n"
+			"This release adds the following features:\n"
+			" - Alpha\n"
+			" - Beta\n"
+			"\n"
+			"This release fixes the following bugs:\n"
+			" - Restore compatibility with GLib < 2.58\n"
+			" - Gamma\n"
+			" - Delta\n";
+
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
 	gchar *tmp;
 
 	/* read */
-	releases = as_news_text_to_releases (text_news_data, &error);
+	releases = as_news_to_releases_from_data (text_news_data, AS_NEWS_FORMAT_KIND_TEXT, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (releases);
 
-	/* write */
+	/* verify */
 	tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (tmp);
 	g_assert (as_test_compare_lines (tmp, expected_xml_releases_data));
+	g_free (tmp);
+
+	/* write */
+	as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_TEXT, &tmp, &error);
+	g_assert_no_error (error);
+	g_assert (as_test_compare_lines (tmp, expected_generated_news_txt));
 	g_free (tmp);
 }
 

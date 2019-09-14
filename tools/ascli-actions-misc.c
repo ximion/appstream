@@ -495,15 +495,73 @@ ascli_news_to_metainfo (const gchar *news_fname, const gchar *mi_fname, const gc
 int
 ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gchar *format_str)
 {
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GFile) infile = NULL;
+	g_autoptr(GError) error = NULL;
+	AsComponent *cpt = NULL;
+	AsNewsFormatKind format_kind;
+
 	if (mi_fname == NULL) {
-		ascli_print_stderr (_("You need to specify a metainfo file to augment."));
+		ascli_print_stderr (_("You need to specify a metainfo file as input."));
 		return 3;
 	}
 	if (news_fname == NULL) {
-		ascli_print_stderr (_("You need to specify a NEWS file as input."));
+		ascli_print_stderr (_("You need to specify a NEWS file as output, or '-' to print to stdout."));
 		return 3;
 	}
 
+	infile = g_file_new_for_path (mi_fname);
+	if (!g_file_query_exists (infile, NULL)) {
+		ascli_print_stderr (_("Metainfo file '%s' does not exist."), mi_fname);
+		return 4;
+	}
 
-	return 0;
+	/* read the metainfo file */
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
+
+	as_metadata_parse_file (metad,
+				infile,
+				AS_FORMAT_KIND_XML,
+				&error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+	cpt = as_metadata_get_component (metad);
+	as_component_set_active_locale (cpt, "C");
+
+
+	format_kind = as_news_format_kind_from_string (format_str);
+	if (g_strcmp0 (news_fname, "-") == 0) {
+		g_autofree gchar *news_data = NULL;
+
+		if (format_kind == AS_NEWS_FORMAT_KIND_UNKNOWN) {
+			ascli_print_stderr (_("You need to specify a NEWS format to write the output in."));
+			return 3;
+		}
+
+		as_releases_to_news_data (as_component_get_releases (cpt),
+					  format_kind,
+					  &news_data,
+					  &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+
+		g_print ("%s\n", news_data);
+		return 0;
+	} else {
+		as_releases_to_news_file (as_component_get_releases (cpt),
+					  news_fname,
+					  format_kind,
+					  &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+
+		return 0;
+	}
 }
