@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-08-31 19:47+0200\n"
+"POT-Creation-Date: 2019-09-14 02:51+0200\n"
 "PO-Revision-Date: 2019-08-08 07:23+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
@@ -86,7 +86,7 @@ msgid ""
 "'localization' or 'repository'."
 msgstr ""
 
-#: tools/appstream-cli.c:722
+#: tools/appstream-cli.c:761
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Тип элемента (например lib, bin, python3, ...)"
 
@@ -99,7 +99,7 @@ msgid "AppStream CLI"
 msgstr "Интерфейс командной строки AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:815
+#: tools/appstream-cli.c:856
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -109,7 +109,7 @@ msgstr ""
 "Версия библиотеки AppStream: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
-#: tools/ascli-actions-misc.c:45
+#: tools/ascli-actions-misc.c:46
 msgid "AppStream Status:"
 msgstr "Статус AppStream:"
 
@@ -126,7 +126,7 @@ msgstr "Обновление кэша AppStream необязательно."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:715
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:754
 msgid "AppStream command-line interface"
 msgstr "Интерфейс командной строки AppStream"
 
@@ -157,7 +157,7 @@ msgstr ""
 "более детальной информации о проблеме."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:812
+#: tools/appstream-cli.c:853
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Версия AppStream: %s"
@@ -197,6 +197,11 @@ msgstr "Аудио и видео"
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Создание и редактирование аудио"
+
+#: tools/ascli-actions-misc.c:218
+#, c-format
+msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
+msgstr ""
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -269,7 +274,7 @@ msgstr "Кодеки"
 msgid "Communication & News"
 msgstr "Общение и новости"
 
-#: tools/appstream-cli.c:738
+#: tools/appstream-cli.c:777
 msgid "Compare two version numbers."
 msgstr "Сравнить два номера версий."
 
@@ -302,7 +307,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:737
+#: tools/appstream-cli.c:776
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Конвертировать коллекцию из XML в YAML или наоборот."
 
@@ -312,12 +317,21 @@ msgstr "Конвертировать коллекцию из XML в YAML или 
 msgid "Could not find component providing '%s::%s'."
 msgstr "Не удалось найти компоненту, предоставляющую \"%s::%s\"."
 
-#: tools/appstream-cli.c:739
+#: tools/appstream-cli.c:779
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Создать шаблон для файла метаинформации (будет заполнен апстрим-проектом)."
+
+#: tools/appstream-cli.c:780
+msgid "Create an XDG desktop-entry file from a metainfo file."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:227
+#, c-format
+msgid "Creating new desktop-entry file '%s' using data from '%s'"
+msgstr ""
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
@@ -361,12 +375,12 @@ msgstr "Разработчик"
 msgid "Developer Tools"
 msgstr "Инструменты разработки"
 
-#: tools/appstream-cli.c:734
+#: tools/appstream-cli.c:773
 msgid "Display status information about available AppStream metadata."
 msgstr "Показать информацию о состоянии доступных метаданных AppStream."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
-#: tools/ascli-actions-misc.c:50
+#: tools/ascli-actions-misc.c:51
 msgid "Distribution metadata:"
 msgstr "Метаданные дистрибуции:"
 
@@ -376,11 +390,11 @@ msgid "Do not use network access."
 msgstr "Не использовать доступ к сети."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:776
+#: tools/appstream-cli.c:817
 msgid "Don't show colored output."
 msgstr "Не показывать цветной вывод."
 
-#: tools/appstream-cli.c:725
+#: tools/appstream-cli.c:764
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Создать дамп необработанных метаданных XML для компоненты с соответствующим "
@@ -392,7 +406,7 @@ msgid "Education"
 msgstr "Образование"
 
 #. TRANSLATORS: No metainfo files have been found
-#: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
+#: tools/ascli-actions-misc.c:108 tools/ascli-actions-misc.c:128
 msgid "Empty."
 msgstr "Пусто."
 
@@ -410,7 +424,7 @@ msgstr "Принудительно обновить кэш."
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:157
+#: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Ошибка при загрузке пула метаданных: %s"
@@ -507,12 +521,12 @@ msgstr ""
 "Формат метаданных по умолчанию (допустимые значения: \"xml\" и \"yaml\")."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
-#: tools/ascli-actions-misc.c:136
+#: tools/ascli-actions-misc.c:137
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "Найдено %i компонент в унаследованных путях."
 
-#: tools/ascli-actions-misc.c:121
+#: tools/ascli-actions-misc.c:122
 #, c-format
 msgid "Found %i components."
 msgstr "Найдено %i компонентов."
@@ -557,8 +571,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:477 src/as-validator.c:889 src/as-validator.c:974
-#: src/as-validator.c:1184
+#: src/as-validator.c:478 src/as-validator.c:890 src/as-validator.c:975
+#: src/as-validator.c:1185
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -568,11 +582,11 @@ msgstr ""
 msgid "Games"
 msgstr "Игры"
 
-#: tools/appstream-cli.c:721
+#: tools/appstream-cli.c:760
 msgid "Get components which provide the given item."
 msgstr "Получить компоненты, которые предоставляют данный элемент."
 
-#: tools/appstream-cli.c:720
+#: tools/appstream-cli.c:759
 msgid "Get information about a component by its ID."
 msgstr "Получить информацию о компоненте по его идентификатору."
 
@@ -606,7 +620,7 @@ msgid ""
 "relative path to the icon. Only file basenames or stock names are allowed."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:92
+#: tools/ascli-actions-misc.c:93
 msgid "Iconsets"
 msgstr "Наборы значков"
 
@@ -619,11 +633,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Источники"
 
-#: tools/appstream-cli.c:735
+#: tools/appstream-cli.c:774
 msgid "Install a metadata file into the right location."
 msgstr "Установить файл метаданных в нужное место."
 
-#: tools/appstream-cli.c:731
+#: tools/appstream-cli.c:770
 msgid "Install software matching the component-ID."
 msgstr ""
 "Установить программное обеспечение, соответствующее идентификатору "
@@ -747,6 +761,11 @@ msgstr "Файл метаданных \"%s\" не существует."
 msgid "Metadata files have errors:"
 msgstr "Файлы метаданных содержат ошибки:"
 
+#: tools/ascli-actions-misc.c:197
+#, fuzzy, c-format
+msgid "Metainfo file '%s' does not exist."
+msgstr "Файл метаданных \"%s\" не существует."
+
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:367
 msgid ""
@@ -755,7 +774,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
-#: tools/ascli-actions-misc.c:114
+#: tools/ascli-actions-misc.c:115
 msgid "Metainfo files:"
 msgstr "Файлы метаинформации:"
 
@@ -791,9 +810,19 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "Не найдено компоненты, соответствующей  '%s'."
 
-#: tools/ascli-actions-misc.c:103
+#: tools/ascli-actions-misc.c:104
 msgid "No icons."
 msgstr "Нет значков."
+
+#: tools/ascli-actions-misc.c:305
+msgid ""
+"No provided binary specified in metainfo file, and no exec command specified "
+"via '--exec'. Can not create 'Exec=' key."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:283
+msgid "No stock icon name was provided in the metainfo file. Can not continue."
+msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -855,11 +884,11 @@ msgstr "Python (версия 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:726
+#: tools/appstream-cli.c:765
 msgid "Rebuild the component metadata cache."
 msgstr "Перестроить кэш метаданных компонентах."
 
-#: tools/appstream-cli.c:732
+#: tools/appstream-cli.c:771
 msgid "Remove software matching the component-ID."
 msgstr ""
 "Удалить программное обеспечение, соответствующее идентификатору компоненты."
@@ -874,7 +903,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "Ролевые"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:794
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:835
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -904,7 +933,7 @@ msgstr "Сканирование"
 msgid "Science"
 msgstr "Наука"
 
-#: tools/appstream-cli.c:719
+#: tools/appstream-cli.c:758
 msgid "Search the component database."
 msgstr "Поиск по базе данных компонентов."
 
@@ -914,12 +943,12 @@ msgid "Security"
 msgstr "Безопасность"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:812
 msgid "Show extra debugging information."
 msgstr "Показывать дополнительную отладочную информацию."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:765
+#: tools/appstream-cli.c:806
 msgid "Show the program version."
 msgstr "Показать версию программы."
 
@@ -934,7 +963,7 @@ msgid "Strategy"
 msgstr "Стратегии"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:717
+#: tools/appstream-cli.c:756
 msgid "Subcommands:"
 msgstr "Подкоманды:"
 
@@ -950,7 +979,7 @@ msgid "Summary"
 msgstr "Сводка"
 
 #. TRANSLATORS: Status summary in ascli
-#: tools/ascli-actions-misc.c:143
+#: tools/ascli-actions-misc.c:144
 msgid "Summary:"
 msgstr "Сводка:"
 
@@ -1197,7 +1226,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:393
 msgid ""
-"The given values in not an identifier for a desktop environment as "
+"The given values is not an identifier for a desktop environment as "
 "registered with Freedesktop.org."
 msgstr ""
 
@@ -1392,7 +1421,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:564
 msgid ""
-"This XML document has an Unknown root tag, Maybe this file is not a metainfo "
+"This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
 msgstr ""
 
@@ -1521,6 +1550,11 @@ msgid ""
 "Unable to find the curl binary. remote URLs can not be checked for validity!"
 msgstr ""
 
+#: tools/ascli-actions-misc.c:223
+#, fuzzy, c-format
+msgid "Unable to load existing desktop-entry file template: %s"
+msgstr "Не удаётся прочитать файл .desktop: %s"
+
 #: src/as-validator-issue-tag.h:356
 msgid "Unable to reach remote icon at the given web location - does it exist?"
 msgstr ""
@@ -1561,6 +1595,11 @@ msgstr "Не удаётся прочитать файл .desktop: %s"
 msgid "Unable to remove old cache."
 msgstr "Невозможно удалить старый кэш."
 
+#: tools/ascli-actions-misc.c:369
+#, fuzzy, c-format
+msgid "Unable to save desktop entry file: %s"
+msgstr "Не удаётся прочитать файл .desktop: %s"
+
 #: tools/ascli-actions-mdata.c:552
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
@@ -1578,7 +1617,7 @@ msgstr ""
 "Не удаётся записать в \"%s\", невозможно установить файл метаинформации."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:871
+#: tools/appstream-cli.c:914
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Неизвестная команда \"%s\"."
@@ -1597,16 +1636,21 @@ msgstr ""
 "Использовать заданный файл .desktop, чтобы заполнить основные поля в файле "
 "метаинформации."
 
+#. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
+#: tools/appstream-cli.c:725
+msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
 msgstr "Утилиты"
 
-#: tools/appstream-cli.c:728
+#: tools/appstream-cli.c:767
 msgid "Validate AppStream XML files for issues."
 msgstr "Проверить файлы XML AppStream на недостатки."
 
-#: tools/appstream-cli.c:729
+#: tools/appstream-cli.c:768
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Проверить установленную иерархию файлов приложения на корректность "
@@ -1626,7 +1670,7 @@ msgstr "Проверка успешно пройдена."
 msgid "Validation was successful: %s"
 msgstr "Проверка успешно пройдена: %s"
 
-#: tools/appstream-cli.c:723
+#: tools/appstream-cli.c:762
 msgid "Value of the item that should be found."
 msgstr "Значение элемента, который должен быть найден."
 
@@ -1635,7 +1679,7 @@ msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "Векторная графика"
 
-#: tools/ascli-actions-misc.c:46
+#: tools/ascli-actions-misc.c:47
 #, c-format
 msgid "Version: %s"
 msgstr "Версия: %s"
@@ -1645,7 +1689,7 @@ msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Просмотрщики"
 
-#: tools/ascli-actions-misc.c:151
+#: tools/ascli-actions-misc.c:152
 #, c-format
 msgid "We have information on %i software components."
 msgstr "У нас есть информация о %i компонентах программного обеспечения."
@@ -1660,7 +1704,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Текстовые процессоры"
 
-#: tools/appstream-cli.c:742
+#: tools/appstream-cli.c:783
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -1690,7 +1734,7 @@ msgstr ""
 "параметры."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:793
+#: tools/appstream-cli.c:834
 msgid "You need to specify a command."
 msgstr "Вам необходимо указать команду."
 
@@ -1701,8 +1745,19 @@ msgstr "Вам необходимо указать команду."
 msgid "You need to specify a component-ID."
 msgstr "Вам необходимо указать идентификатор компоненты."
 
+#: tools/ascli-actions-misc.c:187
+#, fuzzy
+msgid ""
+"You need to specify a desktop-entry file to create or augment as output."
+msgstr "Вам необходимо указать файл для проверки!"
+
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
+msgstr "Вам необходимо указать файл метаданных."
+
+#: tools/ascli-actions-misc.c:183
+#, fuzzy
+msgid "You need to specify a metainfo file as input."
 msgstr "Вам необходимо указать файл метаданных."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479

@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-08-31 19:47+0200\n"
+"POT-Creation-Date: 2019-09-14 02:51+0200\n"
 "PO-Revision-Date: 2019-09-13 04:23+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
+"appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,7 +97,7 @@ msgstr ""
 "Uma tag 'extends' está especificada, mas o componente não é do tipo 'addon', "
 "'localization' ou 'repository'."
 
-#: tools/appstream-cli.c:722
+#: tools/appstream-cli.c:761
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "Um tipo de item (ex.: lib, bin, python3, …)"
 
@@ -109,7 +110,7 @@ msgid "AppStream CLI"
 msgstr "CLI do AppStream"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:815
+#: tools/appstream-cli.c:856
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -119,7 +120,7 @@ msgstr ""
 "Versão da biblioteca do AppStream: %s"
 
 #. TRANSLATORS: In the status report of ascli: Header
-#: tools/ascli-actions-misc.c:45
+#: tools/ascli-actions-misc.c:46
 msgid "AppStream Status:"
 msgstr "Status do AppStream:"
 
@@ -136,7 +137,7 @@ msgstr "Atualização do cache do AppStream não é necessária."
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:715
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:754
 msgid "AppStream command-line interface"
 msgstr "Interface de linha de comando do AppStream"
 
@@ -170,7 +171,7 @@ msgstr ""
 "mais informações detalhadas de problemas."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:812
+#: tools/appstream-cli.c:853
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versão do AppStream: %s"
@@ -212,6 +213,11 @@ msgstr "Áudio e vídeo"
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "Criação e edição de áudio"
+
+#: tools/ascli-actions-misc.c:218
+#, c-format
+msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
+msgstr ""
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -284,7 +290,7 @@ msgstr "Codecs"
 msgid "Communication & News"
 msgstr "Comunicação e notícias"
 
-#: tools/appstream-cli.c:738
+#: tools/appstream-cli.c:777
 msgid "Compare two version numbers."
 msgstr "Compara dois números de versões."
 
@@ -319,7 +325,7 @@ msgstr ""
 "captura de tela ou vídeo."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:737
+#: tools/appstream-cli.c:776
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "Converter XML para YAML ou vice-versa."
 
@@ -329,13 +335,22 @@ msgstr "Converter XML para YAML ou vice-versa."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Não foi possível localizar componente fornecendo “%s::%s”."
 
-#: tools/appstream-cli.c:739
+#: tools/appstream-cli.c:779
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Cria um modelo para um arquivo metainfo (a ser preenchido pelo projeto "
 "upstream)."
+
+#: tools/appstream-cli.c:780
+msgid "Create an XDG desktop-entry file from a metainfo file."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:227
+#, c-format
+msgid "Creating new desktop-entry file '%s' using data from '%s'"
+msgstr ""
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
@@ -378,12 +393,12 @@ msgstr "Desenvolvedor"
 msgid "Developer Tools"
 msgstr "Ferramentas do desenvolvedor"
 
-#: tools/appstream-cli.c:734
+#: tools/appstream-cli.c:773
 msgid "Display status information about available AppStream metadata."
 msgstr "Exibir informações sobre metadados disponíveis do AppStream."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
-#: tools/ascli-actions-misc.c:50
+#: tools/ascli-actions-misc.c:51
 msgid "Distribution metadata:"
 msgstr "Metadados de distribuição:"
 
@@ -393,11 +408,11 @@ msgid "Do not use network access."
 msgstr "Não usa acesso de rede."
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:776
+#: tools/appstream-cli.c:817
 msgid "Don't show colored output."
 msgstr "Não exibir saída colorida."
 
-#: tools/appstream-cli.c:725
+#: tools/appstream-cli.c:764
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Despejar metadados XML não tratados para um componente coincidindo com o ID."
@@ -408,7 +423,7 @@ msgid "Education"
 msgstr "Educação"
 
 #. TRANSLATORS: No metainfo files have been found
-#: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
+#: tools/ascli-actions-misc.c:108 tools/ascli-actions-misc.c:128
 msgid "Empty."
 msgstr "Vazio."
 
@@ -426,7 +441,7 @@ msgstr "Reforçar uma atualização da cache."
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr "Enumerações só devem ter itens de lista (<li/>) como filhos."
 
-#: tools/ascli-actions-misc.c:157
+#: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Erro ao carregar pool de metadados: %s"
@@ -524,12 +539,12 @@ msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "Formato de relatório gerado (valores válidos são “texto” e “yaml”)."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
-#: tools/ascli-actions-misc.c:136
+#: tools/ascli-actions-misc.c:137
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "Encontrados %i componentes em caminhos antigos."
 
-#: tools/ascli-actions-misc.c:121
+#: tools/ascli-actions-misc.c:122
 #, c-format
 msgid "Found %i components."
 msgstr "Encontrados %i componentes."
@@ -592,8 +607,8 @@ msgstr ""
 "apenas adicionar dados personalizados a um arquivo metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:477 src/as-validator.c:889 src/as-validator.c:974
-#: src/as-validator.c:1184
+#: src/as-validator.c:478 src/as-validator.c:890 src/as-validator.c:975
+#: src/as-validator.c:1185
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Encontrada: %s - Permitida: %s"
@@ -603,11 +618,11 @@ msgstr "Encontrada: %s - Permitida: %s"
 msgid "Games"
 msgstr "Jogos"
 
-#: tools/appstream-cli.c:721
+#: tools/appstream-cli.c:760
 msgid "Get components which provide the given item."
 msgstr "Obtém componentes que fornecem o item dado."
 
-#: tools/appstream-cli.c:720
+#: tools/appstream-cli.c:759
 msgid "Get information about a component by its ID."
 msgstr "Obtém informação sobre um componente por seu ID."
 
@@ -645,7 +660,7 @@ msgstr ""
 "caminho completo ou relativo para o ícone. Somente nomes base de arquivo ou "
 "nomes padrão são permitidos."
 
-#: tools/ascli-actions-misc.c:92
+#: tools/ascli-actions-misc.c:93
 msgid "Iconsets"
 msgstr "Conjunto de ícones"
 
@@ -658,11 +673,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "Fontes de entrada"
 
-#: tools/appstream-cli.c:735
+#: tools/appstream-cli.c:774
 msgid "Install a metadata file into the right location."
 msgstr "Instala um arquivo de metadados na localização certa."
 
-#: tools/appstream-cli.c:731
+#: tools/appstream-cli.c:770
 msgid "Install software matching the component-ID."
 msgstr "Instala software correspondente ao component-ID."
 
@@ -793,6 +808,11 @@ msgstr "Arquivo de metadados “%s” não existe."
 msgid "Metadata files have errors:"
 msgstr "Os arquivos de metadados possuem erros:"
 
+#: tools/ascli-actions-misc.c:197
+#, fuzzy, c-format
+msgid "Metainfo file '%s' does not exist."
+msgstr "Arquivo de metadados “%s” não existe."
+
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:367
 msgid ""
@@ -803,7 +823,7 @@ msgstr ""
 "\", o tipo de conjunto não é permitido."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
-#: tools/ascli-actions-misc.c:114
+#: tools/ascli-actions-misc.c:115
 msgid "Metainfo files:"
 msgstr "Arquivos de metainfo:"
 
@@ -841,9 +861,19 @@ msgstr "Nenhum diretório de aplicativos XDG encontrado."
 msgid "No component matching '%s' found."
 msgstr "Nenhum componente encontrado que corresponda a “%s”."
 
-#: tools/ascli-actions-misc.c:103
+#: tools/ascli-actions-misc.c:104
 msgid "No icons."
 msgstr "Nenhum ícone."
+
+#: tools/ascli-actions-misc.c:305
+msgid ""
+"No provided binary specified in metainfo file, and no exec command specified "
+"via '--exec'. Can not create 'Exec=' key."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:283
+msgid "No stock icon name was provided in the metainfo file. Can not continue."
+msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -904,11 +934,11 @@ msgstr "Python (versão 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:726
+#: tools/appstream-cli.c:765
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstruir o cache de metadados de componentes."
 
-#: tools/appstream-cli.c:732
+#: tools/appstream-cli.c:771
 msgid "Remove software matching the component-ID."
 msgstr "Remove software correspondendo ao component-ID."
 
@@ -922,7 +952,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "RPGs"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:794
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:835
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
@@ -952,7 +982,7 @@ msgstr "Digitalização"
 msgid "Science"
 msgstr "Ciência"
 
-#: tools/appstream-cli.c:719
+#: tools/appstream-cli.c:758
 msgid "Search the component database."
 msgstr "Pesquisa na base de dados de componente."
 
@@ -962,12 +992,12 @@ msgid "Security"
 msgstr "Segurança"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:812
 msgid "Show extra debugging information."
 msgstr "Mostrar informações extras de depuração."
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:765
+#: tools/appstream-cli.c:806
 msgid "Show the program version."
 msgstr "Mostrar a versão do programa."
 
@@ -982,7 +1012,7 @@ msgid "Strategy"
 msgstr "Estratégia"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:717
+#: tools/appstream-cli.c:756
 msgid "Subcommands:"
 msgstr "Subcomandos:"
 
@@ -1000,7 +1030,7 @@ msgid "Summary"
 msgstr "Resumo"
 
 #. TRANSLATORS: Status summary in ascli
-#: tools/ascli-actions-misc.c:143
+#: tools/ascli-actions-misc.c:144
 msgid "Summary:"
 msgstr "Resumo:"
 
@@ -1102,7 +1132,9 @@ msgstr "O XML neste arquivo está malformado."
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr "A categoria definida no arquivo .desktop não é válida. Consulte XDG Menu Specification para obter uma lista de categorias válidas."
+msgstr ""
+"A categoria definida no arquivo .desktop não é válida. Consulte XDG Menu "
+"Specification para obter uma lista de categorias válidas."
 
 #: src/as-validator-issue-tag.h:527
 msgid ""
@@ -1311,8 +1343,9 @@ msgstr ""
 "primeiro parágrafo."
 
 #: src/as-validator-issue-tag.h:393
+#, fuzzy
 msgid ""
-"The given values in not an identifier for a desktop environment as "
+"The given values is not an identifier for a desktop environment as "
 "registered with Freedesktop.org."
 msgstr ""
 "O valor dado não é um identificador para ambiente de desktop como registrado "
@@ -1558,8 +1591,9 @@ msgstr ""
 "\"categories\" provavelmente está faltando."
 
 #: src/as-validator-issue-tag.h:564
+#, fuzzy
 msgid ""
-"This XML document has an Unknown root tag, Maybe this file is not a metainfo "
+"This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
 msgstr ""
 "Este documento XML tem uma tag de raiz desconhecida, talvez este arquivo não "
@@ -1713,6 +1747,11 @@ msgstr ""
 "Não foi possível localizar o executável do curl. URLs remotas não podem ser "
 "verificados para a validade!"
 
+#: tools/ascli-actions-misc.c:223
+#, fuzzy, c-format
+msgid "Unable to load existing desktop-entry file template: %s"
+msgstr "Não foi possível ler o arquivo .desktop: %s"
+
 #: src/as-validator-issue-tag.h:356
 msgid "Unable to reach remote icon at the given web location - does it exist?"
 msgstr ""
@@ -1758,6 +1797,11 @@ msgstr "Não foi possível ler o arquivo .desktop: %s"
 msgid "Unable to remove old cache."
 msgstr "Não foi possível remover o cache antigo."
 
+#: tools/ascli-actions-misc.c:369
+#, fuzzy, c-format
+msgid "Unable to save desktop entry file: %s"
+msgstr "Não foi possível ler o arquivo .desktop: %s"
+
 #: tools/ascli-actions-mdata.c:552
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
@@ -1776,7 +1820,7 @@ msgstr ""
 "metainfo."
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:871
+#: tools/appstream-cli.c:914
 #, c-format
 msgid "Unknown command '%s'."
 msgstr "Comando desconhecido “%s”."
@@ -1795,16 +1839,21 @@ msgstr ""
 "Usa o arquivo .desktop dado para preencher valores básicos no arquivo "
 "metainfo."
 
+#. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
+#: tools/appstream-cli.c:725
+msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
 msgstr "Utilitários"
 
-#: tools/appstream-cli.c:728
+#: tools/appstream-cli.c:767
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida os arquivos XML de AppStream por problemas."
 
-#: tools/appstream-cli.c:729
+#: tools/appstream-cli.c:768
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr ""
 "Valida uma árvore de arquivo instalado de um aplicativo para metadados "
@@ -1824,7 +1873,7 @@ msgstr "Validação bem sucedida."
 msgid "Validation was successful: %s"
 msgstr "Validação bem sucedida: %s"
 
-#: tools/appstream-cli.c:723
+#: tools/appstream-cli.c:762
 msgid "Value of the item that should be found."
 msgstr "Valor do item que deve ser encontrado."
 
@@ -1833,7 +1882,7 @@ msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "Gráficos vetoriais"
 
-#: tools/ascli-actions-misc.c:46
+#: tools/ascli-actions-misc.c:47
 #, c-format
 msgid "Version: %s"
 msgstr "Versão: %s"
@@ -1843,7 +1892,7 @@ msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Visualizadores"
 
-#: tools/ascli-actions-misc.c:151
+#: tools/ascli-actions-misc.c:152
 #, c-format
 msgid "We have information on %i software components."
 msgstr "Nós temos informação sobre %i componentes de software."
@@ -1858,7 +1907,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "Processadores de texto"
 
-#: tools/appstream-cli.c:742
+#: tools/appstream-cli.c:783
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -1888,7 +1937,7 @@ msgstr ""
 "parâmetros."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:793
+#: tools/appstream-cli.c:834
 msgid "You need to specify a command."
 msgstr "Você precisa especificar um comando."
 
@@ -1899,8 +1948,19 @@ msgstr "Você precisa especificar um comando."
 msgid "You need to specify a component-ID."
 msgstr "Você precisa especificar um ID de componente."
 
+#: tools/ascli-actions-misc.c:187
+#, fuzzy
+msgid ""
+"You need to specify a desktop-entry file to create or augment as output."
+msgstr "Você precisa especificar pelo menos um arquivo para validar!"
+
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
+msgstr "Você precisa especificar um arquivo de metadados."
+
+#: tools/ascli-actions-misc.c:183
+#, fuzzy
+msgid "You need to specify a metainfo file as input."
 msgstr "Você precisa especificar um arquivo de metadados."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479

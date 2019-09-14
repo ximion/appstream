@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-08-31 19:47+0200\n"
+"POT-Creation-Date: 2019-09-14 02:51+0200\n"
 "PO-Revision-Date: 2019-08-14 04:23+0000\n"
 "Last-Translator: xiazhang <xia.zhang@protonmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -90,7 +90,7 @@ msgid ""
 "'localization' or 'repository'."
 msgstr ""
 
-#: tools/appstream-cli.c:722
+#: tools/appstream-cli.c:761
 msgid "An item type (e.g. lib, bin, python3, …)"
 msgstr "项目类型（如：lib、bin、python3……）"
 
@@ -103,7 +103,7 @@ msgid "AppStream CLI"
 msgstr "AppStream 命令行界面"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-cli.c:815
+#: tools/appstream-cli.c:856
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -113,7 +113,7 @@ msgstr ""
 "AppStream 库版本：%s"
 
 #. TRANSLATORS: In the status report of ascli: Header
-#: tools/ascli-actions-misc.c:45
+#: tools/ascli-actions-misc.c:46
 msgid "AppStream Status:"
 msgstr "AppStream 状态："
 
@@ -130,7 +130,7 @@ msgstr "无需更新 AppStream 缓存。"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstream-cli.c:154 tools/appstream-cli.c:715
+#: tools/appstream-cli.c:154 tools/appstream-cli.c:754
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
@@ -157,7 +157,7 @@ msgid ""
 msgstr "AppStream 缓存更新失败了。请打开详情模式以获取更多详细的问题信息。"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-cli.c:812
+#: tools/appstream-cli.c:853
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
@@ -197,6 +197,11 @@ msgstr "音频和视频"
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
 msgstr "音频创作和编辑"
+
+#: tools/ascli-actions-misc.c:218
+#, c-format
+msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
+msgstr ""
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -267,7 +272,7 @@ msgstr "编解码器"
 msgid "Communication & News"
 msgstr "沟通和新闻"
 
-#: tools/appstream-cli.c:738
+#: tools/appstream-cli.c:777
 msgid "Compare two version numbers."
 msgstr ""
 
@@ -301,7 +306,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstream-cli.c:737
+#: tools/appstream-cli.c:776
 msgid "Convert collection XML to YAML or vice versa."
 msgstr "将收藏集 XML 转换成 YAML，或是相反。"
 
@@ -311,12 +316,21 @@ msgstr "将收藏集 XML 转换成 YAML，或是相反。"
 msgid "Could not find component providing '%s::%s'."
 msgstr "未找到提供“%s;%s”的组件。"
 
-#: tools/appstream-cli.c:739
+#: tools/appstream-cli.c:779
 #, fuzzy
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "为元信息文件创建模板（由上游项目所填写）。"
+
+#: tools/appstream-cli.c:780
+msgid "Create an XDG desktop-entry file from a metainfo file."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:227
+#, c-format
+msgid "Creating new desktop-entry file '%s' using data from '%s'"
+msgstr ""
 
 #: src/as-provided.c:160
 #, fuzzy
@@ -362,12 +376,12 @@ msgstr "开发者"
 msgid "Developer Tools"
 msgstr "开发者工具"
 
-#: tools/appstream-cli.c:734
+#: tools/appstream-cli.c:773
 msgid "Display status information about available AppStream metadata."
 msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
-#: tools/ascli-actions-misc.c:50
+#: tools/ascli-actions-misc.c:51
 msgid "Distribution metadata:"
 msgstr "发行版元数据："
 
@@ -378,11 +392,11 @@ msgid "Do not use network access."
 msgstr "不使用网络访问。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
-#: tools/appstream-cli.c:776
+#: tools/appstream-cli.c:817
 msgid "Don't show colored output."
 msgstr "不要显示彩色输出。"
 
-#: tools/appstream-cli.c:725
+#: tools/appstream-cli.c:764
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
 
@@ -392,7 +406,7 @@ msgid "Education"
 msgstr "教育"
 
 #. TRANSLATORS: No metainfo files have been found
-#: tools/ascli-actions-misc.c:107 tools/ascli-actions-misc.c:127
+#: tools/ascli-actions-misc.c:108 tools/ascli-actions-misc.c:128
 msgid "Empty."
 msgstr "空。"
 
@@ -410,7 +424,7 @@ msgstr "强制刷新缓存。"
 msgid "Enumerations must only have list items (<li/>) as children."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:157
+#: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "载入元数据池时出错：%s"
@@ -506,12 +520,12 @@ msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "给定元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
-#: tools/ascli-actions-misc.c:136
+#: tools/ascli-actions-misc.c:137
 #, c-format
 msgid "Found %i components in legacy paths."
 msgstr "在旧版路径中找到了 %i 个组件。"
 
-#: tools/ascli-actions-misc.c:121
+#: tools/ascli-actions-misc.c:122
 #, c-format
 msgid "Found %i components."
 msgstr "找到 %i 个组件。"
@@ -556,8 +570,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:477 src/as-validator.c:889 src/as-validator.c:974
-#: src/as-validator.c:1184
+#: src/as-validator.c:478 src/as-validator.c:890 src/as-validator.c:975
+#: src/as-validator.c:1185
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -567,11 +581,11 @@ msgstr ""
 msgid "Games"
 msgstr "游戏"
 
-#: tools/appstream-cli.c:721
+#: tools/appstream-cli.c:760
 msgid "Get components which provide the given item."
 msgstr "获取可提供指定项目的组件。"
 
-#: tools/appstream-cli.c:720
+#: tools/appstream-cli.c:759
 msgid "Get information about a component by its ID."
 msgstr "根据 ID 获取相应组件的信息。"
 
@@ -605,7 +619,7 @@ msgid ""
 "relative path to the icon. Only file basenames or stock names are allowed."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:92
+#: tools/ascli-actions-misc.c:93
 msgid "Iconsets"
 msgstr "图标集"
 
@@ -618,11 +632,11 @@ msgctxt "Category of Addons"
 msgid "Input Sources"
 msgstr "输入来源"
 
-#: tools/appstream-cli.c:735
+#: tools/appstream-cli.c:774
 msgid "Install a metadata file into the right location."
 msgstr "将元数据文件安装到正确的位置。"
 
-#: tools/appstream-cli.c:731
+#: tools/appstream-cli.c:770
 #, fuzzy
 msgid "Install software matching the component-ID."
 msgstr "安装匹配组件 ID 的软件。"
@@ -744,6 +758,11 @@ msgstr "“%s”元数据文件并不存在。"
 msgid "Metadata files have errors:"
 msgstr "元数据文件有错误："
 
+#: tools/ascli-actions-misc.c:197
+#, fuzzy, c-format
+msgid "Metainfo file '%s' does not exist."
+msgstr "“%s”元数据文件并不存在。"
+
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:367
 msgid ""
@@ -752,7 +771,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
-#: tools/ascli-actions-misc.c:114
+#: tools/ascli-actions-misc.c:115
 msgid "Metainfo files:"
 msgstr "元信息文件："
 
@@ -788,9 +807,19 @@ msgstr ""
 msgid "No component matching '%s' found."
 msgstr "未找到符合“%s”的组件。"
 
-#: tools/ascli-actions-misc.c:103
+#: tools/ascli-actions-misc.c:104
 msgid "No icons."
 msgstr "无图标。"
+
+#: tools/ascli-actions-misc.c:305
+msgid ""
+"No provided binary specified in metainfo file, and no exec command specified "
+"via '--exec'. Can not create 'Exec=' key."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:283
+msgid "No stock icon name was provided in the metainfo file. Can not continue."
+msgstr ""
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -853,11 +882,11 @@ msgstr "Python 2"
 msgid "Python 3"
 msgstr "Python 3"
 
-#: tools/appstream-cli.c:726
+#: tools/appstream-cli.c:765
 msgid "Rebuild the component metadata cache."
 msgstr "重建组件元数据缓存。"
 
-#: tools/appstream-cli.c:732
+#: tools/appstream-cli.c:771
 #, fuzzy
 msgid "Remove software matching the component-ID."
 msgstr "卸载匹配 component-id 的软件。"
@@ -872,7 +901,7 @@ msgctxt "Category of Games"
 msgid "Role Playing"
 msgstr "角色扮演"
 
-#: tools/appstream-cli.c:196 tools/appstream-cli.c:794
+#: tools/appstream-cli.c:196 tools/appstream-cli.c:835
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
@@ -900,7 +929,7 @@ msgstr "扫描"
 msgid "Science"
 msgstr "科学"
 
-#: tools/appstream-cli.c:719
+#: tools/appstream-cli.c:758
 msgid "Search the component database."
 msgstr "搜索组件数据库。"
 
@@ -910,12 +939,12 @@ msgid "Security"
 msgstr "安全"
 
 #. TRANSLATORS: ascli flag description for: --verbose
-#: tools/appstream-cli.c:771
+#: tools/appstream-cli.c:812
 msgid "Show extra debugging information."
 msgstr "显示额外的调试信息。"
 
 #. TRANSLATORS: ascli flag description for: --version
-#: tools/appstream-cli.c:765
+#: tools/appstream-cli.c:806
 msgid "Show the program version."
 msgstr "显示程序版本."
 
@@ -930,7 +959,7 @@ msgid "Strategy"
 msgstr "策略"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstream-cli.c:717
+#: tools/appstream-cli.c:756
 msgid "Subcommands:"
 msgstr "子命令："
 
@@ -946,7 +975,7 @@ msgid "Summary"
 msgstr "摘要"
 
 #. TRANSLATORS: Status summary in ascli
-#: tools/ascli-actions-misc.c:143
+#: tools/ascli-actions-misc.c:144
 msgid "Summary:"
 msgstr "概览："
 
@@ -1192,7 +1221,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:393
 msgid ""
-"The given values in not an identifier for a desktop environment as "
+"The given values is not an identifier for a desktop environment as "
 "registered with Freedesktop.org."
 msgstr ""
 
@@ -1382,7 +1411,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:564
 msgid ""
-"This XML document has an Unknown root tag, Maybe this file is not a metainfo "
+"This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
 msgstr ""
 
@@ -1506,6 +1535,11 @@ msgid ""
 "Unable to find the curl binary. remote URLs can not be checked for validity!"
 msgstr ""
 
+#: tools/ascli-actions-misc.c:223
+#, fuzzy, c-format
+msgid "Unable to load existing desktop-entry file template: %s"
+msgstr "无法读取 .desktop 文件：%s"
+
 #: src/as-validator-issue-tag.h:356
 msgid "Unable to reach remote icon at the given web location - does it exist?"
 msgstr ""
@@ -1546,6 +1580,11 @@ msgstr "无法读取 .desktop 文件：%s"
 msgid "Unable to remove old cache."
 msgstr ""
 
+#: tools/ascli-actions-misc.c:369
+#, fuzzy, c-format
+msgid "Unable to save desktop entry file: %s"
+msgstr "无法读取 .desktop 文件：%s"
+
 #: tools/ascli-actions-mdata.c:552
 #, fuzzy, c-format
 msgid "Unable to save the template metainfo file: %s"
@@ -1562,7 +1601,7 @@ msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "无法写入到“%s”，无法安装元信息文件。"
 
 #. TRANSLATORS: ascli has been run with unknown command.
-#: tools/appstream-cli.c:871
+#: tools/appstream-cli.c:914
 #, c-format
 msgid "Unknown command '%s'."
 msgstr ""
@@ -1580,16 +1619,21 @@ msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "使用给定的 .desktop 文件来填充元信息文件里的基本值。"
 
+#. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
+#: tools/appstream-cli.c:725
+msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
 msgid "Utilities"
 msgstr "公用程序"
 
-#: tools/appstream-cli.c:728
+#: tools/appstream-cli.c:767
 msgid "Validate AppStream XML files for issues."
 msgstr "验证 AppStream XML 文件以寻找问题。"
 
-#: tools/appstream-cli.c:729
+#: tools/appstream-cli.c:768
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
@@ -1607,7 +1651,7 @@ msgstr "验证成功。"
 msgid "Validation was successful: %s"
 msgstr "验证成功：%s"
 
-#: tools/appstream-cli.c:723
+#: tools/appstream-cli.c:762
 msgid "Value of the item that should be found."
 msgstr "应该要找到的物品值。"
 
@@ -1616,7 +1660,7 @@ msgctxt "Category of Graphics"
 msgid "Vector Graphics"
 msgstr "矢量图形"
 
-#: tools/ascli-actions-misc.c:46
+#: tools/ascli-actions-misc.c:47
 #, c-format
 msgid "Version: %s"
 msgstr "版本：%s"
@@ -1626,7 +1670,7 @@ msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "查看器"
 
-#: tools/ascli-actions-misc.c:151
+#: tools/ascli-actions-misc.c:152
 #, c-format
 msgid "We have information on %i software components."
 msgstr "已获取到 %i 个软件组件的信息。"
@@ -1641,7 +1685,7 @@ msgctxt "Category of Office"
 msgid "Word Processor"
 msgstr "文字处理器"
 
-#: tools/appstream-cli.c:742
+#: tools/appstream-cli.c:783
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
@@ -1664,7 +1708,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstream-cli.c:793
+#: tools/appstream-cli.c:834
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
 
@@ -1675,8 +1719,19 @@ msgstr "您需要指定一个命令。"
 msgid "You need to specify a component-ID."
 msgstr "您需要指定一个组件-ID。"
 
+#: tools/ascli-actions-misc.c:187
+#, fuzzy
+msgid ""
+"You need to specify a desktop-entry file to create or augment as output."
+msgstr "您需要指定用来验证的文件！"
+
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
+msgstr "你需要指定一个元数据文件。"
+
+#: tools/ascli-actions-misc.c:183
+#, fuzzy
+msgid "You need to specify a metainfo file as input."
 msgstr "你需要指定一个元数据文件。"
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
