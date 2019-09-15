@@ -229,19 +229,20 @@ void
 as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc func, gpointer entity)
 {
 	xmlNode *iter;
-	gchar *node_name;
 	g_autoptr(GHashTable) desc = NULL;
 
 	desc = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		GString *str;
+		AsTag tag_id;
+		const gchar *node_name = (const gchar*) iter->name;
 
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
+		tag_id = as_xml_tag_from_string (node_name);
 
-		node_name = (gchar*) iter->name;
-		if (g_strcmp0 (node_name, "p") == 0) {
+		if (tag_id == AS_TAG_P) {
 			g_autofree gchar *lang = NULL;
 			g_autofree gchar *content = NULL;
 
@@ -260,7 +261,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 			if (content != NULL)
 				g_string_append_printf (str, "<p>%s</p>\n", content);
 
-		} else if ((g_strcmp0 (node_name, "ul") == 0) || (g_strcmp0 (node_name, "ol") == 0)) {
+		} else if ((tag_id == AS_TAG_UL) || (tag_id == AS_TAG_OL)) {
 			GHashTableIter htiter;
 			gpointer hvalue;
 			xmlNode *iter2;
@@ -275,10 +276,11 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autofree gchar *lang = NULL;
 				g_autofree gchar *content = NULL;
+				AsTag iter2_tag_id = as_xml_tag_from_string ((const gchar*) iter2->name);
 
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
-				if (g_strcmp0 ((const gchar*) iter2->name, "li") != 0)
+				if (iter2_tag_id != AS_TAG_LI)
 					continue;
 
 				lang = as_xmldata_get_node_locale (ctx, iter2);
