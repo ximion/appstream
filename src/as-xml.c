@@ -222,6 +222,120 @@ as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name)
 	return res;
 }
 
+typedef struct
+{
+	xmlDoc		*doc;
+	xmlNode 	*node;
+	AsTag		tag_id;
+	gchar		*locale;
+	gboolean	localized;
+	xmlNode		*d_node;
+} AsXMLMarkupParseHelper;
+
+/**
+ * as_xml_markup_parse_helper_new: (skip)
+ **/
+static AsXMLMarkupParseHelper*
+as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
+{
+	g_autofree gchar *xmldata = NULL;
+	AsXMLMarkupParseHelper *helper = g_slice_new0 (AsXMLMarkupParseHelper);
+
+	helper->locale = g_strdup (locale);
+	xmldata = g_strdup_printf ("<root>%s</root>", markup);
+	helper->doc = xmlReadMemory (xmldata, strlen (xmldata),
+					NULL,
+					"utf-8",
+					XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+	if (helper->doc == NULL)
+		return NULL;
+
+	helper->d_node = NULL;
+	helper->node = xmlDocGetRootElement (helper->doc);
+	if (helper->node != NULL)
+		helper->node = helper->node->children;
+	if (helper->node != NULL)
+		helper->tag_id = as_xml_tag_from_string ((const gchar*) helper->node->name);
+
+	helper->localized = (locale != NULL) && (g_strcmp0 (locale, "C") != 0);
+
+	return helper;
+}
+
+/**
+ * as_xml_markup_parse_helper_free: (skip)
+ **/
+static void
+as_xml_markup_parse_helper_free (AsXMLMarkupParseHelper *helper)
+{
+	if (helper->doc != NULL)
+		xmlFreeDoc (helper->doc);
+	g_free (helper->locale);
+	g_slice_free (AsXMLMarkupParseHelper, helper);
+}
+G_DEFINE_AUTOPTR_CLEANUP_FUNC(AsXMLMarkupParseHelper, as_xml_markup_parse_helper_free)
+
+/**
+ * as_xml_markup_parse_helper_next: (skip)
+ *
+ * Advance to the next node.
+ **/
+static gboolean
+as_xml_markup_parse_helper_next (AsXMLMarkupParseHelper *helper)
+{
+	if (helper->node == NULL)
+		return FALSE;
+
+	/* if we have a listing, jump into it */
+	if ((helper->tag_id == AS_TAG_UL) || (helper->tag_id == AS_TAG_OL)) {
+		helper->d_node = helper->node;
+		helper->node = helper->node->children;
+	} else {
+		do {
+			helper->node = helper->node->next;
+		} while ((helper->node != NULL) && (helper->node->type != XML_ELEMENT_NODE));
+	}
+
+	if (helper->node == NULL) {
+		if (helper->d_node != NULL) {
+			helper->node = helper->d_node;
+			helper->d_node = NULL;
+			helper->node = helper->node->next;
+		}
+	}
+	if (helper->node == NULL) {
+		helper->tag_id = AS_TAG_UNKNOWN;
+		return FALSE;
+	}
+
+	helper->tag_id = as_xml_tag_from_string ((const gchar*) helper->node->name);
+
+	return TRUE;
+}
+
+/**
+ * as_xml_markup_parse_helper_export_node: (skip)
+ **/
+static xmlNode*
+as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper, xmlNode *parent, gboolean localized)
+{
+	if ((helper->tag_id == AS_TAG_P) || (helper->tag_id == AS_TAG_LI)) {
+		xmlNode *cn = xmlAddChild (parent, xmlCopyNode (helper->node, TRUE));
+		if (helper->localized && localized) {
+			xmlNewProp (cn,
+				    (xmlChar*) "xml:lang",
+				    (xmlChar*) helper->locale);
+		}
+		return cn;
+	}
+
+	if ((helper->tag_id == AS_TAG_UL) || (helper->tag_id == AS_TAG_OL)) {
+		return xmlNewChild (parent, NULL, helper->node->name, NULL);
+	}
+
+	return NULL;
+}
+
 /**
  * as_xml_parse_metainfo_description_node:
  */
@@ -313,20 +427,16 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 }
 
 /**
- * as_xml_add_description_node_helper:
+ * as_xml_add_description_collection_mode_helper:
  *
- * Add the description markup to the XML tree
+ * Add the description markup for AppStream collection XML to the tree.
  */
 static gboolean
-as_xml_add_description_node_helper (AsContext *ctx, xmlNode *root, xmlNode **desc_node, const gchar *description_markup, const gchar *lang)
+as_xml_add_description_collection_mode_helper (xmlNode *parent, const gchar *description_markup, const gchar *lang)
 {
-	g_autofree gchar *xmldata = NULL;
-	xmlDoc *doc;
-	xmlNode *droot;
 	xmlNode *dnode;
-	xmlNode *iter;
-	gboolean ret = TRUE;
-	gboolean localized;
+	xmlNode *cnode;
+	g_autoptr(AsXMLMarkupParseHelper) helper = NULL;
 
 	if (as_str_empty (description_markup))
 		return FALSE;
@@ -335,77 +445,33 @@ as_xml_add_description_node_helper (AsContext *ctx, xmlNode *root, xmlNode **des
 	if (as_is_cruft_locale (lang))
 		return FALSE;
 
-	xmldata = g_strdup_printf ("<root>%s</root>", description_markup);
-	doc = xmlReadMemory (xmldata, strlen (xmldata),
-			     NULL,
-			     "utf-8",
-			     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
-	if (doc == NULL) {
-		ret = FALSE;
-		goto out;
-	}
+	helper = as_xml_markup_parse_helper_new (description_markup, lang);
+	if (helper == NULL)
+		return FALSE;
 
-	droot = xmlDocGetRootElement (doc);
-	if (droot == NULL) {
-		ret = FALSE;
-		goto out;
+	dnode = xmlNewChild (parent, NULL, (xmlChar*) "description", NULL);
+	if (helper->localized) {
+		xmlNewProp (dnode,
+				(xmlChar*) "xml:lang",
+				(xmlChar*) lang);
 	}
+	cnode = dnode;
 
-	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
-		if (*desc_node == NULL)
-			*desc_node = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
-		dnode = *desc_node;
-	} else {
-		/* in collection-data parser mode, we might have multiple <description/> tags */
-		dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
-	}
+	if (helper->node == NULL)
+		return FALSE;
 
-	localized = g_strcmp0 (lang, "C") != 0;
-	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_COLLECTION) {
-		if (localized) {
-			xmlNewProp (dnode,
-					(xmlChar*) "xml:lang",
-					(xmlChar*) lang);
+	do {
+		if ((helper->tag_id == AS_TAG_UL) || (helper->tag_id == AS_TAG_OL)) {
+			cnode = as_xml_markup_parse_helper_export_node (helper, dnode, FALSE);
+		} else {
+			if (helper->tag_id != AS_TAG_LI)
+				cnode = dnode;
+
+			as_xml_markup_parse_helper_export_node (helper, cnode, FALSE);
 		}
-	}
+	} while (as_xml_markup_parse_helper_next (helper));
 
-	for (iter = droot->children; iter != NULL; iter = iter->next) {
-		xmlNode *cn;
-
-		if (g_strcmp0 ((const gchar*) iter->name, "p") == 0) {
-			cn = xmlAddChild (dnode, xmlCopyNode (iter, TRUE));
-
-			if ((as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) && (localized)) {
-				xmlNewProp (cn,
-					(xmlChar*) "xml:lang",
-					(xmlChar*) lang);
-			}
-		} else if ((g_strcmp0 ((const gchar*) iter->name, "ul") == 0) || (g_strcmp0 ((const gchar*) iter->name, "ol") == 0)) {
-			xmlNode *iter2;
-			xmlNode *enumNode;
-
-			enumNode = xmlNewChild (dnode, NULL, iter->name, NULL);
-			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
-				if (g_strcmp0 ((const gchar*) iter2->name, "li") != 0)
-					continue;
-
-				cn = xmlAddChild (enumNode, xmlCopyNode (iter2, TRUE));
-
-				if ((as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) && (localized)) {
-					xmlNewProp (cn,
-						(xmlChar*) "xml:lang",
-						(xmlChar*) lang);
-				}
-			}
-
-			continue;
-		}
-	}
-
-out:
-	if (doc != NULL)
-		xmlFreeDoc (doc);
-	return ret;
+	return TRUE;
 }
 
 /**
@@ -417,19 +483,98 @@ void
 as_xml_add_description_node (AsContext *ctx, xmlNode *root, GHashTable *desc_table)
 {
 	g_autoptr(GList) keys = NULL;
-	GList *link;
-	xmlNode *desc_node = NULL;
-
 	keys = g_hash_table_get_keys (desc_table);
 	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
-	for (link = keys; link != NULL; link = link->next) {
-		const gchar *locale = (const gchar*) link->data;
-		const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
 
-		if (as_is_cruft_locale (locale))
-			continue;
+	if (as_context_get_style (ctx) == AS_FORMAT_STYLE_METAINFO) {
+		/* for metainfo files, we try to interleave translated and untranslated lines, just like in the original files.
+		 * Of course this is imperfect and fails as soon as some lines are not translated, but for a fully translated
+		 * file this works well enough */
+		AsXMLMarkupParseHelper *c_helper;
+		xmlNode *dnode = NULL;
+		xmlNode *cnode = NULL;
+		g_autoptr(GPtrArray) markup_nodes = g_ptr_array_new_with_free_func ((GDestroyNotify) as_xml_markup_parse_helper_free);
 
-		as_xml_add_description_node_helper (ctx, root, &desc_node, desc_markup, locale);
+		for (GList *link = keys; link != NULL; link = link->next) {
+			const gchar *locale = (const gchar*) link->data;
+			const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
+			AsXMLMarkupParseHelper *helper;
+
+			if (as_is_cruft_locale (locale))
+				continue;
+
+			helper = as_xml_markup_parse_helper_new (desc_markup, locale);
+			if (helper == NULL)
+				continue;
+
+			/* unlocalized entries should always be sorted first */
+			if (helper->localized)
+				g_ptr_array_add (markup_nodes, helper);
+			else
+				g_ptr_array_insert (markup_nodes, 0, helper);
+		}
+
+		/* check if there is something to do */
+		if (markup_nodes->len <= 0)
+			return;
+
+		/* the first helper in our list is always for the unlocalized entries, unless we have none of these,
+		 * in which case we just take the first localization */
+		c_helper = (AsXMLMarkupParseHelper *) g_ptr_array_index (markup_nodes, 0);
+
+		dnode = xmlNewChild (root, NULL, (xmlChar*) "description", NULL);
+		cnode = dnode;
+		do {
+			if ((c_helper->tag_id == AS_TAG_UL) || (c_helper->tag_id == AS_TAG_OL)) {
+				cnode = as_xml_markup_parse_helper_export_node (c_helper, dnode, TRUE);
+			} else {
+				if (c_helper->tag_id != AS_TAG_LI)
+					cnode = dnode;
+
+				as_xml_markup_parse_helper_export_node (c_helper, cnode, TRUE);
+			}
+
+			for (guint i = 1; i < markup_nodes->len; ++i) {
+				AsXMLMarkupParseHelper *helper = g_ptr_array_index (markup_nodes, i);
+				if (helper->node == NULL)
+					continue;
+				if (c_helper->tag_id != helper->tag_id)
+					continue;
+				if ((helper->tag_id != AS_TAG_UL) && (helper->tag_id != AS_TAG_OL))
+					as_xml_markup_parse_helper_export_node (helper, cnode, TRUE);
+				as_xml_markup_parse_helper_next (helper);
+			}
+		} while (as_xml_markup_parse_helper_next (c_helper));
+
+		/* Due to imbalances caused by untranslated tags, we just append all the information that we couldn't match
+		 * to the end of the file. This isn't great, but the best we can do here, since the original mapping of
+		 * untranslated to translated sections is gone at this point */
+		for (guint i = 0; i < markup_nodes->len; ++i) {
+			AsXMLMarkupParseHelper *helper = g_ptr_array_index (markup_nodes, i);
+			if (helper->node == NULL)
+				continue;
+			do {
+				if ((helper->tag_id == AS_TAG_UL) || (helper->tag_id == AS_TAG_OL)) {
+					cnode = as_xml_markup_parse_helper_export_node (helper, dnode, TRUE);
+				} else {
+					if (helper->tag_id != AS_TAG_LI)
+						cnode = dnode;
+
+					as_xml_markup_parse_helper_export_node (helper, cnode, TRUE);
+				}
+			} while (as_xml_markup_parse_helper_next (helper));
+		}
+	} else {
+		/* we have a collection XML file, so write in that format (which is much faster and easier to do) */
+		for (GList *link = keys; link != NULL; link = link->next) {
+			const gchar *locale = (const gchar*) link->data;
+			const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
+
+			if (as_is_cruft_locale (locale))
+				continue;
+
+			as_xml_add_description_collection_mode_helper (root, desc_markup, locale);
+		}
 	}
 }
 
@@ -442,11 +587,10 @@ void
 as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTable *value_table)
 {
 	g_autoptr(GList) keys = NULL;
-	GList *link;
 
 	keys = g_hash_table_get_keys (value_table);
 	keys = g_list_sort (keys, (GCompareFunc) g_ascii_strcasecmp);
-	for (link = keys; link != NULL; link = link->next) {
+	for (GList *link = keys; link != NULL; link = link->next) {
 		xmlNode *cnode;
 		const gchar *locale = (const gchar*) link->data;
 		const gchar *str = (const gchar*) g_hash_table_lookup (value_table, locale);
