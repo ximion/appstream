@@ -668,7 +668,7 @@ as_cache_component_to_xml (AsCache *cache, AsComponent *cpt)
 	xmlDocSetRootElement (doc, node);
 
 	buf = xmlBufferCreate ();
-	sctx = xmlSaveToBuffer (buf, "utf-8", XML_SAVE_FORMAT | XML_SAVE_NO_DECL);
+	sctx = xmlSaveToBuffer (buf, "utf-8", XML_SAVE_NO_DECL);
 	xmlSaveDoc (sctx, doc);
 	xmlSaveClose (sctx);
 
