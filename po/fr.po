@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Swann Martinet <swann.ranskassa@laposte.net>, 2019.
+# Jérémie Passebon <j.passebon+github@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-14 23:45+0200\n"
-"PO-Revision-Date: 2019-08-23 10:23+0000\n"
-"Last-Translator: Swann Martinet <swann.ranskassa@laposte.net>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2019-09-18 20:27+0000\n"
+"Last-Translator: Jérémie Passebon <j.passebon+github@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,14 +39,10 @@ msgstr ""
 "une relation valide."
 
 #: src/as-validator-issue-tag.h:51
-#, fuzzy
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"Une balise <description/> ne doit pas être traduite dans les fichiers "
-"métainfo (métadonnées upstream). Traduisez les paragraphes individuels à la "
-"place."
+msgstr "Une balise <description/> ne doit pas être traduite dans les fichiers métainfo (métadonnées upstream). Traduisez les paragraphes individuels à la place."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:195
