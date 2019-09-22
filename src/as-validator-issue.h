@@ -74,51 +74,6 @@ typedef enum {
 AsIssueSeverity	 as_issue_severity_from_string (const gchar *str);
 const gchar	*as_issue_severity_to_string (AsIssueSeverity severity);
 
-/**
- * AsIssueKind:
- * @AS_ISSUE_KIND_UNKNOWN:		Type invalid or not known
- * @AS_ISSUE_KIND_MARKUP_INVALID:	The XML markup is invalid
- * @AS_ISSUE_KIND_LEGACY:		An element from a legacy AppStream specification has been found
- * @AS_ISSUE_KIND_TAG_DUPLICATED:	A tag is duplicated
- * @AS_ISSUE_KIND_TAG_MISSING:		A required tag is missing
- * @AS_ISSUE_KIND_TAG_UNKNOWN:		An unknown tag was found
- * @AS_ISSUE_KIND_TAG_NOT_ALLOWED:	A tag is not allowed in the current context
- * @AS_ISSUE_KIND_PROPERTY_MISSING:	A required property is missing
- * @AS_ISSUE_KIND_PROPERTY_INVALID:	A property is invalid
- * @AS_ISSUE_KIND_VALUE_MISSING:	A value is missing
- * @AS_ISSUE_KIND_VALUE_WRONG:		The value of a tag or property is wrong
- * @AS_ISSUE_KIND_VALUE_ISSUE:		There is an issue with a tag or property value (often non-fatal)
- * @AS_ISSUE_KIND_FILE_MISSING:		A required file or other metadata was missing
- * @AS_ISSUE_KIND_WRONG_NAME:		The naming of an entity is wrong
- * @AS_ISSUE_KIND_READ_ERROR:		Reading of data failed
- * @AS_ISSUE_KIND_REMOTE_ERROR:		Getting additional content from a remote location failed
- * @AS_ISSUE_KIND_UNUSUAL:		Unusual combination of values and likely not intended
- *
- * The issue type.
- **/
-G_DEPRECATED
-typedef enum {
-	AS_ISSUE_KIND_UNKNOWN,
-	AS_ISSUE_KIND_MARKUP_INVALID,
-	AS_ISSUE_KIND_LEGACY,
-	AS_ISSUE_KIND_TAG_DUPLICATED,
-	AS_ISSUE_KIND_TAG_MISSING,
-	AS_ISSUE_KIND_TAG_UNKNOWN,
-	AS_ISSUE_KIND_TAG_NOT_ALLOWED,
-	AS_ISSUE_KIND_PROPERTY_MISSING,
-	AS_ISSUE_KIND_PROPERTY_INVALID,
-	AS_ISSUE_KIND_VALUE_MISSING,
-	AS_ISSUE_KIND_VALUE_WRONG,
-	AS_ISSUE_KIND_VALUE_ISSUE,
-	AS_ISSUE_KIND_FILE_MISSING,
-	AS_ISSUE_KIND_WRONG_NAME,
-	AS_ISSUE_KIND_READ_ERROR,
-	AS_ISSUE_KIND_REMOTE_ERROR,
-	AS_ISSUE_KIND_UNUSUAL,
-	/*< private >*/
-	AS_ISSUE_KIND_LAST
-} AsIssueKind;
-
 AsValidatorIssue	*as_validator_issue_new (void);
 
 const gchar		*as_validator_issue_get_tag (AsValidatorIssue *issue);
@@ -158,14 +113,6 @@ AsIssueSeverity		as_validator_issue_get_importance (AsValidatorIssue *issue);
 G_DEPRECATED
 void 			as_validator_issue_set_importance (AsValidatorIssue *issue,
 								AsIssueSeverity importance);
-
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-G_DEPRECATED
-AsIssueKind		as_validator_issue_get_kind (AsValidatorIssue *issue);
-G_DEPRECATED
-void			as_validator_issue_set_kind (AsValidatorIssue *issue,
-							AsIssueKind kind);
-G_GNUC_END_IGNORE_DEPRECATIONS
 
 G_DEPRECATED
 const gchar		*as_validator_issue_get_message (AsValidatorIssue *issue);

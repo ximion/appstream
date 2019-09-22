@@ -30,7 +30,6 @@
 
 #include "as-validator-issue.h"
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 typedef struct
 {
 	gchar		*tag;
@@ -42,10 +41,7 @@ typedef struct
 	gchar		*fname;
 	gchar		*cid;
 	glong		line;
-
-	AsIssueKind	kind; /* deprecated */
 } AsValidatorIssuePrivate;
-G_GNUC_END_IGNORE_DEPRECATIONS
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidatorIssue, as_validator_issue, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (as_validator_issue_get_instance_private (o))
@@ -390,39 +386,6 @@ as_validator_issue_get_location (AsValidatorIssue *issue)
 
 	return g_string_free (location, FALSE);
 }
-
-/**
- * as_validator_issue_get_kind:
- * @issue: a #AsValidatorIssue instance.
- *
- * This function is deprecated.
- *
- * Returns: a #AsIssueKind
- **/
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-AsIssueKind
-as_validator_issue_get_kind (AsValidatorIssue *issue)
-{
-	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	return priv->kind;
-}
-G_GNUC_END_IGNORE_DEPRECATIONS
-
-/**
- * as_validator_issue_set_kind:
- * @issue: a #AsValidatorIssue instance.
- * @kind: the #AsIssueKind.
- *
- * This function is deprecated.
- **/
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-void
-as_validator_issue_set_kind (AsValidatorIssue *issue, AsIssueKind kind)
-{
-	AsValidatorIssuePrivate *priv = GET_PRIVATE (issue);
-	priv->kind = kind;
-}
-G_GNUC_END_IGNORE_DEPRECATIONS
 
 /**
  * as_validator_issue_get_importance:
