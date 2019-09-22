@@ -22,7 +22,7 @@
 /**
  * SECTION:as-agreement-section
  * @short_description: Object representing a agreement section
- * @include: appstream-glib.h
+ * @include: appstream.h
  * @stability: Unstable
  *
  * Agreements are typically split up into sections.

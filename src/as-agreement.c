@@ -22,7 +22,7 @@
 /**
  * SECTION:as-agreement
  * @short_description: Object representing a privacy policy
- * @include: appstream-glib.h
+ * @include: appstream.h
  * @stability: Unstable
  *
  * Agreements can be used by components to specify GDPR, EULA or other warnings.
