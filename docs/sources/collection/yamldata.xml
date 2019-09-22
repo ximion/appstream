@@ -717,6 +717,19 @@
 							<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
+
+						<varlistentry>
+						<term>issues</term>
+						<listitem>
+							<para>
+								A list of dictionaries describing the issues resolved by this release. The dictionaries contain a
+								<literal>id</literal> key for the value of an issue as described in the XML specification, as well as a
+								<literal>type</literal> and <literal>url</literal> key for the tag properties of the same name described in the
+								XML AppStream specification.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
 				</variablelist>
 
 				<para>

@@ -452,16 +452,28 @@
 				discard any development release if the current version is itself stable. It can
 				show all versions when development versions of the software are also distributed.
 			</para>
+
 			<para>
 				Each <literal>release</literal> tag may have a <literal>description</literal> tag as child, containing a brief description of what is new in the release.
 				The <literal>description</literal> tag is structured as described in <xref linkend="tag-description"/>.
 			</para>
+
 			<para>
 				A release may also have an <literal>url</literal> tag as child.
 				The release url should point to detailed release notes that explain the changes made in this particular release.
 				The <literal>url</literal> tag may have a <literal>type</literal> property with <code>details</code> as the only currently
 				allowed value. If the <literal>type</literal> is missing, an URL type of <code>details</code> is implicitly assumed.
 			</para>
+
+			<para>
+				In order to mention issues that were resolved in a release, and especially reference <ulink url="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVE</ulink> IDs,
+				<literal>issue</literal> tags can be used as children of one <literal>issues</literal> tag within a <literal>release</literal>.
+				The value of an <literal>issue</literal> tag must be the bug number, ticket name, or CVE ID and is typically displayed to the user, but may also in case of CVE IDs be read by
+				machines. If the value is a CVE ID, the <literal>type</literal> property of the <literal>issue</literal> tag must be set to <code>cve</code>.
+				If the <literal>type</literal> property is missing, an issue type of <code>generic</code> is assumed. The <literal>url</literal> property can be used to provide
+				a web URL to a details page on the respective issue. It is required for all issue types, except for the <code>cve</code> type, where it is optional.
+			</para>
+
 			<para>
 				To denote release artifacts, the <literal>artifacts</literal> child tag can be used. It itself contains the artifacts as <literal>artifact</literal> children.
 				Each artifact tag must have a <literal>type</literal> property with the value of either <code>binary</code> or <code>source</code> to indicate whether the
@@ -520,6 +532,11 @@
     </description>
 
     <url>https://example.org/releases/version-1.2.html</url>
+
+    <issues>
+      <issue url="https://example.com/bugzilla/12345">bz#12345</issue>
+      <issue type="cve">CVE-2019-123456</issue>
+    </issues>
 
     <artifacts>
       <artifact type="binary" platform="x86_64-linux-gnu">
