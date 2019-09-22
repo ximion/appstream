@@ -379,9 +379,8 @@ as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root)
 		g_free (size);
 	}
 
-	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0)) {
+	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0))
 		xmlNewProp (n_image, (xmlChar*) "xml:lang", (xmlChar*) priv->locale);
-	}
 
 	xmlAddChild (root, n_image);
 }
@@ -468,7 +467,9 @@ as_image_emit_yaml (AsImage *image, AsContext *ctx, yaml_emitter_t *emitter)
 					 "height",
 					 priv->height);
 	}
-	as_yaml_emit_entry (emitter, "lang", priv->locale);
+	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0))
+		as_yaml_emit_entry (emitter, "lang", priv->locale);
+
 	as_yaml_mapping_end (emitter);
 }
 
