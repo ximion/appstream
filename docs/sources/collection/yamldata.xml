@@ -480,11 +480,11 @@
 							<itemizedlist>
 								<listitem>
 									<para><literal>container</literal></para>
-									<para>The video container format (string, as described in the XML specification)</para>
+									<para>The video container format (<property>value-type</property>:<emphasis>str</emphasis>, values as described in the XML specification)</para>
 								</listitem>
 								<listitem>
 									<para><literal>codec</literal></para>
-									<para>The video codec format (string, as described in the XML specification)</para>
+									<para>The video codec format (<property>value-type</property>:<emphasis>str</emphasis>, values as described in the XML specification)</para>
 								</listitem>
 								<listitem>
 									<para><literal>height</literal></para>
@@ -544,7 +544,7 @@
         width: 112
         url: https://www.example.org/en_US/main-small.png
   - source-video:
-      container: mkv
+      container: matroska
       codec: av1
       height: 900
       url: https://www.example.org/en_US/screencast.mkv
