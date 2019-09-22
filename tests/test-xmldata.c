@@ -975,8 +975,8 @@ static const gchar *xmldata_screenshots = "<?xml version=\"1.0\" encoding=\"utf-
 					"      <image type=\"source\" xml:lang=\"de_DE\">https://example.org/localized_de.png</image>\n"
 					"    </screenshot>\n"
 					"    <screenshot>\n"
-					"      <video codec=\"av1\" container=\"mkv\" width=\"1916\" height=\"1056\">https://example.org/screencast.mkv</video>\n"
-					"      <video codec=\"av1\" container=\"mkv\" width=\"1916\" height=\"1056\" xml:lang=\"de_DE\">https://example.org/screencast_de.mkv</video>\n"
+					"      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\">https://example.org/screencast.mkv</video>\n"
+					"      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de_DE\">https://example.org/screencast_de.mkv</video>\n"
 					"    </screenshot>\n"
 					"  </screenshots>\n"
 					"</component>\n";
