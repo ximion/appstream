@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include "as-enums.h"
 #include "as-artifact.h"
+#include "as-issue.h"
 
 G_BEGIN_DECLS
 
@@ -125,6 +126,10 @@ void		as_release_set_description (AsRelease *release,
 AsUrgencyKind	as_release_get_urgency (AsRelease *release);
 void		as_release_set_urgency (AsRelease *release,
 						AsUrgencyKind urgency);
+
+GPtrArray	*as_release_get_issues (AsRelease *release);
+void		as_release_add_issue (AsRelease *release,
+				      AsIssue *issue);
 
 GPtrArray	*as_release_get_artifacts (AsRelease *release);
 void		as_release_add_artifact (AsRelease *release,

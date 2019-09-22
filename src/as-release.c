@@ -40,6 +40,7 @@
 #include "as-utils-private.h"
 #include "as-artifact-private.h"
 #include "as-checksum-private.h"
+#include "as-issue-private.h"
 
 typedef struct
 {
@@ -53,6 +54,7 @@ typedef struct
 	AsContext	*context;
 	gchar		*active_locale_override;
 
+	GPtrArray	*issues;
 	GPtrArray	*artifacts;
 
 	gchar		*url_details;
@@ -153,6 +155,7 @@ as_release_init (AsRelease *release)
 	priv->kind = AS_RELEASE_KIND_STABLE;
 
 	priv->description = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	priv->issues = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->artifacts = g_ptr_array_new_with_free_func (g_object_unref);
 	priv->urgency = AS_URGENCY_KIND_UNKNOWN;
 }
@@ -172,6 +175,7 @@ as_release_finalize (GObject *object)
 	g_free (priv->date_eol);
 	g_free (priv->url_details);
 	g_hash_table_unref (priv->description);
+	g_ptr_array_unref (priv->issues);
 	g_ptr_array_unref (priv->artifacts);
 	if (priv->context != NULL)
 		g_object_unref (priv->context);
@@ -590,6 +594,38 @@ as_release_add_artifact (AsRelease *release, AsArtifact *artifact)
 }
 
 /**
+ * as_release_get_issues:
+ *
+ * Get a list of all issues resolved by this release.
+ *
+ * Returns: (transfer none) (element-type AsIssue): an array of #AsIssue objects.
+ *
+ * Since: 0.12.9
+ **/
+GPtrArray*
+as_release_get_issues (AsRelease *release)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	return priv->issues;
+}
+
+/**
+ * as_release_add_issue:
+ * @release: An instance of #AsRelease.
+ * @issue: The #AsIssue.
+ *
+ * Add information about a (resolved) issue to this release.
+ *
+ * Since: 0.12.9
+ */
+void
+as_release_add_issue (AsRelease *release, AsIssue *issue)
+{
+	AsReleasePrivate *priv = GET_PRIVATE (release);
+	g_ptr_array_add (priv->issues, g_object_ref (issue));
+}
+
+/**
  * as_release_get_url:
  * @release: a #AsRelease instance.
  * @url_kind: the URL kind, e.g. %AS_RELEASE_URL_KIND_DETAILS.
@@ -949,6 +985,17 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 			}
 			g_free (prop);
 			#pragma GCC diagnostic pop
+		} else if (g_strcmp0 ((gchar*) iter->name, "issues") == 0) {
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				g_autoptr(AsIssue) issue = NULL;
+
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+
+				issue = as_issue_new ();
+				if (as_issue_load_from_xml (issue, ctx, iter2, NULL))
+					as_release_add_issue (release, issue);
+			}
 		}
 	}
 
@@ -1014,6 +1061,15 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 	if (priv->url_details != NULL)
 		xmlNewTextChild (subnode, NULL, (xmlChar*) "url", (xmlChar*) priv->url_details);
 
+	/* issues */
+	if (priv->issues->len > 0) {
+		xmlNode *n_issues = xmlNewChild (subnode, NULL, (xmlChar*) "issues", (xmlChar*) "");
+		for (guint i = 0; i < priv->issues->len; i++) {
+			AsIssue *issue = AS_ISSUE (g_ptr_array_index (priv->issues, i));
+			as_issue_to_xml_node (issue, ctx, n_issues);
+		}
+	}
+
 	/* artifacts */
 	if (priv->artifacts->len > 0) {
 		xmlNode *n_artifacts = xmlNewChild (subnode, NULL, (xmlChar*) "artifacts", (xmlChar*) "");
@@ -1077,6 +1133,14 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 				if ((url_kind != AS_RELEASE_URL_KIND_UNKNOWN) && (value != NULL))
 					as_release_set_url (release, url_kind, value);
 			}
+
+		} else if (g_strcmp0 (key, "issues") == 0) {
+			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+				g_autoptr(AsIssue) issue = as_issue_new ();
+				if (as_issue_load_from_yaml (issue, ctx, sn, NULL))
+					as_release_add_issue (release, issue);
+			}
+
 		} else {
 			as_yaml_print_unknown ("release", key);
 		}
@@ -1139,7 +1203,7 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 					   "description",
 					   priv->description);
 
-	/* Urls */
+	/* urls */
 	if (priv->url_details != NULL) {
 		as_yaml_emit_scalar (emitter, "url");
 		as_yaml_mapping_start (emitter);
@@ -1149,6 +1213,19 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 				    (const gchar*) priv->url_details);
 
 		as_yaml_mapping_end (emitter);
+	}
+
+	/* issues */
+	if (priv->issues->len > 0) {
+		as_yaml_emit_scalar (emitter, "issues");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->issues->len; i++) {
+			AsIssue *issue = AS_ISSUE (g_ptr_array_index (priv->issues, i));
+			as_issue_emit_yaml (issue, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
 	}
 
 	/* TODO: Artifacts are missing, because they are not specified yet for DEP-11. */

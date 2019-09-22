@@ -146,6 +146,7 @@ test_yamlwrite_general (void)
 	g_autoptr(AsRelease) rel1 = NULL;
 	g_autoptr(AsRelease) rel2 = NULL;
 	g_autoptr(AsBundle) bdl = NULL;
+	AsIssue *issue;
 	g_autofree gchar *resdata = NULL;
 	AsComponent *cpt = NULL;
 	GError *error = NULL;
@@ -217,6 +218,11 @@ test_yamlwrite_general (void)
 				"  description:\n"
 				"    C: >-\n"
 				"      <p>The CPU no longer overheats when you hold down spacebar.</p>\n"
+				"  issues:\n"
+				"  - id: bz#12345\n"
+				"    url: https://example.com/bugzilla/12345\n"
+				"  - type: cve\n"
+				"    id: CVE-2019-123456\n"
 				"- version: '1.0'\n"
 				"  type: development\n"
 				"  unix-timestamp: 1460463132\n"
@@ -300,6 +306,19 @@ test_yamlwrite_general (void)
 	as_release_set_description (rel2, "<p>The CPU no longer overheats when you hold down spacebar.</p>", "C");
 	as_release_set_urgency (rel2, AS_URGENCY_KIND_MEDIUM);
 	as_component_add_release (cpt, rel2);
+
+	/* issues */
+	issue = as_issue_new ();
+	as_issue_set_id (issue, "bz#12345");
+	as_issue_set_url (issue, "https://example.com/bugzilla/12345");
+	as_release_add_issue (rel2, issue);
+	g_object_unref (issue);
+
+	issue = as_issue_new ();
+	as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+	as_issue_set_id (issue, "CVE-2019-123456");
+	as_release_add_issue (rel2, issue);
+	g_object_unref (issue);
 
 	/* bundle */
 	bdl = as_bundle_new ();
@@ -736,7 +755,7 @@ static const gchar *yamldata_launchable_field = "---\n"
 /**
  * test_yaml_write_launchable:
  *
- * Test writing the Launch field.
+ * Test writing the Launchable field.
  */
 static void
 test_yaml_write_launchable (void)
@@ -765,7 +784,7 @@ test_yaml_write_launchable (void)
 /**
  * test_yaml_read_launchable:
  *
- * Test if reading the Launch field works.
+ * Test if reading the Launchable field works.
  */
 static void
 test_yaml_read_launchable (void)
@@ -1178,6 +1197,132 @@ test_yaml_read_screenshots (void)
 	g_assert_cmpint (as_video_get_height (vid), ==, 1056);
 }
 
+static const gchar *yamldata_releases_field = "---\n"
+						"File: DEP-11\n"
+						"Version: '0.12'\n"
+						"---\n"
+						"Type: generic\n"
+						"ID: org.example.ReleasesTest\n"
+						"Releases:\n"
+						"- version: '1.2'\n"
+						"  type: stable\n"
+						"  unix-timestamp: 1462288512\n"
+						"  urgency: medium\n"
+						"  description:\n"
+						"    C: >-\n"
+						"      <p>The CPU no longer overheats when you hold down spacebar.</p>\n"
+						"  issues:\n"
+						"  - id: bz#12345\n"
+						"    url: https://example.com/bugzilla/12345\n"
+						"  - type: cve\n"
+						"    id: CVE-2019-123456\n"
+						"- version: '1.0'\n"
+						"  type: development\n"
+						"  unix-timestamp: 1460463132\n"
+						"  description:\n"
+						"    de_DE: >-\n"
+						"      <p>Großartige erste Veröffentlichung.</p>\n"
+						"\n"
+						"      <p>Zweite zeile.</p>\n"
+						"    C: >-\n"
+						"      <p>Awesome initial release.</p>\n"
+						"\n"
+						"      <p>Second paragraph.</p>\n"
+						"  url:\n"
+						"    details: https://example.org/releases/1.0.html\n";
+
+/**
+ * test_yaml_write_releases:
+ *
+ * Test writing the Releases field.
+ */
+static void
+test_yaml_write_releases (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsRelease) rel1 = NULL;
+	g_autoptr(AsRelease) rel2 = NULL;
+	AsIssue *issue = NULL;
+	g_autofree gchar *res = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.ReleasesTest");
+
+	rel1 = as_release_new ();
+	as_release_set_version (rel1, "1.0");
+	as_release_set_kind (rel1, AS_RELEASE_KIND_DEVELOPMENT);
+	as_release_set_timestamp (rel1, 1460463132);
+	as_release_set_description (rel1, "<p>Awesome initial release.</p>\n<p>Second paragraph.</p>", "C");
+	as_release_set_description (rel1, "<p>Großartige erste Veröffentlichung.</p>\n<p>Zweite zeile.</p>", "de_DE");
+	as_release_set_url (rel1, AS_RELEASE_URL_KIND_DETAILS, "https://example.org/releases/1.0.html");
+	as_component_add_release (cpt, rel1);
+
+	rel2 = as_release_new ();
+	as_release_set_version (rel2, "1.2");
+	as_release_set_timestamp (rel2, 1462288512);
+	as_release_set_description (rel2, "<p>The CPU no longer overheats when you hold down spacebar.</p>", "C");
+	as_release_set_urgency (rel2, AS_URGENCY_KIND_MEDIUM);
+	as_component_add_release (cpt, rel2);
+
+	/* issues */
+	issue = as_issue_new ();
+	as_issue_set_id (issue, "bz#12345");
+	as_issue_set_url (issue, "https://example.com/bugzilla/12345");
+	as_release_add_issue (rel2, issue);
+	g_object_unref (issue);
+
+	issue = as_issue_new ();
+	as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+	as_issue_set_id (issue, "CVE-2019-123456");
+	as_release_add_issue (rel2, issue);
+	g_object_unref (issue);
+
+	/* test collection serialization */
+	res = as_yaml_test_serialize (cpt);
+	g_assert (as_test_compare_lines (res, yamldata_releases_field));
+}
+
+/**
+ * test_yaml_read_releases:
+ *
+ * Test if reading the Releases field works.
+ */
+static void
+test_yaml_read_releases (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	AsRelease *rel;
+	GPtrArray *issues;
+
+	cpt = as_yaml_test_read_data (yamldata_releases_field, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleasesTest");
+
+	g_assert_cmpint (as_component_get_releases (cpt)->len, ==, 2);
+
+	rel = AS_RELEASE (g_ptr_array_index (as_component_get_releases (cpt), 0));
+	g_assert_cmpint (as_release_get_kind (rel), ==, AS_RELEASE_KIND_STABLE);
+	g_assert_cmpstr (as_release_get_version (rel), ==,  "1.2");
+
+	issues = as_release_get_issues (rel);
+	g_assert_cmpint (issues->len, ==, 2);
+	for (guint i = 0; i < issues->len; i++) {
+		AsIssue *issue = AS_ISSUE (g_ptr_array_index (issues, i));
+
+		if (as_issue_get_kind (issue) == AS_ISSUE_KIND_GENERIC) {
+			g_assert_cmpstr (as_issue_get_id (issue), ==, "bz#12345");
+			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://example.com/bugzilla/12345");
+
+		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
+			g_assert_cmpstr (as_issue_get_id (issue), ==, "CVE-2019-123456");
+			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
+
+		} else {
+			g_assert_not_reached ();
+		}
+	}
+}
+
 /**
  * main:
  */
@@ -1230,6 +1375,9 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/YAML/Read/Screenshots", test_yaml_read_screenshots);
 	g_test_add_func ("/YAML/Write/Screenshots", test_yaml_write_screenshots);
+
+	g_test_add_func ("/YAML/Read/Releases", test_yaml_read_releases);
+	g_test_add_func ("/YAML/Write/Releases", test_yaml_write_releases);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -1415,6 +1415,10 @@ static const gchar *xmldata_releases = "<?xml version=\"1.0\" encoding=\"utf-8\"
 					"        <p xml:lang=\"de\">Eine Beschreibung der Veröffentlichung.</p>\n"
 					"      </description>\n"
 					"      <url>https://example.org/releases/1.2.html</url>\n"
+					"      <issues>\n"
+					"        <issue url=\"https://example.com/bugzilla/12345\">bz#12345</issue>\n"
+					"        <issue type=\"cve\">CVE-2019-123456</issue>\n"
+					"      </issues>\n"
 					"      <artifacts>\n"
 					"        <artifact type=\"binary\" platform=\"x86_64-linux-gnu\" bundle=\"tarball\">\n"
 					"          <location>https://example.com/mytarball.bin.tar.xz</location>\n"
@@ -1441,6 +1445,7 @@ test_xml_read_releases (void)
 	g_autoptr(AsComponent) cpt = NULL;
 	AsRelease *rel;
 	GPtrArray *artifacts;
+	GPtrArray *issues;
 
 	cpt = as_xml_test_read_data (xmldata_releases, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleaseTest");
@@ -1487,6 +1492,24 @@ test_xml_read_releases (void)
 			g_assert_not_reached ();
 		}
 	}
+
+	issues = as_release_get_issues (rel);
+	g_assert_cmpint (issues->len, ==, 2);
+	for (guint i = 0; i < issues->len; i++) {
+		AsIssue *issue = AS_ISSUE (g_ptr_array_index (issues, i));
+
+		if (as_issue_get_kind (issue) == AS_ISSUE_KIND_GENERIC) {
+			g_assert_cmpstr (as_issue_get_id (issue), ==, "bz#12345");
+			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://example.com/bugzilla/12345");
+
+		} else if (as_issue_get_kind (issue) == AS_ISSUE_KIND_CVE) {
+			g_assert_cmpstr (as_issue_get_id (issue), ==, "CVE-2019-123456");
+			g_assert_cmpstr (as_issue_get_url (issue), ==, "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-123456");
+
+		} else {
+			g_assert_not_reached ();
+		}
+	}
 }
 
 /**
@@ -1502,6 +1525,7 @@ test_xml_write_releases (void)
 	g_autofree gchar *res = NULL;
 	AsArtifact *artifact;
 	AsChecksum *cs;
+	AsIssue *issue;
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.ReleaseTest");
@@ -1538,6 +1562,19 @@ test_xml_write_releases (void)
 	g_object_unref (cs);
 	as_release_add_artifact (rel, artifact);
 	g_object_unref (artifact);
+
+	/* issues */
+	issue = as_issue_new ();
+	as_issue_set_id (issue, "bz#12345");
+	as_issue_set_url (issue, "https://example.com/bugzilla/12345");
+	as_release_add_issue (rel, issue);
+	g_object_unref (issue);
+
+	issue = as_issue_new ();
+	as_issue_set_kind (issue, AS_ISSUE_KIND_CVE);
+	as_issue_set_id (issue, "CVE-2019-123456");
+	as_release_add_issue (rel, issue);
+	g_object_unref (issue);
 
 	as_component_add_release (cpt, rel);
 

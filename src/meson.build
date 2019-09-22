@@ -13,6 +13,7 @@ aslib_src = [
     'as-desktop-entry.c',
     'as-distro-extras.c',
     'as-stemmer.c',
+    'as-news-convert.c',
     # (mostly) public
     'as-spdx.c',
     'as-metadata.c',
@@ -39,7 +40,7 @@ aslib_src = [
     'as-agreement.c',
     'as-agreement-section.c',
     'as-artifact.c',
-    'as-news-convert.c'
+    'as-issue.c'
 ]
 
 aslib_pub_headers = [
@@ -69,7 +70,8 @@ aslib_pub_headers = [
     'as-relation.h',
     'as-agreement.h',
     'as-agreement-section.h',
-    'as-artifact.h'
+    'as-artifact.h',
+    'as-issue.h'
 ]
 
 aslib_priv_headers = [
@@ -97,7 +99,8 @@ aslib_priv_headers = [
     'as-agreement-private.h',
     'as-agreement-section-private.h',
     'as-validator-issue-tag.h',
-    'as-news-convert.h'
+    'as-news-convert.h',
+    'as-issue-private.h'
 ]
 
 aslib_res = glib.compile_resources (

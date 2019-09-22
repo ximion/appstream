@@ -179,15 +179,14 @@ as_checksum_load_from_xml (AsChecksum *cs, AsContext *ctx, xmlNode *node, GError
 {
 	AsChecksumPrivate *priv = GET_PRIVATE (cs);
 	g_autofree gchar *prop = NULL;
-	g_autofree gchar *content = NULL;
 
 	prop = (gchar*) xmlGetProp (node, (xmlChar*) "type");
 	priv->kind = as_checksum_kind_from_string (prop);
 	if (priv->kind == AS_CHECKSUM_KIND_NONE)
 		return FALSE;
 
-	content = as_xml_get_node_value (node);
-	as_checksum_set_value (cs, content);
+	g_free (priv->value);
+	priv->value = as_xml_get_node_value (node);
 
 	return TRUE;
 }
