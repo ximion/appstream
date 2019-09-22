@@ -498,6 +498,38 @@ test_rdns_convert ()
 	g_free (tmp);
 }
 
+/**
+ * test_filebasename_from_uri:
+ */
+static void
+test_filebasename_from_uri ()
+{
+	gchar *tmp;
+
+	tmp = as_filebasename_from_uri ("https://example.org/test/filename.txt");
+	g_assert_cmpstr (tmp, ==, "filename.txt");
+	g_free (tmp);
+
+	tmp = as_filebasename_from_uri ("https://example.org/test/video.mkv?raw=true");
+	g_assert_cmpstr (tmp, ==, "video.mkv");
+	g_free (tmp);
+
+	tmp = as_filebasename_from_uri ("https://example.org/test/video.mkv#anchor");
+	g_assert_cmpstr (tmp, ==, "video.mkv");
+	g_free (tmp);
+
+	tmp = as_filebasename_from_uri ("https://example.org/test/video.mkv?raw=true&aaa=bbb");
+	g_assert_cmpstr (tmp, ==, "video.mkv");
+	g_free (tmp);
+
+	tmp = as_filebasename_from_uri ("");
+	g_assert_cmpstr (tmp, ==, ".");
+	g_free (tmp);
+
+	tmp = as_filebasename_from_uri (NULL);
+	g_assert_cmpstr (tmp, ==, NULL);
+	g_free (tmp);
+}
 
 int
 main (int argc, char **argv)
@@ -528,6 +560,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/VersionCompare", test_version_compare);
 	g_test_add_func ("/AppStream/DistroDetails", test_distro_details);
 	g_test_add_func ("/AppStream/rDNSConvert", test_rdns_convert);
+	g_test_add_func ("/AppStream/URIToBasename", test_filebasename_from_uri);
 
 	ret = g_test_run ();
 	g_free (datadir);

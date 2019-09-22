@@ -125,6 +125,9 @@ AS_INTERNAL_VISIBLE
 gchar			*as_ptr_array_to_str (GPtrArray *array,
 						const gchar *separator);
 
+AS_INTERNAL_VISIBLE
+gchar			*as_filebasename_from_uri (const gchar *uri);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

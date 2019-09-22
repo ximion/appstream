@@ -1345,3 +1345,32 @@ as_ptr_array_to_str (GPtrArray *array, const gchar *separator)
 
 	return g_string_free (str, FALSE);
 }
+
+/**
+ * as_filebasename_from_uri:
+ *
+ * Get the file basename from an URI.
+ * This is the last component of the path, with any query or fragment
+ * stripped off.
+ *
+ * Returns: The filename.
+ */
+gchar*
+as_filebasename_from_uri (const gchar *uri)
+{
+	gchar *tmp;
+	gchar *bname;
+
+	if (uri == NULL)
+		return NULL;
+	bname = g_path_get_basename (uri);
+
+	tmp = g_strstr_len (bname, -1, "?");
+	if (tmp != NULL)
+		tmp[0] = '\0';
+	tmp = g_strstr_len (bname, -1, "#");
+	if (tmp != NULL)
+		tmp[0] = '\0';
+
+	return bname;
+}

@@ -957,7 +957,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 						as_validator_add_issue (validator, iter2, "screenshot-video-container-invalid", container_str);
 				}
 
-				video_url_basename = g_path_get_basename (video_url);
+				video_url_basename = as_filebasename_from_uri (video_url);
 				video_url_base_lower = g_utf8_strdown (video_url_basename, -1);
 				if (g_strstr_len (video_url_base_lower, -1, ".") != NULL) {
 					if (!g_str_has_suffix (video_url_base_lower, ".mkv") &&

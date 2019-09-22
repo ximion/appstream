@@ -25,8 +25,9 @@
  */
 
 #include "config.h"
-
 #include "as-icon-private.h"
+
+#include "as-utils-private.h"
 
 typedef struct
 {
@@ -167,7 +168,7 @@ as_icon_get_name (AsIcon *icon)
 		if (priv->filename != NULL)
 			priv->name = g_path_get_basename (priv->filename);
 		else if (priv->url != NULL)
-			priv->name = g_path_get_basename (priv->url);
+			priv->name = as_filebasename_from_uri (priv->url);
 	}
 
 	return priv->name;
