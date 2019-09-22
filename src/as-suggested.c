@@ -116,7 +116,7 @@ as_suggested_init (AsSuggested *suggested)
  *
  * Gets the suggested kind.
  *
- * Returns: the #AssuggestedKind
+ * Returns: the #AsSuggestedKind
  **/
 AsSuggestedKind
 as_suggested_get_kind (AsSuggested *suggested)
