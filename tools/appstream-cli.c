@@ -866,7 +866,7 @@ as_client_get_summary ()
 	g_string_append_printf (string, "  %s - %s\n", "compare-versions VER1 [COMP] VER2", _("Compare two version numbers."));
 	g_string_append (string, "\n");
 	g_string_append_printf (string, "  %s - %s\n", "new-template TYPE FILE", _("Create a template for a metainfo file (to be filled out by the upstream project)."));
-	g_string_append_printf (string, "  %s - %s\n", "make-desktop-file MI_FILE DESKTOP_FILE", _("Create an XDG desktop-entry file from a metainfo file."));
+	g_string_append_printf (string, "  %s - %s\n", "make-desktop-file MI_FILE DESKTOP_FILE", _("Create a XDG desktop-entry file from a metainfo file."));
 	g_string_append_printf (string, "  %s - %s\n", "news-to-metainfo NEWS_FILE MI_FILE [OUT_FILE]", _("Convert a YAML or text NEWS file into metainfo releases."));
 	g_string_append_printf (string, "  %s - %s\n", "metainfo-to-news MI_FILE NEWS_FILE", _("Write NEWS text or YAML file with information from a metainfo file."));
 

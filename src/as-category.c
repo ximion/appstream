@@ -32,7 +32,7 @@
  * @short_description: Representation of a XDG category
  * @include: appstream.h
  *
- * This object represents an XDG category, as defined at:
+ * This object represents a XDG category, as defined at:
  * http://standards.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry
  *
  * The #AsCategory object does not support all aspects of a menu. Its main purpose

@@ -870,7 +870,7 @@ as_utils_search_token_valid (const gchar *token)
 
 /**
  * as_utils_is_category_id:
- * @category_name: an XDG category name, e.g. "ProjectManagement"
+ * @category_name: a XDG category name, e.g. "ProjectManagement"
  *
  * Searches the known list of registered XDG category names.
  * See https://specifications.freedesktop.org/menu-spec/menu-spec-1.0.html#category-registry

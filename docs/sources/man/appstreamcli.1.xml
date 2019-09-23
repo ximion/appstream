@@ -15,7 +15,7 @@
 	<refentryinfo>
 	<title>appstreamcli</title>
 	<copyright>
-		<year>2012-2018</year>
+		<year>2012-2019</year>
 		<holder>Matthias Klumpp</holder>
 	</copyright>
 	<productname>AppStream</productname>
@@ -225,6 +225,63 @@
 						The first <replaceable>TYPE</replaceable> parameter is the name of an AppStream component type. For a complete list check out
 						<ulink url="https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html">the documentation</ulink> or the help output
 						of <command>&package;</command> for this subcommand.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>make-desktop-file <replaceable>MI_FILE</replaceable> <replaceable>DESKTOP_FILE</replaceable></option></term>
+				<listitem>
+					<para>
+						Create a XDG desktop-entry file from a metainfo file.
+						If the desktop-entry file specified in <replaceable>DESKTOP_FILE</replaceable> already exists, it will get extended with
+						the new information extracted from the metainfo file. Otherwise a new file will be created.
+					</para>
+					<para>
+						This command will use the first <literal>binary</literal> mentioned in a <literal>provides</literal> tag of the component
+						for the <literal>Exec=</literal> field of the new desktop-entry file.
+						If this is not the desired behavior, the <option>--exec</option> flag can be used
+						to explicitly define a binary to launch. Other methods of launching the application are currently not supported.
+					</para>
+					<para>
+						In order to generate a proper desktop-entry, this command assumes that not only the minimally required tags for an
+						AppStream component are set, but also that it has an <code>&lt;icon/&gt;</code> tag of type "<literal>stock</literal>" to describe
+						the stock icon that should be used as well as a <code>&lt;categories/&gt;</code> tag containing the categories the application should
+						be placed in.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>news-to-metainfo <replaceable>NEWS_FILE</replaceable> <replaceable>MI_FILE</replaceable> <replaceable>[OUT_FILE]</replaceable></option></term>
+				<listitem>
+					<para>
+						This command converts a NEWS file as used by many open source projects into the XML used by AppStream. Since NEWS files are free text,
+						a lot of heuristics will be applied to get reasonable results. The converter can also read a YAML version of the AppStream release
+						description and convert it to XML as well.
+						If the metainfo file <replaceable>MI_FILE</replaceable> already exists, it will be augmented with the new release entries, otherwise the release entries
+						will be written without any wrapping component.
+						If <replaceable>[OUT_FILE]</replaceable> is specified, instead of acting on <replaceable>MI_FILE</replaceable> the changed data will
+						be written to the particular file. If any of the output filenames is set to "<code>-</code>", the output will instead be written to stdout.
+					</para>
+					<para>
+						The <option>--format</option> option can be used to enforce reading the input file in a specific format ("text" or "yaml") in case the format autodetection fails.
+						The <option>--limit</option> option is used to limit the amount of release entries written (the newest entries will always be first).
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><option>metainfo-to-news <replaceable>MI_FILE</replaceable> <replaceable>NEWS_FILE</replaceable></option></term>
+				<listitem>
+					<para>
+						This command reverses the <option>news-to-metainfo</option> command and writes a NEWS file as text or YAML using the XML
+						contained in a metainfo file. If <replaceable>NEWS_FILE</replaceable> is set to "<code>-</code>", the resulting data
+						will be written to stdout instead of to a file.
+					</para>
+					<para>
+						The <option>--format</option> option can be used to explicitly specify the output format ("yaml" or "text"). If it is not set,
+						<command>&package;</command> will guess which format is most suitable.
 					</para>
 				</listitem>
 			</varlistentry>
