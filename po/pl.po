@@ -8,16 +8,14 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-14 23:45+0200\n"
-"PO-Revision-Date: 2019-09-12 16:05+0000\n"
+"PO-Revision-Date: 2019-09-23 17:42+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/"
-"translations/pl/>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.9-dev\n"
 
 #: tools/appstream-cli.c:157
@@ -196,7 +194,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Przyjmuje, że plik wejściowy jest w wybranym formacie („yaml” lub „text”)."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -221,7 +219,7 @@ msgstr "Tworzenie i edycja dźwięku"
 #: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Powiększanie istniejącego pliku .desktop „%s” o dane z „%s”."
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -334,7 +332,7 @@ msgstr ""
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "Konwertuje plik NEWS w formacie YAML lub tekstowym do wydań Metainfo."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -355,12 +353,12 @@ msgstr "Tworzy szablon pliku Metainfo (do wypełnienia przez projekt)."
 
 #: tools/appstream-cli.c:869
 msgid "Create an XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "Tworzy plik .desktop XDG z pliku Metainfo."
 
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Tworzenie nowego pliku .desktop „%s” za pomocą danych z „%s”"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
@@ -630,7 +628,7 @@ msgstr "Gry"
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
 msgid "Generate the output in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Tworzy wyjście w wybranym formacie („yaml” lub „text”)."
 
 #: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
@@ -769,7 +767,7 @@ msgstr "Licencja"
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
-msgstr ""
+msgstr "Ogranicza liczbę wpisów wydań w pliku Metainfo (0 oznacza brak ograniczenia)."
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -829,9 +827,9 @@ msgstr "Pliki metadanych mają błędy:"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Plik metadanych „%s” nie istnieje."
+msgstr "Plik Metainfo „%s” nie istnieje."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:367
@@ -887,17 +885,17 @@ msgstr "Brak ikon."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
+msgstr "Nie podano nazwy pliku wyjściowego, bezpośrednie modyfikowanie pliku Metainfo."
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
+msgstr "Nie podano dostarczanego pliku binarnego w pliku Metainfo, ani polecenia wykonywania przez „--exec”. Nie można utworzyć klucza „Exec=”."
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
+msgstr "Nie podano nazwy standardowej ikony w pliku Metainfo. Nie można kontynuować."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -1361,13 +1359,10 @@ msgstr ""
 "informacje o tym składniku od razu w pierwszym akapicie."
 
 #: src/as-validator-issue-tag.h:393
-#, fuzzy
 msgid ""
 "The given values is not an identifier for a desktop environment as "
 "registered with Freedesktop.org."
-msgstr ""
-"Podana wartość nie jest identyfikatorem środowiska pulpitu zarejestrowanym "
-"we FreeDesktop.org."
+msgstr "Podana wartość nie jest identyfikatorem środowiska pulpitu zarejestrowanym we FreeDesktop.org."
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
@@ -1605,13 +1600,10 @@ msgstr ""
 "części „categories”."
 
 #: src/as-validator-issue-tag.h:564
-#, fuzzy
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
-"Ten dokument XML ma nieznany główny znacznik. Może ten plik nie jest "
-"dokumentem Metainfo?"
+msgstr "Ten dokument XML ma nieznany główny znacznik. Może ten plik nie jest dokumentem Metainfo?"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:680
@@ -1762,9 +1754,9 @@ msgstr ""
 "zdalnych adresów URL."
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Nie można odczytać pliku .desktop: %s"
+msgstr "Nie można wczytać istniejącego szablonu pliku .desktop: %s"
 
 #: src/as-validator-issue-tag.h:356
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1813,9 +1805,9 @@ msgid "Unable to remove old cache."
 msgstr "Nie można usunąć starej pamięci podręcznej."
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "Nie można odczytać pliku .desktop: %s"
+msgstr "Nie można zapisać pliku .desktop: %s"
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -1855,7 +1847,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
+msgstr "Używa podanego wiersza dla klucza „Exec=” pliku .desktop."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -1920,7 +1912,7 @@ msgstr "Procesory tekstu"
 
 #: tools/appstream-cli.c:871
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
+msgstr "Zapisuje plik NEWS w formacie tekstowym lub YAML z informacjami z pliku Metainfo."
 
 #: tools/appstream-cli.c:874
 msgid ""
@@ -1950,19 +1942,16 @@ msgstr ""
 "Należy podać co najmniej dwa numery wersji, aby porównać jako parametry."
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "Należy podać plik metadanych."
+msgstr "Należy podać plik NEWS jako wejście."
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Należy podać plik metadanych."
+msgstr "Należy podać plik NEWS jako wyjście lub „-”, aby wyświetlić na standardowym wyjściu."
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Należy podać plik wejściowy i wyjściowy."
+msgstr "Należy podać format pliku NEWS, w którym zapisać wyjście."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:925
@@ -1977,25 +1966,22 @@ msgid "You need to specify a component-ID."
 msgstr "Należy podać identyfikator składnika."
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Należy podać co najmniej jeden plik do sprawdzenia poprawności."
+msgstr "Należy podać plik .desktop do utworzenia lub powiększenia jako wyjście."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "Należy podać plik metadanych."
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "Należy podać plik metadanych."
+msgstr "Należy podać plik Metainfo jako wejście."
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Należy podać plik metadanych."
+msgstr "Należy podać plik Metainfo do powiększenia lub „-”, aby wyświetlić na standardowym wyjściu."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"
