@@ -899,8 +899,7 @@
 		</para>
 		<para>
 			The value of the <code>&lt;image/&gt;</code> tag is a direct HTTP/HTTPS URL to a screenshot uploaded to a public location on the web.
-			Images should also be in be in PNG or JPEG format. PNG is the preferred format; JPEG should only be used when screenshots include large photographs or other
-			images where a lossy format like JPEG may compress better.
+			Images should ideally be provided in the PNG format, however using JPEG or WebP is also fine for images in metainfo files.
 		</para>
 		<para>
 			The <code>&lt;image/&gt;</code> tag may have the following properties:
