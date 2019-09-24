@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 23:45+0200\n"
+"POT-Creation-Date: 2019-09-24 19:46+0200\n"
 "PO-Revision-Date: 2019-09-24 06:27+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.9-dev\n"
 
 #: tools/appstream-cli.c:157
@@ -194,7 +196,9 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr "Вважати, що дані у вхідному файлі записано у вибраному форматі («yaml» або «text»)."
+msgstr ""
+"Вважати, що дані у вхідному файлі записано у вибраному форматі («yaml» або "
+"«text»)."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -329,7 +333,9 @@ msgstr ""
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr "Перетворити файл NEWS у форматі YAML або текстовому форматі на метаінформацію щодо випусків."
+msgstr ""
+"Перетворити файл NEWS у форматі YAML або текстовому форматі на "
+"метаінформацію щодо випусків."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -342,16 +348,17 @@ msgstr "Перетворити XML збірки на YAML або навпаки.
 msgid "Could not find component providing '%s::%s'."
 msgstr "Не вдалося знайти компонент, що містить «%s::%s»."
 
+#: tools/appstream-cli.c:869
+#, fuzzy
+msgid "Create a XDG desktop-entry file from a metainfo file."
+msgstr "Створити файл запису desktop у форматі XDG з файла метаінформації."
+
 #: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr ""
 "Створити шаблон файла метаінформації (для заповнення у основному проєкті)."
-
-#: tools/appstream-cli.c:869
-msgid "Create an XDG desktop-entry file from a metainfo file."
-msgstr "Створити файл запису desktop у форматі XDG з файла метаінформації."
 
 #: tools/ascli-actions-misc.c:228
 #, c-format
@@ -771,7 +778,9 @@ msgstr "Ліцензія"
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
-msgstr "Обмежити кількість записів щодо випусків у отриманому файлі метаінформації (0 — без обмежень)."
+msgstr ""
+"Обмежити кількість записів щодо випусків у отриманому файлі метаінформації "
+"(0 — без обмежень)."
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -888,17 +897,24 @@ msgstr "Немає піктограм."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr "Не вказано назви файла для виведення даних. Вносимо зміни до файла метаінформації безпосередньо."
+msgstr ""
+"Не вказано назви файла для виведення даних. Вносимо зміни до файла "
+"метаінформації безпосередньо."
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr "У файлі метаінформації не вказано жодного виконуваного файла і не вказано команди запуску програми за допомогою «--exec». Через це не вдалося створити запис «Exec=»."
+msgstr ""
+"У файлі метаінформації не вказано жодного виконуваного файла і не вказано "
+"команди запуску програми за допомогою «--exec». Через це не вдалося створити "
+"запис «Exec=»."
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr "У файлі метаінформації не вказано типової піктограми. Продовження обробки неможливе."
+msgstr ""
+"У файлі метаінформації не вказано типової піктограми. Продовження обробки "
+"неможливе."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -1370,7 +1386,9 @@ msgstr ""
 msgid ""
 "The given values is not an identifier for a desktop environment as "
 "registered with Freedesktop.org."
-msgstr "Вказані значення не є ідентифікаторами стільничного середовища, які зареєстровано Freedesktop.org."
+msgstr ""
+"Вказані значення не є ідентифікаторами стільничного середовища, які "
+"зареєстровано Freedesktop.org."
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
@@ -1621,7 +1639,9 @@ msgstr ""
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr "У цього документа XML невідомий кореневий теґ. Можливо, цей файл не є документом metainfo?"
+msgstr ""
+"У цього документа XML невідомий кореневий теґ. Можливо, цей файл не є "
+"документом metainfo?"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:680
@@ -1868,7 +1888,8 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr "Скористатися вказаним рядокм для запису «Exec=» у файлі записів .desktop."
+msgstr ""
+"Скористатися вказаним рядокм для запису «Exec=» у файлі записів .desktop."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -1934,7 +1955,9 @@ msgstr "Текстові процесори"
 
 #: tools/appstream-cli.c:871
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr "Записати текстовий файл або файл YAML NEWS, заповнивши його даними з файла метаінформації."
+msgstr ""
+"Записати текстовий файл або файл YAML NEWS, заповнивши його даними з файла "
+"метаінформації."
 
 #: tools/appstream-cli.c:874
 msgid ""
@@ -1969,7 +1992,9 @@ msgstr "Вам слід вказати вхідний файл NEWS."
 
 #: tools/ascli-actions-misc.c:509
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Вам слід вказати файл NEWS для виведення даних або «-», якщо дані слід вивести до стандартного виведення."
+msgstr ""
+"Вам слід вказати файл NEWS для виведення даних або «-», якщо дані слід "
+"вивести до стандартного виведення."
 
 #: tools/ascli-actions-misc.c:540
 msgid "You need to specify a NEWS format to write the output in."
@@ -1990,7 +2015,8 @@ msgstr "Вам слід вказати ідентифікатор компоне
 #: tools/ascli-actions-misc.c:188
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Вам слід вказати файл записів .desktop для створення або удосконалення."
+msgstr ""
+"Вам слід вказати файл записів .desktop для створення або удосконалення."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
@@ -2003,7 +2029,9 @@ msgstr "Вам слід вказати вхідний файл метаінфо�
 #: tools/ascli-actions-misc.c:397
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Вам слід вказати файл метаінформації для розширення або «-», якщо дані слід вивести до стандартного виведення."
+msgstr ""
+"Вам слід вказати файл метаінформації для розширення або «-», якщо дані слід "
+"вивести до стандартного виведення."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"

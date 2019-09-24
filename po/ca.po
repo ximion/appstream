@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 23:45+0200\n"
+"POT-Creation-Date: 2019-09-24 19:46+0200\n"
 "PO-Revision-Date: 2019-01-26 15:44+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
@@ -327,6 +327,10 @@ msgstr "Converteix la col·lecció XML a YAML o viceversa."
 msgid "Could not find component providing '%s::%s'."
 msgstr "No s'ha pogut trobar el component que proporciona «%s::%s»."
 
+#: tools/appstream-cli.c:869
+msgid "Create a XDG desktop-entry file from a metainfo file."
+msgstr ""
+
 #: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
@@ -334,10 +338,6 @@ msgid ""
 msgstr ""
 "Crea una plantilla per a un fitxer metainfo (per ser omplert pel projecte de "
 "desenvolupament)."
-
-#: tools/appstream-cli.c:869
-msgid "Create an XDG desktop-entry file from a metainfo file."
-msgstr ""
 
 #: tools/ascli-actions-misc.c:228
 #, c-format

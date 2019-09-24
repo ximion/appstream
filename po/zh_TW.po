@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 23:45+0200\n"
+"POT-Creation-Date: 2019-09-24 19:46+0200\n"
 "PO-Revision-Date: 2019-06-19 08:01+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -320,15 +320,15 @@ msgstr "將收藏集 XML 轉換成 YAML，或是相反。"
 msgid "Could not find component providing '%s::%s'."
 msgstr "找不到提供「%s::%s」的組件。"
 
+#: tools/appstream-cli.c:869
+msgid "Create a XDG desktop-entry file from a metainfo file."
+msgstr ""
+
 #: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
 msgstr "製作中介資訊檔的範本（由上游專案填寫）。"
-
-#: tools/appstream-cli.c:869
-msgid "Create an XDG desktop-entry file from a metainfo file."
-msgstr ""
 
 #: tools/ascli-actions-misc.c:228
 #, c-format

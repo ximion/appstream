@@ -9,10 +9,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-14 23:45+0200\n"
+"POT-Creation-Date: 2019-09-24 19:46+0200\n"
 "PO-Revision-Date: 2019-09-23 00:27+0000\n"
 "Last-Translator: Estébastien Robespi <estebastien@mailbox.org>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
+"translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +44,10 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "Une balise <description/> ne doit pas être traduite dans les fichiers métainfo (métadonnées upstream). Traduisez les paragraphes individuels à la place."
+msgstr ""
+"Une balise <description/> ne doit pas être traduite dans les fichiers "
+"métainfo (métadonnées upstream). Traduisez les paragraphes individuels à la "
+"place."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:195
@@ -144,7 +148,12 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr "Les descriptions Appstream n'interprète qu'un ensemble limité de balises de format texte : les paragraphes (<p/>) et les listes (<ul/>, <ol/>). Le texte de cette description contient une balise XML qui ne sera pas prise en compte correctement dans les applications disposant de la spécifications des métainfos."
+msgstr ""
+"Les descriptions Appstream n'interprète qu'un ensemble limité de balises de "
+"format texte : les paragraphes (<p/>) et les listes (<ul/>, <ol/>). Le texte "
+"de cette description contient une balise XML qui ne sera pas prise en compte "
+"correctement dans les applications disposant de la spécifications des "
+"métainfos."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -159,7 +168,9 @@ msgstr ""
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr "La mise à jour du cache AppStream a échoué. Activez le mode verbeux pour obtenir des informations détaillées."
+msgstr ""
+"La mise à jour du cache AppStream a échoué. Activez le mode verbeux pour "
+"obtenir des informations détaillées."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:944
@@ -181,7 +192,10 @@ msgstr "Intelligence Artificielle"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr "Le label mentionné ne doit apparaître qu'une fois dans ce contexte d'une spécification AppStream. Il n'est pas valide d'avoir plusieurs label de ce type."
+msgstr ""
+"Le label mentionné ne doit apparaître qu'une fois dans ce contexte d'une "
+"spécification AppStream. Il n'est pas valide d'avoir plusieurs label de ce "
+"type."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
@@ -334,6 +348,10 @@ msgstr "Convertit une collection XML vers YAML ou inversement."
 msgid "Could not find component providing '%s::%s'."
 msgstr "Impossible de trouver des composants qui fournissent « %s::%s »."
 
+#: tools/appstream-cli.c:869
+msgid "Create a XDG desktop-entry file from a metainfo file."
+msgstr ""
+
 #: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
@@ -341,10 +359,6 @@ msgid ""
 msgstr ""
 "Créer un modèle pour un fichier metainfo (à compléter par le projet en "
 "amont)."
-
-#: tools/appstream-cli.c:869
-msgid "Create an XDG desktop-entry file from a metainfo file."
-msgstr ""
 
 #: tools/ascli-actions-misc.c:228
 #, c-format
@@ -441,7 +455,8 @@ msgstr "Forcer une mise à jour du cache."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr "Les énumérations doivent seulement avoir des sous-balises liste (<li/>)."
+msgstr ""
+"Les énumérations doivent seulement avoir des sous-balises liste (<li/>)."
 
 #: tools/ascli-actions-misc.c:159
 #, c-format
@@ -530,12 +545,16 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr "Pour les vidéos, les seuls formats pris en charge pour le moment sont WebM et Matroska (.mkv). L'extension de la vidéo indiquée n'est pas celle de l'un de ces formats."
+msgstr ""
+"Pour les vidéos, les seuls formats pris en charge pour le moment sont WebM "
+"et Matroska (.mkv). L'extension de la vidéo indiquée n'est pas celle de l'un "
+"de ces formats."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Format du rapport à générer (les possibilités sont « text » et « yaml »)."
+msgstr ""
+"Format du rapport à générer (les possibilités sont « text » et « yaml »)."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -553,7 +572,9 @@ msgstr "%i composants trouvés."
 msgid ""
 "Found 'version' property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr "Un objet requis ou recommandé d'un type qui ne devrait pas avoir besoin d'une version a une propriété « version »."
+msgstr ""
+"Un objet requis ou recommandé d'un type qui ne devrait pas avoir besoin "
+"d'une version a une propriété « version »."
 
 #. TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
@@ -561,7 +582,10 @@ msgid ""
 "Found 'version' property on this required/recommended item, but not "
 "'compare' property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr "Cet objet requis ou recommandé a une propriété « version », mais n'a pas celle « compare ». Il est recommandé de définir explicitement une telle opération de comparaison."
+msgstr ""
+"Cet objet requis ou recommandé a une propriété « version », mais n'a pas "
+"celle « compare ». Il est recommandé de définir explicitement une telle "
+"opération de comparaison."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:277
@@ -570,13 +594,19 @@ msgid ""
 "not be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use 'memory' in the 'recommends' tag "
 "instead."
-msgstr "Une taille de mémoire vive est marquée comme « requires ». Un utilisateur qui n'a pas assez de mémoire vive ne pourra donc même pas installer ce composant. C'est rarement l'effet désiré. Vous pouvez marquer « memory » comme « recommends »."
+msgstr ""
+"Une taille de mémoire vive est marquée comme « requires ». Un utilisateur "
+"qui n'a pas assez de mémoire vive ne pourra donc même pas installer ce "
+"composant. C'est rarement l'effet désiré. Vous pouvez marquer « memory » "
+"comme « recommends »."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr "Un label inconnu est dans un groupe « requires » ou « recommends ». C'est sûrement une erreur comme une relation de type est inconnue."
+msgstr ""
+"Un label inconnu est dans un groupe « requires » ou « recommends ». C'est "
+"sûrement une erreur comme une relation de type est inconnue."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -585,7 +615,13 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or 'x-'-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr "Label invalide. Un label doit commencer par « x- », sauf s'il est standard. Le label <custom/> fourni par AppStream permet d'ajouter des données quelconques aux fichiers métainfos. Lu avec des librairies d'Appstream, ce label peut être utile si vous voulez juste personnaliser un fichier métainfos au lieu de définir des labels à haut niveau ou commençant par « x- »."
+msgstr ""
+"Label invalide. Un label doit commencer par « x- », sauf s'il est standard. "
+"Le label <custom/> fourni par AppStream permet d'ajouter des données "
+"quelconques aux fichiers métainfos. Lu avec des librairies d'Appstream, ce "
+"label peut être utile si vous voulez juste personnaliser un fichier "
+"métainfos au lieu de définir des labels à haut niveau ou commençant par « x- "
+"»."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:478 src/as-validator.c:890 src/as-validator.c:975
@@ -641,7 +677,10 @@ msgstr "Un icône « remote » doit avoir un URL vers l'icône en question."
 msgid ""
 "Icons of type 'stock' or 'cached' must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "Un icône « stock » ou « cached » ne doit pas contenir d'URL, ni de chemin d'accès même relatif. Seuls un simple nom de ficher ou un nom « stock » sont permis."
+msgstr ""
+"Un icône « stock » ou « cached » ne doit pas contenir d'URL, ni de chemin "
+"d'accès même relatif. Seuls un simple nom de ficher ou un nom « stock » sont "
+"permis."
 
 #: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
@@ -670,14 +709,18 @@ msgstr "Installez le logiciel correspondant à l'identifiant du composant."
 msgid ""
 "Invalid 'type' property for this 'url' tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr "Ce label « url » a une propriété « type » non valide. La specification d'AppStream n'a pas d'URL de ce type."
+msgstr ""
+"Ce label « url » a une propriété « type » non valide. La specification "
+"d'AppStream n'a pas d'URL de ce type."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:553
 msgid ""
 "Invalid tag found in collection metadata. Only 'component' tags are "
 "permitted."
-msgstr "La collection de métadonnées contient un label non valide. Sont permis que les labels « component »."
+msgstr ""
+"La collection de métadonnées contient un label non valide. Sont permis que "
+"les labels « component »."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -688,13 +731,17 @@ msgstr ""
 msgid ""
 "Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/"
 "ge are permitted."
-msgstr "Opération de comparaison de version non valide. Ne sont permis que 'eq', 'ne', 'lt', 'gt', 'le' et 'ge'."
+msgstr ""
+"Opération de comparaison de version non valide. Ne sont permis que 'eq', "
+"'ne', 'lt', 'gt', 'le' et 'ge'."
 
 #: src/as-validator-issue-tag.h:445
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr "Il est conseillé de présenter ce composent aux utilisateurs en ajoutant une longue description."
+msgstr ""
+"Il est conseillé de présenter ce composent aux utilisateurs en ajoutant une "
+"longue description."
 
 #: src/as-validator-issue-tag.h:440
 msgid ""
