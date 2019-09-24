@@ -1,3 +1,37 @@
+Version 0.12.9
+~~~~~~~~~~~~~~
+Released: 2019-09-24
+
+Features:
+ * validator: Add method to retrieve list of all tags
+ * ascli: Add command to make a desktop-entry file from a metainfo file
+ * ascli: Add command for YAMl NEWS file conversion
+ * ascli: Convert text NEWS file as well
+ * Recognize Specification/Documentation as new section type when converting NEWS
+ * Augment metainfo file with release information automatically
+ * Use gperf for description markup as well
+ * validator: Make file-extension checks work with complex URIs
+ * Implement support for release issues
+
+Specification:
+ * docs: Actually give a metadata license recommendation
+ * Document the issue tag, which can be part of release information
+ * spec: Explicitly allow WebP for images in metainfo files
+ * Permit requires/recommends relations on firmware, like Fwupd uses
+
+Bugfixes:
+ * docs: Move compulsory_for_desktop where it belongs
+ * docs: Mention how to exclude .desktop files from being processed
+ * Make -Wdeprecated-copy non-fatal in maintainer mode for now
+ * cache: Relax LMDB database max size assumption a bit to help 32bit builds
+ * validator: Don't crash in assertion if we have no filename
+ * Catch more errors when parsing YAML and _ref less often
+ * Interleave translated/untranslated paragraphs when generating metainfo XML
+ * Don't format cached XML
+ * Don't emit language tag for screenshot if it is unnecessary
+ * docs: Add missing documentation to API reference
+ * docs: Document a few missing ascli subcommands
+
 Version 0.12.8
 ~~~~~~~~~~~~~~
 Released: 2019-08-16
