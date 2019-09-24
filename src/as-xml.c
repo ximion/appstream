@@ -128,16 +128,14 @@ as_xml_dump_node_content (xmlNode *node)
 	if (!as_xml_dump_node (node, &content, &len))
 		return NULL;
 
-	/* remove the encosing root node from the string */
+	/* remove the enclosing root node from the string */
 	tmp = g_strrstr_len (content, len, "<");
 	if (tmp != NULL)
 		tmp[0] = '\0';
 
 	tmp = g_strstr_len (content, -1, ">");
-	if (tmp == NULL) {
-		g_free (content);
+	if (tmp == NULL)
 		return NULL;
-	}
 
 	return g_strdup (tmp + 1);
 }
