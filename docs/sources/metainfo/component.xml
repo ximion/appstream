@@ -771,6 +771,24 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry>
+				<term>&lt;firmware/&gt;</term>
+				<listitem>
+				<para>
+					Depend on a specific device firmware. The value of this tag should either be a name like <literal>bootloader</literal>, be
+					empty to reference the firmware itself described by the <literal>firmware</literal>-type component this tag is contained in,
+					or contain a GUID.
+					This tag is commonly used and interpreted by <ulink url="https://www.fwupd.org/">Fwupd</ulink>.
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<requires>
+  <firmware compare="ge" version="0.1.2">6de5d951-d755-576b-bd09-c5cf66b27234</firmware>
+  <firmware compare="ge" version="0.1.2"/>
+  <firmware compare="ge" version="0.3.4">bootloader</firmware>
+</requires>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
 
 			</variablelist>
 		</listitem>

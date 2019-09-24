@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -67,6 +67,7 @@ typedef enum  {
  * @AS_RELATION_ITEM_KIND_MODALIAS:	A hardware modalias
  * @AS_RELATION_ITEM_KIND_KERNEL:	An operating system kernel (like Linux)
  * @AS_RELATION_ITEM_KIND_MEMORY:	A system RAM requirement
+ * @AS_RELATION_ITEM_KIND_FIRMWARE:	A device firmware requirement (used by fwupd)
  *
  * Type of the item an #AsRelation is for.
  **/
@@ -76,6 +77,7 @@ typedef enum  {
 	AS_RELATION_ITEM_KIND_MODALIAS,
 	AS_RELATION_ITEM_KIND_KERNEL,
 	AS_RELATION_ITEM_KIND_MEMORY,
+	AS_RELATION_ITEM_KIND_FIRMWARE,
 	/*< private >*/
 	AS_RELATION_ITEM_KIND_LAST
 } AsRelationItemKind;

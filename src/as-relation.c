@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2019 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -112,6 +112,8 @@ as_relation_item_kind_to_string (AsRelationItemKind kind)
 		return "kernel";
 	if (kind == AS_RELATION_ITEM_KIND_MEMORY)
 		return "memory";
+	if (kind == AS_RELATION_ITEM_KIND_FIRMWARE)
+		return "firmware";
 	return "unknown";
 }
 
@@ -136,6 +138,8 @@ as_relation_item_kind_from_string (const gchar *kind_str)
 		return AS_RELATION_ITEM_KIND_KERNEL;
 	if (g_strcmp0 (kind_str, "memory") == 0)
 		return AS_RELATION_ITEM_KIND_MEMORY;
+	if (g_strcmp0 (kind_str, "firmware") == 0)
+		return AS_RELATION_ITEM_KIND_FIRMWARE;
 	return AS_RELATION_ITEM_KIND_UNKNOWN;
 }
 

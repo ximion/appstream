@@ -1019,10 +1019,13 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 		}
 
 		if (g_strcmp0 (content, "") == 0) {
-			as_validator_add_issue (validator, iter,
-						"relation-item-no-value",
-						NULL);
-			continue;
+			/* only firmware relations are permitted to be empty, and only if the component is of type=firmware */
+			if ((as_component_get_kind (cpt) != AS_COMPONENT_KIND_FIRMWARE) && (item_kind != AS_RELATION_ITEM_KIND_FIRMWARE)) {
+				as_validator_add_issue (validator, iter,
+							"relation-item-no-value",
+							NULL);
+				continue;
+			}
 		}
 
 		/* check for circular relation */
