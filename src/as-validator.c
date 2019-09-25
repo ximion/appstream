@@ -899,6 +899,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 			if (g_strcmp0 (node_name, "image") == 0) {
 				g_autofree gchar *image_url = (gchar*) xmlNodeGetContent (iter2);
+				g_strstrip (image_url);
 
 				image_found = TRUE;
 
@@ -920,6 +921,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				g_autofree gchar *video_url_basename = NULL;
 				g_autofree gchar *video_url_base_lower = NULL;
 				g_autofree gchar *video_url = (gchar*) xmlNodeGetContent (iter2);
+				g_strstrip (video_url);
 
 				video_found = TRUE;
 

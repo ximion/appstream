@@ -332,6 +332,7 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 		}
 	}
 
+	g_strstrip (content);
 	if (!as_context_has_media_baseurl (ctx)) {
 		/* no baseurl, we can just set the value as URL */
 		as_image_set_url (image, content);
