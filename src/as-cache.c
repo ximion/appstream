@@ -2049,6 +2049,10 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 					sort_score |= match_pval << 2;
 				else
 					sort_score |= match_pval;
+
+				if (as_component_get_kind(cpt) == AS_COMPONENT_KIND_ADDON)
+					sort_score--;
+
 				as_component_set_sort_score (cpt, sort_score);
 
 				g_hash_table_insert (results_ht,
@@ -2061,6 +2065,10 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 				sort_score |= match_pval << 2;
 			else
 				sort_score |= match_pval;
+
+			if (as_component_get_kind(cpt) == AS_COMPONENT_KIND_ADDON)
+				sort_score--;
+
 			as_component_set_sort_score (cpt, sort_score);
 		}
 	}
