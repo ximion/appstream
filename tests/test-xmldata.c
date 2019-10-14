@@ -940,7 +940,7 @@ test_appstream_write_metainfo_to_collection (void)
 					   "    <icon type=\"cached\" width=\"40\" height=\"40\">test_writetest.png</icon>\n"
 					   "    <icon type=\"stock\">xml-writetest</icon>\n"
 					   "    <releases>\n"
-					   "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460332800\"/>\n"
+					   "      <release type=\"stable\" version=\"1.0\" timestamp=\"1460412000\"/>\n"
 					   "    </releases>\n"
 					   "  </component>\n"
 					   "</components>\n";

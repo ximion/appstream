@@ -298,14 +298,11 @@ void
 as_release_set_timestamp (AsRelease *release, guint64 timestamp)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	GTimeVal time;
+	g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (timestamp);
 
 	priv->timestamp = timestamp;
-	time.tv_sec = priv->timestamp;
-	time.tv_usec = 0;
-
 	g_free (priv->date);
-	priv->date = g_time_val_to_iso8601 (&time);
+	priv->date = g_date_time_format_iso8601 (time);
 }
 
 /**
@@ -429,15 +426,14 @@ void
 as_release_set_timestamp_eol (AsRelease *release, guint64 timestamp)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-	GTimeVal time;
+	g_autoptr(GDateTime) time = NULL;
 
 	if (timestamp == 0)
 		return;
 
-	time.tv_sec = timestamp;
-	time.tv_usec = 0;
+	time = g_date_time_new_from_unix_utc (timestamp);
 	g_free (priv->date_eol);
-	priv->date_eol = g_time_val_to_iso8601 (&time);
+	priv->date_eol = g_date_time_format_iso8601 (time);
 }
 
 /**
@@ -1031,10 +1027,8 @@ as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root)
 			xmlNewProp (subnode, (xmlChar*) "timestamp",
 					(xmlChar*) time_str);
 		} else {
-			GTimeVal time;
-			time.tv_sec = priv->timestamp;
-			time.tv_usec = 0;
-			time_str = g_time_val_to_iso8601 (&time);
+			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
+			time_str = g_date_time_format_iso8601 (time);
 			xmlNewProp (subnode, (xmlChar*) "date",
 					(xmlChar*) time_str);
 		}
@@ -1180,10 +1174,8 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 						      "unix-timestamp",
 						      priv->timestamp);
 		} else {
-			GTimeVal time;
-			time.tv_sec = priv->timestamp;
-			time.tv_usec = 0;
-			time_str = g_time_val_to_iso8601 (&time);
+			g_autoptr(GDateTime) time = g_date_time_new_from_unix_utc (priv->timestamp);
+			time_str = g_date_time_format_iso8601 (time);
 			as_yaml_emit_entry (emitter, "date", time_str);
 		}
 	}
