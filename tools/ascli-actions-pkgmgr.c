@@ -42,7 +42,7 @@ exec_pm_action (const gchar *action, gchar **pkgnames)
 	guint i;
 	g_auto(GStrv) cmd = NULL;
 
-#ifdef APT_SUPPORT
+#ifdef HAVE_APT_SUPPORT
 	if (g_file_test ("/usr/bin/apt", G_FILE_TEST_EXISTS))
 		exe = "/usr/bin/apt";
 #endif
