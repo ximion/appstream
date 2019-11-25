@@ -17,6 +17,7 @@
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Emin Tufan Çetin <etcetin@gmail.com>, 2018. #zanata
 # Muhammet Kara <muhammet.k@gmail.com>, 2018. #zanata
+# Deleted User <noreply+16368@weblate.org>, 2021.
 #
 # Translators:
 msgid ""
@@ -24,15 +25,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2021-12-21 16:55+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"PO-Revision-Date: 2021-12-22 15:44+0000\n"
+"Last-Translator: Deleted User <noreply+16368@weblate.org>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1127,10 +1128,7 @@ msgstr ""
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"Açıklama, düz metin şeklinde bir web URL'si içeriyor. Buna izin "
-"verilmemektedir, lütfen bağlantıları paylaşmak için <url/> etiketini "
-"kullanın."
+msgstr "Açıklama, düz metin şeklinde bir web URL'si içeriyor. Buna izin verilmemektedir, lütfen bağlantıları paylaşmak için <url/> etiketini kullanın."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
@@ -1144,9 +1142,7 @@ msgstr ""
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
-"Bahsedilen etiket boştur, bu da bir içeriğe sahip olması gerektiği için "
-"büyük olasılıkla istenen değildir."
+msgstr "Bahsedilen etiket boştur, bu da bir içeriğe sahip olması gerektiği için büyük olasılıkla istenen değildir."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
@@ -1210,11 +1206,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"Bileşen kimliği, sayı ile başlayan bir segment içermektedir. D-Bus gibi "
-"diğer araçlarla birlikte çalışabilirliği korumak için ters DNS kimliğinin "
-"bir bölümünün bir sayıyla başlatılması kesinlikle önerilmez. İdeal olarak, "
-"bu segmentler için ön ek olarak bir alt çizgi kullanın."
+msgstr "Bileşen kimliği, sayı ile başlayan bir segment içermektedir. D-Bus gibi diğer araçlarla birlikte çalışabilirliği korumak için ters DNS kimliğinin bir bölümünün bir sayıyla başlatılması kesinlikle önerilmez. İdeal olarak, bu segmentler için ön ek olarak bir alt çizgi kullanın."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
@@ -1224,25 +1216,19 @@ msgstr "Bileşen kimliği yalnızca küçük harfler içermelidir."
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
-"Bileşen Freedesktop projesinin bir parçası, ancak kimliği fd.o'nun ters DNS "
-"adıyla (\"org.freedesktop\") başlamıyor."
+msgstr "Bileşen Freedesktop projesinin bir parçası, ancak kimliği fd.o'nun ters DNS adıyla (\"org.freedesktop\") başlamıyor."
 
 #: src/as-validator-issue-tag.h:146
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Bileşen, KDE projesinin bir parçası, ancak kimliği KDE'nin ters DNS adıyla "
-"(\"org.kde\") başlamıyor."
+msgstr "Bileşen, KDE projesinin bir parçası, ancak kimliği KDE'nin ters DNS adıyla (\"org.kde\") başlamıyor."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Bileşen GNOME projesinin bir parçası, ancak kimliği GNOME'un ters DNS adıyla "
-"(\"org.gnome\") başlamıyor."
+msgstr "Bileşen GNOME projesinin bir parçası, ancak kimliği GNOME'un ters DNS adıyla (\"org.gnome\") başlamıyor."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1253,10 +1239,7 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"Lisans kimliği SPDX veritabanında bulunamadı. Lütfen lisans kimliğinin "
-"SPDX'e uygun bir şekilde yazıldığını ve geçerli bir özgür yazılım lisansı "
-"olduğunu kontrol edin."
+msgstr "Lisans kimliği SPDX veritabanında bulunamadı. Lütfen lisans kimliğinin SPDX'e uygun bir şekilde yazıldığını ve geçerli bir özgür yazılım lisansı olduğunu kontrol edin."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
@@ -1303,36 +1286,27 @@ msgstr "Ekran görüntüsü resmine uzak konumunda erişilemiyor - resim mevcut 
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
-"Ekran görüntüsü videosuna uzak konumunda erişilemiyor - video dosyası mevcut "
-"mu?"
+msgstr "Ekran görüntüsü videosuna uzak konumunda erişilemiyor - video dosyası mevcut mu?"
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Bu ekran görüntüsü resmine veya videosuna referans vermek için güvenli "
-"(HTTPS) bir URL kullanmayı düşünün."
+msgstr "Bu ekran görüntüsü resmine veya videosuna referans vermek için güvenli (HTTPS) bir URL kullanmayı düşünün."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Bir ekran görüntüsü, faydalı olması için en az bir resim ya da video "
-"içermelidir. Lütfen bir <image/> ekleyin."
+msgstr "Bir ekran görüntüsü, faydalı olması için en az bir resim ya da video içermelidir. Lütfen bir <image/> ekleyin."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Bir ekran görüntüsü ya resim ya da video içermelidir, ancak her ikisini aynı "
-"anda içermemelidir. Lütfen bu ekran görüntüsünü yalnızca statik resimler ya "
-"da videolar için kullanın."
+msgstr "Bir ekran görüntüsü ya resim ya da video içermelidir, ancak her ikisini aynı anda içermemelidir. Lütfen bu ekran görüntüsünü yalnızca statik resimler ya da videolar için kullanın."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1386,10 +1360,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"Videolar için, şu anda yalnızca WebM ve Matroska (.mkv) konteyner biçimleri "
-"desteklenmektedir. Referans edilen videonun dosya uzantısı bu biçimlerden "
-"hiçbirine ait değildir."
+msgstr "Videolar için, şu anda yalnızca WebM ve Matroska (.mkv) konteyner biçimleri desteklenmektedir. Referans edilen videonun dosya uzantısı bu biçimlerden hiçbirine ait değildir."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -1533,9 +1504,7 @@ msgstr ""
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Bileşenin ayarlanmış bir öncelik değeri var. Buna metainfo dosyalarında izin "
-"verilmemektedir."
+msgstr "Bileşenin ayarlanmış bir öncelik değeri var. Buna metainfo dosyalarında izin verilmemektedir."
 
 #: src/as-validator-issue-tag.h:337
 msgid ""
@@ -1650,9 +1619,7 @@ msgstr "Bu değer için bir web URL'si bekleniyordu."
 #: src/as-validator-issue-tag.h:437
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
-"Bu web bağlantısı FTP protokolünü kullanmaktadır. Bunun yerine HTTP(S)'ye "
-"geçmeyi düşünün."
+msgstr "Bu web bağlantısı FTP protokolünü kullanmaktadır. Bunun yerine HTTP(S)'ye geçmeyi düşünün."
 
 #: src/as-validator-issue-tag.h:442
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -1662,9 +1629,7 @@ msgstr "<developer_name/> bir hiperlink içeremez."
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr ""
-"Ayarlanan değer, Freedesktop.org'a kayıtlı bir masaüstü ortamı için "
-"tanımlayıcı değildir."
+msgstr "Ayarlanan değer, Freedesktop.org'a kayıtlı bir masaüstü ortamı için tanımlayıcı değildir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
@@ -1729,9 +1694,7 @@ msgstr ""
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
-"Kullanıcılara daha iyi sunabilmek için bu yazı tipine uzun bir açıklama "
-"eklemek faydalı olacaktır."
+msgstr "Kullanıcılara daha iyi sunabilmek için bu yazı tipine uzun bir açıklama eklemek faydalı olacaktır."
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
@@ -1892,9 +1855,7 @@ msgstr ""
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
-"Bu XML belgesinde bilinmeyen bir root etiketi var. Belki de bu dosya bir "
-"metainfo belgesi değildir?"
+msgstr "Bu XML belgesinde bilinmeyen bir root etiketi var. Belki de bu dosya bir metainfo belgesi değildir?"
 
 #: src/as-validator-issue-tag.h:618
 msgid "The metainfo filename does not match the component ID."
@@ -1937,9 +1898,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:653
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
-"Metainfo dosyası birden fazla bileşen belirtmektedir. Buna izin "
-"verilmemektedir."
+msgstr "Metainfo dosyası birden fazla bileşen belirtmektedir. Buna izin verilmemektedir."
 
 #: src/as-validator-issue-tag.h:658
 msgid ""
@@ -2112,10 +2071,7 @@ msgstr ""
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
-"Yayınlanan sorun etiketi AppStream etiket kayıt defterinde bilinmiyor. Bu, "
-"validatörün kendisinde bir hatadır, lütfen bu sorunu hata takip "
-"platformumuzda bildirin."
+msgstr "Yayınlanan sorun etiketi AppStream etiket kayıt defterinde bilinmiyor. Bu, validatörün kendisinde bir hatadır, lütfen bu sorunu hata takip platformumuzda bildirin."
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
@@ -2478,8 +2434,7 @@ msgstr "TYPE, şunun gibi geçerli bir bileşen türü olmalıdır: %s"
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:801
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
-"Masaüstü girdi dosyasının 'Exec =' anahtarı için belirtilen satırı kullanın."
+msgstr "Masaüstü girdi dosyasının 'Exec =' anahtarı için belirtilen satırı kullanın."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
@@ -2899,8 +2854,7 @@ msgstr "Mevcut masaüstü girdi dosyası şablonu yüklenemedi: %s"
 #: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
-"Yeni masaüstü girdi dosyası '%s', '%s'den veriler kullanılarak oluşturuluyor"
+msgstr "Yeni masaüstü girdi dosyası '%s', '%s'den veriler kullanılarak oluşturuluyor"
 
 #: tools/ascli-actions-misc.c:214
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -2910,9 +2864,7 @@ msgstr "Metainfo dosyasında stok simge adı sağlanmadı. Devam edilemiyor."
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"Metainfo dosyasında bir binary dosya belirtilmedi ve '--exec' aracılığıyla "
-"exec komutu belirtilmedi. 'Exec =' anahtarı oluşturulamıyor."
+msgstr "Metainfo dosyasında bir binary dosya belirtilmedi ve '--exec' aracılığıyla exec komutu belirtilmedi. 'Exec =' anahtarı oluşturulamıyor."
 
 #: tools/ascli-actions-misc.c:300
 #, c-format
