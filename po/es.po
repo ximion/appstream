@@ -13,16 +13,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-24 19:46+0200\n"
-"PO-Revision-Date: 2019-09-15 14:23+0000\n"
-"Last-Translator: Robert Schneider <robertschneider1999.rs@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"PO-Revision-Date: 2019-11-29 07:04+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 3.10-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -47,9 +46,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"La etiqueta  <description/> no debe ser localizada en ficheros metainfo "
-"(metadatos enviados). Localizar los paragrafos personales portanto."
+msgstr "No debe regionalizarse la etiqueta <description/> en los archivos de metainformación (metadatos originales). En lugar de ello, regionalice los párrafos individuales."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:195
@@ -203,7 +200,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Asumir que el archivo de entrada está en el formato seleccionado («yaml» o «text»)."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -228,7 +225,7 @@ msgstr "Creación y edición de audio"
 #: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Se aumentó el archivo de entrada de escritorio «%s» con datos de «%s»."
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -343,7 +340,7 @@ msgstr ""
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
 msgid "Convert collection XML to YAML or vice versa."
-msgstr "Convertir XML de colecta en YAML o viceversa."
+msgstr "Convertir XML de colección en YAML o viceversa."
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:228
@@ -643,7 +640,7 @@ msgstr "Juegos"
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
 msgid "Generate the output in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Generar la salida en el formato seleccionado («yaml» o «text»)."
 
 #: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
@@ -674,17 +671,14 @@ msgstr "Icono"
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:351
 msgid "Icons of type 'remote' must contain an URL to the referenced icon."
-msgstr "Las iconas de tipo 'isolado' deben contenir un URL a l'icona referida."
+msgstr "Los iconos de tipo «remote» deben contener un URL que apunte al icono al que se hace referencia."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:344
 msgid ""
 "Icons of type 'stock' or 'cached' must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Las icones de tipo 'reservado' o 'ocultado' no deben contenir ningun URL, un "
-"modo completo a relativo a l'icona . Solo los nombres de bases de ficheros o "
-"nombres reservados son permisos."
+msgstr "Los iconos de tipo «stock» o «cached» no deben tener un URL o una ruta completa o relativa hacia el icono. Solo se permiten los nombres de base o de elemento predefinido."
 
 #: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
@@ -714,18 +708,14 @@ msgstr ""
 msgid ""
 "Invalid 'type' property for this 'url' tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Propiedad invalida para ese titulo del 'url'. Los URLs de este tipo no son "
-"conocidos  en l'AppStream especificado."
+msgstr "La propiedad «type» no es válida en la etiqueta «url». Los URL de este tipo no se reconocen en la especificación AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:553
 msgid ""
 "Invalid tag found in collection metadata. Only 'component' tags are "
 "permitted."
-msgstr ""
-"Titulo invalido encontrado en la coleccion metadatos. Solo 'componentes' son "
-"permitidos."
+msgstr "Se encontró una etiqueta no válida en los metadatos de la colección. Solo se permiten etiquetas «component»."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -737,23 +727,19 @@ msgstr ""
 msgid ""
 "Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/"
 "ge are permitted."
-msgstr ""
-"Version invalida del uso comparando al objeto  relativo. Solo los  eq/ne/lt/"
-"gt/le/ge son permitidos."
+msgstr "Hay una operación de comparación de versiones no válida en el elemento de relación. Solo se permiten eq/ne/lt/gt/le/ge."
 
 #: src/as-validator-issue-tag.h:445
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
-"Es recomendado de anadir una larga descripcion a este componente para "
-"presentarlo mejor a usuarios."
+msgstr "Se recomienda añadir una descripción detallada a este componente para presentarlo mejor a los usuarios."
 
 #: src/as-validator-issue-tag.h:440
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
+msgstr "Sería útil añadir una descripción detallada a este tipo de letra para presentarlo mejor a los usuarios."
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
@@ -838,7 +824,7 @@ msgstr "Tipos de medios"
 #: tools/ascli-actions-mdata.c:364
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr "El archivo de metadatos «%s» no existe."
+msgstr "No existe el archivo de metadatos «%s»."
 
 #: src/as-pool.c:841
 msgid "Metadata files have errors:"
@@ -846,16 +832,16 @@ msgstr "Los archivos de metadatos tienen errores:"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "El archivo de metadatos «%s» no existe."
+msgstr "No existe el archivo de metainformación «%s»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:367
 msgid ""
 "Metainfo files may only contain icons of type 'stock' or 'remote', the set "
 "type is not allowed."
-msgstr ""
+msgstr "Los archivos de metainformación pueden contener solo iconos «stock» o «remote»; no se permite el tipo «set»."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:116
@@ -882,7 +868,7 @@ msgstr "Noticias"
 
 #: src/as-validator-issue-tag.h:589
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
+msgstr "No se encontraron metadatos de AppStream en este directorio o árbol de directorios."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:594
@@ -1239,7 +1225,7 @@ msgstr ""
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
+msgstr "Al componente le falta una descripción detallada. Los componentes de este tipo deben tener una descripción detallada."
 
 #: src/as-validator-issue-tag.h:303
 msgid "The component is missing a name (<name/> tag)."
@@ -1315,7 +1301,7 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "Puede que el primer párrafo «description/p» de este componente sea demasiado corto (< 80 caracteres). Considere empezar con un párrafo más extenso para mejorar el aspecto de la descripción en los centros de «software» y para brindar información más detallada sobre este componente inmediatamente en el primer párrafo."
 
 #: src/as-validator-issue-tag.h:393
 msgid ""
@@ -1466,7 +1452,7 @@ msgstr ""
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:405
 msgid "This 'bundle' tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Esta etiqueta «bundle» tiene un tipo desconocido y, por ende, no puede utilizarse."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:399
@@ -1537,7 +1523,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:579
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "Los metadatos de este componente hacen referencia a un archivo .desktop que no existe."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1558,7 +1544,7 @@ msgstr ""
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
+msgstr "A este componente genérico le falta una descripción detallada. Podría ser útil añadir una."
 
 #: src/as-validator-issue-tag.h:416
 msgid ""
