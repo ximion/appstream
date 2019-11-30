@@ -802,7 +802,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 		    g_strcmp0 (tokens[i], ")") == 0) {
 			as_validator_add_issue (validator, license_node,
 						"metadata-license-too-complex",
-						NULL);
+						license_expression);
 			return;
 		}
 	}
@@ -837,7 +837,7 @@ as_validator_validate_metadata_license (AsValidator *validator, xmlNode *license
 	/* looks like the license was bad */
 	as_validator_add_issue (validator, license_node,
 				"metadata-license-invalid",
-				NULL);
+				license_expression);
 }
 
 /**
