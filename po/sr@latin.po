@@ -6,7 +6,7 @@
 # Miloš Popović <gpopac@gmail.com>, 2015
 # Marko M. Kostić (Marko M. Kostić) <marko.m.kostic@gmail.com>, 2015
 # Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2014,2016
-# Mihajlo Djordjevic <djordjevic.mihajlo@gmail.com>, 2019.
+# Mihajlo Djordjevic <djordjevic.mihajlo@gmail.com>, 2019, 2021.
 # #-#-#-#-#  sr@latin.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
+"Last-Translator: Mihajlo Djordjevic <djordjevic.mihajlo@gmail.com>\n"
 "Language-Team: Serbian (latin) <https://hosted.weblate.org/projects/appstream/translations/sr_Latn/>\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -1095,9 +1095,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"<description/> bedž ne sme biti lokalizovan u metainfo fajlovima (upstream "
-"metadata). Lokalizujte individualne paragrafe umesto toga."
+msgstr "<description/> bedž ne sme biti lokalizovan u metainfo fajlovima (upstream metadata). Lokalizujte individualne paragrafe umesto toga."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1276,19 +1274,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Snimak ekrana mora imati barem jednu sliku ili video snimak da bi bio "
-"uspešan. Molim Vas dodajte <image/> ka njemu."
+msgstr "Snimak ekrana mora imati barem jednu sliku ili video snimak da bi bio uspešan. Molim Vas dodajte <image/> ka njemu."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Snimak ekrana mora imati ili slike ili video snimke, ali ne oba u isto "
-"vreme. Molim Vas koristite ovaj snimak ekrana isključivo za ili statične "
-"slike ili video snimke."
+msgstr "Snimak ekrana mora imati ili slike ili video snimke, ali ne oba u isto vreme. Molim Vas koristite ovaj snimak ekrana isključivo za ili statične slike ili video snimke."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
