@@ -194,6 +194,35 @@ as_release_class_init (AsReleaseClass *klass)
 }
 
 /**
+ * as_release_localized_get:
+ * @release: a #AsRelease instance.
+ * @lht: (element-type utf8 utf8): the #GHashTable on which the value will be retreived.
+ *
+ * Helper function to get a localized property using the current
+ * active locale for this release.
+ */
+static const gchar*
+as_release_localized_get (AsRelease *release, GHashTable *lht)
+{
+	const gchar *locale;
+	gchar *msg;
+
+	locale = as_release_get_active_locale (release);
+	msg = g_hash_table_lookup (lht, locale);
+	if (msg == NULL) {
+		g_autofree gchar *lang = as_utils_locale_to_language (locale);
+		/* fall back to language string */
+		msg = g_hash_table_lookup (lht, lang);
+		if (msg == NULL) {
+			/* fall back to untranslated / default */
+			msg = g_hash_table_lookup (lht, "C");
+		}
+	}
+
+	return msg;
+}
+
+/**
  * as_release_get_kind:
  * @release: a #AsRelease instance.
  *
@@ -481,16 +510,8 @@ as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency)
 const gchar*
 as_release_get_description (AsRelease *release)
 {
-	const gchar *desc;
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-
-	desc = g_hash_table_lookup (priv->description, as_release_get_active_locale (release));
-	if (desc == NULL) {
-		/* fall back to untranslated / default */
-		desc = g_hash_table_lookup (priv->description, "C");
-	}
-
-	return desc;
+	return as_release_localized_get (release, priv->description);
 }
 
 /**
