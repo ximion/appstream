@@ -5,22 +5,21 @@
 # Miloš Popović <gpopac@gmail.com>, 2015
 # Marko M. Kostić (Marko M. Kostić) <marko.m.kostic@gmail.com>, 2015
 # Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2014,2016
+# Mihajlo Djordjevic <djordjevic.mihajlo@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-24 19:46+0200\n"
-"PO-Revision-Date: 2017-05-05 11:18+0000\n"
-"Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
-"Language-Team: Serbian (latin) <https://hosted.weblate.org/projects/"
-"appstream/translations/sr_Latn/>\n"
+"PO-Revision-Date: 2019-12-11 16:44+0000\n"
+"Last-Translator: Mihajlo Djordjevic <djordjevic.mihajlo@gmail.com>\n"
+"Language-Team: Serbian (latin) <https://hosted.weblate.org/projects/appstream/translations/sr_Latn/>\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.14-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.10-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -37,27 +36,27 @@ msgstr "3D grafika"
 msgid ""
 "A 'requires' or 'recommends' item requires a value to denote a valid "
 "relation."
-msgstr ""
+msgstr "'requires' ili 'recommends' stavka zahteva vrednost da bi ukazala na važeći odnos."
 
 #: src/as-validator-issue-tag.h:51
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "<description/> bedž ne sme biti lokalizovan u metainfo fajlovima (upstream metadata). Lokalizujte individualne paragrafe umesto toga."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:195
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "Snimak ekrana mora imati barem jednu sliku ili video snimak da bi bio uspešan. Molim Vas dodajte <image/> ka njemu."
 
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "Snimak ekrana mora imati ili slike ili video snimke, ali ne oba u isto vreme. Molim Vas koristite ovaj snimak ekrana isključivo za ili statične slike ili video snimke."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -86,7 +85,7 @@ msgstr "Izbacuje pedantne savete pri proveri."
 msgid ""
 "An 'extends' tag is specified, but the component is not of type 'addon', "
 "'localization' or 'repository'."
-msgstr ""
+msgstr "'extends' bedž je specificiran, ali deo nije tipa 'addon', 'localization' or 'repository'."
 
 #: tools/appstream-cli.c:850
 #, fuzzy
