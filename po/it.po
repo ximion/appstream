@@ -6,7 +6,7 @@
 # Milo Casagrande <milo@ubuntu.com>, 2019, 2021.
 # Sergio Brighenti <sergio@brighenti.me>, 2019.
 # davide rinaudo <davide.rinaudo.scuola@gmail.com>, 2019.
-# Antenore Gatta <antenore@simbiosi.org>, 2019.
+# Antenore Gatta <antenore@simbiosi.org>, 2019, 2021.
 # Ivan Fossati <vania1366@gmail.com>, 2020.
 # Giovanni Battaglia <iamgiovanni.gb@gmail.com>, 2020.
 # #-#-#-#-#  it.po (appstream-glib)  #-#-#-#-#
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
+"Last-Translator: Antenore Gatta <antenore@simbiosi.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -1111,9 +1111,7 @@ msgstr "Il tag menzionato è vuoto, poiché probabilmente non inteso in maniera 
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
-"L'ID componente deve seguire uno schema di nome di dominio inverso per il "
-"nome. Vedere la specifica AppStream per i dettagli."
+msgstr "L'ID componente deve seguire uno schema di nome di dominio inverso per il nome. Vedere la specifica AppStream per i dettagli."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1126,15 +1124,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"L'ID componente non è un nome di dominio inverso. Aggiornare l'ID per "
-"evitare problemi futuri ed essere compatibili con tutte le implementazioni "
-"di AppStream.\n"
-"Si può anche prendere in considerazione di aggiornare il nome del file ."
-"desktop di accompagnamento per seguire l'ultima versione della specifica "
-"Desktop-Entry e utilizzare un nome rDNS anche per esso. In ogni caso, non "
-"dimenticare di menzionare la nuova voce desktop in un <launchable/>tag per "
-"questo componente per mantenere l'applicazione avviabile dai centri software "
-"e dai dati dei file .desktop associati ai dati metainfo."
+"L'ID componente non è un nome di dominio inverso. Aggiornare l'ID per evitare problemi futuri ed essere compatibili con tutte le implementazioni di AppStream.\n"
+"Si può anche prendere in considerazione di aggiornare il nome del file .desktop di accompagnamento per seguire l'ultima versione della specifica Desktop-Entry e utilizzare un nome rDNS anche per esso. In ogni caso, non dimenticare di menzionare la nuova voce desktop in un <launchable/>tag per questo componente per mantenere l'applicazione avviabile dai centri software e dai dati dei file .desktop associati ai dati metainfo."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
@@ -1146,9 +1137,7 @@ msgstr "Il componente ID potrebbe non seguire lo schema dominio-nome inverso (il
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
-"L'ID del componente contiene un carattere non valido. Sono consentiti solo "
-"caratteri ASCII, punti e numeri."
+msgstr "L'ID del componente contiene un carattere non valido. Sono consentiti solo caratteri ASCII, punti e numeri."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
@@ -1163,11 +1152,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"L'ID componente contiene un segmento che inizia con un numero. L'avvio di un "
-"segmento dell'ID DNS inverso con un numero è fortemente sconsigliato, per "
-"mantenere l'interoperabilità con altri strumenti come D-Bus. Idealmente, "
-"anteporre a questi segmenti un segno di sottolineatura."
+msgstr "L'ID componente contiene un segmento che inizia con un numero. L'avvio di un segmento dell'ID DNS inverso con un numero è fortemente sconsigliato, per mantenere l'interoperabilità con altri strumenti come D-Bus. Idealmente, anteporre a questi segmenti un segno di sottolineatura."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
