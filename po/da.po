@@ -4,21 +4,21 @@
 # Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2014
 # scootergrisen <scootergrisen@gmail.com>, 2019.
+# Henrik Dankvardt <dankvardt@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-24 19:46+0200\n"
-"PO-Revision-Date: 2019-08-27 02:23+0000\n"
-"Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/"
-"translations/da/>\n"
+"PO-Revision-Date: 2019-12-27 00:21+0000\n"
+"Last-Translator: Henrik Dankvardt <dankvardt@gmail.com>\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 3.10\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -35,27 +35,27 @@ msgstr "3D-grafik"
 msgid ""
 "A 'requires' or 'recommends' item requires a value to denote a valid "
 "relation."
-msgstr ""
+msgstr "Et 'requires' eller 'recommends' element kræver en værdi for at angive en gyldig relation."
 
 #: src/as-validator-issue-tag.h:51
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "En <description/> tag må ikke blive lokaliseret i metainfo filer (upstream metadata). Lokaliser de enkelte afsnit i stedet."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:195
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "Et screenshot skal indeholde mindst et billede eller en video  for at være brugbar. Tilføj  venligst et <image/> til det."
 
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "Et screenshot skal indeholde enten billeder eller videoer, men ikke begge på samme tid. Brug dette screenshot udelukkende til enten statiske billeder eller til videoer."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -83,7 +83,7 @@ msgstr "Vis også pedantiske tips."
 msgid ""
 "An 'extends' tag is specified, but the component is not of type 'addon', "
 "'localization' or 'repository'."
-msgstr ""
+msgstr "Et \"extends\" -tag er specificeret, men komponenten er ikke af typen 'addon', 'localization' eller 'repository'."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -135,25 +135,20 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "AppStream-beskrivelser understøtter kun et begrænset sæt tags til formatering af tekst: Paragraphs (<p />) og lister (<ul />, <ol />). Denne description markup indeholder et ugyldigt XML-tag, der ikke gengives korrekt i applikationer, der understøtter metainfo-specifikationen."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
-"AppStream er en specifikation på tværs af distributioner, som leverer "
-"metadata om softwarekomponenter."
+msgstr "AppStream er en specifikation på tværs af distributioner, som leverer metadata om softwarekomponenter."
 
 #: src/as-pool.c:1787
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr ""
-"Opdatering af AppStreams mellemlager mislykkedes. Slå uddybende tilstand til "
-"for at få flere detaljer om problemet."
+msgstr "Opdatering af AppStreams system cache mislykkedes. Slå verbose mode til for at få flere detaljer om problemet."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:944
@@ -175,12 +170,12 @@ msgstr "Kunstig intelligens"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
+msgstr "I henhold til AppStream-specifikationer skal det nævnte tag kun vises én gang i denne sammenhæng. At have flere tags af denne art er ikke gyldigt."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Antag, at inputfilen er i det valgte format ('yaml' eller 'text')."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -205,7 +200,7 @@ msgstr "Oprettelse og redigering af lyd"
 #: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Forøgelse af eksisterende desktop entry fil '% s' med data fra '% s'."
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -298,21 +293,21 @@ msgstr "Obligatorisk for"
 
 #: src/as-validator-issue-tag.h:361
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
+msgstr "Overvej at bruge en sikker (HTTPS) URL til linket til fjernikonet."
 
 #: src/as-validator-issue-tag.h:383
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "Overvej at bruge en sikker (HTTPS) URL til dette web link."
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
+msgstr "Overvej at bruge en sikker (HTTPS) URL til at henvise til dette screenshot eller video."
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "Konverter en YAML eller tekst-News-fil til metainfo-udgivelser."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -327,7 +322,7 @@ msgstr "Kan ikke finde komponent som leverer '%s::%s'."
 
 #: tools/appstream-cli.c:869
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "Opret en XDG desktop-entry fil fra en metainfo fil."
 
 #: tools/appstream-cli.c:868
 msgid ""
@@ -338,7 +333,7 @@ msgstr "Opret en skabelon til en metainfofil (udfyldes af opstrømsprojektet)."
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Oprettelse af ny desktop-entry fil '% s' ved hjælp af data fra '% s'"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
@@ -426,7 +421,7 @@ msgstr "Gennemtving en opdatering af mellemlageret."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "'Enumerations' skal kun have listeelementer (<li />) som 'Children'."
 
 #: tools/ascli-actions-misc.c:159
 #, c-format
@@ -515,13 +510,12 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
+msgstr "I øjeblikket understøttes kun 'container' formaterne WebM og Matroska (.mkv) til videoer. Fil 'extension' af den refererede video hører ikke til nogen af disse formater."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Standardmetadataformat (gyldige værdier er 'xml' og 'yaml')."
+msgstr "Format af den genererede rapport (gyldige værdier er 'tekst' og 'yaml')."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -539,7 +533,7 @@ msgstr "Fandt %i komponenter."
 msgid ""
 "Found 'version' property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
+msgstr "Fundet 'version' egenskab på 'required/recommended' vare af en type, der ikke skal have eller kræver en version."
 
 #. TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
@@ -547,7 +541,7 @@ msgid ""
 "Found 'version' property on this required/recommended item, but not "
 "'compare' property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
+msgstr "Fundet 'version' ejendom på denne 'required/recommended' objekt, men ikke 'compare' ejendom. Det anbefales at eksplicit definere en comparison -operation."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:277
@@ -1244,7 +1238,7 @@ msgstr ""
 msgid ""
 "The given values is not an identifier for a desktop environment as "
 "registered with Freedesktop.org."
-msgstr ""
+msgstr "De givne værdier er ikke en identifikator for et Desktop-miljø som registreret på Freedesktop.org."
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
@@ -1522,7 +1516,7 @@ msgstr ""
 msgid ""
 "Type 'driver' component, but no modalias information was provided via a "
 "provides/modalias tag."
-msgstr ""
+msgstr "Type 'driver' -komponent, men ingen modalias -oplysninger blev leveret via et provides/modalias tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:480
