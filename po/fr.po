@@ -6,20 +6,21 @@
 # Jérémie Passebon <j.passebon+github@gmail.com>, 2019.
 # Estébastien Robespi <estebastien@mailbox.org>, 2019.
 # Édana <edana.la@mailo.com>, 2019.
+# Guillaume Feller <guillaumefeller@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-24 19:46+0200\n"
-"PO-Revision-Date: 2019-12-11 16:44+0000\n"
-"Last-Translator: Édana <edana.la@mailo.com>\n"
+"PO-Revision-Date: 2019-12-28 16:19+0000\n"
+"Last-Translator: Guillaume Feller <guillaumefeller@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.10-dev\n"
+"X-Generator: Weblate 3.10\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -638,7 +639,7 @@ msgstr "Jeux"
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
 msgid "Generate the output in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Génère la sortie dans le format sélectionné (« yaml » ou « text »)."
 
 #: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
