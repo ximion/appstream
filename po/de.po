@@ -12,20 +12,21 @@
 # James Bond <christian.kirbach@gmail.com>, 2019.
 # SapuSeven <sapuseven@gmail.com>, 2019.
 # Brayan Aguilar <brayanaguilar842@gmail.com>, 2019.
+# Florian Kothmeier <floriankothmeier@web.de>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-24 19:46+0200\n"
-"PO-Revision-Date: 2019-12-16 15:21+0000\n"
-"Last-Translator: Brayan Aguilar <brayanaguilar842@gmail.com>\n"
+"PO-Revision-Date: 2019-12-29 02:46+0000\n"
+"Last-Translator: Florian Kothmeier <floriankothmeier@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10-dev\n"
+"X-Generator: Weblate 3.10\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -198,7 +199,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Setze das angenommene Dateiformat ('yaml' oder 'text')."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -223,7 +224,7 @@ msgstr "Audioerstellung und Bearbeitung"
 #: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Vervollständige den existierenden Desktop-Eintrag '%s' mit Daten von '%s'."
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -335,8 +336,9 @@ msgstr ""
 "Bildschirmfoto zu verweisen."
 
 #: tools/appstream-cli.c:870
+#, fuzzy
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "Übersetze ein NEWS file im YAML oder text format in das Metainfo Release format."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -351,7 +353,7 @@ msgstr "Es konnte keine Komponente gefunden werden, die »%s;%s« bereitstellt."
 
 #: tools/appstream-cli.c:869
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "Erzeuge einen XDG Desktop-Eintrag aus einer Metainfo-Datei."
 
 #: tools/appstream-cli.c:868
 msgid ""
@@ -364,7 +366,7 @@ msgstr ""
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Erzeuge neuen Desktop-Eintrag '%s' aus Daten von '%s'"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
