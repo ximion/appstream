@@ -13,13 +13,14 @@
 # SapuSeven <sapuseven@gmail.com>, 2019.
 # Brayan Aguilar <brayanaguilar842@gmail.com>, 2019.
 # Florian Kothmeier <floriankothmeier@web.de>, 2019.
+# JBB <jbb.prv@gmx.de>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-24 19:46+0200\n"
-"PO-Revision-Date: 2019-12-29 02:46+0000\n"
-"Last-Translator: Florian Kothmeier <floriankothmeier@web.de>\n"
+"PO-Revision-Date: 2019-12-30 14:21+0000\n"
+"Last-Translator: JBB <jbb.prv@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -164,13 +165,11 @@ msgstr ""
 "Bereitstellung von Metadaten über Softwarekomponenten."
 
 #: src/as-pool.c:1787
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr ""
-"AppStream-Zwischenspeicheraktualisierung fehlgeschlagen. Aktivieren Sie den "
-"Ausführungsmodus, um detailliertere Fehlerinformationen zu erhalten."
+msgstr "AppStream-Zwischenspeicheraktualisierung fehlgeschlagen. Aktivieren Sie den ausführlichen Modus, um detailliertere Fehlerinformationen zu erhalten."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:944
@@ -552,9 +551,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Standard-Metadatenformat (gültige Werte sind „XML” und „YAML”)."
+msgstr "Format des generierten Berichts (gültige Werte sind „text” und „yaml”)."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -638,7 +636,7 @@ msgstr "Spiele"
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
 msgid "Generate the output in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Generiere die Ausgabe im ausgewählten Format ('yaml' oder 'text')."
 
 #: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
@@ -731,7 +729,7 @@ msgstr ""
 msgid ""
 "Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/"
 "ge are permitted."
-msgstr ""
+msgstr "Ungültiger Versionsvergleichsvorgang für Beziehungselement. Nur eq/ne/lt/gt/le/ge sind zulässig."
 
 #: src/as-validator-issue-tag.h:445
 msgid ""
@@ -778,7 +776,7 @@ msgstr "Lizenz"
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
-msgstr ""
+msgstr "Beschränke die Anzahl der Veröffentlichungseinträge die in der metainfo-Datei landen (0 für unbegrenzt)."
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -838,16 +836,16 @@ msgstr "Metadaten-Dateien haben Fehler:"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Metadaten-Datei »%s« existiert nicht."
+msgstr "Metainfo-Datei »%s« existiert nicht."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:367
 msgid ""
 "Metainfo files may only contain icons of type 'stock' or 'remote', the set "
 "type is not allowed."
-msgstr ""
+msgstr "Metainfo-Dateien dürfen nur Symbole vom Typ 'stock' oder 'remote' enthalten, der gesetzte Typ ist nicht zulässig."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:116
@@ -873,8 +871,9 @@ msgid "News"
 msgstr "Nachrichten"
 
 #: src/as-validator-issue-tag.h:589
+#, fuzzy
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
+msgstr "In diesem Verzeichnis oder dieser Verzeichnisstruktur wurden keine AppStream-Metadaten gefunden."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:594
@@ -892,7 +891,7 @@ msgstr "Keine Symbole."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
+msgstr "Es wurde kein Ausgabedateiname angegeben, die metainfo-Datei wird direkt geändert."
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
