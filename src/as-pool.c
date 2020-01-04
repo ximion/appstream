@@ -1563,10 +1563,13 @@ as_pool_build_search_terms (AsPool *pool, const gchar *search)
 	idx = 0;
 	stemmer = g_object_ref (as_stemmer_get ());
 	for (i = 0; strv[i] != NULL; i++) {
+		gchar *token;
 		if (!as_user_search_term_valid (strv[i]))
 			continue;
 		/* stem the string and add it to terms */
-		terms[idx++] = as_stemmer_stem (stemmer, strv[i]);
+		token = as_stemmer_stem (stemmer, strv[i]);
+		if (token != NULL)
+			terms[idx++] = token;
 	}
 	/* if we have no valid terms, return NULL */
 	if (idx == 0) {

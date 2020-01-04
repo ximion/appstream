@@ -2377,12 +2377,17 @@ as_component_add_token_helper (AsComponent *cpt,
 	if (!as_utils_search_token_valid (value))
 		return;
 	/* small tokens are invalid unless they are in the summary / name of the component */
-	if (match_flag < AS_TOKEN_MATCH_SUMMARY)
+	if (match_flag < AS_TOKEN_MATCH_SUMMARY) {
 		if (strlen (value) < 3)
 			return;
+	}
 
 	/* create a stemmed version of our token */
 	token_stemmed = as_stemmer_stem (stemmer, value);
+
+	/* ignore the token if it couldn't be stemmed (usually means we had a low quality token) */
+	if (token_stemmed == NULL)
+		return;
 
 	/* does the token already exist */
 	match_pval = g_hash_table_lookup (priv->token_cache, token_stemmed);
@@ -2408,9 +2413,8 @@ as_component_add_token (AsComponent *cpt,
 		  gboolean allow_split,
 		  AsTokenMatch match_flag)
 {
-	g_autoptr(AsStemmer) stemmer = NULL;
-
-	stemmer = g_object_ref (as_stemmer_get ());
+	/* get global stemmer instance (it's threadsafe and should survive this invocation) */
+	AsStemmer *stemmer = as_stemmer_get ();
 
 	/* add extra tokens for names like x-plane or half-life */
 	if (allow_split && g_strstr_len (value, -1, "-") != NULL) {

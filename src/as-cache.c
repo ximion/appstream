@@ -1175,7 +1175,7 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 		token_str = (const gchar*) tc_key;
 		token_len = sizeof(gchar) * strlen (token_str);
 		if (token_len == 0) {
-			g_warning ("Ignored empty search token for component %s", as_component_get_data_id (cpt));
+			g_warning ("Ignored empty search token for component '%s'", as_component_get_data_id (cpt));
 			continue;
 		}
 		if (token_len > priv->max_keysize) {
