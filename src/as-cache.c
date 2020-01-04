@@ -349,8 +349,18 @@ as_cache_txn_put_kv (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key
 	gsize key_len;
 	g_autofree gchar *key_hash = NULL;
 
-	/* if key is too long, hash it */
+	/* if key is too short, return error */
+	g_assert (key != NULL);
 	key_len = sizeof(gchar) * strlen (key);
+	if (key_len == 0) {
+		g_set_error (error,
+			     AS_CACHE_ERROR,
+			     AS_CACHE_ERROR_BAD_DATA,
+			     "Can not add an empty (zero-length) key to the cache");
+		return FALSE;
+	}
+
+	/* if key is too long, hash it */
 	if (key_len > priv->max_keysize) {
 		key_hash = g_compute_checksum_for_string (AS_CACHE_CHECKSUM, key, key_len);
 		dkey = lmdb_str_to_dbval (key_hash, -1);
@@ -1158,20 +1168,27 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 		g_autofree guint8 *match_list = NULL;
 		gsize match_list_len;
 		const gchar *token_str;
+		size_t token_len;
 		AsTokenType *match_pval;
 
 		/* we ignore tokens which are too long to be database keys */
 		token_str = (const gchar*) tc_key;
-		if ((sizeof(gchar) * strlen (token_str)) > priv->max_keysize) {
+		token_len = sizeof(gchar) * strlen (token_str);
+		if (token_len == 0) {
+			g_warning ("Ignored empty search token for component %s", as_component_get_data_id (cpt));
+			continue;
+		}
+		if (token_len > priv->max_keysize) {
 			g_warning ("Ignored search token '%s': Too long to be stored in the cache.", token_str);
 			continue;
 		}
 
+		/* get existing fts match value - we deliberately ignore any errors while reading here */
 		fts_val = as_cache_txn_get_value (cache,
 						  txn,
 						  priv->db_fts,
 						  token_str,
-						  &tmp_error);
+						  NULL);
 
 		match_pval = (AsTokenType *) tc_value;
 		match_list = g_memdup (fts_val.mv_data, fts_val.mv_size); /* TODO: There is potential to save on allocations here */
