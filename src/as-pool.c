@@ -1674,7 +1674,7 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 	gboolean ret = FALSE;
 	g_autofree gchar *cache_fname = NULL;
 	g_autoptr(GError) data_load_error = NULL;
-	g_autoptr(GError) tmp_error = NULL;
+	GError *tmp_error = NULL;
 	AsCacheFlags prev_cache_flags;
 	guint invalid_cpts_n;
 
@@ -1701,8 +1701,7 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 	if (tmp_error != NULL) {
 		/* the exact error is not forwarded here, since we might be able to partially update the cache */
 		g_warning ("Error while collecting metadata: %s", tmp_error->message);
-		g_error_free (tmp_error);
-		tmp_error = NULL;
+		g_clear_error (&tmp_error);
 	}
 #endif
 
