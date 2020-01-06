@@ -2,7 +2,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016
 # Matthias Klumpp <matthias@tenstral.net>, 2014
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019.
@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2019-09-24 19:46+0200\n"
-"PO-Revision-Date: 2019-12-30 14:21+0000\n"
-"Last-Translator: JBB <jbb.prv@gmx.de>\n"
+"PO-Revision-Date: 2020-01-06 06:21+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1102,7 +1102,7 @@ msgstr "Die .desktop Datei »%s« ist nicht vorhanden."
 
 #: src/as-validator-issue-tag.h:388
 msgid "The <developer_name/> can not contain a hyperlink."
-msgstr ""
+msgstr "Der <developer_name/> darf keinen Hyperlink enthalten."
 
 #: src/as-validator-issue-tag.h:313
 msgid ""
@@ -1118,27 +1118,21 @@ msgid ""
 msgstr ""
 
 #: src/as-pool.c:1774
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
-msgstr ""
-"AppStream-Systemzwischenspeicher wurde aktualisiert, aber es wurden folgende "
-"Probleme gefunden: %s"
+msgstr "Der AppStream-Systemzwischenspeicher wurde aktualisiert, aber es wurden Probleme gefunden, die dazu führten, dass die Metadaten ignoriert wurden: %s"
 
 #: src/as-pool.c:1772
-#, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr ""
-"Der AppStream-Systemzwischenspeicher wurde aktualisiert, aber es wurden "
-"einige Fehler entdeckt, die zu fehlenden Metadaten führen könnten. Weitere "
-"Informationen finden Sie im ausführlichen Protokoll."
+msgstr "Der AppStream-Systemzwischenspeicher wurde aktualisiert, aber einige Komponenten wurden ignoriert. Weitere Informationen finden Sie im ausführlichen Protokoll."
 
 #: src/as-validator-issue-tag.h:151
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "Der SPDX-Lizenzausdruck ist ungültig und konnte nicht geparst werden."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstream-cli.c:683
@@ -1262,15 +1256,15 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:323
 msgid "The component name should (likely) not end with a dot ('.')."
-msgstr ""
+msgstr "Der Komponentenname sollte (wahrscheinlich) nicht mit einem Punkt ('.') enden."
 
 #: src/as-validator-issue-tag.h:333
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "Die Komponentenzusammenfassung darf keine Tabulatoren oder Zeilenumbrüche enthalten."
 
 #: src/as-validator-issue-tag.h:328
 msgid "The component summary should not end with a dot ('.')."
-msgstr ""
+msgstr "Die Komponentenzusammenfassung sollte nicht mit einem Punkt ('.') enden."
 
 #: src/as-validator-issue-tag.h:243
 msgid ""
