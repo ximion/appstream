@@ -2519,7 +2519,7 @@ as_component_create_token_cache_target (AsComponent *cpt, AsComponent *donor)
 
 	tmp = as_component_get_description (cpt);
 	if (tmp != NULL) {
-		as_component_add_tokens (cpt, tmp, FALSE, AS_TOKEN_MATCH_DESCRIPTION);
+		as_component_add_tokens (cpt, tmp, TRUE, AS_TOKEN_MATCH_DESCRIPTION);
 	}
 
 	keywords = as_component_get_keywords (cpt);
