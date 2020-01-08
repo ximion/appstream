@@ -20,7 +20,7 @@
 		</para>
 		<para>
 			To solve this, we have defined a new data file, which the upstream project can optionally translate using the same technique as
-			<ulink url="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop files</ulink> or GSetting schemas.
+			<ulink url="https://specifications.freedesktop.org/desktop-entry-spec/latest/">Desktop Entry files</ulink> or GSetting schemas.
 			The application metainfo specification is a subset of the AppStream metadata (see <xref linkend="sect-AppStream-XML"/>) and extends
 			the generic component metadata with fields specific for applications (see <xref linkend="sect-Metadata-GenericComponent"/>).
 		</para>
