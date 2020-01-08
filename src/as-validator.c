@@ -36,6 +36,9 @@
 #include <libxml/parser.h>
 #include <string.h>
 
+#include <libsoup/soup.h>
+#include <libsoup/soup-status.h>
+
 #include "as-validator.h"
 #include "as-validator-issue.h"
 #include "as-validator-issue-tag.h"
@@ -49,14 +52,16 @@
 
 typedef struct
 {
-	GHashTable *issue_tags; /* of utf8:AsValidatorIssueTag */
+	GHashTable	*issue_tags; /* of utf8:AsValidatorIssueTag */
 
-	GHashTable *issues; /* of utf8:AsValidatorIssue */
-	GHashTable *issues_per_file; /* of utf8:GPtrArray<AsValidatorIssue> */
+	GHashTable	*issues; /* of utf8:AsValidatorIssue */
+	GHashTable	*issues_per_file; /* of utf8:GPtrArray<AsValidatorIssue> */
 
-	AsComponent *current_cpt;
-	gchar *current_fname;
-	gboolean check_urls;
+	AsComponent	*current_cpt;
+	gchar		*current_fname;
+
+	gboolean	check_urls;
+	SoupSession	*soup_session;
 } AsValidatorPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsValidator, as_validator, G_TYPE_OBJECT)
@@ -93,7 +98,7 @@ as_validator_init (AsValidator *validator)
 							g_str_equal,
 							g_free,
 							(GDestroyNotify) g_ptr_array_unref);
-
+	priv->soup_session = NULL;
 	priv->current_fname = NULL;
 	priv->current_cpt = NULL;
 	priv->check_urls = FALSE;
@@ -116,6 +121,9 @@ as_validator_finalize (GObject *object)
 	g_free (priv->current_fname);
 	if (priv->current_cpt != NULL)
 		g_object_unref (priv->current_cpt);
+
+	if (priv->soup_session != NULL)
+		g_object_unref (priv->soup_session);
 
 	G_OBJECT_CLASS (as_validator_parent_class)->finalize (object);
 }
@@ -257,71 +265,108 @@ as_validator_clear_issues (AsValidator *validator)
 }
 
 /**
- * as_validator_can_check_urls:
- *
- * Check whether we can validate URLs using curl.
+ * as_validator_setup_networking:
  */
 static gboolean
-as_validator_can_check_urls (AsValidator *validator)
+as_validator_setup_networking (AsValidator *validator)
 {
-	return g_file_test ("/usr/bin/curl", G_FILE_TEST_EXISTS);
+	AsValidatorPrivate *priv = GET_PRIVATE (validator);
+
+	/* check if we are already initialized */
+	if (priv->soup_session != NULL)
+		return TRUE;
+
+	/* don't initialize if no URLs should be checked */
+	if (!priv->check_urls)
+		return TRUE;
+
+	priv->soup_session = soup_session_new_with_options (SOUP_SESSION_USER_AGENT,
+							    "appstream-validator",
+							    SOUP_SESSION_TIMEOUT,
+							    5000,
+							    NULL);
+	if (priv->soup_session == NULL) {
+		g_critical ("Failed to set up networking support");
+		return FALSE;
+	}
+	soup_session_add_feature_by_type (priv->soup_session,
+					  SOUP_TYPE_PROXY_RESOLVER_DEFAULT);
+	return TRUE;
 }
 
 /**
- * as_validator_web_url_exists:
+ * as_validator_validate_web_url:
  *
- * Check if an URL exists using curl.
+ * Check if an URL is valid and is reachable, creating a new
+ * issue tag of value @tag in case of errors.
  */
 static gboolean
-as_validator_web_url_exists (AsValidator *validator, const gchar *url)
+as_validator_validate_web_url (AsValidator *validator, xmlNode *node, const gchar *url, const gchar *tag)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
-	/* we use absolute paths here to avoid someone injecting malicious curl/wget into our environment */
-	const gchar *curl_bin = "/usr/bin/curl";
-	gint exit_status = 0;
-
-	/* do nothing and assume the URL exists if we shouldn't check URLs */
-	if (!priv->check_urls)
-		return TRUE;
+	guint status_code;
+	g_autoptr(SoupMessage) msg = NULL;
+	g_autoptr(SoupURI) base_uri = NULL;
 
 	/* we don't check mailto URLs */
 	if (g_str_has_prefix (url, "mailto:"))
 		return TRUE;
 
-	if (g_file_test (curl_bin, G_FILE_TEST_EXISTS)) {
-		/* Normally we would use the --head option of curl here to only fetch the server headers.
-		 * However, there is quite a bunch of unfriendly/misconfigured servers out there that simply
-		 * refuse to answer HEAD requests.
-		 * So, to be compatible with more stuff, we tell curl to attempt to fetch the first byte of the
-		 * document and report failure. We intentionally do not follow redirects. */
-		const gchar *argv[11];
-		argv[0] = curl_bin;
-		argv[1] = "--output";
-		argv[2] = "/dev/null";
-		argv[3] = "--silent";
-		argv[4] = "--fail";
-		argv[5] = "--max-time";
-		argv[6] = "20"; /* timeout of 20s, so this times out before a buildsystem (like Meson) times out after 30s */
-		argv[7] = "-r";
-		argv[8] = "0-0";
-		argv[9] = url;
-		argv[10] = NULL;
-		g_spawn_sync (NULL, /* wdir */
-				(gchar**) argv,
-				NULL, /* env */
-				G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL,
-				NULL, /* setup function */
-				NULL, /* user data */
-				NULL, /* stdin */
-				NULL, /* stderr */
-				&exit_status,
-				NULL);
-		return exit_status == 0;
-	} else {
-		/* we can't validate this because we have no wget/curl - we should have emitted an error about this already, so
-		 * we just return TRUE here to not spam the user in misleading error messages */
-		return TRUE;
+	if (g_str_has_prefix (url, "ftp:")) {
+		/* we can't check FTP URLs here, and those shouldn't generally be used in AppStream */
+		as_validator_add_issue (validator, node,
+					"url-uses-ftp",
+					url);
+		return FALSE;
 	}
+
+	/* do nothing and assume the URL exists if we shouldn't check URLs */
+	if (!priv->check_urls)
+		return TRUE;
+
+	g_debug ("Checking URL: %s\n", url);
+	base_uri = soup_uri_new (url);
+	if (!SOUP_URI_VALID_FOR_HTTP (base_uri)) {
+		as_validator_add_issue (validator, node, tag,
+					"%s - %s",
+					url,
+					_("URL format is invalid."));
+		return FALSE;
+	}
+	msg = soup_message_new_from_uri (SOUP_METHOD_GET, base_uri);
+	if (msg == NULL) {
+		g_warning ("Failed to setup HTTP GET message for URL.");
+		return FALSE;
+	}
+
+	/* try to download the file */
+	status_code = soup_session_send_message (priv->soup_session, msg);
+	if (SOUP_STATUS_IS_TRANSPORT_ERROR (status_code)) {
+		as_validator_add_issue (validator, node, tag,
+					"%s - %s",
+					url,
+					soup_status_get_phrase (status_code));
+		return FALSE;
+	} else if (status_code != SOUP_STATUS_OK) {
+		as_validator_add_issue (validator, node, tag,
+					"%s - HTTP %d: %s",
+					url,
+					status_code, soup_status_get_phrase(status_code));
+		return FALSE;
+	}
+
+	/* check if it's a zero sized file */
+	if (msg->response_body->length == 0) {
+		as_validator_add_issue (validator, node, tag,
+					"%s - %s",
+					url,
+					/* TRANSLATORS: We tried to download from an URL, but the retrieved data was empty */
+					_("Retrieved file size was zero."));
+		return FALSE;
+	}
+
+	/* we we din't get a zero-length file, we just assume everything is fine here */
+	return TRUE;
 }
 
 /**
@@ -349,6 +394,9 @@ as_validator_set_check_urls (AsValidator *validator, gboolean value)
 {
 	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	priv->check_urls = value;
+
+	/* initialize networking, in case URLs should be checked */
+	as_validator_setup_networking (validator);
 }
 
 /**
@@ -903,18 +951,17 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 
 				image_found = TRUE;
 
-				if (!as_validator_web_url_exists (validator, image_url)) {
-					as_validator_add_issue (validator, iter2,
-							"screenshot-image-not-found",
-							image_url);
-				}
-
 				if (!as_validate_is_secure_url (image_url)) {
 					as_validator_add_issue (validator, iter2,
-								"screenshot-media-url-insecure",
+								"screenshot-media-url-not-secure",
 								image_url);
 				}
 
+				/* check if we can reach the URL */
+				as_validator_validate_web_url (validator,
+								iter2,
+								image_url,
+								"screenshot-image-not-found");
 			} else if (g_strcmp0 (node_name, "video") == 0) {
 				g_autofree gchar *codec_str = NULL;
 				g_autofree gchar *container_str = NULL;
@@ -929,15 +976,14 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				if (default_screenshot)
 					as_validator_add_issue (validator, iter, "screenshot-default-contains-video", NULL);
 
-				if (!as_validator_web_url_exists (validator, video_url)) {
-					as_validator_add_issue (validator, iter2,
-							"screenshot-video-not-found",
-							video_url);
-				}
+				as_validator_validate_web_url (validator,
+								iter2,
+								video_url,
+								"screenshot-video-not-found");
 
 				if (!as_validate_is_secure_url (video_url)) {
 					as_validator_add_issue (validator, iter2,
-								"screenshot-media-url-insecure",
+								"screenshot-media-url-not-secure",
 								video_url);
 				}
 
@@ -1324,12 +1370,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 				if (!as_validate_is_url (node_content)) {
 					as_validator_add_issue (validator, iter, "icon-remote-no-url", NULL);
 				} else {
-					if (!as_validator_web_url_exists (validator, node_content)) {
-						as_validator_add_issue (validator, iter, "icon-remote-not-found", node_content);
-					}
-
 					if (!as_validate_is_secure_url (node_content))
 						as_validator_add_issue (validator, iter, "icon-remote-not-secure", node_content);
+
+					as_validator_validate_web_url (validator,
+									iter,
+									node_content,
+									"icon-remote-not-found");
 				}
 			}
 
@@ -1343,11 +1390,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			if (as_url_kind_from_string (prop) == AS_URL_KIND_UNKNOWN)
 				as_validator_add_issue (validator, iter, "url-invalid-type", prop);
 
-			if (!as_validator_web_url_exists (validator, node_content))
-				as_validator_add_issue (validator, iter, "url-not-found", node_content);
-
 			if (!as_validate_is_secure_url (node_content))
 				as_validator_add_issue (validator, iter, "url-not-secure", node_content);
+
+			as_validator_validate_web_url (validator,
+							iter,
+							node_content,
+							"url-not-found");
 
 		} else if (g_strcmp0 (node_name, "categories") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags);
@@ -1716,19 +1765,14 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata)
 gboolean
 as_validator_validate_data (AsValidator *validator, const gchar *metadata)
 {
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	gboolean ret;
 	xmlNode* root;
 	xmlDoc *doc;
 	g_autoptr(AsContext) ctx = NULL;
 	AsComponent *cpt;
 
-	/* if we validate URLs, check if curl or wget are installed */
-	if (priv->check_urls) {
-		/* cheap way to notify the user if we can't validate URLs */
-		if (!as_validator_can_check_urls (validator))
-			as_validator_add_issue (validator, NULL, "curl-not-found", NULL);
-	}
+	/* setup networking, in case we want to check URLs */
+	as_validator_setup_networking (validator);
 
 	/* load the XML data */
 	ctx = as_context_new ();
@@ -1913,7 +1957,6 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 gboolean
 as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 {
-	AsValidatorPrivate *priv = GET_PRIVATE (validator);
 	g_autofree gchar *metainfo_dir = NULL;
 	g_autofree gchar *legacy_metainfo_dir = NULL;
 	g_autofree gchar *apps_dir = NULL;
@@ -1950,15 +1993,8 @@ as_validator_validate_tree (AsValidator *validator, const gchar *root_dir)
 					NULL);
 	}
 
-	/* if we validate URLs, check if curl or wget are installed */
-	if (priv->check_urls) {
-		/* cheap way to notify the user if we can't validate URLs */
-		if (!as_validator_can_check_urls (validator)) {
-			as_validator_add_issue (validator, NULL,
-						"curl-not-found",
-						NULL);
-		}
-	}
+	/* initialize networking (only actually happens if URLs should be checked) */
+	as_validator_setup_networking (validator);
 
 	/* holds a filename -> component mapping */
 	validated_cpts = g_hash_table_new_full (g_str_hash,

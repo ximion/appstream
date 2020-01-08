@@ -184,7 +184,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("Unable to reach the screenshot video on its remote location - does the video file exist?")
 	},
 
-	{ "screenshot-media-url-insecure",
+	{ "screenshot-media-url-not-secure",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("Consider using a secure (HTTPS) URL to reference this screenshot image or video.")
 	},
@@ -383,6 +383,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("Consider using a secure (HTTPS) URL for this web link."),
 	},
 
+	{ "url-uses-ftp",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("This web link uses the FTP protocol. Consider switching to HTTP(S) instead."),
+	},
+
 	{ "developer-name-has-url",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The <developer_name/> can not contain a hyperlink."),
@@ -540,11 +545,6 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "xml-markup-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The XML of this file is malformed."),
-	},
-
-	{ "curl-not-found",
-	  AS_ISSUE_SEVERITY_INFO,
-	  N_("Unable to find the curl binary. remote URLs can not be checked for validity!"),
 	},
 
 	{ "component-collection-tag-invalid",

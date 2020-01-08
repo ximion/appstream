@@ -19,6 +19,7 @@ RUN apt-get install -yq --no-install-recommends \
     libxml2-dev \
     libyaml-dev \
     liblmdb-dev \
+    libsoup2.4-dev \
     gtk-doc-tools \
     libgirepository1.0-dev \
     qt5-default \

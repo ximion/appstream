@@ -60,10 +60,11 @@ add_global_arguments('-DAS_COMPILATION', language : 'c')
 #
 # Dependencies
 #
-glib_dep = dependency('glib-2.0', version : '>=2.62')
-gobject_dep = dependency('gobject-2.0', version : '>=2.62')
-gio_dep = dependency('gio-2.0', version : '>=2.62')
-gio_unix_dep = dependency('gio-unix-2.0', version : '>=2.62')
+glib_dep = dependency('glib-2.0', version: '>=2.62')
+gobject_dep = dependency('gobject-2.0', version: '>=2.62')
+gio_dep = dependency('gio-2.0', version: '>=2.62')
+gio_unix_dep = dependency('gio-unix-2.0', version: '>=2.62')
+soup_dep = dependency('libsoup-2.4', version: '>= 2.56')
 xml2_dep = dependency('libxml-2.0')
 yaml_dep = dependency('yaml-0.1')
 lmdb_dep = dependency('lmdb', required: false)
