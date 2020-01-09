@@ -794,6 +794,7 @@ test_yaml_read_content_rating (void)
 	g_assert_nonnull (rating);
 	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"), ==, AS_CONTENT_RATING_VALUE_MODERATE);
 	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"), ==, AS_CONTENT_RATING_VALUE_MILD);
+	g_assert_cmpint (as_content_rating_get_value (rating, "violence-bloodshed"), ==, AS_CONTENT_RATING_VALUE_NONE);
 }
 
 static const gchar *yamldata_launchable_field = "---\n"

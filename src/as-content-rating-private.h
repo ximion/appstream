@@ -29,11 +29,6 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
-typedef struct {
-	gchar			*id;
-	AsContentRatingValue	 value;
-} AsContentRatingKey;
-
 gboolean	as_content_rating_load_from_xml (AsContentRating *content_rating,
 						 AsContext *ctx,
 						 xmlNode *node,

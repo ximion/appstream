@@ -807,6 +807,7 @@ test_xml_read_content_rating (void)
 
 	g_assert_cmpint (as_content_rating_get_value (rating, "drugs-alcohol"), ==, AS_CONTENT_RATING_VALUE_MODERATE);
 	g_assert_cmpint (as_content_rating_get_value (rating, "language-humor"), ==, AS_CONTENT_RATING_VALUE_MILD);
+	g_assert_cmpint (as_content_rating_get_value (rating, "violence-bloodshed"), ==, AS_CONTENT_RATING_VALUE_NONE);
 	g_assert_cmpint (as_content_rating_get_minimum_age (rating), ==, 13);
 }
 
@@ -835,6 +836,38 @@ test_xml_write_content_rating (void)
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_test_compare_lines (res, xmldata_content_rating));
+}
+
+/* Test that parsing an empty content rating correctly returns `none` as the
+ * value for all the ratings defined by that particular kind of content rating,
+ * and `unknown` for everything else. */
+static void
+test_content_rating_empty (void)
+{
+	const gchar *src = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+						"<component>\n"
+						"  <id>org.example.ContentRatingEmptyTest</id>\n"
+						"  <content_rating type=\"oars-1.0\"/>\n"
+						"</component>\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	AsContentRating *content_rating;
+
+	cpt = as_xml_test_read_data (src, AS_FORMAT_STYLE_METAINFO);
+
+	content_rating = as_component_get_content_rating (cpt, "oars-1.0");
+
+	/* verify */
+	g_assert_cmpstr (as_content_rating_get_kind (content_rating), ==, "oars-1.0");
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "drugs-alcohol"), ==,
+			 AS_CONTENT_RATING_VALUE_NONE);
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "violence-cartoon"), ==,
+			 AS_CONTENT_RATING_VALUE_NONE);
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "violence-bloodshed"), ==,
+			 AS_CONTENT_RATING_VALUE_NONE);
+
+	/* This one was only added in OARS-1.1, so it shouldn’t have a value of `none`. */
+	g_assert_cmpint (as_content_rating_get_value (content_rating, "sex-adultery"), ==,
+			 AS_CONTENT_RATING_VALUE_UNKNOWN);
 }
 
 static const gchar *xmldata_launchable = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
@@ -1733,6 +1766,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/ContentRating", test_xml_read_content_rating);
 	g_test_add_func ("/XML/Write/ContentRating", test_xml_write_content_rating);
+	g_test_add_func ("/XML/Read/ContentRating/Empty", test_content_rating_empty);
 
 	g_test_add_func ("/XML/Read/Launchable", test_xml_read_launchable);
 	g_test_add_func ("/XML/Write/Launchable", test_xml_write_launchable);

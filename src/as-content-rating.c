@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2016-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2020 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -35,15 +36,28 @@
 #include "as-content-rating.h"
 #include "as-content-rating-private.h"
 
+typedef struct {
+	gchar *id;
+	AsContentRatingValue	 value;
+} AsContentRatingKey;
+
 typedef struct
 {
-	gchar		*kind;
-	GPtrArray	*keys; /* of AsContentRatingKey */
+	gchar *kind;
+	GPtrArray *keys; /* of AsContentRatingKey */
 } AsContentRatingPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsContentRating, as_content_rating, G_TYPE_OBJECT)
 
 #define GET_PRIVATE(o) (as_content_rating_get_instance_private (o))
+
+typedef enum
+{
+	OARS_1_0,
+	OARS_1_1,
+} OarsVersion;
+
+static gboolean is_oars_key (const gchar *id, OarsVersion version);
 
 static void
 as_content_rating_finalize (GObject *object)
@@ -80,28 +94,48 @@ as_content_rating_class_init (AsContentRatingClass *klass)
 	object_class->finalize = as_content_rating_finalize;
 }
 
+static gint
+ids_sort_cb (gconstpointer id_ptr_a, gconstpointer id_ptr_b)
+{
+	const gchar *id_a = *((const gchar **) id_ptr_a);
+	const gchar *id_b = *((const gchar **) id_ptr_b);
+
+	return g_strcmp0 (id_a, id_b);
+}
+
 /**
- * as_content_rating_get_value:
+ * as_content_rating_get_rating_ids:
  * @content_rating: a #AsContentRating
- * @id: A ratings ID, e.g. `violence-bloodshed`.
  *
- * Gets the value of a content rating key.
+ * Gets the set of ratings IDs which are present in this @content_rating. An
+ * example of a ratings ID is `violence-bloodshed`.
  *
- * Returns: the #AsContentRatingValue, or %AS_CONTENT_RATING_VALUE_UNKNOWN
+ * The IDs are returned in lexicographical order.
  *
- * Since: 0.11.0
+ * Returns: (array zero-terminated=1) (transfer container): %NULL-terminated
+ *    array of ratings IDs; each ratings ID is owned by the #AsContentRating and
+ *    must not be freed, but the container must be freed with g_free()
+ *
+ * Since: 0.12.10
  **/
-AsContentRatingValue
-as_content_rating_get_value (AsContentRating *content_rating, const gchar *id)
+const gchar **
+as_content_rating_get_rating_ids (AsContentRating *content_rating)
 {
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+	GPtrArray *ids = g_ptr_array_new_with_free_func (NULL);
 	guint i;
+
+	g_return_val_if_fail (AS_IS_CONTENT_RATING (content_rating), NULL);
+
 	for (i = 0; i < priv->keys->len; i++) {
 		AsContentRatingKey *key = g_ptr_array_index (priv->keys, i);
-		if (g_strcmp0 (key->id, id) == 0)
-			return key->value;
+		g_ptr_array_add (ids, key->id);
 	}
-	return AS_CONTENT_RATING_VALUE_UNKNOWN;
+
+	g_ptr_array_sort (ids, ids_sort_cb);
+	g_ptr_array_add (ids, NULL);  /* NULL terminator */
+
+	return (const gchar **) g_ptr_array_free (g_steal_pointer (&ids), FALSE);
 }
 
 /**
@@ -120,10 +154,49 @@ as_content_rating_set_value (AsContentRating *content_rating, const gchar *id, A
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
 	AsContentRatingKey *key;
 
+	g_return_if_fail (id != NULL);
+	g_return_if_fail (value != AS_CONTENT_RATING_VALUE_UNKNOWN);
+
 	key = g_slice_new0 (AsContentRatingKey);
 	key->id = g_strdup (id);
 	key->value = value;
 	g_ptr_array_add (priv->keys, key);
+}
+
+/**
+ * as_content_rating_get_value:
+ * @content_rating: a #AsContentRating
+ * @id: A ratings ID, e.g. `violence-bloodshed`.
+ *
+ * Gets the value of a content rating key.
+ *
+ * Returns: the #AsContentRatingValue, or %AS_CONTENT_RATING_VALUE_UNKNOWN
+ *
+ * Since: 0.11.0
+ **/
+AsContentRatingValue
+as_content_rating_get_value (AsContentRating *content_rating, const gchar *id)
+{
+	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+	g_return_val_if_fail (AS_IS_CONTENT_RATING (content_rating), AS_CONTENT_RATING_VALUE_UNKNOWN);
+
+	for (guint i = 0; i < priv->keys->len; i++) {
+		AsContentRatingKey *key = g_ptr_array_index (priv->keys, i);
+		if (g_strcmp0 (key->id, id) == 0)
+			return key->value;
+	}
+
+	/* According to the
+	 * [OARS specification](https://github.com/hughsie/oars/blob/master/specification/oars-1.1.md),
+	 * return %AS_CONTENT_RATING_VALUE_NONE if the #AsContentRating exists
+	 * overall. Only return %AS_CONTENT_RATING_VALUE_UNKNOWN if the
+	 * #AsContentRating doesn’t exist at all (or for other types of content
+	 * rating). */
+	if ((g_strcmp0 (priv->kind, "oars-1.0") == 0 && is_oars_key (id, OARS_1_0)) ||
+	    (g_strcmp0 (priv->kind, "oars-1.1") == 0 && is_oars_key (id, OARS_1_1)))
+		return AS_CONTENT_RATING_VALUE_NONE;
+	else
+		return AS_CONTENT_RATING_VALUE_UNKNOWN;
 }
 
 /**
@@ -174,101 +247,127 @@ as_content_rating_value_from_string (const gchar *value)
 	return AS_CONTENT_RATING_VALUE_UNKNOWN;
 }
 
+/* The struct definition below assumes we don’t grow more
+ * #AsContentRating values. */
+G_STATIC_ASSERT (AS_CONTENT_RATING_VALUE_LAST == AS_CONTENT_RATING_VALUE_INTENSE + 1);
+
+static const struct {
+	const gchar	*id;
+	OarsVersion	 oars_version;  /* when the key was first added */
+	guint		 csm_age_none;  /* for %AS_CONTENT_RATING_VALUE_NONE */
+	guint		 csm_age_mild;  /* for %AS_CONTENT_RATING_VALUE_MILD */
+	guint		 csm_age_moderate;  /* for %AS_CONTENT_RATING_VALUE_MODERATE */
+	guint		 csm_age_intense;  /* for %AS_CONTENT_RATING_VALUE_INTENSE */
+} oars_to_csm_mappings[] =  {
+	/* Each @id must only appear once. The set of @csm_age_* values for a
+	 * given @id must be complete and non-decreasing. */
+	/* v1.0 */
+	{ "violence-cartoon",	OARS_1_0, 0, 3, 4, 6 },
+	{ "violence-fantasy",	OARS_1_0, 0, 3, 7, 8 },
+	{ "violence-realistic",	OARS_1_0, 0, 4, 9, 14 },
+	{ "violence-bloodshed",	OARS_1_0, 0, 9, 11, 18 },
+	{ "violence-sexual",	OARS_1_0, 0, 18, 18, 18 },
+	{ "drugs-alcohol",	OARS_1_0, 0, 11, 13, 16 },
+	{ "drugs-narcotics",	OARS_1_0, 0, 12, 14, 17 },
+	{ "drugs-tobacco",	OARS_1_0, 0, 10, 13, 13 },
+	{ "sex-nudity",		OARS_1_0, 0, 12, 14, 14 },
+	{ "sex-themes",		OARS_1_0, 0, 13, 14, 15 },
+	{ "language-profanity",	OARS_1_0, 0, 8, 11, 14 },
+	{ "language-humor",	OARS_1_0, 0, 3, 8, 14 },
+	{ "language-discrimination", OARS_1_0, 0, 9, 10, 11 },
+	{ "money-advertising",	OARS_1_0, 0, 7, 8, 10 },
+	{ "money-gambling",	OARS_1_0, 0, 7, 10, 18 },
+	{ "money-purchasing",	OARS_1_0, 0, 12, 14, 15 },
+	{ "social-chat",	OARS_1_0, 0, 4, 10, 13 },
+	{ "social-audio",	OARS_1_0, 0, 15, 15, 15 },
+	{ "social-contacts",	OARS_1_0, 0, 12, 12, 12 },
+	{ "social-info",	OARS_1_0, 0, 0, 13, 13 },
+	{ "social-location",	OARS_1_0, 0, 13, 13, 13 },
+	/* v1.1 additions */
+	{ "sex-homosexuality",	OARS_1_1, 0, 10, 13, 18 },
+	{ "sex-prostitution",	OARS_1_1, 0, 12, 14, 18 },
+	{ "sex-adultery",	OARS_1_1, 0, 8, 10, 18 },
+	{ "sex-appearance",	OARS_1_1, 0, 10, 10, 15 },
+	{ "violence-worship",	OARS_1_1, 0, 13, 15, 18 },
+	{ "violence-desecration", OARS_1_1, 0, 13, 15, 18 },
+	{ "violence-slavery",	OARS_1_1, 0, 13, 15, 18 },
+};
+
+static gboolean
+is_oars_key (const gchar *id, OarsVersion version)
+{
+	for (gsize i = 0; i < G_N_ELEMENTS (oars_to_csm_mappings); i++) {
+		if (g_str_equal (id, oars_to_csm_mappings[i].id))
+			return (oars_to_csm_mappings[i].oars_version <= version);
+	}
+	return FALSE;
+}
+
 /**
- * as_content_rating_id_value_to_csm_age:
- * @id: the subsection ID e.g. "violence-cartoon"
+ * as_content_rating_attribute_to_csm_age:
+ * @id: the subsection ID e.g. `violence-cartoon`
  * @value: the #AsContentRatingValue, e.g. %AS_CONTENT_RATING_VALUE_INTENSE
  *
  * Gets the Common Sense Media approved age for a specific rating level.
  *
  * Returns: The age in years, or 0 for no details.
  *
- * Since: 0.11.0
+ * Since: 0.12.10
  **/
-static guint
-as_content_rating_id_value_to_csm_age (const gchar *id, AsContentRatingValue value)
+guint
+as_content_rating_attribute_to_csm_age (const gchar *id, AsContentRatingValue value)
 {
-	guint i;
-	struct {
-		const gchar		*id;
-		AsContentRatingValue	 value;
-		guint			 csm_age;
-	} to_csm_age[] =  {
-	{ "violence-cartoon",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "violence-cartoon",	AS_CONTENT_RATING_VALUE_MILD,		3 },
-	{ "violence-cartoon",	AS_CONTENT_RATING_VALUE_MODERATE,	4 },
-	{ "violence-cartoon",	AS_CONTENT_RATING_VALUE_INTENSE,	6 },
-	{ "violence-fantasy",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "violence-fantasy",	AS_CONTENT_RATING_VALUE_MILD,		3 },
-	{ "violence-fantasy",	AS_CONTENT_RATING_VALUE_MODERATE,	7 },
-	{ "violence-fantasy",	AS_CONTENT_RATING_VALUE_INTENSE,	8 },
-	{ "violence-realistic",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "violence-realistic",	AS_CONTENT_RATING_VALUE_MILD,		4 },
-	{ "violence-realistic",	AS_CONTENT_RATING_VALUE_MODERATE,	9 },
-	{ "violence-realistic",	AS_CONTENT_RATING_VALUE_INTENSE,	14 },
-	{ "violence-bloodshed",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "violence-bloodshed",	AS_CONTENT_RATING_VALUE_MILD,		9 },
-	{ "violence-bloodshed",	AS_CONTENT_RATING_VALUE_MODERATE,	11 },
-	{ "violence-bloodshed",	AS_CONTENT_RATING_VALUE_INTENSE,	18 },
-	{ "violence-sexual",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "violence-sexual",	AS_CONTENT_RATING_VALUE_INTENSE,	18 },
-	{ "drugs-alcohol",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "drugs-alcohol",	AS_CONTENT_RATING_VALUE_MILD,		11 },
-	{ "drugs-alcohol",	AS_CONTENT_RATING_VALUE_MODERATE,	13 },
-	{ "drugs-narcotics",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "drugs-narcotics",	AS_CONTENT_RATING_VALUE_MILD,		12 },
-	{ "drugs-narcotics",	AS_CONTENT_RATING_VALUE_MODERATE,	14 },
-	{ "drugs-tobacco",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "drugs-tobacco",	AS_CONTENT_RATING_VALUE_MILD,		10 },
-	{ "drugs-tobacco",	AS_CONTENT_RATING_VALUE_MODERATE,	13 },
-	{ "sex-nudity",		AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "sex-nudity",		AS_CONTENT_RATING_VALUE_MILD,		12 },
-	{ "sex-nudity",		AS_CONTENT_RATING_VALUE_MODERATE,	14 },
-	{ "sex-themes",		AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "sex-themes",		AS_CONTENT_RATING_VALUE_MILD,		13 },
-	{ "sex-themes",		AS_CONTENT_RATING_VALUE_MODERATE,	14 },
-	{ "sex-themes",		AS_CONTENT_RATING_VALUE_INTENSE,	15 },
-	{ "language-profanity",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "language-profanity",	AS_CONTENT_RATING_VALUE_MILD,		8 },
-	{ "language-profanity",	AS_CONTENT_RATING_VALUE_MODERATE,	11 },
-	{ "language-profanity",	AS_CONTENT_RATING_VALUE_INTENSE,	14 },
-	{ "language-humor",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "language-humor",	AS_CONTENT_RATING_VALUE_MILD,		3 },
-	{ "language-humor",	AS_CONTENT_RATING_VALUE_MODERATE,	8 },
-	{ "language-humor",	AS_CONTENT_RATING_VALUE_INTENSE,	14 },
-	{ "language-discrimination", AS_CONTENT_RATING_VALUE_NONE,	0 },
-	{ "language-discrimination", AS_CONTENT_RATING_VALUE_MILD,	9 },
-	{ "language-discrimination", AS_CONTENT_RATING_VALUE_MODERATE,	10 },
-	{ "language-discrimination", AS_CONTENT_RATING_VALUE_INTENSE,	11 },
-	{ "money-advertising",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "money-advertising",	AS_CONTENT_RATING_VALUE_MILD,		7 },
-	{ "money-advertising",	AS_CONTENT_RATING_VALUE_MODERATE,	8 },
-	{ "money-advertising",	AS_CONTENT_RATING_VALUE_INTENSE,	10 },
-	{ "money-gambling",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "money-gambling",	AS_CONTENT_RATING_VALUE_MILD,		7 },
-	{ "money-gambling",	AS_CONTENT_RATING_VALUE_MODERATE,	10 },
-	{ "money-gambling",	AS_CONTENT_RATING_VALUE_INTENSE,	18 },
-	{ "money-purchasing",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "money-purchasing",	AS_CONTENT_RATING_VALUE_INTENSE,	15 },
-	{ "social-chat",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "social-chat",	AS_CONTENT_RATING_VALUE_MILD,		4 },
-	{ "social-chat",	AS_CONTENT_RATING_VALUE_MODERATE,	10 },
-	{ "social-chat",	AS_CONTENT_RATING_VALUE_INTENSE,	13 },
-	{ "social-audio",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "social-audio",	AS_CONTENT_RATING_VALUE_INTENSE,	15 },
-	{ "social-contacts",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "social-contacts",	AS_CONTENT_RATING_VALUE_INTENSE,	12 },
-	{ "social-info",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "social-info",	AS_CONTENT_RATING_VALUE_INTENSE,	13 },
-	{ "social-location",	AS_CONTENT_RATING_VALUE_NONE,		0 },
-	{ "social-location",	AS_CONTENT_RATING_VALUE_INTENSE,	13 },
-	{ NULL, 0, 0 } };
-	for (i = 0; to_csm_age[i].id != NULL; i++) {
-		if (value == to_csm_age[i].value &&
-		    g_strcmp0 (id, to_csm_age[i].id) == 0)
-			return to_csm_age[i].csm_age;
+	if (value == AS_CONTENT_RATING_VALUE_UNKNOWN ||
+	    value == AS_CONTENT_RATING_VALUE_LAST)
+		return 0;
+
+	for (gsize i = 0; i < G_N_ELEMENTS (oars_to_csm_mappings); i++) {
+		if (g_str_equal (id, oars_to_csm_mappings[i].id)) {
+			switch (value) {
+			case AS_CONTENT_RATING_VALUE_NONE:
+				return oars_to_csm_mappings[i].csm_age_none;
+			case AS_CONTENT_RATING_VALUE_MILD:
+				return oars_to_csm_mappings[i].csm_age_mild;
+			case AS_CONTENT_RATING_VALUE_MODERATE:
+				return oars_to_csm_mappings[i].csm_age_moderate;
+			case AS_CONTENT_RATING_VALUE_INTENSE:
+				return oars_to_csm_mappings[i].csm_age_intense;
+			case AS_CONTENT_RATING_VALUE_UNKNOWN:
+			case AS_CONTENT_RATING_VALUE_LAST:
+			default:
+				/* Handled above. */
+				g_assert_not_reached ();
+				return 0;
+			}
+		}
 	}
+
+	/* @id not found. */
 	return 0;
+}
+
+/**
+ * as_content_rating_get_all_rating_ids:
+ *
+ * Returns a list of all the valid OARS content rating attribute IDs as could
+ * be passed to as_content_rating_add_attribute() or
+ * as_content_rating_attribute_to_csm_age().
+ *
+ * Returns: (array zero-terminated=1) (transfer container): a %NULL-terminated
+ *    array of IDs, to be freed with g_free() (the element values are owned by
+ *    libappstream-glib and must not be freed)
+ * Since: 0.12.10
+ */
+const gchar **
+as_content_rating_get_all_rating_ids (void)
+{
+	g_autofree const gchar **ids = NULL;
+
+	ids = g_new0 (const gchar *, G_N_ELEMENTS (oars_to_csm_mappings) + 1 /* NULL terminator */);
+	for (gsize i = 0; i < G_N_ELEMENTS (oars_to_csm_mappings); i++)
+		ids[i] = oars_to_csm_mappings[i].id;
+
+	return g_steal_pointer (&ids);
 }
 
 /**
@@ -282,8 +381,8 @@ as_content_rating_id_value_to_csm_age (const gchar *id, AsContentRatingValue val
  *
  * You're free to disagree with these, and of course you should use your own
  * brain to work our if your child is able to cope with the concepts enumerated
- * here. Some 13 year olds mey be fine with the concept of mutilation of body
- * parts, others may get nightmares.
+ * here. Some 13 year olds may be fine with the concept of mutilation of body
+ * parts; others may get nightmares.
  *
  * Returns: The age in years, 0 for no rating, or G_MAXUINT for no details.
  *
@@ -293,18 +392,20 @@ guint
 as_content_rating_get_minimum_age (AsContentRating *content_rating)
 {
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
-	guint i;
 	guint csm_age = 0;
 
+	g_return_val_if_fail (AS_IS_CONTENT_RATING (content_rating), 0);
+
 	/* check kind */
-	if (g_strcmp0 (priv->kind, "oars-1.0") != 0)
+	if (g_strcmp0 (priv->kind, "oars-1.0") != 0 &&
+	    g_strcmp0 (priv->kind, "oars-1.1") != 0)
 		return G_MAXUINT;
 
-	for (i = 0; i < priv->keys->len; i++) {
+	for (guint i = 0; i < priv->keys->len; i++) {
 		AsContentRatingKey *key;
 		guint csm_tmp;
 		key = g_ptr_array_index (priv->keys, i);
-		csm_tmp = as_content_rating_id_value_to_csm_age (key->id, key->value);
+		csm_tmp = as_content_rating_attribute_to_csm_age (key->id, key->value);
 		if (csm_tmp > 0 && csm_tmp > csm_age)
 			csm_age = csm_tmp;
 	}
@@ -313,7 +414,7 @@ as_content_rating_get_minimum_age (AsContentRating *content_rating)
 
 /**
  * as_content_rating_get_kind:
- * @content_rating: a #AsContentRating
+ * @content_rating: a #AsContentRating instance.
  *
  * Gets the content_rating kind.
  *
@@ -321,16 +422,17 @@ as_content_rating_get_minimum_age (AsContentRating *content_rating)
  *
  * Since: 0.11.0
  **/
-const gchar*
+const gchar *
 as_content_rating_get_kind (AsContentRating *content_rating)
 {
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+	g_return_val_if_fail (AS_IS_CONTENT_RATING (content_rating), NULL);
 	return priv->kind;
 }
 
 /**
  * as_content_rating_set_kind:
- * @content_rating: a #AsContentRating
+ * @content_rating: a #AsContentRating instance.
  * @kind: the rating kind, e.g. "oars-1.0"
  *
  * Sets the content rating kind.
@@ -341,6 +443,7 @@ void
 as_content_rating_set_kind (AsContentRating *content_rating, const gchar *kind)
 {
 	AsContentRatingPrivate *priv = GET_PRIVATE (content_rating);
+	g_return_if_fail (AS_IS_CONTENT_RATING (content_rating));
 	g_free (priv->kind);
 	priv->kind = g_strdup (kind);
 }

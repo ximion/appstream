@@ -531,6 +531,41 @@ test_filebasename_from_uri ()
 	g_free (tmp);
 }
 
+/* Test that the OARS → CSM mapping table in as_content_rating_attribute_to_csm_age()
+ * is complete (contains mappings for all known IDs), and that the ages it
+ * returns are non-decreasing for increasing values of #AsContentRatingValue in
+ * each ID.
+ *
+ * Also test that unknown values of #AsContentRatingValue return an unknown age,
+ * and unknown IDs do similarly. */
+static void
+test_content_rating_mappings (void)
+{
+	const AsContentRatingValue values[] = {
+		AS_CONTENT_RATING_VALUE_NONE,
+		AS_CONTENT_RATING_VALUE_MILD,
+		AS_CONTENT_RATING_VALUE_MODERATE,
+		AS_CONTENT_RATING_VALUE_INTENSE,
+	};
+	g_autofree const gchar **ids = as_content_rating_get_all_rating_ids ();
+
+	for (gsize i = 0; ids[i] != NULL; i++) {
+		guint max_age = 0;
+
+		for (gsize j = 0; j < G_N_ELEMENTS (values); j++) {
+			guint age = as_content_rating_attribute_to_csm_age (ids[i], values[j]);
+			g_assert_cmpuint (age, >=, max_age);
+			max_age = age;
+		}
+
+		g_assert_cmpuint (max_age, >, 0);
+		g_assert_cmpuint (as_content_rating_attribute_to_csm_age (ids[i], AS_CONTENT_RATING_VALUE_UNKNOWN), ==, 0);
+		g_assert_cmpuint (as_content_rating_attribute_to_csm_age (ids[i], AS_CONTENT_RATING_VALUE_LAST), ==, 0);
+	}
+
+	g_assert_cmpuint (as_content_rating_attribute_to_csm_age ("not-valid-id", AS_CONTENT_RATING_VALUE_INTENSE), ==, 0);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -561,6 +596,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/DistroDetails", test_distro_details);
 	g_test_add_func ("/AppStream/rDNSConvert", test_rdns_convert);
 	g_test_add_func ("/AppStream/URIToBasename", test_filebasename_from_uri);
+	g_test_add_func ("/AppStream/ContentRatingMapings", test_content_rating_mappings);
 
 	ret = g_test_run ();
 	g_free (datadir);

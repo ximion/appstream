@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016 Richard Hughes <richard@hughsie.com>
+ * Copyright (C) 2016-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2020 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -68,6 +69,11 @@ typedef enum {
 const gchar		*as_content_rating_value_to_string (AsContentRatingValue value);
 AsContentRatingValue	 as_content_rating_value_from_string (const gchar *value);
 
+guint			as_content_rating_attribute_to_csm_age (const gchar *id,
+								AsContentRatingValue value);
+
+const gchar		**as_content_rating_get_all_rating_ids (void);
+
 AsContentRating		*as_content_rating_new (void);
 
 const gchar		*as_content_rating_get_kind (AsContentRating *content_rating);
@@ -81,6 +87,8 @@ AsContentRatingValue	as_content_rating_get_value (AsContentRating *content_ratin
 void			as_content_rating_set_value (AsContentRating *content_rating,
 						     const gchar *id,
 						     AsContentRatingValue value);
+
+const gchar		**as_content_rating_get_rating_ids (AsContentRating *content_rating);
 
 G_END_DECLS
 
