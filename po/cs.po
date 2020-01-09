@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-24 19:46+0200\n"
+"POT-Creation-Date: 2020-01-09 01:04+0100\n"
 "PO-Revision-Date: 2018-12-28 10:08+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -80,7 +80,7 @@ msgid "Also show pedantic hints."
 msgstr "Při ověřování vypisovat i nalezené drobnosti."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:492
+#: src/as-validator-issue-tag.h:497
 msgid ""
 "An 'extends' tag is specified, but the component is not of type 'addon', "
 "'localization' or 'repository'."
@@ -147,7 +147,7 @@ msgstr ""
 "AppStream je standard pro poskytování metadat o programovém vybavení, "
 "používaný napříč linuxovými distribucemi."
 
-#: src/as-pool.c:1787
+#: src/as-pool.c:1789
 #, fuzzy, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -226,7 +226,7 @@ msgstr "Deskové"
 msgid "Bundle"
 msgstr "Zabaleno s"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1690
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
@@ -568,7 +568,7 @@ msgid ""
 "error, because a component relation of this type is unknown."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:422
+#: src/as-validator-issue-tag.h:427
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with 'x-'. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
@@ -578,8 +578,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:478 src/as-validator.c:890 src/as-validator.c:975
-#: src/as-validator.c:1185
+#: src/as-validator.c:526 src/as-validator.c:938 src/as-validator.c:1023
+#: src/as-validator.c:1236
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -677,13 +677,13 @@ msgid ""
 "ge are permitted."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:445
+#: src/as-validator-issue-tag.h:450
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:440
+#: src/as-validator-issue-tag.h:445
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
@@ -912,6 +912,11 @@ msgstr "Znovu vytvořit mezipaměť metadat součástí."
 msgid "Remove software matching the component-ID."
 msgstr "Odebrat software odpovídající identifikátoru součásti."
 
+#. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
+#: src/as-validator.c:364
+msgid "Retrieved file size was zero."
+msgstr ""
+
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
@@ -987,7 +992,7 @@ msgid "Subcommands:"
 msgstr "Dílčí příkazy:"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:522
+#: src/as-validator-issue-tag.h:527
 msgid ""
 "Suggestions of any type other than 'upstream' are not allowed in metainfo "
 "files."
@@ -1029,7 +1034,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:411
+#: src/as-validator-issue-tag.h:416
 msgid ""
 "The 'update_contact' tag should not be included in collection AppStream XML."
 msgstr ""
@@ -1039,7 +1044,7 @@ msgstr ""
 msgid "The .desktop file '%s' does not exist."
 msgstr "Soubor .desktop pro „%s“ neexistuje."
 
-#: src/as-validator-issue-tag.h:388
+#: src/as-validator-issue-tag.h:393
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr ""
 
@@ -1056,7 +1061,7 @@ msgid ""
 "valid."
 msgstr ""
 
-#: src/as-pool.c:1774
+#: src/as-pool.c:1776
 #, fuzzy, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
@@ -1065,7 +1070,7 @@ msgstr ""
 "Systémová mezipaměť AppStream byla aktualizována, ale byly zjištěny "
 "problémy: %s"
 
-#: src/as-pool.c:1772
+#: src/as-pool.c:1774
 #, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
@@ -1085,7 +1090,7 @@ msgstr ""
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "Je třeba, aby TYPE (typ) byl platný typ komponenty, jako např.: %s"
 
-#: src/as-validator-issue-tag.h:542
+#: src/as-validator-issue-tag.h:547
 msgid "The XML of this file is malformed."
 msgstr ""
 
@@ -1095,7 +1100,7 @@ msgid ""
 "Menu Specification for a list of valid categories."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:527
+#: src/as-validator-issue-tag.h:532
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
@@ -1159,11 +1164,11 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:498
+#: src/as-validator-issue-tag.h:503
 msgid "The component is an addon, but no 'extends' tag was specified."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:435
+#: src/as-validator-issue-tag.h:440
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
@@ -1224,14 +1229,14 @@ msgid ""
 "please use the <url/> tag instead to share links."
 msgstr ""
 
-#: src/as-validator.c:144
+#: src/as-validator.c:152
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:430
+#: src/as-validator-issue-tag.h:435
 msgid ""
 "The essential tag 'metadata_license' is missing. A license for the metadata "
 "itself always has to be defined."
@@ -1243,12 +1248,6 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-
-#: src/as-validator-issue-tag.h:393
-msgid ""
-"The given values is not an identifier for a desktop environment as "
-"registered with Freedesktop.org."
 msgstr ""
 
 #: src/as-validator-issue-tag.h:156
@@ -1311,7 +1310,7 @@ msgid ""
 "file."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:532
+#: src/as-validator-issue-tag.h:537
 msgid "The screenshot caption is too long (should be <= 80 characters)"
 msgstr ""
 
@@ -1357,6 +1356,12 @@ msgid ""
 msgstr ""
 "Typ „%s“ softwarové součásti není platný pro AppStream. Možné hodnoty jsou:"
 
+#: src/as-validator-issue-tag.h:398
+msgid ""
+"The set value is not an identifier for a desktop environment as registered "
+"with Freedesktop.org."
+msgstr ""
+
 #: tools/ascli-actions-mdata.c:449
 #, c-format
 msgid ""
@@ -1388,50 +1393,50 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:405
+#: src/as-validator-issue-tag.h:410
 msgid "This 'bundle' tag has an unknown type and can not be used."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:399
+#: src/as-validator-issue-tag.h:404
 msgid "This 'launchable' tag has an unknown type and can not be used."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:510
+#: src/as-validator-issue-tag.h:515
 msgid ""
 "This 'localization' component does not define any languages this "
 "localization is for."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:504
+#: src/as-validator-issue-tag.h:509
 msgid ""
 "This 'localization' component is missing an 'extends' tag, to specify the "
 "components it adds localization to."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:516
+#: src/as-validator-issue-tag.h:521
 msgid ""
 "This 'service' component is missing a 'launchable' tag of type 'service'."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:468
+#: src/as-validator-issue-tag.h:473
 msgid ""
 "This 'web-application' component is missing a 'icon' tag to specify a valid "
 "icon."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:462
+#: src/as-validator-issue-tag.h:467
 msgid ""
 "This 'web-application' component is missing a 'launchable' tag of type 'url'."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:474
+#: src/as-validator-issue-tag.h:479
 msgid ""
 "This 'web-application' component is missing categorizations. A 'categories' "
 "block is likely missing."
@@ -1478,13 +1483,13 @@ msgid ""
 "data."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:450
+#: src/as-validator-issue-tag.h:455
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:416
+#: src/as-validator-issue-tag.h:421
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
@@ -1507,6 +1512,11 @@ msgstr ""
 "dotazování se na software, poskytující konkrétní MIME typ a jeho instalaci "
 "na základě identifikátoru softwarové součásti."
 
+#: src/as-validator-issue-tag.h:388
+msgid ""
+"This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
+msgstr ""
+
 #: tools/appstream-cli.c:648
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
@@ -1516,24 +1526,28 @@ msgstr ""
 "porovnávací operátor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:456
+#: src/as-validator-issue-tag.h:461
 msgid ""
 "Type 'console-application' component, but no information about binaries in "
 "$PATH was provided via a 'provides/binary' tag."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:486
+#: src/as-validator-issue-tag.h:491
 msgid ""
 "Type 'driver' component, but no modalias information was provided via a "
 "provides/modalias tag."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:480
+#: src/as-validator-issue-tag.h:485
 msgid ""
 "Type 'font' component, but no font information was provided via a 'provides/"
 "font' tag."
+msgstr ""
+
+#: src/as-validator.c:333
+msgid "URL format is invalid."
 msgstr ""
 
 #: tools/ascli-actions-mdata.c:544
@@ -1562,11 +1576,6 @@ msgstr "Nepodařilo se nalézt součást odpovídající %s!"
 msgid "Unable to find component with ID '%s'!"
 msgstr "Nepodařilo se nalézt součást s identifikátorem „%s“!"
 
-#: src/as-validator-issue-tag.h:547
-msgid ""
-"Unable to find the curl binary. remote URLs can not be checked for validity!"
-msgstr ""
-
 #: tools/ascli-actions-misc.c:224
 #, fuzzy, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
@@ -1593,7 +1602,7 @@ msgid ""
 "file exist?"
 msgstr ""
 
-#: src/as-validator-issue-tag.h:537
+#: src/as-validator-issue-tag.h:542
 #, fuzzy
 msgid "Unable to read file."
 msgstr "Nedaří se načíst .desktop soubor: %s"

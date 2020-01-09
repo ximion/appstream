@@ -6,15 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2019-09-24 19:46+0200\n"
+"POT-Creation-Date: 2020-01-09 01:04+0100\n"
 "PO-Revision-Date: 2019-11-26 05:05+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/"
+"translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.10-dev\n"
 
 #: tools/appstream-cli.c:157
@@ -85,7 +87,7 @@ msgid "Also show pedantic hints."
 msgstr "Також виводити підказки щодо найдрібніших неточностей."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:492
+#: src/as-validator-issue-tag.h:497
 msgid ""
 "An 'extends' tag is specified, but the component is not of type 'addon', "
 "'localization' or 'repository'."
@@ -157,7 +159,7 @@ msgstr ""
 "AppStream — багатоплатформова специфікація надання метаданих щодо "
 "компонентів програмного забезпечення."
 
-#: src/as-pool.c:1787
+#: src/as-pool.c:1789
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -241,7 +243,7 @@ msgstr "Ігри на дошці"
 msgid "Bundle"
 msgstr "Кортеж"
 
-#: src/as-pool.c:1687
+#: src/as-pool.c:1690
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Запис до адреси каталогу кешу, «%s», неможливий."
@@ -603,7 +605,7 @@ msgstr ""
 "Виявлено невідомий теґ у групі requires/recommends. Ймовірно, це помилка, "
 "оскільки співвідношення цього типу є невідомим."
 
-#: src/as-validator-issue-tag.h:422
+#: src/as-validator-issue-tag.h:427
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with 'x-'. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
@@ -619,8 +621,8 @@ msgstr ""
 "нетипові дані до файла metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:478 src/as-validator.c:890 src/as-validator.c:975
-#: src/as-validator.c:1185
+#: src/as-validator.c:526 src/as-validator.c:938 src/as-validator.c:1023
+#: src/as-validator.c:1236
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Виявлено: %s — Дозволено: %s"
@@ -730,7 +732,7 @@ msgstr ""
 "У записі порівняння виявлено некоректне порівняння версій. Можна "
 "використовувати лише операції eq, ne, lt, gt, le та ge."
 
-#: src/as-validator-issue-tag.h:445
+#: src/as-validator-issue-tag.h:450
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
@@ -738,7 +740,7 @@ msgstr ""
 "Рекомендуємо додати повний опис цього компонента, щоб краще представити його "
 "користувачам."
 
-#: src/as-validator-issue-tag.h:440
+#: src/as-validator-issue-tag.h:445
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
@@ -980,6 +982,11 @@ msgstr "Перебудувати кеш метаданих щодо компон
 msgid "Remove software matching the component-ID."
 msgstr "Вилучити програмне забезпечення, вказане ідентифікатором компонента."
 
+#. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
+#: src/as-validator.c:364
+msgid "Retrieved file size was zero."
+msgstr ""
+
 #: src/as-category.c:248
 msgctxt "Category of Science"
 msgid "Robotics"
@@ -1056,7 +1063,7 @@ msgid "Subcommands:"
 msgstr "Підкоманди:"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:522
+#: src/as-validator-issue-tag.h:527
 msgid ""
 "Suggestions of any type other than 'upstream' are not allowed in metainfo "
 "files."
@@ -1104,7 +1111,7 @@ msgstr ""
 "компонента."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:411
+#: src/as-validator-issue-tag.h:416
 msgid ""
 "The 'update_contact' tag should not be included in collection AppStream XML."
 msgstr "Теґ «update_contact» не можна включати до XML збірки (collection)."
@@ -1114,7 +1121,7 @@ msgstr "Теґ «update_contact» не можна включати до XML зб
 msgid "The .desktop file '%s' does not exist."
 msgstr "Файла .desktop «%s» не існує."
 
-#: src/as-validator-issue-tag.h:388
+#: src/as-validator-issue-tag.h:393
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "У <developer_name/> не може міститися гіперпосилання."
 
@@ -1136,7 +1143,7 @@ msgstr ""
 "8601 рядка дати із точністю до дня. Будь ласка, переконайтеся, що вказано "
 "коректну дату."
 
-#: src/as-pool.c:1774
+#: src/as-pool.c:1776
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
@@ -1145,7 +1152,7 @@ msgstr ""
 "Кеш системи AppStream оновлено, але виявлено проблеми, які призвели до "
 "ігнорування метаданих: %s"
 
-#: src/as-pool.c:1772
+#: src/as-pool.c:1774
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
@@ -1164,7 +1171,7 @@ msgstr ""
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "Значенням ТИП має бути коректний запис компонент-тип, зокрема: %s"
 
-#: src/as-validator-issue-tag.h:542
+#: src/as-validator-issue-tag.h:547
 msgid "The XML of this file is malformed."
 msgstr "Форматування XML у цьому файлі є помилковим."
 
@@ -1176,7 +1183,7 @@ msgstr ""
 "Категорія, яку визначено у файлі .desktop, є некоректною. Зверніться до "
 "специфікації меню XDG, щоб ознайомитися зі списком коректних категорій."
 
-#: src/as-validator-issue-tag.h:527
+#: src/as-validator-issue-tag.h:532
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
@@ -1270,11 +1277,11 @@ msgstr ""
 "робити у файлах metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:498
+#: src/as-validator-issue-tag.h:503
 msgid "The component is an addon, but no 'extends' tag was specified."
 msgstr "Компонент є додатком, але не вказано теґ «extends»."
 
-#: src/as-validator-issue-tag.h:435
+#: src/as-validator-issue-tag.h:440
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
@@ -1349,7 +1356,7 @@ msgstr ""
 "Опис містить вебадресу у форматі звичайного тексту. Так не можна робити. "
 "Будь ласка, скористайтеся теґом <url/> для визначення посилань."
 
-#: src/as-validator.c:144
+#: src/as-validator.c:152
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
@@ -1359,7 +1366,7 @@ msgstr ""
 "допомогою відповідної системи стеження за вадами."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:430
+#: src/as-validator-issue-tag.h:435
 msgid ""
 "The essential tag 'metadata_license' is missing. A license for the metadata "
 "itself always has to be defined."
@@ -1378,14 +1385,6 @@ msgstr ""
 "80 символів). Вам варто розпочати опис із довгого абзацу щоб поліпшити "
 "вигляд опису у програмах-центрах керування програмним забезпеченням і надати "
 "докладні відомості щодо цього компонента одразу у першому ж абзаці опису."
-
-#: src/as-validator-issue-tag.h:393
-msgid ""
-"The given values is not an identifier for a desktop environment as "
-"registered with Freedesktop.org."
-msgstr ""
-"Вказані значення не є ідентифікаторами стільничного середовища, які "
-"зареєстровано Freedesktop.org."
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
@@ -1471,7 +1470,7 @@ msgstr ""
 "що найсвіжішу версію розташовано першою у списку. Упорядковування записів "
 "випусків також спрощує читання файла metainfo."
 
-#: src/as-validator-issue-tag.h:532
+#: src/as-validator-issue-tag.h:537
 msgid "The screenshot caption is too long (should be <= 80 characters)"
 msgstr ""
 "Підпис знімка екрана є надто довгим (має бути не довшим за 80 символів)"
@@ -1531,6 +1530,15 @@ msgstr ""
 "Встановлений тип компонента не вдалося розпізнати як коректний тип "
 "компонента AppStream."
 
+#: src/as-validator-issue-tag.h:398
+#, fuzzy
+msgid ""
+"The set value is not an identifier for a desktop environment as registered "
+"with Freedesktop.org."
+msgstr ""
+"Вказані значення не є ідентифікаторами стільничного середовища, які "
+"зареєстровано Freedesktop.org."
+
 #: tools/ascli-actions-mdata.c:449
 #, c-format
 msgid ""
@@ -1568,20 +1576,20 @@ msgstr ""
 "«yaml» або «text»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:405
+#: src/as-validator-issue-tag.h:410
 msgid "This 'bundle' tag has an unknown type and can not be used."
 msgstr ""
 "Це теґ «bundle» належить до невідомого типу, його не можна використовувати."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:399
+#: src/as-validator-issue-tag.h:404
 msgid "This 'launchable' tag has an unknown type and can not be used."
 msgstr ""
 "Це теґ «launchable» належить до невідомого типу, його не можна "
 "використовувати."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:510
+#: src/as-validator-issue-tag.h:515
 msgid ""
 "This 'localization' component does not define any languages this "
 "localization is for."
@@ -1590,7 +1598,7 @@ msgstr ""
 "цей переклад."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:504
+#: src/as-validator-issue-tag.h:509
 msgid ""
 "This 'localization' component is missing an 'extends' tag, to specify the "
 "components it adds localization to."
@@ -1599,7 +1607,7 @@ msgstr ""
 "визначає компоненти, для яких призначено цей переклад."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:516
+#: src/as-validator-issue-tag.h:521
 msgid ""
 "This 'service' component is missing a 'launchable' tag of type 'service'."
 msgstr ""
@@ -1607,7 +1615,7 @@ msgstr ""
 "«service»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:468
+#: src/as-validator-issue-tag.h:473
 msgid ""
 "This 'web-application' component is missing a 'icon' tag to specify a valid "
 "icon."
@@ -1616,7 +1624,7 @@ msgstr ""
 "визначення коректної піктограми."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:462
+#: src/as-validator-issue-tag.h:467
 msgid ""
 "This 'web-application' component is missing a 'launchable' tag of type 'url'."
 msgstr ""
@@ -1624,7 +1632,7 @@ msgstr ""
 "«url»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:474
+#: src/as-validator-issue-tag.h:479
 msgid ""
 "This 'web-application' component is missing categorizations. A 'categories' "
 "block is likely missing."
@@ -1687,14 +1695,14 @@ msgstr ""
 "generator») має автоматично виконати правильне форматування під час "
 "компілювання даних."
 
-#: src/as-validator-issue-tag.h:450
+#: src/as-validator-issue-tag.h:455
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
 msgstr ""
 "Цей загальний компонент не містить повного опису. Варто додати такий опис."
 
-#: src/as-validator-issue-tag.h:416
+#: src/as-validator-issue-tag.h:421
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
@@ -1722,6 +1730,11 @@ msgstr ""
 "певного типу MIME та його встановлення за ідентифікатором компонента "
 "програмного забезпечення."
 
+#: src/as-validator-issue-tag.h:388
+msgid ""
+"This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
+msgstr ""
+
 #: tools/appstream-cli.c:648
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
@@ -1731,7 +1744,7 @@ msgstr ""
 "оператор порівняння."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:456
+#: src/as-validator-issue-tag.h:461
 msgid ""
 "Type 'console-application' component, but no information about binaries in "
 "$PATH was provided via a 'provides/binary' tag."
@@ -1740,7 +1753,7 @@ msgstr ""
 "виконуваних файлів у $PATH за допомогою теґу «provides/binary»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:486
+#: src/as-validator-issue-tag.h:491
 msgid ""
 "Type 'driver' component, but no modalias information was provided via a "
 "provides/modalias tag."
@@ -1749,13 +1762,17 @@ msgstr ""
 "допомогою теґу provides/modalias."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
-#: src/as-validator-issue-tag.h:480
+#: src/as-validator-issue-tag.h:485
 msgid ""
 "Type 'font' component, but no font information was provided via a 'provides/"
 "font' tag."
 msgstr ""
 "Маємо компонент типу «font», але не вказано відомостей щодо шрифту за "
 "допомогою теґу «provides/font»."
+
+#: src/as-validator.c:333
+msgid "URL format is invalid."
+msgstr ""
 
 #: tools/ascli-actions-mdata.c:544
 #, c-format
@@ -1782,13 +1799,6 @@ msgstr "Не вдалося знайти компонент, що відпові
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Не вдалося знайти компонент з ідентифікатором «%s»!"
-
-#: src/as-validator-issue-tag.h:547
-msgid ""
-"Unable to find the curl binary. remote URLs can not be checked for validity!"
-msgstr ""
-"Не вдалося знайти виконуваний файл curl. Не вдасться перевірити чинність "
-"віддалених адрес!"
 
 #: tools/ascli-actions-misc.c:224
 #, c-format
@@ -1823,7 +1833,7 @@ msgstr ""
 "Не вдалося отримати відео для запису screenshot за вказаною адресою. Чи "
 "існує це відео?"
 
-#: src/as-validator-issue-tag.h:537
+#: src/as-validator-issue-tag.h:542
 msgid "Unable to read file."
 msgstr "Не вдалося прочитати файл."
 
@@ -2079,6 +2089,13 @@ msgstr "педантичних зауважень: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "попереджень: %lu"
+
+#~ msgid ""
+#~ "Unable to find the curl binary. remote URLs can not be checked for "
+#~ "validity!"
+#~ msgstr ""
+#~ "Не вдалося знайти виконуваний файл curl. Не вдасться перевірити чинність "
+#~ "віддалених адрес!"
 
 #~ msgid "Command '%s' is unknown."
 #~ msgstr "Невідома команда «%s»."
