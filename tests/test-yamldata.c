@@ -138,7 +138,7 @@ as_yaml_test_serialize (AsComponent *cpt)
  * Test writing a YAML document.
  */
 static void
-test_yamlwrite_general (void)
+test_yamlwrite_misc (void)
 {
 	guint i;
 	g_autoptr(AsMetadata) metad = NULL;
@@ -534,6 +534,61 @@ test_yaml_corrupt_data (void)
 
 	g_assert_error (error, AS_METADATA_ERROR, AS_METADATA_ERROR_PARSE);
 	g_assert_null (cpt);
+}
+
+static const gchar *yamldata_simple_fields = "---\n"
+						"File: DEP-11\n"
+						"Version: '0.12'\n"
+						"---\n"
+						"Type: generic\n"
+						"ID: org.example.SimpleTest\n"
+						"Name:\n"
+						"  C: TestComponent\n"
+						"Summary:\n"
+						"  C: Just part of an unittest\n"
+						"NameVariantSuffix:\n"
+						"  C: Generic\n";
+
+/**
+ * test_yaml_write_simple:
+ *
+ * Test writing some arbitrary fields
+ */
+static void
+test_yaml_write_simple (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.SimpleTest");
+
+	as_component_set_name (cpt, "TestComponent", "C");
+	as_component_set_summary (cpt, "Just part of an unittest", "C");
+	as_component_set_name_variant_suffix (cpt, "Generic", "C");
+
+	/* test collection serialization */
+	res = as_yaml_test_serialize (cpt);
+	g_assert (as_test_compare_lines (res, yamldata_simple_fields));
+}
+
+/**
+ * test_yaml_read_simple:
+ *
+ * Test reading some arbitrary fields
+ */
+static void
+test_yaml_read_simple (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+
+	cpt = as_yaml_test_read_data (yamldata_simple_fields, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.SimpleTest");
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestComponent");
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Just part of an unittest");
+	g_assert_cmpstr (as_component_get_name_variant_suffix (cpt), ==, "Generic");
 }
 
 /**
@@ -1348,12 +1403,15 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/YAML/Basic", test_basic);
-	g_test_add_func ("/YAML/Write/General", test_yamlwrite_general);
+	g_test_add_func ("/YAML/Write/Misc", test_yamlwrite_misc);
 
 	g_test_add_func ("/YAML/Read/CorruptData", test_yaml_corrupt_data);
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
 	g_test_add_func ("/YAML/Read/Url", test_yaml_read_url);
 	g_test_add_func ("/YAML/Read/Languages", test_yaml_read_languages);
+
+	g_test_add_func ("/YAML/Read/Simple", test_yaml_read_simple);
+	g_test_add_func ("/YAML/Write/Simple", test_yaml_write_simple);
 
 	g_test_add_func ("/YAML/Read/Suggests", test_yaml_read_suggests);
 	g_test_add_func ("/YAML/Write/Suggests", test_yaml_write_suggests);

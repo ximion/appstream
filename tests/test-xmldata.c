@@ -495,6 +495,55 @@ test_appstream_read_description (void)
 								 "<p>Paragraph</p>\n");
 }
 
+static const gchar *xmldata_simple = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+					"<component>\n"
+					"  <id>org.example.SimpleTest</id>\n"
+					"  <name>TestComponent</name>\n"
+					"  <summary>Just part of an unittest</summary>\n"
+					"  <name_variant_suffix>Generic</name_variant_suffix>\n"
+					"</component>\n";
+
+/**
+ * test_xml_read_simple:
+ *
+ * Test reading basic tags
+ */
+static void
+test_xml_read_simple (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+
+	cpt = as_xml_test_read_data (xmldata_simple, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.SimpleTest");
+
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "TestComponent");
+	g_assert_cmpstr (as_component_get_summary (cpt), ==, "Just part of an unittest");
+	g_assert_cmpstr (as_component_get_name_variant_suffix (cpt), ==, "Generic");
+}
+
+/**
+ * test_xml_write_simple:
+ *
+ * Test writing basic tags.
+ */
+static void
+test_xml_write_simple (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.SimpleTest");
+
+	as_component_set_name (cpt, "TestComponent", "C");
+	as_component_set_summary (cpt, "Just part of an unittest", "C");
+	as_component_set_name_variant_suffix (cpt, "Generic", "C");
+
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert (as_test_compare_lines (res, xmldata_simple));
+}
+
 /**
  * test_xml_read_url:
  *
@@ -1667,6 +1716,9 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 
 	g_test_add_func ("/XML/Write/MetainfoToCollection", test_appstream_write_metainfo_to_collection);
+
+	g_test_add_func ("/XML/Read/Simple", test_xml_read_simple);
+	g_test_add_func ("/XML/Write/Simple", test_xml_write_simple);
 
 	g_test_add_func ("/XML/Read/Url", test_xml_read_url);
 

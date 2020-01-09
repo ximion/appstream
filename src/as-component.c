@@ -116,6 +116,7 @@ typedef struct
 
 	gboolean		ignored; /* whether we should ignore this component */
 
+	GHashTable		*name_variant_suffix; /* variant suffix for component name */
 	GHashTable		*custom; /* free-form user-defined custom data */
 } AsComponentPrivate;
 
@@ -448,6 +449,8 @@ as_component_finalize (GObject* object)
 	g_hash_table_unref (priv->custom);
 	g_ptr_array_unref (priv->content_ratings);
 	g_ptr_array_unref (priv->icons);
+	if (priv->name_variant_suffix != NULL)
+		g_hash_table_unref (priv->name_variant_suffix);
 
 	g_ptr_array_unref (priv->recommends);
 	g_ptr_array_unref (priv->requires);
@@ -1569,6 +1572,46 @@ as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gch
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	as_component_localized_set (cpt, priv->developer_name, value, locale);
+}
+
+/**
+ * as_component_get_name_variant_suffix:
+ * @cpt: a #AsComponent instance.
+ *
+ * Get variant suffix for the component name
+ * (only to be displayed if two components have the same name).
+ *
+ * Returns: the variant suffix
+ *
+ * Since: 0.12.10
+ */
+const gchar*
+as_component_get_name_variant_suffix (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->name_variant_suffix == NULL)
+		return NULL;
+	return as_component_localized_get (cpt, priv->name_variant_suffix);
+}
+
+/**
+ * as_component_set_name_variant_suffix:
+ * @cpt: a #AsComponent instance.
+ * @value: the developer or developer team name
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB"
+ *
+ * Set a variant suffix for the component name
+ * (only to be displayed if components have the same name).
+ *
+ * Since: 0.12.10
+ */
+void
+as_component_set_name_variant_suffix (AsComponent *cpt, const gchar *value, const gchar *locale)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	if (priv->name_variant_suffix == NULL)
+		priv->name_variant_suffix = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+	as_component_localized_set (cpt, priv->name_variant_suffix, value, locale);
 }
 
 /**
@@ -3776,6 +3819,9 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 			} else if (tag_id == AS_TAG_INTERNAL_ORIGIN) {
 				as_component_set_origin (cpt, content);
 			}
+		} else if (tag_id == AS_TAG_NAME_VARIANT_SUFFIX) {
+			if (lang != NULL)
+				as_component_set_name_variant_suffix (cpt, content, lang);
 		}
 	}
 
@@ -4074,6 +4120,10 @@ as_component_to_xml_node (AsComponent *cpt, AsContext *ctx, xmlNode *root)
 
 	as_xml_add_text_node (cnode, "project_license", priv->project_license);
 	as_xml_add_text_node (cnode, "project_group", priv->project_group);
+
+	/* name variant suffix */
+	if (priv->name_variant_suffix != NULL)
+		as_xml_add_localized_text_node (cnode, "name_variant_suffix", priv->name_variant_suffix);
 
 	/* developer name */
 	as_xml_add_localized_text_node (cnode, "developer_name", priv->developer_name);
@@ -4659,6 +4709,9 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, GNode *root, GErr
 				if (as_agreement_load_from_yaml (agreement, ctx, n, NULL))
 					as_component_add_agreement (cpt, agreement);
 			}
+		} else if (field_id == AS_TAG_NAME_VARIANT_SUFFIX) {
+			priv->name_variant_suffix = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+			as_yaml_set_localized_table (ctx, node, priv->name_variant_suffix);
 		} else if (field_id == AS_TAG_CUSTOM) {
 			as_component_yaml_parse_custom (cpt, node);
 		} else {
@@ -5070,6 +5123,10 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 
 	/* Description */
 	as_yaml_emit_long_localized_entry (emitter, "Description", priv->description);
+
+	/* NameVariantSuffix */
+	if (priv->name_variant_suffix != NULL)
+		as_yaml_emit_localized_entry (emitter, "NameVariantSuffix", priv->name_variant_suffix);
 
 	/* DeveloperName */
 	as_yaml_emit_localized_entry (emitter, "DeveloperName", priv->developer_name);
