@@ -439,7 +439,8 @@ as_utils_is_writable (const gchar *path)
 /**
  * as_get_current_locale:
  *
- * Returns a locale string as used in the AppStream specification.
+ * Returns the current locale string in the format
+ * used by the AppStream.
  *
  * Returns: (transfer full): A locale string, free with g_free()
  */
@@ -448,11 +449,26 @@ as_get_current_locale (void)
 {
 	const gchar * const *locale_names;
 	gchar *tmp;
-	gchar *locale;
+	gchar *locale = NULL;
 
+	/* use LANGUAGE, LC_ALL, LC_MESSAGES and LANG */
 	locale_names = g_get_language_names ();
-	/* set active locale without UTF-8 suffix */
-	locale = g_strdup (locale_names[0]);
+
+	if (g_strstr_len (locale_names[0], -1, "_") == NULL) {
+		/* The locale doesn't have a region code - see if LANG has more to offer.
+		 * Some users expect LANG to take priority, and PackageKit uses region codes
+		 * as well since frontends submit them (based on LANG).
+		 * So if we don't have them in LANGUAGE but do have them in LANG, we have
+		 * different localization depending on how the application was launched as well as
+		 * multiple caches on systems which generate them via a backend in PackageKit. */
+		const gchar *env_lang = g_getenv ("LANG");
+		if ((env_lang != NULL) && (g_strstr_len (env_lang, -1, "_") != NULL))
+			locale = g_strdup (env_lang);
+	}
+	if (locale == NULL)
+		locale = g_strdup (locale_names[0]);
+
+	/* set active locale without UTF-8 suffix, UTF-8 is default in AppStream */
 	tmp = g_strstr_len (locale, -1, ".UTF-8");
 	if (tmp != NULL)
 		*tmp = '\0';
