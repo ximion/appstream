@@ -3664,7 +3664,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 
 		node_name = (const gchar*) iter->name;
 		content = as_xml_get_node_value (iter);
-		lang = as_xmldata_get_node_locale (ctx, iter);
+		lang = as_xml_get_node_locale_match (ctx, iter);
 
 		tag_id = as_xml_tag_from_string (node_name);
 

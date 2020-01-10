@@ -45,14 +45,14 @@ as_xml_get_node_value (xmlNode *node)
 }
 
 /**
- * as_xmldata_get_node_locale:
+ * as_xml_get_node_locale_match:
  * @node: A XML node
  *
  * Returns: The locale of a node, if the node should be considered for inclusion.
  * %NULL if the node should be ignored due to a not-matching locale.
  */
 gchar*
-as_xmldata_get_node_locale (AsContext *ctx, xmlNode *node)
+as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node)
 {
 	gchar *lang;
 
@@ -358,7 +358,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 			g_autofree gchar *lang = NULL;
 			g_autofree gchar *content = NULL;
 
-			lang = as_xmldata_get_node_locale (ctx, iter);
+			lang = as_xml_get_node_locale_match (ctx, iter);
 			if (lang == NULL)
 				/* this locale is not for us */
 				continue;
@@ -395,7 +395,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				if (iter2_tag_id != AS_TAG_LI)
 					continue;
 
-				lang = as_xmldata_get_node_locale (ctx, iter2);
+				lang = as_xml_get_node_locale_match (ctx, iter2);
 				if (lang == NULL)
 					continue;
 
@@ -739,7 +739,7 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
 }
 
 /**
- * as_xmldata_parse_document:
+ * as_xml_parse_document:
  */
 xmlDoc*
 as_xml_parse_document (const gchar *data, gssize len, GError **error)

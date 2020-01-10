@@ -35,8 +35,8 @@ G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
 gchar		*as_xml_get_node_value (xmlNode *node);
-gchar		*as_xmldata_get_node_locale (AsContext *ctx,
-					     xmlNode *node);
+gchar		*as_xml_get_node_locale_match (AsContext *ctx,
+					       xmlNode *node);
 
 void		as_xml_add_children_values_to_array (xmlNode *node,
 						     const gchar *element_name,

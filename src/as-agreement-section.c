@@ -313,7 +313,7 @@ as_agreement_section_load_from_xml (AsAgreementSection *agreement_section, AsCon
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		lang = as_xmldata_get_node_locale (ctx, iter);
+		lang = as_xml_get_node_locale_match (ctx, iter);
 
 		if (g_strcmp0 ((gchar*) iter->name, "name") == 0) {
 			g_autofree gchar *content = NULL;

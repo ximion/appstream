@@ -288,7 +288,7 @@ as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **
 	if (content == NULL)
 		return FALSE;
 
-	lang = as_xmldata_get_node_locale (ctx, node);
+	lang = as_xml_get_node_locale_match (ctx, node);
 
 	/* check if this image is for us */
 	if (lang == NULL)

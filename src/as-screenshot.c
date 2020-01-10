@@ -499,7 +499,7 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot, AsContext *ctx, xmlNode *
 			if (content == NULL)
 				continue;
 
-			lang = as_xmldata_get_node_locale (ctx, iter);
+			lang = as_xml_get_node_locale_match (ctx, iter);
 			if (lang != NULL)
 				as_screenshot_set_caption (screenshot, content, lang);
 		}
