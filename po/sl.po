@@ -4,33 +4,31 @@
 # Translators:
 # Martin Srebotnjak <miles@filmsi.net>, 2015
 # Bojan <Bojanzinko@gmail.com>, 2019.
+# Klemen Skerbiš <klemen.skerbis1@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-09 01:04+0100\n"
-"PO-Revision-Date: 2019-07-22 22:07+0000\n"
-"Last-Translator: Bojan <Bojanzinko@gmail.com>\n"
-"Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/"
-"translations/sl/>\n"
+"PO-Revision-Date: 2020-01-10 14:21+0000\n"
+"Last-Translator: Klemen Skerbiš <klemen.skerbis1@gmail.com>\n"
+"Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
-"%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 3.8-dev\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 3.10.1\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "%s ukaz"
 
 #: src/as-category.c:168
-#, fuzzy
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr "Kategorije"
+msgstr "3D Grafika"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:254
@@ -62,7 +60,7 @@ msgstr ""
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Dejanje"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
