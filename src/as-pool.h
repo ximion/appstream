@@ -110,6 +110,13 @@ void			as_pool_set_locale (AsPool *pool,
 gboolean		as_pool_load (AsPool *pool,
 					GCancellable *cancellable,
 					GError **error);
+void 			as_pool_load_async (AsPool *pool,
+					    GCancellable *cancellable,
+					    GAsyncReadyCallback callback,
+					    gpointer user_data);
+gboolean		as_pool_load_finish (AsPool *pool,
+					     GAsyncResult *result,
+					     GError **error);
 
 gboolean		as_pool_clear2 (AsPool *pool,
 					GError **error);

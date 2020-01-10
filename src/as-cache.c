@@ -25,6 +25,7 @@
  * Caches are used by #AsPool to quickly search for components while not keeping all
  * component data in memory.
  * Internally, a cache is backed by an LMDB database.
+ * This class is threadsafe.
  *
  * See also: #AsPool
  */
@@ -90,6 +91,8 @@ typedef struct
 
 	GFunc cpt_refine_func;
 	gpointer cpt_refine_func_udata;
+
+	GMutex mutex;
 } AsCachePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsCache, as_cache, G_TYPE_OBJECT)
@@ -136,6 +139,8 @@ as_cache_init (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 
+	g_mutex_init (&priv->mutex);
+
 	priv->opened = FALSE;
 	priv->max_keysize = 511;
 	priv->cpt_refine_func = NULL;
@@ -177,15 +182,18 @@ as_cache_finalize (GObject *object)
 	AsCache *cache = AS_CACHE (object);
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 
-	g_object_unref (priv->context);
 	as_cache_close (cache);
+	g_mutex_lock (&priv->mutex);
+	g_object_unref (priv->context);
 	g_free (priv->locale);
-
 	g_free (priv->fname);
 
 	g_hash_table_unref (priv->cpt_map);
 	g_hash_table_unref (priv->cid_set);
 	g_hash_table_unref (priv->ro_removed_set);
+
+	g_mutex_unlock (&priv->mutex);
+	g_mutex_clear (&priv->mutex);
 
 	G_OBJECT_CLASS (as_cache_parent_class)->finalize (object);
 }
@@ -638,6 +646,7 @@ inline static gboolean
 as_cache_check_opened (AsCache *cache, gboolean allow_floating, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	if (!allow_floating && priv->floating) {
 		g_set_error (error,
@@ -713,9 +722,12 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	mdb_mode_t db_mode;
 	gboolean nosync;
 	gboolean readonly;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	/* close cache in case it was open */
 	as_cache_close (cache);
+
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	rc = mdb_env_create (&priv->db_env);
 	if (rc != MDB_SUCCESS) {
@@ -1005,6 +1017,7 @@ gboolean
 as_cache_close (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	if (!priv->opened)
 		return FALSE;
@@ -1109,11 +1122,11 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 	GPtrArray *provides;
 	GPtrArray *extends;
 
-	static GMutex mutex;
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, TRUE, error))
 		return FALSE;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	if (priv->floating) {
 		/* floating cache, don't really add this component yet but stage it in the internal map */
@@ -1440,9 +1453,11 @@ as_cache_remove_by_data_id (AsCache *cache, const gchar *cdid, GError **error)
 	g_autofree guint8 *cpt_checksum = NULL;
 	GError *tmp_error = NULL;
 	gboolean ret;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, TRUE, error))
 		return FALSE;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	if (priv->floating) {
 		/* floating cache, remove only from the internal map */
@@ -1666,9 +1681,11 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 	MDB_val dval;
 	MDB_val dkey;
 	g_autoptr(GPtrArray) results = NULL;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1715,7 +1732,7 @@ as_cache_get_components_all (AsCache *cache, GError **error)
 }
 
 /**
- * as_cache_get_component_by_cid:
+ * as_cache_get_components_by_id:
  * @cache: An instance of #AsCache.
  * @id: The component ID to search for.
  * @error: A #GError or %NULL.
@@ -1732,9 +1749,11 @@ as_cache_get_components_by_id (AsCache *cache, const gchar *id, GError **error)
 	GError *tmp_error = NULL;
 	MDB_val dval;
 	GPtrArray *result = NULL;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, TRUE, error))
 		return NULL;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	if (priv->floating) {
 		/* floating cache, check only the internal map */
@@ -1795,9 +1814,11 @@ as_cache_get_component_by_data_id (AsCache *cache, const gchar *cdid, GError **e
 	GError *tmp_error = NULL;
 	g_autofree guint8 *cpt_hash = NULL;
 	AsComponent *cpt;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, TRUE, error))
 		return NULL;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	if (priv->floating) {
 		/* floating cache, check only the internal map */
@@ -1847,9 +1868,11 @@ as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **
 	MDB_val dval;
 	GPtrArray *result = NULL;
 	const gchar *kind_str = as_component_kind_to_string (kind);
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1892,9 +1915,11 @@ as_cache_get_components_by_provided_item (AsCache *cache, AsProvidedKind kind, c
 	MDB_val dval;
 	g_autofree gchar *item_key = NULL;
 	GPtrArray *result = NULL;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	item_key = g_strconcat (as_provided_kind_to_string (kind), item, NULL);
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
@@ -1935,9 +1960,11 @@ as_cache_get_components_by_categories (AsCache *cache, gchar **categories, GErro
 	MDB_txn *txn;
 	GError *tmp_error = NULL;
 	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -1995,9 +2022,11 @@ as_cache_get_components_by_launchable (AsCache *cache, AsLaunchableKind kind, co
 	g_autofree gchar *entry_key = NULL;
 	MDB_val dval;
 	GPtrArray *result = NULL;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	entry_key = g_strconcat (as_launchable_kind_to_string (kind), id, NULL);
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
@@ -2116,6 +2145,7 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 	g_autoptr(GHashTable) results_ht = NULL;
 	GHashTableIter ht_iter;
 	gpointer ht_value;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return NULL;
@@ -2124,6 +2154,8 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		/* if we have no search terms, just return all components we have */
 		return as_cache_get_components_all (cache, error);
 	}
+
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -2207,6 +2239,9 @@ as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
 		mdb_cursor_close (cur);
 	}
 
+	/* we don't need the mutex anymore, no class struct access here */
+	g_clear_pointer (&locker, g_mutex_locker_free);
+
 	/* compile our result */
 	g_hash_table_iter_init (&ht_iter, results_ht);
 	while (g_hash_table_iter_next (&ht_iter, NULL, &ht_value))
@@ -2238,9 +2273,11 @@ as_cache_has_component_id (AsCache *cache, const gchar *id, GError **error)
 	GError *tmp_error = NULL;
 	MDB_val dval;
 	gboolean found;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, TRUE, error))
 		return FALSE;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	if (priv->floating) {
 		/* floating cache, check only the internal map */
@@ -2281,9 +2318,11 @@ as_cache_count_components (AsCache *cache, GError **error)
 	MDB_stat stats;
 	gint rc;
 	gssize count = -1;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!as_cache_check_opened (cache, FALSE, error))
 		return 0;
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	txn = as_cache_transaction_new (cache, MDB_RDONLY, error);
 	if (txn == NULL)
@@ -2316,6 +2355,7 @@ as_cache_get_ctime (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	struct stat cache_sbuf;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	if (priv->fname == NULL)
 		return 0;
@@ -2336,6 +2376,7 @@ gboolean
 as_cache_is_open (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->opened;
 }
 
@@ -2350,6 +2391,7 @@ void
 as_cache_make_floating (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	if (priv->floating)
 		return;
@@ -2375,6 +2417,8 @@ as_cache_unfloat (AsCache *cache, GError **error)
 	gpointer ht_value;
 	guint invalid_cpts = 0;
 
+	g_mutex_lock (&priv->mutex);
+
 	priv->floating = FALSE;
 
 	g_hash_table_iter_init (&iter, priv->cpt_map);
@@ -2395,13 +2439,16 @@ as_cache_unfloat (AsCache *cache, GError **error)
 			continue;
 		}
 
+		g_mutex_unlock (&priv->mutex);
 		if (!as_cache_insert (cache, cpt, error))
 			return 0;
+		g_mutex_lock (&priv->mutex);
 	}
 
 	g_hash_table_remove_all (priv->cid_set);
 	g_hash_table_remove_all (priv->cpt_map);
 
+	g_mutex_unlock (&priv->mutex);
 	g_debug ("Cache returned from floating mode (all changes are now persistent)");
 
 	return invalid_cpts;
@@ -2417,6 +2464,7 @@ const gchar*
 as_cache_get_location (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->fname;
 }
 
@@ -2430,6 +2478,8 @@ void
 as_cache_set_location (AsCache *cache, const gchar *location)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
 	g_free (priv->fname);
 	priv->fname = g_strdup (location);
 }
@@ -2444,6 +2494,7 @@ gboolean
 as_cache_get_nosync (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->nosync;
 }
 
@@ -2459,6 +2510,7 @@ void
 as_cache_set_nosync (AsCache *cache, gboolean nosync)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	priv->nosync = nosync;
 }
 
@@ -2472,6 +2524,7 @@ gboolean
 as_cache_get_readonly (AsCache *cache)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->readonly;
 }
 
@@ -2485,6 +2538,7 @@ void
 as_cache_set_readonly (AsCache *cache, gboolean ro)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	priv->readonly = ro;
 }
 
@@ -2498,6 +2552,8 @@ void
 as_cache_set_refine_func (AsCache *cache, GFunc func, gpointer user_data)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
 	priv->cpt_refine_func = func;
 	priv->cpt_refine_func_udata = user_data;
 }

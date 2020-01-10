@@ -23,15 +23,17 @@
  * @short_description: Access the AppStream metadata pool.
  *
  * This class loads AppStream metadata from various sources and refines it with existing
- * knowledge about the system (e.g. by setting absolute pazhs for cached icons).
+ * knowledge about the system (e.g. by setting absolute paths for cached icons).
  * An #AsPool will use an on-disk cache to store metadata is has read and refined to
  * speed up the loading time when the same data is requested a second time.
  *
- * You can find AppStream metadata matching farious criteria, and also add new metadata to
- * the pool.
- * The caching behavior can be controlled by the application using #AsPool.
+ * You can find AppStream metadata matching various user-defined criteria, and also add new
+ * metadata to the pool.
+ * The caching behavior can be controlled by the application using #AsCacheFlags.
  *
  * An AppStream cache object can also be created and read using the appstreamcli(1) utility.
+ *
+ * This class is threadsafe.
  *
  * See also: #AsComponent
  */
@@ -72,7 +74,7 @@ typedef struct
 	AsCache *system_cache;
 	AsCache *cache;
 	gchar *cache_fname;
-	gchar *system_cache_fname;
+	gchar *sys_cache_dir;
 
 	gchar **term_greylist;
 
@@ -80,8 +82,7 @@ typedef struct
 	AsCacheFlags cache_flags;
 	gboolean prefer_local_metainfo;
 
-	gchar *sys_cache_path;
-	gchar *user_cache_path;
+	GMutex mutex;
 } AsPoolPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsPool, as_pool, G_TYPE_OBJECT)
@@ -125,6 +126,8 @@ as_pool_init (AsPool *pool)
 	guint i;
 	g_autoptr(AsDistroDetails) distro = NULL;
 
+	g_mutex_init (&priv->mutex);
+
 	/* set active locale */
 	priv->locale = as_get_current_locale ();
 
@@ -139,7 +142,7 @@ as_pool_init (AsPool *pool)
 	priv->term_greylist = g_strsplit (AS_SEARCH_GREYLIST_STR, ";", -1);
 
 	/* system-wide cache locations */
-	priv->sys_cache_path = g_strdup (AS_APPSTREAM_CACHE_PATH);
+	priv->sys_cache_dir = g_strdup (AS_APPSTREAM_CACHE_PATH);
 
 	if (as_utils_is_root ()) {
 		/* users umask shouldn't interfere with us creating new files when we are root */
@@ -194,6 +197,7 @@ as_pool_finalize (GObject *object)
 	AsPool *pool = AS_POOL (object);
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 
+	g_mutex_lock (&priv->mutex);
 	g_free (priv->screenshot_service_url);
 
 	g_ptr_array_unref (priv->xml_dirs);
@@ -203,14 +207,14 @@ as_pool_finalize (GObject *object)
 	g_object_unref (priv->cache);
 	g_object_unref (priv->system_cache);
 	g_free (priv->cache_fname);
+	g_free (priv->sys_cache_dir);
 
 	g_free (priv->locale);
 	g_free (priv->current_arch);
-
 	g_strfreev (priv->term_greylist);
 
-	g_free (priv->sys_cache_path);
-	g_free (priv->user_cache_path);
+	g_mutex_unlock (&priv->mutex);
+	g_mutex_clear (&priv->mutex);
 
 	G_OBJECT_CLASS (as_pool_parent_class)->finalize (object);
 }
@@ -234,6 +238,7 @@ static inline gboolean
 as_pool_can_query_system_cache (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM))
 		return as_cache_is_open (priv->system_cache);
 	return FALSE;
@@ -572,6 +577,7 @@ gboolean
 as_pool_clear2 (AsPool *pool, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	/* close & delete session cache */
 	as_cache_close (priv->cache);
@@ -652,6 +658,7 @@ as_pool_has_system_metadata_paths (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	guint i;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	for (i = 0; i < priv->xml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
@@ -675,6 +682,7 @@ as_pool_metadata_changed (AsPool *pool, AsCache *cache, gboolean system_only)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	guint i;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	for (i = 0; i < priv->xml_dirs->len; i++) {
 		const gchar *dir = (const gchar*) g_ptr_array_index (priv->xml_dirs, i);
@@ -702,6 +710,7 @@ as_pool_metadata_changed (AsPool *pool, AsCache *cache, gboolean system_only)
 static gboolean
 as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 {
+	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	GPtrArray *cpts;
 	g_autoptr(GPtrArray) merge_cpts = NULL;
 	guint i;
@@ -709,23 +718,29 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GPtrArray) mdata_files = NULL;
 	GError *tmp_error = NULL;
-	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	/* see if we can use the system caches */
 	if (!refresh && as_pool_has_system_metadata_paths (pool)) {
 		g_autofree gchar *fname = NULL;
-		fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
+		g_mutex_lock (&priv->mutex);
+		fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_dir, priv->locale);
 		as_cache_set_location (priv->system_cache, fname);
+		g_mutex_unlock (&priv->mutex);
 
 		if (!as_pool_metadata_changed (pool, priv->system_cache, TRUE)) {
 			g_debug ("System metadata cache seems up to date.");
 
+			g_mutex_lock (&priv->mutex);
 			if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_USE_SYSTEM)) {
+				g_mutex_unlock (&priv->mutex);
 				g_debug ("Using system cache data.");
 				if (g_file_test (fname, G_FILE_TEST_EXISTS)) {
 					as_cache_close (priv->system_cache);
 
+					g_mutex_lock (&priv->mutex);
 					if (as_cache_open2 (priv->system_cache, priv->locale, &tmp_error)) {
+						g_mutex_unlock (&priv->mutex);
 						return TRUE;
 					} else {
 						/* if we can't open the system cache for whatever reason, we complain but
@@ -734,10 +749,12 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 						g_error_free (tmp_error);
 						tmp_error = NULL;
 					}
+					g_mutex_unlock (&priv->mutex);
 				} else {
 					g_debug ("Missing cache for language '%s', attempting to load fresh data.", priv->locale);
 				}
 			} else {
+				g_mutex_unlock (&priv->mutex);
 				g_debug ("Not using system cache.");
 				as_cache_close (priv->system_cache);
 			}
@@ -752,11 +769,16 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
+	g_mutex_lock (&priv->mutex);
 	as_metadata_set_locale (metad, priv->locale);
+	g_mutex_unlock (&priv->mutex);
 
 	/* find AppStream metadata */
 	ret = TRUE;
 	mdata_files = g_ptr_array_new_with_free_func (g_free);
+
+	/* protect access to directory lists */
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	/* find XML data */
 	for (i = 0; i < priv->xml_dirs->len; i++) {
@@ -799,6 +821,9 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 			}
 		}
 	}
+
+	/* no need for further locking after this point, AsCache is threadsafe */
+	g_clear_pointer (&locker, g_mutex_locker_free);
 
 	/* parse the found data */
 	for (i = 0; i < mdata_files->len; i++) {
@@ -855,7 +880,7 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 			continue;
 		}
 
-		as_pool_add_component (pool, cpt, &tmp_error);
+		as_pool_add_component_internal (pool, cpt, TRUE, &tmp_error);
 		if (tmp_error != NULL) {
 			g_debug ("Metadata ignored: %s", tmp_error->message);
 			g_error_free (tmp_error);
@@ -868,7 +893,7 @@ as_pool_load_collection_data (AsPool *pool, gboolean refresh, GError **error)
 	for (i = 0; i < merge_cpts->len; i++) {
 		AsComponent *mcpt = AS_COMPONENT (g_ptr_array_index (merge_cpts, i));
 
-		as_pool_add_component (pool, mcpt, &tmp_error);
+		as_pool_add_component_internal (pool, mcpt, TRUE, &tmp_error);
 		if (tmp_error != NULL) {
 			g_debug ("Merge component ignored: %s", tmp_error->message);
 			g_error_free (tmp_error);
@@ -898,7 +923,9 @@ as_pool_get_desktop_entries_table (AsPool *pool)
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
+	g_mutex_lock (&priv->mutex);
 	as_metadata_set_locale (metad, priv->locale);
+	g_mutex_unlock (&priv->mutex);
 
 	de_cpt_table = g_hash_table_new_full (g_str_hash,
 					      g_str_equal,
@@ -968,7 +995,9 @@ as_pool_load_metainfo_data (AsPool *pool, GHashTable *desktop_entry_cpts)
 
 	/* prepare metadata parser */
 	metad = as_metadata_new ();
+	g_mutex_lock (&priv->mutex);
 	as_metadata_set_locale (metad, priv->locale);
+	g_mutex_unlock (&priv->mutex);
 
 	/* find metainfo files */
 	g_debug ("Searching for data in: %s", METAINFO_DIR);
@@ -1082,23 +1111,34 @@ as_pool_load_metainfo_desktop_data (AsPool *pool)
 	g_autoptr(GHashTable) de_cpts = NULL;
 
 	/* check if we actually need to load anything */
-	if (!as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES) && !as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO))
+	g_mutex_lock (&priv->mutex);
+	if (!as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES) && !as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO)) {
+		g_mutex_unlock (&priv->mutex);
 		return;
+	}
+	g_mutex_unlock (&priv->mutex);
 
 	/* get a hashmap of desktop-entry components */
 	de_cpts = as_pool_get_desktop_entries_table (pool);
 
+	g_mutex_lock (&priv->mutex);
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_METAINFO)) {
+		g_mutex_unlock (&priv->mutex);
+
 		/* load metainfo components, absorb desktop-entry components into them */
 		as_pool_load_metainfo_data (pool, de_cpts);
+	} else {
+		g_mutex_unlock (&priv->mutex);
 	}
 
 	/* read all remaining .desktop file components, if needed */
+	g_mutex_lock (&priv->mutex);
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_DESKTOP_FILES)) {
 		GHashTableIter iter;
 		gpointer value;
 		GError *error = NULL;
 
+		g_mutex_unlock (&priv->mutex);
 		g_debug ("Including components from .desktop files in the pool.");
 		g_hash_table_iter_init (&iter, de_cpts);
 		while (g_hash_table_iter_next (&iter, NULL, &value)) {
@@ -1111,6 +1151,8 @@ as_pool_load_metainfo_desktop_data (AsPool *pool)
 				error = NULL;
 			}
 		}
+	} else {
+		g_mutex_unlock (&priv->mutex);
 	}
 }
 
@@ -1126,6 +1168,7 @@ as_pool_cache_refine_component_cb (gpointer data, gpointer user_data)
 	AsPool *pool = AS_POOL (user_data);
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	AsComponent *cpt = AS_COMPONENT (data);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	/* add additional data to the component, e.g. external screenshots. Also refines
 	 * the component's icon paths */
@@ -1137,6 +1180,7 @@ as_pool_cache_refine_component_cb (gpointer data, gpointer user_data)
 /**
  * as_pool_load:
  * @pool: An instance of #AsPool.
+ * @cancellable: a #GCancellable.
  * @error: A #GError or %NULL.
  *
  * Builds an index of all found components in the watched locations.
@@ -1158,12 +1202,19 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	gdouble valid_percentage;
 	GError *tmp_error = NULL;
 
+	g_mutex_lock (&priv->mutex);
 	if (as_flags_contains (priv->cache_flags, AS_CACHE_FLAG_NO_CLEAR)) {
+		g_autoptr(GMutexLocker) inner_locker = NULL;
+		g_mutex_unlock (&priv->mutex);
+		inner_locker = g_mutex_locker_new (&priv->mutex);
+
 		/* we are supposed not to clear the cache before laoding its data */
 		if (!as_cache_open (priv->cache, priv->cache_fname, priv->locale, error))
 			return FALSE;
 	} else {
-		/* load (usually) means to reload, so we clear potential old data */
+		g_mutex_unlock (&priv->mutex);
+
+		/* load (here) means to reload, so we clear potential old data */
 		if (!as_pool_clear2 (pool, error))
 			return FALSE;
 	}
@@ -1171,8 +1222,13 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	as_cache_make_floating (priv->cache);
 
 	/* read all AppStream metadata that we can find */
-	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_COLLECTION))
+	g_mutex_lock (&priv->mutex);
+	if (as_flags_contains (priv->flags, AS_POOL_FLAG_READ_COLLECTION)) {
+		g_mutex_unlock (&priv->mutex);
 		ret = as_pool_load_collection_data (pool, FALSE, error);
+	} else {
+		g_mutex_unlock (&priv->mutex);
+	}
 
 	/* read all metainfo and desktop files and add them to the pool */
 	as_pool_load_metainfo_desktop_data (pool);
@@ -1215,6 +1271,67 @@ as_pool_load (AsPool *pool, GCancellable *cancellable, GError **error)
 	return ret;
 }
 
+static void
+_pool_load_thread (GTask *task,
+		   gpointer source_object,
+		   gpointer task_data,
+		   GCancellable *cancellable)
+{
+	AsPool *pool = AS_POOL (source_object);
+	GError *error = NULL;
+	gboolean success;
+
+	success = as_pool_load (pool, cancellable, &error);
+	if (error != NULL)
+		g_task_return_error (task, error);
+	else
+		g_task_return_boolean (task, success);
+}
+
+/**
+ * as_pool_load_async:
+ * @pool: An instance of #AsPool.
+ * @cancellable: a #GCancellable.
+ * @callback: A #GAsyncReadyCallback
+ * @user_data: Data to pass to @callback
+ *
+ * Asynchronously loads data from all registered locations.
+ * Equivalent to as_pool_load() (but asynchronous)
+ *
+ * Since: 0.12.10
+ **/
+void
+as_pool_load_async (AsPool *pool,
+		    GCancellable *cancellable,
+		    GAsyncReadyCallback callback,
+		    gpointer user_data)
+{
+	GTask *task = g_task_new (pool, cancellable, callback, user_data);
+	g_task_run_in_thread (task, _pool_load_thread);
+	g_object_unref (task);
+}
+
+/**
+ * as_pool_load_finish:
+ * @pool: An instance of #AsPool.
+ * @result: A #GAsyncResult
+ * @error: A #GError or %NULL.
+ *
+ * Retrieve the result of as_pool_load_async().
+ *
+ * Returns: %TRUE for success
+ *
+ * Since: 0.12.10
+ **/
+gboolean
+as_pool_load_finish (AsPool *pool,
+		     GAsyncResult *result,
+		     GError **error)
+{
+	g_return_val_if_fail (g_task_is_valid (result, pool), FALSE);
+	return g_task_propagate_boolean (G_TASK (result), error);
+}
+
 /**
  * as_pool_load_cache_file:
  * @pool: An instance of #AsPool.
@@ -1227,6 +1344,7 @@ gboolean
 as_pool_load_cache_file (AsPool *pool, const gchar *fname, GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	as_cache_close (priv->system_cache);
 	if (!as_cache_open (priv->cache, fname, priv->locale, error))
@@ -1249,11 +1367,14 @@ as_pool_save_cache_file (AsPool *pool, const gchar *fname, GError **error)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GPtrArray) cpts = NULL;
 	g_autoptr(AsCache) cache = NULL;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	cpts = as_pool_get_components (pool);
 	cache = as_cache_new ();
+	locker = g_mutex_locker_new (&priv->mutex);
 	if (!as_cache_open (cache, fname, priv->locale, error))
 		return FALSE;
+	g_clear_pointer (&locker, g_mutex_locker_free);
 
 	for (guint i = 0; i < cpts->len; i++) {
 		if (!as_cache_insert (cache, AS_COMPONENT (g_ptr_array_index (cpts, i)), error))
@@ -1623,7 +1744,9 @@ as_pool_search (AsPool *pool, const gchar *search)
 
 	result = as_cache_search (priv->cache, terms, FALSE, &tmp_error);
 	if (result == NULL) {
+		g_mutex_lock (&priv->mutex);
 		g_warning ("Search in session cache failed: %s", tmp_error->message);
+		g_mutex_unlock (&priv->mutex);
 		return g_ptr_array_new_with_free_func (g_object_unref);
 	}
 
@@ -1682,19 +1805,21 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 	guint invalid_cpts_n;
 
 	/* try to create cache directory, in case it doesn't exist */
-	g_mkdir_with_parents (priv->sys_cache_path, 0755);
-	if (!as_utils_is_writable (priv->sys_cache_path)) {
+	g_mkdir_with_parents (priv->sys_cache_dir, 0755);
+	if (!as_utils_is_writable (priv->sys_cache_dir)) {
 		g_set_error (error,
 				AS_POOL_ERROR,
 				AS_POOL_ERROR_TARGET_NOT_WRITABLE,
-				_("Cache location '%s' is not writable."), priv->sys_cache_path);
+				_("Cache location '%s' is not writable."), priv->sys_cache_dir);
 		return FALSE;
 	}
 
 	/* create the filename of our cache and set the location of the system cache.
 	 * This has to happen before we check for new metadata, so the system cache can
 	 * determine its age (so we know whether a refresh is needed at all). */
-	cache_fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_path, priv->locale);
+	g_mutex_lock (&priv->mutex);
+	cache_fname = g_strdup_printf ("%s/%s.cache", priv->sys_cache_dir, priv->locale);
+	g_mutex_unlock (&priv->mutex);
 	as_cache_set_location (priv->system_cache, cache_fname);
 
 	/* collect metadata */
@@ -1729,15 +1854,21 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 
 	/* open system cache as user cache temporarily, so we can modify it */
 	g_remove (cache_fname);
-	if (!as_cache_open (priv->cache, cache_fname, priv->locale, error))
+	g_mutex_lock (&priv->mutex);
+	if (!as_cache_open (priv->cache, cache_fname, priv->locale, error)) {
+		g_mutex_unlock (&priv->mutex);
 		return FALSE;
+	}
+	g_mutex_unlock (&priv->mutex);
 
 	/* NOTE: we will only cache AppStream metadata, no .desktop file metadata etc. */
 
 	/* since the session cache is the system cache now (in order to update it), temporarily modify
 	 * the cache flags */
+	g_mutex_lock (&priv->mutex);
 	prev_cache_flags = priv->cache_flags;
 	priv->cache_flags = AS_CACHE_FLAG_USE_USER;
+	g_mutex_unlock (&priv->mutex);
 
 	/* set cache to floating mode to increase performance by holding all data
 	 *in memory in a serialized form */
@@ -1759,7 +1890,9 @@ as_pool_refresh_system_cache (AsPool *pool, gboolean force, GError **error)
 	as_cache_close (priv->cache);
 
 	/* restore cache flags */
+	g_mutex_lock (&priv->mutex);
 	priv->cache_flags = prev_cache_flags;
+	g_mutex_unlock (&priv->mutex);
 
 	/* switch back to default sync mode */
 	as_cache_set_nosync (priv->cache, FALSE);
@@ -1803,6 +1936,8 @@ void
 as_pool_set_locale (AsPool *pool, const gchar *locale)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
 	g_free (priv->locale);
 	priv->locale = g_strdup (locale);
 }
@@ -1819,6 +1954,7 @@ const gchar *
 as_pool_get_locale (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->locale;
 }
 
@@ -1836,11 +1972,15 @@ as_pool_add_metadata_location_internal (AsPool *pool, const gchar *directory, gb
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	gboolean dir_added = FALSE;
 	gchar *path;
+	g_autoptr(GMutexLocker) locker = NULL;
 
 	if (!g_file_test (directory, G_FILE_TEST_IS_DIR)) {
 		g_debug ("Not adding metadata location '%s': Is no directory", directory);
 		return;
 	}
+
+	/* protect access to directory arrays */
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	/* metadata locations */
 	path = g_build_filename (directory, "xml", NULL);
@@ -1911,6 +2051,7 @@ void
 as_pool_clear_metadata_locations (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
 	/* clear arrays */
 	g_ptr_array_set_size (priv->xml_dirs, 0);
@@ -1930,6 +2071,7 @@ AsCacheFlags
 as_pool_get_cache_flags (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->cache_flags;
 }
 
@@ -1944,6 +2086,7 @@ void
 as_pool_set_cache_flags (AsPool *pool, AsCacheFlags flags)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	priv->cache_flags = flags;
 }
 
@@ -1957,6 +2100,7 @@ AsPoolFlags
 as_pool_get_flags (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->flags;
 }
 
@@ -1971,6 +2115,7 @@ void
 as_pool_set_flags (AsPool *pool, AsPoolFlags flags)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	priv->flags = flags;
 }
 
@@ -2002,6 +2147,8 @@ void
 as_pool_set_cache_location (AsPool *pool, const gchar *fname)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+
 	g_free (priv->cache_fname);
 	priv->cache_fname = g_strdup (fname);
 }
@@ -2018,6 +2165,7 @@ const gchar*
 as_pool_get_cache_location (AsPool *pool)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	return priv->cache_fname;
 }
 

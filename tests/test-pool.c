@@ -415,6 +415,103 @@ test_pool_read ()
 }
 
 /**
+ * test_pool_read_async_ready_cb:
+ *
+ * Callback invoked by test_pool_read_async()
+ */
+static void
+test_pool_read_async_ready_cb (AsPool *pool, GAsyncResult *result, gpointer user_data)
+{
+	g_autoptr(GError) error = NULL;
+	g_autoptr(GPtrArray) all_cpts = NULL;
+	GMainLoop **loop = (GMainLoop**) user_data;
+
+	g_debug ("AsPool-Async-Load: Received ready callback.");
+	as_pool_load_finish (pool, result, &error);
+	g_assert_no_error (error);
+
+	g_debug ("AsPool-Async-Load: Checking component count (after ready)");
+
+	/* check total retrieved component count */
+	all_cpts = as_pool_get_components (pool);
+	g_assert_nonnull (all_cpts);
+	g_assert_cmpint (all_cpts->len, ==, 19);
+
+	/* we received the callback, so quite the loop */
+	g_main_loop_quit (*loop);
+	g_clear_pointer (loop, g_main_loop_unref);
+}
+
+/**
+ * test_log_allow_warnings:
+ *
+ * Some warnings emitted when querying the pool while it is being loaded
+ * are important, but we specifically want to ignore them for this
+ * particular test case.
+ */
+gboolean
+test_log_allow_warnings (const gchar *log_domain,
+			     GLogLevelFlags log_level,
+			     const gchar *message,
+			     gpointer user_data)
+{
+	return ((log_level & G_LOG_LEVEL_MASK) <= G_LOG_LEVEL_CRITICAL);
+}
+
+/**
+ * test_pool_read_async:
+ *
+ * Test reading information from the metadata pool asynchronously.
+ */
+static void
+test_pool_read_async ()
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(GMainLoop) loop = g_main_loop_new (NULL, FALSE);
+
+	/* load sample data */
+	pool = test_get_sampledata_pool (FALSE);
+
+	g_debug ("AsPool-Async-Load: Requesting pool data loading.");
+	as_pool_load_async (pool,
+			    NULL, /* cancellable */
+			    (GAsyncReadyCallback) test_pool_read_async_ready_cb,
+			    &loop);
+
+	g_debug ("AsPool-Async-Load: Searching for components (immediately)");
+
+	/* ignore some warnings by the following functions
+	 * (they may complain, as the cache isn't loaded yet) */
+	g_test_log_set_fatal_handler (test_log_allow_warnings, NULL);
+
+	result = as_pool_search (pool, "web");
+	print_cptarray (result);
+	if (result->len != 0 && result->len != 1)
+		g_assert (0);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+	cpts = as_pool_get_components (pool);
+	g_assert_nonnull (cpts);
+	if (cpts->len != 0 && cpts->len != 19)
+		g_assert (0);
+	g_ptr_array_unref (cpts);
+
+	/* wait for the callback to be run (unless it already has!) */
+	if (loop != NULL)
+		g_main_loop_run (loop);
+
+	/* reset handler */
+	g_test_log_set_fatal_handler (NULL, NULL);
+
+	g_debug ("AsPool-Async-Load: Checking component count (after loaded)");
+	cpts = as_pool_get_components (pool);
+	g_assert_nonnull (cpts);
+	g_assert_cmpint (cpts->len, ==, 19);
+}
+
+/**
  * test_merge_components:
  *
  * Test merging of component data via the "merge" pseudo-component.
@@ -512,6 +609,7 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
+	g_test_add_func ("/AppStream/PoolReadAsync", test_pool_read_async);
 	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
 
