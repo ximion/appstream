@@ -29,6 +29,76 @@
 static gchar *datadir = NULL;
 
 /**
+ * as_xml_test_read_data:
+ *
+ * Helper function for other tests.
+ */
+static AsComponent*
+as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
+{
+	AsComponent *cpt = NULL;
+	GPtrArray *cpts;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *data_full = NULL;
+
+	data_full = g_strdup_printf ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n%s", data);
+
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
+	as_metadata_parse (metad, data_full, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+
+	cpts = as_metadata_get_components (metad);
+	g_assert_cmpint (cpts->len, >, 0);
+	if (mode == AS_FORMAT_STYLE_METAINFO)
+		g_assert_cmpint (cpts->len, ==, 1);
+	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+
+	return g_object_ref (cpt);
+}
+
+/**
+ * as_xml_test_serialize:
+ *
+ * Helper function for other tests.
+ */
+static gchar*
+as_xml_test_serialize (AsComponent *cpt, AsFormatStyle mode)
+{
+	gchar *data;
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
+
+	metad = as_metadata_new ();
+	as_metadata_add_component (metad, cpt);
+
+	if (mode == AS_FORMAT_STYLE_METAINFO) {
+		data = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
+	} else {
+		data = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
+	}
+
+	return data;
+}
+
+/**
+ * as_xml_test_compare_xml:
+ *
+ * Compare generated XML line-by-line, prefixing the generated
+ * data with the XML preamble first.
+ */
+static gboolean
+as_xml_test_compare_xml (const gchar *result, const gchar *expected)
+{
+	g_autofree gchar *expected_full = NULL;
+	expected_full = g_strdup_printf ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n%s", expected);
+	return as_test_compare_lines (result, expected_full);
+}
+
+/**
  * test_appstream_parser_legacy:
  *
  * Test parsing legacy metainfo files.
@@ -142,8 +212,7 @@ test_appstream_write_locale ()
 	AsComponent *cpt;
 	GError *error = NULL;
 
-	const gchar *EXPECTED_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				    "<component type=\"desktop-application\">\n"
+	const gchar *EXPECTED_XML = "<component type=\"desktop-application\">\n"
 				    "  <id>firefox.desktop</id>\n"
 				    "  <name>Firefox</name>\n"
 				    "  <name xml:lang=\"de_DE\">Feuerfuchs</name>\n"
@@ -197,63 +266,10 @@ test_appstream_write_locale ()
 						 &error);
 	g_assert_no_error (error);
 
-	g_assert (as_test_compare_lines (tmp, EXPECTED_XML));
+	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML));
 	g_free (tmp);
 
 	g_object_unref (metad);
-}
-
-/**
- * as_xml_test_read_data:
- *
- * Helper function for other tests.
- */
-static AsComponent*
-as_xml_test_read_data (const gchar *data, AsFormatStyle mode)
-{
-	AsComponent *cpt = NULL;
-	GPtrArray *cpts;
-	g_autoptr(AsMetadata) metad = NULL;
-	g_autoptr(GError) error = NULL;
-
-	metad = as_metadata_new ();
-	as_metadata_set_locale (metad, "ALL");
-	as_metadata_parse (metad, data, AS_FORMAT_KIND_XML, &error);
-	g_assert_no_error (error);
-
-	cpts = as_metadata_get_components (metad);
-	g_assert_cmpint (cpts->len, >, 0);
-	if (mode == AS_FORMAT_STYLE_METAINFO)
-		g_assert_cmpint (cpts->len, ==, 1);
-	cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
-
-	return g_object_ref (cpt);
-}
-
-/**
- * as_xml_test_serialize:
- *
- * Helper function for other tests.
- */
-static gchar*
-as_xml_test_serialize (AsComponent *cpt, AsFormatStyle mode)
-{
-	gchar *data;
-	g_autoptr(AsMetadata) metad = NULL;
-	g_autoptr(GError) error = NULL;
-
-	metad = as_metadata_new ();
-	as_metadata_add_component (metad, cpt);
-
-	if (mode == AS_FORMAT_STYLE_METAINFO) {
-		data = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
-		g_assert_no_error (error);
-	} else {
-		data = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, &error);
-		g_assert_no_error (error);
-	}
-
-	return data;
 }
 
 /**
@@ -270,8 +286,7 @@ test_appstream_write_description ()
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 
-	const gchar *EXPECTED_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-				    "<component>\n"
+	const gchar *EXPECTED_XML = "<component>\n"
 				    "  <id>org.example.Test</id>\n"
 				    "  <name>Test</name>\n"
 				    "  <summary>Just a unittest.</summary>\n"
@@ -297,8 +312,7 @@ test_appstream_write_description ()
 				    "  </releases>\n"
 				    "</component>\n";
 
-	const gchar *EXPECTED_XML_LOCALIZED = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-						"<component>\n"
+	const gchar *EXPECTED_XML_LOCALIZED =   "<component>\n"
 						"  <id>org.example.Test</id>\n"
 						"  <name>Test</name>\n"
 						"  <summary>Just a unittest.</summary>\n"
@@ -333,8 +347,7 @@ test_appstream_write_description ()
 						"  </releases>\n"
 						"</component>\n";
 
-	const gchar *EXPECTED_XML_DISTRO = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					   "<components version=\"0.12\">\n"
+	const gchar *EXPECTED_XML_DISTRO = "<components version=\"0.12\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
@@ -415,7 +428,7 @@ test_appstream_write_description ()
 	as_metadata_add_component (metad, cpt);
 
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_test_compare_lines (tmp, EXPECTED_XML));
+	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML));
 	g_free (tmp);
 
 	/* add localization */
@@ -425,11 +438,11 @@ test_appstream_write_description ()
 				"de");
 
 	tmp = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_LOCALIZED));
+	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_LOCALIZED));
 	g_free (tmp);
 
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_DISTRO));
+	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_DISTRO));
 	g_free (tmp);
 }
 
@@ -495,8 +508,7 @@ test_appstream_read_description (void)
 								 "<p>Paragraph</p>\n");
 }
 
-static const gchar *xmldata_simple = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
+static const gchar *xmldata_simple =    "<component>\n"
 					"  <id>org.example.SimpleTest</id>\n"
 					"  <name>TestComponent</name>\n"
 					"  <summary>Just part of an unittest</summary>\n"
@@ -541,7 +553,7 @@ test_xml_write_simple (void)
 	as_component_set_name_variant_suffix (cpt, "Generic", "C");
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_simple));
+	g_assert (as_xml_test_compare_xml (res, xmldata_simple));
 }
 
 /**
@@ -605,8 +617,7 @@ test_xml_write_languages (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res = NULL;
-	const gchar *expected_lang_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					 "<component>\n"
+	const gchar *expected_lang_xml = "<component>\n"
 					 "  <id>org.example.LangTest</id>\n"
 					 "  <languages>\n"
 					 "    <lang percentage=\"86\">de_DE</lang>\n"
@@ -620,7 +631,7 @@ test_xml_write_languages (void)
 	as_component_add_language (cpt, "en_GB", 98);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, expected_lang_xml));
+	g_assert (as_xml_test_compare_xml (res, expected_lang_xml));
 }
 
 /**
@@ -636,20 +647,19 @@ test_xml_write_provides (void)
 	g_autoptr(AsProvided) prov_bin = NULL;
 	g_autoptr(AsProvided) prov_dbus = NULL;
 	g_autofree gchar *res = NULL;
-	const gchar *expected_prov_xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
-					"  <id>org.example.ProvidesTest</id>\n"
-					"  <mimetypes>\n"
-					"    <mimetype>text/plain</mimetype>\n"
-					"    <mimetype>application/xml</mimetype>\n"
-					"    <mimetype>image/png</mimetype>\n"
-					"  </mimetypes>\n"
-					"  <provides>\n"
-					"    <binary>foobar</binary>\n"
-					"    <binary>foobar-viewer</binary>\n"
-					"    <dbus type=\"system\">org.example.ProvidesTest.Modify</dbus>\n"
-					"  </provides>\n"
-					"</component>\n";
+	const gchar *expected_prov_xml = "<component>\n"
+					 "  <id>org.example.ProvidesTest</id>\n"
+					 "  <mimetypes>\n"
+					 "    <mimetype>text/plain</mimetype>\n"
+					 "    <mimetype>application/xml</mimetype>\n"
+					 "    <mimetype>image/png</mimetype>\n"
+					 "  </mimetypes>\n"
+					 "  <provides>\n"
+					 "    <binary>foobar</binary>\n"
+					 "    <binary>foobar-viewer</binary>\n"
+					 "    <dbus type=\"system\">org.example.ProvidesTest.Modify</dbus>\n"
+					 "  </provides>\n"
+					 "</component>\n";
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.ProvidesTest");
@@ -673,7 +683,7 @@ test_xml_write_provides (void)
 	as_component_add_provided (cpt, prov_dbus);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, expected_prov_xml));
+	g_assert (as_xml_test_compare_xml (res, expected_prov_xml));
 }
 
 /**
@@ -688,15 +698,13 @@ test_xml_write_suggests (void)
 	g_autoptr(AsSuggested) sug_us = NULL;
 	g_autoptr(AsSuggested) sug_hr = NULL;
 	g_autofree gchar *res = NULL;
-	const gchar *expected_sug_xml_mi = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
-					"  <id>org.example.SuggestsTest</id>\n"
-					"  <suggests type=\"upstream\">\n"
-					"    <id>org.example.Awesome</id>\n"
-					"  </suggests>\n"
-					"</component>\n";
-	const gchar *expected_sug_xml_coll = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<components version=\"0.12\">\n"
+	const gchar *expected_sug_xml_mi = "<component>\n"
+					   "  <id>org.example.SuggestsTest</id>\n"
+					   "  <suggests type=\"upstream\">\n"
+					   "    <id>org.example.Awesome</id>\n"
+					   "  </suggests>\n"
+					   "</component>\n";
+	const gchar *expected_sug_xml_coll = "<components version=\"0.12\">\n"
 					"  <component>\n"
 					"    <id>org.example.SuggestsTest</id>\n"
 					"    <suggests type=\"upstream\">\n"
@@ -725,15 +733,14 @@ test_xml_write_suggests (void)
 
 	/* test metainfo serialization */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, expected_sug_xml_mi));
+	g_assert (as_xml_test_compare_xml (res, expected_sug_xml_mi));
 
 	/* test collection serialization */
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_COLLECTION);
-	g_assert (as_test_compare_lines (res, expected_sug_xml_coll));
+	g_assert (as_xml_test_compare_xml (res, expected_sug_xml_coll));
 }
 
-static const gchar *xmldata_custom = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					 "<component>\n"
+static const gchar *xmldata_custom = "<component>\n"
 					 "  <id>org.example.CustomTest</id>\n"
 					 "  <custom>\n"
 					 "    <value key=\"command\">myapp --go</value>\n"
@@ -777,11 +784,10 @@ test_xml_write_custom (void)
 	as_component_insert_custom_value (cpt, NULL, "dummy");
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_custom));
+	g_assert (as_xml_test_compare_xml (res, xmldata_custom));
 }
 
-static const gchar *xmldata_content_rating = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-						"<component>\n"
+static const gchar *xmldata_content_rating = "<component>\n"
 						"  <id>org.example.ContentRatingTest</id>\n"
 						"  <content_rating type=\"oars-1.0\">\n"
 						"    <content_attribute id=\"drugs-alcohol\">moderate</content_attribute>\n"
@@ -835,7 +841,7 @@ test_xml_write_content_rating (void)
 	as_component_add_content_rating (cpt, rating);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_content_rating));
+	g_assert (as_xml_test_compare_xml (res, xmldata_content_rating));
 }
 
 /* Test that parsing an empty content rating correctly returns `none` as the
@@ -844,11 +850,10 @@ test_xml_write_content_rating (void)
 static void
 test_content_rating_empty (void)
 {
-	const gchar *src = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-						"<component>\n"
-						"  <id>org.example.ContentRatingEmptyTest</id>\n"
-						"  <content_rating type=\"oars-1.0\"/>\n"
-						"</component>\n";
+	const gchar *src = "<component>\n"
+			   "  <id>org.example.ContentRatingEmptyTest</id>\n"
+			   "  <content_rating type=\"oars-1.0\"/>\n"
+			   "</component>\n";
 	g_autoptr(AsComponent) cpt = NULL;
 	AsContentRating *content_rating;
 
@@ -870,12 +875,11 @@ test_content_rating_empty (void)
 			 AS_CONTENT_RATING_VALUE_UNKNOWN);
 }
 
-static const gchar *xmldata_launchable = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
-					"  <id>org.example.LaunchTest</id>\n"
-					"  <launchable type=\"desktop-id\">org.example.Test.desktop</launchable>\n"
-					"  <launchable type=\"desktop-id\">kde4-kool.desktop</launchable>\n"
-					"</component>\n";
+static const gchar *xmldata_launchable = "<component>\n"
+					 "  <id>org.example.LaunchTest</id>\n"
+					 "  <launchable type=\"desktop-id\">org.example.Test.desktop</launchable>\n"
+					 "  <launchable type=\"desktop-id\">kde4-kool.desktop</launchable>\n"
+					 "</component>\n";
 /**
  * test_xml_read_launchable:
  *
@@ -922,7 +926,7 @@ test_xml_write_launchable (void)
 	as_component_add_launchable (cpt, launch);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_launchable));
+	g_assert (as_xml_test_compare_xml (res, xmldata_launchable));
 }
 
 /**
@@ -935,8 +939,7 @@ test_appstream_write_metainfo_to_collection (void)
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GError) error = NULL;
 
-	const gchar *METAINFO_XML = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
+	const gchar *METAINFO_XML =	"<component>\n"
 					"  <id>org.example.Test</id>\n"
 					"  <name>Test</name>\n"
 					"  <name xml:lang=\"eo\">Testo</name>\n"
@@ -978,8 +981,7 @@ test_appstream_write_metainfo_to_collection (void)
 					"  </releases>\n"
 					"</component>\n";
 
-	const gchar *EXPECTED_XML_COLL = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					   "<components version=\"0.12\">\n"
+	const gchar *EXPECTED_XML_COLL =   "<components version=\"0.12\">\n"
 					   "  <component>\n"
 					   "    <id>org.example.Test</id>\n"
 					   "    <name>Test</name>\n"
@@ -1036,32 +1038,31 @@ test_appstream_write_metainfo_to_collection (void)
 	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_COLLECTION);
 
 	tmp = as_metadata_components_to_collection (metad, AS_FORMAT_KIND_XML, NULL);
-	g_assert (as_test_compare_lines (tmp, EXPECTED_XML_COLL));
+	g_assert (as_xml_test_compare_xml (tmp, EXPECTED_XML_COLL));
 	g_free (tmp);
 }
 
 
-static const gchar *xmldata_screenshots = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
-					"  <id>org.example.ScreenshotTest</id>\n"
-					"  <screenshots>\n"
-					"    <screenshot type=\"default\">\n"
-					"      <caption>The main window displaying a thing</caption>\n"
-					"      <caption xml:lang=\"de_DE\">Das Hauptfenster, welches irgendwas zeigt</caption>\n"
-					"      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/alpha.png</image>\n"
-					"      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/alpha_small.png</image>\n"
-					"    </screenshot>\n"
-					"    <screenshot>\n"
-					"      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/beta.png</image>\n"
-					"      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/beta_small.png</image>\n"
-					"      <image type=\"source\" xml:lang=\"de_DE\">https://example.org/localized_de.png</image>\n"
-					"    </screenshot>\n"
-					"    <screenshot>\n"
-					"      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\">https://example.org/screencast.mkv</video>\n"
-					"      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de_DE\">https://example.org/screencast_de.mkv</video>\n"
-					"    </screenshot>\n"
-					"  </screenshots>\n"
-					"</component>\n";
+static const gchar *xmldata_screenshots = "<component>\n"
+					  "  <id>org.example.ScreenshotTest</id>\n"
+					  "  <screenshots>\n"
+					  "    <screenshot type=\"default\">\n"
+					  "      <caption>The main window displaying a thing</caption>\n"
+					  "      <caption xml:lang=\"de_DE\">Das Hauptfenster, welches irgendwas zeigt</caption>\n"
+					  "      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/alpha.png</image>\n"
+					  "      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/alpha_small.png</image>\n"
+					  "    </screenshot>\n"
+					  "    <screenshot>\n"
+					  "      <image type=\"source\" width=\"1916\" height=\"1056\">https://example.org/beta.png</image>\n"
+					  "      <image type=\"thumbnail\" width=\"800\" height=\"600\">https://example.org/beta_small.png</image>\n"
+					  "      <image type=\"source\" xml:lang=\"de_DE\">https://example.org/localized_de.png</image>\n"
+					  "    </screenshot>\n"
+					  "    <screenshot>\n"
+					  "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\">https://example.org/screencast.mkv</video>\n"
+					  "      <video codec=\"av1\" container=\"matroska\" width=\"1916\" height=\"1056\" xml:lang=\"de_DE\">https://example.org/screencast_de.mkv</video>\n"
+					  "    </screenshot>\n"
+					  "  </screenshots>\n"
+					  "</component>\n";
 
 /**
  * test_xml_read_screenshots:
@@ -1081,13 +1082,12 @@ test_xml_read_screenshots (void)
 	AsImage *img;
 	AsVideo *vid;
 
-	const gchar *xmldata_screenshot_legacy = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
-					"  <id>org.example.ScreenshotAncient</id>\n"
-					"  <screenshots>\n"
-					"    <screenshot type=\"default\">https://example.org/alpha.png</screenshot>\n"
-					"  </screenshots>\n"
-					"</component>\n";
+	const gchar *xmldata_screenshot_legacy = "<component>\n"
+						 "  <id>org.example.ScreenshotAncient</id>\n"
+						 "  <screenshots>\n"
+						 "    <screenshot type=\"default\">https://example.org/alpha.png</screenshot>\n"
+						 "  </screenshots>\n"
+						 "</component>\n";
 
 	cpt = as_xml_test_read_data (xmldata_screenshots, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ScreenshotTest");
@@ -1286,22 +1286,21 @@ test_xml_write_screenshots (void)
 	as_component_add_screenshot (cpt, scr3);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_screenshots));
+	g_assert (as_xml_test_compare_xml (res, xmldata_screenshots));
 }
 
 
-static const gchar *xmldata_recommends_requires = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-						"<component>\n"
-						"  <id>org.example.RelationsTest</id>\n"
-						"  <recommends>\n"
-						"    <memory>2500</memory>\n"
-						"    <modalias>usb:v1130p0202d*</modalias>\n"
-						"  </recommends>\n"
-						"  <requires>\n"
-						"    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
-						"    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
-						"  </requires>\n"
-						"</component>\n";
+static const gchar *xmldata_recommends_requires = "<component>\n"
+						  "  <id>org.example.RelationsTest</id>\n"
+						  "  <recommends>\n"
+						  "    <memory>2500</memory>\n"
+						  "    <modalias>usb:v1130p0202d*</modalias>\n"
+						  "  </recommends>\n"
+						  "  <requires>\n"
+						  "    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
+						  "    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
+						  "  </requires>\n"
+						  "</component>\n";
 /**
  * test_xml_read_recommends_requires:
  *
@@ -1402,12 +1401,11 @@ test_xml_write_recommends_requires (void)
 	as_component_add_relation (cpt, id_relation);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_recommends_requires));
+	g_assert (as_xml_test_compare_xml (res, xmldata_recommends_requires));
 }
 
 
-static const gchar *xmldata_agreements = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-						"<component>\n"
+static const gchar *xmldata_agreements = 	"<component>\n"
 						"  <id>org.example.AgreementsTest</id>\n"
 						"  <agreement type=\"eula\" version_id=\"1.2.3a\">\n"
 						"    <agreement_section type=\"intro\">\n"
@@ -1484,11 +1482,10 @@ test_xml_write_agreements (void)
 	as_component_add_agreement (cpt, agreement);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_agreements));
+	g_assert (as_xml_test_compare_xml (res, xmldata_agreements));
 }
 
-static const gchar *xmldata_releases = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-					"<component>\n"
+static const gchar *xmldata_releases =  "<component>\n"
 					"  <id>org.example.ReleaseTest</id>\n"
 					"  <releases>\n"
 					"    <release type=\"stable\" version=\"1.2\">\n"
@@ -1661,7 +1658,7 @@ test_xml_write_releases (void)
 	as_component_add_release (cpt, rel);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
-	g_assert (as_test_compare_lines (res, xmldata_releases));
+	g_assert (as_xml_test_compare_xml (res, xmldata_releases));
 }
 
 /**
@@ -1678,7 +1675,7 @@ test_xml_read_releases_legacy (void)
 	AsArtifact *artifact;
 	AsChecksum *cs;
 
-	static const gchar *xmldata_releases_legacy = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+	static const gchar *xmldata_releases_legacy =
 					"<component>\n"
 					"  <id>org.example.ReleaseTestLegacy</id>\n"
 					"  <releases>\n"
