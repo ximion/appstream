@@ -78,6 +78,7 @@ aslib_priv_headers = [
     'as-utils-private.h',
     'as-tag.h',
     'as-context.h',
+    'as-context-private.h',
     'as-xml.h',
     'as-yaml.h',
     'as-cache.h',

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2017 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2020 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -81,10 +81,6 @@ gboolean		as_context_get_all_locale_enabled (AsContext *ctx);
 const gchar		*as_context_get_filename (AsContext *ctx);
 void			as_context_set_filename (AsContext *ctx,
 					       const gchar *fname);
-
-gboolean		as_context_get_internal_mode (AsContext *ctx);
-void			as_context_set_internal_mode (AsContext *ctx,
-						      gboolean enabled);
 
 G_END_DECLS
 

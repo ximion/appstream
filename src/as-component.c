@@ -28,6 +28,7 @@
 #include "as-utils-private.h"
 #include "as-stemmer.h"
 
+#include "as-context-private.h"
 #include "as-icon-private.h"
 #include "as-screenshot-private.h"
 #include "as-bundle-private.h"
@@ -1130,58 +1131,6 @@ as_component_set_active_locale (AsComponent *cpt, const gchar *locale)
 }
 
 /**
- * as_component_localized_get:
- * @cpt: a #AsComponent instance.
- * @lht: (element-type utf8 utf8): the #GHashTable on which the value will be retreived.
- *
- * Helper function to get a localized property using the current
- * active locale for this component.
- */
-static const gchar*
-as_component_localized_get (AsComponent *cpt, GHashTable *lht)
-{
-	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	const gchar *locale;
-	gchar *msg;
-
-	locale = as_component_get_active_locale (cpt);
-	msg = g_hash_table_lookup (lht, locale);
-	if ((msg == NULL) && (!as_flags_contains (priv->value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
-		g_autofree gchar *lang = as_utils_locale_to_language (locale);
-		/* fall back to language string */
-		msg = g_hash_table_lookup (lht, lang);
-		if (msg == NULL) {
-			/* fall back to untranslated / default */
-			msg = g_hash_table_lookup (lht, "C");
-		}
-	}
-
-	return msg;
-}
-
-/**
- * as_component_localized_set:
- * @cpt: a #AsComponent instance.
- * @lht: (element-type utf8 utf8): the #GHashTable on which the value will be added.
- * @value: the value to add.
- * @locale: (nullable): the locale, or %NULL. e.g. "en_GB".
- *
- * Helper function to set a localized property.
- */
-static void
-as_component_localized_set (AsComponent *cpt, GHashTable *lht, const gchar* value, const gchar *locale)
-{
-	/* if no locale was specified, we assume the default locale */
-	/* CAVE: %NULL does NOT mean lang=C! */
-	if (locale == NULL)
-		locale = as_component_get_active_locale (cpt);
-
-	g_hash_table_insert (lht,
-				as_locale_strip_encoding (g_strdup (locale)),
-				g_strdup (value));
-}
-
-/**
  * as_component_get_name:
  * @cpt: a #AsComponent instance.
  *
@@ -1193,7 +1142,10 @@ const gchar*
 as_component_get_name (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_component_localized_get (cpt, priv->name);
+	return as_context_localized_ht_get (priv->context,
+					    priv->name,
+					    priv->active_locale_override,
+					    priv->value_flags);
 }
 
 /**
@@ -1209,7 +1161,7 @@ as_component_set_name (AsComponent *cpt, const gchar* value, const gchar *locale
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_component_localized_set (cpt, priv->name, value, locale);
+	as_context_localized_ht_set (priv->context, priv->name, value, locale);
 	g_object_notify ((GObject *) cpt, "name");
 }
 
@@ -1225,7 +1177,10 @@ const gchar*
 as_component_get_summary (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_component_localized_get (cpt, priv->summary);
+	return as_context_localized_ht_get (priv->context,
+					    priv->summary,
+					    priv->active_locale_override,
+					    priv->value_flags);
 }
 
 /**
@@ -1241,7 +1196,10 @@ as_component_set_summary (AsComponent *cpt, const gchar* value, const gchar *loc
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_component_localized_set (cpt, priv->summary, value, locale);
+	as_context_localized_ht_set (priv->context,
+				     priv->summary,
+				     value,
+				     locale);
 	g_object_notify ((GObject *) cpt, "summary");
 }
 
@@ -1257,7 +1215,10 @@ const gchar*
 as_component_get_description (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_component_localized_get (cpt, priv->description);
+	return as_context_localized_ht_get (priv->context,
+					    priv->description,
+					    priv->active_locale_override,
+					    priv->value_flags);
 }
 
 /**
@@ -1273,7 +1234,10 @@ as_component_set_description (AsComponent *cpt, const gchar* value, const gchar 
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_component_localized_set (cpt, priv->description, value, locale);
+	as_context_localized_ht_set (priv->context,
+				     priv->description,
+				     value,
+				     locale);
 	g_object_notify ((GObject *) cpt, "description");
 }
 
@@ -1556,7 +1520,10 @@ const gchar*
 as_component_get_developer_name (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_component_localized_get (cpt, priv->developer_name);
+	return as_context_localized_ht_get (priv->context,
+					    priv->developer_name,
+					    priv->active_locale_override,
+					    priv->value_flags);
 }
 
 /**
@@ -1571,7 +1538,10 @@ void
 as_component_set_developer_name (AsComponent *cpt, const gchar *value, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	as_component_localized_set (cpt, priv->developer_name, value, locale);
+	as_context_localized_ht_set (priv->context,
+				     priv->developer_name,
+				     value,
+				     locale);
 }
 
 /**
@@ -1591,7 +1561,10 @@ as_component_get_name_variant_suffix (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->name_variant_suffix == NULL)
 		return NULL;
-	return as_component_localized_get (cpt, priv->name_variant_suffix);
+	return as_context_localized_ht_get (priv->context,
+					    priv->name_variant_suffix,
+					    priv->active_locale_override,
+					    priv->value_flags);
 }
 
 /**
@@ -1611,7 +1584,10 @@ as_component_set_name_variant_suffix (AsComponent *cpt, const gchar *value, cons
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->name_variant_suffix == NULL)
 		priv->name_variant_suffix = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
-	as_component_localized_set (cpt, priv->name_variant_suffix, value, locale);
+	as_context_localized_ht_set (priv->context,
+				     priv->name_variant_suffix,
+				     value,
+				     locale);
 }
 
 /**

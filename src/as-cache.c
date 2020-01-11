@@ -38,7 +38,7 @@
 #include <glib/gstdio.h>
 
 #include "as-utils-private.h"
-#include "as-context.h"
+#include "as-context-private.h"
 #include "as-component-private.h"
 #include "as-launchable.h"
 

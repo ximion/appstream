@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2017 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2020 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -367,6 +367,84 @@ as_context_set_internal_mode (AsContext *ctx, gboolean enabled)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	priv->internal_mode = enabled;
+}
+
+/**
+ * as_context_localized_ht_get:
+ * @ctx: a #AsContext instance, or %NULL
+ * @lht: (element-type utf8 utf8): the #GHashTable from which the value will be retreived.
+ * @locale_override: Override the default locale defined by @ctx, or %NULL
+ *
+ * Helper function to get a value for the current locale from a localization
+ * hash table (which maps locale to localized strings).
+ *
+ * This is used by all entities which have a context and have localized strings.
+ *
+ * Returns: The localized string in the best matching localization.
+ */
+const gchar*
+as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *locale_override, AsValueFlags value_flags)
+{
+	const gchar *locale;
+	const gchar *msg;
+
+	/* retrieve context locale, if the locale isn't explicitly overridden */
+	if ((ctx != NULL) && (locale_override == NULL)) {
+		AsContextPrivate *priv = GET_PRIVATE (ctx);
+		locale = priv->locale;
+	} else {
+		locale = locale_override;
+	}
+
+	/* NULL is not an acceptable value here and means "C" */
+	if (locale == NULL)
+		locale = "C";
+
+	msg = g_hash_table_lookup (lht, locale);
+	if ((msg == NULL) && (!as_flags_contains (value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
+		g_autofree gchar *lang = as_utils_locale_to_language (locale);
+		/* fall back to language string */
+		msg = g_hash_table_lookup (lht, lang);
+		if (msg == NULL) {
+			/* fall back to untranslated / default */
+			msg = g_hash_table_lookup (lht, "C");
+		}
+	}
+
+	return msg;
+}
+
+/**
+ * as_context_localized_ht_set:
+ * @ctx: a #AsContext instance, or %NULL
+ * @lht: (element-type utf8 utf8): the #GHashTable to which the value will be added.
+ * @value: the value to add.
+ * @locale: (nullable): the locale, or %NULL. e.g. "en_GB".
+ *
+ * Helper function to set a localized value on a trabslation mapping.
+ *
+ * This is used by all entities which have a context and have localized strings.
+ */
+void
+as_context_localized_ht_set (AsContext *ctx, GHashTable *lht, const gchar *value, const gchar *locale)
+{
+	const gchar *selected_locale;
+
+	/* if no locale was specified, we assume the default locale
+	 * NOTE: %NULL does NOT necessarily mean lang=C here! */
+	if ((ctx != NULL) && (locale == NULL)) {
+		AsContextPrivate *priv = GET_PRIVATE (ctx);
+		selected_locale = priv->locale;
+	} else {
+		selected_locale = locale;
+	}
+	/* if we still have no locale, assume "C" as best option */
+	if (selected_locale == NULL)
+		selected_locale = "C";
+
+	g_hash_table_insert (lht,
+			     as_locale_strip_encoding (g_strdup (selected_locale)),
+			     g_strdup (value));
 }
 
 /**

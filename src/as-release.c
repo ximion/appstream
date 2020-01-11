@@ -38,6 +38,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-context-private.h"
 #include "as-artifact-private.h"
 #include "as-checksum-private.h"
 #include "as-issue-private.h"
@@ -481,16 +482,11 @@ as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency)
 const gchar*
 as_release_get_description (AsRelease *release)
 {
-	const gchar *desc;
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-
-	desc = g_hash_table_lookup (priv->description, as_release_get_active_locale (release));
-	if (desc == NULL) {
-		/* fall back to untranslated / default */
-		desc = g_hash_table_lookup (priv->description, "C");
-	}
-
-	return desc;
+	return as_context_localized_ht_get (priv->context,
+					    priv->description,
+					    priv->active_locale_override,
+					    AS_VALUE_FLAG_NONE);
 }
 
 /**
@@ -504,13 +500,10 @@ void
 as_release_set_description (AsRelease *release, const gchar *description, const gchar *locale)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
-
-	if (locale == NULL)
-		locale = as_release_get_active_locale (release);
-
-	g_hash_table_insert (priv->description,
-				g_strdup (locale),
-				g_strdup (description));
+	as_context_localized_ht_set (priv->context,
+				     priv->description,
+				     description,
+				     locale);
 }
 
 /**
