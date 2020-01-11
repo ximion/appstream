@@ -414,7 +414,7 @@
 			<para>
 				A <literal>release</literal> tag can have the properties <literal>version</literal>, <literal>date</literal> and <literal>timestamp</literal>.
 				The <literal>date</literal> property can have any time in <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> format as its value and
-				should be present for every release. At least day-level granularity is required, which means that the ISO 8601 string must contain at least a full date (e.g. 2019-08-12).
+				should be present for every release. At least day-level granularity is required, which means that the ISO 8601 string must contain at least a full date (e.g. 2020-08-12).
 				The <literal>timestamp</literal> tag contains the release time in the form of a UNIX epoch. This tag should not be used in metainfo files in newly
 				written metadata, but will still be parsed in case it is present. The <literal>timestamp</literal> property is mainly used in generated distro-metadata.
 				In case both release-time tags are present, the <literal>timestamp</literal> tag will take precedence over <literal>date</literal>.
