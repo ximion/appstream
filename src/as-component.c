@@ -1161,7 +1161,10 @@ as_component_set_name (AsComponent *cpt, const gchar* value, const gchar *locale
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_context_localized_ht_set (priv->context, priv->name, value, locale);
+	as_context_localized_ht_set (priv->context,
+				     priv->name,
+				     value,
+				     locale);
 	g_object_notify ((GObject *) cpt, "name");
 }
 
