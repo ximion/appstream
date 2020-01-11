@@ -487,7 +487,6 @@ test_pool_read_async ()
 	g_test_log_set_fatal_handler (test_log_allow_warnings, NULL);
 
 	result = as_pool_search (pool, "web");
-	print_cptarray (result);
 	if (result->len != 0 && result->len != 1)
 		g_assert (0);
 	g_clear_pointer (&result, g_ptr_array_unref);
