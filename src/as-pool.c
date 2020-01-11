@@ -579,23 +579,38 @@ as_pool_clear2 (AsPool *pool, GError **error)
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 
-	/* close & delete session cache */
-	as_cache_close (priv->cache);
-	if (g_file_test (priv->cache_fname, G_FILE_TEST_EXISTS)) {
-		if (g_remove (priv->cache_fname) != 0) {
-			g_set_error_literal (error,
-						AS_POOL_ERROR,
-						AS_POOL_ERROR_OLD_CACHE,
-						_("Unable to remove old cache."));
-			return FALSE;
-		}
-	}
-
-	/* close system cache so it won't be used anymore */
+	/* close system cache so it won't be used anymore
+	 * (will be loaded explicitly again later, when needed) */
 	as_cache_close (priv->system_cache);
 
-	/* reopen the session cache as a new, pristine one */
-	return as_cache_open (priv->cache, priv->cache_fname, priv->locale, error);
+	/* if we were just created, we may be able to reuse the current temporary cache,
+	 * instead of creating a new one (which is a bit wasteful).
+	 * Reuse requires a temporary cache with no elements. */
+	if ((g_strcmp0 (priv->cache_fname, ":temporary") == 0) &&
+	    (as_cache_count_components (priv->cache, NULL) == 0)) {
+		/* we can reuse the user cache */
+
+		g_debug ("Not clearing user cache: The cache was already empty.");
+		return TRUE;
+	} else {
+		/* it looks like we can not reuse the old cache, so now we need to clear
+		 * the cache for real by deleting the old one and creating a new one */
+
+		g_debug ("Clearing user cache.");
+		as_cache_close (priv->cache);
+		if (g_file_test (priv->cache_fname, G_FILE_TEST_EXISTS)) {
+			if (g_remove (priv->cache_fname) != 0) {
+				g_set_error_literal (error,
+							AS_POOL_ERROR,
+							AS_POOL_ERROR_OLD_CACHE,
+							_("Unable to remove old cache."));
+				return FALSE;
+			}
+		}
+
+		/* reopen the session cache as a new, pristine one */
+		return as_cache_open (priv->cache, priv->cache_fname, priv->locale, error);
+	}
 }
 
 /**

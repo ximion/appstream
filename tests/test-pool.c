@@ -106,7 +106,7 @@ as_assert_component_lists_equal (GPtrArray *cpts_a, GPtrArray *cpts_b)
 	guint i;
 	g_autofree gchar *cpts_a_xml = NULL;
 	g_autofree gchar *cpts_b_xml = NULL;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 	g_autoptr(AsMetadata) metad = as_metadata_new ();
 
 	/* sort */
@@ -523,7 +523,7 @@ test_merge_components ()
 	GPtrArray *suggestions;
 	AsSuggested *suggested;
 	GPtrArray *cpt_ids;
-	GError *error = NULL;
+	g_autoptr(GError) error = NULL;
 
 	/* load the data pool with sample data */
 	dpool = test_get_sampledata_pool (FALSE);
@@ -584,6 +584,53 @@ test_search_stemming ()
 }
 
 /**
+ * test_pool_empty:
+ *
+ * Test if working on a fresh, empty pool works.
+ */
+static void
+test_pool_empty ()
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(GPtrArray) result = NULL;
+	g_autoptr(GError) error = NULL;
+	AsComponent *cpt = NULL;
+	gboolean ret;
+
+	pool = as_pool_new ();
+	as_pool_clear_metadata_locations (pool);
+	as_pool_set_locale (pool, "C");
+
+	/* test reading from the pool when it wasn't loaded yet */
+	result = as_pool_get_components_by_id (pool, "org.example.NotThere");
+	g_assert_cmpint (result->len, ==, 0);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+	result = as_pool_search (pool, "web");
+	g_assert_cmpint (result->len, ==, 0);
+	g_clear_pointer (&result, g_ptr_array_unref);
+
+	/* create dummy app to add */
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.freedesktop.FooBar");
+	as_component_set_name (cpt, "A fooish bar", "C");
+	as_component_set_summary (cpt, "Foo the bar.", "C");
+
+	ret = as_pool_add_component (pool, cpt, &error);
+	g_object_unref (cpt);
+	g_assert_no_error (error);
+	g_assert (ret);
+
+	/* try to retrieve the dummy component */
+	result = as_pool_search (pool, "foo");
+	g_assert_cmpint (result->len, ==, 1);
+	cpt = AS_COMPONENT (g_ptr_array_index (result, 0));
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.freedesktop.FooBar");
+	g_clear_pointer (&result, g_ptr_array_unref);
+}
+
+/**
  * main:
  */
 int
@@ -609,6 +656,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
 	g_test_add_func ("/AppStream/PoolReadAsync", test_pool_read_async);
+	g_test_add_func ("/AppStream/PoolEmpty", test_pool_empty);
 	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
 
