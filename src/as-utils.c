@@ -1391,3 +1391,43 @@ as_filebasename_from_uri (const gchar *uri)
 
 	return bname;
 }
+
+/**
+ * as_date_time_format_iso8601:
+ * @datetime: A #GDateTime
+ *
+ * Format datetime in ISO 8601 format.
+ *
+ * Compatibility wrapper to support GLib < 2.62.
+ * This function can go away if we bump the GLib minimal version.
+ */
+gchar*
+as_date_time_format_iso8601 (GDateTime *datetime)
+{
+#if GLIB_CHECK_VERSION(2,62,0)
+	return g_date_time_format_iso8601 (datetime);
+#else
+	GString *outstr = NULL;
+	gchar *main_date = NULL;
+	gint64 offset;
+
+	/* Main date and time. */
+	main_date = g_date_time_format (datetime, "%Y-%m-%dT%H:%M:%S");
+	outstr = g_string_new (main_date);
+	g_free (main_date);
+
+	/* Timezone. Format it as `%:::z` unless the offset is zero, in which case
+	 * we can simply use `Z`. */
+	offset = g_date_time_get_utc_offset (datetime);
+
+	if (offset == 0) {
+		g_string_append_c (outstr, 'Z');
+	} else {
+		gchar *time_zone = g_date_time_format (datetime, "%:::z");
+		g_string_append (outstr, time_zone);
+		g_free (time_zone);
+	}
+
+	return g_string_free (outstr, FALSE);
+#endif
+}
