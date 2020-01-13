@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2020 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -66,7 +66,8 @@ Q_GADGET
             KindService,
             KindRepository,
             KindOperatingSystem,
-            KindIconTheme
+            KindIconTheme,
+            KindRuntime
         };
         Q_ENUM(Kind)
 

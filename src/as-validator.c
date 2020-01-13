@@ -1584,6 +1584,16 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 			as_validator_add_issue (validator, NULL, "service-no-service-launchable", NULL);
 	}
 
+	/* validate runtime specific stuff */
+	if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_RUNTIME) {
+		const gchar *project_license = as_component_get_project_license (cpt);
+		if ((project_license == NULL) || (!g_str_has_prefix (project_license, "LicenseRef")))
+			as_validator_add_issue (validator, NULL, "runtime-project-license-no-ref", NULL);
+
+		if (as_component_get_provided (cpt)->len == 0)
+			as_validator_add_issue (validator, NULL, "runtime-no-provides", NULL);
+	}
+
 	/* validate suggestions */
 	if (as_component_get_suggested (cpt)->len > 0) {
 		guint j;

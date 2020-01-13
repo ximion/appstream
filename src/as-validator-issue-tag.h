@@ -623,6 +623,18 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	     "with this metadata."),
 	},
 
+	{ "runtime-project-license-no-ref",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("Licenses for 'runtime' components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL "
+	     "as value for this component's 'project_license'. E.g. `LicenseRef-free=https://example.com/licenses.html`")
+	},
+
+	{ "runtime-no-provides",
+	  AS_ISSUE_SEVERITY_PEDANTIC,
+	  N_("Since a 'runtime' component is comprised of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime.")
+	},
+
 	{ "unknown-provides-item-type",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("The type of the item that the component provides is not known to AppStream."),

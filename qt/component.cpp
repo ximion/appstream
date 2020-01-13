@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2020 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -54,6 +54,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(KindMap, kindMap, ( {
     { Component::KindRepository, QLatin1String("repository") },
     { Component::KindOperatingSystem, QLatin1String("operating-system") },
     { Component::KindIconTheme, QLatin1String("icon-theme") },
+    { Component::KindRuntime, QLatin1String("runtime") },
     { Component::KindUnknown, QLatin1String("unknown") }
     }
 ));
@@ -110,6 +111,9 @@ Component::Kind Component::stringToKind(const QString& kindString) {
 
     if (kindString == QLatin1String("icon-theme"))
         return KindIconTheme;
+
+    if (kindString == QLatin1String("runtime"))
+        return KindRuntime;
 
     return KindUnknown;
 

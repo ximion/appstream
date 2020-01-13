@@ -75,6 +75,7 @@ struct _AsComponentClass
  * @AS_COMPONENT_KIND_REPOSITORY:	A remote software or data source
  * @AS_COMPONENT_KIND_OPERATING_SYSTEM: A computer operating system
  * @AS_COMPONENT_KIND_ICON_THEME:	An icon theme following the XDG specification
+ * @AS_COMPONENT_KIND_RUNTIME:		An application runtime platform
  *
  * The type of an #AsComponent.
  **/
@@ -95,6 +96,7 @@ typedef enum  {
 	AS_COMPONENT_KIND_REPOSITORY,
 	AS_COMPONENT_KIND_OPERATING_SYSTEM,
 	AS_COMPONENT_KIND_ICON_THEME,
+	AS_COMPONENT_KIND_RUNTIME,
 	/*< private >*/
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
