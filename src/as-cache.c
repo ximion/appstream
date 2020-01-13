@@ -348,7 +348,7 @@ lmdb_val_memdup (MDB_val val, gsize *len)
  *
  * Add key/value pair to the database
  */
-inline static gboolean
+static gboolean
 as_cache_txn_put_kv (AsCache *cache, MDB_txn *txn, MDB_dbi dbi, const gchar *key, MDB_val dval, GError **error)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
