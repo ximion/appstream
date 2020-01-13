@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-Metadata-Runtime">
+	<title>Runtime</title>
+
+	<section id="spec-runtime-introduction">
+		<title>Introduction</title>
+		<para>
+			Components of type <literal>runtime</literal> describe a collection of interdependent software components that are
+			required to run other software. They set a baseline of dependencies that other software can rely on and link against.
+			A very simple runtime may for example be a chroot environment of a minimal Linux system bootstrap.
+			Runtimes are often employed by software distribution systems such as <ulink url="https://flatpak.org/">Flatpak</ulink> or Valve's Steam, but may be
+			used by others and may even be directly distributed as part of tranditional Linux distributions.
+		</para>
+		<para>
+			Runtimes can ship metainfo files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
+		</para>
+	</section>
+
+	<section id="spec-runtime-example">
+		<title>Example file</title>
+		<para>
+			A <literal>runtime</literal> metainfo file can look like this:
+		</para>
+		<programlisting language="XML">
+<![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<component type="runtime">
+  <id>org.freedesktop.Platform</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>LicenseRef-free=https://freedesktop-sdk.gitlab.io/</project_license>
+
+  <name>Freedesktop Platform</name>
+  <summary>Basic libraries to run Linux desktop applications</summary>
+
+  <description>
+    <p>
+      The Freedesktop Platform is a runtime that contains the most basic libraries
+      and files needed to run a Linux desktop application.
+      ...
+    </p>
+  </description>
+  <url type="homepage">https://freedesktop-sdk.gitlab.io/</url>
+
+  <releases>
+    <release version="10.0" />
+    <release version="9.0" date="2020-01-12" />
+    ...
+  </releases>
+</component>]]></programlisting>
+
+	</section>
+
+	<section id="spec-runtime-filespec">
+		<title>File specification</title>
+		<para>
+			Note that the XML root must have the <literal>type</literal> property set to <code>runtime</code>.
+			This clearly identifies this metainfo document as describing a runtime.
+		</para>
+
+		<variablelist>
+			<varlistentry id="tag-id-runtime">
+			<term>&lt;id/&gt;</term>
+			<listitem>
+				<para>
+					For runtimes, the value of the <code>&lt;id/&gt;</code> tag must follow the AppStream ID naming conventions (it should be a reverse-DNS name).
+				</para>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-runtime-requires">
+			<term>&lt;requires/&gt;</term>
+			<listitem>
+				<para>
+					The <literal>requires</literal> tag may be used if multiple runtimes are based on top of each other, or if the runtime actually describes
+					a software development kit (SDK) that wants to require its base runtime.
+					See <xref linkend="tag-requires-recommends"/> for a detailed description of this tag.
+				</para>
+				<para>
+					In order to depend on other runtimes, their component-ID should be referenced in a <literal>requires</literal> tag. Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<requires>
+  <id version="1.0" compare="ge">org.freedesktop.Sdk</id>
+</requires>]]></programlisting>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-runtime-project_license">
+			<term>&lt;project_license/&gt;</term>
+			<listitem>
+				<para>
+					The <code>&lt;project_license/&gt;</code> tag usually indicates the license of the component
+					(refer to <xref linkend="tag-project_license"/> for details).
+					This is tricky for runtimes, as they are usually comprised of many individual pieces of software under
+					different licenses, which would create a very long and complex SPDX license expression.
+					It is therefore recommended to have the tool that builds the runtime collect all the licenses and generate a document
+					or website containing. This document can then be linked using <code>LicenseRef-free=URL</code> if the runtime is free software,
+					or <code>LicenseRef-proprietary=URL</code> in case it contains non-free elements.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="XML"><![CDATA[<project_license>LicenseRef-free=https://example.com/licenses.html</project_license>]]></programlisting>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="tag-runtime-provides">
+			<term>&lt;provides/&gt;</term>
+			<listitem>
+				<para>
+					This tag is described in detail for generic components at <xref linkend="tag-provides"/>.
+				</para>
+				<para>
+					The runtime may use the <code>&lt;provides/&gt;</code> tag to denote the individual modules it is comprised of,
+					using their component IDs.
+				</para>
+			</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<para>
+			For a component of type <literal>runtime</literal>, the following tags are required and must be present for a valid document:
+			<xref linkend="tag-id-runtime"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>,
+			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-project_license"/>.
+		</para>
+
+	</section>
+</section>
