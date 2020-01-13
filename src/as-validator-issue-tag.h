@@ -153,7 +153,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "spdx-license-unknown",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The license ID is not found in the SPDX database. "
+	  N_("The license ID was not found in the SPDX database. "
 	     "Please check that the license ID is written in an SPDX-conformant way and is a valid free software license.")
 	},
 

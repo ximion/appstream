@@ -808,6 +808,7 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 		return;
 	}
 	for (i = 0; licenses[i] != NULL; i++) {
+		g_strstrip (licenses[i]);
 		if (g_strcmp0 (licenses[i], "&") == 0 ||
 		    g_strcmp0 (licenses[i], "|") == 0 ||
 		    g_strcmp0 (licenses[i], "+") == 0 ||
