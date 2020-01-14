@@ -27,6 +27,11 @@ bool AppStream::SPDX::isLicenseId(const QString &license_id)
     return as_is_spdx_license_id(qPrintable(license_id));
 }
 
+bool AppStream::SPDX::isLicenseExceptionId(const QString &exception_id)
+{
+    return as_is_spdx_license_exception_id(qPrintable(exception_id));
+}
+
 bool AppStream::SPDX::isLicenseExpression(const QString &license)
 {
     return as_is_spdx_license_expression(qPrintable(license));
@@ -35,6 +40,11 @@ bool AppStream::SPDX::isLicenseExpression(const QString &license)
 bool AppStream::SPDX::isMetadataLicense(const QString &license)
 {
     return as_license_is_metadata_license(qPrintable(license));
+}
+
+bool AppStream::SPDX::isFreeLicense(const QString &license)
+{
+    return as_license_is_free_license(qPrintable(license));
 }
 
 QStringList AppStream::SPDX::tokenizeLicense(const QString &license)

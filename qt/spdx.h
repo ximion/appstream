@@ -27,8 +27,11 @@ namespace AppStream {
 
 namespace SPDX {
 APPSTREAMQT_EXPORT bool isLicenseId(const QString &license_id);
+APPSTREAMQT_EXPORT bool isLicenseExceptionId(const QString &exception_id);
 APPSTREAMQT_EXPORT bool isLicenseExpression(const QString &license);
+
 APPSTREAMQT_EXPORT bool isMetadataLicense(const QString &license);
+APPSTREAMQT_EXPORT bool isFreeLicense(const QString &license);
 
 APPSTREAMQT_EXPORT QStringList tokenizeLicense(const QString &license);
 APPSTREAMQT_EXPORT QString detokenizeLicense(const QStringList &license_tokens);
