@@ -23,16 +23,24 @@
 	<section id="spec-asuri-schema">
 		<title>URI schema</title>
 		<para>
-			Software-centers handling <literal>appstream:</literal> URIs must provide a handler for the <literal>x-scheme-handler/appstream</literal>
+			Software centers handling <literal>appstream:</literal> URIs should provide a handler for the <literal>x-scheme-handler/appstream</literal>
 			mimetype.
 			An AppStream URI follows the schema <code>appstream:%{component-id}</code>.
+		</para>
+		<para>
+			If a component is known by multiple alternative IDs, more component IDs may be defined in a comma-separated list in the query component
+			of the URI using the <code>alt</code> key. This may be necessary if an application has switched its ID, but the same URI may be called on systems
+			which still only know the old ID.
+			Software centers must try to find the initial ID first and, failing to find it in their catalog, may try the alternative IDs in order of appearance
+			in the query.
 		</para>
 		<para>
 			Example HTML code:
 		</para>
 		<programlisting language="HTML"><![CDATA[<a href="appstream:org.kde.discover.desktop">Install KDE Discover</a>
 <a href="appstream:org.gnome.Software.desktop">Install GNOME-Software</a>
-<a href="appstream:org.freedesktop.AppStream">Install libappstream</a>]]></programlisting>
+<a href="appstream:org.freedesktop.appstream.cli">Install AppStreamCLI</a>
+<a href="appstream:org.example.foo?alt=com.github.darthvader.foo,net.launchpad.vader.foo">Install Foo</a>]]></programlisting>
 	</section>
 
 	<section id="spec-asuri-button">
