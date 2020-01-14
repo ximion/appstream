@@ -181,7 +181,7 @@ as_is_spdx_license_id (const gchar *license_id)
 
 /**
  * as_is_spdx_license_exception_id:
- * @exception_id: a single SPDX license ID, e.g. "GCC-exception-3.1"
+ * @exception_id: a single SPDX license exception ID, e.g. "GCC-exception-3.1"
  *
  * Searches the known list of SPDX license exception IDs.
  *
@@ -619,6 +619,9 @@ as_get_license_url (const gchar *license)
 	g_autoptr(GString) license_id = NULL;
 	g_autofree gchar *tmp_spdx = NULL;
 
+	if (license == NULL)
+		return NULL;
+
 	license_id = as_utils_spdx_license_2to3 (license);
 	if (g_str_has_prefix (license_id->str, "@"))
 		g_string_erase (license_id, 0, 1);
@@ -626,8 +629,6 @@ as_get_license_url (const gchar *license)
 	g_string_truncate (license_id, 0);
 	g_string_append (license_id, tmp_spdx);
 
-	if (!as_is_spdx_license_id (license_id->str))
-		return NULL;
 	if (g_str_has_prefix (license_id->str, "LicenseRef")) {
 		gchar *l;
 		/* a license ref may include an URL on its own */
@@ -639,6 +640,8 @@ as_get_license_url (const gchar *license)
 			return NULL;
 		return g_strdup (l);
 	}
+	if (!as_is_spdx_license_id (license_id->str) && !as_is_spdx_license_exception_id (license_id->str))
+		return NULL;
 
 	return g_strdup_printf ("https://spdx.org/licenses/%s.html#page", license_id->str);
 }
