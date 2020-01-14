@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-01-09 01:04+0100\n"
+"POT-Creation-Date: 2020-01-14 01:44+0100\n"
 "PO-Revision-Date: 2017-04-29 20:03+0000\n"
 "Last-Translator: Слободан Симић(Slobodan Simić) <slsimic@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/appstream/"
@@ -146,7 +146,7 @@ msgid ""
 "software components."
 msgstr ""
 
-#: src/as-pool.c:1789
+#: src/as-pool.c:1937
 #, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -223,7 +223,7 @@ msgstr "На табли"
 msgid "Bundle"
 msgstr "Комплет"
 
-#: src/as-pool.c:1690
+#: src/as-pool.c:1828
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Локација кеша „%s“ није уписива."
@@ -571,8 +571,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:526 src/as-validator.c:938 src/as-validator.c:1023
-#: src/as-validator.c:1236
+#: src/as-validator.c:526 src/as-validator.c:939 src/as-validator.c:1024
+#: src/as-validator.c:1237
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -707,6 +707,15 @@ msgstr "Библиотеке"
 msgid "License"
 msgstr "Лиценца"
 
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:629
+msgid ""
+"Licenses for 'runtime' components are usually too complex to reflect them in "
+"a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
+"value for this component's 'project_license'. E.g. `LicenseRef-free=https://"
+"example.com/licenses.html`"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
 msgid ""
@@ -741,7 +750,7 @@ msgstr "Ручно поставља место кеша Програмског �
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ручно поставља локацију метаподатака Програмског тока за обраду."
 
-#: src/as-pool.c:1209
+#: src/as-pool.c:1280
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -767,7 +776,7 @@ msgstr "Миме-типови"
 msgid "Metadata file '%s' does not exist."
 msgstr ""
 
-#: src/as-pool.c:841
+#: src/as-pool.c:881
 msgid "Metadata files have errors:"
 msgstr ""
 
@@ -972,6 +981,13 @@ msgstr "Приказује додатне податке за откањање �
 msgid "Show the program version."
 msgstr "Приказује издање програма."
 
+#: src/as-validator-issue-tag.h:635
+msgid ""
+"Since a 'runtime' component is comprised of multiple other software "
+"components, their component-IDs may be listed in a `<provides/>` section for "
+"this runtime."
+msgstr ""
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -1057,14 +1073,14 @@ msgid ""
 "valid."
 msgstr ""
 
-#: src/as-pool.c:1776
+#: src/as-pool.c:1924
 #, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
 msgstr ""
 
-#: src/as-pool.c:1774
+#: src/as-pool.c:1922
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
@@ -1242,7 +1258,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
-"The license ID is not found in the SPDX database. Please check that the "
+"The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
 msgstr ""
@@ -1361,7 +1377,7 @@ msgstr ""
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:628
+#: src/as-validator-issue-tag.h:640
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr ""
@@ -1592,7 +1608,7 @@ msgstr ""
 msgid "Unable to read the .desktop file: %s"
 msgstr ""
 
-#: src/as-pool.c:583
+#: src/as-pool.c:606
 msgid "Unable to remove old cache."
 msgstr ""
 
@@ -1798,7 +1814,7 @@ msgstr "Морате да наведете фајл за потврђивање!
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:106
+#: src/as-pool.c:107
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;application;package;program;programme;suite;tool;апп;апликација;пакет;"

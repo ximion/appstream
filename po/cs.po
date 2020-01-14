@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-01-09 01:04+0100\n"
+"POT-Creation-Date: 2020-01-14 01:44+0100\n"
 "PO-Revision-Date: 2018-12-28 10:08+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/"
@@ -147,7 +147,7 @@ msgstr ""
 "AppStream je standard pro poskytování metadat o programovém vybavení, "
 "používaný napříč linuxovými distribucemi."
 
-#: src/as-pool.c:1789
+#: src/as-pool.c:1937
 #, fuzzy, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
@@ -226,7 +226,7 @@ msgstr "Deskové"
 msgid "Bundle"
 msgstr "Zabaleno s"
 
-#: src/as-pool.c:1690
+#: src/as-pool.c:1828
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Do umístění mezipaměti „%s“ se nedaří zapisovat."
@@ -578,8 +578,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:526 src/as-validator.c:938 src/as-validator.c:1023
-#: src/as-validator.c:1236
+#: src/as-validator.c:526 src/as-validator.c:939 src/as-validator.c:1024
+#: src/as-validator.c:1237
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -713,6 +713,15 @@ msgstr "Knihovny"
 msgid "License"
 msgstr "Licence"
 
+#. TRANSLATORS: Please do not translate AppStream tag and property names.
+#: src/as-validator-issue-tag.h:629
+msgid ""
+"Licenses for 'runtime' components are usually too complex to reflect them in "
+"a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
+"value for this component's 'project_license'. E.g. `LicenseRef-free=https://"
+"example.com/licenses.html`"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
 msgid ""
@@ -745,7 +754,7 @@ msgstr "Ručně nastavené umístění mezipaměti AppStream."
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ručně nastavené umístění, ve kterém hledat metadata AppStream."
 
-#: src/as-pool.c:1209
+#: src/as-pool.c:1280
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
@@ -772,7 +781,7 @@ msgstr "MIME typy"
 msgid "Metadata file '%s' does not exist."
 msgstr "Soubor s metadaty „%s“ neexistuje."
 
-#: src/as-pool.c:841
+#: src/as-pool.c:881
 msgid "Metadata files have errors:"
 msgstr "Soubory s metadaty obsahují chyby:"
 
@@ -976,6 +985,13 @@ msgstr "Zobrazovat doplňující informace pro ladění."
 msgid "Show the program version."
 msgstr "Zobrazit verzi programu."
 
+#: src/as-validator-issue-tag.h:635
+msgid ""
+"Since a 'runtime' component is comprised of multiple other software "
+"components, their component-IDs may be listed in a `<provides/>` section for "
+"this runtime."
+msgstr ""
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -1061,7 +1077,7 @@ msgid ""
 "valid."
 msgstr ""
 
-#: src/as-pool.c:1776
+#: src/as-pool.c:1924
 #, fuzzy, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
@@ -1070,7 +1086,7 @@ msgstr ""
 "Systémová mezipaměť AppStream byla aktualizována, ale byly zjištěny "
 "problémy: %s"
 
-#: src/as-pool.c:1774
+#: src/as-pool.c:1922
 #, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
@@ -1252,7 +1268,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
-"The license ID is not found in the SPDX database. Please check that the "
+"The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
 msgstr ""
@@ -1374,7 +1390,7 @@ msgstr ""
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:628
+#: src/as-validator-issue-tag.h:640
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr ""
@@ -1617,7 +1633,7 @@ msgstr "Nedaří se načíst .desktop soubor: %s"
 msgid "Unable to read the .desktop file: %s"
 msgstr "Nedaří se načíst .desktop soubor: %s"
 
-#: src/as-pool.c:583
+#: src/as-pool.c:606
 msgid "Unable to remove old cache."
 msgstr ""
 
@@ -1833,7 +1849,7 @@ msgstr "Je třeba určit soubor, který má být ověřen!"
 #. * to include in a search but that should normally be ignored in
 #. * the search.
 #.
-#: src/as-pool.c:106
+#: src/as-pool.c:107
 msgid "app;application;package;program;programme;suite;tool"
 msgstr ""
 "app;apka;aplikace;balíček;balík;program;sada;příslušenství;nástroj;pomůcka"
