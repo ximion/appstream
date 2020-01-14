@@ -1,20 +1,27 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2015 Matthias Klumpp <mak@debian.org>
-# Licensed under LGPL-2.0+
+# Copyright (C) 2015-2020 Matthias Klumpp <mak@debian.org>
+#
+# SPDX-License-Identifier: LGPL-2.1+
 
 #
 # Script to download updated static data from the web and process it for AppStream to use.
 #
 
 import os
+import json
 import requests
 import subprocess
 from datetime import date
 from tempfile import TemporaryDirectory
 
+
+IANA_TLD_LIST_URL = 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
+SPDX_REPO_URL = 'https://github.com/spdx/license-list-data.git'
+
+
 def get_tld_list(fname, url):
-    print("Getting TLD list from IANA...")
+    print('Getting TLD list from IANA...')
 
     data_result = list()
     r = requests.get(url)
@@ -40,53 +47,67 @@ def get_tld_list(fname, url):
 
     data_result.sort()
     with open(fname, 'w') as f:
-        f.write("# IANA TLDs we recognize for AppStream IDs.\n")
-        f.write("# Derived from the full list at {}\n".format(url))
-        f.write("# Last updated on {}\n".format(date.today().isoformat()))
+        f.write('# IANA TLDs we recognize for AppStream IDs.\n')
+        f.write('# Derived from the full list at {}\n'.format(url))
+        f.write('# Last updated on {}\n'.format(date.today().isoformat()))
 
-        f.write("\n".join(data_result))
+        f.write('\n'.join(data_result))
         f.write('\n')
 
 
-def get_spdx_id_list(fname, git_url, with_deprecated=True):
-    print("Updating list of SPDX license IDs...")
-    tdir = TemporaryDirectory(prefix="spdx_master-")
+def get_spdx_id_list(licenselist_fname, exceptionlist_fname, git_url, with_deprecated=True):
+    print('Updating list of SPDX license IDs...')
+    tdir = TemporaryDirectory(prefix='spdx_master-')
 
     subprocess.check_call(['git', 'clone', git_url, tdir.name])
-    last_tag_name = subprocess.check_output(['git', 'describe', '--abbrev=0',  '--tags'], cwd=tdir.name)
-    last_tag_name = str(last_tag_name.strip(), 'utf-8')
+    last_tag_ver = subprocess.check_output(['git', 'describe', '--abbrev=0',  '--tags'], cwd=tdir.name)
+    last_tag_ver = str(last_tag_ver.strip(), 'utf-8')
+    if last_tag_ver.startswith('v'):
+        last_tag_ver = last_tag_ver[1:]
 
-    licenses_text_dir = os.path.join(tdir.name, 'text')
+    # load license and exception data
+    licenses_json_fname = os.path.join(tdir.name, 'json', 'licenses.json')
+    exceptions_json_fname = os.path.join(tdir.name, 'json', 'exceptions.json')
+    with open(licenses_json_fname, 'r') as f:
+        licenses_data = json.loads(f.read())
+    with open(exceptions_json_fname, 'r') as f:
+        exceptions_data = json.loads(f.read())
 
-    id_list = list()
-    # get SPDX license-IDs from filenames
-    for spdx_fname in os.listdir(licenses_text_dir):
-        if not spdx_fname.endswith('.txt'):
-            continue
-        raw_id = os.path.splitext(spdx_fname)[0]
-        # check if this is actually an SPDX ID file
-        if ' ' in raw_id:
-            continue
-        if raw_id.startswith('deprecated_'):
-            if with_deprecated:
-                raw_id = raw_id[11:]
-            else:
-                continue
-        id_list.append(raw_id)
+    # get version of the data we are currently retrieving
+    license_ver_ref = licenses_data.get('licenseListVersion')
+    if not license_ver_ref:
+        license_ver_ref = last_tag_ver
+    exceptions_ver_ref = exceptions_data.get('licenseListVersion')
+    if not license_ver_ref:
+        exceptions_ver_ref = last_tag_ver
 
-    id_list.sort()
-    with open(fname, 'w') as f:
-        f.write("# The list of licenses recognized by SPDX, {}\n".format(last_tag_name))
-        f.write("# Source: http://spdx.org/licenses/\n")
+    lid_list = []
+    for license in licenses_data['licenses']:
+        lid_list.append(license['licenseId'])
 
-        f.write("\n".join(id_list))
+    eid_list = []
+    for exception in exceptions_data['exceptions']:
+        eid_list.append(exception['licenseExceptionId'])
+
+    lid_list.sort()
+    with open(licenselist_fname, 'w') as f:
+        f.write('# The list of licenses recognized by SPDX, v{}\n'.format(license_ver_ref))
+        f.write('\n'.join(lid_list))
         f.write('\n')
 
-def main():
-    get_tld_list     ("iana-filtered-tld-list.txt", "https://data.iana.org/TLD/tlds-alpha-by-domain.txt")
-    get_spdx_id_list ("spdx-license-ids.txt", "https://github.com/spdx/license-list-data.git")
+    eid_list.sort()
+    with open(exceptionlist_fname, 'w') as f:
+        f.write('# The list of license exceptions recognized by SPDX, v{}\n'.format(exceptions_ver_ref))
+        f.write('\n'.join(eid_list))
+        f.write('\n')
 
-    print("All done.")
+
+def main():
+    get_tld_list('iana-filtered-tld-list.txt', IANA_TLD_LIST_URL)
+    get_spdx_id_list('spdx-license-ids.txt', 'spdx-license-exception-ids.txt', SPDX_REPO_URL)
+
+    print('All done.')
+
 
 if __name__ == '__main__':
     main()
