@@ -344,6 +344,14 @@ test_spdx (void)
 	tmp = as_get_license_url ("LicenseRef-proprietary=https://example.com/mylicense.txt");
 	g_assert_cmpstr (tmp, ==, "https://example.com/mylicense.txt");
 	g_free (tmp);
+
+	/* licenses are free-as-in-freedom */
+	g_assert (as_license_is_free_license ("CC0"));
+	g_assert (as_license_is_free_license ("GPL-2.0 AND FSFAP"));
+	g_assert (as_license_is_free_license ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)"));
+	g_assert (!as_license_is_free_license ("NOASSERTION"));
+	g_assert (!as_license_is_free_license ("LicenseRef-proprietary=https://example.com/mylicense.txt"));
+	g_assert (!as_license_is_free_license ("MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
 }
 
 /**

@@ -645,3 +645,58 @@ as_get_license_url (const gchar *license)
 
 	return g_strdup_printf ("https://spdx.org/licenses/%s.html#page", license_id->str);
 }
+
+/**
+ * as_license_is_free_license:
+ * @license: The SPDX license string to test.
+ *
+ * Check if the given license is for free-as-in-freedom software.
+ * Currently, all licenses listed on the SPDX website are considered to
+ * be "free software" licenses.
+ *
+ * This definition may be tightened in future. In any case, this function does
+ * not give any legal advice. Please read the license texts to know more about
+ * the individual licenses.
+ *
+ * Returns: %TRUE if the license string contains only free-as-in-freedom licenses.
+ */
+gboolean
+as_license_is_free_license (const gchar *license)
+{
+	g_auto(GStrv) tokens = NULL;
+	gboolean is_free;
+
+	/* assume we have a free software license, unless proven otherwise */
+	is_free = TRUE;
+	tokens = as_spdx_license_tokenize (license);
+	for (guint i = 0; tokens[i] != NULL; i++) {
+		if (g_strcmp0 (tokens[i], "&") == 0 ||
+		    g_strcmp0 (tokens[i], "+") == 0 ||
+		    g_strcmp0 (tokens[i], "|") == 0 ||
+		    g_strcmp0 (tokens[i], "^") == 0 ||
+		    g_strcmp0 (tokens[i], "(") == 0 ||
+		    g_strcmp0 (tokens[i], ")") == 0)
+			continue;
+
+		if (g_str_has_prefix (tokens[i], "@LicenseRef")) {
+			/* we only consider license ref's to be free if they explicitly state so */
+			if (!g_str_has_prefix (tokens[i], "@LicenseRef-free")) {
+				is_free = FALSE;
+				break;
+			}
+		} else if (g_str_has_prefix (tokens[i], "@NOASSERTION")
+			|| g_str_has_prefix (tokens[i], "@NONE")) {
+			/* no license info is fishy as well */
+			is_free = FALSE;
+			break;
+		}
+
+		if (tokens[i][0] != '@') {
+			/* if token has no license-id prefix, consider the license to be non-free */
+			is_free = FALSE;
+			break;
+		}
+	}
+
+	return is_free;
+}
