@@ -29,8 +29,9 @@
 
 G_BEGIN_DECLS
 
-gboolean	 as_is_spdx_license_id (const gchar *license_id);
-gboolean	 as_is_spdx_license_expression (const gchar *license);
+gboolean	as_is_spdx_license_id (const gchar *license_id);
+gboolean	as_is_spdx_license_exception_id (const gchar *exception_id);
+gboolean	as_is_spdx_license_expression (const gchar *license);
 
 gchar		**as_spdx_license_tokenize (const gchar *license);
 gchar		*as_spdx_license_detokenize (gchar **license_tokens);

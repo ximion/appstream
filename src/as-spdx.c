@@ -75,8 +75,8 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
 	if (helper->collect->len == 0)
 		return;
 
-	/* is license enum */
-	if (as_is_spdx_license_id (tmp)) {
+	/* is license or exception enum */
+	if (as_is_spdx_license_id (tmp) || as_is_spdx_license_exception_id (tmp)) {
 		g_ptr_array_add (helper->array, g_strdup_printf ("@%s", tmp));
 		helper->last_token_literal = FALSE;
 		g_string_truncate (helper->collect, 0);
@@ -122,6 +122,14 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
 		return;
 	}
 
+	/* is extension to the license */
+	if (g_strcmp0 (tmp, "with") == 0 || g_strcmp0 (tmp, "WITH") == 0) {
+		g_ptr_array_add (helper->array, g_strdup ("^"));
+		helper->last_token_literal = FALSE;
+		g_string_truncate (helper->collect, 0);
+		return;
+	}
+
 	/* is literal */
 	if (helper->last_token_literal) {
 		last_literal = g_strdup (_g_ptr_array_last (helper->array));
@@ -141,7 +149,7 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
  *
  * Searches the known list of SPDX license IDs.
  *
- * Returns: %TRUE if the icon is a valid "SPDX license ID"
+ * Returns: %TRUE if the string is a valid SPDX license ID
  *
  * Since: 0.9.8
  **/
@@ -172,11 +180,43 @@ as_is_spdx_license_id (const gchar *license_id)
 }
 
 /**
+ * as_is_spdx_license_exception_id:
+ * @exception_id: a single SPDX license ID, e.g. "GCC-exception-3.1"
+ *
+ * Searches the known list of SPDX license exception IDs.
+ *
+ * Returns: %TRUE if the string is a valid SPDX license exception ID
+ *
+ * Since: 0.12.10
+ **/
+gboolean
+as_is_spdx_license_exception_id (const gchar *exception_id)
+{
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *key = NULL;
+
+	/* handle invalid */
+	if (exception_id == NULL || exception_id[0] == '\0')
+		return FALSE;
+
+	/* load the readonly data section and look for the icon name */
+	data = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/spdx-license-exception-ids.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (data == NULL)
+		return FALSE;
+	key = g_strdup_printf ("\n%s\n", exception_id);
+
+	return g_strstr_len (g_bytes_get_data (data, NULL), -1, key) != NULL;
+}
+
+/**
  * as_is_spdx_license_expression:
  * @license: a SPDX license string, e.g. "CC-BY-3.0 and GFDL-1.3"
  *
  * Checks the licence string to check it being a valid licence.
- * NOTE: SPDX licences can't typically contain brackets.
+ * NOTE: SPDX licenses can't typically contain brackets.
  *
  * Returns: %TRUE if the icon is a valid "SPDX license"
  *
@@ -187,6 +227,7 @@ as_is_spdx_license_expression (const gchar *license)
 {
 	guint i;
 	g_auto(GStrv) tokens = NULL;
+	gboolean expect_exception = FALSE;
 
 	/* handle nothing set */
 	if (license == NULL || license[0] == '\0')
@@ -203,10 +244,17 @@ as_is_spdx_license_expression (const gchar *license)
 	tokens = as_spdx_license_tokenize (license);
 	if (tokens == NULL)
 		return FALSE;
+
 	for (i = 0; tokens[i] != NULL; i++) {
 		if (tokens[i][0] == '@') {
-			if (as_is_spdx_license_id (tokens[i] + 1))
-				continue;
+			if (expect_exception) {
+				expect_exception = FALSE;
+				if (as_is_spdx_license_exception_id (tokens[i] + 1))
+					continue;
+			} else {
+				if (as_is_spdx_license_id (tokens[i] + 1))
+					continue;
+			}
 		}
 		if (as_is_spdx_license_id (tokens[i]))
 			continue;
@@ -216,6 +264,10 @@ as_is_spdx_license_expression (const gchar *license)
 			continue;
 		if (g_strcmp0 (tokens[i], "+") == 0)
 			continue;
+		if (g_strcmp0 (tokens[i], "^") == 0) {
+			expect_exception = TRUE;
+			continue;
+		}
 		return FALSE;
 	}
 
@@ -260,9 +312,10 @@ as_utils_spdx_license_2to3 (const gchar *license2)
  * @license: a license string, e.g. "LGPLv2+ and (QPL or GPLv2) and MIT"
  *
  * Tokenizes the SPDX license string (or any simarly formatted string)
- * into parts. Any licence parts of the string e.g. "LGPL-2.0+" are prefexed
- * with "@", the conjunctive replaced with "&" and the disjunctive replaced
- * with "|". Brackets are added as indervidual tokens and other strings are
+ * into parts. Any license parts of the string e.g. "LGPL-2.0+" are prefexed
+ * with "@", the conjunctive replaced with "&", the disjunctive replaced
+ * with "|" and the WITH operator for license exceptions replaced with "^".
+ * Brackets are added as indervidual tokens and other strings are
  * appended into single tokens where possible.
  *
  * Returns: (transfer full) (nullable): array of strings, or %NULL for invalid
@@ -342,6 +395,10 @@ as_spdx_license_detokenize (gchar **license_tokens)
 		}
 		if (g_strcmp0 (license_tokens[i], "|") == 0) {
 			g_string_append (tmp, " OR ");
+			continue;
+		}
+		if (g_strcmp0 (license_tokens[i], "^") == 0) {
+			g_string_append (tmp, " WITH ");
 			continue;
 		}
 		if (g_strcmp0 (license_tokens[i], "+") == 0) {
@@ -497,12 +554,18 @@ as_validate_is_content_license_id (const gchar *license_id)
 		return TRUE;
 	if (g_strcmp0 (license_id, "@FSFUL") == 0)
 		return TRUE;
+
+	/* any operators are fine */
 	if (g_strcmp0 (license_id, "&") == 0)
 		return TRUE;
 	if (g_strcmp0 (license_id, "|") == 0)
 		return TRUE;
 	if (g_strcmp0 (license_id, "+") == 0)
 		return TRUE;
+
+	/* if there is any license exception involved, we don't have a content license */
+	if (g_strcmp0 (license_id, "^") == 0)
+		return FALSE;
 	return FALSE;
 }
 

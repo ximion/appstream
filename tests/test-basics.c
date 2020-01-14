@@ -274,17 +274,30 @@ test_spdx (void)
 	g_strfreev (tok);
 	g_free (tmp);
 
-	/*  trailing brackets */
+	/* trailing brackets */
 	tok = as_spdx_license_tokenize ("MPLv1.1 and (LGPLv3 or GPLv3)");
 	tmp = g_strjoinv ("  ", tok);
 	g_assert_cmpstr (tmp, ==, "MPLv1.1  &  (  LGPLv3  |  GPLv3  )");
 	g_strfreev (tok);
 	g_free (tmp);
 
-	/*  deprecated names */
+	/* deprecated names */
 	tok = as_spdx_license_tokenize ("CC0 and (CC0 or CC0)");
 	tmp = g_strjoinv ("  ", tok);
 	g_assert_cmpstr (tmp, ==, "@CC0-1.0  &  (  @CC0-1.0  |  @CC0-1.0  )");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	/* WITH operator */
+	tok = as_spdx_license_tokenize ("GPL-3.0-or-later WITH GCC-exception-3.1");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@GPL-3.0+  ^  @GCC-exception-3.1");
+	g_strfreev (tok);
+	g_free (tmp);
+
+	tok = as_spdx_license_tokenize ("OFL-1.1 OR (GPL-3.0-or-later WITH Font-exception-2.0)");
+	tmp = g_strjoinv ("  ", tok);
+	g_assert_cmpstr (tmp, ==, "@OFL-1.1  |  (  @GPL-3.0+  ^  @Font-exception-2.0  )");
 	g_strfreev (tok);
 	g_free (tmp);
 
@@ -296,6 +309,8 @@ test_spdx (void)
 	g_assert (as_is_spdx_license_expression ("CC0-1.0 AND GFDL-1.3"));
 	g_assert (as_is_spdx_license_expression ("CC-BY-SA-3.0+"));
 	g_assert (as_is_spdx_license_expression ("CC-BY-SA-3.0+ AND Zlib"));
+	g_assert (as_is_spdx_license_expression ("GPL-3.0-or-later WITH GCC-exception-3.1"));
+	g_assert (as_is_spdx_license_expression ("GPL-3.0-or-later WITH Font-exception-2.0 AND OFL-1.1"));
 	g_assert (as_is_spdx_license_expression ("NOASSERTION"));
 	g_assert (!as_is_spdx_license_expression ("CC0 dave"));
 	g_assert (!as_is_spdx_license_expression (""));
