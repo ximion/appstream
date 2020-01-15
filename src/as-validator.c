@@ -813,14 +813,17 @@ as_validator_validate_project_license (AsValidator *validator, xmlNode *license_
 		    g_strcmp0 (licenses[i], "|") == 0 ||
 		    g_strcmp0 (licenses[i], "+") == 0 ||
 		    g_strcmp0 (licenses[i], "(") == 0 ||
-		    g_strcmp0 (licenses[i], ")") == 0)
+		    g_strcmp0 (licenses[i], ")") == 0 ||
+		    g_strcmp0 (licenses[i], "^") == 0)
 			continue;
-		if (licenses[i][0] != '@' ||
-		    !as_is_spdx_license_id (licenses[i] + 1)) {
-			as_validator_add_issue (validator, license_node,
-					"spdx-license-unknown",
-					licenses[i]);
-			return;
+
+		if (licenses[i][0] != '@') {
+			if (!as_is_spdx_license_id (licenses[i] + 1) && !as_is_spdx_license_exception_id (licenses[i] + 1)) {
+				as_validator_add_issue (validator, license_node,
+						"spdx-license-unknown",
+						licenses[i]);
+				return;
+			}
 		}
 	}
 }

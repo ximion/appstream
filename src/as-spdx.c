@@ -659,6 +659,8 @@ as_get_license_url (const gchar *license)
  * the individual licenses.
  *
  * Returns: %TRUE if the license string contains only free-as-in-freedom licenses.
+ *
+ * Since: 0.12.10
  */
 gboolean
 as_license_is_free_license (const gchar *license)
