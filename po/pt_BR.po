@@ -10,16 +10,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2020-01-09 21:48+0000\n"
+"PO-Revision-Date: 2020-01-15 03:21+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.10.1\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -776,7 +775,7 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's 'project_license'. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
+msgstr "Licenças para componentes \"runtime\" geralmente são muito complexas para refleti-las em uma simples expressão SPDX. Considere o uso de um \"LicenseRef\" e uma URL como valor para o \"project_license\" deste componente. Por exemplo, \"LicenseRef-free=https://example.com/licenses.html\""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
@@ -1022,7 +1021,7 @@ msgstr ""
 
 #: src/as-provided.c:162
 msgid "Runtime Firmware"
-msgstr "Firmware de tempo real"
+msgstr "Firmware em tempo de execução"
 
 #: src/as-category.c:174
 msgctxt "Category of Graphics"
@@ -1058,7 +1057,7 @@ msgid ""
 "Since a 'runtime' component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
+msgstr "Como um componente \"runtime\" é composto por vários outros componentes de software, seus IDs de componentes podem ser listados em uma seção \"<provides/>\" para esse tempo de execução."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
@@ -1401,15 +1400,11 @@ msgstr ""
 "primeiro parágrafo."
 
 #: src/as-validator-issue-tag.h:156
-#, fuzzy
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"O ID da licença não foi encontrado no banco de dados de SPDX. Verifique se o "
-"ID da licença está escrito de forma compatível com SPDX e se é uma licença "
-"de software livre válida."
+msgstr "O ID da licença não foi encontrado no banco de dados de SPDX. Verifique se o ID da licença está escrito de forma compatível com SPDX e se é uma licença de software livre válida."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
