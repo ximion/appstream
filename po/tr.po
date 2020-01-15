@@ -12,16 +12,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2020-01-09 21:48+0000\n"
+"PO-Revision-Date: 2020-01-15 03:21+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.10.1\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -777,7 +776,7 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's 'project_license'. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
+msgstr "'runtime' bileşenleri için lisanslar, genellikle bunları basit bir SPDX ifadesinde belirtmek için çok karmaşıktır. Bu bileşenin 'project_license' değeri için bir `LicenseRef` ve bir web URL'si kullanmayı düşünün. Örn. `LicenseRef-free=https://example.com/licenses.html`"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
@@ -1053,7 +1052,7 @@ msgid ""
 "Since a 'runtime' component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
+msgstr "Bir 'runtime' bileşeni diğer birden çok yazılım bileşeninden oluştuğu için, bileşen kimlikleri bu çalışma zamanı için bir `<provides/>` bölümünde listelenebilir."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
@@ -1391,15 +1390,11 @@ msgstr ""
 "için lütfen daha uzun bir paragrafla başlamayı düşünün."
 
 #: src/as-validator-issue-tag.h:156
-#, fuzzy
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"Lisans kimliği SPDX veritabanında bulunamadı. Lütfen lisans kimliğinin "
-"SPDX'e uygun bir şekilde yazıldığını ve geçerli bir özgür yazılım lisansı "
-"olduğunu kontrol edin."
+msgstr "Lisans kimliği SPDX veritabanında bulunamadı. Lütfen lisans kimliğinin SPDX'e uygun bir şekilde yazıldığını ve geçerli bir özgür yazılım lisansı olduğunu kontrol edin."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
