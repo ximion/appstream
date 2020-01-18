@@ -26,6 +26,7 @@
 #define __AS_COMPONENT_H
 
 #include <glib-object.h>
+#include "as-context.h"
 #include "as-enums.h"
 #include "as-provided.h"
 #include "as-icon.h"
@@ -363,6 +364,13 @@ GHashTable		*as_component_get_name_table (AsComponent *cpt);
 GHashTable		*as_component_get_summary_table (AsComponent *cpt);
 GHashTable		*as_component_get_keywords_table (AsComponent *cpt);
 
+gboolean		as_component_load_from_xml_data (AsComponent *cpt,
+							 AsContext *context,
+							 const gchar *data,
+							 GError **error);
+gchar			*as_component_to_xml_data (AsComponent *cpt,
+						   AsContext *context,
+						   GError **error);
 
 /* DEPRECATED */
 

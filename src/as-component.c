@@ -5292,6 +5292,63 @@ as_component_emit_yaml (AsComponent *cpt, AsContext *ctx, yaml_emitter_t *emitte
 }
 
 /**
+ * as_component_load_from_xml_data:
+ * @cpt: an #AsComponent instance.
+ * @context: an #AsContext instance.
+ * @data: The XML data to load.
+ * @error: a #GError.
+ *
+ * Load metadata for this component from an XML string.
+ * You normally do not want to use this method directly and instead use the more
+ * convenient API of #AsMetadata to create and update components.
+ *
+ * Returns: %TRUE on success.
+ *
+ * Since: 0.12.10
+ */
+gboolean
+as_component_load_from_xml_data (AsComponent *cpt, AsContext *context, const gchar *data, GError **error)
+{
+	xmlDoc *doc;
+	xmlNode *root;
+	gboolean ret;
+	g_return_val_if_fail (context != NULL, FALSE);
+
+	doc = as_xml_parse_document (data, -1, error);
+	if (doc == NULL)
+		return FALSE;
+	root = xmlDocGetRootElement (doc);
+
+	ret = as_component_load_from_xml (cpt, context, root, error);
+	xmlFreeDoc (doc);
+	return ret;
+}
+
+/**
+ * as_component_to_xml_data:
+ * @cpt: an #AsComponent instance.
+ * @context: an #AsContext instance.
+ * @error: a #GError.
+ *
+ * Serialize this component into an XML string.
+ * You normally do not want to use this method directly and instead use the more
+ * convenient API of #AsMetadata to serialize components.
+ *
+ * Returns: %TRUE on success.
+ *
+ * Since: 0.12.10
+ */
+gchar*
+as_component_to_xml_data (AsComponent *cpt, AsContext *context, GError **error)
+{
+	xmlNode *node;
+	g_return_val_if_fail (context != NULL, NULL);
+
+	node = as_component_to_xml_node (cpt, context, NULL);
+	return as_xml_node_to_str (node, error);
+}
+
+/**
  * as_component_get_desktop_id:
  * @cpt: a #AsComponent instance.
  *
