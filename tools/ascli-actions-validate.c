@@ -74,19 +74,19 @@ create_issue_info_print_string (AsValidatorIssue *issue)
 	if (ascli_get_output_colored ()) {
 		switch (severity) {
 			case AS_ISSUE_SEVERITY_ERROR:
-				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 31, tag, 0x1B, 0);
+				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 31, tag, 0x1B, 0);
 				break;
 			case AS_ISSUE_SEVERITY_WARNING:
-				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 33, tag, 0x1B, 0);
+				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 33, tag, 0x1B, 0);
 				break;
 			case AS_ISSUE_SEVERITY_INFO:
-				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 32, tag, 0x1B, 0);
+				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 32, tag, 0x1B, 0);
 				break;
 			case AS_ISSUE_SEVERITY_PEDANTIC:
-				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 37, tag, 0x1B, 0);
+				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 37, tag, 0x1B, 0);
 				break;
 			default:
-				g_string_append_printf (str, "%c[%d;1m%s%c[%dm", 0x1B, 35, tag, 0x1B, 0);
+				g_string_append_printf (str, "%c[%dm%s%c[%dm", 0x1B, 35, tag, 0x1B, 0);
 		}
 	} else {
 		g_string_append (str, tag);
