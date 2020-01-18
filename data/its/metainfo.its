@@ -10,6 +10,7 @@
                                /component/summary |
                                /component/description |
                                /component/developer_name |
+                               /component/name_variant_suffix |
                                /component/screenshots/screenshot/caption |
                                /component/releases/release/description |
                                /component/agreement/agreement_section/name |
@@ -19,5 +20,7 @@
   <its:translateRule selector="/component/name[@translatable = 'no']"
                      translate="no"/>
   <its:translateRule selector="/component/developer_name[@translatable = 'no']"
+                     translate="no"/>
+  <its:translateRule selector="/component/name_variant_suffix[@translatable = 'no']"
                      translate="no"/>
 </its:rules>
