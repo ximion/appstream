@@ -1192,7 +1192,7 @@ as_cache_insert (AsCache *cache, AsComponent *cpt, GError **error)
 			continue;
 		}
 		if (token_len > priv->max_keysize) {
-			g_warning ("Ignored search token '%s': Too long to be stored in the cache.", token_str);
+			g_debug ("Ignored search token '%s': Too long to be stored in the cache.", token_str);
 			continue;
 		}
 
