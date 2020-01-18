@@ -40,9 +40,9 @@
 #include "as-utils-private.h"
 #include "as-component.h"
 #include "as-component-private.h"
+#include "as-context-private.h"
 #include "as-distro-details.h"
 #include "as-desktop-entry.h"
-#include "as-context.h"
 
 #include "as-xml.h"
 #include "as-yaml.h"

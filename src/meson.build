@@ -47,6 +47,7 @@ aslib_pub_headers = [
     'appstream.h',
     'as-utils.h',
     'as-spdx.h',
+    'as-context.h',
     'as-metadata.h',
     'as-component.h',
     'as-pool.h',
@@ -77,7 +78,6 @@ aslib_pub_headers = [
 aslib_priv_headers = [
     'as-utils-private.h',
     'as-tag.h',
-    'as-context.h',
     'as-context-private.h',
     'as-xml.h',
     'as-yaml.h',

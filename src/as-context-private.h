@@ -26,6 +26,10 @@
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
+const gchar		*as_context_get_architecture (AsContext *ctx);
+void			as_context_set_architecture (AsContext *ctx,
+						     const gchar *value);
+
 gboolean		as_context_get_internal_mode (AsContext *ctx);
 void			as_context_set_internal_mode (AsContext *ctx,
 						      gboolean enabled);

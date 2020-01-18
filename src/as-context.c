@@ -25,7 +25,12 @@
  *
  * Contains information about the context of AppStream metadata, from the
  * root node of the document.
- * This is a private/internal class.
+ * Instances of #AsContext may be shared between #AsComponent instances.
+ *
+ * You usually do not want to use this directly, but use the more convenient
+ * #AsMetadata instead.
+ *
+ * See also: #AsComponent, #AsMetadata
  */
 
 #include "config.h"

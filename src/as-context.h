@@ -72,10 +72,6 @@ const gchar		*as_context_get_media_baseurl (AsContext *ctx);
 void			as_context_set_media_baseurl (AsContext *ctx,
 						      const gchar *value);
 
-const gchar		*as_context_get_architecture (AsContext *ctx);
-void			as_context_set_architecture (AsContext *ctx,
-						     const gchar *value);
-
 gboolean		as_context_get_all_locale_enabled (AsContext *ctx);
 
 const gchar		*as_context_get_filename (AsContext *ctx);
