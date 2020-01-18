@@ -1,3 +1,51 @@
+Version 0.12.10
+~~~~~~~~~~~~~~
+Released: 2019-01-18
+
+Notes:
+ * This release drops its optional dependency on Curl in favor of a non-optional
+   dependency on libsoup.
+
+Features:
+ * Sort addons less prominently than applications (Aleix Pol)
+ * validator: Display wrong data hint if metadata_license is invalid (Matthias Klumpp)
+ * Split tokens for descriptions as well (Matthias Klumpp)
+ * validator: Replace curl with libsoup for download tests (Matthias Klumpp)
+ * Update content rating for OARS 1.1, make CSM age conversion public API (Matthias Klumpp)
+ * tests: Don't duplicate XML/YAML preambles in test data (Matthias Klumpp)
+ * Add asynchronous method for loading the metadata pool (Matthias Klumpp)
+ * Try to reuse initial temporary cache when loading data into pool (Matthias Klumpp)
+ * Reduce minimum required GLib version to 2.58 (Matthias Klumpp)
+ * Implement support for "runtime" component type (Matthias Klumpp)
+ * Use SPDX JSON and filter out license exceptions in static data (Matthias Klumpp)
+ * Update SPDX and TLD data (Matthias Klumpp)
+ * Implement support for the WITH operator in recent SPDX (Matthias Klumpp)
+ * Add function to test if a license string is for free software (Matthias Klumpp)
+ * qt: Add wrappers for license exception and freeness tests (Matthias Klumpp)
+ * ascli: Add vercmp shorthand for compare-versions subcommand (Matthias Klumpp)
+ * ascli: Don't print validation issues in color and bold - color is enough (Matthias Klumpp)
+ * its: Mark name_variant_suffix as translatable (Matthias Klumpp)
+ * Make AsContext public API (Matthias Klumpp)
+ * Add convenience methods to direcly serialize a component to XML (Matthias Klumpp)
+
+Specification:
+ * docs: Adjust Freedesktop spec URLs to their new redirect locations (Matthias Klumpp)
+ * Document & implement the new name_variant_suffix tag (Matthias Klumpp)
+ * spec: Specify the "runtime" component type (Matthias Klumpp)
+ * spec: Permit alternative IDs in appstream URIs (Matthias Klumpp)
+
+Bugfixes:
+ * Fix double-free error when trying to dump bad XML markup (Matthias Klumpp)
+ * validator: Check URLs correctly if they have leading/trailing spaces (Matthias Klumpp)
+ * Remove deprecated GLib API (Matthias Klumpp)
+ * Don't autofree a temporary error that may be propagated (Matthias Klumpp)
+ * Don't attempt to add a zero-length search token to the index (Matthias Klumpp)
+ * Filter out search tokens that are stemmed to nothing (Matthias Klumpp)
+ * Prefer locale with region code over plain language code if possible (Matthias Klumpp)
+ * Use the same locale fallback algorithm everywhere (Matthias Klumpp)
+ * validator: Don't fail when encountering WITH operator (Matthias Klumpp)
+ * contrib/vapi: Add deprecated ProvidedKind.MIMETYPE to preserve API (Rico Tzschichholz)
+
 Version 0.12.9
 ~~~~~~~~~~~~~~
 Released: 2019-09-24
