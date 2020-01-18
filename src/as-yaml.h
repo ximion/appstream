@@ -27,6 +27,7 @@
 
 #include <yaml.h>
 #include "as-context.h"
+#include "as-metadata.h"
 #include "as-tag.h"
 
 G_BEGIN_DECLS

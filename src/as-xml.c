@@ -793,8 +793,11 @@ as_xml_parse_document (const gchar *data, gssize len, GError **error)
 
 /**
  * as_xml_node_to_str:
+ * @root: The document root node.
  *
  * Converts an XML node into its textural representation.
+ * This takes ownership of the root node and frees it in
+ * the process.
  *
  * Returns: XML metadata.
  */
