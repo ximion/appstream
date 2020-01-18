@@ -101,7 +101,7 @@ AsFormatVersion
 as_context_get_format_version (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	return priv->format_version;
+	return g_atomic_int_get (&priv->format_version);
 }
 
 /**
@@ -115,7 +115,7 @@ void
 as_context_set_format_version (AsContext *ctx, AsFormatVersion ver)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	priv->format_version = ver;
+	g_atomic_int_set (&priv->format_version, ver);
 }
 
 /**
@@ -128,7 +128,7 @@ AsFormatStyle
 as_context_get_style (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	return priv->style;
+	return g_atomic_int_get (&priv->style);
 }
 
 /**
@@ -142,7 +142,7 @@ void
 as_context_set_style (AsContext *ctx, AsFormatStyle style)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	priv->style = style;
+	g_atomic_int_set (&priv->style, style);
 }
 
 /**
@@ -155,7 +155,7 @@ gint
 as_context_get_priority (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	return priv->priority;
+	return g_atomic_int_get (&priv->priority);
 }
 
 /**
@@ -169,7 +169,7 @@ void
 as_context_set_priority (AsContext *ctx, gint priority)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	priv->priority = priority;
+	g_atomic_int_set (&priv->priority, priority);
 }
 
 /**
@@ -226,9 +226,9 @@ as_context_set_locale (AsContext *ctx, const gchar *value)
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
 	g_free (priv->locale);
 
-	priv->all_locale = FALSE;
+	g_atomic_int_set (&priv->all_locale, FALSE);
 	if (g_strcmp0 (value, "ALL") == 0) {
-		priv->all_locale = TRUE;
+		g_atomic_int_set (&priv->all_locale, TRUE);
 		priv->locale = as_get_current_locale ();
 	} else {
 		priv->locale = g_strdup (value);
@@ -236,16 +236,16 @@ as_context_set_locale (AsContext *ctx, const gchar *value)
 }
 
 /**
- * as_context_get_all_locale_enabled:
+ * as_context_get_locale_all_enabled:
  * @ctx: a #AsContext instance.
  *
  * Returns: %TRUE if all locale should be parsed.
  **/
 gboolean
-as_context_get_all_locale_enabled (AsContext *ctx)
+as_context_get_locale_all_enabled (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	return priv->all_locale;
+	return g_atomic_int_get (&priv->all_locale);
 }
 
 /**
@@ -355,7 +355,7 @@ gboolean
 as_context_get_internal_mode (AsContext *ctx)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	return priv->internal_mode;
+	return g_atomic_int_get (&priv->internal_mode);
 }
 
 /**
@@ -371,7 +371,7 @@ void
 as_context_set_internal_mode (AsContext *ctx, gboolean enabled)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
-	priv->internal_mode = enabled;
+	g_atomic_int_set (&priv->internal_mode, enabled);
 }
 
 /**

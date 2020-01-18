@@ -72,7 +72,7 @@ const gchar		*as_context_get_media_baseurl (AsContext *ctx);
 void			as_context_set_media_baseurl (AsContext *ctx,
 						      const gchar *value);
 
-gboolean		as_context_get_all_locale_enabled (AsContext *ctx);
+gboolean		as_context_get_locale_all_enabled (AsContext *ctx);
 
 const gchar		*as_context_get_filename (AsContext *ctx);
 void			as_context_set_filename (AsContext *ctx,

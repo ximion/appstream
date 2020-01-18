@@ -63,7 +63,7 @@ as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node)
 		goto out;
 	}
 
-	if (as_context_get_all_locale_enabled (ctx)) {
+	if (as_context_get_locale_all_enabled (ctx)) {
 		/* we should read all languages */
 		goto out;
 	}
