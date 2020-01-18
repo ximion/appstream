@@ -332,8 +332,6 @@ as_content_rating_attribute_to_csm_age (const gchar *id, AsContentRatingValue va
 				return oars_to_csm_mappings[i].csm_age_moderate;
 			case AS_CONTENT_RATING_VALUE_INTENSE:
 				return oars_to_csm_mappings[i].csm_age_intense;
-			case AS_CONTENT_RATING_VALUE_UNKNOWN:
-			case AS_CONTENT_RATING_VALUE_LAST:
 			default:
 				/* Handled above. */
 				g_assert_not_reached ();
