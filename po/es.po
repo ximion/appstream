@@ -5,7 +5,7 @@
 # Adolfo Jayme-Barrientos, 2014
 # Adolfo Jayme-Barrientos, 2016
 # advocatux <advocatux@airpost.net>, 2019.
-# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019.
+# Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2019, 2020.
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019.
 # Robert Schneider <robertschneider1999.rs@gmail.com>, 2019.
 # J <joaquinfc@protonmail.com>, 2019.
@@ -14,16 +14,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2019-12-27 00:21+0000\n"
-"Last-Translator: J <joaquinfc@protonmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/"
-"translations/es/>\n"
+"PO-Revision-Date: 2020-01-23 19:21+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -358,7 +357,7 @@ msgstr "No se pudo encontrar un componente que proporcione «%s::%s»."
 
 #: tools/appstream-cli.c:869
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "Crear una entrada de escritorio XDG a partir de un archivo metainfo."
 
 #: tools/appstream-cli.c:868
 msgid ""
@@ -371,7 +370,7 @@ msgstr ""
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Creando el archivo de entrada de escritorio «%s» con datos de «%s»"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
@@ -795,14 +794,14 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's 'project_license'. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
+msgstr "Las licencias para componentes «runtime» por lo general son demasiado complejas como para reflejarse en una simple expresión SPDX. Considere utilizar una «LicenseRef» y un URL web como valor para la propiedad «project_license» de este componente. Por ejemplo: «LicenseRef-free=https://example.com/licenses.html»"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
-msgstr ""
+msgstr "Limitar el número de entradas de versión que acaban en el archivo metainfo (0 para no limitar)."
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -909,7 +908,7 @@ msgstr ""
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:594
 msgid "No XDG applications directory found."
-msgstr ""
+msgstr "No se encontró el directorio de aplicaciones de XDG."
 
 #: tools/ascli-actions-mdata.c:182
 #, c-format
@@ -922,13 +921,13 @@ msgstr "Sin iconos."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
+msgstr "No se especificó ningún nombre de archivo de salida; se modifica directamente el archivo metafile."
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
+msgstr "No se brindó ningún binario en el archivo de metadatos y tampoco se especificó ninguna orden de ejecución mediante «--exec». No puede crearse la clave «Exec=»."
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -1886,9 +1885,8 @@ msgstr ""
 "parámetros."
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "Debe especificar un archivo de metadatos."
+msgstr "Debe especificar un archivo NEWS como entrada."
 
 #: tools/ascli-actions-misc.c:509
 #, fuzzy
@@ -1946,9 +1944,8 @@ msgid "You need to specify an input and output file."
 msgstr "Debe especificar un archivo de entrada y uno de salida."
 
 #: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "Debe especificar el archivo que se validará."
+msgstr "Debe especificar por lo menos un archivo para validar."
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
