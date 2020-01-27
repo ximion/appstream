@@ -8,13 +8,14 @@
 # Édana <edana.la@mailo.com>, 2019.
 # Guillaume Feller <guillaumefeller@gmail.com>, 2019.
 # Balaky Félix <balakyatana@gmail.com>, 2020.
+# Bounedjar Mehdi <bounedjar.mehdi@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2020-01-25 07:21+0000\n"
-"Last-Translator: Balaky Félix <balakyatana@gmail.com>\n"
+"PO-Revision-Date: 2020-01-27 22:50+0000\n"
+"Last-Translator: Bounedjar Mehdi <bounedjar.mehdi@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -355,8 +356,9 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Impossible de trouver des composants qui fournissent « %s::%s »."
 
 #: tools/appstream-cli.c:869
+#, fuzzy
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "créer un fichier d'entrée de bureau XDG à partir du fichier metainfo."
 
 #: tools/appstream-cli.c:868
 msgid ""
