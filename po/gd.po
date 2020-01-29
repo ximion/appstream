@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# GunChleoc <fios@foramnagaidhlig.net>, 2017.
+# GunChleoc <fios@foramnagaidhlig.net>, 2017, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2019-03-06 11:06+0000\n"
+"PO-Revision-Date: 2020-01-29 23:50+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
-"Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
-"translations/gd/>\n"
+"Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/translations/gd/>\n"
 "Language: gd\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
-"(n > 2 && n < 20) ? 2 : 3;\n"
-"X-Generator: Weblate 3.5.1-dev\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3;\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -137,13 +135,10 @@ msgid ""
 msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
-"’S e sònrachadh thar-sgaoilidh a th’ ann an AppStream gus meata-dàta mu cho-"
-"phàirtean bathair-bhog a sholar."
+msgstr "’S e sònrachadh thar-sgaoilidh a th’ ann an AppStream gus meata-dàta mu cho-phàirtean bathair-bhog a sholar."
 
 #: src/as-pool.c:1937
 #, fuzzy, c-format
@@ -524,10 +519,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
-"Fòrmat tùsail a’ mheata-dàta (is “xml” ’s “yaml” na luachan dligheach)."
+msgstr "Fòrmat na h-aithisge a thèid a ghintinn (’s e “text” is “yaml” a tha sna luachan dligheach)."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -667,7 +660,7 @@ msgstr ""
 msgid ""
 "Invalid tag found in collection metadata. Only 'component' tags are "
 "permitted."
-msgstr ""
+msgstr "Chaidh taga mì-dhligheach a lorg ann am meata-dàta a’ chruinneachaidh. Chan eil ach tagaichean “component” ceadaichte."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -1279,7 +1272,7 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
+msgstr "Cha deach ID a’ cheadachais a lorg ann an stòr-dàta SPDX. Dèan cinnteach gun ceach ID a’ cheadachais a sgrìobhadh air dòigh a ghèilleas ri SPDX agus gur e ceadachas bathair-bhog shaoir dligheach a th’ ann."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
@@ -1374,12 +1367,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:283
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Chan eil seòrsa “%s” a’ cho-phàirt bathair-bhog dligheach an an AppStream. "
-"Seo na luachan dligheach:"
+msgstr "Chan eil seòrsa a’ cho-phàirt a chaidh a shuidheachadh ’na seòrsa co-phàirt AppStream dligheach a dh’aithnicheadh sinn."
 
 #: src/as-validator-issue-tag.h:398
 msgid ""
@@ -1453,7 +1443,7 @@ msgstr ""
 msgid ""
 "This 'web-application' component is missing a 'icon' tag to specify a valid "
 "icon."
-msgstr ""
+msgstr "Tha taga “icon” a dhìth air a’ cho-phàirt “web-application” airson ìomhaigheag dhligheach a shònrachadh."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:467
@@ -1499,7 +1489,7 @@ msgstr ""
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
+msgstr "Tha markup mì-dhligheach ann am paragraf an tuairisgeil. Chan eil taic ach ri <em/> agus <code/> aig an à seo."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1631,14 +1621,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:542
-#, fuzzy
 msgid "Unable to read file."
-msgstr "Cha deach leinn am faidhle .desktop a leughadh: %s"
+msgstr "Cha deach leinn am faidhle a leughadh."
 
 #: src/as-validator-issue-tag.h:574
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "Cha deach leinn am faidhle .desktop a leughadh: %s"
+msgstr "Cha deach leinn am faidhle .desktop a leughadh a tha co-cheangailte ris a’ cho-phàirt seo."
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
@@ -1820,10 +1808,9 @@ msgid "You need to specify a component-ID."
 msgstr "Feumaidh tu aithnichear co-phàirt a shònrachadh."
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Feumaidh tu faidhle ri dhearbhadh a shònrachadh!"
+msgstr "Feumaidh tu faidhle desktop-entry a shònrachadh ’na às-chur a thèid a chruthachadh no a chur ris."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
