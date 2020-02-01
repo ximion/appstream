@@ -9,13 +9,14 @@
 # Katerina Katapodi <katerinakatapodi@gmail.com>, 2019.
 # Robert Schneider <robertschneider1999.rs@gmail.com>, 2019.
 # J <joaquinfc@protonmail.com>, 2019.
+# Kike <alfaomega013@hotmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2020-01-23 19:21+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2020-02-01 17:50+0000\n"
+"Last-Translator: Kike <alfaomega013@hotmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -931,7 +932,7 @@ msgstr "No se brindó ningún binario en el archivo de metadatos y tampoco se es
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
+msgstr "No se proporcionó ningún nombre de icono en el archivo metainfo.  No puede continuar."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -1007,7 +1008,7 @@ msgstr ""
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-validator.c:364
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "Lo sentimos, algo a salido mal. El tamaño del archivo recuperado es cero."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -1074,7 +1075,7 @@ msgid ""
 "Since a 'runtime' component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
+msgstr "Dado que un componente en 'tiempo de ejecución' se compone de varios otros componentes de software, los ID de los componentes pueden enumerarse en una sección `<provides />` para esta ejecución."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
