@@ -6,7 +6,7 @@
 # Translators:
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015-2016
-# Xomin <theiacobumrex@gmail.com>, 2020.
+# Xomin <theiacobumrex@gmail.com>, 2020, 2021.
 # #-#-#-#-#  ca.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -26,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"Last-Translator: Xomin <theiacobumrex@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -1069,11 +1069,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"Les descripcions d'AppStream admeten només un conjunt limitat d'etiquetes "
-"del format de text: paràgrafs (<p/>) i llistes (<ul/>, <ol/>). Aquesta conté "
-"una etiqueta XML no vàlida que no es representarà correctament en "
-"aplicacions compatibles amb l'especificació de metainformació."
+msgstr "Les descripcions d'AppStream admeten només un conjunt limitat d'etiquetes del format de text: paràgrafs (<p/>) i llistes (<ul/>, <ol/>). Aquesta conté una etiqueta XML no vàlida que no es representarà correctament en aplicacions compatibles amb l'especificació de metainformació."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1083,9 +1079,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
-"Les enumeracions només han de tenir elements de llista (<li/>) com a "
-"elements secundaris."
+msgstr "Les enumeracions només han de tenir elements de llista (<li/>) com a elements secundaris."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1105,10 +1099,7 @@ msgstr ""
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"D'acord amb l'especifiació AppStream, l'etiqueta esmentada ha d'aparèixer "
-"només una vegada en aquest context. No és vàlid tenir diverses etiquetes "
-"d'aquest tipus."
+msgstr "D'acord amb l'especifiació AppStream, l'etiqueta esmentada ha d'aparèixer només una vegada en aquest context. No és vàlid tenir diverses etiquetes d'aquest tipus."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
@@ -1233,28 +1224,21 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Considereu d'utilitzar un URL segur (HTTPS) per a fer referència a aquesta "
-"captura d'imatge o de vídeo."
+msgstr "Considereu d'utilitzar un URL segur (HTTPS) per a fer referència a aquesta captura d'imatge o de vídeo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Una captura de pantalla ha de contenir almenys una imatge o un vídeo per a "
-"ser útil. Si us plau, afegiu-hi una <image/>."
+msgstr "Una captura de pantalla ha de contenir almenys una imatge o un vídeo per a ser útil. Si us plau, afegiu-hi una <image/>."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Una captura de pantalla ha de contenir imatges o vídeos, però no tots dos "
-"alhora. Si us plau, utilitzeu aquesta captura de pantalla exclusivament per "
-"a imatges estàtiques o per a vídeos."
+msgstr "Una captura de pantalla ha de contenir imatges o vídeos, però no tots dos alhora. Si us plau, utilitzeu aquesta captura de pantalla exclusivament per a imatges estàtiques o per a vídeos."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1296,10 +1280,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"Per a vídeos, de moment només són admesos els formats contenidors WebM i "
-"Matroska (.mkv). L'extensió del fitxer del vídeo en qüestió no pertany a cap "
-"d'aquests formats."
+msgstr "Per a vídeos, de moment només són admesos els formats contenidors WebM i Matroska (.mkv). L'extensió del fitxer del vídeo en qüestió no pertany a cap d'aquests formats."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -1478,9 +1459,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Considereu d'utilitzar un URL segur (HTTPS) per a l'enllaç de la icona "
-"remota."
+msgstr "Considereu d'utilitzar un URL segur (HTTPS) per a l'enllaç de la icona remota."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
@@ -2223,9 +2202,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
-"Assumiu que l'arxiu d'entrada està en el format seleccionat ('yalm' o "
-"'text')."
+msgstr "Assumiu que l'arxiu d'entrada està en el format seleccionat ('yalm' o 'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
@@ -2384,9 +2361,7 @@ msgstr "Creeu un arxiu d'entrada d'escriptori XDG des d'un arxiu de metainformac
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1233
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
-"Convertiu un arxiu YALM o un arxiu de text NEWS en alliberaments de "
-"metainformació."
+msgstr "Convertiu un arxiu YALM o un arxiu de text NEWS en alliberaments de metainformació."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1238
@@ -2613,8 +2588,7 @@ msgstr "No existeix el fitxer de metadades «%s»."
 #: tools/ascli-actions-misc.c:149
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"Augmentant l'arxiu existent d'entrada a l'escriptori '%s' amb dades de '%s'."
+msgstr "Augmentant l'arxiu existent d'entrada a l'escriptori '%s' amb dades de '%s'."
 
 #: tools/ascli-actions-misc.c:154
 #, fuzzy, c-format
@@ -2624,8 +2598,7 @@ msgstr "No es pot llegir el fitxer .desktop: %s"
 #: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
-"Creant el nou arxiu d'entrada d'escriptori '%s' utilitzant dades de '%s'"
+msgstr "Creant el nou arxiu d'entrada d'escriptori '%s' utilitzant dades de '%s'"
 
 #: tools/ascli-actions-misc.c:214
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
