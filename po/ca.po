@@ -1,25 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
+# 
 # Translators:
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015-2016
+# Xomin <theiacobumrex@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2019-01-26 15:44+0000\n"
-"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/"
-"translations/ca/>\n"
+"PO-Revision-Date: 2020-02-15 00:50+0000\n"
+"Last-Translator: Xomin <theiacobumrex@gmail.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 3.11-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -49,14 +49,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "Una captura de pantalla ha de contenir almenys una imatge o un vídeo per a ser útil. Si us plau, afegiu-hi una <image/>."
 
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "Una captura de pantalla ha de contenir imatges o vídeos, però no tots dos alhora. Si us plau, utilitzeu aquesta captura de pantalla exclusivament per a imatges estàtiques o per a vídeos."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -84,7 +84,7 @@ msgstr "Mostra també els consells redundants."
 msgid ""
 "An 'extends' tag is specified, but the component is not of type 'addon', "
 "'localization' or 'repository'."
-msgstr ""
+msgstr "S'ha especificat una etiqueta 'extends', però el component no és el tipus 'addon', 'localization' o 'repository'."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -137,7 +137,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "Les descripcions d'AppStream admeten només un conjunt limitat d'etiquetes del format de text: paràgrafs (<p/>) i llistes (<ul/>, <ol/>). Aquesta conté una etiqueta XML no vàlida que no es representarà correctament en aplicacions compatibles amb l'especificació de metainformació."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 #, fuzzy
@@ -177,12 +177,12 @@ msgstr "Intel·ligència artificial"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
+msgstr "D'acord amb l'especifiació AppStream, l'etiqueta esmentada ha d'aparèixer només una vegada en aquest context. No és vàlid tenir diverses etiquetes d'aquest tipus."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Assumiu que l'arxiu d'entrada està en el format seleccionat ('yalm' o 'text')."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -207,7 +207,7 @@ msgstr "Creació i edició d'àudio"
 #: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Augmentant l'arxiu existent d'entrada a l'escriptori '%s' amb dades de '%s'."
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -300,21 +300,21 @@ msgstr "Obligatori per"
 
 #: src/as-validator-issue-tag.h:361
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
+msgstr "Considereu d'utilitzar un URL segur (HTTPS) per a l'enllaç de la icona remota."
 
 #: src/as-validator-issue-tag.h:383
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "Considereu d'utilitzar un URL segur (HTTPS) per a aquest enllaç web."
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
+msgstr "Considereu d'utilitzar un URL segur (HTTPS) per a fer referència a aquesta captura d'imatge o de vídeo."
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "Convertiu un arxiu YALM o un arxiu de text NEWS en alliberaments de metainformació."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -329,7 +329,7 @@ msgstr "No s'ha pogut trobar el component que proporciona «%s::%s»."
 
 #: tools/appstream-cli.c:869
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "Creeu un arxiu d'entrada d'escriptori XDG des d'un arxiu de metainformació."
 
 #: tools/appstream-cli.c:868
 msgid ""
@@ -342,12 +342,11 @@ msgstr ""
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Creant el nou arxiu d'entrada d'escriptori '%s' utilitzant dades de '%s'"
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
-msgstr "Serveis de sistema de DBus"
+msgstr "Serveis de sessió de D-Bus"
 
 #: src/as-provided.c:158
 #, fuzzy
@@ -435,7 +434,7 @@ msgstr "Força una actualització de la memòria cau."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "Les enumeracions només han de tenir elements de llista (<li/>) com a elements secundaris."
 
 #: tools/ascli-actions-misc.c:159
 #, c-format
@@ -493,9 +492,9 @@ msgid "Featured"
 msgstr "Destacat"
 
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "No existeix el fitxer de metadades «%s»."
+msgstr "No existeix el fitxer '%s'."
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
@@ -525,14 +524,12 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
+msgstr "Per a vídeos, de moment només són admesos els formats contenidors WebM i Matroska (.mkv). L'extensió del fitxer del vídeo en qüestió no pertany a cap d'aquests formats."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
-"Format predeterminat de les metadades (els valors vàlids són 'xml' i 'yaml')."
+msgstr "Format de l'informe generat (els valors vàlids són 'text' i 'yaml')."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -550,7 +547,7 @@ msgstr "S'han trobat %i components."
 msgid ""
 "Found 'version' property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
+msgstr "S'ha trobat la propietat 'version' en l'element requerit/recomanat d'un tipus que no hauria de tenir ni requerir una versió."
 
 #. TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
@@ -558,7 +555,7 @@ msgid ""
 "Found 'version' property on this required/recommended item, but not "
 "'compare' property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
+msgstr "S'ha trobat la propietat 'version' en aquest element requerit/recomanat, però no la propietat 'compare'. Recomanem definir explícitament una operació de comparació."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:277
