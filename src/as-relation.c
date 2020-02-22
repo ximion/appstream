@@ -114,6 +114,8 @@ as_relation_item_kind_to_string (AsRelationItemKind kind)
 		return "memory";
 	if (kind == AS_RELATION_ITEM_KIND_FIRMWARE)
 		return "firmware";
+	if (kind == AS_RELATION_ITEM_KIND_CONTROL)
+		return "control";
 	return "unknown";
 }
 
@@ -140,6 +142,8 @@ as_relation_item_kind_from_string (const gchar *kind_str)
 		return AS_RELATION_ITEM_KIND_MEMORY;
 	if (g_strcmp0 (kind_str, "firmware") == 0)
 		return AS_RELATION_ITEM_KIND_FIRMWARE;
+	if (g_strcmp0 (kind_str, "control") == 0)
+		return AS_RELATION_ITEM_KIND_CONTROL;
 	return AS_RELATION_ITEM_KIND_UNKNOWN;
 }
 
@@ -249,6 +253,66 @@ as_relation_compare_to_symbols_string (AsRelationCompare compare)
 	if (compare == AS_RELATION_COMPARE_LE)
 		return "<=";
 	return NULL;
+}
+
+/**
+ * as_control_kind_to_string:
+ * @kind: the #AsControlKind.
+ *
+ * Converts the enumerated value to a text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 0.12.11
+ **/
+const gchar*
+as_control_kind_to_string (AsControlKind kind)
+{
+	if (kind == AS_CONTROL_KIND_POINTING)
+		return "pointing";
+	if (kind == AS_CONTROL_KIND_KEYBOARD)
+		return "keyboard";
+	if (kind == AS_CONTROL_KIND_CONSOLE)
+		return "console";
+	if (kind == AS_CONTROL_KIND_TOUCH)
+		return "touch";
+	if (kind == AS_CONTROL_KIND_GAMEPAD)
+		return "gamepad";
+	if (kind == AS_CONTROL_KIND_VOICE)
+		return "voice";
+	if (kind == AS_CONTROL_KIND_VISION)
+		return "vision";
+	return "unknown";
+}
+
+/**
+ * as_control_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsControlKind or %AS_CONTROL_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.12.11
+ **/
+AsControlKind
+as_control_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "pointing") == 0)
+		return AS_CONTROL_KIND_POINTING;
+	if (g_strcmp0 (kind_str, "keyboard") == 0)
+		return AS_CONTROL_KIND_KEYBOARD;
+	if (g_strcmp0 (kind_str, "console") == 0)
+		return AS_CONTROL_KIND_CONSOLE;
+	if (g_strcmp0 (kind_str, "touch") == 0)
+		return AS_CONTROL_KIND_TOUCH;
+	if (g_strcmp0 (kind_str, "gamepad") == 0)
+		return AS_CONTROL_KIND_GAMEPAD;
+	if (g_strcmp0 (kind_str, "voice") == 0)
+		return AS_CONTROL_KIND_VOICE;
+	if (g_strcmp0 (kind_str, "vision") == 0)
+		return AS_CONTROL_KIND_VISION;
+	return AS_CONTROL_KIND_UNKNOWN;
 }
 
 /**
@@ -437,7 +501,7 @@ as_relation_get_value (AsRelation *relation)
  * as_relation_get_value_int:
  * @relation: an #AsRelation instance.
  *
- * Returns: The value of the item this #AsRelation is about as integer.
+ * Returns: The value of this #AsRelation item as an integer. Returns 0 if the value was no integer.
  *
  * Since: 0.12.0
  **/
@@ -448,6 +512,27 @@ as_relation_get_value_int (AsRelation *relation)
 	if (priv->value == NULL)
 		return 0;
 	return g_ascii_strtoll (priv->value, NULL, 10);
+}
+
+/**
+ * as_relation_get_value_control_kind:
+ * @relation: an #AsRelation instance.
+ *
+ * Get the value of this #AsRelation item as #AsControlKind if the
+ * type of this relation is %AS_RELATION_ITEM_KIND_CONTROL.
+ * Otherwise return %AS_CONTROL_KIND_UNKNOWN
+ *
+ * Returns: a #AsControlKind or %AS_CONTROL_KIND_UNKNOWN in case the item is not of the right kind.
+ *
+ * Since: 0.12.11
+ **/
+AsControlKind
+as_relation_get_value_control_kind (AsRelation *relation)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	if (priv->item_kind != AS_RELATION_ITEM_KIND_CONTROL)
+		return AS_CONTROL_KIND_UNKNOWN;
+	return as_control_kind_from_string (priv->value);
 }
 
 /**
