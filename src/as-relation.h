@@ -68,6 +68,7 @@ typedef enum  {
  * @AS_RELATION_ITEM_KIND_KERNEL:	An operating system kernel (like Linux)
  * @AS_RELATION_ITEM_KIND_MEMORY:	A system RAM requirement
  * @AS_RELATION_ITEM_KIND_FIRMWARE:	A device firmware requirement (used by fwupd)
+ * @AS_RELATION_ITEM_KIND_CONTROL:	An input method for users to control software
  *
  * Type of the item an #AsRelation is for.
  **/
@@ -78,6 +79,7 @@ typedef enum  {
 	AS_RELATION_ITEM_KIND_KERNEL,
 	AS_RELATION_ITEM_KIND_MEMORY,
 	AS_RELATION_ITEM_KIND_FIRMWARE,
+	AS_RELATION_ITEM_KIND_CONTROL,
 	/*< private >*/
 	AS_RELATION_ITEM_KIND_LAST
 } AsRelationItemKind;
@@ -106,6 +108,32 @@ typedef enum {
 	AS_RELATION_COMPARE_LAST
 } AsRelationCompare;
 
+/**
+ * AsControlKind:
+ * @AS_CONTROL_KIND_UNKNOWN:	Unknown kind
+ * @AS_CONTROL_KIND_POINTING:	Mouse/cursors/other pointing device
+ * @AS_CONTROL_KIND_KEYBOARD:	Keyboard input
+ * @AS_CONTROL_KIND_CONSOLE:	Console / command-line interface
+ * @AS_CONTROL_KIND_TOUCH:	Touch input
+ * @AS_CONTROL_KIND_GAMEPAD:	Gamepad input (any game controller with wheels/buttons/joysticks)
+ * @AS_CONTROL_KIND_VOICE:	Control via voice recognition/activation
+ * @AS_CONTROL_KIND_VISION:	Computer vision / visual object and sign detection
+ *
+ * Kind of an input method for users to control software
+ **/
+typedef enum {
+	AS_CONTROL_KIND_UNKNOWN,
+	AS_CONTROL_KIND_POINTING,
+	AS_CONTROL_KIND_KEYBOARD,
+	AS_CONTROL_KIND_CONSOLE,
+	AS_CONTROL_KIND_TOUCH,
+	AS_CONTROL_KIND_GAMEPAD,
+	AS_CONTROL_KIND_VOICE,
+	AS_CONTROL_KIND_VISION,
+	/*< private >*/
+	AS_CONTROL_KIND_LAST
+} AsControlKind;
+
 const gchar		*as_relation_kind_to_string (AsRelationKind kind);
 AsRelationKind		as_relation_kind_from_string (const gchar *kind_str);
 
@@ -115,6 +143,9 @@ AsRelationItemKind	as_relation_item_kind_from_string (const gchar *kind_str);
 AsRelationCompare	as_relation_compare_from_string (const gchar *compare_str);
 const gchar		*as_relation_compare_to_string (AsRelationCompare compare);
 const gchar		*as_relation_compare_to_symbols_string (AsRelationCompare compare);
+
+const gchar		*as_control_kind_to_string (AsControlKind kind);
+AsControlKind		as_control_kind_from_string (const gchar *kind_str);
 
 AsRelation		*as_relation_new (void);
 
@@ -136,6 +167,7 @@ void			as_relation_set_version (AsRelation *relation,
 
 const gchar		*as_relation_get_value (AsRelation *relation);
 gint			as_relation_get_value_int (AsRelation *relation);
+AsControlKind		as_relation_get_value_control_kind (AsRelation *relation);
 void			as_relation_set_value (AsRelation *relation,
 					        const gchar *value);
 
