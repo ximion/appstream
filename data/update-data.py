@@ -55,19 +55,10 @@ def get_tld_list(fname, url):
         f.write('\n')
 
 
-def get_spdx_id_list(licenselist_fname, exceptionlist_fname, git_url, with_deprecated=True):
-    print('Updating list of SPDX license IDs...')
-    tdir = TemporaryDirectory(prefix='spdx_master-')
-
-    subprocess.check_call(['git', 'clone', git_url, tdir.name])
-    last_tag_ver = subprocess.check_output(['git', 'describe', '--abbrev=0',  '--tags'], cwd=tdir.name)
-    last_tag_ver = str(last_tag_ver.strip(), 'utf-8')
-    if last_tag_ver.startswith('v'):
-        last_tag_ver = last_tag_ver[1:]
-
+def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
     # load license and exception data
-    licenses_json_fname = os.path.join(tdir.name, 'json', 'licenses.json')
-    exceptions_json_fname = os.path.join(tdir.name, 'json', 'exceptions.json')
+    licenses_json_fname = os.path.join(data_dir, 'json', 'licenses.json')
+    exceptions_json_fname = os.path.join(data_dir, 'json', 'exceptions.json')
     with open(licenses_json_fname, 'r') as f:
         licenses_data = json.loads(f.read())
     with open(exceptions_json_fname, 'r') as f:
@@ -83,28 +74,60 @@ def get_spdx_id_list(licenselist_fname, exceptionlist_fname, git_url, with_depre
 
     lid_list = []
     for license in licenses_data['licenses']:
+        if only_free:
+            if not license.get('isFsfLibre') and not license.get('isOsiApproved'):
+                continue
         lid_list.append(license['licenseId'])
 
     eid_list = []
     for exception in exceptions_data['exceptions']:
         eid_list.append(exception['licenseExceptionId'])
 
+    return {'licenses': lid_list,
+            'exceptions': eid_list,
+            'license_list_ver': license_ver_ref,
+            'eceptions_list_ver': exceptions_ver_ref}
+
+
+def get_spdx_id_list(licenselist_fname, licenselist_free_fname, exceptionlist_fname, git_url, with_deprecated=True):
+    print('Updating list of SPDX license IDs...')
+    tdir = TemporaryDirectory(prefix='spdx_master-')
+
+    subprocess.check_call(['git',
+                           'clone',
+                           git_url, tdir.name])
+    last_tag_ver = subprocess.check_output(['git', 'describe', '--abbrev=0',  '--tags'], cwd=tdir.name)
+    last_tag_ver = str(last_tag_ver.strip(), 'utf-8')
+    if last_tag_ver.startswith('v'):
+        last_tag_ver = last_tag_ver[1:]
+
+    license_data = _read_spdx_licenses(tdir.name, last_tag_ver)
+    lid_list = license_data['licenses']
+    eid_list = license_data['exceptions']
+    license_list_ver = license_data['license_list_ver']
+
     lid_list.sort()
     with open(licenselist_fname, 'w') as f:
-        f.write('# The list of licenses recognized by SPDX, v{}\n'.format(license_ver_ref))
+        f.write('# The list of all licenses recognized by SPDX, v{}\n'.format(license_list_ver))
         f.write('\n'.join(lid_list))
         f.write('\n')
 
     eid_list.sort()
     with open(exceptionlist_fname, 'w') as f:
-        f.write('# The list of license exceptions recognized by SPDX, v{}\n'.format(exceptions_ver_ref))
+        f.write('# The list of license exceptions recognized by SPDX, v{}\n'.format(license_data['eceptions_list_ver']))
         f.write('\n'.join(eid_list))
+        f.write('\n')
+
+    license_free_data = _read_spdx_licenses(tdir.name, last_tag_ver, only_free=True)
+    with open(licenselist_free_fname, 'w') as f:
+        f.write('# The list of free (OSI or FSF approved) licenses recognized by SPDX, v{}\n'.format(license_list_ver))
+        f.write('\n'.join(license_free_data['licenses']))
         f.write('\n')
 
 
 def main():
     get_tld_list('iana-filtered-tld-list.txt', IANA_TLD_LIST_URL)
-    get_spdx_id_list('spdx-license-ids.txt', 'spdx-license-exception-ids.txt', SPDX_REPO_URL)
+    get_spdx_id_list('spdx-license-ids.txt', 'spdx-free-license-ids.txt', 'spdx-license-exception-ids.txt', SPDX_REPO_URL)
 
     print('All done.')
 

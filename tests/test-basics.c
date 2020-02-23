@@ -352,6 +352,8 @@ test_spdx (void)
 	g_assert (!as_license_is_free_license ("NOASSERTION"));
 	g_assert (!as_license_is_free_license ("LicenseRef-proprietary=https://example.com/mylicense.txt"));
 	g_assert (!as_license_is_free_license ("MIT AND LicenseRef-proprietary=https://example.com/lic.txt"));
+	g_assert (!as_license_is_free_license ("ADSL"));
+	g_assert (!as_license_is_free_license ("JSON AND GPL-3.0-or-later"));
 }
 
 /**

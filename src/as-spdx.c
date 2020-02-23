@@ -167,7 +167,7 @@ as_is_spdx_license_id (const gchar *license_id)
 	if (g_str_has_prefix (license_id, "LicenseRef-"))
 		return TRUE;
 
-	/* load the readonly data section and look for the icon name */
+	/* load the readonly data section and look for the license ID */
 	data = g_resource_lookup_data (as_get_resource (),
 				       "/org/freedesktop/appstream/spdx-license-ids.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
@@ -199,7 +199,7 @@ as_is_spdx_license_exception_id (const gchar *exception_id)
 	if (exception_id == NULL || exception_id[0] == '\0')
 		return FALSE;
 
-	/* load the readonly data section and look for the icon name */
+	/* load the readonly data section and look for the license exception ID */
 	data = g_resource_lookup_data (as_get_resource (),
 				       "/org/freedesktop/appstream/spdx-license-exception-ids.txt",
 				       G_RESOURCE_LOOKUP_FLAGS_NONE,
@@ -651,12 +651,17 @@ as_get_license_url (const gchar *license)
  * @license: The SPDX license string to test.
  *
  * Check if the given license is for free-as-in-freedom software.
- * Currently, all licenses listed on the SPDX website are considered to
- * be "free software" licenses.
+ * A free software license is either approved by the Free Software Foundation
+ * or the Open Source Initiative.
  *
- * This definition may be tightened in future. In any case, this function does
- * not give any legal advice. Please read the license texts to know more about
- * the individual licenses.
+ * This function does *not* yet handle complex license expressions with AND and OR.
+ * If the expression contains any of these, it will still simply check if all mentioned
+ * licenses are Free licenses.
+ * Currently, any license exception recognized by SPDX is assumed to not impact the free-ness
+ * status of a software component.
+ *
+ * Please note that this function does not give any legal advice. Please read the license texts
+ * to learn more about the individual licenses and their conditions.
  *
  * Returns: %TRUE if the license string contains only free-as-in-freedom licenses.
  *
@@ -666,12 +671,23 @@ gboolean
 as_license_is_free_license (const gchar *license)
 {
 	g_auto(GStrv) tokens = NULL;
+	g_autoptr(GBytes) rdata = NULL;
 	gboolean is_free;
+
+	/* load the readonly data section of (free) license IDs */
+	rdata = g_resource_lookup_data (as_get_resource (),
+				       "/org/freedesktop/appstream/spdx-free-license-ids.txt",
+				       G_RESOURCE_LOOKUP_FLAGS_NONE,
+				       NULL);
+	if (rdata == NULL)
+		return FALSE;
 
 	/* assume we have a free software license, unless proven otherwise */
 	is_free = TRUE;
 	tokens = as_spdx_license_tokenize (license);
 	for (guint i = 0; tokens[i] != NULL; i++) {
+		g_autofree gchar *lkey = NULL;
+
 		if (g_strcmp0 (tokens[i], "&") == 0 ||
 		    g_strcmp0 (tokens[i], "+") == 0 ||
 		    g_strcmp0 (tokens[i], "|") == 0 ||
@@ -695,6 +711,19 @@ as_license_is_free_license (const gchar *license)
 
 		if (tokens[i][0] != '@') {
 			/* if token has no license-id prefix, consider the license to be non-free */
+			is_free = FALSE;
+			break;
+		}
+
+		if (as_is_spdx_license_exception_id (tokens[i] + 1)) {
+			/* for now, we assume any SPDX license exception is still fine and doesn't change the
+			 * "free-ness" status of a software component */
+			continue;
+		}
+
+		lkey = g_strdup_printf ("\n%s\n", tokens[i] + 1);
+		if (g_strstr_len (g_bytes_get_data (rdata, NULL), -1, lkey) == NULL) {
+			/* the license was not in our "free" list, so we consider it non-free */
 			is_free = FALSE;
 			break;
 		}
