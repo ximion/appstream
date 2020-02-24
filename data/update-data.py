@@ -21,7 +21,7 @@ SPDX_REPO_URL = 'https://github.com/spdx/license-list-data.git'
 MENU_SPEC_URL = 'https://gitlab.freedesktop.org/xdg/xdg-specs/raw/master/menu/menu-spec.xml'
 
 
-def update_tld_list(fname, url):
+def update_tld_list(url, fname):
     print('Getting TLD list from IANA...')
 
     data_result = list()
@@ -90,7 +90,7 @@ def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
             'eceptions_list_ver': exceptions_ver_ref}
 
 
-def update_spdx_id_list(licenselist_fname, licenselist_free_fname, exceptionlist_fname, git_url, with_deprecated=True):
+def update_spdx_id_list(git_url, licenselist_fname, licenselist_free_fname, exceptionlist_fname, with_deprecated=True):
     print('Updating list of SPDX license IDs...')
     tdir = TemporaryDirectory(prefix='spdx_master-')
 
@@ -230,9 +230,9 @@ def main():
     print('Data directory is: {}'.format(data_dir))
     os.chdir(data_dir)
 
+    update_tld_list(IANA_TLD_LIST_URL, 'iana-filtered-tld-list.txt')
+    update_spdx_id_list(SPDX_REPO_URL, 'spdx-license-ids.txt', 'spdx-free-license-ids.txt', 'spdx-license-exception-ids.txt')
     update_categories_list(MENU_SPEC_URL, 'xdg-category-names.txt')
-    update_tld_list('iana-filtered-tld-list.txt', IANA_TLD_LIST_URL)
-    update_spdx_id_list('spdx-license-ids.txt', 'spdx-free-license-ids.txt', 'spdx-license-exception-ids.txt', SPDX_REPO_URL)
 
     print('All done.')
 
