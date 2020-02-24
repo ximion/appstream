@@ -1,24 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-#
+# 
 # Translators:
-# Andika Triwidada <andika@gmail.com>, 2014-2016
+# Andika Triwidada <andika@gmail.com>, 2014-2016, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2018-06-16 08:10+0000\n"
+"PO-Revision-Date: 2020-02-24 01:32+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
-"translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.0.1\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -138,22 +137,17 @@ msgid ""
 msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
-"AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata "
-"tentang komponen perangkat lunak."
+msgstr "AppStream adalah spesifikasi lintas-distribusi untuk menyediakan metadata tentang komponen perangkat lunak."
 
 #: src/as-pool.c:1937
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr ""
-"Pemutakhiran singgahan AppStream gagal. Hidupkan mode rinci untuk memperoleh "
-"informasi masalah lebih terrinci."
+msgstr "Penyegaran singgahan sistem AppStream gagal. Hidupkan mode rinci untuk memperoleh informasi masalah lebih terperinci."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:944
@@ -342,14 +336,12 @@ msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr ""
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
-msgstr "Layanan Sesi DBus"
+msgstr "Layanan Sesi D-Bus"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
-msgstr "Layanan Sistem DBus"
+msgstr "Layanan Sistem D-Bus"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
@@ -486,9 +478,9 @@ msgid "Featured"
 msgstr "Unggulan"
 
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "Berkas metadata '%s' tidak ada."
+msgstr "Berkas '%s' tidak ada."
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
@@ -522,9 +514,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Format metadata baku (nilai yang valid adalah 'xml' dan 'yaml')."
+msgstr "Format dari laporan yang dihasilkan (nilai yang valid adalah 'text' dan 'yaml')."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -772,9 +763,8 @@ msgid "Math"
 msgstr "Matematika"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "jenis MIME"
+msgstr "Tipe media"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -787,9 +777,9 @@ msgstr "Berkas metadata punya kesalahan:"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Berkas metadata '%s' tidak ada."
+msgstr "Berkas metainfo '%s' tidak ada."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names.
 #: src/as-validator-issue-tag.h:367
@@ -887,9 +877,8 @@ msgstr "Fotografi"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstream-cli.c:121
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "Cetak keluaran terrinci tentang komponen yang ditemukan."
+msgstr "Cetak penjelasan terperinci untuk masalah yang ditemukan."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
