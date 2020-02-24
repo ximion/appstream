@@ -6,7 +6,7 @@
 # Translators:
 # Jozef Mlích <xmlich02@stud.fit.vutbr.cz>, 2015
 # Marek Černocký <marek@manet.cz>, 2016
-# František Svoboda <nicolaibiker@gmail.com>, 2020.
+# František Svoboda <nicolaibiker@gmail.com>, 2020, 2021.
 # #-#-#-#-#  cs.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Last-Translator: František Svoboda <nicolaibiker@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/appstream/translations/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -1054,9 +1054,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"Tag <description/> se v metainfo souborech (upstream metadatech) nesmí "
-"překládat. Místo toho lokalizujte jednotlivé odstavce."
+msgstr "Tag <description/> se v metainfo souborech (upstream metadatech) nesmí překládat. Místo toho lokalizujte jednotlivé odstavce."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1235,19 +1233,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Screenshot musí obsahovat alespoň jeden obrázek nebo video aby byl užitečný. "
-"Přidejte k němu prosím <image/>."
+msgstr "Screenshot musí obsahovat alespoň jeden obrázek nebo video aby byl užitečný. Přidejte k němu prosím <image/>."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Screenshot musí obsahovat obrázky, nebo videa, ale ne obojí zároveň. "
-"Prosíme, abyste využívali tento screenshot buď pouze na statické obrázky, "
-"nebo na videa."
+msgstr "Screenshot musí obsahovat obrázky, nebo videa, ale ne obojí zároveň. Prosíme, abyste využívali tento screenshot buď pouze na statické obrázky, nebo na videa."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
