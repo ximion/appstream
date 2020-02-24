@@ -18,9 +18,10 @@ from tempfile import TemporaryDirectory
 
 IANA_TLD_LIST_URL = 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
 SPDX_REPO_URL = 'https://github.com/spdx/license-list-data.git'
+MENU_SPEC_URL = 'https://gitlab.freedesktop.org/xdg/xdg-specs/raw/master/menu/menu-spec.xml'
 
 
-def get_tld_list(fname, url):
+def update_tld_list(fname, url):
     print('Getting TLD list from IANA...')
 
     data_result = list()
@@ -89,7 +90,7 @@ def _read_spdx_licenses(data_dir, last_tag_ver, only_free=False):
             'eceptions_list_ver': exceptions_ver_ref}
 
 
-def get_spdx_id_list(licenselist_fname, licenselist_free_fname, exceptionlist_fname, git_url, with_deprecated=True):
+def update_spdx_id_list(licenselist_fname, licenselist_free_fname, exceptionlist_fname, git_url, with_deprecated=True):
     print('Updating list of SPDX license IDs...')
     tdir = TemporaryDirectory(prefix='spdx_master-')
 
@@ -125,9 +126,113 @@ def get_spdx_id_list(licenselist_fname, licenselist_free_fname, exceptionlist_fn
         f.write('\n')
 
 
+def update_categories_list(spec_url, cat_fname):
+    ''' The worst parser ever, extracting category information directoly from the spec Docbook file '''
+    from enum import Enum, auto
+
+    req = requests.get(spec_url)
+
+    class SpecSection(Enum):
+        NONE = auto()
+        MAIN_CATS = auto()
+        MAIN_CATS_BODY = auto()
+        EXTRA_CATS = auto()
+        EXTRA_CATS_BODY = auto()
+
+    def get_entry(line):
+        start = line.index('<entry>') + 7
+        end = line.index('</entry>')
+        return line[start:end].strip()
+
+    main_cats = []
+    extra_cats = []
+
+    current_cat = {}
+    spec_sect = SpecSection.NONE
+    for line in str(req.content, 'utf-8').splitlines():
+        if '<entry>Main Category</entry>' in line:
+            spec_sect = SpecSection.MAIN_CATS
+            continue
+
+        if '<entry>Additional Category</entry>' in line:
+            spec_sect = SpecSection.EXTRA_CATS
+            continue
+
+        if '<tbody>' in line:
+            current_cat = {}
+            if spec_sect == SpecSection.MAIN_CATS:
+                spec_sect = SpecSection.MAIN_CATS_BODY
+            else:
+                spec_sect = SpecSection.EXTRA_CATS_BODY
+            continue
+
+        if spec_sect == SpecSection.MAIN_CATS_BODY:
+            if '<row>' in line:
+                if current_cat:
+                    main_cats.append(current_cat)
+                    current_cat = {}
+                continue
+            if '</tbody>' in line:
+                if current_cat:
+                    main_cats.append(current_cat)
+                    current_cat = {}
+                spec_sect = SpecSection.NONE
+                continue
+
+            if '<entry>' in line:
+                if current_cat.get('desc'):
+                    continue
+                if current_cat:
+                    current_cat['desc'] = get_entry(line)
+                else:
+                    current_cat['name'] = get_entry(line)
+            continue
+
+        if spec_sect == SpecSection.EXTRA_CATS_BODY:
+            if '<row>' in line:
+                if current_cat:
+                    extra_cats.append(current_cat)
+                    current_cat = {}
+                continue
+            if '</tbody>' in line:
+                if current_cat:
+                    main_cats.append(current_cat)
+                    current_cat = {}
+                spec_sect = SpecSection.NONE
+                # nothing interesting follows for us after the additional categories are done
+                break
+
+            if '<entry>' in line:
+                if current_cat.get('rel'):
+                    continue
+                if current_cat:
+                    if not current_cat.get('desc'):
+                        current_cat['desc'] = get_entry(line)
+                    if not current_cat.get('rel'):
+                        current_cat['rel'] = get_entry(line)
+                else:
+                    current_cat['name'] = get_entry(line)
+            continue
+
+    all_cat_names = [cat['name'] for cat in main_cats]
+    all_cat_names.extend([cat['name'] for cat in extra_cats])
+    all_cat_names.sort()
+
+    with open(cat_fname, 'w') as f:
+        f.write('# Freedesktop Menu Categories\n')
+        f.write('# See https://specifications.freedesktop.org/menu-spec/latest/apa.html\n')
+        f.write('\n'.join(all_cat_names))
+        f.write('\n')
+
+
 def main():
-    get_tld_list('iana-filtered-tld-list.txt', IANA_TLD_LIST_URL)
-    get_spdx_id_list('spdx-license-ids.txt', 'spdx-free-license-ids.txt', 'spdx-license-exception-ids.txt', SPDX_REPO_URL)
+    data_dir = os.path.dirname(os.path.abspath(__file__))
+    print('Data directory is: {}'.format(data_dir))
+    os.chdir(data_dir)
+
+    update_categories_list(MENU_SPEC_URL, 'xdg-category-names.txt')
+    update_tld_list('iana-filtered-tld-list.txt', IANA_TLD_LIST_URL)
+    update_spdx_id_list('spdx-license-ids.txt', 'spdx-free-license-ids.txt', 'spdx-license-exception-ids.txt', SPDX_REPO_URL)
 
     print('All done.')
 
