@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2020-02-24 01:32+0000\n"
+"PO-Revision-Date: 2020-02-25 16:32+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
@@ -1068,21 +1068,17 @@ msgid ""
 msgstr ""
 
 #: src/as-pool.c:1924
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
-msgstr "Singgahan sistem AppStream dimutakhirkan, tapi ditemukan masalah: %s"
+msgstr "Singgahan sistem AppStream dimutakhirkan, tapi ditemukan masalah yang menyebabkan metadata diabaikan: %s"
 
 #: src/as-pool.c:1922
-#, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr ""
-"Singgahan sistem AppStream dimutakhirkan, tapi beberapa kesalahan "
-"terdeteksi, yang mungkin mengantar ke metadata yang kurang. Lihatlah log "
-"rinci untuk informasi lebih lanjut."
+msgstr "Singgahan sistem AppStream dimutakhirkan, tapi beberapa komponen diabaikan. Lihatlah log rinci untuk informasi lebih lanjut."
 
 #: src/as-validator-issue-tag.h:151
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1302,9 +1298,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:569
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "Buang perangkat lunak dengan component-ID yang cocok."
+msgstr "Nama berkas metainfo tidak cocok dengan ID komponen."
 
 #: src/as-validator-issue-tag.h:609
 msgid ""
@@ -1354,12 +1349,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:283
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Tipe komponen perangkat lunak '%s' tidak valid dalam AppStream. Nilai yang "
-"mungkin adalah:"
+msgstr "Tipe komponen yang ditata bukan tipe komponen AppStream yang dikenal dan valid."
 
 #: src/as-validator-issue-tag.h:398
 msgid ""
