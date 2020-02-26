@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2020-02-25 16:32+0000\n"
+"PO-Revision-Date: 2020-02-26 14:32+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
@@ -1575,9 +1575,9 @@ msgid "Unable to find component with ID '%s'!"
 msgstr "Tidak bisa menemukan komponen dengan ID '%s'!"
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Tidak bisa membaca berkas .desktop: %s"
+msgstr "Tidak bisa memuat templat berkas desktop-entry yang ada: %s"
 
 #: src/as-validator-issue-tag.h:356
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1601,14 +1601,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:542
-#, fuzzy
 msgid "Unable to read file."
-msgstr "Tidak bisa membaca berkas .desktop: %s"
+msgstr "Tidak bisa membaca berkas."
 
 #: src/as-validator-issue-tag.h:574
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "Tidak bisa membaca berkas .desktop: %s"
+msgstr "Tidak bisa membaca berkas .desktop yang terkait dengan komponen ini."
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
@@ -1620,9 +1618,9 @@ msgid "Unable to remove old cache."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "Tidak bisa membaca berkas .desktop: %s"
+msgstr "Tidak bisa menyimpan berkas entri desktop: %s"
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -1759,19 +1757,16 @@ msgstr ""
 "parameter."
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "Anda perlu menyatakan suatu berkas metadata."
+msgstr "Anda perlu menyatakan suatu berkas NEWS sebagai masukan."
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Anda perlu menyatakan suatu berkas metadata."
+msgstr "Anda perlu menyatakan suatu berkas NEWS sebagai luaran, atau '-' untuk mencetak ke stdout."
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Anda perlu menyatakan berkas masukan dan keluaran."
+msgstr "Anda perlu menyatakan suatu format NEWS tempat menulis luaran."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:925
@@ -1786,25 +1781,22 @@ msgid "You need to specify a component-ID."
 msgstr "Anda perlu menyatakan sebuah ID komponen."
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Anda perlu menyatakan sebuah berkas yang akan divalidasi!"
+msgstr "Anda perlu menyatakan sebuah berkas desktop-entry untuk membuat atau menambah sebagai luaran."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "Anda perlu menyatakan suatu berkas metadata."
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "Anda perlu menyatakan suatu berkas metadata."
+msgstr "Anda perlu menyatakan suatu berkas metainfo sebagai masukan."
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Anda perlu menyatakan suatu berkas metadata."
+msgstr "Anda perlu menyatakan suatu berkas metainfo yang akan ditambah, atau '-' untuk mencetak stdout."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"
@@ -1819,9 +1811,8 @@ msgid "You need to specify an input and output file."
 msgstr "Anda perlu menyatakan berkas masukan dan keluaran."
 
 #: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "Anda perlu menyatakan sebuah berkas yang akan divalidasi!"
+msgstr "Anda perlu menyatakan paling tidak sebuah berkas yang akan divalidasi!"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
