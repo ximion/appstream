@@ -16,20 +16,21 @@
 # JBB <jbb.prv@gmx.de>, 2019.
 # frauhottelmann <frauhottelmann@gmail.com>, 2020.
 # iLocIT! <matthiasc@ilocit.de>, 2020.
+# Sven G. <sven79hd@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-01-14 01:44+0100\n"
-"PO-Revision-Date: 2020-02-07 00:50+0000\n"
-"Last-Translator: iLocIT! <matthiasc@ilocit.de>\n"
+"PO-Revision-Date: 2020-02-27 09:32+0000\n"
+"Last-Translator: Sven G. <sven79hd@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -894,11 +895,8 @@ msgid "News"
 msgstr "Nachrichten"
 
 #: src/as-validator-issue-tag.h:589
-#, fuzzy
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
-"In diesem Verzeichnis oder dieser Verzeichnisstruktur wurden keine AppStream-"
-"Metadaten gefunden."
+msgstr "In diesem Verzeichnis oder diesem Verzeichnisbaum wurden keine AppStream-Metadaten gefunden."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:594
@@ -1397,9 +1395,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:569
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "Anwendung mit passender Komponentenkennung entfernen."
+msgstr "Der Metainfo-Dateiname stimmt nicht mit der Komponenten-ID überein."
 
 #: src/as-validator-issue-tag.h:609
 msgid ""
@@ -1407,11 +1404,11 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
+msgstr "Die Veröffentlichungen sind nicht in der Reihenfolge der neuesten bis ältesten Version sortiert. Dies ist erforderlich, da einige Werkzeuge davon ausgehen, dass die neueste Version immer ganz oben steht. Die Sortierung der Veröffentlichungen erhöht auch die allgemeine Lesbarkeit der Metainfodatei."
 
 #: src/as-validator-issue-tag.h:537
 msgid "The screenshot caption is too long (should be <= 80 characters)"
-msgstr ""
+msgstr "Die Beschiftung der Bildschirmaufnahme ist zu lang (sollte <= 80 Zeichen sein)"
 
 #: src/as-validator-issue-tag.h:206
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1449,12 +1446,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:283
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Der Software-Komponententyp „%s” ist in AppStream nicht gültig. Mögliche "
-"Werte sind:"
+msgstr "Der eingestellte Komponententyp ist kein anerkannter, gültiger AppStream-Komponententyp."
 
 #: src/as-validator-issue-tag.h:398
 msgid ""
