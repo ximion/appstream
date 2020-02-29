@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2021-12-21 16:55+0000\n"
+"PO-Revision-Date: 2021-12-22 15:43+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.10\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -47,13 +47,7 @@ msgid ""
 "facilities to easily access and transform this metadata, as well as a few "
 "additional services for building feature-rich software centers and similar "
 "applications that make use of software metadata."
-msgstr ""
-"AppStream to specyfikacja metadanych umożliwiająca składnikom oprogramowania "
-"dostarczanie informacji o sobie zautomatyzowanym systemom i użytkownikom "
-"zanim jeszcze zostaną one zainstalowane. Projekt AppStream dostarcza "
-"możliwość łatwego używania i przekształcania tych metadanych, a także kilka "
-"dodatkowych usług do budowania funkcjonalnych centrów oprogramowania "
-"i podobnych programów korzystających z metadanych oprogramowania."
+msgstr "AppStream to specyfikacja metadanych umożliwiająca składnikom oprogramowania dostarczanie informacji o sobie zautomatyzowanym systemom i użytkownikom zanim jeszcze zostaną one zainstalowane. Projekt AppStream dostarcza możliwość łatwego używania i przekształcania tych metadanych, a także kilka dodatkowych usług do budowania funkcjonalnych centrów oprogramowania i podobnych programów korzystających z metadanych oprogramowania."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid ""
@@ -63,13 +57,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"Narzędzie wiersza poleceń <em>appstreamcli</em> umożliwia odczytywanie, "
-"zapisywanie i przekształcanie metadanych AppStream w językach XML i YAML, "
-"a także sprawdzanie ich zgodności ze specyfikacją. Umożliwia także łatwy "
-"dostęp do puli metadanych systemu, aby na przykład wyszukać oprogramowanie "
-"dostarczające obsługę podanego typu multimediów lub zainstalować "
-"oprogramowanie według jego identyfikatora składnika."
+msgstr "Narzędzie wiersza poleceń <em>appstreamcli</em> umożliwia odczytywanie, zapisywanie i przekształcanie metadanych AppStream w językach XML i YAML, a także sprawdzanie ich zgodności ze specyfikacją. Umożliwia także łatwy dostęp do puli metadanych systemu, aby na przykład wyszukać oprogramowanie dostarczające obsługę podanego typu multimediów lub zainstalować oprogramowanie według jego identyfikatora składnika."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1068,9 +1056,7 @@ msgstr "Znaczniki o tej nazwie nie są dozwolone w tej sekcji."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"Znacznik <description/> nie może być tłumaczony w plikach Metainfo "
-"(metadanych projektu). Zamiast tego należy tłumaczyć poszczególne akapity."
+msgstr "Znacznik <description/> nie może być tłumaczony w plikach Metainfo (metadanych projektu). Zamiast tego należy tłumaczyć poszczególne akapity."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1079,12 +1065,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
-"Ten element (akapit, lista itp.) znacznika <description/> nie może być "
-"tłumaczony oddzielnie w metadanych kolekcji. Zamiast tego należy tłumaczyć "
-"cały znacznik <description/>. Generator metadanych kolekcji AppStream (tzn. "
-"„appstream-generator”) prawidłowo przetworzy ten element podczas "
-"kompilowania danych."
+msgstr "Ten element (akapit, lista itp.) znacznika <description/> nie może być tłumaczony oddzielnie w metadanych kolekcji. Zamiast tego należy tłumaczyć cały znacznik <description/>. Generator metadanych kolekcji AppStream (tzn. „appstream-generator”) prawidłowo przetworzy ten element podczas kompilowania danych."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1092,24 +1073,17 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"Opisy AppStream obsługują tylko ograniczony zestaw znaczników do "
-"formatowania tekstu: akapity (<p/>) i listy (<ul/>, <ol/>). Ten opis zawiera "
-"nieprawidłowy znacznik XML, który nie byłby poprawnie wyświetlany "
-"w programach obsługujących specyfikację Metainfo."
+msgstr "Opisy AppStream obsługują tylko ograniczony zestaw znaczników do formatowania tekstu: akapity (<p/>) i listy (<ul/>, <ol/>). Ten opis zawiera nieprawidłowy znacznik XML, który nie byłby poprawnie wyświetlany w programach obsługujących specyfikację Metainfo."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
-"Ten akapit opisu zawiera nieprawidłowe znaczniki. Obecnie dozwolone są tylko "
-"znaczniki <em/> i <code/>."
+msgstr "Ten akapit opisu zawiera nieprawidłowe znaczniki. Obecnie dozwolone są tylko znaczniki <em/> i <code/>."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
-"Wyliczenia mogą mieć tylko elementy listy (<li/>) jako elementy potomne."
+msgstr "Wyliczenia mogą mieć tylko elementy listy (<li/>) jako elementy potomne."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1117,44 +1091,31 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-"Pierwszy akapit „description/p” tego składnika może być za krótki (poniżej "
-"80 znaków). Proszę rozważyć rozpoczęcie dłuższym akapitem, aby polepszyć "
-"wygląd opisu w centrach oprogramowania i dostarczyć bardziej szczegółowe "
-"informacje o tym składniku od razu w pierwszym akapicie."
+msgstr "Pierwszy akapit „description/p” tego składnika może być za krótki (poniżej 80 znaków). Proszę rozważyć rozpoczęcie dłuższym akapitem, aby polepszyć wygląd opisu w centrach oprogramowania i dostarczyć bardziej szczegółowe informacje o tym składniku od razu w pierwszym akapicie."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"Opis zawiera adres URL do strony internetowej w zwykłym tekście. Nie jest to "
-"dozwolone, proszę zamiast tego użyć znacznika <url/> do wstawiania "
-"odnośników."
+msgstr "Opis zawiera adres URL do strony internetowej w zwykłym tekście. Nie jest to dozwolone, proszę zamiast tego użyć znacznika <url/> do wstawiania odnośników."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"Według specyfikacji AppStream wymieniony znacznik musi występować tylko raz "
-"w tym kontekście. Użycie wielu znaczników tego rodzaju jest nieprawidłowe."
+msgstr "Według specyfikacji AppStream wymieniony znacznik musi występować tylko raz w tym kontekście. Użycie wielu znaczników tego rodzaju jest nieprawidłowe."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
-"Wymieniony znacznik jest pusty, co najprawdopodobniej nie jest zamierzone, "
-"jako że musi mieć treść."
+msgstr "Wymieniony znacznik jest pusty, co najprawdopodobniej nie jest zamierzone, jako że musi mieć treść."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
-"Identyfikator składnika musi używać schematu odwrotnej nazwy domeny jako "
-"nazwy. Specyfikacja AppStream zawiera więcej informacji."
+msgstr "Identyfikator składnika musi używać schematu odwrotnej nazwy domeny jako nazwy. Specyfikacja AppStream zawiera więcej informacji."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1167,41 +1128,27 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"Identyfikator składnika nie jest odwrotną nazwą domeny. Proszę zaktualizować "
-"identyfikator, aby uniknąć przyszłych problemów i zachować zgodność ze "
-"wszystkimi implementacjami AppStream.\n"
-"Można także rozważyć zaktualizowanie nazwy towarzyszącego pliku .desktop, "
-"aby używał najnowszej wersji specyfikacji Desktop-Entry i nazwy rDNS. "
-"W każdym razie nie należy zapomnieć wymienić nowego Desktop-Entry "
-"w znaczniku <launchable/> dla tego składnika, aby program mógł nadal być "
-"uruchamiany w centrach oprogramowania i z danych pliku .desktop powiązanego "
-"z danymi Metainfo."
+"Identyfikator składnika nie jest odwrotną nazwą domeny. Proszę zaktualizować identyfikator, aby uniknąć przyszłych problemów i zachować zgodność ze wszystkimi implementacjami AppStream.\n"
+"Można także rozważyć zaktualizowanie nazwy towarzyszącego pliku .desktop, aby używał najnowszej wersji specyfikacji Desktop-Entry i nazwy rDNS. W każdym razie nie należy zapomnieć wymienić nowego Desktop-Entry w znaczniku <launchable/> dla tego składnika, aby program mógł nadal być uruchamiany w centrach oprogramowania i z danych pliku .desktop powiązanego z danymi Metainfo."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
-"Identyfikator składnika może nie używać schematu odwrotnej nazwy domeny "
-"(używane TLD nie jest znane programu sprawdzającemu)."
+msgstr "Identyfikator składnika może nie używać schematu odwrotnej nazwy domeny (używane TLD nie jest znane programu sprawdzającemu)."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
-"Identyfikator składnika zawiera nieprawidłowy znak. Tylko znaki ASCII, "
-"kropki i cyfry są dozwolone."
+msgstr "Identyfikator składnika zawiera nieprawidłowy znak. Tylko znaki ASCII, kropki i cyfry są dozwolone."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr ""
-"Identyfikator składnika zawiera myślnik/minus. Używanie myślnika jest mocno "
-"niezalecane, aby zwiększyć zgodność z innymi narzędziami, takimi jak D-Bus. "
-"Dobrym rozwiązaniem jest zastąpienie myślników podkreśleniami („_”)."
+msgstr "Identyfikator składnika zawiera myślnik/minus. Używanie myślnika jest mocno niezalecane, aby zwiększyć zgodność z innymi narzędziami, takimi jak D-Bus. Dobrym rozwiązaniem jest zastąpienie myślników podkreśleniami („_”)."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1209,11 +1156,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"Identyfikator składnika zawiera część zaczynającą się od cyfry. "
-"Rozpoczynanie części identyfikatora odwrotnej notacji DNS cyfrą jest mocno "
-"niezalecane, aby zachować zgodność z innymi narzędziami, takimi jak D-Bus. "
-"Najlepiej dodać podkreślenie jako przedrostek tych części."
+msgstr "Identyfikator składnika zawiera część zaczynającą się od cyfry. Rozpoczynanie części identyfikatora odwrotnej notacji DNS cyfrą jest mocno niezalecane, aby zachować zgodność z innymi narzędziami, takimi jak D-Bus. Najlepiej dodać podkreślenie jako przedrostek tych części."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
@@ -1223,40 +1166,30 @@ msgstr "Identyfikator składnika może zawierać tylko małe litery."
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
-"Składnik jest częścią projektu FreeDesktop, ale jego identyfikator nie "
-"zaczyna się od nazwy projektu w odwrotnej notacji DNS („org.freedesktop”)."
+msgstr "Składnik jest częścią projektu FreeDesktop, ale jego identyfikator nie zaczyna się od nazwy projektu w odwrotnej notacji DNS („org.freedesktop”)."
 
 #: src/as-validator-issue-tag.h:146
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Składnik jest częścią projektu KDE, ale jego identyfikator nie zaczyna się "
-"od nazwy projektu w odwrotnej notacji DNS („org.kde”)."
+msgstr "Składnik jest częścią projektu KDE, ale jego identyfikator nie zaczyna się od nazwy projektu w odwrotnej notacji DNS („org.kde”)."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Składnik jest częścią projektu GNOME, ale jego identyfikator nie zaczyna się "
-"od nazwy projektu w odwrotnej notacji DNS („org.gnome”)."
+msgstr "Składnik jest częścią projektu GNOME, ale jego identyfikator nie zaczyna się od nazwy projektu w odwrotnej notacji DNS („org.gnome”)."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
-"Wyrażenie licencji SPDX jest nieprawidłowe i nie może zostać przetworzone."
+msgstr "Wyrażenie licencji SPDX jest nieprawidłowe i nie może zostać przetworzone."
 
 #: src/as-validator-issue-tag.h:161
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"Nie odnaleziono tego identyfikatora licencji w bazie danych SPDX. Proszę "
-"sprawdzić, czy identyfikator licencji jest zapisany w sposób zgodny ze SPDX "
-"i jest prawidłową licencją wolnego oprogramowania."
+msgstr "Nie odnaleziono tego identyfikatora licencji w bazie danych SPDX. Proszę sprawdzić, czy identyfikator licencji jest zapisany w sposób zgodny ze SPDX i jest prawidłową licencją wolnego oprogramowania."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
@@ -1265,11 +1198,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
-"Metadane są na złożonej kombinacji licencji. Proszę objąć dane prostą "
-"liberalną licencją, taką jak FSFAP, MIT lub CC0-1.0, aby zezwolić "
-"dystrybucjom na dołączenie ich w zbiorach mieszanych danych bez ryzyka "
-"naruszenia licencji z powodu wzajemnie niezgodnych licencji."
+msgstr "Metadane są na złożonej kombinacji licencji. Proszę objąć dane prostą liberalną licencją, taką jak FSFAP, MIT lub CC0-1.0, aby zezwolić dystrybucjom na dołączenie ich w zbiorach mieszanych danych bez ryzyka naruszenia licencji z powodu wzajemnie niezgodnych licencji."
 
 #: src/as-validator-issue-tag.h:173
 msgid ""
@@ -1277,62 +1206,45 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
-"Metadane nie są na liberalnej licencji. Proszę objąć dane liberalną "
-"licencją, taką jak FSFAP, CC0-1.0 lub 0BSD, aby zezwolić dystrybucjom na "
-"dołączenie ich w zbiorach mieszanych danych bez ryzyka naruszenia licencji "
-"z powodu wzajemnie niezgodnych licencji."
+msgstr "Metadane nie są na liberalnej licencji. Proszę objąć dane liberalną licencją, taką jak FSFAP, CC0-1.0 lub 0BSD, aby zezwolić dystrybucjom na dołączenie ich w zbiorach mieszanych danych bez ryzyka naruszenia licencji z powodu wzajemnie niezgodnych licencji."
 
 #: src/as-validator-issue-tag.h:179
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"„update-contact” nie jest prawidłowym adresem e-mail (znak „@” można "
-"zastępować tylko za pomocą „_at_” lub „_AT_”)."
+msgstr "„update-contact” nie jest prawidłowym adresem e-mail (znak „@” można zastępować tylko za pomocą „_at_” lub „_AT_”)."
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr ""
-"Nie można połączyć się z obrazem zrzutu ekranu w jego zdalnym położeniu — "
-"czy na pewno istnieje?"
+msgstr "Nie można połączyć się z obrazem zrzutu ekranu w jego zdalnym położeniu — czy na pewno istnieje?"
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
-"Nie można połączyć się z filmem zrzutu ekranu w jego zdalnym położeniu — czy "
-"na pewno istnieje?"
+msgstr "Nie można połączyć się z filmem zrzutu ekranu w jego zdalnym położeniu — czy na pewno istnieje?"
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Proszę rozważyć użycie zabezpieczonego adresu URL (HTTPS) do wskazania tego "
-"obrazu lub filmu zrzutu ekranu."
+msgstr "Proszę rozważyć użycie zabezpieczonego adresu URL (HTTPS) do wskazania tego obrazu lub filmu zrzutu ekranu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Zrzut ekranu musi zawierać co najmniej jeden obraz lub film, aby być "
-"użyteczny. Proszę dodać do niego znacznik <image/>."
+msgstr "Zrzut ekranu musi zawierać co najmniej jeden obraz lub film, aby być użyteczny. Proszę dodać do niego znacznik <image/>."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Zrzut ekranu musi zawierać obrazy lub filmy, ale nie oba jednocześnie. "
-"Proszę użyć tego zrzutu ekranu wyłącznie do statycznych obrazów lub do "
-"filmów."
+msgstr "Zrzut ekranu musi zawierać obrazy lub filmy, ale nie oba jednocześnie. Proszę użyć tego zrzutu ekranu wyłącznie do statycznych obrazów lub do filmów."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1343,17 +1255,14 @@ msgstr "Zrzut ekranu nie ma podpisu. Proszę rozważyć jego dodanie."
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
-"Film zrzutu ekranu nie określa użytego kodeku wideo we właściwości „codec”."
+msgstr "Film zrzutu ekranu nie określa użytego kodeku wideo we właściwości „codec”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
-"Film zrzutu ekranu nie określa użytego formatu kontenera we właściwości "
-"„container”."
+msgstr "Film zrzutu ekranu nie określa użytego formatu kontenera we właściwości „container”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
@@ -1361,10 +1270,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"Wybrany kodek wideo nie jest obsługiwany przez AppStream i centra "
-"oprogramowania mogą nie móc odtworzyć filmu. Obecnie obsługiwane są tylko "
-"kodeki AV1 i VP9 za pomocą „av1” i „vp9” jako wartości właściwości „codec”."
+msgstr "Wybrany kodek wideo nie jest obsługiwany przez AppStream i centra oprogramowania mogą nie móc odtworzyć filmu. Obecnie obsługiwane są tylko kodeki AV1 i VP9 za pomocą „av1” i „vp9” jako wartości właściwości „codec”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1373,57 +1279,41 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"Wybrany kontener wideo nie jest obsługiwany przez AppStream i centra "
-"oprogramowania mogą nie móc odtworzyć filmu. Obecnie obsługiwane są tylko "
-"kontenery WebM i Matroska za pomocą „webm” i „mkv” jako wartości właściwości "
-"„container”."
+msgstr "Wybrany kontener wideo nie jest obsługiwany przez AppStream i centra oprogramowania mogą nie móc odtworzyć filmu. Obecnie obsługiwane są tylko kontenery WebM i Matroska za pomocą „webm” i „mkv” jako wartości właściwości „container”."
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"W przypadku filmów obecnie obsługiwane są tylko formaty kontenerów WebM "
-"i Matroska (.mkv). Rozszerzenie pliku wskazanego filmu nie należy do żadnego "
-"z tych formatów."
+msgstr "W przypadku filmów obecnie obsługiwane są tylko formaty kontenerów WebM i Matroska (.mkv). Rozszerzenie pliku wskazanego filmu nie należy do żadnego z tych formatów."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
-"Domyślny zrzut ekranu składnika oprogramowania nie może być filmem. Należy "
-"użyć statycznego obrazu jako domyślnego zrzutu ekranu i ustawić film jako "
-"drugorzędny zrzut."
+msgstr "Domyślny zrzut ekranu składnika oprogramowania nie może być filmem. Należy użyć statycznego obrazu jako domyślnego zrzutu ekranu i ustawić film jako drugorzędny zrzut."
 
 #: src/as-validator-issue-tag.h:253
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Odnaleziono nieznany znacznik w grupie wymagań/zaleceń. To prawdopodobnie "
-"błąd, ponieważ związek składników tego typu jest nieznany."
+msgstr "Odnaleziono nieznany znacznik w grupie wymagań/zaleceń. To prawdopodobnie błąd, ponieważ związek składników tego typu jest nieznany."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Element „requires” lub „recommends” wymaga wartości oznaczającej prawidłowy "
-"związek."
+msgstr "Element „requires” lub „recommends” wymaga wartości oznaczającej prawidłowy związek."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"Odnaleziono właściwość „version” w wymaganym/zalecanym elemencie typu, który "
-"nie może mieć ani wymagać wersji."
+msgstr "Odnaleziono właściwość „version” w wymaganym/zalecanym elemencie typu, który nie może mieć ani wymagać wersji."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:271
@@ -1431,10 +1321,7 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"Odnaleziono właściwość „version” w tym wymaganym/zalecanym elemencie, ale "
-"nie odnaleziono właściwości „compare”. Zalecane jest określenie działania "
-"porównania."
+msgstr "Odnaleziono właściwość „version” w tym wymaganym/zalecanym elemencie, ale nie odnaleziono właściwości „compare”. Zalecane jest określenie działania porównania."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:277
@@ -1447,9 +1334,7 @@ msgstr "Nieprawidłowe działanie porównania w elemencie związku. Dozwolone j
 msgid ""
 "The relation item has a comparison operation set, but does not support any "
 "comparisons."
-msgstr ""
-"Element związku ma ustawione działanie porównania, ale nie obsługuje żadnych "
-"porównań."
+msgstr "Element związku ma ustawione działanie porównania, ale nie obsługuje żadnych porównań."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:288
@@ -1458,11 +1343,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Odnaleziono zależność rozmiaru pamięci w znaczniku „requires”. Oznacza to, "
-"że użytkownicy nie będą mogli nawet zainstalować składnika bez "
-"wystarczającej pamięci RAM. Zwykle nie jest to zamierzone i zamiast tego "
-"powinno się użyć „memory” w znaczniku „recommends”."
+msgstr "Odnaleziono zależność rozmiaru pamięci w znaczniku „requires”. Oznacza to, że użytkownicy nie będą mogli nawet zainstalować składnika bez wystarczającej pamięci RAM. Zwykle nie jest to zamierzone i zamiast tego powinno się użyć „memory” w znaczniku „recommends”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:295
@@ -1471,21 +1352,14 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Odnaleziono zależność kontroli wejścia użytkownika w znaczniku „requires”. "
-"Oznacza to, że użytkownicy nie będą mogli nawet zainstalować składnika bez "
-"określonej kontroli wejścia dostępnej w systemie. Zwykle nie jest to "
-"zamierzone i zamiast tego powinno się użyć „control” w znaczniku "
-"„recommends”."
+msgstr "Odnaleziono zależność kontroli wejścia użytkownika w znaczniku „requires”. Oznacza to, że użytkownicy nie będą mogli nawet zainstalować składnika bez określonej kontroli wejścia dostępnej w systemie. Zwykle nie jest to zamierzone i zamiast tego powinno się użyć „control” w znaczniku „recommends”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:302
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-"Ten element „control” określa nieznaną metodę wprowadzania i jest "
-"nieprawidłowy. Specyfikacja zawiera listę dozwolonych wartości."
+msgstr "Ten element „control” określa nieznaną metodę wprowadzania i jest nieprawidłowy. Specyfikacja zawiera listę dozwolonych wartości."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1494,11 +1368,7 @@ msgid ""
 "must either be a shorthand string, or positive integer value denoting "
 "logical pixels. Please refer to the AppStream specification for more "
 "information on this tag."
-msgstr ""
-"Ten element „display_length” zawiera nieprawidłową długość ekranu. Jego "
-"wartość musi być ciągiem skrótu lub dodatnią wartością całkowitą określającą "
-"logiczne piksele. Specyfikacja AppStream zawiera więcej informacji o tym "
-"znaczniku."
+msgstr "Ten element „display_length” zawiera nieprawidłową długość ekranu. Jego wartość musi być ciągiem skrótu lub dodatnią wartością całkowitą określającą logiczne piksele. Specyfikacja AppStream zawiera więcej informacji o tym znaczniku."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:315
@@ -1507,43 +1377,31 @@ msgid ""
 "value. It must either be `shortest` or `longest`, or unset to imply "
 "`shortest` to make the item value refer to either the shortest or longest "
 "side of the display."
-msgstr ""
-"Ta właściwość „side” tego elementu „display_length” zawiera nieprawidłową "
-"wartość. Musi wynosić „shortest” lub „longest”, albo nie być ustawiona, aby "
-"znaczyć „shortest”, aby wartość elementu odnosiła się do najkrótszej lub "
-"najdłuższej strony ekranu."
+msgstr "Ta właściwość „side” tego elementu „display_length” zawiera nieprawidłową wartość. Musi wynosić „shortest” lub „longest”, albo nie być ustawiona, aby znaczyć „shortest”, aby wartość elementu odnosiła się do najkrótszej lub najdłuższej strony ekranu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:322
 msgid ""
 "This `hardware` item contains an invalid value. It should be a Computer "
 "Hardware ID (CHID) UUID without braces."
-msgstr ""
-"Ten element „hardware” zawiera nieprawidłową wartość. Musi to być UUID typu "
-"CHID (Computer Hardware ID) bez nawiasów klamrowych."
+msgstr "Ten element „hardware” zawiera nieprawidłową wartość. Musi to być UUID typu CHID (Computer Hardware ID) bez nawiasów klamrowych."
 
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Ustawiony typ składnika nie jest znanym, prawidłowym typem składnika "
-"AppStream."
+msgstr "Ustawiony typ składnika nie jest znanym, prawidłowym typem składnika AppStream."
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Składnik ma ustawioną wartość priorytetu. Nie jest to dozwolone w plikach "
-"Metainfo."
+msgstr "Składnik ma ustawioną wartość priorytetu. Nie jest to dozwolone w plikach Metainfo."
 
 #: src/as-validator-issue-tag.h:337
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Składnik ma określoną metodę „merge”. Nie jest to dozwolone w plikach "
-"Metainfo."
+msgstr "Składnik ma określoną metodę „merge”. Nie jest to dozwolone w plikach Metainfo."
 
 #: src/as-validator-issue-tag.h:342
 msgid "The component is missing an ID (<id/> tag)."
@@ -1561,19 +1419,14 @@ msgstr "Składnik nie ma podsumowania (znacznika <summary/>)."
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"Znacznik <id/> nadal zawiera właściwość „type”, prawdopodobnie ze starej "
-"konwersji do nowszego formatu Metainfo."
+msgstr "Znacznik <id/> nadal zawiera właściwość „type”, prawdopodobnie ze starej konwersji do nowszego formatu Metainfo."
 
 #: src/as-validator-issue-tag.h:362
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"Znacznik „pkgname” pojawia się wiele razy. Należy rozważyć utworzenie "
-"metapakietu zawierającego pliki Metainfo i .desktop, aby uniknąć określenia "
-"wielu nazw pakietów na składnik."
+msgstr "Znacznik „pkgname” pojawia się wiele razy. Należy rozważyć utworzenie metapakietu zawierającego pliki Metainfo i .desktop, aby uniknąć określenia wielu nazw pakietów na składnik."
 
 #: src/as-validator-issue-tag.h:367
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -1598,10 +1451,7 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Ikony typu „stock” lub „cached” nie mogą zawierać adresu URL, pełnej ani "
-"względnej ścieżki do ikony. Dozwolone są tylko podstawowe nazwy plików lub "
-"standardowe nazwy."
+msgstr "Ikony typu „stock” lub „cached” nie mogą zawierać adresu URL, pełnej ani względnej ścieżki do ikony. Dozwolone są tylko podstawowe nazwy plików lub standardowe nazwy."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:395
@@ -1610,46 +1460,34 @@ msgstr "Ikony typu „remote” muszą zawierać adres URL do wskazywanej ikony.
 
 #: src/as-validator-issue-tag.h:400
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
-"Nie można połączyć się ze zdalną ikoną w podanym położeniu internetowym — "
-"czy na pewno istnieje?"
+msgstr "Nie można połączyć się ze zdalną ikoną w podanym położeniu internetowym — czy na pewno istnieje?"
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Proszę rozważyć użycie zabezpieczonego adresu URL (HTTPS) dla tego odnośnika "
-"do zdalnej ikony."
+msgstr "Proszę rozważyć użycie zabezpieczonego adresu URL (HTTPS) dla tego odnośnika do zdalnej ikony."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Pliki Metainfo mogą zawierać tylko ikony typu „stock” lub „remote”, typ "
-"zestawu nie jest dozwolony."
+msgstr "Pliki Metainfo mogą zawierać tylko ikony typu „stock” lub „remote”, typ zestawu nie jest dozwolony."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Nieprawidłowa właściwość „type” dla tego znacznika „url”. Adresy URL tego "
-"typu nie są znane w specyfikacji AppStream."
+msgstr "Nieprawidłowa właściwość „type” dla tego znacznika „url”. Adresy URL tego typu nie są znane w specyfikacji AppStream."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
-"Nie można połączyć się ze zdalnym położeniem wskazywanym przez ten adres URL "
-"— czy na pewno istnieje?"
+msgstr "Nie można połączyć się ze zdalnym położeniem wskazywanym przez ten adres URL — czy na pewno istnieje?"
 
 #: src/as-validator-issue-tag.h:427
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
-"Proszę rozważyć użycie zabezpieczonego adresu URL (HTTPS) dla tego odnośnika "
-"internetowego."
+msgstr "Proszę rozważyć użycie zabezpieczonego adresu URL (HTTPS) dla tego odnośnika internetowego."
 
 #: src/as-validator-issue-tag.h:432
 msgid "A web URL was expected for this value."
@@ -1658,9 +1496,7 @@ msgstr "Dla tej wartości oczekiwano adresu URL do strony internetowej."
 #: src/as-validator-issue-tag.h:437
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
-"Ten odnośnik internetowy używa protokołu FTP. Proszę rozważyć użycie HTTP(S) "
-"zamiast tego."
+msgstr "Ten odnośnik internetowy używa protokołu FTP. Proszę rozważyć użycie HTTP(S) zamiast tego."
 
 #: src/as-validator-issue-tag.h:442
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -1670,9 +1506,7 @@ msgstr "Znacznik <developer_name/> nie może zawierać odnośnika."
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr ""
-"Ustawiona wartość nie jest identyfikatorem środowiska pulpitu "
-"zarejestrowanym we FreeDesktop.org."
+msgstr "Ustawiona wartość nie jest identyfikatorem środowiska pulpitu zarejestrowanym we FreeDesktop.org."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
@@ -1688,19 +1522,14 @@ msgstr "Ten znacznik „bundle” ma nieznany typ i nie może zostać użyty."
 #: src/as-validator-issue-tag.h:465
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr ""
-"Znacznik „update_contact” nie może być zawarty w XML kolekcji AppStream."
+msgstr "Znacznik „update_contact” nie może być zawarty w XML kolekcji AppStream."
 
 #: src/as-validator-issue-tag.h:470
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
-msgstr ""
-"Ten znacznik jest rozszerzeniem specyfikacji AppStream projektu GNOME i nie "
-"jest częścią oficjalnej specyfikacji. Nie należy oczekiwać, że będzie "
-"działał we wszystkich implementacjach i we wszystkich centrach "
-"oprogramowania."
+msgstr "Ten znacznik jest rozszerzeniem specyfikacji AppStream projektu GNOME i nie jest częścią oficjalnej specyfikacji. Nie należy oczekiwać, że będzie działał we wszystkich implementacjach i we wszystkich centrach oprogramowania."
 
 #: src/as-validator-issue-tag.h:476
 msgid ""
@@ -1709,113 +1538,86 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Odnaleziono nieprawidłowy znacznik. Niestandardowe znaczniki muszą mieć "
-"przedrostek „x-”. AppStream zapewnia także znacznik <custom/> do dodawania "
-"dowolnych danych do plików Metainfo. Ten znacznik jest odczytywany przez "
-"biblioteki AppStream i może być przydatny zamiast określania nowych "
-"niestandardowych znaczników najwyższego poziomu czy z przedrostkiem „x-”, "
-"jeśli tylko mają zostać dodane niestandardowe dane do pliku Metainfo."
+msgstr "Odnaleziono nieprawidłowy znacznik. Niestandardowe znaczniki muszą mieć przedrostek „x-”. AppStream zapewnia także znacznik <custom/> do dodawania dowolnych danych do plików Metainfo. Ten znacznik jest odczytywany przez biblioteki AppStream i może być przydatny zamiast określania nowych niestandardowych znaczników najwyższego poziomu czy z przedrostkiem „x-”, jeśli tylko mają zostać dodane niestandardowe dane do pliku Metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:484
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
-"Brak obowiązkowego znacznika „metadata_license”. Zawsze należy określić "
-"licencję metadanych."
+msgstr "Brak obowiązkowego znacznika „metadata_license”. Zawsze należy określić licencję metadanych."
 
 #: src/as-validator-issue-tag.h:489
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
-"Składnik nie ma długiego opisu. Składniki tego typu muszą mieć długi opis."
+msgstr "Składnik nie ma długiego opisu. Składniki tego typu muszą mieć długi opis."
 
 #: src/as-validator-issue-tag.h:494
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
-"Dodanie długiego opisu do tej czcionki może być przydatne, aby lepiej "
-"przedstawić ją użytkownikom."
+msgstr "Dodanie długiego opisu do tej czcionki może być przydatne, aby lepiej przedstawić ją użytkownikom."
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
-"Zalecane jest dodanie długiego opisu do tego składnika, aby lepiej "
-"przedstawić go użytkownikom."
+msgstr "Zalecane jest dodanie długiego opisu do tego składnika, aby lepiej przedstawić go użytkownikom."
 
 #: src/as-validator-issue-tag.h:504
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
-"Ten ogólny składnik nie ma długiego opisu. Dodanie go może być przydatne."
+msgstr "Ten ogólny składnik nie ma długiego opisu. Dodanie go może być przydatne."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:510
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
-"Składnik jest typu „console-application”, ale nie podano żadnych informacji "
-"o plikach binarnych w ścieżce $PATH za pomocą znacznika „provides/binary”."
+msgstr "Składnik jest typu „console-application”, ale nie podano żadnych informacji o plikach binarnych w ścieżce $PATH za pomocą znacznika „provides/binary”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:516
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
-"Ten składnik „web-application” nie ma znacznika „launchable” typu „url”."
+msgstr "Ten składnik „web-application” nie ma znacznika „launchable” typu „url”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:522
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
-"Ten składnik „web-application” nie ma znacznika „icon” do określenia "
-"prawidłowej ikony."
+msgstr "Ten składnik „web-application” nie ma znacznika „icon” do określenia prawidłowej ikony."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:528
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
-"Ten składnik „web-application” nie ma kategoryzacji. Prawdopodobnie brakuje "
-"części „categories”."
+msgstr "Ten składnik „web-application” nie ma kategoryzacji. Prawdopodobnie brakuje części „categories”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:534
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr ""
-"Składnik jest typu „font”, ale nie podano żadnych informacji o czcionce za "
-"pomocą znacznika „provides/font”."
+msgstr "Składnik jest typu „font”, ale nie podano żadnych informacji o czcionce za pomocą znacznika „provides/font”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:540
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr ""
-"Składnik jest typu „driver”, ale nie podano żadnych informacji modalias za "
-"pomocą znacznika „provides/modalias”."
+msgstr "Składnik jest typu „driver”, ale nie podano żadnych informacji modalias za pomocą znacznika „provides/modalias”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:546
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Podano znacznik „extends”, ale składnik nie jest typu „addon”, "
-"„localization” ani „repository”."
+msgstr "Podano znacznik „extends”, ale składnik nie jest typu „addon”, „localization” ani „repository”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
@@ -1827,18 +1629,14 @@ msgstr "Składnik jest dodatkiem, ale nie podano znacznika „extends”."
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
-"Ten składnik „localization” nie ma znacznika „extends” do określenia "
-"składników, do których dodaje lokalizację."
+msgstr "Ten składnik „localization” nie ma znacznika „extends” do określenia składników, do których dodaje lokalizację."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:564
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr ""
-"Ten składnik „localization” nie określa żadnego języka, dla którego jest "
-"lokalizacją."
+msgstr "Ten składnik „localization” nie określa żadnego języka, dla którego jest lokalizacją."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:570
@@ -1851,16 +1649,13 @@ msgstr "Ten składnik „service” nie ma znacznika „launchable” typu „se
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr ""
-"Sugestie typu innego niż „upstream” nie są dozwolone w plikach Metainfo."
+msgstr "Sugestie typu innego niż „upstream” nie są dozwolone w plikach Metainfo."
 
 #: src/as-validator-issue-tag.h:581
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr ""
-"Nazwa kategorii jest nieprawidłowa. Specyfikacja menu XDG zawiera listę "
-"prawidłowych nazw kategorii."
+msgstr "Nazwa kategorii jest nieprawidłowa. Specyfikacja menu XDG zawiera listę prawidłowych nazw kategorii."
 
 #: src/as-validator-issue-tag.h:586
 msgid "The screenshot caption is too long (should be <= 100 characters)"
@@ -1879,27 +1674,20 @@ msgstr "Kod XML tego pliku jest błędnie sformatowany."
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"Odnaleziono nieprawidłowy znacznik w metadanych kolekcji. Dozwolone są tylko "
-"znaczniki „component”."
+msgstr "Odnaleziono nieprawidłowy znacznik w metadanych kolekcji. Dozwolone są tylko znaczniki „component”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr ""
-"Plik Metainfo używa bardzo starej wersji specyfikacji AppStream, której "
-"poprawności nie można sprawdzić. Proszę zaktualizować go do wersji 0.6 (lub "
-"wyższej)."
+msgstr "Plik Metainfo używa bardzo starej wersji specyfikacji AppStream, której poprawności nie można sprawdzić. Proszę zaktualizować go do wersji 0.6 (lub wyższej)."
 
 #: src/as-validator-issue-tag.h:613
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
-"Ten dokument XML ma nieznany główny znacznik. Może ten plik nie jest "
-"dokumentem Metainfo?"
+msgstr "Ten dokument XML ma nieznany główny znacznik. Może ten plik nie jest dokumentem Metainfo?"
 
 #: src/as-validator-issue-tag.h:618
 msgid "The metainfo filename does not match the component ID."
@@ -1917,15 +1705,11 @@ msgstr "Te metadane składnika odnoszą się do nieistniejącego pliku .desktop.
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"Kategoria określona w pliku .desktop jest nieprawidłowa. Specyfikacja menu "
-"XDG zawiera listę prawidłowych kategorii."
+msgstr "Kategoria określona w pliku .desktop jest nieprawidłowa. Specyfikacja menu XDG zawiera listę prawidłowych kategorii."
 
 #: src/as-validator-issue-tag.h:638
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
-"Nie odnaleziono żadnych metadanych AppStream w tym katalogu lub drzewie "
-"katalogów."
+msgstr "Nie odnaleziono żadnych metadanych AppStream w tym katalogu lub drzewie katalogów."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:643
@@ -1936,9 +1720,7 @@ msgstr "Nie odnaleziono katalogu programów XDG."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Plik Metainfo jest przechowywany w przestarzałej ścieżce. Proszę umieścić go "
-"w „/usr/share/metainfo”."
+msgstr "Plik Metainfo jest przechowywany w przestarzałej ścieżce. Proszę umieścić go w „/usr/share/metainfo”."
 
 #: src/as-validator-issue-tag.h:653
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -1950,16 +1732,11 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
-"Wydania nie są uporządkowane w kolejności od najnowszego do najstarszego. "
-"Jest to wymagane, ponieważ część narzędzi przyjmuje, że najnowsza wersja "
-"jest zawsze na górze. Uporządkowanie wydań zwiększa także czytelność pliku "
-"Metainfo."
+msgstr "Wydania nie są uporządkowane w kolejności od najnowszego do najstarszego. Jest to wymagane, ponieważ część narzędzi przyjmuje, że najnowsza wersja jest zawsze na górze. Uporządkowanie wydań zwiększa także czytelność pliku Metainfo."
 
 #: src/as-validator-issue-tag.h:665
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
-"Wartość ustawiona jako pilność wydania nie jest znaną wartością pilności."
+msgstr "Wartość ustawiona jako pilność wydania nie jest znaną wartością pilności."
 
 #: src/as-validator-issue-tag.h:670
 msgid "The value set as release type is invalid."
@@ -1970,9 +1747,7 @@ msgstr "Wartość ustawiona jako typ wydania jest nieprawidłowa."
 msgid ""
 "The value set as artifact type is invalid. Must be either `source` or "
 "`binary`."
-msgstr ""
-"Wartość ustawiona jako typ artefaktu jest nieprawidłowa. Musi wynosić "
-"„source” lub „binary”."
+msgstr "Wartość ustawiona jako typ artefaktu jest nieprawidłowa. Musi wynosić „source” lub „binary”."
 
 #: src/as-validator-issue-tag.h:681
 msgid "The value set as artifact bundle type is invalid."
@@ -1983,11 +1758,7 @@ msgid ""
 "The platform triplet for this release is invalid. It must be in the form of "
 "`architecture-oskernel-osenv` - refer to the AppStream documentation or "
 "information on normalized GNU triplets for more information and valid fields."
-msgstr ""
-"Trójka platformy dla tego wydania jest nieprawidłowa. Musi być w formie "
-"„architektura-jądrosystemu-środowiskosystemu” — dokumentacja AppStream lub "
-"informacje o znormalizowanych trójkach GNU zawierają więcej informacji "
-"i listę prawidłowych pól."
+msgstr "Trójka platformy dla tego wydania jest nieprawidłowa. Musi być w formie „architektura-jądrosystemu-środowiskosystemu” — dokumentacja AppStream lub informacje o znormalizowanych trójkach GNU zawierają więcej informacji i listę prawidłowych pól."
 
 #: src/as-validator-issue-tag.h:693
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -2002,9 +1773,7 @@ msgstr "Typ rozmiaru jest nieznany. Musi wynosić „download” lub „installe
 msgid ""
 "The artifact filename must be a file basename, not a (relative or absolute) "
 "path."
-msgstr ""
-"Nazwa pliku artefaktu musi być podstawową nazwą pliku, nie (względną ani "
-"bezwzględną) ścieżką."
+msgstr "Nazwa pliku artefaktu musi być podstawową nazwą pliku, nie (względną ani bezwzględną) ścieżką."
 
 #: src/as-validator-issue-tag.h:709
 msgid "The value set as release issue type is invalid."
@@ -2014,38 +1783,28 @@ msgstr "Wartość ustawiona jako typ zgłoszenia wydania jest nieprawidłowa."
 msgid ""
 "The issue is tagged at security vulnerability with a CVE number, but its "
 "value does not look like a valid CVE identifier."
-msgstr ""
-"Zgłoszenie jest oznakowane jako błąd zabezpieczeń z numerem CVE, ale jego "
-"wartość nie jest prawidłowym identyfikatorem CVE."
+msgstr "Zgłoszenie jest oznakowane jako błąd zabezpieczeń z numerem CVE, ale jego wartość nie jest prawidłowym identyfikatorem CVE."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:720
 msgid ""
 "This component is missing information about releases. Consider adding a "
 "`releases` tag to describe releases and their changes."
-msgstr ""
-"Ten składnik nie ma informacji o wydaniach. Proszę rozważyć dodanie "
-"znacznika „releases” opisującego wydania i ich zmiany."
+msgstr "Ten składnik nie ma informacji o wydaniach. Proszę rozważyć dodanie znacznika „releases” opisującego wydania i ich zmiany."
 
 #: src/as-validator-issue-tag.h:725
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"Specyfikacja AppStream wymaga pełnego ciągu daty ISO 8601 z dokładnością co "
-"najmniej do dnia, aby określać daty. Proszę się upewnić, że ciąg daty jest "
-"prawidłowy."
+msgstr "Specyfikacja AppStream wymaga pełnego ciągu daty ISO 8601 z dokładnością co najmniej do dnia, aby określać daty. Proszę się upewnić, że ciąg daty jest prawidłowy."
 
 #: src/as-validator-issue-tag.h:731
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr ""
-"Ten składnik rozszerza, dostarcza, wymaga lub zaleca siebie, co na pewno nie "
-"jest zamierzone i może być mylące dla użytkowników lub komputerów "
-"używających tych metadanych."
+msgstr "Ten składnik rozszerza, dostarcza, wymaga lub zaleca siebie, co na pewno nie jest zamierzone i może być mylące dla użytkowników lub komputerów używających tych metadanych."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:738
@@ -2054,29 +1813,19 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
-"Licencje dla składników typu „runtime” (środowisko wykonawcze) zwykle są "
-"zbyt złożone, aby odzwierciedlić je w prostym wyrażeniu SPDX. Proszę "
-"rozważyć użycie „LicenseRef” i adresu URL do strony internetowej jako "
-"wartości dla znacznika „project_license” tego składnika, np. „LicenseRef-"
-"free=https://example.com/licenses.html”"
+msgstr "Licencje dla składników typu „runtime” (środowisko wykonawcze) zwykle są zbyt złożone, aby odzwierciedlić je w prostym wyrażeniu SPDX. Proszę rozważyć użycie „LicenseRef” i adresu URL do strony internetowej jako wartości dla znacznika „project_license” tego składnika, np. „LicenseRef-free=https://example.com/licenses.html”"
 
 #: src/as-validator-issue-tag.h:744
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
-"Ponieważ składnik „runtime” (środowisko wykonawcze) składa się z wielu "
-"innych składników oprogramowania, ich identyfikatory mogą być wymienione "
-"w sekcji „<provides/>” tego środowiska wykonawczego."
+msgstr "Ponieważ składnik „runtime” (środowisko wykonawcze) składa się z wielu innych składników oprogramowania, ich identyfikatory mogą być wymienione w sekcji „<provides/>” tego środowiska wykonawczego."
 
 #: src/as-validator-issue-tag.h:749
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
-msgstr ""
-"Typ elementu dostarczanego przez składnik jest nieznany specyfikacji "
-"AppStream."
+msgstr "Typ elementu dostarczanego przez składnik jest nieznany specyfikacji AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:755
@@ -2084,10 +1833,7 @@ msgid ""
 "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a "
 "`provides` block instead to indicate that your software provides a media "
 "handler for the given types."
-msgstr ""
-"Znacznik „mimetypes” najwyższego poziomu jest przestarzały. Proszę zamiast "
-"tego użyć znaczników „mediatype” w bloku „provides”, aby wskazać, że "
-"oprogramowanie dostarcza obsługę multimediów o podanych typach."
+msgstr "Znacznik „mimetypes” najwyższego poziomu jest przestarzały. Proszę zamiast tego użyć znaczników „mediatype” w bloku „provides”, aby wskazać, że oprogramowanie dostarcza obsługę multimediów o podanych typach."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:762
@@ -2095,10 +1841,7 @@ msgid ""
 "This component has no `content_rating` tag to provide age rating "
 "information. You can generate the tag data online by answering a few "
 "questions at https://hughsie.github.io/oars/"
-msgstr ""
-"Ten składnik nie ma znacznika „content_rating” dostarczającego informacje "
-"o ograniczeniach wiekowych. Można utworzyć dane znacznika w Internecie "
-"odpowiadając na kilka pytań na stronie https://hughsie.github.io/oars/"
+msgstr "Ten składnik nie ma znacznika „content_rating” dostarczającego informacje o ograniczeniach wiekowych. Można utworzyć dane znacznika w Internecie odpowiadając na kilka pytań na stronie https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks) and keep the URL intact.
 #: src/as-validator-issue-tag.h:769
@@ -2110,18 +1853,13 @@ msgstr "Ten „tag” nie ma atrybutu „namespace”."
 msgid ""
 "This tag or its namespace contains invalid characters. Only lower-cased "
 "ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
-"Ten znacznik lub jego przestrzeń nazw zawiera nieprawidłowe znaki. Tylko "
-"małe litery ASCII, cyfry, kropki, myślniki i podkreślenia są dozwolone."
+msgstr "Ten znacznik lub jego przestrzeń nazw zawiera nieprawidłowe znaki. Tylko małe litery ASCII, cyfry, kropki, myślniki i podkreślenia są dozwolone."
 
 #: src/as-validator.c:150
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
-"Problematyczny znacznik nie jest częścią rejestru znaczników AppStream. Jest "
-"to błąd w programie sprawdzającym, proszę go zgłosić w naszym systemie "
-"zgłaszania błędów."
+msgstr "Problematyczny znacznik nie jest częścią rejestru znaczników AppStream. Jest to błąd w programie sprawdzającym, proszę go zgłosić w naszym systemie zgłaszania błędów."
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
@@ -2186,16 +1924,12 @@ msgstr "Zastępuje katalog wyjściowy ikony"
 #: tools/appstream-compose.c:210
 msgid ""
 "Set the media output directory (for media data to be served by a webserver)"
-msgstr ""
-"Ustawia katalog wyjściowy multimediów (dla danych multimedialnych "
-"dostarczanych przez serwer WWW)"
+msgstr "Ustawia katalog wyjściowy multimediów (dla danych multimedialnych dostarczanych przez serwer WWW)"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:213
 msgid "Set a directory where HTML and text issue reports will be stored"
-msgstr ""
-"Ustawia katalog, w którym będą przechowywane zgłoszenia błędów w formacie "
-"HTML i tekstowym"
+msgstr "Ustawia katalog, w którym będą przechowywane zgłoszenia błędów w formacie HTML i tekstowym"
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:216
@@ -2205,9 +1939,7 @@ msgstr "Zastępuje nazwę pochodzenia"
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:219
 msgid "Set the URL where the exported media content will be hosted"
-msgstr ""
-"Ustawia adres URL, pod którym będą dostępne wyeksportowane treści "
-"multimedialne"
+msgstr "Ustawia adres URL, pod którym będą dostępne wyeksportowane treści multimedialne"
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:222
@@ -2247,8 +1979,7 @@ msgid ""
 msgstr ""
 "Nieprawidłowa wartość opcji „--print-report”: %s\n"
 "Możliwe wartości:\n"
-"„on-error” — wyświetla tylko krótkie zgłoszenie, jeśli wykonanie się nie "
-"powiodło (domyślnie)\n"
+"„on-error” — wyświetla tylko krótkie zgłoszenie, jeśli wykonanie się nie powiodło (domyślnie)\n"
 "„short” — tworzy skrócone zgłoszenie\n"
 "„full” — wyświetla szczegółowe zgłoszenie"
 
@@ -2260,8 +1991,7 @@ msgstr "Automatycznie wybrano „%s” jako położenie wyjścia danych."
 #. TRANSLATORS: we don't have a destination directory for compose
 #: tools/appstream-compose.c:299
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
-"Nie ustawiono katalogu docelowego, proszę podać położenie wyjścia danych."
+msgstr "Nie ustawiono katalogu docelowego, proszę podać położenie wyjścia danych."
 
 #: tools/appstream-compose.c:309 tools/appstream-compose.c:311
 msgid "WARNING"
@@ -2318,9 +2048,7 @@ msgstr "Podczas tego składania wystąpiły błędy:"
 msgid ""
 "Refer to the generated issue report data for details on the individual "
 "problems."
-msgstr ""
-"Więcej informacji o poszczególnych problemach znajduje się w utworzonych "
-"danych zgłoszenia problemów."
+msgstr "Więcej informacji o poszczególnych problemach znajduje się w utworzonych danych zgłoszenia problemów."
 
 #: tools/appstream-compose.c:397
 msgid "Overview of generated hints:"
@@ -2344,8 +2072,7 @@ msgstr "Ręcznie wybrane położenie metadanych AppStream do skanowania."
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:70
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
-"Ignoruje wiek pamięci podręcznej i buduje świeżą przed wykonaniem zapytania."
+msgstr "Ignoruje wiek pamięci podręcznej i buduje świeżą przed wykonaniem zapytania."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:86
@@ -2405,9 +2132,7 @@ msgstr ""
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Polecenie „%s --help” wyświetli listę dostępnych poleceń i opcji, a „%s %s --"
-"help” wyświetli listę opcji dla danego podpolecenia."
+msgstr "Polecenie „%s --help” wyświetli listę dostępnych poleceń i opcji, a „%s %s --help” wyświetli listę opcji dla danego podpolecenia."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2419,9 +2144,7 @@ msgstr "Wymusza odświeżenie pamięci podręcznej."
 msgid ""
 "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. "
 "May be specified multiple times."
-msgstr ""
-"Ogranicza odświeżenie pamięci podręcznej do konkretnego źródła, np. „os” lub "
-"„flatpak”. Może zostać podane wielokrotnie."
+msgstr "Ogranicza odświeżenie pamięci podręcznej do konkretnego źródła, np. „os” lub „flatpak”. Może zostać podane wielokrotnie."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:478
@@ -2432,8 +2155,7 @@ msgstr "Nie podano ciągu licencji, wyrażenia licencji lub wyjątku licencji."
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:503
 msgid "Set the data origin for the installed metadata collection file."
-msgstr ""
-"Ustawia pochodzenie danych dla zainstalowanego pliku kolekcji metadanych."
+msgstr "Ustawia pochodzenie danych dla zainstalowanego pliku kolekcji metadanych."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:508
@@ -2443,8 +2165,7 @@ msgstr "Instaluje plik dla bieżącego użytkownika zamiast globalnie."
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Należy podać co najmniej dwa numery wersji, aby porównać jako parametry."
+msgstr "Należy podać co najmniej dwa numery wersji, aby porównać jako parametry."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2456,26 +2177,20 @@ msgstr "Nieznany stosunek porównania „%s”. Prawidłowe wartości:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Za dużo parametrów: wymagane są dwa numery wersji lub numery wersji "
-"i operator porównania."
+msgstr "Za dużo parametrów: wymagane są dwa numery wersji lub numery wersji i operator porównania."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Używa podanego pliku .desktop do wypełnienia podstawowych wartości pliku "
-"Metainfo."
+msgstr "Używa podanego pliku .desktop do wypełnienia podstawowych wartości pliku Metainfo."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"To polecenie przyjmuje opcjonalne parametry pozycyjne TYP i PLIK, gdzie PLIK "
-"to plik, do którego zapisać (lub „-”, co oznacza standardowe wyjście)."
+msgstr "To polecenie przyjmuje opcjonalne parametry pozycyjne TYP i PLIK, gdzie PLIK to plik, do którego zapisać (lub „-”, co oznacza standardowe wyjście)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2491,26 +2206,21 @@ msgstr "Używa podanego wiersza dla klucza „Exec=” pliku .desktop."
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
-"Przyjmuje, że plik wejściowy jest w wybranym formacie („yaml” lub „text”)."
+msgstr "Przyjmuje, że plik wejściowy jest w wybranym formacie („yaml” lub „text”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (<= 0 "
 "for unlimited)."
-msgstr ""
-"Ogranicza liczbę wpisów wydań w pliku Metainfo (<= 0 oznacza brak "
-"ograniczenia)."
+msgstr "Ogranicza liczbę wpisów wydań w pliku Metainfo (<= 0 oznacza brak ograniczenia)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:854
 msgid ""
 "Set the number of releases that should have descriptions marked for "
 "translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
-"Ustawia liczbę wydań, których opisy mają być udostępnione do tłumaczenia "
-"(najnowsze wydania są tłumaczone najpierw, -1 oznacza brak ograniczenia)."
+msgstr "Ustawia liczbę wydań, których opisy mają być udostępnione do tłumaczenia (najnowsze wydania są tłumaczone najpierw, -1 oznacza brak ograniczenia)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:898
@@ -2542,18 +2252,14 @@ msgstr "Podpolecenia:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Przekazanie opcji „--help” do podpolecenia wyświetli informacje o opcjach "
-"danego podpolecenia."
+msgstr "Przekazanie opcji „--help” do podpolecenia wyświetli informacje o opcjach danego podpolecenia."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"Polecenie „%s” jest nieznane. Polecenie „%s --help” wyświetli listę "
-"dostępnych poleceń."
+msgstr "Polecenie „%s” jest nieznane. Polecenie „%s --help” wyświetli listę dostępnych poleceń."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2580,9 +2286,7 @@ msgstr "Pobiera informacje o składniku według jego identyfikatora."
 msgid ""
 "Get components which provide the given item. Needs an item type (e.g. lib, "
 "bin, python3, …) and item value as parameter."
-msgstr ""
-"Pobiera składniki dostarczające podany element. Wymaga typu elementu (np. "
-"lib, bin, python3…) i wartości elementu jako parametr."
+msgstr "Pobiera składniki dostarczające podany element. Wymaga typu elementu (np. lib, bin, python3…) i wartości elementu jako parametr."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
@@ -2628,8 +2332,7 @@ msgstr "Wyświetla informacje o stanie dostępnych metadanych AppStream."
 #: tools/appstreamcli.c:1202
 msgid ""
 "Show information about the current operating system from the metadata index."
-msgstr ""
-"Wyświetla informacje o bieżącym systemie operacyjnym z indeksu metadanych."
+msgstr "Wyświetla informacje o bieżącym systemie operacyjnym z indeksu metadanych."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1207
@@ -2666,9 +2369,7 @@ msgstr "Konwertuje plik NEWS w formacie YAML lub tekstowym do wydań Metainfo."
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1238
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
-"Zapisuje plik NEWS w formacie tekstowym lub YAML z informacjami z pliku "
-"Metainfo."
+msgstr "Zapisuje plik NEWS w formacie tekstowym lub YAML z informacjami z pliku Metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1244
@@ -2687,15 +2388,11 @@ msgstr "Odświeża pamięć podręczną metadanych tylko dla bieżącego użytko
 
 #: tools/ascli-actions-mdata.c:59
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
-"Aktualizowanie pamięci podręcznej metadanych oprogramowania dla systemu "
-"operacyjnego."
+msgstr "Aktualizowanie pamięci podręcznej metadanych oprogramowania dla systemu operacyjnego."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
-"Aktualizowanie pamięci podręcznej metadanych oprogramowania dla pakietów "
-"Flatpak."
+msgstr "Aktualizowanie pamięci podręcznej metadanych oprogramowania dla pakietów Flatpak."
 
 #: tools/ascli-actions-mdata.c:64
 #, c-format
@@ -2783,9 +2480,7 @@ msgstr "Plik metadanych „%s” nie istnieje."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Nie można konwertować pliku: nie można ustalić formatu wyjścia, proszę "
-"ustawić go za pomocą „--format=”."
+msgstr "Nie można konwertować pliku: nie można ustalić formatu wyjścia, proszę ustawić go za pomocą „--format=”."
 
 #: tools/ascli-actions-mdata.c:456
 #, c-format
@@ -2800,18 +2495,14 @@ msgstr "Wersja"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Należy podać typ składnika oprogramowania AppStream, aby utworzyć szablon. "
-"Możliwe wartości:"
+msgstr "Należy podać typ składnika oprogramowania AppStream, aby utworzyć szablon. Możliwe wartości:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Typ składnika oprogramowania „%s” nie jest prawidłowy w AppStream. Możliwe "
-"wartości:"
+msgstr "Typ składnika oprogramowania „%s” nie jest prawidłowy w AppStream. Możliwe wartości:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2885,8 +2576,7 @@ msgstr "Należy podać plik Metainfo jako wejście."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"Należy podać plik .desktop do utworzenia lub powiększenia jako wyjście."
+msgstr "Należy podać plik .desktop do utworzenia lub powiększenia jako wyjście."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
@@ -2911,16 +2601,13 @@ msgstr "Tworzenie nowego pliku .desktop „%s” za pomocą danych z „%s”"
 
 #: tools/ascli-actions-misc.c:214
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
-"Nie podano nazwy standardowej ikony w pliku Metainfo. Nie można kontynuować."
+msgstr "Nie podano nazwy standardowej ikony w pliku Metainfo. Nie można kontynuować."
 
 #: tools/ascli-actions-misc.c:236
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"Nie podano dostarczanego pliku binarnego w pliku Metainfo, ani polecenia "
-"wykonywania przez „--exec”. Nie można utworzyć klucza „Exec=”."
+msgstr "Nie podano dostarczanego pliku binarnego w pliku Metainfo, ani polecenia wykonywania przez „--exec”. Nie można utworzyć klucza „Exec=”."
 
 #: tools/ascli-actions-misc.c:300
 #, c-format
@@ -2934,21 +2621,15 @@ msgstr "Należy podać plik NEWS jako wejście."
 #: tools/ascli-actions-misc.c:332
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
-"Należy podać plik Metainfo do powiększenia lub „-”, aby wyświetlić na "
-"standardowym wyjściu."
+msgstr "Należy podać plik Metainfo do powiększenia lub „-”, aby wyświetlić na standardowym wyjściu."
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
-"Nie podano nazwy pliku wyjściowego, bezpośrednie modyfikowanie pliku "
-"Metainfo."
+msgstr "Nie podano nazwy pliku wyjściowego, bezpośrednie modyfikowanie pliku Metainfo."
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Należy podać plik NEWS jako wyjście lub „-”, aby wyświetlić na standardowym "
-"wyjściu."
+msgstr "Należy podać plik NEWS jako wyjście lub „-”, aby wyświetlić na standardowym wyjściu."
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
@@ -3026,9 +2707,7 @@ msgstr "Sprawdzenie poprawności się nie powiodło: %s"
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
-"Program sprawdzający nie może utworzyć zgłoszeń w formacie „%s”. Można "
-"wybrać „yaml” lub „text” zamiast niego."
+msgstr "Program sprawdzający nie może utworzyć zgłoszeń w formacie „%s”. Można wybrać „yaml” lub „text” zamiast niego."
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
