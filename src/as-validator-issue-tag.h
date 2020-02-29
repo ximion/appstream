@@ -76,7 +76,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "description-first-para-too-short",
 	  AS_ISSUE_SEVERITY_INFO,
-	  N_("The first 'description/p' paragraph of this component might be too short (< 80 characters). "
+	  N_("The first `description/p` paragraph of this component might be too short (< 80 characters). "
 	     "Please consider starting with a longer paragraph to improve how the description looks like in software centers "
 	     "and to provide more detailed information on this component immediately in the first paragraph.")
 	},
@@ -122,7 +122,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "cid-contains-hyphen",
 	  AS_ISSUE_SEVERITY_INFO,
 	  N_("The component ID contains a hyphen/minus. Using a hyphen is strongly discouraged, to improve interoperability with other tools such as D-Bus. "
-	     "A good option is to replace any hyphens with underscores ('_').")
+	     "A good option is to replace any hyphens with underscores (`_`).")
 	},
 
 	{ "cid-has-number-prefix",
@@ -171,7 +171,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "update-contact-no-mail",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The update-contact does not appear to be a valid email address (escaping of '@' is only allowed as '_at_' or '_AT_').")
+	  N_("The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`).")
 	},
 
 	{ "screenshot-image-not-found",
@@ -191,7 +191,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "screenshot-no-media",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it.")
 	},
 
@@ -208,28 +208,28 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "screenshot-video-codec-missing",
 	  AS_ISSUE_SEVERITY_INFO,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("The screenshot video does not specify which video codec was used in a 'codec' property.")
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The screenshot video does not specify which video codec was used in a `codec` property.")
 	},
 
 	{ "screenshot-video-container-missing",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("The screenshot video does not specify which container format was used in a 'container' property.")
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The screenshot video does not specify which container format was used in a `container` property.")
 	},
 
 	{ "screenshot-video-codec-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The selected video codec is not supported by AppStream and software centers may not be able to play the video. "
-	     "Only the AV1 and VP9 codecs are currently supported, using 'av1' and 'vp9' as values for the 'codec' property.")
+	     "Only the AV1 and VP9 codecs are currently supported, using `av1` and `vp9` as values for the `codec` property.")
 	},
 
 	{ "screenshot-video-container-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The selected video container format is not supported by AppStream and software centers may not be able to play the video. "
-	     "Only the WebM and Matroska video containers are currently supported, using 'webm' and 'mkv' as values for the 'container' property.")
+	     "Only the WebM and Matroska video containers are currently supported, using `webm` and `mkv` as values for the `container` property.")
 	},
 
 	{ "screenshot-video-file-wrong-container",
@@ -250,20 +250,20 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "relation-item-no-value",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("A 'requires' or 'recommends' item requires a value to denote a valid relation.")
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("A `requires` or `recommends` item requires a value to denote a valid relation.")
 	},
 
 	{ "relation-item-has-version",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: 'version' is an AppStream XML property. Please do not translate it. */
-	  N_("Found 'version' property on required/recommended item of a type that should not have or require a version.")
+	  /* TRANSLATORS: `version` is an AppStream XML property. Please do not translate it. */
+	  N_("Found `version` property on required/recommended item of a type that should not have or require a version.")
 	},
 
 	{ "relation-item-missing-compare",
 	  AS_ISSUE_SEVERITY_INFO,
-	  /* TRANSLATORS: 'version' and 'compare' are AppStream XML properties. Please do not translate them. */
-	  N_("Found 'version' property on this required/recommended item, but not 'compare' property. It is recommended to explicitly define a comparison operation.")
+	  /* TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them. */
+	  N_("Found `version` property on this required/recommended item, but not `compare` property. It is recommended to explicitly define a comparison operation.")
 	},
 
 	{ "relation-item-invalid-vercmp",
@@ -273,21 +273,21 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "relation-memory-in-requires",
 	  AS_ISSUE_SEVERITY_INFO,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Found a memory size relation in a 'requires' tag. This means users will not be able to even install the component without having enough RAM. "
-	     "This is usually not intended and you want to use 'memory' in the 'recommends' tag instead.")
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Found a memory size relation in a `requires` tag. This means users will not be able to even install the component without having enough RAM. "
+	     "This is usually not intended and you want to use `memory` in the `recommends` tag instead.")
 	},
 
 	{ "relation-control-in-requires",
 	  AS_ISSUE_SEVERITY_INFO,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("Found a user input control relation in a `requires` tag. This means users will not be able to even install the component without having the "
 	     "defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead.")
 	},
 
 	{ "relation-control-value-unknown",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values.")
 	},
 
@@ -303,7 +303,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "component-merge-in-metainfo",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The component has a 'merge' method defined. This is not allowed in metainfo files.")
+	  N_("The component has a `merge` method defined. This is not allowed in metainfo files.")
 	},
 
 	{ "component-id-missing",
@@ -323,22 +323,22 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "id-tag-has-type",
 	  AS_ISSUE_SEVERITY_INFO,
-	  N_("The <id/> tag still contains a 'type' property, probably from an old conversion to the recent metainfo format.")
+	  N_("The <id/> tag still contains a `type` property, probably from an old conversion to the recent metainfo format.")
 	},
 
 	{ "multiple-pkgname",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
-	  N_("The 'pkgname' tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component.")
+	  N_("The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component.")
 	},
 
 	{ "name-has-dot-suffix",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
-	  N_("The component name should (likely) not end with a dot ('.').")
+	  N_("The component name should (likely) not end with a dot (`.`).")
 	},
 
 	{ "summary-has-dot-suffix",
 	  AS_ISSUE_SEVERITY_INFO,
-	  N_("The component summary should not end with a dot ('.').")
+	  N_("The component summary should not end with a dot (`.`).")
 	},
 
 	{ "summary-has-tabs-or-linebreaks",
@@ -353,15 +353,15 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "icon-stock-cached-has-url",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Icons of type 'stock' or 'cached' must not contain an URL, a full or an relative path to the icon. "
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Icons of type `stock` or `cached` must not contain an URL, a full or an relative path to the icon. "
 	     "Only file basenames or stock names are allowed."),
 	},
 
 	{ "icon-remote-no-url",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Icons of type 'remote' must contain an URL to the referenced icon."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Icons of type `remote` must contain an URL to the referenced icon."),
 	},
 
 	{ "icon-remote-not-found",
@@ -376,14 +376,14 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "metainfo-invalid-icon-type",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Metainfo files may only contain icons of type 'stock' or 'remote', the set type is not allowed."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Metainfo files may only contain icons of type `stock` or `remote`, the set type is not allowed."),
 	},
 
 	{ "url-invalid-type",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Invalid 'type' property for this 'url' tag. URLs of this type are not known in the AppStream specification."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Invalid `type` property for this `url` tag. URLs of this type are not known in the AppStream specification."),
 	},
 
 	{ "url-not-found",
@@ -413,20 +413,20 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "launchable-unknown-type",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'launchable' tag has an unknown type and can not be used."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `launchable` tag has an unknown type and can not be used."),
 	},
 
 	{ "bundle-unknown-type",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'bundle' tag has an unknown type and can not be used."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `bundle` tag has an unknown type and can not be used."),
 	},
 
 	{ "update-contact-in-collection-data",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("The 'update_contact' tag should not be included in collection AppStream XML."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The `update_contact` tag should not be included in collection AppStream XML."),
 	},
 
 	{ "nonstandard-gnome-extension",
@@ -437,15 +437,15 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "unknown-tag",
 	  AS_ISSUE_SEVERITY_INFO,
-	  N_("Found invalid tag. Non-standard tags should be prefixed with 'x-'. "
+	  N_("Found invalid tag. Non-standard tags should be prefixed with `x-`. "
 	     "AppStream also provides the <custom/> tag to add arbitrary custom data to metainfo files. This tag is read by AppStream libraries and may be useful "
-	     "instead of defining new custom toplevel or 'x-'-prefixed tags if you just want to add custom data to a metainfo file.")
+	     "instead of defining new custom toplevel or `x-`-prefixed tags if you just want to add custom data to a metainfo file.")
 	},
 
 	{ "metadata-license-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("The essential tag 'metadata_license' is missing. A license for the metadata itself always has to be defined."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The essential tag `metadata_license` is missing. A license for the metadata itself always has to be defined."),
 	},
 
 	{ "app-description-required",
@@ -470,74 +470,74 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "console-app-no-binary",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Type 'console-application' component, but no information about binaries in $PATH was provided via a 'provides/binary' tag."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Type `console-application` component, but no information about binaries in $PATH was provided via a `provides/binary` tag."),
 	},
 
 	{ "web-app-no-url-launchable",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'web-application' component is missing a 'launchable' tag of type 'url'."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `web-application` component is missing a `launchable` tag of type `url`."),
 	},
 
 	{ "web-app-no-icon",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'web-application' component is missing a 'icon' tag to specify a valid icon."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `web-application` component is missing a `icon` tag to specify a valid icon."),
 	},
 
 	{ "web-app-no-category",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'web-application' component is missing categorizations. A 'categories' block is likely missing."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `web-application` component is missing categorizations. A `categories` block is likely missing."),
 	},
 
 	{ "font-no-font-data",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Type 'font' component, but no font information was provided via a 'provides/font' tag."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Type `font` component, but no font information was provided via a `provides/font` tag."),
 	},
 
 	{ "driver-no-modalias",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Type 'driver' component, but no modalias information was provided via a provides/modalias tag."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Type `driver` component, but no modalias information was provided via a `provides/modalias` tag."),
 	},
 
 	{ "extends-not-allowed",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("An 'extends' tag is specified, but the component is not of type 'addon', 'localization' or 'repository'."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("An `extends` tag is specified, but the component is not of type `addon`, `localization` or `repository`."),
 	},
 
 	{ "addon-extends-missing",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("The component is an addon, but no 'extends' tag was specified."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("The component is an addon, but no `extends` tag was specified."),
 	},
 
 	{ "localization-extends-missing",
 	  AS_ISSUE_SEVERITY_INFO,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'localization' component is missing an 'extends' tag, to specify the components it adds localization to."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `localization` component is missing an `extends` tag, to specify the components it adds localization to."),
 	},
 
 	{ "localization-no-languages",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'localization' component does not define any languages this localization is for."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `localization` component does not define any languages this localization is for."),
 	},
 
 	{ "service-no-service-launchable",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("This 'service' component is missing a 'launchable' tag of type 'service'."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This `service` component is missing a `launchable` tag of type `service`."),
 	},
 
 	{ "metainfo-suggestion-type-invalid",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Suggestions of any type other than 'upstream' are not allowed in metainfo files."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Suggestions of any type other than `upstream` are not allowed in metainfo files."),
 	},
 
 	{ "category-invalid",
@@ -562,13 +562,13 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "component-collection-tag-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Invalid tag found in collection metadata. Only 'component' tags are permitted."),
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Invalid tag found in collection metadata. Only `component` tags are permitted."),
 	},
 
 	{ "metainfo-ancient",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
 	  N_("The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher)."),
 	},
 
@@ -609,7 +609,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "metainfo-legacy-path",
 	  AS_ISSUE_SEVERITY_WARNING,
-	  N_("The metainfo file is stored in a legacy path. Please place it in '/usr/share/metainfo'."),
+	  N_("The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."),
 	},
 
 	{ "metainfo-multiple-components",
@@ -638,14 +638,14 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "runtime-project-license-no-ref",
 	  AS_ISSUE_SEVERITY_INFO,
-	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Licenses for 'runtime' components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL "
-	     "as value for this component's 'project_license'. E.g. `LicenseRef-free=https://example.com/licenses.html`")
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL "
+	     "as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`")
 	},
 
 	{ "runtime-no-provides",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
-	  N_("Since a 'runtime' component is comprised of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime.")
+	  N_("Since a `runtime` component is comprised of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime.")
 	},
 
 	{ "unknown-provides-item-type",
