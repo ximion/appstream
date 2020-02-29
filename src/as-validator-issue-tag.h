@@ -274,8 +274,21 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	{ "relation-memory-in-requires",
 	  AS_ISSUE_SEVERITY_INFO,
 	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
-	  N_("Found a memory size dependency in a 'requires' tag. This means users will not be able to even install the component without having enough RAM. "
+	  N_("Found a memory size relation in a 'requires' tag. This means users will not be able to even install the component without having enough RAM. "
 	     "This is usually not intended and you want to use 'memory' in the 'recommends' tag instead.")
+	},
+
+	{ "relation-control-in-requires",
+	  AS_ISSUE_SEVERITY_INFO,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("Found a user input control relation in a `requires` tag. This means users will not be able to even install the component without having the "
+	     "defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead.")
+	},
+
+	{ "relation-control-value-unknown",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names. */
+	  N_("This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values.")
 	},
 
 	{ "component-type-invalid",

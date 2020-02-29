@@ -1121,8 +1121,17 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 			}
 		}
 
-		if ((kind == AS_RELATION_KIND_REQUIRES) && (item_kind == AS_RELATION_ITEM_KIND_MEMORY))
-			as_validator_add_issue (validator, iter, "relation-memory-in-requires", NULL);
+		if (kind == AS_RELATION_KIND_REQUIRES) {
+			if (item_kind == AS_RELATION_ITEM_KIND_MEMORY)
+				as_validator_add_issue (validator, iter, "relation-memory-in-requires", NULL);
+			else if (item_kind == AS_RELATION_ITEM_KIND_CONTROL)
+				as_validator_add_issue (validator, iter, "relation-control-in-requires", NULL);
+		}
+
+		if (item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
+			if (as_control_kind_from_string (content) == AS_CONTROL_KIND_UNKNOWN)
+				as_validator_add_issue (validator, iter, "relation-control-value-unknown", content);
+		}
 	}
 }
 
