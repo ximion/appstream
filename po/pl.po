@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Piotr Drąg <piotrdrag@gmail.com>, 2014-2016, 2019, 2020.
+# Matthias Klumpp <matthias@tenstral.net>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-02-29 10:14+0000\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"PO-Revision-Date: 2020-02-29 23:22+0000\n"
+"Last-Translator: Matthias Klumpp <matthias@tenstral.net>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -580,6 +581,7 @@ msgstr "Odnaleziono zależność rozmiaru pamięci w znaczniku „requires”. 
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:284
+#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
@@ -1534,6 +1536,7 @@ msgstr "Ten znacznik „bundle” ma nieznany typ i nie może zostać użyty."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:291
+#, fuzzy
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
