@@ -811,7 +811,7 @@
 				<para>
 					If a control type is <emphasis>recommended</emphasis>, it means the software supports the given method of user input. As long as one of the input methods
 					is available on the system, the software can be used. Installation on systems without the given control is still permitted.
-					If a control type is <emphasis>required</emphasis>, the same applies, but the software installed should refuse to install the application on devices which
+					If a control type is <emphasis>required</emphasis>, the same applies, but the software installer should refuse to install the application on devices which
 					do not have at least one of the input methods. It is therefore advised to only use the <code>control</code> tag in <code>recommends</code> listings,
 					and avoid to use it in <code>requires</code>.
 				</para>
