@@ -1090,6 +1090,7 @@ as_validator_check_requires_recommends (AsValidator *validator, xmlNode *node, A
 		switch (item_kind) {
 		case AS_RELATION_ITEM_KIND_MEMORY:
 		case AS_RELATION_ITEM_KIND_MODALIAS:
+		case AS_RELATION_ITEM_KIND_CONTROL:
 			can_have_version = FALSE;
 			break;
 		default:
