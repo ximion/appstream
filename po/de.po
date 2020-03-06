@@ -3,7 +3,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016
 # Matthias Klumpp <matthias@tenstral.net>, 2014, 2021.
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019, 2021.
@@ -25,7 +25,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016. #zanata
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
@@ -44,7 +44,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: CurlingTongs <jobiwaff@googlemail.com>\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1374,9 +1374,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Ein Element »requires« oder »recommends« benötigt einen Wert, um ein "
-"gültiges Verhältnis darzustellen."
+msgstr "Ein Element »requires« oder »recommends« benötigt einen Wert, um ein gültiges Verhältnis darzustellen."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
@@ -1391,10 +1389,7 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"Eigenschaft »version« wurde bei diesem erforderlichen/empfohlenen Objekt "
-"gefunden, aber nicht die Eigenschaft »compare«. Es wird empfohlen, eine "
-"Vergleichsoperation explizit zu definieren."
+msgstr "Eigenschaft »version« wurde bei diesem erforderlichen/empfohlenen Objekt gefunden, aber nicht die Eigenschaft »compare«. Es wird empfohlen, eine Vergleichsoperation explizit zu definieren."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:277
@@ -1419,12 +1414,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Eine Speichergrößenrelation in einem Auszeichner »requires« gefunden. Dies "
-"bedeutet, dass Benutzer nicht einmal in der Lage sein werden, die Komponente "
-"zu installieren, wenn sie nicht genügend RAM haben. Dies ist normalerweise "
-"nicht beabsichtigt und Sie sollten stattdessen »memory« im Auszeichner "
-"»recommends« verwenden."
+msgstr "Eine Speichergrößenrelation in einem Auszeichner »requires« gefunden. Dies bedeutet, dass Benutzer nicht einmal in der Lage sein werden, die Komponente zu installieren, wenn sie nicht genügend RAM haben. Dies ist normalerweise nicht beabsichtigt und Sie sollten stattdessen »memory« im Auszeichner »recommends« verwenden."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:295
@@ -1543,9 +1533,7 @@ msgstr "Die Komponenten-Zusammenfassung sollte nicht mit einem Punkt (».«) end
 
 #: src/as-validator-issue-tag.h:377
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
-"Die Komponentenzusammenfassung darf keine Tabulatoren oder Zeilenumbrüche "
-"enthalten."
+msgstr "Die Komponentenzusammenfassung darf keine Tabulatoren oder Zeilenumbrüche enthalten."
 
 #: src/as-validator-issue-tag.h:382
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
@@ -1557,17 +1545,12 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Symbole vom Typ »stock« oder »cached« dürfen keine URL, keinen vollständigen "
-"oder relativen Pfad zu dem Symbol enthalten. Nur Datei-Basisnamen oder "
-"Bestandsnamen sind erlaubt."
+msgstr "Symbole vom Typ »stock« oder »cached« dürfen keine URL, keinen vollständigen oder relativen Pfad zu dem Symbol enthalten. Nur Datei-Basisnamen oder Bestandsnamen sind erlaubt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:395
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
-"Symbole vom Typ »remote« müssen eine URL zu dem referenzierten Symbol "
-"enthalten."
+msgstr "Symbole vom Typ »remote« müssen eine URL zu dem referenzierten Symbol enthalten."
 
 #: src/as-validator-issue-tag.h:400
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1584,18 +1567,14 @@ msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse für diese Verknüpfung zu ein
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Metainfo-Dateien dürfen nur Symbole vom Typ »stock« oder »remote« enthalten, "
-"der angegebene Typ ist nicht erlaubt."
+msgstr "Metainfo-Dateien dürfen nur Symbole vom Typ »stock« oder »remote« enthalten, der angegebene Typ ist nicht erlaubt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Ungültige Eigenschaft »type« für diesen Auszeichner »url«. URLs dieses Typs "
-"sind in der AppStream-Spezifikation nicht bekannt."
+msgstr "Ungültige Eigenschaft »type« für diesen Auszeichner »url«. URLs dieses Typs sind in der AppStream-Spezifikation nicht bekannt."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
@@ -1742,9 +1721,7 @@ msgstr "Die Komponente ist vom Typ `driver`, enthält aber keine Modalias-Inform
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Ein Auszeichner »extends« ist angegeben, aber die Komponente ist nicht vom "
-"Typ »addon«, »localization« oder »repository«."
+msgstr "Ein Auszeichner »extends« ist angegeben, aber die Komponente ist nicht vom Typ »addon«, »localization« oder »repository«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
@@ -1778,8 +1755,7 @@ msgstr "Dieser `service`-Komponente fehlt ein `launchable`-Tag des Typs `service
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr ""
-"Vorschläge anderer Art als »upstream« sind in Metainfo-Dateien nicht erlaubt."
+msgstr "Vorschläge anderer Art als »upstream« sind in Metainfo-Dateien nicht erlaubt."
 
 #: src/as-validator-issue-tag.h:581
 msgid ""
@@ -1807,9 +1783,7 @@ msgstr "Das XML in dieser Datei ist fehlerhaft."
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"Ungültigen Auszeichner in den Metadaten der Sammlung gefunden. Nur "
-"»component«-Auszeichner sind erlaubt."
+msgstr "Ungültigen Auszeichner in den Metadaten der Sammlung gefunden. Nur »component«-Auszeichner sind erlaubt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
@@ -2765,9 +2739,7 @@ msgstr "Erzeuge neuen Desktop-Eintrag »%s« aus Daten von »%s«"
 
 #: tools/ascli-actions-misc.c:214
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
-"In der Metainfo-Datei wurde kein Name des Bestandssymbols angegeben. Kann "
-"nicht fortgesetzt werden."
+msgstr "In der Metainfo-Datei wurde kein Name des Bestandssymbols angegeben. Kann nicht fortgesetzt werden."
 
 #: tools/ascli-actions-misc.c:236
 msgid ""
