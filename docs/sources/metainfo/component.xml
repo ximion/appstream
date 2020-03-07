@@ -69,15 +69,16 @@
 		<para>
 			The <code language="XML"><![CDATA[<id>]]></code> tag is a unique identifier for this component. It must contain only ASCII characters, dots, hyphens and numbers. Spaces are
 			not allowed. While hyphens are allowed for legacy compatibility, their usage is strongly discouraged to ensure interoperability of the AppStream ID with other tools such
-			as D-Bus (and thereby making the ID more generic and useful). It is also strongly discouraged to start any segment of the ID with a digit.
+			as D-Bus (and thereby making the ID more generic and useful). For the same reason it is also strongly discouraged to start any segment of the ID with a digit.
+			Additionally, even though uppercase letters are permitted in a component-ID, it is strongly encouraged to only use lowercase letters for the ID.
 		</para>
 		<para>
-			The ID must follow a reverse-DNS scheme, consisting of <literal>{tld}.{vendor}.{product}</literal>, for example <code>org.kde.Gwenview</code>
-			or <code>com.hugski.ColorHug2</code>. Ownership of <literal>{vendor}.{tld}</literal> in the domain name system guarantees uniqueness of IDs.
+			The ID must follow a reverse-DNS scheme, consisting of <literal>{tld}.{vendor}.{product}</literal>, for example <code>org.kde.gwenview</code>
+			or <code>com.hugski.colorhug2</code>. Ownership of <literal>{vendor}.{tld}</literal> in the domain name system guarantees uniqueness of IDs.
 		</para>
 		<para>
 			To increase the uniqueness and to distinguish between different pieces of a software suite, it is suggested to append the type name to the component-id in these cases.
-			For example, one can use <code>com.hugski.ColorHug2</code> for the client tools to control hardware, and <code>com.hugski.ColorHug2.firmware</code> for the runtime firmware files.
+			For example, one can use <code>com.hugski.colorhug2</code> for the client tools to control hardware, and <code>com.hugski.colorhug2.firmware</code> for the runtime firmware files.
 		</para>
 		<para>
 			Note that the value of this tag must be <emphasis>unique</emphasis> across all distributions and software deployment platforms.
@@ -89,7 +90,7 @@
 		<para>
 			To ensures the greatest possible compatibility of an AppStream ID, it is recommended to replace any hyphens in the ID with underscores, and prefix every leading digit of
 			a section with an underscore as well. Since the underscore is not a valid character in domain names, the uniqueness of the ID is kept.
-			For example, the ID <code>org.7-zip.7Zip</code> could become <code>org._7_zip._7Zip</code>.
+			For example, the ID <code>org.7-zip.7zip</code> could become <code>org._7_zip._7zip</code>.
 		</para>
 		</important>
 
@@ -396,7 +397,7 @@
 		<para>
 			Example:
 		</para>
-		<programlisting language="XML"><![CDATA[<launchable type="desktop-id">org.gnome.Sysprof2.desktop</launchable>]]></programlisting>
+		<programlisting language="XML"><![CDATA[<launchable type="desktop-id">org.gnome.sysprof2.desktop</launchable>]]></programlisting>
 		</listitem>
 		</varlistentry>
 
@@ -656,7 +657,7 @@
 					Example:
 				</para>
 				<programlisting language="XML"><![CDATA[<provides>
-  <dbus type="system">org.freedesktop.PackageKit</dbus>
+  <dbus type="system">org.freedesktop.packagekit</dbus>
 </provides>]]></programlisting>
 				</listitem>
 			</varlistentry>
@@ -724,7 +725,7 @@
 					A relation to another software component. The value should be another component-ID. Example:
 				</para>
 				<programlisting language="XML"><![CDATA[<requires>
-  <id version="1.0" compare="ge">org.example.MySoftware</id>
+  <id version="1.0" compare="ge">org.example.my_software</id>
 </requires>]]></programlisting>
 				</listitem>
 			</varlistentry>
@@ -1108,7 +1109,7 @@
 		</para>
 		<programlisting language="XML"><![CDATA[<suggests>
   <id>org.kde.gwenview.desktop</id>
-  <id>org.inkscape.Inkscape</id>
+  <id>org.inkscape.inkscape</id>
 </suggests>]]></programlisting>
 		</listitem>
 		</varlistentry>
