@@ -76,6 +76,8 @@
 			</listitem>
 			</varlistentry>
 
+
+<!--
 			<varlistentry id="tag-service-provides">
 			<term>&lt;provides/&gt; ↪ &lt;service/&gt;</term>
 			<listitem>
@@ -84,6 +86,7 @@
 				</para>
 			</listitem>
 			</varlistentry>
+-->
 
                         <varlistentry id="tag-service-launchable">
 			<term>&lt;launchable/&gt;</term>
@@ -103,7 +106,7 @@
 
 		<para>
 			For a component of type <literal>service</literal>, the following tags are required and must always be present: <xref linkend="tag-id-service-app"/>,
-			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>, <xref linkend="tag-service-provides"/>.
+			<xref linkend="tag-metadata_license"/>, <xref linkend="tag-name"/>, <xref linkend="tag-summary"/>.
 		</para>
 
 	</section>
