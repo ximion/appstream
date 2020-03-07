@@ -1,29 +1,41 @@
 AppStream
 =========
+<img align="right" src="docs/sources/images/appstream-logo.png">
 
-AppStream is a cross-distro effort for providing metadata for software in the (Linux) ecosystem. It provides a convenient way
-to get information about not installed software, and is one of the building blocks for software centers.
-It consists of specifications for things like upstream metainfo files, an unified software metadata pool for distributors,
-screenshot services and various other useful bits needed to create user-friendly software-centers or other tools requiring
-rich metadata for software and other content.
+AppStream is a collaborative effort for making machine-readable software metadata easily available to programs that need it.
+It is part of the Freedesktop ecosystem and provides a convenient way to retrieve information about available software,
+making it one of the building blocks for modern software centers.
+
+AppStream consists of a specification to describe individual software component metadata in XML (so-called MetaInfo files), as well as
+a derived specification for a metadata-collection format to provide a list of these metadata entries in XML or YAML for easy
+consumption by software centers and other tools which need to know about available software in a repository.
+In addition to the metadata specification, AppStream specifies a set of related features to help providing better metadata for software
+repositories (primarily in Linux distributions).
+This reference implementation of AppStream provides a shared library to work with these metadata files, features to index and query their
+data quickly, as well as other useful related functionality to make building programs which work with software metadata very easy.
 
 This repository contains:
  * the AppStream specification
- * the `appstreamcli` utility to access metadata, manipulate caches, show diagnostic information, etc. (see `man appstreamcli`)
- * a GLib/GObject based library for reading and writing AppStream metadata in XML and YAML, accessing the system data pool, and for various other useful methods.
- * a Qt5 based library for accessing AppStream.
-
-![AppStream Architecture](docs/sources/images/architecture-small.png "AppStream Architecture")
+ * the `appstreamcli` utility to access and edit metadata, manipulate caches, show diagnostic information, etc. (see `man appstreamcli`)
+ * a GLib/GObject based library for reading and writing AppStream metadata in XML and YAML, accessing the system data pool, and auxiliary functionality
+ * a Qt5 based library for accessing AppStream
 
 ## Useful Links
-[AppStream Documentation](http://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help  
-[Releases](http://www.freedesktop.org/software/appstream/releases/) - All releases of AppStream  
-[AppStream on Freedesktop](http://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page  
+[AppStream Documentation](https://www.freedesktop.org/software/appstream/docs/) - The AppStream specification and help  
+[Releases](https://www.freedesktop.org/software/appstream/releases/) - All (signed) releases of AppStream  
+[AppStream on Freedesktop](https://www.freedesktop.org/wiki/Distributions/AppStream/) - The original Freedesktop.org page  
 
 For help and development discussion, check out the [AppStream mailinglist](https://lists.freedesktop.org/mailman/listinfo/appstream).
 
-If you are looking for a way to generate distribution AppStream metadata for a package repository,
-you may want to take a look at [appstream-generator](https://github.com/ximion/appstream-generator).
+## Users
+
+If you are an upstream application author and want to add a MetaInfo file to your application, check out the
+[Quickstart Guides](https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html) in the documentation.
+An even quicker way to get to your metadata is using the [MetaInfo Creator](https://www.freedesktop.org/software/appstream/metainfocreator/)
+web application. You can check out its source code [here](https://github.com/ximion/metainfocreator).
+
+If you are a (Linux) distributor or owner of a software repository you want to generate AppStream Collection Metadata for,
+you may want to take a look at the [AppStream Generator](https://github.com/ximion/appstream-generator) project.
 
 ## Developers
 [![Build Status](https://travis-ci.org/ximion/appstream.svg?branch=master)](https://travis-ci.org/ximion/appstream)
@@ -32,8 +44,8 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
 ### Dependencies
 
 #### Required
- * Meson (>= 0.42)
- * glib2 (>= 2.54)
+ * Meson (>= 0.48)
+ * glib2 (>= 2.58)
  * GObject-Introspection
  * libxml2
  * libyaml
@@ -41,7 +53,7 @@ you may want to take a look at [appstream-generator](https://github.com/ximion/a
 
 #### Optional
  * Vala Compiler (vapigen) (for Vala VAPI file)
- * [Snowball](http://snowballstem.org/download.html) (for stemming support)
+ * [Snowball](https://snowballstem.org/download.html) (for stemming support)
 
 #### Documentation / Specification
  * Publican
