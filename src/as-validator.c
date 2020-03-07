@@ -756,6 +756,9 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 			hyphen_found = TRUE;
 			as_validator_add_issue (validator, idnode, "cid-contains-hyphen", cid);
 		}
+
+		if (g_ascii_isalpha (cid[i]) && g_ascii_isupper (cid[i]))
+			as_validator_add_issue (validator, idnode, "cid-contains-uppercase-letter", cid);
 	}
 
 	/* check if any segment starts with a number */

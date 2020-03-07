@@ -131,6 +131,11 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
              "to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore.")
 	},
 
+	{ "cid-contains-uppercase-letter",
+	  AS_ISSUE_SEVERITY_INFO,
+	  N_("The component ID should only contain lowercase letters.")
+	},
+
 	{ "cid-missing-affiliation-freedesktop",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\").")
