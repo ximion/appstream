@@ -72,7 +72,7 @@ as_yaml_parse_layer (yaml_parser_t *parser, GNode *data, GError **error)
 			g_set_error (error,
 					AS_METADATA_ERROR,
 					AS_METADATA_ERROR_PARSE,
-					"Invalid DEP-11 file found. Could not parse YAML: %s", parser->problem);
+					"Metadata is invalid. Unable to parse YAML: %s", parser->problem);
 			break;
 		}
 
