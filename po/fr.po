@@ -9,21 +9,21 @@
 # Guillaume Feller <guillaumefeller@gmail.com>, 2019.
 # Balaky Félix <balakyatana@gmail.com>, 2020.
 # Bounedjar Mehdi <bounedjar.mehdi@gmail.com>, 2020.
+# Thomas Schwery <thomas@inf3.ch>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-01-27 22:50+0000\n"
-"Last-Translator: Bounedjar Mehdi <bounedjar.mehdi@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2020-03-08 07:32+0000\n"
+"Last-Translator: Thomas Schwery <thomas@inf3.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -374,7 +374,7 @@ msgstr ""
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Création d'une nouvelle entrée de bureau '%s' à partir des données de '%s'"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
@@ -778,7 +778,7 @@ msgstr ""
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
+msgstr "Il serait utile d'ajouter une description longue de cette police, afin de mieux la présenter aux utilisateurs."
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
@@ -811,14 +811,14 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
+msgstr "Les licences pour les composants `runtime` sont habituellement trop complexes pour les représenter avec une expression SPDX simple. Envisagez à utiliser `LicenseRef` et une adresse web comme valeur pour `project_license` du composant. Par exemple `LicenseRef-free=https://example.com/licenses.html`"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
-msgstr ""
+msgstr "Limite le nombre de versions stockées dans le fichier de metainfo (0 pour illimité)."
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -888,7 +888,7 @@ msgstr "Le fichier de métadonnées « %s » n'existe pas."
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
+msgstr "Les fichiers de metainfo ne peuvent contenir que des icônes de type `stock` ou `remote`, le type choisi n'est pas autorisé."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:116
