@@ -10,13 +10,14 @@
 # Balaky Félix <balakyatana@gmail.com>, 2020.
 # Bounedjar Mehdi <bounedjar.mehdi@gmail.com>, 2020.
 # Thomas Schwery <thomas@inf3.ch>, 2020.
+# Irénée THIRION <irenee.thirion@outlook.fr>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-03-08 07:32+0000\n"
-"Last-Translator: Thomas Schwery <thomas@inf3.ch>\n"
+"PO-Revision-Date: 2020-03-14 08:33+0000\n"
+"Last-Translator: Irénée THIRION <irenee.thirion@outlook.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -46,13 +47,10 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:254
-#, fuzzy
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Un élément « requires » ou « recommends » requiert une valeur pour dénoter "
-"une relation valide."
+msgstr "Un item « requires » ou « recommends » requiert une valeur pour dénoter une relation valide."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:195
@@ -96,13 +94,10 @@ msgstr "Afficher également des conseils détaillés."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:510
-#, fuzzy
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Un balise « extends » est spécifiée mais le composant n'est pas du type « "
-"addon », « localization » ou « repository »."
+msgstr "Un balise « extends » est spécifiée mais le composant n'est pas du type « addon », « localization » ou « repository »."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -345,7 +340,7 @@ msgstr ""
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr "Convertir un fichier YAML ou un fichier texte NEWS en version metainfo"
+msgstr "Convertir un fichier YAML ou un fichier texte NEWS en version metainfo."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -359,9 +354,8 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Impossible de trouver des composants qui fournissent « %s::%s »."
 
 #: tools/appstream-cli.c:869
-#, fuzzy
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr "créer un fichier d'entrée de bureau XDG à partir du fichier metainfo."
+msgstr "Créer un fichier d'entrée de bureau XDG à partir du fichier metainfo."
 
 #: tools/appstream-cli.c:868
 msgid ""
@@ -524,7 +518,7 @@ msgid "Featured"
 msgstr "Mises en avant"
 
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
 msgstr "Le fichier de métadonnées « %s » n'existe pas."
 
@@ -580,53 +574,36 @@ msgstr "%i composants trouvés."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:260
-#, fuzzy
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"Un objet requis ou recommandé d'un type qui ne devrait pas avoir besoin "
-"d'une version a une propriété « version »."
+msgstr "Une propriété \"version\" a été trouvée sur un objet requis/recommandé d'un type qui ne devrait pas avoir besoin d'une propriété « version »."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
-#, fuzzy
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"Cet objet requis ou recommandé a une propriété « version », mais n'a pas "
-"celle « compare ». Il est recommandé de définir explicitement une telle "
-"opération de comparaison."
+msgstr "Cet objet requis ou recommandé a une propriété « version », mais n'a pas celle « compare ». Il est recommandé de définir explicitement une telle opération de comparaison."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:277
-#, fuzzy
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Une taille de mémoire vive est marquée comme « requires ». Un utilisateur "
-"qui n'a pas assez de mémoire vive ne pourra donc même pas installer ce "
-"composant. C'est rarement l'effet désiré. Vous pouvez marquer « memory » "
-"comme « recommends »."
+msgstr "Une taille de mémoire vive est marquée comme « requires ». Cela signifie que les utilisateurs n'ayant pas assez de mémoire vive ne pourront donc même pas installer ce composant. C'est rarement l'effet désiré. Vous pouvez marquer « memory » comme « recommends »."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:284
-#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Une taille de mémoire vive est marquée comme « requires ». Un utilisateur "
-"qui n'a pas assez de mémoire vive ne pourra donc même pas installer ce "
-"composant. C'est rarement l'effet désiré. Vous pouvez marquer « memory » "
-"comme « recommends »."
+msgstr "Une taille de mémoire vive est marquée comme « requires ». Un utilisateur qui n'a pas assez de mémoire vive ne pourra donc même pas installer ce composant. C'est rarement l'effet désiré. Vous pouvez marquer « memory » comme « recommends »."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -637,20 +614,13 @@ msgstr ""
 "sûrement une erreur comme une relation de type est inconnue."
 
 #: src/as-validator-issue-tag.h:440
-#, fuzzy
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Label invalide. Un label doit commencer par « x- », sauf s'il est standard. "
-"Le label <custom/> fourni par AppStream permet d'ajouter des données "
-"quelconques aux fichiers métainfos. Lu avec des librairies d'Appstream, ce "
-"label peut être utile si vous voulez juste personnaliser un fichier "
-"métainfos au lieu de définir des labels à haut niveau ou commençant par « x- "
-"»."
+msgstr "Label invalide. Un label doit commencer par « x- », sauf s'il est standard. Le label <custom/> fourni par AppStream permet d'ajouter des données quelconques aux fichiers métainfos. Lu avec des librairies d'Appstream, ce label peut être utile si vous voulez juste personnaliser un fichier métainfos au lieu de définir des labels à haut niveau ou commençant par « x- »."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:526 src/as-validator.c:942 src/as-validator.c:1027
@@ -697,20 +667,15 @@ msgstr "Icône"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:364
-#, fuzzy
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr "Un icône « remote » doit avoir un URL vers l'icône en question."
+msgstr "Un icône de type « remote » doit contenir un URL vers l'icône en question."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:357
-#, fuzzy
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Un icône « stock » ou « cached » ne doit pas contenir d'URL, ni de chemin "
-"d'accès même relatif. Seuls un simple nom de ficher ou un nom « stock » sont "
-"permis."
+msgstr "Un icône de type « stock » ou « cached » ne doit pas contenir d'URL, ni de chemin d'accès même relatif. Seuls les noms de fichiers simples ou les noms 'stock' sont permis."
 
 #: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
@@ -735,23 +700,17 @@ msgstr "Installez le logiciel correspondant à l'identifiant du composant."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:386
-#, fuzzy
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Ce label « url » a une propriété « type » non valide. La specification "
-"d'AppStream n'a pas d'URL de ce type."
+msgstr "Ce label « url » a une propriété « type » non valide. La specification d'AppStream n'a pas d'URL de ce type."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:566
-#, fuzzy
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"La collection de métadonnées contient un label non valide. Sont permis que "
-"les labels « component »."
+msgstr "La collection de métadonnées contient un label non valide. Ne sont permis que les labels « component »."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -879,9 +838,9 @@ msgstr "Les fichiers de métadonnées comportent des erreurs :"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Le fichier de métadonnées « %s » n'existe pas."
+msgstr "Le fichier de métainfos « %s » n'existe pas."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:380
@@ -915,7 +874,7 @@ msgstr "Actualités"
 
 #: src/as-validator-issue-tag.h:602
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
+msgstr "Aucune métadonnée AppStream n'a été trouvée dans ce répertoire ou dans l'arborescence."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:607
@@ -980,9 +939,8 @@ msgstr "Photographie"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstream-cli.c:121
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "Afficher des informations détaillées au sujet des composants trouvés."
+msgstr "Afficher des informations détaillées au sujet des problèmes trouvés."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
@@ -1159,23 +1117,17 @@ msgid ""
 msgstr ""
 
 #: src/as-pool.c:1924
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
-msgstr ""
-"Le système de cache AppStream a été mis à jour, mais des problèmes ont été "
-"trouvés : %s"
+msgstr "Le système de cache AppStream a été mis à jour, mais des problèmes ont été trouvés qui ont entraîné l'ignorance des métadonnées : %s"
 
 #: src/as-pool.c:1922
-#, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr ""
-"Le cache système d'AppStream a été mis à jour, mais des erreurs ont été "
-"détectées, ce qui pourrait conduire à des métadonnées manquantes. Consulter "
-"les journaux verbeux pour plus d'information."
+msgstr "Le cache système d'AppStream a été mis à jour, mais certains composants ont été ignorés. Consulter les journaux verbeux pour plus d'information."
 
 #: src/as-validator-issue-tag.h:151
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1408,9 +1360,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:582
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "Désinstaller le logiciel correspondant à l'identifiant du composant."
+msgstr "Le nom du fichier métainfo ne correspond pas à l'ID du composant."
 
 #: src/as-validator-issue-tag.h:622
 msgid ""
@@ -1460,12 +1411,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:296
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Le type de composant logiciel « %s » n'est pas valide dans AppStream. Les "
-"valeurs possibles sont :"
+msgstr "Le type de composant défini n'est pas un type de composant AppStream reconnu et valide."
 
 #: src/as-validator-issue-tag.h:411
 msgid ""
@@ -1723,14 +1671,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:555
-#, fuzzy
 msgid "Unable to read file."
-msgstr "Impossible de lire le fichier .desktop : %s"
+msgstr "Impossible de lire le fichier."
 
 #: src/as-validator-issue-tag.h:587
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "Impossible de lire le fichier .desktop : %s"
+msgstr "Impossible de lire le fichier .desktop associé avec ce composant."
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
@@ -1885,19 +1831,16 @@ msgstr ""
 "Vous devez fournir en paramètre au moins deux numéros de version à comparer."
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "Vous devez spécifier un fichier de métadonnées."
+msgstr "Vous devez spécifier un fichier NEWS en tant qu'entrée."
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Vous devez spécifier un fichier de métadonnées."
+msgstr "Vous devez spécifier un fichier NEWS comme sortie, ou '-' pour afficher vers \"stdout\"."
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Vous devez spécifier un fichier d'entrée et de sortie."
+msgstr "Vous devez spécifier un format NEWS pour écrire la sortie."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:925
@@ -1912,25 +1855,23 @@ msgid "You need to specify a component-ID."
 msgstr "Vous devez spécifier l'ID du composant."
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Vous devez spécifier le fichier à valider !"
+msgstr "Vous devez spécifier un fichier de saisie sur le bureau à créer ou à augmenter comme sortie."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "Vous devez spécifier un fichier de métadonnées."
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "Vous devez spécifier un fichier de métadonnées."
+msgstr "Vous devez spécifier un fichier métainfo comme entrée."
 
 #: tools/ascli-actions-misc.c:397
 #, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Vous devez spécifier un fichier de métadonnées."
+msgstr "Vous devez spécifier un fichier métainfo à augmenter, ou'-' pour afficher vers \"stdout\"."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"
@@ -1946,9 +1887,8 @@ msgid "You need to specify an input and output file."
 msgstr "Vous devez spécifier un fichier d'entrée et de sortie."
 
 #: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "Vous devez spécifier le fichier à valider !"
+msgstr "Vous devez spécifier au moins un fichier à valider !"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
