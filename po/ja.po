@@ -4,21 +4,21 @@
 # Translators:
 # Ooyama Yosiyuki <qqke6wd9k@apricot.ocn.ne.jp>, 2015
 # Ryo Nakano <ryonakaknock3@gmail.com>, 2019.
+# Grace Guo <grace@appest.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2019-08-14 22:42+0000\n"
-"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
-"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/"
-"translations/ja/>\n"
+"PO-Revision-Date: 2020-03-17 00:36+0000\n"
+"Last-Translator: Grace Guo <grace@appest.com>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/appstream/translations/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.8-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -34,28 +34,29 @@ msgstr "3D グラフィックス"
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "<description />タグは、メタ情報ファイル（アップストリームメタデータ）でローカライズしないでください。代わりに、個々の段落をローカライズします。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:254
+#, fuzzy
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
+msgstr "「requires」または「recommends」項目には、有効な関係を示す値が必要です。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:195
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "スクリーンショットには、少なくとも1つの画像またはビデオが含まれている必要があります。 <image />を追加してください。"
 
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "スクリーンショットには画像または動画のいずれかを含める必要がありますが、両方を同時に含めることはできません。このスクリーンショットは、静止画像または動画専用に使用してください。"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -83,7 +84,7 @@ msgstr "詳細なヒントも表示します。"
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
+msgstr "「extends」タグが指定されていますが、コンポーネントのタイプが「addon」、「localization」、または「repository」ではありません。"
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -135,7 +136,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "AppStreamの説明は、テキスト（Paragraphs（<p />）およびList（<ul />、<ol />）をフォーマットするための限られたタグのみをサポートします。この説明のマークアップには、メタ情報仕様をサポートするアプリケーションで正しくレンダリングされない無効なXMLタグが含まれています。"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -163,7 +164,7 @@ msgstr "AppStream バージョン: %s"
 #: src/as-category.c:129
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "アーケード"
 
 #: src/as-category.c:234
 msgctxt "Category of Science"
@@ -174,12 +175,12 @@ msgstr "人工知能"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
+msgstr "AppStream仕様に従って、言及されたタグはこのコンテキストで1回だけで表示されます。この種のタグを複数持つことは無効です。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "入力ファイルが選択した形式（「yaml」または「text」）であると仮定します。"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -204,7 +205,7 @@ msgstr "オーディオ制作と編集"
 #: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "既存のデスクトップ入力ファイル「％s」を「％s」のデータで拡張しています。"
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -222,7 +223,7 @@ msgstr "ボード"
 
 #: tools/ascli-utils.c:299
 msgid "Bundle"
-msgstr ""
+msgstr "バンドル"
 
 #: src/as-pool.c:1828
 #, c-format
@@ -293,51 +294,51 @@ msgstr "コンポーネント '%s' にはインストール候補がありませ
 
 #: tools/ascli-utils.c:377
 msgid "Compulsory for"
-msgstr ""
+msgstr "必須的に"
 
 #: src/as-validator-issue-tag.h:374
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
+msgstr "リモートアイコンリンクに安全な（HTTPS）URLを使用することを検討してください。"
 
 #: src/as-validator-issue-tag.h:396
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "このWebリンクには安全な（HTTPS）URLを使用することを検討してください。"
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
+msgstr "安全な（HTTPS）URLを使用して、このスクリーンショット画像またはビデオを参照することを検討してください。"
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "YAMLまたはテキストNEWSファイルをメタ情報リリースに変換します。"
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
 msgid "Convert collection XML to YAML or vice versa."
-msgstr ""
+msgstr "コレクションXMLをYAMLに、またはその逆に変換する。"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:228
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr ""
+msgstr "'％s ::％s'を提供できるコンポーネントが見つかりません。"
 
 #: tools/appstream-cli.c:869
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "メタインフォファイルからXDGデスクトップエントリファイルを作成します。"
 
 #: tools/appstream-cli.c:868
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
+msgstr "メタインフォファイルのテンプレートを作成します（アップストリームプロジェクトが記入します）。"
 
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "「%s」のデータを使用して新しいデスクトップエントリファイル「%s」を作成しています"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
@@ -400,8 +401,9 @@ msgid "Don't show colored output."
 msgstr "カラーで出力を表示しません。"
 
 #: tools/appstream-cli.c:853
+#, fuzzy
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "IDに一致するコンポーネントの生のXMLメタデータをダンプします。"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -425,7 +427,7 @@ msgstr "強制的にキャッシュを更新します。"
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "列挙子には子要素としてリスト項目(<li/>)があります。"
 
 #: tools/ascli-actions-misc.c:159
 #, c-format
@@ -498,7 +500,7 @@ msgstr "ファイナンス"
 
 #: src/as-provided.c:164
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "フラッシュされたファームウェア"
 
 #: src/as-provided.c:150
 msgid "Fonts"
@@ -514,11 +516,10 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
+msgstr "ビデオの場合、現在サポートされているのはWebMおよびMatroska（.mkv）コンテナ形式のみです。参照されるビデオのファイル拡張子は、これらの形式のいずれにも属していません。"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "デフォルトのメタデータファイル形式 (有効な値は 'xml' と 'yaml')。"
 
