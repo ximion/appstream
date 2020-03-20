@@ -8,7 +8,7 @@
 # Alexsander Gomes <alexsander.gomes1996@gmail.com>, 2019.
 # Lidia Gomes <lidiane86gomes@gmail.com>, 2019, 2020.
 # Ervin <zetsmart@gmail.com>, 2019.
-# Cassio Lamarck Silva Freitas <cassiolamarcksilvafreitas@gmail.com>, 2020.
+# Cassio Lamarck Silva Freitas <cassiolamarcksilvafreitas@gmail.com>, 2020, 2021.
 # Gustavo Maciel <gustamaciel2012@hotmail.com>, 2020, 2021.
 # Manuela Silva <mmsrs@sky.com>, 2020, 2021.
 # Allan Lago <allanlago1@gmail.com>, 2020.
@@ -31,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Gustavo Maciel <gustamaciel2012@hotmail.com>\n"
+"Last-Translator: Cassio Lamarck Silva Freitas <cassiolamarcksilvafreitas@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -1105,9 +1105,7 @@ msgstr "A descrição contém um URL em texto sem formatação. Isso não é per
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"Conforme a especificação do AppStream, a tag mencionada só deve aparecer uma "
-"vez neste contexto. Ter várias tags desse tipo não é válido."
+msgstr "Conforme a especificação do AppStream, a tag mencionada só deve aparecer uma vez neste contexto. Ter várias tags desse tipo não é válido."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
@@ -1310,9 +1308,7 @@ msgstr "Uma marcação desconhecida encontrada num grupo requer/recomenda. Isso 
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Um item 'requires' ou 'recommends' requer um valor para denotar uma relação "
-"válida."
+msgstr "Um item 'requires' ou 'recommends' requer um valor para denotar uma relação válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
@@ -1623,9 +1619,7 @@ msgstr "O componente do tipo `driver`, porém a marcação `provides/modalias` n
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Uma tag 'extends' está definida, porém o componente não é do tipo 'addon', "
-"'localization' ou 'repository'."
+msgstr "Uma tag 'extends' está definida, porém o componente não é do tipo 'addon', 'localization' ou 'repository'."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
