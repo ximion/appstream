@@ -283,7 +283,7 @@ as_validator_setup_networking (AsValidator *validator)
 	priv->soup_session = soup_session_new_with_options (SOUP_SESSION_USER_AGENT,
 							    "appstream-validator",
 							    SOUP_SESSION_TIMEOUT,
-							    5000,
+							    90,
 							    NULL);
 	if (priv->soup_session == NULL) {
 		g_critical ("Failed to set up networking support");
