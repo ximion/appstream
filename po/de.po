@@ -17,13 +17,14 @@
 # frauhottelmann <frauhottelmann@gmail.com>, 2020.
 # iLocIT! <matthiasc@ilocit.de>, 2020.
 # Sven G. <sven79hd@gmail.com>, 2020.
+# Allan Nordhøy <epost@anotheragency.no>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-03-06 14:32+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2020-04-03 19:02+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -602,17 +603,12 @@ msgstr "Eine Speichergrößenrelation in einem Auszeichner »requires« gefunden
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:284
-#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Eine abhaengige Datei von Speicherung in einem Tag 'erfordert' gefunden ist. "
-"Das bedeutet dass die Benutzer kein Komponent dazu installieren werden "
-"koennen, ohne genug RAM zu haben. Man will dies nicht im allgemeinen und man "
-"will die 'Speicherung'  eigentlichim Tag 'empfehlt' trotzdem gebrauchen."
+msgstr "Eine abhaengige Datei von Speicherung in einem Tag 'erfordert' gefunden ist. Das bedeutet dass die Benutzer kein Komponent dazu installieren werden koennen, ohne genug RAM zu haben. Man will dies nicht im allgemeinen und man will die 'Speicherung' eigentlichim Tag 'empfehlt' trotzdem gebrauchen."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -623,20 +619,13 @@ msgstr ""
 "wohl ein Fehler, weil die Beziehung von solchem Komponent unbekannt ist."
 
 #: src/as-validator-issue-tag.h:440
-#, fuzzy
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Ungueltiges Tag gefunden. Die nicht feste Tags muessen das Prefix 'x' haben. "
-"Appstream vorhandet auch das Tag <custom/> um freie Daten von "
-"Personalisierung  den Dateien MetaIfo vorzuhanden.  Dies Tag wird in den "
-"Bibliotheken AppSteam gelesen und nutzt auch wenn kein personalisiertes "
-"Hochnivot oder 'x' Tags mit Prefix bestimmt sind. Falls Sie personalisierte "
-"Daten einem File MetaInfo fuegen wollen."
+msgstr "Ungueltiges Tag gefunden. Die nicht feste Tags muessen das Prefix 'x' haben. Appstream vorhandet auch das Tag <custom/> um freie Daten von Personalisierung den Dateien MetaIfo vorzuhanden. Dies Tag wird in den Bibliotheken AppSteam gelesen und nutzt auch wenn kein personalisiertes Hochnivot oder 'x' Tags mit Prefix bestimmt sind. Falls Sie personalisierte Daten einem File MetaInfo fuegen wollen."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:526 src/as-validator.c:942 src/as-validator.c:1027
