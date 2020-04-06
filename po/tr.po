@@ -12,16 +12,15 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-01-15 03:21+0000\n"
+"PO-Revision-Date: 2020-04-06 20:34+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
-"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/"
-"translations/tr/>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -43,13 +42,10 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:254
-#, fuzzy
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Bir 'requires' ya da 'recommends' ögesi geçerli bir ilişkiyi belirtmek için "
-"bir değer gerektirmektedir."
+msgstr "Bir `requires` veya `recommends` ögesi, geçerli bir ilişkiyi belirtmek için bir değer gerektirmektedir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:195
@@ -93,13 +89,10 @@ msgstr "Ayrıca detaylı ipuçları göster."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:510
-#, fuzzy
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Bir 'extends' etiketi belirtildi, ancak bileşen 'addon', 'localization' ya "
-"da 'repository' türünde değil."
+msgstr "Bir `extends` etiketi belirtildi, ancak bileşen `addon`, `localization` ya da `repository` türünde değil."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -554,7 +547,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Oluşturulan raporun formatı (geçerli değerler 'text' ve 'yaml')."
+msgstr "Oluşturulan raporun biçimi (geçerli değerler 'text' ve 'yaml')."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -569,77 +562,51 @@ msgstr "%i bileşen bulundu."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:260
-#, fuzzy
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"'version' özelliği, versiyona sahip olması veya istemesi gerekmeyen bir "
-"türün gerekli/önerilen ögesinde bulundu."
+msgstr "`version` özelliği, bir sürüme sahip olması veya istemesi gerekmeyen bir türün gereken/tavsiye edilen ögesinde bulundu."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
-#, fuzzy
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"Bu gerekli/önerilen ögede 'version' özelliği bulundu, ancak 'compare' "
-"özelliği bulunamadı. Bir karşılaştırma işleminin açıkça tanımlanması "
-"önerilir."
+msgstr "Bu gereken/tavsiye edilen ögede `version` özelliği bulundu, ancak `compare` özelliği bulunamadı. Bir karşılaştırma işleminin açıkça tanımlanması önerilir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:277
-#, fuzzy
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Bir 'requires' etiketinde bir bellek boyutu bağımlılığı bulundu. Bu, "
-"kullanıcıların yeterli RAM'e sahip olmadan bileşeni yükleyemeyecekleri "
-"anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine 'recommends' "
-"etiketinde 'memory' kullanmak istersiniz."
+msgstr "Bir `requires` etiketinde bir bellek boyutu bağımlılığı bulundu. Bu, kullanıcıların yeterli RAM'e sahip olmadan bileşeni yükleyemeyecekleri anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine `recommends` etiketinde `memory` kullanmak istersiniz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:284
-#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Bir 'requires' etiketinde bir bellek boyutu bağımlılığı bulundu. Bu, "
-"kullanıcıların yeterli RAM'e sahip olmadan bileşeni yükleyemeyecekleri "
-"anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine 'recommends' "
-"etiketinde 'memory' kullanmak istersiniz."
+msgstr "Bir `requires` etiketinde bir bellek boyutu bağımlılığı bulundu. Bu, kullanıcıların yeterli RAM'e sahip olmadan bileşeni yükleyemeyecekleri anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine `recommends` etiketinde `control` kullanmak istersiniz."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Gerektirir/tavsiye edilir grubunda bilinmeyen bir etiket bulundu. Bu büyük "
-"olasılıkla bir hatadır, çünkü bu tür bir bileşen ilişkisi bilinmemektedir."
+msgstr "Gerektirir/tavsiye eder grubunda bilinmeyen bir etiket bulundu. Bu büyük olasılıkla bir hatadır, çünkü bu tür bir bileşen ilişkisi bilinmemektedir."
 
 #: src/as-validator-issue-tag.h:440
-#, fuzzy
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Geçersiz etiket bulundu. Standart olmayan etiketlerde 'x-' ön eki "
-"kullanılmalıdır. AppStream ayrıca metainfo dosyalarına isteğe bağlı özel "
-"veriler eklemek için <custom/> etiketini sağlamaktadır. Bu etiket AppStream "
-"kütüphaneleri tarafından okunur ve tek yapmak istediğiniz bir metainfo "
-"dosyasına özel veri eklemek ise, yeni özel üst düzey veya 'x-' öneki ile "
-"etiketler tanımlamaktan daha kullanışlı olabilir."
+msgstr "Geçersiz etiket bulundu. Standart olmayan etiketlerde `x-` ön eki kullanılmalıdır. AppStream ayrıca metainfo dosyalarına isteğe bağlı özel veriler eklemek için <custom/> etiketini sağlamaktadır. Bu etiket AppStream kütüphaneleri tarafından okunur ve tek yapmak istediğiniz bir metainfo dosyasına özel veri eklemek ise, yeni özel üst düzey veya `x-` ön eki ile etiketler tanımlamaktan daha kullanışlı olabilir."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:526 src/as-validator.c:942 src/as-validator.c:1027
@@ -656,7 +623,7 @@ msgstr "Oyunlar"
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
 msgid "Generate the output in the selected format ('yaml' or 'text')."
-msgstr "Çıkışı seçilen formatta ('yaml' veya 'text') oluşturun."
+msgstr "Çıktıyı seçilen biçimde ('yaml' veya 'text') oluştur."
 
 #: tools/appstream-cli.c:849
 msgid "Get components which provide the given item."
@@ -686,20 +653,15 @@ msgstr "Simge"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:364
-#, fuzzy
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr "'remote' türündeki simgeler, başvurulan simgeye bir URL içermelidir."
+msgstr "`remote` türündeki simgeler, başvurulan simgeye bir URL içermelidir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:357
-#, fuzzy
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"'stock' veya 'cache' türündeki simgeler, bir URL, simgeye tam veya göreceli "
-"bir yol içermemelidir. Yalnızca dosya adlarına veya stok adlarına izin "
-"verilir."
+msgstr "`stock` veya `cache` türündeki simgeler, bir URL, simgeye tam veya göreceli bir yol içermemelidir. Yalnızca dosya adlarına veya stok adlarına izin verilir."
 
 #: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
@@ -724,23 +686,17 @@ msgstr "Bileşen kimliğiyle eşleşen yazılım yükle."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:386
-#, fuzzy
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Bu 'url' etiketi için geçersiz 'type' özelliği. Bu tür URL’ler AppStream "
-"spesifikasyonunda bilinmemektedir."
+msgstr "Bu `url` etiketi için geçersiz `type` özelliği. Bu tür URL’ler AppStream spesifikasyonunda bilinmemektedir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:566
-#, fuzzy
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"Koleksiyon meta verilerinde geçersiz etiket bulundu. Yalnızca 'component' "
-"etiketlerine izin verilir."
+msgstr "Koleksiyon meta verilerinde geçersiz etiket bulundu. Sadece `component` etiketlerine izin verilir."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -758,9 +714,7 @@ msgstr ""
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
-"Kullanıcılara daha iyi sunabilmek için bu bileşene uzun bir açıklama "
-"eklemeniz önerilir."
+msgstr "Kullanıcılara daha iyi sunabilmek için bu bileşene uzun bir açıklama eklemeniz tavsiye edilir."
 
 #: src/as-validator-issue-tag.h:458
 msgid ""
@@ -796,17 +750,12 @@ msgstr "Lisans"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:642
-#, fuzzy
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
-"'runtime' bileşenleri için lisanslar, genellikle bunları basit bir SPDX "
-"ifadesinde belirtmek için çok karmaşıktır. Bu bileşenin 'project_license' "
-"değeri için bir `LicenseRef` ve bir web URL'si kullanmayı düşünün. Örn. "
-"`LicenseRef-free=https://example.com/licenses.html`"
+msgstr "`runtime` bileşenleri için lisanslar, genellikle bunları basit bir SPDX ifadesinde belirtmek için çok karmaşıktır. Bu bileşenin `project_license` değeri için bir `LicenseRef` ve bir web URL'si kullanmayı düşünün. Örn. `LicenseRef-free=https://example.com/licenses.html`"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
@@ -881,13 +830,10 @@ msgstr "Meta bilgi dosyası '%s' mevcut değil."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:380
-#, fuzzy
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Metainfo dosyaları sadece 'stock' veya 'remote' türünde simgeler içerebilir, "
-"set türüne izin verilmez."
+msgstr "Metainfo dosyaları sadece `stock` veya `remote` türünde simgeler içerebilir, set türüne izin verilmez."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:116
@@ -932,8 +878,7 @@ msgstr "Simge yok."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
-"Çıkış dosyası adı belirtilmedi, metainfo dosyası doğrudan değiştiriliyor."
+msgstr "Çıktı dosyası adı belirtilmedi, metainfo dosyası doğrudan değiştiriliyor."
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
@@ -1079,15 +1024,11 @@ msgid "Show the program version."
 msgstr "Program sürümünü göster."
 
 #: src/as-validator-issue-tag.h:648
-#, fuzzy
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
-"Bir 'runtime' bileşeni diğer birden çok yazılım bileşeninden oluştuğu için, "
-"bileşen kimlikleri bu çalışma zamanı için bir `<provides/>` bölümünde "
-"listelenebilir."
+msgstr "Bir `runtime` bileşeni diğer birden çok yazılım bileşeninden oluştuğu için, bileşen kimlikleri bu çalışma zamanı için bir `<provides/>` bölümünde listelenebilir."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
@@ -1106,13 +1047,10 @@ msgstr "Alt komutlar:"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:540
-#, fuzzy
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr ""
-"Metainfo dosyalarında 'upstream' dışında başka bir türde önerilere izin "
-"verilmez."
+msgstr "Metainfo dosyalarında `upstream` dışında başka bir türde önerilere izin verilmez."
 
 #: tools/ascli-utils.c:297
 msgid "Summary"
@@ -1152,23 +1090,17 @@ msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "<developer_name/> bir hiperlink içeremez."
 
 #: src/as-validator-issue-tag.h:326
-#, fuzzy
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"<id/> etiketi hala, büyük olasılıkla son metainfo biçimine eski bir "
-"dönüşümden kalan, bir 'type' özelliği içeriyor."
+msgstr "<id/> etiketi hala, büyük olasılıkla son metainfo biçimine eski bir dönüşümden kalan, bir `type` özelliği içeriyor."
 
 #: src/as-validator-issue-tag.h:629
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"AppStream spesifikasyonu, tarihleri belirtmek için en az gün derecesinde "
-"ayrıntıya sahip tam bir ISO 8601 tarih stringi gerektirmektedir. Lütfen "
-"tarih stringinin geçerli olduğundan emin olun."
+msgstr "AppStream spesifikasyonu, tarihleri belirtmek için en az gün derecesinde ayrıntıya sahip tam bir ISO 8601 tarih dizgesi gerektirmektedir. Lütfen tarih dizgesinin geçerli olduğundan emin olun."
 
 #: src/as-pool.c:1924
 #, c-format
@@ -1202,23 +1134,17 @@ msgid "The XML of this file is malformed."
 msgstr "Bu dosyanın XML'i bozuk."
 
 #: src/as-validator-issue-tag.h:331
-#, fuzzy
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"'pkgname' etiketi birden fazla kez görünmektedir. Bileşen başına birden "
-"fazla paket adı tanımlamaktan kaçınmak için metainfo ve .desktop dosyalarını "
-"içeren bir metapaket oluşturmayı değerlendirmelisiniz."
+msgstr "`pkgname` etiketi birden fazla kez görünmektedir. Bileşen başına birden fazla paket adı tanımlamaktan kaçınmak için metainfo ve .desktop dosyalarını içeren bir metapaket oluşturmayı değerlendirmelisiniz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:429
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr ""
-"'update_contact' etiketi AppStream XML koleksiyonuna dahil edilmemelidir."
+msgstr "`update_contact` etiketi AppStream XML koleksiyonuna dahil edilmemelidir."
 
 #: src/as-validator-issue-tag.h:597
 msgid ""
@@ -1237,15 +1163,11 @@ msgstr ""
 "Spesifikasyonuna bakın."
 
 #: src/as-validator-issue-tag.h:124
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr ""
-"Bileşen kimliği bir tire/eksi içermektedir. D-Bus gibi diğer araçlarla "
-"birlikte çalışabilirliği artırmak için tire kullanılması şiddetle önerilmez. "
-"İyi bir seçenek, herhangi bir tireyi alt çizgi ('_') ile değiştirmektir."
+msgstr "Bileşen kimliği bir tire/eksi içermektedir. D-Bus gibi diğer araçlarla birlikte çalışabilirliği artırmak için tire kullanmaktan kaçınılması şiddetle tavsiye edilir. İyi bir seçenek, herhangi bir tireyi alt çizgi (`_`) ile değiştirmektir."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1278,39 +1200,26 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"Bileşen kimliği, ters alan adı değil. Lütfen gelecekteki sorunları önlemek "
-"ve tüm AppStream uygulamalarıyla uyumlu olmak için kimliği güncelleyin.\n"
-"Masaüstü-Girdi spesifikasyonunun en son sürümünü takip etmek için "
-"beraberindeki .desktop dosyasının adını güncellemeyi ve bunun için bir rDNS "
-"adı kullanmayı da düşünebilirsiniz. Her durumda, uygulamanın yazılım "
-"merkezlerinden ve metainfo verileriyle ilişkili .desktop dosya verilerinden "
-"başlatılabilmesi için bu bileşenin <launchable/> etiketindeki yeni masaüstü "
-"girdisinden bahsetmeyi unutmayın."
+"Bileşen kimliği, ters etki alanı adı değil. Lütfen gelecekteki sorunları önlemek ve tüm AppStream uygulamalarıyla uyumlu olmak için kimliği güncelleyin.\n"
+"Masaüstü-Girdi spesifikasyonunun en son sürümünü takip etmek için beraberindeki .desktop dosyasının adını güncellemeyi ve bunun için bir rDNS adı kullanmayı da düşünebilirsiniz. Her durumda, uygulamanın yazılım merkezlerinden ve metainfo verileriyle ilişkili .desktop dosya verilerinden başlatılabilmesi için bu bileşenin <launchable/> etiketindeki yeni masaüstü girdisinden bahsetmeyi unutmayın."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
-"Bileşen kimliği, adı için ters alan adı şemasını takip etmek için "
-"gereklidir. Ayrıntılar için AppStream spesifikasyonuna bakın."
+msgstr "Bileşen kimliği, adı için ters etki alanı şemasını takip etmek için gereklidir. Ayrıntılar için AppStream spesifikasyonuna bakın."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
-"Bileşen kimliği, ters alan adı şemasını izlemeyebilir (bunun tarafından "
-"kullanılan TLD, doğrulayıcı tarafından bilinmiyor)."
+msgstr "Bileşen kimliği, ters etki alanı adı şemasını izlemeyebilir (bunun tarafından kullanılan TLD, doğrulayıcı tarafından bilinmiyor)."
 
 #: src/as-validator-issue-tag.h:306
-#, fuzzy
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Bileşenin tanımlanmış bir 'merge' metodu var. Buna metainfo dosyalarında "
-"izin verilmemektedir."
+msgstr "Bileşenin tanımlanmış bir `merge` metodu var. Buna metainfo dosyalarında izin verilmemektedir."
 
 #: src/as-validator-issue-tag.h:301
 msgid ""
@@ -1322,29 +1231,26 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:516
-#, fuzzy
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr "Bileşen bir eklentidir, ancak 'extends' etiketi belirtilmedi."
+msgstr "Bileşen bir eklentidir, ancak `extends` etiketi belirtilmedi."
 
 #: src/as-validator-issue-tag.h:453
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
-"Bileşenin uzun bir açıklaması bulunmamaktadır. Bu tür bileşenlerin uzun bir "
-"açıklaması olmalıdır."
+msgstr "Bileşenin uzun bir açıklaması eksik. Bu tür bileşenlerin uzun bir açıklaması olmalıdır."
 
 #: src/as-validator-issue-tag.h:316
 msgid "The component is missing a name (<name/> tag)."
-msgstr "Bileşenin bir adı (<name/> etiketi) bulunmamaktadır."
+msgstr "Bileşenin adı (<name/> etiketi) eksik."
 
 #: src/as-validator-issue-tag.h:321
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr "Bileşenin bir özeti (<summary/> etiketi) bulunmamaktadır."
+msgstr "Bileşenin özeti (<summary/> etiketi) eksik."
 
 #: src/as-validator-issue-tag.h:311
 msgid "The component is missing an ID (<id/> tag)."
-msgstr "Bileşenin bir kimliği (<id/> etiketi) bulunmamaktadır."
+msgstr "Bileşenin kimliği (<id/> etiketi) eksik."
 
 #: src/as-validator-issue-tag.h:136
 msgid ""
@@ -1371,18 +1277,16 @@ msgstr ""
 "(\"org.kde\") başlamıyor."
 
 #: src/as-validator-issue-tag.h:336
-#, fuzzy
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr "Bileşen adı (muhtemelen) bir nokta ('.') ile bitmemelidir."
+msgstr "Bileşen adı (muhtemelen) nokta (`.`) ile bitmemelidir."
 
 #: src/as-validator-issue-tag.h:346
 msgid "The component summary must not contain tabs or linebreaks."
 msgstr "Bileşen özeti sekme veya satır sonu karakterleri içermemelidir."
 
 #: src/as-validator-issue-tag.h:341
-#, fuzzy
 msgid "The component summary should not end with a dot (`.`)."
-msgstr "Bileşen özeti nokta ('.') ile bitmemelidir."
+msgstr "Bileşen özeti nokta (`.`) ile bitmemelidir."
 
 #: src/as-validator-issue-tag.h:243
 msgid ""
@@ -1414,26 +1318,18 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:448
-#, fuzzy
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
-"Gerekli etiket 'metadata_license' eksik. Meta verilerin kendisi için bir "
-"lisans her zaman tanımlanmalıdır."
+msgstr "`metadata_license` gerekli etiketi eksik. Meta verilerin kendisi için bir lisans her zaman tanımlanmalıdır."
 
 #: src/as-validator-issue-tag.h:79
-#, fuzzy
 msgid ""
 "The first `description/p` paragraph of this component might be too short (< "
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-"Bu bileşenin ilk 'description/p' paragrafı çok kısa olabilir (< 80 "
-"karakter). Açıklamanın yazılım merkezlerinde nasıl göründüğünü iyileştirmek "
-"ve hemen ilk paragrafta bu bileşen hakkında daha ayrıntılı bilgi sağlamak "
-"için lütfen daha uzun bir paragrafla başlamayı düşünün."
+msgstr "Bu bileşenin ilk `description/p` paragrafı çok kısa olabilir (< 80 karakter). Açıklamanın yazılım merkezlerinde nasıl göründüğünü iyileştirmek ve hemen ilk paragrafta bu bileşen hakkında daha ayrıntılı bilgi sağlamak için lütfen daha uzun bir paragrafla başlamayı düşünün."
 
 #: src/as-validator-issue-tag.h:156
 msgid ""
@@ -1481,13 +1377,10 @@ msgstr ""
 "lisans altında lisanslayın."
 
 #: src/as-validator-issue-tag.h:612
-#, fuzzy
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Metainfo dosyası, eski bir yolda saklanmaktadır. Lütfen '/usr/share/"
-"metainfo' dizinine yerleştirin."
+msgstr "Metainfo dosyası, eski bir yolda saklanmaktadır. Lütfen `/usr/share/metainfo` dizinine yerleştirin."
 
 #: src/as-validator-issue-tag.h:617
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -1530,50 +1423,34 @@ msgstr "Ekran görüntüsünün bir başlık metni yok. Bir tane eklemeyi düş�
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:218
-#, fuzzy
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
-"Ekran görüntüsü videosu, 'container' özelliğinde hangi konteyner formatının "
-"kullanıldığını belirtmemektedir."
+msgstr "Ekran görüntüsü videosu, `container` özelliğinde hangi konteyner biçiminin kullanıldığını belirtmemektedir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:212
-#, fuzzy
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
-"Ekran görüntüsü videosu, 'codec' özelliğinde hangi video codec'inin "
-"kullanıldığını belirtmemektedir."
+msgstr "Ekran görüntüsü videosu, `codec` özelliğinde hangi video codec'inin kullanıldığını belirtmemektedir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:224
-#, fuzzy
 msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"Seçilen video codec'i AppStream tarafından desteklenmemektedir ve yazılım "
-"merkezleri videoyu oynatamayabilir. Şu anda sadece AV1 ve VP9 codec'leri "
-"desteklenmekte, 'codec' özelliği için 'av1' ve 'vp9' değerleri "
-"kullanılmaktadır."
+msgstr "Seçilen video codec'i AppStream tarafından desteklenmemektedir ve yazılım merkezleri videoyu oynatamayabilir. Şu anda sadece AV1 ve VP9 codec'leri desteklenmekte, `codec` özelliği için `av1` ve `vp9` değerleri kullanılmaktadır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:231
-#, fuzzy
 msgid ""
 "The selected video container format is not supported by AppStream and "
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"Seçilen video konteyner formatı AppStream tarafından desteklenmemektedir ve "
-"yazılım merkezleri videoyu oynatamayabilir. Şu anda sadece WebM ve Matroska "
-"video konteynerleri desteklenmekte, 'container' özelliği için 'webm' ve "
-"'mkv' değerleri kullanılmaktadır."
+msgstr "Seçilen video konteyner biçimi AppStream tarafından desteklenmemektedir ve yazılım merkezleri videoyu oynatamayabilir. Şu anda sadece WebM ve Matroska video konteynerleri desteklenmekte, `container` özelliği için `webm` ve `mkv` değerleri kullanılmaktadır."
 
 #: src/as-validator-issue-tag.h:296
 msgid ""
@@ -1608,22 +1485,17 @@ msgid ""
 msgstr "Bileşenin sağladığı ögenin türü AppStream tarafından bilinmemektedir."
 
 #: src/as-validator-issue-tag.h:174
-#, fuzzy
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"Güncelleme-irtibatı geçerli bir e-posta adresi gibi görünmüyor ('@' "
-"karakterini kaçırmaya yalnızca '_at_' veya '_AT_' olarak izin verilmektedir)."
+msgstr "Güncelleme-irtibatı geçerli bir e-posta adresi gibi görünmüyor (`@` karakterini kaçırmaya yalnızca `_at_` veya `_AT_` olarak izin verilmektedir)."
 
 #: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
-"Doğrulayıcı '%s' formatında rapor oluşturamaz. Bunun yerine 'yaml' veya "
-"'text' seçebilirsiniz."
+msgstr "Doğrulayıcı '%s' biçiminde rapor oluşturamaz. Bunun yerine 'yaml' veya 'text' seçebilirsiniz."
 
 #: src/as-validator-issue-tag.h:577
 msgid ""
@@ -1635,83 +1507,60 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:423
-#, fuzzy
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr "Bu 'bundle' etiketi bilinmeyen bir türe sahiptir ve kullanılamaz."
+msgstr "Bu `bundle` etiketi bilinmeyen bir türe sahiptir ve kullanılamaz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:291
-#, fuzzy
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-".desktop dosyasında tanımlanan kategori geçerli değildir. Geçerli "
-"kategorilerin listesi için XDG Menü Spesifikasyonuna bakın."
+msgstr "Bu `control` ögesi bilinmeyen bir giriş yöntemi tanımlamaktadır ve geçersizdir. İzin verilen değerlerin listesi için spesifikasyonu kontrol edin."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
-#, fuzzy
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr "Bu 'launchable' etiketi bilinmeyen bir türe sahiptir ve kullanılamaz."
+msgstr "Bu `launchable` etiketi bilinmeyen bir türe sahiptir ve kullanılamaz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:528
-#, fuzzy
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr ""
-"Bu 'localization' bileşeni, bu yerelleştirmenin ait olduğu herhangi bir dil "
-"tanımlamamaktadır."
+msgstr "Bu `localization` bileşeni, bu yerelleştirmenin ait olduğu herhangi bir dil tanımlamamaktadır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:522
-#, fuzzy
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
-"Bu 'localization' bileşeninde, yerelleştirmeye eklediği bileşenleri "
-"belirtmek için bir 'extends' etiketi bulunmamaktadır."
+msgstr "Bu `localization` bileşeninde, yerelleştirmeye eklediği bileşenleri belirtmek için bir `extends` etiketi eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:534
-#, fuzzy
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
-msgstr ""
-"Bu 'service' bileşeninde, 'service' türünde bir 'launchable' etiketi "
-"bulunmamaktadır."
+msgstr "Bu `service` bileşeninde, `service` türünde bir `launchable` etiketi eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:486
-#, fuzzy
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
-"Bu 'web-application' bileşeninde, geçerli bir simge belirtmek için bir "
-"'icon' etiketi bulunmamaktadır."
+msgstr "Bu `web-application` bileşeninde, geçerli bir simge belirtmek için bir `icon` etiketi eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:480
-#, fuzzy
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
-"Bu 'web-application' bileşeninde, 'url' türünde bir 'launchable' etiketi "
-"bulunmamaktadır."
+msgstr "Bu `web-application` bileşeninde, `url` türünde bir `launchable` etiketi eksik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:492
-#, fuzzy
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
-"Bu 'web-application' bileşeninde sınıflandırmalar bulunmamaktadır. "
-"Muhtemelen bir 'categories' bloğu eksik."
+msgstr "Bu `web-application` bileşeninde sınıflandırmalar eksik. Muhtemelen bir `categories` bloğu eksik."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:680
@@ -1727,10 +1576,7 @@ msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr ""
-"Bu bileşen, kesinlikle amaçlanmayan ve bu meta verilerle ilgilenen "
-"kullanıcıları veya makineleri şaşırtabilecek şekilde, kendisini "
-"genişletmekte, sağlamakta, istemekte veya önermektedir."
+msgstr "Bu bileşen, kesinlikle amaçlanmayan ve bu meta verilerle ilgilenen kullanıcıları veya makineleri şaşırtabilecek şekilde, kendisini genişletmekte, sağlamakta, gerektirmekte veya tavsiye etmektedir."
 
 #: src/as-validator-issue-tag.h:592
 msgid "This component metadata refers to a non-existing .desktop file."
@@ -1764,9 +1610,7 @@ msgstr ""
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
-"Bu genel bileşenin uzun bir açıklaması bulunmamaktadır. Bir tane eklemek "
-"faydalı olabilir."
+msgstr "Bu genel bileşenin uzun bir açıklaması eksik. Bir tane eklemek faydalı olabilir."
 
 #: src/as-validator-issue-tag.h:434
 msgid ""
@@ -1811,37 +1655,28 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:474
-#, fuzzy
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
-"'console-application' türünde bileşen, ancak bir 'provides/binary' etiketi "
-"ile $PATH içindeki binary dosyalar hakkında herhangi bir bilgi sağlanmadı."
+msgstr "`console-application` türünde bileşen, ancak bir `provides/binary` etiketi ile $PATH içindeki ikili dosyalar hakkında herhangi bir bilgi sağlanmadı."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:504
-#, fuzzy
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr ""
-"'driver' türünde bileşen, ancak bir provides/modalias etiketi ile herhangi "
-"bir modalias bilgisi sağlanmadı."
+msgstr "`driver` türünde bileşen, ancak bir `provides/modalias` etiketi ile herhangi bir modalias bilgisi sağlanmadı."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:498
-#, fuzzy
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr ""
-"'font' türünde bileşen, ancak 'provides/font' etiketi ile herhengi bir yazı "
-"tipi bilgisi sağlanmadı."
+msgstr "`font` türünde bileşen, ancak `provides/font` etiketi ile herhangi bir yazı tipi bilgisi sağlanmadı."
 
 #: src/as-validator.c:333
 msgid "URL format is invalid."
-msgstr "URL formatı geçersiz."
+msgstr "URL biçimi geçersiz."
 
 #: tools/ascli-actions-mdata.c:544
 #, c-format
@@ -1853,9 +1688,7 @@ msgstr "Şablon metainfo dosyası inşa edilemedi: %s"
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Dosya dönüştürülemedi: Çıktı formatı belirlenemedi, lütfen '--format=' "
-"kullanarak belirtin."
+msgstr "Dosya dönüştürülemedi: Çıktı biçimi belirlenemedi, lütfen '--format=' kullanarak belirtin."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:177
@@ -2063,13 +1896,11 @@ msgstr "Bir NEWS dosyasını giriş olarak belirtmeniz gerekmektedir."
 
 #: tools/ascli-actions-misc.c:509
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Bir NEWS dosyasını çıkış olarak belirtmeniz veya stdout'a yazdırmak için '-' "
-"belirtmeniz gerekmektedir."
+msgstr "Bir NEWS dosyasını çıktı olarak belirtmeniz veya stdout'a yazdırmak için '-' belirtmeniz gerekmektedir."
 
 #: tools/ascli-actions-misc.c:540
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Çıkışı yazdırmak için bir NEWS formatı belirtmeniz gerekmektedir."
+msgstr "Çıktıyı yazdırmak için bir NEWS biçimi belirtmeniz gerekmektedir."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:925
@@ -2086,9 +1917,7 @@ msgstr "Bir bileşen kimliği belirtmelisiniz."
 #: tools/ascli-actions-misc.c:188
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"Çıkış olarak oluşturmak veya eklemek için bir masaüstü girdi dosyası "
-"belirtmeniz gerekmektedir."
+msgstr "Çıktı olarak oluşturmak veya eklemek için bir masaüstü girdi dosyası belirtmeniz gerekmektedir."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
