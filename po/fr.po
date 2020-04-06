@@ -13,13 +13,14 @@
 # Irénée THIRION <irenee.thirion@outlook.fr>, 2020.
 # XoD DarK <xod@xoddark.com>, 2020.
 # Jeannette L <j.lavoie@net-c.ca>, 2020.
+# Bastien Tréhoux <ildegarde59@mailo.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-03-23 03:47+0000\n"
-"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-04-06 20:34+0000\n"
+"Last-Translator: Bastien Tréhoux <ildegarde59@mailo.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -900,11 +901,11 @@ msgstr "Aucun nom de fichier de sortie spécifié ; le fichier métainfo est mod
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
+msgstr "Aucun binaire fourni spécifié dans la fichier métainfo, et aucune commande d’exécution spécifiée via '--exec'. Impossible de créer la touche 'Exec='."
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
+msgstr "Aucune icône d’action n’est fournie dans le fichier métainfo. Impossible de continuer."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -977,7 +978,7 @@ msgstr "Désinstaller le logiciel correspondant à l'identifiant du composant."
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-validator.c:364
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "La taille du fichier récupéré est nulle."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -1066,7 +1067,7 @@ msgstr "Sous-commandes :"
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "Les suggestions d’un autre type que `upstream` ne sont pas autorisées dans les fichiers métainfo."
 
 #: tools/ascli-utils.c:297
 msgid "Summary"
@@ -1103,13 +1104,13 @@ msgstr "Le fichier .desktop « %s » n'existe pas."
 
 #: src/as-validator-issue-tag.h:406
 msgid "The <developer_name/> can not contain a hyperlink."
-msgstr ""
+msgstr "Le <developer_name/> ne peut pas contenir d’hyperlien."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
+msgstr "L’étiquette <id/> contient toujours une propriété de `type`, probablement issue d’une ancienne conversion vers le format métainfo récent."
 
 #: src/as-validator-issue-tag.h:629
 msgid ""
