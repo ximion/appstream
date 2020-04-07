@@ -11,13 +11,14 @@
 # J <joaquinfc@protonmail.com>, 2019.
 # Kike <alfaomega013@hotmail.com>, 2020.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
+# Julian Lopez <alopezm.1993@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-04-03 19:02+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2020-04-07 15:09+0000\n"
+"Last-Translator: Julian Lopez <alopezm.1993@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -47,11 +48,10 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:254
-#, fuzzy
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr "A 'requiere ' o 'recomenda' tema necesita un valor para denotar una relacion valida."
+msgstr "Un ítem 'require ' o 'recommends' necesita un valor para indicar una relación válida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:195
@@ -95,13 +95,10 @@ msgstr "Mostrar también consejos redundantes."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:510
-#, fuzzy
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Se especificó una etiqueta «extends», pero el componente no es del tipo "
-"«addon», «localization» o «repository»."
+msgstr "Se especificó una etiqueta `extends`, pero el componente no es del tipo «addon», «localization» o «repository»."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -342,9 +339,8 @@ msgstr ""
 "o vídeo de captura de pantalla."
 
 #: tools/appstream-cli.c:870
-#, fuzzy
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr "Convierte un archivo YAML o de texto de NEWS en versiones de metainfo."
+msgstr "Convierte un archivo YAML o de texto NEWS en versiones de metainfo."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -578,13 +574,10 @@ msgstr "Se han encontrado %i componentes."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:260
-#, fuzzy
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"Se encontró la propiedad «version» en el elemento requerido/recomendado de "
-"un tipo que no debe tener ni requerir una versión."
+msgstr "Se encontró la propiedad «version» en el elemento requerido/recomendado de un tipo que no debería tener ni requerir una versión."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
