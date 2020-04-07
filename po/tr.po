@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-04-06 20:34+0000\n"
+"PO-Revision-Date: 2020-04-07 02:53+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
@@ -100,7 +100,7 @@ msgstr "Bir öge türü (ör. lib, bin, python3, ...)"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr "AppStream üst verisiyle çalışmak için bir araç"
+msgstr "AppStream meta verisiyle çalışmak için bir araç"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -296,7 +296,7 @@ msgstr "İletişim ve Haberler"
 
 #: tools/appstream-cli.c:866
 msgid "Compare two version numbers."
-msgstr "İki versiyon numarasını karşılaştır."
+msgstr "İki sürüm numarasını karşılaştır."
 
 #: src/as-provided.c:166
 msgid "Component"
@@ -386,7 +386,7 @@ msgstr "Öntanımlı Ekran Görüntüsü Adresi"
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstream-cli.c:83
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr "Varsayılan metadata biçimi (geçerli değerler 'xml' ve 'yaml')."
+msgstr "Varsayılan meta veri biçimi (geçerli değerler 'xml' ve 'yaml')."
 
 #: tools/ascli-utils.c:333
 msgid "Description"
@@ -404,13 +404,12 @@ msgstr "Geliştirici Araçları"
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
-msgstr ""
-"Kullanılabilir AppStream üst verileri hakkındaki durum bilgilerini göster."
+msgstr "Mevcut AppStream meta verileri hakkındaki durum bilgilerini görüntüle."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:52
 msgid "Distribution metadata:"
-msgstr "Dağıtım üst verisi:"
+msgstr "Dağıtım meta verisi:"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstream-cli.c:126
@@ -424,7 +423,7 @@ msgstr "Renklendirilmiş çıktı gösterme."
 
 #: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr "Kimlik ile eşleşen bileşen için ham XML üst verisini dök."
+msgstr "Kimlik ile eşleşen bileşen için ham XML meta verisini dök."
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -455,7 +454,7 @@ msgstr ""
 #: tools/ascli-actions-misc.c:159
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr "Üst veri havuzunu yüklerken hata: %s"
+msgstr "Meta veri havuzu yüklenirken hata oluştu: %s"
 
 #: tools/ascli-utils.c:327
 msgid "Extends"
@@ -678,7 +677,7 @@ msgstr "Girdi Kaynakları"
 
 #: tools/appstream-cli.c:863
 msgid "Install a metadata file into the right location."
-msgstr "Bir üst veri dosyasını doğru konuma yükle."
+msgstr "Bir meta veri dosyasını doğru konuma yükle."
 
 #: tools/appstream-cli.c:859
 msgid "Install software matching the component-ID."
@@ -706,9 +705,7 @@ msgstr "Sağlanmış öge için geçersiz tip seçildi. Geçerli değerler:"
 msgid ""
 "Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/"
 "ge are permitted."
-msgstr ""
-"İlişkisel ögede geçersiz versiyon karşılaştırma işlemi. Sadece eq/ne/lt/gt/"
-"le/ge'ye izin verilir."
+msgstr "İlişkisel ögede geçersiz sürüm karşılaştırma işlemi. Sadece eq/ne/lt/gt/le/ge'ye izin verilmektedir."
 
 #: src/as-validator-issue-tag.h:463
 msgid ""
@@ -789,7 +786,7 @@ msgstr "AppStream önbelleğinin manuel olarak seçilen konumu."
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstream-cli.c:62
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr "Taranacak AppStream meta verilerinin manuel olarak seçilen yeri."
+msgstr "Taranacak AppStream meta verilerinin manuel olarak seçilen konumu."
 
 #: src/as-pool.c:1280
 msgid ""
@@ -816,11 +813,11 @@ msgstr "Medya Türleri"
 #: tools/ascli-actions-mdata.c:364
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr "Üst veri dosyası '%s' bulunmuyor."
+msgstr "'%s' meta veri dosyası yok."
 
 #: src/as-pool.c:881
 msgid "Metadata files have errors:"
-msgstr "Üst veri dosyalarında hata var:"
+msgstr "Meta veri dosyalarında hata var:"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
@@ -953,7 +950,7 @@ msgstr "Python 3"
 
 #: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
-msgstr "Bileşen üst veri önbelleğini yeniden inşa et."
+msgstr "Bileşen meta veri önbelleğini yeniden oluştur."
 
 #: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
@@ -1407,11 +1404,7 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
-"Sürümler, en yeniden en eski versiyona olacak şekilde sıralanmamıştır. Bazı "
-"araçlar en son sürümün her zaman en üstte olduğunu varsayacağından, bu "
-"gereklidir. Sürümlerin sıralanması ayrıca metainfo dosyasının genel "
-"okunabilirliğini de arttırmaktadır."
+msgstr "Sürümler, en yeniden en eskiye olacak şekilde sıralanmamıştır. Bazı araçlar en son sürümün her zaman en üstte olduğunu varsayacağından, bu gereklidir. Sürümlerin sıralanması ayrıca metainfo dosyasının genel okunabilirliğini de arttırmaktadır."
 
 #: src/as-validator-issue-tag.h:550
 msgid "The screenshot caption is too long (should be <= 80 characters)"
@@ -1599,12 +1592,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
-"Bir <description/> etiketinin bu öğesi (paragraf, liste vb.) koleksiyon meta "
-"verilerinde ayrı ayrı yerelleştirilmemelidir. Bunun yerine <description/> "
-"etiketinin tamamını yerelleştirin. AppStream koleksiyonu meta veri üreticisi "
-"(örneğin, `appstream-generator`) verileri derlerken zaten doğru olanı "
-"yapacak."
+msgstr "Bir <description/> etiketinin bu ögesi (paragraf, liste vb.) koleksiyon meta verilerinde ayrı ayrı yerelleştirilmemelidir. Bunun yerine <description/> etiketinin tamamını yerelleştirin. AppStream koleksiyonu meta veri üreticisi (örneğin, `appstream-generator`) verileri derlerken zaten doğru olanı yapacak."
 
 #: src/as-validator-issue-tag.h:468
 msgid ""
@@ -1632,11 +1620,7 @@ msgid ""
 "AppStream XML or YAML metadata. It also gives access to the system metadata "
 "pool, for example to query for software that provides a specific MIME-type, "
 "and installing it by its software component identifier."
-msgstr ""
-"Bu araç, AppStream XML veya YAML meta verilerinin okunmasına, yazılmasına, "
-"onaylanmasına ve dönüştürülmesine izin verir. Ayrıca sistem meta veri "
-"havuzuna erişim sağlar, örneğin belirli bir MIME türü sağlayan yazılımın "
-"sorgulanması ve yazılım bileşen tanımlayıcısı ile kurulması."
+msgstr "Bu araç, AppStream XML veya YAML meta verilerinin okunmasına, yazılmasına, doğrulanmasına ve dönüştürülmesine izin verir. Ayrıca sistem meta veri havuzuna erişim sağlar, örneğin belirli bir MIME türü sağlayan yazılımın sorgulanması ve yazılım bileşen kimliği ile kurulması."
 
 #: src/as-validator-issue-tag.h:401
 msgid ""
@@ -1649,9 +1633,7 @@ msgstr ""
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Çok fazla parametre: İki sürüm numarasına veya sürüm numarasına ve bir "
-"karşılaştırma operatörüne ihtiyacınız var."
+msgstr "Çok fazla parametre: İki sürüm numarasına veya sürüm numaraları ve bir karşılaştırma operatörüne ihtiyaç var."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:474
@@ -1804,8 +1786,7 @@ msgstr "AppStream XML dosyalarını sorunlar için doğrula."
 
 #: tools/appstream-cli.c:857
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Bir uygulamanın yüklenmiş dosya ağacını geçerli üst veri için doğrulayın."
+msgstr "Bir uygulamanın yüklenmiş dosya ağacını geçerli meta veri için doğrulayın."
 
 #: tools/ascli-actions-validate.c:301 tools/ascli-actions-validate.c:442
 #, c-format
@@ -1886,9 +1867,7 @@ msgstr ""
 #: tools/appstream-cli.c:579
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Parametre olarak karşılaştırmak için en az iki sürüm numarası sağlamanız "
-"gerekir."
+msgstr "Parametre olarak karşılaştırmak için en az iki sürüm numarası sağlamanız gerekmektedir."
 
 #: tools/ascli-actions-misc.c:393
 msgid "You need to specify a NEWS file as input."
@@ -1921,7 +1900,7 @@ msgstr "Çıktı olarak oluşturmak veya eklemek için bir masaüstü girdi dosy
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
-msgstr "Bir üst veri dosyası belirtmeniz gerekiyor."
+msgstr "Bir meta veri dosyası belirtmeniz gerekmektedir."
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
 msgid "You need to specify a metainfo file as input."
