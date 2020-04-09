@@ -1441,7 +1441,7 @@ as_date_time_format_iso8601 (GDateTime *datetime)
  * This function doesn't allocate or reallocate any memory;
  * it modifies @string in place.
  *
- * As opposed to g_strstrip() this function as removes newlines
+ * As opposed to g_strstrip() this function also removes newlines
  * from the start and end of strings.
  *
  * Returns: @string
