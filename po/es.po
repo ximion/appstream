@@ -12,7 +12,7 @@
 # J <joaquinfc@protonmail.com>, 2019.
 # Kike <alfaomega013@hotmail.com>, 2020, 2021.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
-# Julian Lopez <alopezm.1993@gmail.com>, 2020.
+# Julian Lopez <alopezm.1993@gmail.com>, 2020, 2021.
 # #-#-#-#-#  es.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -36,7 +36,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: J.MarSar <marsarjorge@gmail.com>\n"
+"Last-Translator: Julian Lopez <alopezm.1993@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1309,18 +1309,14 @@ msgstr "Se encontró una etiqueta desconocida en un grupo «requires»/«recomme
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Un ítem 'require ' o 'recommends' necesita un valor para indicar una "
-"relación válida."
+msgstr "Un ítem 'require ' o 'recommends' necesita un valor para indicar una relación válida."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"Se encontró la propiedad «version» en el elemento requerido/recomendado de "
-"un tipo que no debería tener ni requerir una versión."
+msgstr "Se encontró la propiedad «version» en el elemento requerido/recomendado de un tipo que no debería tener ni requerir una versión."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:271
@@ -1328,10 +1324,7 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"Se encontró la propiedad `version` en este elemento requerido/recomendado, "
-"pero no la propiedad `compare`. Se recomienda definir explícitamente una "
-"operación de comparación."
+msgstr "Se encontró la propiedad `version` en este elemento requerido/recomendado, pero no la propiedad `compare`. Se recomienda definir explícitamente una operación de comparación."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:277
@@ -1354,11 +1347,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Se encontró una relación del tamaño de la memoria en una etiqueta "
-"`requires`. Esto significa que los usuarios no podrán instalar el componente "
-"a menos que dispongan de suficiente RAM. Normalmente esto no es deseado; "
-"considere en cambio, utilizar `memory` en la etiqueta`recommends`."
+msgstr "Se encontró una relación del tamaño de la memoria en una etiqueta `requires`. Esto significa que los usuarios no podrán instalar el componente a menos que dispongan de suficiente RAM. Normalmente esto no es deseado; considere en cambio, utilizar `memory` en la etiqueta`recommends`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:295
@@ -1632,9 +1621,7 @@ msgstr "Tipo de componente `driver`, pero no se proporcionó información de mod
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Se especificó una etiqueta `extends`, pero el componente no es del tipo "
-"«addon», «localization» o «repository»."
+msgstr "Se especificó una etiqueta `extends`, pero el componente no es del tipo «addon», «localization» o «repository»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
