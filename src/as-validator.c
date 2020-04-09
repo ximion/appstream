@@ -429,8 +429,7 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 {
 	g_autofree gchar *node_content = NULL;
 
-	node_content = (gchar*) xmlNodeGetContent (node);
-	g_strstrip (node_content);
+	node_content = as_strstripnl ((gchar*) xmlNodeGetContent (node));
 	if (!as_str_empty (node_content))
 		return;
 
@@ -953,11 +952,9 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				continue;
 
 			if (g_strcmp0 (node_name, "image") == 0) {
-				g_autofree gchar *image_url = (gchar*) xmlNodeGetContent (iter2);
-				g_strstrip (image_url);
+				g_autofree gchar *image_url = as_strstripnl ((gchar*) xmlNodeGetContent (iter2));
 
 				image_found = TRUE;
-
 				if (!as_validate_is_secure_url (image_url)) {
 					as_validator_add_issue (validator, iter2,
 								"screenshot-media-url-not-secure",
@@ -974,8 +971,7 @@ as_validator_check_screenshots (AsValidator *validator, xmlNode *node, AsCompone
 				g_autofree gchar *container_str = NULL;
 				g_autofree gchar *video_url_basename = NULL;
 				g_autofree gchar *video_url_base_lower = NULL;
-				g_autofree gchar *video_url = (gchar*) xmlNodeGetContent (iter2);
-				g_strstrip (video_url);
+				g_autofree gchar *video_url = as_strstripnl ((gchar*) xmlNodeGetContent (iter2));
 
 				video_found = TRUE;
 

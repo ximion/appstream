@@ -39,7 +39,7 @@ as_xml_get_node_value (xmlNode *node)
 	gchar *content;
 	content = (gchar*) xmlNodeGetContent (node);
 	if (content != NULL)
-		g_strstrip (content);
+		as_strstripnl (content);
 
 	return content;
 }

@@ -29,6 +29,37 @@
 static gchar *datadir = NULL;
 
 /**
+ * test_strstripnl:
+ *
+ * Test our version of strstrip.
+ */
+static void
+test_strstripnl ()
+{
+	gchar *tmp;
+
+	tmp = g_strdup ("     MyString      ");
+	as_strstripnl (tmp);
+	g_assert_cmpstr (tmp, ==, "MyString");
+	g_free (tmp);
+
+	tmp = g_strdup ("\n \n    My\nString \n    \n \n");
+	as_strstripnl (tmp);
+	g_assert_cmpstr (tmp, ==, "My\nString");
+	g_free (tmp);
+
+	tmp = g_strdup ("My\nString");
+	as_strstripnl (tmp);
+	g_assert_cmpstr (tmp, ==, "My\nString");
+	g_free (tmp);
+
+	tmp = g_strdup ("");
+	as_strstripnl (tmp);
+	g_assert_cmpstr (tmp, ==, "");
+	g_free (tmp);
+}
+
+/**
  * test_categories:
  *
  * Test #AsCategory properties.
@@ -611,6 +642,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
+	g_test_add_func ("/AppStream/Strstrip", test_strstripnl);
 	g_test_add_func ("/AppStream/Categories", test_categories);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);
 	g_test_add_func ("/AppStream/Component", test_component);

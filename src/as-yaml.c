@@ -531,8 +531,7 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *e
 	if (as_is_cruft_locale (key))
 		return;
 
-	g_strstrip (value);
-	as_yaml_emit_entry (emitter, key, value);
+	as_yaml_emit_entry (emitter, key, as_strstripnl (value));
 }
 
 /**
@@ -560,8 +559,7 @@ as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, yaml_emitter
 	if (as_is_cruft_locale (key))
 		return;
 
-	g_strstrip (value);
-	as_yaml_emit_long_entry (emitter, key, value);
+	as_yaml_emit_long_entry (emitter, key, as_strstripnl (value));
 }
 
 /**

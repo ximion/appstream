@@ -362,8 +362,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 								continue;
 							if (g_strcmp0 ((gchar*) iter2->name, "li") == 0) {
 								g_autofree gchar *content = (gchar*) xmlNodeGetContent (iter2);
-								g_strstrip (content);
-								as_yaml_emit_scalar (&emitter, content);
+								as_yaml_emit_scalar (&emitter, as_strstripnl (content));
 							}
 						}
 					}

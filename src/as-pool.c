@@ -1742,7 +1742,7 @@ as_pool_search (AsPool *pool, const gchar *search)
 	if (terms == NULL) {
 		/* the query was invalid */
 		g_autofree gchar *tmp = g_strdup (search);
-		g_strstrip (tmp);
+		as_strstripnl (tmp);
 		if (strlen (tmp) <= 1) {
 			/* we have a one-letter search query - we cheat here and just return everything */
 			g_debug ("Search query too broad. Matching everything.");

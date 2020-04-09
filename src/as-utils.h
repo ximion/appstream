@@ -47,6 +47,8 @@ gint		as_utils_compare_versions (const gchar* a,
 
 const gchar	*as_get_appstream_version (void);
 
+gchar		*as_strstripnl (gchar *string);
+
 G_END_DECLS
 
 #endif /* __AS_UTILS_H */
