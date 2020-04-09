@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-04-07 15:09+0000\n"
+"PO-Revision-Date: 2020-04-09 23:09+0000\n"
 "Last-Translator: Julian Lopez <alopezm.1993@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
@@ -581,43 +581,29 @@ msgstr "Se encontró la propiedad «version» en el elemento requerido/recomenda
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:266
-#, fuzzy
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"Se encontró la propiedad «version» en este elemento requerido/recomendado, "
-"pero no la propiedad «compare». Se recomienda definir explícitamente una "
-"operación de comparación."
+msgstr "Se encontró la propiedad `version` en este elemento requerido/recomendado, pero no la propiedad `compare`. Se recomienda definir explícitamente una operación de comparación."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:277
-#, fuzzy
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Se encontró una dependencia en el tamaño de la memoria en una etiqueta "
-"«requires». Ello implica que los usuarios no podrán instalar el componente a "
-"menos que dispongan de determinada RAM. Normalmente esto no es deseable; "
-"considere utilizar en su lugar «memory» en «recommends»."
+msgstr "Se encontró una relación del tamaño de la memoria en una etiqueta `requires`. Esto significa que los usuarios no podrán instalar el componente a menos que dispongan de suficiente RAM. Normalmente esto no es deseado; considere en cambio, utilizar `memory` en la etiqueta`recommends`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:284
-#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Se encontró una dependencia en el tamaño de la memoria en una etiqueta "
-"«requires». Ello implica que los usuarios no podrán instalar el componente a "
-"menos que dispongan de determinada RAM. Normalmente esto no es deseable; "
-"considere utilizar en su lugar «memory» en «recommends»."
+msgstr "Se encontró una relación del control de entrada en una etiqueta `requires`. Esto significa que los usuarios no podrán instalar el componente a menos que tengan el control de entrada disponoble en el sistema. Esto generalmente no es deseado; considere usar en cambio, `control` en la etiqueta `recommends`."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -690,11 +676,8 @@ msgstr "Icono"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:364
-#, fuzzy
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
-"Los iconos de tipo «remote» deben contener un URL que apunte al icono al que "
-"se hace referencia."
+msgstr "Los íconos de tipo `remote` deben contener una URL que apunte al ícono al que se hace referencia."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:357
