@@ -629,7 +629,7 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, yaml_emitter_t *emitter
 	if (as_is_cruft_locale (key))
 		return;
 
-	as_yaml_emit_scalar (emitter, key);
+	as_yaml_emit_scalar (emitter, as_locale_strip_encoding (key));
 	as_yaml_sequence_start (emitter);
 	for (i = 0; strv[i] != NULL; i++) {
 		as_yaml_emit_scalar (emitter, strv[i]);
