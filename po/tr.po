@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-04-09 01:09+0000\n"
+"PO-Revision-Date: 2020-04-11 05:09+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
@@ -581,7 +581,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr "Bir `requires` etiketinde bir bellek boyutu bağımlılığı bulundu. Bu, kullanıcıların yeterli RAM'e sahip olmadan bileşeni yükleyemeyecekleri anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine `recommends` etiketinde `memory` kullanmak istersiniz."
+msgstr "Bir `requires` etiketinde bir bellek boyutu bağımlılığı bulundu. Bu, kullanıcıların yeterli RAM'e sahip olmadan bileşeni kurma işlemini bile yapamayacakları anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine `recommends` etiketinde `memory` kullanmak istersiniz."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:284
@@ -590,7 +590,7 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr "Bir `requires` etiketinde bir bellek boyutu bağımlılığı bulundu. Bu, kullanıcıların yeterli RAM'e sahip olmadan bileşeni yükleyemeyecekleri anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine `recommends` etiketinde `control` kullanmak istersiniz."
+msgstr "Bir `requires` etiketinde bir kullanıcı giriş kontrol ilişkisi bulundu. Bu, kullanıcıların sistemde tanımlı giriş kontrolü olmadan bileşeni kurma işlemini bile yapamayacakları anlamına gelir. Bu genellikle amaçlanmamıştır ve bunun yerine `recommends` etiketinde `control` kullanmak istersiniz."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -677,11 +677,11 @@ msgstr "Girdi Kaynakları"
 
 #: tools/appstream-cli.c:863
 msgid "Install a metadata file into the right location."
-msgstr "Bir meta veri dosyasını doğru konuma yükle."
+msgstr "Bir meta veri dosyasını doğru konuma kur."
 
 #: tools/appstream-cli.c:859
 msgid "Install software matching the component-ID."
-msgstr "Bileşen kimliğiyle eşleşen yazılım yükle."
+msgstr "Bileşen kimliğiyle eşleşen yazılım kur."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:386
@@ -1786,7 +1786,7 @@ msgstr "AppStream XML dosyalarını sorunlar için doğrula."
 
 #: tools/appstream-cli.c:857
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr "Bir uygulamanın yüklenmiş dosya ağacını geçerli meta veri için doğrulayın."
+msgstr "Bir uygulamanın kurulu bir dosya ağacını geçerli meta veri için doğrulayın."
 
 #: tools/ascli-actions-validate.c:301 tools/ascli-actions-validate.c:442
 #, c-format
