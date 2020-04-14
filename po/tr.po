@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-04-13 10:11+0000\n"
+"PO-Revision-Date: 2020-04-14 05:11+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
@@ -144,18 +144,13 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"AppStream açıklamaları, metni biçimlendirmek için yalnızca sınırlı sayıda "
-"etiketi destekler: Paragraflar (<p/>) ve listeler (<ul/>, <ol/>). Bu "
-"açıklama biçimlendirmesi, metainfo spesifikasyonunu destekleyen "
-"uygulamalarda doğru şekilde görüntülenmeyecek geçersiz bir XML etiketi "
-"içermektedir."
+msgstr "AppStream açıklamaları, metni biçimlendirmek için yalnızca sınırlı sayıda etiketi destekler: Paragraflar (<p/>) ve listeler (<ul/>, <ol/>). Bu açıklama işaretlemesi, metainfo tanımlamasını destekleyen uygulamalarda doğru şekilde görüntülenmeyecek geçersiz bir XML etiketi içermektedir."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr "AppStream, yazılım bileşenleri hakkında üst veri sağlayan dağıtımlararası bir spesifikasyondur."
+msgstr "AppStream, yazılım bileşenleri hakkında üst veri sağlayan dağıtımlararası bir tanımlamadır."
 
 #: src/as-pool.c:1937
 #, c-format
@@ -186,10 +181,7 @@ msgstr "Yapay Zeka"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"AppStream spesifikasyonuna göre, belirtilen etiket bu bağlamda sadece bir "
-"kez görünmelidir. Bu türden birden fazla etikete sahip olmak geçerli "
-"değildir."
+msgstr "AppStream tanımlamasına göre, belirtilen etiket bu bağlamda sadece bir kez görünmelidir. Bu türden birden fazla etikete sahip olmak geçerli değildir."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
@@ -686,7 +678,7 @@ msgstr "Bileşen kimliğiyle eşleşen yazılım kur."
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr "Bu `url` etiketi için geçersiz `type` özelliği. Bu tür URL’ler AppStream spesifikasyonunda bilinmemektedir."
+msgstr "Bu `url` etiketi için geçersiz `type` özelliği. Bu tür URL’ler AppStream tanımlamasında bilinmemektedir."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:566
@@ -697,7 +689,7 @@ msgstr "Koleksiyon üst verilerinde geçersiz etiket bulundu. Sadece `component`
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr "Sağlanmış öge için geçersiz tip seçildi. Geçerli değerler:"
+msgstr "Sağlanmış öge için geçersiz tür seçildi. Geçerli değerler:"
 
 #: src/as-validator-issue-tag.h:271
 msgid ""
@@ -1095,7 +1087,7 @@ msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr "AppStream spesifikasyonu, tarihleri belirtmek için en az gün derecesinde ayrıntıya sahip tam bir ISO 8601 tarih dizgisi gerektirmektedir. Lütfen tarih dizgisinin geçerli olduğundan emin olun."
+msgstr "AppStream tanımlaması, tarihleri belirtmek için en az gün derecesinde ayrıntıya sahip tam bir ISO 8601 tarih dizgisi gerektirmektedir. Lütfen tarih dizgisinin geçerli olduğundan emin olun."
 
 #: src/as-pool.c:1924
 #, c-format
@@ -1143,17 +1135,13 @@ msgstr "`update_contact` etiketi AppStream XML koleksiyonuna dahil edilmemelidir
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-".desktop dosyasında tanımlanan kategori geçerli değildir. Geçerli "
-"kategorilerin listesi için XDG Menü Spesifikasyonuna bakın."
+msgstr ".desktop dosyasında tanımlanan kategori geçerli değildir. Geçerli kategorilerin listesi için XDG Menü Tanımlamasına bakın."
 
 #: src/as-validator-issue-tag.h:545
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr ""
-"Kategori adı geçerli değil. Geçerli kategori adlarının listesi için XDG Menü "
-"Spesifikasyonuna bakın."
+msgstr "Kategori adı geçerli değil. Geçerli kategori adlarının listesi için XDG Menü Tanımlamasına bakın."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
@@ -1194,13 +1182,13 @@ msgid ""
 "associated with the metainfo data."
 msgstr ""
 "Bileşen kimliği, ters etki alanı adı değil. Lütfen gelecekteki sorunları önlemek ve tüm AppStream uygulamalarıyla uyumlu olmak için kimliği güncelleyin.\n"
-"Masaüstü-Girdi spesifikasyonunun en son sürümünü takip etmek için beraberindeki .desktop dosyasının adını güncellemeyi ve bunun için bir rDNS adı kullanmayı da düşünebilirsiniz. Her durumda, uygulamanın yazılım merkezlerinden ve metainfo verileriyle ilişkili .desktop dosya verilerinden başlatılabilmesi için bu bileşenin <launchable/> etiketindeki yeni masaüstü girdisinden bahsetmeyi unutmayın."
+"Masaüstü-Girdi tanımlamasının en son sürümünü takip etmek için beraberindeki .desktop dosyasının adını güncellemeyi ve bunun için bir rDNS adı kullanmayı da düşünebilirsiniz. Her durumda, uygulamanın yazılım merkezlerinden ve metainfo verileriyle ilişkili .desktop dosya verilerinden başlatılabilmesi için bu bileşenin <launchable/> etiketindeki yeni masaüstü girdisinden bahsetmeyi unutmayın."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr "Bileşen kimliği, adı için ters etki alanı şemasını takip etmek için gereklidir. Ayrıntılar için AppStream spesifikasyonuna bakın."
+msgstr "Bileşen kimliği, adı için ters etki alanı şemasını takip etmek için gereklidir. Ayrıntılar için AppStream tanımlamasına bakın."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
@@ -1373,9 +1361,7 @@ msgstr ""
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr ""
-"Metainfo dosyası, AppStream spesifikasyonunun doğrulanamayan eski bir "
-"sürümünü kullanmaktadır. Lütfen 0.6 (veya daha üstü) sürümüne geçiş yapın."
+msgstr "Metainfo dosyası, AppStream tanımlamasının doğrulanamayan eski bir sürümünü kullanmaktadır. Lütfen 0.6 (veya daha üstü) sürümüne geçiş yapın."
 
 #: src/as-validator-issue-tag.h:582
 msgid "The metainfo filename does not match the component ID."
@@ -1431,8 +1417,7 @@ msgstr "Seçilen video konteyner biçimi AppStream tarafından desteklenmemekted
 #: src/as-validator-issue-tag.h:296
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Ayarlanan bileşen tipi tanınan, geçerli bir AppStream bileşen tipi değil."
+msgstr "Ayarlanan bileşen türü tanınan, geçerli bir AppStream bileşen türü değil."
 
 #: src/as-validator-issue-tag.h:411
 msgid ""
@@ -1447,7 +1432,7 @@ msgstr ""
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr "Yazılım bileşen tipi '%s' AppStream'de geçerli değil. Olası değerler:"
+msgstr "Yazılım bileşen türü '%s' AppStream'de geçerli değil. Olası değerler:"
 
 #: src/as-validator-issue-tag.h:351
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
@@ -1491,7 +1476,7 @@ msgstr "Bu `bundle` etiketi bilinmeyen bir türe sahiptir ve kullanılamaz."
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr "Bu `control` ögesi bilinmeyen bir giriş yöntemi tanımlamaktadır ve geçersizdir. İzin verilen değerlerin listesi için spesifikasyonu kontrol edin."
+msgstr "Bu `control` ögesi bilinmeyen bir giriş yöntemi tanımlamaktadır ve geçersizdir. İzin verilen değerlerin listesi için tanımlamayı kontrol edin."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
@@ -1562,9 +1547,7 @@ msgstr "Bu bileşen üst verileri, var olmayan bir .desktop dosyasına referans 
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
-"Bu açıklama paragrafında geçersiz biçimlendirme bulunmaktadır. Şu anda "
-"sadece <em/> ve <code/> etiketlerine izin verilmektedir."
+msgstr "Bu açıklama paragrafında geçersiz işaretleme bulunmaktadır. Şu anda sadece <em/> ve <code/> etiketlerine izin verilmektedir."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1586,10 +1569,7 @@ msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
-msgstr ""
-"Bu etiket, AppStream için GNOME'a özgü bir uzantıdır ve resmi "
-"spesifikasyonun bir parçası değildir. Tüm uygulamalarda ve tüm yazılım "
-"merkezlerinde çalışmasını beklemeyin."
+msgstr "Bu etiket, AppStream için GNOME'a özgü bir uzantıdır ve resmi tanımlamanın bir parçası değildir. Tüm uygulamalarda ve tüm yazılım merkezlerinde çalışmasını beklemeyin."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1651,7 +1631,7 @@ msgstr "Şablon metainfo dosyası inşa edilemedi: %s"
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr "Dosya dönüştürülemedi: Çıktı biçimi belirlenemedi, lütfen '--format=' kullanarak belirtin."
+msgstr "Dosya dönüştürülemedi: Çıktı biçimi belirlenemedi, lütfen '--format=' kullanarak açıkça belirtin."
 
 #. TRANSLATORS: We failed to find any component in the database, likely due to an error
 #: tools/ascli-actions-mdata.c:177
@@ -1841,9 +1821,7 @@ msgstr ""
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Bir şablon oluşturmak için bir AppStream yazılım bileşeni tipi "
-"sağlamalısınız. Olası değerler:"
+msgstr "Bir şablon oluşturmak için bir AppStream yazılım bileşeni türü sağlamalısınız. Olası değerler:"
 
 #: tools/appstream-cli.c:579
 msgid ""
