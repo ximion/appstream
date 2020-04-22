@@ -131,7 +131,7 @@ test_readwrite_text_news ()
 			"\n"
 			"Bugfixes:\n"
 			" * Restore compatibility with GLib < 2.58\n"
-			" * Gamma\n"
+			"  * Gamma\n"
 			" * Delta\n";
 	static const gchar *expected_xml_releases_data =
 			"  <releases>\n"
