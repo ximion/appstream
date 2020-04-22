@@ -2079,7 +2079,7 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
 		AsTokenType match_pval;
 
 		cpt_hash = data + i;
-		match_pval = (AsTokenType) *(data + AS_CACHE_CHECKSUM_LEN);
+		match_pval = (AsTokenType) *(data + i + AS_CACHE_CHECKSUM_LEN);
 
 		/* retrieve component with this hash */
 		cpt = g_hash_table_lookup (results_ht, cpt_hash);
