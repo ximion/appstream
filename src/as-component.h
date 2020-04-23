@@ -372,6 +372,8 @@ gchar			*as_component_to_xml_data (AsComponent *cpt,
 						   AsContext *context,
 						   GError **error);
 
+guint			as_component_get_sort_score (AsComponent *cpt);
+
 /* DEPRECATED */
 
 G_DEPRECATED

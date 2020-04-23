@@ -82,7 +82,6 @@ GHashTable		*as_component_get_token_cache_table (AsComponent *cpt);
 void			 as_component_set_token_cache_valid (AsComponent *cpt,
 							     gboolean valid);
 
-guint			as_component_get_sort_score (AsComponent *cpt);
 void			as_component_set_sort_score (AsComponent *cpt,
 							guint score);
 
