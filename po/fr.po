@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-04-24 18:22+0000\n"
-"Last-Translator: Bastien Tréhoux <ildegarde59@mailo.com>\n"
+"PO-Revision-Date: 2020-04-25 07:11+0000\n"
+"Last-Translator: Éfrit <efrit@posteo.net>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1030,7 +1030,7 @@ msgstr "Surveillance du système"
 
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
-msgstr "Les étiquettes de ce nom ne sont pas permises dans cette section."
+msgstr "Les balises de ce nom ne sont pas permises dans cette section."
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -1045,24 +1045,24 @@ msgstr "Éditeurs de texte"
 #: tools/ascli-actions-mdata.c:467
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "Le fichier .desktop « %s » n'existe pas."
+msgstr "Le fichier .desktop « %s » n’existe pas."
 
 #: src/as-validator-issue-tag.h:406
 msgid "The <developer_name/> can not contain a hyperlink."
-msgstr "Le <developer_name/> ne peut pas contenir d’hyperlien."
+msgstr "<developer_name/> ne peut pas contenir d’hyperlien."
 
 #: src/as-validator-issue-tag.h:326
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr "L’étiquette <id/> contient toujours une propriété de `type`, probablement issue d’une ancienne conversion vers le format métainfo récent."
+msgstr "La balise <id/> contient toujours une propriété « type », probablement issue d’une ancienne conversion vers le récent format métainfo."
 
 #: src/as-validator-issue-tag.h:629
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
+msgstr "La spécification AppStream exige une date complète au format ISO 8601 avec au moins une granularité au jour près. Veuillez vous assurer que la date est valide."
 
 #: src/as-pool.c:1924
 #, c-format
@@ -1593,9 +1593,9 @@ msgid "Unable to find component with ID '%s'!"
 msgstr "Impossible de trouver le composant ayant l'ID « %s » !"
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Impossible de lire le fichier .desktop : %s"
+msgstr "Impossible de charger le modèle de fichier bureau existant : %s"
 
 #: src/as-validator-issue-tag.h:369
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1636,9 +1636,9 @@ msgid "Unable to remove old cache."
 msgstr ""
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "Impossible de lire le fichier .desktop : %s"
+msgstr "Impossible d’enregistrer le fichier bureau : %s"
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -1816,10 +1816,9 @@ msgid "You need to specify a metainfo file as input."
 msgstr "Vous devez spécifier un fichier métainfo comme entrée."
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Vous devez spécifier un fichier métainfo à augmenter, ou'-' pour afficher vers \"stdout\"."
+msgstr "Vous devez spécifier un fichier métainfo à accroître, ou « - » pour afficher dans la sortie standard."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"
