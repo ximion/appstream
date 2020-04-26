@@ -6,21 +6,21 @@
 # Shinjo Park <kde@peremen.name>, 2015
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2015-2016
 # Shinjo Park <kde@peremen.name>, 2015
+# 가석현 <shga89@naver.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2019-05-05 04:47+0000\n"
-"Last-Translator: Jun Hyung Shin <shmishmi79@gmail.com>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/"
-"translations/ko/>\n"
+"PO-Revision-Date: 2020-04-26 18:11+0000\n"
+"Last-Translator: 가석현 <shga89@naver.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.7-dev\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -57,7 +57,7 @@ msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "스크린 샷은 이미지 또는 비디오를 포함해야하지만 동시에 두 가지를 모두 포함해서는 안됩니다. 이 스크린 샷은 정지된 이미지나 비디오에만 사용하십시오."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -68,7 +68,7 @@ msgstr "동작"
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
-msgstr "애드-온"
+msgstr "부가기능"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -97,7 +97,7 @@ msgstr "AppStream 메타 데이터 작업용 유틸리티"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr "AppStream CLI(Command Line Interface)"
+msgstr "AppStream CLI(명령 줄 인터페이스)"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-cli.c:947
