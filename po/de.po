@@ -19,7 +19,7 @@
 # iLocIT! <matthiasc@ilocit.de>, 2020.
 # Sven G. <sven79hd@gmail.com>, 2020, 2021.
 # Allan Nordhøy <epost@anotheragency.no>, 2020, 2021.
-# Mani Dragneel <manidragneel.info@yahoo.com>, 2020.
+# Mani Dragneel <manidragneel.info@yahoo.com>, 2020, 2021.
 # Antonios Hazim <antonios.hazim@zoho.eu>, 2020, 2021.
 # #-#-#-#-#  de.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
@@ -45,7 +45,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: JBB <jbb.prv@gmx.de>\n"
+"Last-Translator: Mani Dragneel <manidragneel.info@yahoo.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1439,10 +1439,7 @@ msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"Der `pkgname'-Tag erscheint mehrfach. Sie sollten die Erstellung eines "
-"Metapakets evaluieren, das die Metainfo- und . desktop-Dateien enthält, um "
-"die Definition mehrerer Paketnamen pro Komponente zu vermeiden."
+msgstr "Der `pkgname'-Tag erscheint mehrfach. Sie sollten die Erstellung eines Metapakets evaluieren, das die Metainfo- und . desktop-Dateien enthält, um die Definition mehrerer Paketnamen pro Komponente zu vermeiden."
 
 #: src/as-validator-issue-tag.h:367
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -1721,9 +1718,7 @@ msgstr "Diese Komponentenmetadaten beziehen sich auf eine nicht vorhandene .desk
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"Die in der . desktop-Datei definierte Kategorie ist nicht gültig. Eine Liste "
-"der gültigen Kategorien finden Sie in der XDG-Menüspezifikation."
+msgstr "Die in der . desktop-Datei definierte Kategorie ist nicht gültig. Eine Liste der gültigen Kategorien finden Sie in der XDG-Menüspezifikation."
 
 #: src/as-validator-issue-tag.h:638
 msgid "No AppStream metadata was found in this directory or directory tree."
