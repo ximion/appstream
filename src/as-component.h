@@ -146,7 +146,7 @@ typedef enum {
 } AsComponentScope;
 
 const gchar		*as_component_scope_to_string (AsComponentScope scope);
-AsMergeKind		as_component_scope_from_string (const gchar *scope_str);
+AsComponentScope	as_component_scope_from_string (const gchar *scope_str);
 
 /**
  * AsValueFlags:

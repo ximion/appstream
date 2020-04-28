@@ -363,7 +363,7 @@ as_component_scope_to_string (AsComponentScope scope)
  *
  * Returns: a #AsComponentScope or %AS_COMPONENT_SCOPE_UNKNOWN for unknown
  **/
-AsMergeKind
+AsComponentScope
 as_component_scope_from_string (const gchar *scope_str)
 {
 	if (g_strcmp0 (scope_str, "system") == 0)
