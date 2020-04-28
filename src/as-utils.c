@@ -1451,7 +1451,8 @@ as_strstripnl (gchar *string)
 {
 	gsize len;
 	guchar *start;
-	g_return_val_if_fail (string != NULL, NULL);
+	if (string == NULL)
+		return NULL;
 
 	/* remove trailing whitespaces/newlines */
 	len = strlen (string);
