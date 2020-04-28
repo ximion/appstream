@@ -170,6 +170,42 @@ as_xml_dump_node_children (xmlNode *node)
 }
 
 /**
+ * as_xml_dump_desc_para_node_content:
+ */
+static gchar*
+as_xml_dump_desc_para_node_content (xmlNode *node)
+{
+	gboolean is_valid_markup = TRUE;
+
+	/* ignore node if it is a space */
+	if (node->type != XML_ELEMENT_NODE)
+		return NULL;
+
+	/* perform a sanity check before dumping the node contents */
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name = (const gchar*) iter->name;
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		/* only permit valid markup */
+		if ((g_strcmp0 (node_name, "em") != 0) && (g_strcmp0 (node_name, "code") != 0)) {
+			is_valid_markup = FALSE;
+			break;
+		}
+	}
+
+	/* We dump the whole content, including subnodes/markup if the markup content
+	 * was deemed valid. Otherwise we will just try to dump any string content, and hope
+	 * people call the validator on their files to see that their metadata is broken.
+	 * TODO: Parse the data properly, and remove only the bad nodes on error, if libxml permits
+	 * that somehow? */
+	if (is_valid_markup)
+		return as_xml_dump_node_content (node);
+	else
+		return as_xml_get_node_value (node);
+}
+
+/**
  * as_xml_add_children_values_to_array:
  */
 void
@@ -369,7 +405,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				g_hash_table_insert (desc, g_strdup (lang), str);
 			}
 
-			content = as_xml_dump_node_content (iter);
+			content = as_xml_dump_desc_para_node_content (iter);
 			if (content != NULL)
 				g_string_append_printf (str, "<p>%s</p>\n", content);
 
@@ -407,7 +443,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 					g_hash_table_insert (desc, g_strdup (lang), str);
 				}
 
-				content = as_xml_dump_node_content (iter2);
+				content = as_xml_dump_desc_para_node_content (iter2);
 				if (content != NULL)
 					g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
