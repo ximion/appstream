@@ -19,20 +19,21 @@
 # Sven G. <sven79hd@gmail.com>, 2020.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
 # Mani Dragneel <manidragneel.info@yahoo.com>, 2020.
+# Antonios Hazim <antonios.hazim@zoho.eu>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-02-29 02:36+0100\n"
-"PO-Revision-Date: 2020-04-28 22:11+0000\n"
-"Last-Translator: Mani Dragneel <manidragneel.info@yahoo.com>\n"
+"PO-Revision-Date: 2020-05-09 06:31+0000\n"
+"Last-Translator: Antonios Hazim <antonios.hazim@zoho.eu>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.2\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -778,7 +779,7 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
+msgstr "Lizenzen für `runtime`-Komponente sind in der Regel so kompliziert, um sie in einem einfachen SPDX Ausdruck zu reflektieren. Bitte erwäge die Verwendung einer `LicenseRef` und eine URL als einen Wert für die `project_license` dieser Komponente. Z.B. `LicenseRef-free=https://example.com/licenses.html`"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
