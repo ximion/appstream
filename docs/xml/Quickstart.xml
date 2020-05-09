@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+<chapter id="chap-Quickstart">
+	<title>Metadata Quickstart</title>
+	<para>
+		These pages are designed to give upstream authors compressed information on how to write metadata
+		for their applications.
+		The documents describe just the basic information, and don't resemble the whole specification, to
+		give upstreams an easy way to get started with AppStream.
+	</para>
+
+	<xi:include href="quickstart-desktopapps.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="quickstart-addons.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="quickstart-packaging.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+	<xi:include href="quickstart-translation.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+</chapter>

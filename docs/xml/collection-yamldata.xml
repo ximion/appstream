@@ -1,0 +1,1037 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-YAML">
+	<title>AppStream collection YAML</title>
+
+	<section id="spec-dep11-introduction">
+		<title>Introduction</title>
+
+		<para>
+			DEP-11 is a YAML implementation of the AppStream collection specification, which is primarily used by Debian and its derivatives.
+			This document describes the DEP-11 YAML.
+			All AppStream support libraries available today are able to read both the YAML and the XML specification.
+		</para>
+
+		<important>
+			<para>
+				If you want to use AppStream in your distribution, and are not based on Debian, please use the XML specification (unless
+				you have strong reasons for preferring YAML).
+				XML is the official format for AppStream collection metadata.
+			</para>
+		</important>
+
+		<para>
+			The DEP-11 YAML metadata can be validated for correctness using the <command>dep11-validate</command> tool from the
+			<ulink url="https://packages.debian.org/source/sid/appstream-dep11">AppStream DEP-11 utils</ulink>.
+		</para>
+		<para>
+			Fields not mentioned in this document are not recognized by DEP-11 YAML parsers.
+		</para>
+	</section>
+
+
+	<section id="spec-dep11-filenaming">
+		<title>File naming and location</title>
+		<para>
+			Take a look at <xref linkend="spec-asxml-filenaming"/> for AppStream XML files. While the XML data belongs into the <filename>xmls</filename> subdirectory in
+			<filename>/usr/share/app-info</filename> (or <filename>/var/cache/app-info</filename>), the YAML data is stored in the <filename>yaml</filename> subdirectory.
+			All other rules affecting the XML apply the DEP-11 YAML as well, including the recommendation to compress the files with gzip.
+		</para>
+	</section>
+
+	<section id="spec-dep11-general">
+		<title>General DEP-11 YAML structure</title>
+		<para>
+			Each YAML file starts with a header document, which defines the basic properties of the metadata, which is followed by the actual metadata in form of one
+			YAML document per AppStream component.
+		</para>
+		<para>
+			The header document contains the following fields, all of them are required or at least strongly recommended.
+		</para>
+		<variablelist>
+			<varlistentry>
+			<term>File</term>
+			<listitem>
+				<para>
+					This field identifies the file as DEP-11 file. Its value is always <code>DEP-11</code>.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>Version</term>
+			<listitem>
+				<para>
+					The version of the AppStream specification this file was built for.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>Origin</term>
+			<listitem>
+				<para>
+					Defines the repository-id this file belongs to. This usually matches the filename without extension. On Debian systems, it is the
+					<code>&lt;suite&gt;-&lt;component&gt;</code> combination, e.g. <userinput>jessie-main</userinput>.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>MediaBaseUrl</term>
+			<listitem>
+				<para>
+					The base URL for media (screenshots, icons, ...) referenced in the metadata file.
+					If this is set, all urls in the document referencing media will be treated relative to the base url.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>Architecture</term>
+			<listitem>
+				<para>
+					Defines the architecture this data belongs to. This information is useful to resolve AppStream-ID conflicts on multiarch systems,
+					which appear if the user has metadata for two architectures installed.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry>
+			<term>Priority</term>
+			<listitem>
+				<para>
+					The priorization of this metadata file over other metadata.
+				</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+
+	<section id="spec-dep11-translated">
+		<title>Translated fields</title>
+		<para>
+			Fields with translated values follow the following conventions:
+		</para>
+		<orderedlist>
+			<listitem><para>They are of type <emphasis>dict</emphasis></para></listitem>
+			<listitem><para>They must contain a key <literal>C</literal>, with the untranslated string as value</para></listitem>
+			<listitem>
+				<para>
+					All languages are represented with their locale name as key in the dict and the translated content as value
+					(which is of type <emphasis>str</emphasis>, unless explicitly stated otherwise)
+				</para>
+			</listitem>
+		</orderedlist>
+		<para>
+			In this document, the type <emphasis>localized</emphasis> is used to indicate that the field contains translated values following this schema.
+		</para>
+		<para>
+			Example for a translated <literal>Name</literal> field:
+		</para>
+		<programlisting language="YAML"><![CDATA[Name:
+  C: I am the untranslated string.
+  be@latin: Redaktar naładaŭ
+  bg: Настройки на програмите
+  pl: Edytor konfiguracji]]></programlisting>
+
+	</section>
+
+	<section id="spec-dep11-fields">
+		<title>Valid fields</title>
+		<para>
+			This document describes all valid fields in the DEP-11 YAML specification. The requirements for the values are exactly the same as in the XML specification,
+			and each field links to its correspondent XML tag for reference.
+		</para>
+
+		<variablelist>
+			<varlistentry id="field-dep11-id">
+			<term>ID</term>
+			<listitem>
+				<para>
+					The <literal>ID</literal> field is a short unique and usually lower-cases identifier for the component.
+					Depending on the component's type, different naming conventions apply.
+				</para>
+				<para>See <xref linkend="tag-ct-component-id"/>.</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-priority">
+			<term>Priority</term>
+			<listitem>
+				<para>
+					The <literal>Priority</literal> field sets the priority this component's metadata should have over other meadata in the pool.
+					Data with a higher priority replaces data with a lower priority.
+				</para>
+				<para>See <xref linkend="spec-asxml-tags"/>.</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-type">
+				<term>Type</term>
+				<listitem>
+					<para>
+						The type of this component. Allowed values are:
+					</para>
+					<itemizedlist>
+						<listitem><para><code>generic</code> for <xref linkend="sect-Metadata-GenericComponent"/></para></listitem>
+						<listitem><para><code>desktop-application</code> for <xref linkend="sect-Metadata-Application"/></para></listitem>
+						<listitem><para><code>console-application</code> for <xref linkend="sect-Metadata-ConsoleApplication"/></para></listitem>
+						<listitem><para><code>addon</code> for <xref linkend="sect-Metadata-Addon"/></para></listitem>
+						<listitem><para><code>codec</code> for <xref linkend="sect-Metadata-Codec"/></para></listitem>
+						<listitem><para><code>inputmethod</code> for <xref linkend="sect-Metadata-InputMethod"/></para></listitem>
+						<listitem><para><code>firmware</code> for <xref linkend="sect-Metadata-Firmware"/></para></listitem>
+					</itemizedlist>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-merge">
+				<term>Merge</term>
+				<listitem>
+					<para>
+						The optional <literal>Merge</literal> field describes the merge strategy that should be applied when merging data of this component into
+						its base. It may assume the values <code>append</code>, <code>replace</code> or <code>remove-component</code>.
+					</para>
+					<para>See <xref linkend="spec-asxml-tags"/> for a description on how merging works.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-package">
+				<term>Package</term>
+				<listitem>
+					<para>
+						The name of the package which needs to be installed in order to make this component available on the system.
+					</para>
+					<para>See <xref linkend="tag-ct-pkgname"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-sourcepackage">
+				<term>SourcePackage</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-source_pkgname"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-name">
+				<term>Name</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-name"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-summary">
+				<term>Summary</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-summary"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-project_license">
+				<term>ProjectLicense</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-project_license"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-description">
+				<term>Description</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-description"/>.</para>
+					<para>
+						The markup for the description is the same as in the XML specification, so it can be read by anything
+						parsing basic HTML markup.
+					</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-url">
+				<term>Url</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-url"/>.</para>
+					<para>
+						The <literal>Url</literal> field contains the different url types as keys in its dict. Valid url types are
+						defined in the main AppStream XML specification.
+						All URL types must be lowercased.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[Url:
+  homepage: https://example.org
+  faq: https://example.org/faq
+  bugtracker: https://bugs.example.org/report-issue]]></programlisting>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-projectgroup">
+				<term>ProjectGroup</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-project_group"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-icon">
+				<term>Icon</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-icon"/>.</para>
+
+					<para>
+						The <literal>Icon</literal> field has the different icon types as keys for its dict.
+					</para>
+
+					<variablelist>
+						<varlistentry>
+						<term>stock</term>
+						<listitem>
+							<para>
+								Contains the stock icon name.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>cached</term>
+						<listitem>
+							<para>
+								Contains a list of dictionaries with the keys <literal>width</literal> and <literal>height</literal> of type
+								<emphasis>int</emphasis> specifying the dimensions of the icon, as well as the key <literal>name</literal>
+								of type <emphasis>str</emphasis> specifying the name of the icon in the cache.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list ➟ dict</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>local</term>
+						<listitem>
+							<para>
+								Contains a list of dictionaries with the keys <literal>width</literal> and <literal>height</literal> of type
+								<emphasis>int</emphasis> specifying the dimensions of the icon, as well as the key <literal>name</literal>
+								of type <emphasis>str</emphasis> specifying the absolute filename pointing to the right icon.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list ➟ dict</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>remote</term>
+						<listitem>
+							<para>
+								Contains a list of dictionaries with the keys <literal>width</literal> and <literal>height</literal> of type
+								<emphasis>int</emphasis> specifying the dimensions of the icon, as well as the key <literal>url</literal>
+								of type <emphasis>str</emphasis> which contains a HTTP(S) or FTP URL to the icon.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list ➟ dict</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+					</variablelist>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-categories">
+				<term>Categories</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-categories"/>.</para>
+
+					<para>
+						This field follows its XML counterpart in almost all regards. The different XDG menu category names are encoded in the list, and are
+						of type <emphasis>str</emphasis>.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[Categories:
+  - Network
+  - Telephony]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-keywords">
+				<term>Keywords</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-keywords"/>.</para>
+
+					<para>
+						This field contains the keywords for this component. The keys define the locales for the respective language, the values are
+						of type <emphasis>list</emphasis> and contain the list of keywords for the respective language. An unlocalized <literal>C</literal>
+						key must be present.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[Keywords:
+  C:
+    - IDE
+    - development
+    - programming
+  de:
+    - IDE
+    - entwicklung
+    - programmierung]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>translated(list)</emphasis></literallayout>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-screenshots">
+				<term>Screenshots</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-screenshots"/>.</para>
+					<para>
+						The <literal>Screenshots</literal> field contains a list of screenshots. A screenshot is of type
+						<emphasis>dict</emphasis> and contains the following keys:
+					</para>
+
+					<variablelist>
+						<varlistentry>
+						<term>default</term>
+						<listitem>
+							<para>
+								If <literal>default</literal> is <code>true</code>, the screenshot is selected as default screenshot. There has to be at least one
+								screenshot which is marked as default.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>bool</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>source-image</term>
+						<listitem>
+							<para>
+								Describes the source image for this screenshot. If this field is present, <literal>videos</literal> must not be present as well.
+								The field valus is a dictionary with the following keys:
+							</para>
+							<itemizedlist>
+								<listitem>
+									<para><literal>height</literal></para>
+									<para>The image height (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>width</literal></para>
+									<para>The image width (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>url</literal></para>
+									<para>
+										The full image url, or the url component added to <literal>MediaBaseUrl</literal>,
+										if defined (<property>value-type</property>:<emphasis>str</emphasis>).
+									</para>
+								</listitem>
+								<listitem>
+									<para><literal>lang</literal></para>
+									<para>
+										The language this screenshot image is translated in. The value is a locale string.
+										(<property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis>)
+									</para>
+								</listitem>
+							</itemizedlist>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>thumbnails</term>
+						<listitem>
+							<para>
+								A list of an arbitrary number of screenshots. All screenshots are of type <emphasis>dict</emphasis> and must contain the same keys as described for
+								<literal>source-image</literal>.
+								This key must not be present if <literal>videos</literal> is present.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis>, <property>required</property>:<emphasis>no</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>videos</term>
+						<listitem>
+							<para>
+								Contains a list of video dicts for this screenshot. If this field is present, <literal>source-image</literal> must not be present as well.
+								The field valus is a dictionary with the following keys:
+							</para>
+							<itemizedlist>
+								<listitem>
+									<para><literal>container</literal></para>
+									<para>The video container format (<property>value-type</property>:<emphasis>str</emphasis>, values as described in the XML specification)</para>
+								</listitem>
+								<listitem>
+									<para><literal>codec</literal></para>
+									<para>The video codec format (<property>value-type</property>:<emphasis>str</emphasis>, values as described in the XML specification)</para>
+								</listitem>
+								<listitem>
+									<para><literal>height</literal></para>
+									<para>The video height (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>width</literal></para>
+									<para>The video width (<property>value-type</property>:<emphasis>int</emphasis>)</para>
+								</listitem>
+								<listitem>
+									<para><literal>url</literal></para>
+									<para>
+										The full video url, or the url component added to <literal>MediaBaseUrl</literal>,
+										if defined (<property>value-type</property>:<emphasis>str</emphasis>).
+									</para>
+								</listitem>
+								<listitem>
+									<para><literal>lang</literal></para>
+									<para>
+										The language this screenshot video is translated in. The value is a locale string.
+										(<property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>no</emphasis>)
+									</para>
+								</listitem>
+							</itemizedlist>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>caption</term>
+						<listitem>
+							<para>
+								A caption for this screenshot.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+					</variablelist>
+
+					<para>
+						Example for a <literal>Screenshots</literal> field containing one screenshot:
+					</para>
+					<programlisting language="YAML"><![CDATA[Screenshots:
+  - default: true
+    caption:
+      C: Foobar showing kitchen-sink functionality
+      si: Foobar shoeewing kischän-sünk funzionality
+    source-image:
+      height: 800
+      url: https://www.example.org/en_US/main.png
+      width: 600
+    thumbnails:
+      - height: 423
+        width: 752
+        url: https://www.example.org/en_US/main-large.png
+      - height: 63
+        width: 112
+        url: https://www.example.org/en_US/main-small.png
+  - source-video:
+      container: matroska
+      codec: av1
+      height: 900
+      url: https://www.example.org/en_US/screencast.mkv
+      width: 1600]]></programlisting>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+
+			<varlistentry id="field-dep11-compulsoryfordesktop">
+				<term>CompulsoryForDesktop</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-compulsory_for_desktop"/>.</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-provides">
+				<term>Provides</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-provides"/>.</para>
+					<para>
+						The <literal>Provides</literal> field is of type <emphasis>dict</emphasis> and can have the following keys set with
+						the described allowed values:
+					</para>
+
+					<variablelist>
+						<varlistentry>
+						<term>libraries</term>
+						<listitem>
+							<para>
+								A list of provided library names.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>binaries</term>
+						<listitem>
+							<para>
+								A list of provided binaries in <envar>PATH</envar>.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>mimetypes</term>
+						<listitem>
+							<para>
+								A list of mimetypes this component can handle.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>firmware</term>
+						<listitem>
+							<para>
+								A list of provided firmware. Each firmware entry is of type <emphasis>dict</emphasis> and has a
+								<literal>type</literal> key, which has either <code>runtime</code> or <code>flashed</code> as
+								value.
+								Firmware of type <code>flashed</code> has a <literal>guid</literal> key, containing the GUID of the device
+								the firmware is flashed on, while firmware of type <code>runtime</code> has a <literal>file</literal> key,
+								containing the firmware filename which the kernel is looking for.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>dbus</term>
+						<listitem>
+							<para>
+								A list of provided DBus services. Each service entry in the list is of type <emphasis>dict</emphasis> and has a
+								<literal>type</literal> key, which has either <code>system</code> or <code>user</code> as
+								value. <code>user</code> means the DBus service name is for a user/session service, while <code>system</code> means
+								it describes a system service.
+								The <literal>service</literal> key contains the name of the DBus service file. All dict values are of type <emphasis>str</emphasis>.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+					</variablelist>
+
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-developername">
+			<term>DeveloperName</term>
+			<listitem>
+				<para>See <xref linkend="tag-ct-developer_name"/>.</para>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-launchable">
+				<term>Launchable</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-launchable"/>.</para>
+					<para>
+						A dictionary containing the launchable-type as key, and a list of IDs used for launching the application as value.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[Launch:
+  desktop-id:
+    - org.gnome.Sysprof2.desktop]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict(list)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-releases">
+			<term>Releases</term>
+			<listitem>
+				<para>See <xref linkend="tag-ct-releases"/>.</para>
+				<para>
+					The <literal>Releases</literal> contains a list of releases sorted latest-to-oldest, where each list items contains the following fields/keys:
+				</para>
+
+				<variablelist>
+						<varlistentry>
+						<term>version</term>
+						<listitem>
+							<para>
+								The version number of this release.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>yes</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>unix-timestamp</term>
+						<listitem>
+							<para>
+								The UNIX timestamp of when this software was released.
+							</para>
+							<para>
+								One of the <literal>unix-timestamp</literal> or <literal>date</literal> fields must be present.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>int</emphasis>, <property>required</property>:<emphasis>maybe</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>date</term>
+						<listitem>
+							<para>
+								The <ulink url="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</ulink> complete date of when this software was released.
+							</para>
+							<para>
+								One of the <literal>unix-timestamp</literal> or <literal>date</literal> fields must be present.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>str</emphasis>, <property>required</property>:<emphasis>maybe</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>description</term>
+						<listitem>
+							<para>
+								A description of this release. May contain allowed HTML markup.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>localized</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+
+						<varlistentry>
+						<term>issues</term>
+						<listitem>
+							<para>
+								A list of dictionaries describing the issues resolved by this release. The dictionaries contain a
+								<literal>id</literal> key for the value of an issue as described in the XML specification, as well as a
+								<literal>type</literal> and <literal>url</literal> key for the tag properties of the same name described in the
+								XML AppStream specification.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
+				</variablelist>
+
+				<para>
+					It is recommended to order this list starting with the latest timestamp to the olderst one.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="YAML"><![CDATA[Releases:
+  - version: '1.8'
+    unix-timestamp: 1424116753
+    description:
+      C: |
+        <p>This stable release fixes the following bug:</p>
+        <ul>
+          <li>CPU no longer overheats when you hold down spacebar</li>
+        </ul>
+  - version: '1.2'
+    unix-timestamp: 1397253600
+  - version: '1.0'
+    unix-timestamp: 1345932000]]></programlisting>
+
+				<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-languages">
+			<term>Languages</term>
+			<listitem>
+				<para>See <xref linkend="tag-ct-languages"/>.</para>
+				<para>
+					The languages list is a list of dictionaries. They must contain a <literal>percentage</literal>
+					key, indicating the completion of translation for this language, and a <literal>locale</literal>
+					key, with the locale string as value.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="YAML"><![CDATA[Languages:
+  - locale: gu
+    percentage: 96
+  - locale: ca@valencia
+    percentage: 94
+  - locale: de
+    percentage: 91
+  - locale: eo
+    percentage: 93]]></programlisting>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-bundles">
+			<term>Bundles</term>
+			<listitem>
+				<para>See <xref linkend="tag-ct-bundle"/>.</para>
+				<para>
+					The <literal>Bundles</literal> contains a list of dictionaries with the keys <literal>type</literal>, having the ID for a specific bundling
+					system (e.g. <code>flatpak</code> or <code>limba</code>) as value, and <literal>id</literal> for the associated bundle-id.
+					See the XML tag description for information on all valid bundling systems.
+				</para>
+				<para>
+					Example:
+				</para>
+				<programlisting language="YAML"><![CDATA[Bundles:
+  - type: limba
+    id: foobar-1.0.2]]></programlisting>
+				<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
+			</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-extends">
+				<term>Extends</term>
+				<listitem>
+					<para>See <xref linkend="tag-extends"/>.</para>
+					<para>
+						Contains a list of AppStream IDs of the other component extended by the described component.
+						This field may only be used with component-type <literal>addon</literal>.
+					</para>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(str)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-suggests">
+				<term>Suggests</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-suggests"/>.</para>
+					<para>
+						A list of dictionaries containing suggested software components. The dictionaries must have a <literal>type</literal> key
+						with the string value <code>upstream</code> or <code>heuristic</code> depending on where the suggestion originates from.
+						The also must have a <literal>ids</literal> key containing a list of component-ids of the suggested software.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[Suggests:
+  - type: upstream
+    ids:
+      - org.example.Awesome
+  - type: heuristic
+    ids:
+      - org.example.Test1
+      - org.example.Test2]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-content_rating">
+				<term>ContentRating</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-content_rating"/>.</para>
+					<para>
+						A dictionary containing the rating system as key, and a dictionary of rating-values as value.
+						The value-dictionary itself has the content rating IDs as keys and the intensity values as values.
+						The intensity values as well as IDs and rating system names match the values from the XML exactly.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[ContentRating:
+  oars-1.0:
+    drugs-alcohol: moderate
+    language-humor: mild]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>dict(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry id="field-dep11-requires-recommends">
+				<term>Requires &amp; Recommends</term>
+				<listitem>
+					<para>See <xref linkend="tag-requires-recommends"/>.</para>
+					<para>
+						A list of dictionaries containing the referenced items. The dictionaries in the list must have one key denoting the item type, which has the
+						respective item value as value. Refer to the XML description for a list of possible types.
+					</para>
+					<para>
+						Each dictionary may have a <literal>version</literal> field with contains a version comparison string. The first two characters denote the version
+						comparison operation, and are followed by the version number to be compared with. The comparison operation may be one of:
+					</para>
+					<itemizedlist>
+						<listitem><para><code>==</code> - Equal to</para></listitem>
+						<listitem><para><code>!=</code> - Not equal to</para></listitem>
+						<listitem><para><code>&lt;&lt;</code> - Lesser than</para></listitem>
+						<listitem><para><code>&gt;&gt;</code> - Greater than</para></listitem>
+						<listitem><para><code>&lt;=</code> - Lesser than or equal to</para></listitem>
+						<listitem><para><code>&gt;=</code> - Greater than or equal to</para></listitem>
+					</itemizedlist>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[Recommends:
+- memory: '2500'
+- modalias: usb:v1130p0202d*
+Requires:
+- kernel: Linux
+  version: '>= 4.15'
+- id: org.example.TestDependency
+  version: == 1.2]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+
+			<varlistentry id="field-dep11-agreements">
+				<term>Agreements</term>
+				<listitem>
+					<para>See <xref linkend="tag-ct-agreement"/>.</para>
+					<para>
+						A list containing the agreements as dictionaries, with a <literal>sections</literal> key containing a list of sections.
+						All dict values are the same as the respective XML tag values / properties.
+					</para>
+					<para>
+						Example:
+					</para>
+					<programlisting language="YAML"><![CDATA[Agreements:
+- type: eula
+  version_id: 1.2.3a
+  sections:
+  - type: intro
+    name:
+      C: Intro\n"
+    description:
+      C: >-
+        <p>If it breaks, you get to keep both pieces.</p>]]></programlisting>
+					<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+	</section>
+
+
+	<section id="spec-dep11-example">
+		<title>Example YAML file</title>
+		<para>
+			This is an example AppStream DEP-11 metadata file:
+		</para>
+		<programlisting language="YAML">
+<![CDATA[---
+File: DEP-11
+Version: '0.8'
+Origin: chromodoris-main
+MediaBaseUrl: https://metadata.tanglu.org/appstream/media/
+---
+Type: desktop-application
+ID: gconf-editor.desktop
+Icon:
+  cached: gconf-editor_gconf-editor.png
+Name:
+  C: Configuration Editor
+  be@latin: Redaktar naładaŭ
+  bg: Настройки на програмите
+  pl: Edytor konfiguracji
+Package: gconf-editor
+Summary:
+  C: Directly edit your entire configuration database
+  ar: حرّر مباشرة كامل قاعدة بيانات الإعدادات.
+  de: Direkten Zugriff auf Ihre gesamte Konfigurationsdatenbank erlangen
+Categories:
+  - GNOME
+  - GTK
+  - System
+---
+Type: desktop-application
+ID: kmplayer.desktop
+Icon:
+  cached: kmplayer_kmplayer.png
+Name:
+  C: KMPlayer
+  hi: केएम-प्लेयर
+  hne: केएम-प्लेयर
+  ku: KMLêdar
+  pa: KM-ਪਲੇਅਰ
+  sr: КМ‑плејер
+  sr@ijekavian: КМ‑плејер
+  sv: Kmplayer
+Package: kmplayer
+Summary:
+  C: KDE interface for MPlayer
+Categories:
+  - Qt
+  - KDE
+  - AudioVideo
+  - Player
+Provides:
+  mimetypes:
+    - application/ogg
+    - application/smil
+    - application/vnd.ms-asf
+    - application/vnd.rn-realmedia
+    - application/x-kmplayer
+    - video/webm
+    - video/x-avi
+---
+ID: texstudio.desktop
+Type: desktop-application
+Package: texstudio
+Name:
+  C: TeXstudio
+Summary:
+  C: LaTeX development environment
+  fr: Environnement de développement LaTeX
+Description:
+  C: <p>TeXstudio is an integrated writing environment for creating LaTeX documents. It integrates editing,
+    building and viewing into a single frontend.</p><p>Our goal is to make writing LaTeX as easy and comfortable
+    as possible. This is achieved through a rich feature set including:</p>
+Icon:
+  cached: texstudio_texstudio.png
+Keywords:
+  C:
+    - editor
+    - latex
+    - pdflatex
+    - xelatex
+    - lualatex
+    - context
+    - bibtex
+ProjectLicense: GPL-2.0
+Url:
+  homepage: https://texstudio.sourceforge.net/
+Categories:
+  - Office
+  - Publishing
+Provides:
+  mimetypes:
+    - text/x-tex
+Screenshots:
+  - default: true
+    source-image:
+      height: 756
+      url: texstudio_2.8.4+debian-3_amd64/screenshots/source/screenshot-1.png
+      width: 1344
+    thumbnails:
+      - height: 423
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/752x423/screenshot-1.png
+        width: 752
+      - height: 351
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/624x351/screenshot-1.png
+        width: 624
+      - height: 63
+        url: texstudio_2.8.4+debian-3_amd64/screenshots/112x63/screenshot-1.png
+        width: 112]]></programlisting>
+
+	</section>
+</section>

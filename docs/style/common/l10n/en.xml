@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
+   language="en"
+   english-language-name="English">
+
+   <l:gentext key="LocalisedLanguageName" text="English"/>
+   <l:gentext key="SeeAlso"         text="See also"/>
+   <l:gentext key="Authors"         text="Authors"/>
+   <l:gentext key="TableofContents" text="Contents"/>
+   <l:gentext key="ListofAuthors"   text="List of Authors"/>
+   <l:gentext key="Contributor"     text="Contributor"/>
+   <l:gentext key="Contributors"    text="Contributors"/>
+
+   <l:gentext key="admonseparator"  text=": "/>
+
+   <l:gentext key="selectlanguage" text="Select Language"/>
+   <l:gentext key="selectformat" text="Select Format"/>
+   <l:gentext key="formathtml" text="Web Pages"/>
+   <l:gentext key="formatsinglehtml" text="Single Web Page"/>
+   <l:gentext key="formatpdf" text="PDF"/>
+   <l:gentext key="formatepub" text="E-Book (EPUB)"/>
+   <l:gentext key="contentsoverview" text="Contents"/>
+   <l:gentext key="showcontentsoverview" text="Show Contents"/>
+   <l:gentext key="find" text="Find"/>
+
+   <l:gentext key="runinhead.default.title.end.punct" text="."/>
+
+   <l:gentext key="navigation" text="Navigation"/>
+   <l:gentext key="sharethispage" text="Share this page: "/>
+   <l:gentext key="shareviafacebook" text="Facebook"/>
+   <l:gentext key="sharevialinkedin" text="LinkedIn"/>
+   <l:gentext key="shareviatwitter" text="Twitter"/>
+   <l:gentext key="shareviaemail" text="E-Mail"/>
+   <l:gentext key="printthispage" text="Print this page"/>
+   <l:gentext key="susecareers" text="Careers"/>
+   <l:gentext key="suselegal" text="Legal"/>
+   <l:gentext key="suseabout" text="About"/>
+   <l:gentext key="susecontact" text="Contact Us"/>
+   <l:gentext key="version.info" text="Applies to "/>
+   <l:gentext key="totopofpage" text="Top"/>
+
+   <l:gentext key="version" text="Version"/>
+   <l:gentext key="Version" text="Version"/>
+
+   <l:gentext key="step.optional" text="(Optional)"/>
+   <l:gentext key="GlossSeeAlso" text="See also"/>
+   <l:gentext key="glossseealso" text="See also"/>
+
+
+   <!-- In most cases, this has to be empty -->
+   <l:dingbat key="guimenustartquote" text=""/>
+   <l:dingbat key="guimenuendquote" text=""/>
+
+   <l:context name="bypass-block">
+     <l:template name="bypass-to-content" text="Jump to content"/>
+     <l:template name="bypass-to-nav" text="Jump to page navigation: previous page [access key p]/next page [access key n]"/>
+   </l:context>
+
+   <l:context name="glossary">
+     <l:template name="seealso" text="See also %t."/>
+   </l:context>
+
+   <l:context name="styles">
+      <l:template name="person-name" text="first-last"/>
+
+      <l:template name="example-label" text="Example&#160;%n:"/>
+      <l:template name="example-title" text="%t"/>
+      <l:template name="figure-label" text="Figure&#160;%n:"/>
+      <l:template name="figure-title" text="%t"/>
+      <l:template name="glosslist-label" text=""/>
+      <l:template name="glosslist-title" text="%t"/>
+      <l:template name="procedure-label" text="Procedure&#160;%n:"/>
+      <l:template name="procedure-title" text="%t"/>
+      <l:template name="table-label" text="Table&#160;%n:"/>
+      <l:template name="table-title" text="%t"/>
+      <l:template name="variablelist-label" text=""/>
+      <l:template name="variablelist-title" text="%t"/>
+      <l:template name="itemizedlist-label" text=""/>
+      <l:template name="itemizedlist-title" text="%t"/>
+      <l:template name="orderedlist-label" text=""/>
+      <l:template name="orderedlist-title" text="%t"/>
+   </l:context>
+
+   <l:context name="xref">
+      <l:template name="sect1" text="Section “%t”"/>
+      <l:template name="sect2" text="Section “%t”"/>
+      <l:template name="sect3" text="Section “%t”"/>
+      <l:template name="sect4" text="Section “%t”"/>
+      <l:template name="sect5" text="Section “%t”"/>
+      <l:template name="page.citation" text=" (page&#160;%p)"/>
+
+      <l:template name="intra-separator" text=", "/>
+      <l:template name="intra-article" text="Article “%t”"/>
+      <l:template name="intra-book" text="Book “%t”"/>
+      <l:template name="intra-chapter" text="Chapter&#160;%n “%t”"/>
+      <l:template name="intra-sect1" text="Section&#160;%n “%t”"/>
+      <l:template name="intra-sect2" text="Section&#160;%n “%t”"/>
+      <l:template name="intra-sect3" text="Section&#160;%n “%t”"/>
+      <l:template name="intra-sect4" text="Section&#160;%n “%t”"/>
+      <l:template name="intra-sect5" text="Section&#160;%n “%t”"/>
+      <l:template name="intra-section" text="Section&#160;%n “%t”"/>
+      <l:template name="intra-preface" text="Preface “%t”"/>
+      <l:template name="intra-figure" text="Figure&#160;%n “%t”"/>
+      <l:template name="intra-table" text="Table&#160;%n “%t”"/>
+      <l:template name="intra-example" text="Example&#160;%n “%t”"/>
+      <l:template name="intra-procedure" text="Procedure&#160;%n “%t”"/>
+
+      <l:template name="intra-variablelist" text="“%t”"/>
+      <l:template name="intra-orderedlist" text="“%t”"/>
+      <l:template name="intra-itemizedlist" text="“%t”"/>
+
+   </l:context>
+
+   <l:context name="xref-number-and-title">
+      <l:template name="appendix" style="nonumber"  text="Appendix “%t”"/>
+      <l:template name="bridgehead" text="Section “%t”"/>
+      <l:template name="chapter" style="nonumber"  text="Chapter “%t”"/>
+      <l:template name="equation" style="nonumber"  text="Equation “%t”"/>
+      <l:template name="example" style="nonumber"  text="Example “%t”"/>
+      <l:template name="figure" style="nonumber"  text="Figure “%t”"/>
+      <l:template name="part" style="nonumber"  text="Part “%t”"/>
+      <l:template name="procedure" style="nonumber"  text="Procedure “%t”"/>
+      <l:template name="productionset" style="nonumber"  text="Production “%t”"/>
+      <l:template name="qandadiv" style="nonumber"  text="Q &amp; A “%t”"/>
+      <l:template name="refsect1" style="nonumber"  text="the section called “%t”"/>
+      <l:template name="refsect2" style="nonumber"  text="the section called “%t”"/>
+      <l:template name="refsect3" style="nonumber"  text="the section called “%t”"/>
+      <l:template name="refsection" style="nonumber"  text="the section called “%t”"/>
+      <l:template name="sect1" style="nonumber" text="Section “%t”"/>
+      <l:template name="sect2" style="nonumber"  text="Section “%t”"/>
+      <l:template name="sect3" style="nonumber"  text="Section “%t”"/>
+      <l:template name="sect4" style="nonumber"  text="Section “%t”"/>
+      <l:template name="sect5" style="nonumber"  text="Section “%t”"/>
+      <l:template name="section" style="nonumber"  text="Section “%t”"/>
+      <l:template name="simplesect" style="nonumber"  text="the section called “%t”"/>
+      <l:template name="table" style="nonumber"  text="Table “%t”"/>
+   </l:context>
+
+   <l:context name="xep-bookmark-title">
+      <l:template name="article" text="%t"/>
+      <l:template name="appendix" text="%n. %t"/>
+      <l:template name="article/appendix" text="%n. %t"/>
+      <l:template name="bibliography" text="%t"/>
+      <l:template name="book" text="%t"/>
+      <l:template name="bridgehead" text="%n. %t"/>
+      <l:template name="chapter" text="%n. %t"/>
+      <l:template name="glossary" text="%t"/>
+      <l:template name="index" text="%t"/>
+      <l:template name="part" text="%n. %t"/>
+      <l:template name="preface" text="%t"/>
+      <l:template name="reference" text="%t"/>
+      <l:template name="refentry" text="%t"/>
+      <l:template name="refsect1" text="%t"/>
+      <l:template name="refsect2" text="%t"/>
+      <l:template name="refsect3" text="%t"/>
+      <l:template name="sect1" text="%n. %t"/>
+      <l:template name="sect2" text="%n. %t"/>
+      <l:template name="sect3" text="%n %t"/>
+      <l:template name="sect4" text="%n %t"/>
+      <l:template name="sect5" text="%n %t"/>
+      <l:template name="section" text="%n. %t"/>
+      <l:template name="set" text="%t"/>
+      <l:template name="simplesect" text="%t"/>
+      <l:template name="toc" text="%t"/>
+   </l:context>
+
+   <l:context name="title">
+      <l:template name="part" text="Part&#160;%n&#160;%t"/>
+   </l:context>
+
+  <!--
+    HACK for keycap context
+    We need to keep this for some time
+    See Ticket#84 and https://sf.net/tracker/index.php?func=detail&aid=3540451&group_id=21935&atid=373750
+   -->
+   <l:context name="msgset">
+      <l:template name="alt" text="Alt"/>
+      <l:template name="backspace" text="&lt;&#x2014;"/><!-- mdash -->
+      <l:template name="command" text="&#x2318;"/>
+      <l:template name="control" text="Ctrl"/>
+      <l:template name="delete" text="Del"/>
+      <l:template name="down" text="&#x02193;"/><!-- darr -->
+      <l:template name="end" text="End"/>
+      <l:template name="enter" text="Enter"/>
+      <l:template name="escape" text="Esc"/>
+      <l:template name="home" text="Home"/>
+      <l:template name="insert" text="Ins"/>
+      <l:template name="left" text="&#x02190;"/><!-- larr -->
+      <l:template name="meta" text="Meta"/>
+<!--       <l:template name="option" text="???"/> -->
+      <l:template name="other" text="???"/>
+      <l:template name="pagedown" text="Page &#x02193;"/>
+      <l:template name="pageup" text="Page &#x02191;"/>
+      <l:template name="right" text="&#x02192;"/><!-- rarr -->
+      <l:template name="shift" text="Shift"/>
+      <l:template name="space" text="Space"/>
+      <l:template name="tab" text="&#x02192;|"/>
+      <l:template name="up" text="&#x02191;"/><!-- uarr -->
+   </l:context>
+
+   <l:context name="parameters">
+     <l:template name="dot.after.section" text=""/>
+     <l:template name="dot.after.step" text=""/>
+   </l:context>
+
+   <l:context name="datetime">
+     <l:template name="format" text="Y-m-d"/>
+     <l:template name="titlepage.format" text="d.m.Y"/>
+   </l:context>
+
+</l:l10n>

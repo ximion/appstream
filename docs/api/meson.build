@@ -9,7 +9,7 @@ glib.gtkdoc (
     ignore_headers: aslib_priv_headers,
     install: true,
     install_dir: join_paths(get_option('prefix'), as_api_doc_target_dir), # requires an absolute path
-    content_files: ['../sources/man/appstreamcli.1.xml']
+    content_files: ['../xml/man/appstreamcli.1.xml']
 )
 
 # create symlink, so tools using gtk-doc can find the API documentation, without us

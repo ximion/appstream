@@ -1,0 +1,2799 @@
+/* Reset, from http://meyerweb.com/eric/tools/css/reset/, v2.0, modified */
+
+html,body,div,span,h1,h2,h3,h4,h5,h6,p,pre,a,code,em,img,s,small,strong,sup,var,b,u,i,dl,dt,dd,ol,ul,.footer ul,li,form,label,table,caption,tbody,tr,td,details,embed,footer,header,menu,nav,output,section,summary,audio,video {
+margin:0;
+padding:0;
+border:0;
+font-size:100%;
+font:inherit;
+vertical-align:baseline;
+}
+
+details,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* PAGE BOILERPLATE AND NAVIGATION */
+
+
+/* Common */
+
+.clearme {
+  clear: both;
+  width: 100%;
+  height: 0;
+}
+
+
+/* Selection colour, the unprefixed Webkit version & the -moz-prefixed
+    version must be on separate lines for it to work. */
+
+::selection {
+  background-color: #3B80AE;
+  color: #FFF;
+}
+
+::-moz-selection {
+  background-color: #3B80AE;
+  color: #FFF;
+}
+
+body {
+  background-color: #FFF;
+  font-family: 'Open Sans', 'DejaVu Sans', Verdana, sans-serif;
+  line-height: 140%;
+}
+
+html, body {
+  height: 100%;
+  min-width: 200px;
+  font-size: 16px;
+}
+
+.bypass-block {
+  position: absolute;
+  left: 0;
+  z-index: 9753;
+  overflow: hidden;
+}
+
+.bypass-block>* {
+  position: absolute;
+  /* clip is deprecated but works in IE and Edge. clip-path is
+  newer and more flexible and also less compatible. */
+  clip: rect(1px1px1px1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+}
+
+#_toolbar-bottom,
+#_fixed-header-wrap #_bubble-toc,
+.documentation,
+.page-bottom {
+  margin: 0 auto;
+  min-width: 150px;
+  max-width: 978px;
+}
+
+#_header {
+  margin: 0 auto;
+  min-width: 150px;
+  max-width: 998px;
+}
+
+.single div.part,
+.single div.chapter,
+.single div.reference,
+.single div.index,
+.single div.page-bottom {
+  padding-top: 40px;
+}
+
+#_footer,
+#_toolbar-bottom,
+.documentation,
+.page-bottom {
+  overflow: hidden;
+}
+
+#_toolbar {
+  margin: 0 auto;
+  min-width: 170px;
+  max-width: 998px;
+  padding: 0;
+}
+
+#_toolbar a,
+#_header a,
+.bubble a,
+#_toolbar input,
+#_toolbar button {
+  outline: 0;
+}
+
+
+/* to be able to position various elements and be able to use z-index*/
+
+#_header,
+#_content,
+#_white-bg,
+#_inward,
+#_footer,
+#_toolbar {
+  position: relative;
+}
+
+#_white-bg,
+#_toolbar,
+#_fixed-header {
+  padding: 0 10px;
+}
+
+#_content {
+  background: url(../images/dots-gray.png) repeat-x scroll 0 0;
+  min-height: 139px;
+  clear: both;
+  min-width: 150px;
+  z-index: 0;
+}
+
+#_white-bg {
+  background-color: #FFF;
+  z-index: 5;
+  min-width: 190px;
+}
+
+
+/* Header Area */
+
+#_logo {
+  float: left;
+  margin: 22px 22px 27px 10px;
+  width: 160px;
+  height: 42px;
+}
+
+#_logo img {
+  width: 42px;
+  height: 42px;
+  line-height: 55px;
+  font-weight: 600;
+  display: inline;
+  vertical-align: middle;
+}
+
+#_logo span {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  vertical-align: baseline;
+  margin: 0 0 0 5px;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+#_header .crumbs {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  height: 36px;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 0 0 182px;
+  height: 36px;
+  max-width: calc(100%-120px);
+}
+
+#_header .crumb,
+#_header .crumbs>span {
+  display: inline;
+  overflow: hidden;
+}
+
+#_fixed-header .crumbs {
+  padding: 0 10px;
+}
+
+#_header .crumbs>a,
+#_header .crumbs>span {
+  margin: 0 0 0 5px;
+}
+
+#_header .crumbs .lower-level {
+  margin: 0;
+}
+
+#_fixed-header .crumbs>a {
+  padding: 0 3px;
+}
+
+.crumbs>span {
+  color: #666;
+}
+
+.crumbs>a {
+  color: #333;
+  text-decoration: none;
+}
+
+.crumbs>a:hover,
+.crumbs>a:focus,
+.crumbs>a:active {
+  color: #3B80AE;
+  text-decoration: none;
+}
+
+#_header .single-crumb {
+  line-height: 36px;
+  padding: 0 10px 0 0;
+  margin: 0 0 0 10px;
+  height: 36px;
+  display: inline-block;
+  vertical-align: bottom;
+  background-color: #EFEFF0;
+}
+
+#_header .crumbs.active {
+  height: 49px;
+}
+
+#_header .single-crumb:hover,
+#_header .single-crumb:focus,
+#_header .single-crumb:active {
+  background-color: #3B80AE;
+  color: #FFF;
+}
+
+#_header .single-contents-icon {
+  width: 36px;
+  height: 36px;
+  background-position: -36px 0;
+  margin: -4px 5px 0 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.book-icon,
+.overview-icon,
+.toc-icon,
+.find-icon,
+.tools-icon {
+  display: block;
+}
+
+.toc-icon,
+.find-icon,
+.book-icon,
+.prev-icon,
+.next-icon,
+.overview-icon,
+.back-icon,
+#_find-button,
+.bubble-corner:before,
+.single-contents-icon,
+#_share-in:before,
+.ulink:after {
+  background-image: url(../images/icons.png);
+  background-repeat: no-repeat;
+}
+
+
+/* A somewhat ugly trick to make the documents look okay even without stylesheet. */
+
+.toc-icon,
+.overview-icon,
+.find-icon,
+.book-icon,
+.prev-icon,
+.next-icon,
+#_find-button {
+  overflow: hidden;
+  height: 0!important;
+}
+
+.toc-icon,
+.find-icon,
+#_header .book-icon,
+#_header .overview-icon,
+.nav-inner .prev-icon,
+.nav-inner .next-icon,
+#_find-button,
+.nav-link .prev-icon,
+.nav-link .next-icon {
+  padding: 36px 0 0;
+}
+
+#_fixed-header .book-icon,
+#_fixed-header .overview-icon,
+.button .prev-icon,
+.button .next-icon {
+  padding: 15px 0 0;
+}
+
+
+/* End ugliness. */
+
+#_header .book-link,
+#_header .overview-icon {
+  display: inline-block;
+  vertical-align: middle;
+  height: 36px;
+}
+
+.toc-icon,
+.find-icon,
+#_header .book-icon,
+#_header .overview-icon,
+#_toolbar .prev-icon,
+#_toolbar .next-icon {
+  width: 36px;
+}
+
+#_header .book-icon {
+  background-position: 0 0;
+}
+
+#_header a:hover>.book-icon,
+#_header a:focus>.book-icon,
+#_header a:active>.book-icon {
+  background-position: 0 -36px;
+}
+
+#_header .book-icon.lower-level {
+  background-position: -108px 0;
+}
+
+#_header a:hover>.book-icon.lower-level,
+#_header a:focus>.book-icon.lower-level,
+#_header a:active>.book-icon.lower-level {
+  background-position: -108px -36px;
+}
+
+#_header .overview-icon {
+  background-position: -72px 0;
+}
+
+#_header a:hover .overview-icon,
+#_header a:focus .overview-icon,
+#_header a:active .overview-icon {
+  background-position: -72px -36px;
+}
+
+#_fixed-header>.crumbs>span,
+#_fixed-header>.crumbs>a,
+#_fixed-header .single-contents-icon {
+  display: block;
+  float: left;
+}
+
+#_fixed-header .book-icon,
+#_fixed-header .overview-icon,
+#_fixed-header .single-contents-icon {
+  width: 18px;
+  margin: 1px 0;
+}
+
+#_fixed-header .book-icon {
+  background-position: 0 -72px;
+}
+
+#_fixed-header a:hover .book-icon,
+#_fixed-header a:focus .book-icon,
+#_fixed-header a:active .book-icon {
+  background-position: -18px -72px;
+}
+
+#_fixed-header .overview-icon {
+  background-position: -36px -72px;
+}
+
+#_fixed-header a:hover .overview-icon,
+#_fixed-header a:focus .overview-icon,
+#_fixed-header a:active .overview-icon {
+  background-position: -54px -72px;
+}
+
+#_fixed-header .single-contents-icon {
+  background-position: -235px -72px;
+  height: 15px;
+}
+
+.inactive #_fixed-header a:hover .single-contents-icon,
+.inactive #_fixed-header a:focus .single-contents-icon,
+.inactive #_fixed-header a:active .single-contents-icon {
+  background-position: -253px -72px;
+}
+
+.active #_fixed-header .single-contents-icon {
+  background-position: -271px -72px;
+}
+
+.active #_fixed-header a:hover .single-contents-icon,
+.active #_fixed-header a:focus .single-contents-icon,
+.active #_fixed-header a:active .single-contents-icon {
+  background-position: -289px -72px;
+}
+
+
+/* Language and Format Pickers */
+
+.bubble h6 {
+  color: #FFF;
+  border-bottom: 1px solid #FFF;
+  padding: 10px 0 5px;
+  display: block;
+  margin: 0 0 5px;
+}
+
+.back-button {
+  display: none;
+}
+
+
+/* Toolbar */
+
+#_toolbar-wrap {
+  margin: 0 0 15px;
+  width: 100%;
+  min-width: 150px;
+  background-color: #3B80AE;
+  position: relative;
+  z-index: 4;
+}
+
+#_toolbar {
+  height: 56px;
+  min-width: 150px;
+}
+
+.tool {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+#_toc-area {
+  float: left;
+  height: 56px;
+}
+
+#_nav-area,
+#_find-area {
+  float: right;
+  height: 56px;
+}
+
+.tool,
+.nav-inner>a.tool-spacer,
+.bubble {
+  /* Clean this up later when browser support is there*/
+}
+
+.active .active-contents,
+.inactive .inactive-contents {
+  display: block;
+}
+
+.inactive .active-contents,
+.active .inactive-contents {
+  display: none;
+}
+
+.active-contents {
+  z-index: 6;
+  position: relative;
+}
+
+#_nav-area {
+  width: 40%;
+}
+
+#_toc-area,
+#_find-area {
+  width: 30%;
+}
+
+.tool-label {
+  float: left;
+  display: block;
+  vertical-align: middle;
+  line-height: 56px;
+  color: #FFF;
+  font-weight: normal;
+}
+
+#_toc-area-button>.tool-label {
+  padding: 0 0 0 10px;
+}
+
+.nav-inner>.tool-label {
+  padding: 0 10px 0 0;
+}
+
+.nav-inner {
+  float: right;
+}
+
+#_toolbar .tool-spacer {
+  padding: 10px;
+  display: block;
+  float: left;
+}
+
+
+/* Fixed Header */
+
+.button>.tool-spacer {
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.inactive #_toc-area-button:hover,
+.inactive #_toc-area-button:focus,
+.inactive #_toc-area-button:active,
+.inactive #_find-area-button:hover,
+.inactive #_find-area-button:focus,
+.inactive #_find-area-button:active,
+.nav-inner>a.tool-spacer:hover,
+.nav-inner>a.tool-spacer:focus,
+.nav-inner>a.tool-spacer:active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.active>.tool {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.toc-icon,
+.find-icon,
+.tools-icon,
+.nav-inner .prev-icon,
+.nav-inner .next-icon {
+  float: left;
+  display: block;
+}
+
+.toc-icon {
+  background-position: -144px 0;
+}
+
+.active .toc-icon,
+a:hover>.toc-icon,
+a:focus>.toc-icon,
+a:active>.toc-icon {
+  background-position: -144px -36px;
+}
+
+.find-icon {
+  background-position: -180px 0;
+}
+
+.active .find-icon,
+a:hover>.find-icon,
+a:focus>.find-icon,
+a:active>.find-icon {
+  background-position: -180px -36px;
+}
+
+.nav-inner>a>.prev-icon {
+  background-position: -252px 0;
+}
+
+.nav-inner>span>.prev-icon {
+  background-position: -324px 0;
+}
+
+.nav-inner>a:hover>.prev-icon,
+.nav-inner>a:focus>.prev-icon,
+.nav-inner>a:active>.prev-icon {
+  background-position: -252px -36px;
+}
+
+.nav-inner>a>.next-icon {
+  background-position: -288px 0;
+}
+
+.nav-inner>span>.next-icon {
+  background-position: -324px -36px;
+}
+
+.nav-inner>a:hover>.next-icon,
+.nav-inner>a:focus>.next-icon,
+.nav-inner>a:active>.next-icon {
+  background-position: -288px -36px;
+}
+
+.bubble-corner {
+  width: 0;
+  height: 0;
+  border-width: 0 15px 15px;
+  border-color: transparent transparent #333;
+  border-style: solid;
+  position: relative;
+  z-index: 7;
+  left: 50%;
+  margin: 0 0 0 -15px;
+}
+
+.bubble-corner:before {
+  background-position: -324px -72px;
+  width: 36px;
+  height: 15px;
+  border: none;
+  margin: 0 0 0 -3px;
+}
+
+.bubble {
+  background-color: #333;
+  z-index: 8;
+}
+
+#_toolbar .bubble,
+#_header .bubble {
+  position: absolute;
+}
+
+#_toc-area>.bubble,
+#_find-area>.bubble,
+#_toc-bubble-wrap>.bubble {}
+
+#_fixed-header-wrap .bubble {
+  position: relative;
+  margin: 4px 0 -3px;
+}
+
+#_toc-area>.bubble-corner,
+#_find-area>.bubble-corner {
+  top: -3px;
+}
+
+#_toc-area>.bubble,
+#_find-area>.bubble {
+  left: 0;
+  width: 100%;
+  padding: 0;
+  top: 66px;
+}
+
+#_toc-bubble-wrap>.bubble {
+  min-width: 150px;
+  max-width: 1004px;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+#_toc-bubble-wrap {
+  position: absolute;
+  top: 82px;
+  left: 0;
+  display: none;
+  height: auto;
+  width: 100%;
+}
+
+#_toc-bubble-wrap.active {
+  display: block;
+}
+
+#_toolbar .bubble-container {
+  padding: 0 10px 10px;
+}
+
+#_fixed-header-wrap .bubble-container {
+  padding: 10px;
+}
+
+
+/* Fallback for TOC bubble when Javascript is off. */
+
+.js-off .inactive:hover .active-contents,
+.js-off .inactive:focus .active-contents {
+  display: block!important;
+}
+
+
+/* We only need this to make sure the bubble does not close when the user is
+   hovering over the TOC button and then mouses over the gap between the button
+   and the bubble. */
+
+.js-off .bubble:before {
+  content: '';
+  background-color: transparent;
+  position: absolute;
+  top: -15px;
+  height: 15px;
+  width: 100%;
+}
+
+#_bubble-toc {
+  overflow: hidden;
+  height: 400px;
+  position: relative;
+}
+
+#_bubble-toc ol {
+  overflow: auto;
+}
+
+#_bubble-toc>ol {
+  width: 50%;
+  padding: 0;
+  margin: 0;
+  background-color: #333;
+  height: 100%;
+  border-right: 1px solid #666;
+}
+
+#_bubble-toc>ol.full-width {
+  width: 100%;
+  border-right: none;
+}
+
+#_toc-area>.bubble a,
+#_find-area>bubble a,
+#_fixed-header-wrap>.bubble a,
+#_toc-bubble-wrap>.bubble a {
+  color: #FFF;
+  display: block;
+  text-decoration: none;
+  padding: 5px 25px 5px 5px;
+  line-height: 22px;
+}
+
+#_bubble-toc .active ol {
+  display: block;
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 50%;
+  background-color: #333;
+  padding: 0;
+  margin: 0 1px 0 0;
+  height: 100%;
+  border-left: 1px solid #666;
+}
+
+#_bubble-toc .inactive ol {
+  display: none!important;
+}
+
+#_bubble-toc .inactive a:hover {
+  color: #FFF;
+  background-color: #666;
+}
+
+#_bubble-toc .active>a,
+#_bubble-toc .inactive>a {
+  padding: 5px 30px 5px 5px;
+}
+
+#_bubble-toc .active>a {
+  background-color: #4F669D;
+  color: #FFF;
+}
+
+#_bubble-toc .active {
+  background-color: #666;
+}
+
+#_bubble-toc .inactive:hover {
+  background-color: #999;
+}
+
+#_bubble-toc a {
+  display: block;
+  position: relative;
+}
+
+#_bubble-toc li {
+  display: block;
+  clear: both;
+}
+
+.bubble a:hover,
+.bubble a:focus,
+.bubble a:active {
+  text-decoration: underline;
+  background-color: #666;
+}
+
+#_bubble-toc .bubble-back {
+  display: none;
+}
+
+#_find-area form {
+  margin: 0 0 0 50%!important;
+}
+
+.find-form {
+  padding: 10px;
+  margin: 0 0 0 -110px;
+  display: block;
+  width: 200px;
+}
+
+#_find-input {
+  width: 155px;
+  height: 34px;
+  padding: 0 20px 0 5px;
+  font: 16px 'Open Sans', Helvetica, FreeSans, sans-serif;
+  display: block;
+  background-color: #FFF;
+  border: 1px solid #CCE9A7;
+  float: left;
+  z-index: 0;
+}
+
+#_find-input:focus {
+  background-color: #FFF;
+  border: 1px solid #FFF;
+}
+
+#_find-input:focus+#_find-button {
+  background-position: -180px 0!important;
+}
+
+#_find-button {
+  width: 36px;
+  display: block;
+  margin: 0 0 0 -18px;
+  background-position: -180px 0;
+  float: left;
+  border: 0;
+  background-color: transparent;
+}
+
+#_find-input:focus+#_find-button:hover,
+#_find-button:active {
+  background-position: -180px -36px!important;
+}
+
+button:focus::-moz-focus-inner,
+button::-moz-focus-inner {
+  border: none;
+}
+
+#_find-input-label {
+  cursor: text;
+  line-height: 36px;
+  height: 36px;
+  position: relative;
+  left: 5px;
+  top: -36px;
+  z-index: 2;
+  color: #666;
+  font-style: italic;
+  display: none;
+  float: left;
+  /* Clear this out later. */
+}
+
+
+/* Smaller, fixed header */
+
+#_fixed-header-wrap {
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid #CCC;
+  background-color: #EFEFF0;
+  padding: 3px 0;
+  line-height: 100%;
+}
+
+#_fixed-header {
+  max-width: 998px;
+  min-width: 130px;
+  display: block;
+  font-size: 12px;
+  margin: 0 auto;
+}
+
+.buttons {
+  display: block;
+  float: right;
+  margin: 0 10px 0 5px;
+}
+
+.button {
+  margin-left: 10px;
+}
+
+.button>.tool-spacer {
+  display: block;
+  float: left;
+}
+
+.button {
+  float: left;
+}
+
+.button .prev-icon,
+.button .next-icon {
+  width: 18px;
+  margin: 1px 0;
+  display: block;
+}
+
+.top-button {
+  color: #333;
+}
+
+.top-button:hover,
+.top-button:focus,
+.top-button:active {
+  text-decoration: none;
+  color: #3B80AE;
+}
+
+.button>a>.prev-icon {
+  background-position: -72px -72px;
+}
+
+.button>span>.prev-icon {
+  background-position: -180px -72px;
+}
+
+.button>a:hover>.prev-icon,
+.button>a:focus>.prev-icon,
+.button>a:active>.prev-icon {
+  background-position: -90px -72px;
+}
+
+.button>a>.next-icon {
+  background-position: -144px -72px;
+}
+
+.button>span>.next-icon {
+  background-position: -198px -72px;
+}
+
+.button>a:hover>.next-icon,
+.button>a:focus>.next-icon,
+.button>a:active>.next-icon {
+  background-position: -162px -72px;
+}
+
+
+/* Page bottom */
+
+.page-bottom {
+  margin-top: 30px;
+  margin-bottom: 80px;
+  padding: 10px 20px 0;
+}
+
+#_bottom-navigation {
+  border-top: 1px solid #999;
+}
+
+.nav-link {
+  display: block;
+  clear: both;
+  margin: 20px 0 0;
+  height: 36px;
+  overflow: hidden;
+}
+
+.nav-link>.prev-icon,
+.nav-link>.next-icon {
+  width: 36px;
+  height: 36px;
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+.nav-link>.prev-icon {
+  background-position: -360px 0;
+}
+
+.nav-link:hover>.prev-icon {
+  background-position: -360px -36px;
+}
+
+.nav-link>.next-icon {
+  background-position: -396px 0;
+}
+
+.nav-link:hover>.next-icon {
+  background-position: -396px -36px;
+}
+
+.nav-label {
+  line-height: 36px;
+  display: block;
+  color: #333;
+  height: 36px;
+  text-decoration: none;
+}
+
+.nav-link:hover>.nav-label,
+.nav-link:focus>.nav-label,
+.nav-link:active>.nav-label {
+  color: #3B80AE;
+}
+
+.bottom-button {
+  cursor: pointer;
+  display: inline-block;
+  border: 1px solid rgba(20, 20, 20, 0.2);
+  padding: 0 7px;
+  color: #333;
+  background-color: #EFEFF0;
+  font-size: 14px;
+  height: 22px;
+}
+
+#_share-in:before {
+  content: " ";
+  line-height: 22px;
+  font-size: 14px;
+  font-weight: 600;
+  height: 22px;
+  width: 16px;
+  display: block;
+  float: left;
+  text-align: center;
+  border: 1px solid rgba(20, 20, 20, 0.2);
+  margin: -1px 6px -2px -8px;
+  overflow: hidden;
+}
+
+#_share-in:before {
+  background-color: #0073B1;
+  background-position: -289px -88px;
+}
+
+.bottom-button:hover,
+.bottom-button:focus,
+.bottom-button:active {
+  border: 1px solid rgba(20, 20, 20, 0.5);
+  background: #DEDEDE;
+}
+
+.bottom-button:hover:before,
+.bottom-button:focus:before,
+.bottom-button:active:before {
+  border-top: 1px solid rgba(20, 20, 20, 0.5);
+  border-left: 1px solid rgba(20, 20, 20, 0.5);
+  border-bottom: 1px solid rgba(20, 20, 20, 0.5);
+}
+
+.offline .online-contents {
+  visibility: hidden;
+}
+
+.share {
+  display: block;
+}
+
+.share {
+  float: left;
+}
+
+
+/* Footer and associated madness, see: http://ryanfait.com/resources/footer-stick-to-bottom-of-page/ */
+
+#_inward,
+#_footer-wrap {
+  height: 80px;
+}
+
+#_inward {
+  z-index: -1;
+}
+
+#_footer-wrap {
+  width: 100%;
+  overflow: hidden;
+  background-color: #EFEFF0;
+}
+
+#_outer-wrap {
+  min-height: 100%;
+  height: auto!important;
+  height: 100%;
+  margin: 0 auto -80px;
+}
+
+
+/* Footer contents */
+
+#_footer {
+  font-family: Helvetica, FreeSans, sans-serif;
+  z-index: 2;
+  /* Else, #_inward overlays the footer */
+  min-width: 130px;
+  max-width: 988px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#_footer>ul {
+  padding: 0;
+}
+
+#_footer li,
+#_footer>p {
+  display: block;
+  float: left;
+  line-height: 80px;
+  margin: 0 30px 0 0;
+  font-size: 12px;
+}
+
+#_footer a {
+  text-decoration: none;
+  color: #666;
+}
+
+#_footer a:hover,
+#_footer a:focus,
+#_footer a:active {
+  text-decoration: underline;
+  color: #76AD2D;
+}
+
+#_footer>p {
+  color: #333;
+}
+
+/* .CHAPTER/... AREA */
+
+.documentation {
+  padding: 0 20px;
+}
+
+/* We need to scroll ~30 pixels up, such that the headline won't be hidden by the fixed header. */
+
+/* [attribute] selector works in IE 7+. Firefox, Opera and Webkit-based browsers had it far earlier. */
+
+.documentation a[id] {
+  position: relative;
+  top: -33px;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+[id]:target>span,
+.admonition[id]:target>h6 {
+  background-color: rgba(255, 255, 0, 0.3);
+  /* Clean the below up in Q3 2013 or so... */
+}
+
+.ulink:after {
+  content: "\0020\2197";
+  color: transparent;
+  width: 18px;
+  height: 15px;
+  display: inline-block;
+  text-decoration: none;
+  background-position: -216px -72px;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 2px;
+}
+
+.legalnotice .ulink:after {
+  background-position: -216px -101px;
+  width: 15px;
+  height: 10px;
+}
+
+.ulink-url {
+  display: none;
+}
+
+.verbatim-wrap a[id] {
+  display: none;
+}
+
+div.version-info {
+  color: #3B80AE;
+  font-weight: normal;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 3px 5px;
+  line-height: 120%;
+  float: right;
+  margin: 5px 0 10px;
+  font-size: 13px;
+}
+
+.single div.version-info {
+  position: relative;
+  top: 70px;
+}
+
+h6.version-info {
+  margin: 75px 0 0;
+  padding: 5px 7px;
+  font-size: 24px;
+  color: #FFF;
+  background-color: #729FCF;
+  float: left;
+  line-height: 100%;
+}
+
+.book h6.version-info+div h1.title,
+.set h6.version-info+div h1.title {
+  padding-top: 0;
+}
+
+.book .title,
+.set .title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 120%;
+  width: auto;
+  clear: both;
+  color: #3B80AE;
+  padding: 70px 0 50px;
+}
+
+.set .subtitle,
+.book .subtitle {
+  font-size: 28px;
+  font-weight: normal;
+  margin: -40px 0 50px;
+  line-height: 120%;
+  width: 100%;
+  clear: both;
+}
+
+.title,
+.chapter .title,
+.reference .title,
+.part .title {
+  font-size: 36px;
+  font-weight: normal;
+  padding: 30px 0 5px;
+  line-height: 120%;
+  width: 100%;
+  clear: both;
+}
+
+.single .title,
+.single .chapter .title,
+.single .reference .title,
+.single .part .title {
+  padding-top: 100px;
+}
+
+.sect1 .subtitle,
+.chapter .subtitle {
+  font-size: 16px;
+  font-weight: normal;
+  padding: 10px 0 20px;
+  margin: 0;
+  line-height: 120%;
+  width: 100%;
+  clear: both;
+}
+
+.sect1 .title,
+.single .sect1 .title {
+  font-size: 28px;
+  font-weight: normal;
+  padding: 50px 0 5px;
+  text-align: left;
+}
+
+.sect2 .title,
+.single .sect2 .title {
+  font-size: 22px;
+  padding: 40px 0 0;
+  text-align: left;
+}
+
+.sect3 .title,
+.single .sect3 .title,
+h2 {
+  font-size: 20px;
+  font-weight: normal;
+  padding: 33px 0 0;
+  text-align: left;
+}
+
+.sect4 .title,
+.single .sect4 .title,
+.sect5 .title,
+.single .sect5 .title {
+  font-size: 16px;
+  padding: 53px 0 0;
+  margin: 0 0 -33px;
+  position: relative;
+  top: -33px;
+  z-index: 1;
+  text-align: left;
+}
+
+.sect4 .title {
+  font-weight: 600!important;
+}
+
+.sect5 .title {
+  font-weight: normal!important;
+}
+
+.name,
+h2 {
+  color: #3B80AE;
+}
+
+a:hover .name,
+a:focus .name,
+a:active .name {
+  text-decoration: underline;
+}
+
+.bubble a:hover>.name,
+.bubble a:focus>.name,
+.bubble a:active>.name {
+  text-decoration: none;
+}
+
+.number,
+.subtitle {
+  color: #666;
+}
+
+.title em,
+.subtitle em {
+  font-style: normal;
+}
+
+.nav-link:hover .number,
+.nav-link:focus .number,
+.nav-link:active .number {
+  color: #729FCF;
+}
+
+#_bubble-toc .number {
+  color: #CCC;
+}
+
+#_bubble-toc .name {
+  color: #FFF;
+}
+
+.permalink,
+.report-bug {
+  font-weight: normal;
+  text-decoration: none;
+  /* Clean the below up in Q3 2013 or so... */
+}
+
+.permalink {
+  font-size: 75%;
+  color: #999;
+  line-height: 100%;
+}
+
+.report-bug {
+  color: #333;
+  font-size: 10px;
+  height: 15px;
+  line-height: 15px;
+  overflow: hidden;
+  padding: 0 3px;
+  border-bottom: 1px solid #FFF;
+  background-color: #EEE;
+  text-transform: uppercase;
+  display: inline-block;
+  float: right;
+}
+
+.permalink:hover,
+.permalink:focus,
+.permalink:active,
+.report-bug:hover,
+.report-bug:focus,
+.report-bug:active {
+  color: #3B80AE;
+  text-decoration: none!important;
+}
+
+:hover>.permalink,
+:hover>.report-bug {}
+
+.report-bug:hover,
+.report-bug:focus,
+.report-bug:active {
+  color: #000;
+  border-color: #333;
+  background-color: #DDD;
+}
+
+.line>.toc {
+  padding: 0 30px 24px;
+}
+
+.line {
+  margin: 17px 0 36px;
+  border-bottom: 1px solid #3B80AE;
+  width: 100%;
+}
+
+.toc a {
+  text-decoration: none;
+}
+
+.legalnotice {
+  margin: 40px 0 0;
+  padding: 10px 0 0;
+}
+
+.legalnotice p,
+.legalnotice td {
+  font-size: 12px;
+  color: #666;
+  line-height: 140%;
+  margin: 5px 0 0;
+}
+
+
+/* Thou shalt not ... */
+
+.admonition {
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  margin: 17px 0 24px;
+}
+
+.note {
+  border-color: #666;
+  background: #FFF url(../images/dots-darkgray.png) repeat-x scroll top;
+}
+
+.note ul,
+.note .orderedlist,
+.warning ul,
+.warning .orderedlist {
+  color: #666;
+}
+
+.important {
+  border-color: #BB7B03;
+  background: #FFF url(../images/dots-orange.png) repeat-x scroll top;
+}
+
+.important ul,
+.important .orderedlist {
+  color: #BB7B03;
+}
+
+.warning {
+  border-color: #8C0000;
+  background: #FFF url(../images/dots-red.png) repeat-x scroll top;
+}
+
+.admonition>h6 {
+  font-weight: 600;
+  vertical-align: middle;
+  display: table-cell;
+  height: 36px;
+}
+
+.note>h6 {
+  color: #333;
+}
+
+.important>h6 {
+  color: #BB7B03;
+}
+
+.warning>h6 {
+  color: #8C0000;
+}
+
+.symbol {
+  width: 36px;
+  height: 36px;
+  margin: 0 10px 0 0;
+  background-repeat: no-repeat;
+  float: left;
+  overflow: hidden;
+}
+
+.admonition p {
+  margin: 10px 0 0!important;
+}
+
+
+/* Text styles */
+
+.documentation span,
+.documentation a,
+.documentation p,
+.documentation em,
+.documentation strong {
+  position: relative;
+  z-index: 2;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+.question em {
+  font-style: normal;
+  /* Don't use italics within italics... */
+}
+
+strong,
+b,
+.imprint-label,
+.version-info .productname,
+.version-info .productnumber,
+.toc-title {
+  font-weight: 600;
+}
+
+p,
+td {}
+
+.ulink,
+.email {}
+
+p {
+  color: #000;
+  text-align: left;
+  margin: 10px 0 0;
+}
+
+.abstract {
+  margin: 24px 0 0;
+  font-size: 18px;
+  line-height: 140%;
+}
+
+.abstract p,
+.toc-title {
+  color: #333;
+}
+
+.abstract p:first-child {
+  margin-top: 0;
+}
+
+.abstract .titlepage {
+  display: none;
+}
+
+.abstract .titlepage+p {
+  margin-top: 0;
+}
+
+.abstract li:first-child p:first-child {
+  margin-top: 0;
+}
+
+.abstract+.authorgroup,
+.abstract+.corpauthor,
+.abstract+.editor,
+.abstract+.date {
+  margin: 10px 0 0;
+}
+
+.authorgroup,
+.editor,
+.date {
+  color: #333;
+}
+
+.ulink,
+.link,
+.xref,
+.email {
+  color: #3B80AE;
+  text-decoration: none;
+}
+
+.title .xref,
+.subtitle .xref,
+.table-title .xref,
+.example-title .xref,
+.procedure-title .xref,
+.orderedlist-title .xref,
+.itemizedlist-title .xref,
+.variablelist-title .xref,
+.title .link,
+.subtitle .link,
+.table-title .link,
+.example-title .link,
+.procedure-title .link,
+.orderedlist-title .link,
+.itemizedlist-title .link,
+.variablelist-title .link,
+.title .ulink,
+.subtitle .ulink,
+.table-title .ulink,
+.example-title .ulink,
+.procedure-title .ulink,
+.orderedlist-title .ulink,
+.itemizedlist-title .ulink,
+.variablelist-title .ulink {
+  text-decoration: underline;
+}
+
+.xref:hover,
+.xref:focus,
+.xref:active,
+.xref:visited:hover,
+.xref:visited:focus,
+.xref:visited:active,
+.link:hover,
+.link:focus,
+.link:active,
+.link:visited:hover,
+.link:visited:focus,
+.link:visited:active,
+.ulink:hover,
+.ulink:focus,
+.ulink:active,
+.ulink:visited:hover,
+.ulink:visited:focus,
+.ulink:visited:active,
+.email:hover,
+.email:focus,
+.email:active,
+.email:visited:hover,
+.email:visited:focus,
+.email:visited:active {
+  color: #3B80AE;
+  text-decoration: underline;
+}
+
+.xref:visited,
+.ulink:visited,
+.link:visited,
+.email:visited {
+  color: #5C3566;
+}
+
+.title .xref:hover,
+.title .xref:focus,
+.title .xref:active,
+.subtitle .xref:hover,
+.subtitle .xref:focus,
+.subtitle .xref:active,
+.table-title .xref:hover,
+.table-title .xref:focus,
+.table-title .xref:active,
+.example-title .xref:hover,
+.example-title .xref:focus,
+.example-title .xref:active,
+.procedure-title .xref:hover,
+.procedure-title .xref:focus,
+.procedure-title .xref:active,
+.orderedlist-title .xref:hover,
+.orderedlist-title .xref:focus,
+.orderedlist-title .xref:active,
+.itemizedlist-title .xref:hover,
+.itemizedlist-title .xref:focus,
+.itemizedlist-title .xref:active,
+.variablelist-title .xref:hover,
+.variablelist-title .xref:focus,
+.variablelist-title .xref:active {
+  color: #3B80AE;
+  text-decoration: none;
+}
+
+p a:visited {
+  color: #5C3566;
+}
+
+code,
+.command,
+.package {
+  font-family: 'DejaVu Sans Mono', DejaVuSansMono, Menlo, 'Andale Mono', monospace;
+  font-weight: normal;
+  padding: 0 4px;
+  border-bottom: 1px solid #C1C1C3;
+  color: #333;
+  text-transform: none;
+  display: inline-block;
+  line-height: 120%;
+}
+
+.verbatim-wrap code,
+.verbatim-wrap .command,
+.verbatim-wrap .literal,
+.verbatim-wrap .package {
+  /*
+    Avoid transforming this:
+      <screen><prompt>prompt $ </prompt><command>very-long-\
+      command</command></screen>
+
+    to output looking like this (bad!):
+               very-long-\
+      prompt $ command
+
+    instead of this (goood!):
+      prompt $ very-long-\
+      command
+
+    */
+  display: inline;
+}
+
+code,
+.command,
+.literal,
+.package {
+  font-style: normal;
+}
+
+
+/* Not quite sure if that is the best way to make sure no text inside code gets
+paddings/borders... In some rare case, there might e.g. be an image inside a
+code/etc. element and then this might backfire. */
+
+code *,
+.literal *,
+.package * {
+  padding: 0;
+  border: none;
+}
+
+.name code,
+a code,
+.admonition h6 code,
+.name .literal,
+a .literal,
+.admonition h6 .literal,
+.name .package,
+a .package,
+.admonition h6 .package {
+  color: inherit;
+}
+
+.admonition h6 code {
+  border-color: #D1D1D3;
+}
+
+code,
+.literal,
+.package {
+  font-weight: normal;
+}
+
+.command {
+  font-weight: 600;
+}
+
+
+/* This elements exists solely to avoid the scrollbar overlaying the rounded
+    corners and the padding becoming inconsistent. */
+
+.verbatim-wrap {
+  padding: 10px;
+  background-color: #EFEFF0;
+  margin: 5px 0;
+  border: 1px solid #999;
+}
+
+.example .verbatim-wrap {
+  margin: 10px 0 24px;
+}
+
+.screen,
+.programlisting,
+.userinput {
+  font: normal 13px 'DejaVu Sans Mono', DejaVuSansMono, Menlo, 'Andale Mono', monospace;
+  color: #333;
+  line-height: 125%;
+}
+
+.verbatim-wrap>div,
+.verbatim-wrap pre {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  text-align: left;
+}
+
+.verbatim-wrap code,
+.verbatim-wrap .literal,
+.verbatim-wrap .package {
+  background-color: transparent;
+  font-size: 100%;
+  border: none;
+  padding: 0;
+}
+
+.verbatim-wrap code {
+  color: #333;
+}
+
+.verbatim-wrap .command {
+  color: #204A87;
+}
+
+.complex-example .example-contents {
+  margin: 5px 0;
+  padding: 3px 15px 6px 12px;
+  border-left: 3px solid #999;
+  background-color: #F9F9F9;
+}
+
+.variablelist,
+.toc {
+  margin: 24px 0;
+}
+
+.line>.toc {
+  margin: 0;
+}
+
+.variablelist dt {
+  font-weight: 600;
+  color: #000;
+  padding-top: 33px;
+  margin: 0 0 -33px;
+  position: relative;
+  top: -33px;
+  z-index: 1;
+}
+
+.toc dt {
+  margin-bottom: 5px;
+}
+
+.toc dt *,
+#_bubble-toc li * {
+  font-weight: normal;
+  font-style: normal;
+  border-bottom: none;
+  display: inline;
+  padding: 0;
+}
+
+.variablelist dd,
+.toc dd {
+  margin: 0 0 17px;
+  padding: 0 0 0 30px;
+}
+
+.list-of-examples dl {
+  margin: 5px 0 17px;
+  padding: 0 0 0 30px;
+}
+
+.variablelist dd>p,
+.toc dd>p {
+  margin: 0;
+}
+
+.inlinemediaobject img {
+  display: inline-block;
+  vertical-align: -15%;
+  max-height: 20px;
+  padding: 0 3px;
+}
+
+a:hover code,
+a:focus code,
+a:active code,
+a:hover .literal,
+a:focus .literal,
+a:active .literal,
+a:hover .package,
+a:focus .package,
+a:active .package {
+  border-color: #439239;
+}
+
+
+/* We put an ndash character between keycaps that are part of an accelerator */
+
+.procedure-title,
+.table-title,
+.example-title,
+.orderedlist-title,
+.variablelist-title,
+.itemizedlist-title {
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  text-align: left;
+  line-height: 120%;
+}
+
+.table-title,
+.example-title,
+.procedure-title,
+.variablelist-title,
+.itemizedlist-title {
+  position: relative;
+  top: -33px;
+  padding-top: 33px;
+  z-index: 1;
+}
+
+.example-title,
+.procedure-title,
+.orderedlist-title {
+  margin: 24px 0 -33px;
+}
+
+.itemizedlist-title {
+  margin: 24px 0 -41px;
+}
+
+.table-title {
+  margin: 24px 0 -23px;
+}
+
+.variablelist-title {
+  margin: 24px 0 -50px;
+}
+
+.free-id {
+  position: relative;
+  top: -33px;
+  left: -1px;
+  width: .01px;
+  height: .01px;
+}
+
+.procedure-title code,
+.procedure-title .literal,
+.procedure-title .package,
+.table-title code,
+.table-title .literal,
+.table-title .package,
+.example-title code,
+.example-title .literal,
+.example-title .package,
+.orderedlist-title code,
+.orderedlist-title .literal,
+.orderedlist-title .package,
+.variablelist-title code,
+.variablelist-title .literal,
+.variablelist-title .package,
+.itemizedlist-title code,
+.itemizedlist-title .literal,
+.itemizedlist-title .package {
+  text-transform: none;
+}
+
+.procedure-contents {
+  border-left: 3px solid #8CA4C0;
+  font-weight: normal;
+  margin: 17px 0;
+  /* Up top, 3px of padding look better than 5 would (with line-height interfering etc.).
+    On the left, we use 5px-3px of border, so it sits right there with any other lists etc. */
+  padding: 3px 5px 6px 2px;
+  background-color: #F6F8FA;
+  display: block;
+}
+
+.procedure-title-wrap+.procedure-contents {
+  margin: 10px 0 24px;
+}
+
+.procedure-contents>p:first-child,
+.procedure-contents>ol:first-child>li:first-child>p:first-child {
+  margin-top: 0;
+}
+
+.procedure-contents>.admonition {
+  margin-top: 4px;
+}
+
+.procedure-contents>p,
+.procedure-contents>.admonition {
+  margin-left: 12px;
+  margin-right: 17px;
+}
+
+ol.procedure,
+ol.orderedlist {
+  display: block;
+  color: #3B80AE;
+  font-weight: 600;
+}
+
+ol.procedure,
+ol.orderedlist {
+  font-weight: normal;
+}
+
+ol.procedure {
+  padding: 0 0 0 30px;
+  margin: 0 10px;
+}
+
+ol.procedure .title {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  padding: 0;
+}
+
+ol.orderedlist {
+  padding: 0 0 0 35px;
+  margin: 0 0 0 10px;
+}
+
+.orderedlist-title-wrap+ol.orderedlist {
+  margin-top: 40px;
+}
+
+ol.procedure,
+ol.orderedlist {
+  list-style-type: decimal;
+}
+
+.table-contents,
+.informaltable {
+  /* Yup, let's make this scroll... While ugly, there seems to be no better
+    way to avoid the table running off the page border...(?) */
+  overflow: auto;
+}
+
+.table-contents {
+  margin: 0 0 24px;
+}
+
+.informaltable {
+  margin: 10px 0 24px;
+}
+
+.informaltable {
+  margin: 10px 0 24px;
+}
+
+.example-contents>.informaltable {
+  margin: 0;
+  padding: 0;
+}
+
+.example-contents>.informaltable>table {
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.table table,
+.informaltable table {
+  border: 1px solid #999;
+  max-width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+table p,
+.informaltable table p {
+  margin: 0;
+}
+
+.table td,
+.informaltable td {
+  margin: 0;
+  padding: 3px 5px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.table td[colspan],
+.informaltable td[colspan],
+.table td[rowspan],
+.informaltable td[rowspan] {
+  background-color: #FFF;
+}
+
+.table td[colspan],
+.informaltable td[colspan],
+.table td[rowspan],
+.informaltable td[rowspan] {
+  border: 1px solid #999;
+}
+
+.table td[valign="top"],
+.informaltable td[valign="top"] {
+  vertical-align: top;
+}
+
+.table td[valign="bottom"],
+.informaltable td[valign="bottom"] {
+  vertical-align: bottom;
+}
+
+.table td[rowspan],
+.informaltable td[rowspan] {
+  background-color: #FFF;
+}
+
+.table td,
+.informaltable td {
+  vertical-align: middle;
+  border-right: 1px solid #999;
+}
+
+.table tr:nth-child(even),
+.informaltable tr:nth-child(even) {
+  background-color: #EFEFF0;
+}
+
+ul {
+  padding: 5px 0 0 35px;
+  margin: 0 10px;
+  display: block;
+  color: #3B80AE;
+  list-style-type: disc;
+}
+
+.answer .table-title,
+.answer .verbatim-wrap,
+.answer .variablelist {
+  margin-top: 10px;
+}
+
+li>p {
+  font-weight: normal;
+}
+
+.procedure>p {
+  margin: 0 10px 5px;
+}
+
+div.itemizedlist {
+  margin: 0 0 24px;
+}
+
+.question,
+.question code,
+.question .literal,
+.question .package {
+  color: #666;
+}
+
+.question {
+  font-style: italic;
+}
+
+.js-on .question {
+  cursor: pointer;
+}
+
+.js-on .question:hover,
+.js-on .question:focus,
+.js-on .active .question {
+  color: #000;
+}
+
+.js-on .question:hover code,
+.js-on .question:focus code,
+.js-on .active .question code,
+.js-on .question:hover .literal,
+.js-on .question:focus .literal,
+.js-on .active .question .literal,
+.js-on .question:hover .package,
+.js-on .question:focus .package,
+.js-on .active .question .package {
+  color: #333;
+}
+
+.question {
+  position: relative;
+}
+
+.answer {
+  padding: 0 0 17px;
+}
+
+.js-on .question:before {
+  content: '';
+  display: inline-block;
+  margin: 4px 0 0;
+  width: 17px;
+  height: 15px;
+  background-image: url(../images/arrow.png);
+  background-position: -98px 0;
+  background-repeat: no-repeat;
+}
+
+.js-on .question:hover:before,
+.js-on .question:focus:before {
+  background-position: -8px 0;
+}
+
+.js-on .active .question:before {
+  background-position: -70px 0;
+}
+
+.js-on .answer {
+  display: none;
+}
+
+
+/* Review features */
+
+.doc-status {
+  font-style: normal;
+  font-weight: normal;
+}
+
+.doc-status {
+  padding: 10px;
+  background-color: #E6E0E8;
+  color: #000;
+}
+
+#_content>.doc-status {
+  margin: 0 auto;
+  min-width: 380px;
+  max-width: 978px;
+}
+
+.doc-status li {
+  color: #000;
+}
+
+@page {
+  margin: 20mm 22.5mm 22.5mm;
+}
+
+@media print {
+  #_header .book-icon {
+    height: 36px!important;
+    line-height: 34px;
+    padding: 0;
+    width: auto;
+    background-image: none;
+    color: #202020;
+  }
+  .documentation {
+    padding: 0;
+  }
+  #_fixed-header-wrap,
+  #_toolbar-wrap,
+  #_inward,
+  #_footer-wrap,
+  #_bottom-navigation {
+    display: none;
+  }
+  .permalink,
+  .report-bug {
+    display: none;
+  }
+  .admonition,
+  p,
+  table {
+    /* Aumngh! Gecko does not interpret this. bmo#132035, 13 dupes, open
+           since 2002. Webkit is cool, though. */
+    page-break-inside: avoid;
+  }
+  .title {
+    page-break-after: avoid;
+  }
+  .ulink:after {
+    color: inherit;
+    background-image: none;
+    width: auto;
+    height: auto;
+  }
+  .ulink-url {
+    display: inline;
+  }
+}
+
+@media only screen and max-width 800px {
+  .share {
+    float: right;
+  }
+}
+
+@media only screen and max-width 700px {
+  .find-form {
+    margin: 0 0 0 -72.5px;
+    width: 125px;
+  }
+  #_find-input {
+    width: 80px;
+  }
+}
+
+@media only screen and max-width 640px {
+  /* Turn the following on again, when we have re-enabled the Find area. */
+  /*
+    #_toolbar {
+        height: 98px;
+    }
+    */
+  #_toc-area,
+  #_nav-area {
+    width: 49.98%;
+  }
+  #_find-area {
+    height: 42px;
+    background-color: #3B80AE;
+    width: 100%;
+    padding: 0!important;
+    overflow: hidden;
+  }
+  #_find-area form {
+    margin: 0!important;
+  }
+  .find-form {
+    padding: 10px;
+    margin: 0;
+    display: block;
+    width: 100%;
+  }
+  #_find-input {
+    width: calc(100%-44px);
+    height: 20px;
+    margin: 0 auto;
+    padding: 0 20px 0 1px;
+    font-size: 13px;
+    border: 1px solid #CDE8A8;
+  }
+  #_find-input:focus {
+    border: 1px solid #FFF;
+  }
+  #_find-input:focus+#_find-button {
+    background-position: -108px -72px!important;
+  }
+  #_find-input:focus+#_find-button:hover {
+    background-position: -126px -72px!important;
+  }
+  #_find-input-label {
+    line-height: 20px;
+    height: 20px;
+    left: 3px;
+    top: -21px;
+    font-size: 13px;
+    clear: both;
+  }
+}
+
+@media only screen and max-width 600px {
+  .share-buttons {
+    display: block;
+    float: right;
+    clear: both;
+  }
+}
+
+
+/* Mobile layout */
+
+@media only screen and max-width 480px {
+  #_white-bg,
+  #_toolbar,
+  #_fixed-header {
+    padding: 0;
+  }
+  #_footer,
+  .documentation {
+    padding: 0 10px;
+  }
+  #_toc-area,
+  #_nav-area {
+    width: 100%;
+  }
+  #_toolbar {
+    min-height: 113px;
+  }
+  #_toolbar.only-toc,
+  #_toolbar.only-nav {
+    min-height: 56px;
+  }
+  .only-toc #_nav-area,
+  .only-nav #_toc-area {
+    display: none;
+  }
+  #_bubble-toc,
+  #_toc-bubble-wrap>.bubble,
+  #_fixed-header-wrap>.bubble {
+    max-height: 300px;
+  }
+  #_nav-area {
+    border-top: 1px solid #729FCF;
+  }
+  .nav-inner>.tool-spacer {
+    position: absolute;
+  }
+  .nav-inner>.tool-spacer:nth-child(2) {
+    left: 0;
+  }
+  .nav-inner>.tool-spacer:nth-child(3) {
+    right: 0;
+  }
+  .nav-inner>.tool-label {
+    padding: 0 10px;
+    margin: 0 56px;
+    float: left;
+  }
+  .nav-inner {
+    float: none;
+    width: auto;
+  }
+  .crumbs>*+* {
+    display: none!important;
+  }
+  #_header .single-crumb {
+    padding-right: 0;
+    width: 36px!important;
+    z-index: 12;
+    position: relative;
+  }
+  #_header .active .single-crumb {
+    padding-right: 10px;
+    width: 100%!important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    min-height: 35px;
+    background-color: #333;
+    border-bottom: 1px solid #FFF;
+    color: #FFF;
+    padding: 0 10px;
+  }
+  #_header .active .single-contents-icon {
+    background-position: -72px -87px;
+    width: 24px;
+    height: 24px;
+    float: right;
+    margin-top: 5px;
+    margin-right: 20px;
+  }
+  #_header>.crumbs {
+    right: 10px;
+    left: auto;
+  }
+  #_logo {
+    margin-right: 10px;
+    margin-left: 53px;
+  }
+  #_header .single-contents-icon:hover,
+  #_header .single-contents-icon:focus,
+  #_header .single-contents-icon:active {
+    background-position: -36px -36px;
+  }
+  #_toolbar .active .bubble-corner {
+    display: none;
+  }
+  #_toolbar .bubble {
+    position: fixed;
+    top: 0;
+    height: auto;
+    z-index: 7;
+    height: 100%;
+  }
+  #_bubble-toc {
+    height: auto;
+    max-height: 2000%;
+    position: relative;
+    top: 45px;
+    overflow: hidden;
+    padding-bottom: 5px;
+  }
+  #_toc-bubble-wrap #_bubble-toc {
+    top: 35px;
+  }
+  #_toc-bubble-wrap .bubble {
+    height: 100%;
+    max-height: 100%;
+  }
+  #_bubble-toc ol,
+  #_bubble-toc .active ol {
+    width: 100%;
+    border: none;
+    background-color: #333;
+  }
+  #_bubble-toc .active ol {
+    z-index: 8;
+    right: -1px;
+  }
+  .bubble-container {
+    position: relative;
+    width: auto;
+    height: 100%;
+    z-index: 7;
+  }
+  #_header .active .single-contents-icon:hover,
+  #_header .active .single-contents-icon:focus,
+  #_header .active .single-contents-icon:active {
+    background-position: -96px -87px;
+  }
+  .bubble h6 {
+    min-height: 24px;
+  }
+  #_bubble-toc .bubble-back {
+    display: block;
+    margin-top: 45px;
+  }
+  #_bubble-toc .bubble-back a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  #_bubble-toc ol ol li {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #_bubble-toc ol ol li:last-child {
+    margin-bottom: 5px;
+  }
+  #_bubble-toc .active ol {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 8;
+  }
+  .back-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -120px -87px;
+    display: block;
+  }
+  .bubble-back:hover .back-icon,
+  .bubble-back:focus .back-icon,
+  .bubble-back:active .back-icon {
+    background-position: -144px -87px;
+  }
+  #_toc-area .bubble h6 {
+    position: fixed;
+    background-color: #333;
+    z-index: 9;
+    left: 0;
+    top: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: calc(100%-20px);
+  }
+  #_toc-bubble-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    height: 100%;
+    background-color: #333;
+  }
+  #_white-bg {
+    position: static;
+  }
+  #_fixed-header-wrap {
+    display: none;
+  }
+  .share {
+    float: none;
+  }
+  .share>strong {
+    float: left;
+  }
+  .share-buttons {
+    float: none;
+  }
+  .share-buttons>.spacer {
+    display: none;
+  }
+  .bottom-button {
+    padding: 10px;
+    display: block;
+    float: left;
+    width: calc(50%-22px);
+  }
+  #_share-in:before {
+    border-width: 1px;
+    margin-left: 0;
+  }
+  .line>.toc {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* The page probably is not wide enough anymore for inline-blocks to help
+       avoid wrapping. */
+  code,
+  .literal,
+  .package {
+    display: inline;
+  }
+  #_footer {
+    height: auto;
+  }
+  #_footer>ul>li,
+  #_footer>p {
+    line-height: 250%;
+    float: none;
+    width: 100%;
+    margin: 0;
+  }
+  #_footer>p {
+    text-align: right;
+  }
+  #_footer>ul {
+    margin: 0;
+  }
+  #_footer a {
+    display: block;
+    border-top: 1px solid #FFF;
+  }
+  #_inward,
+  #_footer-wrap {
+    height: 155px;
+  }
+  #_outer-wrap {
+    margin: 0 auto -155px;
+  }
+  .documentation ul,
+  .documentation ol {
+    padding-left: 10px;
+  }
+  .list-of-examples dl,
+  .variablelist dd,
+  .toc dd {
+    padding-left: 10px;
+  }
+  .admonition>.symbol {
+    float: none;
+    padding-left: calc(50%-18px);
+    padding-bottom: 10px;
+  }
+  .verbatim-wrap {
+    border-left: none;
+    border-right: none;
+    margin-right: -10px;
+  }
+  .example-contents>.verbatim-wrap,
+  .admonition>.verbatim-wrap,
+  .sect1>.verbatim-wrap,
+  .sect2>.verbatim-wrap,
+  .sect3>.verbatim-wrap,
+  .sect4>.verbatim-wrap,
+  .sect5>.verbatim-wrap,
+  .sect6>.verbatim-wrap,
+  .sect>.verbatim-wrap,
+  .chapter>.verbatim-wrap,
+  .procedure-contents,
+  .procedure-title-wrap+.procedure-contents,
+  .complex-example .example-contents {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  .complex-example .example-contents {
+    padding: 3px 15px 6px 12px;
+  }
+  .documentation ol.procedure {
+    padding-left: 20px;
+  }
+  .book .title,
+  .set .title {
+    font-size: 36px;
+  }
+  .title,
+  .chapter .title,
+  .reference .title,
+  .part .title {
+    font-size: 30px;
+  }
+  .sect1 .title,
+  .single .sect1 .title,
+  .set .subtitle,
+  .book .subtitle {
+    font-size: 22px;
+  }
+  .sect2 .title,
+  .single .sect2 .title {
+    font-size: 20px;
+  }
+  .sect3 .title,
+  .single .sect3 .title,
+  h2 {
+    font-size: 18px;
+  }
+}
+
+@media only screen and max-height 490px and min-width 451px {
+  #_bubble-toc,
+  #_toc-bubble-wrap>.bubble,
+  #_fixed-header-wrap>.bubble {
+    max-height: 300px;
+  }
+}
+
+
+/*  Optimize images for various screen heights.
+
+    + Some sizes are bucketed.
+
+    + We assume 110px of browser chrome:
+      @media (max-height: $largest-screen-size-in-bucket – 110px)
+
+    + We assume 190px are needed for context around the image:
+      img { max-height: $smallest-screen-size-in-bucket – 110px – 190px;}
+      (With some exceptions for small screen sizes.)
+*/
+
+
+/* Everything over 1600px in height */
+
+@media only screen {
+  .mediaobject img {
+    max-height: 70%;
+  }
+}
+
+
+/* 1600px & 1440px */
+
+@media only screen and max-height 1490px {
+  .mediaobject img {
+    max-height: 1140px;
+  }
+}
+
+
+/* 1200px */
+
+@media only screen and max-height 1090px {
+  .mediaobject img {
+    max-height: 900px;
+  }
+}
+
+
+/* 1080px & 1024px */
+
+@media only screen and max-height 970px {
+  .mediaobject img {
+    max-height: 724px;
+  }
+}
+
+
+/* 900px */
+
+@media only screen and max-height 790px {
+  .mediaobject img {
+    max-height: 600px;
+  }
+}
+
+
+/* 800px & 768px */
+
+@media only screen and max-height 690px {
+  /* Make an exception here, so we don't get stamp-sized screenshots. */
+  .mediaobject img {
+    max-height: 518px;
+  }
+}
+
+
+/* 600px and below*/
+
+@media only screen and max-height 490px {
+  /* Make an exception here, so we don't get stamp-sized screenshots. */
+  .mediaobject img {
+    max-height: 390px;
+  }
+}

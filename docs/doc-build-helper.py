@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2016-2017 Matthias Klumpp <matthias@tenstral.net>
+# Copyright (C) 2016-2020 Matthias Klumpp <matthias@tenstral.net>
 #
 # Licensed under the GNU General Public License Version 2
 #
@@ -30,76 +30,107 @@ from pathlib import Path
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--ws')
-parser.add_argument('--src')
-parser.add_argument('--out')
-parser.add_argument('--publican', default='publican')
-parser.add_argument('project')
-parser.add_argument('version')
+parser.add_argument('--build', action='store_true')
+parser.add_argument('--validate', action='store_true')
+
+parser.add_argument('--src', action='store')
+parser.add_argument('--builddir', action='store')
+parser.add_argument('--daps', action='store', default='daps')
+parser.add_argument('project', action='store', default='AppStream', nargs='?')
 
 
-def assemble_ws(src_dir, ws_dir):
-    print('Assembling workspace...')
-    if os.path.exists(ws_dir):
-        shutil.rmtree(ws_dir)
+def daps_build(src_dir, project_name, daps_exe):
+    print('Creating HTML with DAPS...')
+    sys.stdout.flush()
 
-    shutil.copytree(os.path.join(src_dir, 'sources'), os.path.join(ws_dir, 'en-US'), symlinks=True)
-    shutil.copy2(os.path.join(src_dir, 'publican.cfg'), os.path.join(ws_dir, 'publican.cfg'))
+    build_dir = os.path.join(src_dir, '_docbuild')
+    cmd = [daps_exe,
+           'html',
+           '--clean']
+    if project_name:
+        cmd.extend(['--name', project_name])
+
+    if os.path.exists(build_dir):
+        shutil.rmtree(build_dir)
+    os.makedirs(build_dir, exist_ok=True)
+
+    ret = subprocess.call(cmd, cwd=src_dir)
+    if ret != 0:
+        print('Documentation HTML build failed!')
+        sys.exit(6)
+
+    # copy the (usually missing) plain SVG project icon
+    shutil.copy(os.path.join(src_dir, 'images', 'src', 'svg', 'appstream-logo.svg'),
+                os.path.join(build_dir, project_name, 'html', project_name, 'images'))
+    return build_dir
 
 
-def run_publican(ws_dir, publican_exe):
-    print('Running Publican...')
-    return subprocess.check_call([publican_exe,
-                                  'build',
-                                  '--src_dir=' + ws_dir,
-                                  '--pub_dir=' + os.path.join(ws_dir, 'public'),
-                                  '--langs=en-US',
-                                  '--publish',
-                                  '--formats=html'])
+def copy_result(build_dir, project_name, dest_dir):
+    print('Copying HTML documentation...')
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
+
+    shutil.copytree(os.path.join(build_dir, project_name, 'html', project_name),
+                    dest_dir, symlinks=True)
 
 
-def copy_result(project, version, ws_dir, out_dir):
-    print('Copying result...')
-    if os.path.exists(out_dir):
-        shutil.rmtree(out_dir)
+def cleanup_build_dir(build_dir):
+    print('Cleaning up.')
+    if os.path.exists(build_dir):
+        shutil.rmtree(build_dir)
 
-    shutil.copytree(os.path.join(ws_dir, 'public', 'en-US', project, version, 'html', project),
-                    out_dir, symlinks=True)
+
+def daps_validate(src_dir, daps_exe):
+    print('Validating documentation with DAPS...')
+
+    build_dir = os.path.join(src_dir, '_docbuild')
+    if os.path.exists(build_dir):
+        shutil.rmtree(build_dir)
+    os.makedirs(build_dir, exist_ok=True)
+
+    ret = subprocess.call([daps_exe, 'validate'], cwd=src_dir)
+    if ret != 0:
+        print('Validation failed!')
+    cleanup_build_dir(build_dir)
+    return ret == 0
 
 
 def main(args):
     options = parser.parse_args(args)
 
-    # some control over where Publican puts its tmp dir
-    os.chdir(options.ws)
-
-    if not options.ws:
-        print('You need to define a temporary workspace directory!')
+    if not options.validate and not options.build:
+        print('No action was specified.')
         return 1
 
     if not options.src:
-        print('You need to define a source directory!')
+        print('Source root directory is not defined!')
         return 1
 
-    if not options.out:
-        print('You need to define an output directory!')
-        return 1
+    os.chdir(options.src)
 
-    ws_dir = os.path.join(options.ws, 'publican_ws')
+    if options.build:
+        # build the HTML files
+        build_dir = daps_build(options.src, options.project, options.daps)
 
-    # create temporary workspace for Publican, outside of the source tree
-    assemble_ws(options.src, ws_dir)
+        # copy to output HTML folder, overriding all previous contents
+        copy_result(build_dir, options.project,
+                    os.path.join(options.src, 'html'))
 
-    # make HTML
-    run_publican(ws_dir, options.publican)
+        # remove temporary directory
+        cleanup_build_dir(build_dir)
 
-    # copy to output folder, overrding its contents
-    copy_result(options.project, options.version, ws_dir, os.path.join(options.out, 'html'))
+        # make a dummy file so Meson can rebuild documentation on demand
+        if options.builddir:
+            Path(os.path.join(options.builddir, 'docs_built.stamp')).touch()
 
-    # make a dummy file so Meson can rebuild documentation on demand
-    Path(os.path.join(options.ws, 'docs_built.stamp')).touch()
+        print('Documentation built.')
 
-    print('Documentation built.')
+    elif options.validate:
+        # validate the XML
+        ret = daps_validate(options.src, options.daps)
+        if not ret:
+            sys.exit(6)
+
     return 0
 
 

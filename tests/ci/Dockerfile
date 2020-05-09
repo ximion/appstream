@@ -24,7 +24,7 @@ RUN apt-get install -yq --no-install-recommends \
     libgirepository1.0-dev \
     qt5-default \
     xmlto \
-    publican \
+    daps \
     gobject-introspection \
     libstemmer-dev \
     gperf \

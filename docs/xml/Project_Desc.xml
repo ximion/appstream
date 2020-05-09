@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+<chapter id="chap-AppStream-About">
+	<title>About AppStream</title>
+
+	<section id="about-whatis">
+		<title>What is AppStream?</title>
+
+		<para>
+			AppStream is a cross-distro effort for enhancing the metadata available about software components in the Linux and free-software ecosystem.
+			One of the project's goals is to make building software-center applications possible, and make interaction with the package sources of a
+			distribution smarter.
+			AppStream provides specifications for meta-information which is shipped by upstream projects and can be consumed by other software.
+			The meta-information includes data which is interesting to display in software centers and is mainly useful for end-users, as well as descriptions
+			about the public interfaces a software component provides, which is mainly useful for developers, 3rd-party software installers and for automatically
+			installing missing components on a distribution, for example missing firmware or mimetype-handlers.
+		</para>
+		<para>
+			Distributors provide metadata as well, which describes all components available in a software repository. That data is composed of the upstream-metainfo
+			and some other sources.
+			AppStream also provides specifications for things like a screenshot-service, application ratings &amp; reviews etc.
+		</para>
+		<para>
+			All parts of AppStream are distribution-agnostic, and therefore it is easily possible to build software management tools with it that work
+			on any distribution implementing the AppStream specification.
+		</para>
+
+		<section>
+			<title>Architecture</title>
+
+			<para>
+				<mediaobject>
+					<imageobject>
+						<imagedata fileref="architecture.png" format="PNG" width="80%" />
+					</imageobject>
+				</mediaobject>
+			</para>
+		</section>
+	</section>
+
+</chapter>

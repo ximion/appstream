@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+
+<section id="sect-AppStream-Services-Screenshots">
+	<title>Screenshot service</title>
+
+	<section id="spec-screenshots-introduction">
+		<title>Introduction</title>
+		<para>
+			To make give users an impression on how the application they are about to install will look like, screenshots are provided in the AppStream spec.
+			But since not all upstream authors ship screenshots, there is a way for distributors to specify a server for screenshots provided by a 3rd-party.
+		</para>
+	</section>
+
+	<section id="spec-screenshots-service">
+		<title>Webservice</title>
+		<para>
+			Distributors provide a service like <ulink url="https://screenshots.debian.net/about">debshots</ulink>. They can either use the original
+			<literal>debshots</literal> web application, which does not only work for Debian but also any other distribution, or they can set up their own service
+			which mimicks the <literal>debshots</literal> API (OpenSUSE does that).
+		</para>
+		<para>
+			In order to make a new screenshot service known to software-centers, distributors need to place information about their webservice in the config
+			file of <literal>libappstream</literal>, whis is usually located at <filename>/etc/appstream.conf</filename>.
+		</para>
+		<para>
+			The screenshot data will be inserted transparently into <ulink url="https://www.freedesktop.org/software/appstream/docs/api/appstream-AsScreenshot.html">AsScreenshot</ulink>, if
+			the distributor has set the configuration flag.
+			Authors of software-centers don't need to take care of this implementation detail.
+		</para>
+	</section>
+</section>

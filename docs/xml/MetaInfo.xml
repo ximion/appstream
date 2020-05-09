@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % BOOK_ENTITIES SYSTEM "AppStream.ent">
+%BOOK_ENTITIES;
+]>
+<chapter id="chap-Metadata">
+	<title>Upstream Metadata</title>
+	<para>
+		AppStream allows upstream projects to define metadata about the components they provide using small XML files,
+		metainfo files,	which get installed into locations on the client system and are used by distribuors to enhance their
+		metadata.
+	</para>
+	<para>
+		A "component" is a piece of software, like an application, a library, a font or a codec. For several components, especially
+		those which are shown in software-centers, we provide specialized metainfo files to define specific properties and data of these components.
+		For example, applications and fonts support screenshots, while codecs don't.
+	</para>
+	<para>
+		All metainfo files need to contain a minimal amount of information, defined in the "Generic Component" section, which also describes some optional
+		elements which can be used.
+		Specialized components might require more information to be complete and valid.
+	</para>
+	<para>
+		The XML in metainfo files does not need any XML namespace, and adding one should generally be avoided.
+		If you want to use a namespace though (maybe in case you want to embed the data in other contexts), the xmlns
+		should be <code>https://specifications.freedesktop.org/metainfo/1.0</code>.
+	</para>
+
+	<xi:include href="metainfo-component.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-desktopapp.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-consoleapp.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-webapp.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-service.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-addon.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-font.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-icontheme.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-codec.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-inputmethod.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-firmware.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-driver.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-localization.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-repository.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-operatingsystem.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+	<xi:include href="metainfo-runtime.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+
+</chapter>

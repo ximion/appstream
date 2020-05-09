@@ -1,0 +1,37 @@
+## Doc config file for AppStream.xml
+
+## The following settings are only applied when building from this DC file.
+## To customize DAPS's global configuration, use the configuration file
+## ~/.config/daps/dapsrc (you may have to create that file initially).
+## For documentation of the settings below, see /etc/daps/config .
+
+MAIN="AppStream.xml"
+
+BUILD_DIR="_docbuild"
+
+##--------------------
+## Root ID, optional
+## If MAIN contains a set with several books and/or articles of which you only
+## want to build specific ones only, use a separate DC file for each book/
+## article and set ROOTID to the id/xml:id of the respective <book>/<article>
+## element of the document.
+## For more information about sets, see
+## https://tdg.docbook.org/tdg/5.1/set (for DocBook 5.1).
+ROOTID=""
+
+##-------------------
+## Custom stylesheets, optional
+## (if not defined, the DocBook stylesheets will be used)
+STYLEROOT="./style/"
+#HTML_CSS=""
+#EPUB_CSS=""
+
+##---------------------
+## Profiling parameters, optional
+## For elements with arch="...", condition="...", os="..." and vendor="..."
+## For information about profiling, see
+## http://www.sagehill.net/docbookxsl/Profiling.html .
+#PROFARCH=""
+#PROFCONDITION=""
+#PROFOS=""
+#PROFVENDOR=""
