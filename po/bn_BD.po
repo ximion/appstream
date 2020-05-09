@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# Oymate <dhruboadittya96@gmail.com>, 2020.
+# Oymate <dhruboadittya96@gmail.com>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Last-Translator: Oymate <dhruboadittya96@gmail.com>\n"
 "Language-Team: Bengali (Bangladesh) <https://hosted.weblate.org/projects/appstream/translations/bn_BD/>\n"
 "Language: bn_BD\n"
 "MIME-Version: 1.0\n"
@@ -1031,9 +1031,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"একটি <description/> ট্যাগকে অবশ্যই মেটাইনফো ফাইলগুলিতে (আপস্ট্রিম মেটাডেটা) অনুবাদ "
-"করা উচিত নয়। এর পরিবর্তে আলাদা অনুচ্ছেদ অনুবাদ করুন।"
+msgstr "একটি <description/> ট্যাগকে অবশ্যই মেটাইনফো ফাইলগুলিতে (আপস্ট্রিম মেটাডেটা) অনুবাদ করা উচিত নয়। এর পরিবর্তে আলাদা অনুচ্ছেদ অনুবাদ করুন।"
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1212,18 +1210,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"একটি স্ক্রিনশটকে অন্তত একটি ছবি বা ভিডিও ধারণ করতে হবে যাতে তা ব্যবহারযোগ্য হয়। "
-"অনুগ্রহ করে এখানে একটি <image/> যোগ করুন।"
+msgstr "একটি স্ক্রিনশটকে অন্তত একটি ছবি বা ভিডিও ধারণ করতে হবে যাতে তা ব্যবহারযোগ্য হয়। অনুগ্রহ করে এখানে একটি <image/> যোগ করুন।"
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"স্ক্রিনশটে অবশ্যই চিত্র বা ভিডিও থাকতে হবে, তবে উভয়ই একই সাথে নয়। অনুগ্রহ করে স্থির "
-"চিত্র বা ভিডিওগুলির জন্যই শুধুমাত্র এই স্ক্রিনশটটি ব্যবহার করুন।"
+msgstr "স্ক্রিনশটে অবশ্যই চিত্র বা ভিডিও থাকতে হবে, তবে উভয়ই একই সাথে নয়। অনুগ্রহ করে স্থির চিত্র বা ভিডিওগুলির জন্যই শুধুমাত্র এই স্ক্রিনশটটি ব্যবহার করুন।"
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1594,9 +1588,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"একটি `extends` ট্যাগ নির্দিষ্ট করা হয়েছে, কিন্তু জিনিসটা কোনো ধরনের `addon`, "
-"`localization` বা `repository` নয়।"
+msgstr "একটি `extends` ট্যাগ নির্দিষ্ট করা হয়েছে, কিন্তু জিনিসটা কোনো ধরনের `addon`, `localization` বা `repository` নয়।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
