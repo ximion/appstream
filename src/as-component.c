@@ -1869,7 +1869,18 @@ as_component_set_priority (AsComponent *cpt, gint priority)
  *
  * Returns the sorting priority of this component.
  *
- * Since: 0.9.8
+ * This will only return a valid value if this component
+ * was the result of or involved in a search operation which
+ * returned sorted results.
+ * In most cases you will not need to access this value explicitly,
+ * as all results of search operations in AppStream are already sorted
+ * from best match to worst.
+ *
+ * The returned value is an arbitrary integer value, valid only for
+ * the search terms involved in the search operation that yielded
+ * this component as a result.
+ *
+ * Since: 0.12.11
  */
 guint
 as_component_get_sort_score (AsComponent *cpt)

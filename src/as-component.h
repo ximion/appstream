@@ -360,6 +360,10 @@ void			as_component_set_name_variant_suffix (AsComponent *cpt,
 								const gchar *value,
 								const gchar *locale);
 
+guint			as_component_get_sort_score (AsComponent *cpt);
+void			as_component_set_sort_score (AsComponent *cpt,
+							guint score);
+
 AsContext		*as_component_get_context (AsComponent *cpt);
 
 GHashTable		*as_component_get_name_table (AsComponent *cpt);

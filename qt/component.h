@@ -234,6 +234,9 @@ Q_GADGET
         uint searchMatches(const QString& term) const;
         uint searchMatchesAll(const QStringList& terms) const;
 
+        uint sortScore() const;
+        void setSortScore(uint score);
+
         MergeKind mergeKind() const;
         void setMergeKind(MergeKind kind);
 

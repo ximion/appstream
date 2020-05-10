@@ -646,6 +646,16 @@ uint AppStream::Component::searchMatchesAll(const QStringList& terms) const
     return searchMatches;
 }
 
+uint AppStream::Component::sortScore() const
+{
+    return as_component_get_sort_score(m_cpt);
+}
+
+void AppStream::Component::setSortScore(uint score)
+{
+    as_component_set_sort_score(m_cpt, score);
+}
+
 AppStream::Component::MergeKind AppStream::Component::mergeKind() const
 {
     return static_cast<Component::MergeKind>(as_component_get_merge_kind(m_cpt));
