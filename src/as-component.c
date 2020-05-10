@@ -3135,6 +3135,8 @@ as_component_get_agreement_by_kind (AsComponent *cpt, AsAgreementKind kind)
  * (which will be the case if the component was not loaded from
  * a file or cache but constructed in memory).
  *
+ * Returns: (transfer none) (nullable): a #AsContext or %NULL
+ *
  * Since: 0.11.2
  */
 AsContext*
