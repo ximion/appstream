@@ -1,6 +1,6 @@
 AppStream
 =========
-<img align="right" src="docs/sources/images/appstream-logo.png">
+<img align="right" src="docs/images/src/png/appstream-logo.png">
 
 AppStream is a collaborative effort for making machine-readable software metadata easily available to programs that need it.
 It is part of the Freedesktop ecosystem and provides a convenient way to retrieve information about available software,
