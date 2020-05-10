@@ -360,6 +360,8 @@ void			as_component_set_name_variant_suffix (AsComponent *cpt,
 								const gchar *value,
 								const gchar *locale);
 
+AsContext		*as_component_get_context (AsComponent *cpt);
+
 GHashTable		*as_component_get_name_table (AsComponent *cpt);
 GHashTable		*as_component_get_summary_table (AsComponent *cpt);
 GHashTable		*as_component_get_keywords_table (AsComponent *cpt);

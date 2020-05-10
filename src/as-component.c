@@ -3120,7 +3120,9 @@ as_component_get_agreement_by_kind (AsComponent *cpt, AsAgreementKind kind)
  * @cpt: a #AsComponent instance.
  *
  * Returns: the #AsContext associated with this component.
- * This function may return %NULL if no context is set.
+ * This function may return %NULL if no context is set
+ * (which will be the case if the component was not loaded from
+ * a file or cache but constructed in memory).
  *
  * Since: 0.11.2
  */
