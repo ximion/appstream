@@ -24,6 +24,15 @@
         <xsl:with-param name="force" select="1"/>
       </xsl:call-template>
       <xsl:apply-templates select="term"/>
+
+      <xsl:choose>
+        <xsl:when test="(@id or @xml:id)">
+          <xsl:text>&#160;</xsl:text>
+          <xsl:call-template name="create.permalink">
+            <xsl:with-param name="object" select="."/>
+          </xsl:call-template>
+        </xsl:when>
+      </xsl:choose>
     </dt>
     <dd>
       <xsl:apply-templates select="listitem"/>
