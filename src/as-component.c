@@ -3130,12 +3130,12 @@ as_component_get_agreement_by_kind (AsComponent *cpt, AsAgreementKind kind)
  * as_component_get_context:
  * @cpt: a #AsComponent instance.
  *
- * Returns: the #AsContext associated with this component.
+ * Get the #AsContext associated with this component.
  * This function may return %NULL if no context is set
  * (which will be the case if the component was not loaded from
  * a file or cache but constructed in memory).
  *
- * Returns: (transfer none) (nullable): a #AsContext or %NULL
+ * Returns: (transfer none) (nullable): the associated #AsContext or %NULL
  *
  * Since: 0.11.2
  */
