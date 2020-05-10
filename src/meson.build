@@ -6,7 +6,6 @@ aslib_src = [
     'as-utils.c',
     # internal
     'as-tag.c',
-    'as-context.c',
     'as-xml.c',
     'as-yaml.c',
     'as-cache.c',
@@ -15,6 +14,7 @@ aslib_src = [
     'as-stemmer.c',
     'as-news-convert.c',
     # (mostly) public
+    'as-context.c',
     'as-spdx.c',
     'as-metadata.c',
     'as-component.c',
