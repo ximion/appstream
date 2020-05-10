@@ -503,8 +503,9 @@
 						<listitem>
 						<para>
 							At least one <literal>checksum</literal> child must be present to contain the checksum of the released artifact.
-							The <code>&lt;checksum/&gt;</code> tag has a <code>type</code> attribute, describing the checksumming-algorithm that was used to create it. Currently, only <literal>SHA1</literal>
-							and <literal>SHA256</literal> are supported as values.
+							The <code>&lt;checksum/&gt;</code> tag has a <code>type</code> attribute, containing the name of the hash function that was used to create it.
+							Currently aupported values (and hash sums) are: <literal>sha1</literal>, <literal>sha256</literal>, <literal>blake2b</literal> and <literal>blake2s</literal>.
+							For most purposes (on 64-bit machines), using <ulink url="https://blake2.net">BLAKE2b</ulink> via the <command>b2sum</command> utility from GNU Coreutils is a good choice.
 						</para>
 						</listitem>
 					</varlistentry>
@@ -543,7 +544,7 @@
       <artifact type="binary" platform="x86_64-linux-gnu">
         <location>https://example.com/mytarball.bin.tar.xz</location>
         <checksum type="sha256">....</checksum>
-        <checksum type="blake2">....</checksum>
+        <checksum type="blake2b">....</checksum>
         <size type="download">12345678</size>
         <size type="installed">42424242</size>
       </artifact>

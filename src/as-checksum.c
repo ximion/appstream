@@ -58,6 +58,10 @@ as_checksum_kind_to_string (AsChecksumKind kind)
 		return "sha1";
 	if (kind == AS_CHECKSUM_KIND_SHA256)
 		return "sha256";
+	if (kind == AS_CHECKSUM_KIND_BLAKE2B)
+		return "blake2b";
+	if (kind == AS_CHECKSUM_KIND_BLAKE2S)
+		return "blake2s";
 	return "unknown";
 }
 
@@ -78,6 +82,10 @@ as_checksum_kind_from_string (const gchar *kind_str)
 		return AS_CHECKSUM_KIND_SHA1;
 	if (g_strcmp0 (kind_str, "sha256") == 0)
 		return AS_CHECKSUM_KIND_SHA256;
+	if (g_strcmp0 (kind_str, "blake2b") == 0)
+		return AS_CHECKSUM_KIND_BLAKE2B;
+	if (g_strcmp0 (kind_str, "blake2s") == 0)
+		return AS_CHECKSUM_KIND_BLAKE2S;
 	return AS_CHECKSUM_KIND_NONE;
 }
 

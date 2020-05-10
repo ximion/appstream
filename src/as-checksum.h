@@ -47,8 +47,10 @@ struct _AsChecksumClass
 /**
  * AsChecksumKind:
  * @AS_CHECKSUM_KIND_NONE:	No checksum
- * @AS_CHECKSUM_KIND_SHA1:	SHA1
- * @AS_CHECKSUM_KIND_SHA256:	SHA256
+ * @AS_CHECKSUM_KIND_SHA1:	SHA1 checksum
+ * @AS_CHECKSUM_KIND_SHA256:	SHA256 checksum
+ * @AS_CHECKSUM_KIND_BLAKE2B:	BLAKE2b checksum
+ * @AS_CHECKSUM_KIND_BLAKE2S:	BLAKE2s checksum
  *
  * Checksums supported by #AsRelease
  **/
@@ -56,6 +58,8 @@ typedef enum  {
 	AS_CHECKSUM_KIND_NONE,
 	AS_CHECKSUM_KIND_SHA1,
 	AS_CHECKSUM_KIND_SHA256,
+	AS_CHECKSUM_KIND_BLAKE2B,
+	AS_CHECKSUM_KIND_BLAKE2S,
 	/*< private >*/
 	AS_CHECKSUM_KIND_LAST
 } AsChecksumKind;
