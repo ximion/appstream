@@ -55,11 +55,15 @@ you may want to take a look at the [AppStream Generator](https://github.com/ximi
  * Vala Compiler (vapigen) (for Vala VAPI file)
  * [Snowball](https://snowballstem.org/download.html) (for stemming support)
 
-#### Documentation / Specification
- * Publican
-
 #### Qt (for libappstream-qt)
  * Qt5 Core
+
+#### Documentation / Specification
+ * [DAPS](https://github.com/openSUSE/daps)
+
+If you are using the released tarballs, the HTML documentation will be prebuilt and DAPS, which is a heavy
+dependency, is not required to make it available locally. Of course, AppStream doesn't need the documentation
+to function, so it can even be built completely without it.
 
 ### Build instructions
 
@@ -77,7 +81,7 @@ ninja test
 Possible AppStream-specific flags are:  
  -Dqt=true          -- Build the Qt interface library (default: false)  
  -Dvapi=true        -- Build Vala API to use the library with the Vala programming language (default: false)  
- -Ddocs=true        -- Build specification and other documentation, requires Publican (default: false)  
+ -Ddocs=true        -- Build specification and other documentation, requires DAPS (default: false)  
  -Dinstall-docs=true -- Install documentation (default: true)  
  -Dmaintainer=true  -- Enable strict compiler options - use this if you write a patch for AppStream (default: false)  
  -Dstemming=true    -- Enable support for stemming in fulltext searches (default: true)  
