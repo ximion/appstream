@@ -20,6 +20,12 @@
 		<para>
 			Software which provides addons can ship one or more files in <filename>/usr/share/metainfo/%{id}.metainfo.xml</filename>.
 		</para>
+		<tip>
+			<para>
+				To get you started quickly, the AppStream project provides a web-based form to quickly generate valid metainfo XML for some of the most
+				common use cases. Check it out on <ulink url="https://www.freedesktop.org/software/appstream/metainfocreator/#/">freedesktop.org/software/appstream/metainfocreator</ulink>.
+			</para>
+		</tip>
 	</section>
 
 	<section id="qsr-addon-example">
