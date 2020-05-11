@@ -427,6 +427,9 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 	xmlNode* n_artifact = NULL;
 
+	if (priv->kind == AS_ARTIFACT_KIND_UNKNOWN)
+		return;
+
 	n_artifact = xmlNewChild (root, NULL, (xmlChar*) "artifact", (xmlChar*) "");
 
 	xmlNewProp (n_artifact,
@@ -459,11 +462,12 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
 
 	/* add size node */
 	for (guint j = 0; j < AS_SIZE_KIND_LAST; j++) {
-		if (as_artifact_get_size (artifact, j) > 0) {
+		guint64 asize = as_artifact_get_size (artifact, j);
+		if (asize > 0) {
 			xmlNode *s_node;
 			g_autofree gchar *size_str;
 
-			size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, as_artifact_get_size (artifact, j));
+			size_str = g_strdup_printf ("%" G_GUINT64_FORMAT, asize);
 			s_node = xmlNewTextChild (n_artifact,
 						  NULL,
 						  (xmlChar*) "size",
@@ -487,11 +491,50 @@ as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root)
  * Loads data from a YAML field.
  **/
 gboolean
-as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, AsArtifactKind kind, GError **error)
+as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, GError **error)
 {
-	/* TODO: DEP-11 isn't defined for artifacts yet */
+	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
 
-	return TRUE;
+	for (GNode *n = node->children; n != NULL; n = n->next) {
+		const gchar *key = as_yaml_node_get_key (n);
+
+		if (g_strcmp0 (key, "type") == 0) {
+			priv->kind = as_artifact_kind_from_string (as_yaml_node_get_value (n));
+
+		} else if (g_strcmp0 (key, "platform") == 0) {
+			g_free (priv->platform);
+			priv->platform = g_strdup (as_yaml_node_get_value (n));
+
+		} else if (g_strcmp0 (key, "bundle") == 0) {
+			priv->bundle_kind = as_bundle_kind_from_string (as_yaml_node_get_value (n));
+
+		} else if (g_strcmp0 (key, "locations") == 0) {
+			as_yaml_list_to_str_array (n, priv->locations);
+
+		} else if (g_strcmp0 (key, "checksum") == 0) {
+			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+				g_autoptr(AsChecksum) cs = as_checksum_new ();
+				if (as_checksum_load_from_yaml (cs, ctx, sn, NULL))
+					as_artifact_add_checksum (artifact, cs);
+			}
+
+		} else if (g_strcmp0 (key, "size") == 0) {
+			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+				AsSizeKind size_kind = as_size_kind_from_string (as_yaml_node_get_key (sn));
+				guint64 asize = g_ascii_strtoull (as_yaml_node_get_value (sn), NULL, 10);
+				if (size_kind == AS_SIZE_KIND_UNKNOWN)
+					continue;
+				if (asize <= 0)
+					continue;
+				as_artifact_set_size (artifact, asize, size_kind);
+			}
+
+		} else {
+			as_yaml_print_unknown ("artifact", key);
+		}
+	}
+
+	return priv->kind != AS_ARTIFACT_KIND_UNKNOWN;
 }
 
 /**
@@ -505,7 +548,54 @@ as_artifact_load_from_yaml (AsArtifact *artifact, AsContext *ctx, GNode *node, A
 void
 as_artifact_emit_yaml (AsArtifact *artifact, AsContext *ctx, yaml_emitter_t *emitter)
 {
-	/* TODO: DEP-11 isn't defined for artifacts yet */
+	AsArtifactPrivate *priv = GET_PRIVATE (artifact);
+
+	if (priv->kind == AS_ARTIFACT_KIND_UNKNOWN)
+		return;
+
+	as_yaml_mapping_start (emitter);
+
+	as_yaml_emit_entry (emitter,
+			    "type",
+			    as_artifact_kind_to_string (priv->kind));
+
+	as_yaml_emit_entry (emitter,
+			    "platform",
+			    priv->platform);
+
+	if (priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) {
+		as_yaml_emit_entry (emitter,
+				    "bundle",
+				    as_bundle_kind_to_string (priv->bundle_kind));
+	}
+
+	/* location URLs */
+	as_yaml_emit_sequence_from_str_array (emitter, "locations", priv->locations);
+
+	/* checksums */
+	if (priv->locations->len > 0) {
+		as_yaml_emit_scalar (emitter, "checksum");
+		as_yaml_mapping_start (emitter);
+
+		for (guint j = 0; j < priv->checksums->len; j++) {
+			AsChecksum *cs = AS_CHECKSUM (g_ptr_array_index (priv->checksums, j));
+			as_checksum_emit_yaml (cs, ctx, emitter);
+		}
+
+		as_yaml_mapping_end (emitter);
+	}
+
+	/* sizes */
+	as_yaml_emit_scalar (emitter, "size");
+	as_yaml_mapping_start (emitter);
+	for (guint j = 0; j < AS_SIZE_KIND_LAST; j++) {
+		guint64 asize = as_artifact_get_size (artifact, j);
+		if (asize > 0)
+			as_yaml_emit_entry_uint64 (emitter, as_size_kind_to_string (j), asize);
+	}
+	as_yaml_mapping_end (emitter);
+
+	as_yaml_mapping_end (emitter);
 }
 
 /**

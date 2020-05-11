@@ -285,7 +285,7 @@ as_issue_load_from_yaml (AsIssue *issue, AsContext *ctx, GNode *node, GError **e
 		const gchar *key = as_yaml_node_get_key (n);
 		const gchar *value = as_yaml_node_get_value (n);
 
-		if (value == NULL)
+		if (G_UNLIKELY (value == NULL))
 			continue; /* there should be no key without value */
 
 		if (g_strcmp0 (key, "type") == 0) {

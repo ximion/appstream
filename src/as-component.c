@@ -4785,19 +4785,19 @@ as_component_yaml_emit_icons (AsComponent* cpt, yaml_emitter_t *emitter, GPtrArr
 					as_yaml_emit_entry (emitter, "name", as_icon_get_name (icon));
 
 				if (as_icon_get_width (icon) > 0) {
-					as_yaml_emit_entry_uint (emitter,
+					as_yaml_emit_entry_uint64 (emitter,
 								 "width",
 								 as_icon_get_width (icon));
 				}
 
 				if (as_icon_get_height (icon) > 0) {
-					as_yaml_emit_entry_uint (emitter,
+					as_yaml_emit_entry_uint64 (emitter,
 								 "height",
 								 as_icon_get_height (icon));
 				}
 
 				if (as_icon_get_scale (icon) > 1) {
-					as_yaml_emit_entry_uint (emitter,
+					as_yaml_emit_entry_uint64 (emitter,
 								 "scale",
 								 as_icon_get_scale (icon));
 				}
@@ -5019,7 +5019,7 @@ as_component_yaml_emit_languages (AsComponent *cpt, yaml_emitter_t *emitter)
 
 		as_yaml_mapping_start (emitter);
 		as_yaml_emit_entry (emitter, "locale", locale);
-		as_yaml_emit_entry_uint (emitter, "percentage", percentage);
+		as_yaml_emit_entry_uint64 (emitter, "percentage", percentage);
 		as_yaml_mapping_end (emitter);
 	}
 

@@ -1262,6 +1262,24 @@ static const gchar *yamldata_releases_field =
 				"    url: https://example.com/bugzilla/12345\n"
 				"  - type: cve\n"
 				"    id: CVE-2019-123456\n"
+				"  artifacts:\n"
+				"  - type: source\n"
+				"    bundle: tarball\n"
+				"    locations:\n"
+				"    - https://example.com/source.tar.xz\n"
+				"    checksum:\n"
+				"      blake2b: 8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64acbad92084387c73f696f00368ea106ebb4\n"
+				"    size: {}\n"
+				"  - type: binary\n"
+				"    platform: x86_64-linux-gnu\n"
+				"    bundle: flatpak\n"
+				"    locations:\n"
+				"    - https://example.com/binary_amd64.flatpak\n"
+				"    checksum:\n"
+				"      blake2b: 04839a\n"
+				"    size:\n"
+				"      download: 24084\n"
+				"      installed: 42052\n"
 				"- version: '1.0'\n"
 				"  type: development\n"
 				"  unix-timestamp: 1460463132\n"
@@ -1288,7 +1306,10 @@ test_yaml_write_releases (void)
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(AsRelease) rel1 = NULL;
 	g_autoptr(AsRelease) rel2 = NULL;
+	g_autoptr(AsArtifact) af1 = NULL;
+	g_autoptr(AsArtifact) af2 = NULL;
 	AsIssue *issue = NULL;
+	AsChecksum *cs = NULL;
 	g_autofree gchar *res = NULL;
 
 	cpt = as_component_new ();
@@ -1324,6 +1345,28 @@ test_yaml_write_releases (void)
 	as_release_add_issue (rel2, issue);
 	g_object_unref (issue);
 
+	/* artifacts */
+	af1 = as_artifact_new ();
+	as_artifact_set_kind (af1, AS_ARTIFACT_KIND_SOURCE);
+	as_artifact_add_location (af1, "https://example.com/source.tar.xz");
+	as_artifact_set_bundle_kind (af1, AS_BUNDLE_KIND_TARBALL);
+	cs = as_checksum_new_for_kind_value (AS_CHECKSUM_KIND_BLAKE2B, "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64acbad92084387c73f696f00368ea106ebb4");
+	as_artifact_add_checksum (af1, cs);
+	g_object_unref (cs);
+	as_release_add_artifact (rel2, af1);
+
+	af2 = as_artifact_new ();
+	as_artifact_set_kind (af2, AS_ARTIFACT_KIND_BINARY);
+	as_artifact_add_location (af2, "https://example.com/binary_amd64.flatpak");
+	as_artifact_set_bundle_kind (af2, AS_BUNDLE_KIND_FLATPAK);
+	cs = as_checksum_new_for_kind_value (AS_CHECKSUM_KIND_BLAKE2B, "04839a");
+	as_artifact_add_checksum (af2, cs);
+	g_object_unref (cs);
+	as_artifact_set_size (af2, 42052, AS_SIZE_KIND_INSTALLED);
+	as_artifact_set_size (af2, 24084, AS_SIZE_KIND_DOWNLOAD);
+	as_artifact_set_platform (af2, "x86_64-linux-gnu");
+	as_release_add_artifact (rel2, af2);
+
 	/* test collection serialization */
 	res = as_yaml_test_serialize (cpt);
 	g_assert (as_yaml_test_compare_yaml (res, yamldata_releases_field));
@@ -1339,7 +1382,10 @@ test_yaml_read_releases (void)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	AsRelease *rel;
+	AsArtifact *af;
+	AsChecksum *cs;
 	GPtrArray *issues;
+	GPtrArray *artifacts;
 
 	cpt = as_yaml_test_read_data (yamldata_releases_field, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleasesTest");
@@ -1367,6 +1413,34 @@ test_yaml_read_releases (void)
 			g_assert_not_reached ();
 		}
 	}
+
+	artifacts = as_release_get_artifacts (rel);
+	g_assert_cmpint (artifacts->len, ==, 2);
+
+	/* artifact 1 */
+	af = AS_ARTIFACT (g_ptr_array_index (artifacts, 0));
+	g_assert_cmpint (as_artifact_get_kind (af), ==, AS_ARTIFACT_KIND_SOURCE);
+	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (af), 0), ==, "https://example.com/source.tar.xz");
+	g_assert_cmpint (as_artifact_get_bundle_kind (af), ==, AS_BUNDLE_KIND_TARBALL);
+
+	cs = as_artifact_get_checksum (af, AS_CHECKSUM_KIND_BLAKE2B);
+	g_assert_nonnull (cs);
+	g_assert_cmpstr (as_checksum_get_value (cs), ==, "8b28f613fa1ccdb1d303704839a0bb196424f425badfa4e4f43808f6812b6bcc0ae43374383bb6e46294d08155a64acbad92084387c73f696f00368ea106ebb4");
+
+	/* artifact 2 */
+	af = AS_ARTIFACT (g_ptr_array_index (artifacts, 1));
+	g_assert_cmpint (as_artifact_get_kind (af), ==, AS_ARTIFACT_KIND_BINARY);
+	g_assert_cmpstr (g_ptr_array_index (as_artifact_get_locations (af), 0), ==, "https://example.com/binary_amd64.flatpak");
+	g_assert_cmpint (as_artifact_get_bundle_kind (af), ==, AS_BUNDLE_KIND_FLATPAK);
+
+	cs = as_artifact_get_checksum (af, AS_CHECKSUM_KIND_BLAKE2B);
+	g_assert_nonnull (cs);
+	g_assert_cmpstr (as_checksum_get_value (cs), ==, "04839a");
+
+	g_assert_cmpint (as_artifact_get_size (af, AS_SIZE_KIND_INSTALLED), ==, 42052);
+	g_assert_cmpint (as_artifact_get_size (af, AS_SIZE_KIND_DOWNLOAD), ==, 24084);
+
+	g_assert_cmpstr (as_artifact_get_platform (af), ==, "x86_64-linux-gnu");
 }
 
 /**

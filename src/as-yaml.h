@@ -59,16 +59,16 @@ void		as_yaml_emit_scalar_raw (yaml_emitter_t *emitter,
 					 const gchar *value);
 void		as_yaml_emit_scalar (yaml_emitter_t *emitter,
 				     const gchar *value);
-void		as_yaml_emit_scalar_uint (yaml_emitter_t *emitter,
-					  guint value);
+void		as_yaml_emit_scalar_uint64 (yaml_emitter_t *emitter,
+					    guint64 value);
 void		as_yaml_emit_scalar_key (yaml_emitter_t *emitter,
 					 const gchar *key);
 void		as_yaml_emit_entry (yaml_emitter_t *emitter,
 					const gchar *key,
 					const gchar *value);
-void		as_yaml_emit_entry_uint (yaml_emitter_t *emitter,
-					 const gchar *key,
-					 guint value);
+void		as_yaml_emit_entry_uint64 (yaml_emitter_t *emitter,
+					   const gchar *key,
+					   guint64 value);
 void		as_yaml_emit_entry_timestamp (yaml_emitter_t *emitter,
 						const gchar *key,
 						guint64 unixtime);

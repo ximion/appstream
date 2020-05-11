@@ -2294,7 +2294,7 @@ as_validator_get_report_yaml (AsValidator *validator, gchar **yaml_report)
 			if (cid != NULL)
 				as_yaml_emit_entry (&emitter, "component", cid);
 			if (line > 0)
-				as_yaml_emit_entry_uint (&emitter, "line", (guint) line);
+				as_yaml_emit_entry_uint64 (&emitter, "line", (guint) line);
 			if (hint != NULL)
 				as_yaml_emit_entry (&emitter, "hint", hint);
 			as_yaml_emit_long_entry (&emitter,

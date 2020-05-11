@@ -37,9 +37,9 @@ void		as_artifact_to_xml_node (AsArtifact *artifact,
 				       xmlNode *root);
 
 gboolean	as_artifact_load_from_yaml (AsArtifact *artifact,
-					  AsContext *ctx,
-					  GNode *node,
-					  GError **error);
+					    AsContext *ctx,
+					    GNode *node,
+					    GError **error);
 void		as_artifact_emit_yaml (AsArtifact *artifact,
 					AsContext *ctx,
 					yaml_emitter_t *emitter);

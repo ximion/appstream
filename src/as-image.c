@@ -460,11 +460,11 @@ as_image_emit_yaml (AsImage *image, AsContext *ctx, yaml_emitter_t *emitter)
 
 	as_yaml_emit_entry (emitter, "url", url);
 	if ((priv->width > 0) && (priv->height > 0)) {
-		as_yaml_emit_entry_uint (emitter,
+		as_yaml_emit_entry_uint64 (emitter,
 					 "width",
 					 priv->width);
 
-		as_yaml_emit_entry_uint (emitter,
+		as_yaml_emit_entry_uint64 (emitter,
 					 "height",
 					 priv->height);
 	}

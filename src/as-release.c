@@ -1128,6 +1128,13 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, GNode *node, GErr
 					as_release_add_issue (release, issue);
 			}
 
+		} else if (g_strcmp0 (key, "artifacts") == 0) {
+			for (GNode *sn = n->children; sn != NULL; sn = sn->next) {
+				g_autoptr(AsArtifact) artifact = as_artifact_new ();
+				if (as_artifact_load_from_yaml (artifact, ctx, sn, NULL))
+					as_release_add_artifact (release, artifact);
+			}
+
 		} else {
 			as_yaml_print_unknown ("release", key);
 		}
@@ -1213,7 +1220,18 @@ as_release_emit_yaml (AsRelease *release, AsContext *ctx, yaml_emitter_t *emitte
 		as_yaml_sequence_end (emitter);
 	}
 
-	/* TODO: Artifacts are missing, because they are not specified yet for DEP-11. */
+	/* artifacts */
+	if (priv->artifacts->len > 0) {
+		as_yaml_emit_scalar (emitter, "artifacts");
+		as_yaml_sequence_start (emitter);
+
+		for (guint i = 0; i < priv->artifacts->len; i++) {
+			AsArtifact *artifact = AS_ARTIFACT (g_ptr_array_index (priv->artifacts, i));
+			as_artifact_emit_yaml (artifact, ctx, emitter);
+		}
+
+		as_yaml_sequence_end (emitter);
+	}
 
 	/* end mapping for the release */
 	as_yaml_mapping_end (emitter);

@@ -522,13 +522,13 @@ as_video_emit_yaml (AsVideo *video, AsContext *ctx, yaml_emitter_t *emitter)
 
 	as_yaml_emit_entry (emitter, "url", url);
 	if ((priv->width > 0) && (priv->height > 0)) {
-		as_yaml_emit_entry_uint (emitter,
-					 "width",
-					 priv->width);
+		as_yaml_emit_entry_uint64 (emitter,
+					   "width",
+					   priv->width);
 
-		as_yaml_emit_entry_uint (emitter,
-					 "height",
-					 priv->height);
+		as_yaml_emit_entry_uint64 (emitter,
+					   "height",
+					   priv->height);
 	}
 	if ((priv->locale != NULL) && (g_strcmp0 (priv->locale, "C") != 0))
 		as_yaml_emit_entry (emitter, "lang", priv->locale);

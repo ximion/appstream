@@ -268,6 +268,25 @@ as_checksum_emit_yaml (AsChecksum *cs, AsContext *ctx, yaml_emitter_t *emitter)
 }
 
 /**
+ * as_checksum_new_for_kind_value:
+ *
+ * Creates a new #AsChecksum with the given hash
+ * function and hash value.
+ *
+ * Returns: (transfer full): an #AsChecksum
+ *
+ * Since: 0.12.11
+ **/
+AsChecksum*
+as_checksum_new_for_kind_value (AsChecksumKind kind, const gchar *value)
+{
+	AsChecksum *cs = as_checksum_new ();
+	as_checksum_set_kind (cs, kind);
+	as_checksum_set_value (cs, value);
+	return cs;
+}
+
+/**
  * as_checksum_new:
  *
  * Creates a new #AsChecksum.

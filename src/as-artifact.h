@@ -86,7 +86,7 @@ typedef enum {
 AsArtifactKind	 as_artifact_kind_from_string (const gchar *kind);
 const gchar	*as_artifact_kind_to_string (AsArtifactKind kind);
 
-AsArtifact		*as_artifact_new (void);
+AsArtifact	*as_artifact_new (void);
 
 AsArtifactKind	 as_artifact_get_kind (AsArtifact *artifact);
 void		 as_artifact_set_kind (AsArtifact *artifact,

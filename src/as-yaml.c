@@ -270,16 +270,16 @@ as_yaml_emit_scalar_raw (yaml_emitter_t *emitter, const gchar *value)
 }
 
 /**
- * as_yaml_emit_scalar_uint:
+ * as_yaml_emit_scalar_uint64:
  */
 void
-as_yaml_emit_scalar_uint (yaml_emitter_t *emitter, guint value)
+as_yaml_emit_scalar_uint64 (yaml_emitter_t *emitter, guint64 value)
 {
 	gint ret;
 	yaml_event_t event;
 	g_autofree gchar *value_str = NULL;
 
-	value_str = g_strdup_printf("%i", value);
+	value_str = g_strdup_printf ("%" G_GUINT64_FORMAT, value);
 	yaml_scalar_event_initialize (&event,
 					NULL,
 					NULL,
@@ -336,13 +336,13 @@ as_yaml_emit_entry (yaml_emitter_t *emitter, const gchar *key, const gchar *valu
 }
 
 /**
- * as_yaml_emit_entry_uint:
+ * as_yaml_emit_entry_uint64:
  */
 void
-as_yaml_emit_entry_uint (yaml_emitter_t *emitter, const gchar *key, guint value)
+as_yaml_emit_entry_uint64 (yaml_emitter_t *emitter, const gchar *key, guint64 value)
 {
 	as_yaml_emit_scalar_key (emitter, key);
-	as_yaml_emit_scalar_uint (emitter, value);
+	as_yaml_emit_scalar_uint64 (emitter, value);
 }
 
 /**
