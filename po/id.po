@@ -1,17 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# 
+#
 # Translators:
 # Andika Triwidada <andika@gmail.com>, 2014-2016, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-02-29 02:36+0100\n"
+"POT-Creation-Date: 2020-05-11 03:16+0200\n"
 "PO-Revision-Date: 2020-03-31 18:38+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/"
+"translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,28 +34,37 @@ msgstr "Grafis 3D"
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "Sebuah tag <description/> tidak boleh dilokalkan dalam berkas metainfo (metadata hulu). Lokalkan masing-masing paragraf saja."
+msgstr ""
+"Sebuah tag <description/> tidak boleh dilokalkan dalam berkas metainfo "
+"(metadata hulu). Lokalkan masing-masing paragraf saja."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:254
+#: src/as-validator-issue-tag.h:259
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr "Butir `requires` atau `recommends` membutuhkan nilai untuk menunjukkan hubungan yang valid."
+msgstr ""
+"Butir `requires` atau `recommends` membutuhkan nilai untuk menunjukkan "
+"hubungan yang valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:195
+#: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr "Tangkapan layar harus mengandung setidaknya satu gambar atau video agar bermanfaat. Silakan tambahkan <image/> untuk itu."
+msgstr ""
+"Tangkapan layar harus mengandung setidaknya satu gambar atau video agar "
+"bermanfaat. Silakan tambahkan <image/> untuk itu."
 
-#: src/as-validator-issue-tag.h:200
+#: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr "Tangkapan layar harus mengandung gambar atau video, tetapi tidak keduanya sekaligus. Silakan gunakan tangkapan layar ini secara eksklusif untuk gambar statis atau untuk video."
+msgstr ""
+"Tangkapan layar harus mengandung gambar atau video, tetapi tidak keduanya "
+"sekaligus. Silakan gunakan tangkapan layar ini secara eksklusif untuk gambar "
+"statis atau untuk video."
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -78,11 +88,13 @@ msgid "Also show pedantic hints."
 msgstr "Tampilkan juga saran pedantik."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:510
+#: src/as-validator-issue-tag.h:515
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr "Tag `extends` dinyatakan, tetapi komponennya tidak bertipe `addon`, `localization`, atau `repository`."
+msgstr ""
+"Tag `extends` dinyatakan, tetapi komponennya tidak bertipe `addon`, "
+"`localization`, atau `repository`."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -134,7 +146,11 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr "Deskripsi AppStream hanya mendukung serangkaian tag terbatas untuk memformat teks: Paragraf (<p/>) dan daftar (<ul/>, <ol/>). Markup deskripsi ini berisi tag XML yang tidak valid yang tidak akan ditampilkan dengan benar dalam aplikasi yang mendukung spesifikasi metainfo."
+msgstr ""
+"Deskripsi AppStream hanya mendukung serangkaian tag terbatas untuk memformat "
+"teks: Paragraf (<p/>) dan daftar (<ul/>, <ol/>). Markup deskripsi ini berisi "
+"tag XML yang tidak valid yang tidak akan ditampilkan dengan benar dalam "
+"aplikasi yang mendukung spesifikasi metainfo."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -173,12 +189,15 @@ msgstr "Kecerdasan Buatan"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr "Sesuai spesifikasi AppStream, tag yang disebutkan harus muncul hanya sekali dalam konteks ini. Memiliki banyak tag semacam ini tidak valid."
+msgstr ""
+"Sesuai spesifikasi AppStream, tag yang disebutkan harus muncul hanya sekali "
+"dalam konteks ini. Memiliki banyak tag semacam ini tidak valid."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr "Asumsikan berkas masukan dalam format yang dipilih ('yaml' atau 'teks')."
+msgstr ""
+"Asumsikan berkas masukan dalam format yang dipilih ('yaml' atau 'teks')."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -201,7 +220,7 @@ msgid "Audio Creation & Editing"
 msgstr "Pembuatan & Penyuntingan Audio"
 
 #: tools/ascli-actions-misc.c:219
-#, c-format, fuzzy
+#, fuzzy, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr "Menambah berkas entri desktop '%s' dengan data dari '%s'."
 
@@ -294,19 +313,23 @@ msgstr "Komponen '%s' tidak punya kandidat instalasi."
 msgid "Compulsory for"
 msgstr "Wajib bagi"
 
-#: src/as-validator-issue-tag.h:374
+#: src/as-validator-issue-tag.h:379
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr "Pertimbangkan untuk menggunakan URL aman (HTTPS) untuk tautan ikon jarak jauh."
+msgstr ""
+"Pertimbangkan untuk menggunakan URL aman (HTTPS) untuk tautan ikon jarak "
+"jauh."
 
-#: src/as-validator-issue-tag.h:396
+#: src/as-validator-issue-tag.h:401
 msgid "Consider using a secure (HTTPS) URL for this web link."
 msgstr "Pertimbangkan untuk menggunakan URL aman (HTTPS) untuk tautan web ini."
 
-#: src/as-validator-issue-tag.h:189
+#: src/as-validator-issue-tag.h:194
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr "Pertimbangkan untuk menggunakan URL aman (HTTPS) untuk merujuk gambar tangkapan layar atau video ini."
+msgstr ""
+"Pertimbangkan untuk menggunakan URL aman (HTTPS) untuk merujuk gambar "
+"tangkapan layar atau video ini."
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
@@ -509,12 +532,15 @@ msgctxt "Category of Addons"
 msgid "Fonts"
 msgstr "Fonta"
 
-#: src/as-validator-issue-tag.h:237
+#: src/as-validator-issue-tag.h:242
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr "Untuk video, hanya format wadah WebM dan Matroska (.mkv) yang saat ini didukung. Ekstensi berkas dari video yang direferensikan tidak termasuk salah satu dari format ini."
+msgstr ""
+"Untuk video, hanya format wadah WebM dan Matroska (.mkv) yang saat ini "
+"didukung. Ekstensi berkas dari video yang direferensikan tidak termasuk "
+"salah satu dari format ini."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
@@ -535,55 +561,75 @@ msgid "Found %i components."
 msgstr "Ditemukan %i komponen."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
-#: src/as-validator-issue-tag.h:260
+#: src/as-validator-issue-tag.h:265
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr "Ditemukan properti `version` pada butir yang diperlukan/disarankan dari tipe yang seharusnya tidak memiliki atau memerlukan versi."
+msgstr ""
+"Ditemukan properti `version` pada butir yang diperlukan/disarankan dari tipe "
+"yang seharusnya tidak memiliki atau memerlukan versi."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
-#: src/as-validator-issue-tag.h:266
+#: src/as-validator-issue-tag.h:271
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr "Ditemukan properti `version` pada butir yang diperlukan/disarankan ini, tetapi tidak ada properti `compare`. Disarankan untuk secara eksplisit mendefinisikan operasi perbandingan."
+msgstr ""
+"Ditemukan properti `version` pada butir yang diperlukan/disarankan ini, "
+"tetapi tidak ada properti `compare`. Disarankan untuk secara eksplisit "
+"mendefinisikan operasi perbandingan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:277
+#: src/as-validator-issue-tag.h:282
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr "Menemukan relasi ukuran memori dalam tag `requires`. Ini berarti pengguna tidak akan dapat menginstal komponen tanpa RAM yang cukup. Ini biasanya tidak dimaksudkan dan Anda ingin menggunakan `memory` dalam tag `recommends` sebagai gantinya."
+msgstr ""
+"Menemukan relasi ukuran memori dalam tag `requires`. Ini berarti pengguna "
+"tidak akan dapat menginstal komponen tanpa RAM yang cukup. Ini biasanya "
+"tidak dimaksudkan dan Anda ingin menggunakan `memory` dalam tag `recommends` "
+"sebagai gantinya."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:284
+#: src/as-validator-issue-tag.h:289
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr "Menemukan relasi kontrol masukan pengguna dalam tag `requires`. Ini berarti pengguna tidak akan dapat menginstal komponen tanpa kontrol masukan yang ditentukan tersedia pada sistem. Ini biasanya tidak dimaksudkan dan Anda ingin menggunakan `control` dalam tag `recommends`."
+msgstr ""
+"Menemukan relasi kontrol masukan pengguna dalam tag `requires`. Ini berarti "
+"pengguna tidak akan dapat menginstal komponen tanpa kontrol masukan yang "
+"ditentukan tersedia pada sistem. Ini biasanya tidak dimaksudkan dan Anda "
+"ingin menggunakan `control` dalam tag `recommends`."
 
-#: src/as-validator-issue-tag.h:248
+#: src/as-validator-issue-tag.h:253
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr "Menemukan tag yang tidak dikenal di grup membutuhkan/menyarankan. Ini mungkin kesalahan, karena hubungan komponen tipe ini tidak diketahui."
+msgstr ""
+"Menemukan tag yang tidak dikenal di grup membutuhkan/menyarankan. Ini "
+"mungkin kesalahan, karena hubungan komponen tipe ini tidak diketahui."
 
-#: src/as-validator-issue-tag.h:440
+#: src/as-validator-issue-tag.h:445
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr "Tag yang ditemukan tidak valid. Tag non-standar harus diawali dengan `x-`. AppStream juga menyediakan tag <custom/> untuk menambahkan sebarang data ubahan ke berkas metainfo. Tag ini dibaca oleh pustaka AppStream dan mungkin berguna daripada mendefinisikan tag berawalan `x-` atau ubahan aras puncak baru jika Anda hanya ingin menambahkan data ubahan ke berkas metainfo."
+msgstr ""
+"Tag yang ditemukan tidak valid. Tag non-standar harus diawali dengan `x-`. "
+"AppStream juga menyediakan tag <custom/> untuk menambahkan sebarang data "
+"ubahan ke berkas metainfo. Tag ini dibaca oleh pustaka AppStream dan mungkin "
+"berguna daripada mendefinisikan tag berawalan `x-` atau ubahan aras puncak "
+"baru jika Anda hanya ingin menambahkan data ubahan ke berkas metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:526 src/as-validator.c:942 src/as-validator.c:1027
+#: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
 #: src/as-validator.c:1249
 #, c-format
 msgid "Found: %s - Allowed: %s"
@@ -626,16 +672,18 @@ msgid "Icon"
 msgstr "Ikon"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:364
+#: src/as-validator-issue-tag.h:369
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
 msgstr "Ikon tipe `remote` harus berisi URL ke ikon yang direferensikan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:357
+#: src/as-validator-issue-tag.h:362
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr "Ikon tipe `stock` atau `cached` tidak boleh berisi URL, path lengkap, atau relatif ke ikon. Hanya nama berkas atau nama stok yang diizinkan."
+msgstr ""
+"Ikon tipe `stock` atau `cached` tidak boleh berisi URL, path lengkap, atau "
+"relatif ke ikon. Hanya nama berkas atau nama stok yang diizinkan."
 
 #: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
@@ -659,18 +707,22 @@ msgid "Install software matching the component-ID."
 msgstr "Pasang perangkat lunak dengan component-ID yang cocok."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:386
+#: src/as-validator-issue-tag.h:391
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr "Properti `type` tidak valid untuk tag `url` ini. URL tipe ini tidak dikenal dalam spesifikasi AppStream."
+msgstr ""
+"Properti `type` tidak valid untuk tag `url` ini. URL tipe ini tidak dikenal "
+"dalam spesifikasi AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:566
+#: src/as-validator-issue-tag.h:571
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr "Tag tidak valid ditemukan dalam metadata koleksi. Hanya tag `component` yang diizinkan."
+msgstr ""
+"Tag tidak valid ditemukan dalam metadata koleksi. Hanya tag `component` yang "
+"diizinkan."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -678,23 +730,29 @@ msgstr ""
 "Tipe yang dipilih tak valid bagi butir yang disediakan. Nilai yang valid "
 "adalah:"
 
-#: src/as-validator-issue-tag.h:271
+#: src/as-validator-issue-tag.h:276
 msgid ""
 "Invalid version comparison operation on relation item. Only eq/ne/lt/gt/le/"
 "ge are permitted."
-msgstr "Operasi perbandingan versi tidak valid pada item relasi. Hanya eq/ne/lt/gt/le/ge yang diizinkan."
+msgstr ""
+"Operasi perbandingan versi tidak valid pada item relasi. Hanya eq/ne/lt/gt/"
+"le/ge yang diizinkan."
 
-#: src/as-validator-issue-tag.h:463
+#: src/as-validator-issue-tag.h:468
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr "Disarankan untuk menambahkan deskripsi panjang ke komponen ini untuk menyajikannya lebih baik kepada pengguna."
+msgstr ""
+"Disarankan untuk menambahkan deskripsi panjang ke komponen ini untuk "
+"menyajikannya lebih baik kepada pengguna."
 
-#: src/as-validator-issue-tag.h:458
+#: src/as-validator-issue-tag.h:463
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr "Akan bermanfaat untuk menambahkan deskripsi panjang ke fonta ini untuk menyajikannya lebih baik kepada pengguna."
+msgstr ""
+"Akan bermanfaat untuk menambahkan deskripsi panjang ke fonta ini untuk "
+"menyajikannya lebih baik kepada pengguna."
 
 #: src/as-category.c:144
 msgctxt "Category of Games"
@@ -721,20 +779,26 @@ msgid "License"
 msgstr "Lisensi"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:642
+#: src/as-validator-issue-tag.h:647
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr "Lisensi untuk komponen `runtime` biasanya terlalu kompleks untuk mencerminkannya dalam ekspresi SPDX sederhana. Pertimbangkan untuk menggunakan `LicenseRef` dan URL web sebagai nilai untuk `project_license` komponen ini. Misalnya `LicenseRef-free=https://example.com/licenses.html`"
+msgstr ""
+"Lisensi untuk komponen `runtime` biasanya terlalu kompleks untuk "
+"mencerminkannya dalam ekspresi SPDX sederhana. Pertimbangkan untuk "
+"menggunakan `LicenseRef` dan URL web sebagai nilai untuk `project_license` "
+"komponen ini. Misalnya `LicenseRef-free=https://example.com/licenses.html`"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
 msgid ""
 "Limit the number of release entries that end up in the metainfo file (0 for "
 "unlimited)."
-msgstr "Membatasi jumlah entri rilis yang berakhir di berkas metainfo (0 untuk tidak terbatas)."
+msgstr ""
+"Membatasi jumlah entri rilis yang berakhir di berkas metainfo (0 untuk tidak "
+"terbatas)."
 
 #: src/as-category.c:223
 msgctxt "Category of Addons"
@@ -765,7 +829,8 @@ msgstr "Lokasi metadata AppStream yang dipilih secara manual untuk dipindai."
 msgid ""
 "Many components have been recognized as invalid. See debug output for "
 "details."
-msgstr "Banyak komponen yang dikenal tidak valid. Lihat hasil debug untuk detailnya."
+msgstr ""
+"Banyak komponen yang dikenal tidak valid. Lihat hasil debug untuk detailnya."
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
@@ -797,11 +862,13 @@ msgid "Metainfo file '%s' does not exist."
 msgstr "Berkas metainfo '%s' tidak ada."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:380
+#: src/as-validator-issue-tag.h:385
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr "Berkas metainfo hanya dapat berisi ikon bertipe `stock` atau `remote`, tipe yang ditetapkan tidak diperbolehkan."
+msgstr ""
+"Berkas metainfo hanya dapat berisi ikon bertipe `stock` atau `remote`, tipe "
+"yang ditetapkan tidak diperbolehkan."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:116
@@ -826,12 +893,14 @@ msgctxt "Category of Communication"
 msgid "News"
 msgstr "Berita"
 
-#: src/as-validator-issue-tag.h:602
+#: src/as-validator-issue-tag.h:607
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr "Tidak ada metadata AppStream yang ditemukan di direktori atau pohon direktori ini."
+msgstr ""
+"Tidak ada metadata AppStream yang ditemukan di direktori atau pohon "
+"direktori ini."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:607
+#: src/as-validator-issue-tag.h:612
 msgid "No XDG applications directory found."
 msgstr "Tidak ada direktori aplikasi XDG yang ditemukan."
 
@@ -846,17 +915,24 @@ msgstr "Tak ada ikon."
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr "Tidak ada nama berkas keluaran yang ditentukan, memodifikasi berkas metainfo secara langsung."
+msgstr ""
+"Tidak ada nama berkas keluaran yang ditentukan, memodifikasi berkas metainfo "
+"secara langsung."
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr "Tidak ada biner yang ditentukan dalam berkas metainfo, dan tidak ada perintah exec yang ditentukan melalui '--exec'. Tidak dapat membuat kunci 'Exec='."
+msgstr ""
+"Tidak ada biner yang ditentukan dalam berkas metainfo, dan tidak ada "
+"perintah exec yang ditentukan melalui '--exec'. Tidak dapat membuat kunci "
+"'Exec='."
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr "Tidak ada nama ikon stok disediakan di berkas metainfo. Tidak bisa melanjutkan."
+msgstr ""
+"Tidak ada nama ikon stok disediakan di berkas metainfo. Tidak bisa "
+"melanjutkan."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -990,12 +1066,15 @@ msgstr "Tampilkan informasi debug ekstra."
 msgid "Show the program version."
 msgstr "Tampilkan versi program."
 
-#: src/as-validator-issue-tag.h:648
+#: src/as-validator-issue-tag.h:653
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr "Karena komponen `runtime` terdiri dari beberapa komponen perangkat lunak lain, ID-komponennya dapat dicantumkan dalam bagian `<provides/>` untuk runtime ini."
+msgstr ""
+"Karena komponen `runtime` terdiri dari beberapa komponen perangkat lunak "
+"lain, ID-komponennya dapat dicantumkan dalam bagian `<provides/>` untuk "
+"runtime ini."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
@@ -1013,11 +1092,12 @@ msgid "Subcommands:"
 msgstr "Subperintah:"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:540
+#: src/as-validator-issue-tag.h:545
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr "Saran tipe apa pun selain `upstream` tidak diizinkan dalam berkas metainfo."
+msgstr ""
+"Saran tipe apa pun selain `upstream` tidak diizinkan dalam berkas metainfo."
 
 #: tools/ascli-utils.c:297
 msgid "Summary"
@@ -1052,22 +1132,27 @@ msgstr "Penyunting Teks"
 msgid "The .desktop file '%s' does not exist."
 msgstr "Berkas .desktop '%s' tidak ada."
 
-#: src/as-validator-issue-tag.h:406
+#: src/as-validator-issue-tag.h:411
 msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "<developer_name/> tidak boleh mengandung pranala."
 
-#: src/as-validator-issue-tag.h:326
+#: src/as-validator-issue-tag.h:331
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr "Tag <id/> masih mengandung properti `type`, mungkin dari konversi lama ke format metainfo terbaru."
+msgstr ""
+"Tag <id/> masih mengandung properti `type`, mungkin dari konversi lama ke "
+"format metainfo terbaru."
 
-#: src/as-validator-issue-tag.h:629
+#: src/as-validator-issue-tag.h:634
 msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr "Spesifikasi AppStream membutuhkan string tanggal ISO 8601 yang lengkap dengan setidaknya granularitas hari untuk menunjukkan tanggal. Harap pastikan string tanggal valid."
+msgstr ""
+"Spesifikasi AppStream membutuhkan string tanggal ISO 8601 yang lengkap "
+"dengan setidaknya granularitas hari untuk menunjukkan tanggal. Harap "
+"pastikan string tanggal valid."
 
 #: src/as-pool.c:1924
 #, c-format
@@ -1086,7 +1171,7 @@ msgstr ""
 "Singgahan sistem AppStream dimutakhirkan, tapi beberapa komponen diabaikan. "
 "Lihatlah log rinci untuk informasi lebih lanjut."
 
-#: src/as-validator-issue-tag.h:151
+#: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr "Ekspresi lisensi SPDX tidak valid dan tidak dapat diuraikan."
 
@@ -1096,41 +1181,53 @@ msgstr "Ekspresi lisensi SPDX tidak valid dan tidak dapat diuraikan."
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TIPE mesti berupa suatu tipe komponen yang valid, seperti misalnya: %s"
 
-#: src/as-validator-issue-tag.h:560
+#: src/as-validator-issue-tag.h:565
 msgid "The XML of this file is malformed."
 msgstr "XML berkas ini salah bentuk."
 
-#: src/as-validator-issue-tag.h:331
+#: src/as-validator-issue-tag.h:336
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr "Tag `pkgname` muncul beberapa kali. Anda harus mengevaluasi membuat metapackage yang berisi berkas metainfo dan berkas .desktop untuk menghindari mendefinisikan beberapa nama paket per komponen."
+msgstr ""
+"Tag `pkgname` muncul beberapa kali. Anda harus mengevaluasi membuat "
+"metapackage yang berisi berkas metainfo dan berkas .desktop untuk "
+"menghindari mendefinisikan beberapa nama paket per komponen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:429
+#: src/as-validator-issue-tag.h:434
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr "Tag `update_contact` tidak boleh dimasukkan dalam koleksi AppStream XML."
+msgstr ""
+"Tag `update_contact` tidak boleh dimasukkan dalam koleksi AppStream XML."
 
-#: src/as-validator-issue-tag.h:597
+#: src/as-validator-issue-tag.h:602
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr "Kategori yang didefinisikan dalam berkas .desktop tidak valid. Lihat Spesifikasi Menu XDG untuk daftar kategori yang valid."
+msgstr ""
+"Kategori yang didefinisikan dalam berkas .desktop tidak valid. Lihat "
+"Spesifikasi Menu XDG untuk daftar kategori yang valid."
 
-#: src/as-validator-issue-tag.h:545
+#: src/as-validator-issue-tag.h:550
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr "Nama kategori tidak valid. Lihat Spesifikasi Menu XDG untuk daftar nama kategori yang valid."
+msgstr ""
+"Nama kategori tidak valid. Lihat Spesifikasi Menu XDG untuk daftar nama "
+"kategori yang valid."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr "ID komponen berisi tanda hubung minus. Menggunakan tanda hubung sangat tidak dianjurkan, untuk meningkatkan interoperabilitas dengan alat lain seperti D-Bus. Pilihan yang baik adalah mengganti tanda hubung dengan garis bawah (`_`)."
+msgstr ""
+"ID komponen berisi tanda hubung minus. Menggunakan tanda hubung sangat tidak "
+"dianjurkan, untuk meningkatkan interoperabilitas dengan alat lain seperti D-"
+"Bus. Pilihan yang baik adalah mengganti tanda hubung dengan garis bawah "
+"(`_`)."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1138,13 +1235,19 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr "ID komponen berisi segmen yang dimulai dengan angka. Memulai segmen ID reverse-DNS dengan nomor sangat tidak disarankan, untuk menjaga interoperabilitas dengan alat lain seperti D-Bus. Idealnya, awali segmen ini dengan garis bawah."
+msgstr ""
+"ID komponen berisi segmen yang dimulai dengan angka. Memulai segmen ID "
+"reverse-DNS dengan nomor sangat tidak disarankan, untuk menjaga "
+"interoperabilitas dengan alat lain seperti D-Bus. Idealnya, awali segmen ini "
+"dengan garis bawah."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr "ID komponen berisi karakter yang tidak valid. Hanya karakter ASCII, titik, dan angka yang diizinkan."
+msgstr ""
+"ID komponen berisi karakter yang tidak valid. Hanya karakter ASCII, titik, "
+"dan angka yang diizinkan."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1157,112 +1260,151 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"ID komponen bukan nama domain terbalik. Harap perbarui ID untuk menghindari masalah di masa mendatang dan kompatibel dengan semua implementasi AppStream.\n"
-"Anda juga dapat mempertimbangkan untuk memperbarui nama berkas .desktop yang menyertainya untuk mengikuti versi terbaru dari spesifikasi Desktop-Entry dan juga menggunakan nama rDNS untuk itu. Dalam hal apa pun, jangan lupa untuk menyebutkan entri desktop baru dalam tag <launchable/> untuk komponen ini agar aplikasi tetap dapat diluncurkan dari pusat perangkat lunak dan data berkas .desktop yang terkait dengan data metainfo."
+"ID komponen bukan nama domain terbalik. Harap perbarui ID untuk menghindari "
+"masalah di masa mendatang dan kompatibel dengan semua implementasi "
+"AppStream.\n"
+"Anda juga dapat mempertimbangkan untuk memperbarui nama berkas .desktop yang "
+"menyertainya untuk mengikuti versi terbaru dari spesifikasi Desktop-Entry "
+"dan juga menggunakan nama rDNS untuk itu. Dalam hal apa pun, jangan lupa "
+"untuk menyebutkan entri desktop baru dalam tag <launchable/> untuk komponen "
+"ini agar aplikasi tetap dapat diluncurkan dari pusat perangkat lunak dan "
+"data berkas .desktop yang terkait dengan data metainfo."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr "ID komponen diperlukan untuk mengikuti skema nama domain terbalik untuk namanya. Lihat spesifikasi AppStream untuk detailnya."
+msgstr ""
+"ID komponen diperlukan untuk mengikuti skema nama domain terbalik untuk "
+"namanya. Lihat spesifikasi AppStream untuk detailnya."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr "ID komponen mungkin tidak mengikuti skema nama domain terbalik (TLD yang digunakan olehnya tidak diketahui oleh validator)."
+msgstr ""
+"ID komponen mungkin tidak mengikuti skema nama domain terbalik (TLD yang "
+"digunakan olehnya tidak diketahui oleh validator)."
 
-#: src/as-validator-issue-tag.h:306
+#: src/as-validator-issue-tag.h:136
+#, fuzzy
+msgid "The component ID should only contain lowercase letters."
+msgstr "Ringkasan komponen tidak boleh mengandung tab atau putus baris."
+
+#: src/as-validator-issue-tag.h:311
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr "Komponen memiliki metode `merge` yang ditentukan. Ini tidak diizinkan dalam berkas metainfo."
+msgstr ""
+"Komponen memiliki metode `merge` yang ditentukan. Ini tidak diizinkan dalam "
+"berkas metainfo."
 
-#: src/as-validator-issue-tag.h:301
+#: src/as-validator-issue-tag.h:306
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr "Komponen memiliki set nilai prioritas. Ini tidak diizinkan dalam berkas metainfo."
+msgstr ""
+"Komponen memiliki set nilai prioritas. Ini tidak diizinkan dalam berkas "
+"metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:516
+#: src/as-validator-issue-tag.h:521
 msgid "The component is an addon, but no `extends` tag was specified."
 msgstr "Komponen adalah addon, tetapi tidak ada tag `extends` yang ditentukan."
 
-#: src/as-validator-issue-tag.h:453
+#: src/as-validator-issue-tag.h:458
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr "Komponen tidak memiliki deskripsi panjang. Komponen jenis ini harus memiliki deskripsi panjang."
+msgstr ""
+"Komponen tidak memiliki deskripsi panjang. Komponen jenis ini harus memiliki "
+"deskripsi panjang."
 
-#: src/as-validator-issue-tag.h:316
+#: src/as-validator-issue-tag.h:321
 msgid "The component is missing a name (<name/> tag)."
 msgstr "Komponen kekurangan nama (tag <name/>)."
 
-#: src/as-validator-issue-tag.h:321
+#: src/as-validator-issue-tag.h:326
 msgid "The component is missing a summary (<summary/> tag)."
 msgstr "Komponen tidak memiliki ringkasan (tag <summary/>)."
 
-#: src/as-validator-issue-tag.h:311
+#: src/as-validator-issue-tag.h:316
 msgid "The component is missing an ID (<id/> tag)."
 msgstr "Komponen tidak memiliki ID (tag <id/>)."
 
-#: src/as-validator-issue-tag.h:136
+#: src/as-validator-issue-tag.h:141
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr "Komponen ini adalah bagian dari proyek Freedesktop, tetapi ID-nya tidak dimulai dengan nama reverse-DNS fd.o (\"org.freedesktop\")."
+msgstr ""
+"Komponen ini adalah bagian dari proyek Freedesktop, tetapi ID-nya tidak "
+"dimulai dengan nama reverse-DNS fd.o (\"org.freedesktop\")."
 
-#: src/as-validator-issue-tag.h:146
+#: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr "Komponen ini adalah bagian dari proyek GNOME, tetapi ID-nya tidak dimulai dengan nama reverse-DNS GNOME (\"org.gnome\")."
+msgstr ""
+"Komponen ini adalah bagian dari proyek GNOME, tetapi ID-nya tidak dimulai "
+"dengan nama reverse-DNS GNOME (\"org.gnome\")."
 
-#: src/as-validator-issue-tag.h:141
+#: src/as-validator-issue-tag.h:146
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr "Komponen ini adalah bagian dari proyek KDE, tetapi ID-nya tidak dimulai dengan nama reverse-DNS KDE (\"org.kde\")."
+msgstr ""
+"Komponen ini adalah bagian dari proyek KDE, tetapi ID-nya tidak dimulai "
+"dengan nama reverse-DNS KDE (\"org.kde\")."
 
-#: src/as-validator-issue-tag.h:336
+#: src/as-validator-issue-tag.h:341
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr "Nama komponen mestinya (kemungkinan) tidak diakhiri dengan titik (`.`)."
+msgstr ""
+"Nama komponen mestinya (kemungkinan) tidak diakhiri dengan titik (`.`)."
 
-#: src/as-validator-issue-tag.h:346
+#: src/as-validator-issue-tag.h:351
 msgid "The component summary must not contain tabs or linebreaks."
 msgstr "Ringkasan komponen tidak boleh mengandung tab atau putus baris."
 
-#: src/as-validator-issue-tag.h:341
+#: src/as-validator-issue-tag.h:346
 msgid "The component summary should not end with a dot (`.`)."
 msgstr "Ringkasan komponen tidak boleh diakhiri dengan titik (`.`)."
 
-#: src/as-validator-issue-tag.h:243
+#: src/as-validator-issue-tag.h:248
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr "Tangkapan layar baku dari suatu komponen perangkat lunak tidak boleh berupa video. Gunakan gambar statis sebagai tangkapan layar baku dan atur video sebagai tangkapan layar sekunder."
+msgstr ""
+"Tangkapan layar baku dari suatu komponen perangkat lunak tidak boleh berupa "
+"video. Gunakan gambar statis sebagai tangkapan layar baku dan atur video "
+"sebagai tangkapan layar sekunder."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr "Deskripsi berisi URL web dalam teks polos. Ini tidak diizinkan, silakan gunakan tag <url/> untuk membagikan tautan."
+msgstr ""
+"Deskripsi berisi URL web dalam teks polos. Ini tidak diizinkan, silakan "
+"gunakan tag <url/> untuk membagikan tautan."
 
 #: src/as-validator.c:152
 #, fuzzy
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr "Tag masalah yang dipancarkan tidak dikenal dalam registri tag AppStream. Ini adalah bug di validator itu sendiri, tolong laporkan masalah ini di bugtracker kami."
+msgstr ""
+"Tag masalah yang dipancarkan tidak dikenal dalam registri tag AppStream. Ini "
+"adalah bug di validator itu sendiri, tolong laporkan masalah ini di "
+"bugtracker kami."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:448
+#: src/as-validator-issue-tag.h:453
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr "Tag esensial `metadata_license` tidak ada. Lisensi untuk metadata itu sendiri harus selalu didefinisikan."
+msgstr ""
+"Tag esensial `metadata_license` tidak ada. Lisensi untuk metadata itu "
+"sendiri harus selalu didefinisikan."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1270,118 +1412,161 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr "Paragraf `description/p` pertama dari komponen ini mungkin terlalu pendek (<80 karakter). Silakan mempertimbangkan mulai dengan paragraf yang lebih panjang untuk meningkatkan bagaimana deskripsi terlihat di pusat perangkat lunak dan untuk memberikan informasi lebih rinci tentang komponen ini segera di paragraf pertama."
+msgstr ""
+"Paragraf `description/p` pertama dari komponen ini mungkin terlalu pendek "
+"(<80 karakter). Silakan mempertimbangkan mulai dengan paragraf yang lebih "
+"panjang untuk meningkatkan bagaimana deskripsi terlihat di pusat perangkat "
+"lunak dan untuk memberikan informasi lebih rinci tentang komponen ini segera "
+"di paragraf pertama."
 
-#: src/as-validator-issue-tag.h:156
+#: src/as-validator-issue-tag.h:161
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr "ID lisensi tidak ditemukan dalam basis data SPDX. Harap periksa bahwa ID lisensi ditulis dengan cara yang sesuai dengan SPDX dan merupakan lisensi perangkat lunak gratis yang valid."
+msgstr ""
+"ID lisensi tidak ditemukan dalam basis data SPDX. Harap periksa bahwa ID "
+"lisensi ditulis dengan cara yang sesuai dengan SPDX dan merupakan lisensi "
+"perangkat lunak gratis yang valid."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr "Tag yang disebutkan kosong, yang kemungkinan besar tidak dimaksudkan karena seharusnya memiliki konten."
+msgstr ""
+"Tag yang disebutkan kosong, yang kemungkinan besar tidak dimaksudkan karena "
+"seharusnya memiliki konten."
 
-#: src/as-validator-issue-tag.h:168
+#: src/as-validator-issue-tag.h:173
 msgid ""
 "The metadata itself does not seem to be licensed under a permissive license. "
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr "Metadata itu sendiri tampaknya tidak dilisensikan di bawah lisensi permisif. Harap lisensikan data di bawah lisensi permisif, seperti FSFAP, CC0-1.0, atau 0BSD agar memungkinkan distributor untuk memasukkannya dalam koleksi data campuran tanpa risiko pelanggaran lisensi karena lisensi yang tidak saling kompatibel."
+msgstr ""
+"Metadata itu sendiri tampaknya tidak dilisensikan di bawah lisensi permisif. "
+"Harap lisensikan data di bawah lisensi permisif, seperti FSFAP, CC0-1.0, "
+"atau 0BSD agar memungkinkan distributor untuk memasukkannya dalam koleksi "
+"data campuran tanpa risiko pelanggaran lisensi karena lisensi yang tidak "
+"saling kompatibel."
 
-#: src/as-validator-issue-tag.h:162
+#: src/as-validator-issue-tag.h:167
 msgid ""
 "The metadata itself seems to be licensed under a complex collection of "
 "licenses. Please license the data under a simple permissive license, like "
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr "Metadata itu sendiri tampaknya dilisensikan di bawah koleksi lisensi yang kompleks. Harap lisensikan data di bawah lisensi permisif sederhana, seperti FSFAP, MIT, atau CC0-1.0 agar memungkinkan distributor untuk memasukkannya dalam koleksi data campuran tanpa risiko pelanggaran lisensi karena lisensi yang tidak saling kompatibel."
+msgstr ""
+"Metadata itu sendiri tampaknya dilisensikan di bawah koleksi lisensi yang "
+"kompleks. Harap lisensikan data di bawah lisensi permisif sederhana, seperti "
+"FSFAP, MIT, atau CC0-1.0 agar memungkinkan distributor untuk memasukkannya "
+"dalam koleksi data campuran tanpa risiko pelanggaran lisensi karena lisensi "
+"yang tidak saling kompatibel."
 
-#: src/as-validator-issue-tag.h:612
+#: src/as-validator-issue-tag.h:617
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr "Berkas metainfo disimpan di path lama. Silakan letakkan di `/usr/share/metainfo/`."
+msgstr ""
+"Berkas metainfo disimpan di path lama. Silakan letakkan di `/usr/share/"
+"metainfo/`."
 
-#: src/as-validator-issue-tag.h:617
+#: src/as-validator-issue-tag.h:622
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "Berkas metainfo menyatakan beberapa komponen. Ini tidak diizinkan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:572
+#: src/as-validator-issue-tag.h:577
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr "Berkas metainfo menggunakan versi kuno dari spesifikasi AppStream, yang tidak dapat divalidasi. Harap migrasi ke versi 0.6 (atau lebih tinggi)."
+msgstr ""
+"Berkas metainfo menggunakan versi kuno dari spesifikasi AppStream, yang "
+"tidak dapat divalidasi. Harap migrasi ke versi 0.6 (atau lebih tinggi)."
 
-#: src/as-validator-issue-tag.h:582
+#: src/as-validator-issue-tag.h:587
 msgid "The metainfo filename does not match the component ID."
 msgstr "Nama berkas metainfo tidak cocok dengan ID komponen."
 
-#: src/as-validator-issue-tag.h:622
+#: src/as-validator-issue-tag.h:627
 msgid ""
 "The releases are not sorted in a latest to oldest version order. This is "
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr "Rilis tidak diurutkan dalam urutan versi terbaru ke terlama. Ini diperlukan karena beberapa alat akan menganggap bahwa versi terbaru selalu di atas. Menyortir rilis juga meningkatkan keterbacaan keseluruhan berkas metainfo."
+msgstr ""
+"Rilis tidak diurutkan dalam urutan versi terbaru ke terlama. Ini diperlukan "
+"karena beberapa alat akan menganggap bahwa versi terbaru selalu di atas. "
+"Menyortir rilis juga meningkatkan keterbacaan keseluruhan berkas metainfo."
 
-#: src/as-validator-issue-tag.h:550
+#: src/as-validator-issue-tag.h:555
 msgid "The screenshot caption is too long (should be <= 80 characters)"
 msgstr "Keterangan tangkapan layar terlalu panjang (harus <= 80 karakter)"
 
-#: src/as-validator-issue-tag.h:206
+#: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr "Tangkapan layar tidak memiliki teks keterangan. Pertimbangkan untuk menambahkan."
+msgstr ""
+"Tangkapan layar tidak memiliki teks keterangan. Pertimbangkan untuk "
+"menambahkan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:218
+#: src/as-validator-issue-tag.h:223
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr "Video tangkapan layar tidak menentukan format wadah mana yang digunakan dalam properti `container`."
+msgstr ""
+"Video tangkapan layar tidak menentukan format wadah mana yang digunakan "
+"dalam properti `container`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:212
+#: src/as-validator-issue-tag.h:217
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr "Video tangkapan layar tidak menentukan kodek video mana yang digunakan dalam properti `codec`."
+msgstr ""
+"Video tangkapan layar tidak menentukan kodek video mana yang digunakan dalam "
+"properti `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:224
+#: src/as-validator-issue-tag.h:229
 msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr "Kodek video yang dipilih tidak didukung oleh AppStream dan pusat perangkat lunak mungkin tidak dapat memutar video. Hanya kodek AV1 dan VP9 yang saat ini didukung, menggunakan `av1` dan `vp9` sebagai nilai untuk properti `codec`."
+msgstr ""
+"Kodek video yang dipilih tidak didukung oleh AppStream dan pusat perangkat "
+"lunak mungkin tidak dapat memutar video. Hanya kodek AV1 dan VP9 yang saat "
+"ini didukung, menggunakan `av1` dan `vp9` sebagai nilai untuk properti "
+"`codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:231
+#: src/as-validator-issue-tag.h:236
 msgid ""
 "The selected video container format is not supported by AppStream and "
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr "Format wadah video yang dipilih tidak didukung oleh AppStream dan pusat perangkat lunak mungkin tidak dapat memutar video. Hanya wadah video WebM dan Matroska yang saat ini didukung, menggunakan `webm` dan `mkv` sebagai nilai untuk properti `container`."
+msgstr ""
+"Format wadah video yang dipilih tidak didukung oleh AppStream dan pusat "
+"perangkat lunak mungkin tidak dapat memutar video. Hanya wadah video WebM "
+"dan Matroska yang saat ini didukung, menggunakan `webm` dan `mkv` sebagai "
+"nilai untuk properti `container`."
 
-#: src/as-validator-issue-tag.h:296
+#: src/as-validator-issue-tag.h:301
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
 msgstr ""
 "Tipe komponen yang ditata bukan tipe komponen AppStream yang dikenal dan "
 "valid."
 
-#: src/as-validator-issue-tag.h:411
+#: src/as-validator-issue-tag.h:416
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr "Nilai yang ditetapkan bukan pengidentifikasi untuk lingkungan desktop seperti yang terdaftar di Freedesktop.org."
+msgstr ""
+"Nilai yang ditetapkan bukan pengidentifikasi untuk lingkungan desktop "
+"seperti yang terdaftar di Freedesktop.org."
 
 #: tools/ascli-actions-mdata.c:449
 #, c-format
@@ -1392,90 +1577,111 @@ msgstr ""
 "Tipe komponen perangkat lunak '%s' tidak valid dalam AppStream. Nilai yang "
 "mungkin adalah:"
 
-#: src/as-validator-issue-tag.h:351
+#: src/as-validator-issue-tag.h:356
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
-msgstr "Ringkasan tidak boleh mengandung URL apa pun. Gunakan tag <url/> untuk tautan."
+msgstr ""
+"Ringkasan tidak boleh mengandung URL apa pun. Gunakan tag <url/> untuk "
+"tautan."
 
-#: src/as-validator-issue-tag.h:653
+#: src/as-validator-issue-tag.h:658
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
 msgstr "Tipe butir yang disediakan komponen tidak diketahui oleh AppStream."
 
-#: src/as-validator-issue-tag.h:174
+#: src/as-validator-issue-tag.h:179
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr "Nilai update-contact tampaknya bukan alamat email yang valid (meng-escape `@` hanya diizinkan sebagai `_at_` atau `_AT_`)."
+msgstr ""
+"Nilai update-contact tampaknya bukan alamat email yang valid (meng-escape "
+"`@` hanya diizinkan sebagai `_at_` atau `_AT_`)."
 
 #: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr "Validator tidak dapat membuat laporan dalam format '%s'. Anda dapat memilih 'yaml' atau 'teks' sebagai gantinya."
+msgstr ""
+"Validator tidak dapat membuat laporan dalam format '%s'. Anda dapat memilih "
+"'yaml' atau 'teks' sebagai gantinya."
 
-#: src/as-validator-issue-tag.h:577
+#: src/as-validator-issue-tag.h:582
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr "Dokumen XML ini memiliki tag root yang tidak dikenal. Mungkin berkas ini bukan dokumen metainfo?"
+msgstr ""
+"Dokumen XML ini memiliki tag root yang tidak dikenal. Mungkin berkas ini "
+"bukan dokumen metainfo?"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:423
+#: src/as-validator-issue-tag.h:428
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr "Tag `bundle` ini memiliki tipe yang tidak dikenal dan tidak dapat digunakan."
+msgstr ""
+"Tag `bundle` ini memiliki tipe yang tidak dikenal dan tidak dapat digunakan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:291
+#: src/as-validator-issue-tag.h:296
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr "Butir `control` ini mendefinisikan metode masukan yang tidak dikenal dan tidak valid. Periksa spesifikasi untuk daftar nilai yang diizinkan."
+msgstr ""
+"Butir `control` ini mendefinisikan metode masukan yang tidak dikenal dan "
+"tidak valid. Periksa spesifikasi untuk daftar nilai yang diizinkan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:417
+#: src/as-validator-issue-tag.h:422
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr "Tag `launchable` ini memiliki tipe yang tidak dikenal dan tidak dapat digunakan."
+msgstr ""
+"Tag `launchable` ini memiliki tipe yang tidak dikenal dan tidak dapat "
+"digunakan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:528
+#: src/as-validator-issue-tag.h:533
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr "Komponen `localization` ini tidak menentukan bahasa apa pun yang digunakan untuk pelokalan ini."
+msgstr ""
+"Komponen `localization` ini tidak menentukan bahasa apa pun yang digunakan "
+"untuk pelokalan ini."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:522
+#: src/as-validator-issue-tag.h:527
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr "Komponen `localization` ini kurang tag `extends`, untuk menentukan komponen yang ditambahkannya untuk pelokalan."
+msgstr ""
+"Komponen `localization` ini kurang tag `extends`, untuk menentukan komponen "
+"yang ditambahkannya untuk pelokalan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:534
+#: src/as-validator-issue-tag.h:539
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
 msgstr "Komponen `service` ini kurang tag `launchable` bertipe `service`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:486
+#: src/as-validator-issue-tag.h:491
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr "Komponen `web-application` ini kurang tag `icon` untuk menyatakan suatu ikon yang valid."
+msgstr ""
+"Komponen `web-application` ini kurang tag `icon` untuk menyatakan suatu ikon "
+"yang valid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:480
+#: src/as-validator-issue-tag.h:485
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
 msgstr "Komponen `web-application` ini kurang tag `launchable` bertipe `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:492
+#: src/as-validator-issue-tag.h:497
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr "Komponen `web-application` ini kurang kategorisasi. Sebuah blok `categories` kemungkinan hilang."
+msgstr ""
+"Komponen `web-application` ini kurang kategorisasi. Sebuah blok `categories` "
+"kemungkinan hilang."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:680
@@ -1486,14 +1692,17 @@ msgstr ""
 "Perintah ini menerima argumen posisional pilihan TIPE dan BERKAS, BERKAS "
 "adalah berkas tujuan tulis (atau \"-\" untuk keluaran standar)."
 
-#: src/as-validator-issue-tag.h:635
+#: src/as-validator-issue-tag.h:640
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr "Komponen ini memperluas, menyediakan, memerlukan, atau merekomendasikan dirinya sendiri, yang tentunya tidak dimaksudkan dan dapat membingungkan pengguna atau mesin yang berurusan dengan metadata ini."
+msgstr ""
+"Komponen ini memperluas, menyediakan, memerlukan, atau merekomendasikan "
+"dirinya sendiri, yang tentunya tidak dimaksudkan dan dapat membingungkan "
+"pengguna atau mesin yang berurusan dengan metadata ini."
 
-#: src/as-validator-issue-tag.h:592
+#: src/as-validator-issue-tag.h:597
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr "Metadata komponen ini merujuk ke berkas .desktop yang tidak ada."
 
@@ -1501,7 +1710,9 @@ msgstr "Metadata komponen ini merujuk ke berkas .desktop yang tidak ada."
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr "Paragraf deskripsi ini berisi markup yang tidak valid. Saat ini, hanya <em/> dan <code/> yang diizinkan."
+msgstr ""
+"Paragraf deskripsi ini berisi markup yang tidak valid. Saat ini, hanya <em/> "
+"dan <code/> yang diizinkan."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1510,20 +1721,30 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr "Elemen (paragraf, daftar, dll.) dari suatu tag <description/> ini tidak boleh dilokalkan secara individual dalam metadata koleksi. Lokalkan keseluruhan tag <description/> sebagai gantinya. Generator metadata koleksi AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar ketika mengkompilasi data."
+msgstr ""
+"Elemen (paragraf, daftar, dll.) dari suatu tag <description/> ini tidak "
+"boleh dilokalkan secara individual dalam metadata koleksi. Lokalkan "
+"keseluruhan tag <description/> sebagai gantinya. Generator metadata koleksi "
+"AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar "
+"ketika mengkompilasi data."
 
-#: src/as-validator-issue-tag.h:468
+#: src/as-validator-issue-tag.h:473
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr "Komponen generik ini tidak memiliki deskripsi panjang. Mungkin bermanfaat untuk menambahkannya."
+msgstr ""
+"Komponen generik ini tidak memiliki deskripsi panjang. Mungkin bermanfaat "
+"untuk menambahkannya."
 
-#: src/as-validator-issue-tag.h:434
+#: src/as-validator-issue-tag.h:439
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
-msgstr "Tag ini adalah ekstensi spesifik GNOME untuk AppStream dan bukan bagian dari spesifikasi resmi. Jangan berharap itu berfungsi di semua implementasi dan di semua pusat perangkat lunak."
+msgstr ""
+"Tag ini adalah ekstensi spesifik GNOME untuk AppStream dan bukan bagian dari "
+"spesifikasi resmi. Jangan berharap itu berfungsi di semua implementasi dan "
+"di semua pusat perangkat lunak."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1541,10 +1762,12 @@ msgstr ""
 "untuk misalnya mengkueri perangkat lunak yang menyediakan MIME-type tertentu "
 "dan memasangnya dengan identifier komponen perangkat lunaknya."
 
-#: src/as-validator-issue-tag.h:401
+#: src/as-validator-issue-tag.h:406
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr "Tautan web ini menggunakan protokol FTP. Pertimbangkan beralih ke HTTP(S) sebagai gantinya."
+msgstr ""
+"Tautan web ini menggunakan protokol FTP. Pertimbangkan beralih ke HTTP(S) "
+"sebagai gantinya."
 
 #: tools/appstream-cli.c:648
 msgid ""
@@ -1555,25 +1778,31 @@ msgstr ""
 "dan sebuah operator perbandingan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:474
+#: src/as-validator-issue-tag.h:479
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr "Tipe komponen `console-application`, tetapi tidak ada informasi tentang biner di $PATH yang disediakan melalui tag `provides/binary`."
+msgstr ""
+"Tipe komponen `console-application`, tetapi tidak ada informasi tentang "
+"biner di $PATH yang disediakan melalui tag `provides/binary`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:504
+#: src/as-validator-issue-tag.h:509
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr "Tipe komponen `driver`, tetapi tidak ada informasi modalias yang diberikan melalui tag `provides/modalias`."
+msgstr ""
+"Tipe komponen `driver`, tetapi tidak ada informasi modalias yang diberikan "
+"melalui tag `provides/modalias`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:498
+#: src/as-validator-issue-tag.h:503
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr "Tipe komponen `font`, tetapi tidak ada informasi fonta yang disediakan melalui tag `provides/font`."
+msgstr ""
+"Tipe komponen `font`, tetapi tidak ada informasi fonta yang disediakan "
+"melalui tag `provides/font`."
 
 #: src/as-validator.c:333
 msgid "URL format is invalid."
@@ -1610,32 +1839,39 @@ msgstr "Tidak bisa menemukan komponen dengan ID '%s'!"
 msgid "Unable to load existing desktop-entry file template: %s"
 msgstr "Tidak bisa memuat templat berkas desktop-entry yang ada: %s"
 
-#: src/as-validator-issue-tag.h:369
+#: src/as-validator-issue-tag.h:374
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr "Tidak dapat menjangkau ikon jarak jauh di lokasi web yang diberikan - apakah ada?"
+msgstr ""
+"Tidak dapat menjangkau ikon jarak jauh di lokasi web yang diberikan - apakah "
+"ada?"
 
-#: src/as-validator-issue-tag.h:391
+#: src/as-validator-issue-tag.h:396
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
-msgstr "Tidak dapat menjangkau lokasi remote yang dirujuk oleh URL ini - apakah ada?"
-
-#: src/as-validator-issue-tag.h:179
-msgid ""
-"Unable to reach the screenshot image on its remote location - does the image "
-"exist?"
-msgstr "Tidak dapat menjangkau gambar tangkapan layar di lokasi remote - apakah gambar itu ada?"
+msgstr ""
+"Tidak dapat menjangkau lokasi remote yang dirujuk oleh URL ini - apakah ada?"
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
+"Unable to reach the screenshot image on its remote location - does the image "
+"exist?"
+msgstr ""
+"Tidak dapat menjangkau gambar tangkapan layar di lokasi remote - apakah "
+"gambar itu ada?"
+
+#: src/as-validator-issue-tag.h:189
+msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr "Tidak dapat mencapai video tangkapan layar di lokasi remote - apakah berkas video ada?"
+msgstr ""
+"Tidak dapat mencapai video tangkapan layar di lokasi remote - apakah berkas "
+"video ada?"
 
-#: src/as-validator-issue-tag.h:555
+#: src/as-validator-issue-tag.h:560
 msgid "Unable to read file."
 msgstr "Tidak bisa membaca berkas."
 
-#: src/as-validator-issue-tag.h:587
+#: src/as-validator-issue-tag.h:592
 msgid "Unable to read the .desktop file associated with this component."
 msgstr "Tidak bisa membaca berkas .desktop yang terkait dengan komponen ini."
 
@@ -1692,7 +1928,9 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr "Menggunakan baris yang dinyatakan untuk kunci 'Exec=' dari berkas entri desktop."
+msgstr ""
+"Menggunakan baris yang dinyatakan untuk kunci 'Exec=' dari berkas entri "
+"desktop."
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -1757,7 +1995,8 @@ msgstr "Pengolah Kata"
 
 #: tools/appstream-cli.c:871
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr "Menulis teks NEWS atau berkas YAML dengan informasi dari berkas metainfo."
+msgstr ""
+"Menulis teks NEWS atau berkas YAML dengan informasi dari berkas metainfo."
 
 #: tools/appstream-cli.c:874
 msgid ""
