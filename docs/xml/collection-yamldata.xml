@@ -730,6 +730,17 @@
 							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
+
+						<varlistentry>
+						<term>artifacts</term>
+						<listitem>
+							<para>
+								A list of dictionaries describing the artifacts published for this release. Refer to the XML specification
+								for details, which is mapped to YAML following the usual scheme.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>list(dict)</emphasis></literallayout>
+						</listitem>
+						</varlistentry>
 				</variablelist>
 
 				<para>
