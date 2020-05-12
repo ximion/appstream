@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-05-12 15:38+0000\n"
-"Last-Translator: Allan Lago <allanlago1@gmail.com>\n"
+"PO-Revision-Date: 2020-05-12 19:03+0000\n"
+"Last-Translator: Manuela Silva <mmsrs@sky.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -318,17 +318,17 @@ msgstr "Obrigatório para"
 
 #: src/as-validator-issue-tag.h:379
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr "Pondere usar um (HTTPS) URL seguro para a conexão de ícone remoto."
+msgstr "Considere usar um URL (HTTPS) seguro para a hiperligação de ícone remoto."
 
 #: src/as-validator-issue-tag.h:401
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "Considere usar um URL (HTTPS) seguro para esta hiperligação da Web."
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
+msgstr "Considere usar um URL (HTTPS) seguro para mencionar esta captura de ecrã de imagem ou de vídeo."
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
@@ -363,14 +363,12 @@ msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr ""
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
-msgstr "Serviços de sessão DBus"
+msgstr "Serviços de Sessão D-Bus"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
-msgstr "Serviços de sistema DBus"
+msgstr "Serviços de Sistema D-Bus"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
@@ -509,9 +507,9 @@ msgid "Featured"
 msgstr "Destaque"
 
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "Ficheiro de metadados “%s” não existe."
+msgstr "O ficheiro '%s' não existe."
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
@@ -545,9 +543,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "Formato de metadados padrão (valores válidos são “xml” e “yaml”)."
+msgstr "O formato do relatório gerado (os valores válidos são 'xml' e 'yaml')."
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -807,9 +804,8 @@ msgid "Math"
 msgstr "Matemática"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "Tipos MIME"
+msgstr "Tipos de Multimédia"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -822,9 +818,9 @@ msgstr "Os ficheiros de metadados têm erros:"
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "Ficheiro de metadados “%s” não existe."
+msgstr "O ficheiro de \"metainfo\" '%s' não existe."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:385
@@ -922,9 +918,8 @@ msgstr "Fotografia"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstream-cli.c:121
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "Imprimir saída detalhada sobre os componentes encontrados."
+msgstr "Imprimir explicação detalhada para os problemas encontrados."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
@@ -1081,7 +1076,7 @@ msgstr "Editores de texto"
 #: tools/ascli-actions-mdata.c:467
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr "O ficheiro .desktop “%s” não existe."
+msgstr "O ficheiro .desktop '%s' não existe."
 
 #: src/as-validator-issue-tag.h:411
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -1101,23 +1096,17 @@ msgid ""
 msgstr ""
 
 #: src/as-pool.c:1924
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
-msgstr ""
-"A cache de sistema do AppStream foi atualizada, mas foram encontrados "
-"problemas: %s"
+msgstr "A ''cache'' do sistema de AppStream foi atualizada, mas foram encontrados problemas mas que resultaram em que os metadados fossem ignorados: %s"
 
 #: src/as-pool.c:1922
-#, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr ""
-"A cache de sistema do AppStream foi atualizada, mas foram detetados alguns "
-"erros, o que pode levar a faltas de metadados. Veja o registo verboso para "
-"mais informações."
+msgstr "A ''cache'' do sistema de AppStream foi atualizada, mas alguns componentes foram ignorados. Consulte o registo verboso para mais informação."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1354,9 +1343,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:587
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "Remove software correspondendo ao component-ID."
+msgstr "O nome de ficheiro de \"metainfo\" não corresponde à Id. do componente."
 
 #: src/as-validator-issue-tag.h:627
 msgid ""
@@ -1406,12 +1394,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:301
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"O tipo de componente de software “%s” não é válido no AppStream. Os valores "
-"possíveis são:"
+msgstr "O tipo de componente definido não é um tipo de componente válido e reconhecido pela AppStream."
 
 #: src/as-validator-issue-tag.h:416
 msgid ""
@@ -1644,9 +1629,9 @@ msgstr ""
 "Não foi possível encontrar o componente com o identificador (ID) \"%s\"!"
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Não foi possível ler o ficheiro .desktop: %s"
+msgstr "Não é possível carregar o modelo de ficheiro de entrada desktop: %s"
 
 #: src/as-validator-issue-tag.h:374
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1670,14 +1655,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:560
-#, fuzzy
 msgid "Unable to read file."
-msgstr "Não foi possível remover cache antiga."
+msgstr "Não é possível ler o ficheiro."
 
 #: src/as-validator-issue-tag.h:592
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "Não foi possível ler o ficheiro .desktop: %s"
+msgstr "Não é possível ler o ficheiro .desktop associado com este componente."
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
@@ -1689,9 +1672,9 @@ msgid "Unable to remove old cache."
 msgstr "Não foi possível remover cache antiga."
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "Não foi possível ler o ficheiro .desktop: %s"
+msgstr "Não é possível guardar o ficheiro de entrada desktop: %s"
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -1832,19 +1815,16 @@ msgstr ""
 "parâmetros."
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "Tem de especificar um ficheiro de metadados."
+msgstr "Tem de especificar um ficheiro de NOTÍCIAS como entrada."
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Tem de especificar um ficheiro de metadados."
+msgstr "Tem de especificar um ficheiro de NOTÍCIAS como saída, ou '-' para imprimir para stdout."
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "Tem de especificar um ficheiro de entrada e saída."
+msgstr "Tem de especificar um ficheiro de NOTÍCIAS para gravar a saída."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:925
@@ -1859,25 +1839,22 @@ msgid "You need to specify a component-ID."
 msgstr "Tem de especificar um identificador de componente."
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Tem de especificar um ficheiro para validar!"
+msgstr "Tem de especificar um ficheiro de entrada desktop para criar ou acrescentar como saída."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "Tem de especificar um ficheiro de metadados."
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "Tem de especificar um ficheiro de metadados."
+msgstr "Tem de especificar um ficheiro de \"metainfo\" como entrada."
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "Tem de especificar um ficheiro de metadados."
+msgstr "Tem de especificar um ficheiro de \"metainfo\" para adicionar, ou '-' para imprimir para stdout."
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"
@@ -1892,9 +1869,8 @@ msgid "You need to specify an input and output file."
 msgstr "Tem de especificar um ficheiro de entrada e saída."
 
 #: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "Tem de especificar um ficheiro para validar!"
+msgstr "Tem de especificar pelo menos um ficheiro para validar!"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
