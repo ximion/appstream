@@ -130,6 +130,9 @@ gchar			*as_filebasename_from_uri (const gchar *uri);
 
 gchar			*as_date_time_format_iso8601 (GDateTime *datetime);
 
+AS_INTERNAL_VISIBLE
+gchar			*as_strstripnl (gchar *string);
+
 #pragma GCC visibility pop
 G_END_DECLS
 
