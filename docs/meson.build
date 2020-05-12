@@ -103,7 +103,7 @@ if get_option('docs')
         install_subdir('html', install_dir: as_doc_target_dir)
 
         meson.add_install_script('sh', '-c',
-                          '[ -f "@0@" ] && mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@'
+                          'if [ -f "@0@" ]; then mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@; fi'
                           .format('/usr/share/javascript/highlight.js/highlight.min.js',
                                   join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js'))
         )
@@ -122,7 +122,7 @@ elif get_option('install-docs')
         install_subdir('html', install_dir: as_doc_target_dir)
 
         meson.add_install_script('sh', '-c',
-                          '[ -f "@0@" ] && mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@'
+                          'if [ -f "@0@" ]; then mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@; fi'
                           .format('/usr/share/javascript/highlight.js/highlight.min.js',
                                   join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js'))
         )
