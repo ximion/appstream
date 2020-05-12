@@ -36,24 +36,4 @@
         </xsl:choose>
     </xsl:template>
 
-
-    <!--  Adapted to support hidden value of OS  - currently this value
-          is only used in the SUSE Manager documentation. -->
-    <xsl:template name="common.html.attributes">
-        <xsl:param name="inherit" select="0"/>
-        <xsl:param name="class">
-            <xsl:value-of select="local-name(.)"/>
-            <xsl:text> </xsl:text>
-            <xsl:if test="($draft.mode = 'yes' or $draft.mode = 'maybe')
-                           and normalize-space(@os) = 'hidden'">
-                <xsl:value-of select="@os"/>
-            </xsl:if>
-        </xsl:param>
-
-        <xsl:apply-templates select="." mode="common.html.attributes">
-            <xsl:with-param name="class" select="$class"/>
-            <xsl:with-param name="inherit" select="$inherit"/>
-        </xsl:apply-templates>
-    </xsl:template>
-
 </xsl:stylesheet>

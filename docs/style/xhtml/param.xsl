@@ -207,7 +207,7 @@ task before
   <!-- Use customized language files -->
   <xsl:param name="local.l10n.xml" select="document('../common/l10n/l10n.xml')"/>
 
-<!-- 28. SUSE specific parameters =============================== -->
+<!-- 28. Style specific parameters =============================== -->
   <xsl:param name="is.chunk" select="0"/>
 
   <xsl:param name="admon.graphics.prefix">icon-</xsl:param>
