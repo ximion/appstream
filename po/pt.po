@@ -28,16 +28,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2021-08-30 09:34+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/"
-"translations/pt/>\n"
+"PO-Revision-Date: 2021-12-22 15:43+0000\n"
+"Last-Translator: Manuela Silva <mmsrs@sky.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8.1-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -72,13 +71,7 @@ msgid ""
 "system metadata pool, for example to query for software that provides a "
 "specific Mediatype handler or for installing software by its component "
 "identifier."
-msgstr ""
-"A ferramenta da linha de comandos <em>appstreamcli</em> permite ler, "
-"escrever, e transformar metadados AppStream em XML ou YAML, bem como validá-"
-"la para conformidade com a especificação. Esta também permite aceder ao "
-"grupo de metadados do sistema, por exemplo, consultar por um \"software\" "
-"que forneça um tipo MIME específico, ou para instalar \"software\" usando o "
-"próprio identificador de componente."
+msgstr "A ferramenta da linha de comandos <em>appstreamcli</em> permite ler, escrever, e transformar metadados AppStream em XML ou YAML, bem como validá-la para conformidade com a especificação. Esta também permite aceder ao grupo de metadados do sistema, por exemplo, consultar por um \"software\" que forneça um tipo MIME específico, ou para instalar \"software\" usando o próprio identificador de componente."
 
 #: src/as-cache.c:909
 #, c-format
@@ -1076,9 +1069,7 @@ msgstr "Marcações desse nome não são permitidas nesta secção."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"A etiqueta <description/> não deverá ser traduzida nos ficheiros \"metainfo"
-"\" (metadados \"upstream\"). Em vez disso, traduza parágrafos individuais."
+msgstr "A etiqueta <description/> não deverá ser traduzida nos ficheiros \"metainfo\" (metadados \"upstream\"). Em vez disso, traduza parágrafos individuais."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1321,9 +1312,7 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Considere usar um URL (HTTPS) seguro para mencionar esta captura de ecrã de "
-"imagem ou de vídeo."
+msgstr "Considere usar um URL (HTTPS) seguro para mencionar esta captura de ecrã de imagem ou de vídeo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
@@ -1539,9 +1528,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"O tipo de componente definido não é um tipo de componente válido e "
-"reconhecido pela AppStream."
+msgstr "O tipo de componente definido não é um tipo de componente válido e reconhecido pela AppStream."
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -1631,8 +1618,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Considere usar um URL (HTTPS) seguro para a hiperligação de ícone remoto."
+msgstr "Considere usar um URL (HTTPS) seguro para a hiperligação de ícone remoto."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
@@ -1920,8 +1906,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:618
 msgid "The metainfo filename does not match the component ID."
-msgstr ""
-"O nome de ficheiro de \"metainfo\" não corresponde à Id. do componente."
+msgstr "O nome de ficheiro de \"metainfo\" não corresponde à Id. do componente."
 
 #: src/as-validator-issue-tag.h:623
 msgid "Unable to read the .desktop file associated with this component."
@@ -2515,9 +2500,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
-"Presuma que o ficheiro de entrada está no formato selecionado ('yaml' ou "
-"'text')."
+msgstr "Presuma que o ficheiro de entrada está no formato selecionado ('yaml' ou 'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
@@ -2576,9 +2559,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
-"O comando '%s' é desconhecido. Execute '%s --help' para ver uma lista dos "
-"comandos disponíveis."
+msgstr "O comando '%s' é desconhecido. Execute '%s --help' para ver uma lista dos comandos disponíveis."
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstreamcli.c:1123
@@ -2690,8 +2671,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr ""
-"Crie um ficheiro de entrada de \"desktop\" a partir de um ficheiro metainfo."
+msgstr "Crie um ficheiro de entrada de \"desktop\" a partir de um ficheiro metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1233
@@ -2921,9 +2901,7 @@ msgstr "Tem de especificar um ficheiro de \"metainfo\" como entrada."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"Tem de especificar um ficheiro de entrada desktop para criar ou acrescentar "
-"como saída."
+msgstr "Tem de especificar um ficheiro de entrada desktop para criar ou acrescentar como saída."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
@@ -2973,9 +2951,7 @@ msgstr "Tem de especificar um ficheiro de NOTÍCIAS como entrada."
 #: tools/ascli-actions-misc.c:332
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
-"Tem de especificar um ficheiro de \"metainfo\" para adicionar, ou '-' para "
-"imprimir para stdout."
+msgstr "Tem de especificar um ficheiro de \"metainfo\" para adicionar, ou '-' para imprimir para stdout."
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
@@ -2985,9 +2961,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Tem de especificar um ficheiro de NOTÍCIAS como saída, ou '-' para imprimir "
-"para stdout."
+msgstr "Tem de especificar um ficheiro de NOTÍCIAS como saída, ou '-' para imprimir para stdout."
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
