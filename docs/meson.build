@@ -101,6 +101,12 @@ if get_option('docs')
 
     if get_option('install-docs')
         install_subdir('html', install_dir: as_doc_target_dir)
+
+        meson.add_install_script('sh', '-c',
+                          '[ -f "@0@" ] && mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@'
+                          .format('/usr/share/javascript/highlight.js/highlight.min.js',
+                                  join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js'))
+        )
     endif
 
     # add an extra testcase for documentation validation
@@ -114,5 +120,11 @@ elif get_option('install-docs')
     if run_command('[', '-d', join_paths(meson.current_source_dir(), 'html'), ']').returncode() == 0
         # install documentation, if it exists
         install_subdir('html', install_dir: as_doc_target_dir)
+
+        meson.add_install_script('sh', '-c',
+                          '[ -f "@0@" ] && mkdir -p $DESTDIR/@1@ && ln -sf @0@ $DESTDIR/@1@'
+                          .format('/usr/share/javascript/highlight.js/highlight.min.js',
+                                  join_paths(get_option('prefix'), as_doc_target_dir, 'html', 'static', 'js'))
+        )
     endif
 endif

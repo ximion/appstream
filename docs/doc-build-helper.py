@@ -29,10 +29,6 @@ import shutil
 from pathlib import Path
 
 
-# additional JavaScript from system locations, we use it if available
-EXTRA_JS = [['/usr/share/javascript/highlight.js/highlight.min.js',
-             'highlight.min.js']]
-
 # additional CSS from system locations, we use it if available
 EXTRA_CSS = [['/usr/share/javascript/highlight.js/styles/routeros.css',
               'highlight.css']]
@@ -64,11 +60,7 @@ def daps_build(src_dir, project_name, daps_exe):
     shutil.copy(os.path.join(src_dir, 'images', 'src', 'svg', 'appstream-logo.svg'),
                 os.path.join(html_out_dir, 'images'))
 
-    # copy extra JS and CSS if it is available
-    for js_fname in EXTRA_JS:
-        if os.path.exists(js_fname[0]):
-            shutil.copy(js_fname[0], os.path.join(html_out_dir, 'static',
-                                                  'js', js_fname[1]))
+    # copy extra CSS if it is available
     for css_fname in EXTRA_CSS:
         if os.path.exists(css_fname[0]):
             shutil.copy(css_fname[0], os.path.join(html_out_dir, 'static',
