@@ -1,3 +1,43 @@
+Version 0.12.11
+~~~~~~~~~~~~~~
+Released: 2020-05-12
+
+Features:
+ * Auto-update static category data from fd.o
+ * Implement support for input control relations
+ * validator: Validate input control relations
+ * validator: Put AppStream technical terms and tag names in backticks in
+   explanation texts
+ * Modernize the README
+ * validator: Check for uppercase letters in cids
+ * Strip beginning/trailing newlines in a number of places
+ * Make AsContext getter for AsComponent public API
+ * qt: Add support for name_variant_suffix
+ * Make component sort-score API public API
+ * Implement a YAML representation of release artifact information
+
+Specification:
+ * Build specification and docs with DAPS
+ * docs: Add (HTML) anchors for requires/recommends items
+ * spec: Specify user input control recommendations
+ * docs: Don't show reference to nonexistent provides->service tag for services
+ * spec: Encourage the use of only lowercase letters for component-IDs
+ * docs: Document --explain flag in ascli manual page as well
+ * docs: Add permalink anchors to some list entries
+ * Formally support BLAKE2b/s as hash functions for release artifacts
+ * docs: Link to the MetaInfo Creator webapp in a few places
+
+Bugfixes:
+ * Be less noisy about ignoring excessively long search tokens
+ * Tighten the "free license" check and prevent false positives
+ * cache: Use correct fts value per result (David Hewitt)
+ * validator: Control items can't have a version
+ * validator: Reduce download timeout
+ * yaml: Strip encoding when serializing keyword lists
+ * Allows arbitrary indentation when converting NEWS files
+ * Ignore NULL values silently in our stringstrip function
+ * Only dump valid metainfo description markup, sanitize it otherwise
+
 Version 0.12.10
 ~~~~~~~~~~~~~~
 Released: 2020-01-18
