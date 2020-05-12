@@ -29,14 +29,13 @@ import shutil
 from pathlib import Path
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--build', action='store_true')
-parser.add_argument('--validate', action='store_true')
+# additional JavaScript from system locations, we use it if available
+EXTRA_JS = [['/usr/share/javascript/highlight.js/highlight.min.js',
+             'highlight.min.js']]
 
-parser.add_argument('--src', action='store')
-parser.add_argument('--builddir', action='store')
-parser.add_argument('--daps', action='store', default='daps')
-parser.add_argument('project', action='store', default='AppStream', nargs='?')
+# additional CSS from system locations, we use it if available
+EXTRA_CSS = [['/usr/share/javascript/highlight.js/styles/routeros.css',
+              'highlight.css']]
 
 
 def daps_build(src_dir, project_name, daps_exe):
@@ -59,9 +58,22 @@ def daps_build(src_dir, project_name, daps_exe):
         print('Documentation HTML build failed!')
         sys.exit(6)
 
+    html_out_dir = os.path.join(build_dir, project_name, 'html', project_name)
+
     # copy the (usually missing) plain SVG project icon
     shutil.copy(os.path.join(src_dir, 'images', 'src', 'svg', 'appstream-logo.svg'),
-                os.path.join(build_dir, project_name, 'html', project_name, 'images'))
+                os.path.join(html_out_dir, 'images'))
+
+    # copy extra JS and CSS if it is available
+    for js_fname in EXTRA_JS:
+        if os.path.exists(js_fname[0]):
+            shutil.copy(js_fname[0], os.path.join(html_out_dir, 'static',
+                                                  'js', js_fname[1]))
+    for css_fname in EXTRA_CSS:
+        if os.path.exists(css_fname[0]):
+            shutil.copy(css_fname[0], os.path.join(html_out_dir, 'static',
+                                                   'css', css_fname[1]))
+
     return build_dir
 
 
@@ -96,6 +108,15 @@ def daps_validate(src_dir, daps_exe):
 
 
 def main(args):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--build', action='store_true')
+    parser.add_argument('--validate', action='store_true')
+
+    parser.add_argument('--src', action='store')
+    parser.add_argument('--builddir', action='store')
+    parser.add_argument('--daps', action='store', default='daps')
+    parser.add_argument('project', action='store', default='AppStream', nargs='?')
+
     options = parser.parse_args(args)
 
     if not options.validate and not options.build:
