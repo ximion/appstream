@@ -122,7 +122,7 @@ as_xml_dump_node_content_raw (xmlNode *node)
 	gssize len;
 
 	/* discard spaces */
-	if (node->type != XML_ELEMENT_NODE)
+	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
 		return NULL;
 
 	if (!as_xml_dump_node (node, &content, &len))
@@ -178,7 +178,7 @@ as_xml_dump_desc_para_node_content_raw (xmlNode *node)
 	gboolean is_valid_markup = TRUE;
 
 	/* ignore node if it is a space */
-	if (node->type != XML_ELEMENT_NODE)
+	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
 		return NULL;
 
 	/* perform a sanity check before dumping the node contents */
