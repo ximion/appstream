@@ -112,10 +112,10 @@ as_xml_dump_node (xmlNode *node, gchar **content, gssize *len)
 }
 
 /**
- * as_xml_dump_node_content:
+ * as_xml_dump_node_content_raw:
  */
 gchar*
-as_xml_dump_node_content (xmlNode *node)
+as_xml_dump_node_content_raw (xmlNode *node)
 {
 	g_autofree gchar *content = NULL;
 	gchar *tmp;
@@ -170,10 +170,10 @@ as_xml_dump_node_children (xmlNode *node)
 }
 
 /**
- * as_xml_dump_desc_para_node_content:
+ * as_xml_dump_desc_para_node_content_raw:
  */
 static gchar*
-as_xml_dump_desc_para_node_content (xmlNode *node)
+as_xml_dump_desc_para_node_content_raw (xmlNode *node)
 {
 	gboolean is_valid_markup = TRUE;
 
@@ -198,11 +198,15 @@ as_xml_dump_desc_para_node_content (xmlNode *node)
 	 * was deemed valid. Otherwise we will just try to dump any string content, and hope
 	 * people call the validator on their files to see that their metadata is broken.
 	 * TODO: Parse the data properly, and remove only the bad nodes on error, if libxml permits
-	 * that somehow? */
-	if (is_valid_markup)
-		return as_xml_dump_node_content (node);
-	else
-		return as_xml_get_node_value (node);
+	 * that in an efficient way? */
+	if (G_LIKELY (is_valid_markup)) {
+		return as_xml_dump_node_content_raw (node);
+	} else {
+		g_autofree gchar *tmp = as_xml_get_node_value (node);
+		if (G_UNLIKELY (tmp == NULL))
+			return NULL;
+		return g_markup_escape_text (tmp, -1);
+	}
 }
 
 /**
@@ -405,7 +409,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 				g_hash_table_insert (desc, g_strdup (lang), str);
 			}
 
-			content = as_xml_dump_desc_para_node_content (iter);
+			content = as_xml_dump_desc_para_node_content_raw (iter);
 			if (content != NULL)
 				g_string_append_printf (str, "<p>%s</p>\n", content);
 
@@ -443,7 +447,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHFunc fu
 					g_hash_table_insert (desc, g_strdup (lang), str);
 				}
 
-				content = as_xml_dump_desc_para_node_content (iter2);
+				content = as_xml_dump_desc_para_node_content_raw (iter2);
 				if (content != NULL)
 					g_string_append_printf (str, "  <%s>%s</%s>\n", (gchar*) iter2->name, content, (gchar*) iter2->name);
 			}
