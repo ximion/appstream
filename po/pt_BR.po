@@ -6,21 +6,21 @@
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
 # Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020.
 # Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020.
+# André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-02-29 05:04+0000\n"
-"Last-Translator: Wellington Terumi Uemura <wellingtonuemura@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
-"appstream/translations/pt_BR/>\n"
+"PO-Revision-Date: 2020-05-16 16:41+0000\n"
+"Last-Translator: André Marcelo Alvarenga <andrealvarenga@gmx.net>\n"
+"Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -1294,9 +1294,8 @@ msgstr ""
 "TLD usado por ele não é conhecido para o validador)."
 
 #: src/as-validator-issue-tag.h:136
-#, fuzzy
 msgid "The component ID should only contain lowercase letters."
-msgstr "O resumo do componente não deve conter tabulações ou quebras de linha."
+msgstr "O ID do componente deve conter apenas letras minúsculas."
 
 #: src/as-validator-issue-tag.h:311
 msgid ""
