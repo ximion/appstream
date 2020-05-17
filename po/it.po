@@ -6,21 +6,21 @@
 # Sergio Brighenti <sergio@brighenti.me>, 2019.
 # davide rinaudo <davide.rinaudo.scuola@gmail.com>, 2019.
 # Antenore Gatta <antenore@simbiosi.org>, 2019.
+# Ivan Fossati <vania1366@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2019-12-16 02:21+0000\n"
-"Last-Translator: Antenore Gatta <antenore@simbiosi.org>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/"
-"translations/it/>\n"
+"PO-Revision-Date: 2020-05-17 06:41+0000\n"
+"Last-Translator: Ivan Fossati <vania1366@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -607,17 +607,12 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:289
-#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"È stata rilevata una dipendenza dalla dimensione della memoria in un tag "
-"'requires'. Ciò significa che gli utenti non saranno nemmeno in grado di "
-"installare il componente senza avere abbastanza RAM. Questo di solito non è "
-"previsto e si desidera utilizzare invece 'memory' nel tag 'recommends'."
+msgstr "È stata rilevata una dipendenza dalla dimensione della memoria in un tag 'requires'. Ciò significa che gli utenti non saranno nemmeno in grado di installare il componente senza avere il controllo d'ingresso definito dispobile sul sistema. Questo di solito non è previsto e si desidera utilizzare invece 'control' nel tag 'recommends'."
 
 #: src/as-validator-issue-tag.h:253
 msgid ""
@@ -636,12 +631,7 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Trovato un tag non valido. Tag non-standard devono iniziare col prefisso "
-"«x-». AppStream fornisce anche il tag <custom/> per aggiungere dati "
-"personalizzati ai file metainfo. Questo tag viene letto dalle librerie "
-"AppStream e può essere più utile per aggiungere dei dati a un file metainfo "
-"rispetto all'uso di tag con prefisso «x-»."
+msgstr "Trovato un tag non valido. Tag non-standard devono iniziare col prefisso «x-». AppStream fornisce anche il tag <custom/> per aggiungere qualsiasi dato ai file metainfo. Questo tag viene letto dalle librerie AppStream e può essere più utile per definire nuovi custom toplevel o tag con prefisso 'x' se vuoi semplicemente dati personalizzati ad un file metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
@@ -699,9 +689,7 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Icone di tipo «stock» o «cached» non devono contenere un URL, un percorso "
-"assoluto o relativo all'icona. Sono consentiti solamente nomi di file."
+msgstr "Icone di tipo «stock» o «cached» non devono contenere un URL, un percorso assoluto o relativo all'icona. Sono consentiti solamente nomi di titoli o file basename."
 
 #: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
@@ -797,12 +785,13 @@ msgstr "Licenza"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:647
+#, fuzzy
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
+msgstr "Licenze per componenti 'runtime'sono solitamente troppo complessi per essere replicate con una semplice espressione SPDX. Considera di utilizzare una 'LicenseRef' e un URL web come valore per questo componente `project_license`per esempio `LicenseRef-free=https://example.com/licenses.html`"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
@@ -1014,8 +1003,9 @@ msgstr "Rimuove software tramite l'ID del componente"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-validator.c:364
+#, fuzzy
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "La dimensione del file recuperato è zero."
 
 #: src/as-category.c:248
 msgctxt "Category of Science"
@@ -1076,11 +1066,12 @@ msgid "Show the program version."
 msgstr "Mostra la versione del programma"
 
 #: src/as-validator-issue-tag.h:653
+#, fuzzy
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
+msgstr "Poiché un componente 'runtime' è composto da altri multipli componenti software, i suoi componenti ID potrebbero essere listati in una sezione <provides/> per questa fase d'esecuzione."
 
 #: src/as-category.c:153
 msgctxt "Category of Games"
@@ -1103,9 +1094,7 @@ msgstr "Sotto-comandi:"
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr ""
-"Qualsiasi altro tipo al di fuori di «upstream» non è supportato nei file "
-"metainfo."
+msgstr "Suggerimenti diversi da 'upstream' non sono permessi in file metainfo."
 
 #: tools/ascli-utils.c:297
 msgid "Summary"
@@ -1149,9 +1138,7 @@ msgstr "<developer_name/> non può contenere un collegamento."
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"Il tag <id/> contiene ancora una proprietà «type», probabilmente da una "
-"precedente conversione al nuovo formato metainfo."
+msgstr "Il tag <id/> contiene ancora una proprietà «type», probabilmente da una vecchia conversione al nuovo formato metainfo."
 
 #: src/as-validator-issue-tag.h:634
 msgid ""
@@ -1294,134 +1281,156 @@ msgstr ""
 "nome. Vedere la specifica AppStream per i dettagli."
 
 #: src/as-validator-issue-tag.h:114
+#, fuzzy
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
+msgstr "Il componente ID potrebbe non seguire lo schema inverso dominio-nome (il TLD utilizzato da esso non è riconosciuto validatore)."
 
 #: src/as-validator-issue-tag.h:136
+#, fuzzy
 msgid "The component ID should only contain lowercase letters."
-msgstr ""
+msgstr "Il componente ID dovrebbe contenere solo lettere minuscole."
 
 #: src/as-validator-issue-tag.h:311
+#, fuzzy
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "Il componente ha un  definito metodo 'merge'. Ciò non è permesso nei file metainfo."
 
 #: src/as-validator-issue-tag.h:306
+#, fuzzy
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "Il componente ha un valore di priorità impostato. Ciò non è permesso in file metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:521
+#, fuzzy
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
+msgstr "Il componente è un'aggiunta ma non è stato specificato un tag 'extends'."
 
 #: src/as-validator-issue-tag.h:458
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
+msgstr "Il componente manca di una lunga denominazione. Componenti di questo tipi devono avere una lunga denominazione."
 
 #: src/as-validator-issue-tag.h:321
+#, fuzzy
 msgid "The component is missing a name (<name/> tag)."
-msgstr ""
+msgstr "Questo componente manca di un nome (<name/> tag)."
 
 #: src/as-validator-issue-tag.h:326
+#, fuzzy
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr ""
+msgstr "Il componente manca di un sommario (<summary/> tag)."
 
 #: src/as-validator-issue-tag.h:316
+#, fuzzy
 msgid "The component is missing an ID (<id/> tag)."
-msgstr ""
+msgstr "Il componente manca di un ID (<id/> tag)."
 
 #: src/as-validator-issue-tag.h:141
+#, fuzzy
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
+msgstr "Il componente è parte del progetto Freedesktop, ma il suo ID non parte con fd.o's reverse-DNS name (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:151
+#, fuzzy
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
+msgstr "Il componente è parte del progetto GNOME, ma il suo ID non parte con il nome GNOMEs reverse-DNS (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:146
+#, fuzzy
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
+msgstr "Il componente è parte del progetto KDE ma il suo ID non parte con il nome KDEs reverse-DNS (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:341
+#, fuzzy
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
+msgstr "Il nome del componente dovrebbe possibilmente non finire con un punto (`.`)."
 
 #: src/as-validator-issue-tag.h:351
+#, fuzzy
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "Il sommario del componente non deve contenere tab o spazi a capo (invio per andare a capo)."
 
 #: src/as-validator-issue-tag.h:346
+#, fuzzy
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
+msgstr "Il sommario del componente non dovrebbe finire con un punto (`.`)."
 
 #: src/as-validator-issue-tag.h:248
+#, fuzzy
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
+msgstr "Lo screenshot predefinito di un componente software non deve essere un video. Usa un'immagine statica come screenshot predefinito ed imposta il video come screenshot secondario."
 
 #: src/as-validator-issue-tag.h:86
+#, fuzzy
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "La denominazione contiene un URL web in testo semplice. Ciò non è permesso, si prega di utilizzare il tag <url/> al posto della condivisione dei link."
 
 #: src/as-validator.c:152
+#, fuzzy
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
+msgstr "Il tag della questione emessa è sconosciuto nel registro dei tag di Appstream. Ciò è un bug nello stesso validatore. Si prega di segnalare il problema nel nostro bugtracker."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
+#, fuzzy
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
+msgstr "Il tag essenziale `metadata_license` è mancante. Una licenza per i metadata stessi deve sempre essere precisata."
 
 #: src/as-validator-issue-tag.h:79
+#, fuzzy
 msgid ""
 "The first `description/p` paragraph of this component might be too short (< "
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "Il primo paragrafo `description/p` di questo componente potrebbe essere troppo corto (<80 caratteri). Si prega di iniziare con un paragrafo più lungo per migliore la presentazione della descrizione nei centri software e per fornire informazioni più dettagliate su questo componente immediatamente nel primo paragrafo."
 
 #: src/as-validator-issue-tag.h:161
+#, fuzzy
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
+msgstr "L'ID licenza non è stato trovato nel database SPDX. Si prega di controllare che l'ID licenza sia scritto in modalità SPDX-conformat e che sia una gratuita licenza software valida."
 
 #: src/as-validator-issue-tag.h:96
+#, fuzzy
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
+msgstr "Il tag menzionato è vuoto, poiché non inteso in maniera adeguata."
 
 #: src/as-validator-issue-tag.h:173
+#, fuzzy
 msgid ""
 "The metadata itself does not seem to be licensed under a permissive license. "
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "I metadata stessi non sembrano essere concessi da una licenza permissiva. Prego concedere la licenza ai dati sotto una licenza permissiva come FSFAP, CC0-1.0 o 0BSD per permettere ai distributori di includerli in collezioni di dati misti senza il rischio di violazioni di licenza dovuto a licenze mutualmente incompatibili."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
