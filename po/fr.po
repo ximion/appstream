@@ -15,21 +15,21 @@
 # Jeannette L <j.lavoie@net-c.ca>, 2020.
 # Bastien Tréhoux <ildegarde59@mailo.com>, 2020.
 # Éfrit <efrit@posteo.net>, 2020.
+# Julien Humbert <julroy67@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-04-25 18:22+0000\n"
-"Last-Translator: Éfrit <efrit@posteo.net>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/appstream/"
-"translations/fr/>\n"
+"PO-Revision-Date: 2020-05-18 15:41+0000\n"
+"Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/appstream/translations/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0.2-dev\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -1322,11 +1322,8 @@ msgstr ""
 "inverse (le domaine de premier niveau utilisé n’est pas connu du validateur)."
 
 #: src/as-validator-issue-tag.h:136
-#, fuzzy
 msgid "The component ID should only contain lowercase letters."
-msgstr ""
-"Le résumé du composant ne doit pas contenir de tabulation ou de retour à la "
-"ligne."
+msgstr "L’ID du composant ne doit contenir que des lettres minuscules."
 
 #: src/as-validator-issue-tag.h:311
 msgid ""
