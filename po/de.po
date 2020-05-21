@@ -13,7 +13,7 @@
 # James Bond <christian.kirbach@gmail.com>, 2019, 2021.
 # SapuSeven <sapuseven@gmail.com>, 2019.
 # Brayan Aguilar <brayanaguilar842@gmail.com>, 2019.
-# Florian Kothmeier <floriankothmeier@web.de>, 2019, 2020.
+# Florian Kothmeier <floriankothmeier@web.de>, 2019, 2020, 2021.
 # JBB <jbb.prv@gmx.de>, 2019.
 # frauhottelmann <frauhottelmann@gmail.com>, 2020, 2021.
 # iLocIT! <matthiasc@ilocit.de>, 2020.
@@ -45,7 +45,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"Last-Translator: Florian Kothmeier <floriankothmeier@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1140,16 +1140,8 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"Die Komponenten-ID ist kein umgekehrter Domänenname. Bitte aktualisieren Sie "
-"die ID, um zukünftige Probleme zu vermeiden und mit allen AppStream-"
-"Implementierungen kompatibel zu sein.\n"
-"Sie können auch in Erwägung ziehen, den Namen der zugehörigen . desktop-"
-"Datei zu aktualisieren, um der neuesten Version der Desktop-Entry-"
-"Spezifikation zu folgen und dafür ebenfalls einen rDNS-Namen zu verwenden. "
-"Vergessen Sie auf jeden Fall nicht, den neuen Desktop-Eintrag in einem "
-"<launchable/>-Tag für diese Komponente zu erwähnen, damit die Anwendung von "
-"Software-Zentren aus startfähig bleibt, sowie die Daten der . desktop-Datei, "
-"die mit den Metainfodaten verknüpft sind."
+"Die Komponenten-ID ist kein umgekehrter Domänenname. Bitte aktualisieren Sie die ID, um zukünftige Probleme zu vermeiden und mit allen AppStream-Implementierungen kompatibel zu sein.\n"
+"Sie können auch in Erwägung ziehen, den Namen der zugehörigen . desktop-Datei zu aktualisieren, um der neuesten Version der Desktop-Entry-Spezifikation zu folgen und dafür ebenfalls einen rDNS-Namen zu verwenden. Vergessen Sie auf jeden Fall nicht, den neuen Desktop-Eintrag in einem <launchable/>-Tag für diese Komponente zu erwähnen, damit die Anwendung von Software-Zentren aus startfähig bleibt, sowie die Daten der . desktop-Datei, die mit den Metainfodaten verknüpft sind."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
@@ -1161,20 +1153,14 @@ msgstr "Die Komponenten-ID folgt möglicherweise nicht dem umgekehrten Domänenn
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
-"Die Komponenten-ID enthält ein ungültiges Zeichen. Es sind nur ASCII-"
-"Zeichen, Punkte und Zahlen erlaubt."
+msgstr "Die Komponenten-ID enthält ein ungültiges Zeichen. Es sind nur ASCII-Zeichen, Punkte und Zahlen erlaubt."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr ""
-"Die Komponenten-ID enthält einen Bindestrich/Minus. Es wird stark davon "
-"abgeraten, einen Bindestrich zu benutzen um die Zusammenarbeit mit anderen "
-"Werkzeugen, wie D-Bus, zu verbessern. Eine gute Alternative ist das Ersetzen "
-"von Bindestrichen mit Unterstrichen (\"_\")."
+msgstr "Die Komponenten-ID enthält einen Bindestrich/Minus. Es wird stark davon abgeraten, einen Bindestrich zu benutzen um die Zusammenarbeit mit anderen Werkzeugen, wie D-Bus, zu verbessern. Eine gute Alternative ist das Ersetzen von Bindestrichen mit Unterstrichen (\"_\")."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1182,11 +1168,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"Die Komponenten-ID enthält ein Segment, welches mit einer Ziffer beginnt. Es "
-"wird stark davon abgeraten, ein Segment mit einer Ziffer beginnen zu lassen, "
-"um die Zusammenarbeit mit anderen Werkzeugen, wie D-Bus, zu erhalten. "
-"Idealerweise hängen Sie einen Unterstrich vor diese Ziffern."
+msgstr "Die Komponenten-ID enthält ein Segment, welches mit einer Ziffer beginnt. Es wird stark davon abgeraten, ein Segment mit einer Ziffer beginnen zu lassen, um die Zusammenarbeit mit anderen Werkzeugen, wie D-Bus, zu erhalten. Idealerweise hängen Sie einen Unterstrich vor diese Ziffern."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
@@ -1432,17 +1414,13 @@ msgstr ""
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Die Komponente hat eine Prioritätswert gesetzt. Dies ist nicht erlaubt in "
-"Metainfo Dateien."
+msgstr "Die Komponente hat eine Prioritätswert gesetzt. Dies ist nicht erlaubt in Metainfo Dateien."
 
 #: src/as-validator-issue-tag.h:337
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Die Komponente hat eine \"merge\" Methode definiert. Dies ist nicht erlaubt "
-"in Metainfo Dateien."
+msgstr "Die Komponente hat eine \"merge\" Methode definiert. Dies ist nicht erlaubt in Metainfo Dateien."
 
 #: src/as-validator-issue-tag.h:342
 msgid "The component is missing an ID (<id/> tag)."
@@ -1600,9 +1578,7 @@ msgstr "Das notwendige Tag `metadata_license` fehlt. Eine Lizenz für die Metada
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
-"Der Komponente fehlt eine erweiterte Beschreibung. Komponenten dieses Typs "
-"benötigen eine erweitere Beschreibung."
+msgstr "Der Komponente fehlt eine erweiterte Beschreibung. Komponenten dieses Typs benötigen eine erweitere Beschreibung."
 
 #: src/as-validator-issue-tag.h:494
 msgid ""
@@ -1673,9 +1649,7 @@ msgstr "Ein Auszeichner »extends« ist angegeben, aber die Komponente ist nicht
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
-"Die Komponente ist eine Erweiterung, es wurde aber kein \"extends\" Tag "
-"spezifiziert."
+msgstr "Die Komponente ist eine Erweiterung, es wurde aber kein \"extends\" Tag spezifiziert."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:558
@@ -1708,9 +1682,7 @@ msgstr "Vorschläge anderer Art als »upstream« sind in Metainfo-Dateien nicht 
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr ""
-"Der Name der Kategorie ist ungültig. Ziehen Sie die XDG Menü Spezifikation "
-"zu Hilfe, um eine Liste von gültigen Kategorie Namen zu erhalten."
+msgstr "Der Name der Kategorie ist ungültig. Ziehen Sie die XDG Menü Spezifikation zu Hilfe, um eine Liste von gültigen Kategorie Namen zu erhalten."
 
 #: src/as-validator-issue-tag.h:586
 #, fuzzy
