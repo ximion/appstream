@@ -622,6 +622,57 @@ test_content_rating_mappings (void)
 	g_assert_cmpuint (as_content_rating_attribute_to_csm_age ("not-valid-id", AS_CONTENT_RATING_VALUE_INTENSE), ==, 0);
 }
 
+/* Test that gs_utils_content_rating_system_from_locale() returns the correct
+ * rating system for various standard locales and various forms of locale name.
+ * See `locale -a` for the list of all available locales which some of these
+ * test vectors were derived from. */
+static void
+as_test_content_rating_from_locale (void)
+{
+	const struct {
+		const gchar *locale;
+		AsContentRatingSystem expected_system;
+	} vectors[] = {
+		/* Simple tests to get coverage of each rating system: */
+		{ "es_AR", AS_CONTENT_RATING_SYSTEM_INCAA },
+		{ "en_AU", AS_CONTENT_RATING_SYSTEM_ACB },
+		{ "pt_BR", AS_CONTENT_RATING_SYSTEM_DJCTQ },
+		{ "zh_TW", AS_CONTENT_RATING_SYSTEM_GSRR },
+		{ "en_GB", AS_CONTENT_RATING_SYSTEM_PEGI },
+		{ "hy_AM", AS_CONTENT_RATING_SYSTEM_PEGI },
+		{ "bg_BG", AS_CONTENT_RATING_SYSTEM_PEGI },
+		{ "fi_FI", AS_CONTENT_RATING_SYSTEM_KAVI },
+		{ "de_DE", AS_CONTENT_RATING_SYSTEM_USK },
+		{ "az_IR", AS_CONTENT_RATING_SYSTEM_ESRA },
+		{ "jp_JP", AS_CONTENT_RATING_SYSTEM_CERO },
+		{ "en_NZ", AS_CONTENT_RATING_SYSTEM_OFLCNZ },
+		{ "ru_RU", AS_CONTENT_RATING_SYSTEM_RUSSIA },
+		{ "en_SQ", AS_CONTENT_RATING_SYSTEM_MDA },
+		{ "ko_KR", AS_CONTENT_RATING_SYSTEM_GRAC },
+		{ "en_US", AS_CONTENT_RATING_SYSTEM_ESRB },
+		{ "en_US", AS_CONTENT_RATING_SYSTEM_ESRB },
+		{ "en_CA", AS_CONTENT_RATING_SYSTEM_ESRB },
+		{ "es_MX", AS_CONTENT_RATING_SYSTEM_ESRB },
+		/* Fallback (arbitrarily chosen Venezuela since it seems to use IARC): */
+		{ "es_VE", AS_CONTENT_RATING_SYSTEM_IARC },
+		/* Locale with a codeset: */
+		{ "nl_NL.iso88591", AS_CONTENT_RATING_SYSTEM_PEGI },
+		/* Locale with a codeset and modifier: */
+		{ "nl_NL.iso885915@euro", AS_CONTENT_RATING_SYSTEM_PEGI },
+		/* Locale with a less esoteric codeset: */
+		{ "en_GB.UTF-8", AS_CONTENT_RATING_SYSTEM_PEGI },
+		/* Locale with a modifier but no codeset: */
+		{ "fi_FI@euro", AS_CONTENT_RATING_SYSTEM_KAVI },
+		/* Invalid locale: */
+		{ "_invalid", AS_CONTENT_RATING_SYSTEM_IARC },
+	};
+
+	for (gsize i = 0; i < G_N_ELEMENTS (vectors); i++) {
+		g_test_message ("Test %" G_GSIZE_FORMAT ": %s", i, vectors[i].locale);
+		g_assert_cmpint (as_content_rating_system_from_locale (vectors[i].locale), ==, vectors[i].expected_system);
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -653,7 +704,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/DistroDetails", test_distro_details);
 	g_test_add_func ("/AppStream/rDNSConvert", test_rdns_convert);
 	g_test_add_func ("/AppStream/URIToBasename", test_filebasename_from_uri);
-	g_test_add_func ("/AppStream/ContentRatingMapings", test_content_rating_mappings);
+	g_test_add_func ("/AppStream/ContentRating/Mapings", test_content_rating_mappings);
+	g_test_add_func ("/AppStream/ContentRating/from-locale", as_test_content_rating_from_locale);
 
 	ret = g_test_run ();
 	g_free (datadir);
