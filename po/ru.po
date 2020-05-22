@@ -8,7 +8,7 @@
 # A <yoyotax@protonmail.com>, 2020.
 # Yaroslav Malykh <yaroslav.malykh@gmail.com>, 2020, 2021.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
-# Alex <theavganec@gmail.com>, 2020.
+# Alex <theavganec@gmail.com>, 2020, 2021.
 # Alexander <ramzi7208@gmail.com>, 2020.
 # Alexander Klimenko <fer1walker@gmail.com>, 2020.
 # Shwady <pokhodnyak69@gmail.com>, 2020, 2021.
@@ -37,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: kyanukovich <ianu0001@algonquinlive.com>\n"
+"Last-Translator: Alex <theavganec@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1103,9 +1103,7 @@ msgstr "Описания AppStream поддерживают только огр�
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
-"Данный параграф содержит некорректную разметку. Разрешены только <em/> и "
-"<code/>."
+msgstr "Данный параграф содержит некорректную разметку. Разрешены только <em/> и <code/>."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1117,18 +1115,13 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-"Первый абзац описания компонента `description/p`должен быть достаточно "
-"коротким (<80 символов). Пожалуйста учитывайте это для улучшения описания и "
-"вносите больше деталей в описание компонента в первый абзац ."
+msgstr "Первый абзац описания компонента `description/p`должен быть достаточно коротким (<80 символов). Пожалуйста учитывайте это для улучшения описания и вносите больше деталей в описание компонента в первый абзац ."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"Описание содержит ссылки в тексте. Это не допустимо, используйте тег <url/> "
-"для вставки ссылок."
+msgstr "Описание содержит ссылки в тексте. Это не допустимо, используйте тег <url/> для вставки ссылок."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
@@ -1140,9 +1133,7 @@ msgstr "Согласно спецификации AppStream, упомянуты�
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
-"Упомянутый тег пустой, что очень похоже что он не содержит контент, хотя "
-"должен."
+msgstr "Упомянутый тег пустой, что очень похоже что он не содержит контент, хотя должен."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
@@ -1222,9 +1213,7 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"ID лицензии не найдет в SPDX базе. Пожалуйста убедитесь, что ID лицензии "
-"прописан в SPDX-совместимом способе и это действительно свободная лицензия."
+msgstr "ID лицензии не найдет в SPDX базе. Пожалуйста убедитесь, что ID лицензии прописан в SPDX-совместимом способе и это действительно свободная лицензия."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
@@ -1233,11 +1222,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
-"Метаданные, сами по себе, попадают под комплекс лицензий. Пожалуйста "
-"лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 "
-"или 0BSD, для разрешения распространителям включить весь набор данных без "
-"риска нарушения наложения друг на друга несовместимых лицензий."
+msgstr "Метаданные, сами по себе, попадают под комплекс лицензий. Пожалуйста лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 или 0BSD, для разрешения распространителям включить весь набор данных без риска нарушения наложения друг на друга несовместимых лицензий."
 
 #: src/as-validator-issue-tag.h:173
 msgid ""
@@ -1245,19 +1230,13 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
-"Метаданные, сами по себе, не попадают по разрешающие лицензии. Пожалуйста "
-"лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 "
-"или 0BSD, для разрешения распространителям включить весь набор данных без "
-"риска нарушения наложения друг на друга несовместимых лицензий."
+msgstr "Метаданные, сами по себе, не попадают по разрешающие лицензии. Пожалуйста лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 или 0BSD, для разрешения распространителям включить весь набор данных без риска нарушения наложения друг на друга несовместимых лицензий."
 
 #: src/as-validator-issue-tag.h:179
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"Адрес не является корректным адресом электронной почты (вместо `@` "
-"допускается только `_at_` или `_AT_`)."
+msgstr "Адрес не является корректным адресом электронной почты (вместо `@` допускается только `_at_` или `_AT_`)."
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
@@ -1326,10 +1305,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"Выбранный видео кодек не поддерживается AppStream и программное обеспечение "
-"не способно его воспроизвести. Только AV1 и VP9 кодеки корректно "
-"поддерживаются, используйте `av1` и `vp9` значения для свойства `codec`."
+msgstr "Выбранный видео кодек не поддерживается AppStream и программное обеспечение не способно его воспроизвести. Только AV1 и VP9 кодеки корректно поддерживаются, используйте `av1` и `vp9` значения для свойства `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1338,10 +1314,7 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"Выбранный видео формат не поддерживается AppStream и программное обеспечение "
-"не способно его воспроизвести. Только WebM и Matroska кодеки корректно "
-"поддерживаются, используйте `webm` и `mkv` значения для свойства `container`."
+msgstr "Выбранный видео формат не поддерживается AppStream и программное обеспечение не способно его воспроизвести. Только WebM и Matroska кодеки корректно поддерживаются, используйте `webm` и `mkv` значения для свойства `container`."
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
@@ -1355,10 +1328,7 @@ msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
-"Скриншот по умолчанию для компонента не должен быть в видео формате. "
-"Используйте статическое изображение и установите видео как вторичный "
-"скриншот."
+msgstr "Скриншот по умолчанию для компонента не должен быть в видео формате. Используйте статическое изображение и установите видео как вторичный скриншот."
 
 #: src/as-validator-issue-tag.h:253
 msgid ""
@@ -1426,9 +1396,7 @@ msgstr "Найдено пользовательское отношение уп�
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-"Элемент `control` определяет неизвестный метод и некорректен. Проверьте "
-"спецификацию на список разрешенных значений."
+msgstr "Элемент `control` определяет неизвестный метод и некорректен. Проверьте спецификацию на список разрешенных значений."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1470,8 +1438,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Указанный тип компонента не распознан, возможные типы компонент AppStream."
+msgstr "Указанный тип компонента не распознан, возможные типы компонент AppStream."
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -1594,9 +1561,7 @@ msgstr "<developer_name/> не может содержать гиперссыл�
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr ""
-"Указанное значение не является идентификатором рабочего стола "
-"зарегистрированным с помощью Freedesktop.org."
+msgstr "Указанное значение не является идентификатором рабочего стола зарегистрированным с помощью Freedesktop.org."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
@@ -1638,9 +1603,7 @@ msgstr "Нашли недействительный тег. Нестандарт
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
-"Основной тег `metadata_license`пропущен. Разрешение на метаданные всегда "
-"должно быть определено."
+msgstr "Основной тег `metadata_license`пропущен. Разрешение на метаданные всегда должно быть определено."
 
 #: src/as-validator-issue-tag.h:489
 msgid ""
@@ -1681,26 +1644,21 @@ msgstr "Тип компонента `console-application`, но никакой �
 #: src/as-validator-issue-tag.h:516
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
-"У компонента `web-application` отсутствует тег `launchable` с типом `url`."
+msgstr "У компонента `web-application` отсутствует тег `launchable` с типом `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:522
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
-"У компонента `web-application` отсутствует тег `icon` для использования "
-"иконки."
+msgstr "У компонента `web-application` отсутствует тег `icon` для использования иконки."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:528
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
-"У компонента `web-application` отсутствует категоризация. Похоже пропущен "
-"блок `categories`."
+msgstr "У компонента `web-application` отсутствует категоризация. Похоже пропущен блок `categories`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:534
@@ -1735,9 +1693,7 @@ msgstr "Компонент является аддоном, но тэг `extends
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
-"У компонента `localization` отсутствует тег `extends`. Для работы компонента "
-"укажите локализацию."
+msgstr "У компонента `localization` отсутствует тег `extends`. Для работы компонента укажите локализацию."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:564
@@ -1789,18 +1745,13 @@ msgstr "Недействительный тег, найденный в мета�
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr ""
-"Файл с метаинформацией использует устаревшую версию спецификации AppStream, "
-"которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или "
-"выше)."
+msgstr "Файл с метаинформацией использует устаревшую версию спецификации AppStream, которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или выше)."
 
 #: src/as-validator-issue-tag.h:613
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
-"XML документ имеет неизвестный корневой тег. Может быть файл не содержит "
-"корректные данные?"
+msgstr "XML документ имеет неизвестный корневой тег. Может быть файл не содержит корректные данные?"
 
 #: src/as-validator-issue-tag.h:618
 msgid "The metainfo filename does not match the component ID."
@@ -1833,9 +1784,7 @@ msgstr "Каталог приложений XDG не найден."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Файл с метаинформацией расположен в наследуемом пути. Пожалуйста поместите "
-"его в `/usr/share/metainfo/`."
+msgstr "Файл с метаинформацией расположен в наследуемом пути. Пожалуйста поместите его в `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:653
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -1847,11 +1796,7 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
-"Выпуски (релизы) не отсортированы в порядке от более новых к более старым. "
-"Это требование необходимо так как некоторые инструменты предполагают что "
-"наиболее свежие выпуски (релизы) находятся сверху. Сортировка выпусков "
-"(релизов) также увеличивает читабельность файлов."
+msgstr "Выпуски (релизы) не отсортированы в порядке от более новых к более старым. Это требование необходимо так как некоторые инструменты предполагают что наиболее свежие выпуски (релизы) находятся сверху. Сортировка выпусков (релизов) также увеличивает читабельность файлов."
 
 #: src/as-validator-issue-tag.h:665
 msgid "The value set as release urgency is not a known urgency value."
@@ -1938,9 +1883,7 @@ msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr ""
-"Этот компонент расширяет, обеспечивает, требует или рекомендует себя, чего "
-"естественно не должно быть и может вызвать сбой."
+msgstr "Этот компонент расширяет, обеспечивает, требует или рекомендует себя, чего естественно не должно быть и может вызвать сбой."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:738
@@ -2003,9 +1946,7 @@ msgstr ""
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
-"Случившаяся проблему неизвестна реестру AppStream. Это ошибка в нашем "
-"валидаторе, пожалуйста сообщите о данной проблеме в наш багтрекер."
+msgstr "Случившаяся проблему неизвестна реестру AppStream. Это ошибка в нашем валидаторе, пожалуйста сообщите о данной проблеме в наш багтрекер."
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
@@ -2750,8 +2691,7 @@ msgstr "Файл Metainfo '%s' не существует."
 #: tools/ascli-actions-misc.c:149
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"Дополнение существующего файла для входа в рабочий стол '%s' данными из '%s'."
+msgstr "Дополнение существующего файла для входа в рабочий стол '%s' данными из '%s'."
 
 #: tools/ascli-actions-misc.c:154
 #, c-format
@@ -2872,9 +2812,7 @@ msgstr "Проверка прошла неудачно: %s"
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
-"Валидатор не может создать отчет в формате '%s'. Вы можете выбрать 'yaml' "
-"или 'text'."
+msgstr "Валидатор не может создать отчет в формате '%s'. Вы можете выбрать 'yaml' или 'text'."
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
