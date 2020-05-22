@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# Hahato Toshino <ameer.amino95@gmail.com>, 2020.
+# Hahato Toshino <ameer.amino95@gmail.com>, 2020, 2021.
 # احمد الملاح <ahmed.almllah30@gmail.com>, 2020.
 # mohammadA <mohammadAbdulhadi1@gmail.com>, 2020, 2021.
 # Mutaz Tayyeb AbuSaad <wahshy1414@gmail.com>, 2021.
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Shippo <shiposhouyou@gmail.com>\n"
+"Last-Translator: Hahato Toshino <ameer.amino95@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/appstream/translations/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -1040,9 +1040,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"شعار <description/> لا يجب أن يتمركز في ملفات المعلومات التعريفية (البيانات "
-"التعريفية المعاكسة). بدلاً مِن ذلك، مركِز الفقرات المستقلة."
+msgstr "شعار <description/> لا يجب أن يتمركز في ملفات المعلومات التعريفية (البيانات التعريفية المعاكسة). بدلاً مِن ذلك، مركِز الفقرات المستقلة."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1221,19 +1219,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"يتوجب على لقطةِ الشاشة أن تحتوي على صورةٍ أو ڤيديو واحد على الأقل لتكونَ مفيدة. "
-"رجاءً قم بإضافة <image/> إليه/إليها."
+msgstr "يتوجب على لقطةِ الشاشة أن تحتوي على صورةٍ أو ڤيديو واحد على الأقل لتكونَ مفيدة. رجاءً قم بإضافة <image/> إليه/إليها."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"يتوجبُ على لقطةِ الشاشة الإحتواءُ على صورٍ أو مقاطع ڤيديو، ولكن ليس الاثنين بنفسِ "
-"الوقت. رجاءً استخدم لقطة الشاشة هذه حصراً من أجل الصور الثابتة، أو مقاطع "
-"الڤيديو."
+msgstr "يتوجبُ على لقطةِ الشاشة الإحتواءُ على صورٍ أو مقاطع ڤيديو، ولكن ليس الاثنين بنفسِ الوقت. رجاءً استخدم لقطة الشاشة هذه حصراً من أجل الصور الثابتة، أو مقاطع الڤيديو."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
