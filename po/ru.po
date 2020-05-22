@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-05-20 18:41+0000\n"
+"PO-Revision-Date: 2020-05-22 01:41+0000\n"
 "Last-Translator: Alex <theavganec@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1271,7 +1271,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
-msgstr ""
+msgstr "Идентификатор компонента должен содержать только строчные буквы."
 
 #: src/as-validator-issue-tag.h:311
 msgid ""
@@ -1294,7 +1294,7 @@ msgstr ""
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
+msgstr "Отсутствует полное описание компонента. Компоненты этого типа должны иметь длинное полное описание."
 
 #: src/as-validator-issue-tag.h:321
 msgid "The component is missing a name (<name/> tag)."
@@ -1302,11 +1302,11 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:326
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr ""
+msgstr "Отсутствует краткое описание компонента (тег <summary/>)."
 
 #: src/as-validator-issue-tag.h:316
 msgid "The component is missing an ID (<id/> tag)."
-msgstr ""
+msgstr "Отсутствует идентификатор компонента (тег <id/>)."
 
 #: src/as-validator-issue-tag.h:141
 msgid ""
@@ -1328,41 +1328,41 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:341
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
+msgstr "Имя компонента не должно заканчиваться точкой."
 
 #: src/as-validator-issue-tag.h:351
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "Описание компонента не должно содержать табуляции и разрывы строк."
 
 #: src/as-validator-issue-tag.h:346
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
+msgstr "Описание компонента не должно заканчиваться точкой."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
+msgstr "Скриншот по умолчанию для компонента не должен быть в видео формате. Используйте статическое изображение и установите видео как вторичный скриншот."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "Описание содержит ссылки в тексте. Это не допустимо, используйте тег <url/> для вставки ссылок."
 
 #: src/as-validator.c:152
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
+msgstr "Случившаяся проблему неизвестна реестру AppStream. Это ошибка в нашем валидаторе, пожалуйста сообщите о данной проблеме в наш багтрекер."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
+msgstr "Основной тег `metadata_license`пропущен. Разрешение на метаданные всегда должно быть определено."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
