@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-05-22 01:41+0000\n"
+"PO-Revision-Date: 2020-05-22 10:48+0000\n"
 "Last-Translator: Alex <theavganec@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -226,10 +226,9 @@ msgid "Audio Creation & Editing"
 msgstr "Создание и редактирование аудио"
 
 #: tools/ascli-actions-misc.c:219
-#, fuzzy, c-format
+#, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"Дополнение существующего файла для входа в рабочий стол '%s' данными из '%s'."
+msgstr "Дополнение существующего файла для входа в рабочий стол '%s' данными из '%s'."
 
 #: src/as-provided.c:146
 msgid "Binaries"
@@ -339,7 +338,6 @@ msgid ""
 msgstr "Рассмотрим возможность использования безопасной ссылки (HTTPS) для нахождения изображения или видео."
 
 #: tools/appstream-cli.c:870
-#, fuzzy
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Преобразование YAML или текстового файла NEWS в выпуски мета-файлов."
 
@@ -1370,20 +1368,20 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "Первый абзац описания компонента `description/p`должен быть достаточно коротким (<80 символов). Пожалуйста учитывайте это для улучшения описания и вносите больше деталей в описание компонента в первый абзац ."
 
 #: src/as-validator-issue-tag.h:161
 msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
+msgstr "ID лицензии не найдет в SPDX базе. Пожалуйста убедитесь, что ID лицензии прописан в SPDX-совместимом способе и это действительно свободная лицензия."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
+msgstr "Упомянутый тег пустой, что очень похоже что он не содержит контент, хотя должен."
 
 #: src/as-validator-issue-tag.h:173
 msgid ""
@@ -1391,7 +1389,7 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Метаданные, сами по себе, не попадают по разрешающие лицензии. Пожалуйста лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 или 0BSD, для разрешения распространителям включить весь набор данных без риска нарушения наложения друг на друга несовместимых лицензий."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
@@ -1400,17 +1398,17 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
+msgstr "Метаданные, сами по себе, попадают под комплекс лицензий. Пожалуйста лицензируйте данные под разрешающими лицензиями, такими как FSFAP, CC0-1.0 или 0BSD, для разрешения распространителям включить весь набор данных без риска нарушения наложения друг на друга несовместимых лицензий."
 
 #: src/as-validator-issue-tag.h:617
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
+msgstr "Файл с метаинформацией расположен в наследуемом пути. Пожалуйста поместите его в `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:622
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
+msgstr "Файл метаинформации указывает на несколько компонент. Это недопустимо."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:577
