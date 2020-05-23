@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-05-22 10:48+0000\n"
+"PO-Revision-Date: 2020-05-23 02:41+0000\n"
 "Last-Translator: Yaroslav Malykh <yaroslav.malykh@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1250,18 +1250,20 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
+"Идентификатор компонента не является обратным доменным именем. Пожалуйста, обновите ID, чтобы избежать будущих проблем и быть совместимым со всеми реализациями AppStream.\n"
+"Вы также можете обновить имя сопроводительного файла .desktop в соответствии с последней версией спецификации Desktop-Entry, а также использовать для него имя rDNS. В любом случае, не забудьте упомянуть новый ввод рабочего стола в теге <launchable/> для этого компонента, чтобы сохранить возможность запуска приложения из программных центров, а также .desktop-файл, связанный с метаданными.\n"
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
+msgstr "Идентификатор компонента требуется для того, чтобы следовать обратной схеме доменного имени. Подробности см. в спецификации AppStream."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
+msgstr "Идентификатор компонента может не следовать обратной схеме доменного имени (используемый им ДВУ неизвестен валидатору)."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
@@ -1271,18 +1273,18 @@ msgstr "Идентификатор компонента должен содер�
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "Компонент имеет заданный метод `merge`. Это не разрешено в файлах metainfo."
 
 #: src/as-validator-issue-tag.h:306
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
+msgstr "Компонент имеет установленное значение приоритета. Это недопустимо в файлах с метаинформацией."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:521
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
+msgstr "Компонент является аддоном, но тэг `extends` не был указан."
 
 #: src/as-validator-issue-tag.h:458
 msgid ""
@@ -1292,7 +1294,7 @@ msgstr "Отсутствует полное описание компонент�
 
 #: src/as-validator-issue-tag.h:321
 msgid "The component is missing a name (<name/> tag)."
-msgstr ""
+msgstr "Компоненту не хватает имени (тег <name/>)."
 
 #: src/as-validator-issue-tag.h:326
 msgid "The component is missing a summary (<summary/> tag)."
@@ -1306,19 +1308,19 @@ msgstr "Отсутствует идентификатор компонента (
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
+msgstr "Компонент является частью проекта Freedesktop, но его ID не начинается с имени fd.o's reverse-DNS (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
+msgstr "Компонент является частью проекта GNOME, но его ID не начинается с имени GNOMEs reverse-DNS (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:146
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
+msgstr "Компонент является частью KDE проекта, но его ID не начинается с имени KDEs reverse-DNS (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:341
 msgid "The component name should (likely) not end with a dot (`.`)."
