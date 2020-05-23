@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
 "PO-Revision-Date: 2020-05-23 02:41+0000\n"
-"Last-Translator: Yaroslav Malykh <yaroslav.malykh@gmail.com>\n"
+"Last-Translator: Alex <theavganec@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1413,13 +1413,11 @@ msgstr "Файл метаинформации указывает на неско
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr ""
+msgstr "Файл с метаинформацией использует устаревшую версию спецификации AppStream, которая не может быть валидирована. Пожалуйста перейдите на версию 0.6 (или выше)."
 
 #: src/as-validator-issue-tag.h:587
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr ""
-"Удалить программное обеспечение, соответствующее идентификатору компоненты."
+msgstr "Файл метаинформации не сопоставим ни с одним ID компоненты."
 
 #: src/as-validator-issue-tag.h:627
 msgid ""
@@ -1427,29 +1425,29 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
+msgstr "Выпуски (релизы) не отсортированы в порядке от более новых к более старым. Это требование необходимо так как некоторые инструменты предполагают что наиболее свежие выпуски (релизы) находятся сверху. Сортировка выпусков (релизов) также увеличивает читабельность файлов."
 
 #: src/as-validator-issue-tag.h:555
 msgid "The screenshot caption is too long (should be <= 80 characters)"
-msgstr ""
+msgstr "Заголовок скриншота слишком длинный (должен быть <= 80 символов)"
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
+msgstr "Скриншот не имеет заголовка. Необходимо добавить."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
+msgstr "Видео не соответствует формату указанному в свойстве `container`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:217
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
+msgstr "Видео не соответствует кодеку указанному в свойстве `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
@@ -1457,7 +1455,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
+msgstr "Выбранный видео кодек не поддерживается AppStream и программное обеспечение не способно его воспроизвести. Только AV1 и VP9 кодеки корректно поддерживаются, используйте `av1` и `vp9` значения для свойства `codec`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1466,21 +1464,18 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
+msgstr "Выбранный видео формат не поддерживается AppStream и программное обеспечение не способно его воспроизвести. Только WebM и Matroska кодеки корректно поддерживаются, используйте `webm` и `mkv` значения для свойства `container`."
 
 #: src/as-validator-issue-tag.h:301
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Тип программного компонента \"%s\" не является допустимым в AppStream. "
-"Возможные значения:"
+msgstr "Указанный тип компонента не распознан, возможные типы компонент AppStream."
 
 #: src/as-validator-issue-tag.h:416
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr ""
+msgstr "Указанное значение не является идентификатором рабочего стола зарегистрированным с помощью Freedesktop.org."
 
 #: tools/ascli-actions-mdata.c:449
 #, c-format
@@ -1493,36 +1488,36 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:356
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
-msgstr ""
+msgstr "Краткое описание не должно содержать ссылок. Используйте тег <url/> для ссылок."
 
 #: src/as-validator-issue-tag.h:658
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
-msgstr ""
+msgstr "Тип элемента, который предоставляет компонент, неизвестен AppStream."
 
 #: src/as-validator-issue-tag.h:179
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
+msgstr "Адрес не является корректным адресом электронной почты (вместо `@` допускается только `_at_` или `_AT_`)."
 
 #: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
 #, c-format
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
+msgstr "Валидатор не может создать отчет в формате '%s'. Вы можете выбрать 'yaml' или 'text'."
 
 #: src/as-validator-issue-tag.h:582
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
+msgstr "XML документ имеет неизвестный корневой тег. Может быть файл не содержит корректные данные?"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:428
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Этот `bundle` тег имеет неизвестный тип и не может быть использован."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:296
