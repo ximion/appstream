@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the appstream package.
 # Heimen Stoffels <vistausss@outlook.com>, 2019.
 # Wouter Wijsman <wwijsman@live.nl>, 2019, 2021.
-# Benjamin Goodger <ben@goodger.nl>, 2020.
+# Benjamin Goodger <ben@goodger.nl>, 2020, 2021.
 # Heimen Stoffels <vistausss@fastmail.com>, 2021.
 msgid ""
 msgstr ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:45+0000\n"
-"Last-Translator: Wouter Wijsman <wwijsman@live.nl>\n"
+"Last-Translator: Benjamin Goodger <ben@goodger.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -1036,10 +1036,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"Een <description/>-tag moet niet in MetaInfo-bestanden (upstream metadata) "
-"gelokaliseerd worden. Lokaliseren in plaats daarvan de paragrafen "
-"afzonderlijk."
+msgstr "Een <description/>-tag moet niet in MetaInfo-bestanden (upstream metadata) gelokaliseerd worden. Lokaliseren in plaats daarvan de paragrafen afzonderlijk."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1056,11 +1053,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"AppStream-omschrijvingen steunen een beperkte set van tags om tekst te "
-"opmaken: paragrafen (`<p/>`) en lijsten (`<ul/>`, `<ol/>`). Deze "
-"omschrijving-opmaak bevat een ongeldige XML tag die zou verkeerd gerendeerd "
-"door applicaties die de MetaInfo-specificatie ondersteunen."
+msgstr "AppStream-omschrijvingen steunen een beperkte set van tags om tekst te opmaken: paragrafen (`<p/>`) en lijsten (`<ul/>`, `<ol/>`). Deze omschrijving-opmaak bevat een ongeldige XML tag die zou verkeerd gerendeerd door applicaties die de MetaInfo-specificatie ondersteunen."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1070,9 +1063,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
-"Opsommingen moeten alleen lijstonderdelen (<li/>) als onderliggende "
-"elementen hebben."
+msgstr "Opsommingen moeten alleen lijstonderdelen (<li/>) als onderliggende elementen hebben."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1217,28 +1208,21 @@ msgstr ""
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Overwegen te gebruiken een beveiligde (HTTPS) URL om naar deze screenshot-"
-"afbeelding of -video te verwijzen."
+msgstr "Overwegen te gebruiken een beveiligde (HTTPS) URL om naar deze screenshot-afbeelding of -video te verwijzen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Een screenshot moet ten minste één afbeelding of video bevatten om nuttig te "
-"zijn. Gelieve voeg er een <image/> aan toe."
+msgstr "Een screenshot moet ten minste één afbeelding of video bevatten om nuttig te zijn. Gelieve voeg er een <image/> aan toe."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Een screenshot moet afbeeldingen of video’s, maar niet allebei tegelijk. "
-"Gelieve gebruik deze screenshot voor statische afbeeldingen of video’s "
-"exclusief."
+msgstr "Een screenshot moet afbeeldingen of video’s, maar niet allebei tegelijk. Gelieve gebruik deze screenshot voor statische afbeeldingen of video’s exclusief."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
@@ -1280,10 +1264,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"Voor video’s, alleen de WebM en Matroska (`.mkv`) containerformaten zijn nu "
-"ondersteund. De bestandsextensie van de gerefereerde video behoort tot geen "
-"van beide formaten."
+msgstr "Voor video’s, alleen de WebM en Matroska (`.mkv`) containerformaten zijn nu ondersteund. De bestandsextensie van de gerefereerde video behoort tot geen van beide formaten."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -1303,9 +1284,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Een `requires`- of `recommends`-deel vereist een waarde om een geldige "
-"relatie aan te duiden."
+msgstr "Een `requires`- of `recommends`-deel vereist een waarde om een geldige relatie aan te duiden."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
@@ -1462,9 +1441,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Overwegen te gebruiken een beveiligde (HTTPS) URL voor de link naar het "
-"externe pictogram."
+msgstr "Overwegen te gebruiken een beveiligde (HTTPS) URL voor de link naar het externe pictogram."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
@@ -1617,9 +1594,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Een `extends`-tag wordt gespecificeerd, maar het onderdeel is niet van type "
-"`addon`, `localization` of `repository`."
+msgstr "Een `extends`-tag wordt gespecificeerd, maar het onderdeel is niet van type `addon`, `localization` of `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
@@ -2209,8 +2184,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
-"Stel dat het invoerbestand in het geselecteerde format (‘yaml’ of ‘text’) is."
+msgstr "Stel dat het invoerbestand in het geselecteerde format (‘yaml’ of ‘text’) is."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
