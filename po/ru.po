@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-05-25 17:41+0000\n"
+"PO-Revision-Date: 2020-05-27 21:41+0000\n"
 "Last-Translator: Alex <theavganec@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
@@ -1543,33 +1543,33 @@ msgstr "Компонент `localization` не определяет ни оди�
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
+msgstr "У компонента `localization` отсутствует тег `extends`. Для работы компонента укажите локализацию."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:539
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
-msgstr ""
+msgstr "У компонента `service` отсутствует тег `launchable` с типом `service`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:491
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
+msgstr "У компонента `web-application` отсутствует тег `icon` для использования иконки."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:485
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
+msgstr "У компонента `web-application` отсутствует тег `launchable` с типом `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:497
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
+msgstr "У компонента `web-application` отсутствует категоризация. Похоже пропущен блок `categories`."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:680
@@ -1585,17 +1585,17 @@ msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr ""
+msgstr "Этот компонент расширяет, обеспечивает, требует или рекомендует себя, чего естественно не должно быть и может вызвать сбой."
 
 #: src/as-validator-issue-tag.h:597
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "Этот компонент метаданных ссылается на несуществующий файл .desktop."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
+msgstr "Данный параграф содержит некорректную разметку. Разрешены только <em/> и <code/>."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
