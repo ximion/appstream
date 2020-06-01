@@ -59,7 +59,8 @@ class APPSTREAMQT_EXPORT Provided {
             KindDBusSystemService,
             KindDBusUserService,
             KindFirmwareRuntime,
-            KindFirmwareFlashed
+            KindFirmwareFlashed,
+            KindId,
         };
         Q_ENUM(Kind)
 
