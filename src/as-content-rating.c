@@ -1184,7 +1184,7 @@ static const struct {
 	{ "social-info",	OARS_1_0, 0, 0, 13, 13 },
 	{ "social-location",	OARS_1_0, 0, 13, 13, 13 },
 	/* v1.1 additions */
-	{ "sex-homosexuality",	OARS_1_1, 0, 10, 13, 18 },
+	{ "sex-homosexuality",	OARS_1_1, 0, 10, 13, 15 },
 	{ "sex-prostitution",	OARS_1_1, 0, 12, 14, 18 },
 	{ "sex-adultery",	OARS_1_1, 0, 8, 10, 18 },
 	{ "sex-appearance",	OARS_1_1, 0, 10, 10, 15 },
