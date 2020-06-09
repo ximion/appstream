@@ -808,218 +808,218 @@ static const struct {
 } oars_descriptions[] = {
 	{
 		"violence-cartoon",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No cartoon violence"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Cartoon characters in unsafe situations"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Cartoon characters in aggressive conflict"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic violence involving cartoon characters"),
 	},
 	{
 		"violence-fantasy",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No fantasy violence"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Characters in unsafe situations easily distinguishable from reality"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Characters in aggressive conflict easily distinguishable from reality"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic violence easily distinguishable from reality"),
 	},
 	{
 		"violence-realistic",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No realistic violence"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Mildly realistic characters in unsafe situations"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Depictions of realistic characters in aggressive conflict"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic violence involving realistic characters"),
 	},
 	{
 		"violence-bloodshed",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No bloodshed"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Unrealistic bloodshed"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Realistic bloodshed"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Depictions of bloodshed and the mutilation of body parts"),
 	},
 	{
 		"violence-sexual",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sexual violence"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Rape or other violent sexual behavior"),
 		NULL,
 		NULL,
 	},
 	{
 		"drugs-alcohol",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to alcohol"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("References to alcoholic beverages"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Use of alcoholic beverages"),
 		NULL,
 	},
 	{
 		"drugs-narcotics",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to illicit drugs"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("References to illicit drugs"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Use of illicit drugs"),
 		NULL,
 	},
 	{
 		"drugs-tobacco",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to tobacco products"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("References to tobacco products"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Use of tobacco products"),
 		NULL,
 	},
 	{
 		"sex-nudity",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No nudity of any sort"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Brief artistic nudity"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Prolonged nudity"),
 		NULL,
 	},
 	{
 		"sex-themes",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to or depictions of sexual nature"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Provocative references or depictions"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Sexual references or depictions"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic sexual behavior"),
 	},
 	{
 		"language-profanity",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No profanity of any kind"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Mild or infrequent use of profanity"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Moderate use of profanity"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Strong or frequent use of profanity"),
 	},
 	{
 		"language-humor",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No inappropriate humor"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Slapstick humor"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Vulgar or bathroom humor"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Mature or sexual humor"),
 	},
 	{
 		"language-discrimination",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No discriminatory language of any kind"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Negativity towards a specific group of people"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Discrimination designed to cause emotional harm"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Explicit discrimination based on gender, sexuality, race or religion"),
 	},
 	{
 		"money-advertising",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No advertising of any kind"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Product placement"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Explicit references to specific brands or trademarked products"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Users are encouraged to purchase specific real-world items"),
 	},
 	{
 		"money-gambling",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No gambling of any kind"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Gambling on random events using tokens or credits"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Gambling using “play” money"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Gambling using real money"),
 	},
 	{
 		"money-purchasing",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No ability to spend money"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Users are encouraged to donate real money"),
 		NULL,
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Ability to spend real money in-app"),
 	},
 	{
 		"social-chat",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No way to chat with other users"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("User-to-user interactions without chat functionality"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Moderated chat functionality between users"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Uncontrolled chat functionality between users"),
 	},
 	{
 		"social-audio",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No way to talk with other users"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Uncontrolled audio or video chat functionality between users"),
 		NULL,
 		NULL,
 	},
 	{
 		"social-contacts",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of social network usernames or email addresses"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Sharing social network usernames or email addresses"),
 		NULL,
 		NULL,
 	},
 	{
 		"social-info",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of user information with third parties"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Checking for the latest application version"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Sharing diagnostic data that does not let others identify the user"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Sharing information that lets others identify the user"),
 	},
 	{
 		"social-location",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of physical location with other users"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Sharing physical location with other users"),
 		NULL,
 		NULL,
@@ -1028,78 +1028,78 @@ static const struct {
 	/* v1.1 */
 	{
 		"sex-homosexuality",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to homosexuality"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Indirect references to homosexuality"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Kissing between people of the same gender"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic sexual behavior between people of the same gender"),
 	},
 	{
 		"sex-prostitution",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to prostitution"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Indirect references to prostitution"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Direct references to prostitution"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic depictions of the act of prostitution"),
 	},
 	{
 		"sex-adultery",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to adultery"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Indirect references to adultery"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Direct references to adultery"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic depictions of the act of adultery"),
 	},
 	{
 		"sex-appearance",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sexualized characters"),
 		NULL,
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Scantily clad human characters"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Overtly sexualized human characters"),
 	},
 	{
 		"violence-worship",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to desecration"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Depictions of or references to historical desecration"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Depictions of modern-day human desecration"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic depictions of modern-day desecration"),
 	},
 	{
 		"violence-desecration",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No visible dead human remains"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Visible dead human remains"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Dead human remains that are exposed to the elements"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic depictions of desecration of human bodies"),
 	},
 	{
 		"violence-slavery",
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to slavery"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Depictions of or references to historical slavery"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Depictions of modern-day slavery"),
-		/* TRANSLATORS: content rating description */
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("Graphic depictions of modern-day slavery"),
 	},
 };
