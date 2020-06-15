@@ -8,7 +8,7 @@
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2015-2016
 # Shinjo Park <kde@peremen.name>, 2015
 # 가석현 <shga89@naver.com>, 2020, 2021.
-# 이정희 <daemul72@gmail.com>, 2020.
+# 이정희 <daemul72@gmail.com>, 2020, 2021.
 # #-#-#-#-#  ko.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: 가석현 <shga89@naver.com>\n"
+"Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -1054,9 +1054,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"<description/>태그는 메타정보 파일(업스트림 메타데이터)에서 로컬화해서는 안 "
-"됩니다. 대신 개별 단락을 현지화하십시오."
+msgstr "<description/>태그는 메타정보 파일(업스트림 메타데이터)에서 로컬화해서는 안 됩니다. 대신 개별 단락을 현지화하십시오."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1304,8 +1302,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"'requires' 또는 'recommends' 항목에는 유효한 관계를 나타내는 값이 필요합니다."
+msgstr "'requires' 또는 'recommends' 항목에는 유효한 관계를 나타내는 값이 필요합니다."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
