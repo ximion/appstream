@@ -8,22 +8,21 @@
 # Yaroslav Malykh <yaroslav.malykh@gmail.com>, 2020.
 # Allan Nordhøy <epost@anotheragency.no>, 2020.
 # Alex <theavganec@gmail.com>, 2020.
+# Alexander <ramzi7208@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-31 20:04+0200\n"
-"PO-Revision-Date: 2020-05-27 21:41+0000\n"
-"Last-Translator: Alex <theavganec@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"PO-Revision-Date: 2020-06-16 06:41+0000\n"
+"Last-Translator: Alexander <ramzi7208@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.1\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -1717,7 +1716,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
+msgstr "Этот элемент (параграф, список и т.д.) в теге <description/> должен быть локализован отдельно в процессе сбора метаданных. Вместо этого полностью локализовать тэг <description/>. AppStream обеспечивает генератор метаданных (к примеру 'appstream-generator'), который сделает всё правильнов процессе компиляции данных."
 
 #: src/as-validator-issue-tag.h:473
 msgid ""
