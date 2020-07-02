@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
-# Daniel Șerbănescu <daniel@serbanescu.dk>, 2020.
+# Daniel Șerbănescu <daniel@serbanescu.dk>, 2020, 2021.
 # Alecsa Maria <alecsandra.suciu@alizaur.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
-"PO-Revision-Date: 2021-02-12 09:50+0000\n"
-"Last-Translator: Alecsa Maria <alecsandra.suciu@alizaur.com>\n"
-"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/"
-"translations/ro/>\n"
+"PO-Revision-Date: 2021-12-22 15:45+0000\n"
+"Last-Translator: Daniel Șerbănescu <daniel@serbanescu.dk>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -957,9 +955,7 @@ msgstr "Dimensiunea de fișier obținută a fost zero."
 #.
 #: src/as-pool.c:103
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
-"app;application;package;program;programme;suite;tool;aplicație;pachet;suită;"
-"unealtă"
+msgstr "app;application;package;program;programme;suite;tool;aplicație;pachet;suită;unealtă"
 
 #: src/as-pool.c:1114
 msgid "Metadata files have errors:"
@@ -1043,10 +1039,7 @@ msgstr "Etichetele acestui nume nu sunt permise în această secțiune."
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"O etichetă <description/> nu trebuie să fie localizată în fișierele de "
-"informații meta (date meta upstream). Localizați în schimb paragrafele "
-"individuale."
+msgstr "O etichetă <description/> nu trebuie să fie localizată în fișierele de informații meta (date meta upstream). Localizați în schimb paragrafele individuale."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1055,12 +1048,7 @@ msgid ""
 "<description/> tag instead. The AppStream collection metadata generator (e."
 "g. `appstream-generator`) will already do the right thing when compiling the "
 "data."
-msgstr ""
-"Acest element (paragraf, listă, etc.) a unei etichete <description/> nu "
-"trebuie să fie localizată individual în datele meta de colecție. Localizați "
-"în schimb întreaga etichetă <description/>. Generatorul de date meta de "
-"colecție AppStream (de ex. „appstream-generator”) va face deja ceea ce "
-"trebuie în timpul compilării datelor."
+msgstr "Acest element (paragraf, listă, etc.) a unei etichete <description/> nu trebuie să fie localizată individual în datele meta de colecție. Localizați în schimb întreaga etichetă <description/>. Generatorul de date meta de colecție AppStream (de ex. „appstream-generator”) va face deja ceea ce trebuie în timpul compilării datelor."
 
 #: src/as-validator-issue-tag.h:63
 msgid ""
@@ -1068,24 +1056,17 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"Descrierile AppStream suportă doar un set limitat de etichete pentru a "
-"formata textul: Paragrafele (<p/>) și listele (<ul/>, <ol/>). Această "
-"marcare a descrierii conține o etichetă XML nevalidă care nu ar fi randată "
-"corect în aplicațiile care suportă specificația de informații meta."
+msgstr "Descrierile AppStream suportă doar un set limitat de etichete pentru a formata textul: Paragrafele (<p/>) și listele (<ul/>, <ol/>). Această marcare a descrierii conține o etichetă XML nevalidă care nu ar fi randată corect în aplicațiile care suportă specificația de informații meta."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
-"Acest paragraf de descriere conține marcaj nevalid. În mod curent, doar <em/"
-"> și <code/> sunt permise."
+msgstr "Acest paragraf de descriere conține marcaj nevalid. În mod curent, doar <em/> și <code/> sunt permise."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
-"Enumerările trebuie să aibă doar elemente listă (<li/>) ca și inferiori."
+msgstr "Enumerările trebuie să aibă doar elemente listă (<li/>) ca și inferiori."
 
 #: src/as-validator-issue-tag.h:79
 msgid ""
@@ -1093,45 +1074,31 @@ msgid ""
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-"Primul paragraf „description/p” al acestei componente ar putea fi prea scurt "
-"(< 80 de caractere). Considerați începerea cu un paragraf mai lung pentru a "
-"îmbunătăți cum arată descrierea în centre de software și pentru a furniza "
-"informații mai detaliate despre această componentă imediat în primul "
-"paragraf."
+msgstr "Primul paragraf „description/p” al acestei componente ar putea fi prea scurt (< 80 de caractere). Considerați începerea cu un paragraf mai lung pentru a îmbunătăți cum arată descrierea în centre de software și pentru a furniza informații mai detaliate despre această componentă imediat în primul paragraf."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
-"Descrierea conține un URL web în text simplu. Acest lucru nu este permis, "
-"utilizați în schimb eticheta <url/> pentru a partaja legături."
+msgstr "Descrierea conține un URL web în text simplu. Acest lucru nu este permis, utilizați în schimb eticheta <url/> pentru a partaja legături."
 
 #: src/as-validator-issue-tag.h:91
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"După specificarea AppStream, eticheta meționată trebuie să apară doar o dată "
-"în acest context. A avea mai multe etichete de acest tip nu este valid."
+msgstr "După specificarea AppStream, eticheta meționată trebuie să apară doar o dată în acest context. A avea mai multe etichete de acest tip nu este valid."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
 "The mentioned tag is empty, which is highly likely not intended as it should "
 "have content."
-msgstr ""
-"Eticheta menționat este goală, ceea ce este foarte probabil neintenționat, "
-"deoarece ar trebui să aibă conținut."
+msgstr "Eticheta menționat este goală, ceea ce este foarte probabil neintenționat, deoarece ar trebui să aibă conținut."
 
 #: src/as-validator-issue-tag.h:101
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
-"ID-ul componentei este necesar pentru a urmări o schemă de nume de domeniu "
-"inversat pentru numele acesteia. Vedeți specificația AppStream pentru "
-"detalii."
+msgstr "ID-ul componentei este necesar pentru a urmări o schemă de nume de domeniu inversat pentru numele acesteia. Vedeți specificația AppStream pentru detalii."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1144,43 +1111,27 @@ msgid ""
 "application launchable from software centers and the .desktop file data "
 "associated with the metainfo data."
 msgstr ""
-"ID-ul componentei nu este un nume de domeniu inversat. Actualizați ID-ul "
-"pentru a evita probleme viitoare și pentru a fi compatibil cu toate "
-"implementările AppStream.\n"
-"Puteți, de asemenea, să considerați actualizarea numelui și fișierului ."
-"desktop însoțitor pentru a urma ultima versiune a specificației de intrare "
-"desktop și pentru a utiliza un nume de rDNS și pentru aceasta. În orice caz, "
-"nu uitați să menționați intrare de desktop nouă într-o etichetă <launchable/"
-"> pentru această componentă pentru a păstra aplicația lansabilă de la centre "
-"de software și datele fișierului .desktop asociate cu datele de informații "
-"meta."
+"ID-ul componentei nu este un nume de domeniu inversat. Actualizați ID-ul pentru a evita probleme viitoare și pentru a fi compatibil cu toate implementările AppStream.\n"
+"Puteți, de asemenea, să considerați actualizarea numelui și fișierului .desktop însoțitor pentru a urma ultima versiune a specificației de intrare desktop și pentru a utiliza un nume de rDNS și pentru aceasta. În orice caz, nu uitați să menționați intrare de desktop nouă într-o etichetă <launchable/> pentru această componentă pentru a păstra aplicația lansabilă de la centre de software și datele fișierului .desktop asociate cu datele de informații meta."
 
 #: src/as-validator-issue-tag.h:114
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
-"ID-ul componentei poate să nu urmeze schema de nume de domeniu inversat (TLD-"
-"ul utilizat de aceasta nu este cunoscut de validator)."
+msgstr "ID-ul componentei poate să nu urmeze schema de nume de domeniu inversat (TLD-ul utilizat de aceasta nu este cunoscut de validator)."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
 "The component ID contains an invalid character. Only ASCII characters, dots "
 "and numbers are permitted."
-msgstr ""
-"ID-ul componentei conține un caracter nevalid. Doar caractere ASCII, puncte "
-"și numere sunt permise."
+msgstr "ID-ul componentei conține un caracter nevalid. Doar caractere ASCII, puncte și numere sunt permise."
 
 #: src/as-validator-issue-tag.h:124
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr ""
-"ID-ul componentei conține o cratimă/minus. Utilizarea unei cratime este "
-"descurajată puternic, pentru a îmbunătăți interoperabilitatea cu alte unelte "
-"precum D-Bus. O opțiune bună este să înlocuiți orice cratimă cu liniuțe de "
-"subliniere („_”)."
+msgstr "ID-ul componentei conține o cratimă/minus. Utilizarea unei cratime este descurajată puternic, pentru a îmbunătăți interoperabilitatea cu alte unelte precum D-Bus. O opțiune bună este să înlocuiți orice cratimă cu liniuțe de subliniere („_”)."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1188,11 +1139,7 @@ msgid ""
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
-"ID-ul componentei conține un segment care începe cu un număr. Începerea unui "
-"segment al ID-ului DNS inversat cu un număr este descurajată puternic, "
-"pentru a păstra interoperabilitatea cu alte unelte precum D-Bus. Ideal, "
-"prefixați aceste segmente cu o liniuță de subliniere."
+msgstr "ID-ul componentei conține un segment care începe cu un număr. Începerea unui segment al ID-ului DNS inversat cu un număr este descurajată puternic, pentru a păstra interoperabilitatea cu alte unelte precum D-Bus. Ideal, prefixați aceste segmente cu o liniuță de subliniere."
 
 #: src/as-validator-issue-tag.h:136
 msgid "The component ID should only contain lowercase letters."
@@ -1202,25 +1149,19 @@ msgstr "ID-ul componentei ar trebui să conțină doar litere minuscule."
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
-"Componenta este parte a proiectului Freedesktop, dar ID-ul acesteia nu "
-"începe cu numele DNS inversat al fd.o („org.freedesktop”)."
+msgstr "Componenta este parte a proiectului Freedesktop, dar ID-ul acesteia nu începe cu numele DNS inversat al fd.o („org.freedesktop”)."
 
 #: src/as-validator-issue-tag.h:146
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Componenta este parte a proiectului KDE, dar ID-ul acesteia nu începe cu "
-"numele DNS inversat al KDE („org.kde”)."
+msgstr "Componenta este parte a proiectului KDE, dar ID-ul acesteia nu începe cu numele DNS inversat al KDE („org.kde”)."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Componenta este parte a proiectului GNOME, dar ID-ul acesteia nu începe cu "
-"numele DNS inversat al GNOME („org.gnome”)."
+msgstr "Componenta este parte a proiectului GNOME, dar ID-ul acesteia nu începe cu numele DNS inversat al GNOME („org.gnome”)."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1231,10 +1172,7 @@ msgid ""
 "The license ID was not found in the SPDX database. Please check that the "
 "license ID is written in an SPDX-conformant way and is a valid free software "
 "license."
-msgstr ""
-"ID-ul de licență nu a fost găsit în baza de date SPDX. Verificați dacă ID-ul "
-"licenței este scris într-un mod conform cu SPDX și dacă este o licență de "
-"software gratuit validă."
+msgstr "ID-ul de licență nu a fost găsit în baza de date SPDX. Verificați dacă ID-ul licenței este scris într-un mod conform cu SPDX și dacă este o licență de software gratuit validă."
 
 #: src/as-validator-issue-tag.h:167
 msgid ""
@@ -1243,12 +1181,7 @@ msgid ""
 "FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data "
 "collections without the risk of license violations due to mutually "
 "incompatible licenses."
-msgstr ""
-"Datele meta în sine par a fi licențiate sub o colecție completă de licențe. "
-"Licențiați datele sub o licență permisivă simplă, cum ar fi FSFAP, MIT sau "
-"CC0-1.0 pentru a permite distribuitorilor să le includă în colecții de date "
-"amestecate fără riscul încălcării licenței din cauza licențelor "
-"incompatibile reciproc."
+msgstr "Datele meta în sine par a fi licențiate sub o colecție completă de licențe. Licențiați datele sub o licență permisivă simplă, cum ar fi FSFAP, MIT sau CC0-1.0 pentru a permite distribuitorilor să le includă în colecții de date amestecate fără riscul încălcării licenței din cauza licențelor incompatibile reciproc."
 
 #: src/as-validator-issue-tag.h:173
 msgid ""
@@ -1256,87 +1189,63 @@ msgid ""
 "Please license the data under a permissive license, like FSFAP, CC0-1.0 or "
 "0BSD to allow distributors to include it in mixed data collections without "
 "the risk of license violations due to mutually incompatible licenses."
-msgstr ""
-"Datele meta în sine nu par a fi licențiate sub o licență permisivă. "
-"Licențiați datele sub o licență permisivă, precum FSFAP, CC0-1.0 sau 0BSD "
-"pentru a permite distribuitorilor să le includă în colecții de date "
-"amestecate fără riscul de încălcări de licență datorită licențelor "
-"incompatibile reciproc."
+msgstr "Datele meta în sine nu par a fi licențiate sub o licență permisivă. Licențiați datele sub o licență permisivă, precum FSFAP, CC0-1.0 sau 0BSD pentru a permite distribuitorilor să le includă în colecții de date amestecate fără riscul de încălcări de licență datorită licențelor incompatibile reciproc."
 
 #: src/as-validator-issue-tag.h:179
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"Actualizarea contactului nu pare a fi o adresă de email validă (escaparea "
-"lui „@” este permisă doar ca „_at_” sau „_AT_”)."
+msgstr "Actualizarea contactului nu pare a fi o adresă de email validă (escaparea lui „@” este permisă doar ca „_at_” sau „_AT_”)."
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr ""
-"Nu se poate ajunge la imaginea captură de ecran din locația sa de la "
-"distanță - imaginea există?"
+msgstr "Nu se poate ajunge la imaginea captură de ecran din locația sa de la distanță - imaginea există?"
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
-"Nu se poate ajunge la video-ul captură de ecran din locația sa de la "
-"distanță - fișierul video există?"
+msgstr "Nu se poate ajunge la video-ul captură de ecran din locația sa de la distanță - fișierul video există?"
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
 "Consider using a secure (HTTPS) URL to reference this screenshot image or "
 "video."
-msgstr ""
-"Luați în considerare utilizarea unui URL securizat (HTTPS) pentru a face "
-"referire la această imagine captură de ecran sau video."
+msgstr "Luați în considerare utilizarea unui URL securizat (HTTPS) pentru a face referire la această imagine captură de ecran sau video."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"O captură de ecran trebuie să conțină cel puțin o imagine sau video pentru a "
-"fi utilă. Adăugați o <image/> la aceasta."
+msgstr "O captură de ecran trebuie să conțină cel puțin o imagine sau video pentru a fi utilă. Adăugați o <image/> la aceasta."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"O captură de ecran trebuie să conțină imagini sau video-uri, dar nu amândouă "
-"în același timp. Utilizați această captură de ecran exclusiv pentru "
-"imaginile statice sau pentru video-uri."
+msgstr "O captură de ecran trebuie să conțină imagini sau video-uri, dar nu amândouă în același timp. Utilizați această captură de ecran exclusiv pentru imaginile statice sau pentru video-uri."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
-"Captura de ecran nu are un text de legendă. Luați în considerare adăugarea "
-"unuia."
+msgstr "Captura de ecran nu are un text de legendă. Luați în considerare adăugarea unuia."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:217
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
-"Video-ul captură de ecran nu specifică care codec video a fost utilizat într-"
-"o proprietate „codec”."
+msgstr "Video-ul captură de ecran nu specifică care codec video a fost utilizat într-o proprietate „codec”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
-"Video-ul de captură de ecran nu specifică care format de conținător a fost "
-"utilizat într-o proprietate „container”."
+msgstr "Video-ul de captură de ecran nu specifică care format de conținător a fost utilizat într-o proprietate „container”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
@@ -1344,11 +1253,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"Codec-ul video selectat nu este suportat de AppStream și este posibil ca "
-"centrele video să nu poată să redea video-ul. Doar codecurile AV1 și VP9 "
-"sunt suportate curent, utilizând „av1” și „vp9” ca valori pentru "
-"proprietatea „codec”."
+msgstr "Codec-ul video selectat nu este suportat de AppStream și este posibil ca centrele video să nu poată să redea video-ul. Doar codecurile AV1 și VP9 sunt suportate curent, utilizând „av1” și „vp9” ca valori pentru proprietatea „codec”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1357,58 +1262,41 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"Formatul de conținător de video selectat nu este suportat de AppStream și "
-"este posibil ca centrele software să nu poată reda video-ul. Doar "
-"conținătoarele video WebM și Matroska sunt suportate curent, utilizând "
-"„webm” și „mkv” ca valori pentru proprietatea „container”."
+msgstr "Formatul de conținător de video selectat nu este suportat de AppStream și este posibil ca centrele software să nu poată reda video-ul. Doar conținătoarele video WebM și Matroska sunt suportate curent, utilizând „webm” și „mkv” ca valori pentru proprietatea „container”."
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"Pentru video-uri, doar formatele de conținător WebM și Matroska (.mkv) sunt "
-"suportate curent. Extensia de fișier a video-ului referit nu aparține "
-"niciunui dintre aceste formate."
+msgstr "Pentru video-uri, doar formatele de conținător WebM și Matroska (.mkv) sunt suportate curent. Extensia de fișier a video-ului referit nu aparține niciunui dintre aceste formate."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
-"Captura de ecran implicită a unei componente software nu trebuie să fie un "
-"video. Utilizați o imagine statică drept captură de ecran implicită și "
-"stabiliți video-ul ca și captură de ecran secundară."
+msgstr "Captura de ecran implicită a unei componente software nu trebuie să fie un video. Utilizați o imagine statică drept captură de ecran implicită și stabiliți video-ul ca și captură de ecran secundară."
 
 #: src/as-validator-issue-tag.h:253
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"S-a găsit o etichetă necunoscută într-un grup de necesită/recomandă. Este "
-"probabil o eroare, pentru că o relație de componentă de acest tip nu este "
-"cunoscută."
+msgstr "S-a găsit o etichetă necunoscută într-un grup de necesită/recomandă. Este probabil o eroare, pentru că o relație de componentă de acest tip nu este cunoscută."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Un element „necesită” sau „recomandă” necesită o valoare pentru a denota o "
-"relație validă."
+msgstr "Un element „necesită” sau „recomandă” necesită o valoare pentru a denota o relație validă."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"S-a găsit proprietatea `versiune` la elementul necesar/recomandat de un tip "
-"care nu ar trebui să aibă sau nu necesită o versiune."
+msgstr "S-a găsit proprietatea `versiune` la elementul necesar/recomandat de un tip care nu ar trebui să aibă sau nu necesită o versiune."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:271
@@ -1416,10 +1304,7 @@ msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"S-a găsit proprietatea „versiune” la elementul necesar/recomandat, dar nu și "
-"proprietatea „compară”. Este recomandat să definiți explicit o operație de "
-"comparație."
+msgstr "S-a găsit proprietatea „versiune” la elementul necesar/recomandat, dar nu și proprietatea „compară”. Este recomandat să definiți explicit o operație de comparație."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:277
@@ -1444,11 +1329,7 @@ msgid ""
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"S-a găsit o relație de dimensiune a memoriei într-o etichetă „necesită”. "
-"Aceasta înseamnă că utilizatorii nu vor putea instala nici măcar componenta "
-"fără a avea suficientă memorie RAM. În mod obișnuit acest lucru nu este "
-"intenționat și vreți să utilizați „memorie” în eticheta „recomandă”."
+msgstr "S-a găsit o relație de dimensiune a memoriei într-o etichetă „necesită”. Aceasta înseamnă că utilizatorii nu vor putea instala nici măcar componenta fără a avea suficientă memorie RAM. În mod obișnuit acest lucru nu este intenționat și vreți să utilizați „memorie” în eticheta „recomandă”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:295
@@ -1457,21 +1338,14 @@ msgid ""
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"S-a găsit o relație de control a intrării utilizatorului într-o etichetă "
-"„necesită”. Aceasta înseamnă că utilizatorii nu vor putea instala nici măcar "
-"componenta fără să aibă controlul intrării definit disponibil pe sistem. În "
-"mod obișnuit acest lucru nu este intenționat și vreți să utilizați „control” "
-"în eticheta „recomandă”."
+msgstr "S-a găsit o relație de control a intrării utilizatorului într-o etichetă „necesită”. Aceasta înseamnă că utilizatorii nu vor putea instala nici măcar componenta fără să aibă controlul intrării definit disponibil pe sistem. În mod obișnuit acest lucru nu este intenționat și vreți să utilizați „control” în eticheta „recomandă”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:302
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-"Acest element „control” definește o metodă de intrare necunoscută și nu este "
-"valid. Verificați specificația pentru o listă de valori permise."
+msgstr "Acest element „control” definește o metodă de intrare necunoscută și nu este valid. Verificați specificația pentru o listă de valori permise."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:308
@@ -1501,25 +1375,19 @@ msgstr ""
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Tipul de componentă stabilit nu este un tip de componentă recunoscut, valid "
-"AppStream."
+msgstr "Tipul de componentă stabilit nu este un tip de componentă recunoscut, valid AppStream."
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
 "The component has a priority value set. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Componenta are o valoare de prioritate stabilită. Acest lucru nu este permis "
-"în fișiere de informații meta."
+msgstr "Componenta are o valoare de prioritate stabilită. Acest lucru nu este permis în fișiere de informații meta."
 
 #: src/as-validator-issue-tag.h:337
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Componenta are o metodă „merge” definită. Acest lucru nu este permis în "
-"fișiere de informații meta."
+msgstr "Componenta are o metodă „merge” definită. Acest lucru nu este permis în fișiere de informații meta."
 
 #: src/as-validator-issue-tag.h:342
 msgid "The component is missing an ID (<id/> tag)."
@@ -1537,25 +1405,18 @@ msgstr "Componentei îi lipsește un rezumat (eticheta <summary/>)."
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"Eticheta <id/> conține încă o proprietae „tip”, probabil de la o conversie "
-"veche la formatul de informații meta recent."
+msgstr "Eticheta <id/> conține încă o proprietae „tip”, probabil de la o conversie veche la formatul de informații meta recent."
 
 #: src/as-validator-issue-tag.h:362
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"Eticheta „pkgname” apare de mai multe ori. Ar trebui să evaluați crearea "
-"unui pachet meta care conține informațiile meta și fișierul .desktop pentru "
-"a evita definirea de nume de pachet multiple per componentă."
+msgstr "Eticheta „pkgname” apare de mai multe ori. Ar trebui să evaluați crearea unui pachet meta care conține informațiile meta și fișierul .desktop pentru a evita definirea de nume de pachet multiple per componentă."
 
 #: src/as-validator-issue-tag.h:367
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
-"Numele componentei (probabil că) nu ar trebui să se termine cu un punct "
-"(„.”)."
+msgstr "Numele componentei (probabil că) nu ar trebui să se termine cu un punct („.”)."
 
 #: src/as-validator-issue-tag.h:372
 msgid "The component summary should not end with a dot (`.`)."
@@ -1563,8 +1424,7 @@ msgstr "Rezumatul componentei nu ar trebui să se termine cu un punct („.”).
 
 #: src/as-validator-issue-tag.h:377
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
-"Rezumatul componentei nu trebuie să conțină tab-uri sau sfârșituri de rând."
+msgstr "Rezumatul componentei nu trebuie să conțină tab-uri sau sfârșituri de rând."
 
 #: src/as-validator-issue-tag.h:382
 msgid "The summary must not contain any URL. Use the <url/> tags for links."
@@ -1577,58 +1437,43 @@ msgstr ""
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Iconițele de tip „stoc” sau „cache-uit” nu trebuie să conțină un URL, o cale "
-"completă sau relativă la iconiță. Doar numele de bază de fișier sau numele "
-"de stoc sunt permise."
+msgstr "Iconițele de tip „stoc” sau „cache-uit” nu trebuie să conțină un URL, o cale completă sau relativă la iconiță. Doar numele de bază de fișier sau numele de stoc sunt permise."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:395
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
-"Iconițele de tip „la distanță” trebuie să conțină un URL la iconița referită."
+msgstr "Iconițele de tip „la distanță” trebuie să conțină un URL la iconița referită."
 
 #: src/as-validator-issue-tag.h:400
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
-"Nu se poate ajunge la iconița de la distanță la locația web dată - există?"
+msgstr "Nu se poate ajunge la iconița de la distanță la locația web dată - există?"
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
-"Luați în considerare utilizarea unui URL securizat (HTTPS) pentru legătura "
-"iconiței de la distanță."
+msgstr "Luați în considerare utilizarea unui URL securizat (HTTPS) pentru legătura iconiței de la distanță."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:411
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Fișierele de informații meta pot să conțină doar iconițe de tipul „stoc” sau "
-"„la distanță”, tipul stabilit nu este permis."
+msgstr "Fișierele de informații meta pot să conțină doar iconițe de tipul „stoc” sau „la distanță”, tipul stabilit nu este permis."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:417
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Proprietatea „tip” nu este validă pentru această etichetă „url”. URL-urile "
-"de acest tip nu sunt cunoscute în specificația AppStream."
+msgstr "Proprietatea „tip” nu este validă pentru această etichetă „url”. URL-urile de acest tip nu sunt cunoscute în specificația AppStream."
 
 #: src/as-validator-issue-tag.h:422
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
-"Nu se poate ajunge la locația de la distanță la care face referire acest URL "
-"- există?"
+msgstr "Nu se poate ajunge la locația de la distanță la care face referire acest URL - există?"
 
 #: src/as-validator-issue-tag.h:427
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
-"Luați în considerare utilizarea unui URL securizat (HTTPS) pentru această "
-"legătură web."
+msgstr "Luați în considerare utilizarea unui URL securizat (HTTPS) pentru această legătură web."
 
 #: src/as-validator-issue-tag.h:432
 msgid "A web URL was expected for this value."
@@ -1637,9 +1482,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:437
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
-"Această legătură web utilizează protocolul FTP. Luați în considerare "
-"trecerea la HTTP(S)."
+msgstr "Această legătură web utilizează protocolul FTP. Luați în considerare trecerea la HTTP(S)."
 
 #: src/as-validator-issue-tag.h:442
 msgid "The <developer_name/> can not contain a hyperlink."
@@ -1649,39 +1492,30 @@ msgstr "<developer_name/> nu poate să conțină o hiperlegătură."
 msgid ""
 "The set value is not an identifier for a desktop environment as registered "
 "with Freedesktop.org."
-msgstr ""
-"Valoarea stabilită nu este un identificator pentru un mediu de desktop, așa "
-"cum este înregistrat la Freedesktop.org."
+msgstr "Valoarea stabilită nu este un identificator pentru un mediu de desktop, așa cum este înregistrat la Freedesktop.org."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr ""
-"Această etichetă „launchable” are un tip necunoscut și nu poate fi utilizată."
+msgstr "Această etichetă „launchable” are un tip necunoscut și nu poate fi utilizată."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:459
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr ""
-"Această etichetă „bundle” are un tip necunoscut și nu poate fi utilizată."
+msgstr "Această etichetă „bundle” are un tip necunoscut și nu poate fi utilizată."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:465
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr ""
-"Eticheta „update_contact” nu ar trebui să fie inclusă în colecția XML "
-"AppStream."
+msgstr "Eticheta „update_contact” nu ar trebui să fie inclusă în colecția XML AppStream."
 
 #: src/as-validator-issue-tag.h:470
 msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
-msgstr ""
-"Această etichetă este o extensie specifică GNOME la AppStream și nu face "
-"parte din specificația oficială. Nu vă așteptați să funcționeze în toate "
-"implementările și în toate centrele de software."
+msgstr "Această etichetă este o extensie specifică GNOME la AppStream și nu face parte din specificația oficială. Nu vă așteptați să funcționeze în toate implementările și în toate centrele de software."
 
 #: src/as-validator-issue-tag.h:476
 msgid ""
@@ -1690,166 +1524,124 @@ msgid ""
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"S-a găsit o etichetă nevalidă. Etichetele care nu sunt standard ar trebui "
-"prefixate cu „x-”. AppStream furnizează, de asemenea, eticheta <custom/> "
-"pentru a adăuga date personalizate arbitrare la fișierele de informații "
-"meta. Această etichetă este citită de bibliotecile AppStream și poate fi "
-"utilă în locul definirii unui nivel de top personalizat sau unor etichete "
-"prefixate cu „x-” dacă doriți doar să adăugați date personalizate la un "
-"fișier de informații meta."
+msgstr "S-a găsit o etichetă nevalidă. Etichetele care nu sunt standard ar trebui prefixate cu „x-”. AppStream furnizează, de asemenea, eticheta <custom/> pentru a adăuga date personalizate arbitrare la fișierele de informații meta. Această etichetă este citită de bibliotecile AppStream și poate fi utilă în locul definirii unui nivel de top personalizat sau unor etichete prefixate cu „x-” dacă doriți doar să adăugați date personalizate la un fișier de informații meta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:484
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
-"Eticheta esențială „metadata_license” lipsește. O licență pentru datele meta "
-"în sine trebuie întotdeauna definită."
+msgstr "Eticheta esențială „metadata_license” lipsește. O licență pentru datele meta în sine trebuie întotdeauna definită."
 
 #: src/as-validator-issue-tag.h:489
 msgid ""
 "The component is missing a long description. Components of this type must "
 "have a long description."
-msgstr ""
-"Componentei îi lipsește o descriere lungă. Componentele de acest tip trebuie "
-"să aibă o descriere lungă."
+msgstr "Componentei îi lipsește o descriere lungă. Componentele de acest tip trebuie să aibă o descriere lungă."
 
 #: src/as-validator-issue-tag.h:494
 msgid ""
 "It would be useful to add a long description to this font to present it "
 "better to users."
-msgstr ""
-"Ar fi util să adăugați o descriere lungă la acest font pentru a-l prezenta "
-"mai bine utilizatorilor."
+msgstr "Ar fi util să adăugați o descriere lungă la acest font pentru a-l prezenta mai bine utilizatorilor."
 
 #: src/as-validator-issue-tag.h:499
 msgid ""
 "It is recommended to add a long description to this component to present it "
 "better to users."
-msgstr ""
-"Este recomandat să adăugați o descriere lungă la această componentă pentru a "
-"o prezenta mai bine utilizatorilor."
+msgstr "Este recomandat să adăugați o descriere lungă la această componentă pentru a o prezenta mai bine utilizatorilor."
 
 #: src/as-validator-issue-tag.h:504
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
-"Acestei componente generice îi lipsește o descriere lungă. Poate fi util să "
-"adăugați una."
+msgstr "Acestei componente generice îi lipsește o descriere lungă. Poate fi util să adăugați una."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:510
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
-"Componentă de tip „console-application”, dar nicio informație despre binare "
-"în $PATH nu a fost furnizată via unei etichete „provides/binary”."
+msgstr "Componentă de tip „console-application”, dar nicio informație despre binare în $PATH nu a fost furnizată via unei etichete „provides/binary”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:516
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
-"Acestei componente „web-application” îi lipsește o etichetă „launchable” de "
-"tipul „url”."
+msgstr "Acestei componente „web-application” îi lipsește o etichetă „launchable” de tipul „url”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:522
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
-"Acestei componente „web-application” îi lipsește o etichetă „icon” pentru a "
-"specifica o iconiță validă."
+msgstr "Acestei componente „web-application” îi lipsește o etichetă „icon” pentru a specifica o iconiță validă."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:528
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
-"Acestei componente „web-application” îi lipsesc categoriile. Un bloc "
-"„categories” probabil că lipsește."
+msgstr "Acestei componente „web-application” îi lipsesc categoriile. Un bloc „categories” probabil că lipsește."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:534
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr ""
-"Componentă de tip „font”, dar nicio informație de font nu a fost furnizată "
-"via unei etichete „provides/font”."
+msgstr "Componentă de tip „font”, dar nicio informație de font nu a fost furnizată via unei etichete „provides/font”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:540
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr ""
-"Componentă de tip „driver”, dar nicio informație de alias de mod nu a fost "
-"furnizată via unei etichete „provides/modalias”."
+msgstr "Componentă de tip „driver”, dar nicio informație de alias de mod nu a fost furnizată via unei etichete „provides/modalias”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:546
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"O etichetă „extinde” este specificată, dar componenta nu este de tipul "
-"„supliment”, „localizare” sau „depozit”."
+msgstr "O etichetă „extinde” este specificată, dar componenta nu este de tipul „supliment”, „localizare” sau „depozit”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
-"Componenta este un supliment, dar nu s-a specificat nicio etichetă „extinde”."
+msgstr "Componenta este un supliment, dar nu s-a specificat nicio etichetă „extinde”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:558
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
-"Acestei componente „localization” îi lipsește o etichetă „extends”, pentru a "
-"specifica componentele la care adaugă localizare."
+msgstr "Acestei componente „localization” îi lipsește o etichetă „extends”, pentru a specifica componentele la care adaugă localizare."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:564
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr ""
-"Componenta „localization” nu definește nicio limbă pentru care există "
-"această localizare."
+msgstr "Componenta „localization” nu definește nicio limbă pentru care există această localizare."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:570
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
-msgstr ""
-"Acestei componente „service” îi lipsește o etichetă „launchable” de tipul "
-"„service”."
+msgstr "Acestei componente „service” îi lipsește o etichetă „launchable” de tipul „service”."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:576
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
-msgstr ""
-"Sugestiile de orice tip altele decât „upstream” nu sunt permise în fișiere "
-"de informații meta."
+msgstr "Sugestiile de orice tip altele decât „upstream” nu sunt permise în fișiere de informații meta."
 
 #: src/as-validator-issue-tag.h:581
 msgid ""
 "The category name is not valid. Refer to the XDG Menu Specification for a "
 "list of valid category names."
-msgstr ""
-"Numele categoriei nu este valid. Consultați specificația de meniu XDG pentru "
-"o listă de nume de categorie valide."
+msgstr "Numele categoriei nu este valid. Consultați specificația de meniu XDG pentru o listă de nume de categorie valide."
 
 #: src/as-validator-issue-tag.h:586
 #, fuzzy
@@ -1871,32 +1663,24 @@ msgstr "XML-ul acestui fișier deteriorat."
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"Etichetă nevalidă găsită în datele meta ale colecției. Doar etichetele "
-"„componentă” sunt permise."
+msgstr "Etichetă nevalidă găsită în datele meta ale colecției. Doar etichetele „componentă” sunt permise."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
 msgid ""
 "The metainfo file uses an ancient version of the AppStream specification, "
 "which can not be validated. Please migrate it to version 0.6 (or higher)."
-msgstr ""
-"Fișierul de informații meta utilizează o versiune veche a specificației "
-"AppStream, care nu poate fi validat. Migrați-l la versiunea 0.6 (sau mai "
-"mare)."
+msgstr "Fișierul de informații meta utilizează o versiune veche a specificației AppStream, care nu poate fi validat. Migrați-l la versiunea 0.6 (sau mai mare)."
 
 #: src/as-validator-issue-tag.h:613
 msgid ""
 "This XML document has an unknown root tag. Maybe this file is not a metainfo "
 "document?"
-msgstr ""
-"Documentul XML are o etichetă de rădăcină necunoscută. Poate că acest fișier "
-"nu este un document de informații meta?"
+msgstr "Documentul XML are o etichetă de rădăcină necunoscută. Poate că acest fișier nu este un document de informații meta?"
 
 #: src/as-validator-issue-tag.h:618
 msgid "The metainfo filename does not match the component ID."
-msgstr ""
-"Numele de fișier de informații meta nu se potrivește cu ID-ul componentei."
+msgstr "Numele de fișier de informații meta nu se potrivește cu ID-ul componentei."
 
 #: src/as-validator-issue-tag.h:623
 msgid "Unable to read the .desktop file associated with this component."
@@ -1904,22 +1688,17 @@ msgstr "Nu se poate citi fișierul .desktop asociat cu această componentă."
 
 #: src/as-validator-issue-tag.h:628
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
-"Aceste date meta de componentă fac referire la un fișier .desktop care nu "
-"există."
+msgstr "Aceste date meta de componentă fac referire la un fișier .desktop care nu există."
 
 #: src/as-validator-issue-tag.h:633
 msgid ""
 "The category defined in the .desktop file is not valid. Refer to the XDG "
 "Menu Specification for a list of valid categories."
-msgstr ""
-"Categoria definită în fișierul .desktop nu este validă. Consultați "
-"specificația de meniu XDG pentru o listă de categorii valide."
+msgstr "Categoria definită în fișierul .desktop nu este validă. Consultați specificația de meniu XDG pentru o listă de categorii valide."
 
 #: src/as-validator-issue-tag.h:638
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
-"Nu s-au găsit date meta AppStream în acest director sau arbore de directoare."
+msgstr "Nu s-au găsit date meta AppStream în acest director sau arbore de directoare."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:643
@@ -1930,15 +1709,11 @@ msgstr "Nu s-a găsit directorul de aplicații XDG."
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Fișierul de informații meta este stocat într-o cale moștenită. Plasați-l în "
-"„/usr/share/metainfo/”."
+msgstr "Fișierul de informații meta este stocat într-o cale moștenită. Plasați-l în „/usr/share/metainfo/”."
 
 #: src/as-validator-issue-tag.h:653
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
-"Fișierul de informații meta specifică componente multiple. Acest lucru nu "
-"este permis."
+msgstr "Fișierul de informații meta specifică componente multiple. Acest lucru nu este permis."
 
 #: src/as-validator-issue-tag.h:658
 msgid ""
@@ -1946,12 +1721,7 @@ msgid ""
 "required as some tools will assume that the latest version is always at the "
 "top. Sorting releases also increases overall readability of the metainfo "
 "file."
-msgstr ""
-"Lansările nu sunt sortate într-o ordine de la cea mai recentă la cea mai "
-"veche versiune. Acest lucru este necesar pentru că unele unelte vor "
-"presupune că ultima versiune este întotdeauna la vârf. Sortarea lansărilor "
-"crește, de asemenea, lizibilitatea în ansamblu a fișierului de informații "
-"meta."
+msgstr "Lansările nu sunt sortate într-o ordine de la cea mai recentă la cea mai veche versiune. Acest lucru este necesar pentru că unele unelte vor presupune că ultima versiune este întotdeauna la vârf. Sortarea lansărilor crește, de asemenea, lizibilitatea în ansamblu a fișierului de informații meta."
 
 #: src/as-validator-issue-tag.h:665
 msgid "The value set as release urgency is not a known urgency value."
@@ -2016,20 +1786,14 @@ msgid ""
 "The AppStream specification requires a complete, ISO 8601 date string with "
 "at least day-granularity to denote dates. Please ensure the date string is "
 "valid."
-msgstr ""
-"Specificația AppStream necesită un șir de dată ISO 8601 complet cu cel puțin "
-"granularitatea zilei pentru a denota datele. Asigurați-vă că șirul datei "
-"este valid."
+msgstr "Specificația AppStream necesită un șir de dată ISO 8601 complet cu cel puțin granularitatea zilei pentru a denota datele. Asigurați-vă că șirul datei este valid."
 
 #: src/as-validator-issue-tag.h:731
 msgid ""
 "This component extends, provides, requires or recommends itself, which is "
 "certainly not intended and may confuse users or machines dealing with this "
 "metadata."
-msgstr ""
-"Această componentă, extinde, furnizează, necesită sau se recomandă pe sine, "
-"ceea ce cu siguranță nu este intenționat și poate confunda utilizatorii sau "
-"mașinile care se vor ocupa de aceste date meta."
+msgstr "Această componentă, extinde, furnizează, necesită sau se recomandă pe sine, ceea ce cu siguranță nu este intenționat și poate confunda utilizatorii sau mașinile care se vor ocupa de aceste date meta."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:738
@@ -2038,29 +1802,19 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
-"Licențele pentru componentele „executare” sunt de obicei prea complexe "
-"pentru a le reflecta într-o expresia SPDX simplă. Considerați utilizarea "
-"unei „LicenceRef” și a unui URL web ca valoare pentru „project_license” a "
-"acestei componente. De ex. „LicenseRef-free=https://example.com/licenses."
-"html”"
+msgstr "Licențele pentru componentele „executare” sunt de obicei prea complexe pentru a le reflecta într-o expresia SPDX simplă. Considerați utilizarea unei „LicenceRef” și a unui URL web ca valoare pentru „project_license” a acestei componente. De ex. „LicenseRef-free=https://example.com/licenses.html”"
 
 #: src/as-validator-issue-tag.h:744
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
-"Deoarece o componentă „la executare” este alcătuită din multiple alte "
-"componente de software, ID-urile lor de componente pot fi listate într-o "
-"secțiune „<provides/>” pentru această executare."
+msgstr "Deoarece o componentă „la executare” este alcătuită din multiple alte componente de software, ID-urile lor de componente pot fi listate într-o secțiune „<provides/>” pentru această executare."
 
 #: src/as-validator-issue-tag.h:749
 msgid ""
 "The type of the item that the component provides is not known to AppStream."
-msgstr ""
-"Tipul elementului pe care componenta îl furnizează nu este cunoscut în "
-"AppStream."
+msgstr "Tipul elementului pe care componenta îl furnizează nu este cunoscut în AppStream."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:755
@@ -2097,10 +1851,7 @@ msgstr ""
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
-"Eticheta de problemă emisă nu este cunoscută în registrul de etichetă a "
-"AppStream. Acest lucru este o defecțiune în validatorul în sine, raportați "
-"această defecțiune la tracker-ul nostru de defecțiuni."
+msgstr "Eticheta de problemă emisă nu este cunoscută în registrul de etichetă a AppStream. Acest lucru este o defecțiune în validatorul în sine, raportați această defecțiune la tracker-ul nostru de defecțiuni."
 
 #: src/as-validator.c:344
 msgid "URL format is invalid."
@@ -2362,19 +2113,14 @@ msgstr "Opțiunea „%s” nu este cunoscută."
 #: tools/appstreamcli.c:197 tools/appstreamcli.c:1253
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Rulați „%s -- help” pentru a vedea o listă completă a opțiunilor în linie de "
-"comandă disponibile."
+msgstr "Rulați „%s -- help” pentru a vedea o listă completă a opțiunilor în linie de comandă disponibile."
 
 #: tools/appstreamcli.c:199
 #, c-format
 msgid ""
 "Run '%s --help' to see a list of available commands and options, and '%s %s "
 "--help' to see a list of options specific for this subcommand."
-msgstr ""
-"Rulați „%s --help” pentru a vedea o listă a comenzilor și opțiunilor "
-"disponibile, și „%s %s --help” pentru a vedea o listă a opțiunilor specifice "
-"pentru această subcomandă."
+msgstr "Rulați „%s --help” pentru a vedea o listă a comenzilor și opțiunilor disponibile, și „%s %s --help” pentru a vedea o listă a opțiunilor specifice pentru această subcomandă."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:247
@@ -2407,9 +2153,7 @@ msgstr ""
 #: tools/appstreamcli.c:657
 msgid ""
 "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
-"Trebuie să furnizați cel puțin două numere de versiune pentru a compara ca "
-"parametri."
+msgstr "Trebuie să furnizați cel puțin două numere de versiune pentru a compara ca parametri."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:686
@@ -2421,26 +2165,20 @@ msgstr "Relație de comparație necunoscută „%s”. Valorile valide sunt:"
 msgid ""
 "Too many parameters: Need two version numbers or version numbers and a "
 "comparison operator."
-msgstr ""
-"Prea mulți parametri: Este nevoie de două numere de versiune sau de numere "
-"de versiune și un operator de comparație."
+msgstr "Prea mulți parametri: Este nevoie de două numere de versiune sau de numere de versiune și un operator de comparație."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:752
 msgid ""
 "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
-"Utilizează fișierul .desktop dat pentru a completa valorile de bază a "
-"fișierului de informații meta."
+msgstr "Utilizează fișierul .desktop dat pentru a completa valorile de bază a fișierului de informații meta."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:757
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Această comandă ia argumentele poziționale TIP și FIȘIER, FIȘIER fiind un "
-"fișier la care se scrie (sau „-” pentru ieșirea standard)."
+msgstr "Această comandă ia argumentele poziționale TIP și FIȘIER, FIȘIER fiind un fișier la care se scrie (sau „-” pentru ieșirea standard)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:760
@@ -2451,16 +2189,12 @@ msgstr "TIPUL trebuie să fie un tip de componentă validă, cum ar fi: %s"
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:801
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
-"Utilizează linia specificată pentru tasta „Exec=” al fișierului de intrare "
-"desktop."
+msgstr "Utilizează linia specificată pentru tasta „Exec=” al fișierului de intrare desktop."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
-"Presupuneți că fișierul de intrare este în formatul selectat („yaml” sau "
-"„text”)."
+msgstr "Presupuneți că fișierul de intrare este în formatul selectat („yaml” sau „text”)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
@@ -2509,9 +2243,7 @@ msgstr "Subcomenzi:"
 msgid ""
 "You can find information about subcommand-specific options by passing \"--"
 "help\" to the subcommand."
-msgstr ""
-"Puteți găsi informații despre opțiunile specifice subcomenzii prin trecerea "
-"„--help” subcomenzii."
+msgstr "Puteți găsi informații despre opțiunile specifice subcomenzii prin trecerea „--help” subcomenzii."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1093
@@ -2552,9 +2284,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1159
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
-"Transferă datele meta XML brute pentru o componentă care se potrivește cu ID-"
-"ul."
+msgstr "Transferă datele meta XML brute pentru o componentă care se potrivește cu ID-ul."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1164
@@ -2569,9 +2299,7 @@ msgstr "Validează fișiere XML AppStream pentru probleme."
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1175
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
-"Validează un arbore de fișier instalat al unei aplicații pentru date meta "
-"valide."
+msgstr "Validează un arbore de fișier instalat al unei aplicații pentru date meta valide."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1180
@@ -2619,9 +2347,7 @@ msgstr "Comparați două numere de versiune."
 msgid ""
 "Create a template for a metainfo file (to be filled out by the upstream "
 "project)."
-msgstr ""
-"Creează un șablon pentru un fișier de informații meta (de completat de "
-"proiectul upstream)."
+msgstr "Creează un șablon pentru un fișier de informații meta (de completat de proiectul upstream)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1228
@@ -2633,15 +2359,12 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1233
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
-"Convertește un fișier YAML sau text ȘTIRI în lansări de informații meta."
+msgstr "Convertește un fișier YAML sau text ȘTIRI în lansări de informații meta."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1238
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
-"Scrie un fișier text ȘTIRI sau YAML cu informații de la un fișier de "
-"informații meta."
+msgstr "Scrie un fișier text ȘTIRI sau YAML cu informații de la un fișier de informații meta."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1244
@@ -2676,9 +2399,7 @@ msgstr "Fișierul de date meta „%s” nu există."
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:91
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
-"S-ar putea să aveți nevoie de permisiunile superutilizator pentru a executa "
-"această acțiune."
+msgstr "S-ar putea să aveți nevoie de permisiunile superutilizator pentru a executa această acțiune."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:99
@@ -2758,9 +2479,7 @@ msgstr "Fișierul de date meta „%s” nu există."
 msgid ""
 "Unable to convert file: Could not determine output format, please set it "
 "explicitly using '--format='."
-msgstr ""
-"Nu se poate converti fișierul. Nu s-a putut determina formatul ieșirii, "
-"stabiliți-l explicit utilizând „--format=”."
+msgstr "Nu se poate converti fișierul. Nu s-a putut determina formatul ieșirii, stabiliți-l explicit utilizând „--format=”."
 
 #: tools/ascli-actions-mdata.c:456
 #, fuzzy, c-format
@@ -2776,18 +2495,14 @@ msgstr "Versiune: %s"
 msgid ""
 "You need to give an AppStream software component type to generate a "
 "template. Possible values are:"
-msgstr ""
-"Trebuie să dați un tip de componentă de software AppStream pentru a genera "
-"un șablon. Valorile posibile sunt:"
+msgstr "Trebuie să dați un tip de componentă de software AppStream pentru a genera un șablon. Valorile posibile sunt:"
 
 #: tools/ascli-actions-mdata.c:487
 #, c-format
 msgid ""
 "The software component type '%s' is not valid in AppStream. Possible values "
 "are:"
-msgstr ""
-"Tipul de componentă software „%s” nu este valid în AppStream. Valorile "
-"posibile sunt:"
+msgstr "Tipul de componentă software „%s” nu este valid în AppStream. Valorile posibile sunt:"
 
 #: tools/ascli-actions-mdata.c:505
 #, c-format
@@ -2861,9 +2576,7 @@ msgstr "Trebuie să specificați un fișier de informații meta ca intrare."
 #: tools/ascli-actions-misc.c:118
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
-"Trebuie să specificați un fișier de intrare desktop pentru a-l crea sau "
-"augmenta ca ieșire."
+msgstr "Trebuie să specificați un fișier de intrare desktop pentru a-l crea sau augmenta ca ieșire."
 
 #: tools/ascli-actions-misc.c:128 tools/ascli-actions-misc.c:371
 #: tools/ascli-actions-misc.c:448
@@ -2874,9 +2587,7 @@ msgstr "Fișierul de informații meta „%s” nu există."
 #: tools/ascli-actions-misc.c:149
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"Se augmentează fișierul de intrare desktop existent „%s” cu datele de la "
-"„%s”."
+msgstr "Se augmentează fișierul de intrare desktop existent „%s” cu datele de la „%s”."
 
 #: tools/ascli-actions-misc.c:154
 #, c-format
@@ -2886,22 +2597,17 @@ msgstr "Nu se poate încărca șablonul de fișier de intrare desktop existent: 
 #: tools/ascli-actions-misc.c:158
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
-"Creează un fișier de intrare desktop nou „%s” utilizând date de la „%s”"
+msgstr "Creează un fișier de intrare desktop nou „%s” utilizând date de la „%s”"
 
 #: tools/ascli-actions-misc.c:214
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
-"Nu s-a furnizat niciun nume de iconiță stoc în fișierul de informații meta. "
-"Nu se poate continua."
+msgstr "Nu s-a furnizat niciun nume de iconiță stoc în fișierul de informații meta. Nu se poate continua."
 
 #: tools/ascli-actions-misc.c:236
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
-msgstr ""
-"Nu s-a furnizat niciun binar specificat în fișierul de informații meta, și "
-"nicio comandă exec specificată via „--exec”. Nu se poate crea cheia „Exec=”."
+msgstr "Nu s-a furnizat niciun binar specificat în fișierul de informații meta, și nicio comandă exec specificată via „--exec”. Nu se poate crea cheia „Exec=”."
 
 #: tools/ascli-actions-misc.c:300
 #, c-format
@@ -2915,21 +2621,15 @@ msgstr "Trebuie să specificați un fișier ȘTIRI ca intrare."
 #: tools/ascli-actions-misc.c:332
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
-"Trebuie să specificați un fișier de informații meta pentru a augmenta, sau "
-"„-” pentru a tipări la stdout."
+msgstr "Trebuie să specificați un fișier de informații meta pentru a augmenta, sau „-” pentru a tipări la stdout."
 
 #: tools/ascli-actions-misc.c:337
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
-"Nu s-a specificat niciun nume de fișier de ieșire, se modifică direct "
-"fișierul de informații meta."
+msgstr "Nu s-a specificat niciun nume de fișier de ieșire, se modifică direct fișierul de informații meta."
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Trebuie să specificați un fișier ȘTIRI ca ieșire, sau „-” pentru a tipări la "
-"stdout."
+msgstr "Trebuie să specificați un fișier ȘTIRI ca ieșire, sau „-” pentru a tipări la stdout."
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
@@ -2939,9 +2639,7 @@ msgstr "Trebuie să specificați un format de ȘTIRI în care să se scrie ieși
 msgid ""
 "No suitable package manager CLI found. Please make sure that e.g. \"pkcon"
 "\" (part of PackageKit) is available."
-msgstr ""
-"Nu s-a găsit niciun CLI de gestionar de pachete. Asigurați-vă că de ex. "
-"„pkcon” (parte a PackageKit) este disponibil."
+msgstr "Nu s-a găsit niciun CLI de gestionar de pachete. Asigurați-vă că de ex. „pkcon” (parte a PackageKit) este disponibil."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
@@ -3006,9 +2704,7 @@ msgstr "Validarea a eșuat: %s"
 msgid ""
 "The validator can not create reports in the '%s' format. You may select "
 "'yaml' or 'text' instead."
-msgstr ""
-"Validatorul nu poate crea rapoarte în formatul „%s”. Puteți selecta în "
-"schimb „yaml” sau „text”."
+msgstr "Validatorul nu poate crea rapoarte în formatul „%s”. Puteți selecta în schimb „yaml” sau „text”."
 
 #: tools/ascli-actions-validate.c:392 tools/ascli-actions-validate.c:488
 msgid "You need to specify a root directory to start validation!"
