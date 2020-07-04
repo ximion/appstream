@@ -5,21 +5,21 @@
 # kelemeng <kelemeng@ubuntu.com>, 2015-2016.
 # Gabor Kelemen <kelemeng at ubuntu dot com>, 2016.
 # Balázs Úr <balazs@urbalazs.hu>, 2019.
+# Fehérvári Marcell <marek5000@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2019-09-14 15:39+0000\n"
-"Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/"
-"translations/hu/>\n"
+"PO-Revision-Date: 2020-07-04 01:41+0000\n"
+"Last-Translator: Fehérvári Marcell <marek5000@gmail.com>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -200,7 +200,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Tegyük fel, hogy a bemeneti fájl a kiválasztott formátumban van ( \"yaml\" vagy \"text\" )"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -337,7 +337,7 @@ msgstr ""
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "Fordítsa a YAML vagy text fájlokat metainfo megjelenesbe."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -352,7 +352,7 @@ msgstr "Nem található a következőt biztosító összetevő: „%s::%s”."
 
 #: tools/appstream-cli.c:869
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "XDG asztali bejegyzés készítése metainfo fájlból."
 
 #: tools/appstream-cli.c:868
 msgid ""
@@ -365,7 +365,7 @@ msgstr ""
 #: tools/ascli-actions-misc.c:228
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Új asztali bejegyzés készítése '%s' adat felhasználásával '%s'"
 
 #: src/as-provided.c:160
 msgid "D-Bus Session Services"
