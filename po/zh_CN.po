@@ -10,21 +10,21 @@
 # zh-TW translators, 2016.
 # xiazhang <xia.zhang@protonmail.com>, 2019.
 # Gao Tiesuan <yepifoas@666email.com>, 2020.
+# taiyuan <1006333969@qq.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-02-28 00:32+0000\n"
-"Last-Translator: Gao Tiesuan <yepifoas@666email.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2020-07-04 01:41+0000\n"
+"Last-Translator: taiyuan <1006333969@qq.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -37,34 +37,31 @@ msgid "3D Graphics"
 msgstr "3D 图形"
 
 #: src/as-validator-issue-tag.h:51
-#, fuzzy
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"不要将<description/>标签翻译成metainfo文件（上游元数据）。单独翻译每段文字。"
+msgstr "不必将<description/>标签翻译成metainfo文件（上游元数据）。单独翻译每段文字。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
+msgstr "一个`需要`或`建议`的条目需要一个值来表示有效的关系。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
-#, fuzzy
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr "一个有用的截图应该包含至少一个图片或视频。请添加<image/>。"
+msgstr "一个有用的截图应该包含至少一个图片或视频。请添加<image/>给截图。"
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "截图必须包含图像或视频，但不能同时包含两者。请将此截图用于静态图像或视频。"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
