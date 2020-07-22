@@ -7,7 +7,7 @@
 # helix84 <helix84@centrum.sk>, 2015
 # Matúš Baňas <banas.mato@gmail.com>, 2019, 2021.
 # Peter Marenčík <megawega@protonmail.com>, 2020, 2021.
-# Katarína Kasalová <katka.kasalova@gmail.com>, 2020.
+# Katarína Kasalová <katka.kasalova@gmail.com>, 2020, 2021.
 # #-#-#-#-#  sk.po (appstream-glib)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Peter Marenčík <megawega@protonmail.com>\n"
+"Last-Translator: Katarína Kasalová <katka.kasalova@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/translations/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -1083,9 +1083,7 @@ msgstr ""
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
-"<description/> Označenie nesmie byť lokalizované v súboroch metainfo "
-"(upstream metadata). Radšej lokalizujte odstavce samostatne."
+msgstr "<description/> Označenie nesmie byť lokalizované v súboroch metainfo (upstream metadata). Radšej lokalizujte odstavce samostatne."
 
 #: src/as-validator-issue-tag.h:57
 msgid ""
@@ -1102,11 +1100,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"Popisy AppStream podporujú iba obmedzené množstvo tagov na formátovanie "
-"textu: Odstavce (<p/>) a zoznamy (<ul/>, <ol/>). Tento popisný markup "
-"obsahuje neplatný XML tag, ktorý by nebol správne vyrenderovaný v "
-"aplikáciách podporujúcich špecifikáciu metainfo."
+msgstr "Popisy AppStream podporujú iba obmedzené množstvo tagov na formátovanie textu: Odstavce (<p/>) a zoznamy (<ul/>, <ol/>). Tento popisný markup obsahuje neplatný XML tag, ktorý by nebol správne vyrenderovaný v aplikáciách podporujúcich špecifikáciu metainfo."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1136,9 +1130,7 @@ msgstr ""
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
-"Podľa AppStream špecifikácie sa musí spomenutý tag objaviť v tomto kontexte "
-"iba raz. Nie je opodstatnené mať viacero tagov tohto druhu."
+msgstr "Podľa AppStream špecifikácie sa musí spomenutý tag objaviť v tomto kontexte iba raz. Nie je opodstatnené mať viacero tagov tohto druhu."
 
 #: src/as-validator-issue-tag.h:96
 msgid ""
@@ -1270,9 +1262,7 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Screenshot musí obsahovať aspoň jeden obrázok alebo video ak má byť "
-"užitočný. Prosíme pridajte <image/>."
+msgstr "Screenshot musí obsahovať aspoň jeden obrázok alebo video ak má byť užitočný. Prosíme pridajte <image/>."
 
 #: src/as-validator-issue-tag.h:205
 #, fuzzy
@@ -1344,9 +1334,7 @@ msgstr ""
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"`requires` alebo `recommends` položka si vyžaduje hodnotu na indikovanie "
-"platnej súvislosti."
+msgstr "`requires` alebo `recommends` položka si vyžaduje hodnotu na indikovanie platnej súvislosti."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
@@ -1656,9 +1644,7 @@ msgstr ""
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"`extends` označenie je špecifikované, ale komponent nie je `addon`, "
-"`localization` alebo `repository`."
+msgstr "`extends` označenie je špecifikované, ale komponent nie je `addon`, `localization` alebo `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:552
@@ -2248,9 +2234,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
-"Predpokladajme, že vstupný súbor je vo vybranom formáte ('yaml' alebo "
-"'text')."
+msgstr "Predpokladajme, že vstupný súbor je vo vybranom formáte ('yaml' alebo 'text')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:848
