@@ -6,21 +6,21 @@
 # helix84 <helix84@centrum.sk>, 2015
 # Matúš Baňas <banas.mato@gmail.com>, 2019.
 # Peter Marenčík <megawega@protonmail.com>, 2020.
+# Katarína Kasalová <katka.kasalova@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-01-25 07:21+0000\n"
-"Last-Translator: Peter Marenčík <megawega@protonmail.com>\n"
-"Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/"
-"translations/sk/>\n"
+"PO-Revision-Date: 2020-07-23 02:41+0000\n"
+"Last-Translator: Katarína Kasalová <katka.kasalova@gmail.com>\n"
+"Language-Team: Slovak <https://hosted.weblate.org/projects/appstream/translations/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -36,24 +36,21 @@ msgstr "3D Grafika"
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "<description/> Označenie nesmie byť lokalizované v súboroch metainfo (upstream metadata). Radšej lokalizujte odstavce samostatne."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
+msgstr "`requires` alebo `recommends` položka si vyžaduje hodnotu na indikovanie platnej súvislosti."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
-#, fuzzy
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Screenshot musí obsahovať aspoň jeden obrázok alebo video pokiaľ má byť "
-"užitočný. Prosím pridaj element <image/>."
+msgstr "Screenshot musí obsahovať aspoň jeden obrázok alebo video ak má byť užitočný. Prosíme pridajte <image/>."
 
 #: src/as-validator-issue-tag.h:205
 #, fuzzy
@@ -91,7 +88,7 @@ msgstr "Pri overovaní ukazovať aj nájdené drobnosti."
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
+msgstr "`extends` označenie je špecifikované, ale komponent nie je `addon`, `localization` alebo `repository`."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -143,25 +140,20 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "Popisy AppStream podporujú iba obmedzené množstvo tagov na formátovanie textu: Odstavce (<p/>) a zoznamy (<ul/>, <ol/>). Tento popisný markup obsahuje neplatný XML tag, ktorý by nebol správne vyrenderovaný v aplikáciách podporujúcich špecifikáciu metainfo."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr ""
-"AppStream je štandard pre poskytovanie metadát o programovom vybavení, "
-"používaný cez linuxové distribúcie."
+msgstr "AppStream je štandard na krížovú distribúciu pri poskytovaní metadát o softvérových komponentoch."
 
 #: src/as-pool.c:1937
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr ""
-"Aktualizácie vyrovnávacej pamäti AppStream sa nepodarila. Zapnite výrečnejší "
-"režim, z ktorého dostanete podrobnejšie informácie."
+msgstr "Obnovenie AppStream vyrovnávacej pamäte zlyhalo. Ak chcete získať podrobné informácie, zapnite podrobný režim."
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:944
@@ -183,12 +175,12 @@ msgstr "Umelá inteligencia"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr ""
+msgstr "Podľa AppStream špecifikácie sa musí spomenutý tag objaviť v tomto kontexte iba raz. Nie je opodstatnené mať viacero tagov tohto druhu."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "Predpokladajme, že vstupný súbor je vo vybranom formáte ('yaml' alebo 'text')."
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -213,7 +205,7 @@ msgstr "Vytváranie a úprava zvuku"
 #: tools/ascli-actions-misc.c:219
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Rozšírenie existujúceho desktop-entry file '1%s' dátami z '2%s'."
 
 #: src/as-provided.c:146
 msgid "Binaries"
