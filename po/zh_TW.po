@@ -4,22 +4,21 @@
 # Translators:
 # Hotellook, 2014
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
-# Chang-Chia Tseng <pswo10680@gmail.com>, 2019.
+# Chang-Chia Tseng <pswo10680@gmail.com>, 2019, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2019-06-19 08:01+0000\n"
+"PO-Revision-Date: 2020-07-29 01:41+0000\n"
 "Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.7\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -139,18 +138,17 @@ msgid ""
 msgstr ""
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr "AppStream 為一個跨散佈版的規範，旨在提供軟體組件的中介資料。"
+msgstr "AppStream 是種跨散布版的規格，旨在提供軟體組件的中介資料。"
 
 #: src/as-pool.c:1937
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr "AppStream 快取更新失敗。請開啟詳盡模式取得更多該議題相關的資訊細節。"
+msgstr "AppStream 系統快取重新整理失敗。請開啟詳盡模式取得更多該議題的相關細節。"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:944
@@ -336,14 +334,12 @@ msgid "Creating new desktop-entry file '%s' using data from '%s'"
 msgstr ""
 
 #: src/as-provided.c:160
-#, fuzzy
 msgid "D-Bus Session Services"
-msgstr "DBus 作業階段服務"
+msgstr "D-Bus 作業階段服務"
 
 #: src/as-provided.c:158
-#, fuzzy
 msgid "D-Bus System Services"
-msgstr "DBus 系統服務"
+msgstr "D-Bus 系統服務"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
@@ -480,9 +476,9 @@ msgid "Featured"
 msgstr "特選"
 
 #: tools/ascli-actions-validate.c:171 tools/ascli-actions-validate.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "File '%s' does not exist."
-msgstr "「%s」中介資料檔並不存在。"
+msgstr "「%s」檔案不存在。"
 
 #: src/as-category.c:287
 msgctxt "Category of Utility"
@@ -516,9 +512,8 @@ msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
-#, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "預設中介資料格式（有效的值為「xml」和「yaml」）。"
+msgstr "生成的報告格式（有效的值為「text」和「yaml」）。"
 
 #. TRANSLATORS: Found metainfo files in legacy directories
 #: tools/ascli-actions-misc.c:138
@@ -773,9 +768,8 @@ msgid "Math"
 msgstr "數學"
 
 #: src/as-provided.c:148
-#, fuzzy
 msgid "Media types"
-msgstr "MIME 類型"
+msgstr "媒體類型"
 
 #: tools/ascli-actions-mdata.c:364
 #, c-format
@@ -788,9 +782,9 @@ msgstr "中介資料檔中有誤："
 
 #: tools/ascli-actions-misc.c:198 tools/ascli-actions-misc.c:436
 #: tools/ascli-actions-misc.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr "「%s」中介資料檔並不存在。"
+msgstr "「%s」中介資訊檔不存在。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:385
@@ -888,9 +882,8 @@ msgstr "攝影"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstream-cli.c:121
-#, fuzzy
 msgid "Print detailed explanation for found issues."
-msgstr "列印有關找到之組件的詳細輸出。"
+msgstr "列印找到議題的詳細解說。"
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstream-cli.c:98
@@ -1064,20 +1057,17 @@ msgid ""
 msgstr ""
 
 #: src/as-pool.c:1924
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The AppStream system cache was updated, but problems were found which "
 "resulted in metadata being ignored: %s"
-msgstr "AppStream 系統快取已更新，但發現一些問題：%s"
+msgstr "AppStream 系統快取已更新，但發現一些問題導致中介資料被忽略：%s"
 
 #: src/as-pool.c:1922
-#, fuzzy
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr ""
-"AppStream 系統快取已更新，但偵測到一些錯誤可能導致中介資料遺失。請參考詳盡模"
-"式記錄瞭解更多資訊。"
+msgstr "AppStream 系統快取已更新，但有忽略一些組件。請參考詳盡模式紀錄瞭解更多資訊。"
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1314,9 +1304,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:587
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "移除符合該組件 ID 的軟體。"
+msgstr "中介資訊檔名與該組件 ID 不相符。"
 
 #: src/as-validator-issue-tag.h:627
 msgid ""
@@ -1366,10 +1355,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:301
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr "「%s」軟體組件類型在 AppStream 中無效。可用的值有："
+msgstr "設定的組件類型並非可辨識、有效的 Appstream 組件類型。"
 
 #: src/as-validator-issue-tag.h:416
 msgid ""
@@ -1593,9 +1581,9 @@ msgid "Unable to find component with ID '%s'!"
 msgstr "找不到 ID 為「%s」的組件！"
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "無法讀取 .desktop 檔：%s"
+msgstr "無法載入既有的 desktop-entry 檔模板：%s"
 
 #: src/as-validator-issue-tag.h:374
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1619,14 +1607,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:560
-#, fuzzy
 msgid "Unable to read file."
-msgstr "無法移除舊的快取。"
+msgstr "無法讀取檔案。"
 
 #: src/as-validator-issue-tag.h:592
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "無法讀取 .desktop 檔：%s"
+msgstr "無法讀取與此組件相關聯的 .desktop 檔。"
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
@@ -1638,9 +1624,9 @@ msgid "Unable to remove old cache."
 msgstr "無法移除舊的快取。"
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "無法讀取 .desktop 檔：%s"
+msgstr "無法儲存桌面條目檔：%s"
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -1768,19 +1754,16 @@ msgid ""
 msgstr "您需要提供至少兩個版本號作為參數比較。"
 
 #: tools/ascli-actions-misc.c:393
-#, fuzzy
 msgid "You need to specify a NEWS file as input."
-msgstr "您需要指定中介資料檔。"
+msgstr "您需要指定 NEWS 檔作為輸入。"
 
 #: tools/ascli-actions-misc.c:509
-#, fuzzy
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "您需要指定中介資料檔。"
+msgstr "您需要指定 NEWS 檔作為輸出，或是用「-」列印至 stdout。"
 
 #: tools/ascli-actions-misc.c:540
-#, fuzzy
 msgid "You need to specify a NEWS format to write the output in."
-msgstr "您需要指定輸入檔和輸出檔。"
+msgstr "您需要指定 NEWS 格式以寫入輸出。"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstream-cli.c:925
@@ -1795,25 +1778,22 @@ msgid "You need to specify a component-ID."
 msgstr "您需要指定組件 ID。"
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "您需要指定個檔案來驗證！"
+msgstr "您需要指定個要建立的桌面條目檔或擴增為輸出。"
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
 msgstr "您需要指定中介資料檔。"
 
 #: tools/ascli-actions-misc.c:184 tools/ascli-actions-misc.c:505
-#, fuzzy
 msgid "You need to specify a metainfo file as input."
-msgstr "您需要指定中介資料檔。"
+msgstr "您需要指定中介資訊檔作為輸入。"
 
 #: tools/ascli-actions-misc.c:397
-#, fuzzy
 msgid ""
 "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr "您需要指定中介資料檔。"
+msgstr "您需要指定要擴增的中介資訊檔，或用「-」列印至 stdout。"
 
 #: tools/ascli-actions-validate.c:385 tools/ascli-actions-validate.c:479
 msgid "You need to specify a root directory to start validation!"
@@ -1828,9 +1808,8 @@ msgid "You need to specify an input and output file."
 msgstr "您需要指定輸入檔和輸出檔。"
 
 #: tools/ascli-actions-validate.c:263 tools/ascli-actions-validate.c:337
-#, fuzzy
 msgid "You need to specify at least one file to validate!"
-msgstr "您需要指定個檔案來驗證！"
+msgstr "您需要指定至少一個檔案作驗證！"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. * Do not translate this list directly. Instead,
