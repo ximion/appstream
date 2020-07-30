@@ -11,13 +11,14 @@
 # Alexander <ramzi7208@gmail.com>, 2020.
 # Alexander Klimenko <fer1walker@gmail.com>, 2020.
 # Shwady <pokhodnyak69@gmail.com>, 2020.
+# kyanukovich <ianu0001@algonquinlive.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-31 20:04+0200\n"
-"PO-Revision-Date: 2020-07-30 00:18+0000\n"
-"Last-Translator: Shwady <pokhodnyak69@gmail.com>\n"
+"PO-Revision-Date: 2020-07-30 12:41+0000\n"
+"Last-Translator: kyanukovich <ianu0001@algonquinlive.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -950,8 +951,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
-"В файле мета-файла не было указано имя иконки биржи. Не может быть продолжено"
+msgstr "В файле metainfo не было указано название иконки. Продолжение невозможно."
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid ""
@@ -1815,9 +1815,9 @@ msgid "Unable to find component with ID '%s'!"
 msgstr "Не удаётся найти компоненту с идентификатором \"%s\"!"
 
 #: tools/ascli-actions-misc.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr "Не удаётся прочитать файл .desktop: %s"
+msgstr "Невозможно загрузить существующий шаблон файла .desktop: %s"
 
 #: src/as-validator-issue-tag.h:374
 msgid "Unable to reach remote icon at the given web location - does it exist?"
@@ -1841,14 +1841,12 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:560
-#, fuzzy
 msgid "Unable to read file."
-msgstr "Невозможно удалить старый кэш."
+msgstr "Невозможно прочитать файл."
 
 #: src/as-validator-issue-tag.h:592
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "Не удаётся прочитать файл .desktop: %s"
+msgstr "Невозможно прочитать файл .desktop, связанный с этим компонентом."
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
@@ -1860,9 +1858,9 @@ msgid "Unable to remove old cache."
 msgstr "Невозможно удалить старый кэш."
 
 #: tools/ascli-actions-misc.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr "Не удаётся прочитать файл .desktop: %s"
+msgstr "Не удалось создать входной файл рабочего стола: %s"
 
 #: tools/ascli-actions-mdata.c:552
 #, c-format
@@ -2029,10 +2027,9 @@ msgid "You need to specify a component-ID."
 msgstr "Вам необходимо указать идентификатор компоненты."
 
 #: tools/ascli-actions-misc.c:188
-#, fuzzy
 msgid ""
 "You need to specify a desktop-entry file to create or augment as output."
-msgstr "Вам необходимо указать файл для проверки!"
+msgstr "Вам необходимо указать файл записи рабочего стола для создания или дополнения в качестве вывода."
 
 #: tools/ascli-actions-mdata.c:309
 msgid "You need to specify a metadata file."
