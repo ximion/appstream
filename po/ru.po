@@ -13,13 +13,14 @@
 # Shwady <pokhodnyak69@gmail.com>, 2020.
 # kyanukovich <ianu0001@algonquinlive.com>, 2020.
 # Irina <irinaabissinian@gmail.com>, 2020.
+# Nikita Epifanov <nikgreens@protonmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: AppStream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-05-31 20:04+0200\n"
-"PO-Revision-Date: 2020-08-17 06:32+0000\n"
-"Last-Translator: Irina <irinaabissinian@gmail.com>\n"
+"PO-Revision-Date: 2020-08-19 21:32+0000\n"
+"Last-Translator: Nikita Epifanov <nikgreens@protonmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1732,7 +1733,7 @@ msgid ""
 "This tag is a GNOME-specific extension to AppStream and not part of the "
 "official specification. Do not expect it to work in all implementations and "
 "in all software centers."
-msgstr ""
+msgstr "Этот тег является специфичным для GNOME расширением AppStream и не является частью официальной спецификации. Не ожидайте, что он будет работать во всех реализациях и во всех центрах программного обеспечения."
 
 #: src/as-validator-issue-tag.h:41
 msgid "This tag requires a type property."
@@ -1822,24 +1823,24 @@ msgstr "Невозможно загрузить существующий шаб�
 
 #: src/as-validator-issue-tag.h:374
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
+msgstr "Невозможно получить доступ к удалённому значку в указанном веб-местоположении - существует ли он?"
 
 #: src/as-validator-issue-tag.h:396
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
+msgstr "Невозможно достичь удаленного местоположения, на которое ссылается этот URL-адрес - существует ли оно?"
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr ""
+msgstr "Невозможно получить снимок экрана в удаленном месте - существует ли изображение?"
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
+msgstr "Невозможно получить доступ к снимку экрана видео в удаленном месте - существует ли видеофайл?"
 
 #: src/as-validator-issue-tag.h:560
 msgid "Unable to read file."
@@ -1969,7 +1970,7 @@ msgstr "Текстовые процессоры"
 
 #: tools/appstream-cli.c:871
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
+msgstr "Напишите текст NEWS или файл YAML с информацией из файла metainfo."
 
 #: tools/appstream-cli.c:874
 msgid ""
