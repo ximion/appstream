@@ -158,9 +158,11 @@ as_validator_add_issue (AsValidator *validator, xmlNode *node, const gchar *tag,
 		explanation = tag_data->explanation;
 	}
 
-	va_start (args, format);
-	buffer = g_strdup_vprintf (format, args);
-	va_end (args);
+	if (format != NULL) {
+		va_start (args, format);
+		buffer = g_strdup_vprintf (format, args);
+		va_end (args);
+	}
 
 	issue = as_validator_issue_new ();
 	as_validator_issue_set_tag (issue, tag_final);
