@@ -1,3 +1,4 @@
+# #-#-#-#-#  fi.po (AppStream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
@@ -5,21 +6,43 @@
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2014
 # Ville Skyttä <ville.skytta@iki.fi>, 2016
 # Juhani Numminen <juhaninumminen0@gmail.com>, 2017
+# #-#-#-#-#  fi.po (appstream-glib)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2014
+# Ville Skyttä <ville.skytta@iki.fi>, 2016
+# Richard Hughes <richard@hughsie.com>, 2016. #zanata
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2017. #zanata
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AppStream\n"
+"Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2019-01-29 21:08+0000\n"
-"Last-Translator: Ammuu5 <ammuu5@tutanota.com>\n"
-"Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/"
-"translations/fi/>\n"
+"POT-Creation-Date: 2020-09-03 02:58+0200\n"
+"PO-Revision-Date: 2017-03-26 08:23+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"Language-Team: Finnish (http://www.transifex.com/freedesktop/appstream-glib/"
+"language/fi/)\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  fi.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.5-dev\n"
+"#-#-#-#-#  fi.po (appstream-glib)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#. TRANSLATORS: This is the formatting of English and localized name
+#. * of the rating e.g. "Adults Only (solo adultos)"
+#: src/as-content-rating.c:298
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -58,6 +81,15 @@ msgid ""
 "videos."
 msgstr ""
 
+#: src/as-content-rating.c:453
+msgid "ALL"
+msgstr "KAIKKI"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:976
+msgid "Ability to spend real money in-app"
+msgstr "Mahdollisuus käyttää oikeaa rahaa sovelluksessa"
+
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
@@ -68,6 +100,10 @@ msgstr "Toiminta"
 #: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
 msgstr "Lisäosat"
+
+#: src/as-content-rating.c:457 src/as-content-rating.c:533
+msgid "Adults Only"
+msgstr "Vain aikuiset"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -217,6 +253,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Lauta"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:897
+msgid "Brief artistic nudity"
+msgstr "Hetkellistä taiteellista alastomuutta"
+
 #: tools/ascli-utils.c:299
 msgid "Bundle"
 msgstr ""
@@ -245,14 +286,42 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kortit"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:816
+msgid "Cartoon characters in aggressive conflict"
+msgstr "Piirroshahmot aggressiivisessa ristiriidassa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:814
+msgid "Cartoon characters in unsafe situations"
+msgstr "Piirroshahmoja vaarallisissa tilanteissa"
+
 #: tools/ascli-utils.c:369
 msgid "Categories"
 msgstr "Luokat"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:827
+msgid "Characters in aggressive conflict easily distinguishable from reality"
+msgstr ""
+"Hahmoja aggressiivisessa ristiriidassa, helposti todellisuudesta "
+"erotettavissa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:825
+msgid "Characters in unsafe situations easily distinguishable from reality"
+msgstr ""
+"Hahmoja vaarallisissa tilanteissa, helposti todellisuudesta erotettavissa"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "Keskustelu"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1012
+msgid "Checking for the latest application version"
+msgstr "Tarkistetaan viimeisintä sovellusversiota"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
@@ -349,6 +418,11 @@ msgctxt "Category of Office"
 msgid "Database"
 msgstr "Tietokannat"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1090
+msgid "Dead human remains that are exposed to the elements"
+msgstr "Kuolleen ihmisen jäännöksiä, jotka altistetaan elementeille"
+
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
@@ -363,6 +437,36 @@ msgstr "Oletusnäyttökuvan URL"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Metadatan oletusmuoto (vaihtoehdot: ”xml” tai ”yaml”)."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:851
+msgid "Depictions of bloodshed and the mutilation of body parts"
+msgstr "Kuvauksia verilöylystä ja ruumiinosien silpomista"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1079
+msgid "Depictions of modern-day human desecration"
+msgstr "Kuvauksia nykypäivän ihmishäpäisystä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1101
+msgid "Depictions of modern-day slavery"
+msgstr "Kuvauksia nykypäivän orjuudesta"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1077
+msgid "Depictions of or references to historical desecration"
+msgstr "Kuvauksia tai viittauksia historialliseen häpäisyyn"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1099
+msgid "Depictions of or references to historical slavery"
+msgstr "Kuvauksia tai viittauksia historialliseen orjuuteen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:838
+msgid "Depictions of realistic characters in aggressive conflict"
+msgstr "Kuvauksia todellisista hahmoista aggressiivisessa ristiriidassa"
+
 #: tools/ascli-utils.c:333
 msgid "Description"
 msgstr "Kuvaus"
@@ -376,6 +480,21 @@ msgstr "Kehittäjä"
 #: src/as-category.c:305
 msgid "Developer Tools"
 msgstr "Kehitystyökalut"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1058
+msgid "Direct references to adultery"
+msgstr "Suoria viittauksia haureuteen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1047
+msgid "Direct references to prostitution"
+msgstr "Suoria viittauksia prosituutioon"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:942
+msgid "Discrimination designed to cause emotional harm"
+msgstr "Syrjintää tarkoituksena aiheuttaa tunteellista epämukavuutta"
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
@@ -399,6 +518,10 @@ msgstr "Älä käytä värejä."
 #: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
+
+#: src/as-content-rating.c:467 src/as-content-rating.c:528
+msgid "Early Childhood"
+msgstr "Varhaislapsuus"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -428,6 +551,25 @@ msgstr ""
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr ""
+
+#: src/as-content-rating.c:465 src/as-content-rating.c:529
+msgid "Everyone"
+msgstr "Kaikki"
+
+#: src/as-content-rating.c:463 src/as-content-rating.c:530
+msgid "Everyone 10+"
+msgstr "10+-vuotiaat"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:944
+msgid "Explicit discrimination based on gender, sexuality, race or religion"
+msgstr ""
+"Syrjintää kohdistuen sukupuoleen, seksuaalisuuteen, rotuun tai uskontoon"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:953
+msgid "Explicit references to specific brands or trademarked products"
+msgstr "Selkeitä viittauksia tiettyyn brändiin tai tavaramerkkiin"
 
 #: tools/ascli-utils.c:327
 msgid "Extends"
@@ -579,16 +721,35 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
-#: src/as-validator.c:1249
+#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
+#: src/as-validator.c:1251
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:962
+msgid "Gambling on random events using tokens or credits"
+msgstr "Satunnaista uhkapeliä pelinappuloita käyttäen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:966
+msgid "Gambling using real money"
+msgstr "Uhkapeliä käyttäen oikeaa rahaa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:964
+msgid "Gambling using “play” money"
+msgstr "Uhkapeliä käyttäen pelin sisäistä rahaa"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
 msgstr "Pelit"
+
+#: src/as-content-rating.c:444
+msgid "General"
+msgstr "Yleinen"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
@@ -602,6 +763,56 @@ msgstr "Hae komponentit, jotka tarjoavat pyydetyn kohteen."
 #: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "Hae tiedot komponentista sen ID:n perusteella."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1092
+msgid "Graphic depictions of desecration of human bodies"
+msgstr "Graafisia kuvauksia tai häpäisyä liittyen ihmisruumiisiin"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1081
+msgid "Graphic depictions of modern-day desecration"
+msgstr "Graafisia kuvauksia nykypäivän häpäisystä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1103
+msgid "Graphic depictions of modern-day slavery"
+msgstr "Graafisia kuvauksia nykypäivän orjuudesta"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1060
+msgid "Graphic depictions of the act of adultery"
+msgstr "Graafisia kuvauksia haureuteen liittyvistä toimista"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1049
+msgid "Graphic depictions of the act of prostitution"
+msgstr "Graafisia kuvauksia prostituutioon liittyvistä toimista"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:911
+msgid "Graphic sexual behavior"
+msgstr "Graafista seksuaalista käytöstä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1038
+msgid "Graphic sexual behavior between people of the same gender"
+msgstr "Graafista seksuaalista käyttäytymistä samaa sukupuolta olevien kesken"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:829
+msgid "Graphic violence easily distinguishable from reality"
+msgstr "Graafista väkivaltaa, helposti todellisuudesta erotettavissa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:818
+msgid "Graphic violence involving cartoon characters"
+msgstr "Graafista väkivaltaa, johon liittyy piirroshahmoja"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:840
+msgid "Graphic violence involving realistic characters"
+msgstr "Graafista väkivaltaa, johon sisältyy todellisia hahmoja"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
@@ -640,6 +851,21 @@ msgstr ""
 #: tools/ascli-utils.c:295
 msgid "Identifier"
 msgstr "Tunniste"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1056
+msgid "Indirect references to adultery"
+msgstr "Epäsuoria viittauksia haureuteen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1034
+msgid "Indirect references to homosexuality"
+msgstr "Epäsuoria viittauksia homoseksuaalisuuteen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1045
+msgid "Indirect references to prostitution"
+msgstr "Epäsuoria viittauksia prosituutioon"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
@@ -694,6 +920,11 @@ msgstr ""
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "Lasten pelit"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1036
+msgid "Kissing between people of the same gender"
+msgstr "Suutelua samaa sukupuolta olevien kesken"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
@@ -771,6 +1002,15 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematiikka"
 
+#: src/as-content-rating.c:459 src/as-content-rating.c:532
+msgid "Mature"
+msgstr "Aikuiset"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:933
+msgid "Mature or sexual humor"
+msgstr "Aikuismaista tai seksuaalista huumoria"
+
 #: src/as-provided.c:148
 #, fuzzy
 msgid "Media types"
@@ -803,9 +1043,29 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:918
+msgid "Mild or infrequent use of profanity"
+msgstr "Vähäistä tai epäsäännöllistä kiroilua"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:836
+msgid "Mildly realistic characters in unsafe situations"
+msgstr "Tunnistettavia hahmoja vaarallisissa tilanteissa"
+
 #: src/as-provided.c:152
 msgid "Modaliases"
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:920
+msgid "Moderate use of profanity"
+msgstr "Keskitason kiroilua"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:985
+msgid "Moderated chat functionality between users"
+msgstr "Valvottu keskusteluominaisuus käyttäjien välillä"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -815,6 +1075,11 @@ msgstr "Musiikkitoistimet"
 #: tools/ascli-utils.c:296
 msgid "Name"
 msgstr "Nimi"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:940
+msgid "Negativity towards a specific group of people"
+msgstr "Kielteisyyttä tiettyä ihmisryhmää kohtaan"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
@@ -830,24 +1095,150 @@ msgstr ""
 msgid "No XDG applications directory found."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:971
+msgid "No ability to spend money"
+msgstr "Ei mahdollisuutta käyttää oikeaa rahaa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:949
+msgid "No advertising of any kind"
+msgstr "Ei minkäänlaisia mainoksia"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:845
+msgid "No bloodshed"
+msgstr "Ei verilöylyä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:812
+msgid "No cartoon violence"
+msgstr "Ei piirroksilla esitettävää väkivaltaa"
+
 #: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:938
+msgid "No discriminatory language of any kind"
+msgstr "Ei minkäänlaista syrjivää kieltä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:823
+msgid "No fantasy violence"
+msgstr "Ei fantasiaan liittyvää väkivaltaa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:960
+msgid "No gambling of any kind"
+msgstr "Ei minkäänlaista uhkapeliä"
+
 #: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "Ei kuvakkeita."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:927
+msgid "No inappropriate humor"
+msgstr "Ei epäasiallista huumoria"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:895
+msgid "No nudity of any sort"
+msgstr "Ei minkäänlaista alastomuutta"
+
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:916
+msgid "No profanity of any kind"
+msgstr "Ei minkäänlaista kiroilua"
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:834
+msgid "No realistic violence"
+msgstr "Ei realistista väkivaltaa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1054
+msgid "No references to adultery"
+msgstr "Ei viittauksia haureuteen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:865
+msgid "No references to alcohol"
+msgstr "Ei viittauksia alkoholituotteisiin"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1075
+msgid "No references to desecration"
+msgstr "Ei viittauksia häpäisyyn"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1032
+msgid "No references to homosexuality"
+msgstr "Ei viittauksia homoseksuaalisuuteen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:875
+msgid "No references to illicit drugs"
+msgstr "Ei viittauksia laittomiin huumausaineisiin"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:905
+msgid "No references to or depictions of sexual nature"
+msgstr "Ei seksuaalisia viittauksia tai kuvauksia"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1043
+msgid "No references to prostitution"
+msgstr "Ei viittauksia prostituutioon"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1097
+msgid "No references to slavery"
+msgstr "Ei viittauksia orjuuteen"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:885
+msgid "No references to tobacco products"
+msgstr "Ei viittauksia tupakkatuotteisiin"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:856
+msgid "No sexual violence"
+msgstr "Ei seksuaalista väkivaltaa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1065
+msgid "No sexualized characters"
+msgstr "Ei seksualisoituja hahmoja"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1021
+msgid "No sharing of physical location with other users"
+msgstr "Ei fyysisen sijainnin jakamista muille käyttäjille"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1001
+msgid "No sharing of social network usernames or email addresses"
+msgstr ""
+"Ei sosiaalisen median käyttäjätunnusten tai sähköpostiosoitteiden jakamista"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1010
+msgid "No sharing of user information with third parties"
+msgstr "Ei käyttäjätiedon jakamista kolmansien osapuolten kanssa"
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -863,6 +1254,21 @@ msgstr ""
 msgid "No value for the item to search for was defined."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1086
+msgid "No visible dead human remains"
+msgstr "Ei näkyviä kuolleen ihmisen jäännöksiä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:981
+msgid "No way to chat with other users"
+msgstr "Ei mahdollisuutta keskustella muiden käyttäjien kanssa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:992
+msgid "No way to talk with other users"
+msgstr "Ei mahdollisuutta puhua muiden käyttäjien kanssa"
+
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
@@ -873,6 +1279,11 @@ msgstr "Toimisto"
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Valitsin ”%s” on tuntematon."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1070
+msgid "Overtly sexualized human characters"
+msgstr "Avoimesti seksualisoituja ihmishahmoja"
 
 #: tools/ascli-utils.c:298
 msgid "Package"
@@ -893,14 +1304,29 @@ msgstr ""
 msgid "Print detailed output about found components."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:951
+msgid "Product placement"
+msgstr "Tuotesijoittelua"
+
 #. project group
 #: tools/ascli-utils.c:360
 msgid "Project Group"
 msgstr "Projektiryhmä"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:899
+msgid "Prolonged nudity"
+msgstr "Pitkäkestoista alastomuutta"
+
 #: tools/ascli-utils.c:405
 msgid "Provided Items"
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:907
+msgid "Provocative references or depictions"
+msgstr "Provokatiivisia viittauksia tai kuvauksia"
 
 #: src/as-provided.c:154
 msgid "Python (Version 2)"
@@ -910,16 +1336,41 @@ msgstr "Python (versio 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:858
+msgid "Rape or other violent sexual behavior"
+msgstr "Raiskaus tai muuta väkivaltaista seksuaalista käytöstä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:849
+msgid "Realistic bloodshed"
+msgstr "Realistinen verilöyly"
+
 #: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:867
+msgid "References to alcoholic beverages"
+msgstr "Viittauksia alkoholituotteisiin"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:877
+msgid "References to illicit drugs"
+msgstr "Viittauksia laittomiin huumausaineisiin"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:887
+msgid "References to tobacco products"
+msgstr "Viittauksia tupakkatuotteisiin"
 
 #: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr ""
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:364
+#: src/as-validator.c:366
 msgid "Retrieved file size was zero."
 msgstr ""
 
@@ -954,6 +1405,11 @@ msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "Skannaus"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1068
+msgid "Scantily clad human characters"
+msgstr "Vähävaatteisia ihmishahmoja"
+
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
@@ -967,6 +1423,32 @@ msgstr ""
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "Tietoturva"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:909
+msgid "Sexual references or depictions"
+msgstr "Seksuaalisia viittauksia tai kuvauksia"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1014
+msgid "Sharing diagnostic data that does not let others identify the user"
+msgstr "Jakaa diagnostiikkatietoja, jotka eivät ole yhdistettävissä käyttäjään"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1016
+msgid "Sharing information that lets others identify the user"
+msgstr "Jakaa käyttäjään yhdistettävissä olevia tietoja"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1023
+msgid "Sharing physical location with other users"
+msgstr "Fyysisen sijainnin jakamista muille käyttäjille"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1003
+msgid "Sharing social network usernames or email addresses"
+msgstr ""
+"Sosiaalisen median käyttäjätunnusten tai sähköpostiosoitteiden jakamista"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:903
@@ -985,6 +1467,11 @@ msgid ""
 "this runtime."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:929
+msgid "Slapstick humor"
+msgstr "Kermakakkukomiikkaa"
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -994,6 +1481,11 @@ msgstr "Urheilu"
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "Strategia"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:922
+msgid "Strong or frequent use of profanity"
+msgstr "Vahvaa tai säännöllistä kiroilua"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:845
@@ -1024,6 +1516,10 @@ msgstr "Järjestelmänvalvonta"
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
 msgstr ""
+
+#: src/as-content-rating.c:461 src/as-content-rating.c:531
+msgid "Teen"
+msgstr "Teinit"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -1550,7 +2046,7 @@ msgid ""
 "font` tag."
 msgstr ""
 
-#: src/as-validator.c:333
+#: src/as-validator.c:335
 msgid "URL format is invalid."
 msgstr ""
 
@@ -1643,6 +2139,16 @@ msgstr "Ei voitu käynnistää pakettienhallintaa: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:994
+msgid "Uncontrolled audio or video chat functionality between users"
+msgstr "Valvomaton ääni- tai videokeskusteluominaisuus käyttäjien välillä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:987
+msgid "Uncontrolled chat functionality between users"
+msgstr "Valvomaton keskusteluominaisuus käyttäjien välillä"
+
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:1009
 #, c-format
@@ -1655,6 +2161,26 @@ msgstr ""
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:847
+msgid "Unrealistic bloodshed"
+msgstr "Epärealistinen verilöyly"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:869
+msgid "Use of alcoholic beverages"
+msgstr "Alkoholin käyttöä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:879
+msgid "Use of illicit drugs"
+msgstr "Laittomien huumausaineiden käyttöä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:889
+msgid "Use of tobacco products"
+msgstr "Tupakan polttamista"
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:675
 msgid ""
@@ -1665,6 +2191,21 @@ msgstr ""
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:983
+msgid "User-to-user interactions without chat functionality"
+msgstr "Käyttäjien välistä vuorovaikutusta ilman keskustelumahdollisuutta"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:973
+msgid "Users are encouraged to donate real money"
+msgstr "Käyttäjiä kehotetaan lahjoittamaan oikeaa rahaa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:955
+msgid "Users are encouraged to purchase specific real-world items"
+msgstr "Käyttäjiä kehotetaan ostamaan tiettyjä todellisia esineitä"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -1711,6 +2252,16 @@ msgstr "Versio: %s"
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Kuvankatselimet"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1088
+msgid "Visible dead human remains"
+msgstr "Näkyviä kuolleen ihmisen jäännöksiä"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:931
+msgid "Vulgar or bathroom humor"
+msgstr "Alatyylistä wc-huumoria"
 
 #: tools/ascli-actions-misc.c:153
 #, c-format
@@ -1845,18 +2396,3 @@ msgstr "pedanttisia: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "varoituksia: %lu"
-
-#~ msgid "Command '%s' is unknown."
-#~ msgstr "Komento ”%s” on tuntematon."
-
-#, fuzzy
-#~ msgid "Category of Games"
-#~ msgstr "Luokat"
-
-#, fuzzy
-#~ msgid "Category of Office"
-#~ msgstr "Luokat"
-
-#, fuzzy
-#~ msgid "Category of Science"
-#~ msgstr "Luokat"

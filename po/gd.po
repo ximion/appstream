@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-05-12 12:45+0200\n"
+"POT-Creation-Date: 2020-09-03 02:58+0200\n"
 "PO-Revision-Date: 2020-01-29 23:50+0000\n"
 "Last-Translator: GunChleoc <fios@foramnagaidhlig.net>\n"
 "Language-Team: Gaelic <https://hosted.weblate.org/projects/appstream/"
@@ -18,6 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : "
 "(n > 2 && n < 20) ? 2 : 3;\n"
 "X-Generator: Weblate 3.11-dev\n"
+
+#. TRANSLATORS: This is the formatting of English and localized name
+#. * of the rating e.g. "Adults Only (solo adultos)"
+#: src/as-content-rating.c:298
+#, c-format
+msgid "%s (%s)"
+msgstr ""
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -56,6 +63,15 @@ msgid ""
 "videos."
 msgstr ""
 
+#: src/as-content-rating.c:453
+msgid "ALL"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:976
+msgid "Ability to spend real money in-app"
+msgstr ""
+
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
@@ -66,6 +82,10 @@ msgstr "Gnìomhan"
 #: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
 msgstr "Tuilleadain"
+
+#: src/as-content-rating.c:457 src/as-content-rating.c:533
+msgid "Adults Only"
+msgstr ""
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -219,6 +239,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Bòrd"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:897
+msgid "Brief artistic nudity"
+msgstr ""
+
 #: tools/ascli-utils.c:299
 msgid "Bundle"
 msgstr "Trusgan"
@@ -247,14 +272,39 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Cairt"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:816
+msgid "Cartoon characters in aggressive conflict"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:814
+msgid "Cartoon characters in unsafe situations"
+msgstr ""
+
 #: tools/ascli-utils.c:369
 msgid "Categories"
 msgstr "Roinnean-seòrsa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:827
+msgid "Characters in aggressive conflict easily distinguishable from reality"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:825
+msgid "Characters in unsafe situations easily distinguishable from reality"
+msgstr ""
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "Cabadaich"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1012
+msgid "Checking for the latest application version"
+msgstr ""
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
@@ -355,6 +405,11 @@ msgctxt "Category of Office"
 msgid "Database"
 msgstr "Stòr-dàta"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1090
+msgid "Dead human remains that are exposed to the elements"
+msgstr ""
+
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
@@ -370,6 +425,36 @@ msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr ""
 "Fòrmat tùsail a’ mheata-dàta (is “xml” ’s “yaml” na luachan dligheach)."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:851
+msgid "Depictions of bloodshed and the mutilation of body parts"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1079
+msgid "Depictions of modern-day human desecration"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1101
+msgid "Depictions of modern-day slavery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1077
+msgid "Depictions of or references to historical desecration"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1099
+msgid "Depictions of or references to historical slavery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:838
+msgid "Depictions of realistic characters in aggressive conflict"
+msgstr ""
+
 #: tools/ascli-utils.c:333
 msgid "Description"
 msgstr "Tuairisgeul"
@@ -383,6 +468,21 @@ msgstr "Luchd-leasachaidh"
 #: src/as-category.c:305
 msgid "Developer Tools"
 msgstr "Innealan luchd-leasachaidh"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1058
+msgid "Direct references to adultery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1047
+msgid "Direct references to prostitution"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:942
+msgid "Discrimination designed to cause emotional harm"
+msgstr ""
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
@@ -407,6 +507,10 @@ msgstr "Na seall às-chur dathte."
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr ""
 "Seall am meata-dàta XML amh airson co-phàirt a fhreagras ris an aithnichear."
+
+#: src/as-content-rating.c:467 src/as-content-rating.c:528
+msgid "Early Childhood"
+msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -436,6 +540,24 @@ msgstr ""
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Mearachd le luchdadh amar a’ mheata-dàta: %s"
+
+#: src/as-content-rating.c:465 src/as-content-rating.c:529
+msgid "Everyone"
+msgstr ""
+
+#: src/as-content-rating.c:463 src/as-content-rating.c:530
+msgid "Everyone 10+"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:944
+msgid "Explicit discrimination based on gender, sexuality, race or religion"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:953
+msgid "Explicit references to specific brands or trademarked products"
+msgstr ""
 
 #: tools/ascli-utils.c:327
 msgid "Extends"
@@ -588,16 +710,35 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
-#: src/as-validator.c:1249
+#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
+#: src/as-validator.c:1251
 #, c-format
 msgid "Found: %s - Allowed: %s"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:962
+msgid "Gambling on random events using tokens or credits"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:966
+msgid "Gambling using real money"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:964
+msgid "Gambling using “play” money"
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
 msgstr "Geamannan"
+
+#: src/as-content-rating.c:444
+msgid "General"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
@@ -611,6 +752,56 @@ msgstr "Fhaigh na co-phàirtean a bheir an nì sònraichte dhut."
 #: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "Faigh fiosrachadh mu cho-phàirt a-rèir aithnicheir."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1092
+msgid "Graphic depictions of desecration of human bodies"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1081
+msgid "Graphic depictions of modern-day desecration"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1103
+msgid "Graphic depictions of modern-day slavery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1060
+msgid "Graphic depictions of the act of adultery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1049
+msgid "Graphic depictions of the act of prostitution"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:911
+msgid "Graphic sexual behavior"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1038
+msgid "Graphic sexual behavior between people of the same gender"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:829
+msgid "Graphic violence easily distinguishable from reality"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:818
+msgid "Graphic violence involving cartoon characters"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:840
+msgid "Graphic violence involving realistic characters"
+msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
@@ -649,6 +840,21 @@ msgstr "Buidhnean ìomhaigheagan"
 #: tools/ascli-utils.c:295
 msgid "Identifier"
 msgstr "Aithnichear"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1056
+msgid "Indirect references to adultery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1034
+msgid "Indirect references to homosexuality"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1045
+msgid "Indirect references to prostitution"
+msgstr ""
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
@@ -708,6 +914,11 @@ msgstr ""
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "Clann"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1036
+msgid "Kissing between people of the same gender"
+msgstr ""
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
@@ -788,6 +999,16 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matamataig"
 
+#: src/as-content-rating.c:459 src/as-content-rating.c:532
+#, fuzzy
+msgid "Mature"
+msgstr "Brosnaichte"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:933
+msgid "Mature or sexual humor"
+msgstr ""
+
 #: src/as-provided.c:148
 #, fuzzy
 msgid "Media types"
@@ -820,9 +1041,29 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "Faidhlichean meata-fhiosrachaidh:"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:918
+msgid "Mild or infrequent use of profanity"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:836
+msgid "Mildly realistic characters in unsafe situations"
+msgstr ""
+
 #: src/as-provided.c:152
 msgid "Modaliases"
 msgstr "Aliasan atharraichean"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:920
+msgid "Moderate use of profanity"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:985
+msgid "Moderated chat functionality between users"
+msgstr ""
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -832,6 +1073,11 @@ msgstr "Cluicheadairean ciùil"
 #: tools/ascli-utils.c:296
 msgid "Name"
 msgstr "Ainm"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:940
+msgid "Negativity towards a specific group of people"
+msgstr ""
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
@@ -847,23 +1093,148 @@ msgstr ""
 msgid "No XDG applications directory found."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:971
+msgid "No ability to spend money"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:949
+msgid "No advertising of any kind"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:845
+msgid "No bloodshed"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:812
+msgid "No cartoon violence"
+msgstr ""
+
 #: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Cha deach co-phàirt a fhreagras ri “%s” a lorg."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:938
+msgid "No discriminatory language of any kind"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:823
+msgid "No fantasy violence"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:960
+msgid "No gambling of any kind"
+msgstr ""
+
 #: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "Chan eil ìomhaigheag ann."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:927
+msgid "No inappropriate humor"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:895
+msgid "No nudity of any sort"
+msgstr ""
+
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:916
+msgid "No profanity of any kind"
 msgstr ""
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:834
+msgid "No realistic violence"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1054
+msgid "No references to adultery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:865
+msgid "No references to alcohol"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1075
+msgid "No references to desecration"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1032
+msgid "No references to homosexuality"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:875
+msgid "No references to illicit drugs"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:905
+msgid "No references to or depictions of sexual nature"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1043
+msgid "No references to prostitution"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1097
+msgid "No references to slavery"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:885
+msgid "No references to tobacco products"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:856
+msgid "No sexual violence"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1065
+msgid "No sexualized characters"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1021
+msgid "No sharing of physical location with other users"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1001
+msgid "No sharing of social network usernames or email addresses"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1010
+msgid "No sharing of user information with third parties"
 msgstr ""
 
 #: tools/ascli-actions-misc.c:284
@@ -883,6 +1254,21 @@ msgstr ""
 msgid "No value for the item to search for was defined."
 msgstr "Cha deach luach a mhìneachadh airson lorg an nì."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1086
+msgid "No visible dead human remains"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:981
+msgid "No way to chat with other users"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:992
+msgid "No way to talk with other users"
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
@@ -893,6 +1279,11 @@ msgstr "Oifis"
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Chan aithne dhuinn an roghainn “%s”."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1070
+msgid "Overtly sexualized human characters"
+msgstr ""
 
 #: tools/ascli-utils.c:298
 msgid "Package"
@@ -914,14 +1305,29 @@ msgstr "Seall fiosrachadh mionaideach mu na co-phàirtean a chaidh a lorg."
 msgid "Print detailed output about found components."
 msgstr "Seall fiosrachadh mionaideach mu na co-phàirtean a chaidh a lorg."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:951
+msgid "Product placement"
+msgstr ""
+
 #. project group
 #: tools/ascli-utils.c:360
 msgid "Project Group"
 msgstr "Buidhean pròiseict"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:899
+msgid "Prolonged nudity"
+msgstr ""
+
 #: tools/ascli-utils.c:405
 msgid "Provided Items"
 msgstr "Nithean ’gan solar"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:907
+msgid "Provocative references or depictions"
+msgstr ""
 
 #: src/as-provided.c:154
 msgid "Python (Version 2)"
@@ -931,16 +1337,41 @@ msgstr "Python (Tionndadh 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:858
+msgid "Rape or other violent sexual behavior"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:849
+msgid "Realistic bloodshed"
+msgstr ""
+
 #: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "Ath-thog tasgadan meata-dàta nan co-phàirtean."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:867
+msgid "References to alcoholic beverages"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:877
+msgid "References to illicit drugs"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:887
+msgid "References to tobacco products"
+msgstr ""
 
 #: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "Thoir air falbh bathar-bog a fhreagras ris a’ component-ID."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:364
+#: src/as-validator.c:366
 msgid "Retrieved file size was zero."
 msgstr ""
 
@@ -980,6 +1411,11 @@ msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "Sganadh"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1068
+msgid "Scantily clad human characters"
+msgstr ""
+
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
@@ -993,6 +1429,31 @@ msgstr "Lorg ann an stòr-dàta nan co-phàirtean."
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "Tèarainteachd"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:909
+msgid "Sexual references or depictions"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1014
+msgid "Sharing diagnostic data that does not let others identify the user"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1016
+msgid "Sharing information that lets others identify the user"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1023
+msgid "Sharing physical location with other users"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1003
+msgid "Sharing social network usernames or email addresses"
+msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:903
@@ -1011,6 +1472,11 @@ msgid ""
 "this runtime."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:929
+msgid "Slapstick humor"
+msgstr ""
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -1020,6 +1486,11 @@ msgstr "Spòrs"
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "Ro-innleachd"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:922
+msgid "Strong or frequent use of profanity"
+msgstr ""
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:845
@@ -1049,6 +1520,10 @@ msgstr "Monatairean an t-siostaim"
 
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
+msgstr ""
+
+#: src/as-content-rating.c:461 src/as-content-rating.c:531
+msgid "Teen"
 msgstr ""
 
 #: src/as-category.c:284
@@ -1615,7 +2090,7 @@ msgid ""
 "font` tag."
 msgstr ""
 
-#: src/as-validator.c:333
+#: src/as-validator.c:335
 msgid "URL format is invalid."
 msgstr ""
 
@@ -1713,6 +2188,16 @@ msgstr ""
 "Cha deach leinn sgrìobhadh gu “%s” ’s chan urrainn dhuinn faidhle a’ mheata-"
 "fhiosrachaidh a stàladh."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:994
+msgid "Uncontrolled audio or video chat functionality between users"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:987
+msgid "Uncontrolled chat functionality between users"
+msgstr ""
+
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:1009
 #, c-format
@@ -1725,6 +2210,26 @@ msgstr "Àithne “%s” nach aithne dhuinn."
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Coimeas “’%s” nach aithne dhuinn. Seo na luachan dligheach:"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:847
+msgid "Unrealistic bloodshed"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:869
+msgid "Use of alcoholic beverages"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:879
+msgid "Use of illicit drugs"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:889
+msgid "Use of tobacco products"
+msgstr ""
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:675
 msgid ""
@@ -1736,6 +2241,21 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:983
+msgid "User-to-user interactions without chat functionality"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:973
+msgid "Users are encouraged to donate real money"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:955
+msgid "Users are encouraged to purchase specific real-world items"
 msgstr ""
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
@@ -1785,6 +2305,16 @@ msgstr "Tionndadh: %s"
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Sealladairean"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1088
+msgid "Visible dead human remains"
+msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:931
+msgid "Vulgar or bathroom humor"
+msgstr ""
 
 #: tools/ascli-actions-misc.c:153
 #, c-format
@@ -1935,9 +2465,3 @@ msgstr "beadaganach: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "rabhaidhean: %lu"
-
-#~ msgid "Command '%s' is unknown."
-#~ msgstr "Chan aithne dhuinn an àithne “%s”."
-
-#~ msgid "Do not use any caches when performing the request."
-#~ msgstr "Na cleachd tasgadan nuair thèid an iarrtas a chur an sàs."

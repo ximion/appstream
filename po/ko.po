@@ -1,3 +1,4 @@
+# #-#-#-#-#  ko.po (AppStream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
@@ -8,20 +9,43 @@
 # Shinjo Park <kde@peremen.name>, 2015
 # 가석현 <shga89@naver.com>, 2020.
 # 이정희 <daemul72@gmail.com>, 2020.
+# #-#-#-#-#  ko.po (appstream-glib)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Shinjo Park <kde@peremen.name>, 2015
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2015-2016
+# Shinjo Park <kde@peremen.name>, 2015
+# Richard Hughes <richard@hughsie.com>, 2016. #zanata
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AppStream\n"
+"Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-06-16 06:41+0000\n"
-"Last-Translator: 이정희 <daemul72@gmail.com>\n"
-"Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
+"POT-Creation-Date: 2020-09-03 02:58+0200\n"
+"PO-Revision-Date: 2016-08-06 03:00+0000\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
+"Language-Team: Korean (http://www.transifex.com/freedesktop/appstream-glib/"
+"language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  ko.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.1\n"
+"#-#-#-#-#  ko.po (appstream-glib)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#. TRANSLATORS: This is the formatting of English and localized name
+#. * of the rating e.g. "Adults Only (solo adultos)"
+#: src/as-content-rating.c:298
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -37,14 +61,17 @@ msgstr "3D 그래픽"
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr "<description/>태그는 메타정보 파일(업스트림 메타데이터)에서 로컬화해서는 안 됩니다. 대신 개별 단락을 현지화하십시오."
+msgstr ""
+"<description/>태그는 메타정보 파일(업스트림 메타데이터)에서 로컬화해서는 안 "
+"됩니다. 대신 개별 단락을 현지화하십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr "'requires' 또는 'recommends' 항목에는 유효한 관계를 나타내는 값이 필요합니다."
+msgstr ""
+"'requires' 또는 'recommends' 항목에는 유효한 관계를 나타내는 값이 필요합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
@@ -62,6 +89,15 @@ msgstr ""
 "스크린 샷은 이미지 또는 비디오를 포함해야하지만 동시에 두 가지를 모두 포함해"
 "서는 안됩니다. 이 스크린 샷은 정지된 이미지나 비디오에만 사용하십시오."
 
+#: src/as-content-rating.c:453
+msgid "ALL"
+msgstr "모두"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:976
+msgid "Ability to spend real money in-app"
+msgstr "앱 내 현금 소비성"
+
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
@@ -72,6 +108,10 @@ msgstr "동작"
 #: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
 msgstr "부가기능"
+
+#: src/as-content-rating.c:457 src/as-content-rating.c:533
+msgid "Adults Only"
+msgstr "성인 전용"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -226,6 +266,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "보드"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:897
+msgid "Brief artistic nudity"
+msgstr "대략적인 예술 전라 표현"
+
 #: tools/ascli-utils.c:299
 msgid "Bundle"
 msgstr "번들"
@@ -254,14 +299,39 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "카드"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:816
+msgid "Cartoon characters in aggressive conflict"
+msgstr "적극적 폭력 상황의 만화 주인공 표현"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:814
+msgid "Cartoon characters in unsafe situations"
+msgstr "안전하지 않은 상황의 만화 주인공 표현"
+
 #: tools/ascli-utils.c:369
 msgid "Categories"
 msgstr "카테고리"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:827
+msgid "Characters in aggressive conflict easily distinguishable from reality"
+msgstr "실제와 구분할 수 있는 적극적 폭력 상황의 등장 인물 표현"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:825
+msgid "Characters in unsafe situations easily distinguishable from reality"
+msgstr "실제와 구분할 수 있는 안전하지 않은 상황의 등장 인물 표현"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "채팅"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1012
+msgid "Checking for the latest application version"
+msgstr "프로그램 최신 버전 확인"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
@@ -360,6 +430,11 @@ msgctxt "Category of Office"
 msgid "Database"
 msgstr "데이터베이스"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1090
+msgid "Dead human remains that are exposed to the elements"
+msgstr "실외에 노출된 죽은 인간 시신 묘사"
+
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
@@ -374,6 +449,36 @@ msgstr "기본 스크린샷 URL"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "기본 메타데이터 포맷 (유효한 값은 'xml'과 'yaml'입니다)."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:851
+msgid "Depictions of bloodshed and the mutilation of body parts"
+msgstr "혈흔 묘사 및 사지 절단"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1079
+msgid "Depictions of modern-day human desecration"
+msgstr "현대식 인간 모독 표현"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1101
+msgid "Depictions of modern-day slavery"
+msgstr "현대식 노예제도 표현"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1077
+msgid "Depictions of or references to historical desecration"
+msgstr "역사적 신성 모독 표현 또는 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1099
+msgid "Depictions of or references to historical slavery"
+msgstr "역사적 노예 모독 표현 또는 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:838
+msgid "Depictions of realistic characters in aggressive conflict"
+msgstr "실제에 가깝게 적극적 폭력 상황의 등장 인물 표현"
+
 #: tools/ascli-utils.c:333
 msgid "Description"
 msgstr "설명"
@@ -387,6 +492,21 @@ msgstr "개발자"
 #: src/as-category.c:305
 msgid "Developer Tools"
 msgstr "개발자 도구"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1058
+msgid "Direct references to adultery"
+msgstr "간통 직접 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1047
+msgid "Direct references to prostitution"
+msgstr "매춘 직접 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:942
+msgid "Discrimination designed to cause emotional harm"
+msgstr "감정적 해를 끼치도록 의도한 차별"
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
@@ -410,6 +530,10 @@ msgstr "출력에 색깔을 사용하지 마세요."
 #: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
+
+#: src/as-content-rating.c:467 src/as-content-rating.c:528
+msgid "Early Childhood"
+msgstr "영유아용"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -439,6 +563,24 @@ msgstr ""
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "메타데이터 풀을 불러오는 동안 생긴 오류: %s"
+
+#: src/as-content-rating.c:465 src/as-content-rating.c:529
+msgid "Everyone"
+msgstr "전연령용"
+
+#: src/as-content-rating.c:463 src/as-content-rating.c:530
+msgid "Everyone 10+"
+msgstr "10세이상 전연령용"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:944
+msgid "Explicit discrimination based on gender, sexuality, race or religion"
+msgstr "성, 인종, 종교에 기반한 적나라한 차별"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:953
+msgid "Explicit references to specific brands or trademarked products"
+msgstr "특정 브랜드 및 상표 등록 제품을 명백하게 언급"
 
 #: tools/ascli-utils.c:327
 msgid "Extends"
@@ -590,16 +732,35 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
-#: src/as-validator.c:1249
+#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
+#: src/as-validator.c:1251
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:962
+msgid "Gambling on random events using tokens or credits"
+msgstr "토큰 또는 크레딧을 활용한 임의 이벤트 도박"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:966
+msgid "Gambling using real money"
+msgstr "현금 활용 도박"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:964
+msgid "Gambling using “play” money"
+msgstr "“게임” 머니 활용 도박"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
 msgstr "게임"
+
+#: src/as-content-rating.c:444
+msgid "General"
+msgstr "일반"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
@@ -613,6 +774,56 @@ msgstr "주어진 항목을 제공하는 구성요소를 가져옵니다."
 #: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "ID와 일치하는 구성요소 정보를 가져옵니다."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1092
+msgid "Graphic depictions of desecration of human bodies"
+msgstr "인간 신체 모독 화면 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1081
+msgid "Graphic depictions of modern-day desecration"
+msgstr "현대식 모독 화면 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1103
+msgid "Graphic depictions of modern-day slavery"
+msgstr "현대식 노예제도 화면 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1060
+msgid "Graphic depictions of the act of adultery"
+msgstr "간통 행위 화면 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1049
+msgid "Graphic depictions of the act of prostitution"
+msgstr "매춘 행위 화면 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:911
+msgid "Graphic sexual behavior"
+msgstr "그래픽 성 행위"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1038
+msgid "Graphic sexual behavior between people of the same gender"
+msgstr "동성간의 성적 행동 화면 표현"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:829
+msgid "Graphic violence easily distinguishable from reality"
+msgstr "실제와 구분할 수 있는 그래픽 폭력"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:818
+msgid "Graphic violence involving cartoon characters"
+msgstr "만화 주인공의 그래픽 폭력"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:840
+msgid "Graphic violence involving realistic characters"
+msgstr "실제에 가까운 적극적 그래픽 폭력"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
@@ -651,6 +862,21 @@ msgstr "아이콘셋"
 #: tools/ascli-utils.c:295
 msgid "Identifier"
 msgstr "식별자"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1056
+msgid "Indirect references to adultery"
+msgstr "간통 간접 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1034
+msgid "Indirect references to homosexuality"
+msgstr "동성애 간접 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1045
+msgid "Indirect references to prostitution"
+msgstr "매춘 간접 언급"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
@@ -706,6 +932,11 @@ msgstr ""
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "어린이"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1036
+msgid "Kissing between people of the same gender"
+msgstr "동성간의 키스"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
@@ -785,6 +1016,15 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "수학"
 
+#: src/as-content-rating.c:459 src/as-content-rating.c:532
+msgid "Mature"
+msgstr "성인용"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:933
+msgid "Mature or sexual humor"
+msgstr "성인/성 유머"
+
 #: src/as-provided.c:148
 #, fuzzy
 msgid "Media types"
@@ -817,9 +1057,29 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "Metainfo 파일:"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:918
+msgid "Mild or infrequent use of profanity"
+msgstr "온화하거나 드문 모독 표현"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:836
+msgid "Mildly realistic characters in unsafe situations"
+msgstr "실제와 비슷하게 안전하지 않은 상황의 등장 인물 표현"
+
 #: src/as-provided.c:152
 msgid "Modaliases"
 msgstr "모듈 별칭"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:920
+msgid "Moderate use of profanity"
+msgstr "어중간한 모독 표현"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:985
+msgid "Moderated chat functionality between users"
+msgstr "사용자간 중재 문장 대화 기능"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -829,6 +1089,11 @@ msgstr "음악 플레이어"
 #: tools/ascli-utils.c:296
 msgid "Name"
 msgstr "이름"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:940
+msgid "Negativity towards a specific group of people"
+msgstr "특정 인물 집단에 대한 부정"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
@@ -844,24 +1109,149 @@ msgstr ""
 msgid "No XDG applications directory found."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:971
+msgid "No ability to spend money"
+msgstr "현금 소비 기능 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:949
+msgid "No advertising of any kind"
+msgstr "광고 내용 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:845
+msgid "No bloodshed"
+msgstr "유혈 장면 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:812
+msgid "No cartoon violence"
+msgstr "만화 수준 폭력 내용 없음"
+
 #: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "'%s'에 일치하는 구성 요소를 찾을 수 없습니다."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:938
+msgid "No discriminatory language of any kind"
+msgstr "차별 문구 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:823
+msgid "No fantasy violence"
+msgstr "판타지 폭력 내용 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:960
+msgid "No gambling of any kind"
+msgstr "도박 내용 없음"
+
 #: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "아이콘 없음."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:927
+msgid "No inappropriate humor"
+msgstr "부적절한 유머 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:895
+msgid "No nudity of any sort"
+msgstr "나체 표현 내용 없음"
+
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:916
+msgid "No profanity of any kind"
+msgstr "비속어 없음"
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:834
+msgid "No realistic violence"
+msgstr "폭력 재현 내용 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1054
+msgid "No references to adultery"
+msgstr "간통 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:865
+msgid "No references to alcohol"
+msgstr "알콜 음료 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1075
+msgid "No references to desecration"
+msgstr "신성 모독 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1032
+msgid "No references to homosexuality"
+msgstr "동성애 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:875
+msgid "No references to illicit drugs"
+msgstr "불법 약물 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:905
+msgid "No references to or depictions of sexual nature"
+msgstr "성적 표현 언급 또는 묘사 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1043
+msgid "No references to prostitution"
+msgstr "매춘 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1097
+msgid "No references to slavery"
+msgstr "노예제도 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:885
+msgid "No references to tobacco products"
+msgstr "담배 상품 언급 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:856
+msgid "No sexual violence"
+msgstr "성폭력 내용 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1065
+msgid "No sexualized characters"
+msgstr "성적 대상화 주인공 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1021
+msgid "No sharing of physical location with other users"
+msgstr "실제 위치를 다른 사용자에게 공유하지 않음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1001
+msgid "No sharing of social network usernames or email addresses"
+msgstr "소셜 네트워크 사용자 이름 또는 전자메일 주소를 공유하지 않음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1010
+msgid "No sharing of user information with third parties"
+msgstr "사용자 정보를 제 3자와 공유하지 않음"
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -879,6 +1269,21 @@ msgstr ""
 msgid "No value for the item to search for was defined."
 msgstr "검색할 항목에 대한 값을 정의하지 않았습니다."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1086
+msgid "No visible dead human remains"
+msgstr "명확하지 않은 죽은 인간 시신 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:981
+msgid "No way to chat with other users"
+msgstr "다른 사용자와의 문장 대화 기능 없음"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:992
+msgid "No way to talk with other users"
+msgstr "다른 사용자와의 음성 대화 기능 없음"
+
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
@@ -889,6 +1294,11 @@ msgstr "오피스"
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "'%s'는(은) 알 수 없는 옵션입니다."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1070
+msgid "Overtly sexualized human characters"
+msgstr "명백히 성적 매력을 부여한 인간상"
 
 #: tools/ascli-utils.c:298
 msgid "Package"
@@ -910,14 +1320,29 @@ msgstr "찾은 구성 요소에 대한 자세한 출력 표시."
 msgid "Print detailed output about found components."
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:951
+msgid "Product placement"
+msgstr "제품 배치"
+
 #. project group
 #: tools/ascli-utils.c:360
 msgid "Project Group"
 msgstr "프로젝트 그룹"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:899
+msgid "Prolonged nudity"
+msgstr "지속적인 전라 표현"
+
 #: tools/ascli-utils.c:405
 msgid "Provided Items"
 msgstr "제공하는 항목"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:907
+msgid "Provocative references or depictions"
+msgstr "도발적 표현 언급 또는 묘사"
 
 #: src/as-provided.c:154
 msgid "Python (Version 2)"
@@ -927,16 +1352,41 @@ msgstr "파이썬(버전 2)"
 msgid "Python 3"
 msgstr "파이썬 3"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:858
+msgid "Rape or other violent sexual behavior"
+msgstr "강간/기타 금지 성 행위"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:849
+msgid "Realistic bloodshed"
+msgstr "현실적 혈흔"
+
 #: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "구성요소 메타데이터 캐시를 다시 만듭니다."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:867
+msgid "References to alcoholic beverages"
+msgstr "알콜 음료 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:877
+msgid "References to illicit drugs"
+msgstr "불법 약물 언급"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:887
+msgid "References to tobacco products"
+msgstr "담배 상품 언급"
 
 #: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 제거하세요."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:364
+#: src/as-validator.c:366
 msgid "Retrieved file size was zero."
 msgstr ""
 
@@ -974,6 +1424,11 @@ msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "스캐닝"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1068
+msgid "Scantily clad human characters"
+msgstr "반라 인간상"
+
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
@@ -987,6 +1442,31 @@ msgstr "구성요소 데이터베이스를 검색합니다."
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "보안"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:909
+msgid "Sexual references or depictions"
+msgstr "성적 표현 언급 또는 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1014
+msgid "Sharing diagnostic data that does not let others identify the user"
+msgstr "사용자를 식별할 수 없는 진단 데이터 공유"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1016
+msgid "Sharing information that lets others identify the user"
+msgstr "사용자 상호 식별 가능한 정보 공유"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1023
+msgid "Sharing physical location with other users"
+msgstr "실제 위치를 다른 사용자에게 공유함"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1003
+msgid "Sharing social network usernames or email addresses"
+msgstr "소셜 네트워크 사용자 이름 또는 전자메일 주소를 공유함"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:903
@@ -1005,6 +1485,11 @@ msgid ""
 "this runtime."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:929
+msgid "Slapstick humor"
+msgstr "슬랩스틱 유머"
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -1014,6 +1499,11 @@ msgstr "스포츠"
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "전략"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:922
+msgid "Strong or frequent use of profanity"
+msgstr "강렬하거나 빈번한 모독 표현"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:845
@@ -1044,6 +1534,10 @@ msgstr "시스템 모니터링"
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
 msgstr ""
+
+#: src/as-content-rating.c:461 src/as-content-rating.c:531
+msgid "Teen"
+msgstr "10대"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -1585,7 +2079,7 @@ msgid ""
 "font` tag."
 msgstr ""
 
-#: src/as-validator.c:333
+#: src/as-validator.c:335
 msgid "URL format is invalid."
 msgstr ""
 
@@ -1680,6 +2174,16 @@ msgstr "패키지 매니저를 시작할 수 없습니다: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "'%s'에 쓸 수 없습니다, metainfo 파일을 설치할 수 없습니다."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:994
+msgid "Uncontrolled audio or video chat functionality between users"
+msgstr "사용자간 비통제 영상/음성 대화 기능"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:987
+msgid "Uncontrolled chat functionality between users"
+msgstr "사용자간 비통제 문장 대화 기능"
+
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:1009
 #, c-format
@@ -1692,6 +2196,26 @@ msgstr "알 수 없는 명령어 '%s'."
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "알 수 없는 비교 연산자'%s'. 사용할 수 있는 것들은 :"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:847
+msgid "Unrealistic bloodshed"
+msgstr "비현실적 혈흔"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:869
+msgid "Use of alcoholic beverages"
+msgstr "알콜 음료 활용"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:879
+msgid "Use of illicit drugs"
+msgstr "불법 약물 활용"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:889
+msgid "Use of tobacco products"
+msgstr "담배 상품 활용"
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:675
 msgid ""
@@ -1702,6 +2226,21 @@ msgstr "주어진 .desktop 파일을 사용하여 metainfo 파일의 기본 값�
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:983
+msgid "User-to-user interactions without chat functionality"
+msgstr "문장 대화 없는 사용자간 교류"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:973
+msgid "Users are encouraged to donate real money"
+msgstr "현금 기부 장려"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:955
+msgid "Users are encouraged to purchase specific real-world items"
+msgstr "특정 실물 구매를 장려"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -1749,6 +2288,16 @@ msgstr "버전: %s"
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "뷰어"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1088
+msgid "Visible dead human remains"
+msgstr "명확한 죽은 인간 시신 묘사"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:931
+msgid "Vulgar or bathroom humor"
+msgstr "3류/화장실 유머"
 
 #: tools/ascli-actions-misc.c:153
 #, c-format
@@ -1893,48 +2442,3 @@ msgstr "규칙: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "알림: %lu"
-
-#~ msgid "Command '%s' is unknown."
-#~ msgstr "명령 '%s'이(가) 올바르지 않습니다."
-
-#, fuzzy
-#~ msgid "Do not use any caches when performing the request."
-#~ msgstr "요청을 수행할 때 Xapian 캐시 활용 안 함"
-
-#~ msgid "AppStream cache update failed."
-#~ msgstr "AppStream 캐시 업데이트가 실패하였습니다."
-
-#~ msgid ""
-#~ "AppStream data pool was loaded, but some metadata was ignored due to "
-#~ "errors."
-#~ msgstr ""
-#~ "AppStream 데이터 풀을 불러왔지만, 오류가 발생하여 일부 메타데이터를 무시했"
-#~ "습니다."
-
-#~ msgid "Can not search for unknown component type."
-#~ msgstr "알 수 없는 구성요소 형식으로 검색할 수 없습니다."
-
-#, fuzzy
-#~ msgid "Category of Games"
-#~ msgstr "분류"
-
-#, fuzzy
-#~ msgid "Category of Office"
-#~ msgstr "분류"
-
-#, fuzzy
-#~ msgid "Category of Science"
-#~ msgstr "분류"
-
-#~ msgid "Extensions"
-#~ msgstr "확장 기능"
-
-#~ msgid "File %s not found or permission denied!"
-#~ msgstr "파일 %s을(를) 찾을 수 없거나 권한이 거부되었습니다!"
-
-#, fuzzy
-#~ msgid "No component providing '%s::%s' found."
-#~ msgstr "'%s;%s' 을(를) 제공하는 구성요소가 없습니다."
-
-#~ msgid "XDG Menu XML file '%s' is damaged."
-#~ msgstr "XDG 메뉴 XML 파일 '%s'이(가) 손상되었습니다."

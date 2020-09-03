@@ -1,3 +1,4 @@
+# #-#-#-#-#  hu.po (AppStream)  #-#-#-#-#
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
@@ -6,20 +7,45 @@
 # Gabor Kelemen <kelemeng at ubuntu dot com>, 2016.
 # Balázs Úr <balazs@urbalazs.hu>, 2019.
 # Fehérvári Marcell <marek5000@gmail.com>, 2020.
+# #-#-#-#-#  hu.po (appstream-glib)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Balázs Úr <urbalazs@gmail.com>, 2014-2016
+# kelemeng <kelemeng@ubuntu.com>, 2016
+# Meskó Balázs <meskobalazs@gmail.com>, 2016. #zanata
+# Meskó Balázs <meskobalazs@gmail.com>, 2017. #zanata
+# Zoltan Hoppar <zoltanh721@fedoraproject.org>, 2017. #zanata
+# Meskó Balázs <meskobalazs@gmail.com>, 2018. #zanata
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AppStream\n"
+"Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-07-04 01:41+0000\n"
-"Last-Translator: Fehérvári Marcell <marek5000@gmail.com>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/appstream/translations/hu/>\n"
+"POT-Creation-Date: 2020-09-03 02:58+0200\n"
+"PO-Revision-Date: 2018-12-06 06:30+0000\n"
+"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/freedesktop/appstream-"
+"glib/language/hu/)\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  hu.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.2-dev\n"
+"#-#-#-#-#  hu.po (appstream-glib)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#. TRANSLATORS: This is the formatting of English and localized name
+#. * of the rating e.g. "Adults Only (solo adultos)"
+#: src/as-content-rating.c:298
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -68,6 +94,15 @@ msgstr ""
 "mindkettőt egyszerre. Használja ezt a képernyőképet kizárólagosan vagy "
 "statikus képekhez, vagy videókhoz."
 
+#: src/as-content-rating.c:453
+msgid "ALL"
+msgstr "ÖSSZES"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:976
+msgid "Ability to spend real money in-app"
+msgstr "Lehetőség az alkalmazáson belül valódi pénzt elkölteni"
+
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
@@ -78,6 +113,10 @@ msgstr "Akció"
 #: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
 msgstr "Kiegészítők"
+
+#: src/as-content-rating.c:457 src/as-content-rating.c:533
+msgid "Adults Only"
+msgstr "Csak felnőtt"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -200,7 +239,9 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr "Tegyük fel, hogy a bemeneti fájl a kiválasztott formátumban van ( \"yaml\" vagy \"text\" )"
+msgstr ""
+"Tegyük fel, hogy a bemeneti fájl a kiválasztott formátumban van ( \"yaml\" "
+"vagy \"text\" )"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -241,6 +282,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Tábla"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:897
+msgid "Brief artistic nudity"
+msgstr "Rövid művészi meztelenség"
+
 #: tools/ascli-utils.c:299
 msgid "Bundle"
 msgstr "Csomag"
@@ -269,14 +315,43 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Kártya"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:816
+msgid "Cartoon characters in aggressive conflict"
+msgstr "Rajzfilmfigurák agresszív konfliktusban"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:814
+msgid "Cartoon characters in unsafe situations"
+msgstr "Rajzfilmfigurák veszélyes helyzetekben"
+
 #: tools/ascli-utils.c:369
 msgid "Categories"
 msgstr "Kategóriák"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:827
+msgid "Characters in aggressive conflict easily distinguishable from reality"
+msgstr ""
+"Karakterek agresszív konfliktusban, amely könnyen megkülönböztethető a "
+"valóságtól"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:825
+msgid "Characters in unsafe situations easily distinguishable from reality"
+msgstr ""
+"Karakterek veszélyes helyzetekben, amely könnyen megkülönböztethető a "
+"valóságtól"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "Csevegés"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1012
+msgid "Checking for the latest application version"
+msgstr "A legfrissebb alkalmazásverzió ellenőrzése"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
@@ -380,6 +455,11 @@ msgctxt "Category of Office"
 msgid "Database"
 msgstr "Adatbázis"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1090
+msgid "Dead human remains that are exposed to the elements"
+msgstr "Emberi maradványok, kitéve az időjárási viszonyoknak"
+
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
@@ -394,6 +474,36 @@ msgstr "Alapértelmezett képernyőkép URL"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Alapértelmezett metaadat-formátum (érvényes értékek: „xml” és „yaml”)."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:851
+msgid "Depictions of bloodshed and the mutilation of body parts"
+msgstr "Várontás és a testrészek megcsonkításának ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1079
+msgid "Depictions of modern-day human desecration"
+msgstr "Modern kori emberi gyalázás ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1101
+msgid "Depictions of modern-day slavery"
+msgstr "Modern kori rabszolgaság ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1077
+msgid "Depictions of or references to historical desecration"
+msgstr "Gyalázás történelmi ábrázolása vagy arra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1099
+msgid "Depictions of or references to historical slavery"
+msgstr "Rabszolgaság történelmi ábrázolása vagy arra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:838
+msgid "Depictions of realistic characters in aggressive conflict"
+msgstr "Valósághű karakterek ábrázolása agresszív konfliktusban"
+
 #: tools/ascli-utils.c:333
 msgid "Description"
 msgstr "Leírás"
@@ -407,6 +517,21 @@ msgstr "Fejlesztő"
 #: src/as-category.c:305
 msgid "Developer Tools"
 msgstr "Fejlesztői eszközök"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1058
+msgid "Direct references to adultery"
+msgstr "Közvetlen házasságtörésre való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1047
+msgid "Direct references to prostitution"
+msgstr "Közvetlen prostitúcióra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:942
+msgid "Discrimination designed to cause emotional harm"
+msgstr "Érzelmi károsodást okozó tervezett diszkrimináció"
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
@@ -430,6 +555,10 @@ msgstr "Ne jelenítsen meg színes kimenetet."
 #: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Nyers XML-metaadatok kiírása az azonosítóra illeszkedő összetevőhöz."
+
+#: src/as-content-rating.c:467 src/as-content-rating.c:528
+msgid "Early Childhood"
+msgstr "Fiatal gyermekkor"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -459,6 +588,25 @@ msgstr "A felsorolásoknak csak listaelemei (<li/>) lehetnek gyermekekként."
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Hiba a metaadat-tároló betöltésekor: %s"
+
+#: src/as-content-rating.c:465 src/as-content-rating.c:529
+msgid "Everyone"
+msgstr "Mindenki"
+
+#: src/as-content-rating.c:463 src/as-content-rating.c:530
+msgid "Everyone 10+"
+msgstr "Mindenki 10+"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:944
+msgid "Explicit discrimination based on gender, sexuality, race or religion"
+msgstr "Kifejezetten nemi, szexuális, faji vagy vallási alapú diszkrimináció"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:953
+msgid "Explicit references to specific brands or trademarked products"
+msgstr ""
+"Közvetlen utalások egy bizonyos márkára vagy védjeggyel védett termékre"
 
 #: tools/ascli-utils.c:327
 msgid "Extends"
@@ -639,16 +787,36 @@ msgstr ""
 "csak egyéni adatot szeretne egy metainformációs fájlhoz adni."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
-#: src/as-validator.c:1249
+#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
+#: src/as-validator.c:1251
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Megtalálva: %s – Megengedett: %s"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:962
+msgid "Gambling on random events using tokens or credits"
+msgstr ""
+"Szerencsejáték véletlenszerű eseményeken zsetonok vagy kreditek használatával"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:966
+msgid "Gambling using real money"
+msgstr "Szerencsejáték valódi pénz használatával"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:964
+msgid "Gambling using “play” money"
+msgstr "Szerencsejáték „játékpénz” használatával"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
 msgstr "Játékok"
+
+#: src/as-content-rating.c:444
+msgid "General"
+msgstr "Általános"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
@@ -662,6 +830,56 @@ msgstr "Összetevők lekérése, amelyek a megadott elemet biztosítják."
 #: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "Információk kérése egy összetevőről az azonosítója szerint."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1092
+msgid "Graphic depictions of desecration of human bodies"
+msgstr "Emberi testek gyalázásának grafikus ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1081
+msgid "Graphic depictions of modern-day desecration"
+msgstr "Modern kori emberi gyalázás grafikus ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1103
+msgid "Graphic depictions of modern-day slavery"
+msgstr "Modern kori rabszolgaság grafikus ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1060
+msgid "Graphic depictions of the act of adultery"
+msgstr "Házasságtörés grafikus ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1049
+msgid "Graphic depictions of the act of prostitution"
+msgstr "Prostitúció grafikus ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:911
+msgid "Graphic sexual behavior"
+msgstr "Grafikus szexuális viselkedés"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1038
+msgid "Graphic sexual behavior between people of the same gender"
+msgstr "Grafikus szexuális viselkedés azonos nemű emberek között"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:829
+msgid "Graphic violence easily distinguishable from reality"
+msgstr "Grafikus erőszak, amely könnyen megkülönböztethető a valóságtól"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:818
+msgid "Graphic violence involving cartoon characters"
+msgstr "Rajzfilmfigurákat érintő grafikus erőszak"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:840
+msgid "Graphic violence involving realistic characters"
+msgstr "Valósághű karaktereket érintő grafikus erőszak"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
@@ -707,6 +925,21 @@ msgstr "Ikonkészletek"
 #: tools/ascli-utils.c:295
 msgid "Identifier"
 msgstr "Azonosító"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1056
+msgid "Indirect references to adultery"
+msgstr "Közvetett házasságtörésre való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1034
+msgid "Indirect references to homosexuality"
+msgstr "Közvetett homoszexualitásra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1045
+msgid "Indirect references to prostitution"
+msgstr "Közvetett prostitúcióra való hivatkozás"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
@@ -775,6 +1008,11 @@ msgstr ""
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "Gyerekjátékok"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1036
+msgid "Kissing between people of the same gender"
+msgstr "Csókolózás azonos nemű emberek között"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
@@ -854,6 +1092,15 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematika"
 
+#: src/as-content-rating.c:459 src/as-content-rating.c:532
+msgid "Mature"
+msgstr "Érett"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:933
+msgid "Mature or sexual humor"
+msgstr "Felnőtt vagy szexuális humor"
+
 #: src/as-provided.c:148
 msgid "Media types"
 msgstr "MIME-típusok"
@@ -888,9 +1135,29 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "Metainformációs fájlok:"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:918
+msgid "Mild or infrequent use of profanity"
+msgstr "Enyhe vagy ritka káromkodáshasználat"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:836
+msgid "Mildly realistic characters in unsafe situations"
+msgstr "Enyhén valósághű karakterek veszélyes helyzetekben"
+
 #: src/as-provided.c:152
 msgid "Modaliases"
 msgstr "Modaliasok"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:920
+msgid "Moderate use of profanity"
+msgstr "Mérsékelt káromkodáshasználat"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:985
+msgid "Moderated chat functionality between users"
+msgstr "Moderált csevegés funkcionalitás a felhasználók között"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -900,6 +1167,11 @@ msgstr "Zenelejátszók"
 #: tools/ascli-utils.c:296
 msgid "Name"
 msgstr "Név"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:940
+msgid "Negativity towards a specific group of people"
+msgstr "Negatívság egy bizonyos embercsoport felé"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
@@ -916,24 +1188,151 @@ msgstr ""
 msgid "No XDG applications directory found."
 msgstr "Nem található XDG alkalmazások könyvtár."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:971
+msgid "No ability to spend money"
+msgstr "Nem lehet valódi pénzt elkölteni"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:949
+msgid "No advertising of any kind"
+msgstr "Nincs semmiféle hirdetés"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:845
+msgid "No bloodshed"
+msgstr "Nincs vérontás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:812
+msgid "No cartoon violence"
+msgstr "Nincs rajzfilmes erőszak"
+
 #: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Nem található erre illeszkedő összetevő: „%s”."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:938
+msgid "No discriminatory language of any kind"
+msgstr "Nincs semmiféle diszkriminatív nyelvezet"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:823
+msgid "No fantasy violence"
+msgstr "Nincs kitalált erőszak"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:960
+msgid "No gambling of any kind"
+msgstr "Nincs semmiféle szerencsejáték"
+
 #: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "Nincsenek ikonok."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:927
+msgid "No inappropriate humor"
+msgstr "Nincs helytelen humor"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:895
+msgid "No nudity of any sort"
+msgstr "Nincs semmiféle meztelenség"
+
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:916
+msgid "No profanity of any kind"
+msgstr "Nincs káromkodás"
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:834
+msgid "No realistic violence"
+msgstr "Nincs valósághű erőszak"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1054
+msgid "No references to adultery"
+msgstr "Nincs házasságtörésre való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:865
+msgid "No references to alcohol"
+msgstr "Nincs alkoholtartalmú italokra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1075
+msgid "No references to desecration"
+msgstr "Nincs gyalázásra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1032
+msgid "No references to homosexuality"
+msgstr "Nincs homoszexualitásra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:875
+msgid "No references to illicit drugs"
+msgstr "Nincs tiltott kábítószerekre való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:905
+msgid "No references to or depictions of sexual nature"
+msgstr "Nincs szexuális természetű hivatkozás vagy annak ábrázolása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1043
+msgid "No references to prostitution"
+msgstr "Nincs prostitúcióra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1097
+msgid "No references to slavery"
+msgstr "Nincs rabszolgaságra való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:885
+msgid "No references to tobacco products"
+msgstr "Nincs dohánytermékekre való hivatkozás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:856
+msgid "No sexual violence"
+msgstr "Nincs szexuális erőszak"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1065
+msgid "No sexualized characters"
+msgstr "Nincsenek szexualizált karakterek"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1021
+msgid "No sharing of physical location with other users"
+msgstr "Nincs fizikai hely megosztása más felhasználók számára"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1001
+msgid "No sharing of social network usernames or email addresses"
+msgstr ""
+"Nincs közösségi hálózatokon használt felhasználónevek vagy e-mail címek "
+"megosztása"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1010
+msgid "No sharing of user information with third parties"
+msgstr "Nincs felhasználói információk megosztása harmadik féllel"
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -951,6 +1350,21 @@ msgstr ""
 msgid "No value for the item to search for was defined."
 msgstr "Nem lett érték meghatározva a keresendő elemhez."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1086
+msgid "No visible dead human remains"
+msgstr "Nincsenek látható emberi maradványok"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:981
+msgid "No way to chat with other users"
+msgstr "Nincs mód a csevegésre más felhasználókkal"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:992
+msgid "No way to talk with other users"
+msgstr "Nincs mód a beszélgetésre más felhasználókkal"
+
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
@@ -961,6 +1375,11 @@ msgstr "Iroda"
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "A(z) „%s” kapcsoló ismeretlen."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1070
+msgid "Overtly sexualized human characters"
+msgstr "Nyíltan szexualizált emberi karakterek"
 
 #: tools/ascli-utils.c:298
 msgid "Package"
@@ -981,14 +1400,29 @@ msgstr "Részletes magyarázat kiírása a megtalált hibákhoz."
 msgid "Print detailed output about found components."
 msgstr "Részletes kimenet kiírása a megtalált összetevőkről."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:951
+msgid "Product placement"
+msgstr "Termékelhelyezés"
+
 #. project group
 #: tools/ascli-utils.c:360
 msgid "Project Group"
 msgstr "Projektcsoport"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:899
+msgid "Prolonged nudity"
+msgstr "Hosszan tartó meztelenség"
+
 #: tools/ascli-utils.c:405
 msgid "Provided Items"
 msgstr "Szolgáltatott elemek"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:907
+msgid "Provocative references or depictions"
+msgstr "Kihívó hivatkozások vagy ábrázolások"
 
 #: src/as-provided.c:154
 msgid "Python (Version 2)"
@@ -998,16 +1432,41 @@ msgstr "Python (2-es verzió)"
 msgid "Python 3"
 msgstr "Python 3"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:858
+msgid "Rape or other violent sexual behavior"
+msgstr "Megerőszakolás vagy egyéb erőszakos szexuális viselkedés"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:849
+msgid "Realistic bloodshed"
+msgstr "Valósághű vérontás"
+
 #: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "Az összetevő-metaadat gyorsítótár újraépítése."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:867
+msgid "References to alcoholic beverages"
+msgstr "Alkoholtartalmú italokra való hivatkozások"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:877
+msgid "References to illicit drugs"
+msgstr "Tiltott kábítószerekre való hivatkozások"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:887
+msgid "References to tobacco products"
+msgstr "Dohánytermékekre való hivatkozások"
 
 #: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "Az összetevő-azonosítónak megfelelő szoftver eltávolítása."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:364
+#: src/as-validator.c:366
 msgid "Retrieved file size was zero."
 msgstr ""
 
@@ -1047,6 +1506,11 @@ msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "Képolvasás"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1068
+msgid "Scantily clad human characters"
+msgstr "Hiányosan öltözött emberi karakterek"
+
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
@@ -1060,6 +1524,35 @@ msgstr "Keresés az összetevő-adatbázisban."
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "Biztonság"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:909
+msgid "Sexual references or depictions"
+msgstr "Szexuális hivatkozások vagy ábrázolások"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1014
+msgid "Sharing diagnostic data that does not let others identify the user"
+msgstr ""
+"Diagnosztikai adatok megosztása, amelyek mások számára nem azonosítják a "
+"felhasználót"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1016
+msgid "Sharing information that lets others identify the user"
+msgstr ""
+"Információk megosztása, amelyek mások számára azonosítják a felhasználót"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1023
+msgid "Sharing physical location with other users"
+msgstr "Fizikai hely megosztása más felhasználók számára"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1003
+msgid "Sharing social network usernames or email addresses"
+msgstr ""
+"Közösségi hálózatokon használt felhasználónevek vagy e-mail címek megosztása"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:903
@@ -1078,6 +1571,11 @@ msgid ""
 "this runtime."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:929
+msgid "Slapstick humor"
+msgstr "Helyzethumor"
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -1087,6 +1585,11 @@ msgstr "Sport"
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "Stratégia"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:922
+msgid "Strong or frequent use of profanity"
+msgstr "Erős vagy gyakori káromkodáshasználat"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:845
@@ -1120,6 +1623,10 @@ msgstr "Rendszerfigyelés"
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
 msgstr "A név címkéi nem engedélyezettek ebben a szakaszban."
+
+#: src/as-content-rating.c:461 src/as-content-rating.c:531
+msgid "Teen"
+msgstr "Tizenéves"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -1848,7 +2355,7 @@ msgstr ""
 "Gépelje be a „font” összetevőt, de nem lett betűkészlet-információ megadva "
 "egy „provides/font címkén keresztül."
 
-#: src/as-validator.c:333
+#: src/as-validator.c:335
 msgid "URL format is invalid."
 msgstr ""
 
@@ -1943,6 +2450,17 @@ msgstr "Nem lehet elindítani a csomagkezelőt: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nem lehet írni ide: „%s”. A metainformációs fájl nem telepíthető."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:994
+msgid "Uncontrolled audio or video chat functionality between users"
+msgstr ""
+"Ellenőrizetlen hang- vagy videocsevegés funkcionalitás a felhasználók között"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:987
+msgid "Uncontrolled chat functionality between users"
+msgstr "Ellenőrizetlen csevegés funkcionalitás a felhasználók között"
+
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:1009
 #, c-format
@@ -1954,6 +2472,26 @@ msgstr "Ismeretlen parancs: „%s”."
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Ismeretlen „%s” összehasonlító-kapcsolat. Az érvényes értékek:"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:847
+msgid "Unrealistic bloodshed"
+msgstr "Nem valósághű vérontás"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:869
+msgid "Use of alcoholic beverages"
+msgstr "Alkoholtartalmú italok használata"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:879
+msgid "Use of illicit drugs"
+msgstr "Tiltott kábítószerek használata"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:889
+msgid "Use of tobacco products"
+msgstr "Dohánytermékek használata"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:675
@@ -1967,6 +2505,23 @@ msgstr ""
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:983
+msgid "User-to-user interactions without chat functionality"
+msgstr "Felhasználók közötti interakciók, csevegés funkcionalitás nélkül"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:973
+msgid "Users are encouraged to donate real money"
+msgstr "A felhasználókat arra ösztönzik, hogy valós pénzt adományozzanak"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:955
+msgid "Users are encouraged to purchase specific real-world items"
+msgstr ""
+"A felhasználókat arra ösztönzik, hogy a valódi világban bizonyos tárgyakat "
+"vásároljanak"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -2014,6 +2569,16 @@ msgstr "Verzió: %s"
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Megjelenítők"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1088
+msgid "Visible dead human remains"
+msgstr "Látható emberi maradványok"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:931
+msgid "Vulgar or bathroom humor"
+msgstr "Vulgáris vagy fürdőszoba humor"
 
 #: tools/ascli-actions-misc.c:153
 #, c-format
@@ -2158,53 +2723,3 @@ msgstr "akadékoskodó: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "figyelmeztetés: %lu"
-
-#~ msgid ""
-#~ "Unable to find the curl binary. remote URLs can not be checked for "
-#~ "validity!"
-#~ msgstr ""
-#~ "Nem található a curl bináris. A távoli URL-ek érvényességét nem lehet "
-#~ "ellenőrizni!"
-
-#~ msgid "Command '%s' is unknown."
-#~ msgstr "A(z) „%s” parancs ismeretlen."
-
-#~ msgid "Do not use any caches when performing the request."
-#~ msgstr "Ne használjon semmilyen gyorsítótárat a kérés végrehajtásakor."
-
-#~ msgid "AppStream cache update failed."
-#~ msgstr "Az AppStream gyorsítótár-frissítés meghiúsult."
-
-#~ msgid ""
-#~ "AppStream data pool was loaded, but some metadata was ignored due to "
-#~ "errors."
-#~ msgstr ""
-#~ "Az AppStream adattároló be lett töltve, de néhány metaadat mellőzve lett "
-#~ "a hibák miatt."
-
-#~ msgid "Can not search for unknown component type."
-#~ msgstr "Nem lehet rákeresni ismeretlen összetevőtípusra."
-
-#, fuzzy
-#~ msgid "Category of Games"
-#~ msgstr "Kategóriák"
-
-#, fuzzy
-#~ msgid "Category of Office"
-#~ msgstr "Kategóriák"
-
-#, fuzzy
-#~ msgid "Category of Science"
-#~ msgstr "Kategóriák"
-
-#~ msgid "Extensions"
-#~ msgstr "Kiterjesztések"
-
-#~ msgid "File %s not found or permission denied!"
-#~ msgstr "A(z) %s fájl nem található vagy a hozzáférés megtagadva!"
-
-#~ msgid "No component providing '%s::%s' found."
-#~ msgstr "Nem található „%s::%s” szolgáltatását biztosító összetevő."
-
-#~ msgid "XDG Menu XML file '%s' is damaged."
-#~ msgstr "A(z) „%s” XDG menü XML fájl sérült."

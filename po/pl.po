@@ -1,23 +1,50 @@
+# #-#-#-#-#  pl.po (AppStream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
 # Piotr Drąg <piotrdrag@gmail.com>, 2014-2016, 2019, 2020.
 # Matthias Klumpp <matthias@tenstral.net>, 2020.
+# #-#-#-#-#  pl.po (appstream-glib)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Piotr Drąg <piotrdrag@gmail.com>, 2014-2016
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata
+# Richard Hughes <richard@hughsie.com>, 2016. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AppStream\n"
+"Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-05-12 14:09+0000\n"
+"POT-Creation-Date: 2020-09-03 02:58+0200\n"
+"PO-Revision-Date: 2018-09-28 10:53+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
+"Language-Team: Polish (http://www.transifex.com/freedesktop/appstream-glib/"
+"language/pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"#-#-#-#-#  pl.po (AppStream)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.1-dev\n"
+"#-#-#-#-#  pl.po (appstream-glib)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#. TRANSLATORS: This is the formatting of English and localized name
+#. * of the rating e.g. "Adults Only (solo adultos)"
+#: src/as-content-rating.c:298
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -65,6 +92,15 @@ msgstr ""
 "Proszę użyć tego zrzutu ekranu wyłącznie do statycznych obrazów lub do "
 "filmów."
 
+#: src/as-content-rating.c:453
+msgid "ALL"
+msgstr "Dla wszystkich"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:976
+msgid "Ability to spend real money in-app"
+msgstr "Możliwość wydawania prawdziwych pieniędzy w programie"
+
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
@@ -75,6 +111,10 @@ msgstr "Gry akcji"
 #: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
 msgstr "Dodatki"
+
+#: src/as-content-rating.c:457 src/as-content-rating.c:533
+msgid "Adults Only"
+msgstr "Tylko dla dorosłych"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -237,6 +277,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "Gry planszowe"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:897
+msgid "Brief artistic nudity"
+msgstr "Krótkotrwała nagość artystyczna"
+
 #: tools/ascli-utils.c:299
 msgid "Bundle"
 msgstr "Paczka"
@@ -265,14 +310,40 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "Gry karciane"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:816
+msgid "Cartoon characters in aggressive conflict"
+msgstr "Rysunkowe postacie w agresywnym konflikcie"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:814
+msgid "Cartoon characters in unsafe situations"
+msgstr "Rysunkowe postacie w niebezpiecznych sytuacjach"
+
 #: tools/ascli-utils.c:369
 msgid "Categories"
 msgstr "Kategorie"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:827
+msgid "Characters in aggressive conflict easily distinguishable from reality"
+msgstr "Postacie w agresywnym konflikcie, łatwo odróżnialnym od rzeczywistości"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:825
+msgid "Characters in unsafe situations easily distinguishable from reality"
+msgstr ""
+"Postacie w niebezpiecznych sytuacjach, łatwo odróżnialnych od rzeczywistości"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "Komunikatory"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1012
+msgid "Checking for the latest application version"
+msgstr "Wyszukiwanie najnowszej wersji programu"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
@@ -375,6 +446,11 @@ msgctxt "Category of Office"
 msgid "Database"
 msgstr "Bazy danych"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1090
+msgid "Dead human remains that are exposed to the elements"
+msgstr "Zwłoki ludzkie wystawione na działanie warunków atmosferycznych"
+
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
@@ -389,6 +465,36 @@ msgstr "Adres URL domyślnego zrzutu ekranu"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Domyślny format metadanych (prawidłowe wartości to „xml” i „yaml”)."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:851
+msgid "Depictions of bloodshed and the mutilation of body parts"
+msgstr "Przedstawienia rozlewu krwi i okaleczeń części ciała"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1079
+msgid "Depictions of modern-day human desecration"
+msgstr "Przedstawienia współczesnej profanacji ludzi"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1101
+msgid "Depictions of modern-day slavery"
+msgstr "Przedstawienia współczesnego niewolnictwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1077
+msgid "Depictions of or references to historical desecration"
+msgstr "Przedstawienia lub odniesienia do historycznej profanacji"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1099
+msgid "Depictions of or references to historical slavery"
+msgstr "Przedstawienia lub odniesienia do historycznego niewolnictwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:838
+msgid "Depictions of realistic characters in aggressive conflict"
+msgstr "Przedstawienia realistycznych postaci w agresywnym konflikcie"
+
 #: tools/ascli-utils.c:333
 msgid "Description"
 msgstr "Opis"
@@ -402,6 +508,21 @@ msgstr "Programista"
 #: src/as-category.c:305
 msgid "Developer Tools"
 msgstr "Narzędzia programistyczne"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1058
+msgid "Direct references to adultery"
+msgstr "Bezpośrednie odniesienia do cudzołóstwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1047
+msgid "Direct references to prostitution"
+msgstr "Bezpośrednie odniesienia do prostytucji"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:942
+msgid "Discrimination designed to cause emotional harm"
+msgstr "Dyskryminacja mająca na celu krzywdę emocjonalną"
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
@@ -425,6 +546,10 @@ msgstr "Bez kolorowania wyjścia."
 #: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Zrzuca surowe metadane XML dla składnika pasującego do identyfikatora."
+
+#: src/as-content-rating.c:467 src/as-content-rating.c:528
+msgid "Early Childhood"
+msgstr "Dla małych dzieci"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -455,6 +580,26 @@ msgstr ""
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "Błąd podczas wczytywania puli metadanych: %s"
+
+#: src/as-content-rating.c:465 src/as-content-rating.c:529
+msgid "Everyone"
+msgstr "Dla wszystkich"
+
+#: src/as-content-rating.c:463 src/as-content-rating.c:530
+msgid "Everyone 10+"
+msgstr "Dla wszystkich 10+"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:944
+msgid "Explicit discrimination based on gender, sexuality, race or religion"
+msgstr ""
+"Jawna dyskryminacja ze względu na płeć, orientację seksualną, rasę lub "
+"religię"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:953
+msgid "Explicit references to specific brands or trademarked products"
+msgstr "Jawne odniesienia do konkretnych marek lub zastrzeżonych produktów"
 
 #: tools/ascli-utils.c:327
 msgid "Extends"
@@ -630,16 +775,35 @@ msgstr ""
 "jeśli tylko mają zostać dodane niestandardowe dane do pliku Metainfo."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
-#: src/as-validator.c:1249
+#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
+#: src/as-validator.c:1251
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Odnaleziono: %s — dozwolone: %s"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:962
+msgid "Gambling on random events using tokens or credits"
+msgstr "Zakłady o losowe wydarzenia używające żetonów lub punktów"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:966
+msgid "Gambling using real money"
+msgstr "Zakłady używające prawdziwych pieniędzy"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:964
+msgid "Gambling using “play” money"
+msgstr "Zakłady używające zabawkowych pieniędzy"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
 msgstr "Gry"
+
+#: src/as-content-rating.c:444
+msgid "General"
+msgstr "Dla wszystkich"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
@@ -653,6 +817,56 @@ msgstr "Pobiera składniki dostarczające podany element."
 #: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "Pobiera informacje o składniku według jego identyfikatora."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1092
+msgid "Graphic depictions of desecration of human bodies"
+msgstr "Obrazowe przedstawienia profanacji ludzkich ciał"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1081
+msgid "Graphic depictions of modern-day desecration"
+msgstr "Obrazowe przedstawienia współczesnej profanacji"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1103
+msgid "Graphic depictions of modern-day slavery"
+msgstr "Obrazowe przedstawienia współczesnego niewolnictwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1060
+msgid "Graphic depictions of the act of adultery"
+msgstr "Obrazowe przedstawienia czynności związanych z cudzołóstwem"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1049
+msgid "Graphic depictions of the act of prostitution"
+msgstr "Obrazowe przedstawienia czynności związanych z prostytucją"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:911
+msgid "Graphic sexual behavior"
+msgstr "Obrazowe zachowania seksualne"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1038
+msgid "Graphic sexual behavior between people of the same gender"
+msgstr "Obrazowe zachowania seksualne między osobami tej samej płci"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:829
+msgid "Graphic violence easily distinguishable from reality"
+msgstr "Obrazowa przemoc, łatwo odróżnialna od rzeczywistości"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:818
+msgid "Graphic violence involving cartoon characters"
+msgstr "Obrazowa przemoc dotycząca rysunkowych postaci"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:840
+msgid "Graphic violence involving realistic characters"
+msgstr "Obrazowa przemoc dotycząca realistycznych postaci"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
@@ -694,6 +908,21 @@ msgstr "Zestawy ikon"
 #: tools/ascli-utils.c:295
 msgid "Identifier"
 msgstr "Identyfikator"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1056
+msgid "Indirect references to adultery"
+msgstr "Niebezpośrednie odniesienia do cudzołóstwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1034
+msgid "Indirect references to homosexuality"
+msgstr "Niebezpośrednie odniesienia do homoseksualizmu"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1045
+msgid "Indirect references to prostitution"
+msgstr "Niebezpośrednie odniesienia do prostytucji"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
@@ -758,6 +987,11 @@ msgstr ""
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "Gry dla dzieci"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1036
+msgid "Kissing between people of the same gender"
+msgstr "Całowanie między osobami tej samej płci"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
@@ -843,6 +1077,15 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "Matematyka"
 
+#: src/as-content-rating.c:459 src/as-content-rating.c:532
+msgid "Mature"
+msgstr "Dla dorosłych"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:933
+msgid "Mature or sexual humor"
+msgstr "Komedia dla dorosłych lub seksualna"
+
 #: src/as-provided.c:148
 msgid "Media types"
 msgstr "Typy multimediów"
@@ -876,9 +1119,29 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "Pliki Metainfo:"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:918
+msgid "Mild or infrequent use of profanity"
+msgstr "Lekkie lub nieczęste użycie przekleństw"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:836
+msgid "Mildly realistic characters in unsafe situations"
+msgstr "Średnio realistyczne postacie w niebezpiecznych sytuacjach"
+
 #: src/as-provided.c:152
 msgid "Modaliases"
 msgstr "Pliki „modalias”"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:920
+msgid "Moderate use of profanity"
+msgstr "Umiarkowane użycie przekleństw"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:985
+msgid "Moderated chat functionality between users"
+msgstr "Moderowana funkcja rozmów tekstowych między użytkownikami"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -888,6 +1151,11 @@ msgstr "Odtwarzacze muzyki"
 #: tools/ascli-utils.c:296
 msgid "Name"
 msgstr "Nazwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:940
+msgid "Negativity towards a specific group of people"
+msgstr "Niechęć wobec konkretnej grupy ludzi"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
@@ -905,20 +1173,70 @@ msgstr ""
 msgid "No XDG applications directory found."
 msgstr "Nie odnaleziono katalogu programów XDG."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:971
+msgid "No ability to spend money"
+msgstr "Brak możliwości wydawania pieniędzy"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:949
+msgid "No advertising of any kind"
+msgstr "Brak wszelkiego rodzaju reklam"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:845
+msgid "No bloodshed"
+msgstr "Brak rozlewu krwi"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:812
+msgid "No cartoon violence"
+msgstr "Brak rysunkowej przemocy"
+
 #: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Nie odnaleziono składnika pasującego do „%s”."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:938
+msgid "No discriminatory language of any kind"
+msgstr "Brak wszelkiego rodzaju języka dyskryminacyjnego"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:823
+msgid "No fantasy violence"
+msgstr "Brak nierzeczywistej przemocy"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:960
+msgid "No gambling of any kind"
+msgstr "Brak wszelkiego rodzaju hazardu"
+
 #: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "Brak ikon."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:927
+msgid "No inappropriate humor"
+msgstr "Brak nieodpowiedniego humoru"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:895
+msgid "No nudity of any sort"
+msgstr "Brak wszelkiego rodzaju nagości"
 
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
 "Nie podano nazwy pliku wyjściowego, bezpośrednie modyfikowanie pliku "
 "Metainfo."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:916
+msgid "No profanity of any kind"
+msgstr "Brak wszelkiego rodzaju przekleństw"
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
@@ -927,6 +1245,83 @@ msgid ""
 msgstr ""
 "Nie podano dostarczanego pliku binarnego w pliku Metainfo, ani polecenia "
 "wykonywania przez „--exec”. Nie można utworzyć klucza „Exec=”."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:834
+msgid "No realistic violence"
+msgstr "Brak realistycznej przemocy"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1054
+msgid "No references to adultery"
+msgstr "Brak odniesień do cudzołóstwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:865
+msgid "No references to alcohol"
+msgstr "Brak odniesień do alkoholu"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1075
+msgid "No references to desecration"
+msgstr "Brak odniesień do profanacji"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1032
+msgid "No references to homosexuality"
+msgstr "Brak odniesień do homoseksualizmu"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:875
+msgid "No references to illicit drugs"
+msgstr "Brak odniesień do narkotyków"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:905
+msgid "No references to or depictions of sexual nature"
+msgstr "Brak odniesień lub przedstawień o naturze seksualnej"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1043
+msgid "No references to prostitution"
+msgstr "Brak odniesień do prostytucji"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1097
+msgid "No references to slavery"
+msgstr "Brak odniesień do niewolnictwa"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:885
+msgid "No references to tobacco products"
+msgstr "Brak odniesień do wyrobów tytoniowych"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:856
+msgid "No sexual violence"
+msgstr "Brak przemocy seksualnej"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1065
+msgid "No sexualized characters"
+msgstr "Brak seksualizowanych postaci"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1021
+msgid "No sharing of physical location with other users"
+msgstr "Brak udostępniania rzeczywistego adresu innym użytkownikom"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1001
+msgid "No sharing of social network usernames or email addresses"
+msgstr ""
+"Brak udostępniania nazw użytkowników serwisów społecznościowych lub adresów "
+"e-mail"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1010
+msgid "No sharing of user information with third parties"
+msgstr "Brak udostępniania informacji o użytkownikach stronom trzecim"
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -946,6 +1341,21 @@ msgstr ""
 msgid "No value for the item to search for was defined."
 msgstr "Nie określono wartości dla wyszukiwanego elementu."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1086
+msgid "No visible dead human remains"
+msgstr "Brak widocznych zwłok ludzkich"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:981
+msgid "No way to chat with other users"
+msgstr "Brak możliwości rozmów tekstowych z innymi użytkownikami"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:992
+msgid "No way to talk with other users"
+msgstr "Brak możliwości rozmów głosowych z innymi użytkownikami"
+
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
@@ -956,6 +1366,11 @@ msgstr "Biuro"
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Nieznana opcja „%s”."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1070
+msgid "Overtly sexualized human characters"
+msgstr "Jawnie seksualizowane postacie ludzkie"
 
 #: tools/ascli-utils.c:298
 msgid "Package"
@@ -976,14 +1391,29 @@ msgstr "Wyświetla szczegółowe wyjaśnienie odnalezionych problemów."
 msgid "Print detailed output about found components."
 msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:951
+msgid "Product placement"
+msgstr "Lokowanie produktu"
+
 #. project group
 #: tools/ascli-utils.c:360
 msgid "Project Group"
 msgstr "Grupa projektu"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:899
+msgid "Prolonged nudity"
+msgstr "Długotrwała nagość"
+
 #: tools/ascli-utils.c:405
 msgid "Provided Items"
 msgstr "Dostarczane elementy"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:907
+msgid "Provocative references or depictions"
+msgstr "Wyzywające odniesienia lub przedstawienia"
 
 #: src/as-provided.c:154
 msgid "Python (Version 2)"
@@ -993,16 +1423,41 @@ msgstr "Python (wersja 2)"
 msgid "Python 3"
 msgstr "Python 3"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:858
+msgid "Rape or other violent sexual behavior"
+msgstr "Gwałt lub inne brutalne zachowanie seksualne"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:849
+msgid "Realistic bloodshed"
+msgstr "Realistyczny rozlew krwi"
+
 #: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "Ponownie buduje pamięć podręczną metadanych składników."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:867
+msgid "References to alcoholic beverages"
+msgstr "Odniesienia do napojów alkoholowych"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:877
+msgid "References to illicit drugs"
+msgstr "Odniesienia do narkotyków"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:887
+msgid "References to tobacco products"
+msgstr "Odniesienia do wyrobów tytoniowych"
 
 #: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "Usuwa oprogramowanie pasujące do identyfikatora składnika."
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:364
+#: src/as-validator.c:366
 msgid "Retrieved file size was zero."
 msgstr "Rozmiar odebranego pliku wynosi zero."
 
@@ -1040,6 +1495,11 @@ msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "Skanowanie"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1068
+msgid "Scantily clad human characters"
+msgstr "Skąpo odziane postacie ludzkie"
+
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
@@ -1053,6 +1513,34 @@ msgstr "Przeszukuje bazę danych składników."
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "Bezpieczeństwo"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:909
+msgid "Sexual references or depictions"
+msgstr "Seksualne odniesienia lub przedstawienia"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1014
+msgid "Sharing diagnostic data that does not let others identify the user"
+msgstr ""
+"Udostępnianie danych diagnostycznych nieumożliwiających identyfikację "
+"użytkownika"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1016
+msgid "Sharing information that lets others identify the user"
+msgstr "Udostępnianie informacji umożliwiających identyfikację użytkownika"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1023
+msgid "Sharing physical location with other users"
+msgstr "Udostępnianie rzeczywistego adresu innym użytkownikom"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1003
+msgid "Sharing social network usernames or email addresses"
+msgstr ""
+"Udostępnianie nazw użytkowników serwisów społecznościowych lub adresów e-mail"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:903
@@ -1074,6 +1562,11 @@ msgstr ""
 "innych składników oprogramowania, ich identyfikatory mogą być wymienione "
 "w sekcji „<provides/>” tego środowiska wykonawczego."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:929
+msgid "Slapstick humor"
+msgstr "Komedia slapstikowa"
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -1083,6 +1576,11 @@ msgstr "Gry sportowe"
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "Gry strategiczne"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:922
+msgid "Strong or frequent use of profanity"
+msgstr "Silne lub częste użycie przekleństw"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:845
@@ -1114,6 +1612,10 @@ msgstr "Monitorowanie komputera"
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
 msgstr "Znaczniki o tej nazwie nie są dozwolone w tej sekcji."
+
+#: src/as-content-rating.c:461 src/as-content-rating.c:531
+msgid "Teen"
+msgstr "Dla nastolatków"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -1795,7 +2297,7 @@ msgstr ""
 "Składnik jest typu „font”, ale nie podano żadnych informacji o czcionce za "
 "pomocą znacznika „provides/font”."
 
-#: src/as-validator.c:333
+#: src/as-validator.c:335
 msgid "URL format is invalid."
 msgstr "Format adresu URL jest nieprawidłowy."
 
@@ -1896,6 +2398,17 @@ msgstr "Nie można wywołać menedżera pakietów: %s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "Nie można zapisać do „%s”, nie można zainstalować pliku metainfo."
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:994
+msgid "Uncontrolled audio or video chat functionality between users"
+msgstr ""
+"Niekontrolowana funkcja rozmów głosowych lub wideo między użytkownikami"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:987
+msgid "Uncontrolled chat functionality between users"
+msgstr "Niekontrolowana funkcja rozmów tekstowych między użytkownikami"
+
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:1009
 #, c-format
@@ -1907,6 +2420,26 @@ msgstr "Nieznane polecenie „%s”."
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Nieznany stosunek porównania „%s”. Prawidłowe wartości:"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:847
+msgid "Unrealistic bloodshed"
+msgstr "Nierealistyczny rozlew krwi"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:869
+msgid "Use of alcoholic beverages"
+msgstr "Spożycie napojów alkoholowych"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:879
+msgid "Use of illicit drugs"
+msgstr "Spożycie narkotyków"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:889
+msgid "Use of tobacco products"
+msgstr "Spożycie wyrobów tytoniowych"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:675
@@ -1920,6 +2453,21 @@ msgstr ""
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "Używa podanego wiersza dla klucza „Exec=” pliku .desktop."
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:983
+msgid "User-to-user interactions without chat functionality"
+msgstr "Interakcje między użytkownikami bez funkcji rozmów tekstowych"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:973
+msgid "Users are encouraged to donate real money"
+msgstr "Użytkownicy są zachęcani do przekazywania datków pieniężnych"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:955
+msgid "Users are encouraged to purchase specific real-world items"
+msgstr "Użytkownicy są zachęcani do zakupu fizycznych przedmiotów"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -1966,6 +2514,16 @@ msgstr "Wersja: %s"
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "Przeglądarki"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1088
+msgid "Visible dead human remains"
+msgstr "Widoczne zwłoki ludzkie"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:931
+msgid "Vulgar or bathroom humor"
+msgstr "Komedia wulgarna lub toaletowa"
 
 #: tools/ascli-actions-misc.c:153
 #, c-format
@@ -2113,57 +2671,3 @@ msgstr "drobne problemy: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "ostrzeżenia: %lu"
-
-#~ msgid ""
-#~ "Unable to find the curl binary. remote URLs can not be checked for "
-#~ "validity!"
-#~ msgstr ""
-#~ "Nie można odnaleźć pliku binarnego curl. Nie można sprawdzić poprawności "
-#~ "zdalnych adresów URL."
-
-#~ msgid "Command '%s' is unknown."
-#~ msgstr "Nieznane polecenie „%s”."
-
-#~ msgid "Do not use any caches when performing the request."
-#~ msgstr "Bez używania pamięci podręcznych podczas wykonywania żądania."
-
-#~ msgid "AppStream cache update failed."
-#~ msgstr "Aktualizacja pamięci podręcznej AppStream się nie powiodła."
-
-#~ msgid ""
-#~ "AppStream data pool was loaded, but some metadata was ignored due to "
-#~ "errors."
-#~ msgstr ""
-#~ "Wczytano pulę danych AppStream, ale zignorowano część metadanych z powodu "
-#~ "błędów."
-
-#~ msgid "Can not search for unknown component type."
-#~ msgstr "Nie można szukać nieznanego typu składnika."
-
-#, fuzzy
-#~ msgid "Category of Education"
-#~ msgstr "Edukacja"
-
-#, fuzzy
-#~ msgid "Category of Games"
-#~ msgstr "Kategorie"
-
-#, fuzzy
-#~ msgid "Category of Office"
-#~ msgstr "Kategorie"
-
-#, fuzzy
-#~ msgid "Category of Science"
-#~ msgstr "Kategorie"
-
-#~ msgid "Extensions"
-#~ msgstr "Rozszerzenia"
-
-#~ msgid "File %s not found or permission denied!"
-#~ msgstr "Nie odnaleziono pliku %s lub odmówiono uprawnień."
-
-#~ msgid "No component providing '%s::%s' found."
-#~ msgstr "Nie odnaleziono składnika dostarczającego „%s::%s”."
-
-#~ msgid "XDG Menu XML file '%s' is damaged."
-#~ msgstr "Plik menu XDG w formacie XML „%s” jest uszkodzony."

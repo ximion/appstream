@@ -1,3 +1,4 @@
+# #-#-#-#-#  zh_TW.po (AppStream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
@@ -5,20 +6,46 @@
 # Hotellook, 2014
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 # Chang-Chia Tseng <pswo10680@gmail.com>, 2019, 2020.
+# #-#-#-#-#  zh_TW.po (appstream-glib)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Hotellook, 2014
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
+# Ding-Yi Chen <dingyichen@gmail.com>, 2016. #zanata
+# Richard Hughes <richard@hughsie.com>, 2016. #zanata
+# Cheng-Chia Tseng <pswo10680@gmail.com>, 2017. #zanata
+# Cheng-Chia Tseng <pswo10680@gmail.com>, 2018. #zanata
+# Peter Pan <pan93412@gmail.com>, 2018. #zanata
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AppStream\n"
+"Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-05-12 12:45+0200\n"
-"PO-Revision-Date: 2020-07-29 01:41+0000\n"
-"Last-Translator: Chang-Chia Tseng <pswo10680@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
+"POT-Creation-Date: 2020-09-03 02:58+0200\n"
+"PO-Revision-Date: 2018-10-08 02:19+0000\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/freedesktop/"
+"appstream-glib/language/zh_TW/)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  zh_TW.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.2-dev\n"
+"#-#-#-#-#  zh_TW.po (appstream-glib)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#. TRANSLATORS: This is the formatting of English and localized name
+#. * of the rating e.g. "Adults Only (solo adultos)"
+#: src/as-content-rating.c:298
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -57,6 +84,15 @@ msgid ""
 "videos."
 msgstr ""
 
+#: src/as-content-rating.c:453
+msgid "ALL"
+msgstr "所有"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:976
+msgid "Ability to spend real money in-app"
+msgstr "可在程式中花費實體金錢"
+
 #: src/as-category.c:123
 msgctxt "Category of Games"
 msgid "Action"
@@ -67,6 +103,10 @@ msgstr "動作"
 #: src/as-category.c:320 tools/ascli-utils.c:398
 msgid "Add-ons"
 msgstr "附加元件"
+
+#: src/as-content-rating.c:457 src/as-content-rating.c:533
+msgid "Adults Only"
+msgstr "僅限成人 (18+)"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -148,7 +188,8 @@ msgstr "AppStream 是種跨散布版的規格，旨在提供軟體組件的中�
 msgid ""
 "AppStream system cache refresh failed. Turn on verbose mode to get detailed "
 "issue information."
-msgstr "AppStream 系統快取重新整理失敗。請開啟詳盡模式取得更多該議題的相關細節。"
+msgstr ""
+"AppStream 系統快取重新整理失敗。請開啟詳盡模式取得更多該議題的相關細節。"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-cli.c:944
@@ -216,6 +257,11 @@ msgctxt "Category of Games"
 msgid "Board"
 msgstr "棋盤"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:897
+msgid "Brief artistic nudity"
+msgstr "短暫藝術性裸體"
+
 #: tools/ascli-utils.c:299
 msgid "Bundle"
 msgstr "套組"
@@ -242,14 +288,39 @@ msgctxt "Category of Games"
 msgid "Card"
 msgstr "紙牌"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:816
+msgid "Cartoon characters in aggressive conflict"
+msgstr "漫畫角色有強勢衝突"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:814
+msgid "Cartoon characters in unsafe situations"
+msgstr "漫畫角色處在非安全的情況下"
+
 #: tools/ascli-utils.c:369
 msgid "Categories"
 msgstr "類別"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:827
+msgid "Characters in aggressive conflict easily distinguishable from reality"
+msgstr "人物有強勢衝突但容易與現實區隔"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:825
+msgid "Characters in unsafe situations easily distinguishable from reality"
+msgstr "人物處在非安全的情況下但容易與現實區隔"
 
 #: src/as-category.c:259
 msgctxt "Category of Communication"
 msgid "Chat"
 msgstr "聊天"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1012
+msgid "Checking for the latest application version"
+msgstr "檢查最新的應用程式版本"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
@@ -346,6 +417,11 @@ msgctxt "Category of Office"
 msgid "Database"
 msgstr "資料庫"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1090
+msgid "Dead human remains that are exposed to the elements"
+msgstr "亡者遺體暴露在相關元素中"
+
 #: src/as-category.c:86
 msgctxt "Category of Development"
 msgid "Debuggers"
@@ -360,6 +436,36 @@ msgstr "預設螢幕快照 URL"
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "預設中介資料格式（有效的值為「xml」和「yaml」）。"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:851
+msgid "Depictions of bloodshed and the mutilation of body parts"
+msgstr "殺人及殘害身體的描繪"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1079
+msgid "Depictions of modern-day human desecration"
+msgstr "描繪當代人體褻瀆"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1101
+msgid "Depictions of modern-day slavery"
+msgstr "描繪當代的奴隸行為"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1077
+msgid "Depictions of or references to historical desecration"
+msgstr "描繪或涉及史實上的褻瀆"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1099
+msgid "Depictions of or references to historical slavery"
+msgstr "描繪或涉及史實上的奴隸行為"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:838
+msgid "Depictions of realistic characters in aggressive conflict"
+msgstr "真實人物有強勢衝突的描繪"
+
 #: tools/ascli-utils.c:333
 msgid "Description"
 msgstr "描述"
@@ -373,6 +479,21 @@ msgstr "開發者"
 #: src/as-category.c:305
 msgid "Developer Tools"
 msgstr "開發者工具"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1058
+msgid "Direct references to adultery"
+msgstr "直接涉及通姦"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1047
+msgid "Direct references to prostitution"
+msgstr "直接涉及賣淫"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:942
+msgid "Discrimination designed to cause emotional harm"
+msgstr "刻意造成情緒傷害之歧視"
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
@@ -396,6 +517,10 @@ msgstr "不要顯示色彩化的輸出。"
 #: tools/appstream-cli.c:853
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "傾印符合該 ID 的組件原生 XML 中介資料。"
+
+#: src/as-content-rating.c:467 src/as-content-rating.c:528
+msgid "Early Childhood"
+msgstr "幼兒 (3+)"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:308
@@ -425,6 +550,24 @@ msgstr ""
 #, c-format
 msgid "Error while loading the metadata pool: %s"
 msgstr "載入中介資料集池時發生錯誤：%s"
+
+#: src/as-content-rating.c:465 src/as-content-rating.c:529
+msgid "Everyone"
+msgstr "任何人"
+
+#: src/as-content-rating.c:463 src/as-content-rating.c:530
+msgid "Everyone 10+"
+msgstr "十歲以上 (10+)"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:944
+msgid "Explicit discrimination based on gender, sexuality, race or religion"
+msgstr "根據性別、性能力、種族、信仰所作的針對性歧視"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:953
+msgid "Explicit references to specific brands or trademarked products"
+msgstr "明確指涉特定廠牌或註冊商標之產品"
 
 #: tools/ascli-utils.c:327
 msgid "Extends"
@@ -575,16 +718,35 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
-#: src/as-validator.c:525 src/as-validator.c:944 src/as-validator.c:1026
-#: src/as-validator.c:1249
+#: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
+#: src/as-validator.c:1251
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:962
+msgid "Gambling on random events using tokens or credits"
+msgstr "使用代幣或儲值之隨機活動性賭博"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:966
+msgid "Gambling using real money"
+msgstr "使用實體金錢的賭博"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:964
+msgid "Gambling using “play” money"
+msgstr "使用「遊戲」財物之賭博"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:311
 msgid "Games"
 msgstr "遊戲"
+
+#: src/as-content-rating.c:444
+msgid "General"
+msgstr "一般"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
@@ -598,6 +760,56 @@ msgstr "取得提供指定項目的組件。"
 #: tools/appstream-cli.c:848
 msgid "Get information about a component by its ID."
 msgstr "根據 ID 取得組件的資訊。"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1092
+msgid "Graphic depictions of desecration of human bodies"
+msgstr "圖像式褻瀆人體的描繪"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1081
+msgid "Graphic depictions of modern-day desecration"
+msgstr "圖像式當代褻瀆描繪"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1103
+msgid "Graphic depictions of modern-day slavery"
+msgstr "圖像式當代奴隸行為描繪"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1060
+msgid "Graphic depictions of the act of adultery"
+msgstr "圖像式通姦行為描繪"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1049
+msgid "Graphic depictions of the act of prostitution"
+msgstr "圖像式賣淫動作描繪"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:911
+msgid "Graphic sexual behavior"
+msgstr "圖像式性行為"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1038
+msgid "Graphic sexual behavior between people of the same gender"
+msgstr "圖像式人類同性別性行為"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:829
+msgid "Graphic violence easily distinguishable from reality"
+msgstr "圖像暴力但容易與現實區隔"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:818
+msgid "Graphic violence involving cartoon characters"
+msgstr "涉及漫畫角色的圖像暴力"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:840
+msgid "Graphic violence involving realistic characters"
+msgstr "涉及真實人物的圖像暴力"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:314
@@ -636,6 +848,21 @@ msgstr "圖示集"
 #: tools/ascli-utils.c:295
 msgid "Identifier"
 msgstr "辨識碼"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1056
+msgid "Indirect references to adultery"
+msgstr "間接涉及通姦"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1034
+msgid "Indirect references to homosexuality"
+msgstr "間接涉及同性戀議題"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1045
+msgid "Indirect references to prostitution"
+msgstr "間接涉及賣淫"
 
 #: src/as-category.c:217
 msgctxt "Category of Addons"
@@ -690,6 +917,11 @@ msgstr ""
 msgctxt "Category of Games"
 msgid "Kids"
 msgstr "孩童"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1036
+msgid "Kissing between people of the same gender"
+msgstr "人類同性別親吻"
 
 #: src/as-category.c:220
 msgctxt "Category of Addons"
@@ -767,6 +999,15 @@ msgctxt "Category of Science"
 msgid "Math"
 msgstr "數學"
 
+#: src/as-content-rating.c:459 src/as-content-rating.c:532
+msgid "Mature"
+msgstr "成熟 (17+)"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:933
+msgid "Mature or sexual humor"
+msgstr "成人或性相關幽默"
+
 #: src/as-provided.c:148
 msgid "Media types"
 msgstr "媒體類型"
@@ -798,9 +1039,29 @@ msgstr ""
 msgid "Metainfo files:"
 msgstr "中介資料檔："
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:918
+msgid "Mild or infrequent use of profanity"
+msgstr "輕微或少有使用辱駡"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:836
+msgid "Mildly realistic characters in unsafe situations"
+msgstr "輕微真實人物處在非安全的情況下"
+
 #: src/as-provided.c:152
 msgid "Modaliases"
 msgstr "Modalias 檔"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:920
+msgid "Moderate use of profanity"
+msgstr "偶爾使用辱駡"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:985
+msgid "Moderated chat functionality between users"
+msgstr "受審查的使用者間聊天功能"
 
 #: src/as-category.c:74
 msgctxt "Category of AudioVideo"
@@ -810,6 +1071,11 @@ msgstr "音樂播放器"
 #: tools/ascli-utils.c:296
 msgid "Name"
 msgstr "名稱"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:940
+msgid "Negativity towards a specific group of people"
+msgstr "排斥特定群體"
 
 #: src/as-category.c:266
 msgctxt "Category of Communication"
@@ -825,24 +1091,149 @@ msgstr ""
 msgid "No XDG applications directory found."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:971
+msgid "No ability to spend money"
+msgstr "沒有金錢花費之功能"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:949
+msgid "No advertising of any kind"
+msgstr "沒有任何形式之行銷"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:845
+msgid "No bloodshed"
+msgstr "沒有殺人"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:812
+msgid "No cartoon violence"
+msgstr "沒有漫畫暴力"
+
 #: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "找不到符合「%s」的組件。"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:938
+msgid "No discriminatory language of any kind"
+msgstr "沒有任何形式之歧視用語"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:823
+msgid "No fantasy violence"
+msgstr "沒有幻想暴力"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:960
+msgid "No gambling of any kind"
+msgstr "任何形式之賭博"
+
 #: tools/ascli-actions-misc.c:105
 msgid "No icons."
 msgstr "無圖示。"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:927
+msgid "No inappropriate humor"
+msgstr "沒有不適切之幽默"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:895
+msgid "No nudity of any sort"
+msgstr "沒有任何形式之裸體"
+
 #: tools/ascli-actions-misc.c:402
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:916
+msgid "No profanity of any kind"
+msgstr "沒有任何形式之辱駡"
 
 #: tools/ascli-actions-misc.c:306
 msgid ""
 "No provided binary specified in metainfo file, and no exec command specified "
 "via '--exec'. Can not create 'Exec=' key."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:834
+msgid "No realistic violence"
+msgstr "沒有現實暴力"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1054
+msgid "No references to adultery"
+msgstr "沒有涉及通姦"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:865
+msgid "No references to alcohol"
+msgstr "沒有涉及酒精"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1075
+msgid "No references to desecration"
+msgstr "沒有涉及褻瀆"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1032
+msgid "No references to homosexuality"
+msgstr "沒有涉及同性戀議題"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:875
+msgid "No references to illicit drugs"
+msgstr "沒有涉及非法藥物"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:905
+msgid "No references to or depictions of sexual nature"
+msgstr "沒有涉及性事或描繪性事"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1043
+msgid "No references to prostitution"
+msgstr "沒有涉及賣淫"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1097
+msgid "No references to slavery"
+msgstr "沒有涉及奴隸行為"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:885
+msgid "No references to tobacco products"
+msgstr "沒有涉及菸草產品"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:856
+msgid "No sexual violence"
+msgstr "沒有性暴力"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1065
+msgid "No sexualized characters"
+msgstr "沒有性化角色"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1021
+msgid "No sharing of physical location with other users"
+msgstr "不會與其他使用者分享實際地理位置"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1001
+msgid "No sharing of social network usernames or email addresses"
+msgstr "不會分享社交網路使用者名稱或電子郵件爲止"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1010
+msgid "No sharing of user information with third parties"
+msgstr "不會與第三方單位分享使用者資訊"
 
 #: tools/ascli-actions-misc.c:284
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
@@ -860,6 +1251,21 @@ msgstr ""
 msgid "No value for the item to search for was defined."
 msgstr "要搜尋的項目未定義該值。"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1086
+msgid "No visible dead human remains"
+msgstr "不會看見亡者遺體"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:981
+msgid "No way to chat with other users"
+msgstr "無法和其他使用者聊天"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:992
+msgid "No way to talk with other users"
+msgstr "無法和其他使用者對談"
+
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:317
 msgid "Office"
@@ -870,6 +1276,11 @@ msgstr "辦公"
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "「%s」選項不明。"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1070
+msgid "Overtly sexualized human characters"
+msgstr "刻意性化的人類角色"
 
 #: tools/ascli-utils.c:298
 msgid "Package"
@@ -890,14 +1301,29 @@ msgstr "列印找到議題的詳細解說。"
 msgid "Print detailed output about found components."
 msgstr "列印有關找到之組件的詳細輸出。"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:951
+msgid "Product placement"
+msgstr "置入性產品行銷"
+
 #. project group
 #: tools/ascli-utils.c:360
 msgid "Project Group"
 msgstr "專案群組"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:899
+msgid "Prolonged nudity"
+msgstr "長時間裸體"
+
 #: tools/ascli-utils.c:405
 msgid "Provided Items"
 msgstr "提供的項目"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:907
+msgid "Provocative references or depictions"
+msgstr "涉及刺激或描繪刺激"
 
 #: src/as-provided.c:154
 msgid "Python (Version 2)"
@@ -907,16 +1333,41 @@ msgstr "Python (第 2 版)"
 msgid "Python 3"
 msgstr "Python 3"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:858
+msgid "Rape or other violent sexual behavior"
+msgstr "強暴或其他暴力式性行為"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:849
+msgid "Realistic bloodshed"
+msgstr "寫實的殺人"
+
 #: tools/appstream-cli.c:854
 msgid "Rebuild the component metadata cache."
 msgstr "重建組件的中介資料快取。"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:867
+msgid "References to alcoholic beverages"
+msgstr "涉及酒精性飲料"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:877
+msgid "References to illicit drugs"
+msgstr "涉及非法藥物"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:887
+msgid "References to tobacco products"
+msgstr "涉及菸草產品"
 
 #: tools/appstream-cli.c:860
 msgid "Remove software matching the component-ID."
 msgstr "移除符合該組件 ID 的軟體。"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-validator.c:364
+#: src/as-validator.c:366
 msgid "Retrieved file size was zero."
 msgstr ""
 
@@ -953,6 +1404,11 @@ msgctxt "Category of Graphics"
 msgid "Scanning"
 msgstr "掃描"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1068
+msgid "Scantily clad human characters"
+msgstr "衣著覆蓋極少的人類角色"
+
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:323
 msgid "Science"
@@ -966,6 +1422,31 @@ msgstr "搜尋組件資料庫。"
 msgctxt "Category of Utility"
 msgid "Security"
 msgstr "安全"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:909
+msgid "Sexual references or depictions"
+msgstr "涉及性或描繪性"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1014
+msgid "Sharing diagnostic data that does not let others identify the user"
+msgstr "分享無法讓他人辨識出使用者的診斷性數據資料"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1016
+msgid "Sharing information that lets others identify the user"
+msgstr "分享可以讓其他人辨識出使用者的資訊"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1023
+msgid "Sharing physical location with other users"
+msgstr "與其他使用者分享實際地理位置"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1003
+msgid "Sharing social network usernames or email addresses"
+msgstr "分享社交網路使用者名稱或電子郵件位址"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #: tools/appstream-cli.c:903
@@ -984,6 +1465,11 @@ msgid ""
 "this runtime."
 msgstr ""
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:929
+msgid "Slapstick humor"
+msgstr "低俗鬧劇式幽默"
+
 #: src/as-category.c:153
 msgctxt "Category of Games"
 msgid "Sports"
@@ -993,6 +1479,11 @@ msgstr "運動"
 msgctxt "Category of Games"
 msgid "Strategy"
 msgstr "策略"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:922
+msgid "Strong or frequent use of profanity"
+msgstr "強烈或經常使用辱駡"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstream-cli.c:845
@@ -1023,6 +1514,10 @@ msgstr "系統監控"
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
 msgstr ""
+
+#: src/as-content-rating.c:461 src/as-content-rating.c:531
+msgid "Teen"
+msgstr "青少年 (13-19)"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -1067,7 +1562,8 @@ msgstr "AppStream 系統快取已更新，但發現一些問題導致中介資�
 msgid ""
 "The AppStream system cache was updated, but some components were ignored. "
 "Refer to the verbose log for more information."
-msgstr "AppStream 系統快取已更新，但有忽略一些組件。請參考詳盡模式紀錄瞭解更多資訊。"
+msgstr ""
+"AppStream 系統快取已更新，但有忽略一些組件。請參考詳盡模式紀錄瞭解更多資訊。"
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1552,7 +2048,7 @@ msgid ""
 "font` tag."
 msgstr ""
 
-#: src/as-validator.c:333
+#: src/as-validator.c:335
 msgid "URL format is invalid."
 msgstr ""
 
@@ -1643,6 +2139,16 @@ msgstr "無法多重啟動軟體包管理程式：%s"
 msgid "Unable to write to '%s', can not install metainfo file."
 msgstr "無法寫入「%s」，無法安裝中介資料檔。"
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:994
+msgid "Uncontrolled audio or video chat functionality between users"
+msgstr "未受管制的使用者間音訊或視訊聊天功能"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:987
+msgid "Uncontrolled chat functionality between users"
+msgstr "未受管制的使用者間聊天功能"
+
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:1009
 #, c-format
@@ -1655,6 +2161,26 @@ msgstr "未知指令「%s」。"
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "未知比較關係「%s」。有效的值有："
 
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:847
+msgid "Unrealistic bloodshed"
+msgstr "非寫實的殺人"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:869
+msgid "Use of alcoholic beverages"
+msgstr "使用到酒精性飲料"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:879
+msgid "Use of illicit drugs"
+msgstr "使用到非法藥物"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:889
+msgid "Use of tobacco products"
+msgstr "使用到菸草產品"
+
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstream-cli.c:675
 msgid ""
@@ -1665,6 +2191,21 @@ msgstr "使用給定的 .deskotp 檔以在中介資訊檔中填入基礎值。"
 #: tools/appstream-cli.c:725
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:983
+msgid "User-to-user interactions without chat functionality"
+msgstr "使用者與使用者間之互動不含聊天功能"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:973
+msgid "Users are encouraged to donate real money"
+msgstr "鼓勵使用者捐贈實體金錢"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:955
+msgid "Users are encouraged to purchase specific real-world items"
+msgstr "鼓吹使用者購買特定真實世界商品"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:329
@@ -1711,6 +2252,16 @@ msgstr "版本：%s"
 msgctxt "Category of Graphics"
 msgid "Viewers"
 msgstr "檢視器"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:1088
+msgid "Visible dead human remains"
+msgstr "會看見亡者遺體"
+
+#. TRANSLATORS: content rating description
+#: src/as-content-rating.c:931
+msgid "Vulgar or bathroom humor"
+msgstr "粗俗或廁所式幽默"
 
 #: tools/ascli-actions-misc.c:153
 #, c-format
@@ -1846,48 +2397,3 @@ msgstr "pedantic: %lu"
 #, c-format
 msgid "warnings: %lu"
 msgstr "warnings: %lu"
-
-#~ msgid "Command '%s' is unknown."
-#~ msgstr "指令「%s」未知。"
-
-#~ msgid "Do not use any caches when performing the request."
-#~ msgstr "執行請求時不要使用任何快取。"
-
-#~ msgid "AppStream cache update failed."
-#~ msgstr "AppStream 快取更新失敗。"
-
-#~ msgid ""
-#~ "AppStream data pool was loaded, but some metadata was ignored due to "
-#~ "errors."
-#~ msgstr "已載入 AppStrem 資料集池，但是有些中介資料因錯誤而忽略。"
-
-#~ msgid "Can not search for unknown component type."
-#~ msgstr "無法搜尋未知的組件類型。"
-
-#, fuzzy
-#~ msgid "Category of Education"
-#~ msgstr "教育"
-
-#, fuzzy
-#~ msgid "Category of Games"
-#~ msgstr "類別"
-
-#, fuzzy
-#~ msgid "Category of Office"
-#~ msgstr "類別"
-
-#, fuzzy
-#~ msgid "Category of Science"
-#~ msgstr "類別"
-
-#~ msgid "Extensions"
-#~ msgstr "擴充套件"
-
-#~ msgid "File %s not found or permission denied!"
-#~ msgstr "找不到檔案 %s，或未獲得存取許可！"
-
-#~ msgid "No component providing '%s::%s' found."
-#~ msgstr "找不到供應「%s::%s」的組件。"
-
-#~ msgid "XDG Menu XML file '%s' is damaged."
-#~ msgstr "XDG 選單 XML 檔案「%s」已損毀。"
