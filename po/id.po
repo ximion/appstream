@@ -9,31 +9,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Andika Triwidada <andika@gmail.com>, 2016
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Andika Triwidada <andika@gmail.com>, 2017. #zanata
-#, fuzzy
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2017-09-01 05:13+0000\n"
+"PO-Revision-Date: 2020-09-06 01:36+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
-"Language-Team: Indonesian (http://www.transifex.com/freedesktop/appstream-"
-"glib/language/id/)\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  id.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.0-dev\n"
-"#-#-#-#-#  id.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -255,7 +249,7 @@ msgid "Audio Creation & Editing"
 msgstr "Pembuatan & Penyuntingan Audio"
 
 #: tools/ascli-actions-misc.c:219
-#, fuzzy, c-format
+#, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
 msgstr "Menambah berkas entri desktop '%s' dengan data dari '%s'."
 
@@ -1781,9 +1775,8 @@ msgstr ""
 "digunakan olehnya tidak diketahui oleh validator)."
 
 #: src/as-validator-issue-tag.h:136
-#, fuzzy
 msgid "The component ID should only contain lowercase letters."
-msgstr "Ringkasan komponen tidak boleh mengandung tab atau putus baris."
+msgstr "ID komponen hanya boleh berisi huruf kecil."
 
 #: src/as-validator-issue-tag.h:311
 msgid ""
@@ -1882,14 +1875,10 @@ msgstr ""
 "gunakan tag <url/> untuk membagikan tautan."
 
 #: src/as-validator.c:152
-#, fuzzy
 msgid ""
 "The emitted issue tag is unknown in the tag registry of AppStream. This is a "
 "bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
-"Tag masalah yang dipancarkan tidak dikenal dalam registri tag AppStream. Ini "
-"adalah bug di validator itu sendiri, tolong laporkan masalah ini di "
-"bugtracker kami."
+msgstr "Tag masalah yang dikeluarkan tidak dikenal di registri tag AppStream. Ini adalah bug di validator itu sendiri, laporkan masalah ini di bugtracker kami."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
