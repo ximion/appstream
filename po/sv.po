@@ -11,8 +11,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Josef Andersson <josef.andersson@fripost.org>, 2015
 # sebras <sebras@gmail.com>, 2015-2016
 # Göran Uddeborg <goeran@uddeborg.se>, 2016. #zanata
@@ -20,26 +18,23 @@
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017. #zanata
 # Göran Uddeborg <goeran@uddeborg.se>, 2018. #zanata
 # Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019. #zanata
-#, fuzzy
+# Ulf Lundh <ulf@lundh.me>, 2020.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2019-01-14 02:00+0000\n"
-"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
-"Language-Team: Swedish (http://www.transifex.com/freedesktop/appstream-glib/"
-"language/sv/)\n"
+"PO-Revision-Date: 2020-09-07 23:36+0000\n"
+"Last-Translator: Ulf Lundh <ulf@lundh.me>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  sv.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10-dev\n"
-"#-#-#-#-#  sv.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -62,7 +57,7 @@ msgstr "3D-grafik"
 msgid ""
 "A <description/> tag must not be localized in metainfo files (upstream "
 "metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "En <description/> tagg får inte lokaliseras i metainfo-filerna (upstream metadata). Lokalisera de individuella paragraferna istället."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
@@ -76,14 +71,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
+msgstr "En skärmdump måste innehålla minst en bild eller video för att vara användbar. Vänligen lägg till en <image/>."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
+msgstr "En skärmdump måste innehålla antingen bilder eller videos, men inte båda samtidigt. Använd enbart denna skärmdump för statiska bilder eller för videos."
 
 #: src/as-content-rating.c:453
 msgid "ALL"
