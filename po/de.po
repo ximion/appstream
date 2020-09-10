@@ -29,7 +29,7 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016. #zanata
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
-# Christian K <kirbach.christian@t-online.de>, 2020.
+# Christian K <kirbach.christian@t-online.de>, 2020, 2021.
 # Tim Fraedrich <timfraedrich@icloud.com>, 2020.
 # mv87 <mv87@dismail.de>, 2020, 2021.
 # Coruna <airwing77@gmx.de>, 2020.
@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: Andreas Kleinert <Andy.Kleinert@gmail.com>\n"
+"Last-Translator: Christian K <kirbach.christian@t-online.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1108,9 +1108,7 @@ msgstr ""
 msgid ""
 "This description paragraph contains invalid markup. Currently, only <em/> "
 "and <code/> are permitted."
-msgstr ""
-"Dieser Beschreibungsabsatz enthält ungültiges Markup. Derzeit sind nur <em/> "
-"und <code/>."
+msgstr "Dieser Beschreibungsabsatz enthält ungültiges Markup. Derzeit sind nur <em/> und <code/>."
 
 #: src/as-validator-issue-tag.h:74
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1146,9 +1144,7 @@ msgstr "Das genannte Tag ist leer; dies ist höchstwahrscheinlich nicht so gewol
 msgid ""
 "The component ID is required to follow a reverse domain-name scheme for its "
 "name. See the AppStream specification for details."
-msgstr ""
-"Die Komponenten-ID muss einem umgekehrten Domänennamenschema für ihren Namen "
-"folgen. Weitere Informationen finden Sie in der AppStream-Spezifikation."
+msgstr "Die Komponenten-ID muss einem umgekehrten Domänennamenschema für ihren Namen folgen. Weitere Informationen finden Sie in der AppStream-Spezifikation."
 
 #: src/as-validator-issue-tag.h:106
 msgid ""
@@ -1176,10 +1172,7 @@ msgstr ""
 msgid ""
 "The component ID might not follow the reverse domain-name schema (the TLD "
 "used by it is not known to the validator)."
-msgstr ""
-"Die Komponenten-ID folgt möglicherweise nicht dem umgekehrten "
-"Domänennamenschema (die von ihr verwendete TLD ist dem Validator nicht "
-"bekannt)."
+msgstr "Die Komponenten-ID folgt möglicherweise nicht dem umgekehrten Domänennamenschema (die von ihr verwendete TLD ist dem Validator nicht bekannt)."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
@@ -1220,25 +1213,19 @@ msgstr "Die Komponentenkennung sollte nur Kleinbuchstaben enthalten."
 msgid ""
 "The component is part of the Freedesktop project, but its ID does not start "
 "with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
-"Die Komponente ist Teil des Freedesktop-Projekts, aber ihre ID beginnt nicht "
-"mit dem Reverse-DNS-Namen von fd.o (\"org.freedesktop\")."
+msgstr "Die Komponente ist Teil des Freedesktop-Projekts, aber ihre ID beginnt nicht mit dem Reverse-DNS-Namen von fd.o (\"org.freedesktop\")."
 
 #: src/as-validator-issue-tag.h:146
 msgid ""
 "The component is part of the KDE project, but its ID does not start with "
 "KDEs reverse-DNS name (\"org.kde\")."
-msgstr ""
-"Die Komponente ist Teil des KDE-Projekts, aber ihre ID beginnt nicht mit dem "
-"Reverse-DNS-Namen von KDEs (\"org.kde\")."
+msgstr "Die Komponente ist Teil des KDE-Projekts, aber ihre ID beginnt nicht mit dem Reverse-DNS-Namen von KDEs (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:151
 msgid ""
 "The component is part of the GNOME project, but its ID does not start with "
 "GNOMEs reverse-DNS name (\"org.gnome\")."
-msgstr ""
-"Die Komponente ist Teil des GNOME-Projekts, aber ihre ID beginnt nicht mit "
-"dem GNOMEs-Reverse-DNS-Namen (\"org.gnome\")."
+msgstr "Die Komponente ist Teil des GNOME-Projekts, aber ihre ID beginnt nicht mit dem GNOMEs-Reverse-DNS-Namen (\"org.gnome\")."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The SPDX license expression is invalid and could not be parsed."
@@ -1280,9 +1267,7 @@ msgstr ""
 msgid ""
 "Unable to reach the screenshot image on its remote location - does the image "
 "exist?"
-msgstr ""
-"Das Bildschirmfoto kann an seiner Entferntenposition nicht erreicht werden - "
-"gibt es das Bild?"
+msgstr "Das Bildschirmfoto kann an seiner Entferntenposition nicht erreicht werden - gibt es das Bild?"
 
 #: src/as-validator-issue-tag.h:189
 msgid ""
@@ -1347,11 +1332,7 @@ msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"Der ausgewählte Videocodec wird von AppStream nicht unterstützt, und "
-"Softwarecenter können das Video möglicherweise nicht wiedergeben. Derzeit "
-"werden nur die Codecs AV1 und VP9 unterstützt, die 'av1' und 'vp9' als Werte "
-"für die 'codec'-Eigenschaft verwenden."
+msgstr "Der ausgewählte Videocodec wird von AppStream nicht unterstützt, und Softwarecenter können das Video möglicherweise nicht wiedergeben. Derzeit werden nur die Codecs AV1 und VP9 unterstützt, die 'av1' und 'vp9' als Werte für die 'codec'-Eigenschaft verwenden."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
@@ -1360,21 +1341,14 @@ msgid ""
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"Das ausgewählte Videocontainerformat wird von AppStream nicht unterstützt, "
-"und Softwarecenter können das Video möglicherweise nicht wiedergeben. "
-"Derzeit werden nur die WebM- und Matroska-Videocontainer unterstützt, die "
-"\"webm\" und \"mkv\" als Werte für die 'container'-Eigenschaft verwenden."
+msgstr "Das ausgewählte Videocontainerformat wird von AppStream nicht unterstützt, und Softwarecenter können das Video möglicherweise nicht wiedergeben. Derzeit werden nur die WebM- und Matroska-Videocontainer unterstützt, die \"webm\" und \"mkv\" als Werte für die 'container'-Eigenschaft verwenden."
 
 #: src/as-validator-issue-tag.h:242
 msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"Für Videos werden derzeit nur die Containerformate WebM und Matroska (.mkv) "
-"unterstützt. Die Dateierweiterung des referenzierten Videos gehört zu keinem "
-"dieser beiden Formate."
+msgstr "Für Videos werden derzeit nur die Containerformate WebM und Matroska (.mkv) unterstützt. Die Dateierweiterung des referenzierten Videos gehört zu keinem dieser beiden Formate."
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
@@ -1408,9 +1382,7 @@ msgstr ""
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"Gefundene `Versions-Eigenschaft auf einem angeforderten/empfohlenen Objekt "
-"eines Typs, der keine Version haben oder benötigen sollte."
+msgstr "Gefundene `Versions-Eigenschaft auf einem angeforderten/empfohlenen Objekt eines Typs, der keine Version haben oder benötigen sollte."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:271
@@ -1562,14 +1534,11 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:367
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
-"Der Komponentenname sollte (wahrscheinlich) nicht mit einem Punkt (».«) "
-"enden."
+msgstr "Der Komponentenname sollte (wahrscheinlich) nicht mit einem Punkt (».«) enden."
 
 #: src/as-validator-issue-tag.h:372
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
-"Die Komponenten-Zusammenfassung sollte nicht mit einem Punkt (».«) enden."
+msgstr "Die Komponenten-Zusammenfassung sollte nicht mit einem Punkt (».«) enden."
 
 #: src/as-validator-issue-tag.h:377
 msgid "The component summary must not contain tabs or linebreaks."
@@ -1630,9 +1599,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:422
 msgid ""
 "Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
-"Der Remotespeicherort, auf den diese URL verweist, kann nicht erreicht "
-"werden - gibt es ihn?"
+msgstr "Der Remotespeicherort, auf den diese URL verweist, kann nicht erreicht werden - gibt es ihn?"
 
 #: src/as-validator-issue-tag.h:427
 msgid "Consider using a secure (HTTPS) URL for this web link."
@@ -1726,9 +1693,7 @@ msgstr "Es wird empfohlen eine lange Beschreibung für diese Komponente hinzuzuf
 msgid ""
 "This generic component is missing a long description. It may be useful to "
 "add one."
-msgstr ""
-"Dieser generischen Komponente fehlt eine lange Beschreibung. Es kann "
-"nützlich sein, eine hinzuzufügen."
+msgstr "Dieser generischen Komponente fehlt eine lange Beschreibung. Es kann nützlich sein, eine hinzuzufügen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:510
@@ -1868,9 +1833,7 @@ msgstr "Die zur Kompomente gehörige .desktop-Datei konnte nicht gelesen werden.
 
 #: src/as-validator-issue-tag.h:628
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
-"Diese Komponentenmetadaten beziehen sich auf eine nicht vorhandene .desktop-"
-"Datei."
+msgstr "Diese Komponentenmetadaten beziehen sich auf eine nicht vorhandene .desktop-Datei."
 
 #: src/as-validator-issue-tag.h:633
 msgid ""
@@ -2003,12 +1966,7 @@ msgid ""
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
-"Lizenzen für »Laufzeit«-Komponenten sind in der Regel zu kompliziert, um sie "
-"in Form eines einfachen SPDX-Ausdrucks darzustellen . Bitte erwägen Sie die "
-"Verwendung einer »LicenseRef« und einer Internet-Adresse als einen Wert für "
-"»project_license« (Projektlizenz) dieser Komponente. Beispielsweise "
-"»LicenseRef-free=https://example.com/licenses.html«"
+msgstr "Lizenzen für »Laufzeit«-Komponenten sind in der Regel zu kompliziert, um sie in Form eines einfachen SPDX-Ausdrucks darzustellen . Bitte erwägen Sie die Verwendung einer »LicenseRef« und einer Internet-Adresse als einen Wert für »project_license« (Projektlizenz) dieser Komponente. Beispielsweise »LicenseRef-free=https://example.com/licenses.html«"
 
 #: src/as-validator-issue-tag.h:744
 msgid ""
@@ -2400,9 +2358,7 @@ msgstr "Der TYPE muss ein gültiger Komponententyp sein, beispielsweise: %s"
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:801
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
-"Verwenden Sie die angegebene Zeile für den Schlüssel »Exec=« der Desktop-"
-"entry-Datei."
+msgstr "Verwenden Sie die angegebene Zeile für den Schlüssel »Exec=« der Desktop-entry-Datei."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:842
@@ -2575,9 +2531,7 @@ msgstr ""
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1238
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
-"Schreiben Sie NEWS-Text oder YAML-Datei mit Informationen aus einer Metainfo-"
-"Datei."
+msgstr "Schreiben Sie NEWS-Text oder YAML-Datei mit Informationen aus einer Metainfo-Datei."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1244
@@ -2801,8 +2755,7 @@ msgstr "Metainfo-Datei »%s« existiert nicht."
 #: tools/ascli-actions-misc.c:149
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
-"Vervollständige den existierenden Desktop-Eintrag »%s« mit Daten von »%s«."
+msgstr "Vervollständige den existierenden Desktop-Eintrag »%s« mit Daten von »%s«."
 
 #: tools/ascli-actions-misc.c:154
 #, c-format
@@ -2851,9 +2804,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:442
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
-"Sie müssen eine NEWS-Datei als Ausgabe angeben, oder »-« für die Ausgabe "
-"nach stdout."
+msgstr "Sie müssen eine NEWS-Datei als Ausgabe angeben, oder »-« für die Ausgabe nach stdout."
 
 #: tools/ascli-actions-misc.c:473
 msgid "You need to specify a NEWS format to write the output in."
