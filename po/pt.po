@@ -17,37 +17,32 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-#, fuzzy
+# Juliano de Souza Camargo <julianosc@protonmail.com>, 2020.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2016-08-06 03:00+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Portuguese (http://www.transifex.com/freedesktop/appstream-"
-"glib/language/pt/)\n"
+"PO-Revision-Date: 2020-09-19 23:39+0000\n"
+"Last-Translator: Juliano de Souza Camargo <julianosc@protonmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:298
 #, c-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -97,16 +92,12 @@ msgstr ""
 
 #: src/as-content-rating.c:453
 msgid "ALL"
-msgstr ""
+msgstr "TODAS"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
-#, fuzzy
 msgid "Ability to spend real money in-app"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Possibilidade de gastar dinheiro real dentro do jogo"
+msgstr "Possibilidade de gastar dinheiro real dentro do jogo"
 
 #: src/as-category.c:123
 msgctxt "Category of Games"
@@ -351,12 +342,8 @@ msgstr "Conversação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1012
-#, fuzzy
 msgid "Checking for the latest application version"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Verificar dados da aplicação instalada"
+msgstr "A verificar pela última versão instalada"
 
 #: src/as-category.c:104
 msgctxt "Category of Education"
@@ -461,7 +448,7 @@ msgstr "Base de dados"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1090
 msgid "Dead human remains that are exposed to the elements"
-msgstr ""
+msgstr "Restos mortais humanos que foram expostos aos elementos"
 
 #: src/as-category.c:86
 msgctxt "Category of Development"
@@ -537,12 +524,8 @@ msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:942
-#, fuzzy
 msgid "Discrimination designed to cause emotional harm"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Descriminação destinada a causar dano emocional"
+msgstr "Descriminação destinada a causar dano emocional"
 
 #: tools/appstream-cli.c:862
 msgid "Display status information about available AppStream metadata."
@@ -1315,26 +1298,18 @@ msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:865
-#, fuzzy
 msgid "No references to alcohol"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Referência a bebidas alcoólicas"
+msgstr "Sem referência a bebidas alcoólicas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1075
-#, fuzzy
 msgid "No references to desecration"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Referências ou representações sexuais"
+msgstr "Sem referências ou representações sexuais"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1032
 msgid "No references to homosexuality"
-msgstr ""
+msgstr "Sem referência à homossexualidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:875
@@ -1623,21 +1598,13 @@ msgstr ""
 # Profiling já foi traduzido como perfilamento, porém a tradução também pode ser a de criação de perfil --Enrico
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1016
-#, fuzzy
 msgid "Sharing information that lets others identify the user"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Partilha informação do utilizador com terceiros"
+msgstr "Partilha informação do utilizador com terceiros"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1023
-#, fuzzy
 msgid "Sharing physical location with other users"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Partilha de localizações físicas de outros utilizadores"
+msgstr "Partilha de localização física com terceiros"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1003
@@ -2519,21 +2486,13 @@ msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:994
-#, fuzzy
 msgid "Uncontrolled audio or video chat functionality between users"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Conversa em áudio e vídeo entre jogadores não controlada"
+msgstr "Conversa em áudio e vídeo entre os utilizadores não controlada"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
-#, fuzzy
 msgid "Uncontrolled chat functionality between users"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Conversa entre jogadores não controlada"
+msgstr "Conversa entre os utilizadores não controlada"
 
 #. TRANSLATORS: ascli has been run with unknown command.
 #: tools/appstream-cli.c:1009
@@ -2584,21 +2543,13 @@ msgstr ""
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
-#, fuzzy
 msgid "User-to-user interactions without chat functionality"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Interações de jogo entre jogadores sem funcionalidade de conversação."
+msgstr "Interações entre os utilizadores sem funcionalidade de conversação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:973
-#, fuzzy
 msgid "Users are encouraged to donate real money"
-msgstr ""
-"#-#-#-#-#  pt.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  pt.po (appstream-glib)  #-#-#-#-#\n"
-"Os jogadores são encorajados a comprar itens específicos do mundo real"
+msgstr "Os utilizadores são encorajados a doarem dinheiro real"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:955
@@ -2660,7 +2611,7 @@ msgstr "Visualizadores"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1088
 msgid "Visible dead human remains"
-msgstr ""
+msgstr "Restos mortais humanos visíveis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:931
