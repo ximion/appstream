@@ -24,7 +24,7 @@
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # cheng ye <18969068329@163.com>, 2017. #zanata
-# Yu Lou <louyu27@gmail.com>, 2020.
+# Yu Lou <louyu27@gmail.com>, 2020, 2021.
 # woshoxxx <84318882@qq.com>, 2020.
 # Forbidden <10278743+f0rb1d@users.noreply.github.com>, 2020.
 # Rigo Ligo <rigoligo03@gmail.com>, 2021.
@@ -43,7 +43,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:44+0000\n"
-"Last-Translator: Eric <spice2wolf@gmail.com>\n"
+"Last-Translator: Yu Lou <louyu27@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -1091,10 +1091,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"AppStream 中的简介只支持有限的文本格式标签：段落 (<p/>) 和列表 (<ul/>, <ol/"
-">)。以下简介的标记文本中包含无效的 XML 标签，不能在支持该源信息渲染标准的应用"
-"中正常渲染。"
+msgstr "AppStream 中的简介只支持有限的文本格式标签：段落 (<p/>) 和列表 (<ul/>, <ol/>)。以下简介的标记文本中包含无效的 XML 标签，不能在支持该源信息渲染标准的应用中正常渲染。"
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1314,9 +1311,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
-"目前只支持 WebM 和 Matroska (.mkv) 容器格式的视频。引用的视频所用的扩展名不属"
-"于这些格式。"
+msgstr "目前只支持 WebM 和 Matroska (.mkv) 容器格式的视频。引用的视频所用的扩展名不属于这些格式。"
 
 #: src/as-validator-issue-tag.h:248
 msgid ""
