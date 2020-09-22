@@ -17,8 +17,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Boyuan YANG <073plan@gmail.com>, 2015
 # Dz Chen <wsxy162@gmail.com>, 2016
 # Mingye Wang <arthur200126@gmail.com>, 2016
@@ -26,26 +24,23 @@
 # Mingcong Bai <jeffbai@aosc.xyz>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # cheng ye <18969068329@163.com>, 2017. #zanata
-#, fuzzy
+# Yu Lou <louyu27@gmail.com>, 2020.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2017-07-23 03:30+0000\n"
-"Last-Translator: cheng ye <18969068329@163.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/freedesktop/"
-"appstream-glib/language/zh_CN/)\n"
+"PO-Revision-Date: 2020-09-22 09:39+0000\n"
+"Last-Translator: Yu Lou <louyu27@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  zh_CN.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
-"#-#-#-#-#  zh_CN.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -185,7 +180,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
+msgstr "AppStream 中的简介只支持有限的文本格式标签：段落 (<p/>) 和列表 (<ul/>, <ol/>)。以下简介的标记文本中包含无效的 XML 标签，不能在支持该源信息渲染标准的应用中正常渲染。"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 #, fuzzy
@@ -226,7 +221,7 @@ msgstr ""
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
 msgid "Assume the input file is in the selected format ('yaml' or 'text')."
-msgstr ""
+msgstr "假设输入文件是所选的格式（'yaml' 或者 'text'）。"
 
 #: src/as-category.c:101
 msgctxt "Category of Education"
@@ -354,7 +349,7 @@ msgstr "沟通和新闻"
 
 #: tools/appstream-cli.c:866
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "比较两个版本号。"
 
 #: src/as-provided.c:166
 #, fuzzy
@@ -377,7 +372,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:401
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "建议使用安全的（HTTPS）URL 作为此网页链接。"
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
@@ -667,7 +662,7 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr ""
+msgstr "目前只支持 WebM 和 Matroska (.mkv) 容器格式的视频。引用的视频所用的扩展名不属于这些格式。"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
