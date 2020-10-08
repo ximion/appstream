@@ -23,7 +23,7 @@
 # Serge Vylekzhanin <vylekzhanin@mail.ru>, 2014-2016
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Melairz1237 <mr.artem.snegov@mail.ru>, 2020.
-# koffevar <egor.kafisov@gmail.com>, 2020.
+# koffevar <egor.kafisov@gmail.com>, 2020, 2021.
 # asrelo <syrslava@yandex.ru>, 2020.
 # Чтабс <chtabs2k19@gmail.com>, 2021.
 # Anna Malinovskaia <tacitcoast@gmail.com>, 2021.
@@ -37,7 +37,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:43+0000\n"
-"Last-Translator: Nataliia <sunfly22@bigmir.net>\n"
+"Last-Translator: koffevar <egor.kafisov@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -1762,9 +1762,7 @@ msgstr ""
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
-"Тип компонента `console-application`, но никакой информации об исполняемых "
-"файлах в $PATH не было получено через тэг `provides/binary`."
+msgstr "Тип компонента `console-application`, но никакой информации об исполняемых файлах в $PATH не было получено через тэг `provides/binary`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:516
@@ -1796,9 +1794,7 @@ msgstr ""
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr ""
-"Тип компонента `font`, но никакой информации о шрифте не было получено через "
-"тэг `provides/font`."
+msgstr "Тип компонента `font`, но никакой информации о шрифте не было получено через тэг `provides/font`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:540
