@@ -23,6 +23,7 @@
 # Serge Vylekzhanin <vylekzhanin@mail.ru>, 2014-2016
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Melairz1237 <mr.artem.snegov@mail.ru>, 2020.
+# koffevar <egor.kafisov@gmail.com>, 2020.
 #
 # Translators:
 msgid ""
@@ -30,8 +31,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2020-09-24 03:40+0000\n"
-"Last-Translator: Melairz1237 <mr.artem.snegov@mail.ru>\n"
+"PO-Revision-Date: 2020-10-08 09:26+0000\n"
+"Last-Translator: koffevar <egor.kafisov@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +96,7 @@ msgstr ""
 
 #: src/as-content-rating.c:453
 msgid "ALL"
-msgstr ""
+msgstr "ВСЕ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
@@ -115,7 +116,7 @@ msgstr "Дополнения"
 
 #: src/as-content-rating.c:457 src/as-content-rating.c:533
 msgid "Adults Only"
-msgstr ""
+msgstr "Для взрослых"
 
 #: src/as-category.c:126
 msgctxt "Category of Games"
@@ -815,7 +816,7 @@ msgstr "Игры"
 
 #: src/as-content-rating.c:444
 msgid "General"
-msgstr ""
+msgstr "Общее"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstream-cli.c:814
@@ -1094,13 +1095,8 @@ msgid "Math"
 msgstr "Математика"
 
 #: src/as-content-rating.c:459 src/as-content-rating.c:532
-#, fuzzy
 msgid "Mature"
-msgstr ""
-"#-#-#-#-#  ru.po (AppStream)  #-#-#-#-#\n"
-"Отмеченные\n"
-"#-#-#-#-#  ru.po (appstream-glib)  #-#-#-#-#\n"
-"Рекомендуемые"
+msgstr "Для взрослых"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:933
@@ -1312,12 +1308,8 @@ msgstr "Отсутствие упоминания рабства"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:885
-#, fuzzy
 msgid "No references to tobacco products"
-msgstr ""
-"#-#-#-#-#  ru.po (AppStream)  #-#-#-#-#\n"
-"#-#-#-#-#  ru.po (appstream-glib)  #-#-#-#-#\n"
-"Упоминание табачных изделий"
+msgstr "Нет упоминания табачных изделий"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
@@ -1636,7 +1628,7 @@ msgstr "Использование данного имени не разреше
 
 #: src/as-content-rating.c:461 src/as-content-rating.c:531
 msgid "Teen"
-msgstr ""
+msgstr "Для подростков"
 
 #: src/as-category.c:284
 msgctxt "Category of Utility"
@@ -2283,7 +2275,7 @@ msgstr ""
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
+msgstr "Тип компонента `console-application`, но никакой информации об исполняемых файлах в $PATH не было получено через тэг `provides/binary`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:509
@@ -2297,7 +2289,7 @@ msgstr ""
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr ""
+msgstr "Тип компонента `font`, но никакой информации о шрифте не было получено через тэг `provides/font`."
 
 #: src/as-validator.c:335
 msgid "URL format is invalid."
