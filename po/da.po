@@ -10,31 +10,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Joe Hansen <joedalton2@yahoo.dk>, 2015
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # scootergrisen <scootergrisen@gmail.com>, 2019. #zanata
-#, fuzzy
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2019-02-11 08:19+0000\n"
+"PO-Revision-Date: 2020-10-11 07:26+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
-"Language-Team: Danish (http://www.transifex.com/freedesktop/appstream-glib/"
-"language/da/)\n"
+"Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  da.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.1\n"
-"#-#-#-#-#  da.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -1017,16 +1011,12 @@ msgstr "Licens"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:647
-#, fuzzy
 msgid ""
 "Licenses for `runtime` components are usually too complex to reflect them in "
 "a simple SPDX expression. Consider using a `LicenseRef` and a web URL as "
 "value for this component's `project_license`. E.g. `LicenseRef-free=https://"
 "example.com/licenses.html`"
-msgstr ""
-"Licenser til 'runtime'-komponenter er normalt for komplekse til at afspejle "
-"dem i et simpelt SPDX-udtryk. Overvej at bruge en 'LicenseRef' og en web-URL "
-"som værdi for denne komponents 'project_license'. F.eks."
+msgstr "Licenser til 'runtime'-komponenter er normalt for komplekse til at afspejle dem i et simpelt SPDX-udtryk. Overvej at bruge en 'LicenseRef' og en web-URL som værdi for denne komponents 'project_license'. F.eks. 'LicenseRef-free=https://example.com/licenses.html'"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstream-cli.c:771
