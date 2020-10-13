@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2020-10-11 07:26+0000\n"
+"PO-Revision-Date: 2020-10-13 01:26+0000\n"
 "Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/appstream/translations/da/>\n"
 "Language: da\n"
@@ -57,13 +57,10 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
-#, fuzzy
 msgid ""
 "A `requires` or `recommends` item requires a value to denote a valid "
 "relation."
-msgstr ""
-"Et 'requires'- eller 'recommends'-punkt kræver en værdi for at betegne en "
-"gyldig relation."
+msgstr "Et 'requires'- eller 'recommends'-punkt kræver en værdi for at betegne en gyldig relation."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:200
@@ -120,13 +117,10 @@ msgstr "Vis også pedantiske tips."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:515
-#, fuzzy
 msgid ""
 "An `extends` tag is specified, but the component is not of type `addon`, "
 "`localization` or `repository`."
-msgstr ""
-"Et 'extends'-tag er angivet, men komponenten er ikke af typen 'addon', "
-"'localization' eller 'repository'."
+msgstr "Et 'extends'-tag er angivet, men komponenten er ikke af typen 'addon', 'localization' eller 'repository'."
 
 #: tools/appstream-cli.c:850
 msgid "An item type (e.g. lib, bin, python3, …)"
@@ -696,52 +690,36 @@ msgstr "Fandt %i komponenter."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:265
-#, fuzzy
 msgid ""
 "Found `version` property on required/recommended item of a type that should "
 "not have or require a version."
-msgstr ""
-"Fandt 'version'-egenskab på krævet/anbefalet punkt på en type som ikke skal "
-"have eller kræve en version."
+msgstr "Fandt 'version'-egenskab på krævet/anbefalet punkt på en type som ikke skal have eller kræve en version."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:271
-#, fuzzy
 msgid ""
 "Found `version` property on this required/recommended item, but not "
 "`compare` property. It is recommended to explicitly define a comparison "
 "operation."
-msgstr ""
-"Fandt 'version'-egenskab på dette krævet/anbefalet punkt, men ikke 'compare'-"
-"egenskab. Det anbefales udtrykkeligt at angive en sammenligningsoperation."
+msgstr "Fandt 'version'-egenskab på dette krævet/anbefalet punkt, men ikke 'compare'-egenskab. Det anbefales udtrykkeligt at angive en sammenligningsoperation."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:282
-#, fuzzy
 msgid ""
 "Found a memory size relation in a `requires` tag. This means users will not "
 "be able to even install the component without having enough RAM. This is "
 "usually not intended and you want to use `memory` in the `recommends` tag "
 "instead."
-msgstr ""
-"Fandt en hukommelsesstørrelse-afhængighed i et 'requires'-tag. Det betyder "
-"at brugerne ikke engang kan installere komponenten uden nok RAM. Det er "
-"typisk ikke hensigten og du vil måske i stedet bruge 'memory' i 'recommends'-"
-"tagget."
+msgstr "Fandt en hukommelsesstørrelse-relation i et 'requires'-tag. Det betyder at brugerne ikke engang kan installere komponenten uden nok RAM. Det er typisk ikke hensigten og du vil måske i stedet bruge 'memory' i 'recommends'-tagget."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:289
-#, fuzzy
 msgid ""
 "Found a user input control relation in a `requires` tag. This means users "
 "will not be able to even install the component without having the defined "
 "input control available on the system. This is usually not intended and you "
 "want to use `control` in the `recommends` tag instead."
-msgstr ""
-"Fandt en hukommelsesstørrelse-afhængighed i et 'requires'-tag. Det betyder "
-"at brugerne ikke engang kan installere komponenten uden nok RAM. Det er "
-"typisk ikke hensigten og du vil måske i stedet bruge 'memory' i 'recommends'-"
-"tagget."
+msgstr "Fandt en hukommelsesstørrelse-relation i et 'requires'-tag. Det betyder at brugerne ikke engang kan installere komponenten uden at have den angivne inputstyring tilgængelig på systemet. Det er typisk ikke hensigten og du vil måske i stedet bruge 'control' i 'recommends'-tagget."
 
 #: src/as-validator-issue-tag.h:253
 msgid ""
@@ -752,19 +730,13 @@ msgstr ""
 "fejl da en komponentrelation af denne type er ukendt."
 
 #: src/as-validator-issue-tag.h:445
-#, fuzzy
 msgid ""
 "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream "
 "also provides the <custom/> tag to add arbitrary custom data to metainfo "
 "files. This tag is read by AppStream libraries and may be useful instead of "
 "defining new custom toplevel or `x-`-prefixed tags if you just want to add "
 "custom data to a metainfo file."
-msgstr ""
-"Fandt et ugyldigt tag. Tags som ikke er standard skal præfikset med 'x-'. "
-"AppStream leverer også <custom/>-tagget til at tilføje vilkårlig tilpasset "
-"data til metainfo-filer. Tagget læses af AppStream-biblioteket og kan være "
-"nyttig i stedet for at definere et nyt tilpasset topniveau eller tags "
-"præfikset med 'x-', hvis du vil tilføje tilpasset data til en metainfo-fil."
+msgstr "Fandt ugyldigt tag. Tags som ikke er standard skal præfikset med 'x-'. AppStream leverer også <custom/>-tagget til at tilføje vilkårlig tilpasset data til metainfo-filer. Tagget læses af AppStream-biblioteker og kan være nyttig i stedet for at definere nyt tilpasset topniveau eller tags præfikset med 'x-', hvis du vil tilføje tilpasset data til en metainfo-fil."
 
 #. TRANSLATORS: An invalid XML tag was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #: src/as-validator.c:527 src/as-validator.c:946 src/as-validator.c:1028
@@ -881,21 +853,15 @@ msgstr "Ikon"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:369
-#, fuzzy
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
-"Ikoner af typen 'remote' skal indeholde en URL til det ikon der henvises til."
+msgstr "Ikoner af typen 'remote' skal indeholde en URL til det ikon der henvises til."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:362
-#, fuzzy
 msgid ""
 "Icons of type `stock` or `cached` must not contain an URL, a full or an "
 "relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
-"Ikoner af typen 'stock' eller 'cached' må ikke indeholde en URL, en fuld "
-"eller en relativ sti til ikonet. Kun filens grundnavne eller stocknavne er "
-"tilladt."
+msgstr "Ikoner af typen 'stock' eller 'cached' må ikke indeholde en URL, en fuld eller en relativ sti til ikonet. Kun filens grundnavne eller stocknavne er tilladt."
 
 #: tools/ascli-actions-misc.c:94
 msgid "Iconsets"
@@ -935,22 +901,17 @@ msgstr "Installer software som matcher komponent-id'et."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:391
-#, fuzzy
 msgid ""
 "Invalid `type` property for this `url` tag. URLs of this type are not known "
 "in the AppStream specification."
-msgstr ""
-"Ugyldig 'type'-egenskab til 'url'-tagget. URL'er af denne type er ikke kendt "
-"i AppStream-specifikationen."
+msgstr "Ugyldig 'type'-egenskab til 'url'-tagget. URL'er af denne type er ikke kendt i AppStream-specifikationen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:571
-#, fuzzy
 msgid ""
 "Invalid tag found in collection metadata. Only `component` tags are "
 "permitted."
-msgstr ""
-"Ugyldigt tag fundet i samlingens metadata. Kun 'component'-tags er tilladt."
+msgstr "Ugyldigt tag fundet i samlingens metadata. Kun 'component'-tags er tilladt."
 
 #: tools/ascli-actions-mdata.c:213
 msgid "Invalid type for provided item selected. Valid values are:"
@@ -1101,13 +1062,10 @@ msgstr "Metainfofilen '%s' findes ikke."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:385
-#, fuzzy
 msgid ""
 "Metainfo files may only contain icons of type `stock` or `remote`, the set "
 "type is not allowed."
-msgstr ""
-"Metainfo-filer må kun indeholde ikoner af typen 'stock' eller 'remote', den "
-"indstillet type er ikke tilladt."
+msgstr "Metainfo-filer må kun indeholde ikoner af typen 'stock' eller 'remote', den indstillet type er ikke tilladt."
 
 #. TRANSLATORS: Info about upstream metadata / metainfo files in the ascli status report
 #: tools/ascli-actions-misc.c:116
@@ -1540,15 +1498,11 @@ msgid "Show the program version."
 msgstr "Vis programversionen."
 
 #: src/as-validator-issue-tag.h:653
-#, fuzzy
 msgid ""
 "Since a `runtime` component is comprised of multiple other software "
 "components, their component-IDs may be listed in a `<provides/>` section for "
 "this runtime."
-msgstr ""
-"Da en \"runtime\" komponent er sammensat af flere andre software "
-"komponenter, kan deres komponent-ID'er, for denne runtime, være listet i en "
-"\"<provides/>\" sektion ."
+msgstr "Da en 'runtime'-komponent består af flere andre softwarekomponenter, kan deres komponent-ID'er, for denne runtime, være listet i et '<provides/>'-sektion."
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:929
@@ -1577,7 +1531,6 @@ msgstr "Underkommandoer:"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:545
-#, fuzzy
 msgid ""
 "Suggestions of any type other than `upstream` are not allowed in metainfo "
 "files."
@@ -1599,7 +1552,7 @@ msgstr "Systemovervågning"
 
 #: src/as-validator-issue-tag.h:46
 msgid "Tags of this name are not permitted in this section."
-msgstr "Tags med dette navn tillades ikke i afsnittet."
+msgstr "Tags med dette navn tillades ikke i sektionen."
 
 #: src/as-content-rating.c:461 src/as-content-rating.c:531
 msgid "Teen"
@@ -1625,13 +1578,10 @@ msgid "The <developer_name/> can not contain a hyperlink."
 msgstr "<developer_name/> må ikke indeholde et hyperlink."
 
 #: src/as-validator-issue-tag.h:331
-#, fuzzy
 msgid ""
 "The <id/> tag still contains a `type` property, probably from an old "
 "conversion to the recent metainfo format."
-msgstr ""
-"<id/>-tagget indeholder stadig en 'type'-egenskab, formodentligt fra en "
-"gammel konvertering til det nye metainfo-format."
+msgstr "<id/>-tagget indeholder stadig en 'type'-egenskab, formodentligt fra en gammel konvertering til det nye metainfo-format."
 
 #: src/as-validator-issue-tag.h:634
 msgid ""
@@ -1675,22 +1625,17 @@ msgid "The XML of this file is malformed."
 msgstr "XML'en i filen er forkert udformet."
 
 #: src/as-validator-issue-tag.h:336
-#, fuzzy
 msgid ""
 "The `pkgname` tag appears multiple times. You should evaluate creating a "
 "metapackage containing the metainfo and .desktop files in order to avoid "
 "defining multiple package names per component."
-msgstr ""
-"'pkgname'-tagget findes flere gange. Du bør overveje at oprette en metapakke "
-"med metainfo- og .desktop-filerne for at undgå at skulle definere flere "
-"pakkenavne pr. komponent."
+msgstr "'pkgname'-tagget findes flere gange. Du bør overveje at oprette en metapakke med metainfo- og .desktop-filerne for at undgå at skulle definere flere pakkenavne pr. komponent."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:434
-#, fuzzy
 msgid ""
 "The `update_contact` tag should not be included in collection AppStream XML."
-msgstr "'update_contact'-tagget skal ikke medtages i samlingens AppStream XML."
+msgstr "'update_contact'-tagget skal ikke medtages i samlingens AppStream-XML."
 
 #: src/as-validator-issue-tag.h:602
 msgid ""
@@ -1709,15 +1654,11 @@ msgstr ""
 "gyldige kategorinavne."
 
 #: src/as-validator-issue-tag.h:124
-#, fuzzy
 msgid ""
 "The component ID contains a hyphen/minus. Using a hyphen is strongly "
 "discouraged, to improve interoperability with other tools such as D-Bus. A "
 "good option is to replace any hyphens with underscores (`_`)."
-msgstr ""
-"Komponent-id'et indeholer en bindestreg/minus. Det frarådes kraftigt at "
-"bruge en bindestreg for at få bedre samkørsel med andre værktøjer såsom D-"
-"Bus. Et godt valg er at erstatte bindestreger med understregninger ('_')."
+msgstr "Komponent-id'et indeholer en bindestreg/minus. Det frarådes kraftigt at bruge en bindestreg for at få bedre samkørsel med andre værktøjer såsom D-Bus. Et godt valg er at erstatte bindestreger med understregninger ('_')."
 
 #: src/as-validator-issue-tag.h:130
 msgid ""
@@ -1777,19 +1718,14 @@ msgstr ""
 "(validatoren kender ikke TLD'en som bruges af det)."
 
 #: src/as-validator-issue-tag.h:136
-#, fuzzy
 msgid "The component ID should only contain lowercase letters."
-msgstr ""
-"Komponentens opsummering kan ikke indeholde tabulatorer eller linjeskift."
+msgstr "Komponent-id'et må kun indeholde små bogstaver."
 
 #: src/as-validator-issue-tag.h:311
-#, fuzzy
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Komponenten har angivet en 'merge'-metode. Det er ikke tilladt i metainfo-"
-"filer."
+msgstr "Komponenten har angivet en 'merge'-metode. Det er ikke tilladt i metainfo-filer."
 
 #: src/as-validator-issue-tag.h:306
 msgid ""
@@ -1801,10 +1737,8 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:521
-#, fuzzy
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
-"Komponenten er en tilføjelse men der er ikke angivet noget 'extends'-tag."
+msgstr "Komponenten er en tilføjelse men der er ikke angivet noget 'extends'-tag."
 
 #: src/as-validator-issue-tag.h:458
 msgid ""
@@ -1851,10 +1785,8 @@ msgstr ""
 "omvendte DNS-navn (\"org.kde\")."
 
 #: src/as-validator-issue-tag.h:341
-#, fuzzy
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
-"Komponentens navn skal (sandsynligvis) ikke slutte med et punktum ('.')."
+msgstr "Komponentens navn skal (sandsynligvis) ikke slutte med et punktum ('.')."
 
 #: src/as-validator-issue-tag.h:351
 msgid "The component summary must not contain tabs or linebreaks."
@@ -1862,7 +1794,6 @@ msgstr ""
 "Komponentens opsummering kan ikke indeholde tabulatorer eller linjeskift."
 
 #: src/as-validator-issue-tag.h:346
-#, fuzzy
 msgid "The component summary should not end with a dot (`.`)."
 msgstr "Komponentens opsummering skal ikke slutte med et punktum ('.')."
 
@@ -1894,26 +1825,18 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:453
-#, fuzzy
 msgid ""
 "The essential tag `metadata_license` is missing. A license for the metadata "
 "itself always has to be defined."
-msgstr ""
-"Det essentielle tag 'metadata_license' mangler. Der skal altid være angivet "
-"en licens til selve metadataene."
+msgstr "Det essentielle tag 'metadata_license' mangler. Der skal altid være angivet en licens til selve metadataene."
 
 #: src/as-validator-issue-tag.h:79
-#, fuzzy
 msgid ""
 "The first `description/p` paragraph of this component might be too short (< "
 "80 characters). Please consider starting with a longer paragraph to improve "
 "how the description looks like in software centers and to provide more "
 "detailed information on this component immediately in the first paragraph."
-msgstr ""
-"Det første 'description/p'-afsnit i komponenten er måske for kort (< 80 "
-"tegn). Overvej venligst at begynde med et længere afsnit for at forbedre "
-"beskrivelsens udseende i softwarecentre og for at levere mere detaljeret "
-"information om komponenten straks i det første afsnit."
+msgstr "Det første 'description/p'-afsnit i komponenten er måske for kort (< 80 tegn). Overvej venligst at begynde med et længere afsnit for at forbedre beskrivelsens udseende i softwarecentre og for at levere mere detaljeret information om komponenten straks i det første afsnit."
 
 #: src/as-validator-issue-tag.h:161
 msgid ""
@@ -1961,13 +1884,10 @@ msgstr ""
 "pga. indbyrdes inkompatible licenser."
 
 #: src/as-validator-issue-tag.h:617
-#, fuzzy
 msgid ""
 "The metainfo file is stored in a legacy path. Please place it in `/usr/share/"
 "metainfo/`."
-msgstr ""
-"Metainfo-filen er gemt i en forældet sti. Placer den venligst i '/usr/share/"
-"metainfo'."
+msgstr "Metainfo-filen er gemt i en forældet sti. Placer den venligst i '/usr/share/metainfo/'."
 
 #: src/as-validator-issue-tag.h:622
 msgid "The metainfo file specifies multiple components. This is not allowed."
@@ -2007,50 +1927,34 @@ msgstr "Skærmbilledet har ikke en billedtekst. Overvej at tilføje en."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
-#, fuzzy
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
-"Skærmbilledets video angiver ikke det anvendte containerformat i en "
-"'container'-egenskab."
+msgstr "Skærmbilledets video angiver ikke det anvendte containerformat i en 'container'-egenskab."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:217
-#, fuzzy
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
-"Skærmbilledets video angiver ikke det anvendte videocodec i en 'codec'-"
-"egenskab."
+msgstr "Skærmbilledets video angiver ikke det anvendte videocodec i en 'codec'-egenskab."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
-#, fuzzy
 msgid ""
 "The selected video codec is not supported by AppStream and software centers "
 "may not be able to play the video. Only the AV1 and VP9 codecs are currently "
 "supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
-"Det valgte videocodec understøttes ikke af AppStream, og softwarecentre vil "
-"måske ikke være i stand til at afspille videoen. På nuværende tidspunkt "
-"understøttes kun AV1- og VP9-codecs, som bruger 'av1' og 'vp9' som værdier "
-"til 'codec'-egenskaben."
+msgstr "Det valgte videocodec understøttes ikke af AppStream, og softwarecentre vil måske ikke være i stand til at afspille videoen. På nuværende tidspunkt understøttes kun AV1- og VP9-codecs, som bruger 'av1' og 'vp9' som værdier til 'codec'-egenskaben."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:236
-#, fuzzy
 msgid ""
 "The selected video container format is not supported by AppStream and "
 "software centers may not be able to play the video. Only the WebM and "
 "Matroska video containers are currently supported, using `webm` and `mkv` as "
 "values for the `container` property."
-msgstr ""
-"Det valgte videocontainerformat understøttes ikke af AppStream og "
-"softwarecentre vil måske ikke være i stand til at afspille videoen. På "
-"nuværende tidspunkt understøttes kun WebM- og Matroska-videocontainere, som "
-"bruger 'webm' og 'mkv' som værdier til 'container'-egenskaben."
+msgstr "Det valgte videocontainerformat understøttes ikke af AppStream, og softwarecentre vil måske ikke være i stand til at afspille videoen. På nuværende tidspunkt understøttes kun WebM- og Matroska-videocontainere, som bruger 'webm' og 'mkv' som værdier til 'container'-egenskaben."
 
 #: src/as-validator-issue-tag.h:301
 msgid ""
@@ -2085,13 +1989,10 @@ msgid ""
 msgstr "Typen af punktet som komponenten leverer er ikke kendt af AppStream."
 
 #: src/as-validator-issue-tag.h:179
-#, fuzzy
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"update-contact ser ikke ud til at være en gyldig e-mailadresse (unvigelse af "
-"'@' tillades kun som '_at_' eller '_AT_')."
+msgstr "update-contact ser ikke ud til at være en gyldig e-mailadresse (undvigelse af '@' tillades kun som '_at_' eller '_AT_')."
 
 #: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
 #, c-format
@@ -2112,80 +2013,60 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:428
-#, fuzzy
 msgid "This `bundle` tag has an unknown type and can not be used."
 msgstr "'bundle'-tagget har en ukendt type og kan ikke bruges."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:296
-#, fuzzy
 msgid ""
 "This `control` item defines an unknown input method and is invalid. Check "
 "the specification for a list of permitted values."
-msgstr ""
-"Kategorien som er defineret i .desktop-filen er ikke gyldig. Se XDG-"
-"menuspeficikationen for en liste over gyldige kategorier."
+msgstr "`control`-punktet angiver en ukendt inputmetode og er ugyldigt. Tjek specifikationen for at få en liste over tilladte værdier."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:422
-#, fuzzy
 msgid "This `launchable` tag has an unknown type and can not be used."
 msgstr "'launchable'-tagget har en ukendt type og kan ikke bruges."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:533
-#, fuzzy
 msgid ""
 "This `localization` component does not define any languages this "
 "localization is for."
-msgstr ""
-"'localization'-komponenten definerer ikke nogen sprog som lokaliseringen er "
-"til."
+msgstr "'localization'-komponenten definerer ikke nogen sprog som lokaliseringen er til."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:527
-#, fuzzy
 msgid ""
 "This `localization` component is missing an `extends` tag, to specify the "
 "components it adds localization to."
-msgstr ""
-"'localization'-komponenten mangler et 'extends'-tag til at angive "
-"komponenterne den tilføjer lokalisering til."
+msgstr "'localization'-komponenten mangler et 'extends'-tag til at angive de komponenter den tilføjer lokalisering til."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:539
-#, fuzzy
 msgid ""
 "This `service` component is missing a `launchable` tag of type `service`."
 msgstr "'service'-komponenten mangler et 'launchable'-tag af typen 'service'."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:491
-#, fuzzy
 msgid ""
 "This `web-application` component is missing a `icon` tag to specify a valid "
 "icon."
-msgstr ""
-"'web-application'-komponenten mangler et 'icon'-tag til at angive et gyldigt "
-"ikon."
+msgstr "'web-application'-komponenten mangler et 'icon'-tag til at angive et gyldigt ikon."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:485
-#, fuzzy
 msgid ""
 "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
-"'web-application'-komponenten mangler et 'launchable'-tag af typen 'url'."
+msgstr "'web-application'-komponenten mangler et 'launchable'-tag af typen 'url'."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:497
-#, fuzzy
 msgid ""
 "This `web-application` component is missing categorizations. A `categories` "
 "block is likely missing."
-msgstr ""
-"'web-application'-komponenten mangler kategoriseringer. Der mangler "
-"sandsynligvis en 'categories'-blok."
+msgstr "'web-application'-komponenten mangler kategoriseringer. Der mangler sandsynligvis en 'categories'-blok."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:680
@@ -2281,33 +2162,24 @@ msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:479
-#, fuzzy
 msgid ""
 "Type `console-application` component, but no information about binaries in "
 "$PATH was provided via a `provides/binary` tag."
-msgstr ""
-"Typen er 'console-application'-komponent men der blev ikke angivet nogen "
-"information om binære i $PATH via et 'provides/binary'-tag."
+msgstr "Typen er 'console-application'-komponent men der blev ikke angivet nogen information om binære i $PATH via et 'provides/binary'-tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:509
-#, fuzzy
 msgid ""
 "Type `driver` component, but no modalias information was provided via a "
 "`provides/modalias` tag."
-msgstr ""
-"Typen er 'driver'-komponent men der blev ikke angivet nogen information om "
-"modalias via et provides/modalias-tag."
+msgstr "Typen er 'driver'-komponent men der blev ikke angivet nogen information om modalias via et 'provides/modalias'-tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:503
-#, fuzzy
 msgid ""
 "Type `font` component, but no font information was provided via a `provides/"
 "font` tag."
-msgstr ""
-"Typen er 'font'-komponent men der blev ikke angivet nogen information om "
-"skrifttype via et 'provides/font'-tag."
+msgstr "Typen er 'font'-komponent men der blev ikke angivet nogen information om skrifttype via et 'provides/font'-tag."
 
 #: src/as-validator.c:335
 msgid "URL format is invalid."
