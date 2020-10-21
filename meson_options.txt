@@ -47,3 +47,8 @@ option('maintainer',
        value : false,
        description : 'Enable maintainer mode (use strict compiler flags, e.g. -Werror)'
 )
+option('experimental_compose',
+       type : 'boolean',
+       value : false,
+       description : 'Build experimental libappstream-compose library'
+)

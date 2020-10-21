@@ -1,0 +1,73 @@
+# Meson build configuration for the AppStream Compose library
+
+ascompose_src = [
+    #
+]
+
+ascompose_pub_headers = [
+    'appstream-compose.h',
+]
+
+ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
+    sources: ascompose_pub_headers,
+    install_header: true,
+    install_dir: 'appstream-compose'
+)
+
+ascompose_priv_headers = [
+    #
+]
+
+appstream_compose_lib = library ('appstream-compose',
+    [ascompose_src,
+     ascompose_pub_headers,
+     ascompose_priv_headers,
+     ascompose_pub_enums],
+    soversion: '0',
+    version: as_version,
+    dependencies: [appstream_dep],
+    include_directories: [include_directories ('..')],
+    install: true
+)
+
+pkgc.generate (
+    version: as_version,
+    libraries: appstream_compose_lib,
+    name: 'appstream-compose',
+    description: 'Helper functions to generate AppStream metadata and auxiliary data.',
+    filebase: 'appstream-compose',
+    subdirs: 'appstream-compose',
+    requires: ['glib-2.0', 'gio-2.0', 'gobject-2.0', 'appstream']
+)
+
+# Meson adds (in our case) bogus Requires.private lines which break
+# builds using libappstream. Fix this issue by post-processing the file.
+sed_prog = find_program('sed')
+pc_fixup = run_command(sed_prog,
+                       '-i',
+                       '/^Requires.private\|^Libs.private/ d',
+                       join_paths(meson.build_root(), 'meson-private', 'appstream-compose.pc'))
+if pc_fixup.returncode() != 0
+    error('Unable to fix up the .pc file:\n' + pc_fixup.stderr())
+endif
+
+install_headers(ascompose_pub_headers, subdir: 'appstream-compose')
+
+if get_option ('gir')
+    asc_gir_typelib = glib.generate_gir (
+        appstream_compose_lib,
+        sources: ascompose_src + ascompose_pub_headers + ascompose_pub_enums,
+        nsversion: '1.0',
+        namespace: 'AppStreamCompose',
+        symbol_prefix: 'asc',
+        identifier_prefix: 'Asc',
+        export_packages: 'appstream-compose',
+        includes: [
+            'GObject-2.0',
+            'Gio-2.0',
+            'AppStream-1.0'
+        ],
+        extra_args: ['--c-include=appstream-compose.h'],
+        install: true
+    )
+endif

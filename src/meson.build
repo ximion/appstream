@@ -75,12 +75,6 @@ aslib_pub_headers = [
     'as-issue.h'
 ]
 
-aslib_pub_enums = glib.mkenums_simple('as-enums-types',
-    sources: aslib_pub_headers,
-    install_header: true,
-    install_dir: 'appstream'
-)
-
 aslib_priv_headers = [
     'as-utils-private.h',
     'as-tag.h',
@@ -110,12 +104,17 @@ aslib_priv_headers = [
     'as-issue-private.h'
 ]
 
+aslib_pub_enums = glib.mkenums_simple('as-enums-types',
+    sources: aslib_pub_headers,
+    install_header: true,
+    install_dir: 'appstream'
+)
+
 aslib_res = glib.compile_resources (
     'as-resources', 'appstream.gresource.xml',
     c_name: 'as',
     source_dir: ['../data']
 )
-
 
 # gperf sources
 aslib_gperf_xml = custom_target(
