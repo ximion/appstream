@@ -76,7 +76,7 @@ aslib_pub_headers = [
 ]
 
 aslib_pub_enums = glib.mkenums_simple('as-enums-types',
-    sources : aslib_pub_headers,
+    sources: aslib_pub_headers,
     install_header: true,
     install_dir: 'appstream'
 )
@@ -112,17 +112,17 @@ aslib_priv_headers = [
 
 aslib_res = glib.compile_resources (
     'as-resources', 'appstream.gresource.xml',
-    c_name : 'as',
-    source_dir : ['../data']
+    c_name: 'as',
+    source_dir: ['../data']
 )
 
 
 # gperf sources
 aslib_gperf_xml = custom_target(
     'gperf as-xml-tag',
-    output : 'as-tag-xml-private.h',
-    input : 'as-tag-xml.gperf',
-    command : [
+    output: 'as-tag-xml-private.h',
+    input: 'as-tag-xml.gperf',
+    command: [
         gperf.path(),
         '@INPUT@',
         '--output-file',
@@ -131,9 +131,9 @@ aslib_gperf_xml = custom_target(
 )
 aslib_gperf_yaml = custom_target(
     'gperf as-yaml-tag',
-    output : 'as-tag-yaml-private.h',
-    input : 'as-tag-yaml.gperf',
-    command : [
+    output: 'as-tag-yaml-private.h',
+    input: 'as-tag-yaml.gperf',
+    command: [
         gperf.path(),
         '@INPUT@',
         '--output-file',
