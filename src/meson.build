@@ -75,6 +75,12 @@ aslib_pub_headers = [
     'as-issue.h'
 ]
 
+aslib_pub_enums = glib.mkenums_simple('as-enums-types',
+    sources : aslib_pub_headers,
+    install_header: true,
+    install_dir: 'appstream'
+)
+
 aslib_priv_headers = [
     'as-utils-private.h',
     'as-tag.h',
@@ -154,13 +160,26 @@ appstream_lib = library ('appstream',
     [aslib_src,
      aslib_pub_headers,
      aslib_priv_headers,
-     aslib_res],
+     aslib_res,
+     aslib_pub_enums],
     soversion: as_api_level,
     version: as_version,
     dependencies: [aslib_deps],
     include_directories: [stemmer_inc_dirs,
                           include_directories ('..')],
     install: true
+)
+
+appstream_dep = declare_dependency(
+    link_with: appstream_lib,
+    sources: [
+        aslib_pub_headers,
+        aslib_pub_enums
+    ],
+    dependencies: [glib_dep,
+                   gobject_dep],
+    include_directories: [appstream_lib_inc,
+                          include_directories ('..')]
 )
 
 pkgc.generate (
@@ -189,7 +208,7 @@ install_headers(aslib_pub_headers, subdir: 'appstream')
 if get_option ('gir')
     as_gir_typelib = glib.generate_gir (
         appstream_lib,
-        sources: aslib_src + aslib_pub_headers,
+        sources: aslib_src + aslib_pub_headers + aslib_pub_enums,
         nsversion: '1.0',
         namespace: 'AppStream',
         symbol_prefix: 'as',
