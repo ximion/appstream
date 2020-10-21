@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include "as-context.h"
 #include "as-enums.h"
+#include "as-enums-types.h"
 #include "as-provided.h"
 #include "as-icon.h"
 #include "as-screenshot.h"
@@ -102,8 +103,6 @@ typedef enum  {
 	AS_COMPONENT_KIND_LAST
 } AsComponentKind;
 
-#define AS_TYPE_COMPONENT_KIND (as_component_kind_get_type ())
-GType			as_component_kind_get_type (void) G_GNUC_CONST;
 const gchar		*as_component_kind_to_string (AsComponentKind kind);
 AsComponentKind		as_component_kind_from_string (const gchar *kind_str);
 
