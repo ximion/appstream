@@ -29,7 +29,7 @@
 extern "C" {
 #endif
 
-/* TODO */
+#include <asc-image.h>
 
 #ifdef __cplusplus
 };

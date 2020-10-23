@@ -1,11 +1,14 @@
 # Meson build configuration for the AppStream Compose library
 
+appstream_compose_lib_inc = include_directories ('.')
+
 ascompose_src = [
-    #
+    'asc-image.c'
 ]
 
 ascompose_pub_headers = [
     'appstream-compose.h',
+    'asc-image.h'
 ]
 
 ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
@@ -18,6 +21,9 @@ ascompose_priv_headers = [
     #
 ]
 
+# extra dependencies we need just for AppStream Compose
+gdkpixbuf_dep  = dependency('gdk-pixbuf-2.0')
+
 appstream_compose_lib = library ('appstream-compose',
     [ascompose_src,
      ascompose_pub_headers,
@@ -25,8 +31,11 @@ appstream_compose_lib = library ('appstream-compose',
      ascompose_pub_enums],
     soversion: '0',
     version: as_version,
-    dependencies: [appstream_dep],
-    include_directories: [include_directories ('..')],
+    dependencies: [appstream_dep,
+                   gio_dep,
+                   gdkpixbuf_dep],
+    include_directories: [root_inc_dir],
+    c_args: '-DASC_COMPILATION',
     install: true
 )
 
@@ -38,6 +47,17 @@ pkgc.generate (
     filebase: 'appstream-compose',
     subdirs: 'appstream-compose',
     requires: ['glib-2.0', 'gio-2.0', 'gobject-2.0', 'appstream']
+)
+
+appstream_compose_dep = declare_dependency(
+    link_with: appstream_compose_lib,
+    sources: [
+        ascompose_pub_headers,
+        ascompose_pub_enums
+    ],
+    dependencies: [glib_dep,
+                   gobject_dep],
+    include_directories: [appstream_compose_lib_inc]
 )
 
 # Meson adds (in our case) bogus Requires.private lines which break
