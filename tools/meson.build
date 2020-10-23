@@ -13,5 +13,6 @@ ascli_exe = executable('appstreamcli',
     [ascli_src],
     dependencies: [appstream_dep,
                    gio_dep],
+    include_directories: [root_inc_dir],
     install: true
 )

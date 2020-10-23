@@ -18,6 +18,7 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <config.h>
 #include <glib.h>
 #include <glib/gprintf.h>
 
@@ -562,6 +563,7 @@ test_merge_components ()
 	g_assert_cmpstr (as_component_get_name (cpt), ==, "Kiki (name changed by merge)");
 }
 
+#ifdef HAVE_STEMMING
 /**
  * test_search_stemming:
  *
@@ -582,6 +584,7 @@ test_search_stemming ()
 	g_assert_cmpstr (tmp, ==, "gimp");
 	g_free (tmp);
 }
+#endif
 
 /**
  * test_pool_empty:

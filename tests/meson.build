@@ -66,6 +66,7 @@ as_test_pool_exe = executable ('as-test_pool',
     dependencies: [appstream_dep,
                    gio_dep,
                    xml2_dep],
+    include_directories: [root_inc_dir]
 )
 test ('as-test_pool',
     as_test_pool_exe,

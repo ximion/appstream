@@ -22,7 +22,6 @@
 #define __AS_SETTINGS_PRIVATE_H
 
 #include <glib-object.h>
-#include "config.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)

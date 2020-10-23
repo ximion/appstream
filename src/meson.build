@@ -1,6 +1,6 @@
 # Meson build configuration for the AppStream library
 
-appstream_lib_inc = include_directories ('.')
+appstream_lib_inc = include_directories('.')
 
 aslib_src = [
     'as-utils.c',
@@ -165,7 +165,7 @@ appstream_lib = library ('appstream',
     version: as_version,
     dependencies: [aslib_deps],
     include_directories: [stemmer_inc_dirs,
-                          include_directories ('..')],
+                          root_inc_dir],
     install: true
 )
 
@@ -177,8 +177,7 @@ appstream_dep = declare_dependency(
     ],
     dependencies: [glib_dep,
                    gobject_dep],
-    include_directories: [appstream_lib_inc,
-                          include_directories ('..')]
+    include_directories: [appstream_lib_inc]
 )
 
 pkgc.generate (

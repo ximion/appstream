@@ -29,6 +29,7 @@ if get_option('stemming')
 endif
 
 configure_file(output: 'config.h', configuration: conf)
+root_inc_dir = include_directories ('.')
 
 #
 # Custom C flags
