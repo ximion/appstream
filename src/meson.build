@@ -180,9 +180,9 @@ appstream_dep = declare_dependency(
     include_directories: [appstream_lib_inc]
 )
 
-pkgc.generate (
+pkgc.generate(
+    appstream_lib,
     version: as_version,
-    libraries: appstream_lib,
     name: 'appstream',
     description: 'Library to work with AppStream metadata.',
     filebase: 'appstream',

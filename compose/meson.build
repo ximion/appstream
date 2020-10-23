@@ -39,14 +39,17 @@ appstream_compose_lib = library ('appstream-compose',
     install: true
 )
 
-pkgc.generate (
+pkgc.generate(
+    appstream_compose_lib,
     version: as_version,
-    libraries: appstream_compose_lib,
     name: 'appstream-compose',
     description: 'Helper functions to generate AppStream metadata and auxiliary data.',
     filebase: 'appstream-compose',
     subdirs: 'appstream-compose',
-    requires: ['glib-2.0', 'gio-2.0', 'gobject-2.0', 'appstream']
+    requires: ['glib-2.0',
+               'gio-2.0',
+               'gobject-2.0',
+               'appstream']
 )
 
 appstream_compose_dep = declare_dependency(
