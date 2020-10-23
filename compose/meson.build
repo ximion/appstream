@@ -3,11 +3,15 @@
 appstream_compose_lib_inc = include_directories ('.')
 
 ascompose_src = [
+    'asc-canvas.c',
+    'asc-font.c',
     'asc-image.c'
 ]
 
 ascompose_pub_headers = [
     'appstream-compose.h',
+    'asc-canvas.h',
+    'asc-font.h',
     'asc-image.h'
 ]
 
@@ -18,11 +22,16 @@ ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
 )
 
 ascompose_priv_headers = [
-    #
+    'asc-font-private.h'
 ]
 
 # extra dependencies we need just for AppStream Compose
+cairo_dep      = dependency('cairo', version : '>= 1.12')
 gdkpixbuf_dep  = dependency('gdk-pixbuf-2.0')
+rsvg_dep       = dependency('librsvg-2.0')
+freetype_dep   = dependency('freetype2')
+pango_dep      = dependency('pango')
+fontconfig_dep = dependency('fontconfig')
 
 appstream_compose_lib = library ('appstream-compose',
     [ascompose_src,
@@ -33,7 +42,12 @@ appstream_compose_lib = library ('appstream-compose',
     version: as_version,
     dependencies: [appstream_dep,
                    gio_dep,
-                   gdkpixbuf_dep],
+                   cairo_dep,
+                   gdkpixbuf_dep,
+                   rsvg_dep,
+                   freetype_dep,
+                   pango_dep,
+                   fontconfig_dep],
     include_directories: [root_inc_dir],
     c_args: '-DASC_COMPILATION',
     install: true

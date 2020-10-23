@@ -62,8 +62,6 @@ struct _AscImageClass
 	void (*_as_reserved2) (void);
 	void (*_as_reserved3) (void);
 	void (*_as_reserved4) (void);
-	void (*_as_reserved5) (void);
-	void (*_as_reserved6) (void);
 };
 
 AscImage	*asc_image_new_from_file (const gchar* fname,
@@ -71,5 +69,23 @@ AscImage	*asc_image_new_from_file (const gchar* fname,
 AscImage	*asc_image_new_from_data (const void *data,
 					  gssize len,
 					  GError **error);
+
+guint		asc_image_get_width (AscImage *image);
+guint		asc_image_get_height (AscImage *image);
+
+void		asc_image_scale (AscImage *image,
+				 guint new_width,
+				 guint new_height);
+
+void		asc_image_scale_to_width (AscImage *image,
+					  guint new_width);
+void		asc_image_scale_to_height (AscImage *image,
+					   guint new_height);
+void		asc_image_scale_to_fit (AscImage *image,
+					guint size);
+
+gboolean	asc_image_save_png (AscImage *image,
+				    const gchar *fname,
+				    GError **error);
 
 G_END_DECLS
