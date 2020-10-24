@@ -118,6 +118,6 @@ subdir('tests/')
 if get_option('qt')
     subdir('qt/')
 endif
-if get_option('experimental_compose')
+if get_option('compose')
     subdir('compose/')
 endif
