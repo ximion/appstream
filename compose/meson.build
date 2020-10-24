@@ -27,6 +27,12 @@ ascompose_priv_headers = [
     'asc-font-private.h'
 ]
 
+asclib_res = glib.compile_resources (
+    'asc-resources', 'appstream-compose.gresource.xml',
+    c_name: 'asc',
+    source_dir: ['../data/compose']
+)
+
 # extra dependencies we need just for AppStream Compose
 cairo_dep      = dependency('cairo', version : '>= 1.12')
 gdkpixbuf_dep  = dependency('gdk-pixbuf-2.0')
@@ -37,6 +43,7 @@ fontconfig_dep = dependency('fontconfig')
 
 appstream_compose_lib = library ('appstream-compose',
     [ascompose_src,
+     asclib_res,
      ascompose_pub_headers,
      ascompose_priv_headers,
      ascompose_pub_enums],
