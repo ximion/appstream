@@ -20,16 +20,22 @@
 
 /**
  * SECTION:asc-canvas
- * @short_description: Draw text and render SVG images.
+ * @short_description: Draw text and render SVG canvass.
  * @include: appstream-compose.h
  */
 
 #include "config.h"
 #include "asc-canvas.h"
 
+#include <cairo.h>
+
 typedef struct
 {
-	guint	dummy;
+	cairo_t *cr;
+	cairo_surface_t *srf;
+
+	gint width;
+	gint height;
 } AscCanvasPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscCanvas, asc_canvas, G_TYPE_OBJECT)
@@ -41,7 +47,10 @@ asc_canvas_finalize (GObject *object)
 	AscCanvas *canvas = ASC_CANVAS (object);
 	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
 
-	priv->dummy = 0;
+	if (priv->cr != NULL)
+            cairo_destroy (priv->cr);
+        if (priv->srf != NULL)
+            cairo_surface_destroy (priv->srf);
 
 	G_OBJECT_CLASS (asc_canvas_parent_class)->finalize (object);
 }
@@ -66,8 +75,43 @@ asc_canvas_class_init (AscCanvasClass *klass)
  * Returns: (transfer full): an #AscCanvas
  **/
 AscCanvas*
-asc_canvas_new (void)
+asc_canvas_new (gint width, gint height)
 {
-	AscCanvas *canvas = g_object_new (ASC_TYPE_CANVAS, NULL);
-	return ASC_CANVAS (canvas);
+	AscCanvasPrivate *priv;
+	AscCanvas *canvas = ASC_CANVAS (g_object_new (ASC_TYPE_CANVAS, NULL));
+	priv = GET_PRIVATE (canvas);
+
+	priv->srf = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+	priv->cr = cairo_create (priv->srf);
+
+	priv->width = width;
+	priv->height = height;
+
+	return canvas;
+}
+
+/**
+ * asc_canvas_get_width:
+ * @canvas: an #AscCanvas instance.
+ *
+ * Gets the canvas width.
+ **/
+guint
+asc_canvas_get_width (AscCanvas *canvas)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	return priv->width;
+}
+
+/**
+ * asc_canvas_get_height:
+ * @canvas: an #AscCanvas instance.
+ *
+ * Gets the canvas height.
+ **/
+guint
+asc_canvas_get_height (AscCanvas *canvas)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	return priv->height;
 }

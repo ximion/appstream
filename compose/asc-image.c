@@ -31,6 +31,8 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <math.h>
 
+#include "asc-globals.h"
+
 typedef struct
 {
 	GdkPixbuf	*pix;
@@ -69,6 +71,56 @@ asc_image_new (void)
 	AscImage *image;
 	image = g_object_new (ASC_TYPE_IMAGE, NULL);
 	return ASC_IMAGE (image);
+}
+
+/**
+ * asc_optimize_png:
+ * @fname: Filename of the PNG image to optimize.
+ * @error: A #GError or %NULL
+ *
+ * Optimizes a PNG graphic for size with optipng, if its binary
+ * is available and this feature is enabled.
+ **/
+gboolean
+asc_optimize_png (const gchar *fname, GError **error)
+{
+	gint exit_status;
+	gboolean r;
+	g_autofree gchar *opng_stdout = NULL;
+	g_autofree gchar *opng_stderr = NULL;
+	g_autofree const gchar **argv = NULL;
+	g_autoptr(GError) tmp_error = NULL;
+
+	if (!asc_globals_get_use_optipng ())
+		return TRUE;
+
+	argv = g_new0 (const gchar*, 2 + 1);
+	argv[0] = asc_globals_get_optipng_binary ();
+	argv[1] = fname;
+
+	/* NOTE: Maybe add an option to run optipng with stronger optimization? (>= -o4) */
+	r = g_spawn_sync (NULL, /* working directory */
+			  (gchar**) argv,
+			  NULL, /* envp */
+			  G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
+			  NULL, /* child setup */
+			  NULL, /* user data */
+			  &opng_stdout,
+			  &opng_stderr,
+			  &exit_status,
+			  &tmp_error);
+	if (!r) {
+		g_propagate_prefixed_error (error, tmp_error, "Failed to spawn optipng.");
+		return FALSE;
+	}
+
+	if (exit_status != 0) {
+		/* FIXME: Maybe emit this as proper error, instead of just logging it? */
+		g_warning ("Optipng on '%s' failed with error code %i: %s%s",
+			   fname, exit_status, opng_stderr? opng_stderr : "", opng_stdout? opng_stdout : "");
+        }
+
+        return TRUE;
 }
 
 /**
@@ -233,6 +285,6 @@ asc_image_save_png (AscImage *image, const gchar *fname, GError **error)
         if (!gdk_pixbuf_save (priv->pix, fname, "png", error, NULL))
 		return FALSE;
 
-        /* TODO: optimizePNG (fname); */
+	asc_optimize_png (fname, error);
 	return TRUE;
 }

@@ -64,6 +64,8 @@ struct _AscImageClass
 	void (*_as_reserved4) (void);
 };
 
+gboolean	asc_optimize_png (const gchar *fname, GError **error);
+
 AscImage	*asc_image_new_from_file (const gchar* fname,
 					  GError **error);
 AscImage	*asc_image_new_from_data (const void *data,

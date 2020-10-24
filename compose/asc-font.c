@@ -27,6 +27,8 @@
 #include "config.h"
 #include "asc-font.h"
 
+GMutex fontconfig_mutex;
+
 typedef struct
 {
 	guint	dummy;

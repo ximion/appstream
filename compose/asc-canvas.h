@@ -40,6 +40,10 @@ struct _AscCanvasClass
 	void (*_as_reserved4) (void);
 };
 
-AscCanvas	*asc_canvas_new ();
+AscCanvas	*asc_canvas_new (gint width,
+				 gint height);
+
+guint		asc_canvas_get_width (AscCanvas *canvas);
+guint		asc_canvas_get_height (AscCanvas *canvas);
 
 G_END_DECLS

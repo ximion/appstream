@@ -18,12 +18,20 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#error "Only <appstream-compose.h> can be included directly."
+#endif
 #pragma once
 
+#include <glib-object.h>
+
 G_BEGIN_DECLS
-#pragma GCC visibility push(hidden)
 
-extern GMutex fontconfig_mutex;
+gboolean	asc_globals_get_use_optipng (void);
+void		asc_globals_set_use_optipng (gboolean enabled);
 
-#pragma GCC visibility pop
+const gchar	*asc_globals_get_optipng_binary (void);
+void		asc_globals_set_optipng_binary (const gchar *path);
+
+
 G_END_DECLS
