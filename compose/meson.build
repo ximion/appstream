@@ -93,7 +93,7 @@ endif
 install_headers(ascompose_pub_headers, subdir: 'appstream-compose')
 
 if get_option ('gir')
-    asc_gir_typelib = glib.generate_gir (
+    asc_gir_typelib = glib.generate_gir(
         appstream_compose_lib,
         sources: ascompose_src + ascompose_pub_headers + ascompose_pub_enums,
         nsversion: '1.0',
@@ -102,11 +102,16 @@ if get_option ('gir')
         identifier_prefix: 'Asc',
         export_packages: 'appstream-compose',
         includes: [
+            as_gir,
             'GObject-2.0',
-            'Gio-2.0',
-            'AppStream-1.0'
+            'Gio-2.0'
         ],
-        extra_args: ['--c-include=appstream-compose.h'],
+        header: 'appstream-compose.h',
+        include_directories: [appstream_lib_inc],
+        dependencies: [appstream_dep],
         install: true
     )
+
+    asc_gir = asc_gir_typelib[0]
+    asc_typelib = asc_gir_typelib[1]
 endif
