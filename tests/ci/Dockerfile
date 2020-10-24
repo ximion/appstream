@@ -9,7 +9,7 @@ RUN apt-get update -qq
 # install build essentials
 RUN apt-get install -yq gcc g++ clang
 
-# install build dependencies
+# install common build dependencies
 RUN apt-get install -yq --no-install-recommends \
     meson \
     ninja-build \
@@ -29,6 +29,15 @@ RUN apt-get install -yq --no-install-recommends \
     libstemmer-dev \
     gperf \
     valac
+
+# install build dependencies for libappstream-compose
+RUN apt-get install -yq --no-install-recommends \
+    libgdk-pixbuf2.0-dev \
+    librsvg2-dev \
+    libcairo2-dev \
+    libfreetype6-dev \
+    libfontconfig1-dev \
+    libpango1.0-dev
 
 # finish
 RUN mkdir /build

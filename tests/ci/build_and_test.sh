@@ -17,6 +17,7 @@ mkdir build && cd build
 meson -Dmaintainer=true \
       -Ddocs=true \
       -Dqt=true \
+      -Dcompose=true \
       -Dapt-support=true \
       -Dvapi=true \
       ..
