@@ -476,7 +476,7 @@ as_xml_add_description_collection_mode_helper (xmlNode *parent, const gchar *des
 	xmlNode *cnode;
 	g_autoptr(AsXMLMarkupParseHelper) helper = NULL;
 
-	if (as_str_empty (description_markup))
+	if (as_is_empty (description_markup))
 		return FALSE;
 
 	/* skip cruft */
@@ -633,7 +633,7 @@ as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTabl
 		const gchar *locale = (const gchar*) link->data;
 		const gchar *str = (const gchar*) g_hash_table_lookup (value_table, locale);
 
-		if (as_str_empty (str))
+		if (as_is_empty (str))
 			continue;
 
 		/* skip cruft */
@@ -725,7 +725,7 @@ as_xml_add_node_list (xmlNode *root, const gchar *name, const gchar *child_name,
 xmlNode*
 as_xml_add_text_node (xmlNode *root, const gchar *name, const gchar *value)
 {
-	if (as_str_empty (value))
+	if (as_is_empty (value))
 		return NULL;
 
 	return xmlNewTextChild (root, NULL, (xmlChar*) name, (xmlChar*) value);

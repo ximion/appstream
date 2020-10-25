@@ -55,7 +55,8 @@ gchar			*as_description_markup_convert (const gchar *markup,
 
 gchar			*as_get_current_locale (void);
 
-gboolean		as_str_empty (const gchar* str);
+AS_INTERNAL_VISIBLE
+gboolean		as_is_empty (const gchar* str);
 GDateTime		*as_iso8601_to_datetime (const gchar *iso_date);
 
 gboolean		as_utils_delete_dir_recursive (const gchar* dirname);

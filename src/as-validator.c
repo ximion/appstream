@@ -432,7 +432,7 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 	g_autofree gchar *node_content = NULL;
 
 	node_content = as_strstripnl ((gchar*) xmlNodeGetContent (node));
-	if (!as_str_empty (node_content))
+	if (!as_is_empty (node_content))
 		return;
 
 	/* release tags are allowed to be empty */
@@ -1153,7 +1153,7 @@ as_validator_check_provides (AsValidator *validator, xmlNode *node, AsComponent 
 		node_name = (const gchar*) iter->name;
 		node_content = as_xml_get_node_value (iter);
 		g_strstrip (node_content);
-		if (as_str_empty (node_content)) {
+		if (as_is_empty (node_content)) {
 			as_validator_add_issue (validator, iter,
 						"tag-empty",
 						"%s", node_name);
@@ -1298,19 +1298,19 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		as_validator_add_issue (validator, root, "component-merge-in-metainfo", NULL);
 
 	/* the component must have an id */
-	if (as_str_empty (as_component_get_id (cpt))) {
+	if (as_is_empty (as_component_get_id (cpt))) {
 		/* we don't have an id */
 		as_validator_add_issue (validator, NULL, "component-id-missing", NULL);
 	}
 
 	/* the component must have a name */
-	if (as_str_empty (as_component_get_name (cpt))) {
+	if (as_is_empty (as_component_get_name (cpt))) {
 		/* we don't have a name */
 		as_validator_add_issue (validator, NULL, "component-name-missing", NULL);
 	}
 
 	/* the component must have a summary */
-	if (as_str_empty (as_component_get_summary (cpt))) {
+	if (as_is_empty (as_component_get_summary (cpt))) {
 		/* we don't have a summary */
 		as_validator_add_issue (validator, NULL, "component-summary-missing", NULL);
 	}
@@ -1521,7 +1521,7 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		as_validator_add_issue (validator, NULL, "metadata-license-missing", NULL);
 
 	/* check if we have a description */
-	if (as_str_empty (as_component_get_description (cpt))) {
+	if (as_is_empty (as_component_get_description (cpt))) {
 		AsComponentKind cpt_kind;
 		cpt_kind = as_component_get_kind (cpt);
 
@@ -1953,7 +1953,7 @@ as_validator_analyze_component_metainfo_relation_cb (const gchar *fname, AsCompo
 											G_KEY_FILE_DESKTOP_KEY_CATEGORIES, NULL);
 						cats = g_strsplit (cats_str, ";", -1);
 						for (i = 0; cats[i] != NULL; i++) {
-							if (as_str_empty (cats[i]))
+							if (as_is_empty (cats[i]))
 								continue;
 							if (!as_utils_is_category_name (cats[i])) {
 								as_validator_add_issue (data->validator, NULL,

@@ -475,14 +475,14 @@ as_component_is_valid (AsComponent *cpt)
 		return FALSE;
 	if (priv->merge_kind != AS_MERGE_KIND_NONE) {
 		/* merge components only need an ID to be valid */
-		return !as_str_empty (priv->id);
+		return !as_is_empty (priv->id);
 	}
 
 	cname = as_component_get_name (cpt);
 	csummary = as_component_get_summary (cpt);
-	if ((!as_str_empty (priv->id)) &&
-		(!as_str_empty (cname)) &&
-		(!as_str_empty (csummary))) {
+	if ((!as_is_empty (priv->id)) &&
+		(!as_is_empty (cname)) &&
+		(!as_is_empty (csummary))) {
 			return TRUE;
 	}
 
@@ -1716,7 +1716,7 @@ as_component_add_provided_item (AsComponent *cpt, AsProvidedKind kind, const gch
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
 	/* we just skip empty items */
-	if (as_str_empty (item))
+	if (as_is_empty (item))
 		return;
 
 	prov = as_component_get_provided_for_kind (cpt, kind);

@@ -524,7 +524,7 @@ as_yaml_emit_localized_entry_with_func (yaml_emitter_t *emitter, const gchar *ke
 static void
 as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, yaml_emitter_t *emitter)
 {
-	if (as_str_empty (value))
+	if (as_is_empty (value))
 		return;
 
 	/* skip cruft */
@@ -552,7 +552,7 @@ as_yaml_emit_localized_entry (yaml_emitter_t *emitter, const gchar *key, GHashTa
 static void
 as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, yaml_emitter_t *emitter)
 {
-	if (as_str_empty (value))
+	if (as_is_empty (value))
 		return;
 
 	/* skip cruft */

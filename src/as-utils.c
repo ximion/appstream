@@ -197,13 +197,13 @@ as_markup_convert_simple (const gchar *markup, GError **error)
 }
 
 /**
- * as_str_empty:
+ * as_is_empty:
  * @str: The string to test.
  *
  * Test if a C string is NULL or empty (containing only spaces).
  */
 gboolean
-as_str_empty (const gchar* str)
+as_is_empty (const gchar* str)
 {
 	if ((str == NULL) || (str[0] == '\0'))
 		return TRUE;
@@ -356,7 +356,7 @@ as_utils_find_files_matching (const gchar* dir, const gchar* pattern, gboolean r
 						 g_strdup ((gchar *) g_ptr_array_index (subdir_list, i)));
 			g_ptr_array_unref (subdir_list);
 		} else {
-			if (!as_str_empty (pattern)) {
+			if (!as_is_empty (pattern)) {
 				if (!g_pattern_match_simple (pattern, g_file_info_get_name (file_info))) {
 					g_object_unref (file_info);
 					continue;
