@@ -205,7 +205,7 @@ as_markup_convert_simple (const gchar *markup, GError **error)
 gboolean
 as_str_empty (const gchar* str)
 {
-	if ((str == NULL) || (g_strcmp0 (str, "") == 0))
+	if ((str == NULL) || (str[0] == '\0'))
 		return TRUE;
 	return FALSE;
 }
