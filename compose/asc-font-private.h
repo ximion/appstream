@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "asc-font.h"
+
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 

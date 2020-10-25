@@ -78,6 +78,7 @@ gboolean		as_utils_is_writable (const gchar *path);
 guint			as_gstring_replace (GString *string,
 					    const gchar *search,
 					    const gchar *replace);
+AS_INTERNAL_VISIBLE
 gchar			*as_str_replace (const gchar *str,
 					 const gchar *old_str,
 					 const gchar *new_str);

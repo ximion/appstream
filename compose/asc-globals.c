@@ -39,6 +39,7 @@ typedef struct
 {
 	gboolean	use_optipng;
 	gchar		*optipng_bin;
+	gchar		*tmp_dir;
 } AscGlobalsPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
@@ -61,6 +62,7 @@ asc_globals_finalize (GObject *object)
 	AscGlobals *globals = ASC_GLOBALS (object);
 	AscGlobalsPrivate *priv = GET_PRIVATE (globals);
 
+	g_free (priv->tmp_dir);
 	g_free (priv->optipng_bin);
 
 	G_OBJECT_CLASS (asc_globals_parent_class)->finalize (object);
@@ -72,6 +74,8 @@ asc_globals_init (AscGlobals *globals)
 	AscGlobalsPrivate *priv = GET_PRIVATE (globals);
 	g_assert (g_globals == NULL);
 	g_globals = globals;
+
+	priv->tmp_dir = g_build_filename (g_get_tmp_dir (), "as-compose", NULL);
 
 	priv->optipng_bin = g_find_program_in_path ("optipng");
 	if (priv->optipng_bin != NULL)
@@ -90,6 +94,45 @@ static AscGlobalsPrivate*
 asc_globals_get_priv (void)
 {
 	return GET_PRIVATE (g_object_new (ASC_TYPE_GLOBALS, NULL));
+}
+
+/**
+ * asc_globals_get_tmp_dir:
+ *
+ * Get temporary directory used by appstream-compose.
+ **/
+const gchar*
+asc_globals_get_tmp_dir (void)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	return priv->tmp_dir;
+}
+
+/**
+ * asc_globals_get_tmp_dir_create:
+ *
+ * Get temporary directory used by appstream-compose
+ * and try to create it if it does not exist.
+ **/
+const gchar*
+asc_globals_get_tmp_dir_create (void)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_mkdir_with_parents (priv->tmp_dir, 0600);
+	return priv->tmp_dir;
+}
+
+/**
+ * asc_globals_set_tmp_dir:
+ *
+ * Set temporary directory used by appstream-compose.
+ **/
+void
+asc_globals_set_tmp_dir (const gchar *path)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_free (priv->tmp_dir);
+	priv->tmp_dir = g_strdup (path);
 }
 
 /**

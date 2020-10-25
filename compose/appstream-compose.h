@@ -29,6 +29,9 @@
 extern "C" {
 #endif
 
+#include <asc-globals.h>
+#include <asc-canvas.h>
+#include <asc-font.h>
 #include <asc-image.h>
 
 #ifdef __cplusplus
