@@ -200,10 +200,12 @@ as_markup_convert_simple (const gchar *markup, GError **error)
  * as_is_empty:
  * @str: The string to test.
  *
- * Test if a C string is NULL or empty (containing only spaces).
+ * Test if a C string is %NULL or empty (contains only terminating null character).
+ *
+ * Returns: %TRUE if string was empty.
  */
 gboolean
-as_is_empty (const gchar* str)
+as_is_empty (const gchar *str)
 {
 	if ((str == NULL) || (str[0] == '\0'))
 		return TRUE;
