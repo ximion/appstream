@@ -112,12 +112,12 @@ subdir('src/')
 subdir('tools/')
 subdir('data/')
 subdir('contrib/')
+if get_option('compose')
+    subdir('compose/')
+endif
 subdir('po/')
 subdir('docs/')
 subdir('tests/')
 if get_option('qt')
     subdir('qt/')
-endif
-if get_option('compose')
-    subdir('compose/')
 endif

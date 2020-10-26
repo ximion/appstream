@@ -81,7 +81,8 @@ appstream_compose_dep = declare_dependency(
         ascompose_pub_headers,
         ascompose_pub_enums
     ],
-    dependencies: [glib_dep,
+    dependencies: [appstream_dep,
+                   glib_dep,
                    gobject_dep],
     include_directories: [appstream_compose_lib_inc]
 )

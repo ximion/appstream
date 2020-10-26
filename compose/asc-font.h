@@ -23,7 +23,7 @@
 #endif
 #pragma once
 
-#include <glib-object.h>
+#include <appstream.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -71,5 +71,24 @@ const gchar	*asc_font_get_id (AscFont *font);
 
 FT_Encoding	asc_font_get_charset (AscFont *font);
 FT_Face		asc_font_get_ftface (AscFont *font);
+
+GList		*asc_font_get_language_list (AscFont *font);
+void		asc_font_add_language (AscFont *font,
+				       const gchar *lang);
+
+const gchar*	asc_font_get_preferred_language (AscFont *font);
+void		asc_font_set_preferred_language (AscFont *font,
+						 const gchar *lang);
+
+const gchar	*asc_font_get_description (AscFont *font);
+const gchar	*asc_font_get_homepage (AscFont *font);
+
+const gchar	*asc_font_get_sample_text (AscFont *font);
+void		asc_font_set_sample_text (AscFont *font,
+					  const gchar *text);
+
+const gchar	*asc_font_get_sample_icon_text (AscFont *font);
+void		asc_font_set_sample_icon_text (AscFont *font,
+					       const gchar *text);
 
 G_END_DECLS

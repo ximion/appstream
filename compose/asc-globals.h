@@ -37,4 +37,6 @@ void		asc_globals_set_use_optipng (gboolean enabled);
 const gchar	*asc_globals_get_optipng_binary (void);
 void		asc_globals_set_optipng_binary (const gchar *path);
 
+GPtrArray	*asc_globals_get_pangrams_for (const gchar *lang);
+
 G_END_DECLS

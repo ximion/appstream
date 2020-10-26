@@ -115,3 +115,19 @@ test ('as-test_misc',
     args: as_test_args,
     env: as_test_env
 )
+
+# AppStream Compose tests
+if get_option('compose')
+    as_test_compose_exe = executable ('as-test_compose',
+        ['test-compose.c',
+         as_test_common_src],
+        dependencies: [appstream_compose_dep,
+                       freetype_dep,
+                       gio_dep],
+    )
+    test ('as-test_compose',
+        as_test_compose_exe,
+        args: as_test_args,
+        env: as_test_env
+    )
+endif

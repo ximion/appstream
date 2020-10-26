@@ -27,6 +27,8 @@
 #include "config.h"
 #include "asc-globals.h"
 
+#include "asc-resources.h"
+
 #define ASC_TYPE_GLOBALS (asc_globals_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AscGlobals, asc_globals, ASC, GLOBALS, GObject)
 
@@ -40,6 +42,9 @@ typedef struct
 	gboolean	use_optipng;
 	gchar		*optipng_bin;
 	gchar		*tmp_dir;
+
+	GMutex		pangrams_mutex;
+	GPtrArray	*pangrams_en;
 } AscGlobalsPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
@@ -65,6 +70,10 @@ asc_globals_finalize (GObject *object)
 	g_free (priv->tmp_dir);
 	g_free (priv->optipng_bin);
 
+	g_mutex_clear (&priv->pangrams_mutex);
+	if (priv->pangrams_en != NULL)
+		g_ptr_array_unref (priv->pangrams_en);
+
 	G_OBJECT_CLASS (asc_globals_parent_class)->finalize (object);
 }
 
@@ -80,6 +89,8 @@ asc_globals_init (AscGlobals *globals)
 	priv->optipng_bin = g_find_program_in_path ("optipng");
 	if (priv->optipng_bin != NULL)
 		priv->use_optipng = TRUE;
+
+	g_mutex_init (&priv->pangrams_mutex);
 }
 
 static void
@@ -118,7 +129,7 @@ const gchar*
 asc_globals_get_tmp_dir_create (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	g_mkdir_with_parents (priv->tmp_dir, 0600);
+	g_mkdir_with_parents (priv->tmp_dir, 0700);
 	return priv->tmp_dir;
 }
 
@@ -182,4 +193,50 @@ asc_globals_set_optipng_binary (const gchar *path)
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
 	g_free (priv->optipng_bin);
 	priv->optipng_bin = g_strdup (path);
+}
+
+/**
+ * asc_globals_get_pangrams_for:
+ *
+ * Obtain a list of pangrams for the given language, currently
+ * only "en" is supported.
+ *
+ * Returns: (transfer none) (element-type utf8): List of pangrams.
+ */
+GPtrArray*
+asc_globals_get_pangrams_for (const gchar *lang)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	if ((lang != NULL) && (g_strcmp0 (lang, "en") != 0))
+		return NULL;
+
+	/* return cached value if possible */
+	if (priv->pangrams_en != NULL)
+		return priv->pangrams_en;
+
+	{
+		g_autoptr(GBytes) data = NULL;
+		g_auto(GStrv) strv = NULL;
+		g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->pangrams_mutex);
+		/* race protection, just to be sure */
+		if (priv->pangrams_en != NULL)
+			return priv->pangrams_en;
+
+		/* load array from resources */
+		data = g_resource_lookup_data (asc_get_resource (),
+						"/org/freedesktop/appstream-compose/pangrams/en.txt",
+						G_RESOURCE_LOOKUP_FLAGS_NONE,
+						NULL);
+		if (data == NULL)
+			return NULL;
+
+		strv = g_strsplit (g_bytes_get_data (data, NULL), "\n", -1);
+		if (strv == NULL)
+			return NULL;
+		priv->pangrams_en = g_ptr_array_new_full(g_strv_length (strv), g_free);
+		for (guint i = 0; strv[i] != NULL; i++)
+			g_ptr_array_add (priv->pangrams_en, g_strdup (strv[i]));
+	}
+
+	return priv->pangrams_en;
 }

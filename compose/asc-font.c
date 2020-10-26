@@ -27,18 +27,18 @@
 #include "config.h"
 #include "asc-font-private.h"
 
-#include <appstream.h>
 #include <fontconfig/fontconfig.h>
 #include FT_SFNT_NAMES_H
 #include FT_TRUETYPE_IDS_H
+#include <pango/pango-language.h>
 
 #include "as-utils-private.h"
 
 #include "asc-globals.h"
-#include "asc-resources.h"
 
 /* Fontconfig is not threadsafe, so we use this mutex to guard any section
- * using it either directly or indirectly. */
+ * using it either directly or indirectly. This variable is exported to
+ * other units as well. */
 GMutex fontconfig_mutex;
 
 typedef struct
@@ -321,14 +321,9 @@ asc_font_new_from_file (const gchar* fname, GError **error)
 AscFont*
 asc_font_new_from_data (const void *data, gssize len, const gchar *file_basename, GError **error)
 {
-	g_autoptr(AscFont) font = NULL;
 	const gchar *tmp_root;
 	gboolean ret;
-	g_autofree gchar *fname;
-
-	font = asc_font_new (error);
-	if (font == NULL)
-		return NULL;
+	g_autofree gchar *fname = NULL;
 
 	/* we unfortunately need to create a stupid temporary file here, otherwise Fontconfig
 	 * does not work and we can not determine the right demo strings for this font.
@@ -345,7 +340,7 @@ asc_font_new_from_data (const void *data, gssize len, const gchar *file_basename
 	if (!ret)
 		return NULL;
 
-	return g_steal_pointer (&font);
+	return asc_font_new_from_file (fname, error);
 }
 
 /**
@@ -384,7 +379,7 @@ const gchar*
 asc_font_get_fullname (AscFont *font)
 {
 	AscFontPrivate *priv = GET_PRIVATE (font);
-	if ((priv->fullname == NULL) || (priv->fullname[0] == '\0')) {
+	if (as_is_empty (priv->fullname)) {
 		g_free (priv->fullname);
 		priv->fullname = g_strdup_printf ("%s %s", asc_font_get_family (font), asc_font_get_style (font));
 	}
@@ -455,3 +450,366 @@ asc_font_get_ftface (AscFont *font)
 	AscFontPrivate *priv = GET_PRIVATE (font);
 	return priv->fface;
 }
+
+/**
+ * asc_font_get_language_list:
+ * @font: an #AscFont instance.
+ *
+ * Gets the list of languages supported by this font.
+ *
+ * Returns: (transfer container) (element-type utf8): Sorted list of languages
+ **/
+GList*
+asc_font_get_language_list (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	GList *list = g_hash_table_get_keys (priv->languages);
+	list = g_list_sort (list, (GCompareFunc) g_strcmp0);
+	return list;
+}
+
+/**
+ * asc_font_add_language:
+ * @font: an #AscFont instance.
+ *
+ * Add language to the language list of this font.
+ **/
+void
+asc_font_add_language (AscFont *font, const gchar *lang)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	g_hash_table_add (priv->languages, g_strdup (lang));
+}
+
+/**
+ * asc_font_get_preferred_language:
+ * @font: an #AscFont instance.
+ *
+ * Gets the fonts preferred language.
+ **/
+const gchar*
+asc_font_get_preferred_language (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	return priv->preferred_lang;
+}
+
+/**
+ * asc_font_set_preferred_language:
+ * @font: an #AscFont instance.
+ *
+ * Sets the fonts preferred language.
+ **/
+void
+asc_font_set_preferred_language (AscFont *font, const gchar *lang)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	g_free (priv->preferred_lang);
+	priv->preferred_lang = g_strdup (lang);
+}
+
+/**
+ * asc_font_get_description:
+ * @font: an #AscFont instance.
+ *
+ * Gets the font description.
+ **/
+const gchar*
+asc_font_get_description (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	return priv->description;
+}
+
+/**
+ * asc_font_get_homepage:
+ * @font: an #AscFont instance.
+ *
+ * Gets the font homepage.
+ **/
+const gchar*
+asc_font_get_homepage (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	return priv->homepage;
+}
+
+/**
+ * asc_font_find_pangram:
+ *
+ * Find a pangram for the given language, making a random but
+ * predictable selection.
+ *
+ * Returns: A representative text for the language, or %NULL if no specific one was found.
+ */
+const gchar*
+asc_font_find_pangram (AscFont *font, const gchar *lang, const gchar *rand_id)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	GPtrArray *pangrams;
+	PangoLanguage *plang;
+	const gchar *text;
+
+	if (g_strcmp0 (lang, "en") == 0) {
+		guint idx;
+
+		/* we ideally want to have fonts of the same family to share the same pangram */
+		if (rand_id == NULL) {
+			rand_id = asc_font_get_family (font);
+			if (as_is_empty (rand_id))
+				rand_id = priv->file_basename;
+			if (as_is_empty (rand_id))
+				rand_id = asc_font_get_id (font);
+		}
+
+		pangrams = asc_globals_get_pangrams_for ("en");
+		if (pangrams == NULL) {
+			g_warning ("No pangrams found for the english language, even though we should have some available.");
+		} else {
+			/* select an English pangram */
+			idx = g_str_hash (rand_id) % pangrams->len;
+			g_print ("Pangrams Len: %i, Index: %i\n", pangrams->len, idx);
+			return (const gchar*) g_ptr_array_index (pangrams, idx);
+		}
+	}
+
+	/* The returned pointer will be valid forever after, and should not be freed. */
+	plang = pango_language_from_string (lang);
+	text = pango_language_get_sample_string (plang);
+	if (g_strcmp0 (text, pango_language_get_sample_string (pango_language_from_string ("xx"))) == 0)
+		return NULL;
+	return text;
+}
+
+/**
+ * asc_font_get_icon_text_for_lang:
+ *
+ * Obtain a font "icon" text for the given language, or
+ * return %NULL in case we do not have one explicitly set.
+ */
+static const gchar*
+asc_font_get_icon_text_for_lang (const gchar *lang)
+{
+	struct {
+		const gchar	*lang;
+		const gchar	*value;
+	} text_icon[] =  {
+		{ "en",		"Aa" },
+		{ "ar",		"أب" },
+		{ "as",		 "অআই" },
+		{ "bn",		 "অআই" },
+		{ "be",		"Аа" },
+		{ "bg",		"Аа" },
+		{ "cs",		"Aa" },
+		{ "da",		"Aa" },
+		{ "de",		"Aa" },
+		{ "es",		"Aa" },
+		{ "fr",		"Aa" },
+		{ "gu",		"અબક" },
+		{ "hi",		 "अआइ" },
+		{ "he",		"אב" },
+		{ "it",		"Aa" },
+		{ "kn",		 "ಅಆಇ" },
+		{ "ml",		"ആഇ" },
+		{ "ne",		 "अआइ" },
+		{ "nl",		"Aa" },
+		{ "or",		 "ଅଆଇ" },
+		{ "pa",		 "ਅਆਇ" },
+		{ "pl",		"ĄĘ" },
+		{ "pt",		"Aa" },
+		{ "ru",		"Аа" },
+		{ "sv",		"Åäö" },
+		{ "ta",		 "அஆஇ" },
+		{ "te",		 "అఆఇ" },
+		{ "ua",		"Аа" },
+		{ "und-zsye",   "😀" },
+		{ "zh-tw",	"漢" },
+		{ NULL, NULL } };
+
+	for (guint i = 0; text_icon[i].lang != NULL; i++) {
+		if (g_strcmp0 (text_icon[i].value, lang) == 0)
+			return text_icon[i].value;
+	}
+
+	return NULL;
+}
+
+/**
+ * asc_font_set_fallback_sample_texts_if_needed:
+ */
+static void
+asc_font_set_fallback_sample_texts_if_needed (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+
+	if (as_is_empty (priv->sample_text)) {
+		g_free (priv->sample_text);
+		priv->sample_text = g_strdup ("Lorem ipsum dolor sit amet, consetetur sadipscing elitr.");
+	}
+
+	if (as_is_empty (priv->sample_icon_text)) {
+		g_free (priv->sample_icon_text);
+		if (g_utf8_strlen (priv->sample_text, 8) > 3)
+			priv->sample_icon_text = g_utf8_substring (priv->sample_text, 0, 3);
+		else
+			priv->sample_icon_text = g_strdup ("Aa");
+	}
+}
+
+/**
+ * asc_font_determine_sample_texts:
+ *
+ * Set example texts to display this font.
+ */
+static void
+asc_font_determine_sample_texts (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	g_autoptr(GList) tmp_lang_list = NULL;
+
+	/* If we only have to set the icon text, try to do it!
+	 * Otherwise keep cached values and do nothing */
+        if (!as_is_empty (priv->sample_text))
+            asc_font_set_fallback_sample_texts_if_needed (font);
+        if (!as_is_empty (priv->sample_icon_text))
+            return;
+
+	/* always prefer English (even if not alphabetically first) */
+	if (g_hash_table_contains (priv->languages, "en")) {
+		g_free (priv->preferred_lang);
+		priv->preferred_lang = g_strdup ("en");
+	}
+
+	/* ensure we try the preferred language first */
+	tmp_lang_list = asc_font_get_language_list (font);
+	if (!as_is_empty (priv->preferred_lang))
+		tmp_lang_list = g_list_prepend (tmp_lang_list, priv->preferred_lang);
+
+	/* determine our sample texts */
+	for (GList *l = tmp_lang_list; l != NULL; l = l->next) {
+		const gchar *text = asc_font_find_pangram (font, l->data, NULL);
+		if (text == NULL)
+			continue;
+
+		g_free (priv->sample_text);
+		priv->sample_text = g_strdup (text);
+
+		g_free (priv->sample_icon_text);
+		priv->sample_icon_text = g_strdup (asc_font_get_icon_text_for_lang (l->data));
+		break;
+	}
+
+	/* set some default values if we have been unable to find any texts */
+        asc_font_set_fallback_sample_texts_if_needed (font);
+
+	/* check if we have a font that can actually display the characters we picked - in case
+	 * it doesn't, we just select random chars. */
+	if (FT_Get_Char_Index (priv->fface, g_utf8_get_char_validated (priv->sample_icon_text, -1)) == 0) {
+		g_free (priv->sample_text);
+		g_free (priv->sample_icon_text);
+		priv->sample_text = g_strdup ("☃❤✓☀★☂♞☯☢∞❄♫↺");
+		priv->sample_icon_text = g_strdup ("☃❤");
+	}
+	if (FT_Get_Char_Index (priv->fface, g_utf8_get_char_validated (priv->sample_icon_text, -1)) == 0) {
+		GString *sample_text;
+		guint count;
+
+		sample_text = g_string_new ("");
+		count = 0;
+		for (gint map = 0; map < priv->fface->num_charmaps; map++) {
+			FT_ULong charcode;
+			FT_UInt gindex;
+			FT_CharMap charmap = priv->fface->charmaps[map];
+			FT_Set_Charmap (priv->fface, charmap);
+
+			charcode = FT_Get_First_Char (priv->fface, &gindex);
+			while (gindex != 0) {
+				if (g_unichar_isgraph (charcode) && !g_unichar_ispunct (charcode)) {
+					count++;
+					g_string_append_unichar (sample_text, charcode);
+				}
+
+				if (count >= 24)
+					break;
+				charcode = FT_Get_Next_Char (priv->fface, charcode, &gindex);
+			}
+
+			if (count >= 24)
+				break;
+		}
+
+		g_free (priv->sample_text);
+		priv->sample_text = g_string_free (sample_text, FALSE);
+		g_strstrip (priv->sample_text);
+
+		g_free (priv->sample_icon_text);
+		priv->sample_icon_text = NULL;
+
+		/* if we were unsuccessful at adding chars, set fallback again
+		 * (and in this case, also set the icon text to something useful again) */
+		asc_font_set_fallback_sample_texts_if_needed (font);
+        }
+}
+
+/**
+ * asc_font_get_sample_text:
+ * @font: an #AscFont instance.
+ *
+ * Gets the sample text for this font.
+ **/
+const gchar*
+asc_font_get_sample_text (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	if (as_is_empty (priv->sample_text))
+		asc_font_determine_sample_texts (font);
+	return priv->sample_text;
+}
+
+/**
+ * asc_font_set_sample_text:
+ * @font: an #AscFont instance.
+ *
+ * Sets the sample text for this font.
+ **/
+void
+asc_font_set_sample_text (AscFont *font, const gchar *text)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	g_free (priv->sample_text);
+	priv->sample_text = g_strdup (text);
+}
+
+/**
+ * asc_font_get_sample_icon_text:
+ * @font: an #AscFont instance.
+ *
+ * Gets the sample icon text fragment for this font.
+ **/
+const gchar*
+asc_font_get_sample_icon_text (AscFont *font)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	if (as_is_empty (priv->sample_icon_text))
+		asc_font_determine_sample_texts (font);
+	return priv->sample_icon_text;
+}
+
+/**
+ * asc_font_set_sample_icon_text:
+ * @font: an #AscFont instance.
+ *
+ * Sets the sample icon text fragment for this font - must not
+ * contain more than 3 characters to be valid.
+ **/
+void
+asc_font_set_sample_icon_text (AscFont *font, const gchar *text)
+{
+	AscFontPrivate *priv = GET_PRIVATE (font);
+	glong len = g_utf8_strlen (text, -1);
+	if (len > 3)
+		return;
+	g_free (priv->sample_icon_text);
+	priv->sample_icon_text = g_strdup (text);
+}
+
