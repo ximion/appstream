@@ -124,6 +124,36 @@ asc_optimize_png (const gchar *fname, GError **error)
 }
 
 /**
+ * asc_image_supported_format_names:
+ *
+ * Get a set of image format names we can currently read
+ * (via GdkPixbuf).
+ *
+ * Returns: (transfer full): A hash set of format names.
+ **/
+GHashTable*
+asc_image_supported_format_names (void)
+{
+	g_autoptr(GSList) fm_list = NULL;
+	GHashTable *res;
+
+	res = g_hash_table_new_full (g_str_hash,
+				     g_str_equal,
+				     g_free,
+				     NULL);
+	fm_list = gdk_pixbuf_get_formats ();
+
+	if (fm_list == NULL)
+		return res;
+
+	for (GSList *l = fm_list; l != NULL; l = l->next)
+		g_hash_table_add (res,
+				  g_strdup ((const gchar*) gdk_pixbuf_format_get_name (l->data)));
+
+	return res;
+}
+
+/**
  * asc_image_new_from_file:
  * @fname: Name of the file to load.
  * @error: A #GError or %NULL

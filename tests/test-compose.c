@@ -91,6 +91,113 @@ test_read_fontinfo ()
 	g_assert_cmpstr (asc_font_find_pangram(font, "en", "abcdefg"), ==, "Five or six big jet planes zoomed quickly past the tower.");
 }
 
+/**
+ * test_image_transform:
+ *
+ * Test image related things, like transformations.
+ */
+static void
+test_image_transform ()
+{
+	g_autoptr(GHashTable) supported_fmts = NULL;
+	g_autofree gchar *sample_img_fname = NULL;
+	g_autoptr(AscImage) image = NULL;
+	g_autoptr(GError) error = NULL;
+
+	g_autofree gchar *data = NULL;
+	gsize data_len;
+
+	/* check if our GdkPixbuf supports the minimum amount of image formats we need */
+	supported_fmts = asc_image_supported_format_names ();
+	g_assert (g_hash_table_contains (supported_fmts, "png"));
+	g_assert (g_hash_table_contains (supported_fmts, "svg"));
+	g_assert (g_hash_table_contains (supported_fmts, "jpeg"));
+
+	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
+
+	/* load image from file */
+	image = asc_image_new_from_file (sample_img_fname, &error);
+	g_assert_no_error (error);
+
+	g_assert_cmpint (asc_image_get_width (image), ==, 136);
+	g_assert_cmpint (asc_image_get_height (image), ==, 144);
+
+	/* scale image */
+	asc_image_scale (image, 64, 64);
+	g_assert_cmpint (asc_image_get_width (image), ==, 64);
+	g_assert_cmpint (asc_image_get_height (image), ==, 64);
+
+	asc_image_save_png (image, "/tmp/asc-iscale_test.png", &error);
+	g_assert_no_error (error);
+
+	g_object_unref (image);
+	image = NULL;
+
+	/* test reading image from memory */
+	g_file_get_contents (sample_img_fname, &data, &data_len, &error);
+	g_assert_no_error (error);
+
+	image = asc_image_new_from_data (data, data_len, &error);
+	g_assert_no_error (error);
+
+	asc_image_scale (image, 124, 124);
+	asc_image_save_png (image, "/tmp/asc-iscale-d_test.png", &error);
+	g_assert_no_error (error);
+}
+
+/**
+ * test_canvas:
+ *
+ * Test canvas.
+ */
+static void
+test_canvas ()
+{
+	g_autofree gchar *sample_svg_fname = NULL;
+	g_autofree gchar *font_fname = NULL;
+	g_autofree gchar *data = NULL;
+	gsize data_len;
+	g_autoptr(AscCanvas) cv = NULL;
+	g_autoptr(AscFont) font = NULL;
+	g_autoptr(GInputStream) stream = NULL;
+	g_autoptr(GError) error = NULL;
+
+	sample_svg_fname = g_build_filename (datadir, "table.svgz", NULL);
+
+	/* read & render compressed SVG file */
+	g_file_get_contents (sample_svg_fname, &data, &data_len, &error);
+	g_assert_no_error (error);
+
+	stream = g_memory_input_stream_new_from_data (data, data_len, NULL);
+
+	cv = asc_canvas_new (512, 512);
+	asc_canvas_render_svg (cv, stream, &error);
+	g_assert_no_error (error);
+
+	asc_canvas_save_png (cv, "/tmp/asc-svgrender_test1.png", &error);
+	g_assert_no_error (error);
+
+	g_object_unref (cv);
+	cv = NULL;
+
+	/* test font rendering */
+	font_fname = g_build_filename (datadir, "NotoSans-Regular.ttf", NULL);
+	font = asc_font_new_from_file (font_fname, &error);
+	g_assert_no_error (error);
+
+	cv = asc_canvas_new (400, 100);
+
+	asc_canvas_draw_text (cv,
+			      font,
+			      "Hello World!\nSecond Line!\nThird line - äöüß!\nA very, very, very long line.",
+			      -1, -1,
+			      &error);
+	g_assert_no_error (error);
+
+	asc_canvas_save_png (cv, "/tmp/asc-fontrender_test1.png", &error);
+	g_assert_no_error (error);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -112,6 +219,8 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);
+	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
+	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);
 
 	ret = g_test_run ();
 	g_free (datadir);

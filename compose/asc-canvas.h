@@ -24,6 +24,9 @@
 #pragma once
 
 #include <glib-object.h>
+#include <gio/gio.h>
+
+#include "asc-font.h"
 
 G_BEGIN_DECLS
 
@@ -40,10 +43,49 @@ struct _AscCanvasClass
 	void (*_as_reserved4) (void);
 };
 
+/**
+ * AscCanvasError:
+ * @ASC_CANVAS_ERROR_FAILED:	Generic failure.
+ * @ASC_CANVAS_ERROR_DRAWING:	Drawing operation failed.
+ * @ASC_CANVAS_ERROR_FONT:	Issue with font or font selection.
+ *
+ * A metadata processing error.
+ **/
+typedef enum {
+	ASC_CANVAS_ERROR_FAILED,
+	ASC_CANVAS_ERROR_DRAWING,
+	ASC_CANVAS_ERROR_FONT,
+	/*< private >*/
+	ASC_CANVASE_RROR_LAST
+} AscCanvasError;
+
+#define	ASC_CANVAS_ERROR	asc_canvas_error_quark ()
+GQuark				asc_canvas_error_quark (void);
+
 AscCanvas	*asc_canvas_new (gint width,
 				 gint height);
 
 guint		asc_canvas_get_width (AscCanvas *canvas);
 guint		asc_canvas_get_height (AscCanvas *canvas);
+
+gboolean	asc_canvas_render_svg(AscCanvas* canvas,
+					GInputStream *stream,
+					GError** error);
+
+gboolean	asc_canvas_draw_text_line (AscCanvas *canvas,
+					   AscFont *font,
+					   const gchar *text,
+					   gint border_width,
+					   GError **error);
+gboolean	asc_canvas_draw_text (AscCanvas *canvas,
+					AscFont *font,
+					const gchar *text,
+					gint border_width,
+					gint line_pad,
+					GError **error);
+
+gboolean	asc_canvas_save_png (AscCanvas *canvas,
+					const gchar *fname,
+					GError **error);
 
 G_END_DECLS

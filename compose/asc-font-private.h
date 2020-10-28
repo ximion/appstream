@@ -23,10 +23,18 @@
 #include "asc-font.h"
 #include "as-settings-private.h"
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
 
 extern GMutex fontconfig_mutex;
+
+AS_INTERNAL_VISIBLE
+FT_Encoding	asc_font_get_charset (AscFont *font);
+AS_INTERNAL_VISIBLE
+FT_Face		asc_font_get_ftface (AscFont *font);
 
 AS_INTERNAL_VISIBLE
 const gchar	*asc_font_find_pangram (AscFont *font,

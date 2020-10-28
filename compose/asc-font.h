@@ -23,9 +23,7 @@
 #endif
 #pragma once
 
-#include <appstream.h>
-#include <ft2build.h>
-#include FT_FREETYPE_H
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
@@ -44,7 +42,7 @@ struct _AscFontClass
 
 /**
  * AscFontError:
- * @AS_METADATA_ERROR_FAILED:			Generic failure.
+ * @ASC_FONT_ERROR_FAILED:	Generic failure.
  *
  * A metadata processing error.
  **/
@@ -68,9 +66,6 @@ const gchar	*asc_font_get_family (AscFont *font);
 const gchar	*asc_font_get_style (AscFont *font);
 const gchar	*asc_font_get_fullname (AscFont *font);
 const gchar	*asc_font_get_id (AscFont *font);
-
-FT_Encoding	asc_font_get_charset (AscFont *font);
-FT_Face		asc_font_get_ftface (AscFont *font);
 
 GList		*asc_font_get_language_list (AscFont *font);
 void		asc_font_add_language (AscFont *font,

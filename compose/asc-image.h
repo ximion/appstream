@@ -65,6 +65,7 @@ struct _AscImageClass
 };
 
 gboolean	asc_optimize_png (const gchar *fname, GError **error);
+GHashTable	*asc_image_supported_format_names (void);
 
 AscImage	*asc_image_new_from_file (const gchar* fname,
 					  GError **error);

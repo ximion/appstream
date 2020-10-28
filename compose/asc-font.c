@@ -568,7 +568,6 @@ asc_font_find_pangram (AscFont *font, const gchar *lang, const gchar *rand_id)
 		} else {
 			/* select an English pangram */
 			idx = g_str_hash (rand_id) % pangrams->len;
-			g_print ("Pangrams Len: %i, Index: %i\n", pangrams->len, idx);
 			return (const gchar*) g_ptr_array_index (pangrams, idx);
 		}
 	}

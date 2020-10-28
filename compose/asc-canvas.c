@@ -28,6 +28,11 @@
 #include "asc-canvas.h"
 
 #include <cairo.h>
+#include <cairo-ft.h>
+#include <librsvg/rsvg.h>
+
+#include "asc-font-private.h"
+#include "asc-image.h"
 
 typedef struct
 {
@@ -40,6 +45,20 @@ typedef struct
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscCanvas, asc_canvas, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asc_canvas_get_instance_private (o))
+
+/**
+ * asc_canvas_error_quark:
+ *
+ * Return value: An error quark.
+ **/
+GQuark
+asc_canvas_error_quark (void)
+{
+	static GQuark quark = 0;
+	if (!quark)
+		quark = g_quark_from_static_string ("AscCanvasError");
+	return quark;
+}
 
 static void
 asc_canvas_finalize (GObject *object)
@@ -114,4 +133,260 @@ asc_canvas_get_height (AscCanvas *canvas)
 {
 	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
 	return priv->height;
+}
+
+/**
+ * asc_canvas_render_svg:
+ * @canvas: an #AscCanvas instance.
+ * @stream: SVG data input stream.
+ * @error: A #GError or %NULL
+ *
+ * Render an SVG graphic from the SVG data provided.
+ **/
+gboolean
+asc_canvas_render_svg (AscCanvas *canvas, GInputStream *stream, GError **error)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	RsvgHandle *handle = NULL;
+	RsvgDimensionData dims;
+	gboolean ret = FALSE;
+	double w, h;
+
+	/* NOTE: unfortunately, Cairo/RSvg may use Fontconfig internally, so
+	 * we need to lock this down since a parallel-processed font
+	 * might need to access this too. */
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&fontconfig_mutex);
+
+	handle = rsvg_handle_new_from_stream_sync (stream,
+						   NULL,
+						   RSVG_HANDLE_FLAGS_NONE,
+						   NULL,
+						   error);
+	if (handle == NULL)
+		goto out;
+
+	rsvg_handle_get_dimensions (handle, &dims);
+	w = (double) cairo_image_surface_get_width (priv->srf);
+	h = (double) cairo_image_surface_get_height (priv->srf);
+
+	/* cairo_translate (cr, (w - dims.width) / 2, (h - dims.height) / 2); */
+	cairo_scale (priv->cr, w / dims.width, h / dims.height);
+
+	cairo_save (priv->cr);
+        if (!rsvg_handle_render_cairo (handle, priv->cr)) {
+		cairo_restore (priv->cr);
+		g_set_error_literal (error,
+				     ASC_CANVAS_ERROR,
+				     ASC_CANVAS_ERROR_DRAWING,
+				     "SVG graphic rendering failed.");
+		goto out;
+	}
+	ret = TRUE;
+
+out:
+	if (handle != NULL)
+		g_object_unref (handle);
+	return ret;
+}
+
+/**
+ * asc_canvas_draw_text_line:
+ * @canvas: an #AscCanvas instance.
+ * @font: an #AscFont to use for drawing the text.
+ * @border_width: Border with around the text, set to -1 to use defaults.
+ * @error: A #GError or %NULL
+ *
+ * Draw a simple line of text without linebreaks to fill the canvas.
+ **/
+gboolean
+asc_canvas_draw_text_line (AscCanvas *canvas, AscFont *font, const gchar *text, gint border_width, GError **error)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	cairo_font_face_t *cff = NULL;
+	cairo_status_t status;
+	cairo_text_extents_t te;
+	gint text_size;
+	gboolean ret = FALSE;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&fontconfig_mutex);
+
+	/* set default value */
+	if (border_width < 0)
+		border_width = 4;
+
+	if (text == NULL) {
+		g_set_error_literal (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FAILED,
+			     "Can not draw NULL string.");
+		return FALSE;
+	}
+
+	cff = cairo_ft_font_face_create_for_ft_face (asc_font_get_ftface (font), FT_LOAD_DEFAULT);
+
+	/* set font face for Cairo surface */
+	status = cairo_font_face_status (cff);
+	if (status != CAIRO_STATUS_SUCCESS) {
+		g_set_error (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FONT,
+			     "Could not set font face for Cairo: %i", status);
+		goto out;
+	}
+	cairo_set_font_face (priv->cr, cff);
+
+	text_size = 128;
+	while (text_size-- > 0) {
+		cairo_set_font_size (priv->cr, text_size);
+		cairo_text_extents (priv->cr, text, &te);
+		if (te.width <= 0.01f || te.height <= 0.01f)
+			continue;
+		if (te.width < priv->width - (border_width * 2) &&
+		    te.height < priv->height - (border_width * 2))
+			break;
+	}
+
+	/* draw text */
+	cairo_move_to (priv->cr,
+    		       (priv->width / 2) - te.width / 2 - te.x_bearing,
+    		       (priv->height / 2) - te.height / 2 - te.y_bearing);
+    	cairo_set_source_rgb (priv->cr, 0.0, 0.0, 0.0);
+    	cairo_show_text (priv->cr, text);
+
+        cairo_save (priv->cr);
+	ret = TRUE;
+
+out:
+	if (cff != NULL)
+		cairo_font_face_destroy (cff);
+	return ret;
+}
+
+/**
+ * asc_canvas_draw_text:
+ * @canvas: an #AscCanvas instance.
+ * @font: an #AscFont to use for drawing the text.
+ * @border_width: Border with around the text (set to -1 to use defaults).
+ * @line_pad: Padding between lines (set to -1 to use defaults).
+ * @error: A #GError or %NULL
+ *
+ * Draw a longer text with linebreaks.
+ **/
+gboolean
+asc_canvas_draw_text (AscCanvas *canvas, AscFont *font, const gchar *text, gint border_width, gint line_pad, GError **error)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	gboolean ret = FALSE;
+	cairo_font_face_t *cff = NULL;
+	cairo_status_t status;
+	g_auto(GStrv) lines = NULL;
+	guint lines_len;
+	guint line_padding;
+	const gchar *longest_line;
+	gint text_size;
+	double x_pos, y_pos, te_height;
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&fontconfig_mutex);
+
+	/* set default values */
+	if (border_width < 0)
+		border_width = 4;
+	if (line_pad < 0)
+		line_pad = 2;
+
+	if (text == NULL) {
+		g_set_error_literal (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FAILED,
+			     "Can not draw NULL string.");
+		return FALSE;
+	}
+
+	cff = cairo_ft_font_face_create_for_ft_face (asc_font_get_ftface (font), FT_LOAD_DEFAULT);
+        /* set font face for Cairo surface */
+	status = cairo_font_face_status (cff);
+	if (status != CAIRO_STATUS_SUCCESS) {
+		g_set_error (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FONT,
+			     "Could not set font face for Cairo: %i", status);
+		goto out;
+	}
+	cairo_set_font_face (priv->cr, cff);
+
+	/* calculate best font size */
+        line_padding = line_pad;
+        lines = g_strsplit (text, "\n", -1);
+	lines_len = g_strv_length (lines);
+        if (lines_len <= 1) {
+            line_padding = 0;
+            longest_line = text;
+        } else {
+		guint ll = 0;
+		longest_line = lines[0];
+		for (guint i = 0; lines[i] != NULL; i++) {
+			guint l_len = strlen (lines[i]);
+			if (l_len > ll) {
+				longest_line = lines[i];
+				ll = l_len;
+			}
+		}
+        }
+
+        cairo_text_extents_t te;
+	text_size = 128;
+	while (text_size-- > 0) {
+		cairo_set_font_size (priv->cr, text_size);
+		cairo_text_extents (priv->cr, longest_line, &te);
+		if (te.width <= 0.01f || te.height <= 0.01f)
+			continue;
+		if (te.width < priv->width - (border_width * 2) &&
+		   (te.height * lines_len + line_padding) < priv->height - (border_width * 2))
+			break;
+	}
+
+	/* center text and draw it */
+        x_pos = (priv->width / 2.0) - te.width / 2 - te.x_bearing;
+        te_height = (double) te.height * lines_len + line_padding * ((double) lines_len - 1);
+        y_pos = (te_height / 2) - te_height / 2 - te.y_bearing + border_width;
+        cairo_move_to (priv->cr, x_pos, y_pos);
+        cairo_set_source_rgb (priv->cr, 0.0, 0.0, 0.0);
+
+	for (guint i = 0; lines[i] != NULL; i++) {
+		cairo_show_text (priv->cr, lines[i]);
+		y_pos += te.height + line_padding;
+		cairo_move_to (priv->cr, x_pos, y_pos);
+	}
+
+        cairo_save (priv->cr);
+	ret = TRUE;
+
+out:
+	if (cff != NULL)
+		cairo_font_face_destroy (cff);
+	return ret;
+}
+
+/**
+ * asc_canvas_save_png:
+ * @canvas: an #AscCanvas instance.
+ * @fname: Filename to save to.
+ * @error: A #GError or %NULL
+ *
+ * Save canvas to PNG file.
+ **/
+gboolean
+asc_canvas_save_png (AscCanvas *canvas, const gchar *fname, GError **error)
+{
+	AscCanvasPrivate *priv = GET_PRIVATE (canvas);
+	cairo_status_t status;
+
+	status = cairo_surface_write_to_png (priv->srf, fname);
+        if (status != CAIRO_STATUS_SUCCESS) {
+		g_set_error (error,
+			     ASC_CANVAS_ERROR,
+			     ASC_CANVAS_ERROR_FONT,
+			     "Could not save canvas to PNG: %i", status);
+		return FALSE;
+	}
+
+	return asc_optimize_png (fname, error);
 }
