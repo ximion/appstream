@@ -1027,6 +1027,20 @@ static const struct {
 
 	/* v1.1 */
 	{
+		/* Why is there an OARS category which discriminates based on sexual orientation?
+		 * It’s because there are, very unfortunately, still countries in the world in
+		 * which homosexuality, or software which refers to it, is illegal. In order to be
+		 * able to ship FOSS in those countries, there needs to be a mechanism for apps to
+		 * describe whether they refer to anything illegal, and for ratings mechanisms in
+		 * those countries to filter out any apps which describe themselves as such.
+		 *
+		 * As a counterpoint, it’s illegal in many more countries to discriminate on the
+		 * basis of sexual orientation, so this category is treated exactly the same as
+		 * sex-themes (once the intensities of the ratings levels for both categories are
+		 * normalised) in those countries.
+		 *
+		 * The differences between countries are handled through handling #AsContentRatingSystem
+		 * values differently. */
 		"sex-homosexuality",
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to homosexuality"),
@@ -1184,7 +1198,7 @@ static const struct {
 	{ "social-info",	OARS_1_0, 0, 0, 13, 13 },
 	{ "social-location",	OARS_1_0, 0, 13, 13, 13 },
 	/* v1.1 additions */
-	{ "sex-homosexuality",	OARS_1_1, 0, 10, 13, 15 },
+	{ "sex-homosexuality",	OARS_1_1, 0, 13, 14, 15 },
 	{ "sex-prostitution",	OARS_1_1, 0, 12, 14, 18 },
 	{ "sex-adultery",	OARS_1_1, 0, 8, 10, 18 },
 	{ "sex-appearance",	OARS_1_1, 0, 10, 10, 15 },
