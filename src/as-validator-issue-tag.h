@@ -132,7 +132,7 @@ AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	},
 
 	{ "cid-contains-uppercase-letter",
-	  AS_ISSUE_SEVERITY_INFO,
+	  AS_ISSUE_SEVERITY_PEDANTIC,
 	  N_("The component ID should only contain lowercase letters.")
 	},
 
