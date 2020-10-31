@@ -834,6 +834,89 @@
 				</listitem>
 			</varlistentry>
 
+			<varlistentry id="tag-requires-recommends-display-width-height">
+				<term>&lt;display_length/&gt;</term>
+				<listitem>
+				<para>
+					Set a relation to the display length defined as an integer value in either <emphasis>millimeters</emphasis> or <emphasis>logical pixels</emphasis>
+					(device pixels divided by scaling factor, roughly equivalent to 0.26mm (1/96in), also known as device-independent pixels).
+					To use millimeters, the <literal>unit</literal> property of this tag needs to be set to value <code>mm</code>, to use logical pixels
+					its value must be <code>px</code>. If no unit is explicitly defined, <code>px</code> is implicitly assumed.
+					Setting the <literal>side</literal> property to either <code>shortest</code> or <code>longest</code> will apply the selected size constraint to
+					either the shortest or longest side of the display rectangle, with <code>shortest</code> being implicitly assumed if no value is set.
+				</para>
+				<note>
+					<title>About Pixel Dimensions</title>
+					<para>
+						One logical pixel (= device independent pixel) roughly corresponds to the visual angle of one pixel on a device with a pixel density of
+						96dpi and a distance from the observer of about 52cm, making the physical pixel about 0.26mm in size.
+						If using logical pixels as unit, they might not always map to exact physical lengths as their exact size is defined by the device providing
+						the display.
+						They do however accurately depict the maximum amount of things that can be drawn in a direction on screen.
+					</para>
+				</note>
+				<para>
+					Relations for the display length can be defined using a <literal>compare</literal> property as described in <xref linkend="tag-requires-recommends"/>.
+					If this property is not present, a value of <code>ge</code> (greater-or-equal) is implicitly assumed.
+				</para>
+				<para>
+					The <literal>display_length</literal> tag also accepts one of the following text values. While their exact meaning in terms of pixel-based or physical size
+					is implementation-defined, the text term must roughly match the screen size of the device class listed next to it in the listing below:
+				</para>
+				<itemizedlist>
+					<listitem><para><code>xsmall</code> - Very small screens, as used in watches, wearables and other small-display devices (about &lt;= 300px).</para></listitem>
+					<listitem><para><code>small</code> - Small screens often used in handheld devices, such as phone screens, small phablets (about &lt; 600px).</para></listitem>
+					<listitem><para><code>medium</code> - Screens in laptops, tablets (about &gt;= 600px)</para></listitem>
+					<listitem><para><code>large</code> - Bigger computer monitors (about &gt;= 1024px)</para></listitem>
+					<listitem><para><code>xlarge</code> - Television screens, large projected images</para></listitem>
+				</itemizedlist>
+				<para>
+					If a text value is used, the <literal>unit</literal> and <literal>side</literal> properties must not be present. For <literal>side</literal>, <code>shortest</code>
+					is assumed in this case.
+					A <literal>compare</literal> property is permitted and will compare the text placeholder values from smallest (<code>xsmall</code>) to largest (<code>xlarge</code>).
+					The text values are intended for adaptive applications which only need or want to give a very rough hint as to which display lengths they support, and do
+					not need fine control over their visibility (as these types of applications will adjust well to most screen sizes at runtime).
+					If finer control is needed, absolute sizes should be used instead.
+				</para>
+				<para>
+					This tag may appear up to four times to set a minimum and maximum dimension required. It is recommended to not mix different units
+					(so e.g. a required minimal width is not requested in both <code>px</code> and <code>mm</code>).
+					If multiple displays are connected to a device, it is acceptable to test against either the largest screen attached to the device, or the combined
+					amount of display space (depending on what makes sense for the respective device).
+				</para>
+				<para>
+					If used in a <literal>requires</literal> block, this relation can be used to restrict an application to only be installable on systems which have a minimum
+					usable display length available for it. If used in a <literal>recommends</literal> block, the application will still be
+					installable, but the user may be shown a warning.
+				</para>
+				<para>
+					If no <literal>display_length</literal> relation is present, a minimum required display (<code>ge</code>) relation
+					of <code>medium</code> is implicitly assumed to preserve backwards compatibility (so applications capable of running on smaller screens
+					need to make their support for that configuration explicit).
+				</para>
+				<para>
+					Examples:
+				</para>
+				<programlisting language="XML"><![CDATA[<!-- recommend at least 600 logical pixels of space -->
+<recommends>
+  <display_length compare="ge">600</display_length>
+</recommends>
+
+<!-- require a device with at least 8x5cm physical screen space for this app -->
+<requires>
+  <display_length side="longest" unit="mm" compare="ge">80</display_length>
+  <display_length side="shortest" unit="mm">50</display_length>
+</requires>
+
+<!-- ensure this application is not run on a very large screen, or
+     very small screen (no tiny handhelds or television screens) -->
+<requires>
+  <display_length compare="lt">xlarge</display_length>
+  <display_length compare="gt">xsmall</display_length>
+</requires>]]></programlisting>
+				</listitem>
+			</varlistentry>
+
 			</variablelist>
 		</listitem>
 
