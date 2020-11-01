@@ -46,6 +46,98 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (AscImage, asc_image, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asc_image_get_instance_private (o))
 
+/**
+ * asc_image_format_to_string:
+ * @format: the %AscImageFormat.
+ *
+ * Converts the enumerated value to an text representation.
+ *
+ * Returns: string version of @format
+ **/
+const gchar*
+asc_image_format_to_string (AscImageFormat format)
+{
+	if (format == ASC_IMAGE_FORMAT_PNG)
+		return "png";
+	if (format == ASC_IMAGE_FORMAT_JPEG)
+		return "jpeg";
+	if (format == ASC_IMAGE_FORMAT_GIF)
+		return "gif";
+	if (format == ASC_IMAGE_FORMAT_SVG)
+		return "svg";
+	if (format == ASC_IMAGE_FORMAT_SVGZ)
+		return "svgz";
+	if (format == ASC_IMAGE_FORMAT_WEBP)
+		return "webp";
+	if (format == ASC_IMAGE_FORMAT_AVIF)
+		return "avif";
+	if (format == ASC_IMAGE_FORMAT_XPM)
+		return "xpm";
+	return NULL;
+}
+
+/**
+ * asc_image_format_from_string:
+ * @str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+ **/
+AscImageFormat
+asc_image_format_from_string (const gchar *str)
+{
+	if (g_strcmp0 (str, "png") == 0)
+		return ASC_IMAGE_FORMAT_PNG;
+	if (g_strcmp0 (str, "jpeg") == 0)
+		return ASC_IMAGE_FORMAT_JPEG;
+	if (g_strcmp0 (str, "gif") == 0)
+		return ASC_IMAGE_FORMAT_GIF;
+	if (g_strcmp0 (str, "svg") == 0)
+		return ASC_IMAGE_FORMAT_SVG;
+	if (g_strcmp0 (str, "svgz") == 0)
+		return ASC_IMAGE_FORMAT_SVGZ;
+	if (g_strcmp0 (str, "webp") == 0)
+		return ASC_IMAGE_FORMAT_WEBP;
+	if (g_strcmp0 (str, "avif") == 0)
+		return ASC_IMAGE_FORMAT_AVIF;
+	if (g_strcmp0 (str, "xpm") == 0)
+		return ASC_IMAGE_FORMAT_XPM;
+	return ASC_IMAGE_FORMAT_UNKNOWN;
+}
+
+/**
+ * asc_image_format_from_filename:
+ * @fname: the filename.
+ *
+ * Returns the image format type based on the given file's filename.
+ *
+ * Returns: a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+ **/
+AscImageFormat
+asc_image_format_from_filename (const gchar *fname)
+{
+	g_autofree gchar *fname_low = g_ascii_strdown (fname, -1);
+
+	if (g_str_has_suffix (fname_low, ".png"))
+		return ASC_IMAGE_FORMAT_PNG;
+	if (g_str_has_suffix (fname_low, ".jpeg") || g_str_has_suffix (fname_low, ".jpg"))
+		return ASC_IMAGE_FORMAT_JPEG;
+	if (g_str_has_suffix (fname_low, ".gif"))
+		return ASC_IMAGE_FORMAT_GIF;
+	if (g_str_has_suffix (fname_low, ".svg") )
+		return ASC_IMAGE_FORMAT_SVG;
+	if (g_str_has_suffix (fname_low, ".svgz"))
+		return ASC_IMAGE_FORMAT_SVGZ;
+	if (g_str_has_suffix (fname_low, ".webp"))
+		return ASC_IMAGE_FORMAT_WEBP;
+	if (g_str_has_suffix (fname_low, ".avif"))
+		return ASC_IMAGE_FORMAT_AVIF;
+	if (g_str_has_suffix (fname_low, ".xpm"))
+		return ASC_IMAGE_FORMAT_XPM;
+	return ASC_IMAGE_FORMAT_UNKNOWN;
+}
+
 static void
 asc_image_finalize (GObject *object)
 {

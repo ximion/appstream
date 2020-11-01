@@ -38,6 +38,8 @@ G_DECLARE_FINAL_TYPE (AscImage, asc_image, ASC, IMAGE, GObject)
  * @ASC_IMAGE_FORMAT_GIF:	GIF format
  * @ASC_IMAGE_FORMAT_SVG:	SVG format
  * @ASC_IMAGE_FORMAT_SVGZ:	Compressed SVG format
+ * @ASC_IMAGE_FORMAT_WEBP:	WebP format
+ * @ASC_IMAGE_FORMAT_AVIF:	AVIF format
  * @ASC_IMAGE_FORMAT_XPM:	XPM format
  *
  * File format of an image.
@@ -49,11 +51,16 @@ typedef enum {
 	ASC_IMAGE_FORMAT_GIF,
 	ASC_IMAGE_FORMAT_SVG,
 	ASC_IMAGE_FORMAT_SVGZ,
+	ASC_IMAGE_FORMAT_WEBP,
+	ASC_IMAGE_FORMAT_AVIF,
 	ASC_IMAGE_FORMAT_XPM,
 	/*< private >*/
 	ASC_IMAGE_FORMAT_LAST
 } AscImageFormat;
 
+const gchar*	asc_image_format_to_string (AscImageFormat format);
+AscImageFormat	asc_image_format_from_string (const gchar *str);
+AscImageFormat	asc_image_format_from_filename (const gchar *fname);
 
 gboolean	asc_optimize_png (const gchar *fname, GError **error);
 GHashTable	*asc_image_supported_format_names (void);
