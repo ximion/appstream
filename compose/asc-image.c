@@ -33,6 +33,11 @@
 
 #include "asc-globals.h"
 
+struct _AscImage
+{
+	GObject parent_instance;
+};
+
 typedef struct
 {
 	GdkPixbuf	*pix;

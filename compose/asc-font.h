@@ -28,17 +28,7 @@
 G_BEGIN_DECLS
 
 #define ASC_TYPE_FONT (asc_font_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AscFont, asc_font, ASC, FONT, GObject)
-
-struct _AscFontClass
-{
-	GObjectClass parent_class;
-	/*< private >*/
-	void (*_as_reserved1) (void);
-	void (*_as_reserved2) (void);
-	void (*_as_reserved3) (void);
-	void (*_as_reserved4) (void);
-};
+G_DECLARE_FINAL_TYPE (AscFont, asc_font, ASC, FONT, GObject)
 
 /**
  * AscFontError:

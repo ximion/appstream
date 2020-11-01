@@ -34,6 +34,11 @@
 #include "asc-font-private.h"
 #include "asc-image.h"
 
+struct _AscCanvas
+{
+	GObject parent_instance;
+};
+
 typedef struct
 {
 	cairo_t *cr;

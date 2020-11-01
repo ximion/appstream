@@ -28,7 +28,7 @@
 G_BEGIN_DECLS
 
 #define ASC_TYPE_IMAGE (asc_image_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AscImage, asc_image, ASC, IMAGE, GObject)
+G_DECLARE_FINAL_TYPE (AscImage, asc_image, ASC, IMAGE, GObject)
 
 /**
  * AscImageFormat:
@@ -54,15 +54,6 @@ typedef enum {
 	ASC_IMAGE_FORMAT_LAST
 } AscImageFormat;
 
-struct _AscImageClass
-{
-	GObjectClass parent_class;
-	/*< private >*/
-	void (*_as_reserved1) (void);
-	void (*_as_reserved2) (void);
-	void (*_as_reserved3) (void);
-	void (*_as_reserved4) (void);
-};
 
 gboolean	asc_optimize_png (const gchar *fname, GError **error);
 GHashTable	*asc_image_supported_format_names (void);

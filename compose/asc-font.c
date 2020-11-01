@@ -41,6 +41,11 @@
  * other units as well. */
 GMutex fontconfig_mutex;
 
+struct _AscFont
+{
+	GObject parent_instance;
+};
+
 typedef struct
 {
 	FT_Library library;
