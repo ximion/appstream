@@ -198,6 +198,32 @@ test_canvas ()
 	g_assert_no_error (error);
 }
 
+/**
+ * test_compose_hints:
+ *
+ * Test compose hints and issue reporting.
+ */
+static void
+test_compose_hints ()
+{
+	g_autoptr(AscHint) hint = NULL;
+	g_autofree gchar *tmp = NULL;
+
+	hint = asc_hint_new ();
+	asc_hint_set_tag (hint, "dev-testsuite-test");
+	asc_hint_set_severity (hint, AS_ISSUE_SEVERITY_INFO);
+	g_assert (asc_hint_is_valid (hint));
+	g_assert (!asc_hint_is_error (hint));
+
+	asc_hint_set_explanation_template (hint,
+					   "This is an explanation for {name} which contains {amount} placeholders, including one left {invalid} intentionally.");
+	asc_hint_add_explanation_var (hint, "name", "the compose testsuite");
+	asc_hint_add_explanation_var (hint, "amount", "3");
+
+	tmp = asc_hint_format_explanation (hint);
+	g_assert_cmpstr (tmp, ==, "This is an explanation for the compose testsuite which contains 3 placeholders, including one left {invalid} intentionally.");
+}
+
 int
 main (int argc, char **argv)
 {
@@ -221,6 +247,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);
 	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
 	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);
+	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);
 
 	ret = g_test_run ();
 	g_free (datadir);
