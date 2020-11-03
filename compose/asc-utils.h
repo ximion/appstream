@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2020 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2020 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -18,28 +18,17 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __APPSTREAM_COMPOSE_H
-#define __APPSTREAM_COMPOSE_H
+#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
+#error "Only <appstream-compose.h> can be included directly."
+#endif
+#pragma once
 
-#define __APPSTREAM_COMPOSE_H_INSIDE__
-
+#include <glib-object.h>
 #include <appstream.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+G_BEGIN_DECLS
 
-#include <asc-globals.h>
-#include <asc-utils.h>
-#include <asc-canvas.h>
-#include <asc-font.h>
-#include <asc-hint.h>
-#include <asc-image.h>
-#include <asc-result.h>
+gchar		*asc_build_component_global_id (const gchar *component_id,
+						const gchar *checksum);
 
-#ifdef __cplusplus
-};
-#endif
-#undef __APPSTREAM_COMPOSE_H_INSIDE__
-
-#endif /* __APPSTREAM_COMPOSE_H */
+G_END_DECLS

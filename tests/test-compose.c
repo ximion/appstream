@@ -27,6 +27,37 @@
 static gchar *datadir = NULL;
 
 /**
+ * test_utils:
+ *
+ * Test global and utility functions.
+ */
+static void
+test_utils ()
+{
+	gchar *tmp;
+
+	tmp = asc_build_component_global_id ("foobar.desktop", "DEADBEEF");
+	g_assert_cmpstr (tmp, ==, "f/fo/foobar.desktop/DEADBEEF");
+	g_free (tmp);
+
+	tmp = asc_build_component_global_id ("org.gnome.yelp.desktop", "DEADBEEF");
+	g_assert_cmpstr (tmp, ==, "org/gnome/yelp.desktop/DEADBEEF");
+	g_free (tmp);
+
+	tmp = asc_build_component_global_id ("noto-cjk.font", "DEADBEEF");
+	g_assert_cmpstr (tmp, ==, "n/no/noto-cjk.font/DEADBEEF");
+	g_free (tmp);
+
+	tmp = asc_build_component_global_id ("io.sample.awesomeapp.sdk", "ABAD1DEA");
+	g_assert_cmpstr (tmp, ==, "io/sample/awesomeapp.sdk/ABAD1DEA");
+	g_free (tmp);
+
+	tmp = asc_build_component_global_id ("io.sample.awesomeapp.sdk", NULL);
+	g_assert_cmpstr (tmp, ==, "io/sample/awesomeapp.sdk/last");
+	g_free (tmp);
+}
+
+/**
  * test_read_fontinfo:
  *
  * Extract font information from a font file.
@@ -244,6 +275,7 @@ main (int argc, char **argv)
 	/* only critical and error are fatal */
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
+	g_test_add_func ("/AppStream/Compose/Utils", test_utils);
 	g_test_add_func ("/AppStream/Compose/FontInfo", test_read_fontinfo);
 	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
 	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);
