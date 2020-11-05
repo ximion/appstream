@@ -27,6 +27,21 @@
 
 G_BEGIN_DECLS
 
+/**
+ * AscComposeError:
+ * @ASC_COMPOSE_ERROR_FAILED:	Generic failure.
+ *
+ * A metadata composition error.
+ **/
+typedef enum {
+	ASC_COMPOSE_ERROR_FAILED,
+	/*< private >*/
+	ASC_COMPOSE_ERROR_LAST
+} AscComposeError;
+
+#define	ASC_COMPOSE_ERROR	asc_compose_error_quark ()
+GQuark			asc_compose_error_quark (void);
+
 const gchar	*asc_globals_get_tmp_dir (void);
 const gchar	*asc_globals_get_tmp_dir_create (void);
 void		asc_globals_set_tmp_dir (const gchar *path);

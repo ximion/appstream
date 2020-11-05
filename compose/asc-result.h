@@ -43,12 +43,33 @@ struct _AscResultClass
 
 AscResult		*asc_result_new (void);
 
-gboolean		asc_result_is_ignored (AscResult *result);
+gboolean		asc_result_unit_ignored (AscResult *result);
 guint			asc_result_components_count (AscResult *result);
 guint			asc_result_hints_count (AscResult *result);
 
-const gchar		*asc_result_get_unit_name (AscResult *result);
-void			asc_result_set_tag (AscResult *result,
-					    const gchar *name);
+AsBundleKind		asc_result_get_bundle_kind (AscResult *result);
+void			asc_result_set_bundle_kind (AscResult *result,
+						    AsBundleKind kind);
+
+const gchar		*asc_result_get_bundle_id (AscResult *result);
+void			asc_result_set_bundle_id (AscResult *result,
+						  const gchar *id);
+
+AsComponent		*asc_result_get_component (AscResult *result,
+						   const gchar *cid);
+GPtrArray		*asc_result_fetch_components (AscResult *result);
+GPtrArray		*asc_result_get_hints (AscResult *result,
+					       const gchar *cid);
+
+gboolean		asc_result_update_component_gcid (AscResult *result,
+							  AsComponent *cpt,
+							  const gchar *data);
+
+gboolean		asc_result_add_component (AscResult *result,
+						  AsComponent *cpt,
+						  const gchar *data,
+						  GError **error);
+gboolean		asc_result_remove_component (AscResult *result,
+						     AsComponent *cpt);
 
 G_END_DECLS

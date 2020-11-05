@@ -52,6 +52,20 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
 
 static AscGlobals *g_globals = NULL;
 
+/**
+ * asc_compose_error_quark:
+ *
+ * Return value: An error quark.
+ **/
+GQuark
+asc_compose_error_quark (void)
+{
+	static GQuark quark = 0;
+	if (!quark)
+		quark = g_quark_from_static_string ("AscComposeError");
+	return quark;
+}
+
 static GObject*
 asc_globals_constructor (GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
 {

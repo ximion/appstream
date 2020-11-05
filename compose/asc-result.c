@@ -28,10 +28,13 @@
 #include "asc-result.h"
 
 #include "as-utils-private.h"
+#include "asc-utils.h"
+#include "asc-globals.h"
 
 typedef struct
 {
-	gchar		*unit_name;
+	AsBundleKind	bundle_kind;
+	gchar		*bundle_id;
 
 	GHashTable	*cpts; /* utf8->AsComponent */
 	GHashTable	*mdata_hashes; /* AsComponent->utf8 */
@@ -47,14 +50,16 @@ asc_result_finalize (GObject *object)
 	AscResult *result = ASC_RESULT (object);
 	AscResultPrivate *priv = GET_PRIVATE (result);
 
+	priv->bundle_kind = AS_BUNDLE_KIND_UNKNOWN;
+
 	priv->cpts = g_hash_table_new_full (g_str_hash,
 					    g_str_equal,
 					    g_free,
 					    g_object_unref);
 	priv->mdata_hashes = g_hash_table_new_full (g_direct_hash,
-						    g_direct_equal,
-						    NULL,
-						    g_free);
+						g_direct_equal,
+						NULL,
+						g_free);
 	priv->hints = g_hash_table_new_full (g_str_hash,
 					     g_str_equal,
 					     g_free,
@@ -69,7 +74,7 @@ asc_result_init (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
 
-	g_free (priv->unit_name);
+	g_free (priv->bundle_id);
 
 	g_hash_table_unref (priv->cpts);
 	g_hash_table_unref (priv->mdata_hashes);
@@ -84,13 +89,13 @@ asc_result_class_init (AscResultClass *klass)
 }
 
 /**
- * asc_result_is_ignored:
+ * asc_result_unit_ignored:
  * @result: an #AscResult instance.
  *
  * Returns: %TRUE if this result means the analyzed unit was ignored entirely..
  **/
 gboolean
-asc_result_is_ignored (AscResult *result)
+asc_result_unit_ignored (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	return (g_hash_table_size (priv->cpts) == 0) && (g_hash_table_size (priv->hints) == 0);
@@ -123,31 +128,233 @@ asc_result_hints_count (AscResult *result)
 }
 
 /**
- * asc_result_get_unit_name:
+ * asc_result_get_bundle_kind:
  * @result: an #AscResult instance.
  *
- * Gets the name of the unit (a directory / package / any entity containing metadata)
- * these results are for.
+ * Gets the bundle kind these results are for.
  **/
-const gchar*
-asc_result_get_unit_name (AscResult *result)
+AsBundleKind
+asc_result_get_bundle_kind (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
-	return priv->unit_name;
+	return priv->bundle_kind;
 }
 
 /**
- * asc_result_set_tag:
+ * asc_result_set_bundle_kind:
  * @result: an #AscResult instance.
  *
- * Sets the name of the unit these results are for.
+ * Sets the kind of the bundle these results are for.
  **/
 void
-asc_result_set_tag (AscResult *result, const gchar *name)
+asc_result_set_bundle_kind (AscResult *result, AsBundleKind kind)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
-	g_free (priv->unit_name);
-	priv->unit_name = g_strdup (name);
+	priv->bundle_kind = kind;
+}
+
+/**
+ * asc_result_get_bundle_id:
+ * @result: an #AscResult instance.
+ *
+ * Gets the ID name of the bundle (a package / Flatpak / any entity containing metadata)
+ * that these these results are generated for.
+ **/
+const gchar*
+asc_result_get_bundle_id (AscResult *result)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	return priv->bundle_id;
+}
+
+/**
+ * asc_result_set_bundle_id:
+ * @result: an #AscResult instance.
+ * @id: The new ID.
+ *
+ * Sets the name of the bundle these results are for.
+ **/
+void
+asc_result_set_bundle_id (AscResult *result, const gchar *id)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	g_free (priv->bundle_id);
+	priv->bundle_id = g_strdup (id);
+}
+
+/**
+ * asc_result_get_component:
+ * @result: an #AscResult instance.
+ * @cid: Component ID to look for.
+ *
+ * Gets the component by its component-id-
+ *
+ * returns: (transfer none): An #AsComponent
+ **/
+AsComponent*
+asc_result_get_component (AscResult *result, const gchar *cid)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	return g_hash_table_lookup (priv->cpts, cid);
+}
+
+/**
+ * asc_result_fetch_components:
+ * @result: an #AscResult instance.
+ *
+ * Gets all components this #AsResult instance contains.
+ *
+ * Returns: (transfer full) (element-type AsComponent) : An array of #AsComponent
+ **/
+GPtrArray*
+asc_result_fetch_components (AscResult *result)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	GPtrArray *res;
+	GHashTableIter iter;
+	gpointer value;
+
+	res = g_ptr_array_new_full (g_hash_table_size (priv->cpts),
+				    g_object_unref);
+
+	g_hash_table_iter_init (&iter, priv->cpts);
+	while (g_hash_table_iter_next (&iter, NULL, &value))
+		g_ptr_array_add (res, g_object_ref (AS_COMPONENT (value)));
+	return res;
+}
+
+/**
+ * asc_result_get_hints:
+ * @result: an #AscResult instance.
+ * @cid: Component ID to look for.
+ *
+ * Gets hints for a component with the given component-id.
+ *
+ * Returns: (transfer none) (element-type AscHint) : An array of #AscHint or %NULL
+ **/
+GPtrArray*
+asc_result_get_hints (AscResult *result, const gchar *cid)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	return g_hash_table_lookup (priv->hints, cid);
+}
+
+
+/**
+ * asc_result_update_component_gcid:
+ * @result: an #AscResult instance.
+ * @cpt: The #AsComponent to edit.
+ * @data: The data to include in the global component ID.
+ *
+ * Update the global component ID for the given component.
+ *
+ * Returns: %TRUE if the component existed and was updated.
+ **/
+gboolean
+asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, const gchar *data)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	g_autofree gchar *gcid = NULL;
+	gchar *hash = NULL;
+	const gchar *old_hash;
+	const gchar *cid = as_component_get_id (cpt);
+
+	if (as_is_empty (cid)) {
+		gcid = asc_build_component_global_id (cid, NULL);
+		as_component_set_data_id (cpt, gcid);
+		return TRUE;
+	}
+	if (!g_hash_table_contains (priv->cpts, cid))
+		return FALSE;
+
+	old_hash = g_hash_table_lookup (priv->mdata_hashes, cpt);
+	if (old_hash == NULL) {
+		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, data, -1);
+	} else {
+		g_autofree gchar *tmp = g_strconcat (old_hash, data, NULL);
+		hash = g_compute_checksum_for_string (G_CHECKSUM_MD5, tmp, -1);
+	}
+
+	g_hash_table_insert (priv->mdata_hashes, cpt, hash);
+	gcid = asc_build_component_global_id (cid, hash);
+	as_component_set_data_id (cpt, gcid);
+
+	return TRUE;
+}
+
+/**
+ * asc_result_add_component:
+ * @result: an #AscResult instance.
+ * @cpt: The #AsComponent to add.
+ * @data: Source data used to generate the GCID hash.
+ * @error: A #GError or %NULL
+ *
+ * Add component to the results set.
+ *
+ * Returns: %TRUE on success.
+ **/
+gboolean
+asc_result_add_component (AscResult *result, AsComponent *cpt, const gchar *data, GError **error)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	AsComponentKind ckind;
+	const gchar *cid = as_component_get_id (cpt);
+
+	if (as_is_empty (cid)) {
+		g_set_error_literal (error,
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     "Can not add component with empty ID to results set.");
+		return FALSE;
+	}
+
+
+	/* web applications, operating systems, repositories
+	 * and component-removal merges don't (need to) have a package/bundle name set */
+	ckind = as_component_get_kind (cpt);
+	if ((ckind != AS_COMPONENT_KIND_WEB_APP) &&
+	    (ckind != AS_COMPONENT_KIND_OPERATING_SYSTEM) &&
+	    (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_REMOVE_COMPONENT)) {
+		if (priv->bundle_kind == AS_BUNDLE_KIND_PACKAGE) {
+			gchar *pkgnames[2] = {priv->bundle_id, NULL};
+			as_component_set_pkgnames (cpt, pkgnames);
+		} else if ((priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) && (priv->bundle_kind >= AS_BUNDLE_KIND_LAST)) {
+			g_autoptr(AsBundle) bundle = as_bundle_new ();
+			as_bundle_set_kind (bundle, priv->bundle_kind);
+			as_bundle_set_id (bundle, priv->bundle_id);
+			as_component_add_bundle (cpt, bundle);
+		}
+        }
+
+        g_hash_table_insert (priv->cpts,
+			     g_strdup (cid),
+			     g_object_ref (cpt));
+	asc_result_update_component_gcid (result, cpt, data);
+	return TRUE;
+}
+
+/**
+ * asc_result_remove_component:
+ * @result: an #AscResult instance.
+ * @cpt: The #AsComponent to remove.
+ *
+ * Remove a component from the results set.
+ *
+ * Returns: %TRUE if the component was found and removed.
+ **/
+gboolean
+asc_result_remove_component (AscResult *result, AsComponent *cpt)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	gboolean ret;
+
+	ret = g_hash_table_remove (priv->cpts,
+				   as_component_get_id (cpt));
+	if (ret)
+		as_component_set_data_id (cpt, NULL);
+	g_hash_table_remove (priv->mdata_hashes, cpt);
+
+	return ret;
 }
 
 /**
