@@ -71,5 +71,13 @@ gboolean		asc_result_add_component (AscResult *result,
 						  GError **error);
 gboolean		asc_result_remove_component (AscResult *result,
 						     AsComponent *cpt);
+gboolean		asc_result_remove_component_by_id (AscResult *result,
+							   const gchar *cid);
+
+gboolean		asc_result_add_hint_by_cid (AscResult *result,
+						    const gchar *component_id,
+						    const gchar *tag,
+						    const gchar *key1,
+						    ...) G_GNUC_NULL_TERMINATED;
 
 G_END_DECLS

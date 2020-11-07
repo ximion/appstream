@@ -7,6 +7,7 @@ ascompose_src = [
     'asc-font.c',
     'asc-globals.c',
     'asc-hint.c',
+    'asc-hint-tags.c',
     'asc-image.c',
     'asc-result.c',
     'asc-utils.c'
@@ -31,6 +32,7 @@ ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
 
 ascompose_priv_headers = [
     'asc-font-private.h',
+    'asc-globals-private.h',
     'asc-hint-tags.h'
 ]
 

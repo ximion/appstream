@@ -28,8 +28,9 @@
 #include "asc-result.h"
 
 #include "as-utils-private.h"
+#include "asc-globals-private.h"
 #include "asc-utils.h"
-#include "asc-globals.h"
+#include "asc-hint.h"
 
 typedef struct
 {
@@ -354,6 +355,142 @@ asc_result_remove_component (AscResult *result, AsComponent *cpt)
 		as_component_set_data_id (cpt, NULL);
 	g_hash_table_remove (priv->mdata_hashes, cpt);
 
+	return ret;
+}
+
+/**
+ * asc_result_remove_component_by_id:
+ * @result: an #AscResult instance.
+ * @cid: a component-ID
+ *
+ * Remove a component from the results set.
+ *
+ * Returns: %TRUE if the component was found and removed.
+ **/
+gboolean
+asc_result_remove_component_by_id (AscResult *result, const gchar *cid)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	AsComponent *cpt;
+
+	cpt = g_hash_table_lookup (priv->cpts, cid);
+	if (cpt == NULL)
+		return FALSE;
+	return asc_result_remove_component (result, cpt);
+}
+
+static gboolean
+asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *component_id, const gchar *tag, const gchar *key1, va_list *args)
+{
+	AscResultPrivate *priv = GET_PRIVATE (result);
+	const gchar *cur_key;
+	const gchar *cur_val;
+	const AscHintTag *tag_details;
+	AscHint *hint = NULL;
+	GPtrArray *hints = NULL;
+
+	g_assert ((cpt == NULL) != (component_id == NULL));
+	if (component_id == NULL) {
+		g_assert (cpt != NULL);
+		component_id = as_component_get_id (cpt);
+	}
+
+	tag_details = asc_globals_get_hint_tag_details (tag);
+	if (tag_details == NULL) {
+		g_error ("Unable to find description of issue hint '%s' - this is a bug!", tag);
+		return TRUE;
+	}
+
+	hint = asc_hint_new ();
+	asc_hint_set_severity (hint, tag_details->severity);
+	asc_hint_set_explanation_template (hint, tag_details->explanation);
+
+	cur_key = key1;
+	while (cur_key != NULL) {
+		cur_val = va_arg (*args, gchar*);
+		if (cur_val == NULL) {
+			g_error ("Hint template replacement value for key '%s' was NULL!", cur_key);
+			break;
+		}
+		asc_hint_add_explanation_var (hint, cur_key, cur_val);
+
+		cur_key = va_arg (*args, gchar*);
+	}
+
+	hints = g_hash_table_lookup (priv->hints, component_id);
+	if (hints == NULL) {
+		hints = g_ptr_array_new_with_free_func (g_object_unref);
+		g_hash_table_insert (priv->hints, g_strdup (component_id), hints);
+	}
+	g_ptr_array_add (hints, hint);
+
+	/* we stop dealing with this component as soon as we encounter a fatal error. */
+	if (asc_hint_is_error (hint)) {
+		if (cpt == NULL)
+			asc_result_remove_component_by_id (result, component_id);
+		else
+			asc_result_remove_component (result, cpt);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * asc_result_add_hint_by_cid:
+ * @result: an #AscResult instance.
+ * @component_id: The component-ID of the affected #AsComponent
+ * @tag: AppStream Compose Issue hint tag
+ * @key1: First key to add a value for, or %NULL
+ * @...: replacement keys and values for the issue explanation, terminated by %NULL
+ *
+ * Add an issue hint for a component.
+ *
+ * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ **/
+gboolean
+asc_result_add_hint_by_cid (AscResult *result, const gchar *component_id, const gchar *tag, const gchar *key1, ...)
+{
+	va_list args;
+	gboolean ret;
+
+	va_start (args, key1);
+	ret = asc_result_add_hint_va (result,
+				      NULL,
+				      component_id,
+				      tag,
+				      key1,
+				      &args);
+	va_end (args);
+	return ret;
+}
+
+/**
+ * asc_result_add_hint:
+ * @result: an #AscResult instance.
+ * @cpt: The affected #AsComponent
+ * @tag: AppStream Compose Issue hint tag
+ * @key1: First key to add a value for, or %NULL
+ * @...: replacement keys and values for the issue explanation, terminated by %NULL
+ *
+ * Add an issue hint for a component.
+ *
+ * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ **/
+gboolean
+asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, const gchar *key1, ...)
+{
+	va_list args;
+	gboolean ret;
+
+	va_start (args, key1);
+	ret = asc_result_add_hint_va (result,
+				      cpt,
+				      NULL,
+				      tag,
+				      key1,
+				      &args);
+	va_end (args);
 	return ret;
 }
 

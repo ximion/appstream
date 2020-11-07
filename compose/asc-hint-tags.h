@@ -24,6 +24,7 @@
 #pragma once
 
 #include <glib.h>
+#include "as-validator-issue.h"
 
 G_BEGIN_DECLS
 #pragma GCC visibility push(hidden)
@@ -32,16 +33,9 @@ typedef struct {
 	const gchar	*tag;
 	AsIssueSeverity	severity;
 	const gchar	*explanation;
-} AsValidatorIssueTag;
+} AscHintTag;
 
-AscHintTag as_validator_issue_tag_list[] =  {
-	{ "dev-test",
-	  AS_ISSUE_SEVERITY_ERROR,
-	  "Placeholder."
-	},
-
-	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
-};
+extern AscHintTag asc_hint_tag_list[];
 
 #pragma GCC visibility pop
 G_END_DECLS

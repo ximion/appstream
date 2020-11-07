@@ -25,7 +25,7 @@
  */
 
 #include "config.h"
-#include "asc-globals.h"
+#include "asc-globals-private.h"
 
 #include "asc-resources.h"
 
@@ -45,6 +45,9 @@ typedef struct
 
 	GMutex		pangrams_mutex;
 	GPtrArray	*pangrams_en;
+
+	GMutex		hint_tags_mutex;
+	GHashTable	*hint_tags;
 } AscGlobalsPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
@@ -87,6 +90,10 @@ asc_globals_finalize (GObject *object)
 	g_mutex_clear (&priv->pangrams_mutex);
 	if (priv->pangrams_en != NULL)
 		g_ptr_array_unref (priv->pangrams_en);
+
+	g_mutex_clear (&priv->hint_tags_mutex);
+	if (priv->hint_tags != NULL)
+		g_hash_table_unref (priv->hint_tags);
 
 	G_OBJECT_CLASS (asc_globals_parent_class)->finalize (object);
 }
@@ -253,4 +260,44 @@ asc_globals_get_pangrams_for (const gchar *lang)
 	}
 
 	return priv->pangrams_en;
+}
+
+/**
+ * asc_globals_get_hint_info:
+ *
+ * Return details for a given hint tag.
+ *
+ * Returns: (transfer none): Hint tag details.
+ */
+AscHintTag*
+asc_globals_get_hint_tag_details (const gchar *tag)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+
+	/* return the cache value without locking, if possible */
+	if (priv->hint_tags != NULL)
+		return g_hash_table_lookup (priv->hint_tags, tag);
+
+	/* create hints cache */
+	{
+		g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->hint_tags_mutex);
+		/* protect against possible locking race */
+		if (priv->hint_tags != NULL)
+			return g_hash_table_lookup (priv->hint_tags, tag);
+
+		priv->hint_tags = g_hash_table_new_full (g_str_hash,
+							 g_str_equal,
+							 g_free,
+							 NULL);
+
+		for (guint i = 0; asc_hint_tag_list[i].tag != NULL; i++) {
+			gboolean r = g_hash_table_insert (priv->hint_tags,
+							  g_strdup (asc_hint_tag_list[i].tag),
+							  &asc_hint_tag_list[i]);
+			if (G_UNLIKELY (!r))
+				g_critical ("Duplicate compose-hint tag '%s' found in tag list. This is a bug in appstream-compose.", asc_hint_tag_list[i].tag);
+		}
+	}
+
+	return g_hash_table_lookup (priv->hint_tags, tag);
 }

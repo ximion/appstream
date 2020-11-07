@@ -18,38 +18,16 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined (__APPSTREAM_COMPOSE_H) && !defined (ASC_COMPILATION)
-#error "Only <appstream-compose.h> can be included directly."
-#endif
 #pragma once
 
-#include <glib-object.h>
+#include "asc-globals.h"
+#include "asc-hint-tags.h"
 
 G_BEGIN_DECLS
+#pragma GCC visibility push(hidden)
 
-/**
- * AscComposeError:
- * @ASC_COMPOSE_ERROR_FAILED:	Generic failure.
- *
- * A metadata composition error.
- **/
-typedef enum {
-	ASC_COMPOSE_ERROR_FAILED,
-	/*< private >*/
-	ASC_COMPOSE_ERROR_LAST
-} AscComposeError;
+GPtrArray	*asc_globals_get_pangrams_for (const gchar *lang);
+AscHintTag	*asc_globals_get_hint_tag_details (const gchar *tag);
 
-#define	ASC_COMPOSE_ERROR	asc_compose_error_quark ()
-GQuark			asc_compose_error_quark (void);
-
-const gchar	*asc_globals_get_tmp_dir (void);
-const gchar	*asc_globals_get_tmp_dir_create (void);
-void		asc_globals_set_tmp_dir (const gchar *path);
-
-gboolean	asc_globals_get_use_optipng (void);
-void		asc_globals_set_use_optipng (gboolean enabled);
-
-const gchar	*asc_globals_get_optipng_binary (void);
-void		asc_globals_set_optipng_binary (const gchar *path);
-
+#pragma GCC visibility pop
 G_END_DECLS

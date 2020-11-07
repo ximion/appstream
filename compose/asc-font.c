@@ -34,7 +34,7 @@
 
 #include "as-utils-private.h"
 
-#include "asc-globals.h"
+#include "asc-globals-private.h"
 
 /* Fontconfig is not threadsafe, so we use this mutex to guard any section
  * using it either directly or indirectly. This variable is exported to
