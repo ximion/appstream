@@ -30,6 +30,7 @@
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
 # Christian K <kirbach.christian@t-online.de>, 2020.
+# Tim Fraedrich <timfraedrich@icloud.com>, 2020.
 #
 # Translators:
 msgid ""
@@ -37,15 +38,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2020-10-13 01:26+0000\n"
-"Last-Translator: Antonios Hazim <antonios.hazim@zoho.eu>\n"
+"PO-Revision-Date: 2020-11-08 09:41+0000\n"
+"Last-Translator: Tim Fraedrich <timfraedrich@icloud.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -1736,12 +1737,13 @@ msgstr ""
 "von Bindestrichen mit Unterstrichen (\"_\")."
 
 #: src/as-validator-issue-tag.h:130
+#, fuzzy
 msgid ""
 "The component ID contains a segment starting with a number. Starting a "
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr ""
+msgstr "Die Komponenten ID enthält ein, mit einer Zahl startendes, Segment. Vom Anfangen der reverse-DNS ID mit einer Zahl, wird strengstens abgeraten, um die Interoperabilität mit anderen Tools, wie D-Bus zu erhalten. Im Idealfall, sollten solche Segmente mit einem Unterstrich beginnen."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
@@ -1865,17 +1867,19 @@ msgid "The component summary should not end with a dot (`.`)."
 msgstr "Die Komponenten-Zusammenfassung sollte nicht mit einem Punkt (».«) enden."
 
 #: src/as-validator-issue-tag.h:248
+#, fuzzy
 msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
+msgstr "Die Standardbildschirmaufnahme einer Softwarekomponente darf kein Video sein. Nutzern Sie ein statisches Bild und setzten Sie das Video als sekundäre Bildschirmaufnahme."
 
 #: src/as-validator-issue-tag.h:86
+#, fuzzy
 msgid ""
 "The description contains a web URL in plain text. This is not allowed, "
 "please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "Die Beschreibung enthält eine Internet-URL in Klartext. Dies ist nicht erlaubt, bitte nutzen Sie stattdessen den <url/> Tag für geteilte Links."
 
 #: src/as-validator.c:152
 msgid ""
