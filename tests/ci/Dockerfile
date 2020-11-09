@@ -22,7 +22,7 @@ RUN apt-get install -yq --no-install-recommends \
     libsoup2.4-dev \
     gtk-doc-tools \
     libgirepository1.0-dev \
-    qt5-default \
+    qtbase5-dev \
     xmlto \
     daps \
     gobject-introspection \
