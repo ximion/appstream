@@ -531,6 +531,7 @@ void
 as_component_add_screenshot (AsComponent *cpt, AsScreenshot* sshot)
 {
 	GPtrArray* sslist;
+	g_return_if_fail (sshot != NULL);
 
 	sslist = as_component_get_screenshots (cpt);
 	g_ptr_array_add (sslist, g_object_ref (sshot));
@@ -1680,6 +1681,7 @@ void
 as_component_add_provided (AsComponent *cpt, AsProvided *prov)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_return_if_fail (prov != NULL);
 
 	if (as_flags_contains (priv->value_flags, AS_VALUE_FLAG_DUPLICATE_CHECK)) {
 		guint i;
@@ -2983,6 +2985,7 @@ void
 as_component_add_launchable (AsComponent *cpt, AsLaunchable *launchable)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+	g_return_if_fail (launchable != NULL);
 	g_ptr_array_add (priv->launchables,
 			 g_object_ref (launchable));
 }
