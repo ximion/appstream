@@ -1,8 +1,8 @@
 # Travis CI config for AppStream
 
+dist: focal
 language: c
 sudo: required
-dist: trusty
 
 services:
   - docker
