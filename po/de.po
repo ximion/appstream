@@ -42,7 +42,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
 "PO-Revision-Date: 2020-11-10 23:28+0000\n"
-"Last-Translator: frauhottelmann <frauhottelmann@gmail.com>\n"
+"Last-Translator: Florian Kothmeier <floriankothmeier@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1734,13 +1734,12 @@ msgstr ""
 "von Bindestrichen mit Unterstrichen (\"_\")."
 
 #: src/as-validator-issue-tag.h:130
-#, fuzzy
 msgid ""
 "The component ID contains a segment starting with a number. Starting a "
 "segment of the reverse-DNS ID with a number is strongly discouraged, to keep "
 "interoperability with other tools such as D-Bus. Ideally, prefix these "
 "segments with an underscore."
-msgstr "Die Komponenten ID enthält ein, mit einer Zahl startendes, Segment. Vom Anfangen der reverse-DNS ID mit einer Zahl, wird strengstens abgeraten, um die Interoperabilität mit anderen Tools, wie D-Bus zu erhalten. Im Idealfall, sollten solche Segmente mit einem Unterstrich beginnen."
+msgstr "Die Komponenten-ID enthält ein Segment, welches mit einer Ziffer beginnt. Es wird stark davon abgeraten, ein Segment mit einer Ziffer beginnen zu lassen, um die Zusammenarbeit mit anderen Werkzeugen, wie D-Bus, zu erhalten. Idealerweise hängen Sie einen Unterstrich vor diese Ziffern."
 
 #: src/as-validator-issue-tag.h:119
 msgid ""
