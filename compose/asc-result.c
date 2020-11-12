@@ -205,7 +205,7 @@ asc_result_get_component (AscResult *result, const gchar *cid)
  *
  * Gets all components this #AsResult instance contains.
  *
- * Returns: (transfer full) (element-type AsComponent) : An array of #AsComponent
+ * Returns: (transfer container) (element-type AsComponent) : An array of #AsComponent
  **/
 GPtrArray*
 asc_result_fetch_components (AscResult *result)

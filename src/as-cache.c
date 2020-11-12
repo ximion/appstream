@@ -2144,7 +2144,7 @@ as_cache_update_results_with_fts_value (AsCache *cache, MDB_txn *txn, MDB_val dv
  *
  * Perform a search for the given terms.
  *
- * Returns: (transfer full): An array of #AsComponent
+ * Returns: (transfer container): An array of #AsComponent
  */
 GPtrArray*
 as_cache_search (AsCache *cache, gchar **terms, gboolean sort, GError **error)
