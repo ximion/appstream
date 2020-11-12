@@ -35,6 +35,8 @@
 
 #include <lmdb.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include <glib/gstdio.h>
 
 #include "as-utils-private.h"
@@ -723,6 +725,7 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 	gboolean nosync;
 	gboolean readonly;
 	g_autoptr(GMutexLocker) locker = NULL;
+	int db_fd;
 
 	/* close cache in case it was open */
 	as_cache_close (cache);
@@ -827,6 +830,14 @@ as_cache_open (AsCache *cache, const gchar *fname, const gchar *locale, GError *
 			     AS_CACHE_ERROR_FAILED,
 			     "Unable to open cache: %s", mdb_strerror (rc));
 		goto fail;
+	}
+
+	/* set FD_CLOEXEC manually. LMDB should do that, but it doesn't:
+	   https://www.openldap.org/lists/openldap-bugs/201702/msg00003.html */
+	if (mdb_env_get_fd (priv->db_env, &db_fd) == MDB_SUCCESS) {
+		int db_fd_flags = fcntl (db_fd, F_GETFD);
+		if (db_fd_flags != -1)
+			fcntl (db_fd, F_SETFD, db_fd_flags | FD_CLOEXEC);
 	}
 
 	/* unlink the file, so it gets removed as soon as we don't need it anymore */
