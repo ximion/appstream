@@ -15,7 +15,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Milo Casagrande <milo@milo.name>, 2018. #zanata
-# J. Lavoie <j.lavoie@net-c.ca>, 2020.
+# J. Lavoie <j.lavoie@net-c.ca>, 2020, 2021.
 # Lory ~ <dury.lorenzo@gmail.com>, 2021.
 # Alessandro Mandelli <mandelli.alessandro@ngi.it>, 2021.
 # phlostically <phlostically@mailinator.com>, 2021.
@@ -27,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:42+0000\n"
-"Last-Translator: Sergio Brighenti <sergio@brighenti.me>\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -1394,9 +1394,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:327
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Il tipo di componente impostato non è un tipo di componente AppStream valido "
-"e riconosciuto."
+msgstr "Il tipo di componente impostato non è un tipo di componente AppStream valido e riconosciuto."
 
 #: src/as-validator-issue-tag.h:332
 msgid ""
@@ -1408,9 +1406,7 @@ msgstr "Il componente ha un valore di priorità impostato. Ciò non è permesso 
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Il componente ha un definito metodo 'merge'. Ciò non è permesso nei file "
-"metainfo."
+msgstr "Il componente ha un definito metodo 'merge'. Ciò non è permesso nei file metainfo."
 
 #: src/as-validator-issue-tag.h:342
 msgid "The component is missing an ID (<id/> tag)."
