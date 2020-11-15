@@ -34,7 +34,7 @@
 # mv87 <mv87@dismail.de>, 2020, 2021.
 # Coruna <airwing77@gmx.de>, 2020, 2021.
 # Johannes Keyser <johanneskeyser@posteo.de>, 2020, 2021.
-# J. Lavoie <j.lavoie@net-c.ca>, 2020.
+# J. Lavoie <j.lavoie@net-c.ca>, 2020, 2021.
 # CurlingTongs <jobiwaff@googlemail.com>, 2021.
 # Johannes Keyser <joke@fsfe.org>, 2021.
 #
@@ -45,7 +45,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2021-12-21 16:25+0100\n"
 "PO-Revision-Date: 2021-12-22 15:41+0000\n"
-"Last-Translator: frauhottelmann <frauhottelmann@gmail.com>\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -1085,11 +1085,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"Die Beschreibungen von AppStream unterstutzen nur ein begrenztes Set von "
-"Tags des Textformats: Die Paragrafen <p/> und Listen <ul/>, <ol/>. Diese "
-"Note von Beschreibung enthaelt ein ungueltiges XML Tag , das in keinen "
-"Anwendungen, von Bestimmungen von MetaInfo erwaehnt sein soll."
+msgstr "Die Beschreibungen von AppStream unterstutzen nur ein begrenztes Set von Tags des Textformats: Die Paragrafen <p/> und Listen <ul/>, <ol/>. Diese Note von Beschreibung enthaelt ein ungueltiges XML Tag , das in keinen Anwendungen, von Bestimmungen von MetaInfo erwaehnt sein soll."
 
 #: src/as-validator-issue-tag.h:69
 msgid ""
@@ -1246,9 +1242,7 @@ msgstr "Die Metadaten scheinen selbst nicht unter einer freizügigen Lizenz zu s
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
-"Der Aktualisierungskontakt ist anscheinend keine gültige E-Mail-Adresse (`@` "
-"darf nur als `_at_` oder `_AT_` umschrieben werden)."
+msgstr "Der Aktualisierungskontakt ist anscheinend keine gültige E-Mail-Adresse (`@` darf nur als `_at_` oder `_AT_` umschrieben werden)."
 
 #: src/as-validator-issue-tag.h:184
 msgid ""
@@ -1260,9 +1254,7 @@ msgstr "Das Bildschirmfoto kann an seiner Entferntenposition nicht erreicht werd
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr ""
-"Das Bildschirmfotovideo an seinem entfernten Speicherort kann nicht erreicht "
-"werden – gibt es die Videodatei?"
+msgstr "Das Bildschirmfotovideo an seinem entfernten Speicherort kann nicht erreicht werden – gibt es die Videodatei?"
 
 #: src/as-validator-issue-tag.h:194
 msgid ""
@@ -1275,43 +1267,32 @@ msgstr "Erwägen Sie eine sichere (HTTPS)-Adresse zu verwenden, um auf dieses Bi
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Ein Bildschirmfoto muss wenigstens ein Bild oder Video enthalten, um "
-"nützlich zu sein. Bitte ein <image/> hinzufügen."
+msgstr "Ein Bildschirmfoto muss wenigstens ein Bild oder Video enthalten, um nützlich zu sein. Bitte ein <image/> hinzufügen."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Ein Bildschirmfoto muss entweder Bilder oder Videos enthalten, aber nicht "
-"beide gleichzeitig. Bitte verwenden Sie das Bildschirmfoto nur für entweder "
-"Bilder oder Videos."
+msgstr "Ein Bildschirmfoto muss entweder Bilder oder Videos enthalten, aber nicht beide gleichzeitig. Bitte verwenden Sie das Bildschirmfoto nur für entweder Bilder oder Videos."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
-"Das Bildschirmfoto hat keinen Beschriftungstext. Erwägen Sie, eine "
-"hinzuzufügen."
+msgstr "Das Bildschirmfoto hat keinen Beschriftungstext. Erwägen Sie, eine hinzuzufügen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:217
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr ""
-"Das Bildschirmfotovideo gibt nicht an, welcher Videocodec in einer Codec-"
-"Eigenschaft verwendet wurde."
+msgstr "Das Bildschirmfotovideo gibt nicht an, welcher Videocodec in einer Codec-Eigenschaft verwendet wurde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr ""
-"Das Bildschirmfotovideo gibt nicht an, welches Containerformat in einer "
-"Containereigenschaft verwendet wurde."
+msgstr "Das Bildschirmfotovideo gibt nicht an, welches Containerformat in einer Containereigenschaft verwendet wurde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
@@ -1342,18 +1323,13 @@ msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr ""
-"Der Standard-Bildschirmfoto einer Softwarekomponente darf kein Video sein. "
-"Nutzen Sie ein statisches Bild und setzten Sie das Video als sekundäres "
-"Bildschirmfoto."
+msgstr "Der Standard-Bildschirmfoto einer Softwarekomponente darf kein Video sein. Nutzen Sie ein statisches Bild und setzten Sie das Video als sekundäres Bildschirmfoto."
 
 #: src/as-validator-issue-tag.h:253
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Ein unbekanntes Tag in einer Gruppe erfordert/empfehlt gefunden. Das ist "
-"wohl ein Fehler, weil die Beziehung von solchem Komponent unbekannt ist."
+msgstr "Ein unbekanntes Tag in einer Gruppe erfordert/empfehlt gefunden. Das ist wohl ein Fehler, weil die Beziehung von solchem Komponent unbekannt ist."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:259
@@ -1527,9 +1503,7 @@ msgstr "Symbole vom Typ »remote« müssen eine URL zu dem referenzierten Symbol
 
 #: src/as-validator-issue-tag.h:400
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
-"Remote-Symbol am angegebenen Web-Standort kann nicht erreicht werden – gibt "
-"es es ihn?"
+msgstr "Remote-Symbol am angegebenen Web-Standort kann nicht erreicht werden – gibt es es ihn?"
 
 #: src/as-validator-issue-tag.h:405
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
@@ -2454,8 +2428,7 @@ msgstr "Erzeuge einen XDG Desktop-Eintrag aus einer Metainfo-Datei."
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1233
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
-"Konvertiere ein YAML oder text NEWS Datei in das metainfo release Format."
+msgstr "Konvertiere ein YAML oder text NEWS Datei in das metainfo release Format."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1238
