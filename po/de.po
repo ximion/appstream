@@ -34,6 +34,7 @@
 # mv87 <mv87@dismail.de>, 2020.
 # Coruna <airwing77@gmx.de>, 2020.
 # Johannes Keyser <johanneskeyser@posteo.de>, 2020.
+# J. Lavoie <j.lavoie@net-c.ca>, 2020.
 #
 # Translators:
 msgid ""
@@ -41,8 +42,8 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2020-11-10 23:28+0000\n"
-"Last-Translator: Florian Kothmeier <floriankothmeier@web.de>\n"
+"PO-Revision-Date: 2020-11-15 14:28+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -90,19 +91,14 @@ msgstr ""
 msgid ""
 "A screenshot must contain at least one image or video in order to be useful. "
 "Please add an <image/> to it."
-msgstr ""
-"Ein Screenshot muss wenigstens ein Bild oder Video enthalten, um nützlich zu "
-"sein. Bitte ein <image/> hinzufügen."
+msgstr "Ein Bildschirmfoto muss wenigstens ein Bild oder Video enthalten, um nützlich zu sein. Bitte ein <image/> hinzufügen."
 
 #: src/as-validator-issue-tag.h:205
 msgid ""
 "A screenshot must contain either images or videos, but not both at the same "
 "time. Please use this screenshot exclusively for either static images or for "
 "videos."
-msgstr ""
-"Ein Screenshot muss entweder Bilder oder Videos enthalten, aber nicht beide "
-"gleichzeitig. Bitte verwenden Sie den Screenshot nur für entweder Bilder "
-"oder Videos."
+msgstr "Ein Bildschirmfoto muss entweder Bilder oder Videos enthalten, aber nicht beide gleichzeitig. Bitte verwenden Sie das Bildschirmfoto nur für entweder Bilder oder Videos."
 
 #: src/as-content-rating.c:453
 msgid "ALL"
@@ -199,11 +195,7 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr ""
-"Die Beschreibungen von AppStream unterstutzen nur ein begrenztes Set vonTags "
-"des  Textformats: Die Paragrafen <p/> und Listen <ul/>, <ol/>. Diese Note "
-"von Beschreibung  enthaelt ein ungueltiges XML Tag , das in keinen "
-"Anwendungen, von Bestimmungen von MetaInfo erwaehnt sein soll."
+msgstr "Die Beschreibungen von AppStream unterstutzen nur ein begrenztes Set von Tags des Textformats: Die Paragrafen <p/> und Listen <ul/>, <ol/>. Diese Note von Beschreibung enthaelt ein ungueltiges XML Tag , das in keinen Anwendungen, von Bestimmungen von MetaInfo erwaehnt sein soll."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid ""
@@ -314,9 +306,7 @@ msgstr "Kalender"
 msgid ""
 "Can not copy '%s': File does not have a '.metainfo.xml' or '.appdata.xml' "
 "suffix."
-msgstr ""
-"»%s« konnte nicht kopiert werden: Datei besitzt keine keine Dateiendung »."
-"metainfo.xml«- oder ».appdata.xml«."
+msgstr "»%s« konnte nicht kopiert werden: Datei besitzt keine Dateiendung ».metainfo.xml«- oder ».appdata.xml«."
 
 #: src/as-category.c:138
 msgctxt "Category of Games"
@@ -421,7 +411,7 @@ msgstr ""
 
 #: tools/appstream-cli.c:870
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr "Konvertiere ein  YAML oder text NEWS Datei in das metainfo release Format."
+msgstr "Konvertiere ein YAML oder text NEWS Datei in das metainfo release Format."
 
 #. TRANSLATORS: "convert" command in ascli. "Collection XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstream-cli.c:865
@@ -767,9 +757,7 @@ msgstr ""
 msgid ""
 "Found an unknown tag in a requires/recommends group. This is likely an "
 "error, because a component relation of this type is unknown."
-msgstr ""
-"Ein unbekanntes Tag in einer Gruppe erfordert/empfehlt  gefunden. Das ist "
-"wohl ein Fehler, weil die Beziehung von solchem Komponent unbekannt ist."
+msgstr "Ein unbekanntes Tag in einer Gruppe erfordert/empfehlt gefunden. Das ist wohl ein Fehler, weil die Beziehung von solchem Komponent unbekannt ist."
 
 #: src/as-validator-issue-tag.h:445
 msgid ""
@@ -1867,7 +1855,7 @@ msgid ""
 "The default screenshot of a software component must not be a video. Use a "
 "static image as default screenshot and set the video as a secondary "
 "screenshot."
-msgstr "Der Standard-Screenshot einer Softwarekomponente darf kein Video sein. Nutzen Sie ein statisches Bild und setzten Sie das Video als sekundären Screenshot."
+msgstr "Der Standard-Bildschirmfoto einer Softwarekomponente darf kein Video sein. Nutzen Sie ein statisches Bild und setzten Sie das Video als sekundäres Bildschirmfoto."
 
 #: src/as-validator-issue-tag.h:86
 msgid ""
@@ -1967,21 +1955,21 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:211
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr "Der Screenshot hat keinen Beschriftungstext. Erwägen Sie, eine hinzuzufügen."
+msgstr "Das Bildschirmfoto hat keinen Beschriftungstext. Erwägen Sie, eine hinzuzufügen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:223
 msgid ""
 "The screenshot video does not specify which container format was used in a "
 "`container` property."
-msgstr "Das Screenshotvideo gibt nicht an, welches Containerformat in einer Containereigenschaft verwendet wurde."
+msgstr "Das Bildschirmfotovideo gibt nicht an, welches Containerformat in einer Containereigenschaft verwendet wurde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:217
 msgid ""
 "The screenshot video does not specify which video codec was used in a "
 "`codec` property."
-msgstr "Das Screenshotvideo gibt nicht an, welcher Videocodec in einer Codec-Eigenschaft verwendet wurde."
+msgstr "Das Bildschirmfotovideo gibt nicht an, welcher Videocodec in einer Codec-Eigenschaft verwendet wurde."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:229
@@ -2035,7 +2023,7 @@ msgstr "AppStream kennt den Typ von Objekt nicht, den die Komponente bereitstell
 msgid ""
 "The update-contact does not appear to be a valid email address (escaping of "
 "`@` is only allowed as `_at_` or `_AT_`)."
-msgstr "Der Update-Kontakt ist anscheinend keine gültige E-Mail-Adresse (`@` darf nur als `_at_` oder `_AT_` umschrieben werden)."
+msgstr "Der Aktualisierungskontakt ist anscheinend keine gültige E-Mail-Adresse (`@` darf nur als `_at_` oder `_AT_` umschrieben werden)."
 
 #: tools/ascli-actions-validate.c:363 tools/ascli-actions-validate.c:492
 #, c-format
@@ -2243,7 +2231,7 @@ msgstr "Der Beispiel-Desktop-Eintrag konnte nicht geladen werden: %s"
 
 #: src/as-validator-issue-tag.h:374
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr "Remote-Symbol am angegebenen Web-Standort kann nicht erreicht werden - gibt es es ihn?"
+msgstr "Remote-Symbol am angegebenen Web-Standort kann nicht erreicht werden – gibt es es ihn?"
 
 #: src/as-validator-issue-tag.h:396
 msgid ""
@@ -2260,7 +2248,7 @@ msgstr "Das Bildschirmfoto kann an seiner Entferntenposition nicht erreicht werd
 msgid ""
 "Unable to reach the screenshot video on its remote location - does the video "
 "file exist?"
-msgstr "Das Screenshot-Video an seinem EntferntenSpeicherort kann nicht erreicht werden - gibt es die Videodatei?"
+msgstr "Das Bildschirmfotovideo an seinem entfernten Speicherort kann nicht erreicht werden – gibt es die Videodatei?"
 
 #: src/as-validator-issue-tag.h:560
 msgid "Unable to read file."

@@ -13,30 +13,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# Translators:
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Milo Casagrande <milo@milo.name>, 2018. #zanata
-#, fuzzy
+# J. Lavoie <j.lavoie@net-c.ca>, 2020.
+#
+# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-09-03 03:06+0200\n"
-"PO-Revision-Date: 2018-11-21 01:39+0000\n"
-"Last-Translator: Milo Casagrande <milo@milo.name>\n"
-"Language-Team: Italian (http://www.transifex.com/freedesktop/appstream-glib/"
-"language/it/)\n"
+"PO-Revision-Date: 2020-11-15 14:28+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  it.po (AppStream)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
-"#-#-#-#-#  it.po (appstream-glib)  #-#-#-#-#\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -369,7 +364,7 @@ msgstr "Comunicazione e notizie"
 
 #: tools/appstream-cli.c:866
 msgid "Compare two version numbers."
-msgstr "Confronta due numeri di versione"
+msgstr "Confronta due numeri di versione."
 
 #: src/as-provided.c:166
 msgid "Component"
@@ -419,9 +414,8 @@ msgid "Could not find component providing '%s::%s'."
 msgstr "Impossibile trovare un componente che fornisca «%s::%s»."
 
 #: tools/appstream-cli.c:869
-#, fuzzy
 msgid "Create a XDG desktop-entry file from a metainfo file."
-msgstr "Crea un file XDG da un file metainfo"
+msgstr "Crea un file XDG da un file metainfo."
 
 #: tools/appstream-cli.c:868
 msgid ""
@@ -1815,13 +1809,10 @@ msgid "The component ID should only contain lowercase letters."
 msgstr "Il componente ID dovrebbe contenere solo lettere minuscole."
 
 #: src/as-validator-issue-tag.h:311
-#, fuzzy
 msgid ""
 "The component has a `merge` method defined. This is not allowed in metainfo "
 "files."
-msgstr ""
-"Il componente ha un  definito metodo 'merge'. Ciò non è permesso nei file "
-"metainfo."
+msgstr "Il componente ha un definito metodo 'merge'. Ciò non è permesso nei file metainfo."
 
 #: src/as-validator-issue-tag.h:306
 #, fuzzy
@@ -2026,9 +2017,8 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:587
-#, fuzzy
 msgid "The metainfo filename does not match the component ID."
-msgstr "Rimuove software tramite l'ID del componente"
+msgstr "Il nome file metainfo non corrisponde all'ID componente."
 
 #: src/as-validator-issue-tag.h:627
 msgid ""
@@ -2080,12 +2070,9 @@ msgid ""
 msgstr ""
 
 #: src/as-validator-issue-tag.h:301
-#, fuzzy
 msgid ""
 "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
-"Il componente software \"%s\" non è valido in AppStream. Valori possibili "
-"sono:"
+msgstr "Il tipo di componente impostato non è un tipo di componente AppStream valido e riconosciuto."
 
 #: src/as-validator-issue-tag.h:416
 msgid ""
@@ -2351,9 +2338,8 @@ msgid "Unable to read file."
 msgstr "Impossibile rimuovere la vecchia cache."
 
 #: src/as-validator-issue-tag.h:592
-#, fuzzy
 msgid "Unable to read the .desktop file associated with this component."
-msgstr "Impossibile leggere il file .desktop: %s"
+msgstr "Impossibile leggere il file .desktop associato a questo componente."
 
 #: tools/ascli-actions-mdata.c:473
 #, c-format
