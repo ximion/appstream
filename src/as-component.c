@@ -4388,8 +4388,18 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_BINARY, (gchar*) sn->data);
 			}
 		} else if (g_strcmp0 (key, "fonts") == 0) {
+			GNode *dn;
 			for (sn = n->children; sn != NULL; sn = sn->next) {
-				as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FONT, (gchar*) sn->data);
+				for (dn = sn->children; dn != NULL; dn = dn->next) {
+					gchar *dvalue = NULL;
+					const gchar *dkey = (const gchar*) dn->data;
+					if (dn->children)
+						dvalue = (gchar*) dn->children->data;
+					if (dvalue == NULL)
+						continue;
+					if (g_strcmp0 (dkey, "name") == 0)
+						as_component_add_provided_item (cpt, AS_PROVIDED_KIND_FONT, dvalue);
+				}
 			}
 		} else if (g_strcmp0 (key, "modaliases") == 0) {
 			for (sn = n->children; sn != NULL; sn = sn->next) {
@@ -4401,10 +4411,8 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 				gchar *kind = NULL;
 				gchar *fwdata = NULL;
 				for (dn = sn->children; dn != NULL; dn = dn->next) {
-					gchar *dkey;
 					gchar *dvalue;
-
-					dkey = (gchar*) dn->data;
+					const gchar *dkey = (const gchar*) dn->data;
 					if (dn->children)
 						dvalue = (gchar*) dn->children->data;
 					else
@@ -4442,14 +4450,10 @@ as_component_yaml_parse_provides (AsComponent *cpt, GNode *node)
 				gchar *kind = NULL;
 				gchar *service = NULL;
 				for (dn = sn->children; dn != NULL; dn = dn->next) {
-					gchar *dkey;
-					gchar *dvalue;
-
-					dkey = (gchar*) dn->data;
+					gchar *dvalue = NULL;
+					const gchar *dkey = (const gchar*) dn->data;
 					if (dn->children)
 						dvalue = (gchar*) dn->children->data;
-					else
-						dvalue = NULL;
 					if (g_strcmp0 (dkey, "type") == 0) {
 						kind = dvalue;
 					} else if (g_strcmp0 (dkey, "service") == 0) {
