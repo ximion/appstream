@@ -79,5 +79,19 @@ gboolean		asc_result_add_hint_by_cid (AscResult *result,
 						    const gchar *tag,
 						    const gchar *key1,
 						    ...) G_GNUC_NULL_TERMINATED;
+gboolean		asc_result_add_hint_by_cid_v (AscResult *result,
+						      const gchar *component_id,
+						      const gchar *tag,
+						      gchar **kv);
+
+gboolean		asc_result_add_hint (AscResult *result,
+					     AsComponent *cpt,
+					     const gchar *tag,
+					     const gchar *key1,
+					     ...) G_GNUC_NULL_TERMINATED;
+gboolean		asc_result_add_hint_v (AscResult *result,
+					       AsComponent *cpt,
+					       const gchar *tag,
+					       gchar **kv);
 
 G_END_DECLS

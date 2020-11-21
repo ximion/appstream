@@ -380,7 +380,7 @@ asc_result_remove_component_by_id (AscResult *result, const gchar *cid)
 }
 
 static gboolean
-asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *component_id, const gchar *tag, const gchar *key1, va_list *args)
+asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *component_id, const gchar *tag, const gchar *key1, va_list *args, gchar **args_v)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	const gchar *cur_key;
@@ -388,6 +388,7 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
 	const AscHintTag *tag_details;
 	AscHint *hint = NULL;
 	GPtrArray *hints = NULL;
+	guint i;
 
 	g_assert ((cpt == NULL) != (component_id == NULL));
 	if (component_id == NULL) {
@@ -405,16 +406,23 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
 	asc_hint_set_severity (hint, tag_details->severity);
 	asc_hint_set_explanation_template (hint, tag_details->explanation);
 
+	i = 1;
 	cur_key = key1;
 	while (cur_key != NULL) {
-		cur_val = va_arg (*args, gchar*);
+		if (args_v == NULL)
+			cur_val = va_arg (*args, gchar*);
+		else
+			cur_val = args_v[i++];
 		if (cur_val == NULL) {
 			g_error ("Hint template replacement value for key '%s' was NULL!", cur_key);
 			break;
 		}
 		asc_hint_add_explanation_var (hint, cur_key, cur_val);
 
-		cur_key = va_arg (*args, gchar*);
+		if (args_v == NULL)
+			cur_key = va_arg (*args, gchar*);
+		else
+			cur_key = args_v[i++];
 	}
 
 	hints = g_hash_table_lookup (priv->hints, component_id);
@@ -437,7 +445,7 @@ asc_result_add_hint_va (AscResult *result, AsComponent *cpt, const gchar *compon
 }
 
 /**
- * asc_result_add_hint_by_cid:
+ * asc_result_add_hint_by_cid: (skip)
  * @result: an #AscResult instance.
  * @component_id: The component-ID of the affected #AsComponent
  * @tag: AppStream Compose Issue hint tag
@@ -460,13 +468,43 @@ asc_result_add_hint_by_cid (AscResult *result, const gchar *component_id, const 
 				      component_id,
 				      tag,
 				      key1,
-				      &args);
+				      &args,
+				      NULL);
 	va_end (args);
 	return ret;
 }
 
 /**
- * asc_result_add_hint:
+ * asc_result_add_hint_by_cid_v: (rename-to asc_result_add_hint_by_cid)
+ * @result: an #AscResult instance.
+ * @component_id: The component-ID of the affected #AsComponent
+ * @tag: AppStream Compose Issue hint tag
+ * @kv: List of key-value pairs for replacement variables.
+ *
+ * Add an issue hint for a component.
+ *
+ * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ **/
+gboolean
+asc_result_add_hint_by_cid_v (AscResult *result, const gchar *component_id, const gchar *tag, gchar **kv)
+{
+	gboolean ret;
+	const gchar *first_key = NULL;
+
+	if (kv != NULL)
+		first_key = kv[0];
+	ret = asc_result_add_hint_va (result,
+				      NULL,
+				      component_id,
+				      tag,
+				      first_key,
+				      NULL,
+				      kv);
+	return ret;
+}
+
+/**
+ * asc_result_add_hint: (skip)
  * @result: an #AscResult instance.
  * @cpt: The affected #AsComponent
  * @tag: AppStream Compose Issue hint tag
@@ -489,8 +527,38 @@ asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, cons
 				      NULL,
 				      tag,
 				      key1,
-				      &args);
+				      &args,
+				      NULL);
 	va_end (args);
+	return ret;
+}
+
+/**
+ * asc_result_add_hint_v: (rename-to asc_result_add_hint)
+ * @result: an #AscResult instance.
+ * @cpt: The affected #AsComponent
+ * @tag: AppStream Compose Issue hint tag
+ * @kv: List of key-value pairs for replacement variables.
+ *
+ * Add an issue hint for a component.
+ *
+ * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ **/
+gboolean
+asc_result_add_hint_v (AscResult *result, AsComponent *cpt, const gchar *tag, gchar **kv)
+{
+	gboolean ret;
+	const gchar *first_key = NULL;
+
+	if (kv != NULL)
+		first_key = kv[0];
+	ret = asc_result_add_hint_va (result,
+				      cpt,
+				      NULL,
+				      tag,
+				      first_key,
+				      NULL,
+				      kv);
 	return ret;
 }
 
