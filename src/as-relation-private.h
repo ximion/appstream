@@ -47,6 +47,9 @@ void		as_relation_emit_yaml (AsRelation *relation,
 					 AsContext *ctx,
 					 yaml_emitter_t *emitter);
 
+gint			as_display_length_kind_to_px (AsDisplayLengthKind kind);
+AsDisplayLengthKind	as_display_length_kind_from_px (gint px);
+
 #pragma GCC visibility pop
 G_END_DECLS
 

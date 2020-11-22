@@ -62,13 +62,14 @@ typedef enum  {
 
 /**
  * AsRelationItemKind:
- * @AS_RELATION_ITEM_KIND_UNKNOWN:	Unknown kind
- * @AS_RELATION_ITEM_KIND_ID:		A component ID
- * @AS_RELATION_ITEM_KIND_MODALIAS:	A hardware modalias
- * @AS_RELATION_ITEM_KIND_KERNEL:	An operating system kernel (like Linux)
- * @AS_RELATION_ITEM_KIND_MEMORY:	A system RAM requirement
- * @AS_RELATION_ITEM_KIND_FIRMWARE:	A device firmware requirement (used by fwupd)
- * @AS_RELATION_ITEM_KIND_CONTROL:	An input method for users to control software
+ * @AS_RELATION_ITEM_KIND_UNKNOWN:		Unknown kind
+ * @AS_RELATION_ITEM_KIND_ID:			A component ID
+ * @AS_RELATION_ITEM_KIND_MODALIAS:		A hardware modalias
+ * @AS_RELATION_ITEM_KIND_KERNEL:		An operating system kernel (like Linux)
+ * @AS_RELATION_ITEM_KIND_MEMORY:		A system RAM requirement
+ * @AS_RELATION_ITEM_KIND_FIRMWARE:		A device firmware requirement (used by fwupd)
+ * @AS_RELATION_ITEM_KIND_CONTROL:		An input method for users to control software
+ * @AS_RELATION_ITEM_KIND_DISPLAY_LENGTH:	Display edge length
  *
  * Type of the item an #AsRelation is for.
  **/
@@ -80,6 +81,7 @@ typedef enum  {
 	AS_RELATION_ITEM_KIND_MEMORY,
 	AS_RELATION_ITEM_KIND_FIRMWARE,
 	AS_RELATION_ITEM_KIND_CONTROL,
+	AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
 	/*< private >*/
 	AS_RELATION_ITEM_KIND_LAST
 } AsRelationItemKind;
@@ -134,6 +136,44 @@ typedef enum {
 	AS_CONTROL_KIND_LAST
 } AsControlKind;
 
+/**
+ * AsDisplaySideKind:
+ * @AS_DISPLAY_SIDE_KIND_UNKNOWN:	Unknown
+ * @AS_DISPLAY_SIDE_KIND_SHORTEST:	Shortest side of the display rectangle.
+ * @AS_DISPLAY_SIDE_KIND_LONGEST:	Longest side of the display rectangle.
+ *
+ * Side a display_length requirement is for.
+ **/
+typedef enum  {
+	AS_DISPLAY_SIDE_KIND_UNKNOWN,
+	AS_DISPLAY_SIDE_KIND_SHORTEST,
+	AS_DISPLAY_SIDE_KIND_LONGEST,
+	/*< private >*/
+	AS_DISPLAY_SIDE_KIND_LAST
+} AsDisplaySideKind;
+
+/**
+ * AsDisplayLengthKind:
+ * @AS_DISPLAY_LENGTH_KIND_UNKNOWN:	Unknown
+ * @AS_DISPLAY_LENGTH_KIND_XSMALL:	Very small display
+ * @AS_DISPLAY_LENGTH_KIND_SMALL:	Small display
+ * @AS_DISPLAY_LENGTH_KIND_MEDIUM:	Medium display
+ * @AS_DISPLAY_LENGTH_KIND_LARGE:	Large display
+ * @AS_DISPLAY_LENGTH_KIND_XLARGE:	Very large display
+ *
+ * A rought estimate of how large a given display length is.
+ **/
+typedef enum  {
+	AS_DISPLAY_LENGTH_KIND_UNKNOWN,
+	AS_DISPLAY_LENGTH_KIND_XSMALL,
+	AS_DISPLAY_LENGTH_KIND_SMALL,
+	AS_DISPLAY_LENGTH_KIND_MEDIUM,
+	AS_DISPLAY_LENGTH_KIND_LARGE,
+	AS_DISPLAY_LENGTH_KIND_XLARGE,
+	/*< private >*/
+	AS_DISPLAY_LENGTH_KIND_LAST
+} AsDisplayLengthKind;
+
 const gchar		*as_relation_kind_to_string (AsRelationKind kind);
 AsRelationKind		as_relation_kind_from_string (const gchar *kind_str);
 
@@ -146,6 +186,11 @@ const gchar		*as_relation_compare_to_symbols_string (AsRelationCompare compare);
 
 const gchar		*as_control_kind_to_string (AsControlKind kind);
 AsControlKind		as_control_kind_from_string (const gchar *kind_str);
+
+const gchar		*as_display_side_kind_to_string (AsDisplaySideKind kind);
+AsDisplaySideKind	as_display_side_kind_from_string (const gchar *kind_str);
+
+AsDisplayLengthKind	as_display_length_kind_from_string (const gchar *kind_str);
 
 AsRelation		*as_relation_new (void);
 
@@ -166,10 +211,19 @@ void			as_relation_set_version (AsRelation *relation,
 						  const gchar *version);
 
 const gchar		*as_relation_get_value (AsRelation *relation);
-gint			as_relation_get_value_int (AsRelation *relation);
-AsControlKind		as_relation_get_value_control_kind (AsRelation *relation);
 void			as_relation_set_value (AsRelation *relation,
 					        const gchar *value);
+gint			as_relation_get_value_int (AsRelation *relation);
+
+AsControlKind		as_relation_get_value_control_kind (AsRelation *relation);
+void			as_relation_set_value_control_kind (AsRelation *relation,
+							    AsControlKind kind);
+
+AsDisplaySideKind	as_relation_get_display_side_kind (AsRelation *relation);
+void			as_relation_set_display_side_kind (AsRelation *relation,
+							   AsDisplaySideKind kind);
+gint			as_relation_get_value_px (AsRelation *relation);
+AsDisplayLengthKind	as_relation_get_value_display_length_kind (AsRelation *relation);
 
 gboolean		as_relation_version_compare (AsRelation *relation,
 						     const gchar *version,
