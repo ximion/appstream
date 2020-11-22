@@ -1295,10 +1295,12 @@ static const gchar *xmldata_recommends_requires = "<component>\n"
 						  "  <recommends>\n"
 						  "    <memory>2500</memory>\n"
 						  "    <modalias>usb:v1130p0202d*</modalias>\n"
+						  "    <display_length side=\"longest\" compare=\"le\">4200</display_length>\n"
 						  "  </recommends>\n"
 						  "  <requires>\n"
 						  "    <kernel version=\"4.15\" compare=\"ge\">Linux</kernel>\n"
 						  "    <id version=\"1.2\" compare=\"eq\">org.example.TestDependency</id>\n"
+						  "    <display_length>small</display_length>\n"
 						  "  </requires>\n"
 						  "</component>\n";
 /**
@@ -1320,8 +1322,8 @@ test_xml_read_recommends_requires (void)
 	recommends = as_component_get_recommends (cpt);
 	requires = as_component_get_requires (cpt);
 
-	g_assert_cmpint (recommends->len, ==, 2);
-	g_assert_cmpint (requires->len, ==, 2);
+	g_assert_cmpint (recommends->len, ==, 3);
+	g_assert_cmpint (requires->len, ==, 3);
 
 	/* memory relation */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 0));
@@ -1334,6 +1336,13 @@ test_xml_read_recommends_requires (void)
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_MODALIAS);
 	g_assert_cmpstr (as_relation_get_value (relation), ==, "usb:v1130p0202d*");
+
+	/* display_length relation (REC) */
+	relation = AS_RELATION (g_ptr_array_index (recommends, 2));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	g_assert_cmpint (as_relation_get_value_px (relation), ==, 4200);
+	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_LE);
 
 	/* kernel relation */
 	relation = AS_RELATION (g_ptr_array_index (requires, 0));
@@ -1350,6 +1359,13 @@ test_xml_read_recommends_requires (void)
 	g_assert_cmpstr (as_relation_get_value (relation), ==, "org.example.TestDependency");
 	g_assert_cmpstr (as_relation_get_version (relation), ==, "1.2");
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_EQ);
+
+	/* display_length relation (REQ) */
+	relation = AS_RELATION (g_ptr_array_index (requires, 2));
+	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
+	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	g_assert_cmpint (as_relation_get_value_display_length_kind (relation), ==, AS_DISPLAY_LENGTH_KIND_SMALL);
+	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
 }
 
 /**
@@ -1366,6 +1382,8 @@ test_xml_write_recommends_requires (void)
 	g_autoptr(AsRelation) moda_relation = NULL;
 	g_autoptr(AsRelation) kernel_relation = NULL;
 	g_autoptr(AsRelation) id_relation = NULL;
+	g_autoptr(AsRelation) dl_relation1 = NULL;
+	g_autoptr(AsRelation) dl_relation2 = NULL;
 
 	cpt = as_component_new ();
 	as_component_set_id (cpt, "org.example.RelationsTest");
@@ -1374,11 +1392,15 @@ test_xml_write_recommends_requires (void)
 	moda_relation = as_relation_new ();
 	kernel_relation = as_relation_new ();
 	id_relation = as_relation_new ();
+	dl_relation1 = as_relation_new ();
+	dl_relation2 = as_relation_new ();
 
 	as_relation_set_kind (mem_relation, AS_RELATION_KIND_RECOMMENDS);
 	as_relation_set_kind (moda_relation, AS_RELATION_KIND_RECOMMENDS);
 	as_relation_set_kind (kernel_relation, AS_RELATION_KIND_REQUIRES);
 	as_relation_set_kind (id_relation, AS_RELATION_KIND_REQUIRES);
+	as_relation_set_kind (dl_relation1, AS_RELATION_KIND_RECOMMENDS);
+	as_relation_set_kind (dl_relation2, AS_RELATION_KIND_REQUIRES);
 
 	as_relation_set_item_kind (mem_relation, AS_RELATION_ITEM_KIND_MEMORY);
 	as_relation_set_value (mem_relation, "2500");
@@ -1395,10 +1417,21 @@ test_xml_write_recommends_requires (void)
 	as_relation_set_version (id_relation, "1.2");
 	as_relation_set_compare (id_relation, AS_RELATION_COMPARE_EQ);
 
+	as_relation_set_item_kind (dl_relation1, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	as_relation_set_value (dl_relation1, "4200");
+	as_relation_set_display_side_kind (dl_relation1, AS_DISPLAY_SIDE_KIND_LONGEST);
+	as_relation_set_compare (dl_relation1, AS_RELATION_COMPARE_LE);
+
+	as_relation_set_item_kind (dl_relation2, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
+	as_relation_set_value (dl_relation2, "small");
+	as_relation_set_compare (dl_relation2, AS_RELATION_COMPARE_GE);
+
 	as_component_add_relation (cpt, mem_relation);
 	as_component_add_relation (cpt, moda_relation);
 	as_component_add_relation (cpt, kernel_relation);
 	as_component_add_relation (cpt, id_relation);
+	as_component_add_relation (cpt, dl_relation1);
+	as_component_add_relation (cpt, dl_relation2);
 
 	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
 	g_assert (as_xml_test_compare_xml (res, xmldata_recommends_requires));

@@ -45,6 +45,8 @@ typedef struct
 
 	gchar *value;
 	gchar *version;
+
+	AsDisplaySideKind display_side_kind;
 } AsRelationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AsRelation, as_relation, G_TYPE_OBJECT)
@@ -116,6 +118,8 @@ as_relation_item_kind_to_string (AsRelationItemKind kind)
 		return "firmware";
 	if (kind == AS_RELATION_ITEM_KIND_CONTROL)
 		return "control";
+	if (kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)
+		return "display_length";
 	return "unknown";
 }
 
@@ -144,6 +148,8 @@ as_relation_item_kind_from_string (const gchar *kind_str)
 		return AS_RELATION_ITEM_KIND_FIRMWARE;
 	if (g_strcmp0 (kind_str, "control") == 0)
 		return AS_RELATION_ITEM_KIND_CONTROL;
+	if (g_strcmp0 (kind_str, "display_length") == 0)
+		return AS_RELATION_ITEM_KIND_DISPLAY_LENGTH;
 	return AS_RELATION_ITEM_KIND_UNKNOWN;
 }
 
@@ -313,6 +319,128 @@ as_control_kind_from_string (const gchar *kind_str)
 	if (g_strcmp0 (kind_str, "vision") == 0)
 		return AS_CONTROL_KIND_VISION;
 	return AS_CONTROL_KIND_UNKNOWN;
+}
+
+/**
+ * as_display_side_kind_to_string:
+ * @kind: the #AsDisplaySideKind.
+ *
+ * Converts the enumerated value to a text representation.
+ *
+ * Returns: string version of @kind
+ *
+ * Since: 0.12.12
+ **/
+const gchar*
+as_display_side_kind_to_string (AsDisplaySideKind kind)
+{
+	if (kind == AS_DISPLAY_SIDE_KIND_SHORTEST)
+		return "shortest";
+	if (kind == AS_DISPLAY_SIDE_KIND_LONGEST)
+		return "longest";
+	return "unknown";
+}
+
+/**
+ * as_display_side_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsDisplaySideKind or %AS_DISPLAY_SIDE_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.12.12
+ **/
+AsDisplaySideKind
+as_display_side_kind_from_string (const gchar *kind_str)
+{
+	if (kind_str == NULL)
+		return AS_DISPLAY_SIDE_KIND_SHORTEST;
+	if (g_strcmp0 (kind_str, "shortest") == 0)
+		return AS_DISPLAY_SIDE_KIND_SHORTEST;
+	if (g_strcmp0 (kind_str, "longest") == 0)
+		return AS_DISPLAY_SIDE_KIND_LONGEST;
+	return AS_DISPLAY_SIDE_KIND_UNKNOWN;
+}
+
+/**
+ * as_display_length_kind_to_px:
+ * @kind: the #AsDisplaySideKind.
+ *
+ * Converts the rough display length value to an absolute
+ * logical pixel measurement, roughly matching the shortest
+ * display size of the respective screen size.
+ *
+ * Returns: amount of logical pixels for shortest display edge, or -1 on invalid input.
+ *
+ * Since: 0.12.12
+ **/
+gint
+as_display_length_kind_to_px (AsDisplayLengthKind kind)
+{
+	if (kind == AS_DISPLAY_LENGTH_KIND_XSMALL)
+		return 360;
+	if (kind == AS_DISPLAY_LENGTH_KIND_SMALL)
+		return 420;
+	if (kind == AS_DISPLAY_LENGTH_KIND_MEDIUM)
+		return 760;
+	if (kind == AS_DISPLAY_LENGTH_KIND_LARGE)
+		return 900;
+	if (kind == AS_DISPLAY_LENGTH_KIND_XLARGE)
+		return 1200;
+	return -1;
+}
+
+/**
+ * as_display_length_kind_from_px:
+ * @kind: the #AsDisplaySideKind.
+ *
+ * Classify a logical pixel amount into a display size.
+ *
+ * Returns: display size enum.
+ *
+ * Since: 0.12.12
+ **/
+AsDisplayLengthKind
+as_display_length_kind_from_px (gint px)
+{
+	if (px <= 360 )
+		return AS_DISPLAY_LENGTH_KIND_XSMALL;
+	if (px >= 360 )
+		return AS_DISPLAY_LENGTH_KIND_SMALL;
+	if (px >= 760 )
+		return AS_DISPLAY_LENGTH_KIND_MEDIUM;
+	if (px >= 900 )
+		return AS_DISPLAY_LENGTH_KIND_LARGE;
+	if (px >= 1200 )
+		return AS_DISPLAY_LENGTH_KIND_XLARGE;
+	return AS_DISPLAY_LENGTH_KIND_UNKNOWN;
+}
+
+/**
+ * as_display_length_kind_from_string:
+ * @kind_str: the string.
+ *
+ * Converts the text representation to an enumerated value.
+ *
+ * Returns: a #AsDisplayLengthKind or %AS_DISPLAY_LENGTH_KIND_UNKNOWN for unknown
+ *
+ * Since: 0.12.12
+ **/
+AsDisplayLengthKind
+as_display_length_kind_from_string (const gchar *kind_str)
+{
+	if (g_strcmp0 (kind_str, "xsmall") == 0)
+		return AS_DISPLAY_LENGTH_KIND_XSMALL;
+	if (g_strcmp0 (kind_str, "small") == 0)
+		return AS_DISPLAY_LENGTH_KIND_SMALL;
+	if (g_strcmp0 (kind_str, "medium") == 0)
+		return AS_DISPLAY_LENGTH_KIND_MEDIUM;
+	if (g_strcmp0 (kind_str, "large") == 0)
+		return AS_DISPLAY_LENGTH_KIND_LARGE;
+	if (g_strcmp0 (kind_str, "xlarge") == 0)
+		return AS_DISPLAY_LENGTH_KIND_XLARGE;
+	return AS_DISPLAY_LENGTH_KIND_UNKNOWN;
 }
 
 /**
@@ -536,6 +664,64 @@ as_relation_get_value_control_kind (AsRelation *relation)
 }
 
 /**
+ * as_relation_set_value_control_kind:
+ * @relation: an #AsRelation instance.
+ * @kind: an #AsControlKind
+ *
+ * Set relation item value from an #AsControlKind.
+ *
+ * Since: 0.12.12
+ **/
+void
+as_relation_set_value_control_kind (AsRelation *relation, AsControlKind kind)
+{
+	as_relation_set_value (relation, as_control_kind_to_string (kind));
+}
+
+/**
+ * as_relation_get_value_px:
+ * @relation: an #AsRelation instance.
+ *
+ * In case this #AsRelation is of kind %AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
+ * return the set logical pixel amount.
+ *
+ * Returns: The logical pixel amount for this display length, value <= 0 on error.
+ *
+ * Since: 0.12.12
+ **/
+gint
+as_relation_get_value_px (AsRelation *relation)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	AsDisplayLengthKind dlkind;
+	if (priv->item_kind != AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)
+		return -1;
+
+	dlkind = as_display_length_kind_from_string (priv->value);
+	if (dlkind == AS_DISPLAY_LENGTH_KIND_UNKNOWN)
+		return g_ascii_strtoll (priv->value, NULL, 10);
+	return as_display_length_kind_to_px (dlkind);
+}
+
+/**
+ * as_relation_get_value_display_length_kind:
+ * @relation: an #AsRelation instance.
+ *
+ * In case this #AsRelation is of kind %AS_RELATION_ITEM_KIND_DISPLAY_LENGTH,
+ * return the #AsDisplayLengthKind.
+ *
+ * Returns: The #AsDisplayLengthKind if a placeholder value was set, or %AS_DISPLAY_LENGTH_KIND_UNKNOWN otherwise.
+ *
+ * Since: 0.12.12
+ **/
+AsDisplayLengthKind
+as_relation_get_value_display_length_kind (AsRelation *relation)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	return as_display_length_kind_from_string (priv->value);
+}
+
+/**
  * as_relation_set_value:
  * @relation: an #AsRelation instance.
  * @value: the new value.
@@ -552,6 +738,40 @@ as_relation_set_value (AsRelation *relation, const gchar *value)
 	priv->value = g_strdup (value);
 }
 
+/**
+ * as_relation_get_display_side_kind:
+ * @relation: an #AsRelation instance.
+ *
+ * Gets the display side kind, in case this item is of
+ * kind %AS_RELATION_ITEM_KIND_DISPLAY_LENGTH
+ *
+ * Returns: a #AsDisplaySideKind or %AS_DISPLAY_SIDE_KIND_UNKNOWN
+ *
+ * Since: 0.12.12
+ **/
+AsDisplaySideKind
+as_relation_get_display_side_kind (AsRelation *relation)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	return priv->display_side_kind;
+}
+
+/**
+ * as_relation_set_display_side_kind:
+ * @relation: an #AsRelation instance.
+ * @kind: the new #AsDisplaySideKind.
+ *
+ * Sets the display side kind, in case this item is of
+ * kind %AS_RELATION_ITEM_KIND_DISPLAY_LENGTH
+ *
+ * Since: 0.12.12
+ **/
+void
+as_relation_set_display_side_kind (AsRelation *relation, AsDisplaySideKind kind)
+{
+	AsRelationPrivate *priv = GET_PRIVATE (relation);
+	priv->display_side_kind = kind;
+}
 
 /**
  * as_relation_version_compare:
@@ -627,7 +847,7 @@ as_relation_load_from_xml (AsRelation *relation, AsContext *ctx, xmlNode *node, 
 	g_free (priv->version);
 	priv->version = (gchar*) xmlGetProp (node, (xmlChar*) "version");
 
-	if (priv->version != NULL) {
+	if ((priv->version != NULL) || (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH)) {
 		g_autofree gchar *compare_str = (gchar*) xmlGetProp (node, (xmlChar*) "compare");
 		priv->compare = as_relation_compare_from_string (compare_str);
 	}
@@ -657,11 +877,21 @@ as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root)
 	n = xmlNewTextChild (root, NULL,
 			     (xmlChar*) as_relation_item_kind_to_string (priv->item_kind),
 			     (xmlChar*) priv->value);
-	if (priv->version != NULL) {
+
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
+		if ((priv->display_side_kind != AS_DISPLAY_SIDE_KIND_SHORTEST) && (priv->display_side_kind != AS_DISPLAY_SIDE_KIND_UNKNOWN))
+			xmlNewProp (n, (xmlChar*) "side",
+				    (xmlChar*) as_display_side_kind_to_string (priv->display_side_kind));
+		if (priv->compare != AS_RELATION_COMPARE_GE)
+			xmlNewProp (n, (xmlChar*) "compare",
+					(xmlChar*) as_relation_compare_to_string (priv->compare));
+
+	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
+	} else if (priv->version != NULL) {
 		xmlNewProp (n, (xmlChar*) "version",
 			    (xmlChar*) priv->version);
 		xmlNewProp (n, (xmlChar*) "compare",
-			    (xmlChar*) as_relation_compare_to_string (priv->compare));
+			(xmlChar*) as_relation_compare_to_string (priv->compare));
 	}
 }
 
@@ -690,7 +920,7 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 
 		if (g_strcmp0 (entry, "version") == 0) {
 			g_autofree gchar *compare_str = NULL;
-			g_autofree gchar *ver_str = g_strdup (as_yaml_node_get_value (n));
+			const gchar *ver_str = as_yaml_node_get_value (n);
 			if (strlen (ver_str) <= 2)
 				continue; /* this string is too short to contain any valid version */
 			compare_str = g_strndup (ver_str, 2);
@@ -698,14 +928,39 @@ as_relation_load_from_yaml (AsRelation *relation, AsContext *ctx, GNode *node, G
 			g_free (priv->version);
 			priv->version = g_strdup (ver_str + 2);
 			g_strstrip (priv->version);
+		} else if (g_strcmp0 (entry, "side") == 0) {
+			priv->display_side_kind = as_display_side_kind_from_string (as_yaml_node_get_value (n));
 		} else {
 			AsRelationItemKind kind = as_relation_item_kind_from_string (entry);
-			if (kind != AS_RELATION_ITEM_KIND_UNKNOWN) {
-				priv->item_kind = kind;
+			if (kind == AS_RELATION_ITEM_KIND_UNKNOWN) {
+				g_debug ("Unknown Requires/Recommends YAML field: %s", entry);
+				continue;
+			}
+
+			priv->item_kind = kind;
+			if (kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
+				g_autofree gchar *compare_str = NULL;
+				const gchar *len_str = as_yaml_node_get_value (n);
+				if (strlen (len_str) <= 2) {
+					/* this string is too short to contain a comparsion operator */
+					g_free (priv->value);
+					priv->value = g_strdup (len_str);
+					continue;
+				}
+				compare_str = g_strndup (len_str, 2);
+				priv->compare = as_relation_compare_from_string (compare_str);
+
+				g_free (priv->value);
+				if (priv->compare == AS_RELATION_COMPARE_UNKNOWN) {
+					priv->value = g_strdup (len_str);
+					priv->compare = AS_RELATION_COMPARE_GE;
+				} else {
+					priv->value = g_strdup (len_str + 2);
+					g_strstrip (priv->value);
+				}
+			} else {
 				g_free (priv->value);
 				priv->value = g_strdup (as_yaml_node_get_value (n));
-			} else {
-				g_debug ("Unknown Requires/Recommends YAML field: %s", entry);
 			}
 		}
 	}
@@ -731,11 +986,38 @@ as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, yaml_emitter_t *emi
 
 	as_yaml_mapping_start (emitter);
 
-	as_yaml_emit_entry (emitter,
-			    as_relation_item_kind_to_string (priv->item_kind),
-			    priv->value);
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
+		if ((priv->compare != AS_RELATION_COMPARE_UNKNOWN) && (priv->compare != AS_RELATION_COMPARE_GE)) {
+			g_autofree gchar *len_str = g_strdup_printf ("%s %s",
+								as_relation_compare_to_symbols_string (priv->compare),
+								priv->value);
+			as_yaml_emit_entry (emitter,
+					as_relation_item_kind_to_string (priv->item_kind),
+					len_str);
+		} else {
+			gint ival = as_relation_get_value_int (relation);
+			if (ival > 0) {
+				as_yaml_emit_entry_uint64 (emitter,
+							   as_relation_item_kind_to_string (priv->item_kind),
+							   ival);
+			} else {
+				as_yaml_emit_entry (emitter,
+						    as_relation_item_kind_to_string (priv->item_kind),
+						    priv->value);
+			}
+		}
+	} else {
+		as_yaml_emit_entry (emitter,
+				    as_relation_item_kind_to_string (priv->item_kind),
+				    priv->value);
+	}
 
-	if (priv->version != NULL) {
+	if (priv->item_kind == AS_RELATION_ITEM_KIND_DISPLAY_LENGTH) {
+		if ((priv->display_side_kind != AS_DISPLAY_SIDE_KIND_SHORTEST) && (priv->display_side_kind != AS_DISPLAY_SIDE_KIND_UNKNOWN))
+			as_yaml_emit_entry (emitter, "side", as_display_side_kind_to_string (priv->display_side_kind));
+
+	} else if (priv->item_kind == AS_RELATION_ITEM_KIND_CONTROL) {
+	} else if (priv->version != NULL) {
 		g_autofree gchar *ver_str = g_strdup_printf ("%s %s",
 							     as_relation_compare_to_symbols_string (priv->compare),
 							     priv->version);
