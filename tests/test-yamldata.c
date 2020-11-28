@@ -865,7 +865,7 @@ static const gchar *yamldata_requires_recommends_field =
 					"Type: generic\n"
 					"ID: org.example.RelationsTest\n"
 					"Recommends:\n"
-					"- memory: '2500'\n"
+					"- memory: 2500\n"
 					"- modalias: usb:v1130p0202d*\n"
 					"- display_length: <= xlarge\n"
 					"  side: longest\n"
@@ -912,27 +912,27 @@ test_yaml_write_requires_recommends (void)
 	as_relation_set_kind (dl_relation2, AS_RELATION_KIND_REQUIRES);
 
 	as_relation_set_item_kind (mem_relation, AS_RELATION_ITEM_KIND_MEMORY);
-	as_relation_set_value (mem_relation, "2500");
+	as_relation_set_value_int (mem_relation, 2500);
 	as_relation_set_item_kind (moda_relation, AS_RELATION_ITEM_KIND_MODALIAS);
-	as_relation_set_value (moda_relation, "usb:v1130p0202d*");
+	as_relation_set_value_str (moda_relation, "usb:v1130p0202d*");
 
 	as_relation_set_item_kind (kernel_relation, AS_RELATION_ITEM_KIND_KERNEL);
-	as_relation_set_value (kernel_relation, "Linux");
+	as_relation_set_value_str (kernel_relation, "Linux");
 	as_relation_set_version (kernel_relation, "4.15");
 	as_relation_set_compare (kernel_relation, AS_RELATION_COMPARE_GE);
 
 	as_relation_set_item_kind (id_relation, AS_RELATION_ITEM_KIND_ID);
-	as_relation_set_value (id_relation, "org.example.TestDependency");
+	as_relation_set_value_str (id_relation, "org.example.TestDependency");
 	as_relation_set_version (id_relation, "1.2");
 	as_relation_set_compare (id_relation, AS_RELATION_COMPARE_EQ);
 
 	as_relation_set_item_kind (dl_relation1, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	as_relation_set_value (dl_relation1, "xlarge");
+	as_relation_set_value_display_length_kind (dl_relation1, AS_DISPLAY_LENGTH_KIND_XLARGE);
 	as_relation_set_display_side_kind (dl_relation1, AS_DISPLAY_SIDE_KIND_LONGEST);
 	as_relation_set_compare (dl_relation1, AS_RELATION_COMPARE_LE);
 
 	as_relation_set_item_kind (dl_relation2, AS_RELATION_ITEM_KIND_DISPLAY_LENGTH);
-	as_relation_set_value (dl_relation2, "4200");
+	as_relation_set_value_int (dl_relation2, 4200);
 	as_relation_set_compare (dl_relation2, AS_RELATION_COMPARE_GE);
 
 	as_component_add_relation (cpt, mem_relation);
@@ -979,7 +979,7 @@ test_yaml_read_requires_recommends (void)
 	relation = AS_RELATION (g_ptr_array_index (recommends, 1));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_RECOMMENDS);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_MODALIAS);
-	g_assert_cmpstr (as_relation_get_value (relation), ==, "usb:v1130p0202d*");
+	g_assert_cmpstr (as_relation_get_value_str (relation), ==, "usb:v1130p0202d*");
 
 	/* display_length relation (REC) */
 	relation = AS_RELATION (g_ptr_array_index (recommends, 2));
@@ -992,7 +992,7 @@ test_yaml_read_requires_recommends (void)
 	relation = AS_RELATION (g_ptr_array_index (requires, 0));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_KERNEL);
-	g_assert_cmpstr (as_relation_get_value (relation), ==, "Linux");
+	g_assert_cmpstr (as_relation_get_value_str (relation), ==, "Linux");
 	g_assert_cmpstr (as_relation_get_version (relation), ==, "4.15");
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_GE);
 
@@ -1000,7 +1000,7 @@ test_yaml_read_requires_recommends (void)
 	relation = AS_RELATION (g_ptr_array_index (requires, 1));
 	g_assert_cmpint (as_relation_get_kind (relation), ==, AS_RELATION_KIND_REQUIRES);
 	g_assert_cmpint (as_relation_get_item_kind (relation), ==, AS_RELATION_ITEM_KIND_ID);
-	g_assert_cmpstr (as_relation_get_value (relation), ==, "org.example.TestDependency");
+	g_assert_cmpstr (as_relation_get_value_str (relation), ==, "org.example.TestDependency");
 	g_assert_cmpstr (as_relation_get_version (relation), ==, "1.2");
 	g_assert_cmpint (as_relation_get_compare (relation), ==, AS_RELATION_COMPARE_EQ);
 

@@ -192,6 +192,7 @@ AsControlKind		as_control_kind_from_string (const gchar *kind_str);
 const gchar		*as_display_side_kind_to_string (AsDisplaySideKind kind);
 AsDisplaySideKind	as_display_side_kind_from_string (const gchar *kind_str);
 
+const gchar		*as_display_length_kind_to_string (AsDisplayLengthKind kind);
 AsDisplayLengthKind	as_display_length_kind_from_string (const gchar *kind_str);
 
 AsRelation		*as_relation_new (void);
@@ -212,10 +213,13 @@ const gchar		*as_relation_get_version (AsRelation *relation);
 void			as_relation_set_version (AsRelation *relation,
 						  const gchar *version);
 
-const gchar		*as_relation_get_value (AsRelation *relation);
-void			as_relation_set_value (AsRelation *relation,
-					        const gchar *value);
+const gchar		*as_relation_get_value_str (AsRelation *relation);
+void			as_relation_set_value_str (AsRelation *relation,
+						   const gchar *value);
+
 gint			as_relation_get_value_int (AsRelation *relation);
+void			as_relation_set_value_int (AsRelation *relation,
+						   gint value);
 
 AsControlKind		as_relation_get_value_control_kind (AsRelation *relation);
 void			as_relation_set_value_control_kind (AsRelation *relation,
@@ -224,12 +228,25 @@ void			as_relation_set_value_control_kind (AsRelation *relation,
 AsDisplaySideKind	as_relation_get_display_side_kind (AsRelation *relation);
 void			as_relation_set_display_side_kind (AsRelation *relation,
 							   AsDisplaySideKind kind);
+
 gint			as_relation_get_value_px (AsRelation *relation);
+void			as_relation_set_value_px (AsRelation *relation,
+						  gint logical_px);
 AsDisplayLengthKind	as_relation_get_value_display_length_kind (AsRelation *relation);
+void			as_relation_set_value_display_length_kind (AsRelation *relation,
+								   AsDisplayLengthKind kind);
 
 gboolean		as_relation_version_compare (AsRelation *relation,
 						     const gchar *version,
 						     GError **error);
+
+/* DEPRECATED */
+
+G_DEPRECATED
+const gchar		*as_relation_get_value (AsRelation *relation);
+G_DEPRECATED
+void			as_relation_set_value (AsRelation *relation,
+					        const gchar *value);
 
 G_END_DECLS
 
