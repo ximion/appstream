@@ -33,10 +33,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2020-09-03 03:06+0200\n"
+"POT-Creation-Date: 2020-11-29 01:13+0100\n"
 "PO-Revision-Date: 2020-11-24 06:29+0000\n"
 "Last-Translator: Forbidden <10278743+f0rb1d@users.noreply.github.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,7 +183,10 @@ msgid ""
 "Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains "
 "an invalid XML tag that would not be rendered correctly in applications "
 "supporting the metainfo specification."
-msgstr "AppStream 中的简介只支持有限的文本格式标签：段落 (<p/>) 和列表 (<ul/>, <ol/>)。以下简介的标记文本中包含无效的 XML 标签，不能在支持该源信息渲染标准的应用中正常渲染。"
+msgstr ""
+"AppStream 中的简介只支持有限的文本格式标签：段落 (<p/>) 和列表 (<ul/>, <ol/"
+">)。以下简介的标记文本中包含无效的 XML 标签，不能在支持该源信息渲染标准的应用"
+"中正常渲染。"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 #, fuzzy
@@ -218,7 +222,9 @@ msgstr "人工智能"
 msgid ""
 "As per AppStream specification, the mentioned tag must only appear once in "
 "this context. Having multiple tags of this kind is not valid."
-msgstr "根据AppStream规范，所提到的标记在此上下文中只能出现一次。具有多个此类标记无效。"
+msgstr ""
+"根据AppStream规范，所提到的标记在此上下文中只能出现一次。具有多个此类标记无"
+"效。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstream-cli.c:766
@@ -664,7 +670,9 @@ msgid ""
 "For videos, only the WebM and Matroska (.mkv) container formats are "
 "currently supported. The file extension of the referenced video does not "
 "belong to either of these formats."
-msgstr "目前只支持 WebM 和 Matroska (.mkv) 容器格式的视频。引用的视频所用的扩展名不属于这些格式。"
+msgstr ""
+"目前只支持 WebM 和 Matroska (.mkv) 容器格式的视频。引用的视频所用的扩展名不属"
+"于这些格式。"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstream-cli.c:131
