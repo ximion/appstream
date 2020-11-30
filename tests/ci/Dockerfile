@@ -32,11 +32,10 @@ RUN apt-get install -yq --no-install-recommends \
 
 # install build dependencies for libappstream-compose
 RUN apt-get install -yq --no-install-recommends \
-    libgdk-pixbuf2.0-dev \
+    libgdk-pixbuf-2.0-dev \
     librsvg2-dev \
     libcairo2-dev \
-    libfreetype6-dev \
-    libfontconfig1-dev \
+    libfontconfig-dev \
     libpango1.0-dev
 
 # finish
