@@ -196,7 +196,7 @@ as_agreement_set_version_id (AsAgreement *agreement, const gchar *version_id)
  *
  * Gets all the sections in the agreement.
  *
- * Returns: (transfer container) (element-type AsAgreementSection): array
+ * Returns: (transfer none) (element-type AsAgreementSection): array
  *
  * Since: 0.12.1
  **/
