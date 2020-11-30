@@ -1,3 +1,44 @@
+Version 0.13.0
+~~~~~~~~~~~~~~
+Released: 2020-11-30
+
+Notes:
+ * This release introduces a new library, libappstream-compose, designed to
+   provide building blocks for composing AppStream metadata. This includes GUI
+   stuff like font and SVG rendering, which libappstream deliberately does not
+   provide. The new compose library is not API/ABI stable and should - for now -
+   only be used by appstream-generator.
+
+Features:
+ * qt: add missing Provided::KindId enum (Aleix Pol)
+ * Add experimental libappstream-compose (Matthias Klumpp)
+ * Implement support for display_length relation kind (Matthias Klumpp)
+ * Implement "tv-remote" input control kind (Matthias Klumpp)
+ * Refactor AsRelation to use GVariant internally (Matthias Klumpp)
+ * content-rating: Align the OARS/CSM mappings of sex-* (Philip Withnall)
+ * content-rating: Add content rating system APIs from gnome-software (Philip Withnall)
+ * content-rating: Expand translator comments to link to OARS website (Philip Withnall)
+
+Specification:
+ * spec: Specify display_length requires/recommends item (Matthias Klumpp)
+ * spec: Add tv-remote user input control type (Matthias Klumpp)
+
+Bugfixes:
+ * Use glib-mkenums to create the GType of all the available enums (Corentin Noël)
+ * Set FD_CLOEXEC on the LMDB FD manually (Fabian Vogt)
+ * Never ship with an embedded convenience copy of Highlight.js (Matthias Klumpp)
+ * Don't fail doc install if global highlight.js wasn't found (Matthias Klumpp)
+ * Properly escape markup when fixing invalid description data (Matthias Klumpp)
+ * validator: Don't pass NULL to vprintf, it's not an allowed value (Matthias Klumpp)
+ * meson: Kill deprecation warning for pkgconfig.generate (Matthias Klumpp)
+ * validator: Demote cid-contains-uppercase-letter from INFO to PEDANTIC (Matthias Klumpp)
+ * Change some AsPool GIR annotations to only transfer container,
+   as workaround for issue in GIR (Matthias Klumpp)
+ * Properly parse YAML font provides entry (Matthias Klumpp)
+ * content-rating: Lower the OARS/CSM mapping of sex-homosexuality/intense (Philip Withnall)
+ * Change return annotation of as_agreement_get_sections to "transfer none" (Rico Tzschichholz)
+ * contrib: Vala expects element-type of PtrArray to reflect their ownership (Rico Tzschichholz)
+
 Version 0.12.11
 ~~~~~~~~~~~~~~
 Released: 2020-05-12
