@@ -1,3 +1,8 @@
 // Metadata for AppStream GIR
 
 AppStream name="AppStream"
+
+// element-type of PtrArray must reflect the actual ownership
+get_default_categories type="GLib.GenericArray<Category>"
+Pool.get_components* type="GLib.GenericArray<Component>"
+Pool.search type="GLib.GenericArray<Component>"
