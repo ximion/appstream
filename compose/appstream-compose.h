@@ -36,6 +36,7 @@ extern "C" {
 #include <asc-hint.h>
 #include <asc-image.h>
 #include <asc-result.h>
+#include <asc-enums-types.h>
 
 #ifdef __cplusplus
 };

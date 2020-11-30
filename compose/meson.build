@@ -27,7 +27,7 @@ ascompose_pub_headers = [
 ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
     sources: ascompose_pub_headers,
     install_header: true,
-    install_dir: 'appstream-compose'
+    install_dir: join_paths(get_option('includedir'), 'appstream-compose')
 )
 
 ascompose_priv_headers = [

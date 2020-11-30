@@ -107,7 +107,7 @@ aslib_priv_headers = [
 aslib_pub_enums = glib.mkenums_simple('as-enums-types',
     sources: aslib_pub_headers,
     install_header: true,
-    install_dir: 'appstream'
+    install_dir: join_paths(get_option('includedir'), 'appstream')
 )
 
 aslib_res = glib.compile_resources (
