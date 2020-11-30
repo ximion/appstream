@@ -69,11 +69,8 @@ appstreamqt_lib = library ('AppStreamQt',
     soversion: asqt_api_level,
     version: as_version,
     dependencies: [qt5_dep,
-                   glib_dep,
-                   gobject_dep,
+                   appstream_dep,
                    gio_dep],
-    link_with: [appstream_lib],
-    include_directories: [appstream_lib_inc],
     cpp_args: asqt_cpp_args,
     install: true
 )
