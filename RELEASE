@@ -5,7 +5,7 @@ AppStream Release Notes
 git shortlog v0.12.11.. | grep -i -v trivial | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
-Version 0.12.12
+Version 0.13.0
 ~~~~~~~~~~~~~~
 Released: 2020-xx-xx
 
@@ -22,12 +22,12 @@ Bugfixes:
 
 3. Commit changes in AppStream git:
 
-git commit -a -m "Release version 0.12.12"
-git tag -s -f -m "Release 0.12.12" v0.12.12 <gpg password>
+git commit -a -m "Release version 0.13.0"
+git tag -s -f -m "Release 0.13.0" v0.13.0 <gpg password>
 git push --tags
 git push
 
-4. run './release.sh --version=0.12.12 --git-tag=v0.12.12 --sign'
+4. run './release.sh --version=0.13.0 --git-tag=v0.13.0 --sign'
 
 5. Upload tarball: scp -r *.tar.xz* annarchy.freedesktop.org:/srv/www.freedesktop.org/www/software/appstream/releases/
 
@@ -44,7 +44,7 @@ git push
 9. Send an email to appstream@lists.freedesktop.org
 
 =================================================
-AppStream 0.12.12 released!
+AppStream 0.13.0 released!
 
 Tarballs available here: https://www.freedesktop.org/software/appstream/releases/
 
