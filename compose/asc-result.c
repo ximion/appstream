@@ -46,9 +46,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscResult, asc_result, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asc_result_get_instance_private (o))
 
 static void
-asc_result_finalize (GObject *object)
+asc_result_init (AscResult *result)
 {
-	AscResult *result = ASC_RESULT (object);
 	AscResultPrivate *priv = GET_PRIVATE (result);
 
 	priv->bundle_kind = AS_BUNDLE_KIND_UNKNOWN;
@@ -65,14 +64,12 @@ asc_result_finalize (GObject *object)
 					     g_str_equal,
 					     g_free,
 					     (GDestroyNotify) g_ptr_array_unref);
-
-
-	G_OBJECT_CLASS (asc_result_parent_class)->finalize (object);
 }
 
 static void
-asc_result_init (AscResult *result)
+asc_result_finalize (GObject *object)
 {
+	AscResult *result = ASC_RESULT (object);
 	AscResultPrivate *priv = GET_PRIVATE (result);
 
 	g_free (priv->bundle_id);
@@ -80,6 +77,8 @@ asc_result_init (AscResult *result)
 	g_hash_table_unref (priv->cpts);
 	g_hash_table_unref (priv->mdata_hashes);
 	g_hash_table_unref (priv->hints);
+
+	G_OBJECT_CLASS (asc_result_parent_class)->finalize (object);
 }
 
 static void
@@ -125,7 +124,14 @@ guint
 asc_result_hints_count (AscResult *result)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
-	return g_hash_table_size (priv->hints);
+	GHashTableIter iter;
+	gpointer value;
+	guint count = 0;
+
+	g_hash_table_iter_init (&iter, priv->hints);
+	while (g_hash_table_iter_next (&iter, NULL, &value))
+		count += ((GPtrArray*) value)->len;
+	return count;
 }
 
 /**

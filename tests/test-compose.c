@@ -255,6 +255,66 @@ test_compose_hints ()
 	g_assert_cmpstr (tmp, ==, "This is an explanation for the compose testsuite which contains 3 placeholders, including one left {invalid} intentionally.");
 }
 
+/**
+ * test_compose_result:
+ *
+ * Test the result object.
+ */
+static void
+test_compose_result ()
+{
+	g_autoptr(AscResult) cres = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GError) error = NULL;
+	GPtrArray *hints;
+	gchar *tmp;
+	gboolean ret;
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.freedesktop.appstream.dummy");
+
+	cres = asc_result_new ();
+	ret = asc_result_add_component (cres, cpt, "<testdata>", &error);
+	g_assert_no_error (error);
+	g_assert (ret);
+
+	ret = asc_result_add_hint (cres, cpt,
+				   "x-dev-testsuite-info",
+				   "var1", "testvalue-info", NULL);
+	g_assert_true (ret);
+
+	g_assert_cmpint (asc_result_components_count (cres), ==, 1);
+	g_assert_cmpint (asc_result_hints_count (cres), ==, 1);
+
+	ret = asc_result_update_component_gcid (cres, cpt, "<moredata>");
+	g_assert_true (ret);
+
+	g_assert_true (asc_result_get_component (cres, "org.freedesktop.appstream.dummy") == cpt);
+
+	ret = asc_result_add_hint (cres, cpt,
+				   "x-dev-testsuite-error",
+				   "var1", "testvalue-error", NULL);
+	g_assert_false (ret);
+
+	/* component no longer exists after an error, so this should fail now */
+	ret = asc_result_update_component_gcid (cres, cpt, "<moredata>");
+	g_assert_false (ret);
+
+	g_assert_cmpint (asc_result_components_count (cres), ==, 0);
+	g_assert_cmpint (asc_result_hints_count (cres), ==, 2);
+
+	hints = asc_result_get_hints (cres, "org.freedesktop.appstream.dummy");
+	g_assert_cmpint (hints->len, ==, 2);
+
+	tmp = asc_hint_format_explanation (ASC_HINT (g_ptr_array_index (hints, 0)));
+	g_assert_cmpstr (tmp, ==, "Dummy info hint for the testsuite. Var1: testvalue-info.");
+	g_free (tmp);
+
+	tmp = asc_hint_format_explanation (ASC_HINT (g_ptr_array_index (hints, 1)));
+	g_assert_cmpstr (tmp, ==, "Dummy error hint for the testsuite. Var1: testvalue-error.");
+	g_free (tmp);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -280,6 +340,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/Image", test_image_transform);
 	g_test_add_func ("/AppStream/Compose/Canvas", test_canvas);
 	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);
+	g_test_add_func ("/AppStream/Compose/Result", test_compose_result);
 
 	ret = g_test_run ();
 	g_free (datadir);

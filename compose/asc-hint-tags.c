@@ -28,9 +28,14 @@
 #include "asc-hint-tags.h"
 
 AscHintTag asc_hint_tag_list[] =  {
-	{ "dev-test",
+	{ "x-dev-testsuite-error",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "Placeholder."
+	  "Dummy error hint for the testsuite. Var1: {var1}."
+	},
+
+	{ "x-dev-testsuite-info",
+	  AS_ISSUE_SEVERITY_INFO,
+	  "Dummy info hint for the testsuite. Var1: {var1}."
 	},
 
 	{ NULL, AS_ISSUE_SEVERITY_UNKNOWN, NULL }
