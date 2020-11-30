@@ -452,14 +452,22 @@ as_validator_check_content_empty (AsValidator *validator, xmlNode *node, const g
 static gboolean
 as_validate_has_hyperlink (const gchar *text)
 {
+	gchar *tmp;
 	if (text == NULL)
 		return FALSE;
-	if (g_strstr_len (text, -1, "http://") != NULL)
+
+	tmp = g_strstr_len (text, -1, "https://");
+	if ((tmp != NULL) && (!g_str_has_prefix (tmp + 8, " ")))
 		return TRUE;
-	if (g_strstr_len (text, -1, "https://") != NULL)
+
+	tmp = g_strstr_len (text, -1, "http://");
+	if ((tmp != NULL) && (!g_str_has_prefix (tmp + 7, " ")))
 		return TRUE;
-	if (g_strstr_len (text, -1, "ftp://") != NULL)
+
+	tmp = g_strstr_len (text, -1, "ftp://");
+	if ((tmp != NULL) && (!g_str_has_prefix (tmp + 6, " ")))
 		return TRUE;
+
 	return FALSE;
 }
 
