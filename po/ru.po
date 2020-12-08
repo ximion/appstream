@@ -24,6 +24,7 @@
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Melairz1237 <mr.artem.snegov@mail.ru>, 2020.
 # koffevar <egor.kafisov@gmail.com>, 2020.
+# asrelo <syrslava@yandex.ru>, 2020.
 #
 # Translators:
 msgid ""
@@ -31,25 +32,22 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-11-30 19:42+0100\n"
-"PO-Revision-Date: 2020-10-08 09:26+0000\n"
-"Last-Translator: koffevar <egor.kafisov@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/"
-"translations/ru/>\n"
+"PO-Revision-Date: 2020-12-08 22:29+0000\n"
+"Last-Translator: asrelo <syrslava@yandex.ru>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 4.3-dev\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:298
 #, c-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: tools/appstream-cli.c:157
 #, c-format
@@ -2181,12 +2179,11 @@ msgstr ""
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstream-cli.c:680
+#, fuzzy
 msgid ""
 "This command takes optional TYPE and FILE positional arguments, FILE being a "
 "file to write to (or \"-\" for standard output)."
-msgstr ""
-"Эта команда принимает опциональные аргументы TYPE и FILE, FILE является "
-"файлом для вывода (или \"-\" для стандартного потока вывода)."
+msgstr "Эта команда принимает опциональные аргументы TYPE и FILE, FILE является файлом для вывода (или \"-\" для стандартного потока вывода)."
 
 #: src/as-validator-issue-tag.h:640
 msgid ""
@@ -2261,9 +2258,7 @@ msgstr ""
 #: src/as-validator-issue-tag.h:406
 msgid ""
 "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
-"Эта веб ссылка использует FTP протокол. Рассмотрите возможность замены  на "
-"HTTP(S)."
+msgstr "Эта веб ссылка использует FTP протокол. Рассмотрите возможность замены на HTTP(S)."
 
 #: tools/appstream-cli.c:648
 msgid ""
