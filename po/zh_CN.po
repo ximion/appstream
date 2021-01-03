@@ -27,6 +27,7 @@
 # Yu Lou <louyu27@gmail.com>, 2020.
 # woshoxxx <84318882@qq.com>, 2020.
 # Forbidden <10278743+f0rb1d@users.noreply.github.com>, 2020.
+# Rigo Ligo <rigoligo03@gmail.com>, 2021.
 #
 # Translators:
 msgid ""
@@ -34,16 +35,15 @@ msgstr ""
 "Project-Id-Version: appstream-glib\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2020-11-30 19:42+0100\n"
-"PO-Revision-Date: 2020-11-24 06:29+0000\n"
-"Last-Translator: Forbidden <10278743+f0rb1d@users.noreply.github.com>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"appstream/translations/zh_Hans/>\n"
+"PO-Revision-Date: 2021-01-03 05:29+0000\n"
+"Last-Translator: Rigo Ligo <rigoligo03@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. * of the rating e.g. "Adults Only (solo adultos)"
@@ -189,11 +189,10 @@ msgstr ""
 "中正常渲染。"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
-#, fuzzy
 msgid ""
 "AppStream is a cross-distribution specification to provide metadata about "
 "software components."
-msgstr "AppStream 是交叉分布规范，旨在提供软件组件的元数据。"
+msgstr "AppStream 是一个跨发行版的规范，旨在提供软件组件的元数据。"
 
 #: src/as-pool.c:1937
 #, fuzzy, c-format
