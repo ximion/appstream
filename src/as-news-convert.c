@@ -503,6 +503,24 @@ as_news_text_to_release_hdr (AsRelease *release, GString *desc, const gchar *txt
 		return FALSE;
 	}
 
+	/* apply version number */
+	as_release_set_version (release, version);
+
+	/* check if the release is unreleased */
+	if ((g_strstr_len (release_txt, -1, "-xx") != NULL) ||
+	    (g_strstr_len (release_txt, -1, "-XX") != NULL) ||
+	    (g_strstr_len (release_txt, -1, "-??") != NULL)) {
+		g_autoptr(GDateTime) dt_now = g_date_time_new_now_local ();
+		date_str = as_date_time_format_iso8601 (dt_now);
+		as_release_set_kind (release, AS_RELEASE_KIND_DEVELOPMENT);
+		as_release_set_date (release, date_str);
+
+		/* no further date parsing is needed at this point */
+		return TRUE;
+	} else {
+		as_release_set_kind (release, AS_RELEASE_KIND_STABLE);
+	}
+
 	/* parse date */
 	release_split = g_strsplit (release_txt, "-", -1);
 	if (g_strv_length (release_split) != 3) {
@@ -528,7 +546,6 @@ as_news_text_to_release_hdr (AsRelease *release, GString *desc, const gchar *txt
 	date_str = g_strdup_printf ("%s-%s-%s", release_split[0],
 						release_split[1],
 						release_split[2]);
-	as_release_set_version (release, version);
 	as_release_set_date (release, date_str);
 
 	return TRUE;
@@ -619,10 +636,9 @@ as_news_text_to_releases (const gchar *data, GError **error)
 
 			/* parse header */
 			if (!as_news_text_to_release_hdr (rel, desc, split[i], error)) {
-				g_set_error (error,
-					AS_METADATA_ERROR,
-					AS_METADATA_ERROR_FAILED,
-					"Unable to parse NEWS header: '%s'", split[i]);
+				g_prefix_error (error,
+						"Unable to parse NEWS header '%s': ",
+						split[i]);
 				return NULL;
 			}
 			break;
